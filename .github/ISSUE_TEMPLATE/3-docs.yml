@@ -1,11 +1,12 @@
 name: 📖 Documentation 📖
 description: This form is to let us know about problems with documentation or ways that we can improve the docs for the extension.
-labels: [ "type: docs" ]
+title: "[Docs]: "
+labels: ["type: docs"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking your precious time to let us know how we can improve our documentation! 🙏 
+        Thank you for taking your precious time to let us know how we can improve our documentation! 🙏
   - type: checkboxes
     id: docs-issue
     attributes:

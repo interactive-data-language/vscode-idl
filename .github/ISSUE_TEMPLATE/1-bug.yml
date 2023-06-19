@@ -1,6 +1,7 @@
 name: 🐞 Bug Report 🐞
 description: This form is to report undocumented software feature enhancements (i.e. bugs) for the IDL extension for VSCode.
-labels: [ "type: bug" ]
+title: "[Bug]: "
+labels: ["type: bug"]
 body:
   - type: markdown
     attributes:
