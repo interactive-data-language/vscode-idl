@@ -1,18 +1,18 @@
 name: 🚀 Feature Request 🚀
-description: This form is used to ask for new features or teak behaviors for existing capabilities.
+description: This form is used to ask for new features or tweak behaviors for existing capabilities.
 title: "[Feature]: "
 labels: ["type: feature"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking your precious time to help us improve IDL for VSCode! 🙏
+        Thank you for taking your time to help us improve IDL for VSCode! 🙏
 
-        As a basic disclaimer, we can't (or might choose not to) implement a feature asked for by the community. We do have a process internally where we review features and make sure that any new capabilities make sense and fit in with our goals for the extension. 
+        As a basic disclaimer, we can't (or might choose not to) implement a feature asked for by the community. We have a internal process where we review features and make sure that any new capabilities make sense and fit in with our goals for the extension. 
 
         We will, however, also take into consideration community need/drive for some features. 
 
-        If you find a feature you like, don't forget to give it a thumbs up or other reaction to let us know you are interested and help influence our decision making process!
+        If you find a feature you like, don't forget to give it a thumbs up or other reaction to let us know you are interested and help influence our decision-making process!
   - type: textarea
     id: description
     attributes:
