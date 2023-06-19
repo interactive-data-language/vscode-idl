@@ -1,14 +1,14 @@
 name: 🐞 Bug Report 🐞
-description: This form is to report undocumented software feature enhancements (i.e. bugs) for the IDL extension for VSCode.
+description: This form is to report undocumented "features" (i.e. bugs) for the IDL extension for VSCode.
 title: "[Bug]: "
 labels: ["type: bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking your precious time to file an issue! 🙏 We are sorry for the inconvenience this issue has caused you and want to resolve it as soon as possible.
+        Thank you for taking your time to file an issue! 🙏 We are sorry for the inconvenience this issue has caused you and want to resolve it as soon as possible.
 
-        Help us help you! We know that your time is precious and hate to ask for any more of it, but the first step in fixing this issue is to understand the problem. Taking some extra time to ensure that we are able to reproduce what's going on will help us significantly in resolving it.
+        Help us help you! The first step in fixing this issue is to understand the problem. Taking some extra time to ensure that we are able to reproduce what's going on will help us significantly in resolving it.
   - type: textarea
     id: current-behavior
     attributes:
@@ -50,8 +50,8 @@ body:
       label: Operating System
       description: What Operating System are you using?
       options:
-        - label: macOS (x86)
-        - label: macOS (ARM)
+        - label: macOS (Intel x86_64)
+        - label: macOS (ARM64)
         - label: Linux
         - label: Windows
   - type: input
@@ -71,4 +71,4 @@ body:
     id: disclaimer
     attributes:
       value: |
-        > If we are not able to reproduce the issue, we will likely prioritize fixing other issues we can reproduce. Please do your best to fill out all of the sections above.
+        > If we are able to reproduce the issue, we will try to prioritize it over other issues. Please do your best to fill out all of the sections above.
