@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking your precious time to let us know how we can improve our documentation! 🙏
+        Thank you for taking your time to let us know how we can improve our documentation! 🙏
   - type: checkboxes
     id: docs-issue
     attributes:
