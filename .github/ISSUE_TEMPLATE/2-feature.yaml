@@ -1,0 +1,42 @@
+name: 🚀 Feature Request 🚀
+description: This form is used to ask for new features or teak behaviors for existing capabilities.
+labels: [ "type: feature" ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking your precious time to help us improve IDL for VSCode! 🙏
+
+        As a basic disclaimer, we can't (or might choose not to) implement a feature asked for by the community. We do have a process internally where we review features and make sure that any new capabilities make sense and fit in with our goals for the extension. 
+        
+        We will, however, also take into consideration community need/drive for some features. 
+        
+        If you find a feature you like, don't forget to give it a thumbs up or other reaction to let us know you are interested and help influence our decision making process!
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is the new feature or behavior change that you are looking for?
+    validations:
+      required: true
+  - type: textarea
+    id: why-it-matters
+    attributes:
+      label: Why it Matters
+      description: Why do you want this feature or change to be added? Think about how it might benefit yourself or other users of the extension to help improve efficiency, accessibility, ease-of-use, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: suggested-behavior
+    attributes:
+      label: Suggested Behavior
+      description: Please provide some information about how you imagine this feature working.
+    validations:
+      required: true
+  - type: textarea
+    id: alt-behavior
+    attributes:
+      label: Alternate Behavior
+      description: If you have other ideas about how this feature could be implemented, feel free to add them!
+    validations:
+      required: false

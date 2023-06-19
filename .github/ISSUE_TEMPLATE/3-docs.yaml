@@ -1,0 +1,33 @@
+name: 📖 Documentation 📖
+description: This form is to let us know about problems with documentation or ways that we can improve the docs for the extension.
+labels: [ "type: docs" ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking your precious time to let us know how we can improve our documentation! 🙏 
+  - type: checkboxes
+    id: docs-issue
+    attributes:
+      label: Documentation Issue
+      description: What are you looking to change in the docs?
+      options:
+        - label: IDL or ENVI Hover-help Docs Bug or Missing Routine
+        - label: Typo
+        - label: Documentation Bug or Broken Link
+        - label: Feedback on Existing Topic
+        - label: Request for New Topic
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Let us know exactly what the problem is or what you are looking for
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Links/screenshots/anything else that helps us understand the ask.
+    validations:
+      required: false
