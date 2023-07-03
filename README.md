@@ -82,10 +82,6 @@ For a full list of changes, see [CHANGELOG.md](./CHANGELOG.md) for lots of detai
 
 - Finds `TODO` statements just like the workbench
 
-- Hover help for core ENVI and IDL routines, including links to the official documentation and code examples with normalized formatting to fit modern IDL programming concepts
-
-- Hover help for user-defined routines written with the IDL-doc format
-
 - Support for VSCode's auto-comment (Ctrl+/ or command+/)
 
 - Code snippets for common code blocks
