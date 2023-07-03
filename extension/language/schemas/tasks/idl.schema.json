@@ -1,0 +1,190 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "idl.schema.json",
+  "definitions": {
+    "idltask-1.2-task": {
+      "type": "object",
+      "allOf": [
+        {
+          "properties": {
+            "tags": {
+              "type": "array",
+              "description": "An array of strings that help categorize the task.",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "$ref": "#/definitions/idltask-1.1-task"
+        }
+      ]
+    },
+    "idltask-1.1-task": {
+      "type": "object",
+      "allOf": [
+        {
+          "properties": {
+            "revision": {
+              "type": "string",
+              "title": "Revision",
+              "description": "A string with the semantic revision number of the task. Semantic versioning provides a quick way to extract information about a new task release using a convention of X.Y.Z, where:\n\n- X represents the major version. An incremented value indicates that task additions and updates are not backward-compatible.\n- Y represents the minor version. An incremented value indicates that task additions and updates are backward-compatible.\n- Z represents the patch number. An incremented value indicates bug fixes that do not affect the task.\n\nThe revision key is for development purposes only. The revision number does not affect which task file is loaded. Whichever task file is found first will be used. If revision is not set, it will default to a value of 1.0.0.",
+              "default": "1.0.0"
+            }
+          }
+        },
+        {
+          "$ref": "#/definitions/idltask-1.0-task"
+        }
+      ]
+    },
+    "idltask-1.0-task": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "A string with the name of the task, excluding the prefix ENVI and the suffix Task."
+        },
+        "base_class": {
+          "type": "string",
+          "title": "Base Class",
+          "description": "A string with the name of the class to use - this should be set to \"ENVITaskFromProcedure\".",
+          "default": "ENVITaskFromProcedure"
+        },
+        "routine": {
+          "type": "string",
+          "title": "Routine",
+          "description": "The name of the IDL procedure that is called when Task.Execute is invoked."
+        },
+        "display_name": {
+          "type": "string",
+          "title": "Display name",
+          "description": "A string with the name of the task as it appears to the end user. Spaces and special characters are allowed."
+        },
+        "description": {
+          "type": "string",
+          "title": "Description",
+          "description": "A string with a description of the task."
+        },
+        "schema": {
+          "type": "string",
+          "title": "Schema",
+          "description": "A string listing the version of ENVITask JSON schema that was used to write this task.\nThe valid values are \"envitask_3.3\" \"envitask_3.2\", \"envitask_3.1\" or \"envitask_3.0\"."
+        },
+        "parameters": {
+          "type": "array",
+          "title": "Parameters",
+          "description": "A array of objects with key/value pairs.",
+          "items": {
+            "$ref": "#/definitions/idltask-1.0-parameter"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "base_class",
+        "routine",
+        "display_name",
+        "description",
+        "schema",
+        "parameters"
+      ]
+    },
+    "idltask-1.2-parameter": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/idltask-1.1-parameter"
+        }
+      ]
+    },
+    "idltask-1.1-parameter": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/idltask-1.0-parameter"
+        }
+      ]
+    },
+    "idltask-1.0-parameter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "The name of the parameter as it appears to the end user. If \"keyword\" is not set, then it is assumed that our \"routine\" has a keyword with the same name as this property."
+        },
+        "keyword": {
+          "type": "string",
+          "title": "Keyword",
+          "description": "Optionally specify the keyword name for \"routine\" if the keyword doe snot match \"name\"."
+        },
+        "display_name": {
+          "type": "string",
+          "title": "Display Name",
+          "description": "The name of the task as it appears to the end user. This key is used by tasks that display a dynamic user interface for entering parameters."
+        },
+        "type": {
+          "type": "string",
+          "title": "Type",
+          "description": "A scalar string indicating the parameter type to use on creating an instance of the task.\n\nBasic scalar data type string values are:\n\n- BYTE, INT, UINT, LONG, ULONG, LONG64,ULONG64, FLOAT, DOUBLE, COMPLEX, DCOMPLEX, STRING, BOOLEAN, LIST, HASH, DICTIONARY, ORDEREDHASH\n\nBasic array data types must include the dimensions key and type string values are:\n\n- BYTEARRAY, INTARRAY, UINTARRAY, LONGARRAY, ULONGARRAY, LONG64ARRAY,ULONG64ARRAY, FLOATARRAY, DOUBLEARRAY, COMPLEXARRAY, DCOMPLEXARRAY, STRINGARRAY, BOOLEANARRAY\n\nThe type key value can be set to a class name to indicate that the user must provide an object of the given class name."
+        },
+        "dimensions": {
+          "type": "string",
+          "title": "Dimensions",
+          "description": "Specify the array dimensions if the type parameter is an array.\n\nExample of a three-element array declaration:\n    \"type\": \"floatArray\",\n    \"dimensions\": \"[3]\"\nExample of a 1D array with any number of elements:\n    \"type\": \"intArray\",\n    \"dimensions\": \"[*]\"\nExample of a 2D array with any number of columns or rows:\n    \"type\": \"intArray\",\n    \"dimensions\": \"[*,*]\"\nExample of a 2D array with a specific number of elements:\n    \"type\": \"byteArray\",\n    \"dimensions\": \"[3,256]\"\nExample of a 2D array with any number of columns and 3 rows:\n    \"type\": \"intArray\",\n    \"dimensions\": \"[*,3]\"\n"
+        },
+        "direction": {
+          "type": "string",
+          "title": "Direction",
+          "description": "Specify if the parameter is \"input\" or \"output\".\n\nNote: If you are using an older version of ENVI where the task template specifies the version key (instead of schema), be aware of the differences in output behavior: ENVI automatically creates an OUTPUT_RASTER_URI property if you define the OUTPUT_RASTER property of an ENVIRaster and you set the direction parameter to output.",
+          "enum": ["input", "output", "INPUT", "OUTPUT"],
+          "pattern": "^[Ii][Nn][Pp][Uu][Tt]$|^[Oo][Uu][Tt][Pp][Uu][Tt]$"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description",
+          "description": "A description of the parameter."
+        },
+        "required": {
+          "type": "boolean",
+          "title": "Required",
+          "description": "Set this parameter to true if this parameter is needed to execute or not.",
+          "default": true
+        },
+        "choice_list": {
+          "title": "Choice List",
+          "description": "A string array that lists the possible values for the property. Any IDL data type is supported. You can also map from user-friendly strings to an internal lookup table of values if desired."
+        },
+        "default": {
+          "title": "Default",
+          "description": "The default value of the parameter if the end user does not provide a value."
+        },
+        "min": {
+          "title": "Min",
+          "description": "A value that is greater than or equal to the minimum value allowed for the parameter."
+        },
+        "max": {
+          "title": "Max",
+          "description": "A value that is less than or equal to the maximum value allowed for the parameter."
+        },
+        "hidden": {
+          "type": "boolean",
+          "title": "Hidden",
+          "description": "Set this key to true if the parameter is required for the task but you do not want to expose it to the end user. You must also set the defaultValue key to the desired value for the parameter to be set internally.",
+          "default": false
+        }
+      },
+      "required": [
+        "name",
+        "display_name",
+        "type",
+        "direction",
+        "description",
+        "required"
+      ]
+    }
+  }
+}

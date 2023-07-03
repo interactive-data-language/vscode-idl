@@ -1,0 +1,20 @@
+{
+  "formatter": "fiddle",
+  "style": {
+    "control": "upper",
+    "keywords": "upper",
+    "numbers": "upper",
+    "properties": "upper",
+    "systemVariables": "upper",
+    "hex": "upper",
+    "binary": "upper",
+    "octal": "upper",
+    "quotes": "double",
+    "methods": "arrow",
+    "routines": "match",
+    "localVariables": "match"
+  },
+  "autoFix": true,
+  "autoDoc": true,
+  "eol": "lf"
+}

@@ -1,0 +1,29 @@
+{
+    "name": "QueryAllTasks",
+    "base_class": "IDLTaskFromProcedure",
+	"routine": "IDLQueryAllTasks",
+    "display_name": "Query All Tasks",
+    "description": "This task returns a hash where each key is the task name and each task name key contains a hash of the task's properties.",
+	"revision": "1.1.0",
+	"schema": "idltask_1.2",	    
+    "tags": ["IDL", "Task Processing"],
+    "parameters": [
+		  {
+			"name": "FILTER_TAGS",
+			"display_name": "Filter Tags",
+			"type": "STRINGARRAY",
+			"dimensions": "[*]",
+			"direction": "input",
+			"required": false,
+			"description": "An array of tags to filter the tasks to query on. Only tasks that have all tags set in this array will be returned. The search is case-insensitive. Default is to perform no filtering."
+		  },
+		  {
+			"name": "TASK_DEFINITIONS",
+			"display_name": "Task Definitions",
+			"type": "IDLTASKCATALOG",
+			"direction": "output",
+			"required": true,
+			"description": "An IDLTaskCatalog hash that describes all tasks and their properties for each task."
+		  }
+    ]
+}

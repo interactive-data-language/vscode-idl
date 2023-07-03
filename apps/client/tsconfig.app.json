@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "module": "commonjs",
+    "types": ["node"]
+  },
+  "exclude": [
+    "jest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "./src/test/**/*.ts"
+  ],
+  "include": ["**/*.ts", "../../libs/client-lib/src/lib/utils/clean-path.ts"]
+}

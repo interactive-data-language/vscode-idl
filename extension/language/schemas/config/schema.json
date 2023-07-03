@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "formatter": {
+      "type": "string",
+      "title": "Formatter",
+      "description": "Specify the formatting ruleset for your code.",
+      "enum": ["fiddle"],
+      "default": "fiddle"
+    },
+    "eol": {
+      "type": "string",
+      "title": "End-of-line",
+      "description": "Indicate whether we use the new line character (\"lf\", recommended) or Windows-style carriage-return-new-line (\"crlf\").",
+      "enum": ["lf", "crlf"],
+      "default": "lf"
+    },
+    "tabWidth": {
+      "type": "number",
+      "title": "Tab Width",
+      "description": "Number of spaces to use for indentation.",
+      "default": 2
+    },
+    "autoDoc": {
+      "type": "boolean",
+      "title": "AutoDoc",
+      "description": "Automatically creates and updates IDL Doc style comments for routines on each save. You can freely use this if you don't have docs for your code. If you have docs, and they don't follow IDL Doc style, they are preserved.",
+      "default": false
+    },
+    "autoFix": {
+      "type": "boolean",
+      "title": "Auto-fix Problems",
+      "description": "If a problem can be automatically fixed, fix it prior to formatting. This does not apply to all problems detected by IDL.",
+      "default": true
+    },
+    "styleAndFormat": {
+      "type": "boolean",
+      "title": "No Style or Formatting",
+      "description": "When we process our code, do we apply our styles and format?\n\nIf this is set to `false` and `autoDoc` is enabled, then we add documentation to your code without changing anything else.",
+      "default": true
+    },
+    "style": {
+      "$ref": "v1.schema.json#/definitions/1.0.0-options"
+    },
+    "additionalProperties": false
+  },
+  "description": "Top-level preferences for how code gets formatted.\n\nThese user-level preferences are only applied if you do *not* have an \"idl.json\" file in your workspace."
+}

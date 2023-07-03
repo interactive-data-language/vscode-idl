@@ -1,0 +1,16 @@
+{
+  "@mdi/js": ["Copyright (c) @mdi/js"],
+  "@ngbracket/ngx-layout": ["Copyright (c) @ngbracket/ngx-layout"],
+  "@types/minilog": ["Copyright (c) @types/minilog"],
+  "@types/web": ["Copyright (c) @types/web"],
+  "axios": ["Copyright (c) 2014-present Matt Zabriskie & Collaborators"],
+  "ngx-flexible-layout@15.0.1": ["Copyright (c) ngx-flexible-layout"],
+  "await-notify": ["Copyright (c) await-notify"],
+  "eslint-plugin-unused-imports": [
+    "Copyright (c) eslint-plugin-unused-imports"
+  ],
+  "material-icons": ["Copyright (c) material-icons"],
+  "minilog": ["Copyright (c) minilog"],
+  "node-html-markdown": ["Copyright (c) node-html-markdow"],
+  "typescript": ["Copyright (c) Microsoft Corporation. All rights reserved."]
+}

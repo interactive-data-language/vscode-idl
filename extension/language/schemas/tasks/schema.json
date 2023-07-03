@@ -1,0 +1,216 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "title": "Version - Deprecated",
+      "description": "A string listing the earliest version of ENVI that the task will work with. The \"schema\" tag is preferred as it is the newer task schema to work with.\nThe valid values are \"5.3.2\", \"5.3.1\", \"5.3\", and \"5.2.1\"",
+      "deprecated": true,
+      "enum": ["5.3.2", "5.3.1", "5.3", "5.2.1"]
+    },
+    "schema": {
+      "type": "string",
+      "title": "Task Schema",
+      "description": "A string listing the version of ENVITask JSON schema or IDLTask JSON schema that was used to write this task.\nThe valid values are \"envitask_3.3\", \"envitask_3.2\", \"envitask_3.1\" or \"envitask_3.0\", \"idltask_1.2\",\"idltask_1.1\", \"idltask_1.0\".",
+      "enum": [
+        "envitask_3.3",
+        "envitask_3.2",
+        "envitask_3.1",
+        "envitask_3.0",
+        "idltask_1.2",
+        "idltask_1.1",
+        "idltask_1.0"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schema": {
+            "const": "idltask_1.2"
+          }
+        },
+        "required": ["schema"]
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "idl.schema.json#/definitions/idltask-1.2-task"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema": {
+            "const": "idltask_1.1"
+          }
+        },
+        "required": ["schema"]
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "idl.schema.json#/definitions/idltask-1.1-task"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema": {
+            "const": "idltask_1.0"
+          }
+        },
+        "required": ["schema"]
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "idl.schema.json#/definitions/idltask-1.0-task"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema": {
+            "const": "envitask_3.3"
+          }
+        },
+        "required": ["schema"]
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "envi.schema.json#/definitions/envitask-3.3-task"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema": {
+            "const": "envitask_3.2"
+          }
+        },
+        "required": ["schema"]
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "envi.schema.json#/definitions/envitask-3.2-task"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema": {
+            "const": "envitask_3.1"
+          }
+        },
+        "required": ["schema"]
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "envi.schema.json#/definitions/envitask-3.1-task"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema": {
+            "const": "envitask_3.0"
+          }
+        },
+        "required": ["schema"]
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "envi.schema.json#/definitions/envitask-3.0-task"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "version": {
+            "const": "5.3.2"
+          }
+        },
+        "required": ["version"]
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "envi-legacy.schema.json#/definitions/envi-5.3.2-task"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "version": {
+            "const": "5.3.1"
+          }
+        },
+        "required": ["version"]
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "envi-legacy.schema.json#/definitions/envi-5.3.1-task"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "version": {
+            "const": "5.3"
+          }
+        },
+        "required": ["version"]
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "envi-legacy.schema.json#/definitions/envi-5.3-task"
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "version": {
+            "const": "5.2.1"
+          }
+        },
+        "required": ["version"]
+      },
+      "then": {
+        "allOf": [
+          {
+            "$ref": "envi-legacy.schema.json#/definitions/envi-5.2.1-task"
+          }
+        ]
+      }
+    }
+  ]
+}

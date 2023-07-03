@@ -1,0 +1,498 @@
+{
+    "name": "SetRasterMetadata",
+    "base_class": "ENVISetRasterMetadataTask",
+    "routine": "SetRasterMetadata",
+    "display_name": "Set Raster Metadata",
+    "description": "This task sets metadata for a raster file.",
+    "schema": "envitask_3.3",
+    "tags": ["ENVI", "Raster Operations"],
+    "revision": "1.0.1",
+    "parameters": [
+        {
+            "name": "input_raster",
+            "display_name": "Input Raster",
+            "type": "ENVIRaster",
+            "direction": "INPUT",
+            "required": true,
+            "description": "Specify a raster on which to perform the metadata edition."
+        },
+        {
+            "name": "raster_filename",
+            "display_name": "Raster Filename",
+            "type": "ENVIURI",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Filename string of the input raster.",
+            "hidden": true,
+            "fold_case": true
+        },
+        {
+            "name": "header_location",
+            "display_name": "Header Location",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Directory where the file's header, which contains the new metadata, will be saved.",
+            "default": "Same as raster file",
+            "choice_list": [
+                "Same as raster file",
+                "Auxiliary File Directory"
+            ],
+            "fold_case": true
+        },
+        {
+            "name": "ncolumns",
+            "keyword": "SAMPLES",
+            "display_name": "Columns",
+            "type": "ULong",
+            "direction": "INPUT",
+            "required": true,
+            "description": "The number of column or samples per image for each band.",
+            "min": 1
+        },
+        {
+            "name": "nrows",
+            "keyword": "LINES",
+            "display_name": "Rows",
+            "type": "ULong",
+            "direction": "INPUT",
+            "required": true,
+            "description": "The number of lines or rows per image for each band.",
+            "min": 1
+        },
+        {
+            "name": "nbands",
+            "keyword": "BANDS",
+            "display_name": "Bands",
+            "type": "ULong",
+            "direction": "INPUT",
+            "required": true,
+            "description": "The number of bands per image file.",
+            "min": 1
+        },
+        {
+            "name": "interleave",
+            "display_name": "Interleave",
+            "type": "String",
+            "direction": "INPUT",
+            "required": true,
+            "description": "Specifies the data interleave of the raster.",
+            "choice_list": {
+                "BSQ": 0,
+                "BIL": 1,
+                "BIP": 2
+            },
+            "fold_case": true
+        },
+        {
+            "name": "byte_order",
+            "display_name": "Byte Order",
+            "type": "String",
+            "direction": "INPUT",
+            "required": true,
+            "description": "The order of the bytes in integer, long integer, 64-bit integer, unsigned 64-bit integer, floating point, double precision, and complex data types. Byte order=0 (Host (Intel) in the Header Info dialog) is least significant byte first (LSF) data (DEC and MS-DOS systems). Byte order=1 (Network (IEEE) in the Header Info dialog) is most significant byte first (MSF) data (all other platforms).",
+            "choice_list": {
+                "Host (Intel)": 0,
+                "Network (IEEE)": 1
+            },
+            "fold_case": true
+        },
+        {
+            "name": "data_type",
+            "display_name": "Data Type",
+            "type": "String",
+            "direction": "INPUT",
+            "required": true,
+            "description": "The data type of the raster pixel data.",
+            "choice_list": {
+                "Byte": 1,
+                "Integer": 2,
+                "Long Integer": 3,
+                "Float": 4,
+                "Double": 5,
+                "Complex": 6,
+                "Double-precision Complex": 9,
+                "Unsigned Integer": 12,
+                "Unsigned Long Integer": 13,
+                "64-bit Long Integer": 14,
+                "64-bit Unsigned Long Integer": 15
+            },
+            "fold_case": true
+        },
+        {
+            "name": "file_type",
+            "display_name": "File Type",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "File type in which the raster is stored.",
+            "default": "ENVI",
+            "fold_case": true
+        },
+        {
+            "name": "header_offset",
+            "display_name": "Header Offset",
+            "type": "ULong64",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The number of bytes of embedded header information present in the file (for example, 128 bytes for ERDAS 7.5 .lan files). ENVI skips these bytes when reading the file.",
+            "default": 0
+        },
+        {
+            "name": "x_start",
+            "display_name": "X Start",
+            "type": "ULong",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Defines the X image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.",
+            "default": 0
+        },
+        {
+            "name": "y_start",
+            "display_name": "Y Start",
+            "type": "ULong",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Defines the Y image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.",
+            "default": 0
+        },
+        {
+            "name": "default_stretch",
+            "display_name": "Default Stretch",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Determines what type of stretch (% linear, linear range, Gaussian, equalization, square root) to use when ENVI displays the image."
+        },
+        {
+            "name": "acquisition_time",
+            "display_name": "Acquisition Time",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Data acquisition time string that conforms to the ISO-8601 standard..",
+            "fold_case": true
+        },
+        {
+            "name": "band_names",
+            "display_name": "Band Names",
+            "type": "StringArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The names of image bands.",
+            "fold_case": true
+        },
+        {
+            "name": "classes",
+            "display_name": "Number of Classes",
+            "type": "UInt",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The number of classes in the image.",
+            "min": 1
+        },
+        {
+            "name": "class_names",
+            "display_name": "Class Names",
+            "type": "StringArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Lists class names for classification files.",
+            "fold_case": true
+        },
+        {
+            "name": "class_lookup",
+            "display_name": "Class Colors",
+            "type": "ByteArray",
+            "dimensions": "[3, *]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Lists class colors using RGB color definitions for classification files."
+        },
+        {
+            "name": "cloud_cover",
+            "display_name": "Cloud Cover",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Percentage of cloud cover within the raster."
+        },
+        {
+            "name": "complex_function",
+            "display_name": "Complex Function",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Specifies the values to calculate from a complex image and to use when displaying the image, calculating statistics for the image, or writing the image to a new file.",
+            "choice_list": {
+                "Power": 0,
+                "Magnitude": 1,
+                "Real": 2,
+                "Imaginary": 3,
+                "Phase": 4
+            },
+            "fold_case": true
+        },
+        {
+            "name": "data_ignore_value",
+            "display_name": "Data Ignore Value",
+            "type": "Double",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Pixel value that should be ignored in image processing."
+        },
+        {
+            "name": "_description",
+            "display_name": "Description",
+            "type": "StringArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string describing the image or the processing performed.",
+            "fold_case": true
+        },
+        {
+            "name": "data_gain_values",
+            "display_name": "Data Gain Values",
+            "type": "DoubleArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Gain values for each band. Units are W/(m2 * um * sr)."
+        },
+        {
+            "name": "data_offset_values",
+            "display_name": "Data Offset Values",
+            "type": "DoubleArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Offset values for each band."
+        },
+        {
+            "name": "data_reflectance_gain_values",
+            "display_name": "Data Reflectance Gain Values",
+            "type": "DoubleArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "An array of reflectance gain values."
+        },
+        {
+            "name": "data_reflectance_offset_values",
+            "display_name": "Data Reflectance Offset Values",
+            "type": "DoubleArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "An array of reflectance offset values."
+        },
+        {
+            "name": "fwhm",
+            "display_name": "FWHM",
+            "type": "DoubleArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Lists full-width-half-maximum (FWHM) values of each band in an image."
+        },
+        {
+            "name": "bbl",
+            "display_name": "Bad Bands List",
+            "type": "IntArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "List of bad bands in an image."
+        },
+        {
+            "name": "default_bands",
+            "display_name": "Default Bands to Load",
+            "type": "ULongArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Indicates which band numbers to automatically load into the current view every time the file is opened."
+        },
+        {
+            "name": "spatialref",
+            "display_name": "Spatial Reference",
+            "type": "_ENVISpatialRef",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Specifies a spatial reference for the raster."
+        },
+        {
+            "name": "auxiliary_rpc_spatialref",
+            "display_name": "Auxiliary RPC Spatial Reference",
+            "type": "ENVIRPCRasterSpatialRef",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Specifies rational polynomial coefficient (RPC) geolocation information for the raster that can be used in addition to standard map information."
+        },
+        {
+            "name": "read_procedures",
+            "display_name": "Read Procedures",
+            "type": "StringArray",
+            "dimensions": "[2]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Spatial and spectral read routines that define custom file readers.",
+            "fold_case": true
+        },
+        {
+            "name": "z_plot_titles",
+            "display_name": "Z Plot Titles",
+            "type": "StringArray",
+            "dimensions": "[2]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The x and y axis titles for Z plots.",
+            "fold_case": true
+        },
+        {
+            "name": "z_plot_range",
+            "display_name": "Z Plot Ranges",
+            "type": "DoubleArray",
+            "dimensions": "[2]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The default minimum and maximum values for Z plots."
+        },
+        {
+            "name": "reflectance_scale_factor",
+            "display_name": "Reflectance Scale Factor",
+            "type": "Double",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The value that, when divided into your data, would scale it from 0-1 reflectance. For example, if the value of 10,000 in your data represents a reflectance value of 1.0, enter a reflectance scale factor of 10,000."
+        },
+        {
+            "name": "security_tag",
+            "display_name": "Security Tag",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string with security information inherited from formats that typically contain security classification levels (such as NITF).",
+            "fold_case": true
+        },
+        {
+            "name": "sensor_type",
+            "display_name": "Sensor Type",
+            "type": "ENVISensorName",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Instrument types, such as Landsat TM, SPOT, RADARSAT, etc."
+        },
+        {
+            "name": "dem_file",
+            "display_name": "Associated DEM",
+            "type": "ENVIURI",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Path and filename of a DEM associated with the image.",
+            "fold_case": true
+        },
+        {
+            "name": "dem_band",
+            "display_name": "DEM Band",
+            "type": "UInt",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Index (starting at 1) of a selected DEM band associated with the image."
+        },
+        {
+            "name": "wavelength",
+            "display_name": "Wavelength",
+            "type": "DoubleArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Lists the center wavelength values of each band in an image. Units should be the same as those used for the fwhm field and set in the wavelength units parameter."
+        },
+        {
+            "name": "wavelength_units",
+            "display_name": "Wavelength Units",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Specifies the units of the wavelength information.",
+            "default": "Nanometers",
+            "choice_list": [
+                "Micrometers",
+                "Nanometers",
+                "Wavenumber",
+                "GHz",
+                "MHz",
+                "Index",
+                "Unknown"
+            ],
+            "fold_case": true
+        },
+        {
+            "name": "sun_elevation",
+            "display_name": "Sun Elevation",
+            "type": "Double",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Angle of the sun (in degrees) above the horizon."
+        },
+        {
+            "name": "sun_azimuth",
+            "display_name": "Sun Azimuth",
+            "type": "Double",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Angle of the sun (in degrees) from due north in a clockwise direction."
+        },
+        {
+            "name": "solar_irradiance",
+            "display_name": "Solar Irradiance",
+            "type": "DoubleArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Top of the atmosphere solar irradiance per band. Units are W/(m2 * um)."
+        },
+        {
+            "name": "timestamp",
+            "display_name": "Timestamp",
+            "type": "StringArray",
+            "dimensions": "[*]",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Temporal Cube Timestamps.",
+            "fold_case": true
+        },
+        {
+            "name": "custom_metadata",
+            "display_name": "Custom Metadata",
+            "type": "Hash",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A hash of key-value pairs indicating user-defined custom metadata items not defined in the ENVI header file format.",
+            "hidden": true
+        },
+        {
+            "name": "output_raster_URI",
+            "keyword": "OUTPUT_RASTER",
+            "display_name": "Output Raster URI",
+            "type": "ENVIURI",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Specify a string with the fully-qualified path and filename for output_raster.",
+            "fold_case": true
+        },
+        {
+            "name": "output_raster",
+            "display_name": "Output Raster",
+            "type": "ENVIRaster",
+            "direction": "OUTPUT",
+            "required": false,
+            "description": "Updating the header file requires closing the raster. Use this parameter to reopen the file a return a reference to the new raster.",
+            "uri_param": "output_raster_URI"
+        }
+    ]
+}

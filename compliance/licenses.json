@@ -1,0 +1,15 @@
+{
+  "@angular/animations": "angular.txt",
+  "@angular/common": "angular.txt",
+  "@angular/compiler": "angular.txt",
+  "@angular/compiler-cli": "angular.txt",
+  "@angular/core": "angular.txt",
+  "@angular/flex-layout": "angular.txt",
+  "@angular/forms": "angular.txt",
+  "@angular/platform-browser-dynamic": "angular.txt",
+  "@angular/platform-browser": "angular.txt",
+  "@angular/router": "angular.txt",
+  "@angular/service-worker": "angular.txt",
+  "@angular/language-service": "angular.txt",
+  "cypress": "cypress.txt"
+}

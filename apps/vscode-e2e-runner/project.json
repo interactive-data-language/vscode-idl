@@ -1,0 +1,60 @@
+{
+  "name": "vscode-e2e-runner",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/vscode-e2e-runner/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/vscode-e2e-runner",
+        "main": "apps/vscode-e2e-runner/src/main.ts",
+        "tsConfig": "apps/vscode-e2e-runner/tsconfig.app.json",
+        "assets": ["apps/vscode-e2e-runner/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/vscode-e2e-runner/src/environments/environment.ts",
+              "with": "apps/vscode-e2e-runner/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "vscode-e2e-runner:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "vscode-e2e-runner:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/vscode-e2e-runner/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["coverage/apps/vscode-e2e-runner"],
+      "options": {
+        "jestConfig": "apps/vscode-e2e-runner/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

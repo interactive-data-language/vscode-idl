@@ -1,0 +1,62 @@
+{
+  "name": "client-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/client-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/client-e2e",
+        "main": "apps/client-e2e/src/main.ts",
+        "tsConfig": "apps/client-e2e/tsconfig.app.json",
+        "assets": ["apps/client-e2e/src/assets"],
+        "webpackConfig": "webpack.base.config.js",
+        "externalDependencies": "none",
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/client-e2e/src/environments/environment.ts",
+              "with": "apps/client-e2e/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "client-e2e:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "client-e2e:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/client-e2e/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["coverage/apps/client-e2e"],
+      "options": {
+        "jestConfig": "apps/client-e2e/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

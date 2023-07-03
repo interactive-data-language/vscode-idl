@@ -1,0 +1,60 @@
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+// Include non-theme styles for core.
+@include mat-core();
+
+// create a Sass mixin that accepts an Angular Material typography definition and outputs typographic styles. For example:
+@mixin vscode-typography($config) {
+  .vscode {
+    font: {
+      family: var(--vscode-editor-font-family);
+      size: var(--vscode-editor-font-size);
+      weight: var(--vscode-editor-font-weight);
+    }
+  }
+}
+$vscode-typography: mat-typography-config(
+  $font-family: var(--vscode-editor-font-family),
+);
+
+// Define a mixin that accepts a theme and outputs the theme-specific styles.
+// i.e. for card hovers or something else that needs to be "hard coded" as a scss theme
+@mixin vscode-theme($theme) {
+  // Extract the palettes you need from the theme definition.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+  // Define any styles affected by the theme.
+  // .vscode {
+  //   // Use mat-color to extract individual colors from a palette.
+  //   background-color: mat-color($primary);
+  //   border-color: mat-color($accent, A400);
+  // }
+}
+
+// Define your application's custom theme.
+$vscode-primary: var(--vscode-editor-foreground);
+$vscode-accent: var(--vscode-button-background);
+$vscode-warn: var(--vscode-button-background);
+$vscode-is-dark: false;
+$vscode-foreground: var(--vscode-editor-foreground);
+$vscode-background: var(--vscode-editor-background);
+// https://blog.thoughtram.io/angular/2017/05/23/custom-themes-with-angular-material.html
+$vscode: (
+  primary: $vscode-primary,
+  accent: $vscode-accent,
+  warn: $vscode-warn,
+  is-dark: $vscode-is-dark,
+  foreground: $vscode-foreground,
+  background: $vscode-background,
+);
+
+// Include theme styles for Angular Material components.
+@include angular-material-theme($vscode);
+
+// Include theme styles for your custom components.
+@include vscode-theme($vscode);
+
+// update our typography
+@include vscode-typography($vscode-typography);

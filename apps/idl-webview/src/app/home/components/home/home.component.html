@@ -1,0 +1,133 @@
+<ng-container *transloco="let t; read: 'webview.home'">
+  <!-- <p>{{t('title')}}</p> -->
+  <div fxLayout="row" fxLayoutAlign="start start">
+    <div>
+      <h2><img src="./assets/idlicon.png" class="idl-header" /></h2>
+    </div>
+    <div fxLayout="column">
+      <h2>The Official IDL Extension for VSCode</h2>
+      <div class="subheader">
+        Brought to you by the creators of IDL and ENVI
+      </div>
+    </div>
+  </div>
+
+  <video
+    controls
+    autoplay
+    loop
+    muted
+    playsinline
+    style="max-width: 720px; width: 100%"
+  >
+    <source src="./assets/vscode-tiny.mp4" type="video/mp4" />
+  </video>
+
+  <!-- buttons to flip startup -->
+  <!-- <vscode-button *ngIf="!vscode.dontShowOnStartup;" (click)="flipStartupFlag()">Don't show on startup</vscode-button>
+  <vscode-button *ngIf="vscode.dontShowOnStartup;" (click)="flipStartupFlag()">Show on startup</vscode-button> -->
+
+  <p>
+    Welcome to the home page! From here, you can find access to helpful links.
+  </p>
+
+  <!-- <div style="max-width: 50vw; aspect-ratio: 1;">
+    <video controls>
+      <source src="./assets/syntax-errors.mp4" type="video/mp4">
+    </video>
+  </div> -->
+
+  <vscode-panels>
+    <vscode-panel-tab id="tab-0">GETTING STARTED</vscode-panel-tab>
+    <vscode-panel-tab id="tab-1">QUICK LINKS</vscode-panel-tab>
+    <vscode-panel-tab id="tab-2">IDL + ENVI UNIVERSE</vscode-panel-tab>
+    <vscode-panel-tab id="tab-3">NEED HELP?</vscode-panel-tab>
+    <vscode-panel-view id="view-0">
+      <div fxLayout="column">
+        <div>
+          The main entry point for the extension can be found in the Activity
+          Bar (the left sidebar) by clicking on the IDL icon.
+        </div>
+
+        <p><img src="./assets/sidebar.png" style="max-width: 250px" /></p>
+      </div>
+    </vscode-panel-view>
+    <vscode-panel-view id="view-0">
+      <div fxLayout="column">
+        <div>
+          <vscode-link href="https://www.nv5geospatialsoftware.com/"
+            >Official IDL and ENVI Website</vscode-link
+          >
+        </div>
+        <div>
+          <vscode-link
+            href="https://www.nv5geospatialsoftware.com/Product-Downloads"
+            >IDL and ENVI Download Portal</vscode-link
+          >
+        </div>
+        <div>
+          <vscode-link
+            href="https://www.nv5geospatialsoftware.com/docs/home.html"
+            >Docs Center: IDL, ENVI, ENVI Deep Learning</vscode-link
+          >
+        </div>
+      </div>
+    </vscode-panel-view>
+    <vscode-panel-view id="view-2">
+      <div fxLayout="column">
+        <div>
+          <vscode-link
+            href="https://www.nv5geospatialsoftware.com/Learn/Videos/Video-Detail/ArtMID/10263/ArticleID/24304/What%e2%80%99s-New-in-ENVI-57-and-IDL-89"
+            >What's New in ENVI 5.7 and IDL 8.9</vscode-link
+          >
+        </div>
+        <div>
+          <vscode-link
+            href="https://www.nv5geospatialsoftware.com/Learn/Videos/Video-Detail/ArtMID/10263/ArticleID/24305/What%e2%80%99s-New-in-ENVI174-Deep-Learning-21"
+            >What's New in ENVI Deep Learning 2.1 (includes ENVI Machine
+            Learning)</vscode-link
+          >
+        </div>
+        <div>
+          <vscode-link
+            href="https://www.nv5geospatialsoftware.com/Learn/Videos/Video-Detail/ArtMID/10263/ArticleID/24300/Introducing-ENVI-Connect"
+            >Introducing ENVI Connect</vscode-link
+          >
+        </div>
+        <div>
+          <vscode-link
+            href="https://www.nv5geospatialsoftware.com/Learn/Videos/Video-Detail/ArtMID/10263/ArticleID/24231/Taking-ENVI-to-the-Next-Level-via-Machine-Learning"
+            >Taking ENVI to the Next Level via Machine Learning</vscode-link
+          >
+        </div>
+      </div>
+    </vscode-panel-view>
+    <vscode-panel-view id="view-3">
+      <div fxLayout="column">
+        <div>
+          <vscode-link
+            href="https://github.com/interactive-data-language/vscode-idl/issues/new/choose"
+            >File a Bug</vscode-link
+          >
+        </div>
+        <div>
+          <vscode-link
+            href="https://github.com/interactive-data-language/vscode-idl/discussions/new/choose"
+            >Ask a question or start a discussion</vscode-link
+          >
+        </div>
+        <div>
+          <vscode-link
+            href="https://www.nv5geospatialsoftware.com/Support/Forums"
+            >IDL and ENVI Forums</vscode-link
+          >
+        </div>
+        <div>
+          <vscode-link href="https://groups.google.com/g/idl-pvwave?pli=1"
+            >Google Group</vscode-link
+          >
+        </div>
+      </div>
+    </vscode-panel-view>
+  </vscode-panels>
+</ng-container>

@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "envi-legacy.schema.json",
+  "definitions": {
+    "envi-5.3.2-task": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/envi-5.3.1-task"
+        }
+      ]
+    },
+    "envi-5.3.1-task": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/envi-5.3-task"
+        }
+      ]
+    },
+    "envi-5.3-task": {
+      "type": "object",
+      "allOf": [
+        {
+          "properties": {
+            "parameters": {
+              "type": "array",
+              "title": "Parameters",
+              "description": "A array of objects with key/value pairs.",
+              "items": {
+                "$ref": "#/definitions/envi-5.3-parameter"
+              }
+            }
+          }
+        },
+        {
+          "$ref": "#/definitions/envi-5.2.1-task"
+        }
+      ]
+    },
+    "envi-5.2.1-task": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "A string with the name of the task, excluding the prefix ENVI and the suffix Task."
+        },
+        "baseClass": {
+          "type": "string",
+          "title": "Base Class",
+          "description": "A string with the name of the class to use - this should be set to \"ENVITaskFromProcedure\".",
+          "default": "ENVITaskFromProcedure"
+        },
+        "routine": {
+          "type": "string",
+          "title": "Routine",
+          "description": "The name of the IDL procedure that is called when Task.Execute is invoked."
+        },
+        "displayName": {
+          "type": "string",
+          "title": "Display name",
+          "description": "A string with the name of the task as it appears to the end user. Spaces and special characters are allowed."
+        },
+        "description": {
+          "type": "string",
+          "title": "Description",
+          "description": "A string with a description of the task."
+        },
+        "version": {
+          "type": "string",
+          "title": "Version - Deprecated",
+          "description": "A string listing the earliest version of ENVI that the task will work with. The \"schema\" tag is preferred as it is the newer task schema to work with.\nThe valid values are \"5.3.2\", \"5.3.1\", \"5.3\", and \"5.2.1\"",
+          "deprecated": true
+        },
+        "parameters": {
+          "type": "array",
+          "title": "Parameters",
+          "description": "A array of objects with key/value pairs.",
+          "items": {
+            "$ref": "#/definitions/envi-5.2.1-parameter"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "baseClass",
+        "routine",
+        "displayName",
+        "description",
+        "version",
+        "parameters"
+      ]
+    },
+    "envi-5.3.2-parameter": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/envi-5.3.1-parameter"
+        }
+      ]
+    },
+    "envi-5.3.1-parameter": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/envi-5.3-parameter"
+        }
+      ]
+    },
+    "envi-5.3-parameter": {
+      "type": "object",
+      "allOf": [
+        {
+          "properties": {
+            "dataType": {
+              "type": "string",
+              "title": "Data Type",
+              "description": "A scalar string with one of the following:\n- IDL data type: Byte, Int, Long, Float, Double, Complex, String, DComplex, UInt, ULong, Long64, or ULong64\n- The required class for the parameter (for example, ENVIRaster, ENVIVector, or ENVIROI)\n- Boolean type (Bool)\n- ENVIURI: Indicates that a string is required that references a local or remote file source.\n\nIf the parameter requires an array, the string contains additional information on array dimensions.\n\n- Example of a three-element array declaration: FLOAT[3]\n- Example of a 1D array with any number of elements: INT[*]\n- Example of a 2D array with any number of columns or rows: INT[*,*]\n- Example of a 2D array with a specific number of elements: BYTE[3,256]\n- Example of a 2D array with any number of columns and 3 rows: INT[*,3]"
+            }
+          }
+        },
+        {
+          "$ref": "#/definitions/envi-5.2.1-parameter"
+        }
+      ]
+    },
+    "envi-5.2.1-parameter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "The name of the parameter as it appears to the end user. If \"keyword\" is not set, then it is assumed that our \"routine\" has a keyword with the same name as this property."
+        },
+        "keyword": {
+          "type": "string",
+          "title": "Keyword",
+          "description": "Optionally specify the keyword name for \"routine\" if the keyword doe snot match \"name\"."
+        },
+        "displayName": {
+          "type": "string",
+          "title": "Display Name",
+          "description": "The name of the task as it appears to the end user. This key is used by tasks that display a dynamic user interface for entering parameters."
+        },
+        "dataType": {
+          "type": "string",
+          "title": "Data Type",
+          "description": "A scalar string with one of the following:\n- IDL data type: Byte, Int, Long, Float, Double, Complex, String, DComplex, UInt, ULong, Long64, or ULong64\n- The required class for the parameter (for example ENVIRaster)\n- Boolean type (Bool)\n- ENVIURI: Indicates that a string is required that references a local or remote file source.\n\nIf the parameter requires an array, the string contains additional information on array dimensions.\n\n- Example of a three-element array declaration: FLOAT[3]\n- Example of a 1D array with any number of elements: INT[*]\n- Example of a 2D array with any number of columns or rows: INT[*,*]\n- Example of a 2D array with a specific number of elements: BYTE[3,256]\n- Example of a 2D array with any number of columns and 3 rows: INT[*,3]"
+        },
+        "direction": {
+          "type": "string",
+          "title": "Direction",
+          "description": "Specify if the parameter is \"input\" or \"output\".",
+          "enum": ["input", "output", "INPUT", "OUTPUT"],
+          "pattern": "^[Ii][Nn][Pp][Uu][Tt]$|^[Oo][Uu][Tt][Pp][Uu][Tt]$"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description",
+          "description": "A description of the parameter."
+        },
+        "parameterType": {
+          "type": "string",
+          "title": "Parameter Type",
+          "description": "Specify if the parameter is \"required\" or \"optional\" (default) in order for the task to execute.",
+          "enum": ["required", "optional", "REQUIRED", "OPTIONAL"],
+          "pattern": "^[Rr][Ee][Qq][Uu][Ii][Rr][Ee][Dd]$|^[Oo][Pp][Tt][Ii][Oo][Nn][Aa][Ll]$"
+        },
+        "choiceList": {
+          "type": "array",
+          "title": "Choice List",
+          "description": "A string array that lists the possible values for the property. Any IDL data type is supported. You can also map from user-friendly strings to an internal lookup table of values if desired.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "defaultValue": {
+          "title": "Default Value",
+          "description": "The default value of the parameter if the end user does not provide a value."
+        },
+        "min": {
+          "title": "Min",
+          "description": "A value that is greater than or equal to the minimum value allowed for the parameter."
+        },
+        "max": {
+          "title": "Max",
+          "description": "A value that is less than or equal to the maximum value allowed for the parameter."
+        },
+        "hidden": {
+          "type": "boolean",
+          "title": "Hidden",
+          "description": "Set this key to true if the parameter is required for the task but you do not want to expose it to the end user. You must also set the defaultValue key to the desired value for the parameter to be set internally.",
+          "default": false
+        }
+      },
+      "required": [
+        "name",
+        "displayName",
+        "dataType",
+        "direction",
+        "description",
+        "parameterType"
+      ]
+    }
+  }
+}

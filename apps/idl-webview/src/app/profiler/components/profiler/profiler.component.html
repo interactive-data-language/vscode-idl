@@ -1,0 +1,92 @@
+<ng-container *transloco="let t; read: 'webview.profiler'" class="background">
+  <!-- tab title -->
+  <p>
+    {{ profilerData.length > 0 ? t('title') : t('title') + ': ' + t('noShow') }}
+  </p>
+
+  <!-- routine name filter -->
+  <vscode-text-field
+    #filterInput
+    placeholder="{{ t('filter') }}"
+    (keyup)="applyFilter($event)"
+  ></vscode-text-field>
+
+  <table
+    fxFill
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    class="background"
+    (matSortChange)="sortData($event)"
+  >
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- displayedColumns = ['r', 'n', 't', 't_s', 'sys', 'l_r', 'l_t']; -->
+
+    <ng-container matColumnDef="r">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ t('table.routine') }}
+      </th>
+      <td mat-cell *matCellDef="let item">{{ item.r.toLowerCase() }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="n">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ t('table.hits') }}
+      </th>
+      <td mat-cell *matCellDef="let item">{{ item.n }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="t">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ t('table.timeTotal') }}
+      </th>
+      <td mat-cell *matCellDef="let item">
+        {{ item.t }}
+        <div class="progress-bar-background">
+          <div
+            class="progress-bar-fill"
+            [ngStyle]="{ width: (item.t / this.totalTime) * 100 + '%' }"
+          ></div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="t_s">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ t('table.timeSelf') }}
+      </th>
+      <td mat-cell *matCellDef="let item">
+        {{ item.t_s }}
+        <div class="progress-bar-background">
+          <div
+            class="progress-bar-fill"
+            [ngStyle]="{ width: (item.t_s / item.t) * 100 + '%' }"
+          ></div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="l_r">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ t('table.linesRun') }}
+      </th>
+      <td mat-cell *matCellDef="let item">{{ item.l_r }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="l_t">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ t('table.linesTotal') }}
+      </th>
+      <td mat-cell *matCellDef="let item">{{ item.l_t }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      class="profiler-item"
+    ></tr>
+  </table>
+</ng-container>

@@ -1,0 +1,1033 @@
+# language name - set when we convert to plist format
+name: idl
+# scope name for variables - set when we convert to plist format
+scopeName: source.idl
+# placeholder comment so it is at the top of the file after building
+comment: Generated automatically during the extension build process from YAML
+uuid: 48F8858B-72FF-11D9-BFEE-000D93589AF6
+
+# variables are used for custom processing so that we can easily share
+# the same expressions in multiple places.
+#
+# we accomplish this using the syntax {{variable_name}} which gets replaced with the
+# string value from the YAML
+variables:
+  # shared token names - makes it so we can easily change colors/tokens
+  name_arg_def: variable.parameter.idl
+  name_brace: meta.brace.idl
+  name_bracket: meta.brace.square.idl
+  name_call_func: entity.name.function.idl
+  name_call_func_method: entity.name.function.idl-method.idl
+  name_call_pro: support.function.idl-procedure
+  name_call_pro_method: support.function.idl-procedure-method
+  name_comma: keyword.operator.idl
+  name_comment: comment.line.idl
+  name_comment_block: comment.block.idl
+  name_control: keyword.control.idl
+  name_control_option: variable.other.readwrite.ts.idl
+  name_docs_header: markup.heading.idl
+  name_docs_arg_kw: markup.italic.idl
+  name_escape: constant.character.escape.idl
+  name_nothing: meta.var.expr.idl
+  name_kw_def_super: parameter.definition.keyword.idl # wrapper around keyword definitions
+  name_kw_def: entity.other.attribute-name.idl # external keyword name external = internal
+  name_kw_usage: parameter.usage.keyword.idl # using a keyword in a procedure or function
+  name_kw_binary: entity.other.attribute-name.idl # /kw_name
+  name_kw_assignment: entity.other.attribute-name.idl # kw_name = value
+  name_number: constant.numeric.idl
+  name_operator: keyword.operator.idl
+  name_paren: meta.brace.round.idl
+  name_property: entity.other.attribute-name.idl
+  name_python: meta.embedded.block.python
+  name_quote_double: string.quoted.double.idl
+  name_quote_single: string.quoted.single.idl
+  name_template: string.template.idl # string literal
+  name_template_expression: meta.embedded.idl # expression in string literal
+  name_routine_function: entity.name.function.idl
+  name_routine_function_method: entity.name.function.idl-method
+  name_routine_procedure: support.function.idl-procedure
+  name_routine_procedure_method: support.function.idl-procedure-method
+  name_struct_inherits: entity.other.inherited-class.idl
+  name_struct_name: storage.type.idl
+  name_struct_tag: entity.name.tag.idl
+  name_special: entity.name.type.idl # special characters, like "self" or goto or "@include"
+  name_sysvar: constant.language.idl
+  name_type: entity.name.type.ts
+  name_variable: variable.other.readwrite.ts.idl # TS before gives us their formatting
+
+  # grouping names for tokens with beginnings and endings
+  # used for help debugging so we can inspect the token scope to verify things
+  # are correctly being grouped
+  group_assignment: group.assignment.idl
+  group_block: group.block.idl
+  group_bracket_paren: group.brackets.paren.idl
+  group_bracket_square: group.brackets.square.idl
+  group_call_func: group.call.func.idl
+  group_call_func_method: group.call.func-method.idl
+  group_call_lambda: group.call.lambda.idl
+  group_call_pro: group.call.pro.idl
+  group_call_pro_method: group.call.pro-method.idl
+  group_control_compound: group.control.compound.idl
+  group_indexed_property: group.property.indexed.idl
+  group_empty_line: group.empty.line.idl
+  group_line_continuation: group.line-continuation.idl
+  group_logic_case: group.logic.case.idl
+  group_logic_else: group.logic.else.idl
+  group_logic_if: group.logic.if.idl
+  group_logic_of: group.logic.of.idl
+  group_logic_then: group.logic.then.idl
+  group_logic_switch: group.logic.switch.idl
+  group_loop_do: group.loop.do.idl
+  group_loop_for_foreach: group.loop.for-foreach.idl
+  group_loop_repeat: group.loop.repeat.idl
+  group_loop_until: group.loop.until.idl
+  group_loop_while: group.loop.whileidl
+  group_paren: group.paren.idl
+  group_prompt: group.prompt.idl
+  group_routine_def: group.routine.definition.idl
+  group_routine_def_name: group.routine.name.idl
+  group_struct: group.structure.idl
+  group_type: group.type.idl
+
+  # shared regular expressions
+  # see libs\parsing\tokenizer\src\lib\tokens\regex.interface.ts for comments and details on these statements
+  assignment_end: '(?=\buntil\b|\belse\b|\bthen\b|\bdo\b|\bof\b|\)|\]|\}|,|;)|(?=(?<!&)&(?!&))|(?<!\$\s*|\$\s*;.*)$'
+  block_end: '\bendif\b|\bendelse\b|\bendfor\b|\bendforeach\b|\bendrep\b|\bendwhile\b|\bendswitch\b|\bendcase\b|\bend\b'
+  line_end: '(?=(?<!&)&(?!&))|(?<!\$\s*|\$\s*;.*)$'
+  line_continuation_end: '^\s*(?=\buntil\b|\belse\b|\bthen\b|\bdo\b|\bof\b)|^(.*?)((?=\buntil\b|\belse\b|\bthen\b|\bdo\b|\bof\b)|$)'
+  logical_statement_end: '(?=\bthen\b|\belse\b|;|(?<!&)&(?!&))|(?<!\$\s*|\$\s*;.*)$'
+  operator_end: '(?=\buntil\b|\belse\b|\bthen\b|\bdo\b|\bof\b|\)|\]|\}|,|;|\?|:]|(?=(?<!&)&(?!&))|\|\||\bor\b|(\.|->)([a-z_][a-z0-9_$:]*)(?=\s*(?<!&)&(?!&)|\s*,|\s*;|\s+\$|\s*$))|(?<!\$\s*|\$\s*;.*)$'
+  pro_end: '(?=until|else|(?=(?<!&)&(?!&)))|(?<!\$\s*|\$\s*;)$'
+  routine_def_name: '([a-z_][a-z0-9_$:]*)'
+  statement_end: '(?=;|(?<!&)&(?!&))|(?<!\$\s*|\$\s*;.*)$'
+  routine_name_end: '(?=^[^;]*$)'
+
+  # regex that looks before and determines where our next statement starts
+  # accounts for line continuations, new lines, comments, and mixes of them
+  # next_statement_line: '(?<!\$.*(\r?\n(\s*;.*)?)*)(?=^)'
+  next_statement_line: '(?=^[^;]*$)(?!^\s*$)'
+  routine_name_match: '(.*\$.*(\r?\n(\s*;.*)?)*)*(\r?\n.*\r?\n)'
+
+# rules that we  look for
+patterns:
+  - include: '#all_tokens'
+
+# definitions of tokens and token groups
+repository:
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+  # token patterns: i.e. groups of tokens we search for
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+
+  # all tokens that we can find
+  all_tokens:
+    patterns:
+      - include: '#routine_def_tokens'
+      - include: '#prompts'
+      - include: '#executive_command'
+      - include: '#default_tokens'
+
+  # all tokens except for routines and main level end
+  default_tokens:
+    patterns:
+      - include: '#python'
+      - include: '#comma'
+      - include: '#assignment'
+      - include: '#control_tokens'
+      - include: '#operator_tokens'
+      - include: '#line_continuation'
+      - include: '#logical_tokens'
+      - include: '#loop_tokens'
+      - include: '#block'
+      - include: '#function_tokens'
+      - include: '#routine_call_pro_method'
+      - include: '#access_tokens'
+      - include: '#numbers'
+      - include: '#grouper_tokens'
+      - include: '#control_main_level_end'
+      - include: '#routine_call_pro'
+      - include: '#variable_tokens'
+      - include: '#quote_tokens'
+      - include: '#comment_tokens'
+      - include: '#include'
+
+  # tokens to find when we have encountered a routine
+  # differs from below as places we can have commas (i.e. arg/kw separation)
+  routine_tokens:
+    patterns:
+      - include: '#comma'
+      - include: '#operator_tokens'
+      - include: '#line_continuation'
+      - include: '#logic_ternary_then'
+      - include: '#function_tokens'
+      - include: '#access_tokens'
+      - include: '#numbers'
+      - include: '#grouper_tokens'
+      - include: '#variable_tokens'
+      - include: '#quote_tokens'
+      - include: '#comment_tokens'
+
+  # tokens when we encounter an expression - mainly places where we
+  # cannot have commas (i.e. if statements)
+  expression_tokens:
+    patterns:
+      - include: '#operator_tokens'
+      - include: '#line_continuation'
+      - include: '#logic_ternary_then'
+      - include: '#function_tokens'
+      - include: '#access_tokens'
+      - include: '#numbers'
+      - include: '#grouper_tokens'
+      - include: '#variable_tokens'
+      - include: '#quote_tokens'
+      - include: '#comment_tokens'
+
+  # tokens used to access values via the dot notation, separate from
+  # pointer dereferencing
+  access_tokens:
+    patterns:
+      - include: '#access_property'
+      - include: '#access_indexed_property'
+
+  # tokens related to comments
+  comment_tokens:
+    patterns:
+      - include: '#comment_block'
+      - include: '#comment'
+
+  # tokens for control statements that we might be looking for
+  control_tokens:
+    patterns:
+      - include: '#control_compound'
+      - include: '#control_jump'
+      - include: '#control_continue'
+      - include: '#control_break'
+
+  # tokens, independent of function calls, that group expressions
+  # together. we need to capture these so that other regex expressions
+  # stop correctly
+  grouper_tokens:
+    patterns:
+      - include: '#structure'
+      - include: '#bracket_square'
+      - include: '#bracket_paren'
+
+  # tokens to look for when we call functions or flavors of them
+  function_tokens:
+    patterns:
+      - include: '#routine_call_lambda'
+      - include: '#routine_call_func_method'
+      - include: '#routine_call_func'
+
+  # tokens related to logic parsing
+  logical_tokens:
+    patterns:
+      - include: '#logic_if'
+      - include: '#logic_case'
+      - include: '#logic_switch'
+
+  # tokens to identify loops in code - differs from tokenizer
+  loop_tokens:
+    patterns:
+      - include: '#loop_for_foreach'
+      - include: '#loop_while'
+      - include: '#loop_repeat'
+
+  # shorthand for operator tokens
+  operator_tokens:
+    patterns:
+      - include: '#operator_pointer'
+      - include: '#operator'
+      - include: '#operator_control'
+
+  # shorthand for all tokens related to quotes
+  quote_tokens:
+    patterns:
+      - include: '#quote_double_number'
+      - include: '#quote_double_basic'
+      - include: '#quote_double'
+      - include: '#quote_single_number'
+      - include: '#quote_single_basic'
+      - include: '#quote_single'
+      - include: '#string_template_literal'
+
+  # tokens for routine definitions
+  routine_def_tokens:
+    patterns:
+      - include: '#routine_def'
+
+  # tokens we search for in routine definitions paired with the names
+  routine_def_parameter_tokens:
+    patterns:
+      - include: '#line_continuation'
+      - include: '#routine_kw_def'
+      - include: '#routine_arg'
+      - include: '#comment'
+
+  # tokens we find inside of a structure definition
+  structure_tokens:
+    patterns:
+      - include: '#line_continuation'
+      - include: '#comment_tokens'
+      - include: '#structure_name'
+      - include: '#structure_inheritance'
+      - include: '#structure_property'
+
+  # tokens for a named structure
+  named_structure_tokens:
+    patterns:
+      - include: '#structure_inheritance'
+      - include: '#structure_property'
+      - include: '#routine_tokens'
+
+  # highlighting for token parsing
+  type_tokens:
+    patterns:
+      - include: '#type_no_highlight'
+      - include: '#numbers'
+      - include: '#quote_tokens'
+
+  # tokens to identify variables
+  variable_tokens:
+    patterns:
+      - include: '#structure_self'
+      - include: '#variable_system'
+      - include: '#variable'
+
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+  # token definitions: i.e. the actual things we look for
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+
+  # assignment (i.e. giving something a value)
+  assignment:
+    name: {{group_assignment}}
+    begin: '(\*|\+|-|\^|##|#|\/|<|>|and|or|xor|eq|ne|lt|le|gt|ge|mod)?='
+    beginCaptures:
+      '0': { name: {{name_operator}} }
+    end: '{{assignment_end}}'
+    patterns:
+      - include: '#expression_tokens'
+
+  # assignment as a basic entity
+  assignment_basic:
+    name: {{name_operator}}
+    match: '(\*|\+|-|\^|##|#|\/|<|>|and|or|xor|eq|ne|lt|le|gt|ge|mod)?='
+
+  # using dot notation to access properties
+  access_property:
+    match: '\.([a-z_][a-z0-9_$]*)'
+    captures:
+      '1': { name: {{name_property}} }
+
+  # properties when using index notations to access structure properties
+  # use this to limit what can be found in the index
+  access_indexed_property:
+    name: {{group_indexed_property}}
+    begin: '\.\('
+    beginCaptures:
+      '0': { name: {{name_property}} }
+    end: '\)'
+    endCaptures:
+      '0': { name: {{name_property}} }
+    patterns:
+      - include: '#routine_tokens'
+
+  # blocks of IDL code
+  block:
+    name: {{group_block}}
+    begin: '\s*\bbegin\b' # spaces so that we are first
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '\s*({{block_end}})' # spaces so that we are first
+    endCaptures:
+      '0': { name: {{name_control}} }
+    patterns:
+      - include: '#default_tokens'
+
+  # blocks of IDL code in loops
+  block_loop:
+    <<: block
+
+  # blocks of IDL code in logic statements
+  block_logic:
+    <<: block_loop
+
+  # things we can find within braces for array indexing
+  bracket_square:
+    name: {{group_bracket_square}}
+    begin: '\['
+    beginCaptures:
+      '0': { name: {{name_bracket}} }
+    end: '\]'
+    endCaptures:
+      '0': { name: {{name_bracket}} }
+    patterns:
+      - include: '#expression_tokens'
+
+  # things we can find within parentheses
+  bracket_paren:
+    name: {{group_bracket_paren}}
+    begin: '\('
+    beginCaptures:
+      '0': { name: {{name_paren}} }
+    end: '\)'
+    endCaptures:
+      '0': { name: {{name_paren}} }
+    patterns:
+      - include: '#expression_tokens'
+
+  # commas
+  comma:
+    name: {{name_comma}}
+    match: ','
+
+  # comments in PRO code with accent for TODO statements
+  comment:
+    name: {{name_comment}}
+    match: ';\s*(TODO:)?(.*)$'
+    captures:
+      '1': { name: {{name_escape}} }
+
+  # comments in PRO code with accent for TODO statements
+  comment_block:
+    name: {{name_comment_block}}
+    begin: '^\s*(?=;\s*\+.*)'
+    end: '^(?!\s*;|\s*$)'
+    patterns:
+      - include: '#comment_docs_header'
+      - include: '#comment_docs_arg_kw'
+      - include: '#comment_docs_prop'
+      - include: '#comment_example_code_block'
+      - include: '#comment'
+
+  # comments in PRO code with accent for TODO statements
+  comment_example_code_block:
+    begin: '^\s*(;\s*```idl.*$)'
+    beginCaptures:
+      '0': { name: {{name_comment}} }
+    end: '^\s*;\s*```|^(?!\s*(;|$))'
+    endCaptures:
+      '0': { name: {{name_comment}} }
+    patterns:
+      - include: '#comment_example_code_line'
+
+  # comments in PRO code with accent for TODO statements
+  comment_example_code_line:
+    match: '(;\s*)(.*$)'
+    captures:
+      '1': { name: {{name_comment}} }
+      '2': { patterns: [{ include: '#all_tokens' }] }
+
+  # comment section header
+  comment_docs_header:
+    name: {{name_comment}}
+    match: ';\s*:([^:]*?):(.*)$'
+    captures:
+      '1': { name: {{name_docs_header}} }
+      '2': { name: {{name_type}}, patterns: [{ include: '#type_tokens' }] }
+
+  # arg/keyword docs
+  comment_docs_arg_kw:
+    name: {{name_comment}}
+    match: ';\s*([^:\s]*)\s*:([^,]*),([^,]*),\s*((?:[a-z_0-9$!''"]+\s*(?:<.+>)?\s*\|?\s*)+),?([^,]*)?'
+    captures:
+      '1': { name: {{name_docs_arg_kw}} }
+      '2': { name: support.type.idl }
+      '3': { name: support.type.idl }
+      '4': { name: {{name_type}}, patterns: [{ include: '#type_tokens' }] }
+      '5': { name: markup.bold.idl }
+
+  # property docs docs
+  comment_docs_prop:
+    name: {{name_comment}}
+    match: ';\s*(?!TODO)([^:\s]*)\s*:\s*((?:[a-z_0-9$!''"]+\s*(?:<.+>)?\s*\|?\s*)+)'
+    captures:
+      '1': { name: {{name_docs_arg_kw}} }
+      '2': { name: {{name_type}}, patterns: [{ include: '#type_tokens' }] }
+
+  # break statement - standalone to highlight correctly
+  control_break:
+    name: {{name_control}}
+    match: '\s*\bbreak\b'
+
+  # break statement - standalone to highlight correctly
+  control_continue:
+    name: {{name_control}}
+    match: '\s*\bcontinue\b'
+
+  # options found within compound control statements
+  control_compound_option:
+    name: {{name_control_option}}
+    match: '[a-z0-9_$]+' # start and spaces to beat procedures
+
+  # break statement - standalone to highlight correctly
+  control_jump:
+    name: {{name_special}}
+    match: '\b[a-z][a-z0-9_$]*(\s*:)'
+
+  # break statement - standalone to highlight correctly
+  control_main_level_end:
+    name: {{name_control}}
+    match: '\bend\b'
+
+  # control statements with additional options
+  control_compound:
+    name: {{group_control_compound}}
+    # spaces make sure we win compared to procedures
+    begin: '\s*(\bcommon\b|\bcompile_opt\b|\bforward_function\b|\bgoto\b)'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '{{statement_end}}'
+    patterns:
+      - include: '#line_continuation'
+      - include: '#control_compound_option'
+      - include: '#comma'
+      - include: '#comment'
+
+  # capture empty lines
+  empty_line:
+    name: {{group_empty_line}}
+    match: '^\s*(;.*)?$'
+    captures:
+      '1': { patterns: [{ include: '#comment_tokens' }] }
+
+  # executive commands
+  executive_command:
+    name: {{name_special}}
+    match: '^\s*(\.[a-z_]+)\s*(.*)$'
+    captures:
+      '1': { name: {{name_special}} }
+      '2': { name: {{name_variable}} }
+
+  # using '@' to include other PRO files
+  include:
+    name: {{name_special}}
+    match: '@([a-z0-9_$.]*)'
+
+  # line continuations - restrict highlighting to only comments
+  # to illustrate that we don't care about what comes after them
+  line_continuation:
+    name: {{group_line_continuation}}
+    begin: '(\$)(.*)$'
+    beginCaptures:
+      '1': { name: {{name_operator}} }
+      '2': { patterns: [{ include: '#comment_tokens' }] }
+    end: '^(?!(\s*)(;.*)?$)'
+    patterns:
+      - include: '#line_continuation'
+      - include: '#comment_tokens'
+      - include: '#empty_line'
+
+  # start of if statement with open tokens after creation
+  logic_if:
+    name: {{group_logic_if}}
+    begin: '\s*\bif\b'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '{{statement_end}}'
+    patterns:
+      - include: '#logic_if_then'
+      - include: '#expression_tokens'
+
+  # then part of if statement
+  logic_if_then:
+    name: {{group_logic_then}}
+    begin: '\bthen\b'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '{{statement_end}}'
+    patterns:
+      - include: '#logic_if_then_else'
+      - include: '#default_tokens'
+
+  # else part of if statement
+  logic_if_then_else:
+    name: {{group_logic_else}}
+    begin: '\belse\b'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '{{statement_end}}'
+    patterns:
+      - include: '#default_tokens'
+
+  # case statement - so we can have clear end token
+  logic_case:
+    name: {{group_logic_case}}
+    begin: '\s*\bcase\b'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '\bendcase\b|\bend\b'
+    endCaptures:
+      '0': { name: {{name_control}} }
+    patterns:
+      - include: '#logic_case_switch_of'
+      - include: '#expression_tokens'
+
+  # case statement - so we can have clear end token
+  logic_switch:
+    name: {{group_logic_switch}}
+    begin: '\s*\bswitch\b'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '\bendswitch\b|\bend\b'
+    endCaptures:
+      '0': { name: {{name_control}} }
+    patterns:
+      - include: '#logic_case_switch_of'
+      - include: '#expression_tokens'
+
+  # then part of if statement
+  logic_case_switch_of:
+    name: {{group_logic_of}}
+    begin: '\bof\b'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '(?=\bend)' # end just before the block end
+    patterns:
+      - include: '#logic_case_switch_then'
+      - include: '#expression_tokens'
+
+  # else part of if statement
+  logic_case_switch_then:
+    name: {{group_logic_then}}
+    begin: '(\s*else\s*)?:'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '{{statement_end}}'
+    patterns:
+      - include: '#block_logic'
+      - include: '#default_tokens'
+
+  # case statement - so we can have clear end token
+  logic_ternary_then:
+    begin: '\?'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '{{assignment_end}}'
+    patterns:
+      - include: '#logic_ternary_else'
+      - include: '#expression_tokens'
+
+  # case statement - so we can have clear end token
+  logic_ternary_else:
+    begin: '\s*:\s*'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '{{operator_end}}'
+    patterns:
+      - include: '#expression_tokens'
+
+  # loops with open tokens after creation
+  loop_for_foreach:
+    name: {{group_loop_for_foreach}}
+    begin: '\bfor\b|\bforeach\b'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '(?<={{block_end}})|{{statement_end}}'
+    patterns:
+      - include: '#loop_do'
+      - include: '#assignment_basic'
+      - include: '#routine_tokens'
+
+  # loops with inverted
+  loop_while:
+    name: {{group_loop_while}}
+    begin: '\s*\bwhile\b'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '(?<={{block_end}})|{{statement_end}}'
+    patterns:
+      - include: '#loop_do'
+      - include: '#expression_tokens'
+
+  # do portion of most loops
+  loop_do:
+    name: {{group_loop_do}}
+    begin: '\bdo\b'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '(?<={{block_end}})|{{statement_end}}'
+    patterns:
+      - include: '#block_loop'
+      - include: '#default_tokens'
+
+  # loops with inverted
+  loop_repeat:
+    name: {{group_loop_repeat}}
+    begin: '\brepeat\b'
+    end: '(?<={{block_end}})|{{statement_end}}'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    patterns:
+      - include: '#loop_until'
+      - include: '#default_tokens'
+
+  # until portion of repeat loops
+  loop_until:
+    name: {{group_loop_until}}
+    begin: '\s*\buntil\b'
+    beginCaptures:
+      '0': { name: {{name_control}} }
+    end: '{{statement_end}}'
+    patterns:
+      - include: '#expression_tokens'
+
+  # numbers
+  numbers:
+    name: {{name_number}}
+    match: '(?<![a-z_$])(0[box][a-z0-9]*|[0-9.]+((e|d)\+?-?[0-9]*|[a-z]*))(?:i|j)?'
+
+  # operators to not apply any highlighting to
+  operator:
+    name: {{name_operator}}
+    match: '(\*|\+\+|--|\^|##|#|\*|\/|\+|-(?!>)|<|(?<!-)>|~)(?!=)'
+
+  # operators to apply special highlighting to as control statements
+  operator_control:
+    name: {{name_control}}
+    match: '(\bmod\b|\bnot\b|\beq\b|\bne\b|\ble\b|\blt\b|\bge\b|\bgt\b|\band\b|\bor\b|\bxor\b|&&|\|\|)(?!=)'
+
+  # special case for pointer dereferencing
+  operator_pointer:
+    name: {{name_special}}
+    match: '(?<=\(|=|,|\[|:|^)\s*\*'
+
+  # special highlighting for ENVI and IDL prompts
+  prompts:
+    name: {{group_prompt}}
+    begin: '^\s*(?:idl|envi)>'
+    beginCaptures:
+      '0': { name: {{name_special}} }
+    end: '{{line_end}}'
+    patterns:
+      - include: '#default_tokens'
+
+  # escape characters for all quotes/strings
+  quote_escape:
+    name: {{name_escape}}
+    match: '\\n|\\r'
+
+  # double quotes - special case when empty
+  quote_double_basic:
+    name: {{name_quote_double}}
+    match: '""'
+
+  # double quotes
+  quote_double:
+    name: {{name_quote_double}}
+    # match: '"([^"]*)"((?!then|else|of|do|until)[a-z]+\b)?|"(.*)$'
+    begin: '"'
+    end: '$|(?<!")"(?!")' # handle escaped double quotes
+    patterns:
+      # - include: '#quote_escape'
+      - include: '#quote_double_escape'
+
+  # escape characters for double quotes
+  quote_double_escape:
+    name: {{name_escape}}
+    match: '""'
+
+  # double quotes as numbers
+  quote_double_number:
+    name: {{name_number}}
+    match: '"[^"]+"[box]u?(?:b|s|ll|l|i|j)*\b|"[0-7]+u?(?:b|s|ll|l|i|j)*(?=[^\w.]|$)(?!")'
+
+  # single quotes - special case when empty
+  quote_single_basic:
+    name: {{name_quote_double}}
+    match: "''"
+
+  # single quote
+  quote_single:
+    name: {{name_quote_single}}
+    # match: '''([^'']*)''((?!then|else|of|do|until)[a-z]+\b)?|''(.*)$'
+    begin: "'"
+    end: "$|(?<!')'(?!')" # handle escaped single quotes
+    patterns:
+      # - include: '#quote_escape'
+      - include: '#quote_single_escape'
+
+  # escape characters for double quotes
+  quote_single_escape:
+    name: {{name_escape}}
+    match: "''"
+
+  # single quote with numbers
+  quote_single_number:
+    name: {{name_number}}
+    match: '''[^'']+''[box]u?(?:b|s|ll|l|i|j)*\b'
+
+  # when using a keyword inside of a routine
+  routine_kw:
+    name: {{name_kw_usage}}
+    match: '\b\s*([a-z_][a-z0-9_$]*)(\s*=)'
+    captures:
+      '1': { name: {{name_kw_assignment}} }
+      '2': { name: {{name_operator}} }
+
+  # when using a keyword inside of a routine
+  routine_binary_kw:
+    name: {{name_kw_usage}}
+    match: '(?<=^\s*|\(\s*|,\s*|\[\s*)(\/[a-z_][a-z0-9_$]*)'
+    captures:
+      '1': { name: {{name_kw_binary}} }
+
+  # patterns for finding keywords
+  keywords:
+    patterns:
+      - include: '#routine_kw'
+      - include: '#routine_binary_kw'
+
+  # lambda functions - here for special highlighting in the future
+  routine_call_lambda:
+    name: {{group_call_func}}
+    begin: '(lambda)\s*(\()'
+    beginCaptures:
+      '1': { name: {{name_special}} }
+      '2': { name: {{name_paren}} }
+    end: '\)'
+    endCaptures:
+      '0': { name: {{name_paren}} }
+    patterns:
+      - include: '#routine_tokens'
+
+  # calling functions
+  routine_call_func:
+    name: {{group_call_func}}
+    begin: '([a-z_][a-z0-9_$]*)\s*(\()'
+    beginCaptures:
+      '1': { name: {{name_call_func}} }
+      '2': { name: {{name_paren}} }
+    end: '\)'
+    endCaptures:
+      '0': { name: {{name_paren}} }
+    patterns:
+      - include: '#keywords'
+      - include: '#routine_tokens'
+
+  # calling functions
+  routine_call_func_method:
+    name: {{group_call_func_method}}
+    begin: '\s*(\.|->)\s*([a-z0-9_$:]+)(\()'
+    beginCaptures:
+      '1': { name: {{name_operator}} }
+      '2': { name: {{name_call_func_method}} }
+      '3': { name: {{name_paren}} }
+    end: '\)'
+    endCaptures:
+      '0': { name: {{name_paren}} }
+    patterns:
+      - include: '#keywords'
+      - include: '#routine_tokens'
+
+  # calling procedures
+  routine_call_pro:
+    name: {{group_call_pro}}
+    begin: '(?<=^|\bdo\b|\bthen\b|\belse\b|\brepeat\b|:|^\s*idl>|^\s*envi>)\s*([a-z_][a-z0-9_$]*)(?!\.)(?=\s*,|\s*;|\s+\$|\s*$|\s*(?<!&)&(?!&))'
+    beginCaptures:
+      '1': { name: {{name_call_pro}} }
+    end: '{{pro_end}}'
+    patterns:
+      - include: '#keywords'
+      - include: '#routine_tokens'
+
+  # calling procedures
+  routine_call_pro_method:
+    name: {{group_call_pro_method}}
+    begin: '(\.|->)\s*([a-z_][a-z0-9_$:]*)(?=\s*(?<!&)&(?!&)|\s*,|\s*;|\s+\$|\s*$)'
+    beginCaptures:
+      '1': { name: {{name_operator}} }
+      '2': { name: {{name_call_pro_method}} }
+    end: '{{pro_end}}'
+    patterns:
+      - include: '#keywords'
+      - include: '#routine_tokens'
+
+  # arguments in routine definitions, comes after keywords in order
+  routine_arg:
+    match: ',?\s*([a-z_][a-z0-9_$]*)\s*'
+    captures:
+      '1': { name: {{name_arg_def}} }
+
+  # arguments in routine definitions, comes after keywords in order
+  routine_kw_def:
+    match: ',?\s*([a-z_][a-z0-9_$]*\s*=\s*)([a-z_][a-z0-9_$]*)'
+    captures:
+      '1':
+        patterns:
+          - name: {{name_kw_def_super}}
+            match: '([a-z_][a-z0-9_$]*)(\s*=\s*)'
+            captures:
+              '1': { name: {{name_kw_def}} }
+              '2': { name: {{name_operator}} }
+      '2': { name: {{name_variable}} }
+
+  # apply correct token to procedure names
+  pro_name:
+    patterns:
+      # - match: '([a-z_$!0-9]+)(::[a-z_$0-9]+)'
+      #   captures:
+      #     '1': {name: {{name_special}} }
+      #     '2': {name: {{name_routine_procedure_method}}}
+      - name: {{name_routine_procedure_method}}
+        match: '([a-z_$!0-9]+)::([a-z_$0-9]+)'
+      - name: {{name_routine_procedure}}
+        match: '[a-z_$!0-9]+'
+
+  # procedure name and parameters
+  pro_name_and_parameters:
+    name: {{group_routine_def_name}}
+    begin: '(?<=\bpro\s+){{routine_def_name}}'
+    beginCaptures:
+      '1': { patterns: [{ include: '#pro_name' }] }
+    end: '$'
+    patterns:
+      - include: '#routine_def_parameter_tokens'
+
+  # given the function name, highlight it correctly
+  function_name:
+    patterns:
+      # - match: '([a-z_$!0-9]+)(::[a-z_$0-9]+)'
+      #   captures:
+      #     '1': {name: {{name_special}} }
+      #     '2': {name: {{name_routine_function_method}}}
+      - name: {{name_routine_function_method}}
+        match: '([a-z_$!0-9]+)::([a-z_$0-9]+)'
+      - name: {{name_routine_function}}
+        match: '[a-z_$!0-9]+'
+
+  # function name and parameters
+  function_name_and_parameters:
+    name: {{group_routine_def_name}}
+    begin: '(?<=\bfunction\s+){{routine_def_name}}'
+    beginCaptures:
+      '1': { patterns: [{ include: '#function_name' }] }
+    end: '$'
+    patterns:
+      - include: '#routine_def_parameter_tokens'
+
+  # capture procedure and function definitions
+  routine_def:
+    name: {{group_routine_def}}
+    begin: '^\s*(pro\b|function\b)'
+    beginCaptures:
+      '1': { name: {{name_control}} }
+    end: '^\s*\bend\b'
+    endCaptures:
+      '0': { name: {{name_control}} }
+    patterns:
+      - include: '#pro_name_and_parameters'
+      - include: '#function_name_and_parameters'
+      - include: '#default_tokens'
+
+  # python code
+  python:
+    name: {{name_python}}
+    begin: '^\s*>>>'
+    beginCaptures:
+      '0': { name: {{name_special}}  }
+    end: '$'
+    patterns:
+      - include: 'source.python'
+
+  # strings in template literals
+  string_template_escape:
+    name: {{name_escape}}
+    match: '\\(?:[\\bfnrtv$`]|x[a-f0-9]{2})?'
+
+  # string literals
+  string_template_literal:
+    name: {{name_template}}
+    begin: '`'
+    beginCaptures:
+      '0': { name: {{name_template}} }
+    end: '`'
+    endCaptures:
+      '0': { name: {{name_template}} }
+    patterns:
+      - include: '#string_template_expression'
+      - include: '#string_template_escape'
+      - include: '#quote_escape'
+
+  # expressions in template literals
+  string_template_expression:
+    name: {{name_template_expression}}
+    begin: '(\$){'
+    beginCaptures:
+      '0': { name: {{name_brace}} } # special color for "$"
+      '1': { name: {{name_special}} } # special color for "$"
+    end: '}'
+    endCaptures:
+      '0': { name: {{name_brace}} } # special color for "$"
+    patterns:
+      - include: '#expression_tokens'
+
+  # finding the start and end of a structure
+  structure:
+    name: {{group_struct}}
+    begin: '{'
+    beginCaptures:
+      '0': { name: {{name_brace}} }
+    end: '}'
+    endCaptures:
+      '0': { name: {{name_brace}} }
+    patterns:
+      - include: '#structure_tokens'
+
+  # name of structure
+  structure_name:
+    begin: '(?<=^|{)(\s*[a-z0-9_$!]+\s*)(?=,|}|\$)'
+    end: '(?=})'
+    beginCaptures:
+      '1': { name: {{name_special}} }
+    patterns:
+      - include: '#named_structure_tokens'
+
+  # structure inheritance
+  structure_inheritance:
+    match: '\b(inherits)\s+([a-z_0-9$]+)'
+    captures:
+      '1': { name: {{name_control}} }
+      '2': { name: {{name_struct_name}} }
+
+  # structure properties
+  structure_property:
+    begin: '([a-z0-9_$]*\s*):'
+    end: {{assignment_end}}
+    beginCaptures:
+      '1': { name: {{name_struct_tag}} }
+    patterns:
+      - include: '#routine_tokens'
+
+  # calling "self" in object classes
+  structure_self:
+    name: {{name_special}}
+    match: '\bself\b'
+
+  # no highlighting for types
+  type_no_highlight:
+    name: {{name_variable}}
+    match: '\||<|>|,'
+
+  # variable definitions, captured to avoid syntax highlighting
+  variable:
+    name: {{name_variable}}
+    match: '(?<!\.|\/|::|->|@)\b[a-z0-9_$]+(?![a-z0-9_$]*::)'
+
+  # system variable
+  variable_system:
+    name: {{name_sysvar}}
+    match: '![a-z0-9_$]+'
+
+  # white space filler in case we need it
+  # not currently used
+  white_space:
+    name: {{name_nothing}}
+    match: '\s+'

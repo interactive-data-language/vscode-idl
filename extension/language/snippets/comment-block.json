@@ -1,0 +1,14 @@
+{
+  "Comment Block": {
+    "prefix": ";",
+    "body": [";+", "; $1", ";-"],
+    "description": "Comment Block for IDL",
+    "scope": "source.idl"
+  },
+  "Variable Comment Block": {
+    "prefix": ";",
+    "body": [";+ $1"],
+    "description": "Docs for variable",
+    "scope": "source.idl"
+  }
+}

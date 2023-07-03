@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "v1.schema.json",
+  "definitions": {
+    "1.0.0-options": {
+      "type": "object",
+      "description": "This controls how code is automatically formatted when using the buttons in the sidebar or formatting on save.\n\nThese user-level preferences are only applied if you do *not* have an \"idl.json\" file in your workspace.",
+      "properties": {
+        "quotes": {
+          "type": "string",
+          "title": "Quote Formatting",
+          "description": "For string literals what type of quote we use. Includes numbers defined using quotes.",
+          "enum": ["single", "double", "none"],
+          "default": "single"
+        },
+        "methods": {
+          "type": "string",
+          "title": "Method Formatting",
+          "description": "Do we use a dot or arrow for method invocation",
+          "enum": ["dot", "arrow", "none"],
+          "default": "dot"
+        },
+        "keywords": {
+          "type": "string",
+          "title": "Keyword Formatting",
+          "description": "Formatting for keywords, includes binary keywords",
+          "enum": ["lower", "upper", "none"],
+          "default": "lower"
+        },
+        "properties": {
+          "type": "string",
+          "title": "Property Formatting",
+          "description": "Controls if properties are upper or lower case",
+          "enum": ["lower", "upper", "none"],
+          "default": "lower"
+        },
+        "control": {
+          "type": "string",
+          "title": "Control Formatting",
+          "description": "How are control statements, such as \"for\", \"if\", \"pro\", formatted",
+          "enum": ["lower", "upper", "none"],
+          "default": "lower"
+        },
+        "numbers": {
+          "type": "string",
+          "title": "Number Formatting",
+          "description": "Controls accents to letters that set the data type and their case",
+          "enum": ["lower", "upper", "none"],
+          "default": "lower"
+        },
+        "hex": {
+          "type": "string",
+          "title": "Hex Number Formatting",
+          "description": "Indicates formatting for hexadecimal (hex) numbers (either defined with quotes or \"0x\")",
+          "enum": ["lower", "upper", "none"],
+          "default": "lower"
+        },
+        "octal": {
+          "type": "string",
+          "title": "Octal Number Formatting",
+          "description": "Indicates formatting for octal numbers (either defined with quotes or \"0o\")",
+          "enum": ["lower", "upper", "none"],
+          "default": "lower"
+        },
+        "binary": {
+          "type": "string",
+          "title": "Binary Number Formatting",
+          "description": "Indicates formatting for binary numbers (either defined with quotes or \"0b\")",
+          "enum": ["lower", "upper", "none"],
+          "default": "lower"
+        },
+        "routines": {
+          "type": "string",
+          "title": "Routine Formatting",
+          "description": "When we encounter a known routine (function, procedure, and method), how do we format it with respect to the definition",
+          "enum": ["match", "none"],
+          "default": "match"
+        },
+        "systemVariables": {
+          "type": "string",
+          "title": "System Variable Formatting",
+          "description": "Case formatting for system variables",
+          "enum": ["lower", "upper", "none"],
+          "default": "lower"
+        },
+        "localVariables": {
+          "type": "string",
+          "title": "Local Variable Formatting",
+          "description": "If local variables match the case for the first instance that we find",
+          "enum": ["match", "none"],
+          "default": "match"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  }
+}

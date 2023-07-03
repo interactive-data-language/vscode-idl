@@ -1,0 +1,48 @@
+{
+  "For loop": {
+    "prefix": "for",
+    "body": ["for ${1:i} = ${2:0}, ${3:42 - 1} do begin", "  $0", "endfor", ""],
+    "description": "For loop",
+    "scope": "source.idl"
+  },
+  "For loop with increment": {
+    "prefix": "for",
+    "body": [
+      "for ${1:i} = ${2:0}, ${3:42 - 1}, ${4:1} do begin",
+      "  $0",
+      "endfor",
+      ""
+    ],
+    "description": "For loop with increment",
+    "scope": "source.idl"
+  },
+  "Foreach loop with key": {
+    "prefix": "foreach",
+    "body": [
+      "foreach ${1:val}, ${2:var}, ${3:key} do begin",
+      "  $0",
+      "endforeach",
+      ""
+    ],
+    "description": "Foreach loop with key",
+    "scope": "source.idl"
+  },
+  "Foreach loop": {
+    "prefix": "foreach",
+    "body": ["foreach ${1:val}, ${2:var} do begin", "  $0", "endforeach", ""],
+    "description": "Foreach loop",
+    "scope": "source.idl"
+  },
+  "Repeat loop": {
+    "prefix": "repeat",
+    "body": ["repeat begin", "  $0", "endrep until (${1:!true})", ""],
+    "description": "Repeat Loop",
+    "scope": "source.idl"
+  },
+  "While loop": {
+    "prefix": "while",
+    "body": ["while (${1:!true}) do begin", "  $0", "endwhile", ""],
+    "description": "While loop",
+    "scope": "source.idl"
+  }
+}

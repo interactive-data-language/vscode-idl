@@ -1,0 +1,70 @@
+{
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "editor.formatOnSave": true,
+  "cSpell.words": [
+    "Arrayify",
+    "bendcase",
+    "bendelse",
+    "bendfor",
+    "bendforeach",
+    "bendrep",
+    "bendswitch",
+    "bendwhile",
+    "defint",
+    "Deref",
+    "Doesnt",
+    "dont",
+    "ENVI",
+    "ENVIGLT",
+    "enviraster",
+    "ENVIRPC",
+    "FFIDL",
+    "fflate",
+    "Fuzzysort",
+    "idlwv",
+    "INCREMENTERS",
+    "minilog",
+    "mlog",
+    "nbands",
+    "ncolumns",
+    "nosort",
+    "Novus",
+    "nrows",
+    "nrwl",
+    "onig",
+    "onigurama",
+    "paren",
+    "populators",
+    "Recurser",
+    "Recursor",
+    "RETALL",
+    "SPATIALREF",
+    "stepover",
+    "strictarr",
+    "strtok",
+    "struct",
+    "sysvar",
+    "TLDR",
+    "TOGGLEABLE",
+    "traceback",
+    "Uncaptured",
+    "vsix",
+    "workerio",
+    "wschanges"
+  ],
+  "cSpell.enableFiletypes": ["!json"],
+  "[yaml]": {
+    "editor.formatOnSave": false
+  },
+  "[yaml-tmlanguage]": {
+    "editor.formatOnSave": false
+  },
+  "[html]": {
+    "editor.formatOnSave": false
+  }
+}

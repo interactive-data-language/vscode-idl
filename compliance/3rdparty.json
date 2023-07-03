@@ -1,0 +1,386 @@
+{
+  "@angular-devkit/build-angular": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular-devkit/core": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular-devkit/schematics": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular-eslint/eslint-plugin": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "@angular-eslint/eslint-plugin-template": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "@angular-eslint/template-parser": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "@angular/animations": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular/cdk": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular/cli": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular/common": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular/compiler": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular/compiler-cli": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular/core": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular/forms": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular/language-service": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular/material": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular/platform-browser": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular/platform-browser-dynamic": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@angular/router": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@mdi/js": {
+    "notes": "Additional Material Design Icons for web applications. See https://github.com/Templarian/MaterialDesign",
+    "encryption": "no"
+  },
+  "@ngbracket/ngx-layout": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@ngneat/transloco": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@nx/angular": {
+    "notes": "For development, plugins/libraries for monorepo management using Nx",
+    "encryption": "no"
+  },
+  "@nx/cypress": {
+    "notes": "For development, plugins/libraries for monorepo management using Nx",
+    "encryption": "no"
+  },
+  "@nx/esbuild": {
+    "notes": "For development, plugins/libraries for monorepo management using Nx",
+    "encryption": "no"
+  },
+  "@nx/eslint-plugin": {
+    "notes": "For development, plugins/libraries for monorepo management using Nx",
+    "encryption": "no"
+  },
+  "@nx/jest": {
+    "notes": "For development, plugins/libraries for monorepo management using Nx",
+    "encryption": "no"
+  },
+  "@nx/js": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@nx/linter": {
+    "notes": "For development, plugins/libraries for monorepo management using Nx",
+    "encryption": "no"
+  },
+  "@nx/node": {
+    "notes": "For development, plugins/libraries for monorepo management using Nx",
+    "encryption": "no"
+  },
+  "@nx/workspace": {
+    "notes": "For development, plugins/libraries for monorepo management using Nx",
+    "encryption": "no"
+  },
+  "@schematics/angular": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@types/jest": {
+    "notes": "For development, type definitions for jest library",
+    "encryption": "no"
+  },
+  "@types/minilog": {
+    "notes": "For development, type definitions for minilog library",
+    "encryption": "no"
+  },
+  "@types/node": {
+    "notes": "For development, type definitions for node library",
+    "encryption": "no"
+  },
+  "@types/plist": {
+    "notes": "For development, type definitions for plist library",
+    "encryption": "no"
+  },
+  "@types/progress": {
+    "notes": "For development, type definitions for progress library",
+    "encryption": "no"
+  },
+  "@types/vscode": {
+    "notes": "For development, type definitions for vscode library",
+    "encryption": "no"
+  },
+  "@types/web": {
+    "notes": "For development, type definitions for web library",
+    "encryption": "no"
+  },
+  "@typescript-eslint/eslint-plugin": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "@typescript-eslint/parser": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "@vscode/debugadapter": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "@vscode/debugprotocol": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "@vscode/test-electron": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@vscode/vsce": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@vscode/webview-ui-toolkit": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "ajv": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "angular-material-css-vars": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "ansi-styles": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "await-notify": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "axios": {
+    "notes": "For development and not included in the built extension, HTTP/HTTPS communication",
+    "encryption": "yes"
+  },
+  "chalk": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "cypress": {
+    "notes": "For development, test running library",
+    "encryption": "no"
+  },
+  "deepmerge": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "esbuild": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "eslint": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "eslint-config-prettier": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "eslint-plugin-cypress": {
+    "notes": "For development, test running library",
+    "encryption": "no"
+  },
+  "eslint-plugin-simple-import-sort": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "eslint-plugin-unused-imports": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "expect": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "fast-copy": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "fast-equals": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "fast-glob": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "fuzzysort": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "himalaya": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "jest": {
+    "notes": "For development, test writing/running library",
+    "encryption": "no"
+  },
+  "jest-environment-jsdom": {
+    "notes": "For development, test writing/running library",
+    "encryption": "no"
+  },
+  "jest-environment-node": {
+    "notes": "For development, test writing/running library",
+    "encryption": "no"
+  },
+  "jest-preset-angular": {
+    "notes": "For development, test writing/running library",
+    "encryption": "no"
+  },
+  "json-schema-resolver": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "json-stringify-pretty-compact": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "material-icons": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "minilog": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "nanoid": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "node-html-markdown": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "npm-run-all": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "nx": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "plist": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "prettier": {
+    "notes": "For development, plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "progress": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "rimraf": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "rxjs": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "terser-webpack-plugin": {
+    "notes": "For development and not included in the built extension, used to bundle JavaScript code into a single file",
+    "encryption": "yes"
+  },
+  "ts-jest": {
+    "notes": "For development, test writing/running library",
+    "encryption": "no"
+  },
+  "ts-node": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "tslib": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "typescript": {
+    "notes": "Compiles TypeScript into JavaScript",
+    "encryption": "no"
+  },
+  "vscode-languageclient": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "vscode-languageserver": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "vscode-languageserver-textdocument": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "vscode-oniguruma": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "vscode-textmate": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "vscode-uri": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "yaml": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "zone.js": {
+    "notes": "",
+    "encryption": "no"
+  }
+}

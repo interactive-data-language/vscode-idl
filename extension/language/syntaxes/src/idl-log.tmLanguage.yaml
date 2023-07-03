@@ -1,0 +1,176 @@
+# language name - set when we convert to plist format
+name: idl-log
+# scope name for variables - set when we convert to plist format
+scopeName: source.idl-log
+# placeholder comment so it is at the top of the file after building
+comment: Generated automatically during the extension build process from YAML
+uuid: ade03939-fbcb-4b3a-9ad2-bc531c6bbed8
+
+# variables are used for custom processing so that we can easily share
+# the same expressions in multiple places.
+#
+# we accomplish this using the syntax {{variable_name}} which gets replaced with the
+# string value from the YAML
+variables:
+  name_brace: meta.brace.idl
+  name_bracket: meta.brace.square.idl
+  name_comment: comment.line.idl
+  name_escape: constant.character.escape.idl
+  name_number: constant.numeric.idl
+  name_paren: meta.brace.round.idl
+  name_quote_double: string.quoted.double.idl
+  name_quote_single: string.quoted.single.idl
+  name_struct_tag: entity.name.tag.idl
+  name_special: entity.name.type.idl
+  name_variable: variable.other.readwrite.ts.idl # TS before gives us their formatting
+
+  group_bracket_paren: group.brackets.paren.idl
+  group_bracket_square: group.brackets.square.idl
+  group_struct: group.structure.idl
+
+  assignment_end: '(?=\buntil\b|\belse\b|\bthen\b|\bdo\b|\bof\b|\)|\]|\}|,|;)|(?=(?<!&)&(?!&))|(?<!\$\s*|\$\s*;.*)$'
+
+# rules that we  look for
+patterns:
+  - include: '#log_line_start'
+  - include: '#all_tokens'
+
+# definitions of tokens and token groups
+repository:
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+  # token patterns: i.e. groups of tokens we search for
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+
+  # all tokens that we can find
+  all_tokens:
+    patterns:
+      - include: '#quote_tokens'
+      - include: '#links'
+      - include: '#numbers'
+      - include: '#special'
+      - include: '#grouper_tokens'
+
+  # tokens, independent of function calls, that group expressions
+  # together. we need to capture these so that other regex expressions
+  # stop correctly
+  grouper_tokens:
+    patterns:
+      - include: '#structure'
+      - include: '#bracket_square'
+      - include: '#bracket_paren'
+
+  # shorthand for all tokens related to quotes
+  quote_tokens:
+    patterns:
+      - include: '#quote_double'
+      - include: '#quote_single'
+
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+  # token definitions: i.e. the actual things we look for
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+  # -----------------------------------------------------------------
+
+  # things we can find within braces for array indexing
+  bracket_square:
+    name: {{group_bracket_square}}
+    begin: '\['
+    beginCaptures:
+      '0': { name: {{name_bracket}} }
+    end: '\]'
+    endCaptures:
+      '0': { name: {{name_bracket}} }
+    patterns:
+      - include: '#all_tokens'
+
+  # things we can find within parentheses
+  bracket_paren:
+    name: {{group_bracket_paren}}
+    begin: '\('
+    beginCaptures:
+      '0': { name: {{name_paren}} }
+    end: '\)'
+    endCaptures:
+      '0': { name: {{name_paren}} }
+    patterns:
+      - include: '#all_tokens'
+
+  log_type:
+    name: variable.other.constant.object.ts
+    match: '[a-z_\-0-9]+'
+    # name: meta.bold.idl-log
+    # patterns:
+    #   - match: 'info'
+    #     name: variable.other.constant.object.ts
+    #   - match: 'error'
+    #     name: support.type.primitive.ts
+
+  log_line_start:
+    name: {{name_variable}}
+    match: '^(idl[a-z_\-0-9]+)\s*([a-z_\-0-9]+)\b'
+    captures:
+      '1': { name: support.type.primitive.ts }
+      '2': { patterns: [{ include: '#log_type' }] }
+
+  # links: https://regexr.com/3amq5
+  links:
+    name: markup.underline
+    match: '(?:(?:https?|ftp|file|ws):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])'
+
+  # numbers
+  numbers:
+    name: {{name_number}}
+    match: '(?<![a-z_$])(0[box][a-z0-9]*|[0-9.]+((e|d)-?[0-9]*|[a-z]*))(?:i|j)?'
+
+  # double quotes
+  quote_double:
+    name: {{name_quote_double}}
+    begin: '"'
+    end: '$|(?<!")"(?!")' # handle escaped double quotes
+    patterns:
+      - include: '#quote_escape'
+
+  # escape characters for double quotes
+  quote_escape:
+    name: {{name_escape}}
+    match: "\\r|\\n"
+  
+  # single quote
+  quote_single:
+    name: {{name_quote_single}}
+    begin: "'"
+    end: "$|(?<!')'(?!')" # handle escaped single quotes
+    patterns:
+      - include: '#quote_escape'
+
+  # special characters
+  special:
+    name: {{name_special}}
+    match: '\b(?:true|false|null)\b'
+
+  # structure properties
+  structure_property:
+    begin: '([a-z0-9_$]*\s*):'
+    end: {{assignment_end}}
+    beginCaptures:
+      '1': { name: {{name_struct_tag}} }
+    patterns:
+      - include: '#all_tokens'
+
+  # finding the start and end of a structure
+  structure:
+    name: {{group_struct}}
+    begin: '{'
+    beginCaptures:
+      '0': { name: {{name_brace}} }
+    end: '}'
+    endCaptures:
+      '0': { name: {{name_brace}} }
+    patterns:
+      - include: '#structure_property'

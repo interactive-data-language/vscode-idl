@@ -1,0 +1,28 @@
+{
+    "name": "QueryTask",
+    "base_class": "IDLTaskFromProcedure",
+	"routine": "IDLQueryTask",
+    "display_name": "Query Task",
+    "description": "This task returns a hash that describes the properties of an IDL task.",
+	"revision": "1.0.0",
+	"schema": "idltask_1.2",	    
+    "tags": ["IDL", "Task Processing"],
+    "parameters": [
+         {
+			"name": "TASK_NAME",
+			"display_name": "Task Name",
+			"type": "STRING",
+			"direction": "input",
+			"required": true,
+			"description": "The name of a task that will be queried for its definition."
+		  },
+		  {
+			"name": "DEFINITION",
+			"display_name": "Definition",
+			"type": "IDLTASKINFO",
+			"direction": "output",
+			"required": true,
+			"description": "An IDLTaskInfo hash that describes the properties of an IDL task."
+		  }
+    ]
+}

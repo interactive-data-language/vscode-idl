@@ -1,0 +1,67 @@
+{
+  "name": "tmlang-maker",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/tmlang-maker/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/tmlang-maker",
+        "main": "apps/tmlang-maker/src/main.ts",
+        "tsConfig": "apps/tmlang-maker/tsconfig.app.json",
+        "assets": [
+          "apps/tmlang-maker/src/assets",
+          {
+            "input": "extension/language/syntaxes/src",
+            "glob": "**/*",
+            "output": "assets"
+          }
+        ],
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/tmlang-maker/src/environments/environment.ts",
+              "with": "apps/tmlang-maker/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "tmlang-maker:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "tmlang-maker:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/tmlang-maker/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["coverage/apps/tmlang-maker"],
+      "options": {
+        "jestConfig": "apps/tmlang-maker/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

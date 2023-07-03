@@ -1,0 +1,742 @@
+{
+    "name": "PointCloudFeatureExtraction",
+    "base_class": "ENVIPointCloudFeatureExtractionTask",
+    "routine": "mypro",
+    "display_name": "Point Cloud Feature Extraction",
+    "description": "This task extracts features from point cloud data (buildings, trees, powerlines) and can produce a DEM, DSM, orthophoto, TIN, classified point cloud and 3D viewer database.",
+    "schema": "envitask_3.3",
+    "tags": ["ENVI", "Point Clouds"],
+    "revision": "1.1.0",
+    "parameters": [
+        {
+            "name": "INPUT_POINT_CLOUD",
+            "keyword": "NONE",
+            "display_name": "Input Point Cloud",
+            "type": "ENVIPointCloudBase",
+            "direction": "INPUT",
+            "required": true,
+            "description": "Specify an ENVIPointCloud object on which to perform feature extraction."
+        },
+        {
+            "name": "SPATIALREF",
+            "display_name": "Spatial Reference",
+            "type": "ENVIPointCloudSpatialRef",
+            "direction": "INPUT",
+            "required": false,
+            "description": "An ENVIPointCloudSpatialRef object that specifies the desired coordinate system of the generated products. If this property is not set, the default of UTM WGS84 will be used."
+        },
+        {
+            "name": "GENERAL_CLIP_MIN_HEIGHT",
+            "display_name": "General Clip Min. Height",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The minimum height extent of the source dataset in which processing will occur."
+        },
+        {
+            "name": "GENERAL_CLIP_MAX_HEIGHT",
+            "display_name": "General Clip Max. Height",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The maximum height extent of the source dataset in which processing will occur."
+        },        
+        {
+            "name": "GENERAL_MAX_POINTS_DENSITY",
+            "display_name": "General Max. Points Density",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "This parameter limits the processed number of points. The limit is applied by taking only some of the points per block of data; a single block's dimensions are 32x32 meters. Limiting the density shortens the processing time of the buildings and power line detection algorithms."
+        },
+        {
+            "name": "GENERAL_POINTS_DENSITY_UNITS",
+            "display_name": "General Points Density Units",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The units of the maximum points density. 0: points per square meter, 1: ground sample distance in meters.",
+            "choice_list": [0, 1]
+        },       
+        {
+            "name": "NUMBER_OF_CORES",
+            "display_name": "Number of Cores",
+            "type": "ULong",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The number of cores used for product processing. The default value is zero, which indicates that all available cores will be used for processing. If a value larger than the number of available cores is specified, then the maximum number of available cores will be used."
+        },
+        {
+            "name": "SAVE_PARAMETERS",
+            "keyword": "NONE",
+            "display_name": "Save Parameters",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Sets whether to save the parameters with the data (in the project) when Execute() is called. If the parameters are saved the next time the data is opened and set in INPUT_POINT_CLOUD, calling ENVITask::Validate() or ENVITask::Execute() will restore the saved parameters (but will not overwrite any parameters set on the ENVITask). 0: Do not save. 1: Save.",
+            "default": 0,
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "PRODUCTS_LOCATION",
+            "display_name": "Products Location",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The name of the output folder to which the associated product files will be written. This location is a subfolder of the main project folder.",
+            "fold_case": true
+        },
+        {
+            "name": "BUILDINGS_GENERATE",
+            "display_name": "Generate Buildings",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not generate. 1: Generate.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "BUILDINGS_USE_BOX_MODELS",
+            "display_name": "Use Box Models",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not use box models. 1: Use box models. This stops the algorithm from dividing buildings into sub-surfaces, and leaves them as flat roof bounding contours. The classification stays the same, but only one contour is generated at the requested height with the options set using the BUILDINGS_BOX_MODELS_TYPE parameter.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "BUILDINGS_BOX_MODELS_TYPE",
+            "display_name": "Buildings Box Models Type",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Sets the roof contour height. 0: Height at Average Roof. The roof contour is set at the average height of the roof. 1: Height at Bottom Roof. The roof contour is set at the lowest point of the roof. 2: Height at Top Roof. The roof contour is set at the highest point of the roof.",
+            "choice_list": [0, 1, 2]
+        },               
+        {
+            "name": "BUILDINGS_MINIMUM_AREA",
+            "display_name": "Buildings Min. Area",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Surfaces with an area smaller than this are filtered out from the building list. Units: square meters."
+        },
+        {
+            "name": "BUILDINGS_NEAR_GROUND_FILTER_WIDTH",
+            "display_name": "Buildings Near Ground Filter Width",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "After filtering by BUILDINGS_MINIMUM_AREA, objects less than 5 meters above the ground with a side smaller than this filter width (default 300 centimeters) are not classified as buildings. This is useful for preventing buses, trucks, train cars, and so forth from being classified as buildings. Units: centimeters."
+        },
+        {
+            "name": "BUILDINGS_PLANE_SURFACE_TOLERANCE",
+            "display_name": "Buildings Plane Surface Tolerance",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "This parameter is the allowed vertical tolerance for searching for the surface in the neighboring points. Range: greater than or equal to 15.0 and less than or equal to 60.0. Units: centimeters."
+        },
+        {
+            "name": "BUILDINGS_POINTS_IN_RANGE",
+            "display_name": "Buildings Points in Range",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Normally this should be left at 0, which is the same as Auto in the user interface. However, if you have low density data (1 point per m2 or lower), large buildings such as hangars or warehouses may not be classified as buildings. Increasing this value to 1.2 or 1.4 will help detect them, but runs the risk of also identifying trees as buildings. Range: greater than or equal to 0.5 and less than or equal to 1.4. Units: meters."
+        },
+        {
+            "name": "BUILDINGS_FORMAT",
+            "display_name": "Buildings Format",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value that specifies the file format to write buildings to: dxf, shp, dae_1.4, dae_1.5, kml or kmz.",
+            "choice_list": [
+                "dxf",
+                "shp",
+                "dae_1.4",
+                "dae_1.5",
+                "kml",
+                "kmz"
+            ],
+            "fold_case": true
+        },        
+        {
+            "name": "BUILDINGS_URI",
+            "display_name": "Buildings Filename",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value specifying the filename for the buildings product.",
+            "fold_case": true
+        },        
+        {
+            "name": "DEM_CONTOURS_GENERATE",
+            "display_name": "Generate DEM Contours",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not generate, 1: Generate.",
+            "choice_list": [0, 1]
+        },              
+        {
+            "name": "DEM_CONTOURS_LINES_SPACING",
+            "display_name": "Contour Lines Spacing",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "This is the vertical spacing between height contour lines. This step is done after the DEM grid is generated; therefore, it does not affect the DEM grid generation. Range: greater than or equal to 50 and less than or equal to 1000. Units: centimeters."
+        },
+        {
+            "name": "DEM_CONTOURS_FORMAT",
+            "display_name": "Contour Lines Format",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value that specifies the file format to write DEM contours to: dxf or shp.",
+            "choice_list": [
+                "dxf",
+                "shp"
+            ],
+            "fold_case": true
+        },           
+        {
+            "name": "DEM_CONTOURS_URI",
+            "display_name": "Contour Lines Filename",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value specifying the filename for the DEM contours product.",
+            "fold_case": true
+        },   
+        {
+            "name": "DEM_GENERATE",
+            "display_name": "Generate DEM",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not generate, 1: Generate.",
+            "choice_list": [0, 1]
+        },        
+        {
+            "name": "DEM_FILTER_DATABASE_EDGES",
+            "display_name": "DEM Filter Database Edges",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "In some types of terrain, for example forested areas with trees at the edge of the dataset, the algorithms of the DEM grid generation do not detect the edges of the database well. 0: Process the edge of the database. 1: Do not process the edge of the database. The points that lie within an area up to 16 meters from the edges of the dataset are classified as unprocessed.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "DEM_GRID_RESOLUTION",
+            "display_name": "DEM Grid Resolution",
+            "type": "ULong",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The grid resolution range allows selection of 50 to 1000 centimeters per pixel. Internally a 50 cm or 100 cm grid resolution is used and sub-sampled to 200-1000 cm if selected. The 50 cm grid tunes the DEM extraction algorithms to be more sensitive at some points, and requires higher density data. If the project density is lower than 4 points / m2, selecting the 50 cm grid will not result in better resolution of the DEM and the amount of time to create the DEM will increase. Range: Greater than or equal to 50 and less than or equal to 1000. Units: centimeters. "
+        },
+        {
+            "name": "DEM_CONSTANT_HEIGHT_OFFSET",
+            "display_name": "DEM Constant Height Offset",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "In noisy datasets the elevation of the DEM may be slightly offset due to inaccurate points above and below the ground. If this happens you can shift the terrain grid up or down. A positive number will move the DEM up, and a negative number will move the DEM down."
+        },
+        {
+            "name": "DEM_NEAR_TERRAIN_CLASSIFICATION",
+            "display_name": "DEM Near Terrain Classification",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "When set at 50 (the default value), a point is considered to be a terrain classified point if it is within 50cm of the grid. You can select to have a near terrain classification between 5cm and 50cm. As an example, if this parameter is set to 20cm, points with a distance of 0 to 20cm from the grid are classified as terrain points, and points with a distance of 20 to 50cm are classified as near terrain points. Classifying points as near terrain is useful to catch low objects that are neither part of the terrain, nor are they buildings, trees or powerlines. For example: low vegetation, cars, buses, etc. could all be classified as near terrain objects. Range: greater than or equal to 15 and less than or equal to 50. Units: centimeters."
+        },
+        {
+            "name": "DEM_VARIABLE_SENSITIVITY_ALGORITHM",
+            "display_name": "Enable Variable Sensitivity Algorithm",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Disabled 1: Enable variable sensitivity algorithm. This algorithm works best in low-density forest areas and areas with large gaps between points. However, this algorithm has difficulty with identifying large buildings.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "DEM_SENSITIVITY",
+            "display_name": "DEM Sensitivity",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "min": 1,
+            "max": 300,
+            "description": "Use when DEM_VARIABLE_SENSITIVITY_ALGORITHM is enabled. The higher the sensitivity, the better it works with higher frequency terrain, but also it tends to extract buildings from points that should be identified as terrain. Valid range is 1 (low) to 300 (high)."
+        },        
+        {
+            "name": "DEM_FILTER_LOWER_POINTS",
+            "display_name": "DEM Filter Lower Points",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0 : Do Not Filter. Disables filtering of points that are lower than the terrain. 3 : Urban Area Filtering. The area is divided to the grid resolution. For each cell in the grid, the list of points is put into a histogram and examined. Points are sorted by height, and the median point and standard deviation are found. Points that are below a multiplier of the standard deviation from the median are filtered out. If the standard deviation is too large, gaps are also counted in the histogram for better filtering. Urban areas have more false points that needed to be filtered. If you specify rural filtering in an urban area, some of the false points will not be detected. 10: Rural Area Filtering. Processing is done as it is in Urban Area Filtering. If you specify urban filtering in a rural area, the filtering may be too aggressive, and some good terrain points in forest areas may be filtered out resulting in bumps under trees.",
+            "choice_list": [0, 3, 10]
+        },
+        {
+            "name": "DEM_FORMAT",
+            "display_name": "DEM Format",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value that specifies the file format to write the DEM to: 'img' - Erdas Elevation (Erdas Imagine IMG format with elevation data), 'surfer_ascii' - Surfer ASCII Grid, 'surfer_v6' - Surfer Binary Grid v6, 'usgs_ascii' - USGS ASCII DEM format, 'xyz_ascii' - XYZ ASCII Grid file, 'arcinfo_ascii' - Arc Info ASCII Grid format, 'geotiff' - GeoTIFF, 'envi' - ENVI format.",
+            "choice_list": [
+                "img",
+                "surfer_ascii",
+                "surfer_v6",
+                "usgs_ascii",
+                "xyz_ascii",
+                "arcinfo_ascii",
+                "geotiff",
+                "envi"
+            ],
+            "fold_case": true
+        },
+        {
+            "name": "DEM_URI",
+            "display_name": "DEM Filename",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value specifying the filename for the DEM product.",
+            "fold_case": true
+        },
+        {
+            "name": "DEM_TIN_GENERATE",
+            "display_name": "Generate DEM TIN",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not generate, 1: Generate.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "DEM_TIN_MAX_ERROR",
+            "display_name": "DEM TIN Max. Error",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The maximum permitted vertical distance between a triangle and the actual terrain. This distance between the TIN and the actual terrain introduces errors into the TIN mesh. Reducing the Maximum Error value will result in a more accurate TIN at the expense of increased triangle count. A combination of this value and DEM_TIN_MAX_POLYGON_DENSITY will affect the TIN representation of the ground. TIN production does not affect the DEM grid production algorithm. The TIN production uses only the points classified as terrain. Reducing the value of the Near Terrain Classification parameter results in reducing the number of points that are classified as terrain, thereby reducing both the time for TIN generation and the size of the TIN generated. Units: centimeters."
+        },
+        {
+            "name": "DEM_TIN_MAX_POLYGON_DENSITY",
+            "display_name": "DEM TIN Max. Polygon Density",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "When producing TIN, this is the maximum number of triangles that will be produced in a 100 x 100 meter area. It may not be possible to achieve the terrain TIN maximum error if this polygon density parameter is set too low."
+        },
+        {
+            "name": "DEM_TIN_FORMAT",
+            "display_name": "DEM TIN Format",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value that specifies the file format to write the TIN to: dxf or shp.",
+            "choice_list": [
+                "dxf",
+                "shp"
+            ],
+            "fold_case": true
+        },
+        {
+            "name": "DEM_TIN_URI",
+            "display_name": "DEM TIN Filename",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value specifying the filename for the DEM TIN product.",
+            "fold_case": true
+        },    
+        {
+            "name": "DSM_GENERATE",
+            "display_name": "Generate DSM",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not generate, 1: Generate.",
+            "choice_list": [0, 1]
+        },        
+        {
+            "name": "DSM_USE_POWERLINES_POINTS",
+            "display_name": "Include Power Lines in DSM",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Specifies whether power lines and cables will be part of the DSM. Valid values are 0: Do not include, 1: Include.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "DSM_GRID_RESOLUTION",
+            "display_name": "DSM Grid Resolution",
+            "type": "ULong",
+            "direction": "INPUT",
+            "required": false,
+            "description": "This setting specifies the resolution of the DSM grid. Range: Greater than or equal to 5 and less than or equal to 1000. Units: centimeters."
+        },        
+        {
+            "name": "DSM_FORMAT",
+            "display_name": "DSM Format",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value that specifies the file format to write the DSM to: 'img' - Erdas Elevation (Erdas Imagine IMG format with elevation data), 'surfer_ascii' - Surfer ASCII Grid, 'surfer_v6' - Surfer Binary Grid v6, 'usgs_ascii' - USGS ASCII DEM format, 'xyz_ascii' - XYZ ASCII Grid file, 'arcinfo_ascii' - Arc Info ASCII Grid format, 'geotiff' - GeoTIFF, 'envi' - ENVI format.",
+            "choice_list": [
+                "img",
+                "surfer_ascii",
+                "surfer_v6",
+                "usgs_ascii",
+                "xyz_ascii",
+                "arcinfo_ascii",
+                "geotiff",
+                "envi"
+            ],
+            "fold_case": true
+        },  
+        {
+            "name": "DSM_URI",
+            "display_name": "DSM Filename",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value specifying the filename for the DSM product.",
+            "fold_case": true
+        },
+        {
+            "name": "FILTERED_POINTCLOUD_GENERATE",
+            "display_name": "Generate Filtered Point Cloud",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not generate, 1: Generate.",
+            "choice_list": [0, 1]
+        },                
+        {
+            "name": "FILTERED_POINTCLOUD_SEPARATE_BY_CLASS",
+            "display_name": "Filtered Point Cloud Separate by Class",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Specifies whether to separate the generated point cloud datasets, each containing data from an individual class.. 0: Do not separate, 1: Separate.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "FILTERED_POINTCLOUD_SIZE_LIMIT",
+            "display_name": "Filtered Point Cloud Size Limit",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Set this to limit the size (Kb) of each of the generated point cloud files. If the value specified is less than 10000 (10MB), a value of 10000 will be used."
+        },
+        {
+            "name": "FILTERED_POINTCLOUD_FORMAT",
+            "display_name": "Filtered Point Cloud Format",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value that specifies the file format to write the pointclouds to: txt, las or bin.",
+            "choice_list": [
+                "txt",
+                "las",
+                "bin"
+            ],
+            "fold_case": true
+        },
+        {
+            "name": "FILTERED_POINTCLOUD_URI",
+            "display_name": "Filtered Point Cloud Filename",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value specifying the base file name for the filtered point cloud product. This name can have the following formats: base_filename_unclassified_000.las or base_filename_product_000.las (ex. pc_trees_000.las).",
+            "fold_case": true
+        },     
+        {
+            "name": "ORTHOPHOTO_GENERATE",
+            "display_name": "Generate Orthophoto",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not generate, 1: Generate.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "ORTHOPHOTO_INTENSITY_RANGE_MIN",
+            "display_name": "Orthophoto Intensity Range Min.",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,            
+            "description": "All points with intensity lower than this value appear black. Use the default value (0) unless you see that the file is all or mostly white, in which case increase the value."
+        },        
+        {
+            "name": "ORTHOPHOTO_INTENSITY_RANGE_MAX",
+            "display_name": "Orthophoto Intensity Range Max.",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,            
+            "description": "All points with intensity higher than this value appear white. Use the default value (255) unless you see that the file is all or mostly black, in which case decrease the value."
+        },        
+        {
+            "name": "ORTHOPHOTO_RESOLUTION",
+            "display_name": "Orthophoto Resolution",
+            "type": "ULong",
+            "direction": "INPUT",
+            "required": false,
+            "description": "This parameter specifies the resolution of the generated orthophoto. Range: greater than or equal to 25 and less than or equal to 800. Units: centimeters."
+        },
+        {
+            "name": "ORTHOPHOTO_FORMAT",
+            "display_name": "Orthophoto Format",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value that specifies the file format to write the orthophoto to: geotiff, jpg, png, img, bmp, or envi.",
+            "choice_list": [
+                "geotiff",
+                "jpg",
+                "png",
+                "img",
+                "bmp",
+                "envi"
+            ],
+            "fold_case": true
+        },        
+        {
+            "name": "ORTHOPHOTO_URI",
+            "display_name": "Orthophoto Filename",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string specifying the filename for the orthophoto product.",
+            "fold_case": true
+        },
+        {
+            "name": "POWERLINES_GENERATE",
+            "display_name": "Generate Power Lines",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not generate, 1: Generate.",
+            "choice_list": [0, 1]
+        },        
+        {
+            "name": "POWERLINES_FILTER_BY_MIN_JOINED_LENGTH",
+            "display_name": "Filter Power Lines by Min. Joined Length",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not filter powerlines by minimum joined length. 1: Filter powerlines by minimum joined length.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "POWERLINES_FILTER_TREES_BELOW_POWERLINES",
+            "display_name": "Filter Trees below Power Lines",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not filter trees below powerlines. 1: Filter trees below powerlines. Sometimes trees considerably below powerlines may be incorrectly extended up to the powerlines. Filtering trees below powerlines attempts to vertically separate tree and powerline points, but this can sometimes incorrectly remove the entire tree.",
+            "choice_list": [0, 1]
+        },           
+        {
+            "name": "POWERLINES_SEARCH_WIDE",
+            "display_name": "One Line for Triple Conductors",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not get one line for triple conductors attached together in transmission lines. 1: Get one line for triple conductors attached together in transmission lines. Do not use this parameter and POWERLINES_SEARCH_LOWKV together.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "POWERLINES_SEARCH_LOWKV",
+            "display_name": "Search Low Voltage Lines",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not search for low kilo volt power lines that are close to each other. 1: Search for low kilo volt power lines that are close to each other. Do not use this parameter and POWERLINES_SEARCH_WIDE together.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "POWERLINES_MIN_HEIGHT",
+            "display_name": "Power Lines Min. Height",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The minimum height of points from the ground at which to detect power lines. Units: meters."
+        },
+        {
+            "name": "POWERLINES_MIN_JOINED_LENGTH",
+            "display_name": "Power Lines Min. Joined Length",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The Min. length threshold for joined power lines. Joined power lines shorter than this value will not be detected. Units: meters."
+        },
+        {
+            "name": "POWERLINES_MIN_LENGTH",
+            "display_name": "Power Lines Min. Length",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The minimum length threshold for power lines. Power lines shorter than this value will not be detected. Units: meters."
+        },        
+        {
+            "name": "POWERLINES_FORMAT",
+            "display_name": "Power Lines Format",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value that specifies the file format to write the powerlines to: dxf or shp.",
+            "choice_list": [
+                "dxf",
+                "shp"
+            ],
+            "fold_case": true
+        },  
+        {
+            "name": "POWERLINES_URI",
+            "display_name": "Power Lines Filename",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The filename for the power lines product.",
+            "fold_case": true
+        },     
+        {
+            "name": "POWERPOLES_DETECT",
+            "display_name": "Generate Power Poles",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not generate power pole output. 1: Process power poles by searching, or by using the imported power poles locations reference list. Power poles are searched for by looking for attachment points where two power lines have a shared point. After identifying these shared points, the algorithm searches for a cluster of points with a shared angle range of lines extending from the shared points.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "POWERPOLES_SEARCH_ADDITIONAL",
+            "display_name": "Search Additional Power Poles",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The power poles can be imported from a file using the POWERPOLES_LOCATION_FILE property. If a list of points was imported, set this to 1 to enable a search of additional power poles. If not enabled, only the imported power poles will be processed.",
+            "choice_list": [0, 1]
+        },   
+        {
+            "name": "POWERPOLES_CLASS_EXTEND_TOP",
+            "display_name": "Power Lines Class Extend Top",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "See POWERPOLES_CLASS_RADIUS_LOW. The classification of the top part of the power pole is done by the width of the power poles arms. If a wider radius is needed, use this parameter to extend it. Units: meters."
+        },
+        {
+            "name": "POWERPOLES_CLASS_RADIUS_LOW",
+            "display_name": "Power Poles Class Radius Low",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "If the radius of the power pole is known, set the parameter to the known radius of the base (lower half). For large pylons if this parameter is not increased high enough not all of the points on the pylon will be classified as power pole. Units: meters."
+        },        
+        {
+            "name": "POWERPOLES_EXTEND_WIRES_DISTANCE",
+            "display_name": "Power Poles Extend Wires Distance",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "Sets the maximum gap to be corrected. Capability is provided to bridge gaps in the line from the end of the detected line to the next power pole. Units: meters."
+        },        
+        {
+            "name": "POWERPOLES_MAX_RADIUS_TOP",
+            "display_name": "Power Poles Max. Radius Top",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A float value indicating the maximum radius of the pole's arm. Units: meters."
+        },          
+        {
+            "name": "POWERPOLES_LOCATION_FILE",
+            "display_name": "Power Poles File",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string containing the file name of the power pole locations file to import.",
+            "fold_case": true
+        },        
+        {
+            "name": "TREES_GENERATE",
+            "display_name": "Generate Trees",
+            "type": "Byte",
+            "direction": "INPUT",
+            "required": false,
+            "description": "0: Do not generate, 1: Generate.",
+            "choice_list": [0, 1]
+        },
+        {
+            "name": "TREES_MIN_HEIGHT",
+            "display_name": "Trees Min. Height",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The minimum height of trees in the project. Points having characteristic trees dispersal will be classified as trees. Units: centimeters."
+        },
+        {
+            "name": "TREES_MAX_HEIGHT",
+            "display_name": "Trees Max. Height",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The maximum height of trees in the project. Higher points will not be classified as trees. This avoids items such as cranes being classified as trees. Units: centimeters."
+        },        
+        {
+            "name": "TREES_MIN_RADIUS",
+            "display_name": "Trees Min. Radius",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The minimum radius of trees in the project. This avoids items such as lampposts being classified as trees. Units: centimeters."
+        },  
+        {
+            "name": "TREES_MAX_RADIUS",
+            "display_name": "Trees Max. Radius",
+            "type": "Float",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The maximum radius of trees in the project. Units: centimeters."
+        },              
+        {
+            "name": "TREES_FORMAT",
+            "display_name": "Trees Format",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "A string value that specifies the file format to write the trees to: csv or shp.",
+            "choice_list": [
+                "csv",
+                "shp"
+            ],
+            "fold_case": true
+        },
+        {
+            "name": "TREES_URI",
+            "display_name": "Trees Filename",
+            "type": "String",
+            "direction": "INPUT",
+            "required": false,
+            "description": "The filename for the trees product.",
+            "fold_case": true
+        },
+        {
+            "name": "OUTPUT_PRODUCTS_INFO",
+            "display_name": "Output Products Info",
+            "type": "ENVIPointCloudProductsInfo",
+            "direction": "OUTPUT",
+            "required": false,
+            "description": "An object reference to an instance of enviPointCloudProductsInfo containing paths to all the generated files."
+        }
+    ]
+}

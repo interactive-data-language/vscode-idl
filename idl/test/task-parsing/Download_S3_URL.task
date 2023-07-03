@@ -1,0 +1,27 @@
+{
+    "name": "Download_S3_URL",
+    "base_class": "IDLTaskFromProcedure",
+    "routine": "download_S3_URL",
+    "display_name": "Download S3 URL",
+    "description": "This task downloads a resource specified by an S3 URL into a local file.",
+    "revision": "1.0.0",
+    "schema": "idltask_1.1",
+    "parameters": [
+        {
+            "name": "S3_URL",
+            "display_name": "S3 URL",
+            "type": "String",
+            "direction": "input",
+            "required": true,
+            "description": "The S3 URL to download.  This must use the HTTP[S] scheme, not S3 scheme."
+        },
+        {
+            "name": "LOCAL_FILE",
+            "display_name": "Local Filename",
+            "type": "String",
+            "direction": "input",
+            "required": true,
+            "description": "The local file in which to download the S3 resource."
+        }
+    ]
+}

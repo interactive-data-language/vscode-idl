@@ -1,0 +1,13 @@
+<mat-sidenav-container class="content">
+  <mat-sidenav-content class="content background">
+    <div class="margin">
+      <!-- our "routing" because basic routing doesnt seem to work -->
+      <ng-container [ngSwitch]="message.command">
+        <!-- the same view can be shown in more than one case -->
+        <idlwv-profiler *ngSwitchCase="'profiler'"></idlwv-profiler>
+        <!--default case when there are no matches -->
+        <idlwv-home *ngSwitchDefault></idlwv-home>
+      </ng-container>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,612 @@
+import { TokenStartMatches } from './token-matches.interface';
+
+/** Property being accessed */
+export type AccessPropertyToken = 'access-prop';
+/** When an argument is defined */
+export type ArgDefinitionToken = 'arg-def';
+/** A standalone arrow for method invocation, found when incomplete  */
+export type ArrowToken = 'arrow';
+/** Generic token for assignment. can be expanded into variables, properties, keywords, or compound operators */
+export type AssignmentToken = 'assign';
+/** Assigning a value to a property */
+export type AssignmentPropertyToken = 'assign-prop';
+/** Assigning a value to a variable */
+export type AssignmentVariableToken = 'assign-var';
+/** Block statement from bend...end */
+export type BlockToken = 'block';
+/** Brackets used for indexing arrays */
+export type BracketToken = 'bracket';
+/** Calling a function */
+export type CallFunctionToken = 'call-func';
+/** Calling a function method on an object */
+export type CallFunctionMethodToken = 'call-func-method';
+/** Calling a lambda function */
+export type CallLambdaFunctionToken = 'call-lambda-func';
+/** Calling a procedure */
+export type CallProcedureToken = 'call-pro';
+/** Calling a procedure method */
+export type CallProcedureMethodToken = 'call-proc-method';
+/** Colon as used for indexing or ternary operators */
+export type ColonToken = 'colon';
+/** Commas */
+export type CommaToken = 'comma';
+/** Comments - single line */
+export type CommentToken = 'comment';
+/** Comment blocks - multi line */
+export type CommentBlockToken = 'comment-block';
+/** Control statement not covered elsewhere */
+export type ControlToken = 'control';
+/** Break statement in loops */
+export type ControlBreakToken = 'break';
+/** Common variable block */
+export type ControlCommonToken = 'common';
+/** Compile options */
+export type ControlCompileOptToken = 'comp-opt';
+/** Continue statement in loops */
+export type ControlContinueToken = 'continue';
+/** Forward function */
+export type ControlForwardFunctionOptToken = 'forward-func';
+/** GoTo statement */
+export type ControlGoToToken = 'goto';
+/** GoTo label that we actually go to */
+export type ControlJumpToken = 'jump';
+/** Options for compound control statements (i.e. compile_opt, forward_function) */
+export type ControlOptionToken = 'comp-option';
+/** An incomplete method or property access */
+export type DotToken = 'dot';
+/** Include statement to insert code */
+export type IncludeToken = 'include';
+/** When we hve a keyword being called in a routine */
+export type KeywordToken = 'kw';
+/** Binary keyword with `/kw_name` */
+export type KeywordBinaryToken = 'kw-binary';
+/** When a keyword is defined */
+export type KeywordDefinitionToken = 'kw-def';
+/** Line continuation */
+export type LineContinuationToken = 'line-cont';
+/** Line continuation basic */
+export type LineContinuationBasicToken = 'line-cont-basic';
+/** Line separation */
+export type LineSeparationToken = 'line-sep';
+/** Line separation within switch/case */
+export type LineSeparationBasicToken = 'line-sep-basic';
+/** General logic statement type */
+export type LogicalToken = 'logical';
+/** Case statement start */
+export type LogicalCaseToken = 'case';
+/** The thing we do for a case or switch then statement */
+export type LogicalCaseSwitchThenToken = 'case-switch-then';
+/** Else statement start */
+export type LogicalElseToken = 'else';
+/** Logic statement in case/switch */
+export type LogicalExpressionToken = 'expr';
+/** Default expression for switch/case (the else) */
+export type LogicalExpressionDefaultToken = 'expr-default';
+/** If statement start */
+export type LogicalIfToken = 'if';
+/** Of portion of switch and case */
+export type LogicalOfToken = 'of';
+/** Switch statement start */
+export type LogicalSwitchToken = 'switch';
+/** Else part of ternary statement */
+export type LogicalTernaryElseToken = 'tern-else';
+/** Then part of ternary statement */
+export type LogicalTernaryThenToken = 'tern-then';
+/** Then statement start */
+export type LogicalThenToken = 'then';
+/** Generic loop token */
+export type LoopToken = 'loop';
+/** Do part of loop */
+export type LoopDoToken = 'do';
+/** For loop */
+export type LoopForToken = 'for';
+/** Foreach loop */
+export type LoopForeachToken = 'foreach';
+/** Repeat loop */
+export type LoopRepeatToken = 'repeat';
+/** Until part of repeat loop */
+export type LoopUntilToken = 'until';
+/** While loop */
+export type LoopWhileToken = 'while';
+/** Main level program */
+export type MainLevelToken = 'main';
+/** End of the main level program */
+export type MainLevelEndToken = 'main-end';
+/** Static numbers */
+export type NumberToken = 'num';
+/** An operator */
+export type OperatorToken = 'op';
+/** Compound operators that also handle assignment */
+export type OperatorCompoundToken = 'op-compound';
+/** increment and decrement operators since they are special */
+export type OperatorIncrementDecrementToken = 'op-inc-dec';
+/** NOT USED RIGHT NOW Pointer dereferencing, derived with post-processing */
+export type OperatorIndexingToken = 'op-ind';
+/** Logical operators (i.e. "and", "or", "ge", "&&", "||") */
+export type OperatorLogicalToken = 'op-logic';
+/** Change value to be negative */
+export type OperatorNegativeToken = 'op-ptr-neg';
+/** Pointer dereferencing, derived with post-processing */
+export type OperatorPointerToken = 'op-ptr-deref';
+/** Parentheses for grouping */
+export type ParenthesesToken = 'paren';
+/** When we have an IDL or ENVI prompt, used for docs parsing */
+export type PromptToken = 'prompt';
+/** Python code */
+export type PythonToken = 'python';
+/** Double quotes */
+export type QuoteDoubleToken = 'quote-d';
+/** Single quotes */
+export type QuoteSingleToken = 'quote-s';
+/** Function definition */
+export type RoutineFunctionToken = 'rout-func';
+/** Routine name when we have an object method */
+export type RoutineMethodNameToken = 'rout-method-name';
+/** Name of routine */
+export type RoutineNameToken = 'rout-name';
+/** Procedure definition */
+export type RoutineProcedureToken = 'rout-pro';
+/** Escape characters in string template literals */
+export type StringTemplateEscape = 'str-temp-esc';
+/** String substitution inside of a template literal */
+export type StringTemplateExpression = 'str-temp-expr';
+/** Template literal (template string) using backticks */
+export type StringTemplateLiteral = 'str-temp';
+/** Raw string inside of template literals */
+export type StringTemplateString = 'str-temp-str';
+/** Structure */
+export type StructureToken = 'struct';
+/** Structure property being accessed via indexing syntax */
+export type StructureIndexedPropertyToken = 'struct-indexed-prop';
+/** Structure inheritance */
+export type StructureInheritanceToken = 'struct-inherit';
+/** Structure name */
+export type StructureNameToken = 'struct-name';
+/** Structure property */
+export type StructurePropertyToken = 'struct-prop';
+/** System variable */
+export type SystemVariableToken = 'sysvar';
+/** Plain text to be inserted */
+export type TextToken = 'text';
+/** TODO statement in comment */
+export type ToDoToken = 'todo';
+/** Variable */
+export type VariableToken = 'var';
+/** When we encounter an unexpected closing statement */
+export type UnexpectedCloserToken = 'closer';
+/** When we encounter something that was not parsed (i.e. its unknown)  */
+export type UnknownToken = 'unknown';
+
+/**
+ * Union type of all basic tokens that do not recurse.
+ *
+ * Used for adding smarts to our tree building and for automating
+ * types being branches or basic tokens.
+ *
+ * Needs to be manually updated when/if tokens change.
+ */
+export type BasicTokenNames =
+  | AccessPropertyToken
+  | ArgDefinitionToken
+  | ArrowToken
+  | ColonToken
+  | CommaToken
+  | CommentToken
+  | ControlBreakToken
+  | ControlContinueToken
+  | ControlJumpToken
+  | ControlOptionToken
+  | DotToken
+  | IncludeToken
+  | KeywordToken
+  | KeywordBinaryToken
+  | KeywordDefinitionToken
+  | LineContinuationBasicToken
+  | LineSeparationBasicToken
+  | MainLevelEndToken
+  | NumberToken
+  | PromptToken
+  | PythonToken
+  | QuoteSingleToken
+  | QuoteDoubleToken
+  | StringTemplateEscape
+  | StringTemplateString
+  | StructureInheritanceToken
+  | SystemVariableToken
+  | UnknownToken
+  | VariableToken
+  | UnexpectedCloserToken
+  | TextToken;
+
+/**
+ * Union type of all basic tokens that do recurse.
+ *
+ * Used for adding smarts to our tree building and for automating
+ * types being branches or basic tokens.
+ *
+ * Needs to be manually updated when/if tokens change.
+ */
+export type NonBasicTokenNames =
+  | AssignmentToken
+  | BlockToken
+  | BracketToken
+  | CallFunctionToken
+  | CallFunctionMethodToken
+  | CallLambdaFunctionToken
+  | CallProcedureToken
+  | CallProcedureMethodToken
+  | CommentBlockToken
+  | ControlToken
+  | ControlCommonToken
+  | ControlCompileOptToken
+  | ControlForwardFunctionOptToken
+  | ControlGoToToken
+  | LineContinuationToken
+  | LineSeparationToken
+  | LogicalToken
+  | LogicalCaseToken
+  | LogicalCaseSwitchThenToken
+  | LogicalElseToken
+  | LogicalExpressionToken
+  | LogicalExpressionDefaultToken
+  | LogicalIfToken
+  | LogicalOfToken
+  | LogicalSwitchToken
+  | LogicalTernaryElseToken
+  | LogicalTernaryThenToken
+  | LogicalThenToken
+  | LoopToken
+  | LoopDoToken
+  | LoopForToken
+  | LoopForeachToken
+  | LoopRepeatToken
+  | LoopUntilToken
+  | LoopWhileToken
+  | MainLevelToken
+  | OperatorToken
+  | OperatorCompoundToken
+  | OperatorIndexingToken
+  | OperatorIncrementDecrementToken
+  | OperatorLogicalToken
+  | OperatorPointerToken
+  | OperatorNegativeToken
+  | ParenthesesToken
+  | RoutineFunctionToken
+  | RoutineMethodNameToken
+  | RoutineNameToken
+  | RoutineProcedureToken
+  | StringTemplateExpression
+  | StringTemplateLiteral
+  | StructureToken
+  | StructureIndexedPropertyToken
+  | StructureNameToken
+  | StructurePropertyToken
+  | ToDoToken;
+
+/**
+ * Allowed type of token
+ */
+export type TokenName = BasicTokenNames | NonBasicTokenNames;
+
+/**
+ * Strictly typed data structure with easy-lookup of token types
+ */
+export interface ITokenNameLookup {
+  /** When an argument is defined */
+  ARG_DEFINITION: ArgDefinitionToken;
+  /** Property being accessed */
+  ACCESS_PROPERTY: AccessPropertyToken;
+  /** A standalone arrow for method invocation, found when incomplete  */
+  ARROW: ArrowToken;
+  /** Generic token for assignment. can be expanded into variables, properties, or compound operators */
+  ASSIGNMENT: AssignmentToken;
+  // /** Assigning a value to a property */
+  // ASSIGNMENT_PROPERTY: AssignmentPropertyToken;
+  // /** Assigning a value to a variable */
+  // ASSIGNMENT_VARIABLE: AssignmentVariableToken;
+  /** Block statement from bend...end */
+  BLOCK: BlockToken;
+  /** Brackets used for indexing arrays */
+  BRACKET: BracketToken;
+  /** Calling a function */
+  CALL_FUNCTION: CallFunctionToken;
+  /** Calling a function method on an object */
+  CALL_FUNCTION_METHOD: CallFunctionMethodToken;
+  /** Calling a lambda function */
+  CALL_LAMBDA_FUNCTION: CallLambdaFunctionToken;
+  /** Calling a procedure */
+  CALL_PROCEDURE: CallProcedureToken;
+  /** Calling a procedure method */
+  CALL_PROCEDURE_METHOD: CallProcedureMethodToken;
+  /** Colon as used for indexing or ternary operators */
+  COLON: ColonToken;
+  /** Commas */
+  COMMA: CommaToken;
+  /** Comments - single line */
+  COMMENT: CommentToken;
+  /** Comment blocks - multi line */
+  COMMENT_BLOCK: CommentBlockToken;
+  /** Control statement not covered elsewhere */
+  CONTROL: ControlToken;
+  /** Break statement in loops */
+  CONTROL_BREAK: ControlBreakToken;
+  /** Common variable block */
+  CONTROL_COMMON: ControlCommonToken;
+  /** Compile options */
+  CONTROL_COMPILE_OPT: ControlCompileOptToken;
+  /** Continue statement in loops */
+  CONTROL_CONTINUE: ControlContinueToken;
+  /** GoTo statement */
+  CONTROL_GO_TO: ControlGoToToken;
+  /** GoTo label that we actually go to */
+  CONTROL_JUMP: ControlJumpToken;
+  /** Forward function */
+  CONTROL_FORWARD_FUNCTION: ControlForwardFunctionOptToken;
+  /** Options for compound control statements (i.e. compile_opt, forward_function) */
+  CONTROL_OPTION: ControlOptionToken;
+  /** An incomplete method or property access */
+  DOT: DotToken;
+  /** Include statement to insert code */
+  INCLUDE: IncludeToken;
+  /** When we hve a keyword being called in a routine */
+  KEYWORD: KeywordToken;
+  /** Binary keyword with `/kw_name` */
+  KEYWORD_BINARY: KeywordBinaryToken;
+  /** When a keyword is defined */
+  KEYWORD_DEFINITION: KeywordDefinitionToken;
+  /** General logic statement type */
+  LOGICAL: LogicalToken;
+  /** Case statement start */
+  LOGICAL_CASE: LogicalCaseToken;
+  /** Else statement start */
+  LOGICAL_ELSE: LogicalElseToken;
+  /** The "if" portion of case and switch statements */
+  LOGICAL_EXPRESSION: LogicalExpressionToken;
+  /** The thing we do for a case or switch then statement */
+  LOGICAL_CASE_SWITCH_THEN: LogicalCaseSwitchThenToken;
+  /** The default case for case or switch */
+  LOGICAL_EXPRESSION_DEFAULT: LogicalExpressionDefaultToken;
+  /** If statement start */
+  LOGICAL_IF: LogicalIfToken;
+  /** Of portion of switch and case */
+  LOGICAL_OF: LogicalOfToken;
+  /** Switch statement start */
+  LOGICAL_SWITCH: LogicalSwitchToken;
+  /** Else part of ternary statement */
+  LOGICAL_TERNARY_ELSE: LogicalTernaryElseToken;
+  /** Then part of ternary statement */
+  LOGICAL_TERNARY_THEN: LogicalTernaryThenToken;
+  /** Then statement start */
+  LOGICAL_THEN: LogicalThenToken;
+  /** Line continuation */
+  LINE_CONTINUATION: LineContinuationToken;
+  /** Line continuation basic */
+  LINE_CONTINUATION_BASIC: LineContinuationBasicToken;
+  /** Line separation */
+  LINE_SEPARATION: LineSeparationToken;
+  /** Line separation within switch/case */
+  LINE_SEPARATION_BASIC: LineSeparationBasicToken;
+  /** Generic loop token */
+  LOOP: LoopToken;
+  /** Do part of loop */
+  LOOP_DO: LoopDoToken;
+  /** For loop */
+  LOOP_FOR: LoopForToken;
+  /** Foreach loop */
+  LOOP_FOREACH: LoopForeachToken;
+  /** Repeat loop */
+  LOOP_REPEAT: LoopRepeatToken;
+  /** Until part of repeat loop */
+  LOOP_UNTIL: LoopUntilToken;
+  /** While loop */
+  LOOP_WHILE: LoopWhileToken;
+  /** Main level program */
+  MAIN_LEVEL: MainLevelToken;
+  /** End of the main level program */
+  MAIN_LEVEL_END: MainLevelEndToken;
+  /** Static numbers */
+  NUMBER: NumberToken;
+  /** An operator */
+  OPERATOR: OperatorToken;
+  /** Compound operators that also handle assignment */
+  OPERATOR_COMPOUND: OperatorCompoundToken;
+  /** increment and decrement operators since they are special */
+  OPERATOR_INCREMENT_DECREMENT: OperatorIncrementDecrementToken;
+  /** NOT USED RIGHT NOW Pointer dereferencing, derived with post-processing */
+  OPERATOR_INDEXING: OperatorIndexingToken;
+  /** Logical operators (i.e. "and", "or", "ge", "&&", "||") */
+  OPERATOR_LOGICAL: OperatorLogicalToken;
+  /** Change value to be negative */
+  OPERATOR_NEGATIVE: OperatorNegativeToken;
+  /** Pointer dereferencing, derived with post-processing */
+  OPERATOR_POINTER: OperatorPointerToken;
+  /** Parentheses for grouping */
+  PARENTHESES: ParenthesesToken;
+  /** When we have an IDL or ENVI prompt, used for docs parsing */
+  PROMPT: PromptToken;
+  /** Python code */
+  PYTHON: PythonToken;
+  /** Double quotes */
+  QUOTE_DOUBLE: QuoteDoubleToken;
+  /** Single quotes */
+  QUOTE_SINGLE: QuoteSingleToken;
+  /** Function definition */
+  ROUTINE_FUNCTION: RoutineFunctionToken;
+  /** Routine name when we have an object method */
+  ROUTINE_METHOD_NAME: RoutineMethodNameToken;
+  /** Name of routine */
+  ROUTINE_NAME: RoutineNameToken;
+  /** Procedure definition */
+  ROUTINE_PROCEDURE: RoutineProcedureToken;
+  /** Escape characters in string template literals */
+  STRING_TEMPLATE_ESCAPE: StringTemplateEscape;
+  /** String substitution inside of a template literal */
+  STRING_TEMPLATE_EXPRESSION: StringTemplateExpression;
+  /** Template literal (template string) using backticks */
+  STRING_TEMPLATE_LITERAL: StringTemplateLiteral;
+  /** Raw string inside of template literals */
+  STRING_TEMPLATE_STRING: StringTemplateString;
+  /** Structure */
+  STRUCTURE: StructureToken;
+  /** Structure property being accessed via indexing syntax */
+  STRUCTURE_INDEXED_PROPERTY: StructureIndexedPropertyToken;
+  /** Structure inheritance */
+  STRUCTURE_INHERITANCE: StructureInheritanceToken;
+  /** Structure name */
+  STRUCTURE_NAME: StructureNameToken;
+  /** Structure property */
+  STRUCTURE_PROPERTY: StructurePropertyToken;
+  /** System variable */
+  SYSTEM_VARIABLE: SystemVariableToken;
+  /** Plain text to be inserted */
+  TEXT: TextToken;
+  /** TODO statement in comment */
+  TODO: ToDoToken;
+  /** Variables and system variables (TODO: separate in future) */
+  VARIABLE: VariableToken;
+  /** When we encounter an unexpected closing statement */
+  UNEXPECTED_CLOSER: UnexpectedCloserToken;
+  /** When we encounter something that was not parsed (i.e. its unknown)  */
+  UNKNOWN: UnknownToken;
+}
+
+/**
+ * Lookup for string/types for each kind of token.
+ *
+ * Centralized so that we can easily change names/values across project.
+ */
+export const TOKEN_NAMES: ITokenNameLookup = {
+  ARG_DEFINITION: 'arg-def',
+  ACCESS_PROPERTY: 'access-prop',
+  ARROW: 'arrow',
+  ASSIGNMENT: 'assign',
+  // ASSIGNMENT_VARIABLE: 'assign-var',
+  // ASSIGNMENT_PROPERTY: 'assign-prop',
+  BLOCK: 'block',
+  BRACKET: 'bracket',
+  CALL_FUNCTION: 'call-func',
+  CALL_FUNCTION_METHOD: 'call-func-method',
+  CALL_LAMBDA_FUNCTION: 'call-lambda-func',
+  CALL_PROCEDURE: 'call-pro',
+  CALL_PROCEDURE_METHOD: 'call-proc-method',
+  COLON: 'colon',
+  COMMA: 'comma',
+  COMMENT: 'comment',
+  COMMENT_BLOCK: 'comment-block',
+  CONTROL: 'control',
+  CONTROL_BREAK: 'break',
+  CONTROL_COMMON: 'common',
+  CONTROL_COMPILE_OPT: 'comp-opt',
+  CONTROL_CONTINUE: 'continue',
+  CONTROL_FORWARD_FUNCTION: 'forward-func',
+  CONTROL_GO_TO: 'goto',
+  CONTROL_JUMP: 'jump',
+  CONTROL_OPTION: 'comp-option',
+  DOT: 'dot',
+  INCLUDE: 'include',
+  KEYWORD: 'kw',
+  KEYWORD_BINARY: 'kw-binary',
+  KEYWORD_DEFINITION: 'kw-def',
+  LINE_CONTINUATION: 'line-cont',
+  LINE_CONTINUATION_BASIC: 'line-cont-basic',
+  LINE_SEPARATION: 'line-sep',
+  LINE_SEPARATION_BASIC: 'line-sep-basic',
+  LOGICAL: 'logical',
+  LOGICAL_CASE: 'case',
+  LOGICAL_CASE_SWITCH_THEN: 'case-switch-then',
+  LOGICAL_ELSE: 'else',
+  LOGICAL_EXPRESSION: 'expr',
+  LOGICAL_EXPRESSION_DEFAULT: 'expr-default',
+  LOGICAL_IF: 'if',
+  LOGICAL_OF: 'of',
+  LOGICAL_SWITCH: 'switch',
+  LOGICAL_TERNARY_ELSE: 'tern-else',
+  LOGICAL_TERNARY_THEN: 'tern-then',
+  LOGICAL_THEN: 'then',
+  LOOP: 'loop',
+  LOOP_DO: 'do',
+  LOOP_FOR: 'for',
+  LOOP_FOREACH: 'foreach',
+  LOOP_REPEAT: 'repeat',
+  LOOP_UNTIL: 'until',
+  LOOP_WHILE: 'while',
+  MAIN_LEVEL: 'main',
+  MAIN_LEVEL_END: 'main-end',
+  NUMBER: 'num',
+  OPERATOR: 'op',
+  OPERATOR_COMPOUND: 'op-compound',
+  OPERATOR_INCREMENT_DECREMENT: 'op-inc-dec',
+  OPERATOR_INDEXING: 'op-ind',
+  OPERATOR_LOGICAL: 'op-logic',
+  OPERATOR_NEGATIVE: 'op-ptr-neg',
+  OPERATOR_POINTER: 'op-ptr-deref',
+  PARENTHESES: 'paren',
+  PROMPT: 'prompt',
+  PYTHON: 'python',
+  QUOTE_DOUBLE: 'quote-d',
+  QUOTE_SINGLE: 'quote-s',
+  ROUTINE_FUNCTION: 'rout-func',
+  ROUTINE_METHOD_NAME: 'rout-method-name',
+  ROUTINE_NAME: 'rout-name',
+  ROUTINE_PROCEDURE: 'rout-pro',
+  STRING_TEMPLATE_ESCAPE: 'str-temp-esc',
+  STRING_TEMPLATE_EXPRESSION: 'str-temp-expr',
+  STRING_TEMPLATE_LITERAL: 'str-temp',
+  STRING_TEMPLATE_STRING: 'str-temp-str',
+  STRUCTURE: 'struct',
+  STRUCTURE_INDEXED_PROPERTY: 'struct-indexed-prop',
+  STRUCTURE_INHERITANCE: 'struct-inherit',
+  STRUCTURE_NAME: 'struct-name',
+  STRUCTURE_PROPERTY: 'struct-prop',
+  SYSTEM_VARIABLE: 'sysvar',
+  TEXT: 'text',
+  TODO: 'todo',
+  VARIABLE: 'var',
+  UNEXPECTED_CLOSER: 'closer',
+  UNKNOWN: 'unknown',
+};
+
+/**
+ * Structure for regular expressions that parse our code
+ */
+export interface ITokenDef<T extends TokenName> {
+  /** The name of the regex that matched, useful for logging/debugging */
+  name: T;
+  /** Start of a statement or block */
+  start: RegExp;
+  /** End of a statement of block */
+  end: RegExp;
+  /** When specified, indicates that our token has no counterpart and is a basic token */
+  basic?: boolean;
+  /**
+   * When we close our token, do we go to the next line after?
+   *
+   * This handles special cases, like line continuations when, after line continuation
+   * and an optional comment, we need to skip to the next line.
+   */
+  nextLineOnClose?: boolean;
+  /**
+   * Optional callback used to get the token name from matches. Use case
+   * for this customization is when we have a single regex used for
+   * different types of tokens.
+   *
+   * For example: for, foreach, and while are one regex
+   * For example: if, then, and else are one regex
+   */
+  getTokenName?: (matches: TokenStartMatches<T>) => T;
+  /**
+   * Optional post-processing for token matches. Called AFTER getTokenName
+   */
+  postProcessMatches?: (name: T, matches: string[]) => TokenStartMatches<T>;
+  /**
+   * When a non-basic token ends, check if we have a matching parent token that should
+   * be closed immediately afterwards.
+   *
+   * Only applied if the token we are trying to close matches the token type specified here
+   */
+  closeParentTokenAfterEnd?: TokenName;
+  /**
+   * Resets tokens to DEFAULT_TOKENS after closing a token
+   */
+  defaultTokens?: boolean;
+}

@@ -1,0 +1,11 @@
+export const BYTE_REGEX = /b|ub/im;
+export const INT_REGEX = /s/im;
+export const UINT_REGEX = /u|us/im;
+export const LONG_REGEX = /l/im;
+export const ULONG_REGEX = /ul/im;
+export const LONG64_REGEX = /ll/im;
+export const ULONG64_REGEX = /ull/im;
+export const FLOAT_REGEX = /\.|e/im;
+export const EXPLICIT_FLOAT_REGEX = /e/im;
+export const DOUBLE_REGEX = /d/im;
+export const COMPLEX_REGEX = /i|j/im;

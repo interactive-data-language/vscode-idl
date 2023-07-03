@@ -1,0 +1,14 @@
+{
+  "enviroi": {
+    "keywords": {
+      "color": {
+        "direction": "in",
+        "type": "Array<Number>"
+      },
+      "name": {
+        "direction": "in",
+        "type": "String"
+      }
+    }
+  }
+}

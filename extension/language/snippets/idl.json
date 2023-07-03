@@ -1,0 +1,87 @@
+{
+  "compile-opt": {
+    "prefix": "compile_opt",
+    "body": ["compile_opt ${1:idl2}"],
+    "description": "compile_opt",
+    "scope": "source.idl"
+  },
+  "Catch block": {
+    "prefix": "catch",
+    "body": [
+      "catch, err",
+      "if (err ne 0) then begin",
+      "  catch, /CANCEL",
+      "  $0",
+      "endif"
+    ],
+    "description": "Catch block",
+    "scope": "source.idl"
+  },
+  "Function": {
+    "prefix": "function",
+    "body": [
+      "function ${1:$TM_FILENAME_BASE}",
+      "  compile_opt idl2",
+      "",
+      "  $0",
+      "",
+      "  return, 1",
+      "end",
+      ""
+    ],
+    "description": "Function",
+    "scope": "source.idl"
+  },
+  "Function (with main)": {
+    "prefix": "function",
+    "body": [
+      "function ${1:$TM_FILENAME_BASE}",
+      "  compile_opt idl2",
+      "",
+      "  $0",
+      "",
+      "  return, 1",
+      "end",
+      "",
+      "",
+      "; main level program",
+      "compile_opt idl2",
+      "result = $1()",
+      "end"
+    ],
+    "description": "Function (with main)",
+    "scope": "source.idl"
+  },
+  "Procedure": {
+    "prefix": "pro",
+    "body": [
+      "pro ${1:$TM_FILENAME_BASE}",
+      "  compile_opt idl2",
+      "",
+      "  $0",
+      "",
+      "end",
+      ""
+    ],
+    "description": "Procedure",
+    "scope": "source.idl"
+  },
+  "Procedure (with main)": {
+    "prefix": "pro",
+    "body": [
+      "pro ${1:$TM_FILENAME_BASE}",
+      "  compile_opt idl2",
+      "",
+      "  $0",
+      "",
+      "end",
+      "",
+      "; main level program",
+      "compile_opt idl2",
+      "$1",
+      "end"
+    ],
+    "description": "Procedure (with main)",
+    "scope": "source.idl"
+  }
+}

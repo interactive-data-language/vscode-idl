@@ -1,0 +1,35 @@
+{
+  "schema": "envitask_3.3",
+  "name": "envitasktest",
+  "display_name": "envitasktest",
+  "description": "",
+  "base_class": "ENVITaskFromProcedure",
+  "routine": "envitasktest",
+  "parameters": [
+    {
+      "name": "input_raster",
+      "display_name": "input_raster",
+      "description": "Placeholder docs for argument, keyword, or property",
+      "direction": "input",
+      "required": true,
+      "type": "ENVIRaster"
+    },
+    {
+      "name": "output_raster_uri",
+      "display_name": "output_raster_uri",
+      "description": "Placeholder docs for argument, keyword, or property",
+      "direction": "input",
+      "required": true,
+      "type": "String"
+    },
+    {
+      "name": "output_raster",
+      "display_name": "output_raster",
+      "description": "A reference to the ENVIRaster that is generated",
+      "direction": "output",
+      "required": true,
+      "type": "ENVIRaster",
+      "uri_param": "output_raster_uri"
+    }
+  ]
+}

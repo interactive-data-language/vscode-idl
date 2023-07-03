@@ -1,0 +1,39 @@
+{
+  "name": "ATAnomalyDetection",
+  "schema": "envitask_3.3",
+  "base_class": "ENVITaskFromProcedure",
+  "routine": "atAnomalyDetection",
+  "display_name": "AT Anomaly Detection",
+  "description": "Runs an automated anomaly detection using the Anomaly Detection workflow from ENVI Desktop.",
+  "parameters": [
+    {
+      "name": "INPUT_RASTER",
+      "display_name": "Input Raster",
+      "description": "The raster to run anomaly detection on.",
+      "direction": "input",
+      "required": true,
+      "hidden": false,
+      "type": "ENVIRaster"
+    },
+    {
+      "name": "OUTPUT_RASTER_URI",
+      "display_name": "Output Raster URI",
+      "description": "Specify a string with the fully-qualified path and filename for OUTPUT_RASTER.",
+      "direction": "input",
+      "required": false,
+      "hidden": false,
+      "type": "ENVIURI",
+      "auto_extension": ".dat"
+    },
+    {
+      "name": "OUTPUT_RASTER",
+      "display_name": "Output Raster",
+      "description": "This is a reference to an ENVIRaster object.",
+      "direction": "output",
+      "required": true,
+      "hidden": false,
+      "type": "ENVIRaster",
+      "uri_param": "OUTPUT_RASTER_URI"
+    }
+  ]
+}
