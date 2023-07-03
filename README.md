@@ -31,8 +31,8 @@
 <hr>
 
 <div  align="center">
-  <video controls autoplay loop muted playsinline style="max-width: 720px;">
-    <source src="apps/idl-webview/src/assets/vscode-tiny.mp4" type="video/mp4">
+  <video controls autoplay loop muted playsinline style="max-width: 720px; width: 100%">
+    <source src="https://l3harrisgeospatial-webcontent.s3.amazonaws.com/vscode-idl/vscode-tiny.mp4" type="video/mp4">
   </video>
 </div>
 
