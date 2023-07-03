@@ -31,7 +31,7 @@
     "test-libs": "nx run-many --target=test --runInBand --projects=\"tests*\" --parallel && nx run-many --target=test --runInBand --projects=parsing-tokenizer --parallel=4",
     "ng": "nx",
     "package": "npm i && npm-run-all build-extension pre-package && vsce package",
-    "package-and-test": "npm i && nnpm-run-all build-extension pre-package test-parsing build-test integration-test && vsce package",
+    "package-and-test": "npm i && npm-run-all build-extension pre-package test-parsing build-test integration-test && vsce package",
     "pre-package": "rimraf ./node_modules/__ngcc_entry_points__.json",
     "pre-dev": "npm-run-all build-package-json build-webview",
     "make-integration-tests": "npm run build-extension && nx build vscode-e2e-runner && nx build client-e2e",
