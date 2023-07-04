@@ -70,8 +70,8 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
       options: {
         execArgv: [
           '--expose-gc',
-          `--max-old-space-size=${NODE_MEMORY_CONFIG.OLD}`,
-          `--max-young-space-size=${NODE_MEMORY_CONFIG.YOUNG}`,
+          `--max-old-space-size=${NODE_MEMORY_CONFIG.OLD}`, // keep it, even though it doesnt do anything
+          `--max-semi-space-size=${NODE_MEMORY_CONFIG.YOUNG}`,
         ],
       },
     },
@@ -85,7 +85,8 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
           '--nolazy',
           '--inspect=6009',
           '--expose-gc',
-          '--max-old-space-size=12288',
+          `--max-old-space-size=${NODE_MEMORY_CONFIG.OLD}`, // keep it, even though it doesnt do anything
+          `--max-semi-space-size=${NODE_MEMORY_CONFIG.YOUNG}`,
         ],
       },
     },
@@ -104,7 +105,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
       path.join('dist', 'apps', 'server', 'main.js'),
       '--expose-gc',
       `--max-old-space-size=${NODE_MEMORY_CONFIG.OLD}`,
-      `--max-young-space-size=${NODE_MEMORY_CONFIG.YOUNG}`,
+      `--max-semi-space-size=${NODE_MEMORY_CONFIG.YOUNG}`,
     ],
     options: {
       cwd: ctx.extensionPath,
