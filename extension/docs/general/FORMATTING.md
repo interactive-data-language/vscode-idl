@@ -4,20 +4,20 @@ Here you can find some basic information about formatting your code!
 
 ## Troubleshooting: Format on Save
 
-You'll need to enable "format on save" and set a default formatted if you want code to be formatted automatically when you save a file. If you opt-in using the dialogs that appear in the extension, this will be set up automatically.
+You'll need to enable "format on save" and set a default formatter if you want code to be formatted automatically when you save a file. If you opt-in using the dialogs that appear in the extension, this will be set up automatically.
 
 If not, or you are having problems, then you'll need to manually update your user settings. Here's how you do that:
 
-1. Open the command pallette (Ctrl + Shift + p)
+1. Open the command palette (Ctrl + Shift + p)
 
 2. Search for "Open User Settings (JSON)"
 
-3. Add the following to the JSON that appears, which format on save and select the formatted for only PRO code (so you it doesn't impact other languages):
+3. Add the following to the JSON that appears, which formats on save and select the formatter for only PRO code (so you it doesn't impact other languages):
 
 ```json
 {
   "[idl]": {
-    // use our extension as the formatter
+    // use the IDL extension as the formatter for PRO code
     "editor.defaultFormatter": "idl.idl",
     // format on save for PRO files, nothing else, this can be at the root level too
     "editor.formatOnSave": true

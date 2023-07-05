@@ -40,7 +40,7 @@ At this point you should be able to use the standard NPM commands to do developm
 
 ## Tree View
 
-The tree view uses commands in order to execute actions. This gives the added benefit of someone being able to click on buttons or they can use the command pallette to execute some IDL code.
+The tree view uses commands in order to execute actions. This gives the added benefit of someone being able to click on buttons or they can use the command palette to execute some IDL code.
 
 Once you have your command implemented, minimally the translation and package.json have been updated, there are a few things for you to do:
 

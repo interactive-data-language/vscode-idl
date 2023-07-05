@@ -22,7 +22,7 @@ Added several new pieces of functionality for helping automate config file gener
 
    This change is also far-reaching as it required a new preference to track when we offer the "Don't Ask Again" item with our dialogs so that users can disable the messages on a folder-by-folder basis
 
-3. Add the command to our sidebar view so that users can click a button to initialize a file. This is a sto-gap for people who don't use the command pallette and who might have said "Don't Ask Again" for their folders they frequently use.
+3. Add the command to our sidebar view so that users can click a button to initialize a file. This is a sto-gap for people who don't use the command palette and who might have said "Don't Ask Again" for their folders they frequently use.
 
 ### Internal Routine Lookup
 

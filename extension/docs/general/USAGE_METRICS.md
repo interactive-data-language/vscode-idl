@@ -128,6 +128,6 @@ Independent of the version of the extension, we track the version of IDL you use
 
 When you run commands within VSCode we track the name of the command that is executed and that it was a command that ran.
 
-This occurs when you click on items in the IDL sidebar or through the command pallette and helps us to understand what tools we added are the most popular.
+This occurs when you click on items in the IDL sidebar or through the command palette and helps us to understand what tools we added are the most popular.
 
 ---

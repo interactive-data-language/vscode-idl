@@ -45,5 +45,5 @@
     },
     "additionalProperties": false
   },
-  "description": "Top-level preferences for how code gets formatted.\n\nThese user-level preferences are only applied if you do *not* have an \"idl.json\" file in your workspace."
+  "description": "Top-level preferences for how code gets formatted."
 }

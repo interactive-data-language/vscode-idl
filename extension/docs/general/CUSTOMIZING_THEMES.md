@@ -20,7 +20,7 @@ In your JSON settings file, this would look something like:
 
 Below is a list which shows, on the right hand side, the token names used for IDL.
 
-You can also find this information directly within the editor by using the "Developer: Inspect Editor Tokens and Scopes" command. (Quick access using Ctrl + Shift + P on Windows to open the command pallette).
+You can also find this information directly within the editor by using the "Developer: Inspect Editor Tokens and Scopes" command. (Quick access using Ctrl + Shift + P on Windows to open the command palette).
 
 > If this is not 100% up-to-date, then let us know.
 

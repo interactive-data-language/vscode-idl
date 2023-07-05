@@ -175,10 +175,9 @@ export const EN: ITranslation = {
         "Specify any environment variables you want passed to the IDL process on startup.\n\nYour current environment variables take precedence over this, meaning: if your system environment variable for PATH is set, it is used in-place of the value of PATH set here.\n\nAdditionally, the extension manages the values of IDL_PATH, IDL_DLM_PATH, IDL_DIR, and IDL_START_DIR. If you want to change IDL's search path, use the path preferences instead.",
       'IDL.preferences': 'Placeholder',
 
-      'code.formatting':
-        'Top-level preferences for how code gets formatted.\n\nThese user-level preferences are only applied if you do *not* have an "idl.json" file in your workspace.',
+      'code.formatting': 'Top-level preferences for how code gets formatted.',
       'code.formattingStyle':
-        'This controls how code is automatically formatted when using the buttons in the sidebar or formatting on save.\n\nThese user-level preferences are only applied if you do *not* have an "idl.json" file in your workspace.',
+        'This controls how code is automatically formatted when using the buttons in the sidebar or formatting on save.',
 
       languageServer: 'Preferences that control the language server for IDL',
       'languageServer.fullParse':
@@ -549,7 +548,7 @@ export const EN: ITranslation = {
     changeIcons: 'Switch to IDL file icons? Adds new icons for PRO code.',
     changeFormatter: 'Set extension as default formatter for IDL code?',
     formatOnSave:
-      'Also enable "formatOnSave" for PRO code? This will not affect other languages.',
+      'Format PRO code automatically on file save? This will not affect other languages and will be limited to PRO files.',
     initIDLJSON:
       'No "idl.json" file found at root level of workspace folder, create? Workspace:',
     configure: 'Configure',
