@@ -4,7 +4,7 @@
   "definitions": {
     "1.0.0-options": {
       "type": "object",
-      "description": "This controls how code is automatically formatted when using the buttons in the sidebar or formatting on save.\n\nThese user-level preferences are only applied if you do *not* have an \"idl.json\" file in your workspace.",
+      "description": "This controls how code is automatically formatted when using the buttons in the sidebar or formatting on save.",
       "properties": {
         "quotes": {
           "type": "string",
