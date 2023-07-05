@@ -58,9 +58,9 @@ export interface IDLExtensionsConfigKeys {
   /** On startup, if we dont have a formatter configured for IDL code, should we ask for it or not */
   readonly dontAskForFormatterChange: 'dontAsk.forFormatterChange';
   /** Controls if we ask to init config for folders or not */
-  readonly dontAskToInitConfig: 'dontAsk.toInitConfig';
+  // readonly dontAskToInitConfig: 'dontAsk.toInitConfig';
   /** Folders that we don't ask to initialize config for */
-  readonly dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders';
+  // readonly dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders';
 
   /** Top-level don't show key */
   readonly dontShow: 'dontShow';
@@ -120,10 +120,10 @@ export interface IDontAskConfig {
   readonly forIconChange: boolean;
   /** On startup, if we dont have a formatter configured for IDL code, should we ask for it or not */
   readonly forFormatterChange: boolean;
-  /** Controls if we ask to init config for folders or not */
-  readonly toInitConfig: boolean;
-  /** Folders that we don't ask to initialize config for */
-  readonly toInitConfigForTheseFolders: string[];
+  // /** Controls if we ask to init config for folders or not */
+  // readonly toInitConfig: boolean;
+  // /** Folders that we don't ask to initialize config for */
+  // readonly toInitConfigForTheseFolders: string[];
 }
 
 export interface IDontShowConfig {
@@ -216,8 +216,8 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   dontAskForIDLDir: 'dontAsk.forIDLDir',
   dontAskForIconChange: 'dontAsk.forIconChange',
   dontAskForFormatterChange: 'dontAsk.forFormatterChange',
-  dontAskToInitConfig: 'dontAsk.toInitConfig',
-  dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders',
+  // dontAskToInitConfig: 'dontAsk.toInitConfig',
+  // dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders',
 
   dontShow: 'dontShow',
   dontShowWelcomePage: 'dontShow.welcomePage',
@@ -266,8 +266,8 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     forIDLDir: false,
     forIconChange: false,
     forFormatterChange: false,
-    toInitConfig: false,
-    toInitConfigForTheseFolders: [],
+    // toInitConfig: false,
+    // toInitConfigForTheseFolders: [],
   },
   dontShow: {
     welcomePage: false,

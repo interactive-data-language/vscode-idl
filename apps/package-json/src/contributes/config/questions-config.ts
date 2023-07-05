@@ -64,26 +64,26 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
           nls
         ),
       },
-      toInitConfig: {
-        type: 'boolean',
-        default: false,
-        description: TranslationFromConfiguration(
-          IDL_EXTENSION_CONFIG_KEYS.dontAskToInitConfig,
-          nls
-        ),
-      },
-      toInitConfigForTheseFolders: {
-        type: 'array',
-        default: [],
-        description: TranslationFromConfiguration(
-          IDL_EXTENSION_CONFIG_KEYS.dontAskToInitConfigForTheseFolders,
-          nls
-        ),
-        items: {
-          type: 'string',
-          format: 'uri',
-        },
-      },
+      // toInitConfig: {
+      //   type: 'boolean',
+      //   default: false,
+      //   description: TranslationFromConfiguration(
+      //     IDL_EXTENSION_CONFIG_KEYS.dontAskToInitConfig,
+      //     nls
+      //   ),
+      // },
+      // toInitConfigForTheseFolders: {
+      //   type: 'array',
+      //   default: [],
+      //   description: TranslationFromConfiguration(
+      //     IDL_EXTENSION_CONFIG_KEYS.dontAskToInitConfigForTheseFolders,
+      //     nls
+      //   ),
+      //   items: {
+      //     type: 'string',
+      //     format: 'uri',
+      //   },
+      // },
     },
   };
 
@@ -107,29 +107,29 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
   //   },
   // };
 
-  // should our extension run in debug mode
-  ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.dontShow}`
-  ] = {
-    type: 'object',
-    description: TranslationFromConfiguration(
-      IDL_EXTENSION_CONFIG_KEYS.dontShow,
-      nls
-    ),
-    scope: IDL_CONFIG_SCOPE,
-    additionalProperties: false,
-    default: DEFAULT_IDL_EXTENSION_CONFIG.dontShow,
-    properties: {
-      welcomePage: {
-        type: 'boolean',
-        default: false,
-        description: TranslationFromConfiguration(
-          IDL_EXTENSION_CONFIG_KEYS.dontShowWelcomePage,
-          nls
-        ),
-      },
-    },
-  };
+  // // should our extension run in debug mode
+  // ourConfig.properties[
+  //   `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.dontShow}`
+  // ] = {
+  //   type: 'object',
+  //   description: TranslationFromConfiguration(
+  //     IDL_EXTENSION_CONFIG_KEYS.dontShow,
+  //     nls
+  //   ),
+  //   scope: IDL_CONFIG_SCOPE,
+  //   additionalProperties: false,
+  //   default: DEFAULT_IDL_EXTENSION_CONFIG.dontShow,
+  //   properties: {
+  //     welcomePage: {
+  //       type: 'boolean',
+  //       default: false,
+  //       description: TranslationFromConfiguration(
+  //         IDL_EXTENSION_CONFIG_KEYS.dontShowWelcomePage,
+  //         nls
+  //       ),
+  //     },
+  //   },
+  // };
 
   EXTENSION_CONFIG.push(ourConfig);
 }

@@ -197,10 +197,10 @@ export const EN: ITranslation = {
       'dontAsk.forIconChange': "Don't ask to change icon font on startup.",
       'dontAsk.forFormatterChange':
         "Don't ask to set the extension as the default formatter for IDL code.",
-      'dontAsk.toInitConfig':
-        'Don\'t ever ask to create an "idl.json" file for any open workspaces',
-      'dontAsk.toInitConfigForTheseFolders':
-        'Don\'t ask to create an "idl.json" file at the root level for these folders',
+      // 'dontAsk.toInitConfig':
+      //   'Don\'t ever ask to create an "idl.json" file for any open workspaces',
+      // 'dontAsk.toInitConfigForTheseFolders':
+      //   'Don\'t ask to create an "idl.json" file at the root level for these folders',
 
       dontShow:
         'Preferences that disable dialogs/views from automatically appearing',

@@ -824,9 +824,7 @@
             "default": {
               "forIDLDir": false,
               "forIconChange": false,
-              "forFormatterChange": false,
-              "toInitConfig": false,
-              "toInitConfigForTheseFolders": []
+              "forFormatterChange": false
             },
             "properties": {
               "forIDLDir": {
@@ -843,36 +841,6 @@
                 "type": "boolean",
                 "default": false,
                 "description": "%configuration.descriptions.dontAsk.forFormatterChange%"
-              },
-              "toInitConfig": {
-                "type": "boolean",
-                "default": false,
-                "description": "%configuration.descriptions.dontAsk.toInitConfig%"
-              },
-              "toInitConfigForTheseFolders": {
-                "type": "array",
-                "default": [],
-                "description": "%configuration.descriptions.dontAsk.toInitConfigForTheseFolders%",
-                "items": {
-                  "type": "string",
-                  "format": "uri"
-                }
-              }
-            }
-          },
-          "idl.dontShow": {
-            "type": "object",
-            "description": "%configuration.descriptions.dontShow%",
-            "scope": "machine-overridable",
-            "additionalProperties": false,
-            "default": {
-              "welcomePage": false
-            },
-            "properties": {
-              "welcomePage": {
-                "type": "boolean",
-                "default": false,
-                "description": "%configuration.descriptions.dontShow.welcomePage%"
               }
             }
           }

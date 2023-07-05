@@ -4,7 +4,6 @@ import { OpenFileInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 import { ButtonCallback } from '../helpers/button-callback';
-import { InitConfig } from '../helpers/init-config';
 
 /**
  * Callback for when we have an alert that we need to handle
@@ -19,7 +18,7 @@ export const LOG_ALERT_CALLBACK: LogAlertCallback = (options) => {
 
     // check if we have a message asking to initialize config in a folder
     if (options?.alertMeta?.initConfig) {
-      InitConfig(options.alertMeta.initConfig.folder);
+      // InitConfig(options.alertMeta.initConfig.folder);
       return;
     }
 
