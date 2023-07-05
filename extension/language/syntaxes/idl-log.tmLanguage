@@ -259,6 +259,28 @@
           </dict>
         </array>
       </dict>
+      <key>structure_property_string</key>
+      <dict>
+        <key>begin</key>
+        <string>(?i)(['"].*):\s</string>
+        <key>end</key>
+        <string>(?i)(?=\buntil\b|\belse\b|\bthen\b|\bdo\b|\bof\b|\)|\]|\}|,|;)|(?=(?&lt;!&amp;)&amp;(?!&amp;))|(?&lt;!\$\s*|\$\s*;.*)$</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>string.quoted.single.idl</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#all_tokens</string>
+          </dict>
+        </array>
+      </dict>
       <key>structure</key>
       <dict>
         <key>name</key>
@@ -285,6 +307,10 @@
         </dict>
         <key>patterns</key>
         <array>
+          <dict>
+            <key>include</key>
+            <string>#structure_property_string</string>
+          </dict>
           <dict>
             <key>include</key>
             <string>#structure_property</string>

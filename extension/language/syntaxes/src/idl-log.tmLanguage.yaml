@@ -163,6 +163,15 @@ repository:
     patterns:
       - include: '#all_tokens'
 
+  # structure properties for strings
+  structure_property_string:
+    begin: '([''"].*):\s'
+    end: {{assignment_end}}
+    beginCaptures:
+      '1': { name: {{name_quote_single}} }
+    patterns:
+      - include: '#all_tokens'
+
   # finding the start and end of a structure
   structure:
     name: {{group_struct}}
@@ -173,4 +182,5 @@ repository:
     endCaptures:
       '0': { name: {{name_brace}} }
     patterns:
+      - include: '#structure_property_string'
       - include: '#structure_property'
