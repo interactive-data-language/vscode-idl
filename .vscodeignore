@@ -13,6 +13,7 @@ compliance/compliance.js
 compliance/compliance.json
 compliance/copyrights.json
 compliance/licenses.json
+dist/.client-id
 dist/apps/client/3rdpartylicenses.txt
 dist/apps/client/assets/.gitkeep
 dist/apps/client-e2e/**
