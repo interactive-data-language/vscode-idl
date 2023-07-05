@@ -164,9 +164,12 @@
   ],
   "main": "./dist/apps/client/main",
   "categories": [
+    "Debuggers",
+    "Formatters",
+    "Linters",
     "Programming Languages",
-    "Themes",
-    "Snippets"
+    "Snippets",
+    "Themes"
   ],
   "icon": "extension/images/idlicon.png",
   "contributes": {
