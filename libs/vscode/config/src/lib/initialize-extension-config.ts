@@ -87,7 +87,7 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
           forFormatterChange: true,
         });
       },
-      () => {
+      async () => {
         editor.update(
           'defaultFormatter',
           EXTENSION_NAME,
@@ -97,14 +97,17 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
 
         // check if we also need to format on save
         if (!editor.get('formatOnSave')) {
-          BasicQuestionAsker(IDL_TRANSLATION.notifications.formatOnSave, () => {
-            editor.update(
-              'formatOnSave',
-              true,
-              vscode.ConfigurationTarget.Global,
-              true
-            );
-          });
+          await BasicQuestionAsker(
+            IDL_TRANSLATION.notifications.formatOnSave,
+            () => {
+              editor.update(
+                'formatOnSave',
+                true,
+                vscode.ConfigurationTarget.Global,
+                true
+              );
+            }
+          );
         }
       }
     );

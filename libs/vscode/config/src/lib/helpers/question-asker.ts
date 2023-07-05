@@ -48,10 +48,10 @@ export async function QuestionAsker(
     // otherwise check user response
     switch (resp.title) {
       case IDL_TRANSLATION.notifications.yes:
-        onSuccess();
+        await onSuccess();
         break;
       case IDL_TRANSLATION.notifications.dontAsk:
-        onDontAsk();
+        await onDontAsk();
         break;
       default:
         break;
@@ -86,7 +86,7 @@ export async function BasicQuestionAsker(title: string, onSuccess: () => void) {
     // otherwise check user response
     switch (resp.title) {
       case IDL_TRANSLATION.notifications.yes:
-        onSuccess();
+        await onSuccess();
         break;
       default:
         break;
