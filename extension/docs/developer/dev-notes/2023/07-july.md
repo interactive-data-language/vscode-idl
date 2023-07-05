@@ -105,3 +105,9 @@ Instead we specify the name of the language and the code description as part of 
 We also added a period to the end of the description for diagnostics to match the TypeScript pattern.
 
 We also will add a URL to a local markdown file with a description of the problem and, if applicable, how to resolve it.
+
+## Document Cache
+
+This will likely need to be improved in the future, but we added a filter to most of our events from VSCode that checks the code to make sure it has _actually_ changed.
+
+For whatever reason, go-to-definition triggers open, change, and close events for a file. These bombarding events broke the language server and its a little concerning why all those events are fired when nothing has changed.
