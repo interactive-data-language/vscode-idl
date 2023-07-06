@@ -46,7 +46,7 @@ export function SyntaxProblemToDiagnostic(problem: ISyntaxProblem): Diagnostic {
   const severity = GetIDLProblemSeverity(problem.code);
 
   return {
-    message: `${problem.info}.`,
+    message: problem.info.endsWith('.') ? problem.info : `${problem.info}.`,
     range: {
       start: {
         line: problem.start[0],
