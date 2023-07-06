@@ -6,6 +6,11 @@
 export const EXTENSION_PUBLISHER_NAME = 'idl';
 
 /**
+ * Name for our extension
+ */
+export const EXTENSION_NAME = 'interactive-data-language';
+
+/**
  * Name for our extension config.
  *
  * NOTE: Changing this here is not all you need to do. You will also need to
@@ -23,7 +28,7 @@ export const LANGUAGE_TOKEN_SCOPE_NAME = `source.${LANGUAGE_NAME}`;
  *
  * Publisher ane name from the package.json file
  */
-export const EXTENSION_NAME = `${EXTENSION_PUBLISHER_NAME}.${LANGUAGE_NAME}`;
+export const EXTENSION_FULL_NAME = `${EXTENSION_PUBLISHER_NAME}.${EXTENSION_NAME}`;
 
 /**
  * File extension for PRO files

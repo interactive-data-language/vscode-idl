@@ -1,4 +1,4 @@
-import { CleanPath, EXTENSION_NAME, IDL_COMMANDS } from '@idl/shared';
+import { CleanPath, EXTENSION_FULL_NAME, IDL_COMMANDS } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
@@ -157,7 +157,7 @@ export function RegisterClientCommands(ctx: ExtensionContext) {
              * Use search input box to find this syntax. If you type "@" in settings, you'll
              * see more options too
              */
-            `@ext: ${EXTENSION_NAME}`
+            `@ext: ${EXTENSION_FULL_NAME}`
           );
         } catch (err) {
           LogCommandError(
