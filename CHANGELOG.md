@@ -4,6 +4,10 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
+## 3.0.1
+
+Fix badge URLs now that the extension is live
+
 ## 3.0.0
 
 - Added a new theme "Neon IDL" with some fun, neon colors for syntax and the VSCode interface!
