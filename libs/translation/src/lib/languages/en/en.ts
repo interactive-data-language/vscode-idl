@@ -145,7 +145,7 @@ export const EN: ITranslation = {
   },
   configuration: {
     titles: {
-      root: 'IDL: Interactive Data Language',
+      root: 'IDL for VSCode',
       general: 'General',
       idl: 'IDL',
       formatting: 'Formatting',
@@ -553,7 +553,7 @@ export const EN: ITranslation = {
     configure: 'Configure',
   },
   packageJSON: {
-    displayName: 'IDL: Interactive Data Language',
+    displayName: 'IDL for VSCode',
     description:
       'IDL syntax highlighting, code snippets, running IDL programs, and much more!',
   },
