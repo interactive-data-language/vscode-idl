@@ -1,4 +1,8 @@
-import { EXTENSION_NAME, ICON_THEME_NAME, LANGUAGE_NAME } from '@idl/shared';
+import {
+  EXTENSION_FULL_NAME,
+  ICON_THEME_NAME,
+  LANGUAGE_NAME,
+} from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_EXTENSION_CONFIG_KEYS,
@@ -77,7 +81,7 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
   });
 
   // check if we should ask about setting the default formatter
-  if (editor.get('defaultFormatter') !== EXTENSION_NAME) {
+  if (editor.get('defaultFormatter') !== EXTENSION_FULL_NAME) {
     await QuestionAsker(
       IDL_TRANSLATION.notifications.changeFormatter,
       IDL_EXTENSION_CONFIG_KEYS.dontAskForFormatterChange,
@@ -90,7 +94,7 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
       async () => {
         editor.update(
           'defaultFormatter',
-          EXTENSION_NAME,
+          EXTENSION_FULL_NAME,
           vscode.ConfigurationTarget.Global,
           true
         );

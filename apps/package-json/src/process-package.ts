@@ -1,4 +1,4 @@
-import { EXTENSION_PUBLISHER_NAME, LANGUAGE_NAME } from '@idl/shared';
+import { EXTENSION_NAME, EXTENSION_PUBLISHER_NAME } from '@idl/shared';
 
 import { ProcessActivationEvents } from './contributes/activation-events';
 import { ProcessActivityBar } from './contributes/activity-bar';
@@ -82,7 +82,7 @@ export async function ProcessPackage(
   ProcessDebugging(packageJSON, nls);
 
   // set the name for our language to match our config file
-  packageJSON['name'] = LANGUAGE_NAME;
+  packageJSON['name'] = EXTENSION_NAME;
   packageJSON['publisher'] = EXTENSION_PUBLISHER_NAME;
 
   // sort constrib
