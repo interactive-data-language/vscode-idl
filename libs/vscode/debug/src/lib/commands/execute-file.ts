@@ -16,9 +16,12 @@ export async function ExecuteFile() {
     }
     await code.save();
 
-    return await IDL_DEBUG_ADAPTER.evaluate(`@${CleanPath(code.uri.fsPath)}`, {
-      continued: true,
-      echo: true,
-    });
+    return await IDL_DEBUG_ADAPTER.evaluate(
+      `@'${CleanPath(code.uri.fsPath)}'`,
+      {
+        continued: true,
+        echo: true,
+      }
+    );
   }
 }
