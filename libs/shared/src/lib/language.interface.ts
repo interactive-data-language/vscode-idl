@@ -8,7 +8,7 @@ export const EXTENSION_PUBLISHER_NAME = 'idl';
 /**
  * Name for our extension
  */
-export const EXTENSION_NAME = 'interactive-data-language';
+export const EXTENSION_NAME = 'idl-for-vscode';
 
 /**
  * Name for our extension config.

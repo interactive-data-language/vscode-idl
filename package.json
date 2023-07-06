@@ -1,5 +1,5 @@
 {
-  "name": "interactive-data-language",
+  "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
   "version": "3.0.0",
