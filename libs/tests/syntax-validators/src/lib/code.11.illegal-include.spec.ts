@@ -57,8 +57,8 @@ describe(`[auto generated] Detects illegal include statements`, () => {
         end: [0, 11, 4],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -102,8 +102,8 @@ describe(`[auto generated] Detects illegal include statements`, () => {
         end: [0, 21, 8],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },

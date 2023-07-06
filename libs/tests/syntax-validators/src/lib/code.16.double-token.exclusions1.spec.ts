@@ -4,8 +4,8 @@ import { SyntaxProblems } from '@idl/parsing/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
-describe(`[auto generated] Detects illegal colons in function methods`, () => {
-  it(`[auto generated] find problem`, async () => {
+describe(`[auto generated] Allows these tokens next to each other`, () => {
+  it(`[auto generated] string literal expressions`, async () => {
     // create index
     const index = new IDLIndex(
       new LogManager({
@@ -17,25 +17,13 @@ describe(`[auto generated] Detects illegal colons in function methods`, () => {
     );
 
     // test code to extract tokens from
-    const code = [`a ={{}}`];
+    const code = [`a = \`\${42}\${42}\``];
 
     // extract tokens
     const tokenized = await index.getParsedProCode('not-real', code, true);
 
     // define expected tokens
     const expected: SyntaxProblems = [
-      {
-        code: 1,
-        info: 'Unexpected closing statement',
-        start: [0, 6, 1],
-        end: [0, 6, 1],
-      },
-      {
-        code: 17,
-        info: 'Illegal structure declaration',
-        start: [0, 4, 1],
-        end: [0, 4, 1],
-      },
       {
         code: 104,
         info: 'Unused variable "a"',

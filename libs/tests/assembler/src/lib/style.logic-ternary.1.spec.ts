@@ -60,12 +60,6 @@ describe(`[auto generated] Verify we style ternary operators well`, () => {
     const expectedProblems: SyntaxProblems = [
       {
         code: 99,
-        info: 'Undefined variable "nPrint"',
-        start: [0, 0, 6],
-        end: [0, 0, 6],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "nTiles"',
         start: [0, 10, 6],
         end: [0, 10, 6],
@@ -75,6 +69,12 @@ describe(`[auto generated] Verify we style ternary operators well`, () => {
         info: 'Undefined variable "nTiles"',
         start: [0, 34, 6],
         end: [0, 34, 6],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "nPrint"',
+        start: [0, 0, 6],
+        end: [0, 0, 6],
       },
     ];
 
@@ -137,12 +137,6 @@ describe(`[auto generated] Verify we style ternary operators well`, () => {
     const expectedProblems: SyntaxProblems = [
       {
         code: 99,
-        info: 'Undefined variable "oWorld"',
-        start: [0, 0, 6],
-        end: [0, 0, 6],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "oLayer"',
         start: [0, 19, 6],
         end: [0, 19, 6],
@@ -152,6 +146,12 @@ describe(`[auto generated] Verify we style ternary operators well`, () => {
         info: 'Undefined variable "oLayer"',
         start: [0, 29, 6],
         end: [0, 29, 6],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "oWorld"',
+        start: [0, 0, 6],
+        end: [0, 0, 6],
       },
     ];
 

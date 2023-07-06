@@ -363,12 +363,6 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
-      {
-        code: 38,
-        info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
     ];
 
     // verify results

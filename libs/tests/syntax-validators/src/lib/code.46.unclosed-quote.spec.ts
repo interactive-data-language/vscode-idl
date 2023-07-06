@@ -25,8 +25,8 @@ describe(`[auto generated] Detects unclosed quotes`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -64,8 +64,8 @@ describe(`[auto generated] Detects unclosed quotes`, () => {
         end: [0, 4, 4],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -97,8 +97,8 @@ describe(`[auto generated] Detects unclosed quotes`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -130,8 +130,8 @@ describe(`[auto generated] Detects unclosed quotes`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -169,8 +169,8 @@ describe(`[auto generated] Detects unclosed quotes`, () => {
         end: [0, 4, 4],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },

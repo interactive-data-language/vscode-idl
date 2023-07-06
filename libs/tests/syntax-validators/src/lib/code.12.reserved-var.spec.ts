@@ -32,15 +32,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "for"',
         start: [0, 4, 3],
         end: [0, 4, 3],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -77,15 +77,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "foreach"',
         start: [0, 4, 7],
         end: [0, 4, 7],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -122,15 +122,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "while"',
         start: [0, 4, 5],
         end: [0, 4, 5],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -166,8 +166,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 4, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -206,15 +206,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "repeat"',
         start: [0, 4, 6],
         end: [0, 4, 6],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -250,8 +250,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 4, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -290,15 +290,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "if"',
         start: [0, 4, 2],
         end: [0, 4, 2],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -334,8 +334,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 4, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -373,8 +373,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 4, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -413,15 +413,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "switch"',
         start: [0, 4, 6],
         end: [0, 4, 6],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -458,15 +458,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "case"',
         start: [0, 4, 4],
         end: [0, 4, 4],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -502,8 +502,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 4, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -542,15 +542,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "begin"',
         start: [0, 4, 5],
         end: [0, 4, 5],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -592,8 +592,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 7, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -637,8 +637,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 9, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -682,8 +682,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 11, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -727,8 +727,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 10, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -772,8 +772,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 14, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -817,8 +817,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 10, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -862,8 +862,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 12, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -907,8 +907,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 13, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -952,8 +952,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 11, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -992,15 +992,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "pro"',
         start: [0, 4, 3],
         end: [0, 4, 3],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -1037,15 +1037,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "function"',
         start: [0, 4, 8],
         end: [0, 4, 8],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -1082,15 +1082,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "break"',
         start: [0, 4, 5],
         end: [0, 4, 5],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -1127,15 +1127,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "continue"',
         start: [0, 4, 8],
         end: [0, 4, 8],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -1172,15 +1172,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "common"',
         start: [0, 4, 6],
         end: [0, 4, 6],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -1217,15 +1217,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "compile_opt"',
         start: [0, 4, 11],
         end: [0, 4, 11],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -1262,15 +1262,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "forward_function"',
         start: [0, 4, 16],
         end: [0, 4, 16],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -1307,15 +1307,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "goto"',
         start: [0, 4, 4],
         end: [0, 4, 4],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -1351,8 +1351,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 7, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -1390,8 +1390,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 7, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -1429,8 +1429,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 6, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -1468,8 +1468,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 6, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -1507,8 +1507,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 6, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -1546,8 +1546,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 6, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -1585,8 +1585,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 6, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -1624,8 +1624,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 6, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -1663,8 +1663,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 7, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -1702,8 +1702,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 6, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -1741,8 +1741,8 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         end: [0, 7, 0],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -1781,15 +1781,15 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "inherits"',
         start: [0, 4, 8],
         end: [0, 4, 8],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 

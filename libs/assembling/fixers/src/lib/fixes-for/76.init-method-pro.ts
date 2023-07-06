@@ -11,6 +11,7 @@ import {
 } from '@idl/parsing/syntax-tree';
 import {
   CallProcedureToken,
+  MainLevelToken,
   RoutineFunctionToken,
   RoutineProcedureToken,
   TOKEN_NAMES,
@@ -69,10 +70,12 @@ function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
       for (let i = 0; i < returns.length; i++) {
         // make the code every time because we need to properly set the line
         returns[i].kids = (
-          GenerateCodeToInsert(
-            `return, 1`,
-            returns[i].pos[0]
-          )[0] as TreeToken<CallProcedureToken>
+          (
+            GenerateCodeToInsert(
+              `return, 1`,
+              returns[i].pos[0]
+            )[0] as TreeToken<MainLevelToken>
+          ).kids[0] as TreeToken<CallProcedureToken>
         ).kids;
       }
     }

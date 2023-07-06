@@ -97,12 +97,6 @@ describe(`[auto generated] Detects empty main level programs`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 38,
-        info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
-        start: [1, 0, 3],
-        end: [1, 0, 3],
-      },
-      {
         code: 34,
         info: 'Main level programs cannot be empty. IDL expects statements besides comments and "end".',
         start: [1, 0, 3],

@@ -181,10 +181,10 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
+        code: 77,
+        info: 'No matching structure/object/class definition for structure named "mystruct"',
+        start: [0, 5, 8],
+        end: [0, 5, 8],
       },
       {
         code: 99,
@@ -193,10 +193,10 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
         end: [0, 22, 3],
       },
       {
-        code: 77,
-        info: 'No matching structure/object/class definition for structure named "mystruct"',
-        start: [0, 5, 8],
-        end: [0, 5, 8],
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -239,15 +239,15 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "val"',
         start: [0, 12, 3],
         end: [0, 12, 3],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -621,8 +621,8 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -661,15 +661,15 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "var"',
         start: [0, 4, 3],
         end: [0, 4, 3],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 

@@ -25,8 +25,8 @@ describe(`[auto generated] Detects illegal ternary operators`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },

@@ -353,8 +353,8 @@ describe(`[auto generated] Verify operators`, () => {
     // define expected problems
     const expectedProblems: SyntaxProblems = [
       {
-        code: 99,
-        info: 'Undefined variable "difference_raster_uri"',
+        code: 101,
+        info: 'Variable is used before definition "difference_raster_uri"',
         start: [0, 16, 21],
         end: [0, 16, 21],
       },
@@ -663,15 +663,15 @@ describe(`[auto generated] Verify operators`, () => {
     const expectedProblems: SyntaxProblems = [
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "task"',
         start: [0, 29, 4],
         end: [0, 29, 4],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 
@@ -734,15 +734,15 @@ describe(`[auto generated] Verify operators`, () => {
     const expectedProblems: SyntaxProblems = [
       {
         code: 99,
-        info: 'Undefined variable "cs"',
-        start: [0, 0, 2],
-        end: [0, 0, 2],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "num_period"',
         start: [0, 17, 10],
         end: [0, 17, 10],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "cs"',
+        start: [0, 0, 2],
+        end: [0, 0, 2],
       },
     ];
 

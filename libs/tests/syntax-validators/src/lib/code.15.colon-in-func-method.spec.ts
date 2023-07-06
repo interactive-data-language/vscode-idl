@@ -32,15 +32,15 @@ describe(`[auto generated] Detects illegal colons in function methods`, () => {
       },
       {
         code: 99,
-        info: 'Undefined variable "a"',
-        start: [0, 0, 1],
-        end: [0, 0, 1],
-      },
-      {
-        code: 99,
         info: 'Undefined variable "objOrStruct"',
         start: [0, 4, 11],
         end: [0, 4, 11],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
       },
     ];
 

@@ -100,7 +100,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     ).toEqual(expectedProblems);
   });
 
-  it(`[auto generated] ignore single-line code`, () => {
+  it(`[auto generated] process single-line code 1`, () => {
     // test code to extract tokens from
     const code = [`a = plot(/TEST)`];
 
@@ -110,42 +110,198 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '1',
-        name: '85',
-        pos: [0, 0, 1],
-        match: ['a'],
-        idx: 0,
-        scope: [],
-        parseProblems: [],
-      },
-      {
         type: '0',
-        name: '3',
-        pos: [0, 2, 1],
-        match: ['='],
-        idx: 1,
+        name: '54',
+        pos: [0, 0, 1],
+        idx: 0,
+        match: [],
         scope: [],
         parseProblems: [],
-        end: { pos: [0, 15, 0], match: [''] },
         kids: [
           {
-            type: '0',
-            name: '8',
-            pos: [0, 4, 5],
-            match: ['plot(', 'plot'],
+            type: '1',
+            name: '85',
+            pos: [0, 0, 1],
+            match: ['a'],
             idx: 0,
-            scope: ['3'],
+            scope: ['54'],
             parseProblems: [],
-            end: { pos: [0, 14, 1], match: [')'] },
+          },
+          {
+            type: '0',
+            name: '3',
+            pos: [0, 2, 1],
+            match: ['='],
+            idx: 1,
+            scope: ['54'],
+            parseProblems: [],
+            end: { pos: [0, 15, 0], match: [''] },
             kids: [
               {
-                type: '1',
-                name: '29',
-                pos: [0, 9, 5],
-                match: ['/TEST', 'TEST'],
+                type: '0',
+                name: '8',
+                pos: [0, 4, 5],
+                match: ['plot(', 'plot'],
                 idx: 0,
-                scope: ['3', '8'],
+                scope: ['54', '3'],
                 parseProblems: [],
+                end: { pos: [0, 14, 1], match: [')'] },
+                kids: [
+                  {
+                    type: '1',
+                    name: '29',
+                    pos: [0, 9, 5],
+                    match: ['/TEST', 'TEST'],
+                    idx: 0,
+                    scope: ['54', '3', '8'],
+                    parseProblems: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ];
+
+    // verify results
+    expect(tokenized.tree).toEqual(expectedTree);
+
+    // define expected problems
+    const expectedProblems: SyntaxProblems = [];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expectedProblems);
+  });
+
+  it(`[auto generated] process single-line code 2`, () => {
+    // test code to extract tokens from
+    const code = [`a = \`\${42, '42'}\${42, '42'}\``];
+
+    // extract tokens
+    const tokenized = Parser(code);
+
+    // define expected syntax tree
+    const expectedTree: SyntaxTree = [
+      {
+        type: '0',
+        name: '54',
+        pos: [0, 0, 1],
+        idx: 0,
+        match: [],
+        scope: [],
+        parseProblems: [],
+        kids: [
+          {
+            type: '1',
+            name: '85',
+            pos: [0, 0, 1],
+            match: ['a'],
+            idx: 0,
+            scope: ['54'],
+            parseProblems: [],
+          },
+          {
+            type: '0',
+            name: '3',
+            pos: [0, 2, 1],
+            match: ['='],
+            idx: 1,
+            scope: ['54'],
+            parseProblems: [],
+            end: { pos: [0, 28, 0], match: [''] },
+            kids: [
+              {
+                type: '0',
+                name: '75',
+                pos: [0, 4, 1],
+                match: ['`'],
+                idx: 0,
+                scope: ['54', '3'],
+                parseProblems: [],
+                end: { pos: [0, 27, 1], match: ['`'] },
+                kids: [
+                  {
+                    type: '0',
+                    name: '74',
+                    pos: [0, 5, 2],
+                    match: ['${'],
+                    idx: 0,
+                    scope: ['54', '3', '75'],
+                    parseProblems: [],
+                    end: { pos: [0, 15, 1], match: ['}'] },
+                    kids: [
+                      {
+                        type: '1',
+                        name: '56',
+                        pos: [0, 7, 2],
+                        match: ['42'],
+                        idx: 0,
+                        scope: ['54', '3', '75', '74'],
+                        parseProblems: [],
+                      },
+                      {
+                        type: '1',
+                        name: '14',
+                        pos: [0, 9, 1],
+                        match: [','],
+                        idx: 1,
+                        scope: ['54', '3', '75', '74'],
+                        parseProblems: [],
+                      },
+                      {
+                        type: '1',
+                        name: '68',
+                        pos: [0, 11, 4],
+                        match: ["'42'", '42'],
+                        idx: 2,
+                        scope: ['54', '3', '75', '74'],
+                        parseProblems: [],
+                      },
+                    ],
+                  },
+                  {
+                    type: '0',
+                    name: '74',
+                    pos: [0, 16, 2],
+                    match: ['${'],
+                    idx: 1,
+                    scope: ['54', '3', '75'],
+                    parseProblems: [],
+                    end: { pos: [0, 26, 1], match: ['}'] },
+                    kids: [
+                      {
+                        type: '1',
+                        name: '56',
+                        pos: [0, 18, 2],
+                        match: ['42'],
+                        idx: 0,
+                        scope: ['54', '3', '75', '74'],
+                        parseProblems: [],
+                      },
+                      {
+                        type: '1',
+                        name: '14',
+                        pos: [0, 20, 1],
+                        match: [','],
+                        idx: 1,
+                        scope: ['54', '3', '75', '74'],
+                        parseProblems: [],
+                      },
+                      {
+                        type: '1',
+                        name: '68',
+                        pos: [0, 22, 4],
+                        match: ["'42'", '42'],
+                        idx: 2,
+                        scope: ['54', '3', '75', '74'],
+                        parseProblems: [],
+                      },
+                    ],
+                  },
+                ],
               },
             ],
           },

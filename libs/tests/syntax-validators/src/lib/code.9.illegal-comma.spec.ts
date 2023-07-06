@@ -32,8 +32,8 @@ describe(`[auto generated] Detects illegal commas`, () => {
       },
       { code: 9, info: 'Illegal comma', start: [0, 4, 1], end: [0, 4, 1] },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -140,8 +140,8 @@ describe(`[auto generated] Detects illegal commas`, () => {
     const expected: SyntaxProblems = [
       { code: 9, info: 'Illegal comma', start: [0, 5, 1], end: [0, 5, 1] },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },
@@ -270,8 +270,8 @@ describe(`[auto generated] Detects illegal commas`, () => {
         end: [0, 19, 3],
       },
       {
-        code: 99,
-        info: 'Undefined variable "a"',
+        code: 104,
+        info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
       },

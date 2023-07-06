@@ -27,8 +27,8 @@ IDL_SYNTAX_TREE_POST_PROCESSOR.onTree((tree, parsed) => {
   /** Extract text from our parsed content */
   const text = parsed.text;
 
-  // skip single-lines
-  if (text.length <= 1) {
+  // skip empty code
+  if (text.length === 0) {
     return;
   }
 

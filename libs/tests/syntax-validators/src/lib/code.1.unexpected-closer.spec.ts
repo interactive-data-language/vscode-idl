@@ -104,12 +104,6 @@ describe(`[auto generated] Detects unexpected closers`, () => {
         end: [10, 0, 7],
       },
       {
-        code: 38,
-        info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
-        start: [11, 0, 3],
-        end: [11, 0, 3],
-      },
-      {
         code: 34,
         info: 'Main level programs cannot be empty. IDL expects statements besides comments and "end".',
         start: [11, 0, 3],

@@ -5,6 +5,8 @@ import {
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 
+import { IsSingleLine } from '../helpers/is-single-line';
+
 /**
  * Check if our main level program has an "end"
  *
@@ -14,7 +16,17 @@ import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.MAIN_LEVEL,
   (token, parsed) => {
+    /**
+     * Check for a missing end statement
+     */
     if (token.end === undefined) {
+      if (IsSingleLine(token)) {
+        return;
+      }
+
+      /**
+       * More than one line between start and end, so lets report our problem
+       */
       token.parseProblems.push(IDL_PROBLEM_CODES.MISSING_MAIN_END);
       const pos =
         token.kids.length > 0

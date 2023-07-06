@@ -14,6 +14,7 @@ import {
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
 
+import { IsSingleLine } from '../helpers/is-single-line';
 import { NAME_TOKENS } from './return-functions';
 
 /**
@@ -95,6 +96,10 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
 IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.MAIN_LEVEL,
   (token, parsed) => {
+    if (IsSingleLine(token)) {
+      return;
+    }
+
     CheckForCompileOpt(token, parsed.parseProblems);
   }
 );
