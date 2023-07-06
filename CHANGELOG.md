@@ -8,6 +8,8 @@ For much more detail, see our [developer notes](./extension/docs/developer/dev-n
 
 Fixed a bug with documentation being generated when using the VSCode UI
 
+When executing batch files, wrap the path in quotes like compile
+
 ## 3.0.1
 
 Fix badge URLs now that the extension is live
