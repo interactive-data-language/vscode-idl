@@ -57,6 +57,15 @@ export const PROCEDURE_OVERRIDE: IProcedureOverride = {
       },
     },
   },
+  map_set: {
+    args: {},
+    kws: {
+      position: {
+        direction: 'in',
+        type: ParseIDLType('Array<Number>'),
+      },
+    },
+  },
   openr: {
     args: {
       unit: {
