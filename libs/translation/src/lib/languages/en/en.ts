@@ -551,6 +551,7 @@ export const EN: ITranslation = {
     initIDLJSON:
       'No "idl.json" file found at root level of workspace folder, create? Workspace:',
     configure: 'Configure',
+    start: 'Start?',
   },
   packageJSON: {
     displayName: 'IDL for VSCode',

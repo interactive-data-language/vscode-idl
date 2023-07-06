@@ -10,6 +10,8 @@ Fixed a bug with documentation being generated when using the VSCode UI
 
 When executing batch files, wrap the path in quotes like compile
 
+When told to start a session of IDL, add button that will let you start IDL from the dialog that appears
+
 ## 3.0.1
 
 Fix badge URLs now that the extension is live

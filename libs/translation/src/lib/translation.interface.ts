@@ -536,6 +536,8 @@ export interface ITranslation {
     initIDLJSON: string;
     /** Configure something */
     configure: string;
+    /** Start IDL */
+    start: string;
   };
   /** Translations for our main package.json file */
   packageJSON: {
