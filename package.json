@@ -220,6 +220,10 @@
         }
       },
       {
+        "command": "idl.debug.executeBatchFile",
+        "title": "%commands.idl.debug.executeBatchFile%"
+      },
+      {
         "command": "idl.debug.resetIDL",
         "title": "%commands.idl.debug.resetIDL%",
         "icon": {

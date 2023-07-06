@@ -75,7 +75,7 @@ export const IDL_COMMANDS = {
     /** Run current PRO file */
     RUN: `${BASE_DEBUG}runFile`,
     /** Run current PRO file as a batch file */
-    // EXECUTE_BATCH: `${BASE_DEBUG}executeBatchFile`,
+    EXECUTE_BATCH: `${BASE_DEBUG}executeBatchFile`,
     /** Reset IDL session */
     RESET: `${BASE_DEBUG}resetIDL`,
     /** Start profiling */

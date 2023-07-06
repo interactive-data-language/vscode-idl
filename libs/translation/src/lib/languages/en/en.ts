@@ -276,7 +276,6 @@ export const EN: ITranslation = {
   debugger: {
     logs: {
       host: 'IDL: Extension Host',
-      server: 'IDL: Language Server',
       viewFile: 'View File',
       viewLogs: 'View Logs',
       specifyIDLLocation: 'Specify IDL Location',

@@ -26,13 +26,13 @@ export const DEBUGGING_BUTTONS: IChild[] = [
     icon: 'file-play.svg',
     commandName: IDL_COMMANDS.DEBUG.RUN,
   },
-  // {
-  //   name: IDL_TRANSLATION.idl.tree.children.debugging.execute.name,
-  //   description:
-  //     IDL_TRANSLATION.idl.tree.children.debugging.execute.description,
-  //   icon: 'file-batch.svg',
-  //   commandName: IDL_COMMANDS.DEBUG.EXECUTE_BATCH,
-  // },
+  {
+    name: IDL_TRANSLATION.idl.tree.children.debugging.execute.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.debugging.execute.description,
+    icon: 'file-batch.svg',
+    commandName: IDL_COMMANDS.DEBUG.EXECUTE_BATCH,
+  },
   {
     name: IDL_TRANSLATION.idl.tree.children.debugging.reset.name,
     description: IDL_TRANSLATION.idl.tree.children.debugging.reset.description,

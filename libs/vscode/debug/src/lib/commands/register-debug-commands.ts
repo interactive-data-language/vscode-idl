@@ -12,6 +12,7 @@ import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
 import { CompileFile } from './compile-file';
+import { ExecuteFile } from './execute-file';
 import { StartProfiling, StopProfiling } from './profiling';
 import { ResetIDL } from './reset';
 import { RunFile } from './run-file';
@@ -84,6 +85,32 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
         return false;
       }
     })
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.DEBUG.EXECUTE_BATCH,
+      async () => {
+        try {
+          if (!VerifyIDLHasStarted(true)) {
+            return false;
+          }
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.DEBUG.START,
+          });
+          LogCommandInfo('Execute Batch File');
+          await ExecuteFile();
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error while executing batch file',
+            err,
+            cmdErrors.debug.executeBatchFile
+          );
+          return false;
+        }
+      }
+    )
   );
 
   ctx.subscriptions.push(

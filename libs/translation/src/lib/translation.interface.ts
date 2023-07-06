@@ -276,8 +276,8 @@ export interface ITranslation {
   /** Translations related to the debugger */
   debugger: {
     logs: {
+      /** IDl extension log */
       host: string;
-      server: string;
       /** File to view button */
       viewFile: string;
       /** Logs to view button */
