@@ -4,6 +4,10 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
+## 3.0.2
+
+Fixed a bug with documentation being generated when using the VSCode UI
+
 ## 3.0.1
 
 Fix badge URLs now that the extension is live
