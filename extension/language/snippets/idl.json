@@ -10,7 +10,7 @@
     "body": [
       "catch, err",
       "if (err ne 0) then begin",
-      "  catch, /CANCEL",
+      "  catch, /cancel",
       "  $0",
       "endif"
     ],
