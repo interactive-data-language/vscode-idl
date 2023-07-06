@@ -423,6 +423,16 @@ export const AUTO_SYNTAX_TESTS: IAutoTest[] = [
     ],
   },
   {
+    suiteName: `Allows these tokens next to each other`,
+    fileName: `code.16.double-token.exclusions1.spec.ts`,
+    tests: [
+      {
+        name: `string literal expressions`,
+        code: `a = \`\${42}\${42}\``,
+      },
+    ],
+  },
+  {
     suiteName: `Detects illegal colons in function methods`,
     fileName: `code.17.illegal-struct.spec.ts`,
     tests: [

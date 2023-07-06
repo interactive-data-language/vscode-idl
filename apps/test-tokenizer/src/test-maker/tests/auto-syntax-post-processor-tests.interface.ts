@@ -365,8 +365,12 @@ export const AUTO_POST_PROCESSOR_TESTS: IAutoTest[] = [
         code: [`function myfunc`, `compile_opt idl2`, `  return,1`, `end`],
       },
       {
-        name: `ignore single-line code`,
+        name: `process single-line code 1`,
         code: [`a = plot(/TEST)`],
+      },
+      {
+        name: `process single-line code 2`,
+        code: [`a = \`\${42, '42'}\${42, '42'}\``],
       },
       {
         name: `catch correct`,
