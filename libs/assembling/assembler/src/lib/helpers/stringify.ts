@@ -57,7 +57,7 @@ export function Stringify(
   previousToken: TreeToken<TokenName> | undefined,
   first = false
 ) {
-  return StringifyString(token, token.match[0], previousToken, first);
+  return StringifyString(token, token.match[0] || '', previousToken, first);
 }
 
 /**

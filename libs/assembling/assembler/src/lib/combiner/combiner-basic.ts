@@ -33,7 +33,7 @@ function _Recursor(tree: SyntaxTree, strings: { [key: number]: string }) {
     // add string
     if (!(tree[i].name in SKIP_BRANCHES)) {
       strings[line] += `${MakeSpaces(tree[i].pos[1] - strings[line].length)}${
-        tree[i].match[0]
+        tree[i].match[0] || ''
       }`;
     }
 

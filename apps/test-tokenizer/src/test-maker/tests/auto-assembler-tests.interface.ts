@@ -329,6 +329,21 @@ export const AUTO_ASSEMBLER_TESTS: IAutoAssemblerTest[] = [
     ],
   },
   {
+    suiteName: `Only use AutoDoc`,
+    fileName: `auto-doc.only2.spec.ts`,
+    tests: [
+      {
+        name: `and dont fix problems`,
+        code: [`pro test, a, b, c`, `end`, ``, `test`, `end`],
+        config: {
+          autoDoc: true,
+          styleAndFormat: false,
+          autoFix: false,
+        },
+      },
+    ],
+  },
+  {
     suiteName: `Verify parameter formatting`,
     fileName: `auto-doc.parameters.spec.ts`,
     tests: [
