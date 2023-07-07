@@ -4,6 +4,10 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
+## 3.0.3
+
+Expose ability to set environment variables for the IDL process that appears in the debug console
+
 ## 3.0.2
 
 Fixed a bug with documentation being generated when using the VSCode UI

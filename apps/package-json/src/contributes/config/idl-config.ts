@@ -89,20 +89,20 @@ export function AddIDLConfig(nls: IPackageNLS) {
     scope: IDL_CONFIG_SCOPE,
   };
 
-  // // environment variables when launching IDL
-  // ourConfig.properties[
-  //   `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLenvironment}`
-  // ] = {
-  //   type: 'object',
-  //   additionalProperties: {
-  //     type: 'string',
-  //   },
-  //   description: TranslationFromConfiguration(
-  //     IDL_EXTENSION_CONFIG_KEYS.IDLenvironment,
-  //     nls
-  //   ),
-  //   scope: IDL_CONFIG_SCOPE,
-  // };
+  // environment variables when launching IDL
+  ourConfig.properties[
+    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLenvironment}`
+  ] = {
+    type: 'object',
+    additionalProperties: {
+      type: 'string',
+    },
+    description: TranslationFromConfiguration(
+      IDL_EXTENSION_CONFIG_KEYS.IDLenvironment,
+      nls
+    ),
+    scope: IDL_CONFIG_SCOPE,
+  };
 
   // save our extension config
   EXTENSION_CONFIG.push(ourConfig);

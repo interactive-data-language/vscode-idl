@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -317,6 +317,14 @@
             ],
             "default": "prepend",
             "description": "%configuration.descriptions.IDL.appendOrPrependWorkspaceFolders%",
+            "scope": "machine-overridable"
+          },
+          "idl.IDL.environment": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "%configuration.descriptions.IDL.environment%",
             "scope": "machine-overridable"
           }
         }
