@@ -3827,6 +3827,28 @@ export const AUTO_SYNTAX_TESTS: IAutoTest[] = [
     ],
   },
   {
+    suiteName: `Indexing with parentheses`,
+    fileName: `code.105.illegal-var-index.spec.ts`,
+    tests: [
+      {
+        name: `for simple case`,
+        code: [`;+ my var`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `do no change when compile opt strictarr`,
+        code: [`compile_opt strictarr`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `do no change when compile opt idl2`,
+        code: [`compile_opt idl2`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `do no change when compile opt idl3`,
+        code: [`compile_opt idl3`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+    ],
+  },
+  {
     suiteName: `All the places we want to make sure we test for`,
     fileName: `type-validation-reference.spec.ts`,
     tests: [

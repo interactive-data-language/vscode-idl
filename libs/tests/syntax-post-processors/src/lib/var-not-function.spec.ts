@@ -108,7 +108,7 @@ describe(`[auto generated] Correctly identify variables instead of function call
                 match: ['('],
                 idx: 0,
                 scope: ['54', '3'],
-                parseProblems: [],
+                parseProblems: [105],
                 end: { pos: [3, 10, 1], match: [')'] },
                 kids: [],
               },
@@ -128,6 +128,12 @@ describe(`[auto generated] Correctly identify variables instead of function call
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [0, 0, 9],
         end: [0, 0, 9],
+      },
+      {
+        code: 105,
+        info: 'Illegal use of parentheses for array indexing, use brackets instead. If this is a function call, add `compile_opt idl2` to the routine or main level program to delineate between the variable and function call.',
+        start: [3, 9, 1],
+        end: [3, 10, 1],
       },
     ];
 

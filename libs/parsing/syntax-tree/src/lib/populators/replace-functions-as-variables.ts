@@ -1,3 +1,4 @@
+import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   MainLevelToken,
   RoutineFunctionToken,
@@ -14,13 +15,18 @@ import {
   TreeToken,
 } from '../branches.interface';
 import { IParsed } from '../build-tree.interface';
+import { SyntaxProblemWithTranslation } from '../syntax-problem-with';
 import { GetUniqueVariables } from './get-unique-variables';
 import { ILocalTokenLookup } from './populate-local.interface';
 
 /**
  * Recursor to change function calls to variables being indexed
  */
-function _Recursor(tree: SyntaxTree, local: ILocalTokenLookup) {
+function _Recursor(
+  parsed: IParsed,
+  tree: SyntaxTree,
+  local: ILocalTokenLookup
+) {
   for (let i = 0; i < tree.length; i++) {
     /**
      * Do we have a function call?
@@ -54,6 +60,20 @@ function _Recursor(tree: SyntaxTree, local: ILocalTokenLookup) {
         // update our match
         tree[i].match = [tree[i].match[0].substring(name.length)];
 
+        // save as syntax problem
+        tree[i].parseProblems.push(IDL_PROBLEM_CODES.ILLEGAL_VARIABLE_INDEX);
+
+        // track in syntax tree
+        parsed.parseProblems.push(
+          SyntaxProblemWithTranslation(
+            IDL_PROBLEM_CODES.ILLEGAL_VARIABLE_INDEX,
+            tree[i].pos,
+            (tree[i] as TreeBranchToken).end !== undefined
+              ? (tree[i] as TreeBranchToken).end.pos
+              : tree[i].pos
+          )
+        );
+
         // create a variable token and insert
         tree.splice(i, 0, variable);
 
@@ -61,7 +81,7 @@ function _Recursor(tree: SyntaxTree, local: ILocalTokenLookup) {
         local[name].meta.usage.push(variable.pos);
 
         // recurse
-        _Recursor((tree[i + 1] as TreeBranchToken).kids, local);
+        _Recursor(parsed, (tree[i + 1] as TreeBranchToken).kids, local);
 
         // skip ahead
         i++;
@@ -70,7 +90,7 @@ function _Recursor(tree: SyntaxTree, local: ILocalTokenLookup) {
     }
 
     if (tree[i].type === BRANCH_TYPES.BRANCH) {
-      _Recursor((tree[i] as TreeBranchToken).kids, local);
+      _Recursor(parsed, (tree[i] as TreeBranchToken).kids, local);
     }
   }
 }
@@ -79,12 +99,13 @@ function _Recursor(tree: SyntaxTree, local: ILocalTokenLookup) {
  * Replaces functions that are really variables with the proper tokens
  */
 export function ReplaceFunctionsAsVariables(
+  parsed: IParsed,
   branch: IBranch<
     RoutineProcedureToken | RoutineFunctionToken | MainLevelToken
   >,
   local: ILocalTokenLookup
 ) {
-  _Recursor(branch.kids, local);
+  _Recursor(parsed, branch.kids, local);
 }
 
 /**

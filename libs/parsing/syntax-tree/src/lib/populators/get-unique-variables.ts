@@ -232,8 +232,7 @@ export function GetUniqueVariables(
    * Check if we might have parentheses being used for indexing a variable
    */
   if (!strictArr) {
-    console.log('Do the replacing');
-    ReplaceFunctionsAsVariables(branch, local);
+    ReplaceFunctionsAsVariables(parsed, branch, local);
   }
 
   return local;

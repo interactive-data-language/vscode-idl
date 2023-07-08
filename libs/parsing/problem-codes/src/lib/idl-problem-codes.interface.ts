@@ -208,6 +208,8 @@ type PotentialVariableUsageBeforeDefinitionCode = 102;
 type AmbiguousKeywordAbbreviationCode = 103;
 /** When we have a variable that is not used */
 type UnusedVariableCode = 104;
+/** Illegal use of parentheses for indexing */
+type IllegalVariableIndex = 105;
 
 /**
  * Union type of all allowed problem codes for IDL
@@ -317,7 +319,8 @@ export type IDLProblemCode =
   | VariableUsageBeforeDefinitionCode
   | PotentialVariableUsageBeforeDefinitionCode
   | AmbiguousKeywordAbbreviationCode
-  | UnusedVariableCode;
+  | UnusedVariableCode
+  | IllegalVariableIndex;
 
 /**
  * Type to be used in translation to make sure that we have all of our expected translations
@@ -540,6 +543,8 @@ interface IProblemLookup {
   AMBIGUOUS_KEYWORD_ABBREVIATION: AmbiguousKeywordAbbreviationCode;
   /** When we have a variable that is not used */
   UNUSED_VARIABLE: UnusedVariableCode;
+  /** Illegal use of parentheses for indexing */
+  ILLEGAL_VARIABLE_INDEX: IllegalVariableIndex;
 }
 
 /**
@@ -651,4 +656,5 @@ export const IDL_PROBLEM_CODES: IProblemLookup = {
   POTENTIAL_VAR_USAGE_BEFORE_DEF: 102,
   AMBIGUOUS_KEYWORD_ABBREVIATION: 103,
   UNUSED_VARIABLE: 104,
+  ILLEGAL_VARIABLE_INDEX: 105,
 };

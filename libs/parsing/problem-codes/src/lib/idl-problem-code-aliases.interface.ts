@@ -126,6 +126,7 @@ export const IDL_PROBLEM_CODE_ALIAS_LOOKUP: ProblemCodeAliasLookup = {
   102: 'potential-var-use-before-def',
   103: 'ambiguous-keyword-abbreviation',
   104: 'unused-var',
+  105: 'illegal-var-index',
 };
 
 /** Reverse lookup for problems codes with alias giving the problem code back */

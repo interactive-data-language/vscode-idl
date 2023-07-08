@@ -8,6 +8,8 @@ For much more detail, see our [developer notes](./extension/docs/developer/dev-n
 
 When `compile_opt` is not present with idl2, idl3, or strictarr, delineate between function calls and indexing with parentheses. It won't parse 100% correctly, but it allows us to identify and fix parentheses.
 
+- New error code (105 with alias "illegal-var-index")
+
 ## 3.0.3
 
 Expose ability to set environment variables for the IDL process that appears in the debug console
