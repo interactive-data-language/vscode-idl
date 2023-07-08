@@ -660,4 +660,26 @@ export const AUTO_POST_PROCESSOR_TESTS: IAutoTest[] = [
       },
     ],
   },
+  {
+    suiteName: `Correctly identify variables instead of function calls`,
+    fileName: `var-not-function.spec.ts`,
+    tests: [
+      {
+        name: `for simple case`,
+        code: [`;+ my var`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `do no change when compile opt strictarr`,
+        code: [`compile_opt strictarr`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `do no change when compile opt idl2`,
+        code: [`compile_opt idl2`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `do no change when compile opt idl3`,
+        code: [`compile_opt idl3`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+    ],
+  },
 ];
