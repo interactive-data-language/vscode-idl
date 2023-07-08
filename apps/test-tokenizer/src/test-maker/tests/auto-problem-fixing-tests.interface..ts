@@ -278,4 +278,26 @@ export const AUTO_PROBLEM_FIXING_TESTS: IAutoAssemblerTest[] = [
       },
     ],
   },
+  {
+    suiteName: `Verify we correctly fix brackets for indexing`,
+    fileName: `code.105.illegal-var-index.spec.ts`,
+    tests: [
+      {
+        name: `for simple case`,
+        code: [`;+ my var`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `do no change when compile opt strictarr`,
+        code: [`compile_opt strictarr`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `do no change when compile opt idl2`,
+        code: [`compile_opt idl2`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `do no change when compile opt idl3`,
+        code: [`compile_opt idl3`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+    ],
+  },
 ];

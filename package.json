@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "3.0.1",
+  "version": "3.0.4",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -34,7 +34,7 @@
     "package-and-test": "npm i && npm-run-all build-extension pre-package test-parsing build-test integration-test && vsce package",
     "pre-package": "rimraf ./node_modules/__ngcc_entry_points__.json",
     "pre-dev": "npm-run-all build-package-json build-webview",
-    "make-integration-tests": "npm run build-extension && nx build vscode-e2e-runner && nx build client-e2e",
+    "make-integration-tests": "npm run package && nx build vscode-e2e-runner && nx build client-e2e",
     "test-integration": "node dist/apps/vscode-e2e-runner/main.js",
     "test-everything": "npm-run-all test-libs make-integration-tests test-integration",
     "start": "npm run build-package-json && nx run-many --target=build --projects=parsing-worker,server,client --watch --parallel",
@@ -317,6 +317,14 @@
             ],
             "default": "prepend",
             "description": "%configuration.descriptions.IDL.appendOrPrependWorkspaceFolders%",
+            "scope": "machine-overridable"
+          },
+          "idl.IDL.environment": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "%configuration.descriptions.IDL.environment%",
             "scope": "machine-overridable"
           }
         }
@@ -661,6 +669,7 @@
                 "illegal-struct-op",
                 "illegal-subscript",
                 "illegal-ternary",
+                "illegal-var-index",
                 "incomplete-ternary",
                 "indexing-error",
                 "init-method-pro",
@@ -768,6 +777,7 @@
                 "%parsing.errors.85%",
                 "%parsing.errors.84%",
                 "%parsing.errors.13%",
+                "%parsing.errors.105%",
                 "%parsing.errors.98%",
                 "%parsing.errors.95%",
                 "%parsing.errors.76%",

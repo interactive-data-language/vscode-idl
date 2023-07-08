@@ -1,6 +1,7 @@
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/parsing/problem-codes';
 import {
   IBasicToken,
+  MainLevelToken,
   TOKEN_NAMES,
   TOKEN_TYPES,
   TokenizerToken,
@@ -23,6 +24,7 @@ import {
 } from './build-tree.interface';
 import { PopulateIndex } from './populate-index';
 import { PopulateScope } from './populate-scope';
+import { GetUniqueVariables } from './populators/get-unique-variables';
 import { IDL_SYNTAX_TREE_POST_PROCESSOR } from './post-processor.interface';
 import { DEFAULT_CURRENT } from './recursion-and-callbacks/tree-recurser.interface';
 import { SyntaxProblemWithTranslation } from './syntax-problem-with';
@@ -290,5 +292,39 @@ export function BuildSyntaxTree(parsed: IParsed, full = true) {
     PopulateScope(parsed);
 
     IDL_SYNTAX_TREE_VALIDATOR.run(parsed, (token, meta) => meta);
+  }
+}
+
+/**
+ * Populates a lookup with quick information for where local things are defined
+ */
+export function PopulateLocal(parsed: IParsed) {
+  // get local tokens
+  const local = parsed.local;
+
+  // extract our tree
+  const tree = parsed.tree;
+
+  // process all of the direct children in our tree
+  for (let i = 0; i < tree.length; i++) {
+    // extract our branch
+    const branch = tree[i];
+
+    // determine how to proceed
+    switch (branch.name) {
+      // handle main level programs - the others are handled elsewhere
+      // inside of "populate-global.ts" or you can search for the name of the
+      // function "GetUniqueVariables("
+      case TOKEN_NAMES.MAIN_LEVEL:
+        local.main = GetUniqueVariables(
+          branch as IBranch<MainLevelToken>,
+          parsed,
+          parsed.compile.main
+        );
+        break;
+      default:
+        // do nothing
+        break;
+    }
   }
 }

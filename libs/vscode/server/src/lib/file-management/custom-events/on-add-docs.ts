@@ -46,6 +46,7 @@ export const ON_ADD_DOCS = async (event: IAddDocsMessagePayload) => {
     const formatted = Assembler(tokens, {
       autoDoc: true,
       styleAndFormat: false,
+      autoFix: false,
     });
 
     // check if we couldnt format

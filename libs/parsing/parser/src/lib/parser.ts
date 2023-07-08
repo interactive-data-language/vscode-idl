@@ -3,8 +3,7 @@ import {
   BuildSyntaxTree,
   DEFAULT_USES_THESE_GLOBAL_TOKEN,
   IParsed,
-  PopulateGlobal,
-  PopulateLocal,
+  PopulateGlobalLocalCompileOpts,
   PostProcessProblems,
 } from '@idl/parsing/syntax-tree';
 import { ActivateDefaultSyntaxRules } from '@idl/parsing/syntax-validators';
@@ -109,12 +108,7 @@ export function Parser(
   ParserBuildTree(tokenized, full);
 
   // populate our global tokens and extract local for the global tokens
-  PopulateGlobal(tokenized);
-
-  // populate our local tokens for any non-global tokens we missed
-  if (full) {
-    PopulateLocal(tokenized);
-  }
+  PopulateGlobalLocalCompileOpts(tokenized);
 
   // clean up
   if (cleanup) {

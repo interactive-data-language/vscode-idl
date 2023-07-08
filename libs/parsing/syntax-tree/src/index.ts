@@ -34,7 +34,7 @@ export * from './lib/populate-scope';
 export * from './lib/populate-scope-detail';
 export * from './lib/populators/populate-global';
 export * from './lib/populators/populate-global.interface';
-export * from './lib/populators/populate-local';
+export * from './lib/populators/get-unique-variables';
 export * from './lib/populators/populate-local.interface';
 export * from './lib/post-process-problems';
 export * from './lib/post-processor.interface';

@@ -87,9 +87,37 @@ export function VerifyIDLHasStarted(alert = true): boolean {
 
   // check if we havent started and should alert user
   if (!started && alert) {
-    vscode.window.showInformationMessage(
-      IDL_TRANSLATION.debugger.idl.pleaseStart
-    );
+    vscode.window
+      .showInformationMessage(IDL_TRANSLATION.debugger.idl.pleaseStart, {
+        title: IDL_TRANSLATION.notifications.start,
+      })
+      .then(
+        async (resp) => {
+          // handle dialog closed with "x"
+          if (resp === undefined) {
+            return;
+          }
+
+          // otherwise check user response
+          switch (resp.title) {
+            case IDL_TRANSLATION.notifications.start:
+              try {
+                await StartIDL();
+              } catch (err) {
+                console.log(err);
+              }
+              break;
+            default:
+              break;
+          }
+        },
+        (err) => {
+          if (err?.message === 'Canceled') {
+            return;
+          }
+          console.error(err);
+        }
+      );
     return undefined;
   }
 

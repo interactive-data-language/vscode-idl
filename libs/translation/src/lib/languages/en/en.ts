@@ -172,7 +172,7 @@ export const EN: ITranslation = {
       'IDL.appendOrPrependWorkspaceFolders':
         "If workspace folders are automatically added to IDL's search path, this indicates if they are added before (prepend) or after (append) the IDL Path setting.",
       'IDL.environment':
-        "Specify any environment variables you want passed to the IDL process on startup.\n\nYour current environment variables take precedence over this, meaning: if your system environment variable for PATH is set, it is used in-place of the value of PATH set here.\n\nAdditionally, the extension manages the values of IDL_PATH, IDL_DLM_PATH, IDL_DIR, and IDL_START_DIR. If you want to change IDL's search path, use the path preferences instead.",
+        "Specify any environment variables you want passed to the IDL process on startup.\n\nThese take precedence over your system environment, meaning: if your system environment variable for PATH is set, and you specify PATH here, then we use this value of PATH instead of the system's.\n\nAdditionally, the extension manages the following environment variables: IDL_PATH, IDL_DLM_PATH, IDL_DIR, and IDL_START_DIR. If you want to change IDL's search path, use the path preference for the extension instead.",
       'IDL.preferences': 'Placeholder',
 
       'code.formatting': 'Top-level preferences for how code gets formatted.',
@@ -551,6 +551,7 @@ export const EN: ITranslation = {
     initIDLJSON:
       'No "idl.json" file found at root level of workspace folder, create? Workspace:',
     configure: 'Configure',
+    start: 'Start?',
   },
   packageJSON: {
     displayName: 'IDL for VSCode',
@@ -664,6 +665,8 @@ export const EN: ITranslation = {
       '102': 'Variable is potentially used before definition',
       '103': 'Ambiguous keyword usage. One or more keywords starts with',
       '104': 'Unused variable',
+      '105':
+        'Illegal use of parentheses for array indexing, use brackets instead. If this is a function call, add `compile_opt idl2` to the routine or main level program to delineate between the variable and function call.',
     },
   },
   terminal: {

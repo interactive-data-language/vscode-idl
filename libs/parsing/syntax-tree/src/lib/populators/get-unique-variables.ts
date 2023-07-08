@@ -27,15 +27,21 @@ import {
   LOCAL_TOKEN_LOOKUP,
   LocalVariableToken,
 } from './populate-local.interface';
+import { ReplaceFunctionsAsVariables } from './replace-functions-as-variables';
 
 /**
  * Gets variables from a branch (first instance of them)
+ *
+ * We also check the compile options for the routine and, if we don't have
+ * idl2 or strictarr, then we check and see if there are functions that should
+ * really be represented as variables.
  */
 export function GetUniqueVariables(
   branch: IBranch<
     RoutineProcedureToken | RoutineFunctionToken | MainLevelToken
   >,
   parsed: IParsed,
+  compileOpts: string[], // lower case compile options
   global?: GlobalRoutineToken
 ): ILocalTokenLookup {
   /** Init local variables */
@@ -214,38 +220,20 @@ export function GetUniqueVariables(
     }
   }
 
-  return local;
-}
+  /**
+   * Check if we have strict arr
+   */
+  const strictArr =
+    compileOpts.indexOf('idl2') !== -1 ||
+    compileOpts.indexOf('idl3') !== -1 ||
+    compileOpts.indexOf('strictarr') !== -1;
 
-/**
- * Populates a lookup with quick information for where local things are defined
- */
-export function PopulateLocal(parsed: IParsed) {
-  // get local tokens
-  const local = parsed.local;
-
-  // extract our tree
-  const tree = parsed.tree;
-
-  // process all of the direct children in our tree
-  for (let i = 0; i < tree.length; i++) {
-    // extract our branch
-    const branch = tree[i];
-
-    // determine how to proceed
-    switch (branch.name) {
-      // handle main level programs - the others are handled elsewhere
-      // inside of "populate-global.ts" or you can search for the name of the
-      // function "GetUniqueVariables("
-      case TOKEN_NAMES.MAIN_LEVEL:
-        local.main = GetUniqueVariables(
-          branch as IBranch<MainLevelToken>,
-          parsed
-        );
-        break;
-      default:
-        // do nothing
-        break;
-    }
+  /**
+   * Check if we might have parentheses being used for indexing a variable
+   */
+  if (!strictArr) {
+    ReplaceFunctionsAsVariables(parsed, branch, local);
   }
+
+  return local;
 }

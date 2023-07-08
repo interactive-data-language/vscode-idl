@@ -1,3 +1,4 @@
+import { EXTENSION_FULL_NAME } from '@idl/shared';
 import { Sleep } from '@idl/test-helpers';
 import { IInitializeType } from '@idl/vscode/initialize-types';
 import * as vscode from 'vscode';
@@ -31,7 +32,7 @@ export async function run(): Promise<void> {
   // run our tests
   try {
     // get extension
-    const ext = vscode.extensions.getExtension('idl.idl');
+    const ext = vscode.extensions.getExtension(EXTENSION_FULL_NAME);
 
     // activate extension
     ACTIVATION_RESULT = await ext.activate();

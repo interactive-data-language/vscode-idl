@@ -27,14 +27,15 @@ import { IParsed } from '../build-tree.interface';
 import { GenerateRoutineDocs } from '../docs/generate-routine-docs';
 import { FindStructureDefs } from './find-structure-defs';
 import { GetCompileOpts } from './get-compile-opts';
+import { GetUniqueVariables } from './get-unique-variables';
 import { MAIN_LEVEL_NAME } from './populate-global.interface';
-import { GetUniqueVariables } from './populate-local';
 import { LOCAL_TOKEN_LOOKUP } from './populate-local.interface';
+import { PopulateLocalForMain } from './replace-functions-as-variables';
 
 /**
  * Populates a lookup with quick information for where things are defined
  */
-export function PopulateGlobal(parsed: IParsed) {
+export function PopulateGlobalLocalCompileOpts(parsed: IParsed) {
   // get global placeholder
   const global = parsed.global;
 
@@ -102,12 +103,13 @@ export function PopulateGlobal(parsed: IParsed) {
                 meta: meta as IFunctionMetadata,
               };
               global.push(add);
+              parsed.compile.func[name] = GetCompileOpts(branch);
               parsed.local.func[name] = GetUniqueVariables(
                 branch as IBranch<RoutineFunctionToken>,
                 parsed,
+                parsed.compile.func[name],
                 add
               );
-              parsed.compile.func[name] = GetCompileOpts(branch);
               break;
             }
             case TOKEN_NAMES.ROUTINE_METHOD_NAME: {
@@ -149,12 +151,13 @@ export function PopulateGlobal(parsed: IParsed) {
                 global.push(globalFunc);
               }
 
+              parsed.compile.func[name] = GetCompileOpts(branch);
               parsed.local.func[name] = GetUniqueVariables(
                 branch as IBranch<RoutineFunctionToken>,
                 parsed,
+                parsed.compile.func[name],
                 add
               );
-              parsed.compile.func[name] = GetCompileOpts(branch);
 
               // add "self" as a variable
               parsed.local.func[name]['self'] = {
@@ -212,12 +215,13 @@ export function PopulateGlobal(parsed: IParsed) {
                 meta: meta as IRoutineMetadata,
               };
               global.push(add);
+              parsed.compile.pro[name] = GetCompileOpts(branch);
               parsed.local.pro[name] = GetUniqueVariables(
                 branch as IBranch<RoutineProcedureToken>,
                 parsed,
+                parsed.compile.pro[name],
                 add
               );
-              parsed.compile.pro[name] = GetCompileOpts(branch);
               break;
             }
             case TOKEN_NAMES.ROUTINE_METHOD_NAME: {
@@ -236,12 +240,13 @@ export function PopulateGlobal(parsed: IParsed) {
                 },
               };
               global.push(add);
+              parsed.compile.pro[name] = GetCompileOpts(branch);
               parsed.local.pro[name] = GetUniqueVariables(
                 branch as IBranch<RoutineProcedureToken>,
                 parsed,
+                parsed.compile.pro[name],
                 add
               );
-              parsed.compile.pro[name] = GetCompileOpts(branch);
 
               // add "self" as a variable
               parsed.local.pro[name]['self'] = {
@@ -298,4 +303,8 @@ export function PopulateGlobal(parsed: IParsed) {
 
   // reverse back
   parsed.tree.reverse();
+
+  // populate local vars for main
+  // separate because we have errors from reversal if we dont wait
+  PopulateLocalForMain(parsed);
 }

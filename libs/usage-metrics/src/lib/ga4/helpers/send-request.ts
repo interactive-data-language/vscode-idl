@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import { GA4_CONFIG, IGA4EventParameters } from '../ga4-client.interface';
 
@@ -25,6 +25,10 @@ export async function SendRequest(
       timeout: GA4_CONFIG.TIMEOUT,
     });
   } catch (err) {
+    // ignore if we have errors related to not finding URL (i.e. disconnected)
+    if ((err as AxiosError).code === 'ENOTFOUND') {
+      return;
+    }
     console.log(err);
   }
 }
