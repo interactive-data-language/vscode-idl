@@ -10,6 +10,8 @@ When `compile_opt` is not present with idl2, idl3, or strictarr, delineate betwe
 
 - New error code (105 with alias "illegal-var-index")
 
+- Automatically gets fixed when formatting if you have auto-fix enabled (true by default)
+
 ## 3.0.3
 
 Expose ability to set environment variables for the IDL process that appears in the debug console
