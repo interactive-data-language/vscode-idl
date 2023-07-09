@@ -67,7 +67,6 @@ export class GA4Client<Event extends string = string> {
     protocol_version: 2,
     hit_count: 1,
     session_id: `${TimeStampInSeconds()}`,
-    session_number: 1,
     client_id: `${RandomInt()}.${TimeStampInSeconds()}`,
   };
 
@@ -102,16 +101,9 @@ export class GA4Client<Event extends string = string> {
     if (config.session_id) {
       this.payloadData.session_id = config.session_id;
     }
-    if (config.session_number) {
-      this.payloadData.session_number = config.session_number;
-    }
 
     // make sure we always send this detail with events
     this.setEventsParameter('ga_session_id', this.payloadData.session_id);
-    this.setEventsParameter(
-      'ga_session_number',
-      this.payloadData.session_number
-    );
 
     // init user data
     if (config.user_id) {
