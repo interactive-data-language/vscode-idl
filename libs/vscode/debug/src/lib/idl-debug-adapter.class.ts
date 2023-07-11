@@ -40,6 +40,10 @@ import { basename, delimiter } from 'path';
 import * as vscode from 'vscode';
 
 import { FULL_RESET_REGEX, Repartee } from './commands/extra/repartee';
+import { LogInput } from './helpers/log-input';
+import { LogOutput } from './helpers/log-output';
+import { LogSessionStart } from './helpers/log-session-start';
+import { LogSessionStop } from './helpers/log-session-stop';
 import { MapVariables } from './helpers/map-variables';
 import { ResetSyntaxProblems } from './helpers/reset-syntax-problems';
 import { SyncSyntaxProblems } from './helpers/sync-syntax-problems';
@@ -119,6 +123,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // list for failures to start
     this._runtime.on(IDL_EVENT_LOOKUP.FAILED_START, () => {
       this._IDLCrashed('failed-start');
+      LogSessionStop('failed-start');
     });
 
     // listen for events when we continue processing
@@ -145,11 +150,13 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // listen for debug output
     this._runtime.on(IDL_EVENT_LOOKUP.OUTPUT, (text) => {
       this.sendEvent(new OutputEvent(`${text}\n`));
+      // LogOutput(`${text}\n`);
     });
 
     // listen for standard out
     this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_OUT, (msg) => {
       this.sendEvent(new OutputEvent(msg, 'stdout'));
+      LogOutput(msg);
 
       // placeholder code that shows how you can apply ansi colors to the output from IDL
       // this.sendEvent(
@@ -164,16 +171,19 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // pass all stderr output back to the console
     this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_ERR, (msg) => {
       this.sendEvent(new OutputEvent(msg, 'stderr'));
+      LogOutput(msg);
     });
 
     // detect crash event
     this._runtime.on(IDL_EVENT_LOOKUP.END, () => {
       this._IDLCrashed('crash');
+      LogSessionStop('crashed');
     });
 
     // listen for IDL crashing
     this._runtime.on(IDL_EVENT_LOOKUP.CRASHED, () => {
       this._IDLCrashed('crash');
+      LogSessionStop('crashed');
     });
 
     // listen for when our prompt changes
@@ -667,6 +677,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       // attempt to start IDL
       IDL_STATUS_BAR.busy(IDL_TRANSLATION.statusBar.starting, true);
 
+      LogSessionStart();
+
       // start our runtime session
       this._runtime.start(args);
 
@@ -674,6 +686,9 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
         // update flag that we started
         this.launched = true;
+
+        // add new line now that we have started
+        LogOutput('\n');
 
         // get information about IDL
         const version = CleanIDLOutput(
@@ -721,6 +736,9 @@ export class IDLDebugAdapter extends LoggingDebugSession {
           // respond to our request
           response.success = false;
           this.sendResponse(response);
+
+          // set the stop
+          LogSessionStop('failed-start');
 
           // emit event that we failed to start - handled status bar update
           this._IDLCrashed('failed-start');
@@ -1257,6 +1275,9 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // stop
     this._runtime.stop();
 
+    // add to log
+    LogSessionStop('stopped');
+
     // reset syntax problems
     ResetSyntaxProblems(this);
 
@@ -1378,6 +1399,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         type: 'debug',
         content: ['Evaluate request', args],
       });
+
+      LogInput(args.expression);
 
       // evaluate command
       await this.evaluate(args.expression, {

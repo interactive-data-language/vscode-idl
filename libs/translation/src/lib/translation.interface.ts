@@ -278,6 +278,8 @@ export interface ITranslation {
     logs: {
       /** IDl extension log */
       host: string;
+      /** IDl extension debug log */
+      debugHistory: string;
       /** File to view button */
       viewFile: string;
       /** Logs to view button */
