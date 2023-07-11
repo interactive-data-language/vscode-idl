@@ -14,6 +14,10 @@
     <array>
       <dict>
         <key>include</key>
+        <string>#log_line_debug</string>
+      </dict>
+      <dict>
+        <key>include</key>
         <string>#log_line_start</string>
       </dict>
       <dict>
@@ -152,12 +156,47 @@
         <key>match</key>
         <string>(?i)[a-z_\-0-9]+</string>
       </dict>
+      <key>log_line_debug</key>
+      <dict>
+        <key>name</key>
+        <string>variable.other.readwrite.ts.idl</string>
+        <key>match</key>
+        <string>(?i)^(idl) (input) (.*)$</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>support.type.primitive.ts</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#log_type</string>
+              </dict>
+            </array>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>source.idl</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+      </dict>
       <key>log_line_start</key>
       <dict>
         <key>name</key>
         <string>variable.other.readwrite.ts.idl</string>
         <key>match</key>
-        <string>(?i)^(idl[a-z_\-0-9]+)\s*([a-z_\-0-9]+)\b</string>
+        <string>(?i)^(idl[a-z_\-0-9]*)\s*([a-z_\-0-9]+)\b</string>
         <key>captures</key>
         <dict>
           <key>1</key>

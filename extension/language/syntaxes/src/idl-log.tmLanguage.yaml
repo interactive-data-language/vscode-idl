@@ -32,6 +32,7 @@ variables:
 
 # rules that we  look for
 patterns:
+  - include: '#log_line_debug'
   - include: '#log_line_start'
   - include: '#all_tokens'
 
@@ -111,9 +112,18 @@ repository:
     #   - match: 'error'
     #     name: support.type.primitive.ts
 
+  # log for input when adding to debug log
+  log_line_debug:
+    name: {{name_variable}}
+    match: '^(idl) (input) (.*)$'
+    captures:
+      '1': { name: support.type.primitive.ts }
+      '2': { patterns: [{ include: '#log_type' }] }
+      '3': { patterns: [{ include: 'source.idl' }] }
+
   log_line_start:
     name: {{name_variable}}
-    match: '^(idl[a-z_\-0-9]+)\s*([a-z_\-0-9]+)\b'
+    match: '^(idl[a-z_\-0-9]*)\s*([a-z_\-0-9]+)\b'
     captures:
       '1': { name: support.type.primitive.ts }
       '2': { patterns: [{ include: '#log_type' }] }
