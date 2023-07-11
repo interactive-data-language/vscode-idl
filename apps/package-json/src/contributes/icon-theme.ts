@@ -36,16 +36,20 @@ async function DownloadFiles() {
 
   // download each file
   for (let i = 0; i < files.length; i++) {
-    // specify the output file
-    const outFile = outDir + sep + files[i];
-
     // get file as raw dat
-    const resp = await axios.get(`${baseUrl}/${files[i]}`, {
-      responseType: 'arraybuffer',
-    });
+    try {
+      // specify the output file
+      const outFile = outDir + sep + files[i];
 
-    // write to disk
-    writeFileSync(outFile, resp.data);
+      const resp = await axios.get(`${baseUrl}/${files[i]}`, {
+        responseType: 'arraybuffer',
+      });
+
+      // write to disk
+      writeFileSync(outFile, resp.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   // process the output file
