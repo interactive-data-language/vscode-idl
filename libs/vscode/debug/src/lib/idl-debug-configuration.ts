@@ -3,6 +3,7 @@ import { CleanPath } from '@idl/shared';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
+import { VariablesReferenceSubstitution } from '@idl/vscode/shared';
 import * as path from 'path';
 import {
   CancellationToken,
@@ -52,6 +53,14 @@ export class IDLDebugConfigurationProvider
       DEFAULT_IDL_DEBUG_CONFIGURATION.env, // from `process.env`
       IDL_EXTENSION_CONFIG.IDL.environment
     );
+
+    // do substitution for all environment variables
+    const vars = Object.keys(IDL_EXTENSION_CONFIG.IDL.environment);
+    for (let i = 0; i < vars.length; i++) {
+      useConfig.env[vars[i]] = VariablesReferenceSubstitution(
+        useConfig.env[vars[i]]
+      );
+    }
 
     // string to use to join workspace folders
     const joinchar = `${path.delimiter}+`;

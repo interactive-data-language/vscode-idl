@@ -17,3 +17,5 @@ This README is the main entry point for the extension documentation for the IDL 
 - [**Types: TLDR**](./general/TYPES_TLDR.md): A basic rundown of types in IDL
 
 - [**Usage Metrics**](./general/USAGE_METRICS.md): A summary and detailed description of usage metrics that are gathered as part of the extension
+
+- [**Variables Reference**](./general/VARIABLES_REFERENCE.md): The variables that the IDL extension supports as short-hand for configuration

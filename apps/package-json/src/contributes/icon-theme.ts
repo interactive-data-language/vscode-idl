@@ -71,8 +71,10 @@ async function DownloadFiles() {
   // update icon theme for IDL
   json['fileExtensions']['pro'] = '_idl';
   json['fileExtensions']['sav'] = '_idl';
+  json['fileExtensions']['idllog'] = '_idl';
   json['light']['fileExtensions']['pro'] = '_idl_light';
   json['light']['fileExtensions']['sav'] = '_idl_light';
+  json['light']['fileExtensions']['idllog'] = '_idl_light';
 
   // save changes to disk
   writeFileSync(

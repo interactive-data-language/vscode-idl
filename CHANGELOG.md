@@ -4,6 +4,28 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
+## 3.0.6
+
+Add new preferences for tracking session history! This includes several new features:
+
+- A new output channel that captures the input and output from your IDL sessions (i.e. `print, 42` and the text `42`). This output channel is called "IDL: Session History"
+
+- A system to also write all input and output to a file on disk. You can control:
+
+  - If we write a file on disk or not
+
+  - The folder
+
+  - The name of the file
+
+  - Size limit for the file
+
+  - If we always clear (truncate) the contents of the file when IDL starts
+
+Add basic variable substitution for the environment preference and the folder for tracking history.
+
+- This is added as a new link in the docs that is included with the extension
+
 ## 3.0.4
 
 When `compile_opt` is not present with idl2, idl3, or strictarr, delineate between function calls and indexing with parentheses. It won't parse 100% correctly, but it allows us to identify and fix parentheses.

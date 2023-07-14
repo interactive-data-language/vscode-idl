@@ -173,6 +173,8 @@ export const EN: ITranslation = {
         "If workspace folders are automatically added to IDL's search path, this indicates if they are added before (prepend) or after (append) the IDL Path setting.",
       'IDL.environment':
         "Specify any environment variables you want passed to the IDL process on startup.\n\nThese take precedence over your system environment, meaning: if your system environment variable for PATH is set, and you specify PATH here, then we use this value of PATH instead of the system's.\n\nAdditionally, the extension manages the following environment variables: IDL_PATH, IDL_DLM_PATH, IDL_DIR, and IDL_START_DIR. If you want to change IDL's search path, use the path preference for the extension instead.",
+      'IDL.history':
+        'Preferences that control the session history (input and output) when running IDL.',
       'IDL.preferences': 'Placeholder',
 
       'code.formatting': 'Top-level preferences for how code gets formatted.',
@@ -246,6 +248,16 @@ export const EN: ITranslation = {
         quotes:
           'For string literals what type of quote we use. Includes numbers defined using quotes.',
         systemVariables: 'Case formatting for system variables',
+      },
+      'IDL.history': {
+        enabled: 'Do we track session history or not?',
+        maxSize:
+          'The maximum file size (MB) for the history file. On startup, if the log file is larger than this size, it is truncated. Otherwise we append.',
+        truncateOnStartup:
+          'When IDL starts, do we always clear our session history file and start fresh?',
+        folder: 'The folder that we write our session history to',
+        fileName:
+          'The base name of the file that contains the session history. This file will be created in the folder specified above.',
       },
     },
     enumDescriptions: {
@@ -333,6 +345,10 @@ export const EN: ITranslation = {
       evaluate: 'Error while handling "evaluate" request',
       idlDetails:
         'Error getting information about IDL (version, directory, etc.)',
+      createHistory:
+        'Error while creating or truncating history file. Does the folder have write permissions?',
+      addHistory:
+        'Error while adding content to IDL history file. Does the location have write permissions?',
     },
   },
   hoverHelp: HOVER_HELP_EN,
