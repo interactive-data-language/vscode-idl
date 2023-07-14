@@ -1,6 +1,6 @@
 import { IDL_DEBUG_OUTPUT_CHANNEL } from '@idl/vscode/client';
 
-import { CreateOutputFile } from './create-output-file';
+import { CreateHistoryFile } from './create-history-file';
 import { OUTPUT_CONFIG } from './log-output';
 
 /**
@@ -14,7 +14,7 @@ export function LogSessionStart() {
   IDL_DEBUG_OUTPUT_CHANNEL.appendLine('');
 
   // make our log file (indicates which file we use for input/output)
-  CreateOutputFile();
+  CreateHistoryFile();
 
   IDL_DEBUG_OUTPUT_CHANNEL.appendLine(
     `idl started ${new Date().toISOString()}`

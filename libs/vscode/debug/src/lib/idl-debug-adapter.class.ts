@@ -255,6 +255,11 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // get the options for evaluating our expression
     const options = { ...DEFAULT_EVALUATE_OPTIONS, ...inOptions };
 
+    // log what we are running
+    if (!options.silent) {
+      LogInput(options.echoThis ? options.echoThis : command);
+    }
+
     /**
      * Handle executing more than one statement at a time.
      *
@@ -1399,8 +1404,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         type: 'debug',
         content: ['Evaluate request', args],
       });
-
-      LogInput(args.expression);
 
       // evaluate command
       await this.evaluate(args.expression, {

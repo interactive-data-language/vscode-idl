@@ -17,7 +17,7 @@ import { OUTPUT_CONFIG } from './log-output';
 /**
  * Creates/manages the location of the output file for our console input/output
  */
-export function CreateOutputFile() {
+export function CreateHistoryFile() {
   // check if our history file is enabled or not
   if (IDL_EXTENSION_CONFIG.IDL.history.enabled) {
     OUTPUT_CONFIG.FILE = join(
@@ -33,7 +33,9 @@ export function CreateOutputFile() {
     });
 
     // add in history log where we are located
-    IDL_DEBUG_OUTPUT_CHANNEL.appendLine(`idl history '${OUTPUT_CONFIG.FILE}'`);
+    IDL_DEBUG_OUTPUT_CHANNEL.appendLine(
+      `idl history '${OUTPUT_CONFIG.FILE}'\n`
+    );
 
     try {
       // make folder if it does not exists

@@ -7,7 +7,11 @@ import { OUTPUT_CONFIG } from './log-output';
  * Logs input data being sent to IDL
  */
 export function LogInput(code: string) {
+  // update flag that we have first input
   OUTPUT_CONFIG.FIRST = true;
+
+  // append new line
+  IDL_DEBUG_OUTPUT_CHANNEL.appendLine('');
   IDL_DEBUG_OUTPUT_CHANNEL.appendLine('');
   IDL_DEBUG_OUTPUT_CHANNEL.appendLine(
     `idl input ${code.replace(REGEX_NEW_LINE, '\n  ')}`
