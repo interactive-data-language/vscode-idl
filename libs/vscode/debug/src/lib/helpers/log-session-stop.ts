@@ -9,14 +9,15 @@ import { OUTPUT_CONFIG } from './log-output';
  * Logs that a session has stopped
  */
 export function LogSessionStop(reason: string) {
-  const toWrite = `\nidl ${reason} ${new Date().toISOString()}`;
+  const toWrite = `idl ${reason} ${new Date().toISOString()}`;
+  IDL_DEBUG_OUTPUT_CHANNEL.appendLine('');
   IDL_DEBUG_OUTPUT_CHANNEL.appendLine('');
   IDL_DEBUG_OUTPUT_CHANNEL.appendLine(toWrite);
 
   // check if we need to write to our log file
   if (OUTPUT_CONFIG.FILE !== '') {
     try {
-      appendFileSync(OUTPUT_CONFIG.FILE, toWrite);
+      appendFileSync(OUTPUT_CONFIG.FILE, `\n\n${toWrite}\n`);
     } catch (err) {
       IDL_LOGGER.log({
         type: 'error',
