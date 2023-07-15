@@ -185,6 +185,7 @@ export async function InitializeClient(
   return {
     logger: IDL_LOGGER,
     client: LANGUAGE_SERVER_CLIENT,
+    config: IDL_EXTENSION_CONFIG,
     failedStart: LANGUAGE_SERVER_FAILED_START,
   };
 }

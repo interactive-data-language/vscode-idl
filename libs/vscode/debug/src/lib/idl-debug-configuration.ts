@@ -4,6 +4,7 @@ import { IDL_LOGGER } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { VariablesReferenceSubstitution } from '@idl/vscode/shared';
+import copy from 'fast-copy';
 import * as path from 'path';
 import {
   CancellationToken,
@@ -44,7 +45,7 @@ export class IDLDebugConfigurationProvider
     const useConfig = {
       ...DEFAULT_IDL_DEBUG_CONFIGURATION,
       ...config,
-      ...{ config: IDL_EXTENSION_CONFIG as IDLExtensionConfig },
+      ...{ config: copy(IDL_EXTENSION_CONFIG) as IDLExtensionConfig },
     };
 
     // set environment
@@ -60,6 +61,9 @@ export class IDLDebugConfigurationProvider
       useConfig.env[vars[i]] = VariablesReferenceSubstitution(
         useConfig.env[vars[i]]
       );
+
+      // update copied config so VSCode doesnt try to map it
+      useConfig.config.IDL.environment[vars[i]] = useConfig.env[vars[i]];
     }
 
     // string to use to join workspace folders

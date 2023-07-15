@@ -38,7 +38,7 @@ export function VariablesReferenceSubstitution(input: string) {
       const workspaces = vscode.workspace.workspaceFolders;
 
       // if we dont have folders, use .idl
-      if (workspaces === null) {
+      if (workspaces === undefined || workspaces?.length === 0) {
         return input.replace(
           VARIABLES_REFERENCE_REGEX.WORKSPACE,
           DOT_IDL_FOLDER

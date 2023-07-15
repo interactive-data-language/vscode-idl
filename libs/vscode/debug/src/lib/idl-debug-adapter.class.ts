@@ -337,7 +337,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // check if we need to close our debug session
     if (close) {
-      this._terminate();
+      this.terminate();
       return '';
     }
 
@@ -1272,7 +1272,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   /**
    * Wrapper method to stop our current IDL session
    */
-  private _terminate() {
+  terminate() {
     this.sendEvent(
       new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.stop}\n`)
     );
@@ -1314,7 +1314,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       });
 
       // stop IDL
-      this._terminate();
+      this.terminate();
 
       // send our response
       this.sendResponse(response);
