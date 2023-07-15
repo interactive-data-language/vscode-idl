@@ -11,7 +11,7 @@
         "outputPath": "dist/apps/client-e2e",
         "main": "apps/client-e2e/src/main.ts",
         "tsConfig": "apps/client-e2e/tsconfig.app.json",
-        "assets": ["apps/client-e2e/src/assets"],
+        "assets": [],
         "webpackConfig": "webpack.base.config.js",
         "externalDependencies": "none",
         "target": "node",
