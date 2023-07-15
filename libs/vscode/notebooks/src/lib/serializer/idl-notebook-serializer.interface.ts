@@ -4,6 +4,11 @@
 export type IDLNotebookVersion = '1.0.0';
 
 /**
+ * The type of cell for our markdown files
+ */
+export type IDLNotebookCellType = 'code' | 'markdown';
+
+/**
  * Data structure for notebook cells
  *
  * DO NOT CHANGE PROPERTY NAMES AS THIS BREAKS PARSING
@@ -12,7 +17,7 @@ export interface RawNotebookCell {
   /**
    * The type of cell
    */
-  type: 'code' | 'markdown';
+  type: IDLNotebookCellType;
   /**
    * Content of the cell
    */
