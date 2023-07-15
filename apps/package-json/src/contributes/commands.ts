@@ -1,4 +1,4 @@
-import { IDL_COMMANDS, LANGUAGE_NAME } from '@idl/shared';
+import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
@@ -59,7 +59,7 @@ function TranslationFromCommand(name: string) {
  * exactly our command name
  */
 function TranslationErrorFromCommand(name: string) {
-  return `%commands.errors.${name.substring(LANGUAGE_NAME.length + 1)}%`;
+  return `%commands.errors.${name.substring(IDL_LANGUAGE_NAME.length + 1)}%`;
 }
 
 /**

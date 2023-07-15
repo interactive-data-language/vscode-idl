@@ -523,6 +523,17 @@ export interface ITranslation {
   logger: {
     defaultErrorMessage: string;
   };
+  /** Translations for notebooks */
+  notebooks: {
+    /** title of notebooks */
+    title: string;
+    errors: {
+      /** Bad notebook file */
+      invalidNotebook: string;
+      /** Error while saving notebook file */
+      errorSaving: string;
+    };
+  };
   /** Translations related to notifications in dialogs that pop up in VSCode */
   notifications: {
     /** When no PRO code if found in the editor */

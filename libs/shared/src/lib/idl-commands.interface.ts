@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME as L } from './language.interface';
+import { IDL_LANGUAGE_NAME as L } from './language.interface';
 
 /** Base string that all commands start with */
 export const BASE_COMMAND = `${L}.`;

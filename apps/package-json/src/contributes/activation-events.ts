@@ -8,7 +8,7 @@ import { IPackageJSON, IPackageNLS } from '../package.interface';
 
 export const BASE_ACTIVATION_EVENTS: string[] = [
   // not needed per https://code.visualstudio.com/updates/v1_74#_extension-authoring
-  // `onLanguage:${LANGUAGE_NAME}`,
+  // `onLanguage:${IDL_LANGUAGE_NAME}`,
   `workspaceContains:${PRO_CODE_GLOB_PATTERN}`,
   `workspaceContains:${CONFIG_FILE_GLOB_PATTERN}`,
   `workspaceContains:${TASK_FILE_GLOB_PATTERN}`,

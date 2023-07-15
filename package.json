@@ -1110,6 +1110,17 @@
         }
       ]
     },
+    "notebooks": [
+      {
+        "type": "idl-notebook",
+        "displayName": "%notebooks.title%",
+        "selector": [
+          {
+            "filenamePattern": "*.idlnb"
+          }
+        ]
+      }
+    ],
     "snippets": [
       {
         "language": "idl",

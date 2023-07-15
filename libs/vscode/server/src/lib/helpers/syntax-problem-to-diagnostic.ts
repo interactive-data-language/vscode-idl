@@ -6,7 +6,7 @@ import {
   SyntaxProblems,
 } from '@idl/parsing/problem-codes';
 import { GetIDLProblemSeverity } from '@idl/parsing/syntax-tree';
-import { GetExtensionPath, LANGUAGE_NAME } from '@idl/shared';
+import { GetExtensionPath, IDL_LANGUAGE_NAME } from '@idl/shared';
 import { readdirSync } from 'fs';
 import { basename, join } from 'path';
 import { pathToFileURL } from 'url';
@@ -66,7 +66,7 @@ export function SyntaxProblemToDiagnostic(problem: ISyntaxProblem): Diagnostic {
         ? IDL_PROBLEM_DIAGNOSTIC_TAGS[problem.code]
         : [],
     code: `"${IDL_PROBLEM_CODE_ALIAS_LOOKUP[problem.code]}", ${problem.code}`,
-    source: LANGUAGE_NAME,
+    source: IDL_LANGUAGE_NAME,
     codeDescription: {
       href: problem.code in HELP_URIS ? HELP_URIS[problem.code] : undefined,
     },

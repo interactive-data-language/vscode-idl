@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 
@@ -31,7 +31,7 @@ export function InitializeDebugger(
   });
   const provider = new IDLDebugConfigurationProvider();
   ctx.subscriptions.push(
-    vscode.debug.registerDebugConfigurationProvider(LANGUAGE_NAME, provider)
+    vscode.debug.registerDebugConfigurationProvider(IDL_LANGUAGE_NAME, provider)
   );
 
   IDL_LOGGER.log({
@@ -39,7 +39,10 @@ export function InitializeDebugger(
   });
   const factory = new ServerIDLDebugAdapterFactory();
   ctx.subscriptions.push(
-    vscode.debug.registerDebugAdapterDescriptorFactory(LANGUAGE_NAME, factory)
+    vscode.debug.registerDebugAdapterDescriptorFactory(
+      IDL_LANGUAGE_NAME,
+      factory
+    )
   );
   if ('dispose' in factory) {
     ctx.subscriptions.push(factory);

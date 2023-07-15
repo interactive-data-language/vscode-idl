@@ -554,6 +554,13 @@ export const EN: ITranslation = {
       staticReference: 'A static reference to the class',
     },
   },
+  notebooks: {
+    title: 'IDL: Notebook',
+    errors: {
+      invalidNotebook: 'Unable to parse notebook file',
+      errorSaving: 'Unknown error while saving notebook file',
+    },
+  },
   notifications: {
     noProCode: 'No active PRO file in VSCode',
     noProCodeOrTaskFile: 'No active PRO file or Task file in VSCode',

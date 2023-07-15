@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import * as vscode from 'vscode';
 
 import { LANGUAGE_CONFIGURATION } from './language-configuration.interface';
@@ -11,7 +11,7 @@ import { LANGUAGE_CONFIGURATION } from './language-configuration.interface';
  */
 export function LoadLanguageConfiguration() {
   vscode.languages.setLanguageConfiguration(
-    LANGUAGE_NAME,
+    IDL_LANGUAGE_NAME,
     LANGUAGE_CONFIGURATION
   );
 }

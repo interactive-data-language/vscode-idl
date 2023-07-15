@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import * as vscode from 'vscode';
 
@@ -11,6 +11,6 @@ import { IIDLWorkspaceConfig } from '../idl-config.interface';
 export function GetWorkspaceConfig(): IIDLWorkspaceConfig {
   return {
     ...DEFAULT_IDL_EXTENSION_CONFIG,
-    ...vscode.workspace.getConfiguration(LANGUAGE_NAME),
+    ...vscode.workspace.getConfiguration(IDL_LANGUAGE_NAME),
   } as IIDLWorkspaceConfig;
 }

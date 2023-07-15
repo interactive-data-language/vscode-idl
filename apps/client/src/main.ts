@@ -8,6 +8,7 @@ import { InitializeDebugger } from '@idl/vscode/debug';
 import { InitializeDocs } from '@idl/vscode/docs';
 import { InitializeENVIOpener } from '@idl/vscode/envi-opener';
 import { IInitializeType } from '@idl/vscode/initialize-types';
+import { InitializeNotebooks } from '@idl/vscode/notebooks';
 import { InitializeTree } from '@idl/vscode/tree-view';
 import { InitializeWebView } from '@idl/vscode/webview';
 import { ExtensionContext } from 'vscode';
@@ -36,6 +37,9 @@ export async function activate(
 
   // add our webview
   InitializeWebView(ctx);
+
+  // add notebooks
+  InitializeNotebooks(ctx);
 
   // add our ENVI file opener
   InitializeENVIOpener(ctx);

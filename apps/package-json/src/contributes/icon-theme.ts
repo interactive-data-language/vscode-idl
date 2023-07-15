@@ -72,9 +72,11 @@ async function DownloadFiles() {
   json['fileExtensions']['pro'] = '_idl';
   json['fileExtensions']['sav'] = '_idl';
   json['fileExtensions']['idllog'] = '_idl';
+  json['fileExtensions']['idlnb'] = '_idl';
   json['light']['fileExtensions']['pro'] = '_idl_light';
   json['light']['fileExtensions']['sav'] = '_idl_light';
   json['light']['fileExtensions']['idllog'] = '_idl_light';
+  json['light']['fileExtensions']['idlnb'] = '_idl_light';
 
   // save changes to disk
   writeFileSync(

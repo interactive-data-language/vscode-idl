@@ -14,6 +14,11 @@ export const IDL_CONSOLE = 'idl-console';
 export const IDL_COMMAND_LOG = 'idl-command';
 
 /**
+ * Log for IDL notebooks
+ */
+export const IDL_NOTEBOOK_LOG = 'idl-notebook';
+
+/**
  * Log for the IDL tree
  */
 export const IDL_TREE_LOG = 'idl-tree';
@@ -79,6 +84,7 @@ export const ALL_IDL_LOGS = [
   IDL_DEBUG_LOG,
   IDL_DEBUG_ADAPTER_LOG,
   IDL_DEBUG_CONFIGURATION_LOG,
+  IDL_NOTEBOOK_LOG,
   IDL_WEB_VIEW_LOG,
   IDL_INDEX_LOG,
   IDL_LSP_LOG,

@@ -3,7 +3,7 @@ import {
   CONFIG_FILE_GLOB_PATTERN,
   IDL_CONFIG_FILE_DOCUMENT_SELECTOR,
   IDL_DOCUMENT_SELECTOR,
-  LANGUAGE_NAME,
+  IDL_LANGUAGE_NAME,
   NODE_MEMORY_CONFIG,
   PRO_CODE_GLOB_PATTERN,
   TASK_FILE_DOCUMENT_SELECTOR,
@@ -184,7 +184,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
   // Create the language client and start the client.
   LANGUAGE_SERVER_CLIENT = new LanguageClient(
     'IDLLanguageServer',
-    LANGUAGE_NAME,
+    IDL_LANGUAGE_NAME,
     HAS_NODE ? serverOptionsNode : serverOptionsInVSCode,
     clientOptions
   );

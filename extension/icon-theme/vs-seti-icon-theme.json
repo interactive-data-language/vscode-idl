@@ -1787,7 +1787,8 @@
     "pem": "_lock",
     "ds_store": "_ignored",
     "sav": "_idl",
-    "idllog": "_idl"
+    "idllog": "_idl",
+    "idlnb": "_idl"
   },
   "fileNames": {
     "mix": "_hex",
@@ -2192,7 +2193,8 @@
       "pem": "_lock_light",
       "ds_store": "_ignored_light",
       "sav": "_idl_light",
-      "idllog": "_idl_light"
+      "idllog": "_idl_light",
+      "idlnb": "_idl_light"
     },
     "languageIds": {
       "bat": "_windows_light",

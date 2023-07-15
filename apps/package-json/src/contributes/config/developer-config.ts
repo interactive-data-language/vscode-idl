@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDL_EXTENSION_CONFIG_KEYS,
@@ -29,7 +29,7 @@ export function AddDeveloperConfig(nls: IPackageNLS) {
 
   // // preference to ask or not ask about the IDL directory
   // ourConfig.properties[
-  //   `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.developerIDL}`
+  //   `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.developerIDL}`
   // ] = {
   //   type: 'boolean',
   //   default: false,
@@ -42,7 +42,7 @@ export function AddDeveloperConfig(nls: IPackageNLS) {
 
   // // preference to ask or not ask about the IDL directory
   // ourConfig.properties[
-  //   `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.developerENVI}`
+  //   `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.developerENVI}`
   // ] = {
   //   type: 'boolean',
   //   default: false,
@@ -55,7 +55,7 @@ export function AddDeveloperConfig(nls: IPackageNLS) {
 
   // // preference to ask or not ask about changing the default formatter
   // ourConfig.properties[
-  //   `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.developerENVIDeepLearning}`
+  //   `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.developerENVIDeepLearning}`
   // ] = {
   //   type: 'boolean',
   //   default: false,
@@ -68,7 +68,7 @@ export function AddDeveloperConfig(nls: IPackageNLS) {
 
   // // folders to not ask to init config for
   // ourConfig.properties[
-  //   `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.developerENVIMachineLearning}`
+  //   `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.developerENVIMachineLearning}`
   // ] = {
   //   type: 'boolean',
   //   default: false,
@@ -81,7 +81,7 @@ export function AddDeveloperConfig(nls: IPackageNLS) {
 
   // should our extension run in debug mode
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.developer}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.developer}`
   ] = {
     type: 'object',
     description: TranslationFromConfiguration(
