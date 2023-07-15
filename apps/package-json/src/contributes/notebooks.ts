@@ -1,4 +1,8 @@
-import { IDL_NOTEBOOK_EXTENSION, IDL_NOTEBOOK_NAME } from '@idl/shared';
+import {
+  IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME,
+  IDL_NOTEBOOK_EXTENSION,
+  IDL_NOTEBOOK_NAME,
+} from '@idl/shared';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
 import { VerifyNLS } from './helpers/verify-nls';
@@ -19,6 +23,12 @@ export function ProcessNotebooks(packageJSON: IPackageJSON, nls: IPackageNLS) {
 
   if (!VerifyNLS(ourNotebook.displayName, nls)) {
     throw new Error('Notebook displayName not in translation');
+  }
+
+  if (!VerifyNLS(IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME, nls)) {
+    throw new Error(
+      'IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME not in translation'
+    );
   }
 
   // add to contribution point

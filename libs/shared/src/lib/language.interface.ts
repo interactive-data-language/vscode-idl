@@ -29,6 +29,17 @@ export const LANGUAGE_TOKEN_SCOPE_NAME = `source.${IDL_LANGUAGE_NAME}`;
 export const IDL_NOTEBOOK_NAME = `${IDL_LANGUAGE_NAME}-notebook`;
 
 /**
+ * The name of IDL notebooks
+ */
+export const IDL_NOTEBOOK_CONTROLLER_NAME = `${IDL_LANGUAGE_NAME}-notebook-controller`;
+
+/**
+ * Translation key for notebook controller
+ */
+export const IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME =
+  '%notebooks.controller%';
+
+/**
  * Name of the extension in VSCode
  *
  * Publisher ane name from the package.json file

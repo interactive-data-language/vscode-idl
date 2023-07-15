@@ -527,6 +527,8 @@ export interface ITranslation {
   notebooks: {
     /** title of notebooks */
     title: string;
+    /** Name of the notebook controller */
+    controller: string;
     errors: {
       /** Bad notebook file */
       invalidNotebook: string;

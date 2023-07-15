@@ -61,7 +61,8 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
 
         // check for outputs
         if (parsed.cells[i].outputs !== undefined) {
-          cell.outputs = parsed.cells[i].outputs;
+          // TODO: figure out how to make this magic happen
+          // cell.outputs = parsed.cells[i].outputs;
         }
 
         // save our cell

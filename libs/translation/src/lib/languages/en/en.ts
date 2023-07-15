@@ -556,6 +556,7 @@ export const EN: ITranslation = {
   },
   notebooks: {
     title: 'IDL: Notebook',
+    controller: 'IDL',
     errors: {
       invalidNotebook: 'Unable to parse notebook file',
       errorSaving: 'Unknown error while saving notebook file',
