@@ -1,3 +1,5 @@
+import { NotebookCellOutput } from 'vscode';
+
 /**
  * The version of our IDL notebook files
  */
@@ -22,6 +24,16 @@ export interface RawNotebookCell {
    * Content of the cell
    */
   content: string[];
+  /**
+   * Notebook cell metadata
+   */
+  metadata?: { [key: string]: any };
+  /**
+   * Output data for our cell
+   *
+   * TODO: Do we need our own format in case VSCode changes this data structure??
+   */
+  outputs?: NotebookCellOutput[];
 }
 
 /**
@@ -39,6 +51,10 @@ export interface RawNotebook {
    * The cells within the notebook
    */
   cells: RawNotebookCell[];
+  /**
+   * Notebook metadata
+   */
+  metadata?: { [key: string]: any };
 }
 
 /**

@@ -20,32 +20,61 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _token: vscode.CancellationToken
   ): Promise<vscode.NotebookData> {
-    const contents = new TextDecoder().decode(content);
-
-    let cells: vscode.NotebookCellData[] = [];
+    /**
+     * Contents of the notebook file
+     */
+    const contents =
+      new TextDecoder().decode(content) || DEFAULT_SERIALIZED_NOTEBOOK;
 
     /**
-     * Raw notebook cell data
+     * Parsed notebook, placeholder in case we have error parsing file
      */
-    let raw: RawNotebookCell[] = [];
+    let nb = new vscode.NotebookData([]);
 
     // attempt to parse file
     try {
-      // parse and retrieve cells
-      raw = (<RawNotebook>JSON.parse(contents || DEFAULT_SERIALIZED_NOTEBOOK))
-        .cells;
+      /**
+       * Parse our notebook file
+       */
+      const parsed: RawNotebook = JSON.parse(contents);
 
-      // map to VSCode notebook cells
-      cells = raw.map(
-        (item) =>
-          new vscode.NotebookCellData(
-            item.type === 'code'
-              ? vscode.NotebookCellKind.Code
-              : vscode.NotebookCellKind.Markup,
-            item.content.join('\n'),
-            item.type === 'code' ? IDL_LANGUAGE_NAME : 'markdown'
-          )
-      );
+      /**
+       * Cells that we parse
+       */
+      const cells: vscode.NotebookCellData[] = [];
+
+      // process each parsed cell
+      for (let i = 0; i < parsed.cells.length; i++) {
+        /** Create our cell */
+        const cell = new vscode.NotebookCellData(
+          parsed.cells[i].type === 'code'
+            ? vscode.NotebookCellKind.Code
+            : vscode.NotebookCellKind.Markup,
+          parsed.cells[i].content.join('\n'),
+          parsed.cells[i].type === 'code' ? IDL_LANGUAGE_NAME : 'markdown'
+        );
+
+        // check for metadata
+        if (parsed.cells[i].metadata !== undefined) {
+          cell.metadata = parsed.cells[i].metadata;
+        }
+
+        // check for outputs
+        if (parsed.cells[i].outputs !== undefined) {
+          cell.outputs = parsed.cells[i].outputs;
+        }
+
+        // save our cell
+        cells.push(cell);
+      }
+
+      // create a notebook from our cells
+      nb = new vscode.NotebookData(cells);
+
+      // check for top-level metadata
+      if (parsed.metadata !== undefined) {
+        nb.metadata = parsed.metadata;
+      }
     } catch (err) {
       IDL_LOGGER.log({
         type: 'error',
@@ -56,7 +85,7 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
     }
 
     // return cells as VSCode notebook data
-    return new vscode.NotebookData(cells);
+    return nb;
   }
 
   async serializeNotebook(
@@ -72,13 +101,27 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
     try {
       // map cells from VSCode to our format
       for (let i = 0; i < data.cells.length; i++) {
-        contents.push({
+        /** Make base cell */
+        const rawCell: RawNotebookCell = {
           type:
             data.cells[i].kind === vscode.NotebookCellKind.Code
               ? 'code'
               : 'markdown',
           content: data.cells[i].value.split(/\r?\n/g),
-        });
+        };
+
+        // check for metadata
+        if (data.cells[i].metadata !== undefined) {
+          rawCell.metadata = data.cells[i].metadata;
+        }
+
+        // check if we have output
+        if (data.cells[i].outputs !== undefined) {
+          rawCell.outputs = data.cells[i].outputs;
+        }
+
+        // save cell
+        contents.push(rawCell);
       }
     } catch (err) {
       IDL_LOGGER.log({
@@ -98,6 +141,11 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
       version: '1.0.0',
       cells: contents,
     };
+
+    // check for top-level metadata
+    if (data.metadata !== undefined) {
+      nb.metadata = data.metadata;
+    }
 
     return new TextEncoder().encode(JSON.stringify(nb));
   }
