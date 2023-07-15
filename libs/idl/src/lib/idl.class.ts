@@ -121,7 +121,7 @@ export class IDL extends EventEmitter {
         type: 'error',
         content: [
           `Unable to start IDL. Auxiliary PRO code directory not found at expected location:`,
-          this.vscodeProDir,
+          `"${this.vscodeProDir}"`,
         ],
       });
       this.emit(IDL_EVENT_LOOKUP.FAILED_START, 'Failed to start IDL');

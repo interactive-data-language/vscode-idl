@@ -15,6 +15,11 @@ import { IInitializeDebuggerResult } from './initialize-debugger.interface';
 export let IDL_DEBUG_ADAPTER: IDLDebugAdapter;
 
 /**
+ * Debug configuration provider
+ */
+export let IDL_DEBUG_CONFIGURATION_PROVIDER: IDLDebugConfigurationProvider;
+
+/**
  * Allows us to interact with the IDL status bar
  */
 export let IDL_STATUS_BAR: IDLDebugStatusBar;
@@ -29,9 +34,12 @@ export function InitializeDebugger(
   IDL_LOGGER.log({
     content: 'Registering debug configuration provider',
   });
-  const provider = new IDLDebugConfigurationProvider();
+  IDL_DEBUG_CONFIGURATION_PROVIDER = new IDLDebugConfigurationProvider();
   ctx.subscriptions.push(
-    vscode.debug.registerDebugConfigurationProvider(IDL_LANGUAGE_NAME, provider)
+    vscode.debug.registerDebugConfigurationProvider(
+      IDL_LANGUAGE_NAME,
+      IDL_DEBUG_CONFIGURATION_PROVIDER
+    )
   );
 
   IDL_LOGGER.log({

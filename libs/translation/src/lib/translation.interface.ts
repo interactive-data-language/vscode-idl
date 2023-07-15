@@ -534,6 +534,12 @@ export interface ITranslation {
       invalidNotebook: string;
       /** Error while saving notebook file */
       errorSaving: string;
+      /** IDL doesn't start in the notebook */
+      failedStart: string;
+      /** if we failed to execute one or more cells */
+      failedExecute: string;
+      /** IDL crashes while running something in the notebook */
+      crashed: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */

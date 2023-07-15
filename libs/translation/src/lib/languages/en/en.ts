@@ -560,6 +560,10 @@ export const EN: ITranslation = {
     errors: {
       invalidNotebook: 'Unable to parse notebook file',
       errorSaving: 'Unknown error while saving notebook file',
+      failedStart: 'The IDL kernel failed to start',
+      failedExecute: 'Failed to execute notebook cells',
+      crashed:
+        'IDL crashed or was stopped by the user and needs to be restarted',
     },
   },
   notifications: {
