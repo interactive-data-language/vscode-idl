@@ -196,7 +196,7 @@ export class IDLNotebookController {
     // log output
     IDL_LOGGER.log({
       log: IDL_NOTEBOOK_LOG,
-      type: 'info',
+      type: 'debug',
       content: `IDL output: ${JSON.stringify(content)}`,
     });
 
