@@ -24,6 +24,7 @@ import { LoadTask } from '@idl/schemas/tasks';
 import {
   CONFIG_FILE_GLOB_PATTERN,
   IDL_FILE_EXTENSION,
+  IDL_NOTEBOOK_EXTENSION,
   LANGUAGE_SERVER_CONFIG_URI,
   NODE_MEMORY_CONFIG,
   PRO_CODE_GLOB_PATTERN,
@@ -58,7 +59,12 @@ import * as glob from 'fast-glob';
 import { existsSync, readFileSync } from 'fs';
 import { cpus, platform } from 'os';
 import { basename, dirname, join } from 'path';
-import { DocumentSymbol, Position } from 'vscode-languageserver/node';
+import {
+  DocumentSymbol,
+  NotebookCellKind,
+  NotebookDocument,
+  Position,
+} from 'vscode-languageserver/node';
 import { Worker } from 'worker_threads';
 
 import { GetAutoComplete } from './auto-complete/get-auto-complete';
@@ -316,6 +322,13 @@ export class IDLIndex {
    */
   isTaskFile(file: string): boolean {
     return file.toLowerCase().endsWith(TASK_FILE_EXTENSION);
+  }
+
+  /**
+   * Indicates that a file is an IDL notebook
+   */
+  isIDLNotebookFile(file): boolean {
+    return file.toLowerCase().endsWith(IDL_NOTEBOOK_EXTENSION);
   }
 
   /**
@@ -655,6 +668,22 @@ export class IDLIndex {
   }
 
   /**
+   * Gets all files associated with a notebook
+   */
+  private getNotebookFiles(file: string) {
+    return Object.keys(this.knownFiles).filter((known) =>
+      known.startsWith(file)
+    );
+  }
+
+  /**
+   * Removes a notebook from our index
+   */
+  private removeNotebook(file: string) {
+    this.removeFiles(this.getNotebookFiles(file), false);
+  }
+
+  /**
    * Index code for a potential pseudo file (one that might be unsaved or we have unsaved edits)
    */
   async removeConfigFile(file: string) {
@@ -872,11 +901,12 @@ export class IDLIndex {
    * If the file has not been processed by a worker it is assigned an ID
    */
   getWorkerID(file: string) {
-    if (this.workerIDsByFile[file] !== undefined) {
-      return this.workerIDsByFile[file];
+    const useFile = file.split('#')[0];
+    if (this.workerIDsByFile[useFile] !== undefined) {
+      return this.workerIDsByFile[useFile];
     } else {
-      this.workerIDsByFile[file] = this.indexerPool.getIDs()[0];
-      return this.workerIDsByFile[file];
+      this.workerIDsByFile[useFile] = this.indexerPool.getIDs()[0];
+      return this.workerIDsByFile[useFile];
     }
   }
 
@@ -996,6 +1026,36 @@ export class IDLIndex {
       });
       return undefined;
     }
+  }
+
+  /**
+   * Indexes an IDL notebook file
+   */
+  async indexIDLNotebook(file: string, notebook: NotebookDocument) {
+    // remove notebook
+    this.removeNotebook(file);
+
+    /**
+     * Track parsed code by cell
+     */
+    const byCell: { [key: number]: IParsed } = {};
+
+    // process each cell
+    for (let i = 0; i < notebook.cells.length; i++) {
+      /** Get notebook cell */
+      const cell = notebook.cells[i];
+
+      // skip if no cells
+      if (cell.kind !== NotebookCellKind.Code) {
+        return;
+      }
+
+      // process the cell
+      byCell[i] = await this.indexProCode(`${file}#${i}`, cell.document, true);
+    }
+
+    // return each cell
+    return byCell;
   }
 
   /**
