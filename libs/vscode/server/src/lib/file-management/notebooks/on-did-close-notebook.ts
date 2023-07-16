@@ -2,6 +2,7 @@ import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { NotebookDocument } from 'vscode-languageserver/node';
 
+import { NotebookCacheValid } from '../../helpers/notebook-cache-valid';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
@@ -13,10 +14,10 @@ import { SERVER_INITIALIZED } from '../is-initialized';
 export const ON_DID_CLOSE_NOTEBOOK = async (notebook: NotebookDocument) => {
   await SERVER_INITIALIZED;
   try {
-    // // return if our cache is valid and the content has not changed
-    // if (CacheValid(notebook.uri)) {
-    //   return;
-    // }
+    // return if our cache is valid and the content has not changed
+    if (NotebookCacheValid(notebook)) {
+      return;
+    }
 
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

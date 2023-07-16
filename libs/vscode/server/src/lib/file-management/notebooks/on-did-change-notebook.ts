@@ -2,6 +2,7 @@ import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { NotebookDocumentChangeEvent } from 'vscode-languageserver/lib/common/notebook';
 
+import { NotebookCacheValid } from '../../helpers/notebook-cache-valid';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
@@ -17,10 +18,10 @@ export const ON_DID_CHANGE_NOTEBOOK = async (
 ) => {
   await SERVER_INITIALIZED;
   try {
-    // // return if our cache is valid and the content has not changed
-    // if (CacheValid(event.document.uri)) {
-    //   return;
-    // }
+    // return if our cache is valid and the content has not changed
+    if (NotebookCacheValid(event.notebookDocument)) {
+      return;
+    }
 
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
