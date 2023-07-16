@@ -13,7 +13,7 @@ import {
   SERVER_CONNECTION,
   SERVER_EVENT_MANAGER,
 } from '../../initialize-server';
-import { IDL_INDEX } from '../initialize-file-manager';
+import { IDL_INDEX } from '../initialize-document-manager';
 import { PROMISE_TIMEOUT, SERVER_INITIALIZED } from '../is-initialized';
 import { ON_DID_CHANGE_WORKSPACE_FOLDERS } from './on-did-change-workspace-folders';
 

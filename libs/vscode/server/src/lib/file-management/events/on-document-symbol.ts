@@ -9,7 +9,7 @@ import {
 
 import { GetFileStrings } from '../../helpers/get-file-strings';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
-import { IDL_INDEX } from '../initialize-file-manager';
+import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**

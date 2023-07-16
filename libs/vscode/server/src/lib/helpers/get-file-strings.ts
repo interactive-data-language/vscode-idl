@@ -1,7 +1,7 @@
 import { GetFSPath } from '@idl/shared';
 import { existsSync, readFileSync } from 'fs';
 
-import { DOCUMENT_MANAGER } from '../file-management/initialize-file-manager';
+import { DOCUMENT_MANAGER } from '../file-management/initialize-document-manager';
 import { URIFromFSPath } from './uri-from-fspath';
 
 /**

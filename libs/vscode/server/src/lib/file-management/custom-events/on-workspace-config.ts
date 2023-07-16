@@ -14,7 +14,7 @@ import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_EVENT_MANAGER,
 } from '../../initialize-server';
-import { IDL_INDEX } from '../initialize-file-manager';
+import { IDL_INDEX } from '../initialize-document-manager';
 import { PROMISE_TIMEOUT } from '../is-initialized';
 
 /**

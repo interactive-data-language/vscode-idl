@@ -3,7 +3,7 @@ import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { Hover, TextDocumentPositionParams } from 'vscode-languageserver/node';
 
-import { IDL_INDEX } from '../../file-management/initialize-file-manager';
+import { IDL_INDEX } from '../../file-management/initialize-document-manager';
 import { GetFileStrings } from '../../helpers/get-file-strings';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';

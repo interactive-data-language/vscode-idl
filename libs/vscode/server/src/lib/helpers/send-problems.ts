@@ -2,7 +2,7 @@ import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
-import { IDL_INDEX } from '../file-management/initialize-file-manager';
+import { IDL_INDEX } from '../file-management/initialize-document-manager';
 import { CAN_SEND_PROBLEMS } from '../file-management/is-initialized';
 import { SERVER_CONNECTION } from '../initialize-server';
 import { IGNORE_PROBLEM_CODES, INCLUDE_PROBLEMS_FOR } from './merge-config';

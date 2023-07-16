@@ -24,7 +24,7 @@ import {
 } from '../initialize-server';
 import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
 import { WORKSPACE_INITIALIZATION } from './events/on-initialized';
-import { IDL_INDEX } from './initialize-file-manager';
+import { IDL_INDEX } from './initialize-document-manager';
 
 /**
  * Timeout for all global promises if we don't get the right responses
