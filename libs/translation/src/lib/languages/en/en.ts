@@ -533,6 +533,9 @@ export const EN: ITranslation = {
       onInitWorkspaceConfig: 'Problem while initializing workspace config',
       onSemanticHighlighting: 'Problem resolving semantic tokens',
       onCodeAction: 'Error responding to code action event',
+      onDidOpenNotebook: 'Error responding to notebook open event',
+      onDidChangeNotebook: 'Error responding to notebook change event',
+      onDidCloseNotebook: 'Error responding to notebook close event',
     },
     errors: {
       unhandled: 'An unknown error ocurred within the IDL Language Server',

@@ -14,8 +14,6 @@ import { SERVER_INITIALIZED } from '../is-initialized';
 /**
  * Callback to handle files being closed
  *
- * Do nothing with this for now, apart from listen for the event
- *
  * @param event The event from VSCode
  */
 export const ON_DID_CLOSE = async (

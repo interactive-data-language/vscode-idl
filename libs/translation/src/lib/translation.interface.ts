@@ -428,6 +428,12 @@ export interface ITranslation {
       onSemanticHighlighting: string;
       /** Responding to code actions */
       onCodeAction: string;
+      /** Opening notebook */
+      onDidOpenNotebook: string;
+      /** notebook changed */
+      onDidChangeNotebook: string;
+      /** Notebook closed */
+      onDidCloseNotebook: string;
     };
     /** Misc error reports */
     errors: {
