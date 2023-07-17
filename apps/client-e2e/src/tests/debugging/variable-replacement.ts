@@ -24,7 +24,7 @@ export const VariableReplacement: RunnerFunction = async (init) => {
   );
 
   // stop our IDL session
-  init.debug.adapter.terminate();
+  await vscode.debug.stopDebugging();
   await Sleep(100);
   expect(init.debug.adapter.launched).toBeFalsy();
   vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
