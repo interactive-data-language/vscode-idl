@@ -1,14 +1,11 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { NotebookToIDLNotebook } from '@idl/notebooks';
-import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { Hover, TextDocumentPositionParams } from 'vscode-languageserver/node';
 
 import { IDL_INDEX } from '../../file-management/initialize-document-manager';
-import { NOTEBOOK_MANAGER } from '../../file-management/notebooks/initialize-notebook-manager';
-import { GetFileStrings } from '../../helpers/get-file-strings';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-for-event';
 
 /**
  * Wrapper to handle hover help requests
@@ -17,58 +14,22 @@ export async function GetHoverHelpWrapper(
   params: TextDocumentPositionParams
 ): Promise<Hover> {
   /**
-   * Split on hashtag in case we have a notebook coming through
+   * Resolve the fspath to our cell and retrieve code
    */
-  const split = params.textDocument.uri.split('#');
+  const info = await ResolveFSPathAndCodeForURI(params.textDocument.uri);
 
-  // get the path to the file to properly save
-  const fsPath = GetFSPath(split[0]);
-
-  // check if we have a notebook (cell index after hashtag)
-  if (split.length === 2) {
-    // do nothing
-    if (!IDL_INDEX.isIDLNotebookFile(fsPath)) {
-      console.log('Not a notebook');
-      return undefined;
-    }
-
-    /**
-     * get notebook document
-     */
-    const nb = NOTEBOOK_MANAGER.getNotebookDocument(split[0]);
-
-    // return if no matching notebook
-    if (nb === undefined) {
-      console.log('No notebook');
-      return undefined;
-    }
-
-    /**
-     * Convert to IDL and get text
-     */
-    const idlNotebook = NotebookToIDLNotebook(nb, NOTEBOOK_MANAGER);
-
-    // listen for hover help
-    return await IDL_INDEX.getHoverHelp(
-      `${fsPath}#${split[1]}`,
-      idlNotebook.cells[+split[1]].text,
-      params.position,
-      IDL_CLIENT_CONFIG
-    );
-  } else {
-    // do nothing
-    if (!IDL_INDEX.isPROCode(fsPath)) {
-      return undefined;
-    }
-
-    // listen for hover help
-    return await IDL_INDEX.getHoverHelp(
-      fsPath,
-      await GetFileStrings(params.textDocument.uri),
-      params.position,
-      IDL_CLIENT_CONFIG
-    );
+  // return if nothing found
+  if (info === undefined) {
+    return undefined;
   }
+
+  // get hover help and return
+  return await IDL_INDEX.getHoverHelp(
+    info.fsPath,
+    info.code,
+    params.position,
+    IDL_CLIENT_CONFIG
+  );
 }
 
 /**

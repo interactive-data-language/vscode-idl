@@ -1,5 +1,4 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   Definition,
@@ -10,6 +9,7 @@ import { IDL_INDEX } from '../../file-management/initialize-document-manager';
 import { GetFileStrings } from '../../helpers/get-file-strings';
 import { URIFromFSPath } from '../../helpers/uri-from-fspath';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-for-event';
 
 /**
  * Get the location of a tokens's definition
@@ -17,17 +17,19 @@ import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 export async function GetTokenDefinitionLocation(
   params: TextDocumentPositionParams
 ): Promise<Definition> {
-  // get the path to the file to properly save
-  const fsPath = GetFSPath(params.textDocument.uri);
+  /**
+   * Resolve the fspath to our cell and retrieve code
+   */
+  const info = await ResolveFSPathAndCodeForURI(params.textDocument.uri);
 
-  // do nothing
-  if (!IDL_INDEX.isPROCode(fsPath)) {
+  // return if nothing found
+  if (info === undefined) {
     return undefined;
   }
 
   // attempt to get the definition of our token
   const def = await IDL_INDEX.getTokenDef(
-    fsPath,
+    info.fsPath,
     await GetFileStrings(params.textDocument.uri),
     params.position
   );
@@ -36,7 +38,6 @@ export async function GetTokenDefinitionLocation(
   if (def !== undefined) {
     // verify we have a file location
     if (def.file !== undefined) {
-      def.pos;
       return {
         uri: URIFromFSPath(def.file).toString(),
         range: {
