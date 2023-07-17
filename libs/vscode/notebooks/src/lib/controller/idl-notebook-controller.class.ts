@@ -1,5 +1,6 @@
 import { IDL, IDL_EVENT_LOOKUP, REGEX_NEW_LINE } from '@idl/idl';
 import { IDL_DEBUG_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
+import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
@@ -340,16 +341,94 @@ export class IDLNotebookController {
     /**
      * temp folder for notebook cell
      */
-    const uri = join(DOT_IDL_FOLDER, 'notebook_cell.pro');
+    const fsPath = join(DOT_IDL_FOLDER, 'notebook_cell.pro');
+
+    /**
+     * Get URI for cell
+     */
+    const uri = cell.document.uri;
+
+    /**
+     * Get strings for our cell
+     */
+    const strings = cell.document.getText().split(/\r?\n/g);
+
+    /**
+     * Filter lines to figure out how much content is in our cell
+     */
+    const filtered = strings.filter((line) => line.trim() !== '');
+
+    // check if we have a single line of code
+    if (strings.filter((line) => line.trim() !== '').length === 0) {
+      strings.push('end');
+    }
+
+    // determine how we can clean up our core
+    switch (true) {
+      /**
+       * Return if empty cell
+       */
+      case filtered.length === 0:
+        execution.end(true, Date.now());
+        return true;
+
+      /**
+       * Add an end if a single line
+       */
+      case filtered.length === 1:
+        strings.push('end');
+        break;
+
+      /**
+       * Check diagnostics to get main level
+       */
+      default: {
+        /**
+         * Get diagnostics for our cell
+         */
+        const diagnostics = vscode.languages.getDiagnostics(uri);
+
+        // check if we have one
+        if (diagnostics !== undefined) {
+          /**
+           * Get string description for problem codes
+           *
+           * Format matches: libs\vscode\server\src\lib\helpers\syntax-problem-to-diagnostic.ts
+           */
+          const codes = diagnostics.map((item) =>
+            typeof item.code !== 'number' && typeof item.code !== 'string'
+              ? (item.code?.value as string)
+              : (item.code as string)
+          );
+
+          // check for missing end
+          for (let i = 0; i < codes.length; i++) {
+            // check for missing end to the main level program
+            if (codes[i].endsWith(`${IDL_PROBLEM_CODES.MISSING_MAIN_END}`)) {
+              strings.push('end');
+              break;
+            }
+
+            // check for empty main
+            if (codes[i].endsWith(`${IDL_PROBLEM_CODES.EMPTY_MAIN}`)) {
+              execution.end(true, Date.now());
+              return true;
+            }
+          }
+        }
+
+        break;
+      }
+    }
 
     // write file
-    writeFileSync(uri, cell.document.getText());
+    writeFileSync(fsPath, strings.join('\n'));
 
     // reset syntax errors
     this._runtime.errorsByFile = {};
 
     // TODO: run in IDL
-    await this._runtime.evaluate(`.compile -v '${uri}'`, {
+    await this._runtime.evaluate(`.compile -v '${fsPath}'`, {
       echo: false,
       idlInfo: false,
       cut: false,
