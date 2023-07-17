@@ -1,3 +1,4 @@
+import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_COMMANDS } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
@@ -28,9 +29,27 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
           idl_command: IDL_COMMANDS.NOTEBOOKS.RESET,
         });
+
+        // make sure we have launched IDL
         if (IDL_NOTEBOOK_CONTROLLER.launched) {
-          IDL_NOTEBOOK_CONTROLLER._runtime.evaluate('.reset');
+          // alert user since we dont have debug console
+          IDL_LOGGER.log({
+            type: 'info',
+            log: IDL_NOTEBOOK_LOG,
+            content: IDL_TRANSLATION.notebooks.notifications.resettingIDL,
+            alert: IDL_TRANSLATION.notebooks.notifications.resettingIDL,
+          });
+
+          await IDL_NOTEBOOK_CONTROLLER._runtime.evaluate('.reset');
+        } else {
+          IDL_LOGGER.log({
+            type: 'info',
+            log: IDL_NOTEBOOK_LOG,
+            content: IDL_TRANSLATION.notebooks.notifications.idlNotStarted,
+            alert: IDL_TRANSLATION.notebooks.notifications.idlNotStarted,
+          });
         }
+
         return true;
       } catch (err) {
         LogCommandError(
@@ -50,9 +69,27 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
           idl_command: IDL_COMMANDS.NOTEBOOKS.STOP,
         });
+
+        // check if launched
         if (IDL_NOTEBOOK_CONTROLLER.launched) {
+          // alert user since we dont have debug console
+          IDL_LOGGER.log({
+            type: 'info',
+            log: IDL_NOTEBOOK_LOG,
+            content: IDL_TRANSLATION.notebooks.notifications.stoppingIDL,
+            alert: IDL_TRANSLATION.notebooks.notifications.stoppingIDL,
+          });
+
           IDL_NOTEBOOK_CONTROLLER.stop();
+        } else {
+          IDL_LOGGER.log({
+            type: 'info',
+            log: IDL_NOTEBOOK_LOG,
+            content: IDL_TRANSLATION.notebooks.notifications.idlNotStarted,
+            alert: IDL_TRANSLATION.notebooks.notifications.idlNotStarted,
+          });
         }
+
         return true;
       } catch (err) {
         LogCommandError(

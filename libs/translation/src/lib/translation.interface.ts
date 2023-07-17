@@ -554,6 +554,17 @@ export interface ITranslation {
       /** IDL crashes while running something in the notebook */
       crashed: string;
     };
+    /** Notifications for working with notebooks */
+    notifications: {
+      /** Message that we are starting IDL */
+      startingIDL: string;
+      /** When we reset IDL */
+      resettingIDL: string;
+      /** When we ask to stop IDL */
+      stoppingIDL: string;
+      /** When IDL hasnt started */
+      idlNotStarted: string;
+    };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */
   notifications: {

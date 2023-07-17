@@ -578,6 +578,13 @@ export const EN: ITranslation = {
       crashed:
         'IDL crashed or was stopped by the user and needs to be restarted',
     },
+    notifications: {
+      startingIDL: 'Starting IDL, please wait...',
+      resettingIDL: 'Resetting IDL',
+      stoppingIDL: 'Stopping IDL',
+      idlNotStarted:
+        'IDL has not started for notebooks. It automatically starts when you run a code cell.',
+    },
   },
   notifications: {
     noProCode: 'No active PRO file in VSCode',
