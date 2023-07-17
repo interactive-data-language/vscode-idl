@@ -32,6 +32,7 @@ export const LANGUAGES = [
   {
     id: LOG_LANGUAGE_NAME,
     mimetypes: ['text/idl-log', 'application/idl-log'],
+    extensions: ['.idllog'],
     configuration: 'extension/language/syntaxes/language-configuration.json',
   },
   {

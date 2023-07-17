@@ -2,9 +2,37 @@
 
 All notable changes to the "idl" extension will be documented in this file.
 
-For much more detail, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
+For much more detail on incremental work for large features, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
-## 3.0.4
+## 3.0.6 - July 2023
+
+Improved message when language server crashes and a button that opens documentation for workarounds for the memory problem
+
+Fixed a problem where we don't properly detect `node.js` on non-Windows platforms
+
+Fixed a problem where the docs file wasn't being included
+
+Add new preferences for tracking session history! This includes several new features:
+
+- A new output channel that captures the input and output from your IDL sessions (i.e. `print, 42` and the text `42`). This output channel is called "IDL: Session History"
+
+- A system to also write all input and output to a file on disk. You can control:
+
+  - If we write a file on disk or not
+
+  - The folder (default value is `${.idl}` which is the path to your `.idl` folder in your home location with a `vscode` subdirectory)
+
+  - The name of the file (the extension of ".idllog" gives syntax highlighting when open for improved readability)
+
+  - Size limit for the file which is truncated on start of the language server if it exceeds our limit.
+
+  - If we always clear (truncate) the contents of the file when IDL starts
+
+Add basic variable substitution for the environment preference and the folder for tracking history.
+
+- This is added as a new link in the docs that is included with the extension
+
+## 3.0.4 - July 2023
 
 When `compile_opt` is not present with idl2, idl3, or strictarr, delineate between function calls and indexing with parentheses. It won't parse 100% correctly, but it allows us to identify and fix parentheses.
 
@@ -12,11 +40,11 @@ When `compile_opt` is not present with idl2, idl3, or strictarr, delineate betwe
 
 - Automatically gets fixed when formatting if you have auto-fix enabled (true by default)
 
-## 3.0.3
+## 3.0.3 - July 2023
 
 Expose ability to set environment variables for the IDL process that appears in the debug console
 
-## 3.0.2
+## 3.0.2 - July 2023
 
 Fixed a bug with documentation being generated when using the VSCode UI
 
@@ -24,11 +52,11 @@ When executing batch files, wrap the path in quotes like compile
 
 When told to start a session of IDL, add button that will let you start IDL from the dialog that appears
 
-## 3.0.1
+## 3.0.1 - July 2023
 
 Fix badge URLs now that the extension is live
 
-## 3.0.0
+## 3.0.0 - July 2023
 
 - Added a new theme "Neon IDL" with some fun, neon colors for syntax and the VSCode interface!
 

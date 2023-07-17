@@ -10,12 +10,16 @@ export const GA4_CONFIG = {
   USER_VALUE_LENGTH: 36,
   USER_ID_LENGTH: 256,
   URL: 'https://www.google-analytics.com/g/collect',
-  TIMEOUT: 500,
+  TIMEOUT: 1000,
   USER_AGENT: `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36`,
   /**
    * Delay, in milliseconds, between each event
    */
   DELAY: 100,
+  /** ID of the client */
+  CLIENT_ID: '',
+  /** Session ID */
+  SESSION_ID: '',
 };
 
 /**
@@ -38,10 +42,6 @@ export interface IGA4Options {
    * ID for the session, if specified added as an additional events parameter "ga_session_id"
    */
   session_id?: string;
-  /**
-   * Which session number is this? If specified, added as an additional events parameter "ga_session_number"
-   */
-  session_number?: number;
   /**
    * ID of the user
    */
@@ -96,10 +96,6 @@ export interface IGA4PayloadData {
    * The ID of the session
    */
   session_id: string;
-  /**
-   * Session number for our client
-   */
-  session_number: number;
   /**
    * Did we start a session
    */

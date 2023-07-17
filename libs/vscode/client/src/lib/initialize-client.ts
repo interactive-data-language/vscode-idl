@@ -41,6 +41,14 @@ export const IDL_CLIENT_OUTPUT_CHANNEL = vscode.window.createOutputChannel(
 );
 
 /**
+ * Output channel for the debug process
+ */
+export const IDL_DEBUG_OUTPUT_CHANNEL = vscode.window.createOutputChannel(
+  IDL_TRANSLATION.debugger.logs.debugHistory,
+  LOG_LANGUAGE_NAME
+);
+
+/**
  * Our logger to handle logic of logging to disk
  */
 export const IDL_LOGGER = new LogManager({
@@ -177,6 +185,7 @@ export async function InitializeClient(
   return {
     logger: IDL_LOGGER,
     client: LANGUAGE_SERVER_CLIENT,
+    config: IDL_EXTENSION_CONFIG,
     failedStart: LANGUAGE_SERVER_FAILED_START,
   };
 }

@@ -36,16 +36,20 @@ async function DownloadFiles() {
 
   // download each file
   for (let i = 0; i < files.length; i++) {
-    // specify the output file
-    const outFile = outDir + sep + files[i];
-
     // get file as raw dat
-    const resp = await axios.get(`${baseUrl}/${files[i]}`, {
-      responseType: 'arraybuffer',
-    });
+    try {
+      // specify the output file
+      const outFile = outDir + sep + files[i];
 
-    // write to disk
-    writeFileSync(outFile, resp.data);
+      const resp = await axios.get(`${baseUrl}/${files[i]}`, {
+        responseType: 'arraybuffer',
+      });
+
+      // write to disk
+      writeFileSync(outFile, resp.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   // process the output file
@@ -67,8 +71,10 @@ async function DownloadFiles() {
   // update icon theme for IDL
   json['fileExtensions']['pro'] = '_idl';
   json['fileExtensions']['sav'] = '_idl';
+  json['fileExtensions']['idllog'] = '_idl';
   json['light']['fileExtensions']['pro'] = '_idl_light';
   json['light']['fileExtensions']['sav'] = '_idl_light';
+  json['light']['fileExtensions']['idllog'] = '_idl_light';
 
   // save changes to disk
   writeFileSync(

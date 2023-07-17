@@ -1,7 +1,10 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 import { ICodeStyle, ITrueBaseAssemblerOptions } from '@idl/assembling/config';
 import { ProblemCodeLookup } from '@idl/parsing/problem-codes';
-import { IDLExtensionsConfigKeys } from '@idl/vscode/extension-config';
+import {
+  IDLExtensionsConfigKeys,
+  IDLHistoryConfig,
+} from '@idl/vscode/extension-config';
 
 /**
  * Translations for commands and paired errors for commands
@@ -150,6 +153,8 @@ export interface IConfigTranslation {
     'code.formatting': KeysOfToStrings<ITrueBaseAssemblerOptions>;
     /** Descriptions for styles */
     'code.formattingStyle': KeysOfToStrings<ICodeStyle>;
+    /** Descriptions for history properties */
+    'IDL.history': KeysOfToStrings<IDLHistoryConfig>;
   };
   /** Descriptions for choice list items */
   enumDescriptions: {
@@ -278,6 +283,8 @@ export interface ITranslation {
     logs: {
       /** IDl extension log */
       host: string;
+      /** IDl extension debug log */
+      debugHistory: string;
       /** File to view button */
       viewFile: string;
       /** Logs to view button */
@@ -336,6 +343,10 @@ export interface ITranslation {
       cancel: string;
       evaluate: string;
       idlDetails: string;
+      /** Problem creating history file */
+      createHistory: string;
+      /** Problem adding history */
+      addHistory: string;
     };
   };
   /** translations for hover help */
@@ -538,6 +549,8 @@ export interface ITranslation {
     configure: string;
     /** Start IDL */
     start: string;
+    /** Question to ask if want to view docs file */
+    viewDocs: string;
   };
   /** Translations for our main package.json file */
   packageJSON: {

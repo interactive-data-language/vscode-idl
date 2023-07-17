@@ -1,6 +1,6 @@
 import { IDL_COMMANDS } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { OpenFileInVSCode } from '@idl/vscode/shared';
+import { OpenFileInVSCode, OpenMarkdownPreview } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 import { IDL_CLIENT_OUTPUT_CHANNEL, IDL_LOGGER } from '../initialize-client';
@@ -8,7 +8,11 @@ import { IDL_CLIENT_OUTPUT_CHANNEL, IDL_LOGGER } from '../initialize-client';
 /**
  * Callback to handle when we have options on our buttons
  */
-export async function ButtonCallback(res: string | undefined, file?: string) {
+export async function ButtonCallback(
+  res: string | undefined,
+  file?: string,
+  markdownFile?: string
+) {
   try {
     // handle the result
     switch (true) {
@@ -25,6 +29,11 @@ export async function ButtonCallback(res: string | undefined, file?: string) {
         break;
       case res === IDL_TRANSLATION.debugger.logs.viewLogs:
         IDL_CLIENT_OUTPUT_CHANNEL.show();
+        break;
+      case res === IDL_TRANSLATION.notifications.viewDocs:
+        if (markdownFile !== undefined) {
+          OpenMarkdownPreview(markdownFile);
+        }
         break;
       // do nothing
       default:

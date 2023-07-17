@@ -30,6 +30,8 @@ export interface IDLExtensionsConfigKeys {
   readonly IDLPreferences: 'IDL.preferences';
   /** Top-level formatting options, excluding style */
   readonly IDLenvironment: 'IDL.environment';
+  /** History for your IDL sessions */
+  readonly IDLhistory: 'IDL.history';
 
   /** Top-level formatting options, excluding style */
   readonly codeFormatting: 'code.formatting';
@@ -79,6 +81,19 @@ export interface IDLExtensionsConfigKeys {
   readonly developerENVIMachineLearning: 'developer.ENVIMachineLearning';
 }
 
+export interface IDLHistoryConfig {
+  /** Do we save history or not? */
+  readonly enabled: boolean;
+  /** The maximum file size in MB */
+  readonly maxSize: number;
+  /** Always reset the contents of the log file */
+  readonly truncateOnStartup: boolean;
+  /** The folder we write to */
+  readonly folder: string;
+  /** The name of the file we generate */
+  readonly fileName: string;
+}
+
 export interface IDLConfig {
   /** Folder the IDL executable  lives in (i.e. the bin directory with idl.exe) */
   readonly directory: string;
@@ -90,6 +105,8 @@ export interface IDLConfig {
   readonly appendOrPrependWorkspaceFolders: 'append' | 'prepend';
   /** Environment variables when launching IDL (NOT INCLUDED IN PACKAGE.JSON) */
   readonly environment: { [key: string]: string };
+  /** How we track history for IDL */
+  readonly history: IDLHistoryConfig;
 }
 
 export interface ICodeConfig {
@@ -200,6 +217,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   IDLAppendOrPrependWorkspaceFolders: 'IDL.appendOrPrependWorkspaceFolders',
   IDLPreferences: 'IDL.preferences',
   IDLenvironment: 'IDL.environment',
+  IDLhistory: 'IDL.history',
 
   codeFormatting: 'code.formatting',
   codeFormattingStyle: 'code.formattingStyle',
@@ -242,6 +260,13 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     addWorkspaceFoldersToPath: true,
     appendOrPrependWorkspaceFolders: 'prepend',
     environment: {},
+    history: {
+      enabled: true,
+      maxSize: 2,
+      truncateOnStartup: false,
+      folder: '${.idl}',
+      fileName: 'idl-history.idllog',
+    },
   },
   code: {
     formatting: {

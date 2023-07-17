@@ -104,6 +104,66 @@ export function AddIDLConfig(nls: IPackageNLS) {
     scope: IDL_CONFIG_SCOPE,
   };
 
+  /** Base property keys for descriptions of history keys */
+  const historyPropertyBase = `properties.${IDL_EXTENSION_CONFIG_KEYS.IDLhistory}`;
+
+  // history configuration for IDL
+  ourConfig.properties[
+    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLhistory}`
+  ] = {
+    type: 'object',
+    description: TranslationFromConfiguration(
+      IDL_EXTENSION_CONFIG_KEYS.IDLhistory,
+      nls
+    ),
+    scope: IDL_CONFIG_SCOPE,
+    additionalProperties: false,
+    default: DEFAULT_IDL_EXTENSION_CONFIG.IDL.history,
+    properties: {
+      enabled: {
+        type: 'boolean',
+        description: TranslationFromConfiguration(
+          'enabled',
+          nls,
+          historyPropertyBase
+        ),
+      },
+      maxSize: {
+        type: 'number',
+        description: TranslationFromConfiguration(
+          'maxSize',
+          nls,
+          historyPropertyBase
+        ),
+        minimum: 0.5,
+      },
+      truncateOnStartup: {
+        type: 'boolean',
+        description: TranslationFromConfiguration(
+          'truncateOnStartup',
+          nls,
+          historyPropertyBase
+        ),
+      },
+      folder: {
+        type: 'string',
+        description: TranslationFromConfiguration(
+          'folder',
+          nls,
+          historyPropertyBase
+        ),
+      },
+      fileName: {
+        type: 'string',
+        description: TranslationFromConfiguration(
+          'fileName',
+          nls,
+          historyPropertyBase
+        ),
+      },
+    },
+  };
+
   // save our extension config
   EXTENSION_CONFIG.push(ourConfig);
 }

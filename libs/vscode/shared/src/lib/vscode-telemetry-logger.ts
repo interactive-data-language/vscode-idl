@@ -1,4 +1,6 @@
 import {
+  GA4_CONFIG,
+  InitializeUsageMetrics,
   SendUsageMetric,
   UsageMetric,
   UsageMetricPayload,
@@ -12,6 +14,9 @@ const CAN_METRIC = true;
 
 /**
  * Remove extra keys that VSCode adds
+ *
+ * Even though we can tell vscode to remove, we want the
+ * machine ID that comes through so we have a value that persists
  */
 function CleanData(data: { [key: string]: any }) {
   const keys = Object.keys(data);
@@ -35,6 +40,15 @@ const VSCODE_TELEMETRY_SENDER: vscode.TelemetrySender = {
     eventName: UsageMetric,
     data: UsageMetricPayload<UsageMetric>
   ) => {
+    /**
+     * Check if we need to initialize our usage metrics
+     */
+    if (!GA4_CONFIG.CLIENT_ID && 'common.vscodemachineid' in data) {
+      GA4_CONFIG.CLIENT_ID = data['common.vscodemachineid'] as string;
+      GA4_CONFIG.SESSION_ID = data['common.vscodesessionid'] as string;
+      InitializeUsageMetrics();
+    }
+
     /**
      * Remove keys that VSCode adds
      */
@@ -61,7 +75,7 @@ const VSCODE_TELEMETRY_SENDER: vscode.TelemetrySender = {
 const VSCODE_TELEMETRY_LOGGER = vscode.env.createTelemetryLogger(
   VSCODE_TELEMETRY_SENDER,
   {
-    ignoreBuiltInCommonProperties: true,
+    ignoreBuiltInCommonProperties: false,
   }
 );
 
