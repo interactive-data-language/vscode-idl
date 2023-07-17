@@ -22,30 +22,10 @@ export async function ResolveFSPathAndCodeForURI(
    */
   const fsPath = GetFSPath(split[0]);
 
-  // check if we have a notebook (cell index after hashtag)
-  if (split.length === 2) {
-    // do nothing
-    if (!IDL_INDEX.isIDLNotebookFile(fsPath)) {
-      return undefined;
-    }
-
-    /**
-     * get notebook document
-     */
-    const nb = NOTEBOOK_MANAGER.getNotebookDocument(split[0]);
-
-    // return if no matching notebook
-    if (nb === undefined) {
-      return undefined;
-    }
-
-    // return our information
-    return {
-      isNotebook: true,
-      fsPath: `${fsPath}#${split[1]}`,
-      code: NOTEBOOK_MANAGER.getCellTextDocument(nb.cells[+split[1]]).getText(),
-    };
-  } else {
+  /**
+   * Check if PRO code
+   */
+  if (split.length === 1) {
     // do nothing
     if (!IDL_INDEX.isPROCode(fsPath)) {
       return undefined;
@@ -58,4 +38,28 @@ export async function ResolveFSPathAndCodeForURI(
       code: await GetFileStrings(uri),
     };
   }
+
+  /**
+   * Validate notebook
+   */
+  if (!IDL_INDEX.isIDLNotebookFile(fsPath)) {
+    return undefined;
+  }
+
+  /**
+   * get notebook document
+   */
+  const nb = NOTEBOOK_MANAGER.getNotebookDocument(split[0]);
+
+  // return if no matching notebook
+  if (nb === undefined) {
+    return undefined;
+  }
+
+  // return our information
+  return {
+    isNotebook: true,
+    fsPath: `${fsPath}#${split[1]}`,
+    code: NOTEBOOK_MANAGER.getCellTextDocument(nb.cells[+split[1]]).getText(),
+  };
 }

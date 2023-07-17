@@ -6,10 +6,9 @@ import {
 } from 'vscode-languageserver/node';
 
 import { IDL_INDEX } from '../../file-management/initialize-document-manager';
-import { GetFileStrings } from '../../helpers/get-file-strings';
-import { URIFromFSPath } from '../../helpers/uri-from-fspath';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
-import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-for-event';
+import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-and-code-for-uri';
+import { URIFromIDLIndexFile } from '../helpers/uri-from-idl-index-file';
 
 /**
  * Get the location of a tokens's definition
@@ -30,7 +29,7 @@ export async function GetTokenDefinitionLocation(
   // attempt to get the definition of our token
   const def = await IDL_INDEX.getTokenDef(
     info.fsPath,
-    await GetFileStrings(params.textDocument.uri),
+    info.code,
     params.position
   );
 
@@ -39,7 +38,7 @@ export async function GetTokenDefinitionLocation(
     // verify we have a file location
     if (def.file !== undefined) {
       return {
-        uri: URIFromFSPath(def.file).toString(),
+        uri: URIFromIDLIndexFile(def.file),
         range: {
           start: { line: def.pos[0], character: def.pos[1] },
           end: { line: def.pos[0], character: def.pos[1] + def.pos[2] },

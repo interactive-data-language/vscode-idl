@@ -5,6 +5,7 @@ import * as vscode from 'vscode';
 
 import { IDLNotebookController } from './controller/idl-notebook-controller.class';
 import { RegisterNotebookCompletionProvider } from './providers/register-notebook-completion-provider';
+import { RegisterNotebookDefinitionProvider } from './providers/register-notebook-definition-provider';
 import { RegisterNotebookHoverProvider } from './providers/register-notebook-hover-provider';
 import { IDLNotebookSerializer } from './serializer/idl-notebook-serializer.class';
 
@@ -36,4 +37,5 @@ export function InitializeNotebooks(ctx: ExtensionContext) {
   // register our providers for user interactions
   RegisterNotebookHoverProvider();
   RegisterNotebookCompletionProvider();
+  RegisterNotebookDefinitionProvider();
 }
