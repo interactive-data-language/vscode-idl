@@ -530,8 +530,6 @@ export class IDL extends EventEmitter {
       .map((bp) => `breakpoint, /CLEAR, ${bp.id}`)
       .join(' & ');
 
-    console.log(cmd);
-
     // clear all breakpoints
     await this.evaluate(cmd, {
       silent: true,
