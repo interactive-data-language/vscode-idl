@@ -4,6 +4,30 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail on incremental work for large features, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
+## 3.1.0 Unreleased
+
+Preview release of IDL Notebooks! This is a first pass at adding notebook support for IDL which is independent from Jupyter.
+
+> Notebooks are a preview feature and, based on early adopter feedback, will likely
+
+Here are some of the features that notebooks bring:
+
+- Notebook files should end with the extension ".idlnb" which are managed and rendered by the IDL extension.
+
+  - At this time, notebooks only save markdown and code cells. We do not save/restore outputs from cells, but this will be coming in the future.
+
+  - Notebooks do not embed graphics as a part of the notebook. However, this will likely be coming in the future.
+
+  - Notebooks do not embed widgets.
+
+- Notebooks support highlighting, problem reporting, hover help, auto-complete, and go-to-definition
+
+- Basic ability to run cells.
+
+  - This does **NOT** include debugging and interactively stepping through code at this point in time
+
+- Only support for IDL code (no Python or other languages at this time)
+
 ## 3.0.6 - July 2023
 
 Improved message when language server crashes and a button that opens documentation for workarounds for the memory problem
