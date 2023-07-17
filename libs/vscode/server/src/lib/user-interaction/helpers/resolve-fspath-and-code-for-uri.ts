@@ -11,7 +11,7 @@ import { GetFileStrings } from '../../helpers/get-file-strings';
  */
 export async function ResolveFSPathAndCodeForURI(
   uri: string
-): Promise<{ fsPath: string; code: string } | undefined> {
+): Promise<{ fsPath: string; isNotebook: boolean; code: string } | undefined> {
   /**
    * Split on hashtag in case we have a notebook coming through
    */
@@ -41,6 +41,7 @@ export async function ResolveFSPathAndCodeForURI(
 
     // return our information
     return {
+      isNotebook: true,
       fsPath: `${fsPath}#${split[1]}`,
       code: NOTEBOOK_MANAGER.getCellTextDocument(nb.cells[+split[1]]).getText(),
     };
@@ -52,6 +53,7 @@ export async function ResolveFSPathAndCodeForURI(
 
     // return our information
     return {
+      isNotebook: false,
       fsPath,
       code: await GetFileStrings(uri),
     };

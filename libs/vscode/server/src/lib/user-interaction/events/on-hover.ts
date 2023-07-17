@@ -5,7 +5,7 @@ import { Hover, TextDocumentPositionParams } from 'vscode-languageserver/node';
 import { IDL_INDEX } from '../../file-management/initialize-document-manager';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
-import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-for-event';
+import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-and-code-for-uri';
 
 /**
  * Wrapper to handle hover help requests

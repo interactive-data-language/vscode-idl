@@ -3,6 +3,7 @@ import { LANGUAGE_SERVER_CLIENT } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 import {
   CompletionItem as LanguageServerCompletionItem,
+  MarkupContent,
   TextDocumentPositionParams,
 } from 'vscode-languageserver';
 
@@ -61,6 +62,14 @@ export function RegisterNotebookCompletionProvider() {
 
           // pass over all values
           Object.assign(mapped, item);
+
+          // special case for docs which comes from the end of:
+          // libs\parsing\index\src\lib\auto-complete\get-auto-complete.ts
+          if (item.documentation) {
+            mapped.documentation = new vscode.MarkdownString(
+              (item.documentation as MarkupContent).value
+            );
+          }
 
           // return
           return mapped;

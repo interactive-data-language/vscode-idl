@@ -3,7 +3,7 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { CodeAction, CodeActionParams } from 'vscode-languageserver/node';
 
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
-import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-for-event';
+import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-and-code-for-uri';
 
 /**
  * Event handler for retrieving code actions
