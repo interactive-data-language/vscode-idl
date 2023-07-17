@@ -176,6 +176,7 @@ export async function GetAutoComplete(
        * within for procedures and assignment
        */
       let canKeyword = true;
+
       // double check we are not a function and in the closing parentheses
       if (token?.name in FUNCTIONS) {
         if ((token as TreeBranchToken).end !== undefined) {
