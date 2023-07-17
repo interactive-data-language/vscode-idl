@@ -472,6 +472,14 @@ export class IDLNotebookController {
     // clear that we are executing this cell
     this._currentCell = undefined;
 
+    // return
+    await this._runtime.evaluate(`retall`, {
+      echo: false,
+      idlInfo: false,
+      cut: false,
+      silent: false,
+    });
+
     // return as success
     return true;
   }

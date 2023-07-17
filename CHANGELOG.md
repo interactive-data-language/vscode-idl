@@ -26,6 +26,8 @@ Here are some of the features that notebooks bring:
 
   - This does **NOT** include debugging and interactively stepping through code at this point in time
 
+  - Because we do not have debugging, after each cell is executed we issue a `retall` command to IDL to make sure that we are at the top-level
+
 - Only support for IDL code (no Python or other languages at this time)
 
 ## 3.0.6 - July 2023
