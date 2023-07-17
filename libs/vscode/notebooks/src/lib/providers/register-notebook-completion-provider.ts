@@ -52,7 +52,7 @@ export function RegisterNotebookCompletionProvider() {
 
         // return if nothing to do
         if (completion === undefined) {
-          return;
+          return undefined;
         }
 
         // return completion;

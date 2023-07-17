@@ -45,7 +45,7 @@ export function RegisterNotebookHoverProvider() {
 
       // return if nothing
       if (hovered === undefined) {
-        return;
+        return undefined;
       }
 
       /**
