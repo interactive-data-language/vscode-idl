@@ -41,7 +41,7 @@ export const BREAKPOINTS = [
   },
 ];
 
-export const DEBUG_ICONS = [
+export const DEBUG_TOOLBAR = [
   {
     command: IDL_COMMANDS.DEBUG.COMPILE,
     group: 'navigation',
@@ -118,8 +118,8 @@ export function ProcessDebugging(packageJSON: IPackageJSON, nls: IPackageNLS) {
 
   // verify that each debug icon also has an icon from the command
   const commands = contrib['commands'];
-  for (let i = 0; i < DEBUG_ICONS.length; i++) {
-    const icon = DEBUG_ICONS[i];
+  for (let i = 0; i < DEBUG_TOOLBAR.length; i++) {
+    const icon = DEBUG_TOOLBAR[i];
 
     // find matching command
     let match = undefined;
@@ -149,7 +149,7 @@ export function ProcessDebugging(packageJSON: IPackageJSON, nls: IPackageNLS) {
     contrib['menus'] = {};
   }
   const menus = contrib['menus'];
-  menus['debug/toolBar'] = DEBUG_ICONS;
+  menus['debug/toolbar'] = DEBUG_TOOLBAR;
 
   // save changes
   contrib['debuggers'] = DEBUGGERS;

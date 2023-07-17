@@ -65,7 +65,7 @@ export class IDLNotebookController {
   lastFrameId = 0;
 
   /** Reference to our IDL class, manages process and input/output */
-  private readonly _runtime: IDL;
+  readonly _runtime: IDL;
 
   /**
    * The current cell that we are executing
@@ -290,8 +290,26 @@ export class IDLNotebookController {
    * TODO: What all do we need to do here?
    */
   dispose(): void {
+    this.launched = false;
     this._runtime.stop();
     this._controller.dispose();
+  }
+
+  /**
+   * Stop kernel execution
+   */
+  stop() {
+    // update flag
+    this.launched = false;
+
+    // alert that execution has stopped
+    if (this._currentCell) {
+      this._currentCell.execution.end(false, Date.now());
+      this._currentCell = undefined;
+    }
+
+    // stop IDL
+    this._runtime.stop();
   }
 
   /**

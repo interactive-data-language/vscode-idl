@@ -47,6 +47,13 @@ export interface ICommandTranslation {
     startProfiling: string;
     stopProfiling: string;
   };
+  /** Commands for notebooks */
+  notebooks: {
+    /** Reset notebook session */
+    resetIDL: string;
+    /** Stop notebook session */
+    stopIDL: string;
+  };
   /** Terminal commands */
   terminal: {
     startIDL: string;

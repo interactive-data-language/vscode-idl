@@ -61,6 +61,12 @@ export const EN: ITranslation = {
         startProfiling: 'IDL: Start Profiling',
         stopProfiling: 'IDL: Stop Profiling',
       },
+      notebooks: {
+        // shorter because it shows in toolbar
+        resetIDL: 'Reset IDL',
+        // shorter because it shows in toolbar
+        stopIDL: 'Stop IDL',
+      },
       terminal: {
         startIDL: 'IDL: Open an IDL Terminal Window',
         compileFile: 'IDL: Compile PRO File in Terminal',
@@ -105,6 +111,10 @@ export const EN: ITranslation = {
         resetIDL: 'Error while resetting IDL',
         startProfiling: 'Error while starting profiling',
         stopProfiling: 'Error while stopping profiling',
+      },
+      notebooks: {
+        resetIDL: 'Error while resetting IDL',
+        stopIDL: 'Error while stopping IDL',
       },
       terminal: {
         startIDL: 'Error while opening IDL terminal indow',

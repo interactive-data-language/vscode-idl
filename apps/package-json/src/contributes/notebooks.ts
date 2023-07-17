@@ -1,4 +1,5 @@
 import {
+  IDL_COMMANDS,
   IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME,
   IDL_NOTEBOOK_EXTENSION,
   IDL_NOTEBOOK_NAME,
@@ -6,6 +7,22 @@ import {
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
 import { VerifyNLS } from './helpers/verify-nls';
+
+/**
+ * When we have a notebook open, the toolbar we add
+ */
+export const NOTEBOOK_TOOLBAR = [
+  {
+    command: IDL_COMMANDS.NOTEBOOKS.RESET,
+    group: 'navigation',
+    when: `resourceExtname == ${IDL_NOTEBOOK_EXTENSION}`,
+  },
+  {
+    command: IDL_COMMANDS.NOTEBOOKS.STOP,
+    group: 'navigation',
+    when: `resourceExtname == ${IDL_NOTEBOOK_EXTENSION}`,
+  },
+];
 
 /**
  * Adds config for notebooks to our file
@@ -34,4 +51,11 @@ export function ProcessNotebooks(packageJSON: IPackageJSON, nls: IPackageNLS) {
   // add to contribution point
   const contrib = packageJSON['contributes'];
   contrib['notebooks'] = [ourNotebook];
+
+  // get menu to add debug icons
+  if (!('menus' in contrib)) {
+    contrib['menus'] = {};
+  }
+  const menus = contrib['menus'];
+  menus['notebook/toolBar'] = NOTEBOOK_TOOLBAR;
 }

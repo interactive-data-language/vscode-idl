@@ -3,6 +3,7 @@ import { IDL_LOGGER } from '@idl/vscode/client';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
+import { RegisterNotebookCommands } from './commands/register-notebook-commands';
 import { IDLNotebookController } from './controller/idl-notebook-controller.class';
 import { RegisterNotebookCompletionProvider } from './providers/register-notebook-completion-provider';
 import { RegisterNotebookDefinitionProvider } from './providers/register-notebook-definition-provider';
@@ -38,4 +39,7 @@ export function InitializeNotebooks(ctx: ExtensionContext) {
   RegisterNotebookHoverProvider();
   RegisterNotebookCompletionProvider();
   RegisterNotebookDefinitionProvider();
+
+  // register notebook commands
+  RegisterNotebookCommands(ctx);
 }

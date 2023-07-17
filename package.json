@@ -256,6 +256,22 @@
         "title": "%commands.idl.docs.open%"
       },
       {
+        "command": "idl.notebooks.resetIDL",
+        "title": "%commands.idl.notebooks.resetIDL%",
+        "icon": {
+          "light": "extension/images/light/renew.svg",
+          "dark": "extension/images/dark/renew.svg"
+        }
+      },
+      {
+        "command": "idl.notebooks.stopIDL",
+        "title": "%commands.idl.notebooks.stopIDL%",
+        "icon": {
+          "light": "extension/images/light/stop.svg",
+          "dark": "extension/images/dark/stop.svg"
+        }
+      },
+      {
         "command": "idl.webview.start",
         "title": "%commands.idl.webview.start%"
       }
@@ -1107,6 +1123,18 @@
           "command": "idl.debug.resetIDL",
           "group": "navigation",
           "when": "debugType == idl"
+        }
+      ],
+      "notebook/toolbar": [
+        {
+          "command": "idl.notebooks.resetIDL",
+          "group": "navigation",
+          "when": "resourceExtname == .idlnb"
+        },
+        {
+          "command": "idl.notebooks.stopIDL",
+          "group": "navigation",
+          "when": "resourceExtname == .idlnb"
         }
       ]
     },
