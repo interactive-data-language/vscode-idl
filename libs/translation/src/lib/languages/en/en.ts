@@ -539,7 +539,7 @@ export const EN: ITranslation = {
       start: 'Failed to start the IDL Language Server',
       connection: 'Failed to send/receive message with the IDL Language Server',
       closed:
-        'The connection to the IDL Language Server unexpectedly closed and will not be restarted',
+        'The IDL Language Server crashed. This is likely a memory issue, please see docs for more information and workarounds.',
     },
     types: {
       unknown: {
@@ -569,6 +569,7 @@ export const EN: ITranslation = {
       'No "idl.json" file found at root level of workspace folder, create? Workspace:',
     configure: 'Configure',
     start: 'Start?',
+    viewDocs: 'View docs',
   },
   packageJSON: {
     displayName: 'IDL for VSCode',

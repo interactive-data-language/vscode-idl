@@ -1,6 +1,7 @@
 import {
   CleanPath,
   CONFIG_FILE_GLOB_PATTERN,
+  GetExtensionPath,
   IDL_CONFIG_FILE_DOCUMENT_SELECTOR,
   IDL_DOCUMENT_SELECTOR,
   LANGUAGE_NAME,
@@ -165,6 +166,11 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
             `The connection to the IDL Language Server unexpectedly closed`,
           ],
           alert: IDL_TRANSLATION.lsp.errors.closed,
+          alertMeta: {
+            openMarkdownDocs: GetExtensionPath(
+              'extension/docs/general/LANGUAGE_SERVER_CRASHES.md'
+            ),
+          },
         });
         const res: CloseHandlerResult = {
           action: CloseAction.DoNotRestart,

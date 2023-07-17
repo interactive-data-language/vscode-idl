@@ -6,6 +6,8 @@ For much more detail, see our [developer notes](./extension/docs/developer/dev-n
 
 ## 3.0.6
 
+Improved message when language server crashes and a button that opens documentation for workarounds for the memory problem
+
 Add new preferences for tracking session history! This includes several new features:
 
 - A new output channel that captures the input and output from your IDL sessions (i.e. `print, 42` and the text `42`). This output channel is called "IDL: Session History"

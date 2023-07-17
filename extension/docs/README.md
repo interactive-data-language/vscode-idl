@@ -2,6 +2,10 @@
 
 This README is the main entry point for the extension documentation for the IDL Extension for VS Code.
 
+## Quick Links
+
+- [**Language Server Crashes**](./general/LANGUAGE_SERVER_CRASHES.md)
+
 ## Content
 
 - [**AutoDoc**](./general/AUTO_DOC.md): High-level overview of AutoDoc and the IDL Docs docs style
