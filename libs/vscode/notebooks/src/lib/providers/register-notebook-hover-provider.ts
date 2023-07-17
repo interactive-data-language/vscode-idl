@@ -43,6 +43,11 @@ export function RegisterNotebookHoverProvider() {
       const hovered: LanguageServerHover =
         await LANGUAGE_SERVER_CLIENT.sendRequest('textDocument/hover', params);
 
+      // return if nothing
+      if (hovered === undefined) {
+        return;
+      }
+
       /**
        * Init range for hover help
        */
