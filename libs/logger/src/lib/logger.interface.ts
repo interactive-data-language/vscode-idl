@@ -124,6 +124,8 @@ export interface IBasicLogOptions {
   alertMeta?: {
     /** If present and we have an alert, opens the specified file */
     openFile?: string;
+    /** Filepath for a markdown file to display */
+    openMarkdownDocs?: string;
     /** A file to open */
     file?: string;
     /** If set, add a message to ask for the IDL directory */

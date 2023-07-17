@@ -623,9 +623,88 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   }
 
   /**
+   * Wrapper to start IDL and run some commands
+   */
+  launch(): Promise<boolean> {
+    return new Promise((res, rej) => {
+      // attempt to start IDL
+      IDL_STATUS_BAR.busy(IDL_TRANSLATION.statusBar.starting, true);
+
+      // log that our session has started
+      LogSessionStart();
+
+      // start our runtime session
+      this._runtime.start(this.lastLaunchArgs);
+
+      // listen for when we started
+      this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
+        // update flag that we started
+        this.launched = true;
+
+        // add new line now that we have started
+        LogOutput('\n');
+
+        // get information about IDL
+        const version = CleanIDLOutput(
+          await this.evaluate('vscode_getIDLInfo', {
+            echo: false,
+            silent: true,
+            idlInfo: false,
+          })
+        );
+
+        try {
+          // attempt to parse the response
+          const parsed = JSON.parse(version);
+
+          /**
+           * TODO: Alert user if they don't have a supported version of IDL
+           */
+
+          // send usage metric
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.IDL_STARTUP, {
+            idl_version: parsed.release,
+            idl_type: parsed.dir.toLowerCase().includes('envi')
+              ? 'idl-envi'
+              : 'idl',
+          });
+        } catch (err) {
+          console.log(err);
+          IDL_LOGGER.log({
+            type: 'error',
+            log: IDL_DEBUG_ADAPTER_LOG,
+            content: [IDL_TRANSLATION.debugger.errors.idlDetails, err],
+            alert: IDL_TRANSLATION.debugger.errors.idlDetails,
+          });
+        }
+
+        // update status bar
+        IDL_STATUS_BAR.ready();
+
+        // return
+        res(true);
+      });
+
+      // listen for failures to launch
+      this._runtime.once(IDL_EVENT_LOOKUP.FAILED_START, () => {
+        if (!this.launched) {
+          // set the stop
+          LogSessionStop('failed-start');
+
+          // emit event that we failed to start - handled status bar update
+          this._IDLCrashed('failed-start');
+
+          // return
+          res(false);
+        }
+      });
+    });
+  }
+
+  /**
    * Start a debug session of IDL
    */
-  protected launchRequest(
+  protected async launchRequest(
     response: DebugProtocol.LaunchResponse,
     args: IDLDebugConfiguration
   ) {
@@ -679,76 +758,11 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       // save launch args
       this.lastLaunchArgs = args;
 
-      // attempt to start IDL
-      IDL_STATUS_BAR.busy(IDL_TRANSLATION.statusBar.starting, true);
+      // start IDL and set flag if we succeeded or not
+      response.success = await this.launch();
 
-      LogSessionStart();
-
-      // start our runtime session
-      this._runtime.start(args);
-
-      // listen for when we started
-      this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
-        // update flag that we started
-        this.launched = true;
-
-        // add new line now that we have started
-        LogOutput('\n');
-
-        // get information about IDL
-        const version = CleanIDLOutput(
-          await this.evaluate('vscode_getIDLInfo', {
-            echo: false,
-            silent: true,
-            idlInfo: false,
-          })
-        );
-
-        try {
-          // attempt to parse the response
-          const parsed = JSON.parse(version);
-
-          /**
-           * TODO: Alert user if they don't have a supported version of IDL
-           */
-
-          // send usage metric
-          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.IDL_STARTUP, {
-            idl_version: parsed.release,
-            idl_type: parsed.dir.toLowerCase().includes('envi')
-              ? 'idl-envi'
-              : 'idl',
-          });
-        } catch (err) {
-          console.log(err);
-          IDL_LOGGER.log({
-            type: 'error',
-            log: IDL_DEBUG_ADAPTER_LOG,
-            content: [IDL_TRANSLATION.debugger.errors.idlDetails, err],
-            alert: IDL_TRANSLATION.debugger.errors.idlDetails,
-          });
-        }
-
-        // respond our request and update status bar
-        response.success = true;
-        IDL_STATUS_BAR.ready();
-        this.sendResponse(response);
-      });
-
-      // listen for failures to launch
-      this._runtime.once(IDL_EVENT_LOOKUP.FAILED_START, () => {
-        if (!this.launched) {
-          // respond to our request
-          response.success = false;
-          this.sendResponse(response);
-
-          // set the stop
-          LogSessionStop('failed-start');
-
-          // emit event that we failed to start - handled status bar update
-          this._IDLCrashed('failed-start');
-        }
-      });
+      // respond
+      this.sendResponse(response);
     } catch (err) {
       this.sendResponse(response);
       IDL_LOGGER.log({

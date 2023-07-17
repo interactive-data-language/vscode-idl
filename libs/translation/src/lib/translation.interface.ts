@@ -581,6 +581,8 @@ export interface ITranslation {
     configure: string;
     /** Start IDL */
     start: string;
+    /** Question to ask if want to view docs file */
+    viewDocs: string;
   };
   /** Translations for our main package.json file */
   packageJSON: {

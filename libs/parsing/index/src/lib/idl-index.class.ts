@@ -1091,18 +1091,13 @@ export class IDLIndex {
         }
         break;
       }
+
       /**
        * If multi-threaded, check if we have a copy of our parsed code
        *
        * Some duplication with indexProCode, but special case if we are multi threaded
        */
       case this.isMultiThreaded(): {
-        if (file in this.tokensByFile) {
-          if (this.tokensByFile[file].checksum === CodeChecksum(code)) {
-            return this.tokensByFile[file];
-          }
-        }
-
         /**
          * Fetch from worker (it validates cache)
          */
@@ -1131,8 +1126,12 @@ export class IDLIndex {
           await this.changeDetection(current.global, oldGlobals);
         }
 
+        // make sure that we never cache in memory if we are the main thread
+        delete this.tokensByFile[file];
+
         return current;
       }
+
       /**
        * Check if we have it stored locally
        */
