@@ -1,6 +1,7 @@
 export * from './lib/change-detection/change-detection';
 export * from './lib/global-index.class';
 export * from './lib/helpers/get-routine';
+export * from './lib/helpers/get-syntax-problems';
 export * from './lib/helpers/get-variable';
 export * from './lib/helpers/reset-global-display-names';
 export * from './lib/helpers/save-global-display-names';

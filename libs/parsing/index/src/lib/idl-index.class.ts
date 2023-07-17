@@ -14,6 +14,7 @@ import {
   IDL_WORKER_THREAD_CONSOLE,
   LogManager,
 } from '@idl/logger';
+import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks';
 import { CodeChecksum, Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
@@ -62,7 +63,6 @@ import { basename, dirname, join } from 'path';
 import {
   DocumentSymbol,
   NotebookCellKind,
-  NotebookDocument,
   Position,
 } from 'vscode-languageserver/node';
 import { Worker } from 'worker_threads';
@@ -140,6 +140,7 @@ export class IDLIndex {
     'idl.json': new Set(),
     'idl-task': new Set(),
     'envi-task': new Set(),
+    'idl-notebook': new Set(),
   };
 
   /**
@@ -1031,14 +1032,21 @@ export class IDLIndex {
   /**
    * Indexes an IDL notebook file
    */
-  async indexIDLNotebook(file: string, notebook: NotebookDocument) {
+  async indexIDLNotebook(
+    file: string,
+    notebook: IDLNotebookDocument
+  ): Promise<IParsedIDLNotebook> {
     // remove notebook
     this.removeNotebook(file);
+
+    // track as known file
+    this.knownFiles[file] = undefined;
+    this.fileTypes['idl-notebook'].add(file);
 
     /**
      * Track parsed code by cell
      */
-    const byCell: { [key: number]: IParsed } = {};
+    const byCell: IParsedIDLNotebook = {};
 
     // process each cell
     for (let i = 0; i < notebook.cells.length; i++) {
@@ -1047,11 +1055,11 @@ export class IDLIndex {
 
       // skip if no cells
       if (cell.kind !== NotebookCellKind.Code) {
-        return;
+        continue;
       }
 
       // process the cell
-      byCell[i] = await this.indexProCode(`${file}#${i}`, cell.document, true);
+      byCell[i] = await this.indexProCode(`${file}#${i}`, cell.text, true);
     }
 
     // return each cell

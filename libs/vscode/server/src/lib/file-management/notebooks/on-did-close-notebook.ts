@@ -1,13 +1,22 @@
 import { IDL_LSP_LOG } from '@idl/logger';
+import { NotebookToIDLNotebook } from '@idl/notebooks';
+import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { NotebookDocument } from 'vscode-languageserver/node';
 
 import { NotebookCacheValid } from '../../helpers/notebook-cache-valid';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
+import { NOTEBOOK_MANAGER } from './initialize-notebook-manager';
+import { SendNotebookProblems } from './send-notebook-problems';
 
 /**
  * Callback to handle notebooks being closed
+ *
+ * Just like text documents, we re-parse because they have
+ * had unsaved changes on closed, so we might need the text
+ * on disk.
  *
  * @param notebook The notebook from VSCode
  */
@@ -25,23 +34,19 @@ export const ON_DID_CLOSE_NOTEBOOK = async (notebook: NotebookDocument) => {
       content: ['Notebook closed', notebook.uri],
     });
 
-    // // get the path to the file to properly save
-    // const fsPath = GetFSPath(notebook.uri);
-    // /**
-    //  * When we close a file, always re-parse it
-    //  *
-    //  * Why you ask? Because, when you edit code, you can make changes that are
-    //  * not saved.
-    //  *
-    //  * For example: I open a PRO file, change routine definitions, and close the file
-    //  * *without* saving, then we need to trigger a parse with the code on disk.
-    //  *
-    //  * This is because, as you make changes, we parse on the fly. So we need to trigger
-    //  * a re-parse and run change detection using the globals in the file stored on disk
-    //  */
-    // await IDL_INDEX.indexFile(fsPath, await GetFileStrings(notebook.uri));
-    // // send problems
-    // SendProblems([fsPath]);
+    /**
+     * Get text for all cells for quick access
+     */
+    const idlNotebook = NotebookToIDLNotebook(notebook, NOTEBOOK_MANAGER);
+
+    // get the path to the file to properly save
+    const fsPath = GetFSPath(notebook.uri);
+
+    // index file
+    const parsed = await IDL_INDEX.indexIDLNotebook(fsPath, idlNotebook);
+
+    // send problems
+    SendNotebookProblems(notebook, parsed);
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

@@ -42,7 +42,8 @@ export type IDLFileType =
   | 'save'
   | 'idl.json'
   | 'envi-task'
-  | 'idl-task';
+  | 'idl-task'
+  | 'idl-notebook';
 
 /**
  * Lookup by file type

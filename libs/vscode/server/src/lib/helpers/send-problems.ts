@@ -26,6 +26,35 @@ let OLD_INCLUDE = copy(INCLUDE_PROBLEMS_FOR);
 let OLD_IGNORE = copy(IGNORE_PROBLEM_CODES);
 
 /**
+ * Determines if we can report problems for a file or not
+ */
+export function CanReportProblems(file: string) {
+  // get workspace folders - exclude first which is the default config
+  const workspaces = Object.keys(WORKSPACE_FOLDER_CONFIGS);
+
+  /** Flag if we can report problems for our file */
+  let report = true;
+
+  // filter using IDL packages
+  if (report && !INCLUDE_PROBLEMS_FOR.IDL_PACKAGES) {
+    report = !IDL_PACKAGES_REGEX.test(file);
+  }
+
+  // filter using files
+  if (report && !INCLUDE_PROBLEMS_FOR.IDL_PATH) {
+    report = false;
+    for (let z = 0; z < workspaces.length; z++) {
+      if (file.startsWith(workspaces[z])) {
+        report = true;
+        break;
+      }
+    }
+  }
+
+  return report;
+}
+
+/**
  * Sends problems to the current VSCode session
  */
 export function SendProblems(inFiles: string[]) {
@@ -60,12 +89,9 @@ export function SendProblems(inFiles: string[]) {
   const parseProblems = IDL_INDEX.getSyntaxProblems();
   const globalProblems = IDL_INDEX.getGlobalTokenSyntaxProblems();
 
-  // get workspace folders - exclude first which is the default config
-  const workspaces = Object.keys(WORKSPACE_FOLDER_CONFIGS);
-
   // process each file
   for (let i = 0; i < files.length; i++) {
-    // skip file if we cant process it
+    // skip file if not PRO code
     if (!IDL_INDEX.isPROCode(files[i])) {
       continue;
     }
@@ -73,27 +99,8 @@ export function SendProblems(inFiles: string[]) {
     // init problems
     let problems: SyntaxProblems = [];
 
-    /** Flag if we can report problems for our file */
-    let report = true;
-
-    // filter using IDL packages
-    if (report && !INCLUDE_PROBLEMS_FOR.IDL_PACKAGES) {
-      report = !IDL_PACKAGES_REGEX.test(files[i]);
-    }
-
-    // filter using files
-    if (report && !INCLUDE_PROBLEMS_FOR.IDL_PATH) {
-      report = false;
-      for (let z = 0; z < workspaces.length; z++) {
-        if (files[i].startsWith(workspaces[z])) {
-          report = true;
-          break;
-        }
-      }
-    }
-
     // check if we can report problems
-    if (report) {
+    if (CanReportProblems(files[i])) {
       /**
        * Are our tokens in another thread and we have stored the problems directly in parseProblems
        *
