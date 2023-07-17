@@ -149,7 +149,7 @@ export function ProcessDebugging(packageJSON: IPackageJSON, nls: IPackageNLS) {
     contrib['menus'] = {};
   }
   const menus = contrib['menus'];
-  menus['debug/toolbar'] = DEBUG_TOOLBAR;
+  menus['debug/toolBar'] = DEBUG_TOOLBAR;
 
   // save changes
   contrib['debuggers'] = DEBUGGERS;
