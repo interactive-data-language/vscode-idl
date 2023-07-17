@@ -10,6 +10,8 @@ Improved message when language server crashes and a button that opens documentat
 
 Fixed a problem where we don't properly detect `node.js` on non-Windows platforms
 
+Fixed a problem where the docs file wasn't being included
+
 Add new preferences for tracking session history! This includes several new features:
 
 - A new output channel that captures the input and output from your IDL sessions (i.e. `print, 42` and the text `42`). This output channel is called "IDL: Session History"
