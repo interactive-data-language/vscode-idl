@@ -1,9 +1,11 @@
 import { IParsedIDLNotebook } from '@idl/notebooks';
 import { GetSyntaxProblems } from '@idl/parsing/index';
+import { GetFSPath } from '@idl/shared';
 import { NotebookDocument } from 'vscode-languageserver';
 
 import { SyntaxProblemsToDiagnostic } from '../../helpers/syntax-problem-to-diagnostic';
 import { SERVER_CONNECTION } from '../../initialize-server';
+import { IDL_INDEX } from '../initialize-document-manager';
 
 /**
  * Track last version of notebook document to remove problems if the cell is deleted
@@ -27,6 +29,16 @@ export function SendNotebookProblems(
    */
   const theseCells = new Set<string>();
 
+  /**
+   * Get FSPath for notebook on disk
+   */
+  const fsPath = GetFSPath(notebook.uri);
+
+  /**
+   * Get global token problems
+   */
+  const globalProblems = IDL_INDEX.getGlobalTokenSyntaxProblems();
+
   // process each cell we parsed
   for (let i = 0; i < idxs.length; i++) {
     /** Get index as a number */
@@ -35,10 +47,19 @@ export function SendNotebookProblems(
     // track as a celll we have
     theseCells.add(notebook.cells[idx].document);
 
+    /**
+     * Get our FS path for the cell
+     */
+    const cellFsPath = `${fsPath}#${idx}`;
+
     // sync problems
     SERVER_CONNECTION.sendDiagnostics({
       uri: notebook.cells[idx].document,
-      diagnostics: SyntaxProblemsToDiagnostic(GetSyntaxProblems(parsed[idx])),
+      diagnostics: SyntaxProblemsToDiagnostic(
+        GetSyntaxProblems(parsed[idx]).concat(
+          cellFsPath in globalProblems ? globalProblems[cellFsPath] : []
+        )
+      ),
     });
   }
 
