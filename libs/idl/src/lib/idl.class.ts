@@ -556,7 +556,7 @@ export class IDL extends EventEmitter {
    */
   async evaluate(
     command: string,
-    options?: IDLEvaluateOptions
+    options: IDLEvaluateOptions = {}
   ): Promise<string> {
     if ('echo' in options ? options.echo : false) {
       this.emit(
