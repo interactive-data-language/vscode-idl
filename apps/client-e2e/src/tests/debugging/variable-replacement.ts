@@ -27,7 +27,6 @@ export const VariableReplacement: RunnerFunction = async (init) => {
   await vscode.debug.stopDebugging();
   await Sleep(100);
   expect(init.debug.adapter.launched).toBeFalsy();
-  vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
 
   /**
    * Start IDL
@@ -35,6 +34,7 @@ export const VariableReplacement: RunnerFunction = async (init) => {
   const started = await vscode.commands.executeCommand(
     IDL_COMMANDS.DEBUG.START
   );
+  vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
 
   // verify we started
   expect(started).toBeTruthy();
