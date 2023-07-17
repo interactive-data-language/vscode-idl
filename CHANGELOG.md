@@ -8,6 +8,8 @@ For much more detail on incremental work for large features, see our [developer 
 
 Improved message when language server crashes and a button that opens documentation for workarounds for the memory problem
 
+Fixed a problem where we don't properly detect `node.js` on non-Windows platforms
+
 Add new preferences for tracking session history! This includes several new features:
 
 - A new output channel that captures the input and output from your IDL sessions (i.e. `print, 42` and the text `42`). This output channel is called "IDL: Session History"

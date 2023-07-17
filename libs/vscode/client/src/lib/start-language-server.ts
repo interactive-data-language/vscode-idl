@@ -51,7 +51,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
   /**
    * Check for nodejs to determine how we launch the language server
    */
-  const HAS_NODE = spawnSync('node --version').error ? false : true;
+  const HAS_NODE = spawnSync('node', ['--version']).error ? false : true;
 
   /**
    * Full path to the JS file for launching in VSCode
