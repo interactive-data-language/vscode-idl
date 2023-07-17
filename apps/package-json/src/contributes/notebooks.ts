@@ -57,5 +57,5 @@ export function ProcessNotebooks(packageJSON: IPackageJSON, nls: IPackageNLS) {
     contrib['menus'] = {};
   }
   const menus = contrib['menus'];
-  menus['notebook/toolBar'] = NOTEBOOK_TOOLBAR;
+  menus['notebook/toolbar'] = NOTEBOOK_TOOLBAR;
 }
