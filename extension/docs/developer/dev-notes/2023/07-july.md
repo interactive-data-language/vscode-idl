@@ -111,3 +111,23 @@ We also will add a URL to a local markdown file with a description of the proble
 This will likely need to be improved in the future, but we added a filter to most of our events from VSCode that checks the code to make sure it has _actually_ changed.
 
 For whatever reason, go-to-definition triggers open, change, and close events for a file. These bombarding events broke the language server and its a little concerning why all those events are fired when nothing has changed.
+
+## Memory Issues
+
+There were a number of issues resolved with regards to memory usage for the extension. Here's a quick summary:
+
+1. When launching as node.js, the garbage collection (and memory limit flags) were not being passed in correctly
+
+2. Worse, we weren't trying to detect node.js correctly on non-Windows platforms. This was an oversight in development where it was just played with on Windows (where we have large workspaces).
+
+3. Added a cache class for storing/restoring content from memory. This stringifies key elements of our parsed code and dramatically reduces memory usage. For large workspaces, we are about 2x faster to parse as well (probably related to garbage collection). The odd thing is, as a part of this, we are copying objects that we store which is interesting in that is speeds up processing.
+
+One of the next features, post-notebooks, is probably going to be performance. We need to figure out how to more efficiently parse large workspaces so that, the next time we load them or encounter a file, we can start in a matter of seconds.
+
+Another item we can add to our to-do is including a similar style cache for global tokens to store them as strings and potentially compress them until we need to access them, but that adds a fair bit of complexity.
+
+## Notebooks
+
+We started work on notebooks this month! And work is progressing quite well.
+
+See the NOTEBOOKS.md file in the developer docs folder for more details on how it works.
