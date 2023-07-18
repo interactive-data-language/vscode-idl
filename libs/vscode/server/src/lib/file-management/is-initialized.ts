@@ -69,6 +69,13 @@ export const SERVER_INFO = Promise.all([
 // on initialization, load global tokens
 SERVER_INFO.then(async (res) => {
   try {
+    // send debug event about garbage collection
+    IDL_LANGUAGE_SERVER_LOGGER.log({
+      log: IDL_LSP_LOG,
+      type: 'info',
+      content: `Garbage collection enabled: ${global.gc ? true : false}`,
+    });
+
     // alert users
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
