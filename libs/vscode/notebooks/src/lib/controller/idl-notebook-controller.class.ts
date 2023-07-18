@@ -123,6 +123,10 @@ export class IDLNotebookController {
         log: IDL_NOTEBOOK_LOG,
         content: [`Stopped because: "${reason}"`, stack],
       });
+      if (this._currentCell !== undefined) {
+        this._currentCell.execution.end(false, Date.now());
+        this._currentCell = undefined;
+      }
       // this.stopped = {
       //   reason,
       //   stack,
@@ -466,7 +470,9 @@ export class IDLNotebookController {
       });
 
       // set finish time
-      execution.end(true, Date.now());
+      if (this._currentCell !== undefined) {
+        execution.end(true, Date.now());
+      }
     }
 
     // clear that we are executing this cell
