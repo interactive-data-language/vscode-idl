@@ -577,6 +577,7 @@ export const EN: ITranslation = {
       failedExecute: 'Failed to execute notebook cells',
       crashed:
         'IDL crashed or was stopped by the user and needs to be restarted',
+      checkingGraphics: 'Error while trying to retrieve any graphics to embed',
     },
     notifications: {
       startingIDL: 'Starting IDL, please wait...',

@@ -24,6 +24,8 @@ import { writeFileSync } from 'fs';
 import { join } from 'path';
 import * as vscode from 'vscode';
 
+import { BangMagic } from './bang-magic.interface';
+
 /**
  * Controller for notebooks
  */
@@ -82,6 +84,10 @@ export class IDLNotebookController {
     execution: vscode.NotebookCellExecution;
     /** Currently captured output */
     output: string;
+    /** Are we done processing? */
+    finished: boolean;
+    /** Did we succeed or not */
+    success: boolean;
   };
 
   /**
@@ -134,8 +140,11 @@ export class IDLNotebookController {
         content: [`Stopped because: "${reason}"`, stack],
       });
       if (this._currentCell !== undefined) {
-        this._currentCell.execution.end(false, Date.now());
-        this._currentCell = undefined;
+        if (!this._currentCell.finished) {
+          this._currentCell.execution.end(false, Date.now());
+          this._currentCell.finished = true;
+          this._currentCell.success = false;
+        }
       }
       // this.stopped = {
       //   reason,
@@ -217,17 +226,25 @@ export class IDLNotebookController {
 
     // check what we need to do
     if (this._currentCell !== undefined) {
-      // update overall output
-      this._currentCell.output = `${this._currentCell.output}${content}`;
-      this._currentCell.execution.replaceOutput(
-        new vscode.NotebookCellOutput([
-          vscode.NotebookCellOutputItem.text(
-            this._currentCell.output.replace(REGEX_NEW_LINE, '\n')
-          ),
-        ])
-      );
+      // only save output if we are not finished
+      if (!this._currentCell.finished) {
+        // update overall output
+        this._currentCell.output = `${this._currentCell.output}${content}`;
+        this._currentCell.execution.replaceOutput(
+          new vscode.NotebookCellOutput([
+            vscode.NotebookCellOutputItem.text(
+              this._currentCell.output.replace(REGEX_NEW_LINE, '\n')
+            ),
+          ])
+        );
+      }
+
       if (type === 'stderr') {
-        this._currentCell.execution.end(false, Date.now());
+        if (!this._currentCell.finished) {
+          this._currentCell.execution.end(false, Date.now());
+          this._currentCell.finished = true;
+          this._currentCell.success = false;
+        }
       }
     }
   }
@@ -277,6 +294,11 @@ export class IDLNotebookController {
       this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
         // update flag that we started
         this.launched = true;
+
+        // set compile opt and be quiet
+        await this._runtime.evaluate('compile_opt idl2 & !quiet = 1');
+
+        // resolve promise
         res(true);
       });
 
@@ -318,7 +340,11 @@ export class IDLNotebookController {
 
     // alert that execution has stopped
     if (this._currentCell) {
-      this._currentCell.execution.end(false, Date.now());
+      if (!this._currentCell.finished) {
+        this._currentCell.execution.end(false, Date.now());
+        this._currentCell.finished = true;
+        this._currentCell.success = false;
+      }
       this._currentCell = undefined;
     }
 
@@ -336,7 +362,13 @@ export class IDLNotebookController {
     const execution = this._controller.createNotebookCellExecution(cell);
 
     // save cell as current
-    this._currentCell = { cell, execution, output: '' };
+    this._currentCell = {
+      cell,
+      execution,
+      output: '',
+      finished: false,
+      success: true,
+    };
 
     // set cell order
     execution.executionOrder = ++this._executionOrder;
@@ -357,6 +389,7 @@ export class IDLNotebookController {
       } catch (err) {
         // mark as done
         execution.end(false, Date.now());
+        this._currentCell = undefined;
 
         // alert user
         IDL_LOGGER.log({
@@ -406,6 +439,7 @@ export class IDLNotebookController {
        */
       case filtered.length === 0:
         execution.end(true, Date.now());
+        this._currentCell = undefined;
         return true;
 
       /**
@@ -448,6 +482,7 @@ export class IDLNotebookController {
             // check for empty main
             if (codes[i].endsWith(`${IDL_PROBLEM_CODES.EMPTY_MAIN}`)) {
               execution.end(true, Date.now());
+              this._currentCell = undefined;
               return true;
             }
           }
@@ -469,22 +504,28 @@ export class IDLNotebookController {
     // check for syntax errors
     if (Object.keys(this._runtime.errorsByFile).length > 0) {
       // set finish time
-      execution.end(false, Date.now());
+      if (!this._currentCell.finished) {
+        execution.end(false, Date.now());
+      }
     } else {
       // run main level program
       await this.evaluate(`.go`);
-
-      // set finish time
-      if (this._currentCell !== undefined) {
-        execution.end(true, Date.now());
-      }
     }
 
     // clear that we are executing this cell
-    this._currentCell = undefined;
+    this._currentCell.finished = true;
 
     // return
-    await this.postEvaluate();
+    await this.postEvaluate(this._currentCell.success);
+
+    // mark execution as finished if we succeeded
+    // if we had an error, then we already marked as finished
+    if (this._currentCell.success) {
+      execution.end(true, Date.now());
+    }
+
+    // reset
+    this._currentCell = undefined;
 
     // return as success
     return true;
@@ -550,21 +591,75 @@ export class IDLNotebookController {
         silent: false,
       });
 
-      // commands that we run
-      const commands = ['!magic.embed = 0', '!magic.window = -1'];
+      /**
+       * Commands to run after executing a cell
+       *
+       * Quiet makes sure that we exclude output that goofs up processing and hides compile statements
+       *
+       * Magic forces embedding and, for embedding, resets window ID
+       */
+      const commands = ['!quiet = 1', '!magic.embed = 1', '!magic.window = -1'];
 
-      // if we need to get information about magic
+      // insert magic command before resetting window value
       if (magic) {
-        commands.push('print, json_serialize(!magic, /lowercase)');
+        commands.splice(2, 0, 'print, json_serialize(!magic, /lowercase)');
       }
 
       /**
        * Clean things up and get our !magic system variable
        */
-      const reset = CleanIDLOutput(
+      const rawMagic = CleanIDLOutput(
         await this._runtime.evaluate(commands.join(' & '))
       );
-      // console.log(reset);
+
+      // check if we need to look for magic
+      if (magic && this._currentCell !== undefined) {
+        try {
+          /**
+           * Parse our magic
+           */
+          const fullMagic: BangMagic = JSON.parse(rawMagic);
+
+          // check if we have a window
+          if (fullMagic.window !== -1) {
+            /**
+             * Retrieve our encoded graphic
+             */
+            const encoded = await this._runtime.evaluate(
+              `EncodeGraphic(${fullMagic.window}, ${fullMagic.type})`
+            );
+
+            /**
+             * Styles for the element to fil the space, but not exceed 1:1 dimensions
+             */
+            const style = `style="width:100%;height:100%;max-width:${fullMagic.xsize}px;max-height:${fullMagic.ysize}px;"`;
+
+            // add as output
+            this._currentCell.execution.appendOutput(
+              new vscode.NotebookCellOutput([
+                /**
+                 * Use HTML because it works. Using the other mimetype *probably* works
+                 * but this works right now :)
+                 */
+                new vscode.NotebookCellOutputItem(
+                  Buffer.from(
+                    `<img src="data:image/png;base64,${encoded}" ${style}/>`
+                  ),
+                  'text/html'
+                ),
+              ])
+            );
+          }
+        } catch (err) {
+          // alert user
+          IDL_LOGGER.log({
+            type: 'error',
+            log: IDL_NOTEBOOK_LOG,
+            content: [IDL_TRANSLATION.notebooks.errors.checkingGraphics, err],
+            alert: IDL_TRANSLATION.notebooks.errors.checkingGraphics,
+          });
+        }
+      }
     }
   }
 }

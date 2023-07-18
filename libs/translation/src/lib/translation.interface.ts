@@ -553,6 +553,8 @@ export interface ITranslation {
       failedExecute: string;
       /** IDL crashes while running something in the notebook */
       crashed: string;
+      /** Error while trying to get graphics */
+      checkingGraphics: string;
     };
     /** Notifications for working with notebooks */
     notifications: {
