@@ -249,6 +249,7 @@ client.on(
             content: [
               `File was deleted, but we were not alerted before indexing files`,
               files[i],
+              err,
             ],
           });
         } else {
