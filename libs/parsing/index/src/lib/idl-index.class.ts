@@ -1899,6 +1899,12 @@ export class IDLIndex {
       }
     }
 
+    this.log.log({
+      log: IDL_LSP_LOG,
+      type: 'info',
+      content: [`Attempting to index ${files.length} PRO file(s)`],
+    });
+
     /**
      * Split files into equal file sized buckets as best we can so that we
      * can evenly distribute work.
