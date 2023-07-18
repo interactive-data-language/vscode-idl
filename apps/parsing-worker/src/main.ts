@@ -175,7 +175,7 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILE, async (message) => {
   const parsed = await WORKER_INDEX.getParsedProCode(
     message.file,
     readFileSync(message.file, 'utf-8'),
-    message.postProcess
+    message
   );
 
   // make non-circular
@@ -193,7 +193,7 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE, async (message) => {
   const parsed = await WORKER_INDEX.getParsedProCode(
     message.file,
     message.code,
-    message.postProcess
+    message
   );
 
   // make non-circular

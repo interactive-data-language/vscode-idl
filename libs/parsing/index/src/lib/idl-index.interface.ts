@@ -51,3 +51,25 @@ export type IDLFileType =
 export type IDLFileTypeLookup = {
   [T in IDLFileType]: Set<string>;
 };
+
+/**
+ * Options when indexing PRO code
+ */
+export interface IIndexProCodeOptions {
+  /**
+   * Do we post process the file or not
+   */
+  postProcess: boolean;
+  /**
+   * Are we processing a notebook>
+   */
+  isNotebook: boolean;
+}
+
+/**
+ * Default options when indexing PRO code
+ */
+export const DEFAULT_INDEX_PRO_CODE_OPTIONS: IIndexProCodeOptions = {
+  postProcess: true,
+  isNotebook: false,
+};

@@ -91,7 +91,9 @@ export const ON_GENERATE_TASK = async (
     const proCode = await GetFileStrings(payload.uri);
 
     // re-index the file
-    const parsed = await IDL_INDEX.getParsedProCode(fsPath, proCode, true);
+    const parsed = await IDL_INDEX.getParsedProCode(fsPath, proCode, {
+      postProcess: true,
+    });
 
     /**
      * Make our task

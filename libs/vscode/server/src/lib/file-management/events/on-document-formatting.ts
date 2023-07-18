@@ -105,7 +105,7 @@ export const ON_DOCUMENT_FORMATTING = async (
         const tokens = await IDL_INDEX.getParsedProCode(
           file,
           await GetFileStrings(event.textDocument.uri),
-          true
+          { postProcess: true }
         );
 
         // format

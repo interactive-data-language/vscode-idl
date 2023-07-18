@@ -55,6 +55,7 @@ import {
   TrackGlobalTokensResponse,
 } from '@idl/workers/parsing';
 import { WorkerIOPool } from '@idl/workers/workerio';
+import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 import * as glob from 'fast-glob';
 import { existsSync, readFileSync } from 'fs';
@@ -76,9 +77,11 @@ import { ResetGlobalDisplayNames } from './helpers/reset-global-display-names';
 import { SplitFiles } from './helpers/split-files';
 import { GetHoverHelp } from './hover-help/get-hover-help';
 import {
+  DEFAULT_INDEX_PRO_CODE_OPTIONS,
   IDL_INDEX_OPTIONS,
   IDLFileTypeLookup,
   IFolderRecursion,
+  IIndexProCodeOptions,
 } from './idl-index.interface';
 import { IDLParsedCache } from './idl-parsed-cache.class';
 import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';
@@ -448,7 +451,9 @@ export class IDLIndex {
         { file, code }
       );
     } else {
-      return GetSemanticTokens(await this.getParsedProCode(file, code, true));
+      return GetSemanticTokens(
+        await this.getParsedProCode(file, code, { postProcess: true })
+      );
     }
   }
 
@@ -580,7 +585,9 @@ export class IDLIndex {
     }
 
     // get tokens for our file
-    const tokens = await this.getParsedProCode(file, code, true);
+    const tokens = await this.getParsedProCode(file, code, {
+      postProcess: true,
+    });
 
     // get our global tokens
     const global = tokens.global;
@@ -948,10 +955,17 @@ export class IDLIndex {
   async indexProCode(
     file: string,
     code: string | string[],
-    postProcess = true,
-    isNotebook = false
+    inOptions: Partial<IIndexProCodeOptions> = {}
   ): Promise<IParsed | undefined> {
     try {
+      /**
+       * Get parsing options
+       */
+      const options = Object.assign(
+        copy(DEFAULT_INDEX_PRO_CODE_OPTIONS),
+        inOptions
+      );
+
       // get old global tokens
       const oldGlobals = this.getGlobalsForFile(file);
 
@@ -980,11 +994,16 @@ export class IDLIndex {
          * Check if we farm work to a thread
          */
         case this.isMultiThreaded():
-          postProcessed = postProcess;
+          postProcessed = options.postProcess;
           parsed = await this.indexerPool.workerio.postAndReceiveMessage(
             this.getWorkerID(file),
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
-            { file, code, postProcess, isNotebook }
+            {
+              file,
+              code,
+              postProcess: options.postProcess,
+              isNotebook: options.isNotebook,
+            }
           );
           break;
         /**
@@ -1004,7 +1023,7 @@ export class IDLIndex {
         case postProcessed:
           await this.changeDetection(parsed.global, oldGlobals);
           break;
-        case postProcess:
+        case options.postProcess:
           this.postProcessProFile(file, parsed, oldGlobals, true);
           break;
         default:
@@ -1063,12 +1082,10 @@ export class IDLIndex {
       }
 
       // process the cell
-      byCell[i] = await this.indexProCode(
-        `${file}#${i}`,
-        cell.text,
-        true,
-        true
-      );
+      byCell[i] = await this.indexProCode(`${file}#${i}`, cell.text, {
+        postProcess: true,
+        isNotebook: true,
+      });
     }
 
     // return each cell
@@ -1086,8 +1103,7 @@ export class IDLIndex {
   async getParsedProCode(
     file: string,
     code: string | string[],
-    postProcess?: boolean,
-    isNotebook?: boolean
+    options: Partial<IIndexProCodeOptions> = {}
   ): Promise<IParsed> {
     switch (true) {
       /**
@@ -1116,7 +1132,12 @@ export class IDLIndex {
           this.indexerPool.workerio.postAndReceiveMessage(
             this.getWorkerID(file),
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
-            { file, code, postProcess, isNotebook }
+            {
+              file,
+              code,
+              postProcess: options.postProcess,
+              isNotebook: options.isNotebook,
+            }
           );
 
         // get the latest - cache busting happens in the worker
@@ -1133,7 +1154,7 @@ export class IDLIndex {
         this.trackSyntaxProblemsForFile(file, GetSyntaxProblems(current));
 
         // do change detection
-        if (postProcess) {
+        if (options.postProcess) {
           await this.changeDetection(current.global, oldGlobals);
         }
 
@@ -1158,7 +1179,7 @@ export class IDLIndex {
     /**
      * Re-index our code
      */
-    this.pendingFiles[file] = this.indexProCode(file, code, postProcess);
+    this.pendingFiles[file] = this.indexProCode(file, code, options);
     const res = await this.pendingFiles[file];
     delete this.pendingFiles[file];
     return res;
@@ -1350,11 +1371,9 @@ export class IDLIndex {
 
       // parse (or wait for it to finish if pending)
       try {
-        await this.getParsedProCode(
-          files[i],
-          readFileSync(files[i], 'utf-8'),
-          postProcess
-        );
+        await this.getParsedProCode(files[i], readFileSync(files[i], 'utf-8'), {
+          postProcess,
+        });
       } catch (err) {
         // check if we have a "false" error because a file was deleted
         if (!existsSync(files[i])) {
@@ -2013,7 +2032,7 @@ export class IDLIndex {
         await this.indexTaskFile(file, code);
         break;
       case this.isPROCode(file):
-        await this.getParsedProCode(file, code, true);
+        await this.getParsedProCode(file, code, { postProcess: true });
         break;
       default:
         break;
@@ -2071,7 +2090,9 @@ export class IDLIndex {
     // this is not optimized, but works and the number of files here
     // should be small, so this should be pretty fast
     for (let i = 0; i < proFiles.length; i++) {
-      await this.getParsedProCode(proFiles[i], await cb(proFiles[i]), true);
+      await this.getParsedProCode(proFiles[i], await cb(proFiles[i]), {
+        postProcess: true,
+      });
     }
   }
 }

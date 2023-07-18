@@ -38,7 +38,9 @@ export async function GetHoverHelp(
   config: IDLExtensionConfig
 ): Promise<Hover> {
   // get the tokens for our file
-  const parsed = await index.getParsedProCode(file, code, true);
+  const parsed = await index.getParsedProCode(file, code, {
+    postProcess: true,
+  });
   if (parsed !== undefined) {
     // determine what we have hovered over
     const hovered = GetTokenAtCursor(parsed, position, true);
