@@ -295,8 +295,17 @@ export class IDLNotebookController {
         // update flag that we started
         this.launched = true;
 
+        /**
+         * Embed command for !magic
+         */
+        const embed = `!magic.embed = ${
+          IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
+        }`;
+
         // set compile opt and be quiet
-        await this._runtime.evaluate('compile_opt idl2 & !quiet = 1');
+        await this._runtime.evaluate(
+          `compile_opt idl2 & !quiet = 1 & ${embed}`
+        );
 
         // resolve promise
         res(true);
