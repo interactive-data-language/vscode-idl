@@ -120,6 +120,15 @@ client.on(
 );
 
 /**
+ * Clean up
+ */
+client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, async () => {
+  if (global.gc) {
+    global.gc();
+  }
+});
+
+/**
  * Get auto complete for files we manage
  */
 client.on(
