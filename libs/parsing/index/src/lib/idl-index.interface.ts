@@ -9,7 +9,7 @@ export const IDL_INDEX_OPTIONS = {
    * This indicates the number of files we parse or post-process when we
    * process more than one file at a time
    */
-  GC_FREQUENCY: 200,
+  GC_FREQUENCY: 100,
   /**
    * Flag if we are our main thread or not.
    *
