@@ -104,10 +104,14 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
     command: `node`,
     transport: TransportKind.stdio,
     args: [
-      path.join('dist', 'apps', 'server', 'main.js'),
       '--expose-gc',
       `--max-old-space-size=${NODE_MEMORY_CONFIG.OLD}`,
       `--max-semi-space-size=${NODE_MEMORY_CONFIG.YOUNG}`,
+      /**
+       * Needs to be last, cant remember why but this was something (a long time ago) i saw on
+       * blog/stack exchange
+       */
+      path.join('dist', 'apps', 'server', 'main.js'),
     ],
     options: {
       cwd: ctx.extensionPath,
