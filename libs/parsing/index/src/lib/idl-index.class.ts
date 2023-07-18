@@ -1602,14 +1602,16 @@ export class IDLIndex {
       );
     }
 
-    if (global.gc) {
-      global.gc();
-    }
-
     /**
      * Wait for parsing promises to finish
      */
     await Promise.all(parsing);
+
+    // send message to clean up
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
 
     /**
      * Messages for global token synchronization
@@ -1661,6 +1663,12 @@ export class IDLIndex {
     // wait for all the sync messages to be processed
     await Promise.all(synchronize);
 
+    // send message to clean up
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
+
     /**
      * Post-processing promises
      */
@@ -1691,6 +1699,12 @@ export class IDLIndex {
      * Wait for post processing to finish
      */
     await Promise.all(postProcessing);
+
+    // send message to clean up
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
 
     // save syntax problems for our file
     for (let i = 0; i < postProcessing.length; i++) {
@@ -1790,6 +1804,12 @@ export class IDLIndex {
      */
     await Promise.all(parsing);
 
+    // send message to clean up
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
+
     /**
      * Messages for global token synchronization
      */
@@ -1846,6 +1866,12 @@ export class IDLIndex {
     // wait for all the sync messages to be processed
     await Promise.all(synchronize);
 
+    // send message to clean up
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
+
     // calculate and save stats
     this.lastWorkspaceIndexStats = {
       haveStats: true,
@@ -1894,6 +1920,10 @@ export class IDLIndex {
     this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, {
       files,
     });
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
 
     // track that we have PRO files
     if (files.length > 0) {

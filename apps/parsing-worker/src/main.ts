@@ -289,6 +289,12 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILES, async (message) => {
 
   // populate response
   for (let i = 0; i < files.length; i++) {
+    if (global.gc) {
+      if (i % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
+        global.gc();
+      }
+    }
+
     /**
      * Skip if we dont have a file. Could happen from parsing errors
      */
@@ -332,6 +338,12 @@ client.on(
 
     // populate response
     for (let i = 0; i < files.length; i++) {
+      if (global.gc) {
+        if (i % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
+          global.gc();
+        }
+      }
+
       /**
        * Skip if we dont have a file. Could happen from parsing errors
        */
@@ -377,6 +389,12 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.REMOVE_FILES, async (message) => {
 
   // populate response
   for (let i = 0; i < ourFiles.length; i++) {
+    if (global.gc) {
+      if (i % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
+        global.gc();
+      }
+    }
+
     /**
      * Skip if we dont have a file. Could happen from parsing errors
      */

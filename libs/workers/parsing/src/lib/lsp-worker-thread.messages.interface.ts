@@ -54,6 +54,21 @@ export type ChangeDetectionResponse = {
 };
 
 /**
+ * Message to clean up
+ */
+export type CleanUpMessage = 'clean-up';
+
+/**
+ * Payload on cleanup
+ */
+export type CleanUpPayload = void;
+
+/**
+ * Response from cleanup
+ */
+export type CleanUpResponse = void;
+
+/**
  * Message when we want to get auto complete for a file
  */
 export type GetAutoCompleteMessage = 'get-auto-complete';
@@ -330,6 +345,7 @@ export type LSPWorkerThreadMessage =
   | WorkerIOBaseMessage
   | AllFilesMessage
   | ChangeDetectionMessage
+  | CleanUpMessage
   | GetAutoCompleteMessage
   | GetOutlineMessage
   | GetSemanticTokensMessage
@@ -356,6 +372,10 @@ interface ILSPWorkerThreadMessageLookup {
    * Message when we need to perform change detection
    */
   CHANGE_DETECTION: ChangeDetectionMessage;
+  /**
+   * Message to clean up
+   */
+  CLEAN_UP: CleanUpMessage;
   /**
    * Message when we want to get auto complete for a file
    */
@@ -416,6 +436,7 @@ interface ILSPWorkerThreadMessageLookup {
 export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   ALL_FILES: 'all-files',
   CHANGE_DETECTION: 'change-detection',
+  CLEAN_UP: 'clean-up',
   GET_AUTO_COMPLETE: 'get-auto-complete',
   GET_OUTLINE: 'get-outline',
   GET_SEMANTIC_TOKENS: 'get-semantic-tokens',

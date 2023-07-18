@@ -10,6 +10,9 @@ import {
   ChangeDetectionMessage,
   ChangeDetectionPayload,
   ChangeDetectionResponse,
+  CleanUpMessage,
+  CleanUpPayload,
+  CleanUpResponse,
   GetAutoCompleteMessage,
   GetAutoCompletePayload,
   GetAutoCompleteResponse,
@@ -57,6 +60,8 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
     ? AllFilesPayload
     : T extends ChangeDetectionMessage
     ? ChangeDetectionPayload
+    : T extends CleanUpMessage
+    ? CleanUpPayload
     : T extends GetAutoCompleteMessage
     ? GetAutoCompletePayload
     : T extends GetOutlineMessage
@@ -95,6 +100,8 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
     ? AllFilesResponse
     : T extends ChangeDetectionMessage
     ? ChangeDetectionResponse
+    : T extends CleanUpMessage
+    ? CleanUpResponse
     : T extends GetAutoCompleteMessage
     ? GetAutoCompleteResponse
     : T extends GetOutlineMessage

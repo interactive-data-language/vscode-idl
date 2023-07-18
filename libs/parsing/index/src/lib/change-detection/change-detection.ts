@@ -4,6 +4,7 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { existsSync } from 'fs';
 
 import { IDLIndex } from '../idl-index.class';
+import { IDL_INDEX_OPTIONS } from '../idl-index.interface';
 import { PostProcessParsed } from '../post-process/post-process-parsed';
 import { IChangeDetection } from './change-detection.interface';
 
@@ -50,6 +51,12 @@ export function ChangeDetection(
 
   // process all of our files again
   for (let z = 0; z < postProcessThese.length; z++) {
+    if (global.gc) {
+      if (z % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
+        global.gc();
+      }
+    }
+
     try {
       PostProcessParsed(
         index,

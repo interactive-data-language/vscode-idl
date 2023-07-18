@@ -34,6 +34,7 @@ export class IDLParsedCache {
    * Compress
    */
   private compress(orig: IParsed): IParsed {
+    // return orig;
     // copy
     const parsed = copy(orig);
 
@@ -54,6 +55,7 @@ export class IDLParsedCache {
    * Decompress
    */
   private decompress(compressed: IParsed): IParsed {
+    // return compressed;
     // copy decompressed data
     const parsed = copy(compressed);
 
