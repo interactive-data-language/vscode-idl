@@ -197,14 +197,20 @@ export class IDLNotebookController {
         alert: IDL_TRANSLATION.notebooks.errors.crashed,
       });
     } else {
-      this._appendOutput(
-        IDL_TRANSLATION.notebooks.errors.failedStart,
-        'stderr'
+      this._currentCell.execution.replaceOutput(
+        new vscode.NotebookCellOutput([
+          vscode.NotebookCellOutputItem.error(
+            new Error(this._currentCell.output)
+          ),
+        ])
       );
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_NOTEBOOK_LOG,
-        content: [IDL_TRANSLATION.notebooks.errors.failedStart],
+        content: [
+          IDL_TRANSLATION.notebooks.errors.failedStart,
+          this._currentCell.output,
+        ],
         alert: IDL_TRANSLATION.notebooks.errors.failedStart,
       });
     }
@@ -230,13 +236,17 @@ export class IDLNotebookController {
       if (!this._currentCell.finished) {
         // update overall output
         this._currentCell.output = `${this._currentCell.output}${content}`;
-        this._currentCell.execution.replaceOutput(
-          new vscode.NotebookCellOutput([
-            vscode.NotebookCellOutputItem.text(
-              this._currentCell.output.replace(REGEX_NEW_LINE, '\n')
-            ),
-          ])
-        );
+
+        // update our cell if we have finished launching
+        if (this.launched) {
+          this._currentCell.execution.replaceOutput(
+            new vscode.NotebookCellOutput([
+              vscode.NotebookCellOutputItem.text(
+                this._currentCell.output.replace(REGEX_NEW_LINE, '\n')
+              ),
+            ])
+          );
+        }
       }
 
       if (type === 'stderr') {
