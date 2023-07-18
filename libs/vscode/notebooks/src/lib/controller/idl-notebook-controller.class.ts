@@ -1,4 +1,9 @@
-import { IDL, IDL_EVENT_LOOKUP, REGEX_NEW_LINE } from '@idl/idl';
+import {
+  CleanIDLOutput,
+  IDL,
+  IDL_EVENT_LOOKUP,
+  REGEX_NEW_LINE,
+} from '@idl/idl';
 import { IDL_DEBUG_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
@@ -59,10 +64,10 @@ export class IDLNotebookController {
   launched = false;
 
   /** Are we listening to events from IDL or not? */
-  listening = false;
+  private listening = false;
 
   /** track the last requested scope */
-  lastFrameId = 0;
+  private lastFrameId = 0;
 
   /** Reference to our IDL class, manages process and input/output */
   readonly _runtime: IDL;
@@ -78,6 +83,11 @@ export class IDLNotebookController {
     /** Currently captured output */
     output: string;
   };
+
+  /**
+   * ID for our graphic
+   */
+  private _graphicid = '__IDLGRAPHICPLACEHOLDER__';
 
   constructor() {
     // create our runtime session - does not immediately start IDL
@@ -100,7 +110,7 @@ export class IDLNotebookController {
   /**
    * Once IDL has started, we listen to events
    */
-  listenToEvents() {
+  private listenToEvents() {
     // return if we are already listening to things
     if (this.listening) {
       return;
@@ -343,6 +353,7 @@ export class IDLNotebookController {
         if (!(await this._launchIDL())) {
           return;
         }
+        await this.postEvaluate(false);
       } catch (err) {
         // mark as done
         execution.end(false, Date.now());
@@ -452,25 +463,16 @@ export class IDLNotebookController {
     // reset syntax errors
     this._runtime.errorsByFile = {};
 
-    // TODO: run in IDL
-    await this._runtime.evaluate(`.compile -v '${fsPath}'`, {
-      echo: false,
-      idlInfo: false,
-      cut: false,
-      silent: false,
-    });
+    // compile our code
+    await this.evaluate(`.compile -v '${fsPath}'`);
 
     // check for syntax errors
     if (Object.keys(this._runtime.errorsByFile).length > 0) {
       // set finish time
       execution.end(false, Date.now());
     } else {
-      await this._runtime.evaluate(`.go`, {
-        echo: false,
-        idlInfo: false,
-        cut: false,
-        silent: false,
-      });
+      // run main level program
+      await this.evaluate(`.go`);
 
       // set finish time
       if (this._currentCell !== undefined) {
@@ -482,12 +484,7 @@ export class IDLNotebookController {
     this._currentCell = undefined;
 
     // return
-    await this._runtime.evaluate(`retall`, {
-      echo: false,
-      idlInfo: false,
-      cut: false,
-      silent: false,
-    });
+    await this.postEvaluate();
 
     // return as success
     return true;
@@ -518,6 +515,56 @@ export class IDLNotebookController {
           alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
         });
       }
+    }
+  }
+
+  /**
+   * If IDL has started, evaluates a command
+   *
+   * You should check the "launched" property before calling this
+   */
+  async evaluate(command: string) {
+    if (this.launched) {
+      return await this._runtime.evaluate(command, {
+        echo: false,
+        idlInfo: false,
+        cut: false,
+        silent: false,
+      });
+    }
+    return '';
+  }
+
+  /**
+   * Post-evaluation expression
+   *
+   * You should check the "launched" property before calling this
+   */
+  async postEvaluate(magic = true) {
+    // check if we need to do our post-evaluation
+    if (this.launched) {
+      await this._runtime.evaluate(`retall`, {
+        echo: false,
+        idlInfo: false,
+        cut: false,
+        silent: false,
+      });
+
+      // commands that we run
+      const commands = ['!magic.embed = 0', '!magic.window = -1'];
+
+      // if we need to get information about magic
+      if (magic) {
+        commands.push('print, json_serialize(!magic, /lowercase)');
+      }
+
+      /**
+       * Clean things up and get our !magic system variable
+       */
+      const reset = CleanIDLOutput(
+        await this._runtime.evaluate(commands.join(' & '))
+      );
+      // console.log(reset);
     }
   }
 }
