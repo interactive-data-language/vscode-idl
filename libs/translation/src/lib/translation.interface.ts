@@ -147,6 +147,8 @@ export interface IConfigTranslation {
     developer: string;
     /** Language server settings */
     languageServer: string;
+    /** Notebook settings */
+    notebooks: string;
   };
   idlDir: {
     notFound: string;

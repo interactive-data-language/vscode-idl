@@ -632,6 +632,19 @@
       },
       {
         "type": "object",
+        "title": "%configuration.titles.notebooks%",
+        "additionalProperties": false,
+        "properties": {
+          "idl.notebooks.embedGraphics": {
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.descriptions.notebooks.embedGraphics%",
+            "scope": "machine-overridable"
+          }
+        }
+      },
+      {
+        "type": "object",
         "title": "%configuration.titles.problems%",
         "additionalProperties": false,
         "properties": {

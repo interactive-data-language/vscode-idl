@@ -4,6 +4,7 @@ import { IPackageJSON, IPackageNLS } from '../package.interface';
 import { AddCodeConfig } from './config/code-config';
 import { AddIDLConfig } from './config/idl-config';
 import { AddLanguageServerConfig } from './config/language-server-config';
+import { AddNotebookConfig } from './config/notebook-config';
 import { AddProblemsConfig } from './config/problems-config';
 import { AddQuestionsConfig } from './config/questions-config';
 import { AddTopLevelConfig } from './config/top-level-config';
@@ -44,6 +45,7 @@ export function ProcessConfiguration(
   AddIDLConfig(nls);
   AddCodeConfig(nls);
   AddLanguageServerConfig(nls);
+  AddNotebookConfig(nls);
   AddProblemsConfig(nls);
   AddQuestionsConfig(nls);
   // AddDeveloperConfig(nls);

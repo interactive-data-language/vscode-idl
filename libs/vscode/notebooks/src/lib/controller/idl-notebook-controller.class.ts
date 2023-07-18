@@ -591,6 +591,9 @@ export class IDLNotebookController {
         silent: false,
       });
 
+      // update magic based on preference
+      magic = magic && IDL_EXTENSION_CONFIG.notebooks.embedGraphics;
+
       /**
        * Commands to run after executing a cell
        *
@@ -598,7 +601,13 @@ export class IDLNotebookController {
        *
        * Magic forces embedding and, for embedding, resets window ID
        */
-      const commands = ['!quiet = 1', '!magic.embed = 1', '!magic.window = -1'];
+      const commands = [
+        '!quiet = 1',
+        `!magic.embed = ${
+          IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
+        }`,
+        '!magic.window = -1',
+      ];
 
       // insert magic command before resetting window value
       if (magic) {

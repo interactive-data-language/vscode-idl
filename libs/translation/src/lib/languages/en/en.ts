@@ -163,6 +163,7 @@ export const EN: ITranslation = {
       questions: 'Questions',
       developer: 'Developer',
       languageServer: 'Language Server',
+      notebooks: 'Notebooks',
     },
     idlDir: {
       notFound: 'IDL directory not found or specified by user, configure?',
@@ -201,6 +202,11 @@ export const EN: ITranslation = {
         'Report problems for all files where we find "idl_packages" in the path. This permits problem reporting from external libraries. If this is set in any open workspace, it applies to all of them.',
       'problems.ignoreProblems':
         'Specify the problem code to ignore and not report to Visual Studio Code',
+
+      notebooks:
+        'Preferences that control notebook user experience for IDL Notebooks',
+      'notebooks.embedGraphics':
+        'Are graphics embedded as output within each cell?',
 
       dontAsk:
         'Preferences that disable dialogs that appear and ask questions. These settings can also be disabled directly within the dialogs you see.',
