@@ -80,7 +80,7 @@ import {
   IDLFileTypeLookup,
   IFolderRecursion,
 } from './idl-index.interface';
-import { IDLTokenCache } from './idl-token-cache.class';
+import { IDLParsedCache } from './idl-parsed-cache.class';
 import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';
 import { OutlineDisplayName } from './outline';
 import {
@@ -147,7 +147,7 @@ export class IDLIndex {
   /**
    * Track tokens for each file that we process
    */
-  tokensByFile = new IDLTokenCache();
+  tokensByFile = new IDLParsedCache();
 
   /**
    * Track files that we are currently processing so that we can't accidentally
@@ -994,9 +994,6 @@ export class IDLIndex {
           break;
       }
 
-      // save tokens for our file
-      this.tokensByFile.add(file, parsed);
-
       // add to our global index - do this before we post-process
       await this.saveGlobalTokens(file, parsed.global);
 
@@ -1014,6 +1011,9 @@ export class IDLIndex {
 
       // if we dont post process, save our global tokens (auto happens in post process)
       this.trackSyntaxProblemsForFile(file, GetSyntaxProblems(parsed));
+
+      // save tokens for our file
+      this.tokensByFile.add(file, parsed);
 
       // return our tokens
       return parsed;
@@ -1086,10 +1086,11 @@ export class IDLIndex {
        * Check for a pending file
        */
       case file in this.pendingFiles: {
-        const current = await this.pendingFiles[file];
-        delete this.pendingFiles[file];
-        if (current.checksum === CodeChecksum(code)) {
-          return current;
+        await this.pendingFiles[file];
+        if (this.tokensByFile.has(file)) {
+          if (this.tokensByFile.checksumMatches(file, CodeChecksum(code))) {
+            return this.tokensByFile.get(file);
+          }
         }
         break;
       }

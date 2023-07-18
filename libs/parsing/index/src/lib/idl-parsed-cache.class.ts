@@ -1,4 +1,9 @@
-import { IParsed, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
+import {
+  IParsed,
+  RemoveScopeDetail,
+  ResetTokenCache,
+} from '@idl/parsing/syntax-tree';
+import copy from 'fast-copy';
 
 /**
  * Tags that we compress/uncompress
@@ -19,7 +24,7 @@ for (let i = 0; i < COMPRESS_THESE.length; i++) {
  * Token cache to manage more efficient storage of tokens when
  * at rest and not being used.
  */
-export class IDLTokenCache {
+export class IDLParsedCache {
   /**
    * Track parsed by file
    */
@@ -28,8 +33,12 @@ export class IDLTokenCache {
   /**
    * Compress
    */
-  private compress(parsed: IParsed): IParsed {
+  private compress(orig: IParsed): IParsed {
+    // copy
+    const parsed = copy(orig);
+
     // make non-circular
+    ResetTokenCache(parsed);
     RemoveScopeDetail(parsed);
 
     // compress the keys
@@ -44,7 +53,10 @@ export class IDLTokenCache {
   /**
    * Decompress
    */
-  private decompress(parsed: IParsed): IParsed {
+  private decompress(compressed: IParsed): IParsed {
+    // copy decompressed data
+    const parsed = copy(compressed);
+
     // unpack the keys
     for (let i = 0; i < COMPRESS_THESE.length; i++) {
       parsed[COMPRESS_THESE[i]] = JSON.parse(parsed[COMPRESS_THESE[i]]);
