@@ -274,7 +274,7 @@
         <key>name</key>
         <string>entity.name.type.idl</string>
         <key>match</key>
-        <string>(?i)\b(?:true|false|null)\b</string>
+        <string>(?i)\b(?:true|false|null|undefined|void)\b</string>
       </dict>
       <key>structure_property</key>
       <dict>
