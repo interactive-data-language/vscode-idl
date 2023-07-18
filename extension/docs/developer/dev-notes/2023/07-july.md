@@ -112,22 +112,44 @@ This will likely need to be improved in the future, but we added a filter to mos
 
 For whatever reason, go-to-definition triggers open, change, and close events for a file. These bombarding events broke the language server and its a little concerning why all those events are fired when nothing has changed.
 
-## Memory Issues
+## Performance
 
-There were a number of issues resolved with regards to memory usage for the extension. Here's a quick summary:
+We worked on improving the performance of parsing when you have a lot of files and have opted-out of the full parse preference.
 
-1. When launching as node.js, the garbage collection (and memory limit flags) were not being passed in correctly
+Here's before and after showing the performance differences and parse rates. This is shown in the IDL log on startup so you can view as well if you want:
 
-2. Worse, we weren't trying to detect node.js correctly on non-Windows platforms. This was an oversight in development where it was just played with on Windows (where we have large workspaces).
+```typescript
+const before = {
+  lines: 2252881,
+  app_platform: 'win32',
+  app_arch: 'x64',
+  app_cpus: 20,
+  app_ram: 32,
+  app_ram_used: 2.5,
+  num_workers: 6,
+  parse_time: 13.49,
+  parse_rate: 167015,
+  num_pro: 7816,
+  num_save: 830,
+  num_idl_task: 15,
+  num_envi_task: 0,
+  num_idl_json: 0,
+};
 
-3. Added a cache class for storing/restoring content from memory. This stringifies key elements of our parsed code and dramatically reduces memory usage. For large workspaces, we are about 2x faster to parse as well (probably related to garbage collection). The odd thing is, as a part of this, we are copying objects that we store which is interesting in that is speeds up processing.
-
-One of the next features, post-notebooks, is probably going to be performance. We need to figure out how to more efficiently parse large workspaces so that, the next time we load them or encounter a file, we can start in a matter of seconds.
-
-Another item we can add to our to-do is including a similar style cache for global tokens to store them as strings and potentially compress them until we need to access them, but that adds a fair bit of complexity.
-
-## Notebooks
-
-We started work on notebooks this month! And work is progressing quite well.
-
-See the NOTEBOOKS.md file in the developer docs folder for more details on how it works.
+const after = {
+  lines: 2252881,
+  app_platform: 'win32',
+  app_arch: 'x64',
+  app_cpus: 20,
+  app_ram: 32,
+  app_ram_used: 1.75,
+  num_workers: 6,
+  parse_time: 7.86,
+  parse_rate: 286567,
+  num_pro: 7816,
+  num_save: 830,
+  num_idl_task: 15,
+  num_envi_task: 0,
+  num_idl_json: 0,
+};
+```
