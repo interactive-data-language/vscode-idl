@@ -378,12 +378,15 @@ export class IDLNotebookController {
     /**
      * Filter lines to figure out how much content is in our cell
      */
-    const filtered = strings.filter((line) => line.trim() !== '');
+    const filtered = strings.filter((line) => {
+      /**
+       * Trim the line
+       */
+      const trimmed = line.trim();
 
-    // check if we have a single line of code
-    if (strings.filter((line) => line.trim() !== '').length === 0) {
-      strings.push('end');
-    }
+      // filter out lines that start with
+      return trimmed !== '' && !trimmed.startsWith(';');
+    });
 
     // determine how we can clean up our core
     switch (true) {
