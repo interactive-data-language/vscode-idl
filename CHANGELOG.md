@@ -30,6 +30,12 @@ Here are some of the features that notebooks bring:
 
 - Only support for IDL code (no Python or other languages at this time)
 
+Fixed an issue where garbage collection was not turning on and caused out-of-memory errors which led to language server crashes
+
+Added a cache to reduce memory usage for worker threads (large workspaces with 300+ files should use about 50% less RAM). Coincidentally this also improved performance as well.
+
+On startup, a new log statement prints to show the state of garbage collection: `idl-lsp info Garbage collection enabled: true`
+
 ## 3.0.6 - July 2023
 
 Improved message when language server crashes and a button that opens documentation for workarounds for the memory problem
