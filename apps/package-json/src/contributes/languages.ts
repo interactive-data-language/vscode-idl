@@ -3,6 +3,8 @@ import {
   EVS_FILE_EXTENSION,
   IDL_FILE_EXTENSION,
   IDL_LANGUAGE_NAME,
+  IDL_NOTEBOOK_EXTENSION,
+  IDL_NOTEBOOK_NAME,
   LOG_LANGUAGE_NAME,
   MODEL_FILE_EXTENSION,
   TASK_FILE_EXTENSION,
@@ -28,6 +30,10 @@ export const LANGUAGES = [
   },
   {
     id: `${IDL_LANGUAGE_NAME}-md-injection`,
+  },
+  {
+    id: IDL_NOTEBOOK_NAME,
+    extensions: [IDL_NOTEBOOK_EXTENSION],
   },
   {
     id: LOG_LANGUAGE_NAME,

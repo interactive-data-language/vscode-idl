@@ -1046,6 +1046,12 @@
         "id": "idl-md-injection"
       },
       {
+        "id": "idl-notebook",
+        "extensions": [
+          ".idlnb"
+        ]
+      },
+      {
         "id": "idl-log",
         "mimetypes": [
           "text/idl-log",
