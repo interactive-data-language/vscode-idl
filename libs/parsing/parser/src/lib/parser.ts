@@ -7,7 +7,7 @@ import {
   PostProcessProblems,
 } from '@idl/parsing/syntax-tree';
 import { ActivateDefaultSyntaxRules } from '@idl/parsing/syntax-validators';
-import { Tokenizer } from '@idl/parsing/tokenizer';
+import { FAST_FIND_TOKEN_OPTIONS, Tokenizer } from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';
 import { existsSync, readFileSync } from 'fs';
 import { readFile } from 'fs/promises';
@@ -22,14 +22,22 @@ ActivateDefaultSyntaxPostProcessors();
 /**
  * Creates an iterator and extracts tokens from our code
  */
-export function ParserTokenize(code: string | string[], tokenized: IParsed) {
+export function ParserTokenize(
+  code: string | string[],
+  tokenized: IParsed,
+  full = true
+) {
   /**
    * Dont catch errors at this level, we want failures to happen
    * when we have problems using the tokenizer so they
    * get caught and reported
    */
   // try {
-  Object.assign(tokenized, Tokenizer(code));
+  Object.assign(
+    tokenized,
+    full ? Tokenizer(code) : Tokenizer(code, FAST_FIND_TOKEN_OPTIONS)
+  );
+
   // } catch (err) {
   //   console.error(err);
 
@@ -112,8 +120,20 @@ export function Parser(
   // build the syntax tree and detect syntax problems
   ParserBuildTree(tokenized, options.full);
 
-  // populate our global tokens and extract local for the global tokens
+  /**
+   * Populate our global, local (variables), and compile-opts
+   *
+   * Populate global tokens - do note that this also populates docs
+   * so we probably dont want to turn it off
+   *
+   * If it is off, we dont get hover help or useful auto-complete
+   */
   PopulateGlobalLocalCompileOpts(tokenized);
+
+  // remove all problems if fast parse
+  if (!options.full) {
+    tokenized.parseProblems = [];
+  }
 
   // clean up
   if (options.cleanup) {
@@ -122,7 +142,9 @@ export function Parser(
   }
 
   // post process our syntax problems
-  PostProcessProblems(tokenized);
+  if (options.full) {
+    PostProcessProblems(tokenized);
+  }
 
   return tokenized;
 }

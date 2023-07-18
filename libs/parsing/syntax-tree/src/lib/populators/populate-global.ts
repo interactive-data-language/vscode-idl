@@ -25,6 +25,7 @@ import copy from 'fast-copy';
 import { IBranch } from '../branches.interface';
 import { IParsed } from '../build-tree.interface';
 import { GenerateRoutineDocs } from '../docs/generate-routine-docs';
+import { GenerateRoutineMetadataFast } from '../docs/generate-routine-metadata-fast';
 import { FindStructureDefs } from './find-structure-defs';
 import { GetCompileOpts } from './get-compile-opts';
 import { GetUniqueVariables } from './get-unique-variables';
@@ -35,7 +36,7 @@ import { PopulateLocalForMain } from './replace-functions-as-variables';
 /**
  * Populates a lookup with quick information for where things are defined
  */
-export function PopulateGlobalLocalCompileOpts(parsed: IParsed) {
+export function PopulateGlobalLocalCompileOpts(parsed: IParsed, full = true) {
   // get global placeholder
   const global = parsed.global;
 
@@ -80,17 +81,21 @@ export function PopulateGlobalLocalCompileOpts(parsed: IParsed) {
           const name = first.match[0].toLowerCase();
 
           // get structure definitions or use empty array
-          structures = FindStructureDefs(branch, name, found);
+          if (full) {
+            structures = FindStructureDefs(branch, name, found);
+          }
 
           // generate metadata
-          const meta = GenerateRoutineDocs(
-            'function',
-            branch,
-            first as IBranch<RoutineNameToken | RoutineMethodNameToken>,
-            parsed.parseProblems,
-            structures,
-            docs
-          );
+          const meta = full
+            ? GenerateRoutineDocs(
+                'function',
+                branch,
+                first as IBranch<RoutineNameToken | RoutineMethodNameToken>,
+                parsed.parseProblems,
+                structures,
+                docs
+              )
+            : GenerateRoutineMetadataFast('function');
 
           // check if method or function
           switch (first.name) {
@@ -103,13 +108,15 @@ export function PopulateGlobalLocalCompileOpts(parsed: IParsed) {
                 meta: meta as IFunctionMetadata,
               };
               global.push(add);
-              parsed.compile.func[name] = GetCompileOpts(branch);
-              parsed.local.func[name] = GetUniqueVariables(
-                branch as IBranch<RoutineFunctionToken>,
-                parsed,
-                parsed.compile.func[name],
-                add
-              );
+              parsed.compile.func[name] = full ? GetCompileOpts(branch) : [];
+              parsed.local.func[name] = full
+                ? GetUniqueVariables(
+                    branch as IBranch<RoutineFunctionToken>,
+                    parsed,
+                    parsed.compile.func[name],
+                    add
+                  )
+                : {};
               break;
             }
             case TOKEN_NAMES.ROUTINE_METHOD_NAME: {
@@ -151,13 +158,15 @@ export function PopulateGlobalLocalCompileOpts(parsed: IParsed) {
                 global.push(globalFunc);
               }
 
-              parsed.compile.func[name] = GetCompileOpts(branch);
-              parsed.local.func[name] = GetUniqueVariables(
-                branch as IBranch<RoutineFunctionToken>,
-                parsed,
-                parsed.compile.func[name],
-                add
-              );
+              parsed.compile.func[name] = full ? GetCompileOpts(branch) : [];
+              parsed.local.func[name] = full
+                ? GetUniqueVariables(
+                    branch as IBranch<RoutineFunctionToken>,
+                    parsed,
+                    parsed.compile.func[name],
+                    add
+                  )
+                : {};
 
               // add "self" as a variable
               parsed.local.func[name]['self'] = {
@@ -192,17 +201,21 @@ export function PopulateGlobalLocalCompileOpts(parsed: IParsed) {
           const name = first.match[0].toLowerCase();
 
           // get structure definitions or use empty array
-          structures = FindStructureDefs(branch, name, found);
+          if (full) {
+            structures = FindStructureDefs(branch, name, found);
+          }
 
           // generate metadata
-          const meta = GenerateRoutineDocs(
-            'procedure',
-            branch,
-            first as IBranch<RoutineNameToken | RoutineMethodNameToken>,
-            parsed.parseProblems,
-            structures,
-            docs
-          );
+          const meta = full
+            ? GenerateRoutineDocs(
+                'procedure',
+                branch,
+                first as IBranch<RoutineNameToken | RoutineMethodNameToken>,
+                parsed.parseProblems,
+                structures,
+                docs
+              )
+            : GenerateRoutineMetadataFast('procedure');
 
           // make sure it is the name of the routine
           switch (first.name) {
@@ -215,13 +228,15 @@ export function PopulateGlobalLocalCompileOpts(parsed: IParsed) {
                 meta: meta as IRoutineMetadata,
               };
               global.push(add);
-              parsed.compile.pro[name] = GetCompileOpts(branch);
-              parsed.local.pro[name] = GetUniqueVariables(
-                branch as IBranch<RoutineProcedureToken>,
-                parsed,
-                parsed.compile.pro[name],
-                add
-              );
+              parsed.compile.pro[name] = full ? GetCompileOpts(branch) : [];
+              parsed.local.pro[name] = full
+                ? GetUniqueVariables(
+                    branch as IBranch<RoutineProcedureToken>,
+                    parsed,
+                    parsed.compile.pro[name],
+                    add
+                  )
+                : {};
               break;
             }
             case TOKEN_NAMES.ROUTINE_METHOD_NAME: {
@@ -240,13 +255,15 @@ export function PopulateGlobalLocalCompileOpts(parsed: IParsed) {
                 },
               };
               global.push(add);
-              parsed.compile.pro[name] = GetCompileOpts(branch);
-              parsed.local.pro[name] = GetUniqueVariables(
-                branch as IBranch<RoutineProcedureToken>,
-                parsed,
-                parsed.compile.pro[name],
-                add
-              );
+              parsed.compile.pro[name] = full ? GetCompileOpts(branch) : [];
+              parsed.local.pro[name] = full
+                ? GetUniqueVariables(
+                    branch as IBranch<RoutineProcedureToken>,
+                    parsed,
+                    parsed.compile.pro[name],
+                    add
+                  )
+                : {};
 
               // add "self" as a variable
               parsed.local.pro[name]['self'] = {
@@ -287,7 +304,7 @@ export function PopulateGlobalLocalCompileOpts(parsed: IParsed) {
           },
         };
         global.push(add);
-        parsed.compile.main = GetCompileOpts(branch);
+        parsed.compile.main = full ? GetCompileOpts(branch) : [];
         break;
       }
       default:
@@ -306,5 +323,7 @@ export function PopulateGlobalLocalCompileOpts(parsed: IParsed) {
 
   // populate local vars for main
   // separate because we have errors from reversal if we dont wait
-  PopulateLocalForMain(parsed);
+  if (full) {
+    PopulateLocalForMain(parsed);
+  }
 }

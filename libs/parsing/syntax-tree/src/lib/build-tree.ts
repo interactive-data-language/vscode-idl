@@ -60,7 +60,7 @@ function BuildTreeRecurser(
     // if we have encountered a main level program, every other token is then a problem
     // its OK if this shows a ridiculous number of problems because it should be
     // readily apparent that there is an issue
-    if (options.foundMain) {
+    if (options.foundMain && options.full) {
       // if we have anything besides a comment, report problem and leave out of syntax tree
       if (token.name !== TOKEN_NAMES.COMMENT) {
         options.syntax.push(
@@ -268,6 +268,7 @@ export function BuildSyntaxTree(parsed: IParsed, full = true) {
     foundMain: false,
     syntax: parsed.parseProblems,
     notClosed: false,
+    full,
   });
 
   // set tree index
