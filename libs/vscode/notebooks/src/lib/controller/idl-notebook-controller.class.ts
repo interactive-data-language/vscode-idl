@@ -133,19 +133,13 @@ export class IDLNotebookController {
     });
 
     // listen for stops
-    this._runtime.on(IDL_EVENT_LOOKUP.STOP, (reason, stack) => {
+    this._runtime.on(IDL_EVENT_LOOKUP.STOP, async (reason, stack) => {
       IDL_LOGGER.log({
         type: 'debug',
         log: IDL_NOTEBOOK_LOG,
         content: [`Stopped because: "${reason}"`, stack],
       });
-      if (this._currentCell !== undefined) {
-        if (!this._currentCell.finished) {
-          this._currentCell.execution.end(false, Date.now());
-          this._currentCell.finished = true;
-          this._currentCell.success = false;
-        }
-      }
+      await this._endCellExecution(false);
       // this.stopped = {
       //   reason,
       //   stack,
@@ -157,17 +151,17 @@ export class IDLNotebookController {
 
     // listen for debug output
     this._runtime.on(IDL_EVENT_LOOKUP.OUTPUT, (msg) => {
-      this._appendOutput(msg);
+      this._appendCellOutput(msg);
     });
 
     // listen for standard out
     this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_OUT, (msg) => {
-      this._appendOutput(msg);
+      this._appendCellOutput(msg);
     });
 
     // pass all stderr output back to the console
     this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_ERR, (msg) => {
-      this._appendOutput(msg);
+      this._appendCellOutput(msg);
     });
 
     // detect crash event
@@ -187,9 +181,9 @@ export class IDLNotebookController {
   /**
    * Method we call when IDL was stopped - not via user, but a likely crash
    */
-  private _IDLCrashed(reason: 'crash' | 'failed-start') {
+  private async _IDLCrashed(reason: 'crash' | 'failed-start') {
     if (reason === 'crash') {
-      this._appendOutput(IDL_TRANSLATION.notebooks.errors.crashed, 'stderr');
+      this._appendCellOutput(IDL_TRANSLATION.notebooks.errors.crashed);
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_NOTEBOOK_LOG,
@@ -199,21 +193,13 @@ export class IDLNotebookController {
     } else {
       this._currentCell.execution.replaceOutput(
         new vscode.NotebookCellOutput([
-          vscode.NotebookCellOutputItem.error(
-            new Error(this._currentCell.output)
-          ),
+          vscode.NotebookCellOutputItem.text(this._currentCell.output),
         ])
       );
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_NOTEBOOK_LOG,
-        content: [
-          IDL_TRANSLATION.notebooks.errors.failedStart,
-          this._currentCell.output,
-        ],
-        alert: IDL_TRANSLATION.notebooks.errors.failedStart,
-      });
     }
+
+    // mark as failed execution
+    await this._endCellExecution(false);
 
     // update state
     this.launched = false;
@@ -222,7 +208,7 @@ export class IDLNotebookController {
   /**
    * Output to append
    */
-  private _appendOutput(content: string, type: 'stdout' | 'stderr' = 'stdout') {
+  private _appendCellOutput(content: string) {
     // log output
     IDL_LOGGER.log({
       log: IDL_NOTEBOOK_LOG,
@@ -232,11 +218,11 @@ export class IDLNotebookController {
 
     // check what we need to do
     if (this._currentCell !== undefined) {
+      // update overall output
+      this._currentCell.output = `${this._currentCell.output}${content}`;
+
       // only save output if we are not finished
       if (!this._currentCell.finished) {
-        // update overall output
-        this._currentCell.output = `${this._currentCell.output}${content}`;
-
         // update our cell if we have finished launching
         if (this.launched) {
           this._currentCell.execution.replaceOutput(
@@ -248,17 +234,165 @@ export class IDLNotebookController {
           );
         }
       }
+    }
+  }
 
-      if (type === 'stderr') {
-        if (!this._currentCell.finished) {
-          this._currentCell.execution.end(false, Date.now());
-          this._currentCell.finished = true;
-          this._currentCell.success = false;
+  /**
+   * Post-evaluation expression
+   *
+   * You should check the "launched" property before calling this
+   */
+  private async postCellExecution(magic = true) {
+    // return if we havent started
+    if (!this.launched) {
+      return;
+    }
+
+    await this._runtime.evaluate(`retall`, {
+      echo: false,
+      idlInfo: false,
+      cut: false,
+      silent: false,
+    });
+
+    // update magic based on preference
+    magic = magic && IDL_EXTENSION_CONFIG.notebooks.embedGraphics;
+
+    /**
+     * Commands to run after executing a cell
+     *
+     * Quiet makes sure that we exclude output that goofs up processing and hides compile statements
+     *
+     * Magic forces embedding and, for embedding, resets window ID
+     */
+    const commands = [
+      '!quiet = 1',
+      `!magic.embed = ${
+        IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
+      }`,
+      '!magic.window = -1',
+    ];
+
+    // insert magic command before resetting window value
+    if (magic) {
+      commands.splice(2, 0, 'print, json_serialize(!magic, /lowercase)');
+    }
+
+    /**
+     * Clean things up and get our !magic system variable
+     */
+    const rawMagic = CleanIDLOutput(
+      await this._runtime.evaluate(commands.join(' & '))
+    );
+
+    // check if we need to look for magic
+    if (magic && this._currentCell !== undefined) {
+      try {
+        /**
+         * Parse our magic
+         */
+        const fullMagic: BangMagic = JSON.parse(rawMagic);
+
+        // check if we have a window
+        if (fullMagic.window !== -1) {
+          /**
+           * Retrieve our encoded graphic
+           */
+          const encoded = await this._runtime.evaluate(
+            `EncodeGraphic(${fullMagic.window}, ${fullMagic.type})`
+          );
+
+          /**
+           * Styles for the element to fil the space, but not exceed 1:1 dimensions
+           */
+          const style = `style="width:100%;height:100%;max-width:${fullMagic.xsize}px;max-height:${fullMagic.ysize}px;"`;
+
+          // add as output
+          this._currentCell.execution.appendOutput(
+            new vscode.NotebookCellOutput([
+              /**
+               * Use HTML because it works. Using the other mimetype *probably* works
+               * but this works right now :)
+               */
+              new vscode.NotebookCellOutputItem(
+                Buffer.from(
+                  `<img src="data:image/png;base64,${encoded}" ${style}/>`
+                ),
+                'text/html'
+              ),
+            ])
+          );
         }
+      } catch (err) {
+        // alert user
+        IDL_LOGGER.log({
+          type: 'error',
+          log: IDL_NOTEBOOK_LOG,
+          content: [IDL_TRANSLATION.notebooks.errors.checkingGraphics, err],
+          alert: IDL_TRANSLATION.notebooks.errors.checkingGraphics,
+        });
       }
     }
   }
 
+  /**
+   * Method that updates flags about the current cell's execution status
+   * and sends VSCode an "end" execution event.
+   *
+   * We also do post-processing and, if we succeeded, we try to retrieve any
+   * graphics.
+   */
+  private async _endCellExecution(success: boolean, postExecute = true) {
+    /**
+     * Flag if we ended execution correctly
+     */
+    let ended = false;
+
+    /**
+     * Wrap in try/catch so we don't have to worry about unhandled promise exceptions
+     */
+    try {
+      if (this._currentCell !== undefined) {
+        if (!this._currentCell.finished) {
+          // update flag we are finished to hide outputs
+          this._currentCell.finished = true;
+
+          // update success state
+          this._currentCell.success = success;
+
+          /**
+           * Do post-cell work, change behavior on success (i.e. try to fetch magic).
+           *
+           * Only run this if launched. If not launched we hang forever, for some reason
+           */
+          if (postExecute && this.launched) {
+            await this.postCellExecution(success);
+          }
+
+          // mark as completed
+          this._currentCell.execution.end(success, Date.now());
+
+          // update flag
+          ended = true;
+        }
+        this._currentCell = undefined;
+      }
+    } catch (err) {
+      if (!ended) {
+        this._currentCell.execution.end(false, Date.now());
+      }
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_NOTEBOOK_LOG,
+        content: [IDL_TRANSLATION.notebooks.errors.failedExecute, err],
+        alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
+      });
+    }
+  }
+
+  /**
+   * Launches IDL for a notebooks session
+   */
   private async _launchIDL(): Promise<boolean> {
     // verify that we have the right info, otherwise alert, terminate, and return
     if (IDL_EXTENSION_CONFIG.IDL.directory === '') {
@@ -353,17 +487,13 @@ export class IDLNotebookController {
   /**
    * Stop kernel execution
    */
-  stop() {
+  async stop() {
     // update flag
     this.launched = false;
 
     // alert that execution has stopped
     if (this._currentCell) {
-      if (!this._currentCell.finished) {
-        this._currentCell.execution.end(false, Date.now());
-        this._currentCell.finished = true;
-        this._currentCell.success = false;
-      }
+      await this._endCellExecution(false, false);
       this._currentCell = undefined;
     }
 
@@ -404,11 +534,10 @@ export class IDLNotebookController {
         if (!(await this._launchIDL())) {
           return;
         }
-        await this.postEvaluate(false);
+        await this.postCellExecution(false);
       } catch (err) {
         // mark as done
-        execution.end(false, Date.now());
-        this._currentCell = undefined;
+        await this._endCellExecution(false);
 
         // alert user
         IDL_LOGGER.log({
@@ -457,8 +586,7 @@ export class IDLNotebookController {
        * Return if empty cell
        */
       case filtered.length === 0:
-        execution.end(true, Date.now());
-        this._currentCell = undefined;
+        await this._endCellExecution(true);
         return true;
 
       /**
@@ -500,8 +628,7 @@ export class IDLNotebookController {
 
             // check for empty main
             if (codes[i].endsWith(`${IDL_PROBLEM_CODES.EMPTY_MAIN}`)) {
-              execution.end(true, Date.now());
-              this._currentCell = undefined;
+              await this._endCellExecution(true);
               return true;
             }
           }
@@ -523,29 +650,16 @@ export class IDLNotebookController {
     // check for syntax errors
     if (Object.keys(this._runtime.errorsByFile).length > 0) {
       // set finish time
-      if (!this._currentCell.finished) {
-        execution.end(false, Date.now());
-      }
+      await this._endCellExecution(false);
     } else {
       // run main level program
       await this.evaluate(`.go`);
+
+      /**
+       * End cell execution and post-process
+       */
+      await this._endCellExecution(true);
     }
-
-    // clear that we are executing this cell
-    this._currentCell.finished = true;
-
-    // return
-    await this.postEvaluate(this._currentCell.success);
-
-    // mark execution as finished if we succeeded
-    // if we had an error, then we already marked as finished
-    if (this._currentCell.success) {
-      execution.end(true, Date.now());
-    }
-
-    // reset
-    this._currentCell = undefined;
-
     // return as success
     return true;
   }
@@ -579,115 +693,21 @@ export class IDLNotebookController {
   }
 
   /**
-   * If IDL has started, evaluates a command
+   * If IDL has started, evaluates a command in IDL
    *
    * You should check the "launched" property before calling this
    */
   async evaluate(command: string) {
-    if (this.launched) {
-      return await this._runtime.evaluate(command, {
-        echo: false,
-        idlInfo: false,
-        cut: false,
-        silent: false,
-      });
+    // return if we havent started
+    if (!this.launched) {
+      return '';
     }
-    return '';
-  }
 
-  /**
-   * Post-evaluation expression
-   *
-   * You should check the "launched" property before calling this
-   */
-  async postEvaluate(magic = true) {
-    // check if we need to do our post-evaluation
-    if (this.launched) {
-      await this._runtime.evaluate(`retall`, {
-        echo: false,
-        idlInfo: false,
-        cut: false,
-        silent: false,
-      });
-
-      // update magic based on preference
-      magic = magic && IDL_EXTENSION_CONFIG.notebooks.embedGraphics;
-
-      /**
-       * Commands to run after executing a cell
-       *
-       * Quiet makes sure that we exclude output that goofs up processing and hides compile statements
-       *
-       * Magic forces embedding and, for embedding, resets window ID
-       */
-      const commands = [
-        '!quiet = 1',
-        `!magic.embed = ${
-          IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
-        }`,
-        '!magic.window = -1',
-      ];
-
-      // insert magic command before resetting window value
-      if (magic) {
-        commands.splice(2, 0, 'print, json_serialize(!magic, /lowercase)');
-      }
-
-      /**
-       * Clean things up and get our !magic system variable
-       */
-      const rawMagic = CleanIDLOutput(
-        await this._runtime.evaluate(commands.join(' & '))
-      );
-
-      // check if we need to look for magic
-      if (magic && this._currentCell !== undefined) {
-        try {
-          /**
-           * Parse our magic
-           */
-          const fullMagic: BangMagic = JSON.parse(rawMagic);
-
-          // check if we have a window
-          if (fullMagic.window !== -1) {
-            /**
-             * Retrieve our encoded graphic
-             */
-            const encoded = await this._runtime.evaluate(
-              `EncodeGraphic(${fullMagic.window}, ${fullMagic.type})`
-            );
-
-            /**
-             * Styles for the element to fil the space, but not exceed 1:1 dimensions
-             */
-            const style = `style="width:100%;height:100%;max-width:${fullMagic.xsize}px;max-height:${fullMagic.ysize}px;"`;
-
-            // add as output
-            this._currentCell.execution.appendOutput(
-              new vscode.NotebookCellOutput([
-                /**
-                 * Use HTML because it works. Using the other mimetype *probably* works
-                 * but this works right now :)
-                 */
-                new vscode.NotebookCellOutputItem(
-                  Buffer.from(
-                    `<img src="data:image/png;base64,${encoded}" ${style}/>`
-                  ),
-                  'text/html'
-                ),
-              ])
-            );
-          }
-        } catch (err) {
-          // alert user
-          IDL_LOGGER.log({
-            type: 'error',
-            log: IDL_NOTEBOOK_LOG,
-            content: [IDL_TRANSLATION.notebooks.errors.checkingGraphics, err],
-            alert: IDL_TRANSLATION.notebooks.errors.checkingGraphics,
-          });
-        }
-      }
-    }
+    return await this._runtime.evaluate(command, {
+      echo: false,
+      idlInfo: false,
+      cut: false,
+      silent: false,
+    });
   }
 }
