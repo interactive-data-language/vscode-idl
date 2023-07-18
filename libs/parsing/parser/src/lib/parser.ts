@@ -115,7 +115,7 @@ export function Parser(
   };
 
   // extract tokens
-  ParserTokenize(code, tokenized);
+  ParserTokenize(code, tokenized, options.full);
 
   // build the syntax tree and detect syntax problems
   ParserBuildTree(tokenized, options.full);
