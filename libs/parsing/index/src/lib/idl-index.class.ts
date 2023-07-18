@@ -227,7 +227,7 @@ export class IDLIndex {
       workers.push(
         new Worker(join(dirname(__dirname), 'parsing-worker/main.js'), {
           resourceLimits: {
-            maxOldGenerationSizeMb: NODE_MEMORY_CONFIG.OLD_WORKER,
+            maxOldGenerationSizeMb: NODE_MEMORY_CONFIG.OLD,
             maxYoungGenerationSizeMb: NODE_MEMORY_CONFIG.YOUNG,
           },
         })
