@@ -681,8 +681,9 @@ export class IDLIndex {
   /**
    * Removes a notebook from our index
    */
-  private removeNotebook(file: string) {
-    this.removeFiles(this.getNotebookFiles(file), false);
+  private async removeNotebook(file: string) {
+    const cellFiles = this.getNotebookFiles(file);
+    await this.removeWorkspaceFiles(cellFiles, false);
   }
 
   /**
@@ -947,7 +948,8 @@ export class IDLIndex {
   async indexProCode(
     file: string,
     code: string | string[],
-    postProcess = true
+    postProcess = true,
+    isNotebook = false
   ): Promise<IParsed | undefined> {
     try {
       // get old global tokens
@@ -982,7 +984,7 @@ export class IDLIndex {
           parsed = await this.indexerPool.workerio.postAndReceiveMessage(
             this.getWorkerID(file),
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
-            { file, code, postProcess }
+            { file, code, postProcess, isNotebook }
           );
           break;
         /**
@@ -1039,7 +1041,7 @@ export class IDLIndex {
     notebook: IDLNotebookDocument
   ): Promise<IParsedIDLNotebook> {
     // remove notebook
-    this.removeNotebook(file);
+    await this.removeNotebook(file);
 
     // track as known file
     this.knownFiles[file] = undefined;
@@ -1061,7 +1063,12 @@ export class IDLIndex {
       }
 
       // process the cell
-      byCell[i] = await this.indexProCode(`${file}#${i}`, cell.text, true);
+      byCell[i] = await this.indexProCode(
+        `${file}#${i}`,
+        cell.text,
+        true,
+        true
+      );
     }
 
     // return each cell
@@ -1079,7 +1086,8 @@ export class IDLIndex {
   async getParsedProCode(
     file: string,
     code: string | string[],
-    postProcess?: boolean
+    postProcess?: boolean,
+    isNotebook?: boolean
   ): Promise<IParsed> {
     switch (true) {
       /**
@@ -1108,7 +1116,7 @@ export class IDLIndex {
           this.indexerPool.workerio.postAndReceiveMessage(
             this.getWorkerID(file),
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
-            { file, code, postProcess }
+            { file, code, postProcess, isNotebook }
           );
 
         // get the latest - cache busting happens in the worker

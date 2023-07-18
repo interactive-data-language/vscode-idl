@@ -187,6 +187,7 @@ export interface ParseAndPostProcessCodePayload {
   file: string;
   code: string | string[];
   postProcess: boolean;
+  isNotebook: boolean;
 }
 
 /**

@@ -232,7 +232,7 @@ client.on(
         /**
          * Parse our file
          */
-        const parsed = ParseFileSync(files[i], false);
+        const parsed = ParseFileSync(files[i], { full: false });
 
         // track syntax problems
         WORKER_INDEX.trackSyntaxProblemsForFile(files[i], parsed.parseProblems);

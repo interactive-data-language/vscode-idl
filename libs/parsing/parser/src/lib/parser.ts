@@ -13,6 +13,7 @@ import { existsSync, readFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 
 import { CodeChecksum } from './code-checksum';
+import { DEFAULT_PARSER_OPTIONS, IParserOptions } from './parser.interface';
 
 // call a function from our validators so the code gets loaded and bundled
 ActivateDefaultSyntaxRules();
@@ -67,15 +68,19 @@ export function ParserBuildTree(tokenized: IParsed, full = true) {
 /**
  * Parses IDL code into tokens for linting, formatting, and error checking.
  * @param {(string | string[])} code The Code to parse
- * @param {boolean} [full=true] Do we do a full parse or not?
- * @param {boolean} [cleanup=true] Do we cleanup to reduce memory usage after?
+ * @param {boolean} [options.full=true] Do we do a full parse or not?
+ * @param {boolean} [options.cleanup=true] Do we cleanup to reduce memory usage after?
  * @return {*}  {IParsed}
  */
 export function Parser(
   code: string | string[],
-  full = true,
-  cleanup = true
+  inOptions: Partial<IParserOptions> = {}
 ): IParsed {
+  /**
+   * Merge with defaults
+   */
+  const options = Object.assign(copy(DEFAULT_PARSER_OPTIONS), inOptions);
+
   // initialize out tokenized response
   const tokenized: IParsed = {
     checksum: CodeChecksum(code),
@@ -105,13 +110,13 @@ export function Parser(
   ParserTokenize(code, tokenized);
 
   // build the syntax tree and detect syntax problems
-  ParserBuildTree(tokenized, full);
+  ParserBuildTree(tokenized, options.full);
 
   // populate our global tokens and extract local for the global tokens
   PopulateGlobalLocalCompileOpts(tokenized);
 
   // clean up
-  if (cleanup) {
+  if (options.cleanup) {
     tokenized.tokens = [];
     tokenized.text = [];
   }
@@ -128,7 +133,10 @@ export function Parser(
  * It will throw an error if the file does not exist, so this should be
  * called in a try/catch block.
  */
-export async function ParseFile(file: string, full = true): Promise<IParsed> {
+export async function ParseFile(
+  file: string,
+  options: Partial<IParserOptions> = {}
+): Promise<IParsed> {
   // make sure that our file exists
   if (!existsSync(file)) {
     throw new Error(`File "${file}" not found`);
@@ -138,7 +146,7 @@ export async function ParseFile(file: string, full = true): Promise<IParsed> {
   const code = await readFile(file, 'utf-8');
 
   // parse and return
-  return Parser(code, full);
+  return Parser(code, options);
 }
 
 /**
@@ -147,7 +155,10 @@ export async function ParseFile(file: string, full = true): Promise<IParsed> {
  * It will throw an error if the file does not exist, so this should be
  * called in a try/catch block.
  */
-export function ParseFileSync(file: string, full = true): IParsed {
+export function ParseFileSync(
+  file: string,
+  options: Partial<IParserOptions> = {}
+): IParsed {
   // make sure that our file exists
   if (!existsSync(file)) {
     throw new Error(`File "${file}" not found`);
@@ -157,5 +168,5 @@ export function ParseFileSync(file: string, full = true): IParsed {
   const code = readFileSync(file, 'utf-8');
 
   // parse and return
-  return Parser(code, full);
+  return Parser(code, options);
 }
