@@ -26,7 +26,7 @@ export function ChangeDetection(
   const missingFiles: string[] = [];
 
   /** Get the current indexed files */
-  const files = Object.keys(index.tokensByFile);
+  const files = index.tokensByFile.allFiles();
 
   // process each file
   for (let z = 0; z < files.length; z++) {
@@ -36,12 +36,12 @@ export function ChangeDetection(
     }
 
     // get our parsed file
-    const parsed = index.tokensByFile[files[z]];
+    const uses = index.tokensByFile.uses(files[z]);
 
     // check for a match
     for (let i = 0; i < changed.length; i++) {
       const globalI = changed[i];
-      if (globalI.name in parsed.uses[globalI.type]) {
+      if (globalI.name in uses[globalI.type]) {
         postProcessThese.push(files[z]);
         break;
       }
@@ -54,7 +54,7 @@ export function ChangeDetection(
       PostProcessParsed(
         index,
         postProcessThese[z],
-        index.tokensByFile[postProcessThese[z]]
+        index.tokensByFile.get(postProcessThese[z])
       );
     } catch (err) {
       // check if we have a "false" error because a file was deleted

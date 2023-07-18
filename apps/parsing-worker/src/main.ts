@@ -292,12 +292,12 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILES, async (message) => {
     /**
      * Skip if we dont have a file. Could happen from parsing errors
      */
-    if (!(files[i] in WORKER_INDEX.tokensByFile)) {
+    if (!WORKER_INDEX.tokensByFile.has(files[i])) {
       continue;
     }
 
     // save lines
-    resp.lines += WORKER_INDEX.tokensByFile[files[i]].lines;
+    resp.lines += WORKER_INDEX.tokensByFile.lines(files[i]);
 
     // track globals
     resp.globals[files[i]] = WORKER_INDEX.getGlobalsForFile(files[i]);
@@ -315,7 +315,7 @@ client.on(
     /** Get files */
     const files = Array.isArray(message.files)
       ? message.files
-      : Object.keys(WORKER_INDEX.tokensByFile);
+      : WORKER_INDEX.tokensByFile.allFiles();
 
     // post process, no change detection
     const missing = await WORKER_INDEX.postProcessProFiles(files, false);
@@ -335,12 +335,12 @@ client.on(
       /**
        * Skip if we dont have a file. Could happen from parsing errors
        */
-      if (!(files[i] in WORKER_INDEX.tokensByFile)) {
+      if (!WORKER_INDEX.tokensByFile.has(files[i])) {
         continue;
       }
 
       // save lines
-      resp.lines += WORKER_INDEX.tokensByFile[files[i]].lines;
+      resp.lines += WORKER_INDEX.tokensByFile.lines(files[i]);
 
       // populate problems
       resp.problems[files[i]] = problems[files[i]] || [];
@@ -361,7 +361,7 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.REMOVE_FILES, async (message) => {
   await WORKER_INDEX.removeWorkspaceFiles(message.files, false);
 
   /** Get files that we manage */
-  const ourFiles = Object.keys(WORKER_INDEX.tokensByFile);
+  const ourFiles = WORKER_INDEX.tokensByFile.allFiles();
 
   // post process all of our files again
   const missing = await WORKER_INDEX.postProcessProFiles(ourFiles, false);
@@ -380,7 +380,7 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.REMOVE_FILES, async (message) => {
     /**
      * Skip if we dont have a file. Could happen from parsing errors
      */
-    if (!(ourFiles[i] in WORKER_INDEX.tokensByFile)) {
+    if (!WORKER_INDEX.tokensByFile.has(ourFiles[i])) {
       continue;
     }
 

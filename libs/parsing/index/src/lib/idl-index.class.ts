@@ -80,6 +80,7 @@ import {
   IDLFileTypeLookup,
   IFolderRecursion,
 } from './idl-index.interface';
+import { IDLTokenCache } from './idl-token-cache.class';
 import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';
 import { OutlineDisplayName } from './outline';
 import {
@@ -146,7 +147,7 @@ export class IDLIndex {
   /**
    * Track tokens for each file that we process
    */
-  tokensByFile: { [key: string]: IParsed } = {};
+  tokensByFile = new IDLTokenCache();
 
   /**
    * Track files that we are currently processing so that we can't accidentally
@@ -647,7 +648,7 @@ export class IDLIndex {
     const global = this.globalIndex.removeTokensForFile(file);
 
     // remove file from lookups
-    delete this.tokensByFile[file];
+    this.tokensByFile.remove(file);
     delete this.knownFiles[file];
 
     // check if we should do change detection because it has been removed
@@ -920,18 +921,19 @@ export class IDLIndex {
 
     switch (true) {
       /**
-       * Check if local
-       */
-      case file in this.tokensByFile:
-        globals = this.tokensByFile[file].global;
-        break;
-      /**
-       * Check if in global index which means the source is in our
-       * worker thread
+       * Check if in global index
        */
       case file in this.globalIndex.globalTokensByFile:
         globals = this.globalIndex.globalTokensByFile[file];
         break;
+
+      /**
+       * Check if local
+       */
+      case this.tokensByFile.has(file):
+        globals = this.tokensByFile.get(file).global;
+        break;
+
       default:
         break;
     }
@@ -993,7 +995,7 @@ export class IDLIndex {
       }
 
       // save tokens for our file
-      this.tokensByFile[file] = parsed;
+      this.tokensByFile.add(file, parsed);
 
       // add to our global index - do this before we post-process
       await this.saveGlobalTokens(file, parsed.global);
@@ -1127,7 +1129,7 @@ export class IDLIndex {
         }
 
         // make sure that we never cache in memory if we are the main thread
-        delete this.tokensByFile[file];
+        this.tokensByFile.remove(file);
 
         return current;
       }
@@ -1135,9 +1137,9 @@ export class IDLIndex {
       /**
        * Check if we have it stored locally
        */
-      case file in this.tokensByFile: {
-        if (this.tokensByFile[file].checksum === CodeChecksum(code)) {
-          return this.tokensByFile[file];
+      case this.tokensByFile.has(file): {
+        if (this.tokensByFile.checksumMatches(file, CodeChecksum(code))) {
+          return this.tokensByFile.get(file);
         }
         break;
       }
