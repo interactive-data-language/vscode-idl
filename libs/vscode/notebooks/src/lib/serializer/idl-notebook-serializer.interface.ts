@@ -1,5 +1,3 @@
-import { NotebookCellOutput } from 'vscode';
-
 /**
  * The version of our IDL notebook files
  */
@@ -9,6 +7,28 @@ export type IDLNotebookVersion = '1.0.0';
  * The type of cell for our markdown files
  */
 export type IDLNotebookCellType = 'code' | 'markdown';
+
+/**
+ * Raw notebook cell outputs
+ */
+export interface RawNotebookCellOutputItem {
+  /** type of output */
+  mime: string;
+  /** Base 64 encoded string of binary data */
+  data: string;
+}
+
+/**
+ * Raw notebook cell outputs
+ */
+export interface RawNotebookCellOutput {
+  /** Output Items */
+  items: RawNotebookCellOutputItem[];
+  /**
+   * Notebook cell metadata
+   */
+  metadata?: { [key: string]: any };
+}
 
 /**
  * Data structure for notebook cells
@@ -21,9 +41,9 @@ export interface RawNotebookCell {
    */
   type: IDLNotebookCellType;
   /**
-   * Content of the cell
+   * Content of the cell, base64 encoded string
    */
-  content: string[];
+  content: string;
   /**
    * Notebook cell metadata
    */
@@ -33,7 +53,7 @@ export interface RawNotebookCell {
    *
    * TODO: Do we need our own format in case VSCode changes this data structure??
    */
-  outputs?: NotebookCellOutput[];
+  outputs?: RawNotebookCellOutput[];
 }
 
 /**

@@ -42,6 +42,8 @@ At a high level, the serializer does two things:
 
 2. Is also called when we have a notebook file that we need to restore from disk.
 
+Our notebook serializer converts to JSON and writes that directly to disk. We do this for performance as we can have large notebooks and it take a very small amount of time to serialize/restore.
+
 ## Key Concept: Notebook Controller
 
 This is analogous to the Kernel in Jupyter. It manages execution of notebook cells, capturing output, and rendering images or anything else we need.

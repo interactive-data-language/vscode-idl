@@ -15,16 +15,37 @@ import {
  * Parses/serializes notebook data
  */
 export class IDLNotebookSerializer implements vscode.NotebookSerializer {
+  /**
+   * Converts a serialized notebook back to a notebook document that
+   * VSCode can render
+   */
   async deserializeNotebook(
     content: Uint8Array,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _token: vscode.CancellationToken
   ): Promise<vscode.NotebookData> {
     /**
-     * Contents of the notebook file
+     * Get start time
      */
-    const contents =
-      new TextDecoder().decode(content) || DEFAULT_SERIALIZED_NOTEBOOK;
+    const t0 = performance.now();
+
+    /**
+     * Initialize notebook contents so we have some data
+     */
+    let contents = DEFAULT_SERIALIZED_NOTEBOOK;
+
+    // check if we have an empty file or not (i.e. made new one)
+    if (content.length > 0) {
+      /**
+       * Decompress data
+       */
+      // const uncompressed = unzlibSync(content);
+
+      /**
+       * Decode uncompressed data
+       */
+      contents = new TextDecoder().decode(content);
+    }
 
     /**
      * Parsed notebook, placeholder in case we have error parsing file
@@ -50,7 +71,7 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
           parsed.cells[i].type === 'code'
             ? vscode.NotebookCellKind.Code
             : vscode.NotebookCellKind.Markup,
-          parsed.cells[i].content.join('\n'),
+          Buffer.from(parsed.cells[i].content, 'base64').toString(),
           parsed.cells[i].type === 'code' ? IDL_LANGUAGE_NAME : 'markdown'
         );
 
@@ -61,8 +82,19 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
 
         // check for outputs
         if (parsed.cells[i].outputs !== undefined) {
-          // TODO: figure out how to make this magic happen
-          // cell.outputs = parsed.cells[i].outputs;
+          cell.outputs = parsed.cells[i].outputs.map(
+            (output) =>
+              new vscode.NotebookCellOutput(
+                output.items.map(
+                  (item) =>
+                    new vscode.NotebookCellOutputItem(
+                      Buffer.from(item.data, 'base64'),
+                      item.mime
+                    )
+                ),
+                output.metadata
+              )
+          );
         }
 
         // save our cell
@@ -85,15 +117,31 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
       });
     }
 
+    IDL_LOGGER.log({
+      type: 'info',
+      log: IDL_NOTEBOOK_LOG,
+      content: `It took ${Math.floor(
+        performance.now() - t0
+      )} ms to deserialize notebook`,
+    });
+
     // return cells as VSCode notebook data
     return nb;
   }
 
+  /**
+   * Converts notebook document to a string to be written to disk
+   */
   async serializeNotebook(
     data: vscode.NotebookData,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _token: vscode.CancellationToken
   ): Promise<Uint8Array> {
+    /**
+     * Get start time
+     */
+    const t0 = performance.now();
+
     /**
      * Array of raw notebook cells
      */
@@ -108,7 +156,7 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
             data.cells[i].kind === vscode.NotebookCellKind.Code
               ? 'code'
               : 'markdown',
-          content: data.cells[i].value.split(/\r?\n/g),
+          content: Buffer.from(data.cells[i].value).toString('base64'),
         };
 
         // check for metadata
@@ -118,7 +166,17 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
 
         // check if we have output
         if (data.cells[i].outputs !== undefined) {
-          // rawCell.outputs = data.cells[i].outputs;
+          rawCell.outputs = data.cells[i].outputs.map((out) => {
+            return {
+              items: out.items.map((item) => {
+                return {
+                  data: Buffer.from(item.data).toString('base64'),
+                  mime: item.mime,
+                };
+              }),
+              metadata: out.metadata,
+            };
+          });
         }
 
         // save cell
@@ -148,6 +206,26 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
       nb.metadata = data.metadata;
     }
 
-    return new TextEncoder().encode(JSON.stringify(nb));
+    /**
+     * Encode notebook as array of bytes
+     */
+    const encoded = new TextEncoder().encode(JSON.stringify(nb));
+
+    /**
+     * Compress
+     */
+    // const compressed = zlibSync(encoded, { level: 1 });
+
+    // print some debug information about
+    IDL_LOGGER.log({
+      type: 'info',
+      log: IDL_NOTEBOOK_LOG,
+      content: `It took ${Math.floor(
+        performance.now() - t0
+      )} ms to serialize notebook to ${Math.floor(encoded.length / 1024)} kb`,
+    });
+
+    // return encoded string
+    return encoded;
   }
 }

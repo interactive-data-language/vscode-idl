@@ -512,6 +512,29 @@ export class IDLNotebookController {
      */
     const execution = this._controller.createNotebookCellExecution(cell);
 
+    // attempt to launch IDL if we havent started yet
+    if (!this.launched) {
+      try {
+        if (!(await this._launchIDL())) {
+          return;
+        }
+        await this.postCellExecution(false);
+      } catch (err) {
+        execution.end(false, Date.now());
+
+        // alert user
+        IDL_LOGGER.log({
+          type: 'error',
+          log: IDL_NOTEBOOK_LOG,
+          content: [IDL_TRANSLATION.notebooks.errors.failedStart, err],
+          alert: IDL_TRANSLATION.notebooks.errors.failedStart,
+        });
+
+        // return flag
+        return false;
+      }
+    }
+
     // save cell as current
     this._currentCell = {
       cell,
@@ -528,31 +551,7 @@ export class IDLNotebookController {
     execution.start(Date.now());
 
     // reset cell output
-    execution.replaceOutput(new vscode.NotebookCellOutput([]));
-
-    // attempt to launch IDL if we havent started yet
-    if (!this.launched) {
-      try {
-        if (!(await this._launchIDL())) {
-          return;
-        }
-        await this.postCellExecution(false);
-      } catch (err) {
-        // mark as done
-        await this._endCellExecution(false);
-
-        // alert user
-        IDL_LOGGER.log({
-          type: 'error',
-          log: IDL_NOTEBOOK_LOG,
-          content: [IDL_TRANSLATION.notebooks.errors.failedStart, err],
-          alert: IDL_TRANSLATION.notebooks.errors.failedStart,
-        });
-
-        // return flag
-        return false;
-      }
-    }
+    execution.clearOutput();
 
     /**
      * temp folder for notebook cell
