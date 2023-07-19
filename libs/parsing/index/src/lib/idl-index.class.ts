@@ -663,6 +663,9 @@ export class IDLIndex {
     this.tokensByFile.remove(file);
     delete this.knownFiles[file];
 
+    // track file as changed to remove syntax problems
+    this.changedFiles[file] = true;
+
     // check if we should do change detection because it has been removed
     if (changeDetection) {
       await this.changeDetection([], global);
