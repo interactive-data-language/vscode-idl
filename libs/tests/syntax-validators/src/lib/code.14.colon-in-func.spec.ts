@@ -20,7 +20,9 @@ describe(`[auto generated] Detects illegal colons in functions`, () => {
     const code = [`a = var(0:-1)`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

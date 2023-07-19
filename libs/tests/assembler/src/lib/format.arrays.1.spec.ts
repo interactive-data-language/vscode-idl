@@ -22,7 +22,9 @@ describe(`[auto generated] Verify array formatting`, () => {
     const code = [`compile_opt idl2`, ``, `a = [1,2,3,4,5]`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -101,7 +103,9 @@ describe(`[auto generated] Verify array formatting`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -192,7 +196,9 @@ describe(`[auto generated] Verify array formatting`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -394,7 +400,9 @@ describe(`[auto generated] Verify array formatting`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -489,7 +497,9 @@ describe(`[auto generated] Verify array formatting`, () => {
     const code = [`meta['band names'] = 'Awesome Label Regions'`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -561,7 +571,9 @@ describe(`[auto generated] Verify array formatting`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);

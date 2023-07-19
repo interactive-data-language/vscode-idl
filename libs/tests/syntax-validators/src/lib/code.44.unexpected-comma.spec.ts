@@ -20,7 +20,9 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
     const code = [`pro mypro`, `  compile_opt idl2`, `  a = b[,]`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -65,7 +67,9 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
     const code = [`pro mypro`, `  compile_opt, idl2`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -98,7 +102,9 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
     const code = [`pro mypro`, `  compile_opt idl2`, `  common, named`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -142,7 +148,9 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -175,7 +183,9 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
     const code = [`pro mypro`, `  compile_opt idl2`, `  a = func(,)`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -214,7 +224,9 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
     const code = [`pro mypro`, `  compile_opt idl2`, `  a = b.func(,)`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -264,7 +276,9 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -302,7 +316,9 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -353,7 +369,9 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
     const code = [`pro mypro`, `  compile_opt idl2`, `  a = {,name}`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

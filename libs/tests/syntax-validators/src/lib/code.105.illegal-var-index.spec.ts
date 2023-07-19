@@ -20,7 +20,9 @@ describe(`[auto generated] Indexing with parentheses`, () => {
     const code = [`;+ my var`, `a = 5`, ``, `!null = a()`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -66,7 +68,9 @@ describe(`[auto generated] Indexing with parentheses`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -111,7 +115,9 @@ describe(`[auto generated] Indexing with parentheses`, () => {
     const code = [`compile_opt idl2`, `a = 5`, ``, `!null = a()`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -144,7 +150,9 @@ describe(`[auto generated] Indexing with parentheses`, () => {
     const code = [`compile_opt idl3`, `a = 5`, ``, `!null = a()`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

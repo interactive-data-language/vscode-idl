@@ -20,7 +20,9 @@ describe(`[auto generated] Allows these tokens next to each other`, () => {
     const code = [`a = \`\${42}\${42}\``];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

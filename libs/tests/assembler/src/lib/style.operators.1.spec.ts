@@ -29,7 +29,9 @@ describe(`[auto generated] Verify operators`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -123,7 +125,9 @@ describe(`[auto generated] Verify operators`, () => {
     const code = [`compile_opt idl2`, ``, `*ptr = 42`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -203,7 +207,9 @@ describe(`[auto generated] Verify operators`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -316,7 +322,9 @@ describe(`[auto generated] Verify operators`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -394,7 +402,9 @@ describe(`[auto generated] Verify operators`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -519,7 +529,9 @@ describe(`[auto generated] Verify operators`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -625,7 +637,9 @@ describe(`[auto generated] Verify operators`, () => {
     const code = [`a = ['Anomaly Detection: ' + task.MEAN_CALCULATION_METHOD]`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -696,7 +710,9 @@ describe(`[auto generated] Verify operators`, () => {
     const code = [`cs = !dpi *[0d : num_period - 1]`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -781,7 +797,9 @@ describe(`[auto generated] Verify operators`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);

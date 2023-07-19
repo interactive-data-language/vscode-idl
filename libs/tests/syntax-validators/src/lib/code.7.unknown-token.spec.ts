@@ -20,7 +20,9 @@ describe(`[auto generated] Detects unknown tokens`, () => {
     const code = [`a = {1+2}`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -59,7 +61,9 @@ describe(`[auto generated] Detects unknown tokens`, () => {
     const code = [`compile_opt idl2`, `a = $ , $ ; ok`, `42`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -104,7 +108,9 @@ describe(`[auto generated] Detects unknown tokens`, () => {
     const code = [`!true ? a : b`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -137,7 +143,9 @@ describe(`[auto generated] Detects unknown tokens`, () => {
     const code = [`a = ,`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -177,7 +185,9 @@ describe(`[auto generated] Detects unknown tokens`, () => {
     const code = [`a = {'bad'}`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -216,7 +226,9 @@ describe(`[auto generated] Detects unknown tokens`, () => {
     const code = [`a = {"bad"}`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

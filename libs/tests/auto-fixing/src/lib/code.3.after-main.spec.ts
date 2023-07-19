@@ -29,7 +29,9 @@ describe(`[auto generated] Verify tokens after main get removed on formatting`, 
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {

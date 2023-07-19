@@ -85,7 +85,7 @@ export async function TestsForLocalGlobalScopeAndCompile(
     strings.push(
       `    const tokenized = await index.getParsedProCode('not-real', code, ${JSON.stringify(
         Object.assign({ postProcess: true }, test.config || {})
-      )}});`
+      )});`
     );
     strings.push(``);
 

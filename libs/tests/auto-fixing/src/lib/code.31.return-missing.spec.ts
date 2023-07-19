@@ -32,7 +32,9 @@ describe(`[auto generated] Verify we add missing return statement`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
@@ -102,7 +104,9 @@ describe(`[auto generated] Verify we add missing return statement`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {

@@ -20,7 +20,9 @@ describe(`[auto generated] Detects missing return procedure in functions`, () =>
     const code = [`function myfunc`, `  compile_opt idl2`, `  return,1`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [];
@@ -46,7 +48,9 @@ describe(`[auto generated] Detects missing return procedure in functions`, () =>
     const code = [`function myfunc`, `  compile_opt idl2`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -84,7 +88,9 @@ describe(`[auto generated] Detects missing return procedure in functions`, () =>
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [];
@@ -110,7 +116,9 @@ describe(`[auto generated] Detects missing return procedure in functions`, () =>
     const code = [`function myfunc::method`, `  compile_opt idl2`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

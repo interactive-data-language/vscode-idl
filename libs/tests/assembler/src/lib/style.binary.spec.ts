@@ -22,7 +22,9 @@ describe(`[auto generated] Binary number styling`, () => {
     const code = [`compile_opt idl2, hidden`, ``, `a = 0BaEf`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -92,7 +94,9 @@ describe(`[auto generated] Binary number styling`, () => {
     const code = [`compile_opt idl2, hidden`, ``, `a = 0BaEf`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -162,7 +166,9 @@ describe(`[auto generated] Binary number styling`, () => {
     const code = [`compile_opt idl2, hidden`, ``, `a = 0BaEf`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);

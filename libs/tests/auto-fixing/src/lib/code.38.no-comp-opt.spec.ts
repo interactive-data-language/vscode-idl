@@ -31,7 +31,9 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
@@ -99,7 +101,9 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
@@ -157,7 +161,9 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [`;+`, `;-`, `pro mypro`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
@@ -210,7 +216,9 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [`;+`, `;-`, `pro myclass::mypro`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
@@ -263,7 +271,9 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [`; comment`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
@@ -321,7 +331,9 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [`a = 5`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
@@ -379,7 +391,9 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [``, `; comment`, ``, `a = 42`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
@@ -439,7 +453,9 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [``, `; comment`, ``, `a = 42`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
@@ -506,7 +522,9 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
