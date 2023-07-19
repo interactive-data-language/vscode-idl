@@ -37,7 +37,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             alert: IDL_TRANSLATION.notebooks.notifications.resettingIDL,
           });
 
-          await IDL_NOTEBOOK_CONTROLLER._runtime.evaluate('.reset');
+          await IDL_NOTEBOOK_CONTROLLER.reset();
         } else {
           IDL_LOGGER.log({
             type: 'info',

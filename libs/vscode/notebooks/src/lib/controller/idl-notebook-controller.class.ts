@@ -25,6 +25,7 @@ import { join } from 'path';
 import * as vscode from 'vscode';
 
 import { BangMagic } from './bang-magic.interface';
+import { ICurrentCell } from './idl-notebook-controller.interface';
 
 /**
  * Controller for notebooks
@@ -77,18 +78,7 @@ export class IDLNotebookController {
   /**
    * The current cell that we are executing
    */
-  private _currentCell?: {
-    /** Cell being executed */
-    cell: vscode.NotebookCell;
-    /** Cell execution */
-    execution: vscode.NotebookCellExecution;
-    /** Currently captured output */
-    output: string;
-    /** Are we done processing? */
-    finished: boolean;
-    /** Did we succeed or not */
-    success: boolean;
-  };
+  private _currentCell?: ICurrentCell;
 
   /**
    * ID for our graphic
@@ -242,7 +232,7 @@ export class IDLNotebookController {
    *
    * You should check the "launched" property before calling this
    */
-  private async postCellExecution(magic = true) {
+  private async postCellExecution(magic: boolean, cell?: ICurrentCell) {
     // return if we havent started
     if (!this.launched) {
       return;
@@ -286,7 +276,7 @@ export class IDLNotebookController {
     );
 
     // check if we need to look for magic
-    if (magic && this._currentCell !== undefined) {
+    if (magic && cell !== undefined) {
       try {
         /**
          * Parse our magic
@@ -308,7 +298,7 @@ export class IDLNotebookController {
           const style = `style="width:100%;height:100%;max-width:${fullMagic.xsize}px;max-height:${fullMagic.ysize}px;"`;
 
           // add as output
-          this._currentCell.execution.appendOutput(
+          cell.execution.appendOutput(
             new vscode.NotebookCellOutput([
               /**
                * Use HTML because it works. Using the other mimetype *probably* works
@@ -344,6 +334,19 @@ export class IDLNotebookController {
    */
   private async _endCellExecution(success: boolean, postExecute = true) {
     /**
+     * Get current cell
+     */
+    const cell = this._currentCell;
+
+    // clear current cell
+    this._currentCell = undefined;
+
+    // return if nothing
+    if (cell === undefined) {
+      return;
+    }
+
+    /**
      * Flag if we ended execution correctly
      */
     let ended = false;
@@ -352,13 +355,13 @@ export class IDLNotebookController {
      * Wrap in try/catch so we don't have to worry about unhandled promise exceptions
      */
     try {
-      if (this._currentCell !== undefined) {
-        if (!this._currentCell.finished) {
+      if (cell !== undefined) {
+        if (!cell.finished) {
           // update flag we are finished to hide outputs
-          this._currentCell.finished = true;
+          cell.finished = true;
 
           // update success state
-          this._currentCell.success = success;
+          cell.success = success;
 
           /**
            * Do post-cell work, change behavior on success (i.e. try to fetch magic).
@@ -366,20 +369,19 @@ export class IDLNotebookController {
            * Only run this if launched. If not launched we hang forever, for some reason
            */
           if (postExecute && this.launched) {
-            await this.postCellExecution(success);
+            await this.postCellExecution(success, cell);
           }
 
           // mark as completed
-          this._currentCell.execution.end(success, Date.now());
+          cell.execution.end(success, Date.now());
 
           // update flag
           ended = true;
         }
-        this._currentCell = undefined;
       }
     } catch (err) {
-      if (!ended) {
-        this._currentCell.execution.end(false, Date.now());
+      if (!ended && cell !== undefined) {
+        cell.execution.end(false, Date.now());
       }
       IDL_LOGGER.log({
         type: 'error',
@@ -690,6 +692,23 @@ export class IDLNotebookController {
         });
       }
     }
+  }
+
+  /**
+   * Reset our IDL session
+   */
+  async reset() {
+    /**
+     * Embed command for !magic
+     */
+    const embed = `!magic.embed = ${
+      IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
+    }`;
+
+    // set compile opt and be quiet
+    await this._runtime.evaluate(
+      `.reset & compile_opt idl2 & !quiet = 1 & ${embed}`
+    );
   }
 
   /**
