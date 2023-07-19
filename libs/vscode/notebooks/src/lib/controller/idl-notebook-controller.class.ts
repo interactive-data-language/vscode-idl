@@ -510,7 +510,7 @@ export class IDLNotebookController {
   /**
    * Execute cell
    */
-  private async _executeCell(cell: vscode.NotebookCell): Promise<boolean> {
+  async _executeCell(cell: vscode.NotebookCell): Promise<boolean> {
     /**
      * Create cell execution data
      */
@@ -655,7 +655,7 @@ export class IDLNotebookController {
   /**
    * Execute notebook cells
    */
-  private async _execute(
+  async _execute(
     cells: vscode.NotebookCell[],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _notebook: vscode.NotebookDocument,
