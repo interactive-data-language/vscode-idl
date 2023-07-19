@@ -4,7 +4,6 @@ import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { NotebookDocument } from 'vscode-languageserver/node';
 
-import { NotebookCacheValid } from '../../helpers/notebook-cache-valid';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
@@ -19,10 +18,13 @@ import { SendNotebookProblems } from './send-notebook-problems';
 export const ON_DID_OPEN_NOTEBOOK = async (notebook: NotebookDocument) => {
   await SERVER_INITIALIZED;
   try {
-    // return if our cache is valid and the content has not changed
-    if (NotebookCacheValid(notebook)) {
-      return;
-    }
+    /**
+     * Always re-parse when we open a notebook in case it changed (i.e. vscode or we dont quite catch git updates)
+     */
+    // // return if our cache is valid and the content has not changed
+    // if (NotebookCacheValid(notebook)) {
+    //   return;
+    // }
 
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
