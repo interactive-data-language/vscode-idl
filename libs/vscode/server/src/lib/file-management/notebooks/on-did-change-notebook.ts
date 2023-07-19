@@ -48,10 +48,10 @@ export const ON_DID_CHANGE_NOTEBOOK = async (
     const fsPath = GetFSPath(notebook.uri);
 
     // index file
-    const parsed = await IDL_INDEX.indexIDLNotebook(fsPath, idlNotebook);
+    await IDL_INDEX.indexIDLNotebook(fsPath, idlNotebook);
 
     // send problems
-    SendNotebookProblems(notebook, parsed);
+    SendNotebookProblems(notebook);
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

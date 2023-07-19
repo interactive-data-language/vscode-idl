@@ -39,7 +39,7 @@ export const ON_DID_CLOSE_NOTEBOOK = async (notebook: NotebookDocument) => {
     await IDL_INDEX.removeNotebook(fsPath);
 
     // send empty problems
-    SendNotebookProblems(notebook, {}, true);
+    SendNotebookProblems(notebook);
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
