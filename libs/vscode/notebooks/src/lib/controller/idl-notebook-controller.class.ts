@@ -269,7 +269,7 @@ export class IDLNotebookController {
 
     // insert magic command before resetting window value
     if (magic) {
-      commands.splice(2, 0, 'print, json_serialize(!magic, /lowercase)');
+      commands.splice(2, 1, 'print, json_serialize(!magic, /lowercase)');
     }
 
     /**
@@ -290,10 +290,10 @@ export class IDLNotebookController {
         // check if we have a window
         if (fullMagic.window !== -1) {
           /**
-           * Retrieve our encoded graphic
+           * Retrieve our encoded graphic and clear window reference
            */
           const encoded = await this._runtime.evaluate(
-            `EncodeGraphic(${fullMagic.window}, ${fullMagic.type})`
+            `EncodeGraphic(${fullMagic.window}, ${fullMagic.type}) & !magic.window = -1`
           );
 
           /**
