@@ -19,9 +19,14 @@ export function NotebookToIDLNotebook(
   return {
     ...copied,
     cells: copied.cells.map((cell) => {
+      const doc = manager.getCellTextDocument(cell);
       return {
         ...cell,
-        text: manager.getCellTextDocument(cell).getText(),
+        /**
+         * Verify doc exists, there was some odd error that it didn't on close
+         * so not sure what that was about
+         */
+        text: doc !== undefined ? doc.getText() : '',
       };
     }),
   };
