@@ -648,6 +648,7 @@ export class IDLNotebookController {
        */
       await this._endCellExecution(true);
     }
+
     // return as success
     return true;
   }
