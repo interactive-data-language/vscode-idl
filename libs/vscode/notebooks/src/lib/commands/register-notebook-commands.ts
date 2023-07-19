@@ -28,14 +28,14 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         // make sure we have launched IDL
         if (IDL_NOTEBOOK_CONTROLLER.launched) {
           // alert user since we dont have debug console
-          IDL_LOGGER.log({
-            type: 'info',
-            log: IDL_NOTEBOOK_LOG,
-            content:
-              IDL_TRANSLATION.notebooks.notifications.resettingIDL +
-              ' (notebook)',
-            alert: IDL_TRANSLATION.notebooks.notifications.resettingIDL,
-          });
+          // IDL_LOGGER.log({
+          //   type: 'info',
+          //   log: IDL_NOTEBOOK_LOG,
+          //   content:
+          //     IDL_TRANSLATION.notebooks.notifications.resettingIDL +
+          //     ' (notebook)',
+          //   alert: IDL_TRANSLATION.notebooks.notifications.resettingIDL,
+          // });
 
           await IDL_NOTEBOOK_CONTROLLER.reset();
         } else {
@@ -69,14 +69,14 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         // check if launched
         if (IDL_NOTEBOOK_CONTROLLER.launched) {
           // alert user since we dont have debug console
-          IDL_LOGGER.log({
-            type: 'info',
-            log: IDL_NOTEBOOK_LOG,
-            content:
-              IDL_TRANSLATION.notebooks.notifications.stoppingIDL +
-              ' (notebook)',
-            alert: IDL_TRANSLATION.notebooks.notifications.stoppingIDL,
-          });
+          // IDL_LOGGER.log({
+          //   type: 'info',
+          //   log: IDL_NOTEBOOK_LOG,
+          //   content:
+          //     IDL_TRANSLATION.notebooks.notifications.stoppingIDL +
+          //     ' (notebook)',
+          //   alert: IDL_TRANSLATION.notebooks.notifications.stoppingIDL,
+          // });
 
           IDL_NOTEBOOK_CONTROLLER.stop();
         } else {
