@@ -24,7 +24,7 @@ import copy from 'fast-copy';
 
 import { IBranch } from '../branches.interface';
 import { IParsed } from '../build-tree.interface';
-import { GenerateRoutineDocs } from '../docs/generate-routine-docs';
+import { GenerateRoutineDocsAndMetadata } from '../docs/generate-routine-docs-and-metadata';
 import { GenerateRoutineMetadataFast } from '../docs/generate-routine-metadata-fast';
 import { FindStructureDefs } from './find-structure-defs';
 import { GetCompileOpts } from './get-compile-opts';
@@ -91,7 +91,7 @@ export function PopulateGlobalLocalCompileOpts(
 
           // generate metadata
           const meta = full
-            ? GenerateRoutineDocs(
+            ? GenerateRoutineDocsAndMetadata(
                 'function',
                 branch,
                 first as IBranch<RoutineNameToken | RoutineMethodNameToken>,
@@ -211,7 +211,7 @@ export function PopulateGlobalLocalCompileOpts(
 
           // generate metadata
           const meta = full
-            ? GenerateRoutineDocs(
+            ? GenerateRoutineDocsAndMetadata(
                 'procedure',
                 branch,
                 first as IBranch<RoutineNameToken | RoutineMethodNameToken>,
