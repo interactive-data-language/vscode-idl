@@ -3,7 +3,7 @@ import deepCopy from 'fast-copy';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { ITokenTests } from '../tests.interface';
+import { ITokenTest } from '../tests.interface';
 import { ArrayifyCode } from './arrayify-code';
 import { PrepareString, StringifyCode } from './stringify-code';
 
@@ -12,7 +12,7 @@ import { PrepareString, StringifyCode } from './stringify-code';
  */
 export function TestsForTokenizer(
   name: string,
-  tests: ITokenTests[],
+  tests: ITokenTest[],
   uri = join(process.cwd(), 'tokens.ts')
 ) {
   // track our strings

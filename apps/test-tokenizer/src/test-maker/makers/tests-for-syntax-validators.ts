@@ -3,7 +3,7 @@ import { IDLIndex } from '@idl/parsing/index';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { ITokenTests } from '../tests.interface';
+import { ITokenTest } from '../tests.interface';
 import { ArrayifyCode } from './arrayify-code';
 import { StringifyCode } from './stringify-code';
 
@@ -15,7 +15,7 @@ import { StringifyCode } from './stringify-code';
  */
 export async function TestsForSyntaxValidators(
   name: string,
-  tests: ITokenTests[],
+  tests: ITokenTest[],
   uri = join(process.cwd(), 'tokens.ts')
 ) {
   // track our strings
