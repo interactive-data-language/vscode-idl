@@ -461,6 +461,34 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Use docs for property types`,
+      fileName: `parse-fast.ignore-docs.1.spec.ts`,
+      tests: [
+        {
+          name: 'for structures',
+          code: [
+            `;+`,
+            `; :MyStruct:`,
+            `;   prop: Long`,
+            `;     Placeholder docs for argument or keyword`,
+            `;   prop2: ENVIRaster`,
+            `;     Placeholder docs for argument or keyword`,
+            `;`,
+            `;-`,
+            `pro mystruct__define`,
+            `  compile_opt idl2`,
+            ``,
+            `  !null = {MyStruct, inherits IDL_object, prop: 1, prop2: 4}`,
+            ``,
+            `end`,
+          ],
+          config: {
+            full: false,
+          },
+        },
+      ],
+    },
+    {
       suiteName: `Correctly populate structures`,
       fileName: `populate-structures.1.spec.ts`,
       tests: [

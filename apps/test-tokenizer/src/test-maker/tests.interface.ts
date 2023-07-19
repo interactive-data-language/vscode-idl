@@ -1,4 +1,5 @@
 import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
+import { IIndexProCodeOptions } from '@idl/parsing/index';
 import { Position } from 'vscode-languageserver/node';
 
 /**
@@ -50,7 +51,7 @@ export interface IAutoSelectedTest extends IBaseAutoTest {
  */
 export interface ILocalGlobalScopeCompileTest extends ITokenTest {
   /** optional configuration to specify for the assembler */
-  config?: Partial<IAssemblerInputOptions<FormatterType>>;
+  config?: Partial<IIndexProCodeOptions>;
 }
 
 /**

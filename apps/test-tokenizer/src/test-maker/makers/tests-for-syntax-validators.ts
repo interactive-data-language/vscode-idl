@@ -55,7 +55,9 @@ export async function TestsForSyntaxValidators(
     const toProcess = ArrayifyCode(code);
 
     // extract our tokens from the cleaned code
-    const tokenized = await index.getParsedProCode('not-real', toProcess, true);
+    const tokenized = await index.getParsedProCode('not-real', toProcess, {
+      postProcess: true,
+    });
 
     // build our code string to insert into the automated test
     const codeStr = StringifyCode(toProcess);
@@ -77,7 +79,7 @@ export async function TestsForSyntaxValidators(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = await index.getParsedProCode('not-real', code, true);`
+      `    const tokenized = await index.getParsedProCode('not-real', code, {postProcess: true});`
     );
     strings.push(``);
 

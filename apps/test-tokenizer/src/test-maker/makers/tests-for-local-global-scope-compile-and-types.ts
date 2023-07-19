@@ -3,7 +3,7 @@ import { IDLIndex } from '@idl/parsing/index';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { ITokenTest } from '../tests.interface';
+import { ILocalGlobalScopeCompileTest } from '../tests.interface';
 import { ArrayifyCode } from './arrayify-code';
 import { StringifyCode } from './stringify-code';
 
@@ -15,7 +15,7 @@ import { StringifyCode } from './stringify-code';
  */
 export async function TestsForLocalGlobalScopeAndCompile(
   name: string,
-  tests: ITokenTest[],
+  tests: ILocalGlobalScopeCompileTest[],
   uri = join(process.cwd(), 'tokens.ts')
 ) {
   // track our strings
@@ -58,7 +58,9 @@ export async function TestsForLocalGlobalScopeAndCompile(
     const toProcess = ArrayifyCode(code);
 
     // extract our tokens from the cleaned code
-    const tokenized = await index.getParsedProCode('not-real', toProcess, true);
+    const tokenized = await index.getParsedProCode('not-real', toProcess, {
+      postProcess: true,
+    });
 
     // build our code string to insert into the automated test
     const codeStr = StringifyCode(toProcess);
@@ -81,7 +83,9 @@ export async function TestsForLocalGlobalScopeAndCompile(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = await index.getParsedProCode('not-real', code, true);`
+      `    const tokenized = await index.getParsedProCode('not-real', code, ${JSON.stringify(
+        Object.assign({ postProcess: true }, test.config || {})
+      )}});`
     );
     strings.push(``);
 

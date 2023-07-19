@@ -57,7 +57,9 @@ export async function TestForAutoFixing(
     );
 
     // tokenize
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // update test config
     test.config = {
@@ -86,7 +88,7 @@ export async function TestForAutoFixing(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = await index.getParsedProCode('my_file.pro', code, true);`
+      `    const tokenized = await index.getParsedProCode('my_file.pro', code, {postProcess: true});`
     );
     strings.push(``);
     strings.push(`    // format code`);
