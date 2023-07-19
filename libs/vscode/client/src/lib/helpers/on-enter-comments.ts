@@ -53,7 +53,6 @@ function MakeOnEnterRules(start: number, end: number): OnEnterRule[] {
   for (let j = start; j < end + 1; j++) {
     // reverse because we need longest matches first
     const i = end + 1 - j;
-    console.log(i);
 
     rules.push({
       beforeText: new RegExp(`^\\s*; {${i}}.*$`),
