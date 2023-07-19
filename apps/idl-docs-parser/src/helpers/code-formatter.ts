@@ -42,7 +42,9 @@ const INDEX = new IDLIndex(
  */
 async function ParseAndFormatCode(code: string) {
   // parse
-  let tokenized = await INDEX.getParsedProCode('my_file.pro', code, true);
+  let tokenized = await INDEX.getParsedProCode('my_file.pro', code, {
+    postProcess: true,
+  });
 
   // check for missing main level end
   let addEnd = false;
@@ -57,11 +59,9 @@ async function ParseAndFormatCode(code: string) {
 
   // add end and process again
   if (addEnd) {
-    tokenized = await INDEX.getParsedProCode(
-      'my_file.pro',
-      code + '\nend',
-      true
-    );
+    tokenized = await INDEX.getParsedProCode('my_file.pro', code + '\nend', {
+      postProcess: true,
+    });
   }
 
   // attempt to format
