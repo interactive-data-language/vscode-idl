@@ -296,6 +296,10 @@ export class Iterator {
    * Checks the current line for leftover tokens
    */
   private findLeftovers() {
+    if (!this.full) {
+      return;
+    }
+
     // get current line
     const line = this.current.line;
 
@@ -306,7 +310,7 @@ export class Iterator {
 
     // check if we have leftovers to process - which could be because
     // there were no more matches in our line
-    if (this.current.sub.trim() !== '' && this.full) {
+    if (this.current.sub.trim() !== '') {
       const basic: IBasicToken<UnknownToken> = {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.UNKNOWN,
@@ -346,7 +350,7 @@ export class Iterator {
         break;
       } else {
         // check for comment-only on our line
-        if (COMMENT_ONLY_TEST.test(this.split[i]) && this.full) {
+        if (this.full && COMMENT_ONLY_TEST.test(this.split[i])) {
           const match = COMMENT.match.exec(this.split[i]);
           if (match !== null) {
             const basic: IBasicToken<CommentToken> = {
