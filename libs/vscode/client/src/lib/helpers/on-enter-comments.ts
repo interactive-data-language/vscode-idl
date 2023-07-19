@@ -1,3 +1,4 @@
+import { ARG_KW_PROPERTY_TAG } from '@idl/parsing/syntax-tree';
 import { IndentAction, OnEnterRule } from 'vscode';
 
 /** Comment before cursor */
@@ -13,35 +14,52 @@ function MakeOnEnterRules(start: number, end: number): OnEnterRule[] {
   /** Make our rules */
   const rules: OnEnterRule[] = [];
 
-  // make all of the rules
-  for (let i = 0; i < end - start; i++) {
-    /** Reverse count so we have a prioritized rule sets */
-    const j = end - i;
+  /**
+   * End of a comment block, no comment characters
+   */
+  rules.push({
+    beforeText: new RegExp(`^\\s*;-.*$`),
+    previousLineText: COMMENT_PREVIOUS_REGEX,
+    action: {
+      appendText: '',
+      indentAction: IndentAction.None,
+    },
+  });
+
+  /**
+   * After docs tag
+   */
+  rules.push({
+    beforeText: ARG_KW_PROPERTY_TAG,
+    previousLineText: COMMENT_PREVIOUS_REGEX,
+    action: {
+      appendText: ';   ',
+      indentAction: IndentAction.None,
+    },
+  });
+
+  for (let j = start; j < end + 1; j++) {
+    // reverse because we need longest matches first
+    const i = end + 1 - j;
+    console.log(i);
 
     rules.push({
-      beforeText: new RegExp(`^\\s*; {${j}}.*$`),
+      beforeText: new RegExp(`^\\s*; {${i}}.*$`),
       previousLineText: COMMENT_PREVIOUS_REGEX,
       action: {
-        appendText: '; ' + new Array(j - 1).fill(' ').join(''),
+        appendText: ';' + new Array(i).fill(' ').join(''),
         indentAction: IndentAction.None,
       },
     });
   }
 
+  /**
+   * If we have a comment block on our line
+   */
   rules.push({
     beforeText: new RegExp(`^\\s*;+.*$`),
-    previousLineText: COMMENT_PREVIOUS_REGEX,
     action: {
-      appendText: ';',
-      indentAction: IndentAction.None,
-    },
-  });
-
-  rules.push({
-    beforeText: new RegExp(`^\\s*;.*$`),
-    previousLineText: COMMENT_PREVIOUS_REGEX,
-    action: {
-      appendText: ';',
+      appendText: '; ',
       indentAction: IndentAction.None,
     },
   });
@@ -54,4 +72,4 @@ function MakeOnEnterRules(start: number, end: number): OnEnterRule[] {
  *
  * Use OnEnter rules which are easy instead of adding complexity to the language server
  */
-export const ON_ENTER_COMMENTS: OnEnterRule[] = [...MakeOnEnterRules(1, 20)];
+export const ON_ENTER_COMMENTS: OnEnterRule[] = [...MakeOnEnterRules(0, 20)];
