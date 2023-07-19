@@ -32,68 +32,77 @@ IDL_SYNTAX_TREE_POST_PROCESSOR.onTree((tree, parsed) => {
     return;
   }
 
-  // get number of
-  const n = tree.length;
+  // reverse tree
+  tree.reverse();
 
-  // init flag that we have tokens which make up a main level program
-  let flag = false;
+  // did we find a token that we can make a main level program from?
+  let found = false;
 
-  // process all trees
-  let i: number;
-  let j: number;
-  for (j = 0; j < tree.length; j++) {
-    // reverse search
-    i = n - j - 1;
-
-    // check if we need to stop
+  // index of our element
+  let idx: number;
+  for (let i = 0; i < tree.length; i++) {
+    if (!(tree[i].name in IGNORE)) {
+      found = true;
+    }
     if (tree[i].name in STARTERS) {
-      j--;
-      i++;
-      break;
-    } else {
-      // check if token we can use to make a main level program
-      if (!(tree[i].name in IGNORE)) {
-        flag = true;
+      // if first, no main level
+      if (i === 0) {
+        tree.reverse();
+        return;
       }
+      idx = i - 1;
+      break;
+    }
+    if (i === tree.length - 1 && found) {
+      idx = tree.length - 1;
+      break;
     }
   }
 
-  // check if we have a main level program
-  if (j > 0 && flag) {
-    // extract our children
-    const mainChildren = tree.splice(i, tree.length - i);
+  // revert order
+  tree.reverse();
 
-    // make our new token and save
-    const newToken: IBranch<MainLevelToken> = {
-      type: BRANCH_TYPES.BRANCH,
-      name: TOKEN_NAMES.MAIN_LEVEL,
-      pos: copy(mainChildren[0].pos),
-      idx: i,
-      match: [],
-      scope: [],
-      parseProblems: [],
-      end: undefined,
-      kids: mainChildren,
-    };
-    tree.push(newToken);
+  // return if no match
+  if (idx === undefined) {
+    return;
+  }
 
-    // search through our tokens and find the first end statement
-    for (let z = 0; z < mainChildren.length; z++) {
-      if (mainChildren[z].name === TOKEN_NAMES.MAIN_LEVEL_END) {
-        newToken.end = {
-          match: copy(mainChildren[z].match),
-          pos: copy(mainChildren[z].pos),
-        };
+  // change end of the tree to account for reverse
+  idx = tree.length - idx - 1;
 
-        // delete the rest - errors will be caught already when creating the tree
-        const after = mainChildren.splice(z, mainChildren.length - z);
-        if (after.length > 1) {
-          for (let zz = 1; zz < after.length; zz++) {
-            tree.push(after[zz]);
-          }
+  // extract our children
+  const mainChildren = tree.splice(idx, tree.length - idx);
+
+  // make our new token and save
+  const newToken: IBranch<MainLevelToken> = {
+    type: BRANCH_TYPES.BRANCH,
+    name: TOKEN_NAMES.MAIN_LEVEL,
+    pos: copy(mainChildren[0].pos),
+    idx: idx,
+    match: [],
+    scope: [],
+    parseProblems: [],
+    end: undefined,
+    kids: mainChildren,
+  };
+  tree.push(newToken);
+
+  // search through our tokens and find the first end statement
+  for (let z = 0; z < mainChildren.length; z++) {
+    if (mainChildren[z].name === TOKEN_NAMES.MAIN_LEVEL_END) {
+      newToken.end = {
+        match: copy(mainChildren[z].match),
+        pos: copy(mainChildren[z].pos),
+      };
+
+      // delete the rest - errors will be caught already when creating the tree
+      const after = mainChildren.splice(z, mainChildren.length - z);
+      if (after.length > 1) {
+        for (let zz = 1; zz < after.length; zz++) {
+          tree.push(after[zz]);
         }
-        break;
       }
+      break;
     }
   }
 });
