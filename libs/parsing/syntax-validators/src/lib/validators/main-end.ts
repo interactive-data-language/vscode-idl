@@ -15,7 +15,12 @@ import { IsSingleLine } from '../helpers/is-single-line';
  */
 IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.MAIN_LEVEL,
-  (token, parsed) => {
+  (token, parsed, meta) => {
+    // dont validate if we have a notebook
+    if (meta.isNotebook) {
+      return;
+    }
+
     /**
      * Check for a missing end statement
      */

@@ -55,10 +55,14 @@ export function ParserTokenize(
 /**
  * Creates a syntax tree and does checking for syntax errors
  */
-export function ParserBuildTree(tokenized: IParsed, full = true) {
+export function ParserBuildTree(
+  tokenized: IParsed,
+  full: boolean,
+  isNotebook: boolean
+) {
   // try {
   // build tree - updates property for tokenized
-  BuildSyntaxTree(tokenized, full);
+  BuildSyntaxTree(tokenized, full, isNotebook);
   // } catch (err) {
   //   console.error(err);
 
@@ -118,7 +122,7 @@ export function Parser(
   ParserTokenize(code, tokenized, options.full);
 
   // build the syntax tree and detect syntax problems
-  ParserBuildTree(tokenized, options.full);
+  ParserBuildTree(tokenized, options.full, options.isNotebook);
 
   /**
    * Populate our global, local (variables), and compile-opts

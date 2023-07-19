@@ -4,7 +4,12 @@ import { IHandlerCallbackMetadata } from './recursion-and-callbacks/tree-callbac
 /**
  * Type for metadata in our validator callbacks
  */
-export type IDLSyntaxValidatorMeta = IHandlerCallbackMetadata;
+export interface IDLSyntaxValidatorMeta extends IHandlerCallbackMetadata {
+  /**
+   * If we are parsing a notebook or not
+   */
+  isNotebook: boolean;
+}
 
 /**
  * Manages validating and making sure that syntax is correct for IDL code.

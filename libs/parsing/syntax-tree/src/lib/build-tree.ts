@@ -28,7 +28,10 @@ import { GetUniqueVariables } from './populators/get-unique-variables';
 import { IDL_SYNTAX_TREE_POST_PROCESSOR } from './post-processor.interface';
 import { DEFAULT_CURRENT } from './recursion-and-callbacks/tree-recurser.interface';
 import { SyntaxProblemWithTranslation } from './syntax-problem-with';
-import { IDL_SYNTAX_TREE_VALIDATOR } from './validator.interface';
+import {
+  IDL_SYNTAX_TREE_VALIDATOR,
+  IDLSyntaxValidatorMeta,
+} from './validator.interface';
 
 /**
  * Actually extract our tokens and make the syntax tree
@@ -260,7 +263,11 @@ function BuildTreeRecurser(
 /**
  * Builds our syntax tree and saves it in the tokenized version of our code
  */
-export function BuildSyntaxTree(parsed: IParsed, full = true) {
+export function BuildSyntaxTree(
+  parsed: IParsed,
+  full: boolean,
+  isNotebook: boolean
+) {
   // build our syntax tree
   parsed.tree = BuildTreeRecurser(parsed.tokens, {
     start: -1,
@@ -292,7 +299,14 @@ export function BuildSyntaxTree(parsed: IParsed, full = true) {
     // populate the scope again in case our tree changed
     PopulateScope(parsed);
 
-    IDL_SYNTAX_TREE_VALIDATOR.run(parsed, (token, meta) => meta);
+    // create metadata for our syntax validator
+    const validatorMeta: IDLSyntaxValidatorMeta = {
+      isNotebook,
+      ...DEFAULT_CURRENT,
+    };
+
+    // run our syntax validation
+    IDL_SYNTAX_TREE_VALIDATOR.run(parsed, () => validatorMeta);
   }
 }
 

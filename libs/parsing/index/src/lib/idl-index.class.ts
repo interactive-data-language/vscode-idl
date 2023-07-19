@@ -1010,7 +1010,7 @@ export class IDLIndex {
          * Default to doing the work here
          */
         default:
-          parsed = Parser(code);
+          parsed = Parser(code, options);
           this.workerIDsByFile[file] = undefined;
           break;
       }
