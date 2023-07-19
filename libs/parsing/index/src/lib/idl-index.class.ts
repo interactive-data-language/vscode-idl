@@ -28,6 +28,7 @@ import {
   IDL_NOTEBOOK_EXTENSION,
   LANGUAGE_SERVER_CONFIG_URI,
   NODE_MEMORY_CONFIG,
+  NOTEBOOK_GLOB_PATTERN,
   PRO_CODE_GLOB_PATTERN,
   SAVE_FILE_GLOB_PATTERN,
   TASK_FILE_EXTENSION,
@@ -332,8 +333,10 @@ export class IDLIndex {
   /**
    * Indicates that a file is an IDL notebook
    */
-  isIDLNotebookFile(file): boolean {
-    return file.toLowerCase().endsWith(IDL_NOTEBOOK_EXTENSION);
+  isIDLNotebookFile(file: string): boolean {
+    return (
+      file.includes('#') || file.toLowerCase().endsWith(IDL_NOTEBOOK_EXTENSION)
+    );
   }
 
   /**
@@ -452,7 +455,9 @@ export class IDLIndex {
       );
     } else {
       return GetSemanticTokens(
-        await this.getParsedProCode(file, code, { postProcess: true })
+        await this.getParsedProCode(file, code, {
+          postProcess: true,
+        })
       );
     }
   }
@@ -688,7 +693,7 @@ export class IDLIndex {
   /**
    * Removes a notebook from our index
    */
-  private async removeNotebook(file: string) {
+  async removeNotebook(file: string) {
     const cellFiles = this.getNotebookFiles(file);
     await this.removeWorkspaceFiles(cellFiles, false);
   }
@@ -966,6 +971,9 @@ export class IDLIndex {
         inOptions
       );
 
+      // automatically detect if we are a notebook file
+      options.isNotebook = this.isIDLNotebookFile(file);
+
       // get old global tokens
       const oldGlobals = this.getGlobalsForFile(file);
 
@@ -1001,8 +1009,7 @@ export class IDLIndex {
             {
               file,
               code,
-              postProcess: options.postProcess,
-              isNotebook: options.isNotebook,
+              ...options,
             }
           );
           break;
@@ -1135,8 +1142,7 @@ export class IDLIndex {
             {
               file,
               code,
-              postProcess: options.postProcess,
-              isNotebook: options.isNotebook,
+              ...Object.assign(copy(DEFAULT_INDEX_PRO_CODE_OPTIONS), options),
             }
           );
 
@@ -1260,10 +1266,16 @@ export class IDLIndex {
    * changeDetection is only honored if we are single-threaded and is always applied if multi-threaded
    */
   async removeWorkspaceFiles(files: string[], changeDetection = false) {
+    // return if not files to remove
+    if (files.length === 0) {
+      return;
+    }
+
     // process in this thread if we don't have any workers
     if (!this.isMultiThreaded()) {
       // remove all files
       await this.removeFiles(files, changeDetection);
+      return;
     }
 
     /**
@@ -1345,6 +1357,22 @@ export class IDLIndex {
   }
 
   /**
+   * Gets strings for a given file
+   */
+  getFileStrings(file: string) {
+    // check if we have the file in our lookup
+    if (this.tokensByFile.has(file)) {
+      const text = this.tokensByFile.text(file);
+      if (text.length > 0) {
+        return text.join('\n');
+      }
+    }
+
+    // attempt to read from disk
+    return readFileSync(file, 'utf-8');
+  }
+
+  /**
    * Indexes one or more files and cleans up as we go
    *
    * Intended for use in our worker threads. If in parent thread,
@@ -1371,12 +1399,12 @@ export class IDLIndex {
 
       // parse (or wait for it to finish if pending)
       try {
-        await this.getParsedProCode(files[i], readFileSync(files[i], 'utf-8'), {
+        await this.getParsedProCode(files[i], this.getFileStrings(files[i]), {
           postProcess,
         });
       } catch (err) {
         // check if we have a "false" error because a file was deleted
-        if (!existsSync(files[i])) {
+        if (!existsSync(files[i]) && !files[i].includes('#')) {
           missingFiles.push(files[i]);
           this.log.log({
             log: IDL_WORKER_THREAD_CONSOLE,
@@ -1537,19 +1565,21 @@ export class IDLIndex {
         }
       }
 
+      // skip if we dont have a file
+      if (!this.tokensByFile.has(files[i])) {
+        continue;
+      }
+
       try {
         await this.postProcessProFile(
           files[i],
-          await this.getParsedProCode(
-            files[i],
-            readFileSync(files[i], 'utf-8')
-          ),
+          this.tokensByFile.get(files[i]),
           [],
           changeDetection
         );
       } catch (err) {
         // check if we have a "false" error because a file was deleted
-        if (!existsSync(files[i])) {
+        if (!existsSync(files[i]) && !files[i].includes('#')) {
           missingFiles.push(files[i]);
           this.log.log({
             log: IDL_WORKER_THREAD_CONSOLE,
@@ -2007,6 +2037,12 @@ export class IDLIndex {
       this.fileTypes['save'].add(saves[i]);
     }
 
+    // get/track notebook files
+    const notebooks = await this.findFiles(folder, NOTEBOOK_GLOB_PATTERN);
+    for (let i = 0; i < notebooks.length; i++) {
+      this.fileTypes['idl-notebook'].add(notebooks[i]);
+    }
+
     // return the files we found
     return files;
   }
@@ -2016,13 +2052,17 @@ export class IDLIndex {
    *
    * This method internally handles the logic of the type of file we are processing (i.e. task, PRO, idl.json)
    */
-  async indexFile(file: string, code?: string) {
+  async indexFile(
+    file: string,
+    code?: string,
+    options: Partial<IIndexProCodeOptions> = {}
+  ) {
     if (!existsSync(file)) {
       this.removeWorkspaceFiles([file]);
       return;
     }
     if (code === undefined) {
-      code = readFileSync(file, 'utf-8');
+      code = this.getFileStrings(file);
     }
     switch (true) {
       case this.isConfigFile(file):
@@ -2032,7 +2072,11 @@ export class IDLIndex {
         await this.indexTaskFile(file, code);
         break;
       case this.isPROCode(file):
-        await this.getParsedProCode(file, code, { postProcess: true });
+        await this.getParsedProCode(
+          file,
+          code,
+          Object.assign({ postProcess: true }, options)
+        );
         break;
       default:
         break;

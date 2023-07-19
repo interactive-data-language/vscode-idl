@@ -1,3 +1,6 @@
+import { DEFAULT_PARSER_OPTIONS, IParserOptions } from '@idl/parser';
+import copy from 'fast-copy';
+
 /**
  * Options for controlling behavior of the IDL Index
  */
@@ -55,21 +58,17 @@ export type IDLFileTypeLookup = {
 /**
  * Options when indexing PRO code
  */
-export interface IIndexProCodeOptions {
+export interface IIndexProCodeOptions extends IParserOptions {
   /**
    * Do we post process the file or not
    */
   postProcess: boolean;
-  /**
-   * Are we processing a notebook>
-   */
-  isNotebook: boolean;
 }
 
 /**
  * Default options when indexing PRO code
  */
 export const DEFAULT_INDEX_PRO_CODE_OPTIONS: IIndexProCodeOptions = {
+  ...copy(DEFAULT_PARSER_OPTIONS),
   postProcess: true,
-  isNotebook: false,
 };

@@ -206,7 +206,7 @@ export const EN: ITranslation = {
       notebooks:
         'Preferences that control notebook user experience for IDL Notebooks',
       'notebooks.embedGraphics':
-        'Are graphics embedded as output within each cell?',
+        "Are graphics embedded as output within each cell?\n\nIf you have open notebooks, you'll need to stop IDL and then re-run cells for changes to take effect.",
 
       dontAsk:
         'Preferences that disable dialogs that appear and ask questions. These settings can also be disabled directly within the dialogs you see.',

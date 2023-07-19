@@ -141,8 +141,15 @@ export function Parser(
 
   // clean up
   if (options.cleanup) {
+    // always remove tokens
     tokenized.tokens = [];
-    tokenized.text = [];
+
+    /**
+     * Never clean up notebooks as it is the only way to get our text from worker threads
+     */
+    if (!(options.isNotebook || options.keepText)) {
+      tokenized.text = [];
+    }
   }
 
   // post process our syntax problems

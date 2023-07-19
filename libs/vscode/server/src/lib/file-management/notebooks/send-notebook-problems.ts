@@ -17,8 +17,25 @@ const OLD_CELLS: { [key: string]: Set<string> } = {};
  */
 export function SendNotebookProblems(
   notebook: NotebookDocument,
-  parsed: IParsedIDLNotebook
+  parsed: IParsedIDLNotebook,
+  reset = false
 ) {
+  // check if we are resetting problems
+  if (reset) {
+    // clean cache
+    delete OLD_CELLS[notebook.uri];
+
+    // remove all problems from cells
+    for (let i = 0; i < notebook.cells.length; i++) {
+      SERVER_CONNECTION.sendDiagnostics({
+        uri: notebook.cells[i].document,
+        diagnostics: [],
+      });
+    }
+
+    return;
+  }
+
   /**
    * Get the index of our cells
    */

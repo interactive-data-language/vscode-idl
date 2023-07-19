@@ -1,5 +1,4 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { NotebookToIDLNotebook } from '@idl/notebooks';
 import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { NotebookDocument } from 'vscode-languageserver/node';
@@ -8,7 +7,6 @@ import { NotebookCacheValid } from '../../helpers/notebook-cache-valid';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
-import { NOTEBOOK_MANAGER } from './initialize-notebook-manager';
 import { SendNotebookProblems } from './send-notebook-problems';
 
 /**
@@ -34,19 +32,14 @@ export const ON_DID_CLOSE_NOTEBOOK = async (notebook: NotebookDocument) => {
       content: ['Notebook closed', notebook.uri],
     });
 
-    /**
-     * Get text for all cells for quick access
-     */
-    const idlNotebook = NotebookToIDLNotebook(notebook, NOTEBOOK_MANAGER);
-
     // get the path to the file to properly save
     const fsPath = GetFSPath(notebook.uri);
 
-    // index file
-    const parsed = await IDL_INDEX.indexIDLNotebook(fsPath, idlNotebook);
+    // remove notebook from cache
+    await IDL_INDEX.removeNotebook(fsPath);
 
-    // send problems
-    SendNotebookProblems(notebook, parsed);
+    // send empty problems
+    SendNotebookProblems(notebook, {}, true);
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

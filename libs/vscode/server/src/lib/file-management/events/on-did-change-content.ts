@@ -23,6 +23,11 @@ export const ON_DID_CHANGE_CONTENT = async (
 ) => {
   await SERVER_INITIALIZED;
   try {
+    // return if notebook file, havent seen but we have this as sanity check
+    if (IDL_INDEX.isIDLNotebookFile(event.document.uri)) {
+      return;
+    }
+
     // return if our cache is valid and the content has not changed
     if (CacheValid(event.document.uri)) {
       return;
@@ -38,7 +43,17 @@ export const ON_DID_CHANGE_CONTENT = async (
     const fsPath = GetFSPath(event.document.uri);
 
     // re-index our file
-    await IDL_INDEX.indexFile(fsPath, await GetFileStrings(event.document.uri));
+    await IDL_INDEX.indexFile(
+      fsPath,
+      await GetFileStrings(event.document.uri),
+      /**
+       * Don't cleanup after the parsing and keep the text from this document
+       *
+       * We need it as the file is most likely not saved on disk and the language server logic
+       * is to use what is on disk
+       */
+      { keepText: true }
+    );
 
     // send problems
     SendProblems([fsPath]);

@@ -121,6 +121,16 @@ export class IDLParsedCache {
   }
 
   /**
+   * Returns the text for a given file or undefined if the file
+   * does not exist in our cache
+   */
+  text(file: string): string[] | undefined {
+    if (file in this.byFile) {
+      return this.byFile[file].text;
+    }
+  }
+
+  /**
    * Remove tokens by file
    */
   remove(file: string) {

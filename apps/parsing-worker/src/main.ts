@@ -19,7 +19,7 @@ import {
   RemoveFilesResponse,
 } from '@idl/workers/parsing';
 import { WorkerIOClient } from '@idl/workers/workerio';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync } from 'fs';
 import { parentPort } from 'worker_threads';
 
 // create our connection client - overload MessagePort to assert that we are running in a worker thread
@@ -174,7 +174,7 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILE, async (message) => {
   // index the file
   const parsed = await WORKER_INDEX.getParsedProCode(
     message.file,
-    readFileSync(message.file, 'utf-8'),
+    WORKER_INDEX.getFileStrings(message.file),
     message
   );
 
@@ -250,7 +250,7 @@ client.on(
         resp.problems[files[i]] = parsed.parseProblems;
       } catch (err) {
         // check if we have a "false" error because a file was deleted
-        if (!existsSync(files[i])) {
+        if (!existsSync(files[i]) && !files[i].includes('#')) {
           resp.missing.push(files[i]);
           WORKER_INDEX.log.log({
             log: IDL_WORKER_THREAD_CONSOLE,

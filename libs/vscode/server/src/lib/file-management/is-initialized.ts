@@ -150,6 +150,7 @@ SERVER_INFO.then(async (res) => {
           num_idl_task: IDL_INDEX.fileTypes['idl-task'].size,
           num_envi_task: IDL_INDEX.fileTypes['envi-task'].size,
           num_idl_json: IDL_INDEX.fileTypes['idl.json'].size,
+          num_notebook: IDL_INDEX.fileTypes['idl-notebook'].size,
         };
 
         IDL_LANGUAGE_SERVER_LOGGER.log({
@@ -175,6 +176,7 @@ SERVER_INFO.then(async (res) => {
           5
         );
         statsDetail.num_idl_json = RoundToNearest(statsDetail.num_idl_json, 5);
+        statsDetail.num_notebook = RoundToNearest(statsDetail.num_notebook, 5);
 
         // send usage metric
         SendUsageMetricServer(

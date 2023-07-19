@@ -65,7 +65,7 @@ export function ChangeDetection(
       );
     } catch (err) {
       // check if we have a "false" error because a file was deleted
-      if (!existsSync(files[z])) {
+      if (!existsSync(files[z]) && !files[z].includes('#')) {
         missingFiles.push(files[z]);
         index.log.log({
           log: IDL_WORKER_THREAD_CONSOLE,

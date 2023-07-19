@@ -11,9 +11,14 @@ export interface IParserOptions {
    */
   cleanup: boolean;
   /**
-   * Are we parsing a notebook cell
+   * Are we parsing a notebook cell? This need to be manually set when interacting
+   * directly with the `Parser()`, but from the IDLIndex it is set automatically
    */
   isNotebook: boolean;
+  /**
+   * If we are cleaning up, do we keep the text?
+   */
+  keepText: boolean;
 }
 
 /**
@@ -23,4 +28,5 @@ export const DEFAULT_PARSER_OPTIONS: IParserOptions = {
   full: true,
   cleanup: true,
   isNotebook: false,
+  keepText: false,
 };

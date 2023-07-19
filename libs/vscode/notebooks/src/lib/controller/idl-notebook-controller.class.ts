@@ -7,6 +7,8 @@ import {
 import { IDL_DEBUG_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { Parser } from '@idl/parser';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
+import { TreeBranchToken } from '@idl/parsing/syntax-tree';
+import { IsSingleLine } from '@idl/parsing/syntax-validators';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import {
   IDL_LANGUAGE_NAME,
@@ -561,11 +563,6 @@ export class IDLNotebookController {
     const fsPath = join(DOT_IDL_FOLDER, 'notebook_cell.pro');
 
     /**
-     * Get URI for cell
-     */
-    const uri = cell.document.uri;
-
-    /**
      * Get strings for our cell
      */
     const strings = cell.document.getText().split(/\r?\n/g);
@@ -588,24 +585,21 @@ export class IDLNotebookController {
      */
     let hasMain = true;
 
-    // determine how we can clean up our core
-    switch (true) {
-      /**
-       * Return if empty cell
-       */
-      case filtered.length === 0:
-        await this._endCellExecution(true);
-        return true;
+    /**
+     * Parse code and see if we have a main level program
+     */
+    const parsed = Parser(strings);
 
-      /**
-       * Check diagnostics to get main level
-       */
-      default: {
-        /**
-         * Parse code and see if we have a main level program
-         */
-        const parsed = Parser(strings);
+    // check for main level program
+    if (parsed.tree[parsed.tree.length - 1]?.name === TOKEN_NAMES.MAIN_LEVEL) {
+      hasMain = true;
 
+      // check if we are a single line
+      if (
+        IsSingleLine(parsed.tree[parsed.tree.length - 1] as TreeBranchToken)
+      ) {
+        strings.push('end');
+      } else {
         /**
          * Get problem codes
          */
@@ -625,18 +619,9 @@ export class IDLNotebookController {
             return true;
           }
         }
-
-        // check for main level program
-        if (
-          parsed.tree[parsed.tree.length - 1]?.name === TOKEN_NAMES.MAIN_LEVEL
-        ) {
-          hasMain = true;
-        } else {
-          hasMain = false;
-        }
-
-        break;
       }
+    } else {
+      hasMain = false;
     }
 
     // write file
