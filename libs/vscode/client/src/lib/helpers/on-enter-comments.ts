@@ -27,6 +27,18 @@ function MakeOnEnterRules(start: number, end: number): OnEnterRule[] {
   });
 
   /**
+   * Single comment
+   */
+  rules.push({
+    beforeText: /^\s*;.*$/,
+    previousLineText: /^(?!\s*;).*$/,
+    action: {
+      appendText: '',
+      indentAction: IndentAction.None,
+    },
+  });
+
+  /**
    * After docs tag
    */
   rules.push({
