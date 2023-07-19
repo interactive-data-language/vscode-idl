@@ -5,7 +5,9 @@ import {
   REGEX_NEW_LINE,
 } from '@idl/idl';
 import { IDL_DEBUG_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
+import { Parser } from '@idl/parser';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
+import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import {
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
@@ -581,6 +583,11 @@ export class IDLNotebookController {
       return trimmed !== '' && !trimmed.startsWith(';');
     });
 
+    /**
+     * Flag if we have a main level program or not
+     */
+    let hasMain = true;
+
     // determine how we can clean up our core
     switch (true) {
       /**
@@ -591,48 +598,41 @@ export class IDLNotebookController {
         return true;
 
       /**
-       * Add an end if a single line
-       */
-      case filtered.length === 1:
-        strings.push('end');
-        break;
-
-      /**
        * Check diagnostics to get main level
        */
       default: {
         /**
-         * Get diagnostics for our cell
+         * Parse code and see if we have a main level program
          */
-        const diagnostics = vscode.languages.getDiagnostics(uri);
+        const parsed = Parser(strings);
 
-        // check if we have one
-        if (diagnostics !== undefined) {
-          /**
-           * Get string description for problem codes
-           *
-           * Format matches: libs\vscode\server\src\lib\helpers\syntax-problem-to-diagnostic.ts
-           */
-          const codes = diagnostics.map((item) =>
-            typeof item.code !== 'number' && typeof item.code !== 'string'
-              ? (item.code?.value as string)
-              : (item.code as string)
-          );
+        /**
+         * Get problem codes
+         */
+        const codes = parsed.parseProblems.map((problem) => problem.code);
 
-          // check for missing end
-          for (let i = 0; i < codes.length; i++) {
-            // check for missing end to the main level program
-            if (codes[i].endsWith(`${IDL_PROBLEM_CODES.MISSING_MAIN_END}`)) {
-              strings.push('end');
-              break;
-            }
-
-            // check for empty main
-            if (codes[i].endsWith(`${IDL_PROBLEM_CODES.EMPTY_MAIN}`)) {
-              await this._endCellExecution(true);
-              return true;
-            }
+        // check special cases
+        for (let i = 0; i < codes.length; i++) {
+          // check for missing end to the main level program
+          if (codes[i] === IDL_PROBLEM_CODES.MISSING_MAIN_END) {
+            strings.push('end');
+            break;
           }
+
+          // check for empty main
+          if (codes[i] === IDL_PROBLEM_CODES.EMPTY_MAIN) {
+            await this._endCellExecution(true);
+            return true;
+          }
+        }
+
+        // check for main level program
+        if (
+          parsed.tree[parsed.tree.length - 1]?.name === TOKEN_NAMES.MAIN_LEVEL
+        ) {
+          hasMain = true;
+        } else {
+          hasMain = false;
         }
 
         break;
@@ -654,7 +654,9 @@ export class IDLNotebookController {
       await this._endCellExecution(false);
     } else {
       // run main level program
-      await this.evaluate(`.go`);
+      if (hasMain) {
+        await this.evaluate(`.go`);
+      }
 
       /**
        * End cell execution and post-process
