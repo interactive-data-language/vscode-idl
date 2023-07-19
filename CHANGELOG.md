@@ -36,6 +36,8 @@ Added a cache to reduce memory usage for worker threads (large workspaces with 3
 
 On startup, a new log statement prints to show the state of garbage collection: `idl-lsp info Garbage collection enabled: true`
 
+Improved the on-enter commands that automatically continue comment blocks as you type within them. They were close, but not quite there are some rules conflicted with one another so they didn't work right.
+
 ## 3.0.6 - July 2023
 
 Improved message when language server crashes and a button that opens documentation for workarounds for the memory problem
