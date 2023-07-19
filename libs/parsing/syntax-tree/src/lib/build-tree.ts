@@ -300,13 +300,17 @@ export function BuildSyntaxTree(
     PopulateScope(parsed);
 
     // create metadata for our syntax validator
+    // leave this for type checks even though unused
     const validatorMeta: IDLSyntaxValidatorMeta = {
       isNotebook,
       ...DEFAULT_CURRENT,
     };
 
     // run our syntax validation
-    IDL_SYNTAX_TREE_VALIDATOR.run(parsed, () => validatorMeta);
+    IDL_SYNTAX_TREE_VALIDATOR.run(parsed, (token, meta) => {
+      Object.assign(meta, { isNotebook });
+      return meta as any as IDLSyntaxValidatorMeta;
+    });
   }
 }
 
