@@ -679,7 +679,7 @@ export class IDLIndex {
   /**
    * Gets all files associated with a notebook
    */
-  private getNotebookFiles(file: string) {
+  getNotebookFiles(file: string) {
     return Object.keys(this.knownFiles).filter((known) =>
       known.startsWith(file)
     );
