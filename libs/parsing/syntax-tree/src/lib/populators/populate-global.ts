@@ -36,7 +36,11 @@ import { PopulateLocalForMain } from './replace-functions-as-variables';
 /**
  * Populates a lookup with quick information for where things are defined
  */
-export function PopulateGlobalLocalCompileOpts(parsed: IParsed, full = true) {
+export function PopulateGlobalLocalCompileOpts(
+  parsed: IParsed,
+  full: boolean,
+  isNotebook: boolean
+) {
   // get global placeholder
   const global = parsed.global;
 
@@ -305,6 +309,13 @@ export function PopulateGlobalLocalCompileOpts(parsed: IParsed, full = true) {
         };
         global.push(add);
         parsed.compile.main = full ? GetCompileOpts(branch) : [];
+
+        // if we are a notebook, add main level program
+        if (isNotebook) {
+          if (parsed.compile.main.indexOf('idl2') === -1) {
+            parsed.compile.main.push('idl2');
+          }
+        }
         break;
       }
       default:

@@ -132,7 +132,7 @@ export function Parser(
    *
    * If it is off, we dont get hover help or useful auto-complete
    */
-  PopulateGlobalLocalCompileOpts(tokenized);
+  PopulateGlobalLocalCompileOpts(tokenized, options.full, options.isNotebook);
 
   // remove all problems if fast parse
   if (!options.full) {
