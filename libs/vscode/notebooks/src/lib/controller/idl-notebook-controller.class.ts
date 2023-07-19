@@ -568,19 +568,6 @@ export class IDLNotebookController {
     const strings = cell.document.getText().split(/\r?\n/g);
 
     /**
-     * Filter lines to figure out how much content is in our cell
-     */
-    const filtered = strings.filter((line) => {
-      /**
-       * Trim the line
-       */
-      const trimmed = line.trim();
-
-      // filter out lines that start with
-      return trimmed !== '' && !trimmed.startsWith(';');
-    });
-
-    /**
      * Flag if we have a main level program or not
      */
     let hasMain = true;
