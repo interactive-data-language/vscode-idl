@@ -59,7 +59,7 @@ export const ON_WORKSPACE_CONFIG = async (
   try {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
-      type: 'info',
+      type: 'debug',
       content: ['Workspace config updated or received', payload.config],
     });
 
