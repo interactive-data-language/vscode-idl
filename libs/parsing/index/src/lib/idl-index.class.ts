@@ -975,7 +975,9 @@ export class IDLIndex {
       );
 
       // automatically detect if we are a notebook file
-      options.isNotebook = this.isIDLNotebookFile(file);
+      if (!options.isNotebook) {
+        options.isNotebook = this.isIDLNotebookFile(file);
+      }
 
       // get old global tokens
       const oldGlobals = this.getGlobalsForFile(file);
@@ -1030,6 +1032,9 @@ export class IDLIndex {
 
       // determine how to process
       switch (true) {
+        case !options.full:
+          // do nothing if not full parse
+          break;
         case postProcessed:
           await this.changeDetection(parsed.global, oldGlobals);
           break;

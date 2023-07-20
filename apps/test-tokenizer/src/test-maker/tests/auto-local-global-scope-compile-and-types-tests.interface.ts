@@ -9,6 +9,41 @@ import { IAutoLocalGlobalScopeCompileTest } from '../tests.interface';
 export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalScopeCompileTest[] =
   [
     {
+      suiteName: `Correctly gets docs and variables`,
+      fileName: `all-docs-work-right.spec.ts`,
+      tests: [
+        {
+          name: 'for a routine',
+          code: [
+            ``,
+            `;+`,
+            `; My procedure`,
+            `;`,
+            `; :Args:`,
+            `;  var1: in, required, any`,
+            `;    My favorite thing`,
+            `;`,
+            `; :Keywords:`,
+            `;  kw1: in, optional, type=boolean`,
+            `;    Super Cool flag`,
+            `;`,
+            `;-`,
+            `pro mypro, var1, KW1=kw1`,
+            `  compile_opt idl2`,
+            `  ;+ awesome variable with docs`,
+            `  a = 42`,
+            `  ;+`,
+            `  ; Big comment block here`,
+            `  ; like a great code writer`,
+            `  ;-`,
+            `  b = 42`,
+            `end`,
+            ``,
+          ],
+        },
+      ],
+    },
+    {
       suiteName: `Correctly extract variables from`,
       fileName: `common.spec.ts`,
       tests: [
@@ -356,41 +391,6 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
-      suiteName: `Correctly gets docs and variables`,
-      fileName: `all-docs-work-right.spec.ts`,
-      tests: [
-        {
-          name: 'for a routine',
-          code: [
-            ``,
-            `;+`,
-            `; My procedure`,
-            `;`,
-            `; :Args:`,
-            `;  var1: in, required, any`,
-            `;    My favorite thing`,
-            `;`,
-            `; :Keywords:`,
-            `;  kw1: in, optional, type=boolean`,
-            `;    Super Cool flag`,
-            `;`,
-            `;-`,
-            `pro mypro, var1, KW1=kw1`,
-            `  compile_opt idl2`,
-            `  ;+ awesome variable with docs`,
-            `  a = 42`,
-            `  ;+`,
-            `  ; Big comment block here`,
-            `  ; like a great code writer`,
-            `  ;-`,
-            `  b = 42`,
-            `end`,
-            ``,
-          ],
-        },
-      ],
-    },
-    {
       suiteName: `With lambda functions`,
       fileName: `lambda.no-vars.spec.ts`,
       tests: [
@@ -412,6 +412,44 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
         {
           name: 'main level',
           code: [`compile_opt idl2`, `a = 5`, `mypro, a, b, c, d`, `end`],
+        },
+      ],
+    },
+    {
+      suiteName: `Verify notebook parsing`,
+      fileName: `notebook-parse.compile-opt.1.spec.ts`,
+      tests: [
+        {
+          name: 'adds compile-opt idl2 for main and gets right default type',
+          code: [`a = 42`, ``, `end`],
+          config: {
+            isNotebook: true,
+          },
+        },
+      ],
+    },
+    {
+      suiteName: `Verify notebook parsing`,
+      fileName: `notebook-parse.compile-opt.exceptions.spec.ts`,
+      tests: [
+        {
+          name: 'ignores compile opt idl2 for procedures',
+          code: [`pro myPro`, `  print, 'Hello world'`, `end`],
+          config: {
+            isNotebook: true,
+          },
+        },
+        {
+          name: 'ignores compile opt idl2 for functions',
+          code: [
+            `function myPro`,
+            `  print, 'Hello world'`,
+            `  return 42`,
+            `end`,
+          ],
+          config: {
+            isNotebook: true,
+          },
         },
       ],
     },
@@ -461,7 +499,7 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
-      suiteName: `Use docs for property types`,
+      suiteName: `Verify fast parsing ignores docs`,
       fileName: `parse-fast.ignore-docs.1.spec.ts`,
       tests: [
         {
@@ -480,6 +518,70 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
             ``,
             `  !null = {MyStruct, inherits IDL_object, prop: 1, prop2: 4}`,
             ``,
+            `end`,
+          ],
+          config: {
+            full: false,
+          },
+        },
+      ],
+    },
+    {
+      suiteName: `Verify fast parsing ignores docs`,
+      fileName: `parse-fast.ignore-docs.2.spec.ts`,
+      tests: [
+        {
+          name: `for procedures`,
+          code: [
+            `;+`,
+            `; :Arguments:`,
+            `;   arg1: in, required, envitask`,
+            `;     Placeholder docs for argument, keyword, or property`,
+            `;   arg2: in, required, idltask`,
+            `;     Placeholder docs for argument, keyword, or property`,
+            `;   arg3: in, required, ENVITask<buildmosaicraster> | ENVITask<SubsetRaster>`,
+            `;     Placeholder docs for argument, keyword, or property`,
+            `;   arg4: in, required, IDLTask<S3_Download>`,
+            `;     Placeholder docs for argument, keyword, or property`,
+            `;   arg5: in, required, ENVITask<BuildMosaicRaster | SubsetRaster>`,
+            `;     Placeholder docs for argument, keyword, or property`,
+            `;`,
+            `;-`,
+            `pro pro3, arg1, arg2, arg3, arg4, arg5, KW1 = kw1`,
+            `  compile_opt idl3`,
+            ``,
+            `end`,
+          ],
+          config: {
+            full: false,
+          },
+        },
+      ],
+    },
+    {
+      suiteName: `Verify fast parsing ignores docs`,
+      fileName: `parse-fast.ignore-docs.3.spec.ts`,
+      tests: [
+        {
+          name: `for functions`,
+          code: [
+            `;+`,
+            `; :Arguments:`,
+            `;   arg1: in, required, envitask`,
+            `;     Placeholder docs for argument, keyword, or property`,
+            `;   arg2: in, required, idltask`,
+            `;     Placeholder docs for argument, keyword, or property`,
+            `;   arg3: in, required, ENVITask<buildmosaicraster> | ENVITask<SubsetRaster>`,
+            `;     Placeholder docs for argument, keyword, or property`,
+            `;   arg4: in, required, IDLTask<S3_Download>`,
+            `;     Placeholder docs for argument, keyword, or property`,
+            `;   arg5: in, required, ENVITask<BuildMosaicRaster | SubsetRaster>`,
+            `;     Placeholder docs for argument, keyword, or property`,
+            `;`,
+            `;-`,
+            `function myfunc, arg1, arg2, arg3, arg4, arg5, KW1 = kw1`,
+            `  compile_opt idl3`,
+            `  return, 42`,
             `end`,
           ],
           config: {

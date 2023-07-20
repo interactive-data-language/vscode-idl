@@ -58,9 +58,14 @@ export async function TestsForLocalGlobalScopeAndCompile(
     const toProcess = ArrayifyCode(code);
 
     // extract our tokens from the cleaned code
-    const tokenized = await index.getParsedProCode('not-real', toProcess, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      toProcess,
+      Object.assign(
+        { postProcess: true },
+        test.config !== undefined ? test.config : {}
+      )
+    );
 
     // build our code string to insert into the automated test
     const codeStr = StringifyCode(toProcess);
@@ -84,7 +89,10 @@ export async function TestsForLocalGlobalScopeAndCompile(
     strings.push(`    // extract tokens`);
     strings.push(
       `    const tokenized = await index.getParsedProCode('not-real', code, ${JSON.stringify(
-        Object.assign({ postProcess: true }, test.config || {})
+        Object.assign(
+          { postProcess: true },
+          test.config !== undefined ? test.config : {}
+        )
       )});`
     );
     strings.push(``);

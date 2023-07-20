@@ -5,8 +5,8 @@ import { ILocalTokens } from '@idl/parsing/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
-describe(`[auto generated] Verify fast parsing ignores docs`, () => {
-  it(`[auto generated] for structures`, async () => {
+describe(`[auto generated] Verify notebook parsing`, () => {
+  it(`[auto generated] adds compile-opt idl2 for main and gets right default type`, async () => {
     // create index
     const index = new IDLIndex(
       new LogManager({
@@ -18,34 +18,41 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
     );
 
     // test code to extract tokens from
-    const code = [
-      `;+`,
-      `; :MyStruct:`,
-      `;   prop: Long`,
-      `;     Placeholder docs for argument or keyword`,
-      `;   prop2: ENVIRaster`,
-      `;     Placeholder docs for argument or keyword`,
-      `;`,
-      `;-`,
-      `pro mystruct__define`,
-      `  compile_opt idl2`,
-      ``,
-      `  !null = {MyStruct, inherits IDL_object, prop: 1, prop2: 4}`,
-      ``,
-      `end`,
-    ];
+    const code = [`a = 42`, ``, `end`];
 
     // extract tokens
     const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
-      full: false,
+      isNotebook: true,
     });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
       func: {},
-      pro: { mystruct__define: {} },
-      main: {},
+      pro: {},
+      main: {
+        a: {
+          type: 'v',
+          name: 'a',
+          pos: [0, 0, 1],
+          meta: {
+            display: 'a',
+            isDefined: true,
+            usage: [[0, 0, 1]],
+            docs: '',
+            source: 'user',
+            type: [
+              {
+                display: 'Long',
+                name: 'Long',
+                args: [],
+                meta: {},
+                value: '42',
+              },
+            ],
+          },
+        },
+      },
     };
 
     // verify results
@@ -55,19 +62,17 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
     const expectedGlobal: GlobalTokens = [
       {
         type: 'p',
-        name: 'mystruct__define',
-        pos: [8, 4, 16],
+        name: '$main$',
+        pos: [0, 0, 1],
         meta: {
-          source: 'user',
-          args: {},
-          docs: '#### mystruct__define\n\n```idl\nmystruct__define\n```\n',
+          display: '$main$',
+          docs: 'Main level program',
           docsLookup: {},
-          display: 'mystruct__define',
+          args: {},
           kws: {},
-          private: false,
+          source: 'user',
           struct: [],
         },
-        file: 'not-real',
       },
     ];
 
@@ -77,8 +82,8 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
     // define expected compile options
     const expectedCompile: ICompileOptions = {
       func: {},
-      pro: { mystruct__define: [] },
-      main: [],
+      pro: {},
+      main: ['idl2'],
     };
 
     // verify results
