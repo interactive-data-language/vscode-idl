@@ -185,11 +185,7 @@ export class IDLNotebookController {
         alert: IDL_TRANSLATION.notebooks.errors.crashed,
       });
     } else {
-      this._currentCell.execution.replaceOutput(
-        new vscode.NotebookCellOutput([
-          vscode.NotebookCellOutputItem.text(this._currentCell.output),
-        ])
-      );
+      this._appendCellOutput(IDL_TRANSLATION.debugger.adapter.failedStart);
     }
 
     // mark as failed execution
@@ -608,19 +604,11 @@ export class IDLNotebookController {
             IDL_TRANSLATION.notebooks.notifications.startingIDL
           ))
         ) {
+          execution.end(false, Date.now());
           return;
         }
-        await this.postCellExecution(false);
       } catch (err) {
         execution.end(false, Date.now());
-
-        // alert user
-        IDL_LOGGER.log({
-          type: 'error',
-          log: IDL_NOTEBOOK_LOG,
-          content: [IDL_TRANSLATION.notebooks.errors.failedStart, err],
-          alert: IDL_TRANSLATION.notebooks.errors.failedStart,
-        });
 
         // return flag
         return false;
