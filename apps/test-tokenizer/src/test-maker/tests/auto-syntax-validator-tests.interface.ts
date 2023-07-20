@@ -3928,6 +3928,28 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
+    suiteName: `Unused var exceptions when parentheses for indexing`,
+    fileName: `code.104.unused-var.exceptions2.spec.ts`,
+    tests: [
+      {
+        name: `is var`,
+        code: [`;+ my var`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `is not var`,
+        code: [`compile_opt strictarr`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `is not var`,
+        code: [`compile_opt idl2`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `is not var`,
+        code: [`compile_opt idl3`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+    ],
+  },
+  {
     suiteName: `Indexing with parentheses`,
     fileName: `code.105.illegal-var-index.spec.ts`,
     tests: [

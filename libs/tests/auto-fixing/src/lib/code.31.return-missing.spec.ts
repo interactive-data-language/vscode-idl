@@ -32,7 +32,7 @@ describe(`[auto generated] Verify we add missing return statement`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+    const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
     });
 
@@ -104,7 +104,7 @@ describe(`[auto generated] Verify we add missing return statement`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+    const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
     });
 

@@ -21,7 +21,7 @@ describe(`[auto generated] Verify function method to array for`, () => {
     const code = [`compile_opt idl2`, `a = objOrStruct.var(0 : -1)`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+    const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
     });
 

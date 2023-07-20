@@ -56,10 +56,20 @@ export async function TestForAutoFixing(
       0
     );
 
+    /**
+     * Parsing config
+     */
+    const parseConfig = Object.assign(
+      { postProcess: true },
+      test.parseConfig !== undefined ? test.parseConfig : {}
+    );
+
     // tokenize
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'my_file.pro',
+      code,
+      parseConfig
+    );
 
     // update test config
     test.config = {
@@ -88,7 +98,9 @@ export async function TestForAutoFixing(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = await index.getParsedProCode('my_file.pro', code, {postProcess: true});`
+      `    const tokenized = await index.getParsedProCode('not-real', code, ${JSON.stringify(
+        parseConfig
+      )});`
     );
     strings.push(``);
     strings.push(`    // format code`);

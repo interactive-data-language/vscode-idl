@@ -1,12 +1,11 @@
-import { Assembler } from '@idl/assembler';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
-describe(`[auto generated] Verify we correctly fix brackets for indexing`, () => {
-  it(`[auto generated] for simple case`, async () => {
+describe(`[auto generated] Unused var exceptions when parentheses for indexing`, () => {
+  it(`[auto generated] is var`, async () => {
     // create index
     const index = new IDLIndex(
       new LogManager({
@@ -25,30 +24,8 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       postProcess: true,
     });
 
-    // format code
-    const formatted = Assembler(tokenized, {
-      autoFix: true,
-      formatter: 'fiddle',
-    });
-
-    // define expected problems
-    const expectedFormatting: string[] = [
-      `;+ my var`,
-      `compile_opt idl2`,
-      `a = 5`,
-      ``,
-      `!null = a[]`,
-      ``,
-      `end`,
-    ];
-
-    // verify formatting
-    expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
-      expectedFormatting
-    );
-
-    // define expected problems
-    const expectedProblems: SyntaxProblems = [
+    // define expected tokens
+    const expected: SyntaxProblems = [
       {
         code: 38,
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
@@ -58,18 +35,18 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       {
         code: 105,
         info: 'Illegal use of parentheses for array indexing, use brackets instead. If this is a function call, add `compile_opt idl2` to the routine or main level program to delineate between the variable and function call.',
-        start: [4, 9, 1],
-        end: [4, 10, 1],
+        start: [3, 9, 1],
+        end: [3, 10, 1],
       },
     ];
 
-    // verify problems
+    // verify results
     expect(
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
-    ).toEqual(expectedProblems);
+    ).toEqual(expected);
   });
 
-  it(`[auto generated] do no change when compile opt strictarr`, async () => {
+  it(`[auto generated] is not var`, async () => {
     // create index
     const index = new IDLIndex(
       new LogManager({
@@ -95,29 +72,8 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       postProcess: true,
     });
 
-    // format code
-    const formatted = Assembler(tokenized, {
-      autoFix: true,
-      formatter: 'fiddle',
-    });
-
-    // define expected problems
-    const expectedFormatting: string[] = [
-      `compile_opt strictarr`,
-      `a = 5`,
-      ``,
-      `!null = a()`,
-      ``,
-      `end`,
-    ];
-
-    // verify formatting
-    expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
-      expectedFormatting
-    );
-
-    // define expected problems
-    const expectedProblems: SyntaxProblems = [
+    // define expected tokens
+    const expected: SyntaxProblems = [
       {
         code: 42,
         info: 'Use the "idl2" compile option instead. It is shorthand for "compile_opt defint32, strictarr".',
@@ -138,13 +94,13 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       },
     ];
 
-    // verify problems
+    // verify results
     expect(
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
-    ).toEqual(expectedProblems);
+    ).toEqual(expected);
   });
 
-  it(`[auto generated] do no change when compile opt idl2`, async () => {
+  it(`[auto generated] is not var`, async () => {
     // create index
     const index = new IDLIndex(
       new LogManager({
@@ -163,29 +119,8 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       postProcess: true,
     });
 
-    // format code
-    const formatted = Assembler(tokenized, {
-      autoFix: true,
-      formatter: 'fiddle',
-    });
-
-    // define expected problems
-    const expectedFormatting: string[] = [
-      `compile_opt idl2`,
-      `a = 5`,
-      ``,
-      `!null = a()`,
-      ``,
-      `end`,
-    ];
-
-    // verify formatting
-    expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
-      expectedFormatting
-    );
-
-    // define expected problems
-    const expectedProblems: SyntaxProblems = [
+    // define expected tokens
+    const expected: SyntaxProblems = [
       {
         code: 104,
         info: 'Unused variable "a"',
@@ -194,13 +129,13 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       },
     ];
 
-    // verify problems
+    // verify results
     expect(
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
-    ).toEqual(expectedProblems);
+    ).toEqual(expected);
   });
 
-  it(`[auto generated] do no change when compile opt idl3`, async () => {
+  it(`[auto generated] is not var`, async () => {
     // create index
     const index = new IDLIndex(
       new LogManager({
@@ -219,29 +154,8 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       postProcess: true,
     });
 
-    // format code
-    const formatted = Assembler(tokenized, {
-      autoFix: true,
-      formatter: 'fiddle',
-    });
-
-    // define expected problems
-    const expectedFormatting: string[] = [
-      `compile_opt idl3`,
-      `a = 5`,
-      ``,
-      `!null = a()`,
-      ``,
-      `end`,
-    ];
-
-    // verify formatting
-    expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
-      expectedFormatting
-    );
-
-    // define expected problems
-    const expectedProblems: SyntaxProblems = [
+    // define expected tokens
+    const expected: SyntaxProblems = [
       {
         code: 104,
         info: 'Unused variable "a"',
@@ -250,9 +164,9 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       },
     ];
 
-    // verify problems
+    // verify results
     expect(
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
-    ).toEqual(expectedProblems);
+    ).toEqual(expected);
   });
 });

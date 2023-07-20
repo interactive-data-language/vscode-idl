@@ -31,7 +31,7 @@ import { GetCompileOpts } from './get-compile-opts';
 import { GetUniqueVariables } from './get-unique-variables';
 import { MAIN_LEVEL_NAME } from './populate-global.interface';
 import { LOCAL_TOKEN_LOOKUP } from './populate-local.interface';
-import { PopulateLocalForMain } from './replace-functions-as-variables';
+import { PopulateLocalForMain } from './populate-local-for-main';
 
 /**
  * Populates a lookup with quick information for where things are defined

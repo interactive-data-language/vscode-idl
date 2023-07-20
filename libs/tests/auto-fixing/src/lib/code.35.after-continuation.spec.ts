@@ -21,7 +21,7 @@ describe(`[auto generated] Verify tokens after line continuation get removed on 
     const code = [`compile_opt idl2`, `a = $ 5 * bad ; comment`, `  5`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+    const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
     });
 

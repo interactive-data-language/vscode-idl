@@ -50,7 +50,7 @@ export interface IAutoSelectedTest extends IBaseAutoTest {
  * Tests for syntax validators
  */
 export interface ISyntaxValidatorTest extends ITokenTest {
-  /** optional configuration to specify for the assembler */
+  /** optional configuration to specify for parsing */
   config?: Partial<IIndexProCodeOptions>;
 }
 
@@ -203,6 +203,8 @@ export interface IOutlineTests extends IBaseAutoTest {
 export interface IAssemblerTest extends ITokenTest {
   /** optional configuration to specify for the assembler */
   config?: Partial<IAssemblerInputOptions<FormatterType>>;
+  /** optional configuration to specify for parsing */
+  parseConfig?: Partial<IIndexProCodeOptions>;
 }
 
 /**

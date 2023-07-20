@@ -33,6 +33,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     // extract tokens
     const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
+      isNotebook: true,
     });
 
     // format code
@@ -103,6 +104,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     // extract tokens
     const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
+      isNotebook: true,
     });
 
     // format code
@@ -163,6 +165,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     // extract tokens
     const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
+      isNotebook: true,
     });
 
     // format code
@@ -218,6 +221,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     // extract tokens
     const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
+      isNotebook: true,
     });
 
     // format code
@@ -273,6 +277,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     // extract tokens
     const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
+      isNotebook: true,
     });
 
     // format code
@@ -282,12 +287,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     });
 
     // define expected problems
-    const expectedFormatting: string[] = [
-      `; comment`,
-      `compile_opt idl2`,
-      ``,
-      `end`,
-    ];
+    const expectedFormatting: string[] = [`; comment`, ``, `end`];
 
     // verify formatting
     expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
@@ -297,16 +297,10 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     // define expected problems
     const expectedProblems: SyntaxProblems = [
       {
-        code: 38,
-        info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
-        start: [0, 0, 9],
-        end: [0, 0, 9],
-      },
-      {
         code: 34,
         info: 'Main level programs cannot be empty. IDL expects statements besides comments and "end".',
         start: [0, 0, 9],
-        end: [3, 0, 3],
+        end: [2, 0, 3],
       },
     ];
 
@@ -333,6 +327,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     // extract tokens
     const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
+      isNotebook: true,
     });
 
     // format code
@@ -342,12 +337,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     });
 
     // define expected problems
-    const expectedFormatting: string[] = [
-      `compile_opt idl2`,
-      `a = 5`,
-      ``,
-      `end`,
-    ];
+    const expectedFormatting: string[] = [`a = 5`, ``, `end`];
 
     // verify formatting
     expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
@@ -356,12 +346,6 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
 
     // define expected problems
     const expectedProblems: SyntaxProblems = [
-      {
-        code: 38,
-        info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
-        start: [1, 0, 1],
-        end: [1, 0, 1],
-      },
       {
         code: 104,
         info: 'Unused variable "a"',
@@ -393,6 +377,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     // extract tokens
     const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
+      isNotebook: true,
     });
 
     // format code
@@ -402,14 +387,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     });
 
     // define expected problems
-    const expectedFormatting: string[] = [
-      `; comment`,
-      `compile_opt idl2`,
-      ``,
-      `a = 42`,
-      ``,
-      `end`,
-    ];
+    const expectedFormatting: string[] = [`; comment`, ``, `a = 42`, ``, `end`];
 
     // verify formatting
     expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
@@ -418,12 +396,6 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
 
     // define expected problems
     const expectedProblems: SyntaxProblems = [
-      {
-        code: 38,
-        info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
-        start: [1, 0, 9],
-        end: [1, 0, 9],
-      },
       {
         code: 104,
         info: 'Unused variable "a"',
@@ -455,6 +427,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     // extract tokens
     const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
+      isNotebook: true,
     });
 
     // format code
@@ -464,14 +437,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     });
 
     // define expected problems
-    const expectedFormatting: string[] = [
-      `; comment`,
-      `compile_opt idl2`,
-      ``,
-      `a = 42`,
-      ``,
-      `end`,
-    ];
+    const expectedFormatting: string[] = [`; comment`, ``, `a = 42`, ``, `end`];
 
     // verify formatting
     expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
@@ -480,12 +446,6 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
 
     // define expected problems
     const expectedProblems: SyntaxProblems = [
-      {
-        code: 38,
-        info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
-        start: [1, 0, 9],
-        end: [1, 0, 9],
-      },
       {
         code: 104,
         info: 'Unused variable "a"',
@@ -524,6 +484,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     // extract tokens
     const tokenized = await index.getParsedProCode('not-real', code, {
       postProcess: true,
+      isNotebook: true,
     });
 
     // format code
