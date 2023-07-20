@@ -1,13 +1,19 @@
-import { NotebookDocument } from 'vscode-languageserver';
+import { deepEqual } from 'fast-equals';
+import { NotebookCellKind, NotebookDocument } from 'vscode-languageserver';
+
+import { NOTEBOOK_MANAGER } from '../file-management/notebooks/initialize-notebook-manager';
 
 /**
  * Last version of notebook file
  */
-const VERSION_CACHE: { [key: string]: number } = {};
+const VERSION_CACHE: { [key: string]: number[] } = {};
 
 /**
  * Given a notebook document, does it match the latest version and we
  * exclude from processing?
+ *
+ * Compared to text documents, we use the versions from code cells which
+ * dont care about outputs
  *
  * Returns true if the cache is the same, otherwise the file has changed
  * and should be processed.
@@ -18,13 +24,22 @@ export function NotebookCacheValid(notebook: NotebookDocument) {
    */
   let isValid = false;
 
+  /**
+   * Get the versions of all code cells
+   */
+  const cellVersions = notebook.cells
+    .filter((cell) => cell.kind === NotebookCellKind.Code)
+    .map(
+      (cell) => NOTEBOOK_MANAGER.cellTextDocuments.get(cell.document).version
+    );
+
   // check if we have tracked already
   if (notebook.uri in VERSION_CACHE) {
-    isValid = VERSION_CACHE[notebook.uri] === notebook.version;
+    isValid = deepEqual(VERSION_CACHE[notebook.uri], cellVersions);
   }
 
   // save latest version
-  VERSION_CACHE[notebook.uri] = notebook.version;
+  VERSION_CACHE[notebook.uri] = cellVersions;
 
   // return flag
   return isValid;
