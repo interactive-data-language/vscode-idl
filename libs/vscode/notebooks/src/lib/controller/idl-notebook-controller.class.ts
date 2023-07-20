@@ -549,7 +549,7 @@ export class IDLNotebookController {
         if (!this.isLaunched()) {
           // emit event that we failed to start - handled status bar update
           this._IDLCrashed('failed-start');
-          rej('Failed start');
+          res(false);
         }
       });
     });
