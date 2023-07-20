@@ -429,6 +429,9 @@ export class IDLNotebookController {
       `!magic.embed = ${
         IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
       }`,
+      `defsysv, '!super_magic', exists=_exists`,
+      `if ~_exists then defsysv, '!super_magic', orderedhash()`,
+      `delvar, _exists`,
     ];
 
     // set compile opt and be quiet
