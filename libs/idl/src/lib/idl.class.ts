@@ -558,6 +558,9 @@ export class IDL extends EventEmitter {
     command: string,
     options: IDLEvaluateOptions = {}
   ): Promise<string> {
+    if (!this.started) {
+      throw new Error('IDL is not started');
+    }
     if ('echo' in options ? options.echo : false) {
       this.emit(
         IDL_EVENT_LOOKUP.OUTPUT,

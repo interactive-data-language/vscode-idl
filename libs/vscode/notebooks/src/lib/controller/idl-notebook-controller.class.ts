@@ -14,6 +14,7 @@ import {
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
   IDL_NOTEBOOK_NAME,
+  Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER, VSCODE_PRO_DIR } from '@idl/vscode/client';
@@ -234,12 +235,7 @@ export class IDLNotebookController {
       return;
     }
 
-    await this._runtime.evaluate(`retall`, {
-      echo: false,
-      idlInfo: false,
-      cut: false,
-      silent: false,
-    });
+    await this.evaluate(`retall`);
 
     // update magic based on preference
     magic = magic && IDL_EXTENSION_CONFIG.notebooks.embedGraphics;
@@ -267,9 +263,7 @@ export class IDLNotebookController {
     /**
      * Clean things up and get our !magic system variable
      */
-    const rawMagic = CleanIDLOutput(
-      await this._runtime.evaluate(commands.join(' & '))
-    );
+    const rawMagic = CleanIDLOutput(await this.evaluate(commands.join(' & ')));
 
     // check if we need to look for magic
     if (magic && cell !== undefined) {
@@ -284,7 +278,7 @@ export class IDLNotebookController {
          */
         const superMagic: { [key: string]: BangMagic } = JSON.parse(
           CleanIDLOutput(
-            await this._runtime.evaluate(
+            await this.evaluate(
               `print, json_serialize(!super_magic) & !super_magic.remove, /all`
             )
           )
@@ -315,7 +309,7 @@ export class IDLNotebookController {
             /**
              * Retrieve our encoded graphic and clear window reference
              */
-            const encoded = await this._runtime.evaluate(
+            const encoded = await this.evaluate(
               `EncodeGraphic(${fullMagic.window}, ${fullMagic.type}) & !magic.window = -1`
             );
 
@@ -383,29 +377,27 @@ export class IDLNotebookController {
      * Wrap in try/catch so we don't have to worry about unhandled promise exceptions
      */
     try {
-      if (cell !== undefined) {
-        if (!cell.finished) {
-          // update flag we are finished to hide outputs
-          cell.finished = true;
+      if (!cell.finished) {
+        // update flag we are finished to hide outputs
+        cell.finished = true;
 
-          // update success state
-          cell.success = success;
+        // update success state
+        cell.success = success;
 
-          /**
-           * Do post-cell work, change behavior on success (i.e. try to fetch magic).
-           *
-           * Only run this if launched. If not launched we hang forever, for some reason
-           */
-          if (postExecute && this.launched) {
-            await this.postCellExecution(success, cell);
-          }
-
-          // mark as completed
-          cell.execution.end(success, Date.now());
-
-          // update flag
-          ended = true;
+        /**
+         * Do post-cell work, change behavior on success (i.e. try to fetch magic).
+         *
+         * Only run this if launched. If not launched we hang forever, for some reason
+         */
+        if (postExecute && this.launched) {
+          await this.postCellExecution(success, cell);
         }
+
+        // mark as completed
+        cell.execution.end(success, Date.now());
+
+        // update flag
+        ended = true;
       }
     } catch (err) {
       if (!ended && cell !== undefined) {
@@ -440,7 +432,7 @@ export class IDLNotebookController {
     ];
 
     // set compile opt and be quiet
-    await this._runtime.evaluate(compile.join(' & '));
+    await this.evaluate(compile.join(' & '));
 
     // see if we need to resolve more
     if (IDL_EXTENSION_CONFIG.notebooks.embedGraphics) {
@@ -450,7 +442,7 @@ export class IDLNotebookController {
       //   `graphic__define`,
       //   `graphic__refresh`,
       // ]
-      // await this._runtime.evaluate(
+      // await this.evaluate(
       //   [
       //     `.compile idlittool__define`,
       //     `'${VSCODE_PRO_DIR}/idlititool__refreshcurrentview.pro'`,
@@ -458,14 +450,12 @@ export class IDLNotebookController {
       //     `'${VSCODE_PRO_DIR}/graphic__refresh.pro'`,
       //   ].join(' ')
       // );
-      await this._runtime.evaluate('.compile idlittool__define');
-      await this._runtime.evaluate(
+      await this.evaluate('.compile idlittool__define');
+      await this.evaluate(
         `.compile '${VSCODE_PRO_DIR}/idlititool__refreshcurrentview.pro'`
       );
-      await this._runtime.evaluate('.compile graphic__define');
-      await this._runtime.evaluate(
-        `.compile '${VSCODE_PRO_DIR}/graphic__refresh.pro'`
-      );
+      await this.evaluate('.compile graphic__define');
+      await this.evaluate(`.compile '${VSCODE_PRO_DIR}/graphic__refresh.pro'`);
     }
   }
 
@@ -552,23 +542,6 @@ export class IDLNotebookController {
     this.launched = false;
     this._runtime.stop();
     this._controller.dispose();
-  }
-
-  /**
-   * Stop kernel execution
-   */
-  async stop() {
-    // update flag
-    this.launched = false;
-
-    // alert that execution has stopped
-    if (this._currentCell) {
-      await this._endCellExecution(false, false);
-      this._currentCell = undefined;
-    }
-
-    // stop IDL
-    this._runtime.stop();
   }
 
   /**
@@ -733,17 +706,6 @@ export class IDLNotebookController {
   }
 
   /**
-   * Reset our IDL session
-   */
-  async reset() {
-    // set compile opt and be quiet
-    await this._runtime.evaluate(`.reset`);
-
-    // post reset
-    await this._postLaunchAndReset();
-  }
-
-  /**
    * If IDL has started, evaluates a command in IDL
    *
    * You should check the "launched" property before calling this
@@ -760,5 +722,41 @@ export class IDLNotebookController {
       cut: false,
       silent: false,
     });
+  }
+
+  /**
+   * Reset our IDL session
+   */
+  async reset() {
+    if (!this.launched) {
+      return;
+    }
+
+    // stop
+    await this.stop();
+
+    // short pause, otherwise we fail to start and get in a weird state
+    await Sleep(100);
+
+    // launch IDL again
+    await this._launchIDL();
+  }
+
+  /**
+   * Stop kernel execution
+   */
+  async stop() {
+    if (!this.launched) {
+      return;
+    }
+
+    // update flag
+    this.launched = false;
+
+    // alert that execution has stopped
+    await this._endCellExecution(false, false);
+
+    // stop IDL
+    this._runtime.stop();
   }
 }

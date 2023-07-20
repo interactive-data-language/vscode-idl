@@ -78,7 +78,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           //   alert: IDL_TRANSLATION.notebooks.notifications.stoppingIDL,
           // });
 
-          IDL_NOTEBOOK_CONTROLLER.stop();
+          await IDL_NOTEBOOK_CONTROLLER.stop();
         } else {
           IDL_LOGGER.log({
             type: 'info',
