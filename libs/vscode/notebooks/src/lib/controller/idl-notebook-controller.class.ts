@@ -479,7 +479,7 @@ export class IDLNotebookController {
   /**
    * Launches IDL for a notebooks session
    */
-  private async _launchIDL(): Promise<boolean> {
+  private async _launchIDL(notification = true): Promise<boolean> {
     // verify that we have the right info, otherwise alert, terminate, and return
     if (IDL_EXTENSION_CONFIG.IDL.directory === '') {
       IDL_LOGGER.log({
@@ -547,6 +547,20 @@ export class IDLNotebookController {
 
     // start IDL
     this._runtime.start(config);
+
+    // show startup progress
+    if (notification) {
+      vscode.window.withProgress(
+        {
+          location: vscode.ProgressLocation.Notification,
+          cancellable: false,
+          title: IDL_TRANSLATION.notebooks.notifications.startingIDL,
+        },
+        () => {
+          return launchPromise;
+        }
+      );
+    }
 
     // return a prom
     return launchPromise;
@@ -755,8 +769,8 @@ export class IDLNotebookController {
     // short pause, otherwise we fail to start and get in a weird state
     await Sleep(100);
 
-    // launch IDL again
-    await this._launchIDL();
+    // launch IDL again without the notification
+    await this._launchIDL(false);
   }
 
   /**

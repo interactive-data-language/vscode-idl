@@ -27,17 +27,23 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
 
         // make sure we have launched IDL
         if (IDL_NOTEBOOK_CONTROLLER.launched) {
-          // alert user since we dont have debug console
-          // IDL_LOGGER.log({
-          //   type: 'info',
-          //   log: IDL_NOTEBOOK_LOG,
-          //   content:
-          //     IDL_TRANSLATION.notebooks.notifications.resettingIDL +
-          //     ' (notebook)',
-          //   alert: IDL_TRANSLATION.notebooks.notifications.resettingIDL,
-          // });
+          // trigger reset and create promise
+          const prom = IDL_NOTEBOOK_CONTROLLER.reset();
 
-          await IDL_NOTEBOOK_CONTROLLER.reset();
+          // show startup progress
+          vscode.window.withProgress(
+            {
+              location: vscode.ProgressLocation.Notification,
+              cancellable: false,
+              title: IDL_TRANSLATION.notebooks.notifications.resettingIDL,
+            },
+            () => {
+              return prom;
+            }
+          );
+
+          // wait for finish
+          await prom;
         } else {
           IDL_LOGGER.log({
             type: 'info',
@@ -68,17 +74,23 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
 
         // check if launched
         if (IDL_NOTEBOOK_CONTROLLER.launched) {
-          // alert user since we dont have debug console
-          // IDL_LOGGER.log({
-          //   type: 'info',
-          //   log: IDL_NOTEBOOK_LOG,
-          //   content:
-          //     IDL_TRANSLATION.notebooks.notifications.stoppingIDL +
-          //     ' (notebook)',
-          //   alert: IDL_TRANSLATION.notebooks.notifications.stoppingIDL,
-          // });
+          // trigger reset and create promise
+          const prom = IDL_NOTEBOOK_CONTROLLER.stop();
 
-          await IDL_NOTEBOOK_CONTROLLER.stop();
+          // show startup progress
+          vscode.window.withProgress(
+            {
+              location: vscode.ProgressLocation.Notification,
+              cancellable: false,
+              title: IDL_TRANSLATION.notebooks.notifications.stoppingIDL,
+            },
+            () => {
+              return prom;
+            }
+          );
+
+          // wait for finish
+          await prom;
         } else {
           IDL_LOGGER.log({
             type: 'info',
