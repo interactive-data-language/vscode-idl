@@ -4,6 +4,7 @@ export * from './lib/idl-command-action.interface';
 export * from './lib/open-file-in-vscode';
 export * from './lib/open-markdown-preview';
 export * from './lib/variables-reference-subsitution';
-export * from './lib/variables-reference-subsitution.interface';
+export * from './lib/variables-reference-substitution';
+export * from './lib/variables-reference-substitution.interface';
 export * from './lib/vscode-commands.interface';
 export * from './lib/vscode-telemetry-logger';
