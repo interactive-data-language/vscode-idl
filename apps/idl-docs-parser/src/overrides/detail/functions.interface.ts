@@ -972,6 +972,23 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       ...THREAD_POOL_KEYWORDS,
     },
   },
+  map_proj_init: {
+    args: {},
+    kws: {
+      center_azimuth: {
+        direction: 'in',
+        type: ParseIDLType('number'),
+      },
+      center_latitude: {
+        direction: 'in',
+        type: ParseIDLType('number'),
+      },
+      center_longitude: {
+        direction: 'in',
+        type: ParseIDLType('number'),
+      },
+    },
+  },
   max: {
     returns: IDL_NUMBER_TYPE,
     args: {
