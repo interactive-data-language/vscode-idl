@@ -30,7 +30,8 @@ export function NotebookCacheValid(notebook: NotebookDocument) {
   const cellVersions = notebook.cells
     .filter((cell) => cell.kind === NotebookCellKind.Code)
     .map(
-      (cell) => NOTEBOOK_MANAGER.cellTextDocuments.get(cell.document).version
+      (cell) =>
+        NOTEBOOK_MANAGER.cellTextDocuments.get(cell.document)?.version || -1
     );
 
   // check if we have tracked already
