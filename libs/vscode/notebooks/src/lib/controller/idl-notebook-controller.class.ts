@@ -434,8 +434,11 @@ export class IDLNotebookController {
       `delvar, _exists`,
     ];
 
+    // capture outputs from all commands
+    const outputs: string[] = [];
+
     // set compile opt and be quiet
-    await this.evaluate(compile.join(' & '));
+    outputs.push(await this.evaluate(compile.join(' & ')));
 
     // see if we need to resolve more
     if (IDL_EXTENSION_CONFIG.notebooks.embedGraphics) {
@@ -453,13 +456,24 @@ export class IDLNotebookController {
       //     `'${VSCODE_PRO_DIR}/graphic__refresh.pro'`,
       //   ].join(' ')
       // );
-      await this.evaluate('.compile idlittool__define');
-      await this.evaluate(
-        `.compile '${VSCODE_PRO_DIR}/idlititool__refreshcurrentview.pro'`
+      outputs.push(await this.evaluate('.compile idlittool__define'));
+      outputs.push(
+        await this.evaluate(
+          `.compile '${VSCODE_PRO_DIR}/idlititool__refreshcurrentview.pro'`
+        )
       );
-      await this.evaluate('.compile graphic__define');
-      await this.evaluate(`.compile '${VSCODE_PRO_DIR}/graphic__refresh.pro'`);
+      outputs.push(await this.evaluate('.compile graphic__define'));
+      outputs.push(
+        await this.evaluate(`.compile '${VSCODE_PRO_DIR}/graphic__refresh.pro'`)
+      );
     }
+
+    // log output for easy debugging
+    IDL_LOGGER.log({
+      log: IDL_NOTEBOOK_LOG,
+      type: 'info',
+      content: [`IDL post-launch and reset output (should be empty)`, outputs],
+    });
   }
 
   /**
