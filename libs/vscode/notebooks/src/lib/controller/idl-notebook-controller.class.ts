@@ -73,9 +73,6 @@ export class IDLNotebookController {
   /** Are we listening to events from IDL or not? */
   private listening = false;
 
-  /** track the last requested scope */
-  private lastFrameId = 0;
-
   /** Reference to our IDL class, manages process and input/output */
   readonly _runtime: IDL;
 
@@ -83,11 +80,6 @@ export class IDLNotebookController {
    * The current cell that we are executing
    */
   private _currentCell?: ICurrentCell;
-
-  /**
-   * ID for our graphic
-   */
-  private _graphicid = '__IDLGRAPHICPLACEHOLDER__';
 
   constructor() {
     // create our runtime session - does not immediately start IDL
@@ -282,40 +274,72 @@ export class IDLNotebookController {
     // check if we need to look for magic
     if (magic && cell !== undefined) {
       try {
+        // /**
+        //  * Parse our magic
+        //  */
+        // const magics: BangMagic[] = [JSON.parse(rawMagic)];
+
         /**
-         * Parse our magic
+         * Get additional windows
          */
-        const fullMagic: BangMagic = JSON.parse(rawMagic);
+        const superMagic: { [key: string]: BangMagic } = JSON.parse(
+          CleanIDLOutput(
+            await this._runtime.evaluate(
+              `print, json_serialize(!super_magic) & !super_magic.remove, /all`
+            )
+          )
+        );
 
-        // check if we have a window
-        if (fullMagic.window !== -1) {
-          /**
-           * Retrieve our encoded graphic and clear window reference
-           */
-          const encoded = await this._runtime.evaluate(
-            `EncodeGraphic(${fullMagic.window}, ${fullMagic.type}) & !magic.window = -1`
-          );
+        /**
+         * Get original magic value
+         */
+        const bangMagic: BangMagic = JSON.parse(rawMagic);
 
-          /**
-           * Styles for the element to fil the space, but not exceed 1:1 dimensions
-           */
-          const style = `style="width:100%;height:100%;max-width:${fullMagic.xsize}px;max-height:${fullMagic.ysize}px;"`;
+        // add if it doesnt exist
+        if (!(bangMagic.window in superMagic)) {
+          superMagic[bangMagic.window] = bangMagic;
+        }
 
-          // add as output
-          cell.execution.appendOutput(
-            new vscode.NotebookCellOutput([
-              /**
-               * Use HTML because it works. Using the other mimetype *probably* works
-               * but this works right now :)
-               */
-              new vscode.NotebookCellOutputItem(
-                Buffer.from(
-                  `<img src="data:image/png;base64,${encoded}" ${style}/>`
+        /**
+         * Get all of the graphics
+         */
+        const magics = Object.values(superMagic);
+
+        // process each magic
+        for (let i = 0; i < magics.length; i++) {
+          // get full magic
+          const fullMagic = magics[i];
+
+          // check if we have a window
+          if (fullMagic.window !== -1) {
+            /**
+             * Retrieve our encoded graphic and clear window reference
+             */
+            const encoded = await this._runtime.evaluate(
+              `EncodeGraphic(${fullMagic.window}, ${fullMagic.type}) & !magic.window = -1`
+            );
+
+            /**
+             * Styles for the element to fil the space, but not exceed 1:1 dimensions
+             */
+            const style = `style="width:100%;height:100%;max-width:${fullMagic.xsize}px;max-height:${fullMagic.ysize}px;"`;
+
+            // add as output
+            cell.execution.appendOutput(
+              new vscode.NotebookCellOutput([
+                /**
+                 * Use HTML because it works. Using the other mimetype *probably* works
+                 * but this works right now :)
+                 */
+                new vscode.NotebookCellOutputItem(
+                  Buffer.from(
+                    `<img src="data:image/png;base64,${encoded}" ${style}/>`
+                  ),
+                  'text/html'
                 ),
-                'text/html'
-              ),
-            ])
-          );
+              ])
+            );
+          }
         }
       } catch (err) {
         // alert user
@@ -397,6 +421,55 @@ export class IDLNotebookController {
   }
 
   /**
+   * After launch and reset, commands we execute
+   */
+  private async _postLaunchAndReset() {
+    if (!this.launched) {
+      return;
+    }
+
+    /**
+     * Compile statements when we startup
+     */
+    const compile = [
+      `compile_opt idl2`,
+      `!quiet = 1`,
+      `!magic.embed = ${
+        IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
+      }`,
+    ];
+
+    // set compile opt and be quiet
+    await this._runtime.evaluate(compile.join(' & '));
+
+    // see if we need to resolve more
+    if (IDL_EXTENSION_CONFIG.notebooks.embedGraphics) {
+      // [
+      //   `.compile idlittool__define`,
+      //   `idlititool__refreshcurrentview`,
+      //   `graphic__define`,
+      //   `graphic__refresh`,
+      // ]
+      // await this._runtime.evaluate(
+      //   [
+      //     `.compile idlittool__define`,
+      //     `'${VSCODE_PRO_DIR}/idlititool__refreshcurrentview.pro'`,
+      //     `graphic__define`,
+      //     `'${VSCODE_PRO_DIR}/graphic__refresh.pro'`,
+      //   ].join(' ')
+      // );
+      await this._runtime.evaluate('.compile idlittool__define');
+      await this._runtime.evaluate(
+        `.compile '${VSCODE_PRO_DIR}/idlititool__refreshcurrentview.pro'`
+      );
+      await this._runtime.evaluate('.compile graphic__define');
+      await this._runtime.evaluate(
+        `.compile '${VSCODE_PRO_DIR}/graphic__refresh.pro'`
+      );
+    }
+  }
+
+  /**
    * Launches IDL for a notebooks session
    */
   private async _launchIDL(): Promise<boolean> {
@@ -445,17 +518,8 @@ export class IDLNotebookController {
         // update flag that we started
         this.launched = true;
 
-        /**
-         * Embed command for !magic
-         */
-        const embed = `!magic.embed = ${
-          IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
-        }`;
-
-        // set compile opt and be quiet
-        await this._runtime.evaluate(
-          `compile_opt idl2 & !quiet = 1 & ${embed}`
-        );
+        // set everything up
+        await this._postLaunchAndReset();
 
         // resolve promise
         res(true);
@@ -672,17 +736,11 @@ export class IDLNotebookController {
    * Reset our IDL session
    */
   async reset() {
-    /**
-     * Embed command for !magic
-     */
-    const embed = `!magic.embed = ${
-      IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
-    }`;
-
     // set compile opt and be quiet
-    await this._runtime.evaluate(
-      `.reset & compile_opt idl2 & !quiet = 1 & ${embed}`
-    );
+    await this._runtime.evaluate(`.reset`);
+
+    // post reset
+    await this._postLaunchAndReset();
   }
 
   /**
