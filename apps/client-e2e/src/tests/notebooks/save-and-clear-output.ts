@@ -40,4 +40,7 @@ export const SaveAndClearNotebook: RunnerFunction = async (init) => {
 
   // save to disk
   await nbAfter.save();
+
+  // clear any existing outputs
+  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 };
