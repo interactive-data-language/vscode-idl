@@ -143,7 +143,7 @@ export async function TestsForAssembler(
     strings.push('');
     strings.push('      // parse formatted code');
     strings.push(
-      `      const reParsed = await index.getParsedProCode('my_file.pro', formatted, true);`
+      `      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {postProcess: true});`
     );
     strings.push('');
     strings.push(
