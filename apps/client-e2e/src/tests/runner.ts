@@ -1,5 +1,6 @@
 import { Logger } from '@idl/logger';
 
+import { DEBUGGING_RUNNER } from './debugging/_debugging-runner';
 import { NOTEBOOK_RUNNER } from './notebooks/_notebook-runner';
 import { Runner } from './runner.class';
 

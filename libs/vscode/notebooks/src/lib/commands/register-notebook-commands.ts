@@ -26,24 +26,8 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         });
 
         // make sure we have launched IDL
-        if (IDL_NOTEBOOK_CONTROLLER.launched) {
-          // trigger reset and create promise
-          const prom = IDL_NOTEBOOK_CONTROLLER.reset();
-
-          // show startup progress
-          vscode.window.withProgress(
-            {
-              location: vscode.ProgressLocation.Notification,
-              cancellable: false,
-              title: IDL_TRANSLATION.notebooks.notifications.resettingIDL,
-            },
-            () => {
-              return prom;
-            }
-          );
-
-          // wait for finish
-          await prom;
+        if (IDL_NOTEBOOK_CONTROLLER.isLaunched()) {
+          await IDL_NOTEBOOK_CONTROLLER.reset();
         } else {
           IDL_LOGGER.log({
             type: 'info',
@@ -73,7 +57,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         });
 
         // check if launched
-        if (IDL_NOTEBOOK_CONTROLLER.launched) {
+        if (IDL_NOTEBOOK_CONTROLLER.isLaunched()) {
           // trigger reset and create promise
           const prom = IDL_NOTEBOOK_CONTROLLER.stop();
 

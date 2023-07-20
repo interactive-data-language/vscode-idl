@@ -39,7 +39,7 @@ export async function activate(
   InitializeWebView(ctx);
 
   // add notebooks
-  InitializeNotebooks(ctx);
+  const notebooks = InitializeNotebooks(ctx);
 
   // add our ENVI file opener
   InitializeENVIOpener(ctx);
@@ -51,6 +51,7 @@ export async function activate(
   return {
     client,
     debug,
+    notebooks,
   };
 }
 

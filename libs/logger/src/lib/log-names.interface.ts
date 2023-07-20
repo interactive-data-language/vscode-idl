@@ -31,7 +31,12 @@ export const IDL_TREE_CLICK_HANDLER_LOG = 'idl-tree-click-handler';
 /**
  * Log for debugging
  */
-export const IDL_DEBUG_LOG = 'idl-debug';
+export const IDL_DEBUG_LOG = 'debug-idl';
+
+/**
+ * Log for debugging in notebooks
+ */
+export const IDL_DEBUG_NOTEBOOK_LOG = 'notebook-idl';
 
 /**
  * Log for the debug adapter
@@ -82,6 +87,7 @@ export const ALL_IDL_LOGS = [
   IDL_TREE_LOG,
   IDL_TREE_CLICK_HANDLER_LOG,
   IDL_DEBUG_LOG,
+  IDL_DEBUG_NOTEBOOK_LOG,
   IDL_DEBUG_ADAPTER_LOG,
   IDL_DEBUG_CONFIGURATION_LOG,
   IDL_NOTEBOOK_LOG,

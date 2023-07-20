@@ -1,5 +1,6 @@
 import { GetExtensionPath, Sleep } from '@idl/shared';
 import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
+import expect from 'expect';
 import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
@@ -125,6 +126,9 @@ export const RunTestNotebook: RunnerFunction = async (init) => {
 
   // run all cells
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
+
+  // make sure launched
+  expect(init.notebooks.controller.isLaunched()).toBeTruthy();
 
   // short pause
   await Sleep(100);

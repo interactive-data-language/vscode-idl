@@ -1,6 +1,8 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
+import { RunNotebookRestart } from './notebook-restart';
+import { RunNotebookStop } from './notebook-stop';
 import { RunTestNotebook } from './run-test-notebook';
 import { SaveAndClearNotebook } from './save-and-clear-output';
 
@@ -28,5 +30,17 @@ NOTEBOOK_RUNNER.addTest({
 NOTEBOOK_RUNNER.addTest({
   name: 'Save output and reload',
   fn: SaveAndClearNotebook,
+  critical: true,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Stop does the right thing',
+  fn: RunNotebookStop,
+  critical: true,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Reset does the right thing',
+  fn: RunNotebookRestart,
   critical: true,
 });

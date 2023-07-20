@@ -82,7 +82,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   prompt: string;
 
   /** Reference to our IDL class, manages process and input/output */
-  private readonly _runtime: IDL;
+  private _runtime: IDL;
 
   /** Event to fire when our configuration has been completed, from VSCode example */
   private readonly _configurationDone = new Subject();
@@ -632,6 +632,18 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
       // log that our session has started
       LogSessionStart();
+
+      // stop listening if we are
+      if (this.listening) {
+        this._runtime.removeAllListeners();
+        this.listening = false;
+      }
+
+      // create new instance of runtime
+      this._runtime = new IDL(IDL_LOGGER.getLog(IDL_DEBUG_LOG), VSCODE_PRO_DIR);
+
+      // listen to events
+      this.listenToEvents();
 
       // start our runtime session
       this._runtime.start(this.lastLaunchArgs);

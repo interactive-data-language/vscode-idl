@@ -5,6 +5,7 @@ import * as vscode from 'vscode';
 
 import { RegisterNotebookCommands } from './commands/register-notebook-commands';
 import { IDLNotebookController } from './controller/idl-notebook-controller.class';
+import { IInitializeNotebooks } from './initialize-notebooks.interface';
 import { RegisterNotebookCompletionProvider } from './providers/register-notebook-completion-provider';
 import { RegisterNotebookDefinitionProvider } from './providers/register-notebook-definition-provider';
 import { RegisterNotebookHoverProvider } from './providers/register-notebook-hover-provider';
@@ -23,7 +24,9 @@ export const IDL_NOTEBOOK_CONTROLLER = new IDLNotebookController();
 /**
  * Initializes our tree views
  */
-export function InitializeNotebooks(ctx: ExtensionContext) {
+export function InitializeNotebooks(
+  ctx: ExtensionContext
+): IInitializeNotebooks {
   IDL_LOGGER.log({
     content: 'Registering notebook serializer and controller',
   });
@@ -42,4 +45,9 @@ export function InitializeNotebooks(ctx: ExtensionContext) {
 
   // register notebook commands
   RegisterNotebookCommands(ctx);
+
+  return {
+    controller: IDL_NOTEBOOK_CONTROLLER,
+    serializer: IDL_NOTEBOOK_SERIALIZER,
+  };
 }
