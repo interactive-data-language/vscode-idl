@@ -3,7 +3,7 @@ import { IDLIndex } from '@idl/parsing/index';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { ITokenTest } from '../tests.interface';
+import { ISyntaxValidatorTest } from '../tests.interface';
 import { ArrayifyCode } from './arrayify-code';
 import { StringifyCode } from './stringify-code';
 
@@ -15,7 +15,7 @@ import { StringifyCode } from './stringify-code';
  */
 export async function TestsForSyntaxValidators(
   name: string,
-  tests: ITokenTest[],
+  tests: ISyntaxValidatorTest[],
   uri = join(process.cwd(), 'tokens.ts')
 ) {
   // track our strings
@@ -54,10 +54,20 @@ export async function TestsForSyntaxValidators(
     // get the code to process
     const toProcess = ArrayifyCode(code);
 
+    /**
+     * Parsing config
+     */
+    const parseConfig = Object.assign(
+      { postProcess: true },
+      test.config !== undefined ? test.config : {}
+    );
+
     // extract our tokens from the cleaned code
-    const tokenized = await index.getParsedProCode('not-real', toProcess, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      toProcess,
+      parseConfig
+    );
 
     // build our code string to insert into the automated test
     const codeStr = StringifyCode(toProcess);
@@ -79,7 +89,9 @@ export async function TestsForSyntaxValidators(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = await index.getParsedProCode('not-real', code, {postProcess: true});`
+      `    const tokenized = await index.getParsedProCode('not-real', code, ${JSON.stringify(
+        parseConfig
+      )});`
     );
     strings.push(``);
 

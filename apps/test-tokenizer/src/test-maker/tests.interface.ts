@@ -47,6 +47,22 @@ export interface IAutoSelectedTest extends IBaseAutoTest {
 }
 
 /**
+ * Tests for syntax validators
+ */
+export interface ISyntaxValidatorTest extends ITokenTest {
+  /** optional configuration to specify for the assembler */
+  config?: Partial<IIndexProCodeOptions>;
+}
+
+/**
+ * Data structure for automated syntax validator tests
+ */
+export interface IAutoSyntaxValidatorTest extends IBaseAutoTest {
+  /** Tests to generate */
+  tests: ISyntaxValidatorTest[];
+}
+
+/**
  * Tests for assembler
  */
 export interface ILocalGlobalScopeCompileTest extends ITokenTest {
