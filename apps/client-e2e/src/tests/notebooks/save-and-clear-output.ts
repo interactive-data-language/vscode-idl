@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
 import { CompareCells } from './helpers/compare-cells';
+import { VerifyEmpty } from './helpers/verify-empty';
 import { CELL_OUTPUT } from './run-test-notebook';
 
 /**
@@ -37,6 +38,9 @@ export const SaveAndClearNotebook: RunnerFunction = async (init) => {
 
   // clear any existing outputs
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
+
+  // verify that our cells are empty
+  VerifyEmpty(nbAfter);
 
   // save to disk
   await nbAfter.save();
