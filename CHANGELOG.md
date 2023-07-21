@@ -38,6 +38,10 @@ On startup, a new log statement prints to show the state of garbage collection: 
 
 Improved the on-enter commands that automatically continue comment blocks as you type within them. They were close, but not quite there are some rules conflicted with one another so they didn't work right.
 
+Fixed a major performance issue when doing a quick parse of PRO code. For almost 8000 files on a developer machine, we went from 13 seconds down to 3 with a parse rate of ~700k lines/second!
+
+For quick parsing, we now also extract docs for your code to give a better hover help and auto-complete user experience with a low impact to performance.
+
 ## 3.0.6 - July 2023
 
 Improved message when language server crashes and a button that opens documentation for workarounds for the memory problem

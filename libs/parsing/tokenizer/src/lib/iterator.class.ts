@@ -88,7 +88,7 @@ export class Iterator {
           startIdx = i;
         } else {
           // check for comment
-          if (COMMENT_ONLY_TEST.test(this.split[i]) && this.full) {
+          if (COMMENT_ONLY_TEST.test(this.split[i])) {
             // const match = Match(this.split[i], COMMENT.start, true);
             const match = COMMENT.match.exec(this.split[i]);
             if (match !== null) {
@@ -350,7 +350,7 @@ export class Iterator {
         break;
       } else {
         // check for comment-only on our line
-        if (this.full && COMMENT_ONLY_TEST.test(this.split[i])) {
+        if (COMMENT_ONLY_TEST.test(this.split[i])) {
           const match = COMMENT.match.exec(this.split[i]);
           if (match !== null) {
             const basic: IBasicToken<CommentToken> = {
