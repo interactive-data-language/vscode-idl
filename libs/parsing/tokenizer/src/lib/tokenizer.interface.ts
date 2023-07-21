@@ -3,6 +3,7 @@ import { PositionArray } from '@idl/parsing/tokenizer-types';
 import { TokenStartMatches } from './token-matches.interface';
 import { ITokenDef, TOKEN_NAMES, TokenName } from './tokens.interface';
 import { ALL_TOKENS, DEFAULT_TOKENS } from './tokens/def-groups.interface';
+import { COMMENT_BLOCK } from './tokens/defs/comment.interface';
 import { ROUTINE_DEF } from './tokens/defs/routines.definition.interface';
 import { ISubTokenDefs, SUB_DEFS } from './tokens/sub-defs.interface';
 
@@ -51,7 +52,7 @@ export const DEFAULT_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
  * Default options for finding tokens
  */
 export const FAST_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
-  defs: [ROUTINE_DEF],
+  defs: [COMMENT_BLOCK, ROUTINE_DEF],
   subDefs: SUB_DEFS,
   default: [ROUTINE_DEF],
   full: false,
