@@ -1,83 +1,120 @@
-import { IParsed } from '@idl/parsing/syntax-tree';
+import { IParsedIDLNotebook } from '@idl/notebooks';
 import copy from 'fast-copy';
-
-import { IDLIndex } from '../idl-index.class';
 
 /**
  * If we have a notebook (from our file pattern) determines if we
  * have variables to add from main level programs above
  */
 export function PopulateNotebookVariables(
-  index: IDLIndex,
   file: string,
-  parsed: IParsed
+  byCell: IParsedIDLNotebook,
+  firstPass: boolean
 ) {
   /**
-   * Split to see if notebook cell
+   * Get our notebook files, should be in order
    */
-  const split = file.split('#');
+  const files = Object.keys(byCell);
 
-  // check if notebook
-  if (split.length === 2) {
-    /**
-     * get our cell index
-     */
-    const idx = +split[1];
+  /**
+   * Get our main level
+   */
+  const ourMain = byCell[file].local.main;
 
-    // return if first cell
-    if (idx === 0) {
-      return;
-    }
+  // if our first pass, process variables in a special way
+  if (firstPass) {
+    // process each file
+    for (let i = 0; i < files.length; i++) {
+      // check if same file
+      if (files[i] === file) {
+        return;
+      }
 
-    /**
-     * get our main level variables
-     */
-    const main = parsed.local.main;
-
-    /**
-     * Get other notebook cells
-     */
-    const otherCells = index.getNotebookFiles(split[0]);
-
-    // process each other cell
-    for (let i = 0; i < otherCells.length; i++) {
       /**
-       * Get index of other cell
+       * Get variables in other main level program
        */
-      const otherIdx = +otherCells[i].split('#')[1];
+      const otherMain = byCell[files[i]].local.main;
 
-      // check if it comes before
-      if (otherIdx < idx) {
-        // skip if we haven't encountered our other cells
-        if (!index.tokensByFile.has(otherCells[i])) {
-          continue;
+      /** Get our variables */
+      const ourVars = Object.keys(ourMain);
+
+      // process all of our variables
+      for (let j = 0; j < ourVars.length; j++) {
+        // if found, track usage to turn off problem reporting
+        if (ourVars[j] in otherMain) {
+          otherMain[ourVars[j]].meta.usage.push([-1, -1, -1]);
         }
+      }
+    }
+  } else {
+    /**
+     * Track variables that we have set so we only update them once
+     */
+    const weSet: { [key: string]: undefined } = {};
 
-        // get other cell
-        const otherMain = index.tokensByFile.get(otherCells[i]).local.main;
+    // process each file
+    for (let i = 0; i < files.length; i++) {
+      // check if same file
+      if (files[i] === file) {
+        return;
+      }
 
-        /** Names of other variables */
-        const otherVars = Object.keys(otherMain);
+      /**
+       * Get variables in other main level program
+       */
+      const otherMain = byCell[files[i]].local.main;
 
-        // process all other variables
-        for (let j = 0; j < otherVars.length; j++) {
-          if (!(otherVars[j] in main)) {
-            // inherit variable
-            main[otherVars[j]] = copy(otherMain[otherVars[j]]);
-          } else {
-            // update usage for both
-            main[otherVars[j]].meta.usage.push([-1, -1, -1]);
-            otherMain[otherVars[j]].meta.usage.push([-1, -1, -1]);
+      /**
+       * Get variables in other file
+       */
+      const otherVars = Object.keys(otherMain);
+
+      // process each other variable
+      for (let j = 0; j < otherVars.length; j++) {
+        /**
+         * Get our variable name
+         */
+        const otherVarName = otherVars[j];
+
+        // inherit variable
+        if (otherVarName in ourMain) {
+          /**
+           * Check if we need to set the variable (it hasnt been processed already)
+           */
+          if (!(otherVarName in weSet)) {
+            // set position
+            ourMain[otherVarName].file = files[i];
+            ourMain[otherVarName].filePos = otherMain[otherVarName].pos;
+
+            // inherit properties for consistent formatting across the notebook
+            ourMain[otherVarName].meta.display =
+              otherMain[otherVarName].meta.display;
+
+            // inherit docs
+            if (!ourMain[otherVarName].meta.docs) {
+              ourMain[otherVarName].meta.docs =
+                otherMain[otherVarName].meta.docs;
+            }
+
+            // mark as processed
+            weSet[otherVarName] = undefined;
           }
 
-          // if we dont have a file, inherit position
-          if (main[otherVars[j]].file === undefined) {
-            main[otherVars[j]].file = otherCells[i];
-            main[otherVars[j]].pos = otherMain[otherVars[j]].pos;
+          // if we arent defined, inherit
+          if (!ourMain[otherVarName].meta.isDefined) {
+            ourMain[otherVarName].meta.isDefined =
+              otherMain[otherVarName].meta.isDefined;
+            ourMain[otherVarName].meta.type = otherMain[otherVarName].meta.type;
+            ourMain[otherVarName].meta.isStaticClass =
+              otherMain[otherVarName].meta.isStaticClass;
           }
-        }
+        } else {
+          // copy
+          ourMain[otherVarName] = copy(otherMain[otherVarName]);
 
-        console.log(main);
+          // update location
+          ourMain[otherVarName].file = files[i];
+          ourMain[otherVarName].filePos = otherMain[otherVarName].pos;
+        }
       }
     }
   }

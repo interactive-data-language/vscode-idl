@@ -1,5 +1,6 @@
 import { GlobalTokens, IBaseIndexedToken } from '@idl/data-types/core';
 import { ILogOptions } from '@idl/logger';
+import { IDLNotebookDocument } from '@idl/notebooks';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { IParsed } from '@idl/parsing/syntax-tree';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
@@ -263,6 +264,37 @@ export interface ParseFilesFastResponse extends ParseFilesResponse {
 }
 
 /**
+ * Parse notebook file
+ */
+export type ParseNotebookMessage = 'parse-notebook';
+
+/**
+ * Payload when we have a notebook to parse
+ */
+export interface ParseNotebookPayload {
+  /** File that the notebook belongs to */
+  file: string;
+  /** IDL notebook object with cells and their text */
+  notebook: IDLNotebookDocument;
+}
+
+/**
+ * Response when we parse fa notebook
+ */
+export interface ParseNotebookResponse {
+  /** Globals we found, by file */
+  globals: {
+    [file: string]: GlobalTokens;
+  };
+  /** Problems we detected, by file */
+  problems: {
+    [file: string]: SyntaxProblems;
+  };
+  /** Number of lines of code */
+  lines: number;
+}
+
+/**
  * Post-process more than one file and return problems-per-file
  */
 export type PostProcessFilesMessage = 'post-process-files';
@@ -357,6 +389,7 @@ export type LSPWorkerThreadMessage =
   | ParseAndPostProcessFileMessage
   | ParseFilesMessage
   | ParseFilesFastMessage
+  | ParseNotebookMessage
   | PostProcessFilesMessage
   | RemoveFilesMessage
   | TrackGlobalTokensMessage;
@@ -418,6 +451,10 @@ interface ILSPWorkerThreadMessageLookup {
    */
   PARSE_FILES_FAST: ParseFilesFastMessage;
   /**
+   * Parse notebook file
+   */
+  PARSE_NOTEBOOK: ParseNotebookMessage;
+  /**
    * Post-process more than one file and return problems-per-file
    */
   POST_PROCESS_FILES: PostProcessFilesMessage;
@@ -448,6 +485,7 @@ export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   PARSE_FILE: 'parse-file',
   PARSE_FILES: 'parse-files',
   PARSE_FILES_FAST: 'parse-files-fast',
+  PARSE_NOTEBOOK: 'parse-notebook',
   POST_PROCESS_FILES: 'post-process-files',
   REMOVE_FILES: 'remove-files',
   TRACK_GLOBAL: 'track-global',

@@ -14,7 +14,7 @@ import {
   IDL_WORKER_THREAD_CONSOLE,
   LogManager,
 } from '@idl/logger';
-import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks';
+import { IDLNotebookDocument } from '@idl/notebooks';
 import { CodeChecksum, Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
@@ -62,11 +62,7 @@ import * as glob from 'fast-glob';
 import { existsSync, readFileSync } from 'fs';
 import { cpus, platform } from 'os';
 import { basename, dirname, join } from 'path';
-import {
-  DocumentSymbol,
-  NotebookCellKind,
-  Position,
-} from 'vscode-languageserver/node';
+import { DocumentSymbol, Position } from 'vscode-languageserver/node';
 import { Worker } from 'worker_threads';
 
 import { GetAutoComplete } from './auto-complete/get-auto-complete';
@@ -1073,7 +1069,12 @@ export class IDLIndex {
   async indexIDLNotebook(
     file: string,
     notebook: IDLNotebookDocument
-  ): Promise<IParsedIDLNotebook> {
+  ): Promise<void> {
+    // only runs in main thread because we are special
+    if (!this.isMultiThreaded()) {
+      return;
+    }
+
     // remove notebook
     await this.removeNotebook(file);
 
@@ -1082,29 +1083,53 @@ export class IDLIndex {
     this.fileTypes['idl-notebook'].add(file);
 
     /**
-     * Track parsed code by cell
+     * Get the IDs for our workers
      */
-    const byCell: IParsedIDLNotebook = {};
+    const ids = this.indexerPool.getIDs();
 
-    // process each cell
-    for (let i = 0; i < notebook.cells.length; i++) {
-      /** Get notebook cell */
-      const cell = notebook.cells[i];
+    /**
+     * Get ID of our worker
+     */
+    const id = this.getWorkerID(file);
 
-      // skip if no cells
-      if (cell.kind !== NotebookCellKind.Code) {
+    // parse our notebook
+    const resp = await this.indexerPool.workerio.postAndReceiveMessage(
+      id,
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK,
+      { file, notebook }
+    );
+
+    /**
+     * Messages for global token synchronization
+     */
+    const synchronize: Promise<LoadGlobalResponse>[] = [];
+
+    // send message to all other workers
+    for (let j = 0; j < this.nWorkers; j++) {
+      // skip if self
+      if (ids[j] === id) {
         continue;
       }
 
-      // process the cell
-      byCell[i] = await this.indexProCode(`${file}#${i}`, cell.text, {
-        postProcess: true,
-        isNotebook: true,
-      });
+      // sync to others
+      synchronize.push(
+        this.indexerPool.workerio.postAndReceiveMessage(
+          ids[j],
+          LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
+          resp.globals
+        )
+      );
     }
 
-    // return each cell
-    return byCell;
+    // track globals
+    const files = Object.keys(resp.globals);
+    for (let i = 0; i < files.length; i++) {
+      this.globalIndex.trackGlobalTokens(resp.globals[files[i]], files[i]);
+      this.trackSyntaxProblemsForFile(files[i], resp.problems[files[i]]);
+    }
+
+    // wait until synced
+    await Promise.all(synchronize);
   }
 
   /**
@@ -1532,6 +1557,9 @@ export class IDLIndex {
   ) {
     try {
       PostProcessParsed(this, file, parsed);
+
+      // update stored token
+      this.tokensByFile.add(file, parsed);
 
       // check if we need to do change detection
       if (changeDetection) {

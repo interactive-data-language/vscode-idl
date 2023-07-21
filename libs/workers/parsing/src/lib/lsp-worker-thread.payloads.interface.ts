@@ -42,6 +42,9 @@ import {
   ParseFilesMessage,
   ParseFilesPayload,
   ParseFilesResponse,
+  ParseNotebookMessage,
+  ParseNotebookPayload,
+  ParseNotebookResponse,
   PostProcessFilesMessage,
   PostProcessFilesPayload,
   PostProcessFilesResponse,
@@ -82,6 +85,8 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
     ? ParseFilesPayload
     : T extends ParseFilesFastMessage
     ? ParseFilesPayload
+    : T extends ParseNotebookMessage
+    ? ParseNotebookPayload
     : T extends PostProcessFilesMessage
     ? PostProcessFilesPayload
     : T extends RemoveFilesMessage
@@ -120,6 +125,8 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
     ? ParseFilesResponse
     : T extends ParseFilesFastMessage
     ? ParseFilesFastResponse
+    : T extends ParseNotebookMessage
+    ? ParseNotebookResponse
     : T extends PostProcessFilesMessage
     ? PostProcessFilesResponse
     : T extends RemoveFilesMessage

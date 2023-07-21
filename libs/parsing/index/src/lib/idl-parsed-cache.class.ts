@@ -3,7 +3,6 @@ import {
   RemoveScopeDetail,
   ResetTokenCache,
 } from '@idl/parsing/syntax-tree';
-import copy from 'fast-copy';
 
 /**
  * Tags that we compress/uncompress
@@ -35,8 +34,10 @@ export class IDLParsedCache {
    */
   private compress(orig: IParsed): IParsed {
     // return orig;
-    // copy
-    const parsed = copy(orig);
+
+    // create a light copy with different root properties
+    // and shared, nested, non-compressed properties
+    const parsed = Object.assign({}, orig);
 
     // make non-circular
     ResetTokenCache(parsed);
@@ -57,7 +58,9 @@ export class IDLParsedCache {
   private decompress(compressed: IParsed): IParsed {
     // return compressed;
     // copy decompressed data
-    const parsed = copy(compressed);
+    // create a light copy with different root properties
+    // and shared, nested, non-compressed properties
+    const parsed = Object.assign({}, compressed);
 
     // unpack the keys
     for (let i = 0; i < COMPRESS_THESE.length; i++) {
