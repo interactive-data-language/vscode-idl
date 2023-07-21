@@ -1,4 +1,8 @@
-import { GlobalTokens } from '@idl/data-types/core';
+import {
+  CUSTOM_TYPE_DISPLAY_NAMES,
+  GLOBAL_TOKEN_TYPES,
+  GlobalTokens,
+} from '@idl/data-types/core';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 
 /**
@@ -14,5 +18,10 @@ export function SaveGlobalDisplayNames(global: GlobalTokens) {
   // process all global routines
   for (let i = 0; i < global.length; i++) {
     IDL_DISPLAY_NAMES[global[i].type][global[i].name] = global[i].meta.display;
+
+    // save structure display names
+    if (global[i].type === GLOBAL_TOKEN_TYPES.STRUCTURE) {
+      CUSTOM_TYPE_DISPLAY_NAMES[global[i].name] = global[i].meta.display;
+    }
   }
 }

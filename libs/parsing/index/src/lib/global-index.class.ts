@@ -1,5 +1,4 @@
 import {
-  CUSTOM_TYPE_DISPLAY_NAMES,
   GLOBAL_TOKEN_TYPES,
   GlobalTokens,
   GlobalTokenType,
@@ -326,15 +325,14 @@ export class GlobalIndex {
   trackGlobalTokens(tokens: GlobalTokens, file?: string) {
     // check if we need to clean up first
     if (file) {
-      this.removeTokensForFile(file);
+      if (file in this.globalTokensByFile) {
+        this.removeTokensForFile(file);
+      }
       this.globalTokensByFile[file] = tokens;
     }
 
     // save display names for global - do this here where we index code and files
     SaveGlobalDisplayNames(tokens);
-
-    // get the number of problems
-    const first = Object.keys(this.globalSyntaxProblemsByFile).length;
 
     // add all of our tokens
     for (let i = 0; i < tokens.length; i++) {
@@ -346,11 +344,6 @@ export class GlobalIndex {
         token.name === MAIN_LEVEL_NAME
       ) {
         continue;
-      }
-
-      // save structure display names
-      if (token.type === GLOBAL_TOKEN_TYPES.STRUCTURE) {
-        CUSTOM_TYPE_DISPLAY_NAMES[token.name] = token.meta.display;
       }
 
       // set file
@@ -367,8 +360,5 @@ export class GlobalIndex {
         this.globalTokensByTypeByName[token.type][token.name] = [token];
       }
     }
-
-    // check if we have more problems to sync
-    return Object.keys(this.globalSyntaxProblemsByFile).length !== first;
   }
 }
