@@ -1549,7 +1549,7 @@
       "iconPath": "./../images/dark/idlicon.png"
     },
     "_idl_light": {
-      "iconPath": "./../images/light/idlicon.svg"
+      "iconPath": "./../images/light/idlicon.png"
     }
   },
   "file": "_default",
