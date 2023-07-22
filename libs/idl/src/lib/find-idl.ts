@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
-import { IDL_DIRS } from './initialize-extension-config.interface';
+import { IDL_DIRS } from './idl-dirs.interface';
 
 /**
  * Checks expected locations for IDL 8.4+ and returns
