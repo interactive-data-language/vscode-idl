@@ -28,10 +28,12 @@ Here's what we have so far
 
 - **parsing-worker**: Node.js worker thread to index IDL code in the background.
 
+- **performance**: Node.js app meant to be a place where we can test the speed of parsing without needing to open VSCode (also, cross platform)
+
 - **server**: The VS Code language server implementation for IDL.
 
 - **test-tokenizer**: An app used for testing the tokenizer and creating our automated tests.
 
 - **tmlang-maker**: Live-reloading application to convert our YAML language config file to plist for VSCode to digest.
 
-- **vscode-e2e-runner**: Basic application that runs our VSCode integration tests
+- **vscode-e2e-runner**: Basic application that runs our VSCode integration tests which are located in `client-e2e`
