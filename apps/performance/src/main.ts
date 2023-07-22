@@ -2,6 +2,8 @@ import { FindIDL } from '@idl/idl';
 import { existsSync } from 'fs';
 import { dirname, join } from 'path';
 
+import { ParsingPerformanceRunner } from './parse-tests/parsing-performance-runner';
+
 /**
  * Get the folder that the IDL executable lives in
  */
@@ -22,19 +24,19 @@ if (!existsSync(lib)) {
   throw new Error(`Lib folder doesn't exist: "${lib}"`);
 }
 
-// ParsingPerformanceRunner(lib, {
-//   method: 'parser',
-//   multiplier: 1,
-//   full: false,
-// })
-//   .then(
-//     () => process.exit(),
-//     (err) => {
-//       console.log(err);
-//       process.exit(1);
-//     }
-//   )
-//   .catch((err) => {
-//     console.log(err);
-//     process.exit(1);
-//   });
+ParsingPerformanceRunner(lib, {
+  method: 'parser',
+  multiplier: 1,
+  full: false,
+})
+  .then(
+    () => process.exit(),
+    (err) => {
+      console.log(err);
+      process.exit(1);
+    }
+  )
+  .catch((err) => {
+    console.log(err);
+    process.exit(1);
+  });
