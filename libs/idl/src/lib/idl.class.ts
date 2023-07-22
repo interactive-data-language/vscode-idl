@@ -411,6 +411,7 @@ export class IDL extends EventEmitter {
       // do we need to look up the scope information?
     } else {
       const scopeInfo = ProcessScope(
+        this,
         await this.evaluate(this.scopeInfoCommand(frameId), {
           silent: true,
           idlInfo: false,
@@ -427,6 +428,7 @@ export class IDL extends EventEmitter {
    */
   async getCurrentStack() {
     return ProcessScope(
+      this,
       await this.evaluate(this.scopeInfoCommand(0), {
         silent: true,
         idlInfo: false,
@@ -579,6 +581,7 @@ export class IDL extends EventEmitter {
    */
   private async _getScopeInfo() {
     return ProcessScope(
+      this,
       await this._executeWithNoPending(this.scopeInfoCommand(0), {
         silent: true,
         idlInfo: false, // dont recurse
