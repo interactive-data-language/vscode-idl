@@ -51,7 +51,7 @@ export class IDL extends EventEmitter {
   closing = false;
 
   /** promise queue to manage pending requests */
-  queue = new PromiseQueue();
+  queue: PromiseQueue;
 
   /** Whether we emit event for standard out or not */
   silent = false;
@@ -74,6 +74,7 @@ export class IDL extends EventEmitter {
     super();
     this.log = log;
     this.vscodeProDir = vscodeProDir;
+    this.queue = new PromiseQueue(this);
   }
 
   /**
