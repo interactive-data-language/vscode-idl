@@ -1,10 +1,10 @@
+import { FindIDL } from '@idl/idl';
 import {
   IDL_EXTENSION_CONFIG_KEYS,
   IDLExtensionConfig,
 } from '@idl/vscode/extension-config';
 import { existsSync } from 'fs';
 
-import { FindIDL } from '../find-idl';
 import { IIDLWorkspaceConfig } from '../idl-config.interface';
 import { AskForIDLDir } from './ask-for-idl-dir';
 
