@@ -2,7 +2,7 @@ import { LogManager } from '@idl/logger';
 import { Parser } from '@idl/parser';
 import { IDLIndex } from '@idl/parsing/index';
 import { Tokenizer } from '@idl/parsing/tokenizer';
-import { TimeItAsync } from '@idl/shared';
+import { SystemMemoryUsedGB, TimeItAsync } from '@idl/shared';
 import * as glob from 'fast-glob';
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -23,14 +23,19 @@ export async function ParsingPerformanceRunner(
   folder: string,
   options: IParsingPerformanceRunnerOpts
 ): Promise<void> {
+  const manager = new LogManager({
+    alert: () => {
+      // do nothing
+    },
+  });
+
   // create our index
-  const index = new IDLIndex(
-    new LogManager({
-      alert: () => {
-        // do nothing
-      },
-    })
-  );
+  const index = new IDLIndex(manager, 0);
+
+  // log details
+  manager.log({
+    content: ['Performance test', JSON.stringify(options, null, 2)],
+  });
 
   // search for files
   const files = await glob('**/**.pro', { cwd: folder });
@@ -58,6 +63,9 @@ export async function ParsingPerformanceRunner(
   }
   bar.complete = true;
   bar.render();
+
+  // increment lines
+  lines *= options.multiplier;
 
   const offset = 0;
 
@@ -116,7 +124,17 @@ export async function ParsingPerformanceRunner(
     bar2.render();
   });
   console.log(``);
-  console.log(`  Processing time (ms): ${t2}`);
-  console.log(`  Processing rate (lines/s): ${lines / ((t2 - offset) / 1000)}`);
-  console.log(``);
+
+  // log details
+  manager.log({
+    content: [
+      'Performance',
+      {
+        time_ms: Math.floor(t2),
+        memory_gb: SystemMemoryUsedGB(),
+        lines,
+        rate: Math.floor(lines / ((t2 - offset) / 1000)),
+      },
+    ],
+  });
 }
