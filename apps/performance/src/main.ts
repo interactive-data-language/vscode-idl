@@ -25,9 +25,11 @@ if (!existsSync(lib)) {
 }
 
 ParsingPerformanceRunner(lib, {
-  method: 'parser',
+  method: 'index-single',
   multiplier: 1,
-  full: false,
+  full: true,
+  postProcess: true,
+  changeDetection: false,
 })
   .then(
     () => process.exit(),

@@ -1035,7 +1035,12 @@ export class IDLIndex {
           await this.changeDetection(parsed.global, oldGlobals);
           break;
         case options.postProcess:
-          this.postProcessProFile(file, parsed, oldGlobals, true);
+          this.postProcessProFile(
+            file,
+            parsed,
+            oldGlobals,
+            options.changeDetection
+          );
           break;
         default:
           break;

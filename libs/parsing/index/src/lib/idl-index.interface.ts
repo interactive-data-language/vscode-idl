@@ -63,6 +63,10 @@ export interface IIndexProCodeOptions extends IParserOptions {
    * Do we post process the file or not
    */
   postProcess: boolean;
+  /**
+   * Do change detection when we index
+   */
+  changeDetection: boolean;
 }
 
 /**
@@ -71,4 +75,5 @@ export interface IIndexProCodeOptions extends IParserOptions {
 export const DEFAULT_INDEX_PRO_CODE_OPTIONS: IIndexProCodeOptions = {
   ...copy(DEFAULT_PARSER_OPTIONS),
   postProcess: true,
+  changeDetection: true,
 };

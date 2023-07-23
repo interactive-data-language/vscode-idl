@@ -97,9 +97,7 @@ export async function ParsingPerformanceRunner(
           break;
         case 'index-single':
           // index and make up file
-          await index.getParsedProCode(`${j}.pro`, code[i], {
-            postProcess: false,
-          });
+          await index.getParsedProCode(`${j}.pro`, code[i], options);
           break;
         default:
           throw new Error(`Not implemented: ${options.method}`);
