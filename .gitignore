@@ -19,6 +19,8 @@
 
 # test helper file that we auto-generate
 parse-test/
+isolate*.log
+perf.txt
 
 # IDE - VSCode
 .vscode/*
