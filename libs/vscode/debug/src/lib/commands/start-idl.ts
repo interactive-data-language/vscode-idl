@@ -2,6 +2,7 @@ import { IDL_COMMANDS } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { VSCODE_COMMANDS } from '@idl/vscode/shared';
+import copy from 'fast-copy';
 import * as vscode from 'vscode';
 
 import { DEFAULT_IDL_DEBUG_CONFIGURATION } from '../idl-debug-adapter.interface';
@@ -61,9 +62,10 @@ export async function StartIDL(): Promise<boolean> {
   vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
 
   // launch the debug configuration
-  await vscode.debug.startDebugging(folder, {
-    ...DEFAULT_IDL_DEBUG_CONFIGURATION,
-  });
+  await vscode.debug.startDebugging(
+    folder,
+    copy(DEFAULT_IDL_DEBUG_CONFIGURATION)
+  );
 
   // return that IDL has started
   return true;

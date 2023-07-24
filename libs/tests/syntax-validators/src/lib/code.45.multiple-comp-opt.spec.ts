@@ -26,7 +26,9 @@ describe(`[auto generated] Detects multiple compile_opt statements`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -71,7 +73,9 @@ describe(`[auto generated] Detects multiple compile_opt statements`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -110,7 +114,9 @@ describe(`[auto generated] Detects multiple compile_opt statements`, () => {
     const code = [`  compile_opt idl2`, `  compile_opt idl2`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

@@ -1,7 +1,7 @@
 import { ICON_THEME_NAME } from '@idl/shared';
 import axios from 'axios';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
-import { join, sep } from 'path';
+import { join, resolve, sep } from 'path';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
 import { VerifyNLS } from './helpers/verify-nls';
@@ -57,14 +57,32 @@ async function DownloadFiles() {
     readFileSync(outDir + sep + 'vs-seti-icon-theme.json', 'utf-8')
   );
 
+  /** Dark icon */
+  const darkIcon = './../images/dark/idlicon.png';
+
+  /** Resolve and make sure it exists */
+  const qualifiedDark = resolve(outDir, outDir);
+  if (!existsSync(qualifiedDark)) {
+    throw new Error(`Dark icon theme file missing: "${qualifiedDark}"`);
+  }
+
+  /** Dark icon */
+  const lightIcon = './../images/light/idlicon.png';
+
+  /** Resolve and make sure it exists */
+  const qualifiedLight = resolve(outDir, outDir);
+  if (!existsSync(qualifiedLight)) {
+    throw new Error(`Light icon theme file missing: "${qualifiedLight}"`);
+  }
+
   // add our icon definition for IDL
   json['iconDefinitions'] = {
     ...json['iconDefinitions'],
     _idl: {
-      iconPath: './../images/dark/idlicon.png',
+      iconPath: darkIcon,
     },
     _idl_light: {
-      iconPath: './../images/light/idlicon.svg',
+      iconPath: lightIcon,
     },
   };
 
@@ -72,9 +90,11 @@ async function DownloadFiles() {
   json['fileExtensions']['pro'] = '_idl';
   json['fileExtensions']['sav'] = '_idl';
   json['fileExtensions']['idllog'] = '_idl';
+  json['fileExtensions']['idlnb'] = '_idl';
   json['light']['fileExtensions']['pro'] = '_idl_light';
   json['light']['fileExtensions']['sav'] = '_idl_light';
   json['light']['fileExtensions']['idllog'] = '_idl_light';
+  json['light']['fileExtensions']['idlnb'] = '_idl_light';
 
   // save changes to disk
   writeFileSync(

@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDLExtensionConfig,
@@ -37,7 +37,7 @@ async function PopulateWorkspaceConfigs(folders: string[]) {
     WORKSPACE_FOLDER_CONFIGS[folders[i]] =
       await SERVER_CONNECTION.workspace.getConfiguration({
         scopeUri: URI.file(folders[i]).toString(),
-        section: LANGUAGE_NAME,
+        section: IDL_LANGUAGE_NAME,
       });
   }
 }

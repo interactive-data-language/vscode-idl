@@ -36,7 +36,9 @@ export async function GetTokenDefinition(
   let info: IBaseIndexedToken;
 
   // get the tokens for our file
-  const parsed = await index.getParsedProCode(file, code, true);
+  const parsed = await index.getParsedProCode(file, code, {
+    postProcess: true,
+  });
   if (parsed !== undefined) {
     // determine what we have hovered over
     const cursor = GetTokenAtCursor(parsed, position);

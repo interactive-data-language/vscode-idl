@@ -1,6 +1,7 @@
 import { Logger } from '@idl/logger';
 
 import { DEBUGGING_RUNNER } from './debugging/_debugging-runner';
+import { NOTEBOOK_RUNNER } from './notebooks/_notebook-runner';
 import { Runner } from './runner.class';
 
 /**
@@ -20,6 +21,7 @@ export async function TestRunner(): Promise<number> {
 
   // register all of our test runners
   clientRunner.addRunner(DEBUGGING_RUNNER);
+  clientRunner.addRunner(NOTEBOOK_RUNNER);
 
   // test and return number of failures
   return await clientRunner.runAllTests();

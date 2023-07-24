@@ -20,7 +20,9 @@ describe(`[auto generated] Unused variable`, () => {
     const code = [`compile_opt idl2`, `!null = ENVI.openRaster()`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [];

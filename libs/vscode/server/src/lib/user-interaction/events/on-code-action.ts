@@ -1,10 +1,9 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { CodeAction, CodeActionParams } from 'vscode-languageserver/node';
 
-import { IDL_INDEX } from '../../file-management/initialize-file-manager';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-and-code-for-uri';
 
 /**
  * Event handler for retrieving code actions
@@ -19,11 +18,13 @@ export const ON_CODE_ACTIONS = async (
       content: ['CodeAction request', params],
     });
 
-    // get the path to the file to properly save
-    const fsPath = GetFSPath(params.textDocument.uri);
+    /**
+     * Resolve the fspath to our cell and retrieve code
+     */
+    const info = await ResolveFSPathAndCodeForURI(params.textDocument.uri);
 
-    // do nothing
-    if (!IDL_INDEX.isPROCode(fsPath)) {
+    // return if nothing found
+    if (info === undefined) {
       return undefined;
     }
 

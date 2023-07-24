@@ -30,7 +30,9 @@ describe(`[auto generated] Detects when docs are not left-aligned as expected`, 
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -73,7 +75,9 @@ describe(`[auto generated] Detects when docs are not left-aligned as expected`, 
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -124,7 +128,9 @@ describe(`[auto generated] Detects when docs are not left-aligned as expected`, 
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -172,7 +178,9 @@ describe(`[auto generated] Detects when docs are not left-aligned as expected`, 
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -220,7 +228,9 @@ describe(`[auto generated] Detects when docs are not left-aligned as expected`, 
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

@@ -1,5 +1,6 @@
 import { GlobalTokens, IBaseIndexedToken } from '@idl/data-types/core';
 import { ILogOptions } from '@idl/logger';
+import { IDLNotebookDocument } from '@idl/notebooks';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { IParsed } from '@idl/parsing/syntax-tree';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
@@ -54,6 +55,21 @@ export type ChangeDetectionResponse = {
 };
 
 /**
+ * Message to clean up
+ */
+export type CleanUpMessage = 'clean-up';
+
+/**
+ * Payload on cleanup
+ */
+export type CleanUpPayload = void;
+
+/**
+ * Response from cleanup
+ */
+export type CleanUpResponse = void;
+
+/**
  * Message when we want to get auto complete for a file
  */
 export type GetAutoCompleteMessage = 'get-auto-complete';
@@ -72,6 +88,23 @@ export interface GetAutoCompletePayload {
  * Response from get auto complete
  */
 export type GetAutoCompleteResponse = CompletionItem[];
+
+/**
+ * Message when we want to get a notebook cell
+ */
+export type GetNotebookCellMessage = 'get-notebook-cell';
+
+/**
+ * Payload to get notebook cell
+ */
+export interface GetNotebookCellPayload {
+  file: string;
+}
+
+/**
+ * Response for getting notebook cell
+ */
+export type GetNotebookCellResponse = IParsed;
 
 /**
  * Message when we want to get the outline for a file
@@ -172,6 +205,7 @@ export interface ParseAndPostProcessCodePayload {
   file: string;
   code: string | string[];
   postProcess: boolean;
+  isNotebook: boolean;
 }
 
 /**
@@ -242,6 +276,37 @@ export interface ParseFilesFastResponse extends ParseFilesResponse {
   };
   /** Files we tried to parse, but were missing */
   missing: string[];
+  /** Number of lines of code */
+  lines: number;
+}
+
+/**
+ * Parse notebook file
+ */
+export type ParseNotebookMessage = 'parse-notebook';
+
+/**
+ * Payload when we have a notebook to parse
+ */
+export interface ParseNotebookPayload {
+  /** File that the notebook belongs to */
+  file: string;
+  /** IDL notebook object with cells and their text */
+  notebook: IDLNotebookDocument;
+}
+
+/**
+ * Response when we parse fa notebook
+ */
+export interface ParseNotebookResponse {
+  /** Globals we found, by file */
+  globals: {
+    [file: string]: GlobalTokens;
+  };
+  /** Problems we detected, by file */
+  problems: {
+    [file: string]: SyntaxProblems;
+  };
   /** Number of lines of code */
   lines: number;
 }
@@ -330,7 +395,9 @@ export type LSPWorkerThreadMessage =
   | WorkerIOBaseMessage
   | AllFilesMessage
   | ChangeDetectionMessage
+  | CleanUpMessage
   | GetAutoCompleteMessage
+  | GetNotebookCellMessage
   | GetOutlineMessage
   | GetSemanticTokensMessage
   | GetTokenDefMessage
@@ -340,6 +407,7 @@ export type LSPWorkerThreadMessage =
   | ParseAndPostProcessFileMessage
   | ParseFilesMessage
   | ParseFilesFastMessage
+  | ParseNotebookMessage
   | PostProcessFilesMessage
   | RemoveFilesMessage
   | TrackGlobalTokensMessage;
@@ -357,9 +425,17 @@ interface ILSPWorkerThreadMessageLookup {
    */
   CHANGE_DETECTION: ChangeDetectionMessage;
   /**
+   * Message to clean up
+   */
+  CLEAN_UP: CleanUpMessage;
+  /**
    * Message when we want to get auto complete for a file
    */
   GET_AUTO_COMPLETE: GetAutoCompleteMessage;
+  /**
+   * Message when we want to get a notebook cell
+   */
+  GET_NOTEBOOK_CELL: GetNotebookCellMessage;
   /**
    * Message when we want to get the outline for a file
    */
@@ -397,6 +473,10 @@ interface ILSPWorkerThreadMessageLookup {
    */
   PARSE_FILES_FAST: ParseFilesFastMessage;
   /**
+   * Parse notebook file
+   */
+  PARSE_NOTEBOOK: ParseNotebookMessage;
+  /**
    * Post-process more than one file and return problems-per-file
    */
   POST_PROCESS_FILES: PostProcessFilesMessage;
@@ -416,7 +496,9 @@ interface ILSPWorkerThreadMessageLookup {
 export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   ALL_FILES: 'all-files',
   CHANGE_DETECTION: 'change-detection',
+  CLEAN_UP: 'clean-up',
   GET_AUTO_COMPLETE: 'get-auto-complete',
+  GET_NOTEBOOK_CELL: 'get-notebook-cell',
   GET_OUTLINE: 'get-outline',
   GET_SEMANTIC_TOKENS: 'get-semantic-tokens',
   GET_TOKEN_DEF: 'get-token-def',
@@ -426,6 +508,7 @@ export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   PARSE_FILE: 'parse-file',
   PARSE_FILES: 'parse-files',
   PARSE_FILES_FAST: 'parse-files-fast',
+  PARSE_NOTEBOOK: 'parse-notebook',
   POST_PROCESS_FILES: 'post-process-files',
   REMOVE_FILES: 'remove-files',
   TRACK_GLOBAL: 'track-global',

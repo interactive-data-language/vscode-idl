@@ -8,7 +8,7 @@ import { CacheValid } from '../../helpers/cache-valid';
 import { GetFileStrings } from '../../helpers/get-file-strings';
 import { SendProblems } from '../../helpers/send-problems';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
-import { IDL_INDEX } from '../initialize-file-manager';
+import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
@@ -21,6 +21,11 @@ export const ON_DID_OPEN = async (
 ) => {
   await SERVER_INITIALIZED;
   try {
+    // return if notebook file, havent seen but we have this as sanity check
+    if (IDL_INDEX.isIDLNotebookFile(event.document.uri)) {
+      return;
+    }
+
     // return if our cache is valid and the content has not changed
     if (CacheValid(event.document.uri)) {
       return;

@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDL_EXTENSION_CONFIG_KEYS,
@@ -29,7 +29,7 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
 
   // should our extension run in debug mode
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.dontAsk}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.dontAsk}`
   ] = {
     type: 'object',
     description: TranslationFromConfiguration(
@@ -92,7 +92,7 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
   //  */
   //   // folders to not ask to init config for
   // ourConfig.properties[
-  //   `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.dontAskToInitConfigForTheseFolders}`
+  //   `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.dontAskToInitConfigForTheseFolders}`
   // ] = {
   //   type: 'array',
   //   default: [],
@@ -109,7 +109,7 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
 
   // // should our extension run in debug mode
   // ourConfig.properties[
-  //   `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.dontShow}`
+  //   `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.dontShow}`
   // ] = {
   //   type: 'object',
   //   description: TranslationFromConfiguration(

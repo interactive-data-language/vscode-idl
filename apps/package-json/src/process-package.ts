@@ -10,6 +10,7 @@ import { ProcessGrammars } from './contributes/grammars';
 import { ProcessIconTheme } from './contributes/icon-theme';
 import { ProcessJSONValidators } from './contributes/json-validators';
 import { ProcessLanguages } from './contributes/languages';
+import { ProcessNotebooks } from './contributes/notebooks';
 import { ProcessMainPackageJSON } from './contributes/package-json';
 import { ProcessSnippets } from './contributes/snippets';
 import { ProcessThemes } from './contributes/themes';
@@ -80,6 +81,9 @@ export async function ProcessPackage(
   // add debug stuff to our package file
   // MUST be after we add our commands
   ProcessDebugging(packageJSON, nls);
+
+  // add notebooks
+  ProcessNotebooks(packageJSON, nls);
 
   // set the name for our language to match our config file
   packageJSON['name'] = EXTENSION_NAME;

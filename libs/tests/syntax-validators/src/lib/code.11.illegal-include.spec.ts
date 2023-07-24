@@ -20,7 +20,9 @@ describe(`[auto generated] Detects illegal include statements`, () => {
     const code = [`@includeme`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [];
@@ -46,7 +48,9 @@ describe(`[auto generated] Detects illegal include statements`, () => {
     const code = [`a = myfunc(@bad)`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -85,7 +89,9 @@ describe(`[auto generated] Detects illegal include statements`, () => {
     const code = [`a = @include_wrong + @way_bad`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

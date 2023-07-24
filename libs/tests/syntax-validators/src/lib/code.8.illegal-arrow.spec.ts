@@ -20,7 +20,9 @@ describe(`[auto generated] Detects illegal arrows`, () => {
     const code = [`compile_opt idl2`, `a  = b-> $`, `method`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -76,7 +78,9 @@ describe(`[auto generated] Detects illegal arrows`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

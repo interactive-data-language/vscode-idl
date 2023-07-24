@@ -44,7 +44,9 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {

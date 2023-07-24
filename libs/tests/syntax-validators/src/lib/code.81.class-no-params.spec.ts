@@ -20,7 +20,9 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
     const code = [`pro pro4__define, a`, `  compile_opt idl2`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -59,7 +61,9 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
     const code = [`pro pro4__define, KW = kw`, `  compile_opt idl2`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -103,7 +107,9 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -148,7 +154,9 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
     const code = [`pro pro4__define`, `  compile_opt idl2`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [];

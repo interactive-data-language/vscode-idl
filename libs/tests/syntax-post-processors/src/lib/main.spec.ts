@@ -1104,4 +1104,151 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expectedProblems);
   });
+
+  it(`[auto generated] edge case`, () => {
+    // test code to extract tokens from
+    const code = [
+      `function myfunc`,
+      `  compile_opt idl2`,
+      `  return,1`,
+      `end`,
+      ``,
+      `!null = myfunc()`,
+    ];
+
+    // extract tokens
+    const tokenized = Parser(code);
+
+    // define expected syntax tree
+    const expectedTree: SyntaxTree = [
+      {
+        type: '0',
+        name: '69',
+        pos: [0, 0, 9],
+        match: ['function ', 'function'],
+        idx: 0,
+        scope: [],
+        parseProblems: [],
+        end: { pos: [3, 0, 3], match: ['end'] },
+        kids: [
+          {
+            type: '0',
+            name: '71',
+            pos: [0, 9, 6],
+            match: ['myfunc'],
+            idx: 0,
+            scope: ['69'],
+            parseProblems: [],
+            end: { pos: [0, 15, 0], match: [''] },
+            kids: [],
+          },
+          {
+            type: '0',
+            name: '20',
+            pos: [1, 2, 11],
+            match: ['compile_opt'],
+            idx: 1,
+            scope: ['69'],
+            parseProblems: [],
+            end: { pos: [1, 18, 0], match: [''] },
+            kids: [
+              {
+                type: '1',
+                name: '25',
+                pos: [1, 14, 4],
+                match: ['idl2'],
+                idx: 0,
+                scope: ['69', '20'],
+                parseProblems: [],
+              },
+            ],
+          },
+          {
+            type: '0',
+            name: '11',
+            pos: [2, 2, 6],
+            match: ['return'],
+            idx: 2,
+            scope: ['69'],
+            parseProblems: [],
+            end: { pos: [2, 10, 0], match: [''] },
+            kids: [
+              {
+                type: '1',
+                name: '14',
+                pos: [2, 8, 1],
+                match: [','],
+                idx: 0,
+                scope: ['69', '11'],
+                parseProblems: [],
+              },
+              {
+                type: '1',
+                name: '56',
+                pos: [2, 9, 1],
+                match: ['1'],
+                idx: 1,
+                scope: ['69', '11'],
+                parseProblems: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: '0',
+        name: '54',
+        pos: [5, 0, 5],
+        idx: 1,
+        match: [],
+        scope: [],
+        parseProblems: [],
+        kids: [
+          {
+            type: '1',
+            name: '82',
+            pos: [5, 0, 5],
+            match: ['!null'],
+            idx: 0,
+            scope: ['54'],
+            parseProblems: [],
+          },
+          {
+            type: '0',
+            name: '3',
+            pos: [5, 6, 1],
+            match: ['='],
+            idx: 1,
+            scope: ['54'],
+            parseProblems: [],
+            end: { pos: [5, 16, 0], match: [''] },
+            kids: [
+              {
+                type: '0',
+                name: '8',
+                pos: [5, 8, 7],
+                match: ['myfunc(', 'myfunc'],
+                idx: 0,
+                scope: ['54', '3'],
+                parseProblems: [],
+                end: { pos: [5, 15, 1], match: [')'] },
+                kids: [],
+              },
+            ],
+          },
+        ],
+      },
+    ];
+
+    // verify results
+    expect(tokenized.tree).toEqual(expectedTree);
+
+    // define expected problems
+    const expectedProblems: SyntaxProblems = [];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expectedProblems);
+  });
 });

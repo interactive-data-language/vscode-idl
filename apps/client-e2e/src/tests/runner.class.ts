@@ -1,4 +1,5 @@
 import { Logger } from '@idl/logger';
+import { Sleep } from '@idl/shared';
 
 import { ACTIVATION_RESULT } from '../main';
 import { IRunnerTest } from './runner.interface';
@@ -46,6 +47,8 @@ export class Runner {
         // attempt to run test
         await this.tests[i].fn(ACTIVATION_RESULT);
       } catch (err) {
+        await Sleep(1000);
+
         // log
         this.logger.error([`Failed test: "${this.tests[i].name}"`, err]);
 

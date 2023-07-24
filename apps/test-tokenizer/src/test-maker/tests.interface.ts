@@ -1,10 +1,11 @@
 import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
+import { IIndexProCodeOptions } from '@idl/parsing/index';
 import { Position } from 'vscode-languageserver/node';
 
 /**
  * Data structure to automate test creation
  */
-export interface ITokenTests {
+export interface ITokenTest {
   /** Name of the test */
   name: string;
   /** Code for the test */
@@ -26,13 +27,13 @@ interface IBaseAutoTest {
  */
 export interface IAutoTest extends IBaseAutoTest {
   /** Tests to generate */
-  tests: ITokenTests[];
+  tests: ITokenTest[];
 }
 
 /**
  * Data structure to automate test creation
  */
-export interface ISelectedTests extends ITokenTests {
+export interface ISelectedTests extends ITokenTest {
   /** Cursor position */
   position: Position[];
 }
@@ -43,6 +44,38 @@ export interface ISelectedTests extends ITokenTests {
 export interface IAutoSelectedTest extends IBaseAutoTest {
   /** Tests to generate */
   tests: ISelectedTests[];
+}
+
+/**
+ * Tests for syntax validators
+ */
+export interface ISyntaxValidatorTest extends ITokenTest {
+  /** optional configuration to specify for parsing */
+  config?: Partial<IIndexProCodeOptions>;
+}
+
+/**
+ * Data structure for automated syntax validator tests
+ */
+export interface IAutoSyntaxValidatorTest extends IBaseAutoTest {
+  /** Tests to generate */
+  tests: ISyntaxValidatorTest[];
+}
+
+/**
+ * Tests for assembler
+ */
+export interface ILocalGlobalScopeCompileTest extends ITokenTest {
+  /** optional configuration to specify for the assembler */
+  config?: Partial<IIndexProCodeOptions>;
+}
+
+/**
+ * Data structure for automated assembler tests
+ */
+export interface IAutoLocalGlobalScopeCompileTest extends IBaseAutoTest {
+  /** Tests to generate */
+  tests: ILocalGlobalScopeCompileTest[];
 }
 
 /**
@@ -167,9 +200,11 @@ export interface IOutlineTests extends IBaseAutoTest {
 /**
  * Tests for assembler
  */
-export interface IAssemblerTest extends ITokenTests {
+export interface IAssemblerTest extends ITokenTest {
   /** optional configuration to specify for the assembler */
   config?: Partial<IAssemblerInputOptions<FormatterType>>;
+  /** optional configuration to specify for parsing */
+  parseConfig?: Partial<IIndexProCodeOptions>;
 }
 
 /**
@@ -183,7 +218,7 @@ export interface IAutoAssemblerTest extends IBaseAutoTest {
 /**
  * Tests for assembler
  */
-export interface ITaskAssemblerTest extends ITokenTests {
+export interface ITaskAssemblerTest extends ITokenTest {
   code: string[];
   /** optional configuration to specify for the assembler */
   config?: Partial<IAssemblerInputOptions<FormatterType>>;

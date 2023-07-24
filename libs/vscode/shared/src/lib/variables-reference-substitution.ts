@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 import {
   DOT_IDL_FOLDER,
   VARIABLES_REFERENCE_REGEX,
-} from './variables-reference-subsitution.interface';
+} from './variables-reference-substitution.interface';
 
 /**
  * Helper function that replaces variables similar in syntax to

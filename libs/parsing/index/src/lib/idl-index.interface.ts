@@ -1,7 +1,14 @@
+import { DEFAULT_PARSER_OPTIONS, IParserOptions } from '@idl/parser';
+import copy from 'fast-copy';
+
 /**
  * Options for controlling behavior of the IDL Index
  */
 export const IDL_INDEX_OPTIONS = {
+  /**
+   * Is compression enabled?
+   */
+  COMPRESSION: true,
   /**
    * How frequently we manually run garbage collection to limit
    * RAM consumption
@@ -42,11 +49,35 @@ export type IDLFileType =
   | 'save'
   | 'idl.json'
   | 'envi-task'
-  | 'idl-task';
+  | 'idl-task'
+  | 'idl-notebook';
 
 /**
  * Lookup by file type
  */
 export type IDLFileTypeLookup = {
   [T in IDLFileType]: Set<string>;
+};
+
+/**
+ * Options when indexing PRO code
+ */
+export interface IIndexProCodeOptions extends IParserOptions {
+  /**
+   * Do we post process the file or not
+   */
+  postProcess: boolean;
+  /**
+   * Do change detection when we index
+   */
+  changeDetection: boolean;
+}
+
+/**
+ * Default options when indexing PRO code
+ */
+export const DEFAULT_INDEX_PRO_CODE_OPTIONS: IIndexProCodeOptions = {
+  ...copy(DEFAULT_PARSER_OPTIONS),
+  postProcess: true,
+  changeDetection: true,
 };

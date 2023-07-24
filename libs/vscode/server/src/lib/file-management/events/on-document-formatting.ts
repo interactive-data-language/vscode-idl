@@ -15,7 +15,7 @@ import { GetFileStrings } from '../../helpers/get-file-strings';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { UpdateDocument } from '../../helpers/update-document';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
-import { IDL_INDEX } from '../initialize-file-manager';
+import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
@@ -105,7 +105,7 @@ export const ON_DOCUMENT_FORMATTING = async (
         const tokens = await IDL_INDEX.getParsedProCode(
           file,
           await GetFileStrings(event.textDocument.uri),
-          true
+          { postProcess: true }
         );
 
         // format

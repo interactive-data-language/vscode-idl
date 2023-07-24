@@ -4,8 +4,9 @@ import {
   GetExtensionPath,
   IDL_CONFIG_FILE_DOCUMENT_SELECTOR,
   IDL_DOCUMENT_SELECTOR,
-  LANGUAGE_NAME,
+  IDL_LANGUAGE_NAME,
   NODE_MEMORY_CONFIG,
+  NOTEBOOK_GLOB_PATTERN,
   PRO_CODE_GLOB_PATTERN,
   TASK_FILE_DOCUMENT_SELECTOR,
   TASK_FILE_GLOB_PATTERN,
@@ -49,9 +50,16 @@ export let LANGUAGE_SERVER_MESSENGER: VSCodeClientEventManager;
  */
 export async function StartLanguageServer(ctx: ExtensionContext) {
   /**
+   * Attempt to spawn node and get the version
+   */
+  const spawnRes = spawnSync('node', ['--version'], {
+    encoding: 'utf-8',
+  });
+
+  /**
    * Check for nodejs to determine how we launch the language server
    */
-  const HAS_NODE = spawnSync('node', ['--version']).error ? false : true;
+  const HAS_NODE = spawnRes.error ? false : true;
 
   /**
    * Full path to the JS file for launching in VSCode
@@ -104,10 +112,14 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
     command: `node`,
     transport: TransportKind.stdio,
     args: [
-      path.join('dist', 'apps', 'server', 'main.js'),
       '--expose-gc',
       `--max-old-space-size=${NODE_MEMORY_CONFIG.OLD}`,
       `--max-semi-space-size=${NODE_MEMORY_CONFIG.YOUNG}`,
+      /**
+       * Needs to be last, cant remember why but this was something (a long time ago) i saw on
+       * blog/stack exchange
+       */
+      path.join('dist', 'apps', 'server', 'main.js'),
     ],
     options: {
       cwd: ctx.extensionPath,
@@ -130,6 +142,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
         workspace.createFileSystemWatcher(PRO_CODE_GLOB_PATTERN),
         workspace.createFileSystemWatcher(CONFIG_FILE_GLOB_PATTERN),
         workspace.createFileSystemWatcher(TASK_FILE_GLOB_PATTERN),
+        workspace.createFileSystemWatcher(NOTEBOOK_GLOB_PATTERN),
       ],
     },
     outputChannel: IDL_CLIENT_OUTPUT_CHANNEL,
@@ -183,14 +196,17 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
   IDL_LOGGER.log({
     type: 'info',
     content: [
-      `Starting the language server using: ${HAS_NODE ? 'node' : 'VSCode'}`,
+      `Starting the language server using "${
+        HAS_NODE ? 'node' : 'VSCode'
+      }". Output from "node --version":`,
+      spawnRes.output.filter((item) => item).map((item) => item.trim()),
     ],
   });
 
   // Create the language client and start the client.
   LANGUAGE_SERVER_CLIENT = new LanguageClient(
     'IDLLanguageServer',
-    LANGUAGE_NAME,
+    IDL_LANGUAGE_NAME,
     HAS_NODE ? serverOptionsNode : serverOptionsInVSCode,
     clientOptions
   );

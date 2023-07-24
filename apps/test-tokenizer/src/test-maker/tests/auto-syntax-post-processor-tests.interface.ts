@@ -428,6 +428,17 @@ export const AUTO_POST_PROCESSOR_TESTS: IAutoTest[] = [
           `; another comment`,
         ],
       },
+      {
+        name: `edge case`,
+        code: [
+          `function myfunc`,
+          `  compile_opt idl2`,
+          `  return,1`,
+          `end`,
+          ``,
+          `!null = myfunc()`,
+        ],
+      },
     ],
   },
   {

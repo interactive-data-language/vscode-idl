@@ -5,7 +5,7 @@ import {
 import {
   EXTENSION_FULL_NAME,
   ICON_THEME_NAME,
-  LANGUAGE_NAME,
+  IDL_LANGUAGE_NAME,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
@@ -83,7 +83,7 @@ export function SendPreferenceUsageMetrics() {
    * get workbench config
    */
   const editor = vscode.workspace.getConfiguration('editor', {
-    languageId: LANGUAGE_NAME,
+    languageId: IDL_LANGUAGE_NAME,
   });
 
   // check for our client theme

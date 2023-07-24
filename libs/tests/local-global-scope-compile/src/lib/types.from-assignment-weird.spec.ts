@@ -31,7 +31,9 @@ describe(`[auto generated] Types from assignment`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {

@@ -1,9 +1,9 @@
-import { IAutoTest } from '../tests.interface';
+import { IAutoSyntaxValidatorTest } from '../tests.interface';
 
 /**
  * Automated tests for each problem code that we validate
  */
-export const AUTO_SYNTAX_TESTS: IAutoTest[] = [
+export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
   {
     suiteName: `Detects problems with statements not being closed`,
     fileName: `code.0.not-closed.spec.ts`,
@@ -704,6 +704,59 @@ export const AUTO_SYNTAX_TESTS: IAutoTest[] = [
     ],
   },
   {
+    suiteName: `Detects missing end to main level program`,
+    fileName: `code.33.unclosed-main.notebooks.spec.ts`,
+    tests: [
+      {
+        name: `no problems`,
+        code: [
+          `function myfunc`,
+          `  compile_opt idl2`,
+          `  return,1`,
+          `end`,
+          ``,
+          `compile_opt idl2`,
+          `; main level`,
+          `something = 42`,
+          `end`,
+        ],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `no problems`,
+        code: [
+          `function myfunc`,
+          `  compile_opt idl2`,
+          `  return,1`,
+          `end`,
+          ``,
+          `compile_opt idl2`,
+          `; main level`,
+          `something = 42`,
+        ],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `no problems`,
+        code: [
+          `function myfunc`,
+          `  compile_opt idl2`,
+          `  return,1`,
+          `end`,
+          ``,
+          `a = myfunc()`,
+        ],
+        config: {
+          isNotebook: true,
+        },
+      },
+    ],
+  },
+  {
     suiteName: `Detects empty main level programs`,
     fileName: `code.34.empty-main.spec.ts`,
     tests: [
@@ -813,6 +866,54 @@ export const AUTO_SYNTAX_TESTS: IAutoTest[] = [
       {
         name: `bad main`,
         code: [`; main level program`, `  a = 5`, `end`],
+      },
+    ],
+  },
+  {
+    suiteName: `Detects missing compile options`,
+    fileName: `code.38.no-comp-opt.notebooks.spec.ts`,
+    tests: [
+      {
+        name: `ok function`,
+        code: [`function myfunc`, `  compile_opt idl2`, `  return,1`, `end`],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `bad function`,
+        code: [`function myfunc`, `  return,1`, `end`],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `ok procedure`,
+        code: [`pro mypro`, `  compile_opt idl2`, `  return`, `end`],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `bad procedure`,
+        code: [`pro mypro`, `  return`, `end`],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `ok main`,
+        code: [`compile_opt idl2`, `; main level program`, `  a = 5`, `end`],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `bad main`,
+        code: [`; main level program`, `  a = 5`, `end`],
+        config: {
+          isNotebook: true,
+        },
       },
     ],
   },
@@ -3823,6 +3924,28 @@ export const AUTO_SYNTAX_TESTS: IAutoTest[] = [
       {
         name: `exceptions for static references`,
         code: [`compile_opt idl2`, `!null = ENVI.openRaster()`, `end`],
+      },
+    ],
+  },
+  {
+    suiteName: `Unused var exceptions when parentheses for indexing`,
+    fileName: `code.104.unused-var.exceptions2.spec.ts`,
+    tests: [
+      {
+        name: `is var`,
+        code: [`;+ my var`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `is not var`,
+        code: [`compile_opt strictarr`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `is not var`,
+        code: [`compile_opt idl2`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `is not var`,
+        code: [`compile_opt idl3`, `a = 5`, ``, `!null = a()`, ``, `end`],
       },
     ],
   },

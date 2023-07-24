@@ -19,6 +19,14 @@ export const VSCODE_COMMANDS = {
    */
   MARKDOWN_RENDER: 'markdown.api.render',
   /**
+   * Clear outputs from notebook cells
+   */
+  NOTEBOOK_CLEAR_OUTPUTS: 'notebook.clearAllCellsOutputs',
+  /**
+   * Run all notebook cells
+   */
+  NOTEBOOK_RUN_ALL: 'notebook.execute',
+  /**
    * To open a file in vscode
    */
   OPEN_FILE: 'vscode.open',

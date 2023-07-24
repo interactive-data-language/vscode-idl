@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 
 /**
  * Internal function to wrap the name of all messages so that we are
@@ -8,5 +8,5 @@ import { LANGUAGE_NAME } from '@idl/shared';
  * VSCode standard
  */
 export function MessageNameNormalizer(name: string) {
-  return `${LANGUAGE_NAME}.${name}`;
+  return `${IDL_LANGUAGE_NAME}.${name}`;
 }

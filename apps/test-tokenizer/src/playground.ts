@@ -32,7 +32,7 @@ export async function Playground() {
     console.log();
     console.log('Warming up algorithms...');
     for (let i = 0; i < WARM_UP; i++) {
-      Parser(PLAYGROUND_CODE, false);
+      Parser(PLAYGROUND_CODE, { cleanup: false });
       await TextMateParse(PLAYGROUND_CODE);
     }
     console.log('  Ready to rock!');
@@ -42,7 +42,7 @@ export async function Playground() {
      */
     let parsed: IParsed;
     const t1 = TimeIt(() => {
-      parsed = Parser(PLAYGROUND_CODE, false);
+      Parser(PLAYGROUND_CODE, { cleanup: false });
     });
     console.log();
     console.log(`Parser time (ms): ${t1}`);

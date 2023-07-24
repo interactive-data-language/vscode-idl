@@ -1,12 +1,11 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { Hover, TextDocumentPositionParams } from 'vscode-languageserver/node';
 
-import { IDL_INDEX } from '../../file-management/initialize-file-manager';
-import { GetFileStrings } from '../../helpers/get-file-strings';
+import { IDL_INDEX } from '../../file-management/initialize-document-manager';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-and-code-for-uri';
 
 /**
  * Wrapper to handle hover help requests
@@ -14,18 +13,20 @@ import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 export async function GetHoverHelpWrapper(
   params: TextDocumentPositionParams
 ): Promise<Hover> {
-  // get the path to the file to properly save
-  const fsPath = GetFSPath(params.textDocument.uri);
+  /**
+   * Resolve the fspath to our cell and retrieve code
+   */
+  const info = await ResolveFSPathAndCodeForURI(params.textDocument.uri);
 
-  // do nothing
-  if (!IDL_INDEX.isPROCode(fsPath)) {
+  // return if nothing found
+  if (info === undefined) {
     return undefined;
   }
 
-  // listen for hover help
+  // get hover help and return
   return await IDL_INDEX.getHoverHelp(
-    fsPath,
-    await GetFileStrings(params.textDocument.uri),
+    info.fsPath,
+    info.code,
     params.position,
     IDL_CLIENT_CONFIG
   );

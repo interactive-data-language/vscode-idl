@@ -128,6 +128,10 @@ export interface ILanguageServerStartupPayload extends IHardwareInfo {
    * Number of idl.json config files
    */
   num_idl_json: number;
+  /**
+   * Number of IDL notebook files
+   */
+  num_notebook: number;
 }
 
 /**

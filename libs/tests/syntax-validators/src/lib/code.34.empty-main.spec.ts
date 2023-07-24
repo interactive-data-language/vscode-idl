@@ -20,7 +20,9 @@ describe(`[auto generated] Detects empty main level programs`, () => {
     const code = [`; main level`, `compile_opt idl2`, `something = 42`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -53,7 +55,9 @@ describe(`[auto generated] Detects empty main level programs`, () => {
     const code = [`; main level`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -92,7 +96,9 @@ describe(`[auto generated] Detects empty main level programs`, () => {
     const code = [``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

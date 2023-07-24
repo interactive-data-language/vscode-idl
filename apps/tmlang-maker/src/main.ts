@@ -1,5 +1,5 @@
 import {
-  LANGUAGE_NAME,
+  IDL_LANGUAGE_NAME,
   LANGUAGE_TOKEN_SCOPE_NAME,
   LOG_LANGUAGE_NAME,
   LOG_LANGUAGE_TOKEN_SCOPE_NAME,
@@ -57,7 +57,7 @@ function CaseInsensitize(item: { [key: string]: any }) {
 function MakeTMLanguageFile(
   source: string,
   dest: string,
-  langName = LANGUAGE_NAME,
+  langName = IDL_LANGUAGE_NAME,
   scopeName = LANGUAGE_TOKEN_SCOPE_NAME
 ) {
   /** YAML file as strings for easier manipulation of the variables */

@@ -61,7 +61,9 @@ export async function TestsForAssembler(
     );
 
     // tokenize
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // update test config
     test.config = {
@@ -90,7 +92,7 @@ export async function TestsForAssembler(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = await index.getParsedProCode('my_file.pro', code, true);`
+      `    const tokenized = await index.getParsedProCode('my_file.pro', code, {postProcess: true});`
     );
     strings.push(``);
     strings.push(`    // extract token names`);
@@ -141,7 +143,7 @@ export async function TestsForAssembler(
     strings.push('');
     strings.push('      // parse formatted code');
     strings.push(
-      `      const reParsed = await index.getParsedProCode('my_file.pro', formatted, true);`
+      `      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {postProcess: true});`
     );
     strings.push('');
     strings.push(
