@@ -1268,8 +1268,6 @@ export class IDLIndex {
           PopulateNotebookVariables(files[i], byCell, false);
         }
 
-        console.log(byCell[files[i]].local);
-
         // post process cell
         await this.postProcessProFile(files[i], byCell[files[i]], [], false);
 
