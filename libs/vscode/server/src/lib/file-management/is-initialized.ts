@@ -87,7 +87,7 @@ SERVER_INFO.then(async (res) => {
     // alert users
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
-      type: 'info',
+      type: 'debug',
       content: [
         'Loading global tokens and filtering the following internal routines:',
         IDL_CLIENT_CONFIG.developer,
