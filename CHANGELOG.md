@@ -8,7 +8,7 @@ For much more detail on incremental work for large features, see our [developer 
 
 Preview release of IDL Notebooks! This is a first pass at adding notebook support for IDL which is independent from Jupyter.
 
-> Notebooks are a preview feature and, based on early adopter feedback, will likely
+> Notebooks are a preview feature and, based on early adopter feedback, will likely change
 
 Here are some of the features that notebooks bring:
 
