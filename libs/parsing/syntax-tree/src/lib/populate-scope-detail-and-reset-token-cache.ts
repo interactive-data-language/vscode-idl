@@ -27,6 +27,8 @@ export function PopulateScopeDetailAndResetTokenCache(parsed: IParsed): void {
           token.cache = {};
         },
       });
+      parsed.hasCache = true;
+      parsed.hasDetail = true;
       break;
     default:
       ResetTokenCache(parsed);

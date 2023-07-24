@@ -20,6 +20,8 @@ export function RemoveScopeDetailAndResetTokenCache(parsed: IParsed): void {
           token.cache = {};
         },
       });
+      parsed.hasCache = false;
+      parsed.hasDetail = false;
       break;
     default:
       ResetTokenCache(parsed);
