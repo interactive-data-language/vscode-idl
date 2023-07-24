@@ -10,4 +10,8 @@ export interface IParsingPerformanceRunnerOpts
    * How many times we replicate files
    */
   multiplier: number;
+  /**
+   * If we have compression enabled or not for the IDLIndex
+   */
+  compression: boolean;
 }
