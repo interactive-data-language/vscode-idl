@@ -62,6 +62,7 @@ import * as glob from 'fast-glob';
 import { existsSync, readFileSync } from 'fs';
 import { cpus, platform } from 'os';
 import { basename, dirname, join } from 'path';
+import { performance } from 'perf_hooks';
 import {
   DocumentSymbol,
   NotebookCellKind,

@@ -2,6 +2,7 @@ import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/client';
+import { performance } from 'perf_hooks';
 import { TextDecoder, TextEncoder } from 'util';
 import * as vscode from 'vscode';
 

@@ -12,6 +12,7 @@ import {
 } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { arch, cpus, platform } from 'os';
+import { performance } from 'perf_hooks';
 
 import { CacheValidFSPath } from '../helpers/cache-valid';
 import { SendProblems } from '../helpers/send-problems';
