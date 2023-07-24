@@ -1,6 +1,6 @@
 import { LogManager } from '@idl/logger';
 import { Parser } from '@idl/parser';
-import { IDLIndex } from '@idl/parsing/index';
+import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { Tokenizer } from '@idl/parsing/tokenizer';
 import { SystemMemoryUsedGB, TimeItAsync } from '@idl/shared';
 import * as glob from 'fast-glob';
@@ -96,6 +96,11 @@ export async function ParsingPerformanceRunner(
           Parser(code[i], options);
           break;
         case 'index-single':
+          if (global.gc) {
+            if (i % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
+              global.gc();
+            }
+          }
           // index and make up file
           await index.getParsedProCode(`${j}.pro`, code[i], options);
           break;
