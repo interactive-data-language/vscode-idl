@@ -1,4 +1,4 @@
-import { IDL_CONSOLE, LogManager } from '@idl/logger';
+import { IDL_CONSOLE, IDL_LOG, LogManager } from '@idl/logger';
 import { CleanPath, LOG_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_TRANSLATION, InitializeTranslation } from '@idl/translation';
 import {
@@ -168,10 +168,17 @@ export async function InitializeClient(
   // update logger configuration and log information about our workspace config
   IDL_LOGGER.setDebug(IDL_EXTENSION_CONFIG.debugMode);
 
-  // don't log since we log this in the language server
-  // IDL_LOGGER.log({
-  //   content: ['Initial IDL configuration', IDL_EXTENSION_CONFIG],
-  // });
+  /**
+   * Log basic information about IDL and the preferences
+   */
+  IDL_LOGGER.log({
+    log: IDL_LOG,
+    type: 'info',
+    content: [
+      `IDL directory and path: "${IDL_EXTENSION_CONFIG.IDL.directory}"`,
+      IDL_EXTENSION_CONFIG.IDL.path,
+    ],
+  });
 
   // register basic commands for our client
   RegisterClientCommands(ctx);
