@@ -26,7 +26,8 @@ if (!existsSync(lib)) {
 
 ParsingPerformanceRunner(lib, {
   method: 'index-single',
-  multiplier: 1,
+  compression: true,
+  multiplier: 4,
   full: true,
   postProcess: true,
   changeDetection: false,

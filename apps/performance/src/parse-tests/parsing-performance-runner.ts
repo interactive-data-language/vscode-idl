@@ -29,6 +29,11 @@ export async function ParsingPerformanceRunner(
     },
   });
 
+  /**
+   *
+   */
+  IDL_INDEX_OPTIONS.COMPRESSION = options.compression;
+
   // create our index
   const index = new IDLIndex(manager, 0);
 

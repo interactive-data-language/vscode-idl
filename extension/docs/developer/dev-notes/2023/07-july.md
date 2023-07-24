@@ -153,3 +153,49 @@ const after = {
   num_idl_json: 0,
 };
 ```
+
+## Performance Testing
+
+We have a new app to help track performance in a single-threaded (the slowest) environment. It prints out the time to parse the lib folder, memory used, lines of code, and rate that we parse.
+
+See `apps/performance/README.md` for more details
+
+## Memory Usage
+
+At the cost of performance, we have reduce memory usage dramatically when combined with garbage collection. Before:
+
+```
+idl-client info Performance test
+   {
+    "method": "index-single",
+    "compression": false,
+    "multiplier": 4,
+    "full": true,
+    "postProcess": true,
+    "changeDetection": false
+  }
+Reading files [=========================] 0.0s 1563/1563 wavelet/source/wv_tool_denoise.pro
+Extracting tokens via "index-single" [=========================] 0.0s 6252/6252 undefined
+
+idl-client info Performance
+   { time_ms: 74696, memory_gb: 7, lines: 1802304, rate: 24128 }
+```
+
+After:
+
+```
+idl-client info Performance test
+   {
+    "method": "index-single",
+    "compression": true,
+    "multiplier": 4,
+    "full": true,
+    "postProcess": true,
+    "changeDetection": false
+  }
+Reading files [=========================] 0.0s 1563/1563 wavelet/source/wv_tool_denoise.pro
+Extracting tokens via "index-single" [=========================] 0.0s 6252/6252 undefined
+
+idl-client info Performance
+   { time_ms: 83650, memory_gb: 3.75, lines: 1802304, rate: 21545 }
+```
