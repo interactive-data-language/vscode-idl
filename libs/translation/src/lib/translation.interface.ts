@@ -392,6 +392,8 @@ export interface ITranslation {
     index: {
       /** When we fail to parse PRO code */
       failedParse: string;
+      /** Message when we fail to parse a notebook */
+      failedParseNotebook: string;
       /** When we fail to post process a parsed file */
       failedPostProcess: string;
       /** When change detection fails */

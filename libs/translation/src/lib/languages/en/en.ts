@@ -522,6 +522,7 @@ export const EN: ITranslation = {
     },
     index: {
       failedParse: 'Failed to parse PRO code file',
+      failedParseNotebook: 'Failed to parse IDL notebook file',
       failedPostProcess: 'Failed to post-process parsed PRO file',
       failedIndexWorkspace: 'Failed to index workspace folder(s)',
       failedChangeDetection:

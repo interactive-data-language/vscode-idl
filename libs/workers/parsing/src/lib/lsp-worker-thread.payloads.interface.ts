@@ -16,6 +16,9 @@ import {
   GetAutoCompleteMessage,
   GetAutoCompletePayload,
   GetAutoCompleteResponse,
+  GetNotebookCellMessage,
+  GetNotebookCellPayload,
+  GetNotebookCellResponse,
   GetOutlineMessage,
   GetOutlinePayload,
   GetOutlineResponse,
@@ -67,6 +70,8 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
     ? CleanUpPayload
     : T extends GetAutoCompleteMessage
     ? GetAutoCompletePayload
+    : T extends GetNotebookCellMessage
+    ? GetNotebookCellPayload
     : T extends GetOutlineMessage
     ? GetOutlinePayload
     : T extends GetSemanticTokensMessage
@@ -109,6 +114,8 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
     ? CleanUpResponse
     : T extends GetAutoCompleteMessage
     ? GetAutoCompleteResponse
+    : T extends GetNotebookCellMessage
+    ? GetNotebookCellResponse
     : T extends GetOutlineMessage
     ? GetOutlineResponse
     : T extends GetSemanticTokensMessage

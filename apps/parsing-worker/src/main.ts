@@ -1,12 +1,10 @@
 import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
-import { IParsedIDLNotebook } from '@idl/notebooks';
-import { ParseFileSync, Parser } from '@idl/parser';
+import { ParseFileSync } from '@idl/parser';
 import {
   ChangeDetection,
   GetSyntaxProblems,
   IDL_INDEX_OPTIONS,
   IDLIndex,
-  PopulateNotebookVariables,
   ReduceGlobals,
 } from '@idl/parsing/index';
 import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
@@ -24,7 +22,6 @@ import {
 } from '@idl/workers/parsing';
 import { WorkerIOClient } from '@idl/workers/workerio';
 import { existsSync } from 'fs';
-import { NotebookCellKind } from 'vscode-languageserver';
 import { parentPort } from 'worker_threads';
 
 // create our connection client - overload MessagePort to assert that we are running in a worker thread
@@ -331,32 +328,6 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILES, async (message) => {
  */
 client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK, async (message) => {
   /**
-   * Get root of file
-   */
-  const file = message.file;
-
-  /**
-   * Resolver for our work being done
-   */
-  let resolver: () => void;
-
-  // make a promise for panding
-  const pending = new Promise<void>((res) => {
-    resolver = res;
-  });
-
-  // track that we have a pending notebook parse
-  WORKER_INDEX.pendingNotebooks[file] = pending;
-
-  // remove notebook for fresh parse
-  await WORKER_INDEX.removeNotebook(file);
-
-  /**
-   * Get notebook
-   */
-  const notebook = message.notebook;
-
-  /**
    * Initialize our response
    */
   const resp: ParseNotebookResponse = {
@@ -366,68 +337,45 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK, async (message) => {
   };
 
   /**
-   * Track parsed code by cell
+   * Index our notebook
    */
-  const byCell: IParsedIDLNotebook = {};
-
-  // process each cell
-  for (let i = 0; i < notebook.cells.length; i++) {
-    /** Get notebook cell */
-    const cell = notebook.cells[i];
-
-    // skip if no cells
-    if (cell.kind !== NotebookCellKind.Code) {
-      continue;
-    }
-
-    // make file for our cell
-    const cellFSPath = `${file}#${i}`;
-
-    // process the cell
-    byCell[cellFSPath] = Parser(cell.text, {
-      isNotebook: true,
-    });
-
-    // save globals
-    resp.globals[cellFSPath] = byCell[cellFSPath].global;
-  }
+  const byCell = await WORKER_INDEX.indexIDLNotebook(
+    message.file,
+    message.notebook
+  );
 
   /**
    * Get files for cells that we actually processed
    */
   const files = Object.keys(byCell);
 
-  // share variable usage
+  // process each cell and save information we need to return
   for (let i = 0; i < files.length; i++) {
-    PopulateNotebookVariables(files[i], byCell, true);
-  }
-
-  // process each file
-  for (let i = 0; i < files.length; i++) {
-    // inherit data types from cells above us
-    if (i > 0) {
-      PopulateNotebookVariables(files[i], byCell, false);
-    }
-
-    // post process cell
-    await WORKER_INDEX.postProcessProFile(
-      files[i],
-      byCell[files[i]],
-      [],
-      false
-    );
-
-    // track problems by file
+    resp.globals[files[i]] = byCell[files[i]].global;
     resp.problems[files[i]] = GetSyntaxProblems(byCell[files[i]]);
   }
-
-  // indicate that we have finished and clean up
-  resolver();
-  delete WORKER_INDEX.pendingNotebooks[file];
 
   // return each cell
   return resp;
 });
+
+/**
+ * Get notebook cells
+ */
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
+  async (message) => {
+    // get parsed code and return
+    const parsed = await WORKER_INDEX.getParsedProCode(message.file, '');
+
+    // make non-circular
+    if (parsed !== undefined) {
+      RemoveScopeDetail(parsed);
+    }
+
+    return parsed;
+  }
+);
 
 /**
  * Post-process some files

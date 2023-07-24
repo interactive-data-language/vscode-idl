@@ -90,6 +90,23 @@ export interface GetAutoCompletePayload {
 export type GetAutoCompleteResponse = CompletionItem[];
 
 /**
+ * Message when we want to get a notebook cell
+ */
+export type GetNotebookCellMessage = 'get-notebook-cell';
+
+/**
+ * Payload to get notebook cell
+ */
+export interface GetNotebookCellPayload {
+  file: string;
+}
+
+/**
+ * Response for getting notebook cell
+ */
+export type GetNotebookCellResponse = IParsed;
+
+/**
  * Message when we want to get the outline for a file
  */
 export type GetOutlineMessage = 'get-outline';
@@ -380,6 +397,7 @@ export type LSPWorkerThreadMessage =
   | ChangeDetectionMessage
   | CleanUpMessage
   | GetAutoCompleteMessage
+  | GetNotebookCellMessage
   | GetOutlineMessage
   | GetSemanticTokensMessage
   | GetTokenDefMessage
@@ -414,6 +432,10 @@ interface ILSPWorkerThreadMessageLookup {
    * Message when we want to get auto complete for a file
    */
   GET_AUTO_COMPLETE: GetAutoCompleteMessage;
+  /**
+   * Message when we want to get a notebook cell
+   */
+  GET_NOTEBOOK_CELL: GetNotebookCellMessage;
   /**
    * Message when we want to get the outline for a file
    */
@@ -476,6 +498,7 @@ export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   CHANGE_DETECTION: 'change-detection',
   CLEAN_UP: 'clean-up',
   GET_AUTO_COMPLETE: 'get-auto-complete',
+  GET_NOTEBOOK_CELL: 'get-notebook-cell',
   GET_OUTLINE: 'get-outline',
   GET_SEMANTIC_TOKENS: 'get-semantic-tokens',
   GET_TOKEN_DEF: 'get-token-def',
