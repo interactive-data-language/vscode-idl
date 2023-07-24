@@ -18,6 +18,8 @@ export interface IDLDirs {
  */
 export const IDL_DIRS: IDLDirs = {
   darwin: [
+    '/Applications/nv5/envi60/idl90/bin/bin.darwin.x86_64',
+    '/Applications/nv5/idl90/bin/bin.darwin.x86_64',
     '/Applications/harris/envi57/idl89/bin/bin.darwin.x86_64',
     '/Applications/harris/idl89/bin/bin.darwin.x86_64',
     '/Applications/harris/envi56/idl88/bin/bin.darwin.x86_64',
@@ -28,6 +30,8 @@ export const IDL_DIRS: IDLDirs = {
     '/Applications/harris/idl86/bin/bin.darwin.x86_64',
   ],
   linux: [
+    '/usr/local/nv5/envi60/idl90/bin/bin.linux.x86_64',
+    '/usr/local/nv5/idl90/bin/bin.linux.x86_64',
     '/usr/local/harris/envi57/idl89/bin/bin.linux.x86_64',
     '/usr/local/harris/idl89/bin/bin.linux.x86_64',
     '/usr/local/harris/envi56/idl88/bin/bin.linux.x86_64',
@@ -38,6 +42,8 @@ export const IDL_DIRS: IDLDirs = {
     '/usr/local/harris/idl86/bin/bin.linux.x86_64',
   ],
   win32: [
+    'C:\\Program Files\\NV5\\ENVI60\\IDL90\\bin\\bin.x86_64',
+    'C:\\Program Files\\NV5\\IDL90\\bin\\bin.x86_64',
     'C:\\Program Files\\Harris\\ENVI57\\IDL89\\bin\\bin.x86_64',
     'C:\\Program Files\\Harris\\IDL89\\bin\\bin.x86_64',
     'C:\\Program Files\\Harris\\ENVI56\\IDL88\\bin\\bin.x86_64',
