@@ -156,6 +156,11 @@ export class IDLIndex {
   pendingFiles: { [key: string]: Promise<IParsed> } = {};
 
   /**
+   * Track pending notebooks
+   */
+  pendingNotebooks: { [key: string]: Promise<void> } = {};
+
+  /**
    * Track the workers that own each file
    *
    * If the value is `undefined`, then the file was processed in our thread
@@ -1150,6 +1155,17 @@ export class IDLIndex {
     code: string | string[],
     options: Partial<IIndexProCodeOptions> = {}
   ): Promise<IParsed> {
+    /**
+     * If we have a pending notebook file, and we are a notebook file, pause
+     * and wait for it to finish before we do anything
+     */
+    if (this.isIDLNotebookFile(file)) {
+      const base = file.split('#')[0];
+      if (base in this.pendingNotebooks) {
+        await this.pendingNotebooks[base];
+      }
+    }
+
     switch (true) {
       /**
        * Check for a pending file

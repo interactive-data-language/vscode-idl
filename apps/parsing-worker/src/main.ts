@@ -1,6 +1,6 @@
 import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
 import { IParsedIDLNotebook } from '@idl/notebooks';
-import { ParseFileSync } from '@idl/parser';
+import { ParseFileSync, Parser } from '@idl/parser';
 import {
   ChangeDetection,
   GetSyntaxProblems,
@@ -335,6 +335,19 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK, async (message) => {
    */
   const file = message.file;
 
+  /**
+   * Resolver for our work being done
+   */
+  let resolver: () => void;
+
+  // make a promise for panding
+  const pending = new Promise<void>((res) => {
+    resolver = res;
+  });
+
+  // track that we have a pending notebook parse
+  WORKER_INDEX.pendingNotebooks[file] = pending;
+
   // remove notebook for fresh parse
   await WORKER_INDEX.removeNotebook(file);
 
@@ -371,14 +384,9 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK, async (message) => {
     const cellFSPath = `${file}#${i}`;
 
     // process the cell
-    byCell[cellFSPath] = await WORKER_INDEX.indexProCode(
-      cellFSPath,
-      cell.text,
-      {
-        postProcess: false,
-        isNotebook: true,
-      }
-    );
+    byCell[cellFSPath] = Parser(cell.text, {
+      isNotebook: true,
+    });
 
     // save globals
     resp.globals[cellFSPath] = byCell[cellFSPath].global;
@@ -412,6 +420,10 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK, async (message) => {
     // track problems by file
     resp.problems[files[i]] = GetSyntaxProblems(byCell[files[i]]);
   }
+
+  // indicate that we have finished and clean up
+  resolver();
+  delete WORKER_INDEX.pendingNotebooks[file];
 
   // return each cell
   return resp;
