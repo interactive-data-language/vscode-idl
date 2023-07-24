@@ -724,7 +724,7 @@ export const EN: ITranslation = {
       '103': 'Ambiguous keyword usage. One or more keywords starts with',
       '104': 'Unused variable',
       '105':
-        'Illegal use of parentheses for array indexing on variable, use brackets instead. If this is a function call, add `compile_opt idl2` to the routine or main level program to delineate between the variable and function call.',
+        'Illegal use of parentheses for indexing variable, use brackets instead (function name matches local variable). If this is a function call, add `compile_opt idl2` to delineate between the variable and function call.',
     },
   },
   terminal: {

@@ -70,9 +70,16 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               display: 'arg1',
               isDefined: true,
               usage: [[14, 17, 4]],
-              docs: '',
+              docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'envitask',
+                  display: 'ENVITask<any>',
+                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  meta: {},
+                },
+              ],
             },
           },
           arg2: {
@@ -83,9 +90,16 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               display: 'arg2',
               isDefined: true,
               usage: [[14, 23, 4]],
-              docs: '',
+              docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'idltask',
+                  display: 'IDLTask<any>',
+                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  meta: {},
+                },
+              ],
             },
           },
           arg3: {
@@ -96,9 +110,40 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               display: 'arg3',
               isDefined: true,
               usage: [[14, 29, 4]],
-              docs: '',
+              docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'envibuildmosaicrastertask',
+                  display: 'ENVITask<BuildMosaicRaster>',
+                  args: [
+                    [
+                      {
+                        name: 'BuildMosaicRaster',
+                        display: 'BuildMosaicRaster',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
+                  meta: {},
+                },
+                {
+                  name: 'envisubsetrastertask',
+                  display: 'ENVITask<SubsetRaster>',
+                  args: [
+                    [
+                      {
+                        name: 'SubsetRaster',
+                        display: 'SubsetRaster',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
+                  meta: {},
+                },
+              ],
             },
           },
           arg4: {
@@ -109,9 +154,25 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               display: 'arg4',
               isDefined: true,
               usage: [[14, 35, 4]],
-              docs: '',
+              docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'idls3_downloadtask',
+                  display: 'IDLTask<s3_download>',
+                  args: [
+                    [
+                      {
+                        name: 's3_download',
+                        display: 's3_download',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
+                  meta: {},
+                },
+              ],
             },
           },
           arg5: {
@@ -122,9 +183,25 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               display: 'arg5',
               isDefined: true,
               usage: [[14, 41, 4]],
-              docs: '',
+              docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'envibuildmosaicrastertask',
+                  display: 'ENVITask<BuildMosaicRaster>',
+                  args: [
+                    [
+                      {
+                        name: 'BuildMosaicRaster',
+                        display: 'BuildMosaicRaster',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -146,63 +223,140 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
           source: 'user',
           args: {
             arg1: {
-              docs: '',
-              private: false,
+              docs: 'Placeholder docs for argument, keyword, or property',
+              direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
-              direction: 'bidirectional',
+              type: [
+                {
+                  name: 'envitask',
+                  display: 'ENVITask<any>',
+                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  meta: {},
+                },
+              ],
+              private: false,
               req: true,
               display: 'arg1',
               code: true,
               pos: [14, 17, 4],
             },
             arg2: {
-              docs: '',
-              private: false,
+              docs: 'Placeholder docs for argument, keyword, or property',
+              direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
-              direction: 'bidirectional',
+              type: [
+                {
+                  name: 'idltask',
+                  display: 'IDLTask<any>',
+                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  meta: {},
+                },
+              ],
+              private: false,
               req: true,
               display: 'arg2',
               code: true,
               pos: [14, 23, 4],
             },
             arg3: {
-              docs: '',
-              private: false,
+              docs: 'Placeholder docs for argument, keyword, or property',
+              direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
-              direction: 'bidirectional',
+              type: [
+                {
+                  name: 'envibuildmosaicrastertask',
+                  display: 'ENVITask<BuildMosaicRaster>',
+                  args: [
+                    [
+                      {
+                        name: 'BuildMosaicRaster',
+                        display: 'BuildMosaicRaster',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
+                  meta: {},
+                },
+                {
+                  name: 'envisubsetrastertask',
+                  display: 'ENVITask<SubsetRaster>',
+                  args: [
+                    [
+                      {
+                        name: 'SubsetRaster',
+                        display: 'SubsetRaster',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
+                  meta: {},
+                },
+              ],
+              private: false,
               req: true,
               display: 'arg3',
               code: true,
               pos: [14, 29, 4],
             },
             arg4: {
-              docs: '',
-              private: false,
+              docs: 'Placeholder docs for argument, keyword, or property',
+              direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
-              direction: 'bidirectional',
+              type: [
+                {
+                  name: 'idls3_downloadtask',
+                  display: 'IDLTask<s3_download>',
+                  args: [
+                    [
+                      {
+                        name: 's3_download',
+                        display: 's3_download',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
+                  meta: {},
+                },
+              ],
+              private: false,
               req: true,
               display: 'arg4',
               code: true,
               pos: [14, 35, 4],
             },
             arg5: {
-              docs: '',
-              private: false,
+              docs: 'Placeholder docs for argument, keyword, or property',
+              direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
-              direction: 'bidirectional',
+              type: [
+                {
+                  name: 'envibuildmosaicrastertask',
+                  display: 'ENVITask<BuildMosaicRaster>',
+                  args: [
+                    [
+                      {
+                        name: 'BuildMosaicRaster',
+                        display: 'BuildMosaicRaster',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
+                  meta: {},
+                },
+              ],
+              private: false,
               req: true,
               display: 'arg5',
               code: true,
               pos: [14, 41, 4],
             },
           },
-          docs: '#### myfunc\n\n```idl\nresult = myfunc( arg1, arg2, arg3, arg4, arg5, [ KW1 = any ])\n```\n\n#### Arguments\n\n- **arg1**: bidirectional, required, any\n\n  \n\n- **arg2**: bidirectional, required, any\n\n  \n\n- **arg3**: bidirectional, required, any\n\n  \n\n- **arg4**: bidirectional, required, any\n\n  \n\n- **arg5**: bidirectional, required, any\n\n  \n\n\n#### Keywords\n\n- **KW1**: bidirectional, optional, any\n\n    \n\n',
-          docsLookup: {},
+          docs: '#### myfunc\n\n```idl\nresult = myfunc( arg1, arg2, arg3, arg4, arg5, [ KW1 = any ])\n```\n\n\n\n#### Arguments\n\n- **arg1**: in, required, ENVITask<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, IDLTask<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, ENVITask<BuildMosaicRaster> | ENVITask<SubsetRaster>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, IDLTask<s3_download>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, ENVITask<BuildMosaicRaster>\n\n  Placeholder docs for argument, keyword, or property\n\n\n#### Keywords\n\n- **KW1**: bidirectional, optional, any\n\n    \n\n',
+          docsLookup: { default: '' },
           display: 'myfunc',
           kws: {
             kw1: {

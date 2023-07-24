@@ -57,7 +57,7 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       },
       {
         code: 105,
-        info: 'Illegal use of parentheses for array indexing, use brackets instead. If this is a function call, add `compile_opt idl2` to the routine or main level program to delineate between the variable and function call.',
+        info: 'Illegal use of parentheses for indexing variable, use brackets instead (function name matches local variable). If this is a function call, add `compile_opt idl2` to delineate between the variable and function call.',
         start: [4, 9, 1],
         end: [4, 10, 1],
       },

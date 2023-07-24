@@ -60,8 +60,12 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### mystruct__define\n\n```idl\nmystruct__define\n```\n',
-          docsLookup: {},
+          docs: '#### mystruct__define\n\n```idl\nmystruct__define\n```\n\n\n\n### Mystruct\n\nprop: Long\n  Placeholder docs for argument or keyword\nprop2: ENVIRaster\n  Placeholder docs for argument or keyword',
+          docsLookup: {
+            default: '',
+            mystruct:
+              'prop: Long\n  Placeholder docs for argument or keyword\nprop2: ENVIRaster\n  Placeholder docs for argument or keyword',
+          },
           display: 'mystruct__define',
           kws: {},
           private: false,
