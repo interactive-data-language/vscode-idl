@@ -4,6 +4,8 @@ import {
 } from '@idl/parsing/syntax-tree';
 import copy from 'fast-copy';
 
+import { IDL_INDEX_OPTIONS } from './idl-index.interface';
+
 /**
  * Tags that we compress/uncompress
  */
@@ -33,9 +35,16 @@ export class IDLParsedCache {
    * Compress
    */
   private compress(orig: IParsed): IParsed {
-    // create a light copy with different root properties
-    // and shared, nested, non-compressed properties
-    // const parsed = Object.assign({}, orig);
+    /**
+     * Check if we don't have compression enabled
+     */
+    if (!IDL_INDEX_OPTIONS.COMPRESSION) {
+      return orig;
+    }
+
+    /**
+     * Copy our original
+     */
     const parsed = copy(orig);
 
     // clean up and make non-circular
@@ -54,11 +63,17 @@ export class IDLParsedCache {
    * Decompress
    */
   private decompress(compressed: IParsed): IParsed {
-    // copy decompressed data
-    // create a light copy with different root properties
-    // and shared, nested, non-compressed properties
+    /**
+     * Check if we don't have compression enabled
+     */
+    if (!IDL_INDEX_OPTIONS.COMPRESSION) {
+      return compressed;
+    }
+
+    /**
+     * Shallow copy on decompress so we share root properties
+     */
     const parsed = Object.assign({}, compressed);
-    // const parsed = copy(compressed);
 
     // unpack the keys
     for (let i = 0; i < COMPRESS_THESE.length; i++) {

@@ -6,6 +6,10 @@ import copy from 'fast-copy';
  */
 export const IDL_INDEX_OPTIONS = {
   /**
+   * Is compression enabled?
+   */
+  COMPRESSION: true,
+  /**
    * How frequently we manually run garbage collection to limit
    * RAM consumption
    *
