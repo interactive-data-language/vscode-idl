@@ -4,7 +4,7 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail on incremental work for large features, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
-## 3.1.0 Unreleased
+## 3.1.1 Unreleased
 
 Preview release of IDL Notebooks! This is a first pass at adding notebook support for IDL which is independent from Jupyter.
 
@@ -29,6 +29,8 @@ Here are some of the features that notebooks bring:
   - Because we do not have debugging, after each cell is executed we issue a `retall` command to IDL to make sure that we are at the top-level
 
 - Only support for IDL code (no Python or other languages at this time)
+
+## 3.1.0 July 2023
 
 Fixed an issue where garbage collection was not turning on and caused out-of-memory errors which led to language server crashes
 
