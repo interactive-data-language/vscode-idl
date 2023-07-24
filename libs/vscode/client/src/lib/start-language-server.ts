@@ -50,9 +50,16 @@ export let LANGUAGE_SERVER_MESSENGER: VSCodeClientEventManager;
  */
 export async function StartLanguageServer(ctx: ExtensionContext) {
   /**
+   * Attempt to spawn node and get the version
+   */
+  const spawnRes = spawnSync('node', ['--version'], {
+    encoding: 'utf-8',
+  });
+
+  /**
    * Check for nodejs to determine how we launch the language server
    */
-  const HAS_NODE = spawnSync('node', ['--version']).error ? false : true;
+  const HAS_NODE = spawnRes.error ? false : true;
 
   /**
    * Full path to the JS file for launching in VSCode
@@ -189,7 +196,10 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
   IDL_LOGGER.log({
     type: 'info',
     content: [
-      `Starting the language server using: ${HAS_NODE ? 'node' : 'VSCode'}`,
+      `Starting the language server using "${
+        HAS_NODE ? 'node' : 'VSCode'
+      }". Output from "node --version":`,
+      spawnRes.output.filter((item) => item).map((item) => item.trim()),
     ],
   });
 
