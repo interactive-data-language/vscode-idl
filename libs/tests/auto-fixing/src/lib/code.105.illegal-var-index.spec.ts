@@ -21,7 +21,9 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
     const code = [`;+ my var`, `a = 5`, ``, `!null = a()`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
@@ -55,7 +57,7 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       },
       {
         code: 105,
-        info: 'Illegal use of parentheses for array indexing, use brackets instead. If this is a function call, add `compile_opt idl2` to the routine or main level program to delineate between the variable and function call.',
+        info: 'Illegal use of parentheses for indexing variable, use brackets instead (function name matches local variable). If this is a function call, add `compile_opt idl2` to delineate between the variable and function call.',
         start: [4, 9, 1],
         end: [4, 10, 1],
       },
@@ -89,7 +91,9 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
@@ -155,7 +159,9 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
     const code = [`compile_opt idl2`, `a = 5`, ``, `!null = a()`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {
@@ -209,7 +215,9 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
     const code = [`compile_opt idl3`, `a = 5`, ``, `!null = a()`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {

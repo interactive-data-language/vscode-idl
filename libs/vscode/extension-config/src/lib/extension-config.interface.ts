@@ -43,6 +43,11 @@ export interface IDLExtensionsConfigKeys {
   /** Do we do a full parse or not */
   readonly languageServerFullParse: 'languageServer.fullParse';
 
+  /** Key for notebook preferences */
+  readonly notebooks: 'notebooks';
+  /** Do we embed graphics or not */
+  readonly notebooksEmbedGraphics: 'notebooks.embedGraphics';
+
   /** User configured problem codes to ignore */
   readonly problemsIgnoreProblems: 'problems.ignoreProblems';
   /** If we include problems to files that live in an open workspace */
@@ -121,6 +126,11 @@ export interface ILanguageServerConfig {
   fullParse: boolean;
 }
 
+export interface INotebookConfig {
+  /** Do we embed graphics into notebooks? */
+  embedGraphics: boolean;
+}
+
 export interface IProblemConfig {
   /** User configured problem codes to ignore (problem codes or aliases) */
   readonly ignoreProblems: (number | string)[];
@@ -184,6 +194,11 @@ export interface IDLExtensionConfig {
   readonly languageServer: ILanguageServerConfig;
 
   /**
+   * Configuration for notebooks
+   */
+  readonly notebooks: INotebookConfig;
+
+  /**
    * Preferences for problem reporting
    */
   readonly problems: IProblemConfig;
@@ -224,6 +239,9 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
 
   languageServer: 'languageServer',
   languageServerFullParse: 'languageServer.fullParse',
+
+  notebooks: 'notebooks',
+  notebooksEmbedGraphics: 'notebooks.embedGraphics',
 
   problemsIgnoreProblems: 'problems.ignoreProblems',
   problemsIncludeProblemsFromIDLPath: 'problems.includeProblemsFromIDLPath',
@@ -281,6 +299,9 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
   },
   languageServer: {
     fullParse: true,
+  },
+  notebooks: {
+    embedGraphics: true,
   },
   problems: {
     ignoreProblems: [],

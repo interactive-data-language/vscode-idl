@@ -20,7 +20,9 @@ describe(`[auto generated] Detects problems after main level`, () => {
     const code = [`compile_opt idl2`, `end`, `a = 5`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -77,7 +79,9 @@ describe(`[auto generated] Detects problems after main level`, () => {
     const code = [`compile_opt idl2`, `end`, `; ok`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [];

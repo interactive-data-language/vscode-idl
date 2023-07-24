@@ -25,7 +25,9 @@ describe(`[auto generated] Detects missing compile options`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -58,7 +60,9 @@ describe(`[auto generated] Detects missing compile options`, () => {
     const code = [`pro mypro`, `  compile_opt idl2, bad2`, `  return`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

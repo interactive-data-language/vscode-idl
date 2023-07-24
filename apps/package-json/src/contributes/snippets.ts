@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
@@ -6,31 +6,31 @@ import { IPackageJSON, IPackageNLS } from '../package.interface';
 
 export const SNIPPETS = [
   {
-    language: LANGUAGE_NAME,
+    language: IDL_LANGUAGE_NAME,
     path: 'extension/language/snippets/comment-block.json',
   },
   {
-    language: LANGUAGE_NAME,
+    language: IDL_LANGUAGE_NAME,
     path: 'extension/language/snippets/idl.json',
   },
   {
-    language: LANGUAGE_NAME,
+    language: IDL_LANGUAGE_NAME,
     path: 'extension/language/snippets/loops.json',
   },
   {
-    language: LANGUAGE_NAME,
+    language: IDL_LANGUAGE_NAME,
     path: 'extension/language/snippets/conditionals.json',
   },
   {
-    language: LANGUAGE_NAME,
+    language: IDL_LANGUAGE_NAME,
     path: 'extension/language/snippets/envi.json',
   },
   {
-    language: LANGUAGE_NAME,
+    language: IDL_LANGUAGE_NAME,
     path: 'extension/language/snippets/objects.json',
   },
   // {
-  //   language: LANGUAGE_NAME,
+  //   language: IDL_LANGUAGE_NAME,
   //   path: 'extension/language/snippets/tests.json',
   // },
 ];

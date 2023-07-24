@@ -7,12 +7,13 @@ import {
   PostProcessProblems,
 } from '@idl/parsing/syntax-tree';
 import { ActivateDefaultSyntaxRules } from '@idl/parsing/syntax-validators';
-import { Tokenizer } from '@idl/parsing/tokenizer';
+import { FAST_FIND_TOKEN_OPTIONS, Tokenizer } from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';
 import { existsSync, readFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 
 import { CodeChecksum } from './code-checksum';
+import { DEFAULT_PARSER_OPTIONS, IParserOptions } from './parser.interface';
 
 // call a function from our validators so the code gets loaded and bundled
 ActivateDefaultSyntaxRules();
@@ -21,14 +22,22 @@ ActivateDefaultSyntaxPostProcessors();
 /**
  * Creates an iterator and extracts tokens from our code
  */
-export function ParserTokenize(code: string | string[], tokenized: IParsed) {
+export function ParserTokenize(
+  code: string | string[],
+  tokenized: IParsed,
+  full = true
+) {
   /**
    * Dont catch errors at this level, we want failures to happen
    * when we have problems using the tokenizer so they
    * get caught and reported
    */
   // try {
-  Object.assign(tokenized, Tokenizer(code));
+  Object.assign(
+    tokenized,
+    full ? Tokenizer(code) : Tokenizer(code, FAST_FIND_TOKEN_OPTIONS)
+  );
+
   // } catch (err) {
   //   console.error(err);
 
@@ -46,10 +55,14 @@ export function ParserTokenize(code: string | string[], tokenized: IParsed) {
 /**
  * Creates a syntax tree and does checking for syntax errors
  */
-export function ParserBuildTree(tokenized: IParsed, full = true) {
+export function ParserBuildTree(
+  tokenized: IParsed,
+  full: boolean,
+  isNotebook: boolean
+) {
   // try {
   // build tree - updates property for tokenized
-  BuildSyntaxTree(tokenized, full);
+  BuildSyntaxTree(tokenized, full, isNotebook);
   // } catch (err) {
   //   console.error(err);
 
@@ -67,15 +80,19 @@ export function ParserBuildTree(tokenized: IParsed, full = true) {
 /**
  * Parses IDL code into tokens for linting, formatting, and error checking.
  * @param {(string | string[])} code The Code to parse
- * @param {boolean} [full=true] Do we do a full parse or not?
- * @param {boolean} [cleanup=true] Do we cleanup to reduce memory usage after?
+ * @param {boolean} [options.full=true] Do we do a full parse or not?
+ * @param {boolean} [options.cleanup=true] Do we cleanup to reduce memory usage after?
  * @return {*}  {IParsed}
  */
 export function Parser(
   code: string | string[],
-  full = true,
-  cleanup = true
+  inOptions: Partial<IParserOptions> = {}
 ): IParsed {
+  /**
+   * Merge with defaults
+   */
+  const options = Object.assign(copy(DEFAULT_PARSER_OPTIONS), inOptions);
+
   // initialize out tokenized response
   const tokenized: IParsed = {
     checksum: CodeChecksum(code),
@@ -102,22 +119,43 @@ export function Parser(
   };
 
   // extract tokens
-  ParserTokenize(code, tokenized);
+  ParserTokenize(code, tokenized, options.full);
 
   // build the syntax tree and detect syntax problems
-  ParserBuildTree(tokenized, full);
+  ParserBuildTree(tokenized, options.full, options.isNotebook);
 
-  // populate our global tokens and extract local for the global tokens
-  PopulateGlobalLocalCompileOpts(tokenized);
+  /**
+   * Populate our global, local (variables), and compile-opts
+   *
+   * Populate global tokens - do note that this also populates docs
+   * so we probably dont want to turn it off
+   *
+   * If it is off, we dont get hover help or useful auto-complete
+   */
+  PopulateGlobalLocalCompileOpts(tokenized, true, options.isNotebook);
+
+  // remove all problems if fast parse
+  if (!options.full) {
+    tokenized.parseProblems = [];
+  }
 
   // clean up
-  if (cleanup) {
+  if (options.cleanup) {
+    // always remove tokens
     tokenized.tokens = [];
-    tokenized.text = [];
+
+    /**
+     * Never clean up notebooks as it is the only way to get our text from worker threads
+     */
+    if (!(options.isNotebook || options.keepText)) {
+      tokenized.text = [];
+    }
   }
 
   // post process our syntax problems
-  PostProcessProblems(tokenized);
+  if (options.full) {
+    PostProcessProblems(tokenized);
+  }
 
   return tokenized;
 }
@@ -128,7 +166,10 @@ export function Parser(
  * It will throw an error if the file does not exist, so this should be
  * called in a try/catch block.
  */
-export async function ParseFile(file: string, full = true): Promise<IParsed> {
+export async function ParseFile(
+  file: string,
+  options: Partial<IParserOptions> = {}
+): Promise<IParsed> {
   // make sure that our file exists
   if (!existsSync(file)) {
     throw new Error(`File "${file}" not found`);
@@ -138,7 +179,7 @@ export async function ParseFile(file: string, full = true): Promise<IParsed> {
   const code = await readFile(file, 'utf-8');
 
   // parse and return
-  return Parser(code, full);
+  return Parser(code, options);
 }
 
 /**
@@ -147,7 +188,10 @@ export async function ParseFile(file: string, full = true): Promise<IParsed> {
  * It will throw an error if the file does not exist, so this should be
  * called in a try/catch block.
  */
-export function ParseFileSync(file: string, full = true): IParsed {
+export function ParseFileSync(
+  file: string,
+  options: Partial<IParserOptions> = {}
+): IParsed {
   // make sure that our file exists
   if (!existsSync(file)) {
     throw new Error(`File "${file}" not found`);
@@ -157,5 +201,5 @@ export function ParseFileSync(file: string, full = true): IParsed {
   const code = readFileSync(file, 'utf-8');
 
   // parse and return
-  return Parser(code, full);
+  return Parser(code, options);
 }

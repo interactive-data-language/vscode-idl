@@ -18,7 +18,7 @@ import { IParentInformation } from './selected-token.interface';
  * variables.
  */
 export function GetVariableTokenDef(
-  tokenized: IParsed,
+  parsed: IParsed,
   token: TreeToken<TokenName>,
   parent?: IParentInformation
 ): ILocalIndexedToken<LocalTokenTypes> | undefined {
@@ -41,17 +41,17 @@ export function GetVariableTokenDef(
     // extract lookup
     switch (parent.type) {
       case 'function':
-        if (parentName in tokenized.local.func) {
-          lookup = tokenized.local.func[parentName];
+        if (parentName in parsed.local.func) {
+          lookup = parsed.local.func[parentName];
         }
         break;
       case 'procedure':
-        if (parentName in tokenized.local.pro) {
-          lookup = tokenized.local.pro[parentName];
+        if (parentName in parsed.local.pro) {
+          lookup = parsed.local.pro[parentName];
         }
         break;
       case 'main':
-        lookup = tokenized.local.main;
+        lookup = parsed.local.main;
         break;
       default:
         // DO NOTHING

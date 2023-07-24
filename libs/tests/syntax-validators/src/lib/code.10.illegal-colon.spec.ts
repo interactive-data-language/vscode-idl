@@ -20,7 +20,9 @@ describe(`[auto generated] Detects illegal colon`, () => {
     const code = [`:`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -53,7 +55,9 @@ describe(`[auto generated] Detects illegal colon`, () => {
     const code = [`break:`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -92,7 +96,9 @@ describe(`[auto generated] Detects illegal colon`, () => {
     const code = [`myfunc(a:b)`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -137,7 +143,9 @@ describe(`[auto generated] Detects illegal colon`, () => {
     const code = [`myarr(a:b)`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -182,7 +190,9 @@ describe(`[auto generated] Detects illegal colon`, () => {
     const code = [`a = lambda(x:x+2)`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

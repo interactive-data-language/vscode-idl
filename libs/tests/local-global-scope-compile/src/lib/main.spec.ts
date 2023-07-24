@@ -21,7 +21,9 @@ describe(`[auto generated] Correctly extract variables from`, () => {
     const code = [`compile_opt idl2`, `a = 5`, `mypro, a, b, c, d`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {

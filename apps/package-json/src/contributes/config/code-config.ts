@@ -1,4 +1,4 @@
-import { GetExtensionPath, LANGUAGE_NAME } from '@idl/shared';
+import { GetExtensionPath, IDL_LANGUAGE_NAME } from '@idl/shared';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDL_EXTENSION_CONFIG_KEYS,
@@ -36,7 +36,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
 
   /** Properties for VSCode schema */
   const vsCodeBase =
-    config[`${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.codeFormatting}`];
+    config[`${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.codeFormatting}`];
 
   /** Properties from VSCode */
   const vsCodeProperties = vsCodeBase.properties;
@@ -107,7 +107,9 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
 
   /** Properties for VSCode schema */
   const vsCodeDetail =
-    config[`${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.codeFormattingStyle}`];
+    config[
+      `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.codeFormattingStyle}`
+    ];
 
   /** Properties from VSCode */
   const vsCodeDetailProperties = vsCodeDetail.properties;
@@ -173,7 +175,7 @@ export function AddCodeConfig(nls: IPackageNLS) {
 
   // should our extension run in debug mode
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.codeFormatting}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.codeFormatting}`
   ] = {
     type: 'object',
     description: TranslationFromConfiguration(
@@ -237,7 +239,7 @@ export function AddCodeConfig(nls: IPackageNLS) {
 
   // should our extension run in debug mode
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.codeFormattingStyle}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.codeFormattingStyle}`
   ] = {
     type: 'object',
     description: TranslationFromConfiguration(

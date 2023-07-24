@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDL_EXTENSION_CONFIG_KEYS,
@@ -31,7 +31,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
 
   // add IDL directory
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLDirectory}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLDirectory}`
   ] = {
     type: 'string',
     description: TranslationFromConfiguration(
@@ -43,7 +43,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
 
   // IDL path
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLPath}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLPath}`
   ] = {
     type: 'array',
     default: [],
@@ -60,7 +60,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
 
   // do we add folders to IDL's path?
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLAddWorkspaceFoldersToPath}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLAddWorkspaceFoldersToPath}`
   ] = {
     type: 'boolean',
     default: DEFAULT_IDL_EXTENSION_CONFIG.IDL.addWorkspaceFoldersToPath,
@@ -73,7 +73,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
 
   // how do we add folders to IDL's path?
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLAppendOrPrependWorkspaceFolders}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLAppendOrPrependWorkspaceFolders}`
   ] = {
     enum: ['prepend', 'append'],
     enumDescriptions: TranslationFromConfigurationChoices(
@@ -91,7 +91,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
 
   // environment variables when launching IDL
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLenvironment}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLenvironment}`
   ] = {
     type: 'object',
     additionalProperties: {
@@ -109,7 +109,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
 
   // history configuration for IDL
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLhistory}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLhistory}`
   ] = {
     type: 'object',
     description: TranslationFromConfiguration(

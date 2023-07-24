@@ -64,6 +64,9 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? IUsageMetricAndPayload<UsageMetric>
     : any;
 
+/** Strictly typed payloads to/from the language server */
+export type LanguageServerResponse<T extends LanguageServerMessage> = any;
+
 /** Strictly typed lookup of language server messages */
 export interface ILanguageServerMessages {
   /** Add/update docs for file */

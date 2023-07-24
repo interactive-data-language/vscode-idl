@@ -28,7 +28,10 @@ import { GetUniqueVariables } from './populators/get-unique-variables';
 import { IDL_SYNTAX_TREE_POST_PROCESSOR } from './post-processor.interface';
 import { DEFAULT_CURRENT } from './recursion-and-callbacks/tree-recurser.interface';
 import { SyntaxProblemWithTranslation } from './syntax-problem-with';
-import { IDL_SYNTAX_TREE_VALIDATOR } from './validator.interface';
+import {
+  IDL_SYNTAX_TREE_VALIDATOR,
+  IDLSyntaxValidatorMeta,
+} from './validator.interface';
 
 /**
  * Actually extract our tokens and make the syntax tree
@@ -60,7 +63,7 @@ function BuildTreeRecurser(
     // if we have encountered a main level program, every other token is then a problem
     // its OK if this shows a ridiculous number of problems because it should be
     // readily apparent that there is an issue
-    if (options.foundMain) {
+    if (options.foundMain && options.full) {
       // if we have anything besides a comment, report problem and leave out of syntax tree
       if (token.name !== TOKEN_NAMES.COMMENT) {
         options.syntax.push(
@@ -260,7 +263,11 @@ function BuildTreeRecurser(
 /**
  * Builds our syntax tree and saves it in the tokenized version of our code
  */
-export function BuildSyntaxTree(parsed: IParsed, full = true) {
+export function BuildSyntaxTree(
+  parsed: IParsed,
+  full: boolean,
+  isNotebook: boolean
+) {
   // build our syntax tree
   parsed.tree = BuildTreeRecurser(parsed.tokens, {
     start: -1,
@@ -268,6 +275,7 @@ export function BuildSyntaxTree(parsed: IParsed, full = true) {
     foundMain: false,
     syntax: parsed.parseProblems,
     notClosed: false,
+    full,
   });
 
   // set tree index
@@ -291,7 +299,18 @@ export function BuildSyntaxTree(parsed: IParsed, full = true) {
     // populate the scope again in case our tree changed
     PopulateScope(parsed);
 
-    IDL_SYNTAX_TREE_VALIDATOR.run(parsed, (token, meta) => meta);
+    // create metadata for our syntax validator
+    // leave this for type checks even though unused
+    const validatorMeta: IDLSyntaxValidatorMeta = {
+      isNotebook,
+      ...DEFAULT_CURRENT,
+    };
+
+    // run our syntax validation
+    IDL_SYNTAX_TREE_VALIDATOR.run(parsed, (token, meta) => {
+      Object.assign(meta, { isNotebook });
+      return meta as any as IDLSyntaxValidatorMeta;
+    });
   }
 }
 

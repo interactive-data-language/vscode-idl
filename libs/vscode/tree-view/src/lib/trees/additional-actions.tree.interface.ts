@@ -8,6 +8,13 @@ import { IChild } from '../idl-tree-view.interface';
  */
 export const ADDITIONAL_ACTIONS: IChild[] = [
   {
+    name: IDL_TRANSLATION.idl.tree.children.additionalActions.pickIDL.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.additionalActions.pickIDL.description,
+    icon: 'open-new.svg',
+    commandName: IDL_COMMANDS.CONFIG.IDL_DIR_USER,
+  },
+  {
     name: IDL_TRANSLATION.idl.tree.children.additionalActions.openWebview.name,
     description:
       IDL_TRANSLATION.idl.tree.children.additionalActions.openWebview

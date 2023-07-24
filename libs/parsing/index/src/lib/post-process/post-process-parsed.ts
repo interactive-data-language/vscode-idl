@@ -1,7 +1,6 @@
 import {
   IParsed,
-  PopulateScopeDetail,
-  ResetTokenCache,
+  PopulateScopeDetailAndResetTokenCache,
 } from '@idl/parsing/syntax-tree';
 
 import { GetSyntaxProblems } from '../helpers/get-syntax-problems';
@@ -22,14 +21,9 @@ export function PostProcessParsed(
   parsed.postProcessProblems = [];
 
   /**
-   * Reset cache
+   * Reset cache and set scope detail if we need it
    */
-  ResetTokenCache(parsed);
-
-  /**
-   * Populate scope detail for our tree, needed to determine types
-   */
-  PopulateScopeDetail(parsed);
+  PopulateScopeDetailAndResetTokenCache(parsed);
 
   /**
    * Populate types of local variables

@@ -1,3 +1,5 @@
+import { performance } from 'perf_hooks';
+
 /**
  * Determines if value is number
  */

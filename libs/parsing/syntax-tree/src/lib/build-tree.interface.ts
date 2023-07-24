@@ -25,6 +25,8 @@ export interface IRecurserOptions {
   syntax: SyntaxProblems;
   /** If a token is not closed, this flag will be set so we don't report distracting errors */
   notClosed: boolean;
+  /** Is it a full parse? */
+  full: boolean;
 }
 
 /**

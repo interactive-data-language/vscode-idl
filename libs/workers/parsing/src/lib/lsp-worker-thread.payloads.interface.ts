@@ -10,9 +10,15 @@ import {
   ChangeDetectionMessage,
   ChangeDetectionPayload,
   ChangeDetectionResponse,
+  CleanUpMessage,
+  CleanUpPayload,
+  CleanUpResponse,
   GetAutoCompleteMessage,
   GetAutoCompletePayload,
   GetAutoCompleteResponse,
+  GetNotebookCellMessage,
+  GetNotebookCellPayload,
+  GetNotebookCellResponse,
   GetOutlineMessage,
   GetOutlinePayload,
   GetOutlineResponse,
@@ -39,6 +45,9 @@ import {
   ParseFilesMessage,
   ParseFilesPayload,
   ParseFilesResponse,
+  ParseNotebookMessage,
+  ParseNotebookPayload,
+  ParseNotebookResponse,
   PostProcessFilesMessage,
   PostProcessFilesPayload,
   PostProcessFilesResponse,
@@ -57,8 +66,12 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
     ? AllFilesPayload
     : T extends ChangeDetectionMessage
     ? ChangeDetectionPayload
+    : T extends CleanUpMessage
+    ? CleanUpPayload
     : T extends GetAutoCompleteMessage
     ? GetAutoCompletePayload
+    : T extends GetNotebookCellMessage
+    ? GetNotebookCellPayload
     : T extends GetOutlineMessage
     ? GetOutlinePayload
     : T extends GetSemanticTokensMessage
@@ -77,6 +90,8 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
     ? ParseFilesPayload
     : T extends ParseFilesFastMessage
     ? ParseFilesPayload
+    : T extends ParseNotebookMessage
+    ? ParseNotebookPayload
     : T extends PostProcessFilesMessage
     ? PostProcessFilesPayload
     : T extends RemoveFilesMessage
@@ -95,8 +110,12 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
     ? AllFilesResponse
     : T extends ChangeDetectionMessage
     ? ChangeDetectionResponse
+    : T extends CleanUpMessage
+    ? CleanUpResponse
     : T extends GetAutoCompleteMessage
     ? GetAutoCompleteResponse
+    : T extends GetNotebookCellMessage
+    ? GetNotebookCellResponse
     : T extends GetOutlineMessage
     ? GetOutlineResponse
     : T extends GetSemanticTokensMessage
@@ -113,6 +132,8 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
     ? ParseFilesResponse
     : T extends ParseFilesFastMessage
     ? ParseFilesFastResponse
+    : T extends ParseNotebookMessage
+    ? ParseNotebookResponse
     : T extends PostProcessFilesMessage
     ? PostProcessFilesResponse
     : T extends RemoveFilesMessage

@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDL_EXTENSION_CONFIG_KEYS,
@@ -28,7 +28,7 @@ export function AddLanguageServerConfig(nls: IPackageNLS) {
 
   // should our extension run in debug mode
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.languageServerFullParse}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.languageServerFullParse}`
   ] = {
     type: 'boolean',
     default: DEFAULT_IDL_EXTENSION_CONFIG.languageServer.fullParse,

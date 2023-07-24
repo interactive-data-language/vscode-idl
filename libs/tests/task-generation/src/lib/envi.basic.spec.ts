@@ -39,7 +39,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
     const parsed = await index.getParsedProCode(
       filepath,
       readFileSync(filepath, 'utf-8'),
-      true
+      { postProcess: true }
     );
 
     // make our task

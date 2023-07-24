@@ -1,9 +1,10 @@
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
 import { AddCodeConfig } from './config/code-config';
 import { AddIDLConfig } from './config/idl-config';
 import { AddLanguageServerConfig } from './config/language-server-config';
+import { AddNotebookConfig } from './config/notebook-config';
 import { AddProblemsConfig } from './config/problems-config';
 import { AddQuestionsConfig } from './config/questions-config';
 import { AddTopLevelConfig } from './config/top-level-config';
@@ -44,6 +45,7 @@ export function ProcessConfiguration(
   AddIDLConfig(nls);
   AddCodeConfig(nls);
   AddLanguageServerConfig(nls);
+  AddNotebookConfig(nls);
   AddProblemsConfig(nls);
   AddQuestionsConfig(nls);
   // AddDeveloperConfig(nls);
@@ -57,7 +59,7 @@ export function ProcessConfiguration(
    * https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide#enablement-of-semantic-highlighting
    */
   contrib['configurationDefaults'] = {};
-  contrib['configurationDefaults'][`[${LANGUAGE_NAME}]`] = {
+  contrib['configurationDefaults'][`[${IDL_LANGUAGE_NAME}]`] = {
     'editor.semanticHighlighting.enabled': true,
   };
 }

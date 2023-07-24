@@ -12,6 +12,7 @@ import {
 } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { arch, cpus, platform } from 'os';
+import { performance } from 'perf_hooks';
 
 import { CacheValidFSPath } from '../helpers/cache-valid';
 import { SendProblems } from '../helpers/send-problems';
@@ -24,7 +25,7 @@ import {
 } from '../initialize-server';
 import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
 import { WORKSPACE_INITIALIZATION } from './events/on-initialized';
-import { IDL_INDEX } from './initialize-file-manager';
+import { IDL_INDEX } from './initialize-document-manager';
 
 /**
  * Timeout for all global promises if we don't get the right responses
@@ -69,10 +70,26 @@ export const SERVER_INFO = Promise.all([
 // on initialization, load global tokens
 SERVER_INFO.then(async (res) => {
   try {
-    // alert users
+    // send debug event about garbage collection
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
       type: 'info',
+      content: `Language server garbage collection enabled: ${
+        global.gc ? true : false
+      }`,
+    });
+
+    // send debug event about full parse
+    IDL_LANGUAGE_SERVER_LOGGER.log({
+      log: IDL_LSP_LOG,
+      type: 'info',
+      content: `Language server full parse: ${GLOBAL_SERVER_SETTINGS.fullParse}`,
+    });
+
+    // alert users
+    IDL_LANGUAGE_SERVER_LOGGER.log({
+      log: IDL_LSP_LOG,
+      type: 'debug',
       content: [
         'Loading global tokens and filtering the following internal routines:',
         IDL_CLIENT_CONFIG.developer,
@@ -143,6 +160,7 @@ SERVER_INFO.then(async (res) => {
           num_idl_task: IDL_INDEX.fileTypes['idl-task'].size,
           num_envi_task: IDL_INDEX.fileTypes['envi-task'].size,
           num_idl_json: IDL_INDEX.fileTypes['idl.json'].size,
+          num_notebook: IDL_INDEX.fileTypes['idl-notebook'].size,
         };
 
         IDL_LANGUAGE_SERVER_LOGGER.log({
@@ -168,6 +186,7 @@ SERVER_INFO.then(async (res) => {
           5
         );
         statsDetail.num_idl_json = RoundToNearest(statsDetail.num_idl_json, 5);
+        statsDetail.num_notebook = RoundToNearest(statsDetail.num_notebook, 5);
 
         // send usage metric
         SendUsageMetricServer(

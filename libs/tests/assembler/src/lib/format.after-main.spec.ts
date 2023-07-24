@@ -29,7 +29,9 @@ describe(`[auto generated] Keep tokens after main level programs`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -58,11 +60,9 @@ describe(`[auto generated] Keep tokens after main level programs`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode(
-        'my_file.pro',
-        formatted,
-        true
-      );
+      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
+        postProcess: true,
+      });
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);

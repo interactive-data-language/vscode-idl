@@ -1,5 +1,5 @@
 import {
-  LANGUAGE_NAME,
+  IDL_LANGUAGE_NAME,
   LANGUAGE_TOKEN_SCOPE_NAME,
   LOG_LANGUAGE_NAME,
   LOG_LANGUAGE_TOKEN_SCOPE_NAME,
@@ -11,7 +11,7 @@ import { IPackageJSON, IPackageNLS } from '../package.interface';
 
 export const GRAMMARS = [
   {
-    language: LANGUAGE_NAME,
+    language: IDL_LANGUAGE_NAME,
     scopeName: LANGUAGE_TOKEN_SCOPE_NAME,
     path: 'extension/language/syntaxes/idl.tmLanguage',
   },
@@ -22,12 +22,12 @@ export const GRAMMARS = [
   },
   // from https://github.com/mjbvz/vscode-fenced-code-block-grammar-injection-example
   {
-    language: `${LANGUAGE_NAME}-md-injection`,
+    language: `${IDL_LANGUAGE_NAME}-md-injection`,
     scopeName: `markdown.idl.codeblock`,
     path: 'extension/language/syntaxes/code-blocks.json',
     injectTo: ['text.html.markdown'],
     embeddedLanguages: {
-      'meta.embedded.block.idl': LANGUAGE_NAME,
+      'meta.embedded.block.idl': IDL_LANGUAGE_NAME,
     },
   },
 ];

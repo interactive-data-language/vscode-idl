@@ -25,7 +25,7 @@ import { GetFileStrings } from '../../helpers/get-file-strings';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { UpdateDocument } from '../../helpers/update-document';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
-import { IDL_INDEX } from '../initialize-file-manager';
+import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
@@ -91,7 +91,9 @@ export const ON_GENERATE_TASK = async (
     const proCode = await GetFileStrings(payload.uri);
 
     // re-index the file
-    const parsed = await IDL_INDEX.getParsedProCode(fsPath, proCode, true);
+    const parsed = await IDL_INDEX.getParsedProCode(fsPath, proCode, {
+      postProcess: true,
+    });
 
     /**
      * Make our task

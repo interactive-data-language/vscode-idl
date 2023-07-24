@@ -35,7 +35,12 @@ export interface ILocalVariableTokenMetadata extends IBaseValueDetails {
   isDefined: boolean;
   /** Flag indicating if our variable represents a static class or not */
   isStaticClass?: boolean;
-  /** The locations where we use this variable */
+  /**
+   * The locations where we use this variable
+   *
+   * If the line number is -1, we have a variable defined in another
+   * notebook cell
+   */
   usage: PositionArray[];
 }
 
@@ -53,7 +58,7 @@ export type LocalTokenMetadata<T extends LocalTokenTypes> =
  */
 export interface ILocalIndexedToken<T extends LocalTokenTypes>
   extends IBaseIndexedToken {
-  /** Type of the token we are tracking */
+  /** Type of local token we are tracking (NOT DATA TYPE, SEE meta.type) */
   type: T;
   /** Metadata for our local token. Typed to match the "type" property */
   meta: LocalTokenMetadata<T>;

@@ -20,7 +20,9 @@ describe(`[auto generated] Detects invalid return statements in functions (no va
     const code = [`function myfunc`, `  compile_opt idl2`, `  return,1`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [];
@@ -46,7 +48,9 @@ describe(`[auto generated] Detects invalid return statements in functions (no va
     const code = [`function myfunc`, `  compile_opt idl2`, `  return`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -84,7 +88,9 @@ describe(`[auto generated] Detects invalid return statements in functions (no va
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

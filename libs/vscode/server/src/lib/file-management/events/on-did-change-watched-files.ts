@@ -9,7 +9,7 @@ import { CacheValidFSPath } from '../../helpers/cache-valid';
 import { GetFileStringsFromFSPath } from '../../helpers/get-file-strings';
 import { SendProblems } from '../../helpers/send-problems';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
-import { IDL_INDEX } from '../initialize-file-manager';
+import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**

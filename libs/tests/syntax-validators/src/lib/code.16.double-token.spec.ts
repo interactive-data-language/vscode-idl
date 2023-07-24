@@ -20,7 +20,9 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     const code = [`procedure, var1 var2`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -65,7 +67,9 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     const code = [`func1() func2()`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -98,7 +102,9 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     const code = [`a + + b`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -143,7 +149,9 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     const code = [`mypro,,`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -176,7 +184,9 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     const code = [`a = {mystruct, {known:val}}`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -221,7 +231,9 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     const code = [`a = {{known:val}}`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -272,7 +284,9 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     const code = [`; first`, `;second`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [];
@@ -298,7 +312,9 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     const code = [`pro1`, `pro2`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -355,7 +371,9 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -616,7 +634,9 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     const code = [`a = \`\\r\\r\\n\\n\``];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -649,7 +669,9 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     const code = [`a = var.myfunc().ohNotOk()`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

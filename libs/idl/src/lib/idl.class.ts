@@ -51,7 +51,7 @@ export class IDL extends EventEmitter {
   closing = false;
 
   /** promise queue to manage pending requests */
-  queue = new PromiseQueue();
+  queue: PromiseQueue;
 
   /** Whether we emit event for standard out or not */
   silent = false;
@@ -74,6 +74,7 @@ export class IDL extends EventEmitter {
     super();
     this.log = log;
     this.vscodeProDir = vscodeProDir;
+    this.queue = new PromiseQueue(this);
   }
 
   /**
@@ -121,7 +122,7 @@ export class IDL extends EventEmitter {
         type: 'error',
         content: [
           `Unable to start IDL. Auxiliary PRO code directory not found at expected location:`,
-          this.vscodeProDir,
+          `"${this.vscodeProDir}"`,
         ],
       });
       this.emit(IDL_EVENT_LOOKUP.FAILED_START, 'Failed to start IDL');
@@ -410,6 +411,7 @@ export class IDL extends EventEmitter {
       // do we need to look up the scope information?
     } else {
       const scopeInfo = ProcessScope(
+        this,
         await this.evaluate(this.scopeInfoCommand(frameId), {
           silent: true,
           idlInfo: false,
@@ -426,6 +428,7 @@ export class IDL extends EventEmitter {
    */
   async getCurrentStack() {
     return ProcessScope(
+      this,
       await this.evaluate(this.scopeInfoCommand(0), {
         silent: true,
         idlInfo: false,
@@ -530,8 +533,6 @@ export class IDL extends EventEmitter {
       .map((bp) => `breakpoint, /CLEAR, ${bp.id}`)
       .join(' & ');
 
-    console.log(cmd);
-
     // clear all breakpoints
     await this.evaluate(cmd, {
       silent: true,
@@ -558,8 +559,11 @@ export class IDL extends EventEmitter {
    */
   async evaluate(
     command: string,
-    options?: IDLEvaluateOptions
+    options: IDLEvaluateOptions = {}
   ): Promise<string> {
+    if (!this.started) {
+      throw new Error('IDL is not started');
+    }
     if ('echo' in options ? options.echo : false) {
       this.emit(
         IDL_EVENT_LOOKUP.OUTPUT,
@@ -577,6 +581,7 @@ export class IDL extends EventEmitter {
    */
   private async _getScopeInfo() {
     return ProcessScope(
+      this,
       await this._executeWithNoPending(this.scopeInfoCommand(0), {
         silent: true,
         idlInfo: false, // dont recurse

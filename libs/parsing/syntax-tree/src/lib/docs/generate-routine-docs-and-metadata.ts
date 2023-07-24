@@ -42,7 +42,7 @@ import { MARKDOWN_TYPE_LOOKUP } from './markdown/docs-to-markdown.interface';
  * 5. Report any docs issues via syntax problems
  *
  */
-export function GenerateRoutineDocs(
+export function GenerateRoutineDocsAndMetadata(
   type: RoutineType,
   routine: IBranch<RoutineProcedureToken | RoutineFunctionToken>,
   nameToken: IBranch<RoutineNameToken | RoutineMethodNameToken>,

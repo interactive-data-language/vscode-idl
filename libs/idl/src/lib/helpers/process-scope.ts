@@ -1,15 +1,14 @@
-import { IDL_DEBUG_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_LOGGER } from '@idl/vscode/client';
 import copy from 'fast-copy';
 
+import { IDL } from '../idl.class';
 import { DEFAULT_IDL_INFO, IDLInfo } from '../idl.interface';
 import { CleanIDLOutput } from './clean-idl-output';
 
 /**
  * Processes scope information from IDL
  */
-export function ProcessScope(output: string) {
+export function ProcessScope(idl: IDL, output: string) {
   // verify we found what we were looking for
   if (output.indexOf('{"scope"') === -1) {
     return copy(DEFAULT_IDL_INFO);
@@ -41,8 +40,7 @@ export function ProcessScope(output: string) {
     // return
     return info;
   } catch (err) {
-    IDL_LOGGER.log({
-      log: IDL_DEBUG_LOG,
+    idl.log.log({
       content: [
         'Error parsing output',
         JSON.stringify(output),

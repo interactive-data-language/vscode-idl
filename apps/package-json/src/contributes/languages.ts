@@ -2,7 +2,9 @@ import {
   EPT_FILE_EXTENSION,
   EVS_FILE_EXTENSION,
   IDL_FILE_EXTENSION,
-  LANGUAGE_NAME,
+  IDL_LANGUAGE_NAME,
+  IDL_NOTEBOOK_EXTENSION,
+  IDL_NOTEBOOK_NAME,
   LOG_LANGUAGE_NAME,
   MODEL_FILE_EXTENSION,
   TASK_FILE_EXTENSION,
@@ -15,7 +17,7 @@ import { IPackageJSON, IPackageNLS } from '../package.interface';
 
 export const LANGUAGES = [
   {
-    id: LANGUAGE_NAME,
+    id: IDL_LANGUAGE_NAME,
     aliases: ['IDL', 'idl'],
     extensions: [IDL_FILE_EXTENSION],
     configuration: 'extension/language/syntaxes/language-configuration.json',
@@ -27,7 +29,11 @@ export const LANGUAGES = [
     // },
   },
   {
-    id: `${LANGUAGE_NAME}-md-injection`,
+    id: `${IDL_LANGUAGE_NAME}-md-injection`,
+  },
+  {
+    id: IDL_NOTEBOOK_NAME,
+    extensions: [IDL_NOTEBOOK_EXTENSION],
   },
   {
     id: LOG_LANGUAGE_NAME,
