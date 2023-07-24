@@ -398,6 +398,10 @@ export const EN: ITranslation = {
       },
       children: {
         additionalActions: {
+          pickIDL: {
+            name: 'Specify IDL directory',
+            description: '(where "idl.exe" or "idl" lives)',
+          },
           fileBug: {
             name: 'File',
             description: 'a bug report for the extension',

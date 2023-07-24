@@ -494,6 +494,7 @@ export interface ITranslation {
       children: {
         /** Additional actions */
         additionalActions: {
+          pickIDL: ITreeInformation;
           fileBug: ITreeInformation;
           openWebview: ITreeInformation;
           openDocs: ITreeInformation;
