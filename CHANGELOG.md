@@ -44,6 +44,10 @@ For quick parsing, we now also extract docs for your code to give a better hover
 
 Fixed a bug where the IDL icon was pointing to the wrong file for light themes
 
+Added a new button to the IDL sidebar which allows you to easily specify the location of IDL without needing to rummage through the command palette
+
+Fixed some import bugs if you have an older version of node.js on your path where "performance" was undefined.
+
 ## 3.0.6 - July 2023
 
 Improved message when language server crashes and a button that opens documentation for workarounds for the memory problem
