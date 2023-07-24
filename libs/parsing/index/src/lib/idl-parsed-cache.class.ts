@@ -33,12 +33,12 @@ export class IDLParsedCache {
    * Compress
    */
   private compress(orig: IParsed): IParsed {
-    return orig
     // create a light copy with different root properties
     // and shared, nested, non-compressed properties
     // const parsed = Object.assign({}, orig);
     const parsed = copy(orig);
 
+    // clean up and make non-circular
     RemoveScopeDetailAndResetTokenCache(parsed);
 
     // compress the keys
@@ -54,7 +54,6 @@ export class IDLParsedCache {
    * Decompress
    */
   private decompress(compressed: IParsed): IParsed {
-    return compressed;
     // copy decompressed data
     // create a light copy with different root properties
     // and shared, nested, non-compressed properties
