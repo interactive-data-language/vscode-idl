@@ -74,14 +74,16 @@ SERVER_INFO.then(async (res) => {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
       type: 'info',
-      content: `Garbage collection enabled: ${global.gc ? true : false}`,
+      content: `Language server garbage collection enabled: ${
+        global.gc ? true : false
+      }`,
     });
 
     // send debug event about full parse
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
       type: 'info',
-      content: `Full parse: ${GLOBAL_SERVER_SETTINGS.fullParse}`,
+      content: `Language server full parse: ${GLOBAL_SERVER_SETTINGS.fullParse}`,
     });
 
     // alert users

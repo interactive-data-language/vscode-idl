@@ -119,7 +119,7 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
     }
 
     IDL_LOGGER.log({
-      type: 'info',
+      type: 'debug',
       log: IDL_NOTEBOOK_LOG,
       content: `It took ${Math.floor(
         performance.now() - t0
