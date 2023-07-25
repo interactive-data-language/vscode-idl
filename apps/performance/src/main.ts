@@ -24,14 +24,25 @@ if (!existsSync(lib)) {
   throw new Error(`Lib folder doesn't exist: "${lib}"`);
 }
 
-ParsingPerformanceRunner(lib, {
-  method: 'index-single',
+/**
+ * Test file search performance
+ */
+ParsingPerformanceRunner('C:\\TradeshowContent', {
+  method: 'file-search',
   compression: true,
   multiplier: 4,
-  full: true,
-  postProcess: true,
-  changeDetection: false,
 })
+  /**
+   * Full performance test
+   */
+  // ParsingPerformanceRunner(lib, {
+  //   method: 'index-single',
+  //   compression: true,
+  //   multiplier: 4,
+  //   full: true,
+  //   postProcess: true,
+  //   changeDetection: false,
+  // })
   .then(
     () => process.exit(),
     (err) => {

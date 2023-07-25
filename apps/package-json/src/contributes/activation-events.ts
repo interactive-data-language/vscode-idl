@@ -1,5 +1,5 @@
 import {
-  CONFIG_FILE_GLOB_PATTERN,
+  IDL_JSON_GLOB_PATTERN,
   PRO_CODE_GLOB_PATTERN,
   TASK_FILE_GLOB_PATTERN,
 } from '@idl/shared';
@@ -10,7 +10,7 @@ export const BASE_ACTIVATION_EVENTS: string[] = [
   // not needed per https://code.visualstudio.com/updates/v1_74#_extension-authoring
   // `onLanguage:${IDL_LANGUAGE_NAME}`,
   `workspaceContains:${PRO_CODE_GLOB_PATTERN}`,
-  `workspaceContains:${CONFIG_FILE_GLOB_PATTERN}`,
+  `workspaceContains:${IDL_JSON_GLOB_PATTERN}`,
   `workspaceContains:${TASK_FILE_GLOB_PATTERN}`,
 ];
 

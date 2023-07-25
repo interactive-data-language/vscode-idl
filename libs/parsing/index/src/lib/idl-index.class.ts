@@ -23,16 +23,13 @@ import { IncludeToken } from '@idl/parsing/tokenizer';
 import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
 import {
-  CONFIG_FILE_GLOB_PATTERN,
-  IDL_FILE_EXTENSION,
+  ALL_FILES_GLOB_PATTERN,
+  IDL_JSON_URI,
   IDL_NOTEBOOK_EXTENSION,
-  LANGUAGE_SERVER_CONFIG_URI,
+  IDL_SAVE_FILE_EXTENSION,
   NODE_MEMORY_CONFIG,
-  NOTEBOOK_GLOB_PATTERN,
-  PRO_CODE_GLOB_PATTERN,
-  SAVE_FILE_GLOB_PATTERN,
+  PRO_FILE_EXTENSION,
   TASK_FILE_EXTENSION,
-  TASK_FILE_GLOB_PATTERN,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -58,7 +55,7 @@ import {
 import { WorkerIOPool } from '@idl/workers/workerio';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
-import * as glob from 'fast-glob';
+import { glob } from 'fast-glob';
 import { existsSync, readFileSync } from 'fs';
 import { cpus, platform } from 'os';
 import { basename, dirname, join } from 'path';
@@ -85,6 +82,7 @@ import {
   IDLFileTypeLookup,
   IFolderRecursion,
   IIndexProCodeOptions,
+  IIndexWorkspaceStats,
 } from './idl-index.interface';
 import { IDLParsedCache } from './idl-parsed-cache.class';
 import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';
@@ -186,22 +184,23 @@ export class IDLIndex {
   changedFiles: { [key: string]: boolean } = {};
 
   /**
-   * Statistics from the last time we parsed a workspace
+   * Statistics from when we call indexWorkspace()
    */
-  lastWorkspaceIndexStats: {
-    /** Did we start the server and index a workspace */
-    haveStats: boolean;
-    /** Number of files */
-    files: number;
-    /** In ms */
-    time: number;
-    /** Of code */
-    lines: number;
-  } = {
+  lastWorkspaceIndexStats: IIndexWorkspaceStats = {
     haveStats: false,
-    time: 0,
-    files: 0,
-    lines: 0,
+    linesPro: 0,
+    nConfig: 0,
+    nNotebook: 0,
+    nPro: 0,
+    nSave: 0,
+    nTask: 0,
+    timeConfig: 0,
+    timeNotebook: 0,
+    timePro: 0,
+    timeSave: 0,
+    timeSearch: 0,
+    timeTask: 0,
+    timeTotal: 0,
   };
 
   constructor(log: LogManager, nWorkers = NUM_WORKERS, loadCache = true) {
@@ -320,14 +319,14 @@ export class IDLIndex {
    * This is needed because we have other files that we watch as well.
    */
   isPROCode(file: string): boolean {
-    return file.toLowerCase().endsWith(IDL_FILE_EXTENSION);
+    return file.toLowerCase().endsWith(PRO_FILE_EXTENSION);
   }
 
   /**
    * Indicates that a file is a configuration file
    */
   isConfigFile(file: string): boolean {
-    return file.toLowerCase().endsWith(LANGUAGE_SERVER_CONFIG_URI);
+    return file.toLowerCase().endsWith(IDL_JSON_URI);
   }
 
   /**
@@ -344,6 +343,13 @@ export class IDLIndex {
     return (
       file.includes('#') || file.toLowerCase().endsWith(IDL_NOTEBOOK_EXTENSION)
     );
+  }
+
+  /**
+   * Indicates that a file is a SAVE file
+   */
+  isSAVEFile(file: string): boolean {
+    return file.toLowerCase().endsWith(IDL_SAVE_FILE_EXTENSION);
   }
 
   /**
@@ -565,9 +571,11 @@ export class IDLIndex {
   /**
    * Indexes global symbols
    */
-  async saveGlobalTokens(file: string, global: GlobalTokens) {
+  async saveGlobalTokens(file: string, global: GlobalTokens, sync = true) {
     this.globalIndex.trackGlobalTokens(global, file);
-    await this.syncGlobal(file, global);
+    if (sync) {
+      await this.syncGlobal(file, global);
+    }
   }
 
   /**
@@ -761,7 +769,7 @@ export class IDLIndex {
   /**
    * Index task file
    */
-  private async indexTaskFile(file: string, content?: string) {
+  private async indexTaskFile(file: string, content?: string, sync = true) {
     /**
      * Wrap parsing in try catch since we will eventually have task file errors
      */
@@ -780,11 +788,15 @@ export class IDLIndex {
       }
 
       // track and sync if needed
-      this.saveGlobalTokens(file, global);
+      this.saveGlobalTokens(file, global, sync);
 
       // track as known file
       this.knownFiles[file] = undefined;
+
+      // return global token
+      return global;
     } catch (err) {
+      return [];
       // this.log.log({
       //   log: IDL_LSP_LOG,
       //   type: 'error',
@@ -807,16 +819,22 @@ export class IDLIndex {
    * Index more than one task file
    */
   private async indexTaskFiles(files: string[]) {
-    // process all of our config files
+    /**
+     * track global by file
+     */
+    const byFile: { [key: string]: GlobalTokens } = {};
+
+    // process each task file
     for (let i = 0; i < files.length; i++) {
-      await this.indexTaskFile(files[i]);
+      byFile[files[i]] = await this.indexTaskFile(files[i], undefined, false);
     }
 
     // send to threads
     if (this.isMultiThreaded()) {
-      this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, {
-        files,
-      });
+      this.indexerPool.postToAll(
+        LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
+        byFile
+      );
     }
   }
 
@@ -825,14 +843,10 @@ export class IDLIndex {
    *
    * No validation at this point
    */
-  private async indexWorkspaceTaskFiles(
-    folder: string | string[] | IFolderRecursion
-  ) {
-    // find task files
-    const files = await this.findFiles(folder, TASK_FILE_GLOB_PATTERN);
-
-    // index files
+  private async indexWorkspaceTaskFiles(files: string[]) {
+    const t0 = performance.now();
     await this.indexTaskFiles(files);
+    this.lastWorkspaceIndexStats.timeTask = Math.floor(performance.now() - t0);
   }
 
   /**
@@ -841,13 +855,15 @@ export class IDLIndex {
    * extension client.
    */
   private async indexWorkspaceConfigFiles(
+    files: string[],
     folder: string | string[] | IFolderRecursion
   ) {
-    // find config files for all of our folders
-    const files = await this.findFiles(folder, CONFIG_FILE_GLOB_PATTERN);
-
-    // index files
+    // index and track time
+    const t0 = performance.now();
     await this.indexConfigFiles(files);
+    this.lastWorkspaceIndexStats.timeConfig = Math.floor(
+      performance.now() - t0
+    );
 
     /**
      * Check and see if we have folders that we need to alert the user
@@ -1383,7 +1399,7 @@ export class IDLIndex {
    */
   async findFiles(
     folder: string | string[] | IFolderRecursion,
-    pattern = PRO_CODE_GLOB_PATTERN
+    pattern = ALL_FILES_GLOB_PATTERN
   ): Promise<string[]> {
     // init files that we find
     let files: string[] = [];
@@ -1415,17 +1431,19 @@ export class IDLIndex {
         continue;
       }
 
-      // join our files
-      // 1. sort for consistency (might be excessive, unsure)
-      // 2. make filenames filly-qualified, relative by default
+      /**
+       * Get the files in our folder
+       */
       files = files.concat(
-        (await glob(pattern, { cwd: folders[i], dot: true }))
-          .sort()
-          .map((file) => join(folders[i], file))
-          .filter((file) =>
-            recursion[i] ? true : dirname(file) === folders[i]
-          )
+        (
+          await glob(pattern, {
+            cwd: folders[i],
+            dot: true,
+            deep: recursion[i] ? 100000000 : 1,
+          })
+        ).map((file) => join(folders[i], file))
       );
+      // .sort()
     }
 
     // track the files we found and sync them
@@ -1433,6 +1451,58 @@ export class IDLIndex {
 
     // get files
     return files;
+  }
+
+  /**
+   * Buckets files by file type
+   */
+  private bucketFiles(files: string[]) {
+    /** PRO files */
+    const proFiles: string[] = [];
+
+    /** Config files */
+    const configFiles: string[] = [];
+
+    /** Task files */
+    const taskFiles: string[] = [];
+
+    /** Notebook files */
+    const notebookFiles: string[] = [];
+
+    /** SAVE files */
+    const saveFiles: string[] = [];
+
+    // process all files
+    for (let i = 0; i < files.length; i++) {
+      switch (true) {
+        case this.isPROCode(files[i]):
+          proFiles.push(files[i]);
+          break;
+        case this.isConfigFile(files[i]):
+          configFiles.push(files[i]);
+          break;
+        case this.isTaskFile(files[i]):
+          taskFiles.push(files[i]);
+          break;
+        case this.isIDLNotebookFile(files[i]):
+          notebookFiles.push(files[i]);
+          break;
+        case this.isSAVEFile(files[i]):
+          saveFiles.push(files[i]);
+          break;
+        default:
+          // do nothing
+          break;
+      }
+    }
+
+    return {
+      proFiles,
+      saveFiles,
+      taskFiles,
+      notebookFiles,
+      configFiles,
+    };
   }
 
   /**
@@ -1786,6 +1856,21 @@ export class IDLIndex {
   }
 
   /**
+   * PLACEHOLDER
+   *
+   * Normalized pattern for indexing notebook files files, but we dont do that right now
+   */
+  private async indexNotebookFiles(files: string[]) {
+    const t0 = performance.now();
+    for (let i = 0; i < files.length; i++) {
+      this.fileTypes['idl-notebook'].add(files[i]);
+    }
+    this.lastWorkspaceIndexStats.timeNotebook = Math.floor(
+      performance.now() - t0
+    );
+  }
+
+  /**
    * Given an array of files, indexes them and handles the
    * parallel and post-processing logic for us.
    */
@@ -1960,13 +2045,9 @@ export class IDLIndex {
       }
     }
 
-    // calculate and save stats
-    this.lastWorkspaceIndexStats = {
-      haveStats: true,
-      files: files.length,
-      lines,
-      time: performance.now() - t0,
-    };
+    // save stats
+    this.lastWorkspaceIndexStats.timePro = Math.floor(performance.now() - t0);
+    this.lastWorkspaceIndexStats.linesPro = lines;
 
     /**
      * Check if we had any files that were deleted while we were trying to process
@@ -2108,13 +2189,9 @@ export class IDLIndex {
       undefined
     );
 
-    // calculate and save stats
-    this.lastWorkspaceIndexStats = {
-      haveStats: true,
-      files: files.length,
-      lines,
-      time: performance.now() - t0,
-    };
+    // save stats
+    this.lastWorkspaceIndexStats.timePro = Math.floor(performance.now() - t0);
+    this.lastWorkspaceIndexStats.linesPro = lines;
 
     /**
      * Check if we had any files that were deleted while we were trying to process
@@ -2192,35 +2269,69 @@ export class IDLIndex {
   }
 
   /**
+   * PLACEHOLDER
+   *
+   * Normalized pattern for indexing SAVE files, but we dont do that right now
+   */
+  private async indexSAVEFiles(files: string[]) {
+    const t0 = performance.now();
+    for (let i = 0; i < files.length; i++) {
+      this.fileTypes['save'].add(files[i]);
+    }
+    this.lastWorkspaceIndexStats.timeSave = Math.floor(performance.now() - t0);
+  }
+
+  /**
    * Adds one or more workspace folders to the index
    */
   async indexWorkspace(
     folder: string | string[] | IFolderRecursion,
     full = true
   ): Promise<string[]> {
-    // index config files
-    await this.indexWorkspaceConfigFiles(folder);
+    /**
+     * Get start time
+     */
+    const t0 = performance.now();
 
-    // index task files
-    await this.indexWorkspaceTaskFiles(folder);
-
-    // find files
+    /**
+     * Find files in our folder
+     */
     const files = await this.findFiles(folder);
 
+    /**
+     * Bucket them into separate groups
+     */
+    const buckets = this.bucketFiles(files);
+
+    // save discovery time
+    this.lastWorkspaceIndexStats.timeSearch = Math.floor(
+      performance.now() - t0
+    );
+
+    // track stats
+    this.lastWorkspaceIndexStats.nConfig = buckets.configFiles.length;
+    this.lastWorkspaceIndexStats.nNotebook = buckets.notebookFiles.length;
+    this.lastWorkspaceIndexStats.nPro = buckets.proFiles.length;
+    this.lastWorkspaceIndexStats.nSave = buckets.saveFiles.length;
+    this.lastWorkspaceIndexStats.nTask = buckets.taskFiles.length;
+
+    // index config files
+    await this.indexWorkspaceConfigFiles(buckets.configFiles, folder);
+
+    // index task files
+    await this.indexWorkspaceTaskFiles(buckets.taskFiles);
+
+    // track SAVE files, do nothing for now
+    await this.indexSAVEFiles(buckets.saveFiles);
+
+    // track notebook files
+    await this.indexNotebookFiles(buckets.notebookFiles);
+
     // do the indexing
-    await this.indexWorkspaceProFiles(files, full);
+    await this.indexWorkspaceProFiles(buckets.proFiles, full);
 
-    // get/track SAVE files
-    const saves = await this.findFiles(folder, SAVE_FILE_GLOB_PATTERN);
-    for (let i = 0; i < saves.length; i++) {
-      this.fileTypes['save'].add(saves[i]);
-    }
-
-    // get/track notebook files
-    const notebooks = await this.findFiles(folder, NOTEBOOK_GLOB_PATTERN);
-    for (let i = 0; i < notebooks.length; i++) {
-      this.fileTypes['idl-notebook'].add(notebooks[i]);
-    }
+    // save total time
+    this.lastWorkspaceIndexStats.timeTotal = Math.floor(performance.now() - t0);
 
     // return the files we found
     return files;
@@ -2267,55 +2378,43 @@ export class IDLIndex {
    * by their type
    */
   async indexFiles(files: string[], cb: (file: string) => Promise<string>) {
-    /** PRO files that we need to index */
-    const proFiles: string[] = [];
-
-    /** Config files that we need to process */
-    const configFiles: string[] = [];
-
-    /** Task files that we need to process */
-    const taskFiles: string[] = [];
-
-    // process all files
-    for (let i = 0; i < files.length; i++) {
-      switch (true) {
-        case this.isPROCode(files[i]):
-          proFiles.push(files[i]);
-          break;
-        case this.isConfigFile(files[i]):
-          configFiles.push(files[i]);
-          break;
-        case this.isTaskFile(files[i]):
-          taskFiles.push(files[i]);
-          break;
-        default:
-          // do nothing
-          break;
-      }
-    }
+    /**
+     * Bucket files
+     */
+    const buckets = this.bucketFiles(files);
 
     /**
      * Update IDL config files
      */
-    for (let i = 0; i < configFiles.length; i++) {
-      await this.indexConfigFile(configFiles[i], await cb(configFiles[i]));
+    for (let i = 0; i < buckets.configFiles.length; i++) {
+      await this.indexConfigFile(
+        buckets.configFiles[i],
+        await cb(buckets.configFiles[i])
+      );
     }
 
     /**
      * Update task files
      */
-    for (let i = 0; i < taskFiles.length; i++) {
-      await this.indexTaskFile(taskFiles[i], await cb(taskFiles[i]));
+    for (let i = 0; i < buckets.taskFiles.length; i++) {
+      await this.indexTaskFile(
+        buckets.taskFiles[i],
+        await cb(buckets.taskFiles[i])
+      );
     }
 
     // process all of our PRO files, one at a time and perform post processing and
     // change detection
     // this is not optimized, but works and the number of files here
     // should be small, so this should be pretty fast
-    for (let i = 0; i < proFiles.length; i++) {
-      await this.getParsedProCode(proFiles[i], await cb(proFiles[i]), {
-        postProcess: true,
-      });
+    for (let i = 0; i < buckets.proFiles.length; i++) {
+      await this.getParsedProCode(
+        buckets.proFiles[i],
+        await cb(buckets.proFiles[i]),
+        {
+          postProcess: true,
+        }
+      );
     }
   }
 }

@@ -7,6 +7,7 @@ import {
   PayloadToWorkerBaseMessage,
 } from './messages/workerio.payloads.interface';
 import { WorkerIO } from './workerio.class';
+import { IMessageToWorker } from './workerio.interface';
 import { IWorkerIOPool } from './workerio-pool.class.interface';
 import { IPostMessageOptions } from './workerio-pool.interface';
 
@@ -98,16 +99,22 @@ export class WorkerIOPool<_Message extends string>
    */
   postToAll<T extends _Message>(
     type: T,
-    payload: PayloadToWorkerBaseMessage<T>,
-    options?: IPostMessageOptions
+    payload: PayloadToWorkerBaseMessage<T>
   ): void {
+    // make the message we are sending to errybody
+    const msg: IMessageToWorker<T> = {
+      type,
+      payload,
+      noResponse: true,
+    };
+
+    // prepare payload so we only have to do this once
+    const prepared = this.workerio.prepareMessage(
+      Object.assign(msg, { _id: nanoid() })
+    );
+
     for (let i = 0; i < this.ids.length; i++) {
-      this.workerio.postAndReceiveMessage(
-        this.ids[i],
-        type,
-        payload,
-        options?.timeout
-      );
+      this.workerio.postMessageRaw(this.ids[i], prepared);
     }
   }
 

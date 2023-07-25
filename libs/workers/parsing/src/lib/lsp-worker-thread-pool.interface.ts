@@ -29,11 +29,7 @@ export interface ILSPWorkerThreadPool<_Message extends LSPWorkerThreadMessage>
   /**
    * Sends message to all worker threads
    */
-  postToAll<T extends _Message>(
-    type: T,
-    payload: PayloadToLSPWorker<T>,
-    options?: IPostMessageOptions
-  ): void;
+  postToAll<T extends _Message>(type: T, payload: PayloadToLSPWorker<T>): void;
 
   /**
    * Subscribe to all messages with the same ID from any worker

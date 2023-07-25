@@ -7,7 +7,7 @@ import {
 import { IDLTask, IDLTaskSchema12 } from '@idl/data-types/tasks';
 import { GenerateTaskResult, GetProcedure } from '@idl/generators/tasks-shared';
 import { IDL_DOCS_HEADERS, IParsed } from '@idl/parsing/syntax-tree';
-import { IDL_FILE_EXTENSION, TASK_FILE_EXTENSION } from '@idl/shared';
+import { PRO_FILE_EXTENSION, TASK_FILE_EXTENSION } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { existsSync, writeFileSync } from 'fs';
 import { basename, dirname, join } from 'path';
@@ -26,7 +26,7 @@ export async function GenerateIDLTask(
   /*
    * Base name fo the file
    */
-  const baseName = basename(file, IDL_FILE_EXTENSION).toLowerCase();
+  const baseName = basename(file, PRO_FILE_EXTENSION).toLowerCase();
 
   /**
    * Path to the task file we will generate

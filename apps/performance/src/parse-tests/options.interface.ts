@@ -5,7 +5,12 @@ export interface IParsingPerformanceRunnerOpts
   /**
    * Method for performance metrics
    */
-  method: 'tokenizer' | 'parser' | 'index-single' | 'index-workspace';
+  method:
+    | 'tokenizer'
+    | 'parser'
+    | 'index-single'
+    | 'index-workspace'
+    | 'file-search';
   /**
    * How many times we replicate files
    */
