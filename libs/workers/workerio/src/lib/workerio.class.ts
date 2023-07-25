@@ -149,6 +149,29 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
   }
 
   /**
+   * Prepares a message to be sent to a worker
+   */
+  prepareMessage(msg: IMessageToWorker<_Message>, id?: string) {
+    // make an id if it doesnt exist
+    if (id === undefined) {
+      id = nanoid();
+    }
+
+    // send our message
+    return JSON.stringify(Object.assign(msg, { _id: id }));
+  }
+
+  /**
+   * Helper method that posts raw messages to reduce serialization and synchronization overhead
+   *
+   * Message should be the output from `prepareMessage()` above
+   */
+  postMessageRaw(workerId: string, msg: string) {
+    // send our message
+    this.workers[workerId].postMessage(msg);
+  }
+
+  /**
    * Internal method to actually send the correctly formatted message to our worker
    *
    * We stringify our message prior to sending which significantly increases throughput
@@ -159,15 +182,8 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
     msg: IMessageToWorker<_Message>,
     id?: string
   ) {
-    // make an id if it doesnt exist
-    if (id === undefined) {
-      id = nanoid();
-    }
-
     // send our message
-    this.workers[workerId].postMessage(
-      JSON.stringify(Object.assign(msg, { _id: id }))
-    );
+    this.workers[workerId].postMessage(this.prepareMessage(msg, id));
 
     // return the ID in case someone wants to track it?
     return id;
