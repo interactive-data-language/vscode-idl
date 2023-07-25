@@ -85,6 +85,7 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.LOAD_GLOBAL, async (message) => {
 client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL, async (message) => {
   const files = Object.keys(message);
   for (let i = 0; i < files.length; i++) {
+    WORKER_INDEX.knownFiles[files[i]] = undefined;
     WORKER_INDEX.globalIndex.trackGlobalTokens(
       ReduceGlobals(message[files[i]]),
       files[i]

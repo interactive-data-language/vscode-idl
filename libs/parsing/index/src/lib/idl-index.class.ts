@@ -831,9 +831,6 @@ export class IDLIndex {
 
     // send to threads
     if (this.isMultiThreaded()) {
-      this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, {
-        files,
-      });
       this.indexerPool.postToAll(
         LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
         byFile
