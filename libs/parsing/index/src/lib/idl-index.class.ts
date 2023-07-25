@@ -1418,10 +1418,9 @@ export class IDLIndex {
       /**
        * Get the files in our folder
        */
-      const inFolder = (
-        await glob(pattern, { cwd: folders[i], dot: true, absolute: true })
-      )
+      const inFolder = (await glob(pattern, { cwd: folders[i], dot: true }))
         .sort()
+        .map((file) => join(folders[i], file))
         .filter((file) => (recursion[i] ? true : dirname(file) === folders[i]));
 
       // combine together
