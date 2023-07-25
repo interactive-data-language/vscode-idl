@@ -12,7 +12,6 @@ import {
 } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { arch, cpus, platform } from 'os';
-import { performance } from 'perf_hooks';
 
 import { CacheValidFSPath } from '../helpers/cache-valid';
 import { SendProblems } from '../helpers/send-problems';
@@ -117,9 +116,6 @@ SERVER_INFO.then(async (res) => {
     );
 
     try {
-      // get start time
-      const t0 = performance.now();
-
       /**
        * Merge folders that we need to process.
        *
@@ -168,9 +164,7 @@ SERVER_INFO.then(async (res) => {
         log: IDL_LSP_LOG,
         type: 'info',
         content: [
-          `Finished indexing ${files.length} file(s) in ${Math.floor(
-            performance.now() - t0
-          )} ms, see below for additional information`,
+          `Finished indexing ${files.length} file(s) in ${stats.timeTotal} ms, see below for additional information`,
           {
             lines: stats.linesPro,
             ...statsDetail,
