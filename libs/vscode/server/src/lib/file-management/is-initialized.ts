@@ -155,12 +155,12 @@ SERVER_INFO.then(async (res) => {
         num_workers: NUM_WORKERS,
         parse_time: RoundToNearest(stats.timePro / 1000, 0.01),
         parse_rate: Math.round(stats.linesPro / (stats.timePro / 1000)),
-        num_pro: stats.nPro,
-        num_save: stats.nSave,
+        num_pro: IDL_INDEX.fileTypes['pro'].size,
+        num_save: IDL_INDEX.fileTypes['save'].size,
         num_idl_task: IDL_INDEX.fileTypes['idl-task'].size,
         num_envi_task: IDL_INDEX.fileTypes['envi-task'].size,
-        num_idl_json: stats.nConfig,
-        num_notebook: stats.nNotebook,
+        num_idl_json: IDL_INDEX.fileTypes['idl.json'].size,
+        num_notebook: IDL_INDEX.fileTypes['idl-notebook'].size,
       };
 
       // log information to startup console

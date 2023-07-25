@@ -2325,7 +2325,7 @@ export class IDLIndex {
     await this.indexSAVEFiles(buckets.saveFiles);
 
     // track notebook files
-    await this.indexNotebookFiles(buckets.saveFiles);
+    await this.indexNotebookFiles(buckets.notebookFiles);
 
     // do the indexing
     await this.indexWorkspaceProFiles(buckets.proFiles, full);
