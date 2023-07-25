@@ -571,9 +571,11 @@ export class IDLIndex {
   /**
    * Indexes global symbols
    */
-  async saveGlobalTokens(file: string, global: GlobalTokens) {
+  async saveGlobalTokens(file: string, global: GlobalTokens, sync = true) {
     this.globalIndex.trackGlobalTokens(global, file);
-    await this.syncGlobal(file, global);
+    if (sync) {
+      await this.syncGlobal(file, global);
+    }
   }
 
   /**
@@ -767,7 +769,7 @@ export class IDLIndex {
   /**
    * Index task file
    */
-  private async indexTaskFile(file: string, content?: string) {
+  private async indexTaskFile(file: string, content?: string, sync = true) {
     /**
      * Wrap parsing in try catch since we will eventually have task file errors
      */
@@ -786,11 +788,15 @@ export class IDLIndex {
       }
 
       // track and sync if needed
-      this.saveGlobalTokens(file, global);
+      this.saveGlobalTokens(file, global, sync);
 
       // track as known file
       this.knownFiles[file] = undefined;
+
+      // return global token
+      return global;
     } catch (err) {
+      return [];
       // this.log.log({
       //   log: IDL_LSP_LOG,
       //   type: 'error',
@@ -813,9 +819,14 @@ export class IDLIndex {
    * Index more than one task file
    */
   private async indexTaskFiles(files: string[]) {
-    // process all of our config files
+    /**
+     * track global by file
+     */
+    const byFile: { [key: string]: GlobalTokens } = {};
+
+    // process each task file
     for (let i = 0; i < files.length; i++) {
-      await this.indexTaskFile(files[i]);
+      byFile[files[i]] = await this.indexTaskFile(files[i], undefined, false);
     }
 
     // send to threads
@@ -823,6 +834,10 @@ export class IDLIndex {
       this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, {
         files,
       });
+      this.indexerPool.postToAll(
+        LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
+        byFile
+      );
     }
   }
 
