@@ -4,7 +4,7 @@ import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { Tokenizer } from '@idl/parsing/tokenizer';
 import {
   ALL_FILES_GLOB_PATTERN,
-  CONFIG_FILE_GLOB_PATTERN,
+  IDL_JSON_GLOB_PATTERN,
   NOTEBOOK_GLOB_PATTERN,
   PRO_CODE_GLOB_PATTERN,
   SAVE_FILE_GLOB_PATTERN,
@@ -58,7 +58,7 @@ export async function ParsingPerformanceRunner(
     let patterns = [
       PRO_CODE_GLOB_PATTERN,
       SAVE_FILE_GLOB_PATTERN,
-      CONFIG_FILE_GLOB_PATTERN,
+      IDL_JSON_GLOB_PATTERN,
       TASK_FILE_GLOB_PATTERN,
       NOTEBOOK_GLOB_PATTERN,
     ];

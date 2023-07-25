@@ -1,4 +1,4 @@
-import { LANGUAGE_SERVER_CONFIG_URI, TASK_FILE_EXTENSION } from '@idl/shared';
+import { IDL_JSON_URI, TASK_FILE_EXTENSION } from '@idl/shared';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
@@ -10,7 +10,7 @@ export const JSON_VALIDATORS = [
     url: './extension/language/schemas/tasks/schema.json',
   },
   {
-    fileMatch: `*${LANGUAGE_SERVER_CONFIG_URI}`,
+    fileMatch: `*${IDL_JSON_URI}`,
     url: './extension/language/schemas/config/schema.json',
   },
 ];

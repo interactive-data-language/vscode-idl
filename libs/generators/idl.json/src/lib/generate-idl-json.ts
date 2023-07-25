@@ -1,6 +1,6 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { JSONFormatter } from '@idl/assembling/json-formatter';
-import { LANGUAGE_SERVER_CONFIG_URI } from '@idl/shared';
+import { IDL_JSON_URI } from '@idl/shared';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
@@ -18,7 +18,7 @@ export function GenerateIDLJSON(
   delete config.eol;
 
   /** Fully qualified filepath */
-  const file = join(folder, LANGUAGE_SERVER_CONFIG_URI);
+  const file = join(folder, IDL_JSON_URI);
 
   // write data to disk
   writeFileSync(file, JSONFormatter(config, config));

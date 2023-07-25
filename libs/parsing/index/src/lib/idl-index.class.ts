@@ -23,10 +23,10 @@ import { IncludeToken } from '@idl/parsing/tokenizer';
 import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
 import {
-  CONFIG_FILE_GLOB_PATTERN,
   IDL_FILE_EXTENSION,
+  IDL_JSON_GLOB_PATTERN,
+  IDL_JSON_URI,
   IDL_NOTEBOOK_EXTENSION,
-  LANGUAGE_SERVER_CONFIG_URI,
   NODE_MEMORY_CONFIG,
   NOTEBOOK_GLOB_PATTERN,
   PRO_CODE_GLOB_PATTERN,
@@ -58,7 +58,7 @@ import {
 import { WorkerIOPool } from '@idl/workers/workerio';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
-import * as glob from 'fast-glob';
+import { glob } from 'fast-glob';
 import { existsSync, readFileSync } from 'fs';
 import { cpus, platform } from 'os';
 import { basename, dirname, join } from 'path';
@@ -327,7 +327,7 @@ export class IDLIndex {
    * Indicates that a file is a configuration file
    */
   isConfigFile(file: string): boolean {
-    return file.toLowerCase().endsWith(LANGUAGE_SERVER_CONFIG_URI);
+    return file.toLowerCase().endsWith(IDL_JSON_URI);
   }
 
   /**
@@ -844,7 +844,7 @@ export class IDLIndex {
     folder: string | string[] | IFolderRecursion
   ) {
     // find config files for all of our folders
-    const files = await this.findFiles(folder, CONFIG_FILE_GLOB_PATTERN);
+    const files = await this.findFiles(folder, IDL_JSON_GLOB_PATTERN);
 
     // index files
     await this.indexConfigFiles(files);
@@ -1386,7 +1386,7 @@ export class IDLIndex {
     pattern = PRO_CODE_GLOB_PATTERN
   ): Promise<string[]> {
     // init files that we find
-    const files: string[] = [];
+    let files: string[] = [];
 
     // init folders
     let folders: string[] = [];
@@ -1418,15 +1418,16 @@ export class IDLIndex {
       /**
        * Get the files in our folder
        */
-      const inFolder = (await glob(pattern, { cwd: folders[i], dot: true }))
-        .sort()
-        .map((file) => join(folders[i], file))
-        .filter((file) => (recursion[i] ? true : dirname(file) === folders[i]));
-
-      // combine together
-      for (let j = 0; j < inFolder.length; j++) {
-        files.push(inFolder[j]);
-      }
+      files = files.concat(
+        (
+          await glob(pattern, {
+            cwd: folders[i],
+            dot: true,
+            deep: recursion[i] ? 100000000 : 1,
+          })
+        ).map((file) => join(folders[i], file))
+      );
+      // .sort()
     }
 
     // track the files we found and sync them

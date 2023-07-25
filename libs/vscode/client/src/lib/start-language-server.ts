@@ -1,9 +1,9 @@
 import {
   CleanPath,
-  CONFIG_FILE_GLOB_PATTERN,
   GetExtensionPath,
   IDL_CONFIG_FILE_DOCUMENT_SELECTOR,
   IDL_DOCUMENT_SELECTOR,
+  IDL_JSON_GLOB_PATTERN,
   IDL_LANGUAGE_NAME,
   NODE_MEMORY_CONFIG,
   NOTEBOOK_GLOB_PATTERN,
@@ -140,7 +140,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
       // Notify the server about file changes to IDL-related files contained in the workspace
       fileEvents: [
         workspace.createFileSystemWatcher(PRO_CODE_GLOB_PATTERN),
-        workspace.createFileSystemWatcher(CONFIG_FILE_GLOB_PATTERN),
+        workspace.createFileSystemWatcher(IDL_JSON_GLOB_PATTERN),
         workspace.createFileSystemWatcher(TASK_FILE_GLOB_PATTERN),
         workspace.createFileSystemWatcher(NOTEBOOK_GLOB_PATTERN),
       ],

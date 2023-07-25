@@ -69,7 +69,7 @@ export const TASK_FILE_EXTENSION = '.task';
 /**
  * File naming for config files
  */
-export const LANGUAGE_SERVER_CONFIG_URI = 'idl.json';
+export const IDL_JSON_URI = 'idl.json';
 
 /**
  * File extensions for ENVI Task style files
@@ -104,7 +104,7 @@ export const SAVE_FILE_GLOB_PATTERN = `**/*${IDL_SAVE_FILE_EXTENSION}`;
 /**
  * Glob pattern for idl.json files
  */
-export const CONFIG_FILE_GLOB_PATTERN = `**/*${LANGUAGE_SERVER_CONFIG_URI}`;
+export const IDL_JSON_GLOB_PATTERN = `**/*${IDL_JSON_URI}`;
 
 /**
  * Glob pattern for task files
@@ -119,7 +119,7 @@ export const NOTEBOOK_GLOB_PATTERN = `**/*${IDL_NOTEBOOK_EXTENSION}`;
 /**
  * Glob pattern for all files
  */
-export const ALL_FILES_GLOB_PATTERN = `**/*(*${IDL_FILE_EXTENSION}|*${IDL_SAVE_FILE_EXTENSION}|*${LANGUAGE_SERVER_CONFIG_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
+export const ALL_FILES_GLOB_PATTERN = `**/*(*${IDL_FILE_EXTENSION}|*${IDL_SAVE_FILE_EXTENSION}|*${IDL_JSON_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
 
 /**
  * Name for our icon theme
@@ -148,7 +148,7 @@ export const IDL_DOCUMENT_SELECTOR = {
  * Language identifier for task files
  */
 export const TASK_FILE_DOCUMENT_SELECTOR = {
-  pattern: CONFIG_FILE_GLOB_PATTERN,
+  pattern: IDL_JSON_GLOB_PATTERN,
   scheme: 'file',
 };
 
