@@ -2,10 +2,18 @@ import { LogManager } from '@idl/logger';
 import { Parser } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { Tokenizer } from '@idl/parsing/tokenizer';
-import { SystemMemoryUsedGB, TimeItAsync } from '@idl/shared';
-import * as glob from 'fast-glob';
+import {
+  ALL_FILES_GLOB_PATTERN,
+  CONFIG_FILE_GLOB_PATTERN,
+  NOTEBOOK_GLOB_PATTERN,
+  PRO_CODE_GLOB_PATTERN,
+  SAVE_FILE_GLOB_PATTERN,
+  SystemMemoryUsedGB,
+  TASK_FILE_GLOB_PATTERN,
+  TimeItAsync,
+} from '@idl/shared';
 import { readFileSync } from 'fs';
-import { join } from 'path';
+import { performance } from 'perf_hooks';
 import * as progressBar from 'progress';
 
 import { IParsingPerformanceRunnerOpts } from './options.interface';
@@ -42,8 +50,41 @@ export async function ParsingPerformanceRunner(
     content: ['Performance test', JSON.stringify(options, null, 2)],
   });
 
+  if (options.method === 'file-search') {
+    let speedSearch: string[] = [];
+    // search for files
+    const t0 = performance.now();
+
+    let patterns = [
+      PRO_CODE_GLOB_PATTERN,
+      SAVE_FILE_GLOB_PATTERN,
+      CONFIG_FILE_GLOB_PATTERN,
+      TASK_FILE_GLOB_PATTERN,
+      NOTEBOOK_GLOB_PATTERN,
+    ];
+    patterns = [ALL_FILES_GLOB_PATTERN];
+    for (let i = 0; i < patterns.length; i++) {
+      speedSearch = speedSearch.concat(
+        await index.findFiles(folder, patterns[i])
+      );
+    }
+
+    manager.log({
+      content: `Data discovery found ${
+        speedSearch.length
+      } file(s) in ${Math.floor(performance.now() - t0)} ms`,
+    });
+    return;
+  }
+
   // search for files
-  const files = await glob('**/**.pro', { cwd: folder });
+  const t0 = performance.now();
+  const files = await index.findFiles(folder);
+  manager.log({
+    content: `Data discovery found ${files.length} file(s) in ${Math.floor(
+      performance.now() - t0
+    )} ms`,
+  });
   if (files.length === 0) {
     throw new Error(`No ".pro" files found in "${folder}"`);
   }
@@ -62,7 +103,7 @@ export async function ParsingPerformanceRunner(
       title: `${i + 1}/${files.length}`,
       file: files[i],
     });
-    const read = readFileSync(join(folder, files[i]), 'utf-8').split('\n');
+    const read = readFileSync(files[i], 'utf-8').split('\n');
     lines += read.length;
     code.push(read);
   }

@@ -117,6 +117,11 @@ export const TASK_FILE_GLOB_PATTERN = `**/*${TASK_FILE_EXTENSION}`;
 export const NOTEBOOK_GLOB_PATTERN = `**/*${IDL_NOTEBOOK_EXTENSION}`;
 
 /**
+ * Glob pattern for all files
+ */
+export const ALL_FILES_GLOB_PATTERN = `**/*(*${IDL_FILE_EXTENSION}|*${IDL_SAVE_FILE_EXTENSION}|*${LANGUAGE_SERVER_CONFIG_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
+
+/**
  * Name for our icon theme
  */
 export const ICON_THEME_NAME = `${IDL_LANGUAGE_NAME}-icons`;

@@ -1386,7 +1386,7 @@ export class IDLIndex {
     pattern = PRO_CODE_GLOB_PATTERN
   ): Promise<string[]> {
     // init files that we find
-    let files: string[] = [];
+    const files: string[] = [];
 
     // init folders
     let folders: string[] = [];
@@ -1415,17 +1415,19 @@ export class IDLIndex {
         continue;
       }
 
-      // join our files
-      // 1. sort for consistency (might be excessive, unsure)
-      // 2. make filenames filly-qualified, relative by default
-      files = files.concat(
-        (await glob(pattern, { cwd: folders[i], dot: true }))
-          .sort()
-          .map((file) => join(folders[i], file))
-          .filter((file) =>
-            recursion[i] ? true : dirname(file) === folders[i]
-          )
-      );
+      /**
+       * Get the files in our folder
+       */
+      const inFolder = (
+        await glob(pattern, { cwd: folders[i], dot: true, absolute: true })
+      )
+        .sort()
+        .filter((file) => (recursion[i] ? true : dirname(file) === folders[i]));
+
+      // combine together
+      for (let j = 0; j < inFolder.length; j++) {
+        files.push(inFolder[j]);
+      }
     }
 
     // track the files we found and sync them
