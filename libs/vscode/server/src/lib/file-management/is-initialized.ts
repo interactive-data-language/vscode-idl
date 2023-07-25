@@ -143,67 +143,65 @@ SERVER_INFO.then(async (res) => {
        */
       const stats = IDL_INDEX.lastWorkspaceIndexStats;
 
-      // check if we have stats
-      if (stats.haveStats) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const statsDetail: ILanguageServerStartupPayload = {
-          app_platform: platform(),
-          app_arch: arch(),
-          app_cpus: cpus().length,
-          app_ram: SystemMemoryGB(),
-          app_ram_used: SystemMemoryUsedGB(),
-          num_workers: NUM_WORKERS,
-          parse_time: RoundToNearest(stats.time / 1000, 0.01),
-          parse_rate: Math.round(stats.lines / (stats.time / 1000)),
-          num_pro: IDL_INDEX.fileTypes['pro'].size,
-          num_save: IDL_INDEX.fileTypes['save'].size,
-          num_idl_task: IDL_INDEX.fileTypes['idl-task'].size,
-          num_envi_task: IDL_INDEX.fileTypes['envi-task'].size,
-          num_idl_json: IDL_INDEX.fileTypes['idl.json'].size,
-          num_notebook: IDL_INDEX.fileTypes['idl-notebook'].size,
-        };
+      /**
+       * Get stats detail
+       */
+      const statsDetail: ILanguageServerStartupPayload = {
+        app_platform: platform(),
+        app_arch: arch(),
+        app_cpus: cpus().length,
+        app_ram: SystemMemoryGB(),
+        app_ram_used: SystemMemoryUsedGB(),
+        num_workers: NUM_WORKERS,
+        parse_time: RoundToNearest(stats.timePro / 1000, 0.01),
+        parse_rate: Math.round(stats.linesPro / (stats.timePro / 1000)),
+        num_pro: IDL_INDEX.fileTypes['pro'].size,
+        num_save: IDL_INDEX.fileTypes['save'].size,
+        num_idl_task: IDL_INDEX.fileTypes['idl-task'].size,
+        num_envi_task: IDL_INDEX.fileTypes['envi-task'].size,
+        num_idl_json: IDL_INDEX.fileTypes['idl.json'].size,
+        num_notebook: IDL_INDEX.fileTypes['idl-notebook'].size,
+      };
 
-        IDL_LANGUAGE_SERVER_LOGGER.log({
-          log: IDL_LSP_LOG,
-          type: 'info',
-          content: [
-            `Finished indexing ${files.length} files in ${Math.floor(
-              performance.now() - t0
-            )} ms, see below for additional information`,
-            { lines: stats.lines, ...statsDetail },
-          ],
-        });
+      // log information to startup console
+      IDL_LANGUAGE_SERVER_LOGGER.log({
+        log: IDL_LSP_LOG,
+        type: 'info',
+        content: [
+          `Finished indexing ${files.length} file(s) in ${Math.floor(
+            performance.now() - t0
+          )} ms, see below for additional information`,
+          {
+            lines: stats.linesPro,
+            ...statsDetail,
+            time_total_ms: stats.timeTotal,
+            time_search_ms: stats.timeSearch,
+            time_config_ms: stats.timeConfig,
+            time_task_ms: stats.timeTask,
+            time_save_ms: stats.timeSave,
+            time_notebook_ms: stats.timeNotebook,
+            time_pro_ms: stats.timePro,
+          },
+        ],
+      });
 
-        // round numbers to obfuscate information and simplify metrics that
-        // we report
-        statsDetail.parse_time = RoundToNearest(statsDetail.parse_time, 1);
-        statsDetail.parse_rate = RoundToNearest(statsDetail.parse_rate, 1000);
-        statsDetail.num_pro = RoundToNearest(statsDetail.num_pro, 25);
-        statsDetail.num_save = RoundToNearest(statsDetail.num_save, 25);
-        statsDetail.num_idl_task = RoundToNearest(statsDetail.num_idl_task, 5);
-        statsDetail.num_envi_task = RoundToNearest(
-          statsDetail.num_envi_task,
-          5
-        );
-        statsDetail.num_idl_json = RoundToNearest(statsDetail.num_idl_json, 5);
-        statsDetail.num_notebook = RoundToNearest(statsDetail.num_notebook, 5);
+      /**
+       * Round to simplify and add some obfuscation around metrics
+       */
+      statsDetail.parse_time = RoundToNearest(statsDetail.parse_time, 1);
+      statsDetail.parse_rate = RoundToNearest(statsDetail.parse_rate, 1000);
+      statsDetail.num_pro = RoundToNearest(statsDetail.num_pro, 25);
+      statsDetail.num_save = RoundToNearest(statsDetail.num_save, 25);
+      statsDetail.num_idl_task = RoundToNearest(statsDetail.num_idl_task, 5);
+      statsDetail.num_envi_task = RoundToNearest(statsDetail.num_envi_task, 5);
+      statsDetail.num_idl_json = RoundToNearest(statsDetail.num_idl_json, 5);
+      statsDetail.num_notebook = RoundToNearest(statsDetail.num_notebook, 5);
 
-        // send usage metric
-        SendUsageMetricServer(
-          USAGE_METRIC_LOOKUP.LANGUAGE_SERVER_STARTUP,
-          statsDetail
-        );
-      } else {
-        IDL_LANGUAGE_SERVER_LOGGER.log({
-          log: IDL_LSP_LOG,
-          type: 'info',
-          content: [
-            `Finished indexing ${files.length} files in ${Math.floor(
-              performance.now() - t0
-            )} ms`,
-          ],
-        });
-      }
+      // send usage metric
+      SendUsageMetricServer(
+        USAGE_METRIC_LOOKUP.LANGUAGE_SERVER_STARTUP,
+        statsDetail
+      );
     } catch (err) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,

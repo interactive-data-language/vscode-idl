@@ -49,7 +49,7 @@ export const EXTENSION_FULL_NAME = `${EXTENSION_PUBLISHER_NAME}.${EXTENSION_NAME
 /**
  * File extension for PRO files
  */
-export const IDL_FILE_EXTENSION = '.pro';
+export const PRO_FILE_EXTENSION = '.pro';
 
 /**
  * File extension for SAVE files
@@ -94,7 +94,7 @@ export const EPT_FILE_EXTENSION = '.ept';
 /**
  * Glob pattern for PRO files
  */
-export const PRO_CODE_GLOB_PATTERN = `**/*${IDL_FILE_EXTENSION}`;
+export const PRO_CODE_GLOB_PATTERN = `**/*${PRO_FILE_EXTENSION}`;
 
 /**
  * Glob pattern for SAVE files
@@ -119,7 +119,7 @@ export const NOTEBOOK_GLOB_PATTERN = `**/*${IDL_NOTEBOOK_EXTENSION}`;
 /**
  * Glob pattern for all files
  */
-export const ALL_FILES_GLOB_PATTERN = `**/*(*${IDL_FILE_EXTENSION}|*${IDL_SAVE_FILE_EXTENSION}|*${IDL_JSON_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
+export const ALL_FILES_GLOB_PATTERN = `**/*(*${PRO_FILE_EXTENSION}|*${IDL_SAVE_FILE_EXTENSION}|*${IDL_JSON_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
 
 /**
  * Name for our icon theme

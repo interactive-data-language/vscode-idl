@@ -74,6 +74,40 @@ export interface IIndexProCodeOptions extends IParserOptions {
 }
 
 /**
+ * Data structure for workspace stats
+ */
+export interface IIndexWorkspaceStats {
+  /** Did we start the server and index a workspace */
+  haveStats: boolean;
+  /** Of code */
+  linesPro: number;
+  /** Number of config files */
+  nConfig: number;
+  /** Number of notebook files */
+  nNotebook: number;
+  /** Number of pro files */
+  nPro: number;
+  /** Number of save files */
+  nSave: number;
+  /** Number of task files */
+  nTask: number;
+  /** Time to process config files (ms) */
+  timeConfig: number;
+  /** Time to process notebook files (ms) */
+  timeNotebook: number;
+  /** Time to process pro files (ms) */
+  timePro: number;
+  /** Time to process save files (ms) */
+  timeSave: number;
+  /** Time to search for files (ms) */
+  timeSearch: number;
+  /** Time to process task files (ms) */
+  timeTask: number;
+  /** Total time to index workspace (ms) */
+  timeTotal: number;
+}
+
+/**
  * Default options when indexing PRO code
  */
 export const DEFAULT_INDEX_PRO_CODE_OPTIONS: IIndexProCodeOptions = {

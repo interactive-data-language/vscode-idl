@@ -1,12 +1,12 @@
 import {
   EPT_FILE_EXTENSION,
   EVS_FILE_EXTENSION,
-  IDL_FILE_EXTENSION,
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_EXTENSION,
   IDL_NOTEBOOK_NAME,
   LOG_LANGUAGE_NAME,
   MODEL_FILE_EXTENSION,
+  PRO_FILE_EXTENSION,
   TASK_FILE_EXTENSION,
   TASK_STYLE_FILE_EXTENSION,
 } from '@idl/shared';
@@ -19,7 +19,7 @@ export const LANGUAGES = [
   {
     id: IDL_LANGUAGE_NAME,
     aliases: ['IDL', 'idl'],
-    extensions: [IDL_FILE_EXTENSION],
+    extensions: [PRO_FILE_EXTENSION],
     configuration: 'extension/language/syntaxes/language-configuration.json',
     mimetypes: ['text/idl', 'application/idl'],
     // icons moved into icon themes
