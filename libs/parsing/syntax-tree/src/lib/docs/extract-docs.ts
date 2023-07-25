@@ -19,7 +19,20 @@ export function ExtractDocs(comments: IBasicBranch<CommentToken>[]): IDocs {
   /** Track code by blocks */
   const blocks: IDocs = {};
 
-  // initialize a default block
+  // return if we have no comments in our block
+  if (comments.length === 0) {
+    // initialize a default comment block as we use it later
+    blocks[IDL_DOCS_HEADERS.DEFAULT] = {
+      pos: [0, 0, 0],
+      matches: [],
+      end: [0, 0, 0],
+      docs: [],
+      comments: [],
+    };
+    return blocks;
+  }
+
+  // initialize a default block using first comment as position
   blocks[IDL_DOCS_HEADERS.DEFAULT] = {
     pos: comments[0].pos,
     matches: [],
