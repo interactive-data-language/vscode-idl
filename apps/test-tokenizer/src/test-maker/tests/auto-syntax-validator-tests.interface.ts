@@ -5,6 +5,46 @@ import { IAutoSyntaxValidatorTest } from '../tests.interface';
  */
 export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
   {
+    suiteName: `Verify that we can parse and report problems`,
+    fileName: `bad-routine-def.spec.ts`,
+    tests: [
+      {
+        name: `for bad function`,
+        code: [
+          `function `,
+          ``,
+          `; pro test_myurl`,
+          ``,
+          `a = curl_easy_init()`,
+          `curlopt_header = 42`,
+          `print, 'curl_easy_setopt', curl_easy_setopt(a, curlopt_header, 1)`,
+          `curlopt_url = 10002`,
+          `print, 'curl_easy_setopt', curl_easy_setopt(a, curlopt_url, 'http://www.google.com')`,
+          `print, 'curl_easy_perform', curl_easy_perform(a)`,
+          `curl_easy_cleanup, a`,
+          `end`,
+        ],
+      },
+      {
+        name: `for bad pro`,
+        code: [
+          `pro `,
+          ``,
+          `; pro test_myurl`,
+          ``,
+          `a = curl_easy_init()`,
+          `curlopt_header = 42`,
+          `print, 'curl_easy_setopt', curl_easy_setopt(a, curlopt_header, 1)`,
+          `curlopt_url = 10002`,
+          `print, 'curl_easy_setopt', curl_easy_setopt(a, curlopt_url, 'http://www.google.com')`,
+          `print, 'curl_easy_perform', curl_easy_perform(a)`,
+          `curl_easy_cleanup, a`,
+          `end`,
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Detects problems with statements not being closed`,
     fileName: `code.0.not-closed.spec.ts`,
     tests: [
