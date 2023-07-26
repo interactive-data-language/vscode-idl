@@ -128,7 +128,7 @@ export const RunTestNotebook: RunnerFunction = async (init) => {
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
 
   // make sure launched
-  expect(init.notebooks.controller.isLaunched()).toBeTruthy();
+  expect(init.notebooks.controller.isStarted()).toBeTruthy();
 
   // short pause
   await Sleep(100);
