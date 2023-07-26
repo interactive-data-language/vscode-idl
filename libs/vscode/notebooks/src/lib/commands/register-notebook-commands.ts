@@ -26,7 +26,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         });
 
         // make sure we have launched IDL
-        if (IDL_NOTEBOOK_CONTROLLER.isLaunched()) {
+        if (IDL_NOTEBOOK_CONTROLLER.isStarted()) {
           await IDL_NOTEBOOK_CONTROLLER.reset();
         } else {
           IDL_LOGGER.log({
@@ -57,7 +57,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         });
 
         // check if launched
-        if (IDL_NOTEBOOK_CONTROLLER.isLaunched()) {
+        if (IDL_NOTEBOOK_CONTROLLER.isStarted()) {
           // trigger reset and create promise
           const prom = IDL_NOTEBOOK_CONTROLLER.stop();
 

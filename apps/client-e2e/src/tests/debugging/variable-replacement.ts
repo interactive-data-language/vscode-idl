@@ -24,20 +24,25 @@ export const VariableReplacement: RunnerFunction = async (init) => {
   );
 
   // stop our IDL session
-  await vscode.debug.stopDebugging();
-  await Sleep(100);
-  expect(init.debug.adapter.launched).toBeFalsy();
+  await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STOP);
 
-  /**
-   * Start IDL
-   */
-  const started = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.START
-  );
+  // short pause
+  await Sleep(100);
+
+  // make sure stopped
+  expect(init.debug.adapter.isStarted()).toBeFalsy();
+
+  // start again
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.START);
+
+  // short pause for inconsistent results
+  await Sleep(100);
+
+  // show console
   vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
 
   // verify we started
-  expect(started).toBeTruthy();
+  expect(init.debug.adapter.isStarted()).toBeTruthy();
 
   // verify we dont set literal value of variable
   const res1 = CleanIDLOutput(
@@ -75,5 +80,5 @@ export const VariableReplacement: RunnerFunction = async (init) => {
   // stop IDL
   init.debug.adapter.terminate();
   await Sleep(100);
-  expect(init.debug.adapter.launched).toBeFalsy();
+  expect(init.debug.adapter.isStarted()).toBeFalsy();
 };

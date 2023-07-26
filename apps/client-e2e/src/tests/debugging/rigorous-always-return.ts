@@ -31,7 +31,7 @@ export const RigorousAlwaysReturn: RunnerFunction = async (init) => {
   // run many tests
   for (let i = 0; i < ITERATIONS; i++) {
     // verify we are still launched
-    expect(init.debug.adapter.launched).toBeTruthy();
+    expect(init.debug.adapter.isStarted()).toBeTruthy();
 
     // execute command
     const prom = init.debug.adapter.evaluate(`print, 'Hello world ${i}'`, {

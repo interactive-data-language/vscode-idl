@@ -18,3 +18,8 @@ export interface IRunnerTest {
   /** If critical, this failure prevents other tests from running */
   critical?: boolean;
 }
+
+/**
+ * Pause between tests (ms) for stability
+ */
+export const TEST_PAUSE_MS = 200;
