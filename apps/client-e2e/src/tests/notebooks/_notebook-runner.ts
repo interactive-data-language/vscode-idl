@@ -33,14 +33,16 @@ NOTEBOOK_RUNNER.addTest({
   critical: true,
 });
 
-NOTEBOOK_RUNNER.addTest({
-  name: 'Stop does the right thing',
-  fn: RunNotebookStop,
-  critical: true,
-});
-
+// reset goes first
 NOTEBOOK_RUNNER.addTest({
   name: 'Reset does the right thing',
   fn: RunNotebookRestart,
+  critical: true,
+});
+
+// stop at the end to make sure the process exits
+NOTEBOOK_RUNNER.addTest({
+  name: 'Stop does the right thing',
+  fn: RunNotebookStop,
   critical: true,
 });
