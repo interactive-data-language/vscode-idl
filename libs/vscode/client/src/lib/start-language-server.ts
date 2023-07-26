@@ -49,11 +49,15 @@ export let LANGUAGE_SERVER_MESSENGER: VSCodeClientEventManager;
  * Creates our language client and starts our language server
  */
 export async function StartLanguageServer(ctx: ExtensionContext) {
+  // Start the client. This will also launch the server
+  IDL_LOGGER.log({ content: 'Trying to detect node.js' });
+
   /**
    * Attempt to spawn node and get the version
    */
   const spawnRes = spawnSync('node', ['--version'], {
     encoding: 'utf-8',
+    timeout: 100,
   });
 
   /**

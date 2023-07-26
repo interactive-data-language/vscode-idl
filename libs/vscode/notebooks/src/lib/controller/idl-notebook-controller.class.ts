@@ -103,7 +103,7 @@ export class IDLNotebookController {
   /**
    * Determine if we are started or not
    */
-  isLaunched() {
+  isStarted() {
     return this._runtime.started;
   }
 
@@ -211,7 +211,7 @@ export class IDLNotebookController {
       // only save output if we are not finished
       if (!this._currentCell.finished) {
         // update our cell if we have finished launching
-        if (this.isLaunched()) {
+        if (this.isStarted()) {
           this._currentCell.execution.replaceOutput(
             new vscode.NotebookCellOutput([
               vscode.NotebookCellOutputItem.text(
@@ -231,7 +231,7 @@ export class IDLNotebookController {
    */
   private async postCellExecution(magic: boolean, cell?: ICurrentCell) {
     // return if we havent started
-    if (!this.isLaunched()) {
+    if (!this.isStarted()) {
       return;
     }
 
@@ -389,7 +389,7 @@ export class IDLNotebookController {
          *
          * Only run this if launched. If not launched we hang forever, for some reason
          */
-        if (postExecute && this.isLaunched()) {
+        if (postExecute && this.isStarted()) {
           await this.postCellExecution(success, cell);
         }
 
@@ -416,7 +416,7 @@ export class IDLNotebookController {
    * After launch and reset, commands we execute
    */
   private async _postLaunchAndReset() {
-    if (!this.isLaunched()) {
+    if (!this.isStarted()) {
       return;
     }
 
@@ -546,7 +546,7 @@ export class IDLNotebookController {
 
       // listen for failures to launch
       this._runtime.once(IDL_EVENT_LOOKUP.FAILED_START, () => {
-        if (!this.isLaunched()) {
+        if (!this.isStarted()) {
           // emit event that we failed to start - handled status bar update
           this._IDLCrashed('failed-start');
           res(false);
@@ -597,7 +597,7 @@ export class IDLNotebookController {
     const execution = this._controller.createNotebookCellExecution(cell);
 
     // attempt to launch IDL if we havent started yet
-    if (!this.isLaunched()) {
+    if (!this.isStarted()) {
       try {
         if (
           !(await this.launchIDL(
@@ -732,6 +732,9 @@ export class IDLNotebookController {
         if (!(await this._executeCell(cells[i]))) {
           return;
         }
+
+        // short pause
+        await Sleep(100);
       } catch (err) {
         // alert user
         IDL_LOGGER.log({
@@ -751,7 +754,7 @@ export class IDLNotebookController {
    */
   async evaluate(command: string) {
     // return if we havent started
-    if (!this.isLaunched()) {
+    if (!this.isStarted()) {
       return '';
     }
 
@@ -767,7 +770,7 @@ export class IDLNotebookController {
    * Reset our IDL session
    */
   async reset() {
-    if (!this.isLaunched()) {
+    if (!this.isStarted()) {
       return;
     }
 
@@ -781,7 +784,7 @@ export class IDLNotebookController {
     await this.launchIDL(IDL_TRANSLATION.notebooks.notifications.resettingIDL);
 
     // error if we didnt launch
-    if (!this.isLaunched()) {
+    if (!this.isStarted()) {
       throw new Error('Failed to start IDL');
     }
   }
@@ -790,7 +793,7 @@ export class IDLNotebookController {
    * Stop kernel execution
    */
   async stop() {
-    if (!this.isLaunched()) {
+    if (!this.isStarted()) {
       return;
     }
 

@@ -75,7 +75,7 @@ export async function StartIDL(): Promise<boolean> {
  * Checks if IDL is started
  */
 export function IsIDLStarted(): boolean {
-  return IDL_DEBUG_ADAPTER.launched;
+  return IDL_DEBUG_ADAPTER.isStarted();
 }
 
 /**

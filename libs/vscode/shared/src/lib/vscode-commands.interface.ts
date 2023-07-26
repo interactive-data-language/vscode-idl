@@ -30,7 +30,6 @@ export const VSCODE_COMMANDS = {
    * To open a file in vscode
    */
   OPEN_FILE: 'vscode.open',
-
   /**
    * Open settings UI in VSCode
    */
@@ -53,7 +52,6 @@ export const VSCODE_COMMANDS = {
    * Step into routine when debugging
    */
   DEBUG_STEP_INTO: 'workbench.action.debug.stepInto',
-
   /**
    * Step over when debugging
    */
@@ -62,6 +60,10 @@ export const VSCODE_COMMANDS = {
    * Step out of routine when debugging
    */
   DEBUG_STEP_OUT: 'workbench.action.debug.stepOut',
+  /**
+   * Stop debugging
+   */
+  DEBUG_STOP: 'workbench.action.debug.stop',
   /**
    * Reloads/refreshes our window
    */

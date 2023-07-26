@@ -2,7 +2,7 @@ import { Logger } from '@idl/logger';
 import { Sleep } from '@idl/shared';
 
 import { ACTIVATION_RESULT } from '../main';
-import { IRunnerTest } from './runner.interface';
+import { IRunnerTest, TEST_PAUSE_MS } from './runner.interface';
 
 /**
  * Basic class that runs and manages tests for the VSCode client
@@ -46,7 +46,11 @@ export class Runner {
 
         // attempt to run test
         await this.tests[i].fn(ACTIVATION_RESULT);
+
+        // pause afterwards so things catch up
+        await Sleep(TEST_PAUSE_MS);
       } catch (err) {
+        // pause so output logs can be captured
         await Sleep(1000);
 
         // log

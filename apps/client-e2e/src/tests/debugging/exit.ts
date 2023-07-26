@@ -22,5 +22,5 @@ export const Exit: RunnerFunction = async (init) => {
   await init.debug.adapter.evaluate(`exit`, { echo: true });
 
   // verify we get the right output
-  expect(init.debug.adapter.launched).toBeFalsy();
+  expect(init.debug.adapter.isStarted()).toBeFalsy();
 };

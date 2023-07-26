@@ -4,6 +4,10 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail on incremental work for large features, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
+## 3.1.2 July 2023
+
+Attempt to fix likely hang when detecting node.js to use for the language server
+
 ## 3.1.1 July 2023
 
 Fix likely bug with docs parsing without full parse language server setting

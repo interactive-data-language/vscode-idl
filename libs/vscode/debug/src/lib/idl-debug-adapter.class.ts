@@ -66,9 +66,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   // we don't support multiple threads, so we can use a hardcoded ID for the default thread
   private static readonly THREAD_ID = 1;
 
-  /** have we actually started IDL for debugging? */
-  launched = false;
-
   /** Are we listening to events from IDL or not? */
   listening = false;
 
@@ -207,9 +204,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    * Method we call when IDL was stopped - not via user, but a likely crash
    */
   private _IDLCrashed(reason: 'crash' | 'failed-start') {
-    // update state
-    this.launched = false;
-
     // this._runtime.removeAllListeners(); // this breaks things
     this.sendEvent(new TerminatedEvent());
 
@@ -515,6 +509,13 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   }
 
   /**
+   * Tells us if we have started IDL or not
+   */
+  isStarted() {
+    return this._runtime.started;
+  }
+
+  /**
    * Sets a breakpoint for agiven file
    *
    * Provide custom API for this for testing
@@ -650,9 +651,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
       // listen for when we started
       this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
-        // update flag that we started
-        this.launched = true;
-
         // add new line now that we have started
         LogOutput('\n');
 
@@ -699,7 +697,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
       // listen for failures to launch
       this._runtime.once(IDL_EVENT_LOOKUP.FAILED_START, () => {
-        if (!this.launched) {
+        if (!this.isStarted()) {
           // set the stop
           LogSessionStop('failed-start');
 
@@ -1315,9 +1313,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // update status bar
     IDL_STATUS_BAR.resetPrompt();
     IDL_STATUS_BAR.setStoppedStatus(IDL_TRANSLATION.statusBar.stopped);
-
-    // update our state
-    this.launched = false;
 
     // alert vscode we have stopped
     this.sendEvent(new TerminatedEvent());
