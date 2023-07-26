@@ -57,7 +57,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
    */
   const spawnRes = spawnSync('node', ['--version'], {
     encoding: 'utf-8',
-    timeout: 1,
+    timeout: 100,
   });
 
   /**
