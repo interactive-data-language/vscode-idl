@@ -1,9 +1,24 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { IDL_COMMANDS } from '@idl/shared';
+import { DocsToSimpleNotebook } from '@idl/notebooks';
+import {
+  GetRuntimePath,
+  IDL_COMMANDS,
+  IDL_NOTEBOOK_EXTENSION,
+} from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
-import { IDL_LOGGER, LogCommandError } from '@idl/vscode/client';
-import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
+import {
+  IDL_LOGGER,
+  LANGUAGE_SERVER_MESSENGER,
+  LogCommandError,
+} from '@idl/vscode/client';
+import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
+import {
+  OpenNotebookInVSCode,
+  VSCodeTelemetryLogger,
+} from '@idl/vscode/shared';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { join } from 'path';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
@@ -99,41 +114,38 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(
       IDL_COMMANDS.NOTEBOOKS.HELP_AS_NOTEBOOK,
-      async (arg) => {
+      async (arg: IRetrieveDocsPayload) => {
         try {
-          console.log(arg);
-          // VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
-          //   idl_command: IDL_COMMANDS.NOTEBOOKS.STOP,
-          // });
+          // get path for the file
+          const path = GetRuntimePath('idl/routines/notebooks');
 
-          // // check if launched
-          // if (IDL_NOTEBOOK_CONTROLLER.isStarted()) {
-          //   // trigger reset and create promise
-          //   const prom = IDL_NOTEBOOK_CONTROLLER.stop();
+          // make folder if it doesnt exist
+          if (!existsSync(path)) {
+            mkdirSync(path, { recursive: true });
+          }
 
-          //   // show startup progress
-          //   vscode.window.withProgress(
-          //     {
-          //       location: vscode.ProgressLocation.Notification,
-          //       cancellable: false,
-          //       title: IDL_TRANSLATION.notebooks.notifications.stoppingIDL,
-          //     },
-          //     () => {
-          //       return prom;
-          //     }
-          //   );
+          const file = join(
+            path,
+            `docs.${arg.name.toLowerCase().replace(/!:/g, '_')}.${
+              arg.type
+            }${IDL_NOTEBOOK_EXTENSION}`
+          );
 
-          //   // wait for finish
-          //   await prom;
-          // } else {
-          //   IDL_LOGGER.log({
-          //     type: 'info',
-          //     log: IDL_NOTEBOOK_LOG,
-          //     content: IDL_TRANSLATION.notebooks.notifications.idlNotStarted,
-          //     alert: IDL_TRANSLATION.notebooks.notifications.idlNotStarted,
-          //   });
-          // }
+          /**
+           * Get docs
+           */
+          const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
+            'retrieve-docs',
+            arg
+          );
 
+          // make notebook and save to disk
+          writeFileSync(file, DocsToSimpleNotebook(resp.docs));
+
+          // open the notebook in vscode
+          OpenNotebookInVSCode(file, true);
+
+          // return as though we succeeded
           return true;
         } catch (err) {
           LogCommandError(

@@ -1,16 +1,17 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
+import {
+  DecodeNotebook,
+  DecodeNotebookCellContent,
+  EncodeNotebookCellContent,
+  RawNotebook,
+  RawNotebookCell,
+} from '@idl/notebooks';
 import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import { performance } from 'perf_hooks';
-import { TextDecoder, TextEncoder } from 'util';
+import { TextEncoder } from 'util';
 import * as vscode from 'vscode';
-
-import {
-  DEFAULT_SERIALIZED_NOTEBOOK,
-  RawNotebook,
-  RawNotebookCell,
-} from './idl-notebook-serializer.interface';
 
 /**
  * Parses/serializes notebook data
@@ -31,24 +32,6 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
     const t0 = performance.now();
 
     /**
-     * Initialize notebook contents so we have some data
-     */
-    let contents = DEFAULT_SERIALIZED_NOTEBOOK;
-
-    // check if we have an empty file or not (i.e. made new one)
-    if (content.length > 0) {
-      /**
-       * Decompress data
-       */
-      // const uncompressed = unzlibSync(content);
-
-      /**
-       * Decode uncompressed data
-       */
-      contents = new TextDecoder().decode(content);
-    }
-
-    /**
      * Parsed notebook, placeholder in case we have error parsing file
      */
     let nb = new vscode.NotebookData([]);
@@ -58,7 +41,7 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
       /**
        * Parse our notebook file
        */
-      const parsed: RawNotebook = JSON.parse(contents);
+      const parsed = DecodeNotebook(content);
 
       /**
        * Cells that we parse
@@ -72,7 +55,7 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
           parsed.cells[i].type === 'code'
             ? vscode.NotebookCellKind.Code
             : vscode.NotebookCellKind.Markup,
-          Buffer.from(parsed.cells[i].content, 'base64').toString(),
+          DecodeNotebookCellContent(parsed.cells[i].content),
           parsed.cells[i].type === 'code' ? IDL_LANGUAGE_NAME : 'markdown'
         );
 
@@ -157,7 +140,7 @@ export class IDLNotebookSerializer implements vscode.NotebookSerializer {
             data.cells[i].kind === vscode.NotebookCellKind.Code
               ? 'code'
               : 'markdown',
-          content: Buffer.from(data.cells[i].value).toString('base64'),
+          content: EncodeNotebookCellContent(data.cells[i].value),
         };
 
         // check for metadata

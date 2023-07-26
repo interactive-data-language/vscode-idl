@@ -447,6 +447,8 @@ export interface ITranslation {
       onDidChangeNotebook: string;
       /** Notebook closed */
       onDidCloseNotebook: string;
+      /** Retrieving docs */
+      onRetrieveDocs: string;
     };
     /** Misc error reports */
     errors: {

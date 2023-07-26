@@ -5,6 +5,7 @@ export * from './lib/helpers/get-syntax-problems';
 export * from './lib/helpers/get-variable';
 export * from './lib/helpers/populate-notebook-variables';
 export * from './lib/helpers/reset-global-display-names';
+export * from './lib/helpers/resolve-hover-help-links';
 export * from './lib/helpers/save-global-display-names';
 export * from './lib/idl-index.class';
 export * from './lib/idl-index.interface';

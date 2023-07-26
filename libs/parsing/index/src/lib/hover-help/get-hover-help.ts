@@ -6,6 +6,7 @@ import {
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
 import { IDL_COMMANDS } from '@idl/shared';
+import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { Hover, Position } from 'vscode-languageserver';
 
@@ -174,14 +175,19 @@ export async function GetHoverHelp(
           // split
           const split = help.split(/\n/g);
 
+          // create info for docs
+          const info: IRetrieveDocsPayload = {
+            type: global.type,
+            name: global.name,
+          };
+
           /**
            * Make command to open in notebook
            */
+          `[Open in Notebook](command:idl.notebooks.docsAsNotebook?parameters)`;
           const cmd = `[Open in Notebook](command:${
             IDL_COMMANDS.NOTEBOOKS.HELP_AS_NOTEBOOK
-          }?${encodeURI(
-            JSON.stringify({ type: global.type, name: global.name })
-          )})`;
+          }?${encodeURI(JSON.stringify(info))})`;
 
           // check how our docs are formatted (do we have a link to docs or not)
           if (split[0].startsWith('[')) {

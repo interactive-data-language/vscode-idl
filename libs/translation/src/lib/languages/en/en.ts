@@ -559,6 +559,7 @@ export const EN: ITranslation = {
       onDidOpenNotebook: 'Error responding to notebook open event',
       onDidChangeNotebook: 'Error responding to notebook change event',
       onDidCloseNotebook: 'Error responding to notebook close event',
+      onRetrieveDocs: 'Error responding to docs retrieval event',
     },
     errors: {
       unhandled: 'An unknown error ocurred within the IDL Language Server',
