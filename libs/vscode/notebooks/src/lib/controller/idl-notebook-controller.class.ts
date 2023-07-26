@@ -732,6 +732,9 @@ export class IDLNotebookController {
         if (!(await this._executeCell(cells[i]))) {
           return;
         }
+
+        // short pause
+        await Sleep(100);
       } catch (err) {
         // alert user
         IDL_LOGGER.log({
