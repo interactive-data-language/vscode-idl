@@ -92,6 +92,8 @@ export const IDL_COMMANDS = {
     RESET: `${BASE_NOTEBOOK}resetIDL`,
     /** Reset IDL session for notebook */
     STOP: `${BASE_NOTEBOOK}stopIDL`,
+    /** Convert help to notebooks */
+    HELP_AS_NOTEBOOK: `${BASE_NOTEBOOK}helpAsNotebook`,
   },
   // /** Commands for starting and interacting with a terminal session of IDL */
   // TERMINAL: {

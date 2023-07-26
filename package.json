@@ -259,6 +259,10 @@
         "title": "%commands.idl.docs.open%"
       },
       {
+        "command": "idl.notebooks.helpAsNotebook",
+        "title": "%commands.idl.notebooks.helpAsNotebook%"
+      },
+      {
         "command": "idl.notebooks.resetIDL",
         "title": "%commands.idl.notebooks.resetIDL%",
         "icon": {

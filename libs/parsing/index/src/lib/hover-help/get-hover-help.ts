@@ -5,9 +5,11 @@ import {
   KeywordToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import { IDL_COMMANDS } from '@idl/shared';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { Hover, Position } from 'vscode-languageserver';
 
+import { GlobalIndexedToken } from '../global-index.interface';
 import { CALL_ROUTINE_TOKENS } from '../helpers/get-keywords.interface';
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
@@ -57,6 +59,9 @@ export async function GetHoverHelp(
 
       // initialize the value of our help
       let help = '';
+
+      /** Global token we are using for hover help */
+      let global: GlobalIndexedToken;
 
       // init hover response
       const hover: Hover = {
@@ -121,27 +126,20 @@ export async function GetHoverHelp(
           }
           break;
         }
-        case TOKEN_NAMES.ROUTINE_NAME: {
-          help = GetRoutineHoverHelp(index, parsed, token);
-          break;
-        }
+
         // help when we hover over a routine that a user has defined, right after pro or function
+        case TOKEN_NAMES.CALL_PROCEDURE_METHOD:
+        case TOKEN_NAMES.CALL_PROCEDURE:
+        case TOKEN_NAMES.CALL_FUNCTION_METHOD:
+        case TOKEN_NAMES.CALL_FUNCTION:
+        case TOKEN_NAMES.ROUTINE_NAME:
         case TOKEN_NAMES.ROUTINE_METHOD_NAME: {
-          help = GetRoutineHoverHelp(index, parsed, token);
+          global = GetRoutineHoverHelp(index, parsed, token);
+          if (global !== undefined) {
+            help = global.meta.docs;
+          }
           break;
         }
-        case TOKEN_NAMES.CALL_FUNCTION:
-          help = GetRoutineHoverHelp(index, parsed, token);
-          break;
-        case TOKEN_NAMES.CALL_FUNCTION_METHOD:
-          help = GetRoutineHoverHelp(index, parsed, token);
-          break;
-        case TOKEN_NAMES.CALL_PROCEDURE:
-          help = GetRoutineHoverHelp(index, parsed, token);
-          break;
-        case TOKEN_NAMES.CALL_PROCEDURE_METHOD:
-          help = GetRoutineHoverHelp(index, parsed, token);
-          break;
         case TOKEN_NAMES.ARG_DEFINITION: {
           help = GetVarHoverHelp(parsed, token, parent);
           break;
@@ -167,8 +165,38 @@ export async function GetHoverHelp(
           break;
       }
 
+      if (help !== '') {
+        // resolve links in hover help
+        help = ResolveHoverHelpLinks(help, config);
+
+        // check if we have a matching global token to open in a notebook
+        if (global !== undefined) {
+          // split
+          const split = help.split(/\n/g);
+
+          /**
+           * Make command to open in notebook
+           */
+          const cmd = `[Open in Notebook](command:${
+            IDL_COMMANDS.NOTEBOOKS.HELP_AS_NOTEBOOK
+          }?${encodeURI(
+            JSON.stringify({ type: global.type, name: global.name })
+          )})`;
+
+          // check how our docs are formatted (do we have a link to docs or not)
+          if (split[0].startsWith('[')) {
+            split[0] = `${split[0]} | ${cmd}`;
+          } else {
+            split.unshift(cmd);
+          }
+
+          // join help back together
+          help = split.join('\n');
+        }
+      }
+
       // set content
-      hover.contents = ResolveHoverHelpLinks(help, config);
+      hover.contents = help;
 
       // return hover
       return hover;

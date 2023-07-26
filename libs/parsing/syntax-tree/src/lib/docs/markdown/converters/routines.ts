@@ -124,9 +124,7 @@ export function RoutinesToMarkdown(
   const docs = info.meta.docsLookup;
 
   if (info.link !== undefined) {
-    markdown.push(`#### [${info.name}](${info.link})`);
-  } else {
-    markdown.push(`#### ${info.name}`);
+    markdown.push(`[Docs](${info.link})`);
   }
 
   // add in our syntax

@@ -53,6 +53,8 @@ export interface ICommandTranslation {
     resetIDL: string;
     /** Stop notebook session */
     stopIDL: string;
+    /** Convert help to notebook */
+    helpAsNotebook: string;
   };
   /** Terminal commands */
   terminal: {

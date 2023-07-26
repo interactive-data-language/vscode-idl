@@ -95,4 +95,55 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
       }
     })
   );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.NOTEBOOKS.HELP_AS_NOTEBOOK,
+      async (arg) => {
+        try {
+          console.log(arg);
+          // VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+          //   idl_command: IDL_COMMANDS.NOTEBOOKS.STOP,
+          // });
+
+          // // check if launched
+          // if (IDL_NOTEBOOK_CONTROLLER.isStarted()) {
+          //   // trigger reset and create promise
+          //   const prom = IDL_NOTEBOOK_CONTROLLER.stop();
+
+          //   // show startup progress
+          //   vscode.window.withProgress(
+          //     {
+          //       location: vscode.ProgressLocation.Notification,
+          //       cancellable: false,
+          //       title: IDL_TRANSLATION.notebooks.notifications.stoppingIDL,
+          //     },
+          //     () => {
+          //       return prom;
+          //     }
+          //   );
+
+          //   // wait for finish
+          //   await prom;
+          // } else {
+          //   IDL_LOGGER.log({
+          //     type: 'info',
+          //     log: IDL_NOTEBOOK_LOG,
+          //     content: IDL_TRANSLATION.notebooks.notifications.idlNotStarted,
+          //     alert: IDL_TRANSLATION.notebooks.notifications.idlNotStarted,
+          //   });
+          // }
+
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error stopping notebook',
+            err,
+            cmdErrors.notebooks.helpAsNotebook
+          );
+          return false;
+        }
+      }
+    )
+  );
 }

@@ -67,8 +67,14 @@ export function RegisterNotebookHoverProvider() {
         );
       }
 
+      // make markdown string
+      const md = new vscode.MarkdownString(hovered.contents as string);
+
+      // set as trusted (so we can execute commands)
+      md.isTrusted = true;
+
       // convert to VSCode hover help
-      return new vscode.Hover(hovered.contents as string, range);
+      return new vscode.Hover(md, range);
     },
   });
 }
