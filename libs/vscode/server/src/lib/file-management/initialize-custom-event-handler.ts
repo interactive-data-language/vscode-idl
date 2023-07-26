@@ -7,7 +7,7 @@ import { ON_FOLDER_DELETE } from './custom-events/on-folder-delete';
 import { ON_GENERATE_TASK } from './custom-events/on-generate-task';
 import { ON_INIT_WORKSPACE_CONFIG } from './custom-events/on-init-workspace-config';
 import { ON_WORKSPACE_CONFIG } from './custom-events/on-workspace-config';
-import { ON_DOCUMENT_FORMATTING } from './events/on-document-formatting';
+import { ON_DOCUMENT_FORMATTING } from './documents/on-document-formatting';
 
 /**
  * Sets up and creates handlers for listening to custom messages from the

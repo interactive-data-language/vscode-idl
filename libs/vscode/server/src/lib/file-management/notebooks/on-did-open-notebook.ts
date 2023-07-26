@@ -6,8 +6,8 @@ import { NotebookDocument } from 'vscode-languageserver/node';
 
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { IDL_INDEX } from '../initialize-document-manager';
+import { NOTEBOOK_MANAGER } from '../initialize-notebook-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
-import { NOTEBOOK_MANAGER } from './initialize-notebook-manager';
 import { SendNotebookProblems } from './send-notebook-problems';
 
 /**

@@ -29,6 +29,11 @@ export function PopulateNotebookVariables(
         return;
       }
 
+      // skip if not-code
+      if (byCell[files[i]] === undefined) {
+        continue;
+      }
+
       /**
        * Get variables in other main level program
        */
@@ -56,6 +61,11 @@ export function PopulateNotebookVariables(
       // check if same file
       if (files[i] === file) {
         return;
+      }
+
+      // skip if not-code
+      if (byCell[files[i]] === undefined) {
+        continue;
       }
 
       /**

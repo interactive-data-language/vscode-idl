@@ -21,7 +21,7 @@ import {
 import { CAPABILITIES } from './capabilities.interface';
 import { InitializeCustomEventHandler } from './file-management/initialize-custom-event-handler';
 import { InitializeDocumentManager } from './file-management/initialize-document-manager';
-import { InitializeNotebookManager } from './file-management/notebooks/initialize-notebook-manager';
+import { InitializeNotebookManager } from './file-management/initialize-notebook-manager';
 import { DEFAULT_SERVER_SETTINGS } from './settings.interface';
 import { InitializeUserInteractions } from './user-interaction/initialize-user-interactions';
 

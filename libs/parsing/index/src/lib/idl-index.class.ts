@@ -1254,13 +1254,14 @@ export class IDLIndex {
         /** Get notebook cell */
         const cell = notebook.cells[i];
 
-        // skip if no cells
-        if (cell.kind !== NotebookCellKind.Code) {
-          continue;
-        }
-
         // make file for our cell
         const cellFSPath = `${file}#${i}`;
+
+        // skip if no cells
+        if (cell.kind !== NotebookCellKind.Code) {
+          byCell[cellFSPath] = undefined;
+          continue;
+        }
 
         // process the cell
         byCell[cellFSPath] = Parser(cell.text, {
@@ -1275,11 +1276,19 @@ export class IDLIndex {
 
       // share variable usage
       for (let i = 0; i < files.length; i++) {
+        if (byCell[files[i]] === undefined) {
+          continue;
+        }
+
         PopulateNotebookVariables(files[i], byCell, true);
       }
 
       // process each file
       for (let i = 0; i < files.length; i++) {
+        if (byCell[files[i]] === undefined) {
+          continue;
+        }
+
         // inherit data types from cells above us
         if (i > 0) {
           PopulateNotebookVariables(files[i], byCell, false);

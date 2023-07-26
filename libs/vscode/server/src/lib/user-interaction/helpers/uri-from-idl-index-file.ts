@@ -1,4 +1,4 @@
-import { NOTEBOOK_MANAGER } from '../../file-management/notebooks/initialize-notebook-manager';
+import { NOTEBOOK_MANAGER } from '../../file-management/initialize-notebook-manager';
 import { URIFromFSPath } from '../../helpers/uri-from-fspath';
 
 /**

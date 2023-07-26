@@ -311,6 +311,11 @@ export class GlobalIndex {
       // reset value
       this.globalTokensByFile[file] = [];
 
+      // mark as changed if we had problems
+      if (file in this.globalSyntaxProblemsByFile) {
+        this.changedFiles[file] = undefined;
+      }
+
       // reset problems for our file as well
       this.globalSyntaxProblemsByFile[file] = [];
     }

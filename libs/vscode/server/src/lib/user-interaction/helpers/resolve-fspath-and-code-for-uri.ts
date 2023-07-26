@@ -1,7 +1,7 @@
 import { GetFSPath } from '@idl/shared';
 
 import { IDL_INDEX } from '../../file-management/initialize-document-manager';
-import { NOTEBOOK_MANAGER } from '../../file-management/notebooks/initialize-notebook-manager';
+import { NOTEBOOK_MANAGER } from '../../file-management/initialize-notebook-manager';
 import { GetFileStrings } from '../../helpers/get-file-strings';
 
 /**

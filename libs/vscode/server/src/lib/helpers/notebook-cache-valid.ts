@@ -1,7 +1,7 @@
 import { deepEqual } from 'fast-equals';
-import { NotebookCellKind, NotebookDocument } from 'vscode-languageserver';
+import { NotebookDocument } from 'vscode-languageserver';
 
-import { NOTEBOOK_MANAGER } from '../file-management/notebooks/initialize-notebook-manager';
+import { NOTEBOOK_MANAGER } from '../file-management/initialize-notebook-manager';
 
 /**
  * Last version of notebook file
@@ -25,10 +25,12 @@ export function NotebookCacheValid(notebook: NotebookDocument) {
   let isValid = false;
 
   /**
-   * Get the versions of all code cells
+   * Get the versions of all cells
+   *
+   * If we change cell order, we need to re-parse
    */
   const cellVersions = notebook.cells
-    .filter((cell) => cell.kind === NotebookCellKind.Code)
+    // .filter((cell) => cell.kind === NotebookCellKind.Code)
     .map(
       (cell) =>
         NOTEBOOK_MANAGER.cellTextDocuments.get(cell.document)?.version || -1

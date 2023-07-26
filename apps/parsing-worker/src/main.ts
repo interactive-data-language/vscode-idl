@@ -352,6 +352,11 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK, async (message) => {
 
   // process each cell and save information we need to return
   for (let i = 0; i < files.length; i++) {
+    if (byCell[files[i]] === undefined) {
+      resp.globals[files[i]] = [];
+      resp.problems[files[i]] = [];
+      continue;
+    }
     resp.globals[files[i]] = byCell[files[i]].global;
     resp.problems[files[i]] = GetSyntaxProblems(byCell[files[i]]);
   }

@@ -23,7 +23,7 @@ import {
   SERVER_EVENT_MANAGER,
 } from '../initialize-server';
 import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
-import { WORKSPACE_INITIALIZATION } from './events/on-initialized';
+import { WORKSPACE_INITIALIZATION } from './documents/on-initialized';
 import { IDL_INDEX } from './initialize-document-manager';
 
 /**
