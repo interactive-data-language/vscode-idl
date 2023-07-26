@@ -199,3 +199,69 @@ Extracting tokens via "index-single" [=========================] 0.0s 6252/6252 
 idl-client info Performance
    { time_ms: 83650, memory_gb: 3.75, lines: 1802304, rate: 21545 }
 ```
+
+## Improved Language Server Startup
+
+Fixed some problematic file discovery logic that searched the same path 5 times. It was replaced with a single glob pattern that looked for all files instead and, for one users, make the file discovery process take 7 seconds instead of 27.
+
+No idea what was taking so long for it to start, but it was the only potential culprit based on performance logs.
+
+Along those lines, we now have much better output on startup to track what parts of startup take the most time:
+
+```typescript
+const before = {
+  lines: 2252881,
+  app_platform: 'win32',
+  app_arch: 'x64',
+  app_cpus: 20,
+  app_ram: 32,
+  app_ram_used: 2.5,
+  num_workers: 6,
+  parse_time: 13.49,
+  parse_rate: 167015,
+  num_pro: 7816,
+  num_save: 830,
+  num_idl_task: 15,
+  num_envi_task: 0,
+  num_idl_json: 0,
+};
+
+const after = {
+  lines: 2243829,
+  app_platform: 'darwin',
+  app_arch: 'x64',
+  app_cpus: 16,
+  app_ram: 16,
+  app_ram_used: 1.75,
+  num_workers: 6,
+  parse_time: 5.0200000000000005,
+  parse_rate: 446711,
+  num_pro: 7732,
+  num_save: 735,
+  num_idl_task: 15,
+  num_envi_task: 0,
+  num_idl_json: 0,
+  num_notebook: 0,
+  time_total_ms: 5583,
+  time_search_ms: 102,
+  time_config_ms: 0,
+  time_task_ms: 267,
+  time_save_ms: 0,
+  time_notebook_ms: 0,
+  time_pro_ms: 5023,
+};
+```
+
+## Test Stability
+
+We had some issues with test stability where tests would pass and then they would fail sometimes.
+
+We added a pause, and constant, that forces a break between running tests. I would posit that it has to do with data being synced between the VSCode client and the test runner and/or extension host.
+
+Either way, with these changes, we have tests that don't have intermittent failures anymore.
+
+## Notebook Stability
+
+Along those same lines, when we processed a notebook cell (or ran a notebook), we would end up with inconsistent behaviors where it would run 4/5 times and occasionally fail.
+
+Now, after each cell executes, we have a 100 ms pause. After adding this is, our notebook cell execution tests all work as expected!
