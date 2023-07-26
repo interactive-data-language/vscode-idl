@@ -38,7 +38,7 @@ export const ON_RETRIEVE_DOCS = async (
     return {
       docs:
         global.length > 0
-          ? ResolveHoverHelpLinks(global[0].meta.docs, IDL_CLIENT_CONFIG)
+          ? ResolveHoverHelpLinks(global[0].meta.docs, IDL_CLIENT_CONFIG, true)
           : '',
     };
   } catch (err) {

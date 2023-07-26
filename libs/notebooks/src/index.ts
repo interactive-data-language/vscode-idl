@@ -5,5 +5,6 @@ export * from './lib/encode-notebook';
 export * from './lib/encode-notebook-cell-content';
 export * from './lib/idl-notebook-document.interface';
 export * from './lib/notebook-to-idl-notebook';
+export * from './lib/notebooks-folder.interface';
 export * from './lib/parsed-idl-notebook.interface';
 export * from './lib/raw-notebook.interface';

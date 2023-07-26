@@ -1,10 +1,6 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { DocsToSimpleNotebook } from '@idl/notebooks';
-import {
-  GetRuntimePath,
-  IDL_COMMANDS,
-  IDL_NOTEBOOK_EXTENSION,
-} from '@idl/shared';
+import { DocsToSimpleNotebook, NOTEBOOK_FOLDER } from '@idl/notebooks';
+import { IDL_COMMANDS, IDL_NOTEBOOK_EXTENSION } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
@@ -116,16 +112,13 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
       IDL_COMMANDS.NOTEBOOKS.HELP_AS_NOTEBOOK,
       async (arg: IRetrieveDocsPayload) => {
         try {
-          // get path for the file
-          const path = GetRuntimePath('idl/routines/notebooks');
-
           // make folder if it doesnt exist
-          if (!existsSync(path)) {
-            mkdirSync(path, { recursive: true });
+          if (!existsSync(NOTEBOOK_FOLDER)) {
+            mkdirSync(NOTEBOOK_FOLDER, { recursive: true });
           }
 
           const file = join(
-            path,
+            NOTEBOOK_FOLDER,
             `docs.${arg.name.toLowerCase().replace(/!:/g, '_')}.${
               arg.type
             }${IDL_NOTEBOOK_EXTENSION}`
