@@ -13,7 +13,7 @@ export function FindDirectBranchChildren<T extends TokenName>(
   const found: TreeToken<T>[] = [];
 
   // process all children
-  for (let i = 0; i < branch.kids.length; i++) {
+  for (let i = 0; i < (branch.kids || []).length; i++) {
     // save our token
     if (branch.kids[i].name === token) {
       found.push(branch.kids[i] as TreeToken<T>);

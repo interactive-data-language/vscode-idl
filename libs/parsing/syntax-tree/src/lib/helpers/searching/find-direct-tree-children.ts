@@ -13,7 +13,7 @@ export function FindDirectTreeChildren<T extends TokenName>(
   const found: TreeToken<T>[] = [];
 
   // process all children
-  for (let i = 0; i < tree.length; i++) {
+  for (let i = 0; i < (tree || []).length; i++) {
     if (tree[i].name === token) {
       found.push(tree[i] as TreeToken<T>);
     }
