@@ -178,7 +178,7 @@ export async function GetHoverHelp(
           // create info for docs
           const info: IRetrieveDocsPayload = {
             type: global.type,
-            name: global.name,
+            name: global.meta.display,
           };
 
           /**

@@ -1,5 +1,5 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { DocsToSimpleNotebook, NOTEBOOK_FOLDER } from '@idl/notebooks';
+import { ConvertDocsToNotebook, NOTEBOOK_FOLDER } from '@idl/notebooks';
 import { IDL_COMMANDS, IDL_NOTEBOOK_EXTENSION } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
@@ -119,7 +119,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
 
           const file = join(
             NOTEBOOK_FOLDER,
-            `docs.${arg.name.toLowerCase().replace(/!:/g, '_')}.${
+            `docs.${arg.name.toLowerCase().replace(/!|:/gim, '_')}.${
               arg.type
             }${IDL_NOTEBOOK_EXTENSION}`
           );
@@ -133,7 +133,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           );
 
           // make notebook and save to disk
-          writeFileSync(file, DocsToSimpleNotebook(resp.docs));
+          writeFileSync(file, ConvertDocsToNotebook(arg, resp.docs));
 
           // open the notebook in vscode
           OpenNotebookInVSCode(file, true);
