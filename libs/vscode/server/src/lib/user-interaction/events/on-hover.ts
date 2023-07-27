@@ -24,12 +24,17 @@ export async function GetHoverHelpWrapper(
   }
 
   // get hover help and return
-  return await IDL_INDEX.getHoverHelp(
+  const hover = await IDL_INDEX.getHoverHelp(
     info.fsPath,
     info.code,
     params.position,
     IDL_CLIENT_CONFIG
   );
+
+  // remove from our main thread lookup
+  IDL_INDEX.tokensByFile.remove(info.fsPath);
+
+  return hover;
 }
 
 /**

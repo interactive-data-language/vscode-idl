@@ -52,13 +52,19 @@ export async function GetAutoCompleteWrapper(
   );
 
   // listen for hover help
-  return await IDL_INDEX.getAutoComplete(
+  const completion = await IDL_INDEX.getAutoComplete(
     info.fsPath,
     info.code,
     params.position,
     IDL_CLIENT_CONFIG,
     idlJson
   );
+
+  // remove from our main thread lookup
+  IDL_INDEX.tokensByFile.remove(info.fsPath);
+
+  // return completion
+  return completion;
 }
 
 /**

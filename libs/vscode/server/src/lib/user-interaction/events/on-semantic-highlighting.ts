@@ -31,10 +31,17 @@ export const ON_SEMANTIC_HIGHLIGHTING = async (
       return undefined;
     }
 
-    return await IDL_INDEX.getSemanticTokens(
+    // get sematic tokens
+    const tokens = await IDL_INDEX.getSemanticTokens(
       fsPath,
       await GetFileStrings(params.textDocument.uri)
     );
+
+    // remove from our main thread lookup
+    IDL_INDEX.tokensByFile.remove(fsPath);
+
+    // return
+    return tokens;
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
