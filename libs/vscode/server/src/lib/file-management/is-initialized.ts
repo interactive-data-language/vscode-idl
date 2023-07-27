@@ -4,6 +4,7 @@ import {
   RoundToNearest,
   SystemMemoryGB,
   SystemMemoryUsedGB,
+  SystemMemoryUsedMB,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -230,4 +231,13 @@ SERVER_INFO.then(async (res) => {
       alert: IDL_TRANSLATION.lsp.index.failedIndexWorkspace,
     });
   }
+
+  // log our memory usage at regular intervals
+  setInterval(() => {
+    IDL_LANGUAGE_SERVER_LOGGER.log({
+      log: IDL_LSP_LOG,
+      type: 'info',
+      content: `Memory usage check (mb): ${SystemMemoryUsedMB()}`,
+    });
+  }, 60000);
 });
