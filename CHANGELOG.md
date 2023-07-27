@@ -30,6 +30,18 @@ Here are some of the features that notebooks bring:
 
 - Only support for IDL code (no Python or other languages at this time)
 
+## 3.1.3 July 2023
+
+Change order of some language server startup events
+
+Indicate we are done parsing before we sync problems with the VSCode UI
+
+Add in some manual cleanup checks for main language server process to reduce memory growth over time
+
+Every 5 minutes, the language server runs garbage collection in an attempt to reduce memory usage and logs approximate memory used in mb to help logging/track over time
+
+Update bundled documentation for ENVI and IDL routines to look nicer and give better visual experience for routines with keywords
+
 ## 3.1.2 July 2023
 
 Attempt to fix likely hang when detecting node.js to use for the language server
