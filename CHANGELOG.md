@@ -42,6 +42,8 @@ Every 5 minutes, the language server runs garbage collection in an attempt to re
 
 Update bundled documentation for ENVI and IDL routines to look nicer and give better visual experience for routines with keywords
 
+Change the way we check for node.js to try and work around a hang on extension start
+
 ## 3.1.2 July 2023
 
 Attempt to fix likely hang when detecting node.js to use for the language server
