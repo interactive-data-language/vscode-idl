@@ -4,10 +4,19 @@ import { EncodeNotebook } from './encode-notebook';
 import { EncodeNotebookCellContent } from './encode-notebook-cell-content';
 import { RawNotebook, RawNotebookCell } from './raw-notebook.interface';
 
+/**
+ * When does code block start
+ */
 const START_CODE = /^\s*```idl/i;
 
+/**
+ * Code blocks end (or basic start)
+ */
 const END_CODE = /^\s*```/i;
 
+/**
+ * Sections we dont save
+ */
 const DONT_SAVE_SECTION = /^#+\s*(?:Argument|Keyword|Example)/i;
 
 /**
