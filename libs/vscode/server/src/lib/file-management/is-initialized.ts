@@ -225,14 +225,14 @@ SERVER_INFO.then(async (res) => {
     // update flag that we can send problems
     CAN_SEND_PROBLEMS = true;
 
-    // send problems with settings changes
-    SendProblems(Object.keys(IDL_INDEX.getSyntaxProblems()));
-
     // alert that we are done
     SERVER_EVENT_MANAGER.sendNotification(
       LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
       { type: 'finish' }
     );
+
+    // send problems with settings changes
+    SendProblems(Object.keys(IDL_INDEX.getSyntaxProblems()));
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
