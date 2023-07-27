@@ -32,6 +32,8 @@ Here are some of the features that notebooks bring:
 
 ## 3.1.3 July 2023
 
+Fix bug where, if you had a function or procedure without a name, parsing would occasionally break and cause a bad state for the language server
+
 Change order of some language server startup events
 
 Indicate we are done parsing before we sync problems with the VSCode UI
