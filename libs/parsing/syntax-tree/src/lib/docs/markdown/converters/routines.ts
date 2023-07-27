@@ -95,9 +95,12 @@ export function RoutinesToMarkdown(
   // process args
   const kwNames = Object.keys(meta.kws);
   for (let i = 0; i < kwNames.length; i++) {
-    // add comma
-    if ((i === 0 && !isFunction) || syntax.length > 1) {
-      syntax.push(',');
+    if (i === 0) {
+      if (!isFunction || argNames.length > 0) {
+        syntax.push(', $\n');
+      }
+    } else {
+      syntax.push(`, $\n`);
     }
 
     // get keyword
