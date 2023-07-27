@@ -353,6 +353,21 @@ export class IDLIndex {
   }
 
   /**
+   * If garbage collection is enabled, clean up
+   */
+  cleanUp() {
+    if (global.gc) {
+      if (this.isMultiThreaded()) {
+        this.indexerPool.postToAll(
+          LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+          undefined
+        );
+      }
+      global.gc();
+    }
+  }
+
+  /**
    * Given an include token, we attempt to resolve which file that we know
    * matches the include file.
    *

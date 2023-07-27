@@ -101,10 +101,11 @@ SERVER_INFO.then(async (res) => {
 
     // log our memory usage at regular intervals
     setInterval(() => {
+      IDL_INDEX.cleanUp();
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,
         type: 'info',
-        content: `Memory usage check (mb): ${SystemMemoryUsedMB()}`,
+        content: `Memory cleanup and usage check (mb): ${SystemMemoryUsedMB()}`,
       });
     }, 300000);
 
@@ -233,6 +234,9 @@ SERVER_INFO.then(async (res) => {
 
     // send problems with settings changes
     SendProblems(Object.keys(IDL_INDEX.getSyntaxProblems()));
+
+    // clean up this process and children
+    IDL_INDEX.cleanUp();
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
