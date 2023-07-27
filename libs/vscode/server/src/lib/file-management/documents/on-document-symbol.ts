@@ -35,10 +35,16 @@ export const ON_DOCUMENT_SYMBOL = async (
     }
 
     // get and return our symbols
-    return await IDL_INDEX.getOutline(
+    const outline = await IDL_INDEX.getOutline(
       fsPath,
       await GetFileStrings(event.textDocument.uri)
     );
+
+    // remove file from memory cache
+    IDL_INDEX.tokensByFile.remove(fsPath);
+
+    // return outline
+    return outline;
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

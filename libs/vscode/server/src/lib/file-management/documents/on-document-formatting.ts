@@ -110,6 +110,9 @@ export const ON_DOCUMENT_FORMATTING = async (
 
         // format
         formatted = Assembler(tokens, config);
+
+        // remove file from memory cache
+        IDL_INDEX.tokensByFile.remove(file);
         break;
       }
       default:

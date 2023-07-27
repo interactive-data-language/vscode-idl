@@ -2424,6 +2424,9 @@ export class IDLIndex {
           postProcess: true,
         }
       );
+
+      // remove file from memory cache
+      this.tokensByFile.remove(buckets.proFiles[i]);
     }
   }
 }
