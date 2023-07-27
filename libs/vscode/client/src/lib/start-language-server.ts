@@ -16,7 +16,7 @@ import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { VSCodeClientEventManager } from '@idl/vscode/events/client';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
-import { sync as spawnSync } from 'cross-spawn';
+import { execSync } from 'child_process';
 import { lstatSync } from 'fs';
 import * as path from 'path';
 import { ExtensionContext, workspace } from 'vscode';
@@ -53,17 +53,22 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
   IDL_LOGGER.log({ content: 'Trying to detect node.js' });
 
   /**
-   * Attempt to spawn node and get the version
-   */
-  const spawnRes = spawnSync('node', ['--version'], {
-    encoding: 'utf-8',
-    timeout: 100,
-  });
-
-  /**
    * Check for nodejs to determine how we launch the language server
    */
-  const HAS_NODE = spawnRes.error ? false : true;
+  let HAS_NODE = false;
+
+  // placeholder for output from node
+  let nodeOutput = '';
+
+  /**
+   * Attempt to spawn node
+   */
+  try {
+    nodeOutput = execSync(`node --version`).toString('utf8').trim();
+    HAS_NODE = true;
+  } catch (err) {
+    nodeOutput = (err as Error)?.message;
+  }
 
   /**
    * Full path to the JS file for launching in VSCode
@@ -203,7 +208,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
       `Starting the language server using "${
         HAS_NODE ? 'node' : 'VSCode'
       }". Output from "node --version":`,
-      spawnRes.output.filter((item) => item).map((item) => item.trim()),
+      nodeOutput,
     ],
   });
 
