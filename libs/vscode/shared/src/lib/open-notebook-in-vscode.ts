@@ -3,7 +3,11 @@ import * as vscode from 'vscode';
 /**
  * Open notebook document and show it
  */
-export async function OpenNotebookInVSCode(file: string, show = true) {
+export async function OpenNotebookInVSCode(
+  file: string,
+  show = true,
+  bySide = false
+) {
   const uri = vscode.Uri.file(file);
   const doc = await vscode.workspace.openNotebookDocument(uri);
   if (show) {
@@ -40,7 +44,7 @@ export async function OpenNotebookInVSCode(file: string, show = true) {
     }
 
     await vscode.window.showNotebookDocument(doc, {
-      viewColumn: column,
+      viewColumn: bySide ? column : undefined,
     });
   }
   return doc;

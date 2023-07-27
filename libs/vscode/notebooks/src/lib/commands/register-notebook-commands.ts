@@ -141,7 +141,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           writeFileSync(file, ConvertDocsToNotebook(arg, resp.docs));
 
           // open the notebook in vscode
-          OpenNotebookInVSCode(file, true);
+          OpenNotebookInVSCode(file, true, true);
 
           // return as though we succeeded
           return true;
