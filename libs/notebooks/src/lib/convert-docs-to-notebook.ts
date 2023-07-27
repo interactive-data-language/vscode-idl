@@ -8,6 +8,8 @@ const START_CODE = /^\s*```idl/i;
 
 const END_CODE = /^\s*```/i;
 
+const DONT_SAVE_SECTION = /^#+\s*(?:Argument|Keyword|Example)/i;
+
 /**
  * Converts docs to a nice looking notebook
  */
@@ -28,11 +30,20 @@ export function ConvertDocsToNotebook(
   // split on new lines
   const split = docs.split('\n');
 
-  // track the last content
+  /** last text content for markdown */
   const lastContent: string[] = [];
+
+  /** last code from code block */
   const lastCode: string[] = [];
+
+  /** track if code block is open */
   let isOpen = false;
+
+  /** Check if first code block (indicates syntax example) */
   let first = true;
+
+  /** track if we save our current block */
+  let saveBlock = true;
 
   // process each line
   for (let i = 0; i < split.length; i++) {
@@ -52,6 +63,7 @@ export function ConvertDocsToNotebook(
         isOpen = true;
         lastContent.push(line);
         break;
+
       /**
        * End of a code block
        */
@@ -74,19 +86,36 @@ export function ConvertDocsToNotebook(
         }
         lastContent.push(line);
         break;
+
+      // check if new section
       case line.startsWith('#'):
+        // do we have content to save?
         if (lastContent.length > 0) {
-          (cells.length === 1 ? cells : docsCells).push({
-            type: 'markdown',
-            content: EncodeNotebookCellContent(lastContent.join('\n')),
-          });
+          // are we saving this block?
+          if (saveBlock) {
+            (cells.length === 1 ? cells : docsCells).push({
+              type: 'markdown',
+              content: EncodeNotebookCellContent(lastContent.join('\n')),
+            });
+          }
+
+          // clear content
           lastContent.splice(0, lastContent.length);
         }
-        docsCells.push({
-          type: 'markdown',
-          content: EncodeNotebookCellContent(line),
-        });
+
+        // check if we save our section or not
+        saveBlock = !DONT_SAVE_SECTION.test(line);
+
+        // check if we save
+        if (saveBlock) {
+          docsCells.push({
+            type: 'markdown',
+            content: EncodeNotebookCellContent(line),
+          });
+        }
+
         break;
+
       default:
         if (isOpen) {
           lastCode.push(line);
@@ -97,13 +126,15 @@ export function ConvertDocsToNotebook(
   }
 
   // check if we have a cell to close
-  if (lastContent.length > 0) {
+  if (lastContent.length > 0 && saveBlock) {
     docsCells.push({
       type: 'markdown',
       content: EncodeNotebookCellContent(lastContent.join('\n')),
     });
-    lastContent.splice(0, lastContent.length);
   }
+
+  // empty
+  lastContent.splice(0, lastContent.length);
 
   // check if we have example cells to add in
   if (exampleCells.length > 0) {
@@ -114,6 +145,7 @@ export function ConvertDocsToNotebook(
     cells = cells.concat(exampleCells);
   }
 
+  // add in docs cells
   cells = cells.concat(docsCells);
 
   /**
