@@ -239,5 +239,5 @@ SERVER_INFO.then(async (res) => {
       type: 'info',
       content: `Memory usage check (mb): ${SystemMemoryUsedMB()}`,
     });
-  }, 60000);
+  }, 300000);
 });
