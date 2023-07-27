@@ -5,6 +5,7 @@ import {
 } from '@idl/assembling/config';
 import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
+import { TASK_REGEX, TaskFunctionName } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   Command,
@@ -18,29 +19,6 @@ import { SORT_PRIORITY } from '../sort-priority.interface';
  * Display names for fuctions
  */
 const FUNCTIONS = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.FUNCTION];
-
-/**
- * Regex for task name
- */
-const TASK_REGEX = /^(?:envi|idl).+task$/i;
-
-/**
- * Gets insertion text for function calls with special cases
- * for ENVI tasks
- */
-function GetInsertText(name: string, quote: string): string {
-  /** Lower case for comparison */
-  const lc = name.toLowerCase();
-
-  /**
-   * Check if ENVI or IDL task
-   */
-  if (lc.startsWith('envi')) {
-    return `ENVITask(${quote}${name.substring(4, name.length - 4)}${quote})`;
-  } else {
-    return `IDLTask(${quote}${name.substring(3, name.length - 4)}${quote})`;
-  }
-}
 
 /**
  * Adds variables to our completion items
@@ -70,7 +48,7 @@ export function AddCompletionFunctions(
      * Determine if we are a task which has different auto complete
      */
     if (TASK_REGEX.exec(displayNames[i])) {
-      const display = GetInsertText(displayNames[i], quote);
+      const display = TaskFunctionName(displayNames[i], quote);
       complete.push({
         label: display,
         insertText: display,

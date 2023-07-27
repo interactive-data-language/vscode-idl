@@ -30,6 +30,7 @@ export * from './lib/helpers/searching/split-tree-on-arguments.interface';
 export * from './lib/helpers/searching/split-tree-on-commas';
 export * from './lib/helpers/searching/split-tree-on-operators';
 export * from './lib/helpers/selected-token.interface';
+export * from './lib/helpers/task-function-name';
 export * from './lib/populate-index';
 export * from './lib/populate-scope';
 export * from './lib/populate-scope-detail';

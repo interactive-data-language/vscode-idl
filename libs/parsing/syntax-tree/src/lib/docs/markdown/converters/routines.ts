@@ -4,6 +4,10 @@ import {
   SerializeIDLType,
 } from '@idl/data-types/core';
 
+import {
+  TASK_REGEX,
+  TaskFunctionName,
+} from '../../../helpers/task-function-name';
 import { IDL_DOCS_HEADERS } from '../../docs.interface';
 import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';
 import { CapitalizeWord } from '../helpers/capitalize-word';
@@ -46,7 +50,11 @@ export function RoutinesToMarkdown(
     if (info.name.includes('::')) {
       syntax.push(`result = ${splitName[0]}.${splitName[1]}(`);
     } else {
-      syntax.push(`result = ${info.name}(`);
+      if (TASK_REGEX.test(info.name)) {
+        syntax.push(`result = ${TaskFunctionName(info.name, "'")}`);
+      } else {
+        syntax.push(`result = ${info.name}(`);
+      }
     }
   } else {
     if (info.name.includes('::')) {
@@ -116,7 +124,7 @@ export function RoutinesToMarkdown(
     }
   }
   // check if we need to close our function syntax call
-  if (isFunction) {
+  if (isFunction && !TASK_REGEX.test(info.name)) {
     syntax.push(`)`);
   }
 
