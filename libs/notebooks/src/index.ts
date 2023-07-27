@@ -1,7 +1,6 @@
 export * from './lib/convert-docs-to-notebook';
 export * from './lib/decode-notebook';
 export * from './lib/decode-notebook-cell-content';
-export * from './lib/docs-to-simple-notebook';
 export * from './lib/encode-notebook';
 export * from './lib/encode-notebook-cell-content';
 export * from './lib/idl-notebook-document.interface';

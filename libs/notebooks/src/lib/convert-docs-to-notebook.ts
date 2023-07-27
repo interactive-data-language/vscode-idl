@@ -56,11 +56,6 @@ export function ConvertDocsToNotebook(
 
   // process each line
   for (let i = 0; i < split.length; i++) {
-    // if first line, strip out the notebook link
-    if (i === 0) {
-      continue;
-    }
-
     /** Get the current line */
     const line = split[i];
 
