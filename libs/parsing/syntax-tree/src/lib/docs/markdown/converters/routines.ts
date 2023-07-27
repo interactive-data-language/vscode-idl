@@ -44,13 +44,13 @@ export function RoutinesToMarkdown(
   // check if we are a function or not
   if (isFunction) {
     if (info.name.includes('::')) {
-      syntax.push(`result = object.${splitName[1]}(`);
+      syntax.push(`result = ${splitName[0]}.${splitName[1]}(`);
     } else {
       syntax.push(`result = ${info.name}(`);
     }
   } else {
     if (info.name.includes('::')) {
-      syntax.push(`object.${splitName[1]}`);
+      syntax.push(`${splitName[0]}.${splitName[1]}`);
     } else {
       syntax.push(info.name);
     }
@@ -124,7 +124,7 @@ export function RoutinesToMarkdown(
   const docs = info.meta.docsLookup;
 
   if (info.link !== undefined) {
-    markdown.push(`[Docs](${info.link})`);
+    markdown.push(`[Online Docs](${info.link})`);
   }
 
   // add in our syntax
