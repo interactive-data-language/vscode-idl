@@ -43,9 +43,14 @@ export async function OpenNotebookInVSCode(
         break;
     }
 
-    await vscode.window.showNotebookDocument(doc, {
-      viewColumn: bySide ? column : undefined,
-    });
+    await vscode.window.showNotebookDocument(
+      doc,
+      bySide
+        ? {
+            viewColumn: column,
+          }
+        : {}
+    );
   }
   return doc;
 }
