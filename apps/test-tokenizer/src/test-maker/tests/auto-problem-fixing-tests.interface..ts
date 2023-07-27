@@ -236,6 +236,29 @@ export const AUTO_PROBLEM_FIXING_TESTS: IAutoAssemblerTest[] = [
   },
   {
     suiteName: `Verify we add compile opt idl2`,
+    fileName: `code.38.no-comp-opt.edge-cases.spec.ts`,
+    tests: [
+      {
+        name: `for functions without names`,
+        code: [
+          `;+`,
+          `; :Returns:`,
+          `;   any`,
+          `;`,
+          `;-`,
+          `function`,
+          ``,
+          `end`,
+        ],
+      },
+      {
+        name: `for procedures without names`,
+        code: [`;+`, `; :Returns:`, `;   any`, `;`, `;-`, `pro`, ``, `end`],
+      },
+    ],
+  },
+  {
+    suiteName: `Verify we add compile opt idl2`,
     fileName: `code.38.no-comp-opt.notebooks.spec.ts`,
     tests: [
       {
