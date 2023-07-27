@@ -96,7 +96,17 @@ SERVER_INFO.then(async (res) => {
       ],
     });
 
+    // load global tokens
     IDL_INDEX.loadGlobalTokens(IDL_CLIENT_CONFIG);
+
+    // log our memory usage at regular intervals
+    setInterval(() => {
+      IDL_LANGUAGE_SERVER_LOGGER.log({
+        log: IDL_LSP_LOG,
+        type: 'info',
+        content: `Memory usage check (mb): ${SystemMemoryUsedMB()}`,
+      });
+    }, 300000);
 
     /**
      * Merge folders together
@@ -231,13 +241,4 @@ SERVER_INFO.then(async (res) => {
       alert: IDL_TRANSLATION.lsp.index.failedIndexWorkspace,
     });
   }
-
-  // log our memory usage at regular intervals
-  setInterval(() => {
-    IDL_LANGUAGE_SERVER_LOGGER.log({
-      log: IDL_LSP_LOG,
-      type: 'info',
-      content: `Memory usage check (mb): ${SystemMemoryUsedMB()}`,
-    });
-  }, 300000);
 });
