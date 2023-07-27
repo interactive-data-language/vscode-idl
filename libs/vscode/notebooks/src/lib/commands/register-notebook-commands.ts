@@ -112,6 +112,11 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
       IDL_COMMANDS.NOTEBOOKS.HELP_AS_NOTEBOOK,
       async (arg: IRetrieveDocsPayload) => {
         try {
+          // return if no arg
+          if (arg === undefined) {
+            return;
+          }
+
           // make folder if it doesnt exist
           if (!existsSync(NOTEBOOK_FOLDER)) {
             mkdirSync(NOTEBOOK_FOLDER, { recursive: true });

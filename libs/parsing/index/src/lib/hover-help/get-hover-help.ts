@@ -171,7 +171,7 @@ export async function GetHoverHelp(
         help = ResolveHoverHelpLinks(help, config);
 
         // check if we have a matching global token to open in a notebook
-        if (global !== undefined) {
+        if (global !== undefined && (true as any) === false) {
           // split
           const split = help.split(/\n/g);
 
