@@ -154,7 +154,7 @@ describe(`[auto generated] Correctly gets docs and variables`, () => {
               pos: [13, 11, 4],
             },
           },
-          docs: '#### mypro\n\n```idl\nmypro, var1, [ /KW1 ]\n```\n\nMy procedure\n\n#### Arguments\n\n- **var1**: in, required, any\n\n  My favorite thing\n\n\n#### Keywords\n\n- **KW1**: in, optional, Boolean\n\n    Super Cool flag\n\n',
+          docs: '\n```idl\nmypro, var1, $\n [ /KW1 ]\n```\n\nMy procedure\n\n#### Arguments\n\n- **var1**: in, required, any\n\n  My favorite thing\n\n\n#### Keywords\n\n- **KW1**: in, optional, Boolean\n\n    Super Cool flag\n\n',
           docsLookup: { default: 'My procedure' },
           display: 'mypro',
           kws: {

@@ -355,7 +355,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               pos: [14, 41, 4],
             },
           },
-          docs: '#### myfunc\n\n```idl\nresult = myfunc( arg1, arg2, arg3, arg4, arg5, [ KW1 = any ])\n```\n\n\n\n#### Arguments\n\n- **arg1**: in, required, ENVITask<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, IDLTask<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, ENVITask<BuildMosaicRaster> | ENVITask<SubsetRaster>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, IDLTask<s3_download>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, ENVITask<BuildMosaicRaster>\n\n  Placeholder docs for argument, keyword, or property\n\n\n#### Keywords\n\n- **KW1**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\nresult = myfunc( arg1, arg2, arg3, arg4, arg5, $\n [ KW1 = any ])\n```\n\n\n\n#### Arguments\n\n- **arg1**: in, required, ENVITask<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, IDLTask<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, ENVITask<BuildMosaicRaster> | ENVITask<SubsetRaster>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, IDLTask<s3_download>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, ENVITask<BuildMosaicRaster>\n\n  Placeholder docs for argument, keyword, or property\n\n\n#### Keywords\n\n- **KW1**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: { default: '' },
           display: 'myfunc',
           kws: {

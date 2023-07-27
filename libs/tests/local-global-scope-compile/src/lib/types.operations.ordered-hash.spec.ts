@@ -147,7 +147,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### orderedhash_checks\n\n```idl\norderedhash_checks\n```\n',
+          docs: '\n```idl\norderedhash_checks\n```\n',
           docsLookup: {},
           display: 'orderedhash_checks',
           kws: {},

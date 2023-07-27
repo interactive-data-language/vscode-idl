@@ -1001,7 +1001,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### pro4\n\n```idl\npro4\n```\n',
+          docs: '\n```idl\npro4\n```\n',
           docsLookup: {},
           display: 'pro4',
           kws: {},
@@ -1088,7 +1088,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### pro1\n\n```idl\npro1\n```\n',
+          docs: '\n```idl\npro1\n```\n',
           docsLookup: {},
           display: 'pro1',
           kws: {},
@@ -1353,7 +1353,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### pro2\n\n```idl\npro2\n```\n',
+          docs: '\n```idl\npro2\n```\n',
           docsLookup: {},
           display: 'pro2',
           kws: {},
@@ -1624,7 +1624,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### pro3\n\n```idl\npro3\n```\n',
+          docs: '\n```idl\npro3\n```\n',
           docsLookup: {},
           display: 'pro3',
           kws: {},

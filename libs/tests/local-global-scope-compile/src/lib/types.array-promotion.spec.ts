@@ -212,7 +212,7 @@ describe(`[auto generated] Types from`, () => {
               pos: [8, 15, 1],
             },
           },
-          docs: '#### test\n\n```idl\nresult = test( a)\n```\n\n\n\n#### Arguments\n\n- **a**: bidirectional, required, any\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nresult = test( a)\n```\n\n\n\n#### Arguments\n\n- **a**: bidirectional, required, any\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '', returns: 'ArrayPromotion<String>' },
           display: 'test',
           kws: {},

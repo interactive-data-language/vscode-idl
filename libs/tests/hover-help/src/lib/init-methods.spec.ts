@@ -29,10 +29,9 @@ describe(`[auto generated] Verify hover-help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '#### MyClass::init',
       '',
       '```idl',
-      'result = object.init( [ /kw2 ])',
+      'result = MyClass.init( [ /kw2 ])',
       '```',
       '',
       '',

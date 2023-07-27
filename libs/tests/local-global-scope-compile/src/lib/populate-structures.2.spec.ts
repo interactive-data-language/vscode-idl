@@ -59,7 +59,7 @@ describe(`[auto generated] Use docs for property types`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### mystruct__define\n\n```idl\nmystruct__define\n```\n\n\n',
+          docs: '\n```idl\nmystruct__define\n```\n\n\n',
           docsLookup: { default: '' },
           display: 'mystruct__define',
           kws: {},

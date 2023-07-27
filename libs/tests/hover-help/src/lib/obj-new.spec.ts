@@ -29,10 +29,9 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '#### myclass::Init',
       '',
       '```idl',
-      'result = object.Init()',
+      'result = myclass.Init()',
       '```',
       '',
       'Constructor',
@@ -74,10 +73,27 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '#### [ENVIRaster](https://www.nv5geospatialsoftware.com/docs/enviRaster.html)',
+      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/enviRaster.html)',
       '',
       '```idl',
-      'result = ENVIRaster( [ data ], [ data_ignore_value = any ], [ error = String ], [ inherits_from = any ], [ data_type = Number ], [ interleave = String ], [ metadata = ENVIRasterMetadata ], [ nbands = Number ], [ ncolumns = Number ], [ nrows = Number ], [ spatialref = ENVIStandardRasterSpatialRef | ENVIRPCRasterSpatialRef | ENVIPseudoRasterSpatialRef | ENVIGLTRasterSpatialRef ], [ time = ENVITime ], [ uri = String ], [ auxiliary_spatialref = ENVIStandardRasterSpatialRef | ENVIRPCRasterSpatialRef | ENVIPseudoRasterSpatialRef | ENVIGLTRasterSpatialRef ], [ auxiliary_uri = Array<String> ], [ coord_sys = ENVICoordSys ], [ /pyramid_exists ], [ /read_only ])',
+      'result = ENVIRaster( [ data ], $',
+      ' [ data_ignore_value = any ], $',
+      ' [ error = String ], $',
+      ' [ inherits_from = any ], $',
+      ' [ data_type = Number ], $',
+      ' [ interleave = String ], $',
+      ' [ metadata = ENVIRasterMetadata ], $',
+      ' [ nbands = Number ], $',
+      ' [ ncolumns = Number ], $',
+      ' [ nrows = Number ], $',
+      ' [ spatialref = ENVIStandardRasterSpatialRef | ENVIRPCRasterSpatialRef | ENVIPseudoRasterSpatialRef | ENVIGLTRasterSpatialRef ], $',
+      ' [ time = ENVITime ], $',
+      ' [ uri = String ], $',
+      ' [ auxiliary_spatialref = ENVIStandardRasterSpatialRef | ENVIRPCRasterSpatialRef | ENVIPseudoRasterSpatialRef | ENVIGLTRasterSpatialRef ], $',
+      ' [ auxiliary_uri = Array<String> ], $',
+      ' [ coord_sys = ENVICoordSys ], $',
+      ' [ /pyramid_exists ], $',
+      ' [ /read_only ])',
       '```',
       '',
       'This is a reference to a raster object.',

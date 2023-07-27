@@ -52,7 +52,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### mystruct__define\n\n```idl\nmystruct__define\n```\n',
+          docs: '\n```idl\nmystruct__define\n```\n',
           docsLookup: {},
           display: 'mystruct__define',
           kws: {},
@@ -248,7 +248,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### mystruct__define\n\n```idl\nmystruct__define\n```\n',
+          docs: '\n```idl\nmystruct__define\n```\n',
           docsLookup: {},
           display: 'mystruct__define',
           kws: {},

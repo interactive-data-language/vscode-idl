@@ -89,7 +89,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### array_creation\n\n```idl\narray_creation\n```\n',
+          docs: '\n```idl\narray_creation\n```\n',
           docsLookup: {},
           display: 'array_creation',
           kws: {},
@@ -246,7 +246,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### array_creation\n\n```idl\narray_creation\n```\n',
+          docs: '\n```idl\narray_creation\n```\n',
           docsLookup: {},
           display: 'array_creation',
           kws: {},
@@ -411,7 +411,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### array_creation\n\n```idl\narray_creation\n```\n',
+          docs: '\n```idl\narray_creation\n```\n',
           docsLookup: {},
           display: 'array_creation',
           kws: {},

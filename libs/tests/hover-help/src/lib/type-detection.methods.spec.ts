@@ -29,10 +29,19 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '#### [ENVIRaster::getData](https://www.nv5geospatialsoftware.com/docs/enviRaster__GetData.html)',
+      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/enviRaster__GetData.html)',
       '',
       '```idl',
-      "result = object.getData( [ bands = Array<Number> ], [ complex_function = any ], [ error = String ], [ interleave = 'bil' | 'bip' | 'bsq' ], [ interpolation = 'nearest neighbor' | 'pixel aggregate' ], [ pixel_state = Array<Number> ], [ roi = any ], [ sub_rect = Array<Number> ], [ xfactor = any ], [ yfactor = any ])",
+      'result = ENVIRaster.getData( [ bands = Array<Number> ], $',
+      ' [ complex_function = any ], $',
+      ' [ error = String ], $',
+      " [ interleave = 'bil' | 'bip' | 'bsq' ], $",
+      " [ interpolation = 'nearest neighbor' | 'pixel aggregate' ], $",
+      ' [ pixel_state = Array<Number> ], $',
+      ' [ roi = any ], $',
+      ' [ sub_rect = Array<Number> ], $',
+      ' [ xfactor = any ], $',
+      ' [ yfactor = any ])',
       '```',
       '',
       'This method returns the raster data (either all of the data or a subset).',
@@ -235,10 +244,12 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '#### [ENVIRaster::save](https://www.nv5geospatialsoftware.com/docs/enviRaster__Save.html)',
+      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/enviRaster__Save.html)',
       '',
       '```idl',
-      'object.save, [ error = String ], [ /hidden ]',
+      'ENVIRaster.save, $',
+      ' [ error = String ], $',
+      ' [ /hidden ]',
       '```',
       '',
       'This method closes the ENVIRaster for writing and converts it to read-only mode. After calling Save, the ENVIRaster is still available for display and for accessing data as input for processing.',

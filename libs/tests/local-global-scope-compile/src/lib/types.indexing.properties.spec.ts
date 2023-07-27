@@ -108,7 +108,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### mypro1\n\n```idl\nmypro1\n```\n',
+          docs: '\n```idl\nmypro1\n```\n',
           docsLookup: {},
           display: 'mypro1',
           kws: {},

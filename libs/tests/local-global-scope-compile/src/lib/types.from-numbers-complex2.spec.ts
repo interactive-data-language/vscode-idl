@@ -665,7 +665,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### pro6\n\n```idl\npro6\n```\n',
+          docs: '\n```idl\npro6\n```\n',
           docsLookup: {},
           display: 'pro6',
           kws: {},

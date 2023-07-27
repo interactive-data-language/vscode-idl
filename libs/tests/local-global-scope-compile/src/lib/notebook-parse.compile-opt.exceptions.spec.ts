@@ -45,7 +45,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### myPro\n\n```idl\nmyPro\n```\n',
+          docs: '\n```idl\nmyPro\n```\n',
           docsLookup: {},
           display: 'myPro',
           kws: {},
@@ -130,7 +130,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### myPro\n\n```idl\nresult = myPro()\n```\n',
+          docs: '\n```idl\nresult = myPro()\n```\n',
           docsLookup: {},
           display: 'myPro',
           kws: {},

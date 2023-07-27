@@ -92,7 +92,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### color_edit_back\n\n```idl\ncolor_edit_back\n```\n',
+          docs: '\n```idl\ncolor_edit_back\n```\n',
           docsLookup: {},
           display: 'color_edit_back',
           kws: {},

@@ -133,7 +133,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### list_checks\n\n```idl\nlist_checks\n```\n',
+          docs: '\n```idl\nlist_checks\n```\n',
           docsLookup: {},
           display: 'list_checks',
           kws: {},

@@ -47,7 +47,7 @@ function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
 
     // determine where we insert our code
     let idx = 0;
-    let lineStart = token.pos[0] + 1;
+    let lineStart = token.pos[0];
 
     // get token filters for what to skip
     const filters =
