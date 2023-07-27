@@ -22,7 +22,9 @@ describe(`[auto generated] Binary number styling`, () => {
     const code = [`compile_opt idl2, hidden`, ``, `a = 0BaEf`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -51,11 +53,9 @@ describe(`[auto generated] Binary number styling`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode(
-        'my_file.pro',
-        formatted,
-        true
-      );
+      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
+        postProcess: true,
+      });
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
@@ -92,7 +92,9 @@ describe(`[auto generated] Binary number styling`, () => {
     const code = [`compile_opt idl2, hidden`, ``, `a = 0BaEf`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -121,11 +123,9 @@ describe(`[auto generated] Binary number styling`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode(
-        'my_file.pro',
-        formatted,
-        true
-      );
+      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
+        postProcess: true,
+      });
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
@@ -162,7 +162,9 @@ describe(`[auto generated] Binary number styling`, () => {
     const code = [`compile_opt idl2, hidden`, ``, `a = 0BaEf`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -191,11 +193,9 @@ describe(`[auto generated] Binary number styling`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode(
-        'my_file.pro',
-        formatted,
-        true
-      );
+      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
+        postProcess: true,
+      });
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);

@@ -1,11 +1,11 @@
-import { IDL_COMMANDS, LANGUAGE_NAME } from '@idl/shared';
+import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
 import { VerifyNLS } from './helpers/verify-nls';
 
 export const DEBUGGERS = [
   {
-    type: LANGUAGE_NAME,
+    type: IDL_LANGUAGE_NAME,
     label: '%debugger.idl.label%',
     runtime: 'node',
     configurationAttributes: {
@@ -16,7 +16,7 @@ export const DEBUGGERS = [
     },
     initialConfigurations: [
       {
-        type: LANGUAGE_NAME,
+        type: IDL_LANGUAGE_NAME,
         name: '%debugger.idl.name%',
         request: 'launch',
       },
@@ -26,7 +26,7 @@ export const DEBUGGERS = [
         label: '%debugger.idl.label%',
         description: '%debugger.idl.description%',
         body: {
-          type: LANGUAGE_NAME,
+          type: IDL_LANGUAGE_NAME,
           name: '%debugger.idl.name%',
           request: 'launch',
         },
@@ -37,25 +37,25 @@ export const DEBUGGERS = [
 
 export const BREAKPOINTS = [
   {
-    language: LANGUAGE_NAME,
+    language: IDL_LANGUAGE_NAME,
   },
 ];
 
-export const DEBUG_ICONS = [
+export const DEBUG_TOOLBAR = [
   {
     command: IDL_COMMANDS.DEBUG.COMPILE,
     group: 'navigation',
-    when: `debugType == ${LANGUAGE_NAME}`,
+    when: `debugType == ${IDL_LANGUAGE_NAME}`,
   },
   {
     command: IDL_COMMANDS.DEBUG.RUN,
     group: 'navigation',
-    when: `debugType == ${LANGUAGE_NAME}`,
+    when: `debugType == ${IDL_LANGUAGE_NAME}`,
   },
   {
     command: IDL_COMMANDS.DEBUG.RESET,
     group: 'navigation',
-    when: `debugType == ${LANGUAGE_NAME}`,
+    when: `debugType == ${IDL_LANGUAGE_NAME}`,
   },
 ];
 
@@ -118,8 +118,8 @@ export function ProcessDebugging(packageJSON: IPackageJSON, nls: IPackageNLS) {
 
   // verify that each debug icon also has an icon from the command
   const commands = contrib['commands'];
-  for (let i = 0; i < DEBUG_ICONS.length; i++) {
-    const icon = DEBUG_ICONS[i];
+  for (let i = 0; i < DEBUG_TOOLBAR.length; i++) {
+    const icon = DEBUG_TOOLBAR[i];
 
     // find matching command
     let match = undefined;
@@ -149,7 +149,7 @@ export function ProcessDebugging(packageJSON: IPackageJSON, nls: IPackageNLS) {
     contrib['menus'] = {};
   }
   const menus = contrib['menus'];
-  menus['debug/toolBar'] = DEBUG_ICONS;
+  menus['debug/toolBar'] = DEBUG_TOOLBAR;
 
   // save changes
   contrib['debuggers'] = DEBUGGERS;

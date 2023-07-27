@@ -86,7 +86,7 @@ export async function TestsForTaskGeneration(
     const parsed = await index.getParsedProCode(
       filepath,
       readFileSync(filepath, 'utf-8'),
-      true
+      { postProcess: true }
     );
 
     strings.push(`    // specify type of task`);
@@ -99,7 +99,7 @@ export async function TestsForTaskGeneration(
     strings.push(``);
     strings.push(`    // add file to index`);
     strings.push(
-      `    const parsed = await index.getParsedProCode(filepath, readFileSync(filepath, 'utf-8'), true);`
+      `    const parsed = await index.getParsedProCode(filepath, readFileSync(filepath, 'utf-8'), {postProcess: true});`
     );
     strings.push(``);
 

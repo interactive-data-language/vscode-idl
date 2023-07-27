@@ -16,12 +16,28 @@ export const EXTENSION_NAME = 'idl-for-vscode';
  * NOTE: Changing this here is not all you need to do. You will also need to
  * adjust the package.json config information.
  */
-export const LANGUAGE_NAME = 'idl';
+export const IDL_LANGUAGE_NAME = 'idl';
 
 /**
  * For syntax highlighting, the scope we use for IDL symbols
  */
-export const LANGUAGE_TOKEN_SCOPE_NAME = `source.${LANGUAGE_NAME}`;
+export const LANGUAGE_TOKEN_SCOPE_NAME = `source.${IDL_LANGUAGE_NAME}`;
+
+/**
+ * The name of IDL notebooks
+ */
+export const IDL_NOTEBOOK_NAME = `${IDL_LANGUAGE_NAME}-notebook`;
+
+/**
+ * The name of IDL notebooks
+ */
+export const IDL_NOTEBOOK_CONTROLLER_NAME = `${IDL_LANGUAGE_NAME}-notebook-controller`;
+
+/**
+ * Translation key for notebook controller
+ */
+export const IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME =
+  '%notebooks.controller%';
 
 /**
  * Name of the extension in VSCode
@@ -33,12 +49,17 @@ export const EXTENSION_FULL_NAME = `${EXTENSION_PUBLISHER_NAME}.${EXTENSION_NAME
 /**
  * File extension for PRO files
  */
-export const IDL_FILE_EXTENSION = '.pro';
+export const PRO_FILE_EXTENSION = '.pro';
 
 /**
  * File extension for SAVE files
  */
 export const IDL_SAVE_FILE_EXTENSION = '.sav';
+
+/**
+ * File extension for IDL notebooks
+ */
+export const IDL_NOTEBOOK_EXTENSION = '.idlnb';
 
 /**
  * File extensions for task files
@@ -48,7 +69,7 @@ export const TASK_FILE_EXTENSION = '.task';
 /**
  * File naming for config files
  */
-export const LANGUAGE_SERVER_CONFIG_URI = 'idl.json';
+export const IDL_JSON_URI = 'idl.json';
 
 /**
  * File extensions for ENVI Task style files
@@ -73,7 +94,7 @@ export const EPT_FILE_EXTENSION = '.ept';
 /**
  * Glob pattern for PRO files
  */
-export const PRO_CODE_GLOB_PATTERN = `**/*${IDL_FILE_EXTENSION}`;
+export const PRO_CODE_GLOB_PATTERN = `**/*${PRO_FILE_EXTENSION}`;
 
 /**
  * Glob pattern for SAVE files
@@ -83,7 +104,7 @@ export const SAVE_FILE_GLOB_PATTERN = `**/*${IDL_SAVE_FILE_EXTENSION}`;
 /**
  * Glob pattern for idl.json files
  */
-export const CONFIG_FILE_GLOB_PATTERN = `**/*${LANGUAGE_SERVER_CONFIG_URI}`;
+export const IDL_JSON_GLOB_PATTERN = `**/*${IDL_JSON_URI}`;
 
 /**
  * Glob pattern for task files
@@ -91,14 +112,24 @@ export const CONFIG_FILE_GLOB_PATTERN = `**/*${LANGUAGE_SERVER_CONFIG_URI}`;
 export const TASK_FILE_GLOB_PATTERN = `**/*${TASK_FILE_EXTENSION}`;
 
 /**
+ * Glob pattern for notebooks
+ */
+export const NOTEBOOK_GLOB_PATTERN = `**/*${IDL_NOTEBOOK_EXTENSION}`;
+
+/**
+ * Glob pattern for all files
+ */
+export const ALL_FILES_GLOB_PATTERN = `**/*(*${PRO_FILE_EXTENSION}|*${IDL_SAVE_FILE_EXTENSION}|*${IDL_JSON_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
+
+/**
  * Name for our icon theme
  */
-export const ICON_THEME_NAME = `${LANGUAGE_NAME}-icons`;
+export const ICON_THEME_NAME = `${IDL_LANGUAGE_NAME}-icons`;
 
 /**
  * Language for the output from IDL so we can apply nice formatting and coloring
  */
-export const LOG_LANGUAGE_NAME = `${LANGUAGE_NAME}-log`;
+export const LOG_LANGUAGE_NAME = `${IDL_LANGUAGE_NAME}-log`;
 
 /**
  * Scope name for our log syntax highlighting
@@ -117,7 +148,7 @@ export const IDL_DOCUMENT_SELECTOR = {
  * Language identifier for task files
  */
 export const TASK_FILE_DOCUMENT_SELECTOR = {
-  pattern: CONFIG_FILE_GLOB_PATTERN,
+  pattern: IDL_JSON_GLOB_PATTERN,
   scheme: 'file',
 };
 

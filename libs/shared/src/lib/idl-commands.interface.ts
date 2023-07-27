@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME as L } from './language.interface';
+import { IDL_LANGUAGE_NAME as L } from './language.interface';
 
 /** Base string that all commands start with */
 export const BASE_COMMAND = `${L}.`;
@@ -18,6 +18,9 @@ export const BASE_CONFIG = `${BASE_COMMAND}config.`;
 
 /** Base string for debug commands */
 export const BASE_DEBUG = `${BASE_COMMAND}debug.`;
+
+/** Base string for notebook */
+export const BASE_NOTEBOOK = `${BASE_COMMAND}notebooks.`;
 
 /** Base string for terminal commands */
 export const BASE_TERMINAL = `${BASE_COMMAND}terminal.`;
@@ -82,6 +85,15 @@ export const IDL_COMMANDS = {
     PROFILER_START: `${BASE_DEBUG}startProfiling`,
     /** Stop profiling */
     PROFILER_STOP: `${BASE_DEBUG}stopProfiling`,
+  },
+  /** Commands for starting and interacting with a debug session of IDL */
+  NOTEBOOKS: {
+    /** Reset IDL session for notebook */
+    RESET: `${BASE_NOTEBOOK}resetIDL`,
+    /** Reset IDL session for notebook */
+    STOP: `${BASE_NOTEBOOK}stopIDL`,
+    /** Convert help to notebooks */
+    HELP_AS_NOTEBOOK: `${BASE_NOTEBOOK}helpAsNotebook`,
   },
   // /** Commands for starting and interacting with a terminal session of IDL */
   // TERMINAL: {

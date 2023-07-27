@@ -16,6 +16,11 @@ import {
 } from './indexing-message.interface';
 import { LoggingMessage } from './logging.message.interface';
 import { FileRenameMessage, IFileRenamePayload } from './rename.interface';
+import {
+  IRetrieveDocsPayload,
+  IRetrieveDocsResponse,
+  RetrieveDocsMessage,
+} from './retrieve-docs-message.interface';
 import { UsageMetricLSPMessage } from './usage-metric-message.interface';
 import {
   AddDocsMessage,
@@ -37,6 +42,7 @@ export type LanguageServerMessage =
   | IndexingMessage
   | InitWorkspaceConfigMessage
   | LoggingMessage
+  | RetrieveDocsMessage
   | UsageMetricLSPMessage
   | WorkspaceConfigMessage;
 
@@ -60,9 +66,15 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? DocumentFormattingParams
     : T extends GenerateTaskMessage
     ? IGenerateTaskPayload
+    : T extends RetrieveDocsMessage
+    ? IRetrieveDocsPayload
     : T extends UsageMetricLSPMessage
     ? IUsageMetricAndPayload<UsageMetric>
     : any;
+
+/** Strictly typed payloads to/from the language server */
+export type LanguageServerResponse<T extends LanguageServerMessage> =
+  T extends RetrieveDocsMessage ? IRetrieveDocsResponse : any;
 
 /** Strictly typed lookup of language server messages */
 export interface ILanguageServerMessages {
@@ -82,6 +94,8 @@ export interface ILanguageServerMessages {
   INIT_WORKSPACE_CONFIG: InitWorkspaceConfigMessage;
   /** Log content from the LSP */
   LOG: LoggingMessage;
+  /** Message to retrieve docs */
+  RETRIEVE_DOCS: RetrieveDocsMessage;
   /** Message to update workspace config */
   WORKSPACE_CONFIG: WorkspaceConfigMessage;
   /** Message from language server with usage metric to report */
@@ -103,6 +117,7 @@ export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   INDEXING: 'indexing',
   INIT_WORKSPACE_CONFIG: 'init-workspace-config',
   LOG: 'log',
-  WORKSPACE_CONFIG: 'workspace-config',
+  RETRIEVE_DOCS: 'retrieve-docs',
   USAGE_METRIC: 'usage-metric-lsp',
+  WORKSPACE_CONFIG: 'workspace-config',
 };

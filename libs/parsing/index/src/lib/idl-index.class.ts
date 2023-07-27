@@ -14,6 +14,7 @@ import {
   IDL_WORKER_THREAD_CONSOLE,
   LogManager,
 } from '@idl/logger';
+import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks';
 import { CodeChecksum, Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
@@ -22,14 +23,13 @@ import { IncludeToken } from '@idl/parsing/tokenizer';
 import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
 import {
-  CONFIG_FILE_GLOB_PATTERN,
-  IDL_FILE_EXTENSION,
-  LANGUAGE_SERVER_CONFIG_URI,
+  ALL_FILES_GLOB_PATTERN,
+  IDL_JSON_URI,
+  IDL_NOTEBOOK_EXTENSION,
+  IDL_SAVE_FILE_EXTENSION,
   NODE_MEMORY_CONFIG,
-  PRO_CODE_GLOB_PATTERN,
-  SAVE_FILE_GLOB_PATTERN,
+  PRO_FILE_EXTENSION,
   TASK_FILE_EXTENSION,
-  TASK_FILE_GLOB_PATTERN,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -53,12 +53,18 @@ import {
   TrackGlobalTokensResponse,
 } from '@idl/workers/parsing';
 import { WorkerIOPool } from '@idl/workers/workerio';
+import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
-import * as glob from 'fast-glob';
+import { glob } from 'fast-glob';
 import { existsSync, readFileSync } from 'fs';
 import { cpus, platform } from 'os';
 import { basename, dirname, join } from 'path';
-import { DocumentSymbol, Position } from 'vscode-languageserver/node';
+import { performance } from 'perf_hooks';
+import {
+  DocumentSymbol,
+  NotebookCellKind,
+  Position,
+} from 'vscode-languageserver/node';
 import { Worker } from 'worker_threads';
 
 import { GetAutoComplete } from './auto-complete/get-auto-complete';
@@ -66,14 +72,19 @@ import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
 import { GlobalIndex } from './global-index.class';
 import { GetSyntaxProblems } from './helpers/get-syntax-problems';
+import { PopulateNotebookVariables } from './helpers/populate-notebook-variables';
 import { ResetGlobalDisplayNames } from './helpers/reset-global-display-names';
 import { SplitFiles } from './helpers/split-files';
 import { GetHoverHelp } from './hover-help/get-hover-help';
 import {
+  DEFAULT_INDEX_PRO_CODE_OPTIONS,
   IDL_INDEX_OPTIONS,
   IDLFileTypeLookup,
   IFolderRecursion,
+  IIndexProCodeOptions,
+  IIndexWorkspaceStats,
 } from './idl-index.interface';
+import { IDLParsedCache } from './idl-parsed-cache.class';
 import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';
 import { OutlineDisplayName } from './outline';
 import {
@@ -134,18 +145,24 @@ export class IDLIndex {
     'idl.json': new Set(),
     'idl-task': new Set(),
     'envi-task': new Set(),
+    'idl-notebook': new Set(),
   };
 
   /**
    * Track tokens for each file that we process
    */
-  tokensByFile: { [key: string]: IParsed } = {};
+  tokensByFile = new IDLParsedCache();
 
   /**
    * Track files that we are currently processing so that we can't accidentally
    * re-process files that we are already processing
    */
   pendingFiles: { [key: string]: Promise<IParsed> } = {};
+
+  /**
+   * Track pending notebooks
+   */
+  pendingNotebooks: { [key: string]: Promise<void> } = {};
 
   /**
    * Track the workers that own each file
@@ -167,22 +184,23 @@ export class IDLIndex {
   changedFiles: { [key: string]: boolean } = {};
 
   /**
-   * Statistics from the last time we parsed a workspace
+   * Statistics from when we call indexWorkspace()
    */
-  lastWorkspaceIndexStats: {
-    /** Did we start the server and index a workspace */
-    haveStats: boolean;
-    /** Number of files */
-    files: number;
-    /** In ms */
-    time: number;
-    /** Of code */
-    lines: number;
-  } = {
+  lastWorkspaceIndexStats: IIndexWorkspaceStats = {
     haveStats: false,
-    time: 0,
-    files: 0,
-    lines: 0,
+    linesPro: 0,
+    nConfig: 0,
+    nNotebook: 0,
+    nPro: 0,
+    nSave: 0,
+    nTask: 0,
+    timeConfig: 0,
+    timeNotebook: 0,
+    timePro: 0,
+    timeSave: 0,
+    timeSearch: 0,
+    timeTask: 0,
+    timeTotal: 0,
   };
 
   constructor(log: LogManager, nWorkers = NUM_WORKERS, loadCache = true) {
@@ -220,7 +238,7 @@ export class IDLIndex {
       workers.push(
         new Worker(join(dirname(__dirname), 'parsing-worker/main.js'), {
           resourceLimits: {
-            maxOldGenerationSizeMb: NODE_MEMORY_CONFIG.OLD_WORKER,
+            maxOldGenerationSizeMb: NODE_MEMORY_CONFIG.OLD,
             maxYoungGenerationSizeMb: NODE_MEMORY_CONFIG.YOUNG,
           },
         })
@@ -301,14 +319,14 @@ export class IDLIndex {
    * This is needed because we have other files that we watch as well.
    */
   isPROCode(file: string): boolean {
-    return file.toLowerCase().endsWith(IDL_FILE_EXTENSION);
+    return file.toLowerCase().endsWith(PRO_FILE_EXTENSION);
   }
 
   /**
    * Indicates that a file is a configuration file
    */
   isConfigFile(file: string): boolean {
-    return file.toLowerCase().endsWith(LANGUAGE_SERVER_CONFIG_URI);
+    return file.toLowerCase().endsWith(IDL_JSON_URI);
   }
 
   /**
@@ -316,6 +334,37 @@ export class IDLIndex {
    */
   isTaskFile(file: string): boolean {
     return file.toLowerCase().endsWith(TASK_FILE_EXTENSION);
+  }
+
+  /**
+   * Indicates that a file is an IDL notebook
+   */
+  isIDLNotebookFile(file: string): boolean {
+    return (
+      file.includes('#') || file.toLowerCase().endsWith(IDL_NOTEBOOK_EXTENSION)
+    );
+  }
+
+  /**
+   * Indicates that a file is a SAVE file
+   */
+  isSAVEFile(file: string): boolean {
+    return file.toLowerCase().endsWith(IDL_SAVE_FILE_EXTENSION);
+  }
+
+  /**
+   * If garbage collection is enabled, clean up
+   */
+  cleanUp() {
+    if (global.gc) {
+      if (this.isMultiThreaded()) {
+        this.indexerPool.postToAll(
+          LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+          undefined
+        );
+      }
+      global.gc();
+    }
   }
 
   /**
@@ -433,7 +482,11 @@ export class IDLIndex {
         { file, code }
       );
     } else {
-      return GetSemanticTokens(await this.getParsedProCode(file, code, true));
+      return GetSemanticTokens(
+        await this.getParsedProCode(file, code, {
+          postProcess: true,
+        })
+      );
     }
   }
 
@@ -533,9 +586,11 @@ export class IDLIndex {
   /**
    * Indexes global symbols
    */
-  async saveGlobalTokens(file: string, global: GlobalTokens) {
+  async saveGlobalTokens(file: string, global: GlobalTokens, sync = true) {
     this.globalIndex.trackGlobalTokens(global, file);
-    await this.syncGlobal(file, global);
+    if (sync) {
+      await this.syncGlobal(file, global);
+    }
   }
 
   /**
@@ -565,7 +620,9 @@ export class IDLIndex {
     }
 
     // get tokens for our file
-    const tokens = await this.getParsedProCode(file, code, true);
+    const tokens = await this.getParsedProCode(file, code, {
+      postProcess: true,
+    });
 
     // get our global tokens
     const global = tokens.global;
@@ -633,8 +690,11 @@ export class IDLIndex {
     const global = this.globalIndex.removeTokensForFile(file);
 
     // remove file from lookups
-    delete this.tokensByFile[file];
+    this.tokensByFile.remove(file);
     delete this.knownFiles[file];
+
+    // track file as changed to remove syntax problems
+    this.changedFiles[file] = true;
 
     // check if we should do change detection because it has been removed
     if (changeDetection) {
@@ -652,6 +712,23 @@ export class IDLIndex {
     for (let i = 0; i < files.length; i++) {
       await this.removeFile(files[i], changeDetection);
     }
+  }
+
+  /**
+   * Gets all files associated with a notebook
+   */
+  getNotebookFiles(file: string) {
+    return Object.keys(this.knownFiles).filter((known) =>
+      known.startsWith(file)
+    );
+  }
+
+  /**
+   * Removes a notebook from our index
+   */
+  async removeNotebook(file: string) {
+    const cellFiles = this.getNotebookFiles(file);
+    await this.removeWorkspaceFiles(cellFiles, false);
   }
 
   /**
@@ -707,7 +784,7 @@ export class IDLIndex {
   /**
    * Index task file
    */
-  private async indexTaskFile(file: string, content?: string) {
+  private async indexTaskFile(file: string, content?: string, sync = true) {
     /**
      * Wrap parsing in try catch since we will eventually have task file errors
      */
@@ -726,11 +803,15 @@ export class IDLIndex {
       }
 
       // track and sync if needed
-      this.saveGlobalTokens(file, global);
+      this.saveGlobalTokens(file, global, sync);
 
       // track as known file
       this.knownFiles[file] = undefined;
+
+      // return global token
+      return global;
     } catch (err) {
+      return [];
       // this.log.log({
       //   log: IDL_LSP_LOG,
       //   type: 'error',
@@ -753,16 +834,22 @@ export class IDLIndex {
    * Index more than one task file
    */
   private async indexTaskFiles(files: string[]) {
-    // process all of our config files
+    /**
+     * track global by file
+     */
+    const byFile: { [key: string]: GlobalTokens } = {};
+
+    // process each task file
     for (let i = 0; i < files.length; i++) {
-      await this.indexTaskFile(files[i]);
+      byFile[files[i]] = await this.indexTaskFile(files[i], undefined, false);
     }
 
     // send to threads
     if (this.isMultiThreaded()) {
-      this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, {
-        files,
-      });
+      this.indexerPool.postToAll(
+        LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
+        byFile
+      );
     }
   }
 
@@ -771,14 +858,10 @@ export class IDLIndex {
    *
    * No validation at this point
    */
-  private async indexWorkspaceTaskFiles(
-    folder: string | string[] | IFolderRecursion
-  ) {
-    // find task files
-    const files = await this.findFiles(folder, TASK_FILE_GLOB_PATTERN);
-
-    // index files
+  private async indexWorkspaceTaskFiles(files: string[]) {
+    const t0 = performance.now();
     await this.indexTaskFiles(files);
+    this.lastWorkspaceIndexStats.timeTask = Math.floor(performance.now() - t0);
   }
 
   /**
@@ -787,13 +870,15 @@ export class IDLIndex {
    * extension client.
    */
   private async indexWorkspaceConfigFiles(
+    files: string[],
     folder: string | string[] | IFolderRecursion
   ) {
-    // find config files for all of our folders
-    const files = await this.findFiles(folder, CONFIG_FILE_GLOB_PATTERN);
-
-    // index files
+    // index and track time
+    const t0 = performance.now();
     await this.indexConfigFiles(files);
+    this.lastWorkspaceIndexStats.timeConfig = Math.floor(
+      performance.now() - t0
+    );
 
     /**
      * Check and see if we have folders that we need to alert the user
@@ -872,11 +957,12 @@ export class IDLIndex {
    * If the file has not been processed by a worker it is assigned an ID
    */
   getWorkerID(file: string) {
-    if (this.workerIDsByFile[file] !== undefined) {
-      return this.workerIDsByFile[file];
+    const useFile = file.split('#')[0];
+    if (this.workerIDsByFile[useFile] !== undefined) {
+      return this.workerIDsByFile[useFile];
     } else {
-      this.workerIDsByFile[file] = this.indexerPool.getIDs()[0];
-      return this.workerIDsByFile[file];
+      this.workerIDsByFile[useFile] = this.indexerPool.getIDs()[0];
+      return this.workerIDsByFile[useFile];
     }
   }
 
@@ -889,18 +975,19 @@ export class IDLIndex {
 
     switch (true) {
       /**
-       * Check if local
-       */
-      case file in this.tokensByFile:
-        globals = this.tokensByFile[file].global;
-        break;
-      /**
-       * Check if in global index which means the source is in our
-       * worker thread
+       * Check if in global index
        */
       case file in this.globalIndex.globalTokensByFile:
         globals = this.globalIndex.globalTokensByFile[file];
         break;
+
+      /**
+       * Check if local
+       */
+      case this.tokensByFile.has(file):
+        globals = this.tokensByFile.get(file).global;
+        break;
+
       default:
         break;
     }
@@ -914,9 +1001,22 @@ export class IDLIndex {
   async indexProCode(
     file: string,
     code: string | string[],
-    postProcess = true
+    inOptions: Partial<IIndexProCodeOptions> = {}
   ): Promise<IParsed | undefined> {
     try {
+      /**
+       * Get parsing options
+       */
+      const options = Object.assign(
+        copy(DEFAULT_INDEX_PRO_CODE_OPTIONS),
+        inOptions
+      );
+
+      // automatically detect if we are a notebook file
+      if (!options.isNotebook) {
+        options.isNotebook = this.isIDLNotebookFile(file);
+      }
+
       // get old global tokens
       const oldGlobals = this.getGlobalsForFile(file);
 
@@ -945,35 +1045,44 @@ export class IDLIndex {
          * Check if we farm work to a thread
          */
         case this.isMultiThreaded():
-          postProcessed = postProcess;
+          postProcessed = options.postProcess;
           parsed = await this.indexerPool.workerio.postAndReceiveMessage(
             this.getWorkerID(file),
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
-            { file, code, postProcess }
+            {
+              file,
+              code,
+              ...options,
+            }
           );
           break;
         /**
          * Default to doing the work here
          */
         default:
-          parsed = Parser(code);
+          parsed = Parser(code, options);
           this.workerIDsByFile[file] = undefined;
           break;
       }
-
-      // save tokens for our file
-      this.tokensByFile[file] = parsed;
 
       // add to our global index - do this before we post-process
       await this.saveGlobalTokens(file, parsed.global);
 
       // determine how to process
       switch (true) {
+        case !options.full:
+          // do nothing if not full parse
+          break;
         case postProcessed:
           await this.changeDetection(parsed.global, oldGlobals);
           break;
-        case postProcess:
-          this.postProcessProFile(file, parsed, oldGlobals, true);
+        case options.postProcess:
+          this.postProcessProFile(
+            file,
+            parsed,
+            oldGlobals,
+            options.changeDetection
+          );
           break;
         default:
           break;
@@ -981,6 +1090,9 @@ export class IDLIndex {
 
       // if we dont post process, save our global tokens (auto happens in post process)
       this.trackSyntaxProblemsForFile(file, GetSyntaxProblems(parsed));
+
+      // save tokens for our file
+      this.tokensByFile.add(file, parsed);
 
       // return our tokens
       return parsed;
@@ -1009,17 +1121,47 @@ export class IDLIndex {
   async getParsedProCode(
     file: string,
     code: string | string[],
-    postProcess?: boolean
+    options: Partial<IIndexProCodeOptions> = {}
   ): Promise<IParsed> {
     switch (true) {
+      /**
+       * Check if we are a notebook
+       */
+      case this.isIDLNotebookFile(file): {
+        /**
+         * If we have a pending notebook file, pause
+         * and wait for it to finish before we do anything
+         */
+        const base = file.split('#')[0];
+        if (base in this.pendingNotebooks) {
+          await this.pendingNotebooks[base];
+        }
+
+        /**
+         * Check if we are multi threaded and need to fetch our file from
+         * the worker
+         */
+        if (this.isMultiThreaded()) {
+          return this.indexerPool.workerio.postAndReceiveMessage(
+            this.getWorkerID(file),
+            LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
+            {
+              file,
+            }
+          );
+        } else {
+          return this.tokensByFile.get(file);
+        }
+      }
       /**
        * Check for a pending file
        */
       case file in this.pendingFiles: {
-        const current = await this.pendingFiles[file];
-        delete this.pendingFiles[file];
-        if (current.checksum === CodeChecksum(code)) {
-          return current;
+        await this.pendingFiles[file];
+        if (this.tokensByFile.has(file)) {
+          if (this.tokensByFile.checksumMatches(file, CodeChecksum(code))) {
+            return this.tokensByFile.get(file);
+          }
         }
         break;
       }
@@ -1037,7 +1179,11 @@ export class IDLIndex {
           this.indexerPool.workerio.postAndReceiveMessage(
             this.getWorkerID(file),
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
-            { file, code, postProcess }
+            {
+              file,
+              code,
+              ...Object.assign(copy(DEFAULT_INDEX_PRO_CODE_OPTIONS), options),
+            }
           );
 
         // get the latest - cache busting happens in the worker
@@ -1054,12 +1200,12 @@ export class IDLIndex {
         this.trackSyntaxProblemsForFile(file, GetSyntaxProblems(current));
 
         // do change detection
-        if (postProcess) {
+        if (options.postProcess) {
           await this.changeDetection(current.global, oldGlobals);
         }
 
         // make sure that we never cache in memory if we are the main thread
-        delete this.tokensByFile[file];
+        this.tokensByFile.remove(file);
 
         return current;
       }
@@ -1067,9 +1213,9 @@ export class IDLIndex {
       /**
        * Check if we have it stored locally
        */
-      case file in this.tokensByFile: {
-        if (this.tokensByFile[file].checksum === CodeChecksum(code)) {
-          return this.tokensByFile[file];
+      case this.tokensByFile.has(file): {
+        if (this.tokensByFile.checksumMatches(file, CodeChecksum(code))) {
+          return this.tokensByFile.get(file);
         }
         break;
       }
@@ -1079,10 +1225,186 @@ export class IDLIndex {
     /**
      * Re-index our code
      */
-    this.pendingFiles[file] = this.indexProCode(file, code, postProcess);
+    this.pendingFiles[file] = this.indexProCode(file, code, options);
     const res = await this.pendingFiles[file];
     delete this.pendingFiles[file];
     return res;
+  }
+
+  /**
+   * Indexes an IDL notebook file
+   */
+  async indexIDLNotebook(
+    file: string,
+    notebook: IDLNotebookDocument
+  ): Promise<IParsedIDLNotebook> {
+    // remove notebook
+    await this.removeNotebook(file);
+
+    // track as known file
+    this.knownFiles[file] = undefined;
+    this.fileTypes['idl-notebook'].add(file);
+
+    try {
+      /**
+       * Resolver for our work being done
+       */
+      let resolver: () => void;
+
+      // make a promise for panding
+      const pending = new Promise<void>((res) => {
+        resolver = res;
+      });
+
+      // track that we have a pending notebook parse
+      this.pendingNotebooks[file] = pending;
+
+      /**
+       * Track parsed code by cell
+       */
+      const byCell: IParsedIDLNotebook = {};
+
+      // process each cell
+      for (let i = 0; i < notebook.cells.length; i++) {
+        /** Get notebook cell */
+        const cell = notebook.cells[i];
+
+        // make file for our cell
+        const cellFSPath = `${file}#${i}`;
+
+        // skip if no cells
+        if (cell.kind !== NotebookCellKind.Code) {
+          byCell[cellFSPath] = undefined;
+          continue;
+        }
+
+        // process the cell
+        byCell[cellFSPath] = Parser(cell.text, {
+          isNotebook: true,
+        });
+      }
+
+      /**
+       * Get files for cells that we actually processed
+       */
+      const files = Object.keys(byCell);
+
+      // share variable usage
+      for (let i = 0; i < files.length; i++) {
+        if (byCell[files[i]] === undefined) {
+          continue;
+        }
+
+        PopulateNotebookVariables(files[i], byCell, true);
+      }
+
+      // process each file
+      for (let i = 0; i < files.length; i++) {
+        if (byCell[files[i]] === undefined) {
+          continue;
+        }
+
+        // inherit data types from cells above us
+        if (i > 0) {
+          PopulateNotebookVariables(files[i], byCell, false);
+        }
+
+        // post process cell
+        await this.postProcessProFile(files[i], byCell[files[i]], [], false);
+
+        // update stored token
+        this.tokensByFile.add(files[i], byCell[files[i]]);
+      }
+
+      // indicate that we have finished and clean up
+      resolver();
+      delete this.pendingNotebooks[file];
+
+      return byCell;
+    } catch (err) {
+      this.log.log({
+        log: IDL_LSP_LOG,
+        type: 'error',
+        content: [
+          `${IDL_TRANSLATION.lsp.index.failedParseNotebook}: "${file}"`,
+          err,
+        ],
+        alert: `${IDL_TRANSLATION.lsp.index.failedParseNotebook}: "${file}"`,
+        alertMeta: {
+          file,
+        },
+      });
+      return undefined;
+    }
+  }
+
+  /**
+   * Indexes an IDL notebook file
+   */
+  async getParsedNotebook(
+    file: string,
+    notebook: IDLNotebookDocument
+  ): Promise<void> {
+    // only runs in main thread because we are special
+    if (!this.isMultiThreaded()) {
+      return;
+    }
+
+    // remove notebook
+    await this.removeNotebook(file);
+
+    // track as known file
+    this.knownFiles[file] = undefined;
+    this.fileTypes['idl-notebook'].add(file);
+
+    /**
+     * Get the IDs for our workers
+     */
+    const ids = this.indexerPool.getIDs();
+
+    /**
+     * Get ID of our worker
+     */
+    const id = this.getWorkerID(file);
+
+    // parse our notebook
+    const resp = await this.indexerPool.workerio.postAndReceiveMessage(
+      id,
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK,
+      { file, notebook }
+    );
+
+    /**
+     * Messages for global token synchronization
+     */
+    const synchronize: Promise<LoadGlobalResponse>[] = [];
+
+    // send message to all other workers
+    for (let j = 0; j < this.nWorkers; j++) {
+      // skip if self
+      if (ids[j] === id) {
+        continue;
+      }
+
+      // sync to others
+      synchronize.push(
+        this.indexerPool.workerio.postAndReceiveMessage(
+          ids[j],
+          LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
+          resp.globals
+        )
+      );
+    }
+
+    // track globals
+    const files = Object.keys(resp.globals);
+    for (let i = 0; i < files.length; i++) {
+      this.globalIndex.trackGlobalTokens(resp.globals[files[i]], files[i]);
+      this.trackSyntaxProblemsForFile(files[i], resp.problems[files[i]]);
+    }
+
+    // wait until synced
+    await Promise.all(synchronize);
   }
 
   /**
@@ -1101,7 +1423,7 @@ export class IDLIndex {
    */
   async findFiles(
     folder: string | string[] | IFolderRecursion,
-    pattern = PRO_CODE_GLOB_PATTERN
+    pattern = ALL_FILES_GLOB_PATTERN
   ): Promise<string[]> {
     // init files that we find
     let files: string[] = [];
@@ -1133,17 +1455,19 @@ export class IDLIndex {
         continue;
       }
 
-      // join our files
-      // 1. sort for consistency (might be excessive, unsure)
-      // 2. make filenames filly-qualified, relative by default
+      /**
+       * Get the files in our folder
+       */
       files = files.concat(
-        (await glob(pattern, { cwd: folders[i], dot: true }))
-          .sort()
-          .map((file) => join(folders[i], file))
-          .filter((file) =>
-            recursion[i] ? true : dirname(file) === folders[i]
-          )
+        (
+          await glob(pattern, {
+            cwd: folders[i],
+            dot: true,
+            deep: recursion[i] ? 100000000 : 1,
+          })
+        ).map((file) => join(folders[i], file))
       );
+      // .sort()
     }
 
     // track the files we found and sync them
@@ -1154,16 +1478,74 @@ export class IDLIndex {
   }
 
   /**
+   * Buckets files by file type
+   */
+  private bucketFiles(files: string[]) {
+    /** PRO files */
+    const proFiles: string[] = [];
+
+    /** Config files */
+    const configFiles: string[] = [];
+
+    /** Task files */
+    const taskFiles: string[] = [];
+
+    /** Notebook files */
+    const notebookFiles: string[] = [];
+
+    /** SAVE files */
+    const saveFiles: string[] = [];
+
+    // process all files
+    for (let i = 0; i < files.length; i++) {
+      switch (true) {
+        case this.isPROCode(files[i]):
+          proFiles.push(files[i]);
+          break;
+        case this.isConfigFile(files[i]):
+          configFiles.push(files[i]);
+          break;
+        case this.isTaskFile(files[i]):
+          taskFiles.push(files[i]);
+          break;
+        case this.isIDLNotebookFile(files[i]):
+          notebookFiles.push(files[i]);
+          break;
+        case this.isSAVEFile(files[i]):
+          saveFiles.push(files[i]);
+          break;
+        default:
+          // do nothing
+          break;
+      }
+    }
+
+    return {
+      proFiles,
+      saveFiles,
+      taskFiles,
+      notebookFiles,
+      configFiles,
+    };
+  }
+
+  /**
    * Given an array of files, removes files from our index and manages
    * our threads
    *
    * changeDetection is only honored if we are single-threaded and is always applied if multi-threaded
    */
   async removeWorkspaceFiles(files: string[], changeDetection = false) {
+    // return if not files to remove
+    if (files.length === 0) {
+      return;
+    }
+
     // process in this thread if we don't have any workers
     if (!this.isMultiThreaded()) {
       // remove all files
       await this.removeFiles(files, changeDetection);
+      return;
     }
 
     /**
@@ -1245,6 +1627,22 @@ export class IDLIndex {
   }
 
   /**
+   * Gets strings for a given file
+   */
+  getFileStrings(file: string) {
+    // check if we have the file in our lookup
+    if (this.tokensByFile.has(file)) {
+      const text = this.tokensByFile.text(file);
+      if (text.length > 0) {
+        return text.join('\n');
+      }
+    }
+
+    // attempt to read from disk
+    return readFileSync(file, 'utf-8');
+  }
+
+  /**
    * Indexes one or more files and cleans up as we go
    *
    * Intended for use in our worker threads. If in parent thread,
@@ -1271,14 +1669,12 @@ export class IDLIndex {
 
       // parse (or wait for it to finish if pending)
       try {
-        await this.getParsedProCode(
-          files[i],
-          readFileSync(files[i], 'utf-8'),
-          postProcess
-        );
+        await this.getParsedProCode(files[i], this.getFileStrings(files[i]), {
+          postProcess,
+        });
       } catch (err) {
         // check if we have a "false" error because a file was deleted
-        if (!existsSync(files[i])) {
+        if (!existsSync(files[i]) && !files[i].includes('#')) {
           missingFiles.push(files[i]);
           this.log.log({
             log: IDL_WORKER_THREAD_CONSOLE,
@@ -1407,8 +1803,11 @@ export class IDLIndex {
       this.log.log({
         log: IDL_LSP_LOG,
         type: 'error',
-        content: [`${IDL_TRANSLATION.lsp.index.failedParse}: "${file}"`, err],
-        alert: `${IDL_TRANSLATION.lsp.index.failedParse}: "${file}"`,
+        content: [
+          `${IDL_TRANSLATION.lsp.index.failedPostProcess}: "${file}"`,
+          err,
+        ],
+        alert: `${IDL_TRANSLATION.lsp.index.failedPostProcess}: "${file}"`,
         alertMeta: {
           file,
         },
@@ -1439,19 +1838,21 @@ export class IDLIndex {
         }
       }
 
+      // skip if we dont have a file
+      if (!this.tokensByFile.has(files[i])) {
+        continue;
+      }
+
       try {
         await this.postProcessProFile(
           files[i],
-          await this.getParsedProCode(
-            files[i],
-            readFileSync(files[i], 'utf-8')
-          ),
+          this.tokensByFile.get(files[i]),
           [],
           changeDetection
         );
       } catch (err) {
         // check if we have a "false" error because a file was deleted
-        if (!existsSync(files[i])) {
+        if (!existsSync(files[i]) && !files[i].includes('#')) {
           missingFiles.push(files[i]);
           this.log.log({
             log: IDL_WORKER_THREAD_CONSOLE,
@@ -1476,6 +1877,21 @@ export class IDLIndex {
     }
 
     return missingFiles;
+  }
+
+  /**
+   * PLACEHOLDER
+   *
+   * Normalized pattern for indexing notebook files files, but we dont do that right now
+   */
+  private async indexNotebookFiles(files: string[]) {
+    const t0 = performance.now();
+    for (let i = 0; i < files.length; i++) {
+      this.fileTypes['idl-notebook'].add(files[i]);
+    }
+    this.lastWorkspaceIndexStats.timeNotebook = Math.floor(
+      performance.now() - t0
+    );
   }
 
   /**
@@ -1531,14 +1947,16 @@ export class IDLIndex {
       );
     }
 
-    if (global.gc) {
-      global.gc();
-    }
-
     /**
      * Wait for parsing promises to finish
      */
     await Promise.all(parsing);
+
+    // send message to clean up
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
 
     /**
      * Messages for global token synchronization
@@ -1590,6 +2008,12 @@ export class IDLIndex {
     // wait for all the sync messages to be processed
     await Promise.all(synchronize);
 
+    // send message to clean up
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
+
     /**
      * Post-processing promises
      */
@@ -1621,6 +2045,12 @@ export class IDLIndex {
      */
     await Promise.all(postProcessing);
 
+    // send message to clean up
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
+
     // save syntax problems for our file
     for (let i = 0; i < postProcessing.length; i++) {
       // get response
@@ -1639,13 +2069,9 @@ export class IDLIndex {
       }
     }
 
-    // calculate and save stats
-    this.lastWorkspaceIndexStats = {
-      haveStats: true,
-      files: files.length,
-      lines,
-      time: performance.now() - t0,
-    };
+    // save stats
+    this.lastWorkspaceIndexStats.timePro = Math.floor(performance.now() - t0);
+    this.lastWorkspaceIndexStats.linesPro = lines;
 
     /**
      * Check if we had any files that were deleted while we were trying to process
@@ -1719,6 +2145,12 @@ export class IDLIndex {
      */
     await Promise.all(parsing);
 
+    // send message to clean up
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
+
     /**
      * Messages for global token synchronization
      */
@@ -1775,13 +2207,15 @@ export class IDLIndex {
     // wait for all the sync messages to be processed
     await Promise.all(synchronize);
 
-    // calculate and save stats
-    this.lastWorkspaceIndexStats = {
-      haveStats: true,
-      files: files.length,
-      lines,
-      time: performance.now() - t0,
-    };
+    // send message to clean up
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
+
+    // save stats
+    this.lastWorkspaceIndexStats.timePro = Math.floor(performance.now() - t0);
+    this.lastWorkspaceIndexStats.linesPro = lines;
 
     /**
      * Check if we had any files that were deleted while we were trying to process
@@ -1823,6 +2257,10 @@ export class IDLIndex {
     this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, {
       files,
     });
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
 
     // track that we have PRO files
     if (files.length > 0) {
@@ -1830,6 +2268,12 @@ export class IDLIndex {
         this.fileTypes['pro'].add(files[i]);
       }
     }
+
+    this.log.log({
+      log: IDL_LSP_LOG,
+      type: 'info',
+      content: [`Attempting to index ${files.length} PRO file(s)`],
+    });
 
     /**
      * Split files into equal file sized buckets as best we can so that we
@@ -1849,29 +2293,69 @@ export class IDLIndex {
   }
 
   /**
+   * PLACEHOLDER
+   *
+   * Normalized pattern for indexing SAVE files, but we dont do that right now
+   */
+  private async indexSAVEFiles(files: string[]) {
+    const t0 = performance.now();
+    for (let i = 0; i < files.length; i++) {
+      this.fileTypes['save'].add(files[i]);
+    }
+    this.lastWorkspaceIndexStats.timeSave = Math.floor(performance.now() - t0);
+  }
+
+  /**
    * Adds one or more workspace folders to the index
    */
   async indexWorkspace(
     folder: string | string[] | IFolderRecursion,
     full = true
   ): Promise<string[]> {
-    // index config files
-    await this.indexWorkspaceConfigFiles(folder);
+    /**
+     * Get start time
+     */
+    const t0 = performance.now();
 
-    // index task files
-    await this.indexWorkspaceTaskFiles(folder);
-
-    // find files
+    /**
+     * Find files in our folder
+     */
     const files = await this.findFiles(folder);
 
-    // do the indexing
-    await this.indexWorkspaceProFiles(files, full);
+    /**
+     * Bucket them into separate groups
+     */
+    const buckets = this.bucketFiles(files);
 
-    // get/track SAVE files
-    const saves = await this.findFiles(folder, SAVE_FILE_GLOB_PATTERN);
-    for (let i = 0; i < saves.length; i++) {
-      this.fileTypes['save'].add(saves[i]);
-    }
+    // save discovery time
+    this.lastWorkspaceIndexStats.timeSearch = Math.floor(
+      performance.now() - t0
+    );
+
+    // track stats
+    this.lastWorkspaceIndexStats.nConfig = buckets.configFiles.length;
+    this.lastWorkspaceIndexStats.nNotebook = buckets.notebookFiles.length;
+    this.lastWorkspaceIndexStats.nPro = buckets.proFiles.length;
+    this.lastWorkspaceIndexStats.nSave = buckets.saveFiles.length;
+    this.lastWorkspaceIndexStats.nTask = buckets.taskFiles.length;
+
+    // index config files
+    await this.indexWorkspaceConfigFiles(buckets.configFiles, folder);
+
+    // index task files
+    await this.indexWorkspaceTaskFiles(buckets.taskFiles);
+
+    // track SAVE files, do nothing for now
+    await this.indexSAVEFiles(buckets.saveFiles);
+
+    // track notebook files
+    await this.indexNotebookFiles(buckets.notebookFiles);
+
+    // do the indexing
+    await this.indexWorkspaceProFiles(buckets.proFiles, full);
+
+    // save total time
+    this.lastWorkspaceIndexStats.timeTotal = Math.floor(performance.now() - t0);
 
     // return the files we found
     return files;
@@ -1882,13 +2366,17 @@ export class IDLIndex {
    *
    * This method internally handles the logic of the type of file we are processing (i.e. task, PRO, idl.json)
    */
-  async indexFile(file: string, code?: string) {
+  async indexFile(
+    file: string,
+    code?: string,
+    options: Partial<IIndexProCodeOptions> = {}
+  ) {
     if (!existsSync(file)) {
       this.removeWorkspaceFiles([file]);
       return;
     }
     if (code === undefined) {
-      code = readFileSync(file, 'utf-8');
+      code = this.getFileStrings(file);
     }
     switch (true) {
       case this.isConfigFile(file):
@@ -1898,7 +2386,11 @@ export class IDLIndex {
         await this.indexTaskFile(file, code);
         break;
       case this.isPROCode(file):
-        await this.getParsedProCode(file, code, true);
+        await this.getParsedProCode(
+          file,
+          code,
+          Object.assign({ postProcess: true }, options)
+        );
         break;
       default:
         break;
@@ -1910,53 +2402,46 @@ export class IDLIndex {
    * by their type
    */
   async indexFiles(files: string[], cb: (file: string) => Promise<string>) {
-    /** PRO files that we need to index */
-    const proFiles: string[] = [];
-
-    /** Config files that we need to process */
-    const configFiles: string[] = [];
-
-    /** Task files that we need to process */
-    const taskFiles: string[] = [];
-
-    // process all files
-    for (let i = 0; i < files.length; i++) {
-      switch (true) {
-        case this.isPROCode(files[i]):
-          proFiles.push(files[i]);
-          break;
-        case this.isConfigFile(files[i]):
-          configFiles.push(files[i]);
-          break;
-        case this.isTaskFile(files[i]):
-          taskFiles.push(files[i]);
-          break;
-        default:
-          // do nothing
-          break;
-      }
-    }
+    /**
+     * Bucket files
+     */
+    const buckets = this.bucketFiles(files);
 
     /**
      * Update IDL config files
      */
-    for (let i = 0; i < configFiles.length; i++) {
-      await this.indexConfigFile(configFiles[i], await cb(configFiles[i]));
+    for (let i = 0; i < buckets.configFiles.length; i++) {
+      await this.indexConfigFile(
+        buckets.configFiles[i],
+        await cb(buckets.configFiles[i])
+      );
     }
 
     /**
      * Update task files
      */
-    for (let i = 0; i < taskFiles.length; i++) {
-      await this.indexTaskFile(taskFiles[i], await cb(taskFiles[i]));
+    for (let i = 0; i < buckets.taskFiles.length; i++) {
+      await this.indexTaskFile(
+        buckets.taskFiles[i],
+        await cb(buckets.taskFiles[i])
+      );
     }
 
     // process all of our PRO files, one at a time and perform post processing and
     // change detection
     // this is not optimized, but works and the number of files here
     // should be small, so this should be pretty fast
-    for (let i = 0; i < proFiles.length; i++) {
-      await this.getParsedProCode(proFiles[i], await cb(proFiles[i]), true);
+    for (let i = 0; i < buckets.proFiles.length; i++) {
+      await this.getParsedProCode(
+        buckets.proFiles[i],
+        await cb(buckets.proFiles[i]),
+        {
+          postProcess: true,
+        }
+      );
+
+      // remove file from memory cache
+      this.tokensByFile.remove(buckets.proFiles[i]);
     }
   }
 }

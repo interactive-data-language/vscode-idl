@@ -4,6 +4,56 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail on incremental work for large features, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
+## 3.1.3 July 2023
+
+Fix bug where, if you had a function or procedure without a name, parsing would occasionally break and cause a bad state for the language server
+
+Change order of some language server startup events
+
+Indicate we are done parsing before we sync problems with the VSCode UI
+
+Add in some manual cleanup checks for main language server process to reduce memory growth over time
+
+Every 5 minutes, the language server runs garbage collection in an attempt to reduce memory usage and logs approximate memory used in mb to help logging/track over time
+
+Update bundled documentation for ENVI and IDL routines to look nicer and give better visual experience for routines with keywords
+
+Change the way we check for node.js to try and work around a hang on extension start
+
+## 3.1.2 July 2023
+
+Attempt to fix likely hang when detecting node.js to use for the language server
+
+## 3.1.1 July 2023
+
+Fix likely bug with docs parsing without full parse language server setting
+
+Tweak file discovery process to use a single glob pattern and search once instead of 5+ times for each kind of file to try and address performance issues
+
+Add more debug information on language server startup to tell us how long it takes to do each part of workspace indexing, including discovering files
+
+In case some of our messages with worker threads are slowing down overall performance, add some optimizations for message sending to only serialize messages a single time
+
+## 3.1.0 July 2023
+
+Fixed an issue where garbage collection was not turning on and caused out-of-memory errors which led to language server crashes
+
+Added a cache to reduce memory usage for worker threads (large workspaces with 300+ files should use about 50% less RAM). Coincidentally this also improved performance as well.
+
+On startup, a new log statement prints to show the state of garbage collection: `idl-lsp info Garbage collection enabled: true`
+
+Improved the on-enter commands that automatically continue comment blocks as you type within them. They were close, but not quite there are some rules conflicted with one another so they didn't work right.
+
+Fixed a major performance issue when doing a quick parse of PRO code. For almost 8000 files on a developer machine, we went from 13 seconds down to 3 with a parse rate of 650k lines/second!
+
+For quick parsing, we now also extract docs for your code to give a better hover help and auto-complete user experience with a low impact to performance.
+
+Fixed a bug where the IDL icon was pointing to the wrong file for light themes
+
+Added a new button to the IDL sidebar which allows you to easily specify the location of IDL without needing to rummage through the command palette
+
+Fixed some import bugs if you have an older version of node.js on your path where "performance" was undefined.
+
 ## 3.0.6 - July 2023
 
 Improved message when language server crashes and a button that opens documentation for workarounds for the memory problem

@@ -1,6 +1,7 @@
 import {
   LanguageServerMessage,
   LanguageServerPayload,
+  LanguageServerResponse,
   MessageNameNormalizer,
 } from '@idl/vscode/events/messages';
 import { LanguageClient } from 'vscode-languageclient/node';
@@ -14,6 +15,16 @@ export class VSCodeClientEventManager {
 
   constructor(client: LanguageClient) {
     this.client = client;
+  }
+
+  /**
+   * Typed sendRequest for custom events and responses
+   */
+  sendRequest<T extends LanguageServerMessage>(
+    message: T,
+    payload: LanguageServerPayload<T>
+  ): Promise<LanguageServerResponse<T>> {
+    return this.client.sendRequest(MessageNameNormalizer(message), payload);
   }
 
   /**

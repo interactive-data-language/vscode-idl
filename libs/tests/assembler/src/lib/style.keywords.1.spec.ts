@@ -22,7 +22,9 @@ describe(`[auto generated] Verify keywords`, () => {
     const code = [`compile_opt idl2`, ``, `a = myfunc(KW1=kw2, /KW3)`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -49,11 +51,9 @@ describe(`[auto generated] Verify keywords`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode(
-        'my_file.pro',
-        formatted,
-        true
-      );
+      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
+        postProcess: true,
+      });
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
@@ -105,7 +105,9 @@ describe(`[auto generated] Verify keywords`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -136,11 +138,9 @@ describe(`[auto generated] Verify keywords`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode(
-        'my_file.pro',
-        formatted,
-        true
-      );
+      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
+        postProcess: true,
+      });
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
@@ -237,7 +237,9 @@ describe(`[auto generated] Verify keywords`, () => {
     const code = [`compile_opt idl2`, ``, `a = myfunc(KW1=kw2)`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -264,11 +266,9 @@ describe(`[auto generated] Verify keywords`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode(
-        'my_file.pro',
-        formatted,
-        true
-      );
+      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
+        postProcess: true,
+      });
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
@@ -311,7 +311,9 @@ describe(`[auto generated] Verify keywords`, () => {
     const code = [`compile_opt idl2`, ``, `a = myfunc(/KW2)`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -338,11 +340,9 @@ describe(`[auto generated] Verify keywords`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode(
-        'my_file.pro',
-        formatted,
-        true
-      );
+      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
+        postProcess: true,
+      });
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
@@ -385,7 +385,9 @@ describe(`[auto generated] Verify keywords`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -413,11 +415,9 @@ describe(`[auto generated] Verify keywords`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode(
-        'my_file.pro',
-        formatted,
-        true
-      );
+      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
+        postProcess: true,
+      });
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);

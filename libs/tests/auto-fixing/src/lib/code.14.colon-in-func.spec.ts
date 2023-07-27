@@ -25,7 +25,9 @@ describe(`[auto generated] Verify function to array for`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // format code
     const formatted = Assembler(tokenized, {

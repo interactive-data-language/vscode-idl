@@ -24,7 +24,9 @@ describe(`[auto generated] Check unknown variables in edge cases`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -63,7 +65,9 @@ describe(`[auto generated] Check unknown variables in edge cases`, () => {
     const code = [`compile_opt idl2`, `*other = 42`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

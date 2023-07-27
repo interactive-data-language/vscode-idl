@@ -29,10 +29,10 @@ describe(`[auto generated] Correctly identifies keywords from routine calls`, ()
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '#### myfunc',
       '',
       '```idl',
-      'result = myfunc( var1, [ /kw1 ])',
+      'result = myfunc( var1, $',
+      ' [ /kw1 ])',
       '```',
       '',
       'My procedure',
@@ -143,10 +143,10 @@ describe(`[auto generated] Correctly identifies keywords from routine calls`, ()
 
     // define expected token we extract
     const expectedFound_4: string[] = [
-      '#### myfunc',
       '',
       '```idl',
-      'result = myfunc( var1, [ /kw1 ])',
+      'result = myfunc( var1, $',
+      ' [ /kw1 ])',
       '```',
       '',
       'My procedure',

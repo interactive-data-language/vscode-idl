@@ -11,10 +11,10 @@ import {
   TextDocumentPositionParams,
 } from 'vscode-languageserver/node';
 
-import { IDL_INDEX } from '../../file-management/initialize-file-manager';
-import { GetFileStrings } from '../../helpers/get-file-strings';
+import { IDL_INDEX } from '../../file-management/initialize-document-manager';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-and-code-for-uri';
 
 /**
  * Wrapper to handle auto-completion requests
@@ -22,11 +22,13 @@ import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 export async function GetAutoCompleteWrapper(
   params: TextDocumentPositionParams
 ): Promise<CompletionItem[]> {
-  // get the path to the file to properly save
-  const fsPath = GetFSPath(params.textDocument.uri);
+  /**
+   * Resolve the fspath to our cell and retrieve code
+   */
+  const info = await ResolveFSPathAndCodeForURI(params.textDocument.uri);
 
-  // do nothing
-  if (!IDL_INDEX.isPROCode(fsPath)) {
+  // return if nothing found
+  if (info === undefined) {
     return undefined;
   }
 
@@ -50,13 +52,19 @@ export async function GetAutoCompleteWrapper(
   );
 
   // listen for hover help
-  return await IDL_INDEX.getAutoComplete(
-    fsPath,
-    await GetFileStrings(params.textDocument.uri),
+  const completion = await IDL_INDEX.getAutoComplete(
+    info.fsPath,
+    info.code,
     params.position,
     IDL_CLIENT_CONFIG,
     idlJson
   );
+
+  // remove from our main thread lookup
+  IDL_INDEX.tokensByFile.remove(info.fsPath);
+
+  // return completion
+  return completion;
 }
 
 /**

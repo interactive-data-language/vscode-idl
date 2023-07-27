@@ -37,7 +37,7 @@ describe(`[auto generated] Correctly find definitions for function methods`, () 
         method: 'funcmethod1',
         source: 'user',
         args: {},
-        docs: '#### NYStruct0::FuncMethod1\n\n```idl\nresult = object.FuncMethod1( [ kw = any ], [ kwb = any ])\n```\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
+        docs: '\n```idl\nresult = NYStruct0.FuncMethod1( [ kw = any ], $\n [ kwb = any ])\n```\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
         docsLookup: {},
         display: 'NYStruct0::FuncMethod1',
         kws: {
@@ -96,7 +96,7 @@ describe(`[auto generated] Correctly find definitions for function methods`, () 
         method: 'funcmethod2',
         source: 'user',
         args: {},
-        docs: '#### NYStruct::FuncMethod2\n\n```idl\nresult = object.FuncMethod2( [ kw = any ], [ kwb = any ])\n```\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
+        docs: '\n```idl\nresult = NYStruct.FuncMethod2( [ kw = any ], $\n [ kwb = any ])\n```\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
         docsLookup: {},
         display: 'NYStruct::FuncMethod2',
         kws: {

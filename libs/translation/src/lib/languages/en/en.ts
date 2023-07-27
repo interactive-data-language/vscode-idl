@@ -61,6 +61,13 @@ export const EN: ITranslation = {
         startProfiling: 'IDL: Start Profiling',
         stopProfiling: 'IDL: Stop Profiling',
       },
+      notebooks: {
+        // shorter because it shows in toolbar
+        resetIDL: 'Reset IDL',
+        // shorter because it shows in toolbar
+        stopIDL: 'Stop IDL',
+        helpAsNotebook: 'IDL: Convert Help to Notebook',
+      },
       terminal: {
         startIDL: 'IDL: Open an IDL Terminal Window',
         compileFile: 'IDL: Compile PRO File in Terminal',
@@ -105,6 +112,11 @@ export const EN: ITranslation = {
         resetIDL: 'Error while resetting IDL',
         startProfiling: 'Error while starting profiling',
         stopProfiling: 'Error while stopping profiling',
+      },
+      notebooks: {
+        resetIDL: 'Error while resetting IDL',
+        stopIDL: 'Error while stopping IDL',
+        helpAsNotebook: 'Error while converting help to notebook',
       },
       terminal: {
         startIDL: 'Error while opening IDL terminal indow',
@@ -153,6 +165,7 @@ export const EN: ITranslation = {
       questions: 'Questions',
       developer: 'Developer',
       languageServer: 'Language Server',
+      notebooks: 'Notebooks',
     },
     idlDir: {
       notFound: 'IDL directory not found or specified by user, configure?',
@@ -191,6 +204,11 @@ export const EN: ITranslation = {
         'Report problems for all files where we find "idl_packages" in the path. This permits problem reporting from external libraries. If this is set in any open workspace, it applies to all of them.',
       'problems.ignoreProblems':
         'Specify the problem code to ignore and not report to Visual Studio Code',
+
+      notebooks:
+        'Preferences that control notebook user experience for IDL Notebooks',
+      'notebooks.embedGraphics':
+        "Are graphics embedded as output within each cell?\n\nIf you have open notebooks, you'll need to stop IDL and then re-run cells for changes to take effect.",
 
       dontAsk:
         'Preferences that disable dialogs that appear and ask questions. These settings can also be disabled directly within the dialogs you see.',
@@ -382,6 +400,10 @@ export const EN: ITranslation = {
       },
       children: {
         additionalActions: {
+          pickIDL: {
+            name: 'Specify IDL directory',
+            description: '(where "idl.exe" or "idl" lives)',
+          },
           fileBug: {
             name: 'File',
             description: 'a bug report for the extension',
@@ -506,6 +528,7 @@ export const EN: ITranslation = {
     },
     index: {
       failedParse: 'Failed to parse PRO code file',
+      failedParseNotebook: 'Failed to parse IDL notebook file',
       failedPostProcess: 'Failed to post-process parsed PRO file',
       failedIndexWorkspace: 'Failed to index workspace folder(s)',
       failedChangeDetection:
@@ -533,6 +556,10 @@ export const EN: ITranslation = {
       onInitWorkspaceConfig: 'Problem while initializing workspace config',
       onSemanticHighlighting: 'Problem resolving semantic tokens',
       onCodeAction: 'Error responding to code action event',
+      onDidOpenNotebook: 'Error responding to notebook open event',
+      onDidChangeNotebook: 'Error responding to notebook change event',
+      onDidCloseNotebook: 'Error responding to notebook close event',
+      onRetrieveDocs: 'Error responding to docs retrieval event',
     },
     errors: {
       unhandled: 'An unknown error ocurred within the IDL Language Server',
@@ -552,6 +579,26 @@ export const EN: ITranslation = {
         sysVar: 'Unknown system variable',
       },
       staticReference: 'A static reference to the class',
+    },
+  },
+  notebooks: {
+    title: 'IDL: Notebook',
+    controller: 'IDL',
+    errors: {
+      invalidNotebook: 'Unable to parse notebook file',
+      errorSaving: 'Unknown error while saving notebook file',
+      failedStart: 'The IDL kernel failed to start',
+      failedExecute: 'Failed to execute notebook cells',
+      crashed:
+        'IDL crashed or was stopped by the user and needs to be restarted',
+      checkingGraphics: 'Error while trying to retrieve any graphics to embed',
+    },
+    notifications: {
+      startingIDL: 'Starting IDL, please wait...',
+      resettingIDL: 'Resetting IDL',
+      stoppingIDL: 'Stopping IDL',
+      idlNotStarted:
+        'IDL has not started for notebooks. It automatically starts when you run a code cell.',
     },
   },
   notifications: {
@@ -684,7 +731,7 @@ export const EN: ITranslation = {
       '103': 'Ambiguous keyword usage. One or more keywords starts with',
       '104': 'Unused variable',
       '105':
-        'Illegal use of parentheses for array indexing, use brackets instead. If this is a function call, add `compile_opt idl2` to the routine or main level program to delineate between the variable and function call.',
+        'Illegal use of parentheses for indexing variable, use brackets instead (function name matches local variable). If this is a function call, add `compile_opt idl2` to delineate between the variable and function call.',
     },
   },
   terminal: {

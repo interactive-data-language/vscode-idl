@@ -12,7 +12,7 @@ function FindAllBranchChildrenRecurser<T extends TokenName>(
   skipThese: { [key: string]: any } = {}
 ) {
   // process all children
-  for (let i = 0; i < branch.kids.length; i++) {
+  for (let i = 0; i < (branch.kids || []).length; i++) {
     // save our token
     if (branch.kids[i].name in findThese) {
       found.push(branch.kids[i] as TreeToken<T>);

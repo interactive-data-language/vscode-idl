@@ -20,7 +20,9 @@ describe(`[auto generated] Detects illegal ternary operators`, () => {
     const code = [`a = !true ? 'yes' : 'no'`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -53,7 +55,9 @@ describe(`[auto generated] Detects illegal ternary operators`, () => {
     const code = [`!true ? 'yes' : 'no'`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

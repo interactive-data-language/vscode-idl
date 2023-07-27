@@ -30,7 +30,7 @@ describe(`[auto generated] Don't make IDL Task`, () => {
     const parsed = await index.getParsedProCode(
       filepath,
       readFileSync(filepath, 'utf-8'),
-      true
+      { postProcess: true }
     );
 
     // make our task

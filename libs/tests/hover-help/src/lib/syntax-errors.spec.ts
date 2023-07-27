@@ -29,10 +29,11 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '#### [bytarr](https://www.nv5geospatialsoftware.com/docs/BYTARR.html)',
+      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/BYTARR.html)',
       '',
       '```idl',
-      'result = bytarr( [ d1 ], [ d2 ], [ d3 ], [ d4 ], [ d5 ], [ d6 ], [ d7 ], [ d8 ], [ /nozero ])',
+      'result = bytarr( [ d1 ], [ d2 ], [ d3 ], [ d4 ], [ d5 ], [ d6 ], [ d7 ], [ d8 ], $',
+      ' [ /nozero ])',
       '```',
       '',
       'The BYTARR function creates a byte vector or array.',
@@ -127,10 +128,11 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '#### [bytarr](https://www.nv5geospatialsoftware.com/docs/BYTARR.html)',
+      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/BYTARR.html)',
       '',
       '```idl',
-      'result = bytarr( [ d1 ], [ d2 ], [ d3 ], [ d4 ], [ d5 ], [ d6 ], [ d7 ], [ d8 ], [ /nozero ])',
+      'result = bytarr( [ d1 ], [ d2 ], [ d3 ], [ d4 ], [ d5 ], [ d6 ], [ d7 ], [ d8 ], $',
+      ' [ /nozero ])',
       '```',
       '',
       'The BYTARR function creates a byte vector or array.',

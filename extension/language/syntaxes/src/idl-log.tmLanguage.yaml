@@ -162,7 +162,7 @@ repository:
   # special characters
   special:
     name: {{name_special}}
-    match: '\b(?:true|false|null)\b'
+    match: '\b(?:true|false|null|undefined|void)\b'
 
   # structure properties
   structure_property:

@@ -7,8 +7,7 @@ import { DOCS_URL } from './website-url.interface';
  * site
  */
 export function HostedDocsURLFromLocal(link: string) {
-  return `${DOCS_URL}/${basename(decodeURI(link)).replace(
-    /\.htm(?!l)/gim,
-    '.html'
+  return `${DOCS_URL}/${encodeURI(
+    basename(decodeURI(link)).replace(/\.htm(?!l)/gim, '.html')
   )}`;
 }

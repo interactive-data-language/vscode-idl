@@ -37,8 +37,7 @@ export interface IWorkerIOPool<_Message extends string> {
    */
   postToAll<T extends _Message>(
     type: T,
-    payload: PayloadToWorkerBaseMessage<T>,
-    options?: IPostMessageOptions
+    payload: PayloadToWorkerBaseMessage<T>
   ): void;
 
   /**

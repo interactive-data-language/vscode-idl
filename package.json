@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "3.0.6",
+  "version": "3.1.3",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -37,8 +37,11 @@
     "make-integration-tests": "npm run package && nx build vscode-e2e-runner && nx build client-e2e",
     "test-integration": "node dist/apps/vscode-e2e-runner/main.js",
     "test-everything": "npm-run-all test-libs make-integration-tests test-integration",
+    "test-perf": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 ./dist/apps/performance/main.js",
+    "test-perf-profile": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 --prof ./dist/apps/performance/main.js",
     "start": "npm run build-package-json && nx run-many --target=build --projects=parsing-worker,server,client --watch --parallel",
     "start-client": "nx run-many --target=build --projects=client --watch --parallel",
+    "start-perf": "nx run-many --target=build --projects=parsing-worker,performance --watch --parallel",
     "start-server": "nx run-many --target=build --projects=parsing-worker,server --watch --parallel",
     "start-test": "nx build vscode-e2e-runner && nx build client-e2e --watch",
     "start-webview": "nx build idl-webview --watch",
@@ -52,7 +55,6 @@
     "ansi-styles": "^6.1.0",
     "await-notify": "^1.0.1",
     "chalk": "^4.1.2",
-    "cross-spawn": "^7.0.3",
     "deepmerge": "^4.2.2",
     "fast-copy": "^3.0.0",
     "fast-equals": "^5.0.1",
@@ -96,15 +98,15 @@
     "@mdi/js": "^7.0.96",
     "@ngbracket/ngx-layout": "^16.0.0",
     "@ngneat/transloco": "^4.3.0",
-    "@nx/angular": "16.4.2",
-    "@nx/cypress": "16.4.2",
-    "@nx/esbuild": "16.4.2",
-    "@nx/eslint-plugin": "16.4.2",
-    "@nx/jest": "16.4.2",
-    "@nx/js": "16.4.2",
-    "@nx/linter": "16.4.2",
-    "@nx/node": "16.4.2",
-    "@nx/workspace": "16.4.2",
+    "@nx/angular": "16.5.3",
+    "@nx/cypress": "16.5.3",
+    "@nx/esbuild": "16.5.3",
+    "@nx/eslint-plugin": "16.5.3",
+    "@nx/jest": "16.5.3",
+    "@nx/js": "16.5.3",
+    "@nx/linter": "16.5.3",
+    "@nx/node": "16.5.3",
+    "@nx/workspace": "16.5.3",
     "@schematics/angular": "16.1.3",
     "@types/cross-spawn": "^6.0.2",
     "@types/jest": "29.4.4",
@@ -114,14 +116,14 @@
     "@types/progress": "^2.0.5",
     "@types/vscode": "^1.78.0",
     "@types/web": "^0.0.101",
-    "@typescript-eslint/eslint-plugin": "5.58.0",
-    "@typescript-eslint/parser": "5.58.0",
+    "@typescript-eslint/eslint-plugin": "5.60.1",
+    "@typescript-eslint/parser": "5.60.1",
     "@vscode/test-electron": "^2.3.3",
     "@vscode/vsce": "^2.19.0",
     "@vscode/webview-ui-toolkit": "^1.2.0",
     "angular-material-css-vars": "^5.0.2",
     "axios": "^1.3.3",
-    "cypress": "12.11.0",
+    "cypress": "12.16.0",
     "esbuild": "0.17.17",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",
@@ -138,7 +140,7 @@
     "material-icons": "^1.13.8",
     "node-html-markdown": "^1.2.0",
     "npm-run-all": "^4.1.5",
-    "nx": "16.4.2",
+    "nx": "16.5.3",
     "plist": "^3.0.6",
     "prettier": "2.7.1",
     "progress": "^2.0.3",
@@ -254,6 +256,26 @@
       {
         "command": "idl.docs.open",
         "title": "%commands.idl.docs.open%"
+      },
+      {
+        "command": "idl.notebooks.helpAsNotebook",
+        "title": "%commands.idl.notebooks.helpAsNotebook%"
+      },
+      {
+        "command": "idl.notebooks.resetIDL",
+        "title": "%commands.idl.notebooks.resetIDL%",
+        "icon": {
+          "light": "extension/images/light/renew.svg",
+          "dark": "extension/images/dark/renew.svg"
+        }
+      },
+      {
+        "command": "idl.notebooks.stopIDL",
+        "title": "%commands.idl.notebooks.stopIDL%",
+        "icon": {
+          "light": "extension/images/light/stop.svg",
+          "dark": "extension/images/dark/stop.svg"
+        }
       },
       {
         "command": "idl.webview.start",
@@ -610,6 +632,19 @@
             "type": "boolean",
             "default": true,
             "description": "%configuration.descriptions.languageServer.fullParse%",
+            "scope": "machine-overridable"
+          }
+        }
+      },
+      {
+        "type": "object",
+        "title": "%configuration.titles.notebooks%",
+        "additionalProperties": false,
+        "properties": {
+          "idl.notebooks.embedGraphics": {
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.descriptions.notebooks.embedGraphics%",
             "scope": "machine-overridable"
           }
         }
@@ -1030,6 +1065,12 @@
         "id": "idl-md-injection"
       },
       {
+        "id": "idl-notebook",
+        "extensions": [
+          ".idlnb"
+        ]
+      },
+      {
         "id": "idl-log",
         "mimetypes": [
           "text/idl-log",
@@ -1108,8 +1149,31 @@
           "group": "navigation",
           "when": "debugType == idl"
         }
+      ],
+      "notebook/toolbar": [
+        {
+          "command": "idl.notebooks.resetIDL",
+          "group": "navigation",
+          "when": "resourceExtname == .idlnb"
+        },
+        {
+          "command": "idl.notebooks.stopIDL",
+          "group": "navigation",
+          "when": "resourceExtname == .idlnb"
+        }
       ]
     },
+    "notebooks": [
+      {
+        "type": "idl-notebook",
+        "displayName": "%notebooks.title%",
+        "selector": [
+          {
+            "filenamePattern": "*.idlnb"
+          }
+        ]
+      }
+    ],
     "snippets": [
       {
         "language": "idl",

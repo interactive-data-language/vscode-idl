@@ -22,7 +22,8 @@ const LINK_REGEX = /\[(.*?)\]\((.*?)\)/gim;
  */
 export function ResolveHoverHelpLinks(
   help: string,
-  config: IDLExtensionConfig
+  config: IDLExtensionConfig,
+  isNotebook = false
 ) {
   // check if we have a folder for IDL
   const localHelp =
@@ -75,7 +76,7 @@ export function ResolveHoverHelpLinks(
             // make sure it exists, otherwise default to the web-hosted
             // could be that we dont have the content installed we are trying
             // to reference
-            if (existsSync(uri)) {
+            if (existsSync(uri) && !isNotebook) {
               newLink = pathToFileURL(uri).toString();
             } else {
               newLink = `${DOCS_IMAGES_URL}/${basename(back)}`;

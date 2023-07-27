@@ -235,6 +235,125 @@ export const AUTO_PROBLEM_FIXING_TESTS: IAutoAssemblerTest[] = [
     ],
   },
   {
+    suiteName: `Verify we add compile opt idl2`,
+    fileName: `code.38.no-comp-opt.edge-cases.spec.ts`,
+    tests: [
+      {
+        name: `for functions without names`,
+        code: [
+          `;+`,
+          `; :Returns:`,
+          `;   any`,
+          `;`,
+          `;-`,
+          `function`,
+          ``,
+          `end`,
+        ],
+      },
+      {
+        name: `for procedures without names`,
+        code: [`;+`, `; :Returns:`, `;   any`, `;`, `;-`, `pro`, ``, `end`],
+      },
+    ],
+  },
+  {
+    suiteName: `Verify we add compile opt idl2`,
+    fileName: `code.38.no-comp-opt.notebooks.spec.ts`,
+    tests: [
+      {
+        name: `for functions`,
+        code: [
+          `;+`,
+          `; :Returns:`,
+          `;   any`,
+          `;`,
+          `;-`,
+          `function myfunc`,
+          ``,
+          `  return, 1`,
+          `end`,
+        ],
+        parseConfig: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `for function methods`,
+        code: [
+          `;+`,
+          `; :Returns:`,
+          `;   any`,
+          `;`,
+          `;-`,
+          `function myclass::myfunc`,
+          ``,
+          `  return, 1`,
+          `end`,
+        ],
+        parseConfig: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `for procedures`,
+        code: [`;+`, `;-`, `pro mypro`, ``, `end`],
+        parseConfig: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `for procedure methods`,
+        code: [`;+`, `;-`, `pro myclass::mypro`, ``, `end`],
+        parseConfig: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `for main case 1`,
+        code: [`; comment`, ``, `end`],
+        parseConfig: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `for main case 2`,
+        code: [`a = 5`, ``, `end`],
+        parseConfig: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `for main case 3`,
+        code: [``, `; comment`, ``, `a = 42`, ``, `end`],
+        parseConfig: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `for main case 4`,
+        code: [``, `; comment`, ``, `a = 42`, ``, `end`],
+        parseConfig: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `with args and keywords`,
+        code: [
+          `function myfunc,$`,
+          `a, b, $`,
+          `kw2 = kw2`,
+          ``,
+          `  return, 1`,
+          `end`,
+        ],
+        parseConfig: {
+          isNotebook: true,
+        },
+      },
+    ],
+  },
+  {
     suiteName: `Verify we change procedure init methods to function methods`,
     fileName: `code.76.init-method-pro.spec.ts`,
     tests: [

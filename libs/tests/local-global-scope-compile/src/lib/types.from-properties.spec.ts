@@ -37,7 +37,9 @@ describe(`[auto generated] Types from`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -174,7 +176,7 @@ describe(`[auto generated] Types from`, () => {
               pos: [6, 10, 1],
             },
           },
-          docs: '#### pro4\n\n```idl\npro4, a\n```\n\n\n\n#### Arguments\n\n- **a**: in, required, ENVIRaster\n\n  Placeholder docs for argument or keyword\n\n',
+          docs: '\n```idl\npro4, a\n```\n\n\n\n#### Arguments\n\n- **a**: in, required, ENVIRaster\n\n  Placeholder docs for argument or keyword\n\n',
           docsLookup: { default: '' },
           display: 'pro4',
           kws: {},

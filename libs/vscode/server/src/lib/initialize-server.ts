@@ -1,5 +1,6 @@
 import { IDL_LSP_CONSOLE, LogManager } from '@idl/logger';
 import { SEMANTIC_TOKEN_LEGEND } from '@idl/parsing/semantic-tokens';
+import { COMPLETION_TRIGGER_CHARACTERS, IDL_NOTEBOOK_NAME } from '@idl/shared';
 import { IDL_TRANSLATION, InitializeTranslation } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeServerEventManager } from '@idl/vscode/events/server';
@@ -19,7 +20,8 @@ import {
 
 import { CAPABILITIES } from './capabilities.interface';
 import { InitializeCustomEventHandler } from './file-management/initialize-custom-event-handler';
-import { InitializeDocumentManager } from './file-management/initialize-file-manager';
+import { InitializeDocumentManager } from './file-management/initialize-document-manager';
+import { InitializeNotebookManager } from './file-management/initialize-notebook-manager';
 import { DEFAULT_SERVER_SETTINGS } from './settings.interface';
 import { InitializeUserInteractions } from './user-interaction/initialize-user-interactions';
 
@@ -160,23 +162,7 @@ export function InitializeServer() {
            *
            * It doesnt look like it always works, but we need it?
            */
-          triggerCharacters: [
-            '.',
-            '=',
-            '[',
-            '(',
-            ' ',
-            ',',
-            ';',
-            "'",
-            '"',
-            '`',
-            '{',
-            '@',
-            '/',
-            ':',
-            '!',
-          ],
+          triggerCharacters: COMPLETION_TRIGGER_CHARACTERS,
         },
         definitionProvider: true,
         workspaceSymbolProvider: true,
@@ -191,6 +177,16 @@ export function InitializeServer() {
         codeActionProvider: {
           codeActionKinds: [CodeActionKind.QuickFix],
           resolveProvider: false,
+        },
+        notebookDocumentSync: {
+          notebookSelector: [
+            {
+              notebook: {
+                scheme: 'file',
+                notebookType: IDL_NOTEBOOK_NAME,
+              },
+            },
+          ],
         },
       },
     };
@@ -242,6 +238,9 @@ export function InitializeServer() {
 
   // turn on our event listeners for custom messages
   InitializeCustomEventHandler();
+
+  // listen for notebook events
+  InitializeNotebookManager();
 
   // Listen on the connection
   SERVER_CONNECTION.listen();

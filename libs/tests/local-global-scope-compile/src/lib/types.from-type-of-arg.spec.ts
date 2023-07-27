@@ -40,7 +40,9 @@ describe(`[auto generated] Types from`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -135,7 +137,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### myfunc\n\n```idl\nresult = myfunc()\n```\n\n\n',
+          docs: '\n```idl\nresult = myfunc()\n```\n\n\n',
           docsLookup: { default: '', returns: 'TypeOfArg' },
           display: 'myfunc',
           kws: {},
@@ -202,7 +204,9 @@ describe(`[auto generated] Types from`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -297,7 +301,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### myfunc\n\n```idl\nresult = myfunc()\n```\n\n\n',
+          docs: '\n```idl\nresult = myfunc()\n```\n\n\n',
           docsLookup: { default: '', returns: 'TypeOfArg<0>' },
           display: 'myfunc',
           kws: {},
@@ -364,7 +368,9 @@ describe(`[auto generated] Types from`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -452,7 +458,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### myfunc\n\n```idl\nresult = myfunc()\n```\n\n\n',
+          docs: '\n```idl\nresult = myfunc()\n```\n\n\n',
           docsLookup: { default: '', returns: 'TypeOfArg<2>' },
           display: 'myfunc',
           kws: {},
@@ -519,7 +525,9 @@ describe(`[auto generated] Types from`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -607,7 +615,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### myfunc\n\n```idl\nresult = myfunc()\n```\n\n\n',
+          docs: '\n```idl\nresult = myfunc()\n```\n\n\n',
           docsLookup: { default: '', returns: 'TypeOfArg<baad>' },
           display: 'myfunc',
           kws: {},

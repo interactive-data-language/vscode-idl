@@ -52,10 +52,14 @@ export class Iterator {
   /** Flag that indicates if our iterator is done or not */
   done = false;
 
-  constructor(private code: string | string[]) {
+  /** Are we doing a full parse or not */
+  full: boolean;
+
+  constructor(code: string | string[], full = true) {
     /** Split our strings */
     this.split = Split(code);
     this.processedLeftovers = new Array(this.split.length).fill(false);
+    this.full = full;
 
     // initialize current
     this.current = {
@@ -197,7 +201,7 @@ export class Iterator {
     // }
 
     // get the text before token start that we are shifting for
-    if (tokenStart > 0) {
+    if (tokenStart > 0 && this.full) {
       const before = this.current.sub.substring(0, tokenStart);
       if (before.trim() !== '') {
         const basic: IBasicToken<UnknownToken> = {
@@ -292,6 +296,10 @@ export class Iterator {
    * Checks the current line for leftover tokens
    */
   private findLeftovers() {
+    if (!this.full) {
+      return;
+    }
+
     // get current line
     const line = this.current.line;
 

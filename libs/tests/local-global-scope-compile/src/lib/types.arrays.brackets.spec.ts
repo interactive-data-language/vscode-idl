@@ -55,7 +55,9 @@ describe(`[auto generated] Types from`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -328,7 +330,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### array_creation\n\n```idl\narray_creation\n```\n',
+          docs: '\n```idl\narray_creation\n```\n',
           docsLookup: {},
           display: 'array_creation',
           kws: {},

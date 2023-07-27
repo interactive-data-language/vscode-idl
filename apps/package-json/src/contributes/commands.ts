@@ -1,4 +1,4 @@
-import { IDL_COMMANDS, LANGUAGE_NAME } from '@idl/shared';
+import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
@@ -46,6 +46,18 @@ COMMAND_ICONS[IDL_COMMANDS.DEBUG.RESET] = {
   dark: 'extension/images/dark/renew.svg',
 };
 
+// icon for notebook reset
+COMMAND_ICONS[IDL_COMMANDS.NOTEBOOKS.RESET] = {
+  light: 'extension/images/light/renew.svg',
+  dark: 'extension/images/dark/renew.svg',
+};
+
+// icon for notebook stop
+COMMAND_ICONS[IDL_COMMANDS.NOTEBOOKS.STOP] = {
+  light: 'extension/images/light/stop.svg',
+  dark: 'extension/images/dark/stop.svg',
+};
+
 /**
  * Map our command name to the translation which should match
  * exactly our command name
@@ -59,7 +71,7 @@ function TranslationFromCommand(name: string) {
  * exactly our command name
  */
 function TranslationErrorFromCommand(name: string) {
-  return `%commands.errors.${name.substring(LANGUAGE_NAME.length + 1)}%`;
+  return `%commands.errors.${name.substring(IDL_LANGUAGE_NAME.length + 1)}%`;
 }
 
 /**

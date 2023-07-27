@@ -29,7 +29,9 @@ describe(`[auto generated] Correctly populate structures`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -50,7 +52,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### mystruct__define\n\n```idl\nmystruct__define\n```\n',
+          docs: '\n```idl\nmystruct__define\n```\n',
           docsLookup: {},
           display: 'mystruct__define',
           kws: {},
@@ -223,7 +225,9 @@ describe(`[auto generated] Correctly populate structures`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -244,7 +248,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### mystruct__define\n\n```idl\nmystruct__define\n```\n',
+          docs: '\n```idl\nmystruct__define\n```\n',
           docsLookup: {},
           display: 'mystruct__define',
           kws: {},

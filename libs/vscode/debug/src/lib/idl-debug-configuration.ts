@@ -16,7 +16,10 @@ import {
 import * as vscode from 'vscode';
 import { URI } from 'vscode-uri';
 
-import { DEFAULT_IDL_DEBUG_CONFIGURATION } from './idl-debug-adapter.interface';
+import {
+  DEFAULT_IDL_DEBUG_CONFIGURATION,
+  IDLDebugConfiguration,
+} from './idl-debug-adapter.interface';
 
 /**
  * Class that manages setting IDL's configuration prior to launching a
@@ -40,9 +43,9 @@ export class IDLDebugConfigurationProvider
     config: DebugConfiguration,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     token?: CancellationToken
-  ): ProviderResult<DebugConfiguration> {
+  ): ProviderResult<IDLDebugConfiguration> {
     // merge properties
-    const useConfig = {
+    const useConfig: IDLDebugConfiguration = {
       ...DEFAULT_IDL_DEBUG_CONFIGURATION,
       ...config,
       ...{ config: copy(IDL_EXTENSION_CONFIG) as IDLExtensionConfig },

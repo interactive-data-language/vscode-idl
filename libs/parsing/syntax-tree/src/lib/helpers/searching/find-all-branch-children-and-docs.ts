@@ -16,7 +16,7 @@ function FindAllBranchChildrenAndTheirDocsRecurser<T extends TokenName>(
   found: { token: TreeToken<T>; docs?: TreeToken<CommentBlockToken> }[]
 ) {
   // process all children
-  for (let i = 0; i < branch.kids.length; i++) {
+  for (let i = 0; i < (branch.kids || []).length; i++) {
     // save our token
     if (branch.kids[i].name === token) {
       // check for docs

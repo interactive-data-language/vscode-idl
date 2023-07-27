@@ -1,11 +1,12 @@
 import {
   CleanPath,
-  CONFIG_FILE_GLOB_PATTERN,
   GetExtensionPath,
   IDL_CONFIG_FILE_DOCUMENT_SELECTOR,
   IDL_DOCUMENT_SELECTOR,
-  LANGUAGE_NAME,
+  IDL_JSON_GLOB_PATTERN,
+  IDL_LANGUAGE_NAME,
   NODE_MEMORY_CONFIG,
+  NOTEBOOK_GLOB_PATTERN,
   PRO_CODE_GLOB_PATTERN,
   TASK_FILE_DOCUMENT_SELECTOR,
   TASK_FILE_GLOB_PATTERN,
@@ -15,7 +16,7 @@ import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { VSCodeClientEventManager } from '@idl/vscode/events/client';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
-import { sync as spawnSync } from 'cross-spawn';
+import { execSync } from 'child_process';
 import { lstatSync } from 'fs';
 import * as path from 'path';
 import { ExtensionContext, workspace } from 'vscode';
@@ -48,10 +49,28 @@ export let LANGUAGE_SERVER_MESSENGER: VSCodeClientEventManager;
  * Creates our language client and starts our language server
  */
 export async function StartLanguageServer(ctx: ExtensionContext) {
+  // Start the client. This will also launch the server
+  IDL_LOGGER.log({ content: 'Trying to detect node.js' });
+
   /**
    * Check for nodejs to determine how we launch the language server
    */
-  const HAS_NODE = spawnSync('node', ['--version']).error ? false : true;
+  let HAS_NODE = false;
+
+  // placeholder for output from node
+  let nodeOutput = '';
+
+  /**
+   * Attempt to spawn node
+   */
+  try {
+    nodeOutput = execSync(`node --version`, { timeout: 100 })
+      .toString('utf8')
+      .trim();
+    HAS_NODE = true;
+  } catch (err) {
+    nodeOutput = (err as Error)?.message;
+  }
 
   /**
    * Full path to the JS file for launching in VSCode
@@ -104,10 +123,14 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
     command: `node`,
     transport: TransportKind.stdio,
     args: [
-      path.join('dist', 'apps', 'server', 'main.js'),
       '--expose-gc',
       `--max-old-space-size=${NODE_MEMORY_CONFIG.OLD}`,
       `--max-semi-space-size=${NODE_MEMORY_CONFIG.YOUNG}`,
+      /**
+       * Needs to be last, cant remember why but this was something (a long time ago) i saw on
+       * blog/stack exchange
+       */
+      path.join('dist', 'apps', 'server', 'main.js'),
     ],
     options: {
       cwd: ctx.extensionPath,
@@ -128,8 +151,9 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
       // Notify the server about file changes to IDL-related files contained in the workspace
       fileEvents: [
         workspace.createFileSystemWatcher(PRO_CODE_GLOB_PATTERN),
-        workspace.createFileSystemWatcher(CONFIG_FILE_GLOB_PATTERN),
+        workspace.createFileSystemWatcher(IDL_JSON_GLOB_PATTERN),
         workspace.createFileSystemWatcher(TASK_FILE_GLOB_PATTERN),
+        workspace.createFileSystemWatcher(NOTEBOOK_GLOB_PATTERN),
       ],
     },
     outputChannel: IDL_CLIENT_OUTPUT_CHANNEL,
@@ -183,14 +207,17 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
   IDL_LOGGER.log({
     type: 'info',
     content: [
-      `Starting the language server using: ${HAS_NODE ? 'node' : 'VSCode'}`,
+      `Starting the language server using "${
+        HAS_NODE ? 'node' : 'VSCode'
+      }". Output from "node --version":`,
+      nodeOutput,
     ],
   });
 
   // Create the language client and start the client.
   LANGUAGE_SERVER_CLIENT = new LanguageClient(
     'IDLLanguageServer',
-    LANGUAGE_NAME,
+    IDL_LANGUAGE_NAME,
     HAS_NODE ? serverOptionsNode : serverOptionsInVSCode,
     clientOptions
   );

@@ -4,6 +4,10 @@ import {
   SerializeIDLType,
 } from '@idl/data-types/core';
 
+import {
+  TASK_REGEX,
+  TaskFunctionName,
+} from '../../../helpers/task-function-name';
 import { IDL_DOCS_HEADERS } from '../../docs.interface';
 import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';
 import { CapitalizeWord } from '../helpers/capitalize-word';
@@ -44,13 +48,17 @@ export function RoutinesToMarkdown(
   // check if we are a function or not
   if (isFunction) {
     if (info.name.includes('::')) {
-      syntax.push(`result = object.${splitName[1]}(`);
+      syntax.push(`result = ${splitName[0]}.${splitName[1]}(`);
     } else {
-      syntax.push(`result = ${info.name}(`);
+      if (TASK_REGEX.test(info.name)) {
+        syntax.push(`result = ${TaskFunctionName(info.name, "'")}`);
+      } else {
+        syntax.push(`result = ${info.name}(`);
+      }
     }
   } else {
     if (info.name.includes('::')) {
-      syntax.push(`object.${splitName[1]}`);
+      syntax.push(`${splitName[0]}.${splitName[1]}`);
     } else {
       syntax.push(info.name);
     }
@@ -87,9 +95,12 @@ export function RoutinesToMarkdown(
   // process args
   const kwNames = Object.keys(meta.kws);
   for (let i = 0; i < kwNames.length; i++) {
-    // add comma
-    if ((i === 0 && !isFunction) || syntax.length > 1) {
-      syntax.push(',');
+    if (i === 0) {
+      if (!isFunction || argNames.length > 0) {
+        syntax.push(', $\n');
+      }
+    } else {
+      syntax.push(`, $\n`);
     }
 
     // get keyword
@@ -116,7 +127,7 @@ export function RoutinesToMarkdown(
     }
   }
   // check if we need to close our function syntax call
-  if (isFunction) {
+  if (isFunction && !TASK_REGEX.test(info.name)) {
     syntax.push(`)`);
   }
 
@@ -124,9 +135,7 @@ export function RoutinesToMarkdown(
   const docs = info.meta.docsLookup;
 
   if (info.link !== undefined) {
-    markdown.push(`#### [${info.name}](${info.link})`);
-  } else {
-    markdown.push(`#### ${info.name}`);
+    markdown.push(`[Online Docs](${info.link})`);
   }
 
   // add in our syntax

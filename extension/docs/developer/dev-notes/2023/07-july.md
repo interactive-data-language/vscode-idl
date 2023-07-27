@@ -111,3 +111,157 @@ We also will add a URL to a local markdown file with a description of the proble
 This will likely need to be improved in the future, but we added a filter to most of our events from VSCode that checks the code to make sure it has _actually_ changed.
 
 For whatever reason, go-to-definition triggers open, change, and close events for a file. These bombarding events broke the language server and its a little concerning why all those events are fired when nothing has changed.
+
+## Performance
+
+We worked on improving the performance of parsing when you have a lot of files and have opted-out of the full parse preference.
+
+Here's before and after showing the performance differences and parse rates. This is shown in the IDL log on startup so you can view as well if you want:
+
+```typescript
+const before = {
+  lines: 2252881,
+  app_platform: 'win32',
+  app_arch: 'x64',
+  app_cpus: 20,
+  app_ram: 32,
+  app_ram_used: 2.5,
+  num_workers: 6,
+  parse_time: 13.49,
+  parse_rate: 167015,
+  num_pro: 7816,
+  num_save: 830,
+  num_idl_task: 15,
+  num_envi_task: 0,
+  num_idl_json: 0,
+};
+
+const after = {
+  lines: 2252881,
+  app_platform: 'win32',
+  app_arch: 'x64',
+  app_cpus: 20,
+  app_ram: 32,
+  app_ram_used: 1.75,
+  num_workers: 6,
+  parse_time: 7.86,
+  parse_rate: 286567,
+  num_pro: 7816,
+  num_save: 830,
+  num_idl_task: 15,
+  num_envi_task: 0,
+  num_idl_json: 0,
+};
+```
+
+## Performance Testing
+
+We have a new app to help track performance in a single-threaded (the slowest) environment. It prints out the time to parse the lib folder, memory used, lines of code, and rate that we parse.
+
+See `apps/performance/README.md` for more details
+
+## Memory Usage
+
+At the cost of performance, we have reduce memory usage dramatically when combined with garbage collection. Before:
+
+```
+idl-client info Performance test
+   {
+    "method": "index-single",
+    "compression": false,
+    "multiplier": 4,
+    "full": true,
+    "postProcess": true,
+    "changeDetection": false
+  }
+Reading files [=========================] 0.0s 1563/1563 wavelet/source/wv_tool_denoise.pro
+Extracting tokens via "index-single" [=========================] 0.0s 6252/6252 undefined
+
+idl-client info Performance
+   { time_ms: 74696, memory_gb: 7, lines: 1802304, rate: 24128 }
+```
+
+After:
+
+```
+idl-client info Performance test
+   {
+    "method": "index-single",
+    "compression": true,
+    "multiplier": 4,
+    "full": true,
+    "postProcess": true,
+    "changeDetection": false
+  }
+Reading files [=========================] 0.0s 1563/1563 wavelet/source/wv_tool_denoise.pro
+Extracting tokens via "index-single" [=========================] 0.0s 6252/6252 undefined
+
+idl-client info Performance
+   { time_ms: 83650, memory_gb: 3.75, lines: 1802304, rate: 21545 }
+```
+
+## Improved Language Server Startup
+
+Fixed some problematic file discovery logic that searched the same path 5 times. It was replaced with a single glob pattern that looked for all files instead and, for one users, make the file discovery process take 7 seconds instead of 27.
+
+No idea what was taking so long for it to start, but it was the only potential culprit based on performance logs.
+
+Along those lines, we now have much better output on startup to track what parts of startup take the most time:
+
+```typescript
+const before = {
+  lines: 2252881,
+  app_platform: 'win32',
+  app_arch: 'x64',
+  app_cpus: 20,
+  app_ram: 32,
+  app_ram_used: 2.5,
+  num_workers: 6,
+  parse_time: 13.49,
+  parse_rate: 167015,
+  num_pro: 7816,
+  num_save: 830,
+  num_idl_task: 15,
+  num_envi_task: 0,
+  num_idl_json: 0,
+};
+
+const after = {
+  lines: 2243829,
+  app_platform: 'darwin',
+  app_arch: 'x64',
+  app_cpus: 16,
+  app_ram: 16,
+  app_ram_used: 1.75,
+  num_workers: 6,
+  parse_time: 5.0200000000000005,
+  parse_rate: 446711,
+  num_pro: 7732,
+  num_save: 735,
+  num_idl_task: 15,
+  num_envi_task: 0,
+  num_idl_json: 0,
+  num_notebook: 0,
+  time_total_ms: 5583,
+  time_search_ms: 102,
+  time_config_ms: 0,
+  time_task_ms: 267,
+  time_save_ms: 0,
+  time_notebook_ms: 0,
+  time_pro_ms: 5023,
+};
+```
+
+## Test Stability
+
+We had some issues with test stability where tests would pass and then they would fail sometimes.
+
+We added a pause, and constant, that forces a break between running tests. I would posit that it has to do with data being synced between the VSCode client and the test runner and/or extension host.
+
+Either way, with these changes, we have tests that don't have intermittent failures anymore.
+
+## Notebook Stability
+
+Along those same lines, when we processed a notebook cell (or ran a notebook), we would end up with inconsistent behaviors where it would run 4/5 times and occasionally fail.
+
+Now, after each cell executes, we have a 100 ms pause. After adding this is, our notebook cell execution tests all work as expected!

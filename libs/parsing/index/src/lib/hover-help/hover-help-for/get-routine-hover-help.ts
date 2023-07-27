@@ -1,3 +1,4 @@
+import { GlobalIndexedRoutineToken } from '@idl/data-types/core';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { TokenName } from '@idl/parsing/tokenizer';
 
@@ -14,13 +15,13 @@ export function GetRoutineHoverHelp(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<TokenName>
-): string {
+): GlobalIndexedRoutineToken {
   /** Find global token */
   const global = GetRoutine(index, parsed, token, false);
 
   // return docs if we found it
   if (global.length > 0) {
-    return global[0].meta.docs;
+    return global[0];
   }
 
   // /**
@@ -57,5 +58,5 @@ export function GetRoutineHoverHelp(
   // }
 
   // return empty string by default
-  return '';
+  return undefined;
 }

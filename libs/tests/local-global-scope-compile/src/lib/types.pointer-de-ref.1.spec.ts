@@ -67,7 +67,9 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -586,7 +588,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
               pos: [18, 50, 4],
             },
           },
-          docs: '#### pointers\n\n```idl\npointers, arg1, arg2, arg3, arg4, arg5, arg6, arg7\n```\n\n\n\n#### Arguments\n\n- **arg1**: in, required, Pointer<Number>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, Array<Number>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, Array<Pointer<ENVIRaster>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, Pointer<Number> | String\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, Pointer<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg6**: in, required, Pointer<String> | Pointer<Number>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg7**: in, required, Pointer<String> | Pointer<Number | String>\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\npointers, arg1, arg2, arg3, arg4, arg5, arg6, arg7\n```\n\n\n\n#### Arguments\n\n- **arg1**: in, required, Pointer<Number>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, Array<Number>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, Array<Pointer<ENVIRaster>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, Pointer<Number> | String\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, Pointer<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg6**: in, required, Pointer<String> | Pointer<Number>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg7**: in, required, Pointer<String> | Pointer<Number | String>\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'pointers',
           kws: {},

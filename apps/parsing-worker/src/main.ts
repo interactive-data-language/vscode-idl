@@ -2,6 +2,7 @@ import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
 import { ParseFileSync } from '@idl/parser';
 import {
   ChangeDetection,
+  GetSyntaxProblems,
   IDL_INDEX_OPTIONS,
   IDLIndex,
   ReduceGlobals,
@@ -15,11 +16,12 @@ import {
   LSPWorkerThreadMessage,
   ParseFilesFastResponse,
   ParseFilesResponse,
+  ParseNotebookResponse,
   PostProcessFilesResponse,
   RemoveFilesResponse,
 } from '@idl/workers/parsing';
 import { WorkerIOClient } from '@idl/workers/workerio';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync } from 'fs';
 import { parentPort } from 'worker_threads';
 
 // create our connection client - overload MessagePort to assert that we are running in a worker thread
@@ -83,6 +85,7 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.LOAD_GLOBAL, async (message) => {
 client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL, async (message) => {
   const files = Object.keys(message);
   for (let i = 0; i < files.length; i++) {
+    WORKER_INDEX.knownFiles[files[i]] = undefined;
     WORKER_INDEX.globalIndex.trackGlobalTokens(
       ReduceGlobals(message[files[i]]),
       files[i]
@@ -118,6 +121,15 @@ client.on(
     return problemsByFile;
   }
 );
+
+/**
+ * Clean up
+ */
+client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, async () => {
+  if (global.gc) {
+    global.gc();
+  }
+});
 
 /**
  * Get auto complete for files we manage
@@ -165,8 +177,8 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILE, async (message) => {
   // index the file
   const parsed = await WORKER_INDEX.getParsedProCode(
     message.file,
-    readFileSync(message.file, 'utf-8'),
-    message.postProcess
+    WORKER_INDEX.getFileStrings(message.file),
+    message
   );
 
   // make non-circular
@@ -184,7 +196,7 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE, async (message) => {
   const parsed = await WORKER_INDEX.getParsedProCode(
     message.file,
     message.code,
-    message.postProcess
+    message
   );
 
   // make non-circular
@@ -223,7 +235,7 @@ client.on(
         /**
          * Parse our file
          */
-        const parsed = ParseFileSync(files[i], false);
+        const parsed = ParseFileSync(files[i], { full: false });
 
         // track syntax problems
         WORKER_INDEX.trackSyntaxProblemsForFile(files[i], parsed.parseProblems);
@@ -241,7 +253,7 @@ client.on(
         resp.problems[files[i]] = parsed.parseProblems;
       } catch (err) {
         // check if we have a "false" error because a file was deleted
-        if (!existsSync(files[i])) {
+        if (!existsSync(files[i]) && !files[i].includes('#')) {
           resp.missing.push(files[i]);
           WORKER_INDEX.log.log({
             log: IDL_WORKER_THREAD_CONSOLE,
@@ -249,6 +261,7 @@ client.on(
             content: [
               `File was deleted, but we were not alerted before indexing files`,
               files[i],
+              err,
             ],
           });
         } else {
@@ -288,15 +301,21 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILES, async (message) => {
 
   // populate response
   for (let i = 0; i < files.length; i++) {
+    if (global.gc) {
+      if (i % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
+        global.gc();
+      }
+    }
+
     /**
      * Skip if we dont have a file. Could happen from parsing errors
      */
-    if (!(files[i] in WORKER_INDEX.tokensByFile)) {
+    if (!WORKER_INDEX.tokensByFile.has(files[i])) {
       continue;
     }
 
     // save lines
-    resp.lines += WORKER_INDEX.tokensByFile[files[i]].lines;
+    resp.lines += WORKER_INDEX.tokensByFile.lines(files[i]);
 
     // track globals
     resp.globals[files[i]] = WORKER_INDEX.getGlobalsForFile(files[i]);
@@ -304,6 +323,65 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILES, async (message) => {
 
   return resp;
 });
+
+/**
+ * Parse notebooks
+ */
+client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK, async (message) => {
+  /**
+   * Initialize our response
+   */
+  const resp: ParseNotebookResponse = {
+    lines: 0,
+    globals: {},
+    problems: {},
+  };
+
+  /**
+   * Index our notebook
+   */
+  const byCell = await WORKER_INDEX.indexIDLNotebook(
+    message.file,
+    message.notebook
+  );
+
+  /**
+   * Get files for cells that we actually processed
+   */
+  const files = Object.keys(byCell);
+
+  // process each cell and save information we need to return
+  for (let i = 0; i < files.length; i++) {
+    if (byCell[files[i]] === undefined) {
+      resp.globals[files[i]] = [];
+      resp.problems[files[i]] = [];
+      continue;
+    }
+    resp.globals[files[i]] = byCell[files[i]].global;
+    resp.problems[files[i]] = GetSyntaxProblems(byCell[files[i]]);
+  }
+
+  // return each cell
+  return resp;
+});
+
+/**
+ * Get notebook cells
+ */
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
+  async (message) => {
+    // get parsed code and return
+    const parsed = await WORKER_INDEX.getParsedProCode(message.file, '');
+
+    // make non-circular
+    if (parsed !== undefined) {
+      RemoveScopeDetail(parsed);
+    }
+
+    return parsed;
+  }
+);
 
 /**
  * Post-process some files
@@ -314,7 +392,7 @@ client.on(
     /** Get files */
     const files = Array.isArray(message.files)
       ? message.files
-      : Object.keys(WORKER_INDEX.tokensByFile);
+      : WORKER_INDEX.tokensByFile.allFiles();
 
     // post process, no change detection
     const missing = await WORKER_INDEX.postProcessProFiles(files, false);
@@ -331,15 +409,21 @@ client.on(
 
     // populate response
     for (let i = 0; i < files.length; i++) {
+      if (global.gc) {
+        if (i % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
+          global.gc();
+        }
+      }
+
       /**
        * Skip if we dont have a file. Could happen from parsing errors
        */
-      if (!(files[i] in WORKER_INDEX.tokensByFile)) {
+      if (!WORKER_INDEX.tokensByFile.has(files[i])) {
         continue;
       }
 
       // save lines
-      resp.lines += WORKER_INDEX.tokensByFile[files[i]].lines;
+      resp.lines += WORKER_INDEX.tokensByFile.lines(files[i]);
 
       // populate problems
       resp.problems[files[i]] = problems[files[i]] || [];
@@ -360,7 +444,7 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.REMOVE_FILES, async (message) => {
   await WORKER_INDEX.removeWorkspaceFiles(message.files, false);
 
   /** Get files that we manage */
-  const ourFiles = Object.keys(WORKER_INDEX.tokensByFile);
+  const ourFiles = WORKER_INDEX.tokensByFile.allFiles();
 
   // post process all of our files again
   const missing = await WORKER_INDEX.postProcessProFiles(ourFiles, false);
@@ -376,10 +460,16 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.REMOVE_FILES, async (message) => {
 
   // populate response
   for (let i = 0; i < ourFiles.length; i++) {
+    if (global.gc) {
+      if (i % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
+        global.gc();
+      }
+    }
+
     /**
      * Skip if we dont have a file. Could happen from parsing errors
      */
-    if (!(ourFiles[i] in WORKER_INDEX.tokensByFile)) {
+    if (!WORKER_INDEX.tokensByFile.has(ourFiles[i])) {
       continue;
     }
 

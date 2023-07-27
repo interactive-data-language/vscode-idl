@@ -66,9 +66,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   // we don't support multiple threads, so we can use a hardcoded ID for the default thread
   private static readonly THREAD_ID = 1;
 
-  /** have we actually started IDL for debugging? */
-  launched = false;
-
   /** Are we listening to events from IDL or not? */
   listening = false;
 
@@ -82,7 +79,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   prompt: string;
 
   /** Reference to our IDL class, manages process and input/output */
-  private readonly _runtime: IDL;
+  private _runtime: IDL;
 
   /** Event to fire when our configuration has been completed, from VSCode example */
   private readonly _configurationDone = new Subject();
@@ -207,9 +204,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    * Method we call when IDL was stopped - not via user, but a likely crash
    */
   private _IDLCrashed(reason: 'crash' | 'failed-start') {
-    // update state
-    this.launched = false;
-
     // this._runtime.removeAllListeners(); // this breaks things
     this.sendEvent(new TerminatedEvent());
 
@@ -515,6 +509,13 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   }
 
   /**
+   * Tells us if we have started IDL or not
+   */
+  isStarted() {
+    return this._runtime.started;
+  }
+
+  /**
    * Sets a breakpoint for agiven file
    *
    * Provide custom API for this for testing
@@ -633,14 +634,23 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       // log that our session has started
       LogSessionStart();
 
+      // stop listening if we are
+      if (this.listening) {
+        this._runtime.removeAllListeners();
+        this.listening = false;
+      }
+
+      // create new instance of runtime
+      this._runtime = new IDL(IDL_LOGGER.getLog(IDL_DEBUG_LOG), VSCODE_PRO_DIR);
+
+      // listen to events
+      this.listenToEvents();
+
       // start our runtime session
       this._runtime.start(this.lastLaunchArgs);
 
       // listen for when we started
       this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
-        // update flag that we started
-        this.launched = true;
-
         // add new line now that we have started
         LogOutput('\n');
 
@@ -687,7 +697,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
       // listen for failures to launch
       this._runtime.once(IDL_EVENT_LOOKUP.FAILED_START, () => {
-        if (!this.launched) {
+        if (!this.isStarted()) {
           // set the stop
           LogSessionStop('failed-start');
 
@@ -1303,9 +1313,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // update status bar
     IDL_STATUS_BAR.resetPrompt();
     IDL_STATUS_BAR.setStoppedStatus(IDL_TRANSLATION.statusBar.stopped);
-
-    // update our state
-    this.launched = false;
 
     // alert vscode we have stopped
     this.sendEvent(new TerminatedEvent());

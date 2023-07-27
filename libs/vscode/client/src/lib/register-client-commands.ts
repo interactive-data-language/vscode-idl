@@ -1,3 +1,4 @@
+import { FindIDL } from '@idl/idl';
 import { CleanPath, EXTENSION_FULL_NAME, IDL_COMMANDS } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
@@ -64,10 +65,15 @@ export function RegisterClientCommands(ctx: ExtensionContext) {
       async () => {
         try {
           LogCommandInfo('Specify IDL directory (User)');
+
+          // get IDL folder
+          const idlDir = FindIDL();
+
           const res = await vscode.window.showOpenDialog({
             canSelectFiles: false,
             canSelectFolders: true,
             openLabel: 'Specify IDL Directory (User)',
+            defaultUri: idlDir !== undefined ? URI.file(idlDir) : undefined,
           });
 
           // make sure we found something
@@ -105,10 +111,15 @@ export function RegisterClientCommands(ctx: ExtensionContext) {
       async () => {
         try {
           LogCommandInfo('Specify IDL directory (Workspace)');
+
+          // get IDL folder
+          const idlDir = FindIDL();
+
           const res = await vscode.window.showOpenDialog({
             canSelectFiles: false,
             canSelectFolders: true,
             openLabel: 'Specify IDL Directory (Workspace)',
+            defaultUri: idlDir !== undefined ? URI.file(idlDir) : undefined,
           });
 
           // make sure we found something

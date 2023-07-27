@@ -47,6 +47,15 @@ export interface ICommandTranslation {
     startProfiling: string;
     stopProfiling: string;
   };
+  /** Commands for notebooks */
+  notebooks: {
+    /** Reset notebook session */
+    resetIDL: string;
+    /** Stop notebook session */
+    stopIDL: string;
+    /** Convert help to notebook */
+    helpAsNotebook: string;
+  };
   /** Terminal commands */
   terminal: {
     startIDL: string;
@@ -140,6 +149,8 @@ export interface IConfigTranslation {
     developer: string;
     /** Language server settings */
     languageServer: string;
+    /** Notebook settings */
+    notebooks: string;
   };
   idlDir: {
     notFound: string;
@@ -383,6 +394,8 @@ export interface ITranslation {
     index: {
       /** When we fail to parse PRO code */
       failedParse: string;
+      /** Message when we fail to parse a notebook */
+      failedParseNotebook: string;
       /** When we fail to post process a parsed file */
       failedPostProcess: string;
       /** When change detection fails */
@@ -428,6 +441,14 @@ export interface ITranslation {
       onSemanticHighlighting: string;
       /** Responding to code actions */
       onCodeAction: string;
+      /** Opening notebook */
+      onDidOpenNotebook: string;
+      /** notebook changed */
+      onDidChangeNotebook: string;
+      /** Notebook closed */
+      onDidCloseNotebook: string;
+      /** Retrieving docs */
+      onRetrieveDocs: string;
     };
     /** Misc error reports */
     errors: {
@@ -477,6 +498,7 @@ export interface ITranslation {
       children: {
         /** Additional actions */
         additionalActions: {
+          pickIDL: ITreeInformation;
           fileBug: ITreeInformation;
           openWebview: ITreeInformation;
           openDocs: ITreeInformation;
@@ -522,6 +544,38 @@ export interface ITranslation {
   /** Translations related to the logger */
   logger: {
     defaultErrorMessage: string;
+  };
+  /** Translations for notebooks */
+  notebooks: {
+    /** title of notebooks */
+    title: string;
+    /** Name of the notebook controller */
+    controller: string;
+    errors: {
+      /** Bad notebook file */
+      invalidNotebook: string;
+      /** Error while saving notebook file */
+      errorSaving: string;
+      /** IDL doesn't start in the notebook */
+      failedStart: string;
+      /** if we failed to execute one or more cells */
+      failedExecute: string;
+      /** IDL crashes while running something in the notebook */
+      crashed: string;
+      /** Error while trying to get graphics */
+      checkingGraphics: string;
+    };
+    /** Notifications for working with notebooks */
+    notifications: {
+      /** Message that we are starting IDL */
+      startingIDL: string;
+      /** When we reset IDL */
+      resettingIDL: string;
+      /** When we ask to stop IDL */
+      stoppingIDL: string;
+      /** When IDL hasnt started */
+      idlNotStarted: string;
+    };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */
   notifications: {

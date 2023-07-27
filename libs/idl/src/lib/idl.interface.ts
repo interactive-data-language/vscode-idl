@@ -1,4 +1,5 @@
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
+
 /**
  * Default number of prompts we are looking for
  */

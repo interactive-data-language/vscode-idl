@@ -1,5 +1,5 @@
 import { IDLEvaluateOptions, IStartIDLConfig } from '@idl/idl';
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { DebugProtocol } from '@vscode/debugprotocol';
@@ -32,7 +32,7 @@ export interface IDLDebugConfiguration
  * Default configuration for debugging IDL
  */
 export const DEFAULT_IDL_DEBUG_CONFIGURATION: IDLDebugConfiguration = {
-  type: LANGUAGE_NAME,
+  type: IDL_LANGUAGE_NAME,
   name: IDL_TRANSLATION.debugger.idl.name,
   request: 'launch',
   env: process.env,

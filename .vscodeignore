@@ -32,6 +32,7 @@ extension/docs/developer/**
 extension/language/syntaxes/src/**
 extension/README.md
 idl/helpers/**
+idl/routines/notebooks/**
 idl/test/**
 idl/README.md
 idl/idl.json
@@ -51,6 +52,7 @@ tmp/**
 angular.json
 compile_speed_test.pro
 decorate-angular-cli.js
+isolate*.log
 jest.config.ts
 jest.preset.js
 jest.preset.ts
@@ -58,6 +60,7 @@ migrations.json
 nx.json
 NX.md
 package-lock.json
+perf.txt
 problems.json
 tsconfig.base.json
 webpack.base.config.js

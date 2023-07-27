@@ -1,4 +1,4 @@
-import { LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDL_EXTENSION_CONFIG_KEYS,
@@ -30,7 +30,7 @@ export function AddProblemsConfig(nls: IPackageNLS) {
 
   // folders to not ask to init config for
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsIncludeProblemsFromIDLPath}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsIncludeProblemsFromIDLPath}`
   ] = {
     type: 'boolean',
     default: DEFAULT_IDL_EXTENSION_CONFIG.problems.includeProblemsFromIDLPath,
@@ -43,7 +43,7 @@ export function AddProblemsConfig(nls: IPackageNLS) {
 
   // folders to not ask to init config for
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsIncludeProblemsFromIDLPackages}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsIncludeProblemsFromIDLPackages}`
   ] = {
     type: 'boolean',
     default:
@@ -57,7 +57,7 @@ export function AddProblemsConfig(nls: IPackageNLS) {
 
   // problem codes to ignore
   ourConfig.properties[
-    `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsIgnoreProblems}`
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsIgnoreProblems}`
   ] = {
     type: 'array',
     default: [],
@@ -74,7 +74,7 @@ export function AddProblemsConfig(nls: IPackageNLS) {
 
   IDLProblemCodeEnumAndTranslations(
     ourConfig.properties[
-      `${LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsIgnoreProblems}`
+      `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsIgnoreProblems}`
     ]
   );
 

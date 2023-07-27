@@ -2,7 +2,9 @@ import { PositionArray } from '@idl/parsing/tokenizer-types';
 
 import { TokenStartMatches } from './token-matches.interface';
 import { ITokenDef, TOKEN_NAMES, TokenName } from './tokens.interface';
-import { ALL_TOKENS } from './tokens/def-groups.interface';
+import { ALL_TOKENS, DEFAULT_TOKENS } from './tokens/def-groups.interface';
+import { COMMENT_BLOCK } from './tokens/defs/comment.interface';
+import { ROUTINE_DEF } from './tokens/defs/routines.definition.interface';
 import { ISubTokenDefs, SUB_DEFS } from './tokens/sub-defs.interface';
 
 /** Position of a token */
@@ -21,6 +23,10 @@ export interface IFindTokensOptions {
   defs: ITokenDef<TokenName>[];
   /** Sub definitions that we can find */
   subDefs: ISubTokenDefs;
+  /** Default tokens to search for */
+  default: ITokenDef<TokenName>[];
+  /** Are we doing a full parse or not */
+  full: boolean;
   /** What feature are we trying to close */
   closer?: ITokenDef<TokenName>;
   /** ID of the closer */
@@ -38,6 +44,18 @@ export interface IFindTokensOptions {
 export const DEFAULT_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
   defs: ALL_TOKENS,
   subDefs: SUB_DEFS,
+  default: DEFAULT_TOKENS,
+  full: true,
+};
+
+/**
+ * Default options for finding tokens
+ */
+export const FAST_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
+  defs: [COMMENT_BLOCK, ROUTINE_DEF],
+  subDefs: SUB_DEFS,
+  default: [ROUTINE_DEF],
+  full: false,
 };
 
 /**

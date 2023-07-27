@@ -19,6 +19,8 @@
 
 # test helper file that we auto-generate
 parse-test/
+isolate*.log
+perf.txt
 
 # IDE - VSCode
 .vscode/*
@@ -54,3 +56,6 @@ compliance/3rdpartylicenses_condensed.md
 compliance/3rdpartylicenses_encryption.csv
 compliance/3rdpartylicenses.csv
 compliance/compliance.json
+
+# IDL notebooks
+idl/routines/notebooks/**

@@ -41,7 +41,9 @@ describe(`[auto generated] Types from output arguments`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -222,7 +224,7 @@ describe(`[auto generated] Types from output arguments`, () => {
               pos: [10, 28, 1],
             },
           },
-          docs: '#### auto_doc_example\n\n```idl\nauto_doc_example, a, b, c\n```\n\n\n\n#### Arguments\n\n- **a**: in, required, ENVIRaster\n\n  Placeholder docs for argument, keyword, or property\n\n- **b**: out, required, Long\n\n  Placeholder docs for argument, keyword, or property\n\n- **c**: out, required, ENVIRaster\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nauto_doc_example, a, b, c\n```\n\n\n\n#### Arguments\n\n- **a**: in, required, ENVIRaster\n\n  Placeholder docs for argument, keyword, or property\n\n- **b**: out, required, Long\n\n  Placeholder docs for argument, keyword, or property\n\n- **c**: out, required, ENVIRaster\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'auto_doc_example',
           kws: {},

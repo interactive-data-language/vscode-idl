@@ -17,7 +17,6 @@ import {
   TOKEN_TYPES,
 } from './tokenizer.interface';
 import { ITokenDef, TokenName } from './tokens.interface';
-import { DEFAULT_TOKENS } from './tokens/def-groups.interface';
 import { IDL_LINE_END } from './tokens/regex.interface';
 import { GetSubDefs } from './tokens/sub-defs';
 
@@ -50,9 +49,6 @@ export function TokenizerRecurser(
   if (n === 0) {
     return;
   }
-
-  // copy our original tokens
-  let origDefs = options.defs;
 
   /** Current location of our iteration, updated internally, always same object */
   const current = iterator.current;
@@ -204,6 +200,8 @@ export function TokenizerRecurser(
                 _closerTokenName: tokenName,
                 defs: GetSubDefs(tokenName, options.subDefs),
                 subDefs: options.subDefs,
+                default: options.default,
+                full: options.full,
               });
               current.recursionLevel--;
 
@@ -217,8 +215,7 @@ export function TokenizerRecurser(
               if (tokenClosed) {
                 // check if we need to adjust the tokens we are searching for
                 if (lastFound.defaultTokens) {
-                  options.defs = DEFAULT_TOKENS;
-                  origDefs = DEFAULT_TOKENS;
+                  options.defs = options.default;
                 }
 
                 // check if we are finished with our line and have no closer to search for
@@ -350,7 +347,6 @@ export function TokenizerRecurser(
     // reset defs if done with line
     if (process && !hasLineContinuation) {
       current.foundTypes = {};
-      options.defs = origDefs;
     }
   }
 
@@ -365,7 +361,7 @@ export function Tokenizer(
   options: IFindTokensOptions = DEFAULT_FIND_TOKEN_OPTIONS
 ): IFoundTokens {
   // create our iterator
-  const iterator = new Iterator(code);
+  const iterator = new Iterator(code, options.full);
 
   // find our tokens if we can
   if (iterator.canProcess) {

@@ -114,7 +114,9 @@ describe(`[auto generated] Types from`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -372,7 +374,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### mypro\n\n```idl\nmypro, [ kw = Byte ]\n```\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Byte\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nmypro, $\n [ kw = Byte ]\n```\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Byte\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'mypro',
           kws: {
@@ -400,7 +402,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### myfunc\n\n```idl\nresult = myfunc( [ kw = Long ])\n```\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Long\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nresult = myfunc( [ kw = Long ])\n```\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Long\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '', returns: 'any' },
           display: 'myfunc',
           kws: {
@@ -429,7 +431,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### myclass__define\n\n```idl\nmyclass__define\n```\n\nClass definition procedure\n',
+          docs: '\n```idl\nmyclass__define\n```\n\nClass definition procedure\n',
           docsLookup: { default: 'Class definition procedure' },
           display: 'myclass__define',
           kws: {},
@@ -473,7 +475,7 @@ describe(`[auto generated] Types from`, () => {
           method: 'method',
           source: 'user',
           args: {},
-          docs: '#### myclass::method\n\n```idl\nobject.method, [ kw = ENVIRaster ]\n```\n\n\n\n#### Keywords\n\n- **kw**: out, optional, ENVIRaster\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nmyclass.method, $\n [ kw = ENVIRaster ]\n```\n\n\n\n#### Keywords\n\n- **kw**: out, optional, ENVIRaster\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'myclass::method',
           kws: {
@@ -510,7 +512,7 @@ describe(`[auto generated] Types from`, () => {
           method: 'method',
           source: 'user',
           args: {},
-          docs: '#### myclass::method\n\n```idl\nresult = object.method( [ kw = Array<Number> ])\n```\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Array<Number>\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nresult = myclass.method( [ kw = Array<Number> ])\n```\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Array<Number>\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '', returns: 'any' },
           display: 'myclass::method',
           kws: {
@@ -550,7 +552,7 @@ describe(`[auto generated] Types from`, () => {
           method: 'init',
           source: 'user',
           args: {},
-          docs: '#### myclass::Init\n\n```idl\nresult = object.Init()\n```\n\nConstructor\n',
+          docs: '\n```idl\nresult = myclass.Init()\n```\n\nConstructor\n',
           docsLookup: { default: 'Constructor', returns: 'myclass' },
           display: 'myclass::Init',
           kws: {},
@@ -569,7 +571,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### myclass::Init\n\n```idl\nresult = object.Init()\n```\n\nConstructor\n',
+          docs: '\n```idl\nresult = myclass.Init()\n```\n\nConstructor\n',
           docsLookup: { default: 'Constructor', returns: 'myclass' },
           display: 'myclass',
           kws: {},

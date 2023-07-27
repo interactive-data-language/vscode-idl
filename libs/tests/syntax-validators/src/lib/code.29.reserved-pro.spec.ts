@@ -20,7 +20,9 @@ describe(`[auto generated] Detects reserved procedures`, () => {
     const code = [`pro mypro`, `  compile_opt idl2`, `  return`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [];
@@ -46,7 +48,9 @@ describe(`[auto generated] Detects reserved procedures`, () => {
     const code = [`pro WRITEU`, `  compile_opt idl2`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected tokens
     const expected: SyntaxProblems = [

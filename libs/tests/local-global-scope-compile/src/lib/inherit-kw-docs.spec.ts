@@ -35,7 +35,9 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -74,7 +76,7 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### mypro\n\n```idl\nmypro, [ /KW1 ]\n```\n\nMy procedure\n\n#### Keywords\n\n- **KW1**: in, optional, Boolean\n\n    Super Cool flag\n\n',
+          docs: '\n```idl\nmypro, $\n [ /KW1 ]\n```\n\nMy procedure\n\n#### Keywords\n\n- **KW1**: in, optional, Boolean\n\n    Super Cool flag\n\n',
           docsLookup: { default: 'My procedure' },
           display: 'mypro',
           kws: {

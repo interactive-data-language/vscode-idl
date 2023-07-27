@@ -1,7 +1,7 @@
 import {
   EXTENSION_FULL_NAME,
   ICON_THEME_NAME,
-  LANGUAGE_NAME,
+  IDL_LANGUAGE_NAME,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -42,7 +42,7 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
   // listen for configuration (preference) changes
   vscode.workspace.onDidChangeConfiguration((ev) => {
     // filter if we arent changing IDL configurations
-    if (ev.affectsConfiguration(LANGUAGE_NAME)) {
+    if (ev.affectsConfiguration(IDL_LANGUAGE_NAME)) {
       // get new workspace configuration
       IDL_EXTENSION_CONFIG = GetWorkspaceConfig();
 
@@ -77,7 +77,7 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
 
   // check our default formatter preference
   const editor = vscode.workspace.getConfiguration('editor', {
-    languageId: LANGUAGE_NAME,
+    languageId: IDL_LANGUAGE_NAME,
   });
 
   // check if we should ask about setting the default formatter

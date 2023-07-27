@@ -31,7 +31,9 @@ describe(`[auto generated] Find them in`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -75,7 +77,7 @@ describe(`[auto generated] Find them in`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### define_these_structures\n\n```idl\nresult = define_these_structures()\n```\n',
+          docs: '\n```idl\nresult = define_these_structures()\n```\n',
           docsLookup: {},
           display: 'define_these_structures',
           kws: {},

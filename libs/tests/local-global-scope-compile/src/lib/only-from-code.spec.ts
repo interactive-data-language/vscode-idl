@@ -56,7 +56,9 @@ describe(`[auto generated] Only use code for docs`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -129,7 +131,7 @@ describe(`[auto generated] Only use code for docs`, () => {
               pos: [8, 0, 27],
             },
           },
-          docs: '#### myPro\n\n```idl\nmyPro, a,, kw1 = Int,\n```\n\nHeader\n\n#### Arguments\n\n- **a**: in, required, Int\n\n  Some cool statement across\n  \n  multiple lines\n\n\n#### Keywords\n\n- **kw1**: in, required, Int\n\n    Some cool statement across\n    \n    multiple lines\n\n\n### Author\n\nMeeeeeeeeeeeeeeeeeee',
+          docs: '\n```idl\nmyPro, a,, $\n kw1 = Int, $\n\n```\n\nHeader\n\n#### Arguments\n\n- **a**: in, required, Int\n\n  Some cool statement across\n  \n  multiple lines\n\n\n#### Keywords\n\n- **kw1**: in, required, Int\n\n    Some cool statement across\n    \n    multiple lines\n\n\n### Author\n\nMeeeeeeeeeeeeeeeeeee',
           docsLookup: { default: 'Header', author: 'Meeeeeeeeeeeeeeeeeee' },
           display: 'myPro',
           kws: {

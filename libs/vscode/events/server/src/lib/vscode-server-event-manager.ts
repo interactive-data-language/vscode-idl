@@ -1,6 +1,7 @@
 import {
   LanguageServerMessage,
   LanguageServerPayload,
+  LanguageServerResponse,
   MessageNameNormalizer,
 } from '@idl/vscode/events/messages';
 import { _Connection } from 'vscode-languageserver/node';
@@ -34,5 +35,17 @@ export class VSCodeServerEventManager {
     callback: (payload: LanguageServerPayload<T>) => void
   ) {
     this.connection.onNotification(MessageNameNormalizer(message), callback);
+  }
+
+  /**
+   * Respond to requests from the language server
+   */
+  onRequest<T extends LanguageServerMessage>(
+    message: T,
+    callback: (
+      payload: LanguageServerPayload<T>
+    ) => Promise<LanguageServerResponse<T>> | LanguageServerResponse<T>
+  ) {
+    this.connection.onRequest(MessageNameNormalizer(message), callback);
   }
 }

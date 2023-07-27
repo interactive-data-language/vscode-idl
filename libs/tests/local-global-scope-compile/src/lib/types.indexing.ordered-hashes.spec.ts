@@ -147,7 +147,9 @@ describe(`[auto generated] Types from`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -965,7 +967,7 @@ describe(`[auto generated] Types from`, () => {
               pos: [38, 50, 4],
             },
           },
-          docs: '#### ordered_hashes\n\n```idl\nordered_hashes, arg1, arg2, arg3, arg4, arg5, arg6\n```\n\n\n\n#### Arguments\n\n- **arg1**: in, required, OrderedHash<Number | String>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, Array<Number>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, Array<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, Array<Byte>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, Array<ENVIRaster>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg6**: in, required, any\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nordered_hashes, arg1, arg2, arg3, arg4, arg5, arg6\n```\n\n\n\n#### Arguments\n\n- **arg1**: in, required, OrderedHash<Number | String>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, Array<Number>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, Array<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, Array<Byte>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, Array<ENVIRaster>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg6**: in, required, any\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'ordered_hashes',
           kws: {},
@@ -981,7 +983,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### myfunc2\n\n```idl\nresult = myfunc2()\n```\n\n\n',
+          docs: '\n```idl\nresult = myfunc2()\n```\n\n\n',
           docsLookup: { default: '', returns: 'Array<Number>' },
           display: 'myfunc2',
           kws: {},
@@ -1007,7 +1009,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '#### myfunc\n\n```idl\nresult = myfunc()\n```\n\n\n',
+          docs: '\n```idl\nresult = myfunc()\n```\n\n\n',
           docsLookup: { default: '', returns: 'Number' },
           display: 'myfunc',
           kws: {},

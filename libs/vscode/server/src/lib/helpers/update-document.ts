@@ -1,6 +1,6 @@
 import { WorkspaceChange } from 'vscode-languageserver/node';
 
-import { DOCUMENT_MANAGER } from '../file-management/initialize-file-manager';
+import { DOCUMENT_MANAGER } from '../file-management/initialize-document-manager';
 import { SERVER_CONNECTION } from '../initialize-server';
 
 /**

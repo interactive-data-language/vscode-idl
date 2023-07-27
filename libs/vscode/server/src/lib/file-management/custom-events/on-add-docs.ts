@@ -10,7 +10,7 @@ import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_CONNECTION,
 } from '../../initialize-server';
-import { DOCUMENT_MANAGER, IDL_INDEX } from '../initialize-file-manager';
+import { DOCUMENT_MANAGER, IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**

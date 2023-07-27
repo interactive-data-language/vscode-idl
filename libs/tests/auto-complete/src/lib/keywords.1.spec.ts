@@ -540,7 +540,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         documentation: {
           kind: 'markdown',
           value:
-            "Set this keyword to create the graphic in the current window with a new set of axes. If no window exists, a new window is created. The WINDOW's [SetCurrent](https://www.nv5geospatialsoftware.com/docs/SetCurrent Method.html) method may be used to set the current window.\n\nOr, set this keyword to an existing IDL Graphic reference to make that window be the current window and direct the new graphic to that window.\n\n**Tip:** The CURRENT keyword is usually used with the LAYOUT keyword or POSITION property to produce a window which has multiple graphics in different locations.\n\n**Tip:** For the graphic share the _same_ axes as an existing graphic, use the OVERPLOT keyword instead.",
+            "Set this keyword to create the graphic in the current window with a new set of axes. If no window exists, a new window is created. The WINDOW's [SetCurrent](https://www.nv5geospatialsoftware.com/docs/SetCurrent%20Method.html) method may be used to set the current window.\n\nOr, set this keyword to an existing IDL Graphic reference to make that window be the current window and direct the new graphic to that window.\n\n**Tip:** The CURRENT keyword is usually used with the LAYOUT keyword or POSITION property to produce a window which has multiple graphics in different locations.\n\n**Tip:** For the graphic share the _same_ axes as an existing graphic, use the OVERPLOT keyword instead.",
         },
       },
       {
@@ -815,7 +815,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         documentation: {
           kind: 'markdown',
           value:
-            "Set this keyword to create the graphic in the current window with a new set of axes. If no window exists, a new window is created. The WINDOW's [SetCurrent](https://www.nv5geospatialsoftware.com/docs/SetCurrent Method.html) method may be used to set the current window.\n\nOr, set this keyword to an existing IDL Graphic reference to make that window be the current window and direct the new graphic to that window.\n\n**Tip:** The CURRENT keyword is usually used with the LAYOUT keyword or POSITION property to produce a window which has multiple graphics in different locations.\n\n**Tip:** For the graphic share the _same_ axes as an existing graphic, use the OVERPLOT keyword instead.",
+            "Set this keyword to create the graphic in the current window with a new set of axes. If no window exists, a new window is created. The WINDOW's [SetCurrent](https://www.nv5geospatialsoftware.com/docs/SetCurrent%20Method.html) method may be used to set the current window.\n\nOr, set this keyword to an existing IDL Graphic reference to make that window be the current window and direct the new graphic to that window.\n\n**Tip:** The CURRENT keyword is usually used with the LAYOUT keyword or POSITION property to produce a window which has multiple graphics in different locations.\n\n**Tip:** For the graphic share the _same_ axes as an existing graphic, use the OVERPLOT keyword instead.",
         },
       },
       {

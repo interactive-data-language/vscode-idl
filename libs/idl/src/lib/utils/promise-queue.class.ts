@@ -1,7 +1,6 @@
-import { IDL_DEBUG_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_LOGGER } from '@idl/vscode/client';
 
+import { IDL } from '../idl.class';
 import {
   IPromiseQueueItem,
   IPromiseQueueLookup,
@@ -13,11 +12,14 @@ export class PromiseQueue {
   nProcessing: number; // how many promises are we processing now?
   _requests: IPromiseQueueItem[] = [];
 
+  idl: IDL;
+
   // options: IPromiseQueueOptions
-  constructor() {
+  constructor(idl: IDL) {
     this.nConcurrent = 1;
     this._requests = [];
     this.nProcessing = 0;
+    this.idl = idl;
   }
 
   // add an item to process
@@ -85,8 +87,7 @@ export class PromiseQueue {
             this.nProcessing--;
             this._next();
           } catch (err) {
-            IDL_LOGGER.log({
-              log: IDL_DEBUG_LOG,
+            this.idl.log.log({
               content: [
                 'Error resolving promise for executing IDL statement',
                 err,

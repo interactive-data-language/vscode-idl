@@ -27,7 +27,9 @@ describe(`[auto generated] Correctly extract docs for`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -114,7 +116,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               pos: [0, 23, 4],
             },
           },
-          docs: '#### myclass::mymethod\n\n```idl\nobject.mymethod, var1\n```\n\n#### Arguments\n\n- **var1**: bidirectional, required, any\n\n  \n\n',
+          docs: '\n```idl\nmyclass.mymethod, var1\n```\n\n#### Arguments\n\n- **var1**: bidirectional, required, any\n\n  \n\n',
           docsLookup: {},
           display: 'myclass::mymethod',
           kws: {},
@@ -163,7 +165,9 @@ describe(`[auto generated] Correctly extract docs for`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -250,7 +254,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               pos: [0, 23, 4],
             },
           },
-          docs: '#### myclass::mymethod\n\n```idl\nobject.mymethod, var1\n```\n\n#### Arguments\n\n- **var1**: bidirectional, required, any\n\n  \n\n',
+          docs: '\n```idl\nmyclass.mymethod, var1\n```\n\n#### Arguments\n\n- **var1**: bidirectional, required, any\n\n  \n\n',
           docsLookup: {},
           display: 'myclass::mymethod',
           kws: {},
@@ -302,7 +306,9 @@ describe(`[auto generated] Correctly extract docs for`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, true);
+    const tokenized = await index.getParsedProCode('not-real', code, {
+      postProcess: true,
+    });
 
     // define expected local variables
     const expectedVars: ILocalTokens = {
@@ -392,7 +398,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               pos: [0, 23, 4],
             },
           },
-          docs: '#### myclass::mymethod\n\n```idl\nobject.mymethod, var1\n```\n\n#### Arguments\n\n- **var1**: bidirectional, required, any\n\n  \n\n',
+          docs: '\n```idl\nmyclass.mymethod, var1\n```\n\n#### Arguments\n\n- **var1**: bidirectional, required, any\n\n  \n\n',
           docsLookup: {},
           display: 'myclass::mymethod',
           kws: {},
