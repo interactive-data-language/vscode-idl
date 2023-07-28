@@ -44,6 +44,7 @@ async function ParseAndFormatCode(code: string) {
   // parse
   let tokenized = await INDEX.getParsedProCode('my_file.pro', code, {
     postProcess: true,
+    isNotebook: true,
   });
 
   // check for missing main level end
@@ -61,6 +62,7 @@ async function ParseAndFormatCode(code: string) {
   if (addEnd) {
     tokenized = await INDEX.getParsedProCode('my_file.pro', code + '\nend', {
       postProcess: true,
+      isNotebook: true,
     });
   }
 
@@ -71,7 +73,8 @@ async function ParseAndFormatCode(code: string) {
     style: {
       hex: STYLE_FLAG_LOOKUP.UPPER,
     },
-    autoFix: false,
+    autoFix: true,
+    autoDoc: false,
   });
 
   // remove extra end if we have it
