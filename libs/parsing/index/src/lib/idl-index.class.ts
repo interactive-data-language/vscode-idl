@@ -1022,7 +1022,9 @@ export class IDLIndex {
 
       // track as known file
       this.knownFiles[file] = undefined;
-      this.fileTypes['pro'].add(file);
+      if (!options.isNotebook) {
+        this.fileTypes['pro'].add(file);
+      }
 
       // alert everyone of new file
       if (this.isMultiThreaded()) {
