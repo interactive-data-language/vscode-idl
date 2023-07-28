@@ -7,6 +7,7 @@ import {
 } from 'vscode-languageserver/node';
 
 import { IDL_INDEX } from '../../file-management/initialize-document-manager';
+import { SERVER_INITIALIZED } from '../../file-management/is-initialized';
 import { GetFileStrings } from '../../helpers/get-file-strings';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 
@@ -16,6 +17,7 @@ import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 export const ON_SEMANTIC_HIGHLIGHTING = async (
   params: SemanticTokensParams
 ): Promise<SemanticTokens> => {
+  await SERVER_INITIALIZED;
   try {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

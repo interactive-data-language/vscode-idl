@@ -6,6 +6,7 @@ import {
 } from 'vscode-languageserver/node';
 
 import { IDL_INDEX } from '../../file-management/initialize-document-manager';
+import { SERVER_INITIALIZED } from '../../file-management/is-initialized';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-and-code-for-uri';
 import { URIFromIDLIndexFile } from '../helpers/uri-from-idl-index-file';
@@ -59,6 +60,7 @@ export async function GetTokenDefinitionLocation(
 export const ON_DEFINITION = async (
   params: TextDocumentPositionParams
 ): Promise<Definition> => {
+  await SERVER_INITIALIZED;
   try {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

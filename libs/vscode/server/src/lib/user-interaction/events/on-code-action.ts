@@ -2,6 +2,7 @@ import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { CodeAction, CodeActionParams } from 'vscode-languageserver/node';
 
+import { SERVER_INITIALIZED } from '../../file-management/is-initialized';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-and-code-for-uri';
 
@@ -11,6 +12,7 @@ import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-and-code-f
 export const ON_CODE_ACTIONS = async (
   params: CodeActionParams
 ): Promise<CodeAction[]> => {
+  await SERVER_INITIALIZED;
   try {
     // IDL_LANGUAGE_SERVER_LOGGER.log({
     //   log: IDL_LSP_LOG,

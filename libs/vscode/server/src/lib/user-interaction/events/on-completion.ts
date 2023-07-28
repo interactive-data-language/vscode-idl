@@ -12,6 +12,7 @@ import {
 } from 'vscode-languageserver/node';
 
 import { IDL_INDEX } from '../../file-management/initialize-document-manager';
+import { SERVER_INITIALIZED } from '../../file-management/is-initialized';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-and-code-for-uri';
@@ -73,6 +74,7 @@ export async function GetAutoCompleteWrapper(
 export const ON_COMPLETION = async (
   position: TextDocumentPositionParams
 ): Promise<CompletionItem[]> => {
+  await SERVER_INITIALIZED;
   try {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
