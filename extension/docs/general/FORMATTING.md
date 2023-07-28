@@ -18,10 +18,12 @@ If not, or you are having problems, then you'll need to manually update your use
 {
   "[idl]": {
     // use the IDL extension as the formatter for PRO code
-    "editor.defaultFormatter": "idl.idl",
+    "editor.defaultFormatter": "idl.idl-for-vscode",
     // format on save for PRO files, nothing else, this can be at the root level too
     "editor.formatOnSave": true
-  }
+  },
+  // format on save for notebooks needs to be enabled at the root level
+  "notebook.formatOnSave.enabled": true
 }
 ```
 
