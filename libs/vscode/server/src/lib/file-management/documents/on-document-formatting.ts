@@ -56,22 +56,22 @@ export const ON_DOCUMENT_FORMATTING = async (
       style: IDL_CLIENT_CONFIG.code.formattingStyle,
     };
 
-    // log information
-    IDL_LANGUAGE_SERVER_LOGGER.log({
-      log: IDL_LSP_LOG,
-      type: 'debug',
-      content: ['Client config', clientConfig],
-    });
+    // // log information
+    // IDL_LANGUAGE_SERVER_LOGGER.log({
+    //   log: IDL_LSP_LOG,
+    //   type: 'debug',
+    //   content: ['Client config', clientConfig],
+    // });
 
     /** Formatting config for info.fsPath */
     const config = IDL_INDEX.getConfigForFile(info.fsPath, clientConfig);
 
-    // log information
-    IDL_LANGUAGE_SERVER_LOGGER.log({
-      log: IDL_LSP_LOG,
-      type: 'debug',
-      content: ['Formatting config', config],
-    });
+    // // log information
+    // IDL_LANGUAGE_SERVER_LOGGER.log({
+    //   log: IDL_LSP_LOG,
+    //   type: 'debug',
+    //   content: ['Formatting config', config],
+    // });
 
     /**
      * Formatted code
@@ -110,11 +110,7 @@ export const ON_DOCUMENT_FORMATTING = async (
       case IDL_INDEX.isPROCode(info.fsPath) ||
         IDL_INDEX.isIDLNotebookFile(info.fsPath): {
         // re-index the info.fsPath
-        const tokens = await IDL_INDEX.getParsedProCode(
-          info.fsPath,
-          info.code,
-          { postProcess: true }
-        );
+        const tokens = await IDL_INDEX.getParsedProCode(info.fsPath, info.code);
 
         // format
         formatted = Assembler(tokens, config);

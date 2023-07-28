@@ -5,7 +5,7 @@ import { IAddDocsMessagePayload } from '@idl/vscode/events/messages';
 import { WorkspaceChange } from 'vscode-languageserver/node';
 import { URI } from 'vscode-uri';
 
-import { GetFileStrings } from '../../helpers/get-file-strings';
+import { GetFileStringsFromFSPath } from '../../helpers/get-file-strings';
 import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_CONNECTION,
@@ -39,7 +39,7 @@ export const ON_ADD_DOCS = async (event: IAddDocsMessagePayload) => {
     // get the tokens for our file
     const tokens = await IDL_INDEX.getParsedProCode(
       file,
-      await GetFileStrings(file)
+      await GetFileStringsFromFSPath(file)
     );
 
     // format

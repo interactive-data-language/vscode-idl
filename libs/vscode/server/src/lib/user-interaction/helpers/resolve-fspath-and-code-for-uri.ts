@@ -38,7 +38,7 @@ export async function ResolveFSPathAndCodeForURI(
       isNotebook: false,
       uri: url,
       fsPath,
-      code: await GetFileStrings(fsPath),
+      code: await GetFileStrings(url),
     };
   }
 
