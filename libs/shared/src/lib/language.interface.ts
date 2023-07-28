@@ -159,3 +159,11 @@ export const IDL_CONFIG_FILE_DOCUMENT_SELECTOR = {
   pattern: TASK_FILE_GLOB_PATTERN,
   scheme: 'file',
 };
+
+/**
+ * Selector for IDL notebook cells
+ */
+export const IDL_NOTEBOOK_CELL_SELECTOR = {
+  scheme: 'vscode-notebook-cell', // only notebook cells
+  language: IDL_LANGUAGE_NAME,
+};

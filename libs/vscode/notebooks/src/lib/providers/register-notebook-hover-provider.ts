@@ -1,3 +1,4 @@
+import { IDL_NOTEBOOK_CELL_SELECTOR } from '@idl/shared';
 import { LANGUAGE_SERVER_CLIENT } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 import {
@@ -6,13 +7,12 @@ import {
 } from 'vscode-languageserver';
 
 import { GetNotebookCellIndex } from '../helpers/get-notebook-cell-index';
-import { IDL_NOTEBOOK_SELECTION_SCHEME } from './providers.interface';
 
 /**
  * Registers our provider for notebook hover help
  */
 export function RegisterNotebookHoverProvider() {
-  vscode.languages.registerHoverProvider(IDL_NOTEBOOK_SELECTION_SCHEME, {
+  vscode.languages.registerHoverProvider(IDL_NOTEBOOK_CELL_SELECTOR, {
     async provideHover(document, position, _token) {
       /**
        * Get notebook and document for index
