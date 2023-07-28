@@ -1,5 +1,6 @@
 import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 
+import { CreateCodeForNotebooks } from './create-code-for-notebooks';
 import { EncodeNotebook } from './encode-notebook';
 import { EncodeNotebookCellContent } from './encode-notebook-cell-content';
 import { RawNotebook, RawNotebookCell } from './raw-notebook.interface';
@@ -22,7 +23,7 @@ const DONT_SAVE_SECTION = /^#+\s*(?:Argument|Keyword|Example)/i;
 /**
  * Converts docs to a nice looking notebook
  */
-export function ConvertDocsToNotebook(
+export async function ConvertDocsToNotebook(
   info: IRetrieveDocsPayload,
   docs: string
 ) {
@@ -76,12 +77,13 @@ export function ConvertDocsToNotebook(
         if (isOpen && lastCode.length > 0) {
           if (!first) {
             if (!lastCode[0].startsWith('   ')) {
-              exampleCells.push({
-                type: 'code',
-                content: EncodeNotebookCellContent(
-                  lastCode.map((codeLine) => codeLine.substring(2)).join('\n')
-                ),
-              });
+              const forCell = await CreateCodeForNotebooks(lastCode);
+              if (forCell) {
+                exampleCells.push({
+                  type: 'code',
+                  content: EncodeNotebookCellContent(forCell),
+                });
+              }
             }
           }
           first = false;
@@ -95,12 +97,15 @@ export function ConvertDocsToNotebook(
       case line.startsWith('#'):
         // do we have content to save?
         if (lastContent.length > 0) {
-          // are we saving this block?
-          if (saveBlock) {
-            (cells.length === 1 ? cells : docsCells).push({
-              type: 'markdown',
-              content: EncodeNotebookCellContent(lastContent.join('\n')),
-            });
+          const combined = lastContent.join('\n');
+          if (combined.trim()) {
+            // are we saving this block?
+            if (saveBlock) {
+              (cells.length === 1 ? cells : docsCells).push({
+                type: 'markdown',
+                content: EncodeNotebookCellContent(combined),
+              });
+            }
           }
 
           // clear content
@@ -131,10 +136,13 @@ export function ConvertDocsToNotebook(
 
   // check if we have a cell to close
   if (lastContent.length > 0 && saveBlock) {
-    docsCells.push({
-      type: 'markdown',
-      content: EncodeNotebookCellContent(lastContent.join('\n')),
-    });
+    const combined = lastContent.join('\n');
+    if (combined.trim()) {
+      docsCells.push({
+        type: 'markdown',
+        content: EncodeNotebookCellContent(combined),
+      });
+    }
   }
 
   // empty
