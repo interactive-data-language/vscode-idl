@@ -8,8 +8,8 @@ import {
 
 import { IDL_INDEX } from '../../file-management/initialize-document-manager';
 import { SERVER_INITIALIZED } from '../../file-management/is-initialized';
-import { GetFileStrings } from '../../helpers/get-file-strings';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-and-code-for-uri';
 
 /**
  * Event handler for adding sematic highlighting
@@ -25,19 +25,21 @@ export const ON_SEMANTIC_HIGHLIGHTING = async (
       content: ['Semantic tokens request', params],
     });
 
-    // get the path to the file to properly save
-    const fsPath = GetFSPath(params.textDocument.uri);
+    /**
+     * Resolve the fspath to our cell and retrieve code
+     */
+    const info = await ResolveFSPathAndCodeForURI(params.textDocument.uri);
 
-    // do nothing
-    if (!IDL_INDEX.isPROCode(fsPath)) {
+    // return if nothing found
+    if (info === undefined) {
       return undefined;
     }
 
+    // get the path to the file to properly save
+    const fsPath = GetFSPath(params.textDocument.uri);
+
     // get sematic tokens
-    const tokens = await IDL_INDEX.getSemanticTokens(
-      fsPath,
-      await GetFileStrings(params.textDocument.uri)
-    );
+    const tokens = await IDL_INDEX.getSemanticTokens(info.fsPath, info.code);
 
     // remove from our main thread lookup
     IDL_INDEX.tokensByFile.remove(fsPath);

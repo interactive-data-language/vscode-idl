@@ -1152,7 +1152,14 @@ export class IDLIndex {
             }
           );
         } else {
-          return this.tokensByFile.get(file);
+          if (this.tokensByFile.has(file)) {
+            return this.tokensByFile.get(file);
+          } else {
+            this.pendingFiles[file] = this.indexProCode(file, code, options);
+            const res = await this.pendingFiles[file];
+            delete this.pendingFiles[file];
+            return res;
+          }
         }
       }
       /**
