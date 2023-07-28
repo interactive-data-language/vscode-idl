@@ -4,6 +4,7 @@ import { URI } from 'vscode-uri';
 import { IDL_INDEX } from '../../file-management/initialize-document-manager';
 import { NOTEBOOK_MANAGER } from '../../file-management/initialize-notebook-manager';
 import { GetFileStrings } from '../../helpers/get-file-strings';
+import { IResolvedFSPathAndCodeForURI } from './resolve-fspath-and-code-for-uri.interface';
 
 /**
  * Given a URI, resolves the appropriate file system path and retrieves
@@ -12,7 +13,7 @@ import { GetFileStrings } from '../../helpers/get-file-strings';
  */
 export async function ResolveFSPathAndCodeForURI(
   url: string
-): Promise<{ fsPath: string; isNotebook: boolean; code: string } | undefined> {
+): Promise<IResolvedFSPathAndCodeForURI | undefined> {
   /**
    * parse the URI for the document
    */
@@ -35,6 +36,7 @@ export async function ResolveFSPathAndCodeForURI(
     // return our information
     return {
       isNotebook: false,
+      uri: url,
       fsPath,
       code: await GetFileStrings(fsPath),
     };
@@ -60,10 +62,15 @@ export async function ResolveFSPathAndCodeForURI(
   // get the cell index
   const idx = nb.cells.findIndex((cell) => cell.document === url);
 
+  // get cell document
+  const cellDoc = NOTEBOOK_MANAGER.getCellTextDocument(nb.cells[idx]);
+
   // return our information
   return {
     isNotebook: true,
+    uri: url,
     fsPath: `${fsPath}#${idx}`,
-    code: NOTEBOOK_MANAGER.getCellTextDocument(nb.cells[idx]).getText(),
+    code: cellDoc.getText(),
+    doc: cellDoc,
   };
 }

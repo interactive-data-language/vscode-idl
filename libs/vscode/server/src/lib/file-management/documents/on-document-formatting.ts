@@ -7,7 +7,6 @@ import {
 import { ParsedTask } from '@idl/data-types/tasks';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { LoadTask } from '@idl/schemas/tasks';
-import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
@@ -15,6 +14,7 @@ import { GetFileStrings } from '../../helpers/get-file-strings';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { UpdateDocument } from '../../helpers/update-document';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { ResolveFSPathAndCodeForURI } from '../../user-interaction/helpers/resolve-fspath-and-code-for-uri';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
@@ -35,11 +35,18 @@ export const ON_DOCUMENT_FORMATTING = async (
       content: ['Document format request', event],
     });
 
-    /** Path to file on disk */
-    const file = GetFSPath(event.textDocument.uri);
+    /**
+     * Resolve the fspath to our cell and retrieve code
+     */
+    const info = await ResolveFSPathAndCodeForURI(event.textDocument.uri);
+
+    // return if nothing found
+    if (info === undefined) {
+      return undefined;
+    }
 
     /**
-     * Make default formatting config for file
+     * Make default formatting config for info.fsPath
      *
      * Use settings from VSCode client as our default
      */
@@ -56,8 +63,8 @@ export const ON_DOCUMENT_FORMATTING = async (
       content: ['Client config', clientConfig],
     });
 
-    /** Formatting config for file */
-    const config = IDL_INDEX.getConfigForFile(file, clientConfig);
+    /** Formatting config for info.fsPath */
+    const config = IDL_INDEX.getConfigForFile(info.fsPath, clientConfig);
 
     // log information
     IDL_LANGUAGE_SERVER_LOGGER.log({
@@ -78,18 +85,18 @@ export const ON_DOCUMENT_FORMATTING = async (
       /**
        * Handle task files and manually handle errors from loading tasks
        */
-      case IDL_INDEX.isTaskFile(file): {
+      case IDL_INDEX.isTaskFile(info.fsPath): {
         let task: ParsedTask;
         try {
           task = await LoadTask(
-            file,
+            info.fsPath,
             await GetFileStrings(event.textDocument.uri)
           );
         } catch (err) {
           IDL_LANGUAGE_SERVER_LOGGER.log({
             log: IDL_LSP_LOG,
             type: 'error',
-            content: ['Error parsing/loading task file', err],
+            content: ['Error parsing/loading task info.fsPath', err],
             alert: IDL_TRANSLATION.tasks.parsing.errors.invalidTaskFile,
           });
           return;
@@ -100,19 +107,20 @@ export const ON_DOCUMENT_FORMATTING = async (
       /**
        * Handle PRO code
        */
-      case IDL_INDEX.isPROCode(file): {
-        // re-index the file
+      case IDL_INDEX.isPROCode(info.fsPath) ||
+        IDL_INDEX.isIDLNotebookFile(info.fsPath): {
+        // re-index the info.fsPath
         const tokens = await IDL_INDEX.getParsedProCode(
-          file,
-          await GetFileStrings(event.textDocument.uri),
+          info.fsPath,
+          info.code,
           { postProcess: true }
         );
 
         // format
         formatted = Assembler(tokens, config);
 
-        // remove file from memory cache
-        IDL_INDEX.tokensByFile.remove(file);
+        // remove info.fsPath from memory cache
+        IDL_INDEX.tokensByFile.remove(info.fsPath);
         break;
       }
       default:
@@ -127,14 +135,14 @@ export const ON_DOCUMENT_FORMATTING = async (
         content: IDL_TRANSLATION.lsp.events.onDocumentFormattingProblemCode,
         alert: IDL_TRANSLATION.lsp.events.onDocumentFormattingProblemCode,
         alertMeta: {
-          file,
+          file: info.fsPath,
         },
       });
       return;
     }
 
-    // update file
-    UpdateDocument(event.textDocument.uri, formatted);
+    // update doc
+    await UpdateDocument(info.uri, formatted, info.doc);
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
