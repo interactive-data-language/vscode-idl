@@ -146,6 +146,10 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
       IDL_DOCUMENT_SELECTOR,
       TASK_FILE_DOCUMENT_SELECTOR,
       IDL_CONFIG_FILE_DOCUMENT_SELECTOR,
+      {
+        scheme: 'vscode-notebook-cell', // only notebook cells
+        language: IDL_LANGUAGE_NAME,
+      },
     ],
     synchronize: {
       // Notify the server about file changes to IDL-related files contained in the workspace

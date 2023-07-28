@@ -1,4 +1,5 @@
-import { GetFSPath } from '@idl/shared';
+import { CleanPath } from '@idl/shared';
+import { URI } from 'vscode-uri';
 
 import { IDL_INDEX } from '../../file-management/initialize-document-manager';
 import { NOTEBOOK_MANAGER } from '../../file-management/initialize-notebook-manager';
@@ -10,22 +11,22 @@ import { GetFileStrings } from '../../helpers/get-file-strings';
  * this logic which accounts for notebooks and PRO code.
  */
 export async function ResolveFSPathAndCodeForURI(
-  uri: string
+  url: string
 ): Promise<{ fsPath: string; isNotebook: boolean; code: string } | undefined> {
   /**
-   * Split on hashtag in case we have a notebook coming through
+   * parse the URI for the document
    */
-  const split = uri.split('#');
+  const parsed = URI.parse(url);
 
   /**
    * Get official FSPath for root file
    */
-  const fsPath = GetFSPath(split[0]);
+  const fsPath = CleanPath(parsed.fsPath);
 
   /**
    * Check if PRO code
    */
-  if (split.length === 1) {
+  if (parsed.scheme === 'file') {
     // do nothing
     if (!IDL_INDEX.isPROCode(fsPath)) {
       return undefined;
@@ -35,7 +36,7 @@ export async function ResolveFSPathAndCodeForURI(
     return {
       isNotebook: false,
       fsPath,
-      code: await GetFileStrings(uri),
+      code: await GetFileStrings(fsPath),
     };
   }
 
@@ -49,17 +50,20 @@ export async function ResolveFSPathAndCodeForURI(
   /**
    * get notebook document
    */
-  const nb = NOTEBOOK_MANAGER.getNotebookDocument(split[0]);
+  const nb = NOTEBOOK_MANAGER.getNotebookDocument(URI.file(fsPath).toString());
 
   // return if no matching notebook
   if (nb === undefined) {
     return undefined;
   }
 
+  // get the cell index
+  const idx = nb.cells.findIndex((cell) => cell.document === url);
+
   // return our information
   return {
     isNotebook: true,
-    fsPath: `${fsPath}#${split[1]}`,
-    code: NOTEBOOK_MANAGER.getCellTextDocument(nb.cells[+split[1]]).getText(),
+    fsPath: `${fsPath}#${idx}`,
+    code: NOTEBOOK_MANAGER.getCellTextDocument(nb.cells[idx]).getText(),
   };
 }
