@@ -12,11 +12,11 @@ export const ON_CODE_ACTIONS = async (
   params: CodeActionParams
 ): Promise<CodeAction[]> => {
   try {
-    IDL_LANGUAGE_SERVER_LOGGER.log({
-      log: IDL_LSP_LOG,
-      type: 'debug',
-      content: ['CodeAction request', params],
-    });
+    // IDL_LANGUAGE_SERVER_LOGGER.log({
+    //   log: IDL_LSP_LOG,
+    //   type: 'debug',
+    //   content: ['CodeAction request', params],
+    // });
 
     /**
      * Resolve the fspath to our cell and retrieve code
