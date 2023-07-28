@@ -167,7 +167,14 @@ export function InitializeServer() {
         definitionProvider: true,
         workspaceSymbolProvider: true,
         documentSymbolProvider: true,
-        hoverProvider: true,
+        /**
+         * This is a ruse :)
+         *
+         * The actual implementation of hover help comes from: libs/vscode/client/src/lib/register-hover-provider.ts
+         * which makes "trusted" markdown so we can embed commands and anything else in what gets returned
+         * for a better user experience
+         */
+        hoverProvider: false,
         documentFormattingProvider: true,
         semanticTokensProvider: {
           legend: SEMANTIC_TOKEN_LEGEND,

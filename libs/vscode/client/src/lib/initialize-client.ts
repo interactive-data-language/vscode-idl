@@ -21,6 +21,7 @@ import { CLIENT_LOG_INTERCEPTOR } from './logger/client-log-interceptor';
 import { LOG_ALERT_CALLBACK } from './logger/log-alert-callback';
 import { RegisterClientCommands } from './register-client-commands';
 import { RegisterCodeCommands } from './register-code-commands';
+import { RegisterHoverProvider } from './register-hover-provider';
 import {
   LANGUAGE_SERVER_CLIENT,
   LANGUAGE_SERVER_FAILED_START,
@@ -188,6 +189,9 @@ export async function InitializeClient(
 
   // start the language server
   await StartLanguageServer(ctx);
+
+  // register custom hover provider
+  RegisterHoverProvider();
 
   return {
     logger: IDL_LOGGER,
