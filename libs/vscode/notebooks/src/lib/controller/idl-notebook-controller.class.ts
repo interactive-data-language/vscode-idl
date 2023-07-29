@@ -25,7 +25,7 @@ import {
 } from '@idl/vscode/debug';
 import { DOT_IDL_FOLDER } from '@idl/vscode/shared';
 import copy from 'fast-copy';
-import { writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import * as vscode from 'vscode';
 
@@ -637,6 +637,11 @@ export class IDLNotebookController {
      * temp folder for notebook cell
      */
     const fsPath = join(DOT_IDL_FOLDER, 'notebook_cell.pro');
+
+    // make our folder if it doesnt exist
+    if (!existsSync(DOT_IDL_FOLDER)) {
+      mkdirSync(DOT_IDL_FOLDER, { recursive: true });
+    }
 
     /**
      * Get strings for our cell
