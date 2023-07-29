@@ -1,6 +1,9 @@
-import { EXTENSION_FULL_NAME } from '@idl/shared';
+import { EXTENSION_FULL_NAME, GetExtensionPath } from '@idl/shared';
 import { Sleep } from '@idl/test-helpers';
 import { IInitializeType } from '@idl/vscode/initialize-types';
+import { OpenFileInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
+import expect from 'expect';
+import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';
 
 import { TestRunner } from './tests/runner';
@@ -34,18 +37,57 @@ export async function run(): Promise<void> {
     // get extension
     const ext = vscode.extensions.getExtension(EXTENSION_FULL_NAME);
 
+    console.log(ext);
+
     // activate extension
     ACTIVATION_RESULT = await ext.activate();
 
     // wait for language server to start
     console.log(` `);
     console.log('Waiting for language server start');
-    await Sleep(3000);
 
-    // make sure the language server starts
-    if (ACTIVATION_RESULT.client.failedStart) {
-      throw new Error('Language server failed to start, cannot proceed');
+    /** Open PRO code */
+    const doc = await OpenFileInVSCode(
+      GetExtensionPath('idl/test/client-e2e/problems_track_right.pro')
+    );
+
+    // flag if we have started or not
+    let started = false;
+
+    /** Get start time */
+    const t0 = performance.now();
+
+    // get start time
+    while (!started) {
+      // make sure the language server starts
+      if (ACTIVATION_RESULT.client.failedStart) {
+        throw new Error('Language server failed to start, cannot proceed');
+      }
+
+      // make sure we dont wait forever
+      if (performance.now() - t0 > 10000) {
+        throw new Error(
+          'Language server took longer than 10 seconds to return diagnostics, assuming failed start'
+        );
+      }
+
+      // check if we have problems
+      started = vscode.languages.getDiagnostics(doc.uri).length > 0;
+
+      // pause
+      await Sleep(100);
     }
+
+    // track how long it took to start
+    console.log(
+      `Language server started in ${Math.floor(performance.now() - t0)} ms`
+    );
+
+    // verify we have problems
+    expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(3);
+
+    // close editor
+    await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 
     // check if we allow debug logs
     if (DEBUG_LOGS) {
