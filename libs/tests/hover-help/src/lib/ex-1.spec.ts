@@ -31,6 +31,7 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
 
     // define expected token we extract
     const expectedFound_0: string[] = [
+      '[Open in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22p%22,%22name%22:%22awesomeRasterIntersection%22%7D)',
       '',
       '```idl',
       'awesomeRasterIntersection, $',

@@ -29,6 +29,7 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
+      '[Open in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22f%22,%22name%22:%22myclass%22%7D)',
       '',
       '```idl',
       'result = myclass.Init()',
@@ -73,7 +74,7 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/enviRaster.html)',
+      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/enviRaster.html) | [Open in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22f%22,%22name%22:%22ENVIRaster%22%7D)',
       '',
       '```idl',
       'result = ENVIRaster( [ data ], $',

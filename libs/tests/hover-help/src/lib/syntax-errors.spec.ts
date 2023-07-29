@@ -29,7 +29,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/BYTARR.html)',
+      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/BYTARR.html) | [Open in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22f%22,%22name%22:%22bytarr%22%7D)',
       '',
       '```idl',
       'result = bytarr( [ d1 ], [ d2 ], [ d3 ], [ d4 ], [ d5 ], [ d6 ], [ d7 ], [ d8 ], $',
@@ -128,7 +128,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/BYTARR.html)',
+      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/BYTARR.html) | [Open in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22f%22,%22name%22:%22bytarr%22%7D)',
       '',
       '```idl',
       'result = bytarr( [ d1 ], [ d2 ], [ d3 ], [ d4 ], [ d5 ], [ d6 ], [ d7 ], [ d8 ], $',

@@ -31,7 +31,7 @@ describe(`[auto generated] Correctly does not provide hover help`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/PLOT.html)',
+      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/PLOT.html) | [Open in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22f%22,%22name%22:%22plot%22%7D)',
       '',
       '```idl',
       'result = plot( [ x ], [ y ], [ format ], [ equation ], $',
