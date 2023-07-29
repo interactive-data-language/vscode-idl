@@ -1,6 +1,8 @@
+import { NOTEBOOK_FOLDER } from '@idl/notebooks';
 import { GetExtensionPath, Sleep } from '@idl/shared';
 import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
+import { existsSync, unlinkSync } from 'fs';
 import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
@@ -112,6 +114,11 @@ export const RunTestNotebook: RunnerFunction = async (init) => {
    * Get the file we are going to open
    */
   const file = GetExtensionPath('idl/test/client-e2e/test-notebook.idlnb');
+
+  // nuke .idl folder if it exists
+  if (existsSync(NOTEBOOK_FOLDER)) {
+    unlinkSync(NOTEBOOK_FOLDER);
+  }
 
   /**
    * Open the notebook
