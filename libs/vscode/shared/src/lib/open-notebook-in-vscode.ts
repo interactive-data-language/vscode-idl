@@ -48,8 +48,9 @@ export async function OpenNotebookInVSCode(
       bySide
         ? {
             viewColumn: column,
+            preserveFocus: false,
           }
-        : {}
+        : { preserveFocus: false }
     );
   }
   return doc;
