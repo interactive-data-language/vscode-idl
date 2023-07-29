@@ -62,6 +62,8 @@ For routine documentation, add button "Open in Notebook" Which opens the routine
 
 Disable language server hover help and manually request hover help through VSCode so we can embed commands within "trusted" markdown content
 
+Fixed a problem when running notebook cells that would cause them to fail executing when the .idl sub-folder we use wasn't present and added tests for it
+
 ## 3.1.3 July 2023
 
 Fix bug where, if you had a function or procedure without a name, parsing would occasionally break and cause a bad state for the language server
