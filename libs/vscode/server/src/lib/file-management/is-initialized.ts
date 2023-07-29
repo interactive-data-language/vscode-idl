@@ -1,5 +1,6 @@
 import { IDL_LSP_LOG } from '@idl/logger';
 import { NUM_WORKERS } from '@idl/parsing/index';
+import { IDL_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/parsing/problem-codes';
 import {
   RoundToNearest,
   SystemMemoryGB,
@@ -15,6 +16,10 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { arch, cpus, platform } from 'os';
 
 import { CacheValidFSPath } from '../helpers/cache-valid';
+import {
+  IGNORE_PROBLEM_CODES,
+  INCLUDE_PROBLEMS_FOR,
+} from '../helpers/merge-config';
 import { SendProblems } from '../helpers/send-problems';
 import { SendUsageMetricServer } from '../helpers/send-usage-metric-server';
 import { IDL_CLIENT_CONFIG } from '../helpers/track-workspace-config';
@@ -70,6 +75,19 @@ export const SERVER_INFO = Promise.all([
 // on initialization, load global tokens
 SERVER_INFO.then(async (res) => {
   try {
+    // log information about what we
+    IDL_LANGUAGE_SERVER_LOGGER.log({
+      log: IDL_LSP_LOG,
+      type: 'info',
+      content: [
+        'Problem inclusion filters and ignore problem codes',
+        INCLUDE_PROBLEMS_FOR,
+        Object.keys(IGNORE_PROBLEM_CODES).map(
+          (code) => IDL_PROBLEM_CODE_ALIAS_LOOKUP[code]
+        ),
+      ],
+    });
+
     // send debug event about garbage collection
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
