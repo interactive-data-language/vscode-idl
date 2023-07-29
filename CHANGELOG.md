@@ -30,6 +30,24 @@ Here are some of the features that notebooks bring:
 
 - Only support for IDL code (no Python or other languages at this time)
 
+## 3.1.4 August 2023
+
+Normalized language server events to all wait for startup before they process requests from VSCode
+
+Get framework for supporting notebook cells in language server with first pass at same language server methods for PRO files and notebooks
+
+Re-work the ENVI and IDL documentation parse logic to use "Online Docs" instead of the routine name and a link for the web-version of documentation
+
+Use better practices when normalizing code from docs. We now auto-fix problems so that compile-opt idl2 and other best-practices are always present
+
+For routine documentation, add button "Open in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells
+
+- By default, the notebook opens to the side. If you have one editor group open, a new one is created to the right.
+
+- If more than one editor group is open, we open to the left or the right of the active editor, depending on which editor is active (this makes sure we don't keep opening new tabs)
+
+Disable language server hover help and manually request hover help through VSCode so we can embed commands within "trusted" markdown content
+
 ## 3.1.3 July 2023
 
 Fix bug where, if you had a function or procedure without a name, parsing would occasionally break and cause a bad state for the language server
