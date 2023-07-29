@@ -161,6 +161,7 @@
     "workspaceContains:**/*.pro",
     "workspaceContains:**/*idl.json",
     "workspaceContains:**/*.task",
+    "workspaceContains:**/*.idlnb",
     "onWebviewPanel:idlPanel",
     "onDebug"
   ],
