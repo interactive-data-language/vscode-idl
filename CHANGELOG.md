@@ -44,6 +44,8 @@ Here are some of the features that notebooks bring:
 
 ## 3.1.4 August 2023
 
+Resolved an issue where problems were not being synced when no workspaces were open in VSCode and added tests to verify they are sent.
+
 Normalized language server events to all wait for startup before they process requests from VSCode
 
 Get framework for supporting notebook cells in language server with first pass at same language server methods for PRO files and notebooks
