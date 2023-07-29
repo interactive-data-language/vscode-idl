@@ -3,7 +3,10 @@ import { IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/parsing/problem-code
 import copy from 'fast-copy';
 
 import { GLOBAL_SERVER_SETTINGS } from '../initialize-server';
-import { WORKSPACE_FOLDER_CONFIGS } from './track-workspace-config';
+import {
+  IDL_CLIENT_CONFIG,
+  WORKSPACE_FOLDER_CONFIGS,
+} from './track-workspace-config';
 
 /**
  * Track all problem codes that we want to filter out from being reported to the user
@@ -33,7 +36,9 @@ const RECURSIVE_REGEX = /^\+/i;
  */
 export function MergeConfig() {
   // get all configs
-  const configs = Object.values(WORKSPACE_FOLDER_CONFIGS);
+  const configs = Object.values(WORKSPACE_FOLDER_CONFIGS).concat(
+    IDL_CLIENT_CONFIG
+  );
 
   // copy existing folders
   const oldFolders = copy(IDL_PATH_FOLDERS);
