@@ -2,7 +2,7 @@ import { NOTEBOOK_FOLDER } from '@idl/notebooks';
 import { GetExtensionPath, Sleep } from '@idl/shared';
 import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
-import { existsSync, unlinkSync } from 'fs';
+import { existsSync, rmSync } from 'fs';
 import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
@@ -117,7 +117,7 @@ export const RunTestNotebook: RunnerFunction = async (init) => {
 
   // nuke .idl folder if it exists
   if (existsSync(NOTEBOOK_FOLDER)) {
-    unlinkSync(NOTEBOOK_FOLDER);
+    rmSync(NOTEBOOK_FOLDER, { recursive: true, force: true });
   }
 
   /**
