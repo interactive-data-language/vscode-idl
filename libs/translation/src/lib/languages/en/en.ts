@@ -199,9 +199,9 @@ export const EN: ITranslation = {
         '**Experimental and not all features may work when disabled**\n\nWhen the language server starts up, do we fully parse the code in workspaces and on your path?\n\nA full parse checks for syntax and type errors to give more insights into your code without opening each file. However, for large code bases (>1 million lines of code), this uses about 3x more CPU RAM and is about 50% slower.\n\nIf more than one workspace is open, and this is enabled for any workspace, we apply it for all open workspaces.',
 
       'problems.includeProblemsFromIDLPackages':
-        'Report problems for all files on IDL path. This permits problem reporting for any file that is found on the IDL Path preference. If this is set in any open workspace, it applies to all of them.',
-      'problems.includeProblemsFromIDLPath':
         'Report problems for all files where we find "idl_packages" in the path. This permits problem reporting from external libraries. If this is set in any open workspace, it applies to all of them.',
+      'problems.includeProblemsFromIDLPath':
+        'Report problems for all files on IDL path. This permits problem reporting for any file that is found on the IDL Path preference. If this is set in any open workspace, it applies to all of them.',
       'problems.ignoreProblems':
         'Specify the problem code to ignore and not report to Visual Studio Code',
 
