@@ -1,5 +1,5 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { ConvertDocsToNotebook, NOTEBOOK_FOLDER } from '@idl/notebooks';
+import { ConvertDocsToNotebook, DOCS_NOTEBOOK_FOLDER } from '@idl/notebooks';
 import { IDL_COMMANDS, IDL_NOTEBOOK_EXTENSION } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
@@ -118,12 +118,12 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           }
 
           // make folder if it doesnt exist
-          if (!existsSync(NOTEBOOK_FOLDER)) {
-            mkdirSync(NOTEBOOK_FOLDER, { recursive: true });
+          if (!existsSync(DOCS_NOTEBOOK_FOLDER)) {
+            mkdirSync(DOCS_NOTEBOOK_FOLDER, { recursive: true });
           }
 
           const file = join(
-            NOTEBOOK_FOLDER,
+            DOCS_NOTEBOOK_FOLDER,
             `docs.${arg.name.toLowerCase().replace(/!|:/gim, '_')}.${
               arg.type
             }${IDL_NOTEBOOK_EXTENSION}`

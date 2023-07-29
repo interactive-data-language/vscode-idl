@@ -1,6 +1,7 @@
 export * from './lib/activity-bar.interface';
 export * from './lib/clean-path';
 export * from './lib/completion-trigger-characters.interface';
+export * from './lib/dot-idl-folder.interface';
 export * from './lib/envi-opener.interface';
 export * from './lib/get-extension-path';
 export * from './lib/get-fs-path';

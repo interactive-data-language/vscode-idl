@@ -1,11 +1,8 @@
-import { GetFSPath } from '@idl/shared';
+import { DOT_IDL_FOLDER, GetFSPath } from '@idl/shared';
 import { homedir } from 'os';
 import * as vscode from 'vscode';
 
-import {
-  DOT_IDL_FOLDER,
-  VARIABLES_REFERENCE_REGEX,
-} from './variables-reference-substitution.interface';
+import { VARIABLES_REFERENCE_REGEX } from './variables-reference-substitution.interface';
 
 /**
  * Helper function that replaces variables similar in syntax to
