@@ -14,21 +14,25 @@ Here are some of the features that notebooks bring:
 
 - Notebook files should end with the extension ".idlnb" which are managed and rendered by the IDL extension.
 
-  - At this time, notebooks only save markdown and code cells. We do not save/restore outputs from cells, but this will be coming in the future.
+  - Basic notebook functionality for saving (including outputs and images) and restoring all works as expected
 
-  - Notebooks do not embed graphics as a part of the notebook. However, this will likely be coming in the future.
+  - Notebooks embed images. If you use function or object graphics, all windows will be embedded.
+
+    - At this time, there may be some graphics that shouldn't be grabbed (like when you run ENVI processing with the ENVI UI open)
 
   - Notebooks do not embed widgets.
 
-- Notebooks support highlighting, problem reporting, hover help, auto-complete, and go-to-definition
+  - Notebooks only support Markdown and IDL cell types
 
-- Basic ability to run cells.
+- Notebooks support highlighting, problem reporting, hover help, auto-complete, go-to-definition, formatting, and semantic token highlighting.
+
+> Pro tip: See the FORMATTING.md doc for information regarding how to format notebooks on save.
+
+- Ability to run cells:
 
   - This does **NOT** include debugging and interactively stepping through code at this point in time
 
   - Because we do not have debugging, after each cell is executed we issue a `retall` command to IDL to make sure that we are at the top-level
-
-- Only support for IDL code (no Python or other languages at this time)
 
 ## 3.1.4 August 2023
 
