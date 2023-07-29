@@ -48,7 +48,7 @@ export async function run(): Promise<void> {
 
     /** Open PRO code */
     const doc = await OpenFileInVSCode(
-      GetExtensionPath('idl/test/client-e2e/problems_track_right.pro')
+      GetExtensionPath('idl/test/client-e2e/load_first_problems.pro')
     );
 
     // flag if we have started or not
