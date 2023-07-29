@@ -129,12 +129,6 @@ export class IDL extends EventEmitter {
       return;
     }
 
-    // start our idl debug session and wait for prompt ready
-    this.log.log({
-      type: 'debug',
-      content: ['Starting IDL'],
-    });
-
     // set the location of IDL as variable if it is not already
     if (!('IDL_DIR' in args.env)) {
       args.env.IDL_DIR = path.dirname(path.dirname(args.config.IDL.directory));
@@ -169,6 +163,20 @@ export class IDL extends EventEmitter {
 
     // build the command for starting IDL
     const cmd = `${args.config.IDL.directory}${path.sep}idl`;
+
+    // start our idl debug session and wait for prompt ready
+    this.log.log({
+      type: 'info',
+      content: [
+        'Starting IDL',
+        {
+          cmd,
+          dir: args.env.IDL_DIR,
+          path: args.env.IDL_PATH,
+          dlm_path: args.env.IDL_DLM_PATH,
+        },
+      ],
+    });
 
     // launch IDL with the environment from our parent process and in the specified folder
     this.idl = spawn(cmd, null, { env: args.env, cwd: args.cwd });
