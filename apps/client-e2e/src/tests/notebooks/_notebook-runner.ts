@@ -1,6 +1,7 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
+import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { RunNotebookRestart } from './notebook-restart';
 import { RunNotebookStop } from './notebook-stop';
 import { RunTestNotebook } from './run-test-notebook';
@@ -45,4 +46,10 @@ NOTEBOOK_RUNNER.addTest({
   name: 'Stop does the right thing',
   fn: RunNotebookStop,
   critical: true,
+});
+
+// stop at the end to make sure the process exits
+NOTEBOOK_RUNNER.addTest({
+  name: 'Notebook problems track right',
+  fn: NotebookProblemsTrackRight,
 });
