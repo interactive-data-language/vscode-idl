@@ -25,24 +25,16 @@ if (!existsSync(lib)) {
 }
 
 /**
- * Test file search performance
+ * Full performance test
  */
-ParsingPerformanceRunner('C:\\TradeshowContent', {
-  method: 'file-search',
+ParsingPerformanceRunner(lib, {
+  method: 'index-single',
   compression: true,
-  multiplier: 4,
+  multiplier: 1,
+  full: true,
+  postProcess: true,
+  changeDetection: false,
 })
-  /**
-   * Full performance test
-   */
-  // ParsingPerformanceRunner(lib, {
-  //   method: 'index-single',
-  //   compression: true,
-  //   multiplier: 4,
-  //   full: true,
-  //   postProcess: true,
-  //   changeDetection: false,
-  // })
   .then(
     () => process.exit(),
     (err) => {
