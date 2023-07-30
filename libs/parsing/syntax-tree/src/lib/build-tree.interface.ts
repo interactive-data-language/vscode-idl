@@ -135,9 +135,9 @@ export interface IParsed extends IFoundTokens {
    * If we have set a token cache or not
    */
   hasCache: boolean;
-  /** Information regarding the state of our code */
+  /** Problems found within code from basic parsing */
   parseProblems: SyntaxProblems;
-  /** Problems from post processing which get reset every time we post-process */
+  /** Problems from post processing (type errors) which get reset every time we post-process */
   postProcessProblems: SyntaxProblems;
   /** Tokens converted into syntax tree */
   tree: SyntaxTree;
@@ -147,7 +147,7 @@ export interface IParsed extends IFoundTokens {
   local: ILocalTokens;
   /** Compile options by routine */
   compile: ICompileOptions;
-  /** Global constructs that we call so we can do more checks */
+  /** Global constructs that we call (for change detection) */
   uses: UsesTheseGlobalTokens;
 }
 
