@@ -75,6 +75,7 @@
         "libs/tests/local-global-scope-compile/src/index.ts"
       ],
       "@idl/tests/outline": ["libs/tests/outline/src/index.ts"],
+      "@idl/tests/semantic-tokens": ["libs/tests/semantic-tokens/src/index.ts"],
       "@idl/tests/syntax-post-processors": [
         "libs/tests/syntax-post-processors/src/index.ts"
       ],
