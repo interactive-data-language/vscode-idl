@@ -1,6 +1,5 @@
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
