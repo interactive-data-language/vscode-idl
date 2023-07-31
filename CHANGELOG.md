@@ -54,7 +54,7 @@ Re-work the ENVI and IDL documentation parse logic to use "Online Docs" instead 
 
 Use better practices when normalizing code from docs. We now auto-fix problems so that compile-opt idl2 and other best-practices are always present
 
-For routine documentation, add button "Open in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells
+For routine documentation, add button "Open Examples in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells
 
 - If there are no code block examples for the routine you are hovered over, no notebook will appear
 

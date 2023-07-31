@@ -184,7 +184,7 @@ export async function GetHoverHelp(
           /**
            * Make command to open in notebook
            */
-          const cmd = `[Open in Notebook](command:${
+          const cmd = `[Open Examples in Notebook](command:${
             IDL_COMMANDS.NOTEBOOKS.HELP_AS_NOTEBOOK
           }?${encodeURI(JSON.stringify(info))})`;
 
