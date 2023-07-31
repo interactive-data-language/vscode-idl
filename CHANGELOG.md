@@ -44,6 +44,14 @@ Here are some of the features that notebooks bring:
 
 ## 3.1.4 August 2023
 
+For routine documentation, add button "Open Examples in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells
+
+- If there are no code block examples for the routine you are hovered over, no notebook will appear
+
+- By default, the notebook opens to the side. If you have one editor group open, a new one is created to the right.
+
+- If more than one editor group is open, we open to the left or the right of the active editor, depending on which editor is active (this makes sure we don't keep opening new tabs)
+
 Resolved an issue where problems were not being synced when no workspaces were open in VSCode and added tests to verify they are sent.
 
 Normalized language server events to all wait for startup before they process requests from VSCode
@@ -53,14 +61,6 @@ Get framework for supporting notebook cells in language server with first pass a
 Re-work the ENVI and IDL documentation parse logic to use "Online Docs" instead of the routine name and a link for the web-version of documentation
 
 Use better practices when normalizing code from docs. We now auto-fix problems so that compile-opt idl2 and other best-practices are always present
-
-For routine documentation, add button "Open Examples in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells
-
-- If there are no code block examples for the routine you are hovered over, no notebook will appear
-
-- By default, the notebook opens to the side. If you have one editor group open, a new one is created to the right.
-
-- If more than one editor group is open, we open to the left or the right of the active editor, depending on which editor is active (this makes sure we don't keep opening new tabs)
 
 Fixed a problem when running notebook cells that would cause them to fail executing when the .idl sub-folder we use wasn't present and added tests for it
 
