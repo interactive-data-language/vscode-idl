@@ -599,6 +599,8 @@ export const EN: ITranslation = {
       stoppingIDL: 'Stopping IDL',
       idlNotStarted:
         'IDL has not started for notebooks. It automatically starts when you run a code cell.',
+      noExamplesFoundInDocs:
+        'No examples found in documentation to create notebook from',
     },
   },
   notifications: {

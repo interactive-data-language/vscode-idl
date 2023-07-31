@@ -575,6 +575,8 @@ export interface ITranslation {
       stoppingIDL: string;
       /** When IDL hasnt started */
       idlNotStarted: string;
+      /** No examples when opening notebook */
+      noExamplesFoundInDocs: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */

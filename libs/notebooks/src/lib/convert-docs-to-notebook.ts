@@ -22,6 +22,8 @@ const DONT_SAVE_SECTION = /^#+\s*(?:Argument|Keyword|Example)/i;
 
 /**
  * Converts docs to a nice looking notebook
+ *
+ * Returns `undefined` if there are no example code cells
  */
 export async function ConvertDocsToNotebook(
   info: IRetrieveDocsPayload,
@@ -147,6 +149,11 @@ export async function ConvertDocsToNotebook(
 
   // empty
   lastContent.splice(0, lastContent.length);
+
+  // if no examples, return
+  if (exampleCells.length === 0) {
+    return undefined;
+  }
 
   // check if we have example cells to add in
   if (exampleCells.length > 0) {

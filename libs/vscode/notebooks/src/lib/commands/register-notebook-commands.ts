@@ -137,6 +137,16 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             arg
           );
 
+          const converted = await ConvertDocsToNotebook(arg, resp.docs);
+
+          // check if we have no examples
+          if (converted === undefined) {
+            vscode.window.showInformationMessage(
+              IDL_TRANSLATION.notebooks.notifications.noExamplesFoundInDocs
+            );
+            return false;
+          }
+
           // make notebook and save to disk
           writeFileSync(file, await ConvertDocsToNotebook(arg, resp.docs));
 
