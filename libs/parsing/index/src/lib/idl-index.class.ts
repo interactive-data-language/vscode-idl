@@ -1489,7 +1489,7 @@ export class IDLIndex {
   /**
    * Buckets files by file type
    */
-  private bucketFiles(files: string[]) {
+  bucketFiles(files: string[]) {
     /** PRO files */
     const proFiles: string[] = [];
 
