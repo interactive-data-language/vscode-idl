@@ -27,6 +27,7 @@
 ;   raster = e.openRaster(File)
 ;
 ;   ; display in the current notebook cell
+;   ; which requires this to be running in a notebook
 ;   e.displayInNotebook, raster
 ;   ```
 ;
