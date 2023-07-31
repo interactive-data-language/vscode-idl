@@ -21,8 +21,6 @@ pro Graphic::Refresh, disable = disable
         if (~wasDisabled) then begin
           oWin = oTool.GetCurrentWindow()
           if (!magic.embed) then begin
-            defsysv, '!super_magic', exists = _exists
-            if ~_exists then defsysv, '!super_magic', orderedhash()
             !magic.window = obj_valid(oWin, /get_heap_id)
             !magic.type = 1
             dim = oWin.dimensions

@@ -29,7 +29,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import * as vscode from 'vscode';
 
-import { BangMagic } from './bang-magic.interface';
+import { BangENVIMagic, BangMagic } from './bang-magic.interface';
 import { ICurrentCell } from './idl-notebook-controller.interface';
 
 /**
@@ -225,6 +225,35 @@ export class IDLNotebookController {
   }
 
   /**
+   * Add encoded base64 PNG to the current output notebook cell
+   */
+  private addImageToCell(
+    cell: ICurrentCell,
+    encoded: string,
+    width: number,
+    height: number
+  ) {
+    /**
+     * Styles for the element to fil the space, but not exceed 1:1 dimensions
+     */
+    const style = `style="width:100%;height:100%;max-width:${width}px;max-height:${height}px;"`;
+
+    // add as output
+    cell.execution.appendOutput(
+      new vscode.NotebookCellOutput([
+        /**
+         * Use HTML because it works. Using the other mimetype *probably* works
+         * but this works right now :)
+         */
+        new vscode.NotebookCellOutputItem(
+          Buffer.from(`<img src="data:image/png;base64,${encoded}" ${style}/>`),
+          'text/html'
+        ),
+      ])
+    );
+  }
+
+  /**
    * Post-evaluation expression
    *
    * You should check the "launched" property before calling this
@@ -236,6 +265,32 @@ export class IDLNotebookController {
     }
 
     await this.evaluate(`retall`);
+
+    // return if no cell
+    if (cell === undefined) {
+      return;
+    }
+
+    /**
+     * Get additional windows
+     */
+    const enviMagic: BangENVIMagic[] = JSON.parse(
+      CleanIDLOutput(
+        await this.evaluate(
+          `print, json_serialize(!envi_magic, /lowercase) & !envi_magic.remove, /all`
+        )
+      )
+    );
+
+    // process each magic
+    for (let i = 0; i < enviMagic.length; i++) {
+      this.addImageToCell(
+        cell,
+        enviMagic[i].png,
+        enviMagic[i].xsize,
+        enviMagic[i].ysize
+      );
+    }
 
     // update magic based on preference
     magic = magic && IDL_EXTENSION_CONFIG.notebooks.embedGraphics;
@@ -266,7 +321,7 @@ export class IDLNotebookController {
     const rawMagic = CleanIDLOutput(await this.evaluate(commands.join(' & ')));
 
     // check if we need to look for magic
-    if (magic && cell !== undefined) {
+    if (magic) {
       try {
         // /**
         //  * Parse our magic
@@ -313,25 +368,12 @@ export class IDLNotebookController {
               `EncodeGraphic(${fullMagic.window}, ${fullMagic.type}) & !magic.window = -1`
             );
 
-            /**
-             * Styles for the element to fil the space, but not exceed 1:1 dimensions
-             */
-            const style = `style="width:100%;height:100%;max-width:${fullMagic.xsize}px;max-height:${fullMagic.ysize}px;"`;
-
-            // add as output
-            cell.execution.appendOutput(
-              new vscode.NotebookCellOutput([
-                /**
-                 * Use HTML because it works. Using the other mimetype *probably* works
-                 * but this works right now :)
-                 */
-                new vscode.NotebookCellOutputItem(
-                  Buffer.from(
-                    `<img src="data:image/png;base64,${encoded}" ${style}/>`
-                  ),
-                  'text/html'
-                ),
-              ])
+            // add
+            this.addImageToCell(
+              cell,
+              encoded,
+              fullMagic.xsize,
+              fullMagic.ysize
             );
           }
         }
@@ -429,9 +471,7 @@ export class IDLNotebookController {
       `!magic.embed = ${
         IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
       }`,
-      `defsysv, '!super_magic', exists=_exists`,
-      `if ~_exists then defsysv, '!super_magic', orderedhash()`,
-      `delvar, _exists`,
+      `vscode_notebookInit`,
     ];
 
     // capture outputs from all commands
