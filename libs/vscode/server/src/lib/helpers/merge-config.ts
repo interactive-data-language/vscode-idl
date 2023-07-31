@@ -1,6 +1,5 @@
 import { IFolderRecursion } from '@idl/parsing/index';
 import { IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/parsing/problem-codes';
-import { GetExtensionPath } from '@idl/shared';
 import copy from 'fast-copy';
 
 import { GLOBAL_SERVER_SETTINGS } from '../initialize-server';
@@ -26,7 +25,6 @@ export const INCLUDE_PROBLEMS_FOR = {
  * Track all problem codes that we want to filter out from being reported to the user
  */
 export const IDL_PATH_FOLDERS: IFolderRecursion = {};
-IDL_PATH_FOLDERS[GetExtensionPath('idl')] = false;
 
 /**
  * Regex to test folder path for recursion or not

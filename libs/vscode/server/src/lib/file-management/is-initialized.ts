@@ -2,6 +2,7 @@ import { IDL_LSP_LOG } from '@idl/logger';
 import { NUM_WORKERS } from '@idl/parsing/index';
 import { IDL_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/parsing/problem-codes';
 import {
+  GetExtensionPath,
   RoundToNearest,
   SystemMemoryGB,
   SystemMemoryUsedGB,
@@ -131,6 +132,9 @@ SERVER_INFO.then(async (res) => {
      * Merge folders together
      */
     const merged = { ...res[0], ...res[1] };
+
+    // add in our IDL folder
+    merged[GetExtensionPath('idl')] = false;
 
     // alert users
     IDL_LANGUAGE_SERVER_LOGGER.log({
