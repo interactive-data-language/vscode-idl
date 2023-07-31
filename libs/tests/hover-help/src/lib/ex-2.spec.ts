@@ -29,7 +29,7 @@ describe(`[auto generated] Correctly identifies keywords from routine calls`, ()
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '[Open in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22f%22,%22name%22:%22myfunc%22%7D)',
+      '[Open Examples in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22f%22,%22name%22:%22myfunc%22%7D)',
       '',
       '```idl',
       'result = myfunc( var1, $',
@@ -144,7 +144,7 @@ describe(`[auto generated] Correctly identifies keywords from routine calls`, ()
 
     // define expected token we extract
     const expectedFound_4: string[] = [
-      '[Open in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22f%22,%22name%22:%22myfunc%22%7D)',
+      '[Open Examples in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22f%22,%22name%22:%22myfunc%22%7D)',
       '',
       '```idl',
       'result = myfunc( var1, $',

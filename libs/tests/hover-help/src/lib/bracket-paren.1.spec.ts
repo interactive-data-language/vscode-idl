@@ -77,7 +77,7 @@ describe(`[auto generated] Correctly provides hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_2: string[] = [
-      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/IDL_String.html#kanchor3842) | [Open in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22fm%22,%22name%22:%22IDL_String::contains%22%7D)',
+      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/IDL_String.html#kanchor3842) | [Open Examples in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22fm%22,%22name%22:%22IDL_String::contains%22%7D)',
       '',
       '```idl',
       'result = IDL_String.contains( [ substring ], $',
@@ -230,7 +230,7 @@ describe(`[auto generated] Correctly provides hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_5: string[] = [
-      '[Open in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22pm%22,%22name%22:%22Plot::save%22%7D)',
+      '[Open Examples in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22pm%22,%22name%22:%22Plot::save%22%7D)',
       '',
       '```idl',
       'Plot.save, [ filename ], $',
