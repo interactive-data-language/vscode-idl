@@ -25,7 +25,7 @@ NORMALIZE_TOKENS[TOKEN_NAMES.QUOTE_SINGLE] = true;
 /**
  * Handles recursion through our syntax tree to extract token names in order of appearance
  */
-function GetTokenNamesRecursor(tree: SyntaxTree, names: string[]) {
+function GetTokenNamesRecursor(tree: SyntaxTree, names: number[]) {
   for (let i = 0; i < tree.length; i++) {
     // save name if we are not a token that we are supposed to filter
     if (!(tree[i].name in FILTER_TOKENS)) {
@@ -56,7 +56,7 @@ function GetTokenNamesRecursor(tree: SyntaxTree, names: string[]) {
  */
 export function GetTokenNames(parsed: IParsed) {
   /** initialize result */
-  const found: string[] = [];
+  const found: number[] = [];
 
   // extract token names
   GetTokenNamesRecursor(parsed.tree, found);

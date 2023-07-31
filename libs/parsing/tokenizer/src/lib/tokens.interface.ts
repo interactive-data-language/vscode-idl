@@ -1,183 +1,183 @@
 import { TokenStartMatches } from './token-matches.interface';
 
 /** Property being accessed */
-export type AccessPropertyToken = '0';
+export type AccessPropertyToken = 0;
 /** When an argument is defined */
-export type ArgDefinitionToken = '1';
+export type ArgDefinitionToken = 1;
 /** A standalone arrow for method invocation, found when incomplete  */
-export type ArrowToken = '2';
+export type ArrowToken = 2;
 /** Generic token for assignment. can be expanded into variables, properties, keywords, or compound operators */
-export type AssignmentToken = '3';
+export type AssignmentToken = 3;
 /** Assigning a value to a property */
-export type AssignmentPropertyToken = '4';
+export type AssignmentPropertyToken = 4;
 /** Assigning a value to a variable */
-export type AssignmentVariableToken = '5';
+export type AssignmentVariableToken = 5;
 /** Block statement from bend...end */
-export type BlockToken = '6';
+export type BlockToken = 6;
 /** Brackets used for indexing arrays */
-export type BracketToken = '7';
+export type BracketToken = 7;
 /** Calling a function */
-export type CallFunctionToken = '8';
+export type CallFunctionToken = 8;
 /** Calling a function method on an object */
-export type CallFunctionMethodToken = '9';
+export type CallFunctionMethodToken = 9;
 /** Calling a lambda function */
-export type CallLambdaFunctionToken = '10';
+export type CallLambdaFunctionToken = 10;
 /** Calling a procedure */
-export type CallProcedureToken = '11';
+export type CallProcedureToken = 11;
 /** Calling a procedure method */
-export type CallProcedureMethodToken = '12';
+export type CallProcedureMethodToken = 12;
 /** Colon as used for indexing or ternary operators */
-export type ColonToken = '13';
+export type ColonToken = 13;
 /** Commas */
-export type CommaToken = '14';
+export type CommaToken = 14;
 /** Comments - single line */
-export type CommentToken = '15';
+export type CommentToken = 15;
 /** Comment blocks - multi line */
-export type CommentBlockToken = '16';
+export type CommentBlockToken = 16;
 /** Control statement not covered elsewhere */
-export type ControlToken = '17';
+export type ControlToken = 17;
 /** Break statement in loops */
-export type ControlBreakToken = '18';
+export type ControlBreakToken = 18;
 /** Common variable block */
-export type ControlCommonToken = '19';
+export type ControlCommonToken = 19;
 /** Compile options */
-export type ControlCompileOptToken = '20';
+export type ControlCompileOptToken = 20;
 /** Continue statement in loops */
-export type ControlContinueToken = '21';
+export type ControlContinueToken = 21;
 /** Forward function */
-export type ControlForwardFunctionOptToken = '22';
+export type ControlForwardFunctionOptToken = 22;
 /** GoTo statement */
-export type ControlGoToToken = '23';
+export type ControlGoToToken = 23;
 /** GoTo label that we actually go to */
-export type ControlJumpToken = '24';
+export type ControlJumpToken = 24;
 /** Options for compound control statements (i.e. compile_opt, forward_function) */
-export type ControlOptionToken = '25';
+export type ControlOptionToken = 25;
 /** An incomplete method or property access */
-export type DotToken = '26';
+export type DotToken = 26;
 /** Include statement to insert code */
-export type IncludeToken = '27';
+export type IncludeToken = 27;
 /** When we hve a keyword being called in a routine */
-export type KeywordToken = '28';
+export type KeywordToken = 28;
 /** Binary keyword with `/kw_name` */
-export type KeywordBinaryToken = '29';
+export type KeywordBinaryToken = 29;
 /** When a keyword is defined */
-export type KeywordDefinitionToken = '30';
+export type KeywordDefinitionToken = 30;
 /** Line continuation */
-export type LineContinuationToken = '31';
+export type LineContinuationToken = 31;
 /** Line continuation basic */
-export type LineContinuationBasicToken = '32';
+export type LineContinuationBasicToken = 32;
 /** Line separation */
-export type LineSeparationToken = '33';
+export type LineSeparationToken = 33;
 /** Line separation within switch/case */
-export type LineSeparationBasicToken = '34';
+export type LineSeparationBasicToken = 34;
 /** General logic statement type */
-export type LogicalToken = '35';
+export type LogicalToken = 35;
 /** Case statement start */
-export type LogicalCaseToken = '36';
+export type LogicalCaseToken = 36;
 /** The thing we do for a case or switch then statement */
-export type LogicalCaseSwitchThenToken = '37';
+export type LogicalCaseSwitchThenToken = 37;
 /** Else statement start */
-export type LogicalElseToken = '38';
+export type LogicalElseToken = 38;
 /** Logic statement in case/switch */
-export type LogicalExpressionToken = '39';
+export type LogicalExpressionToken = 39;
 /** Default expression for switch/case (the else) */
-export type LogicalExpressionDefaultToken = '40';
+export type LogicalExpressionDefaultToken = 40;
 /** If statement start */
-export type LogicalIfToken = '41';
+export type LogicalIfToken = 41;
 /** Of portion of switch and case */
-export type LogicalOfToken = '42';
+export type LogicalOfToken = 42;
 /** Switch statement start */
-export type LogicalSwitchToken = '43';
+export type LogicalSwitchToken = 43;
 /** Else part of ternary statement */
-export type LogicalTernaryElseToken = '44';
+export type LogicalTernaryElseToken = 44;
 /** Then part of ternary statement */
-export type LogicalTernaryThenToken = '45';
+export type LogicalTernaryThenToken = 45;
 /** Then statement start */
-export type LogicalThenToken = '46';
+export type LogicalThenToken = 46;
 /** Generic loop token */
-export type LoopToken = '47';
+export type LoopToken = 47;
 /** Do part of loop */
-export type LoopDoToken = '48';
+export type LoopDoToken = 48;
 /** For loop */
-export type LoopForToken = '49';
+export type LoopForToken = 49;
 /** Foreach loop */
-export type LoopForeachToken = '50';
+export type LoopForeachToken = 50;
 /** Repeat loop */
-export type LoopRepeatToken = '51';
+export type LoopRepeatToken = 51;
 /** Until part of repeat loop */
-export type LoopUntilToken = '52';
+export type LoopUntilToken = 52;
 /** While loop */
-export type LoopWhileToken = '53';
+export type LoopWhileToken = 53;
 /** Main level program */
-export type MainLevelToken = '54';
+export type MainLevelToken = 54;
 /** End of the main level program */
-export type MainLevelEndToken = '55';
+export type MainLevelEndToken = 55;
 /** Static numbers */
-export type NumberToken = '56';
+export type NumberToken = 56;
 /** An operator */
-export type OperatorToken = '57';
+export type OperatorToken = 57;
 /** Compound operators that also handle assignment */
-export type OperatorCompoundToken = '58';
+export type OperatorCompoundToken = 58;
 /** increment and decrement operators since they are special */
-export type OperatorIncrementDecrementToken = '59';
+export type OperatorIncrementDecrementToken = 59;
 /** NOT USED RIGHT NOW Pointer dereferencing, derived with post-processing */
-export type OperatorIndexingToken = '60';
+export type OperatorIndexingToken = 60;
 /** Logical operators (i.e. "and", "or", "ge", "&&", "||") */
-export type OperatorLogicalToken = '61';
+export type OperatorLogicalToken = 61;
 /** Change value to be negative */
-export type OperatorNegativeToken = '62';
+export type OperatorNegativeToken = 62;
 /** Pointer dereferencing, derived with post-processing */
-export type OperatorPointerToken = '63';
+export type OperatorPointerToken = 63;
 /** Parentheses for grouping */
-export type ParenthesesToken = '64';
+export type ParenthesesToken = 64;
 /** When we have an IDL or ENVI prompt, used for docs parsing */
-export type PromptToken = '65';
+export type PromptToken = 65;
 /** Python code */
-export type PythonToken = '66';
+export type PythonToken = 66;
 /** Double quotes */
-export type QuoteDoubleToken = '67';
+export type QuoteDoubleToken = 67;
 /** Single quotes */
-export type QuoteSingleToken = '68';
+export type QuoteSingleToken = 68;
 /** Function definition */
-export type RoutineFunctionToken = '69';
+export type RoutineFunctionToken = 69;
 /** Routine name when we have an object method */
-export type RoutineMethodNameToken = '70';
+export type RoutineMethodNameToken = 70;
 /** Name of routine */
-export type RoutineNameToken = '71';
+export type RoutineNameToken = 71;
 /** Procedure definition */
-export type RoutineProcedureToken = '72';
+export type RoutineProcedureToken = 72;
 /** Escape characters in string template literals */
-export type StringTemplateEscape = '73';
+export type StringTemplateEscape = 73;
 /** String substitution inside of a template literal */
-export type StringTemplateExpression = '74';
+export type StringTemplateExpression = 74;
 /** Template literal (template string) using backticks */
-export type StringTemplateLiteral = '75';
+export type StringTemplateLiteral = 75;
 /** Raw string inside of template literals */
-export type StringTemplateString = '76';
+export type StringTemplateString = 76;
 /** Structure */
-export type StructureToken = '77';
+export type StructureToken = 77;
 /** Structure property being accessed via indexing syntax */
-export type StructureIndexedPropertyToken = '78';
+export type StructureIndexedPropertyToken = 78;
 /** Structure inheritance */
-export type StructureInheritanceToken = '79';
+export type StructureInheritanceToken = 79;
 /** Structure name */
-export type StructureNameToken = '80';
+export type StructureNameToken = 80;
 /** Structure property */
-export type StructurePropertyToken = '81';
+export type StructurePropertyToken = 81;
 /** System variable */
-export type SystemVariableToken = '82';
+export type SystemVariableToken = 82;
 /** Plain text to be inserted */
-export type TextToken = '83';
+export type TextToken = 83;
 /** TODO statement in comment */
-export type ToDoToken = '84';
+export type ToDoToken = 84;
 /** Variable */
-export type VariableToken = '85';
+export type VariableToken = 85;
 /** When we encounter an unexpected closing statement */
-export type UnexpectedCloserToken = '86';
+export type UnexpectedCloserToken = 86;
 /** When we encounter something that was not parsed (i.e. its unknown)  */
-export type UnknownToken = '87';
+export type UnknownToken = 87;
 /** When we encounter something that was not parsed (i.e. its unknown)  */
-export type ExecutiveCommandToken = '88';
+export type ExecutiveCommandToken = 88;
 
 /**
  * Union type of all basic tokens that do not recurse.
@@ -481,95 +481,95 @@ export interface ITokenNameLookup {
  * Centralized so that we can easily change names/values across project.
  */
 export const TOKEN_NAMES: ITokenNameLookup = {
-  ARG_DEFINITION: '1',
-  ACCESS_PROPERTY: '0',
-  ARROW: '2',
-  ASSIGNMENT: '3',
-  // ASSIGNMENT_VARIABLE: '5',
-  // ASSIGNMENT_PROPERTY: '4',
-  BLOCK: '6',
-  BRACKET: '7',
-  CALL_FUNCTION: '8',
-  CALL_FUNCTION_METHOD: '9',
-  CALL_LAMBDA_FUNCTION: '10',
-  CALL_PROCEDURE: '11',
-  CALL_PROCEDURE_METHOD: '12',
-  COLON: '13',
-  COMMA: '14',
-  COMMENT: '15',
-  COMMENT_BLOCK: '16',
-  CONTROL: '17',
-  CONTROL_BREAK: '18',
-  CONTROL_COMMON: '19',
-  CONTROL_COMPILE_OPT: '20',
-  CONTROL_CONTINUE: '21',
-  CONTROL_FORWARD_FUNCTION: '22',
-  CONTROL_GO_TO: '23',
-  CONTROL_JUMP: '24',
-  CONTROL_OPTION: '25',
-  DOT: '26',
-  EXECUTIVE_COMMAND: '88',
-  INCLUDE: '27',
-  KEYWORD: '28',
-  KEYWORD_BINARY: '29',
-  KEYWORD_DEFINITION: '30',
-  LINE_CONTINUATION: '31',
-  LINE_CONTINUATION_BASIC: '32',
-  LINE_SEPARATION: '33',
-  LINE_SEPARATION_BASIC: '34',
-  LOGICAL: '35',
-  LOGICAL_CASE: '36',
-  LOGICAL_CASE_SWITCH_THEN: '37',
-  LOGICAL_ELSE: '38',
-  LOGICAL_EXPRESSION: '39',
-  LOGICAL_EXPRESSION_DEFAULT: '40',
-  LOGICAL_IF: '41',
-  LOGICAL_OF: '42',
-  LOGICAL_SWITCH: '43',
-  LOGICAL_TERNARY_ELSE: '44',
-  LOGICAL_TERNARY_THEN: '45',
-  LOGICAL_THEN: '46',
-  LOOP: '47',
-  LOOP_DO: '48',
-  LOOP_FOR: '49',
-  LOOP_FOREACH: '50',
-  LOOP_REPEAT: '51',
-  LOOP_UNTIL: '52',
-  LOOP_WHILE: '53',
-  MAIN_LEVEL: '54',
-  MAIN_LEVEL_END: '55',
-  NUMBER: '56',
-  OPERATOR: '57',
-  OPERATOR_COMPOUND: '58',
-  OPERATOR_INCREMENT_DECREMENT: '59',
-  OPERATOR_INDEXING: '60',
-  OPERATOR_LOGICAL: '61',
-  OPERATOR_NEGATIVE: '62',
-  OPERATOR_POINTER: '63',
-  PARENTHESES: '64',
-  PROMPT: '65',
-  PYTHON: '66',
-  QUOTE_DOUBLE: '67',
-  QUOTE_SINGLE: '68',
-  ROUTINE_FUNCTION: '69',
-  ROUTINE_METHOD_NAME: '70',
-  ROUTINE_NAME: '71',
-  ROUTINE_PROCEDURE: '72',
-  STRING_TEMPLATE_ESCAPE: '73',
-  STRING_TEMPLATE_EXPRESSION: '74',
-  STRING_TEMPLATE_LITERAL: '75',
-  STRING_TEMPLATE_STRING: '76',
-  STRUCTURE: '77',
-  STRUCTURE_INDEXED_PROPERTY: '78',
-  STRUCTURE_INHERITANCE: '79',
-  STRUCTURE_NAME: '80',
-  STRUCTURE_PROPERTY: '81',
-  SYSTEM_VARIABLE: '82',
-  TEXT: '83',
-  TODO: '84',
-  VARIABLE: '85',
-  UNEXPECTED_CLOSER: '86',
-  UNKNOWN: '87',
+  ARG_DEFINITION: 1,
+  ACCESS_PROPERTY: 0,
+  ARROW: 2,
+  ASSIGNMENT: 3,
+  // ASSIGNMENT_VARIABLE: 5,
+  // ASSIGNMENT_PROPERTY: 4,
+  BLOCK: 6,
+  BRACKET: 7,
+  CALL_FUNCTION: 8,
+  CALL_FUNCTION_METHOD: 9,
+  CALL_LAMBDA_FUNCTION: 10,
+  CALL_PROCEDURE: 11,
+  CALL_PROCEDURE_METHOD: 12,
+  COLON: 13,
+  COMMA: 14,
+  COMMENT: 15,
+  COMMENT_BLOCK: 16,
+  CONTROL: 17,
+  CONTROL_BREAK: 18,
+  CONTROL_COMMON: 19,
+  CONTROL_COMPILE_OPT: 20,
+  CONTROL_CONTINUE: 21,
+  CONTROL_FORWARD_FUNCTION: 22,
+  CONTROL_GO_TO: 23,
+  CONTROL_JUMP: 24,
+  CONTROL_OPTION: 25,
+  DOT: 26,
+  EXECUTIVE_COMMAND: 88,
+  INCLUDE: 27,
+  KEYWORD: 28,
+  KEYWORD_BINARY: 29,
+  KEYWORD_DEFINITION: 30,
+  LINE_CONTINUATION: 31,
+  LINE_CONTINUATION_BASIC: 32,
+  LINE_SEPARATION: 33,
+  LINE_SEPARATION_BASIC: 34,
+  LOGICAL: 35,
+  LOGICAL_CASE: 36,
+  LOGICAL_CASE_SWITCH_THEN: 37,
+  LOGICAL_ELSE: 38,
+  LOGICAL_EXPRESSION: 39,
+  LOGICAL_EXPRESSION_DEFAULT: 40,
+  LOGICAL_IF: 41,
+  LOGICAL_OF: 42,
+  LOGICAL_SWITCH: 43,
+  LOGICAL_TERNARY_ELSE: 44,
+  LOGICAL_TERNARY_THEN: 45,
+  LOGICAL_THEN: 46,
+  LOOP: 47,
+  LOOP_DO: 48,
+  LOOP_FOR: 49,
+  LOOP_FOREACH: 50,
+  LOOP_REPEAT: 51,
+  LOOP_UNTIL: 52,
+  LOOP_WHILE: 53,
+  MAIN_LEVEL: 54,
+  MAIN_LEVEL_END: 55,
+  NUMBER: 56,
+  OPERATOR: 57,
+  OPERATOR_COMPOUND: 58,
+  OPERATOR_INCREMENT_DECREMENT: 59,
+  OPERATOR_INDEXING: 60,
+  OPERATOR_LOGICAL: 61,
+  OPERATOR_NEGATIVE: 62,
+  OPERATOR_POINTER: 63,
+  PARENTHESES: 64,
+  PROMPT: 65,
+  PYTHON: 66,
+  QUOTE_DOUBLE: 67,
+  QUOTE_SINGLE: 68,
+  ROUTINE_FUNCTION: 69,
+  ROUTINE_METHOD_NAME: 70,
+  ROUTINE_NAME: 71,
+  ROUTINE_PROCEDURE: 72,
+  STRING_TEMPLATE_ESCAPE: 73,
+  STRING_TEMPLATE_EXPRESSION: 74,
+  STRING_TEMPLATE_LITERAL: 75,
+  STRING_TEMPLATE_STRING: 76,
+  STRUCTURE: 77,
+  STRUCTURE_INDEXED_PROPERTY: 78,
+  STRUCTURE_INHERITANCE: 79,
+  STRUCTURE_NAME: 80,
+  STRUCTURE_PROPERTY: 81,
+  SYSTEM_VARIABLE: 82,
+  TEXT: 83,
+  TODO: 84,
+  VARIABLE: 85,
+  UNEXPECTED_CLOSER: 86,
+  UNKNOWN: 87,
 };
 
 /**
