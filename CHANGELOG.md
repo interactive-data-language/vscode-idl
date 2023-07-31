@@ -56,11 +56,11 @@ Use better practices when normalizing code from docs. We now auto-fix problems s
 
 For routine documentation, add button "Open in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells
 
+- If there are no code block examples for the routine you are hovered over, no notebook will appear
+
 - By default, the notebook opens to the side. If you have one editor group open, a new one is created to the right.
 
 - If more than one editor group is open, we open to the left or the right of the active editor, depending on which editor is active (this makes sure we don't keep opening new tabs)
-
-Disable language server hover help and manually request hover help through VSCode so we can embed commands within "trusted" markdown content
 
 Fixed a problem when running notebook cells that would cause them to fail executing when the .idl sub-folder we use wasn't present and added tests for it
 
