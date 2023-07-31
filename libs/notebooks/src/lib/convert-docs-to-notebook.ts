@@ -158,7 +158,7 @@ export async function ConvertDocsToNotebook(
   }
 
   // add in docs cells
-  cells = cells.concat(docsCells);
+  // cells = cells.concat(docsCells);
 
   /**
    * Create raw notebook
