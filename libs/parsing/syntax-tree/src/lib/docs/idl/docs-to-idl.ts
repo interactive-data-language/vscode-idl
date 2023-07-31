@@ -33,6 +33,8 @@ SKIP_THESE[IDL_DOCS_HEADERS.REVISIONS] = true;
  */
 const LINE_START = '; ';
 
+const REGEX_START = /[^\s]/im;
+
 /**
  * Splits content and joins together based on user parameters
  */
@@ -40,9 +42,23 @@ function SplitJoin(strings: string[], content: string, before = LINE_START) {
   // split the string
   const split = content.split(/\n/gim);
 
+  /** Track if we trimmed left or not */
+  let checked = false;
+
+  /** Track substring start */
+  let posStart = 0;
+
   // merge
   for (let i = 0; i < split.length; i++) {
-    strings.push(`${before}${split[i]}`);
+    // check if we need to trim left by examining the first non-null string
+    if (split[i].trimEnd() && !checked) {
+      checked = true;
+      const start = REGEX_START.exec(split[i]);
+      if (start !== null) {
+        posStart = start.index;
+      }
+    }
+    strings.push(`${before}${split[i].substring(posStart).trimEnd()}`);
   }
 }
 

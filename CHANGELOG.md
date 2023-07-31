@@ -64,6 +64,8 @@ Use better practices when normalizing code from docs. We now auto-fix problems s
 
 Fixed a problem when running notebook cells that would cause them to fail executing when the .idl sub-folder we use wasn't present and added tests for it
 
+Fixed a bug and added tests for an issue where non-standard docs blocks would continue to be indented after every save. We now use the intent level of the first non-empty line in docs as where it starts and use that to normalize the indentation.
+
 ## 3.1.3 July 2023
 
 Fix bug where, if you had a function or procedure without a name, parsing would occasionally break and cause a bad state for the language server
