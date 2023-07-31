@@ -1,6 +1,8 @@
 ;+
 ; :Description:
-;   Creates a visual product for a raster that we can display within an IDL Notebook
+;   Creates a visual product for a raster that we can display within an IDL Notebook.
+;
+;   This routine is only meant to be used from within IDL Notebooks within VSCode.
 ;
 ; :Arguments:
 ;   raster: in, required, ENVIRaster
