@@ -10,7 +10,6 @@ import { LoadTask } from '@idl/schemas/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
-import { GetFileStrings } from '../../helpers/get-file-strings';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { UpdateDocument } from '../../helpers/update-document';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
@@ -88,10 +87,7 @@ export const ON_DOCUMENT_FORMATTING = async (
       case IDL_INDEX.isTaskFile(info.fsPath): {
         let task: ParsedTask;
         try {
-          task = await LoadTask(
-            info.fsPath,
-            await GetFileStrings(event.textDocument.uri)
-          );
+          task = await LoadTask(info.fsPath, info.code);
         } catch (err) {
           IDL_LANGUAGE_SERVER_LOGGER.log({
             log: IDL_LSP_LOG,

@@ -28,12 +28,6 @@ export async function ResolveFSPathAndCodeForURI(
    * Check if PRO code
    */
   if (parsed.scheme === 'file') {
-    // do nothing
-    if (!IDL_INDEX.isPROCode(fsPath)) {
-      return undefined;
-    }
-
-    // return our information
     return {
       isNotebook: false,
       uri: url,

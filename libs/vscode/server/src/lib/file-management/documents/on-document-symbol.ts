@@ -1,5 +1,4 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   DocumentSymbol,
@@ -7,8 +6,8 @@ import {
   SymbolInformation,
 } from 'vscode-languageserver/node';
 
-import { GetFileStrings } from '../../helpers/get-file-strings';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { ResolveFSPathAndCodeForURI } from '../../user-interaction/helpers/resolve-fspath-and-code-for-uri';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
@@ -26,22 +25,21 @@ export const ON_DOCUMENT_SYMBOL = async (
       content: ['Document symbol request', event],
     });
 
-    // get the path to the file to properly save
-    const fsPath = GetFSPath(event.textDocument.uri);
+    /**
+     * Resolve the fspath to our cell and retrieve code
+     */
+    const info = await ResolveFSPathAndCodeForURI(event.textDocument.uri);
 
-    // do nothing
-    if (!IDL_INDEX.isPROCode(fsPath)) {
+    // return if nothing found
+    if (info === undefined) {
       return undefined;
     }
 
     // get and return our symbols
-    const outline = await IDL_INDEX.getOutline(
-      fsPath,
-      await GetFileStrings(event.textDocument.uri)
-    );
+    const outline = await IDL_INDEX.getOutline(info.fsPath, info.code);
 
     // remove file from memory cache
-    IDL_INDEX.tokensByFile.remove(fsPath);
+    IDL_INDEX.tokensByFile.remove(info.fsPath);
 
     // return outline
     return outline;

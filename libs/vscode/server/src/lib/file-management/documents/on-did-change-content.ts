@@ -1,13 +1,12 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { TextDocumentChangeEvent } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { CacheValid } from '../../helpers/cache-valid';
-import { GetFileStrings } from '../../helpers/get-file-strings';
 import { SendProblems } from '../../helpers/send-problems';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { ResolveFSPathAndCodeForURI } from '../../user-interaction/helpers/resolve-fspath-and-code-for-uri';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
@@ -23,11 +22,6 @@ export const ON_DID_CHANGE_CONTENT = async (
 ) => {
   await SERVER_INITIALIZED;
   try {
-    // return if notebook file, havent seen but we have this as sanity check
-    if (IDL_INDEX.isIDLNotebookFile(event.document.uri)) {
-      return;
-    }
-
     // return if our cache is valid and the content has not changed
     if (CacheValid(event.document.uri)) {
       return;
@@ -35,17 +29,24 @@ export const ON_DID_CHANGE_CONTENT = async (
 
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
-      type: 'debug',
+      type: 'info',
       content: ['Changed content', event.document.uri],
     });
 
-    // get the path to the file to properly save
-    const fsPath = GetFSPath(event.document.uri);
+    /**
+     * Resolve the fspath to our cell and retrieve code
+     */
+    const info = await ResolveFSPathAndCodeForURI(event.document.uri);
+
+    // return if nothing found
+    if (info === undefined) {
+      return undefined;
+    }
 
     // re-index our file
     await IDL_INDEX.indexFile(
-      fsPath,
-      await GetFileStrings(event.document.uri),
+      info.fsPath,
+      info.code,
       /**
        * Don't cleanup after the parsing and keep the text from this document
        *
@@ -56,15 +57,15 @@ export const ON_DID_CHANGE_CONTENT = async (
     );
 
     // send problems
-    SendProblems([fsPath]);
+    SendProblems([info.fsPath]);
 
     // remove file from memory cache
-    IDL_INDEX.tokensByFile.remove(fsPath);
+    IDL_INDEX.tokensByFile.remove(info.fsPath);
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
       type: 'error',
-      content: ['Error responding to onDidopen event', err],
+      content: ['Error responding to onDidOpen event', err],
       alert: IDL_TRANSLATION.lsp.events.onDidChangeContent,
     });
   }
