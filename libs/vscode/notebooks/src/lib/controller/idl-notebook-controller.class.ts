@@ -236,7 +236,7 @@ export class IDLNotebookController {
     /**
      * Styles for the element to fil the space, but not exceed 1:1 dimensions
      */
-    const style = `style="width:100%;height:100%;max-width:${width}px;max-height:${height}px;"`;
+    const style = `style="width:100%;height:auto;max-width:${width}px;max-height:${height}px;aspect-ratio:1;"`;
 
     // add as output
     cell.execution.appendOutput(
