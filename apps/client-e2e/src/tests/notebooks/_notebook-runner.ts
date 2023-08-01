@@ -4,6 +4,7 @@ import { Runner } from '../runner.class';
 import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { RunNotebookRestart } from './notebook-restart';
 import { RunNotebookStop } from './notebook-stop';
+import { RunTestENVINotebook } from './run-test-envi-notebook';
 import { RunTestNotebook } from './run-test-notebook';
 import { SaveAndClearNotebook } from './save-and-clear-output';
 
@@ -32,6 +33,11 @@ NOTEBOOK_RUNNER.addTest({
   name: 'Save output and reload',
   fn: SaveAndClearNotebook,
   critical: true,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Run notebook that embeds rasters and do basic check they are right',
+  fn: RunTestENVINotebook,
 });
 
 // reset goes first
