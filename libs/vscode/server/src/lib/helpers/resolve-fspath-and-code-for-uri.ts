@@ -1,9 +1,9 @@
 import { CleanPath } from '@idl/shared';
 import { URI } from 'vscode-uri';
 
-import { IDL_INDEX } from '../../file-management/initialize-document-manager';
-import { NOTEBOOK_MANAGER } from '../../file-management/initialize-notebook-manager';
-import { GetFileStrings } from '../../helpers/get-file-strings';
+import { IDL_INDEX } from '../events/initialize-document-manager';
+import { NOTEBOOK_MANAGER } from '../events/initialize-notebook-manager';
+import { GetFileStrings } from './get-file-strings';
 import { IResolvedFSPathAndCodeForURI } from './resolve-fspath-and-code-for-uri.interface';
 
 /**

@@ -6,8 +6,8 @@ import {
   SymbolInformation,
 } from 'vscode-languageserver/node';
 
+import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
-import { ResolveFSPathAndCodeForURI } from '../../user-interaction/helpers/resolve-fspath-and-code-for-uri';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 

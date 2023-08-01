@@ -2,16 +2,16 @@ import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
-import { IDL_INDEX } from '../file-management/initialize-document-manager';
-import { CAN_SEND_PROBLEMS } from '../file-management/is-initialized';
+import { IDL_INDEX } from '../events/initialize-document-manager';
+import { CAN_SEND_PROBLEMS } from '../events/is-initialized';
 import { SERVER_CONNECTION } from '../initialize-server';
-import { URIFromIDLIndexFile } from '../user-interaction/helpers/uri-from-idl-index-file';
 import {
   IDL_PATH_FOLDERS,
   IGNORE_PROBLEM_CODES,
   INCLUDE_PROBLEMS_FOR,
 } from './merge-config';
 import { SyntaxProblemsToDiagnostic } from './syntax-problem-to-diagnostic';
+import { URIFromIDLIndexFile } from './uri-from-idl-index-file';
 
 /**
  * Regex to check if we are in a package file

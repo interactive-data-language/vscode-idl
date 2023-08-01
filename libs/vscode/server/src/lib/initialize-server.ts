@@ -19,11 +19,11 @@ import {
 } from 'vscode-languageserver/node';
 
 import { CAPABILITIES } from './capabilities.interface';
-import { InitializeCustomEventHandler } from './file-management/initialize-custom-event-handler';
-import { InitializeDocumentManager } from './file-management/initialize-document-manager';
-import { InitializeNotebookManager } from './file-management/initialize-notebook-manager';
+import { InitializeCustomEventHandler } from './events/initialize-custom-event-handler';
+import { InitializeDocumentManager } from './events/initialize-document-manager';
+import { InitializeNotebookManager } from './events/initialize-notebook-manager';
+import { InitializeUserInteractions } from './events/initialize-user-interactions';
 import { DEFAULT_SERVER_SETTINGS } from './settings.interface';
-import { InitializeUserInteractions } from './user-interaction/initialize-user-interactions';
 
 /**
  * Current settings for the language server

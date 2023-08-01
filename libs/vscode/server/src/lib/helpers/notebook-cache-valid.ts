@@ -1,7 +1,7 @@
 import { deepEqual } from 'fast-equals';
 import { NotebookDocument } from 'vscode-languageserver';
 
-import { NOTEBOOK_MANAGER } from '../file-management/initialize-notebook-manager';
+import { NOTEBOOK_MANAGER } from '../events/initialize-notebook-manager';
 
 /**
  * Last version of notebook file

@@ -1,5 +1,5 @@
-import { NOTEBOOK_MANAGER } from '../../file-management/initialize-notebook-manager';
-import { URIFromFSPath } from '../../helpers/uri-from-fspath';
+import { NOTEBOOK_MANAGER } from '../events/initialize-notebook-manager';
+import { URIFromFSPath } from './uri-from-fspath';
 
 /**
  * Maps a file back to a URI and handles the logic of checking for notebooks

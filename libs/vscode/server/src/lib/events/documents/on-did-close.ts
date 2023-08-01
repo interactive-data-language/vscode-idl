@@ -4,20 +4,18 @@ import { TextDocumentChangeEvent } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { CacheValid } from '../../helpers/cache-valid';
+import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { SendProblems } from '../../helpers/send-problems';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
-import { ResolveFSPathAndCodeForURI } from '../../user-interaction/helpers/resolve-fspath-and-code-for-uri';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
- * Callback to handle file changes
- *
- * TODO: work with just the changed parts of a document
+ * Callback to handle files being closed
  *
  * @param event The event from VSCode
  */
-export const ON_DID_CHANGE_CONTENT = async (
+export const ON_DID_CLOSE = async (
   event: TextDocumentChangeEvent<TextDocument>
 ) => {
   await SERVER_INITIALIZED;
@@ -30,7 +28,7 @@ export const ON_DID_CHANGE_CONTENT = async (
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
       type: 'debug',
-      content: ['Changed content', event.document.uri],
+      content: ['File closed', event.document.uri],
     });
 
     /**
@@ -43,18 +41,19 @@ export const ON_DID_CHANGE_CONTENT = async (
       return undefined;
     }
 
-    // re-index our file
-    await IDL_INDEX.indexFile(
-      info.fsPath,
-      info.code,
-      /**
-       * Don't cleanup after the parsing and keep the text from this document
-       *
-       * We need it as the file is most likely not saved on disk and the language server logic
-       * is to use what is on disk
-       */
-      { keepText: true }
-    );
+    /**
+     * When we close a file, always re-parse it
+     *
+     * Why you ask? Because, when you edit code, you can make changes that are
+     * not saved.
+     *
+     * For example: I open a PRO file, change routine definitions, and close the file
+     * *without* saving, then we need to trigger a parse with the code on disk.
+     *
+     * This is because, as you make changes, we parse on the fly. So we need to trigger
+     * a re-parse and run change detection using the globals in the file stored on disk
+     */
+    await IDL_INDEX.indexFile(info.fsPath, info.code);
 
     // send problems
     SendProblems([info.fsPath]);
@@ -65,8 +64,8 @@ export const ON_DID_CHANGE_CONTENT = async (
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
       type: 'error',
-      content: ['Error responding to onDidOpen event', err],
-      alert: IDL_TRANSLATION.lsp.events.onDidChangeContent,
+      content: ['Error responding to closed documents', err],
+      alert: IDL_TRANSLATION.lsp.events.onDidClose,
     });
   }
 };

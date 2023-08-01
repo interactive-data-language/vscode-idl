@@ -2,11 +2,11 @@ import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { Hover, TextDocumentPositionParams } from 'vscode-languageserver/node';
 
-import { IDL_INDEX } from '../../file-management/initialize-document-manager';
-import { SERVER_INITIALIZED } from '../../file-management/is-initialized';
+import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
-import { ResolveFSPathAndCodeForURI } from '../helpers/resolve-fspath-and-code-for-uri';
+import { IDL_INDEX } from '../initialize-document-manager';
+import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
  * Wrapper to handle hover help requests
