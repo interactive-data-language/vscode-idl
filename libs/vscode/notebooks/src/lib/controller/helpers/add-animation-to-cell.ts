@@ -40,6 +40,13 @@ export function AddAnimationToCell(
     );
   }
 
+  /**
+   * Make an ID do that all variables are unique
+   *
+   * The rendered content shares the same global scope (which I think the vars below use)
+   *
+   * So we need to make them unique to one another
+   */
   const id = Math.floor(performance.now() * 1000);
 
   // make new data variable
@@ -55,7 +62,7 @@ export function AddAnimationToCell(
   <body>
   <script type="text/javascript">
     // track which frame we are playing
-    let ${idxId} = ${encoded.length - 1};
+    let ${idxId} = ${0};
 
     // base64 encoded PNG source data
     const ${datVar} = ${JSON.stringify(encoded)};
