@@ -15,6 +15,7 @@ import {
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
   IDL_NOTEBOOK_NAME,
+  SimplePromiseQueue,
   Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -78,6 +79,11 @@ export class IDLNotebookController {
    * The current cell that we are executing
    */
   private _currentCell?: ICurrentCell;
+
+  /**
+   * track pending executions
+   */
+  private queue = new SimplePromiseQueue(1);
 
   constructor() {
     // create our runtime session - does not immediately start IDL
@@ -762,9 +768,9 @@ export class IDLNotebookController {
   }
 
   /**
-   * Execute notebook cells
+   * Actually execute our notebook cells
    */
-  async _execute(
+  async _doExecute(
     cells: vscode.NotebookCell[],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _notebook: vscode.NotebookDocument,
@@ -790,6 +796,21 @@ export class IDLNotebookController {
         });
       }
     }
+  }
+
+  /**
+   * Execute notebook cells wrapped around a queue
+   */
+  async _execute(
+    cells: vscode.NotebookCell[],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _notebook: vscode.NotebookDocument,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _controller: vscode.NotebookController
+  ): Promise<void> {
+    await this.queue.add(async () => {
+      await this._doExecute(cells, _notebook, _controller);
+    });
   }
 
   /**
