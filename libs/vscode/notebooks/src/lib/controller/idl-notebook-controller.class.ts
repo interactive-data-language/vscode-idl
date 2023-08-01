@@ -31,6 +31,7 @@ import { join } from 'path';
 import * as vscode from 'vscode';
 
 import { BangENVIMagic, BangMagic } from './bang-magic.interface';
+import { AddAnimationToCell } from './helpers/add-animation-to-cell';
 import { AddEncodedImageToCell } from './helpers/add-encoded-image-to-cell';
 import { AddPNGFileToCell } from './helpers/add-png-file-to-cell';
 import { ICurrentCell } from './idl-notebook-controller.interface';
@@ -263,12 +264,21 @@ export class IDLNotebookController {
 
     // process each magic
     for (let i = 0; i < enviMagic.length; i++) {
-      AddPNGFileToCell(
-        cell,
-        enviMagic[i].uri,
-        enviMagic[i].xsize,
-        enviMagic[i].ysize
-      );
+      if (Array.isArray(enviMagic[i].uri)) {
+        AddAnimationToCell(
+          cell,
+          enviMagic[i].uri as string[],
+          enviMagic[i].xsize,
+          enviMagic[i].ysize
+        );
+      } else {
+        AddPNGFileToCell(
+          cell,
+          enviMagic[i].uri as string,
+          enviMagic[i].xsize,
+          enviMagic[i].ysize
+        );
+      }
     }
 
     // update magic based on preference

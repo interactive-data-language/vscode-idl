@@ -1,12 +1,13 @@
 ;+
 ; :Description:
-;   Creates a visual product for a raster that we can display within an IDL Notebook.
+;   Creates a visual product for a raster or raster series that we can display
+;   within an IDL Notebook.
 ;
 ;   This routine is only meant to be used from within IDL Notebooks within VSCode.
 ;
 ; :Arguments:
-;   raster: in, required, ENVIRaster
-;     Specify the raster to display in a notebook
+;   dataset: in, required, ENVIRaster | ENVIRasterSeries
+;     Placeholder docs for argument, keyword, or property
 ;
 ; :Keywords:
 ;   size: in, optional, Number
@@ -21,7 +22,7 @@
 ;
 ;   ```idl
 ;   ; Start the application
-;   e = envi()
+;   e = envi(/headless)
 ;
 ;   ; Open an input file
 ;   file = filepath('qb_boulder_msi', subdir = ['data'], $
@@ -34,7 +35,7 @@
 ;   ```
 ;
 ;-
-pro envi::displayInNotebook, raster, size = size
+pro envi::displayInNotebook, dataset, size = size
   compile_opt idl2, hidden, static
   on_error, 2
 
@@ -44,22 +45,19 @@ pro envi::displayInNotebook, raster, size = size
     message, 'ENVI has not started yet, required!'
   endif
 
-  ; validate input
-  if ~isa(raster, 'enviraster') then $
-    message, 'Expected a single argument as an ENVI raster'
-
   ; make sure we have system vars
   vscode_notebookInit
 
-  ; convert raster to thumbnail
-  task = ENVITask('GenerateThumbnail')
-  task.input_raster = raster
-  task.thumbnail_size = size
-  task.execute
-
-  ; get info about PNG to display correctly
-  !null = query_png(task.output_raster_uri, info)
-
-  ; add to our envi magic
-  !envi_magic.add, {uri: task.output_raster_uri, xsize: info.dimensions[0], ysize: info.dimensions[1]}
+  ; determine how to proceed
+  case (!true) of
+    isa(dataset[0], 'enviraster'): begin
+      self.displayRasterInNotebook, dataset, size = size
+    end
+    isa(dataset, 'envirasterseries'): begin
+      self.displayRasterSeriesInNotebook, dataset, size = size
+    end
+    else: begin
+      message, 'Input dataset is not an ENVI Raster or raster series'
+    end
+  endcase
 end

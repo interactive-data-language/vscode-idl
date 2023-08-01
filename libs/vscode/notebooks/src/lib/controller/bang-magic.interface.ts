@@ -14,7 +14,7 @@ export interface BangMagic {
  */
 export interface BangENVIMagic {
   /** Path to file */
-  uri: string;
+  uri: string | string[];
   xsize: number;
   ysize: number;
 }
