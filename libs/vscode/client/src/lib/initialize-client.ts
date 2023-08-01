@@ -192,6 +192,7 @@ export async function InitializeClient(
 
   // register custom hover provider
   RegisterHoverProvider();
+  // RegisterCompletionProvider();
 
   return {
     logger: IDL_LOGGER,

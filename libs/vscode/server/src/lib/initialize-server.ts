@@ -156,7 +156,7 @@ export function InitializeServer() {
       capabilities: {
         textDocumentSync: TextDocumentSyncKind.Incremental,
         completionProvider: {
-          resolveProvider: true, // supports code completion
+          resolveProvider: true,
           /**
            * TODO: Figure out how to improve this
            *
