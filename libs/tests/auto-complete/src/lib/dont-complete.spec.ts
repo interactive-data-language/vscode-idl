@@ -234,5 +234,21 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         )
       ).slice(0, 50)
     );
+    // define position
+    const position_13: Position = { line: 28, character: 10 };
+
+    // define expected token we extract
+    const expectedFound_13: CompletionItem[] = [];
+
+    // verify results
+    expect(expectedFound_13).toEqual(
+      (
+        await index.getAutoComplete(
+          filepath,
+          await readFile(filepath, 'utf-8'),
+          position_13
+        )
+      ).slice(0, 50)
+    );
   });
 });
