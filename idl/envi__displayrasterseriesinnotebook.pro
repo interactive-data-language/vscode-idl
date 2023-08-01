@@ -67,25 +67,10 @@ pro envi::displayRasterSeriesInNotebook, series, size = size, allow_many_rasters
   ; make sure we have system vars
   vscode_notebookInit
 
-  ; track files
-  uris = strarr(series.count)
+  ; make array for rasters
+  rasters = objarr(series.count)
+  foreach raster, series, i do rasters[i] = raster
 
-  foreach raster, series, i do begin
-    ; convert raster to thumbnail
-    task = ENVITask('GenerateThumbnail')
-    task.input_raster = raster
-    task.thumbnail_size = size
-    task.execute
-
-    ; save URI
-    uris[i] = task.output_raster_uri
-
-    ; get info about PNG to display correctly
-    if (i eq 0) then begin
-      !null = query_png(task.output_raster_uri, info)
-    endif
-  endforeach
-
-  ; add to our envi magic
-  !envi_magic.add, {uri: uris, xsize: info.dimensions[0], ysize: info.dimensions[1]}
+  ; display rasters
+  ENVI.displayRasterInNotebook, rasters
 end

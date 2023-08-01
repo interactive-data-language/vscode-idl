@@ -37,7 +37,7 @@
 ;
 ;-
 pro envi::displayRasterInNotebook, raster, size = size
-  compile_opt idl2, hidden
+  compile_opt idl2, hidden, static
   on_error, 2
 
   ; get the current session of ENVI

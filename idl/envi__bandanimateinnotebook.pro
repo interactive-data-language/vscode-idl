@@ -43,7 +43,7 @@
 ;
 ;-
 pro envi::bandAnimateInNotebook, raster, size = size, allow_many_bands = allow_many_bands
-  compile_opt idl2, hidden
+  compile_opt idl2, hidden, static
   on_error, 2
 
   ; get the current session of ENVI
@@ -65,31 +65,13 @@ pro envi::bandAnimateInNotebook, raster, size = size, allow_many_bands = allow_m
   ; make sure we have system vars
   vscode_notebookInit
 
-  ; track files
-  uris = strarr(raster.nbands)
+  ; make array for rasters
+  rasters = objarr(raster.nbands)
+  for i = 0, raster.nbands - 1 do rasters[i] = ENVISubsetRaster(raster, bands = i)
 
-  for i = 0, raster.nbands - 1 do begin
-    ; subset our raster to grab our band
-    subset = ENVISubsetRaster(raster, bands = i)
+  ; display rasters
+  ENVI.displayRasterInNotebook, rasters
 
-    ; convert raster to thumbnail
-    task = ENVITask('GenerateThumbnail')
-    task.input_raster = subset
-    task.thumbnail_size = size
-    task.execute
-
-    ; save URI
-    uris[i] = task.output_raster_uri
-
-    ; get info about PNG to display correctly
-    if (i eq 0) then begin
-      !null = query_png(task.output_raster_uri, info)
-    endif
-
-    ; clean up
-    subset.close
-  endfor
-
-  ; add to our envi magic
-  !envi_magic.add, {uri: uris, xsize: info.dimensions[0], ysize: info.dimensions[1]}
+  ; clean up
+  for i = 0, raster.nbands - 1 do rasters[i].close
 end

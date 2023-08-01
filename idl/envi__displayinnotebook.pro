@@ -51,10 +51,10 @@ pro envi::displayInNotebook, dataset, size = size
   ; determine how to proceed
   case (!true) of
     isa(dataset[0], 'enviraster'): begin
-      self.displayRasterInNotebook, dataset, size = size
+      ENVI.displayRasterInNotebook, dataset, size = size
     end
     isa(dataset, 'envirasterseries'): begin
-      self.displayRasterSeriesInNotebook, dataset, size = size
+      ENVI.displayRasterSeriesInNotebook, dataset, size = size
     end
     else: begin
       message, 'Input dataset is not an ENVI Raster or raster series'
