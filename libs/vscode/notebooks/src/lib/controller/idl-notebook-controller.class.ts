@@ -31,6 +31,8 @@ import { join } from 'path';
 import * as vscode from 'vscode';
 
 import { BangENVIMagic, BangMagic } from './bang-magic.interface';
+import { AddEncodedImageToCell } from './helpers/add-encoded-image-to-cell';
+import { AddPNGFileToCell } from './helpers/add-png-file-to-cell';
 import { ICurrentCell } from './idl-notebook-controller.interface';
 
 /**
@@ -231,35 +233,6 @@ export class IDLNotebookController {
   }
 
   /**
-   * Add encoded base64 PNG to the current output notebook cell
-   */
-  private addImageToCell(
-    cell: ICurrentCell,
-    encoded: string,
-    width: number,
-    height: number
-  ) {
-    /**
-     * Styles for the element to fil the space, but not exceed 1:1 dimensions
-     */
-    const style = `style="width:100%;height:auto;max-width:${width}px;max-height:${height}px;aspect-ratio:1;"`;
-
-    // add as output
-    cell.execution.appendOutput(
-      new vscode.NotebookCellOutput([
-        /**
-         * Use HTML because it works. Using the other mimetype *probably* works
-         * but this works right now :)
-         */
-        new vscode.NotebookCellOutputItem(
-          Buffer.from(`<img src="data:image/png;base64,${encoded}" ${style}/>`),
-          'text/html'
-        ),
-      ])
-    );
-  }
-
-  /**
    * Post-evaluation expression
    *
    * You should check the "launched" property before calling this
@@ -290,9 +263,9 @@ export class IDLNotebookController {
 
     // process each magic
     for (let i = 0; i < enviMagic.length; i++) {
-      this.addImageToCell(
+      AddPNGFileToCell(
         cell,
-        enviMagic[i].png,
+        enviMagic[i].uri,
         enviMagic[i].xsize,
         enviMagic[i].ysize
       );
@@ -375,7 +348,7 @@ export class IDLNotebookController {
             );
 
             // add
-            this.addImageToCell(
+            AddEncodedImageToCell(
               cell,
               encoded,
               fullMagic.xsize,
@@ -580,7 +553,7 @@ export class IDLNotebookController {
     /**
      * Create promise to track if we launch or not
      */
-    const launchPromise = new Promise<boolean>((res, rej) => {
+    const launchPromise = new Promise<boolean>((res) => {
       // listen for when we started
       this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
         // set everything up

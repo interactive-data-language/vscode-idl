@@ -57,17 +57,9 @@ pro envi::displayInNotebook, raster, size = size
   task.thumbnail_size = size
   task.execute
 
-  ; read output data
-  bytes = bytarr((file_info(task.output_raster_uri)).size, /nozero)
-
-  ; get bytes for PNG
-  openr, lun, task.output_raster_uri, /get_lun
-  readu, lun, bytes
-  free_lun, lun
-
   ; get info about PNG to display correctly
   !null = query_png(task.output_raster_uri, info)
 
   ; add to our envi magic
-  !envi_magic.add, {uri: task.output_raster_uri, png: IDL_Base64(bytes), xsize: info.dimensions[0], ysize: info.dimensions[1]}
+  !envi_magic.add, {uri: task.output_raster_uri, xsize: info.dimensions[0], ysize: info.dimensions[1]}
 end

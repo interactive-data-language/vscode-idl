@@ -13,8 +13,6 @@ export interface BangMagic {
  * Interface for !envi_magic in IDL
  */
 export interface BangENVIMagic {
-  /** Base 64 encoded */
-  png: string;
   /** Path to file */
   uri: string;
   xsize: number;
