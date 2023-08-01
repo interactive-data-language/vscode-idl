@@ -88,6 +88,11 @@ export class IDLNotebookController {
    */
   private queue = new SimplePromiseQueue(1);
 
+  /**
+   * The current rejector for any active cell execution promise
+   */
+  private rejector: (reason?: any) => void;
+
   constructor() {
     // create our runtime session - does not immediately start IDL
     this._runtime = new IDL(
@@ -168,8 +173,8 @@ export class IDLNotebookController {
     });
 
     // detect crash event
-    this._runtime.on(IDL_EVENT_LOOKUP.END, () => {
-      this._IDLCrashed('crash');
+    this._runtime.on(IDL_EVENT_LOOKUP.END, async () => {
+      await this._endCellExecution(false);
     });
 
     // listen for IDL crashing
@@ -400,9 +405,14 @@ export class IDLNotebookController {
     }
 
     /**
-     * Flag if we ended execution correctly
+     * Function to handle edge case of canceling execution right at this point
      */
-    let ended = false;
+    const onDidCloseWhileBusy = () => {
+      cell.execution.end(success, Date.now());
+    };
+
+    // add handler for end
+    this._runtime.once(IDL_EVENT_LOOKUP.END, onDidCloseWhileBusy);
 
     /**
      * Wrap in try/catch so we don't have to worry about unhandled promise exceptions
@@ -420,20 +430,12 @@ export class IDLNotebookController {
          *
          * Only run this if launched. If not launched we hang forever, for some reason
          */
-        if (postExecute && this.isStarted()) {
+        if (success && postExecute && this.isStarted()) {
           await this.postCellExecution(success, cell);
         }
-
-        // mark as completed
-        cell.execution.end(success, Date.now());
-
-        // update flag
-        ended = true;
       }
     } catch (err) {
-      if (!ended && cell !== undefined) {
-        cell.execution.end(false, Date.now());
-      }
+      success = false;
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_NOTEBOOK_LOG,
@@ -441,6 +443,12 @@ export class IDLNotebookController {
         alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
       });
     }
+
+    // remove listener
+    this._runtime.off(IDL_EVENT_LOOKUP.END, onDidCloseWhileBusy);
+
+    // always mark cell as finished before we end
+    cell.execution.end(success, Date.now());
   }
 
   /**
@@ -600,6 +608,9 @@ export class IDLNotebookController {
         return launchPromise;
       }
     );
+
+    // make sure cells are done executing
+    this._endCellExecution(false, false);
 
     // return a prom
     return launchPromise;
@@ -791,9 +802,19 @@ export class IDLNotebookController {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _controller: vscode.NotebookController
   ): Promise<void> {
-    await this.queue.add(async () => {
-      await this._doExecute(cells, _notebook, _controller);
-    });
+    try {
+      await this.queue.add(
+        async () => {
+          await this._doExecute(cells, _notebook, _controller);
+        },
+        (rejector) => {
+          this.rejector = rejector;
+        }
+      );
+      this.rejector = undefined;
+    } catch (err) {
+      // do nothing, should be caught elsewhere
+    }
   }
 
   /**
@@ -842,14 +863,18 @@ export class IDLNotebookController {
    * Stop kernel execution
    */
   async stop() {
-    if (!this.isStarted()) {
-      return;
+    // clear the queue
+    this.queue.clear();
+
+    // reject currently processing cell
+    if (this.rejector !== undefined) {
+      this.rejector();
+      this.rejector = undefined;
     }
 
-    // alert that execution has stopped
-    await this._endCellExecution(false, false);
-
-    // stop IDL
-    this._runtime.stop();
+    // stop IDL if we can
+    if (this.isStarted()) {
+      this._runtime.stop();
+    }
   }
 }
