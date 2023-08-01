@@ -29,7 +29,7 @@ export const ON_DID_CHANGE_CONTENT = async (
 
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
-      type: 'info',
+      type: 'debug',
       content: ['Changed content', event.document.uri],
     });
 
