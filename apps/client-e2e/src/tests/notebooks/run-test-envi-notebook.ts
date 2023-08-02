@@ -73,6 +73,11 @@ export const CELL_OUTPUT: ICompareCells[] = [
     success: true,
     mimeTypes: ['text/html'],
   },
+  {
+    idx: 12,
+    success: true,
+    mimeTypes: ['text/html'],
+  },
 ];
 
 /**
