@@ -29,7 +29,7 @@ if (!existsSync(lib)) {
  */
 ParsingPerformanceRunner(lib, {
   method: 'index-single',
-  compression: true,
+  compression: false,
   multiplier: 1,
   full: true,
   postProcess: true,
