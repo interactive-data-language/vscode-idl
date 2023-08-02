@@ -1,3 +1,5 @@
+import { EncodeNotebookCellContent } from './encode-notebook-cell-content';
+
 /**
  * The version of our IDL notebook files
  */
@@ -82,7 +84,24 @@ export interface RawNotebook {
  */
 export const DEFAULT_NOTEBOOK: RawNotebook = {
   version: '1.0.0',
-  cells: [],
+  cells: [
+    {
+      type: 'markdown',
+      content: EncodeNotebookCellContent(
+        [
+          '### Notebook Preview',
+          '',
+          'Please note that this is a preview feature of notebooks for IDL.',
+          '',
+          "Our Notebook API and file format are not set in stone, so please don't start creating many notebooks for personal use quite yet.",
+          '',
+          'Use the examples from documentation as a way to learn about how to use notebooks and see if you like them!',
+          '',
+          'If you have questions, comments, or concerns, let us know [here](https://github.com/interactive-data-language/vscode-idl/discussions/6) on GitHub.',
+        ].join('\n')
+      ),
+    },
+  ],
 };
 
 /**
