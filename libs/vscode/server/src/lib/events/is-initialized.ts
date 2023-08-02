@@ -119,12 +119,27 @@ SERVER_INFO.then(async (res) => {
     IDL_INDEX.loadGlobalTokens(IDL_CLIENT_CONFIG);
 
     // log our memory usage at regular intervals
-    setInterval(() => {
-      IDL_INDEX.cleanUp();
+    setInterval(async () => {
+      // track usage
+      let usage = 0;
+
+      // cleanup - wrap in try/catch because async
+      try {
+        usage = await IDL_INDEX.cleanUp();
+      } catch (err) {
+        IDL_LANGUAGE_SERVER_LOGGER.log({
+          log: IDL_LSP_LOG,
+          type: 'error',
+          content: [`Error while cleaning up child processes`, err],
+        });
+        usage = SystemMemoryUsedMB();
+      }
+
+      // print debug message about memory usage
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,
         type: 'info',
-        content: `Memory cleanup and usage check (mb): ${SystemMemoryUsedMB()}`,
+        content: `Memory cleanup and usage check (mb): ${usage}`,
       });
     }, 300000);
 
@@ -258,7 +273,7 @@ SERVER_INFO.then(async (res) => {
     SendProblems(Object.keys(IDL_INDEX.getSyntaxProblems()));
 
     // clean up this process and children
-    IDL_INDEX.cleanUp();
+    await IDL_INDEX.cleanUp();
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

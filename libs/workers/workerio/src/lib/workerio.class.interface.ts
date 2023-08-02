@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs';
+import { Worker } from 'worker_threads';
 
 import {
   PayloadFromWorkerBaseMessage,
@@ -11,6 +12,9 @@ import {
  * that has proper signatures for our messages
  */
 export interface IWorkerIO<_Message extends string> {
+  /** Worker threads by worker ID */
+  workers: { [key: string]: Worker };
+
   /**
    * Send a message to our worker, but don't want for a response
    */

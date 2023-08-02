@@ -55,7 +55,7 @@ export type ChangeDetectionResponse = {
 };
 
 /**
- * Message to clean up
+ * Message to clean up worker thread and return memory usage after GC
  */
 export type CleanUpMessage = 'clean-up';
 

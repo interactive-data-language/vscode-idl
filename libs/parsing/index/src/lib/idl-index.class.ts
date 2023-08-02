@@ -29,6 +29,7 @@ import {
   IDL_SAVE_FILE_EXTENSION,
   NODE_MEMORY_CONFIG,
   PRO_FILE_EXTENSION,
+  SystemMemoryUsedMB,
   TASK_FILE_EXTENSION,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -355,16 +356,41 @@ export class IDLIndex {
   /**
    * If garbage collection is enabled, clean up
    */
-  cleanUp() {
+  async cleanUp() {
     if (global.gc) {
-      if (this.isMultiThreaded()) {
-        this.indexerPool.postToAll(
-          LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-          undefined
-        );
-      }
+      // trigger GC
       global.gc();
+
+      // if threaded, clean up threads and return memory usage
+      if (this.isMultiThreaded()) {
+        /**
+         * Get the IDs for our workers
+         */
+        const ids = this.indexerPool.getIDs();
+
+        /**
+         * Promises tracking parsing in each worker
+         */
+        const clean: Promise<void>[] = [];
+
+        // submit all work for parsing
+        for (let i = 0; i < this.nWorkers; i++) {
+          clean.push(
+            this.indexerPool.workerio.postAndReceiveMessage(
+              ids[i],
+              LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+              undefined
+            )
+          );
+        }
+
+        // wait for all of our responses
+        await Promise.all(clean);
+      }
     }
+
+    // return RAM usage
+    return SystemMemoryUsedMB();
   }
 
   /**
