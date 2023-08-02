@@ -54,7 +54,10 @@ export const ON_ADD_DOCS = async (event: IAddDocsMessagePayload) => {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,
         type: 'warn',
-        content: IDL_TRANSLATION.lsp.events.onDocumentFormattingProblemCode,
+        content: [
+          IDL_TRANSLATION.lsp.events.onDocumentFormattingProblemCode,
+          file,
+        ],
         alert: IDL_TRANSLATION.lsp.events.onDocumentFormattingProblemCode,
         alertMeta: {
           file,

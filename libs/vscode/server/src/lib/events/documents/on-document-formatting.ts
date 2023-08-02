@@ -124,7 +124,10 @@ export const ON_DOCUMENT_FORMATTING = async (
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,
         type: 'warn',
-        content: IDL_TRANSLATION.lsp.events.onDocumentFormattingProblemCode,
+        content: [
+          IDL_TRANSLATION.lsp.events.onDocumentFormattingProblemCode,
+          info.fsPath,
+        ],
         alert: IDL_TRANSLATION.lsp.events.onDocumentFormattingProblemCode,
         alertMeta: {
           file: info.fsPath,
