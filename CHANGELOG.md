@@ -68,6 +68,8 @@ Fixed a bug and added tests for an issue where non-standard docs blocks would co
 
 Fixed auto-complete sending keywords in a few scenarios where it shouldn't and added tests
 
+When checking for node.js, increase timeout from 100 to 250 ms
+
 ## 3.1.3 July 2023
 
 Fix bug where, if you had a function or procedure without a name, parsing would occasionally break and cause a bad state for the language server
