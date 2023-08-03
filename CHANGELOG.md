@@ -4,44 +4,6 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail on incremental work for large features, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
-## Unreleased
-
-Preview release of IDL Notebooks! This is a first pass at adding notebook support for IDL which is independent from Jupyter.
-
-> Notebooks are a preview feature and, based on early adopter feedback, will likely change
-
-Here are some of the features that notebooks bring:
-
-- Notebook files should end with the extension ".idlnb" which are managed and rendered by the IDL extension.
-
-  - Notebooks support highlighting, problem reporting, hover help, auto-complete, go-to-definition, formatting, and semantic token highlighting.
-
-    > Pro tip: See the FORMATTING.md doc for information regarding how to format notebooks on save.
-
-  - Basic notebook functionality for saving (including outputs and images) and restoring all works as expected
-
-  - Notebooks embed images. If you use function or object graphics, all windows will be embedded.
-
-    - At this time, there may be some graphics that shouldn't be grabbed (like when you run ENVI processing with the ENVI UI open)
-
-  - Notebooks do not embed widgets.
-
-  - Notebooks only support Markdown and IDL cell types
-
-- When running cells, notebooks automatically start an IDL process. Notebooks provide two custom buttons for managing IDL: Reset and Stop.
-
-  - Reset will stop and restart IDL so that it is fresh (this way you can interrupt cell execution)
-
-  - Stop will stop the IDL process and interrupt cell execution. A new IDL session won't be launched until you run a new cell.
-
-- Ability to run cells:
-
-  - Cells are executed as-is and don't support debugging or interactive processes.
-
-  - See the "Hello World" notebook for details on how cell execution works and how you can write code
-
-  - After each cell is executed we issue a `retall` command to make sure that we are at the top-level and not stopped in a weird state
-
 ## 3.1.4 August 2023
 
 For routine documentation, add button "Open Examples in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells
@@ -69,6 +31,8 @@ Fixed a bug and added tests for an issue where non-standard docs blocks would co
 Fixed auto-complete sending keywords in a few scenarios where it shouldn't and added tests
 
 When checking for node.js, increase timeout from 100 to 250 ms
+
+Resolve an issue with the newly added token cache where all problems were not reported to the user when you changed your path after opening VSCode
 
 ## 3.1.3 July 2023
 
