@@ -1,1 +1,14 @@
-{"version":"1.0.0","cells":[{"type":"code","content":"OyBtYWtlIHN1cmUgc3RvcHBpbmcgd29ya3MgYXMgZXhwZWN0ZWQNCndhaXQsIDE=","metadata":{},"outputs":[]}]}
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "; make sure stopping works as expected",
+        "wait, 1"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

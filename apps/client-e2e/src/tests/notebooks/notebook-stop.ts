@@ -4,13 +4,13 @@ import expect from 'expect';
 import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
-import { CompareCells } from './helpers/compare-cells';
-import { ICompareCells } from './helpers/compare-cells.interface';
+import { CompareCellOutputs } from './helpers/compare-cells';
+import { ICompareCellOutputs } from './helpers/compare-cells.interface';
 
 /**
  * Types of outputs from cells that we expect to have
  */
-export const CELL_OUTPUT: ICompareCells[] = [
+export const CELL_OUTPUT: ICompareCellOutputs[] = [
   {
     idx: 0,
     success: false,
@@ -58,7 +58,7 @@ export const RunNotebookStop: RunnerFunction = async (init) => {
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
 
   // compare state
-  CompareCells(nb, CELL_OUTPUT);
+  CompareCellOutputs(nb, CELL_OUTPUT);
 
   // clear any existing outputs
   await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);

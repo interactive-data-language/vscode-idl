@@ -6,13 +6,13 @@ import { existsSync, rmSync } from 'fs';
 import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
-import { CompareCells } from './helpers/compare-cells';
-import { ICompareCells } from './helpers/compare-cells.interface';
+import { CompareCellOutputs } from './helpers/compare-cells';
+import { ICompareCellOutputs } from './helpers/compare-cells.interface';
 
 /**
  * Types of outputs from cells that we expect to have
  */
-export const CELL_OUTPUT: ICompareCells[] = [
+export const CELL_OUTPUT: ICompareCellOutputs[] = [
   {
     idx: 0,
     success: true,
@@ -115,7 +115,7 @@ export const RunTestENVINotebook: RunnerFunction = async (init) => {
   await Sleep(100);
 
   // compare cells
-  CompareCells(nb, CELL_OUTPUT);
+  CompareCellOutputs(nb, CELL_OUTPUT);
 
   // clear any existing outputs
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
