@@ -172,7 +172,12 @@ export class IDLNotebookController {
       this._appendCellOutput(msg);
     });
 
-    // detect crash event
+    // detect when we close IDL
+    this._runtime.on(IDL_EVENT_LOOKUP.CLOSED_CLEANLY, async () => {
+      await this._endCellExecution(false);
+    });
+
+    // listen to end events
     this._runtime.on(IDL_EVENT_LOOKUP.END, async () => {
       await this._endCellExecution(false);
     });
@@ -412,7 +417,9 @@ export class IDLNotebookController {
     };
 
     // add handler for end
+    this._runtime.once(IDL_EVENT_LOOKUP.CLOSED_CLEANLY, onDidCloseWhileBusy);
     this._runtime.once(IDL_EVENT_LOOKUP.END, onDidCloseWhileBusy);
+    this._runtime.once(IDL_EVENT_LOOKUP.CRASHED, onDidCloseWhileBusy);
 
     /**
      * Wrap in try/catch so we don't have to worry about unhandled promise exceptions
@@ -445,7 +452,9 @@ export class IDLNotebookController {
     }
 
     // remove listener
+    this._runtime.off(IDL_EVENT_LOOKUP.CLOSED_CLEANLY, onDidCloseWhileBusy);
     this._runtime.off(IDL_EVENT_LOOKUP.END, onDidCloseWhileBusy);
+    this._runtime.off(IDL_EVENT_LOOKUP.CRASHED, onDidCloseWhileBusy);
 
     // always mark cell as finished before we end
     cell.execution.end(success, Date.now());
