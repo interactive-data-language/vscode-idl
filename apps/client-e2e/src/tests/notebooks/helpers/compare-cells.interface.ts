@@ -1,4 +1,4 @@
-import { IDLRawNotebookCellType } from '@idl/notebooks/shared';
+import * as vscode from 'vscode';
 
 type MimeTypes = 'text/html' | 'text/plain' | 'image/png';
 
@@ -21,7 +21,7 @@ export interface ICompareCellAndOutputs {
   /** Cell we are comparing against */
   idx: number;
   /** Type of cell */
-  kind: IDLRawNotebookCellType;
+  kind: vscode.NotebookCellKind;
   /** All of the cell mimetypes */
   outputs: MimeTypes[];
 }

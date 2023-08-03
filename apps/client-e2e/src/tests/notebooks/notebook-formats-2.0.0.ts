@@ -12,62 +12,62 @@ import { ICompareCellAndOutputs } from './helpers/compare-cells.interface';
 export const CELL_OUTPUT: ICompareCellAndOutputs[] = [
   {
     idx: 0,
-    kind: 'code',
+    kind: vscode.NotebookCellKind.Code,
     outputs: [],
   },
   {
     idx: 1,
-    kind: 'code',
+    kind: vscode.NotebookCellKind.Code,
     outputs: [],
   },
   {
     idx: 2,
-    kind: 'code',
+    kind: vscode.NotebookCellKind.Code,
     outputs: ['text/plain'],
   },
   {
     idx: 3,
-    kind: 'code',
+    kind: vscode.NotebookCellKind.Code,
     outputs: ['text/html'],
   },
   {
     idx: 4,
-    kind: 'code',
+    kind: vscode.NotebookCellKind.Code,
     outputs: ['text/html'],
   },
   {
     idx: 5,
-    kind: 'code',
+    kind: vscode.NotebookCellKind.Code,
     outputs: ['text/html'],
   },
   {
     idx: 6,
-    kind: 'code',
+    kind: vscode.NotebookCellKind.Code,
     outputs: ['text/html'],
   },
   {
     idx: 7,
-    kind: 'code',
+    kind: vscode.NotebookCellKind.Code,
     outputs: ['text/html'],
   },
   {
     idx: 8,
-    kind: 'code',
+    kind: vscode.NotebookCellKind.Code,
     outputs: ['text/html'],
   },
   {
     idx: 9,
-    kind: 'code',
+    kind: vscode.NotebookCellKind.Code,
     outputs: ['text/html'],
   },
   {
     idx: 10,
-    kind: 'code',
+    kind: vscode.NotebookCellKind.Code,
     outputs: ['text/html'],
   },
   {
     idx: 11,
-    kind: 'code',
+    kind: vscode.NotebookCellKind.Code,
     outputs: ['text/html'],
   },
 ];
