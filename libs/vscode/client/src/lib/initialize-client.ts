@@ -106,6 +106,9 @@ export let I18N_FOLDER = '';
 /** Path to our pro code that we need for vscode that we need for debugging */
 export let VSCODE_PRO_DIR = '';
 
+/** Path to our pro code for notebooks */
+export let VSCODE_NOTEBOOK_PRO_DIR = '';
+
 /**
  * Initializes any code/functionality needed for our extension client.
  *
@@ -122,7 +125,13 @@ export async function InitializeClient(
   // update folders
   EXTENSION_FOLDER = CleanPath(ctx.extensionPath);
   I18N_FOLDER = join(EXTENSION_FOLDER, 'dist', 'i18n');
-  VSCODE_PRO_DIR = join(EXTENSION_FOLDER, 'idl');
+  VSCODE_PRO_DIR = join(EXTENSION_FOLDER, 'idl', 'vscode');
+  VSCODE_NOTEBOOK_PRO_DIR = join(
+    EXTENSION_FOLDER,
+    'idl',
+    'vscode',
+    'notebooks'
+  );
 
   // set language configuration
   LoadLanguageConfiguration();

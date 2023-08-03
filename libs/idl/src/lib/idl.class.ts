@@ -139,9 +139,10 @@ export class IDL extends EventEmitter {
 
     // add a path for the directory
     if (!('IDL_PATH' in args.env)) {
-      args.env.IDL_PATH = this.vscodeProDir;
+      args.env.IDL_PATH = `+${this.vscodeProDir}`;
     } else {
-      args.env.IDL_PATH = this.vscodeProDir + delimiter + args.env.IDL_PATH;
+      args.env.IDL_PATH =
+        `+${this.vscodeProDir}` + delimiter + args.env.IDL_PATH;
     }
 
     /** Get path variable which, for windows is "Path" and not "PATH" */

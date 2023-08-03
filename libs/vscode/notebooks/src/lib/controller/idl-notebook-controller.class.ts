@@ -19,7 +19,11 @@ import {
   Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_LOGGER, VSCODE_PRO_DIR } from '@idl/vscode/client';
+import {
+  IDL_LOGGER,
+  VSCODE_NOTEBOOK_PRO_DIR,
+  VSCODE_PRO_DIR,
+} from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import {
   DEFAULT_IDL_DEBUG_CONFIGURATION,
@@ -505,12 +509,14 @@ export class IDLNotebookController {
       outputs.push(await this.evaluate('.compile idlittool__define'));
       outputs.push(
         await this.evaluate(
-          `.compile '${VSCODE_PRO_DIR}/idlititool__refreshcurrentview.pro'`
+          `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/idlititool__refreshcurrentview.pro'`
         )
       );
       outputs.push(await this.evaluate('.compile graphic__define'));
       outputs.push(
-        await this.evaluate(`.compile '${VSCODE_PRO_DIR}/graphic__refresh.pro'`)
+        await this.evaluate(
+          `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/graphic__refresh.pro'`
+        )
       );
     }
 
