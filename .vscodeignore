@@ -35,7 +35,7 @@ idl/helpers/**
 idl/routines/notebooks/**
 idl/test/**
 idl/README.md
-idl/idl.json
+idl/vscode/idl.json
 libs/**
 node_modules/**
 parse-test/**
