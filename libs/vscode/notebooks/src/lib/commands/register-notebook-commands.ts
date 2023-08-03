@@ -1,5 +1,8 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { ConvertDocsToNotebook, DOCS_NOTEBOOK_FOLDER } from '@idl/notebooks';
+import {
+  ConvertDocsToNotebook,
+  DOCS_NOTEBOOK_FOLDER,
+} from '@idl/notebooks/shared';
 import { IDL_COMMANDS, IDL_NOTEBOOK_EXTENSION, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
