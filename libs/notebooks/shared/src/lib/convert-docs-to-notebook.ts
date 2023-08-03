@@ -2,12 +2,12 @@ import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 
 import { CreateCodeForNotebooks } from './create-code-for-notebooks';
 import { EncodeNotebook } from './encode-notebook';
-import { EncodeNotebookCellContent } from './encode-notebook-cell-content';
 import {
-  IDLNotebookCellType,
-  RawNotebook,
-  RawNotebookCell,
-} from './raw-notebook.interface';
+  IDLRawNotebook,
+  IDLRawNotebookCell,
+  IDLRawNotebookCellType,
+  IDLRawNotebookVersion_2_0_0,
+} from './format-types/raw-notebook.interface';
 
 /**
  * When does code block start
@@ -20,11 +20,6 @@ const START_CODE = /^\s*```idl/i;
 const END_CODE = /^\s*```/i;
 
 /**
- * Sections we dont save
- */
-const DONT_SAVE_SECTION = /^#+\s*(?:Argument|Keyword|Example)/i;
-
-/**
  * Converts docs to a nice looking notebook
  *
  * Returns `undefined` if there are no example code cells
@@ -34,11 +29,11 @@ export async function ConvertDocsToNotebook(
   docs: string
 ) {
   /** Notebook cells */
-  const cells: RawNotebookCell[] = [];
+  const cells: IDLRawNotebookCell<IDLRawNotebookVersion_2_0_0>[] = [];
 
   cells.push({
     type: 'markdown',
-    content: EncodeNotebookCellContent(`#### ${info.name}`),
+    content: [`#### ${info.name}`],
   });
 
   // split on new lines
@@ -48,7 +43,7 @@ export async function ConvertDocsToNotebook(
   const blocks: string[][] = [];
 
   /** Types of blocks */
-  const types: IDLNotebookCellType[] = [];
+  const types: IDLRawNotebookCellType[] = [];
 
   /** last text content for markdown */
   const lastContent: string[] = [];
@@ -149,12 +144,12 @@ export async function ConvertDocsToNotebook(
   /**
    * Create raw notebook
    */
-  const raw: RawNotebook = {
-    version: '1.0.0',
+  const raw: IDLRawNotebook<IDLRawNotebookVersion_2_0_0> = {
+    version: '2.0.0',
     cells: blocks.map((block, idx) => {
       return {
         type: types[idx],
-        content: EncodeNotebookCellContent(block.join('\n')),
+        content: block,
       };
     }),
   };
