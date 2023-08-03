@@ -353,7 +353,7 @@ export class IDL extends EventEmitter {
       switch (true) {
         case this.closing:
           // do nothing because we are closing IDL
-          this.emit(IDL_EVENT_LOOKUP.END);
+          this.emit(IDL_EVENT_LOOKUP.CLOSED_CLEANLY);
           break;
         case !this.started:
           this.log.log({
@@ -366,7 +366,7 @@ export class IDL extends EventEmitter {
           });
           this.emit(IDL_EVENT_LOOKUP.FAILED_START, 'Failed to start IDL');
           break;
-        case !this.closing:
+        default:
           this.log.log({
             type: 'error',
             content: [
@@ -376,9 +376,6 @@ export class IDL extends EventEmitter {
             alert: IDL_TRANSLATION.debugger.adapter.crashed,
           });
           this.emit(IDL_EVENT_LOOKUP.CRASHED, code, signal);
-          break;
-        default:
-          this.emit(IDL_EVENT_LOOKUP.END);
           break;
       }
 
@@ -399,7 +396,6 @@ export class IDL extends EventEmitter {
     this.queue.clear();
     this.silent = false;
     this.idlInfo = { ...DEFAULT_IDL_INFO };
-    this.emit(IDL_EVENT_LOOKUP.END);
   }
 
   /**
