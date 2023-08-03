@@ -1,5 +1,6 @@
 import { CleanIDLOutput } from '@idl/idl';
 import { IDL_COMMANDS, Sleep } from '@idl/shared';
+import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import { VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
@@ -31,6 +32,13 @@ export const VariableReplacement: RunnerFunction = async (init) => {
 
   // make sure stopped
   expect(init.debug.adapter.isStarted()).toBeFalsy();
+
+  // check status bar before running test
+  expect(
+    init.debug.statusBar.bar.text.endsWith(
+      IDL_TRANSLATION.statusBar.startAgainQuestion
+    )
+  ).toBeTruthy();
 
   // start again
   await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.START);
