@@ -123,12 +123,10 @@ client.on(
 );
 
 /**
- * Clean up
+ * Clean up and return memory usage
  */
 client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, async () => {
-  if (global.gc) {
-    global.gc();
-  }
+  await WORKER_INDEX.cleanUp();
 });
 
 /**

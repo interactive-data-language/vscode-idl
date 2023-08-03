@@ -11,6 +11,7 @@ import { TestsForGlobalProblems } from './makers/tests-for-global-problems';
 import { TestsForHoverHelp } from './makers/tests-for-hover-help';
 import { TestsForLocalGlobalScopeAndCompile } from './makers/tests-for-local-global-scope-compile-and-types';
 import { TestsForOutline } from './makers/tests-for-outline';
+import { TestsForSemanticTokens } from './makers/tests-for-semantic-tokens';
 import { TestsForSyntaxPostProcessors } from './makers/tests-for-syntax-post-processors';
 import { TestsForSyntaxValidators } from './makers/tests-for-syntax-validators';
 import { TestsForTaskAssembler } from './makers/tests-for-task-assembler';
@@ -29,6 +30,7 @@ import { AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS } from './tests/auto-lo
 import { AUTO_OUTLINE_TESTS } from './tests/auto-outline-tests.interface';
 import { AUTO_PROBLEM_FIXING_TESTS } from './tests/auto-problem-fixing-tests.interface.';
 import { AUTO_SELECTED_TOKEN_TESTS } from './tests/auto-selected-token-tests.interface';
+import { AUTO_SEMANTIC_TOKEN_TESTS } from './tests/auto-semantic-token-tests.interface';
 import { AUTO_POST_PROCESSOR_TESTS } from './tests/auto-syntax-post-processor-tests.interface';
 import { AUTO_SYNTAX_TESTS } from './tests/auto-syntax-validator-tests.interface';
 import { AUTO_TASK_ASSEMBLER_TESTS } from './tests/auto-task-assembler-tests.interface';
@@ -359,6 +361,35 @@ export async function GenerateAutomatedTests(useCache: boolean) {
         AUTO_OUTLINE_TESTS[i].suiteName,
         AUTO_OUTLINE_TESTS[i].tests,
         join(outDirOutline, AUTO_OUTLINE_TESTS[i].fileName)
+      );
+    }
+  }
+  console.log();
+
+  // specify the output folder
+  const outDirSemantic = join(
+    process.cwd(),
+    'libs/tests/semantic-tokens/src/lib'
+  );
+
+  // clean test directory
+  CleanTestDir(outDirSemantic, useCache);
+
+  // process each test
+  console.log('Generating tests for semantic tokens');
+  for (let i = 0; i < AUTO_SEMANTIC_TOKEN_TESTS.length; i++) {
+    if (
+      HasTestCacheChanged(
+        'auto-semantic-token-tests',
+        AUTO_SEMANTIC_TOKEN_TESTS[i].fileName,
+        AUTO_SEMANTIC_TOKEN_TESTS[i]
+      )
+    ) {
+      console.log(`  Suite (${i}): ${AUTO_SEMANTIC_TOKEN_TESTS[i].suiteName}`);
+      await TestsForSemanticTokens(
+        AUTO_SEMANTIC_TOKEN_TESTS[i].suiteName,
+        AUTO_SEMANTIC_TOKEN_TESTS[i].tests,
+        join(outDirSemantic, AUTO_SEMANTIC_TOKEN_TESTS[i].fileName)
       );
     }
   }

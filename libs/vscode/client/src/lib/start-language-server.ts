@@ -1,14 +1,12 @@
 import {
+  ALL_DOCUMENT_SELECTORS,
   CleanPath,
   GetExtensionPath,
-  IDL_CONFIG_FILE_DOCUMENT_SELECTOR,
-  IDL_DOCUMENT_SELECTOR,
   IDL_JSON_GLOB_PATTERN,
   IDL_LANGUAGE_NAME,
   NODE_MEMORY_CONFIG,
   NOTEBOOK_GLOB_PATTERN,
   PRO_CODE_GLOB_PATTERN,
-  TASK_FILE_DOCUMENT_SELECTOR,
   TASK_FILE_GLOB_PATTERN,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -64,7 +62,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
    * Attempt to spawn node
    */
   try {
-    nodeOutput = execSync(`node --version`, { timeout: 100 })
+    nodeOutput = execSync(`node --version`, { timeout: 250 })
       .toString('utf8')
       .trim();
     HAS_NODE = true;
@@ -142,11 +140,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
    */
   const clientOptions: LanguageClientOptions = {
     // Register the server for plain text documents
-    documentSelector: [
-      IDL_DOCUMENT_SELECTOR,
-      TASK_FILE_DOCUMENT_SELECTOR,
-      IDL_CONFIG_FILE_DOCUMENT_SELECTOR,
-    ],
+    documentSelector: ALL_DOCUMENT_SELECTORS,
     synchronize: {
       // Notify the server about file changes to IDL-related files contained in the workspace
       fileEvents: [

@@ -1,4 +1,7 @@
-import { COMPLETION_TRIGGER_CHARACTERS } from '@idl/shared';
+import {
+  COMPLETION_TRIGGER_CHARACTERS,
+  IDL_NOTEBOOK_CELL_SELECTOR,
+} from '@idl/shared';
 import { LANGUAGE_SERVER_CLIENT } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 import {
@@ -8,14 +11,13 @@ import {
 } from 'vscode-languageserver';
 
 import { GetNotebookCellIndex } from '../helpers/get-notebook-cell-index';
-import { IDL_NOTEBOOK_SELECTION_SCHEME } from './providers.interface';
 
 /**
  * Registers our provider for notebook auto completion
  */
 export function RegisterNotebookCompletionProvider() {
   vscode.languages.registerCompletionItemProvider(
-    IDL_NOTEBOOK_SELECTION_SCHEME,
+    IDL_NOTEBOOK_CELL_SELECTOR,
     {
       async provideCompletionItems(document, position, _token) {
         /**

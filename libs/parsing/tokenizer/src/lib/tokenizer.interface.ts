@@ -66,11 +66,11 @@ export interface IDetailedPosition extends IPosition {
 }
 
 /** Basic token with no closing statement */
-export type BasicToken = '0';
+export type BasicToken = 0;
 /* Start of a multi-part token */
-export type StartToken = '1';
+export type StartToken = 1;
 /** End of a multi-part token */
-export type EndToken = '2';
+export type EndToken = 2;
 
 /** Types of tokens that we can match */
 export type FoundTokenType = BasicToken | StartToken | EndToken;
@@ -88,9 +88,9 @@ export interface ITokenTypes {
  * Allowed types of tokens
  */
 export const TOKEN_TYPES: ITokenTypes = {
-  BASIC: '0',
-  START: '1',
-  END: '2',
+  BASIC: 0,
+  START: 1,
+  END: 2,
 };
 
 /**

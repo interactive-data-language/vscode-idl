@@ -29,7 +29,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/enviRaster__GetData.html)',
+      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/enviRaster__GetData.html) | [Open Examples in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22fm%22,%22name%22:%22ENVIRaster::getData%22%7D)',
       '',
       '```idl',
       'result = ENVIRaster.getData( [ bands = Array<Number> ], $',
@@ -244,7 +244,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/enviRaster__Save.html)',
+      '[Online Docs](https://www.nv5geospatialsoftware.com/docs/enviRaster__Save.html) | [Open Examples in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22pm%22,%22name%22:%22ENVIRaster::save%22%7D)',
       '',
       '```idl',
       'ENVIRaster.save, $',

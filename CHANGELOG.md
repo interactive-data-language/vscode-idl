@@ -4,6 +4,36 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail on incremental work for large features, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
+## 3.1.4 August 2023
+
+For routine documentation, add button "Open Examples in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells
+
+- If there are no code block examples for the routine you are hovered over, no notebook will appear
+
+- By default, the notebook opens to the side. If you have one editor group open, a new one is created to the right.
+
+- If more than one editor group is open, we open to the left or the right of the active editor, depending on which editor is active (this makes sure we don't keep opening new tabs)
+
+Resolved an issue where problems were not being synced when no workspaces were open in VSCode and added tests to verify they are sent.
+
+Normalized language server events to all wait for startup before they process requests from VSCode
+
+Get framework for supporting notebook cells in language server with first pass at same language server methods for PRO files and notebooks
+
+Re-work the ENVI and IDL documentation parse logic to use "Online Docs" instead of the routine name and a link for the web-version of documentation
+
+Use better practices when normalizing code from docs. We now auto-fix problems so that compile-opt idl2 and other best-practices are always present
+
+Fixed a problem when running notebook cells that would cause them to fail executing when the .idl sub-folder we use wasn't present and added tests for it
+
+Fixed a bug and added tests for an issue where non-standard docs blocks would continue to be indented after every save. We now use the intent level of the first non-empty line in docs as where it starts and use that to normalize the indentation.
+
+Fixed auto-complete sending keywords in a few scenarios where it shouldn't and added tests
+
+When checking for node.js, increase timeout from 100 to 250 ms
+
+Resolve an issue with the newly added token cache where all problems were not reported to the user when you changed your path after opening VSCode
+
 ## 3.1.3 July 2023
 
 Fix bug where, if you had a function or procedure without a name, parsing would occasionally break and cause a bad state for the language server

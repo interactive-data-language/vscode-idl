@@ -1,8 +1,10 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
+import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { RunNotebookRestart } from './notebook-restart';
 import { RunNotebookStop } from './notebook-stop';
+import { RunTestENVINotebook } from './run-test-envi-notebook';
 import { RunTestNotebook } from './run-test-notebook';
 import { SaveAndClearNotebook } from './save-and-clear-output';
 
@@ -33,6 +35,11 @@ NOTEBOOK_RUNNER.addTest({
   critical: true,
 });
 
+NOTEBOOK_RUNNER.addTest({
+  name: 'Run notebook that embeds rasters and do basic check they are right',
+  fn: RunTestENVINotebook,
+});
+
 // reset goes first
 NOTEBOOK_RUNNER.addTest({
   name: 'Reset does the right thing',
@@ -45,4 +52,10 @@ NOTEBOOK_RUNNER.addTest({
   name: 'Stop does the right thing',
   fn: RunNotebookStop,
   critical: true,
+});
+
+// stop at the end to make sure the process exits
+NOTEBOOK_RUNNER.addTest({
+  name: 'Notebook problems track right',
+  fn: NotebookProblemsTrackRight,
 });

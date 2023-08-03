@@ -8,3 +8,13 @@ export interface BangMagic {
   xsize: number;
   ysize: number;
 }
+
+/**
+ * Interface for !envi_magic in IDL
+ */
+export interface BangENVIMagic {
+  /** Path to file */
+  uri: string | string[];
+  xsize: number;
+  ysize: number;
+}

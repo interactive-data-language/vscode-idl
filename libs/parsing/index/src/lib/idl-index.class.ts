@@ -14,7 +14,7 @@ import {
   IDL_WORKER_THREAD_CONSOLE,
   LogManager,
 } from '@idl/logger';
-import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks';
+import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
 import { CodeChecksum, Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
@@ -29,6 +29,7 @@ import {
   IDL_SAVE_FILE_EXTENSION,
   NODE_MEMORY_CONFIG,
   PRO_FILE_EXTENSION,
+  SystemMemoryUsedMB,
   TASK_FILE_EXTENSION,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -355,16 +356,41 @@ export class IDLIndex {
   /**
    * If garbage collection is enabled, clean up
    */
-  cleanUp() {
+  async cleanUp() {
     if (global.gc) {
-      if (this.isMultiThreaded()) {
-        this.indexerPool.postToAll(
-          LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-          undefined
-        );
-      }
+      // trigger GC
       global.gc();
+
+      // if threaded, clean up threads and return memory usage
+      if (this.isMultiThreaded()) {
+        /**
+         * Get the IDs for our workers
+         */
+        const ids = this.indexerPool.getIDs();
+
+        /**
+         * Promises tracking parsing in each worker
+         */
+        const clean: Promise<void>[] = [];
+
+        // submit all work for parsing
+        for (let i = 0; i < this.nWorkers; i++) {
+          clean.push(
+            this.indexerPool.workerio.postAndReceiveMessage(
+              ids[i],
+              LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+              undefined
+            )
+          );
+        }
+
+        // wait for all of our responses
+        await Promise.all(clean);
+      }
     }
+
+    // return RAM usage
+    return SystemMemoryUsedMB();
   }
 
   /**
@@ -1022,7 +1048,9 @@ export class IDLIndex {
 
       // track as known file
       this.knownFiles[file] = undefined;
-      this.fileTypes['pro'].add(file);
+      if (!options.isNotebook) {
+        this.fileTypes['pro'].add(file);
+      }
 
       // alert everyone of new file
       if (this.isMultiThreaded()) {
@@ -1150,7 +1178,14 @@ export class IDLIndex {
             }
           );
         } else {
-          return this.tokensByFile.get(file);
+          if (this.tokensByFile.has(file)) {
+            return this.tokensByFile.get(file);
+          } else {
+            this.pendingFiles[file] = this.indexProCode(file, code, options);
+            const res = await this.pendingFiles[file];
+            delete this.pendingFiles[file];
+            return res;
+          }
         }
       }
       /**
@@ -1480,7 +1515,7 @@ export class IDLIndex {
   /**
    * Buckets files by file type
    */
-  private bucketFiles(files: string[]) {
+  bucketFiles(files: string[]) {
     /** PRO files */
     const proFiles: string[] = [];
 

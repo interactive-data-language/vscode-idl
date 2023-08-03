@@ -96,6 +96,10 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
             line: 25,
             character: 10,
           },
+          {
+            line: 28,
+            character: 10,
+          },
         ],
       },
     ],
@@ -229,6 +233,30 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           {
             line: 16,
             character: 14,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly exclude keywords`,
+    fileName: `keywords.2.spec.ts`,
+    tests: [
+      {
+        name: `for these cases`,
+        file: `idl/test/auto-complete/keywords.pro`,
+        position: [
+          {
+            line: 22,
+            character: 12,
+          },
+          {
+            line: 23,
+            character: 11,
+          },
+          {
+            line: 24,
+            character: 9,
           },
         ],
       },

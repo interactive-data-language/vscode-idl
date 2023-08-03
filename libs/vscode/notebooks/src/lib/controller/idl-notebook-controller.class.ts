@@ -5,6 +5,7 @@ import {
   REGEX_NEW_LINE,
 } from '@idl/idl';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
+import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
 import { Parser } from '@idl/parser';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import { TreeBranchToken } from '@idl/parsing/syntax-tree';
@@ -14,22 +15,29 @@ import {
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
   IDL_NOTEBOOK_NAME,
+  SimplePromiseQueue,
   Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_LOGGER, VSCODE_PRO_DIR } from '@idl/vscode/client';
+import {
+  IDL_LOGGER,
+  VSCODE_NOTEBOOK_PRO_DIR,
+  VSCODE_PRO_DIR,
+} from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import {
   DEFAULT_IDL_DEBUG_CONFIGURATION,
   IDL_DEBUG_CONFIGURATION_PROVIDER,
 } from '@idl/vscode/debug';
-import { DOT_IDL_FOLDER } from '@idl/vscode/shared';
 import copy from 'fast-copy';
-import { writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import * as vscode from 'vscode';
 
-import { BangMagic } from './bang-magic.interface';
+import { BangENVIMagic, BangMagic } from './bang-magic.interface';
+import { AddAnimationToCell } from './helpers/add-animation-to-cell';
+import { AddEncodedImageToCell } from './helpers/add-encoded-image-to-cell';
+import { AddPNGFileToCell } from './helpers/add-png-file-to-cell';
 import { ICurrentCell } from './idl-notebook-controller.interface';
 
 /**
@@ -78,6 +86,16 @@ export class IDLNotebookController {
    * The current cell that we are executing
    */
   private _currentCell?: ICurrentCell;
+
+  /**
+   * track pending executions
+   */
+  private queue = new SimplePromiseQueue(1);
+
+  /**
+   * The current rejector for any active cell execution promise
+   */
+  private rejector: (reason?: any) => void;
 
   constructor() {
     // create our runtime session - does not immediately start IDL
@@ -158,9 +176,14 @@ export class IDLNotebookController {
       this._appendCellOutput(msg);
     });
 
-    // detect crash event
-    this._runtime.on(IDL_EVENT_LOOKUP.END, () => {
-      this._IDLCrashed('crash');
+    // detect when we close IDL
+    this._runtime.on(IDL_EVENT_LOOKUP.CLOSED_CLEANLY, async () => {
+      await this._endCellExecution(false);
+    });
+
+    // listen to end events
+    this._runtime.on(IDL_EVENT_LOOKUP.END, async () => {
+      await this._endCellExecution(false);
     });
 
     // listen for IDL crashing
@@ -237,6 +260,41 @@ export class IDLNotebookController {
 
     await this.evaluate(`retall`);
 
+    // return if no cell
+    if (cell === undefined) {
+      return;
+    }
+
+    /**
+     * Get additional windows
+     */
+    const enviMagic: BangENVIMagic[] = JSON.parse(
+      CleanIDLOutput(
+        await this.evaluate(
+          `print, json_serialize(!envi_magic, /lowercase) & !envi_magic.remove, /all`
+        )
+      )
+    );
+
+    // process each magic
+    for (let i = 0; i < enviMagic.length; i++) {
+      if (Array.isArray(enviMagic[i].uri)) {
+        AddAnimationToCell(
+          cell,
+          enviMagic[i].uri as string[],
+          enviMagic[i].xsize,
+          enviMagic[i].ysize
+        );
+      } else {
+        AddPNGFileToCell(
+          cell,
+          enviMagic[i].uri as string,
+          enviMagic[i].xsize,
+          enviMagic[i].ysize
+        );
+      }
+    }
+
     // update magic based on preference
     magic = magic && IDL_EXTENSION_CONFIG.notebooks.embedGraphics;
 
@@ -266,7 +324,7 @@ export class IDLNotebookController {
     const rawMagic = CleanIDLOutput(await this.evaluate(commands.join(' & ')));
 
     // check if we need to look for magic
-    if (magic && cell !== undefined) {
+    if (magic) {
       try {
         // /**
         //  * Parse our magic
@@ -313,25 +371,12 @@ export class IDLNotebookController {
               `EncodeGraphic(${fullMagic.window}, ${fullMagic.type}) & !magic.window = -1`
             );
 
-            /**
-             * Styles for the element to fil the space, but not exceed 1:1 dimensions
-             */
-            const style = `style="width:100%;height:100%;max-width:${fullMagic.xsize}px;max-height:${fullMagic.ysize}px;"`;
-
-            // add as output
-            cell.execution.appendOutput(
-              new vscode.NotebookCellOutput([
-                /**
-                 * Use HTML because it works. Using the other mimetype *probably* works
-                 * but this works right now :)
-                 */
-                new vscode.NotebookCellOutputItem(
-                  Buffer.from(
-                    `<img src="data:image/png;base64,${encoded}" ${style}/>`
-                  ),
-                  'text/html'
-                ),
-              ])
+            // add
+            AddEncodedImageToCell(
+              cell,
+              encoded,
+              fullMagic.xsize,
+              fullMagic.ysize
             );
           }
         }
@@ -369,9 +414,16 @@ export class IDLNotebookController {
     }
 
     /**
-     * Flag if we ended execution correctly
+     * Function to handle edge case of canceling execution right at this point
      */
-    let ended = false;
+    const onDidCloseWhileBusy = () => {
+      cell.execution.end(success, Date.now());
+    };
+
+    // add handler for end
+    this._runtime.once(IDL_EVENT_LOOKUP.CLOSED_CLEANLY, onDidCloseWhileBusy);
+    this._runtime.once(IDL_EVENT_LOOKUP.END, onDidCloseWhileBusy);
+    this._runtime.once(IDL_EVENT_LOOKUP.CRASHED, onDidCloseWhileBusy);
 
     /**
      * Wrap in try/catch so we don't have to worry about unhandled promise exceptions
@@ -389,20 +441,12 @@ export class IDLNotebookController {
          *
          * Only run this if launched. If not launched we hang forever, for some reason
          */
-        if (postExecute && this.isStarted()) {
+        if (success && postExecute && this.isStarted()) {
           await this.postCellExecution(success, cell);
         }
-
-        // mark as completed
-        cell.execution.end(success, Date.now());
-
-        // update flag
-        ended = true;
       }
     } catch (err) {
-      if (!ended && cell !== undefined) {
-        cell.execution.end(false, Date.now());
-      }
+      success = false;
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_NOTEBOOK_LOG,
@@ -410,6 +454,14 @@ export class IDLNotebookController {
         alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
       });
     }
+
+    // remove listener
+    this._runtime.off(IDL_EVENT_LOOKUP.CLOSED_CLEANLY, onDidCloseWhileBusy);
+    this._runtime.off(IDL_EVENT_LOOKUP.END, onDidCloseWhileBusy);
+    this._runtime.off(IDL_EVENT_LOOKUP.CRASHED, onDidCloseWhileBusy);
+
+    // always mark cell as finished before we end
+    cell.execution.end(success, Date.now());
   }
 
   /**
@@ -429,9 +481,7 @@ export class IDLNotebookController {
       `!magic.embed = ${
         IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
       }`,
-      `defsysv, '!super_magic', exists=_exists`,
-      `if ~_exists then defsysv, '!super_magic', orderedhash()`,
-      `delvar, _exists`,
+      `vscode_notebookInit`,
     ];
 
     // capture outputs from all commands
@@ -459,12 +509,14 @@ export class IDLNotebookController {
       outputs.push(await this.evaluate('.compile idlittool__define'));
       outputs.push(
         await this.evaluate(
-          `.compile '${VSCODE_PRO_DIR}/idlititool__refreshcurrentview.pro'`
+          `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/idlititool__refreshcurrentview.pro'`
         )
       );
       outputs.push(await this.evaluate('.compile graphic__define'));
       outputs.push(
-        await this.evaluate(`.compile '${VSCODE_PRO_DIR}/graphic__refresh.pro'`)
+        await this.evaluate(
+          `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/graphic__refresh.pro'`
+        )
       );
     }
 
@@ -534,7 +586,7 @@ export class IDLNotebookController {
     /**
      * Create promise to track if we launch or not
      */
-    const launchPromise = new Promise<boolean>((res, rej) => {
+    const launchPromise = new Promise<boolean>((res) => {
       // listen for when we started
       this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
         // set everything up
@@ -571,6 +623,9 @@ export class IDLNotebookController {
         return launchPromise;
       }
     );
+
+    // make sure cells are done executing
+    this._endCellExecution(false, false);
 
     // return a prom
     return launchPromise;
@@ -636,7 +691,12 @@ export class IDLNotebookController {
     /**
      * temp folder for notebook cell
      */
-    const fsPath = join(DOT_IDL_FOLDER, 'notebook_cell.pro');
+    const fsPath = join(NOTEBOOK_FOLDER, 'notebook_cell.pro');
+
+    // make our folder if it doesnt exist
+    if (!existsSync(NOTEBOOK_FOLDER)) {
+      mkdirSync(NOTEBOOK_FOLDER, { recursive: true });
+    }
 
     /**
      * Get strings for our cell
@@ -717,9 +777,9 @@ export class IDLNotebookController {
   }
 
   /**
-   * Execute notebook cells
+   * Actually execute our notebook cells
    */
-  async _execute(
+  async _doExecute(
     cells: vscode.NotebookCell[],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _notebook: vscode.NotebookDocument,
@@ -744,6 +804,31 @@ export class IDLNotebookController {
           alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
         });
       }
+    }
+  }
+
+  /**
+   * Execute notebook cells wrapped around a queue
+   */
+  async _execute(
+    cells: vscode.NotebookCell[],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _notebook: vscode.NotebookDocument,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _controller: vscode.NotebookController
+  ): Promise<void> {
+    try {
+      await this.queue.add(
+        async () => {
+          await this._doExecute(cells, _notebook, _controller);
+        },
+        (rejector) => {
+          this.rejector = rejector;
+        }
+      );
+      this.rejector = undefined;
+    } catch (err) {
+      // do nothing, should be caught elsewhere
     }
   }
 
@@ -793,14 +878,18 @@ export class IDLNotebookController {
    * Stop kernel execution
    */
   async stop() {
-    if (!this.isStarted()) {
-      return;
+    // clear the queue
+    this.queue.clear();
+
+    // reject currently processing cell
+    if (this.rejector !== undefined) {
+      this.rejector();
+      this.rejector = undefined;
     }
 
-    // alert that execution has stopped
-    await this._endCellExecution(false, false);
-
-    // stop IDL
-    this._runtime.stop();
+    // stop IDL if we can
+    if (this.isStarted()) {
+      this._runtime.stop();
+    }
   }
 }

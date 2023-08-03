@@ -26,5 +26,6 @@ a = `something`
 a = 5 + $ 
   6
 
+!null = 42
 
 end

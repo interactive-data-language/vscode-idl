@@ -1,3 +1,4 @@
+import { IDL_NOTEBOOK_CELL_SELECTOR } from '@idl/shared';
 import { LANGUAGE_SERVER_CLIENT } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 import {
@@ -7,13 +8,12 @@ import {
 import { URI } from 'vscode-uri';
 
 import { GetNotebookCellIndex } from '../helpers/get-notebook-cell-index';
-import { IDL_NOTEBOOK_SELECTION_SCHEME } from './providers.interface';
 
 /**
  * Registers our provider for notebook go-to-definition
  */
 export function RegisterNotebookDefinitionProvider() {
-  vscode.languages.registerDefinitionProvider(IDL_NOTEBOOK_SELECTION_SCHEME, {
+  vscode.languages.registerDefinitionProvider(IDL_NOTEBOOK_CELL_SELECTOR, {
     async provideDefinition(document, position, _token) {
       /**
        * Get notebook and document for index

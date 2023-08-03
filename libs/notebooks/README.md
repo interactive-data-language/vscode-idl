@@ -1,5 +1,7 @@
-# Notebooks
+# Notebooks!
 
-Shared helpers and code for notebooks.
+This is where code lives for notebooks
 
-Can be used in node or vscode.
+Renderers is an Angular project that creates standalone web components that will view data within notebooks.
+
+Shared contains shared code for notebooks without the need for VSCode.

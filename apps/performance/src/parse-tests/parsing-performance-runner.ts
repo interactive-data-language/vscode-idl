@@ -79,7 +79,9 @@ export async function ParsingPerformanceRunner(
 
   // search for files
   const t0 = performance.now();
-  const files = await index.findFiles(folder);
+  const all = await index.findFiles(folder);
+  const bucket = index.bucketFiles(all);
+  const files = bucket.proFiles;
   manager.log({
     content: `Data discovery found ${files.length} file(s) in ${Math.floor(
       performance.now() - t0
@@ -134,6 +136,14 @@ export async function ParsingPerformanceRunner(
 
       const i = Math.floor(j / options.multiplier);
 
+      // tick the bar if we can
+      if (canTick) {
+        bar2.tick({
+          title: `${j + 1}/${nFiles}`,
+          file: files[j],
+        });
+      }
+
       switch (options.method) {
         case 'tokenizer':
           Tokenizer(code[i]);
@@ -152,14 +162,6 @@ export async function ParsingPerformanceRunner(
           break;
         default:
           throw new Error(`Not implemented: ${options.method}`);
-      }
-
-      // tick the bar if we can
-      if (canTick) {
-        bar2.tick({
-          title: `${j + 1}/${nFiles}`,
-          file: files[j],
-        });
       }
     }
 

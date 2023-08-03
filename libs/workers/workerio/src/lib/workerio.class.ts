@@ -20,7 +20,7 @@ import {
  */
 export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
   /** Worker threads by worker ID */
-  private workers: { [key: string]: Worker } = {};
+  workers: { [key: string]: Worker } = {};
   /** Promises for messages by ID (i.e. waiting for a response) */
   private messages: { [key: string]: IMessagePromise } = {};
   /** Message subscriptions we have created. Keep references to clean up */

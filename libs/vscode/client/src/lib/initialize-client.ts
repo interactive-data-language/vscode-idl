@@ -21,6 +21,7 @@ import { CLIENT_LOG_INTERCEPTOR } from './logger/client-log-interceptor';
 import { LOG_ALERT_CALLBACK } from './logger/log-alert-callback';
 import { RegisterClientCommands } from './register-client-commands';
 import { RegisterCodeCommands } from './register-code-commands';
+import { RegisterHoverProvider } from './register-hover-provider';
 import {
   LANGUAGE_SERVER_CLIENT,
   LANGUAGE_SERVER_FAILED_START,
@@ -105,6 +106,9 @@ export let I18N_FOLDER = '';
 /** Path to our pro code that we need for vscode that we need for debugging */
 export let VSCODE_PRO_DIR = '';
 
+/** Path to our pro code for notebooks */
+export let VSCODE_NOTEBOOK_PRO_DIR = '';
+
 /**
  * Initializes any code/functionality needed for our extension client.
  *
@@ -121,7 +125,13 @@ export async function InitializeClient(
   // update folders
   EXTENSION_FOLDER = CleanPath(ctx.extensionPath);
   I18N_FOLDER = join(EXTENSION_FOLDER, 'dist', 'i18n');
-  VSCODE_PRO_DIR = join(EXTENSION_FOLDER, 'idl');
+  VSCODE_PRO_DIR = join(EXTENSION_FOLDER, 'idl', 'vscode');
+  VSCODE_NOTEBOOK_PRO_DIR = join(
+    EXTENSION_FOLDER,
+    'idl',
+    'vscode',
+    'notebooks'
+  );
 
   // set language configuration
   LoadLanguageConfiguration();
@@ -188,6 +198,10 @@ export async function InitializeClient(
 
   // start the language server
   await StartLanguageServer(ctx);
+
+  // register custom hover provider
+  RegisterHoverProvider();
+  // RegisterCompletionProvider();
 
   return {
     logger: IDL_LOGGER,

@@ -4,6 +4,7 @@ export class SimplePromiseQueue {
   nConcurrent: number; // how many promises can we process in parallel?
   nProcessing: number; // how many promises are we processing now?
   _requests: ISimplePromiseQueueItem[] = [];
+  lastReject?: (reason?: any) => void;
 
   // options: IPromiseQueueOptions
   constructor(concurrent = 1) {
@@ -13,8 +14,14 @@ export class SimplePromiseQueue {
   }
 
   // add an item to process
-  async add(promiseGenerator: () => Promise<void>) {
+  async add(
+    promiseGenerator: () => Promise<void>,
+    getRejector?: (rejector: (reason?: any) => void) => void
+  ) {
     return new Promise<void>((resolve, reject) => {
+      if (getRejector) {
+        getRejector(reject);
+      }
       this._requests.push({
         promiseGenerator: promiseGenerator,
         resolve: resolve,
@@ -28,6 +35,10 @@ export class SimplePromiseQueue {
 
   clear() {
     this._requests = [];
+    this.nProcessing = 0;
+    if (this.lastReject !== undefined) {
+      this.lastReject('cleared queue');
+    }
   }
 
   // process items in the queue
@@ -47,9 +58,13 @@ export class SimplePromiseQueue {
       // increment counter
       this.nProcessing++;
 
+      // save last reject
+      this.lastReject = item.reject;
+
       // call our thing!
       item.promiseGenerator().then(
         async () => {
+          this.lastReject = undefined;
           try {
             this.nProcessing--;
             item.resolve();

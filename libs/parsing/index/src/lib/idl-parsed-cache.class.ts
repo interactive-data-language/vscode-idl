@@ -163,4 +163,15 @@ export class IDLParsedCache {
       return this.byFile[file].uses;
     }
   }
+
+  /**
+   * Updates problems in cached parsed to reflect the latest state if we
+   * are tracking the file
+   */
+  updateProblems(file: string, parsed: IParsed) {
+    if (file in this.byFile) {
+      this.byFile[file].parseProblems = parsed.parseProblems;
+      this.byFile[file].postProcessProblems = parsed.postProcessProblems;
+    }
+  }
 }

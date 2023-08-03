@@ -1,12 +1,16 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { ConvertDocsToNotebook, NOTEBOOK_FOLDER } from '@idl/notebooks';
-import { IDL_COMMANDS, IDL_NOTEBOOK_EXTENSION } from '@idl/shared';
+import {
+  ConvertDocsToNotebook,
+  DOCS_NOTEBOOK_FOLDER,
+} from '@idl/notebooks/shared';
+import { IDL_COMMANDS, IDL_NOTEBOOK_EXTENSION, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   IDL_LOGGER,
   LANGUAGE_SERVER_MESSENGER,
   LogCommandError,
+  LogCommandInfo,
 } from '@idl/vscode/client';
 import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 import {
@@ -36,9 +40,15 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           idl_command: IDL_COMMANDS.NOTEBOOKS.RESET,
         });
 
+        LogCommandInfo('Resetting IDL (notebook)');
+
         // make sure we have launched IDL
         if (IDL_NOTEBOOK_CONTROLLER.isStarted()) {
-          await IDL_NOTEBOOK_CONTROLLER.reset();
+          await IDL_NOTEBOOK_CONTROLLER.stop();
+          await Sleep(100);
+          await IDL_NOTEBOOK_CONTROLLER.launchIDL(
+            IDL_TRANSLATION.notebooks.notifications.resettingIDL
+          );
         } else {
           IDL_LOGGER.log({
             type: 'info',
@@ -66,6 +76,8 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
           idl_command: IDL_COMMANDS.NOTEBOOKS.STOP,
         });
+
+        LogCommandInfo('Stopping IDL (notebook)');
 
         // check if launched
         if (IDL_NOTEBOOK_CONTROLLER.isStarted()) {
@@ -118,12 +130,12 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           }
 
           // make folder if it doesnt exist
-          if (!existsSync(NOTEBOOK_FOLDER)) {
-            mkdirSync(NOTEBOOK_FOLDER, { recursive: true });
+          if (!existsSync(DOCS_NOTEBOOK_FOLDER)) {
+            mkdirSync(DOCS_NOTEBOOK_FOLDER, { recursive: true });
           }
 
           const file = join(
-            NOTEBOOK_FOLDER,
+            DOCS_NOTEBOOK_FOLDER,
             `docs.${arg.name.toLowerCase().replace(/!|:/gim, '_')}.${
               arg.type
             }${IDL_NOTEBOOK_EXTENSION}`
@@ -137,8 +149,18 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             arg
           );
 
+          const converted = await ConvertDocsToNotebook(arg, resp.docs);
+
+          // check if we have no examples
+          if (converted === undefined) {
+            vscode.window.showInformationMessage(
+              IDL_TRANSLATION.notebooks.notifications.noExamplesFoundInDocs
+            );
+            return false;
+          }
+
           // make notebook and save to disk
-          writeFileSync(file, ConvertDocsToNotebook(arg, resp.docs));
+          writeFileSync(file, await ConvertDocsToNotebook(arg, resp.docs));
 
           // open the notebook in vscode
           OpenNotebookInVSCode(file, true, true);

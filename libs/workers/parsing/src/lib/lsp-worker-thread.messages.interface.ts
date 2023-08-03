@@ -1,6 +1,6 @@
 import { GlobalTokens, IBaseIndexedToken } from '@idl/data-types/core';
 import { ILogOptions } from '@idl/logger';
-import { IDLNotebookDocument } from '@idl/notebooks';
+import { IDLNotebookDocument } from '@idl/notebooks/shared';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { IParsed } from '@idl/parsing/syntax-tree';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
@@ -55,7 +55,7 @@ export type ChangeDetectionResponse = {
 };
 
 /**
- * Message to clean up
+ * Message to clean up worker thread and return memory usage after GC
  */
 export type CleanUpMessage = 'clean-up';
 

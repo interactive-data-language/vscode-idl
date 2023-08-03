@@ -40,7 +40,8 @@
       ],
       "@idl/idl": ["libs/idl/src/index.ts"],
       "@idl/logger": ["libs/logger/src/index.ts"],
-      "@idl/notebooks": ["libs/notebooks/src/index.ts"],
+      "@idl/notebooks/renderers": ["libs/notebooks/renderers/src/index.ts"],
+      "@idl/notebooks/shared": ["libs/notebooks/shared/src/index.ts"],
       "@idl/parser": ["libs/parsing/parser/src/index.ts"],
       "@idl/parsing/index": ["libs/parsing/index/src/index.ts"],
       "@idl/parsing/problem-codes": ["libs/parsing/problem-codes/src/index.ts"],
@@ -75,6 +76,7 @@
         "libs/tests/local-global-scope-compile/src/index.ts"
       ],
       "@idl/tests/outline": ["libs/tests/outline/src/index.ts"],
+      "@idl/tests/semantic-tokens": ["libs/tests/semantic-tokens/src/index.ts"],
       "@idl/tests/syntax-post-processors": [
         "libs/tests/syntax-post-processors/src/index.ts"
       ],

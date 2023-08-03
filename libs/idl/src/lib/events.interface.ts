@@ -5,11 +5,14 @@
  * mistakes
  */
 
-/** Event fired when IDL crashes or closes unexpectedly */
-export type CrashEvent = 'crashed';
+/** Event fired when we close IDL after telling it to stop */
+export type ClosedCleanlyEvent = 'closed-cleanly';
 
 /** When IDL is back at its default state. (i.e. paused in routine, recompiled, back to idle state) */
 export type ContinueEvent = 'continue';
+
+/** Event fired when IDL crashes or closes unexpectedly */
+export type CrashEvent = 'crashed';
 
 /** Event fired when we fail to start IDL */
 export type FailedStartEvent = 'failed-start';
@@ -46,8 +49,9 @@ export type UnhandledErrorEvent = 'unhandled-error';
 
 /** Allowed event types */
 export type IDLEvent =
-  | CrashEvent
+  | ClosedCleanlyEvent
   | ContinueEvent
+  | CrashEvent
   | EndEvent
   | FailedStartEvent
   | IDLStartedEvent
@@ -63,6 +67,8 @@ export type IDLEvent =
  * All allowed event types, strict for below constant
  */
 interface IEventLookup {
+  /** Event fired when we close IDL after telling it to stop */
+  CLOSED_CLEANLY: ClosedCleanlyEvent;
   /** When IDL is back at its default state. (i.e. paused in routine, recompiled, back to idle state) */
   CONTINUE: ContinueEvent;
   /** Event fired when IDL crashes or closes unexpectedly */
@@ -97,6 +103,7 @@ interface IEventLookup {
  * it easy to change in the future
  */
 export const IDL_EVENT_LOOKUP: IEventLookup = {
+  CLOSED_CLEANLY: 'closed-cleanly',
   CONTINUE: 'continue',
   CRASHED: 'crashed',
   END: 'end',

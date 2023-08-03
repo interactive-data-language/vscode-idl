@@ -26,6 +26,7 @@ import { AddCompletionSystemVariables } from './completion-for/add-completion-sy
 import { AddCompletionVariables } from './completion-for/add-completion-variables';
 import {
   FUNCTIONS,
+  KEYWORD_COMPLETION,
   KEYWORDS,
   METHOD_INTERIOR_CHECK,
   METHOD_PROPERTY_COMPLETION,
@@ -46,6 +47,7 @@ SKIP_THESE_TOKENS[TOKEN_NAMES.ROUTINE_METHOD_NAME] = true;
 SKIP_THESE_TOKENS[TOKEN_NAMES.QUOTE_DOUBLE] = true;
 SKIP_THESE_TOKENS[TOKEN_NAMES.QUOTE_SINGLE] = true;
 SKIP_THESE_TOKENS[TOKEN_NAMES.STRING_TEMPLATE_STRING] = true;
+SKIP_THESE_TOKENS[TOKEN_NAMES.NUMBER] = true;
 
 /**
  * Tokens that we dont do anything for
@@ -161,9 +163,6 @@ export async function GetAutoComplete(
     // call and should not have variables
     addVariables = addParen;
 
-    // TODO: return if in lambda function?
-    const type = GetTypeBefore(index, cursor, parsed);
-
     // make sure we have a token so that we can try and add keywords
     if (
       (token !== undefined || cursor.scopeTokens.length > 1) &&
@@ -177,10 +176,11 @@ export async function GetAutoComplete(
        * we are not technically within the function call, but it is
        * within for procedures and assignment
        */
-      let canKeyword = true;
+      let canKeyword =
+        token.name in KEYWORD_COMPLETION || token.match[0].trim() === '/';
 
       // double check we are not a function and in the closing parentheses
-      if (token?.name in FUNCTIONS) {
+      if (token?.name in FUNCTIONS && canKeyword) {
         if ((token as TreeBranchToken).end !== undefined) {
           if (
             IsWithinToken(position, [
@@ -193,6 +193,8 @@ export async function GetAutoComplete(
           }
         }
       }
+
+      // if we can keyword, then add keywords!
       if (canKeyword) {
         AddCompletionKeywords(
           items,
@@ -203,6 +205,9 @@ export async function GetAutoComplete(
         );
       }
     }
+
+    // TODO: return if in lambda function?
+    const type = GetTypeBefore(index, cursor, parsed);
 
     /**
      * Flag if we can add method or properties

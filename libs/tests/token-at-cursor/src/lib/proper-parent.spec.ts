@@ -28,11 +28,11 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
     // define expected token we extract
     const expectedFound_0 = {
       type: '1',
-      name: '85',
+      name: 85,
       pos: [2, 2, 1],
       match: ['a'],
       idx: 2,
-      scope: ['69'],
+      scope: [69],
       parseProblems: [],
       cache: {},
     };
@@ -52,11 +52,11 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
     // define expected token we extract
     const expectedFound_1 = {
       type: '1',
-      name: '85',
+      name: 85,
       pos: [8, 2, 1],
       match: ['a'],
       idx: 2,
-      scope: ['69'],
+      scope: [69],
       parseProblems: [],
       cache: {},
     };

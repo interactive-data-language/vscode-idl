@@ -153,6 +153,13 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         detail: 'Variable',
         documentation: '',
       },
+      {
+        label: 'var',
+        kind: 6,
+        sortText: '01',
+        detail: 'Variable',
+        documentation: '',
+      },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!z', kind: 21, sortText: '90', detail: 'System Variable' },
@@ -245,12 +252,6 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         detail: 'System Variable',
       },
       { label: '!more', kind: 21, sortText: '90', detail: 'System Variable' },
-      {
-        label: '!package_path',
-        kind: 21,
-        sortText: '90',
-        detail: 'System Variable',
-      },
     ];
 
     // verify results
@@ -392,6 +393,13 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         detail: 'Variable',
         documentation: '',
       },
+      {
+        label: 'var',
+        kind: 6,
+        sortText: '01',
+        detail: 'Variable',
+        documentation: '',
+      },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!z', kind: 21, sortText: '90', detail: 'System Variable' },
@@ -484,12 +492,6 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         detail: 'System Variable',
       },
       { label: '!more', kind: 21, sortText: '90', detail: 'System Variable' },
-      {
-        label: '!package_path',
-        kind: 21,
-        sortText: '90',
-        detail: 'System Variable',
-      },
     ];
 
     // verify results
@@ -698,6 +700,13 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         detail: 'Variable',
         documentation: '',
       },
+      {
+        label: 'var',
+        kind: 6,
+        sortText: '01',
+        detail: 'Variable',
+        documentation: '',
+      },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!z', kind: 21, sortText: '90', detail: 'System Variable' },
@@ -759,12 +768,6 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         detail: 'System Variable',
       },
       { label: '!dir', kind: 21, sortText: '90', detail: 'System Variable' },
-      {
-        label: '!dlm_path',
-        kind: 21,
-        sortText: '90',
-        detail: 'System Variable',
-      },
     ];
 
     // verify results

@@ -29,6 +29,7 @@ describe(`[auto generated] Verify hover-help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
+      '[Open Examples in Notebook](command:idl.notebooks.helpAsNotebook?%7B%22type%22:%22f%22,%22name%22:%22MyClass%22%7D)',
       '',
       '```idl',
       'result = MyClass.init( [ /kw2 ])',

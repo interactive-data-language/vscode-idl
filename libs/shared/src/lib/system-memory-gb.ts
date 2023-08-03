@@ -15,7 +15,7 @@ export function SystemMemoryGB() {
  * rounded to the nearest 0.5 GB
  */
 export function SystemMemoryUsedGB() {
-  return RoundToNearest(memoryUsage().rss / (1024 * 1024 * 1024), 0.25);
+  return RoundToNearest(memoryUsage.rss() / (1024 * 1024 * 1024), 0.25);
 }
 
 /**
@@ -23,5 +23,5 @@ export function SystemMemoryUsedGB() {
  * rounded to the nearest 0.5 GB
  */
 export function SystemMemoryUsedMB() {
-  return RoundToNearest(memoryUsage().rss / (1024 * 1024), 10);
+  return RoundToNearest(memoryUsage.rss() / (1024 * 1024), 10);
 }

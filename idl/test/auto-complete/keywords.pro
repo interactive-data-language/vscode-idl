@@ -15,4 +15,12 @@ pro keywords
 
   ; dont abbreviate keywords when auto complete
   e = envi(/la)
+
+  ; create variable with small properties for keyword test
+  var = 42
+
+  ; no keywords
+  help, var.
+  help, var
+  help, 5
 end

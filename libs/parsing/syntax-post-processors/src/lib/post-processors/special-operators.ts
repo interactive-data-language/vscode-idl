@@ -103,7 +103,7 @@ function SpecialOperatorsRecursor(tree: SyntaxTree, recurse: IPointerRecurse) {
       // make sure asterisk
       if (match === '*' || match === '-') {
         /** Init last parent */
-        let lastParent: string = undefined;
+        let lastParent: number = undefined;
 
         /**
          * Handle a few cases to figure out what our parent is

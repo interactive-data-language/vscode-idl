@@ -171,7 +171,7 @@ export async function GetHoverHelp(
         help = ResolveHoverHelpLinks(help, config);
 
         // check if we have a matching global token to open in a notebook
-        if (global !== undefined && (true as any) === false) {
+        if (global !== undefined) {
           // split
           const split = help.split(/\n/g);
 
@@ -184,8 +184,7 @@ export async function GetHoverHelp(
           /**
            * Make command to open in notebook
            */
-          `[Open in Notebook](command:idl.notebooks.docsAsNotebook?parameters)`;
-          const cmd = `[Open in Notebook](command:${
+          const cmd = `[Open Examples in Notebook](command:${
             IDL_COMMANDS.NOTEBOOKS.HELP_AS_NOTEBOOK
           }?${encodeURI(JSON.stringify(info))})`;
 

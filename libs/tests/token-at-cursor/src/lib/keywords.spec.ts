@@ -20,11 +20,11 @@ describe(`[auto generated] Correctly identifies keywords from routine calls`, ()
     // define expected token we extract
     const expectedFound_0 = {
       type: '1',
-      name: '28',
+      name: 28,
       pos: [1, 15, 8],
       match: ['NCOLUMNS'],
       idx: 0,
-      scope: ['54', '3', '8'],
+      scope: [54, 3, 8],
       parseProblems: [],
       cache: {},
     };
@@ -44,11 +44,11 @@ describe(`[auto generated] Correctly identifies keywords from routine calls`, ()
     // define expected token we extract
     const expectedFound_1 = {
       type: '1',
-      name: '28',
+      name: 28,
       pos: [1, 33, 5],
       match: ['NROWS'],
       idx: 3,
-      scope: ['54', '3', '8'],
+      scope: [54, 3, 8],
       parseProblems: [],
       cache: {},
     };

@@ -129,12 +129,6 @@ export class IDL extends EventEmitter {
       return;
     }
 
-    // start our idl debug session and wait for prompt ready
-    this.log.log({
-      type: 'debug',
-      content: ['Starting IDL'],
-    });
-
     // set the location of IDL as variable if it is not already
     if (!('IDL_DIR' in args.env)) {
       args.env.IDL_DIR = path.dirname(path.dirname(args.config.IDL.directory));
@@ -145,9 +139,10 @@ export class IDL extends EventEmitter {
 
     // add a path for the directory
     if (!('IDL_PATH' in args.env)) {
-      args.env.IDL_PATH = this.vscodeProDir;
+      args.env.IDL_PATH = `+${this.vscodeProDir}`;
     } else {
-      args.env.IDL_PATH = this.vscodeProDir + delimiter + args.env.IDL_PATH;
+      args.env.IDL_PATH =
+        `+${this.vscodeProDir}` + delimiter + args.env.IDL_PATH;
     }
 
     /** Get path variable which, for windows is "Path" and not "PATH" */
@@ -169,6 +164,20 @@ export class IDL extends EventEmitter {
 
     // build the command for starting IDL
     const cmd = `${args.config.IDL.directory}${path.sep}idl`;
+
+    // start our idl debug session and wait for prompt ready
+    this.log.log({
+      type: 'info',
+      content: [
+        'Starting IDL',
+        {
+          cmd,
+          dir: args.env.IDL_DIR,
+          path: args.env.IDL_PATH,
+          dlm_path: args.env.IDL_DLM_PATH,
+        },
+      ],
+    });
 
     // launch IDL with the environment from our parent process and in the specified folder
     this.idl = spawn(cmd, null, { env: args.env, cwd: args.cwd });
@@ -345,6 +354,7 @@ export class IDL extends EventEmitter {
       switch (true) {
         case this.closing:
           // do nothing because we are closing IDL
+          this.emit(IDL_EVENT_LOOKUP.CLOSED_CLEANLY);
           break;
         case !this.started:
           this.log.log({
@@ -357,7 +367,7 @@ export class IDL extends EventEmitter {
           });
           this.emit(IDL_EVENT_LOOKUP.FAILED_START, 'Failed to start IDL');
           break;
-        case !this.closing:
+        default:
           this.log.log({
             type: 'error',
             content: [
@@ -367,8 +377,6 @@ export class IDL extends EventEmitter {
             alert: IDL_TRANSLATION.debugger.adapter.crashed,
           });
           this.emit(IDL_EVENT_LOOKUP.CRASHED, code, signal);
-          break;
-        default:
           break;
       }
 

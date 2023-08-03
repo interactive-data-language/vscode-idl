@@ -1,5 +1,4 @@
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
-import copy from 'fast-copy';
 
 import { CALL_ROUTINE_TOKENS } from '../helpers/get-keywords.interface';
 
@@ -74,4 +73,5 @@ NO_PAREN[TOKEN_NAMES.PARENTHESES] = true;
  *
  * Shouldn't overlap with METHOD_PROPERTY_COMPLETION
  */
-export const KEYWORD_COMPLETION = copy(CALL_ROUTINE_TOKENS);
+export const KEYWORD_COMPLETION = { ...CALL_ROUTINE_TOKENS, ...KEYWORDS };
+KEYWORD_COMPLETION[TOKEN_NAMES.COMMA] = true;

@@ -19,11 +19,11 @@ import {
 } from 'vscode-languageserver/node';
 
 import { CAPABILITIES } from './capabilities.interface';
-import { InitializeCustomEventHandler } from './file-management/initialize-custom-event-handler';
-import { InitializeDocumentManager } from './file-management/initialize-document-manager';
-import { InitializeNotebookManager } from './file-management/initialize-notebook-manager';
+import { InitializeCustomEventHandler } from './events/initialize-custom-event-handler';
+import { InitializeDocumentManager } from './events/initialize-document-manager';
+import { InitializeNotebookManager } from './events/initialize-notebook-manager';
+import { InitializeUserInteractions } from './events/initialize-user-interactions';
 import { DEFAULT_SERVER_SETTINGS } from './settings.interface';
-import { InitializeUserInteractions } from './user-interaction/initialize-user-interactions';
 
 /**
  * Current settings for the language server
@@ -156,7 +156,7 @@ export function InitializeServer() {
       capabilities: {
         textDocumentSync: TextDocumentSyncKind.Incremental,
         completionProvider: {
-          resolveProvider: true, // supports code completion
+          resolveProvider: true,
           /**
            * TODO: Figure out how to improve this
            *
@@ -167,7 +167,14 @@ export function InitializeServer() {
         definitionProvider: true,
         workspaceSymbolProvider: true,
         documentSymbolProvider: true,
-        hoverProvider: true,
+        /**
+         * This is a ruse :)
+         *
+         * The actual implementation of hover help comes from: libs/vscode/client/src/lib/register-hover-provider.ts
+         * which makes "trusted" markdown so we can embed commands and anything else in what gets returned
+         * for a better user experience
+         */
+        hoverProvider: false,
         documentFormattingProvider: true,
         semanticTokensProvider: {
           legend: SEMANTIC_TOKEN_LEGEND,

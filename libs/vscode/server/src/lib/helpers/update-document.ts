@@ -1,6 +1,7 @@
 import { WorkspaceChange } from 'vscode-languageserver/node';
+import { TextDocument } from 'vscode-languageserver-textdocument';
 
-import { DOCUMENT_MANAGER } from '../file-management/initialize-document-manager';
+import { DOCUMENT_MANAGER } from '../events/initialize-document-manager';
 import { SERVER_CONNECTION } from '../initialize-server';
 
 /**
@@ -8,12 +9,16 @@ import { SERVER_CONNECTION } from '../initialize-server';
  *
  * Uses a single edit and replaces everything
  */
-export async function UpdateDocument(uri: string, content: string) {
+export async function UpdateDocument(
+  uri: string,
+  content: string,
+  codeDoc?: TextDocument
+) {
   // create workspace change for file
   const change = new WorkspaceChange();
 
   // get the text document so we can get the version
-  const doc = DOCUMENT_MANAGER.get(uri);
+  const doc = codeDoc !== undefined ? codeDoc : DOCUMENT_MANAGER.get(uri);
 
   // create edits for our file
   const edits = change.getTextEditChange({

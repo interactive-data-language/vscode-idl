@@ -2,13 +2,16 @@ import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
-import { IDL_INDEX } from '../file-management/initialize-document-manager';
-import { CAN_SEND_PROBLEMS } from '../file-management/is-initialized';
+import { IDL_INDEX } from '../events/initialize-document-manager';
+import { CAN_SEND_PROBLEMS } from '../events/is-initialized';
 import { SERVER_CONNECTION } from '../initialize-server';
-import { URIFromIDLIndexFile } from '../user-interaction/helpers/uri-from-idl-index-file';
-import { IGNORE_PROBLEM_CODES, INCLUDE_PROBLEMS_FOR } from './merge-config';
+import {
+  IDL_PATH_FOLDERS,
+  IGNORE_PROBLEM_CODES,
+  INCLUDE_PROBLEMS_FOR,
+} from './merge-config';
 import { SyntaxProblemsToDiagnostic } from './syntax-problem-to-diagnostic';
-import { WORKSPACE_FOLDER_CONFIGS } from './track-workspace-config';
+import { URIFromIDLIndexFile } from './uri-from-idl-index-file';
 
 /**
  * Regex to check if we are in a package file
@@ -29,9 +32,6 @@ let OLD_IGNORE = copy(IGNORE_PROBLEM_CODES);
  * Determines if we can report problems for a file or not
  */
 export function CanReportProblems(file: string) {
-  // get workspace folders - exclude first which is the default config
-  const workspaces = Object.keys(WORKSPACE_FOLDER_CONFIGS);
-
   /** Flag if we can report problems for our file */
   let report = true;
 
@@ -43,8 +43,9 @@ export function CanReportProblems(file: string) {
   // filter using files
   if (report && !INCLUDE_PROBLEMS_FOR.IDL_PATH) {
     report = false;
-    for (let z = 0; z < workspaces.length; z++) {
-      if (file.startsWith(workspaces[z])) {
+    const folders = Object.keys(IDL_PATH_FOLDERS);
+    for (let z = 0; z < folders.length; z++) {
+      if (file.startsWith(folders[z])) {
         report = true;
         break;
       }
@@ -91,18 +92,15 @@ export function SendProblems(inFiles: string[]) {
 
   // process each file
   for (let i = 0; i < files.length; i++) {
-    // skip file if not PRO code
-    if (
-      !(IDL_INDEX.isPROCode(files[i]) || IDL_INDEX.isIDLNotebookFile(files[i]))
-    ) {
-      continue;
-    }
-
     // init problems
     let problems: SyntaxProblems = [];
 
-    // check if we can report problems
-    if (CanReportProblems(files[i])) {
+    /**
+     * Check if we can report problems
+     *
+     * If we are a notebook we always send problems
+     */
+    if (IDL_INDEX.isIDLNotebookFile(files[i]) || CanReportProblems(files[i])) {
       /**
        * Are our tokens in another thread and we have stored the problems directly in parseProblems
        *

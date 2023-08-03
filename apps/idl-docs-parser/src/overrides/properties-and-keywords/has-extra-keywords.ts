@@ -54,6 +54,7 @@ SaveExtra('arrow', GLOBAL_TOKEN_TYPES.FUNCTION);
 SaveExtra('mapgridline', GLOBAL_TOKEN_TYPES.FUNCTION);
 SaveExtra('crosshair', GLOBAL_TOKEN_TYPES.FUNCTION);
 SaveExtra('fillplot', GLOBAL_TOKEN_TYPES.FUNCTION);
+SaveExtra('axis', GLOBAL_TOKEN_TYPES.FUNCTION);
 
 /**
  * Direct graphics

@@ -6,9 +6,6 @@ import * as vscode from 'vscode';
 import { RegisterNotebookCommands } from './commands/register-notebook-commands';
 import { IDLNotebookController } from './controller/idl-notebook-controller.class';
 import { IInitializeNotebooks } from './initialize-notebooks.interface';
-import { RegisterNotebookCompletionProvider } from './providers/register-notebook-completion-provider';
-import { RegisterNotebookDefinitionProvider } from './providers/register-notebook-definition-provider';
-import { RegisterNotebookHoverProvider } from './providers/register-notebook-hover-provider';
 import { IDLNotebookSerializer } from './serializer/idl-notebook-serializer.class';
 
 /**
@@ -39,9 +36,9 @@ export function InitializeNotebooks(
   ctx.subscriptions.push(IDL_NOTEBOOK_CONTROLLER);
 
   // register our providers for user interactions
-  RegisterNotebookHoverProvider();
-  RegisterNotebookCompletionProvider();
-  RegisterNotebookDefinitionProvider();
+  // RegisterNotebookHoverProvider();
+  // RegisterNotebookCompletionProvider();
+  // RegisterNotebookDefinitionProvider();
 
   // register notebook commands
   RegisterNotebookCommands(ctx);

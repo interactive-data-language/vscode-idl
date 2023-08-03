@@ -5,7 +5,7 @@ import {
   EncodeNotebookCellContent,
   RawNotebook,
   RawNotebookCell,
-} from '@idl/notebooks';
+} from '@idl/notebooks/shared';
 import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/client';
