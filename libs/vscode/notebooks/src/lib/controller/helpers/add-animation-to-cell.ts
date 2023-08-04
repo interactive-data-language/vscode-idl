@@ -1,4 +1,3 @@
-import { GetExtensionPath } from '@idl/shared';
 import { existsSync, readFileSync } from 'fs';
 import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';
@@ -19,19 +18,6 @@ export function AddAnimationToCell(
   if (uris.length === 0) {
     return;
   }
-
-  
-  cell.execution.appendOutput(
-    new vscode.NotebookCellOutput([
-      /**
-       * Use HTML because it works. Using the other mimetype *probably* works
-       * but this works right now :)
-       */
-      new vscode.NotebookCellOutputItem(Buffer.from(JSON.stringify({uris,width,height})), 'idl/test-mime'),
-    ])
-  );
-
-  return
 
   /**
    * get image style
@@ -98,31 +84,25 @@ export function AddAnimationToCell(
   </html>
   `;
 
-  const html2 = `
-  <script type="module">${readFileSync(
-    GetExtensionPath('dist/apps/notebook-renderers/image/runtime.js')
-  )}</script>
-  <script type="module">${readFileSync(
-    GetExtensionPath('dist/apps/notebook-renderers/image/polyfills.js')
-  )}</script>
-  <script type="module">${readFileSync(
-    GetExtensionPath('dist/apps/notebook-renderers/image/main.js')
-  )}</script>
-  <idl-nb-image></idl-nb-image>
-  `;
-
   cell.execution.appendOutput(
-    new vscode.NotebookCellOutput(
-      [
-        /**
-         * Use HTML because it works. Using the other mimetype *probably* works
-         * but this works right now :)
-         */
-        new vscode.NotebookCellOutputItem(Buffer.from(html2), 'text/html'),
-      ],
-      {
-        test: 'mymeta',
-      }
-    )
+    new vscode.NotebookCellOutput([
+      /**
+       * Use HTML because it works. Using the other mimetype *probably* works
+       * but this works right now :)
+       */
+      new vscode.NotebookCellOutputItem(Buffer.from(html), 'text/html'),
+    ])
   );
+
+  // cell.execution.appendOutput(
+  //   new vscode.NotebookCellOutput([
+  //     /**
+  //      * Use HTML because it works. Using the other mimetype *probably* works
+  //      * but this works right now :)
+  //      */
+  //     new vscode.NotebookCellOutputItem(Buffer.from(JSON.stringify({uris,width,height})), 'idl/test-mime'),
+  //   ])
+  // );
+
+  // return
 }
