@@ -5,7 +5,7 @@ import {
   REGEX_NEW_LINE,
 } from '@idl/idl';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
+import { NOTEBOOK_FOLDER } from '@idl/notebooks';
 import { Parser } from '@idl/parser';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import { TreeBranchToken } from '@idl/parsing/syntax-tree';

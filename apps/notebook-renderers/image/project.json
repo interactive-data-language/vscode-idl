@@ -1,25 +1,21 @@
 {
-  "name": "notebooks",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "notebook-renderers-image",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "idl",
-  "sourceRoot": "apps/notebooks/src",
+  "sourceRoot": "apps/notebook-renderers/image/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/notebooks",
-        "index": "apps/notebooks/src/index.html",
-        "main": "apps/notebooks/src/main.ts",
+        "outputPath": "dist/apps/notebook-renderers/image",
+        "index": "apps/notebook-renderers/image/src/index.html",
+        "main": "apps/notebook-renderers/image/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/notebooks/tsconfig.app.json",
-        "assets": [
-          "apps/notebooks/src/favicon.ico",
-          "apps/notebooks/src/assets"
-        ],
-        "styles": ["apps/notebooks/src/styles.scss"],
+        "tsConfig": "apps/notebook-renderers/image/tsconfig.app.json",
+        "styles": ["apps/notebook-renderers/image/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -38,8 +34,8 @@
           ],
           "fileReplacements": [
             {
-              "replace": "apps/notebooks/src/environments/environment.ts",
-              "with": "apps/notebooks/src/environments/environment.prod.ts"
+              "replace": "apps/notebook-renderers/image/src/environments/environment.ts",
+              "with": "apps/notebook-renderers/image/src/environments/environment.prod.ts"
             }
           ],
           "outputHashing": "none"
@@ -59,10 +55,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "notebooks:build:production"
+          "browserTarget": "notebook-renderers-image:build:production"
         },
         "development": {
-          "browserTarget": "notebooks:build:development"
+          "browserTarget": "notebook-renderers-image:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -70,7 +66,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "notebooks:build"
+        "browserTarget": "notebook-renderers-image:build"
       }
     },
     "lint": {
@@ -78,8 +74,8 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "apps/notebooks/**/*.ts",
-          "apps/notebooks/**/*.html"
+          "apps/notebook-renderers/image/**/*.ts",
+          "apps/notebook-renderers/image/**/*.html"
         ]
       }
     },
@@ -87,7 +83,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/notebooks/jest.config.ts",
+        "jestConfig": "apps/notebook-renderers/image/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -100,7 +96,7 @@
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "notebooks:build"
+        "buildTarget": "notebook-renderers-image:build"
       }
     }
   }

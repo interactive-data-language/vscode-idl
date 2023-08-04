@@ -1,4 +1,4 @@
-import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
+import { NOTEBOOK_FOLDER } from '@idl/notebooks';
 import { GetExtensionPath, Sleep } from '@idl/shared';
 import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';

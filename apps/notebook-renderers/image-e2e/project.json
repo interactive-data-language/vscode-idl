@@ -1,0 +1,33 @@
+{
+  "name": "notebook-renderers-image-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/notebook-renderers/image-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/notebook-renderers/image-e2e/cypress.config.ts",
+        "devServerTarget": "notebook-renderers-image:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "notebook-renderers-image:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "notebook-renderers-image:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/notebook-renderers/image-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["notebook-renderers-image"]
+}

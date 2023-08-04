@@ -3,7 +3,7 @@ import {
   EncodeNotebook,
   IDLRawNotebook,
   IDLRawNotebookVersion,
-} from '@idl/notebooks/shared';
+} from '@idl/notebooks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import * as vscode from 'vscode';

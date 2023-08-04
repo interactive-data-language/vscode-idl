@@ -1,4 +1,4 @@
-import { IDLRawNotebook, IDLRawNotebookVersion } from '@idl/notebooks/shared';
+import { IDLRawNotebook, IDLRawNotebookVersion } from '@idl/notebooks';
 import * as vscode from 'vscode';
 
 /**

@@ -2,7 +2,7 @@ import {
   IDLRawNotebook,
   IDLRawNotebookCell,
   IDLRawNotebookVersion_2_0_0,
-} from '@idl/notebooks/shared';
+} from '@idl/notebooks';
 import * as vscode from 'vscode';
 
 import { ToIDLRawNotebook } from './to-idl-raw-notebook.interface';

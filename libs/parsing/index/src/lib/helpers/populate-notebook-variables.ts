@@ -1,4 +1,4 @@
-import { IParsedIDLNotebook } from '@idl/notebooks/shared';
+import { IParsedIDLNotebook } from '@idl/notebooks';
 import copy from 'fast-copy';
 
 /**

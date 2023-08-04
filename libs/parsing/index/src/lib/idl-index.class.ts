@@ -14,7 +14,7 @@ import {
   IDL_WORKER_THREAD_CONSOLE,
   LogManager,
 } from '@idl/logger';
-import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
+import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks';
 import { CodeChecksum, Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
