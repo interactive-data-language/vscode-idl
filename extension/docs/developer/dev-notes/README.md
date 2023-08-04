@@ -6,6 +6,8 @@ These are mostly kept up-to-date, but might not all be there.
 
 ## 2023
 
+- [August](./2023/08-july.md)
+
 - [July](./2023/07-july.md)
 
 - [June](./2023/06-june.md)
