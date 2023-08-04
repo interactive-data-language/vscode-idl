@@ -363,7 +363,9 @@ export class IDL extends EventEmitter {
               'Failed to start IDL',
               { cmd, code, signal, capturedOutput, error },
             ],
-            alert: IDL_TRANSLATION.debugger.adapter.failedStart,
+            alert: `${
+              IDL_TRANSLATION.debugger.adapter.failedStart
+            } "${capturedOutput.trim()}"`,
           });
           this.emit(IDL_EVENT_LOOKUP.FAILED_START, 'Failed to start IDL');
           break;

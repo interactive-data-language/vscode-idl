@@ -328,7 +328,7 @@ export const EN: ITranslation = {
       start: 'Launching IDL!',
       restart: 'Restarting IDL!',
       stop: 'Stopping IDL session',
-      failedStart: 'Failed to start IDL :(',
+      failedStart: 'Failed to start IDL, message:',
       crashed: 'IDL crashed or was stopped by the user :(',
       noIDLDir: 'The IDL directory has not been configured, cannot start',
       breakpointSetFailed: 'Error setting breakpoints for file',
