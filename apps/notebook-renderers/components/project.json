@@ -15,8 +15,12 @@
         "main": "apps/notebook-renderers/components/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/notebook-renderers/components/tsconfig.app.json",
-        "styles": ["apps/notebook-renderers/components/src/styles.scss"],
-        "scripts": []
+        "inlineStyleLanguage": "scss",
+        "styles": [],
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": ["apps/notebook-renderers/components/src/app/styles"]
+        }
       },
       "configurations": {
         "production": {
@@ -24,12 +28,12 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "5mb"
             },
             {
               "type": "anyComponentStyle",
               "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumError": "5mb"
             }
           ],
           "fileReplacements": [
@@ -61,7 +65,12 @@
           "browserTarget": "notebook-renderers-components:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "stylePreprocessorOptions": {
+          "includePaths": ["apps/notebook-renderers/components/src/app/styles"]
+        }
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

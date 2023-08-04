@@ -1,6 +1,7 @@
 import { ApplicationRef, DoBootstrap, Injector, NgModule } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { BrowserModule } from '@angular/platform-browser';
+import { MaterialCssVarsModule } from 'angular-material-css-vars';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -9,10 +10,16 @@ import {
   IDL_NB_IMAGE_COMPONENT_SELECTOR,
   ImageComponent,
 } from './components/image/image.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, ComponentsModule],
+  imports: [
+    BrowserModule,
+    MaterialCssVarsModule.forRoot({}),
+    MaterialModule,
+    ComponentsModule,
+  ],
   providers: [],
   bootstrap: [],
   exports: [],
