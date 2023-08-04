@@ -1172,7 +1172,7 @@
       {
         "id": "idl-notebook-renderer",
         "displayName": "%notebooks.renderer%",
-        "entrypoint": "./dist/apps/notebook-renderers/renderer/main.js",
+        "entrypoint": "./dist/apps/notebook-renderers/renderer/src/main.js",
         "mimeTypes": [
           "idl/test-mime"
         ]
