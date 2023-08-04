@@ -70,7 +70,7 @@ export function ProcessNotebooks(packageJSON: IPackageJSON, nls: IPackageNLS) {
     },
   ];
 
-  if (!VerifyNLS(contrib.notebookRenderer.displayName, nls)) {
+  if (!VerifyNLS(contrib.notebookRenderer[0].displayName, nls)) {
     throw new Error('Notebook renderer displayName not in translation');
   }
 }
