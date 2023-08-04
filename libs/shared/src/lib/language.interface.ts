@@ -40,6 +40,11 @@ export const IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME =
   '%notebooks.controller%';
 
 /**
+ * The name of IDL notebook renderer
+ */
+export const IDL_NOTEBOOK_RENDERER_NAME = `${IDL_NOTEBOOK_NAME}-renderer`;
+
+/**
  * Name of the extension in VSCode
  *
  * Publisher ane name from the package.json file

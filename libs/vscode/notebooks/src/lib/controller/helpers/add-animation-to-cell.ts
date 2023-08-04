@@ -19,6 +19,18 @@ export function AddAnimationToCell(
     return;
   }
 
+  cell.execution.appendOutput(
+    new vscode.NotebookCellOutput([
+      /**
+       * Use HTML because it works. Using the other mimetype *probably* works
+       * but this works right now :)
+       */
+      new vscode.NotebookCellOutputItem(Buffer.from(JSON.stringify({uris,width,height})), 'idl/test-mime'),
+    ])
+  );
+
+  return
+
   /**
    * get image style
    */

@@ -583,6 +583,7 @@ export const EN: ITranslation = {
   },
   notebooks: {
     title: 'IDL: Notebook',
+    renderer: 'IDL: Notebook Renderer',
     controller: 'IDL',
     errors: {
       invalidNotebook: 'Unable to parse notebook file',

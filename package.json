@@ -117,6 +117,7 @@
     "@types/plist": "^3.0.2",
     "@types/progress": "^2.0.5",
     "@types/vscode": "^1.78.0",
+    "@types/vscode-notebook-renderer": "^1.72.0",
     "@types/web": "^0.0.101",
     "@typescript-eslint/eslint-plugin": "5.60.1",
     "@typescript-eslint/parser": "5.60.1",
@@ -1167,6 +1168,16 @@
         }
       ]
     },
+    "notebookRenderer": [
+      {
+        "id": "idl-notebook-renderer",
+        "displayName": "%notebooks.renderer%",
+        "entrypoint": "./dist/apps/notebook-renderers/renderer/main.js",
+        "mimeTypes": [
+          "idl/test-mime"
+        ]
+      }
+    ],
     "notebooks": [
       {
         "type": "idl-notebook",

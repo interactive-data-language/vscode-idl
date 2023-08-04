@@ -1,0 +1,70 @@
+{
+  "name": "notebook-renderers-renderer",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/notebook-renderers/renderer/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/notebook-renderers/renderer",
+        "main": "apps/notebook-renderers/renderer/src/main.ts",
+        "tsConfig": "apps/notebook-renderers/renderer/tsconfig.app.json",
+        "assets": ["apps/notebook-renderers/renderer/src/assets"],
+        "externalDependencies": "none",
+        "target": "web",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "optimization": false,
+          "extractLicenses": false,
+          "inspect": false,
+          "vendorChunk": false,
+          "commonChunk": false,
+          "runtimeChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "notebook-renderers-renderer:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "notebook-renderers-renderer:build:development"
+        },
+        "production": {
+          "buildTarget": "notebook-renderers-renderer:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/notebook-renderers/renderer/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/notebook-renderers/renderer/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

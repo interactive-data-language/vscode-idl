@@ -547,8 +547,10 @@ export interface ITranslation {
   };
   /** Translations for notebooks */
   notebooks: {
-    /** title of notebooks */
+    /** Title of notebooks */
     title: string;
+    /** Title of notebook renderer */
+    renderer: string;
     /** Name of the notebook controller */
     controller: string;
     errors: {
