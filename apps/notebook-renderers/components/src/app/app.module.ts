@@ -3,11 +3,16 @@ import { createCustomElement } from '@angular/elements';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { environment } from '../environments/environment';
-import { AppComponent, IDL_NB_IMAGE_COMPONENT_SELECTOR } from './app.component';
+import { AppComponent } from './app.component';
+import { ComponentsModule } from './components/components.module';
+import {
+  IDL_NB_IMAGE_COMPONENT_SELECTOR,
+  ImageComponent,
+} from './components/image/image.component';
 
 @NgModule({
-  declarations: [],
-  imports: [BrowserModule],
+  declarations: [AppComponent],
+  imports: [BrowserModule, ComponentsModule],
   providers: [],
   bootstrap: [],
   exports: [],
@@ -24,7 +29,7 @@ export class AppModule implements DoBootstrap {
         if (!customElements.get(IDL_NB_IMAGE_COMPONENT_SELECTOR)) {
           customElements.define(
             IDL_NB_IMAGE_COMPONENT_SELECTOR,
-            createCustomElement(AppComponent, {
+            createCustomElement(ImageComponent, {
               injector: this.injector,
             })
           );

@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'notebook-renderers-image',
+  displayName: 'notebook-renderers-components',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/apps/notebook-renderers/image',
+  coverageDirectory: '../../../coverage/apps/notebook-renderers/components',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
