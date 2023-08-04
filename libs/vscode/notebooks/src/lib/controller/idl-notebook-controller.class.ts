@@ -5,13 +5,13 @@ import {
   REGEX_NEW_LINE,
 } from '@idl/idl';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { NOTEBOOK_FOLDER } from '@idl/notebooks';
 import { Parser } from '@idl/parser';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import { TreeBranchToken } from '@idl/parsing/syntax-tree';
 import { IsSingleLine } from '@idl/parsing/syntax-validators';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import {
+  CleanPath,
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
   IDL_NOTEBOOK_NAME,
@@ -30,8 +30,8 @@ import {
   IDL_DEBUG_CONFIGURATION_PROVIDER,
 } from '@idl/vscode/debug';
 import copy from 'fast-copy';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
+import { dirname, join } from 'path';
 import * as vscode from 'vscode';
 
 import { BangENVIMagic, BangMagic } from './bang-magic.interface';
@@ -688,14 +688,18 @@ export class IDLNotebookController {
     // reset cell output
     execution.clearOutput();
 
+    dirname(CleanPath(cell.notebook.uri.fsPath));
+
+    const nbDir = dirname(CleanPath(cell.notebook.uri.fsPath));
+
     /**
      * temp folder for notebook cell
      */
-    const fsPath = join(NOTEBOOK_FOLDER, 'notebook_cell.pro');
+    const fsPath = join(nbDir, 'notebook_cell.pro');
 
     // make our folder if it doesnt exist
-    if (!existsSync(NOTEBOOK_FOLDER)) {
-      mkdirSync(NOTEBOOK_FOLDER, { recursive: true });
+    if (!existsSync(nbDir)) {
+      mkdirSync(nbDir, { recursive: true });
     }
 
     /**
@@ -755,6 +759,9 @@ export class IDLNotebookController {
 
     // compile our code
     await this.evaluate(`.compile -v '${fsPath}'`);
+
+    // delete file
+    rmSync(fsPath);
 
     // check for syntax errors
     if (Object.keys(this._runtime.errorsByFile).length > 0) {
