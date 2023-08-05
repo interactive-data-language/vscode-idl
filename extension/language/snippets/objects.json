@@ -49,7 +49,7 @@
       "pro $1__define",
       "  compile_opt idl2",
       "",
-      "  struct = {${1:$TM_FILENAME_BASE}}",
+      "  !null = {${1:$TM_FILENAME_BASE}}",
       "end"
     ],
     "description": "Procedure (class definition)",
@@ -112,7 +112,7 @@
       "pro $1__define",
       "  compile_opt idl2",
       "",
-      "  struct = {${1:$TM_FILENAME_BASE}, $",
+      "  !null = {${1:$TM_FILENAME_BASE}, $",
       "    inherits $2 $",
       "  }",
       "end"
