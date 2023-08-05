@@ -1,6 +1,7 @@
 import { ApplicationRef, DoBootstrap, Injector, NgModule } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
-import { BrowserModule } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { MaterialCssVarsModule } from 'angular-material-css-vars';
 
 import { environment } from '../environments/environment';
@@ -10,6 +11,14 @@ import {
   IDL_NB_IMAGE_COMPONENT_SELECTOR,
   ImageComponent,
 } from './components/image/image.component';
+import {
+  IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR,
+  ImageAnimatorComponent,
+} from './components/image-animator/image-animator.component';
+import { FAST_FORWARD } from './icons/fast-forward';
+import { FAST_REWIND } from './icons/fast-rewind';
+import { PAUSE } from './icons/pause';
+import { PLAY } from './icons/play';
 import { MaterialModule } from './material.module';
 
 @NgModule({
@@ -25,7 +34,39 @@ import { MaterialModule } from './material.module';
   exports: [],
 })
 export class AppModule implements DoBootstrap {
-  constructor(private injector: Injector, private appRef: ApplicationRef) {}
+  constructor(
+    private injector: Injector,
+    private appRef: ApplicationRef,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.registerIcons();
+  }
+
+  /**
+   * Adds custom icons for use in material
+   *
+   * This has been updated to directly include the SVG content
+   * instead of needing to load the SVGs via HTTP
+   */
+  registerIcons() {
+    // icons we load
+    const icons: { [key: string]: any } = {
+      play: PLAY,
+      pause: PAUSE,
+      'fast-forward': FAST_FORWARD,
+      'fast-rewind': FAST_REWIND,
+    };
+
+    // process all of our icons
+    const keys = Object.keys(icons);
+    for (let i = 0; i < keys.length; i++) {
+      this.matIconRegistry.addSvgIconLiteral(
+        keys[i],
+        this.domSanitizer.bypassSecurityTrustHtml(icons[keys[i]])
+      );
+    }
+  }
 
   ngDoBootstrap(): void {
     if (environment.production) {
@@ -37,6 +78,18 @@ export class AppModule implements DoBootstrap {
           customElements.define(
             IDL_NB_IMAGE_COMPONENT_SELECTOR,
             createCustomElement(ImageComponent, {
+              injector: this.injector,
+            })
+          );
+        }
+
+        /**
+         * Register our image animator component
+         */
+        if (!customElements.get(IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR)) {
+          customElements.define(
+            IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR,
+            createCustomElement(ImageAnimatorComponent, {
               injector: this.injector,
             })
           );

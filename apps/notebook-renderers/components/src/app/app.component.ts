@@ -4,15 +4,7 @@ import { Component } from '@angular/core';
   selector: 'idl-notebook-components',
   templateUrl: './app.component.html',
   // styleUrls: ['./app.component.scss'],
-  styles: [
-    `
-      .idl-nb-image {
-        color: red !important;
-        font-style: italic !important;
-        background-color: aqua !important;
-      }
-    `,
-  ],
+  styles: [``],
 })
 export class AppComponent {
   title = 'Notebook Components';
