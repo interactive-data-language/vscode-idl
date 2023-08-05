@@ -3,10 +3,16 @@
   <div class="controls" style="width:100%;position:absolute;left:0;bottom: 1px;">
     <div fxLayout="row" fxLayoutAlign="space-around center">
       <div fxLayout="row" >
-        <mat-icon svgIcon="fast-rewind"></mat-icon>
-        <mat-icon svgIcon="play"></mat-icon>
-        <mat-icon svgIcon="pause"></mat-icon>
-        <mat-icon svgIcon="fast-forward"></mat-icon>
+        <button mat-icon-button (click)="slowDown()">
+          <mat-icon svgIcon="fast-rewind"></mat-icon>
+        </button>
+        <button mat-icon-button (click)="pauseOrPlay()" >
+          <mat-icon *ngIf="isPaused" svgIcon="play"></mat-icon>
+          <mat-icon *ngIf="!isPaused" svgIcon="pause"></mat-icon>
+        </button>
+        <button mat-icon-button (click)="speedUp()">
+          <mat-icon svgIcon="fast-forward"></mat-icon>
+        </button>
       </div>
     </div>
   </div>
