@@ -104,5 +104,5 @@ pro envi::displayRasterCubeInNotebook, raster
   !null = query_png(uri, info)
 
   ; add to our envi magic
-  !envi_magic.add, {uri: uri, xsize: info.dimensions[0], ysize: info.dimensions[1]}
+  !notebook_magic.add, {uri: uri, xsize: info.dimensions[0], ysize: info.dimensions[1]}
 end

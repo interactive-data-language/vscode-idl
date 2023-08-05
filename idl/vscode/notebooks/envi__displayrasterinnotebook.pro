@@ -87,5 +87,5 @@ pro envi::displayRasterInNotebook, raster, size = size
   endfor
 
   ; add to our envi magic
-  !envi_magic.add, {uri: nRasters eq 1 ? uris[0] : uris, xsize: info.dimensions[0], ysize: info.dimensions[1]}
+  !notebook_magic.add, {uri: nRasters eq 1 ? uris[0] : uris, xsize: info.dimensions[0], ysize: info.dimensions[1]}
 end
