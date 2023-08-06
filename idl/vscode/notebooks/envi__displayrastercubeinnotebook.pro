@@ -104,6 +104,9 @@ pro envi::displayRasterCubeInNotebook, raster
   !null = query_png(uri, info)
 
   ; add to notebook
-  IDLNotebook.AddToNotebook, $
-    {IDLNotebookImageFromURI, uri: uri, xsize: info.dimensions[0], ysize: info.dimensions[1]}
+  struct = {IDLNotebookImageFromURI}
+  struct.uri = uri
+  struct.xsize = info.dimensions[0]
+  struct.ysize = info.dimensions[1]
+  IDLNotebook.AddToNotebook, struct
 end

@@ -88,10 +88,16 @@ pro envi::displayRasterInNotebook, raster, size = size
 
   ; check how we should report the image
   if (nRasters eq 1) then begin
-    IDLNotebook.AddToNotebook, $
-      {IDLNotebookImageFromURI, uri: uris[0], xsize: info.dimensions[0], ysize: info.dimensions[1]}
+    struct = {IDLNotebookImageFromURI}
+    struct.uri = uris[0]
+    struct.xsize = info.dimensions[0]
+    struct.ysize = info.dimensions[1]
+    IDLNotebook.AddToNotebook, struct
   endif else begin
-    IDLNotebook.AddToNotebook, $
-      {IDLNotebookAnimationFromURIs, uris: uris, xsize: info.dimensions[0], ysize: info.dimensions[1]}
+    struct = {IDLNotebookAnimationFromURIs}
+    struct.uris = uris
+    struct.xsize = info.dimensions[0]
+    struct.ysize = info.dimensions[1]
+    IDLNotebook.AddToNotebook, struct
   endelse
 end
