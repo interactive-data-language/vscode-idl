@@ -11,5 +11,6 @@ import { ImageAnimatorComponent } from './image-animator/image-animator.componen
   imports: [CommonModule, MaterialModule],
   exports: [EntryComponent, ImageComponent, ImageAnimatorComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [],
 })
 export class ComponentsModule {}

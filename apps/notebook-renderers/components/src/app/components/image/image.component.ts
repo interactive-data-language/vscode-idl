@@ -1,15 +1,11 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, SkipSelf } from '@angular/core';
 import {
   IDLNotebookEmbeddedItem,
   IDLNotebookEmbedType,
   IDLNotebookEncodedPNG,
 } from '@idl/notebooks/types';
+
+import { DataSharingService } from '../data-sharing.service';
 
 /**
  * ID for notebook image selector
@@ -21,7 +17,7 @@ export const IDL_NB_IMAGE_COMPONENT_SELECTOR = 'idl-nb-image';
   templateUrl: './image.component.html',
   styles: [``],
 })
-export class ImageComponent implements OnInit, OnChanges {
+export class ImageComponent {
   /**
    * Track if we set data or not
    */
@@ -33,8 +29,12 @@ export class ImageComponent implements OnInit, OnChanges {
    * Use set to we can properly type because the ngSwitch case does not
    * handle it well
    */
-  @Input({ required: true })
-  embed!: IDLNotebookEmbeddedItem<IDLNotebookEmbedType>;
+  @Input()
+  set embed(item: IDLNotebookEmbeddedItem<IDLNotebookEmbedType>) {
+    this.hasData = true;
+    this._embed = item as IDLNotebookEmbeddedItem<IDLNotebookEncodedPNG>;
+    this.src = `data:image/png;base64,${this._embed.item.data}`;
+  }
 
   /**
    * True (correctly typed) item we are embedding
@@ -46,24 +46,9 @@ export class ImageComponent implements OnInit, OnChanges {
    */
   src = 'not set';
 
-  ngOnInit() {
-    console.log('message from me!');
-    // this.src = 'Changed on init!';
-    if (this.embed !== undefined) {
-      this.hasData = true;
-      this._embed = this
-        .embed as IDLNotebookEmbeddedItem<IDLNotebookEncodedPNG>;
-      this.src = `data:image/png;base64,${this._embed.item.data}`;
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.src = 'On changes';
-    if (this.embed) {
-      this.hasData = true;
-      this._embed = this
-        .embed as IDLNotebookEmbeddedItem<IDLNotebookEncodedPNG>;
-      this.src = `data:image/png;base64,${this._embed.item.data}`;
-    }
-  }
+  /**
+   * We can access the latest data directly through our dataService which tracks
+   * the last value on $embed
+   */
+  constructor(@SkipSelf() private dataService: DataSharingService) {}
 }

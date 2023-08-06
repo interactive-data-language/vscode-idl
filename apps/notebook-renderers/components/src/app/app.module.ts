@@ -11,14 +11,6 @@ import {
   EntryComponent,
   IDL_NB_ENTRY_COMPONENT_SELECTOR,
 } from './components/entry/entry.component';
-import {
-  IDL_NB_IMAGE_COMPONENT_SELECTOR,
-  ImageComponent,
-} from './components/image/image.component';
-import {
-  IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR,
-  ImageAnimatorComponent,
-} from './components/image-animator/image-animator.component';
 import { FAST_FORWARD } from './icons/fast-forward';
 import { FAST_REWIND } from './icons/fast-rewind';
 import { PAUSE } from './icons/pause';
@@ -81,36 +73,17 @@ export class AppModule implements DoBootstrap {
     if (environment.production) {
       try {
         /**
-         * Register our image component
+         * Register our entry component
+         *
+         * DONT REGISTER ANYTHING ELSE because it creates an instance of the
+         * component and screws everything up.
+         *
+         * We only register the items that can be accessed directly
          */
         if (!customElements.get(IDL_NB_ENTRY_COMPONENT_SELECTOR)) {
           customElements.define(
             IDL_NB_ENTRY_COMPONENT_SELECTOR,
             createCustomElement(EntryComponent, {
-              injector: this.injector,
-            })
-          );
-        }
-
-        /**
-         * Register our image component
-         */
-        if (!customElements.get(IDL_NB_IMAGE_COMPONENT_SELECTOR)) {
-          customElements.define(
-            IDL_NB_IMAGE_COMPONENT_SELECTOR,
-            createCustomElement(ImageComponent, {
-              injector: this.injector,
-            })
-          );
-        }
-
-        /**
-         * Register our image animator component
-         */
-        if (!customElements.get(IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR)) {
-          customElements.define(
-            IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR,
-            createCustomElement(ImageAnimatorComponent, {
               injector: this.injector,
             })
           );

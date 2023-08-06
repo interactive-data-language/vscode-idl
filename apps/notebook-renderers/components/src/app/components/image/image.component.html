@@ -1,6 +1,11 @@
-<!-- <div [ngStyle]="{ 'max-width':_embed.item.xsize, 'max-height':_embed.item.xsize }">
-  <img src="{{src}}">
-</div> -->
-<p>
-  {{src}}
-</p>
+<div *ngIf="hasData; then thenBlock else elseBlock"></div>
+
+<ng-template #thenBlock>
+  <div [ngStyle]="{ 'max-width':_embed.item.xsize + 'px', 'max-height':_embed.item.ysize + 'px' }">
+    <img src="{{src}}">
+  </div>
+</ng-template>
+
+<ng-template #elseBlock>
+  <p>No image to render!</p>
+</ng-template>
