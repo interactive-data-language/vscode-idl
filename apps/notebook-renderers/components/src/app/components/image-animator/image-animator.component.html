@@ -4,7 +4,11 @@
   <div [ngStyle]="{ 'max-width':_embed.item.xsize + 'px', 'max-height':_embed.item.ysize + 'px' }"  style="position:relative; float:left;">
     <img src="{{src}}">
     <div class="controls" style="width:100%;position:absolute;left:0;bottom: 0px;">
-      <div fxLayout="row" fxLayoutAlign="space-around center">
+      <div fxLayout="column" fxLayoutAlign="center center" style="width:100%">
+        <mat-slider min="0" max="{{this._embed.item.data.length-1}}" step="1" 
+          discrete style="width:90%" [displayWith]="label">
+          <input matSliderThumb [value]="frame" (dragStart)="pause()" (input)="onInputChange($event)">
+        </mat-slider>
         <div fxLayout="row" >
           <button mat-icon-button (click)="slowDown()">
             <mat-icon svgIcon="fast-rewind"  color="accent"></mat-icon>

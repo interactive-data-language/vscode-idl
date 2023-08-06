@@ -1,9 +1,7 @@
-import { Component, Input } from '@angular/core';
-import {
-  IDLNotebookAnimationFromEncodedPNGs,
-  IDLNotebookEmbeddedItem,
-  IDLNotebookEmbedType,
-} from '@idl/notebooks/types';
+import { Component, OnInit } from '@angular/core';
+import { IDLNotebookAnimationFromEncodedPNGs } from '@idl/notebooks/types';
+
+import { BaseRendererComponent } from '../base-renderer.component';
 
 export const IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR = 'idl-nb-image-animator';
 
@@ -20,36 +18,14 @@ export const IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR = 'idl-nb-image-animator';
     `,
   ],
 })
-export class ImageAnimatorComponent {
-  /**
-   * Track if we set data or not
-   */
-  hasData = false;
-
-  /**
-   * Item we are embedding
-   *
-   * Use set to we can properly type because the ngSwitch case does not
-   * handle it well
-   */
-  @Input()
-  set embed(item: IDLNotebookEmbeddedItem<IDLNotebookEmbedType>) {
-    this._embed =
-      item as IDLNotebookEmbeddedItem<IDLNotebookAnimationFromEncodedPNGs>;
-    this.setSource();
-    this.hasData = true;
-    this.animate();
-  }
-
+export class ImageAnimatorComponent
+  extends BaseRendererComponent<IDLNotebookAnimationFromEncodedPNGs>
+  implements OnInit
+{
   /**
    * Image source with PNG encoding added
    */
   src = 'not set';
-
-  /**
-   * Parsed data
-   */
-  _embed!: IDLNotebookEmbeddedItem<IDLNotebookAnimationFromEncodedPNGs>;
 
   /**
    * The current frame we are on
@@ -82,12 +58,43 @@ export class ImageAnimatorComponent {
   private _timeout!: any | undefined;
 
   /**
+   * On init, set up our animation
+   */
+  ngOnInit(): void {
+    if (this.hasData) {
+      this.setSource();
+      this.play();
+    }
+  }
+
+  /**
+   * If slider changes because user make it change
+   */
+  onInputChange(ev: Event) {
+    this.frame = +(ev.target as HTMLInputElement).value;
+    this.setSource();
+  }
+
+  /**
+   * Label for the tooltip
+   */
+  label(value: number) {
+    return `${value + 1}`;
+  }
+
+  /**
    * Sets a timeout to animate through our images
    */
-  animate() {
+  play() {
+    // update flag
+    this.isPaused = false;
+
     if (!this.hasData) {
       return;
     }
+
+    // set image source
+    this.setSource();
 
     this._timeout = setTimeout(() => {
       // clear timeout reference
@@ -105,7 +112,7 @@ export class ImageAnimatorComponent {
       this.setSource();
 
       // animate again
-      this.animate();
+      this.play();
     }, this.getInterval());
   }
 
@@ -120,20 +127,18 @@ export class ImageAnimatorComponent {
    * Pauses execution
    */
   pauseOrPlay() {
-    this.isPaused = !this.isPaused;
-
-    // if we are paused, stop any pending timeouts
-    if (this.isPaused) {
-      this.resetOrStop();
+    if (!this.isPaused) {
+      this.pause();
     } else {
-      this.animate();
+      this.play();
     }
   }
 
   /**
    * Resets/stops timeout for next frame
    */
-  resetOrStop() {
+  pause() {
+    this.isPaused = true;
     if (this._timeout !== undefined) {
       window.clearTimeout(this._timeout);
     }
@@ -143,24 +148,26 @@ export class ImageAnimatorComponent {
    * Sets image source to the latest image data
    */
   setSource() {
-    this.src = `data:image/png;base64,${this._embed.item.data[this.frame]}`;
+    if (this.hasData) {
+      this.src = `data:image/png;base64,${this._embed.item.data[this.frame]}`;
+    }
   }
 
   /**
    * Makes it play faster
    */
   speedUp() {
-    this.resetOrStop();
+    this.pause();
     this.multiplier = Math.max((this.multiplier /= this.fastMultiplier), 0.125);
-    this.animate();
+    this.play();
   }
 
   /**
    * Makes it play slower
    */
   slowDown() {
-    this.resetOrStop();
-    this.multiplier = Math.min((this.multiplier /= this.fastMultiplier), 8);
-    this.animate();
+    this.pause();
+    this.multiplier = Math.min((this.multiplier *= this.fastMultiplier), 4);
+    this.play();
   }
 }

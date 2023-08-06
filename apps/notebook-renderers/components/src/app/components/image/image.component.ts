@@ -1,10 +1,7 @@
-import { Component, Input, SkipSelf } from '@angular/core';
-import {
-  IDLNotebookEmbeddedItem,
-  IDLNotebookEmbedType,
-  IDLNotebookEncodedPNG,
-} from '@idl/notebooks/types';
+import { Component, OnInit, SkipSelf } from '@angular/core';
+import { IDLNotebookEncodedPNG } from '@idl/notebooks/types';
 
+import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
 
 /**
@@ -17,30 +14,10 @@ export const IDL_NB_IMAGE_COMPONENT_SELECTOR = 'idl-nb-image';
   templateUrl: './image.component.html',
   styles: [``],
 })
-export class ImageComponent {
-  /**
-   * Track if we set data or not
-   */
-  hasData = false;
-
-  /**
-   * Item we are embedding
-   *
-   * Use set to we can properly type because the ngSwitch case does not
-   * handle it well
-   */
-  @Input()
-  set embed(item: IDLNotebookEmbeddedItem<IDLNotebookEmbedType>) {
-    this._embed = item as IDLNotebookEmbeddedItem<IDLNotebookEncodedPNG>;
-    this.src = `data:image/png;base64,${this._embed.item.data}`;
-    this.hasData = true;
-  }
-
-  /**
-   * True (correctly typed) item we are embedding
-   */
-  _embed!: IDLNotebookEmbeddedItem<IDLNotebookEncodedPNG>;
-
+export class ImageComponent
+  extends BaseRendererComponent<IDLNotebookEncodedPNG>
+  implements OnInit
+{
   /**
    * Image source with PNG encoding added
    */
@@ -50,5 +27,13 @@ export class ImageComponent {
    * We can access the latest data directly through our dataService which tracks
    * the last value on $embed
    */
-  constructor(@SkipSelf() private dataService: DataSharingService) {}
+  constructor(@SkipSelf() private dataService: DataSharingService) {
+    super();
+  }
+
+  ngOnInit() {
+    if (this.hasData) {
+      this.src = `data:image/png;base64,${this._embed.item.data}`;
+    }
+  }
 }

@@ -2,7 +2,10 @@ import { ApplicationRef, DoBootstrap, Injector, NgModule } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { MatIconRegistry } from '@angular/material/icon';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
-import { MaterialCssVarsModule } from 'angular-material-css-vars';
+import {
+  MaterialCssVarsModule,
+  MaterialCssVarsService,
+} from 'angular-material-css-vars';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -26,7 +29,7 @@ import { MaterialModule } from './material.module';
     MaterialModule,
     ComponentsModule,
   ],
-  providers: [],
+  providers: [MaterialCssVarsService],
   bootstrap: [],
   exports: [],
 })
@@ -35,9 +38,37 @@ export class AppModule implements DoBootstrap {
     private injector: Injector,
     private appRef: ApplicationRef,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private materialCssVarsService: MaterialCssVarsService
   ) {
     this.registerIcons();
+    // this.updateTheme();
+  }
+
+  /**
+   * Updates the theme based on current CSS variables
+   */
+  updateTheme() {
+    // get the body element
+    const body = document.body;
+
+    // get css class list
+    const classes = body.classList;
+
+    // flag if dark mode
+    const isDark = !classes.contains('vscode-light');
+
+    // get our colors
+    const accent = getComputedStyle(body).getPropertyValue(
+      '--vscode-activityBarBadge-background'
+    );
+
+    console.log(accent);
+
+    // set colors/themes/properties
+    this.materialCssVarsService.setDarkTheme(isDark);
+    // this.materialCssVarsService.setPrimaryColor(hex);
+    this.materialCssVarsService.setAccentColor(accent);
   }
 
   /**
