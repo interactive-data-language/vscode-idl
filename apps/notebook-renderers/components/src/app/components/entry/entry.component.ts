@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import {
   IDLNotebookEmbeddedItem,
   IDLNotebookEmbedType,
@@ -9,6 +9,17 @@ import {
  */
 export const IDL_NB_ENTRY_COMPONENT_SELECTOR = 'idl-nb-entry';
 
+/**
+ * Entry components handles the logic of determining the right thing
+ * to render and creates the correct type of element to display
+ * the item that we are embedding in our data
+ *
+ * We are doing this here because it simplified the logic for our renderer and
+ * allows us to use types. We can't use types when we are in the renderer function
+ * because we use `tsc` to build which expects all dependencies to be
+ * local (and we needed that to work around compiling it right to use as a notebook
+ * renderer)
+ */
 @Component({
   selector: 'idl-nb-entry',
   templateUrl: './entry.component.html',
@@ -18,19 +29,21 @@ export const IDL_NB_ENTRY_COMPONENT_SELECTOR = 'idl-nb-entry';
     `,
   ],
 })
-export class EntryComponent implements AfterViewInit {
+export class EntryComponent implements OnInit, AfterViewInit {
   /**
    * Flag if we have data or not
    */
   hasData = false;
 
+  /**
+   * Data we are embedding, comes in as a raw string so we have to parse it
+   */
   @Input()
   get data(): string {
     return JSON.stringify(this.embed);
   }
   set data(data: string) {
     this.embed = JSON.parse(data);
-    this.hasData = true;
   }
 
   /**
@@ -38,35 +51,13 @@ export class EntryComponent implements AfterViewInit {
    */
   embed!: IDLNotebookEmbeddedItem<IDLNotebookEmbedType>;
 
-  /**
-   * Note to display
-   */
-  note = 'We got and drew to our canvas!';
-
-  /**
-   * Reference to our canvas
-   */
-  canvas!: HTMLCanvasElement | null;
-
-  constructor(private el: ElementRef<HTMLElement>) {}
+  ngOnInit() {
+    const a = 5;
+  }
 
   ngAfterViewInit() {
-    try {
-      this.canvas = this.el.nativeElement.querySelector('#myCanvas');
-
-      if (this.canvas) {
-        const ctx = this.canvas.getContext('2d');
-        if (ctx !== null) {
-          ctx.font = '30px Arial';
-          ctx.strokeText('Hello World', 10, 50);
-        } else {
-          this.note = 'No 2d context for canvas';
-        }
-      } else {
-        this.note = 'No canvas found';
-      }
-    } catch (err) {
-      this.note = (err as Error).message;
+    if (this.embed !== undefined) {
+      this.hasData = true;
     }
   }
 }

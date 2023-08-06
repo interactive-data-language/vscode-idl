@@ -1,7 +1,12 @@
-<div class="idl-nb-image">
-  <p>idl-nb-image works greater!</p>
-  <canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;"></canvas>
-  <p>{{note}}</p>
-  <p *ngIf="hasData">We have the data! Type: "{{embed.type}}"</p>
-</div>
+<div *ngIf="hasData; then thenBlock else elseBlock"></div>
+
+<ng-template #thenBlock [ngSwitch]="embed.type">
+  <p>Embedding content of type "{{embed.type}}"</p>
+  <idl-nb-image *ngSwitchCase="'idlnotebookencodedpng'" [embed]="embed"></idl-nb-image>
+  <div *ngSwitchDefault><p>Unhandled embed type of "{{embed.type}}"</p></div>
+</ng-template>
+
+<ng-template #elseBlock>
+  <p>No data to render!</p>
+</ng-template>
   

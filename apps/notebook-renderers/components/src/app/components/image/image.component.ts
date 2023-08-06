@@ -1,4 +1,15 @@
-import { AfterViewInit, Component, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  IDLNotebookEmbeddedItem,
+  IDLNotebookEmbedType,
+  IDLNotebookEncodedPNG,
+} from '@idl/notebooks/types';
 
 /**
  * ID for notebook image selector
@@ -10,36 +21,49 @@ export const IDL_NB_IMAGE_COMPONENT_SELECTOR = 'idl-nb-image';
   templateUrl: './image.component.html',
   styles: [``],
 })
-export class ImageComponent implements AfterViewInit {
+export class ImageComponent implements OnInit, OnChanges {
   /**
-   * Note to display
+   * Track if we set data or not
    */
-  note = 'We got and drew to our canvas!';
+  hasData = false;
 
   /**
-   * Reference to our canvas
+   * Item we are embedding
+   *
+   * Use set to we can properly type because the ngSwitch case does not
+   * handle it well
    */
-  canvas!: HTMLCanvasElement | null;
+  @Input({ required: true })
+  embed!: IDLNotebookEmbeddedItem<IDLNotebookEmbedType>;
 
-  constructor(private el: ElementRef<HTMLElement>) {}
+  /**
+   * True (correctly typed) item we are embedding
+   */
+  _embed!: IDLNotebookEmbeddedItem<IDLNotebookEncodedPNG>;
 
-  ngAfterViewInit() {
-    try {
-      this.canvas = this.el.nativeElement.querySelector('#myCanvas');
+  /**
+   * Image source with PNG encoding added
+   */
+  src = 'not set';
 
-      if (this.canvas) {
-        const ctx = this.canvas.getContext('2d');
-        if (ctx !== null) {
-          ctx.font = '30px Arial';
-          ctx.strokeText('Hello World', 10, 50);
-        } else {
-          this.note = 'No 2d context for canvas';
-        }
-      } else {
-        this.note = 'No canvas found';
-      }
-    } catch (err) {
-      this.note = (err as Error).message;
+  ngOnInit() {
+    console.log('message from me!');
+    // this.src = 'Changed on init!';
+    if (this.embed !== undefined) {
+      this.hasData = true;
+      this._embed = this
+        .embed as IDLNotebookEmbeddedItem<IDLNotebookEncodedPNG>;
+      this.src = `data:image/png;base64,${this._embed.item.data}`;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.src = 'On changes';
+    if (this.embed) {
+      this.hasData = true;
+      this._embed = this
+        .embed as IDLNotebookEmbeddedItem<IDLNotebookEncodedPNG>;
+      this.src = `data:image/png;base64,${this._embed.item.data}`;
     }
   }
 }
