@@ -724,6 +724,28 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Find them in`,
+      fileName: `populate-structures.7.spec.ts`,
+      tests: [
+        {
+          name: 'function methods',
+          code: [
+            `pro my_def__define`,
+            `compile_opt idl2`,
+            `fhdr = {WAVFILEHEADER, $`,
+            `  friff: bytarr(4), $ ; A four char string`,
+            `  fsize: 0ul, $`,
+            `  fwave: bytarr(4) $ ; A four char string`,
+            `}`,
+            ``,
+            `if ~_exists then defsysv, '!notebook_magic', {IDLNotebookMagic}`,
+            ``,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
       suiteName: `Correctly extract variables from`,
       fileName: `procedures.spec.ts`,
       tests: [
