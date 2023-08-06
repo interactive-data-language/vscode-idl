@@ -103,6 +103,7 @@ pro envi::displayRasterCubeInNotebook, raster
   ; get info about PNG size
   !null = query_png(uri, info)
 
-  ; add to our envi magic
-  !notebook_magic.add, {uri: uri, xsize: info.dimensions[0], ysize: info.dimensions[1]}
+  ; add to notebook
+  IDLNotebook.AddToNotebook, $
+    {IDLNotebookImageFromURI, uri: uri, xsize: info.dimensions[0], ysize: info.dimensions[1]}
 end

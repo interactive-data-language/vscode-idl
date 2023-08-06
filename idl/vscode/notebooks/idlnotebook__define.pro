@@ -4,24 +4,51 @@
 ;   within a notebook cell
 ;
 ; :Arguments:
-;   item: in, required, IDLNotebookEncodedPN | IDLNotebookImageFromURI | IDLNotebookAnimationFromURIs
+;   item: in, required, !magic | IDLNotebookEncodedPNG | IDLNotebookImageFromURI | IDLNotebookAnimationFromURIs
 ;     The item we are adding to a notebook
 ;
 ;-
 pro IDLNotebook::AddToNotebook, item
   compile_opt idl2, hidden, static
-  on_error, 2
+  ; on_error, 2
 
   ;+
-  ; The "types" for the IDLNotebookMagic should match what typescript
+  ; The "types" for the IDLNotebookMagicItem should match what typescript
   ; expects in the notebook controller
   ;-
-  switch (!true) of
+  case (!true) of
+    ;+
+    ; Check for encoded PNG
+    ;-
+    isa(item, '!magic'): begin
+      ; return if we dont have an item to track
+      if (!magic.window eq -1) then return
+
+      ; get the ID of the window
+      id = strtrim(!magic.window, 2)
+
+      ; if we havent tracked it yet, save it
+      if ~!idlnotebookmagic.graphics.hasKey(id) then begin
+        !idlnotebookmagic.graphics[id] = orderedhash(!magic, /extract, /lowercase)
+
+        ; save in our list
+        !idlnotebookmagic.items.add, $
+          {IDLNotebookLegacyMagic, magic: orderedhash(!magic, /extract, /lowercase)}
+      endif
+    end
+
+    ;+
+    ; Check for encoded PNG
+    ;-
     isa(item, 'IDLNotebookEncodedPNG'): begin
       ; save
-      !notebook_magic.add, $
-        {IDLNotebookMagic, type: 'image-png-encoded', data: orderedhash(item, /fold_case)}
+      !idlnotebookmagic.items.add, $
+        {IDLNotebookMagicItem, type: 'image-png-encoded', data: orderedhash(item, /fold_case)}
     end
+
+    ;+
+    ; Check for image we are adding from a URI
+    ;-
     isa(item, 'IDLNotebookImageFromURI'): begin
       ; validate
       if ~file_test(item.uri) then begin
@@ -29,15 +56,19 @@ pro IDLNotebook::AddToNotebook, item
       endif
 
       ; save
-      !notebook_magic.add, $
-        {IDLNotebookMagic, type: 'image', data: orderedhash(item, /fold_case)}
+      !idlnotebookmagic.items.add, $
+        {IDLNotebookMagicItem, type: 'image', data: orderedhash(item, /fold_case)}
     end
+
+    ;+
+    ; Check if we have an animation based on multiple images on disk
+    ;-
     isa(item, 'IDLNotebookAnimationFromURIs'): begin
       ; validate
       nImages = n_elements(item.uris)
 
       ; make sure we have images
-      if (nImages eq 0) then message, 'No images to add', level = = -1
+      if (nImages eq 0) then message, 'No images to add', level = -1
 
       ; make sure all files exist
       foreach uri, item.uris do begin
@@ -47,13 +78,80 @@ pro IDLNotebook::AddToNotebook, item
       endforeach
 
       ; save
-      !notebook_magic.add, $
-        {IDLNotebookMagic, type: 'animation', data: orderedhash(item, /fold_case)}
+      !idlnotebookmagic.items.add, $
+        {IDLNotebookMagicItem, type: 'animation', data: orderedhash(item, /fold_case)}
     end
     else: begin
       message, 'Item is not a known structure to embed in a notebook', level = -1
     end
-  endswitch
+  endcase
+end
+
+;+
+; :Description:
+;   Exports (to the console via print) all of the magic items that
+;   we are currently tracking
+;
+;   Cleans up and removes everything after we have exported
+;
+;-
+pro IDLNotebook::Export
+  compile_opt idl2, hidden, static
+  ; on_error, 2
+
+  catch, err
+  if (err ne 0) then begin
+    catch, /cancel
+    help, /last_message
+    message, /reissue_last
+  endif
+
+  ; check if we have a new graphics item (or maybe direct graphics)
+  if (!magic.window ne -1) then IDLNotebook.AddToNotebook, !magic
+
+  ;+ Track the items that we will report
+  export = list()
+
+  ; convert all items for export
+  foreach item, !idlnotebookmagic.items do begin
+    ;+
+    ; If we have a legacy magic item, convert to encoded PNG first
+    ;-
+    if isa(item, 'IDLNotebookLegacyMagic') then begin
+      ; encode graphic
+      encoded = EncodeGraphic(item.magic['window'], item.magic['type'])
+
+      ; skip if we werent able to encode
+      if (encoded eq !null) then continue
+
+      ;+ Create PNG data structre
+      png = {IDLNotebookEncodedPNG}
+      png.data = encoded
+      png.xsize = long(item.magic['xsize'])
+      png.ysize = long(item.magic['ysize'])
+
+      ;+
+      ; Why doesnt this work??
+      ;-
+
+      ; png = {IDLNotebookEncodedPNG, $
+      ; data: encoded, $
+      ; xsize: long(item.magic['xsize']), $
+      ; ysize: long(item.magic['ysize'])}
+
+      ; create magic item and save
+      export.add, {IDLNotebookMagicItem, $
+        type: 'image-png-encoded', data: orderedhash(png, /lowercase)}
+    endif else begin
+      export.add, item
+    endelse
+  endforeach
+
+  ; clean up
+  IDLNotebook.Reset
+
+  ; print
+  print, json_serialize(export, /lowercase)
 end
 
 ;+
@@ -68,7 +166,7 @@ end
 ;
 ;-
 function IDLNotebook::Init, _extra = extra
-  compile_opt idl2, hidden, static
+  compile_opt idl2, hidden
   on_error, 2
 
   if (isa(extra)) then $
@@ -79,12 +177,19 @@ end
 
 ;+
 ; :Description:
-;   Destructor
+;   Resets properties and clears all tracked items
 ;
 ;-
-pro IDLNotebook::Cleanup
+pro IDLNotebook::Reset
   compile_opt idl2, hidden, static
   on_error, 2
+
+  ; clean up our objects
+  !idlnotebookmagic.items.remove, /all
+  !idlnotebookmagic.graphics.remove, /all
+
+  ; clear any IDs for the window that we have currently embedded
+  !magic.window = -1
 end
 
 ;+
@@ -92,6 +197,14 @@ end
 ;   Class definition procedure
 ;
 ; :IDLNotebook:
+;   _foo: any
+;     Placeholder docs for argument, keyword, or property
+;
+; :IDLNotebookLegacyMagic:
+;   magic: OrderedHash<any>
+;     An ordered-hash version of our !magic system variable
+;     at the time of it being added
+;
 ; :IDLNotebookBaseImage:
 ;   xsize: Number
 ;     The width of the PNG for display
@@ -100,7 +213,7 @@ end
 ;
 ; :IDLNotebookEncodedPNG:
 ;   data: String
-;     Base64 encoded PNG
+;     Base64 encoded PNG as a string
 ;
 ; :IDLNotebookImageFromURI:
 ;   uri: String
@@ -115,36 +228,48 @@ end
 ;
 ;     At this time, only PNGs are supported.
 ;
-; :IDLNotebookMagic:
+; :IDLNotebookMagicItem:
 ;   data: OrderedHash<any>
 ;     The paired structure for the type of notebook magic
 ;   type: String
 ;     The type of notebook magic
+;
+; :IDLNotebookMagic:
+;   graphics: OrderedHash<!magic>
+;     By window ID, track graphics that we need to embed
+;   items: List<any>
+;     The items that we are adding to our notebook
 ;
 ;-
 pro IDLNotebook__define
   compile_opt idl2, hidden
   on_error, 2
 
-  !null = {IDLNotebook}
+  ;+
+  ; Data structure for this class, null because we dont
+  ; store anything ourselved
+  ;-
+  !null = {IDLNotebook, _foo: 'bar'}
 
-  ; make sure super magic exists
-  defsysv, '!notebook_magic', exists = _exists
-  if ~_exists then defsysv, '!notebook_magic', list()
+  ;+
+  ; Legacy magic definition for all of our graphics
+  ;-
+  !null = {IDLNotebookLegacyMagic, $
+    magic: orderedhash()}
 
   ;+
   ; Base datas tructure for image
   ;-
   !null = {IDLNotebookBaseImage, $
-    xsize: 0, $
-    ysize: 0}
+    xsize: 0l, $
+    ysize: 0l}
 
   ;+
   ; Data structure for embedding an image
   ;-
   !null = {IDLNotebookEncodedPNG, $
     inherits IDLNotebookBaseImage, $
-    data: bytarr(1)}
+    data: 'base64'}
 
   ;+
   ; Data structure for embedding an image
@@ -161,9 +286,21 @@ pro IDLNotebook__define
     uris: strarr(1)}
 
   ;+
-  ; Messages stored in `!notebook_magic`
+  ; Messages stored in `!IDLNotebookMagic`
   ;-
-  !null = {IDLNotebookMagic, $
+  !null = {IDLNotebookMagicItem, $
     type: 'string', $
     data: orderedhash()}
+
+  ;+
+  ; Data structure for the notebook magic system variable
+  ;-
+  !null = {IDLNotebookMagic, $
+    items: list(), $
+    graphics: orderedhash()}
+
+  ; make sure super magic exists
+  defsysv, '!IDLNotebookMagic', exists = _exists
+  if ~_exists then defsysv, '!IDLNotebookMagic', $
+    {IDLNotebookMagic, items: list(), graphics: orderedhash(/fold_case)}
 end
