@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { BaseComponent } from '../base.component';
 
 export const IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR = 'idl-nb-image-animator';
 
@@ -8,13 +10,14 @@ export const IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR = 'idl-nb-image-animator';
   styles: [
     `
       .controls {
+        /* background: rgba(var(--vscode-editor-background), 0.8); */
         background: var(--vscode-editor-background);
-        opacity: 85%;
+        /* opacity: 85%; */
       }
     `,
   ],
 })
-export class ImageAnimatorComponent {
+export class ImageAnimatorComponent extends BaseComponent implements OnInit {
   /**
    * The current frame we are on
    */

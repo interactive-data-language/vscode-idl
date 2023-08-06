@@ -19,6 +19,7 @@ import { FAST_FORWARD } from './icons/fast-forward';
 import { FAST_REWIND } from './icons/fast-rewind';
 import { PAUSE } from './icons/pause';
 import { PLAY } from './icons/play';
+import { SAVE } from './icons/save';
 import { MaterialModule } from './material.module';
 
 @NgModule({
@@ -52,10 +53,11 @@ export class AppModule implements DoBootstrap {
   registerIcons() {
     // icons we load
     const icons: { [key: string]: any } = {
-      play: PLAY,
-      pause: PAUSE,
       'fast-forward': FAST_FORWARD,
       'fast-rewind': FAST_REWIND,
+      pause: PAUSE,
+      play: PLAY,
+      save: SAVE,
     };
 
     // process all of our icons
@@ -68,6 +70,9 @@ export class AppModule implements DoBootstrap {
     }
   }
 
+  /**
+   * When we bootstrap (i.e. start up) what do we do?
+   */
   ngDoBootstrap(): void {
     if (environment.production) {
       try {
