@@ -1,13 +1,13 @@
-import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
-
-import { CreateCodeForNotebooks } from './create-code-for-notebooks';
-import { EncodeNotebook } from './encode-notebook';
 import {
   IDLRawNotebook,
   IDLRawNotebookCell,
   IDLRawNotebookCellType,
   IDLRawNotebookVersion_2_0_0,
-} from './format-types/raw-notebook.interface';
+} from '@idl/notebooks/types';
+import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
+
+import { CreateCodeForNotebooks } from './create-code-for-notebooks';
+import { EncodeNotebook } from './encode-notebook';
 
 /**
  * When does code block start

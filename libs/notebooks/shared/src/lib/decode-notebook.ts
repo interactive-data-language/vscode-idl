@@ -1,10 +1,9 @@
-import copy from 'fast-copy';
-
 import {
   DEFAULT_NOTEBOOK,
   IDLRawNotebook,
   IDLRawNotebookVersion,
-} from './format-types/raw-notebook.interface';
+} from '@idl/notebooks/types';
+import copy from 'fast-copy';
 
 /**
  * Decodes byte data for a notebook and restores it as a raw notebook

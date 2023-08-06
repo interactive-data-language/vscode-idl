@@ -1,5 +1,5 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { IDL_RAW_NOTEBOOK_VERSION_LOOKUP } from '@idl/notebooks';
+import { IDL_RAW_NOTEBOOK_VERSION_LOOKUP } from '@idl/notebooks/types';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';

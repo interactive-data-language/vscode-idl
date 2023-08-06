@@ -1,4 +1,7 @@
-import { IDLRawNotebook, IDLRawNotebookVersion_2_0_0 } from '@idl/notebooks';
+import {
+  IDLRawNotebook,
+  IDLRawNotebookVersion_2_0_0,
+} from '@idl/notebooks/types';
 import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import * as vscode from 'vscode';
 

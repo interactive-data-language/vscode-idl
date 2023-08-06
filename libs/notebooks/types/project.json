@@ -1,21 +1,21 @@
 {
-  "name": "notebooks",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/notebooks/src",
+  "name": "notebooks-types",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/notebooks/types/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/notebooks/**/*.ts"]
+        "lintFilePatterns": ["libs/notebooks/types/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/notebooks/jest.config.ts",
+        "jestConfig": "libs/notebooks/types/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
