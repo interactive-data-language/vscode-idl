@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Host, Input } from '@angular/core';
+import { Component, Host, Input } from '@angular/core';
 import {
   IDLNotebookEmbeddedItem,
   IDLNotebookEmbedType,
@@ -32,7 +32,7 @@ export const IDL_NB_ENTRY_COMPONENT_SELECTOR = 'idl-nb-entry';
   ],
   providers: [DataSharingService],
 })
-export class EntryComponent implements AfterViewInit {
+export class EntryComponent {
   /**
    * Flag if we have data or not
    */
@@ -47,6 +47,8 @@ export class EntryComponent implements AfterViewInit {
   }
   set data(data: string) {
     this.embed = JSON.parse(data);
+    this.hasData = true;
+    this.dataShare.embed(this.embed);
   }
 
   /**
@@ -55,18 +57,4 @@ export class EntryComponent implements AfterViewInit {
   embed!: IDLNotebookEmbeddedItem<IDLNotebookEmbedType>;
 
   constructor(@Host() private dataShare: DataSharingService) {}
-
-  // ngOnInit() {
-  //   if (this.embed !== undefined) {
-  //     this.hasData = true;
-  //     this.dataShare.embed(this.embed);
-  //   }
-  // }
-
-  ngAfterViewInit() {
-    if (this.embed !== undefined) {
-      this.hasData = true;
-      this.dataShare.embed(this.embed);
-    }
-  }
 }
