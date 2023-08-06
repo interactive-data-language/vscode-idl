@@ -239,7 +239,7 @@ export class IDLNotebookController {
                 Buffer.from(
                   this._currentCell.output.replace(REGEX_NEW_LINE, '\n')
                 ),
-                'idl/test-mime'
+                'text/html'
               ),
             ])
           );
