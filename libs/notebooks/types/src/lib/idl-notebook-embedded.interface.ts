@@ -115,3 +115,9 @@ export type IDLNotebookEmbeddedItem<T extends IDLNotebookEmbedType> = {
    */
   data: IDLNotebookEmbeddedItemData<T>;
 };
+
+/**
+ * Data type for embedded items from IDL
+ */
+export type IDLNotebookEmbeddedItems =
+  IDLNotebookEmbeddedItem<IDLNotebookEmbedType>[];
