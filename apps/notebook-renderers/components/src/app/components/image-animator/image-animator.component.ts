@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import {
+  IDLNotebookAnimationFromEncodedPNGs,
+  IDLNotebookEmbeddedItem,
+} from '@idl/notebooks/types';
 
 import { BaseComponent } from '../base.component';
 
@@ -18,6 +22,25 @@ export const IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR = 'idl-nb-image-animator';
   ],
 })
 export class ImageAnimatorComponent extends BaseComponent implements OnInit {
+  /**
+   * Flag if we have data or not
+   */
+  hasData = false;
+
+  @Input()
+  get data(): string {
+    return JSON.stringify(this._embed);
+  }
+  set data(data: string) {
+    this._embed = JSON.parse(data);
+    this.hasData = true;
+  }
+
+  /**
+   * Parsed data
+   */
+  private _embed!: IDLNotebookEmbeddedItem<IDLNotebookAnimationFromEncodedPNGs>;
+
   /**
    * The current frame we are on
    */
@@ -43,8 +66,6 @@ export class ImageAnimatorComponent extends BaseComponent implements OnInit {
    */
   isPaused = false;
 
-  images: string[] = [];
-
   /**
    * reference to current animation timeout
    */
@@ -54,6 +75,10 @@ export class ImageAnimatorComponent extends BaseComponent implements OnInit {
    * Sets a timeout to animate through our images
    */
   animate() {
+    if (!this.hasData) {
+      return;
+    }
+
     this._timeout = setTimeout(() => {
       // clear timeout reference
       this._timeout = undefined;
@@ -62,7 +87,7 @@ export class ImageAnimatorComponent extends BaseComponent implements OnInit {
       this.frame++;
 
       // if we reached our limit, start at zero
-      if (this.frame >= this.images.length) {
+      if (this.frame >= this._embed.item.data.length) {
         this.frame = 0;
       }
 

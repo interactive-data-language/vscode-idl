@@ -8,11 +8,7 @@ export const IDL_NB_IMAGE_COMPONENT_SELECTOR = 'idl-nb-image';
 @Component({
   selector: 'idl-nb-image',
   templateUrl: './image.component.html',
-  styles: [
-    `
-      @import 'styles.scss';
-    `,
-  ],
+  styles: [``],
 })
 export class ImageComponent implements AfterViewInit {
   /**

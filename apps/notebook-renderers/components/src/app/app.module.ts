@@ -8,6 +8,10 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import {
+  EntryComponent,
+  IDL_NB_ENTRY_COMPONENT_SELECTOR,
+} from './components/entry/entry.component';
+import {
   IDL_NB_IMAGE_COMPONENT_SELECTOR,
   ImageComponent,
 } from './components/image/image.component';
@@ -76,6 +80,18 @@ export class AppModule implements DoBootstrap {
   ngDoBootstrap(): void {
     if (environment.production) {
       try {
+        /**
+         * Register our image component
+         */
+        if (!customElements.get(IDL_NB_ENTRY_COMPONENT_SELECTOR)) {
+          customElements.define(
+            IDL_NB_ENTRY_COMPONENT_SELECTOR,
+            createCustomElement(EntryComponent, {
+              injector: this.injector,
+            })
+          );
+        }
+
         /**
          * Register our image component
          */

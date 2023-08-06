@@ -15,8 +15,9 @@ import type { ActivationFunction } from 'vscode-notebook-renderer';
 export const activate: ActivationFunction = (context) => {
   return {
     renderOutputItem(data, element) {
-      element.innerText = `${JSON.stringify(data)}`;
-      element.innerHTML = `<idl-nb-image></idl-nb-image>`;
+      // this is a blob ref i think: JSON.stringify(data)
+      element.innerHTML = `<idl-nb-entry data='${data.text()}'></idl-nb-entry>`;
+      // element.innerText = `${data.text()}`;
     },
   };
 };
