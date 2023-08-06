@@ -1,19 +1,27 @@
-<div style="position:relative; float:left;">
-  <img src="https://i.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif">
-  <div class="controls" style="width:100%;position:absolute;left:0;bottom: 1px;">
-    <div fxLayout="row" fxLayoutAlign="space-around center">
-      <div fxLayout="row" >
-        <button mat-icon-button (click)="slowDown()">
-          <mat-icon svgIcon="fast-rewind"  color="accent"></mat-icon>
-        </button>
-        <button mat-icon-button (click)="pauseOrPlay()" >
-          <mat-icon *ngIf="isPaused" svgIcon="play"></mat-icon>
-          <mat-icon *ngIf="!isPaused" svgIcon="pause"></mat-icon>
-        </button>
-        <button mat-icon-button (click)="speedUp()">
-          <mat-icon svgIcon="fast-forward"></mat-icon>
-        </button>
+<div *ngIf="hasData; then thenBlock else elseBlock"></div>
+
+<ng-template #thenBlock>
+  <div [ngStyle]="{ 'max-width':_embed.item.xsize + 'px', 'max-height':_embed.item.ysize + 'px' }"  style="position:relative; float:left;">
+    <img src="{{src}}">
+    <div class="controls" style="width:100%;position:absolute;left:0;bottom: 0px;">
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxLayout="row" >
+          <button mat-icon-button (click)="slowDown()">
+            <mat-icon svgIcon="fast-rewind"  color="accent"></mat-icon>
+          </button>
+          <button mat-icon-button (click)="pauseOrPlay()" >
+            <mat-icon *ngIf="isPaused" svgIcon="play"></mat-icon>
+            <mat-icon *ngIf="!isPaused" svgIcon="pause"></mat-icon>
+          </button>
+          <button mat-icon-button (click)="speedUp()">
+            <mat-icon svgIcon="fast-forward"></mat-icon>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ng-template>
+
+<ng-template #elseBlock>
+  <p>No image to render!</p>
+</ng-template>

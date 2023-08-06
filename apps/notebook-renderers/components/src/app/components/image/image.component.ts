@@ -31,9 +31,9 @@ export class ImageComponent {
    */
   @Input()
   set embed(item: IDLNotebookEmbeddedItem<IDLNotebookEmbedType>) {
-    this.hasData = true;
     this._embed = item as IDLNotebookEmbeddedItem<IDLNotebookEncodedPNG>;
     this.src = `data:image/png;base64,${this._embed.item.data}`;
+    this.hasData = true;
   }
 
   /**

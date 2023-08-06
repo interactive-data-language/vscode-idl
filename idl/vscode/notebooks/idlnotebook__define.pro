@@ -251,7 +251,7 @@ end
 ;     At this time, only PNGs are supported
 ;
 ; :IDLNotebookAnimationFromURIs:
-;   uris: Array<String>
+;   uris: List<String>
 ;     Fully-qualified filepaths to images on disk that you want to create
 ;     an animation for.
 ;
@@ -312,7 +312,7 @@ pro IDLNotebook__define
   ;-
   !null = {IDLNotebookAnimationFromURIs, $
     inherits IDLNotebookBaseImage, $
-    uris: strarr(1)}
+    uris: list()}
 
   ;+
   ; Messages stored in `!IDLNotebookMagic`

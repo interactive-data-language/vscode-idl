@@ -3,6 +3,7 @@
 <ng-template #thenBlock [ngSwitch]="embed.type">
   <p>Embedding content of type "{{embed.type}}"</p>
   <idl-nb-image *ngSwitchCase="'idlnotebookencodedpng'" [embed]="embed"></idl-nb-image>
+  <idl-nb-image-animator *ngSwitchCase="'idlnotebookanimationfromencodedpngs'" [embed]="embed"></idl-nb-image-animator>
   <div *ngSwitchDefault><p>Unhandled embed type of "{{embed.type}}"</p></div>
 </ng-template>
 

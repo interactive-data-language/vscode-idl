@@ -95,7 +95,7 @@ pro envi::displayRasterInNotebook, raster, size = size
     IDLNotebook.AddToNotebook, struct
   endif else begin
     struct = {IDLNotebookAnimationFromURIs}
-    struct.uris = uris
+    struct.uris = list(uris, /extract)
     struct.xsize = info.dimensions[0]
     struct.ysize = info.dimensions[1]
     IDLNotebook.AddToNotebook, struct

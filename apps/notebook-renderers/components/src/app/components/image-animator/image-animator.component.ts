@@ -1,10 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   IDLNotebookAnimationFromEncodedPNGs,
   IDLNotebookEmbeddedItem,
+  IDLNotebookEmbedType,
 } from '@idl/notebooks/types';
-
-import { BaseComponent } from '../base.component';
 
 export const IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR = 'idl-nb-image-animator';
 
@@ -21,25 +20,36 @@ export const IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR = 'idl-nb-image-animator';
     `,
   ],
 })
-export class ImageAnimatorComponent extends BaseComponent implements OnInit {
+export class ImageAnimatorComponent {
   /**
-   * Flag if we have data or not
+   * Track if we set data or not
    */
   hasData = false;
 
+  /**
+   * Item we are embedding
+   *
+   * Use set to we can properly type because the ngSwitch case does not
+   * handle it well
+   */
   @Input()
-  get data(): string {
-    return JSON.stringify(this._embed);
-  }
-  set data(data: string) {
-    this._embed = JSON.parse(data);
+  set embed(item: IDLNotebookEmbeddedItem<IDLNotebookEmbedType>) {
+    this._embed =
+      item as IDLNotebookEmbeddedItem<IDLNotebookAnimationFromEncodedPNGs>;
+    this.setSource();
     this.hasData = true;
+    this.animate();
   }
+
+  /**
+   * Image source with PNG encoding added
+   */
+  src = 'not set';
 
   /**
    * Parsed data
    */
-  private _embed!: IDLNotebookEmbeddedItem<IDLNotebookAnimationFromEncodedPNGs>;
+  _embed!: IDLNotebookEmbeddedItem<IDLNotebookAnimationFromEncodedPNGs>;
 
   /**
    * The current frame we are on
@@ -91,6 +101,9 @@ export class ImageAnimatorComponent extends BaseComponent implements OnInit {
         this.frame = 0;
       }
 
+      // set image source
+      this.setSource();
+
       // animate again
       this.animate();
     }, this.getInterval());
@@ -124,6 +137,13 @@ export class ImageAnimatorComponent extends BaseComponent implements OnInit {
     if (this._timeout !== undefined) {
       window.clearTimeout(this._timeout);
     }
+  }
+
+  /**
+   * Sets image source to the latest image data
+   */
+  setSource() {
+    this.src = `data:image/png;base64,${this._embed.item.data[this.frame]}`;
   }
 
   /**

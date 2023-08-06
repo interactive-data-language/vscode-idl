@@ -35,8 +35,8 @@ import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import * as vscode from 'vscode';
 
-import { ProcessIDLNotebookEmbeddedItems } from './helpers/process-idl-notebook-embedded-items';
 import { ICurrentCell } from './idl-notebook-controller.interface';
+import { ProcessIDLNotebookEmbeddedItems } from './process-idl-notebook-embedded-items';
 
 /**
  * Controller for notebooks

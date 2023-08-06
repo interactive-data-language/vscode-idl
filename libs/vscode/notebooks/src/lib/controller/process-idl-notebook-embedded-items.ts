@@ -9,7 +9,7 @@ import {
 import { readFileSync } from 'fs';
 import * as vscode from 'vscode';
 
-import { ICurrentCell } from '../idl-notebook-controller.interface';
+import { ICurrentCell } from './idl-notebook-controller.interface';
 
 /**
  * Takes the output from the `IDLNotebook.Export` method and creates the
