@@ -10,7 +10,7 @@
 ;-
 pro IDLNotebook::AddToNotebook, item
   compile_opt idl2, hidden, static
-  ; on_error, 2
+  on_error, 2
 
   ;+
   ; The "types" for the IDLNotebookMagicItem should match what typescript
@@ -40,11 +40,7 @@ pro IDLNotebook::AddToNotebook, item
     ;+
     ; Check for encoded PNG
     ;-
-    isa(item, 'IDLNotebookEncodedPNG'): begin
-      ; save
-      !idlnotebookmagic.items.add, $
-        {IDLNotebookMagicItem, type: 'image-png-encoded', data: orderedhash(item, /fold_case)}
-    end
+    isa(item, 'IDLNotebookEncodedPNG'): IDLNotebook._TrackNotebookItem, item
 
     ;+
     ; Check for image we are adding from a URI
@@ -55,9 +51,8 @@ pro IDLNotebook::AddToNotebook, item
         mesage, 'File does not exist: "' + item.uri + '"', level = -1
       endif
 
-      ; save
-      !idlnotebookmagic.items.add, $
-        {IDLNotebookMagicItem, type: 'image', data: orderedhash(item, /fold_case)}
+      ; track
+      IDLNotebook._TrackNotebookItem, item
     end
 
     ;+
@@ -77,14 +72,36 @@ pro IDLNotebook::AddToNotebook, item
         endif
       endforeach
 
-      ; save
-      !idlnotebookmagic.items.add, $
-        {IDLNotebookMagicItem, type: 'animation', data: orderedhash(item, /fold_case)}
+      ; track
+      IDLNotebook._TrackNotebookItem, item
     end
     else: begin
       message, 'Item is not a known structure to embed in a notebook', level = -1
     end
   endcase
+end
+
+;+
+; :Private:
+;
+; :Returns: IDLNotebookMagicItem
+;
+; :Arguments:
+;   item: in, required, Structure
+;     The structure we are creating a notebook magic item from
+;
+;-
+function IDLNotebook::_CreateNotebookMagicItem, item
+  compile_opt idl2, hidden, static
+  on_error, 2
+
+  ; validate input
+  if ~arg_present(item) then message, 'Item not specified, required!', level = -1
+
+  ; create and return
+  return, {IDLNotebookMagicItem, $
+    type: strlowcase(tag_names(item, /structure_name)), $
+    data: orderedhash(item, /lowercase)}
 end
 
 ;+
@@ -130,18 +147,14 @@ pro IDLNotebook::Export
       png.xsize = long(item.magic['xsize'])
       png.ysize = long(item.magic['ysize'])
 
-      ;+
       ; Why doesnt this work??
-      ;-
-
       ; png = {IDLNotebookEncodedPNG, $
       ; data: encoded, $
       ; xsize: long(item.magic['xsize']), $
       ; ysize: long(item.magic['ysize'])}
 
-      ; create magic item and save
-      export.add, {IDLNotebookMagicItem, $
-        type: 'image-png-encoded', data: orderedhash(png, /lowercase)}
+      ; create exportable structure and return
+      export.add, IDLNotebook._CreateNotebookMagicItem(png)
     endif else begin
       export.add, item
     endelse
@@ -190,6 +203,22 @@ pro IDLNotebook::Reset
 
   ; clear any IDs for the window that we have currently embedded
   !magic.window = -1
+end
+
+;+
+; :Private:
+;
+; :Arguments:
+;   item: in, required, Structure
+;     The structure we are creating a notebook magic item from
+;
+;-
+pro IDLNotebook::_TrackNotebookItem, item
+  compile_opt idl2, hidden, static
+  on_error, 2
+
+  ; add and return
+  !idlnotebookmagic.items.add, IDLNotebook._CreateNotebookMagicItem(item)
 end
 
 ;+

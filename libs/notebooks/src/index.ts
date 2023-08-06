@@ -3,6 +3,7 @@ export * from './lib/decode-notebook';
 export * from './lib/encode-notebook';
 export * from './lib/format-types/raw-notebook.interface';
 export * from './lib/idl-notebook-document.interface';
+export * from './lib/idl-notebook-embedded.interface';
 export * from './lib/notebook-to-idl-notebook';
 export * from './lib/notebooks-folders.interface';
 export * from './lib/parsed-idl-notebook.interface';
