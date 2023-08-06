@@ -16,6 +16,13 @@ export const IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR = 'idl-nb-image-animator';
         /* background: rgba(var(--vscode-editor-background), 0.8); */
         background: var(--vscode-editor-background);
         /* opacity: 85%; */
+
+        .control-button {
+          cursor: pointer;
+          /* transform: scale(2); */
+          /* margin-left: -10px; */
+          /* margin-right: -10px; */
+        }
       }
     `,
   ],
@@ -169,7 +176,7 @@ export class ImageAnimatorComponent
    */
   slowDown() {
     this.pause();
-    this.multiplier = Math.min((this.multiplier *= this.fastMultiplier), 4);
+    this.multiplier = Math.min((this.multiplier *= this.fastMultiplier), 2);
     this.play();
   }
 }
