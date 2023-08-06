@@ -42,10 +42,17 @@ export const ToIDLRawNotebook_2_0_0: ToIDLRawNotebook<IDLRawNotebookVersion_2_0_
         rawCell.outputs = data.cells[i].outputs.map((out) => {
           return {
             items: out.items.map((item) => {
-              return {
-                mime: item.mime,
-                content: Buffer.from(item.data).toString().split(/\r?\n/g),
-              };
+              if (item.mime.toLowerCase().startsWith('idl')) {
+                return {
+                  mime: item.mime,
+                  content: JSON.parse(Buffer.from(item.data).toString()),
+                };
+              } else {
+                return {
+                  mime: item.mime,
+                  content: Buffer.from(item.data).toString().split(/\r?\n/g),
+                };
+              }
             }),
             metadata: out.metadata,
           };

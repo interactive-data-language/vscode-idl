@@ -8,8 +8,8 @@ import {
  */
 export interface RawNotebookCellOutputItem_2_0_0
   extends IDLRawNotebookCellOutputBase {
-  /** Array of strings that represents cell content, split on new lines */
-  content: string[];
+  /** JSON data */
+  content: string[] | { [key: string]: any };
 }
 
 /**

@@ -42,13 +42,19 @@ export const FromIDLRawNotebook_2_0_0: FromIDLRawNotebook<IDLRawNotebookVersion_
         cell.outputs = parsed.cells[i].outputs.map(
           (output) =>
             new vscode.NotebookCellOutput(
-              output.items.map(
-                (item) =>
-                  new vscode.NotebookCellOutputItem(
+              output.items.map((item) => {
+                if (item.mime.toLowerCase().startsWith('idl')) {
+                  return new vscode.NotebookCellOutputItem(
+                    Buffer.from(JSON.stringify(item.content)),
+                    item.mime
+                  );
+                } else {
+                  return new vscode.NotebookCellOutputItem(
                     Buffer.from(item.content.join('\n')),
                     item.mime
-                  )
-              ),
+                  );
+                }
+              }),
               output.metadata
             )
         );
