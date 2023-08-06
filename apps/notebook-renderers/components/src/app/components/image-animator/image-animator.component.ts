@@ -15,6 +15,30 @@ export const IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR = 'idl-nb-image-animator';
         background: var(--vscode-editor-background);
         /* opacity: 85%; */
       }
+
+      .mat-primary {
+        --mdc-slider-handle-color: var(
+          --vscode-activityBarBadge-background
+        ) !important;
+        --mdc-slider-focus-handle-color: var(
+          --vscode-activityBarBadge-background
+        ) !important;
+        --mdc-slider-hover-handle-color: var(
+          --vscode-activityBarBadge-background
+        ) !important;
+        --mdc-slider-active-track-color: var(
+          --vscode-activityBarBadge-background
+        ) !important;
+        --mdc-slider-inactive-track-color: var(
+          --vscode-activityBarBadge-background
+        ) !important;
+        /* --mdc-slider-with-tick-marks-inactive-container-color: var(
+          --vscode-activityBarBadge-background
+        ) !important; */
+        /* --mat-mdc-slider-ripple-color: var(
+          --vscode-activityBarBadge-background
+        ) !important; */
+      }
     `,
   ],
 })
