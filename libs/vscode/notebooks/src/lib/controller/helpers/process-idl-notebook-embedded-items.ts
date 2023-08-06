@@ -45,12 +45,12 @@ export function ProcessIDLNotebookEmbeddedItems(
          */
         const realEmbed: IDLNotebookEmbeddedItem<IDLNotebookEncodedPNG> = {
           type: 'idlnotebookencodedpng',
-          data: {
-            data: Buffer.from(readFileSync(toEmbed.data.uri)).toString(
+          item: {
+            data: Buffer.from(readFileSync(toEmbed.item.uri)).toString(
               'base64'
             ),
-            xsize: toEmbed.data.xsize,
-            ysize: toEmbed.data.ysize,
+            xsize: toEmbed.item.xsize,
+            ysize: toEmbed.item.ysize,
           },
         };
 
@@ -75,12 +75,12 @@ export function ProcessIDLNotebookEmbeddedItems(
         const realEmbed: IDLNotebookEmbeddedItem<IDLNotebookAnimationFromEncodedPNGs> =
           {
             type: 'idlnotebookanimationfromencodedpngs',
-            data: {
-              data: toEmbed.data.uris.map((uri) =>
+            item: {
+              data: toEmbed.item.uris.map((uri) =>
                 Buffer.from(readFileSync(uri)).toString('base64')
               ),
-              xsize: toEmbed.data.xsize,
-              ysize: toEmbed.data.ysize,
+              xsize: toEmbed.item.xsize,
+              ysize: toEmbed.item.ysize,
             },
           };
 

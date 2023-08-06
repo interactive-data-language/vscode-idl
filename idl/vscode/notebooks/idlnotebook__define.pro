@@ -101,7 +101,7 @@ function IDLNotebook::_CreateNotebookMagicItem, item
   ; create and return
   return, {IDLNotebookMagicItem, $
     type: strlowcase(tag_names(item, /structure_name)), $
-    data: orderedhash(item, /lowercase)}
+    item: orderedhash(item, /lowercase)}
 end
 
 ;+
@@ -258,7 +258,7 @@ end
 ;     At this time, only PNGs are supported.
 ;
 ; :IDLNotebookMagicItem:
-;   data: OrderedHash<any>
+;   item: OrderedHash<any>
 ;     The paired structure for the type of notebook magic
 ;   type: String
 ;     The type of notebook magic
@@ -319,7 +319,7 @@ pro IDLNotebook__define
   ;-
   !null = {IDLNotebookMagicItem, $
     type: 'string', $
-    data: orderedhash()}
+    item: orderedhash()}
 
   ;+
   ; Data structure for the notebook magic system variable

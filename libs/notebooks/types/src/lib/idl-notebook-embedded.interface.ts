@@ -113,7 +113,7 @@ export type IDLNotebookEmbeddedItem<T extends IDLNotebookEmbedType> = {
    *
    * Lower-case stringified structure from IDL
    */
-  data: IDLNotebookEmbeddedItemData<T>;
+  item: IDLNotebookEmbeddedItemData<T>;
 };
 
 /**
