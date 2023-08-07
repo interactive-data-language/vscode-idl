@@ -46,6 +46,8 @@ Here are some of the features that notebooks bring:
 
 Change execution path for notebooks so cells are compiled in the same folder that a notebook lives in. This makes it much easier to load datasets that are next to the notebook (for data scientists) and mimics the behavior of PRO code.
 
+For images embedded in notebooks as outputs (i.e. creating an IDL graph), added a save button that lets you save to disk as a PNG
+
 Added auto-complete for structure names when there are no properties or only the beginning of a name has been typed
 
 Re-worked the notebook file format to be human readable (as JSON). This new format:
