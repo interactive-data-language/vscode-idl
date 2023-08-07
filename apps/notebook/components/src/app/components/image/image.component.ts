@@ -9,6 +9,9 @@ import { DataSharingService } from '../data-sharing.service';
  */
 export const IDL_NB_IMAGE_COMPONENT_SELECTOR = 'idl-nb-image';
 
+/**
+ * Component that displays an image
+ */
 @Component({
   selector: 'idl-nb-image',
   templateUrl: './image.component.html',

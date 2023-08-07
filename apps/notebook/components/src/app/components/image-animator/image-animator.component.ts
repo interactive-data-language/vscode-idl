@@ -12,6 +12,9 @@ export function RoundToNearest(num: number, to: number) {
   return num === 0 ? 0 : Math.round(Math.max(num / to, 1)) * to;
 }
 
+/**
+ * Component that displays an animation from multiple PNG frames
+ */
 @Component({
   selector: 'idl-nb-image-animator',
   templateUrl: './image-animator.component.html',
