@@ -40,7 +40,7 @@
     "test-everything": "npm-run-all test-libs make-integration-tests test-integration",
     "test-perf": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 ./dist/apps/performance/main.js",
     "test-perf-profile": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 --prof ./dist/apps/performance/main.js",
-    "start": "npm run build-package-json && nx run-many --target=build --projects=parsing-worker,server,client --watch --parallel",
+    "start": "npm run build-package-json && npm run build-renderer && nx run-many --target=build --projects=parsing-worker,server,client --watch --parallel",
     "start-client": "nx run-many --target=build --projects=client --watch --parallel",
     "start-perf": "nx run-many --target=build --projects=parsing-worker,performance --watch --parallel",
     "start-notebook": "nx run-many --target=build --projects=notebook-renderer,notebook-components --watch --parallel",
