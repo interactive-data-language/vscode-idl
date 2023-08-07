@@ -85,6 +85,22 @@ export const AUTO_HOVER_HELP_TESTS: IHoverHelpTests[] = [
     ],
   },
   {
+    suiteName: `Correctly overrides doc hover help`,
+    fileName: `docs-overrides.2.spec.ts`,
+    tests: [
+      {
+        name: `for structure properties`,
+        file: `idl/test/hover-help/docs_overrides2.pro`,
+        position: [
+          {
+            line: 6,
+            character: 11,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly identifies search terms from syntax tree`,
     fileName: `ex-1.spec.ts`,
     tests: [
