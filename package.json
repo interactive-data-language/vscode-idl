@@ -12,9 +12,10 @@
   },
   "scripts": {
     "build-client": "nx run-many --target=build --projects=client,idl-webview --prod",
-    "build-extension": "npm-run-all -s clean build-package-json build-client build-server",
+    "build-extension": "npm-run-all -s clean build-package-json build-client build-renderer build-server",
     "build-i18n": "nx build i18n && node ./dist/apps/i18n/main.js",
     "build-package-json": "npm run build-tmlang && npm run build-i18n && nx build package-json && node ./dist/apps/package-json/main.js && prettier --write ./extension/language/schemas/config",
+    "build-renderer": "nx build notebook-renderer --prod",
     "build-server": "nx run-many --target=build --projects=server,parsing-worker --prod",
     "build-tmlang": "nx build tmlang-maker && node ./dist/apps/tmlang-maker/main.js --trace-warnings",
     "build-test": "nx build vscode-e2e-runner && nx build client-e2e",
