@@ -1,0 +1,13 @@
+/*
+Dont use this file!!!!
+
+Use the main "styles.scss" file in the "styles" folder
+
+The reason is so that we can have a centralized location with styles that can be shared between
+components. This will likely be extended to the webview as well because
+we share the base logic for this with them
+
+One downside of the centralized file is that we end up importing the material icon theme
+for each component, which can become large, but we dont have to worry about streaming and
+another few mb (if we have 10+ components) wont hurt
+*/

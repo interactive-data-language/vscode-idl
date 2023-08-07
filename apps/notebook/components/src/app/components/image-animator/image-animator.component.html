@@ -1,0 +1,77 @@
+<div *ngIf="hasData; then thenBlock; else elseBlock"></div>
+
+<ng-template #thenBlock>
+  <div
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    [ngStyle]="{
+      'max-width': _embed.item.xsize + 'px',
+      'max-height': _embed.item.ysize + 'px'
+    }"
+    style="width: 100%"
+  >
+    <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%">
+      <!-- <div fxLayout="row" fxLayoutAlign="center center" style="width:30%"> -->
+      <!-- <button mat-icon-button (click)="slowDown()" class="control-button">
+        <mat-icon svgIcon="fast-rewind" color="accent"></mat-icon>
+      </button>
+      <button mat-icon-button (click)="pauseOrPlay()" class="control-button">
+        <mat-icon *ngIf="isPaused" svgIcon="play"></mat-icon>
+        <mat-icon *ngIf="!isPaused" svgIcon="pause"></mat-icon>
+      </button>
+      <button mat-icon-button (click)="speedUp()" class="control-button">
+        <mat-icon svgIcon="fast-forward"></mat-icon>
+      </button> -->
+
+      <!-- </div> -->
+      <div
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        style="padding-right: 25px"
+      >
+        <p style="padding-right: 10px">{{ multiplierText() }}</p>
+        <mat-icon
+          svgIcon="fast-rewind"
+          (click)="slowDown()"
+          class="control-button"
+        ></mat-icon>
+        <mat-icon
+          *ngIf="isPaused"
+          svgIcon="play"
+          (click)="pauseOrPlay()"
+          class="control-button"
+        ></mat-icon>
+        <mat-icon
+          *ngIf="!isPaused"
+          svgIcon="pause"
+          (click)="pauseOrPlay()"
+          class="control-button"
+        ></mat-icon>
+        <mat-icon
+          svgIcon="fast-forward"
+          (click)="speedUp()"
+          class="control-button"
+        ></mat-icon>
+      </div>
+      <mat-slider
+        style="width: 50%"
+        min="0"
+        max="{{ this._embed.item.data.length - 1 }}"
+        step="1"
+        [displayWith]="label"
+      >
+        <input
+          matSliderThumb
+          [value]="frame"
+          (dragStart)="pause()"
+          (input)="onInputChange($event)"
+        />
+      </mat-slider>
+    </div>
+    <img src="{{ src }}" />
+  </div>
+</ng-template>
+
+<ng-template #elseBlock>
+  <p>No image to render!</p>
+</ng-template>

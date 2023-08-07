@@ -1,0 +1,112 @@
+{
+  "name": "notebook-components",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "idl",
+  "sourceRoot": "apps/notebook/components/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/notebook/components",
+        "index": "apps/notebook/components/src/index.html",
+        "main": "apps/notebook/components/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/notebook/components/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "styles": [],
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": ["apps/notebook/components/src/app/styles"]
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "5mb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/notebook/components/src/environments/environment.ts",
+              "with": "apps/notebook/components/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "none"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "notebook-components:build:production"
+        },
+        "development": {
+          "browserTarget": "notebook-components:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "stylePreprocessorOptions": {
+          "includePaths": ["apps/notebook/components/src/app/styles"]
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "notebook-components:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/notebook/components/**/*.ts",
+          "apps/notebook/components/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/notebook/components/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "notebook-components:build"
+      }
+    }
+  }
+}
