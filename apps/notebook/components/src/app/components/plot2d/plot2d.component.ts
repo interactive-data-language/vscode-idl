@@ -16,7 +16,7 @@ export const IDL_NB_IMAGE_COMPONENT_SELECTOR = 'idl-nb-image';
   styles: [
     `
       .chart-container {
-        max-width: 75%;
+        max-width: 90%;
       }
     `,
   ],
@@ -28,7 +28,7 @@ export class Plot2DComponent
   /**
    * A reference to our chart
    */
-  public chart: Chart<any> | undefined;
+  chart: Chart<any> | undefined;
 
   /**
    * Callback to resize chart on window resize
@@ -37,7 +37,7 @@ export class Plot2DComponent
    */
   private resizeCb = () => {
     if (this.chart !== undefined) {
-      this.chart.draw();
+      this.chart.update();
     }
   };
 
@@ -80,7 +80,7 @@ export class Plot2DComponent
         },
         options: {
           responsive: true,
-          resizeDelay: 100,
+          maintainAspectRatio: true,
         },
       });
     }
