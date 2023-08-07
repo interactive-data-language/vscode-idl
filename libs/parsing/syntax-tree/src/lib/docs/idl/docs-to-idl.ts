@@ -177,6 +177,11 @@ export function DocsToIDLForStructures(
   // process any structures
   MakeParameterDocs(strings, info.meta.display, info.meta.props, true, true);
 
+  // push extra space if needed to give space between us and the next item
+  if (strings.length === 1) {
+    strings.push(';');
+  }
+
   return strings;
 }
 

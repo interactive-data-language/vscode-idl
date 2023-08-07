@@ -88,6 +88,8 @@ Changed the formatting behavior for structures when they have line continuations
       _foo: 5}
   ```
 
+Fix an un handled case for auto-doc with structures where we didn't add spaces after an empty structure definition (even though that is invalid for IDL)
+
 ## 3.1.4 August 2023
 
 For routine documentation, add button "Open Examples in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells
