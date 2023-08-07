@@ -62,6 +62,32 @@ Re-worked the notebook file format to be human readable (as JSON). This new form
 
 - Allows some transparency into the notebook format with what gets stored
 
+Changed the formatting behavior for structures when they have line continuations.
+
+- Before:
+
+  ```idl
+  !null = $
+    {MyStruct, $
+    _foo: 5}
+
+  !null = $
+    { $
+    _foo: 5}
+  ```
+
+- After:
+
+  ```idl
+  !null = $
+    {MyStruct, $
+      _foo: 5}
+
+  !null = $
+    { $
+      _foo: 5}
+  ```
+
 ## 3.1.4 August 2023
 
 For routine documentation, add button "Open Examples in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells
