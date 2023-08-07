@@ -807,6 +807,7 @@ export const EN: ITranslation = {
       functionMethod: 'Function Method',
       procedureMethod: 'Procedure Method',
       keyword: 'Keyword',
+      structure: 'Structure',
     },
   },
   generators: {

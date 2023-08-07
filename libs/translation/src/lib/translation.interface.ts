@@ -732,6 +732,8 @@ export interface ITranslation {
       procedureMethod: string;
       /** Keywords */
       keyword: string;
+      /** Structure name */
+      structure: string;
     };
   };
   /** Messages from generators */

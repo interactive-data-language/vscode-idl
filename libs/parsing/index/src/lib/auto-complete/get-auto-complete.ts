@@ -22,6 +22,7 @@ import { AddCompletionProcedureMethods } from './completion-for/add-completion-p
 import { AddCompletionProcedures } from './completion-for/add-completion-procedures';
 import { AddCompletionProperties } from './completion-for/add-completion-properties';
 import { AddCompletionPropertiesInStructures } from './completion-for/add-completion-properties-in-structures';
+import { AddCompletionStructureNames } from './completion-for/add-completion-structure-names';
 import { AddCompletionSystemVariables } from './completion-for/add-completion-system-variables';
 import { AddCompletionVariables } from './completion-for/add-completion-variables';
 import {
@@ -122,6 +123,13 @@ export async function GetAutoComplete(
         return items;
       case token?.name === TOKEN_NAMES.EXECUTIVE_COMMAND:
         AddCompletionExecutiveCommands(items, formatting);
+        return items;
+      case token?.name === TOKEN_NAMES.STRUCTURE && token?.kids?.length === 0:
+        AddCompletionStructureNames(items);
+        return items;
+      case token?.name === TOKEN_NAMES.STRUCTURE_NAME &&
+        token?.kids?.length === 0:
+        AddCompletionStructureNames(items);
         return items;
       case token?.name === TOKEN_NAMES.STRUCTURE_NAME:
         AddCompletionPropertiesInStructures(

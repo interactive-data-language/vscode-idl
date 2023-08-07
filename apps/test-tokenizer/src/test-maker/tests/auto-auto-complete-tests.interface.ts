@@ -476,6 +476,20 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           },
         ],
       },
+      {
+        name: `auto-complete for structure names`,
+        file: `idl/test/auto-complete/structures.pro`,
+        position: [
+          {
+            line: 13,
+            character: 11,
+          },
+          {
+            line: 14,
+            character: 14,
+          },
+        ],
+      },
     ],
   },
   {

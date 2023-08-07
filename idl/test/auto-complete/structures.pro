@@ -9,4 +9,8 @@ pro auto_doc_example
   !null = a.
   !null = a.b.
   !null = a.b.length.
+
+  ; structure names
+  !null = {}
+  !null = {idl}
 end
