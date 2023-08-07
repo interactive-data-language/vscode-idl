@@ -53,7 +53,12 @@ export class Plot2DComponent
    */
   private resizeCb = () => {
     if (this.chart !== undefined) {
-      this.chart.update();
+      const el = document.getElementById(this.chartId);
+      if (el !== null) {
+        el.style.width = `${this.el.nativeElement.offsetWidth * 0.9}px;`;
+        el.style.height = `${this.el.nativeElement.offsetHeight * 0.9}px;`;
+        this.chart.resize();
+      }
     }
   };
 
