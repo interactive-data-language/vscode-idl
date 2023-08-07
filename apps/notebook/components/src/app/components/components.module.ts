@@ -6,7 +6,6 @@ import { MaterialModule } from '../material.module';
 import { EntryComponent } from './entry/entry.component';
 import { ImageComponent } from './image/image.component';
 import { ImageAnimatorComponent } from './image-animator/image-animator.component';
-import { MapComponent } from './map/map.component';
 import { Plot2DComponent } from './plot2d/plot2d.component';
 
 @NgModule({
@@ -15,7 +14,7 @@ import { Plot2DComponent } from './plot2d/plot2d.component';
     ImageComponent,
     ImageAnimatorComponent,
     Plot2DComponent,
-    MapComponent,
+    // MapComponent,
   ],
   imports: [CommonModule, MaterialCssVarsModule, MaterialModule],
   exports: [
@@ -23,7 +22,7 @@ import { Plot2DComponent } from './plot2d/plot2d.component';
     ImageComponent,
     ImageAnimatorComponent,
     Plot2DComponent,
-    MapComponent,
+    // MapComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
