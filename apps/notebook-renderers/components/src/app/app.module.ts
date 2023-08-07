@@ -20,6 +20,7 @@ import { PAUSE } from './icons/pause';
 import { PLAY } from './icons/play';
 import { SAVE } from './icons/save';
 import { MaterialModule } from './material.module';
+import { VSCodeRendererMessenger } from './services/vscode-renderer-messenger.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,7 @@ import { MaterialModule } from './material.module';
     MaterialModule,
     ComponentsModule,
   ],
-  providers: [MaterialCssVarsService],
+  providers: [MaterialCssVarsService, VSCodeRendererMessenger],
   bootstrap: [],
   exports: [],
 })
