@@ -46,6 +46,8 @@ Here are some of the features that notebooks bring:
 
 Change execution path for notebooks so cells are compiled in the same folder that a notebook lives in. This makes it much easier to load datasets that are next to the notebook (for data scientists) and mimics the behavior of PRO code.
 
+Added auto-complete for structure names when there are no properties or only the beginning of a name has been typed
+
 ## 3.1.4 August 2023
 
 For routine documentation, add button "Open Examples in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells
