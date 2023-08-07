@@ -1175,7 +1175,7 @@
         "displayName": "%notebooks.renderer%",
         "entrypoint": "./dist/apps/notebook/renderer/src/main.js",
         "mimeTypes": [
-          "idl/test-mime"
+          "idl/notebook-renderer"
         ]
       }
     ],

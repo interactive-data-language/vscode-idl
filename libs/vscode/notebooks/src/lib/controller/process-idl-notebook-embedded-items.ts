@@ -1,4 +1,5 @@
 import {
+  IDL_NOTEBOOK_MIME_TYPE,
   IDLNotebookAnimationFromEncodedPNGs,
   IDLNotebookAnimationFromURIs,
   IDLNotebookEmbeddedItem,
@@ -101,7 +102,7 @@ export function ProcessIDLNotebookEmbeddedItems(
       new vscode.NotebookCellOutput([
         new vscode.NotebookCellOutputItem(
           Buffer.from(JSON.stringify(embedThis)),
-          'idl/test-mime'
+          IDL_NOTEBOOK_MIME_TYPE
         ),
       ])
     );

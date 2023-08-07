@@ -1,3 +1,4 @@
+import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/notebooks/types';
 import {
   IDL_COMMANDS,
   IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME,
@@ -66,7 +67,7 @@ export function ProcessNotebooks(packageJSON: IPackageJSON, nls: IPackageNLS) {
       id: IDL_NOTEBOOK_RENDERER_NAME,
       displayName: '%notebooks.renderer%',
       entrypoint: './dist/apps/notebook/renderer/src/main.js',
-      mimeTypes: ['idl/test-mime'],
+      mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
     },
   ];
 
