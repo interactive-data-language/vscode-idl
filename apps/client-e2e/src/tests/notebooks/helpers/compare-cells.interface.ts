@@ -1,6 +1,10 @@
 import * as vscode from 'vscode';
 
-type MimeTypes = 'text/html' | 'text/plain' | 'image/png';
+type MimeTypes =
+  | 'text/html'
+  | 'text/plain'
+  | 'image/png'
+  | 'idl/notebook-renderer';
 
 /**
  * Output for cells

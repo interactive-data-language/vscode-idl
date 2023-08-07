@@ -1,4 +1,5 @@
 import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
+import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/notebooks/types';
 import { GetExtensionPath, Sleep } from '@idl/shared';
 import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
@@ -26,17 +27,17 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
   {
     idx: 2,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 3,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 4,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 5,
@@ -46,12 +47,12 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
   {
     idx: 6,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 7,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 8,
@@ -61,7 +62,7 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
   {
     idx: 9,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 10,
@@ -71,12 +72,12 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
   {
     idx: 11,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 12,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
 ];
 
