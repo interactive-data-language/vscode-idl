@@ -10,6 +10,10 @@
     *ngSwitchCase="'idlnotebookanimationfromencodedpngs'"
     [embed]="embed"
   ></idl-nb-image-animator>
+  <idl-nb-plot2d
+    *ngSwitchCase="'idlnotebookplot2d'"
+    [embed]="embed"
+  ></idl-nb-plot2d>
   <div *ngSwitchDefault>
     <p>Unhandled embed type of "{{ embed.type }}"</p>
   </div>

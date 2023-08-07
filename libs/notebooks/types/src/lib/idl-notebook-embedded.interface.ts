@@ -15,16 +15,18 @@ interface IDLNotebookBaseImageData {
 }
 
 /**
- * Notebook encoded PNG
+ * Notebook animation from multiple files on disk
  */
-export type IDLNotebookEncodedPNG = 'idlnotebookencodedpng';
+export type IDLNotebookAnimationFromURIs = 'idlnotebookanimationfromuris';
 
 /**
- * Data structure for encoded PNG from IDL
+ * Data structure for an animation we want to embed from an array
+ * of images
  */
-export interface IDLNotebookEncodedPNGData extends IDLNotebookBaseImageData {
-  /** Base64 encoded PNG */
-  data: string;
+export interface IDLNotebookAnimationFromURIsData
+  extends IDLNotebookBaseImageData {
+  /** fully qualified filepaths to images */
+  uris: string[];
 }
 
 /**
@@ -46,6 +48,19 @@ export interface IDLNotebookAnimationFromEncodedPNGsData
 }
 
 /**
+ * Notebook encoded PNG
+ */
+export type IDLNotebookEncodedPNG = 'idlnotebookencodedpng';
+
+/**
+ * Data structure for encoded PNG from IDL
+ */
+export interface IDLNotebookEncodedPNGData extends IDLNotebookBaseImageData {
+  /** Base64 encoded PNG */
+  data: string;
+}
+
+/**
  * Notebook image from a file on disk
  */
 export type IDLNotebookImageFromURI = 'idlnotebookimagefromuri';
@@ -59,18 +74,18 @@ export interface IDLNotebookImageFromURIData extends IDLNotebookBaseImageData {
 }
 
 /**
- * Notebook animation from multiple files on disk
+ * 2D plot from notebook
  */
-export type IDLNotebookAnimationFromURIs = 'idlnotebookanimationfromuris';
+export type IDLNotebookPlot2D = 'idlnotebookplot2d';
 
 /**
- * Data structure for an animation we want to embed from an array
- * of images
+ * Data structure for an image we want to embed from a URI
  */
-export interface IDLNotebookAnimationFromURIsData
-  extends IDLNotebookBaseImageData {
-  /** fully qualified filepaths to images */
-  uris: string[];
+export interface IDLNotebookPlot2DData {
+  /** X-axis data */
+  x: number[];
+  /** Y-axis data */
+  y: number[];
 }
 
 /**
@@ -81,23 +96,26 @@ export interface IDLNotebookAnimationFromURIsData
  * These need to match the structures in `idl/vscode/notebooks/idlnotebook__define.pro`
  */
 export type IDLNotebookEmbedType =
-  | IDLNotebookEncodedPNG
   | IDLNotebookAnimationFromEncodedPNGs
+  | IDLNotebookAnimationFromURIs
+  | IDLNotebookEncodedPNG
   | IDLNotebookImageFromURI
-  | IDLNotebookAnimationFromURIs;
+  | IDLNotebookPlot2D;
 
 /**
  * Data embedded in a notebook cell
  */
 export type IDLNotebookEmbeddedItemData<T extends IDLNotebookEmbedType> =
-  T extends IDLNotebookEncodedPNG
-    ? IDLNotebookEncodedPNGData
-    : T extends IDLNotebookAnimationFromEncodedPNGs
+  T extends IDLNotebookAnimationFromEncodedPNGs
     ? IDLNotebookAnimationFromEncodedPNGsData
-    : T extends IDLNotebookImageFromURI
-    ? IDLNotebookImageFromURIData
     : T extends IDLNotebookAnimationFromURIs
     ? IDLNotebookAnimationFromURIsData
+    : T extends IDLNotebookEncodedPNG
+    ? IDLNotebookEncodedPNGData
+    : T extends IDLNotebookImageFromURI
+    ? IDLNotebookImageFromURIData
+    : T extends IDLNotebookPlot2D
+    ? IDLNotebookPlot2DData
     : never;
 
 /**

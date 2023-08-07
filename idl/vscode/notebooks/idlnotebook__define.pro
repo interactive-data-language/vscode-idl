@@ -4,7 +4,7 @@
 ;   within a notebook cell
 ;
 ; :Arguments:
-;   item: in, required, !magic | IDLNotebookEncodedPNG | IDLNotebookImageFromURI | IDLNotebookAnimationFromURIs
+;   item: in, required, !magic | IDLNotebookEncodedPNG | IDLNotebookImageFromURI | IDLNotebookAnimationFromURIs | IDLNotebookPlot2D
 ;     The item we are adding to a notebook
 ;
 ;-
@@ -38,24 +38,6 @@ pro IDLNotebook::AddToNotebook, item
     end
 
     ;+
-    ; Check for encoded PNG
-    ;-
-    isa(item, 'IDLNotebookEncodedPNG'): IDLNotebook._TrackNotebookItem, item
-
-    ;+
-    ; Check for image we are adding from a URI
-    ;-
-    isa(item, 'IDLNotebookImageFromURI'): begin
-      ; validate
-      if ~file_test(item.uri) then begin
-        mesage, 'File does not exist: "' + item.uri + '"', level = -1
-      endif
-
-      ; track
-      IDLNotebook._TrackNotebookItem, item
-    end
-
-    ;+
     ; Check if we have an animation based on multiple images on disk
     ;-
     isa(item, 'IDLNotebookAnimationFromURIs'): begin
@@ -75,6 +57,48 @@ pro IDLNotebook::AddToNotebook, item
       ; track
       IDLNotebook._TrackNotebookItem, item
     end
+
+    ;+
+    ; Check for encoded PNG
+    ;-
+    isa(item, 'IDLNotebookEncodedPNG'): IDLNotebook._TrackNotebookItem, item
+
+    ;+
+    ; Check for image we are adding from a URI
+    ;-
+    isa(item, 'IDLNotebookImageFromURI'): begin
+      ; validate
+      if ~file_test(item.uri) then begin
+        mesage, 'File does not exist: "' + item.uri + '"', level = -1
+      endif
+
+      ; track
+      IDLNotebook._TrackNotebookItem, item
+    end
+
+    ;+
+    ; Check for encoded PNG
+    ;-
+    isa(item, 'IDLNotebookPlot2D'): begin
+      ;+ Number of y elements
+      nY = item.y.length
+      if (nY eq 0) then message, 'No Y data values specified, required!', level = -1
+
+      ; make sure valid
+      if ~obj_valid(item.x) then item.x = list(ulindgen(item.y.length), /extract)
+
+      ; check if we need to set the x values
+      if (item.x.length eq 0) then begin
+        item.x = list(ulindgen(item.y.length), /extract)
+      endif
+
+      ; track data
+      IDLNotebook._TrackNotebookItem, item
+    end
+
+    ;+
+    ; Throw error because we don't know what we are adding or handling
+    ;-
     else: begin
       message, 'Item is not a known structure to embed in a notebook', level = -1
     end
@@ -257,6 +281,15 @@ end
 ;
 ;     At this time, only PNGs are supported.
 ;
+; :IDLNotebookPlot2D:
+;   x: List<Number>
+;     X data to plot.
+;
+;     Optional. If not set, we use the index of the y values as our x
+;     axis
+;   y: List<Number>
+;     Y data to plot.
+;
 ; :IDLNotebookMagicItem:
 ;   item: OrderedHash<any>
 ;     The paired structure for the type of notebook magic
@@ -315,6 +348,12 @@ pro IDLNotebook__define
     uris: list()}
 
   ;+
+  ; Data structure for embedding a series of image as an animation
+  ;-
+  !null = {IDLNotebookPlot2D, $
+    x: list(), y: list()}
+
+  ;+
   ; Messages stored in `!IDLNotebookMagic`
   ;-
   !null = {IDLNotebookMagicItem, $
@@ -322,7 +361,7 @@ pro IDLNotebook__define
     item: orderedhash()}
 
   ;+
-  ; Data structure for the notebook magic system variable
+  ; Data structure for the `!IDLNotebookMagic` system variable
   ;-
   !null = {IDLNotebookMagic, $
     items: list(), $
