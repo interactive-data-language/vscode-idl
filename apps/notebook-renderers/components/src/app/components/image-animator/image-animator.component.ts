@@ -5,6 +5,13 @@ import { BaseRendererComponent } from '../base-renderer.component';
 
 export const IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR = 'idl-nb-image-animator';
 
+/**
+ * Round a number to the nearest increment
+ */
+export function RoundToNearest(num: number, to: number) {
+  return num === 0 ? 0 : Math.round(Math.max(num / to, 1)) * to;
+}
+
 @Component({
   selector: 'idl-nb-image-animator',
   templateUrl: './image-animator.component.html',
@@ -12,17 +19,8 @@ export const IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR = 'idl-nb-image-animator';
     `
       @import 'shared-styles.scss';
 
-      .controls {
-        /* background: rgba(var(--vscode-editor-background), 0.8); */
-        background: var(--vscode-editor-background);
-        /* opacity: 85%; */
-
-        .control-button {
-          cursor: pointer;
-          /* transform: scale(2); */
-          /* margin-left: -10px; */
-          /* margin-right: -10px; */
-        }
+      .control-button {
+        cursor: pointer;
       }
     `,
   ],
@@ -74,6 +72,13 @@ export class ImageAnimatorComponent
       this.setSource();
       this.play();
     }
+  }
+
+  multiplierText() {
+    return `${RoundToNearest(
+      1 / this.multiplier,
+      this.multiplier > 1 ? 0.1 : 1
+    )}x`;
   }
 
   /**
