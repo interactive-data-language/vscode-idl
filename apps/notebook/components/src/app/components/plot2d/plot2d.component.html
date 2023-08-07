@@ -1,5 +1,3 @@
-<!-- always add canvas element to our HTML so that chart.js can find it
-otherwise it has problems with finding the element within the ng-template -->
-<canvas class="chart-container" id="MyChart">{{ chart }}</canvas>
+<!-- chart gets added directly in the component so we can have unique ID for canvas element -->
 
 <p *ngIf="!hasData">No data to plot!</p>

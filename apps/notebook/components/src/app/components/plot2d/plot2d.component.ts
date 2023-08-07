@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, SkipSelf } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  SkipSelf,
+} from '@angular/core';
 import { IDLNotebookPlot2D } from '@idl/notebooks/types';
 import Chart from 'chart.js/auto';
 
@@ -8,8 +14,11 @@ import { DataSharingService } from '../data-sharing.service';
 /**
  * ID for notebook image selector
  */
-export const IDL_NB_IMAGE_COMPONENT_SELECTOR = 'idl-nb-image';
+export const IDL_NB_PLOT2D_COMPONENT_SELECTOR = 'idl-nb-plot2d';
 
+/**
+ * Component that creates a 2D line plot from data
+ */
 @Component({
   selector: 'idl-nb-plot2d',
   templateUrl: './plot2d.component.html',
@@ -17,6 +26,7 @@ export const IDL_NB_IMAGE_COMPONENT_SELECTOR = 'idl-nb-image';
     `
       .chart-container {
         max-width: 90%;
+        aspect-ratio: 1;
       }
     `,
   ],
@@ -26,9 +36,14 @@ export class Plot2DComponent
   implements OnInit, OnDestroy
 {
   /**
+   * A unique ID for the chart (needed so we can handle multiple charts)
+   */
+  private chartId = `chart-${Math.floor(performance.now())}`;
+
+  /**
    * A reference to our chart
    */
-  chart: Chart<any> | undefined;
+  private chart: Chart<any> | undefined;
 
   /**
    * Callback to resize chart on window resize
@@ -45,15 +60,24 @@ export class Plot2DComponent
    * We can access the latest data directly through our dataService which tracks
    * the last value on $embed
    */
-  constructor(@SkipSelf() private dataService: DataSharingService) {
+  constructor(
+    @SkipSelf() private dataService: DataSharingService,
+    private el: ElementRef<HTMLElement>
+  ) {
     super();
+
+    // add canvas element with unique ID
+    this.el.nativeElement.insertAdjacentHTML(
+      'afterbegin',
+      `<canvas class="chart-container" id="${this.chartId}"></canvas>`
+    );
 
     // add resize event listener
     window.addEventListener('resize', this.resizeCb);
   }
 
   /**
-   * remove callbacks to prevent memory leaks
+   * Remove callbacks to prevent memory leaks
    */
   ngOnDestroy() {
     window.removeEventListener('resize', this.resizeCb);
@@ -61,7 +85,7 @@ export class Plot2DComponent
 
   ngOnInit() {
     if (this.hasData) {
-      this.chart = new Chart('MyChart', {
+      this.chart = new Chart(this.chartId, {
         type: 'scatter',
         data: {
           datasets: [
