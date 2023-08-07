@@ -179,7 +179,7 @@ export const EN: ITranslation = {
       'IDL.directory':
         "Specify the folder with IDL's executable (bin directory with idl.exe or idl).",
       'IDL.path':
-        "Specify additional directories to add to IDL's search path. Add a '+' before the folder to include subdirectories.",
+        "Specify additional directories to add to IDL's search path. Add a '+' before the folder to include subdirectories.\n\nAny folders added to the path are not watched for file changes unless you edit the files within the VSCode UI.",
       'IDL.addWorkspaceFoldersToPath':
         "Specify whether to automatically include the workspace folders to IDL's search path.",
       'IDL.appendOrPrependWorkspaceFolders':
