@@ -3,27 +3,13 @@
 <ng-template #thenBlock>
   <div
     fxLayout="column"
-    fxLayoutAlign="center center"
     [ngStyle]="{
-      'max-width': _embed.item.xsize + 'px',
-      'max-height': _embed.item.ysize + 'px'
+      'max-width': _embed.item.xsize + 'px'
     }"
-    style="width: 100%"
   >
+    <!-- toolbar row -->
     <div fxLayout="row" fxLayoutAlign="center center" class="renderer-toolbar">
-      <!-- <div fxLayout="row" fxLayoutAlign="center center" style="width:30%"> -->
-      <!-- <button mat-icon-button (click)="slowDown()" class="control-button">
-        <mat-icon svgIcon="fast-rewind" color="accent"></mat-icon>
-      </button>
-      <button mat-icon-button (click)="pauseOrPlay()" class="control-button">
-        <mat-icon *ngIf="isPaused" svgIcon="play"></mat-icon>
-        <mat-icon *ngIf="!isPaused" svgIcon="pause"></mat-icon>
-      </button>
-      <button mat-icon-button (click)="speedUp()" class="control-button">
-        <mat-icon svgIcon="fast-forward"></mat-icon>
-      </button> -->
-
-      <!-- </div> -->
+      <!-- icons and buttons -->
       <div
         fxLayout="row"
         fxLayoutAlign="center center"
@@ -53,8 +39,10 @@
           class="icon-button"
         ></mat-icon>
       </div>
+
+      <!-- band index slider -->
       <mat-slider
-        style="width: 50%; max-width: 400px"
+        style="width: 50%; max-width: 350px"
         min="0"
         max="{{ this._embed.item.data.length - 1 }}"
         step="1"
@@ -68,6 +56,7 @@
         />
       </mat-slider>
     </div>
+
     <img src="{{ src }}" />
   </div>
 </ng-template>
