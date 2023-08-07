@@ -21,10 +21,6 @@ export function RoundToNearest(num: number, to: number) {
   styles: [
     `
       @import 'shared-styles.scss';
-
-      .control-button {
-        cursor: pointer;
-      }
     `,
   ],
 })

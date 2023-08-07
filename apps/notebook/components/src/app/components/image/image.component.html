@@ -2,11 +2,21 @@
 
 <ng-template #thenBlock>
   <div
+    fxLayout="column"
     [ngStyle]="{
-      'max-width': _embed.item.xsize + 'px',
-      'max-height': _embed.item.ysize + 'px'
+      'max-width': _embed.item.xsize + 'px'
     }"
   >
+    <div *ngIf="canMessage" fxLayout="row" fxLayoutAlign="start center">
+      <div fxLayout="row" class="renderer-toolbar">
+        <mat-icon
+          svgIcon="save"
+          class="icon-button"
+          (click)="save()"
+        ></mat-icon>
+      </div>
+    </div>
+
     <img src="{{ src }}" />
   </div>
 </ng-template>

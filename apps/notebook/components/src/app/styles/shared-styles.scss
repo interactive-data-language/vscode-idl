@@ -21,3 +21,16 @@ $accent: var(--vscode-activityBarBadge-background);
     --vscode-activityBarBadge-background
   ) !important; */
 }
+
+// override class for more compact icon buttons without "<button>"
+.icon-button {
+  cursor: pointer;
+}
+
+.renderer-toolbar {
+  // outline-style: solid !important;
+  // outline-width: 1px !important;
+  // outline-color: #{$accent} !important;
+  margin-bottom: 15px;
+  width: 100%;
+}

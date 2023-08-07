@@ -1,8 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SkipSelf } from '@angular/core';
 import {
   IDLNotebookEmbeddedItem,
   IDLNotebookEmbedType,
 } from '@idl/notebooks/types';
+
+import { VSCodeRendererMessenger } from '../services/vscode-renderer-messenger.service';
+import { DataSharingService } from './data-sharing.service';
 
 @Component({
   selector: 'idl-base-renderer',
@@ -21,6 +24,21 @@ export class BaseRendererComponent<T extends IDLNotebookEmbedType> {
   _embed!: IDLNotebookEmbeddedItem<T>;
 
   /**
+   * Flag indicating if we can send messages to VSCode or not
+   */
+  canMessage = false;
+
+  /**
+   * Reference to the data service for our entry component
+   */
+  dataService: DataSharingService;
+
+  /**
+   * Reference to our VSCode messenger class
+   */
+  messenger: VSCodeRendererMessenger;
+
+  /**
    * Item we are embedding
    *
    * Use set to we can properly type because the ngSwitch case does not
@@ -30,5 +48,14 @@ export class BaseRendererComponent<T extends IDLNotebookEmbedType> {
   set embed(item: IDLNotebookEmbeddedItem<IDLNotebookEmbedType>) {
     this._embed = item as IDLNotebookEmbeddedItem<T>;
     this.hasData = true;
+  }
+
+  constructor(
+    @SkipSelf() dataService: DataSharingService,
+    messenger: VSCodeRendererMessenger
+  ) {
+    this.dataService = dataService;
+    this.messenger = messenger;
+    this.canMessage = messenger.canPostMessage();
   }
 }

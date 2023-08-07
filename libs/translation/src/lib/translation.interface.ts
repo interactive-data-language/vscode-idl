@@ -566,6 +566,8 @@ export interface ITranslation {
       crashed: string;
       /** Error while trying to get graphics */
       checkingGraphics: string;
+      /** Problem with message from renderer being handled */
+      handlingMessageFromRenderer: string;
     };
     /** Notifications for working with notebooks */
     notifications: {

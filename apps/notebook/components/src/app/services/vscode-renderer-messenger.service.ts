@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  IDLNotebookRendererMessage,
+  IDLNotebookRendererMessageType,
+} from '@idl/notebooks/types';
 import type { RendererContext } from 'vscode-notebook-renderer';
 
 @Injectable({
@@ -26,7 +30,9 @@ export class VSCodeRendererMessenger {
   /**
    * Posts message to notebook controller
    */
-  postMessage(message: any) {
+  postMessage<T extends IDLNotebookRendererMessageType>(
+    message: IDLNotebookRendererMessage<T>
+  ) {
     if (this?.context?.postMessage !== undefined) {
       this.context.postMessage(message);
     }

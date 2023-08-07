@@ -8,6 +8,7 @@ import {
 import { IDLNotebookPlot2D } from '@idl/notebooks/types';
 import Chart from 'chart.js/auto';
 
+import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
 
@@ -61,10 +62,11 @@ export class Plot2DComponent
    * the last value on $embed
    */
   constructor(
-    @SkipSelf() private dataService: DataSharingService,
+    @SkipSelf() dataService: DataSharingService,
+    messenger: VSCodeRendererMessenger,
     private el: ElementRef<HTMLElement>
   ) {
-    super();
+    super(dataService, messenger);
 
     // add canvas element with unique ID
     this.el.nativeElement.insertAdjacentHTML(

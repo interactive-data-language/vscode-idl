@@ -593,6 +593,8 @@ export const EN: ITranslation = {
       crashed:
         'IDL crashed or was stopped by the user and needs to be restarted',
       checkingGraphics: 'Error while trying to retrieve any graphics to embed',
+      handlingMessageFromRenderer:
+        'Error while responding to message from notebook renderer',
     },
     notifications: {
       startingIDL: 'Starting IDL, please wait...',
