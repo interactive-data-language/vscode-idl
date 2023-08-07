@@ -10,15 +10,25 @@ export class VSCodeRendererMessenger {
    */
   private context!: RendererContext<any>;
 
-  /**
-   * If we can send messaged
-   */
-  private canMessage = false;
-
   constructor() {
     if ('_vscodeContext' in window) {
       this.context = (window as any)._vscodeContext;
-      this.canMessage = !!this.context.postMessage;
+    }
+  }
+
+  /**
+   * Method that tells us if we can post messages or not
+   */
+  canPostMessage() {
+    return this.context.postMessage !== undefined;
+  }
+
+  /**
+   * Posts message to notebook controller
+   */
+  postMessage(message: any) {
+    if (this?.context?.postMessage !== undefined) {
+      this.context.postMessage(message);
     }
   }
 }
