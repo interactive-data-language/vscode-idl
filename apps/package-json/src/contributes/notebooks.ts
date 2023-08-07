@@ -68,6 +68,7 @@ export function ProcessNotebooks(packageJSON: IPackageJSON, nls: IPackageNLS) {
       displayName: '%notebooks.renderer%',
       entrypoint: './dist/apps/notebook/renderer/src/main.js',
       mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
+      requiresMessaging: 'optional',
     },
   ];
 

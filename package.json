@@ -1178,7 +1178,8 @@
         "entrypoint": "./dist/apps/notebook/renderer/src/main.js",
         "mimeTypes": [
           "idl/notebook-renderer"
-        ]
+        ],
+        "requiresMessaging": "optional"
       }
     ],
     "notebooks": [
