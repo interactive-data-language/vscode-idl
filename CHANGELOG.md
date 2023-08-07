@@ -48,6 +48,20 @@ Change execution path for notebooks so cells are compiled in the same folder tha
 
 Added auto-complete for structure names when there are no properties or only the beginning of a name has been typed
 
+Re-worked the notebook file format to be human readable (as JSON). This new format:
+
+> Do not edit the file by hand! These changes are so you can only view contents. If you edit the file you may break it which prevent us from loading the file into VSCode again.
+
+- Is pretty-printed JSON which can easily be read and is easier for git GUI applications to manage
+
+- Has a reduced size when we embed graphics
+
+- Uses a schema for complex output types (i.e. images, animations) with the pipes in place to have custom renderers or applets embedded in notebooks
+
+- Normalizes line endings on save which makes sure notebooks are the same on Windows vs Linux/Mac
+
+- Allows some transparency into the notebook format with what gets stored
+
 ## 3.1.4 August 2023
 
 For routine documentation, add button "Open Examples in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells
