@@ -74,6 +74,19 @@ export interface IDLNotebookImageFromURIData extends IDLNotebookBaseImageData {
 }
 
 /**
+ * Notebook map
+ */
+export type IDLNotebookMap = 'idlnotebookmap';
+
+/**
+ * Data structure for a notebook map
+ */
+export interface IDLNotebookMapData {
+  /** Text content right now */
+  data: any;
+}
+
+/**
  * 2D plot from notebook
  */
 export type IDLNotebookPlot2D = 'idlnotebookplot2d';
@@ -100,6 +113,7 @@ export type IDLNotebookEmbedType =
   | IDLNotebookAnimationFromURIs
   | IDLNotebookEncodedPNG
   | IDLNotebookImageFromURI
+  | IDLNotebookMap
   | IDLNotebookPlot2D;
 
 /**
@@ -114,6 +128,8 @@ export type IDLNotebookEmbeddedItemData<T extends IDLNotebookEmbedType> =
     ? IDLNotebookEncodedPNGData
     : T extends IDLNotebookImageFromURI
     ? IDLNotebookImageFromURIData
+    : T extends IDLNotebookMap
+    ? IDLNotebookMapData
     : T extends IDLNotebookPlot2D
     ? IDLNotebookPlot2DData
     : never;

@@ -4,7 +4,7 @@
 ;   within a notebook cell
 ;
 ; :Arguments:
-;   item: in, required, !magic | IDLNotebookEncodedPNG | IDLNotebookImageFromURI | IDLNotebookAnimationFromURIs | IDLNotebookPlot2D
+;   item: in, required, !magic | IDLNotebookEncodedPNG | IDLNotebookImageFromURI | IDLNotebookAnimationFromURIs | IDLNotebookMap | IDLNotebookPlot2D
 ;     The item we are adding to a notebook
 ;
 ;-
@@ -75,6 +75,11 @@ pro IDLNotebook::AddToNotebook, item
       ; track
       IDLNotebook._TrackNotebookItem, item
     end
+
+    ;+
+    ; Check for map
+    ;-
+    isa(item, 'IDLNotebookMap'): IDLNotebook._TrackNotebookItem, item
 
     ;+
     ; Check for encoded PNG
@@ -281,6 +286,10 @@ end
 ;
 ;     At this time, only PNGs are supported.
 ;
+; :IDLNotebookMap:
+;   data: any
+;     Placeholder data sent to map for visualization
+;
 ; :IDLNotebookPlot2D:
 ;   x: List<Number>
 ;     X data to plot.
@@ -346,6 +355,12 @@ pro IDLNotebook__define
   !null = {IDLNotebookAnimationFromURIs, $
     inherits IDLNotebookBaseImage, $
     uris: list()}
+
+  ;+
+  ; Data structure for embedding maps in notebooks
+  ;-
+  !null = {IDLNotebookMap, $
+    data: ''}
 
   ;+
   ; Data structure for embedding a series of image as an animation
