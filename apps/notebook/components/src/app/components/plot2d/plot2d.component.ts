@@ -1,9 +1,10 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   OnDestroy,
-  OnInit,
   SkipSelf,
+  ViewChild,
 } from '@angular/core';
 import { IDLNotebookPlot2D } from '@idl/notebooks/types';
 import Chart from 'chart.js/auto';
@@ -34,12 +35,13 @@ export const IDL_NB_PLOT2D_COMPONENT_SELECTOR = 'idl-nb-plot2d';
 })
 export class Plot2DComponent
   extends BaseRendererComponent<IDLNotebookPlot2D>
-  implements OnInit, OnDestroy
+  implements AfterViewInit, OnDestroy
 {
   /**
-   * A unique ID for the chart (needed so we can handle multiple charts)
+   * Canvas we draw to
    */
-  private chartId = `chart-${Math.floor(performance.now())}`;
+  @ViewChild('Plot2DCanvas')
+  canvas!: ElementRef<HTMLCanvasElement>;
 
   /**
    * A reference to our chart
@@ -53,12 +55,13 @@ export class Plot2DComponent
    */
   private resizeCb = () => {
     if (this.chart !== undefined) {
-      const el = document.getElementById(this.chartId);
-      if (el !== null) {
-        el.style.width = `${this.el.nativeElement.offsetWidth * 0.9}px;`;
-        el.style.height = `${this.el.nativeElement.offsetHeight * 0.9}px;`;
-        this.chart.resize();
-      }
+      this.canvas.nativeElement.style.width = `${
+        this.el.nativeElement.offsetWidth * 0.9
+      }px;`;
+      this.canvas.nativeElement.style.height = `${
+        this.el.nativeElement.offsetHeight * 0.9
+      }px;`;
+      this.chart.resize();
     }
   };
 
@@ -73,12 +76,6 @@ export class Plot2DComponent
   ) {
     super(dataService, messenger);
 
-    // add canvas element with unique ID
-    this.el.nativeElement.insertAdjacentHTML(
-      'afterbegin',
-      `<canvas class="chart-container" id="${this.chartId}"></canvas>`
-    );
-
     // add resize event listener
     window.addEventListener('resize', this.resizeCb);
   }
@@ -90,9 +87,9 @@ export class Plot2DComponent
     window.removeEventListener('resize', this.resizeCb);
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     if (this.hasData) {
-      this.chart = new Chart(this.chartId, {
+      this.chart = new Chart(this.canvas.nativeElement, {
         type: 'scatter',
         data: {
           datasets: [
