@@ -119,7 +119,7 @@ export class MapComponent
               });
             },
 
-            fetch: async (url, ctx) => {
+            fetch: async (url) => {
               // get value as bloc
               const val = await this.http
                 .get(url, {
