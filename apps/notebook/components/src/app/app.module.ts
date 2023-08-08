@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ApplicationRef, DoBootstrap, Injector, NgModule } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -7,7 +8,6 @@ import {
   MaterialCssVarsService,
 } from 'angular-material-css-vars';
 
-import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import {
@@ -26,6 +26,7 @@ import { VSCodeRendererMessenger } from './services/vscode-renderer-messenger.se
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    HttpClientModule,
     MaterialCssVarsModule.forRoot({}),
     MaterialModule,
     ComponentsModule,
@@ -64,8 +65,6 @@ export class AppModule implements DoBootstrap {
       '--vscode-activityBarBadge-background'
     );
 
-    console.log(accent);
-
     // set colors/themes/properties
     this.materialCssVarsService.setDarkTheme(isDark);
     // this.materialCssVarsService.setPrimaryColor(hex);
@@ -102,29 +101,29 @@ export class AppModule implements DoBootstrap {
    * When we bootstrap (i.e. start up) what do we do?
    */
   ngDoBootstrap(): void {
-    if (environment.production) {
-      try {
-        /**
-         * Register our entry component
-         *
-         * DONT REGISTER ANYTHING ELSE because it creates an instance of the
-         * component and screws everything up.
-         *
-         * We only register the items that can be accessed directly
-         */
-        if (!customElements.get(IDL_NB_ENTRY_COMPONENT_SELECTOR)) {
-          customElements.define(
-            IDL_NB_ENTRY_COMPONENT_SELECTOR,
-            createCustomElement(EntryComponent, {
-              injector: this.injector,
-            })
-          );
-        }
-      } catch (err) {
-        console.error(err);
+    // if (environment.production) {
+    try {
+      /**
+       * Register our entry component
+       *
+       * DONT REGISTER ANYTHING ELSE because it creates an instance of the
+       * component and screws everything up.
+       *
+       * We only register the items that can be accessed directly
+       */
+      if (!customElements.get(IDL_NB_ENTRY_COMPONENT_SELECTOR)) {
+        customElements.define(
+          IDL_NB_ENTRY_COMPONENT_SELECTOR,
+          createCustomElement(EntryComponent, {
+            injector: this.injector,
+          })
+        );
       }
-    } else {
-      this.appRef.bootstrap(AppComponent);
+    } catch (err) {
+      console.error(err);
     }
+    // } else {
+    //   this.appRef.bootstrap(AppComponent);
+    // }
   }
 }

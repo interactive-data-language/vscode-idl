@@ -1,5 +1,9 @@
 <!-- chart gets added directly in the component so we can have unique ID for canvas element -->
 
-<p>render some maps!</p>
+<div class="map-container">
+  <!-- <div class="map-container"> -->
+  <canvas #MapCanvas></canvas>
+  <!-- </div> -->
+</div>
 
 <p *ngIf="!hasData">No data to plot!</p>

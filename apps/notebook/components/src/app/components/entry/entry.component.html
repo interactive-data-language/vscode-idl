@@ -11,11 +11,7 @@
     [embed]="embed"
   ></idl-nb-image>
 
-  <!-- <idl-nb-map
-    *ngSwitchCase="'idlnotebookmap'"
-    [embed]="embed"
-    style="height: 1000vh; width: 100vw"
-  ></idl-nb-map> -->
+  <idl-nb-map *ngSwitchCase="'idlnotebookmap'" [embed]="embed"></idl-nb-map>
 
   <idl-nb-plot2d
     *ngSwitchCase="'idlnotebookplot2d'"

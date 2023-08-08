@@ -1,15 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   OnDestroy,
-  OnInit,
   SkipSelf,
+  ViewChild,
 } from '@angular/core';
 import { Deck } from '@deck.gl/core/typed';
 import { TileLayer } from '@deck.gl/geo-layers/typed';
 import { BitmapLayer, ScatterplotLayer } from '@deck.gl/layers/typed';
 import { IDLNotebookPlot2D } from '@idl/notebooks/types';
-import axios from 'axios';
 
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';
@@ -35,21 +36,24 @@ export const IDL_NB_MAP_COMPONENT_SELECTOR = 'idl-nb-map';
   styles: [
     `
       .map-container {
-        width: 650px;
-        height: 650px;
+        height: 500px !important;
       }
     `,
   ],
 })
 export class MapComponent
   extends BaseRendererComponent<IDLNotebookPlot2D>
-  implements OnInit, OnDestroy
+  implements AfterViewInit, OnDestroy
 {
   /**
-   * A unique ID for the chart (needed so we can handle multiple charts)
+   * Canvas we draw to
    */
-  private mapId = `map-${Math.floor(performance.now())}`;
+  @ViewChild('MapCanvas')
+  canvas!: ElementRef<HTMLCanvasElement>;
 
+  /**
+   * Reference to our map
+   */
   private deck!: Deck;
 
   /**
@@ -59,11 +63,11 @@ export class MapComponent
    */
   private resizeCb = () => {
     if (this.deck !== undefined) {
-      const el = document.getElementById(this.mapId);
-      if (el !== null) {
-        // el.style.width = `${this.el.nativeElement.offsetWidth * 0.9}px;`;
-        // el.style.height = `${this.el.nativeElement.offsetHeight * 0.9}px;`;
-      }
+      this.deck.setProps({
+        width: this.el.nativeElement.offsetWidth - 1,
+        height: this.el.nativeElement.offsetHeight - 1,
+      });
+      this.deck.redraw();
     }
   };
 
@@ -74,46 +78,33 @@ export class MapComponent
   constructor(
     @SkipSelf() dataService: DataSharingService,
     messenger: VSCodeRendererMessenger,
-    private el: ElementRef<HTMLElement>
+    private el: ElementRef<HTMLElement>,
+    private http: HttpClient
   ) {
     super(dataService, messenger);
-
-    // add canvas element with unique ID
-    this.el.nativeElement.insertAdjacentHTML(
-      'afterbegin',
-      `<canvas class="map-container" id="${this.mapId}" style="width: 650px;height: 650px;"></canvas>`
-    );
-
-    // add resize event listener
     window.addEventListener('resize', this.resizeCb);
   }
 
-  /**
-   * Remove callbacks to prevent memory leaks
-   */
   ngOnDestroy() {
     window.removeEventListener('resize', this.resizeCb);
   }
 
-  ngOnInit() {
-    const canvas = document.getElementById(
-      this.mapId
-    ) as HTMLCanvasElement | null;
-    if (this.hasData && canvas !== null) {
+  ngAfterViewInit() {
+    if (this.hasData) {
       this.deck = new Deck({
-        canvas: canvas,
+        canvas: this.canvas.nativeElement,
         initialViewState: INITIAL_VIEW_STATE,
         controller: true,
+        width: this.el.nativeElement.offsetWidth - 1,
+        height: this.el.nativeElement.offsetHeight - 1,
         layers: [
           new TileLayer({
             // https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Tile_servers
-            data: 'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            data: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
 
             minZoom: 0,
             maxZoom: 19,
             tileSize: 256,
-
-            loadOptions: {},
 
             renderSubLayers: (props) => {
               return new BitmapLayer(props, {
@@ -129,12 +120,16 @@ export class MapComponent
             },
 
             fetch: async (url, ctx) => {
-              return (
-                await axios.get(url, {
+              // get value as bloc
+              const val = await this.http
+                .get(url, {
                   withCredentials: false,
-                  headers: {},
+                  responseType: 'blob',
                 })
-              ).data;
+                .toPromise();
+
+              // convert to data URI and display
+              return URL.createObjectURL(val);
             },
           }),
           new ScatterplotLayer({
