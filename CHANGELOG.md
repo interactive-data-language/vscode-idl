@@ -50,9 +50,9 @@ For images embedded in notebooks as outputs (i.e. creating an IDL graph), added 
 
 Added auto-complete for structure names when there are no properties or only the beginning of a name has been typed
 
-Re-worked the notebook file format to be human readable (as JSON). This new format:
+Fixed a bug where task files and idl.json files were being processed as PRO files and reporting crazy errors
 
-> Do not edit the file by hand! These changes are so you can only view contents. If you edit the file you may break it which prevent us from loading the file into VSCode again.
+Re-worked the notebook file format to be human readable (as JSON). **Do not edit the files by hand as you risk breaking your notebooks**. This new format:
 
 - Is pretty-printed JSON which can easily be read and is easier for git GUI applications to manage
 
