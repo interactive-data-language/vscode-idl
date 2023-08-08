@@ -35,6 +35,16 @@ export const ON_SEMANTIC_HIGHLIGHTING = async (
       return undefined;
     }
 
+    // return if not a file we can process
+    if (
+      !(
+        IDL_INDEX.isPROCode(info.fsPath) ||
+        IDL_INDEX.isIDLNotebookFile(info.fsPath)
+      )
+    ) {
+      return undefined;
+    }
+
     // get the path to the file to properly save
     const fsPath = GetFSPath(params.textDocument.uri);
 

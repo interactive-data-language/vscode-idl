@@ -24,6 +24,16 @@ export async function GetHoverHelpWrapper(
     return undefined;
   }
 
+  // return if not a file we can process
+  if (
+    !(
+      IDL_INDEX.isPROCode(info.fsPath) ||
+      IDL_INDEX.isIDLNotebookFile(info.fsPath)
+    )
+  ) {
+    return undefined;
+  }
+
   // get hover help and return
   const hover = await IDL_INDEX.getHoverHelp(
     info.fsPath,
