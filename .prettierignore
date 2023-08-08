@@ -6,6 +6,7 @@
 /.vscode-test
 /dist
 /coverage
+/idl/test/client-e2e
 routines.json
 global.json
 extension/language/syntaxes/src/*
