@@ -7,6 +7,10 @@ import {
 import expect from 'expect';
 import { readFileSync } from 'fs';
 import * as vscode from 'vscode';
+import {
+  SemanticTokensParams,
+  TextDocumentPositionParams,
+} from 'vscode-languageserver';
 
 import { RunnerFunction } from '../runner.interface';
 
@@ -44,6 +48,40 @@ export const TasksInteractRight: RunnerFunction = async (init) => {
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(nOrig);
+
+  /**
+   * Event params for LSP user interaction
+   */
+  const params: TextDocumentPositionParams = {
+    textDocument: {
+      uri: doc.uri.toString(),
+    },
+    position: {
+      line: 0,
+      character: 0,
+    },
+  };
+
+  /**
+   * Event params for LSP semantic token request
+   */
+  const tokenParams: SemanticTokensParams = {
+    textDocument: {
+      uri: doc.uri.toString(),
+    },
+  };
+
+  // send all requests that might trigger parsing
+  await init.client.client.sendRequest('textDocument/hover', params);
+  await init.client.client.sendRequest('textDocument/completion', params);
+  await init.client.client.sendRequest('textDocument/definition', params);
+  await init.client.client.sendRequest(
+    'textDocument/semanticTokens/full',
+    tokenParams
+  );
+
+  // short pause
+  await Sleep(250);
 
   // clear any existing outputs
   await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
