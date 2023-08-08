@@ -2,6 +2,7 @@ import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
 import { AddDocs } from './add-docs';
+import { IDLJSONInteractRight } from './idl-json-interact-right';
 import { IndexIDLFolderRightAndOpenEditClose } from './index-idl-folder-right-and-open-edit-close';
 import { TasksInteractRight } from './tasks-interact-right';
 
@@ -33,4 +34,9 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'Task interaction does the right thing',
   fn: TasksInteractRight,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'idl.json interaction does the right thing',
+  fn: IDLJSONInteractRight,
 });

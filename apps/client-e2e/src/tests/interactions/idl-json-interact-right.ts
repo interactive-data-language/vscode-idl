@@ -15,12 +15,12 @@ import {
 import { RunnerFunction } from '../runner.interface';
 
 /**
- * Verifies working with tasks does the right thing with changes and doesnt trigger
+ * Verifies idl.json does the right thing with changes and doesnt trigger
  * PRO code parsing in the language server
  */
-export const TasksInteractRight: RunnerFunction = async (init) => {
+export const IDLJSONInteractRight: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/envitasktest.task')
+    GetExtensionPath('idl/test/client-e2e/idl.json')
   );
 
   // short pause to make sure we open and parse
@@ -35,7 +35,7 @@ export const TasksInteractRight: RunnerFunction = async (init) => {
   await ReplaceDocumentContent(
     doc,
     readFileSync(
-      GetExtensionPath('idl/test/client-e2e/envitasktest-changes.task'),
+      GetExtensionPath('idl/test/client-e2e/idl-changes.json'),
       'utf-8'
     )
   );
