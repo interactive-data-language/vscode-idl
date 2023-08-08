@@ -43,7 +43,7 @@
     "start": "npm run build-package-json && npm run build-renderer && nx run-many --target=build --projects=parsing-worker,server,client --watch --parallel",
     "start-client": "nx run-many --target=build --projects=client --watch --parallel",
     "start-perf": "nx run-many --target=build --projects=parsing-worker,performance --watch --parallel",
-    "start-notebook": "nx run-many --target=build --projects=notebook-renderer,notebook-components --watch --parallel",
+    "start-notebook": "nx run-many --target=build --projects=notebook-renderer,notebook-components --watch --parallel --configuration=development",
     "start-server": "nx run-many --target=build --projects=parsing-worker,server --watch --parallel",
     "start-test": "nx build vscode-e2e-runner && nx build client-e2e --watch",
     "start-webview": "nx build idl-webview --watch",
