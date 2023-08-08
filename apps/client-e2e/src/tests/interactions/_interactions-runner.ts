@@ -3,6 +3,7 @@ import { Logger } from '@idl/logger';
 import { Runner } from '../runner.class';
 import { AddDocs } from './add-docs';
 import { IndexIDLFolderRightAndOpenEditClose } from './index-idl-folder-right-and-open-edit-close';
+import { TasksInteractRight } from './tasks-interact-right';
 
 /*
  * Logger to be used for tests related to debugging
@@ -27,4 +28,9 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'Index IDL folder right on startup and properly sync problems on open, edit, close',
   fn: IndexIDLFolderRightAndOpenEditClose,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Task interaction does the right thing',
+  fn: TasksInteractRight,
 });
