@@ -42,6 +42,10 @@ Here are some of the features that notebooks bring:
 
   - After each cell is executed we issue a `retall` command to make sure that we are at the top-level and not stopped in a weird state
 
+## 3.2.1 August 2023
+
+Resolve a problem with the language server where you can get into an infinite loop trying to resolve include statements in IDL when they depend on each other
+
 ## 3.2.0 August 2023
 
 When the language server does not use a full parse, extract structure definitions. Before, this was a logic gap (and made the code faster), but they should be correctly resolved now with minimal performance hits.
