@@ -25,6 +25,11 @@ export type ProcessToken = IncludeToken;
 const TOKENS: ProcessToken[] = [TOKEN_NAMES.INCLUDE];
 
 /**
+ * Track files we are trying to include
+ */
+const IS_INCLUDING: { [key: string]: undefined } = {};
+
+/**
  * Types from include variables
  */
 const cb: BasicCallback<ProcessToken, PopulateTypeHandlerMeta> = (
@@ -47,12 +52,21 @@ const cb: BasicCallback<ProcessToken, PopulateTypeHandlerMeta> = (
     return;
   }
 
+  // check if already including
+  if (foundFile in IS_INCLUDING) {
+    return;
+  }
+  IS_INCLUDING[foundFile] = undefined;
+
   /**
    * Get parsed file for include
    */
   const includeParsed = meta.index.tokensByFile.has(foundFile)
     ? meta.index.tokensByFile.get(foundFile)
     : IncludeCache(meta.index, foundFile);
+
+  // remove from cache as trying to include
+  delete IS_INCLUDING[foundFile];
 
   /**
    * Get tokens
