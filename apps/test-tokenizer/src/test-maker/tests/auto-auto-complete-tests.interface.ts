@@ -455,6 +455,22 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Regression tests`,
+    fileName: `regression.1.spec.ts`,
+    tests: [
+      {
+        name: `for problems`,
+        file: `idl/test/auto-complete/regression1.pro`,
+        position: [
+          {
+            line: 2,
+            character: 28,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Structures`,
     fileName: `structures-anonymous.spec.ts`,
     tests: [
@@ -473,6 +489,20 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           {
             line: 10,
             character: 21,
+          },
+        ],
+      },
+      {
+        name: `auto-complete for structure names`,
+        file: `idl/test/auto-complete/structures.pro`,
+        position: [
+          {
+            line: 13,
+            character: 11,
+          },
+          {
+            line: 14,
+            character: 14,
           },
         ],
       },

@@ -18,7 +18,7 @@ export type LoopTokens = LoopForeachToken;
 const TOKENS: LoopTokens[] = [TOKEN_NAMES.LOOP_FOREACH];
 
 /**
- * Callback to validate that a keyword is correct
+ * Get types from foreach
  */
 const cb: BranchCallback<LoopTokens, PopulateTypeHandlerMeta> = (
   token,
@@ -51,6 +51,11 @@ const cb: BranchCallback<LoopTokens, PopulateTypeHandlerMeta> = (
 
   /** Get the variable name */
   const varName = firstToken.match[0].toLowerCase();
+
+  // return if no matching variable
+  if (!(varName in meta.variables)) {
+    return;
+  }
 
   /** Get variable source */
   const source = meta.variables[varName];

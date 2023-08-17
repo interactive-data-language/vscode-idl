@@ -724,6 +724,44 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Ignore them in`,
+      fileName: `populate-structures.7.spec.ts`,
+      tests: [
+        {
+          name: 'procedures',
+          code: [
+            `pro my_def__define`,
+            `compile_opt idl2`,
+            `fhdr = {WAVFILEHEADER, $`,
+            `  friff: bytarr(4), $ ; A four char string`,
+            `  fsize: 0ul, $`,
+            `  fwave: bytarr(4) $ ; A four char string`,
+            `}`,
+            ``,
+            `if ~_exists then defsysv, '!notebook_magic', {IDLNotebookMagic}`,
+            ``,
+            `end`,
+          ],
+        },
+        {
+          name: 'as nested properties',
+          code: [
+            `pro my_def__define`,
+            `compile_opt idl2`,
+            `fhdr = {WAVFILEHEADER, $`,
+            `  friff: bytarr(4), $ ; A four char string`,
+            `  fsize: 0ul, $`,
+            `  fwave: bytarr(4) $ ; A four char string`,
+            `}`,
+            ``,
+            `!null = {OtherStruct, prop:{SecondOtherStruct}}`,
+            ``,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
       suiteName: `Correctly extract variables from`,
       fileName: `procedures.spec.ts`,
       tests: [
@@ -1044,6 +1082,29 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
             `;+`,
             `; :Arguments:`,
             `;   item: in, required, Number`,
+            `;     Placeholder docs for argument, keyword, or property`,
+            `;-`,
+            `pro foreach, item`,
+            `  compile_opt idl2`,
+
+            `  ; item is bad`,
+            `  foreach val, item, key do print, val`,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
+      suiteName: `Types from foreach loop regression tests`,
+      fileName: `types.from-foreach.regression1.spec.ts`,
+      tests: [
+        {
+          name: 'with bad syntax',
+          code: [
+            `pro `,
+            `;+`,
+            `; :Arguments:`,
+            `;   item: in, required, List<Number>`,
             `;     Placeholder docs for argument, keyword, or property`,
             `;-`,
             `pro foreach, item`,

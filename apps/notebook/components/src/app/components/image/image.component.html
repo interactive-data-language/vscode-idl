@@ -1,0 +1,24 @@
+<div *ngIf="hasData; then thenBlock; else elseBlock"></div>
+
+<ng-template #thenBlock>
+  <div fxLayout="row">
+    <!-- wrap in div so styles dont get goofed up by flex -->
+    <div class="embedded-image-with-horizontal-toolbar">
+      <img class="cell-item-height-max" src="{{ src }}" />
+    </div>
+
+    <div *ngIf="canMessage" fxLayout="row" fxLayoutAlign="center start">
+      <div fxLayout="row" class="renderer-toolbar-vertical-right">
+        <mat-icon
+          svgIcon="save"
+          class="icon-button"
+          (click)="save()"
+        ></mat-icon>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #elseBlock>
+  <p>No image to render!</p>
+</ng-template>

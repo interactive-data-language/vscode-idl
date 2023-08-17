@@ -1,0 +1,10 @@
+@use 'angular-material-css-vars/main' as mat-css;
+
+// optional
+$mat-css-dark-theme-selector: '.isDarkTheme';
+$mat-css-light-theme-selector: '.isLightTheme';
+
+// init theme
+@include mat-css.init-material-css-vars() using($mat-css-theme) {
+  //call any theme mixins here. we dont so placeholder
+}

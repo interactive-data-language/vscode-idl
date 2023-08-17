@@ -4,6 +4,7 @@ import { CodeAction, CodeActionParams } from 'vscode-languageserver/node';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
@@ -27,6 +28,16 @@ export const ON_CODE_ACTIONS = async (
 
     // return if nothing found
     if (info === undefined) {
+      return undefined;
+    }
+
+    // return if not a file we can process
+    if (
+      !(
+        IDL_INDEX.isPROCode(info.fsPath) ||
+        IDL_INDEX.isIDLNotebookFile(info.fsPath)
+      )
+    ) {
       return undefined;
     }
 

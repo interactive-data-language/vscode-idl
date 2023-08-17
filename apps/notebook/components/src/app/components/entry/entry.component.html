@@ -1,0 +1,28 @@
+<div *ngIf="hasData; then thenBlock; else elseBlock"></div>
+
+<ng-template #thenBlock [ngSwitch]="embed.type">
+  <idl-nb-image-animator
+    *ngSwitchCase="'idlnotebookimage_animationfrompngs'"
+    [embed]="embed"
+  ></idl-nb-image-animator>
+
+  <idl-nb-image
+    *ngSwitchCase="'idlnotebookimage_png'"
+    [embed]="embed"
+  ></idl-nb-image>
+
+  <idl-nb-map *ngSwitchCase="'idlnotebookmap'" [embed]="embed"></idl-nb-map>
+
+  <idl-nb-plot2d
+    *ngSwitchCase="'idlnotebookplot2d'"
+    [embed]="embed"
+  ></idl-nb-plot2d>
+
+  <div *ngSwitchDefault>
+    <p>Unhandled embed type of "{{ embed.type }}"</p>
+  </div>
+</ng-template>
+
+<ng-template #elseBlock>
+  <p>No data to render!</p>
+</ng-template>

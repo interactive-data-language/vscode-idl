@@ -23,11 +23,22 @@
     "ENVIGLT",
     "enviraster",
     "ENVIRPC",
+    "EPSG",
     "FFIDL",
     "fflate",
     "Fuzzysort",
+    "geojsofromnuri",
+    "IDLJSON",
     "IDLNB",
+    "idlnotebook",
+    "idlnotebookimage_animationfrompngs",
+    "idlnotebookimage_animationfromuris",
+    "idlnotebookimage_fromuri",
+    "idlnotebookimage_png",
+    "idlnotebookmap",
+    "idlnotebookplot",
     "idlwv",
+    "imagefromuri",
     "INCREMENTERS",
     "minilog",
     "mlog",
@@ -44,6 +55,8 @@
     "Recurser",
     "Recursor",
     "RETALL",
+    "shapefile",
+    "shapefiles",
     "SPATIALREF",
     "stepover",
     "strictarr",
@@ -56,7 +69,13 @@
     "Uncaptured",
     "vsix",
     "workerio",
-    "wschanges"
+    "wschanges",
+    "xmax",
+    "xmin",
+    "xsize",
+    "ymax",
+    "ymin",
+    "ysize"
   ],
   "cSpell.enableFiletypes": ["!json"],
   "[yaml]": {
@@ -66,6 +85,6 @@
     "editor.formatOnSave": false
   },
   "[html]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": true
   }
 }

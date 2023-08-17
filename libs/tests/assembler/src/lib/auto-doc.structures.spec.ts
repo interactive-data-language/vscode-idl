@@ -329,6 +329,7 @@ describe(`[auto generated] Generate structure docs`, () => {
       const expectedFormatting: string[] = [
         `;+`,
         `; :MyStruct:`,
+        `;`,
         `;-`,
         `pro pro4__define`,
         `  compile_opt idl2`,

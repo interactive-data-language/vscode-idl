@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "3.1.4",
+  "version": "3.2.0",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -12,9 +12,11 @@
   },
   "scripts": {
     "build-client": "nx run-many --target=build --projects=client,idl-webview --prod",
-    "build-extension": "npm-run-all -s clean build-package-json build-client build-server",
+    "build-extension": "npm-run-all -s clean build-package-json build-client build-renderer build-server",
     "build-i18n": "nx build i18n && node ./dist/apps/i18n/main.js",
     "build-package-json": "npm run build-tmlang && npm run build-i18n && nx build package-json && node ./dist/apps/package-json/main.js && prettier --write ./extension/language/schemas/config",
+    "build-renderer": "nx build notebook-renderer --prod",
+    "build-renderer-dev": "nx build notebook-renderer --configuration=development",
     "build-server": "nx run-many --target=build --projects=server,parsing-worker --prod",
     "build-tmlang": "nx build tmlang-maker && node ./dist/apps/tmlang-maker/main.js --trace-warnings",
     "build-test": "nx build vscode-e2e-runner && nx build client-e2e",
@@ -39,9 +41,10 @@
     "test-everything": "npm-run-all test-libs make-integration-tests test-integration",
     "test-perf": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 ./dist/apps/performance/main.js",
     "test-perf-profile": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 --prof ./dist/apps/performance/main.js",
-    "start": "npm run build-package-json && nx run-many --target=build --projects=parsing-worker,server,client --watch --parallel",
+    "start": "npm run build-package-json && npm run build-renderer-dev && nx run-many --target=build --projects=parsing-worker,server,client --watch --parallel",
     "start-client": "nx run-many --target=build --projects=client --watch --parallel",
     "start-perf": "nx run-many --target=build --projects=parsing-worker,performance --watch --parallel",
+    "start-notebook": "nx run-many --target=build --projects=notebook-renderer,notebook-components --watch --parallel --configuration=development",
     "start-server": "nx run-many --target=build --projects=parsing-worker,server --watch --parallel",
     "start-test": "nx build vscode-e2e-runner && nx build client-e2e --watch",
     "start-webview": "nx build idl-webview --watch",
@@ -96,6 +99,11 @@
     "@angular/platform-browser": "16.1.3",
     "@angular/platform-browser-dynamic": "16.1.3",
     "@angular/router": "16.1.3",
+    "@deck.gl/core": "^8.9.23",
+    "@deck.gl/geo-layers": "^8.9.23",
+    "@deck.gl/layers": "^8.9.23",
+    "@loaders.gl/polyfills": "^3.4.9",
+    "@mapbox/geojson-extent": "^1.0.1",
     "@mdi/js": "^7.0.96",
     "@ngbracket/ngx-layout": "^16.0.0",
     "@ngneat/transloco": "^4.3.0",
@@ -112,11 +120,13 @@
     "@schematics/angular": "16.1.3",
     "@types/cross-spawn": "^6.0.2",
     "@types/jest": "29.4.4",
+    "@types/mapbox__geojson-extent": "^1.0.0",
     "@types/minilog": "^2.0.29",
     "@types/node": "^20.2.3",
     "@types/plist": "^3.0.2",
     "@types/progress": "^2.0.5",
     "@types/vscode": "^1.78.0",
+    "@types/vscode-notebook-renderer": "^1.72.0",
     "@types/web": "^0.0.101",
     "@typescript-eslint/eslint-plugin": "5.60.1",
     "@typescript-eslint/parser": "5.60.1",
@@ -126,6 +136,7 @@
     "@webcomponents/webcomponentsjs": "^2.8.0",
     "angular-material-css-vars": "^5.0.2",
     "axios": "^1.3.3",
+    "chart.js": "^4.3.3",
     "cypress": "12.16.0",
     "esbuild": "0.17.17",
     "eslint": "~8.15.0",
@@ -1167,6 +1178,17 @@
         }
       ]
     },
+    "notebookRenderer": [
+      {
+        "id": "idl-notebook-renderer",
+        "displayName": "%notebooks.renderer%",
+        "entrypoint": "./dist/apps/notebook/renderer/src/main.js",
+        "mimeTypes": [
+          "idl/notebook-renderer"
+        ],
+        "requiresMessaging": "optional"
+      }
+    ],
     "notebooks": [
       {
         "type": "idl-notebook",

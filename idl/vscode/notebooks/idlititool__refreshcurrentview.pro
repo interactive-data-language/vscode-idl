@@ -31,9 +31,7 @@ pro IDLitTool::RefreshCurrentWindow
       dim = oWin.dimensions
       !magic.xsize = dim[0]
       !magic.ysize = dim[1]
-      s = !super_magic
-      key = strtrim(!magic.window, 2)
-      if ~s.hasKey(key) then s[strtrim(!magic.window, 2)] = orderedhash(!magic, /extract, /lowercase)
+      IDLNotebook.AddToNotebook, !magic
     endif
     oWin.Draw
     self._bnoredraw = 0b

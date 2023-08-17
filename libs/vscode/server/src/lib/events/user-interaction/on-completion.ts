@@ -33,6 +33,16 @@ export async function GetAutoCompleteWrapper(
     return undefined;
   }
 
+  // return if not a file we can process
+  if (
+    !(
+      IDL_INDEX.isPROCode(info.fsPath) ||
+      IDL_INDEX.isIDLNotebookFile(info.fsPath)
+    )
+  ) {
+    return undefined;
+  }
+
   /**
    * Make default formatting config for file
    *

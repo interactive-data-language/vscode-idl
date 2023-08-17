@@ -1,0 +1,16 @@
+<!-- chart gets added directly in the component so we can have unique ID for canvas element -->
+
+<div
+  class="map-container vscode-outlined cell-item-full-height"
+  style="position: relative"
+>
+  <canvas #MapCanvas></canvas>
+
+  <div class="credits">
+    <div style="padding-left: 5px; padding-right: 5px">
+      Base map: Powered by <a href="https://www.esri.com/en-us/home">Esri</a>
+    </div>
+  </div>
+</div>
+
+<p *ngIf="!hasData">No data to map!</p>

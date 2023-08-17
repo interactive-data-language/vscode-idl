@@ -88,7 +88,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
       {
         code: 61,
         info: 'The returns documentation should only contain the data type that is returned. For example: ":Returns: float"',
-        start: [4, 3, 9],
+        start: [4, 2, 10],
         end: [6, 0, 22],
       },
       {

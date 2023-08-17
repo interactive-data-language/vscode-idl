@@ -1,0 +1,34 @@
+<table
+  mat-table
+  [dataSource]="dataSource"
+  class="property-sheet"
+  class="compact-rows"
+>
+  <!-- Property Name Column -->
+  <ng-container matColumnDef="name" class="compact-rows">
+    <th mat-header-cell *matHeaderCellDef class="compact-rows">Property</th>
+    <td mat-cell *matCellDef="let element" class="compact-rows">
+      {{ element.name }}
+    </td>
+  </ng-container>
+
+  <!-- Property Value Column -->
+  <ng-container matColumnDef="value" class="compact-rows">
+    <th mat-header-cell *matHeaderCellDef class="compact-rows">Value</th>
+    <td mat-cell *matCellDef="let element" class="compact-rows">
+      {{ element.value }}
+    </td>
+  </ng-container>
+
+  <!-- see component for vars -->
+  <tr
+    mat-header-row
+    *matHeaderRowDef="displayedColumns"
+    class="compact-rows"
+  ></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    class="compact-rows"
+  ></tr>
+</table>

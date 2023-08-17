@@ -24,8 +24,6 @@ Here's what we have so far
 
 - **package-json**: Creates the content for the contribution points in the main `package.json` file. Built with typescript and does some basic checks for translations and auxiliary files to make sure we aren't missing anything.
 
-- **parsing-global-index**: Not used, but placeholder to have tokens and problems tracked.manages separate from the main thread. A little over-engineering for this early in the game, but it is there for future use.
-
 - **parsing-worker**: Node.js worker thread to index IDL code in the background.
 
 - **performance**: Node.js app meant to be a place where we can test the speed of parsing without needing to open VSCode (also, cross platform)

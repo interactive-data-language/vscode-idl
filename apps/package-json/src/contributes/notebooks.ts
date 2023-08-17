@@ -1,8 +1,10 @@
+import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/notebooks/types';
 import {
   IDL_COMMANDS,
   IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME,
   IDL_NOTEBOOK_EXTENSION,
   IDL_NOTEBOOK_NAME,
+  IDL_NOTEBOOK_RENDERER_NAME,
 } from '@idl/shared';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
@@ -58,4 +60,19 @@ export function ProcessNotebooks(packageJSON: IPackageJSON, nls: IPackageNLS) {
   }
   const menus = contrib['menus'];
   menus['notebook/toolbar'] = NOTEBOOK_TOOLBAR;
+
+  // add in notebook renderer
+  contrib['notebookRenderer'] = [
+    {
+      id: IDL_NOTEBOOK_RENDERER_NAME,
+      displayName: '%notebooks.renderer%',
+      entrypoint: './dist/apps/notebook/renderer/src/main.js',
+      mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
+      requiresMessaging: 'optional',
+    },
+  ];
+
+  if (!VerifyNLS(contrib.notebookRenderer[0].displayName, nls)) {
+    throw new Error('Notebook renderer displayName not in translation');
+  }
 }

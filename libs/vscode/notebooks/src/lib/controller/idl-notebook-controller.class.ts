@@ -5,13 +5,14 @@ import {
   REGEX_NEW_LINE,
 } from '@idl/idl';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
+import { IDLNotebookEmbeddedItems } from '@idl/notebooks/types';
 import { Parser } from '@idl/parser';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import { TreeBranchToken } from '@idl/parsing/syntax-tree';
 import { IsSingleLine } from '@idl/parsing/syntax-validators';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import {
+  CleanPath,
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
   IDL_NOTEBOOK_NAME,
@@ -30,15 +31,12 @@ import {
   IDL_DEBUG_CONFIGURATION_PROVIDER,
 } from '@idl/vscode/debug';
 import copy from 'fast-copy';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
+import { dirname, join } from 'path';
 import * as vscode from 'vscode';
 
-import { BangENVIMagic, BangMagic } from './bang-magic.interface';
-import { AddAnimationToCell } from './helpers/add-animation-to-cell';
-import { AddEncodedImageToCell } from './helpers/add-encoded-image-to-cell';
-import { AddPNGFileToCell } from './helpers/add-png-file-to-cell';
 import { ICurrentCell } from './idl-notebook-controller.interface';
+import { ProcessIDLNotebookEmbeddedItems } from './process-idl-notebook-embedded-items';
 
 /**
  * Controller for notebooks
@@ -237,8 +235,11 @@ export class IDLNotebookController {
         if (this.isStarted()) {
           this._currentCell.execution.replaceOutput(
             new vscode.NotebookCellOutput([
-              vscode.NotebookCellOutputItem.text(
-                this._currentCell.output.replace(REGEX_NEW_LINE, '\n')
+              new vscode.NotebookCellOutputItem(
+                Buffer.from(
+                  this._currentCell.output.replace(REGEX_NEW_LINE, '\n')
+                ),
+                'text/plain'
               ),
             ])
           );
@@ -258,6 +259,7 @@ export class IDLNotebookController {
       return;
     }
 
+    // return from current scope
     await this.evaluate(`retall`);
 
     // return if no cell
@@ -265,38 +267,31 @@ export class IDLNotebookController {
       return;
     }
 
-    /**
-     * Get additional windows
-     */
-    const enviMagic: BangENVIMagic[] = JSON.parse(
-      CleanIDLOutput(
-        await this.evaluate(
-          `print, json_serialize(!envi_magic, /lowercase) & !envi_magic.remove, /all`
-        )
-      )
-    );
+    // check if we need to look for magic
+    if (magic) {
+      try {
+        const output = await this.evaluate(`IDLNotebook.Export`);
 
-    // process each magic
-    for (let i = 0; i < enviMagic.length; i++) {
-      if (Array.isArray(enviMagic[i].uri)) {
-        AddAnimationToCell(
-          cell,
-          enviMagic[i].uri as string[],
-          enviMagic[i].xsize,
-          enviMagic[i].ysize
+        // get exported items
+        const exported: IDLNotebookEmbeddedItems = JSON.parse(
+          CleanIDLOutput(output)
         );
-      } else {
-        AddPNGFileToCell(
-          cell,
-          enviMagic[i].uri as string,
-          enviMagic[i].xsize,
-          enviMagic[i].ysize
-        );
+
+        // process the items to embed
+        ProcessIDLNotebookEmbeddedItems(cell, exported);
+      } catch (err) {
+        // return from current scope if error
+        await this.evaluate(`retall`);
+
+        // alert user
+        IDL_LOGGER.log({
+          type: 'error',
+          log: IDL_NOTEBOOK_LOG,
+          content: [IDL_TRANSLATION.notebooks.errors.checkingGraphics, err],
+          alert: IDL_TRANSLATION.notebooks.errors.checkingGraphics,
+        });
       }
     }
-
-    // update magic based on preference
-    magic = magic && IDL_EXTENSION_CONFIG.notebooks.embedGraphics;
 
     /**
      * Commands to run after executing a cell
@@ -311,85 +306,13 @@ export class IDLNotebookController {
         IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
       }`,
       '!magic.window = -1',
+      `IDLNotebook.Reset`,
     ];
-
-    // insert magic command before resetting window value
-    if (magic) {
-      commands.splice(2, 1, 'print, json_serialize(!magic, /lowercase)');
-    }
 
     /**
      * Clean things up and get our !magic system variable
      */
-    const rawMagic = CleanIDLOutput(await this.evaluate(commands.join(' & ')));
-
-    // check if we need to look for magic
-    if (magic) {
-      try {
-        // /**
-        //  * Parse our magic
-        //  */
-        // const magics: BangMagic[] = [JSON.parse(rawMagic)];
-
-        /**
-         * Get additional windows
-         */
-        const superMagic: { [key: string]: BangMagic } = JSON.parse(
-          CleanIDLOutput(
-            await this.evaluate(
-              `print, json_serialize(!super_magic) & !super_magic.remove, /all`
-            )
-          )
-        );
-
-        /**
-         * Get original magic value
-         */
-        const bangMagic: BangMagic = JSON.parse(rawMagic);
-
-        // add if it doesnt exist
-        if (!(bangMagic.window in superMagic)) {
-          superMagic[bangMagic.window] = bangMagic;
-        }
-
-        /**
-         * Get all of the graphics
-         */
-        const magics = Object.values(superMagic);
-
-        // process each magic
-        for (let i = 0; i < magics.length; i++) {
-          // get full magic
-          const fullMagic = magics[i];
-
-          // check if we have a window
-          if (fullMagic.window !== -1) {
-            /**
-             * Retrieve our encoded graphic and clear window reference
-             */
-            const encoded = await this.evaluate(
-              `EncodeGraphic(${fullMagic.window}, ${fullMagic.type}) & !magic.window = -1`
-            );
-
-            // add
-            AddEncodedImageToCell(
-              cell,
-              encoded,
-              fullMagic.xsize,
-              fullMagic.ysize
-            );
-          }
-        }
-      } catch (err) {
-        // alert user
-        IDL_LOGGER.log({
-          type: 'error',
-          log: IDL_NOTEBOOK_LOG,
-          content: [IDL_TRANSLATION.notebooks.errors.checkingGraphics, err],
-          alert: IDL_TRANSLATION.notebooks.errors.checkingGraphics,
-        });
-      }
-    }
+    await this.evaluate(commands.join(' & '));
   }
 
   /**
@@ -688,14 +611,18 @@ export class IDLNotebookController {
     // reset cell output
     execution.clearOutput();
 
+    dirname(CleanPath(cell.notebook.uri.fsPath));
+
+    const nbDir = dirname(CleanPath(cell.notebook.uri.fsPath));
+
     /**
      * temp folder for notebook cell
      */
-    const fsPath = join(NOTEBOOK_FOLDER, 'notebook_cell.pro');
+    const fsPath = join(nbDir, 'notebook_cell.pro');
 
     // make our folder if it doesnt exist
-    if (!existsSync(NOTEBOOK_FOLDER)) {
-      mkdirSync(NOTEBOOK_FOLDER, { recursive: true });
+    if (!existsSync(nbDir)) {
+      mkdirSync(nbDir, { recursive: true });
     }
 
     /**
@@ -755,6 +682,9 @@ export class IDLNotebookController {
 
     // compile our code
     await this.evaluate(`.compile -v '${fsPath}'`);
+
+    // delete file
+    rmSync(fsPath);
 
     // check for syntax errors
     if (Object.keys(this._runtime.errorsByFile).length > 0) {

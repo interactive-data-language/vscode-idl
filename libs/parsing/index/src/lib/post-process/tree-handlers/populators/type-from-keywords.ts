@@ -12,7 +12,7 @@ import { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
 const TOKENS = [TOKEN_NAMES.KEYWORD];
 
 /**
- * Callback to validate that a keyword is correct
+ * Types from keywords
  */
 export const TYPE_FROM_KEYWORDS: BasicCallback<
   KeywordToken,

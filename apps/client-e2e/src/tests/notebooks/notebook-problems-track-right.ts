@@ -11,7 +11,9 @@ import { RunnerFunction } from '../runner.interface';
 export const NotebookProblemsTrackRight: RunnerFunction = async (init) => {
   // open our notebook
   const nb = await OpenNotebookInVSCode(
-    GetExtensionPath('idl/test/client-e2e/problems-track-right.idlnb'),
+    GetExtensionPath(
+      'idl/test/client-e2e/notebooks/problems-track-right.idlnb'
+    ),
     true
   );
 

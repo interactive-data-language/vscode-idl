@@ -1175,6 +1175,7 @@ export class IDLIndex {
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
             {
               file,
+              code,
             }
           );
         } else {
@@ -1408,6 +1409,9 @@ export class IDLIndex {
       LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK,
       { file, notebook }
     );
+
+    // track cells as known files so we can clean up correctly next time
+    this.trackFiles(Object.keys(resp.globals));
 
     /**
      * Messages for global token synchronization

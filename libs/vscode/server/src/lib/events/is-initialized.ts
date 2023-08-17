@@ -149,7 +149,7 @@ SERVER_INFO.then(async (res) => {
     const merged = { ...res[0], ...res[1] };
 
     // add in our IDL folder
-    merged[GetExtensionPath('idl/vscode/notebooks')] = false;
+    merged[GetExtensionPath('idl/vscode/notebooks')] = true;
 
     // alert users
     IDL_LANGUAGE_SERVER_LOGGER.log({

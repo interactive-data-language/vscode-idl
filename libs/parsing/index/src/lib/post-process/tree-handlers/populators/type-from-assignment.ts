@@ -28,7 +28,7 @@ export const FAKE_ASSIGNMENT_PARENTS: { [key: string]: any } = {};
 FAKE_ASSIGNMENT_PARENTS[TOKEN_NAMES.OPERATOR_POINTER] = true;
 
 /**
- * Callback to validate that a keyword is correct
+ * Get type from assignment
  *
  * NOTE: If variables are defined in-line within expressions, then
  * those are defined within `TypeFromMultipleTokens()`

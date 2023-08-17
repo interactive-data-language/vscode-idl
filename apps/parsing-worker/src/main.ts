@@ -370,7 +370,10 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
   async (message) => {
     // get parsed code and return
-    const parsed = await WORKER_INDEX.getParsedProCode(message.file, '');
+    const parsed = await WORKER_INDEX.getParsedProCode(
+      message.file,
+      message.code
+    );
 
     // make non-circular
     if (parsed !== undefined) {

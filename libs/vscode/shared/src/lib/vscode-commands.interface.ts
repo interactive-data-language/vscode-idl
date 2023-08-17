@@ -23,6 +23,18 @@ export const VSCODE_COMMANDS = {
    */
   NOTEBOOK_CLEAR_OUTPUTS: 'notebook.clearAllCellsOutputs',
   /**
+   * Delete current cell
+   */
+  NOTEBOOK_CELL_DELETE: 'notebook.cell.delete',
+  /**
+   * Clear focus on top cell
+   */
+  NOTEBOOK_FOCUS_TOP: 'notebook.focusTop',
+  /**
+   * Add code cell to top
+   */
+  NOTEBOOK_INSERT_CODE_CELL_AT_TOP: 'notebook.cell.insertCodeCellAtTop',
+  /**
    * Run all notebook cells
    */
   NOTEBOOK_RUN_ALL: 'notebook.execute',

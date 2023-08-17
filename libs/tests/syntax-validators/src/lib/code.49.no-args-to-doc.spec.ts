@@ -92,7 +92,7 @@ describe(`[auto generated] Detects documented args when there are no args`, () =
       {
         code: 49,
         info: 'Documentation includes arguments, but none are present in routine definition',
-        start: [2, 3, 8],
+        start: [2, 2, 9],
         end: [5, 0, 1],
       },
     ];

@@ -86,8 +86,8 @@ describe(`[auto generated] Detects when the returns tag for docs is missing the 
       {
         code: 60,
         info: 'The returns documentation should include the data type that is returned. For example: ":Returns: float"',
-        start: [4, 3, 9],
-        end: [4, 3, 9],
+        start: [4, 2, 10],
+        end: [4, 2, 10],
       },
       {
         code: 104,

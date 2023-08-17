@@ -25,7 +25,7 @@ export type ProcessToken = IncludeToken;
 const TOKENS: ProcessToken[] = [TOKEN_NAMES.INCLUDE];
 
 /**
- * Callback to validate that a keyword is correct
+ * Types from include variables
  */
 const cb: BasicCallback<ProcessToken, PopulateTypeHandlerMeta> = (
   token,

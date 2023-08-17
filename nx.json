@@ -40,6 +40,12 @@
       "storybook-configuration": {
         "linter": "eslint"
       }
+    },
+    "@nx/web:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
     }
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",

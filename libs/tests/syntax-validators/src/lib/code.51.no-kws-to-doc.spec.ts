@@ -92,7 +92,7 @@ describe(`[auto generated] Detects documented keywords when there are no keyword
       {
         code: 51,
         info: 'Documentation includes keywords, but none are present in routine definition',
-        start: [2, 3, 10],
+        start: [2, 2, 11],
         end: [5, 0, 1],
       },
     ];

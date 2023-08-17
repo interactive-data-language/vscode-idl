@@ -6,6 +6,7 @@ import * as vscode from 'vscode';
 import { RegisterNotebookCommands } from './commands/register-notebook-commands';
 import { IDLNotebookController } from './controller/idl-notebook-controller.class';
 import { IInitializeNotebooks } from './initialize-notebooks.interface';
+import { InitializeNotebookRendererMessenger } from './renderer-messenger/initialize-notebook-renderer-messenger';
 import { IDLNotebookSerializer } from './serializer/idl-notebook-serializer.class';
 
 /**
@@ -34,6 +35,12 @@ export function InitializeNotebooks(
     )
   );
   ctx.subscriptions.push(IDL_NOTEBOOK_CONTROLLER);
+
+  // create messenger for renderer
+  IDL_LOGGER.log({
+    content: 'Creating notebook renderer messenger',
+  });
+  InitializeNotebookRendererMessenger();
 
   // register our providers for user interactions
   // RegisterNotebookHoverProvider();

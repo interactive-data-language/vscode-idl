@@ -3,7 +3,7 @@ import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
-import { CompareCells } from './helpers/compare-cells';
+import { CompareCellOutputs } from './helpers/compare-cells';
 import { VerifyEmpty } from './helpers/verify-empty';
 import { CELL_OUTPUT } from './run-test-notebook';
 
@@ -15,7 +15,9 @@ export const SaveAndClearNotebook: RunnerFunction = async (init) => {
   /**
    * Get the file we are going to open
    */
-  const file = GetExtensionPath('idl/test/client-e2e/test-notebook.idlnb');
+  const file = GetExtensionPath(
+    'idl/test/client-e2e/notebooks/test-notebook.idlnb'
+  );
 
   /**
    * Open the notebook
@@ -34,7 +36,7 @@ export const SaveAndClearNotebook: RunnerFunction = async (init) => {
   const nbAfter = await OpenNotebookInVSCode(file);
 
   // compare cells
-  CompareCells(nbAfter, CELL_OUTPUT);
+  CompareCellOutputs(nbAfter, CELL_OUTPUT);
 
   // clear any existing outputs
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);

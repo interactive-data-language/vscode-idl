@@ -1,0 +1,68 @@
+/* You can add global styles to this file, and also import other style files */
+
+$accent: var(--vscode-activityBarBadge-background);
+$cell-height-limit: 500px;
+
+.div {
+  font-family: var(--font-family) !important;
+  font-weight: var(--font-weight) !important;
+  font-size: var(--font-size) !important;
+}
+
+.mat-primary {
+  --mdc-slider-handle-color: #{$accent} !important;
+  --mdc-slider-focus-handle-color: #{$accent} !important;
+  --mdc-slider-hover-handle-color: #{$accent} !important;
+  --mdc-slider-active-track-color: #{$accent} !important;
+  --mdc-slider-inactive-track-color: #{$accent} !important;
+  /* --mdc-slider-with-tick-marks-inactive-container-color: var(
+    --vscode-activityBarBadge-background
+  ) !important; */
+  /* --mat-mdc-slider-ripple-color: var(
+    --vscode-activityBarBadge-background
+  ) !important; */
+}
+
+// override class for more compact icon buttons without "<button>"
+.icon-button {
+  cursor: pointer;
+}
+
+.renderer-toolbar {
+  // outline-style: solid !important;
+  // outline-width: 1px !important;
+  // outline-color: #{$accent} !important;
+  margin-bottom: 15px;
+  // width: 100%;
+}
+
+.renderer-toolbar-vertical-left {
+  margin-right: 15px;
+}
+
+.renderer-toolbar-vertical-right {
+  margin-left: 15px;
+}
+
+.vscode-outlined {
+  outline-style: solid !important;
+  outline-width: 1px !important;
+  outline-color: #{$accent} !important;
+}
+
+.cell-item-height-max {
+  max-height: #{$cell-height-limit} !important;
+}
+
+.cell-item-full-height {
+  height: #{$cell-height-limit} !important;
+}
+
+.embedded-image {
+  max-width: 100%;
+  aspect-ratio: 1 !important;
+}
+
+.embedded-image-with-horizontal-toolbar {
+  max-width: calc(100% - 50px);
+}

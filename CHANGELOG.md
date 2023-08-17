@@ -4,6 +4,116 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail on incremental work for large features, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
+## Unreleased
+
+Preview release of IDL Notebooks! This is a first pass at adding notebook support for IDL which is independent from Jupyter.
+
+> Notebooks are a preview feature and, based on early adopter feedback, will likely change
+
+Here are some of the features that notebooks bring:
+
+- Notebook files should end with the extension ".idlnb" which are managed and rendered by the IDL extension.
+
+  - Notebooks support highlighting, problem reporting, hover help, auto-complete, go-to-definition, formatting, and semantic token highlighting.
+
+    > Pro tip: See the FORMATTING.md doc for information regarding how to format notebooks on save.
+
+  - Basic notebook functionality for saving (including outputs and images) and restoring all works as expected
+
+  - Notebooks embed images. If you use function or object graphics, all windows will be embedded.
+
+    - At this time, there may be some graphics that shouldn't be grabbed (like when you run ENVI processing with the ENVI UI open)
+
+  - Notebooks do not embed widgets.
+
+  - Notebooks only support Markdown and IDL cell types
+
+- When running cells, notebooks automatically start an IDL process. Notebooks provide two custom buttons for managing IDL: Reset and Stop.
+
+  - Reset will stop and restart IDL so that it is fresh (this way you can interrupt cell execution)
+
+  - Stop will stop the IDL process and interrupt cell execution. A new IDL session won't be launched until you run a new cell.
+
+- Ability to run cells:
+
+  - Cells are executed as-is and don't support debugging or interactive processes.
+
+  - See the "Hello World" notebook for details on how cell execution works and how you can write code
+
+  - After each cell is executed we issue a `retall` command to make sure that we are at the top-level and not stopped in a weird state
+
+## 3.2.0 August 2023
+
+When the language server does not use a full parse, extract structure definitions. Before, this was a logic gap (and made the code faster), but they should be correctly resolved now with minimal performance hits.
+
+- For context, using non-full parse can give a 4x improvement in performance (parse rate with 6 workers goes from 90k lines/second to 425k lines/second).
+
+Change execution path for notebooks so cells are compiled in the same folder that a notebook lives in. This makes it much easier to load datasets that are next to the notebook (for data scientists) and mimics the behavior of PRO code. This means that, if you use "routine_dir()" or "routine_filepath()" from a notebook, it will resolve to the path that you expect.
+
+For images, added a button that allows you to save the graphic to disk. All files saved to disk are in PNG format and come from the embedded images within the notebook file format. However, this makes it easy to generate graphics and export them from notebooks!
+
+Added auto-complete for structure names when there are no properties or only the beginning of a name has been typed
+
+Fixed a bug where task files and idl.json files were being processed as PRO files and reporting crazy errors
+
+Re-worked the notebook file format to be human readable (as JSON). **Do not edit the files by hand as you risk breaking your notebooks**. This new format:
+
+- Is pretty-printed JSON which can easily be read and is easier for git GUI applications to manage
+
+- Has a reduced size when we embed graphics
+
+- Uses a schema for complex output types (i.e. images, animations) with the pipes in place to have custom renderers or applets embedded in notebooks
+
+- Normalizes line endings on save which makes sure notebooks are the same on Windows vs Linux/Mac
+
+- Allows some transparency into the notebook format with what gets stored
+
+- All outputs from IDL are stored as a JSON string. This is to reduce file size and improve parsing speed (future concept is embedding plots/graphs which requires data that pretty-printed JSON would make unreasonably large)
+
+For all notebooks, we add extra catches when attempting to restore notebook outputs saved in the file. This means that we can update the way outputs are stored/processed in the future without breaking notebooks completely. You would just need to re-run cells and regenerate outputs in the format that we expect it to be.
+
+Fix an un handled case for auto-doc with structures where we didn't add spaces after an empty structure definition (even though that is invalid for IDL).
+
+Fixed a bug with notebooks where cells weren't cleaned up properly and you would get fake duplicate routines reported as a problem. Added tests to catch this in the future.
+
+Fixed a bug where docs header regular expressions were being over-zealous and grabbing more than they should.
+
+Fixed some bugs with styles of embedded graphics not appearing quite like they should when the notebooks are small.
+
+Fixed a bug where error resolving completion would show a message about hover help
+
+Fixed a bug where auto-complete would fail when you had fatal syntax errors in code and for/foreach loops
+
+Fixed a bug where auto-complete in notebooks wouldn't get the code from the cell for the right auto-complete user experience
+
+Further increase node.js timeout for edge cases where it wouldn't respond/start fast enough
+
+Changed the formatting behavior for structures when they have line continuations.
+
+- Before:
+
+  ```idl
+  !null = $
+    {MyStruct, $
+    _foo: 5}
+
+  !null = $
+    { $
+    _foo: 5}
+  ```
+
+- After:
+
+  ```idl
+  !null = $
+    {MyStruct, $
+      _foo: 5}
+
+  !null = $
+    { $
+      _foo: 5}
+  ```
+
 ## 3.1.4 August 2023
 
 For routine documentation, add button "Open Examples in Notebook" Which opens the routine, the description, and likely code examples as runnable notebook cells

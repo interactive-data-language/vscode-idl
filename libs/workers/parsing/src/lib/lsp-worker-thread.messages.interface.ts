@@ -99,6 +99,7 @@ export type GetNotebookCellMessage = 'get-notebook-cell';
  */
 export interface GetNotebookCellPayload {
   file: string;
+  code: string | string[];
 }
 
 /**

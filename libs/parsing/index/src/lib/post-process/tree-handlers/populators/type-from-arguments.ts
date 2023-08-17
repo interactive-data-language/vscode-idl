@@ -33,7 +33,7 @@ const TOKENS: CallRoutineToken[] = [
 ];
 
 /**
- * Callback to validate that a keyword is correct
+ * Get type from arguments
  */
 const cb: BranchCallback<CallRoutineToken, PopulateTypeHandlerMeta> = (
   token,

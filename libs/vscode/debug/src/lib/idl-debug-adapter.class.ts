@@ -860,41 +860,54 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
       // set and verify breakpoint locations
       try {
-        // remove all breakpoints for our file
-        await this._runtime.clearBreakpoints(file);
-
         // reset tracked information
         this.breakpoints[file] = {};
 
-        // initialize the breakpoints we have set
-        const breakpoints: Breakpoint[] = [];
-
-        // set all of our breakpoints
         for (let i = 0; i < lines.length; i++) {
-          // get line for debugger
-          const line = this.convertClientLineToDebugger(lines[i]);
-
-          // save that we have "set" this breakpoint
-          this.breakpoints[file][line] = true;
-
-          // get the breakpoint for our file
-          const info = await this.setBreakpoint(file, line);
-
-          // save breakpoint
-          breakpoints.push(
-            new Breakpoint(
-              true,
-              this.convertDebuggerLineToClient(info.line),
-              undefined,
-              new Source(IDLDebugAdapter.name, file)
-            )
-          );
+          this.breakpoints[file][lines[i]] = false;
         }
 
-        // send back the actual breakpoint positions
-        response.body = {
-          breakpoints,
-        };
+        if (!this._runtime.started) {
+          response.body = {
+            breakpoints: [],
+          };
+        } else {
+          // remove all breakpoints for our file
+          await this._runtime.clearBreakpoints(file);
+
+          // reset tracked information
+          this.breakpoints[file] = {};
+
+          // initialize the breakpoints we have set
+          const breakpoints: Breakpoint[] = [];
+
+          // set all of our breakpoints
+          for (let i = 0; i < lines.length; i++) {
+            // get line for debugger
+            const line = this.convertClientLineToDebugger(lines[i]);
+
+            // save that we have "set" this breakpoint
+            this.breakpoints[file][line] = true;
+
+            // get the breakpoint for our file
+            const info = await this.setBreakpoint(file, line);
+
+            // save breakpoint
+            breakpoints.push(
+              new Breakpoint(
+                true,
+                this.convertDebuggerLineToClient(info.line),
+                undefined,
+                new Source(IDLDebugAdapter.name, file)
+              )
+            );
+          }
+
+          // send back the actual breakpoint positions
+          response.body = {
+            breakpoints,
+          };
+        }
       } catch (err) {
         IDL_LOGGER.log({
           log: IDL_DEBUG_ADAPTER_LOG,

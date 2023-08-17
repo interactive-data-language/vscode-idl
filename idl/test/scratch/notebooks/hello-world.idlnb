@@ -1,1 +1,103 @@
-{"version":"1.0.0","cells":[{"type":"code","content":"OysKOyA6RGVzY3JpcHRpb246CjsgICBDZWxscyB3aXRoIHJvdXRpbmUgZGVmaW5pdGlvbnMgYXJlIGNvbXBpbGVkLCBidXQKOyAgIG5vdCBleGVjdXRlZAo7CjstCnBybyB0ZXN0CiAgY29tcGlsZV9vcHQgaWRsMgoKICBwcmludCwgNDIKZW5k","metadata":{},"outputs":[]},{"type":"code","content":"OysKOyBNYWluIGxldmVsIHByb2dyYW1zIGFyZSBleGVjdXRlZCBpZiB0aGV5IGV4aXN0IGFuZCwgaWYgYSByb3V0aW5lIGRlZmluaXRpb24KOyBoYXMgYSBtYWluIGxldmVsIHByb2dyYW0gYXQgdGhlIGVuZCwgdGhlbiB3ZSB3aWxsIHJ1biB0aGF0CjstCgpjb21waWxlX29wdCBpZGwyCgpwcmludCwgNQoKZW5k","metadata":{},"outputs":[]},{"type":"code","content":"OysKOyA6RGVzY3JpcHRpb246CjsgICBFeGFtcGxlIGNlbGwgd2l0aCBhIG1haW4gbGV2ZWwgcHJvZ3JhbSBhbmQgZnVuY3Rpb24gZGVmaW5pdGlvbgo7CjsgOlJldHVybnM6IGFueQo7CjstCmZ1bmN0aW9uIGZvbwogIGNvbXBpbGVfb3B0IGlkbDIKICByZXR1cm4sIDQyCmVuZAoKcHJpbnQsIGZvbygpCgplbmQ=","metadata":{},"outputs":[]},{"type":"code","content":"OysKOyBDZWxscyBkb24ndCBuZWVkIHRvIGhhdmUgYGNvbXBpbGVfb3B0IGlkbDJgIG9yIGFuIGBlbmRgCjsgc3RhdGVtZW50IGlmIHRoZXkgYXJlIGNvZGUgYmxvY2tzIHdpdGhvdXQgcm91dGluZSBkZWZpbml0aW9ucwo7CjsgV2UgYXV0b21hdGljYWxseSBzZXQgYGNvbXBpbGVfb3B0IGlkbDJgIGFuZCBhZGQgYW4gYGVuZGAgaWYgaXQKOyBpcyBtaXNzaW5nCjstCgphcnIgPSBmaW5kZ2VuKDQyKQpoZWxwLCBhcnI=","metadata":{},"outputs":[]},{"type":"code","content":"OysKOyBBbGwgZnVuY3Rpb24gZ3JhcGhpY3Mgb3V0cHV0cyBhcmUgY2FwdHVyZWQgYW5kIHJlbmRlcmVkIGluIHRoZSBub3RlYm9vawo7LQoKOyBtYWtlIHNvbWUgcGxvdHMhCnAxID0gcGxvdCgvdGVzdCkKcDIgPSBzdXJmYWNlKC90ZXN0KQpwMyA9IGJ1YmJsZXBsb3QoL3Rlc3QpCnA0ID0gYmFycGxvdCgvdGVzdCk=","metadata":{},"outputs":[]}]}
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; :Description:",
+        ";   Cells with routine definitions are compiled, but",
+        ";   not executed",
+        ";",
+        ";-",
+        "pro test",
+        "  compile_opt idl2",
+        "",
+        "  print, 42",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "print, routine_filepath()"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Main level programs are executed if they exist and, if a routine definition",
+        "; has a main level program at the end, then we will run that",
+        ";-",
+        "",
+        "compile_opt idl2",
+        "",
+        "print, 5",
+        "",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; :Description:",
+        ";   Example cell with a main level program and function definition",
+        ";",
+        "; :Returns: any",
+        ";",
+        ";-",
+        "function foo",
+        "  compile_opt idl2",
+        "  return, 42",
+        "end",
+        "",
+        "print, foo()",
+        "",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Cells don't need to have `compile_opt idl2` or an `end`",
+        "; statement if they are code blocks without routine definitions",
+        ";",
+        "; We automatically set `compile_opt idl2` and add an `end` if it",
+        "; is missing",
+        ";-",
+        "",
+        "arr = findgen(42)",
+        "help, arr"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; All function graphics outputs are captured and rendered in the notebook",
+        ";-",
+        "",
+        "; make some plots!",
+        "p1 = plot(/test)",
+        "p2 = surface(/test)",
+        "p3 = bubbleplot(/test)",
+        "p4 = barplot(/test)"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

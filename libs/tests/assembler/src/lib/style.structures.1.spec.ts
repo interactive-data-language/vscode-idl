@@ -283,4 +283,105 @@ describe(`[auto generated] Verify structures`, () => {
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expectedProblems);
   });
+
+  it(`[auto generated] structure with line continuations regression`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `  compile_opt idl2, hidden`,
+      `!null = {IDLNotebook, $`,
+      `  _foo: 5}`,
+      ``,
+      `  !null = $`,
+      `    {IDLNotebook, $`,
+      `      _foo: 5}`,
+      ``,
+      `  !null = { $`,
+      `    _foo: 5}`,
+      ``,
+      `  !null = $`,
+      `  { $`,
+      ` _foo: 5}`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode('my_file.pro', code, {
+      postProcess: true,
+    });
+
+    // extract token names
+    const tokenizedNames = GetTokenNames(tokenized);
+
+    // format code
+    const formatted = Assembler(tokenized, {
+      autoFix: false,
+      formatter: 'fiddle',
+    });
+
+    // verify formatting
+    if (formatted === undefined) {
+      expect(formatted).toEqual(undefined);
+    } else {
+      // define expected problems
+      const expectedFormatting: string[] = [
+        `compile_opt idl2, hidden`,
+        `!null = {IDLNotebook, $`,
+        `  _foo: 5}`,
+        ``,
+        `!null = $`,
+        `  {IDLNotebook, $`,
+        `    _foo: 5}`,
+        ``,
+        `!null = { $`,
+        `  _foo: 5}`,
+        ``,
+        `!null = $`,
+        `  { $`,
+        `    _foo: 5}`,
+        `end`,
+      ];
+
+      // verify formatting
+      expect(formatted.split(`\n`)).toEqual(expectedFormatting);
+
+      // parse formatted code
+      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
+        postProcess: true,
+      });
+
+      // make sure the syntax trees are the same as they were before
+      expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
+    }
+
+    // define expected problems
+    const expectedProblems: SyntaxProblems = [
+      {
+        code: 77,
+        info: 'No matching structure/object/class definition for structure named "IDLNotebook"',
+        start: [1, 9, 11],
+        end: [1, 9, 11],
+      },
+      {
+        code: 77,
+        info: 'No matching structure/object/class definition for structure named "IDLNotebook"',
+        start: [5, 5, 11],
+        end: [5, 5, 11],
+      },
+    ];
+
+    // verify problems
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expectedProblems);
+  });
 });

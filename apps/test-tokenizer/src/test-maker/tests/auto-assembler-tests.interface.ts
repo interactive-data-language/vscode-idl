@@ -821,6 +821,30 @@ export const AUTO_ASSEMBLER_TESTS: IAutoAssemblerTest[] = [
     ],
   },
   {
+    suiteName: `Generate structure docs`,
+    fileName: `auto-doc.structures.2.spec.ts`,
+    tests: [
+      {
+        name: `and verify spacing for empty structures`,
+        code: [
+          `pro pro4__define`,
+          `  compile_opt idl2`,
+          ``,
+          `  !null = {struct1}`,
+          ``,
+          `  !null = {struct2}`,
+          ``,
+          `  !null = {struct3, prop: 'socool'}`,
+          ``,
+          `end`,
+        ],
+        config: {
+          autoDoc: true,
+        },
+      },
+    ],
+  },
+  {
     suiteName: `Keep tokens after main level programs`,
     fileName: `format.after-main.spec.ts`,
     tests: [
@@ -3119,6 +3143,26 @@ export const AUTO_ASSEMBLER_TESTS: IAutoAssemblerTest[] = [
           `   RIGHT_MEANS: ptrarr(mapDims) $`,
           `  }`,
           ``,
+          `end`,
+        ],
+      },
+      {
+        name: `structure with line continuations regression`,
+        code: [
+          `  compile_opt idl2, hidden`,
+          `!null = {IDLNotebook, $`,
+          `  _foo: 5}`,
+          ``,
+          `  !null = $`,
+          `    {IDLNotebook, $`,
+          `      _foo: 5}`,
+          ``,
+          `  !null = { $`,
+          `    _foo: 5}`,
+          ``,
+          `  !null = $`,
+          `  { $`,
+          ` _foo: 5}`,
           `end`,
         ],
       },

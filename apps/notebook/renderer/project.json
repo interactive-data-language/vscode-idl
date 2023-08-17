@@ -1,0 +1,70 @@
+{
+  "name": "notebook-renderer",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/notebook/renderer/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/notebook/renderer",
+        "main": "apps/notebook/renderer/src/main.ts",
+        "tsConfig": "apps/notebook/renderer/tsconfig.app.json",
+        "assets": ["apps/notebook/renderer/src/assets"],
+        "externalDependencies": "none",
+        "target": "web",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "optimization": false,
+          "extractLicenses": false,
+          "inspect": false,
+          "vendorChunk": false,
+          "commonChunk": false,
+          "runtimeChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "notebook-renderer:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "notebook-renderer:build:development"
+        },
+        "production": {
+          "buildTarget": "notebook-renderer:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/notebook/renderer/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/notebook/renderer/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

@@ -547,13 +547,17 @@ export interface ITranslation {
   };
   /** Translations for notebooks */
   notebooks: {
-    /** title of notebooks */
+    /** Title of notebooks */
     title: string;
+    /** Title of notebook renderer */
+    renderer: string;
     /** Name of the notebook controller */
     controller: string;
     errors: {
       /** Bad notebook file */
-      invalidNotebook: string;
+      errorParsing: string;
+      /** When we fail to load outputs */
+      errorLoadOutputs: string;
       /** Error while saving notebook file */
       errorSaving: string;
       /** IDL doesn't start in the notebook */
@@ -564,6 +568,8 @@ export interface ITranslation {
       crashed: string;
       /** Error while trying to get graphics */
       checkingGraphics: string;
+      /** Problem with message from renderer being handled */
+      handlingMessageFromRenderer: string;
     };
     /** Notifications for working with notebooks */
     notifications: {
@@ -730,6 +736,8 @@ export interface ITranslation {
       procedureMethod: string;
       /** Keywords */
       keyword: string;
+      /** Structure name */
+      structure: string;
     };
   };
   /** Messages from generators */

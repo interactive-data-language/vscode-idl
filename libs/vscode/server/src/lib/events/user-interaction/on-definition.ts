@@ -27,6 +27,16 @@ export async function GetTokenDefinitionLocation(
     return undefined;
   }
 
+  // return if not a file we can process
+  if (
+    !(
+      IDL_INDEX.isPROCode(info.fsPath) ||
+      IDL_INDEX.isIDLNotebookFile(info.fsPath)
+    )
+  ) {
+    return undefined;
+  }
+
   // attempt to get the definition of our token
   const def = await IDL_INDEX.getTokenDef(
     info.fsPath,

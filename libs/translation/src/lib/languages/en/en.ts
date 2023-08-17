@@ -179,7 +179,7 @@ export const EN: ITranslation = {
       'IDL.directory':
         "Specify the folder with IDL's executable (bin directory with idl.exe or idl).",
       'IDL.path':
-        "Specify additional directories to add to IDL's search path. Add a '+' before the folder to include subdirectories.",
+        "Specify additional directories to add to IDL's search path. Add a '+' before the folder to include subdirectories.\n\nAny folders added to the path are not watched for file changes unless you edit the files within the VSCode UI.",
       'IDL.addWorkspaceFoldersToPath':
         "Specify whether to automatically include the workspace folders to IDL's search path.",
       'IDL.appendOrPrependWorkspaceFolders':
@@ -328,7 +328,7 @@ export const EN: ITranslation = {
       start: 'Launching IDL!',
       restart: 'Restarting IDL!',
       stop: 'Stopping IDL session',
-      failedStart: 'Failed to start IDL :(',
+      failedStart: 'Failed to start IDL, message:',
       crashed: 'IDL crashed or was stopped by the user :(',
       noIDLDir: 'The IDL directory has not been configured, cannot start',
       breakpointSetFailed: 'Error setting breakpoints for file',
@@ -535,7 +535,7 @@ export const EN: ITranslation = {
         'Failed to run change detection and post-process file(s)',
     },
     events: {
-      onCompletion: 'Problem resolving hover help',
+      onCompletion: 'Problem resolving auto complete',
       onDefinition: 'Problem finding token definition',
       onDocumentFormatting: 'Problem formatting file',
       onDocumentFormattingProblemCode:
@@ -583,15 +583,20 @@ export const EN: ITranslation = {
   },
   notebooks: {
     title: 'IDL: Notebook',
+    renderer: 'IDL: Notebook Renderer',
     controller: 'IDL',
     errors: {
-      invalidNotebook: 'Unable to parse notebook file',
+      errorParsing: 'Unable to parse notebook file',
+      errorLoadOutputs:
+        'Error while loading outputs from notebook cells, please re-run cells to generate outputs',
       errorSaving: 'Unknown error while saving notebook file',
       failedStart: 'The IDL kernel failed to start',
       failedExecute: 'Failed to execute notebook cells',
       crashed:
         'IDL crashed or was stopped by the user and needs to be restarted',
       checkingGraphics: 'Error while trying to retrieve any graphics to embed',
+      handlingMessageFromRenderer:
+        'Error while responding to message from notebook renderer',
     },
     notifications: {
       startingIDL: 'Starting IDL, please wait...',
@@ -806,6 +811,7 @@ export const EN: ITranslation = {
       functionMethod: 'Function Method',
       procedureMethod: 'Procedure Method',
       keyword: 'Keyword',
+      structure: 'Structure',
     },
   },
   generators: {

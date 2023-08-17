@@ -1,0 +1,22 @@
+{
+  "tabWidth": 2,
+  "style": {
+    "quotes": "single",
+    "methods": "dot",
+    "keywords": "lower",
+    "properties": "lower",
+    "control": "lower",
+    "numbers": "lower",
+    "hex": "lower",
+    "octal": "lower",
+    "binary": "lower",
+    "routines": "match",
+    "systemVariables": "lower",
+    "localVariables": "match"
+  },
+
+  
+  "autoFix": true,
+  "autoDoc": true,
+  "styleAndFormat": true
+}

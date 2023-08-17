@@ -1,9 +1,12 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
+import { NotebookFormats_1_0_0 } from './notebook-formats-1.0.0';
+import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { RunNotebookRestart } from './notebook-restart';
 import { RunNotebookStop } from './notebook-stop';
+import { RunTestENVIMapNotebook } from './run-test-envi-map-notebook';
 import { RunTestENVINotebook } from './run-test-envi-notebook';
 import { RunTestNotebook } from './run-test-notebook';
 import { SaveAndClearNotebook } from './save-and-clear-output';
@@ -24,6 +27,18 @@ export const NOTEBOOK_TEST_LOGGER = new Logger(
 export const NOTEBOOK_RUNNER = new Runner(NOTEBOOK_TEST_LOGGER);
 
 NOTEBOOK_RUNNER.addTest({
+  name: 'Make sure we properly open format 1.0.0',
+  fn: NotebookFormats_1_0_0,
+  critical: true,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Make sure we properly open format 2.0.0',
+  fn: NotebookFormats_2_0_0,
+  critical: true,
+});
+
+NOTEBOOK_RUNNER.addTest({
   name: 'Run notebook that tests everything',
   fn: RunTestNotebook,
   critical: true,
@@ -40,6 +55,12 @@ NOTEBOOK_RUNNER.addTest({
   fn: RunTestENVINotebook,
 });
 
+// can run ENVI map notebook
+NOTEBOOK_RUNNER.addTest({
+  name: 'Notebook maps through ENVI run and basic checks outputs are right',
+  fn: RunTestENVIMapNotebook,
+});
+
 // reset goes first
 NOTEBOOK_RUNNER.addTest({
   name: 'Reset does the right thing',
@@ -54,7 +75,7 @@ NOTEBOOK_RUNNER.addTest({
   critical: true,
 });
 
-// stop at the end to make sure the process exits
+// notebook problems track right
 NOTEBOOK_RUNNER.addTest({
   name: 'Notebook problems track right',
   fn: NotebookProblemsTrackRight,

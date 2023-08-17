@@ -62,7 +62,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
    * Attempt to spawn node
    */
   try {
-    nodeOutput = execSync(`node --version`, { timeout: 250 })
+    nodeOutput = execSync(`node --version`, { timeout: 1000 })
       .toString('utf8')
       .trim();
     HAS_NODE = true;

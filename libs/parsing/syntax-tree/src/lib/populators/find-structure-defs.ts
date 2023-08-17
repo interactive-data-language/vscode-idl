@@ -16,6 +16,17 @@ import { FindAllBranchChildren } from '../helpers/searching/find-all-branch-chil
 import { FindDirectBranchChildren } from '../helpers/searching/find-direct-branch-children';
 
 /**
+ * Tokens that we don't search for
+ */
+const SKIP_THESE: { [key: string]: any } = {};
+SKIP_THESE[TOKEN_NAMES.CALL_FUNCTION] = true;
+SKIP_THESE[TOKEN_NAMES.CALL_FUNCTION_METHOD] = true;
+SKIP_THESE[TOKEN_NAMES.CALL_PROCEDURE] = true;
+SKIP_THESE[TOKEN_NAMES.CALL_PROCEDURE_METHOD] = true;
+SKIP_THESE[TOKEN_NAMES.CALL_LAMBDA_FUNCTION] = true;
+SKIP_THESE[TOKEN_NAMES.STRUCTURE_PROPERTY] = true;
+
+/**
  * Finds all named structures within a procedure and returns an array of global tokens
  */
 export function FindStructureDefs(
@@ -40,7 +51,11 @@ export function FindStructureDefs(
   }
 
   /** Find all named structures */
-  const structs = FindAllBranchChildren(token, TOKEN_NAMES.STRUCTURE_NAME);
+  const structs = FindAllBranchChildren(
+    token,
+    TOKEN_NAMES.STRUCTURE_NAME,
+    SKIP_THESE
+  );
 
   // process each structure
   for (let i = 0; i < structs.length; i++) {

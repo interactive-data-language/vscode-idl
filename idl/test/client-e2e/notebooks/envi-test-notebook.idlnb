@@ -1,0 +1,183 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "; start ENVI headlessly",
+        "e = envi(/headless)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; open a sample raster",
+        "file = filepath('qb_boulder_msi', subdir = ['data'], $",
+        "  root_dir = e.root_dir)",
+        "raster = e.openRaster(File)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Display raster in notebook",
+        "; ",
+        "; We automatically try to pick thre RGB bands and stretch the result for a quick and",
+        "; easy visualization",
+        ";-",
+        "e.displayInNotebook, raster"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; For rasters with 12 or fewer bands, create and embed a band animation in your notebook",
+        "; ",
+        "; WARNING: this can result in large notebooks so be cautious about datsets with many bands ",
+        ";-",
+        "e.bandAnimateInNotebook, raster"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; To zoom in on a portion of a raster, use the ENVISubsetRaster function with a bounding box",
+        "; ",
+        "; As is the pattern with remote sensing, [0,0] is the top-left of the image and the coordinates",
+        "; are of the form [upper left column, upper left row, lower right column, lower right row]",
+        "; ",
+        "; Stretch is applied on the data in the view, so if you have only light or dark pixels, then it",
+        "; may look a little funny",
+        ";-",
+        "e.displayInNotebook, ENVISubsetRaster(raster, sub_rect = [700, 450, 850, 600])"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Run an ENVI Task",
+        ";-",
+        "",
+        "; create a task and display",
+        "isoTask = ENVITask('ISODATAClassification')",
+        "isoTask.input_raster = raster",
+        "isoTask.execute"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Display task result in cell",
+        ";-",
+        "e.displayInNotebook, isoTask.output_raster"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Display input and output in same cell",
+        ";-",
+        "e.displayInNotebook, [raster, isoTask.output_raster]"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; MNF and visualize all bands",
+        ";-",
+        "",
+        "; create a task and display",
+        "mnfTask = ENVITask('ForwardMNFTransform')",
+        "mnfTask.input_raster = raster",
+        "mnfTask.execute"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; View MNF band animation",
+        "; ",
+        "; WARNING: this can result in large notebooks so be cautious about datsets with many bands ",
+        ";-",
+        "e.bandAnimateInNotebook, mnfTask.output_raster"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Open a raster series",
+        ";-",
+        "",
+        "; raster series file",
+        "seriesFile = filepath('AirTemp.series', subdir = ['data', 'time_series'], $",
+        "  root_dir = e.root_dir)",
+        "",
+        "; create a raster series",
+        "series = ENVIRasterSeries(seriesFile)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Display raster series in notebook",
+        "; ",
+        "; WARNING: this can result in large notebooks so be cautious about series with many rasters",
+        "; ",
+        "; All rasters in your raster series should line up with one another. If not, use RegridRasterSeries before",
+        "; calling this.",
+        ";-",
+        "e.displayInNotebook, series"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; specify HSI file",
+        "file = filepath('AVIRISReflectanceSubset.dat', subdir = ['data', 'hyperspectral'], $",
+        "  root_dir = e.root_dir)",
+        "",
+        "; open HSI dataset",
+        "HSIRaster = e.openRaster(file)",
+        "",
+        "; create a spectral data cube and display",
+        "e.displayRasterCubeInNotebook, HSIRaster"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "e = envi(/headless)",
+        "",
+        "; Open a file",
+        "rasterFile = filepath('qb_boulder_msi', root_dir = e.root_dir, $",
+        "  subdirectory = ['data'])",
+        "raster = e.openRaster(rasterFile)",
+        "",
+        "; Select input ROIs",
+        "roiFile = filepath('qb_boulder_roi.xml', subdir = ['data'], $",
+        "  root_dir = e.root_dir)",
+        "rois = e.openROI(roiFile)",
+        "",
+        "; Open a shapefile",
+        "vectorFile = filepath('lakes.shp', root_dir = e.root_dir, $",
+        "  subdirectory = ['data', 'natural_earth_vectors'])",
+        "vector = e.openVector(vectorFile)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; display raster",
+        "ENVI.displayInNotebookMap, raster"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; add multiple rois",
+        "ENVI.displayInNotebookMap, rois"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; add a single ROI",
+        "ENVI.displayInNotebookMap, rois[0]"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; add vector and specify color",
+        "ENVI.displayInNotebookMap, vector, orderedhash('color', [255,0,0,125])"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; create an empty map",
+        "IDLNotebook.AddToNotebook, {IDLNotebookMap}"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; display geojson from a string",
+        "geojsonOutline = raster.getOutline(3857)",
+        "ENVI.displayInNotebookMap, geojsonOutline"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; display more than one layer at a time, order is preserved",
+        "ENVI.displayInNotebookMap, raster",
+        "ENVI.displayInNotebookMap, rois"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; display geojson from a file",
+        "; myGeojsonFile = 'C:\\myFile.json'",
+        "; if ~file_test(myGeojsonFile) then message, 'No file, no map!'",
+        "; IDLNotebook.AddToNotebookMap, myGeojsonFile, /is_geojson_uri",
+        "; ENVI.displayInNotebookMap, myGeojsonFile, /is_geojson_uri"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

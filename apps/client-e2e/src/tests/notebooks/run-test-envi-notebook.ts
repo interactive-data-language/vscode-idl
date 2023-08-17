@@ -1,4 +1,5 @@
 import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
+import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/notebooks/types';
 import { GetExtensionPath, Sleep } from '@idl/shared';
 import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
@@ -6,13 +7,13 @@ import { existsSync, rmSync } from 'fs';
 import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
-import { CompareCells } from './helpers/compare-cells';
-import { ICompareCells } from './helpers/compare-cells.interface';
+import { CompareCellOutputs } from './helpers/compare-cells';
+import { ICompareCellOutputs } from './helpers/compare-cells.interface';
 
 /**
  * Types of outputs from cells that we expect to have
  */
-export const CELL_OUTPUT: ICompareCells[] = [
+export const CELL_OUTPUT: ICompareCellOutputs[] = [
   {
     idx: 0,
     success: true,
@@ -26,17 +27,17 @@ export const CELL_OUTPUT: ICompareCells[] = [
   {
     idx: 2,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 3,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 4,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 5,
@@ -46,12 +47,12 @@ export const CELL_OUTPUT: ICompareCells[] = [
   {
     idx: 6,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 7,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 8,
@@ -61,7 +62,7 @@ export const CELL_OUTPUT: ICompareCells[] = [
   {
     idx: 9,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 10,
@@ -71,12 +72,12 @@ export const CELL_OUTPUT: ICompareCells[] = [
   {
     idx: 11,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
   {
     idx: 12,
     success: true,
-    mimeTypes: ['text/html'],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
 ];
 
@@ -87,7 +88,9 @@ export const RunTestENVINotebook: RunnerFunction = async (init) => {
   /**
    * Get the file we are going to open
    */
-  const file = GetExtensionPath('idl/test/client-e2e/envi-test-notebook.idlnb');
+  const file = GetExtensionPath(
+    'idl/test/client-e2e/notebooks/envi-test-notebook.idlnb'
+  );
 
   // nuke .idl folder if it exists
   if (existsSync(NOTEBOOK_FOLDER)) {
@@ -115,7 +118,7 @@ export const RunTestENVINotebook: RunnerFunction = async (init) => {
   await Sleep(100);
 
   // compare cells
-  CompareCells(nb, CELL_OUTPUT);
+  CompareCellOutputs(nb, CELL_OUTPUT);
 
   // clear any existing outputs
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
