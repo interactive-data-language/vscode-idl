@@ -70,6 +70,11 @@ export function GetSemanticTokens(parsed: IParsed): SemanticTokens {
     }
   }
 
+  // if no tokens return
+  if (tokens.length === 0) {
+    return undefined;
+  }
+
   /**
    * Sort semantic tokens by line and start position on that line
    *
@@ -89,8 +94,5 @@ export function GetSemanticTokens(parsed: IParsed): SemanticTokens {
     );
   }
 
-  return {
-    resultId: parsed.checksum,
-    data: builder.build().data,
-  };
+  return builder.build();
 }
