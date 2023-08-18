@@ -51,7 +51,6 @@ export function GetSemanticTokens(parsed: IParsed): SemanticTokens {
 
         // set highlighting at position
         for (let z = 0; z < positions.length; z++) {
-          console.log(positions[z]);
           // we use -1 as a position when not in our notebook cell
           if (positions[z][0] === -1) {
             continue;
