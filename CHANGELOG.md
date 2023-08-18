@@ -52,6 +52,8 @@ Fixed a bug where notebook cells would sometimes process in the wrong worker thr
 
 Fixed a bug where semantic tokens (highlighting static class references) was wrong when tokens were built out of order from top down and left to right
 
+Added a new problem code that detects when the IDL include statement creates a circular include pattern
+
 ## 3.2.0 August 2023
 
 When the language server does not use a full parse, extract structure definitions. Before, this was a logic gap (and made the code faster), but they should be correctly resolved now with minimal performance hits.
