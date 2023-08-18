@@ -121,6 +121,12 @@ export function PopulateNotebookVariables(
           // copy
           ourMain[otherVarName] = copy(otherMain[otherVarName]);
 
+          // reset usage
+          const usage = ourMain[otherVarName].meta.usage;
+          for (let z = 0; z < usage.length; z++) {
+            usage[z] = [-1, -1, -1];
+          }
+
           // update location
           ourMain[otherVarName].file = files[i];
           ourMain[otherVarName].filePos = otherMain[otherVarName].pos;
