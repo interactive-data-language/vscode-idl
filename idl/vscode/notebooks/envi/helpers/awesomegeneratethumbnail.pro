@@ -78,8 +78,7 @@ pro AwesomeGenerateThumbnail, $
   if (nChannels gt 1) then pixelState = total(pixelState, 3, /integer)
 
   ; Assign bad pixels to alpha band
-  alpha = ((nChannels gt 1) ? total(pixelState, 3, /integer) : pixelState) eq 0
-  alpha *= 255b
+  alpha = (pixelState eq 0) * 255b
 
   ; Dealing with images that have a colormap
   inputRaster.GetProperty, colormap = colormap
