@@ -90,7 +90,7 @@ export function GetSemanticTokens(parsed: IParsed): SemanticTokens {
   }
 
   return {
-    // resultId: parsed.checksum,
+    resultId: parsed.checksum,
     data: builder.build().data,
   };
 }
