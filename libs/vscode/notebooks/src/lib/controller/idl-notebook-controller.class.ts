@@ -269,9 +269,9 @@ export class IDLNotebookController {
 
     // check if we need to look for magic
     if (magic) {
-      try {
-        const output = await this.evaluate(`IDLNotebook.Export`);
+      const output = await this.evaluate(`IDLNotebook.Export`);
 
+      try {
         // get exported items
         const exported: IDLNotebookEmbeddedItems = JSON.parse(
           CleanIDLOutput(output)
@@ -287,7 +287,11 @@ export class IDLNotebookController {
         IDL_LOGGER.log({
           type: 'error',
           log: IDL_NOTEBOOK_LOG,
-          content: [IDL_TRANSLATION.notebooks.errors.checkingGraphics, err],
+          content: [
+            IDL_TRANSLATION.notebooks.errors.checkingGraphics,
+            err,
+            output.replace(/\r*\n/g, '\n'),
+          ],
           alert: IDL_TRANSLATION.notebooks.errors.checkingGraphics,
         });
       }
