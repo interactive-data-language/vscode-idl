@@ -19,4 +19,22 @@ export const AUTO_SEMANTIC_TOKEN_TESTS: IAutoTest[] = [
       },
     ],
   },
+  {
+    suiteName: `Extracts semantic tokens`,
+    fileName: `complex.spec.ts`,
+    tests: [
+      {
+        name: `for complex case with out-of order and same ref`,
+        code: [
+          `compile_opt idl2`,
+          `IDLgrVolume.AddToNotebookMap`,
+          `!null = ENVI.displayinnotebookmap + ENVI.api_version`,
+          ``,
+          `IDLgrVolume.AddToNotebookMap`,
+          `ENVI.displayInNotebookMap`,
+          `end`,
+        ],
+      },
+    ],
+  },
 ];

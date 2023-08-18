@@ -46,6 +46,12 @@ Here are some of the features that notebooks bring:
 
 Resolve a problem with the language server where you can get into an infinite loop trying to resolve include statements in IDL when they depend on each other
 
+Fix an issue where, if you have the same folder or sub folder on IDL's path and in an open workspace, then you would get duplicate problems being reported. We now get the unique files from all folders on startup at once to resolve this.
+
+Fixed a bug where notebook cells would sometimes process in the wrong worker thread, causing inconsistencies with things like semantic tokens.
+
+Fixed a bug where semantic tokens (highlighting static class references) was wrong when tokens were built out of order from top down and left to right
+
 ## 3.2.0 August 2023
 
 When the language server does not use a full parse, extract structure definitions. Before, this was a logic gap (and made the code faster), but they should be correctly resolved now with minimal performance hits.
