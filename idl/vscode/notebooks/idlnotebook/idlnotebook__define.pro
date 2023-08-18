@@ -395,6 +395,7 @@ pro IDLNotebook::Reset
   ; clean up our objects
   !idlnotebookmagic.items.remove, /all
   !idlnotebookmagic.graphics.remove, /all
+  !idlnotebookmagic.mapitems.remove, /all
 
   ; clear any IDs for the window that we have currently embedded
   !magic.window = -1
