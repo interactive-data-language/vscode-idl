@@ -1171,7 +1171,7 @@ export class IDLIndex {
          */
         if (this.isMultiThreaded()) {
           return this.indexerPool.workerio.postAndReceiveMessage(
-            this.getWorkerID(file),
+            this.getWorkerID(base),
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
             {
               file,
