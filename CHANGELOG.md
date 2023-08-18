@@ -54,6 +54,8 @@ Fixed a bug where semantic tokens (highlighting static class references) was wro
 
 Added a new problem code that detects when the IDL include statement creates a circular include pattern
 
+Fixed a bug with semantic tokens in notebooks where the text would be highlighted as a semantic token in cells that don't have any semantic tokens
+
 ## 3.2.0 August 2023
 
 When the language server does not use a full parse, extract structure definitions. Before, this was a logic gap (and made the code faster), but they should be correctly resolved now with minimal performance hits.
