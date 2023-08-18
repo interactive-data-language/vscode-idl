@@ -44,7 +44,6 @@ export function GetSemanticTokens(parsed: IParsed): SemanticTokens {
     for (let j = 0; j < vars.length; j++) {
       // check for static class
       if (vars[j].meta.isStaticClass) {
-        console.log(vars[j].meta);
         /**
          * Get all positions that the variable is used
          */
