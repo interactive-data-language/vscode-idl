@@ -9,14 +9,14 @@ import { ImageComponent } from './image/image.component';
 import { ImageAnimatorComponent } from './image-animator/image-animator.component';
 import { MapComponent } from './map/map.component';
 import { MapPropertySheetComponent } from './map/map-property-sheet/map-property-sheet.component';
-import { Plot2DComponent } from './plot2d/plot2d.component';
+import { PlotComponent } from './plot/plot.component';
 
 @NgModule({
   declarations: [
     EntryComponent,
     ImageComponent,
     ImageAnimatorComponent,
-    Plot2DComponent,
+    PlotComponent,
     MapComponent,
     MapPropertySheetComponent,
   ],
@@ -30,7 +30,7 @@ import { Plot2DComponent } from './plot2d/plot2d.component';
     EntryComponent,
     ImageComponent,
     ImageAnimatorComponent,
-    Plot2DComponent,
+    PlotComponent,
     MapComponent,
     MapPropertySheetComponent,
   ],

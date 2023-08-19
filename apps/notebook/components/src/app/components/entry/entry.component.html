@@ -14,10 +14,10 @@
 
     <idl-nb-map *ngSwitchCase="'idlnotebookmap'" [embed]="embed"></idl-nb-map>
 
-    <idl-nb-plot2d
-      *ngSwitchCase="'idlnotebookplot2d'"
+    <idl-nb-plot
+      *ngSwitchCase="'idlnotebookplot'"
       [embed]="embed"
-    ></idl-nb-plot2d>
+    ></idl-nb-plot>
 
     <div *ngSwitchDefault>
       <p>Unhandled embed type of "{{ embed.type }}"</p>

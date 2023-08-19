@@ -189,7 +189,7 @@ pro IDLNotebook::AddToNotebook, item
     ;+
     ; Check for 2D plot
     ;-
-    isa(item, 'IDLNotebookPlot2D'): IDLNotebookPlot2D._AddToNotebook, item
+    isa(item, 'IDLNotebookPlot'): IDLNotebookPlot._AddToNotebook, item
 
     ;+
     ; Throw error because we don't know what we are adding or handling
@@ -311,7 +311,6 @@ pro IDLNotebook::Export
   catch, err
   if (err ne 0) then begin
     catch, /cancel
-    help, /last_message
     message, /reissue_last
   endif
 
@@ -475,5 +474,5 @@ pro IDLNotebook__define
   ; load all other structures
   IDLNotebookImage__define
   IDLNotebookMap__define
-  IDLNotebookPlot2D__define
+  IDLNotebookPlot__define
 end

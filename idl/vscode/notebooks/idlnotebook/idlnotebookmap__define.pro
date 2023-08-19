@@ -10,6 +10,9 @@ function IDLNotebookMap::_CreateNotebookItem, val
   compile_opt idl2, hidden, static
   on_error, 2
 
+  ;+
+  ; See what we are trying to add to our map
+  ;-
   case (!true) of
     ;+
     ; Handle raw GeoJSON
@@ -156,6 +159,10 @@ function IDLNotebookMap::_CreateNotebookItem, val
       ; save because we are OK!
       return, IDLNotebook._CreateNotebookItem(newItem)
     end
+
+    ;+
+    ; Unknown data type that we can't handle
+    ;-
     else: begin
       message, 'Found an unsupported data type in list of items to add to map', level = -1
     end

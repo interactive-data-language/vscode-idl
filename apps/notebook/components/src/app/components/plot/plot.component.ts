@@ -6,24 +6,25 @@ import {
   SkipSelf,
   ViewChild,
 } from '@angular/core';
-import { IDLNotebookPlot2D } from '@idl/notebooks/types';
+import { IDLNotebookPlot } from '@idl/notebooks/types';
 import Chart from 'chart.js/auto';
 
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
+import { CreatePlots } from './helpers/create-plots';
 
 /**
  * ID for notebook image selector
  */
-export const IDL_NB_PLOT2D_COMPONENT_SELECTOR = 'idl-nb-plot2d';
+export const IDL_NB_PLOT_COMPONENT_SELECTOR = 'idl-nb-plot';
 
 /**
  * Component that creates a 2D line plot from data
  */
 @Component({
-  selector: 'idl-nb-plot2d',
-  templateUrl: './plot2d.component.html',
+  selector: 'idl-nb-plot',
+  templateUrl: './plot.component.html',
   styles: [
     `
       .chart-container {
@@ -33,8 +34,8 @@ export const IDL_NB_PLOT2D_COMPONENT_SELECTOR = 'idl-nb-plot2d';
     `,
   ],
 })
-export class Plot2DComponent
-  extends BaseRendererComponent<IDLNotebookPlot2D>
+export class PlotComponent
+  extends BaseRendererComponent<IDLNotebookPlot>
   implements AfterViewInit, OnDestroy
 {
   /**
@@ -90,21 +91,8 @@ export class Plot2DComponent
   ngAfterViewInit() {
     if (this.hasData) {
       this.chart = new Chart(this.canvas.nativeElement, {
-        type: 'scatter',
         data: {
-          datasets: [
-            {
-              label: 'Test',
-              data: this._embed.item.y.map((y, idx) => {
-                return { x: this._embed.item.x[idx], y };
-              }),
-              showLine: true,
-              // pointRadius: 0,
-              pointStyle: 'triangle',
-              pointBorderColor: 'red',
-              pointBackgroundColor: 'red',
-            },
-          ],
+          datasets: CreatePlots(this._embed),
         },
         options: {
           responsive: true,
