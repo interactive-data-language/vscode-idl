@@ -358,7 +358,7 @@ pro IDLNotebook::Export
   IDLNotebook.Reset
 
   ; print
-  print, json_serialize(export, /lowercase)
+  print, json_serialize(export, /lowercase, precision = 8)
 end
 
 ;+

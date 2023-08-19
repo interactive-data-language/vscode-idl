@@ -17,7 +17,7 @@ function IDLNotebookPlot::_CreateNotebookItem, item
     ;+
     ; Handle line and bubble data validation
     ;-
-    isa(item, 'IDLNotebookPlot_LineFrame') or isa(item, 'IDLNotebookPlot_BubbleFrame'): begin
+    isa(item, 'IDLNotebookPlot_Line') or isa(item, 'IDLNotebookPlot_Bubble'): begin
       ;+ Number of y elements
       nY = item.y.length
       if (nY eq 0) then message, 'No Y data values specified, required!', level = -1
