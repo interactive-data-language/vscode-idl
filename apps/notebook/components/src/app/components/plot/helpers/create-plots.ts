@@ -105,11 +105,15 @@ export function CreatePlots(
          * Add callback for our animation
          */
         animationCallbacks.push((frame: number) => {
+          const fIdx = Math.min(frame, typed.item.frames.length - 1);
+
           /**
            * Get the frame we show
            */
-          const showFrame =
-            typed.item.frames[Math.min(frame, typed.item.frames.length - 1)];
+          const showFrame = typed.item.frames[fIdx];
+
+          // update label
+          plotData.label = `Plot ${i + 1}, Frame ${fIdx + 1}`;
 
           /** update plot data */
           plotData.data = showFrame.y.map((y, idx) => {
@@ -165,7 +169,7 @@ export function CreatePlots(
         // create typed dataset
         const plotData: ChartDataset<'bubble'> = {
           type: 'bubble',
-          label: `Plot ${i + 1}`,
+          label: `Bubble plot ${i + 1}`,
           data: first.y.map((y, idx) => {
             return { x: first.x[idx], y, r: first.r[idx] };
           }),
@@ -178,11 +182,15 @@ export function CreatePlots(
          * Add callback for our animation
          */
         animationCallbacks.push((frame: number) => {
+          const fIdx = Math.min(frame, typed.item.frames.length - 1);
+
           /**
            * Get the frame we show
            */
-          const showFrame =
-            typed.item.frames[Math.min(frame, typed.item.frames.length - 1)];
+          const showFrame = typed.item.frames[fIdx];
+
+          // update label
+          plotData.label = `Bubble plot ${i + 1}, Frame ${fIdx + 1}`;
 
           /** update plot data */
           plotData.data = showFrame.y.map((y, idx) => {
