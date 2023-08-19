@@ -146,22 +146,6 @@ export class PlotComponent
           datasets: this.plots.data,
         },
         options,
-        // options: {
-        //   animation: this.plots.nFrames > 0 ? false : undefined,
-        //   responsive: true,
-        //   maintainAspectRatio: true,
-        //   aspectRatio: 1,
-        //   scales: {
-        //     x: {
-        //       min: -1,
-        //       max: 1,
-        //     },
-        //     y: {
-        //       min: -1,
-        //       max: 1,
-        //     },
-        //   },
-        // },
       });
     }
   }
