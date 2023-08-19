@@ -2,7 +2,7 @@
 ; :Returns: IDLNotebookItem
 ;
 ; :Arguments:
-;   item: in, required, IDLNotebookPlot_2D
+;   item: in, required, IDLNotebookPlot_Line
 ;     The type of item we want to plot
 ;
 ;-
@@ -17,7 +17,7 @@ function IDLNotebookPlot::_CreateNotebookItem, item
     ;+
     ; Handle raw GeoJSON
     ;-
-    isa(item, 'IDLNotebookPlot_2D'): begin
+    isa(item, 'IDLNotebookPlot_Line'): begin
       ;+ Number of y elements
       nY = item.y.length
       if (nY eq 0) then message, 'No Y data values specified, required!', level = -1
@@ -89,7 +89,7 @@ end
 
 ;+
 ; :IDLNotebookPlot:
-;   data: List<IDLNotebookPlot_2D>
+;   data: List<IDLNotebookPlot_Line>
 ;     The data to add to our plot
 ;
 ; :IDLNotebookPlot_Properties:
@@ -97,7 +97,7 @@ end
 ;     Key-value pars for properties that get passed to the plots
 ;     that we create.
 ;
-; :IDLNotebookPlot_2D:
+; :IDLNotebookPlot_Line:
 ;   x: List<Number>
 ;     X data to plot.
 ;
@@ -126,7 +126,7 @@ pro IDLNotebookPlot__define
   ;+
   ; Data structure for embedding a series of image as an animation
   ;-
-  !null = {IDLNotebookPlot_2D, $
+  !null = {IDLNotebookPlot_Line, $
     inherits IDLNotebookPlot_Properties, $
     x: list(), $
     y: list()}

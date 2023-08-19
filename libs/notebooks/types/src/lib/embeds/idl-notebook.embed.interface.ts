@@ -15,7 +15,7 @@ import {
 import {
   IDLNotebookPlot_EmbedType,
   IDLNotebookPlot_EmbedTypeData,
-} from './idl-notebook-plot2d.embed.interface';
+} from './idl-notebook-plot.embed.interface';
 
 /**
  * Types of messages that we can have

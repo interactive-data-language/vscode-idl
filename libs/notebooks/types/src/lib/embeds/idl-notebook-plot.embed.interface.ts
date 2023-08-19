@@ -18,12 +18,13 @@ export interface IDLNotebookPlot_WithProperties {
 /**
  * 2D plot from notebook
  */
-export type IDLNotebookPlot_2D = 'idlnotebookplot_2d';
+export type IDLNotebookPlot_Line = 'idlnotebookplot_line';
 
 /**
  * Data structure for an image we want to embed from a URI
  */
-export interface IDLNotebookPlot_2DData extends IDLNotebookPlot_WithProperties {
+export interface IDLNotebookPlot_LineData
+  extends IDLNotebookPlot_WithProperties {
   /** X-axis data */
   x: number[];
   /** Y-axis data */
@@ -33,7 +34,7 @@ export interface IDLNotebookPlot_2DData extends IDLNotebookPlot_WithProperties {
 /**
  * Union type of all items we can embed in a plot
  */
-export type IDLNotebookPlot_EmbeddedItemType = IDLNotebookPlot_2D;
+export type IDLNotebookPlot_EmbeddedItemType = IDLNotebookPlot_Line;
 
 /**
  * Notebook plot
@@ -67,6 +68,6 @@ export type IDLNotebookPlot_EmbedType =
 export type IDLNotebookPlot_EmbedTypeData<T extends IDLNotebookPlot_EmbedType> =
   T extends IDLNotebookPlot
     ? IDLNotebookPlotData<IDLNotebookPlot_EmbeddedItemType>
-    : T extends IDLNotebookPlot_2D
-    ? IDLNotebookPlot_2DData
+    : T extends IDLNotebookPlot_Line
+    ? IDLNotebookPlot_LineData
     : never;
