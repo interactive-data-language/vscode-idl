@@ -31,11 +31,27 @@ export interface IDLNotebookPlot_LineFrame {
 export type IDLNotebookPlot_Line = 'idlnotebookplot_line';
 
 /**
- * Data structure for an image we want to embed from a URI
+ * Data structure for Line/scatter plot
  */
 export interface IDLNotebookPlot_LineData
   extends IDLNotebookPlot_WithProperties,
     IDLNotebookPlot_LineFrame {}
+
+/**
+ * Line/scatter animation
+ */
+export type IDLNotebookPlot_LineAnimation = 'idlnotebookplot_lineanimation';
+
+/**
+ * Data structure for Line/scatter animation
+ */
+export interface IDLNotebookPlot_LineAnimationData
+  extends IDLNotebookPlot_WithProperties {
+  /**
+   * The data frames for animation
+   */
+  frames: IDLNotebookPlot_LineFrame[];
+}
 
 /**
  * Data structure for a frame of data for a bubble plot
@@ -51,18 +67,36 @@ export interface IDLNotebookPlot_BubbleFrame extends IDLNotebookPlot_LineFrame {
 export type IDLNotebookPlot_Bubble = 'idlnotebookplot_bubble';
 
 /**
- * Data structure for an image we want to embed from a URI
+ * Data structure for bubble plot
  */
 export interface IDLNotebookPlot_BubbleData
   extends IDLNotebookPlot_WithProperties,
     IDLNotebookPlot_BubbleFrame {}
 
 /**
+ * Bubble plot animation from notebook
+ */
+export type IDLNotebookPlot_BubbleAnimation = 'idlnotebookplot_bubbleanimation';
+
+/**
+ * Data structure for bubble plot animation
+ */
+export interface IDLNotebookPlot_BubbleAnimationData
+  extends IDLNotebookPlot_WithProperties {
+  /**
+   * The data frames for animation
+   */
+  frames: IDLNotebookPlot_BubbleFrame[];
+}
+
+/**
  * Union type of all items we can embed in a plot
  */
 export type IDLNotebookPlot_EmbeddedItemType =
   | IDLNotebookPlot_Line
-  | IDLNotebookPlot_Bubble;
+  | IDLNotebookPlot_LineAnimation
+  | IDLNotebookPlot_Bubble
+  | IDLNotebookPlot_BubbleAnimation;
 
 /**
  * Notebook plot
@@ -98,6 +132,10 @@ export type IDLNotebookPlot_EmbedTypeData<T extends IDLNotebookPlot_EmbedType> =
     ? IDLNotebookPlotData<IDLNotebookPlot_EmbeddedItemType>
     : T extends IDLNotebookPlot_Line
     ? IDLNotebookPlot_LineData
+    : T extends IDLNotebookPlot_LineAnimation
+    ? IDLNotebookPlot_LineAnimationData
     : T extends IDLNotebookPlot_Bubble
     ? IDLNotebookPlot_BubbleData
+    : T extends IDLNotebookPlot_BubbleAnimation
+    ? IDLNotebookPlot_BubbleAnimationData
     : never;

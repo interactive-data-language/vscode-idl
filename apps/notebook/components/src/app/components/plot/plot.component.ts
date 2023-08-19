@@ -12,8 +12,8 @@ import Chart from 'chart.js/auto';
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
-import { CreatedPlots } from './helpers/create-plot.interface';
 import { CreatePlots } from './helpers/create-plots';
+import { CreatedPlots } from './helpers/create-plots.interface';
 
 /**
  * ID for notebook image selector
@@ -53,7 +53,11 @@ export class PlotComponent
   /**
    * Track a reference to our created plots
    */
-  private plots: CreatedPlots = { data: [], animationCallbacks: [] };
+  private plots: CreatedPlots = {
+    data: [],
+    animationCallbacks: [],
+    nFrames: 0,
+  };
 
   /**
    * Callback to resize chart on window resize

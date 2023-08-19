@@ -2,7 +2,7 @@
 ; :Returns: IDLNotebookItem
 ;
 ; :Arguments:
-;   item: in, required, IDLNotebookPlot_Line | IDLNotebookPlot_Bubble
+;   item: in, required, IDLNotebookPlot_Line | IDLNotebookPlot_LineAnimatio | IDLNotebookPlot_Bubble | IDLNotebookPlot_BubbleAnimation
 ;     The type of item we want to plot
 ;
 ;-
@@ -15,9 +15,9 @@ function IDLNotebookPlot::_CreateNotebookItem, item
   ;-
   case (!true) of
     ;+
-    ; Handle raw GeoJSON
+    ; Handle line and bubble data validation
     ;-
-    isa(item, 'IDLNotebookPlot_Line') or isa(item, 'IDLNotebookPlot_Bubble'): begin
+    isa(item, 'IDLNotebookPlot_LineFrame') or isa(item, 'IDLNotebookPlot_BubbleFrame'): begin
       ;+ Number of y elements
       nY = item.y.length
       if (nY eq 0) then message, 'No Y data values specified, required!', level = -1
@@ -45,6 +45,34 @@ function IDLNotebookPlot::_CreateNotebookItem, item
       endif
 
       ; create notebook item and return
+      return, IDLNotebook._CreateNotebookItem(item)
+    end
+
+    ;+
+    ; Handle line animations
+    ;-
+    isa(item, 'IDLNotebookPlot_LineAnimation'): begin
+      ; make sure valid
+      if ~obj_valid(item.frames) then mesage, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
+
+      ; make sure valid
+      if (n_elements(item.frames) eq 0) then mesage, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
+
+      ; add to notebook
+      return, IDLNotebook._CreateNotebookItem(item)
+    end
+
+    ;+
+    ; Handle bubble animations
+    ;-
+    isa(item, 'IDLNotebookPlot_BubbleAnimation'): begin
+      ; make sure valid
+      if ~obj_valid(item.frames) then mesage, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
+
+      ; make sure valid
+      if (n_elements(item.frames) eq 0) then mesage, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
+
+      ; add to notebook
       return, IDLNotebook._CreateNotebookItem(item)
     end
 
@@ -103,7 +131,7 @@ end
 
 ;+
 ; :IDLNotebookPlot:
-;   data: List<IDLNotebookPlot_Line>
+;   data: List<IDLNotebookPlot_Line | IDLNotebookPlot_LineAnimatio | IDLNotebookPlot_Bubble | IDLNotebookPlot_BubbleAnimation>
 ;     The data to add to our plot
 ;
 ; :IDLNotebookPlot_Properties:
@@ -122,11 +150,19 @@ end
 ;
 ; :IDLNotebookPlot_Line:
 ;
+; :IDLNotebookPlot_LineAnimation:
+;   frames: List<IDLNotebookPlot_LineFrame>
+;     The data for each frame of our line plot plot
+;
 ; :IDLNotebookPlot_BubbleFrame:
 ;   r: List<Number>
 ;     The size of the bubbles in the plot
 ;
 ; :IDLNotebookPlot_Bubble:
+;
+; :IDLNotebookPlot_BubbleAnimation:
+;   frames: List<IDLNotebookPlot_BubbleFrame>
+;     The data for each frame of our bubble plot
 ;
 ;-
 pro IDLNotebookPlot__define
@@ -160,6 +196,13 @@ pro IDLNotebookPlot__define
     inherits IDLNotebookPlot_LineFrame}
 
   ;+
+  ; Data structure for line plot animation
+  ;-
+  !null = {IDLNotebookPlot_LineAnimation, $
+    inherits IDLNotebookPlot_Properties, $
+    frames: list()}
+
+  ;+
   ; Data format for bubble plot
   ;-
   !null = {IDLNotebookPlot_BubbleFrame, $
@@ -172,4 +215,11 @@ pro IDLNotebookPlot__define
   !null = {IDLNotebookPlot_Bubble, $
     inherits IDLNotebookPlot_Properties, $
     inherits IDLNotebookPlot_BubbleFrame}
+
+  ;+
+  ; Data structure for bubble plot animation
+  ; -
+  !null = {IDLNotebookPlot_BubbleAnimation, $
+    inherits IDLNotebookPlot_Properties, $
+    frames: list()}
 end
