@@ -12,6 +12,7 @@ import Chart from 'chart.js/auto';
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
+import { CreatedPlots } from './helpers/create-plot.interface';
 import { CreatePlots } from './helpers/create-plots';
 
 /**
@@ -48,6 +49,11 @@ export class PlotComponent
    * A reference to our chart
    */
   private chart: Chart<any> | undefined;
+
+  /**
+   * Track a reference to our created plots
+   */
+  private plots: CreatedPlots = { data: [], animationCallbacks: [] };
 
   /**
    * Callback to resize chart on window resize
@@ -90,9 +96,13 @@ export class PlotComponent
 
   ngAfterViewInit() {
     if (this.hasData) {
+      // create plot data
+      this.plots = CreatePlots(this._embed);
+
+      // create our charts
       this.chart = new Chart(this.canvas.nativeElement, {
         data: {
-          datasets: CreatePlots(this._embed),
+          datasets: this.plots.data,
         },
         options: {
           responsive: true,

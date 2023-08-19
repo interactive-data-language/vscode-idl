@@ -6,14 +6,23 @@ import {
 } from '@idl/notebooks/types';
 import { ChartDataset } from 'chart.js';
 
+import { CreatedPlots, PlotAnimationCallback } from './create-plot.interface';
+
 /**
  * Creates plot data for display in an IDL Notebook
  */
-export function CreatePlots(embed: IDLNotebookEmbeddedItem<IDLNotebookPlot>) {
+export function CreatePlots(
+  embed: IDLNotebookEmbeddedItem<IDLNotebookPlot>
+): CreatedPlots {
   /**
    * The plot data
    */
   const data: ChartDataset<any>[] = [];
+
+  /**
+   * Animation frame callbacks
+   */
+  const animationCallbacks: PlotAnimationCallback[] = [];
 
   /**
    * Get all items to embed
@@ -73,5 +82,5 @@ export function CreatePlots(embed: IDLNotebookEmbeddedItem<IDLNotebookPlot>) {
     }
   }
 
-  return data;
+  return { data, animationCallbacks };
 }
