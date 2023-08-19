@@ -4,6 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { MaterialCssVarsModule } from 'angular-material-css-vars';
 
 import { MaterialModule } from '../material.module';
+import { AnimationControlsComponent } from './animation-controls/animation-controls.component';
 import { EntryComponent } from './entry/entry.component';
 import { ImageComponent } from './image/image.component';
 import { ImageAnimatorComponent } from './image-animator/image-animator.component';
@@ -19,6 +20,7 @@ import { PlotComponent } from './plot/plot.component';
     PlotComponent,
     MapComponent,
     MapPropertySheetComponent,
+    AnimationControlsComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { PlotComponent } from './plot/plot.component';
     PlotComponent,
     MapComponent,
     MapPropertySheetComponent,
+    AnimationControlsComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

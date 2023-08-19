@@ -3,61 +3,13 @@
 <ng-template #thenBlock>
   <div fxLayout="column">
     <!-- toolbar row -->
-    <div
-      fxLayout="row"
-      fxLayoutAlign="center start"
-      class="renderer-toolbar"
+    <idl-nb-animation-controls
       [ngStyle]="{
         width: (myImage.offsetWidth || _embed.item.xsize) + 'px'
       }"
-    >
-      <!-- icons and buttons -->
-      <div
-        fxLayout="row"
-        fxLayoutAlign="center center"
-        style="padding-right: 25px"
-      >
-        <p style="padding-right: 10px">{{ multiplierText() }}</p>
-        <mat-icon
-          svgIcon="fast-rewind"
-          (click)="slowDown()"
-          class="icon-button"
-        ></mat-icon>
-        <mat-icon
-          *ngIf="isPaused"
-          svgIcon="play"
-          (click)="pauseOrPlay()"
-          class="icon-button"
-        ></mat-icon>
-        <mat-icon
-          *ngIf="!isPaused"
-          svgIcon="pause"
-          (click)="pauseOrPlay()"
-          class="icon-button"
-        ></mat-icon>
-        <mat-icon
-          svgIcon="fast-forward"
-          (click)="speedUp()"
-          class="icon-button"
-        ></mat-icon>
-      </div>
-
-      <!-- band index slider -->
-      <mat-slider
-        style="width: 50%; max-width: 350px"
-        min="0"
-        max="{{ this._embed.item.data.length - 1 }}"
-        step="1"
-        [displayWith]="label"
-      >
-        <input
-          matSliderThumb
-          [value]="frame"
-          (dragStart)="pause()"
-          (input)="onInputChange($event)"
-        />
-      </mat-slider>
-    </div>
+      [nFrames]="this._embed.item.data.length"
+      (frameChange)="setSource($event)"
+    ></idl-nb-animation-controls>
 
     <!-- wrap in div so styles dont get goofed up by flex -->
     <div class="embedded-image cell-item-height-max">

@@ -1,0 +1,49 @@
+<div
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  class="renderer-toolbar"
+  style="max-width: 350px"
+>
+  <!-- icons and buttons -->
+  <div fxLayout="row" fxLayoutAlign="center center" style="padding-right: 15px">
+    <p style="padding-right: 10px">{{ multiplierText() }}</p>
+    <mat-icon
+      svgIcon="fast-rewind"
+      (click)="slowDown()"
+      class="icon-button"
+    ></mat-icon>
+    <mat-icon
+      *ngIf="isPaused"
+      svgIcon="play"
+      (click)="pauseOrPlay()"
+      class="icon-button"
+    ></mat-icon>
+    <mat-icon
+      *ngIf="!isPaused"
+      svgIcon="pause"
+      (click)="pauseOrPlay()"
+      class="icon-button"
+    ></mat-icon>
+    <mat-icon
+      svgIcon="fast-forward"
+      (click)="speedUp()"
+      class="icon-button"
+    ></mat-icon>
+  </div>
+
+  <!-- band index slider -->
+  <mat-slider
+    style="width: 50%"
+    min="0"
+    max="{{ nFrames - 1 }}"
+    step="1"
+    [displayWith]="label"
+  >
+    <input
+      matSliderThumb
+      [value]="frame"
+      (dragStart)="pause()"
+      (input)="onInputChange($event)"
+    />
+  </mat-slider>
+</div>
