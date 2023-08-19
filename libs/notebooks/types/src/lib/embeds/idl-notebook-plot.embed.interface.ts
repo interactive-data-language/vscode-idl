@@ -16,6 +16,16 @@ export interface IDLNotebookPlot_WithProperties {
 }
 
 /**
+ * A single frame of data for a line plot
+ */
+export interface IDLNotebookPlot_LineFrame {
+  /** X-axis data */
+  x: number[];
+  /** Y-axis data */
+  y: number[];
+}
+
+/**
  * Line/scatter plot
  */
 export type IDLNotebookPlot_Line = 'idlnotebookplot_line';
@@ -24,11 +34,15 @@ export type IDLNotebookPlot_Line = 'idlnotebookplot_line';
  * Data structure for an image we want to embed from a URI
  */
 export interface IDLNotebookPlot_LineData
-  extends IDLNotebookPlot_WithProperties {
-  /** X-axis data */
-  x: number[];
-  /** Y-axis data */
-  y: number[];
+  extends IDLNotebookPlot_WithProperties,
+    IDLNotebookPlot_LineFrame {}
+
+/**
+ * Data structure for a frame of data for a bubble plot
+ */
+export interface IDLNotebookPlot_BubbleFrame extends IDLNotebookPlot_LineFrame {
+  /** Size of bubbles */
+  r: number[];
 }
 
 /**
@@ -39,10 +53,9 @@ export type IDLNotebookPlot_Bubble = 'idlnotebookplot_bubble';
 /**
  * Data structure for an image we want to embed from a URI
  */
-export interface IDLNotebookPlot_BubbleData extends IDLNotebookPlot_LineData {
-  /** Size of bubbles */
-  r: number[];
-}
+export interface IDLNotebookPlot_BubbleData
+  extends IDLNotebookPlot_WithProperties,
+    IDLNotebookPlot_BubbleFrame {}
 
 /**
  * Union type of all items we can embed in a plot

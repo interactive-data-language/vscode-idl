@@ -111,7 +111,7 @@ end
 ;     Key-value pars for properties that get passed to the plots
 ;     that we create.
 ;
-; :IDLNotebookPlot_Line:
+; :IDLNotebookPlot_LineFrame:
 ;   x: List<Number>
 ;     X data to plot.
 ;
@@ -120,9 +120,13 @@ end
 ;   y: List<Number>
 ;     Y data to plot (required)
 ;
-; :IDLNotebookPlot_Bubble:
+; :IDLNotebookPlot_Line:
+;
+; :IDLNotebookPlot_BubbleFrame:
 ;   r: List<Number>
 ;     The size of the bubbles in the plot
+;
+; :IDLNotebookPlot_Bubble:
 ;
 ;-
 pro IDLNotebookPlot__define
@@ -142,17 +146,30 @@ pro IDLNotebookPlot__define
     properties: orderedhash()}
 
   ;+
+  ; Data format for scatter/line plot
+  ;-
+  !null = {IDLNotebookPlot_LineFrame, $
+    x: list(), $
+    y: list()}
+
+  ;+
   ; Data structure for embedding a series of image as an animation
   ;-
   !null = {IDLNotebookPlot_Line, $
     inherits IDLNotebookPlot_Properties, $
-    x: list(), $
-    y: list()}
+    inherits IDLNotebookPlot_LineFrame}
+
+  ;+
+  ; Data format for bubble plot
+  ;-
+  !null = {IDLNotebookPlot_BubbleFrame, $
+    inherits IDLNotebookPlot_LineFrame, $
+    r: list()}
 
   ;+
   ; Data structure for bubble plots
   ;-
   !null = {IDLNotebookPlot_Bubble, $
-    inherits IDLNotebookPlot_Line, $
-    r: list()}
+    inherits IDLNotebookPlot_Properties, $
+    inherits IDLNotebookPlot_BubbleFrame}
 end
