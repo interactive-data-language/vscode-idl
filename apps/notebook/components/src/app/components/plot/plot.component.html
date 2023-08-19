@@ -1,2 +1,12 @@
-<canvas class="cell-item-height-max" #PlotCanvas></canvas>
-<p *ngIf="!hasData">No data to plot!</p>
+<div fxLayout="column">
+  <!-- toolbar row -->
+  <idl-nb-animation-controls
+    *ngIf="plots.nFrames > 0"
+    [nFrames]="plots.nFrames"
+    (frameChange)="setFrame($event)"
+  ></idl-nb-animation-controls>
+
+  <!-- wrap in div so styles dont get goofed up by flex -->
+  <canvas class="cell-item-height-max" #PlotCanvas></canvas>
+  <p *ngIf="!hasData">No data to plot!</p>
+</div>

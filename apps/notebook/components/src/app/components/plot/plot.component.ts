@@ -53,7 +53,7 @@ export class PlotComponent
   /**
    * Track a reference to our created plots
    */
-  private plots: CreatedPlots = {
+  plots: CreatedPlots = {
     data: [],
     animationCallbacks: [],
     nFrames: 0,
@@ -92,6 +92,23 @@ export class PlotComponent
   }
 
   /**
+   * If we have an animation, updates chart data
+   */
+  setFrame(frame: number) {
+    if (this.hasData) {
+      const nAnimations = this.plots.animationCallbacks.length;
+      if (nAnimations > 0) {
+        for (let i = 0; i < nAnimations; i++) {
+          this.plots.animationCallbacks[i](frame);
+        }
+
+        // update chart with no animation
+        this.chart?.update('none');
+      }
+    }
+  }
+
+  /**
    * Remove callbacks to prevent memory leaks
    */
   ngOnDestroy() {
@@ -110,7 +127,17 @@ export class PlotComponent
         },
         options: {
           responsive: true,
-          maintainAspectRatio: true,
+          aspectRatio: 1,
+          scales: {
+            x: {
+              min: -1,
+              max: 1,
+            },
+            y: {
+              min: -1,
+              max: 1,
+            },
+          },
         },
       });
     }
