@@ -97,7 +97,7 @@ pro AwesomeGenerateThumbnail, $
   endif
 
   ; Linear Stretch from histogram
-  if (~isa(colormap, 'EnviColorMap') && ~keyword_set(no_stretch)) then begin
+  if (~isa(colormap, 'EnviColorMap') && (inputRaster.data_type ne 'byte')) then begin
     histData = bytarr(dimensions[0], dimensions[1], 3, /nozero)
     for i = 0, 2 do begin
       band = data[*, *, i]
