@@ -41,7 +41,7 @@ export class PlotComponent
   /**
    * Canvas we draw to
    */
-  @ViewChild('Plot2DCanvas')
+  @ViewChild('PlotCanvas')
   canvas!: ElementRef<HTMLCanvasElement>;
 
   /**
