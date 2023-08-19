@@ -2,11 +2,17 @@
   <!-- toolbar row -->
   <idl-nb-animation-controls
     *ngIf="plots.nFrames > 0"
+    [ngStyle]="{
+      width: (PlotCanvas.offsetWidth || 500) + 'px'
+    }"
     [nFrames]="plots.nFrames"
+    [interval]="interval"
     (frameChange)="setFrame($event)"
   ></idl-nb-animation-controls>
 
   <!-- wrap in div so styles dont get goofed up by flex -->
-  <canvas class="cell-item-height-max" #PlotCanvas></canvas>
+  <div>
+    <canvas #PlotCanvas></canvas>
+  </div>
   <p *ngIf="!hasData">No data to plot!</p>
 </div>

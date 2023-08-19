@@ -23,6 +23,11 @@ export class AnimationControlsComponent implements OnInit {
   @Input() nFrames = 1;
 
   /**
+   * Animation interval (ms)
+   */
+  @Input() interval = 1000;
+
+  /**
    * Output event that is emitted when our frame changes
    */
   @Output() frameChange = new EventEmitter<number>();
@@ -31,11 +36,6 @@ export class AnimationControlsComponent implements OnInit {
    * The current frame we are on
    */
   frame = 0;
-
-  /**
-   * Default interval in seconds
-   */
-  interval = 1000;
 
   /**
    * Multiplier for speed

@@ -1,18 +1,12 @@
-import { IDLNotebookEmbeddedItem } from './idl-notebook.embed.interface';
+import { ChartOptions } from 'chart.js';
 
-/**
- * Placeholder data structure for properties for our plots from
- * IDL
- */
-export interface IDLNotebookPlot_Properties {
-  [key: string]: any;
-}
+import { IDLNotebookEmbeddedItem } from './idl-notebook.embed.interface';
 
 /**
  * Base plot with properties for shared access
  */
 export interface IDLNotebookPlot_WithProperties {
-  properties?: IDLNotebookPlot_Properties;
+  properties?: { [key: string]: any };
 }
 
 /**
@@ -104,6 +98,17 @@ export type IDLNotebookPlot_EmbeddedItemType =
 export type IDLNotebookPlot = 'idlnotebookplot';
 
 /**
+ * Placeholder data structure for properties for our plots from
+ * IDL
+ */
+export interface IDLNotebookPlot_Properties extends ChartOptions {
+  /**
+   * Animation frame interval (ms) (i.e. delay between frames)
+   */
+  frameInterval?: number;
+}
+
+/**
  * Data for a notebook plot
  */
 export interface IDLNotebookPlotData<
@@ -111,6 +116,8 @@ export interface IDLNotebookPlotData<
 > {
   /** Data that we are embedding */
   data: IDLNotebookEmbeddedItem<T>[];
+  /** Properties for the chart */
+  properties?: IDLNotebookPlot_Properties;
 }
 
 /**

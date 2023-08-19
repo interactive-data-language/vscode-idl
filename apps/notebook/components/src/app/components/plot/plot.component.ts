@@ -12,6 +12,7 @@ import Chart from 'chart.js/auto';
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
+import { ChartConfig } from './helpers/chart-config';
 import { CreatePlots } from './helpers/create-plots';
 import { CreatedPlots } from './helpers/create-plots.interface';
 
@@ -28,10 +29,7 @@ export const IDL_NB_PLOT_COMPONENT_SELECTOR = 'idl-nb-plot';
   templateUrl: './plot.component.html',
   styles: [
     `
-      .chart-container {
-        max-width: 90%;
-        aspect-ratio: 1;
-      }
+      @import 'shared-styles.scss';
     `,
   ],
 })
@@ -58,6 +56,11 @@ export class PlotComponent
     animationCallbacks: [],
     nFrames: 0,
   };
+
+  /**
+   * Frame rate for animations
+   */
+  interval = 1000;
 
   /**
    * Callback to resize chart on window resize
@@ -120,25 +123,36 @@ export class PlotComponent
       // create plot data
       this.plots = CreatePlots(this._embed);
 
+      // create options for our plot
+      const options = ChartConfig(this._embed, this.plots.nFrames > 0);
+
+      // update interval
+      if (options.frameInterval !== undefined) {
+        this.interval = options.frameInterval;
+      }
+
       // create our charts
       this.chart = new Chart(this.canvas.nativeElement, {
         data: {
           datasets: this.plots.data,
         },
-        options: {
-          responsive: true,
-          aspectRatio: 1,
-          scales: {
-            x: {
-              min: -1,
-              max: 1,
-            },
-            y: {
-              min: -1,
-              max: 1,
-            },
-          },
-        },
+        options,
+        // options: {
+        //   animation: this.plots.nFrames > 0 ? false : undefined,
+        //   responsive: true,
+        //   maintainAspectRatio: true,
+        //   aspectRatio: 1,
+        //   scales: {
+        //     x: {
+        //       min: -1,
+        //       max: 1,
+        //     },
+        //     y: {
+        //       min: -1,
+        //       max: 1,
+        //     },
+        //   },
+        // },
       });
     }
   }

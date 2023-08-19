@@ -217,26 +217,26 @@ function IDLNotebook::_CreateNotebookItemProps, item
   ; validate input
   if ~arg_present(item) then message, 'Item not specified, required!', level = -1
 
-  ;+ get properties
-  props = orderedhash(item, /lowercase)
-
   ; output properties
-  saveProps = orderedhash(/fold_case)
+  saveProps = orderedhash()
+
+  ; get structure key names
+  keys = tag_names(item)
 
   ; remove any non-truthy items
-  foreach val, props, key do begin
+  foreach key, keys, i do begin
     catch, err
     if (err ne 0) then begin
       catch, /cancel
       continue
     endif
 
-    val = props[key]
+    val = item.(i)
     catch, /cancel
 
     case (!true) of
       ; remove null strings
-      isa(val, 'struct'): saveProps[key] = IDLNotebook._CreateNotebookItemProps(val)
+      isa(val, 'struct'): saveProps[key.toLower()] = IDLNotebook._CreateNotebookItemProps(val)
 
       ; remove if !null
       isa(val, /null): ; do nothing
@@ -248,7 +248,7 @@ function IDLNotebook::_CreateNotebookItemProps, item
       isa(val, /string) and ~val: ; do nothing
 
       ; save
-      else: saveProps[key] = val
+      else: saveProps[key.toLower()] = val
     endcase
   endforeach
 

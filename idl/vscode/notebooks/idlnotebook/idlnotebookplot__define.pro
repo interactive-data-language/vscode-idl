@@ -121,6 +121,7 @@ pro IDLNotebookPlot::_AddToNotebook, item
   ;+ Create new data structure so that we don't dirty the first
   addItem = {IDLNotebookPlot}
   addItem.data = list()
+  addItem.properties = obj_valid(item.properties) ? item.properties : orderedhash()
 
   ; process all items
   foreach val, plotThese do addItem.data.add, IDLNotebookPlot._CreateNotebookItem(val)
@@ -130,14 +131,14 @@ pro IDLNotebookPlot::_AddToNotebook, item
 end
 
 ;+
-; :IDLNotebookPlot:
-;   data: List<IDLNotebookPlot_Line | IDLNotebookPlot_LineAnimatio | IDLNotebookPlot_Bubble | IDLNotebookPlot_BubbleAnimation>
-;     The data to add to our plot
-;
 ; :IDLNotebookPlot_Properties:
 ;   properties: OrderedHash<any>
 ;     Key-value pars for properties that get passed to the plots
 ;     that we create.
+;
+; :IDLNotebookPlot:
+;   data: List<IDLNotebookPlot_Line | IDLNotebookPlot_LineAnimatio | IDLNotebookPlot_Bubble | IDLNotebookPlot_BubbleAnimation>
+;     The data to add to our plot
 ;
 ; :IDLNotebookPlot_LineFrame:
 ;   x: List<Number>
@@ -170,16 +171,17 @@ pro IDLNotebookPlot__define
   on_error, 2
 
   ;+
-  ; Data structure for embedding maps in notebooks
-  ;-
-  !null = {IDLNotebookPlot, $
-    data: list()}
-
-  ;+
   ; Properties for notebook plots, used for inheritance
   ;-
   !null = {IDLNotebookPlot_Properties, $
     properties: orderedhash()}
+
+  ;+
+  ; Data structure for embedding maps in notebooks
+  ;-
+  !null = {IDLNotebookPlot, $
+    inherits IDLNotebookPlot_Properties, $
+    data: list()}
 
   ;+
   ; Data format for scatter/line plot
