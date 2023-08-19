@@ -116,6 +116,15 @@ export class PlotComponent
    */
   ngOnDestroy() {
     window.removeEventListener('resize', this.resizeCb);
+    if (this.hasData) {
+      this.hasData = false;
+      this.plots = {
+        animationCallbacks: [],
+        data: [],
+        nFrames: 0,
+      };
+      this.chart?.destroy();
+    }
   }
 
   ngAfterViewInit() {
