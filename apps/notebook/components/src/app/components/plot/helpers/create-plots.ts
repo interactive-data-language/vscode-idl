@@ -3,6 +3,7 @@ import {
   IDLNotebookPlot,
   IDLNotebookPlot_2D,
 } from '@idl/notebooks/types';
+import { ChartDataset } from 'chart.js';
 
 /**
  * Creates plot data for display in an IDL Notebook
@@ -11,7 +12,7 @@ export function CreatePlots(embed: IDLNotebookEmbeddedItem<IDLNotebookPlot>) {
   /**
    * The plot data
    */
-  const data: any[] = [];
+  const data: ChartDataset<any>[] = [];
 
   /**
    * Get all items to embed
@@ -25,8 +26,8 @@ export function CreatePlots(embed: IDLNotebookEmbeddedItem<IDLNotebookPlot>) {
         /** Strictly type */
         const typed = toEmbed[i] as IDLNotebookEmbeddedItem<IDLNotebookPlot_2D>;
 
-        // create chart
-        data.push({
+        // create typed dataset
+        const plotData: ChartDataset<'scatter'> = {
           type: 'scatter',
           label: 'Test',
           data: typed.item.y.map((y, idx) => {
@@ -37,7 +38,10 @@ export function CreatePlots(embed: IDLNotebookEmbeddedItem<IDLNotebookPlot>) {
           pointStyle: 'triangle',
           pointBorderColor: 'red',
           pointBackgroundColor: 'red',
-        });
+        };
+
+        // create chart
+        data.push(plotData);
         break;
       }
       default:
