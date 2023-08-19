@@ -53,10 +53,10 @@ function IDLNotebookPlot::_CreateNotebookItem, item
     ;-
     isa(item, 'IDLNotebookPlot_LineAnimation'): begin
       ; make sure valid
-      if ~obj_valid(item.frames) then mesage, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
+      if ~obj_valid(item.frames) then message, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
 
       ; make sure valid
-      if (n_elements(item.frames) eq 0) then mesage, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
+      if (n_elements(item.frames) eq 0) then message, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
 
       ; add to notebook
       return, IDLNotebook._CreateNotebookItem(item)
@@ -67,10 +67,10 @@ function IDLNotebookPlot::_CreateNotebookItem, item
     ;-
     isa(item, 'IDLNotebookPlot_BubbleAnimation'): begin
       ; make sure valid
-      if ~obj_valid(item.frames) then mesage, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
+      if ~obj_valid(item.frames) then message, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
 
       ; make sure valid
-      if (n_elements(item.frames) eq 0) then mesage, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
+      if (n_elements(item.frames) eq 0) then message, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
 
       ; add to notebook
       return, IDLNotebook._CreateNotebookItem(item)

@@ -8,7 +8,13 @@ import copy from 'fast-copy';
 /**
  * Default chart configuration for plots
  */
-const DEFAULT_CONFIG: IDLNotebookPlot_Properties = {};
+const DEFAULT_CONFIG: IDLNotebookPlot_Properties = {
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+};
 
 /**
  * If we have an animation, custom overrides for default plot options

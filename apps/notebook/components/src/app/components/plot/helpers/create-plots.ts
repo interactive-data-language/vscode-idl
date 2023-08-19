@@ -51,7 +51,7 @@ export function CreatePlots(
         // create typed dataset
         const plotData: ChartDataset<'scatter'> = {
           type: 'scatter',
-          label: 'Test',
+          label: `Plot ${i + 1}`,
           data: typed.item.y.map((y, idx) => {
             return { x: typed.item.x[idx], y };
           }),
@@ -87,7 +87,7 @@ export function CreatePlots(
         // create typed dataset
         const plotData: ChartDataset<'scatter'> = {
           type: 'scatter',
-          label: 'Test',
+          label: `Plot ${i + 1}`,
           data: first.y.map((y, idx) => {
             return { x: first.x[idx], y };
           }),
@@ -134,7 +134,7 @@ export function CreatePlots(
         // create typed dataset
         const plotData: ChartDataset<'bubble'> = {
           type: 'bubble',
-          label: 'Test',
+          label: `Plot ${i + 1}`,
           data: typed.item.y.map((y, idx) => {
             return { x: typed.item.x[idx], y, r: typed.item.r[idx] };
           }),
@@ -165,7 +165,7 @@ export function CreatePlots(
         // create typed dataset
         const plotData: ChartDataset<'bubble'> = {
           type: 'bubble',
-          label: 'Test',
+          label: `Plot ${i + 1}`,
           data: first.y.map((y, idx) => {
             return { x: first.x[idx], y, r: first.r[idx] };
           }),

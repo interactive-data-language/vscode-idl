@@ -155,7 +155,7 @@ pro IDLNotebook::AddToNotebook, item
       ; make sure all files exist
       foreach uri, item.uris do begin
         if ~file_test(uri) then begin
-          mesage, 'File does not exist: "' + uri + '"', level = -1
+          message, 'File does not exist: "' + uri + '"', level = -1
         endif
       endforeach
 
@@ -174,7 +174,7 @@ pro IDLNotebook::AddToNotebook, item
     isa(item, 'IDLNotebookImage_FromUri'): begin
       ; validate
       if ~file_test(item.uri) then begin
-        mesage, 'File does not exist: "' + item.uri + '"', level = -1
+        message, 'File does not exist: "' + item.uri + '"', level = -1
       endif
 
       ; track
