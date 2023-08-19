@@ -16,7 +16,7 @@ export interface IDLNotebookPlot_WithProperties {
 }
 
 /**
- * 2D plot from notebook
+ * Line/scatter plot
  */
 export type IDLNotebookPlot_Line = 'idlnotebookplot_line';
 
@@ -32,9 +32,24 @@ export interface IDLNotebookPlot_LineData
 }
 
 /**
+ * Bubble plot from notebook
+ */
+export type IDLNotebookPlot_Bubble = 'idlnotebookplot_bubble';
+
+/**
+ * Data structure for an image we want to embed from a URI
+ */
+export interface IDLNotebookPlot_BubbleData extends IDLNotebookPlot_LineData {
+  /** Size of bubbles */
+  r: number[];
+}
+
+/**
  * Union type of all items we can embed in a plot
  */
-export type IDLNotebookPlot_EmbeddedItemType = IDLNotebookPlot_Line;
+export type IDLNotebookPlot_EmbeddedItemType =
+  | IDLNotebookPlot_Line
+  | IDLNotebookPlot_Bubble;
 
 /**
  * Notebook plot
@@ -70,4 +85,6 @@ export type IDLNotebookPlot_EmbedTypeData<T extends IDLNotebookPlot_EmbedType> =
     ? IDLNotebookPlotData<IDLNotebookPlot_EmbeddedItemType>
     : T extends IDLNotebookPlot_Line
     ? IDLNotebookPlot_LineData
+    : T extends IDLNotebookPlot_Bubble
+    ? IDLNotebookPlot_BubbleData
     : never;

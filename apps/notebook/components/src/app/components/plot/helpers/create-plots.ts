@@ -1,7 +1,8 @@
 import {
   IDLNotebookEmbeddedItem,
   IDLNotebookPlot,
-  IDLNotebookPlot_2D,
+  IDLNotebookPlot_Bubble,
+  IDLNotebookPlot_Line,
 } from '@idl/notebooks/types';
 import { ChartDataset } from 'chart.js';
 
@@ -22,9 +23,11 @@ export function CreatePlots(embed: IDLNotebookEmbeddedItem<IDLNotebookPlot>) {
   // process all datasets
   for (let i = 0; i < toEmbed.length; i++) {
     switch (toEmbed[i].type) {
-      case 'idlnotebookplot_2d': {
+      case 'idlnotebookplot_line': {
         /** Strictly type */
-        const typed = toEmbed[i] as IDLNotebookEmbeddedItem<IDLNotebookPlot_2D>;
+        const typed = toEmbed[
+          i
+        ] as IDLNotebookEmbeddedItem<IDLNotebookPlot_Line>;
 
         // create typed dataset
         const plotData: ChartDataset<'scatter'> = {
@@ -44,6 +47,27 @@ export function CreatePlots(embed: IDLNotebookEmbeddedItem<IDLNotebookPlot>) {
         data.push(plotData);
         break;
       }
+
+      case 'idlnotebookplot_bubble': {
+        /** Strictly type */
+        const typed = toEmbed[
+          i
+        ] as IDLNotebookEmbeddedItem<IDLNotebookPlot_Bubble>;
+
+        // create typed dataset
+        const plotData: ChartDataset<'bubble'> = {
+          type: 'bubble',
+          label: 'Test',
+          data: typed.item.y.map((y, idx) => {
+            return { x: typed.item.x[idx], y, r: typed.item.r[idx] };
+          }),
+        };
+
+        // create chart
+        data.push(plotData);
+        break;
+      }
+
       default:
         break;
     }

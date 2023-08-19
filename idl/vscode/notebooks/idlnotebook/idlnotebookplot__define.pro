@@ -2,7 +2,7 @@
 ; :Returns: IDLNotebookItem
 ;
 ; :Arguments:
-;   item: in, required, IDLNotebookPlot_Line
+;   item: in, required, IDLNotebookPlot_Line | IDLNotebookPlot_Bubble
 ;     The type of item we want to plot
 ;
 ;-
@@ -17,7 +17,7 @@ function IDLNotebookPlot::_CreateNotebookItem, item
     ;+
     ; Handle raw GeoJSON
     ;-
-    isa(item, 'IDLNotebookPlot_Line'): begin
+    isa(item, 'IDLNotebookPlot_Line') or isa(item, 'IDLNotebookPlot_Bubble'): begin
       ;+ Number of y elements
       nY = item.y.length
       if (nY eq 0) then message, 'No Y data values specified, required!', level = -1
@@ -28,6 +28,20 @@ function IDLNotebookPlot::_CreateNotebookItem, item
       ; check if we need to set the x values
       if (item.x.length eq 0) then begin
         item.x = list(ulindgen(item.y.length), /extract)
+      endif
+
+      ; make sure we have the same number of x points
+      if ~(n_elements(item.x) eq nY) then $
+        message, 'Plot item does not have the same number of x and y data points', level = -1
+
+      ; if bubble plot, check size
+      if isa(item, 'IDLNotebookPlot_Bubble') then begin
+        if ~obj_valid(item.r) then $
+          message, 'Bubble plots are requried to have radius specified', level = -1
+
+        ; make sure we have the same number of x points
+        if ~(n_elements(item.r) eq nY) then $
+          message, 'Bubble plot radii does not have the same number of x and y data points', level = -1
       endif
 
       ; create notebook item and return
@@ -106,6 +120,10 @@ end
 ;   y: List<Number>
 ;     Y data to plot (required)
 ;
+; :IDLNotebookPlot_Bubble:
+;   r: List<Number>
+;     The size of the bubbles in the plot
+;
 ;-
 pro IDLNotebookPlot__define
   compile_opt idl2, hidden
@@ -130,4 +148,11 @@ pro IDLNotebookPlot__define
     inherits IDLNotebookPlot_Properties, $
     x: list(), $
     y: list()}
+
+  ;+
+  ; Data structure for bubble plots
+  ;-
+  !null = {IDLNotebookPlot_Bubble, $
+    inherits IDLNotebookPlot_Line, $
+    r: list()}
 end
