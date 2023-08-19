@@ -56,6 +56,8 @@ Added a new problem code that detects when the IDL include statement creates a c
 
 Fixed a bug with semantic tokens in notebooks where the text would be highlighted as a semantic token in cells that don't have any semantic tokens
 
+When you click into the outputs from an IDL notebook that is being rendered by the IDL Extension, a blue outline appears over what you have selected to match VSCode's behavior
+
 ## 3.2.0 August 2023
 
 When the language server does not use a full parse, extract structure definitions. Before, this was a logic gap (and made the code faster), but they should be correctly resolved now with minimal performance hits.
