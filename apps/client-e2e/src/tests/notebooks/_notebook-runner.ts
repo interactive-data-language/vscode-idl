@@ -6,6 +6,7 @@ import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { RunNotebookRestart } from './notebook-restart';
 import { RunNotebookStop } from './notebook-stop';
+import { RunProblemNotebooks } from './run-problem-notebooks';
 import { RunTestENVIMapNotebook } from './run-test-envi-map-notebook';
 import { RunTestENVINotebook } from './run-test-envi-notebook';
 import { RunTestNotebook } from './run-test-notebook';
@@ -39,8 +40,14 @@ NOTEBOOK_RUNNER.addTest({
 });
 
 NOTEBOOK_RUNNER.addTest({
-  name: 'Run notebook that tests everything',
+  name: 'Run notebook that tests successes',
   fn: RunTestNotebook,
+  critical: true,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Run notebooks that test problems are handled right',
+  fn: RunProblemNotebooks,
   critical: true,
 });
 

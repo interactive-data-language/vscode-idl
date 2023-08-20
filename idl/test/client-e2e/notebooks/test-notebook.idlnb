@@ -158,59 +158,6 @@
       ],
       "metadata": {},
       "outputs": []
-    },
-    {
-      "type": "code",
-      "content": [
-        "; when we have a stop or syntax error, dont stop at it",
-        "pro mypro",
-        "  compile_opt idl2",
-        "  stop",
-        "end"
-      ],
-      "metadata": {},
-      "outputs": []
-    },
-    {
-      "type": "code",
-      "content": [
-        "; run routine with a stop",
-        "mypro"
-      ],
-      "metadata": {},
-      "outputs": []
-    },
-    {
-      "type": "code",
-      "content": [
-        "; verify we are at the main level (one item in stack trace)",
-        "print, n_elements(scope_traceback()), /implied_print"
-      ],
-      "metadata": {},
-      "outputs": []
-    },
-    {
-      "type": "code",
-      "content": [
-        "; dont execute when we have syntax errors 1",
-        "a = ",
-        ""
-      ],
-      "metadata": {},
-      "outputs": []
-    },
-    {
-      "type": "code",
-      "content": [
-        "; dont execute when we have syntax errors 2",
-        "pro syntax_error",
-        "  compile_opt idl2",
-        "",
-        "  a = ",
-        "end"
-      ],
-      "metadata": {},
-      "outputs": []
     }
   ]
 }

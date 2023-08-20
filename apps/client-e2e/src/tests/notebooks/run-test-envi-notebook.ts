@@ -1,14 +1,9 @@
-import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
 import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/notebooks/types';
-import { GetExtensionPath, Sleep } from '@idl/shared';
-import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
-import expect from 'expect';
-import { existsSync, rmSync } from 'fs';
-import * as vscode from 'vscode';
+import { GetExtensionPath } from '@idl/shared';
 
 import { RunnerFunction } from '../runner.interface';
-import { CompareCellOutputs } from './helpers/compare-cells';
 import { ICompareCellOutputs } from './helpers/compare-cells.interface';
+import { RunNotebookAndCompareCells } from './helpers/run-notebook-and-compare-cells';
 
 /**
  * Types of outputs from cells that we expect to have
@@ -85,44 +80,9 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
  * Function that runs a test ENVI notebooks
  */
 export const RunTestENVINotebook: RunnerFunction = async (init) => {
-  /**
-   * Get the file we are going to open
-   */
-  const file = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/envi-test-notebook.idlnb'
+  await RunNotebookAndCompareCells(
+    GetExtensionPath('idl/test/client-e2e/notebooks/envi-test-notebook.idlnb'),
+    CELL_OUTPUT,
+    init.notebooks.controller
   );
-
-  // nuke .idl folder if it exists
-  if (existsSync(NOTEBOOK_FOLDER)) {
-    rmSync(NOTEBOOK_FOLDER, { recursive: true, force: true });
-  }
-
-  /**
-   * Open the notebook
-   */
-  const nb = await OpenNotebookInVSCode(file);
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
-
-  // save to disk
-  await nb.save();
-
-  // run all cells
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
-
-  // make sure launched
-  expect(init.notebooks.controller.isStarted()).toBeTruthy();
-
-  // short pause
-  await Sleep(100);
-
-  // compare cells
-  CompareCellOutputs(nb, CELL_OUTPUT);
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
-
-  // save to disk
-  await nb.save();
 };

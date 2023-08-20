@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "; when we have a stop or syntax error, dont stop on it and report",
+        "; cell as failed",
+        "pro mypro",
+        "  compile_opt idl2",
+        "  stop",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; run routine with a stop",
+        "mypro"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; dont run any cells after and mark everything as failed"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; verify we are at the main level (one item in stack trace)",
+        "print, n_elements(scope_traceback()), /implied_print"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

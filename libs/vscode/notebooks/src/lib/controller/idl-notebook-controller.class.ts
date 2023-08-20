@@ -16,7 +16,6 @@ import {
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
   IDL_NOTEBOOK_NAME,
-  SimplePromiseQueue,
   Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -86,14 +85,14 @@ export class IDLNotebookController {
   private _currentCell?: ICurrentCell;
 
   /**
-   * track pending executions
+   * Track pending executions
    */
-  private queue = new SimplePromiseQueue(1);
+  private queue: vscode.NotebookCell[][] = [];
 
   /**
-   * The current rejector for any active cell execution promise
+   * Flag if we are processing our queue or not
    */
-  private rejector: (reason?: any) => void;
+  private queueing: vscode.NotebookCell[] | undefined = undefined;
 
   constructor() {
     // create our runtime session - does not immediately start IDL
@@ -380,6 +379,12 @@ export class IDLNotebookController {
         content: [IDL_TRANSLATION.notebooks.errors.failedExecute, err],
         alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
       });
+    }
+
+    // always return from current scope
+    if (this.isStarted()) {
+      // return from current scope
+      await this.evaluate(`retall`);
     }
 
     // remove listener
@@ -711,25 +716,87 @@ export class IDLNotebookController {
   }
 
   /**
+   * Set failed execution for all cells so VSCode knows that we stopped
+   */
+  private setExecutionFailures(cells: vscode.NotebookCell[]) {
+    for (let i = 0; i < cells.length; i++) {
+      // create execution
+      const execution = this._controller.createNotebookCellExecution(cells[i]);
+
+      // set failed execution
+      execution.end(false);
+    }
+  }
+
+  /**
+   * Clears our queue
+   */
+  private clearQueue() {
+    // remove from queue
+    const removed = this.queue.splice(0, this.queue.length);
+
+    // set as failed executions
+    for (let i = 0; i < removed.length; i++) {
+      this.setExecutionFailures(removed[i]);
+    }
+
+    // check if we have cells to clear execution for
+    if (this.queueing !== undefined) {
+      if (this.queueing.length !== 0) {
+        this.setExecutionFailures(this.queueing);
+      }
+    }
+
+    // update flag for queue or not
+    this.queueing = undefined;
+  }
+
+  /**
    * Actually execute our notebook cells
    */
   async _doExecute(
-    cells: vscode.NotebookCell[],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _notebook: vscode.NotebookDocument,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _controller: vscode.NotebookController
   ): Promise<void> {
-    for (let i = 0; i < cells.length; i++) {
+    /**
+     * Get next cells to process
+     */
+    const cells = this.queue.shift();
+
+    // if nothing to process, return
+    if (cells === undefined) {
+      this.queueing = undefined;
+      return;
+    }
+
+    // set queueing flag
+    this.queueing = cells;
+
+    /** Get the next cell to process */
+    let cell = this.queueing.shift();
+
+    while (cell !== undefined) {
       try {
+        // attempt to run cell
+        const didExecute = await this._executeCell(cell);
+
+        // short pause so apis catch up
+        await Sleep(100);
+
         // execute cell and, if we dont succeed, then stop and return
-        if (!(await this._executeCell(cells[i]))) {
+        if (!didExecute || !cell?.executionSummary?.success) {
+          // clear queue
+          this.clearQueue();
+
+          // return
           return;
         }
-
-        // short pause
-        await Sleep(100);
       } catch (err) {
+        // clear queue
+        this.clearQueue();
+
         // alert user
         IDL_LOGGER.log({
           type: 'error',
@@ -737,8 +804,17 @@ export class IDLNotebookController {
           content: [IDL_TRANSLATION.notebooks.errors.failedExecute, err],
           alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
         });
+
+        // return
+        return;
       }
+
+      // get the next cell
+      cell = this.queueing.shift();
     }
+
+    // check if we have more cells to process
+    this._doExecute(_notebook, _controller);
   }
 
   /**
@@ -752,15 +828,16 @@ export class IDLNotebookController {
     _controller: vscode.NotebookController
   ): Promise<void> {
     try {
-      await this.queue.add(
-        async () => {
-          await this._doExecute(cells, _notebook, _controller);
-        },
-        (rejector) => {
-          this.rejector = rejector;
-        }
-      );
-      this.rejector = undefined;
+      this.queue.push(cells);
+
+      /**
+       * Return if we are processing our queue
+       */
+      if (this.queueing !== undefined) {
+        return;
+      }
+
+      await this._doExecute(_notebook, _controller);
     } catch (err) {
       // do nothing, should be caught elsewhere
     }
@@ -812,14 +889,8 @@ export class IDLNotebookController {
    * Stop kernel execution
    */
   async stop() {
-    // clear the queue
-    this.queue.clear();
-
-    // reject currently processing cell
-    if (this.rejector !== undefined) {
-      this.rejector();
-      this.rejector = undefined;
-    }
+    // clear our queue
+    this.clearQueue();
 
     // stop IDL if we can
     if (this.isStarted()) {
