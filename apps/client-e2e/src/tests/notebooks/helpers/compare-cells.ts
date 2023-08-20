@@ -37,9 +37,7 @@ export function CompareCellOutputs(
     expect(nbCell).not.toBeUndefined();
 
     // validate success if we have it
-    if (nbCell.executionSummary.success !== undefined) {
-      expect(nbCell.executionSummary.success).toEqual(expected.success);
-    }
+    expect(nbCell.executionSummary?.success).toEqual(expected.success);
 
     // get output mime types
     let mimes: string[] = [];

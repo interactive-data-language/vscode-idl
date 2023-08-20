@@ -13,7 +13,7 @@ export interface ICompareCellOutputs {
   /** Cell we are comparing against */
   idx: number;
   /** did we succeed */
-  success: boolean;
+  success: boolean | undefined;
   /** All of the cell mimetypes */
   mimeTypes: MimeTypes[];
 }

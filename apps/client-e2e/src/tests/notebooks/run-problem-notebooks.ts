@@ -26,12 +26,12 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
       },
       {
         idx: 2,
-        success: false,
+        success: undefined,
         mimeTypes: [],
       },
       {
         idx: 3,
-        success: false,
+        success: undefined,
         mimeTypes: [],
       },
     ],
@@ -69,7 +69,7 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
       },
       {
         idx: 1,
-        success: false,
+        success: undefined,
         mimeTypes: [],
       },
     ],
@@ -92,7 +92,7 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
       },
       {
         idx: 1,
-        success: false,
+        success: undefined,
         mimeTypes: [],
       },
     ],
