@@ -44,7 +44,9 @@ Here are some of the features that notebooks bring:
 
 ## 3.2.1 August 2023
 
-Resolve a problem with the language server where you can get into an infinite loop trying to resolve include statements in IDL when they depend on each other
+Resolve a problem with the language server where you can get into an infinite loop trying to resolve include statements in IDL when they end up including one another
+
+Add a potential fix for always-increasing loops when doing change detection for parsed files
 
 Fix an issue where, if you have the same folder or sub folder on IDL's path and in an open workspace, then you would get duplicate problems being reported. We now get the unique files from all folders on startup at once to resolve this.
 
