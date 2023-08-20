@@ -44,6 +44,14 @@ Here are some of the features that notebooks bring:
 
 ## 3.2.1 August 2023
 
+Notebook key behavior change:
+
+- If you are running more than one notebook cell, and there is an error, any pending cells gets marked as having an error and execution of all cells halts. This makes sure that, if there is a problem in a parent cell that might generate content for other cells, there are no cascading failures.
+
+- While verbose, this makes it clear that, if there is a problem, execution stops
+
+- If this is annoying and it would be preferable to just fail on the first cell and not mark the others as failed, let us know and we can take a look at changing the behavior.
+
 Resolve a problem with the language server where you can get into an infinite loop trying to resolve include statements in IDL when they end up including one another
 
 Add a potential fix for always-increasing loops when doing change detection for parsed files
