@@ -295,27 +295,6 @@ export class IDLNotebookController {
         });
       }
     }
-
-    /**
-     * Commands to run after executing a cell
-     *
-     * Quiet makes sure that we exclude output that goofs up processing and hides compile statements
-     *
-     * Magic forces embedding and, for embedding, resets window ID
-     */
-    const commands = [
-      '!quiet = 1',
-      `!magic.embed = ${
-        IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
-      }`,
-      '!magic.window = -1',
-      `IDLNotebook.Reset`,
-    ];
-
-    /**
-     * Clean things up and get our !magic system variable
-     */
-    await this.evaluate(commands.join(' & '));
   }
 
   /**
@@ -383,8 +362,28 @@ export class IDLNotebookController {
 
     // always return from current scope
     if (this.isStarted()) {
-      // return from current scope
-      await this.evaluate(`retall`);
+      /**
+       * Commands to run after executing a cell
+       *
+       * Quiet makes sure that we exclude output that goofs up processing and hides compile statements
+       *
+       * Magic forces embedding and, for embedding, resets window ID
+       */
+      const commands = [
+        `retall`,
+        '!quiet = 1',
+        `!magic.embed = ${
+          IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
+        }`,
+        '!magic.window = -1',
+        `IDLNotebook.Reset`,
+        `retall`,
+      ];
+
+      /**
+       * Clean things up and get our !magic system variable
+       */
+      await this.evaluate(commands.join(' & '));
     }
 
     // remove listener
