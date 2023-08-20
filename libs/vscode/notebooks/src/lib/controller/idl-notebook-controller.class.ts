@@ -719,11 +719,10 @@ export class IDLNotebookController {
    */
   private setExecutionFailures(cells: vscode.NotebookCell[]) {
     for (let i = 0; i < cells.length; i++) {
-      // create execution
-      const execution = this._controller.createNotebookCellExecution(cells[i]);
-
-      // set failed execution
-      execution.end(false);
+      // // create execution
+      // const execution = this._controller.createNotebookCellExecution(cells[i]);
+      // // set failed execution
+      // execution.end(false);
     }
   }
 
