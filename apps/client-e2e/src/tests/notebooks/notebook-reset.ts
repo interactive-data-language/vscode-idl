@@ -22,7 +22,7 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
  * Function that verifies that we can do basic debugging of IDL sessions
  * and launch a new debugging session.
  */
-export const RunNotebookRestart: RunnerFunction = async (init) => {
+export const RunNotebookReset: RunnerFunction = async (init) => {
   /**
    * Get the file we are going to open
    */
@@ -56,11 +56,11 @@ export const RunNotebookRestart: RunnerFunction = async (init) => {
   // make sure stopped
   expect(init.notebooks.controller.isStarted()).toBeTruthy();
 
-  // clear outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
-
   // compare state
   CompareCellOutputs(nb, CELL_OUTPUT);
+
+  // clear outputs
+  await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
 
   // clear any existing outputs
   await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);

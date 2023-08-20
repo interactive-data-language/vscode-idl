@@ -13,7 +13,7 @@ import { ICompareCellOutputs } from './helpers/compare-cells.interface';
 export const CELL_OUTPUT: ICompareCellOutputs[] = [
   {
     idx: 0,
-    success: false,
+    success: undefined,
     mimeTypes: [],
   },
 ];
@@ -55,9 +55,6 @@ export const RunNotebookStop: RunnerFunction = async (init) => {
 
   // make sure stopped
   expect(init.notebooks.controller.isStarted()).toBeFalsy();
-
-  // clear outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
 
   // compare state
   CompareCellOutputs(nb, CELL_OUTPUT);

@@ -4,7 +4,7 @@ import { Runner } from '../runner.class';
 import { NotebookFormats_1_0_0 } from './notebook-formats-1.0.0';
 import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
-import { RunNotebookRestart } from './notebook-restart';
+import { RunNotebookReset } from './notebook-reset';
 import { RunNotebookStop } from './notebook-stop';
 import { RunProblemNotebooks } from './run-problem-notebooks';
 import { RunTestENVIMapNotebook } from './run-test-envi-map-notebook';
@@ -71,7 +71,7 @@ NOTEBOOK_RUNNER.addTest({
 // reset goes first
 NOTEBOOK_RUNNER.addTest({
   name: 'Reset does the right thing',
-  fn: RunNotebookRestart,
+  fn: RunNotebookReset,
   critical: true,
 });
 
