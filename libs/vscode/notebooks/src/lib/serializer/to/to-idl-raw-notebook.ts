@@ -1,6 +1,10 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { EncodeNotebook } from '@idl/notebooks/shared';
-import { IDLRawNotebook, IDLRawNotebookVersion } from '@idl/notebooks/types';
+import {
+  IDLRawNotebook,
+  IDLRawNotebookVersion,
+  NOTEBOOK_METADATA_DONT_SAVE_THESE,
+} from '@idl/notebooks/types';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import * as vscode from 'vscode';
@@ -22,7 +26,9 @@ export async function ToIDLRawNotebook<T extends IDLRawNotebookVersion>(
    */
   for (let i = 0; i < data.cells.length; i++) {
     if (data.cells[i].metadata !== undefined) {
-      delete data.cells[i].metadata['id'];
+      for (let j = 0; j < NOTEBOOK_METADATA_DONT_SAVE_THESE.length; j++) {
+        delete data.cells[i].metadata[NOTEBOOK_METADATA_DONT_SAVE_THESE[j]];
+      }
     }
   }
 
