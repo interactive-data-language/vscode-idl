@@ -5,6 +5,7 @@ import {
 } from '@idl/notebooks/types';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/client';
+import * as vscode from 'vscode';
 
 import { SaveNotebookImage } from './save-notebook-image';
 
@@ -12,6 +13,7 @@ import { SaveNotebookImage } from './save-notebook-image';
  * Handle messages from our renderer
  */
 export async function HandleRendererMessage(
+  notebook: vscode.NotebookDocument,
   message: IDLNotebookFromRendererMessage<IDLNotebookFromRendererMessageType>
 ) {
   IDL_LOGGER.log({

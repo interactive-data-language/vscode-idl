@@ -3,6 +3,7 @@ import {
   IDLNotebookFromRendererBaseMessage,
   IDLNotebookFromRendererMessage,
   IDLNotebookFromRendererMessageType,
+  IDLNotebookOutputMetadata,
   IDLNotebookToRendererMessage,
 } from '@idl/notebooks/types';
 import { nanoid } from 'nanoid';
@@ -21,7 +22,7 @@ export class VSCodeRendererMessenger implements OnDestroy {
   /**
    * The output ID of the cell
    */
-  private cellOutputID!: string;
+  private metadata!: IDLNotebookOutputMetadata;
 
   /**
    * Observable for messages from VSCode
@@ -40,8 +41,8 @@ export class VSCodeRendererMessenger implements OnDestroy {
     }
 
     // get the ID of our output item
-    if ('_vscodeCellOutputID' in window) {
-      this.cellOutputID = (window as any)._vscodeCellOutputID;
+    if ('_vscodeCellOutputMetadata' in window) {
+      this.metadata = (window as any)._vscodeCellOutputMetadata;
     }
 
     // flag if dark mode
@@ -53,7 +54,7 @@ export class VSCodeRendererMessenger implements OnDestroy {
       this.context.onDidReceiveMessage !== undefined
     ) {
       this.context.onDidReceiveMessage((msg: IDLNotebookToRendererMessage) => {
-        if (msg.cellId === this.cellOutputID) {
+        if (msg.cellId === this.metadata.id) {
           this.messages$.next(msg);
         }
       });
@@ -73,7 +74,7 @@ export class VSCodeRendererMessenger implements OnDestroy {
    */
   canPostMessage() {
     return (
-      this.context.postMessage !== undefined && this.cellOutputID !== undefined
+      this.context.postMessage !== undefined && this.metadata !== undefined
     );
   }
 
@@ -86,7 +87,7 @@ export class VSCodeRendererMessenger implements OnDestroy {
     if (this?.context?.postMessage !== undefined) {
       const typed: IDLNotebookFromRendererMessage<T> = {
         messageId: nanoid(),
-        cellId: this.cellOutputID,
+        cellId: this.metadata.id,
         ...message,
       };
       this.context.postMessage(typed);

@@ -11,8 +11,10 @@ import {
   IDLNotebookMap_GeoJSONFromUri,
   IDLNotebookMap_Image,
   IDLNotebookMap_ImageFromUri,
+  IDLNotebookOutputMetadata,
 } from '@idl/notebooks/types';
 import { readFileSync } from 'fs';
+import { nanoid } from 'nanoid';
 import * as vscode from 'vscode';
 
 import { ICurrentCell } from './idl-notebook-controller.interface';
@@ -30,6 +32,12 @@ export function ProcessIDLNotebookEmbeddedItems(
     // get the item we want to embed
     const embed = items[i];
 
+    // create metadata for our cell
+    const meta: IDLNotebookOutputMetadata = {
+      id: nanoid(),
+    };
+
+    // get the specific item that we are going to embed, might overwrite below
     let embedThis = embed;
 
     /**
@@ -169,16 +177,21 @@ export function ProcessIDLNotebookEmbeddedItems(
         break;
     }
 
+    console.log(meta);
+
     /**
      * Add as output with the appropriate mime type
      */
     cell.execution.appendOutput(
-      new vscode.NotebookCellOutput([
-        new vscode.NotebookCellOutputItem(
-          Buffer.from(JSON.stringify(embedThis)),
-          IDL_NOTEBOOK_MIME_TYPE
-        ),
-      ])
+      new vscode.NotebookCellOutput(
+        [
+          new vscode.NotebookCellOutputItem(
+            Buffer.from(JSON.stringify(embedThis)),
+            IDL_NOTEBOOK_MIME_TYPE
+          ),
+        ],
+        meta
+      )
     );
   }
 }

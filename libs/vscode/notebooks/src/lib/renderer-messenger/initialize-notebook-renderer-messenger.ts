@@ -14,6 +14,6 @@ export function InitializeNotebookRendererMessenger() {
   );
 
   NOTEBOOK_RENDERER_MESSENGER.onDidReceiveMessage((e) => {
-    HandleRendererMessage(e.message);
+    HandleRendererMessage(e.editor.notebook, e.message);
   });
 }

@@ -19,7 +19,7 @@ export const activate: ActivationFunction = (context) => {
       (window as any)._vscodeContext = context;
 
       // save ID for cell output item
-      (window as any)._vscodeCellOutputID = data.id;
+      (window as any)._vscodeCellOutputMetadata = data.metadata;
 
       // create key for data for better data transfer
       const dataKey = `${Math.floor(Date.now() * 1000)}`;

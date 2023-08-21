@@ -1,14 +1,11 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { EncodeNotebook } from '@idl/notebooks/shared';
-import {
-  IDLRawNotebook,
-  IDLRawNotebookVersion,
-  NOTEBOOK_METADATA_DONT_SAVE_THESE,
-} from '@idl/notebooks/types';
+import { IDLRawNotebook, IDLRawNotebookVersion } from '@idl/notebooks/types';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 
+import { CleanOutputMetadata } from './clean-output-metadata';
 import { ToIDLRawNotebook_1_0_0 } from './to-idl-raw-notebook-1.0.0';
 import { ToIDLRawNotebook_2_0_0 } from './to-idl-raw-notebook-2.0.0';
 
@@ -22,12 +19,14 @@ export async function ToIDLRawNotebook<T extends IDLRawNotebookVersion>(
   _token: vscode.CancellationToken
 ): Promise<Uint8Array> {
   /**
-   * Clean up cell metadata
+   * Clean up cell output metadata so we don't save things that
+   * are dynamic (like ids) which gets annoying from a git perspective
    */
   for (let i = 0; i < data.cells.length; i++) {
-    if (data.cells[i].metadata !== undefined) {
-      for (let j = 0; j < NOTEBOOK_METADATA_DONT_SAVE_THESE.length; j++) {
-        delete data.cells[i].metadata[NOTEBOOK_METADATA_DONT_SAVE_THESE[j]];
+    const outputs = data.cells[i].outputs;
+    if (outputs !== undefined) {
+      for (let z = 0; z < outputs.length; z++) {
+        CleanOutputMetadata(outputs[z].metadata);
       }
     }
   }

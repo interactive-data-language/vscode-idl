@@ -55,7 +55,7 @@ export const ToIDLRawNotebook_2_0_0: ToIDLRawNotebook<IDLRawNotebookVersion_2_0_
                 };
               }
             }),
-            metadata: out.metadata,
+            metadata: Object.assign({ id: 'not-saved' }, out.metadata),
           };
         });
       }
