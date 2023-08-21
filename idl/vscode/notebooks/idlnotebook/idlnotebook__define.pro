@@ -357,8 +357,17 @@ pro IDLNotebook::Export
   ; clean up
   IDLNotebook.Reset
 
-  ; print
-  print, json_serialize(export, /lowercase, precision = 8)
+  ; check what our IDL version is
+  case (!true) of
+    ;+
+    ; Support for precision keyword
+    ;-
+    long(!version.release.replace('.', '')) ge 883: print, json_serialize(export, /lowercase, precision = 8)
+    ;+
+    ; We don't so we can't print
+    ;-
+    else: print, json_serialize(export, /lowercase)
+  endcase
 end
 
 ;+
