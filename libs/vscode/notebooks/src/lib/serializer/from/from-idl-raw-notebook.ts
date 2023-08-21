@@ -1,12 +1,14 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { DecodeNotebook } from '@idl/notebooks/shared';
 import {
+  IDLNotebookMetadata,
   IDLRawNotebook,
   IDLRawNotebookVersion_1_0_0,
   IDLRawNotebookVersion_2_0_0,
 } from '@idl/notebooks/types';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/client';
+import { nanoid } from 'nanoid';
 import * as vscode from 'vscode';
 
 import { FromIDLRawNotebook_1_0_0 } from './from-idl-raw-notebook-1.0.0';
@@ -59,7 +61,25 @@ export async function FromIDLRawNotebook(
         );
     }
 
-    // check for top-level metadata
+    /**
+     * Get cells
+     */
+    const cells = nb.cells;
+
+    // make sure they all have metadata
+    for (let i = 0; i < cells.length; i++) {
+      // create base metadata
+      const meta: IDLNotebookMetadata = {
+        id: nanoid(),
+      };
+
+      // set
+      cells[i].metadata =
+        cells[i].metadata !== undefined
+          ? Object.assign(cells[i].metadata, meta)
+          : meta;
+    }
+
     if (parsed.metadata !== undefined) {
       nb.metadata = parsed.metadata;
     }

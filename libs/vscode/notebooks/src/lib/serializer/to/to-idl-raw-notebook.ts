@@ -18,6 +18,15 @@ export async function ToIDLRawNotebook<T extends IDLRawNotebookVersion>(
   _token: vscode.CancellationToken
 ): Promise<Uint8Array> {
   /**
+   * Clean up cell metadata
+   */
+  for (let i = 0; i < data.cells.length; i++) {
+    if (data.cells[i].metadata !== undefined) {
+      delete data.cells[i].metadata['id'];
+    }
+  }
+
+  /**
    * Create default notebook in case there are problems
    */
   let nb: IDLRawNotebook<T> = {

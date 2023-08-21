@@ -1,3 +1,4 @@
+import { IDLNotebookMetadata } from './idl-notebook-metadata.interface';
 import {
   IDLRawNotebookCellBase,
   IDLRawNotebookCellOutputBase,
@@ -19,9 +20,9 @@ export interface RawNotebookCellOutput_2_0_0 {
   /** Output Items */
   items: RawNotebookCellOutputItem_2_0_0[];
   /**
-   * Notebook cell metadata
+   * Notebook cell metadata, should be something that can be stringified
    */
-  metadata?: { [key: string]: any };
+  metadata: IDLNotebookMetadata;
 }
 
 /**
