@@ -619,8 +619,7 @@ export class IDLNotebookController {
     // reset cell output
     execution.clearOutput();
 
-    dirname(CleanPath(cell.notebook.uri.fsPath));
-
+    /** Folder where we write notebook */
     const nbDir = dirname(CleanPath(cell.notebook.uri.fsPath));
 
     /**
