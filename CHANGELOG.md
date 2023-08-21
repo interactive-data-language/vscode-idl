@@ -62,6 +62,8 @@ Fixed a bug with semantic tokens in notebooks where the text would be highlighte
 
 When you click into the outputs from an IDL notebook that is being rendered by the IDL Extension, a blue outline appears over what you have selected to match VSCode's behavior
 
+Added logic when retrieving outputs from IDL to be more backwards compatible. As it was, you needed at least IDL 8.8.3, but it now supports pre-8.8.3 at your own risk.
+
 ## 3.2.0 August 2023
 
 When the language server does not use a full parse, extract structure definitions. Before, this was a logic gap (and made the code faster), but they should be correctly resolved now with minimal performance hits.
