@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script src="./../../../../dist/apps/notebook/components/runtime.js"></script>
+    <script src="./../../../../dist/apps/notebook/components/polyfills.js"></script>
+    <script src="./../../../../dist/apps/notebook/components/main.js"></script>
+    <script src="./item.js"></script>
+
+    <script>
+      // save context
+      window._vscodeContext = {};
+
+      // save ID for cell output item
+      window._vscodeCellOutputMetadata = {};
+
+      // create key for data for better data transfer
+      const dataKey = `super-awesome-id`;
+
+      // parse JSON and set as key in window
+      window[dataKey] = JSON.parse(jsonString);
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('my-container').innerHTML =
+          '<idl-nb-entry data="super-awesome-id"></idl-nb-entry>';
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="my-container"></div>
+  </body>
+</html>
