@@ -280,14 +280,10 @@ function IDLNotebook::_CreateNotebookItem, item
 end
 
 ;+
-; :Description:
-;   Exports (to the console via print) all of the magic items that
-;   we are currently tracking
-;
-;   Cleans up and removes everything after we have exported
+; :Returns: any
 ;
 ;-
-pro IDLNotebook::Export
+function IDLNotebook::ExportItems
   compile_opt idl2, hidden, static
   on_error, 2
 
@@ -356,6 +352,25 @@ pro IDLNotebook::Export
 
   ; clean up
   IDLNotebook.Reset
+
+  ;+ Return the items to embed
+  return, export
+end
+
+;+
+; :Description:
+;   Exports (to the console via print) all of the magic items that
+;   we are currently tracking
+;
+;   Cleans up and removes everything after we have exported
+;
+;-
+pro IDLNotebook::Export
+  compile_opt idl2, hidden, static
+  on_error, 2
+
+  ;+ Export items and convert to something that is serializable
+  export = IDLNotebook.ExportItems()
 
   ; check what our IDL version is
   case (!true) of

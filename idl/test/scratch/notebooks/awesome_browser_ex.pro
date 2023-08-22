@@ -53,7 +53,17 @@ end
 ;+
 ;-
 pro awesome_browser_ex
-  compile_opt idl2
+  compile_opt idl2, hidden
+
+  export = IDLNotebook.ExportItems()
+  if (n_elements(export) eq 0) then message, 'Nothing to embed'
+
+  asString = json_serialize(export[0], /lowercase)
+
+  ; dataFile = file_dirname(routine_filepath(), /mark_directory) + 'payload.js'
+  ; openw, lun, dataFile, /get_lun
+  ; printf, lun, 'const payload = ' + asString + ';'
+  ; free_lun, lun
 
   ; Set up initial data
   xsize = 600
@@ -61,10 +71,19 @@ pro awesome_browser_ex
   htmlfile = 'file:///' + $
     file_dirname(routine_filepath(), /mark_directory) + 'awesome_browser_ex.html'
 
-  ; Create widgets
-  wTLB = widget_base(/column, xsize = xsize)
-  wBrowser = widget_browser(wTLB, value = htmlfile, xsize = xsize, ysize = ysize)
+  state = orderedhash()
 
+  ; Create widgets
+  wTLB = widget_base(/column, xsize = xsize, uvalue = state)
+  wBrowser = widget_browser(wTLB, value = htmlfile, xsize = xsize, ysize = ysize)
+  state['wBrowser'] = wBrowser
   widget_control, wTLB, /realize
   xmanager, 'awesome_browser_ex', wTLB, /no_block
+
+  ; need to stop here so the interpreter gets a chance to catch up
+  ; something weird with evet order in the browser
+  stop
+
+  ; send data
+  widget_control, wBrowser, browser_notify = asString
 end
