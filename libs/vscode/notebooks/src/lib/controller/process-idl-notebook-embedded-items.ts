@@ -177,8 +177,6 @@ export function ProcessIDLNotebookEmbeddedItems(
         break;
     }
 
-    console.log(meta);
-
     /**
      * Add as output with the appropriate mime type
      */
