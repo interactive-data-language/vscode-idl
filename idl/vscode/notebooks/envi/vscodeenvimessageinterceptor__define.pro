@@ -28,6 +28,8 @@ function VSCodeENVIMessageInterceptor::Init, verbose = verbose
   ; init properties
   self.stack = 0
   self.verbose = keyword_set(verbose)
+  self.laststart = list()
+  self.lastprogress = list()
 
   ; get the channel and subscribe
   oChannel = e.GetBroadcastChannel()
@@ -81,6 +83,10 @@ pro VSCodeENVIMessageInterceptor::OnMessage, msg
     ; Start of progress
     ;-
     isa(msg, 'ENVIStartMessage'): begin
+      if (n_elements(self.laststart) gt 0) then begin
+        if (self.laststart[-1] eq msg.message) then return
+      endif
+
       self.stack++
 
       ;+ get the message we print
@@ -88,12 +94,22 @@ pro VSCodeENVIMessageInterceptor::OnMessage, msg
 
       if (self.stack eq 1 || self.stack gt 1 and self.verbose) then $
         print, indent + useMsg.trim()
+
+      ; track info about progress
+      self.laststart.add, msg.message
+      self.lastprogress.add, -1
     end
 
     ;+
     ; Progress message for what we are running
     ;-
     isa(msg, 'ENVIProgressMessage'): begin
+      ; return if same as last
+      if (msg.percent le self.lastprogress[self.stack - 1]) then return
+
+      ; track current progress
+      self.lastprogress[self.stack - 1] = msg.percent
+
       if (self.stack eq 1 || self.stack gt 1 and self.verbose) then $
         print, strjoin([indent, msg.message.trim(), ', Progress=', strtrim(long(msg.percent), 2), '%'])
     end
@@ -102,7 +118,14 @@ pro VSCodeENVIMessageInterceptor::OnMessage, msg
     ; Progress bar finished
     ;-
     isa(msg, 'ENVIFinishMessage'): begin
+      ; ; update stack count
       self.stack--
+
+      ; remove last progress
+      self.laststart.remove
+      self.lastprogress.remove
+
+      ; attempt to print
       if (self.stack eq 0 || self.stack gt 0 and self.verbose) then $
         print, strmid(indent, 2) + 'Finished!'
     end
@@ -113,6 +136,10 @@ end
 
 ;+
 ; :VSCodeENVIMessageInterceptor:
+;   lastprogress: List<Byte>
+;     Track the previous progress percentage
+;   laststart: List<String>
+;     Titles of start messages to filter duplicates
 ;   stack: Long
 ;     The number of pending progress bars
 ;   verbose: Boolean
@@ -125,5 +152,7 @@ pro VSCodeENVIMessageInterceptor__define
   !null = {VSCodeENVIMessageInterceptor, $
     inherits ENVIMessageHandler, $
     stack: 0l, $
+    laststart: list(), $
+    lastprogress: list(), $
     verbose: !false}
 end
