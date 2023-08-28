@@ -14,7 +14,7 @@ function ShapeFileToGeoJSON_Serialize, item
     ;+
     ; Support for precision keyword
     ;-
-    long(!version.release.replace('.', '')) ge 883: c, json_serialize(item, /lowercase, precision = 8)
+    long(!version.release.replace('.', '')) ge 883: return, json_serialize(item, /lowercase, precision = 8)
     ;+
     ; We don't so we can't print
     ;-
