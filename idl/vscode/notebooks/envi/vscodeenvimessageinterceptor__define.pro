@@ -126,8 +126,10 @@ pro VSCodeENVIMessageInterceptor::OnMessage, msg
       self.lastprogress.remove
 
       ; attempt to print
-      if (self.stack eq 0 || self.stack gt 0 and self.verbose) then $
+      if (self.stack eq 0 || self.stack gt 0 and self.verbose) then begin
         print, strmid(indent, 2) + 'Finished!'
+        print
+      endif
     end
 
     else: ; do nothing
