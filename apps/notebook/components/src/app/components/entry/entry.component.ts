@@ -1,4 +1,10 @@
-import { Component, Host, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Host,
+  Input,
+} from '@angular/core';
 import {
   IDLNotebook_EmbedType,
   IDLNotebookEmbeddedItem,
@@ -27,12 +33,13 @@ export const IDL_NB_ENTRY_COMPONENT_SELECTOR = 'idl-nb-entry';
   templateUrl: './entry.component.html',
   styles: [
     `
+      @import 'shared-styles.scss';
       @import 'styles.scss';
     `,
   ],
   providers: [DataSharingService],
 })
-export class EntryComponent {
+export class EntryComponent implements AfterViewInit {
   /**
    * Flag if we have data or not
    */
@@ -61,5 +68,19 @@ export class EntryComponent {
    */
   embed!: IDLNotebookEmbeddedItem<IDLNotebook_EmbedType>;
 
-  constructor(@Host() private dataShare: DataSharingService) {}
+  class = '';
+
+  constructor(
+    @Host() private dataShare: DataSharingService,
+    private el: ElementRef<HTMLElement>
+  ) {}
+
+  ngAfterViewInit() {
+    this.el.nativeElement.onclick = () => {
+      this.class = 'vscode-outlined';
+    };
+    this.el.nativeElement.onmouseleave = () => {
+      this.class = '';
+    };
+  }
 }

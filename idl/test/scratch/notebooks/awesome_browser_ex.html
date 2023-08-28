@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <script src="./../../../../dist/apps/notebook/components/runtime.js"></script>
+    <script src="./../../../../dist/apps/notebook/components/polyfills.js"></script>
+    <script src="./../../../../dist/apps/notebook/components/main.js"></script>
+    <script type="text/javascript" src="./idl-1.0.0.js"></script>
+
+    <script>
+      // save context
+      window._vscodeContext = {};
+
+      // save ID for cell output item
+      window._vscodeCellOutputMetadata = {};
+
+      /**
+       * Flag if we have loaded our DOM yet
+       */
+      let loaded = false;
+
+      /**
+       * Flag if we have received an event or not
+       */
+      let event = false;
+
+      /**
+       * The key in our window object that stores our data
+       */
+      const dataKey = `super-awesome-id`;
+
+      document.addEventListener('DOMContentLoaded', () => {
+        loaded = true;
+
+        // if we have both, then render
+        if (loaded && event) {
+          document.getElementById(
+            'my-container'
+          ).innerHTML = `<idl-nb-entry data="${dataKey}"></idl-nb-entry>`;
+        }
+      });
+
+      IDL.addEventListener((event) => {
+        // parse JSON and set as key in window
+        window[dataKey] = JSON.parse(event.detail);
+        event = true;
+
+        // if we have both, then render
+        if (loaded && event) {
+          document.getElementById(
+            'my-container'
+          ).innerHTML = `<idl-nb-entry data="${dataKey}"></idl-nb-entry>`;
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="my-container"></div>
+  </body>
+</html>

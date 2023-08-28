@@ -46,3 +46,4 @@ If you are looking to turn off problems (i.e. don't report them), then you can u
 - [idl("bad-break")](./codes/67.md)
 - [idl("expected-statement")](./codes/68.md)
 - [idl("illegal-var-index")](./codes/105.md)
+- [idl("circular-include")](./codes/106.md)

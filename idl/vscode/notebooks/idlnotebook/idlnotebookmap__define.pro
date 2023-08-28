@@ -10,6 +10,9 @@ function IDLNotebookMap::_CreateNotebookItem, val
   compile_opt idl2, hidden, static
   on_error, 2
 
+  ;+
+  ; See what we are trying to add to our map
+  ;-
   case (!true) of
     ;+
     ; Handle raw GeoJSON
@@ -65,18 +68,19 @@ function IDLNotebookMap::_CreateNotebookItem, val
       reproj = ENVIReprojectRaster(val.raster, $
         coord_sys = ENVICoordSys(coord_sys_code = 3857))
 
-      ; convert raster to thumbnail
-      task = ENVITask('GenerateThumbnail')
-      task.input_raster = reproj
-      task.thumbnail_size = 1024
-      task.execute
+      ; make thumbnail
+      uri = !null
+      AwesomeGenerateThumbnail, $
+        input_raster = reproj, $
+        thumbnail_size = 1024, $
+        output_png_uri = uri
 
       ; get info about PNG to display correctly
-      !null = query_png(task.output_raster_uri, info)
+      !null = query_png(uri, info)
 
       ; make new item
       newItem = {IDLNotebookMap_ImageFromUri}
-      newItem.uri = task.output_raster_uri
+      newItem.uri = uri
       newItem.xsize = info.dimensions[0]
       newItem.ysize = info.dimensions[1]
       newItem.extents = reproj.getExtents()
@@ -155,6 +159,10 @@ function IDLNotebookMap::_CreateNotebookItem, val
       ; save because we are OK!
       return, IDLNotebook._CreateNotebookItem(newItem)
     end
+
+    ;+
+    ; Unknown data type that we can't handle
+    ;-
     else: begin
       message, 'Found an unsupported data type in list of items to add to map', level = -1
     end

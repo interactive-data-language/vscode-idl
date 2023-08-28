@@ -42,6 +42,28 @@ Here are some of the features that notebooks bring:
 
   - After each cell is executed we issue a `retall` command to make sure that we are at the top-level and not stopped in a weird state
 
+## 3.2.1 August 2023
+
+Notebook key behavior change: If you are running one or more cells, and there is an error from IDL for any cell being executed, all pending cells are cleared and not executed. This makes sure that, if later cells depend on earlier ones, that you don't have cascading failures.
+
+Resolve a problem with the language server where you can get into an infinite loop trying to resolve include statements in IDL when they end up including one another
+
+Add a potential fix for always-increasing loops when doing change detection for parsed files
+
+Fix an issue where, if you have the same folder or sub folder on IDL's path and in an open workspace, then you would get duplicate problems being reported. We now get the unique files from all folders on startup at once to resolve this.
+
+Fixed a bug where notebook cells would sometimes process in the wrong worker thread, causing inconsistencies with things like semantic tokens.
+
+Fixed a bug where semantic tokens (highlighting static class references) was wrong when tokens were built out of order from top down and left to right
+
+Added a new problem code that detects when the IDL include statement creates a circular include pattern
+
+Fixed a bug with semantic tokens in notebooks where the text would be highlighted as a semantic token in cells that don't have any semantic tokens
+
+When you click into the outputs from an IDL notebook that is being rendered by the IDL Extension, a blue outline appears over what you have selected to match VSCode's behavior
+
+Added logic when retrieving outputs from IDL to be more backwards compatible. As it was, you needed at least IDL 8.8.3, but it now supports pre-8.8.3 at your own risk.
+
 ## 3.2.0 August 2023
 
 When the language server does not use a full parse, extract structure definitions. Before, this was a logic gap (and made the code faster), but they should be correctly resolved now with minimal performance hits.

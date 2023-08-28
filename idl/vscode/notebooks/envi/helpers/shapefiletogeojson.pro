@@ -1,4 +1,28 @@
 ;+
+; :Returns: String
+;
+; :Arguments:
+;   item: in, required, any
+;     The item that we are saving
+;
+;-
+function ShapeFileToGeoJSON_Serialize, item
+  compile_opt idl2, hidden
+
+  ; check what our IDL version is
+  case (!true) of
+    ;+
+    ; Support for precision keyword
+    ;-
+    long(!version.release.replace('.', '')) ge 883: return, json_serialize(item, /lowercase, precision = 8)
+    ;+
+    ; We don't so we can't print
+    ;-
+    else: return, json_serialize(item, /lowercase)
+  endcase
+end
+
+;+
 ; :Tooltip:
 ;   Converts shapefiles to GeoJSON
 ;
@@ -279,16 +303,16 @@ pro ShapeFileToGeoJSON, $
           ; how do we proceed
           case (1) of
             ((types[idx] eq 'Polygon') && (~multipoints[idx])): begin
-              strs.Add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + json_serialize(list(vert), precision = 8) + '}}'
+              strs.Add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + ShapeFileToGeoJSON_Serialize(list(vert)) + '}}'
             end
             (types[idx] eq 'Point' && (n_elements(vert) eq 1)): begin
-              strs.Add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + json_serialize(vert[0], precision = 8) + '}}'
+              strs.Add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + ShapeFileToGeoJSON_Serialize(vert[0]) + '}}'
             end
             (types[idx] eq 'LineString'): begin
-              strs.Add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + json_serialize(vert[0], precision = 8) + '}}'
+              strs.Add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + ShapeFileToGeoJSON_Serialize(vert[0]) + '}}'
             end
             else: begin
-              strs.Add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + json_serialize(vert, precision = 8) + '}}'
+              strs.Add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + ShapeFileToGeoJSON_Serialize(vert) + '}}'
             end
           endcase
         endforeach

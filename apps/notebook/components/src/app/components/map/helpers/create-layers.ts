@@ -7,6 +7,7 @@ import {
   IDLNotebookMap_Image,
 } from '@idl/notebooks/types';
 import { bboxify } from '@mapbox/geojson-extent';
+import { nanoid } from 'nanoid';
 
 import { AwesomeImage } from './awesome-image.class';
 
@@ -70,12 +71,13 @@ export function CreateLayers(embed: IDLNotebookEmbeddedItem<IDLNotebookMap>) {
 
         embedLayers.push(
           new GeoJsonLayer({
+            id: nanoid(),
             stroked: true,
             filled: true,
             getFillColor: (geo) => {
               if (geo.properties && 'color' in geo.properties) {
                 const rgb = geo.properties['color'];
-                return [rgb[0], rgb[1], rgb[2], 125];
+                return [rgb[0], rgb[1], rgb[2], 175];
               } else {
                 return color as any;
               }
@@ -111,7 +113,7 @@ export function CreateLayers(embed: IDLNotebookEmbeddedItem<IDLNotebookMap>) {
 
         embedLayers.push(
           new AwesomeImage({
-            id: 'bitmap-layer',
+            id: nanoid(),
             image: `data:image/png;base64,${typed.item.data}`,
             bounds: [extent.xmin, extent.ymin, extent.xmax, extent.ymax],
             pickable: false,

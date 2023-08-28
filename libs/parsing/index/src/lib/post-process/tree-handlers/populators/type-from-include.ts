@@ -1,4 +1,9 @@
-import { BasicCallback } from '@idl/parsing/syntax-tree';
+import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
+import {
+  BasicCallback,
+  IParsed,
+  SyntaxProblemWithTranslation,
+} from '@idl/parsing/syntax-tree';
 import { IncludeToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';
 
@@ -25,6 +30,11 @@ export type ProcessToken = IncludeToken;
 const TOKENS: ProcessToken[] = [TOKEN_NAMES.INCLUDE];
 
 /**
+ * Track files we are trying to include
+ */
+const IS_INCLUDING: { [key: string]: IParsed } = {};
+
+/**
  * Types from include variables
  */
 const cb: BasicCallback<ProcessToken, PopulateTypeHandlerMeta> = (
@@ -47,12 +57,28 @@ const cb: BasicCallback<ProcessToken, PopulateTypeHandlerMeta> = (
     return;
   }
 
+  // check if already including
+  if (foundFile in IS_INCLUDING) {
+    IS_INCLUDING[foundFile].postProcessProblems.push(
+      SyntaxProblemWithTranslation(
+        IDL_PROBLEM_CODES.CIRCULAR_INCLUDE,
+        token.pos,
+        token.pos
+      )
+    );
+    return;
+  }
+  IS_INCLUDING[foundFile] = parsed;
+
   /**
    * Get parsed file for include
    */
   const includeParsed = meta.index.tokensByFile.has(foundFile)
     ? meta.index.tokensByFile.get(foundFile)
     : IncludeCache(meta.index, foundFile);
+
+  // remove from cache as trying to include
+  delete IS_INCLUDING[foundFile];
 
   /**
    * Get tokens

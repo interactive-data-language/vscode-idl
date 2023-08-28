@@ -11,6 +11,7 @@ import * as vscode from 'vscode';
 
 import { FromIDLRawNotebook_1_0_0 } from './from-idl-raw-notebook-1.0.0';
 import { FromIDLRawNotebook_2_0_0 } from './from-idl-raw-notebook-2.0.0';
+import { RestoreOutputMetadata } from './restore-output-metadata';
 
 /**
  * Loads a notebook from the raw notebook content
@@ -59,7 +60,24 @@ export async function FromIDLRawNotebook(
         );
     }
 
-    // check for top-level metadata
+    /**
+     * Get cells
+     */
+    const cells = nb.cells;
+
+    /**
+     * Restore cell output metadata
+     */
+    for (let i = 0; i < cells.length; i++) {
+      const outputs = cells[i].outputs;
+      if (outputs !== undefined) {
+        for (let z = 0; z < outputs.length; z++) {
+          RestoreOutputMetadata(outputs[z]);
+        }
+      }
+    }
+
+    // check for overall metadata
     if (parsed.metadata !== undefined) {
       nb.metadata = parsed.metadata;
     }

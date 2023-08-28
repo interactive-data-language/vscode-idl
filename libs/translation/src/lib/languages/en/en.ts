@@ -739,6 +739,8 @@ export const EN: ITranslation = {
       '104': 'Unused variable',
       '105':
         'Illegal use of parentheses for indexing variable, use brackets instead (function name matches local variable). If this is a function call, add `compile_opt idl2` to delineate between the variable and function call.',
+      '106':
+        'Circular include statement found. This means that the included file includes this file (directly or indirectly).',
     },
   },
   terminal: {

@@ -1,0 +1,73 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "; start ENVI headlessly",
+        "e = envi(/headless)",
+        "",
+        "; listen to ENVI events",
+        "IDLNotebook.ListenToENVIEvents"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "File = filepath('qb_boulder_msi', subdir = ['data'], $",
+        "  root_dir = e.root_dir)",
+        "Raster = e.openRaster(File)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "task= ENVITask('ISODATAClassification')",
+        "Task.input_raster = Raster",
+        "Task.execute"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "IDLNotebook.ListenToENVIEvents, /stop"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "task= ENVITask('ISODATAClassification')",
+        "Task.input_raster = Raster",
+        "Task.execute"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "IDLNotebook.ListenToENVIEvents"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "task= ENVITask('ISODATAClassification')",
+        "Task.input_raster = Raster",
+        "Task.execute"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

@@ -14,15 +14,15 @@ export type SaveImageRendererMessage = 'save-image';
 /**
  * All messages that we send
  */
-export type IDLNotebookRendererMessageType =
+export type IDLNotebookFromRendererMessageType =
   | SaveImageAnimationRendererMessage
   | SaveImageRendererMessage;
 
 /**
  * Typed-payloads for renderer messages
  */
-export type IDLNotebookRendererMessagePayload<
-  T extends IDLNotebookRendererMessageType
+export type IDLNotebookFromRendererMessagePayload<
+  T extends IDLNotebookFromRendererMessageType
 > = T extends SaveImageRendererMessage
   ? IDLNotebookEmbeddedItem<IDLNotebookImage_PNG>
   : never;
@@ -30,8 +30,8 @@ export type IDLNotebookRendererMessagePayload<
 /**
  * Data structure for notebook renderer messages
  */
-export type IDLNotebookRendererMessage<
-  T extends IDLNotebookRendererMessageType
+export type IDLNotebookFromRendererBaseMessage<
+  T extends IDLNotebookFromRendererMessageType
 > = {
   /**
    * Type of the message
@@ -40,5 +40,32 @@ export type IDLNotebookRendererMessage<
   /**
    * Payload for the message
    */
-  payload: IDLNotebookRendererMessagePayload<T>;
+  payload: IDLNotebookFromRendererMessagePayload<T>;
 };
+
+/**
+ * Base message for messages to/from renderers
+ */
+export interface IDLNotebookRendererMessageBase {
+  /**
+   * The ID of the cell sending the message
+   */
+  cellId: string;
+  /**
+   * ID of the message
+   */
+  messageId: string;
+}
+
+/**
+ * Message format for what we send from the renderer to the controller
+ */
+export interface IDLNotebookFromRendererMessage<
+  T extends IDLNotebookFromRendererMessageType
+> extends IDLNotebookFromRendererBaseMessage<T>,
+    IDLNotebookRendererMessageBase {}
+
+/**
+ * Message format for what we send to a renderer
+ */
+export type IDLNotebookToRendererMessage = IDLNotebookRendererMessageBase;

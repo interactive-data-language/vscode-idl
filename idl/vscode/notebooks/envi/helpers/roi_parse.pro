@@ -134,6 +134,9 @@ function ROI_Parse, roi_uri, debug = debug
           coordsNodes = geo.GetElementsByTagName('Coordinates')
           nCoords = coordsNodes.GetLength()
 
+          ; skip if nothing
+          if (nCoords eq 0) then continue
+
           ; process only if we have data
           if (nCoords gt 0) then begin
             ; count how many we filled

@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "; dont execute when we have syntax errors 1",
+        "a = ",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; dont run any cells after and mark everything as failed"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

@@ -762,6 +762,31 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Take first instance we encounter`,
+      fileName: `populate-structures.8.spec.ts`,
+      tests: [
+        {
+          name: 'with non-full parse',
+          code: [
+            `pro my_def__define`,
+            `compile_opt idl2`,
+            `fhdr = {WAVFILEHEADER, $`,
+            `  friff: bytarr(4), $ ; A four char string`,
+            `  fsize: 0ul, $`,
+            `  fwave: bytarr(4) $ ; A four char string`,
+            `}`,
+            ``,
+            `if ~_exists then defsysv, '!notebook_magic', {WAVFILEHEADER}`,
+            ``,
+            `end`,
+          ],
+          config: {
+            full: false,
+          },
+        },
+      ],
+    },
+    {
       suiteName: `Correctly extract variables from`,
       fileName: `procedures.spec.ts`,
       tests: [

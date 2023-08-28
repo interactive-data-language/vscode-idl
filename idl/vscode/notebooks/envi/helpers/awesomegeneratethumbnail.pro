@@ -25,7 +25,7 @@ end
 
 ;+
 ; :Keywords:
-;   input_raster: in, optional, any
+;   input_raster: in, optional, ENVIRaster
 ;     Placeholder docs for argument, keyword, or property
 ;   no_stretch: in, optional, Boolean
 ;     If set, don't stretch data
@@ -69,12 +69,16 @@ pro AwesomeGenerateThumbnail, $
   dimensions = data.dim
   nChannels = (n_elements(dimensions) eq 2) ? 1 : 3
 
+  ; check for data ignore - this is not honored for classification images
+  if inputRaster.metadata.hasTag('data ignore value') then begin
+    pixelState += data eq inputRaster.metadata['data ignore value']
+  endif
+
+  ; flatten pixel state
+  if (nChannels gt 1) then pixelState = total(pixelState, 3, /integer)
+
   ; Assign bad pixels to alpha band
-  alpha = bytarr(dimensions[0], dimensions[1])
-  for i = 0, nChannels - 1 do begin
-    alpha or= (pixelState[*, *, i] gt 0)
-  endfor
-  alpha = (alpha xor 1) * 255b
+  alpha = (pixelState eq 0) * 255b
 
   ; Dealing with images that have a colormap
   inputRaster.GetProperty, colormap = colormap
@@ -93,7 +97,7 @@ pro AwesomeGenerateThumbnail, $
   endif
 
   ; Linear Stretch from histogram
-  if (~isa(colormap, 'EnviColorMap') && ~keyword_set(no_stretch)) then begin
+  if (~isa(colormap, 'EnviColorMap') && (inputRaster.data_type ne 'byte')) then begin
     histData = bytarr(dimensions[0], dimensions[1], 3, /nozero)
     for i = 0, 2 do begin
       band = data[*, *, i]

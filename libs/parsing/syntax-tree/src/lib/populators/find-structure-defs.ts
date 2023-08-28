@@ -69,6 +69,7 @@ export function FindStructureDefs(
     if (lowName in structures) {
       continue;
     }
+    structures[lowName] = undefined;
 
     // check for inheritance statements
     const inheritance = FindDirectBranchChildren(

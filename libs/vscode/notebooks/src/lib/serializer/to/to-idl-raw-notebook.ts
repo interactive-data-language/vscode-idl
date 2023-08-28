@@ -5,6 +5,7 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 
+import { CleanOutputMetadata } from './clean-output-metadata';
 import { ToIDLRawNotebook_1_0_0 } from './to-idl-raw-notebook-1.0.0';
 import { ToIDLRawNotebook_2_0_0 } from './to-idl-raw-notebook-2.0.0';
 
@@ -17,6 +18,19 @@ export async function ToIDLRawNotebook<T extends IDLRawNotebookVersion>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _token: vscode.CancellationToken
 ): Promise<Uint8Array> {
+  /**
+   * Clean up cell output metadata so we don't save things that
+   * are dynamic (like ids) which gets annoying from a git perspective
+   */
+  for (let i = 0; i < data.cells.length; i++) {
+    const outputs = data.cells[i].outputs;
+    if (outputs !== undefined) {
+      for (let z = 0; z < outputs.length; z++) {
+        CleanOutputMetadata(outputs[z].metadata);
+      }
+    }
+  }
+
   /**
    * Create default notebook in case there are problems
    */

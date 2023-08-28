@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Plot2DComponent } from './plot2d.component';
+import { PlotComponent } from './plot.component';
 
-describe('Plot2DComponent', () => {
-  let component: Plot2DComponent;
-  let fixture: ComponentFixture<Plot2DComponent>;
+describe('PlotComponent', () => {
+  let component: PlotComponent;
+  let fixture: ComponentFixture<PlotComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Plot2DComponent],
+      declarations: [PlotComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Plot2DComponent);
+    fixture = TestBed.createComponent(PlotComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

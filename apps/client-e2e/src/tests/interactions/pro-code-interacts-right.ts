@@ -76,13 +76,13 @@ export const ProCodeInteractRight: RunnerFunction = async (init) => {
     },
   };
 
-  // verify semantic tokens
+  // verify semantic tokens (have none in code, so get none)
   expect(
     await init.client.client.sendRequest(
       'textDocument/semanticTokens/full',
       tokenParams
     )
-  ).toBeTruthy();
+  ).toBeNull();
 
   // short pause
   await Sleep(250);

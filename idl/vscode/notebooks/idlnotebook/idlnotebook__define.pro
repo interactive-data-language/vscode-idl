@@ -155,7 +155,7 @@ pro IDLNotebook::AddToNotebook, item
       ; make sure all files exist
       foreach uri, item.uris do begin
         if ~file_test(uri) then begin
-          mesage, 'File does not exist: "' + uri + '"', level = -1
+          message, 'File does not exist: "' + uri + '"', level = -1
         endif
       endforeach
 
@@ -174,7 +174,7 @@ pro IDLNotebook::AddToNotebook, item
     isa(item, 'IDLNotebookImage_FromUri'): begin
       ; validate
       if ~file_test(item.uri) then begin
-        mesage, 'File does not exist: "' + item.uri + '"', level = -1
+        message, 'File does not exist: "' + item.uri + '"', level = -1
       endif
 
       ; track
@@ -189,7 +189,7 @@ pro IDLNotebook::AddToNotebook, item
     ;+
     ; Check for 2D plot
     ;-
-    isa(item, 'IDLNotebookPlot2D'): IDLNotebookPlot2D._AddToNotebook, item
+    isa(item, 'IDLNotebookPlot'): IDLNotebookPlot._AddToNotebook, item
 
     ;+
     ; Throw error because we don't know what we are adding or handling
@@ -217,26 +217,26 @@ function IDLNotebook::_CreateNotebookItemProps, item
   ; validate input
   if ~arg_present(item) then message, 'Item not specified, required!', level = -1
 
-  ;+ get properties
-  props = orderedhash(item, /lowercase)
-
   ; output properties
-  saveProps = orderedhash(/fold_case)
+  saveProps = orderedhash()
+
+  ; get structure key names
+  keys = tag_names(item)
 
   ; remove any non-truthy items
-  foreach val, props, key do begin
+  foreach key, keys, i do begin
     catch, err
     if (err ne 0) then begin
       catch, /cancel
       continue
     endif
 
-    val = props[key]
+    val = item.(i)
     catch, /cancel
 
     case (!true) of
       ; remove null strings
-      isa(val, 'struct'): saveProps[key] = IDLNotebook._CreateNotebookItemProps(val)
+      isa(val, 'struct'): saveProps[key.toLower()] = IDLNotebook._CreateNotebookItemProps(val)
 
       ; remove if !null
       isa(val, /null): ; do nothing
@@ -248,7 +248,7 @@ function IDLNotebook::_CreateNotebookItemProps, item
       isa(val, /string) and ~val: ; do nothing
 
       ; save
-      else: saveProps[key] = val
+      else: saveProps[key.toLower()] = val
     endcase
   endforeach
 
@@ -280,14 +280,10 @@ function IDLNotebook::_CreateNotebookItem, item
 end
 
 ;+
-; :Description:
-;   Exports (to the console via print) all of the magic items that
-;   we are currently tracking
-;
-;   Cleans up and removes everything after we have exported
+; :Returns: any
 ;
 ;-
-pro IDLNotebook::Export
+function IDLNotebook::ExportItems
   compile_opt idl2, hidden, static
   on_error, 2
 
@@ -311,7 +307,6 @@ pro IDLNotebook::Export
   catch, err
   if (err ne 0) then begin
     catch, /cancel
-    help, /last_message
     message, /reissue_last
   endif
 
@@ -358,8 +353,36 @@ pro IDLNotebook::Export
   ; clean up
   IDLNotebook.Reset
 
-  ; print
-  print, json_serialize(export, /lowercase)
+  ;+ Return the items to embed
+  return, export
+end
+
+;+
+; :Description:
+;   Exports (to the console via print) all of the magic items that
+;   we are currently tracking
+;
+;   Cleans up and removes everything after we have exported
+;
+;-
+pro IDLNotebook::Export
+  compile_opt idl2, hidden, static
+  on_error, 2
+
+  ;+ Export items and convert to something that is serializable
+  export = IDLNotebook.ExportItems()
+
+  ; check what our IDL version is
+  case (!true) of
+    ;+
+    ; Support for precision keyword
+    ;-
+    long(!version.release.replace('.', '')) ge 883: print, json_serialize(export, /lowercase, precision = 8)
+    ;+
+    ; We don't so we can't print
+    ;-
+    else: print, json_serialize(export, /lowercase)
+  endcase
 end
 
 ;+
@@ -385,6 +408,32 @@ end
 
 ;+
 ; :Description:
+;   Registers a message interceptor for ENVI progress messages to have
+;   some basic user feedback in notebooks
+;
+; :Keywords:
+;   stop: in, optional, Boolean
+;     If set, and we are listening to events from ENVI, removes our event
+;     listener and cleans up
+;
+;-
+pro IDLNotebook::ListenToENVIEvents, stop = stop
+  compile_opt idl2, hidden, static
+  on_error, 2
+
+  ; return if already registered
+  if (obj_valid(!idlnotebookmagic.envilistener)) then begin
+    ; stop listening to events
+    if keyword_set(stop) then !idlnotebookmagic.envilistener.cleanup
+    return
+  endif
+
+  ; create message interceptor and save
+  !idlnotebookmagic.envilistener = VSCodeENVIMessageInterceptor()
+end
+
+;+
+; :Description:
 ;   Resets properties and clears all tracked items
 ;
 ;-
@@ -395,6 +444,7 @@ pro IDLNotebook::Reset
   ; clean up our objects
   !idlnotebookmagic.items.remove, /all
   !idlnotebookmagic.graphics.remove, /all
+  !idlnotebookmagic.mapitems.remove, /all
 
   ; clear any IDs for the window that we have currently embedded
   !magic.window = -1
@@ -421,6 +471,8 @@ end
 ;   Class definition procedure
 ;
 ; :IDLNotebook:
+;   envilistener: VSCodeENVIMessageInterceptor
+;     If we have created an ENVI listener or not
 ;   graphics: OrderedHash<!magic>
 ;     By window ID, track graphics that we need to embed
 ;   items: List<any>
@@ -449,6 +501,7 @@ pro IDLNotebook__define
   ; Data structure for this class
   ;-
   !null = {IDLNotebook, $
+    envilistener: obj_new(), $
     items: list(), $
     mapitems: list(), $
     graphics: orderedhash()}
@@ -469,10 +522,10 @@ pro IDLNotebook__define
   ; make sure super magic exists
   defsysv, '!IDLNotebookMagic', exists = _exists
   if ~_exists then defsysv, '!IDLNotebookMagic', $
-    {IDLNotebook, items: list(), mapitems: list(), graphics: orderedhash(/fold_case)}
+    {IDLNotebook, envilistener: !false, items: list(), mapitems: list(), graphics: orderedhash(/fold_case)}
 
   ; load all other structures
   IDLNotebookImage__define
   IDLNotebookMap__define
-  IDLNotebookPlot2D__define
+  IDLNotebookPlot__define
 end

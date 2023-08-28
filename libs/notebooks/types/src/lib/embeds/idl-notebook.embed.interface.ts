@@ -13,9 +13,9 @@ import {
   IDLNotebookMap_EmbedTypeData,
 } from './idl-notebook-map.embed.interface';
 import {
-  IDLNotebookPlot2D_EmbedType,
-  IDLNotebookPlot2D_EmbedTypeData,
-} from './idl-notebook-plot2d.embed.interface';
+  IDLNotebookPlot_EmbedType,
+  IDLNotebookPlot_EmbedTypeData,
+} from './idl-notebook-plot.embed.interface';
 
 /**
  * Types of messages that we can have
@@ -27,7 +27,7 @@ import {
 export type IDLNotebook_EmbedType =
   | IDLNotebookImage_EmbedType
   | IDLNotebookMap_EmbedType
-  | IDLNotebookPlot2D_EmbedType;
+  | IDLNotebookPlot_EmbedType;
 
 /**
  * Data embedded in a notebook cell
@@ -37,8 +37,8 @@ export type IDLNotebook_EmbedTypeData<T extends IDLNotebook_EmbedType> =
     ? IDLNotebookImage_EmbedTypeData<T>
     : T extends IDLNotebookMap_EmbedType
     ? IDLNotebookMap_EmbedTypeData<T>
-    : T extends IDLNotebookPlot2D_EmbedType
-    ? IDLNotebookPlot2D_EmbedTypeData<T>
+    : T extends IDLNotebookPlot_EmbedType
+    ? IDLNotebookPlot_EmbedTypeData<T>
     : never;
 
 /**

@@ -37,8 +37,10 @@ export function CompareCellOutputs(
     expect(nbCell).not.toBeUndefined();
 
     // validate success if we have it
-    if (nbCell.executionSummary.success !== undefined) {
-      expect(nbCell.executionSummary.success).toEqual(expected.success);
+    if (expected.success) {
+      expect(nbCell.executionSummary?.success).toBeTruthy();
+    } else {
+      expect(nbCell.executionSummary?.success).toBeFalsy();
     }
 
     // get output mime types

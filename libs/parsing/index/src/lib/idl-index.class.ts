@@ -1171,7 +1171,7 @@ export class IDLIndex {
          */
         if (this.isMultiThreaded()) {
           return this.indexerPool.workerio.postAndReceiveMessage(
-            this.getWorkerID(file),
+            this.getWorkerID(base),
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
             {
               file,
@@ -1465,7 +1465,7 @@ export class IDLIndex {
     pattern = ALL_FILES_GLOB_PATTERN
   ): Promise<string[]> {
     // init files that we find
-    let files: string[] = [];
+    const files = new Set<string>();
 
     // init folders
     let folders: string[] = [];
@@ -1494,26 +1494,31 @@ export class IDLIndex {
         continue;
       }
 
-      /**
-       * Get the files in our folder
-       */
-      files = files.concat(
-        (
-          await glob(pattern, {
-            cwd: folders[i],
-            dot: true,
-            deep: recursion[i] ? 100000000 : 1,
-          })
-        ).map((file) => join(folders[i], file))
-      );
-      // .sort()
+      // find the files in our folder
+      const inFolder = (
+        await glob(pattern, {
+          cwd: folders[i],
+          dot: true,
+          deep: recursion[i] ? 100000000 : 1,
+        })
+      ).map((file) => join(folders[i], file));
+
+      // add to our set
+      for (let j = 0; j < inFolder.length; j++) {
+        files.add(inFolder[j]);
+      }
     }
 
+    /**
+     * Get unique files from our set
+     */
+    const uniqFiles = Array.from(files);
+
     // track the files we found and sync them
-    this.trackFiles(files);
+    this.trackFiles(uniqFiles);
 
     // get files
-    return files;
+    return uniqFiles;
   }
 
   /**

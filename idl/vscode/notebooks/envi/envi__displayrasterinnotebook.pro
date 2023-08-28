@@ -71,18 +71,19 @@ pro envi::displayRasterInNotebook, raster, size = size
 
   ; process each raster
   for i = 0, nRasters - 1 do begin
-    ; convert raster to thumbnail
-    task = ENVITask('GenerateThumbnail')
-    task.input_raster = useRasters[i]
-    task.thumbnail_size = size
-    task.execute
+    ; make thumbnail
+    uri = !null
+    AwesomeGenerateThumbnail, $
+      input_raster = useRasters[i], $
+      thumbnail_size = size, $
+      output_png_uri = uri
 
     ; save URI
-    uris[i] = task.output_raster_uri
+    uris[i] = uri
 
     ; get info about PNG to display correctly
     if (i eq 0) then begin
-      !null = query_png(task.output_raster_uri, info)
+      !null = query_png(uri, info)
     endif
   endfor
 

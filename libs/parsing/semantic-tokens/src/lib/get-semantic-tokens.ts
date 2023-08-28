@@ -27,6 +27,11 @@ export function GetSemanticTokens(parsed: IParsed): SemanticTokens {
    */
   const builder = new SemanticTokensBuilder();
 
+  /**
+   * track semantic tokens
+   */
+  let tokens: number[][] = [];
+
   // process all of our variables
   for (let i = 0; i < allVars.length; i++) {
     /**
@@ -51,18 +56,42 @@ export function GetSemanticTokens(parsed: IParsed): SemanticTokens {
             continue;
           }
 
-          builder.push(
+          tokens.push([
             positions[z][0],
             positions[z][1],
             positions[z][2],
             SEMANTIC_TOKEN_TYPE_INDEX_LOOKUP[SemanticTokenTypes.class],
             SEMANTIC_TOKEN_MODIFIER_INDEX_LOOKUP[
               SemanticTokenModifiers.definition
-            ]
-          );
+            ],
+          ]);
         }
       }
     }
+  }
+
+  // if no tokens return
+  if (tokens.length === 0) {
+    return undefined;
+  }
+
+  /**
+   * Sort semantic tokens by line and start position on that line
+   *
+   * If we dont do this, the highlighting doesnt show up right because of the
+   * stupid and idiotic format for semantic tokens
+   */
+  tokens = tokens.sort(([a, b], [c, d]) => a - c || b - d);
+
+  // add all tokens to the builder
+  for (let i = 0; i < tokens.length; i++) {
+    builder.push(
+      tokens[i][0],
+      tokens[i][1],
+      tokens[i][2],
+      tokens[i][3],
+      tokens[i][4]
+    );
   }
 
   return builder.build();

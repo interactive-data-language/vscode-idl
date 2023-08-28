@@ -4,8 +4,10 @@ import { Runner } from '../runner.class';
 import { NotebookFormats_1_0_0 } from './notebook-formats-1.0.0';
 import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
-import { RunNotebookRestart } from './notebook-restart';
+import { RunNotebookReset } from './notebook-reset';
 import { RunNotebookStop } from './notebook-stop';
+import { RunENVIMessageListenerTestNotebook } from './run-envi-message-listener-test-notebook';
+import { RunProblemNotebooks } from './run-problem-notebooks';
 import { RunTestENVIMapNotebook } from './run-test-envi-map-notebook';
 import { RunTestENVINotebook } from './run-test-envi-notebook';
 import { RunTestNotebook } from './run-test-notebook';
@@ -39,8 +41,14 @@ NOTEBOOK_RUNNER.addTest({
 });
 
 NOTEBOOK_RUNNER.addTest({
-  name: 'Run notebook that tests everything',
+  name: 'Run notebook that tests successes',
   fn: RunTestNotebook,
+  critical: true,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Run notebooks that test problems are handled right',
+  fn: RunProblemNotebooks,
   critical: true,
 });
 
@@ -61,10 +69,16 @@ NOTEBOOK_RUNNER.addTest({
   fn: RunTestENVIMapNotebook,
 });
 
+// can get ENVI progress messages
+NOTEBOOK_RUNNER.addTest({
+  name: 'Notebooks can display progress messages from ENVI',
+  fn: RunENVIMessageListenerTestNotebook,
+});
+
 // reset goes first
 NOTEBOOK_RUNNER.addTest({
   name: 'Reset does the right thing',
-  fn: RunNotebookRestart,
+  fn: RunNotebookReset,
   critical: true,
 });
 

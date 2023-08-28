@@ -56,9 +56,6 @@ export const RunNotebookStop: RunnerFunction = async (init) => {
   // make sure stopped
   expect(init.notebooks.controller.isStarted()).toBeFalsy();
 
-  // clear outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
-
   // compare state
   CompareCellOutputs(nb, CELL_OUTPUT);
 
