@@ -408,6 +408,32 @@ end
 
 ;+
 ; :Description:
+;   Registers a message interceptor for ENVI progress messages to have
+;   some basic user feedback in notebooks
+;
+; :Keywords:
+;   stop: in, optional, Boolean
+;     If set, and we are listening to events from ENVI, removes our event
+;     listener and cleans up
+;
+;-
+pro IDLNotebook::ListenToENVIEvents, stop = stop
+  compile_opt idl2, hidden, static
+  on_error, 2
+
+  ; return if already registered
+  if (obj_valid(!idlnotebookmagic.envilistener)) then begin
+    ; stop listening to events
+    if keyword_set(stop) then !idlnotebookmagic.envilistener.cleanup
+    return
+  endif
+
+  ; create message interceptor and save
+  !idlnotebookmagic.envilistener = VSCodeENVIMessageInterceptor()
+end
+
+;+
+; :Description:
 ;   Resets properties and clears all tracked items
 ;
 ;-
@@ -445,6 +471,8 @@ end
 ;   Class definition procedure
 ;
 ; :IDLNotebook:
+;   envilistener: VSCodeENVIMessageInterceptor
+;     If we have created an ENVI listener or not
 ;   graphics: OrderedHash<!magic>
 ;     By window ID, track graphics that we need to embed
 ;   items: List<any>
@@ -473,6 +501,7 @@ pro IDLNotebook__define
   ; Data structure for this class
   ;-
   !null = {IDLNotebook, $
+    envilistener: obj_new(), $
     items: list(), $
     mapitems: list(), $
     graphics: orderedhash()}
@@ -493,7 +522,7 @@ pro IDLNotebook__define
   ; make sure super magic exists
   defsysv, '!IDLNotebookMagic', exists = _exists
   if ~_exists then defsysv, '!IDLNotebookMagic', $
-    {IDLNotebook, items: list(), mapitems: list(), graphics: orderedhash(/fold_case)}
+    {IDLNotebook, envilistener: !false, items: list(), mapitems: list(), graphics: orderedhash(/fold_case)}
 
   ; load all other structures
   IDLNotebookImage__define

@@ -6,6 +6,7 @@ import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { RunNotebookReset } from './notebook-reset';
 import { RunNotebookStop } from './notebook-stop';
+import { RunENVIMessageListenerTestNotebook } from './run-envi-message-listener-test-notebook';
 import { RunProblemNotebooks } from './run-problem-notebooks';
 import { RunTestENVIMapNotebook } from './run-test-envi-map-notebook';
 import { RunTestENVINotebook } from './run-test-envi-notebook';
@@ -66,6 +67,12 @@ NOTEBOOK_RUNNER.addTest({
 NOTEBOOK_RUNNER.addTest({
   name: 'Notebook maps through ENVI run and basic checks outputs are right',
   fn: RunTestENVIMapNotebook,
+});
+
+// can get ENVI progress messages
+NOTEBOOK_RUNNER.addTest({
+  name: 'Notebooks can display progress messages from ENVI',
+  fn: RunENVIMessageListenerTestNotebook,
 });
 
 // reset goes first
