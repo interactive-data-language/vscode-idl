@@ -13,7 +13,7 @@ import { ICompareCellOutputs } from './helpers/compare-cells.interface';
 export const CELL_OUTPUT: ICompareCellOutputs[] = [
   {
     idx: 0,
-    success: undefined,
+    success: false,
     mimeTypes: [],
   },
 ];
