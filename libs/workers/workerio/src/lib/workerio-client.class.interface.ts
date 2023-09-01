@@ -1,3 +1,5 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
+
 import {
   ErrorMessage,
   UnhandledError,
@@ -15,7 +17,7 @@ export interface IWorkerIOClient<_Message extends string> {
    */
   on<T extends _Message>(
     message: T,
-    promiseGenerator: (arg: any) => Promise<any>
+    promiseGenerator: (arg: any, cancel: CancellationToken) => Promise<any>
   ): void;
 
   /**

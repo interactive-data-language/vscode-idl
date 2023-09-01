@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { GlobalTokens } from '@idl/data-types/core';
 import { IDL_WORKER_THREAD_CONSOLE } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -22,6 +23,7 @@ const IS_CHANGING: { [key: string]: undefined } = {};
  */
 export function ChangeDetection(
   index: IDLIndex,
+  token: CancellationToken,
   changed: GlobalTokens
 ): IChangeDetection {
   /** Files that we will post-process again */
@@ -68,7 +70,8 @@ export function ChangeDetection(
       PostProcessParsed(
         index,
         postProcessThese[z],
-        index.tokensByFile.get(postProcessThese[z])
+        index.tokensByFile.get(postProcessThese[z]),
+        token
       );
     } catch (err) {
       // check if we have a "false" error because a file was deleted

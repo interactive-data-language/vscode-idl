@@ -3,6 +3,7 @@ import {
   FormatterType,
   IAssemblerOptions,
 } from '@idl/assembling/config';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GlobalTokens,
@@ -15,7 +16,7 @@ import {
   LogManager,
 } from '@idl/logger';
 import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
-import { CodeChecksum, Parser } from '@idl/parser';
+import { Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
@@ -71,6 +72,7 @@ import { Worker } from 'worker_threads';
 import { GetAutoComplete } from './auto-complete/get-auto-complete';
 import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
+import { GetParsedPROCode } from './get-parsed-pro-code';
 import { GlobalIndex } from './global-index.class';
 import { GetSyntaxProblems } from './helpers/get-syntax-problems';
 import { PopulateNotebookVariables } from './helpers/populate-notebook-variables';
@@ -114,7 +116,7 @@ export class IDLIndex {
   /**
    * Our worker pool to share the load of parsing code
    */
-  private indexerPool: ILSPWorkerThreadPool<LSPWorkerThreadMessage>;
+  indexerPool: ILSPWorkerThreadPool<LSPWorkerThreadMessage>;
 
   /**
    * NUmber of workers that we populate our indexer pool with
@@ -153,12 +155,6 @@ export class IDLIndex {
    * Track tokens for each file that we process
    */
   tokensByFile = new IDLParsedCache();
-
-  /**
-   * Track files that we are currently processing so that we can't accidentally
-   * re-process files that we are already processing
-   */
-  pendingFiles: { [key: string]: Promise<IParsed> } = {};
 
   /**
    * Track pending notebooks
@@ -724,7 +720,7 @@ export class IDLIndex {
 
     // check if we should do change detection because it has been removed
     if (changeDetection) {
-      await this.changeDetection([], global);
+      await this.changeDetection(new CancellationToken(), [], global);
     }
 
     // return removed globals
@@ -1027,6 +1023,7 @@ export class IDLIndex {
   async indexProCode(
     file: string,
     code: string | string[],
+    token: CancellationToken,
     inOptions: Partial<IIndexProCodeOptions> = {}
   ): Promise<IParsed | undefined> {
     try {
@@ -1088,7 +1085,7 @@ export class IDLIndex {
          * Default to doing the work here
          */
         default:
-          parsed = Parser(code, options);
+          parsed = Parser(code, token, options);
           this.workerIDsByFile[file] = undefined;
           break;
       }
@@ -1102,12 +1099,13 @@ export class IDLIndex {
           // do nothing if not full parse
           break;
         case postProcessed:
-          await this.changeDetection(parsed.global, oldGlobals);
+          await this.changeDetection(token, parsed.global, oldGlobals);
           break;
         case options.postProcess:
           this.postProcessProFile(
             file,
             parsed,
+            token,
             oldGlobals,
             options.changeDetection
           );
@@ -1143,128 +1141,13 @@ export class IDLIndex {
    *
    * Assumes that code is more up-to-date than whatever is on disk, so we wait for any
    * pending processes for the file to finish before we index it again
-   *
-   * TODO: Cancel pending requests, or find a way to update after they have been triggered?
    */
   async getParsedProCode(
     file: string,
     code: string | string[],
     options: Partial<IIndexProCodeOptions> = {}
   ): Promise<IParsed> {
-    switch (true) {
-      /**
-       * Check if we are a notebook
-       */
-      case this.isIDLNotebookFile(file): {
-        /**
-         * If we have a pending notebook file, pause
-         * and wait for it to finish before we do anything
-         */
-        const base = file.split('#')[0];
-        if (base in this.pendingNotebooks) {
-          await this.pendingNotebooks[base];
-        }
-
-        /**
-         * Check if we are multi threaded and need to fetch our file from
-         * the worker
-         */
-        if (this.isMultiThreaded()) {
-          return this.indexerPool.workerio.postAndReceiveMessage(
-            this.getWorkerID(base),
-            LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
-            {
-              file,
-              code,
-            }
-          );
-        } else {
-          if (this.tokensByFile.has(file)) {
-            return this.tokensByFile.get(file);
-          } else {
-            this.pendingFiles[file] = this.indexProCode(file, code, options);
-            const res = await this.pendingFiles[file];
-            delete this.pendingFiles[file];
-            return res;
-          }
-        }
-      }
-      /**
-       * Check for a pending file
-       */
-      case file in this.pendingFiles: {
-        await this.pendingFiles[file];
-        if (this.tokensByFile.has(file)) {
-          if (this.tokensByFile.checksumMatches(file, CodeChecksum(code))) {
-            return this.tokensByFile.get(file);
-          }
-        }
-        break;
-      }
-
-      /**
-       * If multi-threaded, check if we have a copy of our parsed code
-       *
-       * Some duplication with indexProCode, but special case if we are multi threaded
-       */
-      case this.isMultiThreaded(): {
-        /**
-         * Fetch from worker (it validates cache)
-         */
-        this.pendingFiles[file] =
-          this.indexerPool.workerio.postAndReceiveMessage(
-            this.getWorkerID(file),
-            LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
-            {
-              file,
-              code,
-              ...Object.assign(copy(DEFAULT_INDEX_PRO_CODE_OPTIONS), options),
-            }
-          );
-
-        // get the latest - cache busting happens in the worker
-        const current = await this.pendingFiles[file];
-        delete this.pendingFiles[file];
-
-        // get current global tokens
-        const oldGlobals = this.getGlobalsForFile(file);
-
-        // save and sync global tokens
-        await this.saveGlobalTokens(file, current.global);
-
-        // track syntax problems
-        this.trackSyntaxProblemsForFile(file, GetSyntaxProblems(current));
-
-        // do change detection
-        if (options.postProcess) {
-          await this.changeDetection(current.global, oldGlobals);
-        }
-
-        // make sure that we never cache in memory if we are the main thread
-        this.tokensByFile.remove(file);
-
-        return current;
-      }
-
-      /**
-       * Check if we have it stored locally
-       */
-      case this.tokensByFile.has(file): {
-        if (this.tokensByFile.checksumMatches(file, CodeChecksum(code))) {
-          return this.tokensByFile.get(file);
-        }
-        break;
-      }
-      default:
-    }
-
-    /**
-     * Re-index our code
-     */
-    this.pendingFiles[file] = this.indexProCode(file, code, options);
-    const res = await this.pendingFiles[file];
-    delete this.pendingFiles[file];
-    return res;
+    return GetParsedPROCode(this, file, code, options);
   }
 
   /**
@@ -1272,7 +1155,8 @@ export class IDLIndex {
    */
   async indexIDLNotebook(
     file: string,
-    notebook: IDLNotebookDocument
+    notebook: IDLNotebookDocument,
+    token: CancellationToken
   ): Promise<IParsedIDLNotebook> {
     // remove notebook
     await this.removeNotebook(file);
@@ -1302,6 +1186,9 @@ export class IDLIndex {
 
       // process each cell
       for (let i = 0; i < notebook.cells.length; i++) {
+        // check for cancellation
+        token.throwIfCancelled();
+
         /** Get notebook cell */
         const cell = notebook.cells[i];
 
@@ -1315,7 +1202,7 @@ export class IDLIndex {
         }
 
         // process the cell
-        byCell[cellFSPath] = Parser(cell.text, {
+        byCell[cellFSPath] = Parser(cell.text, token, {
           isNotebook: true,
         });
       }
@@ -1327,6 +1214,9 @@ export class IDLIndex {
 
       // share variable usage
       for (let i = 0; i < files.length; i++) {
+        // check for cancellation
+        token.throwIfCancelled();
+
         if (byCell[files[i]] === undefined) {
           continue;
         }
@@ -1336,6 +1226,9 @@ export class IDLIndex {
 
       // process each file
       for (let i = 0; i < files.length; i++) {
+        // check for cancellation
+        token.throwIfCancelled();
+
         if (byCell[files[i]] === undefined) {
           continue;
         }
@@ -1346,7 +1239,13 @@ export class IDLIndex {
         }
 
         // post process cell
-        await this.postProcessProFile(files[i], byCell[files[i]], [], false);
+        await this.postProcessProFile(
+          files[i],
+          byCell[files[i]],
+          token,
+          [],
+          false
+        );
 
         // update stored token
         this.tokensByFile.add(files[i], byCell[files[i]]);
@@ -1749,7 +1648,11 @@ export class IDLIndex {
    * Performs change detection and triggers post-processing of all files
    * that use our affected global tokens
    */
-  async changeDetection(newGlobals: GlobalTokens, oldGlobals: GlobalTokens) {
+  async changeDetection(
+    token: CancellationToken,
+    newGlobals: GlobalTokens,
+    oldGlobals: GlobalTokens
+  ) {
     // verify we have changes in our global tokens
     if (CanChangeDetection(newGlobals, oldGlobals)) {
       /**
@@ -1812,7 +1715,7 @@ export class IDLIndex {
         /**
          * Run locally
          */
-        const change = ChangeDetection(this, changed);
+        const change = ChangeDetection(this, token, changed);
 
         // check for missing files
         if (change.missing.length > 0) {
@@ -1833,15 +1736,16 @@ export class IDLIndex {
   async postProcessProFile(
     file: string,
     parsed: IParsed,
+    token: CancellationToken,
     oldGlobals: GlobalTokens,
     changeDetection = false
   ) {
     try {
-      PostProcessParsed(this, file, parsed);
+      PostProcessParsed(this, file, parsed, token);
 
       // check if we need to do change detection
       if (changeDetection) {
-        await this.changeDetection(parsed.global, oldGlobals);
+        await this.changeDetection(token, parsed.global, oldGlobals);
       }
     } catch (err) {
       this.log.log({
@@ -1869,6 +1773,7 @@ export class IDLIndex {
    */
   async postProcessProFiles(
     files: string[],
+    token: CancellationToken,
     changeDetection = false
   ): Promise<string[]> {
     /** Track any files that are missing and should no longer be tracked */
@@ -1891,6 +1796,7 @@ export class IDLIndex {
         await this.postProcessProFile(
           files[i],
           this.tokensByFile.get(files[i]),
+          token,
           [],
           changeDetection
         );
@@ -2277,6 +2183,7 @@ export class IDLIndex {
    */
   private async indexWorkspaceProFiles(
     files: string[],
+    token: CancellationToken,
     full: boolean
   ): Promise<void> {
     // process in this thread if we don't have any workers
@@ -2285,7 +2192,7 @@ export class IDLIndex {
       const missing1 = await this.indexProFiles(files, false);
 
       // post-process all of our files
-      const missing2 = await this.postProcessProFiles(files);
+      const missing2 = await this.postProcessProFiles(files, token);
 
       // remove missing files if we have them
       const allMissing = missing1.concat(missing2);
@@ -2371,6 +2278,8 @@ export class IDLIndex {
      */
     const buckets = this.bucketFiles(files);
 
+    const token = new CancellationToken();
+
     // save discovery time
     this.lastWorkspaceIndexStats.timeSearch = Math.floor(
       performance.now() - t0
@@ -2396,7 +2305,7 @@ export class IDLIndex {
     await this.indexNotebookFiles(buckets.notebookFiles);
 
     // do the indexing
-    await this.indexWorkspaceProFiles(buckets.proFiles, full);
+    await this.indexWorkspaceProFiles(buckets.proFiles, token, full);
 
     // save total time
     this.lastWorkspaceIndexStats.timeTotal = Math.floor(performance.now() - t0);

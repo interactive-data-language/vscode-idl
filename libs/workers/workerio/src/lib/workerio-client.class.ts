@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { ObjectifyError } from '@idl/logger';
 import { SimplePromiseQueue } from '@idl/shared';
 import { MessagePort } from 'worker_threads';
@@ -23,8 +24,11 @@ export class WorkerIOClient<_Message extends string>
 
   /** Events that we listen to */
   private events: {
-    [P in _Message]?: (payload: any) => Promise<any>;
+    [P in _Message]?: (payload: any, cancel: CancellationToken) => Promise<any>;
   } = {};
+
+  /** Track cancellation tokens for requests */
+  private cancels: { [key: string]: CancellationToken } = {};
 
   /** Promise queue to throttle number of things we do at once */
   private queue: SimplePromiseQueue;
@@ -60,7 +64,10 @@ export class WorkerIOClient<_Message extends string>
   }
 
   /** Subscribe to messages from our parent thread */
-  on(message: _Message, promiseGenerator: (arg: any) => Promise<any>) {
+  on(
+    message: _Message,
+    promiseGenerator: (arg: any, cancel: CancellationToken) => Promise<any>
+  ) {
     this.events[message] = promiseGenerator;
   }
 
@@ -94,6 +101,17 @@ export class WorkerIOClient<_Message extends string>
   }
 
   /**
+   * Cancel message by ID
+   *
+   * TODO: Add ability to cancel from main workerio
+   */
+  cancel(messageId: string) {
+    if (messageId in this.cancels) {
+      this.cancels[messageId].cancel();
+    }
+  }
+
+  /**
    * Send message to parent process
    */
   postMessage<T extends _Message>(
@@ -124,10 +142,16 @@ export class WorkerIOClient<_Message extends string>
   private async _handleMessage(message: ISentMessageToWorker<_Message>) {
     await this.queue.add(async () => {
       if (message.type in this.events) {
+        // create a new cancellation token
+        const cancel = new CancellationToken();
+
+        // track by our message ID
+        this.cancels[message._id] = cancel;
+
         // handle errors which makes the worker threads, assuming everything goes through here, invincible!
         try {
           // do something based on our message
-          const res = await this.events[message.type](message.payload);
+          const res = await this.events[message.type](message.payload, cancel);
 
           // check if we need to respond, otherwise we will be silent
           if (!message.noResponse) {
@@ -146,6 +170,9 @@ export class WorkerIOClient<_Message extends string>
             message._id
           );
         }
+
+        // clean up cancellation
+        delete this.cancels[message._id];
       }
     });
   }

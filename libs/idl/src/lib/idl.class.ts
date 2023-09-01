@@ -180,13 +180,25 @@ export class IDL extends EventEmitter {
     });
 
     // launch IDL with the environment from our parent process and in the specified folder
-    this.idl = spawn(cmd, null, { env: args.env, cwd: args.cwd });
+    this.idl = spawn(cmd, null, {
+      env: args.env,
+      cwd: args.cwd,
+      stdio: ['pipe', 'pipe', 'pipe', 'pipe'],
+    });
 
     // check for errors
     if (!this.idl.stdout || !this.idl.stderr || !this.idl.stdin) {
       this.emit(IDL_EVENT_LOOKUP.FAILED_START, 'Failed to start IDL');
       return;
     }
+
+    // listen for standard out output from IDL
+    this.idl.stdio[3].on('data', (buff) => {
+      this.log.log({
+        type: 'info',
+        content: `Stdout: ${JSON.stringify(buff.toString('utf8'))}`,
+      });
+    });
 
     // write the IDL prompt if not windows so that we properly
     // detect start. for our "poor man's solution" this is the indicator

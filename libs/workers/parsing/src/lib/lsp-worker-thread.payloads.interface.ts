@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   PayloadFromWorkerBaseMessage,
   WorkerIOBaseMessage,
@@ -146,5 +147,6 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
  * Callback handler for LSP worker thread
  */
 export type LSPMessageHandler<T extends LSPWorkerThreadMessage> = (
-  payload: PayloadToLSPWorker<T>
+  payload: PayloadToLSPWorker<T>,
+  token: CancellationToken
 ) => Promise<PayloadFromLSPWorker<T>>;

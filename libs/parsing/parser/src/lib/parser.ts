@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { ActivateDefaultSyntaxPostProcessors } from '@idl/parsing/syntax-post-processors';
 import {
   BuildSyntaxTree,
@@ -86,6 +87,7 @@ export function ParserBuildTree(
  */
 export function Parser(
   code: string | string[],
+  token: CancellationToken,
   inOptions: Partial<IParserOptions> = {}
 ): IParsed {
   /**
@@ -168,6 +170,7 @@ export function Parser(
  */
 export async function ParseFile(
   file: string,
+  token: CancellationToken,
   options: Partial<IParserOptions> = {}
 ): Promise<IParsed> {
   // make sure that our file exists
@@ -179,7 +182,7 @@ export async function ParseFile(
   const code = await readFile(file, 'utf-8');
 
   // parse and return
-  return Parser(code, options);
+  return Parser(code, token, options);
 }
 
 /**
@@ -190,6 +193,7 @@ export async function ParseFile(
  */
 export function ParseFileSync(
   file: string,
+  token: CancellationToken,
   options: Partial<IParserOptions> = {}
 ): IParsed {
   // make sure that our file exists
@@ -201,5 +205,5 @@ export function ParseFileSync(
   const code = readFileSync(file, 'utf-8');
 
   // parse and return
-  return Parser(code, options);
+  return Parser(code, token, options);
 }
