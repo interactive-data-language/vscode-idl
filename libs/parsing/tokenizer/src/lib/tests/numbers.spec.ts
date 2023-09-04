@@ -1,3 +1,5 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
+
 import { StripIDs } from '../helpers/strip-ids';
 import { Tokenizer } from '../tokenizer';
 import { IBaseTokenWithoutMatches, TOKEN_TYPES } from '../tokenizer.interface';
@@ -47,7 +49,7 @@ describe('Validates number parsing', () => {
       const number = numbers[i];
 
       // get tokens
-      const tokens = Tokenizer(number).tokens;
+      const tokens = Tokenizer(number, new CancellationToken()).tokens;
 
       // make sure we only found one token
       expect(tokens.length).toBe(1);

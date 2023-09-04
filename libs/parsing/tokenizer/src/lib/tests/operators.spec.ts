@@ -1,3 +1,5 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
+
 import { StripIDs } from '../helpers/strip-ids';
 import { TestGlobal } from '../helpers/test-global';
 import { Tokenizer } from '../tokenizer';
@@ -27,7 +29,10 @@ describe('Validates operator parsing', () => {
       const operator = operators[i];
 
       // get tokens
-      const tokens = Tokenizer(`a ${operator} b`).tokens;
+      const tokens = Tokenizer(
+        `a ${operator} b`,
+        new CancellationToken()
+      ).tokens;
 
       // make sure we only found one token
       expect(tokens.length).toBe(4);
@@ -82,7 +87,10 @@ describe('Validates operator parsing', () => {
       const operator = operators[i];
 
       // get tokens
-      const tokens = Tokenizer(`a ${operator} b`).tokens;
+      const tokens = Tokenizer(
+        `a ${operator} b`,
+        new CancellationToken()
+      ).tokens;
 
       // make sure we only found one token
       expect(tokens.length).toBe(4);
@@ -124,7 +132,7 @@ describe('Validates operator parsing', () => {
       const operator = operators[i];
 
       // get tokens
-      const tokens = Tokenizer(`${operator}a`).tokens;
+      const tokens = Tokenizer(`${operator}a`, new CancellationToken()).tokens;
 
       // make sure we only found one token
       expect(tokens.length).toBe(3);
@@ -161,7 +169,7 @@ describe('Validates operator parsing', () => {
       const operator = operators[i];
 
       // get tokens
-      const tokens = Tokenizer(`a${operator}`).tokens;
+      const tokens = Tokenizer(`a${operator}`, new CancellationToken()).tokens;
 
       // make sure we only found one token
       expect(tokens.length).toBe(3);

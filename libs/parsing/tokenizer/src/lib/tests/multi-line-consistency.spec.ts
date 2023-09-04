@@ -1,3 +1,5 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
+
 import { StripIDs } from '../helpers/strip-ids';
 import { Tokenizer } from '../tokenizer';
 
@@ -9,7 +11,7 @@ describe('Validates processing the same line multiple times', () => {
     ];
 
     // get our tokens
-    const tokens = Tokenizer(code).tokens;
+    const tokens = Tokenizer(code, new CancellationToken()).tokens;
 
     // extract line-specific tokens
     const line1 = tokens.filter((t) => t.pos[0] === 0);
