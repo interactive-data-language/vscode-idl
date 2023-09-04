@@ -1241,9 +1241,12 @@ export class IDLIndex {
   }
 
   /**
-   * Indexes an IDL notebook file
+   *  Parses an IDL notebook using a worker thread
+   *
+   * The notebook parsing response just includes information that should be synced
+   * amongst threads
    */
-  async getParsedNotebook(
+  async parseNotebook(
     file: string,
     notebook: IDLNotebookDocument
   ): Promise<void> {
