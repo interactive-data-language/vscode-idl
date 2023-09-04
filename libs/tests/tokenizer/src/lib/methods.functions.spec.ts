@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates function method parsing`, () => {
     const code = [`!NULL = a.myFunc(1)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -69,7 +70,7 @@ describe(`[auto generated] Validates function method parsing`, () => {
     const code = [`!NULL = a->myFunc(1)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -125,7 +126,7 @@ describe(`[auto generated] Validates function method parsing`, () => {
     const code = [`a.super::myfunc(1)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -163,7 +164,7 @@ describe(`[auto generated] Validates function method parsing`, () => {
     const code = [`a->super::myfunc(a)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -201,7 +202,7 @@ describe(`[auto generated] Validates function method parsing`, () => {
     const code = [`!NULL = a.myFunc( $`, `  1)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -269,7 +270,7 @@ describe(`[auto generated] Validates function method parsing`, () => {
     const code = [`a.b()`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

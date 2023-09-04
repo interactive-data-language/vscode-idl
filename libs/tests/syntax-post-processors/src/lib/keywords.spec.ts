@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
@@ -14,7 +15,7 @@ describe(`[auto generated] Correctly extract keyword names from routine calls`, 
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -280,7 +281,7 @@ describe(`[auto generated] Correctly extract keyword names from routine calls`, 
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -555,7 +556,7 @@ describe(`[auto generated] Correctly extract keyword names from routine calls`, 
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -833,7 +834,7 @@ describe(`[auto generated] Correctly extract keyword names from routine calls`, 
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates routine parsing`, () => {
     const code = [`PRO EndMagic, Unit, Id`, `  PRINTF, Unit`, `END`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -99,7 +100,7 @@ describe(`[auto generated] Validates routine parsing`, () => {
     const code = [`pro !sosobad,`, `END`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -143,7 +144,7 @@ describe(`[auto generated] Validates routine parsing`, () => {
     const code = [`pro !sosobad::method,`, `END`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -187,7 +188,7 @@ describe(`[auto generated] Validates routine parsing`, () => {
     const code = [`FUNCTION VarName, Ptr & RETURN,'' & END`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

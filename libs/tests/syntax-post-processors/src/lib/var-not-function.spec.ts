@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
@@ -8,7 +9,7 @@ describe(`[auto generated] Correctly identify variables instead of function call
     const code = [`;+ my var`, `a = 5`, ``, `!null = a()`, ``, `end`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -155,7 +156,7 @@ describe(`[auto generated] Correctly identify variables instead of function call
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -286,7 +287,7 @@ describe(`[auto generated] Correctly identify variables instead of function call
     const code = [`compile_opt idl2`, `a = 5`, ``, `!null = a()`, ``, `end`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -404,7 +405,7 @@ describe(`[auto generated] Correctly identify variables instead of function call
     const code = [`compile_opt idl3`, `a = 5`, ``, `!null = a()`, ``, `end`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [

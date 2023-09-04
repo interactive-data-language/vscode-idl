@@ -1,4 +1,5 @@
 import { Assembler } from '@idl/assembler';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { GetTokenNames, Parser } from '@idl/parser';
 import { TimeIt } from '@idl/shared';
 import { deepEqual } from 'fast-equals';
@@ -63,7 +64,7 @@ export async function FormatTest(folder: string): Promise<void> {
     for (let i = 0; i < code.length; i++) {
       let canTick = true;
       // extract tokens
-      const tokenized = Parser(code[i]);
+      const tokenized = Parser(code[i], new CancellationToken());
 
       // validate formatting for code
       // track time so we can more  accurately represent true parsing time
@@ -73,12 +74,14 @@ export async function FormatTest(folder: string): Promise<void> {
         const tokenizedNames = GetTokenNames(tokenized);
 
         // format code
-        const formatted = Assembler(tokenized, { formatter: 'fiddle' });
+        const formatted = Assembler(tokenized, new CancellationToken(), {
+          formatter: 'fiddle',
+        });
 
         // verify that our tokens are the same as they were before
         if (formatted !== undefined) {
           // parse formatted code
-          const reParsed = Parser(formatted);
+          const reParsed = Parser(formatted, new CancellationToken());
 
           // make sure things equal
           if (!deepEqual(GetTokenNames(reParsed), tokenizedNames)) {

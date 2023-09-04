@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates while loop parsing`, () => {
     const code = [`while !true do print, i`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -81,7 +82,7 @@ describe(`[auto generated] Validates while loop parsing`, () => {
     const code = [`while !true do while !false do print, i`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -179,7 +180,7 @@ describe(`[auto generated] Validates while loop parsing`, () => {
     const code = [`while !true do $`, `  print,  $`, `  i`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -271,7 +272,7 @@ describe(`[auto generated] Validates while loop parsing`, () => {
     const code = [`while (a eq 5) do begin`, `  !null = myFunc(i)`, `endwhile`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

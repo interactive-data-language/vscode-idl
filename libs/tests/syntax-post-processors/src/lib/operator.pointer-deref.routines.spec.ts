@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
@@ -8,7 +9,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     const code = [`a = func(*val, *other, kw=*last)`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -177,7 +178,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     const code = [`a = var.func(*val, *other, kw=*last)`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -362,7 +363,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -543,7 +544,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     const code = [`mypro, *val, *other, kw=*last`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -700,7 +701,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     const code = [`var.mypro, *val, *other, kw=*last`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -866,7 +867,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     const code = [`mypro,$`, `  *val`, `end`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -968,7 +969,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [

@@ -1,4 +1,5 @@
 import { Assembler } from '@idl/assembler';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
@@ -103,7 +104,7 @@ describe(`[auto generated] Verify snapping branches to remove leading and traili
     const tokenizedNames = GetTokenNames(tokenized);
 
     // format code
-    const formatted = Assembler(tokenized, {
+    const formatted = Assembler(tokenized, new CancellationToken(), {
       autoFix: false,
       formatter: 'fiddle',
     });

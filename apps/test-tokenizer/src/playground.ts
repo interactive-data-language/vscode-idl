@@ -1,4 +1,5 @@
 import { Assembler } from '@idl/assembler';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { IParsed, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import { TimeIt } from '@idl/shared';
@@ -32,7 +33,7 @@ export async function Playground() {
     console.log();
     console.log('Warming up algorithms...');
     for (let i = 0; i < WARM_UP; i++) {
-      Parser(PLAYGROUND_CODE, { cleanup: false });
+      Parser(PLAYGROUND_CODE, new CancellationToken(), { cleanup: false });
       await TextMateParse(PLAYGROUND_CODE);
     }
     console.log('  Ready to rock!');
@@ -42,7 +43,7 @@ export async function Playground() {
      */
     let parsed: IParsed;
     const t1 = TimeIt(() => {
-      Parser(PLAYGROUND_CODE, { cleanup: false });
+      Parser(PLAYGROUND_CODE, new CancellationToken(), { cleanup: false });
     });
     console.log();
     console.log(`Parser time (ms): ${t1}`);
@@ -73,7 +74,7 @@ export async function Playground() {
     let formatted: string | undefined;
     const t2 = TimeIt(() => {
       formatted = 'no';
-      formatted = Assembler(formattedTokenized, {
+      formatted = Assembler(formattedTokenized, new CancellationToken(), {
         formatter: 'fiddle',
         autoDoc: true,
         style: {},
@@ -109,8 +110,8 @@ export async function Playground() {
     }
     forTests.push(`]`);
 
-    RemoveScopeDetail(parsed);
-    RemoveScopeDetail(formattedTokenized);
+    RemoveScopeDetail(parsed, new CancellationToken());
+    RemoveScopeDetail(formattedTokenized, new CancellationToken());
 
     // save outputs to disk
     writeFileSync(

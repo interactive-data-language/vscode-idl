@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Verify string literal processing`, () => {
     const code = [`a = \`my string with \${expression + 5}\``];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -99,7 +100,7 @@ describe(`[auto generated] Verify string literal processing`, () => {
     const code = [`a = \`my string without substitution\``];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -149,7 +150,7 @@ describe(`[auto generated] Verify string literal processing`, () => {
     const code = [`a = \`start \${ \`nested\` }  else\``];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -237,7 +238,7 @@ describe(`[auto generated] Verify string literal processing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -515,7 +516,7 @@ describe(`[auto generated] Verify string literal processing`, () => {
     const code = [`a = \`something \\\` included  \``];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -577,7 +578,7 @@ describe(`[auto generated] Verify string literal processing`, () => {
     const code = [`a = \` first \``];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -627,7 +628,7 @@ describe(`[auto generated] Verify string literal processing`, () => {
     const code = [`a = \`\${1.234,"%10.3f"}\``];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

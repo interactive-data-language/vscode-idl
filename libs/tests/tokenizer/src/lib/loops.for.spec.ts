@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates for loop parsing`, () => {
     const code = [`for i=0, 99 do print, i`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -111,7 +112,7 @@ describe(`[auto generated] Validates for loop parsing`, () => {
     const code = [`for i=0, 99, 2 do !null = myFunc(i)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -233,7 +234,7 @@ describe(`[auto generated] Validates for loop parsing`, () => {
     const code = [`for i=0, jj do $`, `  print, i`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -343,7 +344,7 @@ describe(`[auto generated] Validates for loop parsing`, () => {
     const code = [`for i=0, 99 do begin`, `  !null = myFunc(i)`, `endfor`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -465,7 +466,7 @@ describe(`[auto generated] Validates for loop parsing`, () => {
     const code = [`for i=0, 99 do for j=0, 99 do print, i + j`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

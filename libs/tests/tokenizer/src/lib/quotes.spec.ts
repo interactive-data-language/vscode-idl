@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`'myFunc(1 + 2)'`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -33,7 +34,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`"myFunc(1 + 2)"`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -53,7 +54,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`'string`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -73,7 +74,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`"string`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -95,7 +96,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -183,7 +184,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -269,7 +270,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`if "bad-quote"then "bad-quote"else`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -331,7 +332,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`case "bad-quote"of`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -363,7 +364,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`for "bad-quote"do`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -407,7 +408,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`repeat 'bad-quote'until`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -451,7 +452,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`if 'bad-quote'then 'bad-quote'else`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -513,7 +514,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`case 'bad-quote'of`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -545,7 +546,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`for 'bad-quote'do`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -589,7 +590,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`repeat 'bad-quote'until`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -633,7 +634,7 @@ describe(`[auto generated] Validates quote parsing`, () => {
     const code = [`arr = ["0.00000000"]`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

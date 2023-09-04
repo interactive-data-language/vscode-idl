@@ -1,4 +1,5 @@
 import { Assembler } from '@idl/assembler';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
@@ -39,7 +40,7 @@ describe(`[auto generated] Verify variable styling`, () => {
     const tokenizedNames = GetTokenNames(tokenized);
 
     // format code
-    const formatted = Assembler(tokenized, {
+    const formatted = Assembler(tokenized, new CancellationToken(), {
       style: { localVariables: 'match' },
       autoFix: false,
       formatter: 'fiddle',
@@ -114,7 +115,7 @@ describe(`[auto generated] Verify variable styling`, () => {
     const tokenizedNames = GetTokenNames(tokenized);
 
     // format code
-    const formatted = Assembler(tokenized, {
+    const formatted = Assembler(tokenized, new CancellationToken(), {
       style: { localVariables: 'none' },
       autoFix: false,
       formatter: 'fiddle',
@@ -190,7 +191,7 @@ describe(`[auto generated] Verify variable styling`, () => {
     const tokenizedNames = GetTokenNames(tokenized);
 
     // format code
-    const formatted = Assembler(tokenized, {
+    const formatted = Assembler(tokenized, new CancellationToken(), {
       style: { localVariables: 'match' },
       autoFix: false,
       formatter: 'fiddle',
@@ -267,7 +268,7 @@ describe(`[auto generated] Verify variable styling`, () => {
     const tokenizedNames = GetTokenNames(tokenized);
 
     // format code
-    const formatted = Assembler(tokenized, {
+    const formatted = Assembler(tokenized, new CancellationToken(), {
       style: { localVariables: 'none' },
       autoFix: false,
       formatter: 'fiddle',
@@ -342,7 +343,7 @@ describe(`[auto generated] Verify variable styling`, () => {
     const tokenizedNames = GetTokenNames(tokenized);
 
     // format code
-    const formatted = Assembler(tokenized, {
+    const formatted = Assembler(tokenized, new CancellationToken(), {
       style: { localVariables: 'match' },
       autoFix: false,
       formatter: 'fiddle',
@@ -440,7 +441,7 @@ describe(`[auto generated] Verify variable styling`, () => {
     const tokenizedNames = GetTokenNames(tokenized);
 
     // format code
-    const formatted = Assembler(tokenized, {
+    const formatted = Assembler(tokenized, new CancellationToken(), {
       style: { localVariables: 'none' },
       autoFix: false,
       formatter: 'fiddle',

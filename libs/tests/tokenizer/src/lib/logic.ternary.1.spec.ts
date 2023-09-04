@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates for ternary statement parsing`, () => {
     const code = [`a = something ? 5 : 6`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -87,7 +88,7 @@ describe(`[auto generated] Validates for ternary statement parsing`, () => {
     const code = [`a = !true ? (!false ? 7 : 8) : 6`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -209,7 +210,7 @@ describe(`[auto generated] Validates for ternary statement parsing`, () => {
     const code = [`mypro, something ? ~something ? 7 : 8 : 6, 2`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -343,7 +344,7 @@ describe(`[auto generated] Validates for ternary statement parsing`, () => {
     const code = [`a = myfunc(something ? otherfunc() : !awesomesauce) + 3`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -453,7 +454,7 @@ describe(`[auto generated] Validates for ternary statement parsing`, () => {
     const code = [`a = 5*something ? 5- 4 : 6^3`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -581,7 +582,7 @@ describe(`[auto generated] Validates for ternary statement parsing`, () => {
     const code = [`a = _myvar $`, `  ? 'jello' : "jelly"`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -672,7 +673,7 @@ describe(`[auto generated] Validates for ternary statement parsing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -818,7 +819,7 @@ describe(`[auto generated] Validates for ternary statement parsing`, () => {
     const code = [`_17 = arr[!true ? 0 : -3: -1]`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

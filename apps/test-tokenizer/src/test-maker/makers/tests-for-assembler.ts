@@ -1,4 +1,5 @@
 import { Assembler } from '@idl/assembler';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
 import { writeFileSync } from 'fs';
@@ -24,6 +25,7 @@ export async function TestsForAssembler(
 
   // add imports
   strings.push(`import { Assembler } from '@idl/assembler';`);
+  strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(`import { GetTokenNames } from '@idl/parser';`);
   strings.push(
@@ -73,7 +75,11 @@ export async function TestsForAssembler(
     };
 
     // format
-    const formatted = Assembler(tokenized, test.config);
+    const formatted = Assembler(
+      tokenized,
+      new CancellationToken(),
+      test.config
+    );
 
     // add our tokens
     strings.push(`  it(\`[auto generated] ${testName}\`, async () => {`);
@@ -101,14 +107,14 @@ export async function TestsForAssembler(
     strings.push(`    // format code`);
     if (test.config !== undefined) {
       strings.push(
-        `    const formatted = Assembler(tokenized, ${JSON.stringify(
+        `    const formatted = Assembler(tokenized, new CancellationToken(), ${JSON.stringify(
           test.config
         )});`
       );
       strings.push(``);
     } else {
       strings.push(
-        `    const formatted = Assembler(tokenized, { formatter: 'fiddle' });`
+        `    const formatted = Assembler(tokenized, new CancellationToken(), { formatter: 'fiddle' });`
       );
       strings.push(``);
     }

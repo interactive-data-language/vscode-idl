@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { GetTokenAtCursor, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import { Position } from 'vscode-languageserver/node';
@@ -41,7 +42,7 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
     const selected_0 = GetTokenAtCursor(tokenized, position_0);
 
     // remove scope detail
-    RemoveScopeDetail(tokenized);
+    RemoveScopeDetail(tokenized, new CancellationToken());
 
     // verify results
     expect(selected_0.token).toEqual(expectedFound_0);
@@ -65,7 +66,7 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
     const selected_1 = GetTokenAtCursor(tokenized, position_1);
 
     // remove scope detail
-    RemoveScopeDetail(tokenized);
+    RemoveScopeDetail(tokenized, new CancellationToken());
 
     // verify results
     expect(selected_1.token).toEqual(expectedFound_1);

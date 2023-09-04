@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates procedure parsing`, () => {
     const code = [`myPro, 1 + 2`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -69,7 +70,7 @@ describe(`[auto generated] Validates procedure parsing`, () => {
     const code = [`myPro, arg1, arg2`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -119,7 +120,7 @@ describe(`[auto generated] Validates procedure parsing`, () => {
     const code = [`myPro, $`, `  arg1, arg2`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -181,7 +182,7 @@ describe(`[auto generated] Validates procedure parsing`, () => {
     const code = [`for i=0, 2*5-jello(1) do print, i`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -327,7 +328,7 @@ describe(`[auto generated] Validates procedure parsing`, () => {
     const code = [`a`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

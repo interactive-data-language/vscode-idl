@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { TOKEN_NAMES, TOKEN_TYPES, Tokenizer } from '@idl/parsing/tokenizer';
 import deepCopy from 'fast-copy';
 import { writeFileSync } from 'fs';
@@ -19,6 +20,7 @@ export function TestsForTokenizer(
   const strings: string[] = [];
 
   // add imports
+  strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(
     `import { IBaseToken, StripIDs, TOKEN_NAMES, TOKEN_TYPES, Tokenizer,TokenName } from '@idl/parsing/tokenizer';`
   );
@@ -38,7 +40,7 @@ export function TestsForTokenizer(
     const toProcess = ArrayifyCode(code);
 
     // extract our tokens from the cleaned code
-    const tokenized = Tokenizer(toProcess);
+    const tokenized = Tokenizer(toProcess, new CancellationToken());
 
     // build our code string to insert into the automated test
     const codeStr = StringifyCode(toProcess);
@@ -49,7 +51,9 @@ export function TestsForTokenizer(
     strings.push(`    const code = ${codeStr}`);
     strings.push(``);
     strings.push(`    // extract tokens`);
-    strings.push(`    const tokenized = Tokenizer(code)`);
+    strings.push(
+      `    const tokenized = Tokenizer(code, new CancellationToken())`
+    );
     strings.push(``);
 
     // add the start to  our tokens

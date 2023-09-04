@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
@@ -8,7 +9,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
     const code = [`mypro, /kw1, /KW2`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -90,7 +91,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
     const code = [`myclass.method, $`, `  /KW3, KW=!true`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -226,7 +227,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
     const code = [`a = myfunc(/KW1, /KW2)`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -320,7 +321,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
     const code = [`ZACH = AWESOME.SAUCE(/kw3, $`, `/KW17, KW18 = !false)`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -492,7 +493,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -672,7 +673,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [

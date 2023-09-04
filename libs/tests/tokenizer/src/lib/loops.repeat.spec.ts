@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates repeat loop parsing`, () => {
     const code = [`REPEAT A = A * 2 UNTIL A GT B`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -117,7 +118,7 @@ describe(`[auto generated] Validates repeat loop parsing`, () => {
     const code = [`REPEAT PRINT, A UNTIL A GT B`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -203,7 +204,7 @@ describe(`[auto generated] Validates repeat loop parsing`, () => {
     const code = [`REPEAT A = $`, `  A * 2 UNTIL $`, `  A GT B`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -331,7 +332,7 @@ describe(`[auto generated] Validates repeat loop parsing`, () => {
     const code = [`REPEAT BEGIN`, `  A = A * 2`, `ENDREP UNTIL A GT B`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -447,7 +448,7 @@ describe(`[auto generated] Validates repeat loop parsing`, () => {
     const code = [`repeat if !true then break until !true`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

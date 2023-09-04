@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { GetTokenAtCursor, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import { writeFileSync } from 'fs';
@@ -19,6 +20,7 @@ export function TestsForTokenAtCursor(
   const strings: string[] = [];
 
   // add imports
+  strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { Parser } from '@idl/parser';`);
   strings.push(
     `import { GetTokenAtCursor, RemoveScopeDetail } from '@idl/parsing/syntax-tree';`
@@ -41,7 +43,7 @@ export function TestsForTokenAtCursor(
     const toProcess = ArrayifyCode(code);
 
     // extract our tokens from the cleaned code
-    const tokenized = Parser(toProcess);
+    const tokenized = Parser(toProcess, new CancellationToken());
 
     // build our code string to insert into the automated test
     const codeStr = StringifyCode(toProcess);
@@ -60,7 +62,7 @@ export function TestsForTokenAtCursor(
       const found = GetTokenAtCursor(tokenized, test.position[j]);
 
       // remove scope detail so we can stringify again
-      RemoveScopeDetail(tokenized);
+      RemoveScopeDetail(tokenized, new CancellationToken());
 
       // make a string of our token
       const str =
@@ -89,7 +91,7 @@ export function TestsForTokenAtCursor(
 
       // add the start to  our tokens
       strings.push(`    // remove scope detail`);
-      strings.push(`    RemoveScopeDetail(tokenized)`);
+      strings.push(`    RemoveScopeDetail(tokenized, new CancellationToken())`);
       strings.push('');
 
       // verify results

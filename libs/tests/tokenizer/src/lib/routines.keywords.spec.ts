@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates keyword parsing`, () => {
     const code = [`myfunc(a = 5)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -63,7 +64,7 @@ describe(`[auto generated] Validates keyword parsing`, () => {
     const code = [`_otherfunc(a = 5, _b=42)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -143,7 +144,7 @@ describe(`[auto generated] Validates keyword parsing`, () => {
     const code = [`myfunc(a = 5, $`, `  _b=42)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -235,7 +236,7 @@ describe(`[auto generated] Validates keyword parsing`, () => {
     const code = [`myfunc(a $`, `  = 5)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -297,7 +298,7 @@ describe(`[auto generated] Validates keyword parsing`, () => {
     const code = [`_y = _superFunction(a = 5)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates bracket parsing`, () => {
     const code = [`[1 + 2]`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -63,7 +64,7 @@ describe(`[auto generated] Validates bracket parsing`, () => {
     const code = [`[1 + $`, `  2]`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -125,7 +126,7 @@ describe(`[auto generated] Validates bracket parsing`, () => {
     const code = [`array1[1 + 2] * (1 + 2)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -229,7 +230,7 @@ describe(`[auto generated] Validates bracket parsing`, () => {
     const code = [`_a[i] = 5 * b`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -303,7 +304,7 @@ describe(`[auto generated] Validates bracket parsing`, () => {
     const code = [`_aA$[i] *= b`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
