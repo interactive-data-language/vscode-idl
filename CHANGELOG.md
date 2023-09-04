@@ -42,6 +42,14 @@ Here are some of the features that notebooks bring:
 
   - After each cell is executed we issue a `retall` command to make sure that we are at the top-level and not stopped in a weird state
 
+## 3.2.2 September 2023
+
+Major change to the language server and worker threads to implement a cancellation framework. The ability to cancel work happens automatically for PRO files (as a first pass) and will eventually be applied to notebooks as well.
+
+This change will address performance issues where, if the code can not be parsed as quickly as you were typing, it would create a backlog of work that needed to be done on the language server and workers before getting the latest code.
+
+This means you should no longer have to wait 10-15 seconds for hover help, auto-complete, or formatting at times.s
+
 ## 3.2.1 August 2023
 
 Notebook key behavior change: If you are running one or more cells, and there is an error from IDL for any cell being executed, all pending cells are cleared and not executed. This makes sure that, if later cells depend on earlier ones, that you don't have cascading failures.
