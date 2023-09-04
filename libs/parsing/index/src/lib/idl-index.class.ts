@@ -72,6 +72,7 @@ import { Worker } from 'worker_threads';
 import { GetAutoComplete } from './auto-complete/get-auto-complete';
 import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
+import { GetParsedNotebook } from './get-parsed-notebook';
 import { GetParsedPROCode } from './get-parsed-pro-code';
 import { GlobalIndex } from './global-index.class';
 import { GetSyntaxProblems } from './helpers/get-syntax-problems';
@@ -155,11 +156,6 @@ export class IDLIndex {
    * Track tokens for each file that we process
    */
   tokensByFile = new IDLParsedCache();
-
-  /**
-   * Track pending notebooks
-   */
-  pendingNotebooks: { [key: string]: Promise<void> } = {};
 
   /**
    * Track the workers that own each file
@@ -1134,19 +1130,6 @@ export class IDLIndex {
 
     try {
       /**
-       * Resolver for our work being done
-       */
-      let resolver: () => void;
-
-      // make a promise for panding
-      const pending = new Promise<void>((res) => {
-        resolver = res;
-      });
-
-      // track that we have a pending notebook parse
-      this.pendingNotebooks[file] = pending;
-
-      /**
        * Track parsed code by cell
        */
       const byCell: IParsedIDLNotebook = {};
@@ -1218,10 +1201,6 @@ export class IDLIndex {
         this.tokensByFile.add(files[i], byCell[files[i]]);
       }
 
-      // indicate that we have finished and clean up
-      resolver();
-      delete this.pendingNotebooks[file];
-
       return byCell;
     } catch (err) {
       this.log.log({
@@ -1241,12 +1220,23 @@ export class IDLIndex {
   }
 
   /**
+   * Gets a parsed notebook
+   */
+  async getParsedNotebook(
+    file: string,
+    notebook: IDLNotebookDocument,
+    cancel: CancellationToken
+  ): Promise<IParsedIDLNotebook> {
+    return GetParsedNotebook(this, file, notebook, cancel);
+  }
+
+  /**
    *  Parses an IDL notebook using a worker thread
    *
    * The notebook parsing response just includes information that should be synced
    * amongst threads
    */
-  async parseNotebook(
+  async parseAndTrackNotebook(
     file: string,
     notebook: IDLNotebookDocument
   ): Promise<void> {

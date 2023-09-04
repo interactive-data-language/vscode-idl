@@ -48,7 +48,7 @@ export const ON_DID_CHANGE_NOTEBOOK = async (
     const fsPath = GetFSPath(notebook.uri);
 
     // index file
-    await IDL_INDEX.parseNotebook(fsPath, idlNotebook);
+    await IDL_INDEX.parseAndTrackNotebook(fsPath, idlNotebook);
 
     // send problems
     SendNotebookProblems(notebook);

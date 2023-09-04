@@ -4,6 +4,7 @@ import { IParsed } from '@idl/parsing/syntax-tree';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import copy from 'fast-copy';
 
+import { PENDING_NOTEBOOK } from './get-parsed-notebook';
 import { IGetParsedPROCodePending } from './get-parsed-pro-code.interface';
 import { GetSyntaxProblems } from './helpers/get-syntax-problems';
 import { IDLIndex } from './idl-index.class';
@@ -48,8 +49,8 @@ export async function GetParsedPROCode(
        * and wait for it to finish before we do anything
        */
       const base = file.split('#')[0];
-      if (base in index.pendingNotebooks) {
-        await index.pendingNotebooks[base];
+      if (base in PENDING_NOTEBOOK) {
+        await PENDING_NOTEBOOK[base];
       }
 
       /**

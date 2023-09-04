@@ -346,7 +346,7 @@ client.on(
     /**
      * Index our notebook
      */
-    const byCell = await WORKER_INDEX.indexIDLNotebook(
+    const byCell = await WORKER_INDEX.getParsedNotebook(
       message.file,
       message.notebook,
       cancel

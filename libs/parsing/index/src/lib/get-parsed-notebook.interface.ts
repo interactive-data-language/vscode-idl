@@ -1,5 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { ParseNotebookResponse } from '@idl/workers/parsing';
+import { IParsedIDLNotebook } from '@idl/notebooks/shared';
 
 /**
  * Data we track for pending PRO code
@@ -8,13 +8,13 @@ export interface IGetParsedNotebookPending {
   /**
    * Promise that resolves to the parsed notebook
    */
-  promise: Promise<ParseNotebookResponse>;
+  promise: Promise<IParsedIDLNotebook>;
   /**
    * Cancellation token that we can use
    */
   token: CancellationToken;
   /**
-   * The checksum for the pending code
+   * The checksums for the code cells
    */
-  version: number;
+  checksums: string[];
 }
