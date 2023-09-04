@@ -44,11 +44,11 @@ Here are some of the features that notebooks bring:
 
 ## 3.2.2 September 2023
 
-Major change to the language server and worker threads to implement a cancellation framework. The ability to cancel work happens automatically for PRO files (as a first pass) and will eventually be applied to notebooks as well.
+Major change to the language server and worker threads to implement a cancellation framework. The ability to cancel work happens automatically for PRO files and IDL Notebooks.
 
-This change will address performance issues where, if the code can not be parsed as quickly as you were typing, it would create a backlog of work that needed to be done on the language server and workers before getting the latest code.
+This change will address performance issues where, if the code can not be parsed as quickly as you were typing, you would not get auto-complete, outlines, hover-help, semantic tokens, formatting on save, etc.
 
-This means you should no longer have to wait 10-15 seconds for hover help, auto-complete, or formatting at times.s
+In these cases it could take 15-30 seconds for the language server to respond while it worked through a backlog of processing that was no longer relevant.
 
 ## 3.2.1 August 2023
 
