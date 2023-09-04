@@ -96,6 +96,7 @@ import {
   OUTLINE_THESE_TOKENS,
   OUTLINE_TOKEN_KIND_MAP,
 } from './outline.interface';
+import { ParseNotebook } from './parse-notebook';
 import { PostProcessParsed } from './post-process/post-process-parsed';
 import { GetTokenDefinition } from './token-definiton/get-token-definition';
 
@@ -1128,95 +1129,79 @@ export class IDLIndex {
     this.knownFiles[file] = undefined;
     this.fileTypes['idl-notebook'].add(file);
 
-    try {
-      /**
-       * Track parsed code by cell
-       */
-      const byCell: IParsedIDLNotebook = {};
+    /**
+     * Track parsed code by cell
+     */
+    const byCell: IParsedIDLNotebook = {};
 
-      // process each cell
-      for (let i = 0; i < notebook.cells.length; i++) {
-        // check for cancellation
-        token.throwIfCancelled();
+    // process each cell
+    for (let i = 0; i < notebook.cells.length; i++) {
+      // check for cancellation
+      token.throwIfCancelled();
 
-        /** Get notebook cell */
-        const cell = notebook.cells[i];
+      /** Get notebook cell */
+      const cell = notebook.cells[i];
 
-        // make file for our cell
-        const cellFSPath = `${file}#${i}`;
+      // make file for our cell
+      const cellFSPath = `${file}#${i}`;
 
-        // skip if no cells
-        if (cell.kind !== NotebookCellKind.Code) {
-          byCell[cellFSPath] = undefined;
-          continue;
-        }
-
-        // process the cell
-        byCell[cellFSPath] = Parser(cell.text, token, {
-          isNotebook: true,
-        });
+      // skip if no cells
+      if (cell.kind !== NotebookCellKind.Code) {
+        byCell[cellFSPath] = undefined;
+        continue;
       }
 
-      /**
-       * Get files for cells that we actually processed
-       */
-      const files = Object.keys(byCell);
-
-      // share variable usage
-      for (let i = 0; i < files.length; i++) {
-        // check for cancellation
-        token.throwIfCancelled();
-
-        if (byCell[files[i]] === undefined) {
-          continue;
-        }
-
-        PopulateNotebookVariables(files[i], byCell, true);
-      }
-
-      // process each file
-      for (let i = 0; i < files.length; i++) {
-        // check for cancellation
-        token.throwIfCancelled();
-
-        if (byCell[files[i]] === undefined) {
-          continue;
-        }
-
-        // inherit data types from cells above us
-        if (i > 0) {
-          PopulateNotebookVariables(files[i], byCell, false);
-        }
-
-        // post process cell
-        await this.postProcessProFile(
-          files[i],
-          byCell[files[i]],
-          token,
-          [],
-          false
-        );
-
-        // update stored token
-        this.tokensByFile.add(files[i], byCell[files[i]]);
-      }
-
-      return byCell;
-    } catch (err) {
-      this.log.log({
-        log: IDL_LSP_LOG,
-        type: 'error',
-        content: [
-          `${IDL_TRANSLATION.lsp.index.failedParseNotebook}: "${file}"`,
-          err,
-        ],
-        alert: `${IDL_TRANSLATION.lsp.index.failedParseNotebook}: "${file}"`,
-        alertMeta: {
-          file,
-        },
+      // process the cell
+      byCell[cellFSPath] = Parser(cell.text, token, {
+        isNotebook: true,
       });
-      return undefined;
     }
+
+    /**
+     * Get files for cells that we actually processed
+     */
+    const files = Object.keys(byCell);
+
+    // share variable usage
+    for (let i = 0; i < files.length; i++) {
+      // check for cancellation
+      token.throwIfCancelled();
+
+      if (byCell[files[i]] === undefined) {
+        continue;
+      }
+
+      PopulateNotebookVariables(files[i], byCell, true);
+    }
+
+    // process each file
+    for (let i = 0; i < files.length; i++) {
+      // check for cancellation
+      token.throwIfCancelled();
+
+      if (byCell[files[i]] === undefined) {
+        continue;
+      }
+
+      // inherit data types from cells above us
+      if (i > 0) {
+        PopulateNotebookVariables(files[i], byCell, false);
+      }
+
+      // post process cell
+      await this.postProcessProFile(
+        files[i],
+        byCell[files[i]],
+        token,
+        [],
+        false
+      );
+
+      // update stored token
+      this.tokensByFile.add(files[i], byCell[files[i]]);
+    }
+
+    return byCell;
   }
 
   /**
@@ -1263,11 +1248,7 @@ export class IDLIndex {
     const id = this.getWorkerID(file);
 
     // parse our notebook
-    const resp = await this.indexerPool.workerio.postAndReceiveMessage(
-      id,
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK,
-      { file, notebook }
-    ).response;
+    const resp = await ParseNotebook(this, file, notebook);
 
     // track cells as known files so we can clean up correctly next time
     this.trackFiles(Object.keys(resp.globals));

@@ -1,27 +1,28 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
+import { IDLNotebookDocument } from '@idl/notebooks/shared';
 import { CodeChecksum } from '@idl/parser';
+import {
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP,
+  ParseNotebookResponse,
+} from '@idl/workers/parsing';
 import { deepEqual } from 'fast-equals';
 import { NotebookCellKind } from 'vscode-languageserver';
 
-import { IGetParsedNotebookPending } from './get-parsed-notebook.interface';
 import { IDLIndex } from './idl-index.class';
+import { IParsedNotebookPending } from './parse-notebook.interface';
 
 /**
  * Track the pending files
  */
-export const PENDING_NOTEBOOK: { [key: string]: IGetParsedNotebookPending } =
-  {};
+const PENDING_NOTEBOOK: { [key: string]: IParsedNotebookPending } = {};
 
 /**
  * Handles getting a parsed notebook from the IDL index
  */
-export async function GetParsedNotebook(
+export async function ParseNotebook(
   index: IDLIndex,
   file: string,
-  notebook: IDLNotebookDocument,
-  token: CancellationToken
-): Promise<IParsedIDLNotebook> {
+  notebook: IDLNotebookDocument
+): Promise<ParseNotebookResponse> {
   // track all checksums
   const checksums: string[] = [];
 
@@ -57,18 +58,27 @@ export async function GetParsedNotebook(
       break;
   }
 
-  // track pending notebook parsing
-  const newPending: IGetParsedNotebookPending = {
-    checksums,
-    token,
-    promise: index.indexIDLNotebook(file, notebook, token),
-  };
+  /**
+   * Get ID of our worker
+   */
+  const id = index.getWorkerID(file);
+
+  // parse our notebook
+  const resp = index.indexerPool.workerio.postAndReceiveMessage(
+    id,
+    LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK,
+    { file, notebook }
+  );
 
   // mark as pending
-  PENDING_NOTEBOOK[file] = newPending;
+  PENDING_NOTEBOOK[file] = {
+    checksums,
+    token: resp.token,
+    promise: resp.response,
+  };
 
   // wait for finish
-  const res = await newPending.promise;
+  const res = await resp.response;
 
   // clean up pending
   delete PENDING_NOTEBOOK[file];
