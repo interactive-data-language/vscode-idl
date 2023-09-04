@@ -26,6 +26,7 @@ ActivateDefaultSyntaxPostProcessors();
 export function ParserTokenize(
   code: string | string[],
   tokenized: IParsed,
+  cancel: CancellationToken,
   full = true
 ) {
   /**
@@ -36,34 +37,11 @@ export function ParserTokenize(
   // try {
   Object.assign(
     tokenized,
-    full ? Tokenizer(code) : Tokenizer(code, FAST_FIND_TOKEN_OPTIONS)
+    full
+      ? Tokenizer(code, cancel)
+      : Tokenizer(code, cancel, FAST_FIND_TOKEN_OPTIONS)
   );
 
-  // } catch (err) {
-  //   console.error(err);
-
-  //   // track problem that will get reported to user
-  //   tokenized.parseProblems.push(
-  //     ProblemWithTranslation(
-  //       IDL_PROBLEM_CODES.EMBARRASSING_FILE,
-  //       [0, 0, 0],
-  //       [0, 0, 0]
-  //     )
-  //   );
-  // }
-}
-
-/**
- * Creates a syntax tree and does checking for syntax errors
- */
-export function ParserBuildTree(
-  tokenized: IParsed,
-  full: boolean,
-  isNotebook: boolean
-) {
-  // try {
-  // build tree - updates property for tokenized
-  BuildSyntaxTree(tokenized, full, isNotebook);
   // } catch (err) {
   //   console.error(err);
 
@@ -87,7 +65,7 @@ export function ParserBuildTree(
  */
 export function Parser(
   code: string | string[],
-  token: CancellationToken,
+  cancel: CancellationToken,
   inOptions: Partial<IParserOptions> = {}
 ): IParsed {
   /**
@@ -121,10 +99,10 @@ export function Parser(
   };
 
   // extract tokens
-  ParserTokenize(code, tokenized, options.full);
+  ParserTokenize(code, tokenized, cancel, options.full);
 
   // build the syntax tree and detect syntax problems
-  ParserBuildTree(tokenized, options.full, options.isNotebook);
+  BuildSyntaxTree(tokenized, cancel, options.full, options.isNotebook);
 
   /**
    * Populate our global, local (variables), and compile-opts
@@ -134,7 +112,7 @@ export function Parser(
    *
    * If it is off, we dont get hover help or useful auto-complete
    */
-  PopulateGlobalLocalCompileOpts(tokenized, true, options.isNotebook);
+  PopulateGlobalLocalCompileOpts(tokenized, cancel, true, options.isNotebook);
 
   // remove all problems if fast parse
   if (!options.full) {
@@ -170,7 +148,7 @@ export function Parser(
  */
 export async function ParseFile(
   file: string,
-  token: CancellationToken,
+  cancel: CancellationToken,
   options: Partial<IParserOptions> = {}
 ): Promise<IParsed> {
   // make sure that our file exists
@@ -182,7 +160,7 @@ export async function ParseFile(
   const code = await readFile(file, 'utf-8');
 
   // parse and return
-  return Parser(code, token, options);
+  return Parser(code, cancel, options);
 }
 
 /**
@@ -193,7 +171,7 @@ export async function ParseFile(
  */
 export function ParseFileSync(
   file: string,
-  token: CancellationToken,
+  cancel: CancellationToken,
   options: Partial<IParserOptions> = {}
 ): IParsed {
   // make sure that our file exists
@@ -205,5 +183,5 @@ export function ParseFileSync(
   const code = readFileSync(file, 'utf-8');
 
   // parse and return
-  return Parser(code, token, options);
+  return Parser(code, cancel, options);
 }

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   CleanIDLOutput,
   IDL,
@@ -645,7 +646,7 @@ export class IDLNotebookController {
     /**
      * Parse code and see if we have a main level program
      */
-    const parsed = Parser(strings);
+    const parsed = Parser(strings, new CancellationToken());
 
     // check for main level program
     if (parsed.tree[parsed.tree.length - 1]?.name === TOKEN_NAMES.MAIN_LEVEL) {

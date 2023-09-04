@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { CodeChecksum, Parser } from '@idl/parser';
 import {
   IParsed,
@@ -18,7 +19,11 @@ const CACHE: { [key: string]: IParsed } = {};
  * Manges a basic cache for include statements so we don't read the same
  * file over and over
  */
-export function IncludeCache(index: IDLIndex, file: string) {
+export function IncludeCache(
+  index: IDLIndex,
+  file: string,
+  cancel: CancellationToken
+) {
   const strings = readFileSync(file, 'utf-8');
 
   // check for and validate cache
@@ -29,14 +34,14 @@ export function IncludeCache(index: IDLIndex, file: string) {
   }
 
   // parse
-  const parsed = Parser(strings);
+  const parsed = Parser(strings, cancel);
 
   // post-process and do some type defining
-  PostProcessParsed(index, file, parsed);
+  PostProcessParsed(index, file, parsed, cancel);
 
   // clean up
-  RemoveScopeDetail(parsed);
-  ResetTokenCache(parsed);
+  RemoveScopeDetail(parsed, cancel);
+  ResetTokenCache(parsed, cancel);
 
   // remove globals to save memory
   parsed.global = [];

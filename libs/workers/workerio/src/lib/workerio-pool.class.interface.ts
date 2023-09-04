@@ -1,12 +1,12 @@
 import { LogManager } from '@idl/logger';
 import { Subject } from 'rxjs';
 
-import {
-  PayloadFromWorkerBaseMessage,
-  PayloadToWorkerBaseMessage,
-} from './messages/workerio.payloads.interface';
+import { PayloadToWorkerBaseMessage } from './messages/workerio.payloads.interface';
 import { IWorkerIO } from './workerio.class.interface';
-import { IMessageFromWorker } from './workerio.interface';
+import {
+  IMessageFromWorker,
+  IPostAndReceiveMessageResult,
+} from './workerio.interface';
 import { IPostMessageOptions } from './workerio-pool.interface';
 
 /**
@@ -30,7 +30,7 @@ export interface IWorkerIOPool<_Message extends string> {
     type: T,
     payload: PayloadToWorkerBaseMessage<T>,
     options?: IPostMessageOptions
-  ): Promise<PayloadFromWorkerBaseMessage<T>>;
+  ): IPostAndReceiveMessageResult<T>;
 
   /**
    * Sends message to all worker threads

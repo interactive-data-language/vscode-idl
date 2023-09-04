@@ -1,4 +1,9 @@
 /**
+ * Cancel/interrupt pending work
+ */
+export type CancelMessage = 'cancel';
+
+/**
  * Error running process
  */
 export type ErrorMessage = 'error';
@@ -16,4 +21,8 @@ export type UnhandledError = 'unhandled-error';
 /**
  * Base messages that are always supported with workerio
  */
-export type WorkerIOBaseMessage = ErrorMessage | LogMessage | UnhandledError;
+export type WorkerIOBaseMessage =
+  | CancelMessage
+  | ErrorMessage
+  | LogMessage
+  | UnhandledError;

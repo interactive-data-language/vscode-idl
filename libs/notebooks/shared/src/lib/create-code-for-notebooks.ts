@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 
@@ -43,7 +44,7 @@ export async function CreateCodeForNotebooks(
     .join('\n');
 
   // parse
-  const parsed = Parser(combined);
+  const parsed = Parser(combined, new CancellationToken());
 
   // check for problems
   for (let i = 0; i < parsed.parseProblems.length; i++) {

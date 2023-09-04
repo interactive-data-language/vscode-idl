@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IParsed,
   RemoveScopeDetailAndResetTokenCache,
@@ -48,7 +49,7 @@ export class IDLParsedCache {
     const parsed = copy(orig);
 
     // clean up and make non-circular
-    RemoveScopeDetailAndResetTokenCache(parsed);
+    RemoveScopeDetailAndResetTokenCache(parsed, new CancellationToken());
 
     // compress the keys
     for (let i = 0; i < COMPRESS_THESE.length; i++) {

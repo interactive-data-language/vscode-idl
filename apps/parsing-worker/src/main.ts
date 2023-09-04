@@ -171,38 +171,44 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_TOKEN_DEF, async (message) => {
 /**
  * Handle requests to parse and post process a file
  */
-client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILE, async (message) => {
-  // index the file
-  const parsed = await WORKER_INDEX.getParsedProCode(
-    message.file,
-    WORKER_INDEX.getFileStrings(message.file),
-    message
-  );
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILE,
+  async (message, cancel) => {
+    // index the file
+    const parsed = await WORKER_INDEX.getParsedProCode(
+      message.file,
+      WORKER_INDEX.getFileStrings(message.file),
+      message
+    );
 
-  // make non-circular
-  RemoveScopeDetail(parsed);
+    // make non-circular
+    RemoveScopeDetail(parsed, cancel);
 
-  // return
-  return parsed;
-});
+    // return
+    return parsed;
+  }
+);
 
 /**
  * Handle requests to parse and post process code for a file
  */
-client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE, async (message) => {
-  // index the file
-  const parsed = await WORKER_INDEX.getParsedProCode(
-    message.file,
-    message.code,
-    message
-  );
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
+  async (message, cancel) => {
+    // index the file
+    const parsed = await WORKER_INDEX.getParsedProCode(
+      message.file,
+      message.code,
+      message
+    );
 
-  // make non-circular
-  RemoveScopeDetail(parsed);
+    // make non-circular
+    RemoveScopeDetail(parsed, cancel);
 
-  // return
-  return parsed;
-});
+    // return
+    return parsed;
+  }
+);
 
 /**
  * Parse files quickly to get the basic overview and thats it
@@ -372,7 +378,7 @@ client.on(
  */
 client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
-  async (message) => {
+  async (message, cancel) => {
     // get parsed code and return
     const parsed = await WORKER_INDEX.getParsedProCode(
       message.file,
@@ -381,7 +387,7 @@ client.on(
 
     // make non-circular
     if (parsed !== undefined) {
-      RemoveScopeDetail(parsed);
+      RemoveScopeDetail(parsed, cancel);
     }
 
     return parsed;

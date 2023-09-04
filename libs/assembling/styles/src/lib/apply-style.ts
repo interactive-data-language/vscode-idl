@@ -4,6 +4,7 @@ import {
   ICodeStyle,
 } from '@idl/assembling/config';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IParsed, PopulateScopeDetail } from '@idl/parsing/syntax-tree';
 
 /**
@@ -11,16 +12,17 @@ import { IParsed, PopulateScopeDetail } from '@idl/parsing/syntax-tree';
  */
 export function ApplyStyle(
   parsed: IParsed,
+  cancel: CancellationToken,
   style: ICodeStyle,
   styler: AssemblerStyler = ASSEMBLER_STYLER_LOOKUP.DEFAULT
 ) {
   // make sure we have scope detail
-  PopulateScopeDetail(parsed);
+  PopulateScopeDetail(parsed, cancel);
 
   switch (styler) {
     case ASSEMBLER_STYLER_LOOKUP.DEFAULT:
       // apply styling
-      ASSEMBLER_DEFAULT_STYLING.run(parsed, (token, meta) => {
+      ASSEMBLER_DEFAULT_STYLING.run(parsed, cancel, (token, meta) => {
         return { ...meta, style };
       });
       break;

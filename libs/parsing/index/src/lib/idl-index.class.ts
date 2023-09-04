@@ -376,7 +376,7 @@ export class IDLIndex {
               ids[i],
               LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
               undefined
-            )
+            ).response
           );
         }
 
@@ -502,7 +502,7 @@ export class IDLIndex {
         this.getWorkerID(file),
         LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_SEMANTIC_TOKENS,
         { file, code }
-      );
+      ).response;
     } else {
       return GetSemanticTokens(
         await this.getParsedProCode(file, code, {
@@ -596,7 +596,7 @@ export class IDLIndex {
             ids[i],
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
             msg
-          )
+          ).response
         );
       }
 
@@ -638,7 +638,7 @@ export class IDLIndex {
         this.getWorkerID(file),
         LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_OUTLINE,
         { file, code }
-      );
+      ).response;
     }
 
     // get tokens for our file
@@ -1057,38 +1057,8 @@ export class IDLIndex {
       }
 
       /** Init value of parsed */
-      let parsed: IParsed;
-
-      /**
-       * Flag if we have post processed already or not
-       */
-      let postProcessed = false;
-
-      // determine how to proceed
-      switch (true) {
-        /**
-         * Check if we farm work to a thread
-         */
-        case this.isMultiThreaded():
-          postProcessed = options.postProcess;
-          parsed = await this.indexerPool.workerio.postAndReceiveMessage(
-            this.getWorkerID(file),
-            LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
-            {
-              file,
-              code,
-              ...options,
-            }
-          );
-          break;
-        /**
-         * Default to doing the work here
-         */
-        default:
-          parsed = Parser(code, token, options);
-          this.workerIDsByFile[file] = undefined;
-          break;
-      }
+      const parsed = Parser(code, token, options);
+      this.workerIDsByFile[file] = undefined;
 
       // add to our global index - do this before we post-process
       await this.saveGlobalTokens(file, parsed.global);
@@ -1097,9 +1067,6 @@ export class IDLIndex {
       switch (true) {
         case !options.full:
           // do nothing if not full parse
-          break;
-        case postProcessed:
-          await this.changeDetection(token, parsed.global, oldGlobals);
           break;
         case options.postProcess:
           this.postProcessProFile(
@@ -1307,7 +1274,7 @@ export class IDLIndex {
       id,
       LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK,
       { file, notebook }
-    );
+    ).response;
 
     // track cells as known files so we can clean up correctly next time
     this.trackFiles(Object.keys(resp.globals));
@@ -1330,7 +1297,7 @@ export class IDLIndex {
           ids[j],
           LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
           resp.globals
-        )
+        ).response
       );
     }
 
@@ -1510,7 +1477,7 @@ export class IDLIndex {
           {
             files,
           }
-        )
+        ).response
       );
     }
 
@@ -1682,7 +1649,7 @@ export class IDLIndex {
               ids[i],
               LSP_WORKER_THREAD_MESSAGE_LOOKUP.CHANGE_DETECTION,
               { changed }
-            )
+            ).response
           );
         }
 
@@ -1893,7 +1860,7 @@ export class IDLIndex {
           {
             files: buckets[i],
           }
-        )
+        ).response
       );
     }
 
@@ -1946,7 +1913,7 @@ export class IDLIndex {
             ids[j],
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
             res.globals
-          )
+          ).response
         );
       }
     }
@@ -1982,7 +1949,7 @@ export class IDLIndex {
              */
             // files: buckets[i]
           }
-        )
+        ).response
       );
     }
 
@@ -2082,7 +2049,7 @@ export class IDLIndex {
           {
             files: buckets[i],
           }
-        )
+        ).response
       );
     }
 
@@ -2145,7 +2112,7 @@ export class IDLIndex {
             ids[j],
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
             res.globals
-          )
+          ).response
         );
       }
     }

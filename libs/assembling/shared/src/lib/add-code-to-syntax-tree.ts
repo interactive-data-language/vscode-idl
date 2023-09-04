@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 
 import { ConditionalLineNumberIncrement } from './conditional-line-number-increment';
@@ -29,7 +30,7 @@ export function GenerateCodeToInsert(
   lineStart: number
 ) {
   // parse code and get our syntax tree
-  const add = Parser(code).tree;
+  const add = Parser(code, new CancellationToken()).tree;
 
   // bump line numbers for new code to start at the right place
   IncrementLineNumbers(add, lineStart);

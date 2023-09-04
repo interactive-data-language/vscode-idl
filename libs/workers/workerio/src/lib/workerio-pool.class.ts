@@ -2,12 +2,12 @@ import { LogManager } from '@idl/logger';
 import { nanoid } from 'nanoid';
 import { Worker } from 'worker_threads';
 
-import {
-  PayloadFromWorkerBaseMessage,
-  PayloadToWorkerBaseMessage,
-} from './messages/workerio.payloads.interface';
+import { PayloadToWorkerBaseMessage } from './messages/workerio.payloads.interface';
 import { WorkerIO } from './workerio.class';
-import { IMessageToWorker } from './workerio.interface';
+import {
+  IMessageToWorker,
+  IPostAndReceiveMessageResult,
+} from './workerio.interface';
 import { IWorkerIOPool } from './workerio-pool.class.interface';
 import { IPostMessageOptions } from './workerio-pool.interface';
 
@@ -75,7 +75,7 @@ export class WorkerIOPool<_Message extends string>
     type: T,
     payload: PayloadToWorkerBaseMessage<T>,
     options?: IPostMessageOptions
-  ): Promise<PayloadFromWorkerBaseMessage<T>> {
+  ): IPostAndReceiveMessageResult<T> {
     // get the next ID and shift our array
     let next = this.ids.shift() as string;
     this.ids.push(next);

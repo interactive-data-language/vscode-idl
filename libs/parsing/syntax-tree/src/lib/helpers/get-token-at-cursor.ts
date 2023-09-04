@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   MainLevelToken,
   RoutineFunctionToken,
@@ -7,7 +8,7 @@ import {
 import { Position } from 'vscode-languageserver/node';
 
 import { IBranch, TreeToken } from '../branches.interface';
-import { IParsed } from '../build-tree.interface';
+import { IParsed } from '../build-syntax-tree.interface';
 import { PopulateScopeDetail } from '../populate-scope-detail';
 import { TreeRecurser } from '../recursion-and-callbacks/tree-recurser';
 import {
@@ -32,22 +33,26 @@ export function GetTokenAtCursor(
   pos: Position,
   onlyStart = false
 ): ISelectedToken {
+  // make a cancellation token
+  const cancel = new CancellationToken();
+
   /** Initialize result */
   let result: ISelectedToken = {
     accessTokens: [],
     scope: [],
     scopeTokens: [],
+    cancel,
   };
 
   // make sure we have scope detail populated in our tree
-  SetTokenCache(parsed);
-  PopulateScopeDetail(parsed);
+  SetTokenCache(parsed, cancel);
+  PopulateScopeDetail(parsed, cancel);
 
   /** Init token that we found */
   let foundToken: TreeToken<TokenName> = undefined;
 
   // recurse through the tree to find a match
-  TreeRecurser(parsed, {
+  TreeRecurser(parsed, cancel, {
     processBranchFirst: true,
     onBasicToken: (token, current) => {
       // return if our token is before our line

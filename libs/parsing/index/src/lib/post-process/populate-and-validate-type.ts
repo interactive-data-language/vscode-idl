@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IParsed } from '@idl/parsing/syntax-tree';
 
 import { IDLIndex } from '../idl-index.class';
@@ -10,11 +11,12 @@ import { ValidateType } from './tree-handlers/validate-type';
 export function PopulateAndValidateType(
   index: IDLIndex,
   file: string,
-  parsed: IParsed
+  parsed: IParsed,
+  cancel: CancellationToken
 ) {
   // populate types
-  PopulateType(index, file, parsed);
+  PopulateType(index, file, parsed, cancel);
 
   // validate types
-  ValidateType(index, file, parsed);
+  ValidateType(index, file, parsed, cancel);
 }

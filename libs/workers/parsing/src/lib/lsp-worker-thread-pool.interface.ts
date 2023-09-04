@@ -6,7 +6,10 @@ import {
   PayloadFromLSPWorker,
   PayloadToLSPWorker,
 } from './lsp-worker-thread.payloads.interface';
-import { ILSPWorkerWorkerIO } from './lsp-workerio.interface';
+import {
+  ILSPWorkerWorkerIO,
+  ILSPWorkerWorkerIOPostAndReceiveMessageResult,
+} from './lsp-workerio.interface';
 
 /**
  * Strictly typed interface for sending and receiving messages to a pool of
@@ -24,7 +27,7 @@ export interface ILSPWorkerThreadPool<_Message extends LSPWorkerThreadMessage>
     type: T,
     payload: PayloadToLSPWorker<T>,
     options?: IPostMessageOptions
-  ): Promise<PayloadFromLSPWorker<T>>;
+  ): ILSPWorkerWorkerIOPostAndReceiveMessageResult<T>;
 
   /**
    * Sends message to all worker threads

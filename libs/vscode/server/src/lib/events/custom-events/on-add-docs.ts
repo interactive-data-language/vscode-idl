@@ -1,4 +1,5 @@
 import { Assembler } from '@idl/assembler';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IAddDocsMessagePayload } from '@idl/vscode/events/messages';
@@ -43,7 +44,7 @@ export const ON_ADD_DOCS = async (event: IAddDocsMessagePayload) => {
     );
 
     // format
-    const formatted = Assembler(tokens, {
+    const formatted = Assembler(tokens, new CancellationToken(), {
       autoDoc: true,
       styleAndFormat: false,
       autoFix: false,

@@ -1,4 +1,4 @@
-import { IWorkerIO } from '@idl/workers/workerio';
+import { IPostAndReceiveMessageResult, IWorkerIO } from '@idl/workers/workerio';
 import { Subject } from 'rxjs';
 
 import { LSPWorkerThreadMessage } from './lsp-worker-thread.messages.interface';
@@ -6,6 +6,18 @@ import {
   PayloadFromLSPWorker,
   PayloadToLSPWorker,
 } from './lsp-worker-thread.payloads.interface';
+
+/**
+ * Response when we are waiting for a message
+ */
+export interface ILSPWorkerWorkerIOPostAndReceiveMessageResult<
+  _Message extends LSPWorkerThreadMessage
+> extends IPostAndReceiveMessageResult<_Message> {
+  /**
+   * Response from the server
+   */
+  response: Promise<PayloadFromLSPWorker<_Message>>;
+}
 
 /**
  * Interface for our WorkerIO so that we have something we can
@@ -31,7 +43,7 @@ export interface ILSPWorkerWorkerIO<_Message extends LSPWorkerThreadMessage>
     type: T,
     payload: PayloadToLSPWorker<T>,
     timeout?: number
-  ): Promise<PayloadFromLSPWorker<T>>;
+  ): ILSPWorkerWorkerIOPostAndReceiveMessageResult<T>;
 
   /**
    * Subscribe to all messages with the same ID from any worker

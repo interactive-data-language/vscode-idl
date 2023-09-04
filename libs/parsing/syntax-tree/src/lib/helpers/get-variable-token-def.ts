@@ -2,7 +2,7 @@ import { TokenName } from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';
 
 import { TreeToken } from '../branches.interface';
-import { IParsed } from '../build-tree.interface';
+import { IParsed } from '../build-syntax-tree.interface';
 import {
   ILocalIndexedToken,
   ILocalTokenLookup,

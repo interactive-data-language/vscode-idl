@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { PositionArray } from '@idl/parsing/tokenizer-types';
 
 import { GetMatchesArray } from './helpers/get-matches-array';
@@ -55,11 +56,15 @@ export class Iterator {
   /** Are we doing a full parse or not */
   full: boolean;
 
-  constructor(code: string | string[], full = true) {
+  /** Cancellation token */
+  cancel: CancellationToken;
+
+  constructor(code: string | string[], cancel: CancellationToken, full = true) {
     /** Split our strings */
     this.split = Split(code);
     this.processedLeftovers = new Array(this.split.length).fill(false);
     this.full = full;
+    this.cancel = cancel;
 
     // initialize current
     this.current = {
@@ -200,6 +205,9 @@ export class Iterator {
     //   return true;
     // }
 
+    // check for cancellation
+    this.cancel.throwIfCancelled();
+
     // get the text before token start that we are shifting for
     if (tokenStart > 0 && this.full) {
       const before = this.current.sub.substring(0, tokenStart);
@@ -333,6 +341,9 @@ export class Iterator {
    * complicated empty  logic
    */
   nextLine(isContinuedLine = false): boolean {
+    // check for cancellation
+    this.cancel.throwIfCancelled();
+
     // check our current line for leftovers
     this.findLeftovers();
 

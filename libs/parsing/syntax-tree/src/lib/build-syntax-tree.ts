@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/parsing/problem-codes';
 import {
   IBasicToken,
@@ -21,7 +22,7 @@ import {
   IParsed,
   IRecurserCloseOptions,
   IRecurserOptions,
-} from './build-tree.interface';
+} from './build-syntax-tree.interface';
 import { PopulateIndex } from './populate-index';
 import { PopulateScope } from './populate-scope';
 import { GetUniqueVariables } from './populators/get-unique-variables';
@@ -265,6 +266,7 @@ function BuildTreeRecurser(
  */
 export function BuildSyntaxTree(
   parsed: IParsed,
+  cancel: CancellationToken,
   full: boolean,
   isNotebook: boolean
 ) {
@@ -282,7 +284,7 @@ export function BuildSyntaxTree(
   PopulateIndex(parsed.tree);
 
   // populate the scope
-  PopulateScope(parsed);
+  PopulateScope(parsed, cancel);
 
   // perform post-processing
   IDL_SYNTAX_TREE_POST_PROCESSOR.processTree(
@@ -297,7 +299,7 @@ export function BuildSyntaxTree(
     PopulateIndex(parsed.tree);
 
     // populate the scope again in case our tree changed
-    PopulateScope(parsed);
+    PopulateScope(parsed, cancel);
 
     // create metadata for our syntax validator
     // leave this for type checks even though unused
@@ -307,7 +309,7 @@ export function BuildSyntaxTree(
     };
 
     // run our syntax validation
-    IDL_SYNTAX_TREE_VALIDATOR.run(parsed, (token, meta) => {
+    IDL_SYNTAX_TREE_VALIDATOR.run(parsed, cancel, (token, meta) => {
       Object.assign(meta, { isNotebook });
       return meta as any as IDLSyntaxValidatorMeta;
     });

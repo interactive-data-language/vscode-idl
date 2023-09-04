@@ -6,6 +6,7 @@ import {
 import { ApplyFixers } from '@idl/assembling/fixers';
 import { ApplyFormatter } from '@idl/assembling/formatters';
 import { ApplyStyle, ReplaceRoutineDocs } from '@idl/assembling/styles';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { SaveGlobalDisplayNames } from '@idl/parsing/index';
 import { IParsed } from '@idl/parsing/syntax-tree';
 import { MergeConfig } from '@idl/schemas/idl.json';
@@ -29,6 +30,7 @@ import { CombinerBasic } from './combiner/combiner-basic';
  */
 export function Assembler<T extends FormatterType>(
   parsed: IParsed,
+  cancel: CancellationToken,
   options?: Partial<IAssemblerInputOptions<T>>
 ): string | undefined {
   // verify that we can format
@@ -44,16 +46,16 @@ export function Assembler<T extends FormatterType>(
 
   // if we can fix problems, lets fix them
   if (useOptions.autoFix) {
-    ApplyFixers(parsed);
+    ApplyFixers(parsed, cancel);
   }
 
   // style and format code
   if (useOptions.styleAndFormat) {
     // apply styling
-    ApplyStyle(parsed, useOptions.style);
+    ApplyStyle(parsed, cancel, useOptions.style);
 
     // apply formatting
-    ApplyFormatter(parsed, useOptions.formatter);
+    ApplyFormatter(parsed, cancel, useOptions.formatter);
   }
 
   // check if we want to format and create our docs

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IDL_ARRAY_TYPE,
   IDL_TYPE_LOOKUP,
@@ -39,7 +40,10 @@ export function TypeFromArrayCreation(
   // process each split
   for (let i = 0; i < splitCommas.length; i++) {
     // sub split on operators to get types for each element
-    const operatorSplit = SplitTreeOnOperators(splitCommas[i]);
+    const operatorSplit = SplitTreeOnOperators(
+      splitCommas[i],
+      new CancellationToken()
+    );
 
     // get the children and filter empty elements
     const operatorSplitTrees = operatorSplit.children.filter(

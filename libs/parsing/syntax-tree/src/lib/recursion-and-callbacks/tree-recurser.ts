@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   MainLevelToken,
   NonBasicTokenNames,
@@ -14,7 +15,7 @@ import {
   TreeBranchToken,
   TreeToken,
 } from '../branches.interface';
-import { IParsed } from '../build-tree.interface';
+import { IParsed } from '../build-syntax-tree.interface';
 import { GetRoutineName } from '../helpers/get-routine-name';
 import {
   BASE_TREE_RECURSER_OPTIONS,
@@ -36,6 +37,9 @@ function _Recurser(
     if (tree[i].name in current.skipTokens) {
       continue;
     }
+
+    // check for cancel
+    current.cancel.throwIfCancelled();
 
     // check if we can populate our parent
     if (tree[i].name in current.allowedGlobalParents) {
@@ -149,6 +153,7 @@ function _Recurser(
  */
 export function TreeRecurser(
   parsed: IParsed,
+  cancel: CancellationToken,
   options: Partial<ITreeRecurserOptions>
 ) {
   // recurse through the tree
@@ -157,7 +162,8 @@ export function TreeRecurser(
     Object.assign(
       copy(BASE_TREE_RECURSER_OPTIONS),
       copy(DEFAULT_CURRENT),
-      options
+      options,
+      { cancel }
     )
   );
 }

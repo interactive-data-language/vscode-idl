@@ -39,7 +39,7 @@ export async function GetParsedPROCode(
 
   switch (true) {
     /**
-     * Check if we are a notebook
+     * Check if we are a notebook cell
      */
     case index.isIDLNotebookFile(file): {
       /**
@@ -54,6 +54,8 @@ export async function GetParsedPROCode(
       /**
        * Check if we are multi threaded and need to fetch our file from
        * the worker
+       *
+       * TODO: Add in proper cancellation and logic for this
        */
       if (index.isMultiThreaded()) {
         return index.indexerPool.workerio.postAndReceiveMessage(
@@ -63,7 +65,7 @@ export async function GetParsedPROCode(
             file,
             code,
           }
-        );
+        ).response;
       } else {
         if (index.tokensByFile.has(file)) {
           return index.tokensByFile.get(file);
@@ -115,18 +117,20 @@ export async function GetParsedPROCode(
      * Some duplication with indexProCode, but special case if we are multi threaded
      */
     case index.isMultiThreaded(): {
+      const resp = index.indexerPool.workerio.postAndReceiveMessage(
+        index.getWorkerID(file),
+        LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
+        {
+          file,
+          code,
+          ...Object.assign(copy(DEFAULT_INDEX_PRO_CODE_OPTIONS), options),
+        }
+      );
+
       const newPending: IGetParsedPROCodePending = {
         checksum,
-        token,
-        promise: index.indexerPool.workerio.postAndReceiveMessage(
-          index.getWorkerID(file),
-          LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
-          {
-            file,
-            code,
-            ...Object.assign(copy(DEFAULT_INDEX_PRO_CODE_OPTIONS), options),
-          }
-        ),
+        token: resp.token,
+        promise: resp.response,
       };
 
       // save new pending file

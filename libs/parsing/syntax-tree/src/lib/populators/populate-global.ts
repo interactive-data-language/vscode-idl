@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
@@ -23,7 +24,7 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import copy from 'fast-copy';
 
 import { IBranch } from '../branches.interface';
-import { IParsed } from '../build-tree.interface';
+import { IParsed } from '../build-syntax-tree.interface';
 import { GenerateRoutineDocsAndMetadata } from '../docs/generate-routine-docs-and-metadata';
 import { GenerateRoutineMetadataFast } from '../docs/generate-routine-metadata-fast';
 import { FindStructureDefs } from './find-structure-defs';
@@ -38,6 +39,7 @@ import { PopulateLocalForMain } from './populate-local-for-main';
  */
 export function PopulateGlobalLocalCompileOpts(
   parsed: IParsed,
+  cancel: CancellationToken,
   full: boolean,
   isNotebook: boolean
 ) {
@@ -58,6 +60,9 @@ export function PopulateGlobalLocalCompileOpts(
 
   // process all of the direct children in our tree
   for (let i = 0; i < tree.length; i++) {
+    // check for cancel
+    cancel.throwIfCancelled();
+
     // extract our branch
     const branch = tree[i];
 
