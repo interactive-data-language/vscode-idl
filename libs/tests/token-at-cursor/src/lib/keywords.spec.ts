@@ -13,7 +13,7 @@ describe(`[auto generated] Correctly identifies keywords from routine calls`, ()
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define position
     const position_0: Position = { line: 1, character: 20 };

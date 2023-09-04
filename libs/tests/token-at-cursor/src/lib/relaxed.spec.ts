@@ -15,7 +15,7 @@ describe(`[auto generated] Correctly use relaxed options for hover help`, () => 
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define position
     const position_0: Position = { line: 2, character: 5 };

@@ -17,7 +17,7 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define position
     const position_0: Position = { line: 0, character: 0 };

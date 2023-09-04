@@ -54,7 +54,9 @@ export function TestsForTokenAtCursor(
     strings.push(`    const code = ${codeStr}`);
     strings.push(``);
     strings.push(`    // extract tokens`);
-    strings.push(`    const tokenized = Parser(code);`);
+    strings.push(
+      `    const tokenized = Parser(code, new CancellationToken());`
+    );
     strings.push(``);
 
     // process each location
