@@ -42,6 +42,10 @@ Here are some of the features that notebooks bring:
 
   - After each cell is executed we issue a `retall` command to make sure that we are at the top-level and not stopped in a weird state
 
+## 3.2.3 September 2023
+
+Tweak some of the logic for work cancellation to further improve responsiveness
+
 ## 3.2.2 September 2023
 
 Major change to the language server and worker threads to implement a cancellation framework. The ability to cancel work happens automatically for PRO files and IDL Notebooks.
