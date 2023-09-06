@@ -1,3 +1,5 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
+
 import { StripIDs } from '../helpers/strip-ids';
 import { Tokenizer } from '../tokenizer';
 import { IBaseTokenWithoutMatches, TOKEN_TYPES } from '../tokenizer.interface';
@@ -33,7 +35,10 @@ describe('Validates compound operator parsing', () => {
       const operator = operators[i];
 
       // get tokens
-      const tokens = Tokenizer(`a ${operator} b`).tokens;
+      const tokens = Tokenizer(
+        `a ${operator} b`,
+        new CancellationToken()
+      ).tokens;
 
       // make sure we only found one token
       expect(tokens.length).toBe(4);

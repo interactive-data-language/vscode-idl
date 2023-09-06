@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
@@ -8,7 +9,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     const code = [`function myfunc`, `compile_opt idl2`, `  return,1`, `end`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -105,7 +106,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     const code = [`a = plot(/TEST)`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -181,7 +182,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     const code = [`a = \`\${42, '42'}\${42, '42'}\``];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -336,7 +337,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -514,7 +515,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -701,7 +702,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -956,7 +957,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -1117,7 +1118,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     ];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [

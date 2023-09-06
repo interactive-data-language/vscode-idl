@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 import {
   FindDirectBranchChildren,
@@ -16,11 +17,15 @@ import { IDLIndex } from '../idl-index.class';
  * We do this AFTER we populate types because we need to have
  * type detail for methods
  */
-export function PopulateUsesThese(index: IDLIndex, parsed: IParsed) {
+export function PopulateUsesThese(
+  index: IDLIndex,
+  parsed: IParsed,
+  cancel: CancellationToken
+) {
   // populate scope detail
-  PopulateScopeDetail(parsed);
+  PopulateScopeDetail(parsed, cancel);
 
-  TreeRecurserBasic(parsed.tree, {
+  TreeRecurserBasic(parsed.tree, cancel, {
     onBasicToken: (token) => {
       switch (token.name) {
         case TOKEN_NAMES.SYSTEM_VARIABLE:

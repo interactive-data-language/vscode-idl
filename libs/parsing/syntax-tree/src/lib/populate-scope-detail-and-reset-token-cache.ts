@@ -1,4 +1,6 @@
-import { IParsed } from './build-tree.interface';
+import { CancellationToken } from '@idl/cancellation-tokens';
+
+import { IParsed } from './build-syntax-tree.interface';
 import { TreeRecurser } from './recursion-and-callbacks/tree-recurser';
 import { ResetTokenCache } from './reset-token-cache';
 
@@ -12,10 +14,13 @@ import { ResetTokenCache } from './reset-token-cache';
  *
  * Use `RemoveScopeDetail` to get rid of this information
  */
-export function PopulateScopeDetailAndResetTokenCache(parsed: IParsed): void {
+export function PopulateScopeDetailAndResetTokenCache(
+  parsed: IParsed,
+  cancel: CancellationToken
+): void {
   switch (true) {
     case !parsed.hasDetail:
-      TreeRecurser(parsed, {
+      TreeRecurser(parsed, cancel, {
         onBasicToken: (token, current) => {
           token.scopeTokens = current.scopeTokens.slice();
           token.accessTokens = current.accessTokens.slice();
@@ -31,7 +36,7 @@ export function PopulateScopeDetailAndResetTokenCache(parsed: IParsed): void {
       parsed.hasDetail = true;
       break;
     default:
-      ResetTokenCache(parsed);
+      ResetTokenCache(parsed, cancel);
       break;
   }
 }

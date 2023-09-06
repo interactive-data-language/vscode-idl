@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { BasicTokenNames, NonBasicTokenNames } from '@idl/parsing/tokenizer';
 
 import { TreeToken } from '../branches.interface';
@@ -7,7 +8,8 @@ import { TreeToken } from '../branches.interface';
  * to stop iterating through the tree
  */
 export type BasicTokenBasicCallback<T extends BasicTokenNames> = (
-  token: TreeToken<T>
+  token: TreeToken<T>,
+  cancel: CancellationToken
 ) => boolean | void;
 
 /**
@@ -15,7 +17,8 @@ export type BasicTokenBasicCallback<T extends BasicTokenNames> = (
  * to stop iterating through the tree
  */
 export type BranchTokenBasicCallback<T extends NonBasicTokenNames> = (
-  token: TreeToken<T>
+  token: TreeToken<T>,
+  cancel: CancellationToken
 ) => boolean | void;
 
 /**
@@ -52,6 +55,10 @@ export interface ITreeRecurserBasicRecursionOptions
   extends ITreeRecurserBasicOptions {
   /** Flag if we need to exit */
   exit?: boolean | void;
+  /**
+   * Cancellation token
+   */
+  cancel: CancellationToken;
 }
 
 /**
@@ -65,4 +72,5 @@ export const BASE_TREE_RECURSER_BASIC_OPTIONS: ITreeRecurserBasicRecursionOption
     onBranchToken: () => {
       return false;
     },
+    cancel: new CancellationToken(),
   };

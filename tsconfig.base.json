@@ -28,6 +28,7 @@
       "@idl/assembling/tree-handlers": [
         "libs/assembling/tree-handlers/src/index.ts"
       ],
+      "@idl/cancellation-tokens": ["libs/cancellation-tokens/src/index.ts"],
       "@idl/data-types/core": ["libs/data-types/core/src/index.ts"],
       "@idl/data-types/tasks": ["libs/data-types/tasks/src/index.ts"],
       "@idl/debug-types": ["libs/debug-types/src/index.ts"],

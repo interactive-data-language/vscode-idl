@@ -98,9 +98,9 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL, async (message) => {
  */
 client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.CHANGE_DETECTION,
-  async (message) => {
+  async (message, cancel) => {
     // run change detection!
-    const changed = ChangeDetection(WORKER_INDEX, message.changed);
+    const changed = ChangeDetection(WORKER_INDEX, cancel, message.changed);
 
     // get syntax problems
     const problems = WORKER_INDEX.getSyntaxProblems();
@@ -171,45 +171,51 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_TOKEN_DEF, async (message) => {
 /**
  * Handle requests to parse and post process a file
  */
-client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILE, async (message) => {
-  // index the file
-  const parsed = await WORKER_INDEX.getParsedProCode(
-    message.file,
-    WORKER_INDEX.getFileStrings(message.file),
-    message
-  );
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILE,
+  async (message, cancel) => {
+    // index the file
+    const parsed = await WORKER_INDEX.getParsedProCode(
+      message.file,
+      WORKER_INDEX.getFileStrings(message.file),
+      message
+    );
 
-  // make non-circular
-  RemoveScopeDetail(parsed);
+    // make non-circular
+    RemoveScopeDetail(parsed, cancel);
 
-  // return
-  return parsed;
-});
+    // return
+    return parsed;
+  }
+);
 
 /**
  * Handle requests to parse and post process code for a file
  */
-client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE, async (message) => {
-  // index the file
-  const parsed = await WORKER_INDEX.getParsedProCode(
-    message.file,
-    message.code,
-    message
-  );
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
+  async (message, cancel) => {
+    // index the file
+    const parsed = await WORKER_INDEX.getParsedProCode(
+      message.file,
+      message.code,
+      message
+    );
 
-  // make non-circular
-  RemoveScopeDetail(parsed);
+    // make non-circular
+    RemoveScopeDetail(parsed, cancel);
 
-  // return
-  return parsed;
-});
+    // return
+    return parsed;
+  }
+);
 
 /**
  * Parse files quickly to get the basic overview and thats it
  */
 client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILES_FAST,
-  async (message) => {
+  async (message, cancel) => {
     /** Get files to process */
     const files = message.files;
 
@@ -233,7 +239,7 @@ client.on(
         /**
          * Parse our file
          */
-        const parsed = ParseFileSync(files[i], { full: false });
+        const parsed = ParseFileSync(files[i], cancel, { full: false });
 
         // track syntax problems
         WORKER_INDEX.trackSyntaxProblemsForFile(files[i], parsed.parseProblems);
@@ -325,50 +331,54 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILES, async (message) => {
 /**
  * Parse notebooks
  */
-client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK, async (message) => {
-  /**
-   * Initialize our response
-   */
-  const resp: ParseNotebookResponse = {
-    lines: 0,
-    globals: {},
-    problems: {},
-  };
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK,
+  async (message, cancel) => {
+    /**
+     * Initialize our response
+     */
+    const resp: ParseNotebookResponse = {
+      lines: 0,
+      globals: {},
+      problems: {},
+    };
 
-  /**
-   * Index our notebook
-   */
-  const byCell = await WORKER_INDEX.indexIDLNotebook(
-    message.file,
-    message.notebook
-  );
+    /**
+     * Index our notebook
+     */
+    const byCell = await WORKER_INDEX.getParsedNotebook(
+      message.file,
+      message.notebook,
+      cancel
+    );
 
-  /**
-   * Get files for cells that we actually processed
-   */
-  const files = Object.keys(byCell);
+    /**
+     * Get files for cells that we actually processed
+     */
+    const files = Object.keys(byCell);
 
-  // process each cell and save information we need to return
-  for (let i = 0; i < files.length; i++) {
-    if (byCell[files[i]] === undefined) {
-      resp.globals[files[i]] = [];
-      resp.problems[files[i]] = [];
-      continue;
+    // process each cell and save information we need to return
+    for (let i = 0; i < files.length; i++) {
+      if (byCell[files[i]] === undefined) {
+        resp.globals[files[i]] = [];
+        resp.problems[files[i]] = [];
+        continue;
+      }
+      resp.globals[files[i]] = byCell[files[i]].global;
+      resp.problems[files[i]] = GetSyntaxProblems(byCell[files[i]]);
     }
-    resp.globals[files[i]] = byCell[files[i]].global;
-    resp.problems[files[i]] = GetSyntaxProblems(byCell[files[i]]);
-  }
 
-  // return each cell
-  return resp;
-});
+    // return each cell
+    return resp;
+  }
+);
 
 /**
  * Get notebook cells
  */
 client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
-  async (message) => {
+  async (message, cancel) => {
     // get parsed code and return
     const parsed = await WORKER_INDEX.getParsedProCode(
       message.file,
@@ -377,7 +387,7 @@ client.on(
 
     // make non-circular
     if (parsed !== undefined) {
-      RemoveScopeDetail(parsed);
+      RemoveScopeDetail(parsed, cancel);
     }
 
     return parsed;
@@ -389,14 +399,18 @@ client.on(
  */
 client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.POST_PROCESS_FILES,
-  async (message) => {
+  async (message, cancel) => {
     /** Get files */
     const files = Array.isArray(message.files)
       ? message.files
       : WORKER_INDEX.tokensByFile.allFiles();
 
     // post process, no change detection
-    const missing = await WORKER_INDEX.postProcessProFiles(files, false);
+    const missing = await WORKER_INDEX.postProcessProFiles(
+      files,
+      cancel,
+      false
+    );
 
     // get syntax problems
     const problems = WORKER_INDEX.getSyntaxProblems();
@@ -440,46 +454,53 @@ client.on(
  * TODO: Correctly perform change detection from removing files instead of processing everything
  * we have which is brute force but works
  */
-client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.REMOVE_FILES, async (message) => {
-  // remove all files
-  await WORKER_INDEX.removeWorkspaceFiles(message.files, false);
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.REMOVE_FILES,
+  async (message, cancel) => {
+    // remove all files
+    await WORKER_INDEX.removeWorkspaceFiles(message.files, false);
 
-  /** Get files that we manage */
-  const ourFiles = WORKER_INDEX.tokensByFile.allFiles();
+    /** Get files that we manage */
+    const ourFiles = WORKER_INDEX.tokensByFile.allFiles();
 
-  // post process all of our files again
-  const missing = await WORKER_INDEX.postProcessProFiles(ourFiles, false);
+    // post process all of our files again
+    const missing = await WORKER_INDEX.postProcessProFiles(
+      ourFiles,
+      cancel,
+      false
+    );
 
-  // get syntax problems
-  const problems = WORKER_INDEX.getSyntaxProblems();
+    // get syntax problems
+    const problems = WORKER_INDEX.getSyntaxProblems();
 
-  // craft our response
-  const resp: RemoveFilesResponse = {
-    problems: {},
-    missing,
-  };
+    // craft our response
+    const resp: RemoveFilesResponse = {
+      problems: {},
+      missing,
+    };
 
-  // populate response
-  for (let i = 0; i < ourFiles.length; i++) {
-    if (global.gc) {
-      if (i % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
-        global.gc();
+    // populate response
+    for (let i = 0; i < ourFiles.length; i++) {
+      if (global.gc) {
+        if (i % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
+          global.gc();
+        }
       }
+
+      /**
+       * Skip if we dont have a file. Could happen from parsing errors
+       */
+      if (!WORKER_INDEX.tokensByFile.has(ourFiles[i])) {
+        continue;
+      }
+
+      // populate problems
+      resp.problems[ourFiles[i]] = problems[ourFiles[i]] || [];
     }
 
-    /**
-     * Skip if we dont have a file. Could happen from parsing errors
-     */
-    if (!WORKER_INDEX.tokensByFile.has(ourFiles[i])) {
-      continue;
-    }
-
-    // populate problems
-    resp.problems[ourFiles[i]] = problems[ourFiles[i]] || [];
+    return resp;
   }
-
-  return resp;
-});
+);
 
 /**
  * Listen for events from our main thread

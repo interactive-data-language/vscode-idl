@@ -12,7 +12,9 @@ import {
   IMessageFromWorker,
   IMessagePromise,
   IMessageToWorker,
+  IPostAndReceiveMessageResult,
 } from './workerio.interface';
+import { WorkerIOCancellationToken } from './workerio-cancellation-token.class';
 
 /**
  * Object class that manages sending and receiving messages from worker threads in a
@@ -21,14 +23,17 @@ import {
 export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
   /** Worker threads by worker ID */
   workers: { [key: string]: Worker } = {};
+
   /** Promises for messages by ID (i.e. waiting for a response) */
   private messages: { [key: string]: IMessagePromise } = {};
+
   /** Message subscriptions we have created. Keep references to clean up */
   private subscriptions: {
     [key: string]: {
       [key: string]: Subject<PayloadFromWorkerBaseMessage<_Message>>;
     };
   } = {};
+
   /** Message subscriptions we have created. Keep references to clean up */
   private globalSubscriptions: {
     [key: string]: Subject<PayloadFromWorkerBaseMessage<_Message>>;
@@ -313,7 +318,7 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
     type: T,
     payload: PayloadToWorkerBaseMessage<T>,
     timeout?: number
-  ): Promise<PayloadFromWorkerBaseMessage<T>> {
+  ): IPostAndReceiveMessageResult<T> {
     // make sure we have an ID to send a message to
     if (!(workerId in this.workers)) {
       throw new Error(
@@ -329,21 +334,28 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
     // make a unique ID for tracking the return message
     const idReturn = nanoid();
 
-    // make our new promise
-    return new Promise<PayloadFromWorkerBaseMessage<T>>((resolve, reject) => {
-      // save our callback information
-      this.messages[idReturn] = {
-        resolve: resolve,
-        reject: reject,
-        timeout:
-          timeout !== undefined
-            ? setTimeout(() => reject('Request exceeded timeout'), timeout)
-            : undefined,
-      };
+    // create cancellation token
+    const cancel = new WorkerIOCancellationToken(this, workerId, idReturn);
 
-      // send our message
-      this._postMessage(workerId, msg, idReturn);
-    });
+    // make our new promise
+    const response = new Promise<PayloadFromWorkerBaseMessage<T>>(
+      (resolve, reject) => {
+        // save our callback information
+        this.messages[idReturn] = {
+          resolve: resolve,
+          reject: reject,
+          timeout:
+            timeout !== undefined
+              ? setTimeout(() => reject('Request exceeded timeout'), timeout)
+              : undefined,
+        };
+
+        // send our message
+        this._postMessage(workerId, msg, idReturn);
+      }
+    );
+
+    return { token: cancel, response };
   }
 
   /**

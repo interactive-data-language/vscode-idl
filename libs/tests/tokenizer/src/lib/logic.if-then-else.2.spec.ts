@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -17,7 +18,7 @@ describe(`[auto generated] Validates for if-then-else parsing [2]`, () => {
     ];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

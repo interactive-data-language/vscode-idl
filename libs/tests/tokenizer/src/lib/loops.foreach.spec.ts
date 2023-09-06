@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates foreach loop parsing`, () => {
     const code = [`foreach val, arr do print, i`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -93,7 +94,7 @@ describe(`[auto generated] Validates foreach loop parsing`, () => {
     const code = [`foreach val, arr, idx do !null = myFunc(i)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -197,7 +198,7 @@ describe(`[auto generated] Validates foreach loop parsing`, () => {
     const code = [`foreach val, arr do $`, `  print, i`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -293,7 +294,7 @@ describe(`[auto generated] Validates foreach loop parsing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -397,7 +398,7 @@ describe(`[auto generated] Validates foreach loop parsing`, () => {
     const code = [`foreach val, arr do foreach val2, val do print, val2`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

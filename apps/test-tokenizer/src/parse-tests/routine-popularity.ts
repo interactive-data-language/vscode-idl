@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 import { GetRoutine, IDLIndex } from '@idl/parsing/index';
 import { IParsed, TreeRecurserBasic } from '@idl/parsing/syntax-tree';
@@ -63,7 +64,7 @@ ROUTINES[TOKEN_NAMES.CALL_PROCEDURE_METHOD] = true;
  * Tracks the usage stats for routines
  */
 export function TrackPopularity(index: IDLIndex, parsed: IParsed) {
-  TreeRecurserBasic(parsed.tree, {
+  TreeRecurserBasic(parsed.tree, new CancellationToken(), {
     onBranchToken: (token) => {
       if (token.name in ROUTINES) {
         const defs = GetRoutine(index, parsed, token);

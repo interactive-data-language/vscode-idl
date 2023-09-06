@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IDL_ANY_TYPE,
   IDLDataType,
@@ -46,6 +47,7 @@ export function TypeFromIndexing(
         type: 'function', // doesn't matter,
         name: '', // doesnt matter
       },
+      cancel: new CancellationToken(),
     },
     parsed
   );

@@ -1,4 +1,5 @@
 import { Assembler } from '@idl/assembler';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
@@ -26,7 +27,7 @@ describe(`[auto generated] Verify function method to array for`, () => {
     });
 
     // format code
-    const formatted = Assembler(tokenized, {
+    const formatted = Assembler(tokenized, new CancellationToken(), {
       autoFix: true,
       formatter: 'fiddle',
     });

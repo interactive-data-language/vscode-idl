@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   BasicTokenNames,
   NonBasicTokenNames,
@@ -106,6 +107,10 @@ export interface ITreeRecurserCurrent {
    * Any tokens used for access directly before our current token
    */
   accessTokens: TreeToken<TokenName>[];
+  /**
+   * Token to cancel work
+   */
+  cancel: CancellationToken;
 }
 
 /**
@@ -116,6 +121,7 @@ export const DEFAULT_CURRENT: ITreeRecurserCurrent = {
   scope: [],
   scopeTokens: [],
   accessTokens: [],
+  cancel: new CancellationToken(),
 };
 
 /**

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_ANY_TYPE, IDLDataType } from '@idl/data-types/core';
 import {
   IParsed,
@@ -163,8 +164,8 @@ export function TypeFromMultipleTokens(
   /** Data types that we have found */
   let foundTypes: IDLDataType[] = [];
 
-  // split on operators
-  const split = SplitTreeOnOperators(children);
+  // split on operators - make cancel token because this should be fast
+  const split = SplitTreeOnOperators(children, new CancellationToken());
 
   // get the children and filter empty elements
   const splitTrees = split.children.filter((tree) => tree.length > 0);

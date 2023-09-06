@@ -5,6 +5,7 @@ import {
   PayloadFromWorkerBaseMessage,
   PayloadToWorkerBaseMessage,
 } from './messages/workerio.payloads.interface';
+import { IPostAndReceiveMessageResult } from './workerio.interface';
 
 /**
  * Interface for our WorkerIO so that we have something we can
@@ -32,7 +33,7 @@ export interface IWorkerIO<_Message extends string> {
     type: T,
     payload: PayloadToWorkerBaseMessage<T>,
     timeout?: number
-  ): Promise<PayloadFromWorkerBaseMessage<T>>;
+  ): IPostAndReceiveMessageResult<T>;
 
   /**
    * Subscribe to all messages with the same ID from any worker

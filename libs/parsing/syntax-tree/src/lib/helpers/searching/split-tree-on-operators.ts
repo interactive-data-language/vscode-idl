@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   OperatorIncrementDecrementToken,
   OperatorLogicalToken,
@@ -39,7 +40,10 @@ export type SplitOperatorToken = TreeToken<
  * Takes an array of tokens (i.e. syntax tree) and recursively splits them
  * by operators
  */
-export function SplitTreeOnOperators(tree: SyntaxTree) {
+export function SplitTreeOnOperators(
+  tree: SyntaxTree,
+  cancel: CancellationToken
+) {
   /** Commas we split by */
   const operators: SplitOperatorToken[] = [];
 
@@ -58,7 +62,7 @@ export function SplitTreeOnOperators(tree: SyntaxTree) {
   /**
    * Recurse through our tree
    */
-  TreeRecurserBasic(tree, {
+  TreeRecurserBasic(tree, cancel, {
     recursionFilter: OPERATORS,
     onBranchToken: (token) => {
       // save starting position

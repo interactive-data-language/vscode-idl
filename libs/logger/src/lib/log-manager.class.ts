@@ -1,4 +1,6 @@
+import { CANCELLATION_MESSAGE } from '@idl/cancellation-tokens';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
+import { deepEqual } from 'fast-equals';
 
 import {
   DEFAULT_LOGGER_OPTIONS,
@@ -125,6 +127,25 @@ export class LogManager implements ILogManagerOptions {
   }
 
   /**
+   * Determines if we can log a message or not
+   */
+  canLog(options: ILogOptions): boolean {
+    // filter debug
+    if (!this.debug && options.type === 'debug') {
+      return false;
+    }
+
+    // check if we have an array of content
+    if (Array.isArray(options.content)) {
+      if (deepEqual(options.content[1]?.err?.message, [CANCELLATION_MESSAGE])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
    * Log content for a specific log
    *
    * @param {string} name The name of the log to write to, only logs if it exists
@@ -135,7 +156,7 @@ export class LogManager implements ILogManagerOptions {
    */
   log(options: ILogOptions) {
     // filter debug
-    if (!this.debug && options.type === 'debug') {
+    if (!this.canLog(options)) {
       return;
     }
 

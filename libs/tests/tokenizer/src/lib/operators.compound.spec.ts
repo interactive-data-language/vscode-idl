@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates compound operator parsing`, () => {
     const code = [`z *= $`, `  5`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -63,7 +64,7 @@ describe(`[auto generated] Validates compound operator parsing`, () => {
     const code = [`a || b || c`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -119,7 +120,7 @@ describe(`[auto generated] Validates compound operator parsing`, () => {
     const code = [`a or b or c`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -175,7 +176,7 @@ describe(`[auto generated] Validates compound operator parsing`, () => {
     const code = [`a && b && c`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -231,7 +232,7 @@ describe(`[auto generated] Validates compound operator parsing`, () => {
     const code = [`a and b and c`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
@@ -19,6 +20,7 @@ export function TestsForSyntaxPostProcessors(
   const strings: string[] = [];
 
   // add imports
+  strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { Parser } from '@idl/parser';`);
   strings.push(`import { SyntaxProblems } from '@idl/parsing/problem-codes';`);
   strings.push(`import { SyntaxTree } from '@idl/parsing/syntax-tree';`);
@@ -38,7 +40,7 @@ export function TestsForSyntaxPostProcessors(
     const toProcess = ArrayifyCode(code);
 
     // extract our tokens from the cleaned code
-    const tokenized = Parser(toProcess);
+    const tokenized = Parser(toProcess, new CancellationToken());
 
     // build our code string to insert into the automated test
     const codeStr = StringifyCode(toProcess);
@@ -49,7 +51,9 @@ export function TestsForSyntaxPostProcessors(
     strings.push(`    const code = ${codeStr}`);
     strings.push(``);
     strings.push(`    // extract tokens`);
-    strings.push(`    const tokenized = Parser(code);`);
+    strings.push(
+      `    const tokenized = Parser(code, new CancellationToken());`
+    );
     strings.push(``);
 
     // add the start to  our tokens

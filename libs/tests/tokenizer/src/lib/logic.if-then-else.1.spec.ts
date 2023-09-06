@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates for if-then-else parsing [1]`, () => {
     const code = [`if !true then print, 'yes'`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -81,7 +82,7 @@ describe(`[auto generated] Validates for if-then-else parsing [1]`, () => {
     const code = [`if ~doIt then print, 'yes' else a = yellow()`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -203,7 +204,7 @@ describe(`[auto generated] Validates for if-then-else parsing [1]`, () => {
     const code = [`if !true $`, `  then print, 'yes'`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -283,7 +284,7 @@ describe(`[auto generated] Validates for if-then-else parsing [1]`, () => {
     const code = [`if !true $`, `  then print $`, `  , 'yes'`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -375,7 +376,7 @@ describe(`[auto generated] Validates for if-then-else parsing [1]`, () => {
     const code = [`if !true then print, 'yes' $`, `  else print, 'no'`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -491,7 +492,7 @@ describe(`[auto generated] Validates for if-then-else parsing [1]`, () => {
     const code = [`if !true then print, 'yes' $`, `  else $`, `  print, 'no'`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -619,7 +620,7 @@ describe(`[auto generated] Validates for if-then-else parsing [1]`, () => {
     const code = [`if ~(myFunc(_a17$) * 2) then if !false then print, 'yes'`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

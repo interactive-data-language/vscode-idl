@@ -91,7 +91,7 @@ export async function GenerateAutomatedTests(useCache: boolean) {
       )
     ) {
       console.log(`  Suite (${i}): ${AUTO_TOKEN_TESTS[i].suiteName}`);
-      TestsForTokenizer(
+      await TestsForTokenizer(
         AUTO_TOKEN_TESTS[i].suiteName,
         AUTO_TOKEN_TESTS[i].tests,
         join(outDirToken, AUTO_TOKEN_TESTS[i].fileName)
@@ -149,7 +149,7 @@ export async function GenerateAutomatedTests(useCache: boolean) {
       )
     ) {
       console.log(`  Suite (${i}): ${AUTO_POST_PROCESSOR_TESTS[i].suiteName}`);
-      TestsForSyntaxPostProcessors(
+      await TestsForSyntaxPostProcessors(
         AUTO_POST_PROCESSOR_TESTS[i].suiteName,
         AUTO_POST_PROCESSOR_TESTS[i].tests,
         join(outDirPostProcess, AUTO_POST_PROCESSOR_TESTS[i].fileName)
@@ -207,7 +207,7 @@ export async function GenerateAutomatedTests(useCache: boolean) {
       )
     ) {
       console.log(`  Suite (${i}): ${AUTO_SELECTED_TOKEN_TESTS[i].suiteName}`);
-      TestsForTokenAtCursor(
+      await TestsForTokenAtCursor(
         AUTO_SELECTED_TOKEN_TESTS[i].suiteName,
         AUTO_SELECTED_TOKEN_TESTS[i].tests,
         join(outDirSelectedToken, AUTO_SELECTED_TOKEN_TESTS[i].fileName)
@@ -328,7 +328,7 @@ export async function GenerateAutomatedTests(useCache: boolean) {
       console.log(
         `  Suite (${i}): ${AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS[i].suiteName}`
       );
-      TestsForLocalGlobalScopeAndCompile(
+      await TestsForLocalGlobalScopeAndCompile(
         AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS[i].suiteName,
         AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS[i].tests,
         join(

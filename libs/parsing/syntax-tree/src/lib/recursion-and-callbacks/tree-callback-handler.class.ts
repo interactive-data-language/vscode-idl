@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   BasicTokenNames,
   NonBasicTokenNames,
@@ -5,7 +6,7 @@ import {
 } from '@idl/parsing/tokenizer';
 
 import { ITreeRecurserOptions, TreeToken } from '../..';
-import { IParsed } from '../build-tree.interface';
+import { IParsed } from '../build-syntax-tree.interface';
 import {
   BasicCallback,
   BasicCallbackLookup,
@@ -139,8 +140,9 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
    */
   run(
     parsed: IParsed,
+    cancel: CancellationToken,
     cb: (token: TreeToken<TokenName>, meta: IHandlerCallbackMetadata) => TMeta
   ) {
-    TreeCallbackRunner(this, parsed, cb);
+    TreeCallbackRunner(this, parsed, cancel, cb);
   }
 }

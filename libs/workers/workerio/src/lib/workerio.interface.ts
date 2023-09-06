@@ -1,3 +1,6 @@
+import { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.interface';
+import { WorkerIOCancellationToken } from './workerio-cancellation-token.class';
+
 export interface IMessagePromise {
   resolve: (data: any) => void;
   reject: (data: any) => void;
@@ -55,4 +58,18 @@ export interface IMessageFromWorker<_Message extends string>
    * Associated payload for our message
    */
   payload: any;
+}
+
+/**
+ * Response when we are waiting for a message
+ */
+export interface IPostAndReceiveMessageResult<_Message extends string> {
+  /**
+   * Cancellation token
+   */
+  token: WorkerIOCancellationToken;
+  /**
+   * Response from the server
+   */
+  response: Promise<PayloadFromWorkerBaseMessage<_Message>>;
 }

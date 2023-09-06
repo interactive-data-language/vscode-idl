@@ -41,6 +41,7 @@ pro IDLNotebook::AddToNotebookMap, item, properties, $
     ; Handle rasters
     ;-
     isa(item, 'ENVIRaster'): begin
+      if (item.spatialref eq !null) then message, 'Raster must have a spatial reference', level = -1
       rasterForMap = {IDLNotebookMap_Image}
       rasterForMap.raster = item
       !idlnotebookmagic.mapitems.add, rasterForMap

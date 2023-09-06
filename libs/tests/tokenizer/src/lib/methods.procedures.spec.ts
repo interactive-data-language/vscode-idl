@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates procedure method parsing`, () => {
     const code = [`a.myProc, 1`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -57,7 +58,7 @@ describe(`[auto generated] Validates procedure method parsing`, () => {
     const code = [`a->myProc, a`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -101,7 +102,7 @@ describe(`[auto generated] Validates procedure method parsing`, () => {
     const code = [`a.super::myProc, 1`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -145,7 +146,7 @@ describe(`[auto generated] Validates procedure method parsing`, () => {
     const code = [`a->super::myProc, a`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -189,7 +190,7 @@ describe(`[auto generated] Validates procedure method parsing`, () => {
     const code = [`a.myProc, $`, `  1`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -249,7 +250,7 @@ describe(`[auto generated] Validates procedure method parsing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -485,7 +486,7 @@ describe(`[auto generated] Validates procedure method parsing`, () => {
     const code = [`a.b`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

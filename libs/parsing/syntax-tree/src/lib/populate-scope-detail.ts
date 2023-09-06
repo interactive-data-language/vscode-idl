@@ -1,4 +1,6 @@
-import { IParsed } from './build-tree.interface';
+import { CancellationToken } from '@idl/cancellation-tokens';
+
+import { IParsed } from './build-syntax-tree.interface';
 import { TreeRecurser } from './recursion-and-callbacks/tree-recurser';
 
 /**
@@ -8,10 +10,13 @@ import { TreeRecurser } from './recursion-and-callbacks/tree-recurser';
  *
  * Use `RemoveScopeDetail` to get rid of this information
  */
-export function PopulateScopeDetail(parsed: IParsed): void {
+export function PopulateScopeDetail(
+  parsed: IParsed,
+  cancel: CancellationToken
+): void {
   // only process if we dont have scope detail
   if (!parsed.hasDetail) {
-    TreeRecurser(parsed, {
+    TreeRecurser(parsed, cancel, {
       onBasicToken: (token, current) => {
         token.scopeTokens = current.scopeTokens.slice();
         token.accessTokens = current.accessTokens.slice();

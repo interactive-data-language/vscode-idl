@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { nanoid } from 'nanoid';
 
 import { FindMatches } from './helpers/find-matches';
@@ -358,10 +359,11 @@ export function TokenizerRecurser(
  */
 export function Tokenizer(
   code: string | string[],
+  cancel: CancellationToken,
   options: IFindTokensOptions = DEFAULT_FIND_TOKEN_OPTIONS
 ): IFoundTokens {
   // create our iterator
-  const iterator = new Iterator(code, options.full);
+  const iterator = new Iterator(code, cancel, options.full);
 
   // find our tokens if we can
   if (iterator.canProcess) {

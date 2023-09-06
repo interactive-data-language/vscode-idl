@@ -1,4 +1,6 @@
-import { IParsed } from './build-tree.interface';
+import { CancellationToken } from '@idl/cancellation-tokens';
+
+import { IParsed } from './build-syntax-tree.interface';
 import { TreeRecurser } from './recursion-and-callbacks/tree-recurser';
 
 /**
@@ -6,8 +8,11 @@ import { TreeRecurser } from './recursion-and-callbacks/tree-recurser';
  * present and this step is executed shortly before the syntax tree
  * is actually returned
  */
-export function PopulateScope(parsed: IParsed): void {
-  TreeRecurser(parsed, {
+export function PopulateScope(
+  parsed: IParsed,
+  cancel: CancellationToken
+): void {
+  TreeRecurser(parsed, cancel, {
     onBasicToken: (token, current) => {
       token.scope = current.scope.slice(0);
     },

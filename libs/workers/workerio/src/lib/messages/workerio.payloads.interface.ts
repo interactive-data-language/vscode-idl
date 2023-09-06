@@ -1,4 +1,5 @@
 import {
+  CancelMessage,
   ErrorMessage,
   WorkerIOBaseMessage,
 } from './workerio.messages.interface';
@@ -6,7 +7,8 @@ import {
 /**
  * What is the response from our worker thread
  */
-export type PayloadToWorkerBaseMessage<_Message = WorkerIOBaseMessage> = any;
+export type PayloadToWorkerBaseMessage<_Message = WorkerIOBaseMessage> =
+  _Message extends CancelMessage ? { messageId: string } : any;
 
 /**
  * What is the response from our worker thread

@@ -1,7 +1,8 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { TokenName } from '@idl/parsing/tokenizer';
 
 import { TreeToken } from '../branches.interface';
-import { IParsed } from '../build-tree.interface';
+import { IParsed } from '../build-syntax-tree.interface';
 import { TreeCallbackHandler } from './tree-callback-handler.class';
 import { IHandlerCallbackMetadata } from './tree-callback-handler.interface';
 import { TreeRecurser } from './tree-recurser';
@@ -13,6 +14,7 @@ import { DEFAULT_CURRENT } from './tree-recurser.interface';
 export function TreeCallbackRunner<TMeta extends IHandlerCallbackMetadata>(
   handler: TreeCallbackHandler<TMeta>,
   parsed: IParsed,
+  cancel: CancellationToken,
   metaResolver: (
     token: TreeToken<TokenName>,
     meta: IHandlerCallbackMetadata
@@ -21,6 +23,7 @@ export function TreeCallbackRunner<TMeta extends IHandlerCallbackMetadata>(
   // use our tree recurser to process what we parsed
   TreeRecurser(
     parsed,
+    cancel,
     Object.assign(handler.recursionOptions, {
       onBasicToken: (token, current) => {
         handler.processBasicToken(token, parsed, () =>

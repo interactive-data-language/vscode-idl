@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IParsed,
   PopulateScopeDetailAndResetTokenCache,
@@ -15,7 +16,8 @@ import { ValidateVariableUsage } from './tree-handlers/validate-variable-usage';
 export function PostProcessParsed(
   index: IDLIndex,
   file: string,
-  parsed: IParsed
+  parsed: IParsed,
+  cancel: CancellationToken
 ) {
   // clear secondary problems
   parsed.postProcessProblems = [];
@@ -23,12 +25,12 @@ export function PostProcessParsed(
   /**
    * Reset cache and set scope detail if we need it
    */
-  PopulateScopeDetailAndResetTokenCache(parsed);
+  PopulateScopeDetailAndResetTokenCache(parsed, cancel);
 
   /**
    * Populate types of local variables
    */
-  PopulateAndValidateType(index, file, parsed);
+  PopulateAndValidateType(index, file, parsed, cancel);
 
   /**
    * Validate variables
@@ -38,7 +40,7 @@ export function PostProcessParsed(
   /**
    * Populate the global tokens that we use
    */
-  PopulateUsesThese(index, parsed);
+  PopulateUsesThese(index, parsed, cancel);
 
   // update problems for our file
   index.trackSyntaxProblemsForFile(file, GetSyntaxProblems(parsed));

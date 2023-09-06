@@ -4,6 +4,7 @@ import './validators/validate-assignment';
 import './validators/validate-arguments';
 import './validators/ambiguous-keyword-usage';
 
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { ILocalTokenLookup, IParsed } from '@idl/parsing/syntax-tree';
 
 import { IDLIndex } from '../../idl-index.class';
@@ -13,7 +14,12 @@ import { VALIDATE_TYPE_HANDLER } from './validate-type-handler';
 /**
  * Applies styles from a tree handler to our parsed code
  */
-export function ValidateType(index: IDLIndex, file: string, parsed: IParsed) {
+export function ValidateType(
+  index: IDLIndex,
+  file: string,
+  parsed: IParsed,
+  cancel: CancellationToken
+) {
   // init variables
   const variables: ILocalTokenLookup = {};
 
@@ -24,7 +30,7 @@ export function ValidateType(index: IDLIndex, file: string, parsed: IParsed) {
   const baseMeta = { variables, index, file };
 
   // process our tree
-  VALIDATE_TYPE_HANDLER.run(parsed, (token, meta) => {
+  VALIDATE_TYPE_HANDLER.run(parsed, cancel, (token, meta) => {
     // make sure we have a token, undefined for full-tree
     if (token !== undefined) {
       const use = token.scopeTokens[0] || token;

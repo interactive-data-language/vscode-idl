@@ -3,6 +3,7 @@ export * from './lib/messages/workerio.payloads.interface';
 export * from './lib/workerio.class';
 export * from './lib/workerio.class.interface';
 export * from './lib/workerio.interface';
+export * from './lib/workerio-cancellation-token.class';
 export * from './lib/workerio-client.class';
 export * from './lib/workerio-client.class.interface';
 export * from './lib/workerio-pool.class';

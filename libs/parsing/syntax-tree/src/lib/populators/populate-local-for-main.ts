@@ -1,7 +1,7 @@
 import { MainLevelToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
 
 import { IBranch } from '../branches.interface';
-import { IParsed } from '../build-tree.interface';
+import { IParsed } from '../build-syntax-tree.interface';
 import { GetUniqueVariables } from './get-unique-variables';
 
 /**

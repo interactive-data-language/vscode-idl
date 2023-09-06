@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates include statements, but not correct locatio
     const code = [`@includeme`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -33,7 +34,7 @@ describe(`[auto generated] Validates include statements, but not correct locatio
     const code = [`a = myfunc(@bad)`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -83,7 +84,7 @@ describe(`[auto generated] Validates include statements, but not correct locatio
     const code = [`for i=0,99 do @very_wrong`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -163,7 +164,7 @@ describe(`[auto generated] Validates include statements, but not correct locatio
     const code = [`a = @include_wrong + @way_bad`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -219,7 +220,7 @@ describe(`[auto generated] Validates include statements, but not correct locatio
     const code = [`@include.pro ; comment`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

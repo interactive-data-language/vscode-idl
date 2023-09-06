@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { GetTokenAtCursor, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import { Position } from 'vscode-languageserver/node';
@@ -8,7 +9,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
     const code = [`args.setData,   `, `end`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define position
     const position_0: Position = { line: 0, character: 12 };
@@ -29,7 +30,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
     const selected_0 = GetTokenAtCursor(tokenized, position_0);
 
     // remove scope detail
-    RemoveScopeDetail(tokenized);
+    RemoveScopeDetail(tokenized, new CancellationToken());
 
     // verify results
     expect(selected_0.token).toEqual(expectedFound_0);
@@ -53,7 +54,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
     const selected_1 = GetTokenAtCursor(tokenized, position_1);
 
     // remove scope detail
-    RemoveScopeDetail(tokenized);
+    RemoveScopeDetail(tokenized, new CancellationToken());
 
     // verify results
     expect(selected_1.token).toEqual(expectedFound_1);
@@ -90,7 +91,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
     const selected_2 = GetTokenAtCursor(tokenized, position_2);
 
     // remove scope detail
-    RemoveScopeDetail(tokenized);
+    RemoveScopeDetail(tokenized, new CancellationToken());
 
     // verify results
     expect(selected_2.token).toEqual(expectedFound_2);
@@ -127,7 +128,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
     const selected_3 = GetTokenAtCursor(tokenized, position_3);
 
     // remove scope detail
-    RemoveScopeDetail(tokenized);
+    RemoveScopeDetail(tokenized, new CancellationToken());
 
     // verify results
     expect(selected_3.token).toEqual(expectedFound_3);
@@ -164,7 +165,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
     const selected_4 = GetTokenAtCursor(tokenized, position_4);
 
     // remove scope detail
-    RemoveScopeDetail(tokenized);
+    RemoveScopeDetail(tokenized, new CancellationToken());
 
     // verify results
     expect(selected_4.token).toEqual(expectedFound_4);

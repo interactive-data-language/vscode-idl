@@ -1,3 +1,5 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
+
 import { StripIDs } from '../helpers/strip-ids';
 import { Tokenizer } from '../tokenizer';
 import { IBaseTokenWithoutMatches, TOKEN_TYPES } from '../tokenizer.interface';
@@ -14,7 +16,10 @@ describe('Validates variable parsing (mostly done elsewhere)', () => {
       const variable = variables[i];
 
       // get tokens
-      const tokens = Tokenizer(`a = ${variable}`).tokens;
+      const tokens = Tokenizer(
+        `a = ${variable}`,
+        new CancellationToken()
+      ).tokens;
 
       // make sure we only found one token
       expect(tokens.length).toBe(4);
@@ -56,7 +61,7 @@ describe('Validates variable parsing (mostly done elsewhere)', () => {
       const variable = variables[i];
 
       // get tokens
-      const tokens = Tokenizer(`${variable}`).tokens;
+      const tokens = Tokenizer(`${variable}`, new CancellationToken()).tokens;
 
       // make sure we only found one token
       expect(tokens.length).toBe(2);

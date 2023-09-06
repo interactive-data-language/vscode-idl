@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
@@ -8,7 +9,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     const code = [`for i=*var, *other do *val = 42`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -180,7 +181,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     const code = [`foreach val, *thing, key do *val = 42`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -337,7 +338,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     const code = [`while *var do *val = 42`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
@@ -458,7 +459,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     const code = [`repeat *val = 42 until *var`];
 
     // extract tokens
-    const tokenized = Parser(code);
+    const tokenized = Parser(code, new CancellationToken());
 
     // define expected syntax tree
     const expectedTree: SyntaxTree = [

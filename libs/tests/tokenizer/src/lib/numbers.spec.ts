@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     const code = [`a = -1e34`, `a = -1e34i`, `a = -1e34j`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -135,7 +136,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     const code = [`a = 1e-34`, `a = 1e-34i`, `a = 1e-34j`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -221,7 +222,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     const code = [`a = 1e-`, `a = 1e-i`, `a = 1e-j`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -311,7 +312,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -509,7 +510,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -707,7 +708,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -901,7 +902,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     const code = [`a = -1d34`, `a = -1d34i`, `a = -1d34j`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -1023,7 +1024,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     const code = [`a = 1d-34`, `a = 1d-34i`, `a = 1d-34j`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -1109,7 +1110,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     const code = [`a = 1d-`, `a = 1d-i`, `a = 1d-j`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -1195,7 +1196,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     const code = [`a = 1i`, `a = 1j`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -1257,7 +1258,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     const code = [`a.`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -1283,7 +1284,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     const code = [`a = b.`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -1327,7 +1328,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     const code = [`a = .`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -1365,7 +1366,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     const code = [`a = .1e+12`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -1403,7 +1404,7 @@ describe(`[auto generated] Validates special cases for number parsing`, () => {
     const code = [`.`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

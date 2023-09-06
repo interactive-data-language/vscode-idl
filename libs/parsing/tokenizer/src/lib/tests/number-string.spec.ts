@@ -1,3 +1,5 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
+
 import { StripIDs } from '../helpers/strip-ids';
 import { Tokenizer } from '../tokenizer';
 import {
@@ -16,7 +18,10 @@ describe('Validates quote parsing', () => {
 
   it('single quote binary data', () => {
     for (let i = 0; i < types.length; i++) {
-      const tokens = Tokenizer(`'1001'b${types[i]}`).tokens;
+      const tokens = Tokenizer(
+        `'1001'b${types[i]}`,
+        new CancellationToken()
+      ).tokens;
 
       // make sure we have two tokens
       expect(tokens.length).toBe(1);
@@ -42,7 +47,10 @@ describe('Validates quote parsing', () => {
 
   it('single quote hex data', () => {
     for (let i = 0; i < types.length; i++) {
-      const tokens = Tokenizer(`'1001'x${types[i]}`).tokens;
+      const tokens = Tokenizer(
+        `'1001'x${types[i]}`,
+        new CancellationToken()
+      ).tokens;
 
       // make sure we have two tokens
       expect(tokens.length).toBe(1);
@@ -68,7 +76,10 @@ describe('Validates quote parsing', () => {
 
   it('single quote hex octal', () => {
     for (let i = 0; i < types.length; i++) {
-      const tokens = Tokenizer(`'1001'o${types[i]}`).tokens;
+      const tokens = Tokenizer(
+        `'1001'o${types[i]}`,
+        new CancellationToken()
+      ).tokens;
 
       // make sure we have two tokens
       expect(tokens.length).toBe(1);
@@ -94,7 +105,10 @@ describe('Validates quote parsing', () => {
 
   it('double quote binary data', () => {
     for (let i = 0; i < types.length; i++) {
-      const tokens = Tokenizer(`"1001"b${types[i]}`).tokens;
+      const tokens = Tokenizer(
+        `"1001"b${types[i]}`,
+        new CancellationToken()
+      ).tokens;
 
       // make sure we have two tokens
       expect(tokens.length).toBe(1);
@@ -120,7 +134,10 @@ describe('Validates quote parsing', () => {
 
   it('double quote hex data', () => {
     for (let i = 0; i < types.length; i++) {
-      const tokens = Tokenizer(`"1001"x${types[i]}`).tokens;
+      const tokens = Tokenizer(
+        `"1001"x${types[i]}`,
+        new CancellationToken()
+      ).tokens;
 
       // make sure we have two tokens
       expect(tokens.length).toBe(1);
@@ -146,7 +163,10 @@ describe('Validates quote parsing', () => {
 
   it('double quote octal data', () => {
     for (let i = 0; i < types.length; i++) {
-      const tokens = Tokenizer(`"1001"o${types[i]}`).tokens;
+      const tokens = Tokenizer(
+        `"1001"o${types[i]}`,
+        new CancellationToken()
+      ).tokens;
 
       // make sure we have two tokens
       expect(tokens.length).toBe(1);

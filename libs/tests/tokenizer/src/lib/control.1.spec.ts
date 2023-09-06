@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -20,7 +21,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -136,7 +137,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
     const code = [`if !true then break`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -186,7 +187,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
     const code = [`if !true then continue`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -236,7 +237,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
     const code = [`for i=0,99 do begin`, `  continue`, `  break`, `endfor`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -334,7 +335,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
     const code = [`for i=0,99 do begin`, `  jump:`, `endfor`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -433,7 +434,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
     ];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -639,7 +640,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
     const code = [`if not wild then goto, done else printf, outunit`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -755,7 +756,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
     const code = [`GOTO, do_six & END`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

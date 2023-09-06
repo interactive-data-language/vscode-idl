@@ -2,6 +2,7 @@ import {
   ASSEMBLER_FORMATTER_LOOKUP,
   FormatterType,
 } from '@idl/assembling/config';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IParsed, TreeRecurser } from '@idl/parsing/syntax-tree';
 
 import { DefaultFormatter } from './default-formatter';
@@ -12,7 +13,11 @@ import { FormatterRuleSet } from './formatter-rule-set.interface';
 /**
  * Applies formatter rule sets to code
  */
-export function ApplyFormatter(parsed: IParsed, formatter: FormatterType) {
+export function ApplyFormatter(
+  parsed: IParsed,
+  cancel: CancellationToken,
+  formatter: FormatterType
+) {
   // init value of rule set
   let ruleSet: FormatterRuleSet;
 
@@ -26,7 +31,7 @@ export function ApplyFormatter(parsed: IParsed, formatter: FormatterType) {
   }
 
   // use our tree recurser to process what we parsed
-  TreeRecurser(parsed, {
+  TreeRecurser(parsed, cancel, {
     onBasicToken: (token, current) => {
       if (token.name in ruleSet) {
         // not sure why, but we need any here to have it work

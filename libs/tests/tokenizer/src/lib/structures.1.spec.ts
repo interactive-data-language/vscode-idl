@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseToken,
   StripIDs,
@@ -13,7 +14,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
     const code = [`_z5$ = {thing}`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -69,7 +70,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
     const code = [`_17$ = { $`, `  thing}`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -137,7 +138,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
     const code = [`_17$ = {thing:z}`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -199,7 +200,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
     const code = [`_17$ = { $`, `  thing:z}`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -273,7 +274,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
     const code = [`_z5$ = {thing1:{thing2:z}}`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -359,7 +360,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
     const code = [`_z5$ = {thing, inherits _jklol}`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [
@@ -427,7 +428,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
     const code = [`a17 = {_th1g, abc:def, b:5, c:f()}`];
 
     // extract tokens
-    const tokenized = Tokenizer(code);
+    const tokenized = Tokenizer(code, new CancellationToken());
 
     // define expected tokens
     const expected: IBaseToken<TokenName>[] = [

@@ -41,7 +41,7 @@ export const ON_DID_OPEN_NOTEBOOK = async (notebook: NotebookDocument) => {
     const fsPath = GetFSPath(notebook.uri);
 
     // index file
-    await IDL_INDEX.getParsedNotebook(fsPath, idlNotebook);
+    await IDL_INDEX.parseAndTrackNotebook(fsPath, idlNotebook);
 
     // send problems
     SendNotebookProblems(notebook);

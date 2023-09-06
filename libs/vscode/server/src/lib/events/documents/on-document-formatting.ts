@@ -4,6 +4,7 @@ import {
   FormatterType,
   IAssemblerOptions,
 } from '@idl/assembling/config';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { ParsedTask } from '@idl/data-types/tasks';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { LoadTask } from '@idl/schemas/tasks';
@@ -109,7 +110,7 @@ export const ON_DOCUMENT_FORMATTING = async (
         const tokens = await IDL_INDEX.getParsedProCode(info.fsPath, info.code);
 
         // format
-        formatted = Assembler(tokens, config);
+        formatted = Assembler(tokens, new CancellationToken(), config);
 
         // remove info.fsPath from memory cache
         IDL_INDEX.tokensByFile.remove(info.fsPath);
