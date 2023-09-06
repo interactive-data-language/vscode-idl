@@ -56,8 +56,6 @@ export async function GetParsedPROCode(
       /**
        * Check if we are multi threaded and need to fetch our file from
        * the worker
-       *
-       * TODO: Add in proper cancellation and logic for this
        */
       if (index.isMultiThreaded()) {
         return index.indexerPool.workerio.postAndReceiveMessage(
