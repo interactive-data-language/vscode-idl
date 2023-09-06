@@ -19,6 +19,32 @@ import {
 const PENDING_PRO_CODE: { [key: string]: IGetParsedPROCodePending } = {};
 
 /**
+ * Gets a promise that resolves to the pending file
+ *
+ * Returns undefined if no pending or invalid pending.
+ *
+ * If invalid pending, also marks the cancellation token as needs to stop
+ */
+function GetPending(file: string, checksum: string) {
+  if (file in PENDING_PRO_CODE) {
+    /**
+     * Get pending file
+     */
+    const pending = PENDING_PRO_CODE[file];
+
+    // check if our checksums are valid
+    if (pending.checksum === checksum) {
+      return pending.promise;
+    } else {
+      // different checksums, so mark as cancelled
+      pending.token.cancel();
+    }
+  }
+
+  return undefined;
+}
+
+/**
  * Get parsed PRO code
  *
  * This is where the logic lives to check pending files and cancel pending requests
@@ -34,11 +60,25 @@ export async function GetParsedPROCode(
    */
   const checksum = CodeChecksum(code);
 
+  // check for a pending result
+  const pending = GetPending(file, checksum);
+  if (pending !== undefined) {
+    return pending;
+  }
+
+  // check if we have the file in our cache and it matches our checksum
+  if (index.tokensByFile.has(file)) {
+    if (index.tokensByFile.checksumMatches(file, checksum)) {
+      return index.tokensByFile.get(file);
+    }
+  }
+
   /**
    * Make a cancellation token in case we need it
    */
   const token = new CancellationToken();
 
+  // determine how to proceed
   switch (true) {
     /**
      * Check if we are a notebook cell
@@ -58,55 +98,32 @@ export async function GetParsedPROCode(
        * the worker
        */
       if (index.isMultiThreaded()) {
-        return index.indexerPool.workerio.postAndReceiveMessage(
+        const resp = index.indexerPool.workerio.postAndReceiveMessage(
           index.getWorkerID(base),
           LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
           {
             file,
             code,
           }
-        ).response;
-      } else {
-        if (index.tokensByFile.has(file)) {
-          return index.tokensByFile.get(file);
-        } else {
-          // make new pending
-          const newPending: IGetParsedPROCodePending = {
-            checksum,
-            token,
-            promise: index.indexProCode(file, code, token, options),
-          };
+        );
 
-          // save
-          PENDING_PRO_CODE[file] = newPending;
+        const newPending: IGetParsedPROCodePending = {
+          checksum,
+          token: resp.token,
+          promise: resp.response,
+        };
 
-          // wait for finish
-          const res = await newPending.promise;
+        // save new pending file
+        PENDING_PRO_CODE[file] = newPending;
 
-          // clean up
-          delete PENDING_PRO_CODE[file];
+        // get the latest - cache busting happens in the worker
+        const current = await newPending.promise;
 
-          // return
-          return res;
-        }
-      }
-    }
+        // remove from local cache
+        delete PENDING_PRO_CODE[file];
 
-    /**
-     * Check for a pending file
-     */
-    case file in PENDING_PRO_CODE: {
-      /**
-       * Get pending file
-       */
-      const pending = PENDING_PRO_CODE[file];
-
-      // check if our checksums are valid
-      if (pending.checksum === checksum) {
-        return pending.promise;
-      } else {
-        // different checksums, so mark as cancelled
-        pending.token.cancel();
+        // return value
+        return current;
       }
       break;
     }
@@ -163,15 +180,6 @@ export async function GetParsedPROCode(
       return current;
     }
 
-    /**
-     * Check if we have it stored locally
-     */
-    case index.tokensByFile.has(file): {
-      if (index.tokensByFile.checksumMatches(file, checksum)) {
-        return index.tokensByFile.get(file);
-      }
-      break;
-    }
     default:
   }
 
