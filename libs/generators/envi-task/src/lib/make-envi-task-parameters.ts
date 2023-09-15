@@ -69,6 +69,22 @@ export function MakeENVITaskParameters(
      */
     if (name.endsWith('_uri')) {
       param.type = 'ENVIURI';
+
+      // add in auto extension
+      switch (true) {
+        case name.includes('vector') || name.includes('shapefile'):
+          param.auto_extension = '.shp';
+          break;
+        case name.includes('roi'):
+          param.auto_extension = '.dat';
+          break;
+        case name.includes('series'):
+          param.auto_extension = '.series';
+          break;
+        default:
+          param.auto_extension = '.dat';
+          break;
+      }
     }
 
     // check paired parameter
