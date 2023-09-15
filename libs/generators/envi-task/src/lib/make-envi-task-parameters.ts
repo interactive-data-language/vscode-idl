@@ -38,7 +38,7 @@ export function MakeENVITaskParameters(
       description: kws[i].docs,
       type: '',
       required: true,
-      direction: kws[i].direction === 'in' ? 'input' : 'output',
+      direction: kws[i].direction === 'out' ? 'output' : 'input',
     };
 
     /**
