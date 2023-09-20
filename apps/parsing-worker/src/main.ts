@@ -276,7 +276,7 @@ client.on(
               `Error while indexing files (likely from worker thread):`,
               err,
             ],
-            alert: IDL_TRANSLATION.lsp.index.failedPostProcess,
+            alert: IDL_TRANSLATION.lsp.index.failedIndexWorkspace,
           });
         }
       }

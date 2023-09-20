@@ -153,6 +153,11 @@ export async function GetParsedPROCode(
       // save new pending file
       PENDING_PRO_CODE[file] = newPending;
 
+      // alert everyone of new file
+      index.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, {
+        files: [file],
+      });
+
       // get the latest - cache busting happens in the worker
       const current = await newPending.promise;
 

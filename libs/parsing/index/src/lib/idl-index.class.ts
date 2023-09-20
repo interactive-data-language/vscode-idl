@@ -1046,13 +1046,6 @@ export class IDLIndex {
         this.fileTypes['pro'].add(file);
       }
 
-      // alert everyone of new file
-      if (this.isMultiThreaded()) {
-        this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, {
-          files: [file],
-        });
-      }
-
       /** Init value of parsed */
       const parsed = Parser(code, token, options);
       this.workerIDsByFile[file] = undefined;
@@ -1576,7 +1569,7 @@ export class IDLIndex {
               `Error while indexing files (likely from worker thread):`,
               err,
             ],
-            alert: IDL_TRANSLATION.lsp.index.failedPostProcess,
+            alert: IDL_TRANSLATION.lsp.index.failedParse,
           });
         }
       }
