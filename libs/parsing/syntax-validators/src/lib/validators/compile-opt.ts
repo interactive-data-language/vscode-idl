@@ -118,6 +118,7 @@ const COMPILE_OPTIONS: { [key: string]: boolean } = {
   obsolete: true,
   static: true,
   strictarr: true,
+  strictarrsubs: true,
 };
 
 /**

@@ -48,6 +48,10 @@ Re-work cancellation to handle cases where the worker threads were too busy to g
 
 This also includes a fix where flase error messages would show up in the UI for work that was canceled.
 
+Update most dependencies with changes from first re-release of the extension
+
+Fixed a bug where the "strictarrsubs" compile option was missing from the list of valid compile options
+
 ## 3.2.2 September 2023
 
 Major change to the language server and worker threads to implement a cancellation framework. The ability to cancel work happens automatically for PRO files and IDL Notebooks.
