@@ -147,17 +147,20 @@ client.on(
 /**
  * Get outline
  */
-client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_OUTLINE, async (message) => {
-  return await WORKER_INDEX.getOutline(message.file, message.code);
-});
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_OUTLINE,
+  async (message, cancel) => {
+    return await WORKER_INDEX.getOutline(message.file, message.code, cancel);
+  }
+);
 
 /**
  * Get semantic tokens
  */
 client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_SEMANTIC_TOKENS,
-  async (message) => {
-    return WORKER_INDEX.getSemanticTokens(message.file, message.code);
+  async (message, cancel) => {
+    return WORKER_INDEX.getSemanticTokens(message.file, message.code, cancel);
   }
 );
 
@@ -178,6 +181,7 @@ client.on(
     const parsed = await WORKER_INDEX.getParsedProCode(
       message.file,
       WORKER_INDEX.getFileStrings(message.file),
+      cancel,
       message
     );
 
@@ -199,6 +203,7 @@ client.on(
     const parsed = await WORKER_INDEX.getParsedProCode(
       message.file,
       message.code,
+      cancel,
       message
     );
 
@@ -289,44 +294,47 @@ client.on(
 /**
  * Process some files
  */
-client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILES, async (message) => {
-  /** Get files to process */
-  const files = message.files;
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILES,
+  async (message, cancel) => {
+    /** Get files to process */
+    const files = message.files;
 
-  // index files without post-processing
-  const missing = await WORKER_INDEX.indexProFiles(files, false);
+    // index files without post-processing
+    const missing = await WORKER_INDEX.indexProFiles(files, cancel, false);
 
-  // craft our response
-  const resp: ParseFilesResponse = {
-    globals: {},
-    missing,
-    lines: 0,
-  };
+    // craft our response
+    const resp: ParseFilesResponse = {
+      globals: {},
+      missing,
+      lines: 0,
+    };
 
-  // populate response
-  for (let i = 0; i < files.length; i++) {
-    if (global.gc) {
-      if (i % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
-        global.gc();
+    // populate response
+    for (let i = 0; i < files.length; i++) {
+      if (global.gc) {
+        if (i % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
+          global.gc();
+        }
       }
+
+      /**
+       * Skip if we dont have a file. Could happen from parsing errors
+       */
+      if (!WORKER_INDEX.tokensByFile.has(files[i])) {
+        continue;
+      }
+
+      // save lines
+      resp.lines += WORKER_INDEX.tokensByFile.lines(files[i]);
+
+      // track globals
+      resp.globals[files[i]] = WORKER_INDEX.getGlobalsForFile(files[i]);
     }
 
-    /**
-     * Skip if we dont have a file. Could happen from parsing errors
-     */
-    if (!WORKER_INDEX.tokensByFile.has(files[i])) {
-      continue;
-    }
-
-    // save lines
-    resp.lines += WORKER_INDEX.tokensByFile.lines(files[i]);
-
-    // track globals
-    resp.globals[files[i]] = WORKER_INDEX.getGlobalsForFile(files[i]);
+    return resp;
   }
-
-  return resp;
-});
+);
 
 /**
  * Parse notebooks
@@ -382,7 +390,8 @@ client.on(
     // get parsed code and return
     const parsed = await WORKER_INDEX.getParsedProCode(
       message.file,
-      message.code
+      message.code,
+      cancel
     );
 
     // make non-circular
