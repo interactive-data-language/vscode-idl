@@ -44,7 +44,9 @@ Here are some of the features that notebooks bring:
 
 ## 3.2.3 September 2023
 
-Tweak some of the logic for work cancellation to further improve responsiveness
+Re-work cancellation to handle cases where the worker threads were too busy to get the messages that work needs to be stopped. If you now use a very large file (take "slicer3.pro" from the IDL distribution) events are interrupted as expected.
+
+This also includes a fix where flase error messages would show up in the UI for work that was canceled.
 
 ## 3.2.2 September 2023
 
