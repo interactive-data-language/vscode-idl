@@ -11,6 +11,7 @@ import {
 import { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.interface';
 import { IMessageFromWorker, ISentMessageToWorker } from './workerio.interface';
 import { IWorkerIOClient } from './workerio-client.class.interface';
+import { WorkerIOParseMessageToWorker } from './workerio-message';
 
 /**
  * Object class that centralizes listening for and responding to messages from
@@ -149,11 +150,8 @@ export class WorkerIOClient<_Message extends string>
 
         // handle errors which makes the worker threads, assuming everything goes through here, invincible!
         try {
-          // do something based on our message
-          const res = await Promise.race([
-            // cancel.listenForCancel(),
-            this.events[message.type](message.payload, cancel),
-          ]);
+          // execute our async callback
+          const res = await this.events[message.type](message.payload, cancel);
 
           // check if we need to respond, otherwise we will be silent
           if (!message.noResponse) {
@@ -191,7 +189,7 @@ export class WorkerIOClient<_Message extends string>
        *
        * Doing this dramatically increases performance
        */
-      this._handleMessage(JSON.parse(message));
+      this._handleMessage(WorkerIOParseMessageToWorker(message));
     });
 
     // listen to close/cleanup events

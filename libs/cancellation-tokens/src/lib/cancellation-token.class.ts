@@ -24,25 +24,15 @@ export class CancellationToken {
    */
   typed: Int32Array;
 
-  constructor(arr?: SharedArrayBuffer) {
-    if (arr !== undefined) {
-      this.buffer = arr;
+  constructor(buff?: SharedArrayBuffer) {
+    if (buff !== undefined) {
+      this.buffer = buff;
       this.typed = new Int32Array(this.buffer);
     } else {
       this.buffer = GetCancellationTokenSharedArraybuffer();
       this.typed = new Int32Array(this.buffer);
       this.typed[0] = 0;
     }
-  }
-
-  async listenForCancel() {
-    // try {
-    Atomics.wait(this.typed, 0, 0);
-    this.throwIfCancelled();
-    // } catch (err) {
-
-    // }
-    // Atomics.wait(this.typed)
   }
 
   /**
@@ -65,7 +55,6 @@ export class CancellationToken {
    */
   throwIfCancelled() {
     if (this.typed[0] === 1) {
-      console.log('cancelled');
       throw new Error(CANCELLATION_MESSAGE);
     }
   }

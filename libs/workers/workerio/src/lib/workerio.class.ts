@@ -15,6 +15,8 @@ import {
   IMessageToWorker,
   IPostAndReceiveMessageResult,
 } from './workerio.interface';
+import { WorkerIOSerializeMessageToWorker } from './workerio-message';
+import { WorkerIOSerializedMessageToWorker } from './workerio-messages.interface';
 
 /**
  * Object class that manages sending and receiving messages from worker threads in a
@@ -163,7 +165,7 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
     }
 
     // send our message
-    return JSON.stringify(Object.assign(msg, { _id: id }));
+    return WorkerIOSerializeMessageToWorker(Object.assign(msg, { _id: id }));
   }
 
   /**
@@ -171,7 +173,7 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
    *
    * Message should be the output from `prepareMessage()` above
    */
-  postMessageRaw(workerId: string, msg: string) {
+  postMessageRaw(workerId: string, msg: WorkerIOSerializedMessageToWorker) {
     // send our message
     this.workers[workerId].postMessage(msg);
   }

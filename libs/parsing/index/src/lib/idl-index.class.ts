@@ -1025,74 +1025,74 @@ export class IDLIndex {
     token: CancellationToken,
     inOptions: Partial<IIndexProCodeOptions> = {}
   ): Promise<IParsed | undefined> {
-    try {
-      /**
-       * Get parsing options
-       */
-      const options = Object.assign(
-        copy(DEFAULT_INDEX_PRO_CODE_OPTIONS),
-        inOptions
-      );
+    // try {
+    /**
+     * Get parsing options
+     */
+    const options = Object.assign(
+      copy(DEFAULT_INDEX_PRO_CODE_OPTIONS),
+      inOptions
+    );
 
-      // automatically detect if we are a notebook file
-      if (!options.isNotebook) {
-        options.isNotebook = this.isIDLNotebookFile(file);
-      }
-
-      // get old global tokens
-      const oldGlobals = this.getGlobalsForFile(file);
-
-      // track as known file
-      this.knownFiles[file] = undefined;
-      if (!options.isNotebook) {
-        this.fileTypes['pro'].add(file);
-      }
-
-      /** Init value of parsed */
-      const parsed = Parser(code, token, options);
-      this.workerIDsByFile[file] = undefined;
-
-      // add to our global index - do this before we post-process
-      await this.saveGlobalTokens(file, parsed.global);
-
-      // determine how to process
-      switch (true) {
-        case !options.full:
-          // do nothing if not full parse
-          break;
-        case options.postProcess:
-          this.postProcessProFile(
-            file,
-            parsed,
-            token,
-            oldGlobals,
-            options.changeDetection
-          );
-          break;
-        default:
-          break;
-      }
-
-      // if we dont post process, save our global tokens (auto happens in post process)
-      this.trackSyntaxProblemsForFile(file, GetSyntaxProblems(parsed));
-
-      // save tokens for our file
-      this.tokensByFile.add(file, parsed);
-
-      // return our tokens
-      return parsed;
-    } catch (err) {
-      this.log.log({
-        log: IDL_LSP_LOG,
-        type: 'error',
-        content: [`${IDL_TRANSLATION.lsp.index.failedParse}: "${file}"`, err],
-        alert: `${IDL_TRANSLATION.lsp.index.failedParse}: "${file}"`,
-        alertMeta: {
-          file,
-        },
-      });
-      return undefined;
+    // automatically detect if we are a notebook file
+    if (!options.isNotebook) {
+      options.isNotebook = this.isIDLNotebookFile(file);
     }
+
+    // get old global tokens
+    const oldGlobals = this.getGlobalsForFile(file);
+
+    // track as known file
+    this.knownFiles[file] = undefined;
+    if (!options.isNotebook) {
+      this.fileTypes['pro'].add(file);
+    }
+
+    /** Init value of parsed */
+    const parsed = Parser(code, token, options);
+    this.workerIDsByFile[file] = undefined;
+
+    // add to our global index - do this before we post-process
+    await this.saveGlobalTokens(file, parsed.global);
+
+    // determine how to process
+    switch (true) {
+      case !options.full:
+        // do nothing if not full parse
+        break;
+      case options.postProcess:
+        this.postProcessProFile(
+          file,
+          parsed,
+          token,
+          oldGlobals,
+          options.changeDetection
+        );
+        break;
+      default:
+        break;
+    }
+
+    // if we dont post process, save our global tokens (auto happens in post process)
+    this.trackSyntaxProblemsForFile(file, GetSyntaxProblems(parsed));
+
+    // save tokens for our file
+    this.tokensByFile.add(file, parsed);
+
+    // return our tokens
+    return parsed;
+    // } catch (err) {
+    //   this.log.log({
+    //     log: IDL_LSP_LOG,
+    //     type: 'error',
+    //     content: [`${IDL_TRANSLATION.lsp.index.failedParse}: "${file}"`, err],
+    //     alert: `${IDL_TRANSLATION.lsp.index.failedParse}: "${file}"`,
+    //     alertMeta: {
+    //       file,
+    //     },
+    //   });
+    //   return undefined;
+    // }
   }
 
   /**
