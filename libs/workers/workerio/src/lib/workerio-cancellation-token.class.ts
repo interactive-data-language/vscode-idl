@@ -23,6 +23,11 @@ export class WorkerIOCancellationToken extends CancellationToken {
    */
   private messageId: string;
 
+  /**
+   * Flag if our item has been canceled or not
+   */
+  buffer = new SharedArrayBuffer(1);
+
   constructor(io: WorkerIO<string>, workerId: string, messageId: string) {
     super();
 
@@ -37,6 +42,9 @@ export class WorkerIOCancellationToken extends CancellationToken {
    */
   cancel() {
     super.cancel();
+
+    // update buffer
+    this.buffer[0] = 1;
 
     // send message
     this.io.postMessage(this.workerId, 'cancel', { messageId: this.messageId });

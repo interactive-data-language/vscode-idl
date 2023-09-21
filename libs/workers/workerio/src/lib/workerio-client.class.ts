@@ -4,15 +4,11 @@ import { SimplePromiseQueue } from '@idl/shared';
 import { MessagePort } from 'worker_threads';
 
 import {
-  CancelMessage,
   ErrorMessage,
   LogMessage,
   UnhandledError,
 } from './messages/workerio.messages.interface';
-import {
-  PayloadFromWorkerBaseMessage,
-  PayloadToWorkerBaseMessage,
-} from './messages/workerio.payloads.interface';
+import { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.interface';
 import { IMessageFromWorker, ISentMessageToWorker } from './workerio.interface';
 import { IWorkerIOClient } from './workerio-client.class.interface';
 
@@ -142,21 +138,10 @@ export class WorkerIOClient<_Message extends string>
    *  Actual message handler, separate scope than even callback
    */
   private async _handleMessage(message: ISentMessageToWorker<_Message>) {
-    // check for cancellation which we handle immediately
-    if (message.type === 'cancel') {
-      // indicate that our process should be cancelled
-      this.cancel(
-        (message.payload as PayloadToWorkerBaseMessage<CancelMessage>).messageId
-      );
-
-      // return and dont process below
-      return;
-    }
-
     await this.queue.add(async () => {
       if (message.type in this.events) {
         // create a new cancellation token
-        const cancel = new CancellationToken();
+        const cancel = new CancellationToken(message.cancel);
 
         // track by our message ID
         this.cancels[message._id] = cancel;

@@ -7,27 +7,31 @@ export class CancellationToken {
   /**
    * Track if we have been cancelled or not
    */
-  private cancelled: boolean;
+  buffer: SharedArrayBuffer;
+
+  constructor(buffer = new SharedArrayBuffer(1)) {
+    this.buffer = buffer;
+  }
 
   /**
    * Sets the cancel flag for our token
    */
   cancel() {
-    this.cancelled = true;
+    this.buffer[0] = 1;
   }
 
   /**
    * Returns a flag if we are cancelled
    */
   cancelRequested() {
-    return this.cancelled;
+    return this.buffer[0] === 1;
   }
 
   /**
    * Checks for cancellation and, if cancelled, throws an error to halt execution
    */
   throwIfCancelled() {
-    if (this.cancelled) {
+    if (this.buffer[0] === 1) {
       throw new Error(CANCELLATION_MESSAGE);
     }
   }

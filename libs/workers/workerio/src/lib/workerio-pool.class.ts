@@ -106,6 +106,7 @@ export class WorkerIOPool<_Message extends string>
       type,
       payload,
       noResponse: true,
+      cancel: new SharedArrayBuffer(1),
     };
 
     // prepare payload so we only have to do this once

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
@@ -14,7 +15,6 @@ import {
   IMessageToWorker,
   IPostAndReceiveMessageResult,
 } from './workerio.interface';
-import { WorkerIOCancellationToken } from './workerio-cancellation-token.class';
 
 /**
  * Object class that manages sending and receiving messages from worker threads in a
@@ -298,9 +298,15 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
       );
     }
 
+    /**
+     * Create cancellation token
+     */
+    const cancel = new CancellationToken();
+
     const msg: IMessageToWorker<_Message> = {
       type,
       payload,
+      cancel: cancel.buffer,
     };
 
     // set that we are not asking for a response
@@ -326,16 +332,20 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
       );
     }
 
+    /**
+     * Create cancellation token
+     */
+    const cancel = new CancellationToken();
+
+    // make message we send to the worker
     const msg: IMessageToWorker<_Message> = {
       type,
       payload,
+      cancel: cancel.buffer,
     };
 
     // make a unique ID for tracking the return message
     const idReturn = nanoid();
-
-    // create cancellation token
-    const cancel = new WorkerIOCancellationToken(this, workerId, idReturn);
 
     // make our new promise
     const response = new Promise<PayloadFromWorkerBaseMessage<T>>(
