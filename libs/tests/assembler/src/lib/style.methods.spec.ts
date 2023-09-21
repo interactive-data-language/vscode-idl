@@ -69,9 +69,12 @@ describe(`[auto generated] Method styling`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
-        postProcess: true,
-      });
+      const reParsed = await index.getParsedProCode(
+        'my_file.pro',
+        formatted,
+        new CancellationToken(),
+        { postProcess: true }
+      );
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
@@ -172,9 +175,12 @@ describe(`[auto generated] Method styling`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
-        postProcess: true,
-      });
+      const reParsed = await index.getParsedProCode(
+        'my_file.pro',
+        formatted,
+        new CancellationToken(),
+        { postProcess: true }
+      );
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
@@ -275,9 +281,12 @@ describe(`[auto generated] Method styling`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
-        postProcess: true,
-      });
+      const reParsed = await index.getParsedProCode(
+        'my_file.pro',
+        formatted,
+        new CancellationToken(),
+        { postProcess: true }
+      );
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
