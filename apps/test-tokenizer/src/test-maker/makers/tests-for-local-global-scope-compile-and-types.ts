@@ -96,7 +96,7 @@ export async function TestsForLocalGlobalScopeAndCompile(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = await index.getParsedProCode('not-real', code, ${JSON.stringify(
+      `    const tokenized = await index.getParsedProCode('not-real', code, new CancellationToken(), ${JSON.stringify(
         parseConfig
       )});`
     );
