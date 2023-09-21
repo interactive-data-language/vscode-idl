@@ -140,6 +140,7 @@ export class WorkerIOClient<_Message extends string>
   private async _handleMessage(message: ISentMessageToWorker<_Message>) {
     await this.queue.add(async () => {
       if (message.type in this.events) {
+        // console.log('Cancellation', Array.isArray(message.cancel));
         // create a new cancellation token
         const cancel = new CancellationToken(message.cancel);
 
@@ -149,7 +150,10 @@ export class WorkerIOClient<_Message extends string>
         // handle errors which makes the worker threads, assuming everything goes through here, invincible!
         try {
           // do something based on our message
-          const res = await this.events[message.type](message.payload, cancel);
+          const res = await Promise.race([
+            // cancel.listenForCancel(),
+            this.events[message.type](message.payload, cancel),
+          ]);
 
           // check if we need to respond, otherwise we will be silent
           if (!message.noResponse) {

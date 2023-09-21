@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { GetFSPath } from '@idl/shared';
 import {
@@ -79,7 +80,8 @@ export const ON_DID_CHANGE_WATCHED_FILES = async (
        */
       await IDL_INDEX.indexFiles(
         Array.from(new Set(added.concat(updated))),
-        GetFileStringsFromFSPath
+        GetFileStringsFromFSPath,
+        new CancellationToken()
       );
     }
 

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IFileRenamePayload } from '@idl/vscode/events/messages';
@@ -43,7 +44,11 @@ export const ON_DID_RENAME = async (message: IFileRenamePayload) => {
        *
        * Separates into appropriate buckets internally
        */
-      await IDL_INDEX.indexFiles(added, GetFileStringsFromFSPath);
+      await IDL_INDEX.indexFiles(
+        added,
+        GetFileStringsFromFSPath,
+        new CancellationToken()
+      );
     }
 
     // send problems

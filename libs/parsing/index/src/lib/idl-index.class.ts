@@ -491,7 +491,8 @@ export class IDLIndex {
    */
   async getSemanticTokens(
     file: string,
-    code: string | string[]
+    code: string | string[],
+    token: CancellationToken
   ): Promise<GetSemanticTokensResponse> {
     // if we are multi threaded, then
     if (this.isMultiThreaded()) {
@@ -502,7 +503,7 @@ export class IDLIndex {
       ).response;
     } else {
       return GetSemanticTokens(
-        await this.getParsedProCode(file, code, {
+        await this.getParsedProCode(file, code, token, {
           postProcess: true,
         })
       );
@@ -622,7 +623,8 @@ export class IDLIndex {
    */
   async getOutline(
     file: string,
-    code: string | string[]
+    code: string | string[],
+    token: CancellationToken
   ): Promise<DocumentSymbol[]> {
     // if document isnt PRO code, return
     if (!this.isPROCode(file)) {
@@ -639,7 +641,7 @@ export class IDLIndex {
     }
 
     // get tokens for our file
-    const tokens = await this.getParsedProCode(file, code, {
+    const tokens = await this.getParsedProCode(file, code, token, {
       postProcess: true,
     });
 
@@ -654,34 +656,34 @@ export class IDLIndex {
     // process our global tokens
     for (let i = 0; i < global.length; i++) {
       // extract global token
-      const token = global[i];
+      const globali = global[i];
 
       // check if we need to save
-      if (token.type in OUTLINE_THESE_TOKENS) {
-        tracked[token.pos[0]] = {
+      if (globali.type in OUTLINE_THESE_TOKENS) {
+        tracked[globali.pos[0]] = {
           kind:
-            token.type in OUTLINE_TOKEN_KIND_MAP
-              ? OUTLINE_TOKEN_KIND_MAP[token.type]
+            globali.type in OUTLINE_TOKEN_KIND_MAP
+              ? OUTLINE_TOKEN_KIND_MAP[globali.type]
               : DEFAULT_OUTLINE_SYMBOL_KIND,
-          name: OutlineDisplayName(token),
+          name: OutlineDisplayName(globali),
           range: {
             start: {
-              line: token.pos[0],
-              character: token.pos[1],
+              line: globali.pos[0],
+              character: globali.pos[1],
             },
             end: {
-              line: token.pos[0],
-              character: token.pos[1] + token.pos[2],
+              line: globali.pos[0],
+              character: globali.pos[1] + globali.pos[2],
             },
           },
           selectionRange: {
             start: {
-              line: token.pos[0],
-              character: token.pos[1],
+              line: globali.pos[0],
+              character: globali.pos[1],
             },
             end: {
-              line: token.pos[0],
-              character: token.pos[1] + token.pos[2],
+              line: globali.pos[0],
+              character: globali.pos[1] + globali.pos[2],
             },
           },
         };
@@ -1102,9 +1104,10 @@ export class IDLIndex {
   async getParsedProCode(
     file: string,
     code: string | string[],
+    token: CancellationToken,
     options: Partial<IIndexProCodeOptions> = {}
   ): Promise<IParsed> {
-    return GetParsedPROCode(this, file, code, options);
+    return GetParsedPROCode(this, file, code, token, options);
   }
 
   /**
@@ -1527,7 +1530,11 @@ export class IDLIndex {
    *
    * This method returns the missing files that we were asked to post-process, but dont exist
    */
-  async indexProFiles(files: string[], postProcess = true): Promise<string[]> {
+  async indexProFiles(
+    files: string[],
+    token: CancellationToken,
+    postProcess = true
+  ): Promise<string[]> {
     /** Track any missing files */
     const missingFiles: string[] = [];
 
@@ -1546,9 +1553,14 @@ export class IDLIndex {
 
       // parse (or wait for it to finish if pending)
       try {
-        await this.getParsedProCode(files[i], this.getFileStrings(files[i]), {
-          postProcess,
-        });
+        await this.getParsedProCode(
+          files[i],
+          this.getFileStrings(files[i]),
+          token,
+          {
+            postProcess,
+          }
+        );
       } catch (err) {
         // check if we have a "false" error because a file was deleted
         if (!existsSync(files[i]) && !files[i].includes('#')) {
@@ -2123,7 +2135,7 @@ export class IDLIndex {
     // process in this thread if we don't have any workers
     if (!this.isMultiThreaded()) {
       // index them
-      const missing1 = await this.indexProFiles(files, false);
+      const missing1 = await this.indexProFiles(files, token, false);
 
       // post-process all of our files
       const missing2 = await this.postProcessProFiles(files, token);
@@ -2276,6 +2288,7 @@ export class IDLIndex {
         await this.getParsedProCode(
           file,
           code,
+          new CancellationToken(),
           Object.assign({ postProcess: true }, options)
         );
         break;
@@ -2288,7 +2301,11 @@ export class IDLIndex {
    * Given an array of files, indexes them and internally separates files
    * by their type
    */
-  async indexFiles(files: string[], cb: (file: string) => Promise<string>) {
+  async indexFiles(
+    files: string[],
+    cb: (file: string) => Promise<string>,
+    token: CancellationToken
+  ) {
     /**
      * Bucket files
      */
@@ -2322,6 +2339,7 @@ export class IDLIndex {
       await this.getParsedProCode(
         buckets.proFiles[i],
         await cb(buckets.proFiles[i]),
+        token,
         {
           postProcess: true,
         }

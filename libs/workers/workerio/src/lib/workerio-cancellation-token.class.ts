@@ -1,4 +1,7 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import {
+  CancellationToken,
+  GetCancellationTokenSharedArraybuffer,
+} from '@idl/cancellation-tokens';
 
 import { WorkerIOBaseMessage } from './messages/workerio.messages.interface';
 import { WorkerIO } from './workerio.class';
@@ -26,7 +29,7 @@ export class WorkerIOCancellationToken extends CancellationToken {
   /**
    * Flag if our item has been canceled or not
    */
-  buffer = new SharedArrayBuffer(1);
+  buffer = GetCancellationTokenSharedArraybuffer();
 
   constructor(io: WorkerIO<string>, workerId: string, messageId: string) {
     super();

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -49,7 +50,11 @@ export const ON_SEMANTIC_HIGHLIGHTING = async (
     const fsPath = GetFSPath(params.textDocument.uri);
 
     // get sematic tokens
-    const tokens = await IDL_INDEX.getSemanticTokens(info.fsPath, info.code);
+    const tokens = await IDL_INDEX.getSemanticTokens(
+      info.fsPath,
+      info.code,
+      new CancellationToken()
+    );
 
     // remove from our main thread lookup
     IDL_INDEX.tokensByFile.remove(fsPath);

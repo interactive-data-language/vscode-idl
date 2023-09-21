@@ -1,4 +1,5 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   GetTokenAtCursor,
   IBranch,
@@ -76,9 +77,14 @@ export async function GetAutoComplete(
   const items: GetAutoCompleteResponse = [];
 
   // get the tokens for our file
-  const parsed = await index.getParsedProCode(file, code, {
-    postProcess: true,
-  });
+  const parsed = await index.getParsedProCode(
+    file,
+    code,
+    new CancellationToken(),
+    {
+      postProcess: true,
+    }
+  );
   if (parsed !== undefined) {
     // determine what we have hovered over
     const cursor = GetTokenAtCursor(parsed, position);

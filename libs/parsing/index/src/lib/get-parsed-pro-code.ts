@@ -53,6 +53,7 @@ export async function GetParsedPROCode(
   index: IDLIndex,
   file: string,
   code: string | string[],
+  token = new CancellationToken(),
   options: Partial<IIndexProCodeOptions> = {}
 ): Promise<IParsed> {
   /**
@@ -72,11 +73,6 @@ export async function GetParsedPROCode(
       return index.tokensByFile.get(file);
     }
   }
-
-  /**
-   * Make a cancellation token in case we need it
-   */
-  const token = new CancellationToken();
 
   // determine how to proceed
   switch (true) {
