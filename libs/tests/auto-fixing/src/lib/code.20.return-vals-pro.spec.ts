@@ -32,9 +32,12 @@ describe(`[auto generated] Verify we remove excess args`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -99,9 +102,12 @@ describe(`[auto generated] Verify we remove excess args`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -163,9 +169,12 @@ describe(`[auto generated] Verify we remove excess args`, () => {
     const code = [`; main`, `compile_opt idl2`, ``, `return, 42`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {

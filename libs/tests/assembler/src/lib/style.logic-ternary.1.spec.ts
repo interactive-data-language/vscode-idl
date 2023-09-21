@@ -23,9 +23,12 @@ describe(`[auto generated] Verify we style ternary operators well`, () => {
     const code = [`nPrint = (nTiles lt 100) ? 1:ceil(nTiles / 100.0)`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'my_file.pro',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -100,9 +103,12 @@ describe(`[auto generated] Verify we style ternary operators well`, () => {
     const code = [`oWorld = OBJ_VALID(oLayer) ? oLayer->GetWorld(): OBJ_NEW()`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'my_file.pro',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);

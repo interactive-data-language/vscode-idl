@@ -30,9 +30,12 @@ describe(`[auto generated] Keep tokens after line continuations`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'my_file.pro',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);

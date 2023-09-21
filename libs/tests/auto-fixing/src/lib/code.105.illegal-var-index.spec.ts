@@ -22,9 +22,12 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
     const code = [`;+ my var`, `a = 5`, ``, `!null = a()`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -92,9 +95,12 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -160,9 +166,12 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
     const code = [`compile_opt idl2`, `a = 5`, ``, `!null = a()`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -216,9 +225,12 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
     const code = [`compile_opt idl3`, `a = 5`, ``, `!null = a()`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {

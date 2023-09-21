@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   GenerateENVITask,
   GenerateENVITaskMainLevelProgram,
@@ -39,6 +40,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
     const parsed = await index.getParsedProCode(
       filepath,
       readFileSync(filepath, 'utf-8'),
+      new CancellationToken(),
       { postProcess: true }
     );
 
@@ -84,6 +86,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
           type: 'ENVIURI',
           required: true,
           direction: 'input',
+          auto_extension: '.dat',
         },
         {
           name: 'output_raster',
@@ -101,6 +104,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
           type: 'ENVIURI',
           required: true,
           direction: 'input',
+          auto_extension: '.shp',
         },
         {
           name: 'output_vector',

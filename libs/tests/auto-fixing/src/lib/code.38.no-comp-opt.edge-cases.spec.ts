@@ -31,9 +31,12 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -90,9 +93,12 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [`;+`, `; :Returns:`, `;   any`, `;`, `;-`, `pro`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {

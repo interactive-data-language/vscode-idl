@@ -96,9 +96,12 @@ describe(`[auto generated] Verify snapping branches to remove leading and traili
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'my_file.pro',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);

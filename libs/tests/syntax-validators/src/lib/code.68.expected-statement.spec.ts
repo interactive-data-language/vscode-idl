@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
@@ -20,9 +21,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `a = `, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -61,9 +65,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `a = 42 +`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -102,9 +109,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `a *= `, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -143,9 +153,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `a = 5 and `, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -184,9 +197,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `a = - `, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -225,9 +241,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `a = *`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -266,9 +285,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `a = ()`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -307,9 +329,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `for`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -342,9 +367,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `foreach`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -377,9 +405,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `while`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -412,9 +443,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `for i=0,1 do`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -453,9 +487,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `repeat`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -488,9 +525,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `repeat a = 5 until`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -529,9 +569,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `if`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -564,9 +607,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `if !true then`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -599,9 +645,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `if !true then a = 42 else`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -640,9 +689,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `a = !true ?`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -681,9 +733,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `a = !true ? 42 :`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -722,9 +777,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `switch`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -763,9 +821,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `case`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -804,9 +865,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `switch !true of`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -845,9 +909,12 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
     const code = [`compile_opt idl2`, `switch !true of`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [

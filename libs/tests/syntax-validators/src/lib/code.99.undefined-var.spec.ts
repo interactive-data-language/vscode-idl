@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
@@ -57,9 +58,12 @@ describe(`[auto generated] Detect undefined variables`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -175,9 +179,12 @@ describe(`[auto generated] Detect undefined variables`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -239,9 +246,12 @@ describe(`[auto generated] Detect undefined variables`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -278,9 +288,12 @@ describe(`[auto generated] Detect undefined variables`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [

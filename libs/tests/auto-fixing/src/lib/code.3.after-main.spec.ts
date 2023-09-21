@@ -30,9 +30,12 @@ describe(`[auto generated] Verify tokens after main get removed on formatting`, 
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {

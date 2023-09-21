@@ -42,9 +42,12 @@ describe(`[auto generated] Verify type formatting for`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'my_file.pro',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);

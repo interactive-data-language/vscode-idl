@@ -38,9 +38,12 @@ describe(`[auto generated] Verify single quote parsing`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'my_file.pro',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -125,9 +128,12 @@ describe(`[auto generated] Verify single quote parsing`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'my_file.pro',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { GetExtensionPath } from '@idl/shared';
@@ -44,7 +45,11 @@ describe(`[auto generated] Extracts outline`, () => {
 
     // verify results
     expect(expected).toEqual(
-      await index.getOutline(filepath, await readFile(filepath, 'utf-8'))
+      await index.getOutline(
+        filepath,
+        await readFile(filepath, 'utf-8'),
+        new CancellationToken()
+      )
     );
   });
 });

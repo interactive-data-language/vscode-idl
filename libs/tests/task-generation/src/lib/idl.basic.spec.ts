@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   GenerateENVITask,
   GenerateENVITaskMainLevelProgram,
@@ -39,6 +40,7 @@ describe(`[auto generated] Make basic IDL task`, () => {
     const parsed = await index.getParsedProCode(
       filepath,
       readFileSync(filepath, 'utf-8'),
+      new CancellationToken(),
       { postProcess: true }
     );
 

@@ -992,10 +992,6 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `bad procedure`,
         code: [`pro mypro`, `  compile_opt idl2, bad2`, `  return`, `end`],
       },
-      {
-        name: `bad procedure`,
-        code: [`pro mypro`, `  compile_opt idl2, bad2`, `  return`, `end`],
-      },
     ],
   },
   {
