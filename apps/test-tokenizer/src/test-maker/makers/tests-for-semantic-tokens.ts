@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
 import { writeFileSync } from 'fs';
@@ -22,6 +23,7 @@ export async function TestsForSemanticTokens(
   const strings: string[] = [];
 
   // add imports
+  strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
@@ -54,7 +56,11 @@ export async function TestsForSemanticTokens(
     const toProcess = ArrayifyCode(code);
 
     // extract our tokens from the cleaned code
-    const semantic = await index.getSemanticTokens('not-real', toProcess);
+    const semantic = await index.getSemanticTokens(
+      'not-real',
+      toProcess,
+      new CancellationToken()
+    );
 
     // build our code string to insert into the automated test
     const codeStr = StringifyCode(toProcess);
@@ -76,7 +82,7 @@ export async function TestsForSemanticTokens(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const semantic = await index.getSemanticTokens('not-real', code);`
+      `    const semantic = await index.getSemanticTokens('not-real', code, new CancellationToken());`
     );
     strings.push(``);
 

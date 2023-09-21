@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
 import { GetExtensionPath } from '@idl/shared';
@@ -19,6 +20,7 @@ export async function TestsForOutline(
   const strings: string[] = [];
 
   // add imports
+  strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
@@ -71,7 +73,8 @@ export async function TestsForOutline(
     // get global tokens
     const outline = await index.getOutline(
       filepath,
-      await readFile(filepath, 'utf-8')
+      await readFile(filepath, 'utf-8'),
+      new CancellationToken()
     );
 
     // specify file and index
@@ -92,7 +95,7 @@ export async function TestsForOutline(
     // verify results
     strings.push('    // verify results');
     strings.push(
-      `    expect(expected).toEqual(await index.getOutline(filepath, await readFile(filepath, 'utf-8')))`
+      `    expect(expected).toEqual(await index.getOutline(filepath, await readFile(filepath, 'utf-8'), new CancellationToken()))`
     );
     strings.push('');
 
