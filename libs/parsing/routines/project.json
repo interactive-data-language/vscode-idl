@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/parsing/routines"],
+      "outputs": ["{workspaceRoot}/coverage/libs/parsing/routines"],
       "options": {
         "jestConfig": "libs/parsing/routines/jest.config.ts",
         "passWithNoTests": true

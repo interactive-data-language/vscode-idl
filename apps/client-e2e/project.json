@@ -51,7 +51,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/apps/client-e2e"],
+      "outputs": ["{workspaceRoot}/coverage/apps/client-e2e"],
       "options": {
         "jestConfig": "apps/client-e2e/jest.config.ts",
         "passWithNoTests": true

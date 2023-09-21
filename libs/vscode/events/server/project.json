@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/vscode/events/server"],
+      "outputs": ["{workspaceRoot}/coverage/libs/vscode/events/server"],
       "options": {
         "jestConfig": "libs/vscode/events/server/jest.config.ts",
         "passWithNoTests": true

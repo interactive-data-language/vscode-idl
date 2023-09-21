@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/vscode/terminal"],
+      "outputs": ["{workspaceRoot}/coverage/libs/vscode/terminal"],
       "options": {
         "jestConfig": "libs/vscode/terminal/jest.config.ts",
         "passWithNoTests": true

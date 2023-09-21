@@ -49,7 +49,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/apps/vscode-e2e-runner"],
+      "outputs": ["{workspaceRoot}/coverage/apps/vscode-e2e-runner"],
       "options": {
         "jestConfig": "apps/vscode-e2e-runner/jest.config.ts",
         "passWithNoTests": true

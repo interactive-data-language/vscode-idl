@@ -13,7 +13,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/parsing/syntax-post-processors"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/parsing/syntax-post-processors"
+      ],
       "options": {
         "jestConfig": "libs/parsing/syntax-post-processors/jest.config.ts",
         "passWithNoTests": true

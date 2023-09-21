@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/vscode/tree-view"],
+      "outputs": ["{workspaceRoot}/coverage/libs/vscode/tree-view"],
       "options": {
         "jestConfig": "libs/vscode/tree-view/jest.config.ts",
         "passWithNoTests": true

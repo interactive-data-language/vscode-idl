@@ -85,7 +85,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/apps/idl-webview"],
+      "outputs": ["{workspaceRoot}/coverage/apps/idl-webview"],
       "options": {
         "jestConfig": "apps/idl-webview/jest.config.ts",
         "passWithNoTests": true

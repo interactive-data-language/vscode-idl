@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/workers/workerio"],
+      "outputs": ["{workspaceRoot}/coverage/libs/workers/workerio"],
       "options": {
         "jestConfig": "libs/workers/workerio/jest.config.ts",
         "passWithNoTests": true

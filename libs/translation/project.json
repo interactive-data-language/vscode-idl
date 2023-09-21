@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/translation"],
+      "outputs": ["{workspaceRoot}/coverage/libs/translation"],
       "options": {
         "jestConfig": "libs/translation/jest.config.ts",
         "passWithNoTests": true

@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/parsing/syntax-tree"],
+      "outputs": ["{workspaceRoot}/coverage/libs/parsing/syntax-tree"],
       "options": {
         "jestConfig": "libs/parsing/syntax-tree/jest.config.ts",
         "passWithNoTests": true
