@@ -46,7 +46,7 @@ Here are some of the features that notebooks bring:
 
 Re-work cancellation to handle cases where the worker threads were too busy to get the messages that work needs to be stopped. If you now use a very large file (take "slicer3.pro" from the IDL distribution) events are interrupted as expected.
 
-This also includes a fix where flase error messages would show up in the UI for work that was canceled.
+This also includes a fix where false error messages would show up in the UI for work that was canceled.
 
 Update most dependencies with changes from first re-release of the extension
 
