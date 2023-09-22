@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/data-types/core"],
+      "outputs": ["{workspaceRoot}/coverage/libs/data-types/core"],
       "options": {
         "jestConfig": "libs/data-types/core/jest.config.ts",
         "passWithNoTests": true

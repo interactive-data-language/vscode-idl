@@ -1,3 +1,4 @@
+import { GetCancellationTokenSharedArraybuffer } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { nanoid } from 'nanoid';
 import { Worker } from 'worker_threads';
@@ -106,6 +107,7 @@ export class WorkerIOPool<_Message extends string>
       type,
       payload,
       noResponse: true,
+      cancel: GetCancellationTokenSharedArraybuffer(),
     };
 
     // prepare payload so we only have to do this once

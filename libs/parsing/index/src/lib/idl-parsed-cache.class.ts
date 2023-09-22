@@ -8,6 +8,12 @@ import copy from 'fast-copy';
 import { IDL_INDEX_OPTIONS } from './idl-index.interface';
 
 /**
+ * If files have more than this many lines of code, we dont compress because
+ * it is just too slow
+ */
+const COMPRESSION_LINE_THRESHOLD = 2000;
+
+/**
  * Tags that we compress/uncompress
  */
 const COMPRESS_THESE = ['tree', 'global'];
@@ -39,7 +45,10 @@ export class IDLParsedCache {
     /**
      * Check if we don't have compression enabled
      */
-    if (!IDL_INDEX_OPTIONS.COMPRESSION) {
+    if (
+      !IDL_INDEX_OPTIONS.COMPRESSION ||
+      orig.lines >= COMPRESSION_LINE_THRESHOLD
+    ) {
       return orig;
     }
 
@@ -67,7 +76,10 @@ export class IDLParsedCache {
     /**
      * Check if we don't have compression enabled
      */
-    if (!IDL_INDEX_OPTIONS.COMPRESSION) {
+    if (
+      !IDL_INDEX_OPTIONS.COMPRESSION ||
+      compressed.lines >= COMPRESSION_LINE_THRESHOLD
+    ) {
       return compressed;
     }
 

@@ -44,7 +44,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/apps/idl-docs-parser"],
+      "outputs": ["{workspaceRoot}/coverage/apps/idl-docs-parser"],
       "options": {
         "jestConfig": "apps/idl-docs-parser/jest.config.ts",
         "passWithNoTests": true

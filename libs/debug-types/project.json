@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/debug-types"],
+      "outputs": ["{workspaceRoot}/coverage/libs/debug-types"],
       "options": {
         "jestConfig": "libs/debug-types/jest.config.ts",
         "passWithNoTests": true

@@ -107,7 +107,11 @@ export const ON_DOCUMENT_FORMATTING = async (
       case IDL_INDEX.isPROCode(info.fsPath) ||
         IDL_INDEX.isIDLNotebookFile(info.fsPath): {
         // re-index the info.fsPath
-        const tokens = await IDL_INDEX.getParsedProCode(info.fsPath, info.code);
+        const tokens = await IDL_INDEX.getParsedProCode(
+          info.fsPath,
+          info.code,
+          new CancellationToken()
+        );
 
         // format
         formatted = Assembler(tokens, new CancellationToken(), config);

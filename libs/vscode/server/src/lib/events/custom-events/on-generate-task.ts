@@ -3,6 +3,7 @@ import {
   FormatterType,
   IAssemblerOptions,
 } from '@idl/assembling/config';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   GenerateENVITask,
   GenerateENVITaskMainLevelProgram,
@@ -91,9 +92,14 @@ export const ON_GENERATE_TASK = async (
     const proCode = await GetFileStrings(payload.uri);
 
     // re-index the file
-    const parsed = await IDL_INDEX.getParsedProCode(fsPath, proCode, {
-      postProcess: true,
-    });
+    const parsed = await IDL_INDEX.getParsedProCode(
+      fsPath,
+      proCode,
+      new CancellationToken(),
+      {
+        postProcess: true,
+      }
+    );
 
     /**
      * Make our task

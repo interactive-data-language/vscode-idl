@@ -44,7 +44,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/apps/i18n"],
+      "outputs": ["{workspaceRoot}/coverage/apps/i18n"],
       "options": {
         "jestConfig": "apps/i18n/jest.config.ts",
         "passWithNoTests": true

@@ -40,7 +40,8 @@ export const ON_ADD_DOCS = async (event: IAddDocsMessagePayload) => {
     // get the tokens for our file
     const tokens = await IDL_INDEX.getParsedProCode(
       file,
-      await GetFileStringsFromFSPath(file)
+      await GetFileStringsFromFSPath(file),
+      new CancellationToken()
     );
 
     // format

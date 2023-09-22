@@ -44,7 +44,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/apps/test-tokenizer"],
+      "outputs": ["{workspaceRoot}/coverage/apps/test-tokenizer"],
       "options": {
         "jestConfig": "apps/test-tokenizer/jest.config.ts",
         "passWithNoTests": true

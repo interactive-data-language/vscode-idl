@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
 import { writeFileSync } from 'fs';
@@ -22,6 +23,7 @@ export async function TestsForSyntaxValidators(
   const strings: string[] = [];
 
   // add imports
+  strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
@@ -66,6 +68,7 @@ export async function TestsForSyntaxValidators(
     const tokenized = await index.getParsedProCode(
       'not-real',
       toProcess,
+      new CancellationToken(),
       parseConfig
     );
 
@@ -89,7 +92,7 @@ export async function TestsForSyntaxValidators(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = await index.getParsedProCode('not-real', code, ${JSON.stringify(
+      `    const tokenized = await index.getParsedProCode('not-real', code, new CancellationToken(), ${JSON.stringify(
         parseConfig
       )});`
     );

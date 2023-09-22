@@ -42,6 +42,16 @@ Here are some of the features that notebooks bring:
 
   - After each cell is executed we issue a `retall` command to make sure that we are at the top-level and not stopped in a weird state
 
+## 3.2.3 September 2023
+
+Re-work cancellation to handle cases where the worker threads were too busy to get the messages that work needs to be stopped. If you now use a very large file (take "slicer3.pro" from the IDL distribution) events are interrupted as expected.
+
+This also includes a fix where flase error messages would show up in the UI for work that was canceled.
+
+Update most dependencies with changes from first re-release of the extension
+
+Fixed a bug where the "strictarrsubs" compile option was missing from the list of valid compile options
+
 ## 3.2.2 September 2023
 
 Major change to the language server and worker threads to implement a cancellation framework. The ability to cancel work happens automatically for PRO files and IDL Notebooks.

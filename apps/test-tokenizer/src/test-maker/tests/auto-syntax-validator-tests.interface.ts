@@ -976,7 +976,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
-    suiteName: `Detects missing compile options`,
+    suiteName: `Detects bad compile options`,
     fileName: `code.40.illegal-comp-opt.spec.ts`,
     tests: [
       {
@@ -991,6 +991,21 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
       {
         name: `bad procedure`,
         code: [`pro mypro`, `  compile_opt idl2, bad2`, `  return`, `end`],
+      },
+    ],
+  },
+  {
+    suiteName: `Detects bad compile options (regression)`,
+    fileName: `code.40.illegal-comp-opt.regressions.spec.ts`,
+    tests: [
+      {
+        name: `fine`,
+        code: [
+          `pro mypro`,
+          `  compile_opt idl2, strictarrsubs`,
+          `  return`,
+          `end`,
+        ],
       },
     ],
   },

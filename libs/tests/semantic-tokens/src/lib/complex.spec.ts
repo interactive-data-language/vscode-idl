@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 
@@ -27,7 +28,11 @@ describe(`[auto generated] Extracts semantic tokens`, () => {
     ];
 
     // extract tokens
-    const semantic = await index.getSemanticTokens('not-real', code);
+    const semantic = await index.getSemanticTokens(
+      'not-real',
+      code,
+      new CancellationToken()
+    );
 
     // define expected tokens
     const expected = [

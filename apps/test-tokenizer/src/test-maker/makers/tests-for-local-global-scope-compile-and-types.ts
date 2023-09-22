@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
 import { writeFileSync } from 'fs';
@@ -22,6 +23,7 @@ export async function TestsForLocalGlobalScopeAndCompile(
   const strings: string[] = [];
 
   // add imports
+  strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(
     `import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';`
   );
@@ -69,6 +71,7 @@ export async function TestsForLocalGlobalScopeAndCompile(
     const tokenized = await index.getParsedProCode(
       'not-real',
       toProcess,
+      new CancellationToken(),
       parseConfig
     );
 
@@ -93,7 +96,7 @@ export async function TestsForLocalGlobalScopeAndCompile(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = await index.getParsedProCode('not-real', code, ${JSON.stringify(
+      `    const tokenized = await index.getParsedProCode('not-real', code, new CancellationToken(), ${JSON.stringify(
         parseConfig
       )});`
     );

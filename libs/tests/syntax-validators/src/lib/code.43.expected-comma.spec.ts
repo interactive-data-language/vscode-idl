@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
@@ -20,9 +21,12 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     const code = [`pro mypro`, `  compile_opt idl2`, `  goto jumper`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -61,9 +65,12 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [];
@@ -94,9 +101,12 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -129,9 +139,12 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     const code = [`pro mypro var1`, `  compile_opt idl2`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { GenerateENVITask } from '@idl/generators/envi-task';
 import { GenerateIDLTask } from '@idl/generators/idl-task';
 import { GenerateTaskResult } from '@idl/generators/tasks-shared';
@@ -32,6 +33,7 @@ describe(`[auto generated] Don't make ENVI Task`, () => {
     const parsed = await index.getParsedProCode(
       filepath,
       readFileSync(filepath, 'utf-8'),
+      new CancellationToken(),
       { postProcess: true }
     );
 

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   GenerateENVITask,
   GenerateENVITaskMainLevelProgram,
@@ -27,6 +28,7 @@ export async function TestsForTaskGeneration(
   const strings: string[] = [];
 
   // add imports
+  strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(
     `import { GenerateENVITask, GenerateENVITaskMainLevelProgram, } from '@idl/generators/envi-task';`
   );
@@ -86,6 +88,7 @@ export async function TestsForTaskGeneration(
     const parsed = await index.getParsedProCode(
       filepath,
       readFileSync(filepath, 'utf-8'),
+      new CancellationToken(),
       { postProcess: true }
     );
 
@@ -99,7 +102,7 @@ export async function TestsForTaskGeneration(
     strings.push(``);
     strings.push(`    // add file to index`);
     strings.push(
-      `    const parsed = await index.getParsedProCode(filepath, readFileSync(filepath, 'utf-8'), {postProcess: true});`
+      `    const parsed = await index.getParsedProCode(filepath, readFileSync(filepath, 'utf-8'), new CancellationToken(), {postProcess: true});`
     );
     strings.push(``);
 

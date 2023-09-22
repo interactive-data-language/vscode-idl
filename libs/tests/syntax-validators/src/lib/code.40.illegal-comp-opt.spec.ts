@@ -1,10 +1,11 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
-describe(`[auto generated] Detects missing compile options`, () => {
+describe(`[auto generated] Detects bad compile options`, () => {
   it(`[auto generated] bad function`, async () => {
     // create index
     const index = new IDLIndex(
@@ -25,9 +26,12 @@ describe(`[auto generated] Detects missing compile options`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -60,9 +64,12 @@ describe(`[auto generated] Detects missing compile options`, () => {
     const code = [`pro mypro`, `  compile_opt idl2, bad2`, `  return`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [

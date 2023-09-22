@@ -45,7 +45,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/apps/parsing-worker"],
+      "outputs": ["{workspaceRoot}/coverage/apps/parsing-worker"],
       "options": {
         "jestConfig": "apps/parsing-worker/jest.config.ts",
         "passWithNoTests": true

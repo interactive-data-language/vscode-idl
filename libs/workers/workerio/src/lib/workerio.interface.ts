@@ -1,5 +1,6 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
+
 import { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.interface';
-import { WorkerIOCancellationToken } from './workerio-cancellation-token.class';
 
 export interface IMessagePromise {
   resolve: (data: any) => void;
@@ -36,6 +37,11 @@ export interface IMessageToWorker<_Message extends string> {
    * Transfer ownership of vars to worker thread
    */
   transfer?: boolean;
+  /**
+   * A reference to a shared array buffer that holds our
+   * cancellation flag
+   */
+  cancel: SharedArrayBuffer;
 }
 
 /**
@@ -67,7 +73,7 @@ export interface IPostAndReceiveMessageResult<_Message extends string> {
   /**
    * Cancellation token
    */
-  token: WorkerIOCancellationToken;
+  token: CancellationToken;
   /**
    * Response from the server
    */

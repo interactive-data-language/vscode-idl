@@ -29,9 +29,12 @@ describe(`[auto generated] Verify we format routines`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'my_file.pro',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -58,9 +61,12 @@ describe(`[auto generated] Verify we format routines`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
-        postProcess: true,
-      });
+      const reParsed = await index.getParsedProCode(
+        'my_file.pro',
+        formatted,
+        new CancellationToken(),
+        { postProcess: true }
+      );
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
@@ -134,9 +140,12 @@ describe(`[auto generated] Verify we format routines`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('my_file.pro', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'my_file.pro',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // extract token names
     const tokenizedNames = GetTokenNames(tokenized);
@@ -164,9 +173,12 @@ describe(`[auto generated] Verify we format routines`, () => {
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);
 
       // parse formatted code
-      const reParsed = await index.getParsedProCode('my_file.pro', formatted, {
-        postProcess: true,
-      });
+      const reParsed = await index.getParsedProCode(
+        'my_file.pro',
+        formatted,
+        new CancellationToken(),
+        { postProcess: true }
+      );
 
       // make sure the syntax trees are the same as they were before
       expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);

@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { GetTokenAtCursor, IBasicBranch } from '@idl/parsing/syntax-tree';
 import {
   KeywordBinaryToken,
@@ -41,9 +42,14 @@ export async function GetHoverHelp(
   config: IDLExtensionConfig
 ): Promise<Hover> {
   // get the tokens for our file
-  const parsed = await index.getParsedProCode(file, code, {
-    postProcess: true,
-  });
+  const parsed = await index.getParsedProCode(
+    file,
+    code,
+    new CancellationToken(),
+    {
+      postProcess: true,
+    }
+  );
   if (parsed !== undefined) {
     // determine what we have hovered over
     const hovered = GetTokenAtCursor(parsed, position, true);

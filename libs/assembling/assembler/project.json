@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/assembling/assembler"],
+      "outputs": ["{workspaceRoot}/coverage/libs/assembling/assembler"],
       "options": {
         "jestConfig": "libs/assembling/assembler/jest.config.ts",
         "passWithNoTests": true

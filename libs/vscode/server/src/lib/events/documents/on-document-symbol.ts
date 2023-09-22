@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -36,7 +37,11 @@ export const ON_DOCUMENT_SYMBOL = async (
     }
 
     // get and return our symbols
-    const outline = await IDL_INDEX.getOutline(info.fsPath, info.code);
+    const outline = await IDL_INDEX.getOutline(
+      info.fsPath,
+      info.code,
+      new CancellationToken()
+    );
 
     // remove file from memory cache
     IDL_INDEX.tokensByFile.remove(info.fsPath);

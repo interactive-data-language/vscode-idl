@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/vscode/webview"],
+      "outputs": ["{workspaceRoot}/coverage/libs/vscode/webview"],
       "options": {
         "jestConfig": "libs/vscode/webview/jest.config.ts",
         "passWithNoTests": true

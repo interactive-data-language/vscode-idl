@@ -22,9 +22,12 @@ describe(`[auto generated] Verify tokens after line continuation get removed on 
     const code = [`compile_opt idl2`, `a = $ 5 * bad ; comment`, `  5`, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {

@@ -32,10 +32,12 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-      isNotebook: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, isNotebook: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -103,10 +105,12 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-      isNotebook: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, isNotebook: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -164,10 +168,12 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [`;+`, `;-`, `pro mypro`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-      isNotebook: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, isNotebook: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -220,10 +226,12 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [`;+`, `;-`, `pro myclass::mypro`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-      isNotebook: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, isNotebook: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -276,10 +284,12 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [`; comment`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-      isNotebook: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, isNotebook: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -326,10 +336,12 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [`a = 5`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-      isNotebook: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, isNotebook: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -376,10 +388,12 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [``, `; comment`, ``, `a = 42`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-      isNotebook: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, isNotebook: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -426,10 +440,12 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     const code = [``, `; comment`, ``, `a = 42`, ``, `end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-      isNotebook: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, isNotebook: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
@@ -483,10 +499,12 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     ];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-      isNotebook: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, isNotebook: true }
+    );
 
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {

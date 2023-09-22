@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/idl"],
+      "outputs": ["{workspaceRoot}/coverage/libs/idl"],
       "options": {
         "jestConfig": "libs/idl/jest.config.ts",
         "passWithNoTests": true

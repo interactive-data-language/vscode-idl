@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/parsing/syntax-validators"],
+      "outputs": ["{workspaceRoot}/coverage/libs/parsing/syntax-validators"],
       "options": {
         "jestConfig": "libs/parsing/syntax-validators/jest.config.ts",
         "passWithNoTests": true

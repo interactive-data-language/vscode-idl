@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
@@ -20,9 +21,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = for`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -67,9 +71,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = foreach`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -114,9 +121,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = while`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -161,9 +171,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = do`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -202,9 +215,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = repeat`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -249,9 +265,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = until`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -290,9 +309,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = if`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -337,9 +359,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = then`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -378,9 +403,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = else`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -419,9 +447,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = switch`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -466,9 +497,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = case`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -513,9 +547,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = of`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -554,9 +591,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = begin`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -601,9 +641,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = end`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -648,9 +691,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = endif`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -695,9 +741,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = endelse`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -742,9 +791,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = endfor`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -789,9 +841,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = endforeach`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -836,9 +891,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = endrep`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -883,9 +941,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = endwhile`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -930,9 +991,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = endswitch`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -977,9 +1041,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = endcase`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1024,9 +1091,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = pro`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1071,9 +1141,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = function`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1118,9 +1191,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = break`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1165,9 +1241,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = continue`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1212,9 +1291,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = common`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1259,9 +1341,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = compile_opt`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1306,9 +1391,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = forward_function`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1353,9 +1441,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = goto`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1400,9 +1491,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = mod`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1441,9 +1535,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = not`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1482,9 +1579,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = eq`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1523,9 +1623,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = ne`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1564,9 +1667,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = le`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1605,9 +1711,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = lt`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1646,9 +1755,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = ge`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1687,9 +1799,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = gt`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1728,9 +1843,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = and`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1769,9 +1887,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = or`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1810,9 +1931,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = xor`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [
@@ -1851,9 +1975,12 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
     const code = [`a = inherits`];
 
     // extract tokens
-    const tokenized = await index.getParsedProCode('not-real', code, {
-      postProcess: true,
-    });
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
 
     // define expected tokens
     const expected: SyntaxProblems = [

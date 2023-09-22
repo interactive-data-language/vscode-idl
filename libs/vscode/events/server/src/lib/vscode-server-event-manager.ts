@@ -1,8 +1,10 @@
+import { CANCELLATION_MESSAGE } from '@idl/cancellation-tokens';
 import {
   LanguageServerMessage,
   LanguageServerPayload,
   LanguageServerResponse,
   MessageNameNormalizer,
+  SerializeServerMessage,
 } from '@idl/vscode/events/messages';
 import { _Connection } from 'vscode-languageserver/node';
 
@@ -18,13 +20,26 @@ export class VSCodeServerEventManager {
   }
 
   /**
+   * Helper that checks to see if we can send a message or not
+   */
+  private canSendNotification(asString: string) {
+    return !asString.includes(CANCELLATION_MESSAGE);
+  }
+
+  /**
    * Send message to the language server
    */
   sendNotification<T extends LanguageServerMessage>(
     message: T,
     payload: LanguageServerPayload<T>
   ) {
-    this.connection.sendNotification(MessageNameNormalizer(message), payload);
+    // serialize our message
+    const serialized = SerializeServerMessage(payload);
+
+    // check if we can send our notification
+    if (this.canSendNotification(serialized)) {
+      this.connection.sendNotification(MessageNameNormalizer(message), payload);
+    }
   }
 
   /**

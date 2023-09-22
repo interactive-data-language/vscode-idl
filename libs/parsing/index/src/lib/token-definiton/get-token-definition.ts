@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   IBaseIndexedToken,
   IDL_TYPE_LOOKUP,
@@ -36,9 +37,14 @@ export async function GetTokenDefinition(
   let info: IBaseIndexedToken;
 
   // get the tokens for our file
-  const parsed = await index.getParsedProCode(file, code, {
-    postProcess: true,
-  });
+  const parsed = await index.getParsedProCode(
+    file,
+    code,
+    new CancellationToken(),
+    {
+      postProcess: true,
+    }
+  );
   if (parsed !== undefined) {
     // determine what we have hovered over
     const cursor = GetTokenAtCursor(parsed, position);

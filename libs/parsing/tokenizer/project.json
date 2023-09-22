@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/libs/parsing/tokenizer"],
+      "outputs": ["{workspaceRoot}/coverage/libs/parsing/tokenizer"],
       "options": {
         "jestConfig": "libs/parsing/tokenizer/jest.config.ts",
         "passWithNoTests": true

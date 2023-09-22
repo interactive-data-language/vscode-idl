@@ -70,6 +70,7 @@ export async function TestForAutoFixing(
     const tokenized = await index.getParsedProCode(
       'my_file.pro',
       code,
+      new CancellationToken(),
       parseConfig
     );
 
@@ -104,7 +105,7 @@ export async function TestForAutoFixing(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = await index.getParsedProCode('not-real', code, ${JSON.stringify(
+      `    const tokenized = await index.getParsedProCode('not-real', code, new CancellationToken(), ${JSON.stringify(
         parseConfig
       )});`
     );

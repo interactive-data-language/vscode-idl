@@ -4,17 +4,14 @@ import { SimplePromiseQueue } from '@idl/shared';
 import { MessagePort } from 'worker_threads';
 
 import {
-  CancelMessage,
   ErrorMessage,
   LogMessage,
   UnhandledError,
 } from './messages/workerio.messages.interface';
-import {
-  PayloadFromWorkerBaseMessage,
-  PayloadToWorkerBaseMessage,
-} from './messages/workerio.payloads.interface';
+import { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.interface';
 import { IMessageFromWorker, ISentMessageToWorker } from './workerio.interface';
 import { IWorkerIOClient } from './workerio-client.class.interface';
+import { WorkerIOParseMessageToWorker } from './workerio-message';
 
 /**
  * Object class that centralizes listening for and responding to messages from
@@ -142,28 +139,18 @@ export class WorkerIOClient<_Message extends string>
    *  Actual message handler, separate scope than even callback
    */
   private async _handleMessage(message: ISentMessageToWorker<_Message>) {
-    // check for cancellation which we handle immediately
-    if (message.type === 'cancel') {
-      // indicate that our process should be cancelled
-      this.cancel(
-        (message.payload as PayloadToWorkerBaseMessage<CancelMessage>).messageId
-      );
-
-      // return and dont process below
-      return;
-    }
-
     await this.queue.add(async () => {
       if (message.type in this.events) {
+        // console.log('Cancellation', Array.isArray(message.cancel));
         // create a new cancellation token
-        const cancel = new CancellationToken();
+        const cancel = new CancellationToken(message.cancel);
 
         // track by our message ID
         this.cancels[message._id] = cancel;
 
         // handle errors which makes the worker threads, assuming everything goes through here, invincible!
         try {
-          // do something based on our message
+          // execute our async callback
           const res = await this.events[message.type](message.payload, cancel);
 
           // check if we need to respond, otherwise we will be silent
@@ -202,7 +189,7 @@ export class WorkerIOClient<_Message extends string>
        *
        * Doing this dramatically increases performance
        */
-      this._handleMessage(JSON.parse(message));
+      this._handleMessage(WorkerIOParseMessageToWorker(message));
     });
 
     // listen to close/cleanup events
