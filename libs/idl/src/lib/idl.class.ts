@@ -592,7 +592,9 @@ export class IDL extends EventEmitter {
         'echoThis' in options ? options.echoThis : command
       );
     }
-    return await this._executeQueue(command, options);
+
+    // add extra spaces at the beginning of the command
+    return await this._executeQueue(`  ${command}`, options);
   }
 
   /**
