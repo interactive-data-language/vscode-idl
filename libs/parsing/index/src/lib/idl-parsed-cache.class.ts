@@ -1,8 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import {
-  IParsed,
-  RemoveScopeDetailAndResetTokenCache,
-} from '@idl/parsing/syntax-tree';
+import { IParsed, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import copy from 'fast-copy';
 
 import { IDL_INDEX_OPTIONS } from './idl-index.interface';
@@ -53,7 +50,8 @@ export class IDLParsedCache {
     }
 
     // clean up and make non-circular
-    RemoveScopeDetailAndResetTokenCache(orig, new CancellationToken());
+    // RemoveScopeDetailAndResetTokenCache(orig, new CancellationToken());
+    RemoveScopeDetail(orig, new CancellationToken(), true);
 
     /**
      * Copy our original
