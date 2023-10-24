@@ -52,13 +52,13 @@ export class IDLParsedCache {
       return orig;
     }
 
+    // clean up and make non-circular
+    RemoveScopeDetailAndResetTokenCache(orig, new CancellationToken());
+
     /**
      * Copy our original
      */
     const parsed = copy(orig);
-
-    // clean up and make non-circular
-    RemoveScopeDetailAndResetTokenCache(parsed, new CancellationToken());
 
     // compress the keys
     for (let i = 0; i < COMPRESS_THESE.length; i++) {
