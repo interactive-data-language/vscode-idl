@@ -8,7 +8,7 @@
         "e = envi(/headless)",
         "",
         "; listen to ENVI events",
-        "ENVINotebook.EmbedProgress"
+        "ENVINotebook.embedProgress"
       ],
       "metadata": {},
       "outputs": []
@@ -36,7 +36,7 @@
     {
       "type": "code",
       "content": [
-        "ENVINotebook.EmbedProgress, /stop"
+        "ENVINotebook.embedProgress, /stop"
       ],
       "metadata": {},
       "outputs": []
@@ -54,7 +54,7 @@
     {
       "type": "code",
       "content": [
-        "ENVINotebook.EmbedProgress"
+        "ENVINotebook.embedProgress"
       ],
       "metadata": {},
       "outputs": []
