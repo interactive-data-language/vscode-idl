@@ -40,11 +40,11 @@
 ;   series = ENVIRasterSeries(seriesFile)
 ;
 ;   ; display all bands as animation in current notebook cell
-;   e.displayRasterSeriesInNotebook, series
+;   ENVINotebook.display, series
 ;   ```
 ;
 ;-
-pro envi::displayRasterSeriesInNotebook, series, size = size, allow_many_rasters = allow_many_rasters
+pro ENVINotebook::displayRasterSeries, series, size = size, allow_many_rasters = allow_many_rasters
   compile_opt idl2, hidden, static
   on_error, 2
 
@@ -72,5 +72,5 @@ pro envi::displayRasterSeriesInNotebook, series, size = size, allow_many_rasters
   foreach raster, series, i do rasters[i] = raster
 
   ; display rasters
-  ENVI.displayRasterInNotebook, rasters
+  ENVINotebook.displayRaster, rasters
 end

@@ -38,11 +38,11 @@
 ;   raster = e.openRaster(File)
 ;
 ;   ; display all bands as animation in current notebook cell
-;   e.bandAnimateInNotebook, raster
+;   ENVINotebook.bandAnimate, raster
 ;   ```
 ;
 ;-
-pro envi::bandAnimateInNotebook, raster, size = size, allow_many_bands = allow_many_bands
+pro ENVINotebook::bandAnimate, raster, size = size, allow_many_bands = allow_many_bands
   compile_opt idl2, hidden, static
   on_error, 2
 
@@ -70,7 +70,7 @@ pro envi::bandAnimateInNotebook, raster, size = size, allow_many_bands = allow_m
   for i = 0, raster.nbands - 1 do rasters[i] = ENVISubsetRaster(raster, bands = i)
 
   ; display rasters
-  ENVI.displayRasterInNotebook, rasters
+  ENVINotebook.display, rasters, size = size
 
   ; clean up
   for i = 0, raster.nbands - 1 do rasters[i].close

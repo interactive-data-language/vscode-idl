@@ -27,11 +27,11 @@
 ;
 ;   ; display in the current notebook cell
 ;   ; which requires this to be running in a notebook
-;   e.displayRasterCubeInNotebook, raster
+;   ENVINotebook.displayRasterCube, raster
 ;   ```
 ;
 ;-
-pro envi::displayRasterCubeInNotebook, raster
+pro ENVINotebook::displayRasterCube, raster
   compile_opt idl2, hidden, static
   on_error, 2
 
@@ -43,8 +43,11 @@ pro envi::displayRasterCubeInNotebook, raster
 
   ; make sure we passed in an argument
   if ~arg_present(raster) then begin
-    message, 'Expected a raster or array of rasters as input for display'
+    message, 'Expected a raster as input for display'
   endif
+
+  ; make sure we have system vars
+  vscode_notebookInit
 
   ; specify the number of bands we pick
   nPick = ceil(raster.nbands / 20) > 1

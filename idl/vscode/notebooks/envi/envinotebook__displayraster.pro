@@ -32,11 +32,11 @@
 ;
 ;   ; display in the current notebook cell
 ;   ; which requires this to be running in a notebook
-;   e.displayRasterInNotebook, raster
+;   ENVINotebook.display, raster
 ;   ```
 ;
 ;-
-pro envi::displayRasterInNotebook, raster, size = size
+pro ENVINotebook::displayRaster, raster, size = size
   compile_opt idl2, hidden, static
   on_error, 2
 

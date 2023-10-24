@@ -16,7 +16,7 @@
         "; open a sample raster",
         "file = filepath('qb_boulder_msi', subdir = ['data'], $",
         "  root_dir = e.root_dir)",
-        "raster = e.openRaster(File)"
+        "raster = e.openRaster(file)"
       ],
       "metadata": {},
       "outputs": []
@@ -26,11 +26,11 @@
       "content": [
         ";+",
         "; Display raster in notebook",
-        "; ",
+        ";",
         "; We automatically try to pick thre RGB bands and stretch the result for a quick and",
         "; easy visualization",
         ";-",
-        "e.displayInNotebook, raster"
+        "ENVINotebook.display, raster"
       ],
       "metadata": {},
       "outputs": []
@@ -40,10 +40,10 @@
       "content": [
         ";+",
         "; For rasters with 12 or fewer bands, create and embed a band animation in your notebook",
-        "; ",
-        "; WARNING: this can result in large notebooks so be cautious about datsets with many bands ",
+        ";",
+        "; WARNING: this can result in large notebooks so be cautious about datsets with many bands",
         ";-",
-        "e.bandAnimateInNotebook, raster"
+        "ENVINotebook.bandAnimate, raster"
       ],
       "metadata": {},
       "outputs": []
@@ -53,14 +53,14 @@
       "content": [
         ";+",
         "; To zoom in on a portion of a raster, use the ENVISubsetRaster function with a bounding box",
-        "; ",
+        ";",
         "; As is the pattern with remote sensing, [0,0] is the top-left of the image and the coordinates",
         "; are of the form [upper left column, upper left row, lower right column, lower right row]",
-        "; ",
+        ";",
         "; Stretch is applied on the data in the view, so if you have only light or dark pixels, then it",
         "; may look a little funny",
         ";-",
-        "e.displayInNotebook, ENVISubsetRaster(raster, sub_rect = [700, 450, 850, 600])"
+        "ENVINotebook.display, ENVISubsetRaster(raster, sub_rect = [700, 450, 850, 600])"
       ],
       "metadata": {},
       "outputs": []
@@ -86,7 +86,7 @@
         ";+",
         "; Display task result in cell",
         ";-",
-        "e.displayInNotebook, isoTask.output_raster"
+        "ENVINotebook.display, isoTask.output_raster"
       ],
       "metadata": {},
       "outputs": []
@@ -97,7 +97,7 @@
         ";+",
         "; Display input and output in same cell",
         ";-",
-        "e.displayInNotebook, [raster, isoTask.output_raster]"
+        "ENVINotebook.display, [raster, isoTask.output_raster]"
       ],
       "metadata": {},
       "outputs": []
@@ -122,10 +122,10 @@
       "content": [
         ";+",
         "; View MNF band animation",
-        "; ",
-        "; WARNING: this can result in large notebooks so be cautious about datsets with many bands ",
+        ";",
+        "; WARNING: this can result in large notebooks so be cautious about datsets with many bands",
         ";-",
-        "e.bandAnimateInNotebook, mnfTask.output_raster"
+        "ENVINotebook.bandAnimate, mnfTask.output_raster"
       ],
       "metadata": {},
       "outputs": []
@@ -152,13 +152,13 @@
       "content": [
         ";+",
         "; Display raster series in notebook",
-        "; ",
+        ";",
         "; WARNING: this can result in large notebooks so be cautious about series with many rasters",
-        "; ",
+        ";",
         "; All rasters in your raster series should line up with one another. If not, use RegridRasterSeries before",
         "; calling this.",
         ";-",
-        "e.displayInNotebook, series"
+        "ENVINotebook.display, series"
       ],
       "metadata": {},
       "outputs": []
@@ -174,7 +174,7 @@
         "HSIRaster = e.openRaster(file)",
         "",
         "; create a spectral data cube and display",
-        "e.displayRasterCubeInNotebook, HSIRaster"
+        "ENVINotebook.displayRasterCube, HSIRaster"
       ],
       "metadata": {},
       "outputs": []
