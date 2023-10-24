@@ -160,9 +160,6 @@ pro ENVINotebook__define
   compile_opt idl2, hidden
   on_error, 2
 
-  ; make sure to resolve IDL notebooks
-  IDLNotebook__define
-
   ;+
   ; Dummy structure definition so our static methods work
   ;-
