@@ -489,7 +489,7 @@ export interface ITranslation {
       clickHandlerError: string;
       /** Parent tabs/sections in the sidebar */
       parents: {
-        additionalActions: string;
+        quickAccess: string;
         debugging: string;
         codeActions: string;
         notebooks: string;
@@ -498,7 +498,7 @@ export interface ITranslation {
       /** Children of any of the sidebars, should have the command as the key name */
       children: {
         /** Additional actions */
-        additionalActions: {
+        quickAccess: {
           pickIDL: ITreeInformation;
           fileBug: ITreeInformation;
           openWebview: ITreeInformation;

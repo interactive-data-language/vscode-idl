@@ -393,14 +393,14 @@ export const EN: ITranslation = {
       selectionChangeError: 'Error while handling selection change in IDL tree',
       clickHandlerError: 'Error while handling IDL tree click event',
       parents: {
-        additionalActions: 'Additional Actions',
+        quickAccess: 'Quick Access',
         codeActions: 'Code',
         notebooks: 'Notebooks',
         debugging: 'IDL',
         terminal: 'Terminal',
       },
       children: {
-        additionalActions: {
+        quickAccess: {
           pickIDL: {
             name: 'Specify IDL directory',
             description: '(where "idl.exe" or "idl" lives)',

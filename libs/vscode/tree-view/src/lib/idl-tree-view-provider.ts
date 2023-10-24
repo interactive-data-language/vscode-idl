@@ -5,10 +5,10 @@ import * as vscode from 'vscode';
 
 import { IDLAction } from './idl-action.class';
 import { TREE_VIEW_CLICK_HANDLER } from './initialize-tree';
-import { ADDITIONAL_ACTIONS } from './trees/additional-actions.tree.interface';
 import { CODE_ACTIONS } from './trees/code-actions.tree.interface';
 import { DEBUGGING_BUTTONS } from './trees/debugging.tree.interface';
 import { NOTEBOOK_ACTIONS } from './trees/notebook-actions.tree.interface';
+import { ADDITIONAL_ACTIONS } from './trees/quick-access.tree.interface';
 
 export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
   /**
@@ -197,16 +197,15 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
     /**
      * Additional commands/actions that we want to have buttons for
      */
-    this.parents[IDL_TRANSLATION.idl.tree.parents.additionalActions] =
-      new IDLAction(
-        // override type, OK because click handler ignores parents
-        IDL_TRANSLATION.idl.tree.parents.additionalActions,
-        '',
-        vscode.TreeItemCollapsibleState.Expanded,
-        'add-box.svg',
-        ''
-      );
-    this.tree[IDL_TRANSLATION.idl.tree.parents.additionalActions] =
+    this.parents[IDL_TRANSLATION.idl.tree.parents.quickAccess] = new IDLAction(
+      // override type, OK because click handler ignores parents
+      IDL_TRANSLATION.idl.tree.parents.quickAccess,
+      '',
+      vscode.TreeItemCollapsibleState.Expanded,
+      'quick-reference-all.svg',
+      ''
+    );
+    this.tree[IDL_TRANSLATION.idl.tree.parents.quickAccess] =
       ADDITIONAL_ACTIONS.map(
         (child) =>
           new IDLAction(

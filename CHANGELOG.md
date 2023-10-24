@@ -50,6 +50,8 @@ Added in a sidebar entry for notebooks
 
 Updated cache logic to fix a potential circular JSON error when adding items to our cache
 
+Renamed "Additional Actions" sidebar to "Quick Access" and updated the icon used
+
 ## 3.2.3 September 2023
 
 Re-work cancellation to handle cases where the worker threads were too busy to get the messages that work needs to be stopped. If you now use a very large file (take "slicer3.pro" from the IDL distribution) events are interrupted as expected.
@@ -59,6 +61,8 @@ This also includes a fix where false error messages would show up in the UI for 
 Update most dependencies with changes from first re-release of the extension
 
 Fixed a bug where the "strictarrsubs" compile option was missing from the list of valid compile options
+
+Fixed a bug with the code sidebar icon not showing up in light themes
 
 ## 3.2.2 September 2023
 
