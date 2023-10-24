@@ -33,7 +33,7 @@ export const LANGUAGE_CONFIGURATION: LanguageConfiguration = {
     increaseIndentPattern: /^.*(?:\b(?:pro|function|begin|of)\b)\s*(;.*)?$/i,
     // /^.*(?:\b(?:pro|function|begin|of)\b|(?<![a-z_0-9])\$)\s*(;.*)?$/i,
     decreaseIndentPattern:
-      /^.*\b(?:endif|endelse|endfor|endforeach|endrep|endwhile|endswitch|endcase|end)\b.*$/i,
+      /^.*\b(?:endif|endelse|endfor|endforeach|endrep|endwhile|endswitch|endcase)\b.*$/i,
   },
   onEnterRules: [
     ...ON_ENTER_COMMENTS,
