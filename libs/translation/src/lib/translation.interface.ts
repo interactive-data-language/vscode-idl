@@ -492,6 +492,7 @@ export interface ITranslation {
         additionalActions: string;
         debugging: string;
         codeActions: string;
+        notebooks: string;
         terminal: string;
       };
       /** Children of any of the sidebars, should have the command as the key name */
@@ -524,6 +525,14 @@ export interface ITranslation {
           reset: ITreeInformation;
           startProfiling: ITreeInformation;
           stopProfiling: ITreeInformation;
+        };
+        notebooks: {
+          /** Format notebook */
+          formatNotebooks: ITreeInformation;
+          /** Format notebook */
+          openIDLExample: ITreeInformation;
+          /** Format notebook */
+          openENVIExample: ITreeInformation;
         };
         /** Deprecated, but tree entries for IDL terminals */
         terminal: {

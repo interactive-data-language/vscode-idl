@@ -11,6 +11,10 @@ export const VSCODE_COMMANDS = {
    */
   EVALUATE_IN_DEBUG_CONSOLE: 'editor.debug.action.selectionToRepl',
   /**
+   * Formats a notebook
+   */
+  FORMAT_NOTEBOOK: 'notebook.format',
+  /**
    * Opens a file using the native VSCode Markdown Preview
    */
   MARKDOWN_PREVIEW: 'markdown.showPreview',

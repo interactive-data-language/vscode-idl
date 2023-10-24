@@ -8,11 +8,21 @@ import { TREE_VIEW_CLICK_HANDLER } from './initialize-tree';
 import { ADDITIONAL_ACTIONS } from './trees/additional-actions.tree.interface';
 import { CODE_ACTIONS } from './trees/code-actions.tree.interface';
 import { DEBUGGING_BUTTONS } from './trees/debugging.tree.interface';
+import { NOTEBOOK_ACTIONS } from './trees/notebook-actions.tree.interface';
 
 export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
+  /**
+   * Parent nodes
+   */
   parents: { [key: string]: IDLAction };
+
+  /**
+   * Node of trees
+   */
   tree: { [key: string]: IDLAction[] };
+
   onDidChangeTreeData: vscode.Event<IDLAction | undefined>;
+
   private _onDidChangeTreeData: vscode.EventEmitter<IDLAction | undefined> =
     new vscode.EventEmitter<IDLAction | undefined>();
 
@@ -62,6 +72,9 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
     }
   }
 
+  /**
+   * Create the tree view and listen to events
+   */
   createView() {
     // listen for events and register
     const treeView = vscode.window.createTreeView(IDL_TREE_VIEW_ID, {
@@ -85,12 +98,17 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
     });
   }
 
+  /**
+   * Makes the tree view in the sidebar
+   */
   private _buildTree() {
     // initialize objects to track parent and child nodes
     this.parents = {};
     this.tree = {};
 
-    // add debugging parent and children
+    /**
+     * Add debugging branch and children
+     */
     this.parents[IDL_TRANSLATION.idl.tree.parents.debugging] = new IDLAction(
       // override type, OK because click handler ignores parents
       IDL_TRANSLATION.idl.tree.parents.debugging,
@@ -131,7 +149,9 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
     //     )
     // );
 
-    // add a few buttons for commands
+    /**
+     * Add code actions
+     */
     this.parents[IDL_TRANSLATION.idl.tree.parents.codeActions] = new IDLAction(
       // override type, OK because click handler ignores parents
       IDL_TRANSLATION.idl.tree.parents.codeActions,
@@ -151,7 +171,32 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
         )
     );
 
-    // add a few buttons for commands
+    /**
+     * Add notebook commands
+     */
+    this.parents[IDL_TRANSLATION.idl.tree.parents.notebooks] = new IDLAction(
+      // override type, OK because click handler ignores parents
+      IDL_TRANSLATION.idl.tree.parents.notebooks,
+      '',
+      vscode.TreeItemCollapsibleState.Expanded,
+      'post.svg',
+      ''
+    );
+    this.tree[IDL_TRANSLATION.idl.tree.parents.notebooks] =
+      NOTEBOOK_ACTIONS.map(
+        (child) =>
+          new IDLAction(
+            child.name,
+            child.description,
+            vscode.TreeItemCollapsibleState.None,
+            child.icon,
+            child.commandName
+          )
+      );
+
+    /**
+     * Additional commands/actions that we want to have buttons for
+     */
     this.parents[IDL_TRANSLATION.idl.tree.parents.additionalActions] =
       new IDLAction(
         // override type, OK because click handler ignores parents

@@ -44,3 +44,5 @@ Updated as we go, but here is the source for the images that we use in the exten
   https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Abuild%3AFILL%400%3Bwght%40400%3BGRAD%400%3Bopsz%4048
 - article.svg
   https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Aarticle%3AFILL%400%3Bwght%40400%3BGRAD%400%3Bopsz%4048
+- post.svg
+  https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Apost%3AFILL%400%3Bwght%40400%3BGRAD%400%3Bopsz%4024

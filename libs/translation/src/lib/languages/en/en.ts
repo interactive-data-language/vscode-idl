@@ -395,6 +395,7 @@ export const EN: ITranslation = {
       parents: {
         additionalActions: 'Additional Actions',
         codeActions: 'Code',
+        notebooks: 'Notebooks',
         debugging: 'IDL',
         terminal: 'Terminal',
       },
@@ -471,6 +472,20 @@ export const EN: ITranslation = {
           stopProfiling: {
             name: 'Stop Profiling',
             description: 'the IDL session',
+          },
+        },
+        notebooks: {
+          formatNotebooks: {
+            name: 'Format Notebook',
+            description: '',
+          },
+          openIDLExample: {
+            name: 'Open IDL Notebook Example',
+            description: '',
+          },
+          openENVIExample: {
+            name: 'Open ENVI Notebook Example',
+            description: '',
           },
         },
         terminal: {
