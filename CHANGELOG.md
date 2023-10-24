@@ -42,6 +42,14 @@ Here are some of the features that notebooks bring:
 
   - After each cell is executed we issue a `retall` command to make sure that we are at the top-level and not stopped in a weird state
 
+## 3.2.4 October 2023
+
+Fixed an issue where improper versions of node.js were used for the language server startup. This caused failures in the language server starting which would prevent any of the feature goodness of the language server from being accessible.
+
+Added in a sidebar entry for notebooks
+
+Updated cache logic to fix a potential circular JSON error when adding items to our cache
+
 ## 3.2.3 September 2023
 
 Re-work cancellation to handle cases where the worker threads were too busy to get the messages that work needs to be stopped. If you now use a very large file (take "slicer3.pro" from the IDL distribution) events are interrupted as expected.
