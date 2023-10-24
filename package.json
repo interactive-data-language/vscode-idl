@@ -959,9 +959,6 @@
         "displayName": "%envi.openerTitle%",
         "selector": [
           {
-            "filenamePattern": "*.bmp"
-          },
-          {
             "filenamePattern": "*.dat"
           },
           {
@@ -972,9 +969,6 @@
           },
           {
             "filenamePattern": "*.ntf"
-          },
-          {
-            "filenamePattern": "*.png"
           },
           {
             "filenamePattern": "*.tif"
