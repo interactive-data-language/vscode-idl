@@ -2,8 +2,14 @@ import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import {
   ConvertDocsToNotebook,
   DOCS_NOTEBOOK_FOLDER,
+  EXAMPLE_NOTEBOOKS,
 } from '@idl/notebooks/shared';
-import { IDL_COMMANDS, IDL_NOTEBOOK_EXTENSION, Sleep } from '@idl/shared';
+import {
+  GetExtensionPath,
+  IDL_COMMANDS,
+  IDL_NOTEBOOK_EXTENSION,
+  Sleep,
+} from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
@@ -18,6 +24,7 @@ import {
   VSCodeTelemetryLogger,
 } from '@idl/vscode/shared';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { cp } from 'fs/promises';
 import { join } from 'path';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
@@ -163,7 +170,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           writeFileSync(file, await ConvertDocsToNotebook(arg, resp.docs));
 
           // open the notebook in vscode
-          OpenNotebookInVSCode(file, true, true);
+          await OpenNotebookInVSCode(file, true, true);
 
           // return as though we succeeded
           return true;
@@ -172,6 +179,45 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             'Error stopping notebook',
             err,
             cmdErrors.notebooks.helpAsNotebook
+          );
+          return false;
+        }
+      }
+    )
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE,
+      async () => {
+        try {
+          // make folder if it doesnt exist
+          if (!existsSync(EXAMPLE_NOTEBOOKS)) {
+            mkdirSync(EXAMPLE_NOTEBOOKS, { recursive: true });
+          }
+
+          // get destination path
+          const exampleUri = join(EXAMPLE_NOTEBOOKS, 'hello-world-idl.idlnb');
+
+          // if it doesnt exist, copy it
+          if (!existsSync(exampleUri)) {
+            await cp(
+              GetExtensionPath('extension/docs/notebooks'),
+              EXAMPLE_NOTEBOOKS,
+              { recursive: true }
+            );
+          }
+
+          // open the notebook in vscode
+          await OpenNotebookInVSCode(exampleUri, true, false);
+
+          // return as though we succeeded
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error opening IDL example notebook',
+            err,
+            cmdErrors.notebooks.openIDLExample
           );
           return false;
         }

@@ -67,6 +67,7 @@ export const EN: ITranslation = {
         // shorter because it shows in toolbar
         stopIDL: 'Stop IDL',
         helpAsNotebook: 'IDL: Convert Help to Notebook',
+        openIDLExample: 'IDL: Open IDL Example Notebook',
       },
       terminal: {
         startIDL: 'IDL: Open an IDL Terminal Window',
@@ -117,6 +118,7 @@ export const EN: ITranslation = {
         resetIDL: 'Error while resetting IDL',
         stopIDL: 'Error while stopping IDL',
         helpAsNotebook: 'Error while converting help to notebook',
+        openIDLExample: 'Error while opening IDL example notebook',
       },
       terminal: {
         startIDL: 'Error while opening IDL terminal indow',

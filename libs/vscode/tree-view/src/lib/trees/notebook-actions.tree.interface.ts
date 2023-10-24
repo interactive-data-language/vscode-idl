@@ -1,3 +1,4 @@
+import { IDL_COMMANDS } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { VSCODE_COMMANDS } from '@idl/vscode/shared';
 
@@ -14,13 +15,13 @@ export const NOTEBOOK_ACTIONS: IChild[] = [
     icon: 'heap-snapshot-large.svg',
     commandName: VSCODE_COMMANDS.FORMAT_NOTEBOOK,
   },
-  // {
-  //   name: IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.name,
-  //   description:
-  //     IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.description,
-  //   icon: 'idlicon.png',
-  //   commandName: VSCODE_COMMANDS.FORMAT_NOTEBOOK,
-  // },
+  {
+    name: IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.description,
+    icon: 'idlicon.png',
+    commandName: IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE,
+  },
   // {
   //   name: IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.name,
   //   description:

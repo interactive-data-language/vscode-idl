@@ -12,9 +12,49 @@
     {
       "type": "markdown",
       "content": [
-        "This notebook walks through the basics of how notebook cells are executed and run.",
+        "This notebook walks through the basics of how IDL Notebooks work.",
         "",
-        "Read the comments in, and above, cells for specific details about each example below."
+        "At a high level it covers: how cells are executed, behaviors for accessing variables, embedding graphics, and what happens when you encounter errors."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Toolbar"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "If you look at the top of VSCode's display for the notebook, you'll see a toolbar.",
+        "",
+        "This toolbar contains a few helpful commands for IDL: Reset and Stop.",
+        "",
+        "![Toolbar image](./images/toolbar.png)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "IDL automatically starts when you run any IDL notebook cell, so no need to manually start the process.",
+        "",
+        "This same IDL session is used and shared for all notebooks that you have open."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "If your session gets a little goofy, you can press reset which will give you a brand new notebook session of IDL (it stops and restarts IDL to make sure it is good as new!).",
+        "",
+        "Stop will simply stop the IDL process which will restart the next time you run a cell."
       ],
       "metadata": {},
       "outputs": []

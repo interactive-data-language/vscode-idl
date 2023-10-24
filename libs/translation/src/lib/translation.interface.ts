@@ -55,6 +55,8 @@ export interface ICommandTranslation {
     stopIDL: string;
     /** Convert help to notebook */
     helpAsNotebook: string;
+    /** Open IDL example notebook */
+    openIDLExample: string;
   };
   /** Terminal commands */
   terminal: {
