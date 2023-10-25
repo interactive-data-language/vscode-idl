@@ -1,5 +1,6 @@
 import { Assembler } from '@idl/assembler';
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
 import { IDLIndex } from '@idl/parsing/index';
 import { SyntaxTree, TreeToken } from '@idl/parsing/syntax-tree';
@@ -14,12 +15,13 @@ export async function NotebookToProCode(
   file: string,
   notebook: IDLNotebookDocument,
   outFile: string,
-  formatting: IAssemblerOptions<FormatterType>
+  formatting: IAssemblerOptions<FormatterType>,
+  cancel: CancellationToken
 ) {
   /**
    * Index our file
    */
-  const indexed = await index.indexIDLNotebook(file, notebook);
+  const indexed = await index.indexIDLNotebook(file, notebook, cancel);
 
   /**
    * Get the values for our parsed notebooks
@@ -74,7 +76,7 @@ export async function NotebookToProCode(
       parsed.tree = nonMainTokens;
 
       // format the main level program
-      const nonMain = Assembler(parsed, formatting);
+      const nonMain = Assembler(parsed, cancel, formatting);
 
       // TODO: figure out what to do if syntax error
       if (nonMain === undefined) {
@@ -93,7 +95,7 @@ export async function NotebookToProCode(
     // check for main
     if (mainTokens.length > 0) {
       // format the main level program
-      const formattedMain = Assembler(parsed, formatting);
+      const formattedMain = Assembler(parsed, cancel, formatting);
 
       // TODO: figure out what to do if syntax error
       if (formattedMain === undefined) {

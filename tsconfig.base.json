@@ -41,7 +41,7 @@
       ],
       "@idl/idl": ["libs/idl/src/index.ts"],
       "@idl/logger": ["libs/logger/src/index.ts"],
-      "@idl/notebooks/index": ["libs/notebooks/index/src/index.ts"],
+      "@idl/notebooks/idl-index": ["libs/notebooks/idl-index/src/index.ts"],
       "@idl/notebooks/shared": ["libs/notebooks/shared/src/index.ts"],
       "@idl/notebooks/types": ["libs/notebooks/types/src/index.ts"],
       "@idl/parser": ["libs/parsing/parser/src/index.ts"],
