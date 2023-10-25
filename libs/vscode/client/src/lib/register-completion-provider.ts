@@ -42,7 +42,7 @@ export function RegisterCompletionProvider() {
           );
 
         // return if nothing to do
-        if (completion === undefined) {
+        if (!completion) {
           return undefined;
         }
 

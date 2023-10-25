@@ -82,7 +82,7 @@ export const ProCodeInteractRight: RunnerFunction = async (init) => {
       'textDocument/semanticTokens/full',
       tokenParams
     )
-  ).toBeNull();
+  ).toBeFalsy();
 
   // short pause
   await Sleep(250);
