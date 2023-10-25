@@ -3,7 +3,10 @@ import { GetExtensionPath } from '@idl/shared';
 
 import { RunnerFunction } from '../runner.interface';
 import { ICompareCellOutputs } from './helpers/compare-cells.interface';
-import { RunNotebookAndCompareCells } from './helpers/run-notebook-and-compare-cells';
+import {
+  DEFAULT_RUNNER_TIMEOUT,
+  RunNotebookAndCompareCells,
+} from './helpers/run-notebook-and-compare-cells';
 
 /**
  * Types of outputs from cells that we expect to have
@@ -93,6 +96,7 @@ export const RunTestNotebook: RunnerFunction = async (init) => {
     GetExtensionPath('idl/test/client-e2e/notebooks/test-notebook.idlnb'),
     CELL_OUTPUT,
     init.notebooks.controller,
+    DEFAULT_RUNNER_TIMEOUT,
     false
   );
 };

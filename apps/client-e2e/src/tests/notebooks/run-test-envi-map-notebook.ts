@@ -65,6 +65,7 @@ export const RunTestENVIMapNotebook: RunnerFunction = async (init) => {
       'idl/test/client-e2e/notebooks/test-notebook-envi-maps.idlnb'
     ),
     CELL_OUTPUT,
-    init.notebooks.controller
+    init.notebooks.controller,
+    1500 * CELL_OUTPUT.length // let the notebook update with all the rendering
   );
 };

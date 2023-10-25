@@ -10,6 +10,11 @@ import { CompareCellOutputs } from './compare-cells';
 import { ICompareCellOutputs } from './compare-cells.interface';
 
 /**
+ * Default timeout, ms
+ */
+export const DEFAULT_RUNNER_TIMEOUT = 100;
+
+/**
  * helper function to:
  *
  * 1. Open notebook
@@ -23,6 +28,7 @@ export async function RunNotebookAndCompareCells(
   file: string,
   cells: ICompareCellOutputs[],
   controller: IDLNotebookController,
+  timeout: number,
   clear = true
 ) {
   // nuke .idl folder if it exists
@@ -47,8 +53,10 @@ export async function RunNotebookAndCompareCells(
   // make sure launched
   expect(controller.isStarted()).toBeTruthy();
 
-  // short pause
-  await Sleep(100);
+  // short pause based on the number of cells we have
+  // sometimes the rendering takes too long to register (like complex maps)
+  // so we need an extra pause
+  await Sleep(timeout);
 
   // compare cells
   CompareCellOutputs(nb, cells);
