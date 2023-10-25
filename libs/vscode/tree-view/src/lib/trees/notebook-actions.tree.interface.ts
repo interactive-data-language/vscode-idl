@@ -38,11 +38,4 @@ export const NOTEBOOK_ACTIONS: IChild[] = [
   //   icon: 'renew.svg',
   //   commandName: IDL_COMMANDS.NOTEBOOKS.RESET_NOTEBOOK_EXAMPLES,
   // },
-  // {
-  //   name: IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.name,
-  //   description:
-  //     IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.description,
-  //   icon: 'idlicon.png',
-  //   commandName: VSCODE_COMMANDS.FORMAT_NOTEBOOK,
-  // },
 ];
