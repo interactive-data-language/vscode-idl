@@ -44,8 +44,8 @@
 ;   ```
 ;
 ;-
-pro ENVINotebook::displayRasterSeries, series, size = size, allow_many_rasters = allow_many_rasters
-  compile_opt idl2, hidden, static
+pro ENVINotebook_DisplayRasterSeries, series, size = size, allow_many_rasters = allow_many_rasters
+  compile_opt idl2, hidden
   on_error, 2
 
   ; get the current session of ENVI
@@ -72,5 +72,5 @@ pro ENVINotebook::displayRasterSeries, series, size = size, allow_many_rasters =
   foreach raster, series, i do rasters[i] = raster
 
   ; display rasters
-  ENVINotebook.displayRaster, rasters
+  ENVINotebook.Display, rasters
 end

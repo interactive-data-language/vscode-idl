@@ -38,12 +38,12 @@
 ;   raster = e.openRaster(File)
 ;
 ;   ; display all bands as animation in current notebook cell
-;   ENVINotebook.bandAnimate, raster
+;   ENVINotebook.display, raster, /animate
 ;   ```
 ;
 ;-
-pro ENVINotebook::bandAnimate, raster, size = size, allow_many_bands = allow_many_bands
-  compile_opt idl2, hidden, static
+pro ENVINotebook_AnimateBands, raster, size = size, allow_many_bands = allow_many_bands
+  compile_opt idl2, hidden
   on_error, 2
 
   ; get the current session of ENVI

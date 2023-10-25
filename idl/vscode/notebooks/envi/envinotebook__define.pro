@@ -10,6 +10,17 @@
 ;     The dataset to display in a notebook
 ;
 ; :Keywords:
+;   allow_many_bands: in, optional, Boolean
+;     If set, and `animate` is set, allows the display of more
+;     than 12 bands of data. By default, an error is thrown if you have 12 or
+;     more bands to limit the size of notebook files.
+;   animate: in, optional, Boolean
+;     If set, and we are displaying an ENVI Raster, then we will create an
+;     animation of each band
+;   cube: in, optional, Boolean
+;     If set, and we are displaying an ENVI Raster, then we will create
+;     a 3d data cube representation showing a visual of the raster with
+;     a spectral representation along the top and right sides of the image
 ;   size: in, optional, Number
 ;     Specify the largest dimension of the thumbnail (columns or rows). The
 ;     input raster's aspect ratio will be retained.
@@ -35,7 +46,7 @@
 ;   ```
 ;
 ;-
-pro ENVINotebook::display, dataset, size = size
+pro ENVINotebook::Display, dataset, allow_many_bands = allow_many_bands, animate = animate, cube = cube, size = size
   compile_opt idl2, hidden, static
   on_error, 2
 
@@ -50,12 +61,36 @@ pro ENVINotebook::display, dataset, size = size
 
   ; determine how to proceed
   case (!true) of
+    ;+
+    ; One or more rasters (hence the indexing to allow arrays of them)
+    ;-
     isa(dataset[0], 'enviraster'): begin
-      ENVINotebook.displayRaster, dataset, size = size
+      case (!true) of
+        ;+
+        ; Band animation
+        ;-
+        keyword_set(animate): ENVINotebook_AnimateBands, dataset, size = size, allow_many_bands = allow_many_bands
+
+        ;+
+        ; Spectral data cube
+        ;-
+        keyword_set(cube): ENVINotebook_DisplayRasterCube, dataset, size = size
+
+        ;+
+        ; Normal display of raster
+        ;-
+        else: ENVINotebook_DisplayRaster, dataset, size = size
+      endcase
     end
-    isa(dataset, 'envirasterseries'): begin
-      ENVINotebook.displayRasterSeries, dataset, size = size
-    end
+
+    ;+
+    ; Displaying raster series
+    ;-
+    isa(dataset, 'envirasterseries'): ENVINotebook_DisplayRasterSeries, dataset, size = size
+
+    ;+
+    ; Unknown data type
+    ;-
     else: begin
       message, 'Input dataset is not an ENVI Raster or raster series'
     end
@@ -105,7 +140,7 @@ end
 ;   ```
 ;
 ;-
-pro ENVINotebook::displayInMap, dataset, properties, $
+pro ENVINotebook::DisplayInMap, dataset, properties, $
   is_geojson_uri = is_geojson_uri
   compile_opt idl2, hidden, static
   on_error, 2
@@ -134,7 +169,7 @@ end
 ;     listener and cleans up
 ;
 ;-
-pro ENVINotebook::embedProgress, stop = stop
+pro ENVINotebook::EmbedProgress, stop = stop
   compile_opt idl2, hidden, static
   on_error, 2
 

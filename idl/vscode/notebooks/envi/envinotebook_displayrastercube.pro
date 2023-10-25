@@ -12,6 +12,13 @@
 ;   raster: in, required, ENVIRaster
 ;     Specify the raster to create a data cube for and siaplay in a notebook
 ;
+; :Keywords:
+;   size: in, optional, Number
+;     Specify the largest dimension of the thumbnail (columns or rows). The
+;     input raster's aspect ratio will be retained.
+;
+;     The default value is 800
+;
 ; :Examples:
 ;
 ;   Open an image in ENVI and display in a notebook as a data cube:
@@ -27,12 +34,12 @@
 ;
 ;   ; display in the current notebook cell
 ;   ; which requires this to be running in a notebook
-;   ENVINotebook.displayRasterCube, raster
+;   ENVINotebook.display, raster, /cube
 ;   ```
 ;
 ;-
-pro ENVINotebook::displayRasterCube, raster
-  compile_opt idl2, hidden, static
+pro ENVINotebook_DisplayRasterCube, raster, size = size
+  compile_opt idl2, hidden
   on_error, 2
 
   ; get the current session of ENVI
@@ -97,6 +104,7 @@ pro ENVINotebook::displayRasterCube, raster
   ; clear URI
   AwesomeGenerateThumbnail, $
     input_raster = r, $
+    thumbnail_size = size, $
     /no_stretch, $
     output_png_uri = uri
 

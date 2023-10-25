@@ -43,7 +43,7 @@
         ";",
         "; WARNING: this can result in large notebooks so be cautious about datsets with many bands",
         ";-",
-        "ENVINotebook.bandAnimate, raster"
+        "ENVINotebook.Display, raster, /animate"
       ],
       "metadata": {},
       "outputs": []
@@ -125,7 +125,7 @@
         ";",
         "; WARNING: this can result in large notebooks so be cautious about datsets with many bands",
         ";-",
-        "ENVINotebook.bandAnimate, mnfTask.output_raster"
+        "ENVINotebook.Display, mnfTask.output_raster, /animate"
       ],
       "metadata": {},
       "outputs": []
@@ -174,7 +174,7 @@
         "HSIRaster = e.openRaster(file)",
         "",
         "; create a spectral data cube and display",
-        "ENVINotebook.displayRasterCube, HSIRaster"
+        "ENVINotebook.Display, HSIRaster, /cube"
       ],
       "metadata": {},
       "outputs": []
