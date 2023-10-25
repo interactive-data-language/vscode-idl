@@ -26,7 +26,7 @@ export const LANGUAGE_TOKEN_SCOPE_NAME = `source.${IDL_LANGUAGE_NAME}`;
 /**
  * The name of IDL notebooks
  */
-export const IDL_NOTEBOOK_NAME = `${IDL_LANGUAGE_NAME}-notebook`;
+export const IDL_NOTEBOOK_LANGUAGE_NAME = `${IDL_LANGUAGE_NAME}-notebook`;
 
 /**
  * The name of IDL notebooks
@@ -42,7 +42,7 @@ export const IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME =
 /**
  * The name of IDL notebook renderer
  */
-export const IDL_NOTEBOOK_RENDERER_NAME = `${IDL_NOTEBOOK_NAME}-renderer`;
+export const IDL_NOTEBOOK_RENDERER_NAME = `${IDL_NOTEBOOK_LANGUAGE_NAME}-renderer`;
 
 /**
  * Name of the extension in VSCode

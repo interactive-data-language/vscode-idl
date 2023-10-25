@@ -57,6 +57,10 @@ export interface ICommandTranslation {
     helpAsNotebook: string;
     /** Open IDL example notebook */
     openIDLExample: string;
+    /** Reset example notebooks */
+    resetNotebookExamples: string;
+    /** Create a new notebook */
+    newNotebook: string;
   };
   /** Terminal commands */
   terminal: {
@@ -531,10 +535,14 @@ export interface ITranslation {
         notebooks: {
           /** Format notebook */
           formatNotebooks: ITreeInformation;
-          /** Format notebook */
-          openIDLExample: ITreeInformation;
+          /** Make a new notebook document */
+          newNotebook: ITreeInformation;
           /** Format notebook */
           openENVIExample: ITreeInformation;
+          /** Format notebook */
+          openIDLExample: ITreeInformation;
+          /** Reset example notebooks */
+          resetExampleNotebooks: ITreeInformation;
         };
         /** Deprecated, but tree entries for IDL terminals */
         terminal: {

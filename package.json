@@ -277,6 +277,10 @@
         "title": "%commands.idl.notebooks.helpAsNotebook%"
       },
       {
+        "command": "idl.notebooks.newNotebook",
+        "title": "%commands.idl.notebooks.newNotebook%"
+      },
+      {
         "command": "idl.notebooks.openIDLExample",
         "title": "%commands.idl.notebooks.openIDLExample%"
       },
@@ -287,6 +291,10 @@
           "light": "extension/images/light/renew.svg",
           "dark": "extension/images/dark/renew.svg"
         }
+      },
+      {
+        "command": "idl.notebooks.resetNotebookExamples",
+        "title": "%commands.idl.notebooks.resetNotebookExamples%"
       },
       {
         "command": "idl.notebooks.stopIDL",

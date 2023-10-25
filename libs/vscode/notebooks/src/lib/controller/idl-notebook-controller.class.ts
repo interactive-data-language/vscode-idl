@@ -16,7 +16,7 @@ import {
   CleanPath,
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
-  IDL_NOTEBOOK_NAME,
+  IDL_NOTEBOOK_LANGUAGE_NAME,
   Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -50,7 +50,7 @@ export class IDLNotebookController {
   /**
    * Type of notebook
    */
-  readonly notebookType = IDL_NOTEBOOK_NAME;
+  readonly notebookType = IDL_NOTEBOOK_LANGUAGE_NAME;
 
   /**
    * Label for our controller

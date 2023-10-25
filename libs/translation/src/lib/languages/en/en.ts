@@ -68,6 +68,8 @@ export const EN: ITranslation = {
         stopIDL: 'Stop IDL',
         helpAsNotebook: 'IDL: Convert Help to Notebook',
         openIDLExample: 'IDL: Open IDL Example Notebook',
+        resetNotebookExamples: 'IDL: Reset IDL and ENVI Example Notebooks',
+        newNotebook: 'IDL: Create New IDL Notebook',
       },
       terminal: {
         startIDL: 'IDL: Open an IDL Terminal Window',
@@ -119,6 +121,8 @@ export const EN: ITranslation = {
         stopIDL: 'Error while stopping IDL',
         helpAsNotebook: 'Error while converting help to notebook',
         openIDLExample: 'Error while opening IDL example notebook',
+        resetNotebookExamples: 'Error while resetting example notebooks',
+        newNotebook: 'Error while creating new notebook',
       },
       terminal: {
         startIDL: 'Error while opening IDL terminal indow',
@@ -397,7 +401,7 @@ export const EN: ITranslation = {
       parents: {
         quickAccess: 'Quick Access',
         codeActions: 'Code',
-        notebooks: 'Notebooks',
+        notebooks: 'Notebooks (Preview)',
         debugging: 'IDL',
         terminal: 'Terminal',
       },
@@ -478,15 +482,23 @@ export const EN: ITranslation = {
         },
         notebooks: {
           formatNotebooks: {
-            name: 'Format Notebook',
+            name: 'Format IDL Code in Notebook Cells',
+            description: '',
+          },
+          newNotebook: {
+            name: 'New IDL Notebook',
+            description: '',
+          },
+          openENVIExample: {
+            name: 'Open ENVI Notebook Example',
             description: '',
           },
           openIDLExample: {
             name: 'Open IDL Notebook Example',
             description: '',
           },
-          openENVIExample: {
-            name: 'Open ENVI Notebook Example',
+          resetExampleNotebooks: {
+            name: 'Reset Example Notebooks',
             description: '',
           },
         },

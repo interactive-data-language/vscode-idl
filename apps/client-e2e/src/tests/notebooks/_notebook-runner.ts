@@ -1,11 +1,14 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
+import { NewNotebook } from './new-notebook';
 import { NotebookFormats_1_0_0 } from './notebook-formats-1.0.0';
 import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { RunNotebookReset } from './notebook-reset';
 import { RunNotebookStop } from './notebook-stop';
+import { OpenIDLNotebookExample } from './open-idl-notebook-example';
+import { ResetNotebookExamples } from './reset-notebook-examples';
 import { RunENVIMessageListenerTestNotebook } from './run-envi-message-listener-test-notebook';
 import { RunProblemNotebooks } from './run-problem-notebooks';
 import { RunTestENVIMapNotebook } from './run-test-envi-map-notebook';
@@ -38,6 +41,24 @@ NOTEBOOK_RUNNER.addTest({
   name: 'Make sure we properly open format 2.0.0',
   fn: NotebookFormats_2_0_0,
   critical: true,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Verify we can create new notebooks',
+  fn: NewNotebook,
+  critical: false,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Open IDL example notebook',
+  fn: OpenIDLNotebookExample,
+  critical: false,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Reset notebook examples',
+  fn: ResetNotebookExamples,
+  critical: false,
 });
 
 NOTEBOOK_RUNNER.addTest({

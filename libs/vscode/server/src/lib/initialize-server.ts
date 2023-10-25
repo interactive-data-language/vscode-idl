@@ -1,6 +1,9 @@
 import { IDL_LSP_CONSOLE, LogManager } from '@idl/logger';
 import { SEMANTIC_TOKEN_LEGEND } from '@idl/parsing/semantic-tokens';
-import { COMPLETION_TRIGGER_CHARACTERS, IDL_NOTEBOOK_NAME } from '@idl/shared';
+import {
+  COMPLETION_TRIGGER_CHARACTERS,
+  IDL_NOTEBOOK_LANGUAGE_NAME,
+} from '@idl/shared';
 import { IDL_TRANSLATION, InitializeTranslation } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeServerEventManager } from '@idl/vscode/events/server';
@@ -190,7 +193,7 @@ export function InitializeServer() {
             {
               notebook: {
                 scheme: 'file',
-                notebookType: IDL_NOTEBOOK_NAME,
+                notebookType: IDL_NOTEBOOK_LANGUAGE_NAME,
               },
             },
           ],

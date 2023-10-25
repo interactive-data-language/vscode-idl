@@ -9,6 +9,13 @@ import { IChild } from '../idl-tree-view.interface';
  */
 export const NOTEBOOK_ACTIONS: IChild[] = [
   {
+    name: IDL_TRANSLATION.idl.tree.children.notebooks.newNotebook.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.notebooks.newNotebook.description,
+    icon: 'add-box.svg',
+    commandName: IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
+  },
+  {
     name: IDL_TRANSLATION.idl.tree.children.notebooks.formatNotebooks.name,
     description:
       IDL_TRANSLATION.idl.tree.children.notebooks.formatNotebooks.description,
@@ -22,6 +29,15 @@ export const NOTEBOOK_ACTIONS: IChild[] = [
     icon: 'idlicon.png',
     commandName: IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE,
   },
+  // {
+  //   name: IDL_TRANSLATION.idl.tree.children.notebooks.resetExampleNotebooks
+  //     .name,
+  //   description:
+  //     IDL_TRANSLATION.idl.tree.children.notebooks.resetExampleNotebooks
+  //       .description,
+  //   icon: 'renew.svg',
+  //   commandName: IDL_COMMANDS.NOTEBOOKS.RESET_NOTEBOOK_EXAMPLES,
+  // },
   // {
   //   name: IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.name,
   //   description:

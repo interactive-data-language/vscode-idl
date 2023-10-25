@@ -8,6 +8,7 @@ import {
   GetExtensionPath,
   IDL_COMMANDS,
   IDL_NOTEBOOK_EXTENSION,
+  IDL_NOTEBOOK_LANGUAGE_NAME,
   Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -23,7 +24,7 @@ import {
   OpenNotebookInVSCode,
   VSCodeTelemetryLogger,
 } from '@idl/vscode/shared';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 import { cp } from 'fs/promises';
 import { join } from 'path';
 import { ExtensionContext } from 'vscode';
@@ -188,6 +189,31 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
 
   ctx.subscriptions.push(
     vscode.commands.registerCommand(
+      IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
+      async () => {
+        try {
+          const doc = await vscode.workspace.openNotebookDocument(
+            IDL_NOTEBOOK_LANGUAGE_NAME
+          );
+
+          await vscode.window.showNotebookDocument(doc);
+
+          // return as though we succeeded
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error creating a new IDL Notebook',
+            err,
+            cmdErrors.notebooks.newNotebook
+          );
+          return false;
+        }
+      }
+    )
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
       IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE,
       async () => {
         try {
@@ -218,6 +244,41 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             'Error opening IDL example notebook',
             err,
             cmdErrors.notebooks.openIDLExample
+          );
+          return false;
+        }
+      }
+    )
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.NOTEBOOKS.RESET_NOTEBOOK_EXAMPLES,
+      async () => {
+        try {
+          // make folder if it doesnt exist
+          if (existsSync(EXAMPLE_NOTEBOOKS)) {
+            rmSync(EXAMPLE_NOTEBOOKS, { recursive: true });
+          }
+
+          // make folder if it doesnt exist
+          if (!existsSync(EXAMPLE_NOTEBOOKS)) {
+            mkdirSync(EXAMPLE_NOTEBOOKS, { recursive: true });
+          }
+
+          await cp(
+            GetExtensionPath('extension/docs/notebooks'),
+            EXAMPLE_NOTEBOOKS,
+            { recursive: true }
+          );
+
+          // return as though we succeeded
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error while resetting example notebooks',
+            err,
+            cmdErrors.notebooks.resetNotebookExamples
           );
           return false;
         }
