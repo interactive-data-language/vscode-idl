@@ -16,16 +16,7 @@ const ENVI_OPENER_CONFIG = {
 /**
  * File extensions that we want to register to our ENVI opener
  */
-const FILE_EXTENSIONS = [
-  `dat`,
-  `tif`,
-  `tiff`,
-  `png`,
-  `bmp`,
-  `jp2`,
-  `jp2000`,
-  `ntf`,
-].sort();
+const FILE_EXTENSIONS = [`dat`, `tif`, `tiff`, `jp2`, `jp2000`, `ntf`].sort();
 
 /**
  * Updates the package.json file for our themes and makes sure everything exists

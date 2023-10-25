@@ -1,4 +1,5 @@
 import expect from 'expect';
+import { deepEqual } from 'fast-equals';
 import * as vscode from 'vscode';
 
 import {
@@ -9,7 +10,7 @@ import {
 /**
  * Compares cells from a notebook against what we expect them to be
  */
-export function CompareCellOutputs(
+export async function CompareCellOutputs(
   nb: vscode.NotebookDocument,
   cellOutput: ICompareCellOutputs[]
 ) {
@@ -47,6 +48,13 @@ export function CompareCellOutputs(
     let mimes: string[] = [];
     for (let j = 0; j < nbCell.outputs.length; j++) {
       mimes = mimes.concat(nbCell.outputs[j].items.map((item) => item.mime));
+    }
+
+    if (!deepEqual(mimes, expected.mimeTypes)) {
+      console.log(`--------------- PROBLEMS --------------------`);
+      console.log(nbCell.outputs);
+
+      await nb.save();
     }
 
     // validate cell mime types

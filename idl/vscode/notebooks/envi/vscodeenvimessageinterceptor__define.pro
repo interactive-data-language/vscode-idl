@@ -32,8 +32,8 @@ function VSCodeENVIMessageInterceptor::Init, verbose = verbose
   self.lastprogress = list()
 
   ; get the channel and subscribe
-  oChannel = e.GetBroadcastChannel()
-  oChannel.Subscribe, self
+  oChannel = e.getBroadcastChannel()
+  oChannel.subscribe, self
 
   ; return 1 as valid object
   return, 1
@@ -56,8 +56,8 @@ pro VSCodeENVIMessageInterceptor::Cleanup
 
   ; make sure valid
   if (e ne !null) then begin
-    oChannel = e.GetBroadcastChannel()
-    if (obj_valid(oChannel)) then oChannel.Unsubscribe, self
+    oChannel = e.getBroadcastChannel()
+    if (obj_valid(oChannel)) then oChannel.unsubscribe, self
   endif
 end
 
@@ -111,7 +111,7 @@ pro VSCodeENVIMessageInterceptor::OnMessage, msg
       self.lastprogress[self.stack - 1] = msg.percent
 
       if (self.stack eq 1 || self.stack gt 1 and self.verbose) then $
-        print, strjoin([indent, msg.message.trim(), ', Progress=', strtrim(long(msg.percent), 2), '%'])
+        print, strjoin([indent, msg.message.trim(), ' ', strtrim(long(msg.percent), 2), '%'])
     end
 
     ;+
@@ -127,7 +127,7 @@ pro VSCodeENVIMessageInterceptor::OnMessage, msg
 
       ; attempt to print
       if (self.stack eq 0 || self.stack gt 0 and self.verbose) then begin
-        print, strmid(indent, 2) + 'Finished!'
+        print, strmid(indent, 2) + 'Finished'
         print
       endif
     end

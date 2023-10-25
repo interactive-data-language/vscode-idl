@@ -40,12 +40,12 @@
 ;   series = ENVIRasterSeries(seriesFile)
 ;
 ;   ; display all bands as animation in current notebook cell
-;   e.displayRasterSeriesInNotebook, series
+;   ENVINotebook.display, series
 ;   ```
 ;
 ;-
-pro envi::displayRasterSeriesInNotebook, series, size = size, allow_many_rasters = allow_many_rasters
-  compile_opt idl2, hidden, static
+pro ENVINotebook_DisplayRasterSeries, series, size = size, allow_many_rasters = allow_many_rasters
+  compile_opt idl2, hidden
   on_error, 2
 
   ; get the current session of ENVI
@@ -72,5 +72,5 @@ pro envi::displayRasterSeriesInNotebook, series, size = size, allow_many_rasters
   foreach raster, series, i do rasters[i] = raster
 
   ; display rasters
-  ENVI.displayRasterInNotebook, rasters
+  ENVINotebook.Display, rasters
 end

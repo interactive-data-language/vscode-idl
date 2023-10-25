@@ -28,7 +28,7 @@
       "type": "code",
       "content": [
         "; display raster",
-        "ENVI.displayInNotebookMap, raster"
+        "ENVINotebook.displayInMap, raster"
       ],
       "metadata": {},
       "outputs": []
@@ -37,7 +37,7 @@
       "type": "code",
       "content": [
         "; add multiple rois",
-        "ENVI.displayInNotebookMap, rois"
+        "ENVINotebook.displayInMap, rois"
       ],
       "metadata": {},
       "outputs": []
@@ -46,7 +46,7 @@
       "type": "code",
       "content": [
         "; add a single ROI",
-        "ENVI.displayInNotebookMap, rois[0]"
+        "ENVINotebook.displayInMap, rois[0]"
       ],
       "metadata": {},
       "outputs": []
@@ -55,7 +55,7 @@
       "type": "code",
       "content": [
         "; add vector and specify color",
-        "ENVI.displayInNotebookMap, vector, orderedhash('color', [255,0,0,125])"
+        "ENVINotebook.displayInMap, vector, orderedhash('color', [255,0,0,125])"
       ],
       "metadata": {},
       "outputs": []
@@ -74,7 +74,7 @@
       "content": [
         "; display geojson from a string",
         "geojsonOutline = raster.getOutline(3857)",
-        "ENVI.displayInNotebookMap, geojsonOutline"
+        "ENVINotebook.displayInMap, geojsonOutline"
       ],
       "metadata": {},
       "outputs": []
@@ -83,8 +83,8 @@
       "type": "code",
       "content": [
         "; display more than one layer at a time, order is preserved",
-        "ENVI.displayInNotebookMap, raster",
-        "ENVI.displayInNotebookMap, rois"
+        "ENVINotebook.displayInMap, raster",
+        "ENVINotebook.displayInMap, rois"
       ],
       "metadata": {},
       "outputs": []
@@ -93,10 +93,12 @@
       "type": "code",
       "content": [
         "; display geojson from a file",
-        "; myGeojsonFile = 'C:\\myFile.json'",
-        "; if ~file_test(myGeojsonFile) then message, 'No file, no map!'",
-        "; IDLNotebook.AddToNotebookMap, myGeojsonFile, /is_geojson_uri",
-        "; ENVI.displayInNotebookMap, myGeojsonFile, /is_geojson_uri"
+        "tmpUri = e.getTemporaryFilename('.json', /cleanup_on_exit)",
+        "openw, lun, tmpUri, /get_lun",
+        "printf, lun, geojsonOutline",
+        "free_lun, lun",
+        "",
+        "ENVINotebook.displayInMap, tmpUri, /is_geojson_uri"
       ],
       "metadata": {},
       "outputs": []

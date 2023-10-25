@@ -15,6 +15,7 @@ import { VSCodeClientEventManager } from '@idl/vscode/events/client';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
 import { execSync } from 'child_process';
+import { compare } from 'compare-versions';
 import { lstatSync } from 'fs';
 import * as path from 'path';
 import { ExtensionContext, workspace } from 'vscode';
@@ -31,6 +32,7 @@ import {
 
 import { ON_INDEX } from './events/indexing/on-index';
 import { IDL_CLIENT_OUTPUT_CHANNEL, IDL_LOGGER } from './initialize-client';
+import { START_LANGUAGE_SERVER_CONFIG } from './start-language-server.interface';
 
 /**
  * Reference to the language client that interfaces with our language server
@@ -62,10 +64,20 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
    * Attempt to spawn node
    */
   try {
-    nodeOutput = execSync(`node --version`, { timeout: 1000 })
+    nodeOutput = execSync(`node --version`, {
+      timeout: START_LANGUAGE_SERVER_CONFIG.NODE_TIMEOUT,
+    })
       .toString('utf8')
-      .trim();
-    HAS_NODE = true;
+      .trim()
+      .replace('v', ''); // strip the "v" that our version starts with
+
+    if (nodeOutput) {
+      HAS_NODE = compare(
+        nodeOutput,
+        START_LANGUAGE_SERVER_CONFIG.NODE_MIN_VERSION,
+        '>='
+      );
+    }
   } catch (err) {
     nodeOutput = (err as Error)?.message;
   }
@@ -203,7 +215,9 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
     content: [
       `Starting the language server using "${
         HAS_NODE ? 'node' : 'VSCode'
-      }". Output from "node --version":`,
+      }". Output from "node --version" (minimum is "${
+        START_LANGUAGE_SERVER_CONFIG.NODE_MIN_VERSION
+      }"):`,
       nodeOutput,
     ],
   });

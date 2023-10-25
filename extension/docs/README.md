@@ -6,6 +6,8 @@ This README is the main entry point for the extension documentation for the IDL 
 
 - [**Language Server Crashes**](./general/LANGUAGE_SERVER_CRASHES.md)
 
+- [**Disable ENVI Opening Files**](./general/DISABLE_ENVI_FILE_ASSOCIATIONS.md)
+
 ## Content
 
 - [**AutoDoc**](./general/AUTO_DOC.md): High-level overview of AutoDoc and the IDL Docs docs style

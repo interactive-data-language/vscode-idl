@@ -48,7 +48,7 @@ export function RegisterNotebookDefinitionProvider() {
         );
 
       // return if nothing
-      if (definition === undefined) {
+      if (!definition) {
         return undefined;
       }
 

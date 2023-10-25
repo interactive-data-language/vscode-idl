@@ -67,6 +67,7 @@ export const EN: ITranslation = {
         // shorter because it shows in toolbar
         stopIDL: 'Stop IDL',
         helpAsNotebook: 'IDL: Convert Help to Notebook',
+        openIDLExample: 'IDL: Open IDL Example Notebook',
       },
       terminal: {
         startIDL: 'IDL: Open an IDL Terminal Window',
@@ -117,6 +118,7 @@ export const EN: ITranslation = {
         resetIDL: 'Error while resetting IDL',
         stopIDL: 'Error while stopping IDL',
         helpAsNotebook: 'Error while converting help to notebook',
+        openIDLExample: 'Error while opening IDL example notebook',
       },
       terminal: {
         startIDL: 'Error while opening IDL terminal indow',
@@ -393,13 +395,14 @@ export const EN: ITranslation = {
       selectionChangeError: 'Error while handling selection change in IDL tree',
       clickHandlerError: 'Error while handling IDL tree click event',
       parents: {
-        additionalActions: 'Additional Actions',
+        quickAccess: 'Quick Access',
         codeActions: 'Code',
+        notebooks: 'Notebooks',
         debugging: 'IDL',
         terminal: 'Terminal',
       },
       children: {
-        additionalActions: {
+        quickAccess: {
           pickIDL: {
             name: 'Specify IDL directory',
             description: '(where "idl.exe" or "idl" lives)',
@@ -471,6 +474,20 @@ export const EN: ITranslation = {
           stopProfiling: {
             name: 'Stop Profiling',
             description: 'the IDL session',
+          },
+        },
+        notebooks: {
+          formatNotebooks: {
+            name: 'Format Notebook',
+            description: '',
+          },
+          openIDLExample: {
+            name: 'Open IDL Notebook Example',
+            description: '',
+          },
+          openENVIExample: {
+            name: 'Open ENVI Notebook Example',
+            description: '',
           },
         },
         terminal: {

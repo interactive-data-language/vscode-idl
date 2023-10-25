@@ -1,0 +1,366 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "## Hello World: IDL!"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "This notebook walks through the basics of how IDL Notebooks work.",
+        "",
+        "At a high level it covers: how cells are executed, behaviors for accessing variables, embedding graphics, and what happens when you encounter errors."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Toolbar"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "If you look at the top of VSCode's display for the notebook, you'll see a toolbar.",
+        "",
+        "This toolbar contains a few helpful commands for IDL: Reset and Stop.",
+        "",
+        "![Toolbar image](./images/toolbar.png)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "IDL automatically starts when you run any IDL notebook cell, so no need to manually start the process.",
+        "",
+        "This same IDL session is used and shared for all notebooks that you have open."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "If your session gets a little goofy, you can press reset which will give you a brand new notebook session of IDL (it stops and restarts IDL to make sure it is good as new!).",
+        "",
+        "Stop will simply stop the IDL process which will restart the next time you run a cell."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Routines and Main Level Programs"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Cells with only routine definitions are compiled, but not executed."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro test",
+        "  compile_opt idl2",
+        "",
+        "  print, 42",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Main level programs are executed if they exist.",
+        "",
+        "If a routine definition has a main level program at the end, then we will run that as part of cell execution."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "compile_opt idl2",
+        "",
+        "print, 5",
+        "",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Here's an example with a cell that has a main level program that we call:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "function foo",
+        "  compile_opt idl2",
+        "  return, 42",
+        "end",
+        "",
+        "print, foo()",
+        "",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Cells don't need to have `compile_opt idl2` or an `end` statement in order to run.",
+        "",
+        "We automatically add `compile_opt idl2` to main level programs and add the missing `end` statement for you.",
+        "",
+        "However, we do not change the compile settings in routines that you create."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "arr = findgen(42)",
+        "help, arr"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Execution Folder"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "All markdown cells are executed in the folder where they exist.",
+        "",
+        "You can see this my looking at the filepath to the routine:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "print, routine_filepath()"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Variables"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "All cells are executed as main level programs.",
+        "",
+        "This means that, after you define variables, you can access them in any cell."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "firstVar = 42"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "secondVar = firstVar"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "You'll note that the editor is smart enough to give you auto-complete (you may need to trigger with ctrl + space) and it detects if a variable is defined but not used in any cell.",
+        "",
+        "We also let you know if you use a variable from a lower cell before it gets defined."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "thirdVar = 42 + fourthVar"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "fourthVar = 84"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "If you \"Ctrl + Click\" on a variable, it will take you to the cell and location within that cell where it is defined."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Graphics"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Graphics are embedded within notebook cells as you go.",
+        "",
+        "If you are using direct graphics, we can only embed one image per cell. If you are using anything else we accept one or more embedded graphics items.",
+        "",
+        "The embedded graphics persist when you save and can be viewed at a later time.",
+        "",
+        "There is an extension preference that allows you to disable embedding of graphics if you prefer the windows to appear as they normally would with the workbench."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; make some plots!",
+        "p1 = plot(/test)",
+        "p2 = surface(/test)",
+        "p4 = barplot(/test)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Errors, Stops, and Debugging"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "For now, notebooks are not set up as a tool for true development where you can set breakpoints, stop on errors, and halt execution any any place in a routine."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Instead, we are focused on catching those errors and halting the execution of any other cells."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "For example, if you compile this cell you should see that execution fails because of a syntax error:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro test_syntax_error",
+        "  compile_opt idl2",
+        "",
+        "  a = ; error",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Here is another example where we have a stop within our routine.",
+        "",
+        "In this case, we mark the cell execution as failing because we didn't complete without being stopped."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro test_stop_error",
+        "  compile_opt idl2",
+        "  stop",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; call routine with a stop inside",
+        "test_stop_error"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

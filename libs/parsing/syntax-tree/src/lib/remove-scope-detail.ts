@@ -9,9 +9,10 @@ import { TreeRecurserBasic } from './recursion-and-callbacks/tree-recurser-basic
  */
 export function RemoveScopeDetail(
   parsed: IParsed,
-  cancel: CancellationToken
+  cancel: CancellationToken,
+  force = false
 ): void {
-  if (parsed.hasDetail) {
+  if (parsed.hasDetail || force) {
     TreeRecurserBasic(parsed.tree, cancel, {
       onBasicToken: (token) => {
         delete token.scopeTokens;

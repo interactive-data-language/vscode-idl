@@ -27,9 +27,9 @@
         "  subdirectory = ['data'])",
         "raster = e.openRaster(file)",
         "",
-        "e.displayInNotebook, raster",
-        "e.displayRasterCubeInNotebook, raster",
-        "e.bandAnimateInNotebook, raster"
+        "ENVINotebook.display, raster",
+        "ENVINotebook.displayRasterCube, raster",
+        "ENVINotebook.bandAnimate, raster"
       ],
       "metadata": {},
       "outputs": []
@@ -62,7 +62,7 @@
       "content": [
         "; add a raster",
         "IDLNotebook.AddToNotebookMap, raster",
-        "ENVI.displayInNotebookMap, raster"
+        "ENVINotebook.displayInMap, raster"
       ],
       "metadata": {},
       "outputs": []
@@ -72,11 +72,11 @@
       "content": [
         "; add rois",
         "IDLNotebook.AddToNotebookMap, rois",
-        "ENVI.displayInNotebookMap, rois",
+        "ENVINotebook.displayInMap, rois",
         "",
         "; add a single ROI",
         "IDLNotebook.AddToNotebookMap, rois[0]",
-        "ENVI.displayInNotebookMap, rois[0]"
+        "ENVINotebook.displayInMap, rois[0]"
       ],
       "metadata": {},
       "outputs": []
@@ -86,7 +86,7 @@
       "content": [
         "; add vector",
         "IDLNotebook.AddToNotebookMap, vector",
-        "ENVI.displayInNotebookMap, vector"
+        "ENVINotebook.displayInMap, vector"
       ],
       "metadata": {},
       "outputs": []
@@ -106,7 +106,7 @@
         "; display geojson from a string",
         "geojsonOutline = raster.getOutline(3857)",
         "IDLNotebook.AddToNotebookMap, geojsonOutline",
-        "ENVI.displayInNotebookMap, geojsonOutline"
+        "ENVINotebook.displayInMap, geojsonOutline"
       ],
       "metadata": {},
       "outputs": []
@@ -117,7 +117,7 @@
         "; display geojson from a file",
         "myGeojsonFile = 'C:\\myFile.json'",
         "IDLNotebook.AddToNotebookMap, myGeojsonFile, /is_geojson_uri",
-        "ENVI.displayInNotebookMap, myGeojsonFile, /is_geojson_uri"
+        "ENVINotebook.displayInMap, myGeojsonFile, /is_geojson_uri"
       ],
       "metadata": {},
       "outputs": []
@@ -126,8 +126,8 @@
       "type": "code",
       "content": [
         "; display more than one layer at a time, order is preserved",
-        "ENVI.displayInNotebookMap, raster",
-        "ENVI.displayInNotebookMap, rois"
+        "ENVINotebook.displayInMap, raster",
+        "ENVINotebook.displayInMap, rois"
       ],
       "metadata": {},
       "outputs": []

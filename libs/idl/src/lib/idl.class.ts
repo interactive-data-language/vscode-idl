@@ -1,7 +1,7 @@
 import { Logger } from '@idl/logger';
 import { CleanPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { ChildProcess, spawn } from 'child_process';
+import { ChildProcess, execSync, spawn } from 'child_process';
 import { EventEmitter } from 'events';
 import copy from 'fast-copy';
 import { existsSync } from 'fs';
@@ -162,6 +162,15 @@ export class IDL extends EventEmitter {
     // since this controls parsing
     args.env.IDL_PROMPT = 'IDL> ';
 
+    // check if we need to manage the language environment variable
+    if (os.platform() === 'darwin') {
+      if (!('LANG' in args.env)) {
+        args.env['LANG'] = `${execSync(`defaults read -g AppleLocale`)
+          .toString()
+          .trim()}.UTF-8`;
+      }
+    }
+
     // build the command for starting IDL
     const cmd = `${args.config.IDL.directory}${path.sep}idl`;
 
@@ -175,6 +184,7 @@ export class IDL extends EventEmitter {
           dir: args.env.IDL_DIR,
           path: args.env.IDL_PATH,
           dlm_path: args.env.IDL_DLM_PATH,
+          env: args.env,
         },
       ],
     });
@@ -592,7 +602,9 @@ export class IDL extends EventEmitter {
         'echoThis' in options ? options.echoThis : command
       );
     }
-    return await this._executeQueue(command, options);
+
+    // add extra spaces at the beginning of the command
+    return await this._executeQueue(`  ${command}`, options);
   }
 
   /**

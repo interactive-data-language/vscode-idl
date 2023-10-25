@@ -34,7 +34,7 @@ export function RegisterHoverProvider() {
         await LANGUAGE_SERVER_CLIENT.sendRequest('textDocument/hover', params);
 
       // return if nothing
-      if (hovered === undefined) {
+      if (!hovered) {
         return undefined;
       }
 

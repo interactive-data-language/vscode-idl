@@ -394,6 +394,7 @@ export class IDLNotebookController {
 
     // always mark cell as finished before we end
     cell.execution.end(success, Date.now());
+    cell.success = success;
   }
 
   /**
@@ -577,11 +578,22 @@ export class IDLNotebookController {
   /**
    * Execute cell
    */
-  async _executeCell(cell: vscode.NotebookCell): Promise<boolean> {
+  async _executeCell(cell: vscode.NotebookCell): Promise<ICurrentCell> {
     /**
      * Create cell execution data
      */
     const execution = this._controller.createNotebookCellExecution(cell);
+
+    /**
+     * Track current cell
+     */
+    const current: ICurrentCell = {
+      cell,
+      execution,
+      output: '',
+      finished: false,
+      success: true,
+    };
 
     // attempt to launch IDL if we havent started yet
     if (!this.isStarted()) {
@@ -592,24 +604,18 @@ export class IDLNotebookController {
           ))
         ) {
           execution.end(false, Date.now());
-          return;
+          current.success = false;
+          return current;
         }
       } catch (err) {
         execution.end(false, Date.now());
-
-        // return flag
-        return false;
+        current.success = false;
+        return current;
       }
     }
 
     // save cell as current
-    this._currentCell = {
-      cell,
-      execution,
-      output: '',
-      finished: false,
-      success: true,
-    };
+    this._currentCell = current;
 
     // set cell order
     execution.executionOrder = ++this._executionOrder;
@@ -674,7 +680,7 @@ export class IDLNotebookController {
           // check for empty main
           if (codes[i] === IDL_PROBLEM_CODES.EMPTY_MAIN) {
             await this._endCellExecution(true);
-            return true;
+            return current;
           }
         }
       }
@@ -711,7 +717,7 @@ export class IDLNotebookController {
     }
 
     // return as success
-    return true;
+    return current;
   }
 
   /**
@@ -778,13 +784,19 @@ export class IDLNotebookController {
     while (cell !== undefined) {
       try {
         // attempt to run cell
-        const didExecute = await this._executeCell(cell);
+        const current = await this._executeCell(cell);
 
-        // short pause so apis catch up
+        /**
+         * Short pause so APIs catch up
+         *
+         * This also helps ensure notebooks always run consistently
+         *
+         * Without this, tests have intermittent failures
+         */
         await Sleep(100);
 
         // execute cell and, if we dont succeed, then stop and return
-        if (!didExecute || !cell?.executionSummary?.success) {
+        if (!current.finished || !current.success) {
           // clear queue
           this.clearQueue();
 

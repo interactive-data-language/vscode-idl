@@ -409,32 +409,6 @@ end
 
 ;+
 ; :Description:
-;   Registers a message interceptor for ENVI progress messages to have
-;   some basic user feedback in notebooks
-;
-; :Keywords:
-;   stop: in, optional, Boolean
-;     If set, and we are listening to events from ENVI, removes our event
-;     listener and cleans up
-;
-;-
-pro IDLNotebook::ListenToENVIEvents, stop = stop
-  compile_opt idl2, hidden, static
-  on_error, 2
-
-  ; return if already registered
-  if (obj_valid(!idlnotebookmagic.envilistener)) then begin
-    ; stop listening to events
-    if keyword_set(stop) then !idlnotebookmagic.envilistener.cleanup
-    return
-  endif
-
-  ; create message interceptor and save
-  !idlnotebookmagic.envilistener = VSCodeENVIMessageInterceptor()
-end
-
-;+
-; :Description:
 ;   Resets properties and clears all tracked items
 ;
 ;-
@@ -529,4 +503,5 @@ pro IDLNotebook__define
   IDLNotebookImage__define
   IDLNotebookMap__define
   IDLNotebookPlot__define
+  ENVINotebook__define
 end

@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -58,6 +58,7 @@
     "ansi-styles": "^6.1.0",
     "await-notify": "^1.0.1",
     "chalk": "^4.1.2",
+    "compare-versions": "^6.1.0",
     "deepmerge": "^4.2.2",
     "fast-copy": "^3.0.0",
     "fast-equals": "^5.0.1",
@@ -274,6 +275,10 @@
       {
         "command": "idl.notebooks.helpAsNotebook",
         "title": "%commands.idl.notebooks.helpAsNotebook%"
+      },
+      {
+        "command": "idl.notebooks.openIDLExample",
+        "title": "%commands.idl.notebooks.openIDLExample%"
       },
       {
         "command": "idl.notebooks.resetIDL",
@@ -959,9 +964,6 @@
         "displayName": "%envi.openerTitle%",
         "selector": [
           {
-            "filenamePattern": "*.bmp"
-          },
-          {
             "filenamePattern": "*.dat"
           },
           {
@@ -972,9 +974,6 @@
           },
           {
             "filenamePattern": "*.ntf"
-          },
-          {
-            "filenamePattern": "*.png"
           },
           {
             "filenamePattern": "*.tif"

@@ -42,7 +42,7 @@ export const NotebookCompletionBasic: RunnerFunction = async (init) => {
     );
 
   // verify definition has return
-  expect(completion1).not.toBeUndefined();
+  expect(completion1).toStrictEqual(expect.any(Array));
   expect(completion1.length).toEqual(0);
 
   /**
@@ -65,7 +65,7 @@ export const NotebookCompletionBasic: RunnerFunction = async (init) => {
     );
 
   // verify definition has return
-  expect(completion2).not.toBeUndefined();
+  expect(completion2).toStrictEqual(expect.any(Array));
   expect(completion2.length).not.toEqual(0);
 
   // clear any existing outputs

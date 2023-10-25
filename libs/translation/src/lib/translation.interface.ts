@@ -55,6 +55,8 @@ export interface ICommandTranslation {
     stopIDL: string;
     /** Convert help to notebook */
     helpAsNotebook: string;
+    /** Open IDL example notebook */
+    openIDLExample: string;
   };
   /** Terminal commands */
   terminal: {
@@ -489,15 +491,16 @@ export interface ITranslation {
       clickHandlerError: string;
       /** Parent tabs/sections in the sidebar */
       parents: {
-        additionalActions: string;
+        quickAccess: string;
         debugging: string;
         codeActions: string;
+        notebooks: string;
         terminal: string;
       };
       /** Children of any of the sidebars, should have the command as the key name */
       children: {
         /** Additional actions */
-        additionalActions: {
+        quickAccess: {
           pickIDL: ITreeInformation;
           fileBug: ITreeInformation;
           openWebview: ITreeInformation;
@@ -524,6 +527,14 @@ export interface ITranslation {
           reset: ITreeInformation;
           startProfiling: ITreeInformation;
           stopProfiling: ITreeInformation;
+        };
+        notebooks: {
+          /** Format notebook */
+          formatNotebooks: ITreeInformation;
+          /** Format notebook */
+          openIDLExample: ITreeInformation;
+          /** Format notebook */
+          openENVIExample: ITreeInformation;
         };
         /** Deprecated, but tree entries for IDL terminals */
         terminal: {

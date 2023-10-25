@@ -32,12 +32,12 @@
 ;
 ;   ; display in the current notebook cell
 ;   ; which requires this to be running in a notebook
-;   e.displayRasterInNotebook, raster
+;   ENVINotebook.display, raster
 ;   ```
 ;
 ;-
-pro envi::displayRasterInNotebook, raster, size = size
-  compile_opt idl2, hidden, static
+pro ENVINotebook_DisplayRaster, raster, size = size
+  compile_opt idl2, hidden
   on_error, 2
 
   ; get the current session of ENVI
