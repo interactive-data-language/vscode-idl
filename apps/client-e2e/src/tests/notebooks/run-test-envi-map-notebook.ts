@@ -52,7 +52,7 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
   {
     idx: 8,
     success: true,
-    mimeTypes: [],
+    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
   },
 ];
 

@@ -93,10 +93,12 @@
       "type": "code",
       "content": [
         "; display geojson from a file",
-        "; myGeojsonFile = 'C:\\myFile.json'",
-        "; if ~file_test(myGeojsonFile) then message, 'No file, no map!'",
-        "; IDLNotebook.AddToNotebookMap, myGeojsonFile, /is_geojson_uri",
-        "; ENVINotebook.displayInMap, myGeojsonFile, /is_geojson_uri"
+        "tmpUri = e.getTemporaryFilename('.json', /cleanup_on_exit)",
+        "openw, lun, tmpUri, /get_lun",
+        "printf, lun, geojsonOutline",
+        "free_lun, lun",
+        "",
+        "ENVINotebook.displayInMap, tmpUri, /is_geojson_uri"
       ],
       "metadata": {},
       "outputs": []
