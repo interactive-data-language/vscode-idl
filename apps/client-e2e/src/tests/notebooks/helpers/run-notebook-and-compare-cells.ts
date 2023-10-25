@@ -59,7 +59,7 @@ export async function RunNotebookAndCompareCells(
   await Sleep(timeout);
 
   // compare cells
-  CompareCellOutputs(nb, cells);
+  await CompareCellOutputs(nb, cells);
 
   if (clear) {
     // clear outputs
