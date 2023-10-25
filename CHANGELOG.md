@@ -52,6 +52,8 @@ Updated cache logic to fix a potential circular JSON error when adding items to 
 
 Renamed "Additional Actions" sidebar to "Quick Access" and updated the icon used
 
+Resolve an edge case when running notebooks where a false-failure would be detected that halts notebook execution.
+
 ## 3.2.3 September 2023
 
 Re-work cancellation to handle cases where the worker threads were too busy to get the messages that work needs to be stopped. If you now use a very large file (take "slicer3.pro" from the IDL distribution) events are interrupted as expected.
