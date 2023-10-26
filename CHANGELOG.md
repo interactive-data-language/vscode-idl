@@ -44,6 +44,14 @@ Here are some of the features that notebooks bring:
 
 ## 3.2.5 October/November 2023
 
+Added the ability to convert your IDL notebooks to PRO code! This exciting features uses intimate knowledge of IDL to break down the code in your cells and put it back together as a single PRO file.
+
+- Any routines and non-main level program code is put together first and follows the order of the cells. Then, any main-level programs within cells or single lines of code are added as one, large main level program at the end.
+
+- Milage may vary based on how you wrote your notebook, but it is very easy to get out your routine definitions
+
+- Use GitHub to let us know if this should behave differently!
+
 Expanded sidebar for notebooks with buttons for:
 
 - Creating a new notebook
@@ -51,6 +59,8 @@ Expanded sidebar for notebooks with buttons for:
 - Formatting the IDL Code in your notebook cells (shortcut for VSCode native command)
 
 - Ability to open an example IDL Notebook
+
+- Converting notebooks to PRO code
 
 There's also a command added that will reset your example notebooks to what we had originally. it is called "IDL: Reset IDL and ENVI Example Notebooks'.
 

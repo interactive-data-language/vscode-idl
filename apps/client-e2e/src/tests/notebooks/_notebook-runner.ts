@@ -1,6 +1,7 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
+import { BasicNotebookToProCodeText } from './basic-notebook-to-pro-code-test';
 import { NewNotebook } from './new-notebook';
 import { NotebookFormats_1_0_0 } from './notebook-formats-1.0.0';
 import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
@@ -58,6 +59,12 @@ NOTEBOOK_RUNNER.addTest({
 NOTEBOOK_RUNNER.addTest({
   name: 'Reset notebook examples',
   fn: ResetNotebookExamples,
+  critical: false,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Convert notebook to PRO code (basic)',
+  fn: BasicNotebookToProCodeText,
   critical: false,
 });
 

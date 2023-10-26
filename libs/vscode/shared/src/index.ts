@@ -1,3 +1,4 @@
+export * from './lib/get-active-idl-notebook-widnow';
 export * from './lib/get-active-pro-code-or-task-window';
 export * from './lib/get-active-pro-code-window';
 export * from './lib/idl-command-action.interface';

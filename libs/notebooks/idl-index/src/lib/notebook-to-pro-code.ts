@@ -5,7 +5,6 @@ import { IDLNotebookDocument } from '@idl/notebooks/shared';
 import { IDLIndex } from '@idl/parsing/index';
 import { SyntaxTree, TreeToken } from '@idl/parsing/syntax-tree';
 import { MainLevelToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
-import { writeFileSync } from 'fs';
 
 /**
  * Converts a notebook to PRO code on disk
@@ -14,14 +13,13 @@ export async function NotebookToProCode(
   index: IDLIndex,
   file: string,
   notebook: IDLNotebookDocument,
-  outFile: string,
   formatting: IAssemblerOptions<FormatterType>,
   cancel: CancellationToken
-) {
+): Promise<string> {
   /**
    * Index our file
    */
-  const indexed = await index.indexIDLNotebook(file, notebook, cancel);
+  const indexed = await index.getParsedNotebook(file, notebook, cancel);
 
   /**
    * Get the values for our parsed notebooks
@@ -43,6 +41,11 @@ export async function NotebookToProCode(
     /** Get parsed cell */
     const parsed = cells[i];
 
+    // if cell is undefined, it isnt code
+    if (parsed === undefined) {
+      continue;
+    }
+
     // save a reference to the tree
     const tree = parsed.tree;
 
@@ -61,7 +64,7 @@ export async function NotebookToProCode(
     if (tree[tree.length - 1].name === TOKEN_NAMES.MAIN_LEVEL) {
       // check if we have something besides main
       if (tree.length > 1) {
-        nonMainTokens = tree.slice(0, tree.length - 2);
+        nonMainTokens = tree.slice(0, tree.length - 1);
       }
 
       // save main tokens
@@ -94,6 +97,9 @@ export async function NotebookToProCode(
 
     // check for main
     if (mainTokens.length > 0) {
+      // get the syntax tree
+      parsed.tree = mainTokens;
+
       // format the main level program
       const formattedMain = Assembler(parsed, cancel, formatting);
 
@@ -127,9 +133,18 @@ export async function NotebookToProCode(
     if (strings.length > 0) {
       strings.push('');
     }
+
+    // add header to the start of the main level program
+    main.unshift('');
+    main.unshift('compile_opt idl2');
+    main.unshift('; main level program');
+
+    // close the main level program
+    main.push('end');
+
+    // merge strings
     strings = strings.concat(main);
   }
 
-  // write file to disk
-  writeFileSync(outFile, formatting.eol === 'lf' ? '\n' : '\r\n');
+  return strings.join(formatting.eol === 'lf' ? '\n' : '\r\n');
 }

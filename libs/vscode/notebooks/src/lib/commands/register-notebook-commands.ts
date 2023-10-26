@@ -7,6 +7,7 @@ import {
 import {
   GetExtensionPath,
   IDL_COMMANDS,
+  IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_EXTENSION,
   IDL_NOTEBOOK_LANGUAGE_NAME,
   Sleep,
@@ -19,8 +20,12 @@ import {
   LogCommandError,
   LogCommandInfo,
 } from '@idl/vscode/client';
-import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 import {
+  IRetrieveDocsPayload,
+  LANGUAGE_SERVER_MESSAGE_LOOKUP,
+} from '@idl/vscode/events/messages';
+import {
+  GetActiveIDLNotebookWindow,
   OpenNotebookInVSCode,
   VSCodeTelemetryLogger,
 } from '@idl/vscode/shared';
@@ -244,6 +249,53 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             'Error opening IDL example notebook',
             err,
             cmdErrors.notebooks.openIDLExample
+          );
+          return false;
+        }
+      }
+    )
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.NOTEBOOKS.NOTEBOOK_TO_PRO_CODE,
+      async () => {
+        try {
+          // get open notebook
+          const notebook = GetActiveIDLNotebookWindow();
+
+          // no notebook, indicate that we didnt run
+          if (!notebook) {
+            return false;
+          }
+
+          const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
+            LANGUAGE_SERVER_MESSAGE_LOOKUP.NOTEBOOK_TO_PRO_CODE,
+            {
+              uri: notebook.uri.toString(),
+            }
+          );
+
+          // make sure we didnt have an error
+          if (!resp) {
+            return false;
+          }
+
+          // open a new document with the PRO code
+          const doc = await vscode.workspace.openTextDocument({
+            content: resp.code,
+            language: IDL_LANGUAGE_NAME,
+          });
+
+          // show it
+          await vscode.window.showTextDocument(doc);
+
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error converting notebook to PRO code',
+            err,
+            cmdErrors.notebooks.notebookToProCode
           );
           return false;
         }

@@ -61,6 +61,8 @@ export interface ICommandTranslation {
     resetNotebookExamples: string;
     /** Create a new notebook */
     newNotebook: string;
+    /** Convert a notebook to PRO code */
+    notebookToProCode: string;
   };
   /** Terminal commands */
   terminal: {
@@ -455,6 +457,8 @@ export interface ITranslation {
       onDidCloseNotebook: string;
       /** Retrieving docs */
       onRetrieveDocs: string;
+      /** Convert notebook to PRO code */
+      onNotebookToProCode: string;
     };
     /** Misc error reports */
     errors: {
@@ -543,6 +547,8 @@ export interface ITranslation {
           openIDLExample: ITreeInformation;
           /** Reset example notebooks */
           resetExampleNotebooks: ITreeInformation;
+          /** Convert notebook to PRO code */
+          notebookToProCode: ITreeInformation;
         };
         /** Deprecated, but tree entries for IDL terminals */
         terminal: {
@@ -608,6 +614,8 @@ export interface ITranslation {
   notifications: {
     /** When no PRO code if found in the editor */
     noProCode: string;
+    /** When we have no IDL notebook in the editor */
+    noIDLNotebook: string;
     /** No pro code or task file */
     noProCodeOrTaskFile: string;
     /** When the IDL directory is not found */

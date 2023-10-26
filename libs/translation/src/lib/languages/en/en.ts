@@ -70,6 +70,7 @@ export const EN: ITranslation = {
         openIDLExample: 'IDL: Open IDL Example Notebook',
         resetNotebookExamples: 'IDL: Reset IDL and ENVI Example Notebooks',
         newNotebook: 'IDL: Create New IDL Notebook',
+        notebookToProCode: 'IDL: Convert IDL Notebook to PRO Code',
       },
       terminal: {
         startIDL: 'IDL: Open an IDL Terminal Window',
@@ -123,6 +124,7 @@ export const EN: ITranslation = {
         openIDLExample: 'Error while opening IDL example notebook',
         resetNotebookExamples: 'Error while resetting example notebooks',
         newNotebook: 'Error while creating new notebook',
+        notebookToProCode: 'Error while converting notebook to PRO code',
       },
       terminal: {
         startIDL: 'Error while opening IDL terminal indow',
@@ -489,6 +491,10 @@ export const EN: ITranslation = {
             name: 'New IDL Notebook',
             description: '',
           },
+          notebookToProCode: {
+            name: 'Convert IDL Notebook to PRO Code',
+            description: '',
+          },
           openENVIExample: {
             name: 'Open ENVI Notebook Example',
             description: '',
@@ -589,6 +595,7 @@ export const EN: ITranslation = {
       onDidChangeNotebook: 'Error responding to notebook change event',
       onDidCloseNotebook: 'Error responding to notebook close event',
       onRetrieveDocs: 'Error responding to docs retrieval event',
+      onNotebookToProCode: 'Error converting notebook to PRO code',
     },
     errors: {
       unhandled: 'An unknown error ocurred within the IDL Language Server',
@@ -640,6 +647,7 @@ export const EN: ITranslation = {
   notifications: {
     noProCode: 'No active PRO file in VSCode',
     noProCodeOrTaskFile: 'No active PRO file or Task file in VSCode',
+    noIDLNotebook: 'No active IDL Notebook in VSCode',
     noIDLDirFound: 'IDL directory not found or configured, cannot start IDL',
     yes: 'Yes',
     no: 'No',

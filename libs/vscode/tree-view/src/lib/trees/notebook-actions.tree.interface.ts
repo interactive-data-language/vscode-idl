@@ -16,6 +16,13 @@ export const NOTEBOOK_ACTIONS: IChild[] = [
     commandName: IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
   },
   {
+    name: IDL_TRANSLATION.idl.tree.children.notebooks.notebookToProCode.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.notebooks.notebookToProCode.description,
+    icon: 'transform.svg',
+    commandName: IDL_COMMANDS.NOTEBOOKS.NOTEBOOK_TO_PRO_CODE,
+  },
+  {
     name: IDL_TRANSLATION.idl.tree.children.notebooks.formatNotebooks.name,
     description:
       IDL_TRANSLATION.idl.tree.children.notebooks.formatNotebooks.description,
