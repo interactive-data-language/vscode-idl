@@ -114,7 +114,7 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
       IDL_TRANSLATION.idl.tree.parents.debugging,
       '',
       vscode.TreeItemCollapsibleState.Expanded,
-      'assessment.svg',
+      'idlicon.svg',
       ''
     );
     this.tree[IDL_TRANSLATION.idl.tree.parents.debugging] =
