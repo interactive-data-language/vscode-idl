@@ -1546,10 +1546,10 @@
       "fontColor": "#6d8086"
     },
     "_idl": {
-      "iconPath": "./../images/dark/idlicon.png"
+      "iconPath": "./../images/dark/idlicon.svg"
     },
     "_idl_light": {
-      "iconPath": "./../images/light/idlicon.png"
+      "iconPath": "./../images/light/idlicon.svg"
     }
   },
   "file": "_default",

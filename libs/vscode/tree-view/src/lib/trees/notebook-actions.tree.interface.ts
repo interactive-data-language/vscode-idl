@@ -33,7 +33,7 @@ export const NOTEBOOK_ACTIONS: IChild[] = [
     name: IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.name,
     description:
       IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.description,
-    icon: 'idlicon.png',
+    icon: 'idlicon.svg',
     commandName: IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE,
   },
   // {
