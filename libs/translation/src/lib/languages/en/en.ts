@@ -380,7 +380,8 @@ export const EN: ITranslation = {
   hoverHelp: HOVER_HELP_EN,
   envi: {
     openerTitle: 'ENVI File Opener',
-    openerText: 'ENVI should attempt to open the image shortly, please wait',
+    openerText:
+      'ENVI should attempt to open the image shortly, please wait.\nTo disable this behavior, see the extension documentation.',
     open: {
       commandError:
         'An unknown error ocurred while trying to open data in ENVI',

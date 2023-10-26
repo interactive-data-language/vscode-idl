@@ -64,6 +64,8 @@ Expanded sidebar for notebooks with buttons for:
 
 There's also a command added that will reset your example notebooks to what we had originally. it is called "IDL: Reset IDL and ENVI Example Notebooks'.
 
+When automatically opening ENVI files, the text displayed adds a note about how you can disable the behavior by looking at the extension documentation.
+
 ## 3.2.4 October 2023
 
 Fixed an issue where improper versions of node.js were used for the language server startup. This caused failures in the language server starting which would prevent any of the feature goodness of the language server from being accessible.
