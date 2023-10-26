@@ -58,7 +58,7 @@ async function DownloadFiles() {
   );
 
   /** Dark icon */
-  const darkIcon = './../images/dark/idlicon.png';
+  const darkIcon = './../images/dark/idlicon.svg';
 
   /** Resolve and make sure it exists */
   const qualifiedDark = resolve(outDir, outDir);
@@ -67,7 +67,7 @@ async function DownloadFiles() {
   }
 
   /** Dark icon */
-  const lightIcon = './../images/light/idlicon.png';
+  const lightIcon = './../images/light/idlicon.svg';
 
   /** Resolve and make sure it exists */
   const qualifiedLight = resolve(outDir, outDir);
