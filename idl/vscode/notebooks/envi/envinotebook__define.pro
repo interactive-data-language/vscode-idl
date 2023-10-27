@@ -10,10 +10,10 @@
 ;     The dataset to display in a notebook
 ;
 ; :Keywords:
-;   allow_many_bands: in, optional, Boolean
-;     If set, and `animate` is set, allows the display of more
-;     than 12 bands of data. By default, an error is thrown if you have 12 or
-;     more bands to limit the size of notebook files.
+;   allow_many: in, optional, Boolean
+;     If set, and `animate` is set or we are displaying a raster series, allows
+;     the display of more than 12 bands or rasters. By default, an error is thrown if
+;     ou have 12 or more bands to limit the size of notebook files.
 ;   animate: in, optional, Boolean
 ;     If set, and we are displaying an ENVI Raster, then we will create an
 ;     animation of each band
@@ -21,6 +21,10 @@
 ;     If set, and we are displaying an ENVI Raster, then we will create
 ;     a 3d data cube representation showing a visual of the raster with
 ;     a spectral representation along the top and right sides of the image
+;   no_stretch: in, optional, Boolean
+;     If set, then bands or rasters that are diplsyed will not have a stretch applied.
+;
+;     This keyword does not apply when creating a raster cube
 ;   size: in, optional, Number
 ;     Specify the largest dimension of the thumbnail (columns or rows). The
 ;     input raster's aspect ratio will be retained.
@@ -46,7 +50,7 @@
 ;   ```
 ;
 ;-
-pro ENVINotebook::Display, dataset, allow_many_bands = allow_many_bands, animate = animate, cube = cube, size = size
+pro ENVINotebook::Display, dataset, allow_many = allow_many, animate = animate, cube = cube, no_stretch = no_stretch, size = size
   compile_opt idl2, hidden, static
   on_error, 2
 
@@ -69,7 +73,7 @@ pro ENVINotebook::Display, dataset, allow_many_bands = allow_many_bands, animate
         ;+
         ; Band animation
         ;-
-        keyword_set(animate): ENVINotebook_AnimateBands, dataset, size = size, allow_many_bands = allow_many_bands
+        keyword_set(animate): ENVINotebook_AnimateBands, dataset, allow_many_bands = allow_many, no_stretch = no_stretch, size = size
 
         ;+
         ; Spectral data cube
@@ -79,14 +83,14 @@ pro ENVINotebook::Display, dataset, allow_many_bands = allow_many_bands, animate
         ;+
         ; Normal display of raster
         ;-
-        else: ENVINotebook_DisplayRaster, dataset, size = size
+        else: ENVINotebook_DisplayRaster, dataset, no_stretch = no_stretch, size = size
       endcase
     end
 
     ;+
     ; Displaying raster series
     ;-
-    isa(dataset, 'envirasterseries'): ENVINotebook_DisplayRasterSeries, dataset, size = size
+    isa(dataset, 'envirasterseries'): ENVINotebook_DisplayRasterSeries, dataset, allow_many_rasters = allow_many, no_stretch = no_stretch, size = size
 
     ;+
     ; Unknown data type

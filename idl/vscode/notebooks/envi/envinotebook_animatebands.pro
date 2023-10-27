@@ -18,6 +18,8 @@
 ; :Keywords:
 ;   allow_many_bands: in, optional, Boolean
 ;     If set, allows the display of more than 12 bands of data
+;   no_stretch: in, optional, Boolean
+;     If set, then bands that are diplsyed will not have a stretch applied.
 ;   size: in, optional, Number
 ;     Specify the largest dimension of the thumbnail (columns or rows). The
 ;     input raster's aspect ratio will be retained.
@@ -42,7 +44,7 @@
 ;   ```
 ;
 ;-
-pro ENVINotebook_AnimateBands, raster, size = size, allow_many_bands = allow_many_bands
+pro ENVINotebook_AnimateBands, raster, allow_many_bands = allow_many_bands, no_stretch = no_stretch, size = size
   compile_opt idl2, hidden
   on_error, 2
 
@@ -70,7 +72,7 @@ pro ENVINotebook_AnimateBands, raster, size = size, allow_many_bands = allow_man
   for i = 0, raster.nbands - 1 do rasters[i] = ENVISubsetRaster(raster, bands = i)
 
   ; display rasters
-  ENVINotebook.display, rasters, size = size
+  ENVINotebook.Display, rasters, no_stretch = no_stretch, size = size
 
   ; clean up
   for i = 0, raster.nbands - 1 do rasters[i].close

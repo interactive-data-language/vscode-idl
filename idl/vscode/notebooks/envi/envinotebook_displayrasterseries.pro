@@ -18,6 +18,8 @@
 ; :Keywords:
 ;   allow_many_rasters: bidirectional, optional, any
 ;     Placeholder docs for argument, keyword, or property
+;   no_stretch: in, optional, Boolean
+;     If set, rasters that are diplsyed will not have a stretch applied.
 ;   size: in, optional, Number
 ;     Specify the largest dimension of the thumbnail (columns or rows). The
 ;     input raster's aspect ratio will be retained.
@@ -44,7 +46,7 @@
 ;   ```
 ;
 ;-
-pro ENVINotebook_DisplayRasterSeries, series, size = size, allow_many_rasters = allow_many_rasters
+pro ENVINotebook_DisplayRasterSeries, series, allow_many_rasters = allow_many_rasters, no_stretch = no_stretch, size = size
   compile_opt idl2, hidden
   on_error, 2
 
@@ -72,5 +74,5 @@ pro ENVINotebook_DisplayRasterSeries, series, size = size, allow_many_rasters = 
   foreach raster, series, i do rasters[i] = raster
 
   ; display rasters
-  ENVINotebook.Display, rasters
+  ENVINotebook.Display, rasters, no_stretch = no_stretch, size = size
 end

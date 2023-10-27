@@ -10,7 +10,8 @@
         "",
         "This notebook walks through how to use ENVI within an IDL Notebook.",
         "",
-        "If you are new to notebooks, it is recommended to check out the example IDL notebook first. From the sidebar in VSCode, under \"Notebooks\", select \"Open IDL Notebook Example\" for a brief introduction."
+        "If you are new to notebooks, it is recommended to check out the example IDL notebook first. From the sidebar in VSCode, under \"Notebooks\", select \"Open IDL Notebook Example\" for a brief introduction.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -18,7 +19,8 @@
     {
       "type": "markdown",
       "content": [
-        "### Raster: Display"
+        "### Starting ENVI",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -26,7 +28,17 @@
     {
       "type": "markdown",
       "content": [
-        "ENVI Notebooks "
+        "While you can start ENVI with the UI present, we are going to use headless ENVI to show you how you can work with raster data in notebooks without needing to click or interact with any other applications.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; start ENVI headlessly",
+        "e = envi(/headless)"
       ],
       "metadata": {},
       "outputs": []
@@ -34,7 +46,8 @@
     {
       "type": "markdown",
       "content": [
-        "### Raster: Animations"
+        "Once ENVI is open, we can run task processing, embed, progress, and easily visualize data.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -42,7 +55,8 @@
     {
       "type": "markdown",
       "content": [
-        "### Embedding Progress Messages"
+        "### Raster: Display",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -50,7 +64,387 @@
     {
       "type": "markdown",
       "content": [
-        "### Maps: Raster and Vector"
+        "The root entry point for data visualization within IDL Notebooks is the `ENVINotebook.Display` method.",
+        "",
+        "Let's open a sample raster and view it in a notebook.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; open a sample raster",
+        "file = filepath('qb_boulder_msi', subdir = ['data'], $",
+        "  root_dir = e.root_dir)",
+        "raster = e.openRaster(file)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Once we have an open dataset, we can use `ENVINotebook.display` to embed a nice, pretty picture of our raster dataset.",
+        "",
+        "Note that this will automatically pick the bands for display and apply a basic stretch. It will use RGB, CIR, or the first three bands if not wavelength metadata is present.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "ENVINotebook.Display, raster"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "To manually pick bands for display that are not an RGB combination, use the ENVISubsetRaster function and manually specify the bands in an RGB combination.",
+        "",
+        "Here we can make a CIR( Color Infra Red) representation of the data by removing the blue band (first band).",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "ENVINotebook.Display, ENVISubsetRaster(raster, bands = [3, 2, 1])"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "If you don't want to stretch data automatically, or manually apply a stretch before display, use the `no_stretch` keyword.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; manually stretch the raster",
+        "stretched = ENVIOptimizedLinearStretchRaster(raster)",
+        "",
+        "; display a subset with our nice stretch over a subset of the image",
+        "ENVINotebook.Display, ENVISubsetRaster(stretched, sub_rect = [700, 450, 850, 600])"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "If we run the same command, but with stretching enabled, you can see how the water throws off our default stretch and makes it hard to see what is in the subset of our image.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; ddisplay a subset of our image and show why manually stretching the raster helps",
+        "ENVINotebook.Display, ENVISubsetRaster(raster, sub_rect = [700, 450, 850, 600])"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "We can also run image processing routines and embed the outputs inside of notebooks as well.",
+        "",
+        "Let's use an ENVI Task to perform clustering on our raw image pixels.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Run an ENVI Task for unsupervicsed classification",
+        ";-",
+        "isoTask = ENVITask('ISODATAClassification')",
+        "isoTask.input_raster = raster",
+        "isoTask.execute",
+        "",
+        "; display our result",
+        "ENVINotebook.Display, isoTask.output_raster"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Raster: Animations",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "In addition to being able to display a single image, we can create animations of different bands and raster series.",
+        "",
+        "> Important Note! Band animations error if you have more than 12 bands in a given dataset. That's because we have to create and embed PNGs in your notebook cell.",
+        ">",
+        "> If you try to animate through a 100 band image, that means a new PNG is added for each band. In this case, use the ENVI UI's band animation tools",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Picking up where our raster display left off, we can tell display that we want to view more than one raster at a time. This will create a dialog that will toggle back and forth between each raster.",
+        "",
+        "This is a nice way to quickly visualize data and see image processing results.",
+        "",
+        "> Pro tip: Each raster should have the same number of columns and rows, otherwise the datasets won't line up.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Display input and output in same cell",
+        ";-",
+        "ENVINotebook.Display, [raster, isoTask.output_raster]"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "We can also create simple animations that swap between the bands of a given dataset. As mentioned up above, we have a default limit of 12 bands that you can display at once.",
+        "",
+        "If you have more than 12 bands, an error will be thrown without the `allow_many` keyword set.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "To animate a dataset, use the `animate` keyword when displaying raster data.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "ENVINotebook.Display, raster, /animate"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Our final animation that we can create is of a raster series.",
+        "",
+        "This has the same API as basic display of a raster and embeds an animation within our notebook.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Open a raster series",
+        ";-",
+        "",
+        "; raster series file",
+        "seriesFile = filepath('AirTemp.series', subdir = ['data', 'time_series'], $",
+        "  root_dir = e.root_dir)",
+        "",
+        "; create a raster series",
+        "series = ENVIRasterSeries(seriesFile)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Display raster series in notebook",
+        ";",
+        "; WARNING: this can result in large notebooks so be cautious about series with many rasters",
+        ";",
+        "; All rasters in your raster series should line up with one another. If not, use RegridRasterSeries before",
+        "; calling this.",
+        ";-",
+        "ENVINotebook.Display, series"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Embedding Progress Messages",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "When you are using ENVI, most of the tim you will have some sort of automated processing that needs to happen.",
+        "",
+        "When ENVI is in headless mode and the UI is not present, we can embed the progress messages from ENVI Tasks directly within our notebook.",
+        "",
+        "To do with, we use the `ENVINotebook.embedProgress` method to enable and disable.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; embed progress messages",
+        "ENVINotebook.EmbedProgress"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Run a rask and see progress as we run",
+        ";-",
+        "",
+        "; create a task and display",
+        "mnfTask = ENVITask('ForwardMNFTransform')",
+        "mnfTask.input_raster = raster",
+        "mnfTask.execute"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Lastly, if you don't like the progress messages, we can turn them off and we won't see any output.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "ENVINotebook.EmbedProgress, /stop"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";+",
+        "; Run processing to show that progress messages arent embedded.",
+        ";-",
+        "",
+        "; create a task and display",
+        "mnfTask = ENVITask('ForwardMNFTransform')",
+        "mnfTask.input_raster = raster",
+        "mnfTask.execute"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Maps: Raster and Vector",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "One of the coolest ways that we can visualize data from ENVI within notebooks is using maps!",
+        "",
+        "This is enabled because, within VSCode, we are just using JavaScript and HTML to display outputs, so we can use one of the many open source frameworks for this.",
+        "",
+        "> Important note: All datasets that you view on a map **must** be georeferenced. If your data is not, then you need to use the basic visualizations listed above.",
+        "",
+        "> Important note: Maps require an internet connection to load the basemap.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Let's create a simple map of the same raster we were displaying above.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "ENVINotebook.DisplayInMap, raster"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "We can also get a GeoJSON outline of an image and put that on a map as well.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        ""
       ],
       "metadata": {},
       "outputs": []
