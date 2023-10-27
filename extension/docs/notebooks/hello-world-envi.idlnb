@@ -1,0 +1,67 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "## Hello World: ENVI!",
+        "",
+        "> Note: You need IDL and ENVI to use the examples shown below. If you want to try it out, but don't have ENVI, reach out to your account manager to get a license",
+        "",
+        "This notebook walks through how to use ENVI within an IDL Notebook.",
+        "",
+        "If you are new to notebooks, it is recommended to check out the example IDL notebook first. From the sidebar in VSCode, under \"Notebooks\", select \"Open IDL Notebook Example\" for a brief introduction."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Raster: Display"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "ENVI Notebooks "
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Raster: Animations"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Embedding Progress Messages"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Maps: Raster and Vector"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}
