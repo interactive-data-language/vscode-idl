@@ -177,7 +177,6 @@
     "workspaceContains:**/*.task",
     "workspaceContains:**/*.idlnb",
     "onWebviewPanel:idlPanel",
-    "onCustomEditor:idl.enviOpener",
     "onDebug"
   ],
   "main": "./dist/apps/client/main",
@@ -990,7 +989,13 @@
             "filenamePattern": "*.jp2000"
           },
           {
+            "filenamePattern": "*.nitf"
+          },
+          {
             "filenamePattern": "*.ntf"
+          },
+          {
+            "filenamePattern": "*.r0"
           },
           {
             "filenamePattern": "*.tif"
@@ -999,7 +1004,7 @@
             "filenamePattern": "*.tiff"
           }
         ],
-        "priority": "default"
+        "priority": "option"
       }
     ],
     "debuggers": [

@@ -24,7 +24,7 @@ const WEBVIEW_HTML = `
  * in order to open and display the image.
  */
 export class ENVIOpenerProvider implements vscode.CustomTextEditorProvider {
-  private static readonly viewType = ENVI_OPENER_TYPE;
+  static readonly viewType = ENVI_OPENER_TYPE;
 
   /**
    * Called when our custom editor is opened.
