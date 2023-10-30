@@ -184,7 +184,6 @@ export class IDL extends EventEmitter {
           dir: args.env.IDL_DIR,
           path: args.env.IDL_PATH,
           dlm_path: args.env.IDL_DLM_PATH,
-          env: args.env,
         },
       ],
     });
@@ -193,7 +192,7 @@ export class IDL extends EventEmitter {
     this.idl = spawn(cmd, null, {
       env: args.env,
       cwd: args.cwd,
-      stdio: ['pipe', 'pipe', 'pipe', 'pipe'],
+      stdio: ['pipe', 'pipe', 'pipe'],
     });
 
     // check for errors
@@ -202,13 +201,13 @@ export class IDL extends EventEmitter {
       return;
     }
 
-    // listen for standard out output from IDL
-    this.idl.stdio[3].on('data', (buff) => {
-      this.log.log({
-        type: 'info',
-        content: `Stdout: ${JSON.stringify(buff.toString('utf8'))}`,
-      });
-    });
+    // // listen for standard out output from IDL
+    // this.idl.stdio[3].on('data', (buff) => {
+    //   this.log.log({
+    //     type: 'info',
+    //     content: `Stdout: ${JSON.stringify(buff.toString('utf8'))}`,
+    //   });
+    // });
 
     // write the IDL prompt if not windows so that we properly
     // detect start. for our "poor man's solution" this is the indicator
