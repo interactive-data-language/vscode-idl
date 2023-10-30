@@ -72,6 +72,7 @@ import { Worker } from 'worker_threads';
 import { GetAutoComplete } from './auto-complete/get-auto-complete';
 import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
+import { GetCodeOutline } from './get-code-outline';
 import { GetParsedNotebook } from './get-parsed-notebook';
 import { GetParsedPROCode } from './get-parsed-pro-code';
 import { GlobalIndex } from './global-index.class';
@@ -634,12 +635,7 @@ export class IDLIndex {
       ).response;
     }
 
-    // get tokens for our file
-    const tokens = await this.getParsedProCode(file, code, token, {
-      postProcess: true,
-    });
-
-    return tokens.outline;
+    return await GetCodeOutline(this, file, code, token);
   }
 
   /**
