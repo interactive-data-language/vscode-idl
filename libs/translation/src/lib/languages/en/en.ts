@@ -383,7 +383,7 @@ export const EN: ITranslation = {
   envi: {
     openerTitle: 'ENVI File Opener',
     openerText:
-      'ENVI should attempt to open the image shortly, please wait.\nTo disable this behavior, see the extension documentation.',
+      'ENVI should attempt to open the image shortly, please wait.\nTo disable this behavior, view the documentation for the extension "IDL for VSCode".',
     open: {
       commandError:
         'An unknown error ocurred while trying to open data in ENVI',
