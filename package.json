@@ -177,6 +177,7 @@
     "workspaceContains:**/*.task",
     "workspaceContains:**/*.idlnb",
     "onWebviewPanel:idlPanel",
+    "onCustomEditor:idl.enviOpener",
     "onDebug"
   ],
   "main": "./dist/apps/client/main",

@@ -45,4 +45,5 @@ export function ProcessCustomEditors(
 
   // made it here so lets update our package file
   contrib['customEditors'] = [ENVI_OPENER_CONFIG];
+  packageJSON['activationEvents'].push(`onCustomEditor:${ENVI_OPENER_TYPE}`);
 }
