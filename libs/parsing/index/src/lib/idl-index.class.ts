@@ -90,12 +90,6 @@ import {
 } from './idl-index.interface';
 import { IDLParsedCache } from './idl-parsed-cache.class';
 import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';
-import { OutlineDisplayName } from './outline';
-import {
-  DEFAULT_OUTLINE_SYMBOL_KIND,
-  OUTLINE_THESE_TOKENS,
-  OUTLINE_TOKEN_KIND_MAP,
-} from './outline.interface';
 import { ParseNotebook } from './parse-notebook';
 import { PostProcessParsed } from './post-process/post-process-parsed';
 import { GetTokenDefinition } from './token-definiton/get-token-definition';
@@ -645,59 +639,7 @@ export class IDLIndex {
       postProcess: true,
     });
 
-    // get our global tokens
-    const global = tokens.global;
-
-    // initialize object to track global tokens
-    // only track a single token per line which matches IDL where you cant declare
-    // more than one routine on the same line
-    const tracked: { [key: number]: DocumentSymbol } = {};
-
-    // process our global tokens
-    for (let i = 0; i < global.length; i++) {
-      // extract global token
-      const globali = global[i];
-
-      // check if we need to save
-      if (globali.type in OUTLINE_THESE_TOKENS) {
-        tracked[globali.pos[0]] = {
-          kind:
-            globali.type in OUTLINE_TOKEN_KIND_MAP
-              ? OUTLINE_TOKEN_KIND_MAP[globali.type]
-              : DEFAULT_OUTLINE_SYMBOL_KIND,
-          name: OutlineDisplayName(globali),
-          range: {
-            start: {
-              line: globali.pos[0],
-              character: globali.pos[1],
-            },
-            end: {
-              line: globali.pos[0],
-              character: globali.pos[1] + globali.pos[2],
-            },
-          },
-          selectionRange: {
-            start: {
-              line: globali.pos[0],
-              character: globali.pos[1],
-            },
-            end: {
-              line: globali.pos[0],
-              character: globali.pos[1] + globali.pos[2],
-            },
-          },
-        };
-      }
-    }
-
-    // order by appearance
-    const lines = Object.keys(tracked).sort();
-    const found: DocumentSymbol[] = [];
-    for (let i = 0; i < lines.length; i++) {
-      found.push(tracked[lines[i]]);
-    }
-
-    return found;
+    return tokens.outline;
   }
 
   /**

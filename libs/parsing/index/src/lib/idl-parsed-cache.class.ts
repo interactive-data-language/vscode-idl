@@ -1,6 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IParsed, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import copy from 'fast-copy';
+import { DocumentSymbol } from 'vscode-languageserver';
 
 import { IDL_INDEX_OPTIONS } from './idl-index.interface';
 
@@ -136,6 +137,15 @@ export class IDLParsedCache {
    */
   has(file: string): boolean {
     return file in this.byFile;
+  }
+
+  /**
+   * Return file outline
+   */
+  outline(file: string): DocumentSymbol[] | undefined {
+    if (file in this.byFile) {
+      return this.byFile[file].outline;
+    }
   }
 
   /**
