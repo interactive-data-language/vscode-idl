@@ -219,6 +219,45 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
 
   ctx.subscriptions.push(
     vscode.commands.registerCommand(
+      IDL_COMMANDS.NOTEBOOKS.OPEN_ENVI_EXAMPLE,
+      async () => {
+        try {
+          // make folder if it doesnt exist
+          if (!existsSync(EXAMPLE_NOTEBOOKS)) {
+            mkdirSync(EXAMPLE_NOTEBOOKS, { recursive: true });
+          }
+
+          // get destination path
+          const exampleUri = join(EXAMPLE_NOTEBOOKS, 'hello-world-envi.idlnb');
+
+          // if it doesnt exist, copy it
+          if (!existsSync(exampleUri)) {
+            await cp(
+              GetExtensionPath('extension/docs/notebooks'),
+              EXAMPLE_NOTEBOOKS,
+              { recursive: true }
+            );
+          }
+
+          // open the notebook in vscode
+          await OpenNotebookInVSCode(exampleUri, true, false);
+
+          // return as though we succeeded
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error opening IDL example notebook',
+            err,
+            cmdErrors.notebooks.openIDLExample
+          );
+          return false;
+        }
+      }
+    )
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
       IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE,
       async () => {
         try {

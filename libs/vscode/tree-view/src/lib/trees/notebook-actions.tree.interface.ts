@@ -36,13 +36,11 @@ export const NOTEBOOK_ACTIONS: IChild[] = [
     icon: 'idlicon.svg',
     commandName: IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE,
   },
-  // {
-  //   name: IDL_TRANSLATION.idl.tree.children.notebooks.resetExampleNotebooks
-  //     .name,
-  //   description:
-  //     IDL_TRANSLATION.idl.tree.children.notebooks.resetExampleNotebooks
-  //       .description,
-  //   icon: 'renew.svg',
-  //   commandName: IDL_COMMANDS.NOTEBOOKS.RESET_NOTEBOOK_EXAMPLES,
-  // },
+  {
+    name: IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.description,
+    icon: 'enviicon.svg',
+    commandName: IDL_COMMANDS.NOTEBOOKS.OPEN_ENVI_EXAMPLE,
+  },
 ];

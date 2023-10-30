@@ -285,6 +285,10 @@
         "title": "%commands.idl.notebooks.notebookToProCode%"
       },
       {
+        "command": "idl.notebooks.openENVIExample",
+        "title": "%commands.idl.notebooks.openENVIExample%"
+      },
+      {
         "command": "idl.notebooks.openIDLExample",
         "title": "%commands.idl.notebooks.openIDLExample%"
       },

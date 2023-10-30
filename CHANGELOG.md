@@ -60,6 +60,8 @@ Expanded sidebar for notebooks with buttons for:
 
 - Ability to open an example IDL Notebook
 
+- Ability to open example ENVI Notebook
+
 - Converting notebooks to PRO code
 
 There's also a command added that will reset your example notebooks to what we had originally. it is called "IDL: Reset IDL and ENVI Example Notebooks'.

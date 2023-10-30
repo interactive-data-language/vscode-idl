@@ -57,6 +57,8 @@ export interface ICommandTranslation {
     helpAsNotebook: string;
     /** Open IDL example notebook */
     openIDLExample: string;
+    /** Open ENVI example notebook */
+    openENVIExample: string;
     /** Reset example notebooks */
     resetNotebookExamples: string;
     /** Create a new notebook */

@@ -96,6 +96,8 @@ export const IDL_COMMANDS = {
     HELP_AS_NOTEBOOK: `${BASE_NOTEBOOK}helpAsNotebook`,
     /** Open IDL example notebook */
     OPEN_IDL_EXAMPLE: `${BASE_NOTEBOOK}openIDLExample`,
+    /** Open ENVI example notebook */
+    OPEN_ENVI_EXAMPLE: `${BASE_NOTEBOOK}openENVIExample`,
     /** Reset example notebooks */
     RESET_NOTEBOOK_EXAMPLES: `${BASE_NOTEBOOK}resetNotebookExamples`,
     /** Create a new notebook */
