@@ -46,6 +46,7 @@ export function InitializeNotebooks(
   // RegisterNotebookHoverProvider();
   // RegisterNotebookCompletionProvider();
   // RegisterNotebookDefinitionProvider();
+  // RegisterNotebookSymbolProvider();
 
   // register notebook commands
   RegisterNotebookCommands(ctx);
