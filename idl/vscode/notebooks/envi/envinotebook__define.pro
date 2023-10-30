@@ -159,6 +159,10 @@ pro ENVINotebook::DisplayInMap, dataset, properties, $
     message, 'ENVI has not started yet, required!'
   endif
 
+  ; make sure we passed in a dataset
+  if (dataset eq !null) then $
+    message, 'Please specify a dataset to display', level = -1
+
   ; make sure we have system vars
   vscode_notebookInit
 
