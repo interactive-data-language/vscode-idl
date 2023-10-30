@@ -618,7 +618,7 @@ export class IDLIndex {
     token: CancellationToken
   ): Promise<DocumentSymbol[]> {
     // if document isnt PRO code, return
-    if (!this.isPROCode(file)) {
+    if (!(this.isPROCode(file) || this.isIDLNotebookFile(file))) {
       return undefined;
     }
 
