@@ -68,6 +68,8 @@ There's also a command added that will reset your example notebooks to what we h
 
 When automatically opening ENVI files, the text displayed adds a note about how you can disable the behavior by looking at the extension documentation.
 
+Optimize the generation of the code outline and semantic tokens (static class references) to calculate both at the same time we are parsing a file or cell of code. This reduces extra CPU usage from retrieving complex information from our cache.
+
 ## 3.2.4 October 2023
 
 Fixed an issue where improper versions of node.js were used for the language server startup. This caused failures in the language server starting which would prevent any of the feature goodness of the language server from being accessible.

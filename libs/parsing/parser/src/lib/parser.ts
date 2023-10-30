@@ -98,6 +98,7 @@ export function Parser(
     },
     uses: copy(DEFAULT_USES_THESE_GLOBAL_TOKEN),
     outline: [],
+    semantic: { data: [] },
   };
 
   // extract tokens
@@ -139,6 +140,7 @@ export function Parser(
     PostProcessProblems(tokenized);
   }
 
+  // get code outline
   ParserGetOutline(tokenized);
 
   return tokenized;

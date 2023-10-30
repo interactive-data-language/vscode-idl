@@ -18,7 +18,6 @@ import {
 import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
 import { Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
-import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { IncludeToken } from '@idl/parsing/tokenizer';
 import { LoadConfig } from '@idl/schemas/idl.json';
@@ -73,6 +72,7 @@ import { GetAutoComplete } from './auto-complete/get-auto-complete';
 import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
 import { GetCodeOutline } from './get-code-outline';
+import { GetCodeSemanticTokens } from './get-code-semantic-tokens';
 import { GetParsedNotebook } from './get-parsed-notebook';
 import { GetParsedPROCode } from './get-parsed-pro-code';
 import { GlobalIndex } from './global-index.class';
@@ -497,11 +497,7 @@ export class IDLIndex {
         { file, code }
       ).response;
     } else {
-      return GetSemanticTokens(
-        await this.getParsedProCode(file, code, token, {
-          postProcess: true,
-        })
-      );
+      return GetCodeSemanticTokens(this, file, code, token);
     }
   }
 

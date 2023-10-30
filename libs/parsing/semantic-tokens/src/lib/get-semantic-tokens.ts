@@ -1,7 +1,6 @@
 import { IParsed } from '@idl/parsing/syntax-tree';
 import {
   SemanticTokenModifiers,
-  SemanticTokens,
   SemanticTokensBuilder,
   SemanticTokenTypes,
 } from 'vscode-languageserver';
@@ -14,7 +13,7 @@ import {
 /**
  * Returns semantic tokens from parsed code
  */
-export function GetSemanticTokens(parsed: IParsed): SemanticTokens {
+export function GetSemanticTokens(parsed: IParsed) {
   /**
    * Combine all variable lookups
    */
@@ -72,7 +71,7 @@ export function GetSemanticTokens(parsed: IParsed): SemanticTokens {
 
   // if no tokens return
   if (tokens.length === 0) {
-    return undefined;
+    return;
   }
 
   /**
@@ -94,5 +93,6 @@ export function GetSemanticTokens(parsed: IParsed): SemanticTokens {
     );
   }
 
-  return builder.build();
+  // save semantic tokens
+  parsed.semantic = builder.build();
 }

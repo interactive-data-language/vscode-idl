@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IParsed, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import copy from 'fast-copy';
-import { DocumentSymbol } from 'vscode-languageserver';
+import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver';
 
 import { IDL_INDEX_OPTIONS } from './idl-index.interface';
 
@@ -140,6 +140,15 @@ export class IDLParsedCache {
   }
 
   /**
+   * Return file lines
+   */
+  lines(file: string): number | undefined {
+    if (file in this.byFile) {
+      return this.byFile[file].lines;
+    }
+  }
+
+  /**
    * Return file outline
    */
   outline(file: string): DocumentSymbol[] | undefined {
@@ -149,11 +158,14 @@ export class IDLParsedCache {
   }
 
   /**
-   * Return file lines
+   * Return file semantic tokens
+   *
+   * Only created/updated after we post-process a file, otherwise
+   * value is empty
    */
-  lines(file: string): number | undefined {
+  semantic(file: string): SemanticTokens | undefined {
     if (file in this.byFile) {
-      return this.byFile[file].lines;
+      return this.byFile[file].semantic;
     }
   }
 
