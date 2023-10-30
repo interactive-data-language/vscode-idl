@@ -8,6 +8,7 @@ import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { RunNotebookReset } from './notebook-reset';
 import { RunNotebookStop } from './notebook-stop';
+import { OpenENVINotebookExample } from './open-envi-notebook-example';
 import { OpenIDLNotebookExample } from './open-idl-notebook-example';
 import { ResetNotebookExamples } from './reset-notebook-examples';
 import { RunENVIMessageListenerTestNotebook } from './run-envi-message-listener-test-notebook';
@@ -53,6 +54,12 @@ NOTEBOOK_RUNNER.addTest({
 NOTEBOOK_RUNNER.addTest({
   name: 'Open IDL example notebook',
   fn: OpenIDLNotebookExample,
+  critical: false,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Open ENVI example notebook',
+  fn: OpenENVINotebookExample,
   critical: false,
 });
 
