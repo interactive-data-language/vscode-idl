@@ -4,7 +4,6 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import {
   DocumentSymbol,
   DocumentSymbolParams,
-  SymbolInformation,
 } from 'vscode-languageserver/node';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
@@ -17,7 +16,7 @@ import { SERVER_INITIALIZED } from '../is-initialized';
  */
 export const ON_DOCUMENT_SYMBOL = async (
   event: DocumentSymbolParams
-): Promise<SymbolInformation[] | DocumentSymbol[]> => {
+): Promise<DocumentSymbol[]> => {
   await SERVER_INITIALIZED;
   try {
     IDL_LANGUAGE_SERVER_LOGGER.log({
