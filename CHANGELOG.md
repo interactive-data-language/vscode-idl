@@ -70,6 +70,8 @@ When automatically opening ENVI files, the text displayed adds a note about how 
 
 Optimize the generation of the code outline and semantic tokens (static class references) to calculate both at the same time we are parsing a file or cell of code. This reduces extra CPU usage from retrieving complex information from our cache.
 
+When notebooks start, we now perform an extra check to make sure we have the routines needed to function correctly. This is mainly for developers and edge-cases where you weren't provided any feedback on the startup process and wouldn't know there was a problem.
+
 ## 3.2.4 October 2023
 
 Fixed an issue where improper versions of node.js were used for the language server startup. This caused failures in the language server starting which would prevent any of the feature goodness of the language server from being accessible.

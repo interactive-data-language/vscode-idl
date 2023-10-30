@@ -629,7 +629,9 @@ export const EN: ITranslation = {
       errorLoadOutputs:
         'Error while loading outputs from notebook cells, please re-run cells to generate outputs',
       errorSaving: 'Unknown error while saving notebook file',
-      failedStart: 'The IDL kernel failed to start',
+      failedStart: 'The notebook session of IDL failed to start',
+      didntStartRight:
+        "The notebook session of IDL didn't start or reset right. Not everything may function as expected.",
       failedExecute: 'Failed to execute notebook cells',
       crashed:
         'IDL crashed or was stopped by the user and needs to be restarted',

@@ -425,27 +425,22 @@ export class IDLNotebookController {
 
     // see if we need to resolve more
     if (IDL_EXTENSION_CONFIG.notebooks.embedGraphics) {
-      // [
-      //   `.compile idlittool__define`,
-      //   `idlititool__refreshcurrentview`,
-      //   `graphic__define`,
-      //   `graphic__refresh`,
-      // ]
-      // await this.evaluate(
-      //   [
-      //     `.compile idlittool__define`,
-      //     `'${VSCODE_PRO_DIR}/idlititool__refreshcurrentview.pro'`,
-      //     `graphic__define`,
-      //     `'${VSCODE_PRO_DIR}/graphic__refresh.pro'`,
-      //   ].join(' ')
-      // );
-      outputs.push(await this.evaluate('.compile idlittool__define'));
+      /**
+       * Handle object graphics and override with our custom method
+       */
+      await this.evaluate('.compile idlittool__define');
+      // outputs.push(await this.evaluate('.compile idlittool__define'));
       outputs.push(
         await this.evaluate(
           `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/idlititool__refreshcurrentview.pro'`
         )
       );
-      outputs.push(await this.evaluate('.compile graphic__define'));
+
+      /**
+       * Handle functions graphics and override with our custom method
+       */
+      await this.evaluate('.compile graphic__define');
+      // outputs.push(await this.evaluate('.compile graphic__define'));
       outputs.push(
         await this.evaluate(
           `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/graphic__refresh.pro'`
@@ -453,12 +448,29 @@ export class IDLNotebookController {
       );
     }
 
-    // log output for easy debugging
-    IDL_LOGGER.log({
-      log: IDL_NOTEBOOK_LOG,
-      type: 'info',
-      content: [`IDL post-launch and reset output (should be empty)`, outputs],
-    });
+    /**
+     * Check to see if the notebooks started right or not
+     */
+    if (/%\s*Syntax/gim.test(outputs.join(''))) {
+      IDL_LOGGER.log({
+        log: IDL_NOTEBOOK_LOG,
+        type: 'error',
+        content: [
+          `Notebook session of IDL failed to start or reset correctly`,
+          outputs,
+        ],
+        alert: IDL_TRANSLATION.notebooks.errors.didntStartRight,
+      });
+    } else {
+      IDL_LOGGER.log({
+        log: IDL_NOTEBOOK_LOG,
+        type: 'debug',
+        content: [
+          `IDL post-launch and reset output (should be empty)`,
+          outputs,
+        ],
+      });
+    }
   }
 
   /**

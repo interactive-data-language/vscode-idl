@@ -591,6 +591,8 @@ export interface ITranslation {
       failedStart: string;
       /** if we failed to execute one or more cells */
       failedExecute: string;
+      /** Alert users that IDL for notebooks didn't quite start or reset right */
+      didntStartRight: string;
       /** IDL crashes while running something in the notebook */
       crashed: string;
       /** Error while trying to get graphics */
