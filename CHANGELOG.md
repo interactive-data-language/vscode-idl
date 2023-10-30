@@ -46,6 +46,8 @@ Here are some of the features that notebooks bring:
 
 Updated the IDL and ENVI icons throughout the extension and on our github pages. This is the same icon that will be used as part of the next official release of ENVI and IDL as well.
 
+With the new icons, updated our custom icon theme to include the new ENVI logo for key ENVI file extensions.
+
 Added the ability to convert your IDL notebooks to PRO code! This exciting features uses intimate knowledge of IDL to break down the code in your cells and put it back together as a single PRO file.
 
 - Any routines and non-main level program code is put together first and follows the order of the cells. Then, any main-level programs within cells or single lines of code are added as one, large main level program at the end.
