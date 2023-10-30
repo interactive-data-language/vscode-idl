@@ -38,14 +38,14 @@ export async function activate(
   // add our webview
   InitializeWebView(ctx);
 
-  // add notebooks
-  const notebooks = InitializeNotebooks(ctx);
-
   // add our ENVI file opener
   InitializeENVIOpener(ctx);
 
   // add commands for docs
   InitializeDocs(ctx);
+
+  // add notebooks
+  const notebooks = InitializeNotebooks(ctx);
 
   // return result
   return {
