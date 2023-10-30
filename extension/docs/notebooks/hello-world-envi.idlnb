@@ -6,7 +6,7 @@
       "content": [
         "## Hello World: ENVI!",
         "",
-        "> Note: You need IDL and ENVI to use the examples shown below. If you want to try it out, but don't have ENVI, reach out to your account manager to get a license",
+        "> Note: You need IDL **and** ENVI to use the examples shown below. If you want to try it out, but don't have ENVI, reach out to your account manager to get a license",
         "",
         "This notebook walks through how to use ENVI within an IDL Notebook.",
         "",
@@ -28,7 +28,7 @@
     {
       "type": "markdown",
       "content": [
-        "While you can start ENVI with the UI present, we are going to use headless ENVI to show you how you can work with raster data in notebooks without needing to click or interact with any other applications.",
+        "While you can start ENVI with the UI present, we are going to use headless ENVI to show you how you can work with raster data in notebooks without needing to click or interact with the application itself.",
         ""
       ],
       "metadata": {},
@@ -47,7 +47,40 @@
       "type": "markdown",
       "content": [
         "Once ENVI is open, we can run task processing, embed, progress, and easily visualize data.",
+        "",
+        "In order to to that, we need to open some datasets that we can process and work with.",
         ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; open a sample raster",
+        "msiFile = filepath('qb_boulder_msi', subdir = ['data'], $",
+        "  root_dir = e.root_dir)",
+        "raster = e.openRaster(msiFile)",
+        "",
+        "; open HSI dataset",
+        "hsiRaster = filepath('AVIRISReflectanceSubset.dat', subdir = ['data', 'hyperspectral'], $",
+        "  root_dir = e.root_dir)",
+        "hsiRaster = e.openRaster(hsiRaster)",
+        "",
+        "; raster series file",
+        "seriesFile = filepath('AirTemp.series', subdir = ['data', 'time_series'], $",
+        "  root_dir = e.root_dir)",
+        "series = ENVIRasterSeries(seriesFile)",
+        "",
+        "; open some ROIs",
+        "roiFile = filepath('qb_boulder_roi.xml', subdir = ['data'], $",
+        "  root_dir = e.root_dir)",
+        "rois = e.openROI(roiFile)",
+        "",
+        "; open a shapefile",
+        "vectorFile = filepath('lakes.shp', root_dir = e.root_dir, $",
+        "  subdirectory = ['data', 'natural_earth_vectors'])",
+        "vector = e.openVector(vectorFile)"
       ],
       "metadata": {},
       "outputs": []
@@ -64,29 +97,9 @@
     {
       "type": "markdown",
       "content": [
-        "The root entry point for data visualization within IDL Notebooks is the `ENVINotebook.Display` method.",
+        "The root entry point for data visualization within IDL Notebooks is the `ENVINotebook::Display` method.",
         "",
-        "Let's open a sample raster and view it in a notebook.",
-        ""
-      ],
-      "metadata": {},
-      "outputs": []
-    },
-    {
-      "type": "code",
-      "content": [
-        "; open a sample raster",
-        "file = filepath('qb_boulder_msi', subdir = ['data'], $",
-        "  root_dir = e.root_dir)",
-        "raster = e.openRaster(file)"
-      ],
-      "metadata": {},
-      "outputs": []
-    },
-    {
-      "type": "markdown",
-      "content": [
-        "Once we have an open dataset, we can use `ENVINotebook.display` to embed a nice, pretty picture of our raster dataset.",
+        "Once we have an open dataset, we can use `ENVINotebook.Display` to embed a nice, pretty picture of our raster dataset.",
         "",
         "Note that this will automatically pick the bands for display and apply a basic stretch. It will use RGB, CIR, or the first three bands if not wavelength metadata is present.",
         ""
@@ -190,6 +203,53 @@
     {
       "type": "markdown",
       "content": [
+        "### Raster: Spectral Cube",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "If you have raster datasets with many bands (hyperspectral), you can create a 3d-like visualization of the image.",
+        "",
+        "This style of visualization features an RGB pretty-picture of the visual bands and then adds a spectral overlay for pixels along the edge.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; create a spectral data cube and display",
+        "ENVINotebook.Display, hsiRaster, /cube"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "This method also works with multispectral data, but without many bands, it has a little less panache.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; create a spectral data cube and display",
+        "ENVINotebook.Display, raster, /cube"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
         "### Raster: Animations",
         ""
       ],
@@ -268,23 +328,6 @@
         "",
         "This has the same API as basic display of a raster and embeds an animation within our notebook.",
         ""
-      ],
-      "metadata": {},
-      "outputs": []
-    },
-    {
-      "type": "code",
-      "content": [
-        ";+",
-        "; Open a raster series",
-        ";-",
-        "",
-        "; raster series file",
-        "seriesFile = filepath('AirTemp.series', subdir = ['data', 'time_series'], $",
-        "  root_dir = e.root_dir)",
-        "",
-        "; create a raster series",
-        "series = ENVIRasterSeries(seriesFile)"
       ],
       "metadata": {},
       "outputs": []
@@ -397,7 +440,7 @@
       "content": [
         "One of the coolest ways that we can visualize data from ENVI within notebooks is using maps!",
         "",
-        "This is enabled because, within VSCode, we are just using JavaScript and HTML to display outputs, so we can use one of the many open source frameworks for this.",
+        "This is enabled because, within VSCode, we are using JavaScript and HTML to display outputs, so we can use one of the many open source frameworks for this.",
         "",
         "> Important note: All datasets that you view on a map **must** be georeferenced. If your data is not, then you need to use the basic visualizations listed above.",
         "",
@@ -427,7 +470,11 @@
     {
       "type": "markdown",
       "content": [
-        "We can also get a GeoJSON outline of an image and put that on a map as well.",
+        "When a map is created, all available data for the map gets added at once.",
+        "",
+        "This means that any time we call `ENVINotebook::DisplayInMap` within a code cell the datasets are added to the same map.",
+        "",
+        "Let's show this in action by displaying the same raster as above with a few ROIs as well. You'll notice a blue polygon over the water is one of the three ROIs added to the map.",
         ""
       ],
       "metadata": {},
@@ -436,7 +483,11 @@
     {
       "type": "code",
       "content": [
-        ""
+        "; display raster",
+        "ENVINotebook.DisplayInMap, raster",
+        "",
+        "; add ROIs to the same map",
+        "ENVINotebook.DisplayInMap, rois"
       ],
       "metadata": {},
       "outputs": []
@@ -444,7 +495,21 @@
     {
       "type": "markdown",
       "content": [
+        "Unlike our normal notebook visualizations of rasters, we can display vector data within the context of a map.",
+        "",
+        "Let's display a vector of the lakes across the world and customize the color by specifying a property for the dataset.",
+        "",
+        "> Pro tip: The color property is an RGBA array (red, green, blue, and alpha)",
         ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; add vector and specify color",
+        "ENVINotebook.DisplayInMap, vector, orderedhash('color', [255, 0, 0, 125])"
       ],
       "metadata": {},
       "outputs": []
@@ -452,7 +517,42 @@
     {
       "type": "markdown",
       "content": [
+        "Displaying in maps also natively supports GeoJSON. We can use the `ENVIRaster::GetOutline` method (from the extension) to get the physical area that an image covers as a GeoJSON string.",
         ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; display geojson from a string",
+        "geojsonOutline = raster.getOutline(3857)",
+        "ENVINotebook.DisplayInMap, geojsonOutline"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Alternatively, if you have a GeoJSON file on disk, you can use that as well with the `is_geojson_uri` keyword set.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; write our GeoJSON outline to disak",
+        "tmpUri = e.getTemporaryFilename('.json', /cleanup_on_exit)",
+        "openw, lun, tmpUri, /get_lun",
+        "printf, lun, geojsonOutline",
+        "free_lun, lun",
+        "",
+        "; add our temp file to a map",
+        "ENVINotebook.DisplayInMap, tmpUri, /is_geojson_uri"
       ],
       "metadata": {},
       "outputs": []
