@@ -6,9 +6,9 @@ For much more detail on incremental work for large features, see our [developer 
 
 ## Unreleased
 
-Preview release of IDL Notebooks! This is a first pass at adding notebook support for IDL which is independent from Jupyter.
+## 3.3.0 November 2023
 
-> Notebooks are a preview feature and, based on early adopter feedback, will likely change
+The official release of IDL Notebooks! This is a first pass at adding notebook support for IDL (which is independent from Jupyter). We are hoping to have early adopters try it out and provide feedback on how notebooks behave. Read below to learn more or find an example IDL and ENVI Notebook directly within VSCode in the IDL sidebar.
 
 Here are some of the features that notebooks bring:
 
@@ -42,8 +42,6 @@ Here are some of the features that notebooks bring:
 
   - After each cell is executed we issue a `retall` command to make sure that we are at the top-level and not stopped in a weird state
 
-## 3.2.5 October/November 2023
-
 Updated the IDL and ENVI icons throughout the extension and on our github pages. This is the same icon that will be used as part of the next official release of ENVI and IDL as well.
 
 With the new icons, updated our custom icon theme to include the new ENVI logo for key ENVI file extensions.
@@ -75,6 +73,8 @@ When automatically opening ENVI files, the text displayed adds a note about how 
 Optimize the generation of the code outline and semantic tokens (static class references) to calculate both at the same time we are parsing a file or cell of code. This reduces extra CPU usage from retrieving complex information from our cache.
 
 When notebooks start, we now perform an extra check to make sure we have the routines needed to function correctly. This is mainly for developers and edge-cases where you weren't provided any feedback on the startup process and wouldn't know there was a problem.
+
+Resolved an issue where you couldn't view the output from a notebook cell in VSCode. We provided a default VSCode configuration which fixes this problem and added a new doc to the extension to capture known issues and how to solve them.
 
 ## 3.2.4 October 2023
 
