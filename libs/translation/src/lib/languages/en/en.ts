@@ -406,7 +406,7 @@ export const EN: ITranslation = {
       parents: {
         quickAccess: 'Quick Access',
         codeActions: 'Code',
-        notebooks: 'Notebooks (Preview)',
+        notebooks: 'Notebooks',
         debugging: 'IDL',
         terminal: 'Terminal',
       },
