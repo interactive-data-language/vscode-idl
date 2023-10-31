@@ -111,7 +111,7 @@
     "notes": "For development, ",
     "encryption": "no"
   },
-  "@nx/linter": {
+  "@nx/eslint": {
     "notes": "For development, plugins/libraries for monorepo management using Nx",
     "encryption": "no"
   },

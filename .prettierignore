@@ -16,3 +16,5 @@ compliance
 *settings.json
 apps/test-tokenizer/src/test-maker/cache/cache.json
 .angular
+
+/.nx/cache
