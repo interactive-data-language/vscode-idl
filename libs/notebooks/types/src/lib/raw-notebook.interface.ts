@@ -105,7 +105,7 @@ export const DEFAULT_NOTEBOOK: IDLRawNotebook<IDLRawNotebookVersion_2_0_0> = {
       content: [
         '### IDL Notebook are Here!',
         '',
-        'If you are new to IDL Notebooks, check out the IDL sidebar with some quick links to get started with IDL and ENVI Notebooks.',
+        `If you are new to IDL Notebooks, check out the IDL Notebook example and ENVI Notebook example to get started. You can find these in the IDL sidebar.`,
         '',
         'Notebooks are brand new to IDL and we want to make sure we take community feedback into consideration as we are developing features.',
         '',
