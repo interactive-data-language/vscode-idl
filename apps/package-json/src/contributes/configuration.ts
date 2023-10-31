@@ -62,4 +62,11 @@ export function ProcessConfiguration(
   contrib['configurationDefaults'][`[${IDL_LANGUAGE_NAME}]`] = {
     'editor.semanticHighlighting.enabled': true,
   };
+
+  /**
+   * Add config for opening outputs from notebook cells to work right
+   *
+   * https://stackoverflow.com/questions/75558543/vscode-unable-to-load-schema-for-package-json
+   */
+  contrib['workbench.settings.openDefaultSettings'] = true;
 }

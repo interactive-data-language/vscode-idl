@@ -8,6 +8,8 @@ This README is the main entry point for the extension documentation for the IDL 
 
 - [**Disable ENVI Opening Files**](./general/DISABLE_ENVI_FILE_ASSOCIATIONS.md)
 
+- [**Known Issues and Fixes**](./general/KNOWN_ISSUES.md)
+
 ## Content
 
 - [**AutoDoc**](./general/AUTO_DOC.md): High-level overview of AutoDoc and the IDL Docs docs style
