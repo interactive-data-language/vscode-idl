@@ -197,6 +197,12 @@ export class IDL extends EventEmitter {
 
     // check for errors
     if (!this.idl.stdout || !this.idl.stderr || !this.idl.stdin) {
+      this.log.log({
+        type: 'error',
+        content: [
+          `Unable to start IDL. One or more of standard in, out, or error did not initialize:`,
+        ],
+      });
       this.emit(IDL_EVENT_LOOKUP.FAILED_START, 'Failed to start IDL');
       return;
     }
