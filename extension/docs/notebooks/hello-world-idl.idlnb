@@ -16,6 +16,7 @@
         "",
         "At a high level it covers: ",
         "",
+        "- IDL Notebook Toolbar",
         "- IDL's Path",
         "- How cells are executed",
         "- Behaviors for accessing variables",
