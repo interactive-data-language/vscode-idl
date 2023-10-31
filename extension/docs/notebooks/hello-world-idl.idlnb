@@ -14,7 +14,15 @@
       "content": [
         "This notebook walks through the basics of how IDL Notebooks work.",
         "",
-        "At a high level it covers: how cells are executed, behaviors for accessing variables, embedding graphics, and what happens when you encounter errors."
+        "At a high level it covers: ",
+        "",
+        "- IDL's Path",
+        "- How cells are executed",
+        "- Behaviors for accessing variables",
+        "- Embedding graphics",
+        "- What happens when you encounter errors",
+        "",
+        "If you have other questions about notebook behavior, feel free to start a discussion on our [GitHub](https://github.com/interactive-data-language/vscode-idl/discussions) page. We are happy to update the content in our example notebooks based on user feedback, so let us know if you have thoughts or ideas!"
       ],
       "metadata": {},
       "outputs": []
@@ -54,7 +62,59 @@
       "content": [
         "If your session gets a little goofy, you can press reset which will give you a brand new notebook session of IDL (it stops and restarts IDL to make sure it is good as new!).",
         "",
-        "Stop will simply stop the IDL process which will restart the next time you run a cell."
+        "Stop will simply stop the IDL process which will restart automatically the next time you run a cell."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### IDL's Path"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "When you start IDL in a notebook, we follow the same pattern for the path as true debug sessions of IDL.",
+        "",
+        "This means we:",
+        "",
+        "- Automatically add all open workspaces to IDL's search path (recursively, not just the root folder)",
+        "- Use the VSCode setting for search path",
+        "",
+        "That way you can easily use routines that you have defined elsewhere within the context of an IDL Notebook."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Let's inspect the current path and see what our local environment looks like:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; print out each folder on IDL's search path",
+        "print, strsplit(!path, path_sep(/search_path), /extract), /implied_print"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "> Pro tip: For the output above, you might notice that the path is too long to view the entire output within the notebook.",
+        ">",
+        "> To display this output, it is recommended to turn on the setting \"Notebook: Output Scrolling\" so you can easily view everything that a notebook cell generates. If you do change this, you'll need to re-run the cell for the changes to take effect.",
+        ">",
+        "> You can also try to view the output in a text editor, but VSCode doesn't always display the results correctly."
       ],
       "metadata": {},
       "outputs": []
@@ -70,7 +130,9 @@
     {
       "type": "markdown",
       "content": [
-        "Cells with only routine definitions are compiled, but not executed."
+        "Cells with only routine definitions are compiled, but not executed.",
+        "",
+        "If you execute the following cell, it will be compiled and that is it."
       ],
       "metadata": {},
       "outputs": []
@@ -166,7 +228,9 @@
       "content": [
         "All markdown cells are executed in the folder where they exist.",
         "",
-        "You can see this my looking at the filepath to the routine:"
+        "You can see this my looking at the output from `routine_filepath()`.",
+        "",
+        "This makes it easy to create notebooks next to data that lives on disk and use relative filepaths to access external information."
       ],
       "metadata": {},
       "outputs": []
@@ -190,9 +254,9 @@
     {
       "type": "markdown",
       "content": [
-        "All cells are executed as main level programs.",
+        "Because the main way cells are executed is through main level programs, any variables you define can be accessed anywhere.",
         "",
-        "This means that, after you define variables, you can access them in any cell."
+        "Here we will define a variable and create a second variable using the first."
       ],
       "metadata": {},
       "outputs": []
@@ -200,7 +264,8 @@
     {
       "type": "code",
       "content": [
-        "firstVar = 42"
+        "firstVar = 42",
+        "help, firstVar"
       ],
       "metadata": {},
       "outputs": []
@@ -208,7 +273,8 @@
     {
       "type": "code",
       "content": [
-        "secondVar = firstVar"
+        "secondVar = firstVar",
+        "help, secondVar"
       ],
       "metadata": {},
       "outputs": []
@@ -216,9 +282,11 @@
     {
       "type": "markdown",
       "content": [
-        "You'll note that the editor is smart enough to give you auto-complete (you may need to trigger with ctrl + space) and it detects if a variable is defined but not used in any cell.",
+        "You'll note that the editor is smart enough to give you auto-complete and it detects if a variable is defined but not used in any cell.",
         "",
-        "We also let you know if you use a variable from a lower cell before it gets defined."
+        "We also let you know if you use a variable from a lower cell before it gets defined.",
+        "",
+        "> Pro tip: If auto-complete is acting weird, you may need to press escape and manually trigger auto-complete where your cursor is located using `Ctrl + Space`."
       ],
       "metadata": {},
       "outputs": []
@@ -242,7 +310,24 @@
     {
       "type": "markdown",
       "content": [
-        "If you \"Ctrl + Click\" on a variable, it will take you to the cell and location within that cell where it is defined."
+        "> Pro tip: You should not use variables created in later cells before their definition. This makes notebooks harder for other users to follow and errors will be reported."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "If you can't find where a variable is defined, you can \"Ctrl + Click\" on a variable and it will take you to the cell and location within that cell where it is defined or first encountered."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Ctrl + Click on \"thirdVar\" to find my source!",
+        "help, thirdVar"
       ],
       "metadata": {},
       "outputs": []
@@ -258,13 +343,15 @@
     {
       "type": "markdown",
       "content": [
-        "Graphics are embedded within notebook cells as you go.",
+        "Following the patterns of other notebooks, by default graphics are embedded within notebook cells as you go.",
         "",
-        "If you are using direct graphics, we can only embed one image per cell. If you are using anything else we accept one or more embedded graphics items.",
+        "If you are using direct graphics, we can only embed one visual per cell. If you are using object or function graphics we embed all visuals within the outputs of each cell.",
         "",
-        "The embedded graphics persist when you save and can be viewed at a later time.",
+        "The embedded graphics are saved within the notebook and can be viewed later.",
         "",
-        "There is an extension preference that allows you to disable embedding of graphics if you prefer the windows to appear as they normally would with the workbench."
+        "There is an extension preference that allows you to disable embedding of graphics if you prefer the windows to appear as they normally would with the workbench.",
+        "",
+        "> Pro tip: Because the graphics are embedded, do be aware that notebooks may grow in size depending on how many images are embedded."
       ],
       "metadata": {},
       "outputs": []
@@ -276,14 +363,6 @@
         "p1 = plot(/test)",
         "p2 = surface(/test)",
         "p4 = barplot(/test)"
-      ],
-      "metadata": {},
-      "outputs": []
-    },
-    {
-      "type": "markdown",
-      "content": [
-        ""
       ],
       "metadata": {},
       "outputs": []
@@ -337,7 +416,7 @@
       "content": [
         "Here is another example where we have a stop within our routine.",
         "",
-        "In this case, we mark the cell execution as failing because we didn't complete without being stopped."
+        "In this case, the cell with the routine definition compiles correctly, but we encounter problems when we try to run it:"
       ],
       "metadata": {},
       "outputs": []
@@ -358,6 +437,24 @@
       "content": [
         "; call routine with a stop inside",
         "test_stop_error"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "After each cell is executed, we force a return to the main level.",
+        "",
+        "We can use `scope_traceback()` to verify that we are back at the main level and not where the stop was in the previous cell."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "print, scope_traceback(), /implied_print"
       ],
       "metadata": {},
       "outputs": []
