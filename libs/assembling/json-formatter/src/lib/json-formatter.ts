@@ -1,7 +1,5 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const stringify = require('json-stringify-pretty-compact');
+import stringify from 'json-stringify-pretty-compact';
 
 /**
  * Helper function that formats any JSON for us and can be used
