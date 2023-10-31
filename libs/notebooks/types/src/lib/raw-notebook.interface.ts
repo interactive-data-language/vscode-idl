@@ -103,13 +103,11 @@ export const DEFAULT_NOTEBOOK: IDLRawNotebook<IDLRawNotebookVersion_2_0_0> = {
     {
       type: 'markdown',
       content: [
-        '### Notebook Preview',
+        '### IDL Notebook are Here!',
         '',
-        'Please note that this is a preview feature of notebooks for IDL.',
+        'If you are new to IDL Notebooks, check out the IDL sidebar with some quick links to get started with IDL and ENVI Notebooks.',
         '',
-        "Our Notebook API and file format are not set in stone, so please don't start creating many notebooks for personal use quite yet.",
-        '',
-        'Use the examples from documentation as a way to learn about how to use notebooks and see if you like them!',
+        'Notebooks are brand new to IDL and we want to make sure we take community feedback into consideration as we are developing features.',
         '',
         'If you have questions, comments, or concerns, let us know [here](https://github.com/interactive-data-language/vscode-idl/discussions/6) on GitHub.',
       ],
