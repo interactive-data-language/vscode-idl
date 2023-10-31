@@ -46,7 +46,7 @@
     {
       "type": "markdown",
       "content": [
-        "Once ENVI is open, we can run task processing, embed, progress, and easily visualize data.",
+        "Once ENVI is open, we can run task processing, embed progress, and easily visualize data.",
         "",
         "In order to to that, we need to open some datasets that we can process and work with.",
         ""
@@ -101,7 +101,7 @@
         "",
         "Once we have an open dataset, we can use `ENVINotebook.Display` to embed a nice, pretty picture of our raster dataset.",
         "",
-        "Note that this will automatically pick the bands for display and apply a basic stretch. It will use RGB, CIR, or the first three bands if not wavelength metadata is present.",
+        "Note that this will automatically pick the bands for display and apply a basic stretch. It will use RGB or the first three bands if no wavelength metadata is present.",
         ""
       ],
       "metadata": {},
@@ -120,7 +120,7 @@
       "content": [
         "To manually pick bands for display that are not an RGB combination, use the ENVISubsetRaster function and manually specify the bands in an RGB combination.",
         "",
-        "Here we can make a CIR( Color Infra Red) representation of the data by removing the blue band (first band).",
+        "Here we can make a CIR (Color Infra Red) representation of the data by removing the blue band (first band) and changing the order.",
         ""
       ],
       "metadata": {},
@@ -137,7 +137,7 @@
     {
       "type": "markdown",
       "content": [
-        "If you don't want to stretch data automatically, or manually apply a stretch before display, use the `no_stretch` keyword.",
+        "If you don't want the data to be automatically stretched, or manually apply a stretch before display, use the `no_stretch` keyword.",
         ""
       ],
       "metadata": {},
@@ -178,7 +178,7 @@
       "content": [
         "We can also run image processing routines and embed the outputs inside of notebooks as well.",
         "",
-        "Let's use an ENVI Task to perform clustering on our raw image pixels.",
+        "Let's use an ENVI Task to perform clustering on the spectral information captured in our dataset.",
         ""
       ],
       "metadata": {},
@@ -215,6 +215,8 @@
         "If you have raster datasets with many bands (hyperspectral), you can create a 3d-like visualization of the image.",
         "",
         "This style of visualization features an RGB pretty-picture of the visual bands and then adds a spectral overlay for pixels along the edge.",
+        "",
+        "To create this graphic, set the `cube` keyword when displaying a raster.",
         ""
       ],
       "metadata": {},
@@ -259,11 +261,11 @@
     {
       "type": "markdown",
       "content": [
-        "In addition to being able to display a single image, we can create animations of different bands and raster series.",
+        "In addition to being able to display a single image, we can create animations of image bands and raster series.",
         "",
-        "> Important Note! Band animations error if you have more than 12 bands in a given dataset. That's because we have to create and embed PNGs in your notebook cell.",
+        "> Important Note! Animations fail if you have more than 12 bands or images in a given dataset. That's because we have to create and embed PNGs in your notebook cell.",
         ">",
-        "> If you try to animate through a 100 band image, that means a new PNG is added for each band. In this case, use the ENVI UI's band animation tools",
+        "> If you try to animate through a 100 band image, that means a new PNG is added for each band which will make notebooks excessively large.",
         ""
       ],
       "metadata": {},
@@ -272,7 +274,7 @@
     {
       "type": "markdown",
       "content": [
-        "Picking up where our raster display left off, we can tell display that we want to view more than one raster at a time. This will create a dialog that will toggle back and forth between each raster.",
+        "There are several ways to create an animation within ENVI Notebook. We can tell `ENVINotebook.Display` that we want to view more than one raster at a time. This will create a dialog that will toggle back and forth between each raster that was specified.",
         "",
         "This is a nice way to quickly visualize data and see image processing results.",
         "",
@@ -296,7 +298,7 @@
     {
       "type": "markdown",
       "content": [
-        "We can also create simple animations that swap between the bands of a given dataset. As mentioned up above, we have a default limit of 12 bands that you can display at once.",
+        "We can also create simple animations that play through the bands of a given dataset. As mentioned up above, we have a default limit of 12 bands that you can display at once.",
         "",
         "If you have more than 12 bands, an error will be thrown without the `allow_many` keyword set.",
         ""
@@ -324,10 +326,9 @@
     {
       "type": "markdown",
       "content": [
-        "Our final animation that we can create is of a raster series.",
+        "Lastly, we can also create animations for raster series datasets.",
         "",
-        "This has the same API as basic display of a raster and embeds an animation within our notebook.",
-        ""
+        "This has the same API as basic display of a raster and embeds an animation within our notebook."
       ],
       "metadata": {},
       "outputs": []
@@ -360,12 +361,11 @@
     {
       "type": "markdown",
       "content": [
-        "When you are using ENVI, most of the tim you will have some sort of automated processing that needs to happen.",
+        "When you are using ENVI, most of the time you will have some sort of automated processing that needs to happen.",
         "",
         "When ENVI is in headless mode and the UI is not present, we can embed the progress messages from ENVI Tasks directly within our notebook.",
         "",
-        "To do with, we use the `ENVINotebook.embedProgress` method to enable and disable.",
-        ""
+        "To do with, we use the `ENVINotebook.embedProgress` method to enable and disable."
       ],
       "metadata": {},
       "outputs": []
@@ -440,7 +440,7 @@
       "content": [
         "One of the coolest ways that we can visualize data from ENVI within notebooks is using maps!",
         "",
-        "This is enabled because, within VSCode, we are using JavaScript and HTML to display outputs, so we can use one of the many open source frameworks for this.",
+        "This is enabled because, within VSCode, we are using JavaScript and HTML to display outputs, so we can use one of the many open source web maps.",
         "",
         "> Important note: All datasets that you view on a map **must** be georeferenced. If your data is not, then you need to use the basic visualizations listed above.",
         "",
@@ -470,9 +470,7 @@
     {
       "type": "markdown",
       "content": [
-        "When a map is created, all available data for the map gets added at once.",
-        "",
-        "This means that any time we call `ENVINotebook::DisplayInMap` within a code cell the datasets are added to the same map.",
+        "When a map is created, any calls to `ENVINotebook.DisplayInMap` within a single cell specify the datasets that we add in the same map.",
         "",
         "Let's show this in action by displaying the same raster as above with a few ROIs as well. You'll notice a blue polygon over the water is one of the three ROIs added to the map.",
         ""
@@ -499,7 +497,7 @@
         "",
         "Let's display a vector of the lakes across the world and customize the color by specifying a property for the dataset.",
         "",
-        "> Pro tip: The color property is an RGBA array (red, green, blue, and alpha)",
+        "> Pro tip: The color property is an RGBA array (red, green, blue, and alpha) between 0 and 255",
         ""
       ],
       "metadata": {},
