@@ -115,7 +115,7 @@
         ">",
         "> To display this output, it is recommended to turn on the setting \"Notebook: Output Scrolling\" so you can easily view everything that a notebook cell generates. If you do change this, you'll need to re-run the cell for the changes to take effect.",
         ">",
-        "> You can also try to view the output in a text editor, which is a button at the bottom of the truncated output, but VSCode doesn't always display the results correctly."
+        "> You can also try to view the output in a text editor, which is a button at the bottom of the truncated output, but VSCode doesn't always display the results correctly. View the extension docs \"Known Issues\" section for how to fix this within VSCode"
       ],
       "metadata": {},
       "outputs": []
