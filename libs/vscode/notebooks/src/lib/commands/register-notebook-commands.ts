@@ -308,6 +308,24 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             return false;
           }
 
+          /**
+           * Track if its a file or not
+           */
+          let isFile = true;
+          try {
+            await vscode.workspace.fs.stat(notebook.uri);
+          } catch (err) {
+            isFile = false;
+          }
+
+          // if we couldnt get stats on the file, it hasnt been saved
+          if (!isFile) {
+            vscode.window.showWarningMessage(
+              IDL_TRANSLATION.notebooks.notifications.saveNotebookFirst
+            );
+            return;
+          }
+
           const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
             LANGUAGE_SERVER_MESSAGE_LOOKUP.NOTEBOOK_TO_PRO_CODE,
             {

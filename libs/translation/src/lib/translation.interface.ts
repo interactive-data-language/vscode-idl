@@ -612,6 +612,8 @@ export interface ITranslation {
       idlNotStarted: string;
       /** No examples when opening notebook */
       noExamplesFoundInDocs: string;
+      /** When a notebook needs to be saved to disk before we process it */
+      saveNotebookFirst: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */

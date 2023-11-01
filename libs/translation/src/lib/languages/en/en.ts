@@ -647,6 +647,8 @@ export const EN: ITranslation = {
         'IDL has not started for notebooks. It automatically starts when you run a code cell.',
       noExamplesFoundInDocs:
         'No examples found in documentation to create notebook from',
+      saveNotebookFirst:
+        'You need to save your notebook to disk before converting',
     },
   },
   notifications: {
