@@ -103,7 +103,7 @@ export const DEFAULT_NOTEBOOK: IDLRawNotebook<IDLRawNotebookVersion_2_0_0> = {
     {
       type: 'markdown',
       content: [
-        '### IDL Notebook are Here!',
+        '### IDL Notebook are here!',
         '',
         `If you are new to IDL Notebooks, check out the IDL Notebook example and ENVI Notebook example to get started. You can find these in the IDL sidebar.`,
         '',
