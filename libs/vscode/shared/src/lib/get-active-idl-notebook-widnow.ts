@@ -19,7 +19,7 @@ export function GetActiveIDLNotebookWindow(
     case !editor:
       if (alert) {
         vscode.window.showInformationMessage(
-          IDL_TRANSLATION.notifications.noProCode
+          IDL_TRANSLATION.notifications.noIDLNotebook
         );
       }
       return undefined;
