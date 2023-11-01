@@ -4,6 +4,7 @@ import {
   DOCS_NOTEBOOK_FOLDER,
   EXAMPLE_NOTEBOOKS,
 } from '@idl/notebooks/shared';
+import { INotebookToProCodeOptions } from '@idl/notebooks/types';
 import {
   GetExtensionPath,
   IDL_COMMANDS,
@@ -298,7 +299,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(
       IDL_COMMANDS.NOTEBOOKS.NOTEBOOK_TO_PRO_CODE,
-      async () => {
+      async (options?: Partial<INotebookToProCodeOptions>) => {
         try {
           // get open notebook
           const notebook = GetActiveIDLNotebookWindow();
@@ -306,6 +307,37 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           // no notebook, indicate that we didnt run
           if (!notebook) {
             return false;
+          }
+
+          /**
+           * Options object we pass to the API
+           */
+          const useOptions: Partial<INotebookToProCodeOptions> = {};
+
+          /**
+           * If we didnt pass in options, ask the user for some information
+           */
+          if (!options) {
+            const includeAll = await vscode.window.showInformationMessage(
+              IDL_TRANSLATION.notebooks.notifications.includeAllCells,
+              ...[
+                { title: IDL_TRANSLATION.notifications.yes },
+                { title: IDL_TRANSLATION.notifications.no },
+              ]
+            );
+
+            if (includeAll === undefined) {
+              return;
+            }
+
+            // update flag to include everything
+            useOptions.includeAllCells =
+              includeAll.title === IDL_TRANSLATION.notifications.yes
+                ? true
+                : false;
+          } else {
+            // update the options we use with what was passed in
+            Object.assign(useOptions, options);
           }
 
           /**
@@ -330,6 +362,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             LANGUAGE_SERVER_MESSAGE_LOOKUP.NOTEBOOK_TO_PRO_CODE,
             {
               uri: notebook.uri.toString(),
+              options: useOptions,
             }
           );
 

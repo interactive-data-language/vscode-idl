@@ -614,6 +614,8 @@ export interface ITranslation {
       noExamplesFoundInDocs: string;
       /** When a notebook needs to be saved to disk before we process it */
       saveNotebookFirst: string;
+      /** When converting to PRO file, include all cells? */
+      includeAllCells: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */

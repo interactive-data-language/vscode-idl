@@ -1,3 +1,5 @@
+import { INotebookToProCodeOptions } from '@idl/notebooks/types';
+
 /**
  * Message for converting a notebook to PRO code
  */
@@ -11,6 +13,10 @@ export interface INotebookToProCodePayload {
    * Notebook URI
    */
   uri: string;
+  /**
+   * The options when we convert from a notebook to PRO code
+   */
+  options?: Partial<INotebookToProCodeOptions>;
 }
 
 /**

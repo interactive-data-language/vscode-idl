@@ -86,7 +86,8 @@ export const ON_NOTEBOOK_TO_PRO_CODE = async (
         fsPath,
         idlNotebook,
         config,
-        new CancellationToken()
+        new CancellationToken(),
+        event.options || {}
       ),
     };
   } catch (err) {

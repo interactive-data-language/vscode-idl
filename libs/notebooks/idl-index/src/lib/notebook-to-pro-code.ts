@@ -2,6 +2,10 @@ import { Assembler } from '@idl/assembler';
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
+import {
+  DEFAULT_NOTEBOOK_TO_PRO_CODE_OPTIONS,
+  INotebookToProCodeOptions,
+} from '@idl/notebooks/types';
 import { IDLIndex } from '@idl/parsing/index';
 import { SyntaxTree, TreeToken } from '@idl/parsing/syntax-tree';
 import { MainLevelToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
@@ -14,17 +18,18 @@ export async function NotebookToProCode(
   file: string,
   notebook: IDLNotebookDocument,
   formatting: IAssemblerOptions<FormatterType>,
-  cancel: CancellationToken
+  cancel: CancellationToken,
+  options: Partial<INotebookToProCodeOptions> = {}
 ): Promise<string> {
+  /**
+   * Merge options for notebook creation
+   */
+  const useOptions = { ...DEFAULT_NOTEBOOK_TO_PRO_CODE_OPTIONS, ...options };
+
   /**
    * Index our file
    */
   const indexed = await index.getParsedNotebook(file, notebook, cancel);
-
-  /**
-   * Get the values for our parsed notebooks
-   */
-  const cells = Object.values(indexed);
 
   /**
    * Routine code (non-main)
@@ -37,12 +42,32 @@ export async function NotebookToProCode(
   let main: string[] = [];
 
   // track our strings
-  for (let i = 0; i < cells.length; i++) {
+  for (let i = 0; i < notebook.cells.length; i++) {
+    /**
+     * Get for cell
+     */
+    const key = `${file}#${i}`;
+
     /** Get parsed cell */
-    const parsed = cells[i];
+    const parsed = indexed[key];
 
     // if cell is undefined, it isnt code
     if (parsed === undefined) {
+      // check if we keep everything or not
+      if (useOptions.includeAllCells) {
+        if (routines.length > 0) {
+          routines.push('');
+        }
+
+        // get the cell
+        const mdCell = notebook.cells[i];
+
+        // add in markdown or other cells
+        routines = routines.concat(
+          mdCell.text.split(/\r?\n/gim).map((line) => `; ${line}`)
+        );
+      }
+
       continue;
     }
 

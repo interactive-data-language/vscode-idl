@@ -649,6 +649,8 @@ export const EN: ITranslation = {
         'No examples found in documentation to create notebook from',
       saveNotebookFirst:
         'You need to save your notebook to disk before converting',
+      includeAllCells:
+        'Include all cells when converting to PRO code? Non-IDL cells will turn into comments.',
     },
   },
   notifications: {
