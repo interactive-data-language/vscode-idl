@@ -168,7 +168,7 @@
   "engines": {
     "vscode": "^1.82.0",
     "npm": "^9.2",
-    "node": ">=18.12.1"
+    "node": ">=18.12.1 >=20.0.0"
   },
   "activationEvents": [
     "workspaceContains:**/*.pro",
