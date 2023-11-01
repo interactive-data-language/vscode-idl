@@ -51,7 +51,6 @@
     "post-migrate": "rimraf ./node_modules/.cache"
   },
   "dependencies": {
-    "@analytics-debugger/ga4mp": "^0.0.8",
     "@vscode/debugadapter": "^1.64.0",
     "@vscode/debugprotocol": "^1.64.0",
     "ajv": "^8.11.2",
