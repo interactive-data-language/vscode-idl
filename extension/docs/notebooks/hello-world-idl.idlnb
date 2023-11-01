@@ -350,9 +350,17 @@
         "",
         "The embedded graphics are saved within the notebook and can be viewed later.",
         "",
-        "There is an extension preference that allows you to disable embedding of graphics if you prefer the windows to appear as they normally would with the workbench.",
+        "There is an extension preference that allows you to disable embedding of graphics if you prefer the windows to appear as they normally would with the workbench."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "> Pro tip: Because the graphics are embedded, do be aware that notebooks may grow in size depending on how many images are embedded.",
         "",
-        "> Pro tip: Because the graphics are embedded, do be aware that notebooks may grow in size depending on how many images are embedded."
+        "> Important note: When ENVI is running, direct graphics are not embedded"
       ],
       "metadata": {},
       "outputs": []
