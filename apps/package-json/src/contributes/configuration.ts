@@ -68,5 +68,5 @@ export function ProcessConfiguration(
    *
    * https://stackoverflow.com/questions/75558543/vscode-unable-to-load-schema-for-package-json
    */
-  contrib['workbench.settings.openDefaultSettings'] = true;
+  // contrib['configurationDefaults']['workbench.settings.openDefaultSettings'] = true;
 }

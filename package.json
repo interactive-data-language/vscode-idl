@@ -1280,7 +1280,6 @@
           "icon": "extension/images/idlicon.svg"
         }
       ]
-    },
-    "workbench.settings.openDefaultSettings": true
+    }
   }
 }
