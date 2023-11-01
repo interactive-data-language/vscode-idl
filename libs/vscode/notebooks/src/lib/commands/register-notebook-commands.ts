@@ -323,7 +323,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             vscode.window.showWarningMessage(
               IDL_TRANSLATION.notebooks.notifications.saveNotebookFirst
             );
-            return;
+            return false;
           }
 
           const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
