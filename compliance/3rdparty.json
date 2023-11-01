@@ -51,6 +51,10 @@
     "notes": "Required library for Angular front end applications",
     "encryption": "no"
   },
+  "@angular/elements": {
+    "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
   "@angular/forms": {
     "notes": "Required library for Angular front end applications",
     "encryption": "no"
@@ -73,6 +77,26 @@
   },
   "@angular/router": {
     "notes": "Required library for Angular front end applications",
+    "encryption": "no"
+  },
+  "@deck.gl/core": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@deck.gl/geo-layers": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@deck.gl/layers": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@deck.gl/mesh-layers": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@mapbox/geojson-extent": {
+    "notes": "For development, ",
     "encryption": "no"
   },
   "@mdi/js": {
@@ -99,6 +123,10 @@
     "notes": "For development, plugins/libraries for monorepo management using Nx",
     "encryption": "no"
   },
+  "@nx/eslint": {
+    "notes": "For development, plugins/libraries for monorepo management using Nx",
+    "encryption": "no"
+  },
   "@nx/eslint-plugin": {
     "notes": "For development, plugins/libraries for monorepo management using Nx",
     "encryption": "no"
@@ -111,12 +139,12 @@
     "notes": "For development, ",
     "encryption": "no"
   },
-  "@nx/eslint": {
+  "@nx/node": {
     "notes": "For development, plugins/libraries for monorepo management using Nx",
     "encryption": "no"
   },
-  "@nx/node": {
-    "notes": "For development, plugins/libraries for monorepo management using Nx",
+  "@nx/web": {
+    "notes": "For development, ",
     "encryption": "no"
   },
   "@nx/workspace": {
@@ -129,6 +157,10 @@
   },
   "@types/jest": {
     "notes": "For development, type definitions for jest library",
+    "encryption": "no"
+  },
+  "@types/mapbox__geojson-extent": {
+    "notes": "For development, type definitions for mapbox__geojson-extent library",
     "encryption": "no"
   },
   "@types/minilog": {
@@ -149,6 +181,10 @@
   },
   "@types/vscode": {
     "notes": "For development, type definitions for vscode library",
+    "encryption": "no"
+  },
+  "@types/vscode-notebook-renderer": {
+    "notes": "For development, type definitions for vscode-notebook-renderer library",
     "encryption": "no"
   },
   "@types/web": {
@@ -183,6 +219,10 @@
     "notes": "For development, ",
     "encryption": "no"
   },
+  "@webcomponents/webcomponentsjs": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
   "ajv": {
     "notes": "",
     "encryption": "no"
@@ -204,6 +244,14 @@
     "encryption": "yes"
   },
   "chalk": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "chart.js": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "compare-versions": {
     "notes": "",
     "encryption": "no"
   },
