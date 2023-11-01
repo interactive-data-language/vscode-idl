@@ -89,7 +89,7 @@ export const NotebooksInteractRight: RunnerFunction = async (init) => {
       'textDocument/semanticTokens/full',
       tokenParams
     )
-  ).toBeNull();
+  ).toEqual({ data: [] });
 
   // short pause
   await Sleep(250);
