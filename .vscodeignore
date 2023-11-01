@@ -1,6 +1,7 @@
 .angular/**
 .github/**
 .idl/idl.json
+.nx/**
 .vscode/**
 .vscode-test/**
 apps/**
