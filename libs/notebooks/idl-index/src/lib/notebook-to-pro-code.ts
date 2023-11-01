@@ -79,7 +79,11 @@ export async function NotebookToProCode(
       parsed.tree = nonMainTokens;
 
       // format the main level program
-      const nonMain = Assembler(parsed, cancel, formatting);
+      const nonMain = Assembler(parsed, cancel, {
+        ...formatting,
+        autoDoc: false,
+        styleAndFormat: false,
+      });
 
       // TODO: figure out what to do if syntax error
       if (nonMain === undefined) {
