@@ -99,6 +99,22 @@
       "outputs": []
     },
     {
+      "type": "markdown",
+      "content": [
+        "Some"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Markdown"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
       "type": "code",
       "content": [
         "; if we have a main level, then run it",

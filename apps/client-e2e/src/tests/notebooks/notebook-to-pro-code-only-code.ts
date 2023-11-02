@@ -1,3 +1,4 @@
+import { INotebookToProCodeOptions } from '@idl/notebooks/types';
 import {
   GetExtensionPath,
   IDL_COMMANDS,
@@ -14,13 +15,13 @@ import { RunnerFunction } from '../runner.interface';
 /**
  * Verifies we can convert notebooks to PRO code
  */
-export const BasicNotebookToProCodeText: RunnerFunction = async (init) => {
+export const NotebookToProCodeOnlyCode: RunnerFunction = async (init) => {
   const nbUri = GetExtensionPath(
     'idl/test/client-e2e/notebooks/notebook-to-pro-code/test-notebook.idlnb'
   );
 
   const expectedUri = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/notebook-to-pro-code/test_notebook.pro'
+    'idl/test/client-e2e/notebooks/notebook-to-pro-code/test_notebook_only_code.pro'
   );
 
   // open notebook
@@ -34,9 +35,17 @@ export const BasicNotebookToProCodeText: RunnerFunction = async (init) => {
     /\r?\n/gim
   );
 
+  /**
+   * Options to convert to PRO code
+   */
+  const options: INotebookToProCodeOptions = {
+    includeAllCells: false,
+  };
+
   // convert to PRO code
   await vscode.commands.executeCommand(
-    IDL_COMMANDS.NOTEBOOKS.NOTEBOOK_TO_PRO_CODE
+    IDL_COMMANDS.NOTEBOOKS.NOTEBOOK_TO_PRO_CODE,
+    options
   );
 
   // short pause

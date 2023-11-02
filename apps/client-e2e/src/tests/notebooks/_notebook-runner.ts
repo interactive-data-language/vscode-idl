@@ -1,13 +1,14 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
-import { BasicNotebookToProCodeText } from './basic-notebook-to-pro-code-test';
 import { NewNotebook } from './new-notebook';
 import { NotebookFormats_1_0_0 } from './notebook-formats-1.0.0';
 import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { RunNotebookReset } from './notebook-reset';
 import { RunNotebookStop } from './notebook-stop';
+import { NotebookToProCodeAllCells } from './notebook-to-pro-code-all-cells';
+import { NotebookToProCodeOnlyCode } from './notebook-to-pro-code-only-code';
 import { OpenENVINotebookExample } from './open-envi-notebook-example';
 import { OpenIDLNotebookExample } from './open-idl-notebook-example';
 import { ResetNotebookExamples } from './reset-notebook-examples';
@@ -70,8 +71,14 @@ NOTEBOOK_RUNNER.addTest({
 });
 
 NOTEBOOK_RUNNER.addTest({
-  name: 'Convert notebook to PRO code (basic)',
-  fn: BasicNotebookToProCodeText,
+  name: 'Convert notebook to PRO code (only code)',
+  fn: NotebookToProCodeOnlyCode,
+  critical: false,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Convert notebook to PRO code (all cells)',
+  fn: NotebookToProCodeAllCells,
   critical: false,
 });
 
