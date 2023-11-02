@@ -4,10 +4,10 @@ This document covers some of the known issues with the extension and how to work
 
 ## Notebooks
 
-- If you try to view the output from a notebook cell in a text editor, and see an error along the lines of "unable to resolve text editor content", there is a setting you can change in VSCode for it to load correctly.
+- **Unable to resolve text model content** when viewing cell outputs in text editor
 
-  You'll need to make sure the setting "Workbench -> Settings: Open Default Settings" is enabled with a check box.
+  If you try to view the output from a notebook cell in a text editor, and see an error along the lines of "unable to resolve text editor content", you'll need to enable scrolling to view the content.
 
-  You may need to close and re-open the editor to have the changes take effect.
+  There's an issue in VSCode where, when you have this error, you can't view the cell output in it's entirety nor can you automatically turn it into a scrollable area.
 
-  We enable this by default for the extension as it gives a better user experience overall. But, if you changed it, that is why we document it.
+  To display this output, it is recommended to turn on the setting "Notebook: Output Scrolling" so you can easily view everything that a notebook cell generates. If you do change this, you'll need to re-run the cell for the changes to take effect.
