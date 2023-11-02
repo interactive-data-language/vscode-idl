@@ -42,7 +42,9 @@ Here are some of the features that notebooks bring:
 
   - After each cell is executed we issue a `retall` command to make sure that we are at the top-level and not stopped in a weird state
 
-Updated the IDL and ENVI icons throughout the extension and on our github pages. This is the same icon that will be used as part of the next official release of ENVI and IDL as well.
+Updated the IDL and ENVI icons throughout the extension and on our github pages. This is the same icon that will be used as part of the next official release of ENVI and IDL.
+
+We now use colored icons for file icons and added some new file associations for our ENVI within the editor. If you have a theme that doesn't look great with our icon colors, let us know!
 
 With the new icons, updated our custom icon theme to include the new ENVI logo for key ENVI file extensions.
 

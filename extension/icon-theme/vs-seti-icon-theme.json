@@ -1546,16 +1546,16 @@
       "fontColor": "#6d8086"
     },
     "_idl": {
-      "iconPath": "./../images/dark/idlicon.svg"
+      "iconPath": "./../images/dark/idlicon-color.svg"
     },
     "_idl_light": {
-      "iconPath": "./../images/light/idlicon.svg"
+      "iconPath": "./../images/light/idlicon-color.svg"
     },
     "_envi": {
-      "iconPath": "./../images/dark/enviicon.svg"
+      "iconPath": "./../images/dark/enviicon-color.svg"
     },
     "_envi_light": {
-      "iconPath": "./../images/light/enviicon.svg"
+      "iconPath": "./../images/light/enviicon-color.svg"
     }
   },
   "file": "_default",

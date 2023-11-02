@@ -68,7 +68,7 @@ async function DownloadFiles() {
   );
 
   /** Dark IDL icon */
-  const darkIconIDL = './../images/dark/idlicon.svg';
+  const darkIconIDL = './../images/dark/idlicon-color.svg';
 
   /** Resolve and make sure it exists */
   const qualifiedDarkIDL = resolve(outDir, darkIconIDL);
@@ -77,7 +77,7 @@ async function DownloadFiles() {
   }
 
   /** Light IDL icon */
-  const lightIconIDL = './../images/light/idlicon.svg';
+  const lightIconIDL = './../images/light/idlicon-color.svg';
 
   /** Resolve and make sure it exists */
   const qualifiedLightIDL = resolve(outDir, lightIconIDL);
@@ -86,7 +86,7 @@ async function DownloadFiles() {
   }
 
   /** Dark ENVI icon */
-  const darkIconENVI = './../images/dark/enviicon.svg';
+  const darkIconENVI = './../images/dark/enviicon-color.svg';
 
   /** Resolve and make sure it exists */
   const qualifiedDarkENVI = resolve(outDir, darkIconENVI);
@@ -95,7 +95,7 @@ async function DownloadFiles() {
   }
 
   /** Light ENVI icon */
-  const lightIconENVI = './../images/light/enviicon.svg';
+  const lightIconENVI = './../images/light/enviicon-color.svg';
 
   /** Resolve and make sure it exists */
   const qualifiedLightENVI = resolve(outDir, lightIconENVI);
