@@ -22,7 +22,22 @@ const IDL_EXTENSIONS = ['pro', 'sav', 'idllog', 'idlnb'];
 /**
  * Extensions for ENVI file types
  */
-const ENVI_EXTENSIONS = ['dat', 'hdr', 'enp', 'evs', 'ept', 'model', 'style'];
+const ENVI_EXTENSIONS = [
+  'dat',
+  'hdr',
+  'enp',
+  'evs',
+  'ept',
+  'model',
+  'style',
+  // 'shp',
+  // 'tif',
+  // 'tiff',
+  // 'nitf',
+  // 'ntf',
+  // 'r0',
+  // 'geojson',
+];
 
 /**
  * Download's the VS Code theme files from github and makes changes for our extension
