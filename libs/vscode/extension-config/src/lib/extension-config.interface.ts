@@ -18,6 +18,8 @@ export interface IDLExtensionsConfigKeys {
   /** Full debug logs for everything */
   readonly debugMode: 'debugMode';
 
+  /** Root level IDL preferences */
+  IDL: 'IDL';
   /** Folder the IDL executable  lives in (i.e. the bin directory with idl.exe) */
   readonly IDLDirectory: 'IDL.directory';
   /** User configured IDL path */
@@ -226,6 +228,7 @@ export interface IDLExtensionConfig {
 export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   debugMode: 'debugMode',
 
+  IDL: 'IDL',
   IDLDirectory: 'IDL.directory',
   IDLPath: 'IDL.path',
   IDLAddWorkspaceFoldersToPath: 'IDL.addWorkspaceFoldersToPath',

@@ -186,6 +186,7 @@ export const EN: ITranslation = {
       debugMode:
         'If set to true, the extension will become very chatty for the purposes of debugging.',
 
+      IDL: 'Preferences for IDL',
       'IDL.directory':
         "Specify the folder with IDL's executable (bin directory with idl.exe or idl).",
       'IDL.path':

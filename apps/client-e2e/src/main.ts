@@ -1,5 +1,8 @@
+import { FindIDL } from '@idl/idl';
 import { EXTENSION_FULL_NAME, GetExtensionPath } from '@idl/shared';
 import { Sleep } from '@idl/test-helpers';
+import { GetWorkspaceConfig, IIDLWorkspaceConfig } from '@idl/vscode/config';
+import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import { IInitializeType } from '@idl/vscode/initialize-types';
 import { OpenFileInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
@@ -34,10 +37,22 @@ export async function run(): Promise<void> {
 
   // run our tests
   try {
+    /**
+     * Manually specify IDL folder
+     */
+    const idlDir = FindIDL();
+
+    // validate we know where it is
+    if (!idlDir) {
+      throw new Error('Unable to find IDL, cannot run tests');
+    }
+
+    // alert user which IDL we are using
+    console.log(` `);
+    console.log(`Test are using this IDL: "${idlDir}"`);
+
     // get extension
     const ext = vscode.extensions.getExtension(EXTENSION_FULL_NAME);
-
-    console.log(ext);
 
     // activate extension
     ACTIVATION_RESULT = await ext.activate();
@@ -88,6 +103,16 @@ export async function run(): Promise<void> {
 
     // close editor
     await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
+
+    // get the current workspace config
+    const config = GetWorkspaceConfig();
+
+    // set latest IDL folder
+    (config as IIDLWorkspaceConfig).update(
+      IDL_EXTENSION_CONFIG_KEYS.IDLDirectory,
+      idlDir,
+      true
+    );
 
     // check if we allow debug logs
     if (DEBUG_LOGS) {
