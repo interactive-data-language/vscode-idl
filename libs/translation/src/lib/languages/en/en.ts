@@ -49,8 +49,9 @@ export const EN: ITranslation = {
         generateTask: 'IDL: Generate ENVI or IDL Task',
       },
       config: {
-        specifyIDLDirectory: 'IDL: Specify IDL Directory (User)',
-        specifyIDLDirectoryWorkspace: 'IDL: Specify IDL Directory (Workspace)',
+        specifyIDLDirectory: 'IDL: Specify IDL Directory (User-level)',
+        specifyIDLDirectoryWorkspace:
+          'IDL: Specify IDL Directory (Workspace-level)',
       },
       debug: {
         startIDL: 'IDL: Start a Session of IDL',
