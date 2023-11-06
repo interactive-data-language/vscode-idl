@@ -432,7 +432,7 @@ export class IDL extends EventEmitter {
    * Returns a command to retrieve scope information from IDL
    */
   scopeInfoCommand(level: number) {
-    return `vscode_getScopeInfo, -${level}`;
+    return `  vscode_getScopeInfo, -${level}`;
   }
 
   /**
@@ -521,7 +521,7 @@ export class IDL extends EventEmitter {
     lineNumber?: number
   ): Promise<IDLBreakpoint[]> {
     // get the strings for our breakpoints
-    const resp = await this.evaluate('vscode_getBreakpoints', {
+    const resp = await this.evaluate('  vscode_getBreakpoints', {
       silent: true,
       idlInfo: false,
     });
@@ -609,7 +609,7 @@ export class IDL extends EventEmitter {
     }
 
     // add extra spaces at the beginning of the command
-    return await this._executeQueue(`  ${command}`, options);
+    return await this._executeQueue(`${command}`, options);
   }
 
   /**
