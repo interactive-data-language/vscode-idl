@@ -14,6 +14,7 @@ import { IsSingleLine } from '@idl/parsing/syntax-validators';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import {
   CleanPath,
+  DOT_IDL_FOLDER,
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
   IDL_NOTEBOOK_LANGUAGE_NAME,
@@ -638,8 +639,11 @@ export class IDLNotebookController {
     // reset cell output
     execution.clearOutput();
 
-    /** Folder where we write notebook */
-    const nbDir = dirname(CleanPath(cell.notebook.uri.fsPath));
+    /** Folder where we write notebook cell  */
+    const nbDir =
+      cell.notebook.uri.scheme === 'file'
+        ? dirname(CleanPath(cell.notebook.uri.fsPath))
+        : DOT_IDL_FOLDER;
 
     /**
      * temp folder for notebook cell
