@@ -11,7 +11,9 @@
     "octal": "lower",
     "binary": "lower",
     "routines": "match",
+    "routineMethods": "match",
     "systemVariables": "lower",
+    "structureNames": "match",
     "localVariables": "match"
   },
   "autoFix": true,
