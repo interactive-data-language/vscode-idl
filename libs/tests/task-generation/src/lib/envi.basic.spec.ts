@@ -57,14 +57,14 @@ describe(`[auto generated] Make basic ENVI task`, () => {
     const expectedTask = {
       schema: 'envitask_3.3',
       name: 'envitasktest',
-      display_name: 'envitasktest',
+      display_name: 'Envitasktest',
       base_class: 'ENVITaskFromProcedure',
       routine: 'envitasktest',
       description: '',
       parameters: [
         {
           name: 'input_array',
-          display_name: 'input_array',
+          display_name: 'Input Array',
           description: 'Placeholder docs for argument, keyword, or property',
           type: 'ENVIRasterArray',
           required: true,
@@ -73,7 +73,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
         },
         {
           name: 'input_raster',
-          display_name: 'input_raster',
+          display_name: 'Input Raster',
           description: 'Placeholder docs for argument, keyword, or property',
           type: 'ENVIRaster',
           required: true,
@@ -81,7 +81,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
         },
         {
           name: 'output_raster_uri',
-          display_name: 'output_raster_uri',
+          display_name: 'Output Raster Uri',
           description: 'Placeholder docs for argument, keyword, or property',
           type: 'ENVIURI',
           required: true,
@@ -99,7 +99,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
         },
         {
           name: 'output_vector_uri',
-          display_name: 'output_vector_uri',
+          display_name: 'Output Vector Uri',
           description: 'Placeholder docs for argument, keyword, or property',
           type: 'ENVIURI',
           required: true,

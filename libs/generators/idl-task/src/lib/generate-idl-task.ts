@@ -5,7 +5,11 @@ import {
   IAssemblerOptions,
 } from '@idl/assembling/config';
 import { IDLTask, IDLTaskSchema12 } from '@idl/data-types/tasks';
-import { GenerateTaskResult, GetProcedure } from '@idl/generators/tasks-shared';
+import {
+  GenerateTaskResult,
+  GetDisplayName,
+  GetProcedure,
+} from '@idl/generators/tasks-shared';
 import { IDL_DOCS_HEADERS, IParsed } from '@idl/parsing/syntax-tree';
 import { PRO_FILE_EXTENSION, TASK_FILE_EXTENSION } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -62,7 +66,7 @@ export async function GenerateIDLTask(
   const task: IDLTask<IDLTaskSchema12> = {
     schema: 'idltask_1.2',
     name: pro.meta.display,
-    display_name: pro.meta.display,
+    display_name: GetDisplayName(pro.meta.display),
     base_class: 'IDLTaskFromProcedure',
     routine: pro.meta.display,
     description: pro.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT] || '',

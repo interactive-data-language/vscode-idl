@@ -80,6 +80,8 @@ Resolved an issue where you couldn't view the output from a notebook cell in VSC
 
 Fixed an issue where statements being sent to IDL were not executing correctly for implied print
 
+When generating ENVI and IDL tasks, we try to make a nice display name for task and parameter names
+
 ## 3.2.4 October 2023
 
 Fixed an issue where improper versions of node.js were used for the language server startup. This caused failures in the language server starting which would prevent any of the feature goodness of the language server from being accessible.
