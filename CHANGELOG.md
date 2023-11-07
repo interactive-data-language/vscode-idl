@@ -4,7 +4,29 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail on incremental work for large features, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
-## Unreleased
+## Preview Features
+
+This section of the CHANGELOG documents features that have been added to the extension, but are still in an experimental phase. Feel free to try them out and provide feedback via discussions or issues on our GitHub page.
+
+Code style revamp! We reworked how routines, routine methods, properties, and structure names get formatted. This includes:
+
+- Support for camel case ("camelCase") and pascal case ("PascalCase") styling. Mileage may vary here, based on the routine names, so please let us know if this doesn't look quite right or do what you expect. Some routines that start with "IDL" or "ENVI" might surprise you with the case conversion.
+
+- New style setting called "routineMethods" so that you can indicate the styling for methods apart from normal functions or procedures
+
+- New style setting called "structureNames" so that you can have structure names have consistent formatting
+
+- Routine formatting now gives you the benefit-of-the-doubt when formatting routines and routine methods. In the past, if we encountered an unknown routine, we would not change the appearance. Now, even if we don't know the class method or routine, we apply styling. Milage may vary here based on the style you use when we can't get the source information.
+
+- New defaults:
+
+  - Properties: camelCase
+
+  - Routines: match definition
+
+  - Routine methods: camelCase
+
+  - Structure names: PascalCase
 
 ## 3.3.0 November 2023
 
