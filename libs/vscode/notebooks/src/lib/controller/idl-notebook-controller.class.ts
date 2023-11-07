@@ -6,6 +6,7 @@ import {
   REGEX_NEW_LINE,
 } from '@idl/idl';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
+import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
 import { IDLNotebookEmbeddedItems } from '@idl/notebooks/types';
 import { Parser } from '@idl/parser';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
@@ -14,7 +15,6 @@ import { IsSingleLine } from '@idl/parsing/syntax-validators';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import {
   CleanPath,
-  DOT_IDL_FOLDER,
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
   IDL_NOTEBOOK_LANGUAGE_NAME,
@@ -643,7 +643,7 @@ export class IDLNotebookController {
     const nbDir =
       cell.notebook.uri.scheme === 'file'
         ? dirname(CleanPath(cell.notebook.uri.fsPath))
-        : DOT_IDL_FOLDER;
+        : NOTEBOOK_FOLDER;
 
     /**
      * temp folder for notebook cell
