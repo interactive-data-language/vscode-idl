@@ -166,6 +166,14 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
             line: 21,
             character: 47,
           },
+          {
+            line: 24,
+            character: 27,
+          },
+          {
+            line: 24,
+            character: 28,
+          },
         ],
       },
     ],
