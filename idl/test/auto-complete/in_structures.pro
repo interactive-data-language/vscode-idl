@@ -21,5 +21,7 @@ b = {NYStruct, prop1: }
 
 !null = {NYStruct,prop1:something,prop2: byte1.}
 
+; structure inheritance
+!null = {mystruct, inherits }
 
 end
