@@ -27,6 +27,11 @@ export const RunUnsavedNotebook: RunnerFunction = async (init) => {
   /** Get reference to the notebook controller */
   const controller = init.notebooks.controller;
 
+  // start IDL if it hasnt yet
+  if (!controller.isStarted()) {
+    await controller.launchIDL('Launching IDL');
+  }
+
   // make sure launched
   expect(controller.isStarted()).toBeTruthy();
 
