@@ -12,15 +12,17 @@ export const MODERN_STYLE_RULE_SET: ICodeStyle = {
   quotes: STYLE_FLAG_LOOKUP.SINGLE,
   methods: STYLE_FLAG_LOOKUP.DOT,
   keywords: STYLE_FLAG_LOOKUP.LOWER,
-  properties: STYLE_FLAG_LOOKUP.LOWER,
+  properties: STYLE_FLAG_LOOKUP.CAMEL,
   control: STYLE_FLAG_LOOKUP.LOWER,
   numbers: STYLE_FLAG_LOOKUP.LOWER,
   hex: STYLE_FLAG_LOOKUP.LOWER,
   octal: STYLE_FLAG_LOOKUP.LOWER,
   binary: STYLE_FLAG_LOOKUP.LOWER,
   routines: STYLE_FLAG_LOOKUP.MATCH,
+  routineMethods: STYLE_FLAG_LOOKUP.CAMEL,
   systemVariables: STYLE_FLAG_LOOKUP.LOWER,
   localVariables: STYLE_FLAG_LOOKUP.MATCH,
+  structureNames: STYLE_FLAG_LOOKUP.PASCAL,
 };
 
 /**
@@ -39,8 +41,10 @@ export const DATED_RULE_SET: ICodeStyle = {
   octal: STYLE_FLAG_LOOKUP.UPPER,
   binary: STYLE_FLAG_LOOKUP.UPPER,
   routines: STYLE_FLAG_LOOKUP.MATCH,
+  routineMethods: STYLE_FLAG_LOOKUP.PASCAL,
   systemVariables: STYLE_FLAG_LOOKUP.UPPER,
   localVariables: STYLE_FLAG_LOOKUP.MATCH,
+  structureNames: STYLE_FLAG_LOOKUP.UPPER,
 };
 
 /**

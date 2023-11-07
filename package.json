@@ -486,8 +486,10 @@
               "octal": "lower",
               "binary": "lower",
               "routines": "match",
+              "routineMethods": "camel",
               "systemVariables": "lower",
-              "localVariables": "match"
+              "localVariables": "match",
+              "structureNames": "pascal"
             },
             "properties": {
               "quotes": {

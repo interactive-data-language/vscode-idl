@@ -1,4 +1,8 @@
-import { CaseStyleFlags, STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
+import {
+  CaseStyleFlags,
+  FullCaseStyleFlags,
+  STYLE_FLAG_LOOKUP,
+} from '@idl/assembling/config';
 import { camelCase, pascalCase } from 'case-anything';
 
 import { AdjustCase } from './adjust-case';
@@ -33,13 +37,15 @@ function PascalCaseTransform(referenceText: string) {
  * Transforms the case of text to a different type given the
  * reference/defined case
  */
-export function TransformCase(referenceText: string, flag: CaseStyleFlags) {
+export function TransformCase(referenceText: string, flag: FullCaseStyleFlags) {
   switch (flag) {
+    case STYLE_FLAG_LOOKUP.MATCH:
+      return referenceText;
     case STYLE_FLAG_LOOKUP.CAMEL:
       return camelCase(referenceText, { keep: PRESERVE_CHARS });
     case STYLE_FLAG_LOOKUP.PASCAL:
       return PascalCaseTransform(referenceText);
     default:
-      return AdjustCase(referenceText, flag);
+      return AdjustCase(referenceText, flag as CaseStyleFlags);
   }
 }

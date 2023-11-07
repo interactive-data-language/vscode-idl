@@ -25,9 +25,18 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.STRUCTURE_NAME,
   (token, parsed, meta) => {
-    // check if our structure name is a system variable
-    if (token.match[0].startsWith('!')) {
-      token.match[0] = AdjustCase(token.match[0], meta.style.systemVariables);
+    switch (true) {
+      // check for system variable
+      case token.match[0].startsWith('!'):
+        token.match[0] = AdjustCase(token.match[0], meta.style.systemVariables);
+        break;
+      // default to case transform!
+      default:
+        // token.match[0] = TransformCase(
+        //   token.match[0],
+        //   meta.style.structureNames
+        // );
+        break;
     }
   }
 );

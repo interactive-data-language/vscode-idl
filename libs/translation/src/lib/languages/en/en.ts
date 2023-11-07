@@ -264,8 +264,6 @@ export const EN: ITranslation = {
         control:
           'How are control statements, such as "for", "if", "pro", formatted',
         hex: 'Indicates formatting for hexadecimal (hex) numbers (either defined with quotes or "0x")',
-        routines:
-          'When we encounter a known routine (function, procedure, and method), how do we format it with respect to the definition',
         keywords: 'Formatting for keywords, includes binary keywords',
         localVariables:
           'If local variables match the case for the first instance that we find',
@@ -277,6 +275,12 @@ export const EN: ITranslation = {
         properties: 'Controls if properties are upper or lower case',
         quotes:
           'For string literals what type of quote we use. Includes numbers defined using quotes.',
+        routines:
+          'When we encounter a known routine (function, procedure, and method), how do we format it with respect to the definition',
+        routineMethods:
+          'When we encounter a known routine method (functions and procedure methods), how do we format it with respect to the definition?',
+        structureNames:
+          'When we have a named structure, how do we format the name?',
         systemVariables: 'Case formatting for system variables',
       },
       'IDL.history': {
@@ -309,6 +313,8 @@ export const EN: ITranslation = {
           double: 'Use double quotes for string expressions',
           upper: 'Use upper case (i.e. "UPPER")',
           lower: 'Use lower case (i.e. "LOWER")',
+          camel: 'Use camel case (i.e. "camelCase")',
+          pascal: 'Use pascal case (i.e. "PascalCase")',
           match: 'Match case of definition',
           none: 'Apply no formatting',
         },
