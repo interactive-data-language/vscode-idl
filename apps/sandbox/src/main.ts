@@ -1,10 +1,17 @@
-import { camelCase, pascalCase } from 'case-anything';
+import { TransformCase } from '@idl/assembling/shared';
 
-const samples = ['TEST_VALUE', 'test_value', 'testValue', '_testValue'];
+const samples = [
+  'TEST_VALUE',
+  'test$_value',
+  'testValue',
+  '_testValue',
+  'IDLRoutine',
+  'ENVIRoutine',
+];
 
 for (let i = 0; i < samples.length; i++) {
   console.log(
-    camelCase(samples[i], { keep: ['_'] }),
-    pascalCase(samples[i], { keep: ['_'] })
+    TransformCase(samples[i], 'camel-case'),
+    TransformCase(samples[i], 'pascal-case')
   );
 }
