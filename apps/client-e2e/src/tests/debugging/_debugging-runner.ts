@@ -6,6 +6,7 @@ import { Compile } from './compile';
 import { Continue } from './continue';
 import { Edit } from './edit';
 import { Exit } from './exit';
+import { ImpliedPrint } from './implied-print';
 import { RigorousAlwaysReturn } from './rigorous-always-return';
 import { StartDebugging } from './start';
 import { VariableReplacement } from './variable-replacement';
@@ -50,6 +51,12 @@ DEBUGGING_RUNNER.addTest({
 DEBUGGING_RUNNER.addTest({
   name: 'Can run many commands and return',
   fn: RigorousAlwaysReturn,
+  critical: true,
+});
+
+DEBUGGING_RUNNER.addTest({
+  name: 'Verify implied print works right',
+  fn: ImpliedPrint,
   critical: true,
 });
 
