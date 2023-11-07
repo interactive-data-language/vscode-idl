@@ -13,7 +13,7 @@
     "routines": "match",
     "routineMethods": "match",
     "systemVariables": "lower",
-    "structureNames": "match",
+    "structureNames": "pascal",
     "localVariables": "match"
   },
   "autoFix": true,
