@@ -15,9 +15,18 @@ export const PRESERVE_CHARS: string[] = [
 
 /**
  * Regular expressions that indicate we have special text to replace with our
- * case conversions
+ * case conversions for pascal case
  */
 export const PASCAL_POST_PROCESS_REGEX = {
   IDL: /^idl/im,
   ENVI: /^envi/im,
+};
+
+/**
+ * Regular expressions that indicate we have special text to replace with our
+ * case conversions for camel case
+ */
+export const CAMEL_POST_PROCESS_REGEX = {
+  IDL: /^idl(?=[a-z])/im,
+  ENVI: /^envi(?=[a-z])/im,
 };
