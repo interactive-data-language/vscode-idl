@@ -14,14 +14,11 @@ export const PRESERVE_CHARS: string[] = [
 ];
 
 /**
- * Regular expressions that indicate we have special text to replace with our
- * case conversions for pascal case
+ * Regular expression that find text that should always be upper case
+ *
+ * Needs to be a global regex to replace multiple matches at once
  */
-export const PASCAL_POST_PROCESS_REGEX = {
-  IDL: /idl/gim,
-  ENVI: /envi/gim,
-  ROI: /roi/gim,
-};
+export const PASCAL_POST_PROCESS_REGEX = /idl|envi|roi/gim;
 
 /**
  * Regular expressions that indicate we have special text to replace with our

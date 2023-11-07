@@ -16,19 +16,10 @@ import {
  * Transforms text to pascal case with special cases for ENVI and IDL
  */
 function PascalCaseTransform(referenceText: string) {
-  /** Convert */
-  let converted = pascalCase(referenceText, { keep: PRESERVE_CHARS });
-
-  // make sure IDL is all caps
-  converted = converted.replace(PASCAL_POST_PROCESS_REGEX.IDL, 'IDL');
-
-  // make sure ENVI is all caps
-  converted = converted.replace(PASCAL_POST_PROCESS_REGEX.ENVI, 'ENVI');
-
-  // make sure ROI is all caps
-  converted = converted.replace(PASCAL_POST_PROCESS_REGEX.ROI, 'ROI');
-
-  return converted;
+  return pascalCase(referenceText, { keep: PRESERVE_CHARS }).replace(
+    PASCAL_POST_PROCESS_REGEX,
+    (m) => m.toUpperCase()
+  );
 }
 
 /**
