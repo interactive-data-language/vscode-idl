@@ -4,6 +4,7 @@ import { TextDocumentChangeEvent } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { CacheValid } from '../../helpers/cache-valid';
+import { IsURIFile } from '../../helpers/is-uri-file';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { SendProblems } from '../../helpers/send-problems';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
@@ -20,6 +21,11 @@ export const ON_DID_CLOSE = async (
 ) => {
   await SERVER_INITIALIZED;
   try {
+    // if we had a temporary file, return
+    if (!IsURIFile(event.document.uri)) {
+      return;
+    }
+
     // return if our cache is valid and the content has not changed
     if (CacheValid(event.document.uri)) {
       return;
