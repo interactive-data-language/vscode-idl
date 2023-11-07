@@ -1,8 +1,4 @@
-import {
-  CaseStyleFlags,
-  FormatterType,
-  IAssemblerOptions,
-} from '@idl/assembling/config';
+import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { AdjustCase } from '@idl/assembling/shared';
 import { ENVITask, ENVITaskSchemaVersion } from '@idl/data-types/tasks';
 
@@ -38,7 +34,7 @@ export function ENVITaskFormatter<T extends FormatterType>(
     if (param.name !== undefined) {
       param.name = AdjustCase(
         param.name.replace(/\s/g, ''),
-        options.style.properties as CaseStyleFlags
+        options.style.keywords
       );
     }
 
