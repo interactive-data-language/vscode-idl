@@ -18,8 +18,9 @@ export const PRESERVE_CHARS: string[] = [
  * case conversions for pascal case
  */
 export const PASCAL_POST_PROCESS_REGEX = {
-  IDL: /^idl/im,
-  ENVI: /^envi/im,
+  IDL: /idl/gim,
+  ENVI: /envi/gim,
+  ROI: /roi/gim,
 };
 
 /**

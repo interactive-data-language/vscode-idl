@@ -14,7 +14,11 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 - New style setting called "routineMethods" so that you can indicate the styling for methods apart from normal functions or procedures
 
-- New style setting called "structureNames" so that you can have structure names have consistent formatting
+- New style setting called "structureNames" so that you can have structure names have consistent formatting.
+
+- We also now format the structure names in inheritance statements.
+
+- We also use structure formatting preferences when auto-completing structure names
 
 - Routine formatting now gives you the benefit-of-the-doubt when formatting routines and routine methods. In the past, if we encountered an unknown routine, we would not change the appearance. Now, even if we don't know the class method or routine, we apply styling. Milage may vary here based on the style you use when we can't get the source information.
 
@@ -103,6 +107,8 @@ Resolved an issue where you couldn't view the output from a notebook cell in VSC
 Fixed an issue where statements being sent to IDL were not executing correctly for implied print
 
 When generating ENVI and IDL tasks, we try to make a nice display name for task and parameter names
+
+Added auto-complete for "inherits" statements in structure definitions
 
 ## 3.2.4 October 2023
 

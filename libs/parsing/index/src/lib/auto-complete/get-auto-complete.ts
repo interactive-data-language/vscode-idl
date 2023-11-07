@@ -131,11 +131,18 @@ export async function GetAutoComplete(
         AddCompletionExecutiveCommands(items, formatting);
         return items;
       case token?.name === TOKEN_NAMES.STRUCTURE && token?.kids?.length === 0:
-        AddCompletionStructureNames(items);
+        AddCompletionStructureNames(items, formatting);
+        return items;
+      case token?.name === TOKEN_NAMES.STRUCTURE_INHERITANCE &&
+        // fully typed inherits
+        token.match[0].trim().toLowerCase() === 'inherits' &&
+        // make sure it ends with a space
+        token.match[0].endsWith(' '):
+        AddCompletionStructureNames(items, formatting);
         return items;
       case token?.name === TOKEN_NAMES.STRUCTURE_NAME &&
         token?.kids?.length === 0:
-        AddCompletionStructureNames(items);
+        AddCompletionStructureNames(items, formatting);
         return items;
       case token?.name === TOKEN_NAMES.STRUCTURE_NAME:
         AddCompletionPropertiesInStructures(

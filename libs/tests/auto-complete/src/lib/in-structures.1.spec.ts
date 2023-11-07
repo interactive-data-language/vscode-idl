@@ -656,5 +656,599 @@ describe(`[auto generated] Verify auto-complete in structures`, () => {
         )
       ).slice(0, 50)
     );
+    // define position
+    const position_3: Position = { line: 24, character: 27 };
+
+    // define expected token we extract
+    const expectedFound_3: CompletionItem[] = [
+      { label: '!x', kind: 7, sortText: '00', detail: 'Structure' },
+      { label: '!y', kind: 7, sortText: '00', detail: 'Structure' },
+      { label: '!z', kind: 7, sortText: '00', detail: 'Structure' },
+      {
+        label: 'ENVIInitializeENVINet5MultiModelTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildLabelRasterFromClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIClassActivationToPixelROITask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIRandomizeTrainTensorFlowMaskModelTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBoundingBoxSet',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildDeepLearningRasterTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildLabelRasterFromROITask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildObjectDetectionRasterFromAnnotationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildObjectDetectionRasterFromROITask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildObjectDetectionRasterFromVectorTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIClassActivationToClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIClassActivationToPolygonROITask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIClassActivationToPolygonShapefileTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIClassActivationToPolylineShapefileTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDeepLearningLabelRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDeepLearningObjectDetectionRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITensorFlowMaskClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDeepLearningRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIExtractDeepLearningLabelRasterFromFileTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIExtractDeepLearningRasterFromFileTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIExtractTensorFlowModelFromFileTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITrainTensorFlowObjectModelTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIPostProcessObjectClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITensorFlowModel',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITensorFlowObjectClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITensorFlowObjectModel',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITrainTensorFlowMaskModelTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIQuerySpectralLibraryTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIStretchParameters',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDiceRasterByVectorTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      { label: 'ENVITask', kind: 7, sortText: '00', detail: 'Structure' },
+      {
+        label: 'ENVILinearSpectralUnmixingTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDirectionalKernelTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIVectorRecordsToBoundingBoxTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIMaximumLikelihoodClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIPercentThresholdClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVICalibrateRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIVectorRecordsToROITask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIFireFuelClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVInnDiffusePanSharpeningRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIPointCloudMetadata',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVICreateSubrectsFromTileCountTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVInnDiffusePanSharpeningTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIImageIntersectionTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBinaryGtThresholdRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIRadarBackscatterRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIAutoChangeThresholdClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+    ];
+
+    // verify results
+    expect(expectedFound_3).toEqual(
+      (
+        await index.getAutoComplete(
+          filepath,
+          await readFile(filepath, 'utf-8'),
+          position_3
+        )
+      ).slice(0, 50)
+    );
+    // define position
+    const position_4: Position = { line: 24, character: 28 };
+
+    // define expected token we extract
+    const expectedFound_4: CompletionItem[] = [
+      { label: '!x', kind: 7, sortText: '00', detail: 'Structure' },
+      { label: '!y', kind: 7, sortText: '00', detail: 'Structure' },
+      { label: '!z', kind: 7, sortText: '00', detail: 'Structure' },
+      {
+        label: 'ENVIInitializeENVINet5MultiModelTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildLabelRasterFromClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIClassActivationToPixelROITask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIRandomizeTrainTensorFlowMaskModelTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBoundingBoxSet',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildDeepLearningRasterTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildLabelRasterFromROITask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildObjectDetectionRasterFromAnnotationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildObjectDetectionRasterFromROITask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildObjectDetectionRasterFromVectorTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIClassActivationToClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIClassActivationToPolygonROITask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIClassActivationToPolygonShapefileTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIClassActivationToPolylineShapefileTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDeepLearningLabelRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDeepLearningObjectDetectionRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITensorFlowMaskClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDeepLearningRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIExtractDeepLearningLabelRasterFromFileTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIExtractDeepLearningRasterFromFileTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIExtractTensorFlowModelFromFileTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITrainTensorFlowObjectModelTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIPostProcessObjectClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITensorFlowModel',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITensorFlowObjectClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITensorFlowObjectModel',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITrainTensorFlowMaskModelTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIQuerySpectralLibraryTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIStretchParameters',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDiceRasterByVectorTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      { label: 'ENVITask', kind: 7, sortText: '00', detail: 'Structure' },
+      {
+        label: 'ENVILinearSpectralUnmixingTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDirectionalKernelTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIVectorRecordsToBoundingBoxTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIMaximumLikelihoodClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIPercentThresholdClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVICalibrateRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIVectorRecordsToROITask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIFireFuelClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVInnDiffusePanSharpeningRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIPointCloudMetadata',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVICreateSubrectsFromTileCountTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVInnDiffusePanSharpeningTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIImageIntersectionTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBinaryGtThresholdRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIRadarBackscatterRaster',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIAutoChangeThresholdClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+    ];
+
+    // verify results
+    expect(expectedFound_4).toEqual(
+      (
+        await index.getAutoComplete(
+          filepath,
+          await readFile(filepath, 'utf-8'),
+          position_4
+        )
+      ).slice(0, 50)
+    );
   });
 });

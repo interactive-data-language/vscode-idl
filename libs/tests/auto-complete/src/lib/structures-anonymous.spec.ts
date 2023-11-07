@@ -1138,7 +1138,7 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVINNDiffusePanSharpeningRaster',
+        label: 'ENVInnDiffusePanSharpeningRaster',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
@@ -1156,7 +1156,7 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVINNDiffusePanSharpeningTask',
+        label: 'ENVInnDiffusePanSharpeningTask',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
@@ -1168,7 +1168,7 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVIBinaryGTThresholdRaster',
+        label: 'ENVIBinaryGtThresholdRaster',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
@@ -1435,7 +1435,7 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVINNDiffusePanSharpeningRaster',
+        label: 'ENVInnDiffusePanSharpeningRaster',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
@@ -1453,7 +1453,7 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVINNDiffusePanSharpeningTask',
+        label: 'ENVInnDiffusePanSharpeningTask',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
@@ -1465,7 +1465,7 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVIBinaryGTThresholdRaster',
+        label: 'ENVIBinaryGtThresholdRaster',
         kind: 7,
         sortText: '00',
         detail: 'Structure',

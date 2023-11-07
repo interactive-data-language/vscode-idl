@@ -19,17 +19,14 @@ function PascalCaseTransform(referenceText: string) {
   /** Convert */
   let converted = pascalCase(referenceText, { keep: PRESERVE_CHARS });
 
-  // check for special character combinations
-  switch (true) {
-    case PASCAL_POST_PROCESS_REGEX.IDL.test(referenceText):
-      converted = converted.replace(PASCAL_POST_PROCESS_REGEX.IDL, 'IDL');
-      break;
-    case PASCAL_POST_PROCESS_REGEX.ENVI.test(referenceText):
-      converted = converted.replace(PASCAL_POST_PROCESS_REGEX.ENVI, 'ENVI');
-      break;
-    default:
-      break;
-  }
+  // make sure IDL is all caps
+  converted = converted.replace(PASCAL_POST_PROCESS_REGEX.IDL, 'IDL');
+
+  // make sure ENVI is all caps
+  converted = converted.replace(PASCAL_POST_PROCESS_REGEX.ENVI, 'ENVI');
+
+  // make sure ROI is all caps
+  converted = converted.replace(PASCAL_POST_PROCESS_REGEX.ROI, 'ROI');
 
   return converted;
 }
