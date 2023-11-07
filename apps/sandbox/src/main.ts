@@ -11,7 +11,7 @@ const samples = [
 
 for (let i = 0; i < samples.length; i++) {
   console.log(
-    TransformCase(samples[i], 'camel-case'),
-    TransformCase(samples[i], 'pascal-case')
+    TransformCase(samples[i], 'camel'),
+    TransformCase(samples[i], 'pascal')
   );
 }

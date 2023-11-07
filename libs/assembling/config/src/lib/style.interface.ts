@@ -20,9 +20,9 @@ export const ASSEMBLER_STYLER_LOOKUP: IAssemblerStylerLookup = {
 };
 
 /** Pascal case for style */
-type CamelCaseStyleFlag = 'camel-case';
+type CamelCaseStyleFlag = 'camel';
 /** Pascal case for style */
-type PascalCaseStyleFlag = 'pascal-case';
+type PascalCaseStyleFlag = 'pascal';
 /** Upper case */
 type LowerCaseStyleFlag = 'lower';
 /** Lower case */
@@ -97,8 +97,8 @@ interface IStyleFlags {
  * Lookup with option flags for the fiddler
  */
 export const STYLE_FLAG_LOOKUP: IStyleFlags = {
-  CAMEL: 'camel-case',
-  PASCAL: 'pascal-case',
+  CAMEL: 'camel',
+  PASCAL: 'pascal',
   LOWER: 'lower',
   UPPER: 'upper',
   SINGLE: 'single',
