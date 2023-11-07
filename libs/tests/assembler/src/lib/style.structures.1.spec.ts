@@ -158,7 +158,7 @@ describe(`[auto generated] Verify structures`, () => {
         `  on_error, 2`,
         ``,
         `  void = { $`,
-        `    FOLDERWATCH, $`,
+        `    Folderwatch, $`,
         `    inherits idl_object, $`,
         `    _folder: '', $`,
         `    _callback: '', $`,

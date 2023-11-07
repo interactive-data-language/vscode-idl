@@ -128,7 +128,7 @@ describe(`[auto generated] Verify we style ternary operators well`, () => {
     } else {
       // define expected problems
       const expectedFormatting: string[] = [
-        `oWorld = obj_valid(oLayer) ? oLayer.GetWorld() : obj_new()`,
+        `oWorld = obj_valid(oLayer) ? oLayer.getWorld() : obj_new()`,
       ];
 
       // verify formatting

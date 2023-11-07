@@ -74,7 +74,7 @@ describe(`[auto generated] Generate structure docs`, () => {
         ``,
         `  !null = {MyStruct, inherits IDL_object, prop: 1, prop2: 4}`,
         ``,
-        `  !null = {mystruct2, inherits IDL_object, prop: 1, prop2: 4}`,
+        `  !null = {Mystruct2, inherits IDL_object, prop: 1, prop2: 4}`,
         `end`,
       ];
 
