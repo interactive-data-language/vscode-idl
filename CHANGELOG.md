@@ -78,6 +78,8 @@ When notebooks start, we now perform an extra check to make sure we have the rou
 
 Resolved an issue where you couldn't view the output from a notebook cell in VSCode. We provided a default VSCode configuration which fixes this problem and added a new doc to the extension to capture known issues and how to solve them.
 
+Fixed an issue where statements being sent to IDL were not executing correctly for implied print
+
 ## 3.2.4 October 2023
 
 Fixed an issue where improper versions of node.js were used for the language server startup. This caused failures in the language server starting which would prevent any of the feature goodness of the language server from being accessible.
