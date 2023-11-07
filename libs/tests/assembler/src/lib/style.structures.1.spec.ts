@@ -159,7 +159,7 @@ describe(`[auto generated] Verify structures`, () => {
         ``,
         `  void = { $`,
         `    Folderwatch, $`,
-        `    inherits idl_object, $`,
+        `    inherits IDL_Object, $`,
         `    _folder: '', $`,
         `    _callback: '', $`,
         `    _userdata: ptr_new(), $`,

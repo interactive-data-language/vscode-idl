@@ -72,9 +72,9 @@ describe(`[auto generated] Generate structure docs`, () => {
         `pro pro4__define`,
         `  compile_opt idl2`,
         ``,
-        `  !null = {MyStruct, inherits IDL_object, prop: 1, prop2: 4}`,
+        `  !null = {MyStruct, inherits IDL_Object, prop: 1, prop2: 4}`,
         ``,
-        `  !null = {Mystruct2, inherits IDL_object, prop: 1, prop2: 4}`,
+        `  !null = {Mystruct2, inherits IDL_Object, prop: 1, prop2: 4}`,
         `end`,
       ];
 
@@ -154,9 +154,9 @@ describe(`[auto generated] Generate structure docs`, () => {
         `pro pro4`,
         `  compile_opt idl2`,
         ``,
-        `  !null = {MyStruct, inherits IDL_object, prop: 1, prop2: 4}`,
+        `  !null = {MyStruct, inherits IDL_Object, prop: 1, prop2: 4}`,
         ``,
-        `  !null = {Mystruct2, inherits IDL_object, prop: 1, prop2: 4}`,
+        `  !null = {Mystruct2, inherits IDL_Object, prop: 1, prop2: 4}`,
         `end`,
       ];
 
@@ -263,7 +263,7 @@ describe(`[auto generated] Generate structure docs`, () => {
         `pro pro4__define`,
         `  compile_opt idl2`,
         ``,
-        `  !null = {MyStruct, inherits IDL_object, prop: 1, prop2: 4}`,
+        `  !null = {MyStruct, inherits IDL_Object, prop: 1, prop2: 4}`,
         `end`,
       ];
 
