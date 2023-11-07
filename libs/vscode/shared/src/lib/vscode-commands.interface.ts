@@ -39,6 +39,10 @@ export const VSCODE_COMMANDS = {
    */
   NOTEBOOK_INSERT_CODE_CELL_AT_TOP: 'notebook.cell.insertCodeCellAtTop',
   /**
+   * Add code cell below
+   */
+  NOTEBOOK_INSERT_CODE_CELL_AT_BOTTOM: 'notebook.cell.insertCodeCellBelow',
+  /**
    * Run all notebook cells
    */
   NOTEBOOK_RUN_ALL: 'notebook.execute',

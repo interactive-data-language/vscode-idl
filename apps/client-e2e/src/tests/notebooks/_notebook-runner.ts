@@ -17,6 +17,7 @@ import { RunProblemNotebooks } from './run-problem-notebooks';
 import { RunTestENVIMapNotebook } from './run-test-envi-map-notebook';
 import { RunTestENVINotebook } from './run-test-envi-notebook';
 import { RunTestNotebook } from './run-test-notebook';
+import { RunUnsavedNotebook } from './run-unsaved-notebook';
 import { SaveAndClearNotebook } from './save-and-clear-output';
 
 /*
@@ -86,6 +87,12 @@ NOTEBOOK_RUNNER.addTest({
   name: 'Run notebook that tests successes',
   fn: RunTestNotebook,
   critical: true,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Run cells in notebook not saved to disk',
+  fn: RunUnsavedNotebook,
+  critical: false,
 });
 
 NOTEBOOK_RUNNER.addTest({
