@@ -48,7 +48,7 @@ function CamelCaseTransform(referenceText: string) {
         converted =
           converted.substring(0, 3).toLowerCase() +
           converted.substring(3, 4).toUpperCase() +
-          converted.substring(5);
+          converted.substring(4);
       }
       break;
     case CAMEL_POST_PROCESS_REGEX.ENVI.test(referenceText):
