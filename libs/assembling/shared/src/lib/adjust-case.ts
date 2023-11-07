@@ -1,7 +1,7 @@
 import { CaseStyleFlags, STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 
 /**
- * Sets case based on styling
+ * Simply adjust the case of text without anything fancy being applied
  */
 export function AdjustCase(text: string, flag: CaseStyleFlags) {
   switch (flag) {

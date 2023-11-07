@@ -197,6 +197,10 @@ export interface IConfigTranslation {
         lower: string;
         /** Case */
         upper: string;
+        /** Case */
+        camel: string;
+        /** Case */
+        pascal: string;
         /** Quotes */
         single: string;
         /** Quotes */

@@ -19,6 +19,10 @@ export const ASSEMBLER_STYLER_LOOKUP: IAssemblerStylerLookup = {
   DEFAULT: 'default',
 };
 
+/** Pascal case for style */
+type CamelCaseStyleFlag = 'camel';
+/** Pascal case for style */
+type PascalCaseStyleFlag = 'pascal';
 /** Upper case */
 type LowerCaseStyleFlag = 'lower';
 /** Lower case */
@@ -41,6 +45,17 @@ type NoneStyleFlag = 'none';
  * statements
  */
 export type CaseStyleFlags =
+  | LowerCaseStyleFlag
+  | UpperCaseStyleFlag
+  | NoneStyleFlag;
+
+/**
+ * All case style flags, some things don't need all, so thats why they are separate
+ */
+export type FullCaseStyleFlags =
+  | MatchStyleFlag
+  | CamelCaseStyleFlag
+  | PascalCaseStyleFlag
   | LowerCaseStyleFlag
   | UpperCaseStyleFlag
   | NoneStyleFlag;
@@ -75,6 +90,8 @@ export type StyleFlag = CaseStyleFlags | MatchStyleFlags | QuoteStyleFlags;
 
 /** Strictly typed lookup for fiddler flags */
 interface IStyleFlags {
+  CAMEL: CamelCaseStyleFlag;
+  PASCAL: PascalCaseStyleFlag;
   LOWER: LowerCaseStyleFlag;
   UPPER: UpperCaseStyleFlag;
   SINGLE: SingleQuoteStyleFlag;
@@ -89,6 +106,8 @@ interface IStyleFlags {
  * Lookup with option flags for the fiddler
  */
 export const STYLE_FLAG_LOOKUP: IStyleFlags = {
+  CAMEL: 'camel',
+  PASCAL: 'pascal',
   LOWER: 'lower',
   UPPER: 'upper',
   SINGLE: 'single',
@@ -110,20 +129,24 @@ export interface ICodeStyle {
   /** Do we enforce upper case keywords or not */
   keywords: CaseStyleFlags;
   /** Do we use upper case characters for properties or not */
-  properties: MatchStyleFlag | CaseStyleFlags;
+  properties: FullCaseStyleFlags;
   /** Are control statements upper or lower case */
   control: CaseStyleFlags;
-  /** Formatting for numbers */
+  /** Style for numbers */
   numbers: CaseStyleFlags;
-  /** Indicate how hex numbers (starting with \"0x\", expressed as strings, or hex escape characters in tempalte literals) will be formatted. Modern uses lower case and dated uses upper case. */
+  /** Style for how hex numbers (starting with \"0x\", expressed as strings, or hex escape characters in template literals) will be formatted. Modern uses lower case and dated uses upper case. */
   hex: CaseStyleFlags;
-  /** Formatting for octal numbers starting with "0o" */
+  /** Style for octal numbers starting with "0o" */
   octal: CaseStyleFlags;
-  /** Formatting for binary numbers starting with "0b" */
+  /** Style for binary numbers starting with "0b" */
   binary: CaseStyleFlags;
-  /** Formatting for routines from core ENVI or IDL */
-  routines: MatchStyleFlags;
-  /** Formatting for system variables */
+  /** Style for functions and procedures */
+  routines: FullCaseStyleFlags;
+  /** Style for function and procedure methods */
+  routineMethods: FullCaseStyleFlags;
+  /** Style for structure names */
+  structureNames: FullCaseStyleFlags;
+  /** Style for system variables */
   systemVariables: CaseStyleFlags;
   /** How do we format locally defined variables */
   localVariables: MatchStyleFlags;

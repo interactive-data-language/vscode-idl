@@ -243,6 +243,10 @@
     "notes": "For development and not included in the built extension, HTTP/HTTPS communication",
     "encryption": "yes"
   },
+  "case-anything": {
+    "notes": "",
+    "encryption": "no"
+  },
   "chalk": {
     "notes": "",
     "encryption": "no"
