@@ -1,9 +1,10 @@
-import { Sleep } from '@idl/shared';
-import { CLIENT_ID, InitializeUsageMetrics } from '@idl/usage-metrics';
+import { camelCase, pascalCase } from 'case-anything';
 
-InitializeUsageMetrics(true);
-console.log(CLIENT_ID);
+const samples = ['TEST_VALUE', 'test_value', 'testValue', '_testValue'];
 
-Sleep(3000).then(() => {
-  process.exit();
-});
+for (let i = 0; i < samples.length; i++) {
+  console.log(
+    camelCase(samples[i], { keep: ['_'] }),
+    pascalCase(samples[i], { keep: ['_'] })
+  );
+}
