@@ -26,20 +26,21 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.STRUCTURE_NAME,
   (token, parsed, meta) => {
+    const low = token.match[0].toLowerCase().trim();
+
     switch (true) {
       // check for system variable
-      case token.match[0].startsWith('!'):
+      case low.startsWith('!'):
         token.match[0] = AdjustCase(token.match[0], meta.style.systemVariables);
         break;
       // default to case transform!
       default: {
-        const low = token.match[0].toLowerCase();
-        if (low in CUSTOM_TYPE_DISPLAY_NAMES) {
-          token.match[0] = TransformCase(
-            CUSTOM_TYPE_DISPLAY_NAMES[low],
-            meta.style.structureNames
-          );
-        }
+        token.match[0] = TransformCase(
+          low in CUSTOM_TYPE_DISPLAY_NAMES
+            ? CUSTOM_TYPE_DISPLAY_NAMES[low]
+            : token.match[0],
+          meta.style.structureNames
+        );
         break;
       }
     }

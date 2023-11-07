@@ -69,7 +69,7 @@ describe(`[auto generated] Verify we style case`, () => {
         `  : $`,
         `    print, 'one' + func()`,
         `  else: begin`,
-        `    dat = {myStruct}`,
+        `    dat = {MyStruct}`,
         `    print, 'Please enter a value between 1 and 4'`,
         `  end`,
         `endcase`,

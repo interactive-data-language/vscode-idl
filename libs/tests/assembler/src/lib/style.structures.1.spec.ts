@@ -51,7 +51,7 @@ describe(`[auto generated] Verify structures`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `compile_opt idl2`,
-        `fourty2 = {mystruct}`,
+        `fourty2 = {Mystruct}`,
         ``,
         `end`,
       ];
