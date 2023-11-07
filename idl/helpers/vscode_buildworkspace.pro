@@ -28,7 +28,7 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
   changes = !false
 
   ; reset bridge
-  bdg.execute, '.reset'
+  bdg.Execute, '.reset'
 
   ; reset path in child process - weird thing with resolving objects called as functions
   ; when they are on your path
@@ -37,7 +37,7 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
   ; compile all routines that we are aware of
   foreach routine, routines do begin
     ; skip if we have processed a routine or not
-    if skip.hasKey(routine) or processed.hasKey(routine) or strtrim(routine, 2) eq '' then continue
+    if skip.HasKey(routine) or processed.HasKey(routine) or strtrim(routine, 2) eq '' then continue
 
     ; nicely handle errors
     catch, err
@@ -50,7 +50,7 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
 
     ; compile file
     ; bdg.execute, '.compile "' + routine + '"'
-    bdg.execute, 'resolve_routine, "' + routine + '", /COMPILE_FULL_FILE, /EITHER'
+    bdg.Execute, 'resolve_routine, "' + routine + '", /COMPILE_FULL_FILE, /EITHER'
     catch, /cancel
 
     ; check for source location
@@ -63,17 +63,17 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
         catch, /cancel
         continue
       endif
-      bdg.execute, 'info = json_serialize(routine_info("' + routine + '", /source, /function))'
+      bdg.Execute, 'info = json_serialize(routine_info("' + routine + '", /source, /function))'
     endif else begin
-      bdg.execute, 'info = json_serialize(routine_info("' + routine + '", /source))'
+      bdg.Execute, 'info = json_serialize(routine_info("' + routine + '", /source))'
       catch, /cancel
     endelse
 
     ; get and parse the source struct
-    src = json_parse(bdg.getVar('info'), /fold_case)
+    src = json_parse(bdg.GetVar('info'), /fold_case)
 
     ; skip internal routines
-    if src['path'].startsWith(!dir) or ~keyword_set(src['path']) then begin
+    if src['path'].StartsWith(!dir) or ~keyword_set(src['path']) then begin
       skip[routine] = !true
       continue
     endif
@@ -86,17 +86,19 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
   ; check if we have changes
   if changes then begin
     ; get the unresolved routines
-    bdg.execute, 'info = json_serialize(orderedhash("procedures", routine_info(/UNRESOLVED), "functions", routine_info(/FUNCTIONS, /UNRESOLVED)))'
-    allRoutines = json_parse(bdg.getVar('info'))
+    bdg.Execute, 'info = json_serialize(orderedhash("procedures", routine_info(/UNRESOLVED), "functions", routine_info(/FUNCTIONS, /UNRESOLVED)))'
+    allRoutines = json_parse(bdg.GetVar('info'))
 
     ; concat together
     toProcess = list()
-    if isa(allRoutines['procedures'], 'list') then toProcess.add, allRoutines['procedures'], /extract
-    if isa(allRoutines['functions'], 'list') then toProcess.add, allRoutines['functions'], /extract
+    if isa(allRoutines['procedures'], 'list') then toProcess.Add, allRoutines['procedures'], /extract
+    if isa(allRoutines['functions'], 'list') then toProcess.Add, allRoutines['functions'], /extract
 
     ; recurse
     vscode_BuildWorkspace_resolve, bdg, toProcess, processed, skip
   endif
+
+  s = {myProp: 5, otherProp: 6}
 end
 
 ;+
@@ -130,13 +132,13 @@ pro vscode_BuildWorkspace_CopyFiles, workspace, destination, types
     message, 'No files found to build', level = -1
 
   ; pluck the file extensions
-  extensions = strlowcase(files[idxCheck].substring(dot))
+  extensions = strlowcase(files[idxCheck].Substring(dot))
 
   ; make hash of allowed types
   okExtensions = hash(types, replicate(!true, n_elements(types)))
 
   ; get extensions we keep
-  idxOk = where(okExtensions.hasKey(extensions), countKeep)
+  idxOk = where(okExtensions.HasKey(extensions), countKeep)
 
   ; make sure that we have files
   if (countKeep eq 0) then $
@@ -218,7 +220,7 @@ pro vscode_BuildWorkspace, workspace
   if (nCleanup gt 0) then begin
     foreach file, files do begin
       case (!true) of
-        delete.hasKey(file_basename(file)): file_delete, file
+        delete.HasKey(file_basename(file)): file_delete, file
         else: ; do nothing
       endcase
     endforeach
@@ -229,9 +231,9 @@ pro vscode_BuildWorkspace, workspace
   if (nCleanup gt 0) then begin
     foreach file, files do begin
       case (!true) of
-        file.endsWith('.spec.pro'): file_delete, file
-        file.endsWith('.spec.pro.log'): file_delete, file
-        delete.hasKey(file_basename(file)): file_delete, file
+        file.EndsWith('.spec.pro'): file_delete, file
+        file.EndsWith('.spec.pro.log'): file_delete, file
+        delete.HasKey(file_basename(file)): file_delete, file
         else: ; do nothing
       endcase
     endforeach
@@ -249,43 +251,43 @@ pro vscode_BuildWorkspace, workspace
 
   ; create process to build files
   bdg = IDL_IDLBridge()
-  bdg.setVar, 'path', byte(newPath) ; goofy to avoid strings that are too long
-  bdg.execute, 'path = string(path)'
-  bdg.execute, 'pref_set, "IDL_PATH", path, /commit & path_cache, /rebuild'
+  bdg.SetVar, 'path', byte(newPath) ; goofy to avoid strings that are too long
+  bdg.Execute, 'path = string(path)'
+  bdg.Execute, 'pref_set, "IDL_PATH", path, /commit & path_cache, /rebuild'
 
   ; compile and save all of our PRO files
   foreach file, files do begin
-    bdg.execute, '.reset'
-    bdg.execute, '.compile "' + file + '"'
-    bdg.execute, 'save, /routines, filename = "' + file.replace('.pro', '.sav') + '", /compress'
+    bdg.Execute, '.reset'
+    bdg.Execute, '.compile "' + file + '"'
+    bdg.Execute, 'save, /routines, filename = "' + file.Replace('.pro', '.sav') + '", /compress'
   endforeach
 
   ; reset bridge
-  bdg.execute, '.reset'
+  bdg.Execute, '.reset'
 
   ; compile all routines that we are aware of
   foreach file, files do begin
     ; compile file
-    bdg.execute, '.compile "' + file + '"'
+    bdg.Execute, '.compile "' + file + '"'
 
     ; clean up PRO file
     file_delete, file
   endforeach
 
   ; get the routines in our files
-  bdg.execute, 'info = json_serialize(orderedhash("procedures", routine_info(/UNRESOLVED), "functions", routine_info(/FUNCTIONS, /UNRESOLVED)))'
-  allRoutines = json_parse(bdg.getVar('info'))
+  bdg.Execute, 'info = json_serialize(orderedhash("procedures", routine_info(/UNRESOLVED), "functions", routine_info(/FUNCTIONS, /UNRESOLVED)))'
+  allRoutines = json_parse(bdg.GetVar('info'))
 
   ; reset bridge
-  bdg.execute, '.reset'
+  bdg.Execute, '.reset'
 
   ; initialize routines that we have processed
   processed = hash(/fold_case)
 
   ; concat unresolved functions and procedures ttogether
   toProcess = list()
-  if isa(allRoutines['procedures'], 'list') then toProcess.add, allRoutines['procedures'], /extract
-  if isa(allRoutines['functions'], 'list') then toProcess.add, allRoutines['functions'], /extract
+  if isa(allRoutines['procedures'], 'list') then toProcess.Add, allRoutines['procedures'], /extract
+  if isa(allRoutines['functions'], 'list') then toProcess.Add, allRoutines['functions'], /extract
 
   ; recurse
   vscode_BuildWorkspace_resolve, bdg, toProcess, processed
@@ -294,12 +296,12 @@ pro vscode_BuildWorkspace, workspace
   processed['awesomeenviprogress__define'] = !true
 
   ; process each dependency
-  foreach routine, processed.keys() do begin
+  foreach routine, processed.Keys() do begin
     ; return if we should be skipping
-    if skipThese.hasKey(routine) then continue
+    if skipThese.HasKey(routine) then continue
 
     ; reset bridge
-    bdg.execute, '.reset'
+    bdg.Execute, '.reset'
 
     ; nicely handle errors
     catch, err
@@ -310,13 +312,13 @@ pro vscode_BuildWorkspace, workspace
     endif
 
     ; attempt to resolve our routine
-    bdg.execute, 'resolve_routine, "' + routine + '", /compile_full_file, /either'
+    bdg.Execute, 'resolve_routine, "' + routine + '", /compile_full_file, /either'
 
     ; dont catch
     catch, /cancel
 
     ; we found it, so save
-    bdg.execute, 'save, /routines, filename="' + depDir + path_sep() + strlowcase(routine) + '.sav"'
+    bdg.Execute, 'save, /routines, filename="' + depDir + path_sep() + strlowcase(routine) + '.sav"'
   endforeach
 
   ; clean up

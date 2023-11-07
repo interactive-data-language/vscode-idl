@@ -1,6 +1,7 @@
 import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
-import { AdjustCase } from '@idl/assembling/shared';
+import { AdjustCase, TransformCase } from '@idl/assembling/shared';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
+import { CUSTOM_TYPE_DISPLAY_NAMES } from '@idl/data-types/core';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 
 // handle inheritance statements
@@ -31,12 +32,16 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
         token.match[0] = AdjustCase(token.match[0], meta.style.systemVariables);
         break;
       // default to case transform!
-      default:
-        // token.match[0] = TransformCase(
-        //   token.match[0],
-        //   meta.style.structureNames
-        // );
+      default: {
+        const low = token.match[0].toLowerCase();
+        if (low in CUSTOM_TYPE_DISPLAY_NAMES) {
+          token.match[0] = TransformCase(
+            CUSTOM_TYPE_DISPLAY_NAMES[low],
+            meta.style.structureNames
+          );
+        }
         break;
+      }
     }
   }
 );

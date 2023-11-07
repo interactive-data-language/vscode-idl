@@ -1,4 +1,4 @@
-import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
+import { TransformCase } from '@idl/assembling/shared';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
 import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
@@ -23,17 +23,14 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     /** Lower-case name of routine */
     const low = token.match[1].replace(/\s/gim, '').toLowerCase();
 
-    // determine how to proceed
-    switch (true) {
-      // check if internal function
-      case low in FUNCTIONS:
-        if (meta.style.routines === STYLE_FLAG_LOOKUP.MATCH) {
-          token.match[0] = `${FUNCTIONS[low]}(`;
-        }
-        break;
-      default:
-        // do nothing
-        break;
+    // check if we have a known function
+    if (low in FUNCTIONS) {
+      token.match[0] = `${TransformCase(FUNCTIONS[low], meta.style.routines)}(`;
+    } else {
+      token.match[0] = TransformCase(
+        token.match[0].replace(/\s/gim, ''),
+        meta.style.routines
+      );
     }
   }
 );
@@ -47,17 +44,11 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     /** Lower-case name of routine */
     const low = token.match[0].toLowerCase();
 
-    // determine how to proceed
-    switch (true) {
-      // check if internal function
-      case low in PROCEDURES:
-        if (meta.style.routines === STYLE_FLAG_LOOKUP.MATCH) {
-          token.match[0] = PROCEDURES[low];
-        }
-        break;
-      default:
-        // do nothing
-        break;
+    // check if we have a known procedure
+    if (low in PROCEDURES) {
+      token.match[0] = TransformCase(PROCEDURES[low], meta.style.routines);
+    } else {
+      token.match[0] = TransformCase(token.match[0], meta.style.routines);
     }
   }
 );

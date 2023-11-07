@@ -272,15 +272,15 @@ export const EN: ITranslation = {
           'Controls accents to letters that set the data type and their case',
         octal:
           'Indicates formatting for octal numbers (either defined with quotes or "0o")',
-        properties: 'Controls if properties are upper or lower case',
+        properties: 'Controls the case style of properties',
         quotes:
           'For string literals what type of quote we use. Includes numbers defined using quotes.',
         routines:
-          'When we encounter a known routine (function, procedure, and method), how do we format it with respect to the definition',
+          'When we encounter a known routine (functions and procedures), how do we format it with respect to the definition',
         routineMethods:
-          'When we encounter a known routine method (functions and procedure methods), how do we format it with respect to the definition?',
+          'When we encounter a known routine method (function methods and procedure methods), how do we format it with respect to the definition?',
         structureNames:
-          'When we have a named structure, how do we format the name?',
+          'When we have a known named structure, how do we format the name?',
         systemVariables: 'Case formatting for system variables',
       },
       'IDL.history': {

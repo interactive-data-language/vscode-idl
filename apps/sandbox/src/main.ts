@@ -1,6 +1,7 @@
 import { TransformCase } from '@idl/assembling/shared';
 
 const samples = [
+  'url_password_2',
   'TEST_VALUE',
   'test$_value',
   'testValue',

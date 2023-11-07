@@ -479,7 +479,7 @@
               "quotes": "single",
               "methods": "dot",
               "keywords": "lower",
-              "properties": "lower",
+              "properties": "camel",
               "control": "lower",
               "numbers": "lower",
               "hex": "lower",
@@ -492,51 +492,9 @@
               "structureNames": "pascal"
             },
             "properties": {
-              "quotes": {
+              "binary": {
                 "type": "string",
-                "description": "%configuration.properties.code.formattingStyle.quotes%",
-                "enum": [
-                  "single",
-                  "double",
-                  "none"
-                ],
-                "enumDescriptions": [
-                  "%configuration.enumDescriptions.formatting.style.single%",
-                  "%configuration.enumDescriptions.formatting.style.double%",
-                  "%configuration.enumDescriptions.formatting.style.none%"
-                ]
-              },
-              "methods": {
-                "type": "string",
-                "description": "%configuration.properties.code.formattingStyle.methods%",
-                "enum": [
-                  "dot",
-                  "arrow",
-                  "none"
-                ],
-                "enumDescriptions": [
-                  "%configuration.enumDescriptions.formatting.style.dot%",
-                  "%configuration.enumDescriptions.formatting.style.arrow%",
-                  "%configuration.enumDescriptions.formatting.style.none%"
-                ]
-              },
-              "keywords": {
-                "type": "string",
-                "description": "%configuration.properties.code.formattingStyle.keywords%",
-                "enum": [
-                  "lower",
-                  "upper",
-                  "none"
-                ],
-                "enumDescriptions": [
-                  "%configuration.enumDescriptions.formatting.style.lower%",
-                  "%configuration.enumDescriptions.formatting.style.upper%",
-                  "%configuration.enumDescriptions.formatting.style.none%"
-                ]
-              },
-              "properties": {
-                "type": "string",
-                "description": "%configuration.properties.code.formattingStyle.properties%",
+                "description": "%configuration.properties.code.formattingStyle.binary%",
                 "enum": [
                   "lower",
                   "upper",
@@ -562,9 +520,9 @@
                   "%configuration.enumDescriptions.formatting.style.none%"
                 ]
               },
-              "numbers": {
+              "hex": {
                 "type": "string",
-                "description": "%configuration.properties.code.formattingStyle.numbers%",
+                "description": "%configuration.properties.code.formattingStyle.hex%",
                 "enum": [
                   "lower",
                   "upper",
@@ -576,9 +534,49 @@
                   "%configuration.enumDescriptions.formatting.style.none%"
                 ]
               },
-              "hex": {
+              "keywords": {
                 "type": "string",
-                "description": "%configuration.properties.code.formattingStyle.hex%",
+                "description": "%configuration.properties.code.formattingStyle.keywords%",
+                "enum": [
+                  "lower",
+                  "upper",
+                  "none"
+                ],
+                "enumDescriptions": [
+                  "%configuration.enumDescriptions.formatting.style.lower%",
+                  "%configuration.enumDescriptions.formatting.style.upper%",
+                  "%configuration.enumDescriptions.formatting.style.none%"
+                ]
+              },
+              "localVariables": {
+                "type": "string",
+                "description": "%configuration.properties.code.formattingStyle.localVariables%",
+                "enum": [
+                  "match",
+                  "none"
+                ],
+                "enumDescriptions": [
+                  "%configuration.enumDescriptions.formatting.style.match%",
+                  "%configuration.enumDescriptions.formatting.style.none%"
+                ]
+              },
+              "methods": {
+                "type": "string",
+                "description": "%configuration.properties.code.formattingStyle.methods%",
+                "enum": [
+                  "dot",
+                  "arrow",
+                  "none"
+                ],
+                "enumDescriptions": [
+                  "%configuration.enumDescriptions.formatting.style.dot%",
+                  "%configuration.enumDescriptions.formatting.style.arrow%",
+                  "%configuration.enumDescriptions.formatting.style.none%"
+                ]
+              },
+              "numbers": {
+                "type": "string",
+                "description": "%configuration.properties.code.formattingStyle.numbers%",
                 "enum": [
                   "lower",
                   "upper",
@@ -604,17 +602,85 @@
                   "%configuration.enumDescriptions.formatting.style.none%"
                 ]
               },
-              "binary": {
+              "properties": {
                 "type": "string",
-                "description": "%configuration.properties.code.formattingStyle.binary%",
+                "description": "%configuration.properties.code.formattingStyle.properties%",
                 "enum": [
                   "lower",
                   "upper",
+                  "match",
+                  "camel",
+                  "pascal",
                   "none"
                 ],
                 "enumDescriptions": [
                   "%configuration.enumDescriptions.formatting.style.lower%",
                   "%configuration.enumDescriptions.formatting.style.upper%",
+                  "%configuration.enumDescriptions.formatting.style.match%",
+                  "%configuration.enumDescriptions.formatting.style.camel%",
+                  "%configuration.enumDescriptions.formatting.style.pascal%",
+                  "%configuration.enumDescriptions.formatting.style.none%"
+                ]
+              },
+              "quotes": {
+                "type": "string",
+                "description": "%configuration.properties.code.formattingStyle.quotes%",
+                "enum": [
+                  "single",
+                  "double",
+                  "none"
+                ],
+                "enumDescriptions": [
+                  "%configuration.enumDescriptions.formatting.style.single%",
+                  "%configuration.enumDescriptions.formatting.style.double%",
+                  "%configuration.enumDescriptions.formatting.style.none%"
+                ]
+              },
+              "routines": {
+                "type": "string",
+                "description": "%configuration.properties.code.formattingStyle.routines%",
+                "enum": [
+                  "match",
+                  "camel",
+                  "pascal",
+                  "none"
+                ],
+                "enumDescriptions": [
+                  "%configuration.enumDescriptions.formatting.style.match%",
+                  "%configuration.enumDescriptions.formatting.style.camel%",
+                  "%configuration.enumDescriptions.formatting.style.pascal%",
+                  "%configuration.enumDescriptions.formatting.style.none%"
+                ]
+              },
+              "routineMethods": {
+                "type": "string",
+                "description": "%configuration.properties.code.formattingStyle.routineMethods%",
+                "enum": [
+                  "match",
+                  "camel",
+                  "pascal",
+                  "none"
+                ],
+                "enumDescriptions": [
+                  "%configuration.enumDescriptions.formatting.style.match%",
+                  "%configuration.enumDescriptions.formatting.style.camel%",
+                  "%configuration.enumDescriptions.formatting.style.pascal%",
+                  "%configuration.enumDescriptions.formatting.style.none%"
+                ]
+              },
+              "structureNames": {
+                "type": "string",
+                "description": "%configuration.properties.code.formattingStyle.structureNames%",
+                "enum": [
+                  "match",
+                  "camel",
+                  "pascal",
+                  "none"
+                ],
+                "enumDescriptions": [
+                  "%configuration.enumDescriptions.formatting.style.match%",
+                  "%configuration.enumDescriptions.formatting.style.camel%",
+                  "%configuration.enumDescriptions.formatting.style.pascal%",
                   "%configuration.enumDescriptions.formatting.style.none%"
                 ]
               },
@@ -629,30 +695,6 @@
                 "enumDescriptions": [
                   "%configuration.enumDescriptions.formatting.style.lower%",
                   "%configuration.enumDescriptions.formatting.style.upper%",
-                  "%configuration.enumDescriptions.formatting.style.none%"
-                ]
-              },
-              "routines": {
-                "type": "string",
-                "description": "%configuration.properties.code.formattingStyle.routines%",
-                "enum": [
-                  "match",
-                  "none"
-                ],
-                "enumDescriptions": [
-                  "%configuration.enumDescriptions.formatting.style.match%",
-                  "%configuration.enumDescriptions.formatting.style.none%"
-                ]
-              },
-              "localVariables": {
-                "type": "string",
-                "description": "%configuration.properties.code.formattingStyle.localVariables%",
-                "enum": [
-                  "match",
-                  "none"
-                ],
-                "enumDescriptions": [
-                  "%configuration.enumDescriptions.formatting.style.match%",
                   "%configuration.enumDescriptions.formatting.style.none%"
                 ]
               }

@@ -2,7 +2,16 @@
  * When adjusting the case of strings, which characters do
  * we make sure to preserve so we don't break case conversion?
  */
-export const PRESERVE_CHARS: string[] = ['_', '$', '!'];
+export const PRESERVE_CHARS: string[] = [
+  '_', // always keep underscore so we dont change syntax
+  '$', // valid character
+  '!', // classes/system variables
+  '.', // methods and properties
+  '(', // functions
+  ':', // methods
+  '-', // methods
+  '>', // methods
+];
 
 /**
  * Regular expressions that indicate we have special text to replace with our
