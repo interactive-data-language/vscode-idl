@@ -125,7 +125,7 @@ export interface ICodeStyle {
   control: CaseStyleFlags;
   /** Formatting for numbers */
   numbers: CaseStyleFlags;
-  /** Indicate how hex numbers (starting with \"0x\", expressed as strings, or hex escape characters in tempalte literals) will be formatted. Modern uses lower case and dated uses upper case. */
+  /** Indicate how hex numbers (starting with \"0x\", expressed as strings, or hex escape characters in template literals) will be formatted. Modern uses lower case and dated uses upper case. */
   hex: CaseStyleFlags;
   /** Formatting for octal numbers starting with "0o" */
   octal: CaseStyleFlags;
