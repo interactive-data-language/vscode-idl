@@ -27,7 +27,10 @@ function PascalCaseTransform(referenceText: string) {
  */
 function CamelCaseTransform(referenceText: string) {
   /** Convert */
-  let converted = camelCase(referenceText, { keep: PRESERVE_CHARS });
+  let converted = camelCase(referenceText, { keep: PRESERVE_CHARS }).replace(
+    CAMEL_POST_PROCESS_REGEX.UPPER,
+    (m) => m.toUpperCase()
+  );
 
   // check for special character combinations
   switch (true) {

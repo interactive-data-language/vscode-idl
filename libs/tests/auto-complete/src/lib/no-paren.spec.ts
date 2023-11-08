@@ -412,7 +412,7 @@ describe(`[auto generated] Exclude parentheses`, () => {
     const expectedFound_1: CompletionItem[] = [
       {
         label: 'IDLgrSurface::getCTM()',
-        insertText: 'getCTM',
+        insertText: 'getCtm',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',

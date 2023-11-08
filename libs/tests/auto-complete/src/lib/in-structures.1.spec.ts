@@ -486,7 +486,7 @@ describe(`[auto generated] Verify auto-complete in structures`, () => {
       },
       {
         label: 'ENVIWorkflowStep::getUIObject()',
-        insertText: 'getUIObject()',
+        insertText: 'getUiObject()',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',
