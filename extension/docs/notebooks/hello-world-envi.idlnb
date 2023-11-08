@@ -110,7 +110,7 @@
     {
       "type": "code",
       "content": [
-        "ENVINotebook.Display, raster"
+        "ENVINotebook.display, raster"
       ],
       "metadata": {},
       "outputs": []
@@ -129,7 +129,7 @@
     {
       "type": "code",
       "content": [
-        "ENVINotebook.Display, ENVISubsetRaster(raster, bands = [3, 2, 1])"
+        "ENVINotebook.display, ENVISubsetRaster(raster, bands = [3, 2, 1])"
       ],
       "metadata": {},
       "outputs": []
@@ -150,7 +150,7 @@
         "stretched = ENVIOptimizedLinearStretchRaster(raster)",
         "",
         "; display a subset with our nice stretch over a subset of the image",
-        "ENVINotebook.Display, ENVISubsetRaster(stretched, sub_rect = [700, 450, 850, 600])"
+        "ENVINotebook.display, ENVISubsetRaster(stretched, sub_rect = [700, 450, 850, 600])"
       ],
       "metadata": {},
       "outputs": []
@@ -168,7 +168,7 @@
       "type": "code",
       "content": [
         "; ddisplay a subset of our image and show why manually stretching the raster helps",
-        "ENVINotebook.Display, ENVISubsetRaster(raster, sub_rect = [700, 450, 850, 600])"
+        "ENVINotebook.display, ENVISubsetRaster(raster, sub_rect = [700, 450, 850, 600])"
       ],
       "metadata": {},
       "outputs": []
@@ -195,7 +195,7 @@
         "isoTask.execute",
         "",
         "; display our result",
-        "ENVINotebook.Display, isoTask.output_raster"
+        "ENVINotebook.display, isoTask.output_raster"
       ],
       "metadata": {},
       "outputs": []
@@ -226,7 +226,7 @@
       "type": "code",
       "content": [
         "; create a spectral data cube and display",
-        "ENVINotebook.Display, hsiRaster, /cube"
+        "ENVINotebook.display, hsiRaster, /cube"
       ],
       "metadata": {},
       "outputs": []
@@ -244,7 +244,7 @@
       "type": "code",
       "content": [
         "; create a spectral data cube and display",
-        "ENVINotebook.Display, raster, /cube"
+        "ENVINotebook.display, raster, /cube"
       ],
       "metadata": {},
       "outputs": []
@@ -290,7 +290,7 @@
         ";+",
         "; Display input and output in same cell",
         ";-",
-        "ENVINotebook.Display, [raster, isoTask.output_raster]"
+        "ENVINotebook.display, [raster, isoTask.output_raster]"
       ],
       "metadata": {},
       "outputs": []
@@ -318,7 +318,7 @@
     {
       "type": "code",
       "content": [
-        "ENVINotebook.Display, raster, /animate"
+        "ENVINotebook.display, raster, /animate"
       ],
       "metadata": {},
       "outputs": []
@@ -344,7 +344,7 @@
         "; All rasters in your raster series should line up with one another. If not, use RegridRasterSeries before",
         "; calling this.",
         ";-",
-        "ENVINotebook.Display, series"
+        "ENVINotebook.display, series"
       ],
       "metadata": {},
       "outputs": []
@@ -374,7 +374,7 @@
       "type": "code",
       "content": [
         "; embed progress messages",
-        "ENVINotebook.EmbedProgress"
+        "ENVINotebook.embedProgress"
       ],
       "metadata": {},
       "outputs": []
@@ -406,7 +406,7 @@
     {
       "type": "code",
       "content": [
-        "ENVINotebook.EmbedProgress, /stop"
+        "ENVINotebook.embedProgress, /stop"
       ],
       "metadata": {},
       "outputs": []
@@ -462,7 +462,7 @@
     {
       "type": "code",
       "content": [
-        "ENVINotebook.DisplayInMap, raster"
+        "ENVINotebook.displayInMap, raster"
       ],
       "metadata": {},
       "outputs": []
@@ -482,10 +482,10 @@
       "type": "code",
       "content": [
         "; display raster",
-        "ENVINotebook.DisplayInMap, raster",
+        "ENVINotebook.displayInMap, raster",
         "",
         "; add ROIs to the same map",
-        "ENVINotebook.DisplayInMap, rois"
+        "ENVINotebook.displayInMap, rois"
       ],
       "metadata": {},
       "outputs": []
@@ -507,7 +507,7 @@
       "type": "code",
       "content": [
         "; add vector and specify color",
-        "ENVINotebook.DisplayInMap, vector, orderedhash('color', [255, 0, 0, 125])"
+        "ENVINotebook.displayInMap, vector, orderedhash('color', [255, 0, 0, 125])"
       ],
       "metadata": {},
       "outputs": []
@@ -526,7 +526,7 @@
       "content": [
         "; display geojson from a string",
         "geojsonOutline = raster.getOutline(3857)",
-        "ENVINotebook.DisplayInMap, geojsonOutline"
+        "ENVINotebook.displayInMap, geojsonOutline"
       ],
       "metadata": {},
       "outputs": []
@@ -550,7 +550,7 @@
         "free_lun, lun",
         "",
         "; add our temp file to a map",
-        "ENVINotebook.DisplayInMap, tmpUri, /is_geojson_uri"
+        "ENVINotebook.displayInMap, tmpUri, /is_geojson_uri"
       ],
       "metadata": {},
       "outputs": []
