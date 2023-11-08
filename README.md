@@ -36,21 +36,27 @@
   </video>
 </div>
 
-**3.0 is here!**
+**4.0.0 is here!**
 
-This release offers many exciting and new features, such as syntax-error checking, linting, debugging, and profiling. With all these new features, there also may be some undocumented software enhancements (i.e. bugs). For these please use [GitHub](https://github.com/interactive-data-language/vscode-idl) to file bug/feature requests. There is also a quick link for submitting bugs for the extension in the IDL View.
+This release headlines our newest feature: IDL Notebooks! The IDL Notebook format is standalone and only requires this extension to function (no extra dependencies on Python or Jupyter).
 
-See below and the [CHANGELOG.md](./CHANGELOG.md) for full details.
+Within the extension, you'll find a new sidebar entry to help create a new notebook, open IDL and ENVI Notebook examples, and convert your IDL Notebooks to a PRO file as well. If you have questions, feel free to reach out to us on GitHub with any feedback or issues you encounter.
+
+In addition to this, we have revamped our tools for styling/formatting your code to include other case styles like pascal and camel case.
+
+That's not all that is included in this release, so check out the [CHANGELOG.md](./CHANGELOG.md) for full details.
 
 > If you are looking to contribute, or get your development environment setup, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
-This extension adds syntax highlighting, code snippets, debugging, problem reporting (undefined variables and syntax errors, 100+ in total!), and much more for the Interactive Data Language (IDL) from NV5 Geospatial Software (formerly Research Systems, Inc.).
+This extension adds syntax highlighting, code snippets, debugging, problem reporting (undefined variables and syntax errors, 100+ in total!), IDL Notebooks, and much more for the Interactive Data Language (IDL) from NV5 Geospatial Software (formerly Research Systems, Inc.).
 
 For a full list of changes, see [CHANGELOG.md](./CHANGELOG.md) for lots of details.
 
 ## Features
+
+- IDL Notebooks for a new, modern, and ad-hoc way to develop IDL code! Check out the examples to learn about how they work (accessible through the sidebar of the extension).
 
 - Before compiling any code, more than 100 syntax errors/problems/hints are detected and reported to users.
 
