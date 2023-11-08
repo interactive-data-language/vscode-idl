@@ -711,10 +711,10 @@ export class IDLIndex {
         log: IDL_LSP_LOG,
         type: 'error',
         content: [`${IDL_TRANSLATION.lsp.config.failedParse}: "${file}"`, err],
-        alert: `${IDL_TRANSLATION.lsp.config.failedParse}: "${file}"`,
-        alertMeta: {
-          file,
-        },
+        // alert: `${IDL_TRANSLATION.lsp.config.failedParse}: "${file}"`,
+        // alertMeta: {
+        //   file,
+        // },
       });
     }
   }
