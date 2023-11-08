@@ -84,7 +84,7 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
   if ~keyword_set(method) then method = 'idl'
 
   ; get the max pyramid level
-  raster._component.GetProperty, pyramid_levels = maxPyramidLevel
+  raster._component.getProperty, pyramid_levels = maxPyramidLevel
 
   ; get the pyramid level we read at
   readlevel = maxPyramidLevel - 2 > 0
@@ -93,7 +93,7 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
   !null = IDLcf$DefaultRasterDisplayBands(raster._component, useBands)
 
   ; Get data at a reduced pyramid level - subtract 2 to put us at 1024 x 1024
-  if (~raster._component.GetData(dat, level = readlevel, $
+  if (~raster._component.getData(dat, level = readlevel, $
     bands = useBands, $
     pixelstate = ps, $
     interleave = 0)) then begin
@@ -147,7 +147,7 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
 
     ; check if we need to convert our coordinates
     if (coordSys ne !null) then begin
-      sRef.convertFiletoLonLat, lon, lat, lon, lat
+      sRef.convertFileToLonLat, lon, lat, lon, lat
 
       ; convert center from old to new coordinate system
       coordSys.convertLonLatToLonLat, lon, lat, lon, lat, ENVICoordSys(coord_sys_code = epsg)
@@ -224,7 +224,7 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
     tot1 += n_elements(newIdx)
 
     ; get the area of our vertices
-    area = abs(poly_area(verts[0, *], verts[1, *]))
+    area = abs(Poly_area(verts[0, *], verts[1, *]))
 
     ; check if our area is too small and we need to skip
     if (area le IGNORE_CLUMP_MINIMUM) then continue
@@ -336,7 +336,7 @@ file = filepath('qb_boulder_msi', root_dir = e.root_dir, $
   subdirectory = ['data'])
 file = 'c:\Users\znorman\Downloads\CAPELLA_C09_SM_GEO_HH_20230528080239_20230528080244.tif'
 ; file = 'c:\TradeshowContent\ENVI_DEMOS\SAR\SICD\Helicopters\sar_cog.tif'
-raster = e.OpenRaster(file)
+raster = e.openRaster(file)
 
 tic
 print, raster.getOutline(3857)

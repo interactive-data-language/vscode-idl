@@ -74,5 +74,5 @@ pro ENVINotebook_DisplayRasterSeries, series, allow_many_rasters = allow_many_ra
   foreach raster, series, i do rasters[i] = raster
 
   ; display rasters
-  ENVINotebook.Display, rasters, no_stretch = no_stretch, size = size
+  ENVINotebook.display, rasters, no_stretch = no_stretch, size = size
 end

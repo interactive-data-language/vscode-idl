@@ -167,7 +167,7 @@ pro ENVINotebook::DisplayInMap, dataset, properties, $
   vscode_notebookInit
 
   ; determine how to proceed
-  IDLNotebook.AddToNotebookMap, dataset, properties, is_geojson_uri = is_geojson_uri
+  IDLNotebook.addToNotebookMap, dataset, properties, is_geojson_uri = is_geojson_uri
 end
 
 ;+
@@ -189,14 +189,14 @@ pro ENVINotebook::EmbedProgress, stop = stop
   vscode_notebookInit
 
   ; return if already registered
-  if (obj_valid(!idlnotebookmagic.envilistener)) then begin
+  if (obj_valid(!idlnotebookmagic.ENVIlistener)) then begin
     ; stop listening to events
-    if keyword_set(stop) then !idlnotebookmagic.envilistener.cleanup
+    if keyword_set(stop) then !idlnotebookmagic.ENVIlistener.cleanup
     return
   endif
 
   ; create message interceptor and save
-  !idlnotebookmagic.envilistener = VSCodeENVIMessageInterceptor()
+  !idlnotebookmagic.ENVIlistener = VSCodeENVIMessageInterceptor()
 end
 
 ;+

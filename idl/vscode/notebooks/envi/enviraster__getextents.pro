@@ -42,10 +42,10 @@ function ENVIRaster::getExtents, epsgCode
   ; create data structure
   extents = {IDLNotebookMap_Extents}
   extents.epsg = epsgCode
-  extents.xmin = min(lon)
-  extents.xmax = max(lon)
-  extents.ymin = min(lat)
-  extents.ymax = max(lat)
+  extents.xMin = min(lon)
+  extents.xMax = max(lon)
+  extents.yMin = min(lat)
+  extents.yMax = max(lat)
 
   ; return
   return, extents

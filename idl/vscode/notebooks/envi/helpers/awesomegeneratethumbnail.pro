@@ -54,11 +54,11 @@ pro AwesomeGenerateThumbnail, $
 
   ; Getting information about inputRaster
   !null = IDLcf$DefaultRasterDisplayBands(inputRaster._component, useBands)
-  inputRaster._component.GetProperty, pyramid_levels = maxPyramidLevel
+  inputRaster._component.getProperty, pyramid_levels = maxPyramidLevel
   pyramidLevel = AwesomeGenerateThumbnailGetPyramidLevel(inputRaster.nsamples, inputRaster.nlines, thumbnailSize) < maxPyramidLevel
 
   ; Get data at a reduced pyramid level
-  if (~inputRaster._component.GetData(data, level = pyramidLevel, $
+  if (~inputRaster._component.getData(data, level = pyramidLevel, $
     bands = useBands, $
     pixelstate = pixelState, $
     interleave = 0)) then begin
@@ -81,7 +81,7 @@ pro AwesomeGenerateThumbnail, $
   alpha = (pixelState eq 0) * 255b
 
   ; Dealing with images that have a colormap
-  inputRaster.GetProperty, colormap = colormap
+  inputRaster.getProperty, colormap = colormap
   if (isa(colormap, 'EnviColorMap')) then begin
     colordata = bytarr(dimensions[0], dimensions[1], 3, /nozero)
     colordata[0, 0, 0] = colormap.red[data]
@@ -102,8 +102,8 @@ pro AwesomeGenerateThumbnail, $
     for i = 0, 2 do begin
       band = data[*, *, i]
       oHist = obj_new('IDLcfHistogram', data = band)
-      minVal = oHist.StretchValue(2.)
-      maxVal = oHist.StretchValue(98.)
+      minVal = oHist.stretchValue(2.)
+      maxVal = oHist.stretchValue(98.)
       histData[*, *, i] = bytscl(band, min = minVal, max = maxVal, /nan)
       obj_destroy, oHist
     endfor
@@ -112,9 +112,9 @@ pro AwesomeGenerateThumbnail, $
 
   ; Add alpha band
   thumbnailList = list()
-  thumbnailList.Add, data
-  thumbnailList.Add, alpha
-  data = thumbnailList.ToArray(dimension = 3)
+  thumbnailList.add, data
+  thumbnailList.add, alpha
+  data = thumbnailList.toArray(dimension = 3)
 
   ; Converting to the correct size
   if (dimensions[0] gt dimensions[1]) then begin

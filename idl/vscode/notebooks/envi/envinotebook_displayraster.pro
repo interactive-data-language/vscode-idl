@@ -94,14 +94,14 @@ pro ENVINotebook_DisplayRaster, raster, no_stretch = no_stretch, size = size
   if (nRasters eq 1) then begin
     struct = {IDLNotebookImage_FromUri}
     struct.uri = uris[0]
-    struct.xsize = info.dimensions[0]
-    struct.ysize = info.dimensions[1]
-    IDLNotebook.AddToNotebook, struct
+    struct.xSize = info.dimensions[0]
+    struct.ySize = info.dimensions[1]
+    IDLNotebook.addToNotebook, struct
   endif else begin
     struct = {IDLNotebookImage_AnimationFromUris}
     struct.uris = list(uris, /extract)
-    struct.xsize = info.dimensions[0]
-    struct.ysize = info.dimensions[1]
-    IDLNotebook.AddToNotebook, struct
+    struct.xSize = info.dimensions[0]
+    struct.ySize = info.dimensions[1]
+    IDLNotebook.addToNotebook, struct
   endelse
 end

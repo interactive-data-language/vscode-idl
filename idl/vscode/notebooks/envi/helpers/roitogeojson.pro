@@ -136,7 +136,7 @@ pro ROItoGeoJSON, $
         coordSys = lookup[coordSysStr]
 
         ; save info about our ROI properties
-        properties.Add, roiProps
+        properties.add, roiProps
 
         ; determine our geometry type and condense features to speed processing
         case geoType of
@@ -198,7 +198,7 @@ pro ROItoGeoJSON, $
   outputGeo += ']}'
 
   ; write to disk
-  if ~keyword_set(output_geojson_uri) then output_geojson_uri = e.gettemporaryFilename('json')
+  if ~keyword_set(output_geojson_uri) then output_geojson_uri = e.getTemporaryFilename('json')
   openw, lun, output_geojson_uri, /get_lun
   printf, lun, outputGeo, /implied_print
   free_lun, lun

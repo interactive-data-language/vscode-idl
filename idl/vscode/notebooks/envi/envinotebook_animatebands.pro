@@ -72,7 +72,7 @@ pro ENVINotebook_AnimateBands, raster, allow_many_bands = allow_many_bands, no_s
   for i = 0, raster.nbands - 1 do rasters[i] = ENVISubsetRaster(raster, bands = i)
 
   ; display rasters
-  ENVINotebook.Display, rasters, no_stretch = no_stretch, size = size
+  ENVINotebook.display, rasters, no_stretch = no_stretch, size = size
 
   ; clean up
   for i = 0, raster.nbands - 1 do rasters[i].close

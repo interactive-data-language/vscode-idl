@@ -18,7 +18,7 @@ function IDLNotebookMap::_CreateNotebookItem, val
     ; Handle raw GeoJSON
     ;-
     isa(val, 'IDLNotebookMap_GeoJSON'): begin
-      return, IDLNotebook._CreateNotebookItem(val)
+      return, IDLNotebook._createNotebookItem(val)
     end
 
     ;+
@@ -30,7 +30,7 @@ function IDLNotebookMap::_CreateNotebookItem, val
       endif
 
       ; save because we are OK!
-      return, IDLNotebook._CreateNotebookItem(val)
+      return, IDLNotebook._createNotebookItem(val)
     end
 
     ;+
@@ -42,7 +42,7 @@ function IDLNotebookMap::_CreateNotebookItem, val
       endif
 
       ; save because we are OK!
-      return, IDLNotebook._CreateNotebookItem(val)
+      return, IDLNotebook._createNotebookItem(val)
     end
 
     ;+
@@ -81,19 +81,19 @@ function IDLNotebookMap::_CreateNotebookItem, val
       ; make new item
       newItem = {IDLNotebookMap_ImageFromUri}
       newItem.uri = uri
-      newItem.xsize = info.dimensions[0]
-      newItem.ysize = info.dimensions[1]
+      newItem.xSize = info.dimensions[0]
+      newItem.ySize = info.dimensions[1]
       newItem.extents = reproj.getExtents()
 
       ; save new item
-      return, IDLNotebook._CreateNotebookItem(newItem)
+      return, IDLNotebook._createNotebookItem(newItem)
     end
 
     ;+
     ; Handle ROIs
     ;-
     isa(val, 'IDLNotebookMap_ROIs'): begin
-      if n_elements(val.rois) eq 0 then begin
+      if n_elements(val.ROIs) eq 0 then begin
         message, '"IDLNotebookMap_ROIs" has no rois to add!', level = -1
       endif
 
@@ -107,7 +107,7 @@ function IDLNotebookMap::_CreateNotebookItem, val
       uri = !null
       ROItoGeoJSON, $
         epsg_code = 3857, $
-        input_roi = val.rois.toArray(), $
+        input_roi = val.ROIs.toArray(), $
         has_features = isROIOK, $
         output_geojson_uri = uri
 
@@ -120,7 +120,7 @@ function IDLNotebookMap::_CreateNotebookItem, val
       newItem.properties = val.properties
 
       ; save because we are OK!
-      return, IDLNotebook._CreateNotebookItem(newItem)
+      return, IDLNotebook._createNotebookItem(newItem)
     end
 
     ;+
@@ -157,7 +157,7 @@ function IDLNotebookMap::_CreateNotebookItem, val
       newItem.properties = val.properties
 
       ; save because we are OK!
-      return, IDLNotebook._CreateNotebookItem(newItem)
+      return, IDLNotebook._createNotebookItem(newItem)
     end
 
     ;+
@@ -201,10 +201,10 @@ pro IDLNotebookMap::_AddToNotebook, item
   addItem.data = list()
 
   ; process all items
-  foreach val, mapThese do addItem.data.add, IDLNotebookMap._CreateNotebookItem(val)
+  foreach val, mapThese do addItem.data.add, IDLNotebookMap._createNotebookItem(val)
 
   ; track data
-  IDLNotebook._TrackNotebookItem, addItem
+  IDLNotebook._trackNotebookItem, addItem
 end
 
 ;+
@@ -219,17 +219,17 @@ end
 ; :IDLNotebookMap_Extents:
 ;   epsg: Number
 ;     EPSG code for extents
-;   xmax: Double
+;   xMax: Double
 ;     Max longitude
-;   xmin: Double
+;   xMin: Double
 ;     Min longitude
-;   ymax: Double
+;   yMax: Double
 ;     Max latitude
-;   ymin: Double
+;   yMin: Double
 ;     Min latitude
 ;
 ; :IDLNotebookMap_GeoJSON:
-;   geojson: String
+;   geoJSON: String
 ;     GeoJSON string that should be added to a map
 ;
 ; :IDLNotebookMap_GeoJSONFromUri:
@@ -276,17 +276,17 @@ pro IDLNotebookMap__define
   ;-
   !null = {IDLNotebookMap_Extents, $
     epsg: 0l, $
-    xmin: 0d, $
-    ymin: 0d, $
-    xmax: 0d, $
-    ymax: 0d}
+    xMin: 0d, $
+    yMin: 0d, $
+    xMax: 0d, $
+    yMax: 0d}
 
   ;+
   ; Data structure for embedding GeoJON in maps
   ;-
   !null = {IDLNotebookMap_GeoJSON, $
     inherits IDLNotebookMap_VectorProperties, $
-    geojson: ''}
+    geoJSON: ''}
 
   ;+
   ; Data structure for embedding GeoJON in maps

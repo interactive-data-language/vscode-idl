@@ -24,12 +24,12 @@ function _roi_parse_properties, node
   props = orderedhash()
 
   ; get our attributes
-  attrs = node.GetAttributes()
+  attrs = node.getAttributes()
   n = attrs.getLength()
   if (n gt 0) then begin
     for i = 0, n - 1 do begin
-      attr = attrs.Item(i)
-      props[attr.GetNodeName()] = attr.GetNodeValue()
+      attr = attrs.item(i)
+      props[attr.getNodeName()] = attr.getNodeValue()
     endfor
   endif
 
@@ -78,18 +78,18 @@ function ROI_Parse, roi_uri, debug = debug
 
   ; make our parser and load the XML file
   dom = IDLffXMLDOMDocument()
-  dom.Load, filename = roi_uri
+  dom.load, filename = roi_uri
 
   ; get region definitions in the XML
-  regions = dom.GetElementsByTagName('Region')
-  n = regions.GetLength()
+  regions = dom.getElementsByTagName('Region')
+  n = regions.getLength()
 
   ; make sure we have regions to process
   if (n gt 0) then begin
     ; process all regions in the XML
     for i = 0, n - 1 do begin
       ; get the node for our ROI
-      region = regions.Item(i)
+      region = regions.item(i)
 
       ; get our name and color
       props = _roi_parse_properties(region)
@@ -107,32 +107,32 @@ function ROI_Parse, roi_uri, debug = debug
       endif
 
       ; process all geometry definitions
-      geometries = region.GetElementsByTagName('GeometryDef')
-      nGeo = geometries.GetLength()
+      geometries = region.getElementsByTagName('GeometryDef')
+      nGeo = geometries.getLength()
       if (nGeo gt 0) then begin
         for j = 0, nGeo - 1 do begin
           ; get the geometry definition
-          geo = geometries.Item(j)
+          geo = geometries.item(j)
 
           ; flags for geometry type for where to save afterwards
           wasPoints = !false
           wasLines = !false
 
           ; verify coord sys string
-          coordSysList = geo.GetElementsByTagName('CoordSysStr')
-          nCoordSys = coordSysList.GetLength()
+          coordSysList = geo.getElementsByTagName('CoordSysStr')
+          nCoordSys = coordSysList.getLength()
           if (nCoordSys eq 0) then continue
-          coordSysNode = coordSysList.Item(0)
-          kids = coordSysNode.GetChildNodes()
-          coordSysNode = kids.Item(0)
-          coordSys = coordSysNode.GetNodeValue()
+          coordSysNode = coordSysList.item(0)
+          kids = coordSysNode.getChildNodes()
+          coordSysNode = kids.item(0)
+          coordSys = coordSysNode.getNodeValue()
 
           ; skip if no coord sys
           if ~keyword_set(coordSys) then continue
 
           ; get all coordinates nodes in our geometry
-          coordsNodes = geo.GetElementsByTagName('Coordinates')
-          nCoords = coordsNodes.GetLength()
+          coordsNodes = geo.getElementsByTagName('Coordinates')
+          nCoords = coordsNodes.getLength()
 
           ; skip if nothing
           if (nCoords eq 0) then continue
@@ -153,11 +153,11 @@ function ROI_Parse, roi_uri, debug = debug
             ; process each set of coordinates
             for z = 0, nCoords - 1 do begin
               ; get the item
-              coordsNode = coordsNodes.Item(z)
-              parent = coordsNode.GetParentNode()
+              coordsNode = coordsNodes.item(z)
+              parent = coordsNode.getParentNode()
 
               ; make coordinates pretty
-              coords = (coordsNode.GetFirstChild()).GetData()
+              coords = (coordsNode.getFirstChild()).getData()
               num = double(strsplit(coords, ' ', /extract))
               nvertices[z] = n_elements(num) / 2
               num = reform(num, [2, nvertices[z]])
@@ -175,8 +175,8 @@ function ROI_Parse, roi_uri, debug = debug
               case geomName of
                 'LinearRing': begin
                   ; get the grandparent
-                  grandparent = parent.GetParentNode()
-                  grandParentName = grandparent.GetNodeName()
+                  grandparent = parent.getParentNode()
+                  grandParentName = grandparent.getNodeName()
 
                   ; save aux info about the grandparent
                   aux[z] = grandParentName
