@@ -128,11 +128,11 @@ For a full list of changes, see [CHANGELOG.md](./CHANGELOG.md) for lots of detai
 
   - You may occasionally see some text that is printed to the console when IDL is running, this is a known bug that happens for a few rare cases and can be ignored.
 
-- Using the "debug" sessions of IDL requires that you have a version of IDL with lists, hashes, and orderedhashes (and the ability to parse/serialize JSON). The extension has been tested against:
-
-  - IDL 8.8
+- Using the "debug" sessions of IDL requires that you have a version of IDL with lists, hashes, and orderedhashes (and the ability to parse/serialize JSON). The extension is tested against:
 
   - IDL 8.9
+
+  - IDL 9.0
 
   Anything else is use-at-your-own-risk and may not work.
 
