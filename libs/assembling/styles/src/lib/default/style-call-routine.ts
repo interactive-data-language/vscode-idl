@@ -45,10 +45,9 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     const low = token.match[0].toLowerCase();
 
     // check if we have a known procedure
-    if (low in PROCEDURES) {
-      token.match[0] = TransformCase(PROCEDURES[low], meta.style.routines);
-    } else {
-      token.match[0] = TransformCase(token.match[0], meta.style.routines);
-    }
+    token.match[0] = TransformCase(
+      low in PROCEDURES ? PROCEDURES[low] : token.match[0],
+      meta.style.routines
+    );
   }
 );

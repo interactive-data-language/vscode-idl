@@ -17,7 +17,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     // get the type before
     const methods = (token.cache as ITokenCache)?.method;
 
-    // check for data type
+    // check if we give benefit-of-the-doubt and dont have known
     if (methods === undefined || methods.length === 0) {
       token.match[0] = token.match[0].replace(
         token.match[2],
@@ -50,7 +50,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     // get the type before
     const methods = (token.cache as ITokenCache)?.method;
 
-    // check for data type
+    // check if we give benefit-of-the-doubt and dont have known
     if (methods === undefined || methods.length === 0) {
       token.match[0] = token.match[0].replace(
         token.match[2],

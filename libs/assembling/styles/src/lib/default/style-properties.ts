@@ -35,14 +35,10 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     // check for a property in our token cache
     const prop = (token.cache as ITokenCache).property;
 
-    // if we have a known property, transform the display name
-    if (prop !== undefined) {
-      token.match[0] = TransformCase(prop.display, meta.style.properties);
-    } else {
-      token.match[0] = TransformCase(
-        token.match[0].replace(/\s/g, ''),
-        meta.style.properties
-      );
-    }
+    // transform case using known property or the text the user has written
+    token.match[0] = TransformCase(
+      prop !== undefined ? prop.display : token.match[0].replace(/\s/g, ''),
+      meta.style.properties
+    );
   }
 );
