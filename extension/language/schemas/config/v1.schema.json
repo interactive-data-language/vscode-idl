@@ -32,7 +32,7 @@
           "title": "Property Formatting",
           "description": "Controls the case style of properties",
           "enum": ["lower", "upper", "match", "camel", "pascal", "none"],
-          "default": "camel"
+          "default": "match"
         },
         "control": {
           "type": "string",

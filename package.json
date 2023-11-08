@@ -479,7 +479,7 @@
               "quotes": "single",
               "methods": "dot",
               "keywords": "lower",
-              "properties": "camel",
+              "properties": "match",
               "control": "lower",
               "numbers": "lower",
               "hex": "lower",
