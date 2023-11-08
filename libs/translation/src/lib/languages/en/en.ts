@@ -495,7 +495,7 @@ export const EN: ITranslation = {
         },
         notebooks: {
           formatNotebooks: {
-            name: 'Format IDL Code in Notebook Cells',
+            name: 'Format Notebook Cells',
             description: '',
           },
           newNotebook: {
