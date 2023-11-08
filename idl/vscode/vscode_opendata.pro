@@ -56,7 +56,7 @@ pro vscode_openData, uri
   ; display our raster
   e.refresh, /disable
   view = e.getView()
-  layer = view.CreateLayer(rasters[0]) ; default to first raster
+  layer = view.createLayer(rasters[0]) ; default to first raster
   view.zoom, /full_extent
   e.refresh
 
