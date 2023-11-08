@@ -1,5 +1,5 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
-import { TransformCase } from '@idl/assembling/shared';
+import { AdjustCase } from '@idl/assembling/shared';
 import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -23,7 +23,7 @@ export function AddCompletionSystemVariables(
   const displayNames = Object.values(SYSTEM_VARIABLES);
   for (let i = 0; i < displayNames.length; i++) {
     complete.push({
-      label: TransformCase(displayNames[i], formatting.style.systemVariables),
+      label: AdjustCase(displayNames[i], formatting.style.systemVariables),
       kind: CompletionItemKind.Constant,
       sortText: SORT_PRIORITY.SYSTEM_VARIABLES,
       detail: IDL_TRANSLATION.autoComplete.detail.systemVariable,

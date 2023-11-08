@@ -1,3 +1,5 @@
+import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import { TransformCase } from '@idl/assembling/shared';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,
@@ -25,6 +27,7 @@ const PROCEDURE_METHODS =
 function AddCompletionProcedureMethodsForType(
   complete: CompletionItem[],
   index: IDLIndex,
+  formatting: IAssemblerOptions<FormatterType>,
   type: IDLDataTypeBase<IDLTypes>,
   found: { [key: string]: any } = {}
 ) {
@@ -36,7 +39,10 @@ function AddCompletionProcedureMethodsForType(
     for (let i = 0; i < displayNames.length; i++) {
       complete.push({
         label: displayNames[i],
-        insertText: displayNames[i].split('::')[1],
+        insertText: TransformCase(
+          displayNames[i].split('::')[1],
+          formatting.style.routineMethods
+        ),
         kind: CompletionItemKind.Function,
         sortText: SORT_PRIORITY.METHODS,
         detail: IDL_TRANSLATION.autoComplete.detail.procedureMethod,
@@ -55,7 +61,10 @@ function AddCompletionProcedureMethodsForType(
     if (keysInternal[i].startsWith(compareType) && !(methodName in found)) {
       complete.push({
         label: PROCEDURE_METHODS[keysInternal[i]],
-        insertText: PROCEDURE_METHODS[keysInternal[i]].split('::')[1],
+        insertText: TransformCase(
+          PROCEDURE_METHODS[keysInternal[i]].split('::')[1],
+          formatting.style.routineMethods
+        ),
         kind: CompletionItemKind.Function,
         sortText: SORT_PRIORITY.METHODS,
         detail: IDL_TRANSLATION.autoComplete.detail.procedureMethod,
@@ -77,6 +86,7 @@ function AddCompletionProcedureMethodsForType(
         AddCompletionProcedureMethods(
           complete,
           index,
+          formatting,
           ParseIDLType(inherits[i]),
           found
         );
@@ -91,11 +101,18 @@ function AddCompletionProcedureMethodsForType(
 export function AddCompletionProcedureMethods(
   complete: CompletionItem[],
   index: IDLIndex,
+  formatting: IAssemblerOptions<FormatterType>,
   type: IDLDataType,
   found: { [key: string]: any } = {}
 ) {
   // process each type
   for (let i = 0; i < type.length; i++) {
-    AddCompletionProcedureMethodsForType(complete, index, type[i], found);
+    AddCompletionProcedureMethodsForType(
+      complete,
+      index,
+      formatting,
+      type[i],
+      found
+    );
   }
 }

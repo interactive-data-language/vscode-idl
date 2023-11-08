@@ -272,9 +272,15 @@ export async function GetAutoComplete(
 
         // check if we send procedure or function methods
         if (local?.name in PROCEDURES) {
-          AddCompletionProcedureMethods(items, index, type);
+          AddCompletionProcedureMethods(items, index, formatting, type);
         } else {
-          AddCompletionFunctionMethods(items, index, type, addParen);
+          AddCompletionFunctionMethods(
+            items,
+            index,
+            formatting,
+            type,
+            addParen
+          );
         }
         break;
       /**
@@ -289,7 +295,7 @@ export async function GetAutoComplete(
 
         // check if we can send procedures or if it needs to be functions
         if (token?.name in PROCEDURES) {
-          AddCompletionProcedures(items);
+          AddCompletionProcedures(items, formatting);
         } else {
           AddCompletionFunctions(items, formatting, addParen);
         }

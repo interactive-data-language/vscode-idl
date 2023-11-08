@@ -1,9 +1,5 @@
-import {
-  CaseStyleFlags,
-  FormatterType,
-  IAssemblerOptions,
-} from '@idl/assembling/config';
-import { AdjustCase } from '@idl/assembling/shared';
+import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import { TransformCase } from '@idl/assembling/shared';
 import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 import { FindDirectBranchChildren, TreeToken } from '@idl/parsing/syntax-tree';
 import { StructureNameToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
@@ -41,9 +37,9 @@ function ResolveProperties(
     // process all properties if they have not been found already
     for (let i = 0; i < names.length; i++) {
       if (!(names[i] in found)) {
-        const display = AdjustCase(
+        const display = TransformCase(
           properties[names[i]].display,
-          formatting.style.properties as CaseStyleFlags
+          formatting.style.properties
         );
         // add to completion
         complete.push({

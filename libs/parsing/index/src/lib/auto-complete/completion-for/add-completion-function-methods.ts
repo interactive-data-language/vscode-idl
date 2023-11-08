@@ -1,3 +1,5 @@
+import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import { TransformCase } from '@idl/assembling/shared';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,
@@ -28,6 +30,7 @@ const FUNCTION_METHODS = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.FUNCTION_METHOD];
 function AddCompletionFunctionMethodsForType(
   complete: CompletionItem[],
   index: IDLIndex,
+  formatting: IAssemblerOptions<FormatterType>,
   type: IDLDataTypeBase<IDLTypes>,
   addParen: boolean,
   found: { [key: string]: any } = {}
@@ -49,7 +52,11 @@ function AddCompletionFunctionMethodsForType(
     for (let i = 0; i < displayNames.length; i++) {
       complete.push({
         label: displayNames[i] + '()',
-        insertText: displayNames[i].split('::')[1] + add,
+        insertText:
+          TransformCase(
+            displayNames[i].split('::')[1],
+            formatting.style.routineMethods
+          ) + add,
         kind: CompletionItemKind.Method,
         sortText: SORT_PRIORITY.METHODS,
         detail: IDL_TRANSLATION.autoComplete.detail.functionMethod,
@@ -73,7 +80,11 @@ function AddCompletionFunctionMethodsForType(
     ) {
       complete.push({
         label: FUNCTION_METHODS[names[i]] + '()',
-        insertText: FUNCTION_METHODS[names[i]].split('::')[1] + add,
+        insertText:
+          TransformCase(
+            FUNCTION_METHODS[names[i]].split('::')[1],
+            formatting.style.routineMethods
+          ) + add,
         kind: CompletionItemKind.Method,
         sortText: SORT_PRIORITY.METHODS,
         detail: IDL_TRANSLATION.autoComplete.detail.functionMethod,
@@ -96,6 +107,7 @@ function AddCompletionFunctionMethodsForType(
         AddCompletionFunctionMethods(
           complete,
           index,
+          formatting,
           ParseIDLType(inherits[i]),
           addParen,
           found
@@ -111,6 +123,7 @@ function AddCompletionFunctionMethodsForType(
 export function AddCompletionFunctionMethods(
   complete: CompletionItem[],
   index: IDLIndex,
+  formatting: IAssemblerOptions<FormatterType>,
   type: IDLDataType,
   addParen: boolean,
   found: { [key: string]: any } = {}
@@ -120,6 +133,7 @@ export function AddCompletionFunctionMethods(
     AddCompletionFunctionMethodsForType(
       complete,
       index,
+      formatting,
       type[i],
       addParen,
       found
