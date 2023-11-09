@@ -41,7 +41,7 @@ Here's a JSON view of all settings for formatting code in the extension:
     "quotes": "single",
     "methods": "dot",
     "keywords": "lower",
-    "properties": "lower",
+    "properties": "camel",
     "control": "lower",
     "numbers": "lower",
     "hex": "lower",
