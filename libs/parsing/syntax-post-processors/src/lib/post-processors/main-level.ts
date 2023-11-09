@@ -70,6 +70,11 @@ IDL_SYNTAX_TREE_POST_PROCESSOR.onTree((tree, parsed) => {
   // change end of the tree to account for reverse
   idx = tree.length - idx - 1;
 
+  // return if only tokens that we should ignore
+  if (tree.slice(idx).filter((el) => !(el.name in IGNORE)).length === 0) {
+    return;
+  }
+
   // extract our children
   const mainChildren = tree.splice(idx, tree.length - idx);
 

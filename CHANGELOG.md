@@ -110,6 +110,8 @@ When generating ENVI and IDL tasks, we try to make a nice display name for task 
 
 Added auto-complete for "inherits" statements in structure definitions
 
+Fixed an issue where we incorrectly identified main level programs in parsed PRO code that were only comments
+
 ## 3.2.4 October 2023
 
 Fixed an issue where improper versions of node.js were used for the language server startup. This caused failures in the language server starting which would prevent any of the feature goodness of the language server from being accessible.

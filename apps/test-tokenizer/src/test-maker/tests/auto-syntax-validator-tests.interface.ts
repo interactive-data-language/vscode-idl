@@ -741,6 +741,18 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `a = 17`,
         ],
       },
+      {
+        name: `not problem`,
+        code: [
+          `function myfunc`,
+          `  compile_opt idl2`,
+          `  return,1`,
+          `end ; -----------`,
+          ``,
+          `; main level`,
+          `; another comment`,
+        ],
+      },
     ],
   },
   {
@@ -811,6 +823,18 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
       {
         name: `also problems`,
         code: [``, `end`],
+      },
+      {
+        name: `not problem`,
+        code: [
+          `function myfunc`,
+          `  compile_opt idl2`,
+          `  return,1`,
+          `end ; -----------`,
+          ``,
+          `; main level`,
+          `; another comment`,
+        ],
       },
     ],
   },
@@ -906,6 +930,18 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
       {
         name: `bad main`,
         code: [`; main level program`, `  a = 5`, `end`],
+      },
+      {
+        name: `ok main`,
+        code: [
+          `function myfunc`,
+          `  compile_opt idl2`,
+          `  return,1`,
+          `end ; -----------`,
+          ``,
+          `; main level`,
+          `; another comment`,
+        ],
       },
     ],
   },
