@@ -59,7 +59,7 @@ pro vscode_getScopeInfo, level, output = output
   help, output = o, level = level - 1
 
   ; strip out compiled routines
-  idxEnd = where(strpos(o, 'Compiled Procedures:') eq 0, countEnd)
+  idxEnd = where(strpos(o, 'Compiled Procedures:') eq 0)
 
   ; check for ENVI using the prompt
   if prompt.startsWith('ENVI') then begin
@@ -93,7 +93,7 @@ pro vscode_getScopeInfo, level, output = output
   strings = o[0 : idxEnd - 1]
 
   ; trim teh traceback at the beginning of the help content
-  front = where(strpos(strings, '%') ne -1, countFront)
+  front = where(strpos(strings, '%') ne -1)
 
   ; get the helper strings
   strings = strings[front[-1] + 1 : -1]
@@ -118,7 +118,7 @@ pro vscode_getScopeInfo, level, output = output
 
   ; process each line
   output = strarr(3, countGo)
-  foreach line, strings[idxGo], idx do begin
+  foreach idx, idxGo do begin
     ; get our matches
     matches = allMatches[*, idx]
 

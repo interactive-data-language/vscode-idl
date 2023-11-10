@@ -114,10 +114,6 @@ function ROI_Parse, roi_uri, debug = debug
           ; get the geometry definition
           geo = geometries.item(j)
 
-          ; flags for geometry type for where to save afterwards
-          wasPoints = !false
-          wasLines = !false
-
           ; verify coord sys string
           coordSysList = geo.getElementsByTagName('CoordSysStr')
           nCoordSys = coordSysList.getLength()
@@ -227,7 +223,7 @@ function ROI_Parse, roi_uri, debug = debug
             pAux = aux[idxPolygons]
 
             ; get starts and ends for our verts we are indexing
-            starts = where(pAux eq 'Exterior', countStart, complement = ends, ncomplement = countEnds)
+            starts = where(pAux eq 'Exterior', countStart, complement = ends)
 
             ; split our polygon up
             if (countStart gt 0) then begin

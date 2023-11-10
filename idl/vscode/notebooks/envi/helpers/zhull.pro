@@ -8,38 +8,36 @@
 ;   For processing, see the `min_area` parameter below which controls when IDL uses
 ;   recursion for processing concave features.
 ;
-; :Returns:
-;   Returns the indices for the vertices in the specified polygon that
-;   make up the smoothed shape.
+; :Returns: any
 ;
-;   This means that the original shape must be subsetted with `verts[*,idx]`
-;   where `idx` is returned from this routine.
-;
-;   If there is an error, or if there are no vertices, then this routine
-;   returns a value of `!null`.
-;
-; :Params:
-;    x: in, required, type=numberarray
-;      Specify the `x` vertices of the feature you want to smooth.
-;    y: in, required, type=numberarray
-;      Specify the `y` vertices of the feature you want to smooth.
-;    nLevels: in, optional, type=number, default=10
-;      Specify the maximum amount of recursion to apply when extracting
-;      sub features. In general this value should never need to be changed.
+; :Arguments:
+;   x: in, required, numberarray
+;     Specify the `x` vertices of the feature you want to smooth.
+;   y: in, required, numberarray
+;     Specify the `y` vertices of the feature you want to smooth.
+;   nLevels: in, optional, Number
+;     Specify the maximum amount of recursion to apply when extracting
+;     sub features. In general this value should never need to be changed.
+;   level: bidirectional, required, any
+;     Placeholder docs for argument, keyword, or property
+;   area: bidirectional, required, any
+;     Placeholder docs for argument, keyword, or property
 ;
 ; :Keywords:
-;    DEBUG: in, optional, type=boolean, private
-;      If set, errors are stopped on.
-;    MIN_AREA: in, optional, type=float, default=0.1
-;      Specify the minimum size of features that you want to
-;      have included. By default ```idl qhull``` only extracts edge features
-;      so this parameter indicates how large a concave polygon must be to
-;      have it's major vertices extracted.
+;   debug: in, optional, Boolean, private
+;     If set, errors are stopped on.
+;   min_area: in, optional, Float
+;     Specify the minimum size of features that you want to
+;     have included. By default ```idl qhull``` only extracts edge features
+;     so this parameter indicates how large a concave polygon must be to
+;     have it's major vertices extracted.
 ;
-;      As this parameter is increased, the shapes have fewer points. Setting to
-;      a smaller value preserves more points.
+;     As this parameter is increased, the shapes have fewer points. Setting to
+;     a smaller value preserves more points.
 ;
-; :Author: Zachary Norman - GitHub: znorman-harris
+; :Author:
+;   Zachary Norman - GitHub: znorman-harris
+;
 ;-
 function zhull, x, y, nLevels, level, area, $
   debug = debug, $
@@ -50,11 +48,11 @@ function zhull, x, y, nLevels, level, area, $
   ; calculate base information
   if (level eq !null) then level = 0
   if (min_area eq !null) then min_area = .01
-  if (area eq !null) then area = Poly_area(x, y)
+  if (area eq !null) then area = poly_area(x, y)
   if (nLevels eq !null) then nLevels = 10
 
   ; get hull information
-  qhull, x, y, tr, /delaunay, bounds = hIdx, connectivity = conn
+  qhull, x, y, /delaunay, bounds = hIdx
   hIdx = hIdx.sort()
   nEdges = n_elements(hIdx)
 
@@ -78,7 +76,7 @@ function zhull, x, y, nLevels, level, area, $
     ; get new x and y, calculate new area
     newX = x[newIdx]
     newY = y[newIdx]
-    newArea = Poly_area(newX, newY)
+    newArea = poly_area(newX, newY)
 
     ; get the change in area and skip if less than our threshold
     added = newArea / area

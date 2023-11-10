@@ -84,7 +84,7 @@ pro inputValidator, requirements, $
     endif
 
     ; return if nothing else to do
-    if (n_elements(requriements) eq 0) then begin
+    if (n_elements(requirements) eq 0) then begin
       return
     endif
   endif
@@ -162,7 +162,7 @@ pro inputValidator, requirements, $
       isNull = 1
     endif else begin
       value = scope_varfetch(varName, level = level - 1)
-      isNull = isa(value, /null) ; TODO: add info for hash keys
+      isNull = isa(value, /null)
       case (1) of
         ; isa(value, 'hash'): isNull = n_elements(value) eq 0
         else: ; do nothing
