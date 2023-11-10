@@ -4,6 +4,8 @@
 /dist
 /tmp
 /out-tsc
+.angular
+.nx
 
 # dependencies
 /node_modules
@@ -56,8 +58,3 @@ compliance/3rdpartylicenses_condensed.md
 compliance/3rdpartylicenses_encryption.csv
 compliance/3rdpartylicenses.csv
 compliance/compliance.json
-
-# IDL notebooks
-idl/routines/notebooks/**
-
-.angular

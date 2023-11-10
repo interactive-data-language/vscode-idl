@@ -18,7 +18,7 @@ pro IDLitTool::RefreshCurrentWindow
     return ; updates disabled, increment and return.
   endif
 
-  oWin = self.GetCurrentWindow()
+  oWin = self.getCurrentWindow()
   if (~obj_valid(oWin)) then $
     return
 
@@ -31,9 +31,9 @@ pro IDLitTool::RefreshCurrentWindow
       dim = oWin.dimensions
       !magic.xsize = dim[0]
       !magic.ysize = dim[1]
-      IDLNotebook.AddToNotebook, !magic
+      IDLNotebook.addToNotebook, !magic
     endif
-    oWin.Draw
+    oWin.draw
     self._bnoredraw = 0b
   endif
 end

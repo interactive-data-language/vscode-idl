@@ -131,11 +131,18 @@ export async function GetAutoComplete(
         AddCompletionExecutiveCommands(items, formatting);
         return items;
       case token?.name === TOKEN_NAMES.STRUCTURE && token?.kids?.length === 0:
-        AddCompletionStructureNames(items);
+        AddCompletionStructureNames(items, formatting);
+        return items;
+      case token?.name === TOKEN_NAMES.STRUCTURE_INHERITANCE &&
+        // fully typed inherits
+        token.match[0].trim().toLowerCase() === 'inherits' &&
+        // make sure it ends with a space
+        token.match[0].endsWith(' '):
+        AddCompletionStructureNames(items, formatting);
         return items;
       case token?.name === TOKEN_NAMES.STRUCTURE_NAME &&
         token?.kids?.length === 0:
-        AddCompletionStructureNames(items);
+        AddCompletionStructureNames(items, formatting);
         return items;
       case token?.name === TOKEN_NAMES.STRUCTURE_NAME:
         AddCompletionPropertiesInStructures(
@@ -265,9 +272,15 @@ export async function GetAutoComplete(
 
         // check if we send procedure or function methods
         if (local?.name in PROCEDURES) {
-          AddCompletionProcedureMethods(items, index, type);
+          AddCompletionProcedureMethods(items, index, formatting, type);
         } else {
-          AddCompletionFunctionMethods(items, index, type, addParen);
+          AddCompletionFunctionMethods(
+            items,
+            index,
+            formatting,
+            type,
+            addParen
+          );
         }
         break;
       /**
@@ -282,7 +295,7 @@ export async function GetAutoComplete(
 
         // check if we can send procedures or if it needs to be functions
         if (token?.name in PROCEDURES) {
-          AddCompletionProcedures(items);
+          AddCompletionProcedures(items, formatting);
         } else {
           AddCompletionFunctions(items, formatting, addParen);
         }

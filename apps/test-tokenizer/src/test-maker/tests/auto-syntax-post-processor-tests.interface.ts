@@ -416,14 +416,25 @@ export const AUTO_POST_PROCESSOR_TESTS: IAutoTest[] = [
         ],
       },
       {
-        name: `ignore only comments`,
+        name: `ignore only comments 1`,
         code: [
           `function myfunc`,
           `  compile_opt idl2`,
           `  return,1`,
           `end`,
           ``,
-          `compile_opt idl2`,
+          `; main level`,
+          `; another comment`,
+        ],
+      },
+      {
+        name: `ignore only comments 2`,
+        code: [
+          `function myfunc`,
+          `  compile_opt idl2`,
+          `  return,1`,
+          `end ; -----------`,
+          ``,
           `; main level`,
           `; another comment`,
         ],

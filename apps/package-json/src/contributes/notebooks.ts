@@ -3,7 +3,7 @@ import {
   IDL_COMMANDS,
   IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME,
   IDL_NOTEBOOK_EXTENSION,
-  IDL_NOTEBOOK_NAME,
+  IDL_NOTEBOOK_LANGUAGE_NAME,
   IDL_NOTEBOOK_RENDERER_NAME,
 } from '@idl/shared';
 
@@ -31,7 +31,7 @@ export const NOTEBOOK_TOOLBAR = [
  */
 export function ProcessNotebooks(packageJSON: IPackageJSON, nls: IPackageNLS) {
   const ourNotebook = {
-    type: IDL_NOTEBOOK_NAME,
+    type: IDL_NOTEBOOK_LANGUAGE_NAME,
     displayName: '%notebooks.title%',
     selector: [
       {

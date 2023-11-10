@@ -17,8 +17,8 @@
 ;     to limit recursion.
 ;
 ;-
-pro build_recursive_resolve, bdg, routines, processed, skip
-  compile_opt idl2
+pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
+  compile_opt idl2, hidden
 
   ; track routines that we have processed
   if ~keyword_set(processed) then processed = hash(/fold_case)
@@ -28,7 +28,7 @@ pro build_recursive_resolve, bdg, routines, processed, skip
   changes = !false
 
   ; reset bridge
-  bdg.execute, '.reset'
+  bdg.Execute, '.reset'
 
   ; reset path in child process - weird thing with resolving objects called as functions
   ; when they are on your path
@@ -37,7 +37,7 @@ pro build_recursive_resolve, bdg, routines, processed, skip
   ; compile all routines that we are aware of
   foreach routine, routines do begin
     ; skip if we have processed a routine or not
-    if skip.hasKey(routine) or processed.hasKey(routine) or strtrim(routine, 2) eq '' then continue
+    if skip.HasKey(routine) or processed.HasKey(routine) or strtrim(routine, 2) eq '' then continue
 
     ; nicely handle errors
     catch, err
@@ -50,7 +50,7 @@ pro build_recursive_resolve, bdg, routines, processed, skip
 
     ; compile file
     ; bdg.execute, '.compile "' + routine + '"'
-    bdg.execute, 'resolve_routine, "' + routine + '", /COMPILE_FULL_FILE, /EITHER'
+    bdg.Execute, 'resolve_routine, "' + routine + '", /COMPILE_FULL_FILE, /EITHER'
     catch, /cancel
 
     ; check for source location
@@ -63,17 +63,17 @@ pro build_recursive_resolve, bdg, routines, processed, skip
         catch, /cancel
         continue
       endif
-      bdg.execute, 'info = json_serialize(routine_info("' + routine + '", /source, /function))'
+      bdg.Execute, 'info = json_serialize(routine_info("' + routine + '", /source, /function))'
     endif else begin
-      bdg.execute, 'info = json_serialize(routine_info("' + routine + '", /source))'
+      bdg.Execute, 'info = json_serialize(routine_info("' + routine + '", /source))'
       catch, /cancel
     endelse
 
     ; get and parse the source struct
-    src = json_parse(bdg.getVar('info'), /fold_case)
+    src = json_parse(bdg.GetVar('info'), /fold_case)
 
     ; skip internal routines
-    if src['path'].startsWith(!dir) or ~keyword_set(src['path']) then begin
+    if src['path'].StartsWith(!dir) or ~keyword_set(src['path']) then begin
       skip[routine] = !true
       continue
     endif
@@ -86,17 +86,66 @@ pro build_recursive_resolve, bdg, routines, processed, skip
   ; check if we have changes
   if changes then begin
     ; get the unresolved routines
-    bdg.execute, 'info = json_serialize(orderedhash("procedures", routine_info(/UNRESOLVED), "functions", routine_info(/FUNCTIONS, /UNRESOLVED)))'
-    allRoutines = json_parse(bdg.getVar('info'))
+    bdg.Execute, 'info = json_serialize(orderedhash("procedures", routine_info(/UNRESOLVED), "functions", routine_info(/FUNCTIONS, /UNRESOLVED)))'
+    allRoutines = json_parse(bdg.GetVar('info'))
 
     ; concat together
     toProcess = list()
-    if isa(allRoutines['procedures'], 'list') then toProcess.add, allRoutines['procedures'], /extract
-    if isa(allRoutines['functions'], 'list') then toProcess.add, allRoutines['functions'], /extract
+    if isa(allRoutines['procedures'], 'list') then toProcess.Add, allRoutines['procedures'], /extract
+    if isa(allRoutines['functions'], 'list') then toProcess.Add, allRoutines['functions'], /extract
 
     ; recurse
-    build_recursive_resolve, bdg, toProcess, processed, skip
+    vscode_BuildWorkspace_resolve, bdg, toProcess, processed, skip
   endif
+
+  s = {myProp: 5, otherProp: 6}
+end
+
+;+
+; :Arguments:
+;   workspace: in, required, String
+;     Workspace we are searching for files
+;   destination: in, required, String
+;     Location we copy to
+;   types: in, required, Array<String>
+;     File extensions that we copy as part of the build
+;
+;-
+pro vscode_BuildWorkspace_CopyFiles, workspace, destination, types
+  compile_opt idl2, hidden
+
+  ; search for files
+  files = file_search(workspace, '*', count = nfiles, /test_regular)
+
+  ; make sure we found files
+  if (nfiles eq 0) then $
+    message, 'No files found to build', level = -1
+
+  ; get locations of file extensions
+  dot = strpos(files, '.')
+
+  ; get files with extensions to check
+  idxCheck = where(dot ne -1, countCheck)
+
+  ; make sure we have file extensions to check
+  if (countCheck eq 0) then $
+    message, 'No files found to build', level = -1
+
+  ; pluck the file extensions
+  extensions = strlowcase(files[idxCheck].Substring(dot))
+
+  ; make hash of allowed types
+  okExtensions = hash(types, replicate(!true, n_elements(types)))
+
+  ; get extensions we keep
+  idxOk = where(okExtensions.HasKey(extensions), countKeep)
+
+  ; make sure that we have files
+  if (countKeep eq 0) then $
+    message, 'No files found to build', level = -1
+
+  ; copy files
+  file_copy, files[idxCheck[idxOk]], destination
 end
 
 ;+
@@ -112,9 +161,22 @@ end
 ;   6. Any dependency not located in the !dir folder we attempt to
 ;      compile and save
 ;
+; :Arguments:
+;   workspace: in, required, String
+;     Fully-qualified path to the workspace that we want to build/compile
+;
 ;-
-pro build
-  compile_opt idl2
+pro vscode_BuildWorkspace, workspace
+  compile_opt idl2, hidden
+  on_error, 2
+
+  ; make sure we have a workspace to build
+  if (workspace eq !null) then $
+    message, 'Workspace not specified, required!', level = -1
+
+  ; make sure the folder exists
+  if ~file_test(workspace, /directory) then $
+    message, 'Workspace specified, but folder does not exist!', level = -1
 
   ;+ get current folder
   thisDir = file_dirname(routine_filepath())
@@ -124,10 +186,13 @@ pro build
   if ~file_test(srcDir, /directory) then message, 'Source folder not found where expected'
 
   ;+ specify the output folder
-  outDir = thisDir + path_sep() + 'dist'
+  outDir = workspace + path_sep() + 'dist'
 
-  ; make folder if it doesnt exist
+  ; clean up if the output folder exists already
   if file_test(outDir, /directory) then file_delete, outDir, /recursive
+
+  ; make our output folder
+  file_mkdir, outDir
 
   ; copy source to dist
   file_copy, srcDir, outDir, /recursive
@@ -144,7 +209,7 @@ pro build
   skipThese['tic'] = !true
   skipThese['toc'] = !true
 
-  ;+ Track files to delete and not include int he builds
+  ;+ Track files to delete and not include in the builds
   delete = hash()
   delete['atcorrectimagery.pro'] = !true
   delete['atcorrectimagerywithflaash.task'] = !true
@@ -155,7 +220,7 @@ pro build
   if (nCleanup gt 0) then begin
     foreach file, files do begin
       case (!true) of
-        delete.hasKey(file_basename(file)): file_delete, file
+        delete.HasKey(file_basename(file)): file_delete, file
         else: ; do nothing
       endcase
     endforeach
@@ -166,9 +231,9 @@ pro build
   if (nCleanup gt 0) then begin
     foreach file, files do begin
       case (!true) of
-        file.endsWith('.spec.pro'): file_delete, file
-        file.endsWith('.spec.pro.log'): file_delete, file
-        delete.hasKey(file_basename(file)): file_delete, file
+        file.EndsWith('.spec.pro'): file_delete, file
+        file.EndsWith('.spec.pro.log'): file_delete, file
+        delete.HasKey(file_basename(file)): file_delete, file
         else: ; do nothing
       endcase
     endforeach
@@ -186,57 +251,57 @@ pro build
 
   ; create process to build files
   bdg = IDL_IDLBridge()
-  bdg.setVar, 'path', byte(newPath) ; goofy to avoid strings that are too long
-  bdg.execute, 'path = string(path)'
-  bdg.execute, 'pref_set, "IDL_PATH", path, /COMMIT & path_cache, /REBUILD'
+  bdg.SetVar, 'path', byte(newPath) ; goofy to avoid strings that are too long
+  bdg.Execute, 'path = string(path)'
+  bdg.Execute, 'pref_set, "IDL_PATH", path, /commit & path_cache, /rebuild'
 
   ; compile and save all of our PRO files
   foreach file, files do begin
-    bdg.execute, '.reset'
-    bdg.execute, '.compile "' + file + '"'
-    bdg.execute, 'save, /ROUTINES, FILENAME = "' + file.replace('.pro', '.sav') + '", /COMPRESS'
+    bdg.Execute, '.reset'
+    bdg.Execute, '.compile "' + file + '"'
+    bdg.Execute, 'save, /routines, filename = "' + file.Replace('.pro', '.sav') + '", /compress'
   endforeach
 
   ; reset bridge
-  bdg.execute, '.reset'
+  bdg.Execute, '.reset'
 
   ; compile all routines that we are aware of
   foreach file, files do begin
     ; compile file
-    bdg.execute, '.compile "' + file + '"'
+    bdg.Execute, '.compile "' + file + '"'
 
     ; clean up PRO file
     file_delete, file
   endforeach
 
   ; get the routines in our files
-  bdg.execute, 'info = json_serialize(orderedhash("procedures", routine_info(/UNRESOLVED), "functions", routine_info(/FUNCTIONS, /UNRESOLVED)))'
-  allRoutines = json_parse(bdg.getVar('info'))
+  bdg.Execute, 'info = json_serialize(orderedhash("procedures", routine_info(/UNRESOLVED), "functions", routine_info(/FUNCTIONS, /UNRESOLVED)))'
+  allRoutines = json_parse(bdg.GetVar('info'))
 
   ; reset bridge
-  bdg.execute, '.reset'
+  bdg.Execute, '.reset'
 
   ; initialize routines that we have processed
   processed = hash(/fold_case)
 
   ; concat unresolved functions and procedures ttogether
   toProcess = list()
-  if isa(allRoutines['procedures'], 'list') then toProcess.add, allRoutines['procedures'], /extract
-  if isa(allRoutines['functions'], 'list') then toProcess.add, allRoutines['functions'], /extract
+  if isa(allRoutines['procedures'], 'list') then toProcess.Add, allRoutines['procedures'], /extract
+  if isa(allRoutines['functions'], 'list') then toProcess.Add, allRoutines['functions'], /extract
 
   ; recurse
-  build_recursive_resolve, bdg, toProcess, processed
+  vscode_BuildWorkspace_resolve, bdg, toProcess, processed
 
   ; add object classes for resolving
   processed['awesomeenviprogress__define'] = !true
 
   ; process each dependency
-  foreach routine, processed.keys() do begin
+  foreach routine, processed.Keys() do begin
     ; return if we should be skipping
-    if skipThese.hasKey(routine) then continue
+    if skipThese.HasKey(routine) then continue
 
     ; reset bridge
-    bdg.execute, '.reset'
+    bdg.Execute, '.reset'
 
     ; nicely handle errors
     catch, err
@@ -247,13 +312,13 @@ pro build
     endif
 
     ; attempt to resolve our routine
-    bdg.execute, 'resolve_routine, "' + routine + '", /COMPILE_FULL_FILE, /EITHER'
+    bdg.Execute, 'resolve_routine, "' + routine + '", /compile_full_file, /either'
 
     ; dont catch
     catch, /cancel
 
     ; we found it, so save
-    bdg.execute, 'save, /ROUTINES, FILENAME="' + depDir + path_sep() + strlowcase(routine) + '.sav"'
+    bdg.Execute, 'save, /routines, filename="' + depDir + path_sep() + strlowcase(routine) + '.sav"'
   endforeach
 
   ; clean up

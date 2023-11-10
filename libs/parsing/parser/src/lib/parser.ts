@@ -15,6 +15,7 @@ import { readFile } from 'fs/promises';
 
 import { CodeChecksum } from './code-checksum';
 import { DEFAULT_PARSER_OPTIONS, IParserOptions } from './parser.interface';
+import { ParserGetOutline } from './parser-get-outline';
 
 // call a function from our validators so the code gets loaded and bundled
 ActivateDefaultSyntaxRules();
@@ -96,6 +97,8 @@ export function Parser(
       main: [],
     },
     uses: copy(DEFAULT_USES_THESE_GLOBAL_TOKEN),
+    outline: [],
+    semantic: { data: [] },
   };
 
   // extract tokens
@@ -136,6 +139,9 @@ export function Parser(
   if (options.full) {
     PostProcessProblems(tokenized);
   }
+
+  // get code outline
+  ParserGetOutline(tokenized);
 
   return tokenized;
 }

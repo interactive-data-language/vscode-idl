@@ -189,7 +189,7 @@ pro ShapeFileToGeoJSON, $
     ; create a nice string for each property
     fixed = list()
     for i = 0, n_elements(attributes) - 1 do begin
-      fixed.Add, '{' + strjoin(attNames + reform(strings[i, *]) + back, ',') + '}'
+      fixed.add, '{' + strjoin(attNames + reform(strings[i, *]) + back, ',') + '}'
     endfor
 
     ; get our entities and iterate over each one
@@ -247,7 +247,7 @@ pro ShapeFileToGeoJSON, $
 
       ; convert our coordinates
       coordSys.convertMapToLonLat, reform(vert[0, *]), reform(vert[1, *]), lon, lat
-      coordSys.convertlonLatToLonLat, lon, lat, lon, lat, output_coord_sys
+      coordSys.convertLonLatToLonLat, lon, lat, lon, lat, output_coord_sys
       nPts = n_elements(lon)
 
       ; create a list for our vertices
@@ -282,13 +282,13 @@ pro ShapeFileToGeoJSON, $
           multipoints.add, 1
         endif else begin
           vertItem = list()
-          for i = 0, nPts - 1 do vertItem.Add, [lon[i], lat[i]]
+          for i = 0, nPts - 1 do vertItem.add, [lon[i], lat[i]]
           verts.add, vertItem
           multipoints.add, 0
         endelse
       endif else begin
         vertItem = list()
-        for i = 0, nPts - 1 do vertItem.Add, [lon[i], lat[i]]
+        for i = 0, nPts - 1 do vertItem.add, [lon[i], lat[i]]
         verts.add, vertItem
         multipoints.add, 0
       endelse
@@ -303,16 +303,16 @@ pro ShapeFileToGeoJSON, $
           ; how do we proceed
           case (1) of
             ((types[idx] eq 'Polygon') && (~multipoints[idx])): begin
-              strs.Add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + ShapeFileToGeoJSON_Serialize(list(vert)) + '}}'
+              strs.add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + ShapeFileToGeoJSON_Serialize(list(vert)) + '}}'
             end
             (types[idx] eq 'Point' && (n_elements(vert) eq 1)): begin
-              strs.Add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + ShapeFileToGeoJSON_Serialize(vert[0]) + '}}'
+              strs.add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + ShapeFileToGeoJSON_Serialize(vert[0]) + '}}'
             end
             (types[idx] eq 'LineString'): begin
-              strs.Add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + ShapeFileToGeoJSON_Serialize(vert[0]) + '}}'
+              strs.add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + ShapeFileToGeoJSON_Serialize(vert[0]) + '}}'
             end
             else: begin
-              strs.Add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + ShapeFileToGeoJSON_Serialize(vert) + '}}'
+              strs.add, '{"type":"Feature","properties":' + fixed[z] + ',"geometry":{"type":"' + types[idx] + '","coordinates":' + ShapeFileToGeoJSON_Serialize(vert) + '}}'
             end
           endcase
         endforeach
@@ -332,7 +332,7 @@ pro ShapeFileToGeoJSON, $
 
   ; create our output json filename
   if ~keyword_set(output_geojson_uri) then begin
-    output_geojson_uri = e.gettemporaryFilename('json')
+    output_geojson_uri = e.getTemporaryFilename('json')
   endif
   openw, lun, output_geojson_uri, /get_lun
   printf, lun, outputGeo, /implied_print

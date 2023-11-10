@@ -10,13 +10,22 @@ const ENVI_OPENER_CONFIG = {
   viewType: ENVI_OPENER_TYPE,
   displayName: '%envi.openerTitle%',
   selector: [],
-  priority: 'default',
+  priority: 'option',
 };
 
 /**
  * File extensions that we want to register to our ENVI opener
  */
-const FILE_EXTENSIONS = [`dat`, `tif`, `tiff`, `jp2`, `jp2000`, `ntf`].sort();
+const FILE_EXTENSIONS = [
+  `dat`,
+  `tif`,
+  `tiff`,
+  `jp2`,
+  `jp2000`,
+  `ntf`,
+  `nitf`,
+  `r0`,
+].sort();
 
 /**
  * Updates the package.json file for our themes and makes sure everything exists
@@ -45,4 +54,7 @@ export function ProcessCustomEditors(
 
   // made it here so lets update our package file
   contrib['customEditors'] = [ENVI_OPENER_CONFIG];
+
+  // handled automatically. if included, gets yellow tooltip in package.json
+  // packageJSON['activationEvents'].push(`onCustomEditor:${ENVI_OPENER_TYPE}`);
 }

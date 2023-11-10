@@ -4,11 +4,39 @@ All notable changes to the "idl" extension will be documented in this file.
 
 For much more detail on incremental work for large features, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
 
-## Unreleased
+## Preview Features
 
-Preview release of IDL Notebooks! This is a first pass at adding notebook support for IDL which is independent from Jupyter.
+This section of the CHANGELOG documents features that have been added to the extension, but are still in an experimental phase. Feel free to try them out and provide feedback via discussions or issues on our GitHub page.
 
-> Notebooks are a preview feature and, based on early adopter feedback, will likely change
+Code style revamp! We reworked how routines, routine methods, properties, and structure names get formatted. This includes:
+
+- Support for camel case ("camelCase") and pascal case ("PascalCase") styling. Mileage may vary here, based on the routine names, so please let us know if this doesn't look quite right or do what you expect. Some routines that start with "IDL" or "ENVI" might surprise you with the case conversion.
+
+- New style setting called "routineMethods" so that you can indicate the styling for methods apart from normal functions or procedures
+
+- New style setting called "structureNames" so that you can have structure names have consistent formatting.
+
+- We also now format the structure names in inheritance statements.
+
+- We also use structure formatting preferences when auto-completing structure names
+
+- Routine formatting now gives you the benefit-of-the-doubt when formatting routines and routine methods. In the past, if we encountered an unknown routine, we would not change the appearance. Now, even if we don't know the class method or routine, we apply styling. Milage may vary here based on the style you use when we can't get the source information.
+
+- New defaults:
+
+  - Properties: camelCase
+
+  - Routines: match definition
+
+  - Routine methods: camelCase
+
+  - Structure names: PascalCase
+
+- When generating ENVI and IDL tasks, using our new case libraries, we attempt to make a pretty display name from parameter names. For example converting the keyword "my_keyword" to "My Keyword". This applied to task and parameter display names.
+
+## 4.0.0 November 2023
+
+The official release of IDL Notebooks! This is a first pass at adding notebook support for IDL (which is independent from Jupyter). We are hoping to have early adopters try it out and provide feedback on how notebooks behave. Read below to learn more or find an example IDL and ENVI Notebook directly within VSCode in the IDL sidebar.
 
 Here are some of the features that notebooks bring:
 
@@ -41,6 +69,52 @@ Here are some of the features that notebooks bring:
   - See the "Hello World" notebook for details on how cell execution works and how you can write code
 
   - After each cell is executed we issue a `retall` command to make sure that we are at the top-level and not stopped in a weird state
+
+Updated the IDL and ENVI icons throughout the extension and on our github pages. This is the same icon that will be used as part of the next official release of ENVI and IDL.
+
+We now use colored icons for file icons and added some new file associations for our ENVI within the editor. If you have a theme that doesn't look great with our icon colors, let us know!
+
+With the new icons, updated our custom icon theme to include the new ENVI logo for key ENVI file extensions.
+
+Added the ability to convert your IDL notebooks to PRO code! This exciting features uses intimate knowledge of IDL to break down the code in your cells and put it back together as a single PRO file.
+
+- Any routines and non-main level program code is put together first and follows the order of the cells. Then, any main-level programs within cells or single lines of code are added as one, large main level program at the end.
+
+- Milage may vary based on how you wrote your notebook, but it is very easy to get out your routine definitions
+
+- Use GitHub to let us know if this should behave differently!
+
+Expanded sidebar for notebooks with buttons for:
+
+- Creating a new notebook
+
+- Formatting the IDL Code in your notebook cells (shortcut for VSCode native command)
+
+- Ability to open an example IDL Notebook
+
+- Ability to open example ENVI Notebook
+
+- Converting notebooks to PRO code
+
+There's also a command added that will reset your example notebooks to what we had originally. it is called "IDL: Reset IDL and ENVI Example Notebooks'.
+
+When automatically opening ENVI files, the text displayed adds a note about how you can disable the behavior by looking at the extension documentation.
+
+Optimize the generation of the code outline and semantic tokens (static class references) to calculate both at the same time we are parsing a file or cell of code. This reduces extra CPU usage from retrieving complex information from our cache.
+
+When notebooks start, we now perform an extra check to make sure we have the routines needed to function correctly. This is mainly for developers and edge-cases where you weren't provided any feedback on the startup process and wouldn't know there was a problem.
+
+Resolved an issue where you couldn't view the output from a notebook cell in VSCode. We provided a default VSCode configuration which fixes this problem and added a new doc to the extension to capture known issues and how to solve them.
+
+Fixed an issue where statements being sent to IDL were not executing correctly for implied print
+
+When generating ENVI and IDL tasks, we try to make a nice display name for task and parameter names
+
+Added auto-complete for "inherits" statements in structure definitions
+
+Fixed an issue where we incorrectly identified main level programs in parsed PRO code that were only comments
+
+When we parse documentation for routines, we now accept docs within routine definitions. If you have a comment block immediately following parameters, then that takes priority over comment blocks above.
 
 ## 3.2.4 October 2023
 

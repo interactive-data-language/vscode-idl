@@ -1,5 +1,4 @@
-import { CaseStyleFlags, STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
-import { AdjustCase } from '@idl/assembling/shared';
+import { TransformCase } from '@idl/assembling/shared';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
 import { ITokenCache } from '@idl/parsing/index';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
@@ -15,45 +14,31 @@ const PROPERTIES = [
 ASSEMBLER_DEFAULT_STYLING.onBasicToken(
   TOKEN_NAMES.ACCESS_PROPERTY,
   (token, parsed, meta) => {
-    switch (true) {
-      case meta.style.properties === STYLE_FLAG_LOOKUP.MATCH: {
-        const prop = (token.cache as ITokenCache).property;
-        if (prop === undefined) {
-          return;
-        }
-        token.match[0] = `.${prop.display}`;
-        break;
-      }
-      default:
-        token.match[0] = AdjustCase(
-          token.match[0].replace(/\s/g, ''),
-          meta.style.properties as CaseStyleFlags
-        );
-        break;
+    // check for a property in our token cache
+    const prop = (token.cache as ITokenCache).property;
+
+    // if we have a known property, transform the display name
+    if (prop !== undefined) {
+      token.match[0] = `.${TransformCase(prop.display, meta.style.properties)}`;
+    } else {
+      token.match[0] = TransformCase(
+        token.match[0].replace(/\s/g, ''),
+        meta.style.properties
+      );
     }
-    return;
   }
 );
 
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.STRUCTURE_PROPERTY,
   (token, parsed, meta) => {
-    switch (true) {
-      case meta.style.properties === STYLE_FLAG_LOOKUP.MATCH: {
-        const prop = (token.cache as ITokenCache).property;
-        if (prop === undefined) {
-          return;
-        }
-        token.match[0] = prop.display;
-        break;
-      }
-      default:
-        token.match[0] = AdjustCase(
-          token.match[0].replace(/\s/g, ''),
-          meta.style.properties as CaseStyleFlags
-        );
-        break;
-    }
-    return;
+    // check for a property in our token cache
+    const prop = (token.cache as ITokenCache).property;
+
+    // transform case using known property or the text the user has written
+    token.match[0] = TransformCase(
+      prop !== undefined ? prop.display : token.match[0].replace(/\s/g, ''),
+      meta.style.properties
+    );
   }
 );

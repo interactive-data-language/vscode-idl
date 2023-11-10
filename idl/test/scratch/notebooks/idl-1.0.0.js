@@ -17,9 +17,8 @@
        ...
      };
 */
-if (typeof IDL === "undefined") {
-  var IDL =
-  {
+if (typeof IDL === 'undefined') {
+  var IDL = {
     /*
       Send a notification from JavaScript to IDL.
       value: A string containing the message payload.
@@ -27,29 +26,28 @@ if (typeof IDL === "undefined") {
       Usage:
         IDL.notifyIDL("my message payload");
     */
-    notifyIDL: function(value)
-    {
+    notifyIDL: function (value) {
       window.cefQuery({
         request: value,
         persistent: false,
-        onSuccess: function(response) { 
+        onSuccess: function (response) {
           // Do nothing
         },
-        onFailure: function(error_code, error_message) {
-          console.log(error_message);}
+        onFailure: function (error_code, error_message) {
+          console.log(error_message);
+        },
       });
-    }
+    },
 
     /*
       Receive a notification from IDL and route to the listeners.
       This is called from the IDL C code; the user should never need
       to use this method directly.
     */
-    , notifyJS: function(value)
-    {
-      var event = new CustomEvent('IDLNotify',{'detail':value});
+    notifyJS: function (value) {
+      var event = new CustomEvent('IDLNotify', { detail: value });
       document.dispatchEvent(event);
-    }
+    },
 
     /*
       Register a listener to receive notifications from IDL.
@@ -62,8 +60,8 @@ if (typeof IDL === "undefined") {
       Usage:
          IDL.addEventListener(myIDLListener);
     */
-    , addEventListener: function(listener) {
-      document.addEventListener("IDLNotify", listener);
-    }
+    addEventListener: function (listener) {
+      document.addEventListener('IDLNotify', listener);
+    },
   };
 }

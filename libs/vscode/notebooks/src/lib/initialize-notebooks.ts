@@ -1,4 +1,4 @@
-import { IDL_NOTEBOOK_NAME } from '@idl/shared';
+import { IDL_NOTEBOOK_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
@@ -30,7 +30,7 @@ export function InitializeNotebooks(
   });
   ctx.subscriptions.push(
     vscode.workspace.registerNotebookSerializer(
-      IDL_NOTEBOOK_NAME,
+      IDL_NOTEBOOK_LANGUAGE_NAME,
       IDL_NOTEBOOK_SERIALIZER
     )
   );
@@ -46,6 +46,7 @@ export function InitializeNotebooks(
   // RegisterNotebookHoverProvider();
   // RegisterNotebookCompletionProvider();
   // RegisterNotebookDefinitionProvider();
+  // RegisterNotebookSymbolProvider();
 
   // register notebook commands
   RegisterNotebookCommands(ctx);

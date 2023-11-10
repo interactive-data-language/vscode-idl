@@ -1,9 +1,5 @@
-import {
-  CaseStyleFlags,
-  FormatterType,
-  IAssemblerOptions,
-} from '@idl/assembling/config';
-import { AdjustCase } from '@idl/assembling/shared';
+import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import { TransformCase } from '@idl/assembling/shared';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,
@@ -15,7 +11,6 @@ import {
 import { IDL_TRANSLATION } from '@idl/translation';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
-import { GetPropertyDisplayName } from '../../helpers/get-property-display-name';
 import { IDLIndex } from '../../idl-index.class';
 import { SORT_PRIORITY } from '../sort-priority.interface';
 
@@ -35,17 +30,22 @@ function AddCompletionPropertiesForType(
     return;
   }
 
-  // check if we have aN ANONYMOUS STRUCTURE
+  // check if we have an anonymous structure
   if (type.name === IDL_TYPE_LOOKUP.STRUCTURE) {
     const properties = type.meta;
     const keys = Object.keys(properties);
     for (let i = 0; i < keys.length; i++) {
       const lowKey = keys[i].toLowerCase();
       if (!(lowKey in found)) {
+        const display = TransformCase(
+          properties[keys[i]].display,
+          formatting.style.properties
+        );
+
         // add to completion
         complete.push({
-          label: GetPropertyDisplayName(properties[keys[i]].display),
-          insertText: GetPropertyDisplayName(properties[keys[i]].display) + add,
+          label: display,
+          insertText: display + add,
           kind: CompletionItemKind.Field,
           sortText: SORT_PRIORITY.PROPERTIES,
           documentation: properties[keys[i]].docs,
@@ -71,9 +71,9 @@ function AddCompletionPropertiesForType(
     for (let i = 0; i < keys.length; i++) {
       const lowKey = keys[i].toLowerCase();
       if (!(lowKey in found)) {
-        const display = AdjustCase(
+        const display = TransformCase(
           properties[keys[i]].display,
-          formatting.style.properties as CaseStyleFlags
+          formatting.style.properties
         );
 
         // add to completion

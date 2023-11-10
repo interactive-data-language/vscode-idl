@@ -2,7 +2,7 @@
 ; :Description:
 ;   Creates our message interceptor and registers it with ENVI (requires that ENVI is launched)
 ;
-; :Returns: VSCodeENVIMessageInterceptor
+; :Returns: VsCodeENVIMessageInterceptor
 ;
 ; :Keywords:
 ;   verbose: in, optional, Boolean
@@ -21,15 +21,15 @@ function VSCodeENVIMessageInterceptor::Init, verbose = verbose
   if (e eq !null) then message, 'ENVI has not started yet, required!', level = -1
 
   ; init super
-  if (~self.ENVIMessageHandler::Init()) then begin
+  if (~self.enviMessageHandler::init()) then begin
     return, 0
   endif
 
   ; init properties
   self.stack = 0
   self.verbose = keyword_set(verbose)
-  self.laststart = list()
-  self.lastprogress = list()
+  self.lastStart = list()
+  self.lastProgress = list()
 
   ; get the channel and subscribe
   oChannel = e.getBroadcastChannel()
@@ -49,7 +49,7 @@ pro VSCodeENVIMessageInterceptor::Cleanup
   on_error, 2
 
   ; clean up super
-  self.ENVIMessageHandler::Cleanup
+  self.enviMessageHandler::cleanup
 
   ; get ENVI
   e = envi(/current)
@@ -83,7 +83,7 @@ pro VSCodeENVIMessageInterceptor::OnMessage, msg
     ; Start of progress
     ;-
     isa(msg, 'ENVIStartMessage'): begin
-      if (n_elements(self.laststart) gt 0) then begin
+      if (n_elements(self.lastStart) gt 0) then begin
         if (self.laststart[-1] eq msg.message) then return
       endif
 
@@ -96,8 +96,8 @@ pro VSCodeENVIMessageInterceptor::OnMessage, msg
         print, indent + useMsg.trim()
 
       ; track info about progress
-      self.laststart.add, msg.message
-      self.lastprogress.add, -1
+      self.lastStart.add, msg.message
+      self.lastProgress.add, -1
     end
 
     ;+
@@ -108,7 +108,7 @@ pro VSCodeENVIMessageInterceptor::OnMessage, msg
       if (msg.percent le self.lastprogress[self.stack - 1]) then return
 
       ; track current progress
-      self.lastprogress[self.stack - 1] = msg.percent
+      self.lastProgress[self.stack - 1] = msg.percent
 
       if (self.stack eq 1 || self.stack gt 1 and self.verbose) then $
         print, strjoin([indent, msg.message.trim(), ' ', strtrim(long(msg.percent), 2), '%'])
@@ -122,8 +122,8 @@ pro VSCodeENVIMessageInterceptor::OnMessage, msg
       self.stack--
 
       ; remove last progress
-      self.laststart.remove
-      self.lastprogress.remove
+      self.lastStart.remove
+      self.lastProgress.remove
 
       ; attempt to print
       if (self.stack eq 0 || self.stack gt 0 and self.verbose) then begin
@@ -137,10 +137,10 @@ pro VSCodeENVIMessageInterceptor::OnMessage, msg
 end
 
 ;+
-; :VSCodeENVIMessageInterceptor:
-;   lastprogress: List<Byte>
+; :VsCodeENVIMessageInterceptor:
+;   lastProgress: List<Byte>
 ;     Track the previous progress percentage
-;   laststart: List<String>
+;   lastStart: List<String>
 ;     Titles of start messages to filter duplicates
 ;   stack: Long
 ;     The number of pending progress bars
@@ -151,10 +151,10 @@ end
 pro VSCodeENVIMessageInterceptor__define
   compile_opt idl2, hidden
   on_error, 2
-  !null = {VSCodeENVIMessageInterceptor, $
+  !null = {VsCodeENVIMessageInterceptor, $
     inherits ENVIMessageHandler, $
     stack: 0l, $
-    laststart: list(), $
-    lastprogress: list(), $
+    lastStart: list(), $
+    lastProgress: list(), $
     verbose: !false}
 end

@@ -3,6 +3,7 @@ import {
   IAssemblerOptions,
   STYLE_FLAG_LOOKUP,
 } from '@idl/assembling/config';
+import { TransformCase } from '@idl/assembling/shared';
 import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TASK_REGEX, TaskFunctionName } from '@idl/parsing/syntax-tree';
@@ -57,9 +58,10 @@ export function AddCompletionFunctions(
         detail: IDL_TRANSLATION.autoComplete.detail.function,
       });
     } else {
+      const display = TransformCase(displayNames[i], formatting.style.routines);
       complete.push({
-        label: displayNames[i] + '()',
-        insertText: displayNames[i] + add,
+        label: `${display}()`,
+        insertText: `${display}${add}`,
         kind: CompletionItemKind.Function,
         sortText: SORT_PRIORITY.ROUTINES,
         detail: IDL_TRANSLATION.autoComplete.detail.function,

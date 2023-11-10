@@ -1,4 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
 import {
   IParsed,
   PopulateScopeDetailAndResetTokenCache,
@@ -41,6 +42,9 @@ export function PostProcessParsed(
    * Populate the global tokens that we use
    */
   PopulateUsesThese(index, parsed, cancel);
+
+  // update semantic tokens
+  GetSemanticTokens(parsed);
 
   // update problems for our file
   index.trackSyntaxProblemsForFile(file, GetSyntaxProblems(parsed));

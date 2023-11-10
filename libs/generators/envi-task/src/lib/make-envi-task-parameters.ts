@@ -6,6 +6,7 @@ import {
   SerializeIDLType,
 } from '@idl/data-types/core';
 import { ENVITaskParameter, ENVITaskSchema33 } from '@idl/data-types/tasks';
+import { GetDisplayName } from '@idl/generators/tasks-shared';
 
 /**
  * Makes the ENVI Task parameters from our procedure definition
@@ -34,7 +35,7 @@ export function MakeENVITaskParameters(
     /** First pass at parameter */
     const param: ENVITaskParameter<ENVITaskSchema33> = {
       name: kws[i].display,
-      display_name: kws[i].display,
+      display_name: GetDisplayName(kws[i].display),
       description: kws[i].docs,
       type: '',
       required: true,

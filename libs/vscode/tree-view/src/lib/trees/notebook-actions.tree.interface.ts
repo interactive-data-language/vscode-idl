@@ -9,6 +9,20 @@ import { IChild } from '../idl-tree-view.interface';
  */
 export const NOTEBOOK_ACTIONS: IChild[] = [
   {
+    name: IDL_TRANSLATION.idl.tree.children.notebooks.newNotebook.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.notebooks.newNotebook.description,
+    icon: 'add-box.svg',
+    commandName: IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
+  },
+  {
+    name: IDL_TRANSLATION.idl.tree.children.notebooks.notebookToProCode.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.notebooks.notebookToProCode.description,
+    icon: 'transform.svg',
+    commandName: IDL_COMMANDS.NOTEBOOKS.NOTEBOOK_TO_PRO_CODE,
+  },
+  {
     name: IDL_TRANSLATION.idl.tree.children.notebooks.formatNotebooks.name,
     description:
       IDL_TRANSLATION.idl.tree.children.notebooks.formatNotebooks.description,
@@ -19,14 +33,14 @@ export const NOTEBOOK_ACTIONS: IChild[] = [
     name: IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.name,
     description:
       IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.description,
-    icon: 'idlicon.png',
+    icon: 'idlicon.svg',
     commandName: IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE,
   },
-  // {
-  //   name: IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.name,
-  //   description:
-  //     IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.description,
-  //   icon: 'idlicon.png',
-  //   commandName: VSCODE_COMMANDS.FORMAT_NOTEBOOK,
-  // },
+  {
+    name: IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.description,
+    icon: 'enviicon.svg',
+    commandName: IDL_COMMANDS.NOTEBOOKS.OPEN_ENVI_EXAMPLE,
+  },
 ];

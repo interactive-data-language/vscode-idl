@@ -96,6 +96,14 @@ export const IDL_COMMANDS = {
     HELP_AS_NOTEBOOK: `${BASE_NOTEBOOK}helpAsNotebook`,
     /** Open IDL example notebook */
     OPEN_IDL_EXAMPLE: `${BASE_NOTEBOOK}openIDLExample`,
+    /** Open ENVI example notebook */
+    OPEN_ENVI_EXAMPLE: `${BASE_NOTEBOOK}openENVIExample`,
+    /** Reset example notebooks */
+    RESET_NOTEBOOK_EXAMPLES: `${BASE_NOTEBOOK}resetNotebookExamples`,
+    /** Create a new notebook */
+    NEW_NOTEBOOK: `${BASE_NOTEBOOK}newNotebook`,
+    /** Convert a notebook to PRO code */
+    NOTEBOOK_TO_PRO_CODE: `${BASE_NOTEBOOK}notebookToProCode`,
   },
   // /** Commands for starting and interacting with a terminal session of IDL */
   // TERMINAL: {

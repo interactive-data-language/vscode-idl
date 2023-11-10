@@ -943,7 +943,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     ).toEqual(expectedProblems);
   });
 
-  it(`[auto generated] ignore only comments`, () => {
+  it(`[auto generated] ignore only comments 1`, () => {
     // test code to extract tokens from
     const code = [
       `function myfunc`,
@@ -951,7 +951,6 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
       `  return,1`,
       `end`,
       ``,
-      `compile_opt idl2`,
       `; main level`,
       `; another comment`,
     ];
@@ -1036,54 +1035,22 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         ],
       },
       {
-        type: '0',
-        name: 54,
-        pos: [5, 0, 11],
+        type: '1',
+        name: 15,
+        pos: [5, 0, 12],
+        match: ['; main level', 'main level'],
         idx: 1,
-        match: [],
         scope: [],
-        parseProblems: [33],
-        kids: [
-          {
-            type: '0',
-            name: 20,
-            pos: [5, 0, 11],
-            match: ['compile_opt'],
-            idx: 0,
-            scope: [54],
-            parseProblems: [],
-            end: { pos: [5, 16, 0], match: [''] },
-            kids: [
-              {
-                type: '1',
-                name: 25,
-                pos: [5, 12, 4],
-                match: ['idl2'],
-                idx: 0,
-                scope: [54, 20],
-                parseProblems: [],
-              },
-            ],
-          },
-          {
-            type: '1',
-            name: 15,
-            pos: [6, 0, 12],
-            match: ['; main level', 'main level'],
-            idx: 1,
-            scope: [54],
-            parseProblems: [],
-          },
-          {
-            type: '1',
-            name: 15,
-            pos: [7, 0, 17],
-            match: ['; another comment', 'another comment'],
-            idx: 2,
-            scope: [54],
-            parseProblems: [],
-          },
-        ],
+        parseProblems: [],
+      },
+      {
+        type: '1',
+        name: 15,
+        pos: [6, 0, 17],
+        match: ['; another comment', 'another comment'],
+        idx: 2,
+        scope: [],
+        parseProblems: [],
       },
     ];
 
@@ -1091,14 +1058,139 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     expect(tokenized.tree).toEqual(expectedTree);
 
     // define expected problems
-    const expectedProblems: SyntaxProblems = [
+    const expectedProblems: SyntaxProblems = [];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expectedProblems);
+  });
+
+  it(`[auto generated] ignore only comments 2`, () => {
+    // test code to extract tokens from
+    const code = [
+      `function myfunc`,
+      `  compile_opt idl2`,
+      `  return,1`,
+      `end ; -----------`,
+      ``,
+      `; main level`,
+      `; another comment`,
+    ];
+
+    // extract tokens
+    const tokenized = Parser(code, new CancellationToken());
+
+    // define expected syntax tree
+    const expectedTree: SyntaxTree = [
       {
-        code: 33,
-        info: 'Main level program is missing an "end" statement',
-        start: [7, 0, 1.7976931348623157e308],
-        end: [7, 0, 1.7976931348623157e308],
+        type: '0',
+        name: 69,
+        pos: [0, 0, 9],
+        match: ['function ', 'function'],
+        idx: 0,
+        scope: [],
+        parseProblems: [],
+        end: { pos: [3, 0, 3], match: ['end'] },
+        kids: [
+          {
+            type: '0',
+            name: 71,
+            pos: [0, 9, 6],
+            match: ['myfunc'],
+            idx: 0,
+            scope: [69],
+            parseProblems: [],
+            end: { pos: [0, 15, 0], match: [''] },
+            kids: [],
+          },
+          {
+            type: '0',
+            name: 20,
+            pos: [1, 2, 11],
+            match: ['compile_opt'],
+            idx: 1,
+            scope: [69],
+            parseProblems: [],
+            end: { pos: [1, 18, 0], match: [''] },
+            kids: [
+              {
+                type: '1',
+                name: 25,
+                pos: [1, 14, 4],
+                match: ['idl2'],
+                idx: 0,
+                scope: [69, 20],
+                parseProblems: [],
+              },
+            ],
+          },
+          {
+            type: '0',
+            name: 11,
+            pos: [2, 2, 6],
+            match: ['return'],
+            idx: 2,
+            scope: [69],
+            parseProblems: [],
+            end: { pos: [2, 10, 0], match: [''] },
+            kids: [
+              {
+                type: '1',
+                name: 14,
+                pos: [2, 8, 1],
+                match: [','],
+                idx: 0,
+                scope: [69, 11],
+                parseProblems: [],
+              },
+              {
+                type: '1',
+                name: 56,
+                pos: [2, 9, 1],
+                match: ['1'],
+                idx: 1,
+                scope: [69, 11],
+                parseProblems: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: '1',
+        name: 15,
+        pos: [3, 4, 13],
+        match: ['; -----------', '-----------'],
+        idx: 1,
+        scope: [],
+        parseProblems: [],
+      },
+      {
+        type: '1',
+        name: 15,
+        pos: [5, 0, 12],
+        match: ['; main level', 'main level'],
+        idx: 2,
+        scope: [],
+        parseProblems: [],
+      },
+      {
+        type: '1',
+        name: 15,
+        pos: [6, 0, 17],
+        match: ['; another comment', 'another comment'],
+        idx: 3,
+        scope: [],
+        parseProblems: [],
       },
     ];
+
+    // verify results
+    expect(tokenized.tree).toEqual(expectedTree);
+
+    // define expected problems
+    const expectedProblems: SyntaxProblems = [];
 
     // verify results
     expect(

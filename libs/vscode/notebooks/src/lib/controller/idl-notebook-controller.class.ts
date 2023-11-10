@@ -6,6 +6,7 @@ import {
   REGEX_NEW_LINE,
 } from '@idl/idl';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
+import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
 import { IDLNotebookEmbeddedItems } from '@idl/notebooks/types';
 import { Parser } from '@idl/parser';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
@@ -16,7 +17,7 @@ import {
   CleanPath,
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
-  IDL_NOTEBOOK_NAME,
+  IDL_NOTEBOOK_LANGUAGE_NAME,
   Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -50,7 +51,7 @@ export class IDLNotebookController {
   /**
    * Type of notebook
    */
-  readonly notebookType = IDL_NOTEBOOK_NAME;
+  readonly notebookType = IDL_NOTEBOOK_LANGUAGE_NAME;
 
   /**
    * Label for our controller
@@ -425,27 +426,22 @@ export class IDLNotebookController {
 
     // see if we need to resolve more
     if (IDL_EXTENSION_CONFIG.notebooks.embedGraphics) {
-      // [
-      //   `.compile idlittool__define`,
-      //   `idlititool__refreshcurrentview`,
-      //   `graphic__define`,
-      //   `graphic__refresh`,
-      // ]
-      // await this.evaluate(
-      //   [
-      //     `.compile idlittool__define`,
-      //     `'${VSCODE_PRO_DIR}/idlititool__refreshcurrentview.pro'`,
-      //     `graphic__define`,
-      //     `'${VSCODE_PRO_DIR}/graphic__refresh.pro'`,
-      //   ].join(' ')
-      // );
-      outputs.push(await this.evaluate('.compile idlittool__define'));
+      /**
+       * Handle object graphics and override with our custom method
+       */
+      await this.evaluate('.compile idlittool__define');
+      // outputs.push(await this.evaluate('.compile idlittool__define'));
       outputs.push(
         await this.evaluate(
           `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/idlititool__refreshcurrentview.pro'`
         )
       );
-      outputs.push(await this.evaluate('.compile graphic__define'));
+
+      /**
+       * Handle functions graphics and override with our custom method
+       */
+      await this.evaluate('.compile graphic__define');
+      // outputs.push(await this.evaluate('.compile graphic__define'));
       outputs.push(
         await this.evaluate(
           `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/graphic__refresh.pro'`
@@ -453,12 +449,29 @@ export class IDLNotebookController {
       );
     }
 
-    // log output for easy debugging
-    IDL_LOGGER.log({
-      log: IDL_NOTEBOOK_LOG,
-      type: 'info',
-      content: [`IDL post-launch and reset output (should be empty)`, outputs],
-    });
+    /**
+     * Check to see if the notebooks started right or not
+     */
+    if (/%\s*Syntax/gim.test(outputs.join(''))) {
+      IDL_LOGGER.log({
+        log: IDL_NOTEBOOK_LOG,
+        type: 'error',
+        content: [
+          `Notebook session of IDL failed to start or reset correctly`,
+          outputs,
+        ],
+        alert: IDL_TRANSLATION.notebooks.errors.didntStartRight,
+      });
+    } else {
+      IDL_LOGGER.log({
+        log: IDL_NOTEBOOK_LOG,
+        type: 'debug',
+        content: [
+          `IDL post-launch and reset output (should be empty)`,
+          outputs,
+        ],
+      });
+    }
   }
 
   /**
@@ -626,8 +639,11 @@ export class IDLNotebookController {
     // reset cell output
     execution.clearOutput();
 
-    /** Folder where we write notebook */
-    const nbDir = dirname(CleanPath(cell.notebook.uri.fsPath));
+    /** Folder where we write notebook cell  */
+    const nbDir =
+      cell.notebook.uri.scheme === 'file'
+        ? dirname(CleanPath(cell.notebook.uri.fsPath))
+        : NOTEBOOK_FOLDER;
 
     /**
      * temp folder for notebook cell

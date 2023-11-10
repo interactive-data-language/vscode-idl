@@ -15,6 +15,31 @@ const ICON_THEMES = [
 ];
 
 /**
+ * Extensions for IDL file types
+ */
+const IDL_EXTENSIONS = ['pro', 'sav', 'idllog', 'idlnb'];
+
+/**
+ * Extensions for ENVI file types
+ */
+const ENVI_EXTENSIONS = [
+  'dat',
+  'hdr',
+  'enp',
+  'evs',
+  'ept',
+  'model',
+  'style',
+  // 'shp',
+  // 'tif',
+  // 'tiff',
+  // 'nitf',
+  // 'ntf',
+  // 'r0',
+  // 'geojson',
+];
+
+/**
  * Download's the VS Code theme files from github and makes changes for our extension
  */
 async function DownloadFiles() {
@@ -57,44 +82,70 @@ async function DownloadFiles() {
     readFileSync(outDir + sep + 'vs-seti-icon-theme.json', 'utf-8')
   );
 
-  /** Dark icon */
-  const darkIcon = './../images/dark/idlicon.png';
+  /** Dark IDL icon */
+  const darkIconIDL = './../images/dark/idlicon-color.svg';
 
   /** Resolve and make sure it exists */
-  const qualifiedDark = resolve(outDir, outDir);
-  if (!existsSync(qualifiedDark)) {
-    throw new Error(`Dark icon theme file missing: "${qualifiedDark}"`);
+  const qualifiedDarkIDL = resolve(outDir, darkIconIDL);
+  if (!existsSync(qualifiedDarkIDL)) {
+    throw new Error(`Dark icon theme file missing: "${qualifiedDarkIDL}"`);
   }
 
-  /** Dark icon */
-  const lightIcon = './../images/light/idlicon.png';
+  /** Light IDL icon */
+  const lightIconIDL = './../images/light/idlicon-color.svg';
 
   /** Resolve and make sure it exists */
-  const qualifiedLight = resolve(outDir, outDir);
-  if (!existsSync(qualifiedLight)) {
-    throw new Error(`Light icon theme file missing: "${qualifiedLight}"`);
+  const qualifiedLightIDL = resolve(outDir, lightIconIDL);
+  if (!existsSync(qualifiedLightIDL)) {
+    throw new Error(`Light icon theme file missing: "${qualifiedLightIDL}"`);
+  }
+
+  /** Dark ENVI icon */
+  const darkIconENVI = './../images/dark/enviicon-color.svg';
+
+  /** Resolve and make sure it exists */
+  const qualifiedDarkENVI = resolve(outDir, darkIconENVI);
+  if (!existsSync(qualifiedDarkENVI)) {
+    throw new Error(`Dark icon theme file missing: "${qualifiedDarkENVI}"`);
+  }
+
+  /** Light ENVI icon */
+  const lightIconENVI = './../images/light/enviicon-color.svg';
+
+  /** Resolve and make sure it exists */
+  const qualifiedLightENVI = resolve(outDir, lightIconENVI);
+  if (!existsSync(qualifiedLightENVI)) {
+    throw new Error(`Light icon theme file missing: "${qualifiedLightENVI}"`);
   }
 
   // add our icon definition for IDL
   json['iconDefinitions'] = {
     ...json['iconDefinitions'],
     _idl: {
-      iconPath: darkIcon,
+      iconPath: darkIconIDL,
     },
     _idl_light: {
-      iconPath: lightIcon,
+      iconPath: lightIconIDL,
+    },
+    _envi: {
+      iconPath: darkIconENVI,
+    },
+    _envi_light: {
+      iconPath: lightIconENVI,
     },
   };
 
-  // update icon theme for IDL
-  json['fileExtensions']['pro'] = '_idl';
-  json['fileExtensions']['sav'] = '_idl';
-  json['fileExtensions']['idllog'] = '_idl';
-  json['fileExtensions']['idlnb'] = '_idl';
-  json['light']['fileExtensions']['pro'] = '_idl_light';
-  json['light']['fileExtensions']['sav'] = '_idl_light';
-  json['light']['fileExtensions']['idllog'] = '_idl_light';
-  json['light']['fileExtensions']['idlnb'] = '_idl_light';
+  // add IDL extensions
+  for (let i = 0; i < IDL_EXTENSIONS.length; i++) {
+    json['fileExtensions'][IDL_EXTENSIONS[i]] = '_idl';
+    json['light']['fileExtensions'][IDL_EXTENSIONS[i]] = '_idl_light';
+  }
+
+  // add ENVI extensions
+  for (let i = 0; i < ENVI_EXTENSIONS.length; i++) {
+    json['fileExtensions'][ENVI_EXTENSIONS[i]] = '_envi';
+    json['light']['fileExtensions'][ENVI_EXTENSIONS[i]] = '_envi_light';
+  }
 
   // save changes to disk
   writeFileSync(

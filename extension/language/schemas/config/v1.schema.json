@@ -30,9 +30,9 @@
         "properties": {
           "type": "string",
           "title": "Property Formatting",
-          "description": "Controls if properties are upper or lower case",
-          "enum": ["lower", "upper", "none"],
-          "default": "lower"
+          "description": "Controls the case style of properties",
+          "enum": ["lower", "upper", "match", "camel", "pascal", "none"],
+          "default": "camel"
         },
         "control": {
           "type": "string",
@@ -72,9 +72,16 @@
         "routines": {
           "type": "string",
           "title": "Routine Formatting",
-          "description": "When we encounter a known routine (function, procedure, and method), how do we format it with respect to the definition",
-          "enum": ["match", "none"],
+          "description": "When we encounter a known routine (functions and procedures), how do we format it with respect to the definition",
+          "enum": ["match", "camel", "pascal", "none"],
           "default": "match"
+        },
+        "routineMethods": {
+          "type": "string",
+          "title": "Routine Method Formatting",
+          "description": "When we encounter a known routine method (function methods and procedure methods), how do we format it with respect to the definition?",
+          "enum": ["match", "camel", "pascal", "none"],
+          "default": "camel"
         },
         "systemVariables": {
           "type": "string",
@@ -82,6 +89,13 @@
           "description": "Case formatting for system variables",
           "enum": ["lower", "upper", "none"],
           "default": "lower"
+        },
+        "structureNames": {
+          "type": "string",
+          "title": "Structure Name Formatting",
+          "description": "When we have a known named structure, how do we format the name?",
+          "enum": ["match", "camel", "pascal", "none"],
+          "default": "pascal"
         },
         "localVariables": {
           "type": "string",

@@ -49,8 +49,9 @@ export const EN: ITranslation = {
         generateTask: 'IDL: Generate ENVI or IDL Task',
       },
       config: {
-        specifyIDLDirectory: 'IDL: Specify IDL Directory (User)',
-        specifyIDLDirectoryWorkspace: 'IDL: Specify IDL Directory (Workspace)',
+        specifyIDLDirectory: 'IDL: Specify IDL Directory (User-level)',
+        specifyIDLDirectoryWorkspace:
+          'IDL: Specify IDL Directory (Workspace-level)',
       },
       debug: {
         startIDL: 'IDL: Start a Session of IDL',
@@ -68,6 +69,10 @@ export const EN: ITranslation = {
         stopIDL: 'Stop IDL',
         helpAsNotebook: 'IDL: Convert Help to Notebook',
         openIDLExample: 'IDL: Open IDL Example Notebook',
+        openENVIExample: 'IDL: Open ENVI Example Notebook',
+        resetNotebookExamples: 'IDL: Reset IDL and ENVI Example Notebooks',
+        newNotebook: 'IDL: Create New IDL Notebook',
+        notebookToProCode: 'IDL: Convert IDL Notebook to PRO Code',
       },
       terminal: {
         startIDL: 'IDL: Open an IDL Terminal Window',
@@ -119,6 +124,10 @@ export const EN: ITranslation = {
         stopIDL: 'Error while stopping IDL',
         helpAsNotebook: 'Error while converting help to notebook',
         openIDLExample: 'Error while opening IDL example notebook',
+        openENVIExample: 'Error while opening ENVI example notebook',
+        resetNotebookExamples: 'Error while resetting example notebooks',
+        newNotebook: 'Error while creating new notebook',
+        notebookToProCode: 'Error while converting notebook to PRO code',
       },
       terminal: {
         startIDL: 'Error while opening IDL terminal indow',
@@ -178,6 +187,7 @@ export const EN: ITranslation = {
       debugMode:
         'If set to true, the extension will become very chatty for the purposes of debugging.',
 
+      IDL: 'Preferences for IDL',
       'IDL.directory':
         "Specify the folder with IDL's executable (bin directory with idl.exe or idl).",
       'IDL.path':
@@ -254,8 +264,6 @@ export const EN: ITranslation = {
         control:
           'How are control statements, such as "for", "if", "pro", formatted',
         hex: 'Indicates formatting for hexadecimal (hex) numbers (either defined with quotes or "0x")',
-        routines:
-          'When we encounter a known routine (function, procedure, and method), how do we format it with respect to the definition',
         keywords: 'Formatting for keywords, includes binary keywords',
         localVariables:
           'If local variables match the case for the first instance that we find',
@@ -264,9 +272,15 @@ export const EN: ITranslation = {
           'Controls accents to letters that set the data type and their case',
         octal:
           'Indicates formatting for octal numbers (either defined with quotes or "0o")',
-        properties: 'Controls if properties are upper or lower case',
+        properties: 'Controls the case style of properties',
         quotes:
           'For string literals what type of quote we use. Includes numbers defined using quotes.',
+        routines:
+          'When we encounter a known routine (functions and procedures), how do we format it with respect to the definition',
+        routineMethods:
+          'When we encounter a known routine method (function methods and procedure methods), how do we format it with respect to the definition?',
+        structureNames:
+          'When we have a known named structure, how do we format the name?',
         systemVariables: 'Case formatting for system variables',
       },
       'IDL.history': {
@@ -299,6 +313,8 @@ export const EN: ITranslation = {
           double: 'Use double quotes for string expressions',
           upper: 'Use upper case (i.e. "UPPER")',
           lower: 'Use lower case (i.e. "LOWER")',
+          camel: 'Use camel case (i.e. "camelCase")',
+          pascal: 'Use pascal case (i.e. "PascalCase")',
           match: 'Match case of definition',
           none: 'Apply no formatting',
         },
@@ -374,7 +390,8 @@ export const EN: ITranslation = {
   hoverHelp: HOVER_HELP_EN,
   envi: {
     openerTitle: 'ENVI File Opener',
-    openerText: 'ENVI should attempt to open the image shortly, please wait',
+    openerText:
+      'ENVI should attempt to open the image shortly, please wait.\nTo disable this behavior, view the documentation for the extension "IDL for VSCode".',
     open: {
       commandError:
         'An unknown error ocurred while trying to open data in ENVI',
@@ -478,15 +495,27 @@ export const EN: ITranslation = {
         },
         notebooks: {
           formatNotebooks: {
-            name: 'Format Notebook',
+            name: 'Format Notebook Cells',
+            description: '',
+          },
+          newNotebook: {
+            name: 'New IDL Notebook',
+            description: '',
+          },
+          notebookToProCode: {
+            name: 'Convert IDL Notebook to PRO Code',
+            description: '',
+          },
+          openENVIExample: {
+            name: 'Open ENVI Notebook Example',
             description: '',
           },
           openIDLExample: {
             name: 'Open IDL Notebook Example',
             description: '',
           },
-          openENVIExample: {
-            name: 'Open ENVI Notebook Example',
+          resetExampleNotebooks: {
+            name: 'Reset Example Notebooks',
             description: '',
           },
         },
@@ -577,6 +606,7 @@ export const EN: ITranslation = {
       onDidChangeNotebook: 'Error responding to notebook change event',
       onDidCloseNotebook: 'Error responding to notebook close event',
       onRetrieveDocs: 'Error responding to docs retrieval event',
+      onNotebookToProCode: 'Error converting notebook to PRO code',
     },
     errors: {
       unhandled: 'An unknown error ocurred within the IDL Language Server',
@@ -607,7 +637,9 @@ export const EN: ITranslation = {
       errorLoadOutputs:
         'Error while loading outputs from notebook cells, please re-run cells to generate outputs',
       errorSaving: 'Unknown error while saving notebook file',
-      failedStart: 'The IDL kernel failed to start',
+      failedStart: 'The notebook session of IDL failed to start',
+      didntStartRight:
+        "The notebook session of IDL didn't start or reset right. Not everything may function as expected.",
       failedExecute: 'Failed to execute notebook cells',
       crashed:
         'IDL crashed or was stopped by the user and needs to be restarted',
@@ -623,11 +655,16 @@ export const EN: ITranslation = {
         'IDL has not started for notebooks. It automatically starts when you run a code cell.',
       noExamplesFoundInDocs:
         'No examples found in documentation to create notebook from',
+      saveNotebookFirst:
+        'You need to save your notebook to disk before converting',
+      includeAllCells:
+        'Include all cells when converting to PRO code? Non-IDL cells will turn into comments.',
     },
   },
   notifications: {
     noProCode: 'No active PRO file in VSCode',
     noProCodeOrTaskFile: 'No active PRO file or Task file in VSCode',
+    noIDLNotebook: 'No active IDL Notebook in VSCode',
     noIDLDirFound: 'IDL directory not found or configured, cannot start IDL',
     yes: 'Yes',
     no: 'No',

@@ -184,7 +184,6 @@ export class IDL extends EventEmitter {
           dir: args.env.IDL_DIR,
           path: args.env.IDL_PATH,
           dlm_path: args.env.IDL_DLM_PATH,
-          env: args.env,
         },
       ],
     });
@@ -193,22 +192,28 @@ export class IDL extends EventEmitter {
     this.idl = spawn(cmd, null, {
       env: args.env,
       cwd: args.cwd,
-      stdio: ['pipe', 'pipe', 'pipe', 'pipe'],
+      stdio: ['pipe', 'pipe', 'pipe'],
     });
 
     // check for errors
     if (!this.idl.stdout || !this.idl.stderr || !this.idl.stdin) {
+      this.log.log({
+        type: 'error',
+        content: [
+          `Unable to start IDL. One or more of standard in, out, or error did not initialize:`,
+        ],
+      });
       this.emit(IDL_EVENT_LOOKUP.FAILED_START, 'Failed to start IDL');
       return;
     }
 
-    // listen for standard out output from IDL
-    this.idl.stdio[3].on('data', (buff) => {
-      this.log.log({
-        type: 'info',
-        content: `Stdout: ${JSON.stringify(buff.toString('utf8'))}`,
-      });
-    });
+    // // listen for standard out output from IDL
+    // this.idl.stdio[3].on('data', (buff) => {
+    //   this.log.log({
+    //     type: 'info',
+    //     content: `Stdout: ${JSON.stringify(buff.toString('utf8'))}`,
+    //   });
+    // });
 
     // write the IDL prompt if not windows so that we properly
     // detect start. for our "poor man's solution" this is the indicator
@@ -427,7 +432,7 @@ export class IDL extends EventEmitter {
    * Returns a command to retrieve scope information from IDL
    */
   scopeInfoCommand(level: number) {
-    return `vscode_getScopeInfo, -${level}`;
+    return `  vscode_getScopeInfo, -${level}`;
   }
 
   /**
@@ -516,7 +521,7 @@ export class IDL extends EventEmitter {
     lineNumber?: number
   ): Promise<IDLBreakpoint[]> {
     // get the strings for our breakpoints
-    const resp = await this.evaluate('vscode_getBreakpoints', {
+    const resp = await this.evaluate('  vscode_getBreakpoints', {
       silent: true,
       idlInfo: false,
     });
@@ -604,7 +609,7 @@ export class IDL extends EventEmitter {
     }
 
     // add extra spaces at the beginning of the command
-    return await this._executeQueue(`  ${command}`, options);
+    return await this._executeQueue(`${command}`, options);
   }
 
   /**

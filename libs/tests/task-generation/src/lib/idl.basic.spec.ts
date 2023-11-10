@@ -57,14 +57,14 @@ describe(`[auto generated] Make basic IDL task`, () => {
     const expectedTask = {
       schema: 'idltask_1.2',
       name: 'idltasktest',
-      display_name: 'idltasktest',
+      display_name: 'Idltasktest',
       base_class: 'IDLTaskFromProcedure',
       routine: 'idltasktest',
       description: '',
       parameters: [
         {
           name: 'input_array',
-          display_name: 'input_array',
+          display_name: 'Input Array',
           description: 'Placeholder docs for argument, keyword, or property',
           type: 'StringArray',
           required: true,
@@ -73,7 +73,7 @@ describe(`[auto generated] Make basic IDL task`, () => {
         },
         {
           name: 'input_raster',
-          display_name: 'input_raster',
+          display_name: 'Input Raster',
           description: 'Placeholder docs for argument, keyword, or property',
           type: 'String',
           required: true,
@@ -81,7 +81,7 @@ describe(`[auto generated] Make basic IDL task`, () => {
         },
         {
           name: 'output_raster_uri',
-          display_name: 'output_raster_uri',
+          display_name: 'Output Raster Uri',
           description: 'Placeholder docs for argument, keyword, or property',
           type: 'String',
           required: true,

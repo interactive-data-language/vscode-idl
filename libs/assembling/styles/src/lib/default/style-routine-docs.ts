@@ -15,6 +15,7 @@ import {
   IBranch,
   IParsed,
   SyntaxTree,
+  TreeBranchToken,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import {
@@ -109,32 +110,44 @@ export function ReplaceRoutineDocs(parsed: IParsed, style: ICodeStyle) {
 
   // add comment blocks for routines that dont have them
   for (let i = 0; i < tree.length; i++) {
-    // check if we need to add a comment block
-    if (
-      tree[i].name in REPLACE &&
-      (i === 0 || tree[i - 1].name !== TOKEN_NAMES.COMMENT_BLOCK)
-    ) {
-      /** Start of new token */
-      const newStartLine = tree[i].pos[0];
+    // check if routine
+    if (tree[i].name in REPLACE) {
+      /**
+       * Is the block before?
+       */
+      const before = tree[i - 1]?.name === TOKEN_NAMES.COMMENT_BLOCK;
 
-      // make a new comment block
-      const block: IBranch<CommentBlockToken> = {
-        type: BRANCH_TYPES.BRANCH,
-        name: TOKEN_NAMES.COMMENT_BLOCK,
-        pos: [newStartLine, 0, 0],
-        match: [],
-        idx: i,
-        parseProblems: [],
-        scope: [],
-        kids: [],
-        end: {
+      /**
+       * is the block after?
+       */
+      const after =
+        (tree[i] as TreeBranchToken)?.kids[1]?.name ===
+        TOKEN_NAMES.COMMENT_BLOCK;
+
+      // check if we need to add a comment block
+      if (!(before || after)) {
+        /** Start of new token */
+        const newStartLine = tree[i].pos[0];
+
+        // make a new comment block
+        const block: IBranch<CommentBlockToken> = {
+          type: BRANCH_TYPES.BRANCH,
+          name: TOKEN_NAMES.COMMENT_BLOCK,
           pos: [newStartLine, 0, 0],
           match: [],
-        },
-      };
+          idx: i,
+          parseProblems: [],
+          scope: [],
+          kids: [],
+          end: {
+            pos: [newStartLine, 0, 0],
+            match: [],
+          },
+        };
 
-      // save the block
-      useTree.push(block);
+        // save the block
+        useTree.push(block);
+      }
     }
 
     // always save our node
@@ -142,20 +155,57 @@ export function ReplaceRoutineDocs(parsed: IParsed, style: ICodeStyle) {
   }
 
   // process only top level children and dont recurse
-  for (let i = 0; i < useTree.length - 1; i++) {
-    // check if we have comment block followed by a routine
+  for (let i = 0; i < useTree.length; i++) {
+    /** Routine def that we found */
+    let routine: TreeToken<RoutineProcedureToken | RoutineFunctionToken>;
+
+    /** Comment block associated with the routine */
+    let block: IBranch<CommentBlockToken>;
+
+    /** Track where our comment block resides */
+    let before = false;
+
+    /**
+     * Check if we have a comment block before
+     */
     if (
       useTree[i].name === TOKEN_NAMES.COMMENT_BLOCK &&
-      useTree[i + 1].name in REPLACE
+      useTree[i + 1]?.name in REPLACE
     ) {
+      /** Comment block is before */
+      before = true;
+
+      /** Comment block */
+      block = useTree[i] as IBranch<CommentBlockToken>;
+
       /** Extract our routine */
-      const routine = useTree[i + 1] as TreeToken<
+      routine = useTree[i + 1] as TreeToken<
+        RoutineProcedureToken | RoutineFunctionToken
+      >;
+    }
+
+    /**
+     * Check if we have a comment block after
+     */
+    if (
+      useTree[i].name in REPLACE &&
+      (useTree[i] as TreeBranchToken)?.kids[1]?.name ===
+        TOKEN_NAMES.COMMENT_BLOCK
+    ) {
+      /** Comment block is after */
+      before = false;
+
+      /** Extract our routine */
+      routine = useTree[i] as TreeToken<
         RoutineProcedureToken | RoutineFunctionToken
       >;
 
       /** Comment block */
-      const block = useTree[i] as IBranch<CommentBlockToken>;
+      block = routine.kids[1] as IBranch<CommentBlockToken>;
+    }
 
+    // check if we have comment block followed by a routine
+    if (routine !== undefined && block !== undefined) {
       /** Get global token */
       const global = GetMatchingGlobalToken(routine, parsed);
 
@@ -174,10 +224,10 @@ export function ReplaceRoutineDocs(parsed: IParsed, style: ICodeStyle) {
         const delta = docs.length - block.kids.length;
 
         /** Get start line */
-        const start = useTree[i].pos[0];
+        const start = block.pos[0];
 
         /** Scope for tokens */
-        const scope = [...useTree[i].scope, TOKEN_NAMES.COMMENT_BLOCK];
+        const scope = [...block.scope, TOKEN_NAMES.COMMENT_BLOCK];
 
         // convert to comment tokens
         const children: SyntaxTree = [];
@@ -205,18 +255,24 @@ export function ReplaceRoutineDocs(parsed: IParsed, style: ICodeStyle) {
         }
 
         // save matches
-        useTree[i].match = docs;
+        block.match = docs;
 
         // update the comment block's children
         block.kids = children;
 
         // bump the lines for the next tokens starting at i + 1 which is where our routine
         // token starts
-        IncrementLineNumbers(
-          useTree.slice(i + 1),
-          // shift and do math to make bottom of docs above routine definition
-          delta - (routine.pos[0] + delta - block.end.pos[0] - 1)
-        );
+        if (before) {
+          IncrementLineNumbers(
+            useTree.slice(i + 1),
+            // shift and do math to make bottom of docs above routine definition
+            delta - (routine.pos[0] + delta - block.end.pos[0] - 1)
+          );
+        } else {
+          routine.end.pos[0] += delta;
+          IncrementLineNumbers(routine.kids.slice(2), delta);
+          IncrementLineNumbers(useTree.slice(i + 1), delta);
+        }
       }
     }
   }

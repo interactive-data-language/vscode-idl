@@ -1,6 +1,7 @@
 .angular/**
 .github/**
 .idl/idl.json
+.nx/**
 .vscode/**
 .vscode-test/**
 apps/**
@@ -19,6 +20,7 @@ dist/apps/client/assets/.gitkeep
 dist/apps/client-e2e/**
 dist/apps/idl-webview/3rdpartylicenses.txt
 dist/apps/i18n/**
+dist/apps/notebook/components/3rdpartylicenses.txt
 dist/apps/package-json/**
 dist/apps/parsing-worker/3rdpartylicenses.txt
 dist/apps/parsing-worker/assets/.gitkeep

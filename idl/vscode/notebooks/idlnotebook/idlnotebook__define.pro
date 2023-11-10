@@ -88,7 +88,7 @@ pro IDLNotebook::AddToNotebookMap, item, properties, $
         !idlnotebookmagic.mapitems.add, geojsonUriForMap
       endif else begin
         geojsonForMap = {IDLNotebookMap_GeoJSON}
-        geojsonForMap.geojson = item
+        geojsonForMap.geoJSON = item
         if keyword_set(properties) then geojsonForMap.properties = properties
         !idlnotebookmagic.mapitems.add, geojsonForMap
       endelse
@@ -106,7 +106,7 @@ end
 ;   within a notebook cell
 ;
 ; :Arguments:
-;   item: in, required, !magic | IDLNotebookImage_PNG | IDLNotebookImage_FromUri | IDLNotebookImage_AnimationFromUris | IDLNotebookMap | IDLNotebookPlot2D
+;   item: in, required, !magic | IDLNotebookImage_Png | IDLNotebookImage_FromUri | IDLNotebookImage_AnimationFromUris | IDLNotebookMap | IDLNotebookPlot2D
 ;     The item we are adding to a notebook
 ;
 ;-
@@ -161,13 +161,13 @@ pro IDLNotebook::AddToNotebook, item
       endforeach
 
       ; track
-      IDLNotebook._TrackNotebookItem, item
+      IDLNotebook._trackNotebookItem, item
     end
 
     ;+
     ; Check for encoded PNG
     ;-
-    isa(item, 'IDLNotebookImage_PNG'): IDLNotebook._TrackNotebookItem, item
+    isa(item, 'IDLNotebookImage_PNG'): IDLNotebook._trackNotebookItem, item
 
     ;+
     ; Check for image we are adding from a URI
@@ -179,18 +179,18 @@ pro IDLNotebook::AddToNotebook, item
       endif
 
       ; track
-      IDLNotebook._TrackNotebookItem, item
+      IDLNotebook._trackNotebookItem, item
     end
 
     ;+
     ; Check for map
     ;-
-    isa(item, 'IDLNotebookMap'): IDLNotebookMap._AddToNotebook, item
+    isa(item, 'IDLNotebookMap'): IDLNotebookMap._addToNotebook, item
 
     ;+
     ; Check for 2D plot
     ;-
-    isa(item, 'IDLNotebookPlot'): IDLNotebookPlot._AddToNotebook, item
+    isa(item, 'IDLNotebookPlot'): IDLNotebookPlot._addToNotebook, item
 
     ;+
     ; Throw error because we don't know what we are adding or handling
@@ -237,7 +237,7 @@ function IDLNotebook::_CreateNotebookItemProps, item
 
     case (!true) of
       ; remove null strings
-      isa(val, 'struct'): saveProps[key.toLower()] = IDLNotebook._CreateNotebookItemProps(val)
+      isa(val, 'struct'): saveProps[key.toLower()] = IDLNotebook._createNotebookItemProps(val)
 
       ; remove if !null
       isa(val, /null): ; do nothing
@@ -277,7 +277,7 @@ function IDLNotebook::_CreateNotebookItem, item
   ; create and return
   return, {IDLNotebookItem, $
     type: strlowcase(tag_names(item, /structure_name)), $
-    item: IDLNotebook._CreateNotebookItemProps(item)}
+    item: IDLNotebook._createNotebookItemProps(item)}
 end
 
 ;+
@@ -293,13 +293,13 @@ function IDLNotebook::ExportItems
     catch, err
     if (err ne 0) then begin
       catch, /cancel
-      IDLNotebook.AddToNotebook, !magic
+      IDLNotebook.addToNotebook, !magic
     endif else begin
       !null = ENVI.api_version
       ; only embed non-direct-graphics if ENVI UI is up
       ; otherwise we get weird items embedded in the UI
       if (!magic.type ne 0) then begin
-        IDLNotebook.AddToNotebook, !magic
+        IDLNotebook.addToNotebook, !magic
       endif
       catch, /cancel
     endelse
@@ -312,7 +312,7 @@ function IDLNotebook::ExportItems
   endif
 
   ; add a map to things we export if we have items to map
-  IDLNotebookMap._AddToNotebook
+  IDLNotebookMap._addToNotebook
 
   ; remove tracked map items
   !idlnotebookmagic.mapitems.remove, /all
@@ -333,10 +333,10 @@ function IDLNotebook::ExportItems
       if (encoded eq !null) then continue
 
       ;+ Create PNG data structre
-      png = {IDLNotebookImage_PNG}
+      png = {IDLNotebookImage_Png}
       png.data = encoded
-      png.xsize = long(item.magic['xsize'])
-      png.ysize = long(item.magic['ysize'])
+      png.xSize = long(item.magic['xsize'])
+      png.ySize = long(item.magic['ysize'])
 
       ; Why doesnt this work??
       ; png = {IDLNotebookImage_PNG, $
@@ -345,14 +345,14 @@ function IDLNotebook::ExportItems
       ; ysize: long(item.magic['ysize'])}
 
       ; create exportable structure and return
-      export.add, IDLNotebook._CreateNotebookItem(png)
+      export.add, IDLNotebook._createNotebookItem(png)
     endif else begin
       export.add, item
     endelse
   endforeach
 
   ; clean up
-  IDLNotebook.Reset
+  IDLNotebook.reset
 
   ;+ Return the items to embed
   return, export
@@ -371,7 +371,7 @@ pro IDLNotebook::Export
   on_error, 2
 
   ;+ Export items and convert to something that is serializable
-  export = IDLNotebook.ExportItems()
+  export = IDLNotebook.exportItems()
 
   ; check what our IDL version is
   case (!true) of
@@ -402,7 +402,7 @@ function IDLNotebook::Init, _extra = extra
   on_error, 2
 
   if (isa(extra)) then $
-    self.idlnotebook__define::SetProperty, _extra = extra
+    self.idlNotebook__define::setProperty, _extra = extra
 
   return, 1
 end
@@ -438,7 +438,7 @@ pro IDLNotebook::_TrackNotebookItem, item
   on_error, 2
 
   ; add and return
-  !idlnotebookmagic.items.add, IDLNotebook._CreateNotebookItem(item)
+  !idlnotebookmagic.items.add, IDLNotebook._createNotebookItem(item)
 end
 
 ;+
@@ -446,13 +446,13 @@ end
 ;   Class definition procedure
 ;
 ; :IDLNotebook:
-;   envilistener: VSCodeENVIMessageInterceptor
+;   enviListener: VSCodeENVIMessageInterceptor
 ;     If we have created an ENVI listener or not
 ;   graphics: OrderedHash<!magic>
 ;     By window ID, track graphics that we need to embed
 ;   items: List<any>
 ;     The items that we are adding to our notebook
-;   mapitems: List<any>
+;   mapItems: List<any>
 ;     The items that we are adding to a map for our given notebook
 ;     cell
 ;
@@ -476,9 +476,9 @@ pro IDLNotebook__define
   ; Data structure for this class
   ;-
   !null = {IDLNotebook, $
-    envilistener: obj_new(), $
+    enviListener: obj_new(), $
     items: list(), $
-    mapitems: list(), $
+    mapItems: list(), $
     graphics: orderedhash()}
 
   ;+
@@ -497,7 +497,7 @@ pro IDLNotebook__define
   ; make sure super magic exists
   defsysv, '!IDLNotebookMagic', exists = _exists
   if ~_exists then defsysv, '!IDLNotebookMagic', $
-    {IDLNotebook, envilistener: !false, items: list(), mapitems: list(), graphics: orderedhash(/fold_case)}
+    {IDLNotebook, enviListener: !false, items: list(), mapItems: list(), graphics: orderedhash(/fold_case)}
 
   ; load all other structures
   IDLNotebookImage__define

@@ -18,7 +18,6 @@ import {
 import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
 import { Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
-import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { IncludeToken } from '@idl/parsing/tokenizer';
 import { LoadConfig } from '@idl/schemas/idl.json';
@@ -72,6 +71,8 @@ import { Worker } from 'worker_threads';
 import { GetAutoComplete } from './auto-complete/get-auto-complete';
 import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
+import { GetCodeOutline } from './get-code-outline';
+import { GetCodeSemanticTokens } from './get-code-semantic-tokens';
 import { GetParsedNotebook } from './get-parsed-notebook';
 import { GetParsedPROCode } from './get-parsed-pro-code';
 import { GlobalIndex } from './global-index.class';
@@ -90,12 +91,6 @@ import {
 } from './idl-index.interface';
 import { IDLParsedCache } from './idl-parsed-cache.class';
 import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';
-import { OutlineDisplayName } from './outline';
-import {
-  DEFAULT_OUTLINE_SYMBOL_KIND,
-  OUTLINE_THESE_TOKENS,
-  OUTLINE_TOKEN_KIND_MAP,
-} from './outline.interface';
 import { ParseNotebook } from './parse-notebook';
 import { PostProcessParsed } from './post-process/post-process-parsed';
 import { GetTokenDefinition } from './token-definiton/get-token-definition';
@@ -502,11 +497,7 @@ export class IDLIndex {
         { file, code }
       ).response;
     } else {
-      return GetSemanticTokens(
-        await this.getParsedProCode(file, code, token, {
-          postProcess: true,
-        })
-      );
+      return GetCodeSemanticTokens(this, file, code, token);
     }
   }
 
@@ -627,7 +618,7 @@ export class IDLIndex {
     token: CancellationToken
   ): Promise<DocumentSymbol[]> {
     // if document isnt PRO code, return
-    if (!this.isPROCode(file)) {
+    if (!(this.isPROCode(file) || this.isIDLNotebookFile(file))) {
       return undefined;
     }
 
@@ -640,64 +631,7 @@ export class IDLIndex {
       ).response;
     }
 
-    // get tokens for our file
-    const tokens = await this.getParsedProCode(file, code, token, {
-      postProcess: true,
-    });
-
-    // get our global tokens
-    const global = tokens.global;
-
-    // initialize object to track global tokens
-    // only track a single token per line which matches IDL where you cant declare
-    // more than one routine on the same line
-    const tracked: { [key: number]: DocumentSymbol } = {};
-
-    // process our global tokens
-    for (let i = 0; i < global.length; i++) {
-      // extract global token
-      const globali = global[i];
-
-      // check if we need to save
-      if (globali.type in OUTLINE_THESE_TOKENS) {
-        tracked[globali.pos[0]] = {
-          kind:
-            globali.type in OUTLINE_TOKEN_KIND_MAP
-              ? OUTLINE_TOKEN_KIND_MAP[globali.type]
-              : DEFAULT_OUTLINE_SYMBOL_KIND,
-          name: OutlineDisplayName(globali),
-          range: {
-            start: {
-              line: globali.pos[0],
-              character: globali.pos[1],
-            },
-            end: {
-              line: globali.pos[0],
-              character: globali.pos[1] + globali.pos[2],
-            },
-          },
-          selectionRange: {
-            start: {
-              line: globali.pos[0],
-              character: globali.pos[1],
-            },
-            end: {
-              line: globali.pos[0],
-              character: globali.pos[1] + globali.pos[2],
-            },
-          },
-        };
-      }
-    }
-
-    // order by appearance
-    const lines = Object.keys(tracked).sort();
-    const found: DocumentSymbol[] = [];
-    for (let i = 0; i < lines.length; i++) {
-      found.push(tracked[lines[i]]);
-    }
-
-    return found;
+    return await GetCodeOutline(this, file, code, token);
   }
 
   /**
@@ -777,10 +711,10 @@ export class IDLIndex {
         log: IDL_LSP_LOG,
         type: 'error',
         content: [`${IDL_TRANSLATION.lsp.config.failedParse}: "${file}"`, err],
-        alert: `${IDL_TRANSLATION.lsp.config.failedParse}: "${file}"`,
-        alertMeta: {
-          file,
-        },
+        // alert: `${IDL_TRANSLATION.lsp.config.failedParse}: "${file}"`,
+        // alertMeta: {
+        //   file,
+        // },
       });
     }
   }

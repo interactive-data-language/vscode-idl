@@ -11,6 +11,8 @@
 ;     displayed properly
 ;
 ; :Keywords:
+;   no_stretch: in, optional, Boolean
+;     If set, then bands or rasters that are diplsyed will not have a stretch applied.
 ;   size: in, optional, Number
 ;     Specify the largest dimension of the thumbnail (columns or rows). The
 ;     input raster's aspect ratio will be retained.
@@ -36,7 +38,7 @@
 ;   ```
 ;
 ;-
-pro ENVINotebook_DisplayRaster, raster, size = size
+pro ENVINotebook_DisplayRaster, raster, no_stretch = no_stretch, size = size
   compile_opt idl2, hidden
   on_error, 2
 
@@ -74,6 +76,7 @@ pro ENVINotebook_DisplayRaster, raster, size = size
     ; make thumbnail
     uri = !null
     AwesomeGenerateThumbnail, $
+      no_stretch = no_stretch, $
       input_raster = useRasters[i], $
       thumbnail_size = size, $
       output_png_uri = uri
@@ -91,14 +94,14 @@ pro ENVINotebook_DisplayRaster, raster, size = size
   if (nRasters eq 1) then begin
     struct = {IDLNotebookImage_FromUri}
     struct.uri = uris[0]
-    struct.xsize = info.dimensions[0]
-    struct.ysize = info.dimensions[1]
-    IDLNotebook.AddToNotebook, struct
+    struct.xSize = info.dimensions[0]
+    struct.ySize = info.dimensions[1]
+    IDLNotebook.addToNotebook, struct
   endif else begin
     struct = {IDLNotebookImage_AnimationFromUris}
     struct.uris = list(uris, /extract)
-    struct.xsize = info.dimensions[0]
-    struct.ysize = info.dimensions[1]
-    IDLNotebook.AddToNotebook, struct
+    struct.xSize = info.dimensions[0]
+    struct.ySize = info.dimensions[1]
+    IDLNotebook.addToNotebook, struct
   endelse
 end

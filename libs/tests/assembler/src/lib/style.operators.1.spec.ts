@@ -55,7 +55,7 @@ describe(`[auto generated] Verify operators`, () => {
         `compile_opt idl2`,
         ``,
         `; complex pointers`,
-        `(*pstate).codescovidarr[(*pstate).codescovidarridx++] = ogc_wcs_descov(ev.top, (*pstate).owcs, covNames, '')`,
+        `(*pstate).coDesCovIdArr[(*pstate).coDesCovIdArrIdx++] = ogc_wcs_descov(ev.top, (*pstate).owcs, covNames, '')`,
         ``,
         `end`,
       ];
@@ -357,7 +357,7 @@ describe(`[auto generated] Verify operators`, () => {
     } else {
       // define expected problems
       const expectedFormatting: string[] = [
-        `if ~keyword_set(difference_raster_uri) then difference_raster_uri = e.GetTemporaryFilename()`,
+        `if ~keyword_set(difference_raster_uri) then difference_raster_uri = e.getTemporaryFilename()`,
       ];
 
       // verify formatting
@@ -445,7 +445,7 @@ describe(`[auto generated] Verify operators`, () => {
         `a = 5 * 10`,
         `(*ptr).prop = 5`,
         `b = *ptr`,
-        `segsUpper.Add, *overlaps.lower[mapXY[0], mapXY[1] - 1], /extract`,
+        `segsUpper.add, *overlaps.lower[mapXY[0], mapXY[1] - 1], /extract`,
         `end`,
       ];
 

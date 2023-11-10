@@ -1,9 +1,18 @@
-import { Sleep } from '@idl/shared';
-import { CLIENT_ID, InitializeUsageMetrics } from '@idl/usage-metrics';
+import { TransformCase } from '@idl/assembling/shared';
 
-InitializeUsageMetrics(true);
-console.log(CLIENT_ID);
+const samples = [
+  'url_password_2',
+  'TEST_VALUE',
+  'test$_value',
+  'testValue',
+  '_testValue',
+  'IDLRoutine',
+  'ENVIRoutine',
+];
 
-Sleep(3000).then(() => {
-  process.exit();
-});
+for (let i = 0; i < samples.length; i++) {
+  console.log(
+    TransformCase(samples[i], 'camel'),
+    TransformCase(samples[i], 'pascal')
+  );
+}

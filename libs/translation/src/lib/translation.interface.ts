@@ -57,6 +57,14 @@ export interface ICommandTranslation {
     helpAsNotebook: string;
     /** Open IDL example notebook */
     openIDLExample: string;
+    /** Open ENVI example notebook */
+    openENVIExample: string;
+    /** Reset example notebooks */
+    resetNotebookExamples: string;
+    /** Create a new notebook */
+    newNotebook: string;
+    /** Convert a notebook to PRO code */
+    notebookToProCode: string;
   };
   /** Terminal commands */
   terminal: {
@@ -189,6 +197,10 @@ export interface IConfigTranslation {
         lower: string;
         /** Case */
         upper: string;
+        /** Case */
+        camel: string;
+        /** Case */
+        pascal: string;
         /** Quotes */
         single: string;
         /** Quotes */
@@ -451,6 +463,8 @@ export interface ITranslation {
       onDidCloseNotebook: string;
       /** Retrieving docs */
       onRetrieveDocs: string;
+      /** Convert notebook to PRO code */
+      onNotebookToProCode: string;
     };
     /** Misc error reports */
     errors: {
@@ -531,10 +545,16 @@ export interface ITranslation {
         notebooks: {
           /** Format notebook */
           formatNotebooks: ITreeInformation;
-          /** Format notebook */
-          openIDLExample: ITreeInformation;
+          /** Make a new notebook document */
+          newNotebook: ITreeInformation;
           /** Format notebook */
           openENVIExample: ITreeInformation;
+          /** Format notebook */
+          openIDLExample: ITreeInformation;
+          /** Reset example notebooks */
+          resetExampleNotebooks: ITreeInformation;
+          /** Convert notebook to PRO code */
+          notebookToProCode: ITreeInformation;
         };
         /** Deprecated, but tree entries for IDL terminals */
         terminal: {
@@ -575,6 +595,8 @@ export interface ITranslation {
       failedStart: string;
       /** if we failed to execute one or more cells */
       failedExecute: string;
+      /** Alert users that IDL for notebooks didn't quite start or reset right */
+      didntStartRight: string;
       /** IDL crashes while running something in the notebook */
       crashed: string;
       /** Error while trying to get graphics */
@@ -594,12 +616,18 @@ export interface ITranslation {
       idlNotStarted: string;
       /** No examples when opening notebook */
       noExamplesFoundInDocs: string;
+      /** When a notebook needs to be saved to disk before we process it */
+      saveNotebookFirst: string;
+      /** When converting to PRO file, include all cells? */
+      includeAllCells: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */
   notifications: {
     /** When no PRO code if found in the editor */
     noProCode: string;
+    /** When we have no IDL notebook in the editor */
+    noIDLNotebook: string;
     /** No pro code or task file */
     noProCodeOrTaskFile: string;
     /** When the IDL directory is not found */

@@ -1546,10 +1546,16 @@
       "fontColor": "#6d8086"
     },
     "_idl": {
-      "iconPath": "./../images/dark/idlicon.png"
+      "iconPath": "./../images/dark/idlicon-color.svg"
     },
     "_idl_light": {
-      "iconPath": "./../images/light/idlicon.png"
+      "iconPath": "./../images/light/idlicon-color.svg"
+    },
+    "_envi": {
+      "iconPath": "./../images/dark/enviicon-color.svg"
+    },
+    "_envi_light": {
+      "iconPath": "./../images/light/enviicon-color.svg"
     }
   },
   "file": "_default",
@@ -1788,7 +1794,14 @@
     "ds_store": "_ignored",
     "sav": "_idl",
     "idllog": "_idl",
-    "idlnb": "_idl"
+    "idlnb": "_idl",
+    "dat": "_envi",
+    "hdr": "_envi",
+    "enp": "_envi",
+    "evs": "_envi",
+    "ept": "_envi",
+    "model": "_envi",
+    "style": "_envi"
   },
   "fileNames": {
     "mix": "_hex",
@@ -2194,7 +2207,14 @@
       "ds_store": "_ignored_light",
       "sav": "_idl_light",
       "idllog": "_idl_light",
-      "idlnb": "_idl_light"
+      "idlnb": "_idl_light",
+      "dat": "_envi_light",
+      "hdr": "_envi_light",
+      "enp": "_envi_light",
+      "evs": "_envi_light",
+      "ept": "_envi_light",
+      "model": "_envi_light",
+      "style": "_envi_light"
     },
     "languageIds": {
       "bat": "_windows_light",

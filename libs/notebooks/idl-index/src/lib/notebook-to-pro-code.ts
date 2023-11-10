@@ -1,10 +1,14 @@
 import { Assembler } from '@idl/assembler';
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
+import {
+  DEFAULT_NOTEBOOK_TO_PRO_CODE_OPTIONS,
+  INotebookToProCodeOptions,
+} from '@idl/notebooks/types';
 import { IDLIndex } from '@idl/parsing/index';
 import { SyntaxTree, TreeToken } from '@idl/parsing/syntax-tree';
 import { MainLevelToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
-import { writeFileSync } from 'fs';
 
 /**
  * Converts a notebook to PRO code on disk
@@ -13,18 +17,19 @@ export async function NotebookToProCode(
   index: IDLIndex,
   file: string,
   notebook: IDLNotebookDocument,
-  outFile: string,
-  formatting: IAssemblerOptions<FormatterType>
-) {
+  formatting: IAssemblerOptions<FormatterType>,
+  cancel: CancellationToken,
+  options: Partial<INotebookToProCodeOptions> = {}
+): Promise<string> {
+  /**
+   * Merge options for notebook creation
+   */
+  const useOptions = { ...DEFAULT_NOTEBOOK_TO_PRO_CODE_OPTIONS, ...options };
+
   /**
    * Index our file
    */
-  const indexed = await index.indexIDLNotebook(file, notebook);
-
-  /**
-   * Get the values for our parsed notebooks
-   */
-  const cells = Object.values(indexed);
+  const indexed = await index.getParsedNotebook(file, notebook, cancel);
 
   /**
    * Routine code (non-main)
@@ -37,9 +42,34 @@ export async function NotebookToProCode(
   let main: string[] = [];
 
   // track our strings
-  for (let i = 0; i < cells.length; i++) {
+  for (let i = 0; i < notebook.cells.length; i++) {
+    /**
+     * Get for cell
+     */
+    const key = `${file}#${i}`;
+
     /** Get parsed cell */
-    const parsed = cells[i];
+    const parsed = indexed[key];
+
+    // if cell is undefined, it isnt code
+    if (parsed === undefined) {
+      // check if we keep everything or not
+      if (useOptions.includeAllCells) {
+        if (routines.length > 0) {
+          routines.push('');
+        }
+
+        // get the cell
+        const mdCell = notebook.cells[i];
+
+        // add in markdown or other cells
+        routines = routines.concat(
+          mdCell.text.split(/\r?\n/gim).map((line) => `; ${line}`)
+        );
+      }
+
+      continue;
+    }
 
     // save a reference to the tree
     const tree = parsed.tree;
@@ -59,7 +89,7 @@ export async function NotebookToProCode(
     if (tree[tree.length - 1].name === TOKEN_NAMES.MAIN_LEVEL) {
       // check if we have something besides main
       if (tree.length > 1) {
-        nonMainTokens = tree.slice(0, tree.length - 2);
+        nonMainTokens = tree.slice(0, tree.length - 1);
       }
 
       // save main tokens
@@ -74,7 +104,11 @@ export async function NotebookToProCode(
       parsed.tree = nonMainTokens;
 
       // format the main level program
-      const nonMain = Assembler(parsed, formatting);
+      const nonMain = Assembler(parsed, cancel, {
+        ...formatting,
+        autoDoc: false,
+        styleAndFormat: false,
+      });
 
       // TODO: figure out what to do if syntax error
       if (nonMain === undefined) {
@@ -92,8 +126,11 @@ export async function NotebookToProCode(
 
     // check for main
     if (mainTokens.length > 0) {
+      // get the syntax tree
+      parsed.tree = mainTokens;
+
       // format the main level program
-      const formattedMain = Assembler(parsed, formatting);
+      const formattedMain = Assembler(parsed, cancel, formatting);
 
       // TODO: figure out what to do if syntax error
       if (formattedMain === undefined) {
@@ -125,9 +162,18 @@ export async function NotebookToProCode(
     if (strings.length > 0) {
       strings.push('');
     }
+
+    // add header to the start of the main level program
+    main.unshift('');
+    main.unshift('compile_opt idl2');
+    main.unshift('; main level program');
+
+    // close the main level program
+    main.push('end');
+
+    // merge strings
     strings = strings.concat(main);
   }
 
-  // write file to disk
-  writeFileSync(outFile, formatting.eol === 'lf' ? '\n' : '\r\n');
+  return strings.join(formatting.eol === 'lf' ? '\n' : '\r\n');
 }

@@ -1,4 +1,3 @@
-import { ENVI_OPENER_TYPE } from '@idl/shared';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
@@ -16,6 +15,9 @@ export function InitializeENVIOpener(ctx: ExtensionContext) {
 
   // register and add to extension context
   ctx.subscriptions.push(
-    vscode.window.registerCustomEditorProvider(ENVI_OPENER_TYPE, provider)
+    vscode.window.registerCustomEditorProvider(
+      ENVIOpenerProvider.viewType,
+      provider
+    )
   );
 }

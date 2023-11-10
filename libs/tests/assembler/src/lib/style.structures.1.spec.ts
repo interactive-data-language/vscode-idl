@@ -51,7 +51,7 @@ describe(`[auto generated] Verify structures`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `compile_opt idl2`,
-        `fourty2 = {mystruct}`,
+        `fourty2 = {Mystruct}`,
         ``,
         `end`,
       ];
@@ -158,8 +158,8 @@ describe(`[auto generated] Verify structures`, () => {
         `  on_error, 2`,
         ``,
         `  void = { $`,
-        `    FOLDERWATCH, $`,
-        `    inherits idl_object, $`,
+        `    Folderwatch, $`,
+        `    inherits IDL_Object, $`,
         `    _folder: '', $`,
         `    _callback: '', $`,
         `    _userdata: ptr_new(), $`,

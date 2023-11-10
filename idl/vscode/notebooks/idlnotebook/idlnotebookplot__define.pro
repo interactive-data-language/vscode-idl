@@ -45,7 +45,7 @@ function IDLNotebookPlot::_CreateNotebookItem, item
       endif
 
       ; create notebook item and return
-      return, IDLNotebook._CreateNotebookItem(item)
+      return, IDLNotebook._createNotebookItem(item)
     end
 
     ;+
@@ -59,7 +59,7 @@ function IDLNotebookPlot::_CreateNotebookItem, item
       if (n_elements(item.frames) eq 0) then message, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
 
       ; add to notebook
-      return, IDLNotebook._CreateNotebookItem(item)
+      return, IDLNotebook._createNotebookItem(item)
     end
 
     ;+
@@ -73,7 +73,7 @@ function IDLNotebookPlot::_CreateNotebookItem, item
       if (n_elements(item.frames) eq 0) then message, 'No frames to add for IDLNotebookPlot_LineAnimation', level = -1
 
       ; add to notebook
-      return, IDLNotebook._CreateNotebookItem(item)
+      return, IDLNotebook._createNotebookItem(item)
     end
 
     ;+
@@ -124,10 +124,10 @@ pro IDLNotebookPlot::_AddToNotebook, item
   addItem.properties = obj_valid(item.properties) ? item.properties : orderedhash()
 
   ; process all items
-  foreach val, plotThese do addItem.data.add, IDLNotebookPlot._CreateNotebookItem(val)
+  foreach val, plotThese do addItem.data.add, IDLNotebookPlot._createNotebookItem(val)
 
   ; track data
-  IDLNotebook._TrackNotebookItem, addItem
+  IDLNotebook._trackNotebookItem, addItem
 end
 
 ;+
@@ -137,7 +137,7 @@ end
 ;     that we create.
 ;
 ; :IDLNotebookPlot:
-;   data: List<IDLNotebookPlot_Line | IDLNotebookPlot_LineAnimatio | IDLNotebookPlot_Bubble | IDLNotebookPlot_BubbleAnimation>
+;   data: List<IDLNotebookPlot_Line | IDLNotebookPlot_LineAnimation | IDLNotebookPlot_Bubble | IDLNotebookPlot_BubbleAnimation>
 ;     The data to add to our plot
 ;
 ; :IDLNotebookPlot_LineFrame:

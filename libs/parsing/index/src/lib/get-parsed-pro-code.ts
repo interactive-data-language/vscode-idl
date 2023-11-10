@@ -16,7 +16,7 @@ import {
 /**
  * Track the pending files
  */
-const PENDING_PRO_CODE: { [key: string]: IGetParsedPROCodePending } = {};
+export const PENDING_PRO_CODE: { [key: string]: IGetParsedPROCodePending } = {};
 
 /**
  * Gets a promise that resolves to the pending file

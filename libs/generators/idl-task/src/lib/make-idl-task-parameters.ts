@@ -6,6 +6,7 @@ import {
   SerializeIDLType,
 } from '@idl/data-types/core';
 import { IDLTaskParameter, IDLTaskSchema12 } from '@idl/data-types/tasks';
+import { GetDisplayName } from '@idl/generators/tasks-shared';
 
 /**
  * Makes the ENVI Task parameters from our procedure definition
@@ -31,7 +32,7 @@ export function MakeIDLTaskParameters(
     /** First pass at parameter */
     const param: IDLTaskParameter<IDLTaskSchema12> = {
       name: kws[i].display,
-      display_name: kws[i].display,
+      display_name: GetDisplayName(kws[i].display),
       description: kws[i].docs,
       type: '',
       required: true,

@@ -1,21 +1,21 @@
 {
-  "name": "notebooks-index",
+  "name": "notebooks-idl-index",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/notebooks/index/src",
+  "sourceRoot": "libs/notebooks/idl-index/src",
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/notebooks/index/**/*.ts"]
+        "lintFilePatterns": ["libs/notebooks/idl-index/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/notebooks/index/jest.config.ts",
+        "jestConfig": "libs/notebooks/idl-index/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {

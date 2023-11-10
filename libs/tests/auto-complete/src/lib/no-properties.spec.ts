@@ -31,7 +31,7 @@ describe(`[auto generated] Exclude properties`, () => {
     const expectedFound_0: CompletionItem[] = [
       {
         label: 'IDLgrSurface::getCTM()',
-        insertText: 'getCTM',
+        insertText: 'getCtm',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',

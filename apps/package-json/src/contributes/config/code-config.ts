@@ -250,52 +250,10 @@ export function AddCodeConfig(nls: IPackageNLS) {
     additionalProperties: false,
     default: DEFAULT_IDL_EXTENSION_CONFIG.code.formattingStyle,
     properties: {
-      quotes: {
+      binary: {
         type: 'string',
         description: TranslationFromConfiguration(
-          'quotes',
-          nls,
-          formatStylePropertyBase
-        ),
-        enum: ['single', 'double', 'none'],
-        enumDescriptions: TranslationFromConfigurationChoices(
-          ['single', 'double', 'none'],
-          nls,
-          'enumDescriptions.formatting.style'
-        ),
-      },
-      methods: {
-        type: 'string',
-        description: TranslationFromConfiguration(
-          'methods',
-          nls,
-          formatStylePropertyBase
-        ),
-        enum: ['dot', 'arrow', 'none'],
-        enumDescriptions: TranslationFromConfigurationChoices(
-          ['dot', 'arrow', 'none'],
-          nls,
-          'enumDescriptions.formatting.style'
-        ),
-      },
-      keywords: {
-        type: 'string',
-        description: TranslationFromConfiguration(
-          'keywords',
-          nls,
-          formatStylePropertyBase
-        ),
-        enum: ['lower', 'upper', 'none'],
-        enumDescriptions: TranslationFromConfigurationChoices(
-          ['lower', 'upper', 'none'],
-          nls,
-          'enumDescriptions.formatting.style'
-        ),
-      },
-      properties: {
-        type: 'string',
-        description: TranslationFromConfiguration(
-          'properties',
+          'binary',
           nls,
           formatStylePropertyBase
         ),
@@ -320,10 +278,10 @@ export function AddCodeConfig(nls: IPackageNLS) {
           'enumDescriptions.formatting.style'
         ),
       },
-      numbers: {
+      hex: {
         type: 'string',
         description: TranslationFromConfiguration(
-          'numbers',
+          'hex',
           nls,
           formatStylePropertyBase
         ),
@@ -334,10 +292,52 @@ export function AddCodeConfig(nls: IPackageNLS) {
           'enumDescriptions.formatting.style'
         ),
       },
-      hex: {
+      keywords: {
         type: 'string',
         description: TranslationFromConfiguration(
-          'hex',
+          'keywords',
+          nls,
+          formatStylePropertyBase
+        ),
+        enum: ['lower', 'upper', 'none'],
+        enumDescriptions: TranslationFromConfigurationChoices(
+          ['lower', 'upper', 'none'],
+          nls,
+          'enumDescriptions.formatting.style'
+        ),
+      },
+      localVariables: {
+        type: 'string',
+        description: TranslationFromConfiguration(
+          'localVariables',
+          nls,
+          formatStylePropertyBase
+        ),
+        enum: ['match', 'none'],
+        enumDescriptions: TranslationFromConfigurationChoices(
+          ['match', 'none'],
+          nls,
+          'enumDescriptions.formatting.style'
+        ),
+      },
+      methods: {
+        type: 'string',
+        description: TranslationFromConfiguration(
+          'methods',
+          nls,
+          formatStylePropertyBase
+        ),
+        enum: ['dot', 'arrow', 'none'],
+        enumDescriptions: TranslationFromConfigurationChoices(
+          ['dot', 'arrow', 'none'],
+          nls,
+          'enumDescriptions.formatting.style'
+        ),
+      },
+      numbers: {
+        type: 'string',
+        description: TranslationFromConfiguration(
+          'numbers',
           nls,
           formatStylePropertyBase
         ),
@@ -362,16 +362,72 @@ export function AddCodeConfig(nls: IPackageNLS) {
           'enumDescriptions.formatting.style'
         ),
       },
-      binary: {
+      properties: {
         type: 'string',
         description: TranslationFromConfiguration(
-          'binary',
+          'properties',
           nls,
           formatStylePropertyBase
         ),
-        enum: ['lower', 'upper', 'none'],
+        enum: ['lower', 'upper', 'match', 'camel', 'pascal', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
-          ['lower', 'upper', 'none'],
+          ['lower', 'upper', 'match', 'camel', 'pascal', 'none'],
+          nls,
+          'enumDescriptions.formatting.style'
+        ),
+      },
+      quotes: {
+        type: 'string',
+        description: TranslationFromConfiguration(
+          'quotes',
+          nls,
+          formatStylePropertyBase
+        ),
+        enum: ['single', 'double', 'none'],
+        enumDescriptions: TranslationFromConfigurationChoices(
+          ['single', 'double', 'none'],
+          nls,
+          'enumDescriptions.formatting.style'
+        ),
+      },
+      routines: {
+        type: 'string',
+        description: TranslationFromConfiguration(
+          'routines',
+          nls,
+          formatStylePropertyBase
+        ),
+        enum: ['match', 'camel', 'pascal', 'none'],
+        enumDescriptions: TranslationFromConfigurationChoices(
+          ['match', 'camel', 'pascal', 'none'],
+          nls,
+          'enumDescriptions.formatting.style'
+        ),
+      },
+      routineMethods: {
+        type: 'string',
+        description: TranslationFromConfiguration(
+          'routineMethods',
+          nls,
+          formatStylePropertyBase
+        ),
+        enum: ['match', 'camel', 'pascal', 'none'],
+        enumDescriptions: TranslationFromConfigurationChoices(
+          ['match', 'camel', 'pascal', 'none'],
+          nls,
+          'enumDescriptions.formatting.style'
+        ),
+      },
+      structureNames: {
+        type: 'string',
+        description: TranslationFromConfiguration(
+          'structureNames',
+          nls,
+          formatStylePropertyBase
+        ),
+        enum: ['match', 'camel', 'pascal', 'none'],
+        enumDescriptions: TranslationFromConfigurationChoices(
+          ['match', 'camel', 'pascal', 'none'],
           nls,
           'enumDescriptions.formatting.style'
         ),
@@ -386,34 +442,6 @@ export function AddCodeConfig(nls: IPackageNLS) {
         enum: ['lower', 'upper', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
-          nls,
-          'enumDescriptions.formatting.style'
-        ),
-      },
-      routines: {
-        type: 'string',
-        description: TranslationFromConfiguration(
-          'routines',
-          nls,
-          formatStylePropertyBase
-        ),
-        enum: ['match', 'none'],
-        enumDescriptions: TranslationFromConfigurationChoices(
-          ['match', 'none'],
-          nls,
-          'enumDescriptions.formatting.style'
-        ),
-      },
-      localVariables: {
-        type: 'string',
-        description: TranslationFromConfiguration(
-          'localVariables',
-          nls,
-          formatStylePropertyBase
-        ),
-        enum: ['match', 'none'],
-        enumDescriptions: TranslationFromConfigurationChoices(
-          ['match', 'none'],
           nls,
           'enumDescriptions.formatting.style'
         ),

@@ -21,7 +21,7 @@ export function SaveGlobalDisplayNames(global: GlobalTokens) {
 
     // save structure display names
     if (global[i].type === GLOBAL_TOKEN_TYPES.STRUCTURE) {
-      CUSTOM_TYPE_DISPLAY_NAMES[global[i].name] = global[i].meta.display;
+      CUSTOM_TYPE_DISPLAY_NAMES[global[i].name.trim()] = global[i].meta.display;
     }
   }
 }

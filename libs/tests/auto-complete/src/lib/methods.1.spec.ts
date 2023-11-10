@@ -483,7 +483,7 @@ describe(`[auto generated] Verify types being used for`, () => {
     const expectedFound_2: CompletionItem[] = [
       {
         label: 'IDLgrSurface::getCTM()',
-        insertText: 'getCTM',
+        insertText: 'getCtm',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',

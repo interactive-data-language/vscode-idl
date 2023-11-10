@@ -2,7 +2,7 @@
 
 This file contains third party libraries/dependencies and their copyright and license information.
 
-## @angular-devkit/build-angular - 16.0.2
+## @angular-devkit/build-angular - 16.2.3
 
 Copyright (c) 2017 Google, Inc.
 
@@ -31,7 +31,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## @angular-devkit/core - 16.0.2
+## @angular-devkit/core - 16.2.3
 
 Copyright (c) 2017 Google, Inc.
 
@@ -60,7 +60,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## @angular-devkit/schematics - 16.0.2
+## @angular-devkit/schematics - 16.2.3
 
 Copyright (c) 2017 Google, Inc.
 
@@ -89,7 +89,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## @angular-eslint/eslint-plugin - 16.0.2
+## @angular-eslint/eslint-plugin - 16.0.3
 
 Copyright (c) 2020 James Henry
 
@@ -118,7 +118,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## @angular-eslint/eslint-plugin-template - 16.0.2
+## @angular-eslint/eslint-plugin-template - 16.0.3
 
 Copyright (c) 2020 James Henry
 
@@ -147,7 +147,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## @angular-eslint/template-parser - 16.0.2
+## @angular-eslint/template-parser - 16.0.3
 
 Copyright (c) 2020 James Henry
 
@@ -176,7 +176,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## @angular/animations - 16.0.3
+## @angular/animations - 16.2.6
 
 Copyright (c) 2010-2022 Google LLC. https://angular.io/license
 
@@ -206,7 +206,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ------------------ End License ------------------
 
-## @angular/cdk - 16.0.1
+## @angular/cdk - 16.2.5
 
 Copyright (c) 2023 Google LLC.
 
@@ -235,7 +235,7 @@ THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## @angular/cli - 16.0.2
+## @angular/cli - 16.2.3
 
 Copyright (c) 2017 Google, Inc.
 
@@ -264,7 +264,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## @angular/common - 16.0.3
+## @angular/common - 16.2.6
 
 Copyright (c) 2010-2022 Google LLC. https://angular.io/license
 
@@ -294,7 +294,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ------------------ End License ------------------
 
-## @angular/compiler - 16.0.3
+## @angular/compiler - 16.2.6
 
 Copyright (c) 2010-2022 Google LLC. https://angular.io/license
 
@@ -324,7 +324,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ------------------ End License ------------------
 
-## @angular/compiler-cli - 16.0.3
+## @angular/compiler-cli - 16.2.6
 
 Copyright (c) 2010-2022 Google LLC. https://angular.io/license
 
@@ -354,7 +354,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ------------------ End License ------------------
 
-## @angular/core - 16.0.3
+## @angular/core - 16.2.6
 
 Copyright (c) 2010-2022 Google LLC. https://angular.io/license
 
@@ -384,7 +384,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ------------------ End License ------------------
 
-## @angular/forms - 16.0.3
+## @angular/elements - 16.2.6
+
+Copyright (c) 2010-2022 Google LLC. https://angular.io/license
+
+----------------- License: "MIT" ----------------
+Source: https://opensource.org/licenses/MIT
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+------------------ End License ------------------
+
+## @angular/forms - 16.2.6
 
 Copyright (c) 2010-2022 Google LLC. https://angular.io/license
 
@@ -414,7 +441,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ------------------ End License ------------------
 
-## @angular/language-service - 16.0.3
+## @angular/language-service - 16.2.6
 
 Copyright (c) 2010-2022 Google LLC. https://angular.io/license
 
@@ -444,7 +471,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ------------------ End License ------------------
 
-## @angular/material - 16.0.1
+## @angular/material - 16.2.5
 
 Copyright (c) 2023 Google LLC.
 
@@ -473,7 +500,7 @@ THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## @angular/platform-browser - 16.0.3
+## @angular/platform-browser - 16.2.6
 
 Copyright (c) 2010-2022 Google LLC. https://angular.io/license
 
@@ -503,7 +530,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ------------------ End License ------------------
 
-## @angular/platform-browser-dynamic - 16.0.3
+## @angular/platform-browser-dynamic - 16.2.6
 
 Copyright (c) 2010-2022 Google LLC. https://angular.io/license
 
@@ -533,7 +560,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ------------------ End License ------------------
 
-## @angular/router - 16.0.3
+## @angular/router - 16.2.6
 
 Copyright (c) 2010-2022 Google LLC. https://angular.io/license
 
@@ -563,7 +590,139 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ------------------ End License ------------------
 
-## @mdi/js - 7.2.96
+## @deck.gl/core - 8.9.32
+
+Copyright Vis.gl contributors.
+
+----------------- License: "MIT" ----------------
+Copyright Vis.gl contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+------------------ End License ------------------
+
+## @deck.gl/geo-layers - 8.9.32
+
+Copyright Vis.gl contributors.
+
+----------------- License: "MIT" ----------------
+Copyright Vis.gl contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+------------------ End License ------------------
+
+## @deck.gl/layers - 8.9.32
+
+Copyright Vis.gl contributors.
+
+----------------- License: "MIT" ----------------
+Copyright Vis.gl contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+------------------ End License ------------------
+
+## @deck.gl/mesh-layers - 8.9.32
+
+Copyright Vis.gl contributors.
+
+----------------- License: "MIT" ----------------
+Copyright Vis.gl contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+------------------ End License ------------------
+
+## @mapbox/geojson-extent - 1.0.1
+
+Copyright (c) 2017, Mapbox
+
+----------------- License: "ISC" ----------------
+
+ISC License
+
+Copyright (c) 2017, Mapbox
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.<Paste>
+
+------------------ End License ------------------
+
+## @mdi/js - 7.3.67
 
 Copyright (c) @mdi/js
 
@@ -591,7 +750,7 @@ The MIT license applies to all non-font and non-icon files.
 
 ------------------ End License ------------------
 
-## @ngbracket/ngx-layout - 16.0.0
+## @ngbracket/ngx-layout - 16.1.3
 
 Copyright (c) @ngbracket/ngx-layout
 
@@ -618,7 +777,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## @ngneat/transloco - 4.2.7
+## @ngneat/transloco - 4.3.0
 
 Copyright (c) 2019-2021 Netanel Basal, Shahar Kazaz, and Itay Oded.
 
@@ -648,7 +807,7 @@ THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## @nx/angular - 16.3.0
+## @nx/angular - 17.0.2
 
 Copyright (c) 2017-2023 Narwhal Technologies Inc.
 
@@ -678,7 +837,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## @nx/cypress - 16.3.0
+## @nx/cypress - 17.0.2
 
 Copyright (c) 2017-2023 Narwhal Technologies Inc.
 
@@ -708,7 +867,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## @nx/esbuild - 16.3.0
+## @nx/esbuild - 17.0.2
 
 Copyright (c) 2017-2023 Narwhal Technologies Inc.
 
@@ -738,7 +897,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## @nx/eslint-plugin - 16.3.0
+## @nx/eslint - 17.0.2
 
 Copyright (c) 2017-2023 Narwhal Technologies Inc.
 
@@ -768,7 +927,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## @nx/jest - 16.3.0
+## @nx/eslint-plugin - 17.0.2
 
 Copyright (c) 2017-2023 Narwhal Technologies Inc.
 
@@ -798,7 +957,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## @nx/js - 16.3.0
+## @nx/jest - 17.0.2
 
 Copyright (c) 2017-2023 Narwhal Technologies Inc.
 
@@ -828,7 +987,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## @nx/linter - 16.3.0
+## @nx/js - 17.0.2
 
 Copyright (c) 2017-2023 Narwhal Technologies Inc.
 
@@ -858,7 +1017,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## @nx/node - 16.3.0
+## @nx/node - 17.0.2
 
 Copyright (c) 2017-2023 Narwhal Technologies Inc.
 
@@ -888,7 +1047,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## @nx/workspace - 16.3.0
+## @nx/web - 17.0.2
 
 Copyright (c) 2017-2023 Narwhal Technologies Inc.
 
@@ -918,7 +1077,37 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## @schematics/angular - 16.0.2
+## @nx/workspace - 17.0.2
+
+Copyright (c) 2017-2023 Narwhal Technologies Inc.
+
+----------------- License: "MIT" ----------------
+(The MIT License)
+
+Copyright (c) 2017-2023 Narwhal Technologies Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+------------------ End License ------------------
+
+## @schematics/angular - 16.2.3
 
 Copyright (c) 2017 Google, Inc.
 
@@ -976,34 +1165,65 @@ Copyright (c) Microsoft Corporation.
 
 ------------------ End License ------------------
 
-## @types/minilog - 2.0.29
+## @types/mapbox__geojson-extent - 1.0.2
+
+Copyright (c) Microsoft Corporation.
+
+----------------- License: "MIT" ----------------
+    MIT License
+
+    Copyright (c) Microsoft Corporation.
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE
+
+------------------ End License ------------------
+
+## @types/minilog - 2.0.31
 
 Copyright (c) @types/minilog
 
 ----------------- License: "MIT" ----------------
-Source: https://opensource.org/licenses/MIT
+    MIT License
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+    Copyright (c) Microsoft Corporation.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE
 
 ------------------ End License ------------------
 
-## @types/node - 20.2.3
+## @types/node - 20.6.3
 
 Copyright (c) Microsoft Corporation.
 
@@ -1032,36 +1252,7 @@ Copyright (c) Microsoft Corporation.
 
 ------------------ End License ------------------
 
-## @types/plist - 3.0.2
-
-Copyright (c) Microsoft Corporation. All rights reserved.
-
------------------ License: "MIT" ----------------
-    MIT License
-
-    Copyright (c) Microsoft Corporation. All rights reserved.
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE
-
------------------- End License ------------------
-
-## @types/progress - 2.0.5
+## @types/plist - 3.0.4
 
 Copyright (c) Microsoft Corporation.
 
@@ -1090,7 +1281,7 @@ Copyright (c) Microsoft Corporation.
 
 ------------------ End License ------------------
 
-## @types/vscode - 1.78.0
+## @types/progress - 2.0.6
 
 Copyright (c) Microsoft Corporation.
 
@@ -1119,7 +1310,65 @@ Copyright (c) Microsoft Corporation.
 
 ------------------ End License ------------------
 
-## @types/web - 0.0.99
+## @types/vscode - 1.82.0
+
+Copyright (c) Microsoft Corporation.
+
+----------------- License: "MIT" ----------------
+    MIT License
+
+    Copyright (c) Microsoft Corporation.
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE
+
+------------------ End License ------------------
+
+## @types/vscode-notebook-renderer - 1.72.0
+
+Copyright (c) Microsoft Corporation.
+
+----------------- License: "MIT" ----------------
+    MIT License
+
+    Copyright (c) Microsoft Corporation.
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE
+
+------------------ End License ------------------
+
+## @types/web - 0.0.119
 
 Copyright (c) @types/web
 
@@ -1182,7 +1431,7 @@ END OF TERMS AND CONDITIONS
 
 ------------------ End License ------------------
 
-## @typescript-eslint/eslint-plugin - 5.58.0
+## @typescript-eslint/eslint-plugin - 5.60.1
 
 Copyright (c) 2019 typescript-eslint and other contributors
 
@@ -1211,7 +1460,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## @typescript-eslint/parser - 5.58.0
+## @typescript-eslint/parser - 5.60.1
 
 Copyright JS Foundation and other contributors, https://js.foundation
 
@@ -1241,7 +1490,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ------------------ End License ------------------
 
-## @vscode/debugadapter - 1.59.0
+## @vscode/debugadapter - 1.64.0
 
 Copyright (c) Microsoft Corporation
 
@@ -1260,7 +1509,7 @@ THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ------------------ End License ------------------
 
-## @vscode/debugprotocol - 1.59.0
+## @vscode/debugprotocol - 1.64.0
 
 Copyright (c) Microsoft Corporation
 
@@ -1279,7 +1528,7 @@ THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ------------------ End License ------------------
 
-## @vscode/test-electron - 2.3.2
+## @vscode/test-electron - 2.3.6
 
 Copyright (c) Microsoft Corporation. All rights reserved.
 
@@ -1307,7 +1556,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE
 ------------------ End License ------------------
 
-## @vscode/vsce - 2.19.0
+## @vscode/vsce - 2.21.1
 
 Copyright (c) Microsoft Corporation
 
@@ -1361,6 +1610,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ------------------ End License ------------------
 
+## @webcomponents/webcomponentsjs - 2.8.0
+
+Copyright (c) 2015 The Polymer Authors. All rights reserved.
+
+----------------- License: "BSD-3-Clause" ----------------
+# License
+
+Everything in this repo is BSD style license unless otherwise specified.
+
+Copyright (c) 2015 The Polymer Authors. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above
+copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the
+distribution.
+* Neither the name of Google Inc. nor the names of its
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+------------------ End License ------------------
+
 ## ajv - 8.12.0
 
 Copyright (c) 2015-2021 Evgeny Poberezkin
@@ -1391,7 +1666,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## angular-material-css-vars - 5.0.2
+## angular-material-css-vars - 5.0.3
 
 Copyright (c) 2019 Johannes Millan
 
@@ -1458,7 +1733,7 @@ THIS SOFTWARE.
 
 ------------------ End License ------------------
 
-## axios - 1.4.0
+## axios - 1.6.0
 
 Copyright (c) 2014-present Matt Zabriskie & Collaborators
 
@@ -1470,6 +1745,35 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+------------------ End License ------------------
+
+## case-anything - 2.1.13
+
+Copyright (c) 2019 Luca Ban - Mesqueeb
+
+----------------- License: "MIT" ----------------
+MIT License
+
+Copyright (c) 2019 Luca Ban - Mesqueeb
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ------------------ End License ------------------
 
@@ -1490,7 +1794,53 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ------------------ End License ------------------
 
-## cypress - 12.11.0
+## chart.js - 4.4.0
+
+Copyright (c) 2014-2022 Chart.js Contributors
+
+----------------- License: "MIT" ----------------
+The MIT License (MIT)
+
+Copyright (c) 2014-2022 Chart.js Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+------------------ End License ------------------
+
+## compare-versions - 6.1.0
+
+Copyright (c) 2015-2021 Ole Michelsen
+
+----------------- License: "MIT" ----------------
+The MIT License (MIT)
+
+Copyright (c) 2015-2021 Ole Michelsen
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+------------------ End License ------------------
+
+## cypress - 13.2.0
 
 Copyright (c) 2022 Cypress.io
 
@@ -1547,7 +1897,7 @@ THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## esbuild - 0.17.17
+## esbuild - 0.19.2
 
 Copyright (c) 2020 Evan Wallace
 
@@ -1576,7 +1926,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## eslint - 8.15.0
+## eslint - 8.46.0
 
 Copyright OpenJS Foundation and other contributors, <www.openjsf.org>
 
@@ -1603,14 +1953,14 @@ THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## eslint-config-prettier - 8.1.0
+## eslint-config-prettier - 9.0.0
 
-Copyright (c) 2017, 2018, 2019, 2020, 2021 Simon Lydell and contributors
+Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023 Simon Lydell and contributors
 
 ----------------- License: "MIT" ----------------
 The MIT License (MIT)
 
-Copyright (c) 2017, 2018, 2019, 2020, 2021 Simon Lydell and contributors
+Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023 Simon Lydell and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1632,7 +1982,7 @@ THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## eslint-plugin-cypress - 2.13.3
+## eslint-plugin-cypress - 2.13.4
 
 Copyright (c) 2019 Cypress.io
 
@@ -1661,14 +2011,14 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## eslint-plugin-simple-import-sort - 7.0.0
+## eslint-plugin-simple-import-sort - 10.0.0
 
-Copyright (c) 2018, 2019, 2020 Simon Lydell
+Copyright (c) 2018, 2019, 2020, 2022, 2023 Simon Lydell
 
 ----------------- License: "MIT" ----------------
 MIT License
 
-Copyright (c) 2018, 2019, 2020 Simon Lydell
+Copyright (c) 2018, 2019, 2020, 2022, 2023 Simon Lydell
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1717,7 +2067,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## expect - 29.5.0
+## expect - 29.7.0
 
 Copyright (c) Meta Platforms, Inc. and affiliates.
 
@@ -1804,7 +2154,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## fast-glob - 3.2.12
+## fast-glob - 3.3.1
 
 Copyright (c) Denis Malinochkin
 
@@ -1884,7 +2234,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 ------------------ End License ------------------
 
-## jest - 29.5.0
+## jest - 29.7.0
 
 Copyright (c) Meta Platforms, Inc. and affiliates.
 
@@ -1913,7 +2263,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## jest-environment-jsdom - 29.5.0
+## jest-environment-jsdom - 29.7.0
 
 Copyright (c) Meta Platforms, Inc. and affiliates.
 
@@ -1942,7 +2292,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## jest-environment-node - 29.5.0
+## jest-environment-node - 29.7.0
 
 Copyright (c) Meta Platforms, Inc. and affiliates.
 
@@ -2058,7 +2408,7 @@ THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## material-icons - 1.13.7
+## material-icons - 1.13.12
 
 Copyright (c) material-icons
 
@@ -2379,7 +2729,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## nx - 16.3.0
+## nx - 17.0.2
 
 Copyright (c) 2017-2023 Narwhal Technologies Inc.
 
@@ -2409,7 +2759,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## plist - 3.0.6
+## plist - 3.1.0
 
 Copyright (c) 2010-2017 Nathan Rajlich <nathan@tootallnate.net>
 
@@ -8480,7 +8830,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## rimraf - 5.0.1
+## rimraf - 5.0.5
 
 Copyright (c) 2011-2023 Isaac Z. Schlueter and Contributors
 
@@ -8799,7 +9149,7 @@ THE SOFTWARE.
 
 ------------------ End License ------------------
 
-## tslib - 2.5.2
+## tslib - 2.6.2
 
 Copyright (c) Microsoft Corporation.
 
@@ -8818,7 +9168,7 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ------------------ End License ------------------
 
-## typescript - 5.0.4
+## typescript - 5.1.6
 
 Copyright (c) Microsoft Corporation. All rights reserved.
 
@@ -8881,7 +9231,7 @@ END OF TERMS AND CONDITIONS
 
 ------------------ End License ------------------
 
-## vscode-languageclient - 8.1.0
+## vscode-languageclient - 9.0.1
 
 Copyright (c) Microsoft Corporation
 
@@ -8900,7 +9250,7 @@ THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ------------------ End License ------------------
 
-## vscode-languageserver - 8.1.0
+## vscode-languageserver - 9.0.1
 
 Copyright (c) Microsoft Corporation
 
@@ -8919,7 +9269,7 @@ THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ------------------ End License ------------------
 
-## vscode-languageserver-textdocument - 1.0.8
+## vscode-languageserver-textdocument - 1.0.11
 
 Copyright (c) Microsoft Corporation
 
@@ -8938,7 +9288,7 @@ THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ------------------ End License ------------------
 
-## vscode-oniguruma - 1.7.0
+## vscode-oniguruma - 2.0.1
 
 Copyright (c) Microsoft Corporation.
 
@@ -8998,7 +9348,7 @@ SOFTWARE.
 
 ------------------ End License ------------------
 
-## vscode-uri - 3.0.7
+## vscode-uri - 3.0.8
 
 Copyright (c) Microsoft
 
@@ -9014,7 +9364,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------ End License ------------------
 
-## yaml - 2.3.0
+## yaml - 2.3.3
 
 Copyright Eemeli Aro <eemeli@gmail.com>
 

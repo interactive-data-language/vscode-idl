@@ -117,7 +117,7 @@ pro ENVINotebook_DisplayRasterCube, raster, size = size
   ; add to notebook
   struct = {IDLNotebookImage_FromUri}
   struct.uri = uri
-  struct.xsize = info.dimensions[0]
-  struct.ysize = info.dimensions[1]
-  IDLNotebook.AddToNotebook, struct
+  struct.xSize = info.dimensions[0]
+  struct.ySize = info.dimensions[1]
+  IDLNotebook.addToNotebook, struct
 end

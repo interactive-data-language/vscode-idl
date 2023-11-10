@@ -1,16 +1,23 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
+import { NewNotebook } from './new-notebook';
 import { NotebookFormats_1_0_0 } from './notebook-formats-1.0.0';
 import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { RunNotebookReset } from './notebook-reset';
 import { RunNotebookStop } from './notebook-stop';
+import { NotebookToProCodeAllCells } from './notebook-to-pro-code-all-cells';
+import { NotebookToProCodeOnlyCode } from './notebook-to-pro-code-only-code';
+import { OpenENVINotebookExample } from './open-envi-notebook-example';
+import { OpenIDLNotebookExample } from './open-idl-notebook-example';
+import { ResetNotebookExamples } from './reset-notebook-examples';
 import { RunENVIMessageListenerTestNotebook } from './run-envi-message-listener-test-notebook';
 import { RunProblemNotebooks } from './run-problem-notebooks';
 import { RunTestENVIMapNotebook } from './run-test-envi-map-notebook';
 import { RunTestENVINotebook } from './run-test-envi-notebook';
 import { RunTestNotebook } from './run-test-notebook';
+import { RunUnsavedNotebook } from './run-unsaved-notebook';
 import { SaveAndClearNotebook } from './save-and-clear-output';
 
 /*
@@ -41,9 +48,51 @@ NOTEBOOK_RUNNER.addTest({
 });
 
 NOTEBOOK_RUNNER.addTest({
+  name: 'Verify we can create new notebooks',
+  fn: NewNotebook,
+  critical: false,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Open IDL example notebook',
+  fn: OpenIDLNotebookExample,
+  critical: false,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Open ENVI example notebook',
+  fn: OpenENVINotebookExample,
+  critical: false,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Reset notebook examples',
+  fn: ResetNotebookExamples,
+  critical: false,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Convert notebook to PRO code (only code)',
+  fn: NotebookToProCodeOnlyCode,
+  critical: false,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Convert notebook to PRO code (all cells)',
+  fn: NotebookToProCodeAllCells,
+  critical: false,
+});
+
+NOTEBOOK_RUNNER.addTest({
   name: 'Run notebook that tests successes',
   fn: RunTestNotebook,
   critical: true,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Run cells in notebook not saved to disk',
+  fn: RunUnsavedNotebook,
+  critical: false,
 });
 
 NOTEBOOK_RUNNER.addTest({

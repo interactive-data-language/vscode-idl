@@ -185,4 +185,43 @@ describe(`[auto generated] Detects missing end to main level program`, () => {
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] not problem`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `function myfunc`,
+      `  compile_opt idl2`,
+      `  return,1`,
+      `end ; -----------`,
+      ``,
+      `; main level`,
+      `; another comment`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });

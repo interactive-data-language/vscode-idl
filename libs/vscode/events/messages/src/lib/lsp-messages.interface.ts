@@ -15,6 +15,11 @@ import {
   IndexingMessage,
 } from './indexing-message.interface';
 import { LoggingMessage } from './logging.message.interface';
+import {
+  INotebookToProCodePayload,
+  INotebookToProCodeResponse,
+  NotebookToProCodeMessage,
+} from './notebook-to-pro-code.interface';
 import { FileRenameMessage, IFileRenamePayload } from './rename.interface';
 import {
   IRetrieveDocsPayload,
@@ -42,39 +47,46 @@ export type LanguageServerMessage =
   | IndexingMessage
   | InitWorkspaceConfigMessage
   | LoggingMessage
+  | NotebookToProCodeMessage
   | RetrieveDocsMessage
   | UsageMetricLSPMessage
   | WorkspaceConfigMessage;
 
 /** Strictly typed payloads to/from the language server */
 export type LanguageServerPayload<T extends LanguageServerMessage> =
-  T extends WorkspaceConfigMessage
-    ? IWorkspaceConfigPayload
+  T extends AddDocsMessage
+    ? IAddDocsMessagePayload
     : T extends FileRenameMessage
     ? IFileRenamePayload
-    : T extends IndexingMessage
-    ? IIndexingMessagePayload
-    : T extends InitWorkspaceConfigMessage
-    ? IInitWorkspaceConfigPayload
-    : T extends LoggingMessage
-    ? ILogOptions
-    : T extends AddDocsMessage
-    ? IAddDocsMessagePayload
     : T extends FolderDeleteMessage
     ? IFolderDeletePayload
     : T extends FormatFileMessage
     ? DocumentFormattingParams
     : T extends GenerateTaskMessage
     ? IGenerateTaskPayload
+    : T extends IndexingMessage
+    ? IIndexingMessagePayload
+    : T extends InitWorkspaceConfigMessage
+    ? IInitWorkspaceConfigPayload
+    : T extends LoggingMessage
+    ? ILogOptions
+    : T extends NotebookToProCodeMessage
+    ? INotebookToProCodePayload
     : T extends RetrieveDocsMessage
     ? IRetrieveDocsPayload
     : T extends UsageMetricLSPMessage
     ? IUsageMetricAndPayload<UsageMetric>
+    : T extends WorkspaceConfigMessage
+    ? IWorkspaceConfigPayload
     : any;
 
 /** Strictly typed payloads to/from the language server */
 export type LanguageServerResponse<T extends LanguageServerMessage> =
-  T extends RetrieveDocsMessage ? IRetrieveDocsResponse : any;
+  T extends RetrieveDocsMessage
+    ? IRetrieveDocsResponse
+    : T extends NotebookToProCodeMessage
+    ? INotebookToProCodeResponse
+    : any;
 
 /** Strictly typed lookup of language server messages */
 export interface ILanguageServerMessages {
@@ -94,6 +106,8 @@ export interface ILanguageServerMessages {
   INIT_WORKSPACE_CONFIG: InitWorkspaceConfigMessage;
   /** Log content from the LSP */
   LOG: LoggingMessage;
+  /** Convert notebooks to PRO code */
+  NOTEBOOK_TO_PRO_CODE: NotebookToProCodeMessage;
   /** Message to retrieve docs */
   RETRIEVE_DOCS: RetrieveDocsMessage;
   /** Message to update workspace config */
@@ -117,6 +131,7 @@ export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   INDEXING: 'indexing',
   INIT_WORKSPACE_CONFIG: 'init-workspace-config',
   LOG: 'log',
+  NOTEBOOK_TO_PRO_CODE: 'notebook/to-pro-code',
   RETRIEVE_DOCS: 'retrieve-docs',
   USAGE_METRIC: 'usage-metric-lsp',
   WORKSPACE_CONFIG: 'workspace-config',

@@ -1,11 +1,11 @@
 ;+
 ; :IDLNotebookImage_Base:
-;   xsize: Number
+;   xSize: Number
 ;     The width of the PNG for display
-;   ysize: Number
+;   ySize: Number
 ;     The height of the PNG for display
 ;
-; :IDLNotebookImage_PNG:
+; :IDLNotebookImage_Png:
 ;   data: String
 ;     Base64 encoded PNG as a string
 ;
@@ -31,13 +31,13 @@ pro IDLNotebookImage__define
   ; Base datas tructure for image
   ;-
   !null = {IDLNotebookImage_Base, $
-    xsize: 0l, $
-    ysize: 0l}
+    xSize: 0l, $
+    ySize: 0l}
 
   ;+
   ; Data structure for embedding an image
   ;-
-  !null = {IDLNotebookImage_PNG, $
+  !null = {IDLNotebookImage_Png, $
     inherits IDLNotebookImage_Base, $
     data: 'base64'}
 

@@ -7,6 +7,7 @@ import {
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { IFoundTokens } from '@idl/parsing/tokenizer';
 import { PositionArray } from '@idl/parsing/tokenizer-types';
+import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver';
 
 import { SyntaxTree } from './branches.interface';
 import { ILocalTokens } from './populators/populate-local.interface';
@@ -149,6 +150,10 @@ export interface IParsed extends IFoundTokens {
   compile: ICompileOptions;
   /** Global constructs that we call (for change detection) */
   uses: UsesTheseGlobalTokens;
+  /** The outline of our current PRO code */
+  outline: DocumentSymbol[];
+  /** Semantic tokens that we highlight */
+  semantic: SemanticTokens;
 }
 
 /**
@@ -176,4 +181,6 @@ export const DEFAULT_PARSED: IParsed = {
     main: [],
   },
   uses: DEFAULT_USES_THESE_GLOBAL_TOKEN,
+  outline: [],
+  semantic: { data: [] },
 };

@@ -70,11 +70,11 @@ describe(`[auto generated] Generate structure docs`, () => {
         `pro pro4__define`,
         `  compile_opt idl2`,
         ``,
-        `  !null = {struct1}`,
+        `  !null = {Struct1}`,
         ``,
-        `  !null = {struct2}`,
+        `  !null = {Struct2}`,
         ``,
-        `  !null = {struct3, prop: 'socool'}`,
+        `  !null = {Struct3, prop: 'socool'}`,
         `end`,
       ];
 
