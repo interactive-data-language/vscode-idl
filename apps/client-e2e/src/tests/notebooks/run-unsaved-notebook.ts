@@ -15,7 +15,7 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
   {
     idx: 1,
     success: true,
-    mimeTypes: [],
+    mimeTypes: ['text/plain'],
   },
 ];
 
@@ -46,11 +46,6 @@ export const RunUnsavedNotebook: RunnerFunction = async (init) => {
 
   // make sure we have an IDL Notebook as our editor
   expect(editor?.notebook?.notebookType).toEqual(IDL_NOTEBOOK_LANGUAGE_NAME);
-
-  // add code cell to the bottom
-  await vscode.commands.executeCommand(
-    VSCODE_COMMANDS.NOTEBOOK_INSERT_CODE_CELL_AT_BOTTOM
-  );
 
   /** Get reference to the current notebook */
   const nb = editor.notebook;
