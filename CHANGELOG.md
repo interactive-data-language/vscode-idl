@@ -32,6 +32,8 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
   - Structure names: PascalCase
 
+- When generating ENVI and IDL tasks, using our new case libraries, we attempt to make a pretty display name from parameter names. For example converting the keyword "my_keyword" to "My Keyword". This applied to task and parameter display names.
+
 ## 4.0.0 November 2023
 
 The official release of IDL Notebooks! This is a first pass at adding notebook support for IDL (which is independent from Jupyter). We are hoping to have early adopters try it out and provide feedback on how notebooks behave. Read below to learn more or find an example IDL and ENVI Notebook directly within VSCode in the IDL sidebar.
