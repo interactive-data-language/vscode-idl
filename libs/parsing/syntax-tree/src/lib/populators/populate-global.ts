@@ -94,6 +94,11 @@ export function PopulateGlobalLocalCompileOpts(
             structures = FindStructureDefs(branch, name, found);
           }
 
+          // check for comments within routines
+          if (branch.kids[1]?.name === TOKEN_NAMES.COMMENT_BLOCK) {
+            docs = branch.kids[1];
+          }
+
           // generate metadata
           const meta = full
             ? GenerateRoutineDocsAndMetadata(
@@ -212,6 +217,11 @@ export function PopulateGlobalLocalCompileOpts(
           // get structure definitions or use empty array
           if (full) {
             structures = FindStructureDefs(branch, name, found);
+          }
+
+          // check for comments within routines
+          if (branch.kids[1]?.name === TOKEN_NAMES.COMMENT_BLOCK) {
+            docs = branch.kids[1];
           }
 
           // generate metadata
