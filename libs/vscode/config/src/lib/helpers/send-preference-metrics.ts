@@ -136,7 +136,9 @@ export function SendPreferenceUsageMetrics() {
     pref_octal: code.formattingStyle.octal,
     pref_binary: code.formattingStyle.binary,
     pref_routines: code.formattingStyle.routines,
+    pref_routine_methods: code.formattingStyle.routineMethods,
     pref_sys_var: code.formattingStyle.systemVariables,
+    pref_struct_name: code.formattingStyle.structureNames,
     pref_local_var: code.formattingStyle.localVariables,
   });
   // VSCodeTelemetryLogger('select_item' as any, {
