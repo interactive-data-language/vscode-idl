@@ -54,6 +54,20 @@ This extension adds syntax highlighting, code snippets, debugging, problem repor
 
 For a full list of changes, see [CHANGELOG.md](./CHANGELOG.md) for lots of details.
 
+## IDL Requirement
+
+Using the "debug" sessions of IDL requires that you have a version of IDL with lists, hashes, and orderedhashes (and the ability to parse/serialize JSON).
+
+The extension is tested against:
+
+- IDL 8.9
+
+- IDL 9.0
+
+Anything else is use-at-your-own-risk and may not work.
+
+For notebooks, we only test against the above versions, and the ENVI Notebook API does require ENVI in order to function.
+
 ## Features
 
 - IDL Notebooks for a new, modern, and ad-hoc way to develop IDL code! Check out the examples to learn about how they work (accessible through the sidebar of the extension).
@@ -133,14 +147,6 @@ For a full list of changes, see [CHANGELOG.md](./CHANGELOG.md) for lots of detai
   - If syntax errors are not going away then you can: reset IDL, restart IDL, stop and start IDL again and they will disappear.
 
   - You may occasionally see some text that is printed to the console when IDL is running, this is a known bug that happens for a few rare cases and can be ignored.
-
-- Using the "debug" sessions of IDL requires that you have a version of IDL with lists, hashes, and orderedhashes (and the ability to parse/serialize JSON). The extension is tested against:
-
-  - IDL 8.9
-
-  - IDL 9.0
-
-  Anything else is use-at-your-own-risk and may not work.
 
 ## Release Notes
 
