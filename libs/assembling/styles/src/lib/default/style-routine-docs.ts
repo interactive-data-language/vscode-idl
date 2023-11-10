@@ -110,38 +110,44 @@ export function ReplaceRoutineDocs(parsed: IParsed, style: ICodeStyle) {
 
   // add comment blocks for routines that dont have them
   for (let i = 0; i < tree.length; i++) {
-    /**
-     * Check if we have a block, look before and after
-     */
-    const hasBlock =
-      tree[i].name in REPLACE &&
-      (tree[i - 1]?.name !== TOKEN_NAMES.COMMENT_BLOCK ||
+    // check if routine
+    if (tree[i].name in REPLACE) {
+      /**
+       * Is the block before?
+       */
+      const before = tree[i - 1]?.name === TOKEN_NAMES.COMMENT_BLOCK;
+
+      /**
+       * is the block after?
+       */
+      const after =
         (tree[i] as TreeBranchToken)?.kids[1]?.name ===
-          TOKEN_NAMES.COMMENT_BLOCK);
+        TOKEN_NAMES.COMMENT_BLOCK;
 
-    // check if we need to add a comment block
-    if (!hasBlock) {
-      /** Start of new token */
-      const newStartLine = tree[i].pos[0];
+      // check if we need to add a comment block
+      if (!(before || after)) {
+        /** Start of new token */
+        const newStartLine = tree[i].pos[0];
 
-      // make a new comment block
-      const block: IBranch<CommentBlockToken> = {
-        type: BRANCH_TYPES.BRANCH,
-        name: TOKEN_NAMES.COMMENT_BLOCK,
-        pos: [newStartLine, 0, 0],
-        match: [],
-        idx: i,
-        parseProblems: [],
-        scope: [],
-        kids: [],
-        end: {
+        // make a new comment block
+        const block: IBranch<CommentBlockToken> = {
+          type: BRANCH_TYPES.BRANCH,
+          name: TOKEN_NAMES.COMMENT_BLOCK,
           pos: [newStartLine, 0, 0],
           match: [],
-        },
-      };
+          idx: i,
+          parseProblems: [],
+          scope: [],
+          kids: [],
+          end: {
+            pos: [newStartLine, 0, 0],
+            match: [],
+          },
+        };
 
-      // save the block
-      useTree.push(block);
+        // save the block
+        useTree.push(block);
+      }
     }
 
     // always save our node
