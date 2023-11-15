@@ -21,6 +21,7 @@ import {
   Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   IDL_LOGGER,
   VSCODE_NOTEBOOK_PRO_DIR,
@@ -31,6 +32,7 @@ import {
   DEFAULT_IDL_DEBUG_CONFIGURATION,
   IDL_DEBUG_CONFIGURATION_PROVIDER,
 } from '@idl/vscode/debug';
+import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
 import copy from 'fast-copy';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
@@ -478,6 +480,11 @@ export class IDLNotebookController {
    * Launches IDL for a notebooks session
    */
   async launchIDL(title: string): Promise<boolean> {
+    // track when we start IDL for notebooks
+    VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+      idl_command: 'notebooks.launchIDL',
+    });
+
     // verify that we have the right info, otherwise alert, terminate, and return
     if (IDL_EXTENSION_CONFIG.IDL.directory === '') {
       IDL_LOGGER.log({
