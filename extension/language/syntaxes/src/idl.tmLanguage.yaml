@@ -25,6 +25,7 @@ variables:
   name_comment_block: comment.block.idl
   name_control: keyword.control.idl
   name_control_option: variable.other.readwrite.ts.idl
+  name_docs_accent: support.type.idl # things like direction in docs
   name_docs_header: markup.heading.idl
   name_docs_arg_kw: markup.italic.idl
   name_escape: constant.character.escape.idl
@@ -401,6 +402,7 @@ repository:
     begin: '^\s*(?=;\s*\+.*)'
     end: '^(?!\s*;|\s*$)'
     patterns:
+      - include: '#comment_docs_header_legacy'
       - include: '#comment_docs_header'
       - include: '#comment_docs_arg_kw'
       - include: '#comment_docs_prop'
@@ -425,6 +427,28 @@ repository:
       '1': { name: {{name_comment}} }
       '2': { patterns: [{ include: '#all_tokens' }] }
 
+  # comment section header - legacy docs using "@param" style
+  comment_docs_header_legacy:
+    name: {{name_comment}}
+    match: ';\s*(@[a-z_$0-9]+(?:\s*[a-z_$0-9]+)?).*$'
+    captures:
+      '1': 
+        patterns:
+          - include: '#comment_docs_header_legacy_param'
+          - include: '#comment_docs_header_legacy_top_level'
+
+  # comment section header for args/keywords
+  comment_docs_header_legacy_param:
+    name: {{name_docs_arg_kw}}
+    match: '@(param|arg|keyword)\s*([a-z_$0-9]+)?'
+    captures:
+      '2': { name: {{name_docs_accent}} }
+
+  # comment section header for things like descriptions and history
+  comment_docs_header_legacy_top_level:
+    name: {{name_docs_header}}
+    match: '@[a-z_$0-9]+'
+
   # comment section header
   comment_docs_header:
     name: {{name_comment}}
@@ -439,8 +463,8 @@ repository:
     match: ';\s*([^:\s]*)\s*:([^,]*),([^,]*),\s*((?:[a-z_0-9$!''"]+\s*(?:<.+>)?\s*\|?\s*)+),?([^,]*)?'
     captures:
       '1': { name: {{name_docs_arg_kw}} }
-      '2': { name: support.type.idl }
-      '3': { name: support.type.idl }
+      '2': { name: {{name_docs_accent}} }
+      '3': { name: {{name_docs_accent}} }
       '4': { name: {{name_type}}, patterns: [{ include: '#type_tokens' }] }
       '5': { name: markup.bold.idl }
 

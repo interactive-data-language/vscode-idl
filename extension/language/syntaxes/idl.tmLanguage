@@ -779,6 +779,10 @@
         <array>
           <dict>
             <key>include</key>
+            <string>#comment_docs_header_legacy</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#comment_docs_header</string>
           </dict>
           <dict>
@@ -851,6 +855,52 @@
             </array>
           </dict>
         </dict>
+      </dict>
+      <key>comment_docs_header_legacy</key>
+      <dict>
+        <key>name</key>
+        <string>comment.line.idl</string>
+        <key>match</key>
+        <string>(?i);\s*(@[a-z_$0-9]+(?:\s*[a-z_$0-9]+)?).*$</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#comment_docs_header_legacy_param</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#comment_docs_header_legacy_top_level</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+      </dict>
+      <key>comment_docs_header_legacy_param</key>
+      <dict>
+        <key>name</key>
+        <string>markup.italic.idl</string>
+        <key>match</key>
+        <string>(?i)@(param|arg|keyword)\s*([a-z_$0-9]+)?</string>
+        <key>captures</key>
+        <dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>support.type.idl</string>
+          </dict>
+        </dict>
+      </dict>
+      <key>comment_docs_header_legacy_top_level</key>
+      <dict>
+        <key>name</key>
+        <string>markup.heading.idl</string>
+        <key>match</key>
+        <string>(?i)@[a-z_$0-9]+</string>
       </dict>
       <key>comment_docs_header</key>
       <dict>
