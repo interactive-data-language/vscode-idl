@@ -19,6 +19,11 @@ export const START_COMMENT_BLOCK = /^\s*;\s*\+/i;
 export const END_COMMENT_BLOCK_REGEX = /^;\s*-\s*$/i;
 
 /**
+ * Type for header docs
+ */
+export type HeaderDocsType = 'idldoc' | 'idldoc-legacy';
+
+/**
  * Data structure for header documentation
  */
 export interface IHeaderDocs {
@@ -32,6 +37,8 @@ export interface IHeaderDocs {
   docs: string[];
   /** Original source comments so we can work magic to get back to source for feedback */
   comments: IBasicBranch<CommentToken>[];
+  /** Type of docs block */
+  type: HeaderDocsType;
 }
 
 /**

@@ -94,6 +94,9 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
   for (let i = 0; i < keys.length; i++) {
     // check which key we are processing
     switch (keys[i]) {
+      /**
+       * Check for arguments
+       */
       case IDL_DOCS_HEADERS.ARGS: {
         // get names of our arguments
         const argRef: { [key: string]: string } = {};
@@ -109,6 +112,10 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
         meta.args = ExtractParameterDocs(docs[keys[i]], argRef, problems);
         break;
       }
+
+      /**
+       * Check for keywords
+       */
       case IDL_DOCS_HEADERS.KEYWORDS: {
         // get names of our actual keywords
         const kwRef: { [key: string]: string } = {};
@@ -124,6 +131,10 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
         meta.kws = ExtractParameterDocs(docs[keys[i]], kwRef, problems);
         break;
       }
+
+      /**
+       * All other blocks
+       */
       default: {
         // check for matching structure name
         const sIdx = structNames.indexOf(keys[i].toLowerCase());

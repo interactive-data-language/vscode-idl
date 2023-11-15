@@ -1,49 +1,67 @@
 import { CommentToken, GetMatchesArray } from '@idl/parsing/tokenizer';
+import { deepEqual } from 'fast-equals';
 
 import { IBasicBranch } from '../branches.interface';
 import { IDL_DOCS_HEADERS } from './docs.interface';
-import { HEADER_TAG } from './docs.regex.interface';
+import { HEADER_TAG_LEGACY } from './docs.regex.interface';
 import {
   END_COMMENT_BLOCK_REGEX,
   IDocs,
   IHeaderDocs,
   REMOVE_COMMENT_REGEX,
 } from './extract-docs.interface';
-import { ExtractLegacyDocs } from './extract-legacy-docs';
 import { IDL_HEADER_MAP } from './header-map.interface';
 
 /**
- * Takes comments from a comment block and converts it into
- * documentation for things like hover help and auto-complete.
- *
- * This attempts to parse docs in the IDL Doc style of docs
+ * When we don't have anything extra within our docs, we attempt
+ * to parse using the legacy docs format of "@param" style similar
+ * to how JS/TS create docs
  */
-export function ExtractDocs(comments: IBasicBranch<CommentToken>[]): IDocs {
-  /** Track code by blocks */
-  const blocks: IDocs = {};
-
-  // return if we have no comments in our block
-  if (comments.length === 0) {
-    // initialize a default comment block as we use it later
-    blocks[IDL_DOCS_HEADERS.DEFAULT] = {
-      pos: [0, 0, 0],
-      matches: [],
-      end: [0, 0, 0],
-      docs: [],
-      comments: [],
-      type: 'idldoc',
-    };
-    return blocks;
+export function ExtractLegacyDocs(
+  comments: IBasicBranch<CommentToken>[],
+  blocks: IDocs
+): IDocs {
+  /**
+   * Check if we actually parsed the docs
+   */
+  if (!deepEqual(Object.keys(blocks), [IDL_DOCS_HEADERS.DEFAULT])) {
+    return;
   }
 
-  // initialize a default block using first comment as position
+  /**
+   * Get the docs
+   */
+  const defaultBlock = blocks[IDL_DOCS_HEADERS.DEFAULT];
+
+  /**
+   * Get actual strings for the docs
+   */
+  const docs = defaultBlock.docs;
+
+  // loop through docs and see if we have legacy docs to post-process
+  let hasLegacyDocs = false;
+
+  // process each line
+  for (let i = 0; i < docs.length; i++) {
+    if (HEADER_TAG_LEGACY.test(docs[i])) {
+      hasLegacyDocs = true;
+      break;
+    }
+  }
+
+  // if we dont have any legacy docs, return
+  if (!hasLegacyDocs) {
+    return;
+  }
+
+  // reset default block
   blocks[IDL_DOCS_HEADERS.DEFAULT] = {
     pos: comments[0].pos,
     matches: [],
     end: comments[0].pos,
     docs: [],
     comments: [],
-    type: 'idldoc',
+    type: 'idldoc-legacy',
   };
 
   /** Track the last found block which we will save text to if a new block is not found */
@@ -84,33 +102,52 @@ export function ExtractDocs(comments: IBasicBranch<CommentToken>[]): IDocs {
     startLoc = l1 - line.length;
 
     // check if we have a new header or not
-    match = HEADER_TAG.exec(line);
+    match = HEADER_TAG_LEGACY.exec(line);
     if (match !== null) {
-      // make new last found
-      lastFound = {
-        pos: [comments[i].pos[0], match.index + 1 + startLoc, match[0].length],
-        matches: GetMatchesArray(match),
-        end: [comments[i].pos[0], match.index + 1 + startLoc, match[0].length],
-        docs: [],
-        comments: [],
-        type: 'idldoc',
-      };
-
       // get the key
       let key = match[1].toLowerCase();
       if (key in IDL_HEADER_MAP) {
         key = IDL_HEADER_MAP[key];
       }
 
-      // save our new block
-      blocks[key] = lastFound;
+      /**
+       * Check if we have a new key or an existing one
+       */
+      if (key in blocks) {
+        lastFound = blocks[key];
+      } else {
+        /**
+         * Make new key
+         */
 
-      // get the text afterwards if we have any
-      const after = line.substring(match.index + match[0].length).trim();
-      if (after !== '') {
-        lastFound.docs.push(after);
-        lastFound.comments.push(comments[i]);
-        startSaving = true;
+        // make new last found
+        lastFound = {
+          pos: [
+            comments[i].pos[0],
+            match.index + 1 + startLoc,
+            match[0].length,
+          ],
+          matches: GetMatchesArray(match),
+          end: [
+            comments[i].pos[0],
+            match.index + 1 + startLoc,
+            match[0].length,
+          ],
+          docs: [],
+          comments: [],
+          type: 'idldoc-legacy',
+        };
+
+        // save our new block
+        blocks[key] = lastFound;
+
+        // get the text afterwards if we have any
+        const after = line.substring(match.index + match[0].length).trim();
+        if (after !== '') {
+          lastFound.docs.push(after);
+          lastFound.comments.push(comments[i]);
+          startSaving = true;
+        }
       }
 
       // skip to next line
@@ -132,10 +169,4 @@ export function ExtractDocs(comments: IBasicBranch<CommentToken>[]): IDocs {
     // add a bonus "+1" because we should have our comment on the first line stripped out
     lastFound.end = [comments[i].pos[0], 0, line.length + startLoc];
   }
-
-  // do some post-processing and see if we need to try and detect some legacy comments
-  ExtractLegacyDocs(comments, blocks);
-
-  // return the blocks that we processed
-  return blocks;
 }
