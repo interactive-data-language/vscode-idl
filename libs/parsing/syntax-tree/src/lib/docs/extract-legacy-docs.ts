@@ -3,7 +3,11 @@ import { deepEqual } from 'fast-equals';
 
 import { IBasicBranch } from '../branches.interface';
 import { IDL_DOCS_HEADERS } from './docs.interface';
-import { HEADER_TAG_LEGACY } from './docs.regex.interface';
+import {
+  HEADER_TAG_LEGACY,
+  LEGACY_PARAMETER_DIRECTION,
+  LEGACY_PARAMETER_NAME_SPLIT,
+} from './docs.regex.interface';
 import {
   END_COMMENT_BLOCK_REGEX,
   IDocs,
@@ -82,6 +86,9 @@ export function ExtractLegacyDocs(
   /** Flag that controls when we start saving text for docs to filter out empty lines */
   let startSaving = false;
 
+  /** Current header key */
+  let key: string;
+
   // check for
   for (let i = 0; i < comments.length; i++) {
     // extract line
@@ -105,7 +112,7 @@ export function ExtractLegacyDocs(
     match = HEADER_TAG_LEGACY.exec(line);
     if (match !== null) {
       // get the key
-      let key = match[1].toLowerCase();
+      key = match[1].toLowerCase();
       if (key in IDL_HEADER_MAP) {
         key = IDL_HEADER_MAP[key];
       }
@@ -140,14 +147,45 @@ export function ExtractLegacyDocs(
 
         // save our new block
         blocks[key] = lastFound;
+      }
 
-        // get the text afterwards if we have any
-        const after = line.substring(match.index + match[0].length).trim();
-        if (after !== '') {
+      // get the text afterwards if we have any
+      const after = line.substring(match.index + match[0].length).trim();
+      if (after !== '') {
+        /**
+         * Do we have a parameter that we need to map to the IDL doc format?
+         */
+        if (
+          key === IDL_DOCS_HEADERS.ARGS ||
+          key === IDL_DOCS_HEADERS.KEYWORDS
+        ) {
+          // get parameter name
+          const nameMatch = LEGACY_PARAMETER_NAME_SPLIT.exec(after);
+          const name = nameMatch !== null ? nameMatch[0] : '';
+
+          // put official RST docs
+          lastFound.docs.push(
+            `   ${name}: ${
+              LEGACY_PARAMETER_DIRECTION.test(after) ? 'in' : 'bidirectional'
+            }, required, any`
+          );
+          lastFound.comments.push(comments[i]);
+
+          // save description
+          lastFound.docs.push(
+            '     ' +
+              after
+                .substring(name.length)
+                .replace(LEGACY_PARAMETER_DIRECTION, '')
+                .trim()
+          );
+          lastFound.comments.push(comments[i]);
+        } else {
           lastFound.docs.push(after);
           lastFound.comments.push(comments[i]);
-          startSaving = true;
         }
+
+        startSaving = true;
       }
 
       // skip to next line
@@ -161,7 +199,11 @@ export function ExtractLegacyDocs(
 
     // save line
     if (startSaving) {
-      lastFound.docs.push(line);
+      lastFound.docs.push(
+        key === IDL_DOCS_HEADERS.ARGS || key === IDL_DOCS_HEADERS.KEYWORDS
+          ? `    ${line}`
+          : line
+      );
       lastFound.comments.push(comments[i]);
     }
 
