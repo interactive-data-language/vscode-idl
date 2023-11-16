@@ -11,6 +11,7 @@ import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
 import { CommentToken } from '@idl/parsing/tokenizer';
 import { PositionArray } from '@idl/parsing/tokenizer-types';
 import { IDL_TRANSLATION } from '@idl/translation';
+import copy from 'fast-copy';
 
 import { IBasicBranch } from '../branches.interface';
 import {
@@ -43,6 +44,9 @@ export function ExtractParameterDocs(
   /** Extract the comments */
   const comments = header.comments;
 
+  /** Extract comments */
+  const docs = header.docs;
+
   /** Strings for docs */
   const docsStrings: string[] = [];
 
@@ -61,7 +65,7 @@ export function ExtractParameterDocs(
   // check for
   for (let i = 0; i < comments.length; i++) {
     // extract line
-    line = comments[i].match[0];
+    line = docs[i];
 
     // cleanup our line
     line = line.replace(REMOVE_COMMENT_REGEX, '');
@@ -94,31 +98,46 @@ export function ExtractParameterDocs(
         pos: comments[i].pos,
       };
 
-      // get the key
-      const key = match[1].trim().toLowerCase();
+      /**
+       * Get the keys, might have more than one if we are coming from
+       * the legacy IDL doc tags
+       */
+      const keys = match[1]
+        .trim()
+        .toLowerCase()
+        .split(/,/g)
+        .map((key) => key.trim());
 
-      // check for a parameter not existing
-      if (!(key in reference)) {
-        problems.push(
-          SyntaxProblemWithoutTranslation(
-            IDL_PROBLEM_CODES.DOCUMENTED_PARAMETER_DOESNT_EXIST,
-            `${
-              IDL_TRANSLATION.parsing.errors[
-                IDL_PROBLEM_CODES.DOCUMENTED_PARAMETER_DOESNT_EXIST
-              ]
-            }: "${key}"`,
-            comments[i].pos,
-            comments[i].pos
-          )
-        );
-      } else {
-        // update display name from our reference since we have one
-        lastFound.display = reference[key];
-        lastFound.code = true;
+      // process each key
+      for (let z = 0; z < keys.length; z++) {
+        // get actual key
+        const key = keys[z];
+
+        // check for a parameter not existing
+        if (!(key in reference)) {
+          problems.push(
+            SyntaxProblemWithoutTranslation(
+              IDL_PROBLEM_CODES.DOCUMENTED_PARAMETER_DOESNT_EXIST,
+              `${
+                IDL_TRANSLATION.parsing.errors[
+                  IDL_PROBLEM_CODES.DOCUMENTED_PARAMETER_DOESNT_EXIST
+                ]
+              }: "${key}"`,
+              comments[i].pos,
+              comments[i].pos
+            )
+          );
+        } else {
+          // update display name from our reference if we only have one
+          if (keys.length === 1) {
+            lastFound.display = reference[key];
+          }
+          lastFound.code = true;
+        }
+
+        // save our new block
+        details[key] = lastFound;
       }
-
-      // save our new block
-      details[key] = lastFound;
 
       /** Length of our match, variable so we can re-use later */
       const splitStart = match.index + match[0].length;
@@ -333,7 +352,7 @@ export function ExtractParameterDocs(
 
     // save line
     if (lastFound !== undefined) {
-      docsStrings.push(header.docs[i]);
+      docsStrings.push(docs[i]);
       docsComments.push(comments[i]);
     }
   }
@@ -341,6 +360,57 @@ export function ExtractParameterDocs(
   // check if we have docs to save
   if (lastFound !== undefined) {
     lastFound.docs = JoinDocs(docsStrings, docsComments, problems);
+  }
+
+  // if not IDL doc, reset all hover overrides
+  if (header.type !== 'idldoc') {
+    for (let i = 0; i < comments.length; i++) {
+      comments[i].hoverOverride = [];
+    }
+  }
+
+  /** Track keys we processed */
+  const processed: { [key: string]: undefined } = {};
+
+  // clean up display names and correct for the duplicates
+  // this is for legacy IDL doc tags
+  const keys = Object.keys(details);
+  for (let i = 0; i < keys.length; i++) {
+    // if we have comma separated then we have multiple for one!
+    if (details[keys[i]].display.includes(',')) {
+      /** Get source and copy it */
+      const prime = copy(details[keys[i]]);
+
+      /** Get all display names */
+      const allDisplay = details[keys[i]].display
+        .split(/,/g)
+        .map((item) => item.trim());
+
+      // process each display name
+      for (let z = 0; z < allDisplay.length; z++) {
+        if (z === 0) {
+          details[keys[i]].display = allDisplay[z];
+          continue;
+        }
+
+        /** get lower case */
+        const lc = allDisplay[z].toLowerCase();
+
+        // check if we need to skip
+        if (lc in processed) {
+          continue;
+        }
+
+        // update display name
+        prime.display = allDisplay[z];
+
+        // save
+        details[lc] = copy(prime);
+
+        // track as processed
+        processed[lc] = undefined;
+      }
+    }
   }
 
   return details;

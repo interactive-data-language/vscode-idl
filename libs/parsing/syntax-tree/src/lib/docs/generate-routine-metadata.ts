@@ -92,6 +92,17 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
   // get the keys for our docs
   const keys = Object.keys(docs);
   for (let i = 0; i < keys.length; i++) {
+    /**
+     * Get the problems that we will add to
+     *
+     * This helps us track what is missing from docs, etc
+     *
+     * From here we want to have the option to "ignore" problems potentially based
+     * on the docs style that they are using
+     */
+    // const useProblems = docs[keys[i]].type === 'idldoc' ? problems : problems;
+    const useProblems = problems;
+
     // check which key we are processing
     switch (keys[i]) {
       /**
@@ -109,7 +120,7 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
         }
 
         // populate docs
-        meta.args = ExtractParameterDocs(docs[keys[i]], argRef, problems);
+        meta.args = ExtractParameterDocs(docs[keys[i]], argRef, useProblems);
         break;
       }
 
@@ -128,7 +139,7 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
         }
 
         // populate docs
-        meta.kws = ExtractParameterDocs(docs[keys[i]], kwRef, problems);
+        meta.kws = ExtractParameterDocs(docs[keys[i]], kwRef, useProblems);
         break;
       }
 
@@ -156,7 +167,7 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
           structures[sIdx].meta.props = ExtractParameterDocs(
             docs[keys[i]],
             refProps,
-            problems,
+            useProblems,
             true
           );
 
@@ -169,7 +180,7 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
               structures[sIdx].meta.props[oldKeys[z]] = oldProps[oldKeys[z]];
 
               // report problem
-              problems.push(
+              useProblems.push(
                 SyntaxProblemWithoutTranslation(
                   IDL_PROBLEM_CODES.PROPERTY_MISSING_FROM_DOCS,
                   `${
@@ -191,7 +202,7 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
           docsLookup[keys[i]] = JoinDocs(
             docs[keys[i]].docs,
             docs[keys[i]].comments,
-            problems
+            useProblems
           );
         }
         break;
@@ -244,6 +255,9 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
 
         // validate docs
         switch (true) {
+          case returns.type !== 'idldoc':
+            // do nothing
+            break;
           case returnDocs.length === 0:
             problems.push(
               SyntaxProblemWithTranslation(

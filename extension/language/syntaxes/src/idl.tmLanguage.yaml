@@ -430,17 +430,25 @@ repository:
   # comment section header - legacy docs using "@param" style
   comment_docs_header_legacy:
     name: {{name_comment}}
-    match: ';\s*(@[a-z_$0-9]+(?:\s*[a-z_$0-9]+)?).*$'
+    match: ';\s*(@[a-z_$0-9]+\s*(?:[a-z_0-9$]+(?:\s*,\s*)?)+)(.*$)'
     captures:
       '1': 
         patterns:
           - include: '#comment_docs_header_legacy_param'
           - include: '#comment_docs_header_legacy_top_level'
+      '2': 
+        patterns:
+          - include: '#comment_docs_header_fancy_text'
+
+  # when we have "{input}" or "{type}" in legacy docs
+  comment_docs_header_fancy_text:
+    name: {{name_type}}
+    match: '\{[^\}]*\}'
 
   # comment section header for args/keywords
   comment_docs_header_legacy_param:
     name: {{name_docs_arg_kw}}
-    match: '@(param|arg|keyword)\s*([a-z_$0-9]+)?'
+    match: '@(param|arg|keyword)\s*((?:[a-z_0-9$]+(?:\s*,\s*)?)+)'
     captures:
       '2': { name: {{name_docs_accent}} }
 

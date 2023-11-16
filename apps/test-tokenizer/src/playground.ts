@@ -43,7 +43,9 @@ export async function Playground() {
      */
     let parsed: IParsed;
     const t1 = TimeIt(() => {
-      Parser(PLAYGROUND_CODE, new CancellationToken(), { cleanup: false });
+      parsed = Parser(PLAYGROUND_CODE, new CancellationToken(), {
+        cleanup: false,
+      });
     });
     console.log();
     console.log(`Parser time (ms): ${t1}`);
