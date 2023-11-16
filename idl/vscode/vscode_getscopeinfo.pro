@@ -118,7 +118,7 @@ pro vscode_getScopeInfo, level, output = output
 
   ; process each line
   output = strarr(3, countGo)
-  foreach idx, idxGo do begin
+  foreach idx, idxGo, iout do begin
     ; get our matches
     matches = allMatches[*, idx]
 
@@ -152,7 +152,7 @@ pro vscode_getScopeInfo, level, output = output
     endcase
 
     ; lower
-    output[*, idx] = [matches[1], type, desc]
+    output[*, iout] = [matches[1], type, desc]
   endforeach
 
   ; lower case
