@@ -463,6 +463,22 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Verify no completion for`,
+    fileName: `python.1.spec.ts`,
+    tests: [
+      {
+        name: `python code`,
+        file: `idl/test/auto-complete/python.pro`,
+        position: [
+          {
+            line: 3,
+            character: 3,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Regression tests`,
     fileName: `regression.1.spec.ts`,
     tests: [
