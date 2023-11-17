@@ -19,7 +19,7 @@ export const HEADER_TAG_LEGACY = /^\s*@([a-z_$0-9]+)/i;
 /**
  * If we have an input direction parameter
  */
-export const LEGACY_PARAMETER_NAME_SPLIT = /^\s*(?:[a-z_0-9$]+(?:\s*,\s*)?)+/i;
+export const LEGACY_PARAMETER_NAME_SPLIT = /^\s*(?:[a-z_0-9$]+(,\s*)?)+/i;
 
 /**
  * If we have an input direction parameter
