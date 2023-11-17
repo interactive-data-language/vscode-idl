@@ -37,6 +37,26 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Correctly provides auto complete for`,
+    fileName: `compile-opt-complete.1.spec.ts`,
+    tests: [
+      {
+        name: `compile opt statements`,
+        file: `idl/test/auto-complete/compile_opt_complete.pro`,
+        position: [
+          {
+            line: 1,
+            character: 12,
+          },
+          {
+            line: 3,
+            character: 17,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Don't do auto-complete`,
     fileName: `dont-complete.spec.ts`,
     tests: [

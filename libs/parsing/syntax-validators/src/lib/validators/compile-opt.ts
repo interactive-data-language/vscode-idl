@@ -107,18 +107,18 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
 /**
  * Allowed compile options
  */
-const COMPILE_OPTIONS: { [key: string]: boolean } = {
-  idl2: true,
-  idl3: true,
-  defint32: true,
-  float64: true,
-  hidden: true,
-  logical_predicate: true,
-  nosave: true,
-  obsolete: true,
-  static: true,
-  strictarr: true,
-  strictarrsubs: true,
+export const ALLOWED_COMPILE_OPTIONS: { [key: string]: undefined } = {
+  idl2: undefined,
+  idl3: undefined,
+  defint32: undefined,
+  float64: undefined,
+  hidden: undefined,
+  logical_predicate: undefined,
+  nosave: undefined,
+  obsolete: undefined,
+  static: undefined,
+  strictarr: undefined,
+  strictarrsubs: undefined,
 };
 
 /**
@@ -167,7 +167,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
       }
 
       // do we have an invalid compile option
-      if (!(compare in COMPILE_OPTIONS)) {
+      if (!(compare in ALLOWED_COMPILE_OPTIONS)) {
         token.parseProblems.push(IDL_PROBLEM_CODES.ILLEGAL_COMPILE_OPT);
         parsed.parseProblems.push(
           SyntaxProblemWithTranslation(
