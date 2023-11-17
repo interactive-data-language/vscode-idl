@@ -115,6 +115,8 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
             `; :Keywords:`,
             `;    DEBUG: in, optional, type=boolean, private`,
             `;      If set, errors are stopped on.`,
+            `;      Add a link to make sure it doesn't get picked up`,
+            `;        https://en.wikipedia.org/wiki/Haversine_formula`,
             `;    DATA_IGNORE_VALUE: in, optional, type=number`,
             `;      If one or both of your input rasters do not have`,
             `;      a data ignore value metadata item, you can specify`,
