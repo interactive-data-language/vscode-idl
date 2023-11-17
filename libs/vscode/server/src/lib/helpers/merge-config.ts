@@ -1,5 +1,9 @@
 import { IFolderRecursion } from '@idl/parsing/index';
-import { IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/parsing/problem-codes';
+import {
+  IDL_PROBLEM_CODE_SHORTHAND_CODE_LOOKUP,
+  IDL_PROBLEM_CODE_SHORTHAND_LOOKUP,
+  IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
+} from '@idl/parsing/problem-codes';
 import copy from 'fast-copy';
 
 import { GLOBAL_SERVER_SETTINGS } from '../initialize-server';
@@ -19,6 +23,7 @@ export const IGNORE_PROBLEM_CODES: { [key: number]: boolean } = {};
 export const INCLUDE_PROBLEMS_FOR = {
   IDL_PATH: true,
   IDL_PACKAGES: true,
+  DOCS: true,
 };
 
 /**
@@ -110,6 +115,27 @@ export function MergeConfig() {
   // update global flags
   INCLUDE_PROBLEMS_FOR.IDL_PATH = pathFlag;
   INCLUDE_PROBLEMS_FOR.IDL_PACKAGES = packagesFlag;
+  INCLUDE_PROBLEMS_FOR.DOCS =
+    configs.filter((config) => !config.problems.reportDocsProblems).length ===
+    0;
+
+  /**
+   * If we dont track problems for user docs, update ignore codes
+   */
+  if (!INCLUDE_PROBLEMS_FOR.DOCS) {
+    /**
+     * Get the codes that we add
+     */
+    const add =
+      IDL_PROBLEM_CODE_SHORTHAND_CODE_LOOKUP[
+        IDL_PROBLEM_CODE_SHORTHAND_LOOKUP.IDL_DOCS
+      ];
+
+    // add them!
+    for (let i = 0; i < add.length; i++) {
+      IGNORE_PROBLEM_CODES[add[i]] = true;
+    }
+  }
 
   // check which folders we need to
   const added: IFolderRecursion = {};

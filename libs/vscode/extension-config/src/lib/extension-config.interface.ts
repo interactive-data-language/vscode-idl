@@ -50,6 +50,10 @@ export interface IDLExtensionsConfigKeys {
   /** Do we embed graphics or not */
   readonly notebooksEmbedGraphics: 'notebooks.embedGraphics';
 
+  /** Key for problem preferences */
+  readonly problems: 'problems';
+  /** Do we report docs problems or not */
+  readonly problemsReportDocsProblems: 'problems.reportDocsProblems';
   /** User configured problem codes to ignore */
   readonly problemsIgnoreProblems: 'problems.ignoreProblems';
   /** If we include problems to files that live in an open workspace */
@@ -134,6 +138,8 @@ export interface INotebookConfig {
 }
 
 export interface IProblemConfig {
+  /** Do we report docs problems or not? */
+  readonly reportDocsProblems: boolean;
   /** User configured problem codes to ignore (problem codes or aliases) */
   readonly ignoreProblems: (number | string)[];
   /** If we include problems to files that live in an open workspace */
@@ -246,6 +252,8 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   notebooks: 'notebooks',
   notebooksEmbedGraphics: 'notebooks.embedGraphics',
 
+  problems: 'problems',
+  problemsReportDocsProblems: 'problems.reportDocsProblems',
   problemsIgnoreProblems: 'problems.ignoreProblems',
   problemsIncludeProblemsFromIDLPath: 'problems.includeProblemsFromIDLPath',
   problemsIncludeProblemsFromIDLPackages:
@@ -307,6 +315,7 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     embedGraphics: true,
   },
   problems: {
+    reportDocsProblems: true,
     ignoreProblems: [],
     includeProblemsFromIDLPath: true,
     includeProblemsFromIDLPackages: false,

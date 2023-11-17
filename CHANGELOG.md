@@ -36,7 +36,11 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 ## 4.1.0 November 2023
 
-Add auto-complete withing compile_opt statements
+Fixed a bug with the debugger that would fail to get information about your IDL session.
+
+Add auto-complete within compile_opt statements! This now shows you all the compile options that are available and is smart enough to filter out compile opts that have already been specified.
+
+Add a new option to disable reporting problems with user docs. This setting can be found under "Problem Reporting => Report Docs Problems".
 
 ## 4.0.0 November 2023
 
