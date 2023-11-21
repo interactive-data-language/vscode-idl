@@ -2103,7 +2103,11 @@ export class IDLIndex {
     this.log.log({
       log: IDL_LSP_LOG,
       type: 'info',
-      content: [`Attempting to index ${files.length} PRO file(s)`],
+      content: [
+        `Attempting to index ${files.length} PRO file(s) with ${
+          full ? 'full' : 'fast'
+        } parse`,
+      ],
     });
 
     /**
