@@ -15,7 +15,7 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
   TOKEN_NAMES.ACCESS_PROPERTY,
   (token, parsed, meta) => {
     // check for a property in our token cache
-    const prop = (token.cache as ITokenCache).property;
+    const prop = (token.cache as ITokenCache)?.property;
 
     // if we have a known property, transform the display name
     if (prop !== undefined) {
@@ -33,7 +33,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.STRUCTURE_PROPERTY,
   (token, parsed, meta) => {
     // check for a property in our token cache
-    const prop = (token.cache as ITokenCache).property;
+    const prop = (token.cache as ITokenCache)?.property;
 
     // transform case using known property or the text the user has written
     token.match[0] = TransformCase(
