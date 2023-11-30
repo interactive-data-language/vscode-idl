@@ -42,7 +42,11 @@ Add auto-complete within compile_opt statements! This now shows you all the comp
 
 Add a new option to disable reporting problems with user docs. This setting can be found under "Problem Reporting => Report Docs Problems".
 
-Fixed an issue that incorrectly handled when a system had an odd number of CPUs and we could not create the right number of worker threads
+Fixed an issue that incorrectly handled when a system had an odd number of CPUs and we could not create the right number of worker threads causing the language server to not start up
+
+Added the ability to parse legacy IDL Doc style tags that use the `@tag` style approach. Not all of the same docs functionality and validation works, but the core information is brought into the language server.
+
+If you are using AutoDoc when formatting code, any of these legacy IDL Doc docs will automatically be migrated to the RST (i.e. new) flavor of IDL Doc. This way, if you want, you have an option to migrate to the latest and greatest doc style automatically.
 
 ## 4.0.0 November 2023
 
