@@ -1,174 +1,41 @@
 /**
  * Code for use with the playground
  */
-export const PLAYGROUND_CODE = `PRO ENVIBoundingBoxSet_Example
-
-COMPILE_OPT IDL2, hidden
-
- 
-
-; Start the application
-
-e = ENVI(/HEADLESS)
-
- 
-
-; Define bounding box rings
-
-; [[xMin,yMin], [xMax,yMin], [xMax,yMax], [xMin,yMax], [xMin,yMin]]
-
-boxes = [ $
-
-  [[530, 381], [570, 381], [570, 421], [530, 421], [530, 381]], $
-
-  [[438, 859], [478, 859], [478, 899], [438, 899], [438, 859]], $
-
-  [[392, 212], [432, 212], [432, 252], [392, 252], [392, 212]], $
-
-  [[636, 499], [676, 499], [676, 539], [636, 539], [636, 499]], $
-
-  [[266, 519], [306, 519], [306, 559], [266, 559], [266, 519]], $
-
-  [[398, 729], [438, 729], [438, 769], [398, 769], [398, 729]], $
-
-  [[300, 486], [340, 486], [340, 526], [300, 526], [300, 486]], $
-
-  [[400, 545], [440, 545], [440, 585], [400, 585], [400, 545]], $
-
-  [[204, 723], [244, 723], [244, 763], [204, 763], [204, 723]]]
-
- 
-
-; Supplement class labels, colors, and bounding boxes
-
-labels = List('red_car', 'green_car', 'blue_car')
-
-colors = List([255,0,0], [0,255,0], [0,0,255])
-
-classBoxes = (List(boxes[*,*,0:2], boxes[*,*,3:5], boxes[*,*,6:8])).ToArray(/TRANSPOSE)
-
- 
-
-; Construct the bounding box set
-
-bboxSet = ENVIBoundingBoxSet()
-
- 
-
-; Iterate class labels, adding class information to the object
-
-FOREACH name, labels, index DO BEGIN
-
-  bboxSet.AddClass, CLASS=index, LABEL=name, COLOR=colors[index]
-
- 
-
-  ; Assign three boxes per class
-
-  FOR n=0, 2 DO BEGIN
-
-    bboxSet.AddBoundingBox, CLASS=index, BOUNDING_BOX=classBoxes[*,*,index,n]
-
-  ENDFOR
-
-ENDFOREACH
-
- 
-
-Print, 'Classes:'
-
-Print, bboxSet.Classes
-
-Print, 'Labels:'
-
-Print, bboxSet.Labels
-
-Print, 'Class Colors: '
-
-Print, bboxSet.Colors
-
-Print, 'Classes Count: ', bboxSet.nClasses
-
-Print, 'Bounding Box Count: ', bboxSet.nBounding_Boxes
-
-Print, 'Class to Bounding Box Map:'
-
-Print, bboxSet.Bounding_Boxes_Per_Class
-
-Print, 'Get Bounding Box by Index: '
-
- 
-
-; Get the first bounding box in class 0
-
-Print, bboxSet.GetBoundingBox(CLASS=0, INDEX=0)
-
-Print, 'Get All Class 1 Bounding Boxes:'
-
- 
-
-; Get all bounding boxes for class 1
-
-Print, bboxSet.GetBoundingBox(CLASS=1, /ALL), /IMPLIED
-
- 
-
-; Remove boxes and classes
-
-; First, remove all bounding boxes from class 0
-
-bboxSet.RemoveBoundingBox, CLASS=0, /ALL
-
- 
-
-; Remove the bounding box at index 0 in class 1
-
-bboxSet.RemoveBoundingBox, CLASS=1, INDEX=0
-
- 
-
-; Remove a bounding box from class 2 (using coordinates)
-
-bboxSet.RemoveBoundingBox, CLASS=2, BOUNDING_BOX=classBoxes[*,*,2,0]
-
- 
-
-; Remove the red_car class
-
-bboxSet.RemoveClass, CLASS=0
-
- 
-
-Print, 'After removing boxes and class 0.
-
-Print, 'Classes:'
-
-Print, bboxSet.Classes
-
-Print, 'Labels:'
-
-Print, bboxSet.Labels
-
-Print, 'Class Colors: '
-
-Print, bboxSet.Colors
-
-Print, 'Classes Count: ', bboxSet.nClasses
-
-Print, 'Bounding Box Count: ', bboxSet.nBounding_Boxes
-
-Print, 'Class to Bounding Box Map:'
-
-Print, bboxSet.Bounding_Boxes_Per_Class
-
- 
-
-; Get GeoJSON and display
-
-geoJson = bboxSet.GetGeoJSON()
-
-Print, geoJson, /IMPLIED
-
- 
-
-END`;
+export const PLAYGROUND_CODE = `;+
+; LatLon_Distance
+;   Computes the distance of a rhumb line connecting two points on a sphere or spheroid
+;
+; @param lon1, lat1 {input} Longitude and latitude of the 1st point, p0
+; @param lon2, lat2 {input} Longitude and latitude of the 2nd point, p1
+; @param method {input} The method to be used, options are:
+;   1 - Haversine (sphere) - selected by default
+;   2 - Vincenty  (spheroid)
+;
+; @keyword meters  Set this keyword to return the distance in meters
+; @keyword radians Set this keyword if inputs are specified in radians (the default is degrees)
+; @keyword radius  Set this keyword to a value specifying the radius of the sphere to be used, in [km]
+;   the default value is the Authalic radius (equal area hyothetical perfect sphere) = 6371.0072
+; @keyword semimajor_axis Set this keyword to the length of the semimajor axis of the reference ellipsoid, in [m]
+;   the default value is the WGS-84 6378137
+; @keyword semiminor_axis Set this keyword to the length of the semiminor axis of the reference ellipsoid, in [m]
+;   the default value is the WGS-84 6356752.314245
+;
+; @returns The distance between the 2 points, [km] by default
+;
+; @references
+;   Haversine formula ( great-circle distance between two points on a sphere )
+;     https://en.wikipedia.org/wiki/Haversine_formula
+;   Vincenty formula ( distance between two points on the surface of a spheroid )
+;     https://en.wikipedia.org/wiki/Vincenty%27s_formulae
+;     https://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf
+;
+; @history
+;   Thu Jul 29, 2021 - Introduce the Vincenty equation (computation of distances over an spheroid)
+;   Sun Apr 23, 2023 - Fix the Vincenty calculation at latitudes close to zero
+;   Wed May 10, 2023 - Allow arrays in the Vincenty method
+;-
+function idltasktest, lon1, lat1, lon2, lat2, method, meters = meters, radians = radians, radius  = radius, semimajor_axis = semimajor_axis, semiminor_axis = semiminor_axis
+  compile_opt idl2 
+
+  return, 1
+end`;
