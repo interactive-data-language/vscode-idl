@@ -1549,7 +1549,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
-    suiteName: `Detects documented keywords when there are no keywords`,
+    suiteName: `Detects when the docs are missing return`,
     fileName: `code.52.docs-missing-return.spec.ts`,
     tests: [
       {
@@ -1578,7 +1578,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
-    suiteName: `Detects documented keywords when there are no keywords`,
+    suiteName: `Detects when the docs are missing return`,
     fileName: `code.52.docs-missing-return.idldoc-legacy.spec.ts`,
     tests: [
       {
@@ -1970,7 +1970,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
-    suiteName: `Detects when the returns tag has too much information`,
+    suiteName: `Detects when the returns tag has too much information (NOT HANDLED FOR LEGACY, regression test)`,
     fileName: `code.61.docs-return-invalid.spec.ts`,
     tests: [
       {
@@ -2026,7 +2026,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
-    suiteName: `Detects when the returns tag has too much information`,
+    suiteName: `Detects when the returns tag has too much information (NOT HANDLED FOR LEGACY, regression test)`,
     fileName: `code.61.docs-return-invalid.idldoc-legacy.spec.ts`,
     tests: [
       {

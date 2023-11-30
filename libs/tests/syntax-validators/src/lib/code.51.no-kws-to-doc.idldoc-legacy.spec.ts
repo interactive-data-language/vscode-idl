@@ -5,7 +5,7 @@ import { SyntaxProblems } from '@idl/parsing/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
-describe(`[auto generated] Detects when the docs are missing return`, () => {
+describe(`[auto generated] Detects documented keywords when there are no keywords`, () => {
   it(`[auto generated] no problems`, async () => {
     // create index
     const index = new IDLIndex(
@@ -20,11 +20,14 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
     // test code to extract tokens from
     const code = [
       `;+`,
-      `; :Returns: number`,
+      `; @description`,
+      `;   My favorite thing`,
+      `;`,
+      `; @keyword kw1 My favorite keyword`,
+      `;`,
       `;-`,
-      `function myfunc`,
+      `pro myclass::mymethod, KW1=kw1`,
       `  compile_opt idl2`,
-      `  return, 1`,
       `end`,
     ];
 
@@ -37,7 +40,14 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
     );
 
     // define expected tokens
-    const expected: SyntaxProblems = [];
+    const expected: SyntaxProblems = [
+      {
+        code: 104,
+        info: 'Unused variable "kw1"',
+        start: [7, 27, 3],
+        end: [7, 27, 3],
+      },
+    ];
 
     // verify results
     expect(
@@ -59,10 +69,14 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
     // test code to extract tokens from
     const code = [
       `;+`,
+      `; @description`,
+      `;   My favorite thing`,
+      `;`,
+      `; @keyword kw1 My favorite keyword`,
+      `;`,
       `;-`,
-      `function myfunc`,
+      `pro myclass::mymethod`,
       `  compile_opt idl2`,
-      `  return, 1`,
       `end`,
     ];
 
@@ -77,10 +91,16 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 52,
-        info: 'Expected a documentation tag for ":Returns:" since this is a function or function method',
-        start: [0, 0, 2],
-        end: [1, 0, 2],
+        code: 63,
+        info: 'Documented argument, keyword, or property does not exist: "kw1"',
+        start: [4, 0, 34],
+        end: [4, 0, 34],
+      },
+      {
+        code: 51,
+        info: 'Documentation includes keywords, but none are present in routine definition',
+        start: [4, 2, 9],
+        end: [5, 0, 1],
       },
     ];
 

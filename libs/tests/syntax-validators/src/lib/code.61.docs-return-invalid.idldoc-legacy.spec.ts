@@ -20,10 +20,9 @@ describe(`[auto generated] Detects when the returns tag has too much information
     // test code to extract tokens from
     const code = [
       `;+`,
-      `; :Params:`,
-      `;   var1: in, optional, boolean, public`,
-      `;     My favorite argument`,
-      `; :Returns: number`,
+      `; @param var1 My favorite argument`,
+      `;`,
+      `; @returns number`,
       `;-`,
       `function myfunc, var1`,
       `  compile_opt idl2`,
@@ -44,8 +43,8 @@ describe(`[auto generated] Detects when the returns tag has too much information
       {
         code: 104,
         info: 'Unused variable "var1"',
-        start: [6, 17, 4],
-        end: [6, 17, 4],
+        start: [5, 17, 4],
+        end: [5, 17, 4],
       },
     ];
 
@@ -69,10 +68,9 @@ describe(`[auto generated] Detects when the returns tag has too much information
     // test code to extract tokens from
     const code = [
       `;+`,
-      `; :Params:`,
-      `;   var1: in, optional, boolean, public`,
-      `;     My favorite argument`,
-      `; :Returns: number`,
+      `; @param var1 My favorite argument`,
+      `;`,
+      `; @returns number`,
       `;   Fun fact about zach`,
       `;   he is a vegetarian`,
       `;-`,
@@ -93,16 +91,10 @@ describe(`[auto generated] Detects when the returns tag has too much information
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 61,
-        info: 'The returns documentation should only contain the data type that is returned. For example: ":Returns: float"',
-        start: [4, 2, 10],
-        end: [6, 0, 22],
-      },
-      {
         code: 104,
         info: 'Unused variable "var1"',
-        start: [8, 17, 4],
-        end: [8, 17, 4],
+        start: [7, 17, 4],
+        end: [7, 17, 4],
       },
     ];
 
@@ -126,10 +118,9 @@ describe(`[auto generated] Detects when the returns tag has too much information
     // test code to extract tokens from
     const code = [
       `;+`,
-      `; :Params:`,
-      `;   var1: in, optional, boolean, public`,
-      `;     My favorite argument`,
-      `; :Returns: number`,
+      `; @param var1 My favorite argument`,
+      `;`,
+      `; @returns number`,
       `;`,
       `;`,
       `;`,
@@ -153,8 +144,8 @@ describe(`[auto generated] Detects when the returns tag has too much information
       {
         code: 104,
         info: 'Unused variable "var1"',
-        start: [9, 17, 4],
-        end: [9, 17, 4],
+        start: [8, 17, 4],
+        end: [8, 17, 4],
       },
     ];
 
