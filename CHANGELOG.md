@@ -42,7 +42,7 @@ Add auto-complete within compile_opt statements! This now shows you all the comp
 
 Add a new option to disable reporting problems with user docs. This setting can be found under "Problem Reporting => Report Docs Problems".
 
-Fixed a potential issue where detecting the number of CPUs on a machine would return a value of zero
+Fixed an issue that incorrectly handled when a system had an odd number of CPUs and we could not create the right number of worker threads
 
 ## 4.0.0 November 2023
 
