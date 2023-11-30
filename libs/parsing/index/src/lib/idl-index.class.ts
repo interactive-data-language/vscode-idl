@@ -100,7 +100,7 @@ import { GetTokenDefinition } from './token-definiton/get-token-definition';
  * change much over 4 workers.
  */
 export const NUM_WORKERS = Math.min(
-  Math.max(Math.max(cpus().length, 1) / 2, 1),
+  Math.ceil(Math.max(cpus().length, 1) / 2),
   6
 );
 
