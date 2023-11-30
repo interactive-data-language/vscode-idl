@@ -99,7 +99,10 @@ import { GetTokenDefinition } from './token-definiton/get-token-definition';
  * Auto-pick the number of workers. On higher-end machines, doesn't
  * change much over 4 workers.
  */
-export const NUM_WORKERS = Math.min(Math.max(cpus().length / 2, 1), 6);
+export const NUM_WORKERS = Math.min(
+  Math.max(Math.max(cpus().length, 1) / 2, 1),
+  6
+);
 
 /**
  * Class that manages the creation of an index from all IDL code
