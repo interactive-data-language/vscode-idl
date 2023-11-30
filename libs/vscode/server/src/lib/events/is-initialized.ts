@@ -161,7 +161,7 @@ SERVER_INFO.then(async (res) => {
     /**
      * Check if we can't detect the number of CPUs
      */
-    if (cpus().length === 0) {
+    if (cpus().length <= 0) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,
         content:
