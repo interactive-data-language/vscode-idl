@@ -42,6 +42,8 @@ Add auto-complete within compile_opt statements! This now shows you all the comp
 
 Add a new option to disable reporting problems with user docs. This setting can be found under "Problem Reporting => Report Docs Problems".
 
+Fixed a potential issue where detecting the number of CPUs on a machine would return a value of zero
+
 ## 4.0.0 November 2023
 
 The official release of IDL Notebooks! This is a first pass at adding notebook support for IDL (which is independent from Jupyter). We are hoping to have early adopters try it out and provide feedback on how notebooks behave. Read below to learn more or find an example IDL and ENVI Notebook directly within VSCode in the IDL sidebar.
