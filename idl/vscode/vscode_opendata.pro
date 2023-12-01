@@ -24,7 +24,7 @@ pro vscode_openData, uri
     catch, /cancel
     help, /last_message, output = o
     out['reason'] = 'envi-error'
-    out['error'] = err
+    out['error'] = o
     goto, result
   endif else begin
     ; get the current instance of ENVI
@@ -56,7 +56,7 @@ pro vscode_openData, uri
   ; display our raster
   e.refresh, /disable
   view = e.getView()
-  layer = view.createLayer(rasters[0]) ; default to first raster
+  !null = view.createLayer(rasters[0]) ; default to first raster
   view.zoom, /full_extent
   e.refresh
 

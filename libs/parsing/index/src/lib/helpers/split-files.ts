@@ -24,7 +24,7 @@ function GetMinIdx(sizes: number[]) {
  * Returns an array of string arrays that represent the files that
  * get processed on each worker or thread.
  */
-export function SplitFiles(files: string[], nBuckets: number) {
+export function SplitFiles(files: string[], nBuckets: number): string[][] {
   // return original
   if (nBuckets < 2) {
     return [files];

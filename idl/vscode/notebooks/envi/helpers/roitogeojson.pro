@@ -13,8 +13,6 @@
 ;   epsg_code: in, optional, Long
 ;     Specify the output EPSG code that you want the ROI to be
 ;     reprojected to.
-;   geojson: bidirectional, optional, any
-;     Placeholder docs for argument, keyword, or property
 ;   has_features: out, required, Boolean
 ;     This output keyword is a flag that alerts you if there are
 ;     actually features in the ROI you specified or not.
@@ -23,8 +21,6 @@
 ;     on disk that you want to parse. The ROIs **must** exist on
 ;     disk in order to parse the XML. You can create ROIs without
 ;     saving them to disk so this is important to be aware of.
-;   no_save: bidirectional, optional, any
-;     Placeholder docs for argument, keyword, or property
 ;   output_geojson_uri: out, required, String
 ;     This contains a fully-qualified filepath to the generated
 ;     GeoJSON file.
@@ -68,10 +64,8 @@
 pro ROItoGeoJSON, $
   debug = debug, $
   epsg_code = epsg_code, $
-  geojson = geojson, $
   has_features = has_features, $
   input_roi = input_roi, $
-  no_save = no_save, $
   output_geojson_uri = output_geojson_uri
   compile_opt idl2, hidden
   if ~keyword_set(debug) then on_error, 2
@@ -107,7 +101,6 @@ pro ROItoGeoJSON, $
   ; make some lists to store information about our ROI
   verts = list()
   types = list()
-  multipoints = list()
   properties = list()
 
   ; lookup for coord sys since we may iterate many times, reduce overhead
@@ -121,7 +114,6 @@ pro ROItoGeoJSON, $
 
     ; process all geometries
     foreach geoCollection, roiInfo['geometry'], geoType do begin
-      n = n_elements(geoCollection)
       ; print, '  Geometry: ' + geoType, ', Geometries: ' + strtrim(n)
       ; process all features for our geometries
       foreach item, geoCollection do begin

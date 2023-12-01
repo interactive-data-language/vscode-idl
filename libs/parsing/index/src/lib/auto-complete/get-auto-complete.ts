@@ -5,8 +5,13 @@ import {
   IBranch,
   IsWithinToken,
   TreeBranchToken,
+  TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { StructureNameToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import {
+  ControlCompileOptToken,
+  StructureNameToken,
+  TOKEN_NAMES,
+} from '@idl/parsing/tokenizer';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { GetAutoCompleteResponse } from '@idl/workers/parsing';
 import { MarkupKind, Position } from 'vscode-languageserver/node';
@@ -14,6 +19,7 @@ import { MarkupKind, Position } from 'vscode-languageserver/node';
 import { GetTypeBefore } from '../helpers/get-type-before';
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
+import { AddCompletionCompileOpts } from './completion-for/add-completion-compile-opts';
 import { AddCompletionExecutiveCommands } from './completion-for/add-completion-executive-commands';
 import { AddCompletionFunctionMethods } from './completion-for/add-completion-function-methods';
 import { AddCompletionFunctions } from './completion-for/add-completion-functions';
@@ -50,6 +56,7 @@ SKIP_THESE_TOKENS[TOKEN_NAMES.QUOTE_DOUBLE] = true;
 SKIP_THESE_TOKENS[TOKEN_NAMES.QUOTE_SINGLE] = true;
 SKIP_THESE_TOKENS[TOKEN_NAMES.STRING_TEMPLATE_STRING] = true;
 SKIP_THESE_TOKENS[TOKEN_NAMES.NUMBER] = true;
+SKIP_THESE_TOKENS[TOKEN_NAMES.PYTHON] = true;
 
 /**
  * Tokens that we dont do anything for
@@ -123,6 +130,20 @@ export async function GetAutoComplete(
         return [];
       case token?.name === TOKEN_NAMES.INCLUDE:
         AddCompletionInclude(items, index);
+        return items;
+      case local?.name === TOKEN_NAMES.CONTROL_COMPILE_OPT:
+        AddCompletionCompileOpts(
+          items,
+          local as TreeToken<ControlCompileOptToken>,
+          formatting
+        );
+        return items;
+      case token?.name === TOKEN_NAMES.CONTROL_COMPILE_OPT:
+        AddCompletionCompileOpts(
+          items,
+          token as TreeToken<ControlCompileOptToken>,
+          formatting
+        );
         return items;
       case token?.name === TOKEN_NAMES.SYSTEM_VARIABLE:
         AddCompletionSystemVariables(items, formatting);

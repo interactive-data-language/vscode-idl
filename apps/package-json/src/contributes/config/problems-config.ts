@@ -55,6 +55,19 @@ export function AddProblemsConfig(nls: IPackageNLS) {
     scope: IDL_CONFIG_SCOPE,
   };
 
+  // folders to not ask to init config for
+  ourConfig.properties[
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsReportDocsProblems}`
+  ] = {
+    type: 'boolean',
+    default: DEFAULT_IDL_EXTENSION_CONFIG.problems.reportDocsProblems,
+    description: TranslationFromConfiguration(
+      IDL_EXTENSION_CONFIG_KEYS.problemsReportDocsProblems,
+      nls
+    ),
+    scope: IDL_CONFIG_SCOPE,
+  };
+
   // problem codes to ignore
   ourConfig.properties[
     `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsIgnoreProblems}`

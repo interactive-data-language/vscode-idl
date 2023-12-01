@@ -130,7 +130,6 @@ pro ShapeFileToGeoJSON, $
     nAtt = n_elements(attNames)
 
     ; make attribute names all lower case
-    orig = attNames
     attNames = strlowcase(attNames)
 
     ; correct duplicate names so that we have valid JSON, i.e. make all unique
@@ -151,7 +150,7 @@ pro ShapeFileToGeoJSON, $
 
     ; figure out which attributes are strings or not
     flags = bytarr(nAtt)
-    foreach name, attNames, nIdx do flags[nIdx] = isa(attributes[0].(nIdx), /string)
+    for nIdx = 0, n_elements(attNames) - 1 do flags[nIdx] = isa(attributes[0].(nIdx), /string)
     front = strarr(nAtt)
     back = strarr(nAtt)
 
@@ -203,7 +202,7 @@ pro ShapeFileToGeoJSON, $
         (11): ; point-z
         (21): begin ; point-m
           ; check if we have vertices or not
-          if ptr_valid(vertices) then begin
+          if ptr_valid(*entity.vertices) then begin
             vert = *entity.vertices
           endif else begin
             vert = [entity.bounds[0], entity.bounds[1]]
@@ -239,7 +238,7 @@ pro ShapeFileToGeoJSON, $
           break ;
         end
 
-        else: okEntinty = 0 ; do nothing
+        else: ; do nothing
       endswitch
 
       ; skip if not an ok entity

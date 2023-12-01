@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -743,6 +743,12 @@
             "type": "boolean",
             "default": false,
             "description": "%configuration.descriptions.problems.includeProblemsFromIDLPackages%",
+            "scope": "machine-overridable"
+          },
+          "idl.problems.reportDocsProblems": {
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.descriptions.problems.reportDocsProblems%",
             "scope": "machine-overridable"
           },
           "idl.problems.ignoreProblems": {

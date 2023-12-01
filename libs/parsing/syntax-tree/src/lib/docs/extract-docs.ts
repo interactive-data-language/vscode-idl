@@ -9,11 +9,14 @@ import {
   IHeaderDocs,
   REMOVE_COMMENT_REGEX,
 } from './extract-docs.interface';
+import { ExtractLegacyDocs } from './extract-legacy-docs';
 import { IDL_HEADER_MAP } from './header-map.interface';
 
 /**
  * Takes comments from a comment block and converts it into
  * documentation for things like hover help and auto-complete.
+ *
+ * This attempts to parse docs in the IDL Doc style of docs
  */
 export function ExtractDocs(comments: IBasicBranch<CommentToken>[]): IDocs {
   /** Track code by blocks */
@@ -28,6 +31,7 @@ export function ExtractDocs(comments: IBasicBranch<CommentToken>[]): IDocs {
       end: [0, 0, 0],
       docs: [],
       comments: [],
+      type: 'idldoc',
     };
     return blocks;
   }
@@ -39,6 +43,7 @@ export function ExtractDocs(comments: IBasicBranch<CommentToken>[]): IDocs {
     end: comments[0].pos,
     docs: [],
     comments: [],
+    type: 'idldoc',
   };
 
   /** Track the last found block which we will save text to if a new block is not found */
@@ -66,7 +71,7 @@ export function ExtractDocs(comments: IBasicBranch<CommentToken>[]): IDocs {
 
     // skip if the end of our comments
     if (END_COMMENT_BLOCK_REGEX.test(line)) {
-      continue;
+      break;
     }
 
     // get length
@@ -88,6 +93,7 @@ export function ExtractDocs(comments: IBasicBranch<CommentToken>[]): IDocs {
         end: [comments[i].pos[0], match.index + 1 + startLoc, match[0].length],
         docs: [],
         comments: [],
+        type: 'idldoc',
       };
 
       // get the key
@@ -127,5 +133,9 @@ export function ExtractDocs(comments: IBasicBranch<CommentToken>[]): IDocs {
     lastFound.end = [comments[i].pos[0], 0, line.length + startLoc];
   }
 
+  // do some post-processing and see if we need to try and detect some legacy comments
+  ExtractLegacyDocs(comments, blocks);
+
+  // return the blocks that we processed
   return blocks;
 }

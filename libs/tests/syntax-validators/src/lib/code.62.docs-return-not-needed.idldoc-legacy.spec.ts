@@ -5,7 +5,7 @@ import { SyntaxProblems } from '@idl/parsing/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
-describe(`[auto generated] Detects when the docs are missing return`, () => {
+describe(`[auto generated] Detects when the returns tag is present for procedures`, () => {
   it(`[auto generated] no problems`, async () => {
     // create index
     const index = new IDLIndex(
@@ -20,11 +20,10 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
     // test code to extract tokens from
     const code = [
       `;+`,
-      `; :Returns: number`,
+      `; @param var1 My favorite argument`,
       `;-`,
-      `function myfunc`,
+      `pro myroutine, var1`,
       `  compile_opt idl2`,
-      `  return, 1`,
       `end`,
     ];
 
@@ -37,7 +36,14 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
     );
 
     // define expected tokens
-    const expected: SyntaxProblems = [];
+    const expected: SyntaxProblems = [
+      {
+        code: 104,
+        info: 'Unused variable "var1"',
+        start: [3, 15, 4],
+        end: [3, 15, 4],
+      },
+    ];
 
     // verify results
     expect(
@@ -59,10 +65,12 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
     // test code to extract tokens from
     const code = [
       `;+`,
+      `; @param var1 My favorite argument`,
+      `;`,
+      `; @returns number`,
       `;-`,
-      `function myfunc`,
+      `pro myroutine, var1`,
       `  compile_opt idl2`,
-      `  return, 1`,
       `end`,
     ];
 
@@ -77,10 +85,16 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 52,
-        info: 'Expected a documentation tag for ":Returns:" since this is a function or function method',
+        code: 62,
+        info: 'For procedures, the ":Returns:" documentation tag is not needed because procedures cannot return values',
         start: [0, 0, 2],
-        end: [1, 0, 2],
+        end: [4, 0, 2],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "var1"',
+        start: [5, 15, 4],
+        end: [5, 15, 4],
       },
     ];
 

@@ -158,6 +158,18 @@ SERVER_INFO.then(async (res) => {
       content: ['Server initialized, indexing code in these folders:', merged],
     });
 
+    /**
+     * Check if we can't detect the number of CPUs
+     */
+    if (cpus().length <= 0) {
+      IDL_LANGUAGE_SERVER_LOGGER.log({
+        log: IDL_LSP_LOG,
+        content:
+          'Unable to detect the number of CPUs, defaulting to 1 worker thread, performance may be impacted',
+        type: 'warn',
+      });
+    }
+
     // alert that we have started indexing
     SERVER_EVENT_MANAGER.sendNotification(
       LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,

@@ -203,7 +203,7 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
   contour, ps, path_info = path_info, path_xy = vertices, /path_data_coords, nlevels = 1
 
   ; get the number of parts
-  nParts = n_elements(path_info) eq 1 ? 0 : n_elements(path_info)
+  ; nParts = n_elements(path_info) eq 1 ? 0 : n_elements(path_info)
 
   ; make a list to store our outlines
   valid = list()
@@ -224,7 +224,7 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
     tot1 += n_elements(newIdx)
 
     ; get the area of our vertices
-    area = abs(Poly_area(verts[0, *], verts[1, *]))
+    area = abs(poly_area(verts[0, *], verts[1, *]))
 
     ; check if our area is too small and we need to skip
     if (area le IGNORE_CLUMP_MINIMUM) then continue

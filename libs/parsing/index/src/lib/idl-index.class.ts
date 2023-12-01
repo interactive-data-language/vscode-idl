@@ -99,7 +99,10 @@ import { GetTokenDefinition } from './token-definiton/get-token-definition';
  * Auto-pick the number of workers. On higher-end machines, doesn't
  * change much over 4 workers.
  */
-export const NUM_WORKERS = Math.min(Math.max(cpus().length / 2, 1), 6);
+export const NUM_WORKERS = Math.min(
+  Math.ceil(Math.max(cpus().length, 1) / 2),
+  6
+);
 
 /**
  * Class that manages the creation of an index from all IDL code
@@ -2103,7 +2106,11 @@ export class IDLIndex {
     this.log.log({
       log: IDL_LSP_LOG,
       type: 'info',
-      content: [`Attempting to index ${files.length} PRO file(s)`],
+      content: [
+        `Attempting to index ${files.length} PRO file(s) with ${
+          full ? 'full' : 'fast'
+        } parse`,
+      ],
     });
 
     /**

@@ -34,6 +34,22 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 - When generating ENVI and IDL tasks, using our new case libraries, we attempt to make a pretty display name from parameter names. For example converting the keyword "my_keyword" to "My Keyword". This applied to task and parameter display names.
 
+## 4.1.0 November 2023
+
+Fixed a bug with the debugger that would fail to get information about your IDL session.
+
+Add auto-complete within compile_opt statements! This now shows you all the compile options that are available and is smart enough to filter out compile opts that have already been specified.
+
+Add a new option to disable reporting problems with user docs. This setting can be found under "Problem Reporting => Report Docs Problems".
+
+Fixed an issue that incorrectly handled when a system had an odd number of CPUs and we could not create the right number of worker threads causing the language server to not start up
+
+Added the ability to parse legacy IDL Doc style tags that use the `@tag` style approach. Not all of the same docs functionality and validation works, but the core information is brought into the language server.
+
+- If you are using AutoDoc when formatting code, any of these legacy IDL Doc docs will automatically be migrated to the RST (i.e. new) flavor of IDL Doc. This way, if you want, you have an option to migrate to the latest and greatest doc style automatically.
+
+- Also updated syntax highlighting to account for these docs tags
+
 ## 4.0.0 November 2023
 
 The official release of IDL Notebooks! This is a first pass at adding notebook support for IDL (which is independent from Jupyter). We are hoping to have early adopters try it out and provide feedback on how notebooks behave. Read below to learn more or find an example IDL and ENVI Notebook directly within VSCode in the IDL sidebar.

@@ -1,7 +1,8 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
+import { Tokenizer } from '@idl/parsing/tokenizer';
 import { TimeItAsync } from '@idl/shared';
-import * as glob from 'fast-glob';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import * as progressBar from 'progress';
@@ -33,7 +34,8 @@ export async function TokenizerTest(
   );
 
   // search for files
-  const files = await glob('**/**.pro', { cwd: folder });
+  // const files = await glob('**/**.pro', { cwd: folder });
+  const files = await index.findFiles(folder, '**/**.pro');
   if (files.length === 0) {
     throw new Error(`No ".pro" files found in "${folder}"`);
   }
@@ -52,7 +54,7 @@ export async function TokenizerTest(
       title: `${i + 1}/${files.length}`,
       file: files[i],
     });
-    const read = readFileSync(join(folder, files[i]), 'utf-8').split('\n');
+    const read = readFileSync(files[i], 'utf-8').split('\n');
     lines += read.length;
     code.push(read);
   }
@@ -75,31 +77,36 @@ export async function TokenizerTest(
         width: 25,
       }
     );
-    // for (let i = 0; i < code.length; i++) {
-    //   const canTick = true;
+    for (let i = 0; i < code.length; i++) {
+      const canTick = true;
 
-    //   // extract tokens
-    //   if (useIndex) {
-    //     // TrackPopularity(index, await index.indexCode(files[i], code[i], true));
-    //     await index.getParsedCode(files[i], code[i], true);
-    //   } else {
-    //     Tokenizer(code[i]);
-    //   }
+      // extract tokens
+      if (useIndex) {
+        // TrackPopularity(index, await index.indexCode(files[i], code[i], true));
+        await index.getParsedProCode(
+          files[i],
+          code[i],
+          new CancellationToken(),
+          { postProcess: true }
+        );
+      } else {
+        Tokenizer(code[i], new CancellationToken());
+      }
 
-    //   // tick the bar if we can
-    //   if (canTick) {
-    //     bar2.tick({
-    //       title: `${i + 1}/${files.length}`,
-    //       file: files[i],
-    //     });
-    //   }
-    // }
+      // tick the bar if we can
+      if (canTick) {
+        bar2.tick({
+          title: `${i + 1}/${files.length}`,
+          file: files[i],
+        });
+      }
+    }
 
-    bar2.tick({
-      title: `Indexing`,
-      file: `workspace with threads`,
-    });
-    await index.indexWorkspace(folder);
+    // bar2.tick({
+    //   title: `Indexing`,
+    //   file: `workspace with threads`,
+    // });
+    // await index.indexWorkspace(folder);
 
     bar2.complete = true;
     bar2.render();

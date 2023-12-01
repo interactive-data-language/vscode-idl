@@ -17,7 +17,7 @@ pro vscode_getBreakpoints
 
   ; recursively collapse
   while !true do begin
-    idxSpace = where(strpos(o, ' ') eq 0, countSpace, complement = idxN)
+    idxSpace = where(strpos(o, ' ') eq 0, countSpace)
     if (countSpace gt 0) then begin
       o[idxSpace - 1] += o[idxSpace]
       o[idxSpace] = ''

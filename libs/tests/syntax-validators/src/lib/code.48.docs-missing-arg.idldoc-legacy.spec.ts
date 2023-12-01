@@ -5,7 +5,7 @@ import { SyntaxProblems } from '@idl/parsing/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
-describe(`[auto generated] Detects when the docs are missing return`, () => {
+describe(`[auto generated] Detects args missing from docs`, () => {
   it(`[auto generated] no problems`, async () => {
     // create index
     const index = new IDLIndex(
@@ -20,11 +20,14 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
     // test code to extract tokens from
     const code = [
       `;+`,
-      `; :Returns: number`,
+      `; @description`,
+      `;   My favorite routine`,
+      `;`,
+      `; @param var1 My favorite argument`,
+      `;`,
       `;-`,
-      `function myfunc`,
+      `pro myclass::mymethod, var1`,
       `  compile_opt idl2`,
-      `  return, 1`,
       `end`,
     ];
 
@@ -37,7 +40,14 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
     );
 
     // define expected tokens
-    const expected: SyntaxProblems = [];
+    const expected: SyntaxProblems = [
+      {
+        code: 104,
+        info: 'Unused variable "var1"',
+        start: [7, 23, 4],
+        end: [7, 23, 4],
+      },
+    ];
 
     // verify results
     expect(
@@ -59,10 +69,12 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
     // test code to extract tokens from
     const code = [
       `;+`,
+      `; @description`,
+      `;   My favorite routine`,
+      `;`,
       `;-`,
-      `function myfunc`,
+      `pro myclass::mymethod, var1`,
       `  compile_opt idl2`,
-      `  return, 1`,
       `end`,
     ];
 
@@ -77,10 +89,22 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 52,
-        info: 'Expected a documentation tag for ":Returns:" since this is a function or function method',
+        code: 64,
+        info: 'Parameter is missing from documentation: "var1"',
+        start: [5, 23, 4],
+        end: [5, 23, 4],
+      },
+      {
+        code: 48,
+        info: 'Argument(s) are missing from the documentation for the routine',
         start: [0, 0, 2],
-        end: [1, 0, 2],
+        end: [4, 0, 2],
+      },
+      {
+        code: 104,
+        info: 'Unused variable "var1"',
+        start: [5, 23, 4],
+        end: [5, 23, 4],
       },
     ];
 

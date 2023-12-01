@@ -58,7 +58,7 @@ function vtxSmoothGeometry, vertices, methods, thresholds, debug = debug, auto_s
     case useMethods[i] of
       'idl': begin
         ply = obj_new('IDLanPolygon2D', vertices = smoothed)
-        foo = ply.simplify(keyword_set(auto_scale) ? useThresholds[i] * (alog(nVerts)) ^ 2 : useThresholds[i])
+        !null = ply.simplify(keyword_set(auto_scale) ? useThresholds[i] * (alog(nVerts)) ^ 2 : useThresholds[i])
         ply.getproperty, vertices = smoothed
       end
       'zhull': begin
