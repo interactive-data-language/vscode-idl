@@ -19,6 +19,7 @@ import { RunTestENVINotebook } from './run-test-envi-notebook';
 import { RunTestNotebook } from './run-test-notebook';
 import { RunUnsavedNotebook } from './run-unsaved-notebook';
 import { SaveAndClearNotebook } from './save-and-clear-output';
+import { VerifyQuietNotebookSetting } from './verify-quiet-notebook-setting';
 
 /*
  * Logger to be used for tests related to debugging
@@ -136,6 +137,14 @@ NOTEBOOK_RUNNER.addTest({
   name: 'Stop does the right thing',
   fn: RunNotebookStop,
   critical: true,
+});
+
+// make sure quiet mode works right
+// this should always be after the RunNotebookStop test which makes
+// sure we have a fresh session to tweak preferences for
+NOTEBOOK_RUNNER.addTest({
+  name: 'Verify quiet mode for notebooks',
+  fn: VerifyQuietNotebookSetting,
 });
 
 // notebook problems track right
