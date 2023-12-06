@@ -725,6 +725,12 @@
             "default": true,
             "description": "%configuration.descriptions.notebooks.embedGraphics%",
             "scope": "machine-overridable"
+          },
+          "idl.notebooks.quietMode": {
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.descriptions.notebooks.quietMode%",
+            "scope": "machine-overridable"
           }
         }
       },

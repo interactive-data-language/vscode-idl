@@ -222,6 +222,8 @@ export const EN: ITranslation = {
 
       notebooks:
         'Preferences that control notebook user experience for IDL Notebooks',
+      'notebooks.quietMode':
+        'When enabled, automatically sets `!quiet` to a value of `1` to suppress too much output from IDL and keep notebook cell outputs cleaner.',
       'notebooks.embedGraphics':
         "Are graphics embedded as output within each cell?\n\nIf you have open notebooks, you'll need to stop IDL and then re-run cells for changes to take effect.",
 

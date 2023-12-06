@@ -47,6 +47,8 @@ export interface IDLExtensionsConfigKeys {
 
   /** Key for notebook preferences */
   readonly notebooks: 'notebooks';
+  /** Do we make IDL quiet? */
+  readonly notebooksQuietMode: 'notebooks.quietMode';
   /** Do we embed graphics or not */
   readonly notebooksEmbedGraphics: 'notebooks.embedGraphics';
 
@@ -133,6 +135,8 @@ export interface ILanguageServerConfig {
 }
 
 export interface INotebookConfig {
+  /** Do we make IDL quiet? */
+  quietMode: boolean;
   /** Do we embed graphics into notebooks? */
   embedGraphics: boolean;
 }
@@ -250,6 +254,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   languageServerFullParse: 'languageServer.fullParse',
 
   notebooks: 'notebooks',
+  notebooksQuietMode: 'notebooks.quietMode',
   notebooksEmbedGraphics: 'notebooks.embedGraphics',
 
   problems: 'problems',
@@ -312,6 +317,7 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     fullParse: true,
   },
   notebooks: {
+    quietMode: true,
     embedGraphics: true,
   },
   problems: {

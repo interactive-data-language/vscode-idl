@@ -375,7 +375,7 @@ export class IDLNotebookController {
        */
       const commands = [
         `retall`,
-        '!quiet = 1',
+        `!quiet = ${IDL_EXTENSION_CONFIG.notebooks.quietMode ? '1' : '0'}`,
         `!magic.embed = ${
           IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
         }`,
@@ -413,7 +413,7 @@ export class IDLNotebookController {
      */
     const compile = [
       `compile_opt idl2`,
-      `!quiet = 1`,
+      `!quiet = ${IDL_EXTENSION_CONFIG.notebooks.quietMode ? '1' : '0'}`,
       `!magic.embed = ${
         IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
       }`,
