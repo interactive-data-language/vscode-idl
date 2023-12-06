@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -724,6 +724,12 @@
             "type": "boolean",
             "default": true,
             "description": "%configuration.descriptions.notebooks.embedGraphics%",
+            "scope": "machine-overridable"
+          },
+          "idl.notebooks.quietMode": {
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.descriptions.notebooks.quietMode%",
             "scope": "machine-overridable"
           }
         }

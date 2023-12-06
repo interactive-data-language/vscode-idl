@@ -222,6 +222,8 @@ export const EN: ITranslation = {
 
       notebooks:
         'Preferences that control notebook user experience for IDL Notebooks',
+      'notebooks.quietMode':
+        'When enabled, automatically sets `!quiet` to a value of `1` to suppress too much output from IDL and keep notebook cell outputs cleaner.',
       'notebooks.embedGraphics':
         "Are graphics embedded as output within each cell?\n\nIf you have open notebooks, you'll need to stop IDL and then re-run cells for changes to take effect.",
 
@@ -359,6 +361,7 @@ export const EN: ITranslation = {
       noRoutineFound:
         'No main level program or function/procedure with same name as file found',
       returning: 'File compiled while active, returning...',
+      nothingToEdit: 'No matching file found',
       noPauseOnWindows: 'Pause is not currently supported on Windows platforms',
       syntaxError:
         'IDL detected a syntax error on this line when compiling your code',

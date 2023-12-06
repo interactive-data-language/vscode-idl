@@ -34,6 +34,12 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 - When generating ENVI and IDL tasks, using our new case libraries, we attempt to make a pretty display name from parameter names. For example converting the keyword "my_keyword" to "My Keyword". This applied to task and parameter display names.
 
+## 4.1.1 December 2023
+
+Added a new preference for notebooks called "Quiet Mode" that allows you to control the IDL preference for `!quiet` when executing notebook cells.
+
+When using ".edit" in the debug console, added a message that let's you know that a matching file was not found.
+
 ## 4.1.0 November 2023
 
 Fixed a bug with the debugger that would fail to get information about your IDL session.

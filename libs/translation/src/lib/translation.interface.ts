@@ -348,6 +348,8 @@ export interface ITranslation {
       syntaxError: string;
       /** Warning text for the debug console to let users know it is a preview feature */
       previewWarning: string;
+      /** When no file is found from .edit */
+      nothingToEdit: string;
     };
     /** Error translations */
     errors: {

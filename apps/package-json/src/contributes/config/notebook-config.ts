@@ -39,6 +39,19 @@ export function AddNotebookConfig(nls: IPackageNLS) {
     scope: IDL_CONFIG_SCOPE,
   };
 
+  // should our extension run in debug mode
+  ourConfig.properties[
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.notebooksQuietMode}`
+  ] = {
+    type: 'boolean',
+    default: DEFAULT_IDL_EXTENSION_CONFIG.notebooks.quietMode,
+    description: TranslationFromConfiguration(
+      IDL_EXTENSION_CONFIG_KEYS.notebooksQuietMode,
+      nls
+    ),
+    scope: IDL_CONFIG_SCOPE,
+  };
+
   // save in overall extension config
   EXTENSION_CONFIG.push(ourConfig);
 }
