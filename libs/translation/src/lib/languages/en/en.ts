@@ -361,6 +361,7 @@ export const EN: ITranslation = {
       noRoutineFound:
         'No main level program or function/procedure with same name as file found',
       returning: 'File compiled while active, returning...',
+      nothingToEdit: 'No matching file found',
       noPauseOnWindows: 'Pause is not currently supported on Windows platforms',
       syntaxError:
         'IDL detected a syntax error on this line when compiling your code',

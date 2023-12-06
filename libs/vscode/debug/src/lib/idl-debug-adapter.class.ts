@@ -1420,6 +1420,13 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       vscode.commands.executeCommand(VSCODE_COMMANDS.OPEN_FILE, file, {
         preview: false,
       });
+    } else {
+      this.sendEvent(
+        new OutputEvent(
+          `${IDL_TRANSLATION.debugger.adapter.nothingToEdit}\n`,
+          'stderr'
+        )
+      );
     }
   }
 
