@@ -394,7 +394,7 @@ export class IDLIndex {
     /**
      * Get the include file we need to find
      */
-    let match = token.match[1].toLowerCase();
+    let match = token.match[0].substring(1).toLowerCase();
 
     // make sure it ends with ".pro"
     if (!match.endsWith('.pro')) {

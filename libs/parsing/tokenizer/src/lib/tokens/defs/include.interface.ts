@@ -7,5 +7,5 @@ export type IncludeTokenDef = ITokenDef<IncludeToken>;
  */
 export const INCLUDE: IncludeTokenDef = {
   name: TOKEN_NAMES.INCLUDE,
-  match: /@([^\s]*)/im,
+  match: /@[^\s]*/im,
 };
