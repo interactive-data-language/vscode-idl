@@ -19,5 +19,10 @@ export const EXECUTIVE_COMMAND: ExecutiveCommandTokenDef = {
  * Matches detected from executive commands
  * @param {string} match Full match
  * @param {string} args Command args
+ * @param {string} after Everything afterwards
  */
-export type ExecutiveCommandMatches = [match: string, args: string];
+export type ExecutiveCommandMatches = [
+  match: string,
+  args: string,
+  after: string
+];
