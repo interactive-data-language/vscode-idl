@@ -7,6 +7,7 @@ import {
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   FindDirectBranchChildren,
+  GetPropertyName,
   GetRoutineNameFromScope,
   IParsed,
   SyntaxProblemWithoutTranslation,
@@ -81,7 +82,7 @@ export function TypeFromStructure(
     const prop = properties[i];
 
     // get the property name
-    const propName = prop.match[1];
+    const propName = GetPropertyName(prop);
 
     // get lower case name
     const usePropName = propName.toLowerCase();

@@ -57,24 +57,21 @@ export const STRUCTURE_INHERITANCE: StructureInheritanceTokenDef = {
 export type StructurePropertyTokenDef = ITokenDef<StructurePropertyToken>;
 
 /**
+ * Property definition/creation/setting for structures
+ */
+export const STRUCTURE_PROPERTY: StructurePropertyTokenDef = {
+  name: TOKEN_NAMES.STRUCTURE_PROPERTY,
+  match: /[a-z0-9_$]+\s*:/im,
+  end: IDL_ASSIGNMENT_END,
+};
+
+/**
  * Matches for structure properties
  *
  * @param {string} fullMatch Full match for property, including colon
  * @param {string} propertyName Property name
  */
-export type StructurePropertyMatches = [
-  fullMatch: string,
-  propertyName: string
-];
-
-/**
- * Property definition/creation/setting for structures
- */
-export const STRUCTURE_PROPERTY: StructurePropertyTokenDef = {
-  name: TOKEN_NAMES.STRUCTURE_PROPERTY,
-  match: /([a-z0-9_$]*)\s*:/im,
-  end: IDL_ASSIGNMENT_END,
-};
+export type StructurePropertyMatches = [fullMatch: string];
 
 export type StructureIndexedPropertyTokenDef =
   ITokenDef<StructureIndexedPropertyToken>;

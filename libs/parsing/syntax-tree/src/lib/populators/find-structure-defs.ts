@@ -12,6 +12,7 @@ import {
 } from '@idl/parsing/tokenizer';
 
 import { TreeToken } from '../branches.interface';
+import { GetPropertyName } from '../helpers/get-property-name';
 import { FindAllBranchChildren } from '../helpers/searching/find-all-branch-children';
 import { FindDirectBranchChildren } from '../helpers/searching/find-direct-branch-children';
 
@@ -115,7 +116,7 @@ export function FindStructureDefs(
     // add all of our properties
     for (let j = 0; j < propTokens.length; j++) {
       const prop = propTokens[j];
-      const propName = prop.match[1];
+      const propName = GetPropertyName(prop);
       const useName = propName.toLowerCase();
       props[useName] = {
         direction: 'bidirectional',

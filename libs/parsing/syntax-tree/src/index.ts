@@ -14,6 +14,7 @@ export * from './lib/helpers/get-before';
 export * from './lib/helpers/get-before-in-branch';
 export * from './lib/helpers/get-local-token-lookup';
 export * from './lib/helpers/get-next-in-branch';
+export * from './lib/helpers/get-property-name';
 export * from './lib/helpers/get-routine-name';
 export * from './lib/helpers/get-routine-name-from-scope';
 export * from './lib/helpers/get-token-at-cursor';

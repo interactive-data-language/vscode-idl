@@ -132,7 +132,7 @@ describe(`[auto generated] Validates executive command parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [0, 11, 7],
-        matches: [`.method`, `.`, `method`],
+        matches: [`.method`],
       },
       {
         type: TOKEN_TYPES.END,

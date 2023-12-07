@@ -55,7 +55,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
                     type: '0',
                     name: 81,
                     pos: [0, 5, 5],
-                    match: ['prop:', 'prop'],
+                    match: ['prop:'],
                     idx: 0,
                     scope: [54, 3, 77],
                     parseProblems: [],

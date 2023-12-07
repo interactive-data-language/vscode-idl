@@ -28,7 +28,7 @@ describe(`[auto generated] Validates property parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [0, 1, 6],
-        matches: [`.thing`, `.`, `thing`],
+        matches: [`.thing`],
       },
       {
         type: TOKEN_TYPES.START,
@@ -84,7 +84,7 @@ describe(`[auto generated] Validates property parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [0, 5, 6],
-        matches: [`.thing`, `.`, `thing`],
+        matches: [`.thing`],
       },
       {
         type: TOKEN_TYPES.END,
@@ -140,7 +140,7 @@ describe(`[auto generated] Validates property parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [1, 3, 6],
-        matches: [`.thing`, `.`, `thing`],
+        matches: [`.thing`],
       },
       {
         type: TOKEN_TYPES.END,
@@ -184,13 +184,13 @@ describe(`[auto generated] Validates property parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [0, 5, 7],
-        matches: [`.thing1`, `.`, `thing1`],
+        matches: [`.thing1`],
       },
       {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [0, 12, 7],
-        matches: [`.thing2`, `.`, `thing2`],
+        matches: [`.thing2`],
       },
       {
         type: TOKEN_TYPES.END,
@@ -234,7 +234,7 @@ describe(`[auto generated] Validates property parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [0, 8, 6],
-        matches: [`.thing`, `.`, `thing`],
+        matches: [`.thing`],
       },
       {
         type: TOKEN_TYPES.BASIC,
@@ -252,7 +252,7 @@ describe(`[auto generated] Validates property parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [0, 17, 6],
-        matches: [`.thing`, `.`, `thing`],
+        matches: [`.thing`],
       },
       {
         type: TOKEN_TYPES.END,
@@ -308,7 +308,7 @@ describe(`[auto generated] Validates property parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [0, 8, 16],
-        matches: [`.bottomSelection`, `.`, `bottomSelection`],
+        matches: [`.bottomSelection`],
       },
       {
         type: TOKEN_TYPES.START,

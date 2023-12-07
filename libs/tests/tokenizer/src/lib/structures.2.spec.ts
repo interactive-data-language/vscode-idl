@@ -102,7 +102,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.START,
         name: TOKEN_NAMES.STRUCTURE_PROPERTY,
         pos: [0, 51, 5],
-        matches: [`prop:`, `prop`],
+        matches: [`prop:`],
       },
       {
         type: TOKEN_TYPES.BASIC,
@@ -194,7 +194,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.START,
         name: TOKEN_NAMES.STRUCTURE_PROPERTY,
         pos: [1, 2, 6],
-        matches: [`thing:`, `thing`],
+        matches: [`thing:`],
       },
       {
         type: TOKEN_TYPES.START,
@@ -218,7 +218,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.START,
         name: TOKEN_NAMES.STRUCTURE_PROPERTY,
         pos: [1, 16, 5],
-        matches: [`some:`, `some`],
+        matches: [`some:`],
       },
       {
         type: TOKEN_TYPES.BASIC,
@@ -331,7 +331,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [0, 38, 4],
-        matches: [`.top`, `.`, `top`],
+        matches: [`.top`],
       },
       {
         type: TOKEN_TYPES.BASIC,

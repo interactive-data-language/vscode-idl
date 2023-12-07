@@ -11,13 +11,13 @@ export type AccessPropertyTokenDef = ITokenDef<AccessPropertyToken>;
  */
 export const ACCESS_PROPERTY: AccessPropertyTokenDef = {
   name: TOKEN_NAMES.ACCESS_PROPERTY,
-  match: /(\.)([a-z_][a-z0-9_$]*)/im,
+  // we need to have the more specific first start for the property so we
+  // dont grab decimals
+  match: /\.[a-z_][a-z0-9_$]*/im,
 };
 
 /**
  * Matches detected by accessing properties
  * @param {string} match Full match
- * @param {string} dot Property dot
- * @param {string} name Name of the property we are accessing.
  */
-export type AccessPropertyMatches = [match: string, dot: string, name: string];
+export type AccessPropertyMatches = [match: string];

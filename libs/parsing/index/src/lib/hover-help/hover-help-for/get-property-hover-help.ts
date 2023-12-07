@@ -3,7 +3,7 @@ import {
   IDL_STRUCTURE_TYPE,
   IDLTypeHelper,
 } from '@idl/data-types/core';
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { GetPropertyName, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   AccessPropertyToken,
   StructurePropertyToken,
@@ -12,7 +12,6 @@ import { IDL_TRANSLATION } from '@idl/translation';
 
 import { GetProperty } from '../../helpers/get-property';
 import { GetPropertyDisplayName } from '../../helpers/get-property-display-name';
-import { GetPropertyName } from '../../helpers/get-property-name';
 import { IDLIndex } from '../../idl-index.class';
 
 /**

@@ -294,7 +294,7 @@ describe(`[auto generated] Validates procedure method parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [0, 9, 8],
-        matches: [`.markers`, `.`, `markers`],
+        matches: [`.markers`],
       },
       {
         type: TOKEN_TYPES.END,

@@ -8,7 +8,7 @@ import {
   IPropertyLookup,
   ParseIDLType,
 } from '@idl/data-types/core';
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { GetPropertyName, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   AccessPropertyToken,
   StructurePropertyToken,
@@ -20,7 +20,6 @@ import { IDLIndex } from '../idl-index.class';
 import { TypeFromTokens } from '../post-process/populate-type/from/type-from-tokens';
 import { ITokenCache } from '../token-cache.interface';
 import { IFoundProperty } from './get-property.interface';
-import { GetPropertyName } from './get-property-name';
 
 /**
  * Returns type information for the specified property
