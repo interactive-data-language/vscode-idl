@@ -19,11 +19,6 @@ export const COMMENT_FORMATTER: TokenFormatter<CommentToken> = (
   if (meta.scope.slice(-1)[0] === TOKEN_NAMES.COMMENT_BLOCK) {
     token.match[0] = `;${token.match[0].substring(1)}`.trimEnd();
   } else {
-    // get everything by the first match, join together, remove excess comments
-    token.match[0] = `; ${token.match
-      .slice(1, token.match.length)
-      .map((el) => el.trim())
-      .join(' ')
-      .trim()}`;
+    token.match[0] = `; ${token.match[0].substring(1).trim()}`;
   }
 };

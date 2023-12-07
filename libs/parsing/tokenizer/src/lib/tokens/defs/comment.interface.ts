@@ -5,6 +5,9 @@ import {
   TOKEN_NAMES,
 } from '../../tokens.interface';
 
+/**
+ * Token definition for comment
+ */
 export type CommentTokenDef = ITokenDef<CommentToken>;
 
 /**
@@ -12,30 +15,19 @@ export type CommentTokenDef = ITokenDef<CommentToken>;
  */
 export const COMMENT: CommentTokenDef = {
   name: TOKEN_NAMES.COMMENT,
-  match: /;\s*(TODO:)?(.*)$/im,
+  match: /;\s*.*$/im,
 };
 
 /**
- * Comment match without TODO
+ * Comment match
  *
  * @param {string} full Full match including the start of the comment
- * @param {string} comment Text after the semi-colon
  */
-export type CommentMatches = [full: string, comment: string];
+export type CommentMatches = [full: string];
 
 /**
- * Comment match with TODO
- *
- * @param {string} full Full match including the start of the comment
- * @param {string} todo TODO text, including semi-colon
- * @param {string} comment Statement to do
+ * Token definition for comment blocks
  */
-export type CommentWithToDoMatches = [
-  full: string,
-  todo: string,
-  comment: string
-];
-
 export type CommentBlockTokenDef = ITokenDef<CommentBlockToken>;
 
 /**

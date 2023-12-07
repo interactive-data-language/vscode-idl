@@ -24,7 +24,6 @@ import { AccessPropertyMatches } from './tokens/defs/access-property.interface';
 import {
   CommentBlockMatches,
   CommentMatches,
-  CommentWithToDoMatches,
 } from './tokens/defs/comment.interface';
 import {
   KeywordBinaryMatches,
@@ -64,7 +63,7 @@ export type TokenStartMatches<T extends TokenName> =
     : T extends CallProcedureMethodToken
     ? CallProcedureMethodMatches
     : T extends CommentToken
-    ? CommentMatches | CommentWithToDoMatches
+    ? CommentMatches
     : T extends CommentBlockToken
     ? CommentBlockMatches
     : T extends KeywordBinaryToken
