@@ -22,7 +22,7 @@ describe(`[auto generated] Validates comment parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 1, 13],
-        matches: [`; something()`, `something()`],
+        matches: [`; something()`],
       },
     ];
 
@@ -72,7 +72,7 @@ describe(`[auto generated] Validates comment parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 8, 13],
-        matches: [`; something()`, `something()`],
+        matches: [`; something()`],
       },
     ];
 
@@ -92,7 +92,7 @@ describe(`[auto generated] Validates comment parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 1, 19],
-        matches: [`; TODO: something()`, `TODO:`, ` something()`],
+        matches: [`; TODO: something()`],
       },
     ];
 
@@ -142,7 +142,7 @@ describe(`[auto generated] Validates comment parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 8, 19],
-        matches: [`; TODO: something()`, `TODO:`, ` something()`],
+        matches: [`; TODO: something()`],
       },
     ];
 
@@ -180,7 +180,7 @@ describe(`[auto generated] Validates comment parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 6, 19],
-        matches: [`; TODO: something()`, `TODO:`, ` something()`],
+        matches: [`; TODO: something()`],
       },
       {
         type: TOKEN_TYPES.END,

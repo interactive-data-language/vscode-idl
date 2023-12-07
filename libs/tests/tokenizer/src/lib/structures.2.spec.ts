@@ -138,7 +138,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 59, 9],
-        matches: [`; comment`, `comment`],
+        matches: [`; comment`],
       },
     ];
 
@@ -182,7 +182,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 11, 11],
-        matches: [`; something`, `something`],
+        matches: [`; something`],
       },
       {
         type: TOKEN_TYPES.END,

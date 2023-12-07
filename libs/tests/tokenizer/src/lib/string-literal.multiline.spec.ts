@@ -48,7 +48,7 @@ describe(`[auto generated] Verify string literal processing with multi-line stat
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [1, 0, 7],
-        matches: [`; thing`, `thing`],
+        matches: [`; thing`],
       },
       {
         type: TOKEN_TYPES.BASIC,

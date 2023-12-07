@@ -142,7 +142,7 @@ describe(`[auto generated] Validates for if-then-else parsing [3]`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 30, 12],
-        matches: [`;Symmetrical`, `Symmetrical`],
+        matches: [`;Symmetrical`],
       },
     ];
 

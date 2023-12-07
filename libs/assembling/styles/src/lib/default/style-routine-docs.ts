@@ -247,7 +247,7 @@ export function ReplaceRoutineDocs(parsed: IParsed, style: ICodeStyle) {
             type: BRANCH_TYPES.BASIC,
             name: TOKEN_NAMES.COMMENT,
             pos: [start + j, 0, docs[j].length],
-            match: [docs[j], docs[j].substring(2)],
+            match: [docs[j]],
             idx: j,
             parseProblems: [],
             scope: scope,

@@ -37,7 +37,7 @@ describe(`[auto generated] Correctly identify variables instead of function call
                 type: '1',
                 name: 15,
                 pos: [0, 0, 9],
-                match: [';+ my var', '+ my var'],
+                match: [';+ my var'],
                 idx: 0,
                 scope: [54, 16],
                 parseProblems: [],

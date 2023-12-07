@@ -64,7 +64,7 @@ describe(`[auto generated] Validates routine parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 22, 9],
-        matches: [`; comment`, `comment`],
+        matches: [`; comment`],
       },
       {
         type: TOKEN_TYPES.END,
@@ -222,7 +222,7 @@ describe(`[auto generated] Validates routine parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 25, 9],
-        matches: [`; comment`, `comment`],
+        matches: [`; comment`],
       },
       {
         type: TOKEN_TYPES.END,
@@ -381,7 +381,7 @@ describe(`[auto generated] Validates routine parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 31, 9],
-        matches: [`; comment`, `comment`],
+        matches: [`; comment`],
       },
       {
         type: TOKEN_TYPES.END,
@@ -393,7 +393,7 @@ describe(`[auto generated] Validates routine parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [1, 2, 18],
-        matches: [`; skip empty lines`, `skip empty lines`],
+        matches: [`; skip empty lines`],
       },
       {
         type: TOKEN_TYPES.BASIC,
@@ -547,7 +547,7 @@ describe(`[auto generated] Validates routine parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 40, 9],
-        matches: [`; comment`, `comment`],
+        matches: [`; comment`],
       },
       {
         type: TOKEN_TYPES.END,

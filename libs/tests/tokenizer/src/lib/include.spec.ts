@@ -234,7 +234,7 @@ describe(`[auto generated] Validates include statements, but not correct locatio
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 13, 9],
-        matches: [`; comment`, `comment`],
+        matches: [`; comment`],
       },
     ];
 

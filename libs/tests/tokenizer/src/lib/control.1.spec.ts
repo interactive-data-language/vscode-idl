@@ -125,7 +125,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [5, 10, 8],
-        matches: [`;comment`, `comment`],
+        matches: [`;comment`],
       },
     ];
 
@@ -502,7 +502,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [0, 32, 9],
-        matches: [`; comment`, `comment`],
+        matches: [`; comment`],
       },
       {
         type: TOKEN_TYPES.START,
@@ -538,7 +538,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [1, 21, 19],
-        matches: [`; line continuation`, `line continuation`],
+        matches: [`; line continuation`],
       },
       {
         type: TOKEN_TYPES.END,

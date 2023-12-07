@@ -88,7 +88,7 @@ describe(`[auto generated] Correctly map options for compound control statements
             type: '1',
             name: 15,
             pos: [2, 19, 16],
-            match: ['; ignore for now', 'ignore for now'],
+            match: ['; ignore for now'],
             idx: 3,
             scope: [72],
             parseProblems: [],
