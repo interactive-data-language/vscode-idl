@@ -18,7 +18,7 @@ import {
 import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
 import { Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { GetIncludeFile, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { IncludeToken } from '@idl/parsing/tokenizer';
 import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
@@ -394,7 +394,7 @@ export class IDLIndex {
     /**
      * Get the include file we need to find
      */
-    let match = token.match[0].substring(1).toLowerCase();
+    let match = GetIncludeFile(token);
 
     // make sure it ends with ".pro"
     if (!match.endsWith('.pro')) {
