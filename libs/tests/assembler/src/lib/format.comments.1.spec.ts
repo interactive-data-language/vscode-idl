@@ -54,7 +54,7 @@ describe(`[auto generated] Verify comment`, () => {
       const expectedFormatting: string[] = [
         `a = 42 ; comment OK`,
         `; ; comment bad, now fixed`,
-        `; TODO: something super crazy`,
+        `; TODO:   something super crazy`,
         `compile_opt idl2`,
         ``,
         `end`,

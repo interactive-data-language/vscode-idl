@@ -51,7 +51,7 @@ describe(`[auto generated] Validates case statement`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.COMMENT,
         pos: [1, 3, 16],
-        matches: [`; something cool`, `something cool`],
+        matches: [`; something cool`],
       },
       {
         type: TOKEN_TYPES.BASIC,
