@@ -186,7 +186,7 @@ client.on(
     );
 
     // make non-circular
-    RemoveScopeDetail(parsed, cancel);
+    RemoveScopeDetail(parsed, cancel, true);
 
     // return
     return parsed;
@@ -208,7 +208,7 @@ client.on(
     );
 
     // make non-circular
-    RemoveScopeDetail(parsed, cancel);
+    RemoveScopeDetail(parsed, cancel, true);
 
     // return
     return parsed;
@@ -396,7 +396,7 @@ client.on(
 
     // make non-circular
     if (parsed !== undefined) {
-      RemoveScopeDetail(parsed, cancel);
+      RemoveScopeDetail(parsed, cancel, true);
     }
 
     return parsed;
