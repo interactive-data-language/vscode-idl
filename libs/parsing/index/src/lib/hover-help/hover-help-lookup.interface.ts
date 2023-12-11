@@ -5,11 +5,13 @@ import { PositionArray } from '@idl/parsing/tokenizer-types';
  * Lightweight version of hover help that reduces the amount of data that needs to
  * be passed around
  */
-export interface IHoverHelpLookup<T extends GlobalTokenType> {
+export interface IHoverHelpLookup {
+  /** Actual help content if we have it */
+  content?: string;
   /** Type of global token */
-  type: T;
+  type?: GlobalTokenType;
   /** Name of the global token */
-  name: string;
+  name?: string;
   /** Position in our document that we show hover help for */
   pos: PositionArray;
   /** Name of the argument we want */

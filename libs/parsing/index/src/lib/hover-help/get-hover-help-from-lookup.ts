@@ -2,7 +2,6 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalRoutineToken,
   GlobalStructureToken,
-  GlobalTokenType,
   IGlobalIndexedToken,
 } from '@idl/data-types/core';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
@@ -34,7 +33,7 @@ ROUTINE_GLOBAL_TYPES[GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD] = true;
  */
 export async function GetHoverHelpFromLookup(
   index: IDLIndex,
-  lookup: IHoverHelpLookup<GlobalTokenType>,
+  lookup: IHoverHelpLookup,
   config: IDLExtensionConfig
 ): Promise<Hover> {
   /**
