@@ -9,13 +9,13 @@ import {
 import { PositionArray } from '@idl/parsing/tokenizer-types';
 
 /** Branch in our syntax tree that has a start, end, and potentially children */
-export type SyntaxTreeBranch = '0';
+export type SyntaxTreeBranch = 0;
 
 /** Basic (i.e. baby) branch in syntax tree where we don't have children */
-export type SyntaxTreeBasic = '1';
+export type SyntaxTreeBasic = 1;
 
 /** Unknown branch that we parsed */
-export type SyntaxTreeUnknown = '2';
+export type SyntaxTreeUnknown = 2;
 
 /** All allowed types of branches */
 export type SyntaxTreeBranches =
@@ -152,7 +152,7 @@ interface IBranchLookup {
  * Constant with lookup for branch types
  */
 export const BRANCH_TYPES: IBranchLookup = {
-  BRANCH: '0',
-  BASIC: '1',
-  UNKNOWN: '2',
+  BRANCH: 0,
+  BASIC: 1,
+  UNKNOWN: 2,
 };
