@@ -481,7 +481,15 @@ export class IDLIndex {
     config: IDLExtensionConfig = DEFAULT_IDL_EXTENSION_CONFIG,
     formatting: IAssemblerOptions<FormatterType> = DEFAULT_ASSEMBLER_OPTIONS
   ): Promise<GetAutoCompleteResponse> {
-    return GetAutoComplete(this, file, code, position, config, formatting);
+    if (this.isMultiThreaded()) {
+      return await this.indexerPool.workerio.postAndReceiveMessage(
+        this.getWorkerID(file),
+        LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_AUTO_COMPLETE,
+        { file, code, position, config }
+      ).response;
+    } else {
+      return GetAutoComplete(this, file, code, position, config, formatting);
+    }
   }
 
   /**
