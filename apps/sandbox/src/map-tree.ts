@@ -24,18 +24,18 @@ function MapTreeRecursor(tree: SyntaxTree, scope: number[]): MiniTree {
     const iScope = scope.concat([i]);
 
     // check what kind of node we are working with
-    if (tree[i].t === BRANCH_TYPES.BRANCH) {
+    if (tree[i].type === BRANCH_TYPES.BRANCH) {
       const add: MiniTreeToken<NonBasicTokenNames> = [
         i,
         BRANCH_TYPES.BRANCH,
-        tree[i].n as any,
+        tree[i].name as any,
         scope.concat([i]),
-        [[tree[i].p, tree[i].match]],
-        tree[i].p,
+        [[tree[i].pos, tree[i].match]],
+        tree[i].parseProblems,
         {
-          accessTokens: tree[i].at,
-          cache: tree[i].c,
-          hoverOverride: tree[i].h,
+          accessTokens: tree[i].accessTokens,
+          cache: tree[i].cache,
+          hoverOverride: tree[i].hoverOverride,
         },
         MapTreeRecursor((tree[i] as TreeBranchToken).kids, iScope),
       ];
@@ -46,14 +46,14 @@ function MapTreeRecursor(tree: SyntaxTree, scope: number[]): MiniTree {
       const add: MiniTreeToken<BasicTokenNames> = [
         i,
         BRANCH_TYPES.BASIC,
-        tree[i].n as any,
+        tree[i].name as any,
         scope.concat([i]),
-        [[tree[i].p, tree[i].match]],
-        tree[i].p,
+        [[tree[i].pos, tree[i].match]],
+        tree[i].parseProblems,
         {
-          accessTokens: tree[i].at,
-          cache: tree[i].c,
-          hoverOverride: tree[i].h,
+          accessTokens: tree[i].accessTokens,
+          cache: tree[i].cache,
+          hoverOverride: tree[i].hoverOverride,
         },
       ];
 
