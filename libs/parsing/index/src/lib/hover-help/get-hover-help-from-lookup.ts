@@ -152,7 +152,7 @@ export async function GetHoverHelpFromLookup(
           }
           default:
             help = global.meta.docs;
-            canExample = true;
+            canExample = global.type in ROUTINE_GLOBAL_TYPES;
             break;
         }
 
