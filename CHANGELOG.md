@@ -54,15 +54,19 @@ With this change, and if you have very large files, you should notice a dramatic
 
 Considering this is a large change, please let us know if there are any noticeable differences that our tests have not captured.
 
-## 4.1.3 December 2023
+While re-working our data transfer pipeline, we also made some fixes and improvements to auto-complete. There were some test gaps which have now been resolved which will:
+
+- Fixed a problem where auto-complete for procedure methods would add properties when inside the procedure method call
+
+- Fixed a problem where auto-complete for procedure methods would not add variables
+
+- Fixed a problem where auto-complete for procedure methods would not add keywords
+
+- Fixed a problem where auto-complete for methods would not functions
+
+- Changed the logic for when we send properties, procedure methods, and function methods and made it context aware to only send things like procedure methods where they are allowed
 
 Resolve an issue where a circular error would be reported when creating JSON
-
-Fixed a problem where auto-complete for procedure methods would add properties
-
-Fixed a problem where auto-complete for procedure methods would not add variables
-
-Fixed a problem where auto-complete for procedure methods would not add keywords
 
 ## 4.1.2 December 2023
 
