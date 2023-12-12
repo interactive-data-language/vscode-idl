@@ -7,8 +7,8 @@ import { BRANCH_TYPES, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, TokenName } from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';
 
+import { ITokenCache } from '../../../helpers/token-cache.interface';
 import { IDLIndex } from '../../../idl-index.class';
-import { ITokenCache } from '../../../token-cache.interface';
 import { EvaluateToken } from '../evaluate/evaluate-token';
 import { TypeFromFunction } from './function/from-function';
 import { TypeFromNumberOrNumberString } from './numbers/from-number-or-number-string';

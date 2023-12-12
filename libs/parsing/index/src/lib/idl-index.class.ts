@@ -71,11 +71,11 @@ import { Worker } from 'worker_threads';
 import { GetAutoComplete } from './auto-complete/get-auto-complete';
 import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
-import { GetCodeOutline } from './get-code-outline';
-import { GetCodeSemanticTokens } from './get-code-semantic-tokens';
-import { GetParsedNotebook } from './get-parsed-notebook';
-import { GetParsedPROCode } from './get-parsed-pro-code';
+import { GetParsedNotebook } from './get-parsed/get-parsed-notebook';
+import { GetParsedPROCode } from './get-parsed/get-parsed-pro-code';
+import { ParseNotebook } from './get-parsed/parse-notebook';
 import { GlobalIndex } from './global-index.class';
+import { GetCodeSemanticTokens } from './helpers/get-code-semantic-tokens';
 import { GetSyntaxProblems } from './helpers/get-syntax-problems';
 import { PopulateNotebookVariables } from './helpers/populate-notebook-variables';
 import { ResetGlobalDisplayNames } from './helpers/reset-global-display-names';
@@ -92,7 +92,7 @@ import {
 } from './idl-index.interface';
 import { IDLParsedCache } from './idl-parsed-cache.class';
 import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';
-import { ParseNotebook } from './parse-notebook';
+import { GetCodeOutline } from './outline/get-code-outline';
 import { PostProcessParsed } from './post-process/post-process-parsed';
 import { GetTokenDefinition } from './token-definiton/get-token-definition';
 

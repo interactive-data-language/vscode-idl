@@ -4,14 +4,14 @@ import { IParsed } from '@idl/parsing/syntax-tree';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import copy from 'fast-copy';
 
-import { PENDING_NOTEBOOK } from './get-parsed-notebook';
-import { IGetParsedPROCodePending } from './get-parsed-pro-code.interface';
-import { GetSyntaxProblems } from './helpers/get-syntax-problems';
-import { IDLIndex } from './idl-index.class';
+import { GetSyntaxProblems } from '../helpers/get-syntax-problems';
+import { IDLIndex } from '../idl-index.class';
 import {
   DEFAULT_INDEX_PRO_CODE_OPTIONS,
   IIndexProCodeOptions,
-} from './idl-index.interface';
+} from '../idl-index.interface';
+import { PENDING_NOTEBOOK } from './get-parsed-notebook';
+import { IGetParsedPROCodePending } from './get-parsed-pro-code.interface';
 
 /**
  * Track the pending files

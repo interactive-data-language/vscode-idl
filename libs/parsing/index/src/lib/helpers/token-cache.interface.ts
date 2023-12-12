@@ -11,11 +11,8 @@ import {
   ISplitTreeOnArguments,
 } from '@idl/parsing/syntax-tree';
 
-import { IFoundKeywords } from './helpers/get-keywords.interface';
-import {
-  IFoundParameter,
-  IFoundProperty,
-} from './helpers/get-property.interface';
+import { IFoundKeywords } from './get-keywords.interface';
+import { IFoundParameter, IFoundProperty } from './get-property.interface';
 
 /**
  * Cache stores anything that we could return from a helper

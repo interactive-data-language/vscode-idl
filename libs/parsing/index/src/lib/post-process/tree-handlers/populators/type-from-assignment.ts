@@ -10,7 +10,7 @@ import {
 } from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';
 
-import { ITokenCache } from '../../../token-cache.interface';
+import { ITokenCache } from '../../../helpers/token-cache.interface';
 import { TypeFromTokens } from '../../populate-type/from/type-from-tokens';
 import { POPULATE_TYPE_HANDLER } from '../populate-type-handler';
 import { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';

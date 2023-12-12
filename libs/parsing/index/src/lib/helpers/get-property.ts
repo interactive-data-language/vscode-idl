@@ -18,8 +18,8 @@ import copy from 'fast-copy';
 
 import { IDLIndex } from '../idl-index.class';
 import { TypeFromTokens } from '../post-process/populate-type/from/type-from-tokens';
-import { ITokenCache } from '../token-cache.interface';
 import { IFoundProperty } from './get-property.interface';
+import { ITokenCache } from './token-cache.interface';
 
 /**
  * Returns type information for the specified property

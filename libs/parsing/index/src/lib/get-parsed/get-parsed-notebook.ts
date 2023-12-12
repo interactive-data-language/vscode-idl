@@ -4,8 +4,8 @@ import { CodeChecksum } from '@idl/parser';
 import { deepEqual } from 'fast-equals';
 import { NotebookCellKind } from 'vscode-languageserver';
 
+import { IDLIndex } from '../idl-index.class';
 import { IGetParsedNotebookPending } from './get-parsed-notebook.interface';
-import { IDLIndex } from './idl-index.class';
 
 /**
  * Track the pending files

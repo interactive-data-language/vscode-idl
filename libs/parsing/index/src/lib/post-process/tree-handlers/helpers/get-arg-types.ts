@@ -1,8 +1,8 @@
 import { IDLDataType } from '@idl/data-types/core';
 import { IParsed, TreeBranchToken } from '@idl/parsing/syntax-tree';
 
+import { ITokenCache } from '../../../helpers/token-cache.interface';
 import { IDLIndex } from '../../../idl-index.class';
-import { ITokenCache } from '../../../token-cache.interface';
 import { TypeFromTokens } from '../../populate-type/from/type-from-tokens';
 import { GetSplit } from './get-split';
 

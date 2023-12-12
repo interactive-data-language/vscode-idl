@@ -7,7 +7,7 @@ import {
 import { deepEqual } from 'fast-equals';
 import { NotebookCellKind } from 'vscode-languageserver';
 
-import { IDLIndex } from './idl-index.class';
+import { IDLIndex } from '../idl-index.class';
 import { IParsedNotebookPending } from './parse-notebook.interface';
 
 /**

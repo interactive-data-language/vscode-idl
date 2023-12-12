@@ -15,8 +15,8 @@ import {
 import copy from 'fast-copy';
 
 import { GetVariable } from '../../../helpers/get-variable';
+import { ITokenCache } from '../../../helpers/token-cache.interface';
 import { IDLIndex } from '../../../idl-index.class';
-import { ITokenCache } from '../../../token-cache.interface';
 import { TypeFromSingleToken } from './type-from-single-token';
 import { TypeFromTernary } from './type-from-ternary';
 import { TypePromotion } from './type-promotion.ts';

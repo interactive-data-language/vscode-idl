@@ -2,9 +2,9 @@ import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { TokenName } from '@idl/parsing/tokenizer';
 
 import { IDLIndex } from '../idl-index.class';
-import { ITokenCache } from '../token-cache.interface';
 import { IFoundKeywords } from './get-keywords.interface';
 import { GetRoutine } from './get-routine';
+import { ITokenCache } from './token-cache.interface';
 
 /**
  * Based on a specific token, we try to find a parent and the keywords that are
