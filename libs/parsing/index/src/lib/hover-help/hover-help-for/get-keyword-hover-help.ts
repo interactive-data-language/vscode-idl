@@ -35,7 +35,7 @@ export function GetKeywordHoverHelp(
   if (kw !== undefined) {
     lookup.type = kw.globalType;
     lookup.name = kw.globalName;
-    lookup.kw = kw.name;
+    lookup.kw = kw.display;
   } else {
     lookup.contents = IDLTypeHelper.addTypeToDocs(
       GetKeywordDisplayName(token),
