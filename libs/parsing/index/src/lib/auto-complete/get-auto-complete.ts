@@ -33,14 +33,20 @@ import { AddCompletionStructureNames } from './completion-for/add-completion-str
 import { AddCompletionSystemVariables } from './completion-for/add-completion-system-variables';
 import { AddCompletionVariables } from './completion-for/add-completion-variables';
 import {
-  FUNCTIONS,
+  ALL_METHODS_COMPLETION,
+  CAN_PROCEDURE_HERE,
+  FUNCTION_METHOD_COMPLETION,
+  FUNCTION_TOKENS,
   KEYWORD_COMPLETION,
   KEYWORDS,
   METHOD_INTERIOR_CHECK,
   METHOD_PROPERTY_COMPLETION,
   NO_PAREN,
   NO_PROPERTIES,
+  PROCEDURE_METHOD_COMPLETION,
+  PROCEDURE_TOKENS,
   PROCEDURES,
+  ROUTINES,
 } from './get-auto-complete.interface';
 
 /**
@@ -83,6 +89,9 @@ export async function GetAutoComplete(
   // initialize the value of our help
   const items: GetAutoCompleteResponse = [];
 
+  /** Flag if we can add properties or not */
+  let wasComma = false;
+
   // get the tokens for our file
   const parsed = await index.getParsedProCode(
     file,
@@ -109,6 +118,14 @@ export async function GetAutoComplete(
         cursor.accessTokens = token.accessTokens;
         cursor.scope = token.scope;
       }
+
+      /**
+       * If a comma, then do not add properties
+       *
+       * Needed so we can delineate between auto complete for
+       * something like "self." and "self.getProperty,"
+       */
+      wasComma = true;
     }
 
     /**
@@ -183,8 +200,14 @@ export async function GetAutoComplete(
     /** Flag if we should include variables in auto-complete */
     let addVariables = true;
 
+    /** Track if within the start of our token or not */
+    let isWithinStart = false;
+
     // check if we should add parentheses
     if (token !== undefined) {
+      // check if we are within the start
+      isWithinStart = IsWithinToken(position, token.pos);
+
       if (token.name in NO_PAREN) {
         switch (true) {
           case position.line === token.pos[0] &&
@@ -223,7 +246,7 @@ export async function GetAutoComplete(
         (token.match[0] || '').trim() === '/';
 
       // double check we are not a function and in the closing parentheses
-      if (token?.name in FUNCTIONS && canKeyword) {
+      if (token?.name in ROUTINES && canKeyword) {
         if ((token as TreeBranchToken).end !== undefined) {
           if (
             IsWithinToken(position, [
@@ -237,8 +260,23 @@ export async function GetAutoComplete(
         }
       }
 
-      // if we can keyword, then add keywords!
-      if (canKeyword) {
+      /**
+       * If procedure, do we disable keywords?
+       */
+      const noProKeywords = isWithinStart && token?.name in PROCEDURE_TOKENS;
+
+      /**
+       * If function, do we disable keywords?
+       */
+      const noFunctionKeywords =
+        isWithinStart &&
+        position.character < token.pos[1] + token.pos[2] &&
+        token?.name in FUNCTION_TOKENS;
+
+      /**
+       * If we can keyword, double check we arent in the start of a routine
+       */
+      if (canKeyword && !(noProKeywords || noFunctionKeywords)) {
         AddCompletionKeywords(
           items,
           parsed,
@@ -276,12 +314,12 @@ export async function GetAutoComplete(
       /**
        * Are we completing methods or properties?
        */
-      case canMethod:
+      case canMethod: {
         /**
          * Add properties. If we are where we can use a procedure, add another
          * dot for properties because something else needs to come afterwards
          */
-        if (!(token?.name in NO_PROPERTIES)) {
+        if (isWithinStart && !(token?.name in NO_PROPERTIES)) {
           AddCompletionProperties(
             items,
             index,
@@ -291,19 +329,51 @@ export async function GetAutoComplete(
           );
         }
 
-        // check if we send procedure or function methods
-        if (local?.name in PROCEDURES) {
-          AddCompletionProcedureMethods(items, index, formatting, type);
-        } else {
-          AddCompletionFunctionMethods(
-            items,
-            index,
-            formatting,
-            type,
-            addParen
-          );
+        /**
+         * Check if we need to add variables
+         */
+        if (!isWithinStart && addVariables) {
+          AddCompletionVariables(items, parsed, global?.token);
+          AddCompletionSystemVariables(items, formatting);
+          AddCompletionFunctions(items, formatting, addParen);
         }
+
+        /**
+         * Check if we send function or procedure methods
+         */
+        if (isWithinStart) {
+          switch (true) {
+            case token?.name in FUNCTION_METHOD_COMPLETION:
+              AddCompletionFunctionMethods(
+                items,
+                index,
+                formatting,
+                type,
+                addParen
+              );
+              break;
+            case token?.name in ALL_METHODS_COMPLETION:
+              if (
+                local?.name in CAN_PROCEDURE_HERE ||
+                token?.name in PROCEDURE_METHOD_COMPLETION
+              ) {
+                AddCompletionProcedureMethods(items, index, formatting, type);
+              }
+              AddCompletionFunctionMethods(
+                items,
+                index,
+                formatting,
+                type,
+                addParen
+              );
+              break;
+            default:
+              break;
+          }
+        }
+
         break;
+      }
       /**
        * Default is that we can write functions or procedures and
        * should send variables for auto completion super-fun

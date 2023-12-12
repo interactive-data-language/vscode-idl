@@ -54,6 +54,16 @@ With this change, and if you have very large files, you should notice a dramatic
 
 Considering this is a large change, please let us know if there are any noticeable differences that our tests have not captured.
 
+## 4.1.3 December 2023
+
+Resolve an issue where a circular error would be reported when creating JSON
+
+Fixed a problem where auto-complete for procedure methods would add properties
+
+Fixed a problem where auto-complete for procedure methods would not add variables
+
+Fixed a problem where auto-complete for procedure methods would not add keywords
+
 ## 4.1.2 December 2023
 
 Change the way we extract comments to reduce memory and speed up parsing by about 10%
