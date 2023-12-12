@@ -6,7 +6,7 @@ import { SystemMemoryUsedMB } from '@idl/shared';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { MapTree } from './map-tree';
+import { MapTreeSingle } from './map-tree-single';
 
 // create our index
 const index = new IDLIndex(
@@ -39,7 +39,7 @@ const fullFile = join(folder, 'tree-full.json');
 const miniFile = join(folder, 'tree-mini.json');
 
 // number of steps
-const n = 1000;
+const n = 100;
 
 /**
  * Main routine
@@ -61,7 +61,7 @@ async function main() {
 
   // convert to mini tree
   console.log(`Converting tree!`);
-  const mini = MapTree(parsed.tree);
+  const mini = MapTreeSingle(parsed.tree);
 
   // write the full tree
   const sOrig = JSON.stringify(parsed.tree, undefined, undefined);
@@ -85,17 +85,71 @@ async function main() {
   }
   console.log(`Before parse time (ms): ${performance.now() - t1}`);
 
+  // serialize time beginning
+  const t2 = performance.now();
+  for (let i = 0; i < n; i++) {
+    JSON.stringify(mini);
+  }
+  console.log(`After serialize time (ms): ${performance.now() - t2}`);
+
+  // serialize time beginning
+  const t3 = performance.now();
+  for (let i = 0; i < n; i++) {
+    JSON.parse(sMini);
+  }
+  console.log(`After parse time (ms): ${performance.now() - t3}`);
+
+  // // Verify the payload if necessary (i.e. when possibly incomplete or invalid)
+  // const miniProto = { items: mini };
+  // console.log(`Elements: ${mini.length}`);
+  // const errMsg = SYNTAX_TREE.verify(miniProto);
+  // if (errMsg) throw Error(errMsg);
+
+  // console.log('It is valid');
+
+  // // Create a new message
+  // const newMessage = SYNTAX_TREE.create(miniProto); // or use .fromObject if conversion is necessary
+  // console.log('Make a new message!');
+
+  // // Encode a message to an Uint8Array (browser) or Buffer (node)
+  // const buffer = SYNTAX_TREE.encode(newMessage).finish();
+  // console.log(`Bytes: ${buffer.length}`);
+  // writeFileSync(miniFile, buffer);
+  // console.log('Buffered and written');
+
+  // // Decode an Uint8Array (browser) or Buffer (node) to a message
+  // const decoded = SYNTAX_TREE.decode(buffer);
+
+  // // ... do something with message
+  // console.log(`Decoded length: ${(decoded as any)?.items?.length}`);
+
+  // // serialize time beginning
+  // const t0 = performance.now();
+  // for (let i = 0; i < n; i++) {
+  //   JSON.stringify(parsed.tree);
+  // }
+  // console.log(`Before serialize time (ms): ${performance.now() - t0}`);
+
+  // // serialize time beginning
+  // const t1 = performance.now();
+  // for (let i = 0; i < n; i++) {
+  //   JSON.parse(sOrig);
+  // }
+  // console.log(`Before parse time (ms): ${performance.now() - t1}`);
+
   // // serialize time beginning
   // const t2 = performance.now();
   // for (let i = 0; i < n; i++) {
-  //   JSON.stringify(mini);
+  //   SYNTAX_TREE.encode(SYNTAX_TREE.create(miniProto)).finish();
+  //   // JSON.stringify(mini);
   // }
   // console.log(`After serialize time (ms): ${performance.now() - t2}`);
 
   // // serialize time beginning
   // const t3 = performance.now();
   // for (let i = 0; i < n; i++) {
-  //   JSON.parse(sMini);
+  //   SYNTAX_TREE.decode(buffer);
+  //   // JSON.parse(sMini);
   // }
   // console.log(`After parse time (ms): ${performance.now() - t3}`);
 }
@@ -108,7 +162,7 @@ function memTest() {
   const tracker: { [key: string]: any } = {};
 
   // read teh text
-  const txt = readFileSync(fullFile, { encoding: 'utf-8' });
+  const txt = readFileSync(miniFile, { encoding: 'utf-8' });
 
   // load!
   console.log('Parsing file...');
@@ -116,11 +170,20 @@ function memTest() {
     tracker[i] = JSON.parse(txt);
   }
 
+  // // read teh text
+  // const txt = new Uint8Array(readFileSync(miniFile));
+
+  // // load!
+  // console.log('Parsing file...');
+  // for (let i = 0; i < n; i++) {
+  //   tracker[i] = SYNTAX_TREE.decode(txt);
+  // }
+
   // get info
   console.log(`Memory usage (mb) for ${n} file(s): ${SystemMemoryUsedMB()}`);
 }
 
-// memTest();
+memTest();
 
 main()
   .then(
