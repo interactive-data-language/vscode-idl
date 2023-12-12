@@ -88,6 +88,8 @@ export function GetKeyword(
       ...kw,
       name,
       file: found.global.file,
+      globalType: found.global.type,
+      globalName: found.global.name,
     };
     return (token.cache as ITokenCache).keyword;
   }

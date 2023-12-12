@@ -2,17 +2,20 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalRoutineToken,
   GlobalStructureToken,
+  IDLTypeHelper,
   IGlobalIndexedToken,
+  ParseIDLType,
 } from '@idl/data-types/core';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import { IDL_COMMANDS } from '@idl/shared';
 import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
+import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
 import { Hover } from 'vscode-languageserver';
 
+import { GetPropertyDisplayName } from '../helpers/get-property-display-name';
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
-import { IHoverHelpLookup } from './hover-help-lookup.interface';
 
 /** Allowed local parents for attempting to find keyword definition information */
 const KW_DEF: { [key: string]: boolean } = {};
@@ -33,7 +36,7 @@ ROUTINE_GLOBAL_TYPES[GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD] = true;
  */
 export async function GetHoverHelpFromLookup(
   index: IDLIndex,
-  lookup: IHoverHelpLookup,
+  lookup: GetHoverHelpLookupResponse,
   config: IDLExtensionConfig
 ): Promise<Hover> {
   /**
@@ -60,8 +63,8 @@ export async function GetHoverHelpFromLookup(
     /**
      * Did we have the raw strings?
      */
-    case lookup.content !== undefined:
-      hover.contents = lookup.content;
+    case lookup.contents !== undefined:
+      hover.contents = lookup.contents;
       break;
     /**
      * Do we have a routine
@@ -96,23 +99,52 @@ export async function GetHoverHelpFromLookup(
           /**
            * Argument
            */
-          case lookup.arg !== undefined && lookup.type in ROUTINE_GLOBAL_TYPES:
-            help = (global as GlobalRoutineToken).meta.args[lookup.arg].docs;
+          case lookup.arg !== undefined &&
+            lookup.type in ROUTINE_GLOBAL_TYPES: {
+            const arg = (global as GlobalRoutineToken).meta.args[lookup.arg];
+            if (arg !== undefined) {
+              help = IDLTypeHelper.addTypeToDocs(
+                arg.display,
+                arg.docs,
+                arg.type
+              );
+            }
             break;
+          }
           /**
            * Keyword
            */
-          case lookup.kw !== undefined && lookup.type in ROUTINE_GLOBAL_TYPES:
-            help = (global as GlobalRoutineToken).meta.kws[lookup.arg].docs;
+          case lookup.kw !== undefined && lookup.type in ROUTINE_GLOBAL_TYPES: {
+            const kw = (global as GlobalRoutineToken).meta.kws[lookup.arg];
+            if (kw !== undefined) {
+              help = IDLTypeHelper.addTypeToDocs(kw.display, kw.docs, kw.type);
+            }
             break;
+          }
           /**
            * Property
            */
           case lookup.prop !== undefined &&
-            lookup.type === GLOBAL_TOKEN_TYPES.STRUCTURE:
-            help = (global as IGlobalIndexedToken<GlobalStructureToken>).meta
-              .props[lookup.prop].docs;
+            lookup.type === GLOBAL_TOKEN_TYPES.STRUCTURE: {
+            /**
+             * Extract property
+             */
+            const prop = (global as IGlobalIndexedToken<GlobalStructureToken>)
+              .meta.props[lookup.prop];
+
+            // did we find a property?
+            if (prop !== undefined) {
+              help = IDLTypeHelper.addTypeToDocs(
+                GetPropertyDisplayName(
+                  prop.display,
+                  ParseIDLType(global.meta.display)
+                ),
+                prop.docs,
+                prop.type
+              );
+            }
             break;
+          }
           default:
             help = global.meta.docs;
             break;

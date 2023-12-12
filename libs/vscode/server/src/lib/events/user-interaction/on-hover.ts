@@ -1,5 +1,6 @@
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { performance } from 'perf_hooks';
 import { Hover, TextDocumentPositionParams } from 'vscode-languageserver/node';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
@@ -34,6 +35,8 @@ export async function GetHoverHelpWrapper(
     return undefined;
   }
 
+  const t0 = performance.now();
+
   // get hover help and return
   const hover = await IDL_INDEX.getHoverHelp(
     info.fsPath,
@@ -44,6 +47,8 @@ export async function GetHoverHelpWrapper(
 
   // remove from our main thread lookup
   IDL_INDEX.tokensByFile.remove(info.fsPath);
+
+  console.log(`Time to get hover help (ms): ${performance.now() - t0}`);
 
   return hover;
 }

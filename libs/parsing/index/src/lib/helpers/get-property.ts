@@ -102,6 +102,8 @@ function GetPropertyForType(
       name: prop.toLowerCase(),
       file,
       class: ParseIDLType(className),
+      globalType: GLOBAL_TOKEN_TYPES.STRUCTURE,
+      globalName: className.toLowerCase(),
     });
   } else {
     return undefined;
@@ -164,6 +166,8 @@ export function GetProperty(
           source: 'user',
           class: IDL_STRUCTURE_TYPE,
           type: TypeFromTokens(index, parsed, token.kids),
+          globalType: GLOBAL_TOKEN_TYPES.STRUCTURE,
+          globalName: '_anonymous_',
         };
         return (token.cache as ITokenCache).property;
       }

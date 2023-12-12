@@ -17,6 +17,9 @@ import {
   GetAutoCompleteMessage,
   GetAutoCompletePayload,
   GetAutoCompleteResponse,
+  GetHoverHelpLookupMessage,
+  GetHoverHelpLookupResponse,
+  GetHoverHelpPayload,
   GetNotebookCellMessage,
   GetNotebookCellPayload,
   GetNotebookCellResponse,
@@ -71,6 +74,8 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
     ? CleanUpPayload
     : T extends GetAutoCompleteMessage
     ? GetAutoCompletePayload
+    : T extends GetHoverHelpLookupMessage
+    ? GetHoverHelpPayload
     : T extends GetNotebookCellMessage
     ? GetNotebookCellPayload
     : T extends GetOutlineMessage
@@ -115,6 +120,8 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
     ? CleanUpResponse
     : T extends GetAutoCompleteMessage
     ? GetAutoCompleteResponse
+    : T extends GetHoverHelpLookupMessage
+    ? GetHoverHelpLookupResponse
     : T extends GetNotebookCellMessage
     ? GetNotebookCellResponse
     : T extends GetOutlineMessage
