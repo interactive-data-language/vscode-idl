@@ -3,7 +3,6 @@ import {
   IDL_ANY_TYPE,
   IDL_STRUCTURE_TYPE,
   IDLTypeHelper,
-  SerializeIDLType,
 } from '@idl/data-types/core';
 import { GetPropertyName, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
@@ -32,7 +31,7 @@ export function GetPropertyHoverHelp(
   // did we find a property?
   if (prop !== undefined) {
     lookup.type = GLOBAL_TOKEN_TYPES.STRUCTURE;
-    lookup.name = SerializeIDLType(prop.class);
+    lookup.name = prop.globalName;
     lookup.prop = prop.name;
   } else {
     // default to the name, nothing fancy
