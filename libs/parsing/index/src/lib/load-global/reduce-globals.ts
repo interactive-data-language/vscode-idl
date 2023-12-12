@@ -24,7 +24,7 @@ export function ReduceGlobals(globals: GlobalTokens) {
   for (let i = 0; i < globals.length; i++) {
     // clear docs
     globals[i].meta.docs = '';
-    delete globals[i].file;
+    // delete globals[i].file;
 
     // check what else we need to clear
     switch (globals[i].type) {

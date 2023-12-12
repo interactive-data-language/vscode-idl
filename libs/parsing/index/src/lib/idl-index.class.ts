@@ -535,7 +535,16 @@ export class IDLIndex {
     code: string | string[],
     position: Position
   ): Promise<GetTokenDefResponse> {
-    return GetTokenDefinition(this, file, code, position);
+    // if we are multi threaded, then
+    if (this.isMultiThreaded()) {
+      return await this.indexerPool.workerio.postAndReceiveMessage(
+        this.getWorkerID(file),
+        LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_TOKEN_DEF,
+        { file, code, position }
+      ).response;
+    } else {
+      return GetTokenDefinition(this, file, code, position);
+    }
   }
 
   /**

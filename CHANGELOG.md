@@ -36,7 +36,7 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 ## 4.2.0 December 2023
 
-Re-worked the hover-help pipeline to not send as much data between processes in the language server. This should result in dramatic performance improvements for large files.
+Re-worked the hover-help, auto-complete, and go-to-definition pipelines to not send as much data between processes in the language server. This should result in dramatic performance improvements for large files.
 
 - For example: the slicer3.pro file is about 6500 lines of code. Before this update it took about 4-5 seconds to get hover help. Now, with this change, it takes about 30 milliseconds to return.
 
