@@ -32,7 +32,7 @@ export function GetPropertyHoverHelp(
   if (prop !== undefined) {
     if (prop.globalName.toLowerCase() === 'structure') {
       lookup.contents = IDLTypeHelper.addTypeToDocs(
-        prop.display,
+        GetPropertyDisplayName(prop.display, IDL_STRUCTURE_TYPE),
         '',
         prop.type
       );
