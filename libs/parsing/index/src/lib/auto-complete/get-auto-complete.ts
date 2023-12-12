@@ -88,9 +88,6 @@ export async function GetAutoComplete(
   // initialize the value of our help
   const items: GetAutoCompleteResponse = [];
 
-  /** Flag if we can add properties or not */
-  let wasComma = false;
-
   // get the tokens for our file
   const parsed = await index.getParsedProCode(
     file,
@@ -117,14 +114,6 @@ export async function GetAutoComplete(
         cursor.accessTokens = token.accessTokens;
         cursor.scope = token.scope;
       }
-
-      /**
-       * If a comma, then do not add properties
-       *
-       * Needed so we can delineate between auto complete for
-       * something like "self." and "self.getProperty,"
-       */
-      wasComma = true;
     }
 
     /**
