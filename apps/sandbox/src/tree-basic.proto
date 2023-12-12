@@ -1,0 +1,19 @@
+
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+message SomeMessage {
+
+    message Nested {
+        string type = 1;
+        uint32 name = 2;
+        uint32 idx = 3;
+        repeated string match = 4;
+        repeated uint32 pos = 5;
+        repeated google.protobuf.Any parseProblems = 6;
+        repeated google.protobuf.Any scope = 7;
+    }
+
+    repeated Nested items = 1;
+}
