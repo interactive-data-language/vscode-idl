@@ -84,8 +84,8 @@ client.on(
       WORKER_INDEX,
       message.file,
       message.code,
-      message.formatting,
-      cancel
+      cancel,
+      message.formatting
     );
   }
 );

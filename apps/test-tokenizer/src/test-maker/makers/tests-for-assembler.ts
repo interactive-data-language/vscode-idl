@@ -1,4 +1,4 @@
-import { Assembler } from '@idl/assembler';
+import { AssembleWithIndex } from '@idl/assembler';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
@@ -59,7 +59,7 @@ export async function TestsForAssembler(
           // do nothing
         },
       }),
-      0
+      1
     );
 
     // tokenize
@@ -80,8 +80,10 @@ export async function TestsForAssembler(
     };
 
     // format
-    const formatted = Assembler(
-      tokenized,
+    const formatted = await AssembleWithIndex(
+      index,
+      'my_file.pro',
+      code,
       new CancellationToken(),
       test.config
     );
@@ -95,7 +97,7 @@ export async function TestsForAssembler(
     strings.push(`          // do nothing`);
     strings.push(`        },`);
     strings.push(`      }),`);
-    strings.push(`      0`);
+    strings.push(`      1`);
     strings.push(`    );`);
     strings.push(``);
     strings.push(`    // test code to extract tokens from`);
@@ -110,19 +112,12 @@ export async function TestsForAssembler(
     strings.push(`    const tokenizedNames = GetTokenNames(tokenized);`);
     strings.push(``);
     strings.push(`    // format code`);
-    if (test.config !== undefined) {
-      strings.push(
-        `    const formatted = Assembler(tokenized, new CancellationToken(), ${JSON.stringify(
-          test.config
-        )});`
-      );
-      strings.push(``);
-    } else {
-      strings.push(
-        `    const formatted = Assembler(tokenized, new CancellationToken(), { formatter: 'fiddle' });`
-      );
-      strings.push(``);
-    }
+    strings.push(
+      `    const formatted = await AssembleWithIndex(index, 'my_file.pro', code, new CancellationToken(), ${JSON.stringify(
+        test.config !== undefined ? test.config : { formatter: 'fiddle' }
+      )});`
+    );
+    strings.push(``);
     strings.push('    // verify formatting');
     strings.push('    if (formatted === undefined){');
     strings.push('      expect(formatted).toEqual(undefined)');
@@ -183,6 +178,9 @@ export async function TestsForAssembler(
 
     strings.push('  })');
     strings.push(``);
+
+    // clean up
+    index.destroy();
   }
 
   // close
