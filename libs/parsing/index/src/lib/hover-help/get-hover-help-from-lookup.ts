@@ -115,7 +115,7 @@ export async function GetHoverHelpFromLookup(
            * Keyword
            */
           case lookup.kw !== undefined && lookup.type in ROUTINE_GLOBAL_TYPES: {
-            const kw = (global as GlobalRoutineToken).meta.kws[lookup.arg];
+            const kw = (global as GlobalRoutineToken).meta.kws[lookup.kw];
             if (kw !== undefined) {
               help = IDLTypeHelper.addTypeToDocs(kw.display, kw.docs, kw.type);
             }
