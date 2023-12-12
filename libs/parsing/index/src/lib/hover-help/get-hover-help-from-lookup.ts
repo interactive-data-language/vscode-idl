@@ -93,6 +93,11 @@ export async function GetHoverHelpFromLookup(
         let help = '';
 
         /**
+         * Track if we can add examples or not
+         */
+        let canExample = false;
+
+        /**
          * Check how we proceed
          */
         switch (true) {
@@ -147,6 +152,7 @@ export async function GetHoverHelpFromLookup(
           }
           default:
             help = global.meta.docs;
+            canExample = true;
             break;
         }
 
@@ -158,7 +164,7 @@ export async function GetHoverHelpFromLookup(
           help = ResolveHoverHelpLinks(help, config);
 
           // check if we have a matching global token to open in a notebook
-          if (lookup.type in ROUTINE_GLOBAL_TYPES) {
+          if (canExample) {
             // split
             const split = help.split(/\n/g);
 
