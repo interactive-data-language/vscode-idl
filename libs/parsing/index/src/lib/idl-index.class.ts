@@ -80,7 +80,8 @@ import { GetSyntaxProblems } from './helpers/get-syntax-problems';
 import { PopulateNotebookVariables } from './helpers/populate-notebook-variables';
 import { ResetGlobalDisplayNames } from './helpers/reset-global-display-names';
 import { SplitFiles } from './helpers/split-files';
-import { GetHoverHelp } from './hover-help/get-hover-help';
+import { GetHoverHelpFromLookup } from './hover-help/get-hover-help-from-lookup';
+import { GetHoverHelpLookup } from './hover-help/get-hover-help-lookup';
 import {
   DEFAULT_INDEX_PRO_CODE_OPTIONS,
   IDL_INDEX_OPTIONS,
@@ -468,7 +469,21 @@ export class IDLIndex {
     position: Position,
     config: IDLExtensionConfig = DEFAULT_IDL_EXTENSION_CONFIG
   ) {
-    return GetHoverHelp(this, file, code, position, config);
+    /**
+     * Get the lookup for our hover help
+     */
+    const lkp = this.isMultiThreaded()
+      ? await this.indexerPool.workerio.postAndReceiveMessage(
+          this.getWorkerID(file),
+          LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_HOVER_HELP_LOOKUP,
+          { file, code, position, config }
+        ).response
+      : await GetHoverHelpLookup(this, file, code, position);
+
+    /**
+     * Put hover help together and return
+     */
+    return await GetHoverHelpFromLookup(this, lkp, config);
   }
 
   /**

@@ -7,6 +7,7 @@ export * from './lib/helpers/populate-notebook-variables';
 export * from './lib/helpers/reset-global-display-names';
 export * from './lib/helpers/resolve-hover-help-links';
 export * from './lib/helpers/save-global-display-names';
+export * from './lib/hover-help/get-hover-help-lookup';
 export * from './lib/idl-index.class';
 export * from './lib/idl-index.interface';
 export * from './lib/post-process/post-process-parsed';

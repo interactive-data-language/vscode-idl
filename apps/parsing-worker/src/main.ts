@@ -2,6 +2,7 @@ import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
 import { ParseFileSync } from '@idl/parser';
 import {
   ChangeDetection,
+  GetHoverHelpLookup,
   GetSyntaxProblems,
   IDL_INDEX_OPTIONS,
   IDLIndex,
@@ -140,6 +141,21 @@ client.on(
       message.code,
       message.position,
       message.config
+    );
+  }
+);
+
+/**
+ * Get lookup (recipe) for hover help
+ */
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_HOVER_HELP_LOOKUP,
+  async (message) => {
+    return GetHoverHelpLookup(
+      WORKER_INDEX,
+      message.file,
+      message.code,
+      message.position
     );
   }
 );

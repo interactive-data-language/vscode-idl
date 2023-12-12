@@ -1,4 +1,5 @@
 import {
+  GlobalTokenType,
   IBaseIndexedToken,
   IDLDataType,
   IParameterOrPropertyDetails,
@@ -10,7 +11,12 @@ import {
  */
 export interface IFoundParameter
   extends IBaseIndexedToken,
-    IParameterOrPropertyDetails {}
+    IParameterOrPropertyDetails {
+  /** Type of global token */
+  globalType: GlobalTokenType;
+  /** Name of the global token */
+  globalName: string;
+}
 
 /**
  * Information returned when we found a property, so we can have some context for

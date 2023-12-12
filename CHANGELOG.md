@@ -34,6 +34,12 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 - When generating ENVI and IDL tasks, using our new case libraries, we attempt to make a pretty display name from parameter names. For example converting the keyword "my_keyword" to "My Keyword". This applied to task and parameter display names.
 
+## 4.2.0 December 2023
+
+Re-worked the hover-help pipeline to not send as much data between processes in the language server. This should result in dramatic performance improvements for large files.
+
+- For example: the slicer3.pro file is about 6500 lines of code. Before this update it took about 4-5 seconds to get hover help. Now, with this change, it takes about 30 milliseconds to return.
+
 ## 4.1.2 December 2023
 
 Change the way we extract comments to reduce memory and speed up parsing by about 10%
