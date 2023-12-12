@@ -39,6 +39,8 @@ describe(`[auto generated] Correctly find definitions for keywords`, () => {
       code: true,
       pos: [5, 27, 2],
       name: 'kw',
+      globalType: 'pm',
+      globalName: 'nystruct0::promethod1',
     };
 
     // get expected and remove file
@@ -69,6 +71,8 @@ describe(`[auto generated] Correctly find definitions for keywords`, () => {
       code: true,
       pos: [10, 26, 2],
       name: 'kw',
+      globalType: 'pm',
+      globalName: 'nystruct::promethod2',
     };
 
     // get expected and remove file
@@ -192,6 +196,8 @@ describe(`[auto generated] Correctly find definitions for keywords`, () => {
       code: true,
       pos: [5, 36, 3],
       name: 'kwb',
+      globalType: 'pm',
+      globalName: 'nystruct0::promethod1',
     };
 
     // get expected and remove file
@@ -222,6 +228,8 @@ describe(`[auto generated] Correctly find definitions for keywords`, () => {
       code: true,
       pos: [10, 35, 3],
       name: 'kwb',
+      globalType: 'pm',
+      globalName: 'nystruct::promethod2',
     };
 
     // get expected and remove file

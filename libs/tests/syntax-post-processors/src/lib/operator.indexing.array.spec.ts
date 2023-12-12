@@ -14,7 +14,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
         end: { match: ['end'], pos: [2, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -34,7 +34,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -45,7 +45,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [1, 0, 6],
             match: ['subsel'],
@@ -54,7 +54,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [1, 7, 1],
             match: ['='],
@@ -64,7 +64,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
             end: { pos: [1, 23, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 85,
                 pos: [1, 9, 3],
                 match: ['sel'],
@@ -73,7 +73,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 7,
                 pos: [1, 12, 1],
                 match: ['['],
@@ -83,7 +83,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                 end: { pos: [1, 22, 1], match: [']'] },
                 kids: [
                   {
-                    type: '0',
+                    type: 0,
                     name: 60,
                     pos: [1, 13, 1],
                     match: ['*'],
@@ -94,7 +94,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                     kids: [],
                   },
                   {
-                    type: '1',
+                    type: 1,
                     name: 14,
                     pos: [1, 14, 1],
                     match: [','],
@@ -103,7 +103,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '1',
+                    type: 1,
                     name: 56,
                     pos: [1, 16, 1],
                     match: ['1'],
@@ -112,7 +112,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '1',
+                    type: 1,
                     name: 13,
                     pos: [1, 17, 1],
                     match: [':'],
@@ -121,7 +121,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '0',
+                    type: 0,
                     name: 63,
                     pos: [1, 18, 1],
                     match: ['*'],
@@ -131,7 +131,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                     end: { pos: [1, 22, 0], match: [''] },
                     kids: [
                       {
-                        type: '1',
+                        type: 1,
                         name: 85,
                         pos: [1, 19, 3],
                         match: ['val'],

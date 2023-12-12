@@ -19,7 +19,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -29,7 +29,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
         end: { match: ['end'], pos: [3, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -39,7 +39,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -50,7 +50,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 15,
             pos: [1, 0, 40],
             match: ['; i am properly ignored like i should be'],
@@ -59,7 +59,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             parseProblems: [],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [2, 0, 1],
             match: ['a'],
@@ -68,7 +68,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [2, 2, 1],
             match: ['='],
@@ -78,7 +78,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { pos: [2, 5, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [2, 4, 1],
                 match: ['5'],
@@ -119,7 +119,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -129,7 +129,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
         end: { match: ['end'], pos: [3, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -139,7 +139,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -150,7 +150,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 16,
             pos: [1, 0, 38],
             match: [';+ i am a basic block on only one line'],
@@ -160,7 +160,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { match: [], pos: [1, 0, 38] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [1, 0, 38],
                 match: [';+ i am a basic block on only one line'],
@@ -171,7 +171,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [2, 0, 1],
             match: ['a'],
@@ -180,7 +180,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [2, 2, 1],
             match: ['='],
@@ -190,7 +190,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { pos: [2, 5, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [2, 4, 1],
                 match: ['5'],
@@ -233,7 +233,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -243,7 +243,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
         end: { match: ['end'], pos: [5, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -253,7 +253,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -264,7 +264,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 16,
             pos: [1, 0, 2],
             match: [
@@ -278,7 +278,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { match: [], pos: [3, 0, 31] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [1, 0, 2],
                 match: [';+'],
@@ -287,7 +287,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [2, 0, 22],
                 match: ['; something about docs'],
@@ -296,7 +296,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [3, 0, 31],
                 match: ['; like, really cool information'],
@@ -307,7 +307,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [4, 0, 1],
             match: ['a'],
@@ -316,7 +316,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [4, 2, 1],
             match: ['='],
@@ -326,7 +326,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { pos: [4, 5, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [4, 4, 1],
                 match: ['5'],
@@ -369,7 +369,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -379,7 +379,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
         end: { match: ['end'], pos: [5, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -389,7 +389,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -400,7 +400,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 16,
             pos: [1, 0, 2],
             match: [';+', '; worlds greatest documenter', ';- ended'],
@@ -410,7 +410,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { match: [], pos: [3, 0, 8] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [1, 0, 2],
                 match: [';+'],
@@ -419,7 +419,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [2, 0, 28],
                 match: ['; worlds greatest documenter'],
@@ -428,7 +428,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [3, 0, 8],
                 match: [';- ended'],
@@ -439,7 +439,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [4, 0, 1],
             match: ['a'],
@@ -448,7 +448,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [4, 2, 1],
             match: ['='],
@@ -458,7 +458,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { pos: [4, 5, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [4, 4, 1],
                 match: ['5'],
@@ -508,7 +508,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -518,7 +518,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
         end: { match: ['end'], pos: [5, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -528,7 +528,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -539,7 +539,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 16,
             pos: [1, 0, 21],
             match: [';+ definition of life'],
@@ -549,7 +549,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { match: [], pos: [1, 0, 21] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [1, 0, 21],
                 match: [';+ definition of life'],
@@ -560,7 +560,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [2, 0, 1],
             match: ['a'],
@@ -569,7 +569,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [2, 2, 1],
             match: ['='],
@@ -579,7 +579,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { pos: [2, 6, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [2, 4, 2],
                 match: ['42'],
@@ -590,7 +590,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 16,
             pos: [3, 0, 28],
             match: [';+ second definition of life'],
@@ -600,7 +600,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { match: [], pos: [3, 0, 28] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [3, 0, 28],
                 match: [';+ second definition of life'],
@@ -611,7 +611,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [4, 0, 8],
             match: ['fortyTwo'],
@@ -620,7 +620,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [4, 9, 1],
             match: ['='],
@@ -630,7 +630,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
             end: { pos: [4, 13, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [4, 11, 2],
                 match: ['42'],

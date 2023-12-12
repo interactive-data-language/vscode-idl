@@ -28,7 +28,7 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
 
     // define expected token we extract
     const expectedFound_0 = {
-      type: '1',
+      type: 1,
       name: 85,
       pos: [2, 2, 1],
       match: ['a'],
@@ -52,7 +52,7 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
 
     // define expected token we extract
     const expectedFound_1 = {
-      type: '1',
+      type: 1,
       name: 85,
       pos: [8, 2, 1],
       match: ['a'],

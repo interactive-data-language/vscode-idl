@@ -16,7 +16,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
 
     // define expected token we extract
     const expectedFound_0 = {
-      type: '1',
+      type: 1,
       name: 14,
       pos: [0, 12, 1],
       match: [','],
@@ -40,7 +40,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
 
     // define expected token we extract
     const expectedFound_1 = {
-      type: '1',
+      type: 1,
       name: 14,
       pos: [0, 12, 1],
       match: [','],
@@ -64,7 +64,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
 
     // define expected token we extract
     const expectedFound_2 = {
-      type: '0',
+      type: 0,
       name: 12,
       pos: [0, 4, 8],
       match: ['.setData', '.', 'setData'],
@@ -74,7 +74,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
       end: { pos: [0, 16, 0], match: [''] },
       kids: [
         {
-          type: '1',
+          type: 1,
           name: 14,
           pos: [0, 12, 1],
           match: [','],
@@ -101,7 +101,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
 
     // define expected token we extract
     const expectedFound_3 = {
-      type: '0',
+      type: 0,
       name: 12,
       pos: [0, 4, 8],
       match: ['.setData', '.', 'setData'],
@@ -111,7 +111,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
       end: { pos: [0, 16, 0], match: [''] },
       kids: [
         {
-          type: '1',
+          type: 1,
           name: 14,
           pos: [0, 12, 1],
           match: [','],
@@ -138,7 +138,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
 
     // define expected token we extract
     const expectedFound_4 = {
-      type: '0',
+      type: 0,
       name: 12,
       pos: [0, 4, 8],
       match: ['.setData', '.', 'setData'],
@@ -148,7 +148,7 @@ describe(`[auto generated] Find the right token when we do/don't have anything s
       end: { pos: [0, 16, 0], match: [''] },
       kids: [
         {
-          type: '1',
+          type: 1,
           name: 14,
           pos: [0, 12, 1],
           match: [','],

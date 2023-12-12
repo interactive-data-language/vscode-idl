@@ -23,7 +23,7 @@ describe(`[auto generated] Confusing comment blocks `, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -33,7 +33,7 @@ describe(`[auto generated] Confusing comment blocks `, () => {
         end: { match: ['end'], pos: [7, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -43,7 +43,7 @@ describe(`[auto generated] Confusing comment blocks `, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -54,7 +54,7 @@ describe(`[auto generated] Confusing comment blocks `, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 16,
             pos: [1, 0, 2],
             match: [
@@ -70,7 +70,7 @@ describe(`[auto generated] Confusing comment blocks `, () => {
             end: { match: [], pos: [5, 0, 2] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [1, 0, 2],
                 match: [';+'],
@@ -79,7 +79,7 @@ describe(`[auto generated] Confusing comment blocks `, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [2, 0, 28],
                 match: ['; worlds greatest documenter'],
@@ -88,7 +88,7 @@ describe(`[auto generated] Confusing comment blocks `, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [3, 0, 22],
                 match: ['; - some bulleted list'],
@@ -97,7 +97,7 @@ describe(`[auto generated] Confusing comment blocks `, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [4, 0, 22],
                 match: ['; - some bulleted list'],
@@ -106,7 +106,7 @@ describe(`[auto generated] Confusing comment blocks `, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [5, 0, 2],
                 match: [';-'],
@@ -117,7 +117,7 @@ describe(`[auto generated] Confusing comment blocks `, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [6, 0, 1],
             match: ['a'],
@@ -126,7 +126,7 @@ describe(`[auto generated] Confusing comment blocks `, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [6, 2, 1],
             match: ['='],
@@ -136,7 +136,7 @@ describe(`[auto generated] Confusing comment blocks `, () => {
             end: { pos: [6, 5, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [6, 4, 1],
                 match: ['5'],

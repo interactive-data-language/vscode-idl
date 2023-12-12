@@ -20,7 +20,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 72,
         pos: [0, 0, 4],
         match: ['pro ', 'pro'],
@@ -30,7 +30,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
         end: { pos: [4, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 71,
             pos: [0, 4, 5],
             match: ['mypro'],
@@ -40,7 +40,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             end: { pos: [1, 22, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 9, 1],
                 match: [','],
@@ -49,7 +49,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 11, 4],
                 match: ['arg1'],
@@ -58,7 +58,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 15, 1],
                 match: [','],
@@ -67,7 +67,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 17, 4],
                 match: ['arg2'],
@@ -76,7 +76,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 21, 1],
                 match: [','],
@@ -85,7 +85,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 23, 4],
                 match: ['arg3'],
@@ -94,7 +94,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 27, 1],
                 match: [','],
@@ -103,7 +103,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [0, 29, 3],
                 match: ['KW1'],
@@ -112,7 +112,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [0, 32, 1],
                 match: ['='],
@@ -122,7 +122,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [0, 36, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [0, 33, 3],
                     match: ['kw1'],
@@ -133,7 +133,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 36, 1],
                 match: [','],
@@ -142,7 +142,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [0, 37, 1],
                 match: ['$'],
@@ -152,7 +152,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [0, 49, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 15,
                     pos: [0, 39, 10],
                     match: ['; commment'],
@@ -163,7 +163,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [1, 2, 3],
                 match: ['KW2'],
@@ -172,7 +172,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [1, 6, 1],
                 match: ['='],
@@ -182,7 +182,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [1, 11, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [1, 8, 3],
                     match: ['kw2'],
@@ -193,7 +193,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [1, 11, 1],
                 match: [','],
@@ -202,7 +202,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [1, 13, 3],
                 match: ['KW3'],
@@ -211,7 +211,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [1, 17, 1],
                 match: ['='],
@@ -221,7 +221,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [1, 22, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [1, 19, 3],
                     match: ['kw3'],
@@ -234,7 +234,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [2, 2, 11],
             match: ['compile_opt'],
@@ -244,7 +244,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             end: { pos: [2, 18, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [2, 14, 4],
                 match: ['idl2'],
@@ -286,7 +286,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 72,
         pos: [0, 0, 4],
         match: ['pro ', 'pro'],
@@ -296,7 +296,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
         end: { pos: [4, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 70,
             pos: [0, 4, 15],
             match: ['mypro::mymethod', 'mypro', 'mymethod'],
@@ -306,7 +306,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             end: { pos: [1, 22, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 19, 1],
                 match: [','],
@@ -315,7 +315,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 21, 4],
                 match: ['arg1'],
@@ -324,7 +324,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 25, 1],
                 match: [','],
@@ -333,7 +333,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 27, 4],
                 match: ['arg2'],
@@ -342,7 +342,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 31, 1],
                 match: [','],
@@ -351,7 +351,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 33, 4],
                 match: ['arg3'],
@@ -360,7 +360,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 37, 1],
                 match: [','],
@@ -369,7 +369,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [0, 39, 3],
                 match: ['KW1'],
@@ -378,7 +378,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [0, 42, 1],
                 match: ['='],
@@ -388,7 +388,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [0, 46, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [0, 43, 3],
                     match: ['kw1'],
@@ -399,7 +399,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 46, 1],
                 match: [','],
@@ -408,7 +408,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [0, 47, 1],
                 match: ['$'],
@@ -418,7 +418,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [0, 59, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 15,
                     pos: [0, 49, 10],
                     match: ['; commment'],
@@ -429,7 +429,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [1, 2, 3],
                 match: ['KW2'],
@@ -438,7 +438,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [1, 6, 1],
                 match: ['='],
@@ -448,7 +448,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [1, 11, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [1, 8, 3],
                     match: ['kw2'],
@@ -459,7 +459,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [1, 11, 1],
                 match: [','],
@@ -468,7 +468,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [1, 13, 3],
                 match: ['KW3'],
@@ -477,7 +477,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [1, 17, 1],
                 match: ['='],
@@ -487,7 +487,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [1, 22, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [1, 19, 3],
                     match: ['kw3'],
@@ -500,7 +500,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [2, 2, 11],
             match: ['compile_opt'],
@@ -510,7 +510,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             end: { pos: [2, 18, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [2, 14, 4],
                 match: ['idl2'],
@@ -570,7 +570,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 69,
         pos: [0, 0, 9],
         match: ['function ', 'function'],
@@ -580,7 +580,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
         end: { pos: [22, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 71,
             pos: [0, 9, 9],
             match: ['TS_HANTS2'],
@@ -590,7 +590,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             end: { pos: [15, 23, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 18, 1],
                 match: [','],
@@ -599,7 +599,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 20, 10],
                 match: ['timeseries'],
@@ -608,7 +608,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 30, 1],
                 match: [','],
@@ -617,7 +617,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [0, 32, 1],
                 match: ['$'],
@@ -628,7 +628,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [1, 0, 10],
                 match: ['amplitudes'],
@@ -637,7 +637,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [1, 11, 1],
                 match: ['='],
@@ -647,7 +647,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [1, 16, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [1, 13, 3],
                     match: ['amp'],
@@ -658,7 +658,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [1, 16, 1],
                 match: [','],
@@ -667,7 +667,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [1, 18, 1],
                 match: ['$'],
@@ -678,7 +678,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [2, 0, 5],
                 match: ['delta'],
@@ -687,7 +687,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [2, 6, 1],
                 match: ['='],
@@ -697,7 +697,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [2, 13, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [2, 8, 5],
                     match: ['delta'],
@@ -708,7 +708,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [2, 13, 1],
                 match: [','],
@@ -717,7 +717,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [2, 15, 1],
                 match: ['$'],
@@ -728,7 +728,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [3, 0, 3],
                 match: ['dod'],
@@ -737,7 +737,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [3, 4, 1],
                 match: ['='],
@@ -747,7 +747,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [3, 9, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [3, 6, 3],
                     match: ['dod'],
@@ -758,7 +758,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [3, 9, 1],
                 match: [','],
@@ -767,7 +767,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [3, 11, 1],
                 match: ['$'],
@@ -778,7 +778,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [4, 0, 6],
                 match: ['double'],
@@ -787,7 +787,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [4, 7, 1],
                 match: ['='],
@@ -797,7 +797,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [4, 15, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [4, 9, 6],
                     match: ['double'],
@@ -808,7 +808,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [4, 15, 1],
                 match: [','],
@@ -817,7 +817,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [4, 17, 1],
                 match: ['$'],
@@ -828,7 +828,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [5, 0, 13],
                 match: ['err_tolerance'],
@@ -837,7 +837,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [5, 14, 1],
                 match: ['='],
@@ -847,7 +847,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [5, 29, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [5, 16, 13],
                     match: ['err_tolerance'],
@@ -858,7 +858,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [5, 29, 1],
                 match: [','],
@@ -867,7 +867,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [5, 31, 1],
                 match: ['$'],
@@ -878,7 +878,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [6, 0, 21],
                 match: ['; FREQUENCIES=freq, $'],
@@ -887,7 +887,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [7, 0, 4],
                 match: ['HIGH'],
@@ -896,7 +896,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [7, 5, 1],
                 match: ['='],
@@ -906,7 +906,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [7, 11, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [7, 7, 4],
                     match: ['HIGH'],
@@ -917,7 +917,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [7, 11, 1],
                 match: [','],
@@ -926,7 +926,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [7, 13, 1],
                 match: ['$'],
@@ -937,7 +937,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [8, 0, 3],
                 match: ['low'],
@@ -946,7 +946,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [8, 4, 1],
                 match: ['='],
@@ -956,7 +956,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [8, 9, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [8, 6, 3],
                     match: ['low'],
@@ -967,7 +967,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [8, 9, 1],
                 match: [','],
@@ -976,7 +976,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [8, 11, 1],
                 match: ['$'],
@@ -987,7 +987,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [9, 0, 15],
                 match: ['num_frequencies'],
@@ -996,7 +996,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [9, 16, 1],
                 match: ['='],
@@ -1006,7 +1006,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [9, 33, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [9, 18, 15],
                     match: ['num_frequencies'],
@@ -1017,7 +1017,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [9, 33, 1],
                 match: [','],
@@ -1026,7 +1026,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [9, 35, 1],
                 match: ['$'],
@@ -1037,7 +1037,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [10, 0, 10],
                 match: ['num_period'],
@@ -1046,7 +1046,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [10, 11, 1],
                 match: ['='],
@@ -1056,7 +1056,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [10, 23, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [10, 13, 10],
                     match: ['num_period'],
@@ -1067,7 +1067,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [10, 23, 1],
                 match: [','],
@@ -1076,7 +1076,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [10, 25, 1],
                 match: ['$'],
@@ -1087,7 +1087,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [11, 0, 6],
                 match: ['phases'],
@@ -1096,7 +1096,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [11, 7, 1],
                 match: ['='],
@@ -1106,7 +1106,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [11, 15, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [11, 9, 6],
                     match: ['phases'],
@@ -1117,7 +1117,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [11, 15, 1],
                 match: [','],
@@ -1126,7 +1126,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [11, 17, 1],
                 match: ['$'],
@@ -1137,7 +1137,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [12, 0, 13],
                 match: ['range_maximum'],
@@ -1146,7 +1146,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [12, 14, 1],
                 match: ['='],
@@ -1156,7 +1156,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [12, 29, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [12, 16, 13],
                     match: ['range_maximum'],
@@ -1167,7 +1167,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [12, 29, 1],
                 match: [','],
@@ -1176,7 +1176,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [12, 31, 1],
                 match: ['$'],
@@ -1187,7 +1187,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [13, 0, 13],
                 match: ['range_minimum'],
@@ -1196,7 +1196,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [13, 14, 1],
                 match: ['='],
@@ -1206,7 +1206,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [13, 29, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [13, 16, 13],
                     match: ['range_minimum'],
@@ -1217,7 +1217,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [13, 29, 1],
                 match: [','],
@@ -1226,7 +1226,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [13, 31, 1],
                 match: ['$'],
@@ -1237,7 +1237,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [14, 0, 11],
                 match: ['time_sample'],
@@ -1246,7 +1246,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [14, 12, 1],
                 match: ['='],
@@ -1256,7 +1256,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [14, 25, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [14, 14, 11],
                     match: ['time_sample'],
@@ -1267,7 +1267,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [14, 25, 1],
                 match: [','],
@@ -1276,7 +1276,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [14, 27, 1],
                 match: ['$'],
@@ -1287,7 +1287,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [15, 0, 10],
                 match: ['num_images'],
@@ -1296,7 +1296,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [15, 11, 1],
                 match: ['='],
@@ -1306,7 +1306,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 end: { pos: [15, 23, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [15, 13, 10],
                     match: ['num_images'],
@@ -1319,7 +1319,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [17, 0, 11],
             match: ['compile_opt'],
@@ -1329,7 +1329,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             end: { pos: [17, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [17, 12, 4],
                 match: ['idl2'],
@@ -1340,7 +1340,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [19, 0, 1],
             match: ['a'],
@@ -1349,7 +1349,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [19, 2, 1],
             match: ['='],
@@ -1359,7 +1359,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             end: { pos: [19, 22, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 85,
                 pos: [19, 4, 10],
                 match: ['IDL_Number'],
@@ -1368,7 +1368,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 9,
                 pos: [19, 14, 7],
                 match: ['.total(', '.', 'total', '('],
@@ -1381,7 +1381,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 11,
             pos: [21, 0, 6],
             match: ['return'],
@@ -1391,7 +1391,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
             end: { pos: [21, 12, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [21, 6, 1],
                 match: [','],
@@ -1400,7 +1400,7 @@ describe(`[auto generated] Correctly extract keyword definitions`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 85,
                 pos: [21, 8, 4],
                 match: ['name'],
