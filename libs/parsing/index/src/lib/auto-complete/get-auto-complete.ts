@@ -43,7 +43,6 @@ import {
   METHOD_PROPERTY_COMPLETION,
   NO_PAREN,
   NO_PROPERTIES,
-  PROCEDURE_METHOD_COMPLETION,
   PROCEDURE_TOKENS,
   PROCEDURES,
   ROUTINES,
@@ -355,7 +354,7 @@ export async function GetAutoComplete(
             case token?.name in ALL_METHODS_COMPLETION:
               if (
                 local?.name in CAN_PROCEDURE_HERE ||
-                token?.name in PROCEDURE_METHOD_COMPLETION
+                token?.name === TOKEN_NAMES.CALL_PROCEDURE_METHOD
               ) {
                 AddCompletionProcedureMethods(items, index, formatting, type);
               }
