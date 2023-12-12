@@ -79,12 +79,13 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, async (message) => {
  */
 client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.ASSEMBLE_PRO_CODE,
-  async (message) => {
+  async (message, cancel) => {
     return AssembleWithIndex(
       WORKER_INDEX,
       message.file,
       message.code,
-      message.formatting
+      message.formatting,
+      cancel
     );
   }
 );

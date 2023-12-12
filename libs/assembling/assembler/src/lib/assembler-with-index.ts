@@ -11,15 +11,12 @@ export async function AssembleWithIndex(
   index: IDLIndex,
   file: string,
   code: string | string[],
-  formatting: IAssemblerOptions<FormatterType>
+  formatting: IAssemblerOptions<FormatterType>,
+  cancel: CancellationToken
 ): Promise<string | undefined> {
   // get the tokens for our file
-  const parsed = await index.getParsedProCode(
-    file,
-    code,
-    new CancellationToken()
-  );
+  const parsed = await index.getParsedProCode(file, code, cancel);
 
   // format and return
-  return Assembler(parsed, new CancellationToken(), formatting);
+  return Assembler(parsed, cancel, formatting);
 }
