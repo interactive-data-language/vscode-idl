@@ -167,7 +167,7 @@ export function GetProperty(
           class: IDL_STRUCTURE_TYPE,
           type: TypeFromTokens(index, parsed, token.kids),
           globalType: GLOBAL_TOKEN_TYPES.STRUCTURE,
-          globalName: '_anonymous_',
+          globalName: 'structure',
         };
         return (token.cache as ITokenCache).property;
       }

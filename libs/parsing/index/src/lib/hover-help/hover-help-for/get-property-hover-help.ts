@@ -30,9 +30,17 @@ export function GetPropertyHoverHelp(
 
   // did we find a property?
   if (prop !== undefined) {
-    lookup.type = GLOBAL_TOKEN_TYPES.STRUCTURE;
-    lookup.name = prop.globalName;
-    lookup.prop = prop.name;
+    if (prop.globalName.toLowerCase() === 'structure') {
+      lookup.contents = IDLTypeHelper.addTypeToDocs(
+        prop.display,
+        '',
+        prop.type
+      );
+    } else {
+      lookup.type = GLOBAL_TOKEN_TYPES.STRUCTURE;
+      lookup.name = prop.globalName;
+      lookup.prop = prop.name;
+    }
   } else {
     // default to the name, nothing fancy
     lookup.contents = IDLTypeHelper.addTypeToDocs(
