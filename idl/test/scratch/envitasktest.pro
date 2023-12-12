@@ -14,5 +14,6 @@ pro envitasktest, input_raster = input_raster, output_raster_uri = output_raster
   if (e eq !null) then begin
     message, 'ENVI has not started yet, required!'
   endif
+
   idltasktest, input_raster = 5
 end

@@ -1,3 +1,4 @@
+import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import {
   GlobalTokens,
   GlobalTokenType,
@@ -33,6 +34,25 @@ export interface AllFilesPayload {
  * Response when tracking all files
  */
 export type AllFilesResponse = void;
+
+/**
+ * Message to assemble PRO code
+ */
+export type AssembleProCodeMessage = 'assemble-pro-code';
+
+/**
+ * Payload when assembling PRO code
+ */
+export interface AssembleProCodePayload {
+  file: string;
+  code: string | string[];
+  formatting: IAssemblerOptions<FormatterType>;
+}
+
+/**
+ * Response when assembling PRO code
+ */
+export type AssembleProCodeResponse = string | undefined;
 
 /**
  * Message when we need to perform change detection
@@ -435,6 +455,7 @@ export type TrackGlobalTokensResponse = void;
 export type LSPWorkerThreadMessage =
   | WorkerIOBaseMessage
   | AllFilesMessage
+  | AssembleProCodeMessage
   | ChangeDetectionMessage
   | CleanUpMessage
   | GetAutoCompleteMessage
@@ -462,6 +483,10 @@ interface ILSPWorkerThreadMessageLookup {
    * Load global tokens using our extension configuration
    */
   ALL_FILES: AllFilesMessage;
+  /**
+   * When we format PRO code in the worker
+   */
+  ASSEMBLE_PRO_CODE: AssembleProCodeMessage;
   /**
    * Message when we need to perform change detection
    */
@@ -541,6 +566,7 @@ interface ILSPWorkerThreadMessageLookup {
  */
 export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   ALL_FILES: 'all-files',
+  ASSEMBLE_PRO_CODE: 'assemble-pro-code',
   CHANGE_DETECTION: 'change-detection',
   CLEAN_UP: 'clean-up',
   GET_AUTO_COMPLETE: 'get-auto-complete',

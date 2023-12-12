@@ -1,3 +1,4 @@
+import { AssembleWithIndex } from '@idl/assembler';
 import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
 import { ParseFileSync } from '@idl/parser';
 import {
@@ -72,6 +73,21 @@ const WORKER_INDEX = new IDLIndex(WORKER_THREAD_LOG_MANAGER, 0, false);
 client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, async (message) => {
   WORKER_INDEX.trackFiles(message.files);
 });
+
+/**
+ * Format files
+ */
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.ASSEMBLE_PRO_CODE,
+  async (message) => {
+    return AssembleWithIndex(
+      WORKER_INDEX,
+      message.file,
+      message.code,
+      message.formatting
+    );
+  }
+);
 
 /**
  * Handle requests to load globals from our IDL docs

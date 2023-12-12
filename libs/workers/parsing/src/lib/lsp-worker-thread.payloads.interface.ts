@@ -8,6 +8,9 @@ import {
   AllFilesMessage,
   AllFilesPayload,
   AllFilesResponse,
+  AssembleProCodeMessage,
+  AssembleProCodePayload,
+  AssembleProCodeResponse,
   ChangeDetectionMessage,
   ChangeDetectionPayload,
   ChangeDetectionResponse,
@@ -68,6 +71,8 @@ import {
 export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
   T extends AllFilesMessage
     ? AllFilesPayload
+    : T extends AssembleProCodeMessage
+    ? AssembleProCodePayload
     : T extends ChangeDetectionMessage
     ? ChangeDetectionPayload
     : T extends CleanUpMessage
@@ -114,6 +119,8 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
 export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
   T extends AllFilesMessage
     ? AllFilesResponse
+    : T extends AssembleProCodeMessage
+    ? AssembleProCodeResponse
     : T extends ChangeDetectionMessage
     ? ChangeDetectionResponse
     : T extends CleanUpMessage

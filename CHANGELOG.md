@@ -36,9 +36,23 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 ## 4.2.0 December 2023
 
-Re-worked the hover-help, auto-complete, and go-to-definition pipelines to not send as much data between processes in the language server. This should result in dramatic performance improvements for large files.
+Re-worked the way that data is moved around between the IDL Language Server and worker threads to be more efficient. Now, no representations of PRO code should be transferred between processed which will provide lower CPU usage and RAM spikes from sharing our syntax tree.
 
-- For example: the slicer3.pro file is about 6500 lines of code. Before this update it took about 4-5 seconds to get hover help. Now, with this change, it takes about 30 milliseconds to return.
+This change ensures that work that happens will occur next to the data that is needed. This should improve:
+
+- Hover help
+
+- Auto-complete
+
+- Go-to definition
+
+- Formatting PRO code
+
+- Formatting IDL and ENVI notebooks
+
+With this change, and if you have very large files, you should notice a dramatic difference performance. For example, the file "slicer3.pro" in the IDL lib folder used to take 4-5 seconds for hover help to appear. Now it takes ~30 milliseconds!
+
+Considering this is a large change, please let us know if there are any noticeable differences that our tests have not captured.
 
 ## 4.1.2 December 2023
 
