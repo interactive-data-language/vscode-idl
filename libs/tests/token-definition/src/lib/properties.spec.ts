@@ -38,6 +38,8 @@ describe(`[auto generated] Correctly find definitions for properties`, () => {
       pos: [32, 22, 6],
       name: 'prop1',
       class: [{ name: 'NYStruct0', display: 'NYStruct0', args: [], meta: {} }],
+      globalType: 's',
+      globalName: 'nystruct0',
     };
 
     // get expected and remove file
@@ -67,6 +69,8 @@ describe(`[auto generated] Correctly find definitions for properties`, () => {
       pos: [34, 41, 6],
       name: 'prop2',
       class: [{ name: 'NYStruct', display: 'NYStruct', args: [], meta: {} }],
+      globalType: 's',
+      globalName: 'nystruct',
     };
 
     // get expected and remove file

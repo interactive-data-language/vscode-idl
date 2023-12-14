@@ -164,7 +164,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.START,
         name: TOKEN_NAMES.STRUCTURE_PROPERTY,
         pos: [0, 8, 6],
-        matches: [`thing:`, `thing`],
+        matches: [`thing:`],
       },
       {
         type: TOKEN_TYPES.BASIC,
@@ -238,7 +238,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.START,
         name: TOKEN_NAMES.STRUCTURE_PROPERTY,
         pos: [1, 2, 6],
-        matches: [`thing:`, `thing`],
+        matches: [`thing:`],
       },
       {
         type: TOKEN_TYPES.BASIC,
@@ -300,7 +300,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.START,
         name: TOKEN_NAMES.STRUCTURE_PROPERTY,
         pos: [0, 8, 7],
-        matches: [`thing1:`, `thing1`],
+        matches: [`thing1:`],
       },
       {
         type: TOKEN_TYPES.START,
@@ -312,7 +312,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.START,
         name: TOKEN_NAMES.STRUCTURE_PROPERTY,
         pos: [0, 16, 7],
-        matches: [`thing2:`, `thing2`],
+        matches: [`thing2:`],
       },
       {
         type: TOKEN_TYPES.BASIC,
@@ -466,7 +466,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.START,
         name: TOKEN_NAMES.STRUCTURE_PROPERTY,
         pos: [0, 14, 4],
-        matches: [`abc:`, `abc`],
+        matches: [`abc:`],
       },
       {
         type: TOKEN_TYPES.BASIC,
@@ -490,7 +490,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.START,
         name: TOKEN_NAMES.STRUCTURE_PROPERTY,
         pos: [0, 23, 2],
-        matches: [`b:`, `b`],
+        matches: [`b:`],
       },
       {
         type: TOKEN_TYPES.BASIC,
@@ -514,7 +514,7 @@ describe(`[auto generated] Validates structure parsing`, () => {
         type: TOKEN_TYPES.START,
         name: TOKEN_NAMES.STRUCTURE_PROPERTY,
         pos: [0, 28, 2],
-        matches: [`c:`, `c`],
+        matches: [`c:`],
       },
       {
         type: TOKEN_TYPES.START,

@@ -39,6 +39,8 @@ describe(`[auto generated] Correctly find procedure definitions`, () => {
       code: true,
       pos: [25, 10, 2],
       name: 'kw',
+      globalType: 'p',
+      globalName: 'pro3',
     };
 
     // get expected and remove file

@@ -172,7 +172,7 @@ export class MapComponent
               : `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`,
 
             minZoom: 0,
-            maxZoom: 19,
+            maxZoom: 16,
             tileSize: 256,
 
             renderSubLayers: (props) => {

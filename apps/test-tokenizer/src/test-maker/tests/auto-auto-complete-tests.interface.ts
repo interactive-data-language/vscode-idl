@@ -291,6 +291,50 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Methods`,
+    fileName: `methods.spec.ts`,
+    tests: [
+      {
+        name: `inside the paren showing variables`,
+        file: `idl/test/auto-complete/methods.pro`,
+        position: [
+          {
+            line: 12,
+            character: 8,
+          },
+          {
+            line: 15,
+            character: 8,
+          },
+          {
+            line: 18,
+            character: 13,
+          },
+          {
+            line: 21,
+            character: 8,
+          },
+          {
+            line: 24,
+            character: 13,
+          },
+          {
+            line: 27,
+            character: 14,
+          },
+          {
+            line: 30,
+            character: 14,
+          },
+          {
+            line: 33,
+            character: 11,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Verify types being used for`,
     fileName: `methods.1.spec.ts`,
     tests: [
@@ -309,6 +353,30 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           {
             line: 26,
             character: 12,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Methods`,
+    fileName: `method-regression.spec.ts`,
+    tests: [
+      {
+        name: `inside the paren showing variables`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 10,
+            character: 10,
+          },
+          {
+            line: 11,
+            character: 13,
+          },
+          {
+            line: 12,
+            character: 15,
           },
         ],
       },
@@ -401,22 +469,6 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
-    suiteName: `When in procedure, send procedure tokens`,
-    fileName: `procedures.1.spec.ts`,
-    tests: [
-      {
-        name: `for functions`,
-        file: `idl/test/auto-complete/procedures.pro`,
-        position: [
-          {
-            line: 4,
-            character: 2,
-          },
-        ],
-      },
-    ],
-  },
-  {
     suiteName: `Correctly return auto-complete from obj-new`,
     fileName: `obj-new.spec.ts`,
     tests: [
@@ -453,6 +505,22 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           {
             line: 2,
             character: 0,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `When in procedure, send procedure tokens`,
+    fileName: `procedures.1.spec.ts`,
+    tests: [
+      {
+        name: `for functions`,
+        file: `idl/test/auto-complete/procedures.pro`,
+        position: [
+          {
+            line: 4,
+            character: 2,
           },
         ],
       },
@@ -553,6 +621,26 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Correctly send only system variables`,
+    fileName: `system-variables.1.spec.ts`,
+    tests: [
+      {
+        name: `when we auto-complete`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 29,
+            character: 3,
+          },
+          {
+            line: 30,
+            character: 9,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Task auto complete`,
     fileName: `tasks.functions.spec.ts`,
     tests: [
@@ -588,50 +676,6 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           {
             line: 15,
             character: 4,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    suiteName: `Methods`,
-    fileName: `method-regression.spec.ts`,
-    tests: [
-      {
-        name: `inside the paren showing variables`,
-        file: `idl/test/auto-complete/examples.pro`,
-        position: [
-          {
-            line: 10,
-            character: 10,
-          },
-          {
-            line: 11,
-            character: 13,
-          },
-          {
-            line: 12,
-            character: 15,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    suiteName: `Correctly send only system variables`,
-    fileName: `system-variables.1.spec.ts`,
-    tests: [
-      {
-        name: `when we auto-complete`,
-        file: `idl/test/auto-complete/examples.pro`,
-        position: [
-          {
-            line: 29,
-            character: 3,
-          },
-          {
-            line: 30,
-            character: 9,
           },
         ],
       },

@@ -49,22 +49,26 @@ export interface ICommandTranslation {
   };
   /** Commands for notebooks */
   notebooks: {
-    /** Reset notebook session */
-    resetIDL: string;
-    /** Stop notebook session */
-    stopIDL: string;
+    /** Convert notebook to markdown */
+    convertToMarkdown: string;
+    /** Convert notebook to PDF */
+    convertToPDF: string;
     /** Convert help to notebook */
     helpAsNotebook: string;
-    /** Open IDL example notebook */
-    openIDLExample: string;
-    /** Open ENVI example notebook */
-    openENVIExample: string;
-    /** Reset example notebooks */
-    resetNotebookExamples: string;
     /** Create a new notebook */
     newNotebook: string;
     /** Convert a notebook to PRO code */
     notebookToProCode: string;
+    /** Open IDL example notebook */
+    openIDLExample: string;
+    /** Open ENVI example notebook */
+    openENVIExample: string;
+    /** Reset notebook session */
+    resetIDL: string;
+    /** Reset example notebooks */
+    resetNotebookExamples: string;
+    /** Stop notebook session */
+    stopIDL: string;
   };
   /** Terminal commands */
   terminal: {
@@ -557,6 +561,8 @@ export interface ITranslation {
           resetExampleNotebooks: ITreeInformation;
           /** Convert notebook to PRO code */
           notebookToProCode: ITreeInformation;
+          /** Convert notebook to PDF */
+          notebookToPDF: ITreeInformation;
         };
         /** Deprecated, but tree entries for IDL terminals */
         terminal: {
@@ -622,6 +628,10 @@ export interface ITranslation {
       saveNotebookFirst: string;
       /** When converting to PRO file, include all cells? */
       includeAllCells: string;
+      /** When we need Markdown PDF to create PDFs */
+      needMarkdownPDF: string;
+      /** When we need to wait for install before continuing  */
+      markdownPDFWaitForInstall: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */

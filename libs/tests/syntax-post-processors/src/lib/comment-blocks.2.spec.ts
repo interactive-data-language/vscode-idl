@@ -22,7 +22,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -32,7 +32,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
         end: { match: ['end'], pos: [6, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -42,7 +42,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -53,7 +53,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 16,
             pos: [1, 0, 2],
             match: [';+', '; worlds greatest documenter', ';-'],
@@ -63,7 +63,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             end: { match: [], pos: [3, 0, 2] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [1, 0, 2],
                 match: [';+'],
@@ -72,7 +72,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [2, 0, 28],
                 match: ['; worlds greatest documenter'],
@@ -81,7 +81,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [3, 0, 2],
                 match: [';-'],
@@ -92,7 +92,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 15,
             pos: [4, 0, 23],
             match: ['; not included in block'],
@@ -101,7 +101,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             parseProblems: [],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [5, 0, 1],
             match: ['a'],
@@ -110,7 +110,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [5, 2, 1],
             match: ['='],
@@ -120,7 +120,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             end: { pos: [5, 5, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [5, 4, 1],
                 match: ['5'],
@@ -166,7 +166,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -176,7 +176,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
         end: { match: ['end'], pos: [8, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -186,7 +186,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -197,7 +197,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 16,
             pos: [1, 0, 2],
             match: [';+', '; first block', ';-'],
@@ -207,7 +207,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             end: { match: [], pos: [3, 0, 2] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [1, 0, 2],
                 match: [';+'],
@@ -216,7 +216,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [2, 0, 13],
                 match: ['; first block'],
@@ -225,7 +225,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [3, 0, 2],
                 match: [';-'],
@@ -236,7 +236,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 16,
             pos: [4, 0, 2],
             match: [';+', '; second block', ';-'],
@@ -246,7 +246,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             end: { match: [], pos: [6, 0, 2] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [4, 0, 2],
                 match: [';+'],
@@ -255,7 +255,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [5, 0, 14],
                 match: ['; second block'],
@@ -264,7 +264,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [6, 0, 2],
                 match: [';-'],
@@ -275,7 +275,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [7, 0, 1],
             match: ['a'],
@@ -284,7 +284,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [7, 2, 1],
             match: ['='],
@@ -294,7 +294,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             end: { pos: [7, 5, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [7, 4, 1],
                 match: ['5'],
@@ -344,7 +344,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -354,7 +354,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
         end: { match: ['end'], pos: [12, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -364,7 +364,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -375,7 +375,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 16,
             pos: [1, 0, 2],
             match: [';+', '; first block', ';-'],
@@ -385,7 +385,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             end: { match: [], pos: [3, 0, 2] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [1, 0, 2],
                 match: [';+'],
@@ -394,7 +394,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [2, 0, 13],
                 match: ['; first block'],
@@ -403,7 +403,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 15,
                 pos: [3, 0, 2],
                 match: [';-'],
@@ -414,7 +414,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 41,
             pos: [5, 0, 2],
             match: ['if'],
@@ -424,7 +424,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
             end: { pos: [10, 5, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 82,
                 pos: [5, 3, 5],
                 match: ['!true'],
@@ -433,7 +433,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 46,
                 pos: [5, 9, 4],
                 match: ['then'],
@@ -443,7 +443,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                 end: { pos: [10, 5, 0], match: [''] },
                 kids: [
                   {
-                    type: '0',
+                    type: 0,
                     name: 6,
                     pos: [5, 14, 5],
                     match: ['begin'],
@@ -453,7 +453,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                     end: { pos: [10, 0, 5], match: ['endif'] },
                     kids: [
                       {
-                        type: '0',
+                        type: 0,
                         name: 16,
                         pos: [6, 2, 2],
                         match: [';+', '; second block', ';-'],
@@ -463,7 +463,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                         end: { match: [], pos: [8, 2, 2] },
                         kids: [
                           {
-                            type: '1',
+                            type: 1,
                             name: 15,
                             pos: [6, 2, 2],
                             match: [';+'],
@@ -472,7 +472,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                             parseProblems: [],
                           },
                           {
-                            type: '1',
+                            type: 1,
                             name: 15,
                             pos: [7, 2, 14],
                             match: ['; second block'],
@@ -481,7 +481,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                             parseProblems: [],
                           },
                           {
-                            type: '1',
+                            type: 1,
                             name: 15,
                             pos: [8, 2, 2],
                             match: [';-'],
@@ -492,7 +492,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                         ],
                       },
                       {
-                        type: '1',
+                        type: 1,
                         name: 85,
                         pos: [9, 2, 1],
                         match: ['a'],
@@ -501,7 +501,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                         parseProblems: [],
                       },
                       {
-                        type: '0',
+                        type: 0,
                         name: 3,
                         pos: [9, 4, 1],
                         match: ['='],
@@ -511,7 +511,7 @@ describe(`[auto generated] Advanced comment block cases`, () => {
                         end: { pos: [9, 7, 0], match: [''] },
                         kids: [
                           {
-                            type: '1',
+                            type: 1,
                             name: 56,
                             pos: [9, 6, 1],
                             match: ['5'],

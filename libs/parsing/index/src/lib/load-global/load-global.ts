@@ -4,7 +4,7 @@ import { GetExtensionPath } from '@idl/shared';
 import { readFileSync } from 'fs';
 
 import { IDL_INDEX_OPTIONS } from '../idl-index.interface';
-import { ReduceGlobals } from '../reduce-globals';
+import { ReduceGlobals } from './reduce-globals';
 
 /**
  * Global tokens for IDL

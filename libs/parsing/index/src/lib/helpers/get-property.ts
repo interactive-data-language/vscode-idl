@@ -8,7 +8,7 @@ import {
   IPropertyLookup,
   ParseIDLType,
 } from '@idl/data-types/core';
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { GetPropertyName, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   AccessPropertyToken,
   StructurePropertyToken,
@@ -18,9 +18,8 @@ import copy from 'fast-copy';
 
 import { IDLIndex } from '../idl-index.class';
 import { TypeFromTokens } from '../post-process/populate-type/from/type-from-tokens';
-import { ITokenCache } from '../token-cache.interface';
 import { IFoundProperty } from './get-property.interface';
-import { GetPropertyName } from './get-property-name';
+import { ITokenCache } from './token-cache.interface';
 
 /**
  * Returns type information for the specified property
@@ -103,6 +102,8 @@ function GetPropertyForType(
       name: prop.toLowerCase(),
       file,
       class: ParseIDLType(className),
+      globalType: GLOBAL_TOKEN_TYPES.STRUCTURE,
+      globalName: className.toLowerCase(),
     });
   } else {
     return undefined;
@@ -165,6 +166,8 @@ export function GetProperty(
           source: 'user',
           class: IDL_STRUCTURE_TYPE,
           type: TypeFromTokens(index, parsed, token.kids),
+          globalType: GLOBAL_TOKEN_TYPES.STRUCTURE,
+          globalName: 'structure',
         };
         return (token.cache as ITokenCache).property;
       }

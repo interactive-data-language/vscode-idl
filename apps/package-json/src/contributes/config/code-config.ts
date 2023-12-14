@@ -6,7 +6,7 @@ import {
 import { readFileSync, writeFileSync } from 'fs';
 
 import { IPackageNLS } from '../../package.interface';
-import { EXTENSION_CONFIG } from '../configuration.interface';
+import { EXTENSION_CONFIG } from '../contributes-configuration.interface';
 import { GetNLS } from '../helpers/get-nls';
 import { VerifyNLS } from '../helpers/verify-nls';
 import { IDL_CONFIG_SCOPE } from './idl-config-scope.interface';

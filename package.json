@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "4.1.2",
+  "version": "4.2.0",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -67,6 +67,7 @@
     "json-schema-resolver": "^2.0.0",
     "minilog": "^3.1.0",
     "nanoid": "^3.3.4",
+    "protobufjs": "^7.2.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "vscode-languageclient": "^9.0.1",
@@ -130,7 +131,7 @@
     "@types/web": "^0.0.119",
     "@typescript-eslint/eslint-plugin": "5.60.1",
     "@typescript-eslint/parser": "5.60.1",
-    "@vscode/test-electron": "^2.3.6",
+    "@vscode/test-electron": "^2.3.8",
     "@vscode/vsce": "2.21",
     "@vscode/webview-ui-toolkit": "^1.2.0",
     "@webcomponents/webcomponentsjs": "^2.8.0",
@@ -271,6 +272,14 @@
       {
         "command": "idl.docs.open",
         "title": "%commands.idl.docs.open%"
+      },
+      {
+        "command": "idl.notebooks.convertToPDF",
+        "title": "%commands.idl.notebooks.convertToPDF%",
+        "icon": {
+          "light": "extension/images/light/pdf.svg",
+          "dark": "extension/images/dark/pdf.svg"
+        }
       },
       {
         "command": "idl.notebooks.helpAsNotebook",
@@ -1246,12 +1255,17 @@
       "notebook/toolbar": [
         {
           "command": "idl.notebooks.resetIDL",
-          "group": "navigation",
+          "group": "navigation/execute",
           "when": "resourceExtname == .idlnb"
         },
         {
           "command": "idl.notebooks.stopIDL",
-          "group": "navigation",
+          "group": "navigation/execute",
+          "when": "resourceExtname == .idlnb"
+        },
+        {
+          "command": "idl.notebooks.convertToPDF",
+          "group": "status",
           "when": "resourceExtname == .idlnb"
         }
       ]

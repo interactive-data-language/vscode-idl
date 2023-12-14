@@ -14,7 +14,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 1],
         idx: 0,
@@ -23,7 +23,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
         parseProblems: [],
         kids: [
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [0, 0, 1],
             match: ['a'],
@@ -32,7 +32,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [0, 2, 1],
             match: ['='],
@@ -42,7 +42,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '0',
+                type: 0,
                 name: 77,
                 pos: [0, 4, 1],
                 match: ['{'],
@@ -52,17 +52,17 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
                 end: { pos: [0, 15, 1], match: ['}'] },
                 kids: [
                   {
-                    type: '0',
+                    type: 0,
                     name: 81,
                     pos: [0, 5, 5],
-                    match: ['prop:', 'prop'],
+                    match: ['prop:'],
                     idx: 0,
                     scope: [54, 3, 77],
                     parseProblems: [],
                     end: { pos: [0, 15, 0], match: [''] },
                     kids: [
                       {
-                        type: '0',
+                        type: 0,
                         name: 63,
                         pos: [0, 11, 1],
                         match: ['*'],
@@ -72,7 +72,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
                         end: { pos: [0, 15, 0], match: [''] },
                         kids: [
                           {
-                            type: '1',
+                            type: 1,
                             name: 85,
                             pos: [0, 12, 3],
                             match: ['ptr'],
@@ -114,7 +114,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 1],
         idx: 0,
@@ -123,7 +123,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
         parseProblems: [],
         kids: [
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [0, 0, 1],
             match: ['a'],
@@ -132,7 +132,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [0, 2, 1],
             match: ['='],
@@ -142,7 +142,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 85,
                 pos: [0, 4, 3],
                 match: ['var'],
@@ -151,7 +151,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 78,
                 pos: [0, 7, 2],
                 match: ['.('],
@@ -161,7 +161,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
                 end: { pos: [0, 15, 1], match: [')'] },
                 kids: [
                   {
-                    type: '0',
+                    type: 0,
                     name: 63,
                     pos: [0, 9, 1],
                     match: ['*'],
@@ -171,7 +171,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
                     end: { pos: [0, 15, 0], match: [''] },
                     kids: [
                       {
-                        type: '1',
+                        type: 1,
                         name: 85,
                         pos: [0, 10, 5],
                         match: ['thing'],

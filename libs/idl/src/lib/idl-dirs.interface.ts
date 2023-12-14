@@ -17,9 +17,13 @@ export interface IDLDirs {
  * IDL installation directories by OS
  */
 export const IDL_DIRS: IDLDirs = {
+  /**
+   * Don't forget to add arm for future versions
+   */
   darwin: [
-    '/Applications/nv5/envi60/idl90/bin/bin.darwin.x86_64',
-    '/Applications/nv5/idl90/bin/bin.darwin.x86_64',
+    '/Applications/NV5/envi60/idl90/bin/bin.darwin.x86_64',
+    '/Applications/NV5/idl90/bin/bin.darwin.x86_64',
+    '/Applications/NV5/idl90/bin/bin.darwin.arm64',
     '/Applications/harris/envi57/idl89/bin/bin.darwin.x86_64',
     '/Applications/harris/idl89/bin/bin.darwin.x86_64',
     '/Applications/harris/envi56/idl88/bin/bin.darwin.x86_64',

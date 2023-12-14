@@ -85,3 +85,8 @@ export const NUMBER_AS_SINGLE_QUOTE =
  */
 export const NUMBER_AS_DOUBLE_QUOTE =
   /"([^"]+)"([box])(u?(?:b|s|ll|l|i|j)*)\b|"([0-7]+)(u?(?:b|s|ll|l|i|j)*)$/i;
+
+/**
+ * Regular expression to clean the cleaning regular expression
+ */
+export const STRUCTURE_PROPERTY_CLEANER_REGEX = /\s*:/im;

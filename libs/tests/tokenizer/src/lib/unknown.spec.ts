@@ -28,7 +28,7 @@ describe(`[auto generated] Validates unknown token parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [0, 6, 10],
-        matches: [`.component`, `.`, `component`],
+        matches: [`.component`],
       },
       {
         type: TOKEN_TYPES.BASIC,

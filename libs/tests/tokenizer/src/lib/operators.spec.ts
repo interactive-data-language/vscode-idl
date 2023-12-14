@@ -871,7 +871,7 @@ describe(`[auto generated] Validates operator parsing`, () => {
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.ACCESS_PROPERTY,
         pos: [0, 10, 7],
-        matches: [`.pTitle`, `.`, `pTitle`],
+        matches: [`.pTitle`],
       },
       {
         type: TOKEN_TYPES.END,

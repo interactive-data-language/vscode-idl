@@ -18,7 +18,7 @@ import {
 import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
 import { Parser } from '@idl/parser';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { GetIncludeFile, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { IncludeToken } from '@idl/parsing/tokenizer';
 import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
@@ -71,16 +71,17 @@ import { Worker } from 'worker_threads';
 import { GetAutoComplete } from './auto-complete/get-auto-complete';
 import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
-import { GetCodeOutline } from './get-code-outline';
-import { GetCodeSemanticTokens } from './get-code-semantic-tokens';
-import { GetParsedNotebook } from './get-parsed-notebook';
-import { GetParsedPROCode } from './get-parsed-pro-code';
+import { GetParsedNotebook } from './get-parsed/get-parsed-notebook';
+import { GetParsedPROCode } from './get-parsed/get-parsed-pro-code';
+import { ParseNotebook } from './get-parsed/parse-notebook';
 import { GlobalIndex } from './global-index.class';
+import { GetCodeSemanticTokens } from './helpers/get-code-semantic-tokens';
 import { GetSyntaxProblems } from './helpers/get-syntax-problems';
 import { PopulateNotebookVariables } from './helpers/populate-notebook-variables';
 import { ResetGlobalDisplayNames } from './helpers/reset-global-display-names';
 import { SplitFiles } from './helpers/split-files';
-import { GetHoverHelp } from './hover-help/get-hover-help';
+import { GetHoverHelpFromLookup } from './hover-help/get-hover-help-from-lookup';
+import { GetHoverHelpLookup } from './hover-help/get-hover-help-lookup';
 import {
   DEFAULT_INDEX_PRO_CODE_OPTIONS,
   IDL_INDEX_OPTIONS,
@@ -91,7 +92,7 @@ import {
 } from './idl-index.interface';
 import { IDLParsedCache } from './idl-parsed-cache.class';
 import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';
-import { ParseNotebook } from './parse-notebook';
+import { GetCodeOutline } from './outline/get-code-outline';
 import { PostProcessParsed } from './post-process/post-process-parsed';
 import { GetTokenDefinition } from './token-definiton/get-token-definition';
 
@@ -394,7 +395,7 @@ export class IDLIndex {
     /**
      * Get the include file we need to find
      */
-    let match = token.match[1].toLowerCase();
+    let match = GetIncludeFile(token);
 
     // make sure it ends with ".pro"
     if (!match.endsWith('.pro')) {
@@ -468,7 +469,21 @@ export class IDLIndex {
     position: Position,
     config: IDLExtensionConfig = DEFAULT_IDL_EXTENSION_CONFIG
   ) {
-    return GetHoverHelp(this, file, code, position, config);
+    /**
+     * Get the lookup for our hover help
+     */
+    const lkp = this.isMultiThreaded()
+      ? await this.indexerPool.workerio.postAndReceiveMessage(
+          this.getWorkerID(file),
+          LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_HOVER_HELP_LOOKUP,
+          { file, code, position, config }
+        ).response
+      : await GetHoverHelpLookup(this, file, code, position);
+
+    /**
+     * Put hover help together and return
+     */
+    return await GetHoverHelpFromLookup(this, lkp, config);
   }
 
   /**
@@ -481,7 +496,15 @@ export class IDLIndex {
     config: IDLExtensionConfig = DEFAULT_IDL_EXTENSION_CONFIG,
     formatting: IAssemblerOptions<FormatterType> = DEFAULT_ASSEMBLER_OPTIONS
   ): Promise<GetAutoCompleteResponse> {
-    return GetAutoComplete(this, file, code, position, config, formatting);
+    if (this.isMultiThreaded()) {
+      return await this.indexerPool.workerio.postAndReceiveMessage(
+        this.getWorkerID(file),
+        LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_AUTO_COMPLETE,
+        { file, code, position, config }
+      ).response;
+    } else {
+      return GetAutoComplete(this, file, code, position, config, formatting);
+    }
   }
 
   /**
@@ -512,7 +535,16 @@ export class IDLIndex {
     code: string | string[],
     position: Position
   ): Promise<GetTokenDefResponse> {
-    return GetTokenDefinition(this, file, code, position);
+    // if we are multi threaded, then
+    if (this.isMultiThreaded()) {
+      return await this.indexerPool.workerio.postAndReceiveMessage(
+        this.getWorkerID(file),
+        LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_TOKEN_DEF,
+        { file, code, position }
+      ).response;
+    } else {
+      return GetTokenDefinition(this, file, code, position);
+    }
   }
 
   /**
@@ -1088,6 +1120,9 @@ export class IDLIndex {
       byCell[cellFSPath] = Parser(cell.text, token, {
         isNotebook: true,
       });
+
+      // track global tokens
+      this.globalIndex.trackGlobalTokens(byCell[cellFSPath].global, cellFSPath);
     }
 
     /**

@@ -10,6 +10,7 @@ import {
   KeywordToken,
 } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
 
 import { GetKeyword } from '../../helpers/get-keyword';
 import { GetKeywordDisplayName } from '../../helpers/get-keyword-display-name';
@@ -24,25 +25,22 @@ import { IDLIndex } from '../../idl-index.class';
 export function GetKeywordHoverHelp(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<KeywordToken | KeywordBinaryToken | KeywordDefinitionToken>
-): string {
-  // initialize help
-  let help = '';
-
+  token: TreeToken<KeywordToken | KeywordBinaryToken | KeywordDefinitionToken>,
+  lookup: GetHoverHelpLookupResponse
+) {
   // get the keyword
   const kw = GetKeyword(index, parsed, token, false);
 
   // check if we have a keyword
   if (kw !== undefined) {
-    // make the hover help
-    help = IDLTypeHelper.addTypeToDocs(kw.display, kw.docs, kw.type);
+    lookup.type = kw.globalType;
+    lookup.name = kw.globalName;
+    lookup.kw = kw.display;
   } else {
-    help = IDLTypeHelper.addTypeToDocs(
+    lookup.contents = IDLTypeHelper.addTypeToDocs(
       GetKeywordDisplayName(token),
       IDL_TRANSLATION.lsp.types.unknown.keyword,
       ParseIDLType(IDL_TYPE_LOOKUP.ANY)
     );
   }
-
-  return help;
 }

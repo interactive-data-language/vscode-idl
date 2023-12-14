@@ -26,6 +26,8 @@ Updated as we go, but here is the source for the images that we use in the exten
   https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Ahelp%3AFILL%400%3Bwght%40400%3BGRAD%400%3Bopsz%4048
 - open-new.svg
   https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Aopen_in_new%3AFILL%400%3Bwght%40400%3BGRAD%400%3Bopsz%4048
+- pdf.svg
+  https://github.com/PKief/vscode-material-icon-theme/blob/main/icons/pdf.svg
 - play.svg
   https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Aplay_arrow%3AFILL%400%3Bwght%40400%3BGRAD%400%3Bopsz%4048
 - quick-reference.svg

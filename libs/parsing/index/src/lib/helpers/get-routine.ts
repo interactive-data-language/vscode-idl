@@ -16,13 +16,13 @@ import {
 import { IDLIndex } from '../idl-index.class';
 import { FromENVIOrIDLTask } from '../post-process/populate-type/from/function/functions/envi-idl-task';
 import { FromObjNew } from '../post-process/populate-type/from/function/functions/obj-new';
-import { ITokenCache } from '../token-cache.interface';
 import {
   CALL_ROUTINE_TOKENS,
   CallRoutineToken,
 } from './get-keywords.interface';
 import { GetMethod } from './get-method';
 import { ROUTINE_NAME_TOKENS } from './get-routine.interface';
+import { ITokenCache } from './token-cache.interface';
 
 /**
  * Gets a routine definition based on the name where it is defined in code

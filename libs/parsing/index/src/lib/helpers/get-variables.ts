@@ -6,7 +6,7 @@ import {
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, TokenName } from '@idl/parsing/tokenizer';
 
-import { ITokenCache } from '../..';
+import { ITokenCache } from './token-cache.interface';
 
 const IS_PARENT: { [key: string]: any } = {};
 IS_PARENT[TOKEN_NAMES.ROUTINE_FUNCTION] = true;

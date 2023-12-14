@@ -39,6 +39,8 @@ describe(`[auto generated] Correctly find definitions for keywords`, () => {
       code: true,
       pos: [0, 16, 2],
       name: 'kw',
+      globalType: 'f',
+      globalName: 'func2',
     };
 
     // get expected and remove file
@@ -143,6 +145,8 @@ describe(`[auto generated] Correctly find definitions for keywords`, () => {
       code: true,
       pos: [0, 25, 3],
       name: 'kwb',
+      globalType: 'f',
+      globalName: 'func2',
     };
 
     // get expected and remove file

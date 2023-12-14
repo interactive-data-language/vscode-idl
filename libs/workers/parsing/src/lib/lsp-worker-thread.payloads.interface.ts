@@ -8,6 +8,9 @@ import {
   AllFilesMessage,
   AllFilesPayload,
   AllFilesResponse,
+  AssembleProCodeMessage,
+  AssembleProCodePayload,
+  AssembleProCodeResponse,
   ChangeDetectionMessage,
   ChangeDetectionPayload,
   ChangeDetectionResponse,
@@ -17,6 +20,9 @@ import {
   GetAutoCompleteMessage,
   GetAutoCompletePayload,
   GetAutoCompleteResponse,
+  GetHoverHelpLookupMessage,
+  GetHoverHelpLookupResponse,
+  GetHoverHelpPayload,
   GetNotebookCellMessage,
   GetNotebookCellPayload,
   GetNotebookCellResponse,
@@ -65,12 +71,16 @@ import {
 export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
   T extends AllFilesMessage
     ? AllFilesPayload
+    : T extends AssembleProCodeMessage
+    ? AssembleProCodePayload
     : T extends ChangeDetectionMessage
     ? ChangeDetectionPayload
     : T extends CleanUpMessage
     ? CleanUpPayload
     : T extends GetAutoCompleteMessage
     ? GetAutoCompletePayload
+    : T extends GetHoverHelpLookupMessage
+    ? GetHoverHelpPayload
     : T extends GetNotebookCellMessage
     ? GetNotebookCellPayload
     : T extends GetOutlineMessage
@@ -109,12 +119,16 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
 export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
   T extends AllFilesMessage
     ? AllFilesResponse
+    : T extends AssembleProCodeMessage
+    ? AssembleProCodeResponse
     : T extends ChangeDetectionMessage
     ? ChangeDetectionResponse
     : T extends CleanUpMessage
     ? CleanUpResponse
     : T extends GetAutoCompleteMessage
     ? GetAutoCompleteResponse
+    : T extends GetHoverHelpLookupMessage
+    ? GetHoverHelpLookupResponse
     : T extends GetNotebookCellMessage
     ? GetNotebookCellResponse
     : T extends GetOutlineMessage

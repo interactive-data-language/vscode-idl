@@ -8,7 +8,7 @@ import { AddNotebookConfig } from './config/notebook-config';
 import { AddProblemsConfig } from './config/problems-config';
 import { AddQuestionsConfig } from './config/questions-config';
 import { AddTopLevelConfig } from './config/top-level-config';
-import { EXTENSION_CONFIG } from './configuration.interface';
+import { EXTENSION_CONFIG } from './contributes-configuration.interface';
 import { VerifyNLS } from './helpers/verify-nls';
 
 /**

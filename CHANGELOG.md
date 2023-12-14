@@ -8,6 +8,18 @@ For much more detail on incremental work for large features, see our [developer 
 
 This section of the CHANGELOG documents features that have been added to the extension, but are still in an experimental phase. Feel free to try them out and provide feedback via discussions or issues on our GitHub page.
 
+Added the ability to convert a notebook to a PDF! This requires an additional extension called ":"Markdown PDF", which you will be prompted to install. This includes:
+
+- A new sidebar entry for PDF generation and a button in the top-right of the notebook to generate a PDF
+
+- When you click either, as long as your notebook is saved to disk, it will create Markdown, open it, and start the PDF generation process
+
+- Once finished, it closes the Markdown file
+
+- The Markdown and PDF file use the same base name as your notebook. Meaning if your notebook is called "My-notebook.idlnb" you will have a "My-notebook.md" and "My-notebook.pdf" file generated in the same folder
+
+- You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
+
 Code style revamp! We reworked how routines, routine methods, properties, and structure names get formatted. This includes:
 
 - Support for camel case ("camelCase") and pascal case ("PascalCase") styling. Mileage may vary here, based on the routine names, so please let us know if this doesn't look quite right or do what you expect. Some routines that start with "IDL" or "ENVI" might surprise you with the case conversion.
@@ -33,6 +45,50 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
   - Structure names: PascalCase
 
 - When generating ENVI and IDL tasks, using our new case libraries, we attempt to make a pretty display name from parameter names. For example converting the keyword "my_keyword" to "My Keyword". This applied to task and parameter display names.
+
+## 4.2.0 December 2023
+
+Updated the ENVI Notebook maps to no longer show "No data available" images and, instead, zoom into the highest zoom level available for basemaps
+
+When you create a new notebook, you are prompted to save so that we can have auto-complete, hover help, and other user interactions.
+
+Also updated the content of the sample notebook to add a note about saving to disk in order to enable those features.
+
+Fixed an issue where we didn't have the right paths for IDL 9.0 on Mac and included a path for ARM64 for Apple Silicon
+
+Re-worked the way that data is moved around between the IDL Language Server and worker threads to be more efficient. Now, no representations of PRO code should be transferred between processed which will provide lower CPU usage and RAM spikes from sharing our syntax tree.
+
+This change ensures that work that happens will occur next to the data that is needed. This should improve:
+
+- Hover help
+
+- Auto-complete
+
+- Go-to definition
+
+- Formatting PRO code
+
+- Formatting IDL and ENVI notebooks
+
+With this change, and if you have very large files, you should notice a dramatic difference performance. For example, the file "slicer3.pro" in the IDL lib folder used to take 4-5 seconds for hover help to appear. Now it takes ~30 milliseconds!
+
+Considering this is a large change, please let us know if there are any noticeable differences that our tests have not captured.
+
+While re-working our data transfer pipeline, we also made some fixes and improvements to auto-complete. There were some test gaps which have now been resolved which will:
+
+- Fixed a problem where auto-complete for procedure methods would add properties when inside the procedure method call
+
+- Fixed a problem where auto-complete for procedure methods would not add variables
+
+- Fixed a problem where auto-complete for procedure methods would not add keywords
+
+- Fixed a problem where auto-complete for methods would not functions
+
+- Changed the logic for when we send properties, procedure methods, and function methods and made it context aware to only send things like procedure methods where they are allowed
+
+Resolve an issue where a circular error would be reported when creating JSON
+
+Fixed an issue where go-to-definition for a notebook cell wouldn't take you to the definition
 
 ## 4.1.2 December 2023
 

@@ -20,7 +20,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 72,
         pos: [0, 0, 4],
         match: ['pro ', 'pro'],
@@ -30,7 +30,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
         end: { pos: [4, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 71,
             pos: [0, 4, 5],
             match: ['mypro'],
@@ -40,7 +40,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
             end: { pos: [1, 22, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 9, 1],
                 match: [','],
@@ -49,7 +49,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 11, 4],
                 match: ['arg1'],
@@ -58,7 +58,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 15, 1],
                 match: [','],
@@ -67,7 +67,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 17, 4],
                 match: ['arg2'],
@@ -76,7 +76,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 21, 1],
                 match: [','],
@@ -85,7 +85,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 23, 4],
                 match: ['arg3'],
@@ -94,7 +94,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 27, 1],
                 match: [','],
@@ -103,7 +103,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [0, 29, 3],
                 match: ['KW1'],
@@ -112,7 +112,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [0, 32, 1],
                 match: ['='],
@@ -122,7 +122,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 end: { pos: [0, 36, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [0, 33, 3],
                     match: ['kw1'],
@@ -133,7 +133,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 36, 1],
                 match: [','],
@@ -142,7 +142,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [0, 37, 1],
                 match: ['$'],
@@ -152,7 +152,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 end: { pos: [0, 49, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 15,
                     pos: [0, 39, 10],
                     match: ['; commment'],
@@ -163,7 +163,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [1, 2, 3],
                 match: ['KW2'],
@@ -172,7 +172,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [1, 6, 1],
                 match: ['='],
@@ -182,7 +182,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 end: { pos: [1, 11, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [1, 8, 3],
                     match: ['kw2'],
@@ -193,7 +193,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [1, 11, 1],
                 match: [','],
@@ -202,7 +202,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [1, 13, 3],
                 match: ['KW3'],
@@ -211,7 +211,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [1, 17, 1],
                 match: ['='],
@@ -221,7 +221,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 end: { pos: [1, 22, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [1, 19, 3],
                     match: ['kw3'],
@@ -234,7 +234,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [2, 2, 11],
             match: ['compile_opt'],
@@ -244,7 +244,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
             end: { pos: [2, 18, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [2, 14, 4],
                 match: ['idl2'],
@@ -286,7 +286,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 72,
         pos: [0, 0, 4],
         match: ['pro ', 'pro'],
@@ -296,7 +296,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
         end: { pos: [4, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 71,
             pos: [0, 4, 5],
             match: ['mypro'],
@@ -306,7 +306,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
             end: { pos: [1, 22, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 9, 1],
                 match: [','],
@@ -315,7 +315,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 11, 4],
                 match: ['arg1'],
@@ -324,7 +324,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 15, 1],
                 match: [','],
@@ -333,7 +333,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 17, 4],
                 match: ['arg2'],
@@ -342,7 +342,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 21, 1],
                 match: [','],
@@ -351,7 +351,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 1,
                 pos: [0, 23, 4],
                 match: ['arg3'],
@@ -360,7 +360,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 27, 1],
                 match: [','],
@@ -369,7 +369,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [0, 29, 3],
                 match: ['KW1'],
@@ -378,7 +378,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [0, 32, 1],
                 match: ['='],
@@ -388,7 +388,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 end: { pos: [0, 36, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [0, 33, 3],
                     match: ['kw1'],
@@ -399,7 +399,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 36, 1],
                 match: [','],
@@ -408,7 +408,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [0, 37, 1],
                 match: ['$'],
@@ -418,7 +418,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 end: { pos: [0, 49, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 15,
                     pos: [0, 39, 10],
                     match: ['; commment'],
@@ -429,7 +429,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [1, 2, 3],
                 match: ['KW2'],
@@ -438,7 +438,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [1, 6, 1],
                 match: ['='],
@@ -448,7 +448,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 end: { pos: [1, 11, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [1, 8, 3],
                     match: ['kw2'],
@@ -459,7 +459,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [1, 11, 1],
                 match: [','],
@@ -468,7 +468,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 30,
                 pos: [1, 13, 3],
                 match: ['KW3'],
@@ -477,7 +477,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [1, 17, 1],
                 match: ['='],
@@ -487,7 +487,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
                 end: { pos: [1, 22, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [1, 19, 3],
                     match: ['kw3'],
@@ -500,7 +500,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [2, 2, 11],
             match: ['compile_opt'],
@@ -510,7 +510,7 @@ describe(`[auto generated] Correctly extract argument definitions from code`, ()
             end: { pos: [2, 18, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [2, 14, 4],
                 match: ['idl2'],

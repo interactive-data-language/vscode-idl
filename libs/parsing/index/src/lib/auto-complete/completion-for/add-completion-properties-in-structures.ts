@@ -1,7 +1,11 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
-import { FindDirectBranchChildren, TreeToken } from '@idl/parsing/syntax-tree';
+import {
+  FindDirectBranchChildren,
+  GetPropertyName,
+  TreeToken,
+} from '@idl/parsing/syntax-tree';
 import { StructureNameToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
@@ -82,7 +86,7 @@ export function AddCompletionPropertiesInStructures(
   // find child properties that we have already used
   const props = FindDirectBranchChildren(token, TOKEN_NAMES.STRUCTURE_PROPERTY);
   for (let i = 0; i < props.length; i++) {
-    found[props[i].match[1].toLowerCase()] = true;
+    found[GetPropertyName(props[i]).toLowerCase()] = true;
   }
 
   // resolve properties

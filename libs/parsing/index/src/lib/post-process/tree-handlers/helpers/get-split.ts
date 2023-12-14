@@ -4,7 +4,7 @@ import {
   TreeBranchToken,
 } from '@idl/parsing/syntax-tree';
 
-import { ITokenCache } from '../../../token-cache.interface';
+import { ITokenCache } from '../../../helpers/token-cache.interface';
 
 /**
  * Helper method to interact with our cache and get split tree for us

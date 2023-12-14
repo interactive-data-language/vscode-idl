@@ -9,16 +9,19 @@ import {
 import { PositionArray } from '@idl/parsing/tokenizer-types';
 
 /** Branch in our syntax tree that has a start, end, and potentially children */
-export type Branch = '0';
+export type SyntaxTreeBranch = 0;
 
 /** Basic (i.e. baby) branch in syntax tree where we don't have children */
-export type BasicBranch = '1';
+export type SyntaxTreeBasic = 1;
 
 /** Unknown branch that we parsed */
-export type UnknownBranch = '2';
+export type SyntaxTreeUnknown = 2;
 
 /** All allowed types of branches */
-export type Branches = Branch | BasicBranch | UnknownBranch;
+export type SyntaxTreeBranches =
+  | SyntaxTreeBranch
+  | SyntaxTreeBasic
+  | SyntaxTreeUnknown;
 
 /** Data structure for overriding hovers */
 export interface IHoverOverride {
@@ -31,7 +34,7 @@ export interface IHoverOverride {
 /** Base data structure for a branch */
 interface IBranchBase<T extends TokenName> {
   /** Type of the branch */
-  type: Branches;
+  type: SyntaxTreeBranches;
   /** Type of the token we are starting */
   name: T;
   /**
@@ -71,7 +74,7 @@ interface IBranchBase<T extends TokenName> {
 export interface IBasicBranch<T extends BasicTokenNames>
   extends IBranchBase<T> {
   name: T;
-  type: BasicBranch | UnknownBranch;
+  type: SyntaxTreeBasic | SyntaxTreeUnknown;
   /** The position of our token as `[line, index, length]` */
   pos: PositionArray;
   /** Matches from regex. First is the entire match, any other elements are capture groups */
@@ -90,7 +93,7 @@ export interface IBranchEnd {
 
 /** Recursive branch with no children */
 export interface IBranch<T extends NonBasicTokenNames> extends IBranchBase<T> {
-  type: Branch;
+  type: SyntaxTreeBranch;
   name: T;
   /** The position of our token */
   pos: PositionArray;
@@ -138,18 +141,18 @@ export interface ITokensByLine {
  */
 interface IBranchLookup {
   /** Token has a start and end */
-  BRANCH: Branch;
+  BRANCH: SyntaxTreeBranch;
   /** Token has no children and is basic */
-  BASIC: BasicBranch;
+  BASIC: SyntaxTreeBasic;
   /** Unknown branch that we parsed */
-  UNKNOWN: UnknownBranch;
+  UNKNOWN: SyntaxTreeUnknown;
 }
 
 /**
  * Constant with lookup for branch types
  */
 export const BRANCH_TYPES: IBranchLookup = {
-  BRANCH: '0',
-  BASIC: '1',
-  UNKNOWN: '2',
+  BRANCH: 0,
+  BASIC: 1,
+  UNKNOWN: 2,
 };

@@ -2,7 +2,7 @@ import { BasicCallback, GetNextInBranch } from '@idl/parsing/syntax-tree';
 import { KeywordToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
 
 import { GetKeyword } from '../../../helpers/get-keyword';
-import { ITokenCache } from '../../../token-cache.interface';
+import { ITokenCache } from '../../../helpers/token-cache.interface';
 import { TypeFromTokens } from '../../populate-type/from/type-from-tokens';
 import { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
 

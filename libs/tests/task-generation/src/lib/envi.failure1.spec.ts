@@ -1,9 +1,16 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GenerateENVITask } from '@idl/generators/envi-task';
-import { GenerateIDLTask } from '@idl/generators/idl-task';
+import {
+  GenerateENVITask,
+  GenerateENVITaskMainLevelProgram,
+} from '@idl/generators/envi-task';
+import {
+  GenerateIDLTask,
+  GenerateIDLTaskMainLevelProgram,
+} from '@idl/generators/idl-task';
 import { GenerateTaskResult } from '@idl/generators/tasks-shared';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
+import { LoadTask } from '@idl/schemas/tasks';
 import { GetExtensionPath } from '@idl/shared';
 import { readFileSync } from 'fs';
 

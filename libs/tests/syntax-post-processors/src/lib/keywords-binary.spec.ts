@@ -14,7 +14,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 5],
         idx: 0,
@@ -23,7 +23,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
         parseProblems: [],
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 11,
             pos: [0, 0, 5],
             match: ['mypro'],
@@ -33,7 +33,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             end: { pos: [0, 17, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 5, 1],
                 match: [','],
@@ -42,7 +42,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 29,
                 pos: [0, 7, 4],
                 match: ['/kw1', 'kw1'],
@@ -51,7 +51,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 11, 1],
                 match: [','],
@@ -60,7 +60,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 29,
                 pos: [0, 13, 4],
                 match: ['/KW2', 'KW2'],
@@ -96,7 +96,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 7],
         idx: 0,
@@ -105,7 +105,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
         parseProblems: [38, 33],
         kids: [
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [0, 0, 7],
             match: ['myclass'],
@@ -114,7 +114,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 12,
             pos: [0, 7, 7],
             match: ['.method', '.', 'method'],
@@ -124,7 +124,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             end: { pos: [1, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [0, 14, 1],
                 match: [','],
@@ -133,7 +133,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [0, 16, 1],
                 match: ['$'],
@@ -144,7 +144,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 kids: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 29,
                 pos: [1, 2, 4],
                 match: ['/KW3', 'KW3'],
@@ -153,7 +153,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [1, 6, 1],
                 match: [','],
@@ -162,7 +162,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 28,
                 pos: [1, 8, 2],
                 match: ['KW'],
@@ -171,7 +171,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [1, 10, 1],
                 match: ['='],
@@ -181,7 +181,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 end: { pos: [1, 16, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 82,
                     pos: [1, 11, 5],
                     match: ['!true'],
@@ -232,7 +232,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 1],
         idx: 0,
@@ -241,7 +241,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
         parseProblems: [],
         kids: [
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [0, 0, 1],
             match: ['a'],
@@ -250,7 +250,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [0, 2, 1],
             match: ['='],
@@ -260,7 +260,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             end: { pos: [0, 22, 0], match: [''] },
             kids: [
               {
-                type: '0',
+                type: 0,
                 name: 8,
                 pos: [0, 4, 7],
                 match: ['myfunc(', 'myfunc'],
@@ -270,7 +270,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 end: { pos: [0, 21, 1], match: [')'] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 29,
                     pos: [0, 11, 4],
                     match: ['/KW1', 'KW1'],
@@ -279,7 +279,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '1',
+                    type: 1,
                     name: 14,
                     pos: [0, 15, 1],
                     match: [','],
@@ -288,7 +288,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '1',
+                    type: 1,
                     name: 29,
                     pos: [0, 17, 4],
                     match: ['/KW2', 'KW2'],
@@ -326,7 +326,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 4],
         idx: 0,
@@ -335,7 +335,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
         parseProblems: [38, 33],
         kids: [
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [0, 0, 4],
             match: ['ZACH'],
@@ -344,7 +344,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [0, 5, 1],
             match: ['='],
@@ -354,7 +354,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             end: { pos: [1, 21, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 85,
                 pos: [0, 7, 7],
                 match: ['AWESOME'],
@@ -363,7 +363,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 9,
                 pos: [0, 14, 7],
                 match: ['.SAUCE(', '.', 'SAUCE', '('],
@@ -373,7 +373,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 end: { pos: [1, 20, 1], match: [')'] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 29,
                     pos: [0, 21, 4],
                     match: ['/kw3', 'kw3'],
@@ -382,7 +382,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '1',
+                    type: 1,
                     name: 14,
                     pos: [0, 25, 1],
                     match: [','],
@@ -391,7 +391,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '0',
+                    type: 0,
                     name: 31,
                     pos: [0, 27, 1],
                     match: ['$'],
@@ -402,7 +402,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     kids: [],
                   },
                   {
-                    type: '1',
+                    type: 1,
                     name: 29,
                     pos: [1, 0, 5],
                     match: ['/KW17', 'KW17'],
@@ -411,7 +411,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '1',
+                    type: 1,
                     name: 14,
                     pos: [1, 5, 1],
                     match: [','],
@@ -420,7 +420,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '1',
+                    type: 1,
                     name: 28,
                     pos: [1, 7, 4],
                     match: ['KW18'],
@@ -429,7 +429,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '0',
+                    type: 0,
                     name: 3,
                     pos: [1, 12, 1],
                     match: ['='],
@@ -439,7 +439,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     end: { pos: [1, 20, 0], match: [''] },
                     kids: [
                       {
-                        type: '1',
+                        type: 1,
                         name: 82,
                         pos: [1, 14, 6],
                         match: ['!false'],
@@ -498,7 +498,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -508,7 +508,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
         end: { match: ['end'], pos: [4, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -518,7 +518,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -529,7 +529,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 11,
             pos: [1, 0, 5],
             match: ['tvcrs'],
@@ -539,7 +539,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             end: { pos: [2, 14, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [1, 5, 1],
                 match: [','],
@@ -548,7 +548,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 85,
                 pos: [1, 6, 1],
                 match: ['x'],
@@ -557,7 +557,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [1, 7, 1],
                 match: [','],
@@ -566,7 +566,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 85,
                 pos: [1, 8, 1],
                 match: ['y'],
@@ -575,7 +575,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [1, 9, 1],
                 match: [','],
@@ -584,7 +584,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 29,
                 pos: [1, 10, 4],
                 match: ['/dev', 'dev'],
@@ -593,7 +593,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 31,
                 pos: [1, 15, 1],
                 match: ['$'],
@@ -603,7 +603,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 end: { pos: [1, 33, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 15,
                     pos: [1, 18, 15],
                     match: [';Restore cursor'],
@@ -614,7 +614,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 ],
               },
               {
-                type: '1',
+                type: 1,
                 name: 85,
                 pos: [2, 10, 2],
                 match: ['kw'],
@@ -623,7 +623,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 parseProblems: [],
               },
               {
-                type: '0',
+                type: 0,
                 name: 3,
                 pos: [2, 12, 1],
                 match: ['='],
@@ -633,7 +633,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 end: { pos: [2, 14, 0], match: [''] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 56,
                     pos: [2, 13, 1],
                     match: ['2'],
@@ -678,7 +678,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -688,7 +688,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
         end: { match: ['end'], pos: [5, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -698,7 +698,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -709,7 +709,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [1, 0, 10],
             match: ['wDatatable'],
@@ -718,7 +718,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [1, 11, 1],
             match: ['='],
@@ -728,7 +728,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
             end: { pos: [3, 22, 0], match: [''] },
             kids: [
               {
-                type: '0',
+                type: 0,
                 name: 8,
                 pos: [1, 13, 13],
                 match: ['WIDGET_TABLE(', 'WIDGET_TABLE'],
@@ -738,7 +738,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                 end: { pos: [3, 21, 1], match: [')'] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [1, 26, 10],
                     match: ['id_datarow'],
@@ -747,7 +747,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '1',
+                    type: 1,
                     name: 14,
                     pos: [1, 36, 1],
                     match: [','],
@@ -756,7 +756,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '0',
+                    type: 0,
                     name: 31,
                     pos: [1, 38, 1],
                     match: ['$'],
@@ -767,7 +767,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     kids: [],
                   },
                   {
-                    type: '1',
+                    type: 1,
                     name: 15,
                     pos: [2, 0, 24],
                     match: [";        FORMAT='(A)', $"],
@@ -776,7 +776,7 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '1',
+                    type: 1,
                     name: 29,
                     pos: [3, 2, 19],
                     match: ['/RESIZEABLE_COLUMNS', 'RESIZEABLE_COLUMNS'],

@@ -1,8 +1,14 @@
-import { GlobalTokens, IBaseIndexedToken } from '@idl/data-types/core';
+import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import {
+  GlobalTokens,
+  GlobalTokenType,
+  IBaseIndexedToken,
+} from '@idl/data-types/core';
 import { ILogOptions } from '@idl/logger';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { IParsed } from '@idl/parsing/syntax-tree';
+import { PositionArray } from '@idl/parsing/tokenizer-types';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { WorkerIOBaseMessage } from '@idl/workers/workerio';
 import {
@@ -28,6 +34,25 @@ export interface AllFilesPayload {
  * Response when tracking all files
  */
 export type AllFilesResponse = void;
+
+/**
+ * Message to assemble PRO code
+ */
+export type AssembleProCodeMessage = 'assemble-pro-code';
+
+/**
+ * Payload when assembling PRO code
+ */
+export interface AssembleProCodePayload {
+  file: string;
+  code: string | string[];
+  formatting: IAssemblerOptions<FormatterType>;
+}
+
+/**
+ * Response when assembling PRO code
+ */
+export type AssembleProCodeResponse = string | undefined;
 
 /**
  * Message when we need to perform change detection
@@ -88,6 +113,41 @@ export interface GetAutoCompletePayload {
  * Response from get auto complete
  */
 export type GetAutoCompleteResponse = CompletionItem[];
+
+/**
+ * Message when we want to get a lookup with hover help information
+ */
+export type GetHoverHelpLookupMessage = 'get-hover-help-lookup';
+
+/**
+ * Payload to get hover help lookup
+ */
+export interface GetHoverHelpPayload {
+  file: string;
+  code: string | string[];
+  position: Position;
+  config: IDLExtensionConfig;
+}
+
+/**
+ * Response for hover help lookup
+ */
+export interface GetHoverHelpLookupResponse {
+  /** Actual help content if we have it */
+  contents?: string;
+  /** Type of global token */
+  type?: GlobalTokenType;
+  /** Name of the global token */
+  name?: string;
+  /** Position in our document that we show hover help for */
+  pos: PositionArray;
+  /** Name of the argument we want */
+  arg?: string;
+  /** Name of the argument we want */
+  kw?: string;
+  /** Name of the property we want */
+  prop?: string;
+}
 
 /**
  * Message when we want to get a notebook cell
@@ -395,9 +455,11 @@ export type TrackGlobalTokensResponse = void;
 export type LSPWorkerThreadMessage =
   | WorkerIOBaseMessage
   | AllFilesMessage
+  | AssembleProCodeMessage
   | ChangeDetectionMessage
   | CleanUpMessage
   | GetAutoCompleteMessage
+  | GetHoverHelpLookupMessage
   | GetNotebookCellMessage
   | GetOutlineMessage
   | GetSemanticTokensMessage
@@ -422,6 +484,10 @@ interface ILSPWorkerThreadMessageLookup {
    */
   ALL_FILES: AllFilesMessage;
   /**
+   * When we format PRO code in the worker
+   */
+  ASSEMBLE_PRO_CODE: AssembleProCodeMessage;
+  /**
    * Message when we need to perform change detection
    */
   CHANGE_DETECTION: ChangeDetectionMessage;
@@ -433,6 +499,10 @@ interface ILSPWorkerThreadMessageLookup {
    * Message when we want to get auto complete for a file
    */
   GET_AUTO_COMPLETE: GetAutoCompleteMessage;
+  /**
+   * When we want to get the recipe to create our hover help
+   */
+  GET_HOVER_HELP_LOOKUP: GetHoverHelpLookupMessage;
   /**
    * Message when we want to get a notebook cell
    */
@@ -496,9 +566,11 @@ interface ILSPWorkerThreadMessageLookup {
  */
 export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   ALL_FILES: 'all-files',
+  ASSEMBLE_PRO_CODE: 'assemble-pro-code',
   CHANGE_DETECTION: 'change-detection',
   CLEAN_UP: 'clean-up',
   GET_AUTO_COMPLETE: 'get-auto-complete',
+  GET_HOVER_HELP_LOOKUP: 'get-hover-help-lookup',
   GET_NOTEBOOK_CELL: 'get-notebook-cell',
   GET_OUTLINE: 'get-outline',
   GET_SEMANTIC_TOKENS: 'get-semantic-tokens',

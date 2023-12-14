@@ -22,7 +22,7 @@ describe(`[auto generated] Correctly use relaxed options for hover help`, () => 
 
     // define expected token we extract
     const expectedFound_0 = {
-      type: '0',
+      type: 0,
       name: 3,
       pos: [2, 4, 1],
       match: ['='],

@@ -14,7 +14,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 1],
         idx: 0,
@@ -23,7 +23,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
         parseProblems: [],
         kids: [
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [0, 0, 1],
             match: ['a'],
@@ -32,7 +32,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [0, 2, 1],
             match: ['='],
@@ -42,7 +42,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
             end: { pos: [0, 21, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 68,
                 pos: [0, 4, 17],
                 match: ["'string''escaped'", "string''escaped"],
@@ -78,7 +78,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 1],
         idx: 0,
@@ -87,7 +87,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
         parseProblems: [],
         kids: [
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [0, 0, 1],
             match: ['a'],
@@ -96,7 +96,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [0, 2, 1],
             match: ['='],
@@ -106,7 +106,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
             end: { pos: [0, 21, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 67,
                 pos: [0, 4, 17],
                 match: ['"string""escaped"', 'string""escaped'],
@@ -142,7 +142,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 1],
         idx: 0,
@@ -151,7 +151,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
         parseProblems: [],
         kids: [
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [0, 0, 1],
             match: ['a'],
@@ -160,7 +160,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [0, 2, 1],
             match: ['='],
@@ -170,7 +170,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
             end: { pos: [0, 22, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 68,
                 pos: [0, 4, 8],
                 match: ["'string'", 'string'],
@@ -179,7 +179,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
                 parseProblems: [16],
               },
               {
-                type: '1',
+                type: 1,
                 name: 68,
                 pos: [0, 13, 9],
                 match: ["'escaped'", 'escaped'],
@@ -222,7 +222,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 1],
         idx: 0,
@@ -231,7 +231,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
         parseProblems: [],
         kids: [
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [0, 0, 1],
             match: ['a'],
@@ -240,7 +240,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [0, 2, 1],
             match: ['='],
@@ -250,7 +250,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
             end: { pos: [0, 22, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 67,
                 pos: [0, 4, 8],
                 match: ['"string"', 'string'],
@@ -259,7 +259,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
                 parseProblems: [16],
               },
               {
-                type: '1',
+                type: 1,
                 name: 67,
                 pos: [0, 13, 9],
                 match: ['"escaped"', 'escaped'],

@@ -22,7 +22,7 @@ describe(`[auto generated] Correctly map options for compound control statements
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 72,
         pos: [0, 0, 4],
         match: ['pro ', 'pro'],
@@ -32,7 +32,7 @@ describe(`[auto generated] Correctly map options for compound control statements
         end: { pos: [6, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 71,
             pos: [0, 4, 5],
             match: ['mypro'],
@@ -43,7 +43,7 @@ describe(`[auto generated] Correctly map options for compound control statements
             kids: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [1, 2, 11],
             match: ['compile_opt'],
@@ -53,7 +53,7 @@ describe(`[auto generated] Correctly map options for compound control statements
             end: { pos: [1, 18, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [1, 14, 4],
                 match: ['idl2'],
@@ -64,7 +64,7 @@ describe(`[auto generated] Correctly map options for compound control statements
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 19,
             pos: [2, 2, 6],
             match: ['common'],
@@ -74,7 +74,7 @@ describe(`[auto generated] Correctly map options for compound control statements
             end: { pos: [2, 19, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 85,
                 pos: [2, 9, 9],
                 match: ['blockName'],
@@ -85,7 +85,7 @@ describe(`[auto generated] Correctly map options for compound control statements
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 15,
             pos: [2, 19, 16],
             match: ['; ignore for now'],
@@ -94,7 +94,7 @@ describe(`[auto generated] Correctly map options for compound control statements
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 22,
             pos: [3, 2, 16],
             match: ['forward_function'],
@@ -104,7 +104,7 @@ describe(`[auto generated] Correctly map options for compound control statements
             end: { pos: [3, 44, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [3, 19, 7],
                 match: ['myfunc1'],
@@ -113,7 +113,7 @@ describe(`[auto generated] Correctly map options for compound control statements
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [3, 26, 1],
                 match: [','],
@@ -122,7 +122,7 @@ describe(`[auto generated] Correctly map options for compound control statements
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [3, 28, 7],
                 match: ['myfunc2'],
@@ -131,7 +131,7 @@ describe(`[auto generated] Correctly map options for compound control statements
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [3, 35, 1],
                 match: [','],
@@ -140,7 +140,7 @@ describe(`[auto generated] Correctly map options for compound control statements
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [3, 37, 7],
                 match: ['myfunc3'],
@@ -151,7 +151,7 @@ describe(`[auto generated] Correctly map options for compound control statements
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 23,
             pos: [4, 2, 4],
             match: ['goto'],
@@ -161,7 +161,7 @@ describe(`[auto generated] Correctly map options for compound control statements
             end: { pos: [4, 13, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [4, 6, 1],
                 match: [','],
@@ -170,7 +170,7 @@ describe(`[auto generated] Correctly map options for compound control statements
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [4, 8, 5],
                 match: ['stmnt'],

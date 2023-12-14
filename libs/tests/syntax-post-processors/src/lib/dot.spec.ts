@@ -14,7 +14,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         end: { match: ['end'], pos: [2, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -34,7 +34,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -45,7 +45,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [1, 0, 1],
             match: ['a'],
@@ -54,7 +54,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             parseProblems: [],
           },
           {
-            type: '1',
+            type: 1,
             name: 26,
             pos: [1, 1, 1],
             match: ['.'],
@@ -95,7 +95,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -105,7 +105,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         end: { match: ['end'], pos: [2, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -115,7 +115,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -126,7 +126,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [1, 0, 1],
             match: ['a'],
@@ -135,7 +135,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [1, 2, 1],
             match: ['='],
@@ -145,7 +145,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             end: { pos: [1, 6, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 85,
                 pos: [1, 4, 1],
                 match: ['b'],
@@ -154,7 +154,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 26,
                 pos: [1, 5, 1],
                 match: ['.'],
@@ -197,7 +197,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -207,7 +207,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         end: { match: ['end'], pos: [2, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -217,7 +217,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -228,7 +228,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [1, 0, 1],
             match: ['a'],
@@ -237,7 +237,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [1, 2, 1],
             match: ['='],
@@ -247,7 +247,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             end: { pos: [1, 5, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 26,
                 pos: [1, 4, 1],
                 match: ['.'],
@@ -290,7 +290,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -300,7 +300,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         end: { match: ['end'], pos: [2, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -310,7 +310,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -321,7 +321,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 26,
             pos: [1, 0, 1],
             match: ['.'],

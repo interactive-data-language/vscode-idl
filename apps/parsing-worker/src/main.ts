@@ -1,7 +1,9 @@
+import { AssembleWithIndex } from '@idl/assembler';
 import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
 import { ParseFileSync } from '@idl/parser';
 import {
   ChangeDetection,
+  GetHoverHelpLookup,
   GetSyntaxProblems,
   IDL_INDEX_OPTIONS,
   IDLIndex,
@@ -71,6 +73,22 @@ const WORKER_INDEX = new IDLIndex(WORKER_THREAD_LOG_MANAGER, 0, false);
 client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, async (message) => {
   WORKER_INDEX.trackFiles(message.files);
 });
+
+/**
+ * Format files
+ */
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.ASSEMBLE_PRO_CODE,
+  async (message, cancel) => {
+    return AssembleWithIndex(
+      WORKER_INDEX,
+      message.file,
+      message.code,
+      cancel,
+      message.formatting
+    );
+  }
+);
 
 /**
  * Handle requests to load globals from our IDL docs
@@ -145,6 +163,21 @@ client.on(
 );
 
 /**
+ * Get lookup (recipe) for hover help
+ */
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_HOVER_HELP_LOOKUP,
+  async (message) => {
+    return GetHoverHelpLookup(
+      WORKER_INDEX,
+      message.file,
+      message.code,
+      message.position
+    );
+  }
+);
+
+/**
  * Get outline
  */
 client.on(
@@ -186,7 +219,7 @@ client.on(
     );
 
     // make non-circular
-    RemoveScopeDetail(parsed, cancel);
+    RemoveScopeDetail(parsed, cancel, true);
 
     // return
     return parsed;
@@ -208,7 +241,7 @@ client.on(
     );
 
     // make non-circular
-    RemoveScopeDetail(parsed, cancel);
+    RemoveScopeDetail(parsed, cancel, true);
 
     // return
     return parsed;
@@ -396,7 +429,7 @@ client.on(
 
     // make non-circular
     if (parsed !== undefined) {
-      RemoveScopeDetail(parsed, cancel);
+      RemoveScopeDetail(parsed, cancel, true);
     }
 
     return parsed;

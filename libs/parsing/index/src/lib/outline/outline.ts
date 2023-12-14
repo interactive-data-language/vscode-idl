@@ -1,6 +1,6 @@
 import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 
-import { GlobalIndexedToken } from './global-index.interface';
+import { GlobalIndexedToken } from '../global-index.interface';
 
 /**
  * Given a global token, returns the display name to be shown in the outline in VSCode

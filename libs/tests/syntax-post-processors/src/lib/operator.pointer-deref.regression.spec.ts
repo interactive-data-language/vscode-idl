@@ -18,7 +18,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 11],
         idx: 0,
@@ -28,7 +28,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
         end: { match: ['end'], pos: [2, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [0, 0, 11],
             match: ['compile_opt'],
@@ -38,7 +38,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
             end: { pos: [0, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [0, 12, 4],
                 match: ['idl2'],
@@ -49,7 +49,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [1, 0, 4],
             match: ['temp'],
@@ -58,7 +58,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [1, 5, 1],
             match: ['='],
@@ -68,7 +68,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
             end: { pos: [1, 54, 0], match: [''] },
             kids: [
               {
-                type: '0',
+                type: 0,
                 name: 8,
                 pos: [1, 7, 7],
                 match: ['reform(', 'reform'],
@@ -78,7 +78,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                 end: { pos: [1, 53, 1], match: [')'] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 85,
                     pos: [1, 14, 4],
                     match: ['mask'],
@@ -87,7 +87,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                     parseProblems: [],
                   },
                   {
-                    type: '0',
+                    type: 0,
                     name: 7,
                     pos: [1, 18, 1],
                     match: ['['],
@@ -97,7 +97,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                     end: { pos: [1, 52, 1], match: [']'] },
                     kids: [
                       {
-                        type: '1',
+                        type: 1,
                         name: 85,
                         pos: [1, 19, 1],
                         match: ['i'],
@@ -106,7 +106,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                         parseProblems: [],
                       },
                       {
-                        type: '0',
+                        type: 0,
                         name: 57,
                         pos: [1, 20, 1],
                         match: ['*'],
@@ -116,7 +116,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                         end: { pos: [1, 23, 0], match: [''] },
                         kids: [
                           {
-                            type: '1',
+                            type: 1,
                             name: 56,
                             pos: [1, 21, 1],
                             match: ['8'],
@@ -127,7 +127,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                         ],
                       },
                       {
-                        type: '1',
+                        type: 1,
                         name: 13,
                         pos: [1, 23, 1],
                         match: [':'],
@@ -136,7 +136,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                         parseProblems: [],
                       },
                       {
-                        type: '0',
+                        type: 0,
                         name: 8,
                         pos: [1, 25, 4],
                         match: ['min(', 'min'],
@@ -146,7 +146,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                         end: { pos: [1, 48, 1], match: [')'] },
                         kids: [
                           {
-                            type: '0',
+                            type: 0,
                             name: 7,
                             pos: [1, 29, 1],
                             match: ['['],
@@ -156,7 +156,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                             end: { pos: [1, 47, 1], match: [']'] },
                             kids: [
                               {
-                                type: '1',
+                                type: 1,
                                 name: 85,
                                 pos: [1, 30, 1],
                                 match: ['s'],
@@ -165,7 +165,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                                 parseProblems: [],
                               },
                               {
-                                type: '0',
+                                type: 0,
                                 name: 7,
                                 pos: [1, 31, 1],
                                 match: ['['],
@@ -175,7 +175,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                                 end: { pos: [1, 33, 1], match: [']'] },
                                 kids: [
                                   {
-                                    type: '1',
+                                    type: 1,
                                     name: 56,
                                     pos: [1, 32, 1],
                                     match: ['1'],
@@ -186,7 +186,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                                 ],
                               },
                               {
-                                type: '0',
+                                type: 0,
                                 name: 57,
                                 pos: [1, 35, 1],
                                 match: ['-'],
@@ -196,7 +196,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                                 end: { pos: [1, 38, 0], match: [''] },
                                 kids: [
                                   {
-                                    type: '1',
+                                    type: 1,
                                     name: 56,
                                     pos: [1, 37, 1],
                                     match: ['1'],
@@ -207,7 +207,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                                 ],
                               },
                               {
-                                type: '1',
+                                type: 1,
                                 name: 14,
                                 pos: [1, 38, 1],
                                 match: [','],
@@ -216,7 +216,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                                 parseProblems: [],
                               },
                               {
-                                type: '1',
+                                type: 1,
                                 name: 85,
                                 pos: [1, 40, 1],
                                 match: ['i'],
@@ -225,7 +225,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                                 parseProblems: [],
                               },
                               {
-                                type: '0',
+                                type: 0,
                                 name: 57,
                                 pos: [1, 41, 1],
                                 match: ['*'],
@@ -235,7 +235,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                                 end: { pos: [1, 47, 0], match: [''] },
                                 kids: [
                                   {
-                                    type: '1',
+                                    type: 1,
                                     name: 56,
                                     pos: [1, 42, 1],
                                     match: ['8'],
@@ -244,7 +244,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                                     parseProblems: [],
                                   },
                                   {
-                                    type: '0',
+                                    type: 0,
                                     name: 57,
                                     pos: [1, 44, 1],
                                     match: ['+'],
@@ -254,7 +254,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                                     end: { pos: [1, 47, 0], match: [''] },
                                     kids: [
                                       {
-                                        type: '1',
+                                        type: 1,
                                         name: 56,
                                         pos: [1, 46, 1],
                                         match: ['7'],
@@ -271,7 +271,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                         ],
                       },
                       {
-                        type: '1',
+                        type: 1,
                         name: 14,
                         pos: [1, 49, 1],
                         match: [','],
@@ -280,7 +280,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
                         parseProblems: [],
                       },
                       {
-                        type: '1',
+                        type: 1,
                         name: 85,
                         pos: [1, 51, 1],
                         match: ['j'],

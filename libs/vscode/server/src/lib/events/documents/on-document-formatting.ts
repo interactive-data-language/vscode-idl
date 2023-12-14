@@ -1,14 +1,14 @@
-import { Assembler, TaskAssembler } from '@idl/assembler';
+import { TaskAssembler } from '@idl/assembler';
 import {
   DEFAULT_ASSEMBLER_OPTIONS,
   FormatterType,
   IAssemblerOptions,
 } from '@idl/assembling/config';
-import { CancellationToken } from '@idl/cancellation-tokens';
 import { ParsedTask } from '@idl/data-types/tasks';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { LoadTask } from '@idl/schemas/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
@@ -106,18 +106,11 @@ export const ON_DOCUMENT_FORMATTING = async (
        */
       case IDL_INDEX.isPROCode(info.fsPath) ||
         IDL_INDEX.isIDLNotebookFile(info.fsPath): {
-        // re-index the info.fsPath
-        const tokens = await IDL_INDEX.getParsedProCode(
-          info.fsPath,
-          info.code,
-          new CancellationToken()
-        );
-
-        // format
-        formatted = Assembler(tokens, new CancellationToken(), config);
-
-        // remove info.fsPath from memory cache
-        IDL_INDEX.tokensByFile.remove(info.fsPath);
+        formatted = await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
+          IDL_INDEX.getWorkerID(info.fsPath),
+          LSP_WORKER_THREAD_MESSAGE_LOOKUP.ASSEMBLE_PRO_CODE,
+          { file: info.fsPath, code: info.code, formatting: config }
+        ).response;
         break;
       }
       default:

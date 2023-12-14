@@ -6,6 +6,7 @@ import {
 } from '@idl/notebooks/shared';
 import { INotebookToProCodeOptions } from '@idl/notebooks/types';
 import {
+  CleanPath,
   GetExtensionPath,
   IDL_COMMANDS,
   IDL_LANGUAGE_NAME,
@@ -21,13 +22,16 @@ import {
   LogCommandError,
   LogCommandInfo,
 } from '@idl/vscode/client';
+import { BasicQuestionAsker } from '@idl/vscode/config';
 import {
   IRetrieveDocsPayload,
   LANGUAGE_SERVER_MESSAGE_LOOKUP,
 } from '@idl/vscode/events/messages';
 import {
   GetActiveIDLNotebookWindow,
+  OpenFileInVSCode,
   OpenNotebookInVSCode,
+  VSCODE_COMMANDS,
   VSCodeTelemetryLogger,
 } from '@idl/vscode/shared';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
@@ -36,6 +40,7 @@ import { join } from 'path';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
+import { NotebookToMarkdown } from '../conversion/notebook-to-markdown';
 import { IDL_NOTEBOOK_CONTROLLER } from '../initialize-notebooks';
 
 // get the command errors from IDL translation
@@ -196,13 +201,18 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(
       IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
-      async () => {
+      async (dontSave?: boolean) => {
         try {
           const doc = await vscode.workspace.openNotebookDocument(
             IDL_NOTEBOOK_LANGUAGE_NAME
           );
 
           await vscode.window.showNotebookDocument(doc);
+
+          // prompt user to save
+          if (!dontSave) {
+            await vscode.commands.executeCommand(VSCODE_COMMANDS.SAVE_EDITOR);
+          }
 
           // return as though we succeeded
           return true;
@@ -421,6 +431,116 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             'Error while resetting example notebooks',
             err,
             cmdErrors.notebooks.resetNotebookExamples
+          );
+          return false;
+        }
+      }
+    )
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.NOTEBOOKS.CONVERT_TO_PDF,
+      async () => {
+        try {
+          // get our dependency
+          const dep = vscode.extensions.getExtension('yzane.markdown-pdf');
+
+          // return if not installed
+          if (!dep) {
+            let shouldReturn = true;
+
+            // ask if we can isntall
+            await BasicQuestionAsker(
+              IDL_TRANSLATION.notebooks.notifications.needMarkdownPDF,
+              () => {
+                shouldReturn = false;
+              }
+            );
+
+            // return if didnt confirm
+            if (shouldReturn) {
+              return;
+            }
+
+            /**
+             * Install required extension
+             */
+            await vscode.commands.executeCommand(
+              'workbench.extensions.installExtension',
+              'yzane.markdown-pdf'
+            );
+
+            vscode.window.showWarningMessage(
+              IDL_TRANSLATION.notebooks.notifications.markdownPDFWaitForInstall
+            );
+            return false;
+          }
+
+          // get open notebook
+          const notebook = GetActiveIDLNotebookWindow();
+
+          // no notebook, indicate that we didnt run
+          if (!notebook) {
+            return false;
+          }
+
+          /**
+           * Track if its a file or not
+           */
+          let isFile = true;
+          try {
+            await vscode.workspace.fs.stat(notebook.uri);
+          } catch (err) {
+            isFile = false;
+          }
+
+          // if we couldnt get stats on the file, it hasnt been saved
+          if (!isFile) {
+            vscode.window.showWarningMessage(
+              IDL_TRANSLATION.notebooks.notifications.saveNotebookFirst
+            );
+            return false;
+          }
+
+          /**
+           * Convert to markdown
+           */
+          const md = await NotebookToMarkdown(notebook);
+
+          /**
+           * Get URI for NB conversion
+           */
+          const mdUri = CleanPath(notebook.uri.fsPath).replace(
+            IDL_NOTEBOOK_EXTENSION,
+            '.md'
+          );
+          writeFileSync(mdUri, md.join('\n'));
+
+          const doc = await OpenFileInVSCode(mdUri, true);
+
+          /**
+           * Convert to PDF
+           */
+          await vscode.commands.executeCommand('extension.markdown-pdf.pdf');
+
+          /**
+           * Get URI for NB conversion
+           */
+          const pdfUri = mdUri.replace('.md', '.pdf');
+
+          // show PDF in explorer
+          await vscode.commands.executeCommand(
+            'revealFileInOS',
+            vscode.Uri.file(pdfUri)
+          );
+
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error while converting notebook to pdf',
+            err,
+            cmdErrors.notebooks.convertToPDF
           );
           return false;
         }

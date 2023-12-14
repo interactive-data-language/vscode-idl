@@ -22,7 +22,7 @@ describe(`[auto generated] Validates include statements, but not correct locatio
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.INCLUDE,
         pos: [0, 0, 10],
-        matches: [`@includeme`, `includeme`],
+        matches: [`@includeme`],
       },
     ];
 
@@ -140,7 +140,7 @@ describe(`[auto generated] Validates include statements, but not correct locatio
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.INCLUDE,
         pos: [0, 14, 11],
-        matches: [`@very_wrong`, `very_wrong`],
+        matches: [`@very_wrong`],
       },
       {
         type: TOKEN_TYPES.END,
@@ -228,7 +228,7 @@ describe(`[auto generated] Validates include statements, but not correct locatio
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.INCLUDE,
         pos: [0, 0, 12],
-        matches: [`@include.pro`, `include.pro`],
+        matches: [`@include.pro`],
       },
       {
         type: TOKEN_TYPES.BASIC,

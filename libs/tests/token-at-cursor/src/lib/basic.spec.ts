@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
 
     // define expected token we extract
     const expectedFound_0 = {
-      type: '0',
+      type: 0,
       name: 69,
       pos: [0, 0, 9],
       match: ['function ', 'function'],
@@ -34,7 +34,7 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
       end: { pos: [2, 0, 3], match: ['end'] },
       kids: [
         {
-          type: '0',
+          type: 0,
           name: 71,
           pos: [0, 9, 6],
           match: ['myfunc'],
@@ -46,7 +46,7 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
           cache: {},
         },
         {
-          type: '0',
+          type: 0,
           name: 11,
           pos: [1, 2, 6],
           match: ['return'],
@@ -56,7 +56,7 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
           end: { pos: [1, 10, 0], match: [''] },
           kids: [
             {
-              type: '1',
+              type: 1,
               name: 14,
               pos: [1, 8, 1],
               match: [','],
@@ -66,7 +66,7 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
               cache: {},
             },
             {
-              type: '1',
+              type: 1,
               name: 56,
               pos: [1, 9, 1],
               match: ['1'],

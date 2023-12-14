@@ -63,16 +63,18 @@ export const EN: ITranslation = {
         stopProfiling: 'IDL: Stop Profiling',
       },
       notebooks: {
-        // shorter because it shows in toolbar
-        resetIDL: 'Reset IDL',
-        // shorter because it shows in toolbar
-        stopIDL: 'Stop IDL',
+        convertToMarkdown: 'IDL: Convert IDL Notebook to Markdown',
+        convertToPDF: 'IDL: Convert IDL Notebook to PDF',
         helpAsNotebook: 'IDL: Convert Help to Notebook',
-        openIDLExample: 'IDL: Open IDL Example Notebook',
-        openENVIExample: 'IDL: Open ENVI Example Notebook',
-        resetNotebookExamples: 'IDL: Reset IDL and ENVI Example Notebooks',
         newNotebook: 'IDL: Create New IDL Notebook',
         notebookToProCode: 'IDL: Convert IDL Notebook to PRO Code',
+        openIDLExample: 'IDL: Open IDL Example Notebook',
+        openENVIExample: 'IDL: Open ENVI Example Notebook',
+        // shorter because it shows in toolbar
+        resetIDL: 'Reset IDL',
+        resetNotebookExamples: 'IDL: Reset IDL and ENVI Example Notebooks',
+        // shorter because it shows in toolbar
+        stopIDL: 'Stop IDL',
       },
       terminal: {
         startIDL: 'IDL: Open an IDL Terminal Window',
@@ -120,14 +122,16 @@ export const EN: ITranslation = {
         stopProfiling: 'Error while stopping profiling',
       },
       notebooks: {
-        resetIDL: 'Error while resetting IDL',
-        stopIDL: 'Error while stopping IDL',
+        convertToMarkdown: 'Error while converting notebook to markdown',
+        convertToPDF: 'Error while converting notebook to PDF',
         helpAsNotebook: 'Error while converting help to notebook',
-        openIDLExample: 'Error while opening IDL example notebook',
-        openENVIExample: 'Error while opening ENVI example notebook',
-        resetNotebookExamples: 'Error while resetting example notebooks',
         newNotebook: 'Error while creating new notebook',
         notebookToProCode: 'Error while converting notebook to PRO code',
+        openIDLExample: 'Error while opening IDL example notebook',
+        openENVIExample: 'Error while opening ENVI example notebook',
+        resetIDL: 'Error while resetting IDL',
+        resetNotebookExamples: 'Error while resetting example notebooks',
+        stopIDL: 'Error while stopping IDL',
       },
       terminal: {
         startIDL: 'Error while opening IDL terminal indow',
@@ -512,6 +516,10 @@ export const EN: ITranslation = {
             name: 'Convert IDL Notebook to PRO Code',
             description: '',
           },
+          notebookToPDF: {
+            name: 'Convert IDL Notebook to PDF',
+            description: '',
+          },
           openENVIExample: {
             name: 'Open ENVI Notebook Example',
             description: '',
@@ -665,6 +673,10 @@ export const EN: ITranslation = {
         'You need to save your notebook to disk before converting',
       includeAllCells:
         'Include all cells when converting to PRO code? Non-IDL cells will turn into comments.',
+      needMarkdownPDF:
+        'Converting a notebook to a PDF requires the extension "Markdown PDF", install and proceed?',
+      markdownPDFWaitForInstall:
+        'Wait for Markdown PDF to install chromium and then try again',
     },
   },
   notifications: {

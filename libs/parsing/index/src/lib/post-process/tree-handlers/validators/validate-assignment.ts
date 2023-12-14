@@ -1,7 +1,7 @@
 import { BranchCallback, GetBeforeInBranch } from '@idl/parsing/syntax-tree';
 import { AssignmentToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
 
-import { ITokenCache } from '../../../token-cache.interface';
+import { ITokenCache } from '../../../helpers/token-cache.interface';
 import { TypeFromTokens } from '../../populate-type/from/type-from-tokens';
 import { VALIDATE_TYPE_HANDLER } from '../validate-type-handler';
 import { ValidateTypeHandlerMeta } from '../validate-type-handler.interface';

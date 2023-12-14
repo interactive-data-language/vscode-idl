@@ -14,7 +14,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 69,
         pos: [0, 0, 9],
         match: ['function ', 'function'],
@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         end: { pos: [3, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 71,
             pos: [0, 9, 6],
             match: ['myfunc'],
@@ -35,7 +35,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             kids: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [1, 0, 11],
             match: ['compile_opt'],
@@ -45,7 +45,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [1, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [1, 12, 4],
                 match: ['idl2'],
@@ -56,7 +56,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 11,
             pos: [2, 2, 6],
             match: ['return'],
@@ -66,7 +66,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [2, 10, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [2, 8, 1],
                 match: [','],
@@ -75,7 +75,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [2, 9, 1],
                 match: ['1'],
@@ -111,7 +111,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 1],
         idx: 0,
@@ -120,7 +120,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         parseProblems: [],
         kids: [
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [0, 0, 1],
             match: ['a'],
@@ -129,7 +129,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [0, 2, 1],
             match: ['='],
@@ -139,7 +139,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [0, 15, 0], match: [''] },
             kids: [
               {
-                type: '0',
+                type: 0,
                 name: 8,
                 pos: [0, 4, 5],
                 match: ['plot(', 'plot'],
@@ -149,7 +149,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                 end: { pos: [0, 14, 1], match: [')'] },
                 kids: [
                   {
-                    type: '1',
+                    type: 1,
                     name: 29,
                     pos: [0, 9, 5],
                     match: ['/TEST', 'TEST'],
@@ -187,7 +187,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [0, 0, 1],
         idx: 0,
@@ -196,7 +196,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         parseProblems: [],
         kids: [
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [0, 0, 1],
             match: ['a'],
@@ -205,7 +205,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [0, 2, 1],
             match: ['='],
@@ -215,7 +215,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [0, 28, 0], match: [''] },
             kids: [
               {
-                type: '0',
+                type: 0,
                 name: 75,
                 pos: [0, 4, 1],
                 match: ['`'],
@@ -225,7 +225,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                 end: { pos: [0, 27, 1], match: ['`'] },
                 kids: [
                   {
-                    type: '0',
+                    type: 0,
                     name: 74,
                     pos: [0, 5, 2],
                     match: ['${'],
@@ -235,7 +235,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                     end: { pos: [0, 15, 1], match: ['}'] },
                     kids: [
                       {
-                        type: '1',
+                        type: 1,
                         name: 56,
                         pos: [0, 7, 2],
                         match: ['42'],
@@ -244,7 +244,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                         parseProblems: [],
                       },
                       {
-                        type: '1',
+                        type: 1,
                         name: 14,
                         pos: [0, 9, 1],
                         match: [','],
@@ -253,7 +253,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                         parseProblems: [],
                       },
                       {
-                        type: '1',
+                        type: 1,
                         name: 68,
                         pos: [0, 11, 4],
                         match: ["'42'", '42'],
@@ -264,7 +264,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                     ],
                   },
                   {
-                    type: '0',
+                    type: 0,
                     name: 74,
                     pos: [0, 16, 2],
                     match: ['${'],
@@ -274,7 +274,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                     end: { pos: [0, 26, 1], match: ['}'] },
                     kids: [
                       {
-                        type: '1',
+                        type: 1,
                         name: 56,
                         pos: [0, 18, 2],
                         match: ['42'],
@@ -283,7 +283,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                         parseProblems: [],
                       },
                       {
-                        type: '1',
+                        type: 1,
                         name: 14,
                         pos: [0, 20, 1],
                         match: [','],
@@ -292,7 +292,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                         parseProblems: [],
                       },
                       {
-                        type: '1',
+                        type: 1,
                         name: 68,
                         pos: [0, 22, 4],
                         match: ["'42'", '42'],
@@ -342,7 +342,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 69,
         pos: [0, 0, 9],
         match: ['function ', 'function'],
@@ -352,7 +352,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         end: { pos: [3, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 71,
             pos: [0, 9, 6],
             match: ['myfunc'],
@@ -363,7 +363,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             kids: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [1, 2, 11],
             match: ['compile_opt'],
@@ -373,7 +373,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [1, 18, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [1, 14, 4],
                 match: ['idl2'],
@@ -384,7 +384,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 11,
             pos: [2, 2, 6],
             match: ['return'],
@@ -394,7 +394,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [2, 10, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [2, 8, 1],
                 match: [','],
@@ -403,7 +403,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [2, 9, 1],
                 match: ['1'],
@@ -416,7 +416,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         ],
       },
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [5, 0, 11],
         idx: 1,
@@ -426,7 +426,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         end: { match: ['end'], pos: [8, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [5, 0, 11],
             match: ['compile_opt'],
@@ -436,7 +436,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [5, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [5, 12, 4],
                 match: ['idl2'],
@@ -447,7 +447,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 15,
             pos: [6, 0, 12],
             match: ['; main level'],
@@ -456,7 +456,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             parseProblems: [],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [7, 0, 9],
             match: ['something'],
@@ -465,7 +465,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [7, 10, 1],
             match: ['='],
@@ -475,7 +475,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [7, 14, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [7, 12, 2],
                 match: ['42'],
@@ -520,7 +520,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 69,
         pos: [0, 0, 9],
         match: ['function ', 'function'],
@@ -530,7 +530,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         end: { pos: [3, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 71,
             pos: [0, 9, 6],
             match: ['myfunc'],
@@ -541,7 +541,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             kids: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [1, 2, 11],
             match: ['compile_opt'],
@@ -551,7 +551,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [1, 18, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [1, 14, 4],
                 match: ['idl2'],
@@ -562,7 +562,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 11,
             pos: [2, 2, 6],
             match: ['return'],
@@ -572,7 +572,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [2, 10, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [2, 8, 1],
                 match: [','],
@@ -581,7 +581,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [2, 9, 1],
                 match: ['1'],
@@ -594,7 +594,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         ],
       },
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [5, 0, 11],
         idx: 1,
@@ -603,7 +603,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         parseProblems: [33],
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [5, 0, 11],
             match: ['compile_opt'],
@@ -613,7 +613,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [5, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [5, 12, 4],
                 match: ['idl2'],
@@ -624,7 +624,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 15,
             pos: [6, 0, 12],
             match: ['; main level'],
@@ -633,7 +633,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             parseProblems: [],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [7, 0, 9],
             match: ['something'],
@@ -642,7 +642,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [7, 10, 1],
             match: ['='],
@@ -652,7 +652,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [7, 14, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [7, 12, 2],
                 match: ['42'],
@@ -707,7 +707,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 69,
         pos: [0, 0, 9],
         match: ['function ', 'function'],
@@ -717,7 +717,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         end: { pos: [3, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 71,
             pos: [0, 9, 6],
             match: ['myfunc'],
@@ -728,7 +728,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             kids: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [1, 2, 11],
             match: ['compile_opt'],
@@ -738,7 +738,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [1, 18, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [1, 14, 4],
                 match: ['idl2'],
@@ -749,7 +749,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 11,
             pos: [2, 2, 6],
             match: ['return'],
@@ -759,7 +759,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [2, 10, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [2, 8, 1],
                 match: [','],
@@ -768,7 +768,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [2, 9, 1],
                 match: ['1'],
@@ -781,7 +781,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         ],
       },
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [5, 0, 11],
         idx: 1,
@@ -791,7 +791,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         end: { match: ['end'], pos: [8, 0, 3] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [5, 0, 11],
             match: ['compile_opt'],
@@ -801,7 +801,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [5, 16, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [5, 12, 4],
                 match: ['idl2'],
@@ -812,7 +812,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             ],
           },
           {
-            type: '1',
+            type: 1,
             name: 15,
             pos: [6, 0, 12],
             match: ['; main level'],
@@ -821,7 +821,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             parseProblems: [],
           },
           {
-            type: '1',
+            type: 1,
             name: 85,
             pos: [7, 0, 9],
             match: ['something'],
@@ -830,7 +830,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [7, 10, 1],
             match: ['='],
@@ -840,7 +840,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [7, 14, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [7, 12, 2],
                 match: ['42'],
@@ -853,7 +853,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         ],
       },
       {
-        type: '1',
+        type: 1,
         name: 15,
         pos: [9, 0, 13],
         match: ['; bad comment'],
@@ -862,7 +862,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         parseProblems: [],
       },
       {
-        type: '1',
+        type: 1,
         name: 85,
         pos: [10, 0, 9],
         match: ['something'],
@@ -871,7 +871,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         parseProblems: [3],
       },
       {
-        type: '0',
+        type: 0,
         name: 3,
         pos: [10, 10, 1],
         match: ['='],
@@ -882,7 +882,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         kids: [],
       },
       {
-        type: '0',
+        type: 0,
         name: 11,
         pos: [10, 12, 4],
         match: ['else'],
@@ -961,7 +961,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 69,
         pos: [0, 0, 9],
         match: ['function ', 'function'],
@@ -971,7 +971,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         end: { pos: [3, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 71,
             pos: [0, 9, 6],
             match: ['myfunc'],
@@ -982,7 +982,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             kids: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [1, 2, 11],
             match: ['compile_opt'],
@@ -992,7 +992,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [1, 18, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [1, 14, 4],
                 match: ['idl2'],
@@ -1003,7 +1003,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 11,
             pos: [2, 2, 6],
             match: ['return'],
@@ -1013,7 +1013,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [2, 10, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [2, 8, 1],
                 match: [','],
@@ -1022,7 +1022,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [2, 9, 1],
                 match: ['1'],
@@ -1035,7 +1035,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         ],
       },
       {
-        type: '1',
+        type: 1,
         name: 15,
         pos: [5, 0, 12],
         match: ['; main level'],
@@ -1044,7 +1044,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         parseProblems: [],
       },
       {
-        type: '1',
+        type: 1,
         name: 15,
         pos: [6, 0, 17],
         match: ['; another comment'],
@@ -1084,7 +1084,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 69,
         pos: [0, 0, 9],
         match: ['function ', 'function'],
@@ -1094,7 +1094,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         end: { pos: [3, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 71,
             pos: [0, 9, 6],
             match: ['myfunc'],
@@ -1105,7 +1105,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             kids: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [1, 2, 11],
             match: ['compile_opt'],
@@ -1115,7 +1115,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [1, 18, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [1, 14, 4],
                 match: ['idl2'],
@@ -1126,7 +1126,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 11,
             pos: [2, 2, 6],
             match: ['return'],
@@ -1136,7 +1136,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [2, 10, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [2, 8, 1],
                 match: [','],
@@ -1145,7 +1145,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [2, 9, 1],
                 match: ['1'],
@@ -1158,7 +1158,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         ],
       },
       {
-        type: '1',
+        type: 1,
         name: 15,
         pos: [3, 4, 13],
         match: ['; -----------'],
@@ -1167,7 +1167,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         parseProblems: [],
       },
       {
-        type: '1',
+        type: 1,
         name: 15,
         pos: [5, 0, 12],
         match: ['; main level'],
@@ -1176,7 +1176,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         parseProblems: [],
       },
       {
-        type: '1',
+        type: 1,
         name: 15,
         pos: [6, 0, 17],
         match: ['; another comment'],
@@ -1215,7 +1215,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
     // define expected syntax tree
     const expectedTree: SyntaxTree = [
       {
-        type: '0',
+        type: 0,
         name: 69,
         pos: [0, 0, 9],
         match: ['function ', 'function'],
@@ -1225,7 +1225,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         end: { pos: [3, 0, 3], match: ['end'] },
         kids: [
           {
-            type: '0',
+            type: 0,
             name: 71,
             pos: [0, 9, 6],
             match: ['myfunc'],
@@ -1236,7 +1236,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             kids: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 20,
             pos: [1, 2, 11],
             match: ['compile_opt'],
@@ -1246,7 +1246,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [1, 18, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 25,
                 pos: [1, 14, 4],
                 match: ['idl2'],
@@ -1257,7 +1257,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             ],
           },
           {
-            type: '0',
+            type: 0,
             name: 11,
             pos: [2, 2, 6],
             match: ['return'],
@@ -1267,7 +1267,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [2, 10, 0], match: [''] },
             kids: [
               {
-                type: '1',
+                type: 1,
                 name: 14,
                 pos: [2, 8, 1],
                 match: [','],
@@ -1276,7 +1276,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
                 parseProblems: [],
               },
               {
-                type: '1',
+                type: 1,
                 name: 56,
                 pos: [2, 9, 1],
                 match: ['1'],
@@ -1289,7 +1289,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         ],
       },
       {
-        type: '0',
+        type: 0,
         name: 54,
         pos: [5, 0, 5],
         idx: 1,
@@ -1298,7 +1298,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         parseProblems: [],
         kids: [
           {
-            type: '1',
+            type: 1,
             name: 82,
             pos: [5, 0, 5],
             match: ['!null'],
@@ -1307,7 +1307,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             parseProblems: [],
           },
           {
-            type: '0',
+            type: 0,
             name: 3,
             pos: [5, 6, 1],
             match: ['='],
@@ -1317,7 +1317,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
             end: { pos: [5, 16, 0], match: [''] },
             kids: [
               {
-                type: '0',
+                type: 0,
                 name: 8,
                 pos: [5, 8, 7],
                 match: ['myfunc(', 'myfunc'],

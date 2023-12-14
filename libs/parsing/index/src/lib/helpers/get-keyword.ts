@@ -10,10 +10,10 @@ import {
 } from '@idl/parsing/tokenizer';
 
 import { IDLIndex } from '../idl-index.class';
-import { ITokenCache } from '../token-cache.interface';
 import { GetKeywordDisplayName } from './get-keyword-display-name';
 import { GetKeywords } from './get-keywords';
 import { IFoundParameter } from './get-property.interface';
+import { ITokenCache } from './token-cache.interface';
 
 /**
  * Searches for keywords like IDL resolves them
@@ -88,6 +88,8 @@ export function GetKeyword(
       ...kw,
       name,
       file: found.global.file,
+      globalType: found.global.type,
+      globalName: found.global.name,
     };
     return (token.cache as ITokenCache).keyword;
   }

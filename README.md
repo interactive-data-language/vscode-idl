@@ -182,6 +182,8 @@ See [CHANGELOG](CHANGELOG.md).
 
   - The icons used in VSCode either come from Material Icons (Google via npm "material-icons") or Material Design (Templarian via npm "@mdi/js")
 
+  - PDF icon is from "Material Icon Theme"
+
 ## Usage Metrics
 
 The IDL extension for VSCode collects anonymous usage data on the extension. The goal of this information is to improve the overall experience, focus development on tools that users work with the most, and make sure our software can run on the average user's hardware.
