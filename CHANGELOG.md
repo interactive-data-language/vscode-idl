@@ -36,6 +36,18 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 ## 4.2.0 December 2023
 
+Added the ability to convert a notebook to a PDF! This requires an additional extension called ":"Markdown PDF", which you will be prompted to install. This includes:
+
+- A new sidebar entry for PDF generation and a button in the top-right of the notebook to generate a PDF
+
+- When you click either, as long as your notebook is saved to disk, it will create Markdown, open it, and start the PDF generation process
+
+- Once finished, it closes the Markdown file
+
+- The Markdown and PDF file use the same base name as your notebook. Meaning if your notebook is called "My-notebook.idlnb" you will have a "My-notebook.md" and "My-notebook.pdf" file generated in the same folder
+
+- You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
+
 Updated the ENVI Notebook maps to no longer show "No data available" images and, instead, zoom into the highest zoom level available for basemaps
 
 Fixed an issue where we didn't have the right paths for IDL 9.0 on Mac and included a path for ARM64 for Apple Silicon

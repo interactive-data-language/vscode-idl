@@ -30,6 +30,13 @@ export const NOTEBOOK_ACTIONS: IChild[] = [
     commandName: VSCODE_COMMANDS.FORMAT_NOTEBOOK,
   },
   {
+    name: IDL_TRANSLATION.idl.tree.children.notebooks.notebookToPDF.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.notebooks.notebookToPDF.description,
+    icon: 'pdf.svg',
+    commandName: IDL_COMMANDS.NOTEBOOKS.CONVERT_TO_PDF,
+  },
+  {
     name: IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.name,
     description:
       IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.description,

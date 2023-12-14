@@ -88,22 +88,26 @@ export const IDL_COMMANDS = {
   },
   /** Commands for starting and interacting with a debug session of IDL */
   NOTEBOOKS: {
-    /** Reset IDL session for notebook */
-    RESET: `${BASE_NOTEBOOK}resetIDL`,
-    /** Reset IDL session for notebook */
-    STOP: `${BASE_NOTEBOOK}stopIDL`,
+    /** Convert notebook to markdown */
+    CONVERT_TO_PDF: `${BASE_NOTEBOOK}convertToPDF`,
+    /** Convert notebook to markdown */
+    // CONVERT_TO_PDF: `${BASE_NOTEBOOK}convertToPDF`,
     /** Convert help to notebooks */
     HELP_AS_NOTEBOOK: `${BASE_NOTEBOOK}helpAsNotebook`,
-    /** Open IDL example notebook */
-    OPEN_IDL_EXAMPLE: `${BASE_NOTEBOOK}openIDLExample`,
-    /** Open ENVI example notebook */
-    OPEN_ENVI_EXAMPLE: `${BASE_NOTEBOOK}openENVIExample`,
-    /** Reset example notebooks */
-    RESET_NOTEBOOK_EXAMPLES: `${BASE_NOTEBOOK}resetNotebookExamples`,
     /** Create a new notebook */
     NEW_NOTEBOOK: `${BASE_NOTEBOOK}newNotebook`,
     /** Convert a notebook to PRO code */
     NOTEBOOK_TO_PRO_CODE: `${BASE_NOTEBOOK}notebookToProCode`,
+    /** Open IDL example notebook */
+    OPEN_IDL_EXAMPLE: `${BASE_NOTEBOOK}openIDLExample`,
+    /** Open ENVI example notebook */
+    OPEN_ENVI_EXAMPLE: `${BASE_NOTEBOOK}openENVIExample`,
+    /** Reset IDL session for notebook */
+    RESET: `${BASE_NOTEBOOK}resetIDL`,
+    /** Reset example notebooks */
+    RESET_NOTEBOOK_EXAMPLES: `${BASE_NOTEBOOK}resetNotebookExamples`,
+    /** Reset IDL session for notebook */
+    STOP: `${BASE_NOTEBOOK}stopIDL`,
   },
   // /** Commands for starting and interacting with a terminal session of IDL */
   // TERMINAL: {

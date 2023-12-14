@@ -1,5 +1,13 @@
-import { RawNotebookCell_1_0_0 } from './raw-notebook-1.0.0.interface';
-import { RawNotebookCell_2_0_0 } from './raw-notebook-2.0.0.interface';
+import {
+  RawNotebookCell_1_0_0,
+  RawNotebookCellOutput_1_0_0,
+  RawNotebookCellOutputItem_1_0_0,
+} from './raw-notebook-1.0.0.interface';
+import {
+  RawNotebookCell_2_0_0,
+  RawNotebookCellOutput_2_0_0,
+  RawNotebookCellOutputItem_2_0_0,
+} from './raw-notebook-2.0.0.interface';
 
 /**
  * First version of notebook files
@@ -17,6 +25,11 @@ export type IDLRawNotebookVersion_2_0_0 = '2.0.0';
 export type IDLRawNotebookVersion =
   | IDLRawNotebookVersion_1_0_0
   | IDLRawNotebookVersion_2_0_0;
+
+/**
+ * Type for the latest version of notebooks
+ */
+export type IDLRawNotebookLatestVersion = IDLRawNotebookVersion_2_0_0;
 
 /**
  * Strictly typed lookup for constant
@@ -71,6 +84,37 @@ export type IDLRawNotebookCell<T extends IDLRawNotebookVersion> =
     ? RawNotebookCell_2_0_0
     : T extends IDLRawNotebookVersion_1_0_0
     ? RawNotebookCell_1_0_0
+    : any;
+
+/**
+ * Format for the content of notebook cell outputs
+ */
+export type IDLRawNotebookCellOutputItemContent<
+  T extends IDLRawNotebookVersion
+> = T extends IDLRawNotebookVersion_2_0_0
+  ? RawNotebookCellOutputItem_2_0_0
+  : T extends IDLRawNotebookVersion_1_0_0
+  ? RawNotebookCellOutputItem_1_0_0
+  : any;
+
+/**
+ * Format for individual notebook cell output items
+ */
+export type IDLRawNotebookCellOutputItem<T extends IDLRawNotebookVersion> =
+  T extends IDLRawNotebookVersion_2_0_0
+    ? RawNotebookCellOutputItem_2_0_0
+    : T extends IDLRawNotebookVersion_1_0_0
+    ? RawNotebookCellOutputItem_1_0_0
+    : any;
+
+/**
+ * Format for the raw notebook cell output
+ */
+export type IDLRawNotebookCellOutput<T extends IDLRawNotebookVersion> =
+  T extends IDLRawNotebookVersion_2_0_0
+    ? RawNotebookCellOutput_2_0_0
+    : T extends IDLRawNotebookVersion_1_0_0
+    ? RawNotebookCellOutput_1_0_0
     : any;
 
 /**

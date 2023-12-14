@@ -274,6 +274,14 @@
         "title": "%commands.idl.docs.open%"
       },
       {
+        "command": "idl.notebooks.convertToPDF",
+        "title": "%commands.idl.notebooks.convertToPDF%",
+        "icon": {
+          "light": "extension/images/light/pdf.svg",
+          "dark": "extension/images/dark/pdf.svg"
+        }
+      },
+      {
         "command": "idl.notebooks.helpAsNotebook",
         "title": "%commands.idl.notebooks.helpAsNotebook%"
       },
@@ -1247,12 +1255,17 @@
       "notebook/toolbar": [
         {
           "command": "idl.notebooks.resetIDL",
-          "group": "navigation",
+          "group": "navigation/execute",
           "when": "resourceExtname == .idlnb"
         },
         {
           "command": "idl.notebooks.stopIDL",
-          "group": "navigation",
+          "group": "navigation/execute",
+          "when": "resourceExtname == .idlnb"
+        },
+        {
+          "command": "idl.notebooks.convertToPDF",
+          "group": "status",
           "when": "resourceExtname == .idlnb"
         }
       ]
