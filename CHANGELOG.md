@@ -46,6 +46,10 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 - When generating ENVI and IDL tasks, using our new case libraries, we attempt to make a pretty display name from parameter names. For example converting the keyword "my_keyword" to "My Keyword". This applied to task and parameter display names.
 
+## 4.2.1 December 2023
+
+Fixed an issue where logs were sharing too much information and other logs were not properly reporting
+
 ## 4.2.0 December 2023
 
 Updated the ENVI Notebook maps to no longer show "No data available" images and, instead, zoom into the highest zoom level available for basemaps
