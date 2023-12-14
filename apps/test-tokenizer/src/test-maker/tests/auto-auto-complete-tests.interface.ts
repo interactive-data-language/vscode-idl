@@ -326,6 +326,10 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
             line: 30,
             character: 14,
           },
+          {
+            line: 33,
+            character: 11,
+          },
         ],
       },
     ],

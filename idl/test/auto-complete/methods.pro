@@ -29,6 +29,9 @@ pro TestCompletion::method, kew = kw1
 
   ; keywords and vars
   self.method()
+
+  ; no procedure methods
+  a = self.
 end
 
 ;+
