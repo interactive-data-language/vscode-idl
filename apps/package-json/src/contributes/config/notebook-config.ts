@@ -5,7 +5,7 @@ import {
 } from '@idl/vscode/extension-config';
 
 import { IPackageNLS } from '../../package.interface';
-import { EXTENSION_CONFIG } from '../configuration.interface';
+import { EXTENSION_CONFIG } from '../contributes-configuration.interface';
 import { VerifyNLS } from '../helpers/verify-nls';
 import { IDL_CONFIG_SCOPE } from './idl-config-scope.interface';
 import { TranslationFromConfiguration } from './translation-from-configuration';
