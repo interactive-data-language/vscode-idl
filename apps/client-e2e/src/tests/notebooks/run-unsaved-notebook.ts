@@ -36,7 +36,10 @@ export const RunUnsavedNotebook: RunnerFunction = async (init) => {
   expect(controller.isStarted()).toBeTruthy();
 
   // make new notebook
-  await vscode.commands.executeCommand(IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK);
+  await vscode.commands.executeCommand(
+    IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
+    true
+  );
 
   // short pause
   await Sleep(DEFAULT_RUNNER_TIMEOUT);
