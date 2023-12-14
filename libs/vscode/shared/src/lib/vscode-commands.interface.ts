@@ -88,4 +88,8 @@ export const VSCODE_COMMANDS = {
    * Reloads/refreshes our window
    */
   RELOAD_WINDOW: 'workbench.action.reloadWindow',
+  /**
+   * Save active editor
+   */
+  SAVE_EDITOR: 'workbench.action.files.save',
 };

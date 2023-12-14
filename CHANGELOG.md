@@ -50,6 +50,10 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 Updated the ENVI Notebook maps to no longer show "No data available" images and, instead, zoom into the highest zoom level available for basemaps
 
+When you create a new notebook, you are prompted to save so that we can have auto-complete, hover help, and other user interactions.
+
+Also updated the content of the sample notebook to add a note about saving to disk in order to enable those features.
+
 Fixed an issue where we didn't have the right paths for IDL 9.0 on Mac and included a path for ARM64 for Apple Silicon
 
 Re-worked the way that data is moved around between the IDL Language Server and worker threads to be more efficient. Now, no representations of PRO code should be transferred between processed which will provide lower CPU usage and RAM spikes from sharing our syntax tree.
