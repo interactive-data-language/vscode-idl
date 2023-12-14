@@ -1,21 +1,21 @@
 import { EXTENSION_NAME, EXTENSION_PUBLISHER_NAME } from '@idl/shared';
 
-import { ProcessActivationEvents } from './contributes/activation-events';
-import { ProcessActivityBar } from './contributes/activity-bar';
-import { ProcessCommands } from './contributes/commands';
-import { ProcessConfiguration } from './contributes/configuration';
-import { ProcessCustomEditors } from './contributes/custom-editors';
-import { ProcessDebugging } from './contributes/debugging';
-import { ProcessGrammars } from './contributes/grammars';
-import { ProcessIconTheme } from './contributes/icon-theme';
-import { ProcessJSONValidators } from './contributes/json-validators';
-import { ProcessLanguages } from './contributes/languages';
-import { ProcessNotebooks } from './contributes/notebooks';
-import { ProcessMainPackageJSON } from './contributes/package-json';
-import { ProcessSnippets } from './contributes/snippets';
-import { ProcessThemes } from './contributes/themes';
-import { ProcessTreeView } from './contributes/tree-view';
-import { ProcessWebView } from './contributes/web-view';
+import { ProcessActivationEvents } from './contributes/contributes-activation-events';
+import { ProcessActivityBar } from './contributes/contributes-activity-bar';
+import { ProcessCommands } from './contributes/contributes-commands';
+import { ProcessConfiguration } from './contributes/contributes-configuration';
+import { ProcessCustomEditors } from './contributes/contributes-custom-editors';
+import { ProcessDebugging } from './contributes/contributes-debugging';
+import { ProcessGrammars } from './contributes/contributes-grammars';
+import { ProcessIconTheme } from './contributes/contributes-icon-theme';
+import { ProcessJSONValidators } from './contributes/contributes-json-validators';
+import { ProcessLanguages } from './contributes/contributes-languages';
+import { ProcessNotebooks } from './contributes/contributes-notebooks';
+import { ProcessMainPackageJSON } from './contributes/contributes-package-json';
+import { ProcessSnippets } from './contributes/contributes-snippets';
+import { ProcessThemes } from './contributes/contributes-themes';
+import { ProcessTreeView } from './contributes/contributes-tree-view';
+import { ProcessWebView } from './contributes/contributes-web-view';
 import { IPackageJSON, IPackageNLS } from './package.interface';
 
 /**
