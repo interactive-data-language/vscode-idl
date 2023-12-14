@@ -201,7 +201,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(
       IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
-      async (save = true) => {
+      async (dontSave?: boolean) => {
         try {
           const doc = await vscode.workspace.openNotebookDocument(
             IDL_NOTEBOOK_LANGUAGE_NAME
@@ -210,7 +210,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           await vscode.window.showNotebookDocument(doc);
 
           // prompt user to save
-          if (save) {
+          if (!dontSave) {
             await vscode.commands.executeCommand(VSCODE_COMMANDS.SAVE_EDITOR);
           }
 

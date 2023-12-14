@@ -10,7 +10,10 @@ import { RunnerFunction } from '../runner.interface';
  */
 export const NewNotebook: RunnerFunction = async (init) => {
   // make a new notebook - arg is to tell us that we dont want to save
-  vscode.commands.executeCommand(IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK, false);
+  await vscode.commands.executeCommand(
+    IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
+    true
+  );
 
   // short pause
   await Sleep(100);
