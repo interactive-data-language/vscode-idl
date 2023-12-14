@@ -26,6 +26,7 @@ import { InitializeCustomEventHandler } from './events/initialize-custom-event-h
 import { InitializeDocumentManager } from './events/initialize-document-manager';
 import { InitializeNotebookManager } from './events/initialize-notebook-manager';
 import { InitializeUserInteractions } from './events/initialize-user-interactions';
+import { IDL_CLIENT_CONFIG } from './helpers/track-workspace-config';
 import { DEFAULT_SERVER_SETTINGS } from './settings.interface';
 
 /**
@@ -72,6 +73,9 @@ export const IDL_LANGUAGE_SERVER_LOGGER = new LogManager({
   },
 });
 
+// update debug logs
+IDL_LANGUAGE_SERVER_LOGGER.setDebug(IDL_CLIENT_CONFIG.debugMode);
+
 /**
  * Old console.log routine
  */
@@ -113,12 +117,12 @@ export function InitializeServer() {
   SERVER_EVENT_MANAGER = new VSCodeServerEventManager(SERVER_CONNECTION);
 
   // intercept log messages and send to client
-  IDL_LANGUAGE_SERVER_LOGGER.interceptor = (options) => {
+  IDL_LANGUAGE_SERVER_LOGGER.setInterceptor((options) => {
     SERVER_EVENT_MANAGER.sendNotification(
       LANGUAGE_SERVER_MESSAGE_LOOKUP.LOG,
       options
     );
-  };
+  });
 
   // // create our IDL provider object, which is the object-entry for everything so
   // // we can test functionality with object methods rather than APIs

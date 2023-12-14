@@ -90,7 +90,7 @@ if (process.env.VSCODE_IDL_DEBUGGING === 'true') {
   );
 } else {
   // custom logging to send everything back to the VSCode output window
-  IDL_LOGGER.interceptor = CLIENT_LOG_INTERCEPTOR;
+  IDL_LOGGER.setInterceptor(CLIENT_LOG_INTERCEPTOR);
 }
 
 /**
