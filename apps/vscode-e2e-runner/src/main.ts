@@ -21,7 +21,6 @@ async function go() {
     await runTests({
       extensionDevelopmentPath,
       extensionTestsPath,
-      version: '1.85.0',
     });
   } catch (err) {
     console.error('Failed to run tests');
