@@ -31,7 +31,6 @@ import {
   GetActiveIDLNotebookWindow,
   OpenFileInVSCode,
   OpenNotebookInVSCode,
-  VSCODE_COMMANDS,
   VSCodeTelemetryLogger,
 } from '@idl/vscode/shared';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
@@ -465,6 +464,11 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
               'workbench.extensions.installExtension',
               'yzane.markdown-pdf'
             );
+
+            vscode.window.showWarningMessage(
+              IDL_TRANSLATION.notebooks.notifications.markdownPDFWaitForInstall
+            );
+            return false;
           }
 
           // get open notebook
@@ -525,13 +529,6 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             vscode.Uri.file(pdfUri)
           );
 
-          // make sure we see MD doc
-          await vscode.window.showTextDocument(doc);
-
-          // clear any existing outputs
-          await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
-
-          // return as though we succeeded
           return true;
         } catch (err) {
           LogCommandError(

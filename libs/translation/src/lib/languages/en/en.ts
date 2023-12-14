@@ -675,6 +675,8 @@ export const EN: ITranslation = {
         'Include all cells when converting to PRO code? Non-IDL cells will turn into comments.',
       needMarkdownPDF:
         'Converting a notebook to a PDF requires the extension "Markdown PDF", install and proceed?',
+      markdownPDFWaitForInstall:
+        'Wait for Markdown PDF to install chromium and then try again',
     },
   },
   notifications: {

@@ -630,6 +630,8 @@ export interface ITranslation {
       includeAllCells: string;
       /** When we need Markdown PDF to create PDFs */
       needMarkdownPDF: string;
+      /** When we need to wait for install before continuing  */
+      markdownPDFWaitForInstall: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */
