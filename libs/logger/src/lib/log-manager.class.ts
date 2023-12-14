@@ -42,7 +42,7 @@ export class LogManager implements ILogManagerOptions {
   logs: { [key: string]: Logger } = {};
 
   /** optionally set a log interceptor to interrupt any logging messages */
-  interceptor?: LogInterceptor;
+  private interceptor?: LogInterceptor;
 
   /** Callback when we have an error */
   alert: LogAlertCallback;
@@ -79,6 +79,19 @@ export class LogManager implements ILogManagerOptions {
     const logs = Object.values(this.logs);
     for (let i = 0; i < logs.length; i++) {
       logs[i].enableDebugLogs = this.debug;
+    }
+  }
+
+  /**
+   * Set log interceptor for everyone
+   */
+  setInterceptor(interceptor?: LogInterceptor) {
+    this.interceptor = interceptor;
+
+    // update all of our logs
+    const logs = Object.values(this.logs);
+    for (let i = 0; i < logs.length; i++) {
+      logs[i].interceptor = interceptor;
     }
   }
 
@@ -134,6 +147,11 @@ export class LogManager implements ILogManagerOptions {
    * @memberof LogManager
    */
   log(options: ILogOptions) {
+    // return if debug and not debug
+    if (options?.type === 'debug' && !this.debug) {
+      return;
+    }
+
     // check if we have
     if (this.interceptor !== undefined) {
       // get data we are sending

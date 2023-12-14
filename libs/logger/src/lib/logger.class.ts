@@ -2,6 +2,7 @@ import { CleanPath } from '@idl/shared';
 import * as fs from 'fs';
 import * as minilog from 'minilog';
 
+import { LogInterceptor } from './log-manager.interface';
 import {
   IBasicLogOptions,
   LogAlertCallback,
@@ -62,6 +63,9 @@ export class Logger {
   /** If we are quiet and dont log output to the console, still allows file logging */
   quiet = false;
 
+  /** optionally set a log interceptor to interrupt any logging messages */
+  interceptor?: LogInterceptor;
+
   constructor(
     name: string,
     enableDebugLogs = false,
@@ -117,6 +121,41 @@ export class Logger {
    * Logs data to the console following similar API as log manager
    */
   log(options: IBasicLogOptions) {
+    // check if we exclude debug logging items
+    if (!this.enableDebugLogs && options?.type === 'debug') {
+      return;
+    }
+
+    if (this.interceptor !== undefined) {
+      // get data we are sending
+      const data = options.content;
+
+      // always have an array that we log
+      const useData = !Array.isArray(data) ? [data] : data;
+
+      // replace any error objects
+      for (let i = 0; i < useData.length; i++) {
+        if (useData[i] instanceof Error) {
+          useData[i] = ObjectifyError(useData[i]);
+        }
+      }
+
+      // update property
+      options.content = useData;
+
+      // call our interceptor
+      this.interceptor({ log: this.name, ...options });
+
+      // check if we have an alert to listen for
+      if (options.alert) {
+        this.alertCb(options);
+      }
+
+      // return and dont do what we have below
+      return;
+    }
+
+    // log information
     this.logItem(options.type, options.content);
 
     // check if we have something to alert

@@ -58,9 +58,9 @@ const WORKER_THREAD_LOG_MANAGER = new LogManager({
 /**
  * Intercept logs and send them to our parent process
  */
-WORKER_THREAD_LOG_MANAGER.interceptor = (options) => {
+WORKER_THREAD_LOG_MANAGER.setInterceptor((options) => {
   client.postMessage(LSP_WORKER_THREAD_MESSAGE_LOOKUP.LOG_MANAGER, options);
-};
+});
 
 /**
  * Create our single-threaded worker index
