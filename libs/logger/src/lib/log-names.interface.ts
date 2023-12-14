@@ -31,12 +31,12 @@ export const IDL_TREE_CLICK_HANDLER_LOG = 'idl-tree-click-handler';
 /**
  * Log for debugging
  */
-export const IDL_DEBUG_LOG = 'debug-idl';
+export const IDL_DEBUG_LOG = 'idl-session';
 
 /**
  * Log for debugging in notebooks
  */
-export const IDL_DEBUG_NOTEBOOK_LOG = 'notebook-idl';
+export const IDL_DEBUG_NOTEBOOK_LOG = 'idl-notebook-session';
 
 /**
  * Log for the debug adapter
