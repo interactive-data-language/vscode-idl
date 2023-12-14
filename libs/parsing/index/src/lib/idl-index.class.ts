@@ -28,6 +28,7 @@ import {
   IDL_NOTEBOOK_EXTENSION,
   IDL_SAVE_FILE_EXTENSION,
   NODE_MEMORY_CONFIG,
+  PRO_DEF_EXTENSION,
   PRO_FILE_EXTENSION,
   SystemMemoryUsedMB,
   TASK_FILE_EXTENSION,
@@ -145,6 +146,7 @@ export class IDLIndex {
    */
   fileTypes: IDLFileTypeLookup = {
     pro: new Set(),
+    'pro-def': new Set(),
     save: new Set(),
     'idl.json': new Set(),
     'idl-task': new Set(),
@@ -313,6 +315,13 @@ export class IDLIndex {
    */
   isPROCode(file: string): boolean {
     return file.toLowerCase().endsWith(PRO_FILE_EXTENSION);
+  }
+
+  /**
+   * Indicates if we have a PRO type definition file
+   */
+  isPRODef(file: string): boolean {
+    return file.toLowerCase().endsWith(PRO_DEF_EXTENSION);
   }
 
   /**
