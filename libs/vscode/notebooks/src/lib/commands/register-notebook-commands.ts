@@ -31,6 +31,7 @@ import {
   GetActiveIDLNotebookWindow,
   OpenFileInVSCode,
   OpenNotebookInVSCode,
+  VSCODE_COMMANDS,
   VSCodeTelemetryLogger,
 } from '@idl/vscode/shared';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
@@ -200,13 +201,18 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(
       IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
-      async () => {
+      async (save = true) => {
         try {
           const doc = await vscode.workspace.openNotebookDocument(
             IDL_NOTEBOOK_LANGUAGE_NAME
           );
 
           await vscode.window.showNotebookDocument(doc);
+
+          // prompt user to save
+          if (save) {
+            await vscode.commands.executeCommand(VSCODE_COMMANDS.SAVE_EDITOR);
+          }
 
           // return as though we succeeded
           return true;

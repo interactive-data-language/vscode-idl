@@ -9,8 +9,8 @@ import { RunnerFunction } from '../runner.interface';
  * Verifies we can create a new notebook document and open it with the right language ID
  */
 export const NewNotebook: RunnerFunction = async (init) => {
-  // make a new notebook
-  vscode.commands.executeCommand(IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK);
+  // make a new notebook - arg is to tell us that we dont want to save
+  vscode.commands.executeCommand(IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK, false);
 
   // short pause
   await Sleep(100);

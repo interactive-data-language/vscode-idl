@@ -146,7 +146,11 @@ export const DEFAULT_NOTEBOOK: IDLRawNotebook<IDLRawNotebookVersion_2_0_0> = {
   cells: [
     {
       type: 'markdown',
-      content: ['### My Amazing IDL Notebook'],
+      content: [
+        '### My Amazing IDL Notebook',
+        '',
+        "> Don't forget to save me to disk in order to get hover-help and auto-complete!",
+      ],
     },
     {
       type: 'code',
