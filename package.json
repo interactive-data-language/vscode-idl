@@ -131,7 +131,7 @@
     "@types/web": "^0.0.119",
     "@typescript-eslint/eslint-plugin": "5.60.1",
     "@typescript-eslint/parser": "5.60.1",
-    "@vscode/test-electron": "^2.3.6",
+    "@vscode/test-electron": "^2.3.8",
     "@vscode/vsce": "2.21",
     "@vscode/webview-ui-toolkit": "^1.2.0",
     "@webcomponents/webcomponentsjs": "^2.8.0",
