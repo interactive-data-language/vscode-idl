@@ -58,6 +58,12 @@ COMMAND_ICONS[IDL_COMMANDS.NOTEBOOKS.STOP] = {
   dark: 'extension/images/dark/stop.svg',
 };
 
+// icon for notebook stop
+COMMAND_ICONS[IDL_COMMANDS.NOTEBOOKS.CONVERT_TO_PDF] = {
+  light: 'extension/images/light/pdf.svg',
+  dark: 'extension/images/dark/pdf.svg',
+};
+
 /**
  * Map our command name to the translation which should match
  * exactly our command name
