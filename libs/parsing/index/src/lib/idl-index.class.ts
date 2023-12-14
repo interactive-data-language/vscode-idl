@@ -1129,6 +1129,9 @@ export class IDLIndex {
       byCell[cellFSPath] = Parser(cell.text, token, {
         isNotebook: true,
       });
+
+      // track global tokens
+      this.globalIndex.trackGlobalTokens(byCell[cellFSPath].global, cellFSPath);
     }
 
     /**

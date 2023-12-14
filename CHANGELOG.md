@@ -84,6 +84,8 @@ While re-working our data transfer pipeline, we also made some fixes and improve
 
 Resolve an issue where a circular error would be reported when creating JSON
 
+Fixed an issue where go-to-definition for a notebook cell wouldn't take you to the definition
+
 ## 4.1.2 December 2023
 
 Change the way we extract comments to reduce memory and speed up parsing by about 10%
