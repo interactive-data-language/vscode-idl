@@ -49,6 +49,7 @@ export function PostProcessParsed(
   // update problems for our file
   index.trackSyntaxProblemsForFile(file, GetSyntaxProblems(parsed));
 
-  // update problems
+  // update cache
   index.tokensByFile.updateProblems(file, parsed);
+  index.tokensByFile.updateSemantic(file, parsed);
 }
