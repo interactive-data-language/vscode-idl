@@ -207,4 +207,13 @@ export class IDLParsedCache {
       this.byFile[file].postProcessProblems = parsed.postProcessProblems;
     }
   }
+
+  /**
+   * Updates semantic tokens
+   */
+  updateSemantic(file: string, parsed: IParsed) {
+    if (file in this.byFile) {
+      this.byFile[file].semantic = parsed.semantic;
+    }
+  }
 }
