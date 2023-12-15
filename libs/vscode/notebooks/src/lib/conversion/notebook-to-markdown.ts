@@ -8,6 +8,8 @@ import {
 } from '@idl/notebooks/types';
 import { NotebookCellKind, NotebookDocument } from 'vscode';
 
+import { CreateOutputText } from './create-output-text';
+
 /**
  * Converts a notebook to a markdown file
  */
@@ -61,6 +63,9 @@ export async function NotebookToMarkdown(
         // check for outputs
         const outputs = cell.outputs;
 
+        /** Track actual number of outputs */
+        let nOut = 1;
+
         // process each output
         for (let j = 0; j < outputs.length; j++) {
           // get output items
@@ -89,12 +94,21 @@ export async function NotebookToMarkdown(
                */
               switch (embedded.type) {
                 case 'idlnotebookimage_png':
+                  // markdown.push(
+                  //   `![](data:image/png;base64,${
+                  //     (
+                  //       embedded as IDLNotebookEmbeddedItem<IDLNotebookImage_PNG>
+                  //     ).item.data
+                  //   })`
+                  // );
                   markdown.push(
-                    `![](data:image/png;base64,${
+                    CreateOutputText(
+                      nOut,
                       (
                         embedded as IDLNotebookEmbeddedItem<IDLNotebookImage_PNG>
-                      ).item.data
-                    })`
+                      ).item.data,
+                      'image'
+                    )
                   );
                   // markdown.push(`![](./${nImages}.png)`);
                   // writeFileSync(
@@ -102,8 +116,9 @@ export async function NotebookToMarkdown(
                   //   (embedded as IDLNotebookEmbeddedItem<IDLNotebookImage_PNG>)
                   //     .item.data
                   // );
-                  nImages++;
                   markdown.push('');
+                  nOut++;
+                  nImages++;
                   break;
                 case 'idlnotebookmap': {
                   const map =
@@ -123,12 +138,16 @@ export async function NotebookToMarkdown(
                     //   `C:\\Users\\znorman\\.idl\\vscode\\notebooks\\examples\\${nImages}.png`,
                     //   firstImage.item.data
                     // );
-                    nImages++;
 
+                    // markdown.push(
+                    //   `![](data:image/png;base64,${firstImage.item.data})`
+                    // );
                     markdown.push(
-                      `![](data:image/png;base64,${firstImage.item.data})`
+                      CreateOutputText(nOut, firstImage.item.data, 'image')
                     );
                     markdown.push('');
+                    nOut++;
+                    nImages++;
                   }
                   break;
                 }
@@ -136,10 +155,18 @@ export async function NotebookToMarkdown(
                   break;
               }
             } else {
-              markdown.push('```');
-              markdown = markdown.concat(asString.split(/\r?\n/g));
-              markdown.push('```');
+              markdown.push(
+                CreateOutputText(
+                  nOut,
+                  asString.split(/\r?\n/g).join('\n'),
+                  'text'
+                )
+              );
+              // markdown.push('```');
+              // markdown = markdown.concat(asString.split(/\r?\n/g));
+              // markdown.push('```');
               markdown.push('');
+              nOut++;
             }
           }
         }
