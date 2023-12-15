@@ -46,6 +46,12 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 - When generating ENVI and IDL tasks, using our new case libraries, we attempt to make a pretty display name from parameter names. For example converting the keyword "my_keyword" to "My Keyword". This applied to task and parameter display names.
 
+## 4.2.2 December 2023
+
+Fixed an issue with semantic tokens not showing up like they should.
+
+Tweaked the styling for PDF generation to have output cells look a little different than input.
+
 ## 4.2.1 December 2023
 
 Fixed an issue where logs were sharing too much information and other logs were not properly reporting
