@@ -1055,7 +1055,7 @@ export class IDLIndex {
     this.trackSyntaxProblemsForFile(file, GetSyntaxProblems(parsed));
 
     // save tokens for our file
-    if (inOptions.cache) {
+    if (!inOptions.noCache) {
       this.tokensByFile.add(file, parsed);
     }
 
