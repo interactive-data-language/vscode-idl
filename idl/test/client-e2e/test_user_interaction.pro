@@ -8,4 +8,6 @@ compile_opt idl2
 
 myproprotest
 
+IDLNotebook.addToNotebook
+
 end
