@@ -71,6 +71,10 @@ export interface IIndexProCodeOptions extends IParserOptions {
    * Do change detection when we index
    */
   changeDetection: boolean;
+  /**
+   * Do we add to our cache or not?
+   */
+  cache: boolean;
 }
 
 /**
@@ -114,4 +118,5 @@ export const DEFAULT_INDEX_PRO_CODE_OPTIONS: IIndexProCodeOptions = {
   ...copy(DEFAULT_PARSER_OPTIONS),
   postProcess: true,
   changeDetection: true,
+  cache: true,
 };

@@ -1046,7 +1046,9 @@ export class IDLIndex {
     this.trackSyntaxProblemsForFile(file, GetSyntaxProblems(parsed));
 
     // save tokens for our file
-    this.tokensByFile.add(file, parsed);
+    if (inOptions.cache) {
+      this.tokensByFile.add(file, parsed);
+    }
 
     // return our tokens
     return parsed;
