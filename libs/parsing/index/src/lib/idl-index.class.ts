@@ -1200,9 +1200,6 @@ export class IDLIndex {
       return;
     }
 
-    // remove notebook
-    await this.removeNotebook(file);
-
     // track as known file
     this.knownFiles[file] = undefined;
     this.fileTypes['idl-notebook'].add(file);
