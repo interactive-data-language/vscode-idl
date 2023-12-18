@@ -46,6 +46,10 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 - When generating ENVI and IDL tasks, using our new case libraries, we attempt to make a pretty display name from parameter names. For example converting the keyword "my_keyword" to "My Keyword". This applied to task and parameter display names.
 
+## 4.2.3 December 2023
+
+Resolved a performance issue with notebooks where auto-complete and hover help would take a while to return if you have been making many edits in a short amount of time
+
 ## 4.2.2 December 2023
 
 Fixed an issue with semantic tokens not showing up like they should.
