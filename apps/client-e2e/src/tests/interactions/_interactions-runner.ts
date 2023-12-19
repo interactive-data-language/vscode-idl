@@ -4,6 +4,7 @@ import { Runner } from '../runner.class';
 import { AddDocs } from './add-docs';
 import { IDLJSONInteractRight } from './idl-json-interact-right';
 import { IndexIDLFolderRightAndOpenEditClose } from './index-idl-folder-right-and-open-edit-close';
+import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { NotebookCompletionBasic } from './notebooks-completion-basic';
 import { NotebooksInteractRight } from './notebooks-interact-right';
 import { NotebooksNoDuplicates } from './notebooks-no-duplicates';
@@ -64,4 +65,10 @@ INTERACTIONS_RUNNER.addTest({
   name: 'Verify notebook auto-complete passes basic tests',
   fn: NotebookCompletionBasic,
   critical: true,
+});
+
+// notebook problems track right
+INTERACTIONS_RUNNER.addTest({
+  name: 'Notebook problems track right',
+  fn: NotebookProblemsTrackRight,
 });
