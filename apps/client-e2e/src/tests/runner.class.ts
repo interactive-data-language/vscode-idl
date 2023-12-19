@@ -1,5 +1,6 @@
 import { Logger } from '@idl/logger';
 import { Sleep } from '@idl/shared';
+import * as vscode from 'vscode';
 
 import { ACTIVATION_RESULT } from '../main';
 import { IRunnerTest, TEST_PAUSE_MS } from './runner.interface';
@@ -29,6 +30,13 @@ export class Runner {
   /** Register test that we need to run */
   addTest(test: IRunnerTest) {
     this.tests.push(test);
+  }
+
+  /**
+   *
+   */
+  async closeAll() {
+    await vscode.commands.executeCommand('workbench.action.closeAllEditors');
   }
 
   /**
@@ -63,6 +71,13 @@ export class Runner {
         if (this.tests[i].critical) {
           break;
         }
+      }
+
+      /**
+       * Close everything unless we specify that we dont
+       */
+      if (!this.tests[i].dontCloseAll) {
+        await this.closeAll();
       }
     }
 

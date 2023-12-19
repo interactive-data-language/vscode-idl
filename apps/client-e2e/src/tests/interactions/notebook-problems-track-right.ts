@@ -1,5 +1,5 @@
 import { GetExtensionPath, Sleep } from '@idl/shared';
-import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
+import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
@@ -47,7 +47,4 @@ export const NotebookProblemsTrackRight: RunnerFunction = async (init) => {
       .getCells()
       .map((cell) => vscode.languages.getDiagnostics(cell.document.uri).length)
   ).toEqual([0, 3]);
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 };

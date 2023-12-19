@@ -5,7 +5,6 @@ import {
   IDL_NOTEBOOK_LANGUAGE_NAME,
   Sleep,
 } from '@idl/shared';
-import { VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
 import { join } from 'path';
 import * as vscode from 'vscode';
@@ -32,13 +31,4 @@ export const OpenIDLNotebookExample: RunnerFunction = async (init) => {
   expect(CleanPath(editor?.notebook?.uri.fsPath) || '').toEqual(
     join(EXAMPLE_NOTEBOOKS, 'hello-world-idl.idlnb')
   );
-
-  // close
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
-
-  // pause momentarily
-  await Sleep(100);
-
-  // verify we cleaned up
-  expect(vscode.window.activeNotebookEditor).toBeUndefined();
 };

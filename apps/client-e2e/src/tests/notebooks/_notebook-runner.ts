@@ -4,7 +4,6 @@ import { Runner } from '../runner.class';
 import { NewNotebook } from './new-notebook';
 import { NotebookFormats_1_0_0 } from './notebook-formats-1.0.0';
 import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
-import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { RunNotebookReset } from './notebook-reset';
 import { RunNotebookStop } from './notebook-stop';
 import { NotebookToProCodeAllCells } from './notebook-to-pro-code-all-cells';
@@ -145,10 +144,4 @@ NOTEBOOK_RUNNER.addTest({
 NOTEBOOK_RUNNER.addTest({
   name: 'Verify quiet mode for notebooks',
   fn: VerifyQuietNotebookSetting,
-});
-
-// notebook problems track right
-NOTEBOOK_RUNNER.addTest({
-  name: 'Notebook problems track right',
-  fn: NotebookProblemsTrackRight,
 });

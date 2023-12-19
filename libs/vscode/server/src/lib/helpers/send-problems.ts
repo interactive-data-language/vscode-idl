@@ -106,12 +106,12 @@ export function SendProblems(inFiles: string[]) {
        *
        * We use parseProblems to store "undefined" as a flag to sync files so we need an extra check
        */
-      if (files[i] in parseProblems) {
-        problems = parseProblems[files[i]];
+      if (parseProblems[files[i]]) {
+        problems = problems.concat(parseProblems[files[i]]);
       }
 
       // check for global problems
-      if (files[i] in globalProblems) {
+      if (globalProblems[files[i]]) {
         problems = problems.concat(globalProblems[files[i]]);
       }
 

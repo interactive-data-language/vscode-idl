@@ -4,9 +4,10 @@ import { Runner } from '../runner.class';
 import { AddDocs } from './add-docs';
 import { IDLJSONInteractRight } from './idl-json-interact-right';
 import { IndexIDLFolderRightAndOpenEditClose } from './index-idl-folder-right-and-open-edit-close';
+import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { NotebookCompletionBasic } from './notebooks-completion-basic';
 import { NotebooksInteractRight } from './notebooks-interact-right';
-import { NotebooksNoDuplicates } from './notebooks-no-duplicates';
+import { NotebooksNoDuplicateRoutines } from './notebooks-no-duplicate-routines';
 import { ProCodeInteractRight } from './pro-code-interacts-right';
 import { TasksInteractRight } from './tasks-interact-right';
 
@@ -56,12 +57,18 @@ INTERACTIONS_RUNNER.addTest({
 });
 
 INTERACTIONS_RUNNER.addTest({
-  name: 'Notebook problems track right',
-  fn: NotebooksNoDuplicates,
+  name: 'No duplicate routine definition problems',
+  fn: NotebooksNoDuplicateRoutines,
 });
 
 INTERACTIONS_RUNNER.addTest({
   name: 'Verify notebook auto-complete passes basic tests',
   fn: NotebookCompletionBasic,
   critical: true,
+});
+
+// notebook problems track right
+INTERACTIONS_RUNNER.addTest({
+  name: 'Notebook problems track right',
+  fn: NotebookProblemsTrackRight,
 });
