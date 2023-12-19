@@ -1,7 +1,6 @@
-import { GetExtensionPath, Sleep } from '@idl/shared';
-import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
+import { GetExtensionPath } from '@idl/shared';
+import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
-import * as vscode from 'vscode';
 import {
   SemanticTokens,
   SemanticTokensParams,
@@ -93,10 +92,4 @@ export const NotebooksInteractRight: RunnerFunction = async (init) => {
       )) as SemanticTokens
     ).data
   ).toEqual([8, 0, 11, 0, 0]);
-
-  // short pause
-  await Sleep(250);
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 };

@@ -72,13 +72,4 @@ export const Continue: RunnerFunction = async (init) => {
     // wait a little bit
     await Sleep(DEBUG_PAUSE);
   }
-
-  // close editor
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
-
-  // pause momentarily
-  await Sleep(DEBUG_PAUSE);
-
-  // verify we cleaned up
-  expect(GetActivePROCodeWindow(false)).toBeUndefined();
 };

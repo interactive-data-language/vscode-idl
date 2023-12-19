@@ -77,13 +77,4 @@ export const BreakPointStepInStepOut: RunnerFunction = async (init) => {
 
   // reset
   await init.debug.adapter.evaluate('.reset');
-
-  // close editor
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
-
-  // pause momentarily
-  await Sleep(DEBUG_PAUSE);
-
-  // verify we cleaned up
-  expect(GetActivePROCodeWindow(false)).toBeUndefined();
 };

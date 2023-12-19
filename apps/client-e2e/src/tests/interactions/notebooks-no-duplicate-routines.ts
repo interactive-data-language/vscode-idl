@@ -8,13 +8,13 @@ import { RunnerFunction } from '../runner.interface';
 /**
  * Verifies
  */
-export const NotebooksNoDuplicates: RunnerFunction = async (init) => {
+export const NotebooksNoDuplicateRoutines: RunnerFunction = async (init) => {
   const doc = await OpenNotebookInVSCode(
     GetExtensionPath('idl/test/client-e2e/notebooks/problems-before.idlnb')
   );
 
   // short pause
-  await Sleep(250);
+  await Sleep(500);
 
   /**
    * Get first cell which is code
@@ -30,13 +30,13 @@ export const NotebooksNoDuplicates: RunnerFunction = async (init) => {
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_FOCUS_TOP);
 
   // short pause
-  await Sleep(250);
+  await Sleep(500);
 
   // delete the first cell
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CELL_DELETE);
 
   // short pause
-  await Sleep(250);
+  await Sleep(500);
 
   /**
    * Get first cell which is code
@@ -57,7 +57,7 @@ export const NotebooksNoDuplicates: RunnerFunction = async (init) => {
   );
 
   // short pause
-  await Sleep(250);
+  await Sleep(500);
 
   /**
    * Get second cell again
@@ -73,7 +73,4 @@ export const NotebooksNoDuplicates: RunnerFunction = async (init) => {
 
   //  verify problems
   expect(nAfterRound2).toEqual(nOrig);
-
-  // close
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 };

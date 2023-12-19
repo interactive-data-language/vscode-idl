@@ -61,7 +61,4 @@ export const RunNotebookReset: RunnerFunction = async (init) => {
 
   // clear outputs
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 };

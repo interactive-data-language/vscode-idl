@@ -70,7 +70,4 @@ export async function RunNotebookAndCompareCells(
 
   // save again
   await nb.save();
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 }
