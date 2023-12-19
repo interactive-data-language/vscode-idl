@@ -581,7 +581,7 @@ export class IDLIndex {
       }
     }
     this.changedFiles[file] = true;
-    this.syntaxProblemsByFile[file] = problems;
+    this.syntaxProblemsByFile[file] = problems || [];
   }
 
   /**
@@ -1213,6 +1213,9 @@ export class IDLIndex {
     this.knownFiles[file] = undefined;
     this.fileTypes['idl-notebook'].add(file);
 
+    /** Remove global tokens for cells */
+    const cellUris = this.getNotebookFiles(file);
+
     /**
      * Get the IDs for our workers
      */
@@ -1225,6 +1228,17 @@ export class IDLIndex {
 
     // parse our notebook
     const resp = await ParseNotebook(this, file, notebook);
+
+    /**
+     * Make sure we have all previous cells accounted for
+     *
+     * This handles cases where we deleted files and no longer have globals for it
+     */
+    for (let i = 0; i < cellUris.length; i++) {
+      if (!(cellUris[i] in resp.globals)) {
+        resp.globals[cellUris[i]] = [];
+      }
+    }
 
     // track cells as known files so we can clean up correctly next time
     this.trackFiles(Object.keys(resp.globals));
@@ -1255,7 +1269,7 @@ export class IDLIndex {
     const files = Object.keys(resp.globals);
     for (let i = 0; i < files.length; i++) {
       this.globalIndex.trackGlobalTokens(resp.globals[files[i]], files[i]);
-      this.trackSyntaxProblemsForFile(files[i], resp.problems[files[i]]);
+      this.trackSyntaxProblemsForFile(files[i], resp.problems[files[i]] || []);
     }
 
     // wait until synced
