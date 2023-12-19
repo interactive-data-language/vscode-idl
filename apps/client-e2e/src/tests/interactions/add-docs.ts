@@ -1,9 +1,5 @@
 import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared';
-import {
-  OpenFileInVSCode,
-  ReplaceDocumentContent,
-  VSCODE_COMMANDS,
-} from '@idl/vscode/shared';
+import { OpenFileInVSCode, ReplaceDocumentContent } from '@idl/vscode/shared';
 import expect from 'expect';
 import { readFileSync } from 'fs';
 import * as vscode from 'vscode';
@@ -60,7 +56,4 @@ export const AddDocs: RunnerFunction = async (init) => {
       'utf-8'
     )
   );
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 };

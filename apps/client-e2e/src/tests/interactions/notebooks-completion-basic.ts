@@ -1,7 +1,6 @@
 import { GetExtensionPath, Sleep } from '@idl/shared';
-import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
+import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
-import * as vscode from 'vscode';
 import {
   CompletionItem as LanguageServerCompletionItem,
   TextDocumentPositionParams,
@@ -67,7 +66,4 @@ export const NotebookCompletionBasic: RunnerFunction = async (init) => {
   // verify definition has return
   expect(completion2).toStrictEqual(expect.any(Array));
   expect(completion2.length).not.toEqual(0);
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 };

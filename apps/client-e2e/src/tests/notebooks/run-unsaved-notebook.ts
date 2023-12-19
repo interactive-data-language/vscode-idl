@@ -69,7 +69,4 @@ export const RunUnsavedNotebook: RunnerFunction = async (init) => {
 
   // compare cells
   await CompareCellOutputs(nb, CELL_OUTPUT);
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 };

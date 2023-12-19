@@ -58,7 +58,4 @@ export const RunNotebookStop: RunnerFunction = async (init) => {
 
   // compare state
   CompareCellOutputs(nb, CELL_OUTPUT);
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 };

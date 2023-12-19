@@ -17,6 +17,8 @@ export interface IRunnerTest {
   fn: RunnerFunction;
   /** If critical, this failure prevents other tests from running */
   critical?: boolean;
+  /** Do we keep or close all editors? */
+  dontCloseAll?: boolean;
 }
 
 /**
