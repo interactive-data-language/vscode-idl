@@ -727,7 +727,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   json_serialize: {
-    returns: ParseIDLType('Hash<any> | Dictionary<any> | Structure'),
+    returns: ParseIDLType('String'),
     args: {
       value: {
         direction: 'in',
