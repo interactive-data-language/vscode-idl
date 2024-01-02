@@ -48,7 +48,7 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 ## 4.2.3 January 2024
 
-Resolved an issue with the auto-complete performance improvements where auto-complete would include character-by-character auto-completions for routines and structures. For example, if you created a function called `myplot`, you would get auto complete for `m`, `my`, `myp`, etc. depending on how fast your typed.
+Resolved an issue with the auto-complete performance improvements where auto-complete would include character-by-character auto-completions for routines and structures. For example, if you created a function called `myplot`, you would get auto complete for `m`, `my`, `myp`, etc. depending on how fast you typed.
 
 ## 4.2.2 December 2023
 
