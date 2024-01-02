@@ -202,7 +202,7 @@ pro ShapeFileToGeoJSON, $
         (11): ; point-z
         (21): begin ; point-m
           ; check if we have vertices or not
-          if ptr_valid(*entity.vertices) then begin
+          if ptr_valid(entity.vertices) then begin
             vert = *entity.vertices
           endif else begin
             vert = [entity.bounds[0], entity.bounds[1]]
