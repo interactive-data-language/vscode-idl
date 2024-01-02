@@ -43,7 +43,7 @@ export let GLOBAL_SERVER_SETTINGS = copy(DEFAULT_SERVER_SETTINGS);
  * Track settings by document when they might come from other workspaces.
  *
  * Use the function GetDocumentSettings to access/populate this. Only need to take
- * advantage of this once we have linting/formatting which will need to ahndle settings by document
+ * advantage of this once we have linting/formatting which will need to handle settings by document
  */
 export const DOCUMENT_SETTINGS: Map<
   string,
