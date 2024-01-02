@@ -1,4 +1,5 @@
 import {
+  CUSTOM_TYPE_DISPLAY_NAMES,
   GLOBAL_TOKEN_TYPES,
   GlobalTokens,
   GlobalTokenType,
@@ -280,26 +281,28 @@ export class GlobalIndex {
 
           // check if we match
           if (byName[z].file === file) {
-            // decide how to proceed
-            if (IDL_INDEX_OPTIONS.IS_MAIN_THREAD) {
-              switch (true) {
-                // 3 or more duplicates
-                case byName.length > 2:
-                  this.removeDuplicateTokenProblems(byName[z], false);
-                  break;
-                // if we have two, and we remove one, all problems must leave
-                case byName.length == 2:
-                  this.removeDuplicateTokenProblems(byName[0], true);
-                  this.removeDuplicateTokenProblems(byName[1], true);
-                  break;
-                case byName.length === 1:
-                  // remove display name
-                  delete IDL_DISPLAY_NAMES[tokens[i].type][tokens[i].name];
-                  break;
-                default:
-                  // do nothing
-                  break;
-              }
+            switch (true) {
+              // 3 or more duplicates
+              case byName.length > 2:
+                this.removeDuplicateTokenProblems(byName[z], false);
+                break;
+              // if we have two, and we remove one, all problems must leave
+              case byName.length == 2:
+                this.removeDuplicateTokenProblems(byName[0], true);
+                this.removeDuplicateTokenProblems(byName[1], true);
+                break;
+              case byName.length === 1:
+                // remove display name
+                delete IDL_DISPLAY_NAMES[tokens[i].type][tokens[i].name];
+
+                // remove structure/type names
+                if (tokens[i].type === GLOBAL_TOKEN_TYPES.STRUCTURE) {
+                  delete CUSTOM_TYPE_DISPLAY_NAMES[tokens[i].name.trim()];
+                }
+                break;
+              default:
+                // do nothing
+                break;
             }
 
             // always remove token if we match our file
