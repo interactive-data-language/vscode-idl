@@ -141,7 +141,7 @@ SERVER_INFO.then(async (res) => {
         type: 'info',
         content: `Memory cleanup and usage check (mb): ${usage}`,
       });
-    }, IDL_CLIENT_CONFIG.languageServer.garbageIntervalMS);
+    }, DEFAULT_IDL_EXTENSION_CONFIG.languageServer.garbageIntervalMS);
 
     /**
      * Merge folders together
