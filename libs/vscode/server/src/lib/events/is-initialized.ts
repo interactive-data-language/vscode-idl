@@ -14,6 +14,7 @@ import {
   USAGE_METRIC_LOOKUP,
 } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
+import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { arch, cpus, platform } from 'os';
 
 import { CacheValidFSPath } from '../helpers/cache-valid';
