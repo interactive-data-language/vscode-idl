@@ -132,6 +132,8 @@ export interface ICodeConfig {
 export interface ILanguageServerConfig {
   /** Does the language server do a full parse of your code */
   fullParse: boolean;
+  /** Garbage collection interval, ms */
+  garbageIntervalMS: number;
 }
 
 export interface INotebookConfig {
@@ -315,6 +317,7 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
   },
   languageServer: {
     fullParse: true,
+    garbageIntervalMS: 300000,
   },
   notebooks: {
     quietMode: true,
