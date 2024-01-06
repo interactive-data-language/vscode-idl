@@ -46,6 +46,10 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 - When generating ENVI and IDL tasks, using our new case libraries, we attempt to make a pretty display name from parameter names. For example converting the keyword "my_keyword" to "My Keyword". This applied to task and parameter display names.
 
+## 4.2.4
+
+Fixed a bug where python statements of the form ">>>" were incorrectly formatted with an extra space after the arrows.
+
 ## 4.2.3 January 2024
 
 Resolved an issue with the auto-complete performance improvements where auto-complete would include character-by-character auto-completions for routines and structures. For example, if you created a function called `myplot`, you would get auto complete for `m`, `my`, `myp`, etc. depending on how fast you typed.
