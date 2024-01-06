@@ -18,6 +18,8 @@ This README is the main entry point for the extension documentation for the IDL 
 
 - [**Formatting**](./general/FORMATTING.md): High-level overview of formatting
 
+- [**IDL Python Bridge**](./general/IDL_PYTHON_BRIDGE.md): Setup guides and tips for the IDL Python bridge in VSCode
+
 - [**Problem Codes**](./problem-codes/README.md): Details for the problems that the extension detects in your IDL code and how to fix them
 
 - [**Task Creation**](./general/TASK_CREATION.md): Creating ENVI and IDL tasks
