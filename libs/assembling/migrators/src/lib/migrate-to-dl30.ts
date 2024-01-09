@@ -19,7 +19,8 @@ import { AccessPropertyToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import { RenameENVITasks } from './helpers/rename-envi-tasks';
 
 /**
- * Renames all references to a properties for given variable names
+ * When we encounter properties for specific variables, add them to
+ * our list of lines that need to be commented out
  */
 function CommentOutProperties(
   tree: SyntaxTree,
@@ -89,12 +90,7 @@ export async function MigrateToDL30(
   const trainTypeString = SerializeIDLType(trainType, true);
 
   /**
-   * Check get all variables
-   */
-  const vars = Object.values(parsed.local.main);
-
-  /**
-   * Track the variables that we will reaplce
+   * Track the lines that we will comment out
    */
   const toCommentOut: { [key: number]: undefined } = {};
 
@@ -109,33 +105,46 @@ export async function MigrateToDL30(
   const trainUpdateLines: { [key: number]: string } = {};
 
   /**
-   * Process all variables
+   * Extract all variables
    */
-  for (let i = 0; i < vars.length; i++) {
-    switch (true) {
-      /**
-       * Check if we have an init model var that should be commented out
-       */
-      case IDLTypeHelper.isType(vars[i].meta.type, initTypeString): {
-        const positions = vars[i].meta.usage;
-        for (let j = 0; j < positions.length; j++) {
-          toCommentOut[positions[j][0]] = undefined;
+  const allVars = Object.values(parsed.local.func)
+    .concat(Object.values(parsed.local.pro))
+    .concat([parsed.local.main]);
+
+  // process all routines
+  for (let z = 0; z < allVars.length; z++) {
+    /** get variables for our routine */
+    const vars = Object.values(allVars[z]);
+
+    /**
+     * Process all variables
+     */
+    for (let i = 0; i < vars.length; i++) {
+      switch (true) {
+        /**
+         * Check if we have an init model var that should be commented out
+         */
+        case IDLTypeHelper.isType(vars[i].meta.type, initTypeString): {
+          const positions = vars[i].meta.usage;
+          for (let j = 0; j < positions.length; j++) {
+            toCommentOut[positions[j][0]] = undefined;
+          }
+          break;
         }
-        break;
+        /**
+         * Check if we have a training task to update
+         */
+        case IDLTypeHelper.isType(vars[i].meta.type, trainTypeString): {
+          trainUpdate[vars[i].name] = vars[i].pos[0];
+          trainUpdateLines[vars[i].pos[0]] = vars[i].meta.display;
+          break;
+        }
+        /**
+         * do nothing
+         */
+        default:
+          break;
       }
-      /**
-       * Check if we have a training task to update
-       */
-      case IDLTypeHelper.isType(vars[i].meta.type, trainTypeString): {
-        trainUpdate[vars[i].name] = vars[i].pos[0];
-        trainUpdateLines[vars[i].pos[0]] = vars[i].meta.display;
-        break;
-      }
-      /**
-       * do nothing
-       */
-      default:
-        break;
     }
   }
 
@@ -168,16 +177,10 @@ export async function MigrateToDL30(
   const strings = asString.split(/\r*\n/);
 
   // rename tasks
-  RenameENVITasks(
-    strings,
-    'TrainTensorFlowMaskModel',
-    'TrainTensorFlowPixelModel'
-  );
-  RenameENVITasks(
-    strings,
-    'TensorflowMaskClassification',
-    'TensorflowPixelClassification'
-  );
+  RenameENVITasks(strings, {
+    traintensorflowmaskmodel: 'TrainTensorFlowPixelModel',
+    tensorflowmaskclassification: 'TensorflowPixelClassification',
+  });
 
   /**
    * get lines that we need to remove
@@ -194,9 +197,16 @@ export async function MigrateToDL30(
 
   // copy over and add any text
   for (let i = 0; i < strings.length; i++) {
+    // add our existing line
     outStrings.push(strings[i]);
+
+    // check if we have a training task being initialized and we need
+    // to add in missing parameters
     if (i in trainUpdateLines) {
+      /** Get the variable name for the line */
       const varName = trainUpdateLines[i];
+
+      // add in code
       outStrings.push('');
       outStrings.push('; TODO: set new parameters');
       outStrings.push(
