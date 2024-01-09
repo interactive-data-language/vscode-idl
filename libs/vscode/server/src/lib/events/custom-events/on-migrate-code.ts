@@ -70,20 +70,19 @@ export const ON_MIGRATE_CODE = async (
     /**
      * Formatted code
      */
-    const formatted =
-      await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
-        IDL_INDEX.getWorkerID(info.fsPath),
-        LSP_WORKER_THREAD_MESSAGE_LOOKUP.MIGRATE_CODE,
-        {
-          file: info.fsPath,
-          code: info.code,
-          formatting: config,
-          migrationType: event.migrationType,
-        }
-      ).response;
+    const migrated = await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
+      IDL_INDEX.getWorkerID(info.fsPath),
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.MIGRATE_CODE,
+      {
+        file: info.fsPath,
+        code: info.code,
+        formatting: config,
+        migrationType: event.migrationType,
+      }
+    ).response;
 
     // check if we couldnt format
-    if (formatted === undefined) {
+    if (migrated === undefined) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,
         type: 'warn',
@@ -99,7 +98,7 @@ export const ON_MIGRATE_CODE = async (
       return { text: undefined };
     }
 
-    return { text: formatted };
+    return { text: migrated };
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
