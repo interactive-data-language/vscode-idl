@@ -6,6 +6,7 @@ import { ON_DID_RENAME } from './custom-events/on-did-rename';
 import { ON_FOLDER_DELETE } from './custom-events/on-folder-delete';
 import { ON_GENERATE_TASK } from './custom-events/on-generate-task';
 import { ON_INIT_WORKSPACE_CONFIG } from './custom-events/on-init-workspace-config';
+import { ON_MIGRATE_CODE } from './custom-events/on-migrate-code';
 import { ON_NOTEBOOK_TO_PRO_CODE } from './custom-events/on-notebook-to-pro-code';
 import { ON_RETRIEVE_DOCS } from './custom-events/on-retrieve-docs';
 import { ON_WORKSPACE_CONFIG } from './custom-events/on-workspace-config';
@@ -56,6 +57,12 @@ export function InitializeCustomEventHandler() {
   SERVER_EVENT_MANAGER.onNotification(
     LANGUAGE_SERVER_MESSAGE_LOOKUP.GENERATE_TASK,
     ON_GENERATE_TASK
+  );
+
+  // listen for migrating code
+  SERVER_EVENT_MANAGER.onRequest(
+    LANGUAGE_SERVER_MESSAGE_LOOKUP.MIGRATE_CODE,
+    ON_MIGRATE_CODE
   );
 
   // listen for deleting folders

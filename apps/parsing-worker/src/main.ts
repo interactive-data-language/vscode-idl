@@ -1,4 +1,5 @@
 import { AssembleWithIndex } from '@idl/assembler';
+import { Migrator } from '@idl/assembling/migrators';
 import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
 import { ParseFileSync } from '@idl/parser';
 import {
@@ -96,6 +97,24 @@ client.on(
 client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.LOAD_GLOBAL, async (message) => {
   WORKER_INDEX.loadGlobalTokens(message.config);
 });
+
+/**
+ * Migrate files
+ */
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.MIGRATE_CODE,
+  async (message, cancel) => {
+    // index the file
+    const parsed = await WORKER_INDEX.getParsedProCode(
+      message.file,
+      message.code,
+      cancel
+    );
+
+    // migrate and return
+    return Migrator(message.migrationType, parsed, message.formatting, cancel);
+  }
+);
 
 /**
  * Update our index with global tokens from other threads

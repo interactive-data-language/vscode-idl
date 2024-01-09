@@ -1,10 +1,12 @@
-import { CleanPath, IDL_COMMANDS } from '@idl/shared';
+import { MIGRATION_TYPE_LOOKUP } from '@idl/assembling/migrators-types';
+import { IDL_COMMANDS } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import {
   GetActivePROCodeOrTaskWindow,
   GetActivePROCodeWindow,
+  ReplaceDocumentContent,
   VSCodeTelemetryLogger,
 } from '@idl/vscode/shared';
 import { ExtensionContext } from 'vscode';
@@ -116,7 +118,16 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
 
             LANGUAGE_SERVER_MESSENGER.sendNotification(
               LANGUAGE_SERVER_MESSAGE_LOOKUP.ADD_DOCS,
-              { file: CleanPath(file.uri.fsPath) }
+              {
+                textDocument: {
+                  uri: file.uri.toString(),
+                },
+                // unused, we default to idl.json config, but this is required
+                options: {
+                  insertSpaces: true,
+                  tabSize: 2,
+                },
+              }
             );
           }
         } catch (err) {
@@ -220,6 +231,47 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
             'Error while generating task',
             err,
             cmdErrors.code.formatFile
+          );
+        }
+      }
+    )
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.CODE.MIGRATE_TO_DL30_API,
+      async () => {
+        try {
+          LogCommandInfo('Migrate to DL 3.0 API');
+
+          // check for PRO file
+          const doc = GetActivePROCodeWindow();
+
+          // make sure we have a file
+          if (doc !== undefined) {
+            VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+              idl_command: IDL_COMMANDS.CODE.MIGRATE_TO_DL30_API,
+            });
+
+            const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
+              LANGUAGE_SERVER_MESSAGE_LOOKUP.MIGRATE_CODE,
+              {
+                uri: doc.uri.toString(),
+                migrationType: MIGRATION_TYPE_LOOKUP.ENVI_DL_30,
+              }
+            );
+
+            await ReplaceDocumentContent(doc, resp.text);
+
+            return true;
+          } else {
+            return false;
+          }
+        } catch (err) {
+          LogCommandError(
+            'Error while migrating to DL 3.0 API',
+            err,
+            cmdErrors.code.migrateToDL30API
           );
         }
       }

@@ -46,9 +46,13 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 - When generating ENVI and IDL tasks, using our new case libraries, we attempt to make a pretty display name from parameter names. For example converting the keyword "my_keyword" to "My Keyword". This applied to task and parameter display names.
 
-## 4.2.4
+## 4.3.0
 
 Fixed a bug where python statements of the form ">>>" were incorrectly formatted with an extra space after the arrows.
+
+For the upcoming release of ENVI Deep Learning 3.0, added a new pipeline for migrating code from older to newer versions. While we typically do not make breaking changes, if we ever do, we now have a pattern to help automate getting your code up-to-date with the latest version of IDL, ENVI, and module APIs.
+
+Updated the routine signatures (docs) to IDL 9.0, ENVI 6.0, and ENVI Deep Learning 3.0.
 
 ## 4.2.3 January 2024
 

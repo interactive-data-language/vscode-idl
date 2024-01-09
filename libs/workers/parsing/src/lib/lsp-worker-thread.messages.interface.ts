@@ -1,4 +1,5 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import { MigrationType } from '@idl/assembling/migrators-types';
 import {
   GlobalTokens,
   GlobalTokenType,
@@ -255,6 +256,26 @@ export type LogManagerPayload = void;
 export type LogManagerResponse = ILogOptions;
 
 /**
+ * Message to migrate code
+ */
+export type MigrateCodeMessage = 'migrate-code';
+
+/**
+ * Payload when migrating PRO code
+ */
+export interface MigrateCodePayload {
+  file: string;
+  code: string | string[];
+  formatting: IAssemblerOptions<FormatterType>;
+  migrationType: MigrationType;
+}
+
+/**
+ * Response when migrating PRO code
+ */
+export type MigrateCodeResponse = string | undefined;
+
+/**
  * When we parse and post-process code (i.e. open editor, file not saved on disk)
  */
 export type ParseAndPostProcessCodeMessage = 'parse-code';
@@ -466,6 +487,7 @@ export type LSPWorkerThreadMessage =
   | GetTokenDefMessage
   | LoadGlobalMessage
   | LogManagerMessage
+  | MigrateCodeMessage
   | ParseAndPostProcessCodeMessage
   | ParseAndPostProcessFileMessage
   | ParseFilesMessage
@@ -528,6 +550,10 @@ interface ILSPWorkerThreadMessageLookup {
    */
   LOG_MANAGER: LogManagerMessage;
   /**
+   * Migrate to DL 3.0 API
+   */
+  MIGRATE_CODE: MigrateCodeMessage;
+  /**
    * When we parse and post-process code (i.e. open editor, file not saved on disk)
    */
   PARSE_CODE: ParseAndPostProcessCodeMessage;
@@ -577,6 +603,7 @@ export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   GET_TOKEN_DEF: 'get-token-def',
   LOAD_GLOBAL: 'load-global',
   LOG_MANAGER: 'log-manager',
+  MIGRATE_CODE: 'migrate-code',
   PARSE_CODE: 'parse-code',
   PARSE_FILE: 'parse-file',
   PARSE_FILES: 'parse-files',

@@ -2,6 +2,7 @@ import { TaskAssembler } from '@idl/assembler';
 import {
   DEFAULT_ASSEMBLER_OPTIONS,
   FormatterType,
+  IAssemblerInputOptions,
   IAssemblerOptions,
 } from '@idl/assembling/config';
 import { ParsedTask } from '@idl/data-types/tasks';
@@ -24,7 +25,8 @@ import { SERVER_INITIALIZED } from '../is-initialized';
  * @param event The event from VSCode
  */
 export const ON_DOCUMENT_FORMATTING = async (
-  event: DocumentFormattingParams
+  event: DocumentFormattingParams,
+  formatting?: Partial<IAssemblerInputOptions<FormatterType>>
 ) => {
   await SERVER_INITIALIZED;
   try {
@@ -55,6 +57,13 @@ export const ON_DOCUMENT_FORMATTING = async (
       ...IDL_CLIENT_CONFIG.code.formatting,
       style: IDL_CLIENT_CONFIG.code.formattingStyle,
     };
+
+    /**
+     * Check if we have custom formatting that needs to be applied
+     */
+    if (formatting) {
+      Object.assign(clientConfig, formatting);
+    }
 
     // // log information
     // IDL_LANGUAGE_SERVER_LOGGER.log({
