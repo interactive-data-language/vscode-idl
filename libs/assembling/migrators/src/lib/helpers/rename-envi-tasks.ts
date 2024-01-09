@@ -15,8 +15,7 @@ const ENVI_TASK_REGEX = /(ENVITask\(\s*(?:'|"|`))(.*)((?:'|"|`))/i;
  */
 export function RenameENVITasks(
   strings: string[],
-  oldName: string,
-  newName: string
+  nameMap: { [key: string]: string }
 ) {
   /** Process each line */
   for (let i = 0; i < strings.length; i++) {
@@ -25,13 +24,14 @@ export function RenameENVITasks(
 
     // check if we have text to replace
     if (match !== null) {
+      const taskName = match[2].toLowerCase();
       // skip if not the same task
-      if (match[2].toLowerCase() !== oldName.toLowerCase()) {
+      if (!(taskName in nameMap)) {
         continue;
       }
 
       // build the new string
-      const newString = `${match[1]}${newName}${match[3]}`;
+      const newString = `${match[1]}${nameMap[taskName]}${match[3]}`;
 
       // update
       strings[i] = `${strings[i].substring(
