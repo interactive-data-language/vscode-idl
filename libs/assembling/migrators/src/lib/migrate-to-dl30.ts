@@ -157,6 +157,10 @@ export async function MigrateToDL30(
         patches_per_epoch: undefined,
         patch_sampling_rate: undefined,
         input_model: undefined,
+        validation_f1: undefined,
+        validation_loss: undefined,
+        validation_precision: undefined,
+        validation_recall: undefined,
       },
       toCommentOut
     );
@@ -208,12 +212,39 @@ export async function MigrateToDL30(
 
       // add in code
       outStrings.push('');
-      outStrings.push('; TODO: set new parameters');
+      outStrings.push('; new model parameters');
       outStrings.push(
         `${varName}.${TransformCase(
           'model_architecture',
           formatting.style.properties
         )} = 'SegUNet++'`
+      );
+      outStrings.push(
+        `${varName}.${TransformCase(
+          'patch_size',
+          formatting.style.properties
+        )} = 464`
+      );
+      outStrings.push('');
+      outStrings.push('; new training parameters');
+      outStrings.push('');
+      outStrings.push(
+        '; train on 100% of our examples within the training rasters'
+      );
+      outStrings.push(
+        `${varName}.${TransformCase(
+          'feature_patch_percentage',
+          formatting.style.properties
+        )} = 1.0 `
+      );
+      outStrings.push('');
+      outStrings.push('; for every 100 examples of features,');
+      outStrings.push('; how many background patches are added?');
+      outStrings.push(
+        `${varName}.${TransformCase(
+          'background_patch_ratio',
+          formatting.style.properties
+        )} = 0.2`
       );
       outStrings.push('');
     }
