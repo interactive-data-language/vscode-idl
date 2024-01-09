@@ -25,13 +25,5 @@ export interface IInitWorkspaceConfigPayload {
 /** Message to add docs to routines in file */
 export type AddDocsMessage = 'add-docs';
 
-/**
- * Payload to add docs to routines in file
- */
-export interface IAddDocsMessagePayload {
-  /** File to add docs for */
-  file: string;
-}
-
 /** Message to specify that we are formatting a file */
 export type FormatFileMessage = 'format-file';

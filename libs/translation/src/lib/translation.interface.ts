@@ -29,6 +29,8 @@ export interface ICommandTranslation {
     formatFile: string;
     /** Generates a task file */
     generateTask: string;
+    /** Migrate PRO code to the ENVI DL 3.0 API */
+    migrateToDL30API: string;
   };
   /** Translations for configuration */
   config: {
@@ -469,6 +471,10 @@ export interface ITranslation {
       onDidCloseNotebook: string;
       /** Retrieving docs */
       onRetrieveDocs: string;
+      /** Problem migrating code */
+      onMigrateCode: string;
+      /** Unable to migrate code because of error */
+      onMigrateCodeProblemCode: string;
       /** Convert notebook to PRO code */
       onNotebookToProCode: string;
     };

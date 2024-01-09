@@ -1,4 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { MigrateCodeLSPMessage } from '@idl/vscode/events/messages';
 import {
   PayloadFromWorkerBaseMessage,
   WorkerIOBaseMessage,
@@ -41,6 +42,9 @@ import {
   LogManagerPayload,
   LogManagerResponse,
   LSPWorkerThreadMessage,
+  MigrateCodeMessage,
+  MigrateCodePayload,
+  MigrateCodeResponse,
   ParseAndPostProcessCodeMessage,
   ParseAndPostProcessCodePayload,
   ParseAndPostProcessCodeResponse,
@@ -93,6 +97,8 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
     ? LoadGlobalPayload
     : T extends LogManagerMessage
     ? LogManagerPayload
+    : T extends MigrateCodeLSPMessage
+    ? MigrateCodePayload
     : T extends ParseAndPostProcessCodeMessage
     ? ParseAndPostProcessCodePayload
     : T extends ParseAndPostProcessFileMessage
@@ -139,6 +145,8 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
     ? GetTokenDefResponse
     : T extends LogManagerMessage
     ? LogManagerResponse
+    : T extends MigrateCodeMessage
+    ? MigrateCodeResponse
     : T extends ParseAndPostProcessCodeMessage
     ? ParseAndPostProcessCodeResponse
     : T extends ParseAndPostProcessFileMessage

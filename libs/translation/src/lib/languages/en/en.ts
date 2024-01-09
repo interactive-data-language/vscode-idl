@@ -47,6 +47,7 @@ export const EN: ITranslation = {
         addDocsToFile: 'IDL: Add/Update Docs for File',
         formatFile: 'IDL: Format File',
         generateTask: 'IDL: Generate ENVI or IDL Task',
+        migrateToDL30API: 'IDL: Migrate Code to ENVI Deep Learning 3.0 API',
       },
       config: {
         specifyIDLDirectory: 'IDL: Specify IDL Directory (User-level)',
@@ -106,6 +107,7 @@ export const EN: ITranslation = {
         addDocsToFile: 'Error while adding/updating docs for file',
         formatFile: 'Error while formatting file',
         generateTask: 'Error while generating task',
+        migrateToDL30API: 'Error while migrating code',
       },
       config: {
         specifyIDLDirectory: 'Error while setting IDL directory (User)',
@@ -620,6 +622,9 @@ export const EN: ITranslation = {
       onDidChangeNotebook: 'Error responding to notebook change event',
       onDidCloseNotebook: 'Error responding to notebook close event',
       onRetrieveDocs: 'Error responding to docs retrieval event',
+      onMigrateCode: 'Error while migrating code',
+      onMigrateCodeProblemCode:
+        'Unable to format code due to syntax error or problem in file',
       onNotebookToProCode: 'Error converting notebook to PRO code',
     },
     errors: {

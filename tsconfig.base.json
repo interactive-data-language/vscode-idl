@@ -22,6 +22,10 @@
       "@idl/assembling/json-formatter": [
         "libs/assembling/json-formatter/src/index.ts"
       ],
+      "@idl/assembling/migrators": ["libs/assembling/migrators/src/index.ts"],
+      "@idl/assembling/migrators-types": [
+        "libs/assembling/migrators-types/src/index.ts"
+      ],
       "@idl/assembling/shared": ["libs/assembling/shared/src/index.ts"],
       "@idl/assembling/styles": ["libs/assembling/styles/src/index.ts"],
       "@idl/assembling/tasks": ["libs/assembling/tasks/src/index.ts"],

@@ -61,6 +61,8 @@ export const IDL_COMMANDS = {
     FORMAT_FILE: `${BASE_CODE}formatFile`,
     /** Generate task file */
     GENERATE_TASK: `${BASE_CODE}generateTask`,
+    /** Migrate PRO code to the ENVI DL 3.0 API */
+    MIGRATE_TO_DL30_API: `${BASE_CODE}migrateToDL30API`,
   },
   /** Commands to adjust the configuration of the extension for VSCode */
   CONFIG: {
