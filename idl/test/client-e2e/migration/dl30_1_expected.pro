@@ -34,10 +34,10 @@ trainTask = ENVITask('TrainTensorFlowPixelModel')
 ; see the migration guide in the help for more information
 
 ; the type of model that we use
-trainTask.model_architecture = 'SegUNet'
+trainTask.MODEL_ARCHITECTURE = 'SegUNet'
 
 ; the patch size (how much data we see at once)
-trainTask.patch_size = 256
+trainTask.PATCH_SIZE = 256
 
 ; train on X% of our examples within the training rasters
 trainTask.feature_patch_percentage = 1.0 ; 1.0 = 100%
