@@ -25,25 +25,33 @@ endif
 raster = ENVIDeepLearningLabelRaster(trainingRaster)
 
 ; Initialize a new model
-; initTask = ENVITask('InitializeENVINet5MultiModel')
-; initTask.NBANDS = 3
-; initTask.NCLASSES = 1
-; initTask.Execute
 
 ; Get the task from the catalog of ENVITasks
 trainTask = ENVITask('TrainTensorFlowPixelModel')
 
-; TODO: set new parameters
-trainTask.model_architecture = 'SegUNet++'
+; ================================================
+; TODO: review new parameters
+; see the migration guide in the help for more information
 
-; trainTask.INPUT_MODEL = initTask.OUTPUT_MODEL
+; the type of model that we use
+trainTask.model_architecture = 'SegUNet'
+
+; the patch size (how much data we see at once)
+trainTask.patch_size = 256
+
+; train on X% of our examples within the training rasters
+trainTask.feature_patch_percentage = 1.0 ; 1.0 = 100%
+
+; for every 100 examples of features,
+; how many examples of the background get added during training?
+trainTask.background_patch_ratio = 0.2 ; 0.2 = 20%
+; ================================================
+
 trainTask.TRAINING_RASTERS = raster
 trainTask.VALIDATION_RASTERS = raster
 ;trainTask.CLASS_WEIGHT = [0,2]
 trainTask.EPOCHS = 20
-; trainTask.PATCHES_PER_EPOCH = 150
 traintask.PATCHES_PER_BATCH = 4
-; trainTask.PATCH_SAMPLING_RATE = 8
 trainTask.SOLID_DISTANCE = [0]
 trainTask.LOSS_WEIGHT = 0.0
 trainTask.Execute
