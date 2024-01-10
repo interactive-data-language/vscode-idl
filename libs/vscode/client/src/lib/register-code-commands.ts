@@ -261,9 +261,13 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
               }
             );
 
-            await ReplaceDocumentContent(doc, resp.text);
-
-            return true;
+            // make sure we have a response
+            if (resp.text) {
+              await ReplaceDocumentContent(doc, resp.text);
+              return true;
+            } else {
+              return false;
+            }
           } else {
             return false;
           }

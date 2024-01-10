@@ -7,67 +7,14 @@ import {
   ParseIDLType,
   SerializeIDLType,
 } from '@idl/data-types/core';
+import { IParsed } from '@idl/parsing/syntax-tree';
+
 import {
-  BRANCH_TYPES,
-  IParsed,
-  SyntaxTree,
-  TreeBranchToken,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
-import { AccessPropertyToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
-
+  ExtractPropertyLines,
+  IPropertiesByVarsByLines,
+} from './helpers/extract-property-lines';
+import { FindProperties } from './helpers/find-properties';
 import { RenameENVITasks } from './helpers/rename-envi-tasks';
-
-/**
- * When we encounter properties for specific variables, add them to
- * our list of lines that need to be commented out
- */
-function CommentOutProperties(
-  tree: SyntaxTree,
-  variables: { [key: string]: any },
-  properties: { [key: string]: any },
-  toCommentOut: { [key: string]: any }
-) {
-  for (let i = 0; i < tree.length; i++) {
-    // recurse if needed
-    if (tree[i].type === BRANCH_TYPES.BRANCH) {
-      CommentOutProperties(
-        (tree[i] as TreeBranchToken).kids,
-        variables,
-        properties,
-        toCommentOut
-      );
-      continue;
-    }
-
-    // skip if not variable
-    if (tree[i].name !== TOKEN_NAMES.VARIABLE) {
-      continue;
-    }
-
-    // skip if we have a variable that we cant replace
-    if (!(tree[i].match[0].toLowerCase() in variables)) {
-      continue;
-    }
-
-    // make sure the next token is a property accessor
-    if (tree[i + 1]?.name !== TOKEN_NAMES.ACCESS_PROPERTY) {
-      continue;
-    }
-
-    /** Get the property token */
-    const prop = tree[i + 1] as TreeToken<AccessPropertyToken>;
-
-    /** Get the property name */
-    const propName = prop.match[0].substring(1).toLowerCase();
-
-    /** Check if we need to update it */
-    if (propName in properties) {
-      toCommentOut[prop.pos[0]] = undefined;
-      // prop.match[0] = `.${toCommentOut[propName]}`;
-    }
-  }
-}
 
 /**
  * Converts code to the ENVI Deep Learning 3.0 API
@@ -93,6 +40,11 @@ export async function MigrateToDL30(
    * Track the lines that we will comment out
    */
   const toCommentOut: { [key: number]: undefined } = {};
+
+  /**
+   * Track the variable names that we try to migrate properties for
+   */
+  const initPropertyCheck: { [key: string]: number } = {};
 
   /**
    * Track the variable names for training tasks that we need to update
@@ -125,6 +77,7 @@ export async function MigrateToDL30(
          * Check if we have an init model var that should be commented out
          */
         case IDLTypeHelper.isType(vars[i].meta.type, initTypeString): {
+          initPropertyCheck[vars[i].name] = vars[i].pos[0];
           const positions = vars[i].meta.usage;
           for (let j = 0; j < positions.length; j++) {
             toCommentOut[positions[j][0]] = undefined;
@@ -150,7 +103,7 @@ export async function MigrateToDL30(
 
   // update properties if we have them
   if (Object.keys(trainUpdate).length > 0) {
-    CommentOutProperties(
+    FindProperties(
       parsed.tree,
       trainUpdate,
       {
@@ -180,6 +133,27 @@ export async function MigrateToDL30(
    */
   const strings = asString.split(/\r*\n/);
 
+  /**
+   * Lookup, by variable, of the property definitions for init tasks
+   */
+  const propDefLines: IPropertiesByVarsByLines = {};
+
+  /**
+   * Check if we have init properties that we want to try and retrieve
+   */
+  if (Object.keys(initPropertyCheck).length > 0) {
+    ExtractPropertyLines(
+      parsed.tree,
+      strings,
+      initPropertyCheck,
+      {
+        model_architecture: undefined,
+        patch_size: undefined,
+      },
+      propDefLines
+    );
+  }
+
   // rename tasks
   RenameENVITasks(strings, {
     traintensorflowmaskmodel: 'TrainTensorFlowPixelModel',
@@ -199,9 +173,19 @@ export async function MigrateToDL30(
   /** Get output strings */
   const outStrings: string[] = [];
 
+  /** Get the first set of model init parameters that we have */
+  const initParams = Object.values(propDefLines)[0] || {};
+
+  console.log(initParams);
+
   // copy over and add any text
   for (let i = 0; i < strings.length; i++) {
-    // add our existing line
+    // skip if a line that we dont need anymore
+    if (i in toCommentOut) {
+      continue;
+    }
+
+    // save the strings
     outStrings.push(strings[i]);
 
     // check if we have a training task being initialized and we need
@@ -212,40 +196,73 @@ export async function MigrateToDL30(
 
       // add in code
       outStrings.push('');
-      outStrings.push('; new model parameters');
+      outStrings.push('; ================================================');
+      outStrings.push('; TODO: review new parameters');
       outStrings.push(
-        `${varName}.${TransformCase(
-          'model_architecture',
-          formatting.style.properties
-        )} = 'SegUNet++'`
-      );
-      outStrings.push(
-        `${varName}.${TransformCase(
-          'patch_size',
-          formatting.style.properties
-        )} = 464`
+        '; see the migration guide in the help for more information'
       );
       outStrings.push('');
-      outStrings.push('; new training parameters');
+
+      /**
+       * set model architecture and check if we have info
+       * from above
+       */
+      outStrings.push('; the type of model that we use');
+      let addedArch = false;
+      if ('model_architecture' in initParams) {
+        outStrings.push(`${varName}${initParams['model_architecture'][0][1]}`);
+        addedArch = true;
+      }
+      if (!addedArch) {
+        outStrings.push(
+          `${varName}.${TransformCase(
+            'model_architecture',
+            formatting.style.properties
+          )} = 'SegUNet++'`
+        );
+      }
+      outStrings.push('');
+
+      /**
+       * set patch size and check if we have info
+       * from above
+       */
+      outStrings.push('; the patch size (how much data we see at once)');
+      let addedPatch = false;
+      if ('patch_size' in initParams) {
+        outStrings.push(`${varName}${initParams['patch_size'][0][1]}`);
+        addedPatch = true;
+      }
+      if (!addedPatch) {
+        outStrings.push(
+          `${varName}.${TransformCase(
+            'patch_size',
+            formatting.style.properties
+          )} = 464`
+        );
+      }
       outStrings.push('');
       outStrings.push(
-        '; train on 100% of our examples within the training rasters'
+        '; train on X% of our examples within the training rasters'
       );
       outStrings.push(
         `${varName}.${TransformCase(
           'feature_patch_percentage',
           formatting.style.properties
-        )} = 1.0 `
+        )} = 1.0 ; 1.0 = 100%`
       );
       outStrings.push('');
       outStrings.push('; for every 100 examples of features,');
-      outStrings.push('; how many background patches are added?');
+      outStrings.push(
+        '; how many examples of the background get added during training?'
+      );
       outStrings.push(
         `${varName}.${TransformCase(
           'background_patch_ratio',
           formatting.style.properties
-        )} = 0.2`
+        )} = 0.2 ; 0.2 = 20%`
       );
+      outStrings.push('; ================================================');
       outStrings.push('');
     }
   }
