@@ -176,8 +176,6 @@ export async function MigrateToDL30(
   /** Get the first set of model init parameters that we have */
   const initParams = Object.values(propDefLines)[0] || {};
 
-  console.log(initParams);
-
   // copy over and add any text
   for (let i = 0; i < strings.length; i++) {
     // skip if a line that we dont need anymore
