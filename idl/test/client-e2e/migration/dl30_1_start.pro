@@ -28,6 +28,8 @@ raster = ENVIDeepLearningLabelRaster(trainingRaster)
 initTask = ENVITask('InitializeENVINet5MultiModel')
 initTask.NBANDS = 3
 initTask.NCLASSES = 1
+initTask.MODEL_ARCHITECTURE = 'SegUNet'
+initTask.PATCH_SIZE = 256
 initTask.Execute
 
 ; Get the task from the catalog of ENVITasks
