@@ -7,6 +7,7 @@ import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { RunNotebookReset } from './notebook-reset';
 import { RunNotebookStop } from './notebook-stop';
 import { NotebookToProCodeAllCells } from './notebook-to-pro-code-all-cells';
+import { NotebookToProCodeAllCells2 } from './notebook-to-pro-code-all-cells-2';
 import { NotebookToProCodeOnlyCode } from './notebook-to-pro-code-only-code';
 import { OpenENVINotebookExample } from './open-envi-notebook-example';
 import { OpenIDLNotebookExample } from './open-idl-notebook-example';
@@ -80,6 +81,12 @@ NOTEBOOK_RUNNER.addTest({
 NOTEBOOK_RUNNER.addTest({
   name: 'Convert notebook to PRO code (all cells)',
   fn: NotebookToProCodeAllCells,
+  critical: false,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Convert notebook to PRO code (all cells) #2',
+  fn: NotebookToProCodeAllCells2,
   critical: false,
 });
 

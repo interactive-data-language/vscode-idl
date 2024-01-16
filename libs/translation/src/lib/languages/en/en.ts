@@ -72,10 +72,10 @@ export const EN: ITranslation = {
         openIDLExample: 'IDL: Open IDL Example Notebook',
         openENVIExample: 'IDL: Open ENVI Example Notebook',
         // shorter because it shows in toolbar
-        resetIDL: 'Reset IDL',
+        resetIDL: 'IDL: Reset IDL Notebook',
         resetNotebookExamples: 'IDL: Reset IDL and ENVI Example Notebooks',
         // shorter because it shows in toolbar
-        stopIDL: 'Stop IDL',
+        stopIDL: 'IDL: Stop IDL Notebook',
       },
       terminal: {
         startIDL: 'IDL: Open an IDL Terminal Window',
