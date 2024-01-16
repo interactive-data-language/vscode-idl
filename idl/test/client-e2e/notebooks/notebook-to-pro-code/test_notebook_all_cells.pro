@@ -1,6 +1,3 @@
-; First three cells are empty and should not run or generate eny output
-; 
-
 ; do nothing
 
 ; no output from running this cell
@@ -11,10 +8,6 @@ pro test1
 
   print, 42
 end
-
-; Some
-
-; Markdown
 
 ; if we have a main level, then run it
 ;+
@@ -56,6 +49,8 @@ end
 ; main level program
 compile_opt idl2
 
+; First three cells are empty and should not run or generate eny output
+
 ; run when we dont have compile opt or main level
 arr = findgen(42)
 help, arr
@@ -72,6 +67,10 @@ test1
 compile_opt idl2
 
 print, 5
+
+; Some
+
+; Markdown
 
 ; we have compile_opt idl2, so we should have a long
 a = 15

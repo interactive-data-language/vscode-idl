@@ -297,7 +297,11 @@
       },
       {
         "command": "idl.notebooks.notebookToProCode",
-        "title": "%commands.idl.notebooks.notebookToProCode%"
+        "title": "%commands.idl.notebooks.notebookToProCode%",
+        "icon": {
+          "light": "extension/images/light/transform.svg",
+          "dark": "extension/images/dark/transform.svg"
+        }
       },
       {
         "command": "idl.notebooks.openENVIExample",
@@ -1261,12 +1265,17 @@
       "notebook/toolbar": [
         {
           "command": "idl.notebooks.resetIDL",
-          "group": "navigation/execute",
+          "group": "status",
           "when": "resourceExtname == .idlnb"
         },
         {
           "command": "idl.notebooks.stopIDL",
-          "group": "navigation/execute",
+          "group": "status",
+          "when": "resourceExtname == .idlnb"
+        },
+        {
+          "command": "idl.notebooks.notebookToProCode",
+          "group": "status",
           "when": "resourceExtname == .idlnb"
         },
         {

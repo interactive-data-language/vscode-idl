@@ -54,6 +54,14 @@ For the upcoming release of ENVI Deep Learning 3.0, added a new pipeline for mig
 
 Updated the routine signatures (docs) to IDL 9.0, ENVI 6.0, and ENVI Deep Learning 3.0.
 
+When converting notebooks to PRO code, any markdown cells now get added in-line to the content at the main program level. This helps create code that more accurately follows the flow of what you had in your notebook (assuming not many routine definitions in the notebook cells).
+
+When converting notebooks to PRO code, any markdown cells now have leading and training white space removed before converting to comments.
+
+When an IDL Notebook is open, added a new, quick-access button in the top-right of the Notebook that allows you to convert your notebook to PRO code.
+
+When an IDL Notebook is open, we migrated the "Reset IDL" and "Stop IDL" buttons to the top-right of the Notebooks view to clean up the main action area.
+
 ## 4.2.3 January 2024
 
 Resolved an issue with the auto-complete performance improvements where auto-complete would include character-by-character auto-completions for routines and structures. For example, if you created a function called `myplot`, you would get auto complete for `m`, `my`, `myp`, etc. depending on how fast you typed.
