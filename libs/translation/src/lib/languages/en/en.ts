@@ -682,6 +682,7 @@ export const EN: ITranslation = {
         'Converting a notebook to a PDF requires the extension "Markdown PDF", install and proceed?',
       markdownPDFWaitForInstall:
         'Wait for Markdown PDF to install chromium and then try again',
+      startedIDLKernel: 'Started IDL {VERSION} for notebook!',
     },
   },
   notifications: {

@@ -545,6 +545,47 @@ export class IDLNotebookController {
         // set everything up
         await this._postLaunchAndReset();
 
+        // get information about IDL
+        const version = CleanIDLOutput(
+          await this._runtime.evaluate('vscode_getIDLInfo', {
+            echo: false,
+            silent: true,
+            idlInfo: false,
+          })
+        );
+
+        try {
+          // attempt to parse the response
+          const parsed = JSON.parse(version);
+
+          vscode.window.showInformationMessage(
+            IDL_TRANSLATION.notebooks.notifications.startedIDLKernel.replace(
+              '{VERSION}',
+              parsed.release
+            )
+          );
+
+          /**
+           * TODO: Alert user if they don't have a supported version of IDL
+           */
+
+          // send usage metric
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.IDL_STARTUP, {
+            idl_version: parsed.release,
+            idl_type: parsed.dir.toLowerCase().includes('envi')
+              ? 'idl-envi'
+              : 'idl',
+          });
+        } catch (err) {
+          console.log(err);
+          // IDL_LOGGER.log({
+          //   type: 'error',
+          //   log: IDL_NOTEBOOK_LOG,
+          //   content: [IDL_TRANSLATION.notebooks.notifications.startedIDLKernel, err],
+          //   alert: IDL_TRANSLATION.debugger.errors.idlDetails,
+          // });
+        }
+
         // resolve promise
         res(true);
       });
