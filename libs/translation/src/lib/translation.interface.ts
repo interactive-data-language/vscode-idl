@@ -638,6 +638,8 @@ export interface ITranslation {
       needMarkdownPDF: string;
       /** When we need to wait for install before continuing  */
       markdownPDFWaitForInstall: string;
+      /** Notification for user when we start the IDL session for a notebook */
+      startedIDLKernel: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */
