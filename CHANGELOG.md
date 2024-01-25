@@ -64,6 +64,8 @@ When an IDL Notebook is open, we migrated the "Reset IDL" and "Stop IDL" buttons
 
 When IDL starts for a notebook, a notification message appears telling you which version of IDL is being used
 
+When creating a PDF from a notebook, we no longer keep the Markdown conversion of the notebook open. The file still sticks around on disk, but we thought this would cause less confusion.
+
 ## 4.2.3 January 2024
 
 Resolved an issue with the auto-complete performance improvements where auto-complete would include character-by-character auto-completions for routines and structures. For example, if you created a function called `myplot`, you would get auto complete for `m`, `my`, `myp`, etc. depending on how fast you typed.
