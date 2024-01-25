@@ -522,7 +522,15 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           /**
            * Convert to PDF
            */
-          await vscode.commands.executeCommand('extension.markdown-pdf.pdf');
+          const prom = vscode.commands.executeCommand(
+            'extension.markdown-pdf.pdf'
+          );
+
+          // close markdown file
+          await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
+
+          // wait for conversion to finish
+          await prom;
 
           /**
            * Get URI for NB conversion
