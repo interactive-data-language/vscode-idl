@@ -17,7 +17,7 @@ import {
 import { SORT_PRIORITY } from '../sort-priority.interface';
 
 /**
- * Display names for fuctions
+ * Display names for functions
  */
 const FUNCTIONS = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.FUNCTION];
 

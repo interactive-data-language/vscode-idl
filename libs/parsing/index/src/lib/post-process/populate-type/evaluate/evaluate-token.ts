@@ -20,6 +20,9 @@ export function EvaluateToken(token: TreeToken<TokenName>): string | undefined {
           return token.kids[0].match[0];
         }
       }
+      if (token.kids.length === 0) {
+        return '';
+      }
       break;
     default:
       break;
