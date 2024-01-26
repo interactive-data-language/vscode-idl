@@ -48,6 +48,16 @@ When IDL starts for a notebook, a notification message appears telling you which
 
 When creating a PDF from a notebook, we no longer keep the Markdown conversion of the notebook open. The file still sticks around on disk, but we thought this would cause less confusion.
 
+Fixed an issue where post-processing would fail with specific syntax errors and ENVI or IDL Task functions
+
+Added a new auto-completion method for the names of ENVI and IDL tasks which will insert the appropriate names for syntax cases matching:
+
+- `ENVITask('')` which lists all ENVI Tasks when auto-completion is triggered in the quotes
+
+- `IDL('')` which lists all IDL Tasks when auto-completion is triggered in the quotes
+
+- Supports single quotes, double quotes, and string literal strings
+
 Migrated the following features from "Preview Features" above:
 
 Code style revamp! We reworked how routines, routine methods, properties, and structure names get formatted. This includes:
