@@ -180,18 +180,20 @@ describe(`[auto generated] Regression tests`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
-        label: "ENVITask('BuildDeepLearningRaster')",
-        insertText: "ENVITask('BuildDeepLearningRaster')",
+        label: 'ENVITensorFlowGridModel()',
+        insertText: 'ENVITensorFlowGridModel()',
         kind: 3,
         sortText: '03',
         detail: 'Function',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
-        label: "ENVITask('BuildLabelRasterFromROI')",
-        insertText: "ENVITask('BuildLabelRasterFromROI')",
+        label: 'ENVITensorFlowModel()',
+        insertText: 'ENVITensorFlowModel()',
         kind: 3,
         sortText: '03',
         detail: 'Function',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
     ];
 

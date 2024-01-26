@@ -193,11 +193,12 @@ describe(`[auto generated] Verify auto-complete for`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
-        label: "ENVITask('BuildDeepLearningRaster')",
-        insertText: "ENVITask('BuildDeepLearningRaster')",
+        label: 'ENVITensorFlowGridModel()',
+        insertText: 'ENVITensorFlowGridModel()',
         kind: 3,
         sortText: '03',
         detail: 'Function',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
     ];
 

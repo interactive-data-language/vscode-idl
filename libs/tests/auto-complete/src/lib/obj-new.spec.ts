@@ -173,22 +173,24 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
+        label: 'ENVITensorFlowGridModel()',
+        insertText: 'ENVITensorFlowGridModel()',
+        kind: 3,
+        sortText: '03',
+        detail: 'Function',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'ENVITensorFlowModel()',
+        insertText: 'ENVITensorFlowModel()',
+        kind: 3,
+        sortText: '03',
+        detail: 'Function',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
         label: "ENVITask('BuildDeepLearningRaster')",
         insertText: "ENVITask('BuildDeepLearningRaster')",
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
-      },
-      {
-        label: "ENVITask('BuildLabelRasterFromROI')",
-        insertText: "ENVITask('BuildLabelRasterFromROI')",
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
-      },
-      {
-        label: "ENVITask('BuildObjectDetectionRasterFromAnnotation')",
-        insertText: "ENVITask('BuildObjectDetectionRasterFromAnnotation')",
         kind: 3,
         sortText: '03',
         detail: 'Function',
@@ -262,7 +264,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            "Set this keyword to an ENVIRaster from which all metadata and the following properties will be copied: DATA\\_TYPE, INTERLEAVE, NBANDS, NCOLUMNS, and NROWS. \n\nData acquisition time (from the ENVIRaster TIME property) will not be copied.\n\nSince new rasters are often created as the output of processing an input raster, they typically have the same spatial and spectral dimensions, interleave, and data type as the input raster. The INHERITS\\_FROM keyword provides convenience in inheriting these properties. \n\nIf you do not specify the INHERITS\\_FROM keyword, you must either provide the _Data_ argument and INTERLEAVE is assumed to be 'bsq' if not set, or specify the NBANDS, NCOLUMNS, NROWS, and DATA\\_TYPE properties.\n\nThe NBANDS, NCOLUMNS, NROWS, and DATA\\_TYPE properties have precedence over the values in the INHERITS\\_FROM raster.\n\nSee [ENVIRasterMetadata](https://www.nv5geospatialsoftware.com/docs/ENVIRasterMetaData.html) for details on creating and modifying metadata.\n\n**Note:** If both the SPATIALREF and INHERITS\\_FROM keywords are specified, the spatial reference information from SPATIALREF takes precedence.",
+            "Set this keyword to an ENVIRaster from which all metadata and the following properties will be copied: DATA\\_TYPE, INTERLEAVE, NBANDS, NCOLUMNS, and NROWS. \n\nData acquisition time (from the ENVIRaster TIME property) will not be copied.\n\nSince new rasters are often created as the output of processing an input raster, they typically have the same spatial and spectral dimensions, interleave, and data type as the input raster. The INHERITS\\_FROM keyword provides convenience in inheriting these properties. \n\nIf you do not specify the INHERITS\\_FROM keyword, you must either provide the _Data_ argument and INTERLEAVE is assumed to be 'bsq' if not set, or specify the NBANDS, NCOLUMNS, NROWS, and DATA\\_TYPE properties.\n\nThe NBANDS, NCOLUMNS, NROWS, and DATA\\_TYPE properties have precedence over the values in the INHERITS\\_FROM raster.\n\nSee [ENVIRasterMetadata](https://www.nv5geospatialsoftware.com/docs/ENVIRasterMetaData.html) for details on creating and modifying metadata.\n\n_Note:_ If both the SPATIALREF and INHERITS\\_FROM keywords are specified, the spatial reference information from SPATIALREF takes precedence.",
         },
       },
       {
