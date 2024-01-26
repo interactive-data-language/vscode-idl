@@ -1028,6 +1028,49 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Verify type regression tests`,
+      fileName: `tasks.regression-tasks.spec.ts`,
+      tests: [
+        {
+          name: `for task parsing bugs`,
+          code: [
+            `compile_opt idl3`,
+            `task1 = ENVITask('')`,
+            `task2 = IDLTask('')`,
+            `task3 = ENVITask("")`,
+            `task4 = IDLTask("")`,
+            `task5 = ENVITask(\`\`)`,
+            `task6 = IDLTask(\`\`)`,
+            `end`,
+          ],
+        },
+        {
+          name: `no failures with syntax errors`,
+          code: [`compile_opt idl3`, `task1 = ENVITask('',`, `end`],
+        },
+        {
+          name: `no failures with syntax errors`,
+          code: [`compile_opt idl3`, `task1 = IDLTask('',`, `end`],
+        },
+        {
+          name: `no failures with syntax errors`,
+          code: [`compile_opt idl3`, `task1 = ENVITask("",`, `end`],
+        },
+        {
+          name: `no failures with syntax errors`,
+          code: [`compile_opt idl3`, `task1 = IDLTask("",`, `end`],
+        },
+        {
+          name: `no failures with syntax errors`,
+          code: [`compile_opt idl3`, `task1 = ENVITask(\`\`,`, `end`],
+        },
+        {
+          name: `no failures with syntax errors`,
+          code: [`compile_opt idl3`, `task1 = IDLTask(\`\`,`, `end`],
+        },
+      ],
+    },
+    {
       suiteName: `Types from output arguments`,
       fileName: `types.from-args.spec.ts`,
       tests: [

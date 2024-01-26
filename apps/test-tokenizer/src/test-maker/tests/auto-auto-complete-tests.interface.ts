@@ -659,6 +659,55 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
   },
   {
     suiteName: `Task auto complete`,
+    fileName: `tasks.names.spec.ts`,
+    tests: [
+      {
+        name: `to auto-populate task names`,
+        file: `idl/test/auto-complete/task_completion.pro`,
+        position: [
+          // no args
+          {
+            line: 3,
+            character: 17,
+          },
+          {
+            line: 4,
+            character: 16,
+          },
+          // single quote
+          {
+            line: 7,
+            character: 18,
+          },
+          {
+            line: 8,
+            character: 17,
+          },
+          // double quote
+          {
+            line: 11,
+            character: 18,
+          },
+          {
+            line: 12,
+            character: 17,
+          },
+          // string literal
+          {
+            line: 14,
+            character: 18,
+          },
+          {
+            line: 15,
+            character: 17,
+          },
+        ],
+        startsWith: `ENVITask`,
+      },
+    ],
+  },
+  {
+    suiteName: `Task auto complete`,
     fileName: `tasks.properties.spec.ts`,
     tests: [
       {
