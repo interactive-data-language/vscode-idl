@@ -66,17 +66,41 @@ export const STRUCTURE_OVERRIDE: IStructureOverride = {
   httprequest: {
     display: 'HttpRequest',
     properties: {
+      appconnect_time: {
+        display: 'appconnect_time',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the total time in microseconds until SSL/SSH handshaking was completed.',
+      },
       certinfo: {
         display: 'certinfo',
         direction: 'out',
         type: ParseIDLType('Array<String>'),
         docs: 'A string array containing the certificate information used during the SSL connection. If there is no certificate information or it was a non-secure connection, then a null string is returned. To retrieve this value you must pass options={CERTINFO:1} in your request.',
       },
+      connect_time: {
+        display: 'connect_time',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the total time in microseconds until the connection to the remote host (or proxy) was completed.',
+      },
       content: {
         display: 'content',
         direction: 'out',
         type: ParseIDLType('Array<Byte> | Byte'),
         docs: 'A byte array containing the raw data from the response body. If a CURL error occurred then CONTENT will be a scalar 0.',
+      },
+      content_length_download: {
+        display: 'content_length_download',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the value from the Content-Length: field from a download, or -1 if the length is unknown.',
+      },
+      content_length_upload: {
+        display: 'content_length_upload',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the specified size of the upload, or -1 if the length is unknown.',
       },
       content_type: {
         display: 'content_type',
@@ -108,6 +132,12 @@ export const STRUCTURE_OVERRIDE: IStructureOverride = {
         type: ParseIDLType('OrderedHash<any>'),
         docs: 'An OrderedHash containing the response headers as key/value pairs. If a CURL error occurred then HEADERS will be an empty OrderedHash.',
       },
+      header_size: {
+        display: 'header_size',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the total size in bytes of all headers received.',
+      },
       http_connectcode: {
         display: 'http_connectcode',
         direction: 'out',
@@ -138,6 +168,12 @@ export const STRUCTURE_OVERRIDE: IStructureOverride = {
         type: ParseIDLType('Int'),
         docs: 'An integer giving the local port number.',
       },
+      namelookup_time: {
+        display: 'namelookup_time',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the total time in microseconds for name resolving to be complete.',
+      },
       num_connects: {
         display: 'num_connects',
         direction: 'out',
@@ -149,6 +185,12 @@ export const STRUCTURE_OVERRIDE: IStructureOverride = {
         direction: 'out',
         type: ParseIDLType('Boolean'),
         docs: 'A boolean (true/false) that indicates whether the request was successful (status code ≥ 100 and < 400).',
+      },
+      pretransfer_time: {
+        display: 'pretransfer_time',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the total time in microseconds from the start until just before transfer begins.',
       },
       primary_ip: {
         display: 'primary_ip',
@@ -180,6 +222,12 @@ export const STRUCTURE_OVERRIDE: IStructureOverride = {
         type: ParseIDLType('Int'),
         docs: 'An integer giving the total number of redirects that were followed.',
       },
+      redirect_time: {
+        display: 'redirect_time',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the total time in microseconds taken for all redirect steps before the final transfer.',
+      },
       redirect_url: {
         display: 'redirect_url',
         direction: 'out',
@@ -192,11 +240,53 @@ export const STRUCTURE_OVERRIDE: IStructureOverride = {
         type: ParseIDLType('String'),
         docs: 'A string giving the URL in the Referer: header.',
       },
+      request_size: {
+        display: 'request_size',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the total number of bytes sent in the HTTP requests.',
+      },
+      retry_after: {
+        display: 'retry_after',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the value of the Retry-After: header, which is the number of seconds that the client should wait until the next request is issued.',
+      },
       scheme: {
         display: 'scheme',
         direction: 'out',
         type: ParseIDLType('String'),
         docs: 'A string giving the URL scheme used for the connection, such as HTTP or HTTPS.',
+      },
+      size_download: {
+        display: 'size_download',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the number of bytes downloaded.',
+      },
+      size_upload: {
+        display: 'size_upload',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the number of bytes uploaded.',
+      },
+      speed_download: {
+        display: 'speed_download',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the average download speed in bytes/second.',
+      },
+      speed_upload: {
+        display: 'speed_upload',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the average upload speed in bytes/second.',
+      },
+      starttransfer_time: {
+        display: 'starttransfer_time',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the total time in microseconds from the start until just when the first byte is received.',
       },
       status_code: {
         display: 'status_code',
@@ -209,6 +299,12 @@ export const STRUCTURE_OVERRIDE: IStructureOverride = {
         direction: 'out',
         type: ParseIDLType('String'),
         docs: 'A scalar string containing the request result. If STATUS_CODE ≥ 100 then TEXT will contain the server response body. If STATUS_CODE < 100 then TEXT will contain the CURL error message.',
+      },
+      total_time: {
+        display: 'total_time',
+        direction: 'out',
+        type: ParseIDLType('Int'),
+        docs: 'An integer giving the total time in microseconds for the transfer, including name resolving, TCP connect, and any redirects.',
       },
       url: {
         display: 'url',
