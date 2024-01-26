@@ -361,7 +361,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to a string that indicates the color matching method to perform.\n\n* `Histogram Matching`: Map discrete greyscale levels from the histogram of the adjusted scenes to the corresponding greyscale levels in the reference scene. This helps to minimize the tonal differences across multiple scenes.\n* `None` (default): Do not perform color matching.',
+            'Set this property to a string that indicates the color matching method to perform.\n\n* `Histogram Matching`: Map discrete grayscale levels from the histogram of the adjusted scenes to the corresponding grayscale levels in the reference scene. This helps to minimize the tonal differences across multiple scenes.\n* `None` (default): Do not perform color matching.',
         },
       },
       {
