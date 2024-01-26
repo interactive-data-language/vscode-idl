@@ -31,6 +31,11 @@ import { AddCompletionProperties } from './completion-for/add-completion-propert
 import { AddCompletionPropertiesInStructures } from './completion-for/add-completion-properties-in-structures';
 import { AddCompletionStructureNames } from './completion-for/add-completion-structure-names';
 import { AddCompletionSystemVariables } from './completion-for/add-completion-system-variables';
+import {
+  AddCompletionTasks,
+  ALLOWED_TASK_COMPLETION,
+} from './completion-for/add-completion-task';
+import { TASK_FUNCTION_REGEX } from './completion-for/add-completion-tasks.interface';
 import { AddCompletionVariables } from './completion-for/add-completion-variables';
 import {
   ALL_METHODS_COMPLETION,
@@ -120,16 +125,38 @@ export async function GetAutoComplete(
      * Check if we have a parent that we are supposed to skip
      */
     const scope = token?.scope || [];
+    const scopeTokens = token?.scopeTokens || [];
     for (let i = 0; i < scope.length; i++) {
       if (scope[i] in SKIP_THESE_TOKENS) {
         return [];
       }
     }
 
+    console.log('Auto-complete info', {
+      name: token?.name,
+      idx: token?.idx,
+      scope: (token.scopeTokens || []).map((scopey) => scopey.match[0]),
+      allowedTask: token?.name in ALLOWED_TASK_COMPLETION,
+      parentFunction:
+        token?.scope[token.scope.length - 1] === TOKEN_NAMES.CALL_FUNCTION,
+      taskFunction: TASK_FUNCTION_REGEX.test(
+        token?.scopeTokens[token.scope.length - 1]?.match[0]
+      ),
+    });
+
     /**
      * Handle special cases for auto-complete
      */
     switch (true) {
+      /**
+       * Custom auto-complete in ENVI or IDL task
+       */
+      case token?.scope[token.scope.length - 1] === TOKEN_NAMES.CALL_FUNCTION &&
+        TASK_FUNCTION_REGEX.test(
+          token?.scopeTokens[token.scope.length - 1]?.match[0]
+        ):
+        AddCompletionTasks(items, index, token);
+        return items;
       case token?.name in SKIP_THESE_TOKENS ||
         local?.name in SKIP_THESE_PARENTS:
         return [];

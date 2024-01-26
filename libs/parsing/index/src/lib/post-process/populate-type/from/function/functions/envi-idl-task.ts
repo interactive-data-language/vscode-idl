@@ -64,6 +64,11 @@ export function FromENVIOrIDLTask(
         // get value of text
         const text = EvaluateToken(matches[i]);
 
+        if (!text) {
+          taskName = '';
+          break;
+        }
+
         //  based on type,
         if (text.toLowerCase().includes('.task')) {
           taskName = text;
