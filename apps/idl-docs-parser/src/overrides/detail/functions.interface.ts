@@ -1285,6 +1285,25 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     args: {},
     kws: INDGEN_KEYWORDS,
   },
+  strjoin: {
+    returns: ParseIDLType('String'),
+    args: {
+      string: {
+        direction: 'in',
+        type: ParseIDLType('String | Array<String>'),
+      },
+      delimiter: {
+        direction: 'in',
+        type: IDL_STRING_TYPE,
+      },
+    },
+    kws: {
+      single: {
+        direction: 'in',
+        type: IDL_BOOLEAN_TYPE,
+      },
+    },
+  },
   strmid: {
     returns: ParseIDLType('ArrayPromotion<String>'),
     args: {
