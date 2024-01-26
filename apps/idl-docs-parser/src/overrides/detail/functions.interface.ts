@@ -1433,6 +1433,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       },
     },
   },
+  transpose: {
+    returns: ParseIDLType('TypeOfArg<0>'),
+    args: {},
+    kws: {},
+  },
   uindgen: {
     returns: ParseIDLType('Array<UInt>'),
     args: TYPE_FUNCTION_ARGS,
