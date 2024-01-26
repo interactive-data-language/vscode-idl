@@ -797,6 +797,10 @@ export interface ITranslation {
       keyword: string;
       /** Structure name */
       structure: string;
+      /** ENVI Tasks */
+      enviTask: string;
+      /** IDL Tasks */
+      idltask: string;
     };
   };
   /** Messages from generators */

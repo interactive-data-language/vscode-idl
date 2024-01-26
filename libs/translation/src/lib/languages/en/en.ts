@@ -892,6 +892,8 @@ export const EN: ITranslation = {
       procedureMethod: 'Procedure Method',
       keyword: 'Keyword',
       structure: 'Structure',
+      enviTask: 'ENVI Task',
+      idltask: 'IDL Task',
     },
   },
   generators: {
