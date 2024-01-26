@@ -153,3 +153,24 @@ For example:
 - If I can have a hash or dictionary: `Hash<Number> | Dictionary<Number>`
 
 Union types will, when interacted with, provide hover help and auto complete for each type.
+
+## Advanced Function Return Types
+
+> This is a preview type and may change in the future
+
+With IDL it is common that functions return different values based on their inputs.
+
+For functions, when specifying the return type, we have two common approaches for specifying types that get returned:
+
+| Type                 | Represents                                                                | Aliases (case insensitive) | Examples (case insensitive)                 |
+| -------------------- | ------------------------------------------------------------------------- | -------------------------- | ------------------------------------------- |
+| ArrayPromotion<type> | If any function argument is an array, then return array of indicated type | None                       | ArrayPromotion<String>, ArrayPromotion<Int> |
+| TypeOfArg<idx>       | Indicates the function returns the same type as the zero-based argument   | None                       | TypeOfArg<0>, TypeOfArg<1>                  |
+
+Here's some examples of how we use `ArrayPromotion`:
+
+- For `file_basename()` the return type is `ArrayPromotion<String>` because the function returns a scalar string for scalar input or an array of strings for an array of inputs
+
+Here's some examples of how we use `TypeOfArg`:
+
+- For `transpose()` the return type is `TypeOfArg<0>` because the output type matches the same as the array we are transposing
