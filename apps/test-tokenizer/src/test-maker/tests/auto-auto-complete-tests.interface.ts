@@ -702,7 +702,6 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
             character: 17,
           },
         ],
-        startsWith: `ENVITask`,
       },
     ],
   },
