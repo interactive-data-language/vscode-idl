@@ -140,6 +140,13 @@ function getTypeOverrides
   typeOverride['Hash::ToStruct'] = 'f'
   typeOverride['Hash::Values'] = 'f'
   typeOverride['HttpRequest'] = 'f'
+  typeOverride['HttpRequest::Get'] = 'fm'
+  typeOverride['HttpRequest::Post'] = 'fm'
+  typeOverride['HttpRequest::Put'] = 'fm'
+  typeOverride['HttpRequest::Delete'] = 'fm'
+  typeOverride['HttpRequest::Escape'] = 'fm'
+  typeOverride['HttpRequest::Unescape'] = 'fm'
+  typeOverride['HttpRequest::JSON'] = 'fm'
   typeOverride['IDLTaskFromProcedure::PreExecute'] = 'p'
   typeOverride['IDLTaskFromProcedure::DoExecute'] = 'p'
   typeOverride['IDLTaskFromProcedure::PostExecute'] = 'p'
@@ -828,11 +835,7 @@ foreach item, allItems do begin
 
   ; check for type override
   if typeOverride.hasKey(itemName) then begin
-    if item.hasKey('type') then begin
-      if (item['type'] eq 'populate') then item['type'] = typeOverride[itemName]
-    endif else begin
-      item['type'] = typeOverride[itemName]
-    endelse
+    item['type'] = typeOverride[itemName]
   endif
 
   ; check for name override
