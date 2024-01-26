@@ -694,11 +694,11 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           },
           // string literal
           {
-            line: 14,
+            line: 15,
             character: 18,
           },
           {
-            line: 15,
+            line: 16,
             character: 17,
           },
         ],
