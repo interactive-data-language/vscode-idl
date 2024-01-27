@@ -37,6 +37,34 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Add names of functions that we can auto-complete`,
+    fileName: `call-function.functions.spec.ts`,
+    tests: [
+      {
+        name: `for all cases`,
+        file: `idl/test/auto-complete/call_function.pro`,
+        position: [
+          {
+            line: 3,
+            character: 22,
+          },
+          {
+            line: 6,
+            character: 23,
+          },
+          {
+            line: 10,
+            character: 23,
+          },
+          {
+            line: 12,
+            character: 23,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly provides auto complete for`,
     fileName: `compile-opt-complete.1.spec.ts`,
     tests: [
@@ -489,6 +517,34 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           {
             line: 56,
             character: 29,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Add class names for obj_new`,
+    fileName: `obj-new.objects.spec.ts`,
+    tests: [
+      {
+        name: `for all cases`,
+        file: `idl/test/auto-complete/obj_new.pro`,
+        position: [
+          {
+            line: 59,
+            character: 16,
+          },
+          {
+            line: 62,
+            character: 17,
+          },
+          {
+            line: 65,
+            character: 17,
+          },
+          {
+            line: 68,
+            character: 17,
           },
         ],
       },

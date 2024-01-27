@@ -1,7 +1,7 @@
 /**
- * Regex to detect ENVI or IDL task function
+ * Regex to detect auto complete for special functions
  */
-export const TASK_FUNCTION_REGEX = /^(?:envi|idl)task/i;
+export const SPECIAL_FUNCTION_REGEX = /(?:envi|idl)task|obj_new|call_function/i;
 
 /**
  * Regex to just detect ENVI Task function calls
