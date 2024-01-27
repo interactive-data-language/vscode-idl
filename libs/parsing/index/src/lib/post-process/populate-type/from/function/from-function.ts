@@ -10,6 +10,7 @@ import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../../idl-index.class';
 import { EvaluateReturnType } from '../helpers/evaluate-return-type';
+import { FromCallFunction } from './functions/call-function';
 import { FromENVIOrIDLTask } from './functions/envi-idl-task';
 import { FromObjNew } from './functions/obj-new';
 
@@ -40,6 +41,9 @@ export function TypeFromFunction(
     case 'obj_new':
       name = FromObjNew(token);
       returnNameAsType = true;
+      break;
+    case 'call_function':
+      name = FromCallFunction(token) || name;
       break;
     default:
   }
