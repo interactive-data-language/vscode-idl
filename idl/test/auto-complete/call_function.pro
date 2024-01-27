@@ -12,4 +12,7 @@ compile_opt idl2
 ; if first arg and literal string, then send names
 !null = call_function(``)
 
+; add keywords
+!null = call_function('envi', )
+
 end

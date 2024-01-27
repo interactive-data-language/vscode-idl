@@ -6,6 +6,22 @@ import { ITokenDefTests } from '../tests.interface';
 export const AUTO_TOKEN_DEFINITION_TESTS: ITokenDefTests[] = [
   {
     suiteName: `Correctly find function definitions`,
+    fileName: `call-function.spec.ts`,
+    tests: [
+      {
+        name: `for call_function`,
+        files: [`idl/test/token-def/call_function.pro`],
+        position: [
+          {
+            line: 8,
+            character: 18,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly find function definitions`,
     fileName: `functions.spec.ts`,
     tests: [
       {

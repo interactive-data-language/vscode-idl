@@ -41,6 +41,32 @@ export const AUTO_HOVER_HELP_TESTS: IHoverHelpTests[] = [
     ],
   },
   {
+    suiteName: `Basic checks for call_function() hover help`,
+    fileName: `call-function.1.spec.ts`,
+    tests: [
+      {
+        name: `for function`,
+        file: `idl/test/hover-help/call_function.pro`,
+        position: [
+          {
+            line: 3,
+            character: 18,
+          },
+        ],
+      },
+      {
+        name: `for keywords`,
+        file: `idl/test/hover-help/call_function.pro`,
+        position: [
+          {
+            line: 3,
+            character: 34,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly get hover help`,
     fileName: `comment-regression.spec.ts`,
     tests: [

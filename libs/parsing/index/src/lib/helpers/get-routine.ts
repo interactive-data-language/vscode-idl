@@ -14,6 +14,7 @@ import {
 } from '@idl/parsing/tokenizer';
 
 import { IDLIndex } from '../idl-index.class';
+import { FromCallFunction } from '../post-process/populate-type/from/function/functions/call-function';
 import { FromENVIOrIDLTask } from '../post-process/populate-type/from/function/functions/envi-idl-task';
 import { FromObjNew } from '../post-process/populate-type/from/function/functions/obj-new';
 import {
@@ -163,6 +164,17 @@ export function GetRoutine(
           // if the class is not "any" then use that as the function
           // or init method
           if (className !== IDL_TYPE_LOOKUP.ANY) {
+            findThis = className;
+          }
+          break;
+        }
+        case findThis === 'call_function': {
+          /** Get the class that is being initialized */
+          const className = FromCallFunction(local);
+
+          // if the class is not "any" then use that as the function
+          // or init method
+          if (className) {
             findThis = className;
           }
           break;

@@ -65,6 +65,22 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Keywords for call function`,
+    fileName: `call-function.keywords.spec.ts`,
+    tests: [
+      {
+        name: `for basic cases`,
+        file: `idl/test/auto-complete/call_function.pro`,
+        position: [
+          {
+            line: 15,
+            character: 30,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly provides auto complete for`,
     fileName: `compile-opt-complete.1.spec.ts`,
     tests: [
