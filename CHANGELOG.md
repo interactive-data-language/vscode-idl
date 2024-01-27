@@ -60,6 +60,12 @@ Added a new auto-completion method for the names of ENVI and IDL tasks which wil
 
 Similar to `ENVITask` and `IDLTask`, add special auto-complete cases for `call_function()` and `obj_new()`
 
+Auto-complete for `call_function()` now shows keywords like `obj_new()` does
+
+Go-to-definition for `call_function()` goes to the function definition if in PRO code
+
+Hover-help for `call_function()` pulls the hover help for the function being called
+
 Migrated the following features from "Preview Features" above:
 
 Code style revamp! We reworked how routines, routine methods, properties, and structure names get formatted. This includes:
