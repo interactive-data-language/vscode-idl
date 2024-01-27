@@ -58,6 +58,8 @@ Added a new auto-completion method for the names of ENVI and IDL tasks which wil
 
 - Supports single quotes, double quotes, and string literal strings
 
+Similar to `ENVITask` and `IDLTask`, add special auto-complete cases for `call_function()` and `obj_new()`
+
 Migrated the following features from "Preview Features" above:
 
 Code style revamp! We reworked how routines, routine methods, properties, and structure names get formatted. This includes:

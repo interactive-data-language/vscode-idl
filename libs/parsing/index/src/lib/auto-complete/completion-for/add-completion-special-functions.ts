@@ -1,3 +1,5 @@
+import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import { TransformCase } from '@idl/assembling/shared';
 import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TaskNameOnly, TreeToken } from '@idl/parsing/syntax-tree';
@@ -11,7 +13,8 @@ import { SORT_PRIORITY } from '../sort-priority.interface';
 import {
   ENVI_TASK_REGEX,
   IDL_TASK_REGEX,
-} from './add-completion-tasks.interface';
+} from './add-completion-special-functions.interface';
+import { AddCompletionStructureNames } from './add-completion-structure-names';
 
 /**
  * Track tokens that we can do task completion for
@@ -27,12 +30,13 @@ ALLOWED_TASK_COMPLETION[TOKEN_NAMES.STRING_TEMPLATE_LITERAL] = undefined;
 const FUNCTIONS = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.FUNCTION];
 
 /**
- * Handles auto-complete within ENVI and IDL task functions
+ * Handles auto-complete for special functions
  */
-export function AddCompletionTasks(
+export function AddCompletionSpecialFunctions(
   complete: CompletionItem[],
   index: IDLIndex,
-  token: TreeToken<TokenName>
+  token: TreeToken<TokenName>,
+  formatting: IAssemblerOptions<FormatterType>
 ) {
   /**
    * Filter tokens that are not the first child or in our white list
@@ -55,7 +59,7 @@ export function AddCompletionTasks(
     token?.scopeTokens[token.scope.length - 1]?.match[0].toLowerCase();
 
   /** Display names to add auto complete for */
-  let displayNames: string[] = [];
+  let displayNames: string[] = Object.values(FUNCTIONS);
 
   /** Detail for auto-complete */
   let detail = '';
@@ -65,33 +69,75 @@ export function AddCompletionTasks(
      * Handle ENVI tasks
      */
     case functionName === 'envitask(': {
-      displayNames = Object.values(FUNCTIONS).filter((taskName) =>
+      displayNames = displayNames.filter((taskName) =>
         ENVI_TASK_REGEX.test(taskName)
       );
       detail = IDL_TRANSLATION.autoComplete.detail.enviTask;
+
+      // add all
+      for (let i = 0; i < displayNames.length; i++) {
+        const display = TaskNameOnly(displayNames[i]);
+        complete.push({
+          label: display,
+          insertText: display,
+          kind: CompletionItemKind.Field,
+          sortText: SORT_PRIORITY.ROUTINES,
+          detail,
+        });
+      }
       break;
     }
     /**
      * Handle ENVI tasks
      */
-    case functionName === 'idltask(':
-      displayNames = Object.values(FUNCTIONS).filter((taskName) =>
+    case functionName === 'idltask(': {
+      displayNames = displayNames.filter((taskName) =>
         IDL_TASK_REGEX.test(taskName)
       );
       detail = IDL_TRANSLATION.autoComplete.detail.idltask;
+
+      // add all
+      for (let i = 0; i < displayNames.length; i++) {
+        const display = TaskNameOnly(displayNames[i]);
+        complete.push({
+          label: display,
+          insertText: display,
+          kind: CompletionItemKind.Field,
+          sortText: SORT_PRIORITY.ROUTINES,
+          detail,
+        });
+      }
       break;
+    }
+    /**
+     * Handle calls to obj_new
+     */
+    case functionName === 'obj_new(': {
+      return AddCompletionStructureNames(complete, formatting);
+    }
+    /**
+     * Handle calls to call_function
+     */
+    case functionName === 'call_function(': {
+      detail = IDL_TRANSLATION.autoComplete.detail.function;
+
+      // add internal routines
+      for (let i = 0; i < displayNames.length; i++) {
+        const display = TransformCase(
+          displayNames[i],
+          formatting.style.routines
+        );
+        complete.push({
+          label: `${display}()`,
+          insertText: display,
+          kind: CompletionItemKind.Function,
+          sortText: SORT_PRIORITY.ROUTINES,
+          detail,
+        });
+      }
+      break;
+    }
     default:
       break;
-  }
-
-  for (let i = 0; i < displayNames.length; i++) {
-    const display = TaskNameOnly(displayNames[i]);
-    complete.push({
-      label: display,
-      insertText: display,
-      kind: CompletionItemKind.Field,
-      sortText: SORT_PRIORITY.ROUTINES,
-      detail,
-    });
   }
 }
