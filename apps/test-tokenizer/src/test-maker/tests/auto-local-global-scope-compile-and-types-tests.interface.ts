@@ -1121,6 +1121,22 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Types from call_function()`,
+      fileName: `types.from-call-function.spec.ts`,
+      tests: [
+        {
+          name: 'for known and unknown functions',
+          code: [
+            `; main level`,
+            `compile_opt idl2`,
+            `known = call_function('envi')`,
+            `unknown = call_function('unknownfunction')`,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
       suiteName: `Types from`,
       fileName: `types.arrays.brackets.spec.ts`,
       tests: [

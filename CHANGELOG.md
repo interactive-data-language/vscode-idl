@@ -66,6 +66,8 @@ Go-to-definition for `call_function()` goes to the function definition if in PRO
 
 Hover-help for `call_function()` pulls the hover help for the function being called
 
+We now automatically detect the type from `call_function()` if we have a known function
+
 Migrated the following features from "Preview Features" above:
 
 Code style revamp! We reworked how routines, routine methods, properties, and structure names get formatted. This includes:
