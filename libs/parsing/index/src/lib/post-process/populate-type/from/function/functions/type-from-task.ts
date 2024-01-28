@@ -14,11 +14,11 @@ import { TypeFromVariable } from '../../type-from-variable';
  * Attempt to determine the type of task that we are working with
  *
  */
-export function FromENVIOrIDLTask(
+export function TypeFromTask(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<CallFunctionToken>,
-  type = 'ENVI'
+  type: 'ENVI' | 'IDL' = 'ENVI'
 ): string {
   /**
    * Get the kids from our function call

@@ -145,7 +145,7 @@ export const IDL_FLOAT_COMPLEX_TYPE: IDLDataTypeBase<IDLComplexFloat>[] = [
 /**
  * Type for ulong64 numbers
  */
-export const IDL_UIDL_LONG64_TYPE: IDLDataTypeBase<IDLUnsignedLong64>[] = [
+export const IDL_ULONG64_TYPE: IDLDataTypeBase<IDLUnsignedLong64>[] = [
   {
     display: IDL_TYPE_LOOKUP.UNSIGNED_LONG64,
     name: IDL_TYPE_LOOKUP.UNSIGNED_LONG64,
@@ -169,7 +169,7 @@ export const IDL_LONG64_TYPE: IDLDataTypeBase<IDLLong64>[] = [
 /**
  * Type for ulong numbers
  */
-export const IDL_UIDL_LONG_TYPE: IDLDataTypeBase<IDLUnsignedLong>[] = [
+export const IDL_ULONG_TYPE: IDLDataTypeBase<IDLUnsignedLong>[] = [
   {
     display: IDL_TYPE_LOOKUP.UNSIGNED_LONG,
     name: IDL_TYPE_LOOKUP.UNSIGNED_LONG,
@@ -193,7 +193,7 @@ export const IDL_LONG_TYPE: IDLDataTypeBase<IDLLong>[] = [
 /**
  * Type for uint numbers
  */
-export const IDL_UIDL_INT_TYPE: IDLDataTypeBase<IDLUnsignedInteger>[] = [
+export const IDL_UINT_TYPE: IDLDataTypeBase<IDLUnsignedInteger>[] = [
   {
     display: IDL_TYPE_LOOKUP.UNSIGNED_INTEGER,
     name: IDL_TYPE_LOOKUP.UNSIGNED_INTEGER,

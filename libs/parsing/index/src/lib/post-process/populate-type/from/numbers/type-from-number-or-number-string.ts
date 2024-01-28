@@ -8,7 +8,7 @@ import { NumberToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../../idl-index.class';
-import { TypeFromNumber } from './from-number';
+import { TypeFromNumber } from './type-from-number';
 
 /**
  * Attempts to determine the type from numbers

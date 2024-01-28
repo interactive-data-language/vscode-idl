@@ -10,9 +10,9 @@ import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../../idl-index.class';
 import { EvaluateReturnType } from '../helpers/evaluate-return-type';
-import { FromCallFunction } from './functions/call-function';
-import { FromENVIOrIDLTask } from './functions/envi-idl-task';
-import { FromObjNew } from './functions/obj-new';
+import { TypeFromCallFunction } from './functions/type-from-call-function';
+import { TypeFromObjNew } from './functions/type-from-obj-new';
+import { TypeFromTask } from './functions/type-from-task';
 
 /**
  * Attempts to determine the type when we have assignment
@@ -31,19 +31,19 @@ export function TypeFromFunction(
   // special cases to overload the type that we check for
   switch (name) {
     case 'envitask':
-      name = FromENVIOrIDLTask(index, parsed, token, 'ENVI') || 'ENVITask';
+      name = TypeFromTask(index, parsed, token, 'ENVI') || 'ENVITask';
       returnNameAsType = true;
       break;
     case 'idltask':
-      name = FromENVIOrIDLTask(index, parsed, token, 'IDL') || 'IDLTask';
+      name = TypeFromTask(index, parsed, token, 'IDL') || 'IDLTask';
       returnNameAsType = true;
       break;
     case 'obj_new':
-      name = FromObjNew(token);
+      name = TypeFromObjNew(token);
       returnNameAsType = true;
       break;
     case 'call_function':
-      name = FromCallFunction(token) || name;
+      name = TypeFromCallFunction(token) || name;
       break;
     default:
   }
