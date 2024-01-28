@@ -15,8 +15,8 @@ import {
 
 import { IDLIndex } from '../idl-index.class';
 import { TypeFromCallFunction } from '../post-process/populate-type/from/function/functions/type-from-call-function';
-import { TypeFromTask } from '../post-process/populate-type/from/function/functions/type-from-task';
 import { TypeFromObjNew } from '../post-process/populate-type/from/function/functions/type-from-obj-new';
+import { TypeFromTask } from '../post-process/populate-type/from/function/functions/type-from-task';
 import {
   CALL_ROUTINE_TOKENS,
   CallRoutineToken,
