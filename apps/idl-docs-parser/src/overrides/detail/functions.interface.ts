@@ -259,6 +259,21 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       uri: { type: IDL_STRING_TYPE, direction: 'in' },
     },
   },
+  execute: {
+    returns: IDL_BOOLEAN_TYPE,
+    args: {
+      string: {
+        type: IDL_STRING_TYPE,
+      },
+      compileflags: {
+        type: IDL_NUMBER_TYPE,
+      },
+      quietexecution: {
+        type: IDL_BOOLEAN_TYPE,
+      },
+    },
+    kws: {},
+  },
   factorial: {
     returns: IDL_NUMBER_TYPE,
     args: {
