@@ -7,9 +7,9 @@ import {
   IDL_INT_TYPE,
   IDL_LONG_TYPE,
   IDL_LONG64_TYPE,
-  IDL_UIDL_INT_TYPE,
-  IDL_UIDL_LONG_TYPE,
-  IDL_UIDL_LONG64_TYPE,
+  IDL_UINT_TYPE,
+  IDL_ULONG_TYPE,
+  IDL_ULONG64_TYPE,
   IDLDataType,
 } from '@idl/data-types/core';
 import { TreeToken } from '@idl/parsing/syntax-tree';
@@ -79,17 +79,17 @@ export function TypeFromNumber(
         return copy(IDL_FLOAT_COMPLEX_TYPE);
       }
     case ULONG64_REGEX.test(match):
-      return copy(IDL_UIDL_LONG64_TYPE);
+      return copy(IDL_ULONG64_TYPE);
     case LONG64_REGEX.test(match):
       return copy(IDL_LONG64_TYPE);
     case ULONG_REGEX.test(match):
-      return copy(IDL_UIDL_LONG_TYPE);
+      return copy(IDL_ULONG_TYPE);
     case LONG_REGEX.test(match):
       return copy(IDL_LONG_TYPE);
     case BYTE_REGEX.test(match):
       return copy(IDL_BYTE_TYPE);
     case UINT_REGEX.test(match):
-      return copy(IDL_UIDL_INT_TYPE);
+      return copy(IDL_UINT_TYPE);
     case INT_REGEX.test(match):
       return copy(IDL_INT_TYPE);
     case long:

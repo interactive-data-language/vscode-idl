@@ -1,14 +1,16 @@
+import { IDL_TYPE_LOOKUP } from '@idl/data-types/core';
 import { TreeToken } from '@idl/parsing/syntax-tree';
 import { CallFunctionToken } from '@idl/parsing/tokenizer';
 
 import { EvaluateToken } from '../../../evaluate/evaluate-token';
 
 /**
- * Return the name of the function being called from a `call_function` function
- * call
+ * Attempt to determine the type from object new using the first child
+ *
+ * TODO: Check for known object classes/definitions
  *
  */
-export function FromCallFunction(token: TreeToken<CallFunctionToken>): string {
+export function TypeFromObjNew(token: TreeToken<CallFunctionToken>): string {
   // get children
   const kids = token.kids;
 
@@ -25,5 +27,5 @@ export function FromCallFunction(token: TreeToken<CallFunctionToken>): string {
   }
 
   // unsure, so return default task
-  return undefined;
+  return IDL_TYPE_LOOKUP.ANY;
 }
