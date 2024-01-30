@@ -33,6 +33,8 @@ dist/apps/vscode-e2e-runner/**
 extension/dev-docs/**
 extension/docs/.vitepress/cache/**
 extension/language/syntaxes/src/**
+extension/language/syntaxes/idl-log.tmLanguage.json
+extension/language/syntaxes/idl.tmLanguage.json
 extension/README.md
 idl/helpers/**
 idl/routines/notebooks/**
