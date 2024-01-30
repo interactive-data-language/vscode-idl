@@ -8,8 +8,13 @@ export default defineConfig({
   title: 'IDL for VSCode',
   description: 'Documentation for how to use IDL within VSCode',
 
-  /** For offline use */
-  base: '.',
+  /**
+   * For offline use, these should be enabled
+   *
+   * It breaks navigation if base us set to
+   */
+  // base: './',
+  // mpa: true,
 
   /** Add the "." for relative link */
   head: [['link', { rel: 'icon', href: './assets/favicon-48x48.ico' }]],
