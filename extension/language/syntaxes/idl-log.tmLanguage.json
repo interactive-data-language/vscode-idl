@@ -1,0 +1,231 @@
+{
+  "name": "idl-log",
+  "scopeName": "source.idl-log",
+  "comment": "Generated automatically during the extension build process from YAML",
+  "uuid": "ade03939-fbcb-4b3a-9ad2-bc531c6bbed8",
+  "patterns": [
+    {
+      "include": "#log_line_debug"
+    },
+    {
+      "include": "#log_line_start"
+    },
+    {
+      "include": "#all_tokens"
+    }
+  ],
+  "repository": {
+    "all_tokens": {
+      "patterns": [
+        {
+          "include": "#quote_tokens"
+        },
+        {
+          "include": "#links"
+        },
+        {
+          "include": "#numbers"
+        },
+        {
+          "include": "#special"
+        },
+        {
+          "include": "#grouper_tokens"
+        }
+      ]
+    },
+    "grouper_tokens": {
+      "patterns": [
+        {
+          "include": "#structure"
+        },
+        {
+          "include": "#bracket_square"
+        },
+        {
+          "include": "#bracket_paren"
+        }
+      ]
+    },
+    "quote_tokens": {
+      "patterns": [
+        {
+          "include": "#quote_double"
+        },
+        {
+          "include": "#quote_single"
+        }
+      ]
+    },
+    "bracket_square": {
+      "name": "group.brackets.square.idl",
+      "begin": "(?i)\\[",
+      "beginCaptures": {
+        "0": {
+          "name": "meta.brace.square.idl"
+        }
+      },
+      "end": "(?i)\\]",
+      "endCaptures": {
+        "0": {
+          "name": "meta.brace.square.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#all_tokens"
+        }
+      ]
+    },
+    "bracket_paren": {
+      "name": "group.brackets.paren.idl",
+      "begin": "(?i)\\(",
+      "beginCaptures": {
+        "0": {
+          "name": "meta.brace.round.idl"
+        }
+      },
+      "end": "(?i)\\)",
+      "endCaptures": {
+        "0": {
+          "name": "meta.brace.round.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#all_tokens"
+        }
+      ]
+    },
+    "log_type": {
+      "name": "variable.other.constant.object.ts",
+      "match": "(?i)[a-z_\\-0-9]+"
+    },
+    "log_line_debug": {
+      "name": "variable.other.readwrite.ts.idl",
+      "match": "(?i)^(idl) (input) (.*)$",
+      "captures": {
+        "1": {
+          "name": "support.type.primitive.ts"
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#log_type"
+            }
+          ]
+        },
+        "3": {
+          "patterns": [
+            {
+              "include": "source.idl"
+            }
+          ]
+        }
+      }
+    },
+    "log_line_start": {
+      "name": "variable.other.readwrite.ts.idl",
+      "match": "(?i)^(idl[a-z_\\-0-9]*)\\s*([a-z_\\-0-9]+)\\b",
+      "captures": {
+        "1": {
+          "name": "support.type.primitive.ts"
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#log_type"
+            }
+          ]
+        }
+      }
+    },
+    "links": {
+      "name": "markup.underline",
+      "match": "(?i)(?:(?:https?|ftp|file|ws):\\/\\/|www\\.|ftp\\.)(?:\\([-A-Z0-9+&@#/%=~_|$?!:,.]*\\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\\([-A-Z0-9+&@#/%=~_|$?!:,.]*\\)|[A-Z0-9+&@#/%=~_|$])"
+    },
+    "numbers": {
+      "name": "constant.numeric.idl",
+      "match": "(?i)(?<![a-z_$])(0[box][a-z0-9]*|[0-9.]+((e|d)-?[0-9]*|[a-z]*))(?:i|j)?"
+    },
+    "quote_double": {
+      "name": "string.quoted.double.idl",
+      "begin": "(?i)\"",
+      "end": "(?i)$|(?<!\")\"(?!\")",
+      "patterns": [
+        {
+          "include": "#quote_escape"
+        }
+      ]
+    },
+    "quote_escape": {
+      "name": "constant.character.escape.idl",
+      "match": "(?i)\\r|\\n"
+    },
+    "quote_single": {
+      "name": "string.quoted.single.idl",
+      "begin": "(?i)'",
+      "end": "(?i)$|(?<!')'(?!')",
+      "patterns": [
+        {
+          "include": "#quote_escape"
+        }
+      ]
+    },
+    "special": {
+      "name": "entity.name.type.idl",
+      "match": "(?i)\\b(?:true|false|null|undefined|void)\\b"
+    },
+    "structure_property": {
+      "begin": "(?i)([a-z0-9_$]*\\s*):",
+      "end": "(?i)(?=\\buntil\\b|\\belse\\b|\\bthen\\b|\\bdo\\b|\\bof\\b|\\)|\\]|\\}|,|;)|(?=(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.tag.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#all_tokens"
+        }
+      ]
+    },
+    "structure_property_string": {
+      "begin": "(?i)(['\"].*):\\s",
+      "end": "(?i)(?=\\buntil\\b|\\belse\\b|\\bthen\\b|\\bdo\\b|\\bof\\b|\\)|\\]|\\}|,|;)|(?=(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "beginCaptures": {
+        "1": {
+          "name": "string.quoted.single.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#all_tokens"
+        }
+      ]
+    },
+    "structure": {
+      "name": "group.structure.idl",
+      "begin": "(?i){",
+      "beginCaptures": {
+        "0": {
+          "name": "meta.brace.idl"
+        }
+      },
+      "end": "(?i)}",
+      "endCaptures": {
+        "0": {
+          "name": "meta.brace.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#structure_property_string"
+        },
+        {
+          "include": "#structure_property"
+        }
+      ]
+    }
+  }
+}
