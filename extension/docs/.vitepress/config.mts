@@ -8,10 +8,23 @@ export default defineConfig({
   title: 'IDL for VSCode',
   description: 'Documentation for how to use IDL within VSCode',
 
+  /** For offline use */
+  base: '.',
+
+  /** Add the "." for relative link */
+  head: [['link', { rel: 'icon', href: './assets/favicon-48x48.ico' }]],
+
+  markdown: {
+    /**
+     * Register languages
+     */
+    languages: [idlJson as any, idlLog as any],
+  },
+
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
+      { text: 'Home', link: '/index' },
       { text: 'Examples', link: '/markdown-examples' },
     ],
 
@@ -26,18 +39,19 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
+      {
+        icon: 'github',
+        link: 'https://github.com/interactive-data-language/vscode-idl',
+      },
     ],
 
     logo: '/assets/idlicon-color.svg',
-  },
 
-  head: [['link', { rel: 'icon', href: '/assets/favicon-48x48.ico' }]],
-
-  markdown: {
-    /**
-     * Register languages
-     */
-    languages: [idlJson as any, idlLog as any],
+    search: {
+      provider: 'local',
+      options: {
+        detailedView: true,
+      },
+    },
   },
 });
