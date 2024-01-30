@@ -31,7 +31,7 @@ dist/apps/test-tokenizer/**
 dist/apps/tmlang-maker/**
 dist/apps/vscode-e2e-runner/**
 extension/dev-docs/**
-extension/docs/.vitepress/cache/**
+extension/docs/**
 extension/language/syntaxes/src/**
 extension/language/syntaxes/idl-log.tmLanguage.json
 extension/language/syntaxes/idl.tmLanguage.json
