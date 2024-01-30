@@ -1,9 +1,13 @@
+import idlJson from '../../language/syntaxes/idl.tmLanguage.json';
+import idlLog from '../../language/syntaxes/idl-log.tmLanguage.json';
+
 import { defineConfig } from 'vitepress';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'IDL for VSCode',
   description: 'Documentation for how to use IDL within VSCode',
+
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -29,4 +33,11 @@ export default defineConfig({
   },
 
   head: [['link', { rel: 'icon', href: '/assets/favicon-48x48.ico' }]],
+
+  markdown: {
+    /**
+     * Register languages
+     */
+    languages: [idlJson as any, idlLog as any],
+  },
 });
