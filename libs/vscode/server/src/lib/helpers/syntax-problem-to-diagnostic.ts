@@ -1,3 +1,4 @@
+import { IDLDiagnostic } from '@idl/data-types/diagnostic';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_PROBLEM_DIAGNOSTIC_TAGS,
@@ -41,7 +42,9 @@ PROBLEM_MAP[IDL_PROBLEM_SEVERITY_LOOKUP.ERROR] = DiagnosticSeverity.Error;
 /**
  * Converts a syntax problem to a VSCode diagnostic that gets presented to the user
  */
-export function SyntaxProblemToDiagnostic(problem: ISyntaxProblem): Diagnostic {
+export function SyntaxProblemToDiagnostic(
+  problem: ISyntaxProblem
+): IDLDiagnostic {
   // get the severity level of our problem
   const severity = GetIDLProblemSeverity(problem.code);
 
@@ -69,6 +72,9 @@ export function SyntaxProblemToDiagnostic(problem: ISyntaxProblem): Diagnostic {
     source: IDL_LANGUAGE_NAME,
     codeDescription: {
       href: problem.code in HELP_URIS ? HELP_URIS[problem.code] : undefined,
+    },
+    data: {
+      code: problem.code,
     },
   };
 }
