@@ -7,6 +7,7 @@
 .angular
 .nx
 extension/docs/.vitepress/cache
+extension/docs/.vitepress/dist
 
 # dependencies
 /node_modules
