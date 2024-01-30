@@ -68,6 +68,8 @@ Hover-help for `call_function()` pulls the hover help for the function being cal
 
 We now automatically detect the type from `call_function()` if we have a known function
 
+Fixed an edge case with types where the "any" type was not properly being detected with arrays of structures
+
 Migrated the following features from "Preview Features" above:
 
 Code style revamp! We reworked how routines, routine methods, properties, and structure names get formatted. This includes:

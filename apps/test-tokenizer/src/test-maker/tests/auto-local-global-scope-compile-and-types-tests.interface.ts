@@ -1223,6 +1223,24 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
     },
     {
       suiteName: `Types from`,
+      fileName: `types.arrays.regressions.spec.ts`,
+      tests: [
+        {
+          name: `array creation that needs to promote to "any"`,
+          code: [
+            `pro array_creation`,
+            `  compile_opt idl2`,
+            ``,
+            `  lookup = $`,
+            `    [(regName ? {prop: 'NAME', cat: 'Property:Name', str: 'Name'} : []), $`,
+            `    {prop: 'COLOR', cat: 'Property:Color', str: 'Color'}]`,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
+      suiteName: `Types from`,
       fileName: `types.array-promotion.spec.ts`,
       tests: [
         {
