@@ -4,6 +4,10 @@ Contains extension-specific files that are not typescript.
 
 ## Folders
 
+- **dev-docs**: Developer docs for the extension, not for general use, just for developers.
+
+- **docs**: Documentation for the extension. Markdown and anything else!
+
 - **icon-theme**: Customized icon theme updates with each run of `npm run build-package-json` to add a custom icon for IDL and ENVI related files. Needed to overwrite current themes which have icons for .pro files as prolog.
 
 - **images**: Contains SVG images used for the extension with a light and dark mode version of each icon.
