@@ -1,3 +1,4 @@
+import { StartExpressDocsServer } from '@idl/docs-server';
 import { IDL_LSP_CONSOLE, LogManager } from '@idl/logger';
 import { SEMANTIC_TOKEN_LEGEND } from '@idl/parsing/semantic-tokens';
 import {
@@ -258,4 +259,7 @@ export function InitializeServer() {
 
   // Listen on the connection
   SERVER_CONNECTION.listen();
+
+  // start the docs server
+  StartExpressDocsServer();
 }
