@@ -1,8 +1,11 @@
+import copy from 'fast-copy';
+
 import {
   IDL_TYPE_LOOKUP,
   IDLDataType,
   IDLDataTypeBase,
 } from './idl-data-types.interface';
+import { IDL_ANY_TYPE } from './idl-type-constants.interface';
 import { SerializeIDLType } from './serializing/serialize-idl-type';
 
 /**
@@ -157,6 +160,12 @@ export class IDLTypeHelper {
 
     // process each type
     for (let i = 0; i < type.length; i++) {
+      // if we encounter an "any", then bail
+      if (type[i].name === IDL_TYPE_LOOKUP.ANY) {
+        return copy(IDL_ANY_TYPE);
+      }
+
+      // save if we havent tracked it
       if (!(type[i].display.toLowerCase() in found)) {
         found[type[i].display.toLowerCase()] = type[i];
       }
@@ -176,7 +185,8 @@ export class IDLTypeHelper {
     let mapped: IDLDataType = [];
     for (let i = 0; i < type.length; i++) {
       if (type[i].name === IDL_TYPE_LOOKUP.ARRAY) {
-        mapped = mapped.concat(type[i].args[0]);
+        /** Because we have an array, recurse */
+        mapped = mapped.concat(IDLTypeHelper.arrayReduce(type[i].args[0]));
       } else {
         mapped.push(type[i]);
       }
