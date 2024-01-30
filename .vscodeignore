@@ -30,7 +30,8 @@ dist/apps/server/assets/.gitkeep
 dist/apps/test-tokenizer/**
 dist/apps/tmlang-maker/**
 dist/apps/vscode-e2e-runner/**
-extension/docs/developer/**
+extension/dev-docs/**
+extension/docs/.vitepress/cache/**
 extension/language/syntaxes/src/**
 extension/README.md
 idl/helpers/**

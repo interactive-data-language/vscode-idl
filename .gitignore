@@ -6,6 +6,7 @@
 /out-tsc
 .angular
 .nx
+extension/docs/.vitepress/cache
 
 # dependencies
 /node_modules
