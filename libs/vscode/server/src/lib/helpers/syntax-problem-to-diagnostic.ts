@@ -7,27 +7,10 @@ import {
   SyntaxProblems,
 } from '@idl/parsing/problem-codes';
 import { GetIDLProblemSeverity } from '@idl/parsing/syntax-tree';
-import { GetExtensionPath, IDL_LANGUAGE_NAME } from '@idl/shared';
-import { readdirSync } from 'fs';
-import { basename, join } from 'path';
-import { pathToFileURL } from 'url';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver/node';
 
-const HELP_DIR = GetExtensionPath('extension/docs/problem-codes/codes');
-
-/**
- * Get markdown help files
- */
-const MD_HELPS = readdirSync(
-  GetExtensionPath('extension/docs/problem-codes/codes')
-).map((file) => join(HELP_DIR, file));
-
-const HELP_URIS: { [key: string]: string } = {};
-for (let j = 0; j < MD_HELPS.length; j++) {
-  HELP_URIS[basename(MD_HELPS[j], '.md')] = pathToFileURL(
-    MD_HELPS[j]
-  ).toString();
-}
+import { ResolveExtensionDocsURL } from './resolve-extension-docs-url';
 
 /**
  * Map IDL problem codes to the right level in VSCode
@@ -71,7 +54,7 @@ export function SyntaxProblemToDiagnostic(
     code: `"${IDL_PROBLEM_CODE_ALIAS_LOOKUP[problem.code]}", ${problem.code}`,
     source: IDL_LANGUAGE_NAME,
     codeDescription: {
-      href: problem.code in HELP_URIS ? HELP_URIS[problem.code] : undefined,
+      href: ResolveExtensionDocsURL(`/problem/codes/${problem.code}.html`),
     },
     data: {
       code: problem.code,
