@@ -2,6 +2,7 @@ import { IDL_LANGUAGE_NAME } from '@idl/shared';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
 import { AddCodeConfig } from './config/code-config';
+import { AddDocumentationConfig } from './config/documentation-config';
 import { AddIDLConfig } from './config/idl-config';
 import { AddLanguageServerConfig } from './config/language-server-config';
 import { AddNotebookConfig } from './config/notebook-config';
@@ -42,8 +43,9 @@ export function ProcessConfiguration(
 
   // add all of our config sections
   AddTopLevelConfig(nls);
-  AddIDLConfig(nls);
+  AddDocumentationConfig(nls);
   AddCodeConfig(nls);
+  AddIDLConfig(nls);
   AddLanguageServerConfig(nls);
   AddNotebookConfig(nls);
   AddProblemsConfig(nls);
