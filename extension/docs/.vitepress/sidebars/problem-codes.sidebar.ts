@@ -1,3 +1,4 @@
+import { DefaultTheme } from 'vitepress';
 import { SidebarEntry } from './sidebars.interface';
 
 /**
