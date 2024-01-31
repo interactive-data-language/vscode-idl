@@ -4,10 +4,14 @@ import { SidebarEntry } from './sidebars.interface';
 /**
  * Sidebar entries for the general section of our docs
  */
-export const GENERAL_SIDEBAR: SidebarEntry[] = [
+export const GETTING_STARTED_SIDEBAR: SidebarEntry[] = [
   {
     text: 'About',
     link: '/getting-started/',
+  },
+  {
+    text: 'Quick Links',
+    link: '/getting-started/quick_links',
   },
   {
     text: 'FAQ',

@@ -6,9 +6,9 @@ import { defineConfig } from 'vitepress';
 import { TYPES_SIDEBAR } from './sidebars/types.sidebar';
 import { ADVANCED_SIDEBAR } from './sidebars/advanced.sidebar';
 import { CODE_COMMENTS_SIDEBAR } from './sidebars/code-comments.sidebar';
-import { GENERAL_SIDEBAR } from './sidebars/general.sidebar';
 import { NOTEBOOK_SIDEBAR } from './sidebars/notebook.sidebar';
 import { PROBLEM_CODES_SIDEBAR } from './sidebars/problem-codes.sidebar';
+import { GETTING_STARTED_SIDEBAR } from './sidebars/getting-started.sidebar';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -44,7 +44,7 @@ export default defineConfig({
     sidebar: [
       {
         text: 'Getting Started',
-        items: GENERAL_SIDEBAR,
+        items: GETTING_STARTED_SIDEBAR,
         link: '/getting-started/',
       },
       {
