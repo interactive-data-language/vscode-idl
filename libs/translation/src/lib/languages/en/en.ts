@@ -174,15 +174,16 @@ export const EN: ITranslation = {
   },
   configuration: {
     titles: {
-      root: 'IDL for VSCode',
       general: 'General',
-      idl: 'IDL',
-      formatting: 'Formatting',
-      problems: 'Problem Reporting',
-      questions: 'Questions',
       developer: 'Developer',
+      documentation: 'Documentation',
+      formatting: 'Formatting',
+      idl: 'IDL',
       languageServer: 'Language Server',
       notebooks: 'Notebooks',
+      problems: 'Problem Reporting',
+      questions: 'Questions',
+      root: 'IDL for VSCode',
     },
     idlDir: {
       notFound: 'IDL directory not found or specified by user, configure?',
@@ -211,6 +212,12 @@ export const EN: ITranslation = {
       'code.formatting': 'Top-level preferences for how code gets formatted.',
       'code.formattingStyle':
         'This controls how code is automatically formatted when using the buttons in the sidebar or formatting on save.',
+
+      documentation: 'documentation',
+      'documentation.localPort':
+        'When using local extension docs, what port do we serve them from?',
+      'documentation.useOnline':
+        'For extension documentation, do we use the online (hosted) version, or the local version packaged with the extension?',
 
       languageServer: 'Preferences that control the language server for IDL',
       'languageServer.fullParse':

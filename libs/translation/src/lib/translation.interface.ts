@@ -149,24 +149,26 @@ type KeysOfToStrings<T> = {
 export interface IConfigTranslation {
   /** Titles for configuration tabs */
   titles: {
-    /** Root/first level */
-    root: string;
+    /** Internal developer settings */
+    developer: string;
+    /** Documentation settings */
+    documentation: string;
+    /** Code formatting */
+    formatting: string;
     /** general preferences */
     general: string;
     /** IDL configuration */
     idl: string;
-    /** Code formatting */
-    formatting: string;
-    /** problem reporting */
-    problems: string;
-    /** Questions asked to the user */
-    questions: string;
-    /** Internal developer settings */
-    developer: string;
     /** Language server settings */
     languageServer: string;
     /** Notebook settings */
     notebooks: string;
+    /** problem reporting */
+    problems: string;
+    /** Questions asked to the user */
+    questions: string;
+    /** Root/first level */
+    root: string;
   };
   idlDir: {
     notFound: string;

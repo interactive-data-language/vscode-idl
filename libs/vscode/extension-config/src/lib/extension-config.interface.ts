@@ -40,6 +40,13 @@ export interface IDLExtensionsConfigKeys {
   /** Code-formatting style */
   readonly codeFormattingStyle: 'code.formattingStyle';
 
+  /** Key for documentation */
+  readonly documentation: 'documentation';
+  /** Do we use hosted docs? */
+  readonly documentationUseOnline: 'documentation.useOnline';
+  /** When using local docs, what port do we serve on? */
+  readonly documentationLocalPort: 'documentation.localPort';
+
   /** Key for language server preferences */
   readonly languageServer: 'languageServer';
   /** Do we do a full parse or not */
@@ -129,6 +136,13 @@ export interface ICodeConfig {
   readonly formattingStyle: ICodeStyle;
 }
 
+export interface IDocsConfig {
+  /** Do we use our hosted docs for the online  */
+  readonly useOnline: boolean;
+  /** Code-formatting style */
+  readonly localPort: number;
+}
+
 export interface ILanguageServerConfig {
   /** Does the language server do a full parse of your code */
   fullParse: boolean;
@@ -203,6 +217,11 @@ export interface IDLExtensionConfig {
   readonly code: ICodeConfig;
 
   /**
+   * Configuration for documentation and how it opens
+   */
+  readonly documentation: IDocsConfig;
+
+  /**
    * Configuration for the language server
    */
   readonly languageServer: ILanguageServerConfig;
@@ -251,6 +270,10 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
 
   codeFormatting: 'code.formatting',
   codeFormattingStyle: 'code.formattingStyle',
+
+  documentation: 'documentation',
+  documentationUseOnline: 'documentation.useOnline',
+  documentationLocalPort: 'documentation.localPort',
 
   languageServer: 'languageServer',
   languageServerFullParse: 'languageServer.fullParse',
@@ -314,6 +337,10 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
       tabWidth: DEFAULT_ASSEMBLER_OPTIONS.tabWidth,
     },
     formattingStyle: copy(DEFAULT_CODE_STYLE),
+  },
+  documentation: {
+    useOnline: true,
+    localPort: 3344,
   },
   languageServer: {
     fullParse: true,

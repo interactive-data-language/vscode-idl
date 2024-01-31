@@ -367,86 +367,22 @@
       },
       {
         "type": "object",
-        "title": "%configuration.titles.idl%",
+        "title": "%configuration.titles.documentation%",
         "additionalProperties": false,
         "properties": {
-          "idl.IDL.directory": {
-            "type": "string",
-            "description": "%configuration.descriptions.IDL.directory%",
-            "scope": "machine-overridable"
-          },
-          "idl.IDL.path": {
-            "type": "array",
-            "default": [],
-            "description": "%configuration.descriptions.IDL.path%",
-            "scope": "machine-overridable",
-            "items": {
-              "type": "string",
-              "format": "uri"
-            }
-          },
-          "idl.IDL.addWorkspaceFoldersToPath": {
+          "idl.documentation.useOnline": {
             "type": "boolean",
             "default": true,
-            "description": "%configuration.descriptions.IDL.addWorkspaceFoldersToPath%",
+            "description": "%configuration.descriptions.documentation.useOnline%",
             "scope": "machine-overridable"
           },
-          "idl.IDL.appendOrPrependWorkspaceFolders": {
-            "enum": [
-              "prepend",
-              "append"
-            ],
-            "enumDescriptions": [
-              "%configuration.enumDescriptions.workspace.prepend%",
-              "%configuration.enumDescriptions.workspace.append%"
-            ],
-            "default": "prepend",
-            "description": "%configuration.descriptions.IDL.appendOrPrependWorkspaceFolders%",
-            "scope": "machine-overridable"
-          },
-          "idl.IDL.environment": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "%configuration.descriptions.IDL.environment%",
-            "scope": "machine-overridable"
-          },
-          "idl.IDL.history": {
-            "type": "object",
-            "description": "%configuration.descriptions.IDL.history%",
+          "idl.documentation.localPort": {
+            "type": "number",
+            "default": 3344,
+            "description": "%configuration.descriptions.documentation.localPort%",
             "scope": "machine-overridable",
-            "additionalProperties": false,
-            "default": {
-              "enabled": true,
-              "maxSize": 2,
-              "truncateOnStartup": false,
-              "folder": "${.idl}",
-              "fileName": "idl-history.idllog"
-            },
-            "properties": {
-              "enabled": {
-                "type": "boolean",
-                "description": "%configuration.properties.IDL.history.enabled%"
-              },
-              "maxSize": {
-                "type": "number",
-                "description": "%configuration.properties.IDL.history.maxSize%",
-                "minimum": 0.5
-              },
-              "truncateOnStartup": {
-                "type": "boolean",
-                "description": "%configuration.properties.IDL.history.truncateOnStartup%"
-              },
-              "folder": {
-                "type": "string",
-                "description": "%configuration.properties.IDL.history.folder%"
-              },
-              "fileName": {
-                "type": "string",
-                "description": "%configuration.properties.IDL.history.fileName%"
-              }
-            }
+            "minimum": 1024,
+            "maximum": 65535
           }
         }
       },
@@ -725,6 +661,91 @@
                   "%configuration.enumDescriptions.formatting.style.upper%",
                   "%configuration.enumDescriptions.formatting.style.none%"
                 ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "type": "object",
+        "title": "%configuration.titles.idl%",
+        "additionalProperties": false,
+        "properties": {
+          "idl.IDL.directory": {
+            "type": "string",
+            "description": "%configuration.descriptions.IDL.directory%",
+            "scope": "machine-overridable"
+          },
+          "idl.IDL.path": {
+            "type": "array",
+            "default": [],
+            "description": "%configuration.descriptions.IDL.path%",
+            "scope": "machine-overridable",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "idl.IDL.addWorkspaceFoldersToPath": {
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.descriptions.IDL.addWorkspaceFoldersToPath%",
+            "scope": "machine-overridable"
+          },
+          "idl.IDL.appendOrPrependWorkspaceFolders": {
+            "enum": [
+              "prepend",
+              "append"
+            ],
+            "enumDescriptions": [
+              "%configuration.enumDescriptions.workspace.prepend%",
+              "%configuration.enumDescriptions.workspace.append%"
+            ],
+            "default": "prepend",
+            "description": "%configuration.descriptions.IDL.appendOrPrependWorkspaceFolders%",
+            "scope": "machine-overridable"
+          },
+          "idl.IDL.environment": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "%configuration.descriptions.IDL.environment%",
+            "scope": "machine-overridable"
+          },
+          "idl.IDL.history": {
+            "type": "object",
+            "description": "%configuration.descriptions.IDL.history%",
+            "scope": "machine-overridable",
+            "additionalProperties": false,
+            "default": {
+              "enabled": true,
+              "maxSize": 2,
+              "truncateOnStartup": false,
+              "folder": "${.idl}",
+              "fileName": "idl-history.idllog"
+            },
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "description": "%configuration.properties.IDL.history.enabled%"
+              },
+              "maxSize": {
+                "type": "number",
+                "description": "%configuration.properties.IDL.history.maxSize%",
+                "minimum": 0.5
+              },
+              "truncateOnStartup": {
+                "type": "boolean",
+                "description": "%configuration.properties.IDL.history.truncateOnStartup%"
+              },
+              "folder": {
+                "type": "string",
+                "description": "%configuration.properties.IDL.history.folder%"
+              },
+              "fileName": {
+                "type": "string",
+                "description": "%configuration.properties.IDL.history.fileName%"
               }
             }
           }
