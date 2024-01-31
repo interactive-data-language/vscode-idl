@@ -11,11 +11,8 @@ hero:
     alt: IDL Logo
   actions:
     - theme: brand
-      text: Getting Started
+      text: Let's go!
       link: /getting-started/
-    - theme: alt
-      text: Notebooks
-      link: /notebooks/
 
 features:
   - title: Modern User Experience
