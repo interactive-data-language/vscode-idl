@@ -2,15 +2,13 @@ import idlJson from '../../language/syntaxes/idl.tmLanguage.json';
 import idlLog from '../../language/syntaxes/idl-log.tmLanguage.json';
 
 import { defineConfig } from 'vitepress';
-import {
-  ADVANCED_SIDEBAR,
-  CODE_COMMENTS_SIDEBAR,
-  FAQ_SIDEBAR,
-  GENERAL_SIDEBAR,
-  NOTEBOOK_SIDEBAR,
-  PROBLEM_CODES_SIDEBAR,
-  TYPES_SIDEBAR,
-} from './sidebars';
+
+import { TYPES_SIDEBAR } from './sidebars/types.sidebar';
+import { ADVANCED_SIDEBAR } from './sidebars/advanced.sidebar';
+import { CODE_COMMENTS_SIDEBAR } from './sidebars/code-comments.sidebar';
+import { GENERAL_SIDEBAR } from './sidebars/general.sidebar';
+import { NOTEBOOK_SIDEBAR } from './sidebars/notebook.sidebar';
+import { PROBLEM_CODES_SIDEBAR } from './sidebars/problem-codes.sidebar';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -38,16 +36,16 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Getting Started', link: '/general/' },
+      { text: 'Getting Started', link: '/getting-started/' },
       { text: 'Notebooks', link: '/notebooks/' },
       { text: 'Types', link: '/types/' },
     ],
 
     sidebar: [
       {
-        text: 'General',
+        text: 'Getting Started',
         items: GENERAL_SIDEBAR,
-        link: '/general/',
+        link: '/getting-started/',
       },
       {
         text: 'Notebooks',
@@ -64,7 +62,7 @@ export default defineConfig({
       {
         text: 'Code Comments',
         items: CODE_COMMENTS_SIDEBAR,
-        link: '/types/',
+        link: '/code-comments/index.md',
         collapsed: true,
       },
       {

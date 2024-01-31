@@ -1,91 +1,4 @@
-import { DefaultTheme } from 'vitepress';
-
-type SidebarEntry =
-  | DefaultTheme.NavItemWithLink
-  | DefaultTheme.NavItemWithChildren;
-
-/**
- * Sidebar entries for the advanced section of the docs
- */
-export const ADVANCED_SIDEBAR: SidebarEntry[] = [
-  {
-    text: 'Customizing Themes',
-    link: '/advanced/CUSTOMIZING_THEMES',
-  },
-  {
-    text: 'Code Formatting',
-    link: '/advanced/FORMATTING',
-  },
-  {
-    text: 'ENVI and IDL Task Creation',
-    link: '/advanced/TASK_CREATION',
-  },
-  {
-    text: 'Environment Variables',
-    link: '/advanced/VARIABLES_REFERENCE',
-  },
-];
-
-/**
- * Sidebar entries for the code comments
- */
-export const CODE_COMMENTS_SIDEBAR: SidebarEntry[] = [
-  {
-    text: 'About',
-    link: '/code-comments/',
-  },
-  {
-    text: 'AutoDoc',
-    link: '/code-comments/AUTO_DOC',
-  },
-];
-
-/**
- * Sidebar entries for the FAQ
- */
-export const FAQ_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
-  {
-    text: 'ENVI File Associations',
-    link: '/general/faq/DISABLE_ENVI_FILE_ASSOCIATIONS',
-  },
-  {
-    text: 'Known Issues',
-    link: '/general/faq/KNOWN_ISSUES',
-  },
-  {
-    text: 'Language Server Crashes',
-    link: '/general/faq/LANGUAGE_SERVER_CRASHES',
-  },
-];
-
-/**
- * Sidebar entries for the general section of our docs
- */
-export const GENERAL_SIDEBAR: SidebarEntry[] = [
-  {
-    text: 'FAQ',
-    items: FAQ_SIDEBAR,
-    collapsed: true,
-  },
-  {
-    text: 'IDL-Python Bridge',
-    link: '/general/IDL_PYTHON_BRIDGE',
-  },
-  {
-    text: 'Usage Metrics',
-    link: '/general/USAGE_METRICS',
-  },
-];
-
-/**
- * Sidebar entries for the notebooks section of the docs
- */
-export const NOTEBOOK_SIDEBAR: SidebarEntry[] = [
-  {
-    text: 'PDF Generation',
-    link: '/notebooks/PDF_GENERATION',
-  },
-];
+import { SidebarEntry } from './sidebars.interface';
 
 /**
  * Sidebar entries for the FAQ
@@ -269,21 +182,9 @@ export const PROBLEM_CODES_SIDEBAR: SidebarEntry[] = [
   },
   {
     text: 'Codes',
-    items: PROBLEM_CODES_CODES,
+    items: PROBLEM_CODES_CODES.sort((a, b) =>
+      a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+    ),
     collapsed: true,
-  },
-];
-
-/**
- * Sidebar entries for the types section of the sidebar
- */
-export const TYPES_SIDEBAR: SidebarEntry[] = [
-  {
-    text: 'About',
-    link: '/types/',
-  },
-  {
-    text: 'Types: TLDR',
-    link: '/types/TYPES_TLDR',
   },
 ];
