@@ -5,7 +5,7 @@ layout: home
 hero:
   name: IDL for VSCode
   text: The future of IDL programming is here
-  tagline: Bringing you modern user experiences for (arguably) the world's best text editor
+  tagline: Brought to you by the creators of IDL and ENVI
   image:
     src: /assets/idlicon-color.svg
     alt: IDL Logo
