@@ -62,7 +62,7 @@ export default defineConfig({
       {
         text: 'Code Comments',
         items: CODE_COMMENTS_SIDEBAR,
-        link: '/code-comments/index.md',
+        link: '/code-comments/',
         collapsed: true,
       },
       {

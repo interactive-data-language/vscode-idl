@@ -16,10 +16,10 @@ export const GENERAL_SIDEBAR: SidebarEntry[] = [
   },
   {
     text: 'IDL-Python Bridge',
-    link: '/getting-started/IDL_PYTHON_BRIDGE',
+    link: '/getting-started/idl_python_bridge',
   },
   {
     text: 'Usage Metrics',
-    link: '/getting-started/USAGE_METRICS',
+    link: '/getting-started/usage_metrics',
   },
 ];

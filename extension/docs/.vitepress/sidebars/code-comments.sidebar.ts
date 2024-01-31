@@ -10,6 +10,6 @@ export const CODE_COMMENTS_SIDEBAR: SidebarEntry[] = [
   },
   {
     text: 'AutoDoc',
-    link: '/code-comments/AUTO_DOC',
+    link: '/code-comments/auto_doc',
   },
 ];
