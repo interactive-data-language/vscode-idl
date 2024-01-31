@@ -177,8 +177,10 @@ export const PROBLEM_CODES_SIDEBAR: SidebarEntry[] = [
   {
     text: 'About',
     link: '/problem-codes/',
-    // items: PROBLEM_CODES_CODES,
-    // collapsed: true,
+  },
+  {
+    text: 'Configuration',
+    link: '/problem-codes/configuration',
   },
   {
     text: 'Codes',
