@@ -9,7 +9,11 @@ export const NOTEBOOK_SIDEBAR: SidebarEntry[] = [
     link: '/notebooks/',
   },
   {
-    text: 'PDF Generation',
-    link: '/notebooks/PDF_GENERATION',
+    text: 'Notebook Conversions',
+    link: '/notebooks/notebook_conversions',
+  },
+  {
+    text: 'PDF Generation Setup',
+    link: '/notebooks/pdf_generation',
   },
 ];
