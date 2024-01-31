@@ -10,18 +10,18 @@ export const ADVANCED_SIDEBAR: SidebarEntry[] = [
   },
   {
     text: 'Customizing Themes',
-    link: '/advanced/CUSTOMIZING_THEMES',
+    link: '/advanced/customizing_themes',
   },
   {
     text: 'Code Formatting',
-    link: '/advanced/FORMATTING',
+    link: '/advanced/formatting',
   },
   {
     text: 'ENVI and IDL Task Creation',
-    link: '/advanced/TASK_CREATION',
+    link: '/advanced/task_creation',
   },
   {
     text: 'Environment Variables',
-    link: '/advanced/VARIABLES_REFERENCE',
+    link: '/advanced/variables_reference',
   },
 ];

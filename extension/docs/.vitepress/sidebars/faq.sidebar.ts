@@ -6,14 +6,14 @@ import { DefaultTheme } from 'vitepress';
 export const FAQ_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
   {
     text: 'ENVI File Associations',
-    link: '/getting-started/faq/DISABLE_ENVI_FILE_ASSOCIATIONS',
+    link: '/getting-started/faq/disable_envi_file_associations',
   },
   {
     text: 'Known Issues',
-    link: '/getting-started/faq/KNOWN_ISSUES',
+    link: '/getting-started/faq/known_issues',
   },
   {
     text: 'Language Server Crashes',
-    link: '/getting-started/faq/LANGUAGE_SERVER_CRASHES',
+    link: '/getting-started/faq/language_server_crashes',
   },
 ];

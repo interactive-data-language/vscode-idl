@@ -6,10 +6,10 @@ import { SidebarEntry } from './sidebars.interface';
 export const TYPES_SIDEBAR: SidebarEntry[] = [
   {
     text: 'About',
-    link: '/types/',
+    link: '/types/index',
   },
   {
     text: 'Types: TLDR',
-    link: '/types/TYPES_TLDR',
+    link: '/types/types_tldr',
   },
 ];
