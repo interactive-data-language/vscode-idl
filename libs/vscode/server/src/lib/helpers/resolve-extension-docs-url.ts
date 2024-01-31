@@ -1,3 +1,5 @@
+import { EXTENSION_DOCS_URL } from '@idl/shared';
+
 import { IDL_CLIENT_CONFIG } from './track-workspace-config';
 
 /**
@@ -6,7 +8,7 @@ import { IDL_CLIENT_CONFIG } from './track-workspace-config';
 export function ResolveExtensionDocsURL(baseUrl: string) {
   return `${
     IDL_CLIENT_CONFIG.documentation.useOnline
-      ? 'https://interactive-data-language.github.io/vscode-idl'
+      ? EXTENSION_DOCS_URL
       : `http://localhost:${IDL_CLIENT_CONFIG.documentation.localPort}`
   }${baseUrl}`;
 }
