@@ -1,10 +1,9 @@
 import { DefaultTheme } from 'vitepress';
-import { SidebarEntry } from './sidebars.interface';
 
 /**
  * Sidebar entries for the FAQ
  */
-export const PROBLEM_CODES_CODES: DefaultTheme.NavItemWithLink[] = [
+export const PROBLEM_CODES_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
   {
     text: '"not-closed"',
     link: '/problem-codes/codes/0.md',
@@ -168,26 +167,5 @@ export const PROBLEM_CODES_CODES: DefaultTheme.NavItemWithLink[] = [
   {
     text: '"circular-include"',
     link: '/problem-codes/codes/106.md',
-  },
-];
-
-/**
- * Sidebar entries for the problem codes section of the sidebar
- */
-export const PROBLEM_CODES_SIDEBAR: SidebarEntry[] = [
-  {
-    text: 'About',
-    link: '/problem-codes/',
-  },
-  {
-    text: 'Configuration',
-    link: '/problem-codes/configuration',
-  },
-  {
-    text: 'Codes',
-    items: PROBLEM_CODES_CODES.sort((a, b) =>
-      a.text > b.text ? 1 : b.text > a.text ? -1 : 0
-    ),
-    collapsed: true,
   },
 ];
