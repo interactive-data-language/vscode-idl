@@ -13,9 +13,9 @@ Here is an example showing functions, procedures, arguments, keywords, and prope
 ```idl
 ;+
 ; :Arguments:
-;   a: in, required, Array\<Number>
+;   a: in, required, Array<Number>
 ;     First argument
-;   b: in, required, List\<Hash\<Number>>
+;   b: in, required, List<Hash<Number>>
 ;     Second argument
 ;
 ;-
@@ -44,7 +44,7 @@ end
 ; :MyClass:
 ;   prop: Long
 ;     Favorite property
-;   prop2: Array\<String>
+;   prop2: Array<String>
 ;     Second favorite property
 ;
 ;-
@@ -66,11 +66,11 @@ Here's some examples
 ```idl
 ;+
 ; :Arguments:
-;   a: in, required, IDLTask\<MyTask>
+;   a: in, required, IDLTask<MyTask>
 ;     First argument
-;   b: in, required, ENVITask\<BuildMosaicRaster>
+;   b: in, required, ENVITask<BuildMosaicRaster>
 ;     A single task
-;   c: in, required, ENVITask\<BuildMosaicRaster> | ENVITask\<SubsetRaster>
+;   c: in, required, ENVITask<BuildMosaicRaster> | ENVITask<SubsetRaster>
 ;     More than one kind of task
 ;
 ;-
@@ -111,15 +111,15 @@ Unlike basic types, compound types require additional information (known as a ty
 
 Here are a few examples of how you create and use compound types:
 
-- An array of strings: `Array\<String>`
+- An array of strings: `Array<String>`
 
-- An object array of lists that contain numbers: `Array\<List\<Number>>`
+- An object array of lists that contain numbers: `Array<List<Number>>`
 
-Why do we need a type argument? The type argument, wrapped in `\<TypeArg>` indicates the return value when indexing or what the type contains. For example, if you index a data type that is an `Array\<String>` you would get back a scalar `String`.
+Why do we need a type argument? The type argument, wrapped in `<TypeArg>` indicates the return value when indexing or what the type contains. For example, if you index a data type that is an `Array<String>` you would get back a scalar `String`.
 
 > If you don't specify a type argument, it defaults "any", indicating it can contain any value
 
-> If you don't specify a type argument, when you next use AutoDoc, it will automatically have "\<any>" added to the type
+> If you don't specify a type argument, when you next use AutoDoc, it will automatically have `<any>` added to the type
 
 > Pro tip: Do not create nested array types for multi-dimensional arrays. Dimensionality of arrays is not handled at this point in time.
 
@@ -150,7 +150,7 @@ For example:
 
 - If I can have a byte or long: `Byte | Long`
 
-- If I can have a hash or dictionary: `Hash\<Number> | Dictionary\<Number>`
+- If I can have a hash or dictionary: `Hash<Number> | Dictionary<Number>`
 
 Union types will, when interacted with, provide hover help and auto complete for each type.
 
@@ -169,8 +169,8 @@ For functions, when specifying the return type, we have two common approaches fo
 
 Here's some examples of how we use `ArrayPromotion`:
 
-- For `file_basename()` the return type is `ArrayPromotion\<String>` because the function returns a scalar string for scalar input or an array of strings for an array of inputs
+- For `file_basename()` the return type is `ArrayPromotion<String>` because the function returns a scalar string for scalar input or an array of strings for an array of inputs
 
 Here's some examples of how we use `TypeOfArg`:
 
-- For `transpose()` the return type is `TypeOfArg\<0>` because the output type matches the same as the array we are transposing
+- For `transpose()` the return type is `TypeOfArg<0>` because the output type matches the same as the array we are transposing

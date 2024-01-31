@@ -11,11 +11,11 @@ hero:
     alt: IDL Logo
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Getting Started
+      link: /general/
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Notebooks
+      link: /notebooks/
 
 features:
   - title: Modern User Experience
