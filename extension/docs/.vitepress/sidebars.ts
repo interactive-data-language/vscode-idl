@@ -27,6 +27,20 @@ export const ADVANCED_SIDEBAR: SidebarEntry[] = [
 ];
 
 /**
+ * Sidebar entries for the code comments
+ */
+export const CODE_COMMENTS_SIDEBAR: SidebarEntry[] = [
+  {
+    text: 'About',
+    link: '/code-comments/',
+  },
+  {
+    text: 'AutoDoc',
+    link: '/code-comments/AUTO_DOC',
+  },
+];
+
+/**
  * Sidebar entries for the FAQ
  */
 export const FAQ_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
@@ -265,8 +279,8 @@ export const PROBLEM_CODES_SIDEBAR: SidebarEntry[] = [
  */
 export const TYPES_SIDEBAR: SidebarEntry[] = [
   {
-    text: 'AutoDoc',
-    link: '/types/AUTO_DOC',
+    text: 'About',
+    link: '/types/',
   },
   {
     text: 'Types: TLDR',
