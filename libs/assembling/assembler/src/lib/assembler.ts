@@ -31,7 +31,7 @@ import { CombinerBasic } from './combiner/combiner-basic';
 export function Assembler<T extends FormatterType>(
   parsed: IParsed,
   cancel: CancellationToken,
-  options?: Partial<IAssemblerInputOptions<T>>
+  options: Partial<IAssemblerInputOptions<T>> = {}
 ): string | undefined {
   // verify that we can format
   if (!CanAssemble(parsed.parseProblems)) {

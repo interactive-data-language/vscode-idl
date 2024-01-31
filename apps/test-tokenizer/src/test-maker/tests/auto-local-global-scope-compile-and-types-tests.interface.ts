@@ -1028,6 +1028,49 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Verify type regression tests`,
+      fileName: `tasks.regression-tasks.spec.ts`,
+      tests: [
+        {
+          name: `for task parsing bugs`,
+          code: [
+            `compile_opt idl3`,
+            `task1 = ENVITask('')`,
+            `task2 = IDLTask('')`,
+            `task3 = ENVITask("")`,
+            `task4 = IDLTask("")`,
+            `task5 = ENVITask(\`\`)`,
+            `task6 = IDLTask(\`\`)`,
+            `end`,
+          ],
+        },
+        {
+          name: `no failures with syntax errors`,
+          code: [`compile_opt idl3`, `task1 = ENVITask('',`, `end`],
+        },
+        {
+          name: `no failures with syntax errors`,
+          code: [`compile_opt idl3`, `task1 = IDLTask('',`, `end`],
+        },
+        {
+          name: `no failures with syntax errors`,
+          code: [`compile_opt idl3`, `task1 = ENVITask("",`, `end`],
+        },
+        {
+          name: `no failures with syntax errors`,
+          code: [`compile_opt idl3`, `task1 = IDLTask("",`, `end`],
+        },
+        {
+          name: `no failures with syntax errors`,
+          code: [`compile_opt idl3`, `task1 = ENVITask(\`\`,`, `end`],
+        },
+        {
+          name: `no failures with syntax errors`,
+          code: [`compile_opt idl3`, `task1 = IDLTask(\`\`,`, `end`],
+        },
+      ],
+    },
+    {
       suiteName: `Types from output arguments`,
       fileName: `types.from-args.spec.ts`,
       tests: [
@@ -1072,6 +1115,22 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
             ``,
             `; number`,
             `f = (g = 6) + g`,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
+      suiteName: `Types from call_function()`,
+      fileName: `types.from-call-function.spec.ts`,
+      tests: [
+        {
+          name: 'for known and unknown functions',
+          code: [
+            `; main level`,
+            `compile_opt idl2`,
+            `known = call_function('envi')`,
+            `unknown = call_function('unknownfunction')`,
             `end`,
           ],
         },
@@ -1157,6 +1216,24 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
             `  arr2 = [{}, {}]`,
             ``,
             `  bad = [ENVIRaster(), ENVIMetaspectralRaster(), ENVISubsetRaster(), {}, 1]`,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
+      suiteName: `Types from`,
+      fileName: `types.arrays.regressions.spec.ts`,
+      tests: [
+        {
+          name: `array creation that needs to promote to "any"`,
+          code: [
+            `pro array_creation`,
+            `  compile_opt idl2`,
+            ``,
+            `  lookup = $`,
+            `    [(regName ? {prop: 'NAME', cat: 'Property:Name', str: 'Name'} : []), $`,
+            `    {prop: 'COLOR', cat: 'Property:Color', str: 'Color'}]`,
             `end`,
           ],
         },

@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "4.2.3",
+  "version": "4.3.0",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -12,7 +12,8 @@
   },
   "scripts": {
     "build-client": "nx run-many --target=build --projects=client,idl-webview --prod",
-    "build-extension": "npm-run-all -s clean build-package-json build-client build-renderer build-server",
+    "build-extension": "npm-run-all -s clean build-package-json build-docs build-client build-renderer build-server",
+    "build-docs": "node ./tools/build-and-copy-docs.js",
     "build-i18n": "nx build i18n && node ./dist/apps/i18n/main.js",
     "build-package-json": "npm run build-tmlang && npm run build-i18n && nx build package-json && node ./dist/apps/package-json/main.js && prettier --write ./extension/language/schemas/config",
     "build-renderer": "nx build notebook-renderer --prod",
@@ -41,14 +42,17 @@
     "test-everything": "npm-run-all test-libs make-integration-tests test-integration",
     "test-perf": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 ./dist/apps/performance/main.js",
     "test-perf-profile": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 --prof ./dist/apps/performance/main.js",
-    "start": "npm run build-package-json && npm run build-renderer-dev && nx run-many --target=build --projects=parsing-worker,server,client --watch --parallel",
+    "start": "npm run build-package-json && npm run build-renderer-dev && npm run build-docs && nx run-many --target=build --projects=parsing-worker,server,client --watch --parallel",
     "start-client": "nx run-many --target=build --projects=client --watch --parallel",
     "start-perf": "nx run-many --target=build --projects=parsing-worker,performance --watch --parallel",
     "start-notebook": "nx run-many --target=build --projects=notebook-renderer,notebook-components --watch --parallel --configuration=development",
     "start-server": "nx run-many --target=build --projects=parsing-worker,server --watch --parallel",
     "start-test": "nx build vscode-e2e-runner && nx build client-e2e --watch",
     "start-webview": "nx build idl-webview --watch",
-    "post-migrate": "rimraf ./node_modules/.cache"
+    "post-migrate": "rimraf ./node_modules/.cache",
+    "docs:dev": "vitepress dev extension/docs",
+    "docs:build": "vitepress build extension/docs",
+    "docs:preview": "vitepress preview extension/docs"
   },
   "dependencies": {
     "@vscode/debugadapter": "^1.64.0",
@@ -60,6 +64,7 @@
     "chalk": "^4.1.2",
     "compare-versions": "^6.1.0",
     "deepmerge": "^4.2.2",
+    "express": "^4.18.2",
     "fast-copy": "^3.0.0",
     "fast-equals": "^5.0.1",
     "fast-glob": "^3.3.1",
@@ -120,8 +125,11 @@
     "@nx/web": "17.0.2",
     "@nx/workspace": "17.0.2",
     "@schematics/angular": "16.2.3",
+    "@swc-node/register": "~1.6.7",
+    "@swc/core": "~1.3.85",
     "@types/jest": "29.4.4",
     "@types/mapbox__geojson-extent": "^1.0.2",
+    "@types/mime-types": "^2.1.4",
     "@types/minilog": "^2.0.31",
     "@types/node": "^20.2.3",
     "@types/plist": "^3.0.4",
@@ -146,6 +154,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "expect": "^29.4.3",
+    "get-port": "^7.0.0",
     "himalaya": "^1.1.0",
     "jest": "^29.4.3",
     "jest-environment-jsdom": "^29.4.3",
@@ -153,6 +162,7 @@
     "jest-preset-angular": "13.1.1",
     "json-stringify-pretty-compact": "^3.0.0",
     "material-icons": "^1.13.12",
+    "mime-types": "^2.1.35",
     "node-html-markdown": "^1.2.0",
     "npm-run-all": "^4.1.5",
     "nx": "17.0.2",
@@ -164,6 +174,7 @@
     "ts-jest": "29.1.0",
     "ts-node": "10.9.1",
     "typescript": "5.1.6",
+    "vitepress": "^1.0.0-rc.40",
     "vscode-oniguruma": "^2.0.1",
     "yaml": "^2.3.3"
   },
@@ -220,6 +231,10 @@
       {
         "command": "idl.code.generateTask",
         "title": "%commands.idl.code.generateTask%"
+      },
+      {
+        "command": "idl.code.migrateToDL30API",
+        "title": "%commands.idl.code.migrateToDL30API%"
       },
       {
         "command": "idl.config.specifyIDLDirectory",
@@ -291,7 +306,11 @@
       },
       {
         "command": "idl.notebooks.notebookToProCode",
-        "title": "%commands.idl.notebooks.notebookToProCode%"
+        "title": "%commands.idl.notebooks.notebookToProCode%",
+        "icon": {
+          "light": "extension/images/light/transform.svg",
+          "dark": "extension/images/dark/transform.svg"
+        }
       },
       {
         "command": "idl.notebooks.openENVIExample",
@@ -348,86 +367,22 @@
       },
       {
         "type": "object",
-        "title": "%configuration.titles.idl%",
+        "title": "%configuration.titles.documentation%",
         "additionalProperties": false,
         "properties": {
-          "idl.IDL.directory": {
-            "type": "string",
-            "description": "%configuration.descriptions.IDL.directory%",
-            "scope": "machine-overridable"
-          },
-          "idl.IDL.path": {
-            "type": "array",
-            "default": [],
-            "description": "%configuration.descriptions.IDL.path%",
-            "scope": "machine-overridable",
-            "items": {
-              "type": "string",
-              "format": "uri"
-            }
-          },
-          "idl.IDL.addWorkspaceFoldersToPath": {
+          "idl.documentation.useOnline": {
             "type": "boolean",
             "default": true,
-            "description": "%configuration.descriptions.IDL.addWorkspaceFoldersToPath%",
+            "description": "%configuration.descriptions.documentation.useOnline%",
             "scope": "machine-overridable"
           },
-          "idl.IDL.appendOrPrependWorkspaceFolders": {
-            "enum": [
-              "prepend",
-              "append"
-            ],
-            "enumDescriptions": [
-              "%configuration.enumDescriptions.workspace.prepend%",
-              "%configuration.enumDescriptions.workspace.append%"
-            ],
-            "default": "prepend",
-            "description": "%configuration.descriptions.IDL.appendOrPrependWorkspaceFolders%",
-            "scope": "machine-overridable"
-          },
-          "idl.IDL.environment": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "%configuration.descriptions.IDL.environment%",
-            "scope": "machine-overridable"
-          },
-          "idl.IDL.history": {
-            "type": "object",
-            "description": "%configuration.descriptions.IDL.history%",
+          "idl.documentation.localPort": {
+            "type": "number",
+            "default": 3344,
+            "description": "%configuration.descriptions.documentation.localPort%",
             "scope": "machine-overridable",
-            "additionalProperties": false,
-            "default": {
-              "enabled": true,
-              "maxSize": 2,
-              "truncateOnStartup": false,
-              "folder": "${.idl}",
-              "fileName": "idl-history.idllog"
-            },
-            "properties": {
-              "enabled": {
-                "type": "boolean",
-                "description": "%configuration.properties.IDL.history.enabled%"
-              },
-              "maxSize": {
-                "type": "number",
-                "description": "%configuration.properties.IDL.history.maxSize%",
-                "minimum": 0.5
-              },
-              "truncateOnStartup": {
-                "type": "boolean",
-                "description": "%configuration.properties.IDL.history.truncateOnStartup%"
-              },
-              "folder": {
-                "type": "string",
-                "description": "%configuration.properties.IDL.history.folder%"
-              },
-              "fileName": {
-                "type": "string",
-                "description": "%configuration.properties.IDL.history.fileName%"
-              }
-            }
+            "minimum": 1024,
+            "maximum": 65535
           }
         }
       },
@@ -706,6 +661,91 @@
                   "%configuration.enumDescriptions.formatting.style.upper%",
                   "%configuration.enumDescriptions.formatting.style.none%"
                 ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "type": "object",
+        "title": "%configuration.titles.idl%",
+        "additionalProperties": false,
+        "properties": {
+          "idl.IDL.directory": {
+            "type": "string",
+            "description": "%configuration.descriptions.IDL.directory%",
+            "scope": "machine-overridable"
+          },
+          "idl.IDL.path": {
+            "type": "array",
+            "default": [],
+            "description": "%configuration.descriptions.IDL.path%",
+            "scope": "machine-overridable",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "idl.IDL.addWorkspaceFoldersToPath": {
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.descriptions.IDL.addWorkspaceFoldersToPath%",
+            "scope": "machine-overridable"
+          },
+          "idl.IDL.appendOrPrependWorkspaceFolders": {
+            "enum": [
+              "prepend",
+              "append"
+            ],
+            "enumDescriptions": [
+              "%configuration.enumDescriptions.workspace.prepend%",
+              "%configuration.enumDescriptions.workspace.append%"
+            ],
+            "default": "prepend",
+            "description": "%configuration.descriptions.IDL.appendOrPrependWorkspaceFolders%",
+            "scope": "machine-overridable"
+          },
+          "idl.IDL.environment": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "%configuration.descriptions.IDL.environment%",
+            "scope": "machine-overridable"
+          },
+          "idl.IDL.history": {
+            "type": "object",
+            "description": "%configuration.descriptions.IDL.history%",
+            "scope": "machine-overridable",
+            "additionalProperties": false,
+            "default": {
+              "enabled": true,
+              "maxSize": 2,
+              "truncateOnStartup": false,
+              "folder": "${.idl}",
+              "fileName": "idl-history.idllog"
+            },
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "description": "%configuration.properties.IDL.history.enabled%"
+              },
+              "maxSize": {
+                "type": "number",
+                "description": "%configuration.properties.IDL.history.maxSize%",
+                "minimum": 0.5
+              },
+              "truncateOnStartup": {
+                "type": "boolean",
+                "description": "%configuration.properties.IDL.history.truncateOnStartup%"
+              },
+              "folder": {
+                "type": "string",
+                "description": "%configuration.properties.IDL.history.folder%"
+              },
+              "fileName": {
+                "type": "string",
+                "description": "%configuration.properties.IDL.history.fileName%"
               }
             }
           }
@@ -1255,12 +1295,17 @@
       "notebook/toolbar": [
         {
           "command": "idl.notebooks.resetIDL",
-          "group": "navigation/execute",
+          "group": "status",
           "when": "resourceExtname == .idlnb"
         },
         {
           "command": "idl.notebooks.stopIDL",
-          "group": "navigation/execute",
+          "group": "status",
+          "when": "resourceExtname == .idlnb"
+        },
+        {
+          "command": "idl.notebooks.notebookToProCode",
+          "group": "status",
           "when": "resourceExtname == .idlnb"
         },
         {

@@ -29,6 +29,8 @@ import { AddCompletionProcedureMethods } from './completion-for/add-completion-p
 import { AddCompletionProcedures } from './completion-for/add-completion-procedures';
 import { AddCompletionProperties } from './completion-for/add-completion-properties';
 import { AddCompletionPropertiesInStructures } from './completion-for/add-completion-properties-in-structures';
+import { AddCompletionSpecialFunctions } from './completion-for/add-completion-special-functions';
+import { SPECIAL_FUNCTION_REGEX } from './completion-for/add-completion-special-functions.interface';
 import { AddCompletionStructureNames } from './completion-for/add-completion-structure-names';
 import { AddCompletionSystemVariables } from './completion-for/add-completion-system-variables';
 import { AddCompletionVariables } from './completion-for/add-completion-variables';
@@ -130,6 +132,15 @@ export async function GetAutoComplete(
      * Handle special cases for auto-complete
      */
     switch (true) {
+      /**
+       * Custom auto-complete in ENVI or IDL task
+       */
+      case token?.scope[token.scope.length - 1] === TOKEN_NAMES.CALL_FUNCTION &&
+        SPECIAL_FUNCTION_REGEX.test(
+          token?.scopeTokens[token.scope.length - 1]?.match[0]
+        ):
+        AddCompletionSpecialFunctions(items, index, token, formatting);
+        return items;
       case token?.name in SKIP_THESE_TOKENS ||
         local?.name in SKIP_THESE_PARENTS:
         return [];

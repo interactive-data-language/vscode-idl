@@ -37,6 +37,50 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Add names of functions that we can auto-complete`,
+    fileName: `call-function.functions.spec.ts`,
+    tests: [
+      {
+        name: `for all cases`,
+        file: `idl/test/auto-complete/call_function.pro`,
+        position: [
+          {
+            line: 3,
+            character: 22,
+          },
+          {
+            line: 6,
+            character: 23,
+          },
+          {
+            line: 10,
+            character: 23,
+          },
+          {
+            line: 12,
+            character: 23,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Keywords for call function`,
+    fileName: `call-function.keywords.spec.ts`,
+    tests: [
+      {
+        name: `for basic cases`,
+        file: `idl/test/auto-complete/call_function.pro`,
+        position: [
+          {
+            line: 15,
+            character: 30,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly provides auto complete for`,
     fileName: `compile-opt-complete.1.spec.ts`,
     tests: [
@@ -495,6 +539,34 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Add class names for obj_new`,
+    fileName: `obj-new.objects.spec.ts`,
+    tests: [
+      {
+        name: `for all cases`,
+        file: `idl/test/auto-complete/obj_new.pro`,
+        position: [
+          {
+            line: 59,
+            character: 16,
+          },
+          {
+            line: 62,
+            character: 17,
+          },
+          {
+            line: 65,
+            character: 17,
+          },
+          {
+            line: 68,
+            character: 17,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Procedures`,
     fileName: `procedures.spec.ts`,
     tests: [
@@ -654,6 +726,54 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           },
         ],
         startsWith: `ENVITask`,
+      },
+    ],
+  },
+  {
+    suiteName: `Task auto complete`,
+    fileName: `tasks.names.spec.ts`,
+    tests: [
+      {
+        name: `to auto-populate task names`,
+        file: `idl/test/auto-complete/task_completion.pro`,
+        position: [
+          // no args
+          {
+            line: 3,
+            character: 17,
+          },
+          {
+            line: 4,
+            character: 16,
+          },
+          // single quote
+          {
+            line: 7,
+            character: 18,
+          },
+          {
+            line: 8,
+            character: 17,
+          },
+          // double quote
+          {
+            line: 11,
+            character: 18,
+          },
+          {
+            line: 12,
+            character: 17,
+          },
+          // string literal
+          {
+            line: 15,
+            character: 18,
+          },
+          {
+            line: 16,
+            character: 17,
+          },
+        ],
       },
     ],
   },

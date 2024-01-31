@@ -16,12 +16,17 @@ import { VerifyNLS } from './helpers/verify-nls';
 export const NOTEBOOK_TOOLBAR = [
   {
     command: IDL_COMMANDS.NOTEBOOKS.RESET,
-    group: 'navigation/execute',
+    group: 'status',
     when: `resourceExtname == ${IDL_NOTEBOOK_EXTENSION}`,
   },
   {
     command: IDL_COMMANDS.NOTEBOOKS.STOP,
-    group: 'navigation/execute',
+    group: 'status',
+    when: `resourceExtname == ${IDL_NOTEBOOK_EXTENSION}`,
+  },
+  {
+    command: IDL_COMMANDS.NOTEBOOKS.NOTEBOOK_TO_PRO_CODE,
+    group: 'status',
     when: `resourceExtname == ${IDL_NOTEBOOK_EXTENSION}`,
   },
   {

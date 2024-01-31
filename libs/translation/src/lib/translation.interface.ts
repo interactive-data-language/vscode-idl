@@ -29,6 +29,8 @@ export interface ICommandTranslation {
     formatFile: string;
     /** Generates a task file */
     generateTask: string;
+    /** Migrate PRO code to the ENVI DL 3.0 API */
+    migrateToDL30API: string;
   };
   /** Translations for configuration */
   config: {
@@ -147,24 +149,26 @@ type KeysOfToStrings<T> = {
 export interface IConfigTranslation {
   /** Titles for configuration tabs */
   titles: {
-    /** Root/first level */
-    root: string;
+    /** Internal developer settings */
+    developer: string;
+    /** Documentation settings */
+    documentation: string;
+    /** Code formatting */
+    formatting: string;
     /** general preferences */
     general: string;
     /** IDL configuration */
     idl: string;
-    /** Code formatting */
-    formatting: string;
-    /** problem reporting */
-    problems: string;
-    /** Questions asked to the user */
-    questions: string;
-    /** Internal developer settings */
-    developer: string;
     /** Language server settings */
     languageServer: string;
     /** Notebook settings */
     notebooks: string;
+    /** problem reporting */
+    problems: string;
+    /** Questions asked to the user */
+    questions: string;
+    /** Root/first level */
+    root: string;
   };
   idlDir: {
     notFound: string;
@@ -469,6 +473,10 @@ export interface ITranslation {
       onDidCloseNotebook: string;
       /** Retrieving docs */
       onRetrieveDocs: string;
+      /** Problem migrating code */
+      onMigrateCode: string;
+      /** Unable to migrate code because of error */
+      onMigrateCodeProblemCode: string;
       /** Convert notebook to PRO code */
       onNotebookToProCode: string;
     };
@@ -632,6 +640,8 @@ export interface ITranslation {
       needMarkdownPDF: string;
       /** When we need to wait for install before continuing  */
       markdownPDFWaitForInstall: string;
+      /** Notification for user when we start the IDL session for a notebook */
+      startedIDLKernel: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */
@@ -789,6 +799,10 @@ export interface ITranslation {
       keyword: string;
       /** Structure name */
       structure: string;
+      /** ENVI Tasks */
+      enviTask: string;
+      /** IDL Tasks */
+      idltask: string;
     };
   };
   /** Messages from generators */

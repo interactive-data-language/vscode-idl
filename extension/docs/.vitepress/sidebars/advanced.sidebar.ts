@@ -1,0 +1,23 @@
+import { SidebarEntry } from './sidebars.interface';
+
+/**
+ * Sidebar entries for the advanced section of the docs
+ */
+export const ADVANCED_SIDEBAR: SidebarEntry[] = [
+  {
+    text: 'About',
+    link: '/advanced/',
+  },
+  {
+    text: 'Customizing Themes',
+    link: '/advanced/customizing_themes',
+  },
+  {
+    text: 'ENVI and IDL Task Creation',
+    link: '/advanced/task_creation',
+  },
+  {
+    text: 'Environment Variables',
+    link: '/advanced/variables_reference',
+  },
+];

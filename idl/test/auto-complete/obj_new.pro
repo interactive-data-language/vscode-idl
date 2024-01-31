@@ -56,4 +56,16 @@ compile_opt idl2
 ; nothing to do
 !null = obj_new('enviraster', )
 
+; do nothing apart from what we have already
+!null = obj_new()
+
+; if first arg and single quote, then send names
+!null = obj_new('')
+
+; if first arg and double quote, then send names
+!null = obj_new("")
+
+; if first arg and literal string, then send names
+!null = obj_new(``)
+
 end

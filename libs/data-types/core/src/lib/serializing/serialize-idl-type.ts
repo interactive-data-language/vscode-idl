@@ -5,7 +5,7 @@ import { IDLTypeHelper } from '../idl-type-helper.class';
  * Convert types back to a string for a nice display name
  * for things like hover help and AutoDoc
  */
-export function SerializeIDLType(type: IDLDataType) {
+export function SerializeIDLType(type: IDLDataType, useName = false) {
   // check for any
   if (IDLTypeHelper.isAnyType(type)) {
     return IDL_TYPE_LOOKUP.ANY;
@@ -20,7 +20,7 @@ export function SerializeIDLType(type: IDLDataType) {
     if (i > 0) {
       name += ' | ';
     }
-    name += reduced[i].display;
+    name += useName ? reduced[i].name : reduced[i].display;
   }
   return name;
 }

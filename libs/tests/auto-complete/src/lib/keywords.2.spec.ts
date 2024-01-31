@@ -282,6 +282,14 @@ describe(`[auto generated] Correctly exclude keywords`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
+        label: 'IDL_Variable::dup()',
+        insertText: 'dup()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
         label: 'IDL_Variable::equals()',
         insertText: 'equals()',
         kind: 2,
@@ -436,14 +444,6 @@ describe(`[auto generated] Correctly exclude keywords`, () => {
       {
         label: 'IDL_Variable::toInteger()',
         insertText: 'toInteger()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::toList()',
-        insertText: 'toList()',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',

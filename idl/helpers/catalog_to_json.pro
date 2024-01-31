@@ -139,6 +139,14 @@ function getTypeOverrides
   typeOverride['Hash::Keys'] = 'f'
   typeOverride['Hash::ToStruct'] = 'f'
   typeOverride['Hash::Values'] = 'f'
+  typeOverride['HttpRequest'] = 'f'
+  typeOverride['HttpRequest::Get'] = 'fm'
+  typeOverride['HttpRequest::Post'] = 'fm'
+  typeOverride['HttpRequest::Put'] = 'fm'
+  typeOverride['HttpRequest::Delete'] = 'fm'
+  typeOverride['HttpRequest::Escape'] = 'fm'
+  typeOverride['HttpRequest::Unescape'] = 'fm'
+  typeOverride['HttpRequest::JSON'] = 'fm'
   typeOverride['IDLTaskFromProcedure::PreExecute'] = 'p'
   typeOverride['IDLTaskFromProcedure::DoExecute'] = 'p'
   typeOverride['IDLTaskFromProcedure::PostExecute'] = 'p'
@@ -244,7 +252,7 @@ end
 ; :Returns: String
 ;
 ; :Arguments:
-;   file: bidirectional, required, String
+;   file: bidirectional, required, any
 ;     Placeholder docs for argument, keyword, or property
 ;
 ;-
@@ -563,8 +571,6 @@ pro catalog_to_json_extract_items, mainKey, item, nProcessed, allItems, allNames
       end
     endcase
 
-    if (strlowcase(itemName) eq 'folderwatch::init') then stop
-
     ; ony save if we are not a class and a method
     if (mainKey ne 'CLASS') or keyword_set(method) then begin
       ; save that we processed this name
@@ -624,6 +630,11 @@ sourceMap['idl_catalog.xml'] = 'idl'
 sourceMap['envi_catalog.xml'] = 'envi'
 sourceMap['deeplearning_catalog.xml'] = 'envi-dl'
 sourceMap['machinelearning_catalog.xml'] = 'envi-ml'
+sourceMap['sartoolbox_catalog.xml'] = 'envi'
+
+; source maps to skip
+skipSourceMaps = orderedhash()
+skipSourceMaps['sartoolbox_catalog.xml'] = !true
 
 ;+ internal procedures
 internalPro = routine_info(/system)
@@ -672,6 +683,12 @@ nameOverride = getNameOverrides()
 
 ; process each file
 foreach file, files do begin
+  ;+ base file
+  baseFile = file_basename(file)
+
+  ; skip source maps
+  if skipSourceMaps.hasKey(baseFile) then continue
+
   ; did we parse the file already?
   if ~parsedFiles.hasKey(file) then begin
     print, 'Parsing XML: ' + file
@@ -683,9 +700,6 @@ foreach file, files do begin
 
   ; get the catalog
   catalog = parsed['CATALOG']
-
-  ;+ base file
-  baseFile = file_basename(file)
 
   ; get internal source
   source = sourceMap[baseFile]
@@ -821,11 +835,7 @@ foreach item, allItems do begin
 
   ; check for type override
   if typeOverride.hasKey(itemName) then begin
-    if item.hasKey('type') then begin
-      if (item['type'] eq 'populate') then item['type'] = typeOverride[itemName]
-    endif else begin
-      item['type'] = typeOverride[itemName]
-    endelse
+    item['type'] = typeOverride[itemName]
   endif
 
   ; check for name override

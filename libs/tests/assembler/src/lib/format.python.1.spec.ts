@@ -55,9 +55,9 @@ describe(`[auto generated] Format python code`, () => {
       const expectedFormatting: string[] = [
         `compile_opt idl2`,
         ``,
-        `>>> from idlpy import *`,
-        `>>> arr = IDL.randomu(None, 10000)`,
-        `>>> spec = IDL.fft_powerspectrum(arr, 0.1)`,
+        `>>>from idlpy import *`,
+        `>>>arr = IDL.randomu(None, 10000)`,
+        `>>>spec = IDL.fft_powerspectrum(arr, 0.1)`,
         `end`,
       ];
 

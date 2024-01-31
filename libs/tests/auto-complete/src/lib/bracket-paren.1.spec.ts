@@ -220,6 +220,14 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
+        label: 'IDL_Variable::dup()',
+        insertText: 'dup()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
         label: 'IDL_Variable::equals()',
         insertText: 'equals()',
         kind: 2,
@@ -443,14 +451,6 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
-      {
-        label: 'IDL_String::encrypt()',
-        insertText: 'encrypt()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
     ];
 
     // verify results
@@ -571,6 +571,14 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
       {
         label: 'IDL_String::decrypt()',
         insertText: 'decrypt()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::dup()',
+        insertText: 'dup()',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',
@@ -880,14 +888,6 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
-      {
-        label: 'IDL_Variable::sort()',
-        insertText: 'sort()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
     ];
 
     // verify results
@@ -1088,6 +1088,14 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
       {
         label: 'IDL_Variable::diff()',
         insertText: 'diff()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_Variable::dup()',
+        insertText: 'dup()',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',
@@ -1339,7 +1347,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            "Set this property to a [string or RGB vector](https://www.nv5geospatialsoftware.com/docs/FormattingSymsAndLines.html#Color) indicating the graphic's background color. The default value is \\[255, 255, 255\\] (white). Set this property to a scalar value to remove the background color.\n\n**Tip:** To set the background color of the entire window, retrieve the window object using the WINDOW property, and set the BACKGROUND\\_COLOR on the window object.",
+            "Set this property to a [string or RGB vector](https://www.nv5geospatialsoftware.com/docs/FormattingSymsAndLines.html#Color) indicating the graphic's background color. The default value is \\[255, 255, 255\\] (white). Set this property to a scalar value to remove the background color.\n\n_Tip:_ To set the background color of the entire window, retrieve the window object using the WINDOW property, and set the BACKGROUND\\_COLOR on the window object.",
         },
       },
       {
@@ -1351,7 +1359,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to an integer between 0 and 100 giving the percent transparency of the background color. The default is 100 (completely transparent).\n\n**Note:** If the BACKGROUND\\_COLOR property is changed, and the current background transparency is 100, then the BACKGROUND\\_TRANSPARENCY will be automatically set to 0 (opaque) so that you can see the new color.',
+            'Set this property to an integer between 0 and 100 giving the percent transparency of the background color. The default is 100 (completely transparent).\n\n_Note:_ If the BACKGROUND\\_COLOR property is changed, and the current background transparency is 100, then the BACKGROUND\\_TRANSPARENCY will be automatically set to 0 (opaque) so that you can see the new color.',
         },
       },
       {
@@ -1375,7 +1383,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to a [string or RGB vector](https://www.nv5geospatialsoftware.com/docs/FormattingSymsAndLines.html#Color) that specifies the color of the plot line.\n\n**Note:** When you retrieve the COLOR property, the returned value will always be a three-element RGB vector, regardless of how the color was initially specified.',
+            'Set this property to a [string or RGB vector](https://www.nv5geospatialsoftware.com/docs/FormattingSymsAndLines.html#Color) that specifies the color of the plot line.\n\n_Note:_ When you retrieve the COLOR property, the returned value will always be a three-element RGB vector, regardless of how the color was initially specified.',
         },
       },
       {
@@ -1542,7 +1550,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to 1 to connect each point with horizontal and vertical lines. The horizontal lines start at the X location of each point and extend to the next X location. This property is useful for displaying information with discrete or non-linear data, where the X values are typically non-integer bin locations and the Y values represent the "count" of values within each bin. See the STAIRSTEP property for centered bars.\n\n**Tip:** You can also use the [BARPLOT](https://www.nv5geospatialsoftware.com/docs/BARPLOT.html) function to create a plot with vertical or horizontal bars.',
+            'Set this property to 1 to connect each point with horizontal and vertical lines. The horizontal lines start at the X location of each point and extend to the next X location. This property is useful for displaying information with discrete or non-linear data, where the X values are typically non-integer bin locations and the Y values represent the "count" of values within each bin. See the STAIRSTEP property for centered bars.\n\n_Tip:_ You can also use the [BARPLOT](https://www.nv5geospatialsoftware.com/docs/BARPLOT.html) function to create a plot with vertical or horizontal bars.',
         },
       },
       {
@@ -1554,7 +1562,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            "Set this property to an integer or string giving the line style for the plot.\n\nThe following table lists the index values, strings, and characters you can use with the LINESTYLE property, and the equivalent characters and strings you can use in the _Format_ string argument.\n\n| Index | LINESTYLE Property                     | Format Argument             | Description      |\n| ----- | -------------------------------------- | --------------------------- | ---------------- |\n| 0     | 'solid\\_line', '-'(dash)               | '-' (dash)                  | solid line       |\n| 1     | 'dot', ':'(colon)                      | ':'(colon)                  | dotted           |\n| 2     | 'dash', '--' (double dashes)           | '--' (double dashes)        | dashed           |\n| 3     | 'dash\\_dot', '-.'                      | '-.'                        | dash dot         |\n| 4     | 'dash\\_dot\\_dot\\_dot', '-:'            | '-:'                        | dash dot dot dot |\n| 5     | 'long\\_dash', '\\_\\_' (two underscores) | '\\_\\_' (double underscores) | long dash        |\n| 6     | 'none', ' ' (space)                    | ' ' (space)                 | no line          |\n\n**Note:** If you use the LINESTYLE value or _Format_ string '-.', the linestyle is set to dash-dot and the plot symbol is not set.\n\n**Note:** You can also set LINESTYLE to a two-element vector, \\[_repeat_, _bitmask_\\], specifying a stippling pattern. The _repeat_ indicates the number of times that individual bits in the _bitmask_ should be repeated. (That is, if three consecutive 0’s appear in the _bitmask_ and the value of _repeat_ is 2, then the line that is drawn will have six consecutive bits turned off.) The value of _repeat_ must be an integer between 1 and 255\\. The _bitmask_ indicates which pixels are drawn and which are not along the length of the line. The _bitmask_ should be specified as a 16-bit hexadecimal value. For example, LINESTYLE = \\[2, 'F0F0'X\\] describes a dashed line (8 bits on, 8 bits off, 8 bits on, 8 bits off).",
+            "Set this property to an integer or string giving the line style for the plot.\n\nThe following table lists the index values, strings, and characters you can use with the LINESTYLE property, and the equivalent characters and strings you can use in the _Format_ string argument.\n\n| Index | LINESTYLE Property                     | Format Argument             | Description      |\n| ----- | -------------------------------------- | --------------------------- | ---------------- |\n| 0     | 'solid\\_line', '-'(dash)               | '-' (dash)                  | solid line       |\n| 1     | 'dot', ':'(colon)                      | ':'(colon)                  | dotted           |\n| 2     | 'dash', '--' (double dashes)           | '--' (double dashes)        | dashed           |\n| 3     | 'dash\\_dot', '-.'                      | '-.'                        | dash dot         |\n| 4     | 'dash\\_dot\\_dot\\_dot', '-:'            | '-:'                        | dash dot dot dot |\n| 5     | 'long\\_dash', '\\_\\_' (two underscores) | '\\_\\_' (double underscores) | long dash        |\n| 6     | 'none', ' ' (space)                    | ' ' (space)                 | no line          |\n\n_Note:_ If you use the LINESTYLE value or _Format_ string '-.', the linestyle is set to dash-dot and the plot symbol is not set.\n\n_Note:_ You can also set LINESTYLE to a two-element vector, \\[_repeat_, _bitmask_\\], specifying a stippling pattern. The _repeat_ indicates the number of times that individual bits in the _bitmask_ should be repeated. (That is, if three consecutive 0’s appear in the _bitmask_ and the value of _repeat_ is 2, then the line that is drawn will have six consecutive bits turned off.) The value of _repeat_ must be an integer between 1 and 255\\. The _bitmask_ indicates which pixels are drawn and which are not along the length of the line. The _bitmask_ should be specified as a 16-bit hexadecimal value. For example, LINESTYLE = \\[2, 'F0F0'X\\] describes a dashed line (8 bits on, 8 bits off, 8 bits on, 8 bits off).",
         },
       },
       {
@@ -1602,7 +1610,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'The maximum value to be plotted. If this property is set, data values greater than the value of MAX\\_VALUE are treated as missing data and are not plotted.\n\n**Note:** The IEEE floating point value NaN is also treated as missing data.',
+            'The maximum value to be plotted. If this property is set, data values greater than the value of MAX\\_VALUE are treated as missing data and are not plotted.\n\n_Note:_ The IEEE floating point value NaN is also treated as missing data.',
         },
       },
       {
@@ -1614,7 +1622,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'The minimum value to be plotted. If this property is set, data values less than the value of MIN\\_VALUE are treated as missing data and are not plotted.\n\n**Note:** The IEEE floating point value NaN is also treated as missing data.',
+            'The minimum value to be plotted. If this property is set, data values less than the value of MIN\\_VALUE are treated as missing data and are not plotted.\n\n_Note:_ The IEEE floating point value NaN is also treated as missing data.',
         },
       },
       {
@@ -1638,7 +1646,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to a four-element vector that determines the position of the graphic within the window. The coordinates \\[X1, Y1, X2, Y2\\] define the lower left and upper right corners of the graphic. Coordinates are expressed in normalized units ranging from 0.0 to 1.0\\. On creation, if the DEVICE keyword is set, the units are given in device units (pixels).\n\n**Note:** After creation, you can set the POSITION to either a two or four-element vector. If two elements are provided, the center of the graphic will be translated to that position. If four elements are provided, the graphics will be translated and scaled to fit the position.',
+            'Set this property to a four-element vector that determines the position of the graphic within the window. The coordinates \\[X1, Y1, X2, Y2\\] define the lower left and upper right corners of the graphic. Coordinates are expressed in normalized units ranging from 0.0 to 1.0\\. On creation, if the DEVICE keyword is set, the units are given in device units (pixels).\n\n_Note:_ After creation, you can set the POSITION to either a two or four-element vector. If two elements are provided, the center of the graphic will be translated to that position. If four elements are provided, the graphics will be translated and scaled to fit the position.',
         },
       },
       {
@@ -1662,7 +1670,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to 1 to connect each point with horizontal and vertical lines. The horizontal lines are centered at each X location. This property is useful for displaying information with discrete or non-linear data, where the X values are typically integers and the Y values represent the "count" at that X location. See the HISTOGRAM property for bars that span X values.\n\n**Tip:** You can also use the [BARPLOT](https://www.nv5geospatialsoftware.com/docs/BARPLOT.html) function to create a plot with vertical or horizontal bars.',
+            'Set this property to 1 to connect each point with horizontal and vertical lines. The horizontal lines are centered at each X location. This property is useful for displaying information with discrete or non-linear data, where the X values are typically integers and the Y values represent the "count" at that X location. See the HISTOGRAM property for bars that span X values.\n\n_Tip:_ You can also use the [BARPLOT](https://www.nv5geospatialsoftware.com/docs/BARPLOT.html) function to create a plot with vertical or horizontal bars.',
         },
       },
       {
@@ -1721,7 +1729,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            ' Set this property equal to an object reference to be used for the plotting symbol. The SYM\\_OBJECT may be either an IDLgrModel object or an atomic graphics object. \n\n**Note:** When using custom plotting symbols, note that the SYM\\_OBJECT property takes precedence over the SYMBOL property. In other words, if you set a custom symbol using SYM\\_OBJECT, then try to change that symbol using the SYMBOL property, IDL ignores the new SYMBOL property and retains SYM\\_OBJECT.',
+            ' Set this property equal to an object reference to be used for the plotting symbol. The SYM\\_OBJECT may be either an IDLgrModel object or an atomic graphics object. \n\n_Note:_ When using custom plotting symbols, note that the SYM\\_OBJECT property takes precedence over the SYMBOL property. In other words, if you set a custom symbol using SYM\\_OBJECT, then try to change that symbol using the SYMBOL property, IDL ignores the new SYMBOL property and retains SYM\\_OBJECT.',
         },
       },
       {
@@ -1769,7 +1777,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'A string giving the symbol name. Allowed values are:\n\n| "None" (the default) "Plus" or "+" "Asterisk" or "\\*" "Period" or "dot" "Diamond" or "D" "Triangle" or "tu" "Square" or "s" "X" "Greater\\_than" or ">" | "Less\\_than" or "<" "Triangle\\_down" or "td" "Triangle\\_left" or "tl" "Triangle\\_right" or "tr" "Tri\\_up" or "Tu" "Tri\\_down" or "Td" "Tri\\_left" or "Tl" "Tri\\_right" or "Tr" | "Thin\\_diamond" or "d" "Pentagon" or "p" "Hexagon\\_1" or "h" "Hexagon\\_2" or "H" "Vline" or "\\|" "Hline" or "\\_" "Star" or "S" "Circle" or "o" |\n| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |\n\nNote that all plot symbol names are case sensitive.\n\n**Note:** When using custom plotting symbols, note that the SYM\\_OBJECT property takes precedence over the SYMBOL property. In other words, if you set a custom symbol using SYM\\_OBJECT, then try to change that symbol using the SYMBOL property, IDL ignores the new SYMBOL property and retains SYM\\_OBJECT.',
+            'A string giving the symbol name. Allowed values are:\n\n| "None" (the default) "Plus" or "+" "Asterisk" or "\\*" "Period" or "dot" "Diamond" or "D" "Triangle" or "tu" "Square" or "s" "X" "Greater\\_than" or ">" | "Less\\_than" or "<" "Triangle\\_down" or "td" "Triangle\\_left" or "tl" "Triangle\\_right" or "tr" "Tri\\_up" or "Tu" "Tri\\_down" or "Td" "Tri\\_left" or "Tl" "Tri\\_right" or "Tr" | "Thin\\_diamond" or "d" "Pentagon" or "p" "Hexagon\\_1" or "h" "Hexagon\\_2" or "H" "Vline" or "\\|" "Hline" or "\\_" "Star" or "S" "Circle" or "o" |\n| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |\n\nNote that all plot symbol names are case sensitive.\n\n_Note:_ When using custom plotting symbols, note that the SYM\\_OBJECT property takes precedence over the SYMBOL property. In other words, if you set a custom symbol using SYM\\_OBJECT, then try to change that symbol using the SYMBOL property, IDL ignores the new SYMBOL property and retains SYM\\_OBJECT.',
         },
       },
       {
@@ -1828,7 +1836,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'A vector of indices into the color table for the color of each vertex (plot data point). Alternately, a 3 x _N_ byte array containing vertex color values. If the values supplied are not of type byte, they are scaled to the byte range using BYTSCL. If indices are supplied but no colors are provided with the RGB\\_TABLE property, a default grayscale ramp is used. If a 3 x _N_ array of colors is provided, the colors are used directly and the color values provided with RGB\\_TABLE are ignored. If the number of indices or colors specified is less than the number of vertices, the colors are repeated cyclically.\n\n**Note:** VERT\\_COLORS can be an array of RGB triplets or RGBA colors.',
+            'A vector of indices into the color table for the color of each vertex (plot data point). Alternately, a 3 x _N_ byte array containing vertex color values. If the values supplied are not of type byte, they are scaled to the byte range using BYTSCL. If indices are supplied but no colors are provided with the RGB\\_TABLE property, a default grayscale ramp is used. If a 3 x _N_ array of colors is provided, the colors are used directly and the color values provided with RGB\\_TABLE are ignored. If the number of indices or colors specified is less than the number of vertices, the colors are repeated cyclically.\n\n_Note:_ VERT\\_COLORS can be an array of RGB triplets or RGBA colors.',
         },
       },
       {
@@ -1953,7 +1961,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            "Set this property to a [string or RGB vector](https://www.nv5geospatialsoftware.com/docs/FormattingSymsAndLines.html#Color) indicating the graphic's background color. The default value is \\[255, 255, 255\\] (white). Set this property to a scalar value to remove the background color.\n\n**Tip:** To set the background color of the entire window, retrieve the window object using the WINDOW property, and set the BACKGROUND\\_COLOR on the window object.",
+            "Set this property to a [string or RGB vector](https://www.nv5geospatialsoftware.com/docs/FormattingSymsAndLines.html#Color) indicating the graphic's background color. The default value is \\[255, 255, 255\\] (white). Set this property to a scalar value to remove the background color.\n\n_Tip:_ To set the background color of the entire window, retrieve the window object using the WINDOW property, and set the BACKGROUND\\_COLOR on the window object.",
         },
       },
       {
@@ -1965,7 +1973,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to an integer between 0 and 100 giving the percent transparency of the background color. The default is 100 (completely transparent).\n\n**Note:** If the BACKGROUND\\_COLOR property is changed, and the current background transparency is 100, then the BACKGROUND\\_TRANSPARENCY will be automatically set to 0 (opaque) so that you can see the new color.',
+            'Set this property to an integer between 0 and 100 giving the percent transparency of the background color. The default is 100 (completely transparent).\n\n_Note:_ If the BACKGROUND\\_COLOR property is changed, and the current background transparency is 100, then the BACKGROUND\\_TRANSPARENCY will be automatically set to 0 (opaque) so that you can see the new color.',
         },
       },
       {
@@ -1989,7 +1997,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to a [string or RGB vector](https://www.nv5geospatialsoftware.com/docs/FormattingSymsAndLines.html#Color) that specifies the color of the plot line.\n\n**Note:** When you retrieve the COLOR property, the returned value will always be a three-element RGB vector, regardless of how the color was initially specified.',
+            'Set this property to a [string or RGB vector](https://www.nv5geospatialsoftware.com/docs/FormattingSymsAndLines.html#Color) that specifies the color of the plot line.\n\n_Note:_ When you retrieve the COLOR property, the returned value will always be a three-element RGB vector, regardless of how the color was initially specified.',
         },
       },
       {
@@ -2156,7 +2164,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to 1 to connect each point with horizontal and vertical lines. The horizontal lines start at the X location of each point and extend to the next X location. This property is useful for displaying information with discrete or non-linear data, where the X values are typically non-integer bin locations and the Y values represent the "count" of values within each bin. See the STAIRSTEP property for centered bars.\n\n**Tip:** You can also use the [BARPLOT](https://www.nv5geospatialsoftware.com/docs/BARPLOT.html) function to create a plot with vertical or horizontal bars.',
+            'Set this property to 1 to connect each point with horizontal and vertical lines. The horizontal lines start at the X location of each point and extend to the next X location. This property is useful for displaying information with discrete or non-linear data, where the X values are typically non-integer bin locations and the Y values represent the "count" of values within each bin. See the STAIRSTEP property for centered bars.\n\n_Tip:_ You can also use the [BARPLOT](https://www.nv5geospatialsoftware.com/docs/BARPLOT.html) function to create a plot with vertical or horizontal bars.',
         },
       },
       {
@@ -2168,7 +2176,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            "Set this property to an integer or string giving the line style for the plot.\n\nThe following table lists the index values, strings, and characters you can use with the LINESTYLE property, and the equivalent characters and strings you can use in the _Format_ string argument.\n\n| Index | LINESTYLE Property                     | Format Argument             | Description      |\n| ----- | -------------------------------------- | --------------------------- | ---------------- |\n| 0     | 'solid\\_line', '-'(dash)               | '-' (dash)                  | solid line       |\n| 1     | 'dot', ':'(colon)                      | ':'(colon)                  | dotted           |\n| 2     | 'dash', '--' (double dashes)           | '--' (double dashes)        | dashed           |\n| 3     | 'dash\\_dot', '-.'                      | '-.'                        | dash dot         |\n| 4     | 'dash\\_dot\\_dot\\_dot', '-:'            | '-:'                        | dash dot dot dot |\n| 5     | 'long\\_dash', '\\_\\_' (two underscores) | '\\_\\_' (double underscores) | long dash        |\n| 6     | 'none', ' ' (space)                    | ' ' (space)                 | no line          |\n\n**Note:** If you use the LINESTYLE value or _Format_ string '-.', the linestyle is set to dash-dot and the plot symbol is not set.\n\n**Note:** You can also set LINESTYLE to a two-element vector, \\[_repeat_, _bitmask_\\], specifying a stippling pattern. The _repeat_ indicates the number of times that individual bits in the _bitmask_ should be repeated. (That is, if three consecutive 0’s appear in the _bitmask_ and the value of _repeat_ is 2, then the line that is drawn will have six consecutive bits turned off.) The value of _repeat_ must be an integer between 1 and 255\\. The _bitmask_ indicates which pixels are drawn and which are not along the length of the line. The _bitmask_ should be specified as a 16-bit hexadecimal value. For example, LINESTYLE = \\[2, 'F0F0'X\\] describes a dashed line (8 bits on, 8 bits off, 8 bits on, 8 bits off).",
+            "Set this property to an integer or string giving the line style for the plot.\n\nThe following table lists the index values, strings, and characters you can use with the LINESTYLE property, and the equivalent characters and strings you can use in the _Format_ string argument.\n\n| Index | LINESTYLE Property                     | Format Argument             | Description      |\n| ----- | -------------------------------------- | --------------------------- | ---------------- |\n| 0     | 'solid\\_line', '-'(dash)               | '-' (dash)                  | solid line       |\n| 1     | 'dot', ':'(colon)                      | ':'(colon)                  | dotted           |\n| 2     | 'dash', '--' (double dashes)           | '--' (double dashes)        | dashed           |\n| 3     | 'dash\\_dot', '-.'                      | '-.'                        | dash dot         |\n| 4     | 'dash\\_dot\\_dot\\_dot', '-:'            | '-:'                        | dash dot dot dot |\n| 5     | 'long\\_dash', '\\_\\_' (two underscores) | '\\_\\_' (double underscores) | long dash        |\n| 6     | 'none', ' ' (space)                    | ' ' (space)                 | no line          |\n\n_Note:_ If you use the LINESTYLE value or _Format_ string '-.', the linestyle is set to dash-dot and the plot symbol is not set.\n\n_Note:_ You can also set LINESTYLE to a two-element vector, \\[_repeat_, _bitmask_\\], specifying a stippling pattern. The _repeat_ indicates the number of times that individual bits in the _bitmask_ should be repeated. (That is, if three consecutive 0’s appear in the _bitmask_ and the value of _repeat_ is 2, then the line that is drawn will have six consecutive bits turned off.) The value of _repeat_ must be an integer between 1 and 255\\. The _bitmask_ indicates which pixels are drawn and which are not along the length of the line. The _bitmask_ should be specified as a 16-bit hexadecimal value. For example, LINESTYLE = \\[2, 'F0F0'X\\] describes a dashed line (8 bits on, 8 bits off, 8 bits on, 8 bits off).",
         },
       },
       {
@@ -2216,7 +2224,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'The maximum value to be plotted. If this property is set, data values greater than the value of MAX\\_VALUE are treated as missing data and are not plotted.\n\n**Note:** The IEEE floating point value NaN is also treated as missing data.',
+            'The maximum value to be plotted. If this property is set, data values greater than the value of MAX\\_VALUE are treated as missing data and are not plotted.\n\n_Note:_ The IEEE floating point value NaN is also treated as missing data.',
         },
       },
       {
@@ -2228,7 +2236,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'The minimum value to be plotted. If this property is set, data values less than the value of MIN\\_VALUE are treated as missing data and are not plotted.\n\n**Note:** The IEEE floating point value NaN is also treated as missing data.',
+            'The minimum value to be plotted. If this property is set, data values less than the value of MIN\\_VALUE are treated as missing data and are not plotted.\n\n_Note:_ The IEEE floating point value NaN is also treated as missing data.',
         },
       },
       {
@@ -2252,7 +2260,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to a four-element vector that determines the position of the graphic within the window. The coordinates \\[X1, Y1, X2, Y2\\] define the lower left and upper right corners of the graphic. Coordinates are expressed in normalized units ranging from 0.0 to 1.0\\. On creation, if the DEVICE keyword is set, the units are given in device units (pixels).\n\n**Note:** After creation, you can set the POSITION to either a two or four-element vector. If two elements are provided, the center of the graphic will be translated to that position. If four elements are provided, the graphics will be translated and scaled to fit the position.',
+            'Set this property to a four-element vector that determines the position of the graphic within the window. The coordinates \\[X1, Y1, X2, Y2\\] define the lower left and upper right corners of the graphic. Coordinates are expressed in normalized units ranging from 0.0 to 1.0\\. On creation, if the DEVICE keyword is set, the units are given in device units (pixels).\n\n_Note:_ After creation, you can set the POSITION to either a two or four-element vector. If two elements are provided, the center of the graphic will be translated to that position. If four elements are provided, the graphics will be translated and scaled to fit the position.',
         },
       },
       {
@@ -2276,7 +2284,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to 1 to connect each point with horizontal and vertical lines. The horizontal lines are centered at each X location. This property is useful for displaying information with discrete or non-linear data, where the X values are typically integers and the Y values represent the "count" at that X location. See the HISTOGRAM property for bars that span X values.\n\n**Tip:** You can also use the [BARPLOT](https://www.nv5geospatialsoftware.com/docs/BARPLOT.html) function to create a plot with vertical or horizontal bars.',
+            'Set this property to 1 to connect each point with horizontal and vertical lines. The horizontal lines are centered at each X location. This property is useful for displaying information with discrete or non-linear data, where the X values are typically integers and the Y values represent the "count" at that X location. See the HISTOGRAM property for bars that span X values.\n\n_Tip:_ You can also use the [BARPLOT](https://www.nv5geospatialsoftware.com/docs/BARPLOT.html) function to create a plot with vertical or horizontal bars.',
         },
       },
       {
@@ -2335,7 +2343,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            ' Set this property equal to an object reference to be used for the plotting symbol. The SYM\\_OBJECT may be either an IDLgrModel object or an atomic graphics object. \n\n**Note:** When using custom plotting symbols, note that the SYM\\_OBJECT property takes precedence over the SYMBOL property. In other words, if you set a custom symbol using SYM\\_OBJECT, then try to change that symbol using the SYMBOL property, IDL ignores the new SYMBOL property and retains SYM\\_OBJECT.',
+            ' Set this property equal to an object reference to be used for the plotting symbol. The SYM\\_OBJECT may be either an IDLgrModel object or an atomic graphics object. \n\n_Note:_ When using custom plotting symbols, note that the SYM\\_OBJECT property takes precedence over the SYMBOL property. In other words, if you set a custom symbol using SYM\\_OBJECT, then try to change that symbol using the SYMBOL property, IDL ignores the new SYMBOL property and retains SYM\\_OBJECT.',
         },
       },
       {
@@ -2383,7 +2391,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'A string giving the symbol name. Allowed values are:\n\n| "None" (the default) "Plus" or "+" "Asterisk" or "\\*" "Period" or "dot" "Diamond" or "D" "Triangle" or "tu" "Square" or "s" "X" "Greater\\_than" or ">" | "Less\\_than" or "<" "Triangle\\_down" or "td" "Triangle\\_left" or "tl" "Triangle\\_right" or "tr" "Tri\\_up" or "Tu" "Tri\\_down" or "Td" "Tri\\_left" or "Tl" "Tri\\_right" or "Tr" | "Thin\\_diamond" or "d" "Pentagon" or "p" "Hexagon\\_1" or "h" "Hexagon\\_2" or "H" "Vline" or "\\|" "Hline" or "\\_" "Star" or "S" "Circle" or "o" |\n| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |\n\nNote that all plot symbol names are case sensitive.\n\n**Note:** When using custom plotting symbols, note that the SYM\\_OBJECT property takes precedence over the SYMBOL property. In other words, if you set a custom symbol using SYM\\_OBJECT, then try to change that symbol using the SYMBOL property, IDL ignores the new SYMBOL property and retains SYM\\_OBJECT.',
+            'A string giving the symbol name. Allowed values are:\n\n| "None" (the default) "Plus" or "+" "Asterisk" or "\\*" "Period" or "dot" "Diamond" or "D" "Triangle" or "tu" "Square" or "s" "X" "Greater\\_than" or ">" | "Less\\_than" or "<" "Triangle\\_down" or "td" "Triangle\\_left" or "tl" "Triangle\\_right" or "tr" "Tri\\_up" or "Tu" "Tri\\_down" or "Td" "Tri\\_left" or "Tl" "Tri\\_right" or "Tr" | "Thin\\_diamond" or "d" "Pentagon" or "p" "Hexagon\\_1" or "h" "Hexagon\\_2" or "H" "Vline" or "\\|" "Hline" or "\\_" "Star" or "S" "Circle" or "o" |\n| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |\n\nNote that all plot symbol names are case sensitive.\n\n_Note:_ When using custom plotting symbols, note that the SYM\\_OBJECT property takes precedence over the SYMBOL property. In other words, if you set a custom symbol using SYM\\_OBJECT, then try to change that symbol using the SYMBOL property, IDL ignores the new SYMBOL property and retains SYM\\_OBJECT.',
         },
       },
       {
@@ -2442,7 +2450,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'A vector of indices into the color table for the color of each vertex (plot data point). Alternately, a 3 x _N_ byte array containing vertex color values. If the values supplied are not of type byte, they are scaled to the byte range using BYTSCL. If indices are supplied but no colors are provided with the RGB\\_TABLE property, a default grayscale ramp is used. If a 3 x _N_ array of colors is provided, the colors are used directly and the color values provided with RGB\\_TABLE are ignored. If the number of indices or colors specified is less than the number of vertices, the colors are repeated cyclically.\n\n**Note:** VERT\\_COLORS can be an array of RGB triplets or RGBA colors.',
+            'A vector of indices into the color table for the color of each vertex (plot data point). Alternately, a 3 x _N_ byte array containing vertex color values. If the values supplied are not of type byte, they are scaled to the byte range using BYTSCL. If indices are supplied but no colors are provided with the RGB\\_TABLE property, a default grayscale ramp is used. If a 3 x _N_ array of colors is provided, the colors are used directly and the color values provided with RGB\\_TABLE are ignored. If the number of indices or colors specified is less than the number of vertices, the colors are repeated cyclically.\n\n_Note:_ VERT\\_COLORS can be an array of RGB triplets or RGBA colors.',
         },
       },
       {

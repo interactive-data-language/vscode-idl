@@ -22,6 +22,10 @@
       "@idl/assembling/json-formatter": [
         "libs/assembling/json-formatter/src/index.ts"
       ],
+      "@idl/assembling/migrators": ["libs/assembling/migrators/src/index.ts"],
+      "@idl/assembling/migrators-types": [
+        "libs/assembling/migrators-types/src/index.ts"
+      ],
       "@idl/assembling/shared": ["libs/assembling/shared/src/index.ts"],
       "@idl/assembling/styles": ["libs/assembling/styles/src/index.ts"],
       "@idl/assembling/tasks": ["libs/assembling/tasks/src/index.ts"],
@@ -30,8 +34,10 @@
       ],
       "@idl/cancellation-tokens": ["libs/cancellation-tokens/src/index.ts"],
       "@idl/data-types/core": ["libs/data-types/core/src/index.ts"],
+      "@idl/data-types/diagnostic": ["libs/data-types/diagnostic/src/index.ts"],
       "@idl/data-types/tasks": ["libs/data-types/tasks/src/index.ts"],
       "@idl/debug-types": ["libs/debug-types/src/index.ts"],
+      "@idl/docs-server": ["libs/docs-server/src/index.ts"],
       "@idl/generators/envi-task": ["libs/generators/envi-task/src/index.ts"],
       "@idl/generators/idl-task": ["libs/generators/idl-task/src/index.ts"],
       "@idl/generators/idl.json": ["libs/generators/idl.json/src/index.ts"],

@@ -58,10 +58,16 @@ COMMAND_ICONS[IDL_COMMANDS.NOTEBOOKS.STOP] = {
   dark: 'extension/images/dark/stop.svg',
 };
 
-// icon for notebook stop
+// icon for notebook to PDF
 COMMAND_ICONS[IDL_COMMANDS.NOTEBOOKS.CONVERT_TO_PDF] = {
   light: 'extension/images/light/pdf.svg',
   dark: 'extension/images/dark/pdf.svg',
+};
+
+// icon for notebook to Pro code
+COMMAND_ICONS[IDL_COMMANDS.NOTEBOOKS.NOTEBOOK_TO_PRO_CODE] = {
+  light: 'extension/images/light/transform.svg',
+  dark: 'extension/images/dark/transform.svg',
 };
 
 /**

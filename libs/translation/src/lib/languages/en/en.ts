@@ -47,6 +47,7 @@ export const EN: ITranslation = {
         addDocsToFile: 'IDL: Add/Update Docs for File',
         formatFile: 'IDL: Format File',
         generateTask: 'IDL: Generate ENVI or IDL Task',
+        migrateToDL30API: 'IDL: Migrate Code to ENVI Deep Learning 3.0 API',
       },
       config: {
         specifyIDLDirectory: 'IDL: Specify IDL Directory (User-level)',
@@ -71,10 +72,10 @@ export const EN: ITranslation = {
         openIDLExample: 'IDL: Open IDL Example Notebook',
         openENVIExample: 'IDL: Open ENVI Example Notebook',
         // shorter because it shows in toolbar
-        resetIDL: 'Reset IDL',
+        resetIDL: 'IDL: Reset IDL Notebook',
         resetNotebookExamples: 'IDL: Reset IDL and ENVI Example Notebooks',
         // shorter because it shows in toolbar
-        stopIDL: 'Stop IDL',
+        stopIDL: 'IDL: Stop IDL Notebook',
       },
       terminal: {
         startIDL: 'IDL: Open an IDL Terminal Window',
@@ -106,6 +107,7 @@ export const EN: ITranslation = {
         addDocsToFile: 'Error while adding/updating docs for file',
         formatFile: 'Error while formatting file',
         generateTask: 'Error while generating task',
+        migrateToDL30API: 'Error while migrating code',
       },
       config: {
         specifyIDLDirectory: 'Error while setting IDL directory (User)',
@@ -172,15 +174,16 @@ export const EN: ITranslation = {
   },
   configuration: {
     titles: {
-      root: 'IDL for VSCode',
       general: 'General',
-      idl: 'IDL',
-      formatting: 'Formatting',
-      problems: 'Problem Reporting',
-      questions: 'Questions',
       developer: 'Developer',
+      documentation: 'Documentation',
+      formatting: 'Formatting',
+      idl: 'IDL',
       languageServer: 'Language Server',
       notebooks: 'Notebooks',
+      problems: 'Problem Reporting',
+      questions: 'Questions',
+      root: 'IDL for VSCode',
     },
     idlDir: {
       notFound: 'IDL directory not found or specified by user, configure?',
@@ -209,6 +212,12 @@ export const EN: ITranslation = {
       'code.formatting': 'Top-level preferences for how code gets formatted.',
       'code.formattingStyle':
         'This controls how code is automatically formatted when using the buttons in the sidebar or formatting on save.',
+
+      documentation: 'documentation',
+      'documentation.localPort':
+        'When using local extension docs, what port do we serve them from?',
+      'documentation.useOnline':
+        'For extension documentation, do we use the online (hosted) version, or the local version packaged with the extension?',
 
       languageServer: 'Preferences that control the language server for IDL',
       'languageServer.fullParse':
@@ -620,6 +629,9 @@ export const EN: ITranslation = {
       onDidChangeNotebook: 'Error responding to notebook change event',
       onDidCloseNotebook: 'Error responding to notebook close event',
       onRetrieveDocs: 'Error responding to docs retrieval event',
+      onMigrateCode: 'Error while migrating code',
+      onMigrateCodeProblemCode:
+        'Unable to format code due to syntax error or problem in file',
       onNotebookToProCode: 'Error converting notebook to PRO code',
     },
     errors: {
@@ -677,6 +689,7 @@ export const EN: ITranslation = {
         'Converting a notebook to a PDF requires the extension "Markdown PDF", install and proceed?',
       markdownPDFWaitForInstall:
         'Wait for Markdown PDF to install chromium and then try again',
+      startedIDLKernel: 'Started IDL {VERSION} for notebook!',
     },
   },
   notifications: {
@@ -886,6 +899,8 @@ export const EN: ITranslation = {
       procedureMethod: 'Procedure Method',
       keyword: 'Keyword',
       structure: 'Structure',
+      enviTask: 'ENVI Task',
+      idltask: 'IDL Task',
     },
   },
   generators: {

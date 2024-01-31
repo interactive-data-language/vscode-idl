@@ -55,16 +55,19 @@ export async function NotebookToProCode(
     if (parsed === undefined) {
       // check if we keep everything or not
       if (useOptions.includeAllCells) {
-        if (routines.length > 0) {
-          routines.push('');
+        if (main.length > 0) {
+          main.push('');
         }
 
         // get the cell
         const mdCell = notebook.cells[i];
 
         // add in markdown or other cells
-        routines = routines.concat(
-          mdCell.text.split(/\r?\n/gim).map((line) => `; ${line}`)
+        main = main.concat(
+          mdCell.text
+            .trim()
+            .split(/\r?\n/gim)
+            .map((line) => `; ${line}`)
         );
       }
 

@@ -16,6 +16,11 @@ import {
 } from './indexing-message.interface';
 import { LoggingMessage } from './logging.message.interface';
 import {
+  MigrateCodeLSPMessage,
+  MigrateCodeLSPPayload,
+  MigrateCodeLSPResponse,
+} from './migrate-code.interface';
+import {
   INotebookToProCodePayload,
   INotebookToProCodeResponse,
   NotebookToProCodeMessage,
@@ -30,7 +35,6 @@ import { UsageMetricLSPMessage } from './usage-metric-message.interface';
 import {
   AddDocsMessage,
   FormatFileMessage,
-  IAddDocsMessagePayload,
   IInitWorkspaceConfigPayload,
   InitWorkspaceConfigMessage,
   IWorkspaceConfigPayload,
@@ -47,6 +51,7 @@ export type LanguageServerMessage =
   | IndexingMessage
   | InitWorkspaceConfigMessage
   | LoggingMessage
+  | MigrateCodeLSPMessage
   | NotebookToProCodeMessage
   | RetrieveDocsMessage
   | UsageMetricLSPMessage
@@ -55,7 +60,7 @@ export type LanguageServerMessage =
 /** Strictly typed payloads to/from the language server */
 export type LanguageServerPayload<T extends LanguageServerMessage> =
   T extends AddDocsMessage
-    ? IAddDocsMessagePayload
+    ? DocumentFormattingParams
     : T extends FileRenameMessage
     ? IFileRenamePayload
     : T extends FolderDeleteMessage
@@ -70,6 +75,8 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? IInitWorkspaceConfigPayload
     : T extends LoggingMessage
     ? ILogOptions
+    : T extends MigrateCodeLSPMessage
+    ? MigrateCodeLSPPayload
     : T extends NotebookToProCodeMessage
     ? INotebookToProCodePayload
     : T extends RetrieveDocsMessage
@@ -84,6 +91,8 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
 export type LanguageServerResponse<T extends LanguageServerMessage> =
   T extends RetrieveDocsMessage
     ? IRetrieveDocsResponse
+    : T extends MigrateCodeLSPMessage
+    ? MigrateCodeLSPResponse
     : T extends NotebookToProCodeMessage
     ? INotebookToProCodeResponse
     : any;
@@ -106,6 +115,8 @@ export interface ILanguageServerMessages {
   INIT_WORKSPACE_CONFIG: InitWorkspaceConfigMessage;
   /** Log content from the LSP */
   LOG: LoggingMessage;
+  /** Message to migrate ENVI DL API to 3.0 */
+  MIGRATE_CODE: MigrateCodeLSPMessage;
   /** Convert notebooks to PRO code */
   NOTEBOOK_TO_PRO_CODE: NotebookToProCodeMessage;
   /** Message to retrieve docs */
@@ -131,6 +142,7 @@ export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   INDEXING: 'indexing',
   INIT_WORKSPACE_CONFIG: 'init-workspace-config',
   LOG: 'log',
+  MIGRATE_CODE: 'migrate-code',
   NOTEBOOK_TO_PRO_CODE: 'notebook/to-pro-code',
   RETRIEVE_DOCS: 'retrieve-docs',
   USAGE_METRIC: 'usage-metric-lsp',

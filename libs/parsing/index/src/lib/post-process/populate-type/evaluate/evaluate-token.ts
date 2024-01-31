@@ -6,19 +6,22 @@ import { TOKEN_NAMES, TokenName } from '@idl/parsing/tokenizer';
  *
  * Returns `undefined` if we don't have a value to get
  */
-export function EvaluateToken(token: TreeToken<TokenName>): string {
+export function EvaluateToken(token: TreeToken<TokenName>): string | undefined {
   switch (token.name) {
     case TOKEN_NAMES.NUMBER:
       return token.match[0].trim();
     case TOKEN_NAMES.QUOTE_SINGLE:
-      return token.match[1];
+      return token.match[1] || '';
     case TOKEN_NAMES.QUOTE_DOUBLE:
-      return token.match[1];
+      return token.match[1] || '';
     case TOKEN_NAMES.STRING_TEMPLATE_LITERAL:
       if (token.kids.length === 1) {
         if (token.kids[0].name === TOKEN_NAMES.STRING_TEMPLATE_STRING) {
           return token.kids[0].match[0];
         }
+      }
+      if (token.kids.length === 0) {
+        return '';
       }
       break;
     default:

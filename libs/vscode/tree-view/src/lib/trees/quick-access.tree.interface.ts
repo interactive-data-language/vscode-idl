@@ -22,13 +22,6 @@ export const ADDITIONAL_ACTIONS: IChild[] = [
     commandName: IDL_COMMANDS.CONFIG.IDL_DIR_USER,
   },
   {
-    name: IDL_TRANSLATION.idl.tree.children.quickAccess.openWebview.name,
-    description:
-      IDL_TRANSLATION.idl.tree.children.quickAccess.openWebview.description,
-    icon: 'tab.svg',
-    commandName: IDL_COMMANDS.WEBVIEW.START,
-  },
-  {
     name: IDL_TRANSLATION.idl.tree.children.quickAccess.openDocs.name,
     description:
       IDL_TRANSLATION.idl.tree.children.quickAccess.openDocs.description,

@@ -259,6 +259,21 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       uri: { type: IDL_STRING_TYPE, direction: 'in' },
     },
   },
+  execute: {
+    returns: IDL_BOOLEAN_TYPE,
+    args: {
+      string: {
+        type: IDL_STRING_TYPE,
+      },
+      compileflags: {
+        type: IDL_NUMBER_TYPE,
+      },
+      quietexecution: {
+        type: IDL_BOOLEAN_TYPE,
+      },
+    },
+    kws: {},
+  },
   factorial: {
     returns: IDL_NUMBER_TYPE,
     args: {
@@ -727,7 +742,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   json_serialize: {
-    returns: ParseIDLType('Hash<any> | Dictionary<any> | Structure'),
+    returns: ParseIDLType('String'),
     args: {
       value: {
         direction: 'in',
@@ -1285,6 +1300,25 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     args: {},
     kws: INDGEN_KEYWORDS,
   },
+  strjoin: {
+    returns: ParseIDLType('String'),
+    args: {
+      string: {
+        direction: 'in',
+        type: ParseIDLType('String | Array<String>'),
+      },
+      delimiter: {
+        direction: 'in',
+        type: IDL_STRING_TYPE,
+      },
+    },
+    kws: {
+      single: {
+        direction: 'in',
+        type: IDL_BOOLEAN_TYPE,
+      },
+    },
+  },
   strmid: {
     returns: ParseIDLType('ArrayPromotion<String>'),
     args: {
@@ -1413,6 +1447,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
         type: IDL_BOOLEAN_TYPE,
       },
     },
+  },
+  transpose: {
+    returns: ParseIDLType('TypeOfArg<0>'),
+    args: {},
+    kws: {},
   },
   uindgen: {
     returns: ParseIDLType('Array<UInt>'),

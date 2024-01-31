@@ -8,6 +8,14 @@ For much more detail on incremental work for large features, see our [developer 
 
 This section of the CHANGELOG documents features that have been added to the extension, but are still in an experimental phase. Feel free to try them out and provide feedback via discussions or issues on our GitHub page.
 
+Document some advanced types so users may try them out and provide feedback. The following types are exclusive to functions and are:
+
+- `TypeOfArg<idx>` to indicate the function returns a matching data type for the zero-based index of the indicated argument
+
+- `ArrayPromotion<type>` will have the function return an array of the indicated type if any argument is an array. Otherwise it returns a scalar
+
+- Read more in the extension documentation
+
 Added the ability to convert a notebook to a PDF! This requires an additional extension called ":"Markdown PDF", which you will be prompted to install. This includes:
 
 - A new sidebar entry for PDF generation and a button in the top-right of the notebook to generate a PDF
@@ -19,6 +27,50 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 - The Markdown and PDF file use the same base name as your notebook. Meaning if your notebook is called "My-notebook.idlnb" you will have a "My-notebook.md" and "My-notebook.pdf" file generated in the same folder
 
 - You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
+
+## 4.3.0
+
+Fixed a bug where python statements of the form ">>>" were incorrectly formatted with an extra space after the arrows.
+
+For the upcoming release of ENVI Deep Learning 3.0, added a new pipeline for migrating code from older to newer versions. While we typically do not make breaking changes, if we ever do, we now have a pattern to help automate getting your code up-to-date with the latest version of IDL, ENVI, and module APIs.
+
+Updated the routine signatures (docs) to IDL 9.0, ENVI 6.0, and ENVI Deep Learning 3.0.
+
+When converting notebooks to PRO code, any markdown cells now get added in-line to the content at the main program level. This helps create code that more accurately follows the flow of what you had in your notebook (assuming not many routine definitions in the notebook cells).
+
+When converting notebooks to PRO code, any markdown cells now have leading and training white space removed before converting to comments.
+
+When an IDL Notebook is open, added a new, quick-access button in the top-right of the Notebook that allows you to convert your notebook to PRO code.
+
+When an IDL Notebook is open, we migrated the "Reset IDL" and "Stop IDL" buttons to the top-right of the Notebooks view to clean up the main action area.
+
+When IDL starts for a notebook, a notification message appears telling you which version of IDL is being used
+
+When creating a PDF from a notebook, we no longer keep the Markdown conversion of the notebook open. The file still sticks around on disk, but we thought this would cause less confusion.
+
+Fixed an issue where post-processing would fail with specific syntax errors and ENVI or IDL Task functions
+
+Added a new auto-completion method for the names of ENVI and IDL tasks which will insert the appropriate names for syntax cases matching:
+
+- `ENVITask('')` which lists all ENVI Tasks when auto-completion is triggered in the quotes
+
+- `IDL('')` which lists all IDL Tasks when auto-completion is triggered in the quotes
+
+- Supports single quotes, double quotes, and string literal strings
+
+Similar to `ENVITask` and `IDLTask`, add special auto-complete cases for `call_function()` and `obj_new()`
+
+Auto-complete for `call_function()` now shows keywords like `obj_new()` does
+
+Go-to-definition for `call_function()` goes to the function definition if in PRO code
+
+Hover-help for `call_function()` pulls the hover help for the function being called
+
+We now automatically detect the type from `call_function()` if we have a known function
+
+Fixed an edge case with types where the "any" type was not properly being detected with arrays of structures
+
+Migrated the following features from "Preview Features" above:
 
 Code style revamp! We reworked how routines, routine methods, properties, and structure names get formatted. This includes:
 

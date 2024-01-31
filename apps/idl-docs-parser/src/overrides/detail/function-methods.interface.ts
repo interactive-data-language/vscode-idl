@@ -9,6 +9,11 @@ import {
 
 import { IFunctionMethodOverride } from '../detail.interface';
 import { ENVI_ERROR_KEYWORD } from '../shared/envi-error.interface';
+import {
+  HTTP_REQUEST_ARGS,
+  HTTP_REQUEST_BASE_KEYWORDS,
+  HTTP_REQUEST_KEYWORDS,
+} from '../shared/http-request.interface';
 import { INTERLEAVE_IN_ARG_KW } from '../shared/interleave.interface';
 import { SPATIALREF_TYPE } from '../shared/spatialref.interface';
 import { URI_ARG_KW } from '../shared/uri.interface';
@@ -487,6 +492,83 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       ncomplement: {
         direction: 'out',
         type: IDL_NUMBER_TYPE,
+      },
+    },
+  },
+  'httprequest::get': {
+    returns: ParseIDLType('HttpRequest'),
+    args: {
+      ...HTTP_REQUEST_ARGS,
+    },
+    kws: {
+      ...HTTP_REQUEST_KEYWORDS,
+    },
+  },
+  'httprequest::delete': {
+    returns: ParseIDLType('HttpRequest'),
+    args: {
+      ...HTTP_REQUEST_ARGS,
+    },
+    kws: {
+      ...HTTP_REQUEST_BASE_KEYWORDS,
+    },
+  },
+  'httprequest::escape': {
+    returns: ParseIDLType('HttpRequest'),
+    args: {},
+    kws: {},
+  },
+  'httprequest::post': {
+    returns: ParseIDLType('HttpRequest'),
+    args: {
+      ...HTTP_REQUEST_ARGS,
+    },
+    kws: {
+      ...HTTP_REQUEST_KEYWORDS,
+      multipart: {
+        display: 'multipart',
+        direction: 'in',
+        type: ParseIDLType('Hash<any>'),
+      },
+    },
+  },
+  'httprequest::put': {
+    returns: ParseIDLType('HttpRequest'),
+    args: {
+      ...HTTP_REQUEST_ARGS,
+    },
+    kws: {
+      ...HTTP_REQUEST_KEYWORDS,
+      multipart: {
+        display: 'multipart',
+        direction: 'in',
+        type: ParseIDLType('Hash<any>'),
+      },
+    },
+  },
+  'httprequest::unescape': {
+    returns: ParseIDLType('HttpRequest'),
+    args: {},
+    kws: {},
+  },
+  'httprequest::json': {
+    returns: ParseIDLType('any'),
+    args: {},
+    kws: {
+      quiet: {
+        type: IDL_BOOLEAN_TYPE,
+      },
+      dictionary: {
+        type: IDL_BOOLEAN_TYPE,
+      },
+      fold_case: {
+        type: IDL_BOOLEAN_TYPE,
+      },
+      toarray: {
+        type: IDL_BOOLEAN_TYPE,
+      },
+      struct: {
+        type: IDL_BOOLEAN_TYPE,
       },
     },
   },

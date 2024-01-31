@@ -143,7 +143,7 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
       '    ',
       '    See [ENVIRasterMetadata](https://www.nv5geospatialsoftware.com/docs/ENVIRasterMetaData.html) for details on creating and modifying metadata.',
       '    ',
-      '    **Note:** If both the SPATIALREF and INHERITS\\_FROM keywords are specified, the spatial reference information from SPATIALREF takes precedence.',
+      '    _Note:_ If both the SPATIALREF and INHERITS\\_FROM keywords are specified, the spatial reference information from SPATIALREF takes precedence.',
       '',
       '- **data_type**: in, optional, Number',
       '',
