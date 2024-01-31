@@ -25,7 +25,7 @@ export default defineConfig({
   // mpa: true,
 
   /** Add the "." for relative link */
-  head: [['link', { rel: 'icon', href: './assets/favicon-48x48.ico' }]],
+  head: [['link', { rel: 'icon', href: '/assets/favicon-48x48.ico' }]],
 
   markdown: {
     /**
