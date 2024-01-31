@@ -1,6 +1,7 @@
 import {
   ALL_DOCUMENT_SELECTORS,
   CleanPath,
+  IDL_JSON_GLOB_PATTERN,
   GetExtensionPath,
   IDL_LANGUAGE_NAME,
   NODE_MEMORY_CONFIG,
@@ -191,9 +192,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
           ],
           alert: IDL_TRANSLATION.lsp.errors.closed,
           alertMeta: {
-            openMarkdownDocs: GetExtensionPath(
-              'extension/docs/general/LANGUAGE_SERVER_CRASHES.md'
-            ),
+            openDocsURL: '/getting-started/faq/language_server_crashes.html',
           },
         });
         const res: CloseHandlerResult = {
