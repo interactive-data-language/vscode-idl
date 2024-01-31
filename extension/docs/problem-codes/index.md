@@ -1,7 +1,5 @@
 # Problem Codes
 
-> Not every problem code is documented yet, but if you think an important one is missing, let us know and we are happy to add it in.
-
 One of the most helpful features that is included as part of the VSCode extension is the ability to detect problems within your code without having to compile or run any code.
 
 This specific tooling helps accomplish several things:
@@ -12,4 +10,8 @@ This specific tooling helps accomplish several things:
 
 There are more than 100 problems that we detect and, to learn more about them, hovering over the problems in VSCode gives you some additional information.
 
+> Not every problem code is documented yet, but if you think an important one is missing, let us know and we are happy to add it in.
+
 You can find more detailed information about some of the problem codes in the documentation (but not all have been added).
+
+You can either use the search functionality (top of the page) or the sidebar to the left to learn more about each code.
