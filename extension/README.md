@@ -21,3 +21,5 @@ Contains extension-specific files that are not typescript.
   - **syntaxes**: Has the syntax highlighting and configuration for brackets/quotes etc.
 
   - **themes**: Holds the custom themes we have created for IDL and VS Code.
+
+- **translation**: Files related to translation for our extension (more advanced items like hover help)
