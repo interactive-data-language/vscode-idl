@@ -57,7 +57,7 @@ export function MakeDocsFiles() {
       const content = [
         `# IDL Problem Code \`${code}\` with alias \`${alias}\``,
         ``,
-        `::: note`,
+        `::: info`,
         `Hey there!`,
         ``,
         `I'm a placeholder docs page. If you are looking for more information, make a quick feature request on [GitHub](https://github.com/interactive-data-language/vscode-idl/issues/new?assignees=&labels=type%3A+feature&projects=&template=2-feature.yml&title=%5BFeature%5D%3A+) and we will get this updated for you.`,
