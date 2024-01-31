@@ -13,10 +13,6 @@ export const ADVANCED_SIDEBAR: SidebarEntry[] = [
     link: '/advanced/customizing_themes',
   },
   {
-    text: 'Code Formatting',
-    link: '/advanced/formatting',
-  },
-  {
     text: 'ENVI and IDL Task Creation',
     link: '/advanced/task_creation',
   },
