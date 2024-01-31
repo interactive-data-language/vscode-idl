@@ -3,9 +3,21 @@ import * as express from 'express';
 import { DOCS_SERVER_CONFIG } from './docs-server.interface';
 
 /**
+ * Check if server is started or not
+ */
+let IS_EXPRESS_SERVER_STARTED = false;
+
+/**
  * Starts an express server for to serve up static docs content
  */
-export function StartExpressDocsServer() {
+export function StartExpressDocsServer(port = DOCS_SERVER_CONFIG.PORT) {
+  /**
+   * Return if already started
+   */
+  if (IS_EXPRESS_SERVER_STARTED) {
+    return;
+  }
+
   /** Create express app */
   const app = express();
 
@@ -13,5 +25,8 @@ export function StartExpressDocsServer() {
   app.use(express.static(DOCS_SERVER_CONFIG.FOLDER));
 
   /** Listen on the port */
-  app.listen(DOCS_SERVER_CONFIG.PORT);
+  app.listen(port);
+
+  /** update flag that the server started */
+  IS_EXPRESS_SERVER_STARTED = true;
 }

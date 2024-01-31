@@ -1,3 +1,4 @@
+import { StartExpressDocsServer } from '@idl/docs-server';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IFolderRecursion } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -8,7 +9,10 @@ import {
 } from '@idl/vscode/events/messages';
 
 import { SendProblems } from '../../helpers/send-problems';
-import { UpdateClientFolderConfig } from '../../helpers/track-workspace-config';
+import {
+  IDL_CLIENT_CONFIG,
+  UpdateClientFolderConfig,
+} from '../../helpers/track-workspace-config';
 import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
@@ -68,6 +72,20 @@ export const ON_WORKSPACE_CONFIG = async (
 
     // check for differences in folders
     const info = await UpdateClientFolderConfig(payload.config);
+
+    /**
+     * Start our server for local docs
+     */
+    if (!IDL_CLIENT_CONFIG.documentation.useOnline) {
+      IDL_LANGUAGE_SERVER_LOGGER.log({
+        log: IDL_LSP_LOG,
+        type: 'info',
+        content: [
+          'Attempting to start documentation server if it has not already started',
+        ],
+      });
+      StartExpressDocsServer(IDL_CLIENT_CONFIG.documentation.localPort);
+    }
 
     // check if we are resolved or not yet
     if (!IS_RESOLVED) {
