@@ -148,6 +148,7 @@ export const AUTO_TOKEN_TESTS: IAutoTest[] = [
           `compile_opt`,
           `forward_function, idl2, hidden`,
           `goto, label`,
+          'on_ioerror, bad_num',
         ],
       },
       {
