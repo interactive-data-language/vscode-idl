@@ -2,6 +2,14 @@ import idlJson from '../../language/syntaxes/idl.tmLanguage.json';
 import idlLog from '../../language/syntaxes/idl-log.tmLanguage.json';
 
 import { defineConfig } from 'vitepress';
+import {
+  ADVANCED_SIDEBAR,
+  FAQ_SIDEBAR,
+  GENERAL_SIDEBAR,
+  NOTEBOOK_SIDEBAR,
+  PROBLEM_CODES_SIDEBAR,
+  TYPES_SIDEBAR,
+} from './sidebars';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -29,17 +37,40 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/index' },
-      { text: 'Examples', link: '/markdown-examples' },
+      { text: 'Getting Started', link: '/general/' },
+      { text: 'Notebooks', link: '/notebooks/' },
+      { text: 'Types', link: '/types/' },
     ],
 
     sidebar: [
       {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' },
-        ],
+        text: 'Advanced',
+        items: ADVANCED_SIDEBAR,
+        link: '/advanced/',
+        collapsed: true,
+      },
+      {
+        text: 'General',
+        items: GENERAL_SIDEBAR,
+        link: '/general/',
+      },
+      {
+        text: 'Notebooks',
+        items: NOTEBOOK_SIDEBAR,
+        link: '/notebooks/',
+        collapsed: true,
+      },
+      {
+        text: 'Problem Codes',
+        items: PROBLEM_CODES_SIDEBAR,
+        link: '/problem-codes/',
+        collapsed: true,
+      },
+      {
+        text: 'Type Detection and Code Comments',
+        items: TYPES_SIDEBAR,
+        link: '/types/',
+        collapsed: true,
       },
     ],
 
