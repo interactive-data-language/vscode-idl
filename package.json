@@ -52,6 +52,7 @@
     "post-migrate": "rimraf ./node_modules/.cache",
     "docs:dev": "vitepress dev extension/docs",
     "docs:build": "vitepress build extension/docs",
+    "docs:build-hosted": "vitepress build extension/docs --base /vscode-idl/",
     "docs:preview": "vitepress preview extension/docs"
   },
   "dependencies": {
