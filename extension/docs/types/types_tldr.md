@@ -55,30 +55,6 @@ pro class__define
 end
 ```
 
-## Task Types
-
-When using types for ENVI and IDL tasks, we have a shorthand notation that is easier to read.
-
-It also has a special case where, to specify more thank one type of task, we use the "|" operator with another task.
-
-Here's some examples
-
-```idl
-;+
-; :Arguments:
-;   a: in, required, IDLTask<MyTask>
-;     First argument
-;   b: in, required, ENVITask<BuildMosaicRaster>
-;     A single task
-;   c: in, required, ENVITask<BuildMosaicRaster> | ENVITask<SubsetRaster>
-;     More than one kind of task
-;
-;-
-pro mypro, a, b, c
-  compile_opt idl2
-end
-```
-
 ## Basic Types
 
 Basic types are data types in IDL that are standalone and don't require any additional information.
@@ -133,15 +109,6 @@ Why do we need a type argument? The type argument, wrapped in `<TypeArg>` indica
 | List       | List and values within              | List                       | List\<Number \| String>      |
 | Pointer    | Pointer what the pointer represents | Pointer, Ptr               | Pointer\<Array\<Number>>     |
 
-## Custom Types
-
-If you create your own object classes or structure definitions, you can use the name of the structure or class as the type. This allows you to have easy access to properties, methods, auto complete, and hover help.
-
-For example:
-
-- If you want to represent a `plot` object, you would use `Plot`
-- If you wanted to represent a raster, you would use `ENVIRaster`
-
 ## Union Types
 
 If a value can have more than one type, you can use a single pipe `|` to separate two IDL types.
@@ -150,9 +117,42 @@ For example:
 
 - If I can have a byte or long: `Byte | Long`
 
-- If I can have a hash or dictionary: `Hash<Number> | Dictionary<Number>`
+- If I can have a hash or dictionary with numbers as values: `Hash<Number> | Dictionary<Number>`
 
 Union types will, when interacted with, provide hover help and auto complete for each type.
+
+## Task Types
+
+When using types for ENVI and IDL tasks, we have a shorthand notation that is easier to read.
+
+It also has a special case where, to specify more thank one type of task, we use the "|" operator with another task.
+
+Here's some examples
+
+```idl
+;+
+; :Arguments:
+;   a: in, required, IDLTask<MyTask>
+;     First argument
+;   b: in, required, ENVITask<BuildMosaicRaster>
+;     A single task
+;   c: in, required, ENVITask<BuildMosaicRaster> | ENVITask<SubsetRaster>
+;     More than one kind of task
+;
+;-
+pro mypro, a, b, c
+  compile_opt idl2
+end
+```
+
+## Custom Types
+
+If you create your own object classes or structure definitions, you can use the name of the structure or class as the type. This allows you to have easy access to properties, methods, auto complete, and hover help.
+
+For example:
+
+- If you want to represent a `plot` object, you would use `Plot`
+- If you wanted to represent a raster, you would use `ENVIRaster`
 
 ## Advanced Function Return Types
 
