@@ -54,7 +54,9 @@ export function SyntaxProblemToDiagnostic(
     code: `"${IDL_PROBLEM_CODE_ALIAS_LOOKUP[problem.code]}", ${problem.code}`,
     source: IDL_LANGUAGE_NAME,
     codeDescription: {
-      href: ResolveExtensionDocsURL(`/problem/codes/${problem.code}.html`),
+      href: ResolveExtensionDocsURL(
+        `/problem-codes/codes/${problem.code}.html`
+      ),
     },
     data: {
       code: problem.code,
