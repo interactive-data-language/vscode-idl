@@ -4,6 +4,7 @@ import idlLog from '../../language/syntaxes/idl-log.tmLanguage.json';
 import { defineConfig } from 'vitepress';
 import {
   ADVANCED_SIDEBAR,
+  CODE_COMMENTS_SIDEBAR,
   FAQ_SIDEBAR,
   GENERAL_SIDEBAR,
   NOTEBOOK_SIDEBAR,
@@ -44,12 +45,6 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Advanced',
-        items: ADVANCED_SIDEBAR,
-        link: '/advanced/',
-        collapsed: true,
-      },
-      {
         text: 'General',
         items: GENERAL_SIDEBAR,
         link: '/general/',
@@ -67,9 +62,21 @@ export default defineConfig({
         collapsed: true,
       },
       {
-        text: 'Type Detection and Code Comments',
+        text: 'Code Comments',
+        items: CODE_COMMENTS_SIDEBAR,
+        link: '/types/',
+        collapsed: true,
+      },
+      {
+        text: 'Type Detection',
         items: TYPES_SIDEBAR,
         link: '/types/',
+        collapsed: true,
+      },
+      {
+        text: 'Advanced',
+        items: ADVANCED_SIDEBAR,
+        link: '/advanced/',
         collapsed: true,
       },
     ],
