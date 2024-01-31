@@ -86,6 +86,11 @@ export default defineConfig({
       },
     ],
 
+    footer: {
+      message: 'Licensed under MIT.',
+      copyright: 'Copyright (c) 2024, NV5 Geospatial Software, Inc.',
+    },
+
     logo: '/assets/idlicon-color.svg',
 
     search: {
