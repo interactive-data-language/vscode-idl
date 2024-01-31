@@ -24,7 +24,13 @@ export default defineConfig({
   // mpa: true,
 
   /** Add the "." for relative link */
-  head: [['link', { rel: 'icon', href: '/assets/favicon-48x48.ico' }]],
+  head: [
+    // hosted
+    ['link', { rel: 'icon', href: '/vscode-idl/assets/favicon-48x48.ico' }],
+
+    // offline
+    ['link', { rel: 'icon', href: '/assets/favicon-48x48.ico' }],
+  ],
 
   markdown: {
     /**
