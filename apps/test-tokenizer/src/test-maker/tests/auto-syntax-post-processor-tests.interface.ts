@@ -184,6 +184,7 @@ export const AUTO_POST_PROCESSOR_TESTS: IAutoTest[] = [
           `  common blockName ; ignore for now`,
           `  forward_function myfunc1, myfunc2, myfunc3`,
           `  goto, stmnt`,
+          `  on_ioerror, stmnt`,
           ``,
           `end`,
         ],

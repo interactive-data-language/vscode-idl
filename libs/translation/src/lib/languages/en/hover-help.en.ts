@@ -52,5 +52,9 @@ export const HOVER_HELP_EN: IHoverHelpTranslations = {
       GetExtensionPath('extension/translation/control/en/while.md'),
       'utf-8'
     ),
+    on_ioerror: readFileSync(
+      GetExtensionPath('extension/translation/control/en/on_ioerror.md'),
+      'utf-8'
+    ),
   },
 };

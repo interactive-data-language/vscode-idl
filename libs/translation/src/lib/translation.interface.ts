@@ -114,6 +114,7 @@ export interface IHoverHelpTranslations {
     pro: string;
     switch: string;
     while: string;
+    on_ioerror: string;
   };
 }
 

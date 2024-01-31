@@ -534,6 +534,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
       `compile_opt`,
       `forward_function, idl2, hidden`,
       `goto, label`,
+      `on_ioerror, bad_num`,
     ];
 
     // extract tokens
@@ -819,6 +820,39 @@ describe(`[auto generated] Validates control statement parsing`, () => {
         match: 'label',
         startIndex: 6,
         endIndex: 11,
+        scopes: [
+          'source.idl',
+          'group.control.compound.idl',
+          'variable.other.readwrite.ts.idl',
+        ],
+      },
+      {
+        line: 6,
+        match: 'on_ioerror',
+        startIndex: 0,
+        endIndex: 10,
+        scopes: [
+          'source.idl',
+          'group.control.compound.idl',
+          'keyword.control.idl',
+        ],
+      },
+      {
+        line: 6,
+        match: ',',
+        startIndex: 10,
+        endIndex: 11,
+        scopes: [
+          'source.idl',
+          'group.control.compound.idl',
+          'keyword.operator.idl',
+        ],
+      },
+      {
+        line: 6,
+        match: 'bad_num',
+        startIndex: 12,
+        endIndex: 19,
         scopes: [
           'source.idl',
           'group.control.compound.idl',

@@ -1055,7 +1055,7 @@
         <key>name</key>
         <string>group.control.compound.idl</string>
         <key>begin</key>
-        <string>(?i)\s*(\bcommon\b|\bcompile_opt\b|\bforward_function\b|\bgoto\b)</string>
+        <string>(?i)\s*(\bcommon\b|\bcompile_opt\b|\bforward_function\b|\bgoto\b|\on_ioerror\b)</string>
         <key>beginCaptures</key>
         <dict>
           <key>0</key>

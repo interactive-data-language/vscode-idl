@@ -4409,6 +4409,10 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `is not var`,
         code: [`compile_opt idl3`, `a = 5`, ``, `!null = a()`, ``, `end`],
       },
+      {
+        name: `is not var`,
+        code: [`compile_opt idl3`, `on_ioerror, jumpy`, `end`],
+      },
     ],
   },
   {

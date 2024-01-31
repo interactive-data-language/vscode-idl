@@ -26,6 +26,8 @@ CONTROL_HELPERS[TOKEN_NAMES.LOGICAL_ELSE] =
   IDL_TRANSLATION.hoverHelp.control.else;
 CONTROL_HELPERS[TOKEN_NAMES.LOOP_WHILE] =
   IDL_TRANSLATION.hoverHelp.control.while;
+CONTROL_HELPERS[TOKEN_NAMES.CONTROL_ON_IOERROR] =
+  IDL_TRANSLATION.hoverHelp.control.on_ioerror;
 
 /**
  * Give a control token, we return hover help
