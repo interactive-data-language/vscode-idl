@@ -94,6 +94,7 @@ export const EN: ITranslation = {
       },
       docs: {
         open: 'IDL: Open Extension Docs',
+        openLink: 'IDL: Open Docs Link',
       },
     },
     errors: {
@@ -152,6 +153,7 @@ export const EN: ITranslation = {
       },
       docs: {
         open: 'Error while opening extension docs',
+        openLink: 'Error while opening docs link',
       },
     },
     notifications: {

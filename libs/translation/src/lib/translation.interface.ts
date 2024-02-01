@@ -94,6 +94,8 @@ export interface ICommandTranslation {
   docs: {
     /** Opening the docs */
     open: string;
+    /** Resolve link user clicked on from hover help */
+    openLink: string;
   };
 }
 
