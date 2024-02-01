@@ -671,6 +671,8 @@ export interface ITranslation {
     formatOnSave: string;
     /** Init "idl.json" question */
     initIDLJSON: string;
+    /** Do we ask to open docs on startup */
+    openDocs: string;
     /** Configure something */
     configure: string;
     /** Start IDL */
