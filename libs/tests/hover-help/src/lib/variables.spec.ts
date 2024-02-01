@@ -46,7 +46,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
       '  array = [1, 2, 3]',
       '```',
       '',
-      'See [The Null Variable](https://www.nv5geospatialsoftware.com/docs/The_Null_Variable.html#constants_818058343_695602) for additional information.',
+      'See [The Null Variable](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Creating%20IDL%20Programs/Components%20of%20the%20IDL%20Language/The%255FNull%255FVariable.htm#constants%255F818058343%255F695602%22%7D) for additional information.',
       '',
     ];
 
