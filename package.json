@@ -290,6 +290,10 @@
         "title": "%commands.idl.docs.open%"
       },
       {
+        "command": "idl.docs.openLink",
+        "title": "%commands.idl.docs.openLink%"
+      },
+      {
         "command": "idl.notebooks.convertToPDF",
         "title": "%commands.idl.notebooks.convertToPDF%",
         "icon": {

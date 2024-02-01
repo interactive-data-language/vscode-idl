@@ -143,5 +143,7 @@ export const IDL_COMMANDS = {
   DOCS: {
     /** Opens extension docs */
     OPEN: `${BASE_DOCS}open`,
+    /** Opens link from docs */
+    OPEN_LINK: `${BASE_DOCS}openLink`,
   },
 };
