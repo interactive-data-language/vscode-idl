@@ -64,7 +64,7 @@ describe(`[auto generated] Keywords for call function`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves the [ENVIPreferences](https://www.nv5geospatialsoftware.com/docs/ENVIPreferences.html) class associated with the ENVI application. At application start-up, set the PREFERENCES keyword to the URI of a JSON file in which ENVI will load and save preferences.',
+            'This property retrieves the [ENVIPreferences](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPreferences/ENVIPreferences.htm%22%7D) class associated with the ENVI application. At application start-up, set the PREFERENCES keyword to the URI of a JSON file in which ENVI will load and save preferences.',
         },
       },
       {
