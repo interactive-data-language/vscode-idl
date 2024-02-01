@@ -5,10 +5,10 @@ import {
   IAssemblerInputOptions,
   IAssemblerOptions,
 } from '@idl/assembling/config';
-import { ParsedTask } from '@idl/types/tasks';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { LoadTask } from '@idl/schemas/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { ParsedTask } from '@idl/types/tasks';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 

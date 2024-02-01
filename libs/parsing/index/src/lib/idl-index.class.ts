@@ -5,12 +5,6 @@ import {
 } from '@idl/assembling/config';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
-  GLOBAL_TOKEN_SOURCE_LOOKUP,
-  GlobalTokens,
-  GlobalTokenType,
-} from '@idl/types/core';
-import { TaskToGlobalToken } from '@idl/types/tasks';
-import {
   IDL_LSP_LOG,
   IDL_WORKER_THREAD_CONSOLE,
   LogManager,
@@ -33,6 +27,12 @@ import {
   TASK_FILE_EXTENSION,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  GLOBAL_TOKEN_SOURCE_LOOKUP,
+  GlobalTokens,
+  GlobalTokenType,
+} from '@idl/types/core';
+import { TaskToGlobalToken } from '@idl/types/tasks';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDLExtensionConfig,

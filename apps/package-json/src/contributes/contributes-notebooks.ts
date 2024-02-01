@@ -1,4 +1,3 @@
-import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/types/notebooks';
 import {
   IDL_COMMANDS,
   IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME,
@@ -6,6 +5,7 @@ import {
   IDL_NOTEBOOK_LANGUAGE_NAME,
   IDL_NOTEBOOK_RENDERER_NAME,
 } from '@idl/shared';
+import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/types/notebooks';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
 import { VerifyNLS } from './helpers/verify-nls';

@@ -1,9 +1,9 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDLNotebookFromRendererMessage,
   IDLNotebookFromRendererMessageType,
 } from '@idl/types/notebooks';
-import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 

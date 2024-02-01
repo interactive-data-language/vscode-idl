@@ -1,11 +1,11 @@
+import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { CallFunctionMethodToken } from '@idl/parsing/tokenizer';
 import {
   GlobalFunctionMethodToken,
   IDL_ANY_TYPE,
   IDLDataType,
   IGlobalIndexedToken,
 } from '@idl/types/core';
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
-import { CallFunctionMethodToken } from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';
 
 import { GetMethod } from '../../../helpers/get-method';

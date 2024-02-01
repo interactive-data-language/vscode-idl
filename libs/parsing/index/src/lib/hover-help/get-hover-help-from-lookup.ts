@@ -1,3 +1,5 @@
+import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { IDL_COMMANDS } from '@idl/shared';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalRoutineToken,
@@ -6,8 +8,6 @@ import {
   IGlobalIndexedToken,
   ParseIDLType,
 } from '@idl/types/core';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
-import { IDL_COMMANDS } from '@idl/shared';
 import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';

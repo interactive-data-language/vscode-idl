@@ -1,17 +1,17 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { AdjustCase } from '@idl/assembling/shared';
 import {
-  IDL_TYPE_LOOKUP,
-  IDLTypeHelper,
-  IParameterLookup,
-} from '@idl/types/core';
-import {
   FindDirectBranchChildren,
   IParsed,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, TokenName } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  IDL_TYPE_LOOKUP,
+  IDLTypeHelper,
+  IParameterLookup,
+} from '@idl/types/core';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
 import { FindKeyword } from '../../helpers/get-keyword';

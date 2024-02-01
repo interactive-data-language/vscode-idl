@@ -1,10 +1,10 @@
-import { IParameterLookup, IParameterOrPropertyDetails } from '@idl/types/core';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   KeywordBinaryToken,
   KeywordDefinitionToken,
   KeywordToken,
 } from '@idl/parsing/tokenizer';
+import { IParameterLookup, IParameterOrPropertyDetails } from '@idl/types/core';
 
 import { IDLIndex } from '../idl-index.class';
 import { GetKeywordDisplayName } from './get-keyword-display-name';

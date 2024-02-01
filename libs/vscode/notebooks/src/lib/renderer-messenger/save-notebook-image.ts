@@ -1,8 +1,8 @@
+import { CleanPath } from '@idl/shared';
 import {
   IDLNotebookEmbeddedItem,
   IDLNotebookImage_PNG,
 } from '@idl/types/notebooks';
-import { CleanPath } from '@idl/shared';
 import { writeFileSync } from 'fs';
 import * as vscode from 'vscode';
 

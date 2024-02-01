@@ -1,4 +1,3 @@
-import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
 import {
   DEFAULT_ACCESS_TOKENS,
   IParsed,
@@ -6,6 +5,7 @@ import {
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, TokenName } from '@idl/parsing/tokenizer';
+import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../idl-index.class';

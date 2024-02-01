@@ -1,9 +1,3 @@
-import {
-  GLOBAL_TOKEN_TYPES,
-  IDL_STRUCTURE_TYPE,
-  IDLDataType,
-  ParseIDLType,
-} from '@idl/types/core';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   FindDirectBranchChildren,
@@ -15,6 +9,12 @@ import {
 } from '@idl/parsing/syntax-tree';
 import { StructureToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  GLOBAL_TOKEN_TYPES,
+  IDL_STRUCTURE_TYPE,
+  IDLDataType,
+  ParseIDLType,
+} from '@idl/types/core';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';

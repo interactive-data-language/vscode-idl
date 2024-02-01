@@ -1,3 +1,9 @@
+import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import {
+  CallFunctionMethodToken,
+  CallProcedureMethodToken,
+  TOKEN_NAMES,
+} from '@idl/parsing/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionMethodToken,
@@ -10,12 +16,6 @@ import {
   IGlobalIndexedToken,
   ParseIDLType,
 } from '@idl/types/core';
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
-import {
-  CallFunctionMethodToken,
-  CallProcedureMethodToken,
-  TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
 
 import { IDLIndex } from '../idl-index.class';
 import { TypeFromTokens } from '../post-process/populate-type/from/type-from-tokens';

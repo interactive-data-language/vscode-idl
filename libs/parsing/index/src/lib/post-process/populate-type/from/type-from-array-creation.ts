@@ -1,5 +1,12 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
+  IParsed,
+  SplitTreeOnCommas,
+  SplitTreeOnOperators,
+  TreeToken,
+} from '@idl/parsing/syntax-tree';
+import { BracketToken } from '@idl/parsing/tokenizer';
+import {
   IDL_ARRAY_TYPE,
   IDL_TYPE_LOOKUP,
   IDLDataType,
@@ -7,13 +14,6 @@ import {
   ParseIDLType,
   SerializeIDLType,
 } from '@idl/types/core';
-import {
-  IParsed,
-  SplitTreeOnCommas,
-  SplitTreeOnOperators,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
-import { BracketToken } from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';

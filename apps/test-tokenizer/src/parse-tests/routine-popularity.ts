@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { GetRoutine, IDLIndex } from '@idl/parsing/index';
 import { IParsed, TreeRecurserBasic } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 

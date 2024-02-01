@@ -1,6 +1,6 @@
-import { IDLDataType } from '@idl/types/core';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { BracketToken } from '@idl/parsing/tokenizer';
+import { IDLDataType } from '@idl/types/core';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
