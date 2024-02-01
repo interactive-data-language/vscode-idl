@@ -1,6 +1,6 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { AdjustCase, TransformCase } from '@idl/assembling/shared';
-import { CUSTOM_TYPE_DISPLAY_NAMES } from '@idl/data-types/core';
+import { CUSTOM_TYPE_DISPLAY_NAMES } from '@idl/types/core';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 

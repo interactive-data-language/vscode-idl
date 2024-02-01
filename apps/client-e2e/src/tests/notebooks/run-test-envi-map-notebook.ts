@@ -1,4 +1,4 @@
-import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/notebooks/types';
+import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/types/notebooks';
 import { GetExtensionPath } from '@idl/shared';
 
 import { RunnerFunction } from '../runner.interface';

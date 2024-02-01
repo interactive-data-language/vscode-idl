@@ -1,4 +1,4 @@
-import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { GlobalDisplayNameLookup, IGlobalFromIDL } from '@idl/parsing/routines';
 import { MatchGlobal } from '@idl/shared';
 

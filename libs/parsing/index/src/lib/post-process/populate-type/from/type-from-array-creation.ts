@@ -6,7 +6,7 @@ import {
   IDLTypeHelper,
   ParseIDLType,
   SerializeIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import {
   IParsed,
   SplitTreeOnCommas,

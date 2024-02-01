@@ -1,4 +1,4 @@
-import { ParsedTask } from '@idl/data-types/tasks';
+import { ParsedTask } from '@idl/types/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';

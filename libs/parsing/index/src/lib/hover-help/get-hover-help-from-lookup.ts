@@ -5,7 +5,7 @@ import {
   IDLTypeHelper,
   IGlobalIndexedToken,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import { IDL_COMMANDS } from '@idl/shared';
 import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';

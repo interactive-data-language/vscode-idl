@@ -6,7 +6,7 @@ import {
   ParseIDLType,
   SerializeIDLType,
   TYPE_DOCS_REGEX,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
 import { CommentToken } from '@idl/parsing/tokenizer';
 import { PositionArray } from '@idl/parsing/tokenizer-types';

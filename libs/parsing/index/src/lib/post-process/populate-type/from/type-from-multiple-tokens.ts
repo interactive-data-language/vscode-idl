@@ -1,5 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IDL_ANY_TYPE, IDLDataType } from '@idl/data-types/core';
+import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
 import {
   IParsed,
   SplitTreeOnOperators,

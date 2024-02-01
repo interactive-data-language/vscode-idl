@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   IDLNotebookImage_PNG,
   SaveImageRendererMessage,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 
 import { BaseRendererComponent } from '../base-renderer.component';
 

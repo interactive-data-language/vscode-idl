@@ -4,7 +4,7 @@ import {
   GlobalStructureToken,
   IGlobalIndexedToken,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
 import {
   RoutineMethodNameToken,

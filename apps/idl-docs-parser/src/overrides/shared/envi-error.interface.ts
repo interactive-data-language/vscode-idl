@@ -1,7 +1,4 @@
-import {
-  IDL_STRING_TYPE,
-  IParameterOrPropertyDetails,
-} from '@idl/data-types/core';
+import { IDL_STRING_TYPE, IParameterOrPropertyDetails } from '@idl/types/core';
 
 /**
  * Keywords for the thread pool

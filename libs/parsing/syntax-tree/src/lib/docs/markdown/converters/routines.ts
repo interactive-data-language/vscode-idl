@@ -2,7 +2,7 @@ import {
   IDL_TYPE_LOOKUP,
   IDLTypeHelper,
   SerializeIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 
 import {
   TASK_REGEX,

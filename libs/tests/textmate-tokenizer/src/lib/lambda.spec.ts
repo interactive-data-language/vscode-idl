@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates lambda functions parsed as special token`, () => {
   it(`[auto generated] correctly parse lambda functions`, async () => {

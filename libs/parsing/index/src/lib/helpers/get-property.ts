@@ -7,7 +7,7 @@ import {
   IDLTypes,
   IPropertyLookup,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { GetPropertyName, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   AccessPropertyToken,

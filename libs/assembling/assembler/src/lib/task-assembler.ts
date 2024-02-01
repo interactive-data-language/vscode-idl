@@ -1,6 +1,6 @@
 import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
 import { TaskFormatter } from '@idl/assembling/tasks';
-import { ParsedTask } from '@idl/data-types/tasks';
+import { ParsedTask } from '@idl/types/tasks';
 import { MergeConfig } from '@idl/schemas/idl.json';
 
 /**

@@ -4,7 +4,7 @@ import {
   IDL_NULL_TYPE,
   IDLDataType,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { TreeToken } from '@idl/parsing/syntax-tree';
 import { SystemVariableToken } from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';

@@ -4,7 +4,7 @@ import {
   FormatterType,
   IAssemblerOptions,
 } from '@idl/assembling/config';
-import { IDLTask, IDLTaskSchema12 } from '@idl/data-types/tasks';
+import { IDLTask, IDLTaskSchema12 } from '@idl/types/tasks';
 import {
   GenerateTaskResult,
   GetDisplayName,

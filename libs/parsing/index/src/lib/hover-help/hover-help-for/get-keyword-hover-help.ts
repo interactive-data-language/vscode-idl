@@ -1,8 +1,4 @@
-import {
-  IDL_TYPE_LOOKUP,
-  IDLTypeHelper,
-  ParseIDLType,
-} from '@idl/data-types/core';
+import { IDL_TYPE_LOOKUP, IDLTypeHelper, ParseIDLType } from '@idl/types/core';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   KeywordBinaryToken,

@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates colon parsing`, () => {
   it(`[auto generated] simple colon test`, async () => {

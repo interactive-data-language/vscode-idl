@@ -3,7 +3,7 @@ import {
   IBaseIndexedToken,
   IDL_TYPE_LOOKUP,
   IDLTypeHelper,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import {
   GetTokenAtCursor,
   GetVariableTokenDef,

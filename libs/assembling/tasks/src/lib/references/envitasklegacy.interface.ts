@@ -2,7 +2,7 @@ import {
   ENVITaskLegacy,
   ENVITaskLegacyParameter,
   ENVITaskLegacyVersion532,
-} from '@idl/data-types/tasks';
+} from '@idl/types/tasks';
 
 /**
  * ENVI Task Legacy reference for key order of root properties

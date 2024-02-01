@@ -5,7 +5,7 @@ import { IDLNotebookDocument } from '@idl/notebooks/shared';
 import {
   DEFAULT_NOTEBOOK_TO_PRO_CODE_OPTIONS,
   INotebookToProCodeOptions,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import { IDLIndex } from '@idl/parsing/index';
 import { SyntaxTree, TreeToken } from '@idl/parsing/syntax-tree';
 import { MainLevelToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';

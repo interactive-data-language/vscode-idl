@@ -1,4 +1,4 @@
-import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 
 import { MANUAL_FUNCTION_METHOD_DISPLAY_NAMES } from './display-overrides/manual-function-methods.interface';
 import { MANUAL_FUNCTION_DISPLAY_NAMES } from './display-overrides/manual-functions.interface';

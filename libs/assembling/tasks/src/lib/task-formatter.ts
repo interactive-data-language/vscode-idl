@@ -8,7 +8,7 @@ import {
   IDLTask,
   IDLTaskSchemaVersion,
   ParsedTask,
-} from '@idl/data-types/tasks';
+} from '@idl/types/tasks';
 import copy from 'fast-copy';
 
 import { ENVITaskFormatter } from './formatters/envitask-formatter';

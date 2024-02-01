@@ -2,7 +2,7 @@ import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import {
   IDLRawNotebook,
   IDLRawNotebookVersion_1_0_0,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/client';

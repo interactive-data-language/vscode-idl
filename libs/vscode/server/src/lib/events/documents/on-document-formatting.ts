@@ -5,7 +5,7 @@ import {
   IAssemblerInputOptions,
   IAssemblerOptions,
 } from '@idl/assembling/config';
-import { ParsedTask } from '@idl/data-types/tasks';
+import { ParsedTask } from '@idl/types/tasks';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { LoadTask } from '@idl/schemas/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';

@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates edge case quote parsing`, () => {
   it(`[auto generated] for number-string like strings`, async () => {

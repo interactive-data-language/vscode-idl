@@ -2,7 +2,7 @@ import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
   GlobalTokens,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 
 import {
   RESERVED_FUNCTION_METHODS,

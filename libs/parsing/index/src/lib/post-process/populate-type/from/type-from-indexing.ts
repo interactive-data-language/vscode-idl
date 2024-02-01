@@ -6,7 +6,7 @@ import {
   KNOWN_IDL_TYPES,
   ParseIDLType,
   SerializeIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   FindDirectBranchChildren,

@@ -4,7 +4,7 @@ import {
   IParameterLookup,
   IParameterOrPropertyDetails,
   SerializeIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { IDL_TRANSLATION } from '@idl/translation';
 
 import { IDL_DOCS_HEADERS } from '../docs.interface';

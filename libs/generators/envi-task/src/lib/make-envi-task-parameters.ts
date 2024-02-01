@@ -4,8 +4,8 @@ import {
   IDLTypeHelper,
   IGlobalIndexedToken,
   SerializeIDLType,
-} from '@idl/data-types/core';
-import { ENVITaskParameter, ENVITaskSchema33 } from '@idl/data-types/tasks';
+} from '@idl/types/core';
+import { ENVITaskParameter, ENVITaskSchema33 } from '@idl/types/tasks';
 import { GetDisplayName } from '@idl/generators/tasks-shared';
 
 /**

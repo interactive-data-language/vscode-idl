@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates repeat loop parsing`, () => {
   it(`[auto generated] parses basic repeat loop`, async () => {

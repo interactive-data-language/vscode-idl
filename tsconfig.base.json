@@ -33,10 +33,6 @@
         "libs/assembling/tree-handlers/src/index.ts"
       ],
       "@idl/cancellation-tokens": ["libs/cancellation-tokens/src/index.ts"],
-      "@idl/data-types/core": ["libs/data-types/core/src/index.ts"],
-      "@idl/data-types/diagnostic": ["libs/data-types/diagnostic/src/index.ts"],
-      "@idl/data-types/tasks": ["libs/data-types/tasks/src/index.ts"],
-      "@idl/debug-types": ["libs/debug-types/src/index.ts"],
       "@idl/docs/exporter": ["libs/docs/exporter/src/index.ts"],
       "@idl/docs/server": ["libs/docs/server/src/index.ts"],
       "@idl/generators/envi-task": ["libs/generators/envi-task/src/index.ts"],
@@ -50,7 +46,6 @@
       "@idl/logger": ["libs/logger/src/index.ts"],
       "@idl/notebooks/idl-index": ["libs/notebooks/idl-index/src/index.ts"],
       "@idl/notebooks/shared": ["libs/notebooks/shared/src/index.ts"],
-      "@idl/notebooks/types": ["libs/notebooks/types/src/index.ts"],
       "@idl/parser": ["libs/parsing/parser/src/index.ts"],
       "@idl/parsing/index": ["libs/parsing/index/src/index.ts"],
       "@idl/parsing/problem-codes": ["libs/parsing/problem-codes/src/index.ts"],
@@ -72,7 +67,6 @@
       "@idl/schemas/idl.json": ["libs/schemas/idl.json/src/index.ts"],
       "@idl/schemas/tasks": ["libs/schemas/tasks/src/index.ts"],
       "@idl/shared": ["libs/shared/src/index.ts"],
-      "@idl/test-helpers": ["libs/test-helpers/src/index.ts"],
       "@idl/tests/assembler": ["libs/tests/assembler/src/index.ts"],
       "@idl/tests/auto-complete": ["libs/tests/auto-complete/src/index.ts"],
       "@idl/tests/auto-fixing": ["libs/tests/auto-fixing/src/index.ts"],
@@ -80,6 +74,7 @@
         "libs/tests/config-resolution/src/index.ts"
       ],
       "@idl/tests/global-problems": ["libs/tests/global-problems/src/index.ts"],
+      "@idl/tests/helpers": ["libs/tests/helpers/src/index.ts"],
       "@idl/tests/hover-help": ["libs/tests/hover-help/src/index.ts"],
       "@idl/tests/local-global-scope-compile": [
         "libs/tests/local-global-scope-compile/src/index.ts"
@@ -104,6 +99,11 @@
       ],
       "@idl/tests/tokenizer": ["libs/tests/tokenizer/src/index.ts"],
       "@idl/translation": ["libs/translation/src/index.ts"],
+      "@idl/types/core": ["libs/types/core/src/index.ts"],
+      "@idl/types/diagnostic": ["libs/types/diagnostic/src/index.ts"],
+      "@idl/types/notebooks": ["libs/types/notebooks/src/index.ts"],
+      "@idl/types/profiler": ["libs/types/profiler/src/index.ts"],
+      "@idl/types/tasks": ["libs/types/tasks/src/index.ts"],
       "@idl/usage-metrics": ["libs/usage-metrics/src/index.ts"],
       "@idl/vscode/client": ["libs/vscode/client/src/index.ts"],
       "@idl/vscode/commands": ["libs/vscode/commands/src/index.ts"],

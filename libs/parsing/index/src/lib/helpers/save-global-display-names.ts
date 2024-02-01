@@ -2,7 +2,7 @@ import {
   CUSTOM_TYPE_DISPLAY_NAMES,
   GLOBAL_TOKEN_TYPES,
   GlobalTokens,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 
 /**

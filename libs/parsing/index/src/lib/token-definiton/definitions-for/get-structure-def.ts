@@ -1,4 +1,4 @@
-import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { TreeToken } from '@idl/parsing/syntax-tree';
 import { StructureNameToken } from '@idl/parsing/tokenizer';
 

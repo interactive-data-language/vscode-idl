@@ -1,7 +1,4 @@
-import {
-  GlobalIndexedRoutineToken,
-  IParameterLookup,
-} from '@idl/data-types/core';
+import { GlobalIndexedRoutineToken, IParameterLookup } from '@idl/types/core';
 import { TreeToken } from '@idl/parsing/syntax-tree';
 import {
   CallFunctionMethodToken,

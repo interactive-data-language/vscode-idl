@@ -1,4 +1,4 @@
-import { IDL_ANY_TYPE, IDLDataType } from '@idl/data-types/core';
+import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
 import {
   DEFAULT_ACCESS_TOKENS,
   IParsed,

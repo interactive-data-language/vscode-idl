@@ -1,4 +1,4 @@
-import { IDL_TYPE_LOOKUP } from '@idl/data-types/core';
+import { IDL_TYPE_LOOKUP } from '@idl/types/core';
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/parsing/problem-codes';
 
 /**

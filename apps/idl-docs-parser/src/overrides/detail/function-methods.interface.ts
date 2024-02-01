@@ -5,7 +5,7 @@ import {
   IDL_STRING_TYPE,
   IDL_STRUCTURE_TYPE,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 
 import { IFunctionMethodOverride } from '../detail.interface';
 import { ENVI_ERROR_KEYWORD } from '../shared/envi-error.interface';

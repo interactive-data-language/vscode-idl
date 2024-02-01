@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 

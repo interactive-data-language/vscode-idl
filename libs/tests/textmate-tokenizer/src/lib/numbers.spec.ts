@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates special cases for number parsing`, () => {
   it(`[auto generated] correctly parse scientific notations`, async () => {

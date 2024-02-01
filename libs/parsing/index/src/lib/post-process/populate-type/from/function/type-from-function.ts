@@ -3,7 +3,7 @@ import {
   IDL_ANY_TYPE,
   IDLDataType,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { CallFunctionToken } from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';

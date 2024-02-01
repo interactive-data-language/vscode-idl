@@ -5,7 +5,7 @@ import {
   IDLNotebookMap,
   IDLNotebookMap_GeoJSON,
   IDLNotebookMap_Image,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import { bboxify } from '@mapbox/geojson-extent';
 import { nanoid } from 'nanoid';
 

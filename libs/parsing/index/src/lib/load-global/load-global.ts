@@ -1,4 +1,4 @@
-import { GlobalTokens } from '@idl/data-types/core';
+import { GlobalTokens } from '@idl/types/core';
 import { PopulateReserved } from '@idl/parsing/routines';
 import { GetExtensionPath } from '@idl/shared';
 import { readFileSync } from 'fs';

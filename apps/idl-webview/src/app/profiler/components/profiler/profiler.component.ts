@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IProfilerItem } from '@idl/debug-types';
+import { IProfilerItem } from '@idl/types/profiler';
 
 import { VSCodeService } from '../../../services/services/vscode.service';
 

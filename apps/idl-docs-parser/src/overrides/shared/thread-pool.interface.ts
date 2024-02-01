@@ -1,4 +1,4 @@
-import { IDL_BOOLEAN_TYPE, IDL_NUMBER_TYPE } from '@idl/data-types/core';
+import { IDL_BOOLEAN_TYPE, IDL_NUMBER_TYPE } from '@idl/types/core';
 
 import { ISharedArgsOrKeywords } from './shared.interface';
 

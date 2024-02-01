@@ -9,7 +9,7 @@ import {
   IDLTypes,
   IGlobalIndexedToken,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   CallFunctionMethodToken,

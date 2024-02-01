@@ -2,7 +2,7 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalProcedureToken,
   IGlobalIndexedToken,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { IParsed } from '@idl/parsing/syntax-tree';
 
 /**

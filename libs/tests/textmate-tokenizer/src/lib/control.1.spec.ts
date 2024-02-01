@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates control statement parsing`, () => {
   it(`[auto generated] parses basic control statements`, async () => {

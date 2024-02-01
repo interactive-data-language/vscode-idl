@@ -1,4 +1,4 @@
-import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/notebooks/types';
+import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/types/notebooks';
 import {
   IDL_COMMANDS,
   IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME,

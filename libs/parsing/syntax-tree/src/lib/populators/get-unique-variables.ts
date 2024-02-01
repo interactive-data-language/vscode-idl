@@ -3,7 +3,7 @@ import {
   GlobalRoutineToken,
   IDL_ANY_TYPE,
   IParameterOrPropertyDetails,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import {
   CommentToken,
   MainLevelToken,

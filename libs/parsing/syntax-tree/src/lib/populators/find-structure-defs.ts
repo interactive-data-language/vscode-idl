@@ -4,7 +4,7 @@ import {
   IDL_ANY_TYPE,
   IGlobalIndexedToken,
   IPropertyLookup,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import {
   RoutineFunctionToken,
   RoutineProcedureToken,

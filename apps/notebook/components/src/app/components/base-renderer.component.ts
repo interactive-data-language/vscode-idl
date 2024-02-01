@@ -2,7 +2,7 @@ import { Component, Input, SkipSelf } from '@angular/core';
 import {
   IDLNotebook_EmbedType,
   IDLNotebookEmbeddedItem,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 
 import { VSCodeRendererMessenger } from '../services/vscode-renderer-messenger.service';
 import { DataSharingService } from './data-sharing.service';
