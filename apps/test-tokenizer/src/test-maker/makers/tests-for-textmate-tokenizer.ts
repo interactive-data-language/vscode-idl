@@ -22,7 +22,7 @@ export async function TestsForTextMateTokenizer(
   const strings: string[] = [];
 
   // add imports
-  strings.push(`import { TextMateParse } from '@idl/test-helpers';`);
+  strings.push(`import { TextMateParse } from '@idl/tests/helpers';`);
   strings.push(``);
 
   // add the basic code for our test
