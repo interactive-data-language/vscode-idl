@@ -1056,7 +1056,8 @@
             "default": {
               "forIDLDir": false,
               "forIconChange": false,
-              "forFormatterChange": false
+              "forFormatterChange": false,
+              "toOpenDocs": false
             },
             "properties": {
               "forIDLDir": {
