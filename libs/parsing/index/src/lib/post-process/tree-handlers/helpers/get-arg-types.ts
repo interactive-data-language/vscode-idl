@@ -1,5 +1,5 @@
-import { IDLDataType } from '@idl/data-types/core';
 import { IParsed, TreeBranchToken } from '@idl/parsing/syntax-tree';
+import { IDLDataType } from '@idl/types/core';
 
 import { ITokenCache } from '../../../helpers/token-cache.interface';
 import { IDLIndex } from '../../../idl-index.class';

@@ -33,7 +33,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
       'type ENVIRaster.metadata = ENVIRasterMetadata',
       '```',
       '',
-      'This property retrieves a reference to the [ENVIRasterMetadata](https://www.nv5geospatialsoftware.com/docs/ENVIRasterMetaData.html) object. If METADATA and INHERITS\\_FROM are both set, the new raster will have the union of both sets of metadata. The METADATA values override those from INHERITS\\_FROM if there is a conflict.',
+      'This property retrieves a reference to the [ENVIRasterMetadata](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRasterMetadata/ENVIRasterMetaData.htm%22%7D) object. If METADATA and INHERITS\\_FROM are both set, the new raster will have the union of both sets of metadata. The METADATA values override those from INHERITS\\_FROM if there is a conflict.',
     ];
 
     // get hover help
@@ -201,7 +201,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
       'type ENVI.ui = ENVIUI | Null',
       '```',
       '',
-      'This property retrieves a reference to the [ENVIUI](https://www.nv5geospatialsoftware.com/docs/ENVIUI.html) object.',
+      'This property retrieves a reference to the [ENVIUI](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIUI/ENVIUI.htm%22%7D) object.',
     ];
 
     // get hover help

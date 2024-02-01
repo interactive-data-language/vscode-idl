@@ -1,11 +1,11 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { DecodeNotebook } from '@idl/notebooks/shared';
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDLRawNotebook,
   IDLRawNotebookVersion_1_0_0,
   IDLRawNotebookVersion_2_0_0,
-} from '@idl/notebooks/types';
-import { IDL_TRANSLATION } from '@idl/translation';
+} from '@idl/types/notebooks';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 

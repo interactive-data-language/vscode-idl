@@ -27,7 +27,7 @@ export function MakeDocsFiles() {
     ``,
     `/**`,
     ` * Sidebar entries for all problem codes`,
-    ` * `,
+    ` *`,
     ` * Generated automatically when we build our package.json file`,
     ` */`,
     `export const PROBLEM_CODES_SIDEBAR: DefaultTheme.NavItemWithLink[] = [`,
@@ -72,6 +72,7 @@ export function MakeDocsFiles() {
 
   // close sidebar code
   strings.push(`];`);
+  strings.push(``);
 
   /**
    * Get the folder where our code files should go

@@ -1,10 +1,10 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
-import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TaskNameOnly, TreeToken } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, TokenName } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
 import { IDLIndex } from '../../idl-index.class';

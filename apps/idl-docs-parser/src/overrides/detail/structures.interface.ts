@@ -6,7 +6,7 @@ import {
   IDL_NUMBER_TYPE,
   IDL_STRING_TYPE,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 
 import { IStructureOverride } from '../detail.interface';
 import { RECORD_TYPE } from '../shared/entities.interface';

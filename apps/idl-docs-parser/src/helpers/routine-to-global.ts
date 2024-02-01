@@ -1,3 +1,6 @@
+import { GlobalDisplayNameLookup, IGlobalFromIDL } from '@idl/parsing/routines';
+import { DocsToMarkdown, MARKDOWN_TYPE_LOOKUP } from '@idl/parsing/syntax-tree';
+import { HostedDocsURLFromLocal } from '@idl/shared';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
@@ -15,10 +18,7 @@ import {
   ParameterDirection,
   ParseIDLType,
   SerializeIDLType,
-} from '@idl/data-types/core';
-import { GlobalDisplayNameLookup, IGlobalFromIDL } from '@idl/parsing/routines';
-import { DocsToMarkdown, MARKDOWN_TYPE_LOOKUP } from '@idl/parsing/syntax-tree';
-import { HostedDocsURLFromLocal } from '@idl/shared';
+} from '@idl/types/core';
 import * as merge from 'deepmerge';
 import { join } from 'path';
 

@@ -1,10 +1,4 @@
 import {
-  GLOBAL_TOKEN_SOURCE_LOOKUP,
-  GlobalRoutineToken,
-  IDL_ANY_TYPE,
-  IParameterOrPropertyDetails,
-} from '@idl/data-types/core';
-import {
   CommentToken,
   MainLevelToken,
   RoutineFunctionToken,
@@ -13,6 +7,12 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import {
+  GLOBAL_TOKEN_SOURCE_LOOKUP,
+  GlobalRoutineToken,
+  IDL_ANY_TYPE,
+  IParameterOrPropertyDetails,
+} from '@idl/types/core';
 
 import { IBasicBranch, IBranch, TreeToken } from '../branches.interface';
 import { IParsed } from '../build-syntax-tree.interface';

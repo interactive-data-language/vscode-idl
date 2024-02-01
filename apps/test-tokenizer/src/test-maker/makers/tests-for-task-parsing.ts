@@ -1,8 +1,8 @@
-import { GlobalTokens } from '@idl/data-types/core';
-import { TaskToGlobalToken } from '@idl/data-types/tasks';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
 import { GetExtensionPath } from '@idl/shared';
+import { GlobalTokens } from '@idl/types/core';
+import { TaskToGlobalToken } from '@idl/types/tasks';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
@@ -23,8 +23,8 @@ export async function TestsForTaskParsing(
   const strings: string[] = [];
 
   // add imports
-  strings.push(`import { GlobalTokens } from '@idl/data-types/core';`);
-  strings.push(`import { TaskToGlobalToken } from '@idl/data-types/tasks';`);
+  strings.push(`import { GlobalTokens } from '@idl/types/core';`);
+  strings.push(`import { TaskToGlobalToken } from '@idl/types/tasks';`);
   strings.push(`import { ResetGlobalDisplayNames } from '@idl/parsing/index';`);
   strings.push(`import { LoadTask } from '@idl/schemas/tasks';`);
   strings.push(`import { GetExtensionPath } from '@idl/shared';`);

@@ -7,7 +7,6 @@ import {
 } from '@idl/idl';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
-import { IDLNotebookEmbeddedItems } from '@idl/notebooks/types';
 import { Parser } from '@idl/parser';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import { TreeBranchToken } from '@idl/parsing/syntax-tree';
@@ -21,6 +20,7 @@ import {
   Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IDLNotebookEmbeddedItems } from '@idl/types/notebooks';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   IDL_LOGGER,

@@ -1,5 +1,5 @@
-import { GlobalTokenType, IGlobalIndexedToken } from '@idl/data-types/core';
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/parsing/problem-codes';
+import { GlobalTokenType, IGlobalIndexedToken } from '@idl/types/core';
 
 /**
  * By token type, wwe want to track the number of tokens we have with the

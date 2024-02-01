@@ -1,4 +1,4 @@
-import { GlobalProcedureToken } from '@idl/data-types/core';
+import { GlobalProcedureToken } from '@idl/types/core';
 
 import { Cleaners } from './cleaners.interface';
 

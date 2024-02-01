@@ -1,4 +1,4 @@
-import { ParseIDLType } from '@idl/data-types/core';
+import { ParseIDLType } from '@idl/types/core';
 
 import { OverrideParamOrProp } from './shared.interface';
 

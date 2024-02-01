@@ -2,7 +2,7 @@ import { DefaultTheme } from 'vitepress';
 
 /**
  * Sidebar entries for all problem codes
- * 
+ *
  * Generated automatically when we build our package.json file
  */
 export const PROBLEM_CODES_SIDEBAR: DefaultTheme.NavItemWithLink[] = [

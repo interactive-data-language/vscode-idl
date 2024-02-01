@@ -1,9 +1,9 @@
+import { PositionArray } from '@idl/parsing/tokenizer-types';
 import {
   IBaseIndexedToken,
   IBaseTokenMetadata,
   IBaseValueDetails,
-} from '@idl/data-types/core';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+} from '@idl/types/core';
 
 // locally tracked tokens
 export type LocalVariableToken = 'v';

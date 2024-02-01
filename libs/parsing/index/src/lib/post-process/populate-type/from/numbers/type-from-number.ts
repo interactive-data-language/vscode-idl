@@ -1,3 +1,5 @@
+import { TreeToken } from '@idl/parsing/syntax-tree';
+import { NumberToken } from '@idl/parsing/tokenizer';
 import {
   IDL_BYTE_TYPE,
   IDL_DOUBLE_COMPLEX_TYPE,
@@ -11,9 +13,7 @@ import {
   IDL_ULONG_TYPE,
   IDL_ULONG64_TYPE,
   IDLDataType,
-} from '@idl/data-types/core';
-import { TreeToken } from '@idl/parsing/syntax-tree';
-import { NumberToken } from '@idl/parsing/tokenizer';
+} from '@idl/types/core';
 import copy from 'fast-copy';
 
 import {

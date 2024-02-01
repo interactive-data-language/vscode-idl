@@ -1,7 +1,4 @@
-import {
-  GlobalRoutineTokenType,
-  IGlobalIndexedToken,
-} from '@idl/data-types/core';
+import { GlobalRoutineTokenType, IGlobalIndexedToken } from '@idl/types/core';
 
 /**
  * Type for callbacks that clean specific types of tokens, depending on what we found

@@ -1,4 +1,4 @@
-import { GlobalTokens } from '@idl/data-types/core';
+import { GlobalTokens } from '@idl/types/core';
 
 import { IDL_USER_DISPLAY_NAMES } from './user-display-names.interface';
 

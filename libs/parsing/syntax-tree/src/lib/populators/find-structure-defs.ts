@@ -1,15 +1,15 @@
 import {
+  RoutineFunctionToken,
+  RoutineProcedureToken,
+  TOKEN_NAMES,
+} from '@idl/parsing/tokenizer';
+import {
   GLOBAL_TOKEN_TYPES,
   GlobalStructureToken,
   IDL_ANY_TYPE,
   IGlobalIndexedToken,
   IPropertyLookup,
-} from '@idl/data-types/core';
-import {
-  RoutineFunctionToken,
-  RoutineProcedureToken,
-  TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/types/core';
 
 import { TreeToken } from '../branches.interface';
 import { GetPropertyName } from '../helpers/get-property-name';

@@ -3,7 +3,7 @@ import {
   IDLRawNotebookCell,
   IDLRawNotebookCellType,
   IDLRawNotebookVersion_2_0_0,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 
 import { CreateCodeForNotebooks } from './create-code-for-notebooks';

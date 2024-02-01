@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates comma parsing (mostly covered elsewhere)`, () => {
   it(`[auto generated] don't find commas on their own`, async () => {

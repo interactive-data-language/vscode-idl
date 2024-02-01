@@ -1,4 +1,4 @@
-import { StartExpressDocsServer } from '@idl/docs-server';
+import { StartExpressDocsServer } from '@idl/docs/server';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IFolderRecursion } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';

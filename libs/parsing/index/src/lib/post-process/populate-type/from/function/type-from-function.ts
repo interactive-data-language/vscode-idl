@@ -1,11 +1,11 @@
+import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { CallFunctionToken } from '@idl/parsing/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,
   IDLDataType,
   ParseIDLType,
-} from '@idl/data-types/core';
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
-import { CallFunctionToken } from '@idl/parsing/tokenizer';
+} from '@idl/types/core';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../../idl-index.class';

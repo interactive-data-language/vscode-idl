@@ -1,15 +1,15 @@
-import {
-  GLOBAL_TOKEN_TYPES,
-  IDL_ANY_TYPE,
-  IDL_STRUCTURE_TYPE,
-  IDLTypeHelper,
-} from '@idl/data-types/core';
 import { GetPropertyName, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   AccessPropertyToken,
   StructurePropertyToken,
 } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  GLOBAL_TOKEN_TYPES,
+  IDL_ANY_TYPE,
+  IDL_STRUCTURE_TYPE,
+  IDLTypeHelper,
+} from '@idl/types/core';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
 
 import { GetProperty } from '../../helpers/get-property';

@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates unexpected closer parsing`, () => {
   it(`[auto generated] verifies we catch unexpected closers (other tests cover correctly catching real closers instead of these)`, async () => {

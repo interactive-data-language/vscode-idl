@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates case statement`, () => {
   it(`[auto generated] parses case loop with many syntaxes`, async () => {

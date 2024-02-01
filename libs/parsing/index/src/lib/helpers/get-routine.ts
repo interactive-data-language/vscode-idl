@@ -1,8 +1,3 @@
-import {
-  GLOBAL_TOKEN_TYPES,
-  GlobalIndexedRoutineToken,
-  IDL_TYPE_LOOKUP,
-} from '@idl/data-types/core';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   CallFunctionMethodToken,
@@ -12,6 +7,11 @@ import {
   TOKEN_NAMES,
   TokenName,
 } from '@idl/parsing/tokenizer';
+import {
+  GLOBAL_TOKEN_TYPES,
+  GlobalIndexedRoutineToken,
+  IDL_TYPE_LOOKUP,
+} from '@idl/types/core';
 
 import { IDLIndex } from '../idl-index.class';
 import { TypeFromCallFunction } from '../post-process/populate-type/from/function/functions/type-from-call-function';

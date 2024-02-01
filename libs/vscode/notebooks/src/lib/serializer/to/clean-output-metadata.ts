@@ -1,4 +1,4 @@
-import { NOTEBOOK_OUTPUT_METADATA_DONT_SAVE_THESE } from '@idl/notebooks/types';
+import { NOTEBOOK_OUTPUT_METADATA_DONT_SAVE_THESE } from '@idl/types/notebooks';
 
 /**
  * Removes keys from metadata that should not be saved

@@ -10,7 +10,7 @@ import {
 import { Deck, WebMercatorViewport } from '@deck.gl/core/typed';
 import { TileLayer } from '@deck.gl/geo-layers/typed';
 import { BitmapLayer } from '@deck.gl/layers/typed';
-import { IDLNotebookMap } from '@idl/notebooks/types';
+import { IDLNotebookMap } from '@idl/types/notebooks';
 
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';

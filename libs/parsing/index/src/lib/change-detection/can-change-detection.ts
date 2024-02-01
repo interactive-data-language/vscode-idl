@@ -10,7 +10,7 @@ import {
   IGlobalIndexedToken,
   IParameterLookup,
   IPropertyLookup,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { deepEqual } from 'fast-equals';
 
 /**

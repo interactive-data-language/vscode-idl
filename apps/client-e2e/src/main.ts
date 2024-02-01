@@ -1,6 +1,6 @@
 import { FindIDL } from '@idl/idl';
 import { EXTENSION_FULL_NAME, GetExtensionPath } from '@idl/shared';
-import { Sleep } from '@idl/test-helpers';
+import { Sleep } from '@idl/tests/helpers';
 import { GetWorkspaceConfig, IIDLWorkspaceConfig } from '@idl/vscode/config';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import { IInitializeType } from '@idl/vscode/initialize-types';

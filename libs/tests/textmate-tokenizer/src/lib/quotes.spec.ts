@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates quote parsing`, () => {
   it(`[auto generated] parses standalone single quotes`, async () => {

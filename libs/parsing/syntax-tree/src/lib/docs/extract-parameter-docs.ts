@@ -1,3 +1,7 @@
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
+import { CommentToken } from '@idl/parsing/tokenizer';
+import { PositionArray } from '@idl/parsing/tokenizer-types';
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
@@ -6,11 +10,7 @@ import {
   ParseIDLType,
   SerializeIDLType,
   TYPE_DOCS_REGEX,
-} from '@idl/data-types/core';
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
-import { CommentToken } from '@idl/parsing/tokenizer';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
-import { IDL_TRANSLATION } from '@idl/translation';
+} from '@idl/types/core';
 import copy from 'fast-copy';
 
 import { IBasicBranch } from '../branches.interface';

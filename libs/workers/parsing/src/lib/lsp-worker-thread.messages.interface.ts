@@ -1,15 +1,15 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { MigrationType } from '@idl/assembling/migrators-types';
-import {
-  GlobalTokens,
-  GlobalTokenType,
-  IBaseIndexedToken,
-} from '@idl/data-types/core';
 import { ILogOptions } from '@idl/logger';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { IParsed } from '@idl/parsing/syntax-tree';
 import { PositionArray } from '@idl/parsing/tokenizer-types';
+import {
+  GlobalTokens,
+  GlobalTokenType,
+  IBaseIndexedToken,
+} from '@idl/types/core';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { WorkerIOBaseMessage } from '@idl/workers/workerio';
 import {
