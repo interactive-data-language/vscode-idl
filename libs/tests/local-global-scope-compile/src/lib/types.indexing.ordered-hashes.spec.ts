@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
