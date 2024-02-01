@@ -1,7 +1,4 @@
-import {
-  CUSTOM_TYPE_DISPLAY_NAMES,
-  GLOBAL_TOKEN_TYPES,
-} from '@idl/data-types/core';
+import { CUSTOM_TYPE_DISPLAY_NAMES, GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 
 import { IDL_GLOBAL_TOKENS } from '../load-global/load-global';

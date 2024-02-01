@@ -4,7 +4,7 @@ import {
   DOCS_NOTEBOOK_FOLDER,
   EXAMPLE_NOTEBOOKS,
 } from '@idl/notebooks/shared';
-import { INotebookToProCodeOptions } from '@idl/notebooks/types';
+import { INotebookToProCodeOptions } from '@idl/types/notebooks';
 import {
   CleanPath,
   GetExtensionPath,

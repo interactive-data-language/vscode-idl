@@ -5,7 +5,7 @@ import {
   IDLNotebookFromRendererMessageType,
   IDLNotebookOutputMetadata,
   IDLNotebookToRendererMessage,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 import type { RendererContext } from 'vscode-notebook-renderer';

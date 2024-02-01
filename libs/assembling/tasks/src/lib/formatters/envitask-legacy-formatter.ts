@@ -1,6 +1,6 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { AdjustCase } from '@idl/assembling/shared';
-import { ENVITaskLegacy, ENVITaskLegacyVersion } from '@idl/data-types/tasks';
+import { ENVITaskLegacy, ENVITaskLegacyVersion } from '@idl/types/tasks';
 
 import {
   REFERENCE_ENVI_TASK_LEGACY,

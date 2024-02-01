@@ -1,6 +1,6 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
-import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { MAIN_LEVEL_NAME } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';

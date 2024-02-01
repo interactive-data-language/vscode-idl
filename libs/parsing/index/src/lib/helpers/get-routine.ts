@@ -2,7 +2,7 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalIndexedRoutineToken,
   IDL_TYPE_LOOKUP,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   CallFunctionMethodToken,

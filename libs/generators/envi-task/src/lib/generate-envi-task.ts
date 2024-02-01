@@ -4,7 +4,7 @@ import {
   FormatterType,
   IAssemblerOptions,
 } from '@idl/assembling/config';
-import { ENVITask, ENVITaskSchema33 } from '@idl/data-types/tasks';
+import { ENVITask, ENVITaskSchema33 } from '@idl/types/tasks';
 import {
   GenerateTaskResult,
   GetDisplayName,

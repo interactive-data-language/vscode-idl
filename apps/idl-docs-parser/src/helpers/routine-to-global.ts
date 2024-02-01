@@ -15,7 +15,7 @@ import {
   ParameterDirection,
   ParseIDLType,
   SerializeIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { GlobalDisplayNameLookup, IGlobalFromIDL } from '@idl/parsing/routines';
 import { DocsToMarkdown, MARKDOWN_TYPE_LOOKUP } from '@idl/parsing/syntax-tree';
 import { HostedDocsURLFromLocal } from '@idl/shared';

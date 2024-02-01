@@ -4,7 +4,7 @@ import {
   IDL_TYPE_LOOKUP,
   IDLTypeHelper,
   IParameterLookup,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import {
   FindDirectBranchChildren,
   IParsed,

@@ -1,4 +1,4 @@
-import { IDLDataType, IDLTypeHelper, ParseIDLType } from '@idl/data-types/core';
+import { IDLDataType, IDLTypeHelper, ParseIDLType } from '@idl/types/core';
 import { BranchCallback } from '@idl/parsing/syntax-tree';
 import { LoopForeachToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
 

@@ -4,8 +4,8 @@ import {
   IDLTypeHelper,
   IGlobalIndexedToken,
   SerializeIDLType,
-} from '@idl/data-types/core';
-import { IDLTaskParameter, IDLTaskSchema12 } from '@idl/data-types/tasks';
+} from '@idl/types/core';
+import { IDLTaskParameter, IDLTaskSchema12 } from '@idl/types/tasks';
 import { GetDisplayName } from '@idl/generators/tasks-shared';
 
 /**

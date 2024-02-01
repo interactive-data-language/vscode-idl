@@ -8,8 +8,8 @@ import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GlobalTokens,
   GlobalTokenType,
-} from '@idl/data-types/core';
-import { TaskToGlobalToken } from '@idl/data-types/tasks';
+} from '@idl/types/core';
+import { TaskToGlobalToken } from '@idl/types/tasks';
 import {
   IDL_LSP_LOG,
   IDL_WORKER_THREAD_CONSOLE,

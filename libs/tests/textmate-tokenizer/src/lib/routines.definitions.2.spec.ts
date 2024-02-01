@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates routine parsing`, () => {
   it(`[auto generated] verifies we only stop on "end"`, async () => {

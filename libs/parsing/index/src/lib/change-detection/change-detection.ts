@@ -1,5 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens } from '@idl/data-types/core';
+import { GlobalTokens } from '@idl/types/core';
 import { IDL_WORKER_THREAD_CONSOLE } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { existsSync } from 'fs';

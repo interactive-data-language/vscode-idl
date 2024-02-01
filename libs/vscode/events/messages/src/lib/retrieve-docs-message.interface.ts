@@ -1,4 +1,4 @@
-import { GlobalTokenType } from '@idl/data-types/core';
+import { GlobalTokenType } from '@idl/types/core';
 
 /**
  * Message to retrieve docs

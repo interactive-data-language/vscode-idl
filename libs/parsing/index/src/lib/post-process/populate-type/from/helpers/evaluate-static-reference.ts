@@ -1,4 +1,4 @@
-import { GLOBAL_TOKEN_TYPES, ParseIDLType } from '@idl/data-types/core';
+import { GLOBAL_TOKEN_TYPES, ParseIDLType } from '@idl/types/core';
 import {
   GetNextInBranch,
   ILocalIndexedToken,

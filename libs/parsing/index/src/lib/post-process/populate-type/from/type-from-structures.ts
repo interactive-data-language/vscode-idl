@@ -3,7 +3,7 @@ import {
   IDL_STRUCTURE_TYPE,
   IDLDataType,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   FindDirectBranchChildren,

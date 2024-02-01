@@ -6,7 +6,7 @@ import {
   IDLTypeHelper,
   ParseIDLType,
   SerializeIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/parsing/problem-codes';
 import {
   IParsed,

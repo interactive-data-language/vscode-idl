@@ -1,7 +1,4 @@
-import {
-  IParameterLookup,
-  IParameterOrPropertyDetails,
-} from '@idl/data-types/core';
+import { IParameterLookup, IParameterOrPropertyDetails } from '@idl/types/core';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   KeywordBinaryToken,

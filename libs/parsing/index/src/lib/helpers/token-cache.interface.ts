@@ -5,7 +5,7 @@ import {
   GlobalTokenType,
   IDLDataType,
   IGlobalIndexedToken,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import {
   ILocalTokenLookup,
   ISplitTreeOnArguments,

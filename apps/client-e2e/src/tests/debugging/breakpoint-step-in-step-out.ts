@@ -1,5 +1,5 @@
 import { GetExtensionPath, IDL_COMMANDS } from '@idl/shared';
-import { Sleep } from '@idl/test-helpers';
+import { Sleep } from '@idl/tests/helpers';
 import {
   GetActivePROCodeWindow,
   OpenFileInVSCode,

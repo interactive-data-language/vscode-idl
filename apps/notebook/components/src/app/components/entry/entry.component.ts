@@ -8,7 +8,7 @@ import {
 import {
   IDLNotebook_EmbedType,
   IDLNotebookEmbeddedItem,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 
 import { DataSharingService } from '../data-sharing.service';
 

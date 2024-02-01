@@ -1,4 +1,4 @@
-import { IBaseIndexedToken } from '@idl/data-types/core';
+import { IBaseIndexedToken } from '@idl/types/core';
 import { TreeToken } from '@idl/parsing/syntax-tree';
 import { IncludeToken } from '@idl/parsing/tokenizer';
 

@@ -3,7 +3,7 @@ import {
   GlobalTokens,
   GlobalTokenType,
   ICompileOptions,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { IFoundTokens } from '@idl/parsing/tokenizer';
 import { PositionArray } from '@idl/parsing/tokenizer-types';

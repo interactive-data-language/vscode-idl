@@ -1,6 +1,6 @@
 import { CleanIDLOutput } from '@idl/idl';
 import { IDL_COMMANDS } from '@idl/shared';
-import { Sleep } from '@idl/test-helpers';
+import { Sleep } from '@idl/tests/helpers';
 import { GetActivePROCodeWindow } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';

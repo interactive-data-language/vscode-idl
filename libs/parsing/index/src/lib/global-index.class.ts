@@ -4,7 +4,7 @@ import {
   GlobalTokens,
   GlobalTokenType,
   IGlobalIndexedToken,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import {

@@ -5,7 +5,7 @@ import {
   GlobalTokens,
   IGlobalIndexedToken,
   IParameterLookup,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 
 /**
  * Strips docs from parameter lookups

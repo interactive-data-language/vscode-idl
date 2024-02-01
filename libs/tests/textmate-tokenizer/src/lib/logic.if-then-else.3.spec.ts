@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates for if-then-else parsing [3]`, () => {
   it(`[auto generated] example from IDL code [1]`, async () => {

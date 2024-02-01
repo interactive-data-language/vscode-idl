@@ -1,6 +1,6 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { AdjustCase } from '@idl/assembling/shared';
-import { IDLTask, IDLTaskSchemaVersion } from '@idl/data-types/tasks';
+import { IDLTask, IDLTaskSchemaVersion } from '@idl/types/tasks';
 
 import {
   REFERENCE_IDL_TASK,

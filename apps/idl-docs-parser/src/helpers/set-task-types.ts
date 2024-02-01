@@ -3,8 +3,8 @@ import {
   GlobalStructureToken,
   GlobalTokens,
   IGlobalIndexedToken,
-} from '@idl/data-types/core';
-import { TaskToGlobalToken } from '@idl/data-types/tasks';
+} from '@idl/types/core';
+import { TaskToGlobalToken } from '@idl/types/tasks';
 import { LoadTask } from '@idl/schemas/tasks';
 import { TASK_FILE_EXTENSION, TASK_FILE_GLOB_PATTERN } from '@idl/shared';
 import * as glob from 'fast-glob';

@@ -2,7 +2,7 @@ import {
   IBaseIndexedToken,
   IBaseTokenMetadata,
   IBaseValueDetails,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { PositionArray } from '@idl/parsing/tokenizer-types';
 
 // locally tracked tokens

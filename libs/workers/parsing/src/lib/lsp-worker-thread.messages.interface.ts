@@ -4,7 +4,7 @@ import {
   GlobalTokens,
   GlobalTokenType,
   IBaseIndexedToken,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import { ILogOptions } from '@idl/logger';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';

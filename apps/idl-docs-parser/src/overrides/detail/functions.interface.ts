@@ -8,7 +8,7 @@ import {
   IDL_STRING_TYPE,
   IDL_TYPE_CODE_TYPE,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 
 import { IFunctionOverride } from '../detail.interface';
 import { TYPE_FUNCTION_ARGS } from '../shared/dimension-args.interface';

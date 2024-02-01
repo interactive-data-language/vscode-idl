@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates special cases for number string parsing`, () => {
   it(`[auto generated] verify octal parsing`, async () => {

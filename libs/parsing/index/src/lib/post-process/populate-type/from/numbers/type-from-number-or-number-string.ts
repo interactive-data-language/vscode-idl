@@ -1,4 +1,4 @@
-import { IDLDataType } from '@idl/data-types/core';
+import { IDLDataType } from '@idl/types/core';
 import {
   GetRoutineNameFromScope,
   IParsed,

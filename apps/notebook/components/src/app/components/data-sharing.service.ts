@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   IDLNotebook_EmbedType,
   IDLNotebookEmbeddedItem,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

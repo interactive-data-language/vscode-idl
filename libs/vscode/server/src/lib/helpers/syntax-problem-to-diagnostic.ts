@@ -1,4 +1,4 @@
-import { IDLDiagnostic } from '@idl/data-types/diagnostic';
+import { IDLDiagnostic } from '@idl/types/diagnostic';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_PROBLEM_DIAGNOSTIC_TAGS,

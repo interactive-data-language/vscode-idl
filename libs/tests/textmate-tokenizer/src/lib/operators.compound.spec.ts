@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates compound operator parsing`, () => {
   it(`[auto generated] parses with line continuation`, async () => {

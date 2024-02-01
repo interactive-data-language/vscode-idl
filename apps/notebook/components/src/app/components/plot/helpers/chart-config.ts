@@ -2,7 +2,7 @@ import {
   IDLNotebookEmbeddedItem,
   IDLNotebookPlot,
   IDLNotebookPlot_Properties,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import copy from 'fast-copy';
 
 /**

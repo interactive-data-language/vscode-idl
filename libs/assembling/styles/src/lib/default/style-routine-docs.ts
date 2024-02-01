@@ -8,7 +8,7 @@ import {
   GlobalProcedureToken,
   GlobalRoutineToken,
   IGlobalIndexedToken,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import {
   BRANCH_TYPES,
   DocsToIDL,

@@ -11,7 +11,7 @@ import {
   IGlobalIndexedToken,
   IRoutineMetadata,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 import {
   CommentBlockToken,
   RoutineFunctionToken,

@@ -5,7 +5,7 @@ import {
   IDLNotebookPlot_BubbleAnimation,
   IDLNotebookPlot_Line,
   IDLNotebookPlot_LineAnimation,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import { ChartDataset } from 'chart.js';
 
 import { CreatedPlots, PlotAnimationCallback } from './create-plots.interface';

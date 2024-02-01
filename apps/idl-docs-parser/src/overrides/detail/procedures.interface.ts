@@ -4,7 +4,7 @@ import {
   IDL_NUMBER_TYPE,
   IDL_STRING_TYPE,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 
 import { IProcedureOverride } from '../detail.interface';
 

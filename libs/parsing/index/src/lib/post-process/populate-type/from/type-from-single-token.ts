@@ -1,8 +1,4 @@
-import {
-  IDL_ANY_TYPE,
-  IDL_STRING_TYPE,
-  IDLDataType,
-} from '@idl/data-types/core';
+import { IDL_ANY_TYPE, IDL_STRING_TYPE, IDLDataType } from '@idl/types/core';
 import { BRANCH_TYPES, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, TokenName } from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';

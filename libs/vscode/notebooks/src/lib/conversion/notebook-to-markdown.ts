@@ -5,7 +5,7 @@ import {
   IDLNotebookImage_PNG,
   IDLNotebookMap,
   IDLNotebookMap_Image,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import { NotebookCellKind, NotebookDocument } from 'vscode';
 
 import { CreateOutputText } from './create-output-text';

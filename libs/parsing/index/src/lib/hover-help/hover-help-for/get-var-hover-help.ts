@@ -1,4 +1,4 @@
-import { IDLTypeHelper } from '@idl/data-types/core';
+import { IDLTypeHelper } from '@idl/types/core';
 import {
   ILocalTokenLookup,
   IParentInformation,
