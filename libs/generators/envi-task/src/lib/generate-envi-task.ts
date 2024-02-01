@@ -4,7 +4,6 @@ import {
   FormatterType,
   IAssemblerOptions,
 } from '@idl/assembling/config';
-import { ENVITask, ENVITaskSchema33 } from '@idl/types/tasks';
 import {
   GenerateTaskResult,
   GetDisplayName,
@@ -13,6 +12,7 @@ import {
 import { IDL_DOCS_HEADERS, IParsed } from '@idl/parsing/syntax-tree';
 import { PRO_FILE_EXTENSION, TASK_FILE_EXTENSION } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { ENVITask, ENVITaskSchema33 } from '@idl/types/tasks';
 import { existsSync, writeFileSync } from 'fs';
 import { basename, dirname, join } from 'path';
 

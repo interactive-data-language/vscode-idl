@@ -4,7 +4,6 @@ import {
   DOCS_NOTEBOOK_FOLDER,
   EXAMPLE_NOTEBOOKS,
 } from '@idl/notebooks/shared';
-import { INotebookToProCodeOptions } from '@idl/types/notebooks';
 import {
   CleanPath,
   GetExtensionPath,
@@ -15,6 +14,7 @@ import {
   Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { INotebookToProCodeOptions } from '@idl/types/notebooks';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   IDL_LOGGER,

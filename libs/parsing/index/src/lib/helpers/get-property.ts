@@ -1,3 +1,9 @@
+import { GetPropertyName, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import {
+  AccessPropertyToken,
+  StructurePropertyToken,
+  TOKEN_NAMES,
+} from '@idl/parsing/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_STRUCTURE_TYPE,
@@ -8,12 +14,6 @@ import {
   IPropertyLookup,
   ParseIDLType,
 } from '@idl/types/core';
-import { GetPropertyName, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
-import {
-  AccessPropertyToken,
-  StructurePropertyToken,
-  TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../idl-index.class';

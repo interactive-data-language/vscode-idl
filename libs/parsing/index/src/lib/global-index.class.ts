@@ -1,10 +1,3 @@
-import {
-  CUSTOM_TYPE_DISPLAY_NAMES,
-  GLOBAL_TOKEN_TYPES,
-  GlobalTokens,
-  GlobalTokenType,
-  IGlobalIndexedToken,
-} from '@idl/types/core';
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import {
@@ -12,6 +5,13 @@ import {
   SyntaxProblemWithoutTranslation,
 } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  CUSTOM_TYPE_DISPLAY_NAMES,
+  GLOBAL_TOKEN_TYPES,
+  GlobalTokens,
+  GlobalTokenType,
+  IGlobalIndexedToken,
+} from '@idl/types/core';
 
 import {
   GlobalIndexedToken,

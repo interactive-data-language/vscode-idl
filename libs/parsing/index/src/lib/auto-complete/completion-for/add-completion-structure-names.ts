@@ -1,7 +1,7 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { AdjustCase, TransformCase } from '@idl/assembling/shared';
-import { CUSTOM_TYPE_DISPLAY_NAMES } from '@idl/types/core';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { CUSTOM_TYPE_DISPLAY_NAMES } from '@idl/types/core';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
 import { SORT_PRIORITY } from '../sort-priority.interface';

@@ -1,5 +1,4 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { GetTokenAtCursor, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   KeywordBinaryToken,
@@ -7,6 +6,7 @@ import {
   KeywordToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
 import { Position } from 'vscode-languageserver';
 

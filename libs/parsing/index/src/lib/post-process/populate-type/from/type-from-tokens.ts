@@ -1,5 +1,5 @@
-import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
 import { IParsed, SyntaxTree } from '@idl/parsing/syntax-tree';
+import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';

@@ -1,3 +1,8 @@
+import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import {
+  CallFunctionMethodToken,
+  CallFunctionToken,
+} from '@idl/parsing/tokenizer';
 import {
   GlobalFunctionMethodToken,
   GlobalFunctionToken,
@@ -6,11 +11,6 @@ import {
   IDLTypeHelper,
   IGlobalIndexedToken,
 } from '@idl/types/core';
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
-import {
-  CallFunctionMethodToken,
-  CallFunctionToken,
-} from '@idl/parsing/tokenizer';
 
 import { IDLIndex } from '../../../../idl-index.class';
 import { EvaluateArrayPromotion } from './evaluate-array-promotion';

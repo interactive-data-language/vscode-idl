@@ -1,4 +1,3 @@
-import { GLOBAL_TOKEN_TYPES, ParseIDLType } from '@idl/types/core';
 import {
   GetNextInBranch,
   ILocalIndexedToken,
@@ -7,6 +6,7 @@ import {
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, VariableToken } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { GLOBAL_TOKEN_TYPES, ParseIDLType } from '@idl/types/core';
 
 import { IDLIndex } from '../../../../idl-index.class';
 

@@ -1,3 +1,4 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GlobalStructureToken,
   IGlobalIndexedToken,
@@ -5,7 +6,6 @@ import {
   IParameterOrPropertyDetails,
   SerializeIDLType,
 } from '@idl/types/core';
-import { IDL_TRANSLATION } from '@idl/translation';
 
 import { IDL_DOCS_HEADERS } from '../docs.interface';
 import {

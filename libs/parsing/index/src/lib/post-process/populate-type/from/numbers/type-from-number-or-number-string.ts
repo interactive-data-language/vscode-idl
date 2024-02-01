@@ -1,10 +1,10 @@
-import { IDLDataType } from '@idl/types/core';
 import {
   GetRoutineNameFromScope,
   IParsed,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { NumberToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { IDLDataType } from '@idl/types/core';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../../idl-index.class';

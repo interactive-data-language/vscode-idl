@@ -1,6 +1,6 @@
-import { IBaseIndexedToken } from '@idl/types/core';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { AccessPropertyToken } from '@idl/parsing/tokenizer';
+import { IBaseIndexedToken } from '@idl/types/core';
 
 import { GetProperty } from '../../helpers/get-property';
 import { IDLIndex } from '../../idl-index.class';

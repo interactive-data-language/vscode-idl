@@ -1,10 +1,10 @@
-import { INotebookToProCodeOptions } from '@idl/types/notebooks';
 import {
   GetExtensionPath,
   IDL_COMMANDS,
   IDL_LANGUAGE_NAME,
   Sleep,
 } from '@idl/shared';
+import { INotebookToProCodeOptions } from '@idl/types/notebooks';
 import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
 import { readFileSync } from 'fs';
