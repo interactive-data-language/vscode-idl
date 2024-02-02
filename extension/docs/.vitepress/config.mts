@@ -9,6 +9,7 @@ import { CODE_COMMENTS_SIDEBAR } from './sidebars/code-comments.sidebar';
 import { NOTEBOOK_SIDEBAR } from './sidebars/notebook.sidebar';
 import { GETTING_STARTED_SIDEBAR } from './sidebars/getting-started.sidebar';
 import { PROBLEMS_SIDEBAR } from './sidebars/problems.sidebar';
+import { VERSION } from '../../../libs/shared/src';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -52,6 +53,10 @@ export default defineConfig({
       { text: 'Getting Started', link: '/getting-started/' },
       { text: 'Notebooks', link: '/notebooks/' },
       { text: 'Types', link: '/types/' },
+      {
+        text: VERSION,
+        link: 'https://github.com/interactive-data-language/vscode-idl/blob/main/CHANGELOG.md',
+      },
     ],
 
     sidebar: [
