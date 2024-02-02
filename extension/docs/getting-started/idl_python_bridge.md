@@ -19,7 +19,9 @@ The easiest way to do this is with a batch file that:
 3. Activates the environment
 4. Starts VSCode
 
-> Pro tip: If you are Linux or Mac, you can just add the environment changes and activations command to your shell resource file (i.e. `~/.bashrc``)
+::: tip
+If you are Linux or Mac, you can just add the environment changes and activations command to your shell resource file (i.e. `~/.bashrc``)
+:::
 
 Here's an example Windows batch file to do just that:
 

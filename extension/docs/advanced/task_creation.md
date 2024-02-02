@@ -32,9 +32,11 @@ Below is a description of how you make a task within the extension
 
 2. Add documentation to your procedure and update the docs within your code.
 
-> The documentation is used to add types and define the direction for parameters
+::: tip
+The documentation is used to add types and define the direction for parameters
 
-> Pro tip: With format-on-save enabled for the extension, this happens automatically!
+With format-on-save enabled for the extension, this happens automatically!
+:::
 
 3. From the IDL sidebar in the extension, select "Generate IDL or ENVI Task"
 
@@ -42,13 +44,15 @@ Below is a description of how you make a task within the extension
 
 5. The task file should automatically appear in the display and you can now use it!
 
-> Pro tip: You might need to refine the task parameters, so you can use auto-complete (and hover-help) directly within VSCode to help you write your tasks.
->
-> If you need for information, here are links to where you can find more about [ENVI](https://www.l3harrisgeospatial.com/docs/tasktemplateenvi551.html) and [IDL](https://www.l3harrisgeospatial.com/docs/TaskTemplateIDL8.7.1.html) tasks
+::: tip
+You might need to refine the task parameters, so you can use auto-complete (and hover-help) directly within VSCode to help you write your tasks.
+
+If you need for information, here are links to where you can find more about [ENVI](https://www.l3harrisgeospatial.com/docs/tasktemplateenvi551.html) and [IDL](https://www.l3harrisgeospatial.com/docs/TaskTemplateIDL8.7.1.html) tasks
+:::
 
 ## Using Tasks
 
-Pro tip: If you don't have a main level program in your selected PRO file, we will automatically create one for you!
+If you don't have a main level program in your selected PRO file, we will automatically create one for you!
 
 It shows how to use ENVI or IDL tasks and adds some helpful comments in boilerplate code to help get you started.
 
