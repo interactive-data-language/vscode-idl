@@ -1,3 +1,4 @@
+import { MIGRATIONS_SIDEBAR } from './migrations.sidebar';
 import { SidebarEntry } from './sidebars.interface';
 
 /**
@@ -19,5 +20,10 @@ export const ADVANCED_SIDEBAR: SidebarEntry[] = [
   {
     text: 'Environment Variables',
     link: '/advanced/variables_reference',
+  },
+  {
+    text: 'Migrations',
+    items: MIGRATIONS_SIDEBAR,
+    collapsed: true,
   },
 ];

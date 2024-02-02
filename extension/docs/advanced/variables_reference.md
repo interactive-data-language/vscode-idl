@@ -10,9 +10,11 @@ The IDL extension supports some of these and they are checked for the following 
 
 ## Supported Variables
 
-> Pro tip: These variables are all case-insensitive
+::: tip
+These variables are all case-insensitive
 
-> Pro tip: You can use forward slashes for paths on Windows (helps if you use Linux/Mac and Windows)
+You can use forward slashes for paths on Windows (helps if you use Linux/Mac and Windows)
+:::
 
 You are allowed to use one of the following variables in a given expression. The table indicates the order that we check and, after we find one matching variable, we return and do not keep checking.
 

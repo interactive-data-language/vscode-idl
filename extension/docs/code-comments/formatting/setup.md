@@ -6,7 +6,7 @@ The first time you start the extension you will also be prompted to enable forma
 
 If you opted-out, then see below for details on how you can enable it.
 
-::: tip Pro Tip
+::: tip
 You can also enable formatting on save for notebooks!
 :::
 

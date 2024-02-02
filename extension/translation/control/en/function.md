@@ -45,7 +45,9 @@ Then, to use your procedure, call it as a single statement:
 
 Keywords are traditionally optional parameters, but they can be used in lieu of arguments as well.
 
-> Pro tip: Best practice is to have keyword share the same external and internal names. In the example below, "quickly" is the external name and "soFast" is our internal (i.e. variable) name.
+::: tip
+Best practice is to have keyword share the same external and internal names. In the example below, "quickly" is the external name and "soFast" is our internal (i.e. variable) name.
+:::
 
 ```idl
 function followTheWhiteRabbit, fromLocation, toLocation, quickly = soFast

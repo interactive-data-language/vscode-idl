@@ -2,7 +2,7 @@
 
 The AutoDoc feature of the extension automatically creates and maintains documentation for your routines and keeps them up-to-date with the latest arguments and keywords in your code.
 
-::: tip Using Automation
+::: tip
 You need to opt-in in order to take advantage of the AutoDoc feature.
 
 To opt-in, enable `autoDoc` under the setting `IDL -> Code -> Formatting`.
@@ -30,11 +30,13 @@ There are three components to the formatting of routine comments: section order 
 
 And here is a table with the order that docs section tags are processed.
 
-> Pro tip: The pattern for section names is that they are a single word
+::: info
+The pattern for section names is that they are a single word
 
-> Header sections are case insensitive, but are formatted with first letter upper-case and the rest lower case
+Header sections are case insensitive, but are formatted with first letter upper-case and the rest lower case
 
-> Need more aliases? let us know! It's easy to add new ones.
+Need more aliases? Let us know! It's easy to add new ones.
+:::
 
 | Section          | Description                         | Aliases (case insensitive)    |
 | ---------------- | ----------------------------------- | ----------------------------- |

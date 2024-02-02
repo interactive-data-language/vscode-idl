@@ -37,6 +37,13 @@ export default defineConfig({
      * Register languages
      */
     languages: [idlJson as any, idlLog as any],
+
+    container: {
+      tipLabel: 'Pro Tip',
+      warningLabel: 'Warning',
+      dangerLabel: 'Danger',
+      infoLabel: 'Information',
+    },
   },
 
   themeConfig: {
