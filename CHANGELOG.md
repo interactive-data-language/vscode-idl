@@ -72,6 +72,12 @@ Fixed an edge case with types where the "any" type was not properly being detect
 
 Fixed an issue where `on_ioerror` was treated as a procedure when it should be a control statement
 
+Fixed a typo in the problem code alias `docs-invalid-require` to correctly be `docs-invalid-required`. If you had this problem disabled, you will need to disable it again.
+
+Fixed a typo in the problem code alias `docs-missing-arg` to correctly be `docs-missing-args`. If you had this problem disabled, you will need to disable it again.
+
+Fixed a typo in the problem code alias `docs-missing-kw` to correctly be `docs-missing-kws`. If you had this problem disabled, you will need to disable it again.
+
 ---
 
 Migrated the following features from "Preview Features" above:
