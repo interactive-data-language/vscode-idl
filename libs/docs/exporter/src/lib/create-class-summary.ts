@@ -1,5 +1,6 @@
 import { ExportedGlobalTokensByType } from '@idl/parsing/index';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
+import { DefaultTheme } from 'vitepress';
 
 import { GetDisplayName } from './get-display-name';
 import { GetDocsLink } from './get-docs-link';
@@ -16,6 +17,8 @@ interface IClassSummary {
   procedures: string[];
   /** Properties */
   properties: string[];
+  /** Sidebar for class */
+  sidebar: DefaultTheme.NavItemWithLink[];
 }
 
 /**
@@ -40,6 +43,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
         functions: [],
         procedures: [],
         properties: [],
+        sidebar: [],
       };
     }
 
@@ -63,12 +67,19 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
         functions: [],
         procedures: [],
         properties: [],
+        sidebar: [],
       };
     }
 
     classes[className].functions.push(
       `[${GetDisplayName(fm)}](${GetDocsLink(fm)})`
     );
+
+    // update sidebar
+    classes[className].sidebar.push({
+      text: GetDisplayName(fm),
+      link: GetDocsLink(fm),
+    });
   }
 
   /**
@@ -85,18 +96,27 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
         functions: [],
         procedures: [],
         properties: [],
+        sidebar: [],
       };
     }
 
     classes[className].procedures.push(
       `[${GetDisplayName(pm)}](${GetDocsLink(pm)})`
     );
+
+    // update sidebar
+    classes[className].sidebar.push({
+      text: GetDisplayName(pm),
+      link: GetDocsLink(pm),
+    });
   }
 
   /**
    * Track content by class name
    */
-  const byClass: { [key: string]: string } = {};
+  const byClass: {
+    [key: string]: { summary: string; sidebar: DefaultTheme.NavItemWithLink[] };
+  } = {};
 
   /**
    * Create class pages
@@ -137,7 +157,10 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     }
 
     // save
-    byClass[info.display] = strings.join('\n');
+    byClass[info.display] = {
+      summary: strings.join('\n'),
+      sidebar: info.sidebar,
+    };
   }
 
   // return our lookup
