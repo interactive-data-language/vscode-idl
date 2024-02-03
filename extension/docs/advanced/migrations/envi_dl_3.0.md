@@ -18,7 +18,7 @@ To learn more about the specific changes, see the official documentation guide: 
 
 6. You can then use undo/redo to see what the changes look like
 
-## Sample Results
+## Code Examples
 
 Below you'll find an example showing what the old/new code looks like:
 

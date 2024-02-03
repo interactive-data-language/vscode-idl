@@ -9,6 +9,10 @@ export const NOTEBOOK_SIDEBAR: SidebarEntry[] = [
     link: '/notebooks/',
   },
   {
+    text: 'Best Practices and Tips',
+    link: '/notebooks/best_practices',
+  },
+  {
     text: 'Notebook Conversions',
     link: '/notebooks/notebook_conversions',
   },
