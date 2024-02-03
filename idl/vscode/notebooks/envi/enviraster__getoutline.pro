@@ -1,4 +1,7 @@
 ;+
+;
+; :Private:
+;
 ; :Description:
 ;   Creates GeoJSON for an image bounding box
 ;
@@ -39,6 +42,9 @@ function getRasterBBox_serialize, features
 end
 
 ;+
+;
+; :Private:
+;
 ; :Description:
 ;   Generates a bounding box for a raster in-memory. The assumption is that the image
 ;   being passed to this routine is small and can be processed in-memory.

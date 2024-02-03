@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Returns basic information about our IDL session for use in VSCode
 ;

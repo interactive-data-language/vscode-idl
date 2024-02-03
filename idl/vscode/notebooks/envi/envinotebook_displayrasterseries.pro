@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Creates an animation of all rasters in a raster series and embeds in a notebook
 ;
