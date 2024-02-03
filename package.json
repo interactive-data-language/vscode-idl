@@ -838,7 +838,7 @@
                 "docs-invalid-type",
                 "docs-left-align",
                 "docs-missing-args",
-                "docs-missing-kw",
+                "docs-missing-kws",
                 "docs-missing-prop",
                 "docs-missing-return",
                 "docs-missing-struct",
