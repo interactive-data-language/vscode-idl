@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Checks to see if a given routine is a function or procedure.
 ;

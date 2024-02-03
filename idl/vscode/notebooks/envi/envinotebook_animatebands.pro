@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Creates an animation of all bands and embeds them in a notebook cell.
 ;

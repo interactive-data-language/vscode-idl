@@ -208,6 +208,8 @@ pro IDLNotebookMap::_AddToNotebook, item
 end
 
 ;+
+; :Private:
+;
 ; :IDLNotebookMap:
 ;   data: List<IDLNotebookMap_GeoJSONFromUri | IDLNotebookMap_Image | IDLNotebookMap_ROIs | IDLNotebookMap_ShapeFileFromUri>
 ;     List of items to add to the map

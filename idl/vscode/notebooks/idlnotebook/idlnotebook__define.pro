@@ -442,6 +442,8 @@ pro IDLNotebook::_TrackNotebookItem, item
 end
 
 ;+
+; :Private:
+;
 ; :Description:
 ;   Class definition procedure
 ;

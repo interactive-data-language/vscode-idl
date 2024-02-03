@@ -1,5 +1,7 @@
 ; ---------------------------------------------------------------------------
 ;+
+; :Private:
+;
 ; :Keywords:
 ;   disable: bidirectional, optional, any
 ;     Placeholder docs for argument, keyword, or property

@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Creates a visual product for a raster that we can display within an IDL Notebook.
 ;

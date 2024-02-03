@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Returns information from IDL about a specific scope level which
 ;   contains information about the call stack, variables, and IDL's prompt.
