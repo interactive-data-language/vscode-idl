@@ -1,5 +1,6 @@
-import { GlobalIndexedToken } from '@idl/parsing/index';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
+
+import { GlobalIndexedToken } from '../global-index.interface';
 
 /**
  * Determines if we should export the given global token or not
