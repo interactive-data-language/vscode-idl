@@ -22,6 +22,7 @@ import {
 import { SaveGlobalDisplayNames } from './helpers/save-global-display-names';
 import { IDL_INDEX_OPTIONS } from './idl-index.interface';
 import GlobToRegExp = require('glob-to-regexp');
+import { ShouldExportItem } from './helpers/should-export-item';
 
 /**
  * Class that manages storing/querying our index of global tokens
@@ -65,7 +66,7 @@ export class GlobalIndex {
   }
 
   /**
-   * Selects global tokens that need to be exported.
+   * Selects global tokens that need to be exported and makes sure the tokens can be exported.
    *
    * Each global token is copied so it can be manipulated after-the-path.
    *
@@ -92,6 +93,7 @@ export class GlobalIndex {
      */
     const exported: ExportedGlobalTokensByType = {};
 
+    /** Get files */
     const files = Object.keys(this.globalTokensByFile);
 
     /** Process each file */
@@ -128,8 +130,11 @@ export class GlobalIndex {
       }
 
       /** Get tokens by name */
-      const forFile = this.globalTokensByFile[files[i]];
+      const forFile = this.globalTokensByFile[files[i]].filter((item) =>
+        ShouldExportItem(item)
+      );
 
+      // process all tokens
       for (let j = 0; j < forFile.length; j++) {
         if (!(forFile[j].type in exported)) {
           exported[forFile[j].type] = [];

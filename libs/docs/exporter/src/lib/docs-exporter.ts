@@ -6,7 +6,6 @@ import { DefaultTheme } from 'vitepress';
 
 import { GLOBAL_TYPE_PATHS } from './folder-map.interface';
 import { GetDisplayName } from './get-display-name';
-import { ShouldExportItem } from './should-export-item';
 import { WriteFile } from './write-file';
 
 /**
@@ -69,11 +68,6 @@ export async function IDLDocsExporter(
     for (let j = 0; j < forType.length; j++) {
       /** Get item we save */
       const item = forType[j];
-
-      // make sure we should export our item
-      if (!ShouldExportItem(item)) {
-        continue;
-      }
 
       /**
        * Get display name
