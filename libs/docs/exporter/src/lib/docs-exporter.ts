@@ -49,11 +49,15 @@ export async function IDLDocsExporter(
   for (let i = 0; i < exportTypes.length; i++) {
     /**
      * Get tokens for type that we need to export
+     *
+     * And sort by name
      */
-    const forType = toExport[exportTypes[i]];
+    const forType = toExport[exportTypes[i]].sort((a, b) =>
+      a.name > b.name ? 1 : b.name > a.name ? -1 : 0
+    );
 
     /** Create sidebar for our items */
-    let sidebar: DefaultTheme.NavItemWithLink[] = [];
+    const sidebar: DefaultTheme.NavItemWithLink[] = [];
 
     /** */
     const indexFile: string[] = ['# Contents', ''];
@@ -79,7 +83,7 @@ export async function IDLDocsExporter(
       /** Make relative link */
       const relative = `/${GLOBAL_TYPE_PATHS[exportTypes[i]]}/${item.name
         .toLowerCase()
-        .replace(/:/g, '_')}.md`;
+        .replace(/:/g, '_')}.md`.replace(/\\/g, '/');
 
       // add to index file
       indexFile.push(`[${display}](${relative})`);
@@ -88,7 +92,11 @@ export async function IDLDocsExporter(
       /** Specify the folder */
       const outUri = join(exportDir, relative);
 
-      WriteFile(outUri, `# ${GetDisplayName(item)}\n\n${item.meta.docs}`);
+      // write to disk
+      WriteFile(
+        outUri,
+        `# ${display}\n\n${item.meta.docs.replace(/</g, '\\<')}`
+      );
 
       // add sidebar entry
       sidebar.push({
@@ -96,11 +104,6 @@ export async function IDLDocsExporter(
         link: relative,
       });
     }
-
-    /** Sort sidebar alphabetically */
-    sidebar = sidebar.sort((a, b) =>
-      a.text > b.text ? 1 : b.text > a.text ? -1 : 0
-    );
 
     // write index file if we have it
     if (indexFile.length > initLength) {
