@@ -111,6 +111,11 @@ export function PopulateGlobalLocalCompileOpts(
               )
             : GenerateRoutineMetadataFast('function');
 
+          // make sure structures inherit private flag
+          for (let z = 0; z < structures.length; z++) {
+            structures[z].meta.private = meta.private;
+          }
+
           // check if method or function
           switch (first.name) {
             case TOKEN_NAMES.ROUTINE_NAME: {
@@ -235,6 +240,11 @@ export function PopulateGlobalLocalCompileOpts(
                 docs
               )
             : GenerateRoutineMetadataFast('procedure');
+
+          // make sure structures inherit private flag
+          for (let z = 0; z < structures.length; z++) {
+            structures[z].meta.private = meta.private;
+          }
 
           // make sure it is the name of the routine
           switch (first.name) {

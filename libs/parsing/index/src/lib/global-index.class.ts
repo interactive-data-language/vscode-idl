@@ -12,7 +12,6 @@ import {
   GlobalTokenType,
   IGlobalIndexedToken,
 } from '@idl/types/core';
-import copy from 'fast-copy';
 
 import {
   ExportedGlobalTokensByType,
@@ -78,63 +77,65 @@ export class GlobalIndex {
    * If more than one global token has the same name, we only export the first instance
    * in our global index.
    */
-  export(globs: string[] = []): ExportedGlobalTokensByType {
+  export(
+    globs: string[] = [],
+    filters: string[] = []
+  ): ExportedGlobalTokensByType {
     /** Convert globs to regex */
     const exprs = globs.map((item) => GlobToRegExp(item, { flags: '' }));
+
+    /** Convert globs to regex */
+    const badExprs = filters.map((item) => GlobToRegExp(item, { flags: '' }));
 
     /**
      * Exported tokens
      */
     const exported: ExportedGlobalTokensByType = {};
 
-    /** Get all global token types */
-    const types = Object.values(GLOBAL_TOKEN_TYPES);
+    const files = Object.keys(this.globalTokensByFile);
 
-    /** Process each type */
-    for (let i = 0; i < types.length; i++) {
-      /** Track tokens we export for this type */
-      const forType: GlobalIndexedToken[] = [];
+    /** Process each file */
+    for (let i = 0; i < files.length; i++) {
+      /** Clean the file name */
+      const cleaned = files[i].replace(/\\/g, '/');
 
-      /** Get tokens by name */
-      const byName = this.globalTokensByTypeByName[types[i]];
-
-      /** Names of tokens */
-      const names = Object.keys(byName);
-
-      /**
-       * Process each named token
-       */
-      for (let j = 0; j < names.length; j++) {
-        /** Get tokens to check */
-        const toCheck = byName[names[j]];
-
-        // skip if no tokens
-        if (toCheck.length === 0) {
-          continue;
-        }
-
-        // skip if no filename to compare against
-        if (!toCheck[0].file) {
-          continue;
-        }
-
-        // save if we dont have filters
-        if (globs.length === 0) {
-          forType.push(copy(toCheck[0]));
-          continue;
-        }
-
-        // check against all globs if we do have filters
-        for (let z = 0; z < exprs.length; z++) {
-          if (exprs[z].test(toCheck[0].file.replace(/\\/g, '/'))) {
-            forType.push(copy(toCheck[0]));
-            break;
-          }
+      // check for bad expressions
+      let skip = false;
+      for (let j = 0; j < badExprs.length; j++) {
+        if (badExprs[j].test(cleaned)) {
+          skip = true;
+          break;
         }
       }
 
-      // save
-      exported[types[i]] = forType;
+      // skip if needs to be excluded
+      if (skip) {
+        continue;
+      }
+
+      // check against all globs if we do have filters
+      let keep = true;
+      for (let z = 0; z < exprs.length; z++) {
+        if (!exprs[z].test(cleaned)) {
+          keep = false;
+          break;
+        }
+      }
+
+      // make sure that we pass all filters
+      if (!keep) {
+        continue;
+      }
+
+      /** Get tokens by name */
+      const forFile = this.globalTokensByFile[files[i]];
+
+      for (let j = 0; j < forFile.length; j++) {
+        if (!(forFile[j].type in exported)) {
+          exported[forFile[j].type] = [];
+        }
+        exported[forFile[j].type].push(forFile[j]);
+      }
     }
 
     return exported;

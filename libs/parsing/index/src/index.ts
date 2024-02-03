@@ -1,5 +1,6 @@
 export * from './lib/change-detection/change-detection';
 export * from './lib/global-index.class';
+export * from './lib/global-index.interface';
 export * from './lib/helpers/get-routine';
 export * from './lib/helpers/get-syntax-problems';
 export * from './lib/helpers/get-variable';
