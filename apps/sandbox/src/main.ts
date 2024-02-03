@@ -10,7 +10,8 @@ const index = new IDLIndex(
       // do nothing
     },
   }),
-  0
+  0,
+  false
 );
 
 /** Get the folder with code in it */
@@ -22,15 +23,21 @@ const outDir = GetExtensionPath('extension/docs');
 /** Glob patterns we match against */
 const matches: string[] = ['**/idl/vscode*'];
 
+/** Glob patterns we exclude files from */
+const exclude: string[] = [
+  '**/idl/vscode/notebooks/envi/helpers/*',
+  '**/idl/vscode/notebooks/idlnotebook/*',
+];
+
 /**
  * Main routine
  */
 async function main() {
   /** Index the folder */
-  await index.indexWorkspace([codeDir], false);
+  await index.indexWorkspace([codeDir], true);
 
   /** Export */
-  await IDLDocsExporter(index, outDir, matches);
+  await IDLDocsExporter(index, outDir, matches, exclude);
 }
 
 main()
