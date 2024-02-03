@@ -26,4 +26,8 @@ export const GETTING_STARTED_SIDEBAR: SidebarEntry[] = [
     text: 'Usage Metrics',
     link: '/getting-started/usage_metrics',
   },
+  {
+    text: 'License and Credits',
+    link: '/getting-started/license_and_credits',
+  },
 ];
