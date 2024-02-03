@@ -24,6 +24,13 @@ export interface GlobalTokensByTypeByName {
 }
 
 /**
+ * Lookup with tokens by type for easier access when we export
+ */
+export interface ExportedGlobalTokensByType {
+  [key: string]: GlobalIndexedToken[];
+}
+
+/**
  * For each file we index tokens for, track which types of tokens they
  * contribute to filter the locations we need to clean up tokens from so
  * we don't need to process all tokens.
