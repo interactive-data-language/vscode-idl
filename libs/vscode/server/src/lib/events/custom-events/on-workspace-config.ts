@@ -87,7 +87,18 @@ export const ON_WORKSPACE_CONFIG = async (
 
       // nicely try to start docs server and catch errors which crash the process
       try {
-        StartExpressDocsServer(IDL_CLIENT_CONFIG.documentation.localPort);
+        /**
+         * use callback for server errors, needs process hooks
+         */
+        StartExpressDocsServer((err) => {
+          IDL_LANGUAGE_SERVER_LOGGER.log({
+            log: IDL_LSP_LOG,
+            type: 'error',
+            content: ['Error starting docs server', err],
+            alert: IDL_TRANSLATION.lsp.errors.startDocsServer,
+          });
+        }, IDL_CLIENT_CONFIG.documentation.localPort);
+        // catch all other errors
       } catch (err) {
         IDL_LANGUAGE_SERVER_LOGGER.log({
           log: IDL_LSP_LOG,

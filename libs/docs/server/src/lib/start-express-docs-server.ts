@@ -10,7 +10,10 @@ let IS_EXPRESS_SERVER_STARTED = false;
 /**
  * Starts an express server for to serve up static docs content
  */
-export function StartExpressDocsServer(port = DOCS_SERVER_CONFIG.PORT) {
+export function StartExpressDocsServer(
+  failCallback: (err: any) => void,
+  port = DOCS_SERVER_CONFIG.PORT
+) {
   /**
    * Return if already started
    */
@@ -23,6 +26,17 @@ export function StartExpressDocsServer(port = DOCS_SERVER_CONFIG.PORT) {
 
   /** Serve folder */
   app.use(express.static(DOCS_SERVER_CONFIG.FOLDER));
+
+  /**
+   * handle exceptions
+   */
+  process.on('uncaughtException', (err) => {
+    if (err.message.includes('EADDRINUSE')) {
+      failCallback(err);
+    } else {
+      console.error(err);
+    }
+  });
 
   /** Listen on the port */
   app.listen(port);
