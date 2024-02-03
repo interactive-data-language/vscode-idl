@@ -5,7 +5,7 @@ import { join } from 'path';
 import { DefaultTheme } from 'vitepress';
 
 import { GenerateClassSummaries } from './create-class-summary';
-import { GLOBAL_TYPE_PATHS } from './folder-map.interface';
+import { DOCS_PATHS, GLOBAL_TYPE_PATHS } from './folder-map.interface';
 import { GetDisplayName } from './get-display-name';
 import { GetDocsLink } from './get-docs-link';
 import { WriteFile } from './write-file';
@@ -46,6 +46,25 @@ export async function IDLDocsExporter(
 
   // create summaries of the classes we export
   const classes = GenerateClassSummaries(toExport);
+
+  /** Get names of classes */
+  const classNames = Object.keys(classes);
+
+  /** Create classes siderbar */
+  const classSideBar: DefaultTheme.NavItemWithLink[] = [];
+
+  /** Write all summaries to disk */
+  for (let i = 0; i < classNames.length; i++) {
+    const relative = `/api/${DOCS_PATHS.CLASS}/${classNames[
+      i
+    ].toLowerCase()}.md`;
+    const uri = join(exportDir, relative.substring(4));
+    WriteFile(uri, `# ${classNames[i]}\n\n${classes[classNames[i]]}`);
+    classSideBar.push({
+      text: classNames[i],
+      link: relative,
+    });
+  }
 
   console.log(classes);
 
@@ -89,7 +108,7 @@ export async function IDLDocsExporter(
       indexFile.push('');
 
       /** Specify the folder */
-      const outUri = join(exportDir, relative);
+      const outUri = join(exportDir, relative.substring(4));
 
       // write to disk
       WriteFile(
