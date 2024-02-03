@@ -18,7 +18,7 @@ AutoDoc has two main groups of features and things that it does:
 
 2. Automatically adjusts comments based on procedure/function and adds any missing parameters (arguments or keywords) to the docs without the extra step of manually including them. It completely automates this process so you can spend more time writing code instead of documenting it.
 
-::: warning Warning
+::: warning
 If your code comments are not in the IDL Doc format, then should test the behavior first.
 :::
 

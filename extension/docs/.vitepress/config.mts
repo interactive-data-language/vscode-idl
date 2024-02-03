@@ -16,6 +16,8 @@ export default defineConfig({
   title: 'IDL for VSCode',
   description: 'Documentation for how to use IDL within VSCode',
 
+  srcExclude: ['**/problem-codes/codes/severity/*.md'],
+
   /**
    * For offline use, these should be enabled
    *
@@ -54,7 +56,7 @@ export default defineConfig({
       { text: 'Notebooks', link: '/notebooks/' },
       { text: 'Types', link: '/types/' },
       {
-        text: VERSION,
+        text: `v${VERSION}`,
         link: 'https://github.com/interactive-data-language/vscode-idl/blob/main/CHANGELOG.md',
       },
     ],
