@@ -126,7 +126,7 @@ export class GlobalIndex {
 
         // check against all globs if we do have filters
         for (let z = 0; z < exprs.length; z++) {
-          if (exprs[z].test(toCheck[0].file)) {
+          if (exprs[z].test(toCheck[0].file.replace(/\\/g, '/'))) {
             forType.push(copy(toCheck[0]));
             break;
           }

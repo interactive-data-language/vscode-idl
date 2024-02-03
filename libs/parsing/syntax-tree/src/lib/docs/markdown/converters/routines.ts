@@ -153,6 +153,7 @@ export function RoutinesToMarkdown(
 
   // check if we need to add arguments or parameters
   if (argNames.length > 0) {
+    markdown.push(``);
     markdown.push(`#### Arguments`);
     markdown.push(``);
     for (let i = 0; i < argNames.length; i++) {
@@ -181,6 +182,7 @@ export function RoutinesToMarkdown(
 
   // check if we need to add arguments or parameters
   if (kwNames.length > 0) {
+    markdown.push(``);
     markdown.push(`#### Keywords`);
     markdown.push(``);
     for (let i = 0; i < kwNames.length; i++) {
@@ -215,6 +217,7 @@ export function RoutinesToMarkdown(
     if (keys[i] in SKIP_THESE) {
       continue;
     }
+    markdown.push(``);
     markdown.push(`### ${CapitalizeWord(keys[i])}`);
     markdown.push('');
     markdown.push(docs[keys[i]]);
