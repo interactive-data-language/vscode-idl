@@ -10,6 +10,7 @@ import { NOTEBOOK_SIDEBAR } from './sidebars/notebook.sidebar';
 import { GETTING_STARTED_SIDEBAR } from './sidebars/getting-started.sidebar';
 import { PROBLEMS_SIDEBAR } from './sidebars/problems.sidebar';
 import { VERSION } from '../../../libs/shared/src';
+import { VSCODE_ICON } from './vscode-icon';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -103,6 +104,10 @@ export default defineConfig({
       {
         icon: 'github',
         link: 'https://github.com/interactive-data-language/vscode-idl',
+      },
+      {
+        icon: { svg: VSCODE_ICON },
+        link: 'https://marketplace.visualstudio.com/items?itemName=IDL.idl-for-vscode',
       },
     ],
 
