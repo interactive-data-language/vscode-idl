@@ -4,8 +4,10 @@ import { existsSync, mkdirSync, rmSync } from 'fs';
 import { join } from 'path';
 import { DefaultTheme } from 'vitepress';
 
+import { GenerateClassSummaries } from './create-class-summary';
 import { GLOBAL_TYPE_PATHS } from './folder-map.interface';
 import { GetDisplayName } from './get-display-name';
+import { GetDocsLink } from './get-docs-link';
 import { WriteFile } from './write-file';
 
 /**
@@ -42,6 +44,11 @@ export async function IDLDocsExporter(
   // make sure the output folder exists if it doesnt
   mkdirSync(exportDir, { recursive: true });
 
+  // create summaries of the classes we export
+  const classes = GenerateClassSummaries(toExport);
+
+  console.log(classes);
+
   /**
    * Process each type we export
    */
@@ -75,9 +82,7 @@ export async function IDLDocsExporter(
       const display = GetDisplayName(item);
 
       /** Make relative link */
-      const relative = `/${GLOBAL_TYPE_PATHS[exportTypes[i]]}/${item.name
-        .toLowerCase()
-        .replace(/:/g, '_')}.md`.replace(/\\/g, '/');
+      const relative = GetDocsLink(item);
 
       // add to index file
       indexFile.push(`[${display}](${relative})`);

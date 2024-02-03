@@ -91,7 +91,13 @@ export class GlobalIndex {
     /**
      * Exported tokens
      */
-    const exported: ExportedGlobalTokensByType = {};
+    const exported = {} as ExportedGlobalTokensByType;
+
+    // populate for each token type
+    const types = Object.values(GLOBAL_TOKEN_TYPES);
+    for (let i = 0; i < types.length; i++) {
+      exported[types[i]] = [];
+    }
 
     /** Get files */
     const files = Object.keys(this.globalTokensByFile);
@@ -136,10 +142,7 @@ export class GlobalIndex {
 
       // process all tokens
       for (let j = 0; j < forFile.length; j++) {
-        if (!(forFile[j].type in exported)) {
-          exported[forFile[j].type] = [];
-        }
-        exported[forFile[j].type].push(forFile[j]);
+        exported[forFile[j].type].push(forFile[j] as any);
       }
     }
 
