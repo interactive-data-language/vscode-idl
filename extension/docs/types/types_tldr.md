@@ -2,7 +2,9 @@
 
 This is a brief introduction to types in IDL.
 
-> Pro tip: Types are, for now, built around documentation for your code. It is recommended to use format-on-save in VSCode with AutoDoc enabled for the extension. You can disable formatting apart from adding documentation if desired.
+::: info
+Types are, for now, built around documentation for your code. It is recommended to use format-on-save in VSCode with AutoDoc enabled for the extension. You can disable formatting apart from adding documentation if desired.
+:::
 
 ## Using Types
 
@@ -97,7 +99,7 @@ Why do we need a type argument? The type argument, wrapped in `<TypeArg>` indica
 
 > If you don't specify a type argument, when you next use AutoDoc, it will automatically have `<any>` added to the type
 
-> Pro tip: Do not create nested array types for multi-dimensional arrays. Dimensionality of arrays is not handled at this point in time.
+> Do not create nested array types for multi-dimensional arrays. Dimensionality of arrays is not handled at this point in time.
 
 | Type       | Represents                          | Aliases (case insensitive) | Examples (case insensitive)  |
 | ---------- | ----------------------------------- | -------------------------- | ---------------------------- |

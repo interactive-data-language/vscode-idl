@@ -1,4 +1,4 @@
-import { INotebookToProCodeOptions } from '@idl/notebooks/types';
+import { INotebookToProCodeOptions } from '@idl/types/notebooks';
 
 /**
  * Message for converting a notebook to PRO code

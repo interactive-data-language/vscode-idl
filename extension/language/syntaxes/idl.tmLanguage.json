@@ -708,7 +708,7 @@
     },
     "control_compound": {
       "name": "group.control.compound.idl",
-      "begin": "(?i)\\s*(\\bcommon\\b|\\bcompile_opt\\b|\\bforward_function\\b|\\bgoto\\b)",
+      "begin": "(?i)\\s*(\\bcommon\\b|\\bcompile_opt\\b|\\bforward_function\\b|\\bgoto\\b|\\on_ioerror\\b)",
       "beginCaptures": {
         "0": {
           "name": "keyword.control.idl"

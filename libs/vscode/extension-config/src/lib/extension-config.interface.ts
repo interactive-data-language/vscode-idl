@@ -79,6 +79,8 @@ export interface IDLExtensionsConfigKeys {
   readonly dontAskForIconChange: 'dontAsk.forIconChange';
   /** On startup, if we dont have a formatter configured for IDL code, should we ask for it or not */
   readonly dontAskForFormatterChange: 'dontAsk.forFormatterChange';
+  /** On startup, do we ask to open docs? */
+  readonly dontAskToOpenDocs: 'dontAsk.toOpenDocs';
   /** Controls if we ask to init config for folders or not */
   // readonly dontAskToInitConfig: 'dontAsk.toInitConfig';
   /** Folders that we don't ask to initialize config for */
@@ -175,6 +177,8 @@ export interface IDontAskConfig {
   readonly forIconChange: boolean;
   /** On startup, if we dont have a formatter configured for IDL code, should we ask for it or not */
   readonly forFormatterChange: boolean;
+  /** Do we ask people to open docs on startup? */
+  readonly toOpenDocs: boolean;
   // /** Controls if we ask to init config for folders or not */
   // readonly toInitConfig: boolean;
   // /** Folders that we don't ask to initialize config for */
@@ -293,6 +297,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   dontAskForIDLDir: 'dontAsk.forIDLDir',
   dontAskForIconChange: 'dontAsk.forIconChange',
   dontAskForFormatterChange: 'dontAsk.forFormatterChange',
+  dontAskToOpenDocs: 'dontAsk.toOpenDocs',
   // dontAskToInitConfig: 'dontAsk.toInitConfig',
   // dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders',
 
@@ -360,6 +365,7 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     forIDLDir: false,
     forIconChange: false,
     forFormatterChange: false,
+    toOpenDocs: false,
     // toInitConfig: false,
     // toInitConfigForTheseFolders: [],
   },

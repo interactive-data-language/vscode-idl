@@ -94,6 +94,7 @@ export const EN: ITranslation = {
       },
       docs: {
         open: 'IDL: Open Extension Docs',
+        openLink: 'IDL: Open Docs Link',
       },
     },
     errors: {
@@ -152,6 +153,7 @@ export const EN: ITranslation = {
       },
       docs: {
         open: 'Error while opening extension docs',
+        openLink: 'Error while opening docs link',
       },
     },
     notifications: {
@@ -247,6 +249,7 @@ export const EN: ITranslation = {
       'dontAsk.forIconChange': "Don't ask to change icon font on startup.",
       'dontAsk.forFormatterChange':
         "Don't ask to set the extension as the default formatter for IDL code.",
+      'dontAsk.toOpenDocs': `Don't ask to open the documentation on extension startup`,
       // 'dontAsk.toInitConfig':
       //   'Don\'t ever ask to create an "idl.json" file for any open workspaces',
       // 'dontAsk.toInitConfigForTheseFolders':
@@ -640,6 +643,8 @@ export const EN: ITranslation = {
       connection: 'Failed to send/receive message with the IDL Language Server',
       closed:
         'The IDL Language Server crashed. This is likely a memory issue, please see docs for more information and workarounds.',
+      startDocsServer:
+        'Error while starting local docs server, is the port already in use?',
     },
     types: {
       unknown: {
@@ -706,6 +711,7 @@ export const EN: ITranslation = {
       'Format PRO code automatically on file save? This will not affect other languages and will be limited to PRO files.',
     initIDLJSON:
       'No "idl.json" file found at root level of workspace folder, create? Workspace:',
+    openDocs: 'Open official docs for IDL for VSCode?',
     configure: 'Configure',
     start: 'Start?',
     viewDocs: 'View docs',

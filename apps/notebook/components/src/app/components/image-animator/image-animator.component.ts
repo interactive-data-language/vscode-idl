@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IDLNotebookImage_AnimationFromPNGs } from '@idl/notebooks/types';
+import { IDLNotebookImage_AnimationFromPNGs } from '@idl/types/notebooks';
 
 import { BaseRendererComponent } from '../base-renderer.component';
 

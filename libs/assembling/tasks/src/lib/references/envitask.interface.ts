@@ -2,7 +2,7 @@ import {
   ENVITask,
   ENVITaskParameter,
   ENVITaskSchema33,
-} from '@idl/data-types/tasks';
+} from '@idl/types/tasks';
 
 /**
  * ENVI Task reference for key order of root properties

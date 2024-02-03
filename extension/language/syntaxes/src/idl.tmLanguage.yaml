@@ -513,7 +513,7 @@ repository:
   control_compound:
     name: {{group_control_compound}}
     # spaces make sure we win compared to procedures
-    begin: '\s*(\bcommon\b|\bcompile_opt\b|\bforward_function\b|\bgoto\b)'
+    begin: '\s*(\bcommon\b|\bcompile_opt\b|\bforward_function\b|\bgoto\b|\on_ioerror\b)'
     beginCaptures:
       '0': { name: {{name_control}} }
     end: '{{statement_end}}'

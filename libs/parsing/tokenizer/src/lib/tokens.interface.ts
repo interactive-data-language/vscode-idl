@@ -178,6 +178,8 @@ export type UnexpectedCloserToken = 86;
 export type UnknownToken = 87;
 /** When we encounter something that was not parsed (i.e. its unknown)  */
 export type ExecutiveCommandToken = 88;
+/** Handling on_ioerror */
+export type ControlOnIoErrorToken = 89;
 
 /**
  * Union type of all basic tokens that do not recurse.
@@ -244,6 +246,7 @@ export type NonBasicTokenNames =
   | ControlCompileOptToken
   | ControlForwardFunctionOptToken
   | ControlGoToToken
+  | ControlOnIoErrorToken
   | LineContinuationToken
   | LineSeparationToken
   | LogicalToken
@@ -345,6 +348,8 @@ export interface ITokenNameLookup {
   CONTROL_JUMP: ControlJumpToken;
   /** Forward function */
   CONTROL_FORWARD_FUNCTION: ControlForwardFunctionOptToken;
+  /** Handling on_ioerror */
+  CONTROL_ON_IOERROR: ControlOnIoErrorToken;
   /** Options for compound control statements (i.e. compile_opt, forward_function) */
   CONTROL_OPTION: ControlOptionToken;
   /** An incomplete method or property access */
@@ -502,6 +507,7 @@ export const TOKEN_NAMES: ITokenNameLookup = {
   CONTROL_BREAK: 18,
   CONTROL_COMMON: 19,
   CONTROL_COMPILE_OPT: 20,
+  CONTROL_ON_IOERROR: 89,
   CONTROL_CONTINUE: 21,
   CONTROL_FORWARD_FUNCTION: 22,
   CONTROL_GO_TO: 23,

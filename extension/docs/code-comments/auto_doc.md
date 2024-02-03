@@ -2,11 +2,13 @@
 
 The AutoDoc feature of the extension automatically creates and maintains documentation for your routines and keeps them up-to-date with the latest arguments and keywords in your code.
 
-> You need to opt-in in order to take advantage of the AutoDoc feature.
+::: tip
+You need to opt-in in order to take advantage of the AutoDoc feature.
 
-> If your code comments are not in the IDL Doc format, then you most likely don't want to use AutoDoc or you should test it out beforehand.
+To opt-in, enable `autoDoc` under the setting `IDL -> Code -> Formatting`.
 
-> In order for comments to be identified, they MUST BE BEFORE routine definitions. We don't support the syntax of adding docs after the routine name.
+To enable format on save for PRO code, see [here](./formatting/setup.md)
+:::
 
 ## Features
 
@@ -16,6 +18,10 @@ AutoDoc has two main groups of features and things that it does:
 
 2. Automatically adjusts comments based on procedure/function and adds any missing parameters (arguments or keywords) to the docs without the extra step of manually including them. It completely automates this process so you can spend more time writing code instead of documenting it.
 
+::: warning
+If your code comments are not in the IDL Doc format, then should test the behavior first.
+:::
+
 ## Formatting Style
 
 There are three components to the formatting of routine comments: section order adn indentation style.
@@ -24,11 +30,13 @@ There are three components to the formatting of routine comments: section order 
 
 And here is a table with the order that docs section tags are processed.
 
-> Pro tip: The pattern for section names is that they are a single word
+::: info
+The pattern for section names is that they are a single word
 
-> Header sections are case insensitive, but are formatted with first letter upper-case and the rest lower case
+Header sections are case insensitive, but are formatted with first letter upper-case and the rest lower case
 
-> Need more aliases? let us know! It's easy to add new ones.
+Need more aliases? Let us know! It's easy to add new ones.
+:::
 
 | Section          | Description                         | Aliases (case insensitive)    |
 | ---------------- | ----------------------------------- | ----------------------------- |

@@ -12,7 +12,7 @@ import {
   IDLNotebookMap_Image,
   IDLNotebookMap_ImageFromUri,
   IDLNotebookOutputMetadata,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import { readFileSync } from 'fs';
 import { nanoid } from 'nanoid';
 import * as vscode from 'vscode';

@@ -290,6 +290,10 @@
         "title": "%commands.idl.docs.open%"
       },
       {
+        "command": "idl.docs.openLink",
+        "title": "%commands.idl.docs.openLink%"
+      },
+      {
         "command": "idl.notebooks.convertToPDF",
         "title": "%commands.idl.notebooks.convertToPDF%",
         "icon": {
@@ -830,11 +834,11 @@
                 "colon-in-func-method",
                 "docs-invalid-in-out",
                 "docs-invalid-private",
-                "docs-invalid-require",
+                "docs-invalid-required",
                 "docs-invalid-type",
                 "docs-left-align",
-                "docs-missing-arg",
-                "docs-missing-kw",
+                "docs-missing-args",
+                "docs-missing-kws",
                 "docs-missing-prop",
                 "docs-missing-return",
                 "docs-missing-struct",
@@ -1052,7 +1056,8 @@
             "default": {
               "forIDLDir": false,
               "forIconChange": false,
-              "forFormatterChange": false
+              "forFormatterChange": false,
+              "toOpenDocs": false
             },
             "properties": {
               "forIDLDir": {

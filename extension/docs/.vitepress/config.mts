@@ -9,11 +9,15 @@ import { CODE_COMMENTS_SIDEBAR } from './sidebars/code-comments.sidebar';
 import { NOTEBOOK_SIDEBAR } from './sidebars/notebook.sidebar';
 import { GETTING_STARTED_SIDEBAR } from './sidebars/getting-started.sidebar';
 import { PROBLEMS_SIDEBAR } from './sidebars/problems.sidebar';
+import { VERSION } from '../../../libs/shared/src';
+import { SCRIPT, VSCODE_ICON } from './constants';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'IDL for VSCode',
   description: 'Documentation for how to use IDL within VSCode',
+
+  srcExclude: ['**/problem-codes/codes/severity/*.md'],
 
   /**
    * For offline use, these should be enabled
@@ -30,6 +34,16 @@ export default defineConfig({
 
     // offline
     ['link', { rel: 'icon', href: '/assets/favicon-48x48.ico' }],
+
+    [
+      'script',
+      {
+        async: true,
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-013CSSSNJG',
+      },
+    ],
+
+    ['script', {}, SCRIPT],
   ],
 
   markdown: {
@@ -37,6 +51,13 @@ export default defineConfig({
      * Register languages
      */
     languages: [idlJson as any, idlLog as any],
+
+    container: {
+      tipLabel: 'Pro Tip',
+      warningLabel: 'Warning',
+      dangerLabel: 'Danger',
+      infoLabel: 'Information',
+    },
   },
 
   themeConfig: {
@@ -45,6 +66,10 @@ export default defineConfig({
       { text: 'Getting Started', link: '/getting-started/' },
       { text: 'Notebooks', link: '/notebooks/' },
       { text: 'Types', link: '/types/' },
+      {
+        text: `v${VERSION}`,
+        link: 'https://github.com/interactive-data-language/vscode-idl/blob/main/CHANGELOG.md',
+      },
     ],
 
     sidebar: [
@@ -89,6 +114,10 @@ export default defineConfig({
       {
         icon: 'github',
         link: 'https://github.com/interactive-data-language/vscode-idl',
+      },
+      {
+        icon: { svg: VSCODE_ICON },
+        link: 'https://marketplace.visualstudio.com/items?itemName=IDL.idl-for-vscode',
       },
     ],
 

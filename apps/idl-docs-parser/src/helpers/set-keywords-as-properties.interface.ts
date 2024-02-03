@@ -1,3 +1,3 @@
-import { GlobalRoutineTokenType } from '@idl/data-types/core';
+import { GlobalRoutineTokenType } from '@idl/types/core';
 
 export type UpdateThese = [string, GlobalRoutineTokenType][];

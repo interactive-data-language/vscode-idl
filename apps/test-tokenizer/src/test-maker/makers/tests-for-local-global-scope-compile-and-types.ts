@@ -25,7 +25,7 @@ export async function TestsForLocalGlobalScopeAndCompile(
   // add imports
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(
-    `import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';`
+    `import { GlobalTokens, ICompileOptions } from '@idl/types/core';`
   );
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(

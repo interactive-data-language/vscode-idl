@@ -1,4 +1,4 @@
-import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 
 import { GlobalIndexedToken } from '../global-index.interface';
 

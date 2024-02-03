@@ -1,7 +1,7 @@
 import {
   IDLNotebookOutputMetadata,
   NOTEBOOK_OUTPUT_METADATA_DONT_SAVE_THESE,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import { nanoid } from 'nanoid';
 import * as vscode from 'vscode';
 

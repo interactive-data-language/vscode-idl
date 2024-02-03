@@ -1,15 +1,15 @@
 import {
+  ILocalTokenLookup,
+  ISplitTreeOnArguments,
+} from '@idl/parsing/syntax-tree';
+import {
   GlobalFunctionMethodToken,
   GlobalIndexedRoutineToken,
   GlobalProcedureMethodToken,
   GlobalTokenType,
   IDLDataType,
   IGlobalIndexedToken,
-} from '@idl/data-types/core';
-import {
-  ILocalTokenLookup,
-  ISplitTreeOnArguments,
-} from '@idl/parsing/syntax-tree';
+} from '@idl/types/core';
 
 import { IFoundKeywords } from './get-keywords.interface';
 import { IFoundParameter, IFoundProperty } from './get-property.interface';

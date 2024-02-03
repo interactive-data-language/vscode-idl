@@ -1274,7 +1274,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
   },
   {
     suiteName: `Detects args missing from docs`,
-    fileName: `code.48.docs-missing-arg.spec.ts`,
+    fileName: `code.48.docs-missing-args.spec.ts`,
     tests: [
       {
         name: `no problems`,
@@ -1306,7 +1306,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
   },
   {
     suiteName: `Detects args missing from docs`,
-    fileName: `code.48.docs-missing-arg.idldoc-legacy.spec.ts`,
+    fileName: `code.48.docs-missing-args.idldoc-legacy.spec.ts`,
     tests: [
       {
         name: `no problems`,
@@ -1412,7 +1412,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
   },
   {
     suiteName: `Detects keywords missing from docs`,
-    fileName: `code.50.docs-missing-kw.spec.ts`,
+    fileName: `code.50.docs-missing-kws.spec.ts`,
     tests: [
       {
         name: `no problems`,
@@ -1444,7 +1444,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
   },
   {
     suiteName: `Detects keywords missing from docs`,
-    fileName: `code.50.docs-missing-kw.idldoc-legacy.spec.ts`,
+    fileName: `code.50.docs-missing-kws.idldoc-legacy.spec.ts`,
     tests: [
       {
         name: `no problems`,
@@ -1645,7 +1645,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
   },
   {
     suiteName: `Detects when required/optional is incorrect for docs`,
-    fileName: `code.54.docs-invalid-require.spec.ts`,
+    fileName: `code.54.docs-invalid-required.spec.ts`,
     tests: [
       {
         name: `no problems`,
@@ -4408,6 +4408,10 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
       {
         name: `is not var`,
         code: [`compile_opt idl3`, `a = 5`, ``, `!null = a()`, ``, `end`],
+      },
+      {
+        name: `is not var`,
+        code: [`compile_opt idl3`, `on_ioerror, jumpy`, `end`],
       },
     ],
   },

@@ -431,6 +431,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
       `compile_opt`,
       `forward_function, idl2, hidden`,
       `goto, label`,
+      `on_ioerror, bad_num`,
     ];
 
     // extract tokens
@@ -628,6 +629,30 @@ describe(`[auto generated] Validates control statement parsing`, () => {
         type: TOKEN_TYPES.END,
         name: TOKEN_NAMES.CONTROL_GO_TO,
         pos: [5, 11, 0],
+        matches: [``],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.CONTROL_ON_IOERROR,
+        pos: [6, 0, 10],
+        matches: [`on_ioerror`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.COMMA,
+        pos: [6, 10, 1],
+        matches: [`,`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.VARIABLE,
+        pos: [6, 12, 7],
+        matches: [`bad_num`],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.CONTROL_ON_IOERROR,
+        pos: [6, 19, 0],
         matches: [``],
       },
     ];

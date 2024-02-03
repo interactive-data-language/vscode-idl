@@ -38,7 +38,7 @@ describe(`[auto generated] Verify types being used for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to an [ENVIGLTRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIGLTRasterSpatialRef.html), [ENVIPseudoRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIPseudoRasterSpatialRef.html), [ENVIRPCRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIRPCRasterSpatialRef.html), or [ENVIStandardRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIStandardRasterSpatialRef.html) object, depending on what secondary map information the raster object uses for spatial reference (if any). This property provides a simple way to view secondary map information without having to query the metadata in the file header.\n\n* If the raster object only has one spatial reference, this property returns a !NULL value.\n* If the raster object contains standard map information plus RPC or pseudo information, the standard map information will be used as the primary spatial reference (returned by the SPATIALREF property) and the RPC or pseudo information will be the auxiliary spatial reference (returned by the AUXILIARY\\_SPATIALREF property). RPC information will be written to the header file (for ENVI-format files) if you call [ENVIRaster::WriteMetadata](https://www.nv5geospatialsoftware.com/docs/ENVIRaster__WriteMetadata.html).\n* If the raster object contains RPC and pseudo map information, the RPC information will be used as the primary spatial reference (returned by the SPATIALREF property).',
+            'This property retrieves a reference to an [ENVIGLTRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIGLTRasterSpatialRef/ENVIGLTRasterSpatialRef.htm%22%7D), [ENVIPseudoRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPseudoRasterSpatialRef/ENVIPseudoRasterSpatialRef.htm%22%7D), [ENVIRPCRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRPCRasterSpatialRef/ENVIRPCRasterSpatialRef.htm%22%7D), or [ENVIStandardRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIStandardRasterSpatialRef/ENVIStandardRasterSpatialRef.htm%22%7D) object, depending on what secondary map information the raster object uses for spatial reference (if any). This property provides a simple way to view secondary map information without having to query the metadata in the file header.\n\n* If the raster object only has one spatial reference, this property returns a !NULL value.\n* If the raster object contains standard map information plus RPC or pseudo information, the standard map information will be used as the primary spatial reference (returned by the SPATIALREF property) and the RPC or pseudo information will be the auxiliary spatial reference (returned by the AUXILIARY\\_SPATIALREF property). RPC information will be written to the header file (for ENVI-format files) if you call [ENVIRaster::WriteMetadata](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRaster/ENVIRaster%255F%255FWriteMetadata.htm%22%7D).\n* If the raster object contains RPC and pseudo map information, the RPC information will be used as the primary spatial reference (returned by the SPATIALREF property).',
         },
       },
       {
@@ -62,7 +62,7 @@ describe(`[auto generated] Verify types being used for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to the [ENVICoordSys](https://www.nv5geospatialsoftware.com/docs/ENVICoordSys.html) associated with the raster.',
+            'This property retrieves a reference to the [ENVICoordSys](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVICoordSys/ENVICoordSys.htm%22%7D) associated with the raster.',
         },
       },
       {
@@ -98,7 +98,7 @@ describe(`[auto generated] Verify types being used for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to the [ENVIRasterMetadata](https://www.nv5geospatialsoftware.com/docs/ENVIRasterMetaData.html) object. If METADATA and INHERITS\\_FROM are both set, the new raster will have the union of both sets of metadata. The METADATA values override those from INHERITS\\_FROM if there is a conflict.',
+            'This property retrieves a reference to the [ENVIRasterMetadata](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRasterMetadata/ENVIRasterMetaData.htm%22%7D) object. If METADATA and INHERITS\\_FROM are both set, the new raster will have the union of both sets of metadata. The METADATA values override those from INHERITS\\_FROM if there is a conflict.',
         },
       },
       {
@@ -155,7 +155,7 @@ describe(`[auto generated] Verify types being used for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Returns 1 (TRUE) if ENVIRaster is read-only, and 0 (FALSE) if not. If the value is 0, the [SetData](https://www.nv5geospatialsoftware.com/docs/enviRaster__SetData.html) and [Save](https://www.nv5geospatialsoftware.com/docs/enviRaster__Save.html) methods are available.',
+            'Returns 1 (TRUE) if ENVIRaster is read-only, and 0 (FALSE) if not. If the value is 0, the [SetData](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRaster/enviRaster%255F%255FSetData.htm%22%7D) and [Save](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRaster/enviRaster%255F%255FSave.htm%22%7D) methods are available.',
         },
       },
       {
@@ -167,7 +167,7 @@ describe(`[auto generated] Verify types being used for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to an [ENVIGLTRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIGLTRasterSpatialRef.html), [ENVIPseudoRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIPseudoRasterSpatialRef.html), [ENVIRPCRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIRPCRasterSpatialRef.html), or [ENVIStandardRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIStandardRasterSpatialRef.html) object.',
+            'This property retrieves a reference to an [ENVIGLTRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIGLTRasterSpatialRef/ENVIGLTRasterSpatialRef.htm%22%7D), [ENVIPseudoRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPseudoRasterSpatialRef/ENVIPseudoRasterSpatialRef.htm%22%7D), [ENVIRPCRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRPCRasterSpatialRef/ENVIRPCRasterSpatialRef.htm%22%7D), or [ENVIStandardRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIStandardRasterSpatialRef/ENVIStandardRasterSpatialRef.htm%22%7D) object.',
         },
       },
       {
@@ -179,7 +179,7 @@ describe(`[auto generated] Verify types being used for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to the [ENVITime](https://www.nv5geospatialsoftware.com/docs/ENVITime.html) object.',
+            'This property retrieves a reference to the [ENVITime](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVITime/ENVITime.htm%22%7D) object.',
         },
       },
       {
@@ -252,7 +252,7 @@ describe(`[auto generated] Verify types being used for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to an [ENVIGLTRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIGLTRasterSpatialRef.html), [ENVIPseudoRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIPseudoRasterSpatialRef.html), [ENVIRPCRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIRPCRasterSpatialRef.html), or [ENVIStandardRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIStandardRasterSpatialRef.html) object, depending on what secondary map information the raster object uses for spatial reference (if any). This property provides a simple way to view secondary map information without having to query the metadata in the file header.\n\n* If the raster object only has one spatial reference, this property returns a !NULL value.\n* If the raster object contains standard map information plus RPC or pseudo information, the standard map information will be used as the primary spatial reference (returned by the SPATIALREF property) and the RPC or pseudo information will be the auxiliary spatial reference (returned by the AUXILIARY\\_SPATIALREF property). RPC information will be written to the header file (for ENVI-format files) if you call [ENVIRaster::WriteMetadata](https://www.nv5geospatialsoftware.com/docs/ENVIRaster__WriteMetadata.html).\n* If the raster object contains RPC and pseudo map information, the RPC information will be used as the primary spatial reference (returned by the SPATIALREF property).',
+            'This property retrieves a reference to an [ENVIGLTRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIGLTRasterSpatialRef/ENVIGLTRasterSpatialRef.htm%22%7D), [ENVIPseudoRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPseudoRasterSpatialRef/ENVIPseudoRasterSpatialRef.htm%22%7D), [ENVIRPCRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRPCRasterSpatialRef/ENVIRPCRasterSpatialRef.htm%22%7D), or [ENVIStandardRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIStandardRasterSpatialRef/ENVIStandardRasterSpatialRef.htm%22%7D) object, depending on what secondary map information the raster object uses for spatial reference (if any). This property provides a simple way to view secondary map information without having to query the metadata in the file header.\n\n* If the raster object only has one spatial reference, this property returns a !NULL value.\n* If the raster object contains standard map information plus RPC or pseudo information, the standard map information will be used as the primary spatial reference (returned by the SPATIALREF property) and the RPC or pseudo information will be the auxiliary spatial reference (returned by the AUXILIARY\\_SPATIALREF property). RPC information will be written to the header file (for ENVI-format files) if you call [ENVIRaster::WriteMetadata](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRaster/ENVIRaster%255F%255FWriteMetadata.htm%22%7D).\n* If the raster object contains RPC and pseudo map information, the RPC information will be used as the primary spatial reference (returned by the SPATIALREF property).',
         },
       },
       {
@@ -276,7 +276,7 @@ describe(`[auto generated] Verify types being used for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to the [ENVICoordSys](https://www.nv5geospatialsoftware.com/docs/ENVICoordSys.html) associated with the raster.',
+            'This property retrieves a reference to the [ENVICoordSys](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVICoordSys/ENVICoordSys.htm%22%7D) associated with the raster.',
         },
       },
       {
@@ -312,7 +312,7 @@ describe(`[auto generated] Verify types being used for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to the [ENVIRasterMetadata](https://www.nv5geospatialsoftware.com/docs/ENVIRasterMetaData.html) object. If METADATA and INHERITS\\_FROM are both set, the new raster will have the union of both sets of metadata. The METADATA values override those from INHERITS\\_FROM if there is a conflict.',
+            'This property retrieves a reference to the [ENVIRasterMetadata](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRasterMetadata/ENVIRasterMetaData.htm%22%7D) object. If METADATA and INHERITS\\_FROM are both set, the new raster will have the union of both sets of metadata. The METADATA values override those from INHERITS\\_FROM if there is a conflict.',
         },
       },
       {
@@ -369,7 +369,7 @@ describe(`[auto generated] Verify types being used for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Returns 1 (TRUE) if ENVIRaster is read-only, and 0 (FALSE) if not. If the value is 0, the [SetData](https://www.nv5geospatialsoftware.com/docs/enviRaster__SetData.html) and [Save](https://www.nv5geospatialsoftware.com/docs/enviRaster__Save.html) methods are available.',
+            'Returns 1 (TRUE) if ENVIRaster is read-only, and 0 (FALSE) if not. If the value is 0, the [SetData](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRaster/enviRaster%255F%255FSetData.htm%22%7D) and [Save](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRaster/enviRaster%255F%255FSave.htm%22%7D) methods are available.',
         },
       },
       {
@@ -381,7 +381,7 @@ describe(`[auto generated] Verify types being used for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to an [ENVIGLTRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIGLTRasterSpatialRef.html), [ENVIPseudoRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIPseudoRasterSpatialRef.html), [ENVIRPCRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIRPCRasterSpatialRef.html), or [ENVIStandardRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIStandardRasterSpatialRef.html) object.',
+            'This property retrieves a reference to an [ENVIGLTRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIGLTRasterSpatialRef/ENVIGLTRasterSpatialRef.htm%22%7D), [ENVIPseudoRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPseudoRasterSpatialRef/ENVIPseudoRasterSpatialRef.htm%22%7D), [ENVIRPCRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRPCRasterSpatialRef/ENVIRPCRasterSpatialRef.htm%22%7D), or [ENVIStandardRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIStandardRasterSpatialRef/ENVIStandardRasterSpatialRef.htm%22%7D) object.',
         },
       },
       {
@@ -393,7 +393,7 @@ describe(`[auto generated] Verify types being used for`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to the [ENVITime](https://www.nv5geospatialsoftware.com/docs/ENVITime.html) object.',
+            'This property retrieves a reference to the [ENVITime](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVITime/ENVITime.htm%22%7D) object.',
         },
       },
       {

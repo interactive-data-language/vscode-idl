@@ -1,4 +1,3 @@
-import { IDL_ANY_TYPE } from '@idl/data-types/core';
 import { BranchCallback } from '@idl/parsing/syntax-tree';
 import {
   CallFunctionMethodToken,
@@ -7,6 +6,7 @@ import {
   CallProcedureToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import { IDL_ANY_TYPE } from '@idl/types/core';
 
 import { GetRoutine } from '../../../helpers/get-routine';
 import { GetSplit } from '../helpers/get-split';

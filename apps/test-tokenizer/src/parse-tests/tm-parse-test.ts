@@ -1,5 +1,5 @@
 import { TimeItAsync } from '@idl/shared';
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 import * as glob from 'fast-glob';
 import { readFileSync } from 'fs';
 import { join } from 'path';

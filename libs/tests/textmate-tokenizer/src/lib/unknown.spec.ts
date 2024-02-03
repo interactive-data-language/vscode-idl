@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates unknown token parsing`, () => {
   it(`[auto generated] improper arrow function`, async () => {

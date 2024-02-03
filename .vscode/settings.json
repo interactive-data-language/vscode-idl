@@ -47,6 +47,7 @@
     "imagefromuri",
     "INCREMENTERS",
     "INDGEN",
+    "ioerror",
     "lineanimation",
     "minilog",
     "mlog",

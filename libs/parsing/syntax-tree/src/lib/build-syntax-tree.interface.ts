@@ -1,12 +1,12 @@
+import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { IFoundTokens } from '@idl/parsing/tokenizer';
+import { PositionArray } from '@idl/parsing/tokenizer-types';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalTokens,
   GlobalTokenType,
   ICompileOptions,
-} from '@idl/data-types/core';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
-import { IFoundTokens } from '@idl/parsing/tokenizer';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+} from '@idl/types/core';
 import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver';
 
 import { SyntaxTree } from './branches.interface';

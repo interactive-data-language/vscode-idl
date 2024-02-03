@@ -1,12 +1,12 @@
+import { GetDisplayName } from '@idl/generators/tasks-shared';
 import {
   GlobalProcedureToken,
   IDL_TYPE_LOOKUP,
   IDLTypeHelper,
   IGlobalIndexedToken,
   SerializeIDLType,
-} from '@idl/data-types/core';
-import { ENVITaskParameter, ENVITaskSchema33 } from '@idl/data-types/tasks';
-import { GetDisplayName } from '@idl/generators/tasks-shared';
+} from '@idl/types/core';
+import { ENVITaskParameter, ENVITaskSchema33 } from '@idl/types/tasks';
 
 /**
  * Makes the ENVI Task parameters from our procedure definition

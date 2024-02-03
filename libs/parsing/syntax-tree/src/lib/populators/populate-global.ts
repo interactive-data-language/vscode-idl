@@ -1,5 +1,14 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
+  CommentBlockToken,
+  RoutineFunctionToken,
+  RoutineMethodNameToken,
+  RoutineNameToken,
+  RoutineProcedureToken,
+  TOKEN_NAMES,
+} from '@idl/parsing/tokenizer';
+import { IDL_TRANSLATION } from '@idl/translation';
+import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionMethodToken,
@@ -11,16 +20,7 @@ import {
   IGlobalIndexedToken,
   IRoutineMetadata,
   ParseIDLType,
-} from '@idl/data-types/core';
-import {
-  CommentBlockToken,
-  RoutineFunctionToken,
-  RoutineMethodNameToken,
-  RoutineNameToken,
-  RoutineProcedureToken,
-  TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
-import { IDL_TRANSLATION } from '@idl/translation';
+} from '@idl/types/core';
 import copy from 'fast-copy';
 
 import { IBranch } from '../branches.interface';

@@ -6,15 +6,15 @@ The extension has build-in capabilities to automatically format, and add documen
 
 This feature helps you get the most out of the code that you write and makes it easier for others to interpret, and use, your code.
 
-## Docs Style
-
-The standard that we follow for docs parsing is closely related to IDLDoc with a few twists.
-
 ::: tip
 Rather than be an expert at IDLDoc, try our automation to format, and add docs, to your code on save!
 
-Learn more about AutoDoc [here](./auto_doc.md)
+Learn more about AutoDoc [here](./auto_doc.md) and how to set up automation [here](./formatting/configuration.md)
 :::
+
+## Docs Style
+
+The standard that we follow for docs parsing is closely related to IDLDoc with a few twists.
 
 Here are some basic examples of what code comments look like for PRO code included with the extension:
 

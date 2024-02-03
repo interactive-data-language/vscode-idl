@@ -94,6 +94,8 @@ export interface ICommandTranslation {
   docs: {
     /** Opening the docs */
     open: string;
+    /** Resolve link user clicked on from hover help */
+    openLink: string;
   };
 }
 
@@ -114,6 +116,7 @@ export interface IHoverHelpTranslations {
     pro: string;
     switch: string;
     while: string;
+    on_ioerror: string;
   };
 }
 
@@ -490,6 +493,8 @@ export interface ITranslation {
       closed: string;
       /** Failed to start the language server */
       start: string;
+      /** Error when starting the docs server because of a port conflict */
+      startDocsServer: string;
     };
     /** Messages for types */
     types: {
@@ -668,6 +673,8 @@ export interface ITranslation {
     formatOnSave: string;
     /** Init "idl.json" question */
     initIDLJSON: string;
+    /** Do we ask to open docs on startup */
+    openDocs: string;
     /** Configure something */
     configure: string;
     /** Start IDL */

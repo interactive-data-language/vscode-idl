@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates line modifier (separators)`, () => {
   it(`[auto generated] parses multi-line as single-line`, async () => {

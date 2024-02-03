@@ -22,6 +22,8 @@ If you aren't interested in the details below, here is a high level summary of w
 
 - Preference information (code formatting, if you use the extension themes, if you use our automated code formatter)
 
+- Anonymous usage metrics for our documentation site to see which topics users visit the most and inform product decisions
+
 ---
 
 ## Table of Contents

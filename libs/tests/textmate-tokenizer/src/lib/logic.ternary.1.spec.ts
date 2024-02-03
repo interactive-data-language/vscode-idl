@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates for ternary statement parsing`, () => {
   it(`[auto generated] simplest ternary statement`, async () => {

@@ -2,7 +2,7 @@ import { DefaultTheme } from 'vitepress';
 
 /**
  * Sidebar entries for all problem codes
- * 
+ *
  * Generated automatically when we build our package.json file
  */
 export const PROBLEM_CODES_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
@@ -199,7 +199,7 @@ export const PROBLEM_CODES_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
     link: '/problem-codes/codes/47.md',
   },
   {
-    text: '"docs-missing-arg"',
+    text: '"docs-missing-args"',
     link: '/problem-codes/codes/48.md',
   },
   {
@@ -207,7 +207,7 @@ export const PROBLEM_CODES_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
     link: '/problem-codes/codes/49.md',
   },
   {
-    text: '"docs-missing-kw"',
+    text: '"docs-missing-kws"',
     link: '/problem-codes/codes/50.md',
   },
   {
@@ -223,7 +223,7 @@ export const PROBLEM_CODES_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
     link: '/problem-codes/codes/53.md',
   },
   {
-    text: '"docs-invalid-require"',
+    text: '"docs-invalid-required"',
     link: '/problem-codes/codes/54.md',
   },
   {

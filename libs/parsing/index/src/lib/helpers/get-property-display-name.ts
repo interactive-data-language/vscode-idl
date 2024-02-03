@@ -1,4 +1,4 @@
-import { IDLDataType, SerializeIDLType } from '@idl/data-types/core';
+import { IDLDataType, SerializeIDLType } from '@idl/types/core';
 
 /**
  * Make the display name for properties be a little nicer
