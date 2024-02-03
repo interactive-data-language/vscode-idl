@@ -18,12 +18,11 @@ export const ADVANCED_SIDEBAR: SidebarEntry[] = [
     link: '/advanced/task_creation',
   },
   {
-    text: 'Environment Variables',
+    text: 'Variables Reference',
     link: '/advanced/variables_reference',
   },
   {
     text: 'Migrations',
     items: MIGRATIONS_SIDEBAR,
-    collapsed: true,
   },
 ];

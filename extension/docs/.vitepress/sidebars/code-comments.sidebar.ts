@@ -15,8 +15,12 @@ export const FORMATTING_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
     link: '/code-comments/formatting/configuration.md',
   },
   {
-    text: 'Behaviors: Case and Space',
-    link: '/code-comments/formatting/case_and_space.md',
+    text: 'Behaviors: Case',
+    link: '/code-comments/formatting/case.md',
+  },
+  {
+    text: 'Behaviors: Spacing',
+    link: '/code-comments/formatting/space.md',
   },
 ];
 
