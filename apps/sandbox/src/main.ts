@@ -34,7 +34,7 @@ const exclude: string[] = [
  */
 async function main() {
   /** Index the folder */
-  await index.indexWorkspace([codeDir], true);
+  await index.indexWorkspace([codeDir], false);
 
   /** Export */
   await IDLDocsExporter(index, outDir, matches, exclude);
