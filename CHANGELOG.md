@@ -30,6 +30,16 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 ## 4.3.0
 
+Added official documentation to the extension! It is hosted on Github pages and a local copy is included with the extension.
+
+- If you are offline, and working locally, you can update your preferences to serve the docs through the language server
+
+- If you do use local docs, make sure that the port is free and not currently in use
+
+- All problem codes include links that, based on your preference, will take you to examples in the docs and tips to fix
+
+- Let us know if there are more things that need to be documented, or if documentation can be improved in any way
+
 Fixed a bug where python statements of the form ">>>" were incorrectly formatted with an extra space after the arrows.
 
 For the upcoming release of ENVI Deep Learning 3.0, added a new pipeline for migrating code from older to newer versions. While we typically do not make breaking changes, if we ever do, we now have a pattern to help automate getting your code up-to-date with the latest version of IDL, ENVI, and module APIs.
