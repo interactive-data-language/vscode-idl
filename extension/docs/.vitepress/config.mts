@@ -10,7 +10,7 @@ import { NOTEBOOK_SIDEBAR } from './sidebars/notebook.sidebar';
 import { GETTING_STARTED_SIDEBAR } from './sidebars/getting-started.sidebar';
 import { PROBLEMS_SIDEBAR } from './sidebars/problems.sidebar';
 import { VERSION } from '../../../libs/shared/src';
-import { VSCODE_ICON } from './vscode-icon';
+import { SCRIPT, VSCODE_ICON } from './constants';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -34,6 +34,16 @@ export default defineConfig({
 
     // offline
     ['link', { rel: 'icon', href: '/assets/favicon-48x48.ico' }],
+
+    [
+      'script',
+      {
+        async: true,
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-013CSSSNJG',
+      },
+    ],
+
+    ['script', {}, SCRIPT],
   ],
 
   markdown: {
