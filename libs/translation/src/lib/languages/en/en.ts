@@ -643,6 +643,8 @@ export const EN: ITranslation = {
       connection: 'Failed to send/receive message with the IDL Language Server',
       closed:
         'The IDL Language Server crashed. This is likely a memory issue, please see docs for more information and workarounds.',
+      startDocsServer:
+        'Error while starting local docs server, is the port already in use?',
     },
     types: {
       unknown: {

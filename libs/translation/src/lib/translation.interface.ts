@@ -493,6 +493,8 @@ export interface ITranslation {
       closed: string;
       /** Failed to start the language server */
       start: string;
+      /** Error when starting the docs server because of a port conflict */
+      startDocsServer: string;
     };
     /** Messages for types */
     types: {
