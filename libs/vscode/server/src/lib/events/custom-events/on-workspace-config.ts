@@ -84,7 +84,18 @@ export const ON_WORKSPACE_CONFIG = async (
           'Attempting to start documentation server if it has not already started',
         ],
       });
-      StartExpressDocsServer(IDL_CLIENT_CONFIG.documentation.localPort);
+
+      // nicely try to start docs server and catch errors which crash the process
+      try {
+        StartExpressDocsServer(IDL_CLIENT_CONFIG.documentation.localPort);
+      } catch (err) {
+        IDL_LANGUAGE_SERVER_LOGGER.log({
+          log: IDL_LSP_LOG,
+          type: 'error',
+          content: ['Error starting docs server', err],
+          alert: IDL_TRANSLATION.lsp.errors.startDocsServer,
+        });
+      }
     }
 
     // check if we are resolved or not yet
