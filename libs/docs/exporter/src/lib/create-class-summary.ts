@@ -77,7 +77,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
 
     // update sidebar
     classes[className].sidebar.push({
-      text: GetDisplayName(fm),
+      text: GetDisplayName(fm).split('::')[1],
       link: GetDocsLink(fm),
     });
   }
@@ -106,7 +106,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
 
     // update sidebar
     classes[className].sidebar.push({
-      text: GetDisplayName(pm),
+      text: GetDisplayName(pm).split('::')[1],
       link: GetDocsLink(pm),
     });
   }
@@ -115,7 +115,11 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
    * Track content by class name
    */
   const byClass: {
-    [key: string]: { summary: string; sidebar: DefaultTheme.NavItemWithLink[] };
+    [key: string]: {
+      display: string;
+      summary: string;
+      sidebar: DefaultTheme.NavItemWithLink[];
+    };
   } = {};
 
   /**
@@ -157,9 +161,12 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     }
 
     // save
-    byClass[info.display] = {
+    byClass[info.display.toLowerCase()] = {
+      display: info.display,
       summary: strings.join('\n'),
-      sidebar: info.sidebar,
+      sidebar: info.sidebar.sort((a, b) =>
+        a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+      ),
     };
   }
 
