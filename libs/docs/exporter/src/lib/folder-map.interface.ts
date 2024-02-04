@@ -16,7 +16,7 @@ export const DOCS_PATHS = {
 /**
  * Maps global token types to folders
  */
-export type GlobalTypePathMap = {
+type GlobalTypePathMap = {
   [key in GlobalTokenType]: string;
 };
 
@@ -29,4 +29,22 @@ export const GLOBAL_TYPE_PATHS: GlobalTypePathMap = {
   pm: join(DOCS_PATHS.CLASS, 'pro'),
   s: 'struct',
   sv: 'sys-var',
+};
+
+/**
+ * Maps global token types to folders
+ */
+type GlobalDocsNames = {
+  [key in GlobalTokenType]: string;
+};
+
+/** Folders for global tokens */
+export const GLOBAL_DOCS_NAMES: GlobalDocsNames = {
+  c: 'Common Blocks', // common block
+  f: 'Functions',
+  fm: 'Function Methods',
+  p: 'Procedures',
+  pm: 'Procedure Methods',
+  s: 'Structures',
+  sv: 'System Variables',
 };
