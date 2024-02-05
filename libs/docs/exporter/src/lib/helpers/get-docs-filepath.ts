@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { DOCS_BASE } from './docs-exporter.interface';
+import { DOCS_BASE } from '../docs-exporter.interface';
 
 /**
  * Gets the fully-qualified path for a docs file

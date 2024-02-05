@@ -1,5 +1,5 @@
-import { DOCS_BASE } from './docs-exporter.interface';
-import { DOCS_PATHS } from './folder-map.interface';
+import { DOCS_BASE } from '../docs-exporter.interface';
+import { DOCS_PATHS } from '../folder-map.interface';
 
 /**
  * Gets the link for a class

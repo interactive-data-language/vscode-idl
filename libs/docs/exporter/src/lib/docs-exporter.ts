@@ -4,18 +4,18 @@ import { existsSync, mkdirSync, rmSync } from 'fs';
 import { join } from 'path';
 import { DefaultTheme } from 'vitepress';
 
-import { GenerateClassSummaries } from './create-class-summary';
 import { DOCS_BASE } from './docs-exporter.interface';
 import {
   DOCS_PATHS,
   GLOBAL_DOCS_NAMES,
   GLOBAL_TYPE_PATHS,
 } from './folder-map.interface';
-import { GetClassLink } from './get-class-link';
-import { GetDisplayName } from './get-display-name';
-import { GetDocsFilepath } from './get-docs-filepath';
-import { GetDocsLink } from './get-docs-link';
-import { WriteFile } from './write-file';
+import { GenerateClassSummaries } from './helpers/create-class-summary';
+import { GetClassLink } from './helpers/get-class-link';
+import { GetDisplayName } from './helpers/get-display-name';
+import { GetDocsFilepath } from './helpers/get-docs-filepath';
+import { GetDocsLink } from './helpers/get-docs-link';
+import { WriteFile } from './helpers/write-file';
 
 /**
  * Exports docs fro a given folder from our application
@@ -55,7 +55,7 @@ export async function IDLDocsExporter(
   const classes = GenerateClassSummaries(toExport);
 
   /** Get names of classes */
-  const classNames = Object.keys(classes);
+  const classNames = Object.keys(classes).sort();
 
   // create our overall sidebar
   const apiSidebar: any[] = [];
@@ -64,7 +64,7 @@ export async function IDLDocsExporter(
   let classSideBar: any[] = [];
 
   /** */
-  const classIndex: string[] = [`# All Classes`, ''];
+  const classIndex: string[] = [`# All Classes and Structures`, ''];
 
   /** Write all summaries to disk */
   for (let i = 0; i < classNames.length; i++) {
@@ -78,18 +78,23 @@ export async function IDLDocsExporter(
     // write to disk
     WriteFile(
       uri,
-      `# Class: ${classes[classNames[i]].display}\n\n${
-        classes[classNames[i]].summary
-      }`
+      `# ${classes[classNames[i]].display}\n\n${classes[classNames[i]].summary}`
     );
 
     // create sidebar
-    classSideBar.push({
-      text: classes[classNames[i]].display,
-      link: relative,
-      items: classes[classNames[i]].sidebar,
-      collapsed: true,
-    });
+    if (classes[classNames[i]].sidebar.length > 0) {
+      classSideBar.push({
+        text: classes[classNames[i]].display,
+        link: relative,
+        items: classes[classNames[i]].sidebar,
+        collapsed: true,
+      });
+    } else {
+      classSideBar.push({
+        text: classes[classNames[i]].display,
+        link: relative,
+      });
+    }
   }
 
   // sort by classes
@@ -108,8 +113,9 @@ export async function IDLDocsExporter(
     // write content
     WriteFile(outUri, classIndex.join('\n'));
 
+    // update sidebar
     apiSidebar.push({
-      text: 'Classes',
+      text: 'Classes and Structures',
       items: classSideBar,
       link: relative,
       collapsed: true,
@@ -120,6 +126,13 @@ export async function IDLDocsExporter(
    * Process each type we export
    */
   for (let i = 0; i < exportTypes.length; i++) {
+    /**
+     * Dont export structures, they come from class summaries
+     */
+    if (exportTypes[i] === GLOBAL_TOKEN_TYPES.STRUCTURE) {
+      continue;
+    }
+
     /**
      * Get tokens for type that we need to export
      *

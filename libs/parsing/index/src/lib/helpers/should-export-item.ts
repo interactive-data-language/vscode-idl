@@ -8,6 +8,12 @@ import { GlobalIndexedToken } from '../global-index.interface';
 export function ShouldExportItem(item: GlobalIndexedToken): boolean {
   switch (true) {
     /**
+     * Always export structures (they never have docs, only props do)
+     */
+    case item.type === GLOBAL_TOKEN_TYPES.STRUCTURE:
+      return true;
+
+    /**
      * No docs
      */
     case !item.meta.docs.trim():
@@ -38,6 +44,10 @@ export function ShouldExportItem(item: GlobalIndexedToken): boolean {
      */
     case item.name === '$main$':
       return false;
+
+    /**
+     * Otherwise export
+     */
     default:
       return true;
   }
