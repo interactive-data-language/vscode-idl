@@ -1,7 +1,7 @@
 import { GlobalIndexedToken } from '@idl/parsing/index';
 
-import { DOCS_BASE } from './docs-exporter.interface';
-import { GLOBAL_TYPE_PATHS } from './folder-map.interface';
+import { DOCS_BASE } from '../docs-exporter.interface';
+import { GLOBAL_TYPE_PATHS } from '../folder-map.interface';
 
 /**
  * Get link for docs item

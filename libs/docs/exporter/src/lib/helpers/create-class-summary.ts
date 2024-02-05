@@ -2,6 +2,8 @@ import { ExportedGlobalTokensByType } from '@idl/parsing/index';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { DefaultTheme } from 'vitepress';
 
+import { DocsForProperty } from './docs-for-property';
+import { GetClassLink } from './get-class-link';
 import { GetDisplayName } from './get-display-name';
 import { GetDocsLink } from './get-docs-link';
 
@@ -11,6 +13,8 @@ import { GetDocsLink } from './get-docs-link';
 interface IClassSummary {
   /** Display name */
   display: string;
+  /** Track class inheritance */
+  inherits: string[];
   /** Function methods */
   functions: string[];
   /** Procedure methods */
@@ -40,6 +44,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     if (!(structs[i].name in classes)) {
       classes[structs[i].name] = {
         display: structs[i].meta.display,
+        inherits: structs[i].meta.inherits.sort(),
         functions: [],
         procedures: [],
         properties: [],
@@ -50,7 +55,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     // save docs for properties
     classes[structs[i].name].properties = Object.values(
       structs[i].meta.props
-    ).map((prop) => prop.docs);
+    ).map((prop) => DocsForProperty(prop));
   }
 
   /**
@@ -64,6 +69,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     if (!(className in classes)) {
       classes[className] = {
         display: fm.meta.display.split('::')[0],
+        inherits: [],
         functions: [],
         procedures: [],
         properties: [],
@@ -93,6 +99,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     if (!(className in classes)) {
       classes[className] = {
         display: pm.meta.display.split('::')[0],
+        inherits: [],
         functions: [],
         procedures: [],
         properties: [],
@@ -132,6 +139,37 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
 
     // save strings
     const strings: string[] = [];
+
+    // check for inheritance
+    if (info.inherits.length > 0) {
+      strings.push('## Inherits From');
+      strings.push('');
+
+      // add all inheritance classes
+      for (let z = 0; z < info.inherits.length; z++) {
+        if (info.inherits[z] in classes) {
+          strings.push(
+            `[${classes[info.inherits[z]].display}](${GetClassLink(
+              info.inherits[z]
+            )})`
+          );
+
+          // inherit
+          info.functions = info.functions
+            .concat(classes[info.inherits[z]].functions)
+            .sort();
+          info.procedures = info.procedures
+            .concat(classes[info.inherits[z]].procedures)
+            .sort();
+          info.properties = info.properties
+            .concat(classes[info.inherits[z]].properties)
+            .sort();
+        } else {
+          strings.push(info.inherits[z]);
+        }
+        strings.push('');
+      }
+    }
 
     // add methods
     strings.push('## Known Methods');
