@@ -140,6 +140,9 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     // save strings
     const strings: string[] = [];
 
+    // filter out class inheritance for undocumented classes
+    info.inherits = info.inherits.filter((parent) => parent in classes);
+
     // check for inheritance
     if (info.inherits.length > 0) {
       strings.push('## Inherits From');
