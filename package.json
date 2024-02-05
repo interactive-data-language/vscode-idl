@@ -10,6 +10,7 @@
     "type": "git",
     "url": "https://github.com/interactive-data-language/vscode-idl"
   },
+  "homepage": "https://interactive-data-language.github.io/vscode-idl/",
   "scripts": {
     "build-client": "nx run-many --target=build --projects=client,idl-webview --prod",
     "build-extension": "npm-run-all -s clean build-package-json build-docs build-client build-renderer build-server",
