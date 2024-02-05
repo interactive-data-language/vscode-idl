@@ -17,6 +17,9 @@ export default defineConfig({
   title: 'IDL for VSCode',
   description: 'Documentation for how to use IDL within VSCode',
 
+  /**
+   * Files that we leave out
+   */
   srcExclude: ['**/problem-codes/codes/severity/*.md'],
 
   /**
@@ -52,11 +55,22 @@ export default defineConfig({
      */
     languages: [idlJson as any, idlLog as any],
 
+    /**
+     * Re-name callouts to not be SCREAM CASE
+     */
     container: {
       tipLabel: 'Pro Tip',
       warningLabel: 'Warning',
       dangerLabel: 'Danger',
       infoLabel: 'Information',
+    },
+
+    /**
+     * Code themes: https://shiki.style/themes#special-themes
+     */
+    theme: {
+      light: 'light-plus',
+      dark: 'dracula-soft',
     },
   },
 
