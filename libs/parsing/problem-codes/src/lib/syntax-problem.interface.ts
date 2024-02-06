@@ -16,6 +16,8 @@ export interface ISyntaxProblem {
   start: PositionArray;
   /** Optional end of the syntax problem `[line, index, length]` */
   end: PositionArray;
+  /** Can we report our problem or not? */
+  canReport: boolean;
   /** The file that the problem occurs in */
   file?: string;
 }

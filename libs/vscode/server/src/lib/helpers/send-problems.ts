@@ -118,7 +118,8 @@ export function SendProblems(inFiles: string[]) {
       // filter problems by problem code
       if (problems.length > 0) {
         problems = problems.filter(
-          (problem) => !(problem.code in IGNORE_PROBLEM_CODES)
+          (problem) =>
+            !(problem.code in IGNORE_PROBLEM_CODES) && problem.canReport
         );
       }
     }

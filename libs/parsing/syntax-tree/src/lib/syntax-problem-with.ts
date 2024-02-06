@@ -35,6 +35,7 @@ export function SyntaxProblemWithTranslation(
     info: IDL_TRANSLATION.parsing.errors[code],
     start,
     end,
+    canReport: true,
     file: file,
   };
 }
@@ -58,6 +59,7 @@ export function SyntaxProblemWithoutTranslation(
     info,
     start,
     end,
+    canReport: true,
     file: file,
   };
 }
