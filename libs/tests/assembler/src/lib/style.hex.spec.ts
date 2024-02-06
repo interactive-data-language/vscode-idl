@@ -75,6 +75,7 @@ describe(`[auto generated] Hex number styling`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -151,6 +152,7 @@ describe(`[auto generated] Hex number styling`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -227,6 +229,7 @@ describe(`[auto generated] Hex number styling`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 

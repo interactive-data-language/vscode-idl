@@ -75,12 +75,14 @@ describe(`[auto generated] Verify we change procedure init methods to function m
         info: 'The "::init" method for object classes should be a function',
         start: [0, 0, 4],
         end: [0, 18, 0],
+        canReport: true,
       },
       {
         code: 76,
         info: 'The "::init" method for object classes should be a function',
         start: [7, 0, 4],
         end: [7, 17, 0],
+        canReport: true,
       },
     ];
 
@@ -168,24 +170,28 @@ describe(`[auto generated] Verify we change procedure init methods to function m
         info: 'The "::init" method for object classes should be a function',
         start: [0, 0, 4],
         end: [0, 17, 0],
+        canReport: true,
       },
       {
         code: 20,
         info: 'In procedures and main level programs, the "return" procedure cannot have values',
         start: [4, 2, 6],
         end: [4, 15, 0],
+        canReport: true,
       },
       {
         code: 76,
         info: 'The "::init" method for object classes should be a function',
         start: [7, 0, 4],
         end: [7, 18, 0],
+        canReport: true,
       },
       {
         code: 76,
         info: 'The "::init" method for object classes should be a function',
         start: [13, 0, 4],
         end: [13, 17, 0],
+        canReport: true,
       },
     ];
 

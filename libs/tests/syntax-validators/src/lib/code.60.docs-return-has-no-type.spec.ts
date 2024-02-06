@@ -46,6 +46,7 @@ describe(`[auto generated] Detects when the returns tag for docs is missing the 
         info: 'Unused variable "var1"',
         start: [6, 17, 4],
         end: [6, 17, 4],
+        canReport: true,
       },
     ];
 
@@ -95,12 +96,14 @@ describe(`[auto generated] Detects when the returns tag for docs is missing the 
         info: 'The returns documentation should include the data type that is returned. For example: ":Returns: float"',
         start: [4, 2, 10],
         end: [4, 2, 10],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [6, 17, 4],
         end: [6, 17, 4],
+        canReport: true,
       },
     ];
 

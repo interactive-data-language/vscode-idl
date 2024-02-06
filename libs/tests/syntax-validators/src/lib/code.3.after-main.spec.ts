@@ -35,30 +35,35 @@ describe(`[auto generated] Detects problems after main level`, () => {
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [2, 2, 1],
         end: [2, 2, 1],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [2, 4, 1],
         end: [2, 4, 1],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [2, 5, 0],
         end: [2, 5, 0],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 

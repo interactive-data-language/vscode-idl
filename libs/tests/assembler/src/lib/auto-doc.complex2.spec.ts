@@ -96,24 +96,33 @@ describe(`[auto generated] Verify complex formatting`, () => {
 
     // define expected problems
     const expectedProblems: SyntaxProblems = [
-      { code: 6, info: 'TODO: something', start: [0, 0, 17], end: [0, 0, 17] },
+      {
+        code: 6,
+        info: 'TODO: something',
+        start: [0, 0, 17],
+        end: [0, 0, 17],
+        canReport: true,
+      },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [11, 17, 1],
         end: [11, 17, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [11, 20, 1],
         end: [11, 20, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "c"',
         start: [11, 23, 1],
         end: [11, 23, 1],
+        canReport: true,
       },
     ];
 

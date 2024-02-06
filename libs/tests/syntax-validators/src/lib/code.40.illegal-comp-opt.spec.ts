@@ -40,6 +40,7 @@ describe(`[auto generated] Detects bad compile options`, () => {
         info: 'Illegal compile option',
         start: [1, 20, 4],
         end: [1, 20, 4],
+        canReport: true,
       },
     ];
 
@@ -78,6 +79,7 @@ describe(`[auto generated] Detects bad compile options`, () => {
         info: 'Illegal compile option',
         start: [1, 20, 4],
         end: [1, 20, 4],
+        canReport: true,
       },
     ];
 

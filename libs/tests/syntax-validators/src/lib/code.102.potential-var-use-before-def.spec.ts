@@ -52,30 +52,35 @@ describe(`[auto generated] Use variable before it is defined`, () => {
         info: 'Variable is potentially used before definition "b"',
         start: [5, 4, 1],
         end: [5, 4, 1],
+        canReport: true,
       },
       {
         code: 102,
         info: 'Variable is potentially used before definition "d"',
         start: [11, 4, 1],
         end: [11, 4, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [5, 0, 1],
         end: [5, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "c"',
         start: [11, 0, 1],
         end: [11, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "f"',
         start: [14, 0, 1],
         end: [14, 0, 1],
+        canReport: true,
       },
     ];
 

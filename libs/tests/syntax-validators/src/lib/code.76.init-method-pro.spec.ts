@@ -35,6 +35,7 @@ describe(`[auto generated] Check for init methods`, () => {
         info: 'The "::init" method for object classes should be a function',
         start: [0, 0, 4],
         end: [0, 15, 0],
+        canReport: true,
       },
     ];
 

@@ -46,6 +46,7 @@ describe(`[auto generated] Detects args missing from docs`, () => {
         info: 'Unused variable "var1"',
         start: [7, 23, 4],
         end: [7, 23, 4],
+        canReport: true,
       },
     ];
 
@@ -91,18 +92,21 @@ describe(`[auto generated] Detects args missing from docs`, () => {
         info: 'Parameter is missing from documentation: "var1"',
         start: [3, 23, 4],
         end: [3, 23, 4],
+        canReport: true,
       },
       {
         code: 48,
         info: 'Argument(s) are missing from the documentation for the routine',
         start: [0, 0, 2],
         end: [2, 0, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [3, 23, 4],
         end: [3, 23, 4],
+        canReport: true,
       },
     ];
 

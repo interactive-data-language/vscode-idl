@@ -84,12 +84,19 @@ describe(`[auto generated] Verify complex formatting`, () => {
 
     // define expected problems
     const expectedProblems: SyntaxProblems = [
-      { code: 6, info: 'TODO: something', start: [0, 0, 17], end: [0, 0, 17] },
+      {
+        code: 6,
+        info: 'TODO: something',
+        start: [0, 0, 17],
+        end: [0, 0, 17],
+        canReport: true,
+      },
       {
         code: 38,
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [3, 0, 4],
         end: [3, 15, 0],
+        canReport: true,
       },
     ];
 

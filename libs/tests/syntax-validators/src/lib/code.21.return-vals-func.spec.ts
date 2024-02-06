@@ -71,6 +71,7 @@ describe(`[auto generated] Detects invalid return statements in functions (too m
         info: 'In function definitions, the "return" procedure cannot have more than one value',
         start: [2, 2, 6],
         end: [2, 12, 0],
+        canReport: true,
       },
     ];
 
@@ -114,6 +115,7 @@ describe(`[auto generated] Detects invalid return statements in functions (too m
         info: 'In function definitions, the "return" procedure cannot have more than one value',
         start: [2, 2, 6],
         end: [2, 12, 0],
+        canReport: true,
       },
     ];
 

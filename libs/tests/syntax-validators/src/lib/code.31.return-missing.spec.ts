@@ -66,6 +66,7 @@ describe(`[auto generated] Detects missing return procedure in functions`, () =>
         info: 'In function definitions, the "return" procedure must be present and have one value that it returns',
         start: [0, 0, 9],
         end: [0, 15, 0],
+        canReport: true,
       },
     ];
 
@@ -140,6 +141,7 @@ describe(`[auto generated] Detects missing return procedure in functions`, () =>
         info: 'In function definitions, the "return" procedure must be present and have one value that it returns',
         start: [0, 0, 9],
         end: [0, 23, 0],
+        canReport: true,
       },
     ];
 

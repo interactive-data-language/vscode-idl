@@ -69,6 +69,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
         info: 'In procedures and main level programs, the "return" procedure cannot have values',
         start: [6, 2, 6],
         end: [6, 12, 0],
+        canReport: true,
       },
     ];
 
@@ -139,12 +140,14 @@ describe(`[auto generated] Verify we remove excess args`, () => {
         info: 'In procedures and main level programs, the "return" procedure cannot have values',
         start: [6, 2, 6],
         end: [6, 12, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [5, 2, 1],
         end: [5, 2, 1],
+        canReport: true,
       },
     ];
 
@@ -204,6 +207,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
         info: 'In procedures and main level programs, the "return" procedure cannot have values',
         start: [3, 0, 6],
         end: [3, 10, 0],
+        canReport: true,
       },
     ];
 

@@ -178,7 +178,7 @@ describe(`[auto generated] Add function for`, () => {
               pos: [0, 30, 1],
             },
           },
-          docs: '\n```idl\nresult = MyClass.init( a, b, c, $\n [ kw2 = any ])\n```\n\n#### Arguments\n\n- **a**: bidirectional, required, any\n\n  \n\n- **b**: bidirectional, required, any\n\n  \n\n- **c**: bidirectional, required, any\n\n  \n\n\n#### Keywords\n\n- **kw2**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\nresult = MyClass.init( a, b, c, $\n [ kw2 = any ])\n```\n\n\n#### Arguments\n\n- **a**: bidirectional, required, any\n\n  \n\n- **b**: bidirectional, required, any\n\n  \n\n- **c**: bidirectional, required, any\n\n  \n\n\n\n#### Keywords\n\n- **kw2**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: {},
           display: 'MyClass::init',
           kws: {
@@ -243,7 +243,7 @@ describe(`[auto generated] Add function for`, () => {
               pos: [0, 30, 1],
             },
           },
-          docs: '\n```idl\nresult = MyClass.init( a, b, c, $\n [ kw2 = any ])\n```\n\n#### Arguments\n\n- **a**: bidirectional, required, any\n\n  \n\n- **b**: bidirectional, required, any\n\n  \n\n- **c**: bidirectional, required, any\n\n  \n\n\n#### Keywords\n\n- **kw2**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\nresult = MyClass.init( a, b, c, $\n [ kw2 = any ])\n```\n\n\n#### Arguments\n\n- **a**: bidirectional, required, any\n\n  \n\n- **b**: bidirectional, required, any\n\n  \n\n- **c**: bidirectional, required, any\n\n  \n\n\n\n#### Keywords\n\n- **kw2**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: {},
           display: 'MyClass',
           kws: {

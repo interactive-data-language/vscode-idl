@@ -40,18 +40,21 @@ describe(`[auto generated] Detects compile opt without options`, () => {
         info: 'Use the "idl2" compile option instead. It is shorthand for "compile_opt defint32, strictarr".',
         start: [1, 14, 8],
         end: [1, 14, 8],
+        canReport: true,
       },
       {
         code: 42,
         info: 'Use the "idl2" compile option instead. It is shorthand for "compile_opt defint32, strictarr".',
         start: [1, 24, 9],
         end: [1, 24, 9],
+        canReport: true,
       },
       {
         code: 39,
         info: '"idl2" was not found as a compile option and should always be one',
         start: [1, 2, 11],
         end: [1, 33, 0],
+        canReport: true,
       },
     ];
 
@@ -95,18 +98,21 @@ describe(`[auto generated] Detects compile opt without options`, () => {
         info: 'Use the "idl2" compile option instead. It is shorthand for "compile_opt defint32, strictarr".',
         start: [1, 14, 8],
         end: [1, 14, 8],
+        canReport: true,
       },
       {
         code: 42,
         info: 'Use the "idl2" compile option instead. It is shorthand for "compile_opt defint32, strictarr".',
         start: [1, 24, 9],
         end: [1, 24, 9],
+        canReport: true,
       },
       {
         code: 39,
         info: '"idl2" was not found as a compile option and should always be one',
         start: [1, 2, 11],
         end: [1, 33, 0],
+        canReport: true,
       },
     ];
 

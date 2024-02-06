@@ -482,6 +482,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
         info: 'Documentation is not left-aligned with the start of docs (not enough spaces before docs)',
         start: [3, 0, 8],
         end: [3, 0, 8],
+        canReport: true,
       },
     ];
 

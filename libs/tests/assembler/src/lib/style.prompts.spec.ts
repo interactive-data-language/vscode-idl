@@ -87,6 +87,7 @@ describe(`[auto generated] Prompt styling`, () => {
         info: 'Unused variable "a"',
         start: [6, 7, 1],
         end: [6, 7, 1],
+        canReport: true,
       },
     ];
 

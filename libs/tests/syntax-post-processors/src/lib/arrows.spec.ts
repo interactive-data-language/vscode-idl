@@ -76,6 +76,7 @@ describe(`[auto generated] Correctly map arrows`, () => {
         info: 'Arrow functions must be followed by the method name or super::method name and cannot be split between lines',
         start: [1, 1, 2],
         end: [1, 1, 2],
+        canReport: true,
       },
     ];
 
@@ -178,6 +179,7 @@ describe(`[auto generated] Correctly map arrows`, () => {
         info: 'Arrow functions must be followed by the method name or super::method name and cannot be split between lines',
         start: [1, 5, 2],
         end: [1, 5, 2],
+        canReport: true,
       },
     ];
 

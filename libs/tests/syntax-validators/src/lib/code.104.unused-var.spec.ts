@@ -41,24 +41,28 @@ describe(`[auto generated] Unused variable`, () => {
         info: 'Unused variable "kw"',
         start: [0, 27, 2],
         end: [0, 27, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 16, 1],
         end: [0, 16, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [0, 19, 1],
         end: [0, 19, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "c"',
         start: [2, 2, 1],
         end: [2, 2, 1],
+        canReport: true,
       },
     ];
 

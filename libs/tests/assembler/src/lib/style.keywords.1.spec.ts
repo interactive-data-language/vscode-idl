@@ -73,12 +73,14 @@ describe(`[auto generated] Verify keywords`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw2"',
         start: [2, 15, 3],
         end: [2, 15, 3],
+        canReport: true,
       },
     ];
 
@@ -166,66 +168,77 @@ describe(`[auto generated] Verify keywords`, () => {
         info: 'Unused variable "name"',
         start: [2, 9, 4],
         end: [2, 9, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg1"',
         start: [2, 15, 4],
         end: [2, 15, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg2"',
         start: [2, 21, 4],
         end: [2, 21, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "color"',
         start: [3, 23, 5],
         end: [3, 23, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "linestyle"',
         start: [3, 40, 9],
         end: [3, 40, 9],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "SYMBOL"',
         start: [4, 7, 6],
         end: [4, 7, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "thick"',
         start: [4, 21, 5],
         end: [4, 21, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "layout"',
         start: [4, 35, 6],
         end: [4, 35, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "test"',
         start: [4, 48, 4],
         end: [4, 48, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "ex"',
         start: [4, 61, 2],
         end: [4, 61, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "graphic"',
         start: [5, 8, 7],
         end: [5, 8, 7],
+        canReport: true,
       },
     ];
 
@@ -300,12 +313,14 @@ describe(`[auto generated] Verify keywords`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw2"',
         start: [2, 15, 3],
         end: [2, 15, 3],
+        canReport: true,
       },
     ];
 
@@ -380,6 +395,7 @@ describe(`[auto generated] Verify keywords`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -461,18 +477,21 @@ describe(`[auto generated] Verify keywords`, () => {
         info: 'Unused variable "x"',
         start: [1, 6, 1],
         end: [1, 6, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "y"',
         start: [1, 8, 1],
         end: [1, 8, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw"',
         start: [2, 10, 2],
         end: [2, 10, 2],
+        canReport: true,
       },
     ];
 

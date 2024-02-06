@@ -40,6 +40,7 @@ describe(`[auto generated] Find duplicate properties and find`, () => {
         info: 'Undefined variable "b"',
         start: [2, 18, 1],
         end: [2, 18, 1],
+        canReport: true,
       },
     ];
 
@@ -83,18 +84,21 @@ describe(`[auto generated] Find duplicate properties and find`, () => {
         info: 'Property specified more than one time',
         start: [2, 5, 2],
         end: [2, 5, 2],
+        canReport: true,
       },
       {
         code: 74,
         info: 'Property specified more than one time',
         start: [2, 10, 8],
         end: [2, 10, 8],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "b"',
         start: [2, 18, 1],
         end: [2, 18, 1],
+        canReport: true,
       },
     ];
 

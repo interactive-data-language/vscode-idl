@@ -76,6 +76,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
         start: [1, 1, 1],
         end: [1, 1, 1],
+        canReport: true,
       },
     ];
 
@@ -178,6 +179,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
         start: [1, 5, 1],
         end: [1, 5, 1],
+        canReport: true,
       },
     ];
 
@@ -271,6 +273,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
         start: [1, 4, 1],
         end: [1, 4, 1],
+        canReport: true,
       },
     ];
 
@@ -343,6 +346,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 

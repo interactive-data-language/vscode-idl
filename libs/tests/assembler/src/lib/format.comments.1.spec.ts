@@ -82,12 +82,14 @@ describe(`[auto generated] Verify comment`, () => {
         info: 'TODO: something super crazy',
         start: [2, 0, 35],
         end: [2, 0, 35],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -199,42 +201,49 @@ describe(`[auto generated] Verify comment`, () => {
         info: 'Documentation is not left-aligned with the start of docs (not enough spaces before docs)',
         start: [3, 0, 37],
         end: [3, 0, 37],
+        canReport: true,
       },
       {
         code: 64,
         info: 'Parameter is missing from documentation: "var2"',
         start: [14, 17, 4],
         end: [14, 17, 4],
+        canReport: true,
       },
       {
         code: 64,
         info: 'Parameter is missing from documentation: "kw2"',
         start: [14, 32, 3],
         end: [14, 32, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw1"',
         start: [14, 27, 3],
         end: [14, 27, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw2"',
         start: [14, 36, 3],
         end: [14, 36, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [14, 11, 4],
         end: [14, 11, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var2"',
         start: [14, 17, 4],
         end: [14, 17, 4],
+        canReport: true,
       },
     ];
 
@@ -320,18 +329,21 @@ describe(`[auto generated] Verify comment`, () => {
         info: 'Documentation is not left-aligned with the start of docs (not enough spaces before docs)',
         start: [3, 2, 40],
         end: [3, 2, 40],
+        canReport: true,
       },
       {
         code: 59,
         info: 'Documentation is not left-aligned with the start of docs (not enough spaces before docs)',
         start: [4, 2, 17],
         end: [4, 2, 17],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [5, 2, 1],
         end: [5, 2, 1],
+        canReport: true,
       },
     ];
 
@@ -416,6 +428,7 @@ describe(`[auto generated] Verify comment`, () => {
         info: 'Unused variable "a"',
         start: [2, 3, 1],
         end: [2, 3, 1],
+        canReport: true,
       },
     ];
 

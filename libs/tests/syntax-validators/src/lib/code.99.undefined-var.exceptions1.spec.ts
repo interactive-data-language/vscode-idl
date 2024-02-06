@@ -40,18 +40,21 @@ describe(`[auto generated] Don't check unknown keywords`, () => {
         info: 'Unused variable "routine"',
         start: [2, 11, 7],
         end: [2, 11, 7],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "raster"',
         start: [2, 36, 6],
         end: [2, 36, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "output"',
         start: [2, 54, 6],
         end: [2, 54, 6],
+        canReport: true,
       },
     ];
 
@@ -98,6 +101,7 @@ describe(`[auto generated] Don't check unknown keywords`, () => {
         info: 'Unused variable "key"',
         start: [3, 21, 3],
         end: [3, 21, 3],
+        canReport: true,
       },
     ];
 

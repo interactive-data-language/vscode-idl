@@ -113,24 +113,28 @@ describe(`[auto generated] Style internal routines`, () => {
         info: 'Unused variable "p"',
         start: [10, 0, 1],
         end: [10, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "r"',
         start: [12, 0, 1],
         end: [12, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "o"',
         start: [14, 0, 1],
         end: [14, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "s"',
         start: [16, 0, 1],
         end: [16, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -245,24 +249,28 @@ describe(`[auto generated] Style internal routines`, () => {
         info: 'Unused variable "p"',
         start: [10, 0, 1],
         end: [10, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "r"',
         start: [12, 0, 1],
         end: [12, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "o"',
         start: [14, 0, 1],
         end: [14, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "s"',
         start: [16, 0, 1],
         end: [16, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -377,24 +385,28 @@ describe(`[auto generated] Style internal routines`, () => {
         info: 'Unused variable "p"',
         start: [10, 0, 1],
         end: [10, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "r"',
         start: [12, 0, 1],
         end: [12, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "o"',
         start: [14, 0, 1],
         end: [14, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "s"',
         start: [16, 0, 1],
         end: [16, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -509,24 +521,28 @@ describe(`[auto generated] Style internal routines`, () => {
         info: 'Unused variable "p"',
         start: [10, 0, 1],
         end: [10, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "r"',
         start: [12, 0, 1],
         end: [12, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "o"',
         start: [14, 0, 1],
         end: [14, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "s"',
         start: [16, 0, 1],
         end: [16, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -641,24 +657,28 @@ describe(`[auto generated] Style internal routines`, () => {
         info: 'Unused variable "p"',
         start: [10, 0, 1],
         end: [10, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "r"',
         start: [12, 0, 1],
         end: [12, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "o"',
         start: [14, 0, 1],
         end: [14, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "s"',
         start: [16, 0, 1],
         end: [16, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -773,24 +793,28 @@ describe(`[auto generated] Style internal routines`, () => {
         info: 'Unused variable "p"',
         start: [10, 0, 1],
         end: [10, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "r"',
         start: [12, 0, 1],
         end: [12, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "o"',
         start: [14, 0, 1],
         end: [14, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "s"',
         start: [16, 0, 1],
         end: [16, 0, 1],
+        canReport: true,
       },
     ];
 

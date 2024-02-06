@@ -82,36 +82,42 @@ describe(`[auto generated] Keep tokens after main level programs`, () => {
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [5, 0, 1],
         end: [5, 0, 1],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [5, 2, 1],
         end: [5, 2, 1],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [5, 4, 2],
         end: [5, 4, 2],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [5, 6, 0],
         end: [5, 6, 0],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "b"',
         start: [5, 0, 1],
         end: [5, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 

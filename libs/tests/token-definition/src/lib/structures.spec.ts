@@ -48,6 +48,7 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
           },
         },
         source: 'user',
+        private: false,
       },
     };
 

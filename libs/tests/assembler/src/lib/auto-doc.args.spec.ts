@@ -98,18 +98,21 @@ describe(`[auto generated] Verify arg formatting`, () => {
         info: 'Unused variable "arg1"',
         start: [10, 10, 4],
         end: [10, 10, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg2"',
         start: [10, 16, 4],
         end: [10, 16, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "ARG3"',
         start: [10, 22, 4],
         end: [10, 22, 4],
+        canReport: true,
       },
     ];
 

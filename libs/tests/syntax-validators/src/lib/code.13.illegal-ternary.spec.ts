@@ -35,6 +35,7 @@ describe(`[auto generated] Detects illegal ternary operators`, () => {
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -73,12 +74,14 @@ describe(`[auto generated] Detects illegal ternary operators`, () => {
         info: 'Unexpected conditional (ternary/elvis) operator',
         start: [0, 6, 2],
         end: [0, 6, 2],
+        canReport: true,
       },
       {
         code: 10,
         info: 'Illegal colon. Colons are only allowed in braces for indexing and structures for property creation/setting',
         start: [0, 14, 2],
         end: [0, 14, 2],
+        canReport: true,
       },
     ];
 

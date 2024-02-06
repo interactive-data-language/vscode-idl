@@ -51,12 +51,14 @@ describe(`[auto generated] Detects when a defined parameter is missing from user
         info: 'Unused variable "kw1"',
         start: [12, 21, 3],
         end: [12, 21, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [12, 11, 4],
         end: [12, 11, 4],
+        canReport: true,
       },
     ];
 
@@ -107,24 +109,28 @@ describe(`[auto generated] Detects when a defined parameter is missing from user
         info: 'Parameter is missing from documentation: "var1"',
         start: [8, 11, 4],
         end: [8, 11, 4],
+        canReport: true,
       },
       {
         code: 64,
         info: 'Parameter is missing from documentation: "kw1"',
         start: [8, 17, 3],
         end: [8, 17, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw1"',
         start: [8, 21, 3],
         end: [8, 21, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [8, 11, 4],
         end: [8, 11, 4],
+        canReport: true,
       },
     ];
 

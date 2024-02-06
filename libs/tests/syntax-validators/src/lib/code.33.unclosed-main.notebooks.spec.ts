@@ -45,6 +45,7 @@ describe(`[auto generated] Detects missing end to main level program`, () => {
         info: 'Unused variable "something"',
         start: [7, 0, 9],
         end: [7, 0, 9],
+        canReport: true,
       },
     ];
 
@@ -92,6 +93,7 @@ describe(`[auto generated] Detects missing end to main level program`, () => {
         info: 'Unused variable "something"',
         start: [7, 0, 9],
         end: [7, 0, 9],
+        canReport: true,
       },
     ];
 
@@ -137,6 +139,7 @@ describe(`[auto generated] Detects missing end to main level program`, () => {
         info: 'Unused variable "a"',
         start: [5, 0, 1],
         end: [5, 0, 1],
+        canReport: true,
       },
     ];
 

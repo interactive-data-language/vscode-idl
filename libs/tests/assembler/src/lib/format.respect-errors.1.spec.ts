@@ -75,48 +75,56 @@ describe(`[auto generated] Verify we do not format when we have bad syntax error
         info: 'Statement is not closed as expected',
         start: [4, 6, 7],
         end: [4, 6, 7],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw1"',
         start: [0, 36, 3],
         end: [0, 36, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw2"',
         start: [1, 6, 3],
         end: [1, 6, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw3"',
         start: [1, 17, 3],
         end: [1, 17, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg1"',
         start: [0, 13, 4],
         end: [0, 13, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg2"',
         start: [0, 19, 4],
         end: [0, 19, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg3"',
         start: [0, 25, 4],
         end: [0, 25, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [4, 2, 1],
         end: [4, 2, 1],
+        canReport: true,
       },
     ];
 
@@ -186,12 +194,14 @@ describe(`[auto generated] Verify we do not format when we have bad syntax error
         info: 'Main level program is missing an "end" statement',
         start: [2, 0, 1.7976931348623157e308],
         end: [2, 0, 1.7976931348623157e308],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 

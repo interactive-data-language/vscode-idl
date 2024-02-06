@@ -97,6 +97,7 @@ describe(`[auto generated] Detects invalid return statements in procedures`, () 
         info: 'In procedures and main level programs, the "return" procedure cannot have values',
         start: [2, 2, 6],
         end: [2, 9, 0],
+        canReport: true,
       },
     ];
 
@@ -140,6 +141,7 @@ describe(`[auto generated] Detects invalid return statements in procedures`, () 
         info: 'In procedures and main level programs, the "return" procedure cannot have values',
         start: [2, 2, 6],
         end: [2, 9, 0],
+        canReport: true,
       },
     ];
 
@@ -178,6 +180,7 @@ describe(`[auto generated] Detects invalid return statements in procedures`, () 
         info: 'In procedures and main level programs, the "return" procedure cannot have values',
         start: [1, 2, 6],
         end: [1, 9, 0],
+        canReport: true,
       },
     ];
 

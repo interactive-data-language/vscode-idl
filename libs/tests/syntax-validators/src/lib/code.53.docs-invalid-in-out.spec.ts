@@ -44,6 +44,7 @@ describe(`[auto generated] Detects when in/out is incorrect for docs`, () => {
         info: 'Unused variable "var1"',
         start: [5, 23, 4],
         end: [5, 23, 4],
+        canReport: true,
       },
     ];
 
@@ -91,12 +92,14 @@ describe(`[auto generated] Detects when in/out is incorrect for docs`, () => {
         info: 'Parameter direction should be either "in", "out", or "bidirectional"',
         start: [2, 10, 5],
         end: [2, 10, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [5, 23, 4],
         end: [5, 23, 4],
+        canReport: true,
       },
     ];
 

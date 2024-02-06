@@ -53,12 +53,14 @@ describe(`[auto generated] Too many parameters for properties`, () => {
         info: 'Too many documentation arguments for property. Expected the pattern "propertyName: dataType" at most',
         start: [2, 0, 19],
         end: [2, 0, 19],
+        canReport: true,
       },
       {
         code: 83,
         info: 'Too many documentation arguments for property. Expected the pattern "propertyName: dataType" at most',
         start: [6, 0, 23],
         end: [6, 0, 23],
+        canReport: true,
       },
     ];
 

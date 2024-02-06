@@ -95,6 +95,7 @@ describe(`[auto generated] Verify auto-fix/format of template escape characters`
         info: 'Illegal formatting for hex escape character. Should be of the form "\\xXX" and must start with "\\x"',
         start: [10, 10, 4],
         end: [10, 10, 4],
+        canReport: true,
       },
     ];
 
@@ -191,6 +192,7 @@ describe(`[auto generated] Verify auto-fix/format of template escape characters`
         info: 'Illegal formatting for hex escape character. Should be of the form "\\xXX" and must start with "\\x"',
         start: [10, 10, 4],
         end: [10, 10, 4],
+        canReport: true,
       },
     ];
 
@@ -287,6 +289,7 @@ describe(`[auto generated] Verify auto-fix/format of template escape characters`
         info: 'Illegal formatting for hex escape character. Should be of the form "\\xXX" and must start with "\\x"',
         start: [10, 10, 4],
         end: [10, 10, 4],
+        canReport: true,
       },
     ];
 

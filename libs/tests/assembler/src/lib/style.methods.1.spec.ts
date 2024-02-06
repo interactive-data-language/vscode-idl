@@ -86,24 +86,28 @@ describe(`[auto generated] Verify style for methods`, () => {
         info: 'Undefined variable "myclass"',
         start: [2, 5, 7],
         end: [2, 5, 7],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "myclass"',
         start: [3, 0, 7],
         end: [3, 0, 7],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "myclass"',
         start: [4, 5, 7],
         end: [4, 5, 7],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "myclass"',
         start: [5, 0, 7],
         end: [5, 0, 7],
+        canReport: true,
       },
     ];
 

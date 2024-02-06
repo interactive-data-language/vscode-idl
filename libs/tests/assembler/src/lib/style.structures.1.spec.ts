@@ -78,12 +78,14 @@ describe(`[auto generated] Verify structures`, () => {
         info: 'No matching structure/object/class definition for structure named "mystruct   "',
         start: [1, 16, 11],
         end: [1, 16, 11],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "fourty2"',
         start: [1, 0, 7],
         end: [1, 0, 7],
+        canReport: true,
       },
     ];
 
@@ -198,6 +200,7 @@ describe(`[auto generated] Verify structures`, () => {
         info: 'Unused variable "void"',
         start: [4, 2, 4],
         end: [4, 2, 4],
+        canReport: true,
       },
     ];
 
@@ -288,12 +291,14 @@ describe(`[auto generated] Verify structures`, () => {
         info: 'Undefined variable "mapDims"',
         start: [6, 23, 7],
         end: [6, 23, 7],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "void"',
         start: [4, 2, 4],
         end: [4, 2, 4],
+        canReport: true,
       },
     ];
 
@@ -395,12 +400,14 @@ describe(`[auto generated] Verify structures`, () => {
         info: 'No matching structure/object/class definition for structure named "IDLNotebook"',
         start: [1, 9, 11],
         end: [1, 9, 11],
+        canReport: true,
       },
       {
         code: 77,
         info: 'No matching structure/object/class definition for structure named "IDLNotebook"',
         start: [5, 5, 11],
         end: [5, 5, 11],
+        canReport: true,
       },
     ];
 

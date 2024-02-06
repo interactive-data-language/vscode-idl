@@ -157,6 +157,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
             },
           },
           source: 'user',
+          private: false,
         },
         file: 'not-real',
       },

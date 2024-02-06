@@ -42,6 +42,7 @@ describe(`[auto generated] Check for known keywords`, () => {
         info: 'Unused variable "p"',
         start: [4, 0, 1],
         end: [4, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -113,12 +114,14 @@ describe(`[auto generated] Check for known keywords`, () => {
         info: 'Unused variable "ex"',
         start: [17, 31, 2],
         end: [17, 31, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "ex"',
         start: [6, 36, 2],
         end: [6, 36, 2],
+        canReport: true,
       },
     ];
 

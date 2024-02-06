@@ -46,6 +46,7 @@ describe(`[auto generated] Detects keywords missing from docs`, () => {
         info: 'Unused variable "kw1"',
         start: [7, 27, 3],
         end: [7, 27, 3],
+        canReport: true,
       },
     ];
 
@@ -93,18 +94,21 @@ describe(`[auto generated] Detects keywords missing from docs`, () => {
         info: 'Parameter is missing from documentation: "kw1"',
         start: [5, 23, 3],
         end: [5, 23, 3],
+        canReport: true,
       },
       {
         code: 50,
         info: 'Keywords(s) are missing from the documentation for the routine',
         start: [0, 0, 2],
         end: [4, 0, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw1"',
         start: [5, 27, 3],
         end: [5, 27, 3],
+        canReport: true,
       },
     ];
 

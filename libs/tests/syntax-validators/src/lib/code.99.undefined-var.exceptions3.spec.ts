@@ -57,6 +57,7 @@ describe(`[auto generated] Without known global, arguments are least restrictive
         info: 'Unused variable "void"',
         start: [16, 2, 4],
         end: [16, 2, 4],
+        canReport: true,
       },
     ];
 

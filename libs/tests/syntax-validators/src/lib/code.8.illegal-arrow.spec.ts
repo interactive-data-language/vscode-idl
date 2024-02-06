@@ -35,24 +35,28 @@ describe(`[auto generated] Detects illegal arrows`, () => {
         info: 'Arrow functions must be followed by the method name or super::method name and cannot be split between lines',
         start: [1, 6, 3],
         end: [1, 6, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "b"',
         start: [1, 5, 1],
         end: [1, 5, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "method"',
         start: [2, 0, 6],
         end: [2, 0, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -96,24 +100,28 @@ describe(`[auto generated] Detects illegal arrows`, () => {
         info: 'Unknown token encountered. Verify syntax and expression is allowed.',
         start: [1, 17, 19],
         end: [1, 17, 19],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "self"',
         start: [1, 13, 4],
         end: [1, 13, 4],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "method"',
         start: [2, 0, 6],
         end: [2, 0, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "oContainer"',
         start: [1, 0, 10],
         end: [1, 0, 10],
+        canReport: true,
       },
     ];
 

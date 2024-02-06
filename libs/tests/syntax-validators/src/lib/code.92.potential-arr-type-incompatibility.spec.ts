@@ -55,18 +55,21 @@ describe(`[auto generated] Array data type incompatibility`, () => {
         info: 'Potential type incompatibility found when attempting to resolve types of merged arrays',
         start: [17, 6, 4],
         end: [17, 20, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [14, 2, 1],
         end: [14, 2, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [17, 2, 1],
         end: [17, 2, 1],
+        canReport: true,
       },
     ];
 

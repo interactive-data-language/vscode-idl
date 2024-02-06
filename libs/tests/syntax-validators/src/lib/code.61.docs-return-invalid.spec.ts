@@ -46,6 +46,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
         info: 'Unused variable "var1"',
         start: [6, 17, 4],
         end: [6, 17, 4],
+        canReport: true,
       },
     ];
 
@@ -97,12 +98,14 @@ describe(`[auto generated] Detects when the returns tag has too much information
         info: 'The returns documentation should only contain the data type that is returned. For example: ":Returns: float"',
         start: [4, 2, 10],
         end: [6, 0, 22],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [8, 17, 4],
         end: [8, 17, 4],
+        canReport: true,
       },
     ];
 
@@ -155,6 +158,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
         info: 'Unused variable "var1"',
         start: [9, 17, 4],
         end: [9, 17, 4],
+        canReport: true,
       },
     ];
 

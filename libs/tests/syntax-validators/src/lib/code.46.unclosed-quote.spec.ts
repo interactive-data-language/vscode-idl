@@ -35,6 +35,7 @@ describe(`[auto generated] Detects unclosed quotes`, () => {
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -73,12 +74,14 @@ describe(`[auto generated] Detects unclosed quotes`, () => {
         info: 'Quote/string is not closed. While not a syntax error, this can lead to bugs.',
         start: [0, 4, 4],
         end: [0, 4, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -117,6 +120,7 @@ describe(`[auto generated] Detects unclosed quotes`, () => {
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -155,6 +159,7 @@ describe(`[auto generated] Detects unclosed quotes`, () => {
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -193,12 +198,14 @@ describe(`[auto generated] Detects unclosed quotes`, () => {
         info: 'Quote/string is not closed. While not a syntax error, this can lead to bugs.',
         start: [0, 4, 4],
         end: [0, 4, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 

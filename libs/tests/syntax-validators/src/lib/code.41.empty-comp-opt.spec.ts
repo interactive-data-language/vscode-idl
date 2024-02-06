@@ -35,6 +35,7 @@ describe(`[auto generated] Detects compile opt without options`, () => {
         info: '"compile_opt" should specify at least one compile option',
         start: [1, 2, 11],
         end: [1, 13, 0],
+        canReport: true,
       },
     ];
 
@@ -73,6 +74,7 @@ describe(`[auto generated] Detects compile opt without options`, () => {
         info: '"compile_opt" should specify at least one compile option',
         start: [1, 2, 11],
         end: [1, 13, 0],
+        canReport: true,
       },
     ];
 

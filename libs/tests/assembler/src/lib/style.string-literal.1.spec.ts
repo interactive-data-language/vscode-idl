@@ -86,18 +86,21 @@ describe(`[auto generated] Verify string literal styling`, () => {
         info: 'Undefined variable "expression"',
         start: [1, 21, 10],
         end: [1, 21, 10],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "c"',
         start: [3, 1, 1],
         end: [3, 1, 1],
+        canReport: true,
       },
     ];
 
@@ -183,6 +186,7 @@ describe(`[auto generated] Verify string literal styling`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 

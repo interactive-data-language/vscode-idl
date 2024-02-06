@@ -45,24 +45,28 @@ describe(`[auto generated] De-referencing noting`, () => {
         info: 'Found pointer de-reference, but nothing to operate on',
         start: [4, 6, 1],
         end: [4, 7, 0],
+        canReport: true,
       },
       {
         code: 93,
         info: 'Found pointer de-reference, but nothing to operate on',
         start: [7, 7, 1],
         end: [7, 8, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [4, 2, 1],
         end: [4, 2, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [7, 2, 1],
         end: [7, 2, 1],
+        canReport: true,
       },
     ];
 

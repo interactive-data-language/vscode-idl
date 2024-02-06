@@ -81,6 +81,7 @@ describe(`[auto generated] Executive command formatting`, () => {
         info: 'Main level program is missing an "end" statement',
         start: [4, 0, 1.7976931348623157e308],
         end: [4, 0, 1.7976931348623157e308],
+        canReport: true,
       },
     ];
 

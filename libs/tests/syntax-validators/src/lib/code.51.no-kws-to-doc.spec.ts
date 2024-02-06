@@ -46,6 +46,7 @@ describe(`[auto generated] Detects documented keywords when there are no keyword
         info: 'Unused variable "kw1"',
         start: [7, 27, 3],
         end: [7, 27, 3],
+        canReport: true,
       },
     ];
 
@@ -95,12 +96,14 @@ describe(`[auto generated] Detects documented keywords when there are no keyword
         info: 'Documented argument, keyword, or property does not exist: "kw1"',
         start: [3, 0, 35],
         end: [3, 0, 35],
+        canReport: true,
       },
       {
         code: 51,
         info: 'Documentation includes keywords, but none are present in routine definition',
         start: [2, 2, 11],
         end: [5, 0, 1],
+        canReport: true,
       },
     ];
 

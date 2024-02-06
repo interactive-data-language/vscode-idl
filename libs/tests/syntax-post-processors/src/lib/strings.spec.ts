@@ -203,6 +203,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
         info: 'Two statements of the same type are not allowed to be next to each other without a separator or operator',
         start: [0, 4, 8],
         end: [0, 13, 9],
+        canReport: true,
       },
     ];
 
@@ -283,6 +284,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
         info: 'Two statements of the same type are not allowed to be next to each other without a separator or operator',
         start: [0, 4, 8],
         end: [0, 13, 9],
+        canReport: true,
       },
     ];
 

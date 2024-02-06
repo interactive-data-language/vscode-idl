@@ -66,6 +66,7 @@ describe(`[auto generated] Detects invalid return statements in functions (no va
         info: 'In function definitions, the "return" procedure must have one (and only one) value',
         start: [2, 2, 6],
         end: [2, 8, 0],
+        canReport: true,
       },
     ];
 
@@ -109,6 +110,7 @@ describe(`[auto generated] Detects invalid return statements in functions (no va
         info: 'In function definitions, the "return" procedure must have one (and only one) value',
         start: [2, 2, 6],
         end: [2, 8, 0],
+        canReport: true,
       },
     ];
 

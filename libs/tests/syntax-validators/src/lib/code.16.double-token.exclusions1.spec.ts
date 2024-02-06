@@ -35,6 +35,7 @@ describe(`[auto generated] Allows these tokens next to each other`, () => {
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 

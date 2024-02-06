@@ -86,6 +86,7 @@ describe(`[auto generated] Detects when the docs are missing return`, () => {
         info: 'Expected a documentation tag for ":Returns:" since this is a function or function method',
         start: [0, 0, 2],
         end: [3, 0, 2],
+        canReport: true,
       },
     ];
 

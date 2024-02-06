@@ -111,18 +111,21 @@ describe(`[auto generated] Verify auto-doc when below`, () => {
         info: 'Unused variable "input_raster"',
         start: [0, 44, 12],
         end: [0, 44, 12],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "output_raster_uri"',
         start: [0, 78, 17],
         end: [0, 78, 17],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "third"',
         start: [0, 105, 5],
         end: [0, 105, 5],
+        canReport: true,
       },
     ];
 
@@ -247,30 +250,35 @@ describe(`[auto generated] Verify auto-doc when below`, () => {
         info: 'Documented argument, keyword, or property does not exist: "third"',
         start: [7, 0, 39],
         end: [7, 0, 39],
+        canReport: true,
       },
       {
         code: 64,
         info: 'Parameter is missing from documentation: "third2"',
         start: [0, 97, 6],
         end: [0, 97, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "input_raster"',
         start: [0, 44, 12],
         end: [0, 44, 12],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "output_raster_uri"',
         start: [0, 78, 17],
         end: [0, 78, 17],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "third"',
         start: [0, 106, 5],
         end: [0, 106, 5],
+        canReport: true,
       },
     ];
 

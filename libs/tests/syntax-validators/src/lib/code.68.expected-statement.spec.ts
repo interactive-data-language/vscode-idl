@@ -35,12 +35,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 2, 1],
         end: [1, 4, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -79,12 +81,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 7, 1],
         end: [1, 8, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -123,12 +127,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 2, 2],
         end: [1, 5, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -167,12 +173,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 6, 3],
         end: [1, 10, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -211,12 +219,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 4, 1],
         end: [1, 6, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -255,12 +265,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Found pointer de-reference, but nothing to operate on',
         start: [1, 4, 1],
         end: [1, 5, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -299,12 +311,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 4, 1],
         end: [1, 5, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -343,6 +357,7 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 0, 3],
         end: [1, 3, 0],
+        canReport: true,
       },
     ];
 
@@ -381,6 +396,7 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 0, 7],
         end: [1, 7, 0],
+        canReport: true,
       },
     ];
 
@@ -419,6 +435,7 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 0, 5],
         end: [1, 5, 0],
+        canReport: true,
       },
     ];
 
@@ -457,12 +474,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 10, 2],
         end: [1, 12, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "i"',
         start: [1, 4, 1],
         end: [1, 4, 1],
+        canReport: true,
       },
     ];
 
@@ -501,6 +520,7 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 0, 6],
         end: [1, 6, 0],
+        canReport: true,
       },
     ];
 
@@ -539,12 +559,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 13, 5],
         end: [1, 18, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 7, 1],
         end: [1, 7, 1],
+        canReport: true,
       },
     ];
 
@@ -583,6 +605,7 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 0, 2],
         end: [1, 2, 0],
+        canReport: true,
       },
     ];
 
@@ -621,6 +644,7 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 9, 4],
         end: [1, 13, 0],
+        canReport: true,
       },
     ];
 
@@ -659,12 +683,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 21, 4],
         end: [1, 25, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 14, 1],
         end: [1, 14, 1],
+        canReport: true,
       },
     ];
 
@@ -703,12 +729,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 10, 1],
         end: [1, 11, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -747,12 +775,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 15, 1],
         end: [1, 16, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -791,12 +821,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 0, 6],
         end: [2, 0, 3],
+        canReport: true,
       },
       {
         code: 33,
         info: 'Main level program is missing an "end" statement',
         start: [1, 0, 1.7976931348623157e308],
         end: [1, 0, 1.7976931348623157e308],
+        canReport: true,
       },
     ];
 
@@ -835,12 +867,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 0, 4],
         end: [2, 0, 3],
+        canReport: true,
       },
       {
         code: 33,
         info: 'Main level program is missing an "end" statement',
         start: [1, 0, 1.7976931348623157e308],
         end: [1, 0, 1.7976931348623157e308],
+        canReport: true,
       },
     ];
 
@@ -879,12 +913,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 13, 2],
         end: [2, 0, 0],
+        canReport: true,
       },
       {
         code: 33,
         info: 'Main level program is missing an "end" statement',
         start: [1, 0, 1.7976931348623157e308],
         end: [1, 0, 1.7976931348623157e308],
+        canReport: true,
       },
     ];
 
@@ -923,12 +959,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Expected IDL statement or expression after, but none was found',
         start: [1, 13, 2],
         end: [2, 0, 0],
+        canReport: true,
       },
       {
         code: 33,
         info: 'Main level program is missing an "end" statement',
         start: [1, 0, 1.7976931348623157e308],
         end: [1, 0, 1.7976931348623157e308],
+        canReport: true,
       },
     ];
 
