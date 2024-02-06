@@ -12,7 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Credits
 
-- For the licenses and copyrights of 3rd party dependencies for extension components, see [3rdpartylicenses.md](./compliance/3rdpartylicenses.md).
+- For the licenses and copyrights of 3rd party dependencies for extension components, see [3rdpartylicenses.md](https://github.com/interactive-data-language/vscode-idl/blob/main/compliance/3rdpartylicenses.md).
 
 - Icon theme:
 
