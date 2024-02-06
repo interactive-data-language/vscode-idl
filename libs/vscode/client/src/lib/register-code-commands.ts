@@ -1,8 +1,12 @@
 import { MIGRATION_TYPE_LOOKUP } from '@idl/assembling/migrators-types';
-import { IDL_COMMANDS } from '@idl/shared';
+import { IDL_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/parsing/problem-codes';
+import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
+import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
+import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import {
   GetActivePROCodeOrTaskWindow,
   GetActivePROCodeWindow,
@@ -142,6 +146,55 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
   );
 
   ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
+      async (info?: IAutoFixIDLDiagnostic) => {
+        try {
+          if (!info) {
+            return false;
+          }
+
+          LogCommandInfo('Disable problem via settings');
+
+          /** Get problem code alias */
+          const alias = IDL_PROBLEM_CODE_ALIAS_LOOKUP[info.code];
+
+          /** Get current problems */
+          const current = IDL_EXTENSION_CONFIG.problems.ignoreProblems;
+          if (current.indexOf(alias) !== -1) {
+            return false;
+          }
+
+          // save the problem code
+          current.push(alias);
+
+          // get current config
+          const configuration =
+            vscode.workspace.getConfiguration(IDL_LANGUAGE_NAME);
+
+          // update our value
+          await configuration.update(
+            IDL_EXTENSION_CONFIG_KEYS.problemsIgnoreProblems,
+            current,
+            info.scope === 'user'
+              ? vscode.ConfigurationTarget.Global
+              : vscode.ConfigurationTarget.Workspace
+          );
+
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error while disabling problem via settings',
+            err,
+            cmdErrors.code.disableProblemSetting
+          );
+          return false;
+        }
+      }
+    )
+  );
+
+  ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.CODE.FORMAT_FILE, async () => {
       try {
         LogCommandInfo('Format file');
@@ -175,6 +228,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           err,
           cmdErrors.code.formatFile
         );
+        return false;
       }
     })
   );
@@ -232,6 +286,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
             err,
             cmdErrors.code.formatFile
           );
+          return false;
         }
       }
     )
@@ -277,6 +332,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
             err,
             cmdErrors.code.migrateToDL30API
           );
+          return false;
         }
       }
     )
