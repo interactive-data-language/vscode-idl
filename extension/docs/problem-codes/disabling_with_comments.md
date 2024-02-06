@@ -12,7 +12,7 @@ There are many unique situations, with any language, where line-by-line or by-fi
 
 To disable reporting any problem for an entire file, add the following to the top of your file (as a standalone comment, or in a comment block).
 
-```
+```idl
 ; idl-disable
 ```
 
