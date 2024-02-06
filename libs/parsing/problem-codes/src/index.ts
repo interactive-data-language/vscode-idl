@@ -1,3 +1,4 @@
+export * from './lib/disabled-problems.interface';
 export * from './lib/idl-problem-code-aliases.interface';
 export * from './lib/idl-problem-codes.interface';
 export * from './lib/idl-problem-diagnostic-tags';

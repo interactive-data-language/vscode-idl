@@ -1,4 +1,4 @@
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { IDisabledProblems, SyntaxProblems } from '@idl/parsing/problem-codes';
 import { IFoundTokens } from '@idl/parsing/tokenizer';
 import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver';
@@ -27,6 +27,8 @@ export interface IParsed extends IFoundTokens {
    * If we have set a token cache or not
    */
   hasCache: boolean;
+  /** What problems are disabled? */
+  disabledProblems: IDisabledProblems;
   /** Problems found within code from basic parsing */
   parseProblems: SyntaxProblems;
   /** Problems from post processing (type errors) which get reset every time we post-process */
@@ -57,6 +59,11 @@ export const DEFAULT_PARSED: IParsed = {
   tokens: [],
   text: [],
   lines: 0,
+  disabledProblems: {
+    all: false,
+    forFile: [],
+    forLines: {},
+  },
   parseProblems: [],
   postProcessProblems: [],
   tree: [],

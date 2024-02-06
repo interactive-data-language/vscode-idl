@@ -82,6 +82,11 @@ export function Parser(
     tokens: [],
     text: [],
     lines: 0,
+    disabledProblems: {
+      all: false,
+      forFile: [],
+      forLines: {},
+    },
     parseProblems: [],
     postProcessProblems: [],
     tree: [],
