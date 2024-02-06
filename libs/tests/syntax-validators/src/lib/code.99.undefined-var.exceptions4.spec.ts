@@ -60,12 +60,14 @@ describe(`[auto generated] Keyword variables should be defined`, () => {
         info: 'Unused variable "prefix"',
         start: [0, 107, 6],
         end: [0, 107, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "nbridges"',
         start: [0, 26, 8],
         end: [0, 26, 8],
+        canReport: true,
       },
     ];
 

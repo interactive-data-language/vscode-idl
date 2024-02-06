@@ -35,12 +35,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
         start: [1, 1, 1],
         end: [1, 1, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -79,18 +81,21 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
         start: [1, 5, 1],
         end: [1, 5, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "b"',
         start: [1, 4, 1],
         end: [1, 4, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -129,12 +134,14 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
         start: [1, 4, 1],
         end: [1, 4, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -173,6 +180,7 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 

@@ -44,6 +44,7 @@ describe(`[auto generated] Detects when private/public is incorrect for docs`, (
         info: 'Unused variable "var1"',
         start: [5, 23, 4],
         end: [5, 23, 4],
+        canReport: true,
       },
     ];
 
@@ -91,12 +92,14 @@ describe(`[auto generated] Detects when private/public is incorrect for docs`, (
         info: 'The last docs parameter is only allowed to be "private" or "public". If not specified, it will be considered public',
         start: [2, 33, 6],
         end: [2, 33, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [5, 23, 4],
         end: [5, 23, 4],
+        canReport: true,
       },
     ];
 

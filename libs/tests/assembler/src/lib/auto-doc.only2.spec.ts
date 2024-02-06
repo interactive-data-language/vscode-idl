@@ -86,30 +86,35 @@ describe(`[auto generated] Only use AutoDoc`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [10, 0, 4],
         end: [10, 17, 0],
+        canReport: true,
       },
       {
         code: 38,
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [13, 0, 4],
         end: [13, 0, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [10, 10, 1],
         end: [10, 10, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [10, 13, 1],
         end: [10, 13, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "c"',
         start: [10, 16, 1],
         end: [10, 16, 1],
+        canReport: true,
       },
     ];
 

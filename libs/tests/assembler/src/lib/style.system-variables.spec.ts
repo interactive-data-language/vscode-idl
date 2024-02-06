@@ -87,12 +87,14 @@ describe(`[auto generated] System variable styling`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [4, 0, 1],
         end: [4, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -181,12 +183,14 @@ describe(`[auto generated] System variable styling`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [4, 0, 1],
         end: [4, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -275,12 +279,14 @@ describe(`[auto generated] System variable styling`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [4, 0, 1],
         end: [4, 0, 1],
+        canReport: true,
       },
     ];
 

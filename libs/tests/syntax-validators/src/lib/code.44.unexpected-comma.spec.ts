@@ -35,18 +35,21 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
         info: 'Comma not allowed immediately after statement',
         start: [2, 7, 1],
         end: [2, 8, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "b"',
         start: [2, 6, 1],
         end: [2, 6, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [2, 2, 1],
         end: [2, 2, 1],
+        canReport: true,
       },
     ];
 
@@ -85,6 +88,7 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
         info: 'Comma not allowed immediately after statement',
         start: [1, 2, 11],
         end: [1, 13, 1],
+        canReport: true,
       },
     ];
 
@@ -123,12 +127,14 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
         info: 'Comma not allowed immediately after statement',
         start: [2, 2, 6],
         end: [2, 8, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "named"',
         start: [2, 10, 5],
         end: [2, 10, 5],
+        canReport: true,
       },
     ];
 
@@ -172,6 +178,7 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
         info: 'Comma not allowed immediately after statement',
         start: [2, 2, 16],
         end: [2, 18, 1],
+        canReport: true,
       },
     ];
 
@@ -210,12 +217,14 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
         info: 'Comma not allowed immediately after statement',
         start: [2, 6, 5],
         end: [2, 11, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [2, 2, 1],
         end: [2, 2, 1],
+        canReport: true,
       },
     ];
 
@@ -254,18 +263,21 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
         info: 'Comma not allowed immediately after statement',
         start: [2, 7, 6],
         end: [2, 13, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "b"',
         start: [2, 6, 1],
         end: [2, 6, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [2, 2, 1],
         end: [2, 2, 1],
+        canReport: true,
       },
     ];
 
@@ -309,6 +321,7 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
         info: 'Comma not allowed immediately after statement',
         start: [2, 2, 3],
         end: [2, 5, 1],
+        canReport: true,
       },
     ];
 
@@ -352,24 +365,28 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
         info: 'Comma not allowed immediately after statement',
         start: [2, 2, 7],
         end: [2, 9, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "val"',
         start: [2, 11, 3],
         end: [2, 11, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "arr"',
         start: [2, 16, 3],
         end: [2, 16, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "val"',
         start: [2, 30, 3],
         end: [2, 30, 3],
+        canReport: true,
       },
     ];
 
@@ -408,18 +425,21 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
         info: 'Comma not allowed immediately after statement',
         start: [2, 6, 1],
         end: [2, 7, 1],
+        canReport: true,
       },
       {
         code: 77,
         info: 'No matching structure/object/class definition for structure named "name"',
         start: [2, 8, 4],
         end: [2, 8, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [2, 2, 1],
         end: [2, 2, 1],
+        canReport: true,
       },
     ];
 

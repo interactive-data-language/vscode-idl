@@ -47,12 +47,14 @@ describe(`[auto generated] Check for incomplete ternary`, () => {
         info: 'Incomplete ternary operator missing the "else" portion (no ": val" present)',
         start: [2, 10, 1],
         end: [2, 12, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 

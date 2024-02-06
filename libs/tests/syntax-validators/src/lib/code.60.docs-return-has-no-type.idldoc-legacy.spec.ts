@@ -45,6 +45,7 @@ describe(`[auto generated] Detects when the returns tag for docs is missing the 
         info: 'Unused variable "var1"',
         start: [5, 17, 4],
         end: [5, 17, 4],
+        canReport: true,
       },
     ];
 
@@ -93,6 +94,7 @@ describe(`[auto generated] Detects when the returns tag for docs is missing the 
         info: 'Unused variable "var1"',
         start: [5, 17, 4],
         end: [5, 17, 4],
+        canReport: true,
       },
     ];
 

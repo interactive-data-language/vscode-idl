@@ -35,6 +35,7 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
         info: 'Comma expected after statement',
         start: [2, 2, 4],
         end: [2, 2, 4],
+        canReport: true,
       },
     ];
 
@@ -115,6 +116,7 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
         info: 'Undefined variable "print"',
         start: [2, 2, 5],
         end: [2, 2, 5],
+        canReport: true,
       },
     ];
 
@@ -153,12 +155,14 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
         info: 'Comma expected after statement',
         start: [0, 4, 5],
         end: [0, 4, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [0, 10, 4],
         end: [0, 10, 4],
+        canReport: true,
       },
     ];
 

@@ -81,18 +81,21 @@ describe(`[auto generated] Keep tokens after line continuations`, () => {
         info: 'Unknown token encountered. Verify syntax and expression is allowed.',
         start: [3, 6, 14],
         end: [3, 6, 14],
+        canReport: true,
       },
       {
         code: 35,
         info: 'Only comments are allowed after line continuations. This helps prevent accidental bugs.',
         start: [3, 4, 1],
         end: [3, 6, 14],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [3, 0, 1],
         end: [3, 0, 1],
+        canReport: true,
       },
     ];
 

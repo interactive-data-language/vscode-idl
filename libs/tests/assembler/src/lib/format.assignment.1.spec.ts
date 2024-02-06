@@ -86,6 +86,7 @@ describe(`[auto generated] Verify assignment formatting`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 

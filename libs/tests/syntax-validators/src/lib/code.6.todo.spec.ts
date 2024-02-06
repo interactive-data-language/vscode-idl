@@ -30,7 +30,13 @@ describe(`[auto generated] Detects TODO statements`, () => {
 
     // define expected tokens
     const expected: SyntaxProblems = [
-      { code: 6, info: 'TODO: something', start: [0, 0, 17], end: [0, 0, 17] },
+      {
+        code: 6,
+        info: 'TODO: something',
+        start: [0, 0, 17],
+        end: [0, 0, 17],
+        canReport: true,
+      },
     ];
 
     // verify results
@@ -63,7 +69,13 @@ describe(`[auto generated] Detects TODO statements`, () => {
 
     // define expected tokens
     const expected: SyntaxProblems = [
-      { code: 6, info: 'TODO: something', start: [0, 0, 17], end: [0, 0, 17] },
+      {
+        code: 6,
+        info: 'TODO: something',
+        start: [0, 0, 17],
+        end: [0, 0, 17],
+        canReport: true,
+      },
     ];
 
     // verify results

@@ -44,6 +44,7 @@ describe(`[auto generated] Check for known keywords`, () => {
         info: 'Unexpected closing statement',
         start: [5, 42, 1],
         end: [5, 42, 1],
+        canReport: true,
       },
     ];
 

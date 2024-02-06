@@ -213,24 +213,28 @@ describe(`[auto generated] Verify doc formatting`, () => {
         info: 'Parameter is missing from documentation: "n"',
         start: [56, 14, 1],
         end: [56, 14, 1],
+        canReport: true,
       },
       {
         code: 64,
         info: 'Parameter is missing from documentation: "m"',
         start: [56, 16, 1],
         end: [56, 16, 1],
+        canReport: true,
       },
       {
         code: 52,
         info: 'Expected a documentation tag for ":Returns:" since this is a function or function method',
         start: [0, 0, 2],
         end: [45, 0, 2],
+        canReport: true,
       },
       {
         code: 48,
         info: 'Argument(s) are missing from the documentation for the routine',
         start: [0, 0, 2],
         end: [45, 0, 2],
+        canReport: true,
       },
     ];
 

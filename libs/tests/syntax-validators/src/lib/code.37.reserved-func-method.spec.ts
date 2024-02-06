@@ -76,6 +76,7 @@ describe(`[auto generated] Detects reserved function methods`, () => {
         info: 'Reserved function method name (conflicts with core IDL function method)',
         start: [0, 0, 9],
         end: [0, 20, 0],
+        canReport: true,
       },
     ];
 

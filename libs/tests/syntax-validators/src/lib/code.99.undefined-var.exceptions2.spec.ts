@@ -44,12 +44,14 @@ describe(`[auto generated] Without docs, keywords are least restrictive`, () => 
         info: 'Unused variable "newVar"',
         start: [6, 25, 6],
         end: [6, 25, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw"',
         start: [0, 29, 2],
         end: [0, 29, 2],
+        canReport: true,
       },
     ];
 

@@ -66,6 +66,7 @@ describe(`[auto generated] Detects reserved procedures`, () => {
         info: 'Reserved procedure name (conflicts with core IDL procedure)',
         start: [0, 0, 4],
         end: [0, 10, 0],
+        canReport: true,
       },
     ];
 

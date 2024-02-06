@@ -47,12 +47,14 @@ describe(`[auto generated] Detects when a documented parameter does not exist in
         info: 'Unused variable "kw1"',
         start: [8, 21, 3],
         end: [8, 21, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [8, 11, 4],
         end: [8, 11, 4],
+        canReport: true,
       },
     ];
 
@@ -105,24 +107,28 @@ describe(`[auto generated] Detects when a documented parameter does not exist in
         info: 'Documented argument, keyword, or property does not exist: "var1"',
         start: [3, 0, 31],
         end: [3, 0, 31],
+        canReport: true,
       },
       {
         code: 63,
         info: 'Documented argument, keyword, or property does not exist: "kw1"',
         start: [6, 0, 30],
         end: [6, 0, 30],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw2"',
         start: [10, 21, 3],
         end: [10, 21, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var2"',
         start: [10, 11, 4],
         end: [10, 11, 4],
+        canReport: true,
       },
     ];
 

@@ -41,12 +41,14 @@ describe(`[auto generated] Detects multiple compile_opt statements`, () => {
         info: 'There should be only one compile_opt statement per routine or main level program. While not a syntax error, this helps ensure consistency in your code.',
         start: [1, 2, 11],
         end: [1, 18, 0],
+        canReport: true,
       },
       {
         code: 45,
         info: 'There should be only one compile_opt statement per routine or main level program. While not a syntax error, this helps ensure consistency in your code.',
         start: [2, 2, 11],
         end: [2, 18, 0],
+        canReport: true,
       },
     ];
 
@@ -91,12 +93,14 @@ describe(`[auto generated] Detects multiple compile_opt statements`, () => {
         info: 'There should be only one compile_opt statement per routine or main level program. While not a syntax error, this helps ensure consistency in your code.',
         start: [1, 2, 11],
         end: [1, 18, 0],
+        canReport: true,
       },
       {
         code: 45,
         info: 'There should be only one compile_opt statement per routine or main level program. While not a syntax error, this helps ensure consistency in your code.',
         start: [2, 2, 11],
         end: [2, 18, 0],
+        canReport: true,
       },
     ];
 
@@ -135,12 +139,14 @@ describe(`[auto generated] Detects multiple compile_opt statements`, () => {
         info: 'There should be only one compile_opt statement per routine or main level program. While not a syntax error, this helps ensure consistency in your code.',
         start: [0, 2, 11],
         end: [0, 18, 0],
+        canReport: true,
       },
       {
         code: 45,
         info: 'There should be only one compile_opt statement per routine or main level program. While not a syntax error, this helps ensure consistency in your code.',
         start: [1, 2, 11],
         end: [1, 18, 0],
+        canReport: true,
       },
     ];
 

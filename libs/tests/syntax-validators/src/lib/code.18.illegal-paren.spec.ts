@@ -35,18 +35,21 @@ describe(`[auto generated] Detects illegal colons in function methods`, () => {
         info: 'Unexpected closing statement',
         start: [0, 7, 1],
         end: [0, 7, 1],
+        canReport: true,
       },
       {
         code: 18,
         info: 'Illegal parentheses',
         start: [0, 5, 1],
         end: [0, 5, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 

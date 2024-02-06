@@ -78,6 +78,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
         info: 'In function definitions, the "return" procedure cannot have more than one value',
         start: [10, 2, 6],
         end: [11, 15, 0],
+        canReport: true,
       },
     ];
 
@@ -154,12 +155,14 @@ describe(`[auto generated] Verify we remove excess args`, () => {
         info: 'In function definitions, the "return" procedure cannot have more than one value',
         start: [9, 2, 6],
         end: [9, 18, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [8, 2, 1],
         end: [8, 2, 1],
+        canReport: true,
       },
     ];
 

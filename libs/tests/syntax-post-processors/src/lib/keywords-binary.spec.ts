@@ -207,12 +207,14 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [0, 0, 7],
         end: [0, 0, 7],
+        canReport: true,
       },
       {
         code: 33,
         info: 'Main level program is missing an "end" statement',
         start: [0, 0, 1.7976931348623157e308],
         end: [0, 0, 1.7976931348623157e308],
+        canReport: true,
       },
     ];
 
@@ -467,12 +469,14 @@ describe(`[auto generated] Correctly detect binary keywords`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [0, 0, 4],
         end: [0, 0, 4],
+        canReport: true,
       },
       {
         code: 33,
         info: 'Main level program is missing an "end" statement',
         start: [0, 0, 1.7976931348623157e308],
         end: [0, 0, 1.7976931348623157e308],
+        canReport: true,
       },
     ];
 

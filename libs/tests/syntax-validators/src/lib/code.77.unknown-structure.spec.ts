@@ -40,12 +40,14 @@ describe(`[auto generated] Check for structure names`, () => {
         info: 'No matching structure/object/class definition for structure named "ENVIRaster2"',
         start: [2, 7, 11],
         end: [2, 7, 11],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [2, 2, 1],
         end: [2, 2, 1],
+        canReport: true,
       },
     ];
 
@@ -89,6 +91,7 @@ describe(`[auto generated] Check for structure names`, () => {
         info: 'Unused variable "a"',
         start: [2, 2, 1],
         end: [2, 2, 1],
+        canReport: true,
       },
     ];
 

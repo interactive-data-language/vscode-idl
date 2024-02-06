@@ -46,12 +46,14 @@ describe(`[auto generated] Check for missing structure definitions`, () => {
         info: 'Structure definition is missing from docs: "MyStruct"',
         start: [5, 11, 8],
         end: [5, 11, 8],
+        canReport: true,
       },
       {
         code: 79,
         info: 'Structure definition is missing from docs: "mystruct2"',
         start: [7, 11, 9],
         end: [7, 11, 9],
+        canReport: true,
       },
     ];
 
@@ -107,6 +109,7 @@ describe(`[auto generated] Check for missing structure definitions`, () => {
         info: 'Structure definition is missing from docs: "mystruct2"',
         start: [13, 11, 9],
         end: [13, 11, 9],
+        canReport: true,
       },
     ];
 
@@ -194,12 +197,14 @@ describe(`[auto generated] Check for missing structure definitions`, () => {
         info: 'No matching structure/object/class definition for structure named "MyStruct"',
         start: [5, 11, 8],
         end: [5, 11, 8],
+        canReport: true,
       },
       {
         code: 77,
         info: 'No matching structure/object/class definition for structure named "mystruct2"',
         start: [7, 11, 9],
         end: [7, 11, 9],
+        canReport: true,
       },
     ];
 
@@ -248,12 +253,14 @@ describe(`[auto generated] Check for missing structure definitions`, () => {
         info: 'No matching structure/object/class definition for structure named "MyStruct"',
         start: [3, 11, 8],
         end: [3, 11, 8],
+        canReport: true,
       },
       {
         code: 77,
         info: 'No matching structure/object/class definition for structure named "mystruct2"',
         start: [5, 11, 9],
         end: [5, 11, 9],
+        canReport: true,
       },
     ];
 

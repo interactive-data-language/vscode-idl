@@ -40,6 +40,7 @@ describe(`[auto generated] Detects missing compile option idl2`, () => {
         info: '"idl2" was not found as a compile option and should always be one',
         start: [1, 2, 11],
         end: [1, 20, 0],
+        canReport: true,
       },
     ];
 
@@ -78,6 +79,7 @@ describe(`[auto generated] Detects missing compile option idl2`, () => {
         info: '"idl2" was not found as a compile option and should always be one',
         start: [1, 2, 11],
         end: [1, 20, 0],
+        canReport: true,
       },
     ];
 

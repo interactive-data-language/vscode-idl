@@ -35,18 +35,21 @@ describe(`[auto generated] Detects illegal colons in function methods`, () => {
         info: 'Colon detected in function method call. If indexing array, you should be using square brackets instead of parentheses. Using parentheses for array indexing is ambiguous and problematic when there is a function with the same name as the variable you are indexing.',
         start: [0, 15, 5],
         end: [0, 24, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "objOrStruct"',
         start: [0, 4, 11],
         end: [0, 4, 11],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 

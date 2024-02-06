@@ -79,36 +79,42 @@ describe(`[auto generated] Verify trimming lines`, () => {
         info: 'Unused variable "kw1"',
         start: [0, 36, 3],
         end: [0, 36, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw2"',
         start: [1, 6, 3],
         end: [1, 6, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw3"',
         start: [1, 17, 3],
         end: [1, 17, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg1"',
         start: [0, 13, 4],
         end: [0, 13, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg2"',
         start: [0, 19, 4],
         end: [0, 19, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg3"',
         start: [0, 25, 4],
         end: [0, 25, 4],
+        canReport: true,
       },
     ];
 

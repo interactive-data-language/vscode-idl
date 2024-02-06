@@ -45,6 +45,7 @@ describe(`[auto generated] Detects missing end to main level program`, () => {
         info: 'Unused variable "something"',
         start: [7, 0, 9],
         end: [7, 0, 9],
+        canReport: true,
       },
     ];
 
@@ -92,12 +93,14 @@ describe(`[auto generated] Detects missing end to main level program`, () => {
         info: 'Main level program is missing an "end" statement',
         start: [7, 0, 1.7976931348623157e308],
         end: [7, 0, 1.7976931348623157e308],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "something"',
         start: [7, 0, 9],
         end: [7, 0, 9],
+        canReport: true,
       },
     ];
 
@@ -147,36 +150,42 @@ describe(`[auto generated] Detects missing end to main level program`, () => {
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [9, 0, 1],
         end: [9, 0, 1],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [9, 2, 1],
         end: [9, 2, 1],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [9, 4, 2],
         end: [9, 4, 2],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [9, 6, 0],
         end: [9, 6, 0],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [9, 0, 1],
         end: [9, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "something"',
         start: [7, 0, 9],
         end: [7, 0, 9],
+        canReport: true,
       },
     ];
 

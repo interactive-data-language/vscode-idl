@@ -71,6 +71,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [5, 0, 9],
         end: [5, 15, 0],
+        canReport: true,
       },
     ];
 
@@ -144,6 +145,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [5, 0, 9],
         end: [5, 24, 0],
+        canReport: true,
       },
     ];
 
@@ -202,6 +204,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [2, 0, 4],
         end: [2, 9, 0],
+        canReport: true,
       },
     ];
 
@@ -260,6 +263,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [2, 0, 4],
         end: [2, 18, 0],
+        canReport: true,
       },
     ];
 
@@ -312,6 +316,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
         info: 'Main level programs cannot be empty. IDL expects statements besides comments and "end".',
         start: [0, 0, 9],
         end: [2, 0, 3],
+        canReport: true,
       },
     ];
 
@@ -364,6 +369,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -416,6 +422,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
         info: 'Unused variable "a"',
         start: [3, 0, 1],
         end: [3, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -468,6 +475,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
         info: 'Unused variable "a"',
         start: [3, 0, 1],
         end: [3, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -535,24 +543,28 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [0, 0, 9],
         end: [2, 9, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw2"',
         start: [2, 6, 3],
         end: [2, 6, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [1, 3, 1],
         end: [1, 3, 1],
+        canReport: true,
       },
     ];
 

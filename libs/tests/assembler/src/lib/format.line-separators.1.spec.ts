@@ -87,24 +87,28 @@ describe(`[auto generated] Line separator formatting`, () => {
         info: 'Variable is used before definition "b"',
         start: [4, 26, 1],
         end: [4, 26, 1],
+        canReport: true,
       },
       {
         code: 101,
         info: 'Variable is used before definition "c"',
         start: [4, 34, 1],
         end: [4, 34, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "d"',
         start: [4, 42, 1],
         end: [4, 42, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [4, 22, 1],
         end: [4, 22, 1],
+        canReport: true,
       },
     ];
 

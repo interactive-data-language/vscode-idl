@@ -148,6 +148,7 @@ describe(`[auto generated] Take first instance we encounter`, () => {
             },
           },
           source: 'user',
+          private: false,
         },
         file: 'not-real',
       },

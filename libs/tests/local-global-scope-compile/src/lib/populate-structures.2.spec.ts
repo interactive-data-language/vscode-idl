@@ -157,6 +157,7 @@ describe(`[auto generated] Use docs for property types`, () => {
             },
           },
           source: 'user',
+          private: false,
         },
         file: 'not-real',
       },

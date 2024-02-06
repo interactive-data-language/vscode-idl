@@ -45,6 +45,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
         info: 'Unused variable "var1"',
         start: [5, 17, 4],
         end: [5, 17, 4],
+        canReport: true,
       },
     ];
 
@@ -95,6 +96,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
         info: 'Unused variable "var1"',
         start: [7, 17, 4],
         end: [7, 17, 4],
+        canReport: true,
       },
     ];
 
@@ -146,6 +148,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
         info: 'Unused variable "var1"',
         start: [8, 17, 4],
         end: [8, 17, 4],
+        canReport: true,
       },
     ];
 

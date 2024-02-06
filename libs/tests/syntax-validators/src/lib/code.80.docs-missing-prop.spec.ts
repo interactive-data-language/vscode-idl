@@ -48,6 +48,7 @@ describe(`[auto generated] Check for missing properties`, () => {
         info: 'Property is missing from documentation: "prop2"',
         start: [9, 51, 6],
         end: [9, 51, 6],
+        canReport: true,
       },
     ];
 

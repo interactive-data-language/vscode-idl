@@ -42,18 +42,21 @@ describe(`[auto generated] Detects bad break statements`, () => {
         info: 'Undefined variable "key"',
         start: [2, 13, 3],
         end: [2, 13, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "i"',
         start: [1, 4, 1],
         end: [1, 4, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "val"',
         start: [2, 8, 3],
         end: [2, 8, 3],
+        canReport: true,
       },
     ];
 
@@ -98,6 +101,7 @@ describe(`[auto generated] Detects bad break statements`, () => {
         info: 'Undefined variable "a"',
         start: [1, 7, 1],
         end: [1, 7, 1],
+        canReport: true,
       },
     ];
 
@@ -142,6 +146,7 @@ describe(`[auto generated] Detects bad break statements`, () => {
         info: 'Undefined variable "a"',
         start: [1, 5, 1],
         end: [1, 5, 1],
+        canReport: true,
       },
     ];
 
@@ -180,6 +185,7 @@ describe(`[auto generated] Detects bad break statements`, () => {
         info: '"break" statements can only exist within a loop, case, or switch',
         start: [1, 0, 5],
         end: [1, 0, 5],
+        canReport: true,
       },
     ];
 
