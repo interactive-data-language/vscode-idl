@@ -28,7 +28,13 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 - You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
 
-## 4.3.0
+## 4.3.1
+
+Add code actions for being able to easily disable problem codes from within the editor
+
+Update documentation for all problem codes to point to our configuration guide
+
+## 4.3.0 February 2024
 
 Added official documentation to the extension! It is hosted on Github pages and a local copy is included with the extension.
 

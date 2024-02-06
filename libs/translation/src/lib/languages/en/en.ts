@@ -45,6 +45,7 @@ export const EN: ITranslation = {
       code: {
         initializeConfig: 'IDL: Initialize Config',
         addDocsToFile: 'IDL: Add/Update Docs for File',
+        disableProblemSetting: 'IDL: Disable Problem Code via Setting',
         formatFile: 'IDL: Format File',
         generateTask: 'IDL: Generate ENVI or IDL Task',
         migrateToDL30API: 'IDL: Migrate Code to ENVI Deep Learning 3.0 API',
@@ -106,6 +107,8 @@ export const EN: ITranslation = {
       code: {
         initializeConfig: 'Error while initializing config for workspace',
         addDocsToFile: 'Error while adding/updating docs for file',
+        disableProblemSetting:
+          'Error while disabling problem code via settings',
         formatFile: 'Error while formatting file',
         generateTask: 'Error while generating task',
         migrateToDL30API: 'Error while migrating code',
@@ -595,6 +598,12 @@ export const EN: ITranslation = {
       'The IDL extension had an error :( See output/debug console for details',
   },
   lsp: {
+    codeActions: {
+      disableLine: 'Disable "PROBLEM` for line',
+      disableFile: 'Disable "PROBLEM" for file',
+      disableUser: 'Disable "PROBLEM" in user settings',
+      disableWorkspace: 'Disable `PROBLEM` in workspace settings',
+    },
     config: {
       failedParse: 'Problem parsing IDL config file',
     },

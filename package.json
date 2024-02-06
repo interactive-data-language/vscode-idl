@@ -229,6 +229,10 @@
         "title": "%commands.idl.code.addDocsToFile%"
       },
       {
+        "command": "idl.code.disableProblemSetting",
+        "title": "%commands.idl.code.disableProblemSetting%"
+      },
+      {
         "command": "idl.code.formatFile",
         "title": "%commands.idl.code.formatFile%"
       },
