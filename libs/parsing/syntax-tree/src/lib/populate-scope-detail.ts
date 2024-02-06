@@ -1,6 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 
-import { IParsed } from './build-syntax-tree.interface';
+import { IParsed } from './parsed.interface';
 import { TreeRecurser } from './recursion-and-callbacks/tree-recurser';
 
 /**

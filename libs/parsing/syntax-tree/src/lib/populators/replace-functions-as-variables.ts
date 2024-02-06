@@ -14,7 +14,7 @@ import {
   TreeBranchToken,
   TreeToken,
 } from '../branches.interface';
-import { IParsed } from '../build-syntax-tree.interface';
+import { IParsed } from '../parsed.interface';
 import { SyntaxProblemWithTranslation } from '../syntax-problem-with';
 import { ILocalTokenLookup } from './populate-local.interface';
 
