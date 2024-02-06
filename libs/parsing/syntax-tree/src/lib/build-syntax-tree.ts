@@ -18,11 +18,10 @@ import {
   TreeToken,
 } from './branches.interface';
 import {
-  DEFAULT_PARSED,
-  IParsed,
   IRecurserCloseOptions,
   IRecurserOptions,
 } from './build-syntax-tree.interface';
+import { DEFAULT_PARSED, IParsed } from './parsed.interface';
 import { PopulateIndex } from './populate-index';
 import { PopulateScope } from './populate-scope';
 import { GetUniqueVariables } from './populators/get-unique-variables';

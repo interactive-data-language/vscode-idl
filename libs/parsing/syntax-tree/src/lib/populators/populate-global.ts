@@ -24,7 +24,7 @@ import {
 import copy from 'fast-copy';
 
 import { IBranch } from '../branches.interface';
-import { IParsed } from '../build-syntax-tree.interface';
+import { IParsed } from '../parsed.interface';
 import { GenerateRoutineDocsAndMetadata } from '../docs/generate-routine-docs-and-metadata';
 import { GenerateRoutineMetadataFast } from '../docs/generate-routine-metadata-fast';
 import { FindStructureDefs } from './find-structure-defs';

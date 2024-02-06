@@ -15,7 +15,7 @@ import {
 } from '@idl/types/core';
 
 import { IBasicBranch, IBranch, TreeToken } from '../branches.interface';
-import { IParsed } from '../build-syntax-tree.interface';
+import { IParsed } from '../parsed.interface';
 import { IDL_DOCS_HEADERS } from '../docs/docs.interface';
 import { ExtractDocs } from '../docs/extract-docs';
 import { JoinDocs } from '../docs/join-docs';
