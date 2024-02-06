@@ -10,13 +10,13 @@ There are many unique situations, with any language, where line-by-line or by-fi
 
 ## Disabling for a File
 
-To disable problem reporting for an entire file, add the following to the top of your file (as a standalone comment, or in a comment block both work).
+To disable reporting any problem for an entire file, add the following to the top of your file (as a standalone comment, or in a comment block).
 
 ```
 ; idl-disable
 ```
 
-If you just want to turn off specific problems for your file, when you can specify one or more on the same line:
+If you just want to turn off specific problems for a given file, then you specify the problem aliases following `idl-disable`:
 
 ```idl
 ; idl-disable unused-var, illegal-arrow
