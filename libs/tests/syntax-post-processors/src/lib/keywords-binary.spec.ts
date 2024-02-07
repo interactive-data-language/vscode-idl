@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxProblems } from '@idl/types/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 describe(`[auto generated] Correctly detect binary keywords`, () => {
   it(`[auto generated] in procedure`, () => {

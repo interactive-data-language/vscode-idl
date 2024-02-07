@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxProblems } from '@idl/types/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 describe(`[auto generated] Correctly map periods to dots`, () => {
   it(`[auto generated] as procedure-method or property access, but incomplete`, () => {
