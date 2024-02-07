@@ -34,7 +34,13 @@ const TOKENS: RoutineTokens[] = [TOKEN_NAMES.ROUTINE_PROCEDURE];
  */
 function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
   // return if we don't have our problem
-  if (HasProblem(token, IDL_PROBLEM_CODES.INIT_METHOD_NOT_FUNCTION)) {
+  if (
+    HasProblem(
+      token,
+      IDL_PROBLEM_CODES.INIT_METHOD_NOT_FUNCTION,
+      parsed.disabledProblems
+    )
+  ) {
     // change token type
     (token as any as TreeToken<RoutineFunctionToken>).name =
       TOKEN_NAMES.ROUTINE_FUNCTION;

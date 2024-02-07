@@ -21,7 +21,11 @@ const TOKENS: RoutineTokens[] = [TOKEN_NAMES.CALL_PROCEDURE];
 function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
   // return if we don't have our problem
   if (
-    HasProblem(token, IDL_PROBLEM_CODES.RETURN_VALUES_FUNCTIONS) &&
+    HasProblem(
+      token,
+      IDL_PROBLEM_CODES.RETURN_VALUES_FUNCTIONS,
+      parsed.disabledProblems
+    ) &&
     token.match[0].toLowerCase() === 'return'
   ) {
     if (token.end === undefined) {
