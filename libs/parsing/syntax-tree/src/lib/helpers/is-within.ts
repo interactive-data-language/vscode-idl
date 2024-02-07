@@ -1,4 +1,4 @@
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+import { PositionArray } from '@idl/types/tokenizer';
 import { Position } from 'vscode-languageserver';
 
 /**

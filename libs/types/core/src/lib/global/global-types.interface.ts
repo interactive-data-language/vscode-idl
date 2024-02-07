@@ -1,7 +1,7 @@
 // global tokens
 // dont use token names because they dont properly overlap with what we need to
 
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+import { PositionArray } from '@idl/types/tokenizer';
 
 import { IDLDataType } from '../idl-data-types.interface';
 

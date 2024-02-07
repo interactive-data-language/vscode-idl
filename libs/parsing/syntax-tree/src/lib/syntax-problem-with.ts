@@ -3,8 +3,8 @@ import {
   IDLProblemCode,
   ISyntaxProblem,
 } from '@idl/parsing/problem-codes';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { PositionArray } from '@idl/types/tokenizer';
 
 /**
  * Makes problem code pretty for nice presentation to users

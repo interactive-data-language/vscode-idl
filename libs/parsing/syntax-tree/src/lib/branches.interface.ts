@@ -6,7 +6,7 @@ import {
   TokenName,
   TokenStartMatches,
 } from '@idl/parsing/tokenizer';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+import { PositionArray } from '@idl/types/tokenizer';
 
 /** Branch in our syntax tree that has a start, end, and potentially children */
 export type SyntaxTreeBranch = 0;

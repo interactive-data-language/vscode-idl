@@ -12,7 +12,7 @@ import {
   TokenName,
   TokenStartMatches,
 } from '@idl/parsing/tokenizer';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+import { PositionArray } from '@idl/types/tokenizer';
 
 /**
  * Metadata for any node in our syntax tree

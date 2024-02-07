@@ -4,7 +4,6 @@ import {
   SyntaxProblemWithTranslation,
   SyntaxTree,
 } from '@idl/parsing/syntax-tree';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
 import {
   IDL_ANY_TYPE,
   IDL_ARRAY_TYPE,
@@ -14,6 +13,7 @@ import {
   ParseIDLType,
   SerializeIDLType,
 } from '@idl/types/core';
+import { PositionArray } from '@idl/types/tokenizer';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
