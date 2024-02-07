@@ -14,6 +14,10 @@ export const PROBLEMS_SIDEBAR: SidebarEntry[] = [
     link: '/problem-codes/configuration',
   },
   {
+    text: 'Disabling with Comments',
+    link: '/problem-codes/disabling_with_comments',
+  },
+  {
     text: 'Codes',
     items: PROBLEM_CODES_SIDEBAR.sort((a, b) =>
       a.text > b.text ? 1 : b.text > a.text ? -1 : 0

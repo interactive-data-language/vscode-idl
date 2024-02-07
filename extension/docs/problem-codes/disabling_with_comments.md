@@ -1,7 +1,11 @@
 # Disabling Problems with Comments
 
-::: info
-This is a proposed API and has not been implemented. If you want to share your thoughts and opinion, let us know on our GitHub page!
+::: tip
+This document covers an "advanced" API for you to disable the problems can get reported within your code.
+
+We created this because other tools like ESLint have a similar API within comments to correct errors that get reported.
+
+Please let us know if there are any other ways that you might want to disable problems being reported for your code.
 :::
 
 For problems that get reported, we want to make sure that we have all the scenarios covered so that users can disable problems.
@@ -33,12 +37,6 @@ You can also use a comment block at the top of your file with many problems:
 ```idl
 ;+
 ; idl-disable unused-var, no-comp-opt
-;-
-
-;+
-; idl-disable
-; unused-var,
-; no-comp-opt
 ;-
 
 ; im OK!

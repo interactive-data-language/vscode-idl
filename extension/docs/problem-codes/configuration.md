@@ -6,6 +6,10 @@ Each problem code can be manually disabled if desired.
 Any problems you disable do not require a restart of Visual Studio Code. The reported problems should update fairly quickly and disappear from the UI.
 :::
 
+## Disable Problems within a Single File
+
+See [here](./disabling_with_comments.md) for our IDL comment API for disabling problem reporting.
+
 ## Disable All Documentation Errors
 
 Because documentation errors represent many problem codes, you can turn them all off with a single setting.

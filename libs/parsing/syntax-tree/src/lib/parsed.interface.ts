@@ -61,7 +61,7 @@ export const DEFAULT_PARSED: IParsed = {
   lines: 0,
   disabledProblems: {
     all: false,
-    forFile: [],
+    forFile: {},
     forLines: {},
   },
   parseProblems: [],
