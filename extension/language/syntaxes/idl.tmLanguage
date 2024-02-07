@@ -929,18 +929,37 @@
       </dict>
       <key>comment_disabled_problem</key>
       <dict>
-        <key>name</key>
-        <string>comment.line.idl</string>
-        <key>match</key>
-        <string>(?i);\s*(idl-disable(?:[a-z-]*))(.+)?$$</string>
-        <key>captures</key>
-        <dict>
-          <key>1</key>
+        <key>patterns</key>
+        <array>
           <dict>
             <key>name</key>
-            <string>storage.type.class.jsdoc</string>
+            <string>comment.line.idl</string>
+            <key>match</key>
+            <string>(?i);\s*(idl-disable-(?:[a-z-]+))(.+)?$</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>storage.type.class.jsdoc</string>
+              </dict>
+            </dict>
           </dict>
-        </dict>
+          <dict>
+            <key>name</key>
+            <string>comment.line.idl</string>
+            <key>match</key>
+            <string>(?i);\s*(idl-disable)(.*)$</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>markup.heading.idl</string>
+              </dict>
+            </dict>
+          </dict>
+        </array>
       </dict>
       <key>comment_docs_header</key>
       <dict>
