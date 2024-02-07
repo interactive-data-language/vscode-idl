@@ -1,6 +1,12 @@
 import { IDLProblemCode } from './idl-problem-codes.interface';
 
 /**
+ * Regular expression to detect statements that disable problems from being reported
+ */
+export const DISABLED_PROBLEM_REGEX =
+  /idl-disable(?:-next-line|-line){0,1}(.+$)?}/i;
+
+/**
  * Track how problems are disabled
  */
 export interface IDisabledProblems {
