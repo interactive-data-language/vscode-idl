@@ -25,8 +25,8 @@ variables:
   name_comment_block: comment.block.idl
   name_control: keyword.control.idl
   name_control_option: variable.other.readwrite.ts.idl
-  name_disable_file: storage.type.class.jsdoc
-  name_disable_line: support.type.idl
+  name_disable_file: markup.heading.idl
+  name_disable_line: storage.type.class.jsdoc
   name_docs_accent: support.type.idl # things like direction in docs
   name_docs_header: markup.heading.idl
   name_docs_arg_kw: markup.italic.idl
@@ -463,11 +463,15 @@ repository:
 
   # comment section header
   comment_disabled_problem:
-    name: {{name_comment}}
-    match: ';\s*(idl-disable(?:[a-z-]*))(.+)?$$'
-    captures:
-      '1': { name: {{name_disable_file}} }
-      # '2': { name: {{name_type}}, patterns: [{ include: '#type_tokens' }] }
+    patterns:
+      - name: {{name_comment}}
+        match: ';\s*(idl-disable-(?:[a-z-]+))(.+)?$'
+        captures:
+          '1': { name: {{name_disable_line}} }
+      - name: {{name_comment}}
+        match: ';\s*(idl-disable)(.*)$'
+        captures:
+          '1': { name: {{name_disable_file}} }
 
   # comment section header
   comment_docs_header:

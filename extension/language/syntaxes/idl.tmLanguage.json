@@ -176,6 +176,9 @@
           "include": "#comment_block"
         },
         {
+          "include": "#comment_disabled_problem"
+        },
+        {
           "include": "#comment"
         }
       ]
@@ -533,6 +536,9 @@
       "end": "(?i)^(?!\\s*;|\\s*$)",
       "patterns": [
         {
+          "include": "#comment_disabled_problem"
+        },
+        {
           "include": "#comment_docs_header_legacy"
         },
         {
@@ -625,6 +631,28 @@
     "comment_docs_header_legacy_top_level": {
       "name": "markup.heading.idl",
       "match": "(?i)@[a-z_$0-9]+"
+    },
+    "comment_disabled_problem": {
+      "patterns": [
+        {
+          "name": "comment.line.idl",
+          "match": "(?i);\\s*(idl-disable-(?:[a-z-]+))(.+)?$",
+          "captures": {
+            "1": {
+              "name": "storage.type.class.jsdoc"
+            }
+          }
+        },
+        {
+          "name": "comment.line.idl",
+          "match": "(?i);\\s*(idl-disable)(.*)$",
+          "captures": {
+            "1": {
+              "name": "markup.heading.idl"
+            }
+          }
+        }
+      ]
     },
     "comment_docs_header": {
       "name": "comment.line.idl",
