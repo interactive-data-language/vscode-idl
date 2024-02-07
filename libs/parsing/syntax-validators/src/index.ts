@@ -3,7 +3,7 @@ export * from './lib/helpers/is-single-line';
 export * from './lib/validators/after-line-continuation';
 export * from './lib/validators/args-first';
 export * from './lib/validators/class-no-params';
-export * from './lib/validators/comment-to-do';
+export * from './lib/validators/comment-validator';
 export * from './lib/validators/compile-opt';
 export * from './lib/validators/continue-break';
 export * from './lib/validators/dot-and-arrow';
