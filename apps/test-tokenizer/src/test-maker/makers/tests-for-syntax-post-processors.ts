@@ -22,8 +22,8 @@ export function TestsForSyntaxPostProcessors(
   // add imports
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { Parser } from '@idl/parser';`);
-  strings.push(`import { SyntaxProblems } from '@idl/parsing/problem-codes';`);
   strings.push(`import { SyntaxTree } from '@idl/parsing/syntax-tree';`);
+  strings.push(`import { SyntaxProblems } from '@idl/types/problem-codes';`);
   strings.push(``);
 
   // add the basic code for our test
