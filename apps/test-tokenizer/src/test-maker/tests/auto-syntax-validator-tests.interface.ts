@@ -4438,6 +4438,20 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
+    suiteName: `Bad problem alias`,
+    fileName: `code.107.unknown-disabled-alias.spec.ts`,
+    tests: [
+      {
+        name: `no problems`,
+        code: [`; idl-disable unused-var`],
+      },
+      {
+        name: `poroblems`,
+        code: [`; idl-disable foo-bar`],
+      },
+    ],
+  },
+  {
     suiteName: `All the places we want to make sure we test for`,
     fileName: `type-validation-reference.spec.ts`,
     tests: [

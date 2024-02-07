@@ -434,4 +434,8 @@ export const PROBLEM_CODES_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
     text: '"circular-include"',
     link: '/problem-codes/codes/106.md',
   },
+  {
+    text: '"unknown-disabled-alias"',
+    link: '/problem-codes/codes/107.md',
+  },
 ];
