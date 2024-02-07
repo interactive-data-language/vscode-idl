@@ -100,6 +100,7 @@
       "@idl/types/diagnostic": ["libs/types/diagnostic/src/index.ts"],
       "@idl/types/notebooks": ["libs/types/notebooks/src/index.ts"],
       "@idl/types/profiler": ["libs/types/profiler/src/index.ts"],
+      "@idl/types/syntax-tree": ["libs/types/syntax-tree/src/index.ts"],
       "@idl/types/tasks": ["libs/types/tasks/src/index.ts"],
       "@idl/types/tokenizer": ["libs/types/tokenizer/src/index.ts"],
       "@idl/usage-metrics": ["libs/usage-metrics/src/index.ts"],
