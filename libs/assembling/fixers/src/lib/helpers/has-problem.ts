@@ -1,7 +1,7 @@
 import { IsProblemDisabled } from '@idl/parser';
-import { IDisabledProblems, IDLProblemCode } from '@idl/types/problem-codes';
 import { TreeToken } from '@idl/parsing/syntax-tree';
 import { TokenName } from '@idl/parsing/tokenizer';
+import { IDisabledProblems, IDLProblemCode } from '@idl/types/problem-codes';
 
 /**
  * Checks if a token has a given IDL problem code

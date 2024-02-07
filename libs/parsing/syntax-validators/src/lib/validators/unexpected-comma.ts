@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 import {
   IBranch,
   IDL_SYNTAX_TREE_VALIDATOR,
@@ -16,6 +15,7 @@ import {
   StructureToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 /**
  * Tokens that are not allowed to have commas afterwards

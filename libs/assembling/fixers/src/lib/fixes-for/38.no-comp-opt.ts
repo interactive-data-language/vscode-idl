@@ -1,6 +1,5 @@
 import { AddCodeToSyntaxTree } from '@idl/assembling/shared';
 import { ASSEMBLER_PROBLEM_FIXERS } from '@idl/assembling/tree-handlers';
-import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import { IParsed, TreeBranchToken, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   MainLevelToken,
@@ -8,6 +7,7 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { HasProblem } from '../helpers/has-problem';
 

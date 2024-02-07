@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 import {
   IBranch,
   IDL_SYNTAX_TREE_VALIDATOR,
@@ -11,6 +10,7 @@ import {
   RoutineNameToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 /**
  * Tokens that, if they have children, expect a comma to be the first thing

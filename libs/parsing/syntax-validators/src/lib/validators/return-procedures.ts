@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 import {
   FindAllBranchChildren,
   IBranch,
@@ -11,6 +10,7 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 import { FILTER_TOKENS } from './expected-comma';
 

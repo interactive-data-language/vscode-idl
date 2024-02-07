@@ -1,3 +1,6 @@
+import { GetIDLProblemSeverity } from '@idl/parsing/syntax-tree';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
+import { IDLDiagnostic } from '@idl/types/diagnostic';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_PROBLEM_DIAGNOSTIC_TAGS,
@@ -5,9 +8,6 @@ import {
   ISyntaxProblem,
   SyntaxProblems,
 } from '@idl/types/problem-codes';
-import { GetIDLProblemSeverity } from '@idl/parsing/syntax-tree';
-import { IDL_LANGUAGE_NAME } from '@idl/shared';
-import { IDLDiagnostic } from '@idl/types/diagnostic';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver/node';
 
 import { ResolveExtensionDocsURL } from './resolve-extension-docs-url';

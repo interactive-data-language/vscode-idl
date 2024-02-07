@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import {
   BranchCallback,
   IDL_SYNTAX_TREE_VALIDATOR,
@@ -6,6 +5,7 @@ import {
   SyntaxProblemWithTranslation,
 } from '@idl/parsing/syntax-tree';
 import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 /**
  * This syntax validator checks many branches and verifies they are correct and

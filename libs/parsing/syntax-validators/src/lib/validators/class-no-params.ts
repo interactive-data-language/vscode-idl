@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import {
   BranchCallback,
   FindAllBranchChildren,
@@ -13,6 +12,7 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 /**
  * Makes sure arguments come first

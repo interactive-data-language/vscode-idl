@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import {
   BranchCallback,
   FindDirectBranchChildren,
@@ -15,6 +14,7 @@ import {
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { GetKeywordDisplayName } from '../../../helpers/get-keyword-display-name';
 import { GetKeywords } from '../../../helpers/get-keywords';

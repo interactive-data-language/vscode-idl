@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 import { CommentToken } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -10,6 +9,7 @@ import {
   SerializeIDLType,
   TYPE_DOCS_REGEX,
 } from '@idl/types/core';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';
 import copy from 'fast-copy';
 
