@@ -84,7 +84,7 @@ export function Parser(
     lines: 0,
     disabledProblems: {
       all: false,
-      forFile: [],
+      forFile: {},
       forLines: {},
     },
     parseProblems: [],

@@ -41,6 +41,7 @@ export function ExtractDisabledProblems(
           .toLowerCase()
           .split(/,/g)
           .map((alias) => alias.trim())
+          .filter((alias) => alias !== '')
       : [];
 
     /** map arguments to codes */
@@ -78,7 +79,7 @@ export function ExtractDisabledProblems(
         } else {
           // save all problems as disabled
           for (let i = 0; i < codes.length; i++) {
-            parsed.disabledProblems.forFile[codes[i]] = undefined;
+            parsed.disabledProblems.forFile[codes[i]] = true;
           }
         }
         break;
@@ -94,7 +95,7 @@ export function ExtractDisabledProblems(
 
         // save all problems as disabled for this line
         for (let i = 0; i < codes.length; i++) {
-          parsed.disabledProblems.forLines[token.pos[0]][codes[i]] = undefined;
+          parsed.disabledProblems.forLines[token.pos[0]][codes[i]] = true;
         }
         break;
 
@@ -103,11 +104,11 @@ export function ExtractDisabledProblems(
        */
       case DISABLED_PROBLEM_FLAGS.NEXT: {
         /** Get the line to report as disabled */
-        let line = token.pos[0];
+        let line = token.pos[0] + 1;
 
         // check if our local parent is a comment block and we need the end of it
         if (local?.name === TOKEN_NAMES.COMMENT_BLOCK) {
-          line = (local?.end?.pos || token.pos)[0];
+          line = (local?.end?.pos || token.pos)[0] + 1;
         }
 
         // add data struct if it exists
@@ -117,7 +118,7 @@ export function ExtractDisabledProblems(
 
         // save all problems as disabled for this line
         for (let i = 0; i < codes.length; i++) {
-          parsed.disabledProblems.forLines[line][codes[i]] = undefined;
+          parsed.disabledProblems.forLines[line][codes[i]] = true;
         }
         break;
       }
