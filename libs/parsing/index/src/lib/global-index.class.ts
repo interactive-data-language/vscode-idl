@@ -1,4 +1,3 @@
-import { SyntaxProblems } from '@idl/types/problem-codes';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import {
   MAIN_LEVEL_NAME,
@@ -12,6 +11,7 @@ import {
   GlobalTokenType,
   IGlobalIndexedToken,
 } from '@idl/types/core';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 import {
   ExportedGlobalTokensByType,

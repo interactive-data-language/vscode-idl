@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import {
   BasicCallback,
   FindDirectBranchChildren,
@@ -8,6 +7,7 @@ import {
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, VariableToken } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { FAKE_ASSIGNMENT_PARENTS } from '../populators/type-from-assignment';
 import { VALIDATE_TYPE_HANDLER } from '../validate-type-handler';

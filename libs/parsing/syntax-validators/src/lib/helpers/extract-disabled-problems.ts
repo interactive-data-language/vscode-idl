@@ -1,10 +1,4 @@
 import {
-  DISABLED_PROBLEM_FLAGS,
-  DISABLED_PROBLEM_REGEX,
-  IDL_PROBLEM_CODES,
-  IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
-} from '@idl/types/problem-codes';
-import {
   IParsed,
   SyntaxProblemWithoutTranslation,
   TreeToken,
@@ -15,6 +9,12 @@ import {
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  DISABLED_PROBLEM_FLAGS,
+  DISABLED_PROBLEM_REGEX,
+  IDL_PROBLEM_CODES,
+  IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
+} from '@idl/types/problem-codes';
 
 /**
  * Extracts disabled problems from a comment token

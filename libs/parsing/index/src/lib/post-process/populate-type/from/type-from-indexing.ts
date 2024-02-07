@@ -1,5 +1,4 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import {
   FindDirectBranchChildren,
   IParsed,
@@ -16,6 +15,7 @@ import {
   ParseIDLType,
   SerializeIDLType,
 } from '@idl/types/core';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 
 import { GetTypeBefore } from '../../../helpers/get-type-before';

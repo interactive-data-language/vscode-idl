@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import {
   GetRoutineName,
   IDL_SYNTAX_TREE_VALIDATOR,
@@ -6,6 +5,7 @@ import {
   TreeBranchToken,
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { NAME_TOKENS } from './return-functions';
 

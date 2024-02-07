@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 import {
   IParsed,
   SyntaxProblemWithTranslation,
@@ -13,6 +12,7 @@ import {
   ParseIDLType,
   SerializeIDLType,
 } from '@idl/types/core';
+import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';
 import copy from 'fast-copy';
 

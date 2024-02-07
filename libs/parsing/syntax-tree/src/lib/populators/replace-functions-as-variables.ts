@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import {
   MainLevelToken,
   RoutineFunctionToken,
@@ -6,6 +5,7 @@ import {
   TOKEN_NAMES,
   VariableToken,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import {
   BRANCH_TYPES,

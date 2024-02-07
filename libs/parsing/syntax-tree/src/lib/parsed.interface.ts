@@ -1,6 +1,6 @@
-import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 import { IFoundTokens } from '@idl/parsing/tokenizer';
 import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver';
 
 import { SyntaxTree } from './branches.interface';

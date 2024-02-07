@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 import {
   BranchCallback,
   FindAllBranchChildren,
@@ -20,6 +19,7 @@ import {
   TOKEN_NAMES,
   TokenName,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 
 /**
  * Helper function to check and report duplicate problems for

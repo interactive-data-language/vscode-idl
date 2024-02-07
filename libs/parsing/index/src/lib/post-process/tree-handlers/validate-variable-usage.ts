@@ -1,10 +1,10 @@
-import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import {
   ILocalTokenLookup,
   IParsed,
   SyntaxProblemWithoutTranslation,
 } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 /**
  * Variables that we skip

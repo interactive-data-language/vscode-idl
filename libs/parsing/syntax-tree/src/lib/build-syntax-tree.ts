@@ -1,5 +1,4 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 import {
   IBasicToken,
   MainLevelToken,
@@ -9,6 +8,7 @@ import {
   TokenName,
   UnknownToken,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 
 import {
   BRANCH_TYPES,
