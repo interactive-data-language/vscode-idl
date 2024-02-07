@@ -76,4 +76,6 @@ You have several options to disable problems:
 Be careful mixing and matching problem code configurations between user and workspace settings.
 
 Once you add problem codes to the workspace settings, user settings are completely ignored.
+
+If you get into a weird state, you may need to remove the ignored problems from your workspace and/or user settings and start fresh.
 :::
