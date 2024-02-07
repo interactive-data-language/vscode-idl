@@ -420,6 +420,7 @@ export interface ITranslation {
       disableWorkspace: string;
       disableLine: string;
       disableFile: string;
+      viewProblemConfigDocs: string;
     };
     /** Messages for config file */
     config: {

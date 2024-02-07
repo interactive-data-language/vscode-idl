@@ -605,7 +605,8 @@ export const EN: ITranslation = {
       disableLine: 'Disable "PROBLEM` for line',
       disableFile: 'Disable "PROBLEM" for file',
       disableUser: 'Disable "PROBLEM" in user settings',
-      disableWorkspace: 'Disable `PROBLEM` in workspace settings',
+      disableWorkspace: 'Disable "PROBLEM" in workspace settings',
+      viewProblemConfigDocs: 'Learn how to configure reported problems',
     },
     config: {
       failedParse: 'Problem parsing IDL config file',

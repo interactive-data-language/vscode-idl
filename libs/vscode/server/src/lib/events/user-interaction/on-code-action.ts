@@ -67,7 +67,9 @@ export const ON_CODE_ACTIONS = async (
 
     // process all diagnostics
     for (let i = 0; i < diags.length; i++) {
-      /** Command to disable at the user level */
+      /**
+       * Disable problem at user level
+       */
       const user: IAutoFixIDLDiagnostic = {
         code: diags[i].data.code,
         scope: 'user',
@@ -85,7 +87,9 @@ export const ON_CODE_ACTIONS = async (
         kind: CodeActionKind.QuickFix,
       });
 
-      /** Command to disable at the workspace level */
+      /**
+       * Disable problem reporting in workspace level
+       */
       const workspace: IAutoFixIDLDiagnostic = {
         code: diags[i].data.code,
         scope: 'workspace',
@@ -101,6 +105,19 @@ export const ON_CODE_ACTIONS = async (
           title: IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
         },
         kind: CodeActionKind.QuickFix,
+      });
+
+      /**
+       * View problem configuration docs
+       */
+      commands.push({
+        title: IDL_TRANSLATION.lsp.codeActions.viewProblemConfigDocs,
+        command: {
+          command: IDL_COMMANDS.DOCS.OPEN,
+          arguments: ['/problem-codes/configuration.html'],
+          title: IDL_COMMANDS.DOCS.OPEN,
+        },
+        kind: CodeActionKind.Empty,
       });
     }
 

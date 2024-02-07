@@ -8,7 +8,7 @@ Any problems you disable do not require a restart of Visual Studio Code. The rep
 
 [[toc]]
 
-## Disable Reporting of all Problems
+## Disable Reporting of All Problems
 
 For legacy code bases, or if you don't like that problems are being reported, you have the option to disable them being reported altogether.
 
