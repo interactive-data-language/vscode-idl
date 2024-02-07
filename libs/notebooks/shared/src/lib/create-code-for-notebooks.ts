@@ -1,6 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 /**
  * Track problems that prevents us from embedding code

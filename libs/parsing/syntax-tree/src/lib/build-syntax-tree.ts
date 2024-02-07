@@ -1,5 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/parsing/problem-codes';
+import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 import {
   IBasicToken,
   MainLevelToken,

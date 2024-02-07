@@ -1,4 +1,4 @@
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 import { ASSEMBLER_BLOCKING_PROBLEMS } from './assembler.interface';
 

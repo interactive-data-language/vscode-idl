@@ -1,7 +1,7 @@
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
-} from '@idl/parsing/problem-codes';
+} from '@idl/types/problem-codes';
 import {
   EXTENSION_FULL_NAME,
   ICON_THEME_NAME,

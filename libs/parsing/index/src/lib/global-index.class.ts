@@ -1,4 +1,4 @@
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import {
   MAIN_LEVEL_NAME,

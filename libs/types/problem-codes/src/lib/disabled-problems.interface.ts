@@ -4,6 +4,11 @@
 export const DISABLED_PROBLEM_REGEX = /(idl-disable(?:[a-z-]*))(.+)?$/i;
 
 /**
+ * Check if an existing line if disabled
+ */
+export const IS_LINE_DISABLED = /;\s*idl-disable-next-line(.+)?$/i;
+
+/**
  * Track how problems are disabled
  */
 export interface IDisabledProblems {

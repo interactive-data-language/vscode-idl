@@ -1,6 +1,6 @@
 import { AddCodeToSyntaxTree } from '@idl/assembling/shared';
 import { ASSEMBLER_PROBLEM_FIXERS } from '@idl/assembling/tree-handlers';
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { RoutineFunctionToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
 

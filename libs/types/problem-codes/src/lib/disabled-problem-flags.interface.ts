@@ -15,7 +15,7 @@ export type IDLDisabledProblemFlags =
   | IDLDisableLineProblemsFlag
   | IDLDisableNextLineProblemsFlag;
 
-// strictly types lookup of our allwoed problem flags
+// strictly types lookup of our allowed problem flags
 interface IDisabledProblemFlags {
   /** Disable all problems in file */
   ALL: IDLDisableAllProblemsFlag;

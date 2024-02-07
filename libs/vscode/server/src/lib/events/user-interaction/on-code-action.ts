@@ -1,3 +1,4 @@
+import { DisableProblemForLine } from '@idl/assembling/code-actions';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_COMMANDS } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -8,6 +9,7 @@ import {
   CodeActionParams,
 } from 'vscode-languageserver/node';
 
+import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
 import { IsIDLDiagnostic } from '../../helpers/is-idl-diagnostinc';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
@@ -61,12 +63,43 @@ export const ON_CODE_ACTIONS = async (
     }
 
     /**
+     * Get formatting config
+     */
+    const config = GetFormattingConfigForFile(info.fsPath);
+
+    /**
      * Make our code actions
      */
     const commands: CodeAction[] = [];
 
+    /** Get code as string array */
+    const code = info.code.split(/\r?\n/gim);
+
     // process all diagnostics
     for (let i = 0; i < diags.length; i++) {
+      /**
+       * Disable problem for line
+       */
+      commands.push({
+        title: IDL_TRANSLATION.lsp.codeActions.disableLine.replace(
+          'PROBLEM',
+          diags[i].data.alias
+        ),
+        command: {
+          command: IDL_COMMANDS.CODE.FIX_PROBLEM,
+          arguments: [
+            DisableProblemForLine(
+              diags[i].range.start.line,
+              diags[i].data.alias,
+              code,
+              config.eol === 'lf' ? '\n' : '\r\n'
+            ),
+          ],
+          title: IDL_COMMANDS.CODE.FIX_PROBLEM,
+        },
+        kind: CodeActionKind.QuickFix,
+      });
+
       /**
        * Disable problem at user level
        */

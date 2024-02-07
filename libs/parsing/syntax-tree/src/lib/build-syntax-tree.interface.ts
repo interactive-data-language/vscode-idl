@@ -1,4 +1,4 @@
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/core';
 import { PositionArray } from '@idl/types/tokenizer';
 

@@ -1,8 +1,11 @@
 import { MIGRATION_TYPE_LOOKUP } from '@idl/assembling/migrators-types';
-import { IDL_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/parsing/problem-codes';
 import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
+import {
+  AutoFixProblem,
+  IDL_PROBLEM_CODE_ALIAS_LOOKUP,
+} from '@idl/types/problem-codes';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
@@ -187,6 +190,53 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
             'Error while disabling problem via settings',
             err,
             cmdErrors.code.disableProblemSetting
+          );
+          return false;
+        }
+      }
+    )
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.CODE.FIX_PROBLEM,
+      async (fix?: AutoFixProblem) => {
+        try {
+          if (!fix) {
+            return false;
+          }
+
+          LogCommandInfo('Auto-fix problem for code action');
+
+          /** Get current doc */
+          const doc = GetActivePROCodeWindow();
+
+          /** Return if nothing */
+          if (doc === undefined) {
+            return false;
+          }
+
+          const editor = vscode.window.activeTextEditor;
+
+          // edit by replacing the file's contents
+          await editor.edit((editBuilder) => {
+            for (let i = 0; i < fix.length; i++) {
+              editBuilder.replace(
+                new vscode.Range(
+                  new vscode.Position(fix[i].line, 0),
+                  new vscode.Position(fix[i].line, Number.POSITIVE_INFINITY)
+                ),
+                fix[i].text
+              );
+            }
+          });
+
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error while disabling problem via settings',
+            err,
+            cmdErrors.code.fixProblem
           );
           return false;
         }

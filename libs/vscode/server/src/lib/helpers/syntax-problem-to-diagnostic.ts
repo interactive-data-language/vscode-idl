@@ -4,7 +4,7 @@ import {
   IDL_PROBLEM_SEVERITY_LOOKUP,
   ISyntaxProblem,
   SyntaxProblems,
-} from '@idl/parsing/problem-codes';
+} from '@idl/types/problem-codes';
 import { GetIDLProblemSeverity } from '@idl/parsing/syntax-tree';
 import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IDLDiagnostic } from '@idl/types/diagnostic';

@@ -2,7 +2,7 @@ import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDLProblemCode,
   ISyntaxProblem,
-} from '@idl/parsing/problem-codes';
+} from '@idl/types/problem-codes';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { PositionArray } from '@idl/types/tokenizer';
 

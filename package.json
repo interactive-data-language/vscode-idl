@@ -233,6 +233,10 @@
         "title": "%commands.idl.code.disableProblemSetting%"
       },
       {
+        "command": "idl.code.fixProblem",
+        "title": "%commands.idl.code.fixProblem%"
+      },
+      {
         "command": "idl.code.formatFile",
         "title": "%commands.idl.code.formatFile%"
       },

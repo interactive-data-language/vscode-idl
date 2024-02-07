@@ -1,6 +1,6 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 import { ICodeStyle, ITrueBaseAssemblerOptions } from '@idl/assembling/config';
-import { ProblemCodeLookup } from '@idl/parsing/problem-codes';
+import { ProblemCodeLookup } from '@idl/types/problem-codes';
 import {
   IDLExtensionsConfigKeys,
   IDLHistoryConfig,
@@ -33,6 +33,8 @@ export interface ICommandTranslation {
     migrateToDL30API: string;
     /** Command to disable problem as setting */
     disableProblemSetting: string;
+    /** problem we are fixing */
+    fixProblem: string;
   };
   /** Translations for configuration */
   config: {

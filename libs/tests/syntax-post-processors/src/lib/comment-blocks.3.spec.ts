@@ -1,6 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
 
 describe(`[auto generated] Confusing comment blocks `, () => {

@@ -247,6 +247,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#comment_disabled_problem</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#comment</string>
           </dict>
         </array>
@@ -779,6 +783,10 @@
         <array>
           <dict>
             <key>include</key>
+            <string>#comment_disabled_problem</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#comment_docs_header_legacy</string>
           </dict>
           <dict>
@@ -918,6 +926,21 @@
         <string>markup.heading.idl</string>
         <key>match</key>
         <string>(?i)@[a-z_$0-9]+</string>
+      </dict>
+      <key>comment_disabled_problem</key>
+      <dict>
+        <key>name</key>
+        <string>comment.line.idl</string>
+        <key>match</key>
+        <string>(?i);\s*(idl-disable(?:[a-z-]*))(.+)?$$</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>storage.type.class.jsdoc</string>
+          </dict>
+        </dict>
       </dict>
       <key>comment_docs_header</key>
       <dict>

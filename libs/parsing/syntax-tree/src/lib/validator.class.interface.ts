@@ -1,4 +1,4 @@
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 import { BasicTokenNames, NonBasicTokenNames } from '@idl/parsing/tokenizer';
 
 import { IBasicBranch, IBranch, SyntaxTree } from './branches.interface';

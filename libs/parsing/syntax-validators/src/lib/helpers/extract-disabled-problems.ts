@@ -3,7 +3,7 @@ import {
   DISABLED_PROBLEM_REGEX,
   IDL_PROBLEM_CODES,
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
-} from '@idl/parsing/problem-codes';
+} from '@idl/types/problem-codes';
 import {
   IParsed,
   SyntaxProblemWithoutTranslation,

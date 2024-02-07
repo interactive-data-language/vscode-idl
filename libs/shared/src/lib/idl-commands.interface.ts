@@ -65,6 +65,8 @@ export const IDL_COMMANDS = {
     MIGRATE_TO_DL30_API: `${BASE_CODE}migrateToDL30API`,
     /** Disable problem code through settings */
     DISABLE_PROBLEM_SETTING: `${BASE_CODE}disableProblemSetting`,
+    /** Auto fix problem */
+    FIX_PROBLEM: `${BASE_CODE}fixProblem`,
   },
   /** Commands to adjust the configuration of the extension for VSCode */
   CONFIG: {

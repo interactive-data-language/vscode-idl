@@ -1,4 +1,4 @@
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { ICodeStyle } from './style.interface';
 import { DEFAULT_CODE_STYLE } from './style-rule-sets.interface';
