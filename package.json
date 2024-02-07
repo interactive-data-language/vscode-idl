@@ -812,6 +812,12 @@
             "description": "%configuration.descriptions.problems.includeProblemsFromIDLPackages%",
             "scope": "machine-overridable"
           },
+          "idl.problems.reportProblems": {
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.descriptions.problems.reportProblems%",
+            "scope": "machine-overridable"
+          },
           "idl.problems.reportDocsProblems": {
             "type": "boolean",
             "default": true,

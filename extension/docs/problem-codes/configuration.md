@@ -6,6 +6,30 @@ Each problem code can be manually disabled if desired.
 Any problems you disable do not require a restart of Visual Studio Code. The reported problems should update fairly quickly and disappear from the UI.
 :::
 
+## Disable Reporting of all Problems
+
+For legacy code bases, or if you don't like that problems are being reported, you have the option to disable them being reported altogether.
+
+Do note that this does **not** disable the static analysis of your code; it simply means any issues are not reported to the VSCode UI. This is because we still need to parse and analyze your code to provide hover help and auto complete.
+
+::: warning
+Reported problems help make sure your IDL code is consistent and error free before you compile or run your programs.
+
+We understand that expert users might find the issues we report to be annoying, so we provided this master switch to disable the capability.
+
+If the reported problems don't help, or they are false errors, let us know and we are happy to fix any issues to improve the user experience.
+:::
+
+To disable reporting issues:
+
+1. Navigate to the IDL Sidebar
+
+2. Near the bottom of the sidebar, select "Open Extension Settings"
+
+3. Select the group "Problem Reporting"
+
+4. Turn off "Report Problems"
+
 ## Disable Problems within a Single File
 
 See [here](./disabling_with_comments.md) for our IDL comment API for disabling problem reporting.
