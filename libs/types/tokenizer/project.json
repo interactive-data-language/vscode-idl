@@ -1,21 +1,21 @@
 {
-  "name": "parsing-tokenizer-types",
+  "name": "types-tokenizer",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/parsing/tokenizer-types/src",
+  "sourceRoot": "libs/types/tokenizer/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/parsing/tokenizer-types/**/*.ts"]
+        "lintFilePatterns": ["libs/types/tokenizer/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/parsing/tokenizer-types/jest.config.ts",
+        "jestConfig": "libs/types/tokenizer/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {

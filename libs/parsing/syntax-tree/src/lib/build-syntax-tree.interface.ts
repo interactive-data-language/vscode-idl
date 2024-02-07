@@ -1,6 +1,6 @@
 import { SyntaxProblems } from '@idl/parsing/problem-codes';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
 import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/core';
+import { PositionArray } from '@idl/types/tokenizer';
 
 /**
  * Start options we pass into the recurser and shared between all recursions
