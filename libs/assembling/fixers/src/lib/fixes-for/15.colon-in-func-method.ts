@@ -20,7 +20,13 @@ const TOKENS: RoutineTokens[] = [TOKEN_NAMES.CALL_FUNCTION_METHOD];
  */
 function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
   // return if we don't have our problem
-  if (HasProblem(token, IDL_PROBLEM_CODES.COLON_IN_FUNCTION_METHOD)) {
+  if (
+    HasProblem(
+      token,
+      IDL_PROBLEM_CODES.COLON_IN_FUNCTION_METHOD,
+      parsed.disabledProblems
+    )
+  ) {
     if (token.end === undefined) {
       return;
     }

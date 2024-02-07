@@ -41,7 +41,9 @@ ROUTINE_SKIPS[TOKEN_NAMES.ROUTINE_METHOD_NAME] = true;
  */
 function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
   // return if we don't have our problem
-  if (HasProblem(token, IDL_PROBLEM_CODES.NO_COMPILE_OPT)) {
+  if (
+    HasProblem(token, IDL_PROBLEM_CODES.NO_COMPILE_OPT, parsed.disabledProblems)
+  ) {
     // do something
     const kids = token.kids;
 
