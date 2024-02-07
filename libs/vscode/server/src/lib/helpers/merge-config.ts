@@ -21,6 +21,7 @@ export const IGNORE_PROBLEM_CODES: { [key: number]: boolean } = {};
  * Track cases where we exclude problem reporting
  */
 export const INCLUDE_PROBLEMS_FOR = {
+  ALL: true,
   IDL_PATH: true,
   IDL_PACKAGES: true,
   DOCS: true,
@@ -118,6 +119,8 @@ export function MergeConfig() {
   INCLUDE_PROBLEMS_FOR.DOCS =
     configs.filter((config) => !config.problems.reportDocsProblems).length ===
     0;
+  INCLUDE_PROBLEMS_FOR.ALL =
+    configs.filter((config) => !config.problems.reportProblems).length === 0;
 
   /**
    * If we dont track problems for user docs, update ignore codes

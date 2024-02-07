@@ -57,6 +57,19 @@ export function AddProblemsConfig(nls: IPackageNLS) {
 
   // folders to not ask to init config for
   ourConfig.properties[
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems}`
+  ] = {
+    type: 'boolean',
+    default: DEFAULT_IDL_EXTENSION_CONFIG.problems.reportProblems,
+    description: TranslationFromConfiguration(
+      IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems,
+      nls
+    ),
+    scope: IDL_CONFIG_SCOPE,
+  };
+
+  // folders to not ask to init config for
+  ourConfig.properties[
     `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsReportDocsProblems}`
   ] = {
     type: 'boolean',

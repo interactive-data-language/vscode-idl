@@ -127,7 +127,9 @@ export function SendProblems(inFiles: string[]) {
     // sync problems
     SERVER_CONNECTION.sendDiagnostics({
       uri: URIFromIDLIndexFile(files[i]),
-      diagnostics: SyntaxProblemsToDiagnostic(problems),
+      diagnostics: SyntaxProblemsToDiagnostic(
+        INCLUDE_PROBLEMS_FOR.ALL ? problems : []
+      ),
     });
   }
 }
