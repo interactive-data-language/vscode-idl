@@ -1,10 +1,5 @@
 import { TaskAssembler } from '@idl/assembler';
-import {
-  DEFAULT_ASSEMBLER_OPTIONS,
-  FormatterType,
-  IAssemblerInputOptions,
-  IAssemblerOptions,
-} from '@idl/assembling/config';
+import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { LoadTask } from '@idl/schemas/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -12,8 +7,8 @@ import { ParsedTask } from '@idl/types/tasks';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
+import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
-import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { UpdateDocument } from '../../helpers/update-document';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { IDL_INDEX } from '../initialize-document-manager';
@@ -48,39 +43,9 @@ export const ON_DOCUMENT_FORMATTING = async (
     }
 
     /**
-     * Make default formatting config for info.fsPath
-     *
-     * Use settings from VSCode client as our default
+     * Get formatting config
      */
-    const clientConfig: IAssemblerOptions<FormatterType> = {
-      ...DEFAULT_ASSEMBLER_OPTIONS,
-      ...IDL_CLIENT_CONFIG.code.formatting,
-      style: IDL_CLIENT_CONFIG.code.formattingStyle,
-    };
-
-    /**
-     * Check if we have custom formatting that needs to be applied
-     */
-    if (formatting) {
-      Object.assign(clientConfig, formatting);
-    }
-
-    // // log information
-    // IDL_LANGUAGE_SERVER_LOGGER.log({
-    //   log: IDL_LSP_LOG,
-    //   type: 'debug',
-    //   content: ['Client config', clientConfig],
-    // });
-
-    /** Formatting config for info.fsPath */
-    const config = IDL_INDEX.getConfigForFile(info.fsPath, clientConfig);
-
-    // // log information
-    // IDL_LANGUAGE_SERVER_LOGGER.log({
-    //   log: IDL_LSP_LOG,
-    //   type: 'debug',
-    //   content: ['Formatting config', config],
-    // });
+    const config = GetFormattingConfigForFile(info.fsPath, formatting);
 
     /**
      * Formatted code
