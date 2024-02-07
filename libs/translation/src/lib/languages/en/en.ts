@@ -607,7 +607,7 @@ export const EN: ITranslation = {
       disableLine: 'Disable "PROBLEM` for line',
       disableFile: 'Disable "PROBLEM" for file',
       disableUser: 'Disable "PROBLEM" in user settings',
-      disableWorkspace: 'Disable "PROBLEM" in workspace settings',
+      disableWorkspace: 'Disable "PROBLEM" for workspace',
       viewProblemConfigDocs: 'Learn how to configure reported problems',
     },
     config: {
