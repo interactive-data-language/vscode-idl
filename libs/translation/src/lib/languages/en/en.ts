@@ -214,6 +214,7 @@ export const EN: ITranslation = {
         'Preferences that control the session history (input and output) when running IDL.',
       'IDL.preferences': 'Placeholder',
 
+      code: 'code',
       'code.formatting': 'Top-level preferences for how code gets formatted.',
       'code.formattingStyle':
         'This controls how code is automatically formatted when using the buttons in the sidebar or formatting on save.',

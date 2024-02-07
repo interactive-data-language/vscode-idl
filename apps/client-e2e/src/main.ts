@@ -1,7 +1,7 @@
 import { FindIDL } from '@idl/idl';
 import { EXTENSION_FULL_NAME, GetExtensionPath } from '@idl/shared';
 import { Sleep } from '@idl/tests/helpers';
-import { GetWorkspaceConfig, IIDLWorkspaceConfig } from '@idl/vscode/config';
+import { GetWorkspaceConfig } from '@idl/vscode/config';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import { IInitializeType } from '@idl/vscode/initialize-types';
 import { OpenFileInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
@@ -9,6 +9,7 @@ import expect from 'expect';
 import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';
 
+import { ResetSettingsForTests } from './reset-settings-for-tests';
 import { TestRunner } from './tests/runner';
 
 /**
@@ -107,12 +108,11 @@ export async function run(): Promise<void> {
     // get the current workspace config
     const config = GetWorkspaceConfig();
 
+    // reset config
+    await ResetSettingsForTests(config);
+
     // set latest IDL folder
-    (config as IIDLWorkspaceConfig).update(
-      IDL_EXTENSION_CONFIG_KEYS.IDLDirectory,
-      idlDir,
-      true
-    );
+    config.update(IDL_EXTENSION_CONFIG_KEYS.IDLDirectory, idlDir, true);
 
     // check if we allow debug logs
     if (DEBUG_LOGS) {

@@ -35,6 +35,8 @@ export interface IDLExtensionsConfigKeys {
   /** History for your IDL sessions */
   readonly IDLhistory: 'IDL.history';
 
+  /** Key for code */
+  readonly code: 'code';
   /** Top-level formatting options, excluding style */
   readonly codeFormatting: 'code.formatting';
   /** Code-formatting style */
@@ -276,6 +278,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   IDLenvironment: 'IDL.environment',
   IDLhistory: 'IDL.history',
 
+  code: 'code',
   codeFormatting: 'code.formatting',
   codeFormattingStyle: 'code.formattingStyle',
 
