@@ -1,8 +1,3 @@
-import {
-  DEFAULT_ASSEMBLER_OPTIONS,
-  FormatterType,
-  IAssemblerOptions,
-} from '@idl/assembling/config';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { NotebookToProCode } from '@idl/notebooks/idl-index';
@@ -14,7 +9,7 @@ import {
   INotebookToProCodeResponse,
 } from '@idl/vscode/events/messages';
 
-import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
+import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { NOTEBOOK_MANAGER } from '../initialize-notebook-manager';
@@ -52,33 +47,8 @@ export const ON_NOTEBOOK_TO_PRO_CODE = async (
      */
     const fsPath = GetFSPath(event.uri);
 
-    /**
-     * Make default formatting config for info.fsPath
-     *
-     * Use settings from VSCode client as our default
-     */
-    const clientConfig: IAssemblerOptions<FormatterType> = {
-      ...DEFAULT_ASSEMBLER_OPTIONS,
-      ...IDL_CLIENT_CONFIG.code.formatting,
-      style: IDL_CLIENT_CONFIG.code.formattingStyle,
-    };
-
-    // // log information
-    // IDL_LANGUAGE_SERVER_LOGGER.log({
-    //   log: IDL_LSP_LOG,
-    //   type: 'debug',
-    //   content: ['Client config', clientConfig],
-    // });
-
     /** Formatting config for info.fsPath */
-    const config = IDL_INDEX.getConfigForFile(fsPath, clientConfig);
-
-    // // log information
-    // IDL_LANGUAGE_SERVER_LOGGER.log({
-    //   log: IDL_LSP_LOG,
-    //   type: 'debug',
-    //   content: ['Formatting config', config],
-    // });
+    const config = GetFormattingConfigForFile(fsPath);
 
     return {
       code: await NotebookToProCode(
