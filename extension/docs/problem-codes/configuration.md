@@ -6,6 +6,8 @@ Each problem code can be manually disabled if desired.
 Any problems you disable do not require a restart of Visual Studio Code. The reported problems should update fairly quickly and disappear from the UI.
 :::
 
+[[toc]]
+
 ## Disable Reporting of all Problems
 
 For legacy code bases, or if you don't like that problems are being reported, you have the option to disable them being reported altogether.
