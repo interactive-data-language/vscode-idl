@@ -1,4 +1,4 @@
-import { IDL_PROBLEM_CODES, ISyntaxProblem } from '@idl/parsing/problem-codes';
+import { IDL_PROBLEM_CODES, ISyntaxProblem } from '@idl/types/problem-codes';
 import {
   IDL_SYNTAX_TREE_VALIDATOR,
   SyntaxProblemWithoutTranslation,

@@ -1,4 +1,4 @@
-import { IDLProblemCode } from '@idl/parsing/problem-codes';
+import { IDLProblemCode } from '@idl/types/problem-codes';
 import { Diagnostic } from 'vscode-languageserver';
 
 /**

@@ -1,5 +1,5 @@
 import { ASSEMBLER_PROBLEM_FIXERS } from '@idl/assembling/tree-handlers';
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 
 import { HasProblem } from '../helpers/has-problem';

@@ -25,6 +25,8 @@ variables:
   name_comment_block: comment.block.idl
   name_control: keyword.control.idl
   name_control_option: variable.other.readwrite.ts.idl
+  name_disable_file: storage.type.class.jsdoc
+  name_disable_line: support.type.idl
   name_docs_accent: support.type.idl # things like direction in docs
   name_docs_header: markup.heading.idl
   name_docs_arg_kw: markup.italic.idl
@@ -197,6 +199,7 @@ repository:
   comment_tokens:
     patterns:
       - include: '#comment_block'
+      - include: '#comment_disabled_problem'
       - include: '#comment'
 
   # tokens for control statements that we might be looking for
@@ -402,6 +405,7 @@ repository:
     begin: '^\s*(?=;\s*\+.*)'
     end: '^(?!\s*;|\s*$)'
     patterns:
+      - include: '#comment_disabled_problem'
       - include: '#comment_docs_header_legacy'
       - include: '#comment_docs_header'
       - include: '#comment_docs_arg_kw'
@@ -456,6 +460,14 @@ repository:
   comment_docs_header_legacy_top_level:
     name: {{name_docs_header}}
     match: '@[a-z_$0-9]+'
+
+  # comment section header
+  comment_disabled_problem:
+    name: {{name_comment}}
+    match: ';\s*(idl-disable(?:[a-z-]*))(.+)?$$'
+    captures:
+      '1': { name: {{name_disable_file}} }
+      # '2': { name: {{name_type}}, patterns: [{ include: '#type_tokens' }] }
 
   # comment section header
   comment_docs_header:

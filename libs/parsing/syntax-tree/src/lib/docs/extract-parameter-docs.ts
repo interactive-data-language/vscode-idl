@@ -1,4 +1,4 @@
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 import { CommentToken } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {

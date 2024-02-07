@@ -1,4 +1,4 @@
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 import { CommentToken, NOT_EMPTY_LINE_REGEX } from '@idl/parsing/tokenizer';
 
 import { IBasicBranch } from '../branches.interface';

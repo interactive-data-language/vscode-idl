@@ -46,6 +46,7 @@ export const EN: ITranslation = {
         initializeConfig: 'IDL: Initialize Config',
         addDocsToFile: 'IDL: Add/Update Docs for File',
         disableProblemSetting: 'IDL: Disable Problem Code via Setting',
+        fixProblem: 'IDL: Fix Problem for Code Action',
         formatFile: 'IDL: Format File',
         generateTask: 'IDL: Generate ENVI or IDL Task',
         migrateToDL30API: 'IDL: Migrate Code to ENVI Deep Learning 3.0 API',
@@ -109,6 +110,7 @@ export const EN: ITranslation = {
         addDocsToFile: 'Error while adding/updating docs for file',
         disableProblemSetting:
           'Error while disabling problem code via settings',
+        fixProblem: 'Error while fixing problem from code action',
         formatFile: 'Error while formatting file',
         generateTask: 'Error while generating task',
         migrateToDL30API: 'Error while migrating code',

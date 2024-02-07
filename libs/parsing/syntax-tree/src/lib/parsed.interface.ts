@@ -1,4 +1,4 @@
-import { IDisabledProblems, SyntaxProblems } from '@idl/parsing/problem-codes';
+import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 import { IFoundTokens } from '@idl/parsing/tokenizer';
 import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver';

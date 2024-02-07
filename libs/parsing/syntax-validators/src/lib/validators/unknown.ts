@@ -2,7 +2,7 @@ import {
   IDL_PROBLEM_CODES,
   IDLProblemCode,
   ISyntaxProblem,
-} from '@idl/parsing/problem-codes';
+} from '@idl/types/problem-codes';
 import {
   IDL_SYNTAX_TREE_VALIDATOR,
   SyntaxProblemWithTranslation,

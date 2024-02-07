@@ -2,7 +2,7 @@ import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_PROBLEM_CODES,
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
-} from '@idl/parsing/problem-codes';
+} from '@idl/types/problem-codes';
 
 /**
  * Adds all of our problem codes to the enum and translation list for our

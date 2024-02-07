@@ -1,3 +1,4 @@
+export * from './lib/auto-fix-problems.interface';
 export * from './lib/disabled-problem-flags.interface';
 export * from './lib/disabled-problems.interface';
 export * from './lib/idl-problem-code-aliases.interface';

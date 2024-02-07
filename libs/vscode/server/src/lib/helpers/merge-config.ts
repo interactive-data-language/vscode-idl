@@ -3,7 +3,7 @@ import {
   IDL_PROBLEM_CODE_SHORTHAND_CODE_LOOKUP,
   IDL_PROBLEM_CODE_SHORTHAND_LOOKUP,
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
-} from '@idl/parsing/problem-codes';
+} from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 
 import { GLOBAL_SERVER_SETTINGS } from '../initialize-server';

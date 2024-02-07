@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@idl/assembler": ["libs/assembling/assembler/src/index.ts"],
+      "@idl/assembling/code-actions": [
+        "libs/assembling/code-actions/src/index.ts"
+      ],
       "@idl/assembling/config": ["libs/assembling/config/src/index.ts"],
       "@idl/assembling/fixers": ["libs/assembling/fixers/src/index.ts"],
       "@idl/assembling/formatters": ["libs/assembling/formatters/src/index.ts"],
@@ -48,7 +51,6 @@
       "@idl/notebooks/shared": ["libs/notebooks/shared/src/index.ts"],
       "@idl/parser": ["libs/parsing/parser/src/index.ts"],
       "@idl/parsing/index": ["libs/parsing/index/src/index.ts"],
-      "@idl/parsing/problem-codes": ["libs/parsing/problem-codes/src/index.ts"],
       "@idl/parsing/routines": ["libs/parsing/routines/src/index.ts"],
       "@idl/parsing/semantic-tokens": [
         "libs/parsing/semantic-tokens/src/index.ts"
@@ -99,6 +101,7 @@
       "@idl/types/core": ["libs/types/core/src/index.ts"],
       "@idl/types/diagnostic": ["libs/types/diagnostic/src/index.ts"],
       "@idl/types/notebooks": ["libs/types/notebooks/src/index.ts"],
+      "@idl/types/problem-codes": ["libs/types/problem-codes/src/index.ts"],
       "@idl/types/profiler": ["libs/types/profiler/src/index.ts"],
       "@idl/types/syntax-tree": ["libs/types/syntax-tree/src/index.ts"],
       "@idl/types/tasks": ["libs/types/tasks/src/index.ts"],

@@ -2,7 +2,7 @@ import {
   IDL_PROBLEM_CODES,
   ISyntaxProblem,
   SyntaxProblems,
-} from '@idl/parsing/problem-codes';
+} from '@idl/types/problem-codes';
 import {
   RESERVED_FUNCTION_METHODS,
   RESERVED_FUNCTIONS,
