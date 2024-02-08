@@ -180,6 +180,7 @@ export function ExtractLegacyDocs(
                 after
                   .substring(name.length)
                   .replace(LEGACY_PARAMETER_DIRECTION, '')
+                  .trim()
               )
           );
           lastFound.comments.push(comments[i]);
