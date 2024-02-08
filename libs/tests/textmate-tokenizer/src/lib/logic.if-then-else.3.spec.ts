@@ -184,8 +184,15 @@ describe(`[auto generated] Validates for if-then-else parsing [3]`, () => {
       },
       {
         line: 0,
-        match: ';Symmetrical',
+        match: ';',
         startIndex: 30,
+        endIndex: 31,
+        scopes: ['source.idl', 'comment.line.idl'],
+      },
+      {
+        line: 0,
+        match: 'Symmetrical',
+        startIndex: 31,
         endIndex: 42,
         scopes: ['source.idl', 'comment.line.idl'],
       },
