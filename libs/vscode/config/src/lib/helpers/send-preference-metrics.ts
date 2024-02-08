@@ -113,6 +113,7 @@ export function SendPreferenceUsageMetrics() {
     pref_default_formatter: `${
       editor.get('defaultFormatter') === EXTENSION_FULL_NAME
     }`,
+    pref_format_on_save: `${editor.get('formatOnSave')}`,
     pref_icon_theme: `${config.iconTheme !== ICON_THEME_NAME}`,
     pref_idl_theme: OUR_THEMES.indexOf(theme) !== -1 ? theme : 'non-IDL',
     pref_auto_doc: `${code.formatting.autoDoc}`,
