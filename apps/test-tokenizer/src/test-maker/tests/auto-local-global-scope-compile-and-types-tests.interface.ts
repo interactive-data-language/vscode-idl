@@ -227,6 +227,32 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Correctly remove idl-disable statements`,
+      fileName: `disable-not-in-docs.spec.ts`,
+      tests: [
+        {
+          name: 'docs',
+          code: [
+            ``,
+            `;+`,
+            `; idl-disable`,
+            `; idl-disable-line`,
+            `; idl-disable-next-line`,
+            `;`,
+            `; :Args:`,
+            `;  var1: in, required, any`,
+            `;    My favorite thing`,
+            `;`,
+            `;-`,
+            `pro mypro, var1`,
+            `  compile_opt idl2`,
+            `end`,
+            ``,
+          ],
+        },
+      ],
+    },
+    {
       suiteName: `Extract docs below routines`,
       fileName: `docs-below-1.spec.ts`,
       tests: [
