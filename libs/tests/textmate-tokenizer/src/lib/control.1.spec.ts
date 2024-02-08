@@ -141,8 +141,15 @@ describe(`[auto generated] Validates control statement parsing`, () => {
       },
       {
         line: 5,
-        match: ';comment',
+        match: ';',
         startIndex: 10,
+        endIndex: 11,
+        scopes: ['source.idl', 'comment.line.idl'],
+      },
+      {
+        line: 5,
+        match: 'comment',
+        startIndex: 11,
         endIndex: 18,
         scopes: ['source.idl', 'comment.line.idl'],
       },
@@ -643,8 +650,15 @@ describe(`[auto generated] Validates control statement parsing`, () => {
       },
       {
         line: 0,
-        match: '; comment',
+        match: '; ',
         startIndex: 32,
+        endIndex: 34,
+        scopes: ['source.idl', 'comment.line.idl'],
+      },
+      {
+        line: 0,
+        match: 'comment',
+        startIndex: 34,
         endIndex: 41,
         scopes: ['source.idl', 'comment.line.idl'],
       },
@@ -706,8 +720,20 @@ describe(`[auto generated] Validates control statement parsing`, () => {
       },
       {
         line: 1,
-        match: '; line continuation',
+        match: '; ',
         startIndex: 21,
+        endIndex: 23,
+        scopes: [
+          'source.idl',
+          'group.control.compound.idl',
+          'group.line-continuation.idl',
+          'comment.line.idl',
+        ],
+      },
+      {
+        line: 1,
+        match: 'line continuation',
+        startIndex: 23,
         endIndex: 40,
         scopes: [
           'source.idl',

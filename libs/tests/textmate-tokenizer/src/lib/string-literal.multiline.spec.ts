@@ -42,8 +42,15 @@ describe(`[auto generated] Verify string literal processing with multi-line stat
       },
       {
         line: 1,
-        match: '; thing',
+        match: '; ',
         startIndex: 0,
+        endIndex: 2,
+        scopes: ['source.idl', 'comment.line.idl'],
+      },
+      {
+        line: 1,
+        match: 'thing',
+        startIndex: 2,
         endIndex: 7,
         scopes: ['source.idl', 'comment.line.idl'],
       },

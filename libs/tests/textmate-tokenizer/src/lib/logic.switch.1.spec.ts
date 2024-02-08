@@ -53,8 +53,20 @@ describe(`[auto generated] Validates switch statement`, () => {
       },
       {
         line: 1,
-        match: '; something cool',
+        match: '; ',
         startIndex: 3,
+        endIndex: 5,
+        scopes: [
+          'source.idl',
+          'group.logic.switch.idl',
+          'group.logic.of.idl',
+          'comment.line.idl',
+        ],
+      },
+      {
+        line: 1,
+        match: 'something cool',
+        startIndex: 5,
         endIndex: 19,
         scopes: [
           'source.idl',
