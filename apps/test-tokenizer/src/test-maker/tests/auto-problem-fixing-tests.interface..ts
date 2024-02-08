@@ -419,4 +419,51 @@ export const AUTO_PROBLEM_FIXING_TESTS: IAutoAssemblerTest[] = [
       },
     ],
   },
+  {
+    suiteName: `Verify we remove excess args`,
+    fileName: `dont-fix.when disabled.spec.ts`,
+    tests: [
+      {
+        name: `for procedures`,
+        code: [
+          `;+`,
+          `; idl-disable`,
+          `;-`,
+          `pro myname`,
+          `  compile_opt idl2`,
+          ``,
+          `  ; comment`,
+          `  return, 42`,
+          ``,
+          `end`,
+        ],
+      },
+      {
+        name: `for procedure methods`,
+        code: [
+          `;+`,
+          `; idl-disable`,
+          `;-`,
+          `pro myclass::myname`,
+          `  compile_opt idl2`,
+          ``,
+          `  a = 5`,
+          `  return, 42`,
+          `end`,
+        ],
+      },
+      {
+        name: `for main level programs`,
+        code: [
+          `; idl-disable`,
+          `; main`,
+          `compile_opt idl2`,
+          ``,
+          `return, 42`,
+          ``,
+          `end`,
+        ],
+      },
+    ],
+  },
 ];
