@@ -159,6 +159,10 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
 
           LogCommandInfo('Disable problem via settings');
 
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
+          });
+
           /** Get problem code alias */
           const alias = IDL_PROBLEM_CODE_ALIAS_LOOKUP[info.code];
 
@@ -207,6 +211,10 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           }
 
           LogCommandInfo('Auto-fix problem for code action');
+
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.CODE.FIX_PROBLEM,
+          });
 
           /** Get current doc */
           const doc = GetActivePROCodeWindow();
