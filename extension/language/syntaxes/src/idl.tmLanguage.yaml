@@ -199,7 +199,6 @@ repository:
   comment_tokens:
     patterns:
       - include: '#comment_block'
-      - include: '#comment_disabled_problem'
       - include: '#comment'
 
   # tokens for control statements that we might be looking for
@@ -395,9 +394,18 @@ repository:
   # comments in PRO code with accent for TODO statements
   comment:
     name: {{name_comment}}
-    match: ';\s*(TODO:)?(.*)$'
+    match: ';\+?\s*(TODO:)?(.*)$'
     captures:
       '1': { name: {{name_escape}} }
+      '2': { patterns: [{ include: '#comment_disabled_problem' }] }
+
+  # comment section header
+  comment_disabled_problem:
+    patterns:
+      - name: {{name_disable_line}}
+        match: 'idl-disable-next-line|idl-disable-next'
+      - name: {{name_disable_file}}
+        match: 'idl-disable'
 
   # comments in PRO code with accent for TODO statements
   comment_block:
@@ -460,18 +468,6 @@ repository:
   comment_docs_header_legacy_top_level:
     name: {{name_docs_header}}
     match: '@[a-z_$0-9]+'
-
-  # comment section header
-  comment_disabled_problem:
-    patterns:
-      - name: {{name_comment}}
-        match: ';\s*(idl-disable-(?:[a-z-]+))(.+)?$'
-        captures:
-          '1': { name: {{name_disable_line}} }
-      - name: {{name_comment}}
-        match: ';\s*(idl-disable)(.*)$'
-        captures:
-          '1': { name: {{name_disable_file}} }
 
   # comment section header
   comment_docs_header:
