@@ -14,6 +14,10 @@ There are many unique situations, with any language, where line-by-line or by-fi
 
 ## Disabling for a File
 
+::: tip Best Practice
+Either create a standalone comment block or comment at the top of your file when disabling problems for an entire file.
+:::
+
 To disable reporting any problem for an entire file, add the following to the top of your file (as a standalone comment, or in a comment block).
 
 ```idl
@@ -105,3 +109,9 @@ a = 42
 ```
 
 This example isn't the cleanest (or easiest to read), but it works!
+
+## Don't Add to Routine Comments
+
+While we will properly detect problems being disabled in routine comments and problems will be disabled as you expect, the next time your code is formatted the `idl-disable` statements will be stripped out of the documentation for the routine.
+
+Please follow our best practices and use comments next to problems or at the very top of your file.
