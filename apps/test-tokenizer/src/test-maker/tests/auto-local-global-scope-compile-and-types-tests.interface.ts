@@ -418,6 +418,32 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Exclude idl-disabled from`,
+      fileName: `document-vars.2.spec.ts`,
+      tests: [
+        {
+          name: 'variables docs',
+          code: [
+            `compile_opt idl2`,
+            ``,
+            `;+ idl-disable`,
+            `a = 42`,
+            ``,
+            `;+ TODO: var comment idl-disable`,
+            `b = 42`,
+            ``,
+            `;+ some comment idl-disable-next-line unused-var`,
+            `c = 42`,
+            ``,
+            `;+ var comment idl-disable-line unused-var`,
+            `d = 42`,
+            ``,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
       suiteName: `Correctly extract variables from`,
       fileName: `functions.spec.ts`,
       tests: [

@@ -10,6 +10,7 @@ export * from './lib/docs/markdown/docs-to-markdown';
 export * from './lib/docs/markdown/docs-to-markdown.interface';
 export * from './lib/get-idl-problem-severity';
 export * from './lib/helpers/are-touching';
+export * from './lib/helpers/clean-comment';
 export * from './lib/helpers/get-before';
 export * from './lib/helpers/get-before-in-branch';
 export * from './lib/helpers/get-include-file';
