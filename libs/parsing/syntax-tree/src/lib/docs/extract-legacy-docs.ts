@@ -3,6 +3,7 @@ import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
 import { IBasicBranch } from '../branches.interface';
+import { CleanComment } from '../helpers/clean-comment';
 import { IDL_DOCS_HEADERS } from './docs.interface';
 import {
   ARG_KW_PROPERTY_TAG,
@@ -175,14 +176,15 @@ export function ExtractLegacyDocs(
           // save description
           lastFound.docs.push(
             '     ' +
-              after
-                .substring(name.length)
-                .replace(LEGACY_PARAMETER_DIRECTION, '')
-                .trim()
+              CleanComment(
+                after
+                  .substring(name.length)
+                  .replace(LEGACY_PARAMETER_DIRECTION, '')
+              )
           );
           lastFound.comments.push(comments[i]);
         } else {
-          lastFound.docs.push(after);
+          lastFound.docs.push(CleanComment(after));
           lastFound.comments.push(comments[i]);
         }
 
@@ -201,9 +203,11 @@ export function ExtractLegacyDocs(
     // save line
     if (startSaving) {
       lastFound.docs.push(
-        key === IDL_DOCS_HEADERS.ARGS || key === IDL_DOCS_HEADERS.KEYWORDS
-          ? `    ${line}`
-          : line
+        CleanComment(
+          key === IDL_DOCS_HEADERS.ARGS || key === IDL_DOCS_HEADERS.KEYWORDS
+            ? `    ${line}`
+            : line
+        )
       );
       lastFound.comments.push(comments[i]);
     }

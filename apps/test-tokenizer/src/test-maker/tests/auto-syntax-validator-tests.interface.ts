@@ -168,6 +168,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `with basic upper-case comment`,
         code: `; todo: something`,
       },
+      {
+        name: `in comment block`,
+        code: `;+ todo: something`,
+      },
+      {
+        name: `remove disabled from todo`,
+        code: `;+ todo: something idl-disabled`,
+      },
+      {
+        name: `remove disabled from todo`,
+        code: `;   todo: something idl-disabled-line`,
+      },
+      {
+        name: `remove disabled from todo`,
+        code: `;todo: something idl-disabled-next-line`,
+      },
     ],
   },
   {
