@@ -604,10 +604,11 @@ export const EN: ITranslation = {
   },
   lsp: {
     codeActions: {
-      disableLine: 'Disable "PROBLEM` for line',
+      disableLine: 'Disable "PROBLEM" for line',
       disableFile: 'Disable "PROBLEM" for file',
       disableUser: 'Disable "PROBLEM" in user settings',
       disableWorkspace: 'Disable "PROBLEM" for workspace',
+      viewProblemCodeDocs: 'Learn more about "PROBLEM"',
       viewProblemConfigDocs: 'Learn how to configure reported problems',
     },
     config: {
