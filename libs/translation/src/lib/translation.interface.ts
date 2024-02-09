@@ -422,6 +422,7 @@ export interface ITranslation {
       disableWorkspace: string;
       disableLine: string;
       disableFile: string;
+      viewProblemCodeDocs: string;
       viewProblemConfigDocs: string;
     };
     /** Messages for config file */

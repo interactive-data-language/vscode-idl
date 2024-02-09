@@ -1,13 +1,8 @@
-import { DisableProblemForLine } from '@idl/assembling/code-actions';
+import { CreateCodeActions } from '@idl/assembling/code-actions';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { IDL_COMMANDS } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IAutoFixIDLDiagnostic, IDLDiagnostic } from '@idl/types/diagnostic';
-import {
-  CodeAction,
-  CodeActionKind,
-  CodeActionParams,
-} from 'vscode-languageserver/node';
+import { IDLDiagnostic } from '@idl/types/diagnostic';
+import { CodeAction, CodeActionParams } from 'vscode-languageserver/node';
 
 import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
 import { IsIDLDiagnostic } from '../../helpers/is-idl-diagnostinc';
@@ -67,95 +62,11 @@ export const ON_CODE_ACTIONS = async (
      */
     const config = GetFormattingConfigForFile(info.fsPath);
 
-    /**
-     * Make our code actions
-     */
-    const commands: CodeAction[] = [];
-
     /** Get code as string array */
     const code = info.code.split(/\r?\n/gim);
 
-    // process all diagnostics
-    for (let i = 0; i < diags.length; i++) {
-      /**
-       * Disable problem for line
-       */
-      commands.push({
-        title: IDL_TRANSLATION.lsp.codeActions.disableLine.replace(
-          'PROBLEM',
-          diags[i].data.alias
-        ),
-        command: {
-          command: IDL_COMMANDS.CODE.FIX_PROBLEM,
-          arguments: [
-            DisableProblemForLine(
-              diags[i].range.start.line,
-              diags[i].data.alias,
-              code,
-              config.eol === 'lf' ? '\n' : '\r\n'
-            ),
-          ],
-          title: IDL_COMMANDS.CODE.FIX_PROBLEM,
-        },
-        kind: CodeActionKind.QuickFix,
-      });
-
-      /**
-       * Disable problem at user level
-       */
-      const user: IAutoFixIDLDiagnostic = {
-        code: diags[i].data.code,
-        scope: 'user',
-      };
-      commands.push({
-        title: IDL_TRANSLATION.lsp.codeActions.disableUser.replace(
-          'PROBLEM',
-          diags[i].data.alias
-        ),
-        command: {
-          command: IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
-          arguments: [user],
-          title: IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
-        },
-        kind: CodeActionKind.QuickFix,
-      });
-
-      /**
-       * Disable problem reporting in workspace level
-       */
-      const workspace: IAutoFixIDLDiagnostic = {
-        code: diags[i].data.code,
-        scope: 'workspace',
-      };
-      commands.push({
-        title: IDL_TRANSLATION.lsp.codeActions.disableWorkspace.replace(
-          'PROBLEM',
-          diags[i].data.alias
-        ),
-        command: {
-          command: IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
-          arguments: [workspace],
-          title: IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
-        },
-        kind: CodeActionKind.QuickFix,
-      });
-
-      /**
-       * View problem configuration docs
-       */
-      commands.push({
-        title: IDL_TRANSLATION.lsp.codeActions.viewProblemConfigDocs,
-        command: {
-          command: IDL_COMMANDS.DOCS.OPEN,
-          arguments: ['/problem-codes/configuration.html'],
-          title: IDL_COMMANDS.DOCS.OPEN,
-        },
-        kind: CodeActionKind.Empty,
-      });
-    }
-
-    // create commands
-    return commands;
+    // create code actions and return
+    return await CreateCodeActions(code, diags, config);
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
