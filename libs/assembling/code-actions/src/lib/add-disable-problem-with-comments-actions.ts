@@ -14,7 +14,8 @@ export function AddDisableProblemWithCommentsAction(
   diag: IDLDiagnostic,
   code: string[],
   formatting: IAssemblerOptions<FormatterType>,
-  actions: CodeAction[]
+  actions: CodeAction[],
+  notebookCell?: number
 ) {
   /**
    * Disable problem for line
@@ -31,7 +32,8 @@ export function AddDisableProblemWithCommentsAction(
           diag.range.start.line,
           diag.data.alias,
           code,
-          formatting.eol === 'lf' ? '\n' : '\r\n'
+          formatting.eol === 'lf' ? '\n' : '\r\n',
+          notebookCell
         ),
       ],
       title: IDL_COMMANDS.CODE.FIX_PROBLEM,
@@ -40,7 +42,7 @@ export function AddDisableProblemWithCommentsAction(
   });
 
   /**
-   * Disable problem for line
+   * Disable problem for file
    */
   actions.push({
     title: IDL_TRANSLATION.lsp.codeActions.disableFile.replace(
@@ -54,7 +56,8 @@ export function AddDisableProblemWithCommentsAction(
           diag.range.start.line,
           diag.data.alias,
           code,
-          formatting.eol === 'lf' ? '\n' : '\r\n'
+          formatting.eol === 'lf' ? '\n' : '\r\n',
+          notebookCell
         ),
       ],
       title: IDL_COMMANDS.CODE.FIX_PROBLEM,

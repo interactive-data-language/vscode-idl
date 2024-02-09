@@ -12,7 +12,8 @@ import { AddDocsActions } from './add-docs-actions';
 export async function CreateCodeActions(
   code: string[],
   diags: IDLDiagnostic[],
-  formatting: IAssemblerOptions<FormatterType>
+  formatting: IAssemblerOptions<FormatterType>,
+  notebookCell?: number
 ): Promise<CodeAction[]> {
   /**
    * Make our code actions
@@ -21,7 +22,13 @@ export async function CreateCodeActions(
 
   // process all diagnostics
   for (let i = 0; i < diags.length; i++) {
-    AddDisableProblemWithCommentsAction(diags[i], code, formatting, actions);
+    AddDisableProblemWithCommentsAction(
+      diags[i],
+      code,
+      formatting,
+      actions,
+      notebookCell
+    );
 
     // add actions to disable problems
     AddDisableProblemWithSettingsAction(diags[i], actions);

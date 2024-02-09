@@ -2,6 +2,11 @@ import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
 import { AddDocs } from './add-docs';
+import { IDLDisableAllFromSettings } from './idl-disable-all-from-setting';
+import {
+  IDLDisableAllFromComments,
+  IDLDisableLinesFromComments,
+} from './idl-disable-from-comments';
 import { IDLJSONInteractRight } from './idl-json-interact-right';
 import { IndexIDLFolderRightAndOpenEditClose } from './index-idl-folder-right-and-open-edit-close';
 import { MigrateCodeDL30, MigrateCodeDL30_2 } from './migrate-code-dl-3.0';
@@ -9,6 +14,10 @@ import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { NotebookCompletionBasic } from './notebooks-completion-basic';
 import { NotebooksInteractRight } from './notebooks-interact-right';
 import { NotebooksNoDuplicateRoutines } from './notebooks-no-duplicate-routines';
+import {
+  ProCodeCodeActionsExisting,
+  ProCodeCodeActionsNoExisting,
+} from './pro-code-code-actions';
 import { ProCodeInteractRight } from './pro-code-interacts-right';
 import { TasksInteractRight } from './tasks-interact-right';
 
@@ -60,6 +69,36 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'PRO code interacts right',
   fn: ProCodeInteractRight,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Disable problem reporting using comments (all)',
+  fn: IDLDisableAllFromComments,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Disable problem reporting using comments (by line)',
+  fn: IDLDisableLinesFromComments,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Disable problem reporting from root setting',
+  fn: IDLDisableAllFromSettings,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Code actions for none existing',
+  fn: ProCodeCodeActionsNoExisting,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Code actions for existing',
+  fn: ProCodeCodeActionsExisting,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Code actions for notebook cell',
+  fn: ProCodeCodeActionsExisting,
 });
 
 INTERACTIONS_RUNNER.addTest({
