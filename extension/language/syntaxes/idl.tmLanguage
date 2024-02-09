@@ -785,7 +785,7 @@
             <key>name</key>
             <string>storage.type.class.jsdoc</string>
             <key>match</key>
-            <string>(?i)idl-disable-next-line|idl-disable-next</string>
+            <string>(?i)idl-disable-next-line|idl-disable-line</string>
           </dict>
           <dict>
             <key>name</key>

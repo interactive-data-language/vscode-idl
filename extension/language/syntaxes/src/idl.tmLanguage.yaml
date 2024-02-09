@@ -403,7 +403,7 @@ repository:
   comment_disabled_problem:
     patterns:
       - name: {{name_disable_line}}
-        match: 'idl-disable-next-line|idl-disable-next'
+        match: 'idl-disable-next-line|idl-disable-line'
       - name: {{name_disable_file}}
         match: 'idl-disable'
 

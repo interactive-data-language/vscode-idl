@@ -538,7 +538,7 @@
       "patterns": [
         {
           "name": "storage.type.class.jsdoc",
-          "match": "(?i)idl-disable-next-line|idl-disable-next"
+          "match": "(?i)idl-disable-next-line|idl-disable-line"
         },
         {
           "name": "markup.heading.idl",
