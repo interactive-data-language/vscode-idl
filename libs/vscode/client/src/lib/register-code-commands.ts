@@ -1,4 +1,5 @@
 import { MIGRATION_TYPE_LOOKUP } from '@idl/assembling/migrators-types';
+import { IDL_COMMAND_LOG } from '@idl/logger';
 import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
@@ -211,6 +212,13 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           }
 
           LogCommandInfo('Auto-fix problem for code action');
+
+          // debug log to show document edits
+          IDL_LOGGER.log({
+            log: IDL_COMMAND_LOG,
+            content: ['Document edits for fix', fix],
+            type: 'debug',
+          });
 
           VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
             idl_command: IDL_COMMANDS.CODE.FIX_PROBLEM,
