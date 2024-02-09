@@ -30,6 +30,10 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 ## 4.3.1 February 2024
 
+Resolved an issue where the language server would take a while to startup when you didn't have any workspace folders open. It should be almost instantaneous now!
+
+Resolved an issue where problems were not correctly reported (or honoring settings changes) for files that didn't belong to a workspace.
+
 Added more controls to help fine-tune problem reporting and be able to disable it altogether:
 
 - Add code actions for being able to easily disable problem codes from within the editor for a workspace or user settings
