@@ -70,6 +70,10 @@ export function RegisterDocsCommands(ctx: ExtensionContext) {
             !IDL_EXTENSION_CONFIG.documentation.useOnline &&
             false;
 
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.DOCS.OPEN_LINK,
+          });
+
           /** Get URL from markdown */
           const back = open.link;
 
