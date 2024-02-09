@@ -1,4 +1,5 @@
-import { DOCS_IMAGES_URL, IDL_COMMANDS, MatchGlobal } from '@idl/shared';
+import { IDL_COMMANDS, MatchGlobal } from '@idl/shared';
+import { PRODUCT_DOCS_IMAGES } from '@idl/types/websites';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { existsSync } from 'fs';
 import { basename, dirname } from 'path';
@@ -75,10 +76,10 @@ export function ResolveHoverHelpLinks(
             if (existsSync(uri) && !isNotebook) {
               newLink = pathToFileURL(uri).toString();
             } else {
-              newLink = `${DOCS_IMAGES_URL}/${basename(back)}`;
+              newLink = `${PRODUCT_DOCS_IMAGES}/${basename(back)}`;
             }
           } else {
-            newLink = `${DOCS_IMAGES_URL}/${basename(back)}`;
+            newLink = `${PRODUCT_DOCS_IMAGES}/${basename(back)}`;
           }
 
           // reset value
