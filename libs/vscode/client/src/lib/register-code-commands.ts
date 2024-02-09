@@ -12,6 +12,7 @@ import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import {
+  GetActiveIDLNotebookWindow,
   GetActivePROCodeOrTaskWindow,
   GetActivePROCodeWindow,
   ReplaceDocumentContent,
@@ -217,18 +218,31 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           IDL_LOGGER.log({
             log: IDL_COMMAND_LOG,
             content: ['Document edits for fix', fix],
-            type: 'debug',
+            type: 'info',
           });
 
           VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
             idl_command: IDL_COMMANDS.CODE.FIX_PROBLEM,
           });
 
-          /** Get current doc */
-          const doc = GetActivePROCodeWindow();
+          // check for notebook fixes
+          const needsNb =
+            fix.filter((item) => item.cell !== undefined).length > 0;
+
+          let doc: vscode.TextDocument;
+          if (needsNb) {
+            const nb = GetActiveIDLNotebookWindow();
+            if (nb === undefined) {
+              return false;
+            }
+            doc = nb.getCells()[fix[0].cell]?.document;
+          } else {
+            doc = GetActivePROCodeWindow();
+          }
 
           /** Return if nothing */
           if (doc === undefined) {
+            console.log(`no doc`);
             return false;
           }
 

@@ -12,7 +12,8 @@ export function DisableProblemForFile(
   line: number,
   alias: string,
   code: string[],
-  lf: string
+  lf: string,
+  cell?: number
 ): AutoFixProblem {
   /** Get the code we inject */
   let inject = `;+${lf}; ${DISABLED_PROBLEM_FLAGS.ALL} ${alias}${lf};-${lf}${lf}${code[0]}`;
@@ -28,15 +29,25 @@ export function DisableProblemForFile(
     // check if match
     if (match !== null) {
       // verify we have args and not just empty space
-      const args = match[1].trim();
-      if (args) {
-        inject = `${code[i]}, ${alias}`;
-        replaceLine = i;
-        break;
+      const argsString = match[1].trim();
+      if (argsString) {
+        /** Get args */
+        const args = argsString
+          .toLowerCase()
+          .split(/,/g)
+          .map((arg) => arg.trim())
+          .filter((arg) => arg !== '');
+
+        // add new arg if it doesnt exist
+        if (args.indexOf(alias) === -1) {
+          inject = `${code[i]}, ${alias}`;
+          replaceLine = i;
+          break;
+        }
       }
     }
   }
 
   /** Build our edit */
-  return [{ line: replaceLine, text: inject }];
+  return [{ line: replaceLine, text: inject, cell }];
 }

@@ -19,12 +19,6 @@ export const ON_CODE_ACTIONS = async (
 ): Promise<CodeAction[]> => {
   await SERVER_INITIALIZED;
   try {
-    IDL_LANGUAGE_SERVER_LOGGER.log({
-      log: IDL_LSP_LOG,
-      type: 'debug',
-      content: ['CodeAction request', params],
-    });
-
     /**
      * Get IDL diagnostics
      */
@@ -37,6 +31,12 @@ export const ON_CODE_ACTIONS = async (
       return undefined;
     }
 
+    IDL_LANGUAGE_SERVER_LOGGER.log({
+      log: IDL_LSP_LOG,
+      type: 'debug',
+      content: ['CodeAction request', params],
+    });
+
     /**
      * Resolve the fspath to our cell and retrieve code
      */
@@ -48,12 +48,7 @@ export const ON_CODE_ACTIONS = async (
     }
 
     // return if not a file we can process
-    if (
-      !(
-        IDL_INDEX.isPROCode(info.fsPath) ||
-        IDL_INDEX.isIDLNotebookFile(info.fsPath)
-      )
-    ) {
+    if (!(IDL_INDEX.isPROCode(info.fsPath) || info.isNotebook)) {
       return undefined;
     }
 
@@ -65,8 +60,21 @@ export const ON_CODE_ACTIONS = async (
     /** Get code as string array */
     const code = info.code.split(/\r?\n/gim);
 
+    /** get code actions */
+    const actions = await CreateCodeActions(
+      code,
+      diags,
+      config,
+      info.isNotebook ? +info.fsPath.split('#')[1] : undefined
+    );
+
+    /**
+     * For test creation, use the output here as expected values
+     */
+    // console.log(JSON.stringify(actions, undefined, 2));
+
     // create code actions and return
-    return await CreateCodeActions(code, diags, config);
+    return actions;
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

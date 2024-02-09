@@ -605,7 +605,7 @@ export const EN: ITranslation = {
   lsp: {
     codeActions: {
       disableLine: 'Disable "PROBLEM" for line',
-      disableFile: 'Disable "PROBLEM" for file',
+      disableFile: 'Disable "PROBLEM" for file or cell',
       disableUser: 'Disable "PROBLEM" in user settings',
       disableWorkspace: 'Disable "PROBLEM" for workspace',
       viewProblemCodeDocs: 'Learn more about "PROBLEM"',

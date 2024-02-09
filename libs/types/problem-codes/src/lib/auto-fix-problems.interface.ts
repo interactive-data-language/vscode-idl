@@ -3,6 +3,8 @@ export interface IReplaceLineText {
   line: number;
   /** New text for the line */
   text: string;
+  /** If cell in notebook */
+  cell?: number;
 }
 
 /**
