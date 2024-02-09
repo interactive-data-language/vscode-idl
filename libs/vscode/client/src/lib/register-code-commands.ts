@@ -229,6 +229,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           const needsNb =
             fix.filter((item) => item.cell !== undefined).length > 0;
 
+          /** Init active text document */
           let doc: vscode.TextDocument;
           if (needsNb) {
             const nb = GetActiveIDLNotebookWindow();
@@ -242,10 +243,10 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
 
           /** Return if nothing */
           if (doc === undefined) {
-            console.log(`no doc`);
             return false;
           }
 
+          /** Get editor */
           const editor = vscode.window.activeTextEditor;
 
           // edit by replacing the file's contents
