@@ -67,6 +67,12 @@ export async function run(): Promise<void> {
       GetExtensionPath('idl/test/client-e2e/load_first_problems.pro')
     );
 
+    // get the current workspace config
+    const config = GetWorkspaceConfig();
+
+    // reset config
+    await ResetSettingsForTests(config);
+
     // flag if we have started or not
     let started = false;
 
@@ -105,14 +111,8 @@ export async function run(): Promise<void> {
     // close editor
     await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 
-    // get the current workspace config
-    const config = GetWorkspaceConfig();
-
-    // reset config
-    await ResetSettingsForTests(config);
-
     // set latest IDL folder
-    config.update(IDL_EXTENSION_CONFIG_KEYS.IDLDirectory, idlDir, true);
+    await config.update(IDL_EXTENSION_CONFIG_KEYS.IDLDirectory, idlDir, true);
 
     // check if we allow debug logs
     if (DEBUG_LOGS) {
