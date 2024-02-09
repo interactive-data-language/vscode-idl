@@ -12,9 +12,6 @@ export const EXTENSION_NAME = 'idl-for-vscode';
 
 /**
  * Name for our extension config.
- *
- * NOTE: Changing this here is not all you need to do. You will also need to
- * adjust the package.json config information.
  */
 export const IDL_LANGUAGE_NAME = 'idl';
 
