@@ -2208,11 +2208,17 @@ export class IDLIndex {
      */
     const files = await this.findFiles(folder);
 
+    // add all files to known
+    for (let i = 0; i < files.length; i++) {
+      this.knownFiles[files[i]] = undefined;
+    }
+
     /**
      * Bucket them into separate groups
      */
     const buckets = this.bucketFiles(files);
 
+    // create a cancellation token
     const token = new CancellationToken();
 
     // save discovery time
@@ -2263,9 +2269,16 @@ export class IDLIndex {
       this.removeWorkspaceFiles([file]);
       return;
     }
+
+    // mark as known file
+    this.knownFiles[file] = undefined;
+
+    // get code if we dont have it
     if (code === undefined) {
       code = this.getFileStrings(file);
     }
+
+    // index appropriately
     switch (true) {
       case this.isConfigFile(file):
         await this.indexConfigFile(file, code);
@@ -2295,6 +2308,11 @@ export class IDLIndex {
     cb: (file: string) => Promise<string>,
     token: CancellationToken
   ) {
+    // add all files to known
+    for (let i = 0; i < files.length; i++) {
+      this.knownFiles[files[i]] = undefined;
+    }
+
     /**
      * Bucket files
      */
