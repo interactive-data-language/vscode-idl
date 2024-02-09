@@ -100,7 +100,11 @@ export function SendProblems(inFiles: string[]) {
      *
      * If we are a notebook we always send problems
      */
-    if (IDL_INDEX.isIDLNotebookFile(files[i]) || CanReportProblems(files[i])) {
+    if (
+      (IDL_INDEX.isIDLNotebookFile(files[i]) ||
+        IDL_INDEX.isPROCode(files[i])) &&
+      CanReportProblems(files[i])
+    ) {
       /**
        * Are our tokens in another thread and we have stored the problems directly in parseProblems
        *
