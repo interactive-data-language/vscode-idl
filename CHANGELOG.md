@@ -38,6 +38,8 @@ Added more controls to help fine-tune problem reporting and be able to disable i
 
 - Add code actions for being able to easily disable problem codes from within the editor for a workspace or user settings
 
+- Code actions work for notebooks or PRO files
+
 - Added an IDL comment-based API to control how problems are reported for files and lines of IDL code
 
 - Added a new preference that wil disable problem reporting altogether

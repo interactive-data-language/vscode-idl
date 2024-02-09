@@ -12,10 +12,12 @@ For problems that get reported, we want to make sure that we have all the scenar
 
 There are many unique situations, with any language, where line-by-line or by-file customizations are needed.
 
-## Disabling for a File
+This API works for IDL Notebooks and PRO code. The main difference is that, for IDL Notebooks, there's no way to turn comments off for the entire notebook. If you think this could be a useful feature, then feel free to make a feature request on GitHub and we can take a look.
+
+## Disabling for a File or Notebook Cell
 
 ::: tip Best Practice
-Either create a standalone comment block or comment at the top of your file when disabling problems for an entire file.
+Either create a standalone comment block or comment at the top of your file or notebook cell when disabling problems for an entire file.
 :::
 
 To disable reporting any problem for an entire file, add the following to the top of your file (as a standalone comment, or in a comment block).
