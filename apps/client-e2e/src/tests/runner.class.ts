@@ -1,8 +1,10 @@
 import { Logger } from '@idl/logger';
 import { Sleep } from '@idl/shared';
+import { GetWorkspaceConfig } from '@idl/vscode/config';
 import * as vscode from 'vscode';
 
 import { ACTIVATION_RESULT } from '../main';
+import { ResetSettingsForTests } from '../reset-settings-for-tests';
 import { IRunnerTest, TEST_PAUSE_MS } from './runner.interface';
 
 /**
@@ -46,6 +48,9 @@ export class Runner {
     /** Initialize failures */
     let failures = 0;
 
+    // get the current workspace config
+    const config = GetWorkspaceConfig();
+
     // run all of our tests
     for (let i = 0; i < this.tests.length; i++) {
       try {
@@ -54,6 +59,9 @@ export class Runner {
 
         // attempt to run test
         await this.tests[i].fn(ACTIVATION_RESULT);
+
+        // reset config
+        await ResetSettingsForTests(config);
 
         // pause afterwards so things catch up
         await Sleep(TEST_PAUSE_MS);

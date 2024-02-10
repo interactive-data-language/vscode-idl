@@ -3,6 +3,7 @@ import { Logger } from '@idl/logger';
 import { Runner } from '../runner.class';
 import { AddDocs } from './add-docs';
 import { IDLDisableAllFromSettings } from './idl-disable-all-from-setting';
+import { IDLDisableAllFromSettingsForNotebook } from './idl-disable-all-from-setting-for-notebook';
 import {
   IDLDisableAllFromComments,
   IDLDisableLinesFromComments,
@@ -84,6 +85,11 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'Disable problem reporting from root setting',
   fn: IDLDisableAllFromSettings,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Disable problem reporting from root setting (notebooks)',
+  fn: IDLDisableAllFromSettingsForNotebook,
 });
 
 INTERACTIONS_RUNNER.addTest({
