@@ -2,7 +2,6 @@ import { FindIDL } from '@idl/idl';
 import { EXTENSION_FULL_NAME, GetExtensionPath } from '@idl/shared';
 import { Sleep } from '@idl/tests/helpers';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
-import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import { IInitializeType } from '@idl/vscode/initialize-types';
 import { OpenFileInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
@@ -110,9 +109,6 @@ export async function run(): Promise<void> {
 
     // close editor
     await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
-
-    // set latest IDL folder
-    await config.update(IDL_EXTENSION_CONFIG_KEYS.IDLDirectory, idlDir, true);
 
     // check if we allow debug logs
     if (DEBUG_LOGS) {

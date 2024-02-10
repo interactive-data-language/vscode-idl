@@ -1,89 +1,72 @@
+import { FindIDL } from '@idl/idl';
+import { GetExtensionPath, IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IIDLWorkspaceConfig } from '@idl/vscode/config';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDL_EXTENSION_CONFIG_KEYS,
 } from '@idl/vscode/extension-config';
+import { readFileSync } from 'fs';
 
 /**
  * Scope we reset at
  */
 const SCOPE = true;
 
+/** read in the package.json */
+const PACKAGE = JSON.parse(
+  readFileSync(GetExtensionPath('package.json'), 'utf-8')
+);
+
 /**
  * Wrapper to correctly set config because of nonsense settings API
  */
-async function ResetConfigToDefault(
-  config: IIDLWorkspaceConfig,
-  key: string,
-  obj: { [key: string]: any }
-) {
-  /** Get keys from the data we need to reset */
-  const keys = Object.keys(obj);
+async function ResetConfigToDefault(config: IIDLWorkspaceConfig, key: string) {
+  // starting point to descend
+  let nested = DEFAULT_IDL_EXTENSION_CONFIG;
 
-  // reset all keys
-  for (let i = 0; i < keys.length; i++) {
-    const settingsKey = `${key}.${keys[i]}`;
+  /** remove BS from keys from package */
+  const cleanKey = key.replace(`${IDL_LANGUAGE_NAME}.`, '');
 
-    // make sure exists - we merge with internal settings that are
-    // not always exposed
-    if (config.has(settingsKey)) {
-      await config.update(settingsKey, obj[keys[i]], SCOPE);
-    }
+  /** get key path */
+  const split = cleanKey.split(/\./g);
+
+  // descend to get value
+  for (let i = 0; i < split.length; i++) {
+    nested = nested[split[i]];
   }
+
+  // reset key
+  await config.update(cleanKey, nested, SCOPE);
 }
 
 /**
  * Reset extension config for running tests to make sure it is always fresh and consistent
  */
 export async function ResetSettingsForTests(config: IIDLWorkspaceConfig) {
-  /**
-   * Top-level settings
-   */
-  await config.update(
-    IDL_EXTENSION_CONFIG_KEYS.debugMode,
-    DEFAULT_IDL_EXTENSION_CONFIG.debugMode,
-    SCOPE
-  );
-  await config.update(
-    IDL_EXTENSION_CONFIG_KEYS.dontAsk,
-    DEFAULT_IDL_EXTENSION_CONFIG.dontAsk,
-    SCOPE
-  );
-  if (config.has(IDL_EXTENSION_CONFIG_KEYS.dontShow)) {
-    await config.update(
-      IDL_EXTENSION_CONFIG_KEYS.dontShow,
-      DEFAULT_IDL_EXTENSION_CONFIG.dontShow,
-      SCOPE
-    );
+  let props: string[] = [];
+  /** Get defaults */
+  const fConfig = PACKAGE['contributes']['configuration'];
+
+  // get all properties
+  for (let i = 0; i < fConfig.length; i++) {
+    props = props.concat(Object.keys(fConfig[i]['properties']));
+  }
+
+  // reset all properties
+  for (let i = 0; i < props.length; i++) {
+    await ResetConfigToDefault(config, props[i]);
   }
 
   /**
-   * Batch reset everything else
+   * Manually specify IDL folder
    */
-  const toReset: [string, { [key: string]: any }][] = [
-    [IDL_EXTENSION_CONFIG_KEYS.IDL, DEFAULT_IDL_EXTENSION_CONFIG.IDL],
-    [IDL_EXTENSION_CONFIG_KEYS.code, DEFAULT_IDL_EXTENSION_CONFIG.code],
-    [
-      IDL_EXTENSION_CONFIG_KEYS.documentation,
-      DEFAULT_IDL_EXTENSION_CONFIG.documentation,
-    ],
-    [
-      IDL_EXTENSION_CONFIG_KEYS.languageServer,
-      DEFAULT_IDL_EXTENSION_CONFIG.languageServer,
-    ],
-    [IDL_EXTENSION_CONFIG_KEYS.problems, DEFAULT_IDL_EXTENSION_CONFIG.problems],
-    [
-      IDL_EXTENSION_CONFIG_KEYS.notebooks,
-      DEFAULT_IDL_EXTENSION_CONFIG.notebooks,
-    ],
-    [
-      IDL_EXTENSION_CONFIG_KEYS.developer,
-      DEFAULT_IDL_EXTENSION_CONFIG.developer,
-    ],
-  ];
+  const idlDir = FindIDL();
 
-  // reset the settings
-  for (let i = 0; i < toReset.length; i++) {
-    await ResetConfigToDefault(config, toReset[i][0], toReset[i][1]);
+  // validate we know where it is
+  if (!idlDir) {
+    throw new Error('Unable to find IDL, cannot run tests');
   }
+
+  // set latest IDL folder
+  await config.update(IDL_EXTENSION_CONFIG_KEYS.IDLDirectory, idlDir, true);
 }

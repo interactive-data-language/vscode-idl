@@ -11,6 +11,20 @@ import { RunnerFunction } from '../runner.interface';
  * Makes sure that we can disable reporting of problems using our settings
  */
 export const IDLDisableAllFromSettings: RunnerFunction = async () => {
+  // get the current workspace config
+  const config = GetWorkspaceConfig();
+
+  // disable reporting problems
+  await config.update(
+    IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems,
+    true,
+    true
+  );
+
+  // short pause
+  await Sleep(250);
+
+  // open file
   const doc = await OpenFileInVSCode(
     GetExtensionPath('idl/test/client-e2e/problems/idl_disable_all_setting.pro')
   );
@@ -20,9 +34,6 @@ export const IDLDisableAllFromSettings: RunnerFunction = async () => {
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(3);
-
-  // get the current workspace config
-  const config = GetWorkspaceConfig();
 
   // disable reporting problems
   await config.update(
