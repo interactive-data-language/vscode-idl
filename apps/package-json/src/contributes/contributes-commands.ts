@@ -71,6 +71,17 @@ COMMAND_ICONS[IDL_COMMANDS.NOTEBOOKS.NOTEBOOK_TO_PRO_CODE] = {
 };
 
 /**
+ * Tracks commands that should be hidden from the VSCode UI and not displayed in
+ * the command palette
+ */
+const HIDDEN_COMMAND: { [key: string]: any } = {};
+HIDDEN_COMMAND[IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING] = true;
+HIDDEN_COMMAND[IDL_COMMANDS.CODE.FIX_PROBLEM] = true;
+HIDDEN_COMMAND[IDL_COMMANDS.DOCS.OPEN_LINK] = true;
+HIDDEN_COMMAND[IDL_COMMANDS.NOTEBOOKS.HELP_AS_NOTEBOOK] = true;
+HIDDEN_COMMAND[IDL_COMMANDS.WEBVIEW.START] = true;
+
+/**
  * Map our command name to the translation which should match
  * exactly our command name
  */
@@ -95,6 +106,18 @@ function TranslationErrorFromCommand(name: string) {
 export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
   // get all of our contribution points
   const contrib = packageJSON['contributes'];
+
+  // get menu
+  if (!('menus' in contrib)) {
+    contrib['menus'] = {};
+  }
+  const menus = contrib['menus'];
+
+  // get command menu
+  if (!('commandPalette' in menus)) {
+    menus['commandPalette'] = [];
+  }
+  const commandMenus = menus['commandPalette'];
 
   // get all of our commands
   let allCommands: string[] = [];
@@ -135,6 +158,9 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
       );
     }
 
+    /** Build command JSON */
+    const add = { command, title: tKey };
+
     // check if we hve an icon to save or not
     if (command in COMMAND_ICONS) {
       // get icon
@@ -152,11 +178,17 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
         );
       }
 
-      // save icon
-      commandInfo.push({ command, title: tKey, icon });
-    } else {
-      commandInfo.push({ command, title: tKey });
+      // add icon
+      add['icon'] = icon;
     }
+
+    // check if we need to hide it from the palette
+    if (command in HIDDEN_COMMAND) {
+      commandMenus.push({ command, when: 'false' });
+    }
+
+    // save command
+    commandInfo.push(add);
 
     // not needed per https://code.visualstudio.com/updates/v1_74#_extension-authoring
     // packageJSON['activationEvents'].push(`onCommand:${command}`);

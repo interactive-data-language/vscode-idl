@@ -1300,6 +1300,28 @@
       }
     ],
     "menus": {
+      "commandPalette": [
+        {
+          "command": "idl.code.disableProblemSetting",
+          "when": "false"
+        },
+        {
+          "command": "idl.code.fixProblem",
+          "when": "false"
+        },
+        {
+          "command": "idl.docs.openLink",
+          "when": "false"
+        },
+        {
+          "command": "idl.notebooks.helpAsNotebook",
+          "when": "false"
+        },
+        {
+          "command": "idl.webview.start",
+          "when": "false"
+        }
+      ],
       "debug/toolBar": [
         {
           "command": "idl.debug.compileFile",
