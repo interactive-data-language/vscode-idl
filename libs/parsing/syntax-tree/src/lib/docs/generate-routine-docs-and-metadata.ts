@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
 import {
   CommentBlockToken,
   CommentToken,
@@ -17,6 +16,7 @@ import {
   IParameterLookup,
   ParseIDLType,
 } from '@idl/types/core';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 import { IBasicBranch, IBranch } from '../branches.interface';
 import { FindDirectBranchChildren } from '../helpers/searching/find-direct-branch-children';

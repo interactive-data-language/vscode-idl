@@ -1,8 +1,8 @@
+import { GetExtensionPath } from '@idl/shared';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_PROBLEM_CODES,
-} from '@idl/parsing/problem-codes';
-import { GetExtensionPath } from '@idl/shared';
+} from '@idl/types/problem-codes';
 import { existsSync, writeFileSync } from 'fs';
 import { join } from 'path';
 

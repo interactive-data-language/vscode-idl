@@ -1,10 +1,10 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDLProblemCode,
   ISyntaxProblem,
-} from '@idl/parsing/problem-codes';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
-import { IDL_TRANSLATION } from '@idl/translation';
+} from '@idl/types/problem-codes';
+import { PositionArray } from '@idl/types/tokenizer';
 
 /**
  * Makes problem code pretty for nice presentation to users
@@ -35,6 +35,7 @@ export function SyntaxProblemWithTranslation(
     info: IDL_TRANSLATION.parsing.errors[code],
     start,
     end,
+    canReport: true,
     file: file,
   };
 }
@@ -58,6 +59,7 @@ export function SyntaxProblemWithoutTranslation(
     info,
     start,
     end,
+    canReport: true,
     file: file,
   };
 }

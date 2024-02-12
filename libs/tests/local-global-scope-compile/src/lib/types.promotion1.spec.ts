@@ -413,7 +413,7 @@ describe(`[auto generated] Types from`, () => {
               pos: [11, 24, 1],
             },
           },
-          docs: '\n```idl\nresult = most_cases( a, b)\n```\n\n\n\n#### Arguments\n\n- **a**: in, required, Number\n\n  Placeholder docs for argument, keyword, or property\n\n- **b**: in, required, ComplexNumber\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nresult = most_cases( a, b)\n```\n\n\n\n\n#### Arguments\n\n- **a**: in, required, Number\n\n  Placeholder docs for argument, keyword, or property\n\n- **b**: in, required, ComplexNumber\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '', returns: 'any' },
           display: 'most_cases',
           kws: {},

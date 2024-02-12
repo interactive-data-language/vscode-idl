@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -101,66 +101,77 @@ describe(`[auto generated] Verify doc formatting`, () => {
         info: 'Parameter is missing from documentation: "a"',
         start: [16, 16, 1],
         end: [16, 16, 1],
+        canReport: true,
       },
       {
         code: 64,
         info: 'Parameter is missing from documentation: "c"',
         start: [16, 19, 1],
         end: [16, 19, 1],
+        canReport: true,
       },
       {
         code: 64,
         info: 'Parameter is missing from documentation: "kw1"',
         start: [16, 22, 3],
         end: [16, 22, 3],
+        canReport: true,
       },
       {
         code: 64,
         info: 'Parameter is missing from documentation: "kw"',
         start: [16, 33, 2],
         end: [16, 33, 2],
+        canReport: true,
       },
       {
         code: 52,
         info: 'Expected a documentation tag for ":Returns:" since this is a function or function method',
         start: [0, 0, 2],
         end: [1, 0, 1],
+        canReport: true,
       },
       {
         code: 48,
         info: 'Argument(s) are missing from the documentation for the routine',
         start: [0, 0, 2],
         end: [1, 0, 1],
+        canReport: true,
       },
       {
         code: 50,
         info: 'Keywords(s) are missing from the documentation for the routine',
         start: [0, 0, 2],
         end: [1, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw1"',
         start: [16, 28, 3],
         end: [16, 28, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw"',
         start: [16, 36, 2],
         end: [16, 36, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [16, 16, 1],
         end: [16, 16, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "c"',
         start: [16, 19, 1],
         end: [16, 19, 1],
+        canReport: true,
       },
     ];
 
@@ -340,30 +351,35 @@ describe(`[auto generated] Verify doc formatting`, () => {
         info: 'In procedures and main level programs, the "return" procedure cannot have values',
         start: [18, 2, 6],
         end: [18, 12, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw1"',
         start: [14, 23, 3],
         end: [14, 23, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw"',
         start: [14, 31, 2],
         end: [14, 31, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [14, 11, 1],
         end: [14, 11, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "c"',
         start: [14, 14, 1],
         end: [14, 14, 1],
+        canReport: true,
       },
     ];
 
@@ -464,24 +480,28 @@ describe(`[auto generated] Verify doc formatting`, () => {
         info: 'Unused variable "kw1"',
         start: [16, 29, 3],
         end: [16, 29, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw"',
         start: [16, 37, 2],
         end: [16, 37, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [16, 17, 1],
         end: [16, 17, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "c"',
         start: [16, 20, 1],
         end: [16, 20, 1],
+        canReport: true,
       },
     ];
 
@@ -607,48 +627,56 @@ describe(`[auto generated] Verify doc formatting`, () => {
         info: 'Unused variable "kw1"',
         start: [14, 23, 3],
         end: [14, 23, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw"',
         start: [14, 31, 2],
         end: [14, 31, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [14, 11, 1],
         end: [14, 11, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "c"',
         start: [14, 14, 1],
         end: [14, 14, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw1"',
         start: [35, 29, 3],
         end: [35, 29, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw"',
         start: [35, 37, 2],
         end: [35, 37, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [35, 17, 1],
         end: [35, 17, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "c"',
         start: [35, 20, 1],
         end: [35, 20, 1],
+        canReport: true,
       },
     ];
 
@@ -736,12 +764,14 @@ describe(`[auto generated] Verify doc formatting`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [6, 0, 4],
         end: [6, 15, 0],
+        canReport: true,
       },
       {
         code: 59,
         info: 'Documentation is not left-aligned with the start of docs (not enough spaces before docs)',
         start: [3, 0, 5],
         end: [3, 0, 5],
+        canReport: true,
       },
     ];
 
@@ -833,18 +863,21 @@ describe(`[auto generated] Verify doc formatting`, () => {
         info: 'Unused variable "kw222"',
         start: [12, 30, 5],
         end: [12, 30, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [12, 18, 1],
         end: [12, 18, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [12, 21, 1],
         end: [12, 21, 1],
+        canReport: true,
       },
     ];
 
@@ -927,12 +960,14 @@ describe(`[auto generated] Verify doc formatting`, () => {
         info: 'Unused variable "a"',
         start: [8, 18, 1],
         end: [8, 18, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [8, 21, 1],
         end: [8, 21, 1],
+        canReport: true,
       },
     ];
 
@@ -1020,12 +1055,14 @@ describe(`[auto generated] Verify doc formatting`, () => {
         info: 'Unused variable "kw2"',
         start: [8, 24, 3],
         end: [8, 24, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw3"',
         start: [8, 35, 3],
         end: [8, 35, 3],
+        canReport: true,
       },
     ];
 

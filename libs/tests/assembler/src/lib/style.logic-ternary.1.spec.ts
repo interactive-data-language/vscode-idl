@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -70,18 +70,21 @@ describe(`[auto generated] Verify we style ternary operators well`, () => {
         info: 'Undefined variable "nTiles"',
         start: [0, 10, 6],
         end: [0, 10, 6],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "nTiles"',
         start: [0, 34, 6],
         end: [0, 34, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "nPrint"',
         start: [0, 0, 6],
         end: [0, 0, 6],
+        canReport: true,
       },
     ];
 
@@ -153,18 +156,21 @@ describe(`[auto generated] Verify we style ternary operators well`, () => {
         info: 'Undefined variable "oLayer"',
         start: [0, 19, 6],
         end: [0, 19, 6],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "oLayer"',
         start: [0, 29, 6],
         end: [0, 29, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "oWorld"',
         start: [0, 0, 6],
         end: [0, 0, 6],
+        canReport: true,
       },
     ];
 

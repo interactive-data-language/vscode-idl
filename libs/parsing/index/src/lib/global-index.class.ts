@@ -1,4 +1,3 @@
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import {
   MAIN_LEVEL_NAME,
@@ -12,14 +11,18 @@ import {
   GlobalTokenType,
   IGlobalIndexedToken,
 } from '@idl/types/core';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 import {
+  ExportedGlobalTokensByType,
   GlobalIndexedToken,
   GlobalTokensByTypeByName,
   PROBLEM_MAP,
 } from './global-index.interface';
 import { SaveGlobalDisplayNames } from './helpers/save-global-display-names';
 import { IDL_INDEX_OPTIONS } from './idl-index.interface';
+import GlobToRegExp = require('glob-to-regexp');
+import { ShouldExportItem } from './helpers/should-export-item';
 
 /**
  * Class that manages storing/querying our index of global tokens
@@ -60,6 +63,90 @@ export class GlobalIndex {
     this.globalTokensByFile = {};
     this.globalSyntaxProblemsByFile = {};
     this.changedFiles = {};
+  }
+
+  /**
+   * Selects global tokens that need to be exported and makes sure the tokens can be exported.
+   *
+   * Each global token is copied so it can be manipulated after-the-path.
+   *
+   * Specify an array of glob expressions used to test filenames if the global token should
+   * be exported or not.
+   *
+   * All glob expressions are treated as if they are case-insensitive.
+   *
+   * If more than one global token has the same name, we only export the first instance
+   * in our global index.
+   */
+  export(
+    globs: string[] = [],
+    filters: string[] = []
+  ): ExportedGlobalTokensByType {
+    /** Convert globs to regex */
+    const exprs = globs.map((item) => GlobToRegExp(item, { flags: '' }));
+
+    /** Convert globs to regex */
+    const badExprs = filters.map((item) => GlobToRegExp(item, { flags: '' }));
+
+    /**
+     * Exported tokens
+     */
+    const exported = {} as ExportedGlobalTokensByType;
+
+    // populate for each token type
+    const types = Object.values(GLOBAL_TOKEN_TYPES);
+    for (let i = 0; i < types.length; i++) {
+      exported[types[i]] = [];
+    }
+
+    /** Get files */
+    const files = Object.keys(this.globalTokensByFile);
+
+    /** Process each file */
+    for (let i = 0; i < files.length; i++) {
+      /** Clean the file name */
+      const cleaned = files[i].replace(/\\/g, '/');
+
+      // check for bad expressions
+      let skip = false;
+      for (let j = 0; j < badExprs.length; j++) {
+        if (badExprs[j].test(cleaned)) {
+          skip = true;
+          break;
+        }
+      }
+
+      // skip if needs to be excluded
+      if (skip) {
+        continue;
+      }
+
+      // check against all globs if we do have filters
+      let keep = true;
+      for (let z = 0; z < exprs.length; z++) {
+        if (!exprs[z].test(cleaned)) {
+          keep = false;
+          break;
+        }
+      }
+
+      // make sure that we pass all filters
+      if (!keep) {
+        continue;
+      }
+
+      /** Get tokens by name */
+      const forFile = this.globalTokensByFile[files[i]].filter((item) =>
+        ShouldExportItem(item)
+      );
+
+      // process all tokens
+      for (let j = 0; j < forFile.length; j++) {
+        exported[forFile[j].type].push(forFile[j] as any);
+      }
+    }
+
+    return exported;
   }
 
   /**

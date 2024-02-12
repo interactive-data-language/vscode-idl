@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -104,24 +104,28 @@ describe(`[auto generated] Verify arg ordering`, () => {
         info: 'Unused variable "a03"',
         start: [13, 2, 3],
         end: [13, 2, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a04"',
         start: [13, 7, 3],
         end: [13, 7, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a01"',
         start: [13, 12, 3],
         end: [13, 12, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a02"',
         start: [13, 17, 3],
         end: [13, 17, 3],
+        canReport: true,
       },
     ];
 

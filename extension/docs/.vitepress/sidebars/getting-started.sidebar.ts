@@ -10,6 +10,10 @@ export const GETTING_STARTED_SIDEBAR: SidebarEntry[] = [
     link: '/getting-started/',
   },
   {
+    text: 'Feature List',
+    link: '/getting-started/feature_list',
+  },
+  {
     text: 'Quick Links',
     link: '/getting-started/quick_links',
   },
@@ -25,5 +29,9 @@ export const GETTING_STARTED_SIDEBAR: SidebarEntry[] = [
   {
     text: 'Usage Metrics',
     link: '/getting-started/usage_metrics',
+  },
+  {
+    text: 'License and Credits',
+    link: '/getting-started/license_and_credits',
   },
 ];

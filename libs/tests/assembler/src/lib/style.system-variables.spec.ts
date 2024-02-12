@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -87,12 +87,14 @@ describe(`[auto generated] System variable styling`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [4, 0, 1],
         end: [4, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -181,12 +183,14 @@ describe(`[auto generated] System variable styling`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [4, 0, 1],
         end: [4, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -275,12 +279,14 @@ describe(`[auto generated] System variable styling`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [4, 0, 1],
         end: [4, 0, 1],
+        canReport: true,
       },
     ];
 

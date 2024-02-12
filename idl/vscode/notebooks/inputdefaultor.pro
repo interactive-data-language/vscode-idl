@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Helper routine that condenses logic for setting default
 ;   values for argument, keywords, or variables inside of IDL routines. This

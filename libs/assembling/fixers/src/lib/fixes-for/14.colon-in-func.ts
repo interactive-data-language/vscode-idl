@@ -1,11 +1,11 @@
 import { ASSEMBLER_PROBLEM_FIXERS } from '@idl/assembling/tree-handlers';
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   CallFunctionMethodToken,
   CallFunctionToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { HasProblem } from '../helpers/has-problem';
 
@@ -24,7 +24,13 @@ const TOKENS: RoutineTokens[] = [TOKEN_NAMES.CALL_FUNCTION];
  */
 function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
   // return if we don't have our problem
-  if (HasProblem(token, IDL_PROBLEM_CODES.COLON_IN_FUNCTION)) {
+  if (
+    HasProblem(
+      token,
+      IDL_PROBLEM_CODES.COLON_IN_FUNCTION,
+      parsed.disabledProblems
+    )
+  ) {
     if (token.end === undefined) {
       return;
     }

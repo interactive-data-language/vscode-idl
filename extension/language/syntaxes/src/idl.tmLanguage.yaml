@@ -25,6 +25,8 @@ variables:
   name_comment_block: comment.block.idl
   name_control: keyword.control.idl
   name_control_option: variable.other.readwrite.ts.idl
+  name_disable_file: markup.heading.idl
+  name_disable_line: storage.type.class.jsdoc
   name_docs_accent: support.type.idl # things like direction in docs
   name_docs_header: markup.heading.idl
   name_docs_arg_kw: markup.italic.idl
@@ -392,9 +394,18 @@ repository:
   # comments in PRO code with accent for TODO statements
   comment:
     name: {{name_comment}}
-    match: ';\s*(TODO:)?(.*)$'
+    match: ';\+?\s*(TODO:)?(.*)$'
     captures:
       '1': { name: {{name_escape}} }
+      '2': { patterns: [{ include: '#comment_disabled_problem' }] }
+
+  # comment section header
+  comment_disabled_problem:
+    patterns:
+      - name: {{name_disable_line}}
+        match: 'idl-disable-next-line|idl-disable-line'
+      - name: {{name_disable_file}}
+        match: 'idl-disable'
 
   # comments in PRO code with accent for TODO statements
   comment_block:
@@ -402,6 +413,7 @@ repository:
     begin: '^\s*(?=;\s*\+.*)'
     end: '^(?!\s*;|\s*$)'
     patterns:
+      - include: '#comment_disabled_problem'
       - include: '#comment_docs_header_legacy'
       - include: '#comment_docs_header'
       - include: '#comment_docs_arg_kw'

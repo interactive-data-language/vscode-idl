@@ -15,8 +15,8 @@ import {
   TreeBranchToken,
   TreeToken,
 } from '../branches.interface';
-import { IParsed } from '../build-syntax-tree.interface';
 import { GetRoutineName } from '../helpers/get-routine-name';
+import { IParsed } from '../parsed.interface';
 import {
   BASE_TREE_RECURSER_OPTIONS,
   DEFAULT_CURRENT,

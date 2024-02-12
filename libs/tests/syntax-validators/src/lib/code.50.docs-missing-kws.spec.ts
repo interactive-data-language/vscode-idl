@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -46,6 +46,7 @@ describe(`[auto generated] Detects keywords missing from docs`, () => {
         info: 'Unused variable "kw1"',
         start: [7, 27, 3],
         end: [7, 27, 3],
+        canReport: true,
       },
     ];
 
@@ -91,18 +92,21 @@ describe(`[auto generated] Detects keywords missing from docs`, () => {
         info: 'Parameter is missing from documentation: "kw1"',
         start: [3, 23, 3],
         end: [3, 23, 3],
+        canReport: true,
       },
       {
         code: 50,
         info: 'Keywords(s) are missing from the documentation for the routine',
         start: [0, 0, 2],
         end: [2, 0, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw1"',
         start: [3, 27, 3],
         end: [3, 27, 3],
+        canReport: true,
       },
     ];
 

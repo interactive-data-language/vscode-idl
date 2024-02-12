@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -84,12 +84,19 @@ describe(`[auto generated] Verify complex formatting`, () => {
 
     // define expected problems
     const expectedProblems: SyntaxProblems = [
-      { code: 6, info: 'TODO: something', start: [0, 0, 17], end: [0, 0, 17] },
+      {
+        code: 6,
+        info: 'TODO: something',
+        start: [0, 0, 17],
+        end: [0, 0, 17],
+        canReport: true,
+      },
       {
         code: 38,
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [3, 0, 4],
         end: [3, 15, 0],
+        canReport: true,
       },
     ];
 

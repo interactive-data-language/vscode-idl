@@ -1,5 +1,8 @@
 ; ---------------------------------------------------------------------------
+;+
 ; IDLitTool::RefreshCurrentWindow
+;
+; :Private:
 ;
 ; Purpose:
 ; Generic entry point used to update the current visualization of
@@ -8,7 +11,6 @@
 ; The window will be updated immediatly unless updates are currently
 ; disabled.
 ;
-;+
 ;-
 pro IDLitTool::RefreshCurrentWindow
   compile_opt idl2, hidden

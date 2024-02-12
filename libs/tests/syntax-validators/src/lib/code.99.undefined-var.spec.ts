@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -72,72 +72,84 @@ describe(`[auto generated] Detect undefined variables`, () => {
         info: 'Undefined variable "bad"',
         start: [14, 10, 3],
         end: [14, 10, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "wrong"',
         start: [17, 21, 5],
         end: [17, 21, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "meta"',
         start: [20, 32, 4],
         end: [20, 32, 4],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "item"',
         start: [28, 15, 4],
         end: [28, 15, 4],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "noBueno"',
         start: [34, 2, 7],
         end: [34, 2, 7],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [10, 30, 1],
         end: [10, 30, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [10, 33, 1],
         end: [10, 33, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "c"',
         start: [10, 36, 1],
         end: [10, 36, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "test1"',
         start: [14, 2, 5],
         end: [14, 2, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "test2"',
         start: [17, 2, 5],
         end: [17, 2, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "ok"',
         start: [17, 11, 2],
         end: [17, 11, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "test3"',
         start: [20, 2, 5],
         end: [20, 2, 5],
+        canReport: true,
       },
     ];
 
@@ -193,18 +205,21 @@ describe(`[auto generated] Detect undefined variables`, () => {
         info: 'Undefined variable "self"',
         start: [9, 2, 4],
         end: [9, 2, 4],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "self"',
         start: [12, 6, 4],
         end: [12, 6, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [12, 2, 1],
         end: [12, 2, 1],
+        canReport: true,
       },
     ];
 
@@ -260,6 +275,7 @@ describe(`[auto generated] Detect undefined variables`, () => {
         info: 'Unused variable "a"',
         start: [12, 2, 1],
         end: [12, 2, 1],
+        canReport: true,
       },
     ];
 
@@ -302,12 +318,14 @@ describe(`[auto generated] Detect undefined variables`, () => {
         info: 'Undefined variable "nv"',
         start: [1, 45, 2],
         end: [1, 45, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "filename"',
         start: [1, 0, 8],
         end: [1, 0, 8],
+        canReport: true,
       },
     ];
 

@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@idl/assembler": ["libs/assembling/assembler/src/index.ts"],
+      "@idl/assembling/code-actions": [
+        "libs/assembling/code-actions/src/index.ts"
+      ],
       "@idl/assembling/config": ["libs/assembling/config/src/index.ts"],
       "@idl/assembling/fixers": ["libs/assembling/fixers/src/index.ts"],
       "@idl/assembling/formatters": ["libs/assembling/formatters/src/index.ts"],
@@ -48,7 +51,6 @@
       "@idl/notebooks/shared": ["libs/notebooks/shared/src/index.ts"],
       "@idl/parser": ["libs/parsing/parser/src/index.ts"],
       "@idl/parsing/index": ["libs/parsing/index/src/index.ts"],
-      "@idl/parsing/problem-codes": ["libs/parsing/problem-codes/src/index.ts"],
       "@idl/parsing/routines": ["libs/parsing/routines/src/index.ts"],
       "@idl/parsing/semantic-tokens": [
         "libs/parsing/semantic-tokens/src/index.ts"
@@ -61,9 +63,6 @@
         "libs/parsing/syntax-validators/src/index.ts"
       ],
       "@idl/parsing/tokenizer": ["libs/parsing/tokenizer/src/index.ts"],
-      "@idl/parsing/tokenizer-types": [
-        "libs/parsing/tokenizer-types/src/index.ts"
-      ],
       "@idl/schemas/idl.json": ["libs/schemas/idl.json/src/index.ts"],
       "@idl/schemas/tasks": ["libs/schemas/tasks/src/index.ts"],
       "@idl/shared": ["libs/shared/src/index.ts"],
@@ -102,8 +101,12 @@
       "@idl/types/core": ["libs/types/core/src/index.ts"],
       "@idl/types/diagnostic": ["libs/types/diagnostic/src/index.ts"],
       "@idl/types/notebooks": ["libs/types/notebooks/src/index.ts"],
+      "@idl/types/problem-codes": ["libs/types/problem-codes/src/index.ts"],
       "@idl/types/profiler": ["libs/types/profiler/src/index.ts"],
+      "@idl/types/syntax-tree": ["libs/types/syntax-tree/src/index.ts"],
       "@idl/types/tasks": ["libs/types/tasks/src/index.ts"],
+      "@idl/types/tokenizer": ["libs/types/tokenizer/src/index.ts"],
+      "@idl/types/websites": ["libs/types/websites/src/index.ts"],
       "@idl/usage-metrics": ["libs/usage-metrics/src/index.ts"],
       "@idl/vscode/client": ["libs/vscode/client/src/index.ts"],
       "@idl/vscode/commands": ["libs/vscode/commands/src/index.ts"],

@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "4.3.0",
+  "version": "4.3.1",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -10,6 +10,7 @@
     "type": "git",
     "url": "https://github.com/interactive-data-language/vscode-idl"
   },
+  "homepage": "https://interactive-data-language.github.io/vscode-idl/",
   "scripts": {
     "build-client": "nx run-many --target=build --projects=client,idl-webview --prod",
     "build-extension": "npm-run-all -s clean build-package-json build-docs build-client build-renderer build-server",
@@ -70,6 +71,7 @@
     "fast-equals": "^5.0.1",
     "fast-glob": "^3.3.1",
     "fuzzysort": "^2.0.4",
+    "glob-to-regexp": "^0.4.1",
     "json-schema-resolver": "^2.0.0",
     "minilog": "^3.1.0",
     "nanoid": "^3.3.4",
@@ -128,6 +130,7 @@
     "@schematics/angular": "16.2.3",
     "@swc-node/register": "~1.6.7",
     "@swc/core": "~1.3.85",
+    "@types/glob-to-regexp": "^0.4.4",
     "@types/jest": "29.4.4",
     "@types/mapbox__geojson-extent": "^1.0.2",
     "@types/mime-types": "^2.1.4",
@@ -224,6 +227,14 @@
       {
         "command": "idl.code.addDocsToFile",
         "title": "%commands.idl.code.addDocsToFile%"
+      },
+      {
+        "command": "idl.code.disableProblemSetting",
+        "title": "%commands.idl.code.disableProblemSetting%"
+      },
+      {
+        "command": "idl.code.fixProblem",
+        "title": "%commands.idl.code.fixProblem%"
       },
       {
         "command": "idl.code.formatFile",
@@ -805,6 +816,12 @@
             "description": "%configuration.descriptions.problems.includeProblemsFromIDLPackages%",
             "scope": "machine-overridable"
           },
+          "idl.problems.reportProblems": {
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.descriptions.problems.reportProblems%",
+            "scope": "machine-overridable"
+          },
           "idl.problems.reportDocsProblems": {
             "type": "boolean",
             "default": true,
@@ -922,6 +939,7 @@
                 "unexpected-comma",
                 "unfinished-dot",
                 "unknown-branch",
+                "unknown-disabled-alias",
                 "unknown-kw",
                 "unknown-structure",
                 "unknown-template-escape",
@@ -1031,6 +1049,7 @@
                 "%parsing.errors.44%",
                 "%parsing.errors.69%",
                 "%parsing.errors.2%",
+                "%parsing.errors.107%",
                 "%parsing.errors.97%",
                 "%parsing.errors.77%",
                 "%parsing.errors.71%",
@@ -1281,6 +1300,28 @@
       }
     ],
     "menus": {
+      "commandPalette": [
+        {
+          "command": "idl.code.disableProblemSetting",
+          "when": "false"
+        },
+        {
+          "command": "idl.code.fixProblem",
+          "when": "false"
+        },
+        {
+          "command": "idl.docs.openLink",
+          "when": "false"
+        },
+        {
+          "command": "idl.notebooks.helpAsNotebook",
+          "when": "false"
+        },
+        {
+          "command": "idl.webview.start",
+          "when": "false"
+        }
+      ],
       "debug/toolBar": [
         {
           "command": "idl.debug.compileFile",

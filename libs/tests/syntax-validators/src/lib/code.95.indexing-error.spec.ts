@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -93,90 +93,105 @@ describe(`[auto generated] Errors for indexing`, () => {
         info: 'Unused variable "byte"',
         start: [37, 2, 4],
         end: [37, 2, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "int"',
         start: [38, 2, 3],
         end: [38, 2, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "uint"',
         start: [39, 2, 4],
         end: [39, 2, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "long"',
         start: [40, 2, 4],
         end: [40, 2, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "ulong"',
         start: [41, 2, 5],
         end: [41, 2, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "long64"',
         start: [42, 2, 6],
         end: [42, 2, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "ulong64"',
         start: [43, 2, 7],
         end: [43, 2, 7],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "float1"',
         start: [44, 2, 6],
         end: [44, 2, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "float2"',
         start: [45, 2, 6],
         end: [45, 2, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "double"',
         start: [46, 2, 6],
         end: [46, 2, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "biginteger"',
         start: [47, 2, 10],
         end: [47, 2, 10],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "number"',
         start: [48, 2, 6],
         end: [48, 2, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "complexfloat"',
         start: [49, 2, 12],
         end: [49, 2, 12],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "complexnumber1"',
         start: [52, 2, 14],
         end: [52, 2, 14],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "complexnumber2"',
         start: [53, 2, 14],
         end: [53, 2, 14],
+        canReport: true,
       },
     ];
 

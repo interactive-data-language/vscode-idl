@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Initializes IDL for running in notebooks
 ;

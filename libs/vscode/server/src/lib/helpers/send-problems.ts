@@ -1,4 +1,4 @@
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
@@ -100,7 +100,11 @@ export function SendProblems(inFiles: string[]) {
      *
      * If we are a notebook we always send problems
      */
-    if (IDL_INDEX.isIDLNotebookFile(files[i]) || CanReportProblems(files[i])) {
+    if (
+      (IDL_INDEX.isIDLNotebookFile(files[i]) ||
+        IDL_INDEX.isPROCode(files[i])) &&
+      CanReportProblems(files[i])
+    ) {
       /**
        * Are our tokens in another thread and we have stored the problems directly in parseProblems
        *
@@ -118,7 +122,8 @@ export function SendProblems(inFiles: string[]) {
       // filter problems by problem code
       if (problems.length > 0) {
         problems = problems.filter(
-          (problem) => !(problem.code in IGNORE_PROBLEM_CODES)
+          (problem) =>
+            !(problem.code in IGNORE_PROBLEM_CODES) && problem.canReport
         );
       }
     }
@@ -126,7 +131,9 @@ export function SendProblems(inFiles: string[]) {
     // sync problems
     SERVER_CONNECTION.sendDiagnostics({
       uri: URIFromIDLIndexFile(files[i]),
-      diagnostics: SyntaxProblemsToDiagnostic(problems),
+      diagnostics: SyntaxProblemsToDiagnostic(
+        INCLUDE_PROBLEMS_FOR.ALL ? problems : []
+      ),
     });
   }
 }

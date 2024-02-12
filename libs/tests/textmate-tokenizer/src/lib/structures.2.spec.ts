@@ -227,8 +227,15 @@ describe(`[auto generated] Validates structure parsing`, () => {
       },
       {
         line: 0,
-        match: '; comment',
+        match: '; ',
         startIndex: 59,
+        endIndex: 61,
+        scopes: ['source.idl', 'comment.line.idl'],
+      },
+      {
+        line: 0,
+        match: 'comment',
+        startIndex: 61,
         endIndex: 68,
         scopes: ['source.idl', 'comment.line.idl'],
       },
@@ -286,8 +293,21 @@ describe(`[auto generated] Validates structure parsing`, () => {
       },
       {
         line: 0,
-        match: '; something',
+        match: '; ',
         startIndex: 11,
+        endIndex: 13,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'group.structure.idl',
+          'group.line-continuation.idl',
+          'comment.line.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: 'something',
+        startIndex: 13,
         endIndex: 22,
         scopes: [
           'source.idl',

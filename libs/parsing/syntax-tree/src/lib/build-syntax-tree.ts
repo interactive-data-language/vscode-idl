@@ -1,5 +1,4 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/parsing/problem-codes';
 import {
   IBasicToken,
   MainLevelToken,
@@ -9,6 +8,7 @@ import {
   TokenName,
   UnknownToken,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 
 import {
   BRANCH_TYPES,
@@ -18,11 +18,10 @@ import {
   TreeToken,
 } from './branches.interface';
 import {
-  DEFAULT_PARSED,
-  IParsed,
   IRecurserCloseOptions,
   IRecurserOptions,
 } from './build-syntax-tree.interface';
+import { DEFAULT_PARSED, IParsed } from './parsed.interface';
 import { PopulateIndex } from './populate-index';
 import { PopulateScope } from './populate-scope';
 import { GetUniqueVariables } from './populators/get-unique-variables';

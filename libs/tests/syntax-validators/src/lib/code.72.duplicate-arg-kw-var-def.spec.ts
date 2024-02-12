@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -39,24 +39,28 @@ describe(`[auto generated] Find duplicate arg and keyword variables and detect`,
         info: 'Unused variable "akw"',
         start: [0, 23, 3],
         end: [0, 23, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "bkw"',
         start: [0, 34, 3],
         end: [0, 34, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 11, 1],
         end: [0, 11, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [0, 14, 1],
         end: [0, 14, 1],
+        canReport: true,
       },
     ];
 
@@ -99,36 +103,42 @@ describe(`[auto generated] Find duplicate arg and keyword variables and detect`,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 11, 1],
         end: [0, 11, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 14, 1],
         end: [0, 14, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 17, 1],
         end: [0, 17, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 24, 1],
         end: [0, 24, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 31, 1],
         end: [0, 31, 1],
+        canReport: true,
       },
       {
         code: 101,
         info: 'Variable is used before definition "b"',
         start: [0, 24, 1],
         end: [0, 24, 1],
+        canReport: true,
       },
     ];
 
@@ -171,36 +181,42 @@ describe(`[auto generated] Find duplicate arg and keyword variables and detect`,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 23, 1],
         end: [0, 23, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 26, 1],
         end: [0, 26, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 29, 1],
         end: [0, 29, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 36, 1],
         end: [0, 36, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 43, 1],
         end: [0, 43, 1],
+        canReport: true,
       },
       {
         code: 101,
         info: 'Variable is used before definition "b"',
         start: [0, 36, 1],
         end: [0, 36, 1],
+        canReport: true,
       },
     ];
 
@@ -244,36 +260,42 @@ describe(`[auto generated] Find duplicate arg and keyword variables and detect`,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 17, 1],
         end: [0, 17, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 20, 1],
         end: [0, 20, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 23, 1],
         end: [0, 23, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 30, 1],
         end: [0, 30, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 37, 1],
         end: [0, 37, 1],
+        canReport: true,
       },
       {
         code: 101,
         info: 'Variable is used before definition "b"',
         start: [0, 30, 1],
         end: [0, 30, 1],
+        canReport: true,
       },
     ];
 
@@ -317,36 +339,42 @@ describe(`[auto generated] Find duplicate arg and keyword variables and detect`,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 28, 1],
         end: [0, 28, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 31, 1],
         end: [0, 31, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 34, 1],
         end: [0, 34, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 41, 1],
         end: [0, 41, 1],
+        canReport: true,
       },
       {
         code: 72,
         info: 'More than one argument or keyword variable has the same name',
         start: [0, 48, 1],
         end: [0, 48, 1],
+        canReport: true,
       },
       {
         code: 101,
         info: 'Variable is used before definition "b"',
         start: [0, 41, 1],
         end: [0, 41, 1],
+        canReport: true,
       },
     ];
 

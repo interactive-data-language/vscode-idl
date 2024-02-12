@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -71,6 +71,7 @@ describe(`[auto generated] Detects invalid return statements in functions (too m
         info: 'In function definitions, the "return" procedure cannot have more than one value',
         start: [2, 2, 6],
         end: [2, 12, 0],
+        canReport: true,
       },
     ];
 
@@ -114,6 +115,7 @@ describe(`[auto generated] Detects invalid return statements in functions (too m
         info: 'In function definitions, the "return" procedure cannot have more than one value',
         start: [2, 2, 6],
         end: [2, 12, 0],
+        canReport: true,
       },
     ];
 

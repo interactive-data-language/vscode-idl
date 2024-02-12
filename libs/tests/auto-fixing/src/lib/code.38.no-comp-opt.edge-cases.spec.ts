@@ -2,7 +2,7 @@ import { Assembler } from '@idl/assembler';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -69,6 +69,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [0, 0, 2],
         end: [0, 0, 2],
+        canReport: true,
       },
     ];
 
@@ -131,6 +132,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [0, 0, 2],
         end: [0, 0, 2],
+        canReport: true,
       },
     ];
 

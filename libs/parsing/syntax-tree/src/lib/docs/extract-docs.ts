@@ -1,6 +1,7 @@
 import { CommentToken, GetMatchesArray } from '@idl/parsing/tokenizer';
 
 import { IBasicBranch } from '../branches.interface';
+import { CleanComment } from '../helpers/clean-comment';
 import { IDL_DOCS_HEADERS } from './docs.interface';
 import { HEADER_TAG } from './docs.regex.interface';
 import {
@@ -108,7 +109,7 @@ export function ExtractDocs(comments: IBasicBranch<CommentToken>[]): IDocs {
       // get the text afterwards if we have any
       const after = line.substring(match.index + match[0].length).trim();
       if (after !== '') {
-        lastFound.docs.push(after);
+        lastFound.docs.push(CleanComment(after));
         lastFound.comments.push(comments[i]);
         startSaving = true;
       }
@@ -124,7 +125,7 @@ export function ExtractDocs(comments: IBasicBranch<CommentToken>[]): IDocs {
 
     // save line
     if (startSaving) {
-      lastFound.docs.push(line);
+      lastFound.docs.push(CleanComment(line));
       lastFound.comments.push(comments[i]);
     }
 

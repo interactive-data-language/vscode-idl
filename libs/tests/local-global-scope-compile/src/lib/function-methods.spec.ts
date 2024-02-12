@@ -187,7 +187,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               pos: [0, 40, 4],
             },
           },
-          docs: '\n```idl\nresult = myclass.mymethod( arg1, arg2, arg3, $\n [ KW1 = any ], $\n [ KW2 = any ], $\n [ KW3 = any ])\n```\n\n#### Arguments\n\n- **arg1**: bidirectional, required, any\n\n  \n\n- **arg2**: bidirectional, required, any\n\n  \n\n- **arg3**: bidirectional, required, any\n\n  \n\n\n#### Keywords\n\n- **KW1**: bidirectional, optional, any\n\n    \n\n- **KW2**: bidirectional, optional, any\n\n    \n\n- **KW3**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\nresult = myclass.mymethod( arg1, arg2, arg3, $\n [ KW1 = any ], $\n [ KW2 = any ], $\n [ KW3 = any ])\n```\n\n\n#### Arguments\n\n- **arg1**: bidirectional, required, any\n\n  \n\n- **arg2**: bidirectional, required, any\n\n  \n\n- **arg3**: bidirectional, required, any\n\n  \n\n\n\n#### Keywords\n\n- **KW1**: bidirectional, optional, any\n\n    \n\n- **KW2**: bidirectional, optional, any\n\n    \n\n- **KW3**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: {},
           display: 'myclass::mymethod',
           kws: {

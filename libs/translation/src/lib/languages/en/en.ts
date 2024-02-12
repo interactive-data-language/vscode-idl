@@ -45,6 +45,8 @@ export const EN: ITranslation = {
       code: {
         initializeConfig: 'IDL: Initialize Config',
         addDocsToFile: 'IDL: Add/Update Docs for File',
+        disableProblemSetting: 'IDL: Disable Problem Code via Setting',
+        fixProblem: 'IDL: Fix Problem for Code Action',
         formatFile: 'IDL: Format File',
         generateTask: 'IDL: Generate ENVI or IDL Task',
         migrateToDL30API: 'IDL: Migrate Code to ENVI Deep Learning 3.0 API',
@@ -106,6 +108,9 @@ export const EN: ITranslation = {
       code: {
         initializeConfig: 'Error while initializing config for workspace',
         addDocsToFile: 'Error while adding/updating docs for file',
+        disableProblemSetting:
+          'Error while disabling problem code via settings',
+        fixProblem: 'Error while fixing problem from code action',
         formatFile: 'Error while formatting file',
         generateTask: 'Error while generating task',
         migrateToDL30API: 'Error while migrating code',
@@ -211,6 +216,7 @@ export const EN: ITranslation = {
         'Preferences that control the session history (input and output) when running IDL.',
       'IDL.preferences': 'Placeholder',
 
+      code: 'code',
       'code.formatting': 'Top-level preferences for how code gets formatted.',
       'code.formattingStyle':
         'This controls how code is automatically formatted when using the buttons in the sidebar or formatting on save.',
@@ -223,9 +229,11 @@ export const EN: ITranslation = {
 
       languageServer: 'Preferences that control the language server for IDL',
       'languageServer.fullParse':
-        '**Experimental and not all features may work when disabled**\n\nWhen the language server starts up, do we fully parse the code in workspaces and on your path?\n\nA full parse checks for syntax and type errors to give more insights into your code without opening each file. However, for large code bases (>1 million lines of code), this uses about 3x more CPU RAM and is about 50% slower.\n\nIf more than one workspace is open, and this is enabled for any workspace, we apply it for all open workspaces.',
+        'When the language server starts up, do we fully parse the code in workspaces and on your path?\n\nA full parse checks for syntax and type errors to give more insights into your code without opening each file. However, for large code bases (>1 million lines of code), this uses about 3x more CPU RAM and is about 50% slower.\n\nIf more than one workspace is open, and this is enabled for any workspace, we apply it for all open workspaces.',
 
       problems: 'Preferences that control how problems are reported',
+      'problems.reportProblems':
+        'Do we report problems found when analyzing your code? If disabled in one workspace, applies to all.',
       'problems.includeProblemsFromIDLPackages':
         'Report problems for all files where we find "idl_packages" in the path. This permits problem reporting from external libraries. If this is set in any open workspace, it applies to all of them.',
       'problems.includeProblemsFromIDLPath':
@@ -595,6 +603,14 @@ export const EN: ITranslation = {
       'The IDL extension had an error :( See output/debug console for details',
   },
   lsp: {
+    codeActions: {
+      disableLine: 'Disable "PROBLEM" for line',
+      disableFile: 'Disable "PROBLEM" for file or cell',
+      disableUser: 'Disable "PROBLEM" in user settings',
+      disableWorkspace: 'Disable "PROBLEM" for workspace',
+      viewProblemCodeDocs: 'Learn more about "PROBLEM"',
+      viewProblemConfigDocs: 'Learn how to configure reported problems',
+    },
     config: {
       failedParse: 'Problem parsing IDL config file',
     },
@@ -832,6 +848,7 @@ export const EN: ITranslation = {
         'Illegal use of parentheses for indexing variable, use brackets instead (function name matches local variable). If this is a function call, add `compile_opt idl2` to delineate between the variable and function call.',
       '106':
         'Circular include statement found. This means that the included file includes this file (directly or indirectly).',
+      '107': 'Attempting to disable unknown problem',
     },
   },
   terminal: {

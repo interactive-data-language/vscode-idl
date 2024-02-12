@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 describe(`[auto generated] Advanced comment block cases`, () => {
   it(`[auto generated] end on block end and dont include excess comments`, () => {

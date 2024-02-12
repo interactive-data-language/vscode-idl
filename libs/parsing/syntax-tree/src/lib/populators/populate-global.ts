@@ -24,9 +24,9 @@ import {
 import copy from 'fast-copy';
 
 import { IBranch } from '../branches.interface';
-import { IParsed } from '../build-syntax-tree.interface';
 import { GenerateRoutineDocsAndMetadata } from '../docs/generate-routine-docs-and-metadata';
 import { GenerateRoutineMetadataFast } from '../docs/generate-routine-metadata-fast';
+import { IParsed } from '../parsed.interface';
 import { FindStructureDefs } from './find-structure-defs';
 import { GetCompileOpts } from './get-compile-opts';
 import { GetUniqueVariables } from './get-unique-variables';
@@ -110,6 +110,11 @@ export function PopulateGlobalLocalCompileOpts(
                 docs
               )
             : GenerateRoutineMetadataFast('function');
+
+          // make sure structures inherit private flag
+          for (let z = 0; z < structures.length; z++) {
+            structures[z].meta.private = meta.private;
+          }
 
           // check if method or function
           switch (first.name) {
@@ -235,6 +240,11 @@ export function PopulateGlobalLocalCompileOpts(
                 docs
               )
             : GenerateRoutineMetadataFast('procedure');
+
+          // make sure structures inherit private flag
+          for (let z = 0; z < structures.length; z++) {
+            structures[z].meta.private = meta.private;
+          }
 
           // make sure it is the name of the routine
           switch (first.name) {

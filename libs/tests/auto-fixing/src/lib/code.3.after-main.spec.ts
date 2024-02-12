@@ -2,7 +2,7 @@ import { Assembler } from '@idl/assembler';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -66,48 +66,56 @@ describe(`[auto generated] Verify tokens after main get removed on formatting`, 
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [6, 1, 5],
         end: [6, 1, 5],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [6, 7, 1],
         end: [6, 7, 1],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [6, 9, 3],
         end: [6, 9, 3],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [6, 13, 2],
         end: [6, 13, 2],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [6, 15, 0],
         end: [6, 15, 0],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [6, 15, 0],
         end: [6, 15, 0],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "worse"',
         start: [6, 1, 5],
         end: [6, 1, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 

@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 describe(`[auto generated] Correctly maps main level tokens`, () => {
   it(`[auto generated] do nothing without main level`, () => {
@@ -676,6 +676,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         info: 'Main level program is missing an "end" statement',
         start: [7, 0, 1.7976931348623157e308],
         end: [7, 0, 1.7976931348623157e308],
+        canReport: true,
       },
     ];
 
@@ -904,36 +905,42 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [10, 0, 9],
         end: [10, 0, 9],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [10, 10, 1],
         end: [10, 10, 1],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [10, 12, 0],
         end: [10, 12, 0],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [10, 12, 4],
         end: [10, 12, 4],
+        canReport: true,
       },
       {
         code: 3,
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [10, 16, 0],
         end: [10, 16, 0],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [10, 10, 1],
         end: [10, 12, 0],
+        canReport: true,
       },
     ];
 

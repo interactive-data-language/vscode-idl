@@ -11,12 +11,6 @@ import { GetWorkspaceFSPath } from './get-workspace-fs-path';
 import { MergeConfig } from './merge-config';
 
 /**
- * Reference to the URI for the first folder we open, need a value in case
- * there are no open workspace folders
- */
-export const FIRST_FOLDER2 = 'default';
-
-/**
  * track configuration of all open workspaces
  */
 export const WORKSPACE_FOLDER_CONFIGS: {
@@ -91,8 +85,6 @@ export function RemoveWorkspaceConfigs(folders: WorkspaceFolder[]) {
 /**
  * Updates the configuration for our client, not a folder associated with it
  *
- * The config from VSCode remove paths and makes a nested object, which is
- * super annoying since thats not how the UI works at all
  */
 export async function UpdateClientFolderConfig(config: IDLExtensionConfig) {
   // update setting from VSCode

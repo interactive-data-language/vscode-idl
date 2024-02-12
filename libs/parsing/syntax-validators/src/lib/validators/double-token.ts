@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
 import {
   BRANCH_TYPES,
   IBranch,
@@ -7,6 +6,7 @@ import {
   SyntaxTree,
 } from '@idl/parsing/syntax-tree';
 import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 /**
  * Operators to check children (i.e. recurse)

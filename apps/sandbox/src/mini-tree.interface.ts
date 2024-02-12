@@ -1,4 +1,3 @@
-import { IDLProblemCode } from '@idl/parsing/problem-codes';
 import {
   IHoverOverride,
   SyntaxTreeBasic,
@@ -12,7 +11,8 @@ import {
   TokenName,
   TokenStartMatches,
 } from '@idl/parsing/tokenizer';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+import { IDLProblemCode } from '@idl/types/problem-codes';
+import { PositionArray } from '@idl/types/tokenizer';
 
 /**
  * Metadata for any node in our syntax tree

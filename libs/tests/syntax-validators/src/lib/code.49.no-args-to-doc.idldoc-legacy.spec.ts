@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -46,6 +46,7 @@ describe(`[auto generated] Detects documented args when there are no args`, () =
         info: 'Unused variable "var1"',
         start: [7, 23, 4],
         end: [7, 23, 4],
+        canReport: true,
       },
     ];
 
@@ -95,12 +96,14 @@ describe(`[auto generated] Detects documented args when there are no args`, () =
         info: 'Documented argument, keyword, or property does not exist: "var1"',
         start: [4, 0, 34],
         end: [4, 0, 34],
+        canReport: true,
       },
       {
         code: 49,
         info: 'Documentation includes arguments, but none are present in routine definition',
         start: [4, 2, 7],
         end: [5, 0, 1],
+        canReport: true,
       },
     ];
 

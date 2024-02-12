@@ -1,14 +1,14 @@
 import { FindIDL } from '@idl/idl';
 import { EXTENSION_FULL_NAME, GetExtensionPath } from '@idl/shared';
 import { Sleep } from '@idl/tests/helpers';
-import { GetWorkspaceConfig, IIDLWorkspaceConfig } from '@idl/vscode/config';
-import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
+import { GetWorkspaceConfig } from '@idl/vscode/config';
 import { IInitializeType } from '@idl/vscode/initialize-types';
 import { OpenFileInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
 import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';
 
+import { ResetSettingsForTests } from './tests/helpers/reset-settings-for-tests';
 import { TestRunner } from './tests/runner';
 
 /**
@@ -66,6 +66,12 @@ export async function run(): Promise<void> {
       GetExtensionPath('idl/test/client-e2e/load_first_problems.pro')
     );
 
+    // get the current workspace config
+    const config = GetWorkspaceConfig();
+
+    // reset config
+    await ResetSettingsForTests(config);
+
     // flag if we have started or not
     let started = false;
 
@@ -103,16 +109,6 @@ export async function run(): Promise<void> {
 
     // close editor
     await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
-
-    // get the current workspace config
-    const config = GetWorkspaceConfig();
-
-    // set latest IDL folder
-    (config as IIDLWorkspaceConfig).update(
-      IDL_EXTENSION_CONFIG_KEYS.IDLDirectory,
-      idlDir,
-      true
-    );
 
     // check if we allow debug logs
     if (DEBUG_LOGS) {

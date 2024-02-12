@@ -1,6 +1,6 @@
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
-import { IParsed } from './build-syntax-tree.interface';
+import { IParsed } from './parsed.interface';
 
 /**
  * Post process syntax problems to clean up reporting.

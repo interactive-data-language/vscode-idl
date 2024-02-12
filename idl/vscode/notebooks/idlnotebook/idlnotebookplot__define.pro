@@ -131,6 +131,8 @@ pro IDLNotebookPlot::_AddToNotebook, item
 end
 
 ;+
+; :Private:
+;
 ; :IDLNotebookPlot_Properties:
 ;   properties: OrderedHash<any>
 ;     Key-value pars for properties that get passed to the plots

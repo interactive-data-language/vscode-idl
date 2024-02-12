@@ -1,7 +1,7 @@
 import {
-  EXTENSION_DOCS_URL,
-  HostedDocsURLFromLocal,
   IDL_COMMANDS,
+  ResolveExtensionDocsURL,
+  ResolveProductDocsURL,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
@@ -35,9 +35,7 @@ export function RegisterDocsCommands(ctx: ExtensionContext) {
           /**
            * Get the URL we want to open
            */
-          const url = IDL_EXTENSION_CONFIG.documentation.useOnline
-            ? EXTENSION_DOCS_URL
-            : `http://localhost:${IDL_EXTENSION_CONFIG.documentation.localPort}`;
+          const url = ResolveExtensionDocsURL('', IDL_EXTENSION_CONFIG);
 
           vscode.commands.executeCommand(
             'vscode.open',
@@ -71,6 +69,10 @@ export function RegisterDocsCommands(ctx: ExtensionContext) {
             existsSync(IDL_EXTENSION_CONFIG.IDL.directory) &&
             !IDL_EXTENSION_CONFIG.documentation.useOnline &&
             false;
+
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.DOCS.OPEN_LINK,
+          });
 
           /** Get URL from markdown */
           const back = open.link;
@@ -108,10 +110,10 @@ export function RegisterDocsCommands(ctx: ExtensionContext) {
                   basename(back)
                 )}`;
             } else {
-              newLink = HostedDocsURLFromLocal(back);
+              newLink = ResolveProductDocsURL(back);
             }
           } else {
-            newLink = HostedDocsURLFromLocal(back);
+            newLink = ResolveProductDocsURL(back);
           }
 
           /**

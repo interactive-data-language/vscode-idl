@@ -1,8 +1,3 @@
-import {
-  DEFAULT_ASSEMBLER_OPTIONS,
-  FormatterType,
-  IAssemblerOptions,
-} from '@idl/assembling/config';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -11,8 +6,8 @@ import {
 } from '@idl/vscode/events/messages';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 
+import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
-import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
@@ -44,23 +39,8 @@ export const ON_MIGRATE_CODE = async (
       return undefined;
     }
 
-    /**
-     * Make default formatting config for info.fsPath
-     *
-     * Use settings from VSCode client as our default
-     */
-    const clientConfig: IAssemblerOptions<FormatterType> = {
-      ...DEFAULT_ASSEMBLER_OPTIONS,
-      ...IDL_CLIENT_CONFIG.code.formatting,
-      style: IDL_CLIENT_CONFIG.code.formattingStyle,
-    };
-
     /** Formatting config for info.fsPath */
-    const config = IDL_INDEX.getConfigForFile(info.fsPath, clientConfig);
-
-    /**
-     * Formatted code
-     */
+    const config = GetFormattingConfigForFile(info.fsPath);
 
     // do nothing
     if (!IDL_INDEX.isPROCode(info.fsPath)) {

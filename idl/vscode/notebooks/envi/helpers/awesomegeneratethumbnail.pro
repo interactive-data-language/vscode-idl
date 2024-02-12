@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Gets the pyramid level we need to use for creating a display of our data
 ;
@@ -24,6 +26,8 @@ function AwesomeGenerateThumbnailGetPyramidLevel, value1, value2, compareValue
 end
 
 ;+
+; :Private:
+;
 ; :Keywords:
 ;   input_raster: in, optional, ENVIRaster
 ;     Placeholder docs for argument, keyword, or property

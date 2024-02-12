@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
 import {
   RoutineMethodNameToken,
   RoutineNameToken,
@@ -12,6 +11,7 @@ import {
   IGlobalIndexedToken,
   ParseIDLType,
 } from '@idl/types/core';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 
 import { IBranch } from '../branches.interface';

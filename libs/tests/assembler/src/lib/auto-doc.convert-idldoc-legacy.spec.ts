@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -156,60 +156,70 @@ describe(`[auto generated] Convert old IDL Doc comments`, () => {
         info: 'Unused variable "meters"',
         start: [47, 58, 6],
         end: [47, 58, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "radians"',
         start: [47, 76, 7],
         end: [47, 76, 7],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "radius"',
         start: [47, 95, 6],
         end: [47, 95, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "semimajor_axis"',
         start: [47, 120, 14],
         end: [47, 120, 14],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "semiminor_axis"',
         start: [47, 153, 14],
         end: [47, 153, 14],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "lon1"',
         start: [47, 17, 4],
         end: [47, 17, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "lat1"',
         start: [47, 23, 4],
         end: [47, 23, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "lon2"',
         start: [47, 29, 4],
         end: [47, 29, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "lat2"',
         start: [47, 35, 4],
         end: [47, 35, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "method"',
         start: [47, 41, 6],
         end: [47, 41, 6],
+        canReport: true,
       },
     ];
 
@@ -374,60 +384,70 @@ describe(`[auto generated] Convert old IDL Doc comments`, () => {
         info: 'Unused variable "meters"',
         start: [49, 63, 6],
         end: [49, 63, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "radians"',
         start: [49, 81, 7],
         end: [49, 81, 7],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "radius"',
         start: [49, 100, 6],
         end: [49, 100, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "semimajor_axis"',
         start: [49, 125, 14],
         end: [49, 125, 14],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "semiminor_axis"',
         start: [49, 158, 14],
         end: [49, 158, 14],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "lon1"',
         start: [49, 22, 4],
         end: [49, 22, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "lat1"',
         start: [49, 28, 4],
         end: [49, 28, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "lon2"',
         start: [49, 34, 4],
         end: [49, 34, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "lat2"',
         start: [49, 40, 4],
         end: [49, 40, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "method"',
         start: [49, 46, 6],
         end: [49, 46, 6],
+        canReport: true,
       },
     ];
 

@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   IParsed,
   SyntaxProblemWithTranslation,
@@ -11,6 +10,7 @@ import {
   IDLDataType,
   IDLTypeHelper,
 } from '@idl/types/core';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';

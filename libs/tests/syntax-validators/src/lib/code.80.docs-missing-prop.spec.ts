@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -48,6 +48,7 @@ describe(`[auto generated] Check for missing properties`, () => {
         info: 'Property is missing from documentation: "prop2"',
         start: [9, 51, 6],
         end: [9, 51, 6],
+        canReport: true,
       },
     ];
 

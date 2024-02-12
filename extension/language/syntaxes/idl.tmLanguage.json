@@ -520,18 +520,40 @@
     },
     "comment": {
       "name": "comment.line.idl",
-      "match": "(?i);\\s*(TODO:)?(.*)$",
+      "match": "(?i);\\+?\\s*(TODO:)?(.*)$",
       "captures": {
         "1": {
           "name": "constant.character.escape.idl"
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#comment_disabled_problem"
+            }
+          ]
         }
       }
+    },
+    "comment_disabled_problem": {
+      "patterns": [
+        {
+          "name": "storage.type.class.jsdoc",
+          "match": "(?i)idl-disable-next-line|idl-disable-line"
+        },
+        {
+          "name": "markup.heading.idl",
+          "match": "(?i)idl-disable"
+        }
+      ]
     },
     "comment_block": {
       "name": "comment.block.idl",
       "begin": "(?i)^\\s*(?=;\\s*\\+.*)",
       "end": "(?i)^(?!\\s*;|\\s*$)",
       "patterns": [
+        {
+          "include": "#comment_disabled_problem"
+        },
         {
           "include": "#comment_docs_header_legacy"
         },

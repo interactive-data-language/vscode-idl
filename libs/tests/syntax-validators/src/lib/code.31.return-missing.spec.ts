@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -66,6 +66,7 @@ describe(`[auto generated] Detects missing return procedure in functions`, () =>
         info: 'In function definitions, the "return" procedure must be present and have one value that it returns',
         start: [0, 0, 9],
         end: [0, 15, 0],
+        canReport: true,
       },
     ];
 
@@ -140,6 +141,7 @@ describe(`[auto generated] Detects missing return procedure in functions`, () =>
         info: 'In function definitions, the "return" procedure must be present and have one value that it returns',
         start: [0, 0, 9],
         end: [0, 23, 0],
+        canReport: true,
       },
     ];
 

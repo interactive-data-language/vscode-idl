@@ -35,6 +35,8 @@ export interface IDLExtensionsConfigKeys {
   /** History for your IDL sessions */
   readonly IDLhistory: 'IDL.history';
 
+  /** Key for code */
+  readonly code: 'code';
   /** Top-level formatting options, excluding style */
   readonly codeFormatting: 'code.formatting';
   /** Code-formatting style */
@@ -61,6 +63,8 @@ export interface IDLExtensionsConfigKeys {
 
   /** Key for problem preferences */
   readonly problems: 'problems';
+  /** Do we report problems at all? */
+  readonly problemsReportProblems: 'problems.reportProblems';
   /** Do we report docs problems or not */
   readonly problemsReportDocsProblems: 'problems.reportDocsProblems';
   /** User configured problem codes to ignore */
@@ -160,6 +164,8 @@ export interface INotebookConfig {
 }
 
 export interface IProblemConfig {
+  /** Do we report problems at all? */
+  readonly reportProblems: boolean;
   /** Do we report docs problems or not? */
   readonly reportDocsProblems: boolean;
   /** User configured problem codes to ignore (problem codes or aliases) */
@@ -272,6 +278,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   IDLenvironment: 'IDL.environment',
   IDLhistory: 'IDL.history',
 
+  code: 'code',
   codeFormatting: 'code.formatting',
   codeFormattingStyle: 'code.formattingStyle',
 
@@ -287,6 +294,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   notebooksEmbedGraphics: 'notebooks.embedGraphics',
 
   problems: 'problems',
+  problemsReportProblems: 'problems.reportProblems',
   problemsReportDocsProblems: 'problems.reportDocsProblems',
   problemsIgnoreProblems: 'problems.ignoreProblems',
   problemsIncludeProblemsFromIDLPath: 'problems.includeProblemsFromIDLPath',
@@ -356,6 +364,7 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     embedGraphics: true,
   },
   problems: {
+    reportProblems: true,
     reportDocsProblems: true,
     ignoreProblems: [],
     includeProblemsFromIDLPath: true,

@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -35,12 +35,14 @@ describe(`[auto generated] Detects unknown tokens`, () => {
         info: 'Unknown token encountered. Verify syntax and expression is allowed.',
         start: [0, 5, 3],
         end: [0, 5, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -79,18 +81,21 @@ describe(`[auto generated] Detects unknown tokens`, () => {
         info: 'Unknown token encountered. Verify syntax and expression is allowed.',
         start: [1, 6, 4],
         end: [1, 6, 4],
+        canReport: true,
       },
       {
         code: 35,
         info: 'Only comments are allowed after line continuations. This helps prevent accidental bugs.',
         start: [1, 4, 1],
         end: [1, 6, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -129,6 +134,7 @@ describe(`[auto generated] Detects unknown tokens`, () => {
         info: 'Unexpected conditional (ternary/elvis) operator',
         start: [0, 6, 2],
         end: [0, 6, 2],
+        canReport: true,
       },
     ];
 
@@ -167,13 +173,21 @@ describe(`[auto generated] Detects unknown tokens`, () => {
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 4, 0],
+        canReport: true,
       },
-      { code: 9, info: 'Illegal comma', start: [0, 4, 1], end: [0, 4, 1] },
+      {
+        code: 9,
+        info: 'Illegal comma',
+        start: [0, 4, 1],
+        end: [0, 4, 1],
+        canReport: true,
+      },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -212,12 +226,14 @@ describe(`[auto generated] Detects unknown tokens`, () => {
         info: 'Unknown token encountered. Verify syntax and expression is allowed.',
         start: [0, 5, 5],
         end: [0, 5, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -256,12 +272,14 @@ describe(`[auto generated] Detects unknown tokens`, () => {
         info: 'Unknown token encountered. Verify syntax and expression is allowed.',
         start: [0, 5, 5],
         end: [0, 5, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 

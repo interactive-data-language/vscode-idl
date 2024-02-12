@@ -28,6 +28,7 @@ export function GeneralToMarkdown(info: { [key: string]: string }): string {
     if (keys[i] in SKIP_THESE) {
       continue;
     }
+    strings.push('');
     strings.push(`#### ${keys[i]}`);
     strings.push(info[keys[i]]);
     strings.push('');

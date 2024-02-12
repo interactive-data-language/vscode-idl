@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -72,90 +72,105 @@ describe(`[auto generated] All the places we want to make sure we test for`, () 
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [13, 13, 1],
         end: [13, 18, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [14, 13, 1],
         end: [14, 18, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [18, 14, 1],
         end: [18, 19, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [23, 16, 1],
         end: [23, 21, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [24, 16, 1],
         end: [24, 21, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [17, 20, 1],
         end: [17, 25, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [21, 17, 1],
         end: [21, 22, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [22, 8, 1],
         end: [22, 13, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [27, 6, 1],
         end: [27, 11, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [28, 7, 1],
         end: [28, 12, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [29, 14, 1],
         end: [29, 19, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [30, 23, 1],
         end: [30, 28, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [31, 23, 1],
         end: [31, 28, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [34, 17, 1],
         end: [34, 22, 1],
+        canReport: true,
       },
       {
         code: 91,
         info: 'Illegal index type. Data types allowed for indexing are numbers (non-complex, non-bigint), strings, and arrays',
         start: [34, 29, 1],
         end: [34, 34, 1],
+        canReport: true,
       },
     ];
 

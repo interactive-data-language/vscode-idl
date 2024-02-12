@@ -70,6 +70,10 @@ export const ON_INITIALIZED = async (event: InitializedParams) => {
         // this likely happens when extension is initialized but no workspace
         // folders are open
         if (folders === null) {
+          if (!IS_RESOLVED) {
+            IS_RESOLVED = true;
+          }
+          RESOLVER({});
           return;
         }
 

@@ -6,7 +6,7 @@ import {
   OperatorToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+import { PositionArray } from '@idl/types/tokenizer';
 
 import {
   SyntaxTree,

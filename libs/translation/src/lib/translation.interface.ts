@@ -1,6 +1,6 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 import { ICodeStyle, ITrueBaseAssemblerOptions } from '@idl/assembling/config';
-import { ProblemCodeLookup } from '@idl/parsing/problem-codes';
+import { ProblemCodeLookup } from '@idl/types/problem-codes';
 import {
   IDLExtensionsConfigKeys,
   IDLHistoryConfig,
@@ -31,6 +31,10 @@ export interface ICommandTranslation {
     generateTask: string;
     /** Migrate PRO code to the ENVI DL 3.0 API */
     migrateToDL30API: string;
+    /** Command to disable problem as setting */
+    disableProblemSetting: string;
+    /** problem we are fixing */
+    fixProblem: string;
   };
   /** Translations for configuration */
   config: {
@@ -412,6 +416,15 @@ export interface ITranslation {
    * Language server messages
    */
   lsp: {
+    /** Code action translations */
+    codeActions: {
+      disableUser: string;
+      disableWorkspace: string;
+      disableLine: string;
+      disableFile: string;
+      viewProblemCodeDocs: string;
+      viewProblemConfigDocs: string;
+    };
     /** Messages for config file */
     config: {
       /** When we fail to parse IDL's config file */

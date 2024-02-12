@@ -3,7 +3,7 @@ import {
   IDL_PROBLEM_SEVERITY_LOOKUP,
   IDLProblemCode,
   IDLProblemSeverity,
-} from '@idl/parsing/problem-codes';
+} from '@idl/types/problem-codes';
 
 /**
  * Maps a problem code to a severity level

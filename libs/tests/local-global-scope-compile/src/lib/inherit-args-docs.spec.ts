@@ -90,7 +90,7 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
               pos: [9, 11, 4],
             },
           },
-          docs: '\n```idl\nmypro, var1\n```\n\nMy procedure\n\n#### Arguments\n\n- **var1**: in, required, any\n\n  My favorite thing\n\n',
+          docs: '\n```idl\nmypro, var1\n```\n\nMy procedure\n\n\n#### Arguments\n\n- **var1**: in, required, any\n\n  My favorite thing\n\n',
           docsLookup: { default: 'My procedure' },
           display: 'mypro',
           kws: {},

@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :IDLNotebookImage_Base:
 ;   xSize: Number
 ;     The width of the PNG for display

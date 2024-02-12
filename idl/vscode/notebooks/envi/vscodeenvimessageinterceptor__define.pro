@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Creates our message interceptor and registers it with ENVI (requires that ENVI is launched)
 ;
@@ -40,6 +42,8 @@ function VSCodeENVIMessageInterceptor::Init, verbose = verbose
 end
 
 ;+
+; :Private:
+;
 ; :Description:
 ;   Cleans up our message interceptor
 ;
@@ -62,6 +66,8 @@ pro VSCodeENVIMessageInterceptor::Cleanup
 end
 
 ;+
+; :Private:
+;
 ; :Description:
 ;   Handle intercepted messages from ENVI
 ;
@@ -137,6 +143,8 @@ pro VSCodeENVIMessageInterceptor::OnMessage, msg
 end
 
 ;+
+; :Private:
+;
 ; :VsCodeENVIMessageInterceptor:
 ;   lastProgress: List<Byte>
 ;     Track the previous progress percentage

@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -51,12 +51,14 @@ describe(`[auto generated] Detects when a documented parameter does not exist in
         info: 'Unused variable "kw1"',
         start: [12, 21, 3],
         end: [12, 21, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [12, 11, 4],
         end: [12, 11, 4],
+        canReport: true,
       },
     ];
 
@@ -111,36 +113,42 @@ describe(`[auto generated] Detects when a documented parameter does not exist in
         info: 'Documented argument, keyword, or property does not exist: "var1"',
         start: [4, 0, 26],
         end: [4, 0, 26],
+        canReport: true,
       },
       {
         code: 63,
         info: 'Documented argument, keyword, or property does not exist: "kw1"',
         start: [8, 0, 34],
         end: [8, 0, 34],
+        canReport: true,
       },
       {
         code: 64,
         info: 'Parameter is missing from documentation: "var2"',
         start: [12, 11, 4],
         end: [12, 11, 4],
+        canReport: true,
       },
       {
         code: 64,
         info: 'Parameter is missing from documentation: "kw2"',
         start: [12, 17, 3],
         end: [12, 17, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw2"',
         start: [12, 21, 3],
         end: [12, 21, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var2"',
         start: [12, 11, 4],
         end: [12, 11, 4],
+        canReport: true,
       },
     ];
 
@@ -195,12 +203,14 @@ describe(`[auto generated] Detects when a documented parameter does not exist in
         info: 'Unused variable "kw1"',
         start: [12, 21, 3],
         end: [12, 21, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [12, 11, 4],
         end: [12, 11, 4],
+        canReport: true,
       },
     ];
 
@@ -254,6 +264,7 @@ describe(`[auto generated] Detects when a documented parameter does not exist in
         info: 'Documented argument, keyword, or property does not exist: "prop3"',
         start: [4, 0, 14],
         end: [4, 0, 14],
+        canReport: true,
       },
     ];
 

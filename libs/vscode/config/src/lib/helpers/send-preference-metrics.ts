@@ -1,13 +1,13 @@
 import {
-  IDL_PROBLEM_CODE_ALIAS_LOOKUP,
-  IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
-} from '@idl/parsing/problem-codes';
-import {
   EXTENSION_FULL_NAME,
   ICON_THEME_NAME,
   IDL_LANGUAGE_NAME,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  IDL_PROBLEM_CODE_ALIAS_LOOKUP,
+  IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
+} from '@idl/types/problem-codes';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
@@ -113,6 +113,7 @@ export function SendPreferenceUsageMetrics() {
     pref_default_formatter: `${
       editor.get('defaultFormatter') === EXTENSION_FULL_NAME
     }`,
+    pref_format_on_save: `${editor.get('formatOnSave')}`,
     pref_icon_theme: `${config.iconTheme !== ICON_THEME_NAME}`,
     pref_idl_theme: OUR_THEMES.indexOf(theme) !== -1 ? theme : 'non-IDL',
     pref_auto_doc: `${code.formatting.autoDoc}`,

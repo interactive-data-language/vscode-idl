@@ -757,7 +757,7 @@
         <key>name</key>
         <string>comment.line.idl</string>
         <key>match</key>
-        <string>(?i);\s*(TODO:)?(.*)$</string>
+        <string>(?i);\+?\s*(TODO:)?(.*)$</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -765,7 +765,35 @@
             <key>name</key>
             <string>constant.character.escape.idl</string>
           </dict>
+          <key>2</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#comment_disabled_problem</string>
+              </dict>
+            </array>
+          </dict>
         </dict>
+      </dict>
+      <key>comment_disabled_problem</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>name</key>
+            <string>storage.type.class.jsdoc</string>
+            <key>match</key>
+            <string>(?i)idl-disable-next-line|idl-disable-line</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>markup.heading.idl</string>
+            <key>match</key>
+            <string>(?i)idl-disable</string>
+          </dict>
+        </array>
       </dict>
       <key>comment_block</key>
       <dict>
@@ -777,6 +805,10 @@
         <string>(?i)^(?!\s*;|\s*$)</string>
         <key>patterns</key>
         <array>
+          <dict>
+            <key>include</key>
+            <string>#comment_disabled_problem</string>
+          </dict>
           <dict>
             <key>include</key>
             <string>#comment_docs_header_legacy</string>

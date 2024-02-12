@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -86,24 +86,28 @@ describe(`[auto generated] Find unknown string literal escape characters`, () =>
         info: 'Illegal/unknown template escape. Supported escape characters are "\\", "\\b", "\\f", "\\n", "\\r", "\\t", "\\v", "\\$", "\\`", and "\\xXX" for hex characters',
         start: [1, 5, 1],
         end: [1, 5, 1],
+        canReport: true,
       },
       {
         code: 71,
         info: 'Illegal/unknown template escape. Supported escape characters are "\\", "\\b", "\\f", "\\n", "\\r", "\\t", "\\v", "\\$", "\\`", and "\\xXX" for hex characters',
         start: [2, 5, 1],
         end: [2, 5, 1],
+        canReport: true,
       },
       {
         code: 71,
         info: 'Illegal/unknown template escape. Supported escape characters are "\\", "\\b", "\\f", "\\n", "\\r", "\\t", "\\v", "\\$", "\\`", and "\\xXX" for hex characters',
         start: [3, 5, 1],
         end: [3, 5, 1],
+        canReport: true,
       },
       {
         code: 71,
         info: 'Illegal/unknown template escape. Supported escape characters are "\\", "\\b", "\\f", "\\n", "\\r", "\\t", "\\v", "\\$", "\\`", and "\\xXX" for hex characters',
         start: [4, 5, 1],
         end: [4, 5, 1],
+        canReport: true,
       },
     ];
 

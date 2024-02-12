@@ -1,16 +1,16 @@
+import { GetIDLProblemSeverity } from '@idl/parsing/syntax-tree';
+import { IDL_LANGUAGE_NAME, ResolveExtensionDocsURL } from '@idl/shared';
+import { IDLDiagnostic } from '@idl/types/diagnostic';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_PROBLEM_DIAGNOSTIC_TAGS,
   IDL_PROBLEM_SEVERITY_LOOKUP,
   ISyntaxProblem,
   SyntaxProblems,
-} from '@idl/parsing/problem-codes';
-import { GetIDLProblemSeverity } from '@idl/parsing/syntax-tree';
-import { IDL_LANGUAGE_NAME } from '@idl/shared';
-import { IDLDiagnostic } from '@idl/types/diagnostic';
+} from '@idl/types/problem-codes';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver/node';
 
-import { ResolveExtensionDocsURL } from './resolve-extension-docs-url';
+import { IDL_CLIENT_CONFIG } from './track-workspace-config';
 
 /**
  * Map IDL problem codes to the right level in VSCode
@@ -55,11 +55,14 @@ export function SyntaxProblemToDiagnostic(
     source: IDL_LANGUAGE_NAME,
     codeDescription: {
       href: ResolveExtensionDocsURL(
-        `/problem-codes/codes/${problem.code}.html`
+        `/problem-codes/codes/${problem.code}.html`,
+        IDL_CLIENT_CONFIG
       ),
     },
     data: {
+      type: 'idl',
       code: problem.code,
+      alias: IDL_PROBLEM_CODE_ALIAS_LOOKUP[problem.code],
     },
   };
 }

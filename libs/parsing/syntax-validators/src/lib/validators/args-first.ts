@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   BranchCallback,
   IDL_SYNTAX_TREE_VALIDATOR,
@@ -10,6 +9,7 @@ import {
   RoutineNameToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 /**
  * Makes sure arguments come first

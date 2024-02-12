@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
 import {
   FindAllBranchChildren,
   FindDirectBranchChildren,
@@ -13,6 +12,7 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 import { IsSingleLine } from '../helpers/is-single-line';
 import { NAME_TOKENS } from './return-functions';

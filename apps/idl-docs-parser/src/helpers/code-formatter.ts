@@ -6,7 +6,7 @@ import {
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { ElementsToText } from './elements-to-text';
 import { IParsedHTML } from './parser.interface';

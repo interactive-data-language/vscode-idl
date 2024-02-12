@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -40,18 +40,21 @@ describe(`[auto generated] Don't check unknown keywords`, () => {
         info: 'Unused variable "routine"',
         start: [2, 11, 7],
         end: [2, 11, 7],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "raster"',
         start: [2, 36, 6],
         end: [2, 36, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "output"',
         start: [2, 54, 6],
         end: [2, 54, 6],
+        canReport: true,
       },
     ];
 
@@ -98,6 +101,7 @@ describe(`[auto generated] Don't check unknown keywords`, () => {
         info: 'Unused variable "key"',
         start: [3, 21, 3],
         end: [3, 21, 3],
+        canReport: true,
       },
     ];
 

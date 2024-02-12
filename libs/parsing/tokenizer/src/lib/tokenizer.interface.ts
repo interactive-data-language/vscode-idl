@@ -1,4 +1,4 @@
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+import { PositionArray } from '@idl/types/tokenizer';
 
 import { TokenStartMatches } from './token-matches.interface';
 import { ITokenDef, TOKEN_NAMES, TokenName } from './tokens.interface';

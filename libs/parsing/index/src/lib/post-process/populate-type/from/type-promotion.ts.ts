@@ -1,10 +1,8 @@
-import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/parsing/problem-codes';
 import {
   IParsed,
   SyntaxProblemWithTranslation,
   SyntaxTree,
 } from '@idl/parsing/syntax-tree';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
 import {
   IDL_ANY_TYPE,
   IDL_ARRAY_TYPE,
@@ -14,6 +12,8 @@ import {
   ParseIDLType,
   SerializeIDLType,
 } from '@idl/types/core';
+import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
+import { PositionArray } from '@idl/types/tokenizer';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';

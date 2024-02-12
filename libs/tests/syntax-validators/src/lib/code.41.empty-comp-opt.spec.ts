@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -35,6 +35,7 @@ describe(`[auto generated] Detects compile opt without options`, () => {
         info: '"compile_opt" should specify at least one compile option',
         start: [1, 2, 11],
         end: [1, 13, 0],
+        canReport: true,
       },
     ];
 
@@ -73,6 +74,7 @@ describe(`[auto generated] Detects compile opt without options`, () => {
         info: '"compile_opt" should specify at least one compile option',
         start: [1, 2, 11],
         end: [1, 13, 0],
+        canReport: true,
       },
     ];
 

@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -44,6 +44,7 @@ describe(`[auto generated] Detects when in/out is incorrect for docs`, () => {
         info: 'Unused variable "var1"',
         start: [5, 23, 4],
         end: [5, 23, 4],
+        canReport: true,
       },
     ];
 
@@ -91,12 +92,14 @@ describe(`[auto generated] Detects when in/out is incorrect for docs`, () => {
         info: 'Parameter direction should be either "in", "out", or "bidirectional"',
         start: [2, 10, 5],
         end: [2, 10, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [5, 23, 4],
         end: [5, 23, 4],
+        canReport: true,
       },
     ];
 

@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -39,12 +39,14 @@ describe(`[auto generated] Check unknown variables in edge cases`, () => {
         info: 'Undefined variable "nv"',
         start: [1, 45, 2],
         end: [1, 45, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "filename"',
         start: [1, 0, 8],
         end: [1, 0, 8],
+        canReport: true,
       },
     ];
 
@@ -83,6 +85,7 @@ describe(`[auto generated] Check unknown variables in edge cases`, () => {
         info: 'Undefined variable "other"',
         start: [1, 1, 5],
         end: [1, 1, 5],
+        canReport: true,
       },
     ];
 

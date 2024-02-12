@@ -1,5 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+import { PositionArray } from '@idl/types/tokenizer';
 
 import { GetMatchesArray } from './helpers/get-matches-array';
 import { NOT_EMPTY_LINE_REGEX } from './helpers/is-empty-line';

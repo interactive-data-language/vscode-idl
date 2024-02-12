@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -191,66 +191,77 @@ describe(`[auto generated] Control statement styling`, () => {
         info: '"continue" statements can only exist within a loop',
         start: [2, 2, 8],
         end: [2, 2, 8],
+        canReport: true,
       },
       {
         code: 67,
         info: '"break" statements can only exist within a loop, case, or switch',
         start: [3, 2, 5],
         end: [3, 2, 5],
+        canReport: true,
       },
       {
         code: 77,
         info: 'No matching structure/object/class definition for structure named "myname"',
         start: [54, 12, 6],
         end: [54, 12, 6],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "var"',
         start: [24, 13, 3],
         end: [24, 13, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "i"',
         start: [19, 4, 1],
         end: [19, 4, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "val"',
         start: [24, 8, 3],
         end: [24, 8, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "key"',
         start: [24, 18, 3],
         end: [24, 18, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "mystruct"',
         start: [54, 0, 8],
         end: [54, 0, 8],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [5, 16, 4],
         end: [5, 16, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var2"',
         start: [5, 22, 4],
         end: [5, 22, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "etc"',
         start: [5, 28, 3],
         end: [5, 28, 3],
+        canReport: true,
       },
     ];
 
@@ -443,66 +454,77 @@ describe(`[auto generated] Control statement styling`, () => {
         info: '"continue" statements can only exist within a loop',
         start: [2, 2, 8],
         end: [2, 2, 8],
+        canReport: true,
       },
       {
         code: 67,
         info: '"break" statements can only exist within a loop, case, or switch',
         start: [3, 2, 5],
         end: [3, 2, 5],
+        canReport: true,
       },
       {
         code: 77,
         info: 'No matching structure/object/class definition for structure named "myname"',
         start: [54, 12, 6],
         end: [54, 12, 6],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "var"',
         start: [24, 13, 3],
         end: [24, 13, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "i"',
         start: [19, 4, 1],
         end: [19, 4, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "val"',
         start: [24, 8, 3],
         end: [24, 8, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "key"',
         start: [24, 18, 3],
         end: [24, 18, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "mystruct"',
         start: [54, 0, 8],
         end: [54, 0, 8],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [5, 16, 4],
         end: [5, 16, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var2"',
         start: [5, 22, 4],
         end: [5, 22, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "etc"',
         start: [5, 28, 3],
         end: [5, 28, 3],
+        canReport: true,
       },
     ];
 
@@ -695,66 +717,77 @@ describe(`[auto generated] Control statement styling`, () => {
         info: '"continue" statements can only exist within a loop',
         start: [2, 2, 8],
         end: [2, 2, 8],
+        canReport: true,
       },
       {
         code: 67,
         info: '"break" statements can only exist within a loop, case, or switch',
         start: [3, 2, 5],
         end: [3, 2, 5],
+        canReport: true,
       },
       {
         code: 77,
         info: 'No matching structure/object/class definition for structure named "myname"',
         start: [54, 12, 6],
         end: [54, 12, 6],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "var"',
         start: [24, 13, 3],
         end: [24, 13, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "i"',
         start: [19, 4, 1],
         end: [19, 4, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "val"',
         start: [24, 8, 3],
         end: [24, 8, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "key"',
         start: [24, 18, 3],
         end: [24, 18, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "mystruct"',
         start: [54, 0, 8],
         end: [54, 0, 8],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [5, 16, 4],
         end: [5, 16, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var2"',
         start: [5, 22, 4],
         end: [5, 22, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "etc"',
         start: [5, 28, 3],
         end: [5, 28, 3],
+        canReport: true,
       },
     ];
 

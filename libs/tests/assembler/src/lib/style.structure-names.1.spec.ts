@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -83,6 +83,7 @@ describe(`[auto generated] Verify structure names`, () => {
         info: 'No matching structure/object/class definition for structure named "idlNotebook   "',
         start: [3, 14, 14],
         end: [3, 14, 14],
+        canReport: true,
       },
     ];
 
@@ -167,6 +168,7 @@ describe(`[auto generated] Verify structure names`, () => {
         info: 'No matching structure/object/class definition for structure named "idlNotebook   "',
         start: [3, 14, 14],
         end: [3, 14, 14],
+        canReport: true,
       },
     ];
 
@@ -251,6 +253,7 @@ describe(`[auto generated] Verify structure names`, () => {
         info: 'No matching structure/object/class definition for structure named "idlNotebook   "',
         start: [3, 14, 14],
         end: [3, 14, 14],
+        canReport: true,
       },
     ];
 
@@ -335,6 +338,7 @@ describe(`[auto generated] Verify structure names`, () => {
         info: 'No matching structure/object/class definition for structure named "idlNotebook   "',
         start: [3, 14, 14],
         end: [3, 14, 14],
+        canReport: true,
       },
     ];
 
@@ -419,6 +423,7 @@ describe(`[auto generated] Verify structure names`, () => {
         info: 'No matching structure/object/class definition for structure named "idlNotebook   "',
         start: [3, 14, 14],
         end: [3, 14, 14],
+        canReport: true,
       },
     ];
 
@@ -503,6 +508,7 @@ describe(`[auto generated] Verify structure names`, () => {
         info: 'No matching structure/object/class definition for structure named "idlNotebook   "',
         start: [3, 14, 14],
         end: [3, 14, 14],
+        canReport: true,
       },
     ];
 

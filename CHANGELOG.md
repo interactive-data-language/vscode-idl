@@ -28,7 +28,29 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 - You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
 
-## 4.3.0
+## 4.3.1 February 2024
+
+Resolved an issue where the language server would take a while to startup when you didn't have any workspace folders open. It should be almost instantaneous now!
+
+Resolved an issue where problems were not correctly reported (or honoring settings changes) for files that didn't belong to a workspace.
+
+Added more controls to help fine-tune problem reporting and be able to disable it altogether:
+
+- Add code actions for being able to easily disable problem codes from within the editor for a workspace or user settings
+
+- Code actions work for notebooks or PRO files
+
+- Added an IDL comment-based API to control how problems are reported for files and lines of IDL code
+
+- Added a new preference that wil disable problem reporting altogether
+
+Update documentation for all problem codes to point to our configuration guide for how to disable problems
+
+Fixed an issue where, after the new documentation was added to the extension, that we no longer correctly opened example notebooks.
+
+With the addition of new commands for code actions and fixing reported problems, we have retroactively removed some from the command palette that were meant for internal use.
+
+## 4.3.0 February 2024
 
 Added official documentation to the extension! It is hosted on Github pages and a local copy is included with the extension.
 

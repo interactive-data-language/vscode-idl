@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   MainLevelToken,
   RoutineFunctionToken,
@@ -6,6 +5,7 @@ import {
   TOKEN_NAMES,
   VariableToken,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import {
   BRANCH_TYPES,
@@ -14,7 +14,7 @@ import {
   TreeBranchToken,
   TreeToken,
 } from '../branches.interface';
-import { IParsed } from '../build-syntax-tree.interface';
+import { IParsed } from '../parsed.interface';
 import { SyntaxProblemWithTranslation } from '../syntax-problem-with';
 import { ILocalTokenLookup } from './populate-local.interface';
 

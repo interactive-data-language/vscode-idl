@@ -184,6 +184,12 @@ See [CHANGELOG](CHANGELOG.md).
 
   - PDF icon is from "Material Icon Theme"
 
+- PDF Generation
+
+  - We use a 3rd party extension called "Markdown PDF" to create PDFs
+
+  - Credit goes to [yzane](https://github.com/yzane/vscode-markdown-pdf/tree/master) as the creator of this extension
+
 ## Usage Metrics
 
 The IDL extension for VSCode collects anonymous usage data on the extension. The goal of this information is to improve the overall experience, focus development on tools that users work with the most, and make sure our software can run on the average user's hardware.

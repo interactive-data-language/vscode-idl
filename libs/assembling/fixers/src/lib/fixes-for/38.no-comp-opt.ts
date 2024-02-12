@@ -1,6 +1,5 @@
 import { AddCodeToSyntaxTree } from '@idl/assembling/shared';
 import { ASSEMBLER_PROBLEM_FIXERS } from '@idl/assembling/tree-handlers';
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import { IParsed, TreeBranchToken, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   MainLevelToken,
@@ -8,6 +7,7 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { HasProblem } from '../helpers/has-problem';
 
@@ -41,7 +41,9 @@ ROUTINE_SKIPS[TOKEN_NAMES.ROUTINE_METHOD_NAME] = true;
  */
 function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
   // return if we don't have our problem
-  if (HasProblem(token, IDL_PROBLEM_CODES.NO_COMPILE_OPT)) {
+  if (
+    HasProblem(token, IDL_PROBLEM_CODES.NO_COMPILE_OPT, parsed.disabledProblems)
+  ) {
     // do something
     const kids = token.kids;
 

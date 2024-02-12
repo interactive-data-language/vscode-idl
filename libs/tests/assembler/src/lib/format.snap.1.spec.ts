@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -201,48 +201,56 @@ describe(`[auto generated] Verify snapping branches to remove leading and traili
         info: 'Unused variable "a"',
         start: [25, 10, 1],
         end: [25, 10, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [26, 2, 1],
         end: [26, 2, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [18, 17, 1],
         end: [18, 17, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [19, 2, 1],
         end: [19, 2, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [9, 22, 1],
         end: [9, 22, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [10, 2, 1],
         end: [10, 2, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 15, 1],
         end: [0, 15, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [1, 2, 1],
         end: [1, 2, 1],
+        canReport: true,
       },
     ];
 

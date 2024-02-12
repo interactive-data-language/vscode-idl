@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Prints JSON output summarizing key items in IDL SAVE files
 ;
