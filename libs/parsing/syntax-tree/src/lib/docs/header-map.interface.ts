@@ -16,4 +16,6 @@ export const IDL_HEADER_MAP: { [key: string]: string } = {
   description: IDL_DOCS_HEADERS.DEFAULT,
   history: IDL_DOCS_HEADERS.REVISIONS,
   hidden: IDL_DOCS_HEADERS.PRIVATE,
+  example: IDL_DOCS_HEADERS.EXAMPLES,
+  examples: IDL_DOCS_HEADERS.EXAMPLES,
 };
