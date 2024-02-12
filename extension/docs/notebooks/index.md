@@ -10,6 +10,14 @@ If you are new to notebooks, they are:
 
 - A way that you can share code with your colleagues and friends
 
+::: tip
+With the latest release of VSCode, you can now pop open notebooks in separate windows.
+
+All notebooks share the same instance of IDL behind the scenes, so you can only run one at a time with the current implementation.
+
+If you are interested in being able to run more than one notebook at a time, let us know on GitHub and we can take a look!
+:::
+
 ## Getting Started with Notebooks
 
 The easiest way to get started with IDL or ENVI Notebooks is through VSCode.
