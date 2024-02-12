@@ -48,6 +48,8 @@ Update documentation for all problem codes to point to our configuration guide f
 
 Fixed an issue where, after the new documentation was added to the extension, that we no longer correctly opened example notebooks.
 
+With the addition of new commands for code actions and fixing reported problems, we have retroactively removed some from the command palette that were meant for internal use.
+
 ## 4.3.0 February 2024
 
 Added official documentation to the extension! It is hosted on Github pages and a local copy is included with the extension.
