@@ -11,6 +11,7 @@ import {
   GLOBAL_TYPE_PATHS,
 } from './folder-map.interface';
 import { GenerateClassSummaries } from './helpers/create-class-summary';
+import { CreateRoutineDocs } from './helpers/create-routine-docs';
 import { GetClassLink } from './helpers/get-class-link';
 import { GetDisplayName } from './helpers/get-display-name';
 import { GetDocsFilepath } from './helpers/get-docs-filepath';
@@ -178,10 +179,7 @@ export async function IDLDocsExporter(
       const outUri = GetDocsFilepath(exportDir, relative);
 
       // write to disk
-      WriteFile(
-        outUri,
-        `# ${display}\n\n${item.meta.docs.replace(/</g, '\\<')}`
-      );
+      WriteFile(outUri, CreateRoutineDocs(item));
 
       // add sidebar entry
       sidebar.push({
