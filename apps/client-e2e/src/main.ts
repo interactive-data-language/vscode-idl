@@ -8,7 +8,7 @@ import expect from 'expect';
 import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';
 
-import { ResetSettingsForTests } from './reset-settings-for-tests';
+import { ResetSettingsForTests } from './tests/helpers/reset-settings-for-tests';
 import { TestRunner } from './tests/runner';
 
 /**

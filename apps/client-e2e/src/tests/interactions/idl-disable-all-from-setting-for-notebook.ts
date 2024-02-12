@@ -5,6 +5,7 @@ import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -16,23 +17,13 @@ export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
     // get the current workspace config
     const config = GetWorkspaceConfig();
 
-    // disable reporting problems
-    await config.update(
-      IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems,
-      true,
-      true
-    );
-
-    // short pause
-    await Sleep(250);
-
     // open notebook
     const nb = await OpenNotebookInVSCode(
       GetExtensionPath('idl/test/client-e2e/problems/code-actions.idlnb')
     );
 
     // short pause to make sure we open and parse
-    await Sleep(250);
+    await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
     /** Get notebook cells */
     const cells = nb
@@ -54,7 +45,7 @@ export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
     );
 
     // short pause
-    await Sleep(250);
+    await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
     // verify problems
     expect(
@@ -71,7 +62,7 @@ export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
     );
 
     // short pause to make sure we open and parse
-    await Sleep(250);
+    await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
     // verify problems
     expect(

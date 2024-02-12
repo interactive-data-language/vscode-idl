@@ -19,7 +19,7 @@ export const ProCodeCodeActionsNotebook: RunnerFunction = async (init) => {
   const doc = nb.getCells()[0].document;
 
   // short pause to make sure we open and parse
-  await Sleep(250);
+  await Sleep(1000);
 
   // get diagnostics
   const diags = GetRealDiagnostic(vscode.languages.getDiagnostics(doc.uri));

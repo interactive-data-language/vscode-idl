@@ -5,6 +5,7 @@ import expect from 'expect';
 import { readFileSync } from 'fs';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -58,7 +59,7 @@ export const ExecuteCodeActionsWithEditForNotebook: RunnerFunction = async (
   );
 
   // short pause to make sure we open and parse
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   const edit: AutoFixProblem = [
     {

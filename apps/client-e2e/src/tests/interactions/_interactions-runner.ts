@@ -91,21 +91,25 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'Disable problem reporting from root setting',
   fn: IDLDisableAllFromSettings,
+  critical: true,
 });
 
 INTERACTIONS_RUNNER.addTest({
   name: 'Disable problem reporting from root setting (notebooks)',
   fn: IDLDisableAllFromSettingsForNotebook,
+  critical: true,
 });
 
 INTERACTIONS_RUNNER.addTest({
   name: 'Disable problem reporting from individual setting',
   fn: IDLDisableIndividualsFromSettings,
+  critical: true,
 });
 
 INTERACTIONS_RUNNER.addTest({
   name: 'Disable problem reporting from individual setting (notebooks)',
   fn: IDLDisableIndividualsFromSettingsForNotebook,
+  critical: true,
 });
 
 INTERACTIONS_RUNNER.addTest({

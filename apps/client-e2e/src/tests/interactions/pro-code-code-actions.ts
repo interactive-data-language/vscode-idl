@@ -15,7 +15,7 @@ export const ProCodeCodeActionsNoExisting: RunnerFunction = async (init) => {
   );
 
   // short pause to make sure we open and parse
-  await Sleep(250);
+  await Sleep(1000);
 
   // get diagnostics
   const diags = GetRealDiagnostic(vscode.languages.getDiagnostics(doc.uri));
@@ -138,7 +138,7 @@ export const ProCodeCodeActionsExisting: RunnerFunction = async (init) => {
   );
 
   // short pause to make sure we open and parse
-  await Sleep(250);
+  await Sleep(1000);
 
   // get diagnostics
   const diags = GetRealDiagnostic(vscode.languages.getDiagnostics(doc.uri));

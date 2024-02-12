@@ -6,6 +6,7 @@ import {
   TextDocumentPositionParams,
 } from 'vscode-languageserver';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -18,7 +19,7 @@ export const NotebookCompletionBasic: RunnerFunction = async (init) => {
   );
 
   // short pause
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   /**
    * Event params for LSP user interaction

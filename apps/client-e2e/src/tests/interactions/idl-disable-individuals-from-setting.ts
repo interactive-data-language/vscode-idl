@@ -7,6 +7,7 @@ import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -37,7 +38,7 @@ export const IDLDisableIndividualsFromSettings: RunnerFunction = async () => {
   );
 
   // short pause
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // make sure it ran fine
   expect(ok).toBeTruthy();
@@ -65,7 +66,7 @@ export const IDLDisableIndividualsFromSettings: RunnerFunction = async () => {
   );
 
   // short pause to make sure we have updates
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify problems are back at the original value
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(3);

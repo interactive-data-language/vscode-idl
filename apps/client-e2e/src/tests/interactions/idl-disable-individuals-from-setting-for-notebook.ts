@@ -7,6 +7,7 @@ import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -20,7 +21,7 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
     );
 
     // short pause to make sure we open and parse
-    await Sleep(250);
+    await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
     /** Get notebook cells */
     const cells = nb
@@ -47,7 +48,7 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
     );
 
     // short pause
-    await Sleep(250);
+    await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
     // make sure it ran fine
     expect(ok).toBeTruthy();
@@ -79,7 +80,7 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
     );
 
     // short pause to make sure we have updates
-    await Sleep(250);
+    await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
     // verify problems
     expect(
