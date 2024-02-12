@@ -12,6 +12,8 @@ import {
   IDLDisableAllFromComments,
   IDLDisableLinesFromComments,
 } from './idl-disable-from-comments';
+import { IDLDisableIndividualsFromSettings } from './idl-disable-individuals-from-setting';
+import { IDLDisableIndividualsFromSettingsForNotebook } from './idl-disable-individuals-from-setting-for-notebook';
 import { IDLJSONInteractRight } from './idl-json-interact-right';
 import { IndexIDLFolderRightAndOpenEditClose } from './index-idl-folder-right-and-open-edit-close';
 import { MigrateCodeDL30, MigrateCodeDL30_2 } from './migrate-code-dl-3.0';
@@ -94,6 +96,16 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'Disable problem reporting from root setting (notebooks)',
   fn: IDLDisableAllFromSettingsForNotebook,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Disable problem reporting from individual setting',
+  fn: IDLDisableIndividualsFromSettings,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Disable problem reporting from individual setting (notebooks)',
+  fn: IDLDisableIndividualsFromSettingsForNotebook,
 });
 
 INTERACTIONS_RUNNER.addTest({
