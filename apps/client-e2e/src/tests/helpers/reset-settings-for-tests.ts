@@ -6,6 +6,7 @@ import {
   IDL_EXTENSION_CONFIG_KEYS,
 } from '@idl/vscode/extension-config';
 import copy from 'fast-copy';
+import { deepEqual } from 'fast-equals';
 import { readFileSync } from 'fs';
 
 /**
@@ -41,8 +42,10 @@ async function ResetConfigToDefault(config: IIDLWorkspaceConfig, key: string) {
     nested = nested[split[i]];
   }
 
-  // reset key
-  await config.update(cleanKey, nested, SCOPE);
+  // reset key if it has changed
+  if (!deepEqual(config.get(cleanKey), nested)) {
+    await config.update(cleanKey, nested, SCOPE);
+  }
 }
 
 /**
@@ -67,6 +70,30 @@ export async function ResetSettingsForTests(config: IIDLWorkspaceConfig) {
   for (let i = 0; i < props.length; i++) {
     await ResetConfigToDefault(config, props[i]);
   }
+
+  // // open settings
+  // await vscode.commands.executeCommand('workbench.action.openSettingsJson');
+
+  // // get current editor
+  // const activeEditor = vscode.window.activeTextEditor;
+
+  // // get current document
+  // const settings = activeEditor.document;
+
+  // // replace with default content
+  // // await ReplaceDocumentContent(settings, '{}');
+  // // await ReplaceDocumentContent(
+  // //   settings,
+  // //   `{"${IDL_LANGUAGE_NAME}.${
+  // //     IDL_EXTENSION_CONFIG_KEYS.IDLDirectory
+  // //   }": ${JSON.stringify(idlDir)}}`
+  // // );
+
+  // // update settings
+  // await settings.save();
+
+  // // Close the active settings.json editor
+  // await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
 
   /**
    * Manually specify IDL folder

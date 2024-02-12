@@ -3,6 +3,7 @@ import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -14,7 +15,7 @@ export const NotebooksNoDuplicateRoutines: RunnerFunction = async (init) => {
   );
 
   // short pause
-  await Sleep(500);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   /**
    * Get first cell which is code
@@ -30,13 +31,13 @@ export const NotebooksNoDuplicateRoutines: RunnerFunction = async (init) => {
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_FOCUS_TOP);
 
   // short pause
-  await Sleep(500);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   // delete the first cell
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CELL_DELETE);
 
   // short pause
-  await Sleep(500);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   /**
    * Get first cell which is code
@@ -57,7 +58,7 @@ export const NotebooksNoDuplicateRoutines: RunnerFunction = async (init) => {
   );
 
   // short pause
-  await Sleep(500);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   /**
    * Get second cell again

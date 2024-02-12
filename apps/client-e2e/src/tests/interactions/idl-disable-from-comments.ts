@@ -4,6 +4,7 @@ import expect from 'expect';
 import { readFileSync } from 'fs';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -15,7 +16,7 @@ export const IDLDisableAllFromComments: RunnerFunction = async (init) => {
   );
 
   // short pause to make sure we open and parse
-  await Sleep(250);
+  await Sleep(1000);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(3);
@@ -32,7 +33,7 @@ export const IDLDisableAllFromComments: RunnerFunction = async (init) => {
   );
 
   // short pause
-  await Sleep(250);
+  await Sleep(1000);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(0);
@@ -49,7 +50,7 @@ export const IDLDisableLinesFromComments: RunnerFunction = async (init) => {
   );
 
   // short pause to make sure we open and parse
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(3);
@@ -66,7 +67,7 @@ export const IDLDisableLinesFromComments: RunnerFunction = async (init) => {
   );
 
   // short pause
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(1);

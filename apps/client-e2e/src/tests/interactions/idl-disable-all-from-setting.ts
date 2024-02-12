@@ -5,6 +5,7 @@ import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -14,23 +15,13 @@ export const IDLDisableAllFromSettings: RunnerFunction = async () => {
   // get the current workspace config
   const config = GetWorkspaceConfig();
 
-  // disable reporting problems
-  await config.update(
-    IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems,
-    true,
-    true
-  );
-
-  // short pause
-  await Sleep(250);
-
   // open file
   const doc = await OpenFileInVSCode(
     GetExtensionPath('idl/test/client-e2e/problems/idl_disable_all_setting.pro')
   );
 
   // short pause to make sure we open and parse
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(3);
@@ -43,7 +34,7 @@ export const IDLDisableAllFromSettings: RunnerFunction = async () => {
   );
 
   // short pause
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify no problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(0);
@@ -56,7 +47,7 @@ export const IDLDisableAllFromSettings: RunnerFunction = async () => {
   );
 
   // short pause to make sure we open and parse
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify problems are back to normal
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(3);

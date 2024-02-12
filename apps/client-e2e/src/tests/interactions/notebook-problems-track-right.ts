@@ -3,6 +3,7 @@ import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -18,7 +19,7 @@ export const NotebookProblemsTrackRight: RunnerFunction = async (init) => {
   );
 
   // short pause
-  await Sleep(1000);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   /**
    * Verify problems before
@@ -37,7 +38,7 @@ export const NotebookProblemsTrackRight: RunnerFunction = async (init) => {
   );
 
   // short pause
-  await Sleep(1000);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   /**
    * Verify problems after have shifted

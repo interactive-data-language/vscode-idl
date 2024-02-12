@@ -4,7 +4,7 @@ import { GetWorkspaceConfig } from '@idl/vscode/config';
 import * as vscode from 'vscode';
 
 import { ACTIVATION_RESULT } from '../main';
-import { ResetSettingsForTests } from '../reset-settings-for-tests';
+import { ResetSettingsForTests } from './helpers/reset-settings-for-tests';
 import { IRunnerTest, TEST_PAUSE_MS } from './runner.interface';
 
 /**
