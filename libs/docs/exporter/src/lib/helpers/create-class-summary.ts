@@ -52,10 +52,12 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
       };
     }
 
-    // save docs for properties
-    classes[structs[i].name].properties = Object.values(
-      structs[i].meta.props
-    ).map((prop) => DocsForProperty(prop));
+    // save docs for properties if public
+    if (!structs[i].meta.private) {
+      classes[structs[i].name].properties = Object.values(
+        structs[i].meta.props
+      ).map((prop) => DocsForProperty(prop));
+    }
   }
 
   /**
@@ -136,6 +138,16 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
   for (let i = 0; i < names.length; i++) {
     /** Info about our class */
     const info = classes[names[i]];
+
+    // check if we need to skip classes that have nothing documented about them
+    if (
+      info.functions.length +
+        info.procedures.length +
+        info.properties.length ===
+      0
+    ) {
+      continue;
+    }
 
     // save strings
     const strings: string[] = [];

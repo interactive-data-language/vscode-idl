@@ -122,6 +122,9 @@ export async function IDLDocsExporter(
     });
   }
 
+  // create the sidebar for our routines
+  const routineSidebar: any[] = [];
+
   /**
    * Process each type we export
    */
@@ -206,19 +209,29 @@ export async function IDLDocsExporter(
         exportTypes[i] !== GLOBAL_TOKEN_TYPES.FUNCTION_METHOD &&
         exportTypes[i] !== GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD
       ) {
-        apiSidebar.push({
+        routineSidebar.push({
           text: GLOBAL_DOCS_NAMES[exportTypes[i]],
           items: sidebar,
           link: relative,
           collapsed: true,
         });
       } else {
-        apiSidebar.push({
+        routineSidebar.push({
           text: GLOBAL_DOCS_NAMES[exportTypes[i]],
           link: relative,
         });
       }
     }
+  }
+
+  if (routineSidebar.length > 0) {
+    apiSidebar.push({
+      text: 'Routines',
+      items: routineSidebar.sort((a, b) =>
+        a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+      ),
+      collapsed: true,
+    });
   }
 
   // export the sidebar
