@@ -5,6 +5,7 @@ import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDL_EXTENSION_CONFIG_KEYS,
 } from '@idl/vscode/extension-config';
+import copy from 'fast-copy';
 import { readFileSync } from 'fs';
 
 /**
@@ -18,11 +19,16 @@ const PACKAGE = JSON.parse(
 );
 
 /**
+ * Copy the config
+ */
+let SAFE_COPY = copy(DEFAULT_IDL_EXTENSION_CONFIG);
+
+/**
  * Wrapper to correctly set config because of nonsense settings API
  */
 async function ResetConfigToDefault(config: IIDLWorkspaceConfig, key: string) {
   // starting point to descend
-  let nested = DEFAULT_IDL_EXTENSION_CONFIG;
+  let nested = SAFE_COPY;
 
   /** remove BS from keys from package */
   const cleanKey = key.replace(`${IDL_LANGUAGE_NAME}.`, '');
@@ -43,7 +49,12 @@ async function ResetConfigToDefault(config: IIDLWorkspaceConfig, key: string) {
  * Reset extension config for running tests to make sure it is always fresh and consistent
  */
 export async function ResetSettingsForTests(config: IIDLWorkspaceConfig) {
+  // reset our safe copy
+  SAFE_COPY = copy(DEFAULT_IDL_EXTENSION_CONFIG);
+
+  // track props to update
   let props: string[] = [];
+
   /** Get defaults */
   const fConfig = PACKAGE['contributes']['configuration'];
 
