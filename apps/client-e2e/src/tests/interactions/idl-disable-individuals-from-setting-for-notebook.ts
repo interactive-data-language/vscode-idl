@@ -1,6 +1,8 @@
 import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared';
 import { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { GetWorkspaceConfig } from '@idl/vscode/config';
+import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
@@ -65,4 +67,24 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
 
     // make sure it ran fine
     expect(ok2).toBeFalsy();
+
+    // get config
+    const config = GetWorkspaceConfig();
+
+    // reset
+    await config.update(
+      IDL_EXTENSION_CONFIG_KEYS.problemsIgnoreProblems,
+      [],
+      true
+    );
+
+    // short pause to make sure we have updates
+    await Sleep(250);
+
+    // verify problems
+    expect(
+      cells.map(
+        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
+      )
+    ).toEqual([1]);
   };
