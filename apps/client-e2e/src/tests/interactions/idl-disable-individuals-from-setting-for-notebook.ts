@@ -1,0 +1,68 @@
+import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared';
+import { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { OpenNotebookInVSCode } from '@idl/vscode/shared';
+import expect from 'expect';
+import * as vscode from 'vscode';
+
+import { RunnerFunction } from '../runner.interface';
+
+/**
+ * Makes sure that we can disable single problems and it works for notebooks
+ */
+export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
+  async () => {
+    // open notebook
+    const nb = await OpenNotebookInVSCode(
+      GetExtensionPath('idl/test/client-e2e/problems/code-actions.idlnb')
+    );
+
+    // short pause to make sure we open and parse
+    await Sleep(250);
+
+    /** Get notebook cells */
+    const cells = nb
+      .getCells()
+      .filter((cell) => cell.kind === vscode.NotebookCellKind.Code);
+
+    // verify problems
+    expect(
+      cells.map(
+        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
+      )
+    ).toEqual([1]);
+
+    // create payload
+    const toDisable: IAutoFixIDLDiagnostic = {
+      code: IDL_PROBLEM_CODES.UNUSED_VARIABLE,
+      scope: 'user',
+    };
+
+    // run command
+    const ok = await vscode.commands.executeCommand(
+      IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
+      toDisable
+    );
+
+    // short pause
+    await Sleep(250);
+
+    // make sure it ran fine
+    expect(ok).toBeTruthy();
+
+    // verify problems
+    expect(
+      cells.map(
+        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
+      )
+    ).toEqual([0]);
+
+    // run command again - should return "false" because we didnt add because it exists already
+    const ok2 = await vscode.commands.executeCommand(
+      IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
+      toDisable
+    );
+
+    // make sure it ran fine
+    expect(ok2).toBeFalsy();
+  };
