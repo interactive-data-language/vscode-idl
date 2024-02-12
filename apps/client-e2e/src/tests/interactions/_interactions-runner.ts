@@ -2,6 +2,10 @@ import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
 import { AddDocs } from './add-docs';
+import {
+  ExecuteCodeActionsWithEditForNotebook,
+  ExecuteCodeActionsWithEditForPROFile,
+} from './execute-code-actions-with-edits';
 import { IDLDisableAllFromSettings } from './idl-disable-all-from-setting';
 import { IDLDisableAllFromSettingsForNotebook } from './idl-disable-all-from-setting-for-notebook';
 import {
@@ -105,6 +109,16 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'Code actions for notebook cell',
   fn: ProCodeCodeActionsExisting,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Execute code actions for PRO code',
+  fn: ExecuteCodeActionsWithEditForPROFile,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Execute code actions for notebook',
+  fn: ExecuteCodeActionsWithEditForNotebook,
 });
 
 INTERACTIONS_RUNNER.addTest({
