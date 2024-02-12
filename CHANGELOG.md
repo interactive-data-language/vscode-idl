@@ -46,6 +46,8 @@ Added more controls to help fine-tune problem reporting and be able to disable i
 
 Update documentation for all problem codes to point to our configuration guide for how to disable problems
 
+Fixed an issue where, after the new documentation was added to the extension, that we no longer correctly opened example notebooks.
+
 ## 4.3.0 February 2024
 
 Added official documentation to the extension! It is hosted on Github pages and a local copy is included with the extension.

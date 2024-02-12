@@ -244,7 +244,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           // if it doesnt exist, copy it
           if (!existsSync(exampleUri)) {
             await cp(
-              GetExtensionPath('extension/docs/notebooks'),
+              GetExtensionPath('extension/example-notebooks'),
               EXAMPLE_NOTEBOOKS,
               { recursive: true }
             );
@@ -283,7 +283,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           // if it doesnt exist, copy it
           if (!existsSync(exampleUri)) {
             await cp(
-              GetExtensionPath('extension/docs/notebooks'),
+              GetExtensionPath('extension/example-notebooks'),
               EXAMPLE_NOTEBOOKS,
               { recursive: true }
             );
@@ -419,7 +419,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           }
 
           await cp(
-            GetExtensionPath('extension/docs/notebooks'),
+            GetExtensionPath('extension/example-notebooks'),
             EXAMPLE_NOTEBOOKS,
             { recursive: true }
           );
