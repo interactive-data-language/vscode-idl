@@ -42,7 +42,7 @@ Added more controls to help fine-tune problem reporting and be able to disable i
 
 - Added an IDL comment-based API to control how problems are reported for files and lines of IDL code
 
-- Added a new preference that wil disable problem reporting altogether
+- Added a new preference that will disable problem reporting altogether
 
 Update documentation for all problem codes to point to our configuration guide for how to disable problems
 
