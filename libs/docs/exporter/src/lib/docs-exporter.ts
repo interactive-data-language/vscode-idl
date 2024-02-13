@@ -107,7 +107,12 @@ export async function IDLDocsExporter(
     // write to disk
     WriteFile(
       uri,
-      `# ${classes[classNames[i]].display}\n\n${classes[classNames[i]].summary}`
+      await NormalizeCodeBlocks(
+        index,
+        `# ${classes[classNames[i]].display}\n\n${
+          classes[classNames[i]].summary
+        }`
+      )
     );
 
     // create sidebar

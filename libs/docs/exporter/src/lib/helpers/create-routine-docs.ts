@@ -139,7 +139,7 @@ export function CreateRoutineDocs(
   // }
 
   // add arguments
-  const args = Object.values(meta.args);
+  const args = Object.values(meta.args || {});
   if (args.length > 0) {
     docs.push('## Arguments');
     docs.push('');
@@ -151,7 +151,7 @@ export function CreateRoutineDocs(
   }
 
   // add keywords
-  const kws = Object.values(meta.kws);
+  const kws = Object.values(meta.kws || {});
   if (kws.length > 0) {
     docs.push('## Keywords');
     docs.push('');

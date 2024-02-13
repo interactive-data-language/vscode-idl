@@ -1,4 +1,5 @@
-import { IDLIndex } from '@idl/parsing/index';
+import { IDLIndex, ResolveHoverHelpLinks } from '@idl/parsing/index';
+import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 
 import { FormatDocsCode } from '../helpers/format-docs-code';
 
@@ -7,7 +8,9 @@ import { FormatDocsCode } from '../helpers/format-docs-code';
  */
 export async function NormalizeCodeBlocks(index: IDLIndex, docs: string) {
   /** Make array of strings */
-  const split = docs.split(/\n/gim);
+  const split = ResolveHoverHelpLinks(docs, DEFAULT_IDL_EXTENSION_CONFIG).split(
+    /\n/gim
+  );
 
   // init start index
   let start: number;

@@ -54,7 +54,7 @@ export function CreateRoutineSyntax(
   }
 
   // process args
-  const argNames = Object.keys(meta.args);
+  const argNames = Object.keys(meta.args || {});
   for (let i = 0; i < argNames.length; i++) {
     // add comma
     if (i === 0 && !isFunction) {
@@ -85,7 +85,7 @@ export function CreateRoutineSyntax(
   }
 
   // process args
-  const kwNames = Object.keys(meta.kws);
+  const kwNames = Object.keys(meta.kws || {});
   for (let i = 0; i < kwNames.length; i++) {
     // get space before
     let before = syntax.length === 1 ? '' : '  ';
