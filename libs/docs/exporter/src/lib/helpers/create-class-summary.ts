@@ -166,8 +166,6 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     // check for matching function
     const init = functions.find((item) => item.name === names[i]);
 
-    console.log(`Init function: ${init}`);
-
     // check if we found an init function thats documented
     if (init) {
       strings.push(
