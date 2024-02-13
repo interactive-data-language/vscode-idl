@@ -80,24 +80,41 @@ export class GlobalIndex {
    */
   export(
     globs: string[] = [],
-    filters: string[] = []
+    filters: string[] = [],
+    everything = false
   ): ExportedGlobalTokensByType {
-    /** Convert globs to regex */
-    const exprs = globs.map((item) => GlobToRegExp(item, { flags: '' }));
-
-    /** Convert globs to regex */
-    const badExprs = filters.map((item) => GlobToRegExp(item, { flags: '' }));
-
     /**
      * Exported tokens
      */
     const exported = {} as ExportedGlobalTokensByType;
 
-    // populate for each token type
+    /**
+     * Types of the global tokens
+     */
     const types = Object.values(GLOBAL_TOKEN_TYPES);
+
+    // init return value
     for (let i = 0; i < types.length; i++) {
       exported[types[i]] = [];
     }
+
+    // check if we export everything
+    if (everything) {
+      for (let i = 0; i < types.length; i++) {
+        const byNameForType = this.globalTokensByTypeByName[types[i]];
+        const names = Object.keys(byNameForType);
+        for (let j = 0; j < names.length; j++) {
+          exported[types[i]].push(byNameForType[names[j]][0]);
+        }
+      }
+      return exported;
+    }
+
+    /** Convert globs to regex */
+    const exprs = globs.map((item) => GlobToRegExp(item, { flags: '' }));
+
+    /** Convert globs to regex */
+    const badExprs = filters.map((item) => GlobToRegExp(item, { flags: '' }));
 
     /** Get files */
     const files = Object.keys(this.globalTokensByFile);
