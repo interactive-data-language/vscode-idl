@@ -4,12 +4,11 @@ import {
   CreateRoutineSyntax,
   IDL_DOCS_HEADERS,
 } from '@idl/parsing/syntax-tree';
-import { GlobalRoutineToken, ParseIDLType } from '@idl/types/core';
+import { GlobalRoutineToken } from '@idl/types/core';
 
 import { CleanDocs } from './clean-docs';
 import { DocsForParameter } from './docs-for-parameter';
 import { GetClassLink } from './get-class-link';
-import { GetReturnsBadge } from './get-returns-badge';
 
 /**
  * Generates routine docs from a global token
@@ -24,6 +23,9 @@ export function CreateRoutineDocs(item: GlobalIndexedToken) {
   /** Get docs lookup */
   const docsLookup = meta.docsLookup;
 
+  /** Track the keys for the docs that we have processed */
+  const usedKeys: { [key: string]: any } = {};
+
   /** Create docs  */
   const docs: string[] = [
     `---`,
@@ -33,14 +35,6 @@ export function CreateRoutineDocs(item: GlobalIndexedToken) {
     `# ${meta.display}`,
     '',
   ];
-
-  if (meta.display.includes('::')) {
-    const className = meta.display.split('::')[0];
-    docs.push(`Member of [${className}](${GetClassLink(className)})`);
-    docs.push('');
-    docs.push('---');
-    docs.push('');
-  }
 
   /**
    * Code to put link in the header
@@ -57,8 +51,35 @@ export function CreateRoutineDocs(item: GlobalIndexedToken) {
   //   docs.push('');
   // }
 
-  /** Track the keys for the docs that we have processed */
-  const usedKeys: { [key: string]: any } = {};
+  // check if a class
+  if (meta.display.includes('::')) {
+    const className = meta.display.split('::')[0];
+    docs.push(`Member of [${className}](${GetClassLink(className)})`);
+    docs.push('');
+  }
+
+  /**
+   * Add routine syntax
+   */
+  docs.push('');
+  docs.push('```idl:no-line-numbers');
+  if (IDL_DOCS_HEADERS.RETURNS in docsLookup) {
+    docs.push(';+');
+    docs.push(`; :Returns: ${docsLookup[IDL_DOCS_HEADERS.RETURNS]}`);
+    docs.push(';-');
+    usedKeys[IDL_DOCS_HEADERS.RETURNS] = undefined;
+  }
+  docs.push(
+    CreateRoutineSyntax(
+      {
+        name: meta.display,
+        meta: meta,
+      },
+      true
+    )
+  );
+  docs.push('```');
+  docs.push('');
 
   // check for special docs to add
   if (IDL_DOCS_HEADERS.DEFAULT in docsLookup) {
@@ -75,42 +96,17 @@ export function CreateRoutineDocs(item: GlobalIndexedToken) {
     usedKeys[IDL_DOCS_HEADERS.EXAMPLES] = undefined;
   }
 
-  /**
-   * Add routine syntax
-   */
-  docs.push('## Syntax');
-  docs.push('');
+  // /**
+  //  * Add return value
+  //  */
   // if (IDL_DOCS_HEADERS.RETURNS in docsLookup) {
   //   docs.push(
-  //     GetReturnsBadge(ParseIDLType(docsLookup[IDL_DOCS_HEADERS.RETURNS]))
+  //     `### Return Value:${GetReturnsBadge(
+  //       ParseIDLType(docsLookup[IDL_DOCS_HEADERS.RETURNS])
+  //     )}`
   //   );
-  //   docs.push('');
   //   usedKeys[IDL_DOCS_HEADERS.RETURNS] = undefined;
   // }
-  docs.push('```idl:no-line-numbers');
-  docs.push(
-    CreateRoutineSyntax(
-      {
-        name: meta.display,
-        meta: meta,
-      },
-      true
-    )
-  );
-  docs.push('```');
-  docs.push('');
-
-  /**
-   * Add return value
-   */
-  if (IDL_DOCS_HEADERS.RETURNS in docsLookup) {
-    docs.push(
-      `### Return Value:${GetReturnsBadge(
-        ParseIDLType(docsLookup[IDL_DOCS_HEADERS.RETURNS])
-      )}`
-    );
-    usedKeys[IDL_DOCS_HEADERS.RETURNS] = undefined;
-  }
 
   // add arguments
   const args = Object.values(meta.args);
