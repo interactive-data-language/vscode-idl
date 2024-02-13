@@ -1,6 +1,6 @@
 import { GlobalDisplayNameLookup, IGlobalFromIDL } from '@idl/parsing/routines';
 import { DocsToMarkdown, MARKDOWN_TYPE_LOOKUP } from '@idl/parsing/syntax-tree';
-import { HostedDocsURLFromLocal } from '@idl/shared';
+import { ResolveProductDocsURL } from '@idl/shared';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
@@ -295,7 +295,7 @@ export async function RoutineToGlobal(
   }
 
   // make the URL for our online docs
-  const url = HostedDocsURLFromLocal(r.link);
+  const url = ResolveProductDocsURL(r.link);
 
   // get our parsed content
   const routine = parsed[keyName];
@@ -807,7 +807,7 @@ export async function RoutineToGlobal(
       }
     }
 
-    if (!(useName in STRUCTURE_SKIPS)) {
+    if (!(useName in STRUCTURE_SKIPS) && !useName.includes('::')) {
       // initialize our metadata
       const struct: IGlobalIndexedToken<GlobalStructureToken> = {
         type: GLOBAL_TOKEN_TYPES.STRUCTURE,
@@ -848,6 +848,11 @@ export async function RoutineToGlobal(
 export function RoutineToGlobalAddMissingStructures(global: GlobalTokens) {
   const keys = Object.keys(ADD_STRUCTURES);
   for (let i = 0; i < keys.length; i++) {
+    // skip if not a real structure
+    if (keys[i].includes('::')) {
+      continue;
+    }
+
     // initialize our metadata
     const struct: IGlobalIndexedToken<GlobalStructureToken> = {
       type: GLOBAL_TOKEN_TYPES.STRUCTURE,
