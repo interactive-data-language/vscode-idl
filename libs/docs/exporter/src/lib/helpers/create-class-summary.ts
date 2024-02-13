@@ -1,7 +1,12 @@
 import { ExportedGlobalTokensByType } from '@idl/parsing/index';
+import {
+  CreateRoutineSyntax,
+  IDL_DOCS_HEADERS,
+} from '@idl/parsing/syntax-tree';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { DefaultTheme } from 'vitepress';
 
+import { CleanDocs } from './clean-docs';
 import { DocsForProperty } from './docs-for-property';
 import { GetClassLink } from './get-class-link';
 import { GetDisplayName } from './get-display-name';
@@ -131,6 +136,9 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     };
   } = {};
 
+  /** Get all functions */
+  const functions = exported[GLOBAL_TOKEN_TYPES.FUNCTION];
+
   /**
    * Create class pages
    */
@@ -154,6 +162,44 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
 
     // filter out class inheritance for undocumented classes
     info.inherits = info.inherits.filter((parent) => parent in classes);
+
+    // check for matching function
+    const init = functions.find((item) => item.name === names[i]);
+
+    console.log(`Init function: ${init}`);
+
+    // check if we found an init function thats documented
+    if (init) {
+      strings.push(
+        `See the function [${init.meta.display}()](${GetDocsLink(
+          init
+        )}) for creation details`
+      );
+      strings.push('');
+      strings.push('```idl:no-line-numbers');
+      strings.push(';+');
+      strings.push(`; :Returns: ${init.meta.display}`);
+      strings.push(';-');
+      strings.push(
+        CreateRoutineSyntax(
+          {
+            name: init.meta.display,
+            meta: init.meta,
+          },
+          true
+        )
+      );
+      strings.push('```');
+      strings.push('');
+
+      if (init.meta.docsLookup)
+        if (IDL_DOCS_HEADERS.DEFAULT in init.meta.docsLookup) {
+          strings.push(
+            CleanDocs(init.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT])
+          );
+          strings.push('\n');
+        }
+    }
 
     // check for inheritance
     if (info.inherits.length > 0) {

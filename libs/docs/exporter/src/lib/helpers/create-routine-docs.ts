@@ -1,10 +1,13 @@
-import { GlobalIndexedToken } from '@idl/parsing/index';
+import {
+  ExportedGlobalTokensByType,
+  GlobalIndexedToken,
+} from '@idl/parsing/index';
 import {
   CapitalizeWord,
   CreateRoutineSyntax,
   IDL_DOCS_HEADERS,
 } from '@idl/parsing/syntax-tree';
-import { GlobalRoutineToken } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES, GlobalRoutineToken } from '@idl/types/core';
 
 import { CleanDocs } from './clean-docs';
 import { DocsForParameter } from './docs-for-parameter';
@@ -13,7 +16,13 @@ import { GetClassLink } from './get-class-link';
 /**
  * Generates routine docs from a global token
  */
-export function CreateRoutineDocs(item: GlobalIndexedToken) {
+export function CreateRoutineDocs(
+  item: GlobalIndexedToken,
+  exported: ExportedGlobalTokensByType
+) {
+  /** Get the structures we are exporting */
+  const structures = exported[GLOBAL_TOKEN_TYPES.STRUCTURE];
+
   /** Fix type, silly workaround for where we call this */
   const typed = item as GlobalRoutineToken;
 
@@ -51,11 +60,32 @@ export function CreateRoutineDocs(item: GlobalIndexedToken) {
   //   docs.push('');
   // }
 
-  // check if a class
-  if (meta.display.includes('::')) {
-    const className = meta.display.split('::')[0];
-    docs.push(`Member of [${className}](${GetClassLink(className)})`);
-    docs.push('');
+  /**
+   * Check for special additions to the header
+   */
+  switch (true) {
+    /**
+     * Class method
+     */
+    case meta.display.includes('::'): {
+      const className = meta.display.split('::')[0];
+      docs.push(`Member of [${className}](${GetClassLink(className)})`);
+      docs.push('');
+      break;
+    }
+    /**
+     * Init method
+     */
+    case structures.find((struct) => struct.name === item.name) !== undefined:
+      docs.push(
+        `Returns an instance of the class [${item.meta.display}](${GetClassLink(
+          item.name
+        )})`
+      );
+      docs.push('');
+      break;
+    default:
+      break;
   }
 
   /**
