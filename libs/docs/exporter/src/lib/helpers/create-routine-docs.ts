@@ -38,6 +38,8 @@ export function CreateRoutineDocs(item: GlobalIndexedToken) {
     const className = meta.display.split('::')[0];
     docs.push(`Member of [${className}](${GetClassLink(className)})`);
     docs.push('');
+    docs.push('---');
+    docs.push('');
   }
 
   /**
@@ -85,12 +87,15 @@ export function CreateRoutineDocs(item: GlobalIndexedToken) {
   //   docs.push('');
   //   usedKeys[IDL_DOCS_HEADERS.RETURNS] = undefined;
   // }
-  docs.push('```idl');
+  docs.push('```idl:no-line-numbers');
   docs.push(
-    CreateRoutineSyntax({
-      name: meta.display,
-      meta: meta,
-    })
+    CreateRoutineSyntax(
+      {
+        name: meta.display,
+        meta: meta,
+      },
+      true
+    )
   );
   docs.push('```');
   docs.push('');

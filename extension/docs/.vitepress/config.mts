@@ -65,6 +65,9 @@ export default defineConfig({
       infoLabel: 'Information',
     },
 
+    // line numbers in code blocks or not
+    lineNumbers: true,
+
     /**
      * Code themes: https://shiki.style/themes#special-themes
      */
