@@ -14,7 +14,8 @@ import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';
  * Gets syntax signature for a routine
  */
 export function CreateRoutineSyntax(
-  info: MarkdownInfo<RoutineMarkdown>
+  info: MarkdownInfo<RoutineMarkdown>,
+  forDocs = false
 ): string {
   /** Metadata for routine */
   const meta = info.meta;
@@ -72,11 +73,14 @@ export function CreateRoutineSyntax(
       continue;
     }
 
+    // get space before
+    const before = syntax.length === 1 ? '' : ' ';
+
     // check how to display (depends on if required)
-    if (arg.req) {
-      syntax.push(` ${arg.display}`);
+    if (arg.req || forDocs) {
+      syntax.push(`${before}${arg.display}`);
     } else {
-      syntax.push(` [ ${arg.display} ]`);
+      syntax.push(`${before}[ ${arg.display} ]`);
     }
   }
 
@@ -84,8 +88,15 @@ export function CreateRoutineSyntax(
   const kwNames = Object.keys(meta.kws);
   for (let i = 0; i < kwNames.length; i++) {
     if (i === 0) {
-      if (!isFunction || argNames.length > 0) {
-        syntax.push(', $\n');
+      switch (true) {
+        case syntax.length === 1:
+          syntax.push(',');
+          break;
+        case !isFunction || argNames.length > 0:
+          syntax.push(', $\n');
+          break;
+        default:
+          break;
       }
     } else {
       syntax.push(`, $\n`);
@@ -104,14 +115,21 @@ export function CreateRoutineSyntax(
     if (IDLTypeHelper.isType(kw?.type || [], IDL_TYPE_LOOKUP.BOOLEAN)) {
       kwSyntax = `/${kw.display}`;
     } else {
-      kwSyntax = `${kw.display} = ${SerializeIDLType(kw?.type)}`;
+      if (forDocs) {
+        kwSyntax = `${kw.display} = value`;
+      } else {
+        kwSyntax = `${kw.display} = '${SerializeIDLType(kw?.type)}'`;
+      }
     }
 
+    // get space before
+    const before = syntax.length === 1 ? '' : '  ';
+
     // check how to display (depends on if required)
-    if (kw.req) {
-      syntax.push(` ${kwSyntax}`);
+    if (kw.req || forDocs) {
+      syntax.push(`${before}${kwSyntax}`);
     } else {
-      syntax.push(` [ ${kwSyntax} ]`);
+      syntax.push(`${before}[ ${kwSyntax} ]`);
     }
   }
   // check if we need to close our function syntax call
