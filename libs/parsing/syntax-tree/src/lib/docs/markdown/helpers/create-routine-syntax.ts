@@ -95,7 +95,7 @@ export function CreateRoutineSyntax(
      */
     if (i === 0) {
       switch (true) {
-        case syntax.length === 1:
+        case !isFunction && syntax.length === 1:
           syntax.push(',');
           before = ' ';
           break;

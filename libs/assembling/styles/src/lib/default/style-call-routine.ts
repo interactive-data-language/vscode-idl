@@ -24,7 +24,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     const low = token.match[1].replace(/\s/gim, '').toLowerCase();
 
     // check if we have a known function
-    if (low in FUNCTIONS) {
+    if (low in FUNCTIONS && !meta.vanilla) {
       token.match[0] = `${TransformCase(FUNCTIONS[low], meta.style.routines)}(`;
     } else {
       token.match[0] = TransformCase(
@@ -46,7 +46,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
 
     // check if we have a known procedure
     token.match[0] = TransformCase(
-      low in PROCEDURES ? PROCEDURES[low] : token.match[0],
+      low in PROCEDURES && !meta.vanilla ? PROCEDURES[low] : token.match[0],
       meta.style.routines
     );
   }
