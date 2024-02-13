@@ -37,7 +37,7 @@ async function main() {
   await index.indexWorkspace([codeDir], false);
 
   /** Export */
-  await IDLDocsExporter(index, outDir, matches, exclude);
+  await IDLDocsExporter(index, codeDir, outDir, matches, exclude);
 }
 
 main()

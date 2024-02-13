@@ -1,3 +1,8 @@
+import {
+  DEFAULT_ASSEMBLER_OPTIONS,
+  FormatterType,
+  IAssemblerOptions,
+} from '@idl/assembling/config';
 import { IDLIndex } from '@idl/parsing/index';
 import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/core';
 import { existsSync, mkdirSync, rmSync } from 'fs';
@@ -19,10 +24,19 @@ import { GetDocsLink } from './helpers/get-docs-link';
 import { WriteFile } from './helpers/write-file';
 
 /**
+ * The assembling config for the current workspace we are exporting docs for
+ *
+ * Which can be used to normalize names
+ */
+let CURRENT_CONFIG: IAssemblerOptions<FormatterType> =
+  DEFAULT_ASSEMBLER_OPTIONS;
+
+/**
  * Exports docs fro a given folder from our application
  */
 export async function IDLDocsExporter(
   index: IDLIndex,
+  workspace: string,
   outDir: string,
   globs: string[],
   exclude: string[]
@@ -41,6 +55,9 @@ export async function IDLDocsExporter(
    * Get folder we export to
    */
   const exportDir = join(outDir, 'api');
+
+  // update current config
+  CURRENT_CONFIG = index.getConfigForFile(join(workspace, 'foo.md'));
 
   /**
    * Delete the folder if it exists
