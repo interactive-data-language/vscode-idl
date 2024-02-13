@@ -30,14 +30,19 @@ export function CreateRoutineSyntax(
 
   // check if we are a function or not
   if (isFunction) {
-    if (info.name.includes('::')) {
-      syntax.push(`result = ${splitName[0]}.${splitName[1]}(`);
-    } else {
-      if (TASK_REGEX.test(info.name)) {
+    switch (true) {
+      case info.name.toLowerCase().endsWith('::init'):
+        syntax.push(`result = ${splitName[0]}(`);
+        break;
+      case info.name.includes('::'):
+        syntax.push(`result = ${splitName[0]}.${splitName[1]}(`);
+        break;
+      case TASK_REGEX.test(info.name):
         syntax.push(`result = ${TaskFunctionName(info.name, "'")}`);
-      } else {
+        break;
+      default:
         syntax.push(`result = ${info.name}(`);
-      }
+        break;
     }
   } else {
     if (info.name.includes('::')) {
