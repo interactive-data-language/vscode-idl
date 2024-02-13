@@ -26,13 +26,22 @@ export async function NormalizeCodeBlocks(index: IDLIndex, docs: string) {
     if (start !== undefined) {
       if (split[i].trim() === '```') {
         // get the code to format
-        const code = split.slice(start, i - 1);
+        const code = split.slice(start, i);
+
+        console.log(code);
 
         // format the code
-        const formatted = await FormatDocsCode(index, code.join('\n'));
+        const formatted = (await FormatDocsCode(index, code.join('\n'))).split(
+          /\n/g
+        );
 
-        // replace elements
-        split.splice(start, i - start, ...formatted.split(/\n/g));
+        console.log(formatted);
+        console.log();
+
+        // replace
+        for (let j = 0; j < code.length; j++) {
+          split[start + j] = formatted[j];
+        }
 
         // reset
         start = undefined;
