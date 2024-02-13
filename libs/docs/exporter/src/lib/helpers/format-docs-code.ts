@@ -25,10 +25,9 @@ export async function FormatDocsCode(index: IDLIndex, code: string) {
   // attempt to format
   let formatted = Assembler(parsed, new CancellationToken(), {
     ...CURRENT_CONFIG,
-    spaceOffset: 2,
-    autoFix: true,
+    autoFix: false,
     autoDoc: false,
-    vanilla: true,
+    // vanilla: true,
   });
 
   // remove extra end if we have it
