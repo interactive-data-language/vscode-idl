@@ -6,10 +6,10 @@ import { IParameterOrPropertyDetails } from '@idl/types/core';
 export function GetDirectionBadge(prop: IParameterOrPropertyDetails) {
   switch (prop.direction) {
     case 'in':
-      return `<Badge type="info" text="direction=in" />`;
+      return `<Badge type="info" text="input" />`;
     case 'out':
-      return `<Badge type="info" text="direction=out" />`;
+      return `<Badge type="info" text="output" />`;
     default:
-      return `<Badge type="info" text="direction=in/out" />`;
+      return `<Badge type="info" text="in or out" />`;
   }
 }
