@@ -30,7 +30,7 @@ export function CreateRoutineDocs(
   const meta = typed.meta;
 
   /** Get docs lookup */
-  const docsLookup = meta.docsLookup;
+  const docsLookup = meta.docsLookup || {};
 
   /** Track the keys for the docs that we have processed */
   const usedKeys: { [key: string]: any } = {};
