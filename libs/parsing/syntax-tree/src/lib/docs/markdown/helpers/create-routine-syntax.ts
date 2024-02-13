@@ -87,10 +87,17 @@ export function CreateRoutineSyntax(
   // process args
   const kwNames = Object.keys(meta.kws);
   for (let i = 0; i < kwNames.length; i++) {
+    // get space before
+    let before = syntax.length === 1 ? '' : '  ';
+
+    /**
+     * check how to manage new lines for keyword
+     */
     if (i === 0) {
       switch (true) {
         case syntax.length === 1:
           syntax.push(',');
+          before = ' ';
           break;
         case !isFunction || argNames.length > 0:
           syntax.push(', $\n');
@@ -121,9 +128,6 @@ export function CreateRoutineSyntax(
         kwSyntax = `${kw.display} = '${SerializeIDLType(kw?.type)}'`;
       }
     }
-
-    // get space before
-    const before = syntax.length === 1 ? '' : '  ';
 
     // check how to display (depends on if required)
     if (kw.req || forDocs) {
