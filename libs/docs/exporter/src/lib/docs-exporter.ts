@@ -22,13 +22,15 @@ import { GetDisplayName } from './helpers/get-display-name';
 import { GetDocsFilepath } from './helpers/get-docs-filepath';
 import { GetDocsLink } from './helpers/get-docs-link';
 import { WriteFile } from './helpers/write-file';
+import { NormalizeCodeBlocks } from './normalizers/normalize-code-blocks';
+import { NormalizeItem } from './normalizers/normalize-item';
 
 /**
  * The assembling config for the current workspace we are exporting docs for
  *
  * Which can be used to normalize names
  */
-let CURRENT_CONFIG: IAssemblerOptions<FormatterType> =
+export const CURRENT_CONFIG: IAssemblerOptions<FormatterType> =
   DEFAULT_ASSEMBLER_OPTIONS;
 
 /**
@@ -51,13 +53,21 @@ export async function IDLDocsExporter(
    */
   const exportTypes = Object.keys(toExport) as GlobalTokenType[];
 
+  // normalize all of the items that we export
+  for (let i = 0; i < exportTypes.length; i++) {
+    const toUpdate = Object.values(toExport[exportTypes[i]]);
+    for (let j = 0; j < toUpdate.length; j++) {
+      await NormalizeItem(toUpdate[j]);
+    }
+  }
+
   /**
    * Get folder we export to
    */
   const exportDir = join(outDir, 'api');
 
   // update current config
-  CURRENT_CONFIG = index.getConfigForFile(join(workspace, 'foo.md'));
+  // CURRENT_CONFIG = index.getConfigForFile(join(workspace, 'foo.md'));
 
   /**
    * Delete the folder if it exists
@@ -195,8 +205,11 @@ export async function IDLDocsExporter(
       /** Specify the folder */
       const outUri = GetDocsFilepath(exportDir, relative);
 
+      /** Create our docs */
+      const docs = CreateRoutineDocs(item);
+
       // write to disk
-      WriteFile(outUri, CreateRoutineDocs(item));
+      WriteFile(outUri, await NormalizeCodeBlocks(index, docs));
 
       // add sidebar entry
       sidebar.push({
