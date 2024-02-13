@@ -206,7 +206,7 @@ export async function IDLDocsExporter(
       const outUri = GetDocsFilepath(exportDir, relative);
 
       /** Create our docs */
-      const docs = CreateRoutineDocs(item);
+      const docs = CreateRoutineDocs(item, toExport);
 
       // write to disk
       WriteFile(outUri, await NormalizeCodeBlocks(index, docs));
