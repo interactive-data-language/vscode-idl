@@ -28,15 +28,10 @@ export async function NormalizeCodeBlocks(index: IDLIndex, docs: string) {
         // get the code to format
         const code = split.slice(start, i);
 
-        console.log(code);
-
         // format the code
         const formatted = (await FormatDocsCode(index, code.join('\n'))).split(
           /\n/g
         );
-
-        console.log(formatted);
-        console.log();
 
         // replace
         for (let j = 0; j < code.length; j++) {
