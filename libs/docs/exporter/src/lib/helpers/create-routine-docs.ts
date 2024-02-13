@@ -1,12 +1,15 @@
 import { GlobalIndexedToken } from '@idl/parsing/index';
 import {
+  CapitalizeWord,
   CreateRoutineSyntax,
   IDL_DOCS_HEADERS,
 } from '@idl/parsing/syntax-tree';
-import { GlobalRoutineToken } from '@idl/types/core';
+import { GlobalRoutineToken, ParseIDLType } from '@idl/types/core';
 
 import { CleanDocs } from './clean-docs';
 import { DocsForParameter } from './docs-for-parameter';
+import { GetClassLink } from './get-class-link';
+import { GetReturnsBadge } from './get-returns-badge';
 
 /**
  * Generates routine docs from a global token
@@ -22,12 +25,44 @@ export function CreateRoutineDocs(item: GlobalIndexedToken) {
   const docsLookup = meta.docsLookup;
 
   /** Create docs  */
-  const docs: string[] = [`# ${meta.display}`, ''];
+  const docs: string[] = [
+    `---`,
+    `outline: deep`,
+    `---`,
+    ``,
+    `# ${meta.display}`,
+    '',
+  ];
+
+  if (meta.display.includes('::')) {
+    const className = meta.display.split('::')[0];
+    docs.push(`Member of [${className}](${GetClassLink(className)})`);
+    docs.push('');
+  }
+
+  /**
+   * Code to put link in the header
+   */
+  // if (meta.display.includes('::')) {
+  //   const className = meta.display.split('::')[0];
+  //   const methodName = meta.display.split('::')[1];
+  //   docs.push('');
+  //   docs.push(`# [${className}](${GetClassLink(className)})::${methodName}`);
+  //   docs.push('');
+  // } else {
+  //   docs.push('');
+  //   docs.push(`# ${meta.display}`);
+  //   docs.push('');
+  // }
+
+  /** Track the keys for the docs that we have processed */
+  const usedKeys: { [key: string]: any } = {};
 
   // check for special docs to add
   if (IDL_DOCS_HEADERS.DEFAULT in docsLookup) {
     docs.push(CleanDocs(docsLookup[IDL_DOCS_HEADERS.DEFAULT]));
     docs.push('\n');
+    usedKeys[IDL_DOCS_HEADERS.DEFAULT] = undefined;
   }
 
   // check for examples
@@ -35,9 +70,21 @@ export function CreateRoutineDocs(item: GlobalIndexedToken) {
     docs.push('## Examples');
     docs.push(CleanDocs(docsLookup[IDL_DOCS_HEADERS.EXAMPLES]));
     docs.push('\n');
+    usedKeys[IDL_DOCS_HEADERS.EXAMPLES] = undefined;
   }
 
+  /**
+   * Add routine syntax
+   */
   docs.push('## Syntax');
+  docs.push('');
+  // if (IDL_DOCS_HEADERS.RETURNS in docsLookup) {
+  //   docs.push(
+  //     GetReturnsBadge(ParseIDLType(docsLookup[IDL_DOCS_HEADERS.RETURNS]))
+  //   );
+  //   docs.push('');
+  //   usedKeys[IDL_DOCS_HEADERS.RETURNS] = undefined;
+  // }
   docs.push('```idl');
   docs.push(
     CreateRoutineSyntax({
@@ -46,7 +93,19 @@ export function CreateRoutineDocs(item: GlobalIndexedToken) {
     })
   );
   docs.push('```');
-  docs.push('\n');
+  docs.push('');
+
+  /**
+   * Add return value
+   */
+  if (IDL_DOCS_HEADERS.RETURNS in docsLookup) {
+    docs.push(
+      `### Return Value:${GetReturnsBadge(
+        ParseIDLType(docsLookup[IDL_DOCS_HEADERS.RETURNS])
+      )}`
+    );
+    usedKeys[IDL_DOCS_HEADERS.RETURNS] = undefined;
+  }
 
   // add arguments
   const args = Object.values(meta.args);
@@ -70,6 +129,21 @@ export function CreateRoutineDocs(item: GlobalIndexedToken) {
     for (let i = 0; i < kws.length; i++) {
       docs.push(DocsForParameter(kws[i], `kw-${kws[i].display.toLowerCase()}`));
     }
+  }
+
+  // add all of our additional docs keys to the content
+  const docsKeys = Object.keys(docsLookup);
+  for (let i = 0; i < docsKeys.length; i++) {
+    if (docsKeys[i] in usedKeys) {
+      continue;
+    }
+
+    // add the docs
+    docs.push(
+      `## ${CapitalizeWord(docsKeys[i])}\n\n${CleanDocs(
+        docsLookup[docsKeys[i]]
+      )}\n\n`
+    );
   }
 
   // combine and return

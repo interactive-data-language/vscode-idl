@@ -8,6 +8,7 @@ export * from './lib/docs/idl/docs-to-idl';
 export * from './lib/docs/make-spaces';
 export * from './lib/docs/markdown/docs-to-markdown';
 export * from './lib/docs/markdown/docs-to-markdown.interface';
+export * from './lib/docs/markdown/helpers/capitalize-word';
 export * from './lib/docs/markdown/helpers/create-routine-syntax';
 export * from './lib/get-idl-problem-severity';
 export * from './lib/helpers/are-touching';
