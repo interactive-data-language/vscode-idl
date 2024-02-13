@@ -142,11 +142,28 @@ export async function IDLDocsExporter(
     WriteFile(outUri, classIndex.join('\n'));
 
     // update sidebar
+    // apiSidebar.push({
+    //   text: 'Classes and Structures',
+    //   items: classSideBar,
+    //   link: relative,
+    //   collapsed: true,
+    // });
+
     apiSidebar.push({
       text: 'Classes and Structures',
-      items: classSideBar,
+      items: [
+        // {
+        //   text: `List`,
+        //   link: relative,
+        // },
+        {
+          text: 'By Name',
+          items: classSideBar,
+          collapsed: true,
+        },
+      ],
       link: relative,
-      collapsed: true,
+      // collapsed: true,
     });
   }
 
@@ -232,23 +249,39 @@ export async function IDLDocsExporter(
       WriteFile(outUri, indexFile.join('\n'));
 
       // save sidebar
-      if (
-        sidebar.length > 0 &&
-        exportTypes[i] !== GLOBAL_TOKEN_TYPES.FUNCTION_METHOD &&
-        exportTypes[i] !== GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD
-      ) {
-        routineSidebar.push({
-          text: GLOBAL_DOCS_NAMES[exportTypes[i]],
-          items: sidebar,
-          link: relative,
-          collapsed: true,
-        });
-      } else {
-        routineSidebar.push({
-          text: GLOBAL_DOCS_NAMES[exportTypes[i]],
-          link: relative,
-        });
-      }
+      // if (
+      //   sidebar.length > 0 &&
+      //   exportTypes[i] !== GLOBAL_TOKEN_TYPES.FUNCTION_METHOD &&
+      //   exportTypes[i] !== GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD
+      // ) {
+      // routineSidebar.push({
+      //   text: GLOBAL_DOCS_NAMES[exportTypes[i]],
+      //   items: sidebar,
+      //   link: relative,
+      //   collapsed: true,
+      // });
+      apiSidebar.push({
+        text: GLOBAL_DOCS_NAMES[exportTypes[i]],
+        items: [
+          // {
+          //   text: `List`,
+          //   link: relative,
+          // },
+          {
+            text: 'By Name',
+            items: sidebar,
+            collapsed: true,
+          },
+        ],
+        link: relative,
+        // collapsed: true,
+      });
+      // } else {
+      //   apiSidebar.push({
+      //     text: GLOBAL_DOCS_NAMES[exportTypes[i]],
+      //     link: relative,
+      //   });
+      // }
     }
   }
 
