@@ -41,12 +41,13 @@ export async function IDLDocsExporter(
   workspace: string,
   outDir: string,
   globs: string[],
-  exclude: string[]
+  exclude: string[],
+  everything = false
 ): Promise<void> {
   /**
    * Get the things we need to export
    */
-  const toExport = index.globalIndex.export(globs, exclude);
+  const toExport = index.globalIndex.export(globs, exclude, everything);
 
   /**
    * Get the types of global tokens that we need to export
