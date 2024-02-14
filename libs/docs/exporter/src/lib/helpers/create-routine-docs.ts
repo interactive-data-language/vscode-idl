@@ -35,13 +35,21 @@ export function CreateRoutineDocs(
   /** Track the keys for the docs that we have processed */
   const usedKeys: { [key: string]: any } = {};
 
+  /** Check if we are a function or not */
+  const isFunction =
+    item.type === GLOBAL_TOKEN_TYPES.FUNCTION ||
+    item.type === GLOBAL_TOKEN_TYPES.FUNCTION_METHOD;
+
+  /** Text to add to the display name */
+  const add = isFunction ? '()' : '';
+
   /** Create docs  */
   const docs: string[] = [
     `---`,
     `outline: deep`,
     `---`,
     ``,
-    `# ${meta.display}`,
+    `# ${meta.display}${add}`,
     '',
   ];
 
