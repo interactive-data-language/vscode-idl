@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         name: 'enviexportrastertocadrgtask',
         pos: [0, 0, 0],
         meta: {
-          display: 'enviexportrastertocadrgtask',
+          display: 'ENVIExportRasterToCADRGTask',
           source: 'user',
           docs: 'This task exports a 3-band, byte image to the CADRG format.',
           private: false,

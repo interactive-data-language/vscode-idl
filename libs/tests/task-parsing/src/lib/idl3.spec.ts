@@ -22,7 +22,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         name: 'idlquerytasktask',
         pos: [0, 0, 0],
         meta: {
-          display: 'idlquerytasktask',
+          display: 'IDLQueryTaskTask',
           source: 'user',
           docs: 'This task returns a hash that describes the properties of an IDL task.',
           private: false,

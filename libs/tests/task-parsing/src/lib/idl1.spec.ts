@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         name: 'idldownload_s3_urltask',
         pos: [0, 0, 0],
         meta: {
-          display: 'idldownload_s3_urltask',
+          display: 'IDLDownload_S3_URLTask',
           source: 'user',
           docs: 'This task downloads a resource specified by an S3 URL into a local file.',
           private: false,

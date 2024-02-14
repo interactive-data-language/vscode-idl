@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         name: 'idlqueryalltaskstask',
         pos: [0, 0, 0],
         meta: {
-          display: 'idlqueryalltaskstask',
+          display: 'IDLQueryAllTasksTask',
           source: 'user',
           docs: "This task returns a hash where each key is the task name and each task name key contains a hash of the task's properties.",
           private: false,
