@@ -175,9 +175,6 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
       );
       strings.push('');
       strings.push('```idl:no-line-numbers');
-      strings.push(';+');
-      strings.push(`; :Returns: ${init.meta.display}`);
-      strings.push(';-');
       strings.push(
         CreateRoutineSyntax(
           {

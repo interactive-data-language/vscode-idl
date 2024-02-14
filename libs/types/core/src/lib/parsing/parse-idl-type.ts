@@ -4,6 +4,7 @@ import {
   IDLTypes,
 } from '../idl-data-types.interface';
 import { ReduceIDLDataType } from '../serializing/reduce-types';
+import { GetTaskDisplayName } from './get-task-display-name';
 import { PARSED_TO_KNOWN_TYPES } from './parsed-to-known-type-map.interface';
 import { PopulateDisplayName } from './populate-display-name';
 import { SetDefaultTypes } from './set-default-types';
@@ -30,7 +31,7 @@ export const TYPE_ARGS_REGEX = /((?:[a-z_0-9$!'"=]+\s*(?:<.+>)?\s*\|?)*),/im;
 /**
  * Regular expression to detect ENVI or IDL tasks so we can nicely format the display name
  */
-const TASK_REGEX = /^(?:ENVI|IDL)(.+)Task$/i;
+export const TASK_REGEX = /^(?:ENVI|IDL)(.+)Task$/i;
 
 /**
  * Takes the type from IDL docs and returns more detailed type information
@@ -38,7 +39,7 @@ const TASK_REGEX = /^(?:ENVI|IDL)(.+)Task$/i;
  * Placeholder for future work. Tied in so that we have the pieces to extend
  * in the future
  */
-export function _ParseTheTypes(type: string): IDLDataType {
+function _ParseTheTypes(type: string): IDLDataType {
   // init result
   const types: IDLDataType = [];
 
@@ -71,13 +72,9 @@ export function _ParseTheTypes(type: string): IDLDataType {
      */
     if (TASK_REGEX.test(baseType)) {
       typeArgs = TASK_REGEX.exec(baseType)[1];
-      if (baseType.toLowerCase().startsWith('envi')) {
-        baseType = 'ENVITask';
-        displayType = `ENVITask<${typeArgs}>`;
-      } else {
-        baseType = 'IDLTask';
-        displayType = `IDLTask<${typeArgs}>`;
-      }
+      const displayInfo = GetTaskDisplayName(baseType);
+      baseType = displayInfo.type;
+      displayType = displayInfo.type;
     }
 
     // init type

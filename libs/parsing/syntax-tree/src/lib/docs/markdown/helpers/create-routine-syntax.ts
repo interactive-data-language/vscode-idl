@@ -1,6 +1,8 @@
 import {
+  GetTaskDisplayName,
   IDL_TYPE_LOOKUP,
   IDLTypeHelper,
+  IFunctionMetadata,
   SerializeIDLType,
 } from '@idl/types/core';
 
@@ -31,6 +33,17 @@ export function CreateRoutineSyntax(
 
   // check if we are a function or not
   if (isFunction) {
+    const typed = meta as IFunctionMetadata;
+
+    // add return value
+    syntax.push(';+\n');
+    if (TASK_REGEX.test(info.name)) {
+      syntax.push(`; :Returns: ${GetTaskDisplayName(info.name).display}\n`);
+    } else {
+      syntax.push(`; :Returns: ${SerializeIDLType(typed.returns)}\n`);
+    }
+    syntax.push(';+\n');
+
     switch (true) {
       case info.name.toLowerCase().endsWith('::init'):
         syntax.push(`result = ${splitName[0]}(`);

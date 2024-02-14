@@ -4,7 +4,12 @@ import {
   IAssemblerOptions,
 } from '@idl/assembling/config';
 import { IDLIndex } from '@idl/parsing/index';
-import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/core';
+import {
+  GetTaskDisplayName,
+  GLOBAL_TOKEN_TYPES,
+  GlobalTokenType,
+  TASK_REGEX,
+} from '@idl/types/core';
 import { existsSync, mkdirSync, rmSync } from 'fs';
 import { join } from 'path';
 import { DefaultTheme } from 'vitepress';
@@ -15,6 +20,7 @@ import {
   GLOBAL_DOCS_NAMES,
   GLOBAL_TYPE_PATHS,
 } from './folder-map.interface';
+import { CleanDocs } from './helpers/clean-docs';
 import { GenerateClassSummaries } from './helpers/create-class-summary';
 import { CreateRoutineDocs } from './helpers/create-routine-docs';
 import { GetClassLink } from './helpers/get-class-link';
@@ -100,8 +106,15 @@ export async function IDLDocsExporter(
     const relative = GetClassLink(classNames[i]);
     const uri = GetDocsFilepath(exportDir, relative);
 
+    /**
+     * Get the display name
+     */
+    const useDisplay = TASK_REGEX.test(classes[classNames[i]].display)
+      ? CleanDocs(GetTaskDisplayName(classes[classNames[i]].display).display)
+      : classes[classNames[i]].display;
+
     // update main list
-    classIndex.push(`[${classes[classNames[i]].display}](${relative})`);
+    classIndex.push(`[${useDisplay}](${relative})`);
     classIndex.push('');
 
     // write to disk
@@ -109,9 +122,7 @@ export async function IDLDocsExporter(
       uri,
       await NormalizeCodeBlocks(
         index,
-        `# ${classes[classNames[i]].display}\n\n${
-          classes[classNames[i]].summary
-        }`
+        `# ${useDisplay}\n\n${classes[classNames[i]].summary}`
       )
     );
 
