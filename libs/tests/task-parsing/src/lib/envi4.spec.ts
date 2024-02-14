@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         name: 'envisetrastermetadatatask',
         pos: [0, 0, 0],
         meta: {
-          display: 'envisetrastermetadatatask',
+          display: 'ENVISetRasterMetadataTask',
           source: 'user',
           docs: 'This task sets metadata for a raster file.',
           private: false,

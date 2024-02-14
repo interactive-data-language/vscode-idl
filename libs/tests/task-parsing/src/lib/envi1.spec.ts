@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         name: 'envibuildmosaicrastertask',
         pos: [0, 0, 0],
         meta: {
-          display: 'envibuildmosaicrastertask',
+          display: 'ENVIBuildMosaicRasterTask',
           source: 'user',
           docs: 'This task builds a mosaic raster based on a set of input rasters.',
           private: false,
