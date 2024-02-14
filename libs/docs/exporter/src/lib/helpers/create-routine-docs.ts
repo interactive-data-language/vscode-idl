@@ -102,9 +102,6 @@ export function CreateRoutineDocs(
   docs.push('');
   docs.push('```idl:no-line-numbers');
   if (IDL_DOCS_HEADERS.RETURNS in docsLookup) {
-    docs.push(';+');
-    docs.push(`; :Returns: ${docsLookup[IDL_DOCS_HEADERS.RETURNS]}`);
-    docs.push(';-');
     usedKeys[IDL_DOCS_HEADERS.RETURNS] = undefined;
   }
   docs.push(

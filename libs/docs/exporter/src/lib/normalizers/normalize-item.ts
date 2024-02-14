@@ -8,6 +8,7 @@ import {
   GlobalProcedureToken,
   GlobalStructureToken,
   IGlobalIndexedToken,
+  TASK_REGEX,
 } from '@idl/types/core';
 
 import { CURRENT_CONFIG } from '../docs-exporter';
@@ -81,11 +82,13 @@ export async function NormalizeItem(item: GlobalIndexedToken) {
     case GLOBAL_TOKEN_TYPES.STRUCTURE: {
       const typed = item as IGlobalIndexedToken<GlobalStructureToken>;
 
-      // fix display name
-      typed.meta.display = TransformCase(
-        typed.meta.display,
-        CURRENT_CONFIG.style.structureNames
-      );
+      // fix display name if not task
+      if (!TASK_REGEX.test(item.name)) {
+        typed.meta.display = TransformCase(
+          typed.meta.display,
+          CURRENT_CONFIG.style.structureNames
+        );
+      }
 
       // update props
       await NormalizeProperties(typed.meta.props);
