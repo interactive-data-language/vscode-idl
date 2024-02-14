@@ -28,6 +28,10 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 - You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
 
+## Unreleased
+
+Fixed an issue where the names of ENVI and IDL tasks were incorrectly lower-case instead of what the user had specified in the task files.
+
 ## 4.3.1 February 2024
 
 Resolved an issue where the language server would take a while to startup when you didn't have any workspace folders open. It should be almost instantaneous now!
