@@ -4,12 +4,10 @@ import {
   IDLTypeHelper,
   IFunctionMetadata,
   SerializeIDLType,
+  TASK_REGEX,
 } from '@idl/types/core';
 
-import {
-  TASK_REGEX,
-  TaskFunctionName,
-} from '../../../helpers/task-function-name';
+import { TaskFunctionName } from '../../../helpers/task-function-name';
 import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';
 
 /**

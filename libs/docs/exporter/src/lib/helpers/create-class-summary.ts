@@ -1,9 +1,10 @@
 import { ExportedGlobalTokensByType } from '@idl/parsing/index';
 import {
   CreateRoutineSyntax,
+  CreateTaskSyntax,
   IDL_DOCS_HEADERS,
 } from '@idl/parsing/syntax-tree';
-import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/core';
 import { DefaultTheme } from 'vitepress';
 
 import { CleanDocs } from './clean-docs';
@@ -166,34 +167,68 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     // check for matching function
     const init = functions.find((item) => item.name === names[i]);
 
-    // check if we found an init function thats documented
-    if (init) {
-      strings.push(
-        `See the function [${init.meta.display}()](${GetDocsLink(
-          init
-        )}) for creation details`
-      );
-      strings.push('');
-      strings.push('```idl:no-line-numbers');
-      strings.push(
-        CreateRoutineSyntax(
-          {
-            name: init.meta.display,
-            meta: init.meta,
-          },
-          true
-        )
-      );
-      strings.push('```');
-      strings.push('');
+    // get structure
+    const struct = structs.find((item) => item.name === names[i]);
 
-      if (init.meta.docsLookup)
-        if (IDL_DOCS_HEADERS.DEFAULT in init.meta.docsLookup) {
-          strings.push(
-            CleanDocs(init.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT])
-          );
-          strings.push('\n');
+    /**
+     * determine how to proceed
+     */
+    switch (true) {
+      /**
+       * Do we have an init method?
+       */
+      case init !== undefined:
+        strings.push(
+          `See the function [${init.meta.display}()](${GetDocsLink(
+            init
+          )}) for creation details`
+        );
+        strings.push('');
+        strings.push('```idl:no-line-numbers');
+        strings.push(
+          CreateRoutineSyntax(
+            {
+              name: init.meta.display,
+              meta: init.meta,
+            },
+            true
+          )
+        );
+        strings.push('```');
+        strings.push('');
+
+        if (init.meta.docsLookup) {
+          if (IDL_DOCS_HEADERS.DEFAULT in init.meta.docsLookup) {
+            strings.push(
+              CleanDocs(init.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT])
+            );
+            strings.push('\n');
+          }
         }
+        break;
+
+      /**
+       * Do we have a task
+       */
+      case TASK_REGEX.test(names[i]) && struct !== undefined:
+        strings.push('');
+        strings.push('```idl:no-line-numbers');
+        strings.push(CreateTaskSyntax(struct));
+        strings.push('```');
+        strings.push('');
+
+        if (struct.meta.docsLookup) {
+          if (IDL_DOCS_HEADERS.DEFAULT in struct.meta.docsLookup) {
+            strings.push(
+              CleanDocs(struct.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT])
+            );
+            strings.push('\n');
+          }
+        }
+        break;
+
+      default:
+        break;
     }
 
     // check for inheritance

@@ -84,5 +84,5 @@ export function ENVITaskToGlobal(
 
   // track global tokens
   global.push(struct);
-  global.push(func);
+  // global.push(func);
 }

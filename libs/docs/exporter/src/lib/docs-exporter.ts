@@ -122,7 +122,9 @@ export async function IDLDocsExporter(
       uri,
       await NormalizeCodeBlocks(
         index,
-        `# ${useDisplay}\n\n${classes[classNames[i]].summary}`
+        `---\noutline: deep\n---\n\n# ${useDisplay}\n\n${
+          classes[classNames[i]].summary
+        }`
       )
     );
 
@@ -168,17 +170,17 @@ export async function IDLDocsExporter(
 
     apiSidebar.push({
       text: 'Classes and Structures',
-      items: [
-        // {
-        //   text: `List`,
-        //   link: relative,
-        // },
-        {
-          text: 'By Name',
-          items: classSideBar,
-          collapsed: true,
-        },
-      ],
+      // items: [
+      //   // {
+      //   //   text: `List`,
+      //   //   link: relative,
+      //   // },
+      //   {
+      //     text: 'By Name',
+      //     items: classSideBar,
+      //     collapsed: true,
+      //   },
+      // ],
       link: relative,
       // collapsed: true,
     });
@@ -279,17 +281,17 @@ export async function IDLDocsExporter(
       // });
       apiSidebar.push({
         text: GLOBAL_DOCS_NAMES[exportTypes[i]],
-        items: [
-          // {
-          //   text: `List`,
-          //   link: relative,
-          // },
-          {
-            text: 'By Name',
-            items: sidebar,
-            collapsed: true,
-          },
-        ],
+        // items: [
+        //   // {
+        //   //   text: `List`,
+        //   //   link: relative,
+        //   // },
+        //   {
+        //     text: 'By Name',
+        //     items: sidebar,
+        //     collapsed: true,
+        //   },
+        // ],
         link: relative,
         // collapsed: true,
       });
