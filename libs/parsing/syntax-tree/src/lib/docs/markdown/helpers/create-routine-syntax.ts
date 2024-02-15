@@ -15,7 +15,7 @@ import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';
  */
 export function CreateRoutineSyntax(
   info: MarkdownInfo<RoutineMarkdown>,
-  forDocs = false
+  forDocs = true
 ): string {
   /** Metadata for routine */
   const meta = info.meta;
