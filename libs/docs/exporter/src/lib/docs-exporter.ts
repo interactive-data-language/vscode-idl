@@ -101,11 +101,20 @@ export async function IDLDocsExporter(
   /** */
   const classIndex: string[] = [`# All Classes and Structures`, ''];
 
+  /** ENVITask index */
+  const enviTaskIndex: string[] = [`# All ENVI Tasks`, ''];
+
+  /** Create envi task sidebar */
+  let enviTaskSideBar: any[] = [];
+
+  /** IDLTask index */
+  const idlTaskIndex: string[] = [`# All IDL Tasks`, ''];
+
+  /** Create envi task sidebar */
+  let idlTaskSideBar: any[] = [];
+
   /** Write all summaries to disk */
   for (let i = 0; i < classNames.length; i++) {
-    const relative = GetClassLink(classNames[i]);
-    const uri = GetDocsFilepath(exportDir, relative);
-
     /**
      * Get the display name
      */
@@ -113,9 +122,42 @@ export async function IDLDocsExporter(
       ? CleanDocs(GetTaskDisplayName(classes[classNames[i]].display).display)
       : classes[classNames[i]].display;
 
-    // update main list
-    classIndex.push(`[${useDisplay}](${relative})`);
-    classIndex.push('');
+    /** Default sidebar we append to */
+    let updateSidebar = classSideBar;
+
+    /** Default index we update */
+    let updateIndex = classIndex;
+
+    // determine where to add our class information
+    switch (true) {
+      /**
+       * ENVI Task
+       */
+      case useDisplay.toLowerCase().startsWith('envitask'):
+        updateIndex = enviTaskIndex;
+        updateSidebar = enviTaskSideBar;
+        break;
+
+      /**
+       * IDL Task
+       */
+      case useDisplay.toLowerCase().startsWith('idltask'):
+        updateIndex = idlTaskIndex;
+        updateSidebar = idlTaskSideBar;
+        break;
+      default:
+        break;
+    }
+
+    /** Get relative path */
+    const relative = GetClassLink(classNames[i]);
+
+    /** Fully qualified filepath */
+    const uri = GetDocsFilepath(exportDir, relative);
+
+    // update the index
+    updateIndex.push(`[${useDisplay}](${relative})`);
+    updateIndex.push('');
 
     // write to disk
     WriteFile(
@@ -130,14 +172,14 @@ export async function IDLDocsExporter(
 
     // create sidebar
     if (classes[classNames[i]].sidebar.length > 0) {
-      classSideBar.push({
+      updateSidebar.push({
         text: classes[classNames[i]].display,
         link: relative,
         items: classes[classNames[i]].sidebar,
         collapsed: true,
       });
     } else {
-      classSideBar.push({
+      updateSidebar.push({
         text: classes[classNames[i]].display,
         link: relative,
       });
@@ -146,6 +188,12 @@ export async function IDLDocsExporter(
 
   // sort by classes
   classSideBar = classSideBar.sort((a, b) =>
+    a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+  );
+  enviTaskSideBar = enviTaskSideBar.sort((a, b) =>
+    a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+  );
+  idlTaskSideBar = idlTaskSideBar.sort((a, b) =>
     a.text > b.text ? 1 : b.text > a.text ? -1 : 0
   );
 
@@ -160,29 +208,46 @@ export async function IDLDocsExporter(
     // write content
     WriteFile(outUri, classIndex.join('\n'));
 
-    // update sidebar
-    // apiSidebar.push({
-    //   text: 'Classes and Structures',
-    //   items: classSideBar,
-    //   link: relative,
-    //   collapsed: true,
-    // });
-
+    // update overall sidebar
     apiSidebar.push({
       text: 'Classes and Structures',
-      // items: [
-      //   // {
-      //   //   text: `List`,
-      //   //   link: relative,
-      //   // },
-      //   {
-      //     text: 'By Name',
-      //     items: classSideBar,
-      //     collapsed: true,
-      //   },
-      // ],
       link: relative,
-      // collapsed: true,
+    });
+  }
+
+  // add classes if we have them
+  if (enviTaskSideBar.length > 0) {
+    /** Make relative link */
+    const relative = `${DOCS_BASE}/${DOCS_PATHS.ENVI_TASK}/index.md`;
+
+    /** Specify the folder */
+    const outUri = GetDocsFilepath(exportDir, relative);
+
+    // write content
+    WriteFile(outUri, enviTaskIndex.join('\n'));
+
+    // update overall sidebar
+    apiSidebar.push({
+      text: 'ENVI Tasks',
+      link: relative,
+    });
+  }
+
+  // add idl tasks if we have them
+  if (idlTaskSideBar.length > 0) {
+    /** Make relative link */
+    const relative = `${DOCS_BASE}/${DOCS_PATHS.IDL_TASK}/index.md`;
+
+    /** Specify the folder */
+    const outUri = GetDocsFilepath(exportDir, relative);
+
+    // write content
+    WriteFile(outUri, idlTaskIndex.join('\n'));
+
+    // update overall sidebar
+    apiSidebar.push({
+      text: 'IDL Tasks',
+      link: relative,
     });
   }
 
