@@ -4,6 +4,8 @@ Here are some helpful links!
 
 ## IDL for VSCode and Product Help
 
+[Getting Started Webinar](https://www.nv5geospatialsoftware.com/Company/Events/Events-Detail/ArtMID/19015/ArticleID/24433/Reimagine-the-Way-You-Program-with-IDL-for-VSCode)
+
 [File a Bug](https://github.com/interactive-data-language/vscode-idl/issues/new/choose)
 
 [Ask a Question or Start a Discussion](https://github.com/interactive-data-language/vscode-idl/discussions/new/choose)
