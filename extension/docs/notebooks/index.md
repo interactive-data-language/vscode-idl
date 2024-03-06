@@ -10,6 +10,10 @@ If you are new to notebooks, they are:
 
 - A way that you can share code with your colleagues and friends
 
+Here's a short video introducing IDL Notebooks (requires internet access).
+
+<img style="width: 100%; margin: auto; display: block;" class="vidyard-player-embed" src="https://play.vidyard.com/ZdFrzw2XcDwjySetxjVJ1x.jpg" data-uuid="ZdFrzw2XcDwjySetxjVJ1x" data-v="4" data-type="inline" />
+
 ::: tip
 With the latest release of VSCode, you can now pop open notebooks in separate windows.
 
@@ -20,7 +24,7 @@ If you are interested in being able to run more than one notebook at a time, let
 
 ## Getting Started with Notebooks
 
-The easiest way to get started with IDL or ENVI Notebooks is through VSCode.
+The easiest way to get started with IDL or ENVI Notebooks is through VSCode, which includes several example notebooks.
 
 Here's how:
 
@@ -29,6 +33,12 @@ Here's how:
 2. Find the "Notebooks" section
 
 3. Select "Open IDL Notebook Example" or "Open ENVI Notebook Example" to open a new notebook that you can play around with.
+
+## In-Depth Tutorial
+
+Here's a longer video talking more about how to use IDL Notebooks and it covers some of the more advanced ENVI APIs to display imagery and other types of data (requires internet access).
+
+<img style="width: 100%; margin: auto; display: block;" class="vidyard-player-embed" src="https://play.vidyard.com/49Qg9kt6RN3ukj9vfdKcRE.jpg" data-uuid="49Qg9kt6RN3ukj9vfdKcRE" data-v="4" data-type="inline" />
 
 ## Resetting Notebook Examples
 

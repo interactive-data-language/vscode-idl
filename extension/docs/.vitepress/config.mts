@@ -46,6 +46,14 @@ export default defineConfig({
       },
     ],
 
+    [
+      'script',
+      {
+        async: true,
+        src: 'https://play.vidyard.com/embed/v4.js',
+      },
+    ],
+
     ['script', {}, SCRIPT],
   ],
 
