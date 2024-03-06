@@ -1,9 +1,4 @@
 /**
- * Regex for task name
- */
-export const TASK_REGEX = /^(?:envi|idl).+task$/i;
-
-/**
  * Gets insertion text for function calls with special cases
  * for ENVI tasks
  */

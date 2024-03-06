@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Returns: String
 ;
 ; :Arguments:

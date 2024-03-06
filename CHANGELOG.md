@@ -28,6 +28,10 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 - You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
 
+## Unreleased
+
+Fixed an issue where the names of ENVI and IDL tasks were incorrectly lower-case instead of what the user had specified in the task files.
+
 ## 4.3.1 February 2024
 
 Resolved an issue where the language server would take a while to startup when you didn't have any workspace folders open. It should be almost instantaneous now!
@@ -42,7 +46,7 @@ Added more controls to help fine-tune problem reporting and be able to disable i
 
 - Added an IDL comment-based API to control how problems are reported for files and lines of IDL code
 
-- Added a new preference that wil disable problem reporting altogether
+- Added a new preference that will disable problem reporting altogether
 
 Update documentation for all problem codes to point to our configuration guide for how to disable problems
 

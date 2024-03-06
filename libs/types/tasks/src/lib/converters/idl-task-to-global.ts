@@ -31,7 +31,7 @@ export function IDLTaskToGlobal(
     name: useName,
     pos: [0, 0, 0],
     meta: {
-      display: name.toLowerCase(),
+      display: name,
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
       docs: task.description,
       private: false,
@@ -84,5 +84,5 @@ export function IDLTaskToGlobal(
 
   // track global tokens
   global.push(struct);
-  global.push(func);
+  // global.push(func);
 }

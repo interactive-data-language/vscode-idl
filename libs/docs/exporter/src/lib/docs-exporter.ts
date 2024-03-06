@@ -1,5 +1,15 @@
+import {
+  DEFAULT_ASSEMBLER_OPTIONS,
+  FormatterType,
+  IAssemblerOptions,
+} from '@idl/assembling/config';
 import { IDLIndex } from '@idl/parsing/index';
-import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/core';
+import {
+  GetTaskDisplayName,
+  GLOBAL_TOKEN_TYPES,
+  GlobalTokenType,
+  TASK_REGEX,
+} from '@idl/types/core';
 import { existsSync, mkdirSync, rmSync } from 'fs';
 import { join } from 'path';
 import { DefaultTheme } from 'vitepress';
@@ -10,36 +20,61 @@ import {
   GLOBAL_DOCS_NAMES,
   GLOBAL_TYPE_PATHS,
 } from './folder-map.interface';
+import { CleanDocs } from './helpers/clean-docs';
 import { GenerateClassSummaries } from './helpers/create-class-summary';
+import { CreateRoutineDocs } from './helpers/create-routine-docs';
 import { GetClassLink } from './helpers/get-class-link';
 import { GetDisplayName } from './helpers/get-display-name';
 import { GetDocsFilepath } from './helpers/get-docs-filepath';
 import { GetDocsLink } from './helpers/get-docs-link';
 import { WriteFile } from './helpers/write-file';
+import { NormalizeCodeBlocks } from './normalizers/normalize-code-blocks';
+import { NormalizeItem } from './normalizers/normalize-item';
+
+/**
+ * The assembling config for the current workspace we are exporting docs for
+ *
+ * Which can be used to normalize names
+ */
+export const CURRENT_CONFIG: IAssemblerOptions<FormatterType> =
+  DEFAULT_ASSEMBLER_OPTIONS;
 
 /**
  * Exports docs fro a given folder from our application
  */
 export async function IDLDocsExporter(
   index: IDLIndex,
+  workspace: string,
   outDir: string,
   globs: string[],
-  exclude: string[]
+  exclude: string[],
+  everything = false
 ): Promise<void> {
   /**
    * Get the things we need to export
    */
-  const toExport = index.globalIndex.export(globs, exclude);
+  const toExport = index.globalIndex.export(globs, exclude, everything);
 
   /**
    * Get the types of global tokens that we need to export
    */
   const exportTypes = Object.keys(toExport) as GlobalTokenType[];
 
+  // normalize all of the items that we export
+  for (let i = 0; i < exportTypes.length; i++) {
+    const toUpdate = Object.values(toExport[exportTypes[i]]);
+    for (let j = 0; j < toUpdate.length; j++) {
+      await NormalizeItem(toUpdate[j]);
+    }
+  }
+
   /**
    * Get folder we export to
    */
   const exportDir = join(outDir, 'api');
+
+  // update current config
+  // CURRENT_CONFIG = index.getConfigForFile(join(workspace, 'foo.md'));
 
   /**
    * Delete the folder if it exists
@@ -71,14 +106,26 @@ export async function IDLDocsExporter(
     const relative = GetClassLink(classNames[i]);
     const uri = GetDocsFilepath(exportDir, relative);
 
+    /**
+     * Get the display name
+     */
+    const useDisplay = TASK_REGEX.test(classes[classNames[i]].display)
+      ? CleanDocs(GetTaskDisplayName(classes[classNames[i]].display).display)
+      : classes[classNames[i]].display;
+
     // update main list
-    classIndex.push(`[${classes[classNames[i]].display}](${relative})`);
+    classIndex.push(`[${useDisplay}](${relative})`);
     classIndex.push('');
 
     // write to disk
     WriteFile(
       uri,
-      `# ${classes[classNames[i]].display}\n\n${classes[classNames[i]].summary}`
+      await NormalizeCodeBlocks(
+        index,
+        `---\noutline: deep\n---\n\n# ${useDisplay}\n\n${
+          classes[classNames[i]].summary
+        }`
+      )
     );
 
     // create sidebar
@@ -114,13 +161,33 @@ export async function IDLDocsExporter(
     WriteFile(outUri, classIndex.join('\n'));
 
     // update sidebar
+    // apiSidebar.push({
+    //   text: 'Classes and Structures',
+    //   items: classSideBar,
+    //   link: relative,
+    //   collapsed: true,
+    // });
+
     apiSidebar.push({
       text: 'Classes and Structures',
-      items: classSideBar,
+      // items: [
+      //   // {
+      //   //   text: `List`,
+      //   //   link: relative,
+      //   // },
+      //   {
+      //     text: 'By Name',
+      //     items: classSideBar,
+      //     collapsed: true,
+      //   },
+      // ],
       link: relative,
-      collapsed: true,
+      // collapsed: true,
     });
   }
+
+  // create the sidebar for our routines
+  const routineSidebar: any[] = [];
 
   /**
    * Process each type we export
@@ -174,11 +241,11 @@ export async function IDLDocsExporter(
       /** Specify the folder */
       const outUri = GetDocsFilepath(exportDir, relative);
 
+      /** Create our docs */
+      const docs = CreateRoutineDocs(item, toExport);
+
       // write to disk
-      WriteFile(
-        outUri,
-        `# ${display}\n\n${item.meta.docs.replace(/</g, '\\<')}`
-      );
+      WriteFile(outUri, await NormalizeCodeBlocks(index, docs));
 
       // add sidebar entry
       sidebar.push({
@@ -201,24 +268,50 @@ export async function IDLDocsExporter(
       WriteFile(outUri, indexFile.join('\n'));
 
       // save sidebar
-      if (
-        sidebar.length > 0 &&
-        exportTypes[i] !== GLOBAL_TOKEN_TYPES.FUNCTION_METHOD &&
-        exportTypes[i] !== GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD
-      ) {
-        apiSidebar.push({
-          text: GLOBAL_DOCS_NAMES[exportTypes[i]],
-          items: sidebar,
-          link: relative,
-          collapsed: true,
-        });
-      } else {
-        apiSidebar.push({
-          text: GLOBAL_DOCS_NAMES[exportTypes[i]],
-          link: relative,
-        });
-      }
+      // if (
+      //   sidebar.length > 0 &&
+      //   exportTypes[i] !== GLOBAL_TOKEN_TYPES.FUNCTION_METHOD &&
+      //   exportTypes[i] !== GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD
+      // ) {
+      // routineSidebar.push({
+      //   text: GLOBAL_DOCS_NAMES[exportTypes[i]],
+      //   items: sidebar,
+      //   link: relative,
+      //   collapsed: true,
+      // });
+      apiSidebar.push({
+        text: GLOBAL_DOCS_NAMES[exportTypes[i]],
+        // items: [
+        //   // {
+        //   //   text: `List`,
+        //   //   link: relative,
+        //   // },
+        //   {
+        //     text: 'By Name',
+        //     items: sidebar,
+        //     collapsed: true,
+        //   },
+        // ],
+        link: relative,
+        // collapsed: true,
+      });
+      // } else {
+      //   apiSidebar.push({
+      //     text: GLOBAL_DOCS_NAMES[exportTypes[i]],
+      //     link: relative,
+      //   });
+      // }
     }
+  }
+
+  if (routineSidebar.length > 0) {
+    apiSidebar.push({
+      text: 'Routines',
+      items: routineSidebar.sort((a, b) =>
+        a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+      ),
+      collapsed: true,
+    });
   }
 
   // export the sidebar

@@ -164,3 +164,31 @@ end
 ```
 
 :::
+
+## Embedding Examples
+
+All comments are interpreted as Markdown which needs special markup for PRO code to embed examples that appear in hover help and notebook creation.
+
+You have to use a Markdown code block, indicated with three backticks, within your docs. See the highlighted code below with an example of what this looks like.
+
+````idl{4,5,6,7,8,9}
+;+
+; :Returns: Number
+;
+; :Examples:
+;   See this cool code example:
+;
+;   ```idl
+;   p = plot(/test)
+;   ```
+;
+; :Arguments:
+;   event: bidirectional, required, any
+;     Placeholder docs for argument, keyword, or property
+;
+;-
+function MyFunc, event
+  compile_opt idl2, hidden
+  return, 42
+end
+````

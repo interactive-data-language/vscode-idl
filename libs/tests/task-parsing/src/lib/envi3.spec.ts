@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         name: 'envipointcloudfeatureextractiontask',
         pos: [0, 0, 0],
         meta: {
-          display: 'envipointcloudfeatureextractiontask',
+          display: 'ENVIPointCloudFeatureExtractionTask',
           source: 'user',
           docs: 'This task extracts features from point cloud data (buildings, trees, powerlines) and can produce a DEM, DSM, orthophoto, TIN, classified point cloud and 3D viewer database.',
           private: false,

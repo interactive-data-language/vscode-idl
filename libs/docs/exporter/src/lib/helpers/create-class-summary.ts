@@ -1,7 +1,13 @@
 import { ExportedGlobalTokensByType } from '@idl/parsing/index';
-import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
+import {
+  CreateRoutineSyntax,
+  CreateTaskSyntax,
+  IDL_DOCS_HEADERS,
+} from '@idl/parsing/syntax-tree';
+import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/core';
 import { DefaultTheme } from 'vitepress';
 
+import { CleanDocs } from './clean-docs';
 import { DocsForProperty } from './docs-for-property';
 import { GetClassLink } from './get-class-link';
 import { GetDisplayName } from './get-display-name';
@@ -52,10 +58,12 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
       };
     }
 
-    // save docs for properties
-    classes[structs[i].name].properties = Object.values(
-      structs[i].meta.props
-    ).map((prop) => DocsForProperty(prop));
+    // save docs for properties if public
+    if (!structs[i].meta.private) {
+      classes[structs[i].name].properties = Object.values(
+        structs[i].meta.props
+      ).map((prop) => DocsForProperty(prop));
+    }
   }
 
   /**
@@ -129,6 +137,9 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     };
   } = {};
 
+  /** Get all functions */
+  const functions = exported[GLOBAL_TOKEN_TYPES.FUNCTION];
+
   /**
    * Create class pages
    */
@@ -137,11 +148,88 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     /** Info about our class */
     const info = classes[names[i]];
 
+    // check if we need to skip classes that have nothing documented about them
+    if (
+      info.functions.length +
+        info.procedures.length +
+        info.properties.length ===
+      0
+    ) {
+      continue;
+    }
+
     // save strings
     const strings: string[] = [];
 
     // filter out class inheritance for undocumented classes
     info.inherits = info.inherits.filter((parent) => parent in classes);
+
+    // check for matching function
+    const init = functions.find((item) => item.name === names[i]);
+
+    // get structure
+    const struct = structs.find((item) => item.name === names[i]);
+
+    /**
+     * determine how to proceed
+     */
+    switch (true) {
+      /**
+       * Do we have an init method?
+       */
+      case init !== undefined:
+        strings.push(
+          `See the function [${init.meta.display}()](${GetDocsLink(
+            init
+          )}) for creation details`
+        );
+        strings.push('');
+        strings.push('```idl:no-line-numbers');
+        strings.push(
+          CreateRoutineSyntax(
+            {
+              name: init.meta.display,
+              meta: init.meta,
+            },
+            true
+          )
+        );
+        strings.push('```');
+        strings.push('');
+
+        if (init.meta.docsLookup) {
+          if (IDL_DOCS_HEADERS.DEFAULT in init.meta.docsLookup) {
+            strings.push(
+              CleanDocs(init.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT])
+            );
+            strings.push('\n');
+          }
+        }
+        break;
+
+      /**
+       * Do we have a task
+       */
+      case TASK_REGEX.test(names[i]) && struct !== undefined:
+        strings.push('');
+        strings.push('```idl:no-line-numbers');
+        strings.push(CreateTaskSyntax(struct));
+        strings.push('```');
+        strings.push('');
+
+        if (struct.meta.docsLookup) {
+          if (IDL_DOCS_HEADERS.DEFAULT in struct.meta.docsLookup) {
+            strings.push(
+              CleanDocs(struct.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT])
+            );
+            strings.push('\n');
+          }
+        }
+        break;
+
+      default:
+        break;
+    }
 
     // check for inheritance
     if (info.inherits.length > 0) {

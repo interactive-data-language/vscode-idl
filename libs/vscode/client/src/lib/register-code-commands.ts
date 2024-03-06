@@ -218,7 +218,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           IDL_LOGGER.log({
             log: IDL_COMMAND_LOG,
             content: ['Document edits for fix', fix],
-            type: 'info',
+            type: 'debug',
           });
 
           VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {

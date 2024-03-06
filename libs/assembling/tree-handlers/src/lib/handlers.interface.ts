@@ -12,6 +12,10 @@ export interface AssemblerStyleMeta extends IHandlerCallbackMetadata {
    * Config for the current assembler
    */
   style: ICodeStyle;
+  /**
+   * Do we style code as if we know nothing about the source?
+   */
+  vanilla?: boolean;
 }
 
 /**

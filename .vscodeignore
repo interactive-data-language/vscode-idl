@@ -33,6 +33,7 @@ dist/apps/vscode-e2e-runner/**
 extension/dev-docs/**
 extension/docs/**
 extension/language/syntaxes/src/**
+extension/language/syntaxes/GENERATING_JSON_FILES.md
 extension/language/syntaxes/idl-log.tmLanguage.json
 extension/language/syntaxes/idl.tmLanguage.json
 extension/README.md

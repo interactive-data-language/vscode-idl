@@ -5,9 +5,9 @@ import {
 } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
-import { TASK_REGEX, TaskFunctionName } from '@idl/parsing/syntax-tree';
+import { TaskFunctionName } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/core';
 import {
   Command,
   CompletionItem,
