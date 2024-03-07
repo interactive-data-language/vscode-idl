@@ -8,7 +8,7 @@ export const DOCS_PATHS = {
   /** Where ENVI Tasks go */
   ENVI_TASK: join('task', 'envi'),
   /** Where IDL Tasks go */
-  IDL_TASK: join('task', 'IDL'),
+  IDL_TASK: join('task', 'idl'),
   /** Where classes go */
   CLASS: 'class',
 };
