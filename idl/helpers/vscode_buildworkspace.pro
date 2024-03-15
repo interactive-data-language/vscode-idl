@@ -12,12 +12,14 @@
 ;     A list of procedures and functions for us to resolve
 ;   processed: in, optional, Hash<any>
 ;     A hash that tracks the routines we have processed to limit recursion
+;   unresolved: in, optional, Hash<any>
+;     Track unresolved routines
 ;   skip: in, optional, Hash<any>
 ;     A hash that tracks the routines we should skip (internal or not found)
 ;     to limit recursion.
 ;
 ;-
-pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
+pro vscode_BuildWorkspace_resolve, bdg, routines, processed, unresolved, skip
   compile_opt idl2, hidden
 
   ; track routines that we have processed
@@ -44,6 +46,7 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
     if (err ne 0) then begin
       catch, /cancel
       ; help, /last_message
+      unresolved[routine] = !null
       message, /reset
       continue
     endif
@@ -95,7 +98,7 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
     if isa(allRoutines['functions'], 'list') then toProcess.add, allRoutines['functions'], /extract
 
     ; recurse
-    vscode_BuildWorkspace_resolve, bdg, toProcess, processed, skip
+    vscode_BuildWorkspace_resolve, bdg, toProcess, processed, unresolved, skip
   endif
 end
 
@@ -298,8 +301,11 @@ pro vscode_BuildWorkspace, workspace
   if isa(allRoutines['procedures'], 'list') then toProcess.add, allRoutines['procedures'], /extract
   if isa(allRoutines['functions'], 'list') then toProcess.add, allRoutines['functions'], /extract
 
+  ;+ track unresolved datasets
+  unresolved = hash(/fold_case)
+
   ; recurse
-  vscode_BuildWorkspace_resolve, bdg, toProcess, processed
+  vscode_BuildWorkspace_resolve, bdg, toProcess, processed, unresolved
 
   ; add object classes for resolving
   processed['awesomeenviprogress__define'] = !true
@@ -332,4 +338,23 @@ pro vscode_BuildWorkspace, workspace
 
   ; clean up
   obj_destroy, bdg
+
+  ; get unresolved names
+  unresolvedNames = (unresolved.keys()).sort()
+
+  ; check if we have unresolved
+  if (n_elements(unresolvedNames) gt 0) then begin
+    ; alert user
+    print, 'Detected unresolved routines, see "dist/unresolved.json"'
+    print, '  to make sure critical dependencies are not missing. It is'
+    print, '  normal to see "ENVI" routines in this list'
+
+    ;+ file we write unresolved routines to
+    uresolvedUri = outDir + path_sep() + 'unresolved.json'
+
+    ; write to disk
+    openw, lun, uresolvedUri, /get_lun
+    printf, lun, json_serialize(unresolvedNames, /pretty)
+    free_lun, lun
+  endif
 end

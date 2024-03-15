@@ -81,6 +81,9 @@ pro AwesomeGenerateThumbnail, $
   ; flatten pixel state
   if (nChannels gt 1) then pixelState = total(pixelState, 3, /integer)
 
+  ; get the pixels that we should keep
+  idxKeep = where(~pixelState, countKeep)
+
   ; Assign bad pixels to alpha band
   alpha = (pixelState eq 0) * 255b
 
@@ -105,7 +108,7 @@ pro AwesomeGenerateThumbnail, $
     histData = bytarr(dimensions[0], dimensions[1], 3, /nozero)
     for i = 0, 2 do begin
       band = data[*, *, i]
-      oHist = obj_new('IDLcfHistogram', data = band)
+      oHist = obj_new('IDLcfHistogram', data = countKeep gt 0 ? band[idxKeep] : band)
       minVal = oHist.stretchValue(2.)
       maxVal = oHist.stretchValue(98.)
       histData[*, *, i] = bytscl(band, min = minVal, max = maxVal, /nan)
