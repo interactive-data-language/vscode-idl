@@ -223,9 +223,6 @@ pro vscode_BuildWorkspace, workspace
 
   ;+ Track files to delete and not include in the builds
   delete = hash()
-  delete['atcorrectimagery.pro'] = !true
-  delete['atcorrectimagerywithflaash.task'] = !true
-  delete['atcorrectimagerywithquac.task'] = !true
 
   ; delete excess or unwanted task files
   files = file_search(outDir, '*.task', count = nCleanup)
