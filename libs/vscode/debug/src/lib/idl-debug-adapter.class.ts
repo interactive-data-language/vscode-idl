@@ -75,9 +75,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   /** Last arguments for launching a session */
   lastLaunchArgs?: IDLDebugConfiguration;
 
-  /** Current prompt for IDL, used as response on evaluateRequest finishing */
-  prompt: string;
-
   /** Reference to our IDL class, manages process and input/output */
   private _runtime: IDLRuntime;
 
@@ -188,9 +185,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // listen for when our prompt chang es
     this._runtime.on(IDL_EVENT_LOOKUP.PROMPT, (prompt) => {
-      // save current prompt
-      this.prompt = prompt;
-
       // change prompt for status bar
       if (this._runtime.getIDLInfo().envi) {
         IDL_STATUS_BAR.setPrompt('ENVI');
@@ -1466,7 +1460,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       // if we do use this then we get empty lines displayed in the debug console
       response.success = true;
       response.body = {
-        result: this.prompt,
+        result: '', // no string content since we send as it gets generated
         variablesReference: -1,
       };
       this.sendResponse(response);
