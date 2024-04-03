@@ -183,18 +183,16 @@ export class IDLRuntime {
       } else {
         this.idl.idlInfo = { ...DEFAULT_IDL_INFO };
       }
-    }
 
-    // reset silent flag
-    this.idl.silent = false;
-
-    // emit the current prompt
-    if (!isSilent) {
+      // emit prompt
       this.idl.emit(
         IDL_EVENT_LOOKUP.PROMPT,
         this.idl.idlInfo.envi ? 'ENVI>' : 'IDL>'
       );
     }
+
+    // reset silent flag
+    this.idl.silent = false;
 
     // indicate that we are finished and the queue can be cleared
     this._processing = undefined;
