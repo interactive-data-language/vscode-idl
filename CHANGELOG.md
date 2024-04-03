@@ -42,6 +42,8 @@ Reworked routine signatures that appear in hover help to be more user friendly!
 
 - For functions and function methods, the return type is added before the routine syntax
 
+Changed the output from IDL in the debug console so that it no longer prints "IDL>" or "ENVI>" for a new user experience compared to the IDL Workbench.
+
 ## 4.3.1 February 2024
 
 Resolved an issue where the language server would take a while to startup when you didn't have any workspace folders open. It should be almost instantaneous now!
