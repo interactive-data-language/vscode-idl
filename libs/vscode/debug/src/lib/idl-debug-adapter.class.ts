@@ -504,8 +504,10 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // sync any syntax problems we found
     SyncSyntaxProblems(this);
 
-    // update status bar
-    IDL_STATUS_BAR.ready();
+    // update status bar if we are done
+    if (!this._runtime.executing()) {
+      IDL_STATUS_BAR.ready();
+    }
 
     // return our result
     return res;
