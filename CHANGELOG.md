@@ -32,6 +32,16 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 Fixed an issue where the names of ENVI and IDL tasks were incorrectly lower-case instead of what the user had specified in the task files.
 
+Resolved a long-time bug where internal output would appear in the debug console when running IDL in VSCode.
+
+Reworked routine signatures that appear in hover help to be more user friendly!
+
+- You can now copy/paste the signature blocks and each one is valid IDL code
+
+- No brackets surrounding optional parameters
+
+- For functions and function methods, the return type is added before the routine syntax
+
 ## 4.3.1 February 2024
 
 Resolved an issue where the language server would take a while to startup when you didn't have any workspace folders open. It should be almost instantaneous now!
