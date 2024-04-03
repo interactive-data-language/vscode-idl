@@ -1,8 +1,8 @@
 import {
   CleanIDLOutput,
-  IDL,
   IDL_EVENT_LOOKUP,
   IDLCallStackItem,
+  IDLRuntime,
   REGEX_COMPILE_COMMAND,
   REGEX_COMPILE_EDIT_COMMAND,
   REGEX_COMPILED_MAIN,
@@ -79,7 +79,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   prompt: string;
 
   /** Reference to our IDL class, manages process and input/output */
-  private _runtime: IDL;
+  private _runtime: IDLRuntime;
 
   /** Event to fire when our configuration has been completed, from VSCode example */
   private readonly _configurationDone = new Subject();
@@ -102,7 +102,10 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this.setDebuggerColumnsStartAt1(true);
 
     // create our runtime session - does not immediately start IDL
-    this._runtime = new IDL(IDL_LOGGER.getLog(IDL_DEBUG_LOG), VSCODE_PRO_DIR);
+    this._runtime = new IDLRuntime(
+      IDL_LOGGER.getLog(IDL_DEBUG_LOG),
+      VSCODE_PRO_DIR
+    );
 
     // listen to events
     this.listenToEvents();
@@ -183,13 +186,13 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       LogSessionStop('crashed');
     });
 
-    // listen for when our prompt changes
+    // listen for when our prompt chang es
     this._runtime.on(IDL_EVENT_LOOKUP.PROMPT, (prompt) => {
       // save current prompt
       this.prompt = prompt;
 
       // change prompt for status bar
-      if (this._runtime.idlInfo.envi) {
+      if (this._runtime.getIDLInfo().envi) {
         IDL_STATUS_BAR.setPrompt('ENVI');
       } else {
         IDL_STATUS_BAR.setPrompt('IDL');
@@ -232,7 +235,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    * Gets syntax problems from our IDL helper
    */
   getSyntaxProblems() {
-    return this._runtime.errorsByFile;
+    return this._runtime.getErrorsByFile();
   }
 
   /**
@@ -511,8 +514,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   /**
    * Tells us if we have started IDL or not
    */
-  isStarted() {
-    return this._runtime.started;
+  isStarted(): boolean {
+    return this._runtime.isStarted();
   }
 
   /**
@@ -641,7 +644,10 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       }
 
       // create new instance of runtime
-      this._runtime = new IDL(IDL_LOGGER.getLog(IDL_DEBUG_LOG), VSCODE_PRO_DIR);
+      this._runtime = new IDLRuntime(
+        IDL_LOGGER.getLog(IDL_DEBUG_LOG),
+        VSCODE_PRO_DIR
+      );
 
       // listen to events
       this.listenToEvents();
@@ -867,7 +873,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
           this.breakpoints[file][lines[i]] = false;
         }
 
-        if (!this._runtime.started) {
+        if (!this._runtime.isStarted()) {
           response.body = {
             breakpoints: [],
           };
@@ -1112,7 +1118,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       const endFrame = startFrame + maxLevels;
 
       // get stack
-      const stack = this._runtime.getCachedStack(startFrame, endFrame);
+      const stack = this._runtime.getCallStack(startFrame, endFrame);
 
       // populate body
       response.body = {
