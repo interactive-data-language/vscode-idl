@@ -7,6 +7,7 @@ import { Continue } from './continue';
 import { Edit } from './edit';
 import { Exit } from './exit';
 import { ImpliedPrint } from './implied-print';
+import { QueueRight } from './queue-right';
 import { RigorousAlwaysReturn } from './rigorous-always-return';
 import { StartDebugging } from './start';
 import { VariableReplacement } from './variable-replacement';
@@ -25,6 +26,12 @@ export const DEBUGGING_RUNNER = new Runner(DEBUG_TEST_LOGGER);
 DEBUGGING_RUNNER.addTest({
   name: 'Start debugging and run basic command',
   fn: StartDebugging,
+  critical: true,
+});
+
+DEBUGGING_RUNNER.addTest({
+  name: 'Queue works right',
+  fn: QueueRight,
   critical: true,
 });
 
