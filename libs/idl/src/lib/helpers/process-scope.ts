@@ -1,14 +1,14 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import copy from 'fast-copy';
 
-import { IDL } from '../idl.class';
 import { DEFAULT_IDL_INFO, IDLInfo } from '../idl.interface';
+import { IDLProcess } from '../idl-process.class';
 import { CleanIDLOutput } from './clean-idl-output';
 
 /**
  * Processes scope information from IDL
  */
-export function ProcessScope(idl: IDL, output: string) {
+export function ProcessScope(idl: IDLProcess, output: string) {
   // verify we found what we were looking for
   if (output.indexOf('{"scope"') === -1) {
     return copy(DEFAULT_IDL_INFO);
