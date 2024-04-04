@@ -169,6 +169,15 @@ end
 ;   workspace: in, required, String
 ;     Fully-qualified path to the workspace that we want to build/compile
 ;
+; :Keywords:
+;   condense_to: in, optional, String
+;     If set, represents the name of a single SAVE file that will hold all resolved
+;     routines. By default, all routines are stored in separate SAVE files so this
+;     option allows you to change that behavior, if desired.
+;   description: in, optional, String
+;     When `condense_to` is set, optionally specify a description for the file
+;     that gets saved
+;
 ; :Examples:
 ;
 ;   Here's a simple example showing how to run this procedure:
@@ -181,7 +190,7 @@ end
 ;   found within the workspace.
 ;
 ;-
-pro vscode_BuildWorkspace, workspace
+pro vscode_BuildWorkspace, workspace, condense_to = condense_to, description = description
   compile_opt idl2, hidden
   on_error, 2
 
@@ -268,7 +277,7 @@ pro vscode_BuildWorkspace, workspace
   foreach file, files do begin
     bdg.execute, '.reset'
     bdg.execute, '.compile "' + file + '"'
-    bdg.execute, 'save, /routines, filename = "' + file.replace('.pro', '.sav') + '", /compress'
+    bdg.execute, 'save, /routines, /compress, filename = "' + file.replace('.pro', '.sav') + '", /compress'
   endforeach
 
   ; reset bridge
@@ -330,8 +339,44 @@ pro vscode_BuildWorkspace, workspace
     catch, /cancel
 
     ; we found it, so save
-    bdg.execute, 'save, /routines, filename="' + depDir + path_sep() + strlowcase(routine) + '.sav"'
+    bdg.execute, 'save, /routines, /compress, filename="' + depDir + path_sep() + strlowcase(routine) + '.sav"'
   endforeach
+
+  ;+
+  ; Check if we need to save all routines to a single file or not
+  ;-
+  if isa(condense_to, /string) then begin
+    ;+ find SAVE files that we need to combine
+    files = file_search(outDir, '*.sav', count = nFiles)
+
+    ; verify that we have files
+    if (nFiles gt 0) then begin
+      ; reset bridge
+      bdg.execute, '.reset'
+
+      ; restore each file
+      foreach file, files do bdg.execute, 'restore, "' + file + '"'
+
+      ; clean up
+      file_delete, files
+
+      ; check if we have a description we need to pass through
+      if isa(description, /string) then bdg.setVar, 'description', description
+
+      ; save all routines back to disk
+      bdg.execute, 'save, /routines, /compress, description=description, filename="' + strjoin([outDir, condense_to], path_sep()) + '"'
+    endif
+
+    ;+ find folders that we might need to remove if empty
+    folders = file_search(outDir, '*', /test_directory, count = nDirs)
+    if (nDirs gt 0) then begin
+      ; check each sub-dir
+      foreach folder, folders do begin
+        !null = file_search(folder, '*', count = nSub)
+        if (nSub eq 0) then file_delete, folder
+      endforeach
+    endif
+  endif
 
   ; clean up
   obj_destroy, bdg
