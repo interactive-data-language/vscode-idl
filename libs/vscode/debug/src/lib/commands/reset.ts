@@ -9,6 +9,7 @@ export async function ResetIDL() {
     return await IDL_DEBUG_ADAPTER.evaluate(`.reset`, {
       continued: true,
       echo: true,
+      newLine: true,
     });
   }
 }

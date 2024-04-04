@@ -503,6 +503,11 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       IDL_STATUS_BAR.ready();
     }
 
+    // check if we need to add a new line
+    if (options.newLine) {
+      this.sendEvent(new OutputEvent(`\n`));
+    }
+
     // return our result
     return res;
   }
