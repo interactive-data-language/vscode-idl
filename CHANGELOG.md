@@ -44,6 +44,8 @@ Reworked routine signatures that appear in hover help to be more user friendly!
 
 Changed the output from IDL in the debug console so that it no longer prints "IDL>" or "ENVI>" for a new user experience compared to the IDL Workbench.
 
+Fixed an issue with fast parsing where line continuations and comments were not handled correctly which would make parsing miss keywords, arguments, and make some up.
+
 ## 4.3.1 February 2024
 
 Resolved an issue where the language server would take a while to startup when you didn't have any workspace folders open. It should be almost instantaneous now!
