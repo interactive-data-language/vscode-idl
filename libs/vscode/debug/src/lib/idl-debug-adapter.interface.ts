@@ -50,6 +50,10 @@ export interface IDebugEvaluateOptions extends IDLEvaluateOptions {
    * if we were stopped on a breakpoint or something similar, that we have moved on
    */
   continued?: boolean;
+  /**
+   * If set, adds a new line to the output after running
+   */
+  newLine?: boolean;
 }
 
 /**
@@ -60,4 +64,5 @@ export const DEFAULT_EVALUATE_OPTIONS: IDebugEvaluateOptions = {
   echo: false,
   silent: false,
   idlInfo: true,
+  newLine: false,
 };

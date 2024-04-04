@@ -27,6 +27,7 @@ export async function RunFile() {
     const output = CleanIDLOutput(
       await IDL_DEBUG_ADAPTER.evaluate(`.compile -v '${uri}'`, {
         echo: true,
+        newLine: true,
       })
     );
 
