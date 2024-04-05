@@ -83,7 +83,7 @@ export interface ICommandTranslation {
     runFile: string;
     executeBatchFile: string;
     resetIDL: string;
-    stopExecution: string;
+    pauseExecution: string;
     continueExecution: string;
     stepIn: string;
     stepOver: string;
@@ -592,12 +592,12 @@ export interface ITranslation {
         };
         /** Deprecated, but tree entries for IDL terminals */
         terminal: {
-          openTerminal: ITreeInformation;
+          startTerminal: ITreeInformation;
           compileTerminal: ITreeInformation;
           runTerminal: ITreeInformation;
           executeTerminal: ITreeInformation;
           resetTerminal: ITreeInformation;
-          stopTerminal: ITreeInformation;
+          pauseTerminal: ITreeInformation;
           continueTerminal: ITreeInformation;
           stepInTerminal: ITreeInformation;
           stepOverTerminal: ITreeInformation;
