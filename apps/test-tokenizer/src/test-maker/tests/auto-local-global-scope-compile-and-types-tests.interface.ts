@@ -1099,6 +1099,34 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Correctly generate syntax for routine signatures`,
+      fileName: `syntax-examples.spec.ts`,
+      tests: [
+        {
+          name: 'for all basic cases',
+          code: [
+            `function testfunction, a, b, c, kw1 = kw1`,
+            `  compile_opt idl2`,
+            `  return, 1`,
+            `end`,
+            ``,
+            `function testfunction2, kw1 = kw1`,
+            `  compile_opt idl2`,
+            `  return, 1`,
+            `end`,
+            ``,
+            `pro test, a, b, c, kw1 = kw1`,
+            `  compile_opt idl2`,
+            `end`,
+            ``,
+            `pro test2, kw1 = kw1`,
+            `  compile_opt idl2`,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
       suiteName: `Verify type parsing for`,
       fileName: `tasks.from-docs.spec.ts`,
       tests: [
