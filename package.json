@@ -357,6 +357,46 @@
         }
       },
       {
+        "command": "idl.terminal.compileFile",
+        "title": "%commands.idl.terminal.compileFile%"
+      },
+      {
+        "command": "idl.terminal.continueExecution",
+        "title": "%commands.idl.terminal.continueExecution%"
+      },
+      {
+        "command": "idl.terminal.executeBatchFile",
+        "title": "%commands.idl.terminal.executeBatchFile%"
+      },
+      {
+        "command": "idl.terminal.pauseExecution",
+        "title": "%commands.idl.terminal.pauseExecution%"
+      },
+      {
+        "command": "idl.terminal.resetIDL",
+        "title": "%commands.idl.terminal.resetIDL%"
+      },
+      {
+        "command": "idl.terminal.runFile",
+        "title": "%commands.idl.terminal.runFile%"
+      },
+      {
+        "command": "idl.terminal.startIDL",
+        "title": "%commands.idl.terminal.startIDL%"
+      },
+      {
+        "command": "idl.terminal.stepIn",
+        "title": "%commands.idl.terminal.stepIn%"
+      },
+      {
+        "command": "idl.terminal.stepOut",
+        "title": "%commands.idl.terminal.stepOut%"
+      },
+      {
+        "command": "idl.terminal.stepOver",
+        "title": "%commands.idl.terminal.stepOver%"
+      },
+      {
         "command": "idl.webview.start",
         "title": "%commands.idl.webview.start%"
       }

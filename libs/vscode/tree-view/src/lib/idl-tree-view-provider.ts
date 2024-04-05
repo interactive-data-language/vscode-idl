@@ -9,6 +9,7 @@ import { CODE_ACTIONS } from './trees/code-actions.tree.interface';
 import { DEBUGGING_BUTTONS } from './trees/debugging.tree.interface';
 import { NOTEBOOK_ACTIONS } from './trees/notebook-actions.tree.interface';
 import { ADDITIONAL_ACTIONS } from './trees/quick-access.tree.interface';
+import { TERMINAL_BUTTONS } from './trees/terminal-buttons.interface';
 
 export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
   /**
@@ -129,25 +130,25 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
           )
       );
 
-    // // add terminal parents and children
-    // this.parents[IDL_TRANSLATION.idl.tree.parents.terminal] = new IDLAction(
-    //   // override type, OK because click handler ignores parents
-    //   IDL_TRANSLATION.idl.tree.parents.terminal,
-    //   '',
-    //   vscode.TreeItemCollapsibleState.Expanded,
-    //   'terminal.svg',
-    //   ''
-    // );
-    // this.tree[IDL_TRANSLATION.idl.tree.parents.terminal] = TERMINAL_BUTTONS.map(
-    //   (child) =>
-    //     new IDLAction(
-    //       child.name,
-    //       child.description,
-    //       vscode.TreeItemCollapsibleState.None,
-    //       child.icon,
-    //       child.commandName
-    //     )
-    // );
+    // add terminal parents and children
+    this.parents[IDL_TRANSLATION.idl.tree.parents.terminal] = new IDLAction(
+      // override type, OK because click handler ignores parents
+      IDL_TRANSLATION.idl.tree.parents.terminal,
+      '',
+      vscode.TreeItemCollapsibleState.Collapsed,
+      'terminal.svg',
+      ''
+    );
+    this.tree[IDL_TRANSLATION.idl.tree.parents.terminal] = TERMINAL_BUTTONS.map(
+      (child) =>
+        new IDLAction(
+          child.name,
+          child.description,
+          vscode.TreeItemCollapsibleState.None,
+          child.icon,
+          child.commandName
+        )
+    );
 
     /**
      * Add code actions

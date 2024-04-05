@@ -85,7 +85,7 @@ export const EN: ITranslation = {
         runFile: 'IDL: Run PRO File in Terminal',
         executeBatchFile: 'IDL: Execute Batch File in Terminal',
         resetIDL: 'IDL: Reset Session in Terminal',
-        stopExecution: 'IDL: Stop Execution in Terminal',
+        pauseExecution: 'IDL: Stop Execution in Terminal',
         continueExecution: 'IDL: Continue Execution in Terminal',
         stepIn: 'IDL: Step In in Terminal',
         stepOver: 'IDL: Step Over in Terminal',
@@ -147,7 +147,7 @@ export const EN: ITranslation = {
         runFile: 'Error while running PRO file in terminal',
         executeBatchFile: 'Error while executing batch file in terminal',
         resetIDL: 'Error while resetting session in terminal',
-        stopExecution: 'Error while stopping execution in terminal',
+        pauseExecution: 'Error while stopping execution in terminal',
         continueExecution: 'Error while continuing execution in terminal',
         stepIn: 'Error while stepping in in terminal',
         stepOver: 'Error while stepping over in terminal',
@@ -554,8 +554,8 @@ export const EN: ITranslation = {
           },
         },
         terminal: {
-          openTerminal: {
-            name: 'Open',
+          startTerminal: {
+            name: 'Start',
             description: 'IDL in a terminal window',
           },
           compileTerminal: {
@@ -574,8 +574,8 @@ export const EN: ITranslation = {
             name: 'Reset',
             description: 'the IDL session in the terminal',
           },
-          stopTerminal: {
-            name: 'Stop',
+          pauseTerminal: {
+            name: 'Pause',
             description: 'the IDL terminal process',
           },
           continueTerminal: {
