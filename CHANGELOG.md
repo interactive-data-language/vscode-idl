@@ -48,6 +48,8 @@ Fixed an issue with fast parsing where line continuations and comments were not 
 
 Add back in the Terminal commands and buttons to the IDL sidebar for users that prefer to use terminals instead of the debug console.
 
+Fixed a bug that incorrectly reported a type incompatibility when using statements like `val eq !null`
+
 ## 4.3.1 February 2024
 
 Resolved an issue where the language server would take a while to startup when you didn't have any workspace folders open. It should be almost instantaneous now!
