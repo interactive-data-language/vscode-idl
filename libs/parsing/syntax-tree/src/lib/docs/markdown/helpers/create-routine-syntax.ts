@@ -68,12 +68,8 @@ export function CreateRoutineSyntax(
   const argNames = Object.keys(meta.args || {});
   for (let i = 0; i < argNames.length; i++) {
     // add comma
-    if (i === 0 && !isFunction) {
-      syntax.push(',');
-    } else {
-      if (i > 0) {
-        syntax.push(',');
-      }
+    if ((i === 0 && !isFunction) || i > 0) {
+      syntax.push(', ');
     }
 
     // get arg
@@ -84,40 +80,24 @@ export function CreateRoutineSyntax(
       continue;
     }
 
-    // get space before
-    const before = syntax.length === 1 ? '' : ' ';
-
     // check how to display (depends on if required)
     if (arg.req || forDocs) {
-      syntax.push(`${before}${arg.display}`);
+      syntax.push(`${arg.display}`);
     } else {
-      syntax.push(`${before}[ ${arg.display} ]`);
+      syntax.push(`[ ${arg.display} ]`);
     }
   }
 
   // process args
   const kwNames = Object.keys(meta.kws || {});
   for (let i = 0; i < kwNames.length; i++) {
-    // get space before
-    let before = syntax.length === 1 ? '' : '  ';
-
     /**
-     * check how to manage new lines for keyword
+     * Always add new line
      */
-    if (i === 0) {
-      switch (true) {
-        case !isFunction && syntax.length === 1:
-          syntax.push(',');
-          before = ' ';
-          break;
-        case !isFunction || argNames.length > 0:
-          syntax.push(', $\n');
-          break;
-        default:
-          break;
-      }
+    if (!isFunction || argNames.length > 0) {
+      syntax.push(', $\n');
     } else {
-      syntax.push(`, $\n`);
+      syntax.push(' $\n');
     }
 
     // get keyword
@@ -142,9 +122,9 @@ export function CreateRoutineSyntax(
 
     // check how to display (depends on if required)
     if (kw.req || forDocs) {
-      syntax.push(`${before}${kwSyntax}`);
+      syntax.push(`  ${kwSyntax}`);
     } else {
-      syntax.push(`${before}[ ${kwSyntax} ]`);
+      syntax.push(`  [ ${kwSyntax} ]`);
     }
   }
   // check if we need to close our function syntax call
