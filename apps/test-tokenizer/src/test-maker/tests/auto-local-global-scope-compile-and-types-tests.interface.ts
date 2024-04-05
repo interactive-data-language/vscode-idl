@@ -2799,6 +2799,26 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
     },
     {
       suiteName: `Types from`,
+      fileName: `types.null.spec.ts`,
+      tests: [
+        {
+          name: `statements with !null types/values`,
+          code: [
+            `pro dictionary_checks`,
+            `compile_opt idl2`,
+            ``,
+            `a = 'string' eq !null`,
+            ``,
+            `b = [1,2,3] eq !null`,
+            ``,
+            `c = !null`,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
+      suiteName: `Types from`,
       fileName: `types.operations.structures.spec.ts`,
       tests: [
         {

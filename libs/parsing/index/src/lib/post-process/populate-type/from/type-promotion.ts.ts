@@ -6,6 +6,7 @@ import {
 import {
   IDL_ANY_TYPE,
   IDL_ARRAY_TYPE,
+  IDL_BOOLEAN_TYPE,
   IDL_TYPE_LOOKUP,
   IDLDataType,
   IDLTypeHelper,
@@ -87,6 +88,9 @@ export function TypePromotion(
   /** Track if we just use "number" */
   let isNumber = false;
 
+  /** Track if we have null */
+  let isNull = false;
+
   // /** Track if we have a complex type */
   // let isComplex = false;
 
@@ -136,6 +140,9 @@ export function TypePromotion(
 
       // check if we are a number
       isNumber = isNumber || jType.name === IDL_TYPE_LOOKUP.NUMBER;
+
+      // check if we are null
+      isNull = isNull || jType.name === IDL_TYPE_LOOKUP.NULL;
 
       /**
        * Check if we need to restrict the types that we are combining. This is for data structures
@@ -248,34 +255,45 @@ export function TypePromotion(
        * don't have handled right now.
        */
       if (highestType === -1) {
-        if (isArray) {
-          // report problem
-          parsed.postProcessProblems.push(
-            SyntaxProblemWithTranslation(
-              IDL_PROBLEM_CODES.POTENTIAL_IDL_ARRAY_TYPE_INCOMPATIBILITIES,
-              startPos,
-              endPos
-            )
-          );
-
+        /**
+         * TODO: check for overloads
+         */
+        switch (true) {
           /**
-           * TODO: check for overloads
+           * Treat null as boolean for better decisions
            */
-          return copy(IDL_ARRAY_TYPE);
-        } else {
-          // report problem
-          parsed.postProcessProblems.push(
-            SyntaxProblemWithTranslation(
-              IDL_PROBLEM_CODES.POTENTIAL_TYPE_INCOMPATIBILITIES,
-              startPos,
-              endPos
-            )
-          );
-
+          case isNull:
+            if (isArray) {
+              return ParseIDLType('Array<Boolean>');
+            } else {
+              return copy(IDL_BOOLEAN_TYPE);
+            }
           /**
-           * TODO: check for overloads
+           * Handle arrays
            */
-          return copy(IDL_ANY_TYPE);
+          case isArray:
+            // report problem
+            parsed.postProcessProblems.push(
+              SyntaxProblemWithTranslation(
+                IDL_PROBLEM_CODES.POTENTIAL_IDL_ARRAY_TYPE_INCOMPATIBILITIES,
+                startPos,
+                endPos
+              )
+            );
+            return copy(IDL_ARRAY_TYPE);
+          /**
+           * Default unknown types
+           */
+          default:
+            // report problem
+            parsed.postProcessProblems.push(
+              SyntaxProblemWithTranslation(
+                IDL_PROBLEM_CODES.POTENTIAL_TYPE_INCOMPATIBILITIES,
+                startPos,
+                endPos
+              )
+            );
+            return copy(IDL_ANY_TYPE);
         }
       }
     }
