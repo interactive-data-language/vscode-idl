@@ -11,7 +11,11 @@ import { IDLAction } from './idl-action.class';
 export class IDLTreeClickHandler {
   async clickedItem(item: IDLAction): Promise<void> {
     // skip conditions
-    if (item === undefined || item.contextValue === 'parent') {
+    if (
+      item === undefined ||
+      item.contextValue === 'parent' ||
+      !item.commandName
+    ) {
       return;
     }
 
