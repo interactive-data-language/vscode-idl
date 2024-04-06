@@ -84,5 +84,5 @@ export function IDLTaskToGlobal(
 
   // track global tokens
   global.push(struct);
-  // global.push(func);
+  global.push(func);
 }
