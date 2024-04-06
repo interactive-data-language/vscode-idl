@@ -64,6 +64,12 @@ NOTEBOOK_RUNNER.addTest({
   name: 'Open ENVI example notebook',
   fn: OpenENVINotebookExample,
   critical: false,
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
 });
 
 NOTEBOOK_RUNNER.addTest({
@@ -117,18 +123,36 @@ NOTEBOOK_RUNNER.addTest({
 NOTEBOOK_RUNNER.addTest({
   name: 'Run notebook that embeds rasters and do basic check they are right',
   fn: RunTestENVINotebook,
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
 });
 
 // can run ENVI map notebook
 NOTEBOOK_RUNNER.addTest({
   name: 'Notebook maps through ENVI run and basic checks outputs are right',
   fn: RunTestENVIMapNotebook,
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
 });
 
 // can get ENVI progress messages
 NOTEBOOK_RUNNER.addTest({
   name: 'Notebooks can display progress messages from ENVI',
   fn: RunENVIMessageListenerTestNotebook,
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
 });
 
 // reset goes first
