@@ -12,6 +12,7 @@ import {
   IDLCallStackItem,
   IDLEvaluateOptions,
   IDLInfo,
+  IDLSyntaxErrorLookup,
   IDLVariable,
   IRawBreakpoint,
   IStartIDLConfig,
@@ -290,7 +291,7 @@ export class IDLInteractionManager {
   /**
    * Reset errors by file
    */
-  getErrorsByFile() {
+  getErrorsByFile(): IDLSyntaxErrorLookup {
     return this.idl.errorsByFile;
   }
 

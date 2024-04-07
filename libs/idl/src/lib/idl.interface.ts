@@ -202,10 +202,17 @@ export const IDL_STOPS: IDLStopLookup = {
 /**
  * Data structure for a syntax error that we get from IDL's output
  */
-export interface ISyntaxError {
+export interface IDLSyntaxError {
   file: string;
   /**
    * ONE BASED line for where syntax error happens
    */
   line: number;
+}
+
+/**
+ * By file-system-path syntax errors for files
+ */
+export interface IDLSyntaxErrorLookup {
+  [key: string]: IDLSyntaxError[];
 }

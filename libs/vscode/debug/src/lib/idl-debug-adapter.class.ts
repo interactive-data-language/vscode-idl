@@ -45,15 +45,19 @@ import { LogOutput } from './helpers/log-output';
 import { LogSessionStart } from './helpers/log-session-start';
 import { LogSessionStop } from './helpers/log-session-stop';
 import { MapVariables } from './helpers/map-variables';
-import { ResetSyntaxProblems } from './helpers/reset-syntax-problems';
-import { SyncSyntaxProblems } from './helpers/sync-syntax-problems';
 import {
   DEFAULT_EVALUATE_OPTIONS,
   IBreakpointLookup,
   IDebugEvaluateOptions,
   IDLDebugConfiguration,
 } from './idl-debug-adapter.interface';
+import { IDLDebugDecorations } from './idl-debug-decorations.class';
 import { IDL_STATUS_BAR } from './initialize-debugger';
+
+/**
+ * Object to manage decorations for files
+ */
+const DECORATION_MANAGER = new IDLDebugDecorations();
 
 /**
  * Class that handles requests from VSCode UI and sends them to our underlying
@@ -205,7 +209,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this.sendEvent(new TerminatedEvent());
 
     // clear all syntax problems
-    ResetSyntaxProblems(this);
+    DECORATION_MANAGER.reset();
 
     // reset the status bar prompt
     IDL_STATUS_BAR.resetPrompt();
@@ -492,11 +496,11 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // check if we need to reset our syntax problems
     if (reset || close) {
-      ResetSyntaxProblems(this);
+      DECORATION_MANAGER.reset();
     }
 
     // sync any syntax problems we found
-    SyncSyntaxProblems(this);
+    DECORATION_MANAGER.syncSyntaxErrorDecorations(this.getSyntaxProblems());
 
     // update status bar if we are done
     if (!this._runtime.executing()) {
@@ -812,7 +816,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       await this.evaluate('.reset');
 
       // reset syntax problems
-      ResetSyntaxProblems(this);
+      DECORATION_MANAGER.reset();
 
       // let vscode know we finished
       this.sendResponse(response);
@@ -1328,7 +1332,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     LogSessionStop('stopped');
 
     // reset syntax problems
-    ResetSyntaxProblems(this);
+    DECORATION_MANAGER.reset();
 
     // update status bar
     IDL_STATUS_BAR.resetPrompt();
