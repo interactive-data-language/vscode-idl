@@ -2,7 +2,7 @@ import {
   CleanIDLOutput,
   IDL_EVENT_LOOKUP,
   IDLCallStackItem,
-  IDLRuntime,
+  IDLInteractionManager,
   REGEX_COMPILE_COMMAND,
   REGEX_COMPILE_EDIT_COMMAND,
   REGEX_COMPILED_MAIN,
@@ -76,7 +76,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   lastLaunchArgs?: IDLDebugConfiguration;
 
   /** Reference to our IDL class, manages process and input/output */
-  private _runtime: IDLRuntime;
+  private _runtime: IDLInteractionManager;
 
   /** Event to fire when our configuration has been completed, from VSCode example */
   private readonly _configurationDone = new Subject();
@@ -99,7 +99,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this.setDebuggerColumnsStartAt1(true);
 
     // create our runtime session - does not immediately start IDL
-    this._runtime = new IDLRuntime(
+    this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_LOG),
       VSCODE_PRO_DIR
     );
@@ -645,7 +645,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       }
 
       // create new instance of runtime
-      this._runtime = new IDLRuntime(
+      this._runtime = new IDLInteractionManager(
         IDL_LOGGER.getLog(IDL_DEBUG_LOG),
         VSCODE_PRO_DIR
       );

@@ -16,21 +16,22 @@ import {
   IRawBreakpoint,
   IStartIDLConfig,
 } from './idl.interface';
+import { IDLEvaluationItem } from './idl-interaction-manager.interface';
 import { IDLProcess } from './idl-process.class';
-import { IDLExecutorItem } from './idl-runtime.interface';
 import EventEmitter = require('events');
 
 /**
- * Class that manages an IDL session
+ * Class that manages interacting with IDL.
  *
- * Not related to "IDL Runtime" licensing, just the name of the class :)
+ * The IDL process runs behind the scenes and this adds a layer of abstraction so that we
+ * can get the information we need from IDL to do things like debugging.
  */
-export class IDLRuntime {
+export class IDLInteractionManager {
   /** promise queue to manage pending requests */
-  private _queue: IDLExecutorItem[] = [];
+  private _queue: IDLEvaluationItem[] = [];
 
   /** Track the current item we are processing */
-  private _processing: IDLExecutorItem;
+  private _processing: IDLEvaluationItem;
 
   /** Our instance of IDL */
   private idl: IDLProcess;
