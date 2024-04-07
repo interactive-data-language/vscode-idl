@@ -50,6 +50,10 @@ Add back in the Terminal commands and buttons to the IDL sidebar for users that 
 
 Fixed a bug that incorrectly reported a type incompatibility when using statements like `val eq !null`
 
+To help accentuate syntax errors in files, lines are now highlighted.
+
+As part of the syntax error line highlights, we have the framework to support code coverage in the future! Which should be coming in a release at some point.
+
 ## 4.3.1 February 2024
 
 Resolved an issue where the language server would take a while to startup when you didn't have any workspace folders open. It should be almost instantaneous now!

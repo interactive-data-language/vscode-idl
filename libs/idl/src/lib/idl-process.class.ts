@@ -15,8 +15,9 @@ import {
   DEFAULT_IDL_INFO,
   IDL_STOPS,
   IDLCallStackItem,
+  IDLSyntaxError,
+  IDLSyntaxErrorLookup,
   IStartIDLConfig,
-  ISyntaxError,
   StopReason,
 } from './idl.interface';
 import {
@@ -56,7 +57,7 @@ export class IDLProcess extends EventEmitter {
   /**
    * Track syntax errors by file and continually update as we run commands
    */
-  errorsByFile: { [key: string]: ISyntaxError[] } = {};
+  errorsByFile: IDLSyntaxErrorLookup = {};
 
   constructor(log: Logger, vscodeProDir: string) {
     super();
@@ -458,7 +459,7 @@ export class IDLProcess extends EventEmitter {
       /**
        * Make new data structure with errors we detected
        */
-      const newErrorsByFile: { [key: string]: ISyntaxError[] } = {};
+      const newErrorsByFile: { [key: string]: IDLSyntaxError[] } = {};
 
       // save errors
       for (let i = 0; i < errors.length; i++) {
