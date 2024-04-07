@@ -1,8 +1,8 @@
 import { IDLSyntaxErrorLookup } from '@idl/idl';
+import { Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { OpenFileInVSCodeFromURI } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
-import { URI } from 'vscode-uri';
 
 import {
   DEBUG_DIAGNOSTIC_COLLECTION,
@@ -32,7 +32,18 @@ export class IDLDebugDecorations {
    */
   constructor() {
     // add to files when we open them
-    vscode.workspace.onDidOpenTextDocument((doc) => {
+    vscode.workspace.onDidOpenTextDocument(async (doc) => {
+      /**
+       * Yet again, mismatch between VSCode API states
+       *
+       * We need this so that visibleTextEditors is up-to-date with
+       * the latest value
+       *
+       * Otherwise we try to draw our decorations and we can't
+       */
+      await Sleep(100);
+
+      // add decorations to the file we opened
       this.applyDecorations(doc.uri);
     });
 
@@ -92,7 +103,7 @@ export class IDLDebugDecorations {
     // process each file
     for (let i = 0; i < files.length; i++) {
       this.addSyntaxErrorDecorations(
-        URI.parse(files[i]),
+        vscode.Uri.file(files[i]),
         problems[files[i]].map((problem) => {
           return {
             range: new vscode.Range(
@@ -154,12 +165,15 @@ export class IDLDebugDecorations {
       /** Get errors */
       const errors = this.decorations.syntaxErrors[uriStrings[i]];
 
+      /** Parse as URI */
+      const uri = vscode.Uri.parse(uriStrings[i]);
+
       // reset
-      this.addSyntaxErrorDecorations(URI.parse(uriStrings[i]), []);
+      this.addSyntaxErrorDecorations(uri, []);
 
       // apply again to handle color theme changes
       if (reApply) {
-        this.addSyntaxErrorDecorations(URI.parse(uriStrings[i]), errors);
+        this.addSyntaxErrorDecorations(uri, errors);
       }
     }
   }
