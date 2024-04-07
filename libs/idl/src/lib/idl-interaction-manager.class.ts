@@ -240,26 +240,26 @@ export class IDLInteractionManager {
   /**
    * Retrieve call stack information
    */
-  getCallStack(
+  async getCallStack(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     startFrame: number,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     endFrame?: number
-  ): IDLCallStack {
+  ): Promise<IDLCallStack> {
     // return if we have not started
     if (!this.idl.started) {
       return { frames: [], count: 0 };
     }
 
-    // use the cached info from the latest call
-    const info = this.idl.idlInfo;
+    /** Get latest call stack from IDL */
+    const scope = await this.getCurrentStack();
 
     // initialize call stack
     const frames: IDLCallStackItem[] = [];
 
     // process call stack
-    for (let i = 0; i < info.scope.length; i++) {
-      const val = info.scope[i];
+    for (let i = 0; i < scope.length; i++) {
+      const val = scope[i];
       frames.push({
         index: i,
         name: val.routine,
@@ -271,7 +271,7 @@ export class IDLInteractionManager {
     // return our info
     return {
       frames,
-      count: info.scope.length,
+      count: scope.length,
     };
   }
 
