@@ -175,7 +175,7 @@ export class IDLInteractionManager {
       // retrieve scope information
       const scopeInfo = ProcessScope(
         this.idl,
-        await this.idl.evaluate(this.scopeInfoCommand(0))
+        await this.idl.evaluate(this.scopeInfoCommand(0), false)
       );
 
       // update if we have it or use default
