@@ -1,14 +1,19 @@
 {
   "For loop": {
     "prefix": "for",
-    "body": ["for ${1:i} = ${2:0}, ${3:42 - 1} do begin", "  $0", "endfor", ""],
+    "body": [
+      "for ${1:i} = ${2:0}, n_elements(${3:var}) - 1 do begin",
+      "  $0",
+      "endfor",
+      ""
+    ],
     "description": "For loop",
     "scope": "source.idl"
   },
   "For loop with increment": {
     "prefix": "for",
     "body": [
-      "for ${1:i} = ${2:0}, ${3:42 - 1}, ${4:1} do begin",
+      "for ${1:i} = ${2:0}, n_elements(${3:var}) - 1, ${4:1} do begin",
       "  $0",
       "endfor",
       ""
