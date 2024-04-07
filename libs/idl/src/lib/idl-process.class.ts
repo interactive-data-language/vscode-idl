@@ -422,7 +422,7 @@ export class IDLProcess extends EventEmitter {
   /**
    * External method to execute something in IDL
    */
-  async evaluate(command: string): Promise<string> {
+  async evaluate(command: string, errorCheck = true): Promise<string> {
     if (!this.started) {
       throw new Error('IDL is not started');
     }
@@ -431,7 +431,7 @@ export class IDLProcess extends EventEmitter {
     const res = await this._evaluate(command);
 
     // handle the string output and check for stop conditions
-    this.stopCheck(res);
+    this.stopCheck(res, errorCheck);
 
     // return the output
     return res;
@@ -482,7 +482,7 @@ export class IDLProcess extends EventEmitter {
 
     this.log.log({
       type: 'debug',
-      content: `Handle output: ${JSON.stringify(output)}`,
+      content: `Error check output: ${JSON.stringify(output)}`,
     });
 
     // check for traceback information
