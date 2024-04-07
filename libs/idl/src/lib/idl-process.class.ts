@@ -483,7 +483,7 @@ export class IDLProcess extends EventEmitter {
 
     this.log.log({
       type: 'debug',
-      content: `Error check output: ${JSON.stringify(output)}`,
+      content: `Error check output`,
     });
 
     // check for traceback information
