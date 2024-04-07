@@ -1,11 +1,17 @@
-import { IDLSyntaxErrorLookup } from '@idl/idl';
+import {
+  IDL_CODE_COVERAGE_LOOKUP,
+  IDLCodeCoverage,
+  IDLSyntaxErrorLookup,
+} from '@idl/idl';
 import { Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { OpenFileInVSCodeFromURI } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 import {
+  CODE_COVERAGE_DECORATIONS,
   DEBUG_DIAGNOSTIC_COLLECTION,
+  ICodeCoverageLookup,
   IDecorationLookup,
   SYNTAX_ERROR_DECORATION,
 } from './idl-debug-decorations.interface';
@@ -21,9 +27,13 @@ export class IDLDebugDecorations {
    * Current decorations to apply to files
    */
   decorations: {
+    /** Information about syntax errors */
     syntaxErrors: IDecorationLookup;
+    /** Information about code coverage */
+    coverage: ICodeCoverageLookup;
   } = {
     syntaxErrors: {},
+    coverage: {},
   };
 
   /**
@@ -72,6 +82,11 @@ export class IDLDebugDecorations {
         this.decorations.syntaxErrors[asString]
       );
     }
+
+    // apply code coverage
+    if (asString in this.decorations.coverage) {
+      this.addCodeCoverageDecorations(uri, this.decorations.coverage[asString]);
+    }
   }
 
   /**
@@ -106,10 +121,7 @@ export class IDLDebugDecorations {
         vscode.Uri.file(files[i]),
         problems[files[i]].map((problem) => {
           return {
-            range: new vscode.Range(
-              new vscode.Position(problem.line - 1, 0),
-              new vscode.Position(problem.line - 1, Number.MAX_VALUE)
-            ),
+            range: this._rangeFromLine(problem.line - 1),
           };
         })
       );
@@ -117,7 +129,8 @@ export class IDLDebugDecorations {
   }
 
   /**
-   * Add syntax error decorations to a
+   * Add decorations for syntax errors which makes lines appear red
+   * and adds problems to the diagnostics
    */
   addSyntaxErrorDecorations(
     uri: vscode.Uri,
@@ -171,7 +184,7 @@ export class IDLDebugDecorations {
       // reset
       this.addSyntaxErrorDecorations(uri, []);
 
-      // apply again to handle color theme changes
+      // apply again
       if (reApply) {
         this.addSyntaxErrorDecorations(uri, errors);
       }
@@ -179,9 +192,107 @@ export class IDLDebugDecorations {
   }
 
   /**
+   * Add decorations for code coverage
+   */
+  addCodeCoverageDecorations(uri: vscode.Uri, coverage: IDLCodeCoverage) {
+    /** Get string URI */
+    const asString = uri.toString();
+
+    // save decorations
+    this.decorations.coverage[asString] = coverage;
+
+    /**
+     * Decorations for code we dont run
+     */
+    const notExecuted: vscode.DecorationOptions[] = [];
+
+    /**
+     * Decorations for code we run
+     */
+    const executed: vscode.DecorationOptions[] = [];
+
+    // process each line
+    for (let i = 0; i < coverage.length; i++) {
+      // check coverage for our line
+      switch (coverage[i]) {
+        /**
+         * Did we run the line?
+         */
+        case IDL_CODE_COVERAGE_LOOKUP.EXECUTED:
+          executed.push({ range: this._rangeFromLine(i) });
+          break;
+        /**
+         * Did we not run the line?
+         */
+        case IDL_CODE_COVERAGE_LOOKUP.NOT_EXECUTED:
+          notExecuted.push({ range: this._rangeFromLine(i) });
+          break;
+        /**
+         * Comment or white space
+         */
+        default:
+          // do nothing
+          break;
+      }
+    }
+
+    // apply decorations
+    this._applyDecorations(
+      asString,
+      CODE_COVERAGE_DECORATIONS.EXECUTED,
+      executed
+    );
+    this._applyDecorations(
+      asString,
+      CODE_COVERAGE_DECORATIONS.NOT_EXECUTED,
+      notExecuted
+    );
+  }
+
+  /**
+   * Resets code coverage decorations
+   *
+   * Not private so it can be toggled on and off on demand
+   */
+  resetCodeCoverageDecorations(reApply = false) {
+    /**
+     * Get all files we track
+     */
+    const uriStrings = Object.keys(this.decorations.coverage);
+
+    // process each file
+    for (let i = 0; i < uriStrings.length; i++) {
+      /** Get code coverage */
+      const coverage = this.decorations.coverage[uriStrings[i]];
+
+      /** Parse as URI */
+      const uri = vscode.Uri.parse(uriStrings[i]);
+
+      // reset
+      this.addCodeCoverageDecorations(uri, []);
+
+      // apply again
+      if (reApply) {
+        this.addCodeCoverageDecorations(uri, coverage);
+      }
+    }
+  }
+
+  /**
+   * Creates a VSCode range that covers an entire line
+   */
+  private _rangeFromLine(line: number) {
+    return new vscode.Range(
+      new vscode.Position(line, 0),
+      new vscode.Position(line, Number.MAX_VALUE)
+    );
+  }
+
+  /**
    * Resets or re-applies decorations
    */
   reset(reApply = false) {
     this._resetSyntaxErrorDecorations(reApply);
+    this.resetCodeCoverageDecorations(reApply);
   }
 }
