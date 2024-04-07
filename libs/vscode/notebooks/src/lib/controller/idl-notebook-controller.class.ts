@@ -2,7 +2,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   CleanIDLOutput,
   IDL_EVENT_LOOKUP,
-  IDLRuntime,
+  IDLInteractionManager,
   REGEX_NEW_LINE,
 } from '@idl/idl';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
@@ -81,7 +81,7 @@ export class IDLNotebookController {
   private listening = false;
 
   /** Reference to our IDL class, manages process and input/output */
-  _runtime: IDLRuntime;
+  _runtime: IDLInteractionManager;
 
   /**
    * The current cell that we are executing
@@ -100,7 +100,7 @@ export class IDLNotebookController {
 
   constructor() {
     // create our runtime session - does not immediately start IDL
-    this._runtime = new IDLRuntime(
+    this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_NOTEBOOK_LOG),
       VSCODE_PRO_DIR
     );
@@ -509,7 +509,7 @@ export class IDLNotebookController {
     }
 
     // create new instance of runtime
-    this._runtime = new IDLRuntime(
+    this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_NOTEBOOK_LOG),
       VSCODE_PRO_DIR
     );
