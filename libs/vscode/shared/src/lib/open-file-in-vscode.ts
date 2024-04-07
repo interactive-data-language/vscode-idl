@@ -12,3 +12,14 @@ export async function OpenFileInVSCode(file: string, show = true) {
   }
   return doc;
 }
+
+/**
+ * From a URI, opens a file in VSCode
+ */
+export async function OpenFileInVSCodeFromURI(uri: vscode.Uri, show = true) {
+  const doc = await vscode.workspace.openTextDocument(uri);
+  if (show) {
+    await vscode.window.showTextDocument(doc);
+  }
+  return doc;
+}
