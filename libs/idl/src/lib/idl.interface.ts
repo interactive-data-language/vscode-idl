@@ -216,3 +216,39 @@ export interface IDLSyntaxError {
 export interface IDLSyntaxErrorLookup {
   [key: string]: IDLSyntaxError[];
 }
+
+/** Line of code that is not something that runs */
+type IDLCodeCoverageNotCodeFlag = 0;
+/** line of code that we didnt run */
+type IDLCodeCoverageNotExecutedFlag = 1;
+/** Line of code that we ran */
+type IDLCodeCoverageExecutedFlag = 2;
+
+/** Flag to track cover coverage */
+export type IDLCodeCoverageFlag =
+  | IDLCodeCoverageNotCodeFlag
+  | IDLCodeCoverageNotExecutedFlag
+  | IDLCodeCoverageExecutedFlag;
+
+/**
+ * Strictly typed lookup of code coverage flags
+ */
+interface IDLCodeCoverageLookup {
+  NOT_CODE: IDLCodeCoverageNotCodeFlag;
+  NOT_EXECUTED: IDLCodeCoverageNotExecutedFlag;
+  EXECUTED: IDLCodeCoverageExecutedFlag;
+}
+
+/**
+ * Lookup of code coverage flags
+ */
+export const IDL_CODE_COVERAGE_LOOKUP: IDLCodeCoverageLookup = {
+  NOT_CODE: 0,
+  NOT_EXECUTED: 1,
+  EXECUTED: 2,
+};
+
+/**
+ * Data structure for code coverage from IDL
+ */
+export type IDLCodeCoverage = Array<IDLCodeCoverageFlag>;

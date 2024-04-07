@@ -10,6 +10,7 @@ import {
   IDLBreakpoint,
   IDLCallStack,
   IDLCallStackItem,
+  IDLCodeCoverage,
   IDLEvaluateOptions,
   IDLInfo,
   IDLSyntaxErrorLookup,
@@ -273,6 +274,18 @@ export class IDLInteractionManager {
       frames,
       count: scope.length,
     };
+  }
+
+  /**
+   * Gets code coverage for a given file
+   */
+  async getCodeCoverage(file: string): Promise<IDLCodeCoverage> {
+    return JSON.parse(
+      await this.evaluate(`vscode_getFileCodeCoverage, '${file}'`, {
+        silent: false,
+        idlInfo: false,
+      })
+    );
   }
 
   /**
