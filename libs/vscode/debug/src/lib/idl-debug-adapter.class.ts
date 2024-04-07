@@ -14,6 +14,7 @@ import {
   StopReason,
 } from '@idl/idl';
 import { IDL_DEBUG_ADAPTER_LOG, IDL_DEBUG_LOG } from '@idl/logger';
+import { Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_LOGGER, VSCODE_PRO_DIR } from '@idl/vscode/client';
@@ -133,7 +134,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     });
 
     // listen for stops
-    this._runtime.on(IDL_EVENT_LOOKUP.STOP, (reason, stack) => {
+    this._runtime.on(IDL_EVENT_LOOKUP.STOP, async (reason, stack) => {
       IDL_LOGGER.log({
         type: 'debug',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -145,6 +146,14 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       };
       this.sendEvent(
         new StoppedEvent(this.stopped.reason, IDLDebugAdapter.THREAD_ID)
+      );
+
+      // short pause to make sure APIs catch up
+      await Sleep(100);
+
+      // jump to stack to work around VSCode issue/change with latest release
+      await vscode.commands.executeCommand(
+        'workbench.action.debug.callStackTop'
       );
     });
 
