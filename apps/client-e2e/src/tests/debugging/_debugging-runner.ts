@@ -10,6 +10,7 @@ import { ImpliedPrint } from './implied-print';
 import { QueueRight } from './queue-right';
 import { RigorousAlwaysReturn } from './rigorous-always-return';
 import { StartDebugging } from './start';
+import { SyntaxErrorTracking } from './syntax_error_tracking';
 import { VariableReplacement } from './variable-replacement';
 
 /**
@@ -33,6 +34,11 @@ DEBUGGING_RUNNER.addTest({
   name: 'Queue works right',
   fn: QueueRight,
   critical: true,
+});
+
+DEBUGGING_RUNNER.addTest({
+  name: 'Track syntax errors',
+  fn: SyntaxErrorTracking,
 });
 
 DEBUGGING_RUNNER.addTest({
