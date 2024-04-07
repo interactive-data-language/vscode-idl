@@ -1132,7 +1132,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       const endFrame = startFrame + maxLevels;
 
       // get stack
-      const stack = this._runtime.getCallStack(startFrame, endFrame);
+      const stack = await this._runtime.getCallStack(startFrame, endFrame);
 
       // populate body
       response.body = {
