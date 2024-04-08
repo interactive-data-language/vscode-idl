@@ -20,7 +20,7 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 - A new sidebar entry for PDF generation and a button in the top-right of the notebook to generate a PDF
 
-- When you click either, as long as your notebook is saved to disk, it will create Markdown, open it, and start the PDF generation process
+- When you click the button to create a PDF, as long as your notebook is saved to disk, it will create Markdown, open it, and start the PDF generation process
 
 - Once finished, it closes the Markdown file
 
