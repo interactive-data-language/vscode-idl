@@ -134,7 +134,7 @@ describe(`[auto generated] Verify fast parsing handles comments and line continu
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\natVectorizeDifferenceImage, difference_raster = value, $\n  decrease_vector = value, $\n  output_decrease_vector_uri = value, $\n  increase_vector = value, $\n  output_increase_vector_uri = value\n```\n\n\n\n\n#### Keywords\n\n- **difference_raster**: bidirectional, optional, any\n\n    \n\n- **decrease_vector**: bidirectional, optional, any\n\n    \n\n- **output_decrease_vector_uri**: bidirectional, optional, any\n\n    \n\n- **increase_vector**: bidirectional, optional, any\n\n    \n\n- **output_increase_vector_uri**: bidirectional, optional, any\n\n    \n\n\n\n### Mystruct\n\nprop: Long\n  Placeholder docs for argument or keyword\nprop2: ENVIRaster\n  Placeholder docs for argument or keyword',
+          docs: '\n```idl\natVectorizeDifferenceImage, $\n  difference_raster = value, $\n  decrease_vector = value, $\n  output_decrease_vector_uri = value, $\n  increase_vector = value, $\n  output_increase_vector_uri = value\n```\n\n\n\n\n#### Keywords\n\n- **difference_raster**: bidirectional, optional, any\n\n    \n\n- **decrease_vector**: bidirectional, optional, any\n\n    \n\n- **output_decrease_vector_uri**: bidirectional, optional, any\n\n    \n\n- **increase_vector**: bidirectional, optional, any\n\n    \n\n- **output_increase_vector_uri**: bidirectional, optional, any\n\n    \n\n\n\n### Mystruct\n\nprop: Long\n  Placeholder docs for argument or keyword\nprop2: ENVIRaster\n  Placeholder docs for argument or keyword',
           docsLookup: {
             default: '',
             mystruct:

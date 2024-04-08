@@ -80,7 +80,7 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nmypro, $\n [ /KW1 ]\n```\n\nMy procedure\n\n\n#### Keywords\n\n- **KW1**: in, optional, Boolean\n\n    Super Cool flag\n\n',
+          docs: '\n```idl\nmypro, $\n  /KW1\n```\n\nMy procedure\n\n\n#### Keywords\n\n- **KW1**: in, optional, Boolean\n\n    Super Cool flag\n\n',
           docsLookup: { default: 'My procedure' },
           display: 'mypro',
           kws: {
