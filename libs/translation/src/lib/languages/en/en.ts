@@ -383,7 +383,8 @@ export const EN: ITranslation = {
       promiseResolveError:
         'Error resolving promise for executing IDL statement',
       noRoutineFound:
-        'No main level program or function/procedure with same name as file found',
+        'No main level program, function, or procedure found to run',
+      syntaxErrorsFound: 'Syntax errors detected in your code, cannot proceed',
       returning: 'File compiled while active, returning...',
       nothingToEdit: 'No matching file found',
       noPauseOnWindows: 'Pause is not currently supported on Windows platforms',

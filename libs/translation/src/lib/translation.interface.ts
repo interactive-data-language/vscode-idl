@@ -356,6 +356,8 @@ export interface ITranslation {
       promiseResolveError: string;
       /** Message when we try to run a file, but dont find anything */
       noRoutineFound: string;
+      /** When we detect syntax errors trying to run code */
+      syntaxErrorsFound: string;
       returning: string;
       /** Message to display when users try to pause IDL on windows */
       noPauseOnWindows: string;
