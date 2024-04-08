@@ -141,7 +141,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myfunc()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: TypeOfArg<0>\n;+\nresult = myfunc()\n```\n\n\n',
           docsLookup: { default: '', returns: 'TypeOfArg' },
           display: 'myfunc',
           kws: {},
@@ -308,7 +308,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myfunc()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: TypeOfArg<0>\n;+\nresult = myfunc()\n```\n\n\n',
           docsLookup: { default: '', returns: 'TypeOfArg<0>' },
           display: 'myfunc',
           kws: {},
@@ -468,7 +468,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myfunc()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: TypeOfArg<2>\n;+\nresult = myfunc()\n```\n\n\n',
           docsLookup: { default: '', returns: 'TypeOfArg<2>' },
           display: 'myfunc',
           kws: {},
@@ -628,7 +628,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myfunc()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: TypeOfArg<baad>\n;+\nresult = myfunc()\n```\n\n\n',
           docsLookup: { default: '', returns: 'TypeOfArg<baad>' },
           display: 'myfunc',
           kws: {},

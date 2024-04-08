@@ -135,7 +135,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myPro()\n```\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myPro()\n```\n',
           docsLookup: {},
           display: 'myPro',
           kws: {},

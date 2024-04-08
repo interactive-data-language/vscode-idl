@@ -999,7 +999,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myfunc2()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: Array<Number>\n;+\nresult = myfunc2()\n```\n\n\n',
           docsLookup: { default: '', returns: 'Array<Number>' },
           display: 'myfunc2',
           kws: {},
@@ -1025,7 +1025,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myfunc()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: Number\n;+\nresult = myfunc()\n```\n\n\n',
           docsLookup: { default: '', returns: 'Number' },
           display: 'myfunc',
           kws: {},
