@@ -11,17 +11,14 @@ import { VerifyIDLHasStarted } from './start-idl';
  * Compile current pro file and runs
  */
 export async function RunFile(): Promise<boolean> {
-  console.log('Running file really');
   // return if IDL hasnt started yet
   if (!VerifyIDLHasStarted(true)) {
-    console.log('Not started');
     return false;
   }
 
   // get code and make sure it is ready for use
   const code = GetActivePROCodeWindow(true);
   if (!code) {
-    console.log('No code');
     return false;
   }
   await code.save();
