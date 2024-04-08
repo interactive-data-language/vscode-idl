@@ -1,8 +1,7 @@
 import { CleanPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { GetActivePROCodeWindow } from '@idl/vscode/shared';
+import { GetActivePROCodeWindow, GetDocumentOutline } from '@idl/vscode/shared';
 import { OutputEvent } from '@vscode/debugadapter';
-import * as vscode from 'vscode';
 
 import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';
 import { VerifyIDLHasStarted } from './start-idl';
@@ -50,10 +49,7 @@ export async function RunFile(): Promise<boolean> {
   /**
    * Get outline from extension
    */
-  const outline = (await vscode.commands.executeCommand(
-    'vscode.executeDocumentSymbolProvider',
-    code.uri
-  )) as vscode.DocumentSymbol[];
+  const outline = await GetDocumentOutline(code);
 
   /**
    * Get the bottom-most routine
