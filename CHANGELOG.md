@@ -56,6 +56,16 @@ As part of the syntax error line highlights, we have the framework to support co
 
 Tweak the snippets for for loops to use n_elements() on a variable instead of having a static value
 
+Re-work the logic for running files to be much more flexible. Here's how it behaves:
+
+1. If you have a main level program, compile the file and then run the main program
+
+2. If you have a procedure or function as the bottom-most routine, attempt to call without any arguments keywords
+
+3. If you have a function method or procedure method as the bottom-most routine, we do not run anything
+
+4. If we detect a syntax error when we compile your file, we stop before running
+
 ## 4.3.1 February 2024
 
 Resolved an issue where the language server would take a while to startup when you didn't have any workspace folders open. It should be almost instantaneous now!

@@ -89,7 +89,7 @@ export async function RunFile(): Promise<boolean> {
      * Function
      */
     case bottomName.endsWith('()'):
-      command = `null = ${bottom.name}`;
+      command = `void = ${bottom.name}`;
       break;
 
     /**
