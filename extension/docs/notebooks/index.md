@@ -10,7 +10,7 @@ If you are new to notebooks, they are:
 
 - A way that you can share code with your colleagues and friends
 
-Here's a short video introducing IDL Notebooks (requires internet access).
+Here's a short video introducing IDL Notebooks (requires internet access). You can also find the video [here](https://www.nv5geospatialsoftware.com/Learn/Videos/Video-Detail/ArtMID/10263/ArticleID/24427/IDL-Notebooks-%7c-QUICK-DEMO) on our website.
 
 <img style="width: 100%; margin: auto; display: block;" class="vidyard-player-embed" src="https://play.vidyard.com/ZdFrzw2XcDwjySetxjVJ1x.jpg" data-uuid="ZdFrzw2XcDwjySetxjVJ1x" data-v="4" data-type="inline" />
 
@@ -36,7 +36,7 @@ Here's how:
 
 ## In-Depth Tutorial
 
-Here's a longer video talking more about how to use IDL Notebooks and it covers some of the more advanced ENVI APIs to display imagery and other types of data (requires internet access).
+Here's a longer video talking more about how to use IDL Notebooks and it covers some of the more advanced ENVI APIs to display imagery and other types of data (requires internet access). You can also find the video [here](https://www.nv5geospatialsoftware.com/Learn/Videos/Video-Detail/ArtMID/10263/ArticleID/24428/IDL-Notebooks-%7c-IN-DEPTH-TUTORIAL) on our website.
 
 <img style="width: 100%; margin: auto; display: block;" class="vidyard-player-embed" src="https://play.vidyard.com/49Qg9kt6RN3ukj9vfdKcRE.jpg" data-uuid="49Qg9kt6RN3ukj9vfdKcRE" data-v="4" data-type="inline" />
 

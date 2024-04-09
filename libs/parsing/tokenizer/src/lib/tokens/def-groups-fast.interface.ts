@@ -1,6 +1,8 @@
 import { ITokenDef, TokenName } from '../tokens.interface';
 import { ASSIGNMENT } from './defs/assignment.interface';
 import { COMMA } from './defs/commas.interface';
+import { COMMENT } from './defs/comment.interface';
+import { LINE_CONTINUATION } from './defs/line-modifiers.interface';
 import {
   STRUCTURE_INHERITANCE,
   STRUCTURE_NAME,
@@ -15,6 +17,8 @@ export const ROUTINE_NAME_FAST_TOKENS: ITokenDef<TokenName>[] = [
   VARIABLE,
   ASSIGNMENT,
   COMMA,
+  COMMENT,
+  LINE_CONTINUATION,
 ];
 
 /**
@@ -31,6 +35,8 @@ export const STRUCTURE_FAST_TOKENS: ITokenDef<TokenName>[] = [
   STRUCTURE_INHERITANCE,
   STRUCTURE_PROPERTY,
   COMMA,
+  COMMENT,
+  LINE_CONTINUATION,
 ];
 
 /**
@@ -40,4 +46,6 @@ export const NAMED_STRUCTURE_FAST_TOKENS: ITokenDef<TokenName>[] = [
   STRUCTURE_INHERITANCE,
   STRUCTURE_PROPERTY,
   COMMA,
+  COMMENT,
+  LINE_CONTINUATION,
 ];

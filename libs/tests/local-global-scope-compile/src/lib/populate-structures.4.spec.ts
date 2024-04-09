@@ -81,7 +81,7 @@ describe(`[auto generated] Find them in`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = define_these_structures()\n```\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = define_these_structures()\n```\n',
           docsLookup: {},
           display: 'define_these_structures',
           kws: {},

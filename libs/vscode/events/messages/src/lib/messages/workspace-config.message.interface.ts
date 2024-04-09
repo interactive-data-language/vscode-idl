@@ -21,9 +21,3 @@ export interface IInitWorkspaceConfigPayload {
   /** Folder we are initializing */
   folder: string;
 }
-
-/** Message to add docs to routines in file */
-export type AddDocsMessage = 'add-docs';
-
-/** Message to specify that we are formatting a file */
-export type FormatFileMessage = 'format-file';

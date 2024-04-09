@@ -27,6 +27,8 @@ export interface ICommandTranslation {
     addDocsToFile: string;
     /** Format file */
     formatFile: string;
+    /** Format all code in a workspace */
+    formatWorkspace: string;
     /** Generates a task file */
     generateTask: string;
     /** Migrate PRO code to the ENVI DL 3.0 API */
@@ -83,7 +85,7 @@ export interface ICommandTranslation {
     runFile: string;
     executeBatchFile: string;
     resetIDL: string;
-    stopExecution: string;
+    pauseExecution: string;
     continueExecution: string;
     stepIn: string;
     stepOver: string;
@@ -314,6 +316,13 @@ export interface ITranslation {
         /** Title of the dialog for picking workspace folders to initialize config files for */
         dialogTitle: string;
       };
+      /** Messages when formatting the workspace */
+      formatWorkspace: {
+        /** Title of the dialog for picking workspace to format files in */
+        pickWorkspace: string;
+        /** When there are files we failed to format */
+        notAllFilesFormatted: string;
+      };
     };
   };
   /** Translations related to configuring the extension */
@@ -356,6 +365,8 @@ export interface ITranslation {
       promiseResolveError: string;
       /** Message when we try to run a file, but dont find anything */
       noRoutineFound: string;
+      /** When we detect syntax errors trying to run code */
+      syntaxErrorsFound: string;
       returning: string;
       /** Message to display when users try to pause IDL on windows */
       noPauseOnWindows: string;
@@ -451,6 +462,8 @@ export interface ITranslation {
       onDefinition: string;
       /** Error formatting */
       onDocumentFormatting: string;
+      /** Error formatting workspace */
+      onWorkspaceFormatting: string;
       /** Unable to format because of syntax error */
       onDocumentFormattingProblemCode: string;
       /** Auto-complete */
@@ -508,6 +521,11 @@ export interface ITranslation {
       start: string;
       /** Error when starting the docs server because of a port conflict */
       startDocsServer: string;
+    };
+    /** Titles for progress messages */
+    progress: {
+      /** Progress for formatting workspace */
+      formatWorkspace: string;
     };
     /** Messages for types */
     types: {
@@ -592,12 +610,12 @@ export interface ITranslation {
         };
         /** Deprecated, but tree entries for IDL terminals */
         terminal: {
-          openTerminal: ITreeInformation;
+          startTerminal: ITreeInformation;
           compileTerminal: ITreeInformation;
           runTerminal: ITreeInformation;
           executeTerminal: ITreeInformation;
           resetTerminal: ITreeInformation;
-          stopTerminal: ITreeInformation;
+          pauseTerminal: ITreeInformation;
           continueTerminal: ITreeInformation;
           stepInTerminal: ITreeInformation;
           stepOverTerminal: ITreeInformation;

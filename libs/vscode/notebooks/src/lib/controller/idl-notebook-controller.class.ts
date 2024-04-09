@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   CleanIDLOutput,
-  IDL,
   IDL_EVENT_LOOKUP,
+  IDLInteractionManager,
   REGEX_NEW_LINE,
 } from '@idl/idl';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
@@ -81,7 +81,7 @@ export class IDLNotebookController {
   private listening = false;
 
   /** Reference to our IDL class, manages process and input/output */
-  _runtime: IDL;
+  _runtime: IDLInteractionManager;
 
   /**
    * The current cell that we are executing
@@ -100,7 +100,7 @@ export class IDLNotebookController {
 
   constructor() {
     // create our runtime session - does not immediately start IDL
-    this._runtime = new IDL(
+    this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_NOTEBOOK_LOG),
       VSCODE_PRO_DIR
     );
@@ -123,7 +123,7 @@ export class IDLNotebookController {
    * Determine if we are started or not
    */
   isStarted() {
-    return this._runtime.started;
+    return this._runtime.isStarted();
   }
 
   /**
@@ -509,7 +509,7 @@ export class IDLNotebookController {
     }
 
     // create new instance of runtime
-    this._runtime = new IDL(
+    this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_NOTEBOOK_LOG),
       VSCODE_PRO_DIR
     );
@@ -601,7 +601,7 @@ export class IDLNotebookController {
     });
 
     // update folder for PRO Code
-    this._runtime.vscodeProDir = VSCODE_PRO_DIR;
+    this._runtime.setVscodeProDir(VSCODE_PRO_DIR);
 
     // start IDL
     this._runtime.start(config);
@@ -756,7 +756,7 @@ export class IDLNotebookController {
     writeFileSync(fsPath, strings.join('\n'));
 
     // reset syntax errors
-    this._runtime.errorsByFile = {};
+    this._runtime.resetErrorsByFile();
 
     // compile our code
     await this.evaluate(`.compile -v '${fsPath}'`);
@@ -765,7 +765,7 @@ export class IDLNotebookController {
     rmSync(fsPath);
 
     // check for syntax errors
-    if (Object.keys(this._runtime.errorsByFile).length > 0) {
+    if (Object.keys(this._runtime.getErrorsByFile()).length > 0) {
       // set finish time
       await this._endCellExecution(false);
     } else {

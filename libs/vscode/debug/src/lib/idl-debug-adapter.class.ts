@@ -1,8 +1,8 @@
 import {
   CleanIDLOutput,
-  IDL,
   IDL_EVENT_LOOKUP,
   IDLCallStackItem,
+  IDLInteractionManager,
   REGEX_COMPILE_COMMAND,
   REGEX_COMPILE_EDIT_COMMAND,
   REGEX_COMPILED_MAIN,
@@ -14,6 +14,7 @@ import {
   StopReason,
 } from '@idl/idl';
 import { IDL_DEBUG_ADAPTER_LOG, IDL_DEBUG_LOG } from '@idl/logger';
+import { Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_LOGGER, VSCODE_PRO_DIR } from '@idl/vscode/client';
@@ -45,14 +46,13 @@ import { LogOutput } from './helpers/log-output';
 import { LogSessionStart } from './helpers/log-session-start';
 import { LogSessionStop } from './helpers/log-session-stop';
 import { MapVariables } from './helpers/map-variables';
-import { ResetSyntaxProblems } from './helpers/reset-syntax-problems';
-import { SyncSyntaxProblems } from './helpers/sync-syntax-problems';
 import {
   DEFAULT_EVALUATE_OPTIONS,
   IBreakpointLookup,
   IDebugEvaluateOptions,
   IDLDebugConfiguration,
 } from './idl-debug-adapter.interface';
+import { IDLDebugDecorations } from './idl-debug-decorations.class';
 import { IDL_STATUS_BAR } from './initialize-debugger';
 
 /**
@@ -75,11 +75,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   /** Last arguments for launching a session */
   lastLaunchArgs?: IDLDebugConfiguration;
 
-  /** Current prompt for IDL, used as response on evaluateRequest finishing */
-  prompt: string;
-
   /** Reference to our IDL class, manages process and input/output */
-  private _runtime: IDL;
+  private _runtime: IDLInteractionManager;
 
   /** Event to fire when our configuration has been completed, from VSCode example */
   private readonly _configurationDone = new Subject();
@@ -94,6 +91,11 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    */
   stopped?: { reason: StopReason; stack: IDLCallStackItem };
 
+  /**
+   * Track decorations for files
+   */
+  decorations = new IDLDebugDecorations();
+
   constructor() {
     super('idl-debug.txt');
 
@@ -102,7 +104,10 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this.setDebuggerColumnsStartAt1(true);
 
     // create our runtime session - does not immediately start IDL
-    this._runtime = new IDL(IDL_LOGGER.getLog(IDL_DEBUG_LOG), VSCODE_PRO_DIR);
+    this._runtime = new IDLInteractionManager(
+      IDL_LOGGER.getLog(IDL_DEBUG_LOG),
+      VSCODE_PRO_DIR
+    );
 
     // listen to events
     this.listenToEvents();
@@ -129,7 +134,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     });
 
     // listen for stops
-    this._runtime.on(IDL_EVENT_LOOKUP.STOP, (reason, stack) => {
+    this._runtime.on(IDL_EVENT_LOOKUP.STOP, async (reason, stack) => {
       IDL_LOGGER.log({
         type: 'debug',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -141,6 +146,14 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       };
       this.sendEvent(
         new StoppedEvent(this.stopped.reason, IDLDebugAdapter.THREAD_ID)
+      );
+
+      // short pause to make sure APIs catch up
+      await Sleep(100);
+
+      // jump to stack to work around VSCode issue/change with latest release
+      await vscode.commands.executeCommand(
+        'workbench.action.debug.callStackTop'
       );
     });
 
@@ -183,13 +196,10 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       LogSessionStop('crashed');
     });
 
-    // listen for when our prompt changes
+    // listen for when our prompt chang es
     this._runtime.on(IDL_EVENT_LOOKUP.PROMPT, (prompt) => {
-      // save current prompt
-      this.prompt = prompt;
-
       // change prompt for status bar
-      if (this._runtime.idlInfo.envi) {
+      if (this._runtime.getIDLInfo().envi) {
         IDL_STATUS_BAR.setPrompt('ENVI');
       } else {
         IDL_STATUS_BAR.setPrompt('IDL');
@@ -208,7 +218,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this.sendEvent(new TerminatedEvent());
 
     // clear all syntax problems
-    ResetSyntaxProblems(this);
+    this.decorations.reset();
 
     // reset the status bar prompt
     IDL_STATUS_BAR.resetPrompt();
@@ -232,7 +242,25 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    * Gets syntax problems from our IDL helper
    */
   getSyntaxProblems() {
-    return this._runtime.errorsByFile;
+    return this._runtime.getErrorsByFile();
+  }
+
+  /**
+   * Gets code coverage for a file and, optionally, decorates the file with it
+   */
+  async getCodeCoverage(file: string, decorate = false) {
+    /** Get coverage */
+    const coverage = await this._runtime.getCodeCoverage(file);
+
+    // see if we need to display
+    if (decorate) {
+      this.decorations.addCodeCoverageDecorations(
+        vscode.Uri.file(file),
+        coverage
+      );
+    }
+
+    return coverage;
   }
 
   /**
@@ -495,14 +523,21 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // check if we need to reset our syntax problems
     if (reset || close) {
-      ResetSyntaxProblems(this);
+      this.decorations.reset();
     }
 
     // sync any syntax problems we found
-    SyncSyntaxProblems(this);
+    this.decorations.syncSyntaxErrorDecorations(this.getSyntaxProblems());
 
-    // update status bar
-    IDL_STATUS_BAR.ready();
+    // update status bar if we are done
+    if (!this._runtime.executing()) {
+      IDL_STATUS_BAR.ready();
+    }
+
+    // check if we need to add a new line
+    if (options.newLine) {
+      this.sendEvent(new OutputEvent(`\n`));
+    }
 
     // return our result
     return res;
@@ -511,8 +546,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   /**
    * Tells us if we have started IDL or not
    */
-  isStarted() {
-    return this._runtime.started;
+  isStarted(): boolean {
+    return this._runtime.isStarted();
   }
 
   /**
@@ -641,7 +676,10 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       }
 
       // create new instance of runtime
-      this._runtime = new IDL(IDL_LOGGER.getLog(IDL_DEBUG_LOG), VSCODE_PRO_DIR);
+      this._runtime = new IDLInteractionManager(
+        IDL_LOGGER.getLog(IDL_DEBUG_LOG),
+        VSCODE_PRO_DIR
+      );
 
       // listen to events
       this.listenToEvents();
@@ -805,7 +843,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       await this.evaluate('.reset');
 
       // reset syntax problems
-      ResetSyntaxProblems(this);
+      this.decorations.reset();
 
       // let vscode know we finished
       this.sendResponse(response);
@@ -867,7 +905,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
           this.breakpoints[file][lines[i]] = false;
         }
 
-        if (!this._runtime.started) {
+        if (!this._runtime.isStarted()) {
           response.body = {
             breakpoints: [],
           };
@@ -1112,7 +1150,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       const endFrame = startFrame + maxLevels;
 
       // get stack
-      const stack = this._runtime.getCachedStack(startFrame, endFrame);
+      const stack = await this._runtime.getCallStack(startFrame, endFrame);
 
       // populate body
       response.body = {
@@ -1321,7 +1359,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     LogSessionStop('stopped');
 
     // reset syntax problems
-    ResetSyntaxProblems(this);
+    this.decorations.reset();
 
     // update status bar
     IDL_STATUS_BAR.resetPrompt();
@@ -1458,7 +1496,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       // if we do use this then we get empty lines displayed in the debug console
       response.success = true;
       response.body = {
-        result: this.prompt,
+        result: '', // no string content since we send as it gets generated
         variablesReference: -1,
       };
       this.sendResponse(response);

@@ -20,7 +20,7 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 - A new sidebar entry for PDF generation and a button in the top-right of the notebook to generate a PDF
 
-- When you click either, as long as your notebook is saved to disk, it will create Markdown, open it, and start the PDF generation process
+- When you click the button to create a PDF, as long as your notebook is saved to disk, it will create Markdown, open it, and start the PDF generation process
 
 - Once finished, it closes the Markdown file
 
@@ -31,6 +31,40 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 ## Unreleased
 
 Fixed an issue where the names of ENVI and IDL tasks were incorrectly lower-case instead of what the user had specified in the task files.
+
+Resolved a long-time bug where internal output would appear in the debug console when running IDL in VSCode.
+
+Reworked routine signatures that appear in hover help to be more user friendly!
+
+- You can now copy/paste the signature blocks and each one is valid IDL code
+
+- No brackets surrounding optional parameters
+
+- For functions and function methods, the return type is added before the routine syntax
+
+Changed the output from IDL in the debug console so that it no longer prints "IDL>" or "ENVI>" for a new user experience compared to the IDL Workbench.
+
+Fixed an issue with fast parsing where line continuations and comments were not handled correctly which would make parsing miss keywords, arguments, and make some up.
+
+Add back in the Terminal commands and buttons to the IDL sidebar for users that prefer to use terminals instead of the debug console.
+
+Fixed a bug that incorrectly reported a type incompatibility when using statements like `val eq !null`
+
+To help accentuate syntax errors in files, lines are now highlighted.
+
+As part of the syntax error line highlights, we have the framework to support code coverage in the future! Which should be coming in a release at some point.
+
+Tweak the snippets for for loops to use n_elements() on a variable instead of having a static value
+
+Re-work the logic for running files to be much more flexible. Here's how it behaves:
+
+1. If you have a main level program, compile the file and then run the main program
+
+2. If you have a procedure or function as the bottom-most routine, attempt to call without any arguments keywords
+
+3. If you have a function method or procedure method as the bottom-most routine, we do not run anything
+
+4. If we detect a syntax error when we compile your file, we stop before running
 
 ## 4.3.1 February 2024
 

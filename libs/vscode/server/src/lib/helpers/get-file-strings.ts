@@ -20,12 +20,15 @@ export async function GetFileStrings(uri: string): Promise<string> {
   if (doc !== undefined) {
     strings = doc.getText();
   } else {
+    /** Get fs path */
+    const fsPath = GetFSPath(uri);
+
     /**
      * Silently ignore when the file is deleted which is handled
      * elsewhere
      */
-    if (existsSync(uri)) {
-      strings = readFileSync(GetFSPath(uri), 'utf8');
+    if (existsSync(fsPath)) {
+      strings = readFileSync(GetFSPath(fsPath), 'utf8');
     }
   }
 

@@ -1,5 +1,4 @@
 import { Logger } from '@idl/logger';
-import { CleanPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { ChildProcess, execSync, spawn } from 'child_process';
 import { EventEmitter } from 'events';
@@ -12,22 +11,15 @@ import * as kill from 'tree-kill';
 
 import { IDLListenerArgs } from './args.interface';
 import { IDL_EVENT_LOOKUP, IDLEvent } from './events.interface';
-import { ProcessScope } from './helpers/process-scope';
 import {
-  DEFAULT_IDL_EVALUATE_OPTIONS,
   DEFAULT_IDL_INFO,
   IDL_STOPS,
-  IDLBreakpoint,
-  IDLCallStack,
   IDLCallStackItem,
-  IDLEvaluateOptions,
-  IDLVariable,
-  IRawBreakpoint,
+  IDLSyntaxError,
+  IDLSyntaxErrorLookup,
   IStartIDLConfig,
-  ISyntaxError,
   StopReason,
 } from './idl.interface';
-import { PromiseQueue } from './utils/promise-queue.class';
 import {
   REGEX_COMPILE_ERROR,
   REGEX_EMPTY_LINE,
@@ -40,7 +32,7 @@ import {
  * Class that manages and spawns a session of IDL with event-emitter events
  * for when major actions happen.
  */
-export class IDL extends EventEmitter {
+export class IDLProcess extends EventEmitter {
   /** Reference to our child process */
   idl: ChildProcess;
 
@@ -49,9 +41,6 @@ export class IDL extends EventEmitter {
 
   /** Are we in the process of closing? */
   closing = false;
-
-  /** promise queue to manage pending requests */
-  queue: PromiseQueue;
 
   /** Whether we emit event for standard out or not */
   silent = false;
@@ -68,13 +57,12 @@ export class IDL extends EventEmitter {
   /**
    * Track syntax errors by file and continually update as we run commands
    */
-  errorsByFile: { [key: string]: ISyntaxError[] } = {};
+  errorsByFile: IDLSyntaxErrorLookup = {};
 
   constructor(log: Logger, vscodeProDir: string) {
     super();
     this.log = log;
     this.vscodeProDir = vscodeProDir;
-    this.queue = new PromiseQueue(this);
   }
 
   /**
@@ -344,7 +332,7 @@ export class IDL extends EventEmitter {
         type: 'debug',
         content: `Stdout: ${JSON.stringify(buff.toString('utf8'))}`,
       });
-      handleOutput(buff, this.silent ? false : true);
+      handleOutput(buff, !this.silent);
     });
 
     // listen for standard error output from IDL
@@ -353,7 +341,7 @@ export class IDL extends EventEmitter {
         type: 'debug',
         content: `Stderr: ${JSON.stringify(buff.toString('utf8'))}`,
       });
-      handleOutput(buff, this.silent ? false : true);
+      handleOutput(buff, !this.silent);
 
       // always check stderr for stops and such
       this.stopCheck(capturedOutput, false);
@@ -363,7 +351,6 @@ export class IDL extends EventEmitter {
     this.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
       first = false;
       this.started = true;
-      this.queue._next(); // trigger queue processing
 
       // alert user
       this.log.log({
@@ -423,165 +410,7 @@ export class IDL extends EventEmitter {
     this.started = false;
     kill(this.idl.pid);
     this.idl.kill('SIGINT');
-    this.queue.clear();
-    this.silent = false;
     this.idlInfo = { ...DEFAULT_IDL_INFO };
-  }
-
-  /**
-   * Returns a command to retrieve scope information from IDL
-   */
-  scopeInfoCommand(level: number) {
-    return `  vscode_getScopeInfo, -${level}`;
-  }
-
-  /**
-   * Get variables for current scope
-   */
-  async getVariables(frameId: number): Promise<IDLVariable[]> {
-    // init result
-    let vars: IDLVariable[] = [];
-
-    // do we already have this scope?
-    if (frameId === 0) {
-      vars = this.idlInfo.variables;
-      // do we need to look up the scope information?
-    } else {
-      const scopeInfo = ProcessScope(
-        this,
-        await this.evaluate(this.scopeInfoCommand(frameId), {
-          silent: true,
-          idlInfo: false,
-        })
-      );
-      vars = scopeInfo.variables;
-    }
-
-    return vars;
-  }
-
-  /**
-   * Gets the current call stack for IDL without using the most recent from running commands
-   */
-  async getCurrentStack() {
-    return ProcessScope(
-      this,
-      await this.evaluate(this.scopeInfoCommand(0), {
-        silent: true,
-        idlInfo: false,
-      })
-    ).scope;
-  }
-
-  /**
-   * Retrieve call stack information
-   */
-  getCachedStack(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    startFrame: number,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    endFrame?: number
-  ): IDLCallStack {
-    // return if we have not started
-    if (!this.started) {
-      return { frames: [], count: 0 };
-    }
-
-    // use the cached info from the latest call
-    const info = this.idlInfo;
-
-    // initialize call stack
-    const frames: IDLCallStackItem[] = [];
-
-    // process call stack
-    for (let i = 0; i < info.scope.length; i++) {
-      const val = info.scope[i];
-      frames.push({
-        index: i,
-        name: val.routine,
-        file: val.file,
-        line: val.line,
-      });
-    }
-
-    // return our info
-    return {
-      frames,
-      count: info.scope.length,
-    };
-  }
-
-  /**
-   * Get all the breakpoints currently set in IDL
-   */
-  async getBreakpoints(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    filepath?: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    lineNumber?: number
-  ): Promise<IDLBreakpoint[]> {
-    // get the strings for our breakpoints
-    const resp = await this.evaluate('  vscode_getBreakpoints', {
-      silent: true,
-      idlInfo: false,
-    });
-
-    // parse the response
-    const res: IRawBreakpoint[] = JSON.parse(resp);
-
-    // initialize output breakpoints
-    const bps: IDLBreakpoint[] = [];
-
-    // map to easier-to-read-format
-    for (let i = 0; i < res.length; i++) {
-      const bp = res[i];
-      bps.push({ id: `${bp.i}`, path: bp.f, line: bp.l });
-    }
-
-    // return our breakpoints
-    return bps;
-  }
-
-  /**
-   * Add a breakpoint to IDL
-   */
-  async setBreakPoint(filePath: string, line: number): Promise<IDLBreakpoint> {
-    // set the breakpoint
-    await this.evaluate(`breakpoint, /SET, '${CleanPath(filePath)}', ${line}`, {
-      silent: true,
-      idlInfo: false,
-    });
-
-    // TODO: do we need to also get the breakpoint back so we know exactly where it is located?
-
-    // return location we clicked
-    return { path: filePath, line };
-  }
-
-  /**
-   * Remove all breakpoints from IDL
-   */
-  async clearBreakpoints(filePath?: string) {
-    // get current breakpoints
-    const breakpoints = await this.getBreakpoints(filePath);
-
-    // make our breakpoint command
-    const cmd = breakpoints
-      .map((bp) => `breakpoint, /CLEAR, ${bp.id}`)
-      .join(' & ');
-
-    // clear all breakpoints
-    await this.evaluate(cmd, {
-      silent: true,
-      idlInfo: false,
-    });
-  }
-
-  /**
-   * Returns true/false if we are processing or not
-   */
-  executing(): boolean {
-    return this.queue.nProcessing > 0;
   }
 
   /**
@@ -594,38 +423,19 @@ export class IDL extends EventEmitter {
   /**
    * External method to execute something in IDL
    */
-  async evaluate(
-    command: string,
-    options: IDLEvaluateOptions = {}
-  ): Promise<string> {
+  async evaluate(command: string, errorCheck = true): Promise<string> {
     if (!this.started) {
       throw new Error('IDL is not started');
     }
-    if ('echo' in options ? options.echo : false) {
-      this.emit(
-        IDL_EVENT_LOOKUP.OUTPUT,
-        'echoThis' in options ? options.echoThis : command
-      );
-    }
 
-    // add extra spaces at the beginning of the command
-    return await this._executeQueue(`${command}`, options);
-  }
+    // run our command
+    const res = await this._evaluate(command);
 
-  /**
-   * Retrieves scope information for our IDL session
-   *
-   * SHOULD ONLY BE USED IMMEDIATELY AFTER WE RETURN FROM EXECUTING
-   * A STATEMENT, otherwise there might be problems
-   */
-  private async _getScopeInfo() {
-    return ProcessScope(
-      this,
-      await this._executeWithNoPending(this.scopeInfoCommand(0), {
-        silent: true,
-        idlInfo: false, // dont recurse
-      })
-    );
+    // handle the string output and check for stop conditions
+    this.stopCheck(res, errorCheck);
+
+    // return the output
+    return res;
   }
 
   /**
@@ -649,7 +459,7 @@ export class IDL extends EventEmitter {
       /**
        * Make new data structure with errors we detected
        */
-      const newErrorsByFile: { [key: string]: ISyntaxError[] } = {};
+      const newErrorsByFile: { [key: string]: IDLSyntaxError[] } = {};
 
       // save errors
       for (let i = 0; i < errors.length; i++) {
@@ -673,7 +483,7 @@ export class IDL extends EventEmitter {
 
     this.log.log({
       type: 'debug',
-      content: `Handle output: ${JSON.stringify(output)}`,
+      content: `Error check output`,
     });
 
     // check for traceback information
@@ -729,42 +539,6 @@ export class IDL extends EventEmitter {
   }
 
   /**
-   * Internal command to directly execute something in IDL through our queue
-   */
-  private async _executeQueue(
-    command: string,
-    inOptions?: IDLEvaluateOptions
-  ): Promise<string> {
-    // determine options
-    const options = inOptions
-      ? { ...DEFAULT_IDL_EVALUATE_OPTIONS, ...inOptions }
-      : { ...DEFAULT_IDL_EVALUATE_OPTIONS };
-
-    // add to our queue and wait for the string response
-    const res = await this.queue.add(
-      {
-        statement: command,
-        idl: this,
-        idlInfo: options.idlInfo,
-        wait: !this.started,
-        cut: options.cut,
-      },
-      async () => {
-        return this._executeWithNoPending(command, options);
-      }
-    );
-
-    // emit the current prompt
-    this.emit(IDL_EVENT_LOOKUP.PROMPT, this.idlInfo.envi ? 'ENVI>' : 'IDL>');
-
-    // handle the string output and check for stop conditions
-    this.stopCheck(res.output);
-
-    // return the output
-    return res.output;
-  }
-
-  /**
    * Runs a command in IDL with the assumption that we are IDLE.
    *
    * DO NOT USE THIS METHOD IF IDL IS ACTIVELY RUNNING SOMETHING because
@@ -773,19 +547,13 @@ export class IDL extends EventEmitter {
    * The use for this is getting scope information immediately before we return
    * as being complete and cleans up our event management
    */
-  private _executeWithNoPending(
-    command: string,
-    options: IDLEvaluateOptions
-  ): Promise<string> {
+  private _evaluate(command: string): Promise<string> {
     // return promise
     return new Promise((resolve, reject) => {
       // handle errors writing to stdin
       if (!this.idl.stdin.writable) {
         reject(new Error('no stdin available'));
       }
-
-      // set silent flag
-      this.silent = options.silent !== undefined ? options.silent : false;
 
       this.log.log({
         type: 'debug',
@@ -806,22 +574,6 @@ export class IDL extends EventEmitter {
           type: 'debug',
           content: [`Output:`, { output }],
         });
-
-        // check if we have scope
-        if (options.idlInfo) {
-          // retrieve scope information
-          const scopeInfo = await this._getScopeInfo();
-
-          // update if we have it or use default
-          if (scopeInfo.hasInfo) {
-            this.idlInfo = scopeInfo;
-          } else {
-            this.idlInfo = { ...DEFAULT_IDL_INFO };
-          }
-        }
-
-        // reset silent flag
-        this.silent = false;
 
         // resolve our parent promise
         resolve(output);

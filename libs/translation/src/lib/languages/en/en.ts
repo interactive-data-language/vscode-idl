@@ -48,6 +48,7 @@ export const EN: ITranslation = {
         disableProblemSetting: 'IDL: Disable Problem Code via Setting',
         fixProblem: 'IDL: Fix Problem for Code Action',
         formatFile: 'IDL: Format File',
+        formatWorkspace: 'IDL: Format Files in Workspace',
         generateTask: 'IDL: Generate ENVI or IDL Task',
         migrateToDL30API: 'IDL: Migrate Code to ENVI Deep Learning 3.0 API',
       },
@@ -85,7 +86,7 @@ export const EN: ITranslation = {
         runFile: 'IDL: Run PRO File in Terminal',
         executeBatchFile: 'IDL: Execute Batch File in Terminal',
         resetIDL: 'IDL: Reset Session in Terminal',
-        stopExecution: 'IDL: Stop Execution in Terminal',
+        pauseExecution: 'IDL: Stop Execution in Terminal',
         continueExecution: 'IDL: Continue Execution in Terminal',
         stepIn: 'IDL: Step In in Terminal',
         stepOver: 'IDL: Step Over in Terminal',
@@ -112,6 +113,7 @@ export const EN: ITranslation = {
           'Error while disabling problem code via settings',
         fixProblem: 'Error while fixing problem from code action',
         formatFile: 'Error while formatting file',
+        formatWorkspace: 'Error while formatting workspace',
         generateTask: 'Error while generating task',
         migrateToDL30API: 'Error while migrating code',
       },
@@ -147,7 +149,7 @@ export const EN: ITranslation = {
         runFile: 'Error while running PRO file in terminal',
         executeBatchFile: 'Error while executing batch file in terminal',
         resetIDL: 'Error while resetting session in terminal',
-        stopExecution: 'Error while stopping execution in terminal',
+        pauseExecution: 'Error while stopping execution in terminal',
         continueExecution: 'Error while continuing execution in terminal',
         stepIn: 'Error while stepping in in terminal',
         stepOver: 'Error while stepping over in terminal',
@@ -162,6 +164,12 @@ export const EN: ITranslation = {
       },
     },
     notifications: {
+      formatWorkspace: {
+        notAllFilesFormatted:
+          'Some files were not formatted, see logs for more details',
+        pickWorkspace:
+          'Specify the open workspace to format all PRO files in workspace',
+      },
       initConfig: {
         noWorkspaceOpen: 'No currently open workspaces',
         allWorkspacesHaveConfig:
@@ -383,7 +391,8 @@ export const EN: ITranslation = {
       promiseResolveError:
         'Error resolving promise for executing IDL statement',
       noRoutineFound:
-        'No main level program or function/procedure with same name as file found',
+        'No main level program, function, or procedure found to run',
+      syntaxErrorsFound: 'Syntax errors detected in your code, cannot proceed',
       returning: 'File compiled while active, returning...',
       nothingToEdit: 'No matching file found',
       noPauseOnWindows: 'Pause is not currently supported on Windows platforms',
@@ -554,8 +563,8 @@ export const EN: ITranslation = {
           },
         },
         terminal: {
-          openTerminal: {
-            name: 'Open',
+          startTerminal: {
+            name: 'Start',
             description: 'IDL in a terminal window',
           },
           compileTerminal: {
@@ -574,8 +583,8 @@ export const EN: ITranslation = {
             name: 'Reset',
             description: 'the IDL session in the terminal',
           },
-          stopTerminal: {
-            name: 'Stop',
+          pauseTerminal: {
+            name: 'Pause',
             description: 'the IDL terminal process',
           },
           continueTerminal: {
@@ -628,6 +637,7 @@ export const EN: ITranslation = {
       onDocumentFormatting: 'Problem formatting file',
       onDocumentFormattingProblemCode:
         'Unable to format code due to syntax error or problem in file',
+      onWorkspaceFormatting: 'Error while formatting files in workspace',
       onHover: 'Problem resolving hover help',
       onAddDocs: 'Problem adding/updating routine docs for file',
       onDidClose: 'Problem when closing file',
@@ -661,6 +671,9 @@ export const EN: ITranslation = {
         'The IDL Language Server crashed. This is likely a memory issue, please see docs for more information and workarounds.',
       startDocsServer:
         'Error while starting local docs server, is the port already in use?',
+    },
+    progress: {
+      formatWorkspace: 'Formatting workspace...',
     },
     types: {
       unknown: {

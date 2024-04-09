@@ -1,6 +1,6 @@
 import { MIGRATION_TYPE_LOOKUP } from '@idl/assembling/migrators-types';
 import { IDL_COMMAND_LOG } from '@idl/logger';
-import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared';
+import { CleanPath, IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
 import {
@@ -18,6 +18,7 @@ import {
   ReplaceDocumentContent,
   VSCodeTelemetryLogger,
 } from '@idl/vscode/shared';
+import { basename } from 'path';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
@@ -312,6 +313,85 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
         return false;
       }
     })
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.CODE.FORMAT_WORKSPACE,
+      async (): Promise<boolean> => {
+        try {
+          LogCommandInfo('Format workspace');
+
+          /**
+           * Get workspace folders
+           */
+          const folders = vscode.workspace.workspaceFolders;
+
+          // make sure we have workspace folders
+          if (folders === undefined) {
+            vscode.window.showInformationMessage(
+              IDL_TRANSLATION.commands.notifications.initConfig.noWorkspaceOpen
+            );
+            return false;
+          }
+          // filter out folders that have existing idl.json
+          const checkFolders = folders.map((folder) =>
+            CleanPath(folder.uri.fsPath)
+          );
+
+          // target is what we return
+          const res = await vscode.window.showQuickPick(
+            checkFolders.map((folder) => {
+              return {
+                label: basename(folder),
+                description: folder,
+                target: folder, // return value
+              };
+            }),
+            {
+              title:
+                IDL_TRANSLATION.commands.notifications.formatWorkspace
+                  .pickWorkspace,
+              canPickMany: false,
+            }
+          );
+
+          // make sure we have a folder
+          if (res !== undefined) {
+            VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+              idl_command: IDL_COMMANDS.CODE.FORMAT_WORKSPACE,
+            });
+
+            // format and get response
+            const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
+              LANGUAGE_SERVER_MESSAGE_LOOKUP.FORMAT_WORKSPACE,
+              { folders: [res.target] }
+            );
+
+            // if we have failures alert user
+            if (resp.failures.length > 0) {
+              IDL_LOGGER.log({
+                type: 'warn',
+                content: [
+                  IDL_TRANSLATION.commands.notifications.formatWorkspace
+                    .notAllFilesFormatted,
+                  resp.failures,
+                ],
+                alert:
+                  IDL_TRANSLATION.commands.notifications.formatWorkspace
+                    .notAllFilesFormatted,
+              });
+            }
+          }
+        } catch (err) {
+          LogCommandError(
+            'Error while executing command to format files in workspace',
+            err,
+            cmdErrors.code.formatWorkspace
+          );
+        }
+      }
+    )
   );
 
   ctx.subscriptions.push(

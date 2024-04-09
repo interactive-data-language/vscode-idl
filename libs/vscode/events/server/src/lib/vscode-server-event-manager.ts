@@ -27,7 +27,7 @@ export class VSCodeServerEventManager {
   }
 
   /**
-   * Send message to the language server
+   * Send message to the VSCode Client
    */
   sendNotification<T extends LanguageServerMessage>(
     message: T,

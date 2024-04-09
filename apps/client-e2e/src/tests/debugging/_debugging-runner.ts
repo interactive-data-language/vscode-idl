@@ -7,8 +7,11 @@ import { Continue } from './continue';
 import { Edit } from './edit';
 import { Exit } from './exit';
 import { ImpliedPrint } from './implied-print';
+import { QueueRight } from './queue-right';
 import { RigorousAlwaysReturn } from './rigorous-always-return';
+import { RunFile } from './run-file';
 import { StartDebugging } from './start';
+import { SyntaxErrorTracking } from './syntax_error_tracking';
 import { VariableReplacement } from './variable-replacement';
 
 /**
@@ -26,6 +29,22 @@ DEBUGGING_RUNNER.addTest({
   name: 'Start debugging and run basic command',
   fn: StartDebugging,
   critical: true,
+});
+
+DEBUGGING_RUNNER.addTest({
+  name: 'Queue works right',
+  fn: QueueRight,
+  critical: true,
+});
+
+DEBUGGING_RUNNER.addTest({
+  name: 'Track syntax errors on compile',
+  fn: SyntaxErrorTracking,
+});
+
+DEBUGGING_RUNNER.addTest({
+  name: 'Running a file handles all the right cases',
+  fn: RunFile,
 });
 
 DEBUGGING_RUNNER.addTest({

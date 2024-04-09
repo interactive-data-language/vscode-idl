@@ -1,9 +1,7 @@
-import { CleanIDLOutput } from '@idl/idl';
 import { CleanPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { GetActivePROCodeWindow } from '@idl/vscode/shared';
+import { GetActivePROCodeWindow, GetDocumentOutline } from '@idl/vscode/shared';
 import { OutputEvent } from '@vscode/debugadapter';
-import { basename, extname } from 'path';
 
 import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';
 import { VerifyIDLHasStarted } from './start-idl';
@@ -11,74 +9,102 @@ import { VerifyIDLHasStarted } from './start-idl';
 /**
  * Compile current pro file and runs
  */
-export async function RunFile() {
-  if (VerifyIDLHasStarted(true)) {
-    // get code and make sure it is ready for use
-    const code = GetActivePROCodeWindow(true);
-    if (!code) {
-      return;
-    }
-    await code.save();
+export async function RunFile(): Promise<boolean> {
+  // return if IDL hasnt started yet
+  if (!VerifyIDLHasStarted(true)) {
+    return false;
+  }
 
-    // get the path for the file
-    const uri = CleanPath(code.uri.fsPath);
+  // get code and make sure it is ready for use
+  const code = GetActivePROCodeWindow(true);
+  if (!code) {
+    return false;
+  }
+  await code.save();
 
-    // compile our file
-    const output = CleanIDLOutput(
-      await IDL_DEBUG_ADAPTER.evaluate(`.compile -v '${uri}'`, {
-        echo: true,
-      })
-    );
+  // get the path for the file
+  const uri = CleanPath(code.uri.fsPath);
 
-    // check if we had a main level program
-    if (output.includes('$MAIN$')) {
-      await IDL_DEBUG_ADAPTER.evaluate(`.go`, {
-        echo: true,
-      });
-    } else {
-      // get base name for routine
-      const base = basename(uri, extname(uri));
+  // compile our file
+  await IDL_DEBUG_ADAPTER.evaluate(`.compile -v '${uri}'`, {
+    echo: true,
+  });
 
-      // check if we compiled a matching routine
-      if (output.includes(` ${base.toUpperCase()}.`)) {
-        const info: { procedure: boolean; function: boolean } = JSON.parse(
-          CleanIDLOutput(
-            await IDL_DEBUG_ADAPTER.evaluate(`vscode_findRoutine, '${base}'`, {
-              silent: true,
-              echo: false,
-            })
-          )
-        );
-
-        // determine how to proceed
-        switch (true) {
-          // call as procedure
-          case info.procedure:
-            await IDL_DEBUG_ADAPTER.evaluate(base, {
-              echo: true,
-            });
-            break;
-          // call as function
-          case info.function:
-            await IDL_DEBUG_ADAPTER.evaluate(`!null = ${base}()`, {
-              echo: true,
-            });
-            break;
-          default:
-            IDL_DEBUG_ADAPTER.sendEvent(
-              new OutputEvent(
-                `${IDL_TRANSLATION.debugger.adapter.noRoutineFound}\n`
-              )
-            );
-            break;
-        }
-      } else {
-        IDL_DEBUG_ADAPTER.sendEvent(
-          new OutputEvent(
-            `${IDL_TRANSLATION.debugger.adapter.noRoutineFound}\n`
-          )
-        );
-      }
+  /**
+   * Get syntax errors and check if we have them
+   */
+  const errors = IDL_DEBUG_ADAPTER.getSyntaxProblems();
+  if (uri in errors) {
+    if (errors[uri].length > 0) {
+      IDL_DEBUG_ADAPTER.sendEvent(
+        new OutputEvent(
+          `${IDL_TRANSLATION.debugger.adapter.syntaxErrorsFound}\n`,
+          'stderr'
+        )
+      );
+      return false;
     }
   }
+
+  /**
+   * Get outline from extension
+   */
+  const outline = await GetDocumentOutline(code);
+
+  /**
+   * Get the bottom-most routine
+   */
+  const bottom = outline[outline.length - 1];
+
+  /** Name of item on the bottom of our outline */
+  const bottomName = bottom.name.toLowerCase();
+
+  /** Command to execute */
+  let command = '.go';
+
+  /**
+   * Determine how to proceed
+   */
+  switch (true) {
+    /**
+     * Methods
+     */
+    case bottomName.includes('::'):
+      IDL_DEBUG_ADAPTER.sendEvent(
+        new OutputEvent(
+          `${IDL_TRANSLATION.debugger.adapter.noRoutineFound}\n`,
+          'stderr'
+        )
+      );
+      return false;
+
+    /**
+     * Main level program
+     */
+    case bottomName === '$main$':
+      command = '.go';
+      break;
+
+    /**
+     * Function
+     */
+    case bottomName.endsWith('()'):
+      command = `void = ${bottom.name}`;
+      break;
+
+    /**
+     * Procedure
+     */
+    default:
+      command = bottom.name;
+      break;
+  }
+
+  // execute our command
+  await IDL_DEBUG_ADAPTER.evaluate(command, {
+    echo: true,
+    newLine: true,
+  });
+
+  return true;
 }

@@ -1,6 +1,6 @@
-import { CleanPath, CONFIG_KEYS, IDL_COMMANDS } from '@idl/shared';
+import { CleanPath, IDL_COMMANDS } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_CONFIG } from '@idl/vscode/config';
+import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { GetActivePROCodeWindow, IDLCommandAction } from '@idl/vscode/shared';
 import { IDLAction } from '@idl/vscode/tree-view';
 import { platform } from 'os';
@@ -27,14 +27,14 @@ export function GetActiveIDLTerminal(): vscode.Terminal[] {
  */
 export function StartIDLTerminal(): boolean {
   // make sure we have a folder
-  if (!IDL_CONFIG[CONFIG_KEYS['IDL.directory']]) {
+  if (!IDL_EXTENSION_CONFIG.IDL.directory) {
     vscode.window
       .showInformationMessage(IDL_TRANSLATION.notifications.noIDLDirFound, {
-        title: IDL_TRANSLATION.configuration.idlDir.configure,
+        title: IDL_TRANSLATION.notifications.configure,
       })
       .then((res) => {
         if (res !== undefined) {
-          if (res.title === IDL_TRANSLATION.configuration.idlDir.configure) {
+          if (res.title === IDL_TRANSLATION.notifications.configure) {
             vscode.commands.executeCommand(IDL_COMMANDS.CONFIG.IDL_DIR_USER);
           }
         }
@@ -60,9 +60,9 @@ export function StartIDLTerminal(): boolean {
 
   // start IDL
   if (platform() === 'win32') {
-    newTerminal.sendText(`"${IDL_CONFIG[CONFIG_KEYS['IDL.directory']]}"\\idl`);
+    newTerminal.sendText(`"${IDL_EXTENSION_CONFIG.IDL.directory}"\\idl`);
   } else {
-    newTerminal.sendText(`${IDL_CONFIG[CONFIG_KEYS['IDL.directory']]}/idl`);
+    newTerminal.sendText(`${IDL_EXTENSION_CONFIG.IDL.directory}/idl`);
   }
 
   // make terminal appear

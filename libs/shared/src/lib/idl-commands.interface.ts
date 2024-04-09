@@ -59,6 +59,8 @@ export const IDL_COMMANDS = {
     ADD_DOCS_TO_FILE: `${BASE_CODE}addDocsToFile`,
     /** Formats a file */
     FORMAT_FILE: `${BASE_CODE}formatFile`,
+    /** Formats all files in a workspace */
+    FORMAT_WORKSPACE: `${BASE_CODE}formatWorkspace`,
     /** Generate task file */
     GENERATE_TASK: `${BASE_CODE}generateTask`,
     /** Migrate PRO code to the ENVI DL 3.0 API */
@@ -115,29 +117,29 @@ export const IDL_COMMANDS = {
     /** Reset IDL session for notebook */
     STOP: `${BASE_NOTEBOOK}stopIDL`,
   },
-  // /** Commands for starting and interacting with a terminal session of IDL */
-  // TERMINAL: {
-  //   /** Start debug session */
-  //   START: `${BASE_TERMINAL}openIDL`,
-  //   /** Compile current PRO file */
-  //   COMPILE: `${BASE_TERMINAL}compileFile`,
-  //   /** Run current PRO file */
-  //   RUN: `${BASE_TERMINAL}runFile`,
-  //   /** Run current PRO file as a batch file */
-  //   EXECUTE_BATCH: `${BASE_TERMINAL}executeBatchFile`,
-  //   /** Reset IDL session */
-  //   RESET: `${BASE_TERMINAL}resetIDL`,
-  //   /** Interrupt IDL */
-  //   STOP: `${BASE_TERMINAL}stopExecution`,
-  //   /** Continue executing */
-  //   CONTINUE: `${BASE_TERMINAL}continueExecution`,
-  //   /** Step into routine */
-  //   STEP_IN: `${BASE_TERMINAL}stepIn`,
-  //   /** Step out of routine */
-  //   STEP_OVER: `${BASE_TERMINAL}stepOver`,
-  //   /** Step out of routine */
-  //   STEP_OUT: `${BASE_TERMINAL}stepOut`,
-  // },
+  /** Commands for starting and interacting with a terminal session of IDL */
+  TERMINAL: {
+    /** Start debug session */
+    START: `${BASE_TERMINAL}startIDL`,
+    /** Compile current PRO file */
+    COMPILE: `${BASE_TERMINAL}compileFile`,
+    /** Run current PRO file */
+    RUN: `${BASE_TERMINAL}runFile`,
+    /** Run current PRO file as a batch file */
+    EXECUTE_BATCH: `${BASE_TERMINAL}executeBatchFile`,
+    /** Reset IDL session */
+    RESET: `${BASE_TERMINAL}resetIDL`,
+    /** Interrupt IDL */
+    PAUSE: `${BASE_TERMINAL}pauseExecution`,
+    /** Continue executing */
+    CONTINUE: `${BASE_TERMINAL}continueExecution`,
+    /** Step into routine */
+    STEP_IN: `${BASE_TERMINAL}stepIn`,
+    /** Step out of routine */
+    STEP_OVER: `${BASE_TERMINAL}stepOver`,
+    /** Step out of routine */
+    STEP_OUT: `${BASE_TERMINAL}stepOut`,
+  },
   /** Commands related to our webview */
   WEBVIEW: {
     /** Starts/shows our webview */

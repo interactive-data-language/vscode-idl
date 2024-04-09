@@ -37,7 +37,7 @@ describe(`[auto generated] Correctly find definitions for procedure methods`, ()
         method: 'promethod1',
         source: 'user',
         args: {},
-        docs: '\n```idl\nNYStruct0.proMethod1, $\n [ kw = any ], $\n [ kwb = any ]\n```\n\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
+        docs: '\n```idl\nNYStruct0.proMethod1, $\n  kw = value, $\n  kwb = value\n```\n\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
         docsLookup: {},
         display: 'NYStruct0::proMethod1',
         kws: {
@@ -95,7 +95,7 @@ describe(`[auto generated] Correctly find definitions for procedure methods`, ()
         method: 'promethod2',
         source: 'user',
         args: {},
-        docs: '\n```idl\nNYStruct.proMethod2, $\n [ kw = any ], $\n [ kwb = any ]\n```\n\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
+        docs: '\n```idl\nNYStruct.proMethod2, $\n  kw = value, $\n  kwb = value\n```\n\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
         docsLookup: {},
         display: 'NYStruct::proMethod2',
         kws: {

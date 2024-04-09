@@ -47,7 +47,7 @@ export const REGEX_STOP_DETECTION =
  * Detects compilation errors in IDL's output
  */
 export const REGEX_COMPILE_ERROR =
-  /% Syntax error\.At:\s*([^,]*),\s*Line\s*([0-9]*)/gim;
+  /% Syntax error\.\s*At:\s*([^,]*),\s*Line\s*([0-9]*)/gim;
 
 /**
  * Detect commands to reset IDL

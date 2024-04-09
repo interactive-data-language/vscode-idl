@@ -4,6 +4,7 @@ import { SERVER_EVENT_MANAGER } from '../initialize-server';
 import { ON_ADD_DOCS } from './custom-events/on-add-docs';
 import { ON_DID_RENAME } from './custom-events/on-did-rename';
 import { ON_FOLDER_DELETE } from './custom-events/on-folder-delete';
+import { ON_FORMAT_WORKSPACE } from './custom-events/on-format-workspace';
 import { ON_GENERATE_TASK } from './custom-events/on-generate-task';
 import { ON_INIT_WORKSPACE_CONFIG } from './custom-events/on-init-workspace-config';
 import { ON_MIGRATE_CODE } from './custom-events/on-migrate-code';
@@ -39,6 +40,12 @@ export function InitializeCustomEventHandler() {
   SERVER_EVENT_MANAGER.onNotification(
     LANGUAGE_SERVER_MESSAGE_LOOKUP.FORMAT_FILE,
     ON_DOCUMENT_FORMATTING
+  );
+
+  // listen for workspace formatting
+  SERVER_EVENT_MANAGER.onRequest(
+    LANGUAGE_SERVER_MESSAGE_LOOKUP.FORMAT_WORKSPACE,
+    ON_FORMAT_WORKSPACE
   );
 
   // listen for file rename

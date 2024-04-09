@@ -1,6 +1,7 @@
 import { Logger } from '@idl/logger';
 import { Sleep } from '@idl/shared';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
+import { arch, platform } from 'os';
 import * as vscode from 'vscode';
 
 import { ACTIVATION_RESULT } from '../main';
@@ -42,6 +43,31 @@ export class Runner {
   }
 
   /**
+   * Check if we can run a test
+   */
+  canRunTest(test: IRunnerTest) {
+    if (!test.excludeOS) {
+      return true;
+    }
+
+    // get platforms we skip
+    const skipThese = test.excludeOS;
+
+    // check to run
+    for (let i = 0; i < skipThese.length; i++) {
+      if (
+        skipThese[i].architecture.indexOf(arch() as any) !== -1 &&
+        skipThese[i].os.indexOf(platform()) !== -1
+      ) {
+        return false;
+      }
+    }
+
+    // return true if we can run
+    return true;
+  }
+
+  /**
    * Runs the tests that we have registered to our runner and returns the number of failures
    */
   async runOurTests(): Promise<number> {
@@ -54,6 +80,12 @@ export class Runner {
     // run all of our tests
     for (let i = 0; i < this.tests.length; i++) {
       try {
+        // check if we should skip running the test
+        if (!this.canRunTest(this.tests[i])) {
+          this.logger.warn(`Skipping test: ${this.tests[i].name}`);
+          continue;
+        }
+
         // log test we are starting
         this.logger.info(this.tests[i].name);
 
