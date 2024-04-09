@@ -24,7 +24,7 @@ If your code comments are not in the IDL Doc format, then should test the behavi
 
 ## Formatting Style
 
-There are three components to the formatting of routine comments: section order adn indentation style.
+There are three components to the formatting of routine comments: section order and indentation style.
 
 ### Header Sections: Order and Aliases
 
