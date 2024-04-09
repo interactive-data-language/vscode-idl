@@ -1,5 +1,5 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { IDL_JSON_URI, IDL_NOTEBOOK_EXTENSION, Sleep } from '@idl/shared';
+import { IDL_JSON_URI, IDL_NOTEBOOK_EXTENSION } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   FormatWorkspacePayload,
@@ -108,8 +108,6 @@ export const ON_FORMAT_WORKSPACE = async (
         } else {
           await writeFile(info.fsPath, formatted, 'utf-8');
         }
-
-        await Sleep(1000);
       } catch (err) {
         IDL_LANGUAGE_SERVER_LOGGER.log({
           log: IDL_LSP_LOG,
