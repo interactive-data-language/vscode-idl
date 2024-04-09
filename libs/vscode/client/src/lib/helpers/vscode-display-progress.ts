@@ -31,7 +31,7 @@ export function VSCodeDisplayOrUpdateProgress(
       delete dialogs[id];
     } else {
       // update progress
-      dialogs[id].progress.report({ message, increment });
+      dialogs[id].progress.report({ message: '', increment });
     }
     return;
   } else {

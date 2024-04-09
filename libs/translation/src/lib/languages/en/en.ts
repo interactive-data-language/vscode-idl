@@ -168,7 +168,7 @@ export const EN: ITranslation = {
         notAllFilesFormatted:
           'Some files were not formatted, see logs for more details',
         pickWorkspace:
-          'Specify the open workspace to format all IDL files for (Task and PRO)',
+          'Specify the open workspace to format all PRO files in workspace',
       },
       initConfig: {
         noWorkspaceOpen: 'No currently open workspaces',
