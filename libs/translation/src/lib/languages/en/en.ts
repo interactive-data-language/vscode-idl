@@ -48,6 +48,7 @@ export const EN: ITranslation = {
         disableProblemSetting: 'IDL: Disable Problem Code via Setting',
         fixProblem: 'IDL: Fix Problem for Code Action',
         formatFile: 'IDL: Format File',
+        formatWorkspace: 'IDL: Format Files in Workspace',
         generateTask: 'IDL: Generate ENVI or IDL Task',
         migrateToDL30API: 'IDL: Migrate Code to ENVI Deep Learning 3.0 API',
       },
@@ -112,6 +113,7 @@ export const EN: ITranslation = {
           'Error while disabling problem code via settings',
         fixProblem: 'Error while fixing problem from code action',
         formatFile: 'Error while formatting file',
+        formatWorkspace: 'Error while formatting workspace',
         generateTask: 'Error while generating task',
         migrateToDL30API: 'Error while migrating code',
       },
@@ -162,6 +164,12 @@ export const EN: ITranslation = {
       },
     },
     notifications: {
+      formatWorkspace: {
+        notAllFilesFormatted:
+          'Some files were not formatted, see logs for more details',
+        pickWorkspace:
+          'Specify the open workspace to format all IDL files for (Task and PRO)',
+      },
       initConfig: {
         noWorkspaceOpen: 'No currently open workspaces',
         allWorkspacesHaveConfig:
@@ -629,6 +637,7 @@ export const EN: ITranslation = {
       onDocumentFormatting: 'Problem formatting file',
       onDocumentFormattingProblemCode:
         'Unable to format code due to syntax error or problem in file',
+      onWorkspaceFormatting: 'Error while formatting files in workspace',
       onHover: 'Problem resolving hover help',
       onAddDocs: 'Problem adding/updating routine docs for file',
       onDidClose: 'Problem when closing file',
@@ -662,6 +671,9 @@ export const EN: ITranslation = {
         'The IDL Language Server crashed. This is likely a memory issue, please see docs for more information and workarounds.',
       startDocsServer:
         'Error while starting local docs server, is the port already in use?',
+    },
+    progress: {
+      formatWorkspace: 'Formatting workspace...',
     },
     types: {
       unknown: {

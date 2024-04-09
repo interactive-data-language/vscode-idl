@@ -59,6 +59,8 @@ export const IDL_COMMANDS = {
     ADD_DOCS_TO_FILE: `${BASE_CODE}addDocsToFile`,
     /** Formats a file */
     FORMAT_FILE: `${BASE_CODE}formatFile`,
+    /** Formats all files in a workspace */
+    FORMAT_WORKSPACE: `${BASE_CODE}formatWorkspace`,
     /** Generate task file */
     GENERATE_TASK: `${BASE_CODE}generateTask`,
     /** Migrate PRO code to the ENVI DL 3.0 API */

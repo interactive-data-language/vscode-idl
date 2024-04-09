@@ -9,6 +9,9 @@ import {
 import {
   AddDocsMessage,
   FormatFileMessage,
+  FormatWorkspaceMessage,
+  FormatWorkspacePayload,
+  FormatWorkspaceResponse,
 } from './messages/formatting-messages.interface';
 import {
   GenerateTaskMessage,
@@ -29,6 +32,10 @@ import {
   INotebookToProCodeResponse,
   NotebookToProCodeMessage,
 } from './messages/notebook-to-pro-code.message.interface';
+import {
+  ProgressMessage,
+  ProgressMessagePayload,
+} from './messages/progress.message.interface';
 import {
   FileRenameMessage,
   IFileRenamePayload,
@@ -51,6 +58,7 @@ export type LanguageServerMessage =
   | AddDocsMessage
   | FileRenameMessage
   | FormatFileMessage
+  | FormatWorkspaceMessage
   | FolderDeleteMessage
   | GenerateTaskMessage
   | IndexingMessage
@@ -58,6 +66,7 @@ export type LanguageServerMessage =
   | LoggingMessage
   | MigrateCodeLSPMessage
   | NotebookToProCodeMessage
+  | ProgressMessage
   | RetrieveDocsMessage
   | UsageMetricLSPMessage
   | WorkspaceConfigMessage;
@@ -72,6 +81,8 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? IFolderDeletePayload
     : T extends FormatFileMessage
     ? DocumentFormattingParams
+    : T extends FormatWorkspaceMessage
+    ? FormatWorkspacePayload
     : T extends GenerateTaskMessage
     ? IGenerateTaskPayload
     : T extends IndexingMessage
@@ -86,6 +97,8 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? INotebookToProCodePayload
     : T extends RetrieveDocsMessage
     ? IRetrieveDocsPayload
+    : T extends ProgressMessage
+    ? ProgressMessagePayload
     : T extends UsageMetricLSPMessage
     ? IUsageMetricAndPayload<UsageMetric>
     : T extends WorkspaceConfigMessage
@@ -94,12 +107,14 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
 
 /** Strictly typed payloads to/from the language server */
 export type LanguageServerResponse<T extends LanguageServerMessage> =
-  T extends RetrieveDocsMessage
-    ? IRetrieveDocsResponse
+  T extends FormatWorkspaceMessage
+    ? FormatWorkspaceResponse
     : T extends MigrateCodeLSPMessage
     ? MigrateCodeLSPResponse
     : T extends NotebookToProCodeMessage
     ? INotebookToProCodeResponse
+    : T extends RetrieveDocsMessage
+    ? IRetrieveDocsResponse
     : any;
 
 /** Strictly typed lookup of language server messages */
@@ -112,6 +127,8 @@ export interface ILanguageServerMessages {
   FOLDER_DELETE: FolderDeleteMessage;
   /** Message to specify that we are formatting a file */
   FORMAT_FILE: FormatFileMessage;
+  /** Message to specify that we are formatting files in a workspace */
+  FORMAT_WORKSPACE: FormatWorkspaceMessage;
   /** Message for generating tasks */
   GENERATE_TASK: GenerateTaskMessage;
   /** When we index or finish indexing folders */
@@ -124,6 +141,8 @@ export interface ILanguageServerMessages {
   MIGRATE_CODE: MigrateCodeLSPMessage;
   /** Convert notebooks to PRO code */
   NOTEBOOK_TO_PRO_CODE: NotebookToProCodeMessage;
+  /** Progress message */
+  PROGRESS: ProgressMessage;
   /** Message to retrieve docs */
   RETRIEVE_DOCS: RetrieveDocsMessage;
   /** Message to update workspace config */
@@ -143,12 +162,14 @@ export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   FILE_RENAME: 'textDocument/didRename',
   FOLDER_DELETE: 'will-delete-folders',
   FORMAT_FILE: 'format-file',
+  FORMAT_WORKSPACE: 'format-workspace',
   GENERATE_TASK: 'generate/task',
   INDEXING: 'indexing',
   INIT_WORKSPACE_CONFIG: 'init-workspace-config',
   LOG: 'log',
   MIGRATE_CODE: 'migrate-code',
   NOTEBOOK_TO_PRO_CODE: 'notebook/to-pro-code',
+  PROGRESS: 'progress',
   RETRIEVE_DOCS: 'retrieve-docs',
   USAGE_METRIC: 'usage-metric-lsp',
   WORKSPACE_CONFIG: 'workspace-config',
