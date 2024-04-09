@@ -5,41 +5,46 @@ import { DocumentFormattingParams } from 'vscode-languageserver/node';
 import {
   FolderDeleteMessage,
   IFolderDeletePayload,
-} from './folder-delete.interface';
+} from './messages/folder-delete.message.interface';
+import {
+  AddDocsMessage,
+  FormatFileMessage,
+} from './messages/formatting-messages.interface';
 import {
   GenerateTaskMessage,
   IGenerateTaskPayload,
-} from './generate-task.interface';
+} from './messages/generate-task.message.interface';
 import {
   IIndexingMessagePayload,
   IndexingMessage,
-} from './indexing-message.interface';
-import { LoggingMessage } from './logging.message.interface';
+} from './messages/indexing.message.interface';
+import { LoggingMessage } from './messages/logging.message.interface';
 import {
   MigrateCodeLSPMessage,
   MigrateCodeLSPPayload,
   MigrateCodeLSPResponse,
-} from './migrate-code.interface';
+} from './messages/migrate-code.message.interface';
 import {
   INotebookToProCodePayload,
   INotebookToProCodeResponse,
   NotebookToProCodeMessage,
-} from './notebook-to-pro-code.interface';
-import { FileRenameMessage, IFileRenamePayload } from './rename.interface';
+} from './messages/notebook-to-pro-code.message.interface';
+import {
+  FileRenameMessage,
+  IFileRenamePayload,
+} from './messages/rename.message.interface';
 import {
   IRetrieveDocsPayload,
   IRetrieveDocsResponse,
   RetrieveDocsMessage,
-} from './retrieve-docs-message.interface';
-import { UsageMetricLSPMessage } from './usage-metric-message.interface';
+} from './messages/retrieve-docs.message.interface';
+import { UsageMetricLSPMessage } from './messages/usage-metric.message.interface';
 import {
-  AddDocsMessage,
-  FormatFileMessage,
   IInitWorkspaceConfigPayload,
   InitWorkspaceConfigMessage,
   IWorkspaceConfigPayload,
   WorkspaceConfigMessage,
-} from './workspace-config.message.interface';
+} from './messages/workspace-config.message.interface';
 
 /** Allowed types for messages sent to language servers */
 export type LanguageServerMessage =
