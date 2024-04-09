@@ -102,8 +102,6 @@ export const ON_FORMAT_WORKSPACE = async (
           continue;
         }
 
-        console.log(formatted);
-
         // update the doc in VSCode
         if (info.doc !== undefined) {
           await UpdateDocument(info.uri, formatted, info.doc);
