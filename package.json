@@ -241,6 +241,10 @@
         "title": "%commands.idl.code.formatFile%"
       },
       {
+        "command": "idl.code.formatWorkspace",
+        "title": "%commands.idl.code.formatWorkspace%"
+      },
+      {
         "command": "idl.code.generateTask",
         "title": "%commands.idl.code.generateTask%"
       },

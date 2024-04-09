@@ -27,6 +27,8 @@ export interface ICommandTranslation {
     addDocsToFile: string;
     /** Format file */
     formatFile: string;
+    /** Format all code in a workspace */
+    formatWorkspace: string;
     /** Generates a task file */
     generateTask: string;
     /** Migrate PRO code to the ENVI DL 3.0 API */
@@ -314,6 +316,13 @@ export interface ITranslation {
         /** Title of the dialog for picking workspace folders to initialize config files for */
         dialogTitle: string;
       };
+      /** Messages when formatting the workspace */
+      formatWorkspace: {
+        /** Title of the dialog for picking workspace to format files in */
+        pickWorkspace: string;
+        /** When there are files we failed to format */
+        notAllFilesFormatted: string;
+      };
     };
   };
   /** Translations related to configuring the extension */
@@ -453,6 +462,8 @@ export interface ITranslation {
       onDefinition: string;
       /** Error formatting */
       onDocumentFormatting: string;
+      /** Error formatting workspace */
+      onWorkspaceFormatting: string;
       /** Unable to format because of syntax error */
       onDocumentFormattingProblemCode: string;
       /** Auto-complete */
@@ -510,6 +521,11 @@ export interface ITranslation {
       start: string;
       /** Error when starting the docs server because of a port conflict */
       startDocsServer: string;
+    };
+    /** Titles for progress messages */
+    progress: {
+      /** Progress for formatting workspace */
+      formatWorkspace: string;
     };
     /** Messages for types */
     types: {
