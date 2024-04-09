@@ -38,6 +38,7 @@ export const CODE_COMMENTS_SIDEBAR: SidebarEntry[] = [
   },
   {
     text: 'Formatting',
+    link: '/code-comments/formatting',
     items: FORMATTING_SIDEBAR,
   },
 ];
