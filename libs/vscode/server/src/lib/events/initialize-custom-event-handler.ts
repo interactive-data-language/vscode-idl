@@ -43,7 +43,7 @@ export function InitializeCustomEventHandler() {
   );
 
   // listen for workspace formatting
-  SERVER_EVENT_MANAGER.onNotification(
+  SERVER_EVENT_MANAGER.onRequest(
     LANGUAGE_SERVER_MESSAGE_LOOKUP.FORMAT_WORKSPACE,
     ON_FORMAT_WORKSPACE
   );

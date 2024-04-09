@@ -1,11 +1,12 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { IDL_NOTEBOOK_EXTENSION } from '@idl/shared';
+import { IDL_JSON_URI, IDL_NOTEBOOK_EXTENSION, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   FormatWorkspacePayload,
   FormatWorkspaceResponse,
   LANGUAGE_SERVER_MESSAGE_LOOKUP,
 } from '@idl/vscode/events/messages';
+import { writeFile } from 'fs/promises';
 import { nanoid } from 'nanoid';
 import { URI } from 'vscode-uri';
 
@@ -29,12 +30,19 @@ export const ON_FORMAT_WORKSPACE = async (
 ): Promise<FormatWorkspaceResponse> => {
   await SERVER_INITIALIZED;
 
+  /** ID for progress bar */
+  const id = nanoid();
+
   try {
     /**
      * Find files and exclude notebooks
      */
     const files = (await IDL_INDEX.findFiles(event.folders)).filter(
-      (file) => !file.toLowerCase().endsWith(IDL_NOTEBOOK_EXTENSION)
+      (file) =>
+        !(
+          file.toLowerCase().endsWith(IDL_NOTEBOOK_EXTENSION) ||
+          file.toLowerCase().endsWith(IDL_JSON_URI)
+        )
     );
 
     /** Track file failures */
@@ -45,15 +53,12 @@ export const ON_FORMAT_WORKSPACE = async (
       return { failures };
     }
 
-    // init progress
-    const id = nanoid();
-
     // send message to start progress
     SERVER_EVENT_MANAGER.sendNotification(
       LANGUAGE_SERVER_MESSAGE_LOOKUP.PROGRESS,
       {
         progressId: id,
-        percent: 0,
+        increment: 0,
         title: IDL_TRANSLATION.lsp.progress.formatWorkspace,
       }
     );
@@ -97,8 +102,16 @@ export const ON_FORMAT_WORKSPACE = async (
           continue;
         }
 
+        console.log(formatted);
+
         // update the doc in VSCode
-        await UpdateDocument(info.uri, formatted, info.doc);
+        if (info.doc !== undefined) {
+          await UpdateDocument(info.uri, formatted, info.doc);
+        } else {
+          await writeFile(info.fsPath, formatted, 'utf-8');
+        }
+
+        await Sleep(1000);
       } catch (err) {
         IDL_LANGUAGE_SERVER_LOGGER.log({
           log: IDL_LSP_LOG,
@@ -116,11 +129,22 @@ export const ON_FORMAT_WORKSPACE = async (
         LANGUAGE_SERVER_MESSAGE_LOOKUP.PROGRESS,
         {
           progressId: id,
-          percent: 100 * Math.floor((i + 1) / files.length),
+          increment: 100 * (1 / files.length),
           title: IDL_TRANSLATION.lsp.progress.formatWorkspace,
         }
       );
     }
+
+    // update progress
+    SERVER_EVENT_MANAGER.sendNotification(
+      LANGUAGE_SERVER_MESSAGE_LOOKUP.PROGRESS,
+      {
+        progressId: id,
+        increment: 1 / files.length,
+        title: IDL_TRANSLATION.lsp.progress.formatWorkspace,
+        finished: true,
+      }
+    );
 
     return {
       failures,
@@ -132,5 +156,16 @@ export const ON_FORMAT_WORKSPACE = async (
       content: [`Error trying to format code in workspace`, err],
       alert: IDL_TRANSLATION.lsp.events.onWorkspaceFormatting,
     });
+
+    // update progress
+    SERVER_EVENT_MANAGER.sendNotification(
+      LANGUAGE_SERVER_MESSAGE_LOOKUP.PROGRESS,
+      {
+        progressId: id,
+        increment: 1,
+        title: IDL_TRANSLATION.lsp.progress.formatWorkspace,
+        finished: true,
+      }
+    );
   }
 };
