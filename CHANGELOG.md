@@ -28,7 +28,7 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 - You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
 
-## Unreleased
+## 4.4.0 - April 2024
 
 Fixed an issue where the names of ENVI and IDL tasks were incorrectly lower-case instead of what the user had specified in the task files.
 
@@ -65,6 +65,8 @@ Re-work the logic for running files to be much more flexible. Here's how it beha
 3. If you have a function method or procedure method as the bottom-most routine, we do not run anything
 
 4. If we detect a syntax error when we compile your file, we stop before running
+
+Fixed an issue where, when a parameter had the name "file", "http", "https", "s3", or "ftp", it would incorrectly be skipped with docs parsing.
 
 ## 4.3.1 February 2024
 
