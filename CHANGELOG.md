@@ -28,6 +28,10 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 - You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
 
+## 4.4.1 April 2024
+
+Fix a bug where watch variables were being executed and causing chaos in IDL debug sessions
+
 ## 4.4.0 - April 2024
 
 Fixed an issue where the names of ENVI and IDL tasks were incorrectly lower-case instead of what the user had specified in the task files.
