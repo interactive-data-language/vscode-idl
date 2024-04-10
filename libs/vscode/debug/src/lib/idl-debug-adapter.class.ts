@@ -1484,11 +1484,14 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         content: ['Evaluate request', args],
       });
 
-      // evaluate command
-      await this.evaluate(args.expression, {
-        silent: false,
-        frameId: args.frameId,
-      });
+      // dont evaluate watch variables
+      if (args?.context === 'watch') {
+        // evaluate command
+        await this.evaluate(args.expression, {
+          silent: false,
+          frameId: args.frameId,
+        });
+      }
 
       // TODO: figure out how to bypass this.
       // when wen stop debugging you get `Canceled` printed to the debug console for
