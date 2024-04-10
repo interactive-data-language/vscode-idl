@@ -177,6 +177,22 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
             ``,
           ],
         },
+        {
+          name: 'allow parameters named "file"',
+          code: [
+            `;+`,
+            `; :Arguments:`,
+            `;   file: in, required, String`,
+            `;     Placeholder docs for argument, keyword, or property`,
+            `;`,
+            `;-`,
+            `pro argbug, file`,
+            `  compile_opt idl2`,
+            ``,
+            `  print, file`,
+            `end`,
+          ],
+        },
       ],
     },
     {

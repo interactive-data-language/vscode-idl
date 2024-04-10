@@ -66,6 +66,8 @@ Re-work the logic for running files to be much more flexible. Here's how it beha
 
 4. If we detect a syntax error when we compile your file, we stop before running
 
+Fixed an issue where, when a parameter had the name "file", "http", "https", "s3", or "ftp", it would incorrectly be skipped with docs parsing.
+
 ## 4.3.1 February 2024
 
 Resolved an issue where the language server would take a while to startup when you didn't have any workspace folders open. It should be almost instantaneous now!
