@@ -485,4 +485,113 @@ describe(`[auto generated] Complex real world test`, () => {
     // verify results
     expect(tokenized.compile).toEqual(expectedCompile);
   });
+
+  it(`[auto generated] allow parameters named "file"`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `;+`,
+      `; :Arguments:`,
+      `;   file: in, required, String`,
+      `;     Placeholder docs for argument, keyword, or property`,
+      `;`,
+      `;-`,
+      `pro argbug, file`,
+      `  compile_opt idl2`,
+      ``,
+      `  print, file`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected local variables
+    const expectedVars: ILocalTokens = {
+      func: {},
+      pro: {
+        argbug: {
+          file: {
+            type: 'v',
+            name: 'file',
+            pos: [6, 12, 4],
+            meta: {
+              display: 'file',
+              isDefined: true,
+              usage: [
+                [6, 12, 4],
+                [9, 9, 4],
+              ],
+              docs: 'Placeholder docs for argument, keyword, or property',
+              source: 'user',
+              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+            },
+          },
+        },
+      },
+      main: {},
+    };
+
+    // verify results
+    expect(tokenized.local).toEqual(expectedVars);
+
+    // define expected global variables
+    const expectedGlobal: GlobalTokens = [
+      {
+        type: 'p',
+        name: 'argbug',
+        pos: [6, 4, 6],
+        meta: {
+          source: 'user',
+          args: {
+            file: {
+              docs: 'Placeholder docs for argument, keyword, or property',
+              direction: 'in',
+              source: 'internal',
+              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              private: false,
+              req: true,
+              display: 'file',
+              code: true,
+              pos: [6, 12, 4],
+            },
+          },
+          docs: '\n```idl\nargbug, file\n```\n\n\n\n\n#### Arguments\n\n- **file**: in, required, String\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docsLookup: { default: '' },
+          display: 'argbug',
+          kws: {},
+          private: false,
+          struct: [],
+        },
+        file: 'not-real',
+      },
+    ];
+
+    // verify results
+    expect(tokenized.global).toEqual(expectedGlobal);
+
+    // define expected compile options
+    const expectedCompile: ICompileOptions = {
+      func: {},
+      pro: { argbug: ['idl2'] },
+      main: [],
+    };
+
+    // verify results
+    expect(tokenized.compile).toEqual(expectedCompile);
+  });
 });
