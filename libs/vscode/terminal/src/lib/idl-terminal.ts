@@ -56,6 +56,7 @@ export function StartIDLTerminal(): boolean {
   const newTerminal: vscode.Terminal = vscode.window.createTerminal({
     shellPath: platform() === 'win32' ? 'cmd.exe' : null,
     env: useEnv,
+    name: 'idl',
   });
 
   // start IDL
