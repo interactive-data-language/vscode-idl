@@ -1485,7 +1485,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       });
 
       // dont evaluate watch variables
-      if (args?.context === 'watch') {
+      if (args?.context !== 'watch') {
         // evaluate command
         await this.evaluate(args.expression, {
           silent: false,
