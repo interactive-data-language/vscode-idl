@@ -2,6 +2,7 @@ import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
 import { BreakPointStepInStepOut } from './breakpoint-step-in-step-out';
+import { CleanOutput } from './clean-output';
 import { Compile } from './compile';
 import { Continue } from './continue';
 import { Edit } from './edit';
@@ -28,6 +29,12 @@ export const DEBUGGING_RUNNER = new Runner(DEBUG_TEST_LOGGER);
 DEBUGGING_RUNNER.addTest({
   name: 'Start debugging and run basic command',
   fn: StartDebugging,
+  critical: true,
+});
+
+DEBUGGING_RUNNER.addTest({
+  name: 'Remove excess IDL content from IDL output (compile/restore statements)',
+  fn: CleanOutput,
   critical: true,
 });
 

@@ -94,3 +94,10 @@ export const REGEX_EDIT_COMMAND = /^\s*\.(e|ed|edi|edit)\s/i;
  * Regex that indicates we have compiled a main level program
  */
 export const REGEX_COMPILED_MAIN = /% Compiled module: \$MAIN\$\./im;
+
+/**
+ * Regex to detect compile and restore statements so we can
+ * remove them from IDL's output
+ */
+export const REGEX_CLEAN_IDL_OUTPUT =
+  /^% (?:Compiled module|Restored file):.*$/gim;
