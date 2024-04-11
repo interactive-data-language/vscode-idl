@@ -929,13 +929,10 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         content: ['Setting breakpoints for file', { file: file, lines: lines }],
       });
 
-      // get rid of all breakpoints
-      await vscode.commands.executeCommand(
-        'workbench.debug.viewlet.action.removeAllBreakpoints'
-      );
-
       // set breakpoints
-      response.body.breakpoints = await this._breakpoints.setBreakpoints(args);
+      response.body = {
+        breakpoints: await this._breakpoints.setBreakpoints(args),
+      };
 
       // send our response
       this.sendResponse(response);
@@ -966,23 +963,16 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         content: ['Breakpoint location request', args],
       });
 
-      // set status since we are manually running
-      IDL_STATUS_BAR.busy();
-
-      // get breakpoints for our file
-      const breakpoints = await this._runtime.getBreakpoints(
-        args.source.path,
-        this.convertClientLineToDebugger(args.line)
-      );
-
-      // set status since we are manually running
-      IDL_STATUS_BAR.ready();
+      // sync breakpoints and get latest
+      const bps = this._breakpoints.VSCodeBreakpoints;
 
       // populate body
       response.body = {
-        breakpoints: breakpoints.map((breakpoint) => {
-          return { line: breakpoint.line };
-        }),
+        breakpoints: bps
+          .filter((bp) => bp?.source?.path === args?.source?.path)
+          .map((breakpoint) => {
+            return { line: breakpoint.line };
+          }),
       };
 
       // send response

@@ -13,7 +13,7 @@ import { IDLDebugAdapter } from './idl-debug-adapter.class';
  */
 export class IDLBreakpointManager {
   /** Breakpoints from users in VSCode */
-  private VSCodeBreakpoints: DebugProtocol.Breakpoint[] = [];
+  VSCodeBreakpoints: DebugProtocol.Breakpoint[] = [];
 
   constructor(private adapter: IDLDebugAdapter) {}
 
@@ -75,6 +75,34 @@ export class IDLBreakpointManager {
   }
 
   /**
+   * Removes all breakpoints for a file
+   *
+   * Need to call this before setting breakpoints because, for some reason,
+   * VSCode doesn't tell you when breakpoints should be removed, it just
+   * tells you to add an empty array of breakpoints for a file
+   */
+  async resetBreakpointsForFile(file: string) {
+    /** Get the current breakpoints in IDL */
+    const bps = await this.getBreakpoints();
+
+    // reverse
+    bps.reverse();
+
+    // find ones to remove from IDL
+    for (let i = 0; i < bps.length; i++) {
+      if (bps[i].file === file) {
+        await this.adapter.evaluate(
+          `breakpoint, /clear, '${CleanPath(file)}', ${bps[i].line}`,
+          {
+            silent: true,
+            idlInfo: false,
+          }
+        );
+      }
+    }
+  }
+
+  /**
    * Sets an individual breakpoint for a file and line
    *
    * Line number is one-based
@@ -117,9 +145,12 @@ export class IDLBreakpointManager {
     /** Get proper path */
     const cleaned = CleanPath(file);
 
+    // clean up
+    await this.resetBreakpointsForFile(file);
+
     // process each requested breakpoint
-    for (let i = 0; i < bps.breakpoints.length; i++) {
-      await this.setBreakpoint(cleaned, bps.breakpoints[i].line, false);
+    for (let i = 0; i < bps.lines.length; i++) {
+      await this.setBreakpoint(cleaned, bps.lines[i], false);
     }
 
     // update our breakpoint state
@@ -162,5 +193,7 @@ export class IDLBreakpointManager {
     for (let i = 0; i < current.length; i++) {
       this.adapter.sendEvent(new BreakpointEvent('new', current[i]));
     }
+
+    return current;
   }
 }
