@@ -54,6 +54,12 @@ export interface IDebugEvaluateOptions extends IDLEvaluateOptions {
    * If set, adds a new line to the output after running
    */
   newLine?: boolean;
+  /**
+   * If set, then we dont wait for the IDL startup promise to resolve
+   *
+   * ADVANCED USE CASE when we are starting IDL
+   */
+  noWait?: boolean;
 }
 
 /**

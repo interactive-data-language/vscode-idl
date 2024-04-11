@@ -1,5 +1,4 @@
 import { Logger } from '@idl/logger';
-import { CleanPath } from '@idl/shared';
 
 import { IDLListenerArgs } from './args.interface';
 import { IDL_EVENT_LOOKUP, IDLEvent } from './events.interface';
@@ -85,25 +84,6 @@ export class IDLInteractionManager {
     for (let i = 0; i < pending.length; i++) {
       pending[i].reject('Canceled');
     }
-  }
-
-  /**
-   * Remove all breakpoints from IDL
-   */
-  async clearBreakpoints(filePath?: string) {
-    // get current breakpoints
-    const breakpoints = await this.getBreakpoints(filePath);
-
-    // make our breakpoint command
-    const cmd = breakpoints
-      .map((bp) => `breakpoint, /CLEAR, ${bp.id}`)
-      .join(' & ');
-
-    // clear all breakpoints
-    await this.evaluate(cmd, {
-      silent: true,
-      idlInfo: false,
-    });
   }
 
   /**
@@ -406,22 +386,6 @@ export class IDLInteractionManager {
    */
   scopeInfoCommand(level: number) {
     return `  vscode_getScopeInfo, -${level}`;
-  }
-
-  /**
-   * Add a breakpoint to IDL
-   */
-  async setBreakPoint(filePath: string, line: number): Promise<IDLBreakpoint> {
-    // set the breakpoint
-    await this.evaluate(`breakpoint, /SET, '${CleanPath(filePath)}', ${line}`, {
-      silent: true,
-      idlInfo: false,
-    });
-
-    // TODO: do we need to also get the breakpoint back so we know exactly where it is located?
-
-    // return location we clicked
-    return { path: filePath, line };
   }
 
   /**
