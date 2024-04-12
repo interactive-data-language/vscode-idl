@@ -22,7 +22,7 @@ export class IDLBreakpointManager {
    *
    * Updates internal property with this as the latest
    */
-  private async getBreakpoints(): Promise<IDLBreakpoint[]> {
+  async getBreakpoints(): Promise<IDLBreakpoint[]> {
     /**
      * Get current breakpoints from IDL
      */
@@ -74,6 +74,35 @@ export class IDLBreakpointManager {
   }
 
   /**
+   * Removes a breakpoint from IDL
+   */
+  async removeBreakpoint(file: string, line: number) {
+    await this.adapter.evaluate(
+      `breakpoint, /clear, '${CleanPath(file)}', ${line}`,
+      {
+        silent: true,
+        idlInfo: false,
+      }
+    );
+  }
+
+  /**
+   * Removes all breakpoints from IDL
+   */
+  async resetBreakpoints() {
+    // remove all breakpoints
+    for (let i = 0; i < this.VSCodeBreakpoints.length; i++) {
+      await this.removeBreakpoint(
+        this.VSCodeBreakpoints[i].source.path,
+        this.VSCodeBreakpoints[i].line
+      );
+    }
+
+    // sync breakpoints with VSCode UI
+    await this.syncBreakpointState();
+  }
+
+  /**
    * Removes all breakpoints for a file
    *
    * Need to call this before setting breakpoints because, for some reason,
@@ -90,13 +119,7 @@ export class IDLBreakpointManager {
     // find ones to remove from IDL
     for (let i = 0; i < bps.length; i++) {
       if (bps[i].file === file) {
-        await this.adapter.evaluate(
-          `breakpoint, /clear, '${CleanPath(file)}', ${bps[i].line}`,
-          {
-            silent: true,
-            idlInfo: false,
-          }
-        );
+        await this.removeBreakpoint(file, bps[i].line);
       }
     }
   }
@@ -106,7 +129,11 @@ export class IDLBreakpointManager {
    *
    * Line number is one-based
    */
-  async setBreakpoint(file: string, line: number, sync = true): Promise<void> {
+  private async setBreakpoint(
+    file: string,
+    line: number,
+    sync = true
+  ): Promise<void> {
     /**
      * Add breakpoint via IDL
      */
