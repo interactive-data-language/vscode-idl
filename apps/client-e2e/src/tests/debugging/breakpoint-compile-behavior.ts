@@ -62,13 +62,16 @@ export const BreakpointCompileBehavior: RunnerFunction = async (init) => {
   /** Compile our file */
   await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.COMPILE);
 
+  // pause momentarily
+  await Sleep(DEBUG_PAUSE);
+
   // query breakpoints
   const bps = init.debug.adapter._breakpoints.VSCodeBreakpoints.map(
     (bp) => bp.line
-  );
+  ).sort((a, b) => a - b);
 
   // make sure we have the right breakpoints
-  expect(bps.sort()).toEqual([8, 10, 24]);
+  expect(bps).toEqual([8, 10, 24]);
 
   // remove all breakpoints
   await init.debug.adapter._breakpoints.resetBreakpoints();

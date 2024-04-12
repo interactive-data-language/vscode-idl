@@ -25,7 +25,8 @@ export const Compile: RunnerFunction = async (init) => {
 
   // compile file
   const res = CleanIDLOutput(
-    await init.debug.adapter.evaluate(`.compile plot`, { echo: true })
+    await init.debug.adapter.evaluate(`.compile plot`, { echo: true }),
+    false
   );
 
   // make sure we compile

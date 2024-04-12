@@ -1,7 +1,9 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
-import { BreakPointStepInStepOut } from './breakpoint-step-in-step-out';
+import { BreakpointCompileBehavior } from './breakpoint-compile-behavior';
+import { BreakpointSetBeforeStart } from './breakpoint-set-before-start';
+import { BreakpointStepInStepOut } from './breakpoint-step-in-step-out';
 import { CleanOutput } from './clean-output';
 import { Compile } from './compile';
 import { Continue } from './continue';
@@ -61,7 +63,17 @@ DEBUGGING_RUNNER.addTest({
 
 DEBUGGING_RUNNER.addTest({
   name: 'Set breakpoints, step in, over, out, reset',
-  fn: BreakPointStepInStepOut,
+  fn: BreakpointStepInStepOut,
+});
+
+DEBUGGING_RUNNER.addTest({
+  name: 'Breakpoints behave correctly when we set before compiling a file',
+  fn: BreakpointCompileBehavior,
+});
+
+DEBUGGING_RUNNER.addTest({
+  name: 'Breakpoints get applied when set before IDL starts up',
+  fn: BreakpointSetBeforeStart,
 });
 
 DEBUGGING_RUNNER.addTest({
