@@ -95,9 +95,19 @@ export class Runner {
         // reset config
         await ResetSettingsForTests(config);
 
+        // remove all breakpoints
+        await vscode.commands.executeCommand(
+          'workbench.debug.viewlet.action.removeAllBreakpoints'
+        );
+
         // pause afterwards so things catch up
         await Sleep(TEST_PAUSE_MS);
       } catch (err) {
+        // remove all breakpoints
+        await vscode.commands.executeCommand(
+          'workbench.debug.viewlet.action.removeAllBreakpoints'
+        );
+
         // pause so output logs can be captured
         await Sleep(1000);
 
