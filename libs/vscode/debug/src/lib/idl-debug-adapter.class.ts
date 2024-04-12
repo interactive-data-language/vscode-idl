@@ -577,9 +577,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this.decorations.reset();
     }
 
-    // sync any syntax problems we found
-    this.decorations.syncSyntaxErrorDecorations(this.getSyntaxProblems());
-
     // if we compiled, sync breakpoints
     if (didCompile) {
       await this._breakpoints.syncBreakpointState();
@@ -593,6 +590,15 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // check if we need to add a new line
     if (options.newLine) {
       this.sendEvent(new OutputEvent(`\n`));
+    }
+
+    // see if we need to check for errors
+    if (options.errorCheck) {
+      // error check the output
+      this._runtime.errorCheck(res);
+
+      // sync decorators
+      this.decorations.syncSyntaxErrorDecorations(this.getSyntaxProblems());
     }
 
     // return our result
@@ -1455,6 +1461,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         await this.evaluate(args.expression, {
           silent: false,
           frameId: args.frameId,
+          errorCheck: true,
         });
       }
 

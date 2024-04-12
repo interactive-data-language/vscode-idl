@@ -28,6 +28,7 @@ export async function RunFile(): Promise<boolean> {
   // compile our file
   await IDL_DEBUG_ADAPTER.evaluate(`.compile -v '${uri}'`, {
     echo: true,
+    errorCheck: true,
   });
 
   /**
@@ -104,6 +105,7 @@ export async function RunFile(): Promise<boolean> {
   await IDL_DEBUG_ADAPTER.evaluate(command, {
     echo: true,
     newLine: true,
+    errorCheck: true,
   });
 
   return true;
