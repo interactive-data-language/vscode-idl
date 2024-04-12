@@ -78,7 +78,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   private _runtime: IDLInteractionManager;
 
   /** Breakpoint manager */
-  private _breakpoints: IDLBreakpointManager;
+  _breakpoints: IDLBreakpointManager;
 
   /** Event to fire when our configuration has been completed, from VSCode example */
   private readonly _configurationDone = new Subject();
