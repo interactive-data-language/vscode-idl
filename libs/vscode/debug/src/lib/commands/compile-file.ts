@@ -18,7 +18,7 @@ export async function CompileFile() {
 
     return await IDL_DEBUG_ADAPTER.evaluate(
       `.compile -v '${CleanPath(code.uri.fsPath)}'`,
-      { echo: true, newLine: true }
+      { echo: true, newLine: true, errorCheck: true }
     );
   }
 }

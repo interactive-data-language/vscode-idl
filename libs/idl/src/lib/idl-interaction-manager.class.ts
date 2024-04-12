@@ -12,6 +12,7 @@ import {
   IDLCodeCoverage,
   IDLEvaluateOptions,
   IDLInfo,
+  IDLSyntaxError,
   IDLSyntaxErrorLookup,
   IDLVariable,
   IRawBreakpoint,
@@ -20,6 +21,7 @@ import {
 import { IDLEvaluationItem } from './idl-interaction-manager.interface';
 import { IDLProcess } from './idl-process.class';
 import EventEmitter = require('events');
+import { REGEX_COMPILE_ERROR } from './utils/regex';
 
 /**
  * Class that manages interacting with IDL.
@@ -36,6 +38,11 @@ export class IDLInteractionManager {
 
   /** Our instance of IDL */
   private idl: IDLProcess;
+
+  /**
+   * Track syntax errors by file and continually update as we run commands
+   */
+  errorsByFile: IDLSyntaxErrorLookup = {};
 
   constructor(log: Logger, vscodeProDir: string) {
     this.idl = new IDLProcess(log, vscodeProDir);
@@ -84,6 +91,46 @@ export class IDLInteractionManager {
     for (let i = 0; i < pending.length; i++) {
       pending[i].reject('Canceled');
     }
+  }
+
+  /**
+   * Checks IDL's output for errors when running
+   */
+  errorCheck(output: string) {
+    // see if we need to check for errors
+    // check if we have a syntax error, only report the first
+    const errors: { file: string; line: number }[] = [];
+
+    /** Match for syntax errors */
+    let me: RegExpExecArray;
+    while ((me = REGEX_COMPILE_ERROR.exec(output)) !== null) {
+      errors.push({ file: me[1], line: parseInt(me[2]) });
+    }
+
+    /**
+     * Make new data structure with errors we detected
+     */
+    const newErrorsByFile: { [key: string]: IDLSyntaxError[] } = {};
+
+    // save errors
+    for (let i = 0; i < errors.length; i++) {
+      if (!(errors[i].file in newErrorsByFile)) {
+        newErrorsByFile[errors[i].file] = [errors[i]];
+      } else {
+        newErrorsByFile[errors[i].file].push(errors[i]);
+      }
+    }
+
+    // get all old keys and reset their values
+    const oldFiles = Object.keys(this.errorsByFile);
+    for (let i = 0; i < oldFiles.length; i++) {
+      if (!(oldFiles[i] in newErrorsByFile)) {
+        newErrorsByFile[oldFiles[i]] = [];
+      }
+    }
+
+    // update tracked errors
+    Object.assign(this.errorsByFile, newErrorsByFile);
   }
 
   /**
@@ -157,7 +204,7 @@ export class IDLInteractionManager {
       // retrieve scope information
       const scopeInfo = ProcessScope(
         this.idl,
-        await this.idl.evaluate(this.scopeInfoCommand(0), false)
+        await this.idl.evaluate(this.scopeInfoCommand(0))
       );
 
       // update if we have it or use default
@@ -285,7 +332,7 @@ export class IDLInteractionManager {
    * Reset errors by file
    */
   getErrorsByFile(): IDLSyntaxErrorLookup {
-    return this.idl.errorsByFile;
+    return this.errorsByFile;
   }
 
   /**
@@ -378,7 +425,7 @@ export class IDLInteractionManager {
    * Reset errors by file
    */
   resetErrorsByFile() {
-    this.idl.errorsByFile = {};
+    this.errorsByFile = {};
   }
 
   /**

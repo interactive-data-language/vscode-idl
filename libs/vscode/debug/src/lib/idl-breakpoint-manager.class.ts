@@ -7,6 +7,7 @@ import {
   IDLBreakpoint,
 } from './idl-breakpoint-manager.interface';
 import { IDLDebugAdapter } from './idl-debug-adapter.class';
+import { IDebugEvaluateOptions } from './idl-debug-adapter.interface';
 
 /**
  * Manages breakpoints for our IDL session
@@ -14,6 +15,15 @@ import { IDLDebugAdapter } from './idl-debug-adapter.class';
 export class IDLBreakpointManager {
   /** Breakpoints from users in VSCode */
   VSCodeBreakpoints: DebugProtocol.Breakpoint[] = [];
+
+  /**
+   * Options for when we run a command
+   */
+  private _options: IDebugEvaluateOptions = {
+    silent: true,
+    idlInfo: false,
+    errorCheck: false,
+  };
 
   constructor(private adapter: IDLDebugAdapter) {}
 
@@ -26,10 +36,10 @@ export class IDLBreakpointManager {
     /**
      * Get current breakpoints from IDL
      */
-    const bpTable = await this.adapter.evaluate('help, /breakpoints', {
-      silent: true,
-      idlInfo: false,
-    });
+    const bpTable = await this.adapter.evaluate(
+      'help, /breakpoints',
+      this._options
+    );
 
     /**
      * Parse output
@@ -79,10 +89,7 @@ export class IDLBreakpointManager {
   async removeBreakpoint(file: string, line: number) {
     await this.adapter.evaluate(
       `breakpoint, /clear, '${CleanPath(file)}', ${line}`,
-      {
-        silent: true,
-        idlInfo: false,
-      }
+      this._options
     );
   }
 
@@ -139,10 +146,7 @@ export class IDLBreakpointManager {
      */
     await this.adapter.evaluate(
       `breakpoint, /set, '${CleanPath(file)}', ${line}`,
-      {
-        silent: true,
-        idlInfo: false,
-      }
+      this._options
     );
 
     // check if we need to sync with VSCode
@@ -221,10 +225,10 @@ export class IDLBreakpointManager {
 
       // skip if it exists
       if (key in uniq) {
-        await this.adapter.evaluate(`breakpoint, /clear, ${fromIDL[i].idx}`, {
-          silent: true,
-          idlInfo: false,
-        });
+        await this.adapter.evaluate(
+          `breakpoint, /clear, ${fromIDL[i].idx}`,
+          this._options
+        );
         continue;
       }
 

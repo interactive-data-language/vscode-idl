@@ -60,6 +60,10 @@ export interface IDebugEvaluateOptions extends IDLEvaluateOptions {
    * ADVANCED USE CASE when we are starting IDL
    */
   noWait?: boolean;
+  /**
+   * Do we check IDL's output for errors? Also updates decorators
+   */
+  errorCheck?: boolean;
 }
 
 /**
@@ -71,4 +75,6 @@ export const DEFAULT_EVALUATE_OPTIONS: IDebugEvaluateOptions = {
   silent: false,
   idlInfo: true,
   newLine: false,
+  noWait: false,
+  errorCheck: false,
 };
