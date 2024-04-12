@@ -8,8 +8,6 @@ export const IDL_BREAKPOINT_REGEX = /^([0-9]+)\s*([0-9]+)\s*([^\s]*)\s+(.*)/gim;
  * Breakpoint, as reported by IDL
  */
 export interface IDLBreakpoint {
-  /** the ID of this breakpoint as it matches VSCode */
-  _id: number;
   /** The breakpoint index (i.e. ID) */
   idx: number;
   /** Line number, one-based */
