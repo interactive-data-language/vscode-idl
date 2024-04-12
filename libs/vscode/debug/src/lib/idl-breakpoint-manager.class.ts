@@ -60,7 +60,6 @@ export class IDLBreakpointManager {
 
       // save breakpoint
       breakpoints.push({
-        _id: idx,
         idx: idx,
         line: line,
         file: match[4],
@@ -173,18 +172,48 @@ export class IDLBreakpointManager {
     }
 
     /**
-     * get current breakpoints
+     * Track unique breakpoints and remove duplicates
+     *
+     * Comes from when we actually compile a file and more than
+     * one BP can end up on the same line
      */
-    const current: DebugProtocol.Breakpoint[] = (
-      await this.getBreakpoints()
-    ).map((bp) => {
-      return new Breakpoint(
-        true,
-        bp.line,
-        undefined,
-        new Source(IDLDebugAdapter.name, bp.file)
+    const uniq: { [key: string]: undefined } = {};
+
+    /**
+     * Get breakpoints from IDL
+     */
+    const fromIDL = await this.getBreakpoints();
+
+    /** Current breakpoints to report to VSCode */
+    const current: DebugProtocol.Breakpoint[] = [];
+
+    // process each IDL breakpoint
+    for (let i = 0; i < fromIDL.length; i++) {
+      /** Make key for BP */
+      const key = `${fromIDL[i].line}${fromIDL[i].file}`;
+
+      // skip if it exists
+      if (key in uniq) {
+        await this.adapter.evaluate(`breakpoint, /clear, ${fromIDL[i].idx}`, {
+          silent: true,
+          idlInfo: false,
+        });
+        continue;
+      }
+
+      // save in lookup
+      uniq[key] = undefined;
+
+      // report
+      current.push(
+        new Breakpoint(
+          true,
+          fromIDL[i].line,
+          undefined,
+          new Source(IDLDebugAdapter.name, fromIDL[i].file)
+        )
       );
-    });
+    }
 
     // save
     this.VSCodeBreakpoints = current;
