@@ -916,17 +916,11 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     args: DebugProtocol.SetBreakpointsArguments
   ) {
     try {
-      /** File our breakpoints are in */
-      const file = args.source.path;
-
-      /** Which lines contain the breakpoints */
-      const lines = args.lines;
-
       // add to logs
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
         type: 'debug',
-        content: ['Setting breakpoints for file', { file: file, lines: lines }],
+        content: ['Setting breakpoints for file', args],
       });
 
       // set breakpoints
@@ -937,6 +931,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       // send our response
       this.sendResponse(response);
     } catch (err) {
+      response.success = false;
       this.sendResponse(response);
       IDL_LOGGER.log({
         type: 'error',
@@ -978,6 +973,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       // send response
       this.sendResponse(response);
     } catch (err) {
+      response.success = false;
       this.sendResponse(response);
       IDL_LOGGER.log({
         type: 'error',
