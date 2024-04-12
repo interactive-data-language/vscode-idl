@@ -12,10 +12,9 @@ import { RunnerFunction } from '../runner.interface';
 import { DEBUG_PAUSE } from './_shared.interface';
 
 /**
- * Test that makes sure we can set breakpoints, stop on them, step into routines, and step
- * out of them
+ * Test that makes sure breakpoints behave as we expect when we compile a file
  */
-export const BreakpointStepInStepOut: RunnerFunction = async (init) => {
+export const BreakpointCompileBehavior: RunnerFunction = async (init) => {
   /**
    * Start IDL
    */
@@ -33,7 +32,9 @@ export const BreakpointStepInStepOut: RunnerFunction = async (init) => {
   await init.debug.adapter._breakpoints.resetBreakpoints();
 
   /** Get the file we need to work with */
-  const file = GetExtensionPath('idl/test/client-e2e/step_in.pro');
+  const file = GetExtensionPath(
+    'idl/test/client-e2e/debug/breakpoints/on_compile.pro'
+  );
 
   // open editor and display
   await OpenFileInVSCode(file);
@@ -45,7 +46,7 @@ export const BreakpointStepInStepOut: RunnerFunction = async (init) => {
   expect(editor).not.toBeUndefined();
 
   // make sure it is the plot file
-  expect(editor.uri.fsPath.endsWith('step_in.pro')).toBeTruthy();
+  expect(editor.uri.fsPath.endsWith('on_compile.pro')).toBeTruthy();
 
   // pause momentarily
   await Sleep(DEBUG_PAUSE);
@@ -55,33 +56,19 @@ export const BreakpointStepInStepOut: RunnerFunction = async (init) => {
     source: {
       path: file,
     },
-    lines: [19],
+    lines: [8, 10, 14, 19, 24],
   });
 
-  /** Run our file */
-  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RUN);
-  await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(19);
+  /** Compile our file */
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.COMPILE);
 
-  // step in
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_INTO);
-  await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(9);
+  // query breakpoints
+  const bps = init.debug.adapter._breakpoints.VSCodeBreakpoints.map(
+    (bp) => bp.line
+  );
 
-  // step over
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_OVER);
-  await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(11);
-
-  // step in
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_OVER);
-  await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(12);
-
-  // step in
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_OUT);
-  await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(21);
+  // make sure we have the right breakpoints
+  expect(bps.sort()).toEqual([8, 10, 24]);
 
   // remove all breakpoints
   await init.debug.adapter._breakpoints.resetBreakpoints();
