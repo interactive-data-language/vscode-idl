@@ -28,6 +28,16 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 - You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
 
+## 4.4.2 - Unreleased
+
+Improved the user experience for breakpoints when working with IDL. Some of the new behaviors include:
+
+- Properly setting breakpoints when you add them to a file before IDL starts
+
+- When you manually compile any file, we synchronize the actual location of breakpoints with VSCode
+
+Fixed a rare error where, when IDL was running in the debug console, we would fail to fetch internal information about IDL.
+
 ## 4.4.1 April 2024
 
 Fix a bug where watch variables were being executed and causing chaos in IDL debug sessions
