@@ -32,6 +32,7 @@ import {
   DEFAULT_IDL_DEBUG_CONFIGURATION,
   IDL_DEBUG_CONFIGURATION_PROVIDER,
 } from '@idl/vscode/debug';
+import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
 import copy from 'fast-copy';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
@@ -184,6 +185,7 @@ export class IDLNotebookController {
 
     // listen to end events
     this._runtime.on(IDL_EVENT_LOOKUP.END, async () => {
+      IDL_DECORATIONS_MANAGER.reset('notebook');
       await this._endCellExecution(false);
     });
 
@@ -211,6 +213,9 @@ export class IDLNotebookController {
     } else {
       this._appendCellOutput(IDL_TRANSLATION.debugger.adapter.failedStart);
     }
+
+    // reset decorations
+    IDL_DECORATIONS_MANAGER.reset('notebook');
 
     // mark as failed execution
     await this._endCellExecution(false);
@@ -502,6 +507,9 @@ export class IDLNotebookController {
       return false;
     }
 
+    // reset decorations
+    IDL_DECORATIONS_MANAGER.reset('notebook');
+
     // stop listening if we are
     if (this.listening) {
       this._runtime.removeAllListeners();
@@ -768,13 +776,16 @@ export class IDLNotebookController {
     const errs = this._runtime.getErrorsByFile();
 
     // map path on disk to notebook cell
-    if (fsPath in errs) {
-      errs[cell.document.uri.toString()] = errs[fsPath];
-      delete errs[fsPath];
+    const fsUri = vscode.Uri.file(fsPath).toString();
+    if (fsUri in errs) {
+      errs[cell.document.uri.toString()] = errs[fsUri];
+      delete errs[fsUri];
     }
 
     // check for syntax errors
     if (Object.keys(errs).length > 0) {
+      IDL_DECORATIONS_MANAGER.syncSyntaxErrorDecorations(errs);
+
       // set finish time
       await this._endCellExecution(false);
     } else {
@@ -980,6 +991,9 @@ export class IDLNotebookController {
   async stop() {
     // clear our queue
     this.clearQueue();
+
+    // reset decorations
+    IDL_DECORATIONS_MANAGER.reset('notebook');
 
     // stop IDL if we can
     if (this.isStarted()) {
