@@ -519,6 +519,9 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
 
           const doc = await OpenFileInVSCode(mdUri, true);
 
+          // short pause to let extension start
+          await Sleep(200);
+
           /**
            * Convert to PDF
            */
