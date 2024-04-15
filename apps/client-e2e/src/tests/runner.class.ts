@@ -109,7 +109,7 @@ export class Runner {
         );
 
         // pause so output logs can be captured
-        await Sleep(1000);
+        await Sleep(2000);
 
         // log
         this.logger.error([`Failed test: "${this.tests[i].name}"`, err]);
