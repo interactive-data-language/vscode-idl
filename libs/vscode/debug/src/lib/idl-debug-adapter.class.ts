@@ -18,6 +18,7 @@ import { Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_LOGGER, VSCODE_PRO_DIR } from '@idl/vscode/client';
+import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { VSCODE_COMMANDS, VSCodeTelemetryLogger } from '@idl/vscode/shared';
 import {
   ContinuedEvent,
@@ -51,7 +52,6 @@ import {
   IDebugEvaluateOptions,
   IDLDebugConfiguration,
 } from './idl-debug-adapter.interface';
-import { IDLDebugDecorations } from './idl-debug-decorations.class';
 import { IDL_STATUS_BAR } from './initialize-debugger';
 
 /**
@@ -89,11 +89,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    * Exposed as a helper for testing to make sure we are in the right place
    */
   stopped?: { reason: StopReason; stack: IDLCallStackItem };
-
-  /**
-   * Track decorations for files
-   */
-  decorations = new IDLDebugDecorations();
 
   /**
    * Promise that resolves when IDL has started, used as blocker
@@ -256,7 +251,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this.sendEvent(new TerminatedEvent());
 
     // clear all syntax problems
-    this.decorations.reset();
+    IDL_DECORATIONS_MANAGER.reset('pro');
 
     // reset the status bar prompt
     IDL_STATUS_BAR.resetPrompt();
@@ -295,7 +290,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // see if we need to display
     if (decorate) {
-      this.decorations.addCodeCoverageDecorations(
+      IDL_DECORATIONS_MANAGER.addCodeCoverageDecorations(
         vscode.Uri.file(file),
         coverage
       );
@@ -574,7 +569,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // check if we need to reset our syntax problems
     if (reset || close) {
-      this.decorations.reset();
+      IDL_DECORATIONS_MANAGER.reset('pro');
     }
 
     // if we compiled, sync breakpoints
@@ -598,7 +593,9 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this._runtime.errorCheck(res);
 
       // sync decorators
-      this.decorations.syncSyntaxErrorDecorations(this.getSyntaxProblems());
+      IDL_DECORATIONS_MANAGER.syncSyntaxErrorDecorations(
+        this.getSyntaxProblems()
+      );
     }
 
     // return our result
@@ -893,7 +890,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       await this.evaluate('.reset');
 
       // reset syntax problems
-      this.decorations.reset();
+      IDL_DECORATIONS_MANAGER.reset('pro');
 
       // let vscode know we finished
       this.sendResponse(response);
@@ -1327,7 +1324,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     LogSessionStop('stopped');
 
     // reset syntax problems
-    this.decorations.reset();
+    IDL_DECORATIONS_MANAGER.reset('pro');
 
     // update status bar
     IDL_STATUS_BAR.resetPrompt();

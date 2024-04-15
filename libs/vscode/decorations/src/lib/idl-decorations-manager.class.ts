@@ -3,7 +3,7 @@ import {
   IDLCodeCoverage,
   IDLSyntaxErrorLookup,
 } from '@idl/idl';
-import { Sleep } from '@idl/shared';
+import { ExtensionFileType, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { OpenFileInVSCodeFromURI } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
@@ -13,8 +13,9 @@ import {
   DEBUG_DIAGNOSTIC_COLLECTION,
   ICodeCoverageLookup,
   IDecorationLookup,
+  IDLDecorationsResetFlag,
   SYNTAX_ERROR_DECORATION,
-} from './idl-debug-decorations.interface';
+} from './idl-decorations-manager.interface';
 
 /**
  * Manages decorating a file when we have a debug session up-and-running
@@ -22,7 +23,7 @@ import {
  * This makes sure we apply and reset decorations (or similar items) on-demand
  * and when we open files in VScode.
  */
-export class IDLDebugDecorations {
+export class IDLDecorationsManager {
   /**
    * Current decorations to apply to files
    */
@@ -167,7 +168,10 @@ export class IDLDebugDecorations {
   /**
    * Resets syntax error decorations
    */
-  private _resetSyntaxErrorDecorations(reApply = false) {
+  private _resetSyntaxErrorDecorations(
+    flag: IDLDecorationsResetFlag,
+    reApply = false
+  ) {
     /**
      * Get all files we track
      */
@@ -175,6 +179,11 @@ export class IDLDebugDecorations {
 
     // process each file
     for (let i = 0; i < uriStrings.length; i++) {
+      // skip if we cant reset
+      if (!this._canResetEntry(uriStrings[i], flag)) {
+        continue;
+      }
+
       /** Get errors */
       const errors = this.decorations.syntaxErrors[uriStrings[i]];
 
@@ -254,7 +263,7 @@ export class IDLDebugDecorations {
    *
    * Not private so it can be toggled on and off on demand
    */
-  resetCodeCoverageDecorations(reApply = false) {
+  resetCodeCoverageDecorations(flag: IDLDecorationsResetFlag, reApply = false) {
     /**
      * Get all files we track
      */
@@ -262,6 +271,11 @@ export class IDLDebugDecorations {
 
     // process each file
     for (let i = 0; i < uriStrings.length; i++) {
+      // skip if we cant reset
+      if (!this._canResetEntry(uriStrings[i], flag)) {
+        continue;
+      }
+
       /** Get code coverage */
       const coverage = this.decorations.coverage[uriStrings[i]];
 
@@ -289,10 +303,25 @@ export class IDLDebugDecorations {
   }
 
   /**
+   * Detects the type of file we are wanting to reset and determines if
+   * we can or not
+   */
+  private _canResetEntry(file: string, flag: IDLDecorationsResetFlag): boolean {
+    switch (flag) {
+      case 'pro':
+        return ExtensionFileType.isPROCode(file);
+      case 'notebook':
+        return ExtensionFileType.isIDLNotebookFile(file);
+      default:
+        return true;
+    }
+  }
+
+  /**
    * Resets or re-applies decorations
    */
-  reset(reApply = false) {
-    this._resetSyntaxErrorDecorations(reApply);
-    this.resetCodeCoverageDecorations(reApply);
+  reset(flag: IDLDecorationsResetFlag, reApply = false) {
+    this._resetSyntaxErrorDecorations(flag, reApply);
+    this.resetCodeCoverageDecorations(flag, reApply);
   }
 }
