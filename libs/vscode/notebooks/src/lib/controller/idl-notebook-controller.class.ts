@@ -3,6 +3,7 @@ import {
   CleanIDLOutput,
   IDL_EVENT_LOOKUP,
   IDLInteractionManager,
+  IDLSyntaxErrorLookup,
   REGEX_NEW_LINE,
 } from '@idl/idl';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
@@ -777,15 +778,18 @@ export class IDLNotebookController {
 
     // map path on disk to notebook cell
     const fsUri = vscode.Uri.file(fsPath).toString();
-    if (fsUri in errs) {
-      errs[cell.document.uri.toString()] = errs[fsUri];
-      delete errs[fsUri];
-    }
+
+    // track problems we report
+    const errReport: IDLSyntaxErrorLookup = {};
+
+    // set errors or reset
+    errReport[cell.document.uri.toString()] = fsUri in errs ? errs[fsUri] : [];
+
+    // add decorations
+    IDL_DECORATIONS_MANAGER.syncSyntaxErrorDecorations(errReport);
 
     // check for syntax errors
     if (Object.keys(errs).length > 0) {
-      IDL_DECORATIONS_MANAGER.syncSyntaxErrorDecorations(errs);
-
       // set finish time
       await this._endCellExecution(false);
     } else {
