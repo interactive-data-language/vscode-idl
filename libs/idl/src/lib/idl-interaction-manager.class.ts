@@ -21,6 +21,8 @@ import {
 import { IDLEvaluationItem } from './idl-interaction-manager.interface';
 import { IDLProcess } from './idl-process.class';
 import EventEmitter = require('events');
+import { URI } from 'vscode-uri';
+
 import { REGEX_COMPILE_ERROR } from './utils/regex';
 
 /**
@@ -104,7 +106,7 @@ export class IDLInteractionManager {
     /** Match for syntax errors */
     let me: RegExpExecArray;
     while ((me = REGEX_COMPILE_ERROR.exec(output)) !== null) {
-      errors.push({ file: me[1], line: parseInt(me[2]) });
+      errors.push({ file: URI.file(me[1]).toString(), line: parseInt(me[2]) });
     }
 
     /**
