@@ -937,6 +937,9 @@ export class IDLNotebookController {
 
     // check for errors
     this._runtime.errorCheck(res);
+
+    // return result
+    return res;
   }
 
   /**
