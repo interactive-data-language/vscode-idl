@@ -36,6 +36,9 @@ export async function RunNotebookAndCompareCells(
     rmSync(NOTEBOOK_FOLDER, { recursive: true, force: true });
   }
 
+  // alert user
+  console.log(`  Running notebook: ${file}`);
+
   /**
    * Open the notebook
    */

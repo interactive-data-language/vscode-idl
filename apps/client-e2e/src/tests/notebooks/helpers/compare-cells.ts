@@ -27,7 +27,7 @@ export async function CompareCellOutputs(
     const expected = cellOutput[i];
 
     // debug log
-    console.log(`  Comparing known output cell "${expected.idx}"`);
+    console.log(`    Comparing known output cell "${expected.idx}"`);
 
     /**
      * get notebook cell
