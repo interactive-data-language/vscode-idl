@@ -5,7 +5,10 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { NotebookDocumentChangeEvent } from 'vscode-languageserver/lib/common/notebook';
 
 import { NotebookCacheValid } from '../../helpers/notebook-cache-valid';
-import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import {
+  IDL_LANGUAGE_SERVER_LOGGER,
+  SERVER_CONNECTION,
+} from '../../initialize-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { NOTEBOOK_MANAGER } from '../initialize-notebook-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
@@ -49,6 +52,17 @@ export const ON_DID_CHANGE_NOTEBOOK = async (
 
     // index file
     await IDL_INDEX.parseAndTrackNotebook(fsPath, idlNotebook);
+
+    // mark deleted cells as changed so problems disappear
+    if (event.cells) {
+      const deleted = event.cells.removed;
+      for (let i = 0; i < deleted.length; i++) {
+        SERVER_CONNECTION.sendDiagnostics({
+          uri: deleted[i].document,
+          diagnostics: [],
+        });
+      }
+    }
 
     // send problems
     SendNotebookProblems(notebook);

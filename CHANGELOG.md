@@ -40,6 +40,8 @@ Fixed a rare error where, when IDL was running in the debug console, we would fa
 
 When converting notebooks to PDFs, add a short pause before generating the PDF try avoid having to click the button twice.
 
+Fixed an issue where, when you would delete a notebook cell that had reported problems, the problems would always stick around in the "Problems" tab of VSCode
+
 ## 4.4.1 April 2024
 
 Fix a bug where watch variables were being executed and causing chaos in IDL debug sessions
