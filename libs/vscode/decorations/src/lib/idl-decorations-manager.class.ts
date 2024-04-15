@@ -59,6 +59,27 @@ export class IDLDecorationsManager {
     });
 
     /**
+     * Listen to notebook changes
+     */
+    vscode.workspace.onDidChangeNotebookDocument((event) => {
+      /**
+       * Get changes
+       */
+      const changes = event.contentChanges;
+
+      // process each change
+      for (let i = 0; i < changes.length; i++) {
+        /** Get removed cells */
+        const removed = changes[i].removedCells;
+
+        // remove all deleted cells
+        for (let j = 0; j < removed.length; j++) {
+          this.remove(removed[j].document.uri);
+        }
+      }
+    });
+
+    /**
      * DONT DO ANYTHING ON COLOR THEME CHANGE
      *
      * Instead, make sure that themes have light and dark specified
@@ -315,6 +336,14 @@ export class IDLDecorationsManager {
       default:
         return true;
     }
+  }
+
+  /**
+   * Removes decorations for a given URI
+   */
+  remove(uri: vscode.Uri) {
+    this.addCodeCoverageDecorations(uri, []);
+    this.addSyntaxErrorDecorations(uri, []);
   }
 
   /**
