@@ -112,6 +112,7 @@
       "@idl/vscode/commands": ["libs/vscode/commands/src/index.ts"],
       "@idl/vscode/config": ["libs/vscode/config/src/index.ts"],
       "@idl/vscode/debug": ["libs/vscode/debug/src/index.ts"],
+      "@idl/vscode/decorations": ["libs/vscode/decorations/src/index.ts"],
       "@idl/vscode/docs": ["libs/vscode/docs/src/index.ts"],
       "@idl/vscode/envi-opener": ["libs/vscode/envi-opener/src/index.ts"],
       "@idl/vscode/events/client": ["libs/vscode/events/client/src/index.ts"],
