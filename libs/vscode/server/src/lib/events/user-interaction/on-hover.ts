@@ -1,4 +1,5 @@
 import { IDL_LSP_LOG } from '@idl/logger';
+import { ExtensionFileType } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { Hover, TextDocumentPositionParams } from 'vscode-languageserver/node';
 
@@ -27,8 +28,8 @@ export async function GetHoverHelpWrapper(
   // return if not a file we can process
   if (
     !(
-      IDL_INDEX.isPROCode(info.fsPath) ||
-      IDL_INDEX.isIDLNotebookFile(info.fsPath)
+      ExtensionFileType.isPROCode(info.fsPath) ||
+      ExtensionFileType.isIDLNotebookFile(info.fsPath)
     )
   ) {
     return undefined;

@@ -764,8 +764,17 @@ export class IDLNotebookController {
     // delete file
     rmSync(fsPath);
 
+    // get syntax errors
+    const errs = this._runtime.getErrorsByFile();
+
+    // map path on disk to notebook cell
+    if (fsPath in errs) {
+      errs[cell.document.uri.toString()] = errs[fsPath];
+      delete errs[fsPath];
+    }
+
     // check for syntax errors
-    if (Object.keys(this._runtime.getErrorsByFile()).length > 0) {
+    if (Object.keys(errs).length > 0) {
       // set finish time
       await this._endCellExecution(false);
     } else {

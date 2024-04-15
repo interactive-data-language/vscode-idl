@@ -17,14 +17,11 @@ import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
 import {
   ALL_FILES_GLOB_PATTERN,
-  IDL_JSON_URI,
-  IDL_NOTEBOOK_EXTENSION,
-  IDL_SAVE_FILE_EXTENSION,
+  ExtensionFileType,
   NODE_MEMORY_CONFIG,
   PRO_DEF_EXTENSION,
   PRO_FILE_EXTENSION,
   SystemMemoryUsedMB,
-  TASK_FILE_EXTENSION,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -422,7 +419,7 @@ export class IDLIndex {
     // track down our include
     for (let i = 0; i < files.length; i++) {
       // skip if not PRO file
-      if (!this.isPROCode(files[i])) {
+      if (!ExtensionFileType.isPROCode(files[i])) {
         continue;
       }
 
@@ -662,7 +659,12 @@ export class IDLIndex {
     token: CancellationToken
   ): Promise<DocumentSymbol[]> {
     // if document isnt PRO code, return
-    if (!(this.isPROCode(file) || this.isIDLNotebookFile(file))) {
+    if (
+      !(
+        ExtensionFileType.isPROCode(file) ||
+        ExtensionFileType.isIDLNotebookFile(file)
+      )
+    ) {
       return undefined;
     }
 
@@ -1014,7 +1016,7 @@ export class IDLIndex {
 
     // automatically detect if we are a notebook file
     if (!options.isNotebook) {
-      options.isNotebook = this.isIDLNotebookFile(file);
+      options.isNotebook = ExtensionFileType.isIDLNotebookFile(file);
     }
 
     // get old global tokens
@@ -1373,19 +1375,19 @@ export class IDLIndex {
     // process all files
     for (let i = 0; i < files.length; i++) {
       switch (true) {
-        case this.isPROCode(files[i]):
+        case ExtensionFileType.isPROCode(files[i]):
           proFiles.push(files[i]);
           break;
-        case this.isConfigFile(files[i]):
+        case ExtensionFileType.isConfigFile(files[i]):
           configFiles.push(files[i]);
           break;
-        case this.isTaskFile(files[i]):
+        case ExtensionFileType.isTaskFile(files[i]):
           taskFiles.push(files[i]);
           break;
-        case this.isIDLNotebookFile(files[i]):
+        case ExtensionFileType.isIDLNotebookFile(files[i]):
           notebookFiles.push(files[i]);
           break;
-        case this.isSAVEFile(files[i]):
+        case ExtensionFileType.isSAVEFile(files[i]):
           saveFiles.push(files[i]);
           break;
         default:
@@ -1535,7 +1537,7 @@ export class IDLIndex {
     // process each file
     for (let i = 0; i < files.length; i++) {
       // check if we dont actually have pro code
-      if (!this.isPROCode(files[i])) {
+      if (!ExtensionFileType.isPROCode(files[i])) {
         continue;
       }
 
@@ -2289,13 +2291,13 @@ export class IDLIndex {
 
     // index appropriately
     switch (true) {
-      case this.isConfigFile(file):
+      case ExtensionFileType.isConfigFile(file):
         await this.indexConfigFile(file, code);
         break;
-      case this.isTaskFile(file):
+      case ExtensionFileType.isTaskFile(file):
         await this.indexTaskFile(file, code);
         break;
-      case this.isPROCode(file):
+      case ExtensionFileType.isPROCode(file):
         await this.getParsedProCode(
           file,
           code,
