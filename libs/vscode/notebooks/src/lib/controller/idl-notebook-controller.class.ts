@@ -928,12 +928,15 @@ export class IDLNotebookController {
       return '';
     }
 
-    return await this._runtime.evaluate(command, {
+    const res = await this._runtime.evaluate(command, {
       echo: false,
       idlInfo: false,
       cut: false,
       silent: false,
     });
+
+    // check for errors
+    this._runtime.errorCheck(res);
   }
 
   /**
