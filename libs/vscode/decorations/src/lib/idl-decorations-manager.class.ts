@@ -114,13 +114,13 @@ export class IDLDecorationsManager {
    */
   syncSyntaxErrorDecorations(problems: IDLSyntaxErrorLookup) {
     /** Get paths for files */
-    const files = Object.keys(problems);
+    const uriStrings = Object.keys(problems);
 
     // process each file
-    for (let i = 0; i < files.length; i++) {
+    for (let i = 0; i < uriStrings.length; i++) {
       this.addSyntaxErrorDecorations(
-        vscode.Uri.file(files[i]),
-        problems[files[i]].map((problem) => {
+        vscode.Uri.parse(uriStrings[i]),
+        problems[uriStrings[i]].map((problem) => {
           return {
             range: this._rangeFromLine(problem.line - 1),
           };
