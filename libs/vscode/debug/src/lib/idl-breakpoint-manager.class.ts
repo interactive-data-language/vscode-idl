@@ -120,13 +120,16 @@ export class IDLBreakpointManager {
     /** Get the current breakpoints in IDL */
     const bps = await this.getBreakpoints();
 
+    /** Clean the path */
+    const cleaned = CleanPath(file);
+
     // reverse
     bps.reverse();
 
     // find ones to remove from IDL
     for (let i = 0; i < bps.length; i++) {
-      if (bps[i].file === file) {
-        await this.removeBreakpoint(file, bps[i].line);
+      if (bps[i].file === cleaned) {
+        await this.removeBreakpoint(cleaned, bps[i].line);
       }
     }
   }
@@ -165,22 +168,19 @@ export class IDLBreakpointManager {
     await this.adapter._startup;
 
     /** Get file */
-    const file = bps.source.path;
+    const file = CleanPath(bps.source.path);
 
     // because we might not have a path (no idea why) return if missing
     if (!file) {
       return [];
     }
 
-    /** Get proper path */
-    const cleaned = CleanPath(file);
-
     // clean up
     await this.resetBreakpointsForFile(file);
 
     // process each requested breakpoint
     for (let i = 0; i < bps.lines.length; i++) {
-      await this.setBreakpoint(cleaned, bps.lines[i], false);
+      await this.setBreakpoint(file, bps.lines[i], false);
     }
 
     // update our breakpoint state
