@@ -40,12 +40,31 @@ export const NotebookProblemsTrackRight: RunnerFunction = async (init) => {
   // short pause
   await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
+  /** Get current cells */
+  const cells = nb.getCells();
+
   /**
    * Verify problems after have shifted
    */
   expect(
-    nb
-      .getCells()
-      .map((cell) => vscode.languages.getDiagnostics(cell.document.uri).length)
+    cells.map(
+      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
+    )
   ).toEqual([0, 3]);
+
+  // delete the bottom cell
+  await vscode.commands.executeCommand('notebook.focusBottom', nb);
+  await vscode.commands.executeCommand('notebook.cell.delete', nb);
+
+  // short pause
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
+
+  /**
+   * Verify problems no longer reported for deleted cell
+   */
+  expect(
+    cells.map(
+      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
+    )
+  ).toEqual([0, 0]);
 };
