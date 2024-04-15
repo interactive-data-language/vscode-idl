@@ -38,6 +38,8 @@ Improved the user experience for breakpoints when working with IDL. Some of the 
 
 Fixed a rare error where, when IDL was running in the debug console, we would fail to fetch internal information about IDL.
 
+When converting notebooks to PDFs, add a short pause before generating the PDF try avoid having to click the button twice.
+
 ## 4.4.1 April 2024
 
 Fix a bug where watch variables were being executed and causing chaos in IDL debug sessions
