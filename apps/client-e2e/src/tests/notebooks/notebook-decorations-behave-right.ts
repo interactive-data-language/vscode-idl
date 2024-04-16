@@ -1,5 +1,9 @@
 import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared';
-import { OpenNotebookInVSCode, ReplaceEditorContent } from '@idl/vscode/shared';
+import {
+  GetTextEditorForURI,
+  OpenNotebookInVSCode,
+  ReplaceEditorContent,
+} from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
@@ -68,16 +72,13 @@ export const NotebookDecorationsBehaveRight: RunnerFunction = async (init) => {
   // get editor for the first cell
 
   /** Get an open editor */
-  const openEditor = vscode.window.visibleTextEditors.filter(
-    (editor) =>
-      editor.document.uri.toString() === cells[0].document.uri.toString()
-  );
+  const openEditor = GetTextEditorForURI(cells[0].document.uri);
 
   // make sure we found a matching editor (we use this API elsewhere)
-  expect(openEditor.length > 0).toBeTruthy();
+  expect(openEditor).toBeDefined();
 
   // replace content of the editor
-  await ReplaceEditorContent(openEditor[0], 'print, 42');
+  await ReplaceEditorContent(openEditor, 'print, 42');
 
   /**
    * Run first cell again , which runs
