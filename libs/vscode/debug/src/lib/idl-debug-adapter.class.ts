@@ -275,7 +275,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   }
 
   /**
-   * Gets syntax problems from our IDL helper
+   * Gets syntax problems from our IDL helper, tracked
+   * by string versions of VSCode URIs
    */
   getSyntaxProblems() {
     return this._runtime.getErrorsByFile();
