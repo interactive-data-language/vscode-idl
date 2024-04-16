@@ -5,7 +5,10 @@ import {
 } from '@idl/idl';
 import { ExtensionFileType, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { OpenFileInVSCodeFromURI } from '@idl/vscode/shared';
+import {
+  GetTextEditorForURIString,
+  OpenFileInVSCodeFromURI,
+} from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 import {
@@ -119,14 +122,11 @@ export class IDLDecorationsManager {
     decorationType: vscode.TextEditorDecorationType,
     decorations: vscode.DecorationOptions[]
   ) {
-    /** Get an open editor */
-    const openEditor = vscode.window.visibleTextEditors.filter(
-      (editor) => editor.document.uri.toString() === uriString
-    );
+    const editor = GetTextEditorForURIString(uriString);
 
     // update decorations
-    if (openEditor.length > 0) {
-      openEditor[0].setDecorations(decorationType, decorations);
+    if (editor !== undefined) {
+      editor.setDecorations(decorationType, decorations);
     }
   }
 
