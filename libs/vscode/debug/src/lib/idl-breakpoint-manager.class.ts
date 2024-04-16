@@ -194,14 +194,6 @@ export class IDLBreakpointManager {
    * Synchronized breakpoint state with VScode
    */
   async syncBreakpointState() {
-    /** remove all existing breakpoints */
-    const removed = this.VSCodeBreakpoints;
-
-    // remove all
-    for (let i = 0; i < removed.length; i++) {
-      this.adapter.sendEvent(new BreakpointEvent('removed', removed[i]));
-    }
-
     /**
      * Track unique breakpoints and remove duplicates
      *
@@ -244,6 +236,14 @@ export class IDLBreakpointManager {
           new Source(IDLDebugAdapter.name, fromIDL[i].file)
         )
       );
+    }
+
+    /** Get existing breakpoints */
+    const removed = this.VSCodeBreakpoints;
+
+    // remove all
+    for (let i = 0; i < removed.length; i++) {
+      this.adapter.sendEvent(new BreakpointEvent('removed', removed[i]));
     }
 
     // save
