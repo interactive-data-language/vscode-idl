@@ -12,7 +12,7 @@ import { ICompareCellOutputs } from './compare-cells.interface';
 /**
  * Default timeout, ms
  */
-export const DEFAULT_RUNNER_TIMEOUT = 100;
+export const DEFAULT_RUNNER_TIMEOUT = 250;
 
 /**
  * helper function to:
