@@ -392,7 +392,8 @@ export const EN: ITranslation = {
         'Error resolving promise for executing IDL statement',
       noRoutineFound:
         'No main level program, function, or procedure found to run',
-      syntaxErrorsFound: 'Syntax errors detected in your code, cannot proceed',
+      syntaxErrorsFound:
+        'Syntax errors detected in your code, see above for more details',
       returning: 'File compiled while active, returning...',
       nothingToEdit: 'No matching file found',
       noPauseOnWindows: 'Pause is not currently supported on Windows platforms',
