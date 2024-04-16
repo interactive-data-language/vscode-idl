@@ -331,7 +331,8 @@ export class IDLInteractionManager {
   }
 
   /**
-   * Reset errors by file
+   * Gets syntax problems from our IDL helper, tracked
+   * by string versions of VSCode URIs
    */
   getErrorsByFile(): IDLSyntaxErrorLookup {
     return this.errorsByFile;
