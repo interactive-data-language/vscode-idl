@@ -2,6 +2,7 @@ import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
 import { NewNotebook } from './new-notebook';
+import { NotebookDecorationsBehaveRight } from './notebook-decorations-behave-right';
 import { NotebookFormats_1_0_0 } from './notebook-formats-1.0.0';
 import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { RunNotebookReset } from './notebook-reset';
@@ -175,4 +176,9 @@ NOTEBOOK_RUNNER.addTest({
 NOTEBOOK_RUNNER.addTest({
   name: 'Verify quiet mode for notebooks',
   fn: VerifyQuietNotebookSetting,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Verify decorations work right in notebooks',
+  fn: NotebookDecorationsBehaveRight,
 });
