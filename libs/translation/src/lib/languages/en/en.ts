@@ -881,10 +881,11 @@ export const EN: ITranslation = {
     indexing: 'Indexing code',
   },
   themes: {
-    new: 'Novus IDL',
     magmatic: 'Magmatic IDL',
     neon: 'Neon IDL',
+    new: 'Novus IDL',
     retro: 'Retro IDL',
+    stellar: 'Stellar IDL',
   },
   webview: {
     content: {

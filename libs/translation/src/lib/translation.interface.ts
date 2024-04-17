@@ -753,14 +753,16 @@ export interface ITranslation {
   };
   /** Translations related to the theme names */
   themes: {
-    /** Novus (New) IDL */
-    new: string;
     /** Magmatic IDL */
     magmatic: string;
     /** Neon IDL */
     neon: string;
+    /** Novus (New) IDL */
+    new: string;
     /** Retro IDL */
     retro: string;
+    /** Stellar IDL theme */
+    stellar: string;
   };
   /** Translations related to the webview */
   webview: {
