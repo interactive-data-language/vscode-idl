@@ -25,6 +25,11 @@ export const THEMES = [
     uiTheme: 'vs',
     path: 'extension/language/themes/retro.json',
   },
+  {
+    label: '%themes.stellar%',
+    uiTheme: 'vs-dark',
+    path: 'extension/language/themes/stellar.json',
+  },
 ];
 
 /**
