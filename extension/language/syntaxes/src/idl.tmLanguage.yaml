@@ -761,7 +761,7 @@ repository:
   # double quotes - special case when empty
   quote_double_basic:
     name: {{name_quote_double}}
-    match: '""'
+    match: '""(?!")'
 
   # double quotes
   quote_double:
@@ -786,7 +786,7 @@ repository:
   # single quotes - special case when empty
   quote_single_basic:
     name: {{name_quote_double}}
-    match: "''"
+    match: "''(?!')"
 
   # single quote
   quote_single:
