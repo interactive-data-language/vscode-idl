@@ -749,7 +749,7 @@ export const EN: ITranslation = {
   packageJSON: {
     displayName: 'IDL for VSCode',
     description:
-      'IDL syntax highlighting, code snippets, running IDL programs, and much more!',
+      'IDL syntax highlighting, code snippets, running IDL programs, notebooks, and much more!',
   },
   parsing: {
     errors: {
