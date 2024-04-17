@@ -22,6 +22,14 @@ All notebooks share the same instance of IDL behind the scenes, so you can only 
 If you are interested in being able to run more than one notebook at a time, let us know on GitHub and we can take a look!
 :::
 
+## IDL and ENVI Requirements
+
+Notebooks have specific version requirements for IDL and ENVI:
+
+- For IDL, you'll need IDL 8.8.0 or newer (enforced, and checked, when notebooks start)
+
+- For ENVI, you'll need ENVI 6.0 or ENVI 5.7. Any other version of ENVI is not guaranteed to work.
+
 ## Getting Started with Notebooks
 
 The easiest way to get started with IDL or ENVI Notebooks is through VSCode, which includes several example notebooks.

@@ -66,7 +66,11 @@ The extension is tested against:
 
 Anything else is use-at-your-own-risk and may not work.
 
-For notebooks, we only test against the above versions, and the ENVI Notebook API does require ENVI in order to function.
+Notebooks have specific version requirements for IDL and ENVI:
+
+- For IDL, you'll need IDL 8.8.0 or newer (enforced, and checked, when notebooks start)
+
+- For ENVI, you'll need ENVI 6.0 or ENVI 5.7. Any other version of ENVI is not guaranteed to work.
 
 ## Features
 

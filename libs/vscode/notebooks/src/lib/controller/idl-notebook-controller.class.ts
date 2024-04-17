@@ -35,6 +35,7 @@ import {
 } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
+import { compareVersions } from 'compare-versions';
 import copy from 'fast-copy';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
@@ -166,17 +167,17 @@ export class IDLNotebookController {
 
     // listen for debug output
     this._runtime.on(IDL_EVENT_LOOKUP.OUTPUT, (msg) => {
-      this._appendCellOutput(msg);
+      this._appendToCurrentCellOutput(msg);
     });
 
     // listen for standard out
     this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_OUT, (msg) => {
-      this._appendCellOutput(msg);
+      this._appendToCurrentCellOutput(msg);
     });
 
     // pass all stderr output back to the console
     this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_ERR, (msg) => {
-      this._appendCellOutput(msg);
+      this._appendToCurrentCellOutput(msg);
     });
 
     // detect when we close IDL
@@ -204,7 +205,7 @@ export class IDLNotebookController {
    */
   private async _IDLCrashed(reason: 'crash' | 'failed-start') {
     if (reason === 'crash') {
-      this._appendCellOutput(IDL_TRANSLATION.notebooks.errors.crashed);
+      this._appendToCurrentCellOutput(IDL_TRANSLATION.notebooks.errors.crashed);
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_NOTEBOOK_LOG,
@@ -212,7 +213,9 @@ export class IDLNotebookController {
         alert: IDL_TRANSLATION.notebooks.errors.crashed,
       });
     } else {
-      this._appendCellOutput(IDL_TRANSLATION.debugger.adapter.failedStart);
+      this._appendToCurrentCellOutput(
+        IDL_TRANSLATION.debugger.adapter.failedStart
+      );
     }
 
     // reset decorations
@@ -225,7 +228,7 @@ export class IDLNotebookController {
   /**
    * Output to append
    */
-  private _appendCellOutput(content: string) {
+  private _appendToCurrentCellOutput(content: string) {
     // log output
     IDL_LOGGER.log({
       log: IDL_NOTEBOOK_LOG,
@@ -238,21 +241,31 @@ export class IDLNotebookController {
       // update overall output
       this._currentCell.output = `${this._currentCell.output}${content}`;
 
-      // only save output if we are not finished
-      if (!this._currentCell.finished) {
-        // update our cell if we have finished launching
-        if (this.isStarted()) {
-          this._currentCell.execution.replaceOutput(
-            new vscode.NotebookCellOutput([
-              new vscode.NotebookCellOutputItem(
-                Buffer.from(
-                  this._currentCell.output.replace(REGEX_NEW_LINE, '\n')
-                ),
-                'text/plain'
-              ),
-            ])
-          );
-        }
+      // replace the output for the cell
+      this._replaceCellOutput(this._currentCell, this._currentCell.output);
+    }
+  }
+
+  /**
+   * Output to append
+   */
+  private async _replaceCellOutput(
+    cell: ICurrentCell,
+    content: string,
+    forceUpdate = false
+  ) {
+    // only save output if we are not finished
+    if (!cell.finished) {
+      // update our cell if we have finished launching
+      if (this.isStarted() || forceUpdate) {
+        cell.execution.replaceOutput(
+          new vscode.NotebookCellOutput([
+            new vscode.NotebookCellOutputItem(
+              Buffer.from(content.replace(REGEX_NEW_LINE, '\n')),
+              'text/plain'
+            ),
+          ])
+        );
       }
     }
   }
@@ -485,7 +498,7 @@ export class IDLNotebookController {
   /**
    * Launches IDL for a notebooks session
    */
-  async launchIDL(title: string): Promise<boolean> {
+  async launchIDL(title: string, current?: ICurrentCell): Promise<boolean> {
     // track when we start IDL for notebooks
     VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
       idl_command: 'notebooks.launchIDL',
@@ -567,16 +580,41 @@ export class IDLNotebookController {
           // attempt to parse the response
           const parsed = JSON.parse(version);
 
+          /**
+           * Alert user if they don't have a supported version of IDL
+           */
+          if (compareVersions(parsed.release, '8.8.0') === -1) {
+            if (current !== undefined) {
+              current.execution.start(Date.now());
+              this._replaceCellOutput(
+                current,
+                IDL_TRANSLATION.notebooks.notifications.notValidIDLVersion,
+                true
+              );
+            }
+
+            // stop IDL
+            this.stop();
+
+            // alert user we have started IDL for their notebook
+            vscode.window.showErrorMessage(
+              IDL_TRANSLATION.notebooks.notifications.notValidIDLVersion
+            );
+
+            // reject
+            res(false);
+
+            // return and dont do anything
+            return;
+          }
+
+          // alert user we have started IDL for their notebook
           vscode.window.showInformationMessage(
             IDL_TRANSLATION.notebooks.notifications.startedIDLKernel.replace(
               '{VERSION}',
               parsed.release
             )
           );
-
-          /**
-           * TODO: Alert user if they don't have a supported version of IDL
-           */
 
           // send usage metric
           VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.IDL_STARTUP, {
@@ -670,7 +708,8 @@ export class IDLNotebookController {
       try {
         if (
           !(await this.launchIDL(
-            IDL_TRANSLATION.notebooks.notifications.startingIDL
+            IDL_TRANSLATION.notebooks.notifications.startingIDL,
+            current
           ))
         ) {
           execution.end(false, Date.now());
