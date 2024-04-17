@@ -48,6 +48,8 @@ Re-worked quote formatting to not potentially break user code. There are a few e
 
 Fixed a small issue with syntax highlighting where we weren't detecting escaped quotes (and highlighting them) as we should have.
 
+Tweak setting IDL's DLM path when launching so that users can specify custom paths through normal environment variables and have it be supported.
+
 ## 4.4.1 April 2024
 
 Fix a bug where watch variables were being executed and causing chaos in IDL debug sessions
