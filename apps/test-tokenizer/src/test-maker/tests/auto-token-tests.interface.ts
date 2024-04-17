@@ -1078,6 +1078,14 @@ export const AUTO_TOKEN_TESTS: IAutoTest[] = [
         name: 'verifies quote vs number is correctly identified',
         code: [`arr = ["0.00000000"]`],
       },
+      {
+        name: 'verifies single quote escape',
+        code: [`a = '''string'''`],
+      },
+      {
+        name: 'verifies double quote escape',
+        code: [`a = """string"""`],
+      },
     ],
   },
   {

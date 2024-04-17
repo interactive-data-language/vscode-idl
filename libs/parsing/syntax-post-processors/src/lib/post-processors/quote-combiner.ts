@@ -13,7 +13,7 @@ MERGE[TOKEN_NAMES.QUOTE_SINGLE] = true;
 /**
  * Recurser to find children
  */
-function ReplaceStringsRecurser(tree: SyntaxTree) {
+function QuoteCombinerRecurser(tree: SyntaxTree) {
   // get number of elements, track since we may remove
   const n = tree.length;
 
@@ -28,7 +28,7 @@ function ReplaceStringsRecurser(tree: SyntaxTree) {
 
     // recurse if needed
     if (tree[i].type === BRANCH_TYPES.BRANCH) {
-      ReplaceStringsRecurser((tree[i] as IBranch<NonBasicTokenNames>).kids);
+      QuoteCombinerRecurser((tree[i] as IBranch<NonBasicTokenNames>).kids);
       continue;
     }
 
@@ -67,5 +67,5 @@ function ReplaceStringsRecurser(tree: SyntaxTree) {
  * Convert neighboring strings to single expression
  */
 IDL_SYNTAX_TREE_POST_PROCESSOR.onTree((tree) => {
-  ReplaceStringsRecurser(tree);
+  QuoteCombinerRecurser(tree);
 });
