@@ -50,6 +50,10 @@ Fixed a small issue with syntax highlighting where we weren't detecting escaped 
 
 Tweak setting IDL's DLM path when launching so that users can specify custom paths through normal environment variables and have it be supported.
 
+When IDL starts up for notebooks, we now check to make sure you have at least IDL 8.8.0 which has some required updates in order for the notebooks to function as expected.
+
+Updated the main README and notebooks docs to reflect the version requirements.
+
 ## 4.4.1 April 2024
 
 Fix a bug where watch variables were being executed and causing chaos in IDL debug sessions

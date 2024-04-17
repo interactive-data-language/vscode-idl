@@ -678,6 +678,8 @@ export interface ITranslation {
       markdownPDFWaitForInstall: string;
       /** Notification for user when we start the IDL session for a notebook */
       startedIDLKernel: string;
+      /** Notification for when IDL doesnt have the right version */
+      notValidIDLVersion: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */

@@ -725,6 +725,8 @@ export const EN: ITranslation = {
       markdownPDFWaitForInstall:
         'Wait for Markdown PDF to install chromium and then try again',
       startedIDLKernel: 'Started IDL {VERSION} for notebook!',
+      notValidIDLVersion:
+        'IDL Notebooks require IDL 8.8.0 or newer in order to run',
     },
   },
   notifications: {
