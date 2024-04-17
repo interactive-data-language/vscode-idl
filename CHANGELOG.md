@@ -30,6 +30,8 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 ## 4.4.2 - Unreleased
 
+For notebook cells, syntax errors are now highlighted and problems are reported on the lines that have errors. This behaves the same as PRO files when using the debug console as well.
+
 Improved the user experience for breakpoints when working with IDL. Some of the new behaviors include:
 
 - Properly setting breakpoints when you add them to a file before IDL starts
@@ -41,6 +43,10 @@ Fixed a rare error where, when IDL was running in the debug console, we would fa
 When converting notebooks to PDFs, add a short pause before generating the PDF try avoid having to click the button twice.
 
 Fixed an issue where, when you would delete a notebook cell that had reported problems, the problems would always stick around in the "Problems" tab of VSCode
+
+Re-worked quote formatting to not potentially break user code. There are a few edge cases where the quotes cause errors when they were flipped from single to double (or double to single). Now, all quotes preserve the interior content of the string so that IDL interprets them the same.
+
+Fixed a small issue with syntax highlighting where we weren't detecting escaped quotes (and highlighting them) as we should have.
 
 ## 4.4.1 April 2024
 

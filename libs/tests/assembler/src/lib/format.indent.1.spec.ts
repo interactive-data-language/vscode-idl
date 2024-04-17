@@ -67,7 +67,7 @@ describe(`[auto generated] Verify adjusting indent adjusts spacing`, () => {
         `   a = 'something'`,
         ``,
         `   ; double quote with single quote`,
-        `   a = "'"`,
+        `   a = ''''`,
         ``,
         `   ; escaped double quote`,
         `   a = 'escaped"formatting'`,
