@@ -608,13 +608,8 @@ export class IDLNotebookController {
             return;
           }
 
-          // alert user we have started IDL for their notebook
-          vscode.window.showInformationMessage(
-            IDL_TRANSLATION.notebooks.notifications.startedIDLKernel.replace(
-              '{VERSION}',
-              parsed.release
-            )
-          );
+          // update kernel text
+          this._controller.label = `IDL ${parsed.release}`;
 
           // send usage metric
           VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.IDL_STARTUP, {
@@ -1037,6 +1032,9 @@ export class IDLNotebookController {
 
     // reset decorations
     IDL_DECORATIONS_MANAGER.reset('notebook');
+
+    // reset the label
+    this._controller.label = `IDL`;
 
     // stop IDL if we can
     if (this.isStarted()) {
