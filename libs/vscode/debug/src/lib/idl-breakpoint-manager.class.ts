@@ -1,4 +1,4 @@
-import { CleanPath, ExtensionFileType } from '@idl/shared';
+import { CleanPath, IDLFileHelper } from '@idl/shared';
 import { Breakpoint, BreakpointEvent, Source } from '@vscode/debugadapter';
 import { DebugProtocol } from '@vscode/debugprotocol';
 
@@ -168,7 +168,7 @@ export class IDLBreakpointManager {
     await this.adapter._startup;
 
     // return nothing if notebooks
-    if (ExtensionFileType.isIDLNotebookFile(bps.source?.path || '')) {
+    if (IDLFileHelper.isIDLNotebookFile(bps.source?.path || '')) {
       return [];
     }
 
