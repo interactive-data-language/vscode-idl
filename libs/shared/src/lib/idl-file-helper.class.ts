@@ -1,3 +1,8 @@
+import { basename, dirname, join } from 'path';
+import { URI } from 'vscode-uri';
+
+import { CleanPath } from './clean-path';
+import { NOTEBOOK_CELL_BASE_NAME } from './idl-file-helper.interface';
 import {
   IDL_JSON_URI,
   IDL_NOTEBOOK_EXTENSION,
@@ -49,5 +54,18 @@ export class IDLFileHelper {
    */
   static isSAVEFile(file: string): boolean {
     return file.toLowerCase().endsWith(IDL_SAVE_FILE_EXTENSION);
+  }
+
+  /**
+   * Converts a URI for a notebook cell to the filepath on disk that should be used
+   */
+  static notebookCellUriToFSPath(uri: URI) {
+    return join(
+      CleanPath(dirname(uri.fsPath)),
+      `${basename(uri.fsPath, IDL_NOTEBOOK_EXTENSION).replace(
+        /\s/g,
+        '_'
+      )}_${NOTEBOOK_CELL_BASE_NAME}_${uri.fragment}.pro`
+    );
   }
 }
