@@ -116,9 +116,9 @@ export class IDLProcess extends EventEmitter {
 
     // make sure the DLM path is also set
     if (!('IDL_DLM_PATH' in args.env)) {
-      args.env.IDL_DLM_PATH = args.config.IDL.directory;
+      args.env.IDL_DLM_PATH = `+${args.config.IDL.directory}`;
     } else {
-      args.env.IDL_DLM_PATH = `${args.env.IDL_DLM_PATH}${delimiter}${args.config.IDL.directory}`;
+      args.env.IDL_DLM_PATH = `${args.env.IDL_DLM_PATH}${delimiter}+${args.config.IDL.directory}`;
     }
 
     // add a path for the directory
