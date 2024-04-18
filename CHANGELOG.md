@@ -54,6 +54,8 @@ When IDL starts up for notebooks, we now check to make sure you have at least ID
 
 Updated the main README and notebooks docs to reflect the version requirements.
 
+When IDL starts for Notebooks, we update the kernel indicator in the top-right of the notebook to show the version of IDL we are using. We use this now instead of the pop-up window that used to appear.
+
 ## 4.4.1 April 2024
 
 Fix a bug where watch variables were being executed and causing chaos in IDL debug sessions
