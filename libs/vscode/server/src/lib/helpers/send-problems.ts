@@ -1,4 +1,4 @@
-import { ExtensionFileType } from '@idl/shared';
+import { IDLFileHelper } from '@idl/shared';
 import { SyntaxProblems } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
@@ -102,8 +102,8 @@ export function SendProblems(inFiles: string[]) {
      * If we are a notebook we always send problems
      */
     if (
-      (ExtensionFileType.isIDLNotebookFile(files[i]) ||
-        ExtensionFileType.isPROCode(files[i])) &&
+      (IDLFileHelper.isIDLNotebookFile(files[i]) ||
+        IDLFileHelper.isPROCode(files[i])) &&
       CanReportProblems(files[i])
     ) {
       /**

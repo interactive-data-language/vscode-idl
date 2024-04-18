@@ -1,4 +1,4 @@
-import { CleanPath, ExtensionFileType } from '@idl/shared';
+import { CleanPath, IDLFileHelper } from '@idl/shared';
 import { URI } from 'vscode-uri';
 
 import { NOTEBOOK_MANAGER } from '../events/initialize-notebook-manager';
@@ -38,7 +38,7 @@ export async function ResolveFSPathAndCodeForURI(
   /**
    * Validate notebook
    */
-  if (!ExtensionFileType.isIDLNotebookFile(fsPath)) {
+  if (!IDLFileHelper.isIDLNotebookFile(fsPath)) {
     return undefined;
   }
 

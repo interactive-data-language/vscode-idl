@@ -1,5 +1,5 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { ExtensionFileType } from '@idl/shared';
+import { IDLFileHelper } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MigrateCodeLSPPayload,
@@ -44,7 +44,7 @@ export const ON_MIGRATE_CODE = async (
     const config = GetFormattingConfigForFile(info.fsPath);
 
     // do nothing
-    if (!ExtensionFileType.isPROCode(info.fsPath)) {
+    if (!IDLFileHelper.isPROCode(info.fsPath)) {
       return undefined;
     }
 

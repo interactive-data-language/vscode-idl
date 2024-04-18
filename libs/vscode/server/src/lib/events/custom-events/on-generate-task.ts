@@ -10,7 +10,7 @@ import {
 import { GenerateTaskResult } from '@idl/generators/tasks-shared';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
-import { ExtensionFileType, GetFSPath, Sleep } from '@idl/shared';
+import { IDLFileHelper, GetFSPath, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GenerateTaskMessage,
@@ -45,7 +45,7 @@ export const ON_GENERATE_TASK = async (
     const fsPath = GetFSPath(payload.uri);
 
     // return if not PRO code
-    if (!ExtensionFileType.isPROCode(fsPath)) {
+    if (!IDLFileHelper.isPROCode(fsPath)) {
       return;
     }
 

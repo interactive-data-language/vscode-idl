@@ -1,6 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { ExtensionFileType, GetFSPath } from '@idl/shared';
+import { IDLFileHelper, GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   SemanticTokens,
@@ -39,8 +39,8 @@ export const ON_SEMANTIC_HIGHLIGHTING = async (
     // return if not a file we can process
     if (
       !(
-        ExtensionFileType.isPROCode(info.fsPath) ||
-        ExtensionFileType.isIDLNotebookFile(info.fsPath)
+        IDLFileHelper.isPROCode(info.fsPath) ||
+        IDLFileHelper.isIDLNotebookFile(info.fsPath)
       )
     ) {
       return undefined;
