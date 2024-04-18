@@ -1,6 +1,6 @@
 import { CreateCodeActions } from '@idl/assembling/code-actions';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { ExtensionFileType } from '@idl/shared';
+import { IDLFileHelper } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLDiagnostic } from '@idl/types/diagnostic';
 import { CodeAction, CodeActionParams } from 'vscode-languageserver/node';
@@ -48,7 +48,7 @@ export const ON_CODE_ACTIONS = async (
     }
 
     // return if not a file we can process
-    if (!(ExtensionFileType.isPROCode(info.fsPath) || info.isNotebook)) {
+    if (!(IDLFileHelper.isPROCode(info.fsPath) || info.isNotebook)) {
       return undefined;
     }
 

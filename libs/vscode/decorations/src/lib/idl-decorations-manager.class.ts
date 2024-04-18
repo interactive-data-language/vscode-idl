@@ -3,7 +3,7 @@ import {
   IDLCodeCoverage,
   IDLSyntaxErrorLookup,
 } from '@idl/idl';
-import { ExtensionFileType, Sleep } from '@idl/shared';
+import { IDLFileHelper, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GetTextEditorForURIString,
@@ -330,9 +330,9 @@ export class IDLDecorationsManager {
   private _canResetEntry(file: string, flag: IDLDecorationsResetFlag): boolean {
     switch (flag) {
       case 'pro':
-        return ExtensionFileType.isPROCode(file);
+        return IDLFileHelper.isPROCode(file);
       case 'notebook':
-        return ExtensionFileType.isIDLNotebookFile(file);
+        return IDLFileHelper.isIDLNotebookFile(file);
       default:
         return true;
     }

@@ -1,4 +1,4 @@
-import { ExtensionFileType } from '@idl/shared';
+import { IDLFileHelper } from '@idl/shared';
 import { basename } from 'path';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
@@ -19,7 +19,7 @@ export function AddCompletionInclude(
   // process all files
   for (let i = 0; i < files.length; i++) {
     // skip if not PRO file
-    if (!ExtensionFileType.isPROCode(files[i])) {
+    if (!IDLFileHelper.isPROCode(files[i])) {
       continue;
     }
 

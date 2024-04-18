@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { CodeChecksum } from '@idl/parser';
 import { IParsed } from '@idl/parsing/syntax-tree';
-import { ExtensionFileType } from '@idl/shared';
+import { IDLFileHelper } from '@idl/shared';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import copy from 'fast-copy';
 
@@ -80,7 +80,7 @@ export async function GetParsedPROCode(
     /**
      * Check if we are a notebook cell
      */
-    case ExtensionFileType.isIDLNotebookFile(file): {
+    case IDLFileHelper.isIDLNotebookFile(file): {
       /**
        * If we have a pending notebook file, pause
        * and wait for it to finish before we do anything

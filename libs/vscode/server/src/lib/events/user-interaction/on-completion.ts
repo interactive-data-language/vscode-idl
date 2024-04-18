@@ -4,7 +4,7 @@ import {
   IAssemblerOptions,
 } from '@idl/assembling/config';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { ExtensionFileType, GetFSPath } from '@idl/shared';
+import { IDLFileHelper, GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   CompletionItem,
@@ -36,8 +36,8 @@ export async function GetAutoCompleteWrapper(
   // return if not a file we can process
   if (
     !(
-      ExtensionFileType.isPROCode(info.fsPath) ||
-      ExtensionFileType.isIDLNotebookFile(info.fsPath)
+      IDLFileHelper.isPROCode(info.fsPath) ||
+      IDLFileHelper.isIDLNotebookFile(info.fsPath)
     )
   ) {
     return undefined;

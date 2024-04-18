@@ -1,7 +1,7 @@
 import { TaskAssembler } from '@idl/assembler';
 import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
 import { LoadTask } from '@idl/schemas/tasks';
-import { ExtensionFileType } from '@idl/shared';
+import { IDLFileHelper } from '@idl/shared';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
@@ -43,15 +43,15 @@ export async function FormatFile(
     /**
      * Handle task files and manually handle errors from loading tasks
      */
-    case ExtensionFileType.isTaskFile(info.fsPath): {
+    case IDLFileHelper.isTaskFile(info.fsPath): {
       formatted = TaskAssembler(await LoadTask(info.fsPath, info.code), config);
       break;
     }
     /**
      * Handle PRO code
      */
-    case ExtensionFileType.isPROCode(info.fsPath) ||
-      ExtensionFileType.isIDLNotebookFile(info.fsPath): {
+    case IDLFileHelper.isPROCode(info.fsPath) ||
+      IDLFileHelper.isIDLNotebookFile(info.fsPath): {
       formatted = await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
         IDL_INDEX.getWorkerID(info.fsPath),
         LSP_WORKER_THREAD_MESSAGE_LOOKUP.ASSEMBLE_PRO_CODE,

@@ -11,7 +11,7 @@ import {
  *
  * Shared logic across the extension
  */
-export class ExtensionFileType {
+export class IDLFileHelper {
   /**
    * Indicates if we have a file that we can process for tokens (PRO code).
    *
