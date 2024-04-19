@@ -17,6 +17,7 @@ import {
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
   IDL_NOTEBOOK_LANGUAGE_NAME,
+  IDLFileHelper,
   Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -730,16 +731,19 @@ export class IDLNotebookController {
     // reset cell output
     execution.clearOutput();
 
-    /** Folder where we write notebook cell  */
+    /** Folder where we write notebook cell, check if NB is saved to disk  */
     const nbDir =
       cell.notebook.uri.scheme === 'file'
         ? dirname(CleanPath(cell.notebook.uri.fsPath))
         : NOTEBOOK_FOLDER;
 
     /**
-     * temp folder for notebook cell
+     * PRO file for where we write the NB cell to disk
      */
-    const fsPath = join(nbDir, 'notebook_cell.pro');
+    const fsPath =
+      cell.notebook.uri.scheme === 'file'
+        ? IDLFileHelper.notebookCellUriToFSPath(cell.document.uri)
+        : join(nbDir, 'notebook_cell.pro');
 
     // make our folder if it doesnt exist
     if (!existsSync(nbDir)) {
