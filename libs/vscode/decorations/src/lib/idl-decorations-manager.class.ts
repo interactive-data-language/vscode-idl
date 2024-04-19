@@ -329,6 +329,10 @@ export class IDLDecorationsManager {
 
   /**
    * Add decorations for stack track
+   *
+   * For PRO files, lines are one-based
+   *
+   * For notebooks, lines are zero-based
    */
   addStackTraceDecorations(uri: vscode.Uri, lines: number[]) {
     /** Get string URI */
