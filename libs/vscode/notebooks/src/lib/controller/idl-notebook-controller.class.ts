@@ -43,6 +43,7 @@ import { dirname, join } from 'path';
 import * as vscode from 'vscode';
 
 import {
+  DEFAULT_END_CELL_EXECUTION_ACTIONS,
   ICurrentCell,
   IEndCellExecutionActions,
 } from './idl-notebook-controller.interface';
@@ -327,7 +328,7 @@ export class IDLNotebookController {
    */
   private async _endCellExecution(
     success: boolean,
-    actions: Partial<IEndCellExecutionActions> = {}
+    inActions: Partial<IEndCellExecutionActions> = {}
   ) {
     /**
      * Get current cell
@@ -341,6 +342,9 @@ export class IDLNotebookController {
     if (cell === undefined) {
       return;
     }
+
+    /** Get default actions */
+    const actions = { ...DEFAULT_END_CELL_EXECUTION_ACTIONS, ...inActions };
 
     /**
      * Function to handle edge case of canceling execution right at this point
