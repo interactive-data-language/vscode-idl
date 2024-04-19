@@ -62,10 +62,23 @@ export class IDLFileHelper {
   static notebookCellUriToFSPath(uri: URI) {
     return join(
       CleanPath(dirname(uri.fsPath)),
-      `${basename(uri.fsPath, IDL_NOTEBOOK_EXTENSION).replace(
-        /\s/g,
-        '_'
+      `${basename(
+        uri.fsPath,
+        IDL_NOTEBOOK_EXTENSION
       )}_${NOTEBOOK_CELL_BASE_NAME}_${uri.fragment}.pro`
     );
+  }
+
+  /**
+   * Converts a file system path for a notebook call back to a URI for
+   * a notebook cell
+   */
+  static notebookCellFSPathToUri(fsPath: string) {
+    const split = fsPath.split(`_${NOTEBOOK_CELL_BASE_NAME}_`);
+    return URI.from({
+      scheme: 'vscode-notebook-cell',
+      path: `/${split[0].replace(/\\/g, '/')}${IDL_NOTEBOOK_EXTENSION}`,
+      fragment: basename(split[1], `.pro`),
+    });
   }
 }
