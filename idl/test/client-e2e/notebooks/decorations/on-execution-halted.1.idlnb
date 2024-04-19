@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "a = 42 + fourtytwo"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

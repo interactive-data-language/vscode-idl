@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "; print out each folder on IDL's search path",
+        "print, strsplit(!path, path_sep(/search_path), /extract), /implied_print"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}
