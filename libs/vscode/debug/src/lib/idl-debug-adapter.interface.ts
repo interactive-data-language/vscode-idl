@@ -54,6 +54,16 @@ export interface IDebugEvaluateOptions extends IDLEvaluateOptions {
    * If set, adds a new line to the output after running
    */
   newLine?: boolean;
+  /**
+   * If set, then we dont wait for the IDL startup promise to resolve
+   *
+   * ADVANCED USE CASE when we are starting IDL
+   */
+  noWait?: boolean;
+  /**
+   * Do we check IDL's output for errors? Also updates decorators
+   */
+  errorCheck?: boolean;
 }
 
 /**
@@ -65,4 +75,6 @@ export const DEFAULT_EVALUATE_OPTIONS: IDebugEvaluateOptions = {
   silent: false,
   idlInfo: true,
   newLine: false,
+  noWait: false,
+  errorCheck: false,
 };

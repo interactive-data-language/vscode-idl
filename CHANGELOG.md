@@ -28,6 +28,42 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 - You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
 
+## 4.4.2 - April 2024
+
+For notebook cells, syntax errors are now highlighted and problems are reported on the lines that have errors. This behaves the same as PRO files when using the debug console as well.
+
+When you run a notebook cell, and IDL stops running, we now show the line in the cell that was stopped on to help track down problems.
+
+Syntax error and notebook decorations now cover the whole line instead of just the text on the line to help make them pop more.
+
+Improved the user experience for breakpoints when working with IDL. Some of the new behaviors include:
+
+- Properly setting breakpoints when you add them to a file before IDL starts
+
+- When you manually compile any file, we synchronize the actual location of breakpoints with VSCode
+
+Fixed a rare error where, when IDL was running in the debug console, we would fail to fetch internal information about IDL.
+
+When converting notebooks to PDFs, add a short pause before generating the PDF try avoid having to click the button twice.
+
+Fixed an issue where, when you would delete a notebook cell that had reported problems, the problems would always stick around in the "Problems" tab of VSCode
+
+Re-worked quote formatting to not potentially break user code. There are a few edge cases where the quotes cause errors when they were flipped from single to double (or double to single). Now, all quotes preserve the interior content of the string so that IDL interprets them the same.
+
+Fixed a small issue with syntax highlighting where we weren't detecting escaped quotes (and highlighting them) as we should have.
+
+Tweak setting IDL's DLM path when launching so that users can specify custom paths through normal environment variables and have it be supported.
+
+When IDL starts up for notebooks, we now check to make sure you have at least IDL 8.8.0 which has some required updates in order for the notebooks to function as expected.
+
+Updated the main README and notebooks docs to reflect the version requirements.
+
+When IDL starts for Notebooks, we update the kernel indicator in the top-right of the notebook to show the version of IDL we are using. We use this now instead of the pop-up window that used to appear.
+
+## 4.4.1 April 2024
+
+Fix a bug where watch variables were being executed and causing chaos in IDL debug sessions
+
 ## 4.4.0 - April 2024
 
 Fixed an issue where the names of ENVI and IDL tasks were incorrectly lower-case instead of what the user had specified in the task files.

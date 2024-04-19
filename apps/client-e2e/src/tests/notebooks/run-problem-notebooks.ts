@@ -1,10 +1,7 @@
 import { GetExtensionPath } from '@idl/shared';
 
 import { RunnerFunction } from '../runner.interface';
-import {
-  DEFAULT_RUNNER_TIMEOUT,
-  RunNotebookAndCompareCells,
-} from './helpers/run-notebook-and-compare-cells';
+import { RunNotebookAndCompareCells } from './helpers/run-notebook-and-compare-cells';
 
 /**
  * Function that verifies that we can do basic debugging of IDL sessions
@@ -38,8 +35,7 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
         mimeTypes: [],
       },
     ],
-    init.notebooks.controller,
-    DEFAULT_RUNNER_TIMEOUT
+    init.notebooks.controller
   );
 
   /**
@@ -55,8 +51,7 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
         mimeTypes: [],
       },
     ],
-    init.notebooks.controller,
-    DEFAULT_RUNNER_TIMEOUT
+    init.notebooks.controller
   );
 
   /**
@@ -78,8 +73,7 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
         mimeTypes: [],
       },
     ],
-    init.notebooks.controller,
-    DEFAULT_RUNNER_TIMEOUT
+    init.notebooks.controller
   );
 
   /**
@@ -102,7 +96,6 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
         mimeTypes: [],
       },
     ],
-    init.notebooks.controller,
-    DEFAULT_RUNNER_TIMEOUT
+    init.notebooks.controller
   );
 };

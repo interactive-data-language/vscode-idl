@@ -18,9 +18,9 @@ import { Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_LOGGER, VSCODE_PRO_DIR } from '@idl/vscode/client';
+import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { VSCODE_COMMANDS, VSCodeTelemetryLogger } from '@idl/vscode/shared';
 import {
-  Breakpoint,
   ContinuedEvent,
   InitializedEvent,
   Logger,
@@ -46,13 +46,12 @@ import { LogOutput } from './helpers/log-output';
 import { LogSessionStart } from './helpers/log-session-start';
 import { LogSessionStop } from './helpers/log-session-stop';
 import { MapVariables } from './helpers/map-variables';
+import { IDLBreakpointManager } from './idl-breakpoint-manager.class';
 import {
   DEFAULT_EVALUATE_OPTIONS,
-  IBreakpointLookup,
   IDebugEvaluateOptions,
   IDLDebugConfiguration,
 } from './idl-debug-adapter.interface';
-import { IDLDebugDecorations } from './idl-debug-decorations.class';
 import { IDL_STATUS_BAR } from './initialize-debugger';
 
 /**
@@ -75,14 +74,14 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   /** Last arguments for launching a session */
   lastLaunchArgs?: IDLDebugConfiguration;
 
-  /** Reference to our IDL class, manages process and input/output */
+  /** IDL interaction manager to communicate with the IDL process */
   private _runtime: IDLInteractionManager;
+
+  /** Breakpoint manager */
+  _breakpoints: IDLBreakpointManager;
 
   /** Event to fire when our configuration has been completed, from VSCode example */
   private readonly _configurationDone = new Subject();
-
-  /** Track all of the breakpoints that we are getting and setting */
-  private breakpoints: IBreakpointLookup = {};
 
   /**
    * Current location we are stopped at, only set/updated when we stop
@@ -92,9 +91,20 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   stopped?: { reason: StopReason; stack: IDLCallStackItem };
 
   /**
-   * Track decorations for files
+   * Promise that resolves when IDL has started, used as blocker
+   * when we make requests
    */
-  decorations = new IDLDebugDecorations();
+  _startup: Promise<void>;
+
+  /**
+   * Callback to resolve our startup promise
+   */
+  private _startupResolver: () => void;
+
+  /**
+   * Callback to reject our startup promise
+   */
+  private _startupRejector: () => void;
 
   constructor() {
     super('idl-debug.txt');
@@ -103,11 +113,17 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this.setDebuggerLinesStartAt1(true);
     this.setDebuggerColumnsStartAt1(true);
 
+    // init promise for startup and resolver callback
+    this._setStartupPromise();
+
     // create our runtime session - does not immediately start IDL
     this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_LOG),
       VSCODE_PRO_DIR
     );
+
+    // create breakpoint manager
+    this._breakpoints = new IDLBreakpointManager(this);
 
     // listen to events
     this.listenToEvents();
@@ -211,6 +227,23 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   }
 
   /**
+   * Sets our startup promise to track when IDL starts and properly cancel/fail
+   * pending requests
+   */
+  private _setStartupPromise(reset = false) {
+    // if resetting, fail previous promise if we havent started yet
+    if (reset && this._startupRejector !== undefined) {
+      this._startupRejector();
+    }
+
+    // refresh properties
+    this._startup = new Promise((res, rej) => {
+      this._startupResolver = res;
+      this._startupRejector = rej;
+    });
+  }
+
+  /**
    * Method we call when IDL was stopped - not via user, but a likely crash
    */
   private _IDLCrashed(reason: 'crash' | 'failed-start') {
@@ -218,7 +251,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this.sendEvent(new TerminatedEvent());
 
     // clear all syntax problems
-    this.decorations.reset();
+    IDL_DECORATIONS_MANAGER.reset('pro');
 
     // reset the status bar prompt
     IDL_STATUS_BAR.resetPrompt();
@@ -236,10 +269,14 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       default:
         break;
     }
+
+    // init promise for startup and resolver callback
+    this._setStartupPromise(true);
   }
 
   /**
-   * Gets syntax problems from our IDL helper
+   * Gets syntax problems from our IDL helper, tracked
+   * by string versions of VSCode URIs
    */
   getSyntaxProblems() {
     return this._runtime.getErrorsByFile();
@@ -254,7 +291,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // see if we need to display
     if (decorate) {
-      this.decorations.addCodeCoverageDecorations(
+      IDL_DECORATIONS_MANAGER.addCodeCoverageDecorations(
         vscode.Uri.file(file),
         coverage
       );
@@ -274,6 +311,11 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     command: string,
     inOptions?: IDebugEvaluateOptions
   ): Promise<string> {
+    // make sure we wait until IDL has started to execute anything
+    if (!inOptions?.noWait) {
+      await this._startup;
+    }
+
     // get the options for evaluating our expression
     const options = { ...DEFAULT_EVALUATE_OPTIONS, ...inOptions };
 
@@ -307,6 +349,9 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     /** Flag indicating if are executing an exit statement and need to close */
     let close = false;
+
+    /** Check if we are compiling a file and we need to update breakpoints */
+    let didCompile = false;
 
     /** Hold strings we will actually use for execution */
     const useSplit: string[] = [];
@@ -382,6 +427,9 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // check if we need to return
     if (REGEX_COMPILE_COMMAND.test(useCommand)) {
+      // update flag that we compiled code
+      didCompile = true;
+
       // get the current scope information
       const scope = await this._runtime.getCurrentStack();
 
@@ -506,7 +554,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // determine how to proceed
     switch (true) {
       case reset:
-        await this.setAllBreakpoints();
         this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
         break;
       case shouldContinue:
@@ -523,11 +570,13 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // check if we need to reset our syntax problems
     if (reset || close) {
-      this.decorations.reset();
+      IDL_DECORATIONS_MANAGER.reset('pro');
     }
 
-    // sync any syntax problems we found
-    this.decorations.syncSyntaxErrorDecorations(this.getSyntaxProblems());
+    // if we compiled, sync breakpoints
+    if (didCompile) {
+      await this._breakpoints.syncBreakpointState();
+    }
 
     // update status bar if we are done
     if (!this._runtime.executing()) {
@@ -537,6 +586,17 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // check if we need to add a new line
     if (options.newLine) {
       this.sendEvent(new OutputEvent(`\n`));
+    }
+
+    // see if we need to check for errors
+    if (options.errorCheck) {
+      // error check the output
+      this._runtime.errorCheck(res);
+
+      // sync decorators
+      IDL_DECORATIONS_MANAGER.syncSyntaxErrorDecorations(
+        this.getSyntaxProblems()
+      );
     }
 
     // return our result
@@ -551,36 +611,17 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   }
 
   /**
-   * Sets a breakpoint for agiven file
-   *
-   * Provide custom API for this for testing
-   *
-   * Line number is 1 based
+   * Wraps "protected" method of similar name
    */
-  async setBreakpoint(file: string, line: number) {
-    return await this._runtime.setBreakPoint(file, line);
+  debuggerLineToClient(line: number) {
+    return this.convertDebuggerLineToClient(line);
   }
 
   /**
-   * Sets all tracked breakpoints
+   * Wraps "protected" method of similar name
    */
-  private async setAllBreakpoints() {
-    // get the files that hold breakpoints
-    const files = Object.keys(this.breakpoints);
-
-    // process all of our files with breakpoints
-    for (let i = 0; i < files.length; i++) {
-      // get the file
-      const file = files[i];
-
-      // get the lines
-      const lines = Object.keys(this.breakpoints[file]);
-
-      // set all breakpoints
-      for (let j = 0; j < lines.length; j++) {
-        await this.setBreakpoint(file, parseInt(lines[j]));
-      }
-    }
+  clientLineToDebugger(line: number) {
+    return this.convertClientLineToDebugger(line);
   }
 
   /**
@@ -662,6 +703,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    * Wrapper to start IDL and run some commands
    */
   launch(): Promise<boolean> {
+    // create launch promise
     return new Promise((res, rej) => {
       // attempt to start IDL
       IDL_STATUS_BAR.busy(IDL_TRANSLATION.statusBar.starting, true);
@@ -698,6 +740,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
             echo: false,
             silent: true,
             idlInfo: false,
+            noWait: true,
           })
         );
 
@@ -717,7 +760,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
               : 'idl',
           });
         } catch (err) {
-          console.log(err);
           IDL_LOGGER.log({
             type: 'error',
             log: IDL_DEBUG_ADAPTER_LOG,
@@ -731,6 +773,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
         // return
         res(true);
+
+        // remove rejector callback since we started
+        this._startupRejector = undefined;
+
+        // resolve startup promise
+        this._startupResolver();
       });
 
       // listen for failures to launch
@@ -843,7 +891,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       await this.evaluate('.reset');
 
       // reset syntax problems
-      this.decorations.reset();
+      IDL_DECORATIONS_MANAGER.reset('pro');
 
       // let vscode know we finished
       this.sendResponse(response);
@@ -872,98 +920,22 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     args: DebugProtocol.SetBreakpointsArguments
   ) {
     try {
-      // return if nothing to do
-      if (args.lines === undefined) {
-        response.body = {
-          breakpoints: [],
-        };
-        this.sendResponse(response);
-        return;
-      }
-
-      /** File our breakpoints are in */
-      const file = args.source.path;
-
-      /** Which lines contain the breakpoints */
-      const lines = args.lines;
-
+      // add to logs
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
         type: 'debug',
-        content: ['Setting breakpoints for file', { file: file, lines: lines }],
+        content: ['Setting breakpoints for file', args],
       });
 
-      // set status since we are manually running
-      IDL_STATUS_BAR.busy();
-
-      // set and verify breakpoint locations
-      try {
-        // reset tracked information
-        this.breakpoints[file] = {};
-
-        for (let i = 0; i < lines.length; i++) {
-          this.breakpoints[file][lines[i]] = false;
-        }
-
-        if (!this._runtime.isStarted()) {
-          response.body = {
-            breakpoints: [],
-          };
-        } else {
-          // remove all breakpoints for our file
-          await this._runtime.clearBreakpoints(file);
-
-          // reset tracked information
-          this.breakpoints[file] = {};
-
-          // initialize the breakpoints we have set
-          const breakpoints: Breakpoint[] = [];
-
-          // set all of our breakpoints
-          for (let i = 0; i < lines.length; i++) {
-            // get line for debugger
-            const line = this.convertClientLineToDebugger(lines[i]);
-
-            // save that we have "set" this breakpoint
-            this.breakpoints[file][line] = true;
-
-            // get the breakpoint for our file
-            const info = await this.setBreakpoint(file, line);
-
-            // save breakpoint
-            breakpoints.push(
-              new Breakpoint(
-                true,
-                this.convertDebuggerLineToClient(info.line),
-                undefined,
-                new Source(IDLDebugAdapter.name, file)
-              )
-            );
-          }
-
-          // send back the actual breakpoint positions
-          response.body = {
-            breakpoints,
-          };
-        }
-      } catch (err) {
-        IDL_LOGGER.log({
-          log: IDL_DEBUG_ADAPTER_LOG,
-          content: ['Error setting breakpoints for file', err],
-          alert: IDL_TRANSLATION.debugger.adapter.breakpointSetFailed,
-          type: 'error',
-        });
-        response.body = {
-          breakpoints: [],
-        };
-      }
-
-      // set status since we are manually running
-      IDL_STATUS_BAR.ready();
+      // set breakpoints
+      response.body = {
+        breakpoints: await this._breakpoints.setBreakpoints(args),
+      };
 
       // send our response
       this.sendResponse(response);
     } catch (err) {
+      response.success = false;
       this.sendResponse(response);
       IDL_LOGGER.log({
         type: 'error',
@@ -990,28 +962,22 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         content: ['Breakpoint location request', args],
       });
 
-      // set status since we are manually running
-      IDL_STATUS_BAR.busy();
-
-      // get breakpoints for our file
-      const breakpoints = await this._runtime.getBreakpoints(
-        args.source.path,
-        this.convertClientLineToDebugger(args.line)
-      );
-
-      // set status since we are manually running
-      IDL_STATUS_BAR.ready();
+      // sync breakpoints and get latest
+      const bps = this._breakpoints.VSCodeBreakpoints;
 
       // populate body
       response.body = {
-        breakpoints: breakpoints.map((breakpoint) => {
-          return { line: breakpoint.line };
-        }),
+        breakpoints: bps
+          .filter((bp) => bp?.source?.path === args?.source?.path)
+          .map((breakpoint) => {
+            return { line: breakpoint.line };
+          }),
       };
 
       // send response
       this.sendResponse(response);
     } catch (err) {
+      response.success = false;
       this.sendResponse(response);
       IDL_LOGGER.log({
         type: 'error',
@@ -1359,11 +1325,14 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     LogSessionStop('stopped');
 
     // reset syntax problems
-    this.decorations.reset();
+    IDL_DECORATIONS_MANAGER.reset('pro');
 
     // update status bar
     IDL_STATUS_BAR.resetPrompt();
     IDL_STATUS_BAR.setStoppedStatus(IDL_TRANSLATION.statusBar.stopped);
+
+    // init promise for startup and resolver callback
+    this._setStartupPromise(true);
 
     // alert vscode we have stopped
     this.sendEvent(new TerminatedEvent());
@@ -1484,11 +1453,15 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         content: ['Evaluate request', args],
       });
 
-      // evaluate command
-      await this.evaluate(args.expression, {
-        silent: false,
-        frameId: args.frameId,
-      });
+      // dont evaluate watch variables
+      if (args?.context !== 'watch') {
+        // evaluate command
+        await this.evaluate(args.expression, {
+          silent: false,
+          frameId: args.frameId,
+          errorCheck: true,
+        });
+      }
 
       // TODO: figure out how to bypass this.
       // when wen stop debugging you get `Canceled` printed to the debug console for

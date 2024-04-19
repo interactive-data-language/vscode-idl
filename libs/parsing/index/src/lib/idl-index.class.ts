@@ -17,13 +17,9 @@ import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
 import {
   ALL_FILES_GLOB_PATTERN,
-  IDL_JSON_URI,
-  IDL_NOTEBOOK_EXTENSION,
-  IDL_SAVE_FILE_EXTENSION,
+  IDLFileHelper,
   NODE_MEMORY_CONFIG,
-  PRO_FILE_EXTENSION,
   SystemMemoryUsedMB,
-  TASK_FILE_EXTENSION,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -307,45 +303,6 @@ export class IDLIndex {
   }
 
   /**
-   * Indicates if we have a file that we can process for tokens (PRO code).
-   *
-   * This is needed because we have other files that we watch as well.
-   */
-  isPROCode(file: string): boolean {
-    return file.toLowerCase().endsWith(PRO_FILE_EXTENSION);
-  }
-
-  /**
-   * Indicates that a file is a configuration file
-   */
-  isConfigFile(file: string): boolean {
-    return file.toLowerCase().endsWith(IDL_JSON_URI);
-  }
-
-  /**
-   * Indicates that a file is a task file (IDL, ENVI, etc.)
-   */
-  isTaskFile(file: string): boolean {
-    return file.toLowerCase().endsWith(TASK_FILE_EXTENSION);
-  }
-
-  /**
-   * Indicates that a file is an IDL notebook
-   */
-  isIDLNotebookFile(file: string): boolean {
-    return (
-      file.includes('#') || file.toLowerCase().endsWith(IDL_NOTEBOOK_EXTENSION)
-    );
-  }
-
-  /**
-   * Indicates that a file is a SAVE file
-   */
-  isSAVEFile(file: string): boolean {
-    return file.toLowerCase().endsWith(IDL_SAVE_FILE_EXTENSION);
-  }
-
-  /**
    * If garbage collection is enabled, clean up
    */
   async cleanUp() {
@@ -413,7 +370,7 @@ export class IDLIndex {
     // track down our include
     for (let i = 0; i < files.length; i++) {
       // skip if not PRO file
-      if (!this.isPROCode(files[i])) {
+      if (!IDLFileHelper.isPROCode(files[i])) {
         continue;
       }
 
@@ -653,7 +610,9 @@ export class IDLIndex {
     token: CancellationToken
   ): Promise<DocumentSymbol[]> {
     // if document isnt PRO code, return
-    if (!(this.isPROCode(file) || this.isIDLNotebookFile(file))) {
+    if (
+      !(IDLFileHelper.isPROCode(file) || IDLFileHelper.isIDLNotebookFile(file))
+    ) {
       return undefined;
     }
 
@@ -1005,7 +964,7 @@ export class IDLIndex {
 
     // automatically detect if we are a notebook file
     if (!options.isNotebook) {
-      options.isNotebook = this.isIDLNotebookFile(file);
+      options.isNotebook = IDLFileHelper.isIDLNotebookFile(file);
     }
 
     // get old global tokens
@@ -1364,19 +1323,19 @@ export class IDLIndex {
     // process all files
     for (let i = 0; i < files.length; i++) {
       switch (true) {
-        case this.isPROCode(files[i]):
+        case IDLFileHelper.isPROCode(files[i]):
           proFiles.push(files[i]);
           break;
-        case this.isConfigFile(files[i]):
+        case IDLFileHelper.isConfigFile(files[i]):
           configFiles.push(files[i]);
           break;
-        case this.isTaskFile(files[i]):
+        case IDLFileHelper.isTaskFile(files[i]):
           taskFiles.push(files[i]);
           break;
-        case this.isIDLNotebookFile(files[i]):
+        case IDLFileHelper.isIDLNotebookFile(files[i]):
           notebookFiles.push(files[i]);
           break;
-        case this.isSAVEFile(files[i]):
+        case IDLFileHelper.isSAVEFile(files[i]):
           saveFiles.push(files[i]);
           break;
         default:
@@ -1526,7 +1485,7 @@ export class IDLIndex {
     // process each file
     for (let i = 0; i < files.length; i++) {
       // check if we dont actually have pro code
-      if (!this.isPROCode(files[i])) {
+      if (!IDLFileHelper.isPROCode(files[i])) {
         continue;
       }
 
@@ -2280,13 +2239,13 @@ export class IDLIndex {
 
     // index appropriately
     switch (true) {
-      case this.isConfigFile(file):
+      case IDLFileHelper.isConfigFile(file):
         await this.indexConfigFile(file, code);
         break;
-      case this.isTaskFile(file):
+      case IDLFileHelper.isTaskFile(file):
         await this.indexTaskFile(file, code);
         break;
-      case this.isPROCode(file):
+      case IDLFileHelper.isPROCode(file):
         await this.getParsedProCode(
           file,
           code,

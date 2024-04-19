@@ -678,6 +678,8 @@ export interface ITranslation {
       markdownPDFWaitForInstall: string;
       /** Notification for user when we start the IDL session for a notebook */
       startedIDLKernel: string;
+      /** Notification for when IDL doesnt have the right version */
+      notValidIDLVersion: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */
@@ -753,14 +755,16 @@ export interface ITranslation {
   };
   /** Translations related to the theme names */
   themes: {
-    /** Novus (New) IDL */
-    new: string;
     /** Magmatic IDL */
     magmatic: string;
     /** Neon IDL */
     neon: string;
+    /** Novus (New) IDL */
+    new: string;
     /** Retro IDL */
     retro: string;
+    /** Stellar IDL theme */
+    stellar: string;
   };
   /** Translations related to the webview */
   webview: {

@@ -392,7 +392,8 @@ export const EN: ITranslation = {
         'Error resolving promise for executing IDL statement',
       noRoutineFound:
         'No main level program, function, or procedure found to run',
-      syntaxErrorsFound: 'Syntax errors detected in your code, cannot proceed',
+      syntaxErrorsFound:
+        'Syntax errors detected in your code, see above for more details',
       returning: 'File compiled while active, returning...',
       nothingToEdit: 'No matching file found',
       noPauseOnWindows: 'Pause is not currently supported on Windows platforms',
@@ -724,6 +725,8 @@ export const EN: ITranslation = {
       markdownPDFWaitForInstall:
         'Wait for Markdown PDF to install chromium and then try again',
       startedIDLKernel: 'Started IDL {VERSION} for notebook!',
+      notValidIDLVersion:
+        'IDL Notebooks require IDL 8.8.0 or newer in order to run',
     },
   },
   notifications: {
@@ -748,7 +751,7 @@ export const EN: ITranslation = {
   packageJSON: {
     displayName: 'IDL for VSCode',
     description:
-      'IDL syntax highlighting, code snippets, running IDL programs, and much more!',
+      'IDL syntax highlighting, code snippets, running IDL programs, notebooks, and much more!',
   },
   parsing: {
     errors: {
@@ -880,10 +883,11 @@ export const EN: ITranslation = {
     indexing: 'Indexing code',
   },
   themes: {
-    new: 'Novus IDL',
     magmatic: 'Magmatic IDL',
     neon: 'Neon IDL',
+    new: 'Novus IDL',
     retro: 'Retro IDL',
+    stellar: 'Stellar IDL',
   },
   webview: {
     content: {

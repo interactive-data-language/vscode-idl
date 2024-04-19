@@ -1,49 +1,25 @@
-import { CleanPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { GetActivePROCodeWindow, GetDocumentOutline } from '@idl/vscode/shared';
 import { OutputEvent } from '@vscode/debugadapter';
 
 import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';
-import { VerifyIDLHasStarted } from './start-idl';
+import { CompileFile } from './compile-file';
 
 /**
  * Compile current pro file and runs
  */
 export async function RunFile(): Promise<boolean> {
-  // return if IDL hasnt started yet
-  if (!VerifyIDLHasStarted(true)) {
+  // return if we didnt compile successfully
+  if (!(await CompileFile())) {
     return false;
   }
 
-  // get code and make sure it is ready for use
-  const code = GetActivePROCodeWindow(true);
+  /** Get the current PRO code */
+  const code = GetActivePROCodeWindow();
+
+  // sanity check
   if (!code) {
     return false;
-  }
-  await code.save();
-
-  // get the path for the file
-  const uri = CleanPath(code.uri.fsPath);
-
-  // compile our file
-  await IDL_DEBUG_ADAPTER.evaluate(`.compile -v '${uri}'`, {
-    echo: true,
-  });
-
-  /**
-   * Get syntax errors and check if we have them
-   */
-  const errors = IDL_DEBUG_ADAPTER.getSyntaxProblems();
-  if (uri in errors) {
-    if (errors[uri].length > 0) {
-      IDL_DEBUG_ADAPTER.sendEvent(
-        new OutputEvent(
-          `${IDL_TRANSLATION.debugger.adapter.syntaxErrorsFound}\n`,
-          'stderr'
-        )
-      );
-      return false;
-    }
   }
 
   /**
@@ -104,6 +80,7 @@ export async function RunFile(): Promise<boolean> {
   await IDL_DEBUG_ADAPTER.evaluate(command, {
     echo: true,
     newLine: true,
+    errorCheck: true,
   });
 
   return true;

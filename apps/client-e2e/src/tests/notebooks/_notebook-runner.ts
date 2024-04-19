@@ -2,6 +2,10 @@ import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
 import { NewNotebook } from './new-notebook';
+import { NotebookCallStackDecorationsNoDecorations } from './notebook-call-stack-decorations-no-decorations';
+import { NotebookCallStackDecorationsOnExecutionHalted1 } from './notebook-call-stack-decorations-on-execution-halted';
+import { NotebookCallStackDecorationsOnStop } from './notebook-call-stack-decorations-on-stop';
+import { NotebookDecorationsBehaveRight } from './notebook-decorations-behave-right';
 import { NotebookFormats_1_0_0 } from './notebook-formats-1.0.0';
 import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { RunNotebookReset } from './notebook-reset';
@@ -155,6 +159,21 @@ NOTEBOOK_RUNNER.addTest({
   ],
 });
 
+NOTEBOOK_RUNNER.addTest({
+  name: 'Stack trace decorations on execution halted 1',
+  fn: NotebookCallStackDecorationsOnExecutionHalted1,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Stack trace decorations on stop',
+  fn: NotebookCallStackDecorationsOnStop,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Stack trace decorations dont show for normal execution',
+  fn: NotebookCallStackDecorationsNoDecorations,
+});
+
 // reset goes first
 NOTEBOOK_RUNNER.addTest({
   name: 'Reset does the right thing',
@@ -175,4 +194,9 @@ NOTEBOOK_RUNNER.addTest({
 NOTEBOOK_RUNNER.addTest({
   name: 'Verify quiet mode for notebooks',
   fn: VerifyQuietNotebookSetting,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Verify decorations work right in notebooks',
+  fn: NotebookDecorationsBehaveRight,
 });

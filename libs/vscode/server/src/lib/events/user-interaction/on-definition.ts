@@ -1,4 +1,5 @@
 import { IDL_LSP_LOG } from '@idl/logger';
+import { IDLFileHelper } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   Definition,
@@ -30,8 +31,8 @@ export async function GetTokenDefinitionLocation(
   // return if not a file we can process
   if (
     !(
-      IDL_INDEX.isPROCode(info.fsPath) ||
-      IDL_INDEX.isIDLNotebookFile(info.fsPath)
+      IDLFileHelper.isPROCode(info.fsPath) ||
+      IDLFileHelper.isIDLNotebookFile(info.fsPath)
     )
   ) {
     return undefined;

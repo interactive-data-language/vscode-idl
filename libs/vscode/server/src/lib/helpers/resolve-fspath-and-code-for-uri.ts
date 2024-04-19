@@ -1,7 +1,6 @@
-import { CleanPath } from '@idl/shared';
+import { CleanPath, IDLFileHelper } from '@idl/shared';
 import { URI } from 'vscode-uri';
 
-import { IDL_INDEX } from '../events/initialize-document-manager';
 import { NOTEBOOK_MANAGER } from '../events/initialize-notebook-manager';
 import { GetFileStrings } from './get-file-strings';
 import { IResolvedFSPathAndCodeForURI } from './resolve-fspath-and-code-for-uri.interface';
@@ -39,7 +38,7 @@ export async function ResolveFSPathAndCodeForURI(
   /**
    * Validate notebook
    */
-  if (!IDL_INDEX.isIDLNotebookFile(fsPath)) {
+  if (!IDLFileHelper.isIDLNotebookFile(fsPath)) {
     return undefined;
   }
 

@@ -2,10 +2,7 @@ import { GetExtensionPath } from '@idl/shared';
 
 import { RunnerFunction } from '../runner.interface';
 import { ICompareCellOutputs } from './helpers/compare-cells.interface';
-import {
-  DEFAULT_RUNNER_TIMEOUT,
-  RunNotebookAndCompareCells,
-} from './helpers/run-notebook-and-compare-cells';
+import { RunNotebookAndCompareCells } from './helpers/run-notebook-and-compare-cells';
 
 /**
  * Types of outputs from cells that we expect to have
@@ -59,7 +56,6 @@ export const RunENVIMessageListenerTestNotebook: RunnerFunction = async (
       'idl/test/client-e2e/notebooks/envi-message-listener.idlnb'
     ),
     CELL_OUTPUT,
-    init.notebooks.controller,
-    DEFAULT_RUNNER_TIMEOUT
+    init.notebooks.controller
   );
 };

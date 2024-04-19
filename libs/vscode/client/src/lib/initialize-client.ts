@@ -10,6 +10,7 @@ import {
   InitializeExtensionConfig,
   SendPreferenceUsageMetrics,
 } from '@idl/vscode/config';
+import { InitializeDecorations } from '@idl/vscode/decorations';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { join } from 'path';
 import { ExtensionContext } from 'vscode';
@@ -174,6 +175,11 @@ export async function InitializeClient(
    */
   InitializeUsageMetrics();
   SendPreferenceUsageMetrics();
+
+  /**
+   * Create document decorations
+   */
+  InitializeDecorations();
 
   // update logger configuration and log information about our workspace config
   IDL_LOGGER.setDebug(IDL_EXTENSION_CONFIG.debugMode);

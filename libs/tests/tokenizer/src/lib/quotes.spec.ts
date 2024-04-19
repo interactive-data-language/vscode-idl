@@ -678,4 +678,104 @@ describe(`[auto generated] Validates quote parsing`, () => {
 
     expect(StripIDs(tokenized.tokens)).toEqual(expected);
   });
+
+  it(`[auto generated] verifies single quote escape`, () => {
+    // test code to extract tokens from
+    const code = [`a = '''string'''`];
+
+    // extract tokens
+    const tokenized = Tokenizer(code, new CancellationToken());
+
+    // define expected tokens
+    const expected: IBaseToken<TokenName>[] = [
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.VARIABLE,
+        pos: [0, 0, 1],
+        matches: [`a`],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.ASSIGNMENT,
+        pos: [0, 2, 1],
+        matches: [`=`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.QUOTE_SINGLE,
+        pos: [0, 4, 2],
+        matches: [`''`, ``],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.QUOTE_SINGLE,
+        pos: [0, 6, 8],
+        matches: [`'string'`, `string`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.QUOTE_SINGLE,
+        pos: [0, 14, 2],
+        matches: [`''`, ``],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.ASSIGNMENT,
+        pos: [0, 16, 0],
+        matches: [``],
+      },
+    ];
+
+    expect(StripIDs(tokenized.tokens)).toEqual(expected);
+  });
+
+  it(`[auto generated] verifies double quote escape`, () => {
+    // test code to extract tokens from
+    const code = [`a = """string"""`];
+
+    // extract tokens
+    const tokenized = Tokenizer(code, new CancellationToken());
+
+    // define expected tokens
+    const expected: IBaseToken<TokenName>[] = [
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.VARIABLE,
+        pos: [0, 0, 1],
+        matches: [`a`],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.ASSIGNMENT,
+        pos: [0, 2, 1],
+        matches: [`=`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.QUOTE_DOUBLE,
+        pos: [0, 4, 2],
+        matches: [`""`, ``],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.QUOTE_DOUBLE,
+        pos: [0, 6, 8],
+        matches: [`"string"`, `string`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.QUOTE_DOUBLE,
+        pos: [0, 14, 2],
+        matches: [`""`, ``],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.ASSIGNMENT,
+        pos: [0, 16, 0],
+        matches: [``],
+      },
+    ];
+
+    expect(StripIDs(tokenized.tokens)).toEqual(expected);
+  });
 });

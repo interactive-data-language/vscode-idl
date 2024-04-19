@@ -22,6 +22,7 @@ export async function ExecuteFile() {
         continued: true,
         echo: true,
         newLine: true,
+        errorCheck: true,
       }
     );
   }

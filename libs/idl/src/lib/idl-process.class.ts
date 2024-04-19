@@ -15,13 +15,10 @@ import {
   DEFAULT_IDL_INFO,
   IDL_STOPS,
   IDLCallStackItem,
-  IDLSyntaxError,
-  IDLSyntaxErrorLookup,
   IStartIDLConfig,
   StopReason,
 } from './idl.interface';
 import {
-  REGEX_COMPILE_ERROR,
   REGEX_EMPTY_LINE,
   REGEX_IDL_PROMPT,
   REGEX_NEW_LINE_COMPRESS,
@@ -53,11 +50,6 @@ export class IDLProcess extends EventEmitter {
 
   /** Fully-qualified path to vscode.pro, needed for auxiliary IDL routines */
   vscodeProDir: string;
-
-  /**
-   * Track syntax errors by file and continually update as we run commands
-   */
-  errorsByFile: IDLSyntaxErrorLookup = {};
 
   constructor(log: Logger, vscodeProDir: string) {
     super();
@@ -123,7 +115,11 @@ export class IDLProcess extends EventEmitter {
     }
 
     // make sure the DLM path is also set
-    args.env.IDL_DLM_PATH = args.config.IDL.directory;
+    if (!('IDL_DLM_PATH' in args.env)) {
+      args.env.IDL_DLM_PATH = `+${args.config.IDL.directory}`;
+    } else {
+      args.env.IDL_DLM_PATH = `${args.env.IDL_DLM_PATH}${delimiter}+${args.config.IDL.directory}`;
+    }
 
     // add a path for the directory
     if (!('IDL_PATH' in args.env)) {
@@ -344,7 +340,7 @@ export class IDLProcess extends EventEmitter {
       handleOutput(buff, !this.silent);
 
       // always check stderr for stops and such
-      this.stopCheck(capturedOutput, false);
+      this.stopCheck(capturedOutput);
     });
 
     // set flag the first time we start up to be ready to accept input
@@ -423,7 +419,7 @@ export class IDLProcess extends EventEmitter {
   /**
    * External method to execute something in IDL
    */
-  async evaluate(command: string, errorCheck = true): Promise<string> {
+  async evaluate(command: string): Promise<string> {
     if (!this.started) {
       throw new Error('IDL is not started');
     }
@@ -432,7 +428,7 @@ export class IDLProcess extends EventEmitter {
     const res = await this._evaluate(command);
 
     // handle the string output and check for stop conditions
-    this.stopCheck(res, errorCheck);
+    this.stopCheck(res);
 
     // return the output
     return res;
@@ -441,45 +437,9 @@ export class IDLProcess extends EventEmitter {
   /**
    * Parse output from IDL and check if we have any reasons that we stopped
    */
-  private stopCheck(origInput: string, errorCheck = true): boolean {
+  private stopCheck(origInput: string): boolean {
     // get rid of bad characters, lots of carriage returns in the output (\r\r\n) on windows at least
     const output = origInput.replace(REGEX_NEW_LINE_COMPRESS, '');
-
-    // see if we need to check for errors
-    if (errorCheck) {
-      // check if we have a syntax error, only report the first
-      const errors: { file: string; line: number }[] = [];
-
-      /** Match for syntax errors */
-      let me: RegExpExecArray;
-      while ((me = REGEX_COMPILE_ERROR.exec(output)) !== null) {
-        errors.push({ file: me[1], line: parseInt(me[2]) });
-      }
-
-      /**
-       * Make new data structure with errors we detected
-       */
-      const newErrorsByFile: { [key: string]: IDLSyntaxError[] } = {};
-
-      // save errors
-      for (let i = 0; i < errors.length; i++) {
-        if (!(errors[i].file in newErrorsByFile)) {
-          newErrorsByFile[errors[i].file] = [errors[i]];
-        } else {
-          newErrorsByFile[errors[i].file].push(errors[i]);
-        }
-      }
-
-      // get all old keys and reset their values
-      const oldFiles = Object.keys(this.errorsByFile);
-      for (let i = 0; i < oldFiles.length; i++) {
-        if (!(oldFiles[i] in newErrorsByFile)) {
-          newErrorsByFile[oldFiles[i]] = [];
-        }
-      }
-
-      Object.assign(this.errorsByFile, newErrorsByFile);
-    }
 
     this.log.log({
       type: 'debug',

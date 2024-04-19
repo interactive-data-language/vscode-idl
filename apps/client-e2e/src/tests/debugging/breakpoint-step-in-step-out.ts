@@ -15,7 +15,7 @@ import { DEBUG_PAUSE } from './_shared.interface';
  * Test that makes sure we can set breakpoints, stop on them, step into routines, and step
  * out of them
  */
-export const BreakPointStepInStepOut: RunnerFunction = async (init) => {
+export const BreakpointStepInStepOut: RunnerFunction = async (init) => {
   /**
    * Start IDL
    */
@@ -28,6 +28,9 @@ export const BreakPointStepInStepOut: RunnerFunction = async (init) => {
 
   // show the debug console
   await vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
+
+  // reset breakpoints
+  await init.debug.adapter._breakpoints.resetBreakpoints();
 
   /** Get the file we need to work with */
   const file = GetExtensionPath('idl/test/client-e2e/step_in.pro');
@@ -48,7 +51,12 @@ export const BreakPointStepInStepOut: RunnerFunction = async (init) => {
   await Sleep(DEBUG_PAUSE);
 
   // set breakpoint
-  await init.debug.adapter.setBreakpoint(file, 19);
+  await init.debug.adapter._breakpoints.setBreakpoints({
+    source: {
+      path: file,
+    },
+    lines: [19],
+  });
 
   /** Run our file */
   await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RUN);
@@ -74,6 +82,9 @@ export const BreakPointStepInStepOut: RunnerFunction = async (init) => {
   await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_OUT);
   await Sleep(DEBUG_PAUSE);
   expect(init.debug.adapter.stopped?.stack?.line).toEqual(21);
+
+  // remove all breakpoints
+  await init.debug.adapter._breakpoints.resetBreakpoints();
 
   // reset
   await init.debug.adapter.evaluate('.reset');

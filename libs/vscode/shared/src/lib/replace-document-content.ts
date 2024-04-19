@@ -1,6 +1,7 @@
 import { TextDocument } from 'vscode';
 import * as vscode from 'vscode';
 
+import { ReplaceEditorContent } from './replace-editor-content';
 import { VSCODE_COMMANDS } from './vscode-commands.interface';
 
 /**
@@ -16,17 +17,5 @@ export async function ReplaceDocumentContent(
     doc.uri
   );
 
-  // get the active text editor
-  const editor = vscode.window.activeTextEditor;
-
-  // edit by replacing the file's contents
-  await editor.edit((editBuilder) => {
-    editBuilder.replace(
-      new vscode.Range(
-        new vscode.Position(0, 0),
-        new vscode.Position(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY)
-      ),
-      content
-    );
-  });
+  await ReplaceEditorContent(vscode.window.activeTextEditor, content);
 }
