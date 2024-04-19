@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "pro test_on_stop_nb",
+        "  compile_opt idl2",
+        "  stop",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "test_on_stop_nb"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}
