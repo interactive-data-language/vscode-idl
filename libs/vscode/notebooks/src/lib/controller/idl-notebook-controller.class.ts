@@ -42,7 +42,10 @@ import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import * as vscode from 'vscode';
 
-import { ICurrentCell } from './idl-notebook-controller.interface';
+import {
+  ICurrentCell,
+  IEndCellExecutionActions,
+} from './idl-notebook-controller.interface';
 import { ProcessIDLNotebookEmbeddedItems } from './process-idl-notebook-embedded-items';
 
 /**
@@ -157,7 +160,7 @@ export class IDLNotebookController {
         content: [`Stopped because: "${reason}"`, stack],
       });
 
-      await this._endCellExecution(false);
+      await this._endCellExecution(false, { decorateStack: true });
     });
 
     // listen for debug output
@@ -322,7 +325,10 @@ export class IDLNotebookController {
    * We also do post-processing and, if we succeeded, we try to retrieve any
    * graphics.
    */
-  private async _endCellExecution(success: boolean, postExecute = true) {
+  private async _endCellExecution(
+    success: boolean,
+    actions: Partial<IEndCellExecutionActions> = {}
+  ) {
     /**
      * Get current cell
      */
@@ -348,38 +354,8 @@ export class IDLNotebookController {
     this._runtime.once(IDL_EVENT_LOOKUP.END, onDidCloseWhileBusy);
     this._runtime.once(IDL_EVENT_LOOKUP.CRASHED, onDidCloseWhileBusy);
 
-    /**
-     * Wrap in try/catch so we don't have to worry about unhandled promise exceptions
-     */
-    try {
-      if (!cell.finished) {
-        // update flag we are finished to hide outputs
-        cell.finished = true;
-
-        // update success state
-        cell.success = success;
-
-        /**
-         * Do post-cell work, change behavior on success (i.e. try to fetch magic).
-         *
-         * Only run this if launched. If not launched we hang forever, for some reason
-         */
-        if (success && postExecute && this.isStarted()) {
-          await this.postCellExecution(success, cell);
-        }
-      }
-    } catch (err) {
-      success = false;
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_NOTEBOOK_LOG,
-        content: [IDL_TRANSLATION.notebooks.errors.failedExecute, err],
-        alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
-      });
-    }
-
-    // always return from current scope
-    if (this.isStarted()) {
+    // check if we need to decorate our call stack
+    if (this.isStarted() && actions.decorateStack) {
       // get the current scope
       const stack = (await this._runtime.getCurrentStack()).reverse();
 
@@ -398,7 +374,40 @@ export class IDLNotebookController {
           ourFile.map((item) => item.line - 1) // in notebooks, we need zero-based instead of one
         );
       }
+    }
 
+    /**
+     * Wrap in try/catch so we don't have to worry about unhandled promise exceptions
+     */
+    try {
+      if (!cell.finished) {
+        // update flag we are finished to hide outputs
+        cell.finished = true;
+
+        // update success state
+        cell.success = success;
+
+        /**
+         * Do post-cell work, change behavior on success (i.e. try to fetch magic).
+         *
+         * Only run this if launched. If not launched we hang forever, for some reason
+         */
+        if (success && actions.postExecute && this.isStarted()) {
+          await this.postCellExecution(success, cell);
+        }
+      }
+    } catch (err) {
+      success = false;
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_NOTEBOOK_LOG,
+        content: [IDL_TRANSLATION.notebooks.errors.failedExecute, err],
+        alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
+      });
+    }
+
+    // always return from current scope
+    if (this.isStarted()) {
       /**
        * Commands to run after executing a cell
        *
@@ -675,7 +684,7 @@ export class IDLNotebookController {
     );
 
     // make sure cells are done executing
-    this._endCellExecution(false, false);
+    this._endCellExecution(false, { postExecute: false });
 
     // return a prom
     return launchPromise;
