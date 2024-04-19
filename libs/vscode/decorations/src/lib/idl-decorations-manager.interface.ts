@@ -39,10 +39,13 @@ export interface IStackTraceLookup {
  */
 export const STACK_TRACE_DECORATION =
   vscode.window.createTextEditorDecorationType({
-    backgroundColor: 'rgba(163, 149, 0, 0.4)',
-    gutterIconPath: GetExtensionPath(
-      'extension/images/dark/debug-stackframe.svg'
-    ),
+    isWholeLine: true,
+    dark: {
+      backgroundColor: 'rgba(163, 149, 0, 0.4)',
+      gutterIconPath: GetExtensionPath(
+        'extension/images/dark/debug-stackframe.svg'
+      ),
+    },
     light: {
       backgroundColor: 'rgba(255, 235, 0, 0.2)',
       gutterIconPath: GetExtensionPath(
@@ -58,7 +61,10 @@ export const STACK_TRACE_DECORATION =
  */
 export const SYNTAX_ERROR_DECORATION =
   vscode.window.createTextEditorDecorationType({
-    backgroundColor: 'rgba(163, 0, 0, 0.4)',
+    isWholeLine: true,
+    dark: {
+      backgroundColor: 'rgba(163, 0, 0, 0.4)',
+    },
     light: {
       backgroundColor: 'rgba(255, 0, 0, 0.2)',
     },
@@ -71,13 +77,17 @@ export const SYNTAX_ERROR_DECORATION =
  */
 export const CODE_COVERAGE_DECORATIONS = {
   NOT_EXECUTED: vscode.window.createTextEditorDecorationType({
-    backgroundColor: 'rgba(163, 0, 0, 0.4)',
+    dark: {
+      backgroundColor: 'rgba(163, 0, 0, 0.4)',
+    },
     light: {
       backgroundColor: 'rgba(255, 0, 0, 0.2)',
     },
   }),
   EXECUTED: vscode.window.createTextEditorDecorationType({
-    backgroundColor: 'rgba(0, 122, 30, 0.4)',
+    dark: {
+      backgroundColor: 'rgba(0, 122, 30, 0.4)',
+    },
     light: {
       backgroundColor: 'rgba(255, 235, 0, 0.2)',
     },

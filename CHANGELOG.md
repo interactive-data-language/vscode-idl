@@ -34,6 +34,8 @@ For notebook cells, syntax errors are now highlighted and problems are reported 
 
 When you run a notebook cell, and IDL stops running, we now show the line in the cell that was stopped on to help track down problems.
 
+Syntax error and notebook decorations now cover the whole line instead of just the text on the line to help make them pop more.
+
 Improved the user experience for breakpoints when working with IDL. Some of the new behaviors include:
 
 - Properly setting breakpoints when you add them to a file before IDL starts
