@@ -27,6 +27,10 @@ export interface ICodeCoverageLookup {
 
 /**
  * Data structure for stack trace
+ *
+ * For PRO files, lines are one-based
+ *
+ * For notebooks, lines are zero-based
  */
 export interface IStackTraceLookup {
   [key: string]: number[];
