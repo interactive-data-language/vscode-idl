@@ -3,10 +3,7 @@ import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/types/notebooks';
 
 import { RunnerFunction } from '../runner.interface';
 import { ICompareCellOutputs } from './helpers/compare-cells.interface';
-import {
-  DEFAULT_RUNNER_TIMEOUT,
-  RunNotebookAndCompareCells,
-} from './helpers/run-notebook-and-compare-cells';
+import { RunNotebookAndCompareCells } from './helpers/run-notebook-and-compare-cells';
 
 /**
  * Types of outputs from cells that we expect to have
@@ -68,7 +65,6 @@ export const RunTestENVIMapNotebook: RunnerFunction = async (init) => {
       'idl/test/client-e2e/notebooks/test-notebook-envi-maps.idlnb'
     ),
     CELL_OUTPUT,
-    init.notebooks.controller,
-    DEFAULT_RUNNER_TIMEOUT
+    init.notebooks.controller
   );
 };

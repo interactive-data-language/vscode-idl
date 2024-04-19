@@ -6,10 +6,7 @@ import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
 import { ICompareCellOutputs } from './helpers/compare-cells.interface';
-import {
-  DEFAULT_RUNNER_TIMEOUT,
-  RunNotebookAndCompareCells,
-} from './helpers/run-notebook-and-compare-cells';
+import { RunNotebookAndCompareCells } from './helpers/run-notebook-and-compare-cells';
 
 /**
  * Types of outputs from cells that we expect to have
@@ -51,8 +48,7 @@ export const VerifyQuietNotebookSetting: RunnerFunction = async (init) => {
   await RunNotebookAndCompareCells(
     GetExtensionPath('idl/test/client-e2e/notebooks/quiet-preference.idlnb'),
     QUIET_OUTPUT,
-    init.notebooks.controller,
-    DEFAULT_RUNNER_TIMEOUT
+    init.notebooks.controller
   );
 
   // turn off
@@ -75,8 +71,7 @@ export const VerifyQuietNotebookSetting: RunnerFunction = async (init) => {
   await RunNotebookAndCompareCells(
     GetExtensionPath('idl/test/client-e2e/notebooks/quiet-preference.idlnb'),
     NOT_QUIET_OUTPUT,
-    init.notebooks.controller,
-    DEFAULT_RUNNER_TIMEOUT
+    init.notebooks.controller
   );
 
   // turn on again

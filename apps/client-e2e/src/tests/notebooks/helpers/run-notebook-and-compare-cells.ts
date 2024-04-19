@@ -8,11 +8,7 @@ import * as vscode from 'vscode';
 
 import { CompareCellOutputs } from './compare-cells';
 import { ICompareCellOutputs } from './compare-cells.interface';
-
-/**
- * Default timeout, ms
- */
-export const DEFAULT_RUNNER_TIMEOUT = 250;
+import { DEFAULT_RUNNER_NOTEBOOK_TIMEOUT } from './notebook-timeout.interface';
 
 /**
  * helper function to:
@@ -28,7 +24,6 @@ export async function RunNotebookAndCompareCells(
   file: string,
   cells: ICompareCellOutputs[],
   controller: IDLNotebookController,
-  timeout: number,
   clear = true
 ) {
   // nuke .idl folder if it exists
@@ -59,7 +54,7 @@ export async function RunNotebookAndCompareCells(
   // short pause based on the number of cells we have
   // sometimes the rendering takes too long to register (like complex maps)
   // so we need an extra pause
-  await Sleep(timeout);
+  await Sleep(DEFAULT_RUNNER_NOTEBOOK_TIMEOUT);
 
   // compare cells
   await CompareCellOutputs(nb, cells);
