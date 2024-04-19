@@ -1,4 +1,5 @@
 import { IDLCodeCoverage } from '@idl/idl';
+import { GetExtensionPath } from '@idl/shared';
 import * as vscode from 'vscode';
 
 /** When resetting decorations, what do we reset for? */
@@ -23,6 +24,32 @@ export interface IDecorationLookup {
 export interface ICodeCoverageLookup {
   [key: string]: IDLCodeCoverage;
 }
+
+/**
+ * Data structure for stack trace
+ */
+export interface IStackTraceLookup {
+  [key: string]: number[];
+}
+
+/**
+ * Decorate stack trace lines
+ *
+ * From: https://github.com/ryanluker/vscode-coverage-gutters/blob/master/package.json#L47-L76
+ */
+export const STACK_TRACE_DECORATION =
+  vscode.window.createTextEditorDecorationType({
+    backgroundColor: 'rgba(163, 149, 0, 0.4)',
+    gutterIconPath: GetExtensionPath(
+      'extension/images/dark/debug-stackframe.svg'
+    ),
+    light: {
+      backgroundColor: 'rgba(255, 235, 0, 0.2)',
+      gutterIconPath: GetExtensionPath(
+        'extension/images/light/debug-stackframe.svg'
+      ),
+    },
+  });
 
 /**
  * Decorate problem lines

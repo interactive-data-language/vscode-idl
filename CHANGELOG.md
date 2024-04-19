@@ -32,6 +32,8 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 For notebook cells, syntax errors are now highlighted and problems are reported on the lines that have errors. This behaves the same as PRO files when using the debug console as well.
 
+When you run a notebook cell, and IDL stops running, we now show the line in the cell that was stopped on to help track down problems.
+
 Improved the user experience for breakpoints when working with IDL. Some of the new behaviors include:
 
 - Properly setting breakpoints when you add them to a file before IDL starts

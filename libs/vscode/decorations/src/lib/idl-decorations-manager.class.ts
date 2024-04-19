@@ -17,6 +17,8 @@ import {
   ICodeCoverageLookup,
   IDecorationLookup,
   IDLDecorationsResetFlag,
+  IStackTraceLookup,
+  STACK_TRACE_DECORATION,
   SYNTAX_ERROR_DECORATION,
 } from './idl-decorations-manager.interface';
 
@@ -35,9 +37,12 @@ export class IDLDecorationsManager {
     syntaxErrors: IDecorationLookup;
     /** Information about code coverage */
     coverage: ICodeCoverageLookup;
+    /** Information about the current stack */
+    stack: IStackTraceLookup;
   } = {
     syntaxErrors: {},
     coverage: {},
+    stack: {},
   };
 
   /**
@@ -111,6 +116,11 @@ export class IDLDecorationsManager {
     // apply code coverage
     if (asString in this.decorations.coverage) {
       this.addCodeCoverageDecorations(uri, this.decorations.coverage[asString]);
+    }
+
+    // apply stack trace decorations
+    if (asString in this.decorations.stack) {
+      this.addStackTraceDecorations(uri, this.decorations.stack[asString]);
     }
   }
 
@@ -217,6 +227,8 @@ export class IDLDecorationsManager {
       // apply again
       if (reApply) {
         this.addSyntaxErrorDecorations(uri, errors);
+      } else {
+        delete this.decorations.syntaxErrors[uriStrings[i]];
       }
     }
   }
@@ -309,6 +321,68 @@ export class IDLDecorationsManager {
       // apply again
       if (reApply) {
         this.addCodeCoverageDecorations(uri, coverage);
+      } else {
+        delete this.decorations.coverage[uriStrings[i]];
+      }
+    }
+  }
+
+  /**
+   * Add decorations for stack track
+   */
+  addStackTraceDecorations(uri: vscode.Uri, lines: number[]) {
+    /** Get string URI */
+    const asString = uri.toString();
+
+    // save decorations
+    this.decorations.stack[asString] = lines;
+
+    /**
+     * Decorations for lines we are on
+     */
+    const show: vscode.DecorationOptions[] = [];
+
+    // process each line
+    for (let i = 0; i < lines.length; i++) {
+      show.push({ range: this._rangeFromLine(lines[i]) });
+    }
+
+    // apply decorations
+    this._applyDecorations(asString, STACK_TRACE_DECORATION, show);
+  }
+
+  /**
+   * Resets stack trace decorations
+   *
+   * Not private so it can be toggled on and off on demand
+   */
+  resetStackTraceDecorations(flag: IDLDecorationsResetFlag, reApply = false) {
+    /**
+     * Get all files we track
+     */
+    const uriStrings = Object.keys(this.decorations.stack);
+
+    // process each file
+    for (let i = 0; i < uriStrings.length; i++) {
+      // skip if we cant reset
+      if (!this._canResetEntry(uriStrings[i], flag)) {
+        continue;
+      }
+
+      /** Get stack trace */
+      const stack = this.decorations.stack[uriStrings[i]];
+
+      /** Parse as URI */
+      const uri = vscode.Uri.parse(uriStrings[i]);
+
+      // reset
+      this.addStackTraceDecorations(uri, []);
+
+      // apply again
+      if (reApply) {
+        this.addStackTraceDecorations(uri, stack);
+      } else {
+        delete this.decorations.stack[uriStrings[i]];
       }
     }
   }
@@ -342,15 +416,28 @@ export class IDLDecorationsManager {
    * Removes decorations for a given URI
    */
   remove(uri: vscode.Uri) {
+    /** Convert to string */
+    const asString = uri.toString();
+
+    // remove code coverage
     this.addCodeCoverageDecorations(uri, []);
+    delete this.decorations.coverage[asString];
+
+    // remove stack trace
+    this.addStackTraceDecorations(uri, []);
+    delete this.decorations.stack[asString];
+
+    // remove syntax errors
     this.addSyntaxErrorDecorations(uri, []);
+    delete this.decorations.syntaxErrors[asString];
   }
 
   /**
    * Resets or re-applies decorations
    */
   reset(flag: IDLDecorationsResetFlag, reApply = false) {
-    this._resetSyntaxErrorDecorations(flag, reApply);
     this.resetCodeCoverageDecorations(flag, reApply);
+    this.resetStackTraceDecorations(flag, reApply);
+    this._resetSyntaxErrorDecorations(flag, reApply);
   }
 }

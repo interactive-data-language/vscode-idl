@@ -156,14 +156,8 @@ export class IDLNotebookController {
         log: IDL_NOTEBOOK_LOG,
         content: [`Stopped because: "${reason}"`, stack],
       });
+
       await this._endCellExecution(false);
-      // this.stopped = {
-      //   reason,
-      //   stack,
-      // };
-      // this.sendEvent(
-      //   new StoppedEvent(this.stopped.reason, IDLDebugAdapter.THREAD_ID)
-      // );
     });
 
     // listen for debug output
@@ -386,6 +380,25 @@ export class IDLNotebookController {
 
     // always return from current scope
     if (this.isStarted()) {
+      // get the current scope
+      const stack = (await this._runtime.getCurrentStack()).reverse();
+
+      // get the fsPath for the current cell
+      const fsPath = IDLFileHelper.notebookCellUriToFSPath(
+        cell.cell.document.uri
+      );
+
+      /** Check if any of our scope items are in this notebook cell */
+      const ourFile = stack.filter((item) => item.file === fsPath);
+
+      // see if we have a location we stopped on
+      if (ourFile.length > 0) {
+        IDL_DECORATIONS_MANAGER.addStackTraceDecorations(
+          cell.cell.document.uri,
+          ourFile.map((item) => item.line - 1) // in notebooks, we need zero-based instead of one
+        );
+      }
+
       /**
        * Commands to run after executing a cell
        *
@@ -730,6 +743,9 @@ export class IDLNotebookController {
 
     // reset cell output
     execution.clearOutput();
+
+    // reset stack trace
+    IDL_DECORATIONS_MANAGER.resetStackTraceDecorations('notebook');
 
     /** Folder where we write notebook cell, check if NB is saved to disk  */
     const nbDir =
