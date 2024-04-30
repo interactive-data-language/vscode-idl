@@ -628,6 +628,7 @@ export interface ITranslation {
   languages: {
     idl: string;
     idlLog: string;
+    idlMdInject: string;
     idlNotebook: string;
   };
   /** Translations related to the logger */

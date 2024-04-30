@@ -36,6 +36,7 @@ export const LANGUAGES = [
   {
     id: `${IDL_LANGUAGE_NAME}-md-injection`,
     icon: IDL_LANGUAGE_ICONS,
+    aliases: [GetTranslationKey(`%languages.idlMdInject%`)],
   },
   {
     id: IDL_NOTEBOOK_LANGUAGE_NAME,

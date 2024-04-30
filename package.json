@@ -1281,7 +1281,10 @@
         "icon": {
           "dark": "extension/images/dark/idlicon-color.svg",
           "light": "extension/images/light/idlicon-color.svg"
-        }
+        },
+        "aliases": [
+          "%languages.idlMdInject%"
+        ]
       },
       {
         "id": "idl-notebook",
