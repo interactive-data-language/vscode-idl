@@ -457,6 +457,8 @@ export class IDLInteractionManager {
    */
   stop() {
     this.cancelPending();
-    if (this) this.idl.stop();
+    if (this.isStarted()) {
+      this.idl.stop();
+    }
   }
 }

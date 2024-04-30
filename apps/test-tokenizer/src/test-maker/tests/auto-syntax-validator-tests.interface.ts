@@ -486,6 +486,10 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `string literal expressions`,
         code: `a = \`\${42}\${42}\``,
       },
+      {
+        name: `indexed properties`,
+        code: `a = b.(0).(0).(1)`,
+      },
     ],
   },
   {
