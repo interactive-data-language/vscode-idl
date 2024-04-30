@@ -1270,15 +1270,30 @@
         "mimetypes": [
           "text/idl",
           "application/idl"
-        ]
+        ],
+        "icon": {
+          "dark": "extension/images/dark/idlicon-color.svg",
+          "light": "extension/images/light/idlicon-color.svg"
+        }
       },
       {
-        "id": "idl-md-injection"
+        "id": "idl-md-injection",
+        "icon": {
+          "dark": "extension/images/dark/idlicon-color.svg",
+          "light": "extension/images/light/idlicon-color.svg"
+        }
       },
       {
         "id": "idl-notebook",
         "extensions": [
           ".idlnb"
+        ],
+        "icon": {
+          "dark": "extension/images/dark/idlicon-color.svg",
+          "light": "extension/images/light/idlicon-color.svg"
+        },
+        "aliases": [
+          "%languages.idlNotebook%"
         ]
       },
       {
@@ -1290,7 +1305,14 @@
         "extensions": [
           ".idllog"
         ],
-        "configuration": "extension/language/syntaxes/language-configuration.json"
+        "configuration": "extension/language/syntaxes/language-configuration.json",
+        "icon": {
+          "dark": "extension/images/dark/idlicon-color.svg",
+          "light": "extension/images/light/idlicon-color.svg"
+        },
+        "aliases": [
+          "%languages.idlLog%"
+        ]
       },
       {
         "id": "json",
