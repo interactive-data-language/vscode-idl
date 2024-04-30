@@ -36,6 +36,8 @@ Add icons for the languages that we contribute to the extension
 
 Add human-readable names for the languages that we contribute
 
+Fixed an edge case when reporting that a variable cannot be indexed with the `!null` type
+
 ## 4.4.2 - April 2024
 
 For notebook cells, syntax errors are now highlighted and problems are reported on the lines that have errors. This behaves the same as PRO files when using the debug console as well.
