@@ -608,6 +608,11 @@ export const EN: ITranslation = {
       },
     },
   },
+  languages: {
+    idl: 'IDL',
+    idlLog: 'IDL Log File',
+    idlNotebook: 'IDL Notebook',
+  },
   logger: {
     defaultErrorMessage:
       'The IDL extension had an error :( See output/debug console for details',

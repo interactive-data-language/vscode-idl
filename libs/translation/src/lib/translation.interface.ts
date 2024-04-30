@@ -624,6 +624,12 @@ export interface ITranslation {
       };
     };
   };
+  /** Aliases for language names so they appear nice */
+  languages: {
+    idl: string;
+    idlLog: string;
+    idlNotebook: string;
+  };
   /** Translations related to the logger */
   logger: {
     defaultErrorMessage: string;
