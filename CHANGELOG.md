@@ -32,6 +32,10 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 Fixed an issue where we incorrectly reported an error when using the property index signature to retrieve a property. This affected statements of the form "struct.(0).(0)"
 
+Add icons for the languages that we contribute to the extension
+
+Add human-readable names for the languages that we contribute
+
 ## 4.4.2 - April 2024
 
 For notebook cells, syntax errors are now highlighted and problems are reported on the lines that have errors. This behaves the same as PRO files when using the debug console as well.
