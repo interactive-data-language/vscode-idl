@@ -14,6 +14,7 @@ import {
   TreeToken,
 } from '../../branches.interface';
 import { TreeRecurserBasic } from '../../recursion-and-callbacks/tree-recurser-basic';
+import { ISplitTreeOnOperators } from './split-tree-on-operators.interface';
 
 /**
  * Operators that we branch on
@@ -43,7 +44,7 @@ export type SplitOperatorToken = TreeToken<
 export function SplitTreeOnOperators(
   tree: SyntaxTree,
   cancel: CancellationToken
-) {
+): ISplitTreeOnOperators {
   /** Commas we split by */
   const operators: SplitOperatorToken[] = [];
 
