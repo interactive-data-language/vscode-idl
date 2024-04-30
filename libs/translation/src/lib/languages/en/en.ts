@@ -611,6 +611,7 @@ export const EN: ITranslation = {
   languages: {
     idl: 'IDL',
     idlLog: 'IDL Log File',
+    idlMdInject: 'IDL Markdown Code Blocks',
     idlNotebook: 'IDL Notebook',
   },
   logger: {
