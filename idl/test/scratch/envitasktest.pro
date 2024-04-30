@@ -16,4 +16,8 @@ pro envitasktest, input_raster = input_raster, output_raster_uri = output_raster
   endif
 
   idltasktest, input_raster = 5
+
+  a = list(1, 2, 3, 4)
+  b = a eq !null
+  c = a[!null]
 end
