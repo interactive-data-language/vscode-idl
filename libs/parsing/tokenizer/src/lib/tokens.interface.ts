@@ -209,7 +209,6 @@ export type BasicTokenNames =
   | LineSeparationBasicToken
   | MainLevelEndToken
   | NumberToken
-  | OperatorIncrementDecrementToken
   | PromptToken
   | PythonToken
   | QuoteSingleToken
@@ -272,6 +271,7 @@ export type NonBasicTokenNames =
   | MainLevelToken
   | OperatorToken
   | OperatorCompoundToken
+  | OperatorIncrementDecrementToken
   | OperatorIndexingToken
   | OperatorLogicalToken
   | OperatorPointerToken
