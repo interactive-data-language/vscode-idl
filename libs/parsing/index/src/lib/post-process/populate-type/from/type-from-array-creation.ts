@@ -60,7 +60,7 @@ export function TypeFromArrayCreation(
 
       // if not null, save
       if (!IDLTypeHelper.isType(opSplit, IDL_TYPE_LOOKUP.NULL)) {
-        foundTypes = foundTypes.concat(opSplit);
+        foundTypes = foundTypes.concat([opSplit]);
       }
     }
   }
