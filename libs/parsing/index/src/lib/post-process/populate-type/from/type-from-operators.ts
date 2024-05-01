@@ -166,7 +166,7 @@ export function TypeFromOperators(
             break;
           // comparison with arrays
           case TypeCheck(currentType, types[i + 1], 'array'):
-            currentType = LOGICAL_OUTPUT_TYPES.DICTIONARY;
+            currentType = LOGICAL_OUTPUT_TYPES.ARRAY;
             break;
           /**
            * Default to boolean since not iterable
