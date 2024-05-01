@@ -58,6 +58,11 @@ function TypeCheck(left: IDLDataType, right: IDLDataType, reference: string) {
 
 /**
  * Attempts to determine the type from IDL statements separated by operators
+ *
+ * TODO: Well, not to-do, but we could add in logic for how to combine type values
+ * where we have literal values present
+ *
+ * Addition, multiplication, string concatenation. All that would live here or as a part of type promotion
  */
 export function TypeFromOperators(
   index: IDLIndex,
@@ -101,6 +106,9 @@ export function TypeFromOperators(
     if (IDLTypeHelper.isAnyType(types[i])) {
       return types[i];
     }
+
+    // strip out the value
+    IDLTypeHelper.removeValue(types[i]);
   }
 
   /**
