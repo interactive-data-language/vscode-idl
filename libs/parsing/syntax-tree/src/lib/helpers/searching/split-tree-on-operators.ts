@@ -17,12 +17,12 @@ import { TreeRecurserBasic } from '../../recursion-and-callbacks/tree-recurser-b
 import { ISplitTreeOnOperators } from './split-tree-on-operators.interface';
 
 /**
- * Operators that we branch on
+ * Operators that we split our syntax tree on
  */
 const OPERATORS: { [key: string]: any } = {};
 OPERATORS[TOKEN_NAMES.OPERATOR] = true;
 // OPERATORS[TOKEN_NAMES.OPERATOR_COMPOUND] = true; // should not be present
-OPERATORS[TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT] = true;
+// OPERATORS[TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT] = true; // basic token
 OPERATORS[TOKEN_NAMES.OPERATOR_LOGICAL] = true;
 OPERATORS[TOKEN_NAMES.OPERATOR_NEGATIVE] = true;
 

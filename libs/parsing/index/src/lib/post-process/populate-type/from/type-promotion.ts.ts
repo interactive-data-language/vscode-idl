@@ -1,7 +1,6 @@
 import {
   IParsed,
   SyntaxProblemWithTranslation,
-  SyntaxTree,
 } from '@idl/parsing/syntax-tree';
 import {
   IDL_ANY_TYPE,
@@ -37,7 +36,6 @@ export function TypePromotion(
   index: IDLIndex,
   parsed: IParsed,
   types: IDLDataType[],
-  tokens: SyntaxTree[],
   startPos: PositionArray,
   endPos: PositionArray,
   arrays = false
@@ -310,6 +308,8 @@ export function TypePromotion(
   }
 
   switch (true) {
+    case highestType === TYPE_ORDER.length + 1:
+      return copy(IDL_ANY_TYPE);
     case compatibleBaseType !== undefined:
       return ParseIDLType(
         `${compatibleBaseType}<${SerializeIDLType(compatibleTypeArgs)}>`

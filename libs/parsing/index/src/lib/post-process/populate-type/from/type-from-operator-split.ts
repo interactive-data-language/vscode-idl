@@ -1,6 +1,7 @@
 import { IParsed, SyntaxTree, TreeToken } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, TokenName } from '@idl/parsing/tokenizer';
-import { IDLDataType } from '@idl/types/core';
+import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
+import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
 import { TypeFromSingleToken } from './type-from-single-token';
@@ -34,10 +35,7 @@ export function TypeFromOperatorSplit(
   index: IDLIndex,
   parsed: IParsed,
   children: SyntaxTree
-): IDLDataType[] {
-  /** Data types that we have found */
-  const foundTypes: IDLDataType[] = [];
-
+): IDLDataType {
   /** Track the last entry in our access chain */
   let chain: TreeToken<TokenName> = undefined;
 
@@ -57,8 +55,7 @@ export function TypeFromOperatorSplit(
        * the token at the end of the chain.
        */
       if (chain !== undefined) {
-        foundTypes.push(TypeFromSingleToken(index, parsed, chain));
-        chain = undefined;
+        return TypeFromSingleToken(index, parsed, chain);
       } else {
         /**
          * If we don't have a chain token, then save the type directly from the token
@@ -66,8 +63,7 @@ export function TypeFromOperatorSplit(
          * TODO: Put logic in here that will error if any other type is found. This is because
          * we can't find anything else if we have found a single type
          */
-        foundTypes.push(TypeFromSingleToken(index, parsed, children[i]));
-        return foundTypes;
+        return TypeFromSingleToken(index, parsed, children[i]);
       }
     }
   }
@@ -79,9 +75,8 @@ export function TypeFromOperatorSplit(
    * allowed chain operators (i.e 5 "access properties")
    */
   if (chain !== undefined) {
-    foundTypes.push(TypeFromSingleToken(index, parsed, chain));
-    chain = undefined;
+    return TypeFromSingleToken(index, parsed, chain);
+  } else {
+    return copy(IDL_ANY_TYPE);
   }
-
-  return foundTypes;
 }

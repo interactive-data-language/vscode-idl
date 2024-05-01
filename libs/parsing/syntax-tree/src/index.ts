@@ -35,6 +35,7 @@ export * from './lib/helpers/searching/split-tree-on-arguments';
 export * from './lib/helpers/searching/split-tree-on-arguments.interface';
 export * from './lib/helpers/searching/split-tree-on-commas';
 export * from './lib/helpers/searching/split-tree-on-operators';
+export * from './lib/helpers/searching/split-tree-on-operators.interface';
 export * from './lib/helpers/selected-token.interface';
 export * from './lib/helpers/task-function-name';
 export * from './lib/parsed.interface';
