@@ -3152,7 +3152,7 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
     },
     {
       suiteName: `Types from`,
-      fileName: `types.operations.refressions1.spec.ts`,
+      fileName: `types.operations.regressions1.spec.ts`,
       tests: [
         {
           name: `type regressions to verify behavior`,
