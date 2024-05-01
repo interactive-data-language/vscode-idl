@@ -175,6 +175,15 @@ export class IDLTypeHelper {
   }
 
   /**
+   * Remove literal values
+   */
+  static removeValue(type: IDLDataType) {
+    for (let i = 0; i < type.length; i++) {
+      delete type[i].value;
+    }
+  }
+
+  /**
    * Reduces data types for purposes of array creation using brackets
    */
   static arrayReduce(type: IDLDataType): IDLDataType {
