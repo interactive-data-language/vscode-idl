@@ -7,8 +7,12 @@ import { SplitOperatorToken } from './split-tree-on-operators';
  * Data structure for a split tree
  */
 export interface ISplitTreeOnOperators {
-  operators: SplitOperatorToken[];
+  /** The tokens being operated on */
   children: SyntaxTree[];
+  /** The operators we split on */
+  operators: SplitOperatorToken[];
+  /** Start position of operators */
   startPos: PositionArray;
+  /** End position of the operators */
   endPos: PositionArray;
 }
