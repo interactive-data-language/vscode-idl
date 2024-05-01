@@ -25,7 +25,8 @@ import {
 } from './defs/logical.interface';
 import { LOOP_SECONDARY, LOOP_START } from './defs/loops.interface';
 import { NUMBER } from './defs/numbers.interface';
-import { OPERATOR } from './defs/operators.interface';
+import { OPERATORS } from './defs/operators.interface';
+import { OPERATORS_BASIC } from './defs/operators-basic.interface';
 import { PROMPT } from './defs/prompt.interface';
 import { PYTHON } from './defs/python.interface';
 import { QUOTE_DOUBLE, QUOTE_SINGLE } from './defs/quotes.interface';
@@ -54,7 +55,8 @@ export const ALL_TOKENS: ITokenDef<TokenName>[] = [
   EXECUTIVE_COMMAND,
   ROUTINE_DEF,
   ASSIGNMENT,
-  OPERATOR,
+  OPERATORS_BASIC,
+  OPERATORS,
   LINE_CONTINUATION,
   LINE_SEPARATOR,
   LOOP_START,
@@ -104,7 +106,8 @@ export const DEFAULT_TOKENS = ALL_TOKENS.filter(
  */
 export const ROUTINE_TOKENS: ITokenDef<TokenName>[] = [
   PYTHON,
-  OPERATOR,
+  OPERATORS_BASIC,
+  OPERATORS,
   COMMA,
   LINE_CONTINUATION,
   ASSIGNMENT,
@@ -128,7 +131,8 @@ export const ROUTINE_TOKENS: ITokenDef<TokenName>[] = [
  * or portions of loops.
  */
 export const EXPRESSION_TOKENS: ITokenDef<TokenName>[] = [
-  OPERATOR,
+  OPERATORS_BASIC,
+  OPERATORS,
   LINE_CONTINUATION,
   ASSIGNMENT,
   TERNARY_THEN,
