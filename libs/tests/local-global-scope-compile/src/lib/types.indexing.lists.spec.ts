@@ -843,7 +843,7 @@ describe(`[auto generated] Types from`, () => {
               usage: [[123, 2, 2]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
             },
           },
         },
