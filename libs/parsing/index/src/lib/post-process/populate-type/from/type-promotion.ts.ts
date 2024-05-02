@@ -63,6 +63,11 @@ export function TypePromotion(
     return reduced;
   }
 
+  // if we have an any type, return
+  if (IDLTypeHelper.isAnyType(reduced)) {
+    return copy(IDL_ANY_TYPE);
+  }
+
   // check special case for arrays where we can combine objects together
   if (arrays) {
     let simplify = true;
@@ -108,17 +113,12 @@ export function TypePromotion(
   let highestType = TYPE_ORDER.length + 1;
 
   // process each child type
-  for (let j = 0; j < reduced.length; j++) {
+  for (let i = 0; i < reduced.length; i++) {
     /** Potential sub-type for each type we are comparing against (i.e. the "or" operator between more than one) */
-    const jType = reduced[j];
-
-    // if we have an any type, return
-    if (IDLTypeHelper.isAnyType([jType])) {
-      return copy(IDL_ANY_TYPE);
-    }
+    const type = reduced[i];
 
     // if we have a structure, throw an error
-    if (jType.name === IDL_TYPE_LOOKUP.STRUCTURE) {
+    if (type.name === IDL_TYPE_LOOKUP.STRUCTURE) {
       // report problem
       parsed.postProcessProblems.push(
         SyntaxProblemWithTranslation(
@@ -132,10 +132,10 @@ export function TypePromotion(
     }
 
     // check if we are a number
-    isNumber = isNumber || jType.name === IDL_TYPE_LOOKUP.NUMBER;
+    isNumber = isNumber || type.name === IDL_TYPE_LOOKUP.NUMBER;
 
     // check if we are null
-    isNull = isNull || jType.name === IDL_TYPE_LOOKUP.NULL;
+    isNull = isNull || type.name === IDL_TYPE_LOOKUP.NULL;
 
     /**
      * Check if we need to restrict the types that we are combining. This is for data structures
@@ -143,19 +143,19 @@ export function TypePromotion(
      */
     if (compatibleTypes.length === 0) {
       // if we have restricted types, update
-      if (jType.name in COMPATIBLE_OPERATOR_TYPES) {
+      if (type.name in COMPATIBLE_OPERATOR_TYPES) {
         // save the type name
-        compatibleBaseType = jType.name;
+        compatibleBaseType = type.name;
 
         // save error code
-        compatibleErrorCode = COMPATIBLE_ERROR_CODES[jType.name];
+        compatibleErrorCode = COMPATIBLE_ERROR_CODES[type.name];
 
         /**
          * If we have type restrictions for operators, and this is not the
          * first type that we have encountered, then there is likely an error
          * in the user's code
          */
-        if (j > 0) {
+        if (i > 0) {
           // report problem
           parsed.postProcessProblems.push(
             SyntaxProblemWithTranslation(compatibleErrorCode, startPos, endPos)
@@ -166,11 +166,11 @@ export function TypePromotion(
         }
 
         // save compatible types
-        compatibleTypes = COMPATIBLE_OPERATOR_TYPES[jType.name];
+        compatibleTypes = COMPATIBLE_OPERATOR_TYPES[type.name];
 
         // save the compatible type args
         compatibleTypeArgs = compatibleTypeArgs.concat(
-          jType.args.length > 0 ? jType.args[0] : []
+          type.args.length > 0 ? type.args[0] : []
         );
 
         // skip everything else
@@ -181,10 +181,10 @@ export function TypePromotion(
        * If we have a compatible type, save our type arguments which will be used for the
        * return type.
        */
-      if (compatibleTypes.indexOf(jType.name) !== -1) {
+      if (compatibleTypes.indexOf(type.name) !== -1) {
         // save the compatible type args
         compatibleTypeArgs = compatibleTypeArgs.concat(
-          jType.args.length > 0 ? jType.args[0] : []
+          type.args.length > 0 ? type.args[0] : []
         );
         continue;
       } else {
@@ -205,15 +205,15 @@ export function TypePromotion(
     /**
      * Do some type promotion and handle the case where we are an array
      */
-    if (jType.name === IDL_TYPE_LOOKUP.ARRAY) {
+    if (type.name === IDL_TYPE_LOOKUP.ARRAY) {
       // update flag for array
       isArray = true;
 
       /**
        * Check each type that our array might be (our type args)
        */
-      if (jType.args.length > 0) {
-        const tArg = jType.args[0];
+      if (type.args.length > 0) {
+        const tArg = type.args[0];
 
         // if we have any, return any
         if (IDLTypeHelper.isAnyType(tArg)) {
@@ -230,7 +230,7 @@ export function TypePromotion(
        * We have a scalar if we dont have an array, so lets make sure we have a known
        * type that we can promote
        */
-      highestType = Math.min(highestType, TYPE_ORDER.indexOf(jType.name));
+      highestType = Math.min(highestType, TYPE_ORDER.indexOf(type.name));
     }
 
     /**
@@ -295,12 +295,12 @@ export function TypePromotion(
   }
 
   switch (true) {
-    case highestType === TYPE_ORDER.length + 1:
-      return copy(IDL_ANY_TYPE);
     case compatibleBaseType !== undefined:
       return ParseIDLType(
         `${compatibleBaseType}<${SerializeIDLType(compatibleTypeArgs)}>`
       );
+    case highestType === TYPE_ORDER.length + 1:
+      return copy(IDL_ANY_TYPE);
     case isArray:
       return ParseIDLType(`Array<${TYPE_ORDER[highestType]}>`);
     default:
