@@ -38,6 +38,13 @@ Add human-readable names for the languages that we contribute
 
 Fixed an edge case when reporting that a variable cannot be indexed with the `!null` type
 
+Type detection now properly handles the following cases:
+
+- Any statement using `&&` or `||` will return boolean type
+- Any statement using a logical operator should return the correct type (i.e. `eq`, `ne`, `le`). For example: `[1,2,3] eq 5` should give a type of `Array<Boolean>`. This supports lists, hashes, orderedhashes, and dictionaries.
+
+These type changes help catch some cases that were incorrectly reporting errors for extension users.
+
 ## 4.4.2 - April 2024
 
 For notebook cells, syntax errors are now highlighted and problems are reported on the lines that have errors. This behaves the same as PRO files when using the debug console as well.
