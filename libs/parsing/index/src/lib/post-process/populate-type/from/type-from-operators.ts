@@ -10,7 +10,7 @@ import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
 import { TypeFromOperatorSplit } from './type-from-operator-split';
-import { TypePromotion } from './type-promotion.ts';
+import { TypePromotion } from './type-promotion';
 
 /**
  * Operators that always return a boolean value
