@@ -299,11 +299,17 @@ export function TypePromotion(
       return ParseIDLType(
         `${compatibleBaseType}<${SerializeIDLType(compatibleTypeArgs)}>`
       );
-    case highestType === TYPE_ORDER.length + 1:
-      return copy(IDL_ANY_TYPE);
     case isArray:
-      return ParseIDLType(`Array<${TYPE_ORDER[highestType]}>`);
+      return ParseIDLType(
+        `Array<${
+          highestType === TYPE_ORDER.length + 1
+            ? 'any'
+            : TYPE_ORDER[highestType]
+        }>`
+      );
     default:
-      return ParseIDLType(TYPE_ORDER[highestType]);
+      return highestType === TYPE_ORDER.length + 1
+        ? copy(IDL_ANY_TYPE)
+        : ParseIDLType(TYPE_ORDER[highestType]);
   }
 }
