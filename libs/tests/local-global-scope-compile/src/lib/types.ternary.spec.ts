@@ -68,13 +68,7 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                {
-                  display: 'Long',
-                  name: 'Long',
-                  args: [],
-                  meta: {},
-                  value: '5',
-                },
+                { display: 'Long', name: 'Long', args: [], meta: {} },
                 { name: 'ENVI', display: 'ENVI', args: [], meta: {} },
               ],
             },
@@ -90,13 +84,7 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                {
-                  display: 'Long',
-                  name: 'Long',
-                  args: [],
-                  meta: {},
-                  value: '5',
-                },
+                { display: 'Long', name: 'Long', args: [], meta: {} },
                 {
                   display: 'String',
                   name: 'String',
