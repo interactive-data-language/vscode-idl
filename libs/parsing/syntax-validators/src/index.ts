@@ -21,6 +21,7 @@ export * from './lib/validators/reserved-names';
 export * from './lib/validators/return-functions';
 export * from './lib/validators/return-procedures';
 export * from './lib/validators/routines-first';
+export * from './lib/validators/standalone-expression';
 export * from './lib/validators/string-literals';
 export * from './lib/validators/template-escape';
 export * from './lib/validators/tokens-after-branch';

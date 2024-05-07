@@ -129,6 +129,7 @@ export const IDL_PROBLEM_CODE_ALIAS_LOOKUP: ProblemCodeAliasLookup = {
   105: 'illegal-var-index',
   106: 'circular-include',
   107: 'unknown-disabled-alias',
+  108: 'standalone-expression',
 };
 
 /** Reverse lookup for problems codes with alias giving the problem code back */

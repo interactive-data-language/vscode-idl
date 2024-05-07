@@ -1,32 +1,15 @@
-import { IParsed, SyntaxTree, TreeToken } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES, TokenName } from '@idl/parsing/tokenizer';
+import {
+  CHAIN_TOKENS,
+  IParsed,
+  SyntaxTree,
+  TreeToken,
+} from '@idl/parsing/syntax-tree';
+import { TokenName } from '@idl/parsing/tokenizer';
 import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
 import { TypeFromSingleToken } from './type-from-single-token';
-
-/**
- * Tokens that we skip, some we shouldnt encounter, here just in case
- */
-const SKIP_TYPES: { [key: string]: any } = {};
-SKIP_TYPES[TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT] = true;
-SKIP_TYPES[TOKEN_NAMES.COMMA] = true;
-SKIP_TYPES[TOKEN_NAMES.LINE_CONTINUATION] = true;
-SKIP_TYPES[TOKEN_NAMES.LINE_CONTINUATION_BASIC] = true;
-
-/**
- * Types that indicate we are part of a chain
- */
-export const CHAIN_TYPES: { [key: string]: any } = {};
-CHAIN_TYPES[TOKEN_NAMES.PARENTHESES] = true;
-CHAIN_TYPES[TOKEN_NAMES.VARIABLE] = true;
-CHAIN_TYPES[TOKEN_NAMES.SYSTEM_VARIABLE] = true;
-CHAIN_TYPES[TOKEN_NAMES.ACCESS_PROPERTY] = true;
-CHAIN_TYPES[TOKEN_NAMES.STRUCTURE_INDEXED_PROPERTY] = true;
-CHAIN_TYPES[TOKEN_NAMES.BRACKET] = true;
-CHAIN_TYPES[TOKEN_NAMES.CALL_FUNCTION_METHOD] = true;
-CHAIN_TYPES[TOKEN_NAMES.OPERATOR_POINTER] = true;
 
 /**
  * Attempts to determine the type from IDL statements separated by operators
@@ -42,12 +25,12 @@ export function TypeFromOperatorSplit(
   // process each child
   for (let i = 0; i < children.length; i++) {
     // if we have an operator to skip, then skip
-    if (children[i].name in SKIP_TYPES) {
+    if (children[i].name in CHAIN_TOKENS) {
       continue;
     }
 
     // check if we have a token for a chain
-    if (children[i].name in CHAIN_TYPES) {
+    if (children[i].name in CHAIN_TOKENS) {
       chain = children[i];
     } else {
       /**

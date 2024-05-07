@@ -871,6 +871,8 @@ export const EN: ITranslation = {
       '106':
         'Circular include statement found. This means that the included file includes this file (directly or indirectly).',
       '107': 'Attempting to disable unknown problem',
+      '108':
+        'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
     },
   },
   terminal: {

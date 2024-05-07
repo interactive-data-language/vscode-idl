@@ -438,4 +438,8 @@ export const PROBLEM_CODES_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
     text: '"unknown-disabled-alias"',
     link: '/problem-codes/codes/107.md',
   },
+  {
+    text: '"standalone-expression"',
+    link: '/problem-codes/codes/108.md',
+  },
 ];
