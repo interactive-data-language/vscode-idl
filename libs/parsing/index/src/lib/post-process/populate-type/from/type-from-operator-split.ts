@@ -1,4 +1,5 @@
 import {
+  CHAIN_SKIP_TOKENS,
   CHAIN_TOKENS,
   IParsed,
   SyntaxTree,
@@ -25,7 +26,7 @@ export function TypeFromOperatorSplit(
   // process each child
   for (let i = 0; i < children.length; i++) {
     // if we have an operator to skip, then skip
-    if (children[i].name in CHAIN_TOKENS) {
+    if (children[i].name in CHAIN_SKIP_TOKENS) {
       continue;
     }
 

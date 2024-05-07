@@ -5,7 +5,7 @@ import { SyntaxTree } from '../../branches.interface';
 /**
  * When processing token chains, what do we skip?
  */
-const CHAIN_SKIP_TOKENS: { [key: string]: any } = {};
+export const CHAIN_SKIP_TOKENS: { [key: string]: any } = {};
 CHAIN_SKIP_TOKENS[TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT] = true;
 CHAIN_SKIP_TOKENS[TOKEN_NAMES.COMMA] = true;
 CHAIN_SKIP_TOKENS[TOKEN_NAMES.LINE_CONTINUATION] = true;
