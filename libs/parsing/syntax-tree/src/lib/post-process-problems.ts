@@ -1,4 +1,4 @@
-import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { IDL_PROBLEM_CODES, ISyntaxProblem } from '@idl/types/problem-codes';
 
 import { IParsed } from './parsed.interface';
 
@@ -56,5 +56,35 @@ export function PostProcessProblems(tokenized: IParsed) {
     for (let i = 0; i < toRemove.length; i++) {
       syntax.splice(toRemove[i], 1);
     }
+  }
+
+  // remove duplicate floating statement problems
+  const floating: { [key: number]: ISyntaxProblem } = {};
+
+  /** Track indices to remove */
+  let toRemove: number[] = [];
+
+  for (let i = 0; i < syntax.length; i++) {
+    if (syntax[i].code === IDL_PROBLEM_CODES.STANDALONE_EXPRESSION) {
+      // check if we are first occurrence or not
+      if (!(syntax[i].start[0] in floating)) {
+        floating[syntax[i].start[0]] = syntax[i];
+        continue;
+      }
+
+      // check if we exist already
+      if (syntax[i].start[0] in floating) {
+        floating[syntax[i].start[0]].end = syntax[i].end;
+        toRemove.push(i);
+      }
+    }
+  }
+
+  // reverse
+  toRemove = toRemove.reverse();
+
+  // remove all
+  for (let i = 0; i < toRemove.length; i++) {
+    syntax.splice(toRemove[i], 1);
   }
 }

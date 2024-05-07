@@ -30,6 +30,7 @@ export * from './lib/helpers/searching/find-all-branch-children-and-docs';
 export * from './lib/helpers/searching/find-direct-branch-children';
 export * from './lib/helpers/searching/find-direct-tree-children';
 export * from './lib/helpers/searching/find-first-branch-child';
+export * from './lib/helpers/searching/get-chain-end';
 export * from './lib/helpers/searching/is-child-within-branch';
 export * from './lib/helpers/searching/split-tree-on-arguments';
 export * from './lib/helpers/searching/split-tree-on-arguments.interface';
