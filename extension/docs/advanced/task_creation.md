@@ -47,7 +47,7 @@ With format-on-save enabled for the extension, this happens automatically!
 ::: tip
 You might need to refine the task parameters, so you can use auto-complete (and hover-help) directly within VSCode to help you write your tasks.
 
-If you need for information, here are links to where you can find more about [ENVI](https://www.l3harrisgeospatial.com/docs/tasktemplateenvi551.html) and [IDL](https://www.l3harrisgeospatial.com/docs/TaskTemplateIDL8.7.1.html) tasks
+If you need for information, here are links to where you can find more about [ENVI](https://www.nv5geospatialsoftware.com/docs/tasktemplateenvi551.html) and [IDL](https://www.nv5geospatialsoftware.com/docs/TaskTemplateIDL8.7.1.html) tasks
 :::
 
 ## Using Tasks
