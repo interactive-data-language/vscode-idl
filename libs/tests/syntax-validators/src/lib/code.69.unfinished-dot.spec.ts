@@ -38,6 +38,13 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
         canReport: true,
       },
       {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [1, 0, 1],
+        end: [1, 1, 1],
+        canReport: true,
+      },
+      {
         code: 99,
         info: 'Undefined variable "a"',
         start: [1, 0, 1],
@@ -178,6 +185,13 @@ describe(`[auto generated] Detects tokens that are empty but shouldn't be`, () =
       {
         code: 69,
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
+        start: [1, 0, 1],
+        end: [1, 0, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
         start: [1, 0, 1],
         end: [1, 0, 1],
         canReport: true,

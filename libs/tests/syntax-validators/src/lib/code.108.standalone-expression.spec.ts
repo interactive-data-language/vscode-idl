@@ -5,8 +5,8 @@ import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
-describe(`[auto generated] Detects statements that do expect a comma first`, () => {
-  it(`[auto generated] in go to`, async () => {
+describe(`[auto generated] Detect standalone expressions`, () => {
+  it(`[auto generated] no problems`, async () => {
     // create index
     const index = new IDLIndex(
       new LogManager({
@@ -18,7 +18,7 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     );
 
     // test code to extract tokens from
-    const code = [`pro mypro`, `  compile_opt idl2`, `  goto jumper`, `end`];
+    const code = [`compile_opt idl2`, `a = 5`, `a++`, `++a`, `a++`, `end`];
 
     // extract tokens
     const tokenized = await index.getParsedProCode(
@@ -29,15 +29,7 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     );
 
     // define expected tokens
-    const expected: SyntaxProblems = [
-      {
-        code: 43,
-        info: 'Comma expected after statement',
-        start: [2, 2, 4],
-        end: [2, 2, 4],
-        canReport: true,
-      },
-    ];
+    const expected: SyntaxProblems = [];
 
     // verify results
     expect(
@@ -45,7 +37,7 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     ).toEqual(expected);
   });
 
-  it(`[auto generated] in procedure method call`, async () => {
+  it(`[auto generated] no problems`, async () => {
     // create index
     const index = new IDLIndex(
       new LogManager({
@@ -58,10 +50,10 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
 
     // test code to extract tokens from
     const code = [
-      `pro mypro`,
-      `  compile_opt idl2`,
-      `  p = plot(/TEST)`,
-      `  p.method abc`,
+      `compile_opt idl2`,
+      `@includeme`,
+      `repeat *val = 42 until *var`,
+      `repeat if !true then continue until !true`,
       `end`,
     ];
 
@@ -76,61 +68,17 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 108,
-        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
-        start: [3, 2, 1],
-        end: [3, 3, 7],
-        canReport: true,
-      },
-    ];
-
-    // verify results
-    expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
-    ).toEqual(expected);
-  });
-
-  it(`[auto generated] in procedure call`, async () => {
-    // create index
-    const index = new IDLIndex(
-      new LogManager({
-        alert: () => {
-          // do nothing
-        },
-      }),
-      0
-    );
-
-    // test code to extract tokens from
-    const code = [
-      `pro mypro`,
-      `  compile_opt idl2`,
-      `  print something`,
-      `end`,
-    ];
-
-    // extract tokens
-    const tokenized = await index.getParsedProCode(
-      'not-real',
-      code,
-      new CancellationToken(),
-      { postProcess: true }
-    );
-
-    // define expected tokens
-    const expected: SyntaxProblems = [
-      {
-        code: 108,
-        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
-        start: [2, 2, 5],
-        end: [2, 2, 5],
+        code: 99,
+        info: 'Undefined variable "val"',
+        start: [2, 8, 3],
+        end: [2, 8, 3],
         canReport: true,
       },
       {
         code: 99,
-        info: 'Undefined variable "print"',
-        start: [2, 2, 5],
-        end: [2, 2, 5],
+        info: 'Undefined variable "var"',
+        start: [2, 24, 3],
+        end: [2, 24, 3],
         canReport: true,
       },
     ];
@@ -141,7 +89,7 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     ).toEqual(expected);
   });
 
-  it(`[auto generated] in routine name`, async () => {
+  it(`[auto generated] indexing`, async () => {
     // create index
     const index = new IDLIndex(
       new LogManager({
@@ -153,7 +101,14 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     );
 
     // test code to extract tokens from
-    const code = [`pro mypro var1`, `  compile_opt idl2`, `end`];
+    const code = [
+      `compile_opt idl2`,
+      `arr = [42, 84, 126]`,
+      `arr[5] = 6`,
+      `arr[5] += 6`,
+      `arr[5] +`,
+      `end`,
+    ];
 
     // extract tokens
     const tokenized = await index.getParsedProCode(
@@ -166,17 +121,100 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     // define expected tokens
     const expected: SyntaxProblems = [
       {
-        code: 43,
-        info: 'Comma expected after statement',
-        start: [0, 4, 5],
-        end: [0, 4, 5],
+        code: 68,
+        info: 'Expected IDL statement or expression after, but none was found',
+        start: [4, 7, 1],
+        end: [4, 8, 0],
         canReport: true,
       },
       {
-        code: 104,
-        info: 'Unused variable "var1"',
-        start: [0, 10, 4],
-        end: [0, 10, 4],
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [4, 0, 3],
+        end: [4, 8, 0],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
+
+  it(`[auto generated] problems`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `compile_opt idl2`,
+      `a = 5`,
+      `2 + 2`,
+      `(a)`,
+      `plot() + 5`,
+      `plot()`,
+      `a->`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 8,
+        info: 'Arrow functions must be followed by the method name or super::method name and cannot be split between lines',
+        start: [6, 1, 2],
+        end: [6, 1, 2],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [2, 0, 1],
+        end: [2, 5, 0],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [3, 0, 1],
+        end: [3, 2, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [4, 0, 5],
+        end: [4, 10, 0],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [5, 0, 5],
+        end: [5, 5, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [6, 0, 1],
+        end: [6, 1, 2],
         canReport: true,
       },
     ];
