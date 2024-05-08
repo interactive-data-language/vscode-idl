@@ -65,9 +65,6 @@ export function GetChainEnd(children: SyntaxTree, start: number): number {
       } else {
         /**
          * If we don't have a chain token, then save the type directly from the token
-         *
-         * TODO: Put logic in here that will error if any other type is found. This is because
-         * we can't find anything else if we have found a single type
          */
         return i;
       }
