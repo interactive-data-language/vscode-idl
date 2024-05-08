@@ -84,6 +84,13 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 6],
+        end: [0, 14, 1],
+        canReport: true,
+      },
+      {
         code: 16,
         info: 'Two statements of the same type are not allowed to be next to each other without a separator or operator',
         start: [0, 0, 6],
@@ -122,6 +129,13 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
 
     // define expected tokens
     const expected: SyntaxProblems = [
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 1],
+        end: [0, 7, 0],
+        canReport: true,
+      },
       {
         code: 16,
         info: 'Two statements of the same type are not allowed to be next to each other without a separator or operator',

@@ -638,6 +638,26 @@ export const AUTO_POST_PROCESSOR_TESTS: IAutoTest[] = [
     ],
   },
   {
+    suiteName: `Regression test for increment/decrement`,
+    fileName: `operator.increment-decrement.regression.spec.ts`,
+    tests: [
+      {
+        name: `operators`,
+        code: [
+          `compile_opt idl2`,
+          `a = 5`,
+          ``,
+          `a++`,
+          ``,
+          `++a`,
+          ``,
+          `a++`,
+          `end`,
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly identify array indexing`,
     fileName: `operator.indexing.array.spec.ts`,
     tests: [

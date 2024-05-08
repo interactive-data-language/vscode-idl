@@ -20,11 +20,16 @@ import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 const OK_FIRST: { [key: string]: any } = {};
 
 // miscellaneous
+OK_FIRST[TOKEN_NAMES.COLON] = true;
+OK_FIRST[TOKEN_NAMES.COMMA] = true;
+OK_FIRST[TOKEN_NAMES.EXECUTIVE_COMMAND] = true;
+OK_FIRST[TOKEN_NAMES.INCLUDE] = true;
 OK_FIRST[TOKEN_NAMES.LINE_CONTINUATION] = true;
 OK_FIRST[TOKEN_NAMES.LINE_SEPARATION] = true;
 OK_FIRST[TOKEN_NAMES.PROMPT] = true;
 OK_FIRST[TOKEN_NAMES.PYTHON] = true;
-OK_FIRST[TOKEN_NAMES.EXECUTIVE_COMMAND] = true;
+OK_FIRST[TOKEN_NAMES.UNKNOWN] = true;
+OK_FIRST[TOKEN_NAMES.UNEXPECTED_CLOSER] = true;
 
 // comments
 OK_FIRST[TOKEN_NAMES.COMMENT] = true;
@@ -47,6 +52,8 @@ OK_FIRST[TOKEN_NAMES.LOOP_FOR] = true;
 OK_FIRST[TOKEN_NAMES.LOOP_FOREACH] = true;
 OK_FIRST[TOKEN_NAMES.LOOP_WHILE] = true;
 OK_FIRST[TOKEN_NAMES.LOOP_REPEAT] = true;
+OK_FIRST[TOKEN_NAMES.LOOP_UNTIL] = true;
+OK_FIRST[TOKEN_NAMES.LOOP_DO] = true;
 
 // control statements
 OK_FIRST[TOKEN_NAMES.CONTROL_BREAK] = true;
@@ -125,10 +132,10 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
           )
         );
       } else {
+        // shift
         i++;
       }
 
-      // shift
       continue;
     }
 
@@ -150,8 +157,6 @@ const TOKENS: NonBasicTokenNames[] = [
   // routines
   TOKEN_NAMES.ROUTINE_FUNCTION,
   TOKEN_NAMES.ROUTINE_PROCEDURE,
-  TOKEN_NAMES.ROUTINE_PROCEDURE,
-
   TOKEN_NAMES.MAIN_LEVEL,
 
   // logic statements

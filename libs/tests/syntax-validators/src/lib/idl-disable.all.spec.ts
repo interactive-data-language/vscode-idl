@@ -93,6 +93,20 @@ describe(`[auto generated] Disable problems:`, () => {
         canReport: false,
       },
       {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [1, 0, 1],
+        end: [1, 8, 7],
+        canReport: false,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [2, 0, 4],
+        end: [2, 28, 1],
+        canReport: false,
+      },
+      {
         code: 16,
         info: 'Two statements of the same type are not allowed to be next to each other without a separator or operator',
         start: [1, 0, 1],

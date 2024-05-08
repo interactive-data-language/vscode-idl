@@ -382,6 +382,13 @@ describe(`[auto generated] Detects illegal commas`, () => {
         canReport: true,
       },
       {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 13, 5],
+        end: [0, 22, 11],
+        canReport: true,
+      },
+      {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],

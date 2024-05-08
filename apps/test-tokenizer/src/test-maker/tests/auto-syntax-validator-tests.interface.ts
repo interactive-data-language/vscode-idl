@@ -4487,6 +4487,50 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
+    suiteName: `Detect standalone expressions`,
+    fileName: `code.108.standalone-expression.spec.ts`,
+    tests: [
+      {
+        name: `no problems`,
+        code: [`compile_opt idl2`, `a = 5`, `a++`, `++a`, `a++`, `end`],
+      },
+      {
+        name: `no problems`,
+        code: [
+          `compile_opt idl2`,
+          `@includeme`,
+          `repeat *val = 42 until *var`,
+          `repeat if !true then continue until !true`,
+          `end`,
+        ],
+      },
+      {
+        name: `indexing`,
+        code: [
+          `compile_opt idl2`,
+          `arr = [42, 84, 126]`,
+          `arr[5] = 6`,
+          `arr[5] += 6`,
+          `arr[5] +`,
+          `end`,
+        ],
+      },
+      {
+        name: `problems`,
+        code: [
+          `compile_opt idl2`,
+          `a = 5`,
+          `2 + 2`,
+          `(a)`,
+          `plot() + 5`,
+          `plot()`,
+          `a->`,
+          `end`,
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Disable problems:`,
     fileName: `idl-disable.all.spec.ts`,
     tests: [

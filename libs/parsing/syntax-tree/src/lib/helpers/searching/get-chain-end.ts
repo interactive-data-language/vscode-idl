@@ -45,6 +45,10 @@ export function GetChainEnd(children: SyntaxTree, start: number): number {
   for (let i = start; i < children.length; i++) {
     // if we have an operator to skip, then skip
     if (children[i].name in CHAIN_SKIP_TOKENS) {
+      // if the token after our start is not in a chain, then return our first token
+      if (i - 1 === start) {
+        return start;
+      }
       continue;
     }
 

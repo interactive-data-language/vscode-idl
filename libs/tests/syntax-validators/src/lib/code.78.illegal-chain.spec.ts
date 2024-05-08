@@ -66,6 +66,13 @@ describe(`[auto generated] Check for bad access`, () => {
         end: [5, 23, 1],
         canReport: true,
       },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [4, 2, 7],
+        end: [4, 19, 0],
+        canReport: true,
+      },
     ];
 
     // verify results
