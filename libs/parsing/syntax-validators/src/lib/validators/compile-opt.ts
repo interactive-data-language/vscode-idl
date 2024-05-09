@@ -95,8 +95,8 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
  */
 IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.MAIN_LEVEL,
-  (token, parsed, meta) => {
-    if (meta.isNotebook || IsSingleLine(token)) {
+  (token, parsed) => {
+    if (parsed.isNotebook || IsSingleLine(token)) {
       return;
     }
 

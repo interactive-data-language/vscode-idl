@@ -302,14 +302,12 @@ export function BuildSyntaxTree(
     // create metadata for our syntax validator
     // leave this for type checks even though unused
     const validatorMeta: IDLSyntaxValidatorMeta = {
-      isNotebook: parsed.isNotebook,
       ...DEFAULT_CURRENT,
     };
 
     // run our syntax validation
     IDL_SYNTAX_TREE_VALIDATOR.run(parsed, cancel, (token, meta) => {
-      Object.assign(meta, { isNotebook: parsed.isNotebook });
-      return meta as any as IDLSyntaxValidatorMeta;
+      return meta;
     });
   }
 }
