@@ -35,19 +35,24 @@ export function IsProblemDisabled(
 export function ApplyDisabledProblems(parsed: IParsed) {
   // process parsed problems
   for (let i = 0; i < parsed.parseProblems.length; i++) {
-    parsed.parseProblems[i].canReport = !IsProblemDisabled(
-      parsed.parseProblems[i].code,
-      parsed.parseProblems[i].start[0],
-      parsed.disabledProblems
-    );
+    parsed.parseProblems[i].canReport = !parsed.parseProblems[i].canReport
+      ? false
+      : !IsProblemDisabled(
+          parsed.parseProblems[i].code,
+          parsed.parseProblems[i].start[0],
+          parsed.disabledProblems
+        );
   }
 
   // process post-process problems
   for (let i = 0; i < parsed.postProcessProblems.length; i++) {
-    parsed.postProcessProblems[i].canReport = !IsProblemDisabled(
-      parsed.postProcessProblems[i].code,
-      parsed.postProcessProblems[i].start[0],
-      parsed.disabledProblems
-    );
+    parsed.postProcessProblems[i].canReport = !parsed.postProcessProblems[i]
+      .canReport
+      ? false
+      : !IsProblemDisabled(
+          parsed.postProcessProblems[i].code,
+          parsed.postProcessProblems[i].start[0],
+          parsed.disabledProblems
+        );
   }
 }
