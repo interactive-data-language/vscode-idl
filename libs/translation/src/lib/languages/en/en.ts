@@ -873,6 +873,8 @@ export const EN: ITranslation = {
       '107': 'Attempting to disable unknown problem',
       '108':
         'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+      '109':
+        'Expression will automatically be printed during notebook cell execution',
     },
   },
   terminal: {
