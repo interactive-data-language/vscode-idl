@@ -45,6 +45,11 @@ import {
   IRetrieveDocsResponse,
   RetrieveDocsMessage,
 } from './messages/retrieve-docs.message.interface';
+import {
+  StringifyNotebookCellMessage,
+  StringifyNotebookCellPayload,
+  StringifyNotebookCellResponse,
+} from './messages/stringify-notebook-cell.message.interface';
 import { UsageMetricLSPMessage } from './messages/usage-metric.message.interface';
 import {
   IInitWorkspaceConfigPayload,
@@ -99,6 +104,8 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? IRetrieveDocsPayload
     : T extends ProgressMessage
     ? ProgressMessagePayload
+    : T extends StringifyNotebookCellMessage
+    ? StringifyNotebookCellPayload
     : T extends UsageMetricLSPMessage
     ? IUsageMetricAndPayload<UsageMetric>
     : T extends WorkspaceConfigMessage
@@ -115,6 +122,8 @@ export type LanguageServerResponse<T extends LanguageServerMessage> =
     ? INotebookToProCodeResponse
     : T extends RetrieveDocsMessage
     ? IRetrieveDocsResponse
+    : T extends StringifyNotebookCellMessage
+    ? StringifyNotebookCellResponse
     : any;
 
 /** Strictly typed lookup of language server messages */
@@ -145,6 +154,8 @@ export interface ILanguageServerMessages {
   PROGRESS: ProgressMessage;
   /** Message to retrieve docs */
   RETRIEVE_DOCS: RetrieveDocsMessage;
+  /** Convert notebook cell to string */
+  STRINGIFY_NOTEBOOK_CELL: StringifyNotebookCellMessage;
   /** Message to update workspace config */
   WORKSPACE_CONFIG: WorkspaceConfigMessage;
   /** Message from language server with usage metric to report */
@@ -171,6 +182,7 @@ export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   NOTEBOOK_TO_PRO_CODE: 'notebook/to-pro-code',
   PROGRESS: 'progress',
   RETRIEVE_DOCS: 'retrieve-docs',
+  STRINGIFY_NOTEBOOK_CELL: 'stringify-notebook-cell',
   USAGE_METRIC: 'usage-metric-lsp',
   WORKSPACE_CONFIG: 'workspace-config',
 };
