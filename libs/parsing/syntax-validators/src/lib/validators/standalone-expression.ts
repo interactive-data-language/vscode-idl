@@ -83,6 +83,11 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
   /** Get children */
   const kids = token.kids;
 
+  /** Check if main level program */
+  const inMain =
+    token.name === TOKEN_NAMES.MAIN_LEVEL ||
+    token.scope.indexOf(TOKEN_NAMES.MAIN_LEVEL) !== -1;
+
   // process all kids
   for (let i = 0; i < kids.length; i++) {
     // skip if nothing to check
@@ -100,7 +105,9 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
       ) {
         parsed.parseProblems.push(
           SyntaxProblemWithTranslation(
-            IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
+            inMain && parsed.isNotebook
+              ? IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
+              : IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
             kids[i].pos,
             (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos
           )
@@ -126,7 +133,9 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
       if (!(kids[i + 1]?.name in AFTER_VAR)) {
         parsed.parseProblems.push(
           SyntaxProblemWithTranslation(
-            IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
+            inMain && parsed.isNotebook
+              ? IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
+              : IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
             kids[orig].pos,
             (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos
           )
@@ -142,7 +151,9 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
     // default
     parsed.parseProblems.push(
       SyntaxProblemWithTranslation(
-        IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
+        inMain && parsed.isNotebook
+          ? IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
+          : IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
         kids[i].pos,
         (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos
       )

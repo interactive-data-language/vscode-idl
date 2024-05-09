@@ -442,4 +442,8 @@ export const PROBLEM_CODES_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
     text: '"standalone-expression"',
     link: '/problem-codes/codes/108.md',
   },
+  {
+    text: '"implied-print-nb"',
+    link: '/problem-codes/codes/109.md',
+  },
 ];
