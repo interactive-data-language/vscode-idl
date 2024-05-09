@@ -1,7 +1,7 @@
 import { AssembleWithIndex } from '@idl/assembler';
 import { Migrator } from '@idl/assembling/migrators';
 import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
-import { ParseFileSync } from '@idl/parser';
+import { ParseFileSync, Parser } from '@idl/parser';
 import {
   ChangeDetection,
   GetHoverHelpLookup,
@@ -10,8 +10,11 @@ import {
   IDLIndex,
   ReduceGlobals,
 } from '@idl/parsing/index';
-import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
+import { RemoveScopeDetail, TreeBranchToken } from '@idl/parsing/syntax-tree';
+import { IsSingleLine } from '@idl/parsing/syntax-validators';
+import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import {
   ChangeDetectionResponse,
   ILSPWorkerThreadClient,
@@ -506,6 +509,70 @@ client.on(
     }
 
     return resp;
+  }
+);
+
+/**
+ * Post-process some files
+ */
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_NOTEBOOK_CELL,
+  async (message, cancel) => {
+    /** Get array of strings */
+    const strings = message.content.split(/\r?\n/g);
+
+    /**
+     * Pase code
+     */
+    const parsed = WORKER_INDEX.tokensByFile.has(message.cellUri)
+      ? WORKER_INDEX.tokensByFile.get(message.cellUri)
+      : Parser(message.content, cancel);
+
+    /**
+     * Flag if we have a main level program or not
+     */
+    let hasMain = true;
+
+    /**
+     * Do we have an empty main level program?
+     */
+    let emptyMain = false;
+
+    // check for main level program
+    if (parsed.tree[parsed.tree.length - 1]?.name === TOKEN_NAMES.MAIN_LEVEL) {
+      hasMain = true;
+
+      // check if we are a single line
+      if (
+        IsSingleLine(parsed.tree[parsed.tree.length - 1] as TreeBranchToken)
+      ) {
+        strings.push('end');
+      } else {
+        /**
+         * Get problem codes
+         */
+        const codes = parsed.parseProblems.map((problem) => problem.code);
+
+        // check special cases
+        for (let i = 0; i < codes.length; i++) {
+          // check for missing end to the main level program
+          if (codes[i] === IDL_PROBLEM_CODES.MISSING_MAIN_END) {
+            strings.push('end');
+            break;
+          }
+
+          // check for empty main
+          if (codes[i] === IDL_PROBLEM_CODES.EMPTY_MAIN) {
+            emptyMain = true;
+            break;
+          }
+        }
+      }
+    } else {
+      hasMain = false;
+    }
+
+    return { offset: 0, content: strings.join('\n'), hasMain, emptyMain };
   }
 );
 

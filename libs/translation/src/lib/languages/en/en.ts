@@ -669,6 +669,7 @@ export const EN: ITranslation = {
       onMigrateCodeProblemCode:
         'Unable to format code due to syntax error or problem in file',
       onNotebookToProCode: 'Error converting notebook to PRO code',
+      onPrepareNotebookCell: 'Error while preparing notebook cell to run',
     },
     errors: {
       unhandled: 'An unknown error ocurred within the IDL Language Server',

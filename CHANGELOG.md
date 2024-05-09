@@ -45,6 +45,8 @@ Type detection now properly handles the following cases:
 
 These type changes help catch some cases that were incorrectly reporting errors for extension users.
 
+The extension now automatically detects when you have code that is "floating" which needs to be assigned to a value (or have a value assigned to it).
+
 ## 4.4.2 - April 2024
 
 For notebook cells, syntax errors are now highlighted and problems are reported on the lines that have errors. This behaves the same as PRO files when using the debug console as well.

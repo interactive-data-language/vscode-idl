@@ -508,6 +508,8 @@ export interface ITranslation {
       onMigrateCodeProblemCode: string;
       /** Convert notebook to PRO code */
       onNotebookToProCode: string;
+      /** Convert notebook cell to code we can execute */
+      onPrepareNotebookCell: string;
     };
     /** Misc error reports */
     errors: {
