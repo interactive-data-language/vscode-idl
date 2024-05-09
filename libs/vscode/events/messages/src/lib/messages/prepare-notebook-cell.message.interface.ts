@@ -1,18 +1,20 @@
-/** Message to convert a notebook cell to code that we can run */
-export type StringifyNotebookCellMessage = 'stringify-notebook-cell';
+/** Prepare notebook cell for execution */
+export type PrepareNotebookCellMessage = 'prepare-notebook-cell';
 
 /*
  * Payload to convert a notebook cell to code we can run
  */
-export interface StringifyNotebookCellPayload {
-  /** URI for the notebook cell we are migrating */
-  uri: string;
+export interface PrepareNotebookCellPayload {
+  /** URI for the parent notebook */
+  notebookUri: string;
+  /** URI for the cell */
+  cellUri: string;
 }
 
 /*
  * Response when converting a notebook cell to code we can run
  */
-export interface StringifyNotebookCellResponse {
+export interface PrepareNotebookCellResponse {
   /** New file contents */
   text: string;
   /**
