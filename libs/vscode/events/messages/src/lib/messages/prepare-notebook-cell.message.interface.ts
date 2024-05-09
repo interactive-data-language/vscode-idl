@@ -19,6 +19,8 @@ export interface PrepareNotebookCellPayload {
 export interface PrepareNotebookCellResponse {
   /** New file contents */
   content: string;
+  /** Code without print statements for reporting errors */
+  withoutPrint: string;
   /**
    * The number of lines we added to the cell to make sure
    * we properly track where we are when we stop or potentially add breakpoints

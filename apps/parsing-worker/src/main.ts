@@ -27,6 +27,7 @@ import {
   RemoveFilesResponse,
 } from '@idl/workers/parsing';
 import { WorkerIOClient } from '@idl/workers/workerio';
+import copy from 'fast-copy';
 import { existsSync } from 'fs';
 import { parentPort } from 'worker_threads';
 
@@ -526,7 +527,7 @@ client.on(
      */
     const parsed = WORKER_INDEX.tokensByFile.has(message.cellUri)
       ? WORKER_INDEX.tokensByFile.get(message.cellUri)
-      : Parser(message.content, cancel);
+      : Parser(message.content, cancel, { isNotebook: true });
 
     /**
      * Flag if we have a main level program or not
@@ -572,7 +573,31 @@ client.on(
       hasMain = false;
     }
 
-    return { offset: 0, content: strings.join('\n'), hasMain, emptyMain };
+    /**
+     * Get Code without print statements
+     */
+    const withoutPrint = copy(strings);
+
+    // update lines for implied print
+    const update = parsed.parseProblems.filter(
+      (prob) => prob.code === IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
+    );
+
+    // manipulate lines
+    for (let i = 0; i < update.length; i++) {
+      strings[update[i].start[0]] = `print, ${strings[update[i].start[0]]}`;
+      strings[update[i].end[0]] = `${
+        strings[update[i].end[0]]
+      }, /implied_print`;
+    }
+
+    return {
+      offset: 0,
+      content: strings.join('\n'),
+      hasMain,
+      emptyMain,
+      withoutPrint: withoutPrint.join('\n'),
+    };
   }
 );
 
