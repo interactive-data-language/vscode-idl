@@ -4,9 +4,11 @@ import {
   PrepareNotebookCellPayload,
   PrepareNotebookCellResponse,
 } from '@idl/vscode/events/messages';
+import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
@@ -22,7 +24,7 @@ export const ON_PREPARE_NOTEBOOK_CELL = async (
     // log information
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
-      type: 'info',
+      type: 'debug',
       content: ['Preparing notebook cell', event],
     });
 
@@ -36,10 +38,11 @@ export const ON_PREPARE_NOTEBOOK_CELL = async (
       return undefined;
     }
 
-    return {
-      text: 'I work!',
-      offset: 0,
-    };
+    return await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
+      IDL_INDEX.getWorkerID(info.fsPath),
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_NOTEBOOK_CELL,
+      event
+    ).response;
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
