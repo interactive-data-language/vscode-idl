@@ -40,8 +40,7 @@ import { PopulateLocalForMain } from './populate-local-for-main';
 export function PopulateGlobalLocalCompileOpts(
   parsed: IParsed,
   cancel: CancellationToken,
-  full: boolean,
-  isNotebook: boolean
+  full: boolean
 ) {
   // get global placeholder
   const global = parsed.global;
@@ -336,7 +335,7 @@ export function PopulateGlobalLocalCompileOpts(
         parsed.compile.main = full ? GetCompileOpts(branch) : [];
 
         // if we are a notebook, add main level program
-        if (isNotebook) {
+        if (parsed.isNotebook) {
           if (parsed.compile.main.indexOf('idl2') === -1) {
             parsed.compile.main.push('idl2');
           }

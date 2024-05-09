@@ -27,6 +27,10 @@ export interface IParsed extends IFoundTokens {
    * If we have set a token cache or not
    */
   hasCache: boolean;
+  /**
+   * Track if our current parsed code is for a notebook or not
+   */
+  isNotebook: boolean;
   /** What problems are disabled? */
   disabledProblems: IDisabledProblems;
   /** Problems found within code from basic parsing */
@@ -56,6 +60,7 @@ export const DEFAULT_PARSED: IParsed = {
   checksum: '',
   hasDetail: false,
   hasCache: false,
+  isNotebook: false,
   tokens: [],
   text: [],
   lines: 0,
