@@ -170,13 +170,6 @@ describe(`[auto generated] Detect standalone expressions`, () => {
         code: 109,
         info: 'Expression will automatically be printed during notebook cell execution',
         start: [4, 0, 3],
-        end: [4, 5, 1],
-        canReport: true,
-      },
-      {
-        code: 109,
-        info: 'Expression will automatically be printed during notebook cell execution',
-        start: [4, 7, 1],
         end: [4, 8, 0],
         canReport: true,
       },
@@ -232,13 +225,6 @@ describe(`[auto generated] Detect standalone expressions`, () => {
         code: 109,
         info: 'Expression will automatically be printed during notebook cell execution',
         start: [2, 0, 1],
-        end: [2, 0, 1],
-        canReport: true,
-      },
-      {
-        code: 109,
-        info: 'Expression will automatically be printed during notebook cell execution',
-        start: [2, 2, 1],
         end: [2, 5, 0],
         canReport: true,
       },
@@ -253,13 +239,6 @@ describe(`[auto generated] Detect standalone expressions`, () => {
         code: 109,
         info: 'Expression will automatically be printed during notebook cell execution',
         start: [4, 0, 5],
-        end: [4, 5, 1],
-        canReport: true,
-      },
-      {
-        code: 109,
-        info: 'Expression will automatically be printed during notebook cell execution',
-        start: [4, 7, 1],
         end: [4, 10, 0],
         canReport: true,
       },
@@ -274,14 +253,46 @@ describe(`[auto generated] Detect standalone expressions`, () => {
         code: 109,
         info: 'Expression will automatically be printed during notebook cell execution',
         start: [6, 0, 1],
-        end: [6, 0, 1],
+        end: [6, 1, 2],
         canReport: true,
       },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
+
+  it(`[auto generated] multi-line problems`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [`compile_opt idl2`, `2 + $`, `  2 + $`, `  2`, `end`];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, isNotebook: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
       {
         code: 109,
         info: 'Expression will automatically be printed during notebook cell execution',
-        start: [6, 1, 2],
-        end: [6, 1, 2],
+        start: [1, 0, 1],
+        end: [3, 3, 0],
         canReport: true,
       },
     ];

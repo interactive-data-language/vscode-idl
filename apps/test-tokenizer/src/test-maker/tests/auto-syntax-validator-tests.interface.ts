@@ -4528,6 +4528,10 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `multi-line problems`,
+        code: [`compile_opt idl2`, `2 + $`, `  2 + $`, `  2`, `end`],
+      },
     ],
   },
   {
@@ -4595,6 +4599,13 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `a->`,
           `end`,
         ],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `multi-line problems`,
+        code: [`compile_opt idl2`, `2 + $`, `  2 + $`, `  2`, `end`],
         config: {
           isNotebook: true,
         },
