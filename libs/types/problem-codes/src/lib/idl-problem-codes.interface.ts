@@ -216,6 +216,8 @@ type CircularIncludeCode = 106;
 type UnknownDisabledAliasCode = 107;
 /** When we detect code that is floating and should have assignment or something as part of it */
 type StandaloneExpressionCode = 108;
+/** When we will automatically print a statement in notebooks */
+type ImpliedPrintForNotebookCode = 109;
 
 /**
  * Union type of all allowed problem codes for IDL
@@ -329,7 +331,8 @@ export type IDLProblemCode =
   | IllegalVariableIndexCode
   | CircularIncludeCode
   | UnknownDisabledAliasCode
-  | StandaloneExpressionCode;
+  | StandaloneExpressionCode
+  | ImpliedPrintForNotebookCode;
 
 /**
  * Type to be used in translation to make sure that we have all of our expected translations
@@ -560,6 +563,8 @@ interface IProblemLookup {
   UNKNOWN_DISABLED_ALIAS: UnknownDisabledAliasCode;
   /** When we detect code that is floating and should have assignment or something as part of it */
   STANDALONE_EXPRESSION: StandaloneExpressionCode;
+  /** When we will automatically print a statement in notebooks */
+  IMPLIED_PRINT_NOTEBOOK: ImpliedPrintForNotebookCode;
 }
 
 /**
@@ -675,4 +680,5 @@ export const IDL_PROBLEM_CODES: IProblemLookup = {
   CIRCULAR_INCLUDE: 106,
   UNKNOWN_DISABLED_ALIAS: 107,
   STANDALONE_EXPRESSION: 108,
+  IMPLIED_PRINT_NOTEBOOK: 109,
 };
