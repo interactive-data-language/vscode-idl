@@ -1,4 +1,3 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   CleanIDLOutput,
   IDL_EVENT_LOOKUP,
@@ -8,10 +7,6 @@ import {
 } from '@idl/idl';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
-import { Parser } from '@idl/parser';
-import { TreeBranchToken } from '@idl/parsing/syntax-tree';
-import { IsSingleLine } from '@idl/parsing/syntax-validators';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 import {
   CleanPath,
   IDL_LANGUAGE_NAME,
@@ -22,10 +17,10 @@ import {
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLNotebookEmbeddedItems } from '@idl/types/notebooks';
-import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   IDL_LOGGER,
+  LANGUAGE_SERVER_MESSENGER,
   VSCODE_NOTEBOOK_PRO_DIR,
   VSCODE_PRO_DIR,
 } from '@idl/vscode/client';
@@ -35,6 +30,7 @@ import {
   IDL_DEBUG_CONFIGURATION_PROVIDER,
 } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
+import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
 import { compareVersions } from 'compare-versions';
 import copy from 'fast-copy';
@@ -780,56 +776,31 @@ export class IDLNotebookController {
     }
 
     /**
-     * Get strings for our cell
+     * Send message to convert code
      */
-    const strings = cell.document.getText().split(/\r?\n/g);
-
-    /**
-     * Flag if we have a main level program or not
-     */
-    let hasMain = true;
-
-    /**
-     * Parse code and see if we have a main level program
-     */
-    const parsed = Parser(strings, new CancellationToken());
-
-    // check for main level program
-    if (parsed.tree[parsed.tree.length - 1]?.name === TOKEN_NAMES.MAIN_LEVEL) {
-      hasMain = true;
-
-      // check if we are a single line
-      if (
-        IsSingleLine(parsed.tree[parsed.tree.length - 1] as TreeBranchToken)
-      ) {
-        strings.push('end');
-      } else {
-        /**
-         * Get problem codes
-         */
-        const codes = parsed.parseProblems.map((problem) => problem.code);
-
-        // check special cases
-        for (let i = 0; i < codes.length; i++) {
-          // check for missing end to the main level program
-          if (codes[i] === IDL_PROBLEM_CODES.MISSING_MAIN_END) {
-            strings.push('end');
-            break;
-          }
-
-          // check for empty main
-          if (codes[i] === IDL_PROBLEM_CODES.EMPTY_MAIN) {
-            await this._endCellExecution(true);
-            return current;
-          }
-        }
+    const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
+      LANGUAGE_SERVER_MESSAGE_LOOKUP.PREPARE_NOTEBOOK_CELL,
+      {
+        notebookUri: cell.notebook.uri.toString(),
+        cellUri: cell.document.uri.toString(),
+        content: cell.document.getText(),
       }
-    } else {
-      hasMain = false;
+    );
+
+    // see if theres a problem, user should be alerted
+    if (!resp) {
+      await this._endCellExecution(false);
+      return current;
+    }
+
+    // check if empty main level
+    if (resp.emptyMain) {
+      await this._endCellExecution(true);
+      return current;
     }
 
     // write file
-    writeFileSync(fsPath, strings.join('\n'));
+    writeFileSync(fsPath, resp.content);
 
     // reset syntax errors
     this._runtime.resetErrorsByFile();
@@ -861,7 +832,7 @@ export class IDLNotebookController {
       await this._endCellExecution(false);
     } else {
       // run main level program
-      if (hasMain) {
+      if (resp.hasMain) {
         await this.evaluate(`.go`);
       }
 

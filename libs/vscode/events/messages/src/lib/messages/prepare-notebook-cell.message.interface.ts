@@ -9,6 +9,8 @@ export interface PrepareNotebookCellPayload {
   notebookUri: string;
   /** URI for the cell */
   cellUri: string;
+  /** Cell content */
+  content: string;
 }
 
 /*
@@ -16,11 +18,19 @@ export interface PrepareNotebookCellPayload {
  */
 export interface PrepareNotebookCellResponse {
   /** New file contents */
-  text: string;
+  content: string;
   /**
    * The number of lines we added to the cell to make sure
    * we properly track where we are when we stop or potentially add breakpoints
    * in the future
    */
   offset: number;
+  /**
+   * Do we have a main level program
+   */
+  hasMain: boolean;
+  /**
+   * If the main level program is empty
+   */
+  emptyMain: boolean;
 }
