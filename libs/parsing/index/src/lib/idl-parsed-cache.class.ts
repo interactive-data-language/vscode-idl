@@ -165,7 +165,7 @@ export class IDLParsedCache {
    */
   semantic(file: string): SemanticTokens | undefined {
     if (file in this.byFile) {
-      return this.byFile[file].semantic;
+      return this.byFile[file].semantic.built;
     }
   }
 

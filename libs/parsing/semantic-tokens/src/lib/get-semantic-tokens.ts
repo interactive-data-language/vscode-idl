@@ -70,7 +70,7 @@ export function GetSemanticTokens(parsed: IParsed) {
   }
 
   // add other semantic tokens we detected
-  const notPro = parsed.local.semantic.notProcedure;
+  const notPro = parsed.semantic.notProcedure;
   for (let i = 0; i < notPro.length; i++) {
     tokens.push([
       notPro[i][0],
@@ -106,5 +106,5 @@ export function GetSemanticTokens(parsed: IParsed) {
   }
 
   // save semantic tokens
-  parsed.semantic = builder.build();
+  parsed.semantic.built = builder.build();
 }

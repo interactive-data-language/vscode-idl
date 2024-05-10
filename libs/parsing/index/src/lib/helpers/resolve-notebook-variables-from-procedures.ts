@@ -47,7 +47,7 @@ export function ResolveNotebookVariablesFromProcedures(parsed: IParsed) {
           parsed.local.main[proName].meta.usage.push(main.kids[i].pos);
 
           // save location
-          parsed.local.semantic.notProcedure.push(main.kids[i].pos);
+          parsed.semantic.notProcedure.push(main.kids[i].pos);
 
           // replace
           main.kids.splice(i, 1, varToken);

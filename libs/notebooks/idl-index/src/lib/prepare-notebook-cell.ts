@@ -74,7 +74,7 @@ export async function PrepareNotebookCell(
   }
 
   // add print for any variables that we need to print
-  const asVars = parsed.local.semantic.notProcedure;
+  const asVars = parsed.semantic.notProcedure;
   for (let i = 0; i < asVars.length; i++) {
     strings[asVars[i][0]] = `print, ${strings[asVars[i][0]]}, /implied_print`;
   }
