@@ -30,6 +30,18 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 ## Unreleased
 
+New-and improved IDL Notebook user experience!
+
+- When compiling cells, we don't show you the output from compiling to focus on what runs
+
+- The paths for notebook cells have been cleaned up and are now easy to read (before they had IDs in the names of the paths)
+
+- Notebook cells now offer implied print! For main level programs (i.e. cells by default), we detect and automatically print variables, outputs from function calls, and expressions like "2 + 42".
+
+- Variables that will be printed have a special semantic token highlighting applied to them to make it clear it is not being interpreted as a procedure. This depends on your VSCode theme, but should either look like other variables or stands out compared to procedure calls.
+
+- After running a notebook cell, we check to see if there is any output. If there is no output, we do not create notebook cell output. Previously we always added output to cells, even if there wasn't anything to track.
+
 Fixed an issue where we incorrectly reported an error when using the property index signature to retrieve a property. This affected statements of the form "struct.(0).(0)"
 
 Add icons for the languages that we contribute to the extension
