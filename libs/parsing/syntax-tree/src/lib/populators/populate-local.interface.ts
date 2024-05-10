@@ -78,6 +78,14 @@ export interface ILocalTokenLookup {
 }
 
 /**
+ * Additional semantic tokens for local tokens
+ */
+export interface ISemanticTokensForLocal {
+  /** Procedures that are variables (for notebook parsing) */
+  notProcedure: PositionArray[];
+}
+
+/**
  * Local tokens that we have extracted from a file
  */
 export interface ILocalTokens {
@@ -93,4 +101,6 @@ export interface ILocalTokens {
    * Local tokens defined in main level programs
    */
   main: ILocalTokenLookup;
+  /** Extension point for semantic tokens for variables */
+  semantic: ISemanticTokensForLocal;
 }

@@ -96,6 +96,9 @@ export function Parser(
       func: {},
       pro: {},
       main: {},
+      semantic: {
+        notProcedure: [],
+      },
     },
     compile: {
       func: {},

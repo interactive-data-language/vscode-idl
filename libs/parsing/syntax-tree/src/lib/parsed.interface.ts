@@ -77,6 +77,9 @@ export const DEFAULT_PARSED: IParsed = {
     func: {},
     pro: {},
     main: {},
+    semantic: {
+      notProcedure: [],
+    },
   },
   compile: {
     func: {},
