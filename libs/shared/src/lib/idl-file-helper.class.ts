@@ -70,6 +70,13 @@ export class IDLFileHelper {
   }
 
   /**
+   * Determines if a path is a notebook cell or not
+   */
+  static isNotebookCell(fsPath: string) {
+    return basename(fsPath).includes(`_${NOTEBOOK_CELL_BASE_NAME}_`);
+  }
+
+  /**
    * Converts a file system path for a notebook call back to a URI for
    * a notebook cell
    */
