@@ -25,9 +25,20 @@ export const REGEX_IDL_PROMPT = /\r*\n*(?:I\s*D\s*L\s*|E\s*N\s*V\s*I\s*)>\s*$/;
 
 /**
  * Regex to detect stops
+ *
+ * First group: Reason
+ * Second group: routine
+ * Third group: line
+ * Fourth group: file
  */
 export const REGEX_STOP_DETECTION =
-  /(% Breakpoint at|% Stepped to|% Stop encountered|% Execution halted at|% Interrupted at) *: *([a-z_][a-z_0-9$:]*|[a-z_][a-z_0-9$:]* *[a-z_][a-z_0-9$:]*|\$main\$) *([0-9]+) *(.*)/gim;
+  /(% Breakpoint at|% Stepped to|% Stop encountered|% Execution halted at|% Interrupted at)\s*:\s*([a-z_][a-z_0-9$:]*|[a-z_][a-z_0-9$:]*\s*[a-z_][a-z_0-9$:]*|\$main\$)\s*([0-9]+)\s*(.*(?:\s.*.pro)?)/gim;
+
+/**
+ * Basic regex to check output from IDL to see if we have stopped
+ */
+export const REGEX_STOP_DETECTION_BASIC =
+  /(% Breakpoint at|% Stepped to|% Stop encountered|% Execution halted at|% Interrupted at)\s*:/gim;
 
 // /**
 //  * Regex to detect stops
@@ -45,9 +56,22 @@ export const REGEX_STOP_DETECTION =
 
 /**
  * Detects compilation errors in IDL's output
+ *
+ * First group: File + line
+ * Second group: File
+ * Third group: Line
  */
 export const REGEX_COMPILE_ERROR =
-  /% Syntax error\.\s*At:\s*([^,]*),\s*Line\s*([0-9]*)/gim;
+  /% Syntax error\.\s*At:(\s*([^,]*),\s*Line\s*([0-9]*))/gim;
+
+/**
+ * Detects locations in IDL's output
+ *
+ * First group: File + line
+ * Second group: File
+ * Third group: Line
+ */
+export const REGEX_IDL_LOCATION = /At:(\s*([^,]*),\s*Line\s*([0-9]*))/gim;
 
 /**
  * Detect commands to reset IDL

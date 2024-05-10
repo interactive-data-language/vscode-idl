@@ -23,7 +23,7 @@ import { IDLProcess } from './idl-process.class';
 import EventEmitter = require('events');
 import { URI } from 'vscode-uri';
 
-import { REGEX_COMPILE_ERROR } from './utils/regex';
+import { REGEX_COMPILE_ERROR, REGEX_IDL_LOCATION } from './utils/regex';
 
 /**
  * Class that manages interacting with IDL.
@@ -106,7 +106,7 @@ export class IDLInteractionManager {
     /** Match for syntax errors */
     let me: RegExpExecArray;
     while ((me = REGEX_COMPILE_ERROR.exec(output)) !== null) {
-      errors.push({ file: URI.file(me[1]).toString(), line: parseInt(me[2]) });
+      errors.push({ file: URI.file(me[2]).toString(), line: parseInt(me[3]) });
     }
 
     /**
