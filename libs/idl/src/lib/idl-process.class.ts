@@ -23,7 +23,6 @@ import {
   REGEX_IDL_PROMPT,
   REGEX_NEW_LINE_COMPRESS,
   REGEX_STOP_DETECTION,
-  REGEX_STOP_DETECTION_BASIC,
 } from './utils/regex';
 
 /**
@@ -248,15 +247,16 @@ export class IDLProcess extends EventEmitter {
       /** Current stdout or stderr */
       const data = buff.toString('utf8');
 
-      // check if we have stopped
-      if (REGEX_STOP_DETECTION_BASIC.test(data)) {
-        this.emit(IDL_EVENT_LOOKUP.STOP, 'stop', {
-          file: '$main$',
-          index: 0,
-          line: 0,
-          name: '$main$',
-        });
-      }
+      // NOT RIGHT LOGIC - this breaks things, need true events
+      // // check if we have stopped
+      // if (REGEX_STOP_DETECTION_BASIC.test(data)) {
+      //   this.emit(IDL_EVENT_LOOKUP.STOP, 'stop', {
+      //     file: '$main$',
+      //     index: 0,
+      //     line: 0,
+      //     name: '$main$',
+      //   });
+      // }
 
       // what do we do?
       switch (true) {
