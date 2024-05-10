@@ -1,14 +1,12 @@
 import {
   CleanIDLOutput,
   IDL_EVENT_LOOKUP,
+  IDLEvaluateOptions,
   IDLInteractionManager,
-  IDLSyntaxErrorLookup,
   REGEX_NEW_LINE,
 } from '@idl/idl';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
 import {
-  CleanPath,
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
   IDL_NOTEBOOK_LANGUAGE_NAME,
@@ -20,7 +18,6 @@ import { IDLNotebookEmbeddedItems } from '@idl/types/notebooks';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   IDL_LOGGER,
-  LANGUAGE_SERVER_MESSENGER,
   VSCODE_NOTEBOOK_PRO_DIR,
   VSCODE_PRO_DIR,
 } from '@idl/vscode/client';
@@ -30,16 +27,16 @@ import {
   IDL_DEBUG_CONFIGURATION_PROVIDER,
 } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
 import { compareVersions } from 'compare-versions';
 import copy from 'fast-copy';
-import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
-import { dirname, join } from 'path';
 import * as vscode from 'vscode';
 
+import { ExecuteNotebookCell } from './helpers/execute-notebook-cell';
+import { ReplaceNotebookPaths } from './helpers/replace-notebook-paths';
 import {
   DEFAULT_END_CELL_EXECUTION_ACTIONS,
+  DEFAULT_NOTEBOOK_EVALUATE_OPTIONS,
   ICurrentCell,
   IEndCellExecutionActions,
 } from './idl-notebook-controller.interface';
@@ -74,12 +71,17 @@ export class IDLNotebookController {
   /**
    * Actual notebook controller
    */
-  private readonly _controller: vscode.NotebookController;
+  readonly _controller: vscode.NotebookController;
+
+  /**
+   * When we execute cells, track references to parent notebooks
+   */
+  knownNotebooks: { [key: string]: vscode.NotebookDocument } = {};
 
   /**
    * Execution order?
    */
-  private _executionOrder = 0;
+  _executionOrder = 0;
 
   /** Are we listening to events from IDL or not? */
   private listening = false;
@@ -90,7 +92,7 @@ export class IDLNotebookController {
   /**
    * The current cell that we are executing
    */
-  private _currentCell?: ICurrentCell;
+  _currentCell?: ICurrentCell;
 
   /**
    * Track pending executions
@@ -161,18 +163,18 @@ export class IDLNotebookController {
     });
 
     // listen for debug output
-    this._runtime.on(IDL_EVENT_LOOKUP.OUTPUT, (msg) => {
-      this._appendToCurrentCellOutput(msg);
+    this._runtime.on(IDL_EVENT_LOOKUP.OUTPUT, async (msg) => {
+      await this._appendToCurrentCellOutput(msg);
     });
 
     // listen for standard out
-    this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_OUT, (msg) => {
-      this._appendToCurrentCellOutput(msg);
+    this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_OUT, async (msg) => {
+      await this._appendToCurrentCellOutput(msg);
     });
 
     // pass all stderr output back to the console
-    this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_ERR, (msg) => {
-      this._appendToCurrentCellOutput(msg);
+    this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_ERR, async (msg) => {
+      await this._appendToCurrentCellOutput(msg);
     });
 
     // detect when we close IDL
@@ -200,7 +202,9 @@ export class IDLNotebookController {
    */
   private async _IDLCrashed(reason: 'crash' | 'failed-start') {
     if (reason === 'crash') {
-      this._appendToCurrentCellOutput(IDL_TRANSLATION.notebooks.errors.crashed);
+      await this._appendToCurrentCellOutput(
+        IDL_TRANSLATION.notebooks.errors.crashed
+      );
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_NOTEBOOK_LOG,
@@ -208,7 +212,7 @@ export class IDLNotebookController {
         alert: IDL_TRANSLATION.notebooks.errors.crashed,
       });
     } else {
-      this._appendToCurrentCellOutput(
+      await this._appendToCurrentCellOutput(
         IDL_TRANSLATION.debugger.adapter.failedStart
       );
     }
@@ -223,7 +227,7 @@ export class IDLNotebookController {
   /**
    * Output to append
    */
-  private _appendToCurrentCellOutput(content: string) {
+  private async _appendToCurrentCellOutput(content: string) {
     // log output
     IDL_LOGGER.log({
       log: IDL_NOTEBOOK_LOG,
@@ -237,14 +241,18 @@ export class IDLNotebookController {
       this._currentCell.output = `${this._currentCell.output}${content}`;
 
       // replace the output for the cell
-      this._replaceCellOutput(this._currentCell, this._currentCell.output);
+      await this._replaceCellOutput(
+        this._currentCell,
+        this._currentCell.output
+      );
     }
   }
 
   /**
-   * Output to append
+   * Replaces the output for a notebook cell and
+   * normalizes the results to look the same
    */
-  private async _replaceCellOutput(
+  async _replaceCellOutput(
     cell: ICurrentCell,
     content: string,
     forceUpdate = false
@@ -253,10 +261,15 @@ export class IDLNotebookController {
     if (!cell.finished) {
       // update our cell if we have finished launching
       if (this.isStarted() || forceUpdate) {
-        cell.execution.replaceOutput(
+        await cell.execution.replaceOutput(
           new vscode.NotebookCellOutput([
             new vscode.NotebookCellOutputItem(
-              Buffer.from(content.replace(REGEX_NEW_LINE, '\n')),
+              Buffer.from(
+                ReplaceNotebookPaths(
+                  this,
+                  content.replace(REGEX_NEW_LINE, '\n')
+                )
+              ),
               'text/plain'
             ),
           ])
@@ -322,7 +335,7 @@ export class IDLNotebookController {
    * We also do post-processing and, if we succeeded, we try to retrieve any
    * graphics.
    */
-  private async _endCellExecution(
+  async _endCellExecution(
     success: boolean,
     inActions: Partial<IEndCellExecutionActions> = {}
   ) {
@@ -609,7 +622,7 @@ export class IDLNotebookController {
           if (compareVersions(parsed.release, '8.8.0') === -1) {
             if (current !== undefined) {
               current.execution.start(Date.now());
-              this._replaceCellOutput(
+              await this._replaceCellOutput(
                 current,
                 IDL_TRANSLATION.notebooks.notifications.notValidIDLVersion,
                 true
@@ -705,145 +718,8 @@ export class IDLNotebookController {
    * Execute cell
    */
   async _executeCell(cell: vscode.NotebookCell): Promise<ICurrentCell> {
-    /**
-     * Create cell execution data
-     */
-    const execution = this._controller.createNotebookCellExecution(cell);
-
-    /**
-     * Track current cell
-     */
-    const current: ICurrentCell = {
-      cell,
-      execution,
-      output: '',
-      finished: false,
-      success: true,
-    };
-
-    // attempt to launch IDL if we havent started yet
-    if (!this.isStarted()) {
-      try {
-        if (
-          !(await this.launchIDL(
-            IDL_TRANSLATION.notebooks.notifications.startingIDL,
-            current
-          ))
-        ) {
-          execution.end(false, Date.now());
-          current.success = false;
-          return current;
-        }
-      } catch (err) {
-        execution.end(false, Date.now());
-        current.success = false;
-        return current;
-      }
-    }
-
-    // save cell as current
-    this._currentCell = current;
-
-    // set cell order
-    execution.executionOrder = ++this._executionOrder;
-
-    // set start time
-    execution.start(Date.now());
-
-    // reset cell output
-    execution.clearOutput();
-
-    // reset stack trace
-    IDL_DECORATIONS_MANAGER.resetStackTraceDecorations('notebook');
-
-    /** Folder where we write notebook cell, check if NB is saved to disk  */
-    const nbDir =
-      cell.notebook.uri.scheme === 'file'
-        ? dirname(CleanPath(cell.notebook.uri.fsPath))
-        : NOTEBOOK_FOLDER;
-
-    /**
-     * PRO file for where we write the NB cell to disk
-     */
-    const fsPath =
-      cell.notebook.uri.scheme === 'file'
-        ? IDLFileHelper.notebookCellUriToFSPath(cell.document.uri)
-        : join(nbDir, 'notebook_cell.pro');
-
-    // make our folder if it doesnt exist
-    if (!existsSync(nbDir)) {
-      mkdirSync(nbDir, { recursive: true });
-    }
-
-    /**
-     * Send message to convert code
-     */
-    const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
-      LANGUAGE_SERVER_MESSAGE_LOOKUP.PREPARE_NOTEBOOK_CELL,
-      {
-        notebookUri: cell.notebook.uri.toString(),
-        cellUri: cell.document.uri.toString(),
-        code: cell.document.getText(),
-      }
-    );
-
-    // see if theres a problem, user should be alerted
-    if (!resp) {
-      await this._endCellExecution(false);
-      return current;
-    }
-
-    // check if empty main level
-    if (resp.emptyMain) {
-      await this._endCellExecution(true);
-      return current;
-    }
-
-    // write file
-    writeFileSync(fsPath, resp.code);
-
-    // reset syntax errors
-    this._runtime.resetErrorsByFile();
-
-    // compile our code
-    await this.evaluate(`.compile -v '${fsPath}'`);
-
-    // delete file
-    rmSync(fsPath);
-
-    // get syntax errors
-    const errs = this._runtime.getErrorsByFile();
-
-    // map path on disk to notebook cell
-    const fsUri = vscode.Uri.file(fsPath).toString();
-
-    // track problems we report
-    const errReport: IDLSyntaxErrorLookup = {};
-
-    // set errors or reset
-    errReport[cell.document.uri.toString()] = fsUri in errs ? errs[fsUri] : [];
-
-    // add decorations
-    IDL_DECORATIONS_MANAGER.syncSyntaxErrorDecorations(errReport);
-
-    // check for syntax errors
-    if (Object.keys(errs).length > 0) {
-      // set finish time
-      await this._endCellExecution(false);
-    } else {
-      // run main level program
-      if (resp.hasMain) {
-        await this.evaluate(`.go`);
-      }
-
-      /**
-       * End cell execution and post-process
-       */
-      await this._endCellExecution(true);
-    }
-
-    // return as success
-    return current;
+    this.knownNotebooks[cell.notebook.uri.toString()] = cell.notebook;
+    return ExecuteNotebookCell(this, cell);
   }
 
   /**
@@ -984,18 +860,17 @@ export class IDLNotebookController {
    *
    * You should check the "launched" property before calling this
    */
-  async evaluate(command: string) {
+  async evaluate(command: string, inOptions: IDLEvaluateOptions = {}) {
     // return if we havent started
     if (!this.isStarted()) {
       return '';
     }
 
-    const res = await this._runtime.evaluate(command, {
-      echo: false,
-      idlInfo: false,
-      cut: false,
-      silent: false,
-    });
+    /** Get execute options */
+    const options = { ...DEFAULT_NOTEBOOK_EVALUATE_OPTIONS, ...inOptions };
+
+    /** Have IDL execute */
+    const res = await this._runtime.evaluate(command, options);
 
     // check for errors
     this._runtime.errorCheck(res);

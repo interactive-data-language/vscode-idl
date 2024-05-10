@@ -81,4 +81,22 @@ export class IDLFileHelper {
       fragment: basename(split[1], `.pro`),
     });
   }
+
+  /**
+   * Returns the VSCode URI for a notebook document from the FS path
+   * for a notebook cell
+   */
+  static getParentNotebookFSPathFromNotebookCellFSPath(fsPath: string) {
+    return (
+      fsPath.split(`_${NOTEBOOK_CELL_BASE_NAME}_`)[0] + IDL_NOTEBOOK_EXTENSION
+    );
+  }
+
+  /**
+   * Returns the VSCode URI for a notebook document from the FS path
+   * for a notebook cell
+   */
+  static getParentNotebookURIFromNotebookCellFSPath(fsPath: string) {
+    return URI.file(this.getParentNotebookFSPathFromNotebookCellFSPath(fsPath));
+  }
 }
