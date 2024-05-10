@@ -41,7 +41,7 @@ export interface IStackTraceLookup {
  *
  * From: https://github.com/ryanluker/vscode-coverage-gutters/blob/master/package.json#L47-L76
  */
-export const STACK_TRACE_DECORATION =
+export const STACK_TRACE_DECORATION_WITH_GUTTER =
   vscode.window.createTextEditorDecorationType({
     isWholeLine: true,
     dark: {
@@ -55,6 +55,22 @@ export const STACK_TRACE_DECORATION =
       gutterIconPath: GetExtensionPath(
         'extension/images/light/debug-stackframe.svg'
       ),
+    },
+  });
+
+/**
+ * Decorate stack trace lines, no gutter
+ *
+ * From: https://github.com/ryanluker/vscode-coverage-gutters/blob/master/package.json#L47-L76
+ */
+export const STACK_TRACE_DECORATION =
+  vscode.window.createTextEditorDecorationType({
+    isWholeLine: true,
+    dark: {
+      backgroundColor: 'rgba(163, 149, 0, 0.4)',
+    },
+    light: {
+      backgroundColor: 'rgba(255, 235, 0, 0.2)',
     },
   });
 
