@@ -5,7 +5,6 @@ import {
   PrepareNotebookCellResponse,
 } from '@idl/vscode/events/messages';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
-import { URI } from 'vscode-uri';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
@@ -28,10 +27,6 @@ export const ON_PREPARE_NOTEBOOK_CELL = async (
       type: 'debug',
       content: ['Preparing notebook cell', event],
     });
-
-    const uri = URI.file(event.notebookUri);
-
-    console.log({ nbFile: uri.fsPath });
 
     /**
      * Get information for our cell (gets path for language server lookup)
