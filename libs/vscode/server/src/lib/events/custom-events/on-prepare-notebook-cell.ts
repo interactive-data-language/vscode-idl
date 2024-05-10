@@ -5,6 +5,7 @@ import {
   PrepareNotebookCellResponse,
 } from '@idl/vscode/events/messages';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
+import { URI } from 'vscode-uri';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
@@ -28,6 +29,10 @@ export const ON_PREPARE_NOTEBOOK_CELL = async (
       content: ['Preparing notebook cell', event],
     });
 
+    const uri = URI.file(event.notebookUri);
+
+    console.log({ nbFile: uri.fsPath });
+
     /**
      * Get information for our cell (gets path for language server lookup)
      */
@@ -38,10 +43,16 @@ export const ON_PREPARE_NOTEBOOK_CELL = async (
       return undefined;
     }
 
+    // update notebook
+
     return await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
       IDL_INDEX.getWorkerID(info.fsPath),
       LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_NOTEBOOK_CELL,
-      event
+      {
+        ...event,
+        // update cell URI to use LSP URI
+        cellUri: info.fsPath,
+      }
     ).response;
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
