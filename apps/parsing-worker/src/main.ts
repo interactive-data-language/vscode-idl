@@ -1,7 +1,8 @@
 import { AssembleWithIndex } from '@idl/assembler';
 import { Migrator } from '@idl/assembling/migrators';
 import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
-import { ParseFileSync, Parser } from '@idl/parser';
+import { PrepareNotebookCell } from '@idl/notebooks/idl-index';
+import { ParseFileSync } from '@idl/parser';
 import {
   ChangeDetection,
   GetHoverHelpLookup,
@@ -10,11 +11,8 @@ import {
   IDLIndex,
   ReduceGlobals,
 } from '@idl/parsing/index';
-import { RemoveScopeDetail, TreeBranchToken } from '@idl/parsing/syntax-tree';
-import { IsSingleLine } from '@idl/parsing/syntax-validators';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import {
   ChangeDetectionResponse,
   ILSPWorkerThreadClient,
@@ -27,7 +25,6 @@ import {
   RemoveFilesResponse,
 } from '@idl/workers/parsing';
 import { WorkerIOClient } from '@idl/workers/workerio';
-import copy from 'fast-copy';
 import { existsSync } from 'fs';
 import { parentPort } from 'worker_threads';
 
@@ -514,90 +511,22 @@ client.on(
 );
 
 /**
- * Post-process some files
+ * Prepare a notebook cell to run
  */
 client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_NOTEBOOK_CELL,
   async (message, cancel) => {
-    /** Get array of strings */
-    const strings = message.content.split(/\r?\n/g);
-
     /**
-     * Pase code
+     * Get parsed code
      */
-    const parsed = WORKER_INDEX.tokensByFile.has(message.cellUri)
-      ? WORKER_INDEX.tokensByFile.get(message.cellUri)
-      : Parser(message.content, cancel, { isNotebook: true });
-
-    /**
-     * Flag if we have a main level program or not
-     */
-    let hasMain = true;
-
-    /**
-     * Do we have an empty main level program?
-     */
-    let emptyMain = false;
-
-    // check for main level program
-    if (parsed.tree[parsed.tree.length - 1]?.name === TOKEN_NAMES.MAIN_LEVEL) {
-      hasMain = true;
-
-      // check if we are a single line
-      if (
-        IsSingleLine(parsed.tree[parsed.tree.length - 1] as TreeBranchToken)
-      ) {
-        strings.push('end');
-      } else {
-        /**
-         * Get problem codes
-         */
-        const codes = parsed.parseProblems.map((problem) => problem.code);
-
-        // check special cases
-        for (let i = 0; i < codes.length; i++) {
-          // check for missing end to the main level program
-          if (codes[i] === IDL_PROBLEM_CODES.MISSING_MAIN_END) {
-            strings.push('end');
-            break;
-          }
-
-          // check for empty main
-          if (codes[i] === IDL_PROBLEM_CODES.EMPTY_MAIN) {
-            emptyMain = true;
-            break;
-          }
-        }
-      }
-    } else {
-      hasMain = false;
-    }
-
-    /**
-     * Get Code without print statements
-     */
-    const withoutPrint = copy(strings);
-
-    // update lines for implied print
-    const update = parsed.parseProblems.filter(
-      (prob) => prob.code === IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
+    const parsed = await WORKER_INDEX.getParsedNotebookCell(
+      message.cellUri,
+      message.code,
+      cancel
     );
 
-    // manipulate lines
-    for (let i = 0; i < update.length; i++) {
-      strings[update[i].start[0]] = `print, ${strings[update[i].start[0]]}`;
-      strings[update[i].end[0]] = `${
-        strings[update[i].end[0]]
-      }, /implied_print`;
-    }
-
-    return {
-      offset: 0,
-      content: strings.join('\n'),
-      hasMain,
-      emptyMain,
-      withoutPrint: withoutPrint.join('\n'),
-    };
+    // prepare and return
+    return PrepareNotebookCell(parsed, message.code);
   }
 );
 

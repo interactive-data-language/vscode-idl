@@ -68,6 +68,7 @@ import { GetAutoComplete } from './auto-complete/get-auto-complete';
 import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
 import { GetParsedNotebook } from './get-parsed/get-parsed-notebook';
+import { GetParsedNotebookCell } from './get-parsed/get-parsed-notebook-cell';
 import { GetParsedPROCode } from './get-parsed/get-parsed-pro-code';
 import { ParseNotebook } from './get-parsed/parse-notebook';
 import { GlobalIndex } from './global-index.class';
@@ -1038,6 +1039,17 @@ export class IDLIndex {
     options: Partial<IIndexProCodeOptions> = {}
   ): Promise<IParsed> {
     return GetParsedPROCode(this, file, code, token, options);
+  }
+
+  /**
+   * Returns the parsed version of a notebook cell
+   */
+  async getParsedNotebookCell(
+    file: string,
+    code: string | string[],
+    token: CancellationToken
+  ): Promise<IParsed> {
+    return GetParsedNotebookCell(this, file, code, token);
   }
 
   /**

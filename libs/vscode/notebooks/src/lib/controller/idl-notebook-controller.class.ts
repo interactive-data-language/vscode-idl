@@ -783,7 +783,7 @@ export class IDLNotebookController {
       {
         notebookUri: cell.notebook.uri.toString(),
         cellUri: cell.document.uri.toString(),
-        content: cell.document.getText(),
+        code: cell.document.getText(),
       }
     );
 
@@ -800,7 +800,7 @@ export class IDLNotebookController {
     }
 
     // write file
-    writeFileSync(fsPath, resp.content);
+    writeFileSync(fsPath, resp.code);
 
     // reset syntax errors
     this._runtime.resetErrorsByFile();
