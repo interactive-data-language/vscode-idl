@@ -2,6 +2,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { CodeChecksum, Parser } from '@idl/parser';
 import { IParsed } from '@idl/parsing/syntax-tree';
 
+import { ResolveNotebookVariablesFromProcedures } from '../helpers/resolve-notebook-variables-from-procedures';
 import { IDLIndex } from '../idl-index.class';
 import { PENDING_NOTEBOOK } from './get-parsed-notebook';
 
@@ -38,8 +39,12 @@ export async function GetParsedNotebookCell(
     }
   }
 
-  // TODO: add in post-processing
+  // parse the file
+  const parsed = Parser(code, token, { isNotebook: true });
+
+  // differentiate between vars and pros
+  ResolveNotebookVariablesFromProcedures(parsed);
 
   // manually parse the cell
-  return Parser(code, token, { isNotebook: true });
+  return parsed;
 }

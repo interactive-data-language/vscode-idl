@@ -76,6 +76,7 @@ import { GetCodeSemanticTokens } from './helpers/get-code-semantic-tokens';
 import { GetSyntaxProblems } from './helpers/get-syntax-problems';
 import { PopulateNotebookVariables } from './helpers/populate-notebook-variables';
 import { ResetGlobalDisplayNames } from './helpers/reset-global-display-names';
+import { ResolveNotebookVariablesFromProcedures } from './helpers/resolve-notebook-variables-from-procedures';
 import { SplitFiles } from './helpers/split-files';
 import { GetHoverHelpFromLookup } from './hover-help/get-hover-help-from-lookup';
 import { GetHoverHelpLookup } from './hover-help/get-hover-help-lookup';
@@ -1123,6 +1124,9 @@ export class IDLIndex {
       if (byCell[files[i]] === undefined) {
         continue;
       }
+
+      // convert pros to vars
+      ResolveNotebookVariablesFromProcedures(byCell[files[i]]);
 
       // inherit data types from cells above us
       if (i > 0) {

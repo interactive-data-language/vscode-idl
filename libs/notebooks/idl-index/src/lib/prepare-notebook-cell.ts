@@ -73,6 +73,12 @@ export async function PrepareNotebookCell(
     strings[update[i].end[0]] = `${strings[update[i].end[0]]}, /implied_print`;
   }
 
+  // add print for any variables that we need to print
+  const asVars = parsed.local.semantic.notProcedure;
+  for (let i = 0; i < asVars.length; i++) {
+    strings[asVars[i][0]] = `print, ${strings[asVars[i][0]]}, /implied_print`;
+  }
+
   return {
     offset: 0,
     code: strings.join('\n'),

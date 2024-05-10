@@ -69,6 +69,18 @@ export function GetSemanticTokens(parsed: IParsed) {
     }
   }
 
+  // add other semantic tokens we detected
+  const notPro = parsed.local.semantic.notProcedure;
+  for (let i = 0; i < notPro.length; i++) {
+    tokens.push([
+      notPro[i][0],
+      notPro[i][1],
+      notPro[i][2],
+      SEMANTIC_TOKEN_TYPE_INDEX_LOOKUP[SemanticTokenTypes.variable],
+      SEMANTIC_TOKEN_MODIFIER_INDEX_LOOKUP[SemanticTokenModifiers.modification],
+    ]);
+  }
+
   // if no tokens return
   if (tokens.length === 0) {
     return;
