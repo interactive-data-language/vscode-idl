@@ -96,9 +96,6 @@ export function Parser(
       func: {},
       pro: {},
       main: {},
-      semantic: {
-        notProcedure: [],
-      },
     },
     compile: {
       func: {},
@@ -107,7 +104,7 @@ export function Parser(
     },
     uses: copy(DEFAULT_USES_THESE_GLOBAL_TOKEN),
     outline: [],
-    semantic: { data: [] },
+    semantic: { notProcedure: [], built: { data: [] } },
   };
 
   // extract tokens
