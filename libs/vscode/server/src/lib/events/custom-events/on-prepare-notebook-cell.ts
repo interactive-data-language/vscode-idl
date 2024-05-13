@@ -33,22 +33,27 @@ export const ON_PREPARE_NOTEBOOK_CELL = async (
      */
     const info = await ResolveFSPathAndCodeForURI(event.cellUri);
 
-    // return if nothing found
+    /**
+     * Check if no info, means that our NB is not saved to disk
+     * so we need to work around it
+     */
     if (info === undefined) {
-      return undefined;
+      return await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
+        IDL_INDEX.getNextWorkerID(),
+        LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_NOTEBOOK_CELL,
+        event
+      ).response;
+    } else {
+      return await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
+        IDL_INDEX.getWorkerID(info.fsPath),
+        LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_NOTEBOOK_CELL,
+        {
+          ...event,
+          // update cell URI to use LSP URI
+          cellUri: info.fsPath,
+        }
+      ).response;
     }
-
-    // update notebook
-
-    return await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
-      IDL_INDEX.getWorkerID(info.fsPath),
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_NOTEBOOK_CELL,
-      {
-        ...event,
-        // update cell URI to use LSP URI
-        cellUri: info.fsPath,
-      }
-    ).response;
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

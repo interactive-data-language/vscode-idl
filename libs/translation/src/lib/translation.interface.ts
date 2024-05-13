@@ -656,6 +656,8 @@ export interface ITranslation {
       failedStart: string;
       /** if we failed to execute one or more cells */
       failedExecute: string;
+      /** if we failed to prepare code to run */
+      failedCodePrepare: string;
       /** Alert users that IDL for notebooks didn't quite start or reset right */
       didntStartRight: string;
       /** IDL crashes while running something in the notebook */

@@ -1,8 +1,9 @@
 import { IDLSyntaxErrorLookup } from '@idl/idl';
+import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
 import { CleanPath, IDLFileHelper } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
+import { IDL_LOGGER, LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
@@ -103,6 +104,14 @@ export async function ExecuteNotebookCell(
 
   // see if theres a problem, user should be alerted
   if (!resp) {
+    IDL_LOGGER.log({
+      type: 'error',
+      log: IDL_NOTEBOOK_LOG,
+      content: [IDL_TRANSLATION.notebooks.errors.failedCodePrepare],
+      alert: IDL_TRANSLATION.notebooks.errors.failedCodePrepare,
+    });
+
+    // update VSCode
     await controller._endCellExecution(false);
     return current;
   }
