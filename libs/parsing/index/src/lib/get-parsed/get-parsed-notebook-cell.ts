@@ -8,6 +8,10 @@ import { PENDING_NOTEBOOK } from './get-parsed-notebook';
 
 /**
  * Handles getting a parsed notebook from the IDL index
+ *
+ * File does not have to exist on disk. Can be the crazy path we get
+ * from VSCode for NBs without cells saved to disk. That's why we dont
+ * track known files here
  */
 export async function GetParsedNotebookCell(
   index: IDLIndex,

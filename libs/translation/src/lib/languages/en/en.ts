@@ -709,6 +709,8 @@ export const EN: ITranslation = {
       didntStartRight:
         "The notebook session of IDL didn't start or reset right. Not everything may function as expected.",
       failedExecute: 'Failed to execute notebook cells',
+      failedCodePrepare:
+        'Unknown problem while preparing a notebook cell to run. Please save notebooks to disk, or file a bug if this persists.',
       crashed:
         'IDL crashed or was stopped by the user and needs to be restarted',
       checkingGraphics: 'Error while trying to retrieve any graphics to embed',

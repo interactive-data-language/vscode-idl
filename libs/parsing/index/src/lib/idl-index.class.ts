@@ -907,7 +907,7 @@ export class IDLIndex {
    *
    * If the file has not been processed by a worker it is assigned an ID
    */
-  getWorkerID(file: string) {
+  getWorkerID(file: string): string {
     const useFile = file.split('#')[0];
     if (this.workerIDsByFile[useFile] !== undefined) {
       return this.workerIDsByFile[useFile];
@@ -915,6 +915,13 @@ export class IDLIndex {
       this.workerIDsByFile[useFile] = this.indexerPool.getIDs()[0];
       return this.workerIDsByFile[useFile];
     }
+  }
+
+  /**
+   * Gets the ID for a worker that we can send processing to
+   */
+  getNextWorkerID(): string {
+    return this.indexerPool.getIDs()[0];
   }
 
   /**
