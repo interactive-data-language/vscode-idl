@@ -23,6 +23,7 @@ import {
   REGEX_IDL_PROMPT,
   REGEX_NEW_LINE_COMPRESS,
   REGEX_STOP_DETECTION,
+  REGEX_STOP_DETECTION_BASIC,
 } from './utils/regex';
 
 /**
@@ -50,6 +51,12 @@ export class IDLProcess extends EventEmitter {
 
   /** Fully-qualified path to vscode.pro, needed for auxiliary IDL routines */
   vscodeProDir: string;
+
+  /** Flag that indicates if we are evaluating a statement or not */
+  private evaluating = false;
+
+  /** Currently captured output from stdout/stderr */
+  private capturedOutput = '';
 
   constructor(log: Logger, vscodeProDir: string) {
     super();
@@ -191,14 +198,6 @@ export class IDLProcess extends EventEmitter {
       return;
     }
 
-    // // listen for standard out output from IDL
-    // this.idl.stdio[3].on('data', (buff) => {
-    //   this.log.log({
-    //     type: 'info',
-    //     content: `Stdout: ${JSON.stringify(buff.toString('utf8'))}`,
-    //   });
-    // });
-
     // write the IDL prompt if not windows so that we properly
     // detect start. for our "poor man's solution" this is the indicator
     // that we are ready to go again
@@ -212,106 +211,73 @@ export class IDLProcess extends EventEmitter {
      */
     let first = true;
 
-    /** Currently captured output from stdout/stderr */
-    let capturedOutput = '';
-
     /** Error from child process, if we have one */
     let error: Error;
-
-    /**
-     * Callback that checks our return conditions every time data comes through
-     */
-    const handleReturn = () => {
-      // // check if we have a prompt match!
-      // if (
-      //   REGEX_IDL_PROMPT.test(data) ||
-      //   REGEX_IDL_PROMPT.test(capturedOutput)
-      // ) {
-      /**
-       * setTimeout solves a race condition where the default case comes through after
-       * the prompt does which means we miss out on content coming back to the first process.
-       */
-      setTimeout(() => {
-        this.emit(IDL_EVENT_LOOKUP.PROMPT_READY, capturedOutput);
-        capturedOutput = '';
-      }, 0);
-      // }
-    };
 
     /**
      * Callback to handle output from IDL (stdout and stderr).
      *
      * If print is true, we emit an output event.
      */
-    const handleOutput = (buff: any, print = false) => {
+    const handleOutput = (buff: any) => {
       /** Current stdout or stderr */
       const data = buff.toString('utf8');
-
-      // NOT RIGHT LOGIC - this breaks things, need true events
-      // // check if we have stopped
-      // if (REGEX_STOP_DETECTION_BASIC.test(data)) {
-      //   this.emit(IDL_EVENT_LOOKUP.STOP, 'stop', {
-      //     file: '$main$',
-      //     index: 0,
-      //     line: 0,
-      //     name: '$main$',
-      //   });
-      // }
 
       // what do we do?
       switch (true) {
         // back to "IDL> or ENVI>"" prompt? use the last 50 characters of the total captured output to see
         // if the prompt partially came through before
         case REGEX_IDL_PROMPT.test(
-          capturedOutput.substring(Math.max(capturedOutput.length - 50, 0)) +
-            data
+          this.capturedOutput.substring(
+            Math.max(this.capturedOutput.length - 50, 0)
+          ) + data
         ):
           {
             // get length of captured output
-            const lBefore = capturedOutput.length;
+            const lBefore = this.capturedOutput.length;
 
             // remove IDL or ENVI prompt which might be split up
-            capturedOutput = `${capturedOutput}${data}`.replace(
+            this.capturedOutput = `${this.capturedOutput}${data}`.replace(
               REGEX_IDL_PROMPT,
               ''
             );
 
-            // check if we need to print to debug console
-            if (print) {
-              // get the additional text to log to the console with prompt removed
-              const delta = capturedOutput.substring(
-                lBefore,
-                capturedOutput.length
-              );
+            // get the additional text to log to the console with prompt removed
+            const delta = this.capturedOutput.substring(
+              lBefore,
+              this.capturedOutput.length
+            );
 
-              // send if not empty - can have more than just the prompt return here
-              if (delta.trim() !== '' || first) {
-                this.emit(IDL_EVENT_LOOKUP.STANDARD_OUT, first ? data : delta);
-              }
+            // send if not empty - can have more than just the prompt return here
+            if (delta.trim() !== '' || first) {
+              this.sendOutput(first ? data : delta);
             }
 
-            // check for return
-            handleReturn();
+            /**
+             * setTimeout solves a race condition where the default case comes through after
+             * the prompt does which means we miss out on content coming back to the first process.
+             */
+            setTimeout(() => {
+              this.emit(IDL_EVENT_LOOKUP.PROMPT_READY, this.capturedOutput);
+            }, 50);
           }
           break;
 
         case REGEX_EMPTY_LINE.test(data) && os.platform() === 'win32':
-          capturedOutput += '\n';
+          this.capturedOutput += '\n';
           // too much nonsense comes from windows, but this is better logic on other platforms
           // mostly for startup
           if (!this.started) {
-            this.emit(IDL_EVENT_LOOKUP.STANDARD_OUT, ' \n');
+            this.sendOutput(' \n');
           }
           break;
 
         // other data that we need to capture?
         default:
-          capturedOutput += data;
+          this.capturedOutput += data;
 
           // check if we need to print to debug console
-          if (print) {
-            this.emit(IDL_EVENT_LOOKUP.STANDARD_OUT, data);
-          }
+          this.sendOutput(data);
           break;
       }
 
@@ -334,25 +300,10 @@ export class IDLProcess extends EventEmitter {
     });
 
     // listen for standard out output from IDL
-    this.idl.stdout.on('data', (buff) => {
-      this.log.log({
-        type: 'debug',
-        content: `Stdout: ${JSON.stringify(buff.toString('utf8'))}`,
-      });
-      handleOutput(buff, !this.silent);
-    });
+    this.idl.stdout.on('data', handleOutput);
 
     // listen for standard error output from IDL
-    this.idl.stderr.on('data', (buff) => {
-      this.log.log({
-        type: 'debug',
-        content: `Stderr: ${JSON.stringify(buff.toString('utf8'))}`,
-      });
-      handleOutput(buff, !this.silent);
-
-      // always check stderr for stops and such
-      this.stopCheck(capturedOutput);
-    });
+    this.idl.stderr.on('data', handleOutput);
 
     // set flag the first time we start up to be ready to accept input
     this.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
@@ -382,11 +333,11 @@ export class IDLProcess extends EventEmitter {
             type: 'error',
             content: [
               'Failed to start IDL',
-              { cmd, code, signal, capturedOutput, error },
+              { cmd, code, signal, capturedOutput: this.capturedOutput, error },
             ],
             alert: `${
               IDL_TRANSLATION.debugger.adapter.failedStart
-            } "${capturedOutput.trim()}"`,
+            } "${this.capturedOutput.trim()}"`,
           });
           this.emit(IDL_EVENT_LOOKUP.FAILED_START, 'Failed to start IDL');
           break;
@@ -395,7 +346,7 @@ export class IDLProcess extends EventEmitter {
             type: 'error',
             content: [
               'IDL crashed or was stopped by the user',
-              { cmd, code, signal, capturedOutput, error },
+              { cmd, code, signal, capturedOutput: this.capturedOutput, error },
             ],
             alert: IDL_TRANSLATION.debugger.adapter.crashed,
           });
@@ -407,6 +358,45 @@ export class IDLProcess extends EventEmitter {
       this.stop();
       this.closing = false;
     });
+  }
+
+  /**
+   * Wraps emitting standard output to make sure all checks happen in one place
+   */
+  sendOutput(data: any) {
+    // send output only if we are not silent
+    if (!this.silent) {
+      this.emit(IDL_EVENT_LOOKUP.STANDARD_OUT, data);
+    }
+
+    /**
+     * If we are not evaluating a statement, then do a stop check
+     *
+     * This handles a case where:
+     *
+     * 1. I have PRO code with a breakpoint set
+     * 2. I start an IDL UI application
+     * 3. A UI callback runs the routine with a breakpoint
+     *
+     * When in this mode, we don't capture the output and save in our variable
+     * because it is not directly from the command that we were executing
+     */
+    if (!this.evaluating && this.started) {
+      if (
+        REGEX_STOP_DETECTION_BASIC.test(
+          this.capturedOutput.replace(/\r*\n/gim, '')
+        )
+      ) {
+        setTimeout(() => {
+          this.emit(IDL_EVENT_LOOKUP.STOP, 'stop', {
+            file: '$main$',
+            index: 0,
+            line: 0,
+            name: '$main$',
+          });
+        }, 0);
+      }
+    }
   }
 
   /**
@@ -531,6 +521,10 @@ export class IDLProcess extends EventEmitter {
         content: [`Executing:`, { command }],
       });
 
+      // reset captured output
+      this.capturedOutput = '';
+      this.evaluating = true;
+
       // send the command to IDL
       if (os.platform() !== 'win32') {
         // print the "terminal" so we know we are ready for input
@@ -545,6 +539,10 @@ export class IDLProcess extends EventEmitter {
           type: 'debug',
           content: [`Output:`, { output }],
         });
+
+        // reset captured output
+        this.capturedOutput = '';
+        this.evaluating = false;
 
         // resolve our parent promise
         resolve(output);
