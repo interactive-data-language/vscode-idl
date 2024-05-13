@@ -23,7 +23,7 @@ import { IDLProcess } from './idl-process.class';
 import EventEmitter = require('events');
 import { URI } from 'vscode-uri';
 
-import { REGEX_COMPILE_ERROR, REGEX_IDL_LOCATION } from './utils/regex';
+import { REGEX_COMPILE_ERROR } from './utils/regex';
 
 /**
  * Class that manages interacting with IDL.
