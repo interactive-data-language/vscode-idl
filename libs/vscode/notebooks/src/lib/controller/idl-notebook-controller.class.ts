@@ -31,6 +31,7 @@ import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
 import { compareVersions } from 'compare-versions';
 import copy from 'fast-copy';
 import * as vscode from 'vscode';
+import { URI } from 'vscode-uri';
 
 import { ExecuteNotebookCell } from './helpers/execute-notebook-cell';
 import { ReplaceNotebookPaths } from './helpers/replace-notebook-paths';
@@ -370,7 +371,7 @@ export class IDLNotebookController {
     // check if we need to decorate our call stack
     if (this.isStarted() && actions.decorateStack) {
       // get the current scope
-      const stack = (await this._runtime.getCurrentStack()).reverse();
+      const stack = await this._runtime.getCurrentStack();
 
       // get the fsPath for the current cell
       const fsPath = IDLFileHelper.notebookCellUriToFSPath(
@@ -382,10 +383,37 @@ export class IDLNotebookController {
 
       // see if we have a location we stopped on
       if (ourFile.length > 0) {
-        IDL_DECORATIONS_MANAGER.addStackTraceDecorations(
-          cell.cell.document.uri,
-          ourFile.map((item) => item.line - 1) // in notebooks, we need zero-based instead of one
-        );
+        // decorate the whole call stack
+        for (let i = 0; i < stack.length; i++) {
+          // skip non-notebook cells
+          if (!IDLFileHelper.isNotebookCell(stack[i].file)) {
+            continue;
+          }
+
+          /**
+           * Add decoration, leave logic for all files in case we need it
+           * even though we have a filter up above
+           */
+          IDL_DECORATIONS_MANAGER.addStackTraceDecorations(
+            IDLFileHelper.isNotebookCell(stack[i].file)
+              ? IDLFileHelper.notebookCellFSPathToUri(stack[i].file)
+              : URI.file(stack[i].file),
+            [stack[i].line - 1], // in notebooks, we need zero-based instead of one
+            i === 0
+          );
+        }
+
+        /**
+         * Old way of highlighting which just showed where we stopped in our current
+         * cell.
+         *
+         * This code requires a "reverse()" of the call stack or grabbing the last
+         * element of the array
+         */
+        // IDL_DECORATIONS_MANAGER.addStackTraceDecorations(
+        //   cell.cell.document.uri,
+        //   ourFile.map((item) => item.line - 1) // in notebooks, we need zero-based instead of one
+        // );
       }
     }
 
