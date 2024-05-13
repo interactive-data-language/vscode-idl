@@ -1135,7 +1135,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       IDL_LOGGER.log({
         type: 'debug',
         log: IDL_DEBUG_ADAPTER_LOG,
-        content: ['Stack trace request', response.body.stackFrames],
+        content: ['Call stack', response.body.stackFrames],
       });
 
       // send response
