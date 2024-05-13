@@ -59,6 +59,8 @@ These type changes help catch some cases that were incorrectly reporting errors 
 
 The extension now automatically detects when you have code that is "floating" which needs to be assigned to a value (or have a value assigned to it).
 
+Add potential fix to resolve edge-case for debugging when breakpoints/stops/interrupts are encountered without a user issuing a command to IDL. This comes from IDL GUI applications that trigger callbacks.
+
 ## 4.4.2 - April 2024
 
 For notebook cells, syntax errors are now highlighted and problems are reported on the lines that have errors. This behaves the same as PRO files when using the debug console as well.
