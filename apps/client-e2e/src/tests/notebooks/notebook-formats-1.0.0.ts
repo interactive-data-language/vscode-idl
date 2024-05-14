@@ -3,7 +3,7 @@ import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
-import { CompareCellsAndOutputs } from './helpers/compare-cells';
+import { CompareCellKindsAndOutputs } from './helpers/compare-cells';
 import { ICompareCellAndOutputs } from './helpers/compare-cells.interface';
 
 /**
@@ -89,5 +89,5 @@ export const NotebookFormats_1_0_0: RunnerFunction = async (init) => {
   const nb = await OpenNotebookInVSCode(file);
 
   // compare state
-  CompareCellsAndOutputs(nb, CELL_OUTPUT);
+  CompareCellKindsAndOutputs(nb, CELL_OUTPUT);
 };
