@@ -53,6 +53,7 @@ export const TimerStop: RunnerFunction = async (init) => {
     { line: 1, file },
   ]);
 
-  // return
+  // return - IDL bug/behavior where we need to do it twice
+  await init.debug.adapter.evaluate('retall');
   await init.debug.adapter.evaluate('retall');
 };
