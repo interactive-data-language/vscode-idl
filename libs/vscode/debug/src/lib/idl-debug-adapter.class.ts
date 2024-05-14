@@ -75,7 +75,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   lastLaunchArgs?: IDLDebugConfiguration;
 
   /** IDL interaction manager to communicate with the IDL process */
-  private _runtime: IDLInteractionManager;
+  _runtime: IDLInteractionManager;
 
   /** Breakpoint manager */
   _breakpoints: IDLBreakpointManager;
