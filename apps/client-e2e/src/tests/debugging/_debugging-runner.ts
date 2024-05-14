@@ -15,6 +15,7 @@ import { RigorousAlwaysReturn } from './rigorous-always-return';
 import { RunFile } from './run-file';
 import { StartDebugging } from './start';
 import { SyntaxErrorTracking } from './syntax_error_tracking';
+import { TimerStop } from './timer-stop';
 import { VariableReplacement } from './variable-replacement';
 
 /**
@@ -74,6 +75,11 @@ DEBUGGING_RUNNER.addTest({
 DEBUGGING_RUNNER.addTest({
   name: 'Breakpoints get applied when set before IDL starts up',
   fn: BreakpointSetBeforeStart,
+});
+
+DEBUGGING_RUNNER.addTest({
+  name: 'Detect stops not from manually running code',
+  fn: TimerStop,
 });
 
 DEBUGGING_RUNNER.addTest({
