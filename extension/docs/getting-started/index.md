@@ -6,6 +6,10 @@
   </video>
 </div>
 
+::: info Hey there! New to IDL for VSCode?
+Check out our [latest webinar recording](https://www.nv5geospatialsoftware.com/Company/Events/Events-Detail/ArtMID/19015/ArticleID/24433/Reimagine-the-Way-You-Program-with-IDL-for-VSCode) to learn more and take your IDL programming to the next level.
+:::
+
 Welcome! We are glad you could join us and are wanting to learn more about IDL for VSCode.
 
 If you're like us (the developers of ENVI and IDL), and you have been working with IDL and the workbench/command line for a long time, Visual Studio Code represents quite a different user experience (albeit a good one!).
