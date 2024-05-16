@@ -55,5 +55,10 @@ export const TimerStop: RunnerFunction = async (init) => {
 
   // return - IDL bug/behavior where we need to do it twice
   await init.debug.adapter.evaluate('retall');
+
+  // sleep and wait for our timer callback to get hit
+  await Sleep(500);
+
+  // return again to work around windows bug
   await init.debug.adapter.evaluate('retall');
 };
