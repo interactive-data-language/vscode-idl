@@ -28,7 +28,7 @@ Added the ability to convert a notebook to a PDF! This requires an additional ex
 
 - You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
 
-## Unreleased
+## 4.5.0 - May 2024
 
 New-and improved IDL Notebook user experience!
 
