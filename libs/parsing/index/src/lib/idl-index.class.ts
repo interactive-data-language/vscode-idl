@@ -1137,9 +1137,6 @@ export class IDLIndex {
         PopulateNotebookVariables(files[i], byCell, false);
       }
 
-      // convert pros to vars
-      ResolveNotebookVariablesFromProcedures(byCell[files[i]]);
-
       // post process cell
       await this.postProcessProFile(
         files[i],
@@ -1654,6 +1651,12 @@ export class IDLIndex {
     changeDetection = false
   ) {
     try {
+      // convert pros to vars
+      if (parsed.isNotebook) {
+        ResolveNotebookVariablesFromProcedures(parsed);
+      }
+
+      // perform additional post processing
       PostProcessParsed(this, file, parsed, token);
 
       // check if we need to do change detection

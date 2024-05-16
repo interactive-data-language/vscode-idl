@@ -46,7 +46,8 @@ export async function GetParsedNotebookCell(
   // parse the file
   const parsed = Parser(code, token, { isNotebook: true });
 
-  // differentiate between vars and pros
+  // manually convert routines to variables - handled in notebook cell parsing
+  // but we dont have context for the rest of the NB right here, so no post-processing
   ResolveNotebookVariablesFromProcedures(parsed);
 
   // manually parse the cell
