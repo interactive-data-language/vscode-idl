@@ -17,6 +17,7 @@ import { IDLDisableIndividualsFromSettingsForNotebook } from './idl-disable-indi
 import { IDLJSONInteractRight } from './idl-json-interact-right';
 import { IndexIDLFolderRightAndOpenEditClose } from './index-idl-folder-right-and-open-edit-close';
 import { MigrateCodeDL30, MigrateCodeDL30_2 } from './migrate-code-dl-3.0';
+import { NotebookImpliedPrintProblemReporting } from './notebook-implied-print-problem-reporting';
 import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
 import { NotebookCompletionBasic } from './notebooks-completion-basic';
 import { NotebooksInteractRight } from './notebooks-interact-right';
@@ -157,4 +158,9 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'Notebook problems track right',
   fn: NotebookProblemsTrackRight,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Notebooks report problems right for implied print and standalone expressions',
+  fn: NotebookImpliedPrintProblemReporting,
 });
