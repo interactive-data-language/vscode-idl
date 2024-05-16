@@ -5,7 +5,7 @@
       "type": "code",
       "content": [
         "; make sure stopping works as expected",
-        "wait, 1"
+        "wait, 2"
       ],
       "metadata": {},
       "outputs": []
