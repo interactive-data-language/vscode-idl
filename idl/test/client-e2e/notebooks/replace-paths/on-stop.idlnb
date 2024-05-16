@@ -4,7 +4,6 @@
     {
       "type": "code",
       "content": [
-        "print, 5",
         "stop"
       ],
       "metadata": {},
