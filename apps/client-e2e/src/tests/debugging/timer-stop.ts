@@ -49,8 +49,8 @@ export const TimerStop: RunnerFunction = async (init) => {
 
   // make sure our call stack matches
   expect(stack).toEqual([
+    { line: 12, file },
     { line: 19, file },
-    { line: 1, file },
   ]);
 
   // return - IDL bug/behavior where we need to do it twice
