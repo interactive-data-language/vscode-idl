@@ -87,8 +87,7 @@
             {
               "mime": "text/plain",
               "content": [
-                "           1           2           3           4",
-                ""
+                "           1           2           3           4"
               ]
             }
           ],
@@ -110,8 +109,7 @@
             {
               "mime": "text/plain",
               "content": [
-                "           1           2           3           4",
-                ""
+                "           1           2           3           4"
               ]
             }
           ],
@@ -131,7 +129,7 @@
         "",
         "awesomeFooBar",
         "",
-        "arr"
+        "arr5"
       ],
       "metadata": {},
       "outputs": [
@@ -141,8 +139,7 @@
               "mime": "text/plain",
               "content": [
                 "Hello from awesomeFooBar!",
-                "           1           2           3           4",
-                ""
+                "           1           2           3           4"
               ]
             }
           ],

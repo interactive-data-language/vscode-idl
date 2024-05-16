@@ -1,10 +1,10 @@
 import { GetExtensionPath, Sleep } from '@idl/shared';
 import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
-import { readFileSync } from 'fs';
 import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
+import { CompareNotebookJSONOutputs } from './helpers/compare-notebook-json-outputs';
 
 /**
  * Verifies we replace paths when we stop
@@ -30,16 +30,8 @@ export const NotebooksReplaceCellPathsOnStop: RunnerFunction = async (init) => {
   // save to disk
   await nb.save();
 
-  // get the code we should expect, independent of line ending
-  const actual = readFileSync(nbUri, { encoding: 'utf-8' }).split(/\r?\n/gim);
-
-  // get the code we should expect, independent of line ending
-  const expected = readFileSync(expectedUri, { encoding: 'utf-8' }).split(
-    /\r?\n/gim
-  );
-
-  // verify the content matches what we should have
-  expect(expected).toEqual(actual);
+  // compare outputs
+  await CompareNotebookJSONOutputs(expectedUri, nbUri);
 
   // run all cells
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
