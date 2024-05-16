@@ -20,6 +20,8 @@ Document some advanced types so users may try them out and provide feedback. The
 
 Remove a false error report when you stop IDL (terminate the process) while it is running
 
+Fixed an error where we were not automatically returning from the main level when you compiled a main level program.
+
 ## 4.5.0 - May 2024
 
 New-and improved IDL Notebook user experience!
