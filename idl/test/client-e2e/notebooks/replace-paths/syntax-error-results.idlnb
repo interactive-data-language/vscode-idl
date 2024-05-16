@@ -18,10 +18,10 @@
                 "1 + (",
                 " ^",
                 "% Syntax error.",
-                "  At: syntax-error-results.idlnb, Cell 1, Line 2",
+                "  At: syntax-error.idlnb, Cell 1, Line 2",
                 "",
                 "% End of file encountered before end of program.",
-                "  At: syntax-error-results.idlnb, Cell 1, Line 3",
+                "  At: syntax-error.idlnb, Cell 1, Line 3",
                 "% 2 Compilation error(s) in module $MAIN$.",
                 ""
               ]

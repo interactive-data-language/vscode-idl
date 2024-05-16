@@ -15,7 +15,7 @@
               "mime": "text/plain",
               "content": [
                 "           5",
-                "% Stop encountered: $MAIN$, Notebook: on-stop-results.idlnb, Cell 1, Line 2",
+                "% Stop encountered: $MAIN$, Notebook: on-stop.idlnb, Cell 1, Line 2",
                 ""
               ]
             }
