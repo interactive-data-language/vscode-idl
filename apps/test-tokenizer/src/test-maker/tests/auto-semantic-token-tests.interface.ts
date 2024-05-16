@@ -1,9 +1,9 @@
-import { IAutoTest } from '../tests.interface';
+import { IAutoSyntaxValidatorTest } from '../tests.interface';
 
 /**
  * Automated tests for generating semantic tokens for code
  */
-export const AUTO_SEMANTIC_TOKEN_TESTS: IAutoTest[] = [
+export const AUTO_SEMANTIC_TOKEN_TESTS: IAutoSyntaxValidatorTest[] = [
   {
     suiteName: `Extracts semantic tokens`,
     fileName: `basic.spec.ts`,
@@ -34,6 +34,19 @@ export const AUTO_SEMANTIC_TOKEN_TESTS: IAutoTest[] = [
           `ENVI.displayInNotebookMap`,
           `end`,
         ],
+      },
+    ],
+  },
+  {
+    suiteName: `Extracts semantic tokens`,
+    fileName: `notebooks.spec.ts`,
+    tests: [
+      {
+        name: `for notebook cells`,
+        code: [`compile_opt idl2`, `arr = [1,2,3,4]`, `arr`, `end`],
+        config: {
+          isNotebook: true,
+        },
       },
     ],
   },
