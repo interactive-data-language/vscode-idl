@@ -519,7 +519,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
          * We don't know this until we run our commands.
          */
         if (atMain) {
-          if (REGEX_COMPILED_MAIN.test(CleanIDLOutput(iOutput))) {
+          if (REGEX_COMPILED_MAIN.test(CleanIDLOutput(iOutput, false))) {
             shouldReturn = true;
             shouldContinue = true;
           }
