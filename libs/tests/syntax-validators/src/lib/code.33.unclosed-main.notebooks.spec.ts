@@ -89,6 +89,13 @@ describe(`[auto generated] Detects missing end to main level program`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
+        code: 33,
+        info: 'Main level program is missing an "end" statement',
+        start: [7, 0, 1.7976931348623157e308],
+        end: [7, 0, 1.7976931348623157e308],
+        canReport: false,
+      },
+      {
         code: 104,
         info: 'Unused variable "something"',
         start: [7, 0, 9],
