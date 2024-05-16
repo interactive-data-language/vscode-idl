@@ -2,6 +2,7 @@ import { GetExtensionPath, Sleep } from '@idl/shared';
 import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
 import { readFileSync } from 'fs';
+import { platform } from 'os';
 import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
@@ -15,7 +16,9 @@ export const NotebooksVerifyImpliedPrint: RunnerFunction = async (init) => {
   );
 
   const expectedUri = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/implied-print/implied-print-results.idlnb'
+    platform() === 'win32'
+      ? 'idl/test/client-e2e/notebooks/implied-print/implied-print-results.idlnb'
+      : 'idl/test/client-e2e/notebooks/implied-print/implied-print-results-mac.idlnb'
   );
 
   // open notebook
