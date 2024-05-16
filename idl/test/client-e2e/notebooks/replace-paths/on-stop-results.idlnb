@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "print, 5",
+        "stop"
+      ],
+      "metadata": {},
+      "outputs": [
+        {
+          "items": [
+            {
+              "mime": "text/plain",
+              "content": [
+                "           5",
+                "% Stop encountered: $MAIN$, Notebook: on-stop-results.idlnb, Cell 1, Line 2",
+                ""
+              ]
+            }
+          ],
+          "metadata": {
+            "id": "not-saved"
+          }
+        }
+      ]
+    }
+  ]
+}
