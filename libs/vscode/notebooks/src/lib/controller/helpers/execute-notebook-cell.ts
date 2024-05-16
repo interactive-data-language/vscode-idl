@@ -122,6 +122,12 @@ export async function ExecuteNotebookCell(
     return current;
   }
 
+  IDL_LOGGER.log({
+    type: 'debug',
+    log: IDL_NOTEBOOK_LOG,
+    content: ['Prepared notebook cell', resp.code.split(/\r*\n/gim)],
+  });
+
   // write file
   writeFileSync(fsPath, resp.code);
 
