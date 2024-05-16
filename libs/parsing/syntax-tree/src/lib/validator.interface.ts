@@ -4,12 +4,8 @@ import { IHandlerCallbackMetadata } from './recursion-and-callbacks/tree-callbac
 /**
  * Type for metadata in our validator callbacks
  */
-export interface IDLSyntaxValidatorMeta extends IHandlerCallbackMetadata {
-  /**
-   * If we are parsing a notebook or not
-   */
-  isNotebook: boolean;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface IDLSyntaxValidatorMeta extends IHandlerCallbackMetadata {}
 
 /**
  * Manages validating and making sure that syntax is correct for IDL code.

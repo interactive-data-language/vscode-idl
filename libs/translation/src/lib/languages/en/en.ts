@@ -608,6 +608,12 @@ export const EN: ITranslation = {
       },
     },
   },
+  languages: {
+    idl: 'IDL',
+    idlLog: 'IDL Log File',
+    idlMdInject: 'IDL Markdown Code Blocks',
+    idlNotebook: 'IDL Notebook',
+  },
   logger: {
     defaultErrorMessage:
       'The IDL extension had an error :( See output/debug console for details',
@@ -663,6 +669,7 @@ export const EN: ITranslation = {
       onMigrateCodeProblemCode:
         'Unable to format code due to syntax error or problem in file',
       onNotebookToProCode: 'Error converting notebook to PRO code',
+      onPrepareNotebookCell: 'Error while preparing notebook cell to run',
     },
     errors: {
       unhandled: 'An unknown error ocurred within the IDL Language Server',
@@ -702,6 +709,8 @@ export const EN: ITranslation = {
       didntStartRight:
         "The notebook session of IDL didn't start or reset right. Not everything may function as expected.",
       failedExecute: 'Failed to execute notebook cells',
+      failedCodePrepare:
+        'Unknown problem while preparing a notebook cell to run. Please save notebooks to disk, or file a bug if this persists.',
       crashed:
         'IDL crashed or was stopped by the user and needs to be restarted',
       checkingGraphics: 'Error while trying to retrieve any graphics to embed',
@@ -865,6 +874,10 @@ export const EN: ITranslation = {
       '106':
         'Circular include statement found. This means that the included file includes this file (directly or indirectly).',
       '107': 'Attempting to disable unknown problem',
+      '108':
+        'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+      '109':
+        'Expression will automatically be printed during notebook cell execution',
     },
   },
   terminal: {

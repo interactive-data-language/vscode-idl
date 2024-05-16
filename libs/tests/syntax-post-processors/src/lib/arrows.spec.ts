@@ -78,6 +78,13 @@ describe(`[auto generated] Correctly map arrows`, () => {
         end: [1, 1, 2],
         canReport: true,
       },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [1, 0, 1],
+        end: [1, 1, 2],
+        canReport: true,
+      },
     ];
 
     // verify results

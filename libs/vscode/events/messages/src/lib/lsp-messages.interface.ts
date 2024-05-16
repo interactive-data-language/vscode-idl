@@ -33,6 +33,11 @@ import {
   NotebookToProCodeMessage,
 } from './messages/notebook-to-pro-code.message.interface';
 import {
+  PrepareNotebookCellMessage,
+  PrepareNotebookCellPayload,
+  PrepareNotebookCellResponse,
+} from './messages/prepare-notebook-cell.message.interface';
+import {
   ProgressMessage,
   ProgressMessagePayload,
 } from './messages/progress.message.interface';
@@ -68,6 +73,7 @@ export type LanguageServerMessage =
   | NotebookToProCodeMessage
   | ProgressMessage
   | RetrieveDocsMessage
+  | PrepareNotebookCellMessage
   | UsageMetricLSPMessage
   | WorkspaceConfigMessage;
 
@@ -99,6 +105,8 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? IRetrieveDocsPayload
     : T extends ProgressMessage
     ? ProgressMessagePayload
+    : T extends PrepareNotebookCellMessage
+    ? PrepareNotebookCellPayload
     : T extends UsageMetricLSPMessage
     ? IUsageMetricAndPayload<UsageMetric>
     : T extends WorkspaceConfigMessage
@@ -115,6 +123,8 @@ export type LanguageServerResponse<T extends LanguageServerMessage> =
     ? INotebookToProCodeResponse
     : T extends RetrieveDocsMessage
     ? IRetrieveDocsResponse
+    : T extends PrepareNotebookCellMessage
+    ? PrepareNotebookCellResponse
     : any;
 
 /** Strictly typed lookup of language server messages */
@@ -145,6 +155,8 @@ export interface ILanguageServerMessages {
   PROGRESS: ProgressMessage;
   /** Message to retrieve docs */
   RETRIEVE_DOCS: RetrieveDocsMessage;
+  /** Prepare notebook cell for execution */
+  PREPARE_NOTEBOOK_CELL: PrepareNotebookCellMessage;
   /** Message to update workspace config */
   WORKSPACE_CONFIG: WorkspaceConfigMessage;
   /** Message from language server with usage metric to report */
@@ -171,6 +183,7 @@ export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   NOTEBOOK_TO_PRO_CODE: 'notebook/to-pro-code',
   PROGRESS: 'progress',
   RETRIEVE_DOCS: 'retrieve-docs',
+  PREPARE_NOTEBOOK_CELL: 'prepare-notebook-cell',
   USAGE_METRIC: 'usage-metric-lsp',
   WORKSPACE_CONFIG: 'workspace-config',
 };

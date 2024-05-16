@@ -2,6 +2,7 @@ import { IFolderRecursion } from '@idl/parsing/index';
 import {
   IDL_PROBLEM_CODE_SHORTHAND_CODE_LOOKUP,
   IDL_PROBLEM_CODE_SHORTHAND_LOOKUP,
+  IDL_PROBLEM_CODES,
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
 } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
@@ -60,6 +61,9 @@ export function MergeConfig() {
   for (let i = 0; i < currentFolders.length; i++) {
     delete IDL_PATH_FOLDERS[currentFolders[i]];
   }
+
+  // always turn off implied print problem
+  IGNORE_PROBLEM_CODES[IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK] = undefined;
 
   // reset config for problems
   let pathFlag = false;

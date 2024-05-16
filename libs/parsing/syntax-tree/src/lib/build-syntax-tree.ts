@@ -266,8 +266,7 @@ function BuildTreeRecurser(
 export function BuildSyntaxTree(
   parsed: IParsed,
   cancel: CancellationToken,
-  full: boolean,
-  isNotebook: boolean
+  full: boolean
 ) {
   // build our syntax tree
   parsed.tree = BuildTreeRecurser(parsed.tokens, {
@@ -303,14 +302,12 @@ export function BuildSyntaxTree(
     // create metadata for our syntax validator
     // leave this for type checks even though unused
     const validatorMeta: IDLSyntaxValidatorMeta = {
-      isNotebook,
       ...DEFAULT_CURRENT,
     };
 
     // run our syntax validation
     IDL_SYNTAX_TREE_VALIDATOR.run(parsed, cancel, (token, meta) => {
-      Object.assign(meta, { isNotebook });
-      return meta as any as IDLSyntaxValidatorMeta;
+      return meta;
     });
   }
 }

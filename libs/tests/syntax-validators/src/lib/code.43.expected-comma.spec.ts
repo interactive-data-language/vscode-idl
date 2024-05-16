@@ -74,7 +74,15 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     );
 
     // define expected tokens
-    const expected: SyntaxProblems = [];
+    const expected: SyntaxProblems = [
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [3, 2, 1],
+        end: [3, 3, 7],
+        canReport: true,
+      },
+    ];
 
     // verify results
     expect(
@@ -111,6 +119,13 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
 
     // define expected tokens
     const expected: SyntaxProblems = [
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [2, 2, 5],
+        end: [2, 2, 5],
+        canReport: true,
+      },
       {
         code: 99,
         info: 'Undefined variable "print"',

@@ -1,3 +1,4 @@
+import { IDLEvaluateOptions } from '@idl/idl';
 import * as vscode from 'vscode';
 
 /**
@@ -33,4 +34,14 @@ export interface IEndCellExecutionActions {
 export const DEFAULT_END_CELL_EXECUTION_ACTIONS: IEndCellExecutionActions = {
   postExecute: true,
   decorateStack: false,
+};
+
+/**
+ * Default options to run IDL code
+ */
+export const DEFAULT_NOTEBOOK_EVALUATE_OPTIONS: IDLEvaluateOptions = {
+  echo: false,
+  idlInfo: false,
+  cut: false,
+  silent: false,
 };

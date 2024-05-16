@@ -19,6 +19,7 @@ export const NotebookCallStackDecorationsOnStop: RunnerFunction = async (
   const nb = await OpenNotebookInVSCode(nbFile, true);
 
   const stack: IStackTraceLookup = {};
+  stack[nb.getCells()[0].document.uri.toString()] = [2];
   stack[nb.getCells()[1].document.uri.toString()] = [0];
 
   // make sure the call stack is correct

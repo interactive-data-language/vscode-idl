@@ -1,6 +1,7 @@
 import { AssembleWithIndex } from '@idl/assembler';
 import { Migrator } from '@idl/assembling/migrators';
 import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
+import { PrepareNotebookCell } from '@idl/notebooks/idl-index';
 import { ParseFileSync } from '@idl/parser';
 import {
   ChangeDetection,
@@ -506,6 +507,26 @@ client.on(
     }
 
     return resp;
+  }
+);
+
+/**
+ * Prepare a notebook cell to run
+ */
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_NOTEBOOK_CELL,
+  async (message, cancel) => {
+    /**
+     * Get parsed code
+     */
+    const parsed = await WORKER_INDEX.getParsedNotebookCell(
+      message.cellUri,
+      message.code,
+      cancel
+    );
+
+    // prepare and return
+    return PrepareNotebookCell(parsed, message.code);
   }
 );
 

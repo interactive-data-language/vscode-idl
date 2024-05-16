@@ -75,7 +75,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   lastLaunchArgs?: IDLDebugConfiguration;
 
   /** IDL interaction manager to communicate with the IDL process */
-  private _runtime: IDLInteractionManager;
+  _runtime: IDLInteractionManager;
 
   /** Breakpoint manager */
   _breakpoints: IDLBreakpointManager;
@@ -1135,7 +1135,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       IDL_LOGGER.log({
         type: 'debug',
         log: IDL_DEBUG_ADAPTER_LOG,
-        content: ['Stack trace request', response.body.stackFrames],
+        content: ['Call stack', response.body.stackFrames],
       });
 
       // send response

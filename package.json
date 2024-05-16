@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "4.4.2",
+  "version": "4.5.0",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -948,6 +948,7 @@
                 "illegal-subscript",
                 "illegal-ternary",
                 "illegal-var-index",
+                "implied-print-nb",
                 "incomplete-ternary",
                 "indexing-error",
                 "init-method-pro",
@@ -974,6 +975,7 @@
                 "return-vals-missing-func",
                 "return-vals-pro",
                 "routines-first",
+                "standalone-expression",
                 "string-literal-too-many-args",
                 "todo",
                 "unclosed-main",
@@ -1058,6 +1060,7 @@
                 "%parsing.errors.84%",
                 "%parsing.errors.13%",
                 "%parsing.errors.105%",
+                "%parsing.errors.109%",
                 "%parsing.errors.98%",
                 "%parsing.errors.95%",
                 "%parsing.errors.76%",
@@ -1084,6 +1087,7 @@
                 "%parsing.errors.22%",
                 "%parsing.errors.20%",
                 "%parsing.errors.32%",
+                "%parsing.errors.108%",
                 "%parsing.errors.65%",
                 "%parsing.errors.6%",
                 "%parsing.errors.33%",
@@ -1270,15 +1274,33 @@
         "mimetypes": [
           "text/idl",
           "application/idl"
-        ]
+        ],
+        "icon": {
+          "dark": "extension/images/dark/idlicon-color.svg",
+          "light": "extension/images/light/idlicon-color.svg"
+        }
       },
       {
-        "id": "idl-md-injection"
+        "id": "idl-md-injection",
+        "icon": {
+          "dark": "extension/images/dark/idlicon-color.svg",
+          "light": "extension/images/light/idlicon-color.svg"
+        },
+        "aliases": [
+          "%languages.idlMdInject%"
+        ]
       },
       {
         "id": "idl-notebook",
         "extensions": [
           ".idlnb"
+        ],
+        "icon": {
+          "dark": "extension/images/dark/idlicon-color.svg",
+          "light": "extension/images/light/idlicon-color.svg"
+        },
+        "aliases": [
+          "%languages.idlNotebook%"
         ]
       },
       {
@@ -1290,7 +1312,14 @@
         "extensions": [
           ".idllog"
         ],
-        "configuration": "extension/language/syntaxes/language-configuration.json"
+        "configuration": "extension/language/syntaxes/language-configuration.json",
+        "icon": {
+          "dark": "extension/images/dark/idlicon-color.svg",
+          "light": "extension/images/light/idlicon-color.svg"
+        },
+        "aliases": [
+          "%languages.idlLog%"
+        ]
       },
       {
         "id": "json",

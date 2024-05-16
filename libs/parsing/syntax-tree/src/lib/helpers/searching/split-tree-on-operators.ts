@@ -14,14 +14,15 @@ import {
   TreeToken,
 } from '../../branches.interface';
 import { TreeRecurserBasic } from '../../recursion-and-callbacks/tree-recurser-basic';
+import { ISplitTreeOnOperators } from './split-tree-on-operators.interface';
 
 /**
- * Operators that we branch on
+ * Operators that we split our syntax tree on
  */
 const OPERATORS: { [key: string]: any } = {};
 OPERATORS[TOKEN_NAMES.OPERATOR] = true;
 // OPERATORS[TOKEN_NAMES.OPERATOR_COMPOUND] = true; // should not be present
-OPERATORS[TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT] = true;
+// OPERATORS[TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT] = true; // basic token
 OPERATORS[TOKEN_NAMES.OPERATOR_LOGICAL] = true;
 OPERATORS[TOKEN_NAMES.OPERATOR_NEGATIVE] = true;
 
@@ -43,7 +44,7 @@ export type SplitOperatorToken = TreeToken<
 export function SplitTreeOnOperators(
   tree: SyntaxTree,
   cancel: CancellationToken
-) {
+): ISplitTreeOnOperators {
   /** Commas we split by */
   const operators: SplitOperatorToken[] = [];
 
@@ -51,7 +52,7 @@ export function SplitTreeOnOperators(
   const children: SyntaxTree[] = [];
 
   /** Track teh current children */
-  const currentChildren: SyntaxTree = [];
+  let currentChildren: SyntaxTree = [];
 
   /** Start position for operators */
   let startPos: PositionArray;
@@ -70,19 +71,36 @@ export function SplitTreeOnOperators(
         startPos = token.pos;
       }
 
-      // all operators are branches, only check for them here
-      if (token.name in OPERATORS) {
-        operators.push(token as SplitOperatorToken);
-        children.push(currentChildren.splice(0, currentChildren.length));
+      /**
+       * Determine how to proceed
+       */
+      switch (true) {
+        /**
+         * Is operator we need to split on?
+         */
+        case token.name in OPERATORS:
+          operators.push(token as SplitOperatorToken);
+          children.push(currentChildren.splice(0, currentChildren.length));
 
-        // save end position
-        if (token.end !== undefined) {
-          endPos = token.end.pos;
-        } else {
-          endPos = token.pos;
-        }
-      } else {
-        currentChildren.push(token);
+          // save end position
+          if (token.end !== undefined) {
+            endPos = token.end.pos;
+          } else {
+            endPos = token.pos;
+          }
+          break;
+
+        /**
+         * Is special operator that we need to split on
+         */
+        case token.name === TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT:
+          currentChildren = currentChildren.concat(token.kids);
+          break;
+
+        // save to current children
+        default:
+          currentChildren.push(token);
+          break;
       }
     },
     onBasicToken: (token) => {

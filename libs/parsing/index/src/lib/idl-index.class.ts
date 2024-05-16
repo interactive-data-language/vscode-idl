@@ -68,6 +68,7 @@ import { GetAutoComplete } from './auto-complete/get-auto-complete';
 import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
 import { GetParsedNotebook } from './get-parsed/get-parsed-notebook';
+import { GetParsedNotebookCell } from './get-parsed/get-parsed-notebook-cell';
 import { GetParsedPROCode } from './get-parsed/get-parsed-pro-code';
 import { ParseNotebook } from './get-parsed/parse-notebook';
 import { GlobalIndex } from './global-index.class';
@@ -75,6 +76,7 @@ import { GetCodeSemanticTokens } from './helpers/get-code-semantic-tokens';
 import { GetSyntaxProblems } from './helpers/get-syntax-problems';
 import { PopulateNotebookVariables } from './helpers/populate-notebook-variables';
 import { ResetGlobalDisplayNames } from './helpers/reset-global-display-names';
+import { ResolveNotebookVariablesFromProcedures } from './helpers/resolve-notebook-variables-from-procedures';
 import { SplitFiles } from './helpers/split-files';
 import { GetHoverHelpFromLookup } from './hover-help/get-hover-help-from-lookup';
 import { GetHoverHelpLookup } from './hover-help/get-hover-help-lookup';
@@ -905,7 +907,7 @@ export class IDLIndex {
    *
    * If the file has not been processed by a worker it is assigned an ID
    */
-  getWorkerID(file: string) {
+  getWorkerID(file: string): string {
     const useFile = file.split('#')[0];
     if (this.workerIDsByFile[useFile] !== undefined) {
       return this.workerIDsByFile[useFile];
@@ -913,6 +915,13 @@ export class IDLIndex {
       this.workerIDsByFile[useFile] = this.indexerPool.getIDs()[0];
       return this.workerIDsByFile[useFile];
     }
+  }
+
+  /**
+   * Gets the ID for a worker that we can send processing to
+   */
+  getNextWorkerID(): string {
+    return this.indexerPool.getIDs()[0];
   }
 
   /**
@@ -1038,6 +1047,17 @@ export class IDLIndex {
     options: Partial<IIndexProCodeOptions> = {}
   ): Promise<IParsed> {
     return GetParsedPROCode(this, file, code, token, options);
+  }
+
+  /**
+   * Returns the parsed version of a notebook cell
+   */
+  async getParsedNotebookCell(
+    file: string,
+    code: string | string[],
+    token: CancellationToken
+  ): Promise<IParsed> {
+    return GetParsedNotebookCell(this, file, code, token);
   }
 
   /**
@@ -1631,6 +1651,12 @@ export class IDLIndex {
     changeDetection = false
   ) {
     try {
+      // convert pros to vars
+      if (parsed.isNotebook) {
+        ResolveNotebookVariablesFromProcedures(parsed);
+      }
+
+      // perform additional post processing
       PostProcessParsed(this, file, parsed, token);
 
       // check if we need to do change detection

@@ -65,7 +65,7 @@ export async function CompareCellOutputs(
 /**
  * Compares cells and outputs to make sure they match what we expect them to be
  */
-export function CompareCellsAndOutputs(
+export function CompareCellKindsAndOutputs(
   nb: vscode.NotebookDocument,
   cellsAndOutput: ICompareCellAndOutputs[]
 ) {

@@ -11,10 +11,10 @@ export type OperatorTokenDef = ITokenDef<
 >;
 
 const TOKEN_LOOKUP = {
-  '++': TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT,
-  '--': TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT,
   '&&': TOKEN_NAMES.OPERATOR_LOGICAL,
   '||': TOKEN_NAMES.OPERATOR_LOGICAL,
+  '++': TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT,
+  '--': TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT,
   not: TOKEN_NAMES.OPERATOR_LOGICAL,
   eq: TOKEN_NAMES.OPERATOR_LOGICAL,
   ne: TOKEN_NAMES.OPERATOR_LOGICAL,
@@ -30,10 +30,10 @@ const TOKEN_LOOKUP = {
 /**
  * Regex for operators
  */
-export const OPERATOR: OperatorTokenDef = {
+export const OPERATORS: OperatorTokenDef = {
   name: TOKEN_NAMES.OPERATOR,
   match:
-    /(?:\*|\+\+|--|\^|##|#|\*|\/|\bmod\b|\+|-(?!>)|<|(?<!-|>)>(?!>)|~|\bnot\b|\beq\b|\bne\b|\ble\b|\blt\b|\bge\b|\bgt\b|\band\b|\bor\b|\bxor\b|&&|\|\|)(?!=)/im,
+    /(?:\*|\^|\+\+|--|##|#|\*|\/|\bmod\b|\+|-(?!>)|<|(?<!-|>)>(?!>)|~|\bnot\b|\beq\b|\bne\b|\ble\b|\blt\b|\bge\b|\bgt\b|\band\b|\bor\b|\bxor\b|&&|\|\|)(?!=)/im,
   end: IDL_OPERATOR_END,
   getTokenName: (matches) => {
     const match = matches[0].toLowerCase();

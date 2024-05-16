@@ -1,6 +1,7 @@
 import { IFoundTokens } from '@idl/parsing/tokenizer';
 import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
+import { PositionArray } from '@idl/types/tokenizer';
 import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver';
 
 import { SyntaxTree } from './branches.interface';
@@ -27,6 +28,10 @@ export interface IParsed extends IFoundTokens {
    * If we have set a token cache or not
    */
   hasCache: boolean;
+  /**
+   * Track if our current parsed code is for a notebook or not
+   */
+  isNotebook: boolean;
   /** What problems are disabled? */
   disabledProblems: IDisabledProblems;
   /** Problems found within code from basic parsing */
@@ -46,7 +51,12 @@ export interface IParsed extends IFoundTokens {
   /** The outline of our current PRO code */
   outline: DocumentSymbol[];
   /** Semantic tokens that we highlight */
-  semantic: SemanticTokens;
+  semantic: {
+    /** Procedures that are variables (for notebook parsing) */
+    notProcedure: PositionArray[];
+    /** Built semantic tokens */
+    built: SemanticTokens;
+  };
 }
 
 /**
@@ -56,6 +66,7 @@ export const DEFAULT_PARSED: IParsed = {
   checksum: '',
   hasDetail: false,
   hasCache: false,
+  isNotebook: false,
   tokens: [],
   text: [],
   lines: 0,
@@ -80,5 +91,5 @@ export const DEFAULT_PARSED: IParsed = {
   },
   uses: DEFAULT_USES_THESE_GLOBAL_TOKEN,
   outline: [],
-  semantic: { data: [] },
+  semantic: { notProcedure: [], built: { data: [] } },
 };

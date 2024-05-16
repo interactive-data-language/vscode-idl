@@ -508,6 +508,8 @@ export interface ITranslation {
       onMigrateCodeProblemCode: string;
       /** Convert notebook to PRO code */
       onNotebookToProCode: string;
+      /** Convert notebook cell to code we can execute */
+      onPrepareNotebookCell: string;
     };
     /** Misc error reports */
     errors: {
@@ -624,6 +626,13 @@ export interface ITranslation {
       };
     };
   };
+  /** Aliases for language names so they appear nice */
+  languages: {
+    idl: string;
+    idlLog: string;
+    idlMdInject: string;
+    idlNotebook: string;
+  };
   /** Translations related to the logger */
   logger: {
     defaultErrorMessage: string;
@@ -647,6 +656,8 @@ export interface ITranslation {
       failedStart: string;
       /** if we failed to execute one or more cells */
       failedExecute: string;
+      /** if we failed to prepare code to run */
+      failedCodePrepare: string;
       /** Alert users that IDL for notebooks didn't quite start or reset right */
       didntStartRight: string;
       /** IDL crashes while running something in the notebook */

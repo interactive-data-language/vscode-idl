@@ -19,6 +19,7 @@ import {
   IDLDecorationsResetFlag,
   IStackTraceLookup,
   STACK_TRACE_DECORATION,
+  STACK_TRACE_DECORATION_WITH_GUTTER,
   SYNTAX_ERROR_DECORATION,
 } from './idl-decorations-manager.interface';
 
@@ -334,7 +335,7 @@ export class IDLDecorationsManager {
    *
    * For notebooks, lines are zero-based
    */
-  addStackTraceDecorations(uri: vscode.Uri, lines: number[]) {
+  addStackTraceDecorations(uri: vscode.Uri, lines: number[], gutter = true) {
     /** Get string URI */
     const asString = uri.toString();
 
@@ -352,7 +353,20 @@ export class IDLDecorationsManager {
     }
 
     // apply decorations
-    this._applyDecorations(asString, STACK_TRACE_DECORATION, show);
+    if (lines.length === 0) {
+      this._applyDecorations(
+        asString,
+        STACK_TRACE_DECORATION_WITH_GUTTER,
+        show
+      );
+      this._applyDecorations(asString, STACK_TRACE_DECORATION, show);
+    } else {
+      this._applyDecorations(
+        asString,
+        gutter ? STACK_TRACE_DECORATION_WITH_GUTTER : STACK_TRACE_DECORATION,
+        show
+      );
+    }
   }
 
   /**

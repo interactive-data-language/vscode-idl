@@ -106,7 +106,7 @@ export class IDLInteractionManager {
     /** Match for syntax errors */
     let me: RegExpExecArray;
     while ((me = REGEX_COMPILE_ERROR.exec(output)) !== null) {
-      errors.push({ file: URI.file(me[1]).toString(), line: parseInt(me[2]) });
+      errors.push({ file: URI.file(me[2]).toString(), line: parseInt(me[3]) });
     }
 
     /**
@@ -272,7 +272,7 @@ export class IDLInteractionManager {
    */
   async getCallStack(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    startFrame: number,
+    startFrame?: number,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     endFrame?: number
   ): Promise<IDLCallStack> {
@@ -289,12 +289,11 @@ export class IDLInteractionManager {
 
     // process call stack
     for (let i = 0; i < scope.length; i++) {
-      const val = scope[i];
       frames.push({
         index: i,
-        name: val.routine,
-        file: val.file,
-        line: val.line,
+        name: scope[i].routine,
+        file: scope[i].file,
+        line: scope[i].line,
       });
     }
 
@@ -457,6 +456,8 @@ export class IDLInteractionManager {
    */
   stop() {
     this.cancelPending();
-    if (this) this.idl.stop();
+    if (this.isStarted()) {
+      this.idl.stop();
+    }
   }
 }

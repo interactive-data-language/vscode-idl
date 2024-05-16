@@ -29,7 +29,15 @@ describe(`[auto generated] Detects when a string literal has too many arguments`
     );
 
     // define expected tokens
-    const expected: SyntaxProblems = [];
+    const expected: SyntaxProblems = [
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 1],
+        end: [0, 18, 1],
+        canReport: true,
+      },
+    ];
 
     // verify results
     expect(
@@ -61,6 +69,13 @@ describe(`[auto generated] Detects when a string literal has too many arguments`
 
     // define expected tokens
     const expected: SyntaxProblems = [
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 1],
+        end: [0, 20, 1],
+        canReport: true,
+      },
       {
         code: 99,
         info: 'Undefined variable "w"',
@@ -105,6 +120,13 @@ describe(`[auto generated] Detects when a string literal has too many arguments`
         info: 'String literals are only allowed to have up-to one comma to specify formatting',
         start: [0, 1, 2],
         end: [0, 21, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 1],
+        end: [0, 22, 1],
         canReport: true,
       },
       {

@@ -1,3 +1,4 @@
+import { platform } from 'os';
 import { basename, dirname, join } from 'path';
 import { URI } from 'vscode-uri';
 
@@ -70,6 +71,13 @@ export class IDLFileHelper {
   }
 
   /**
+   * Determines if a path is a notebook cell or not
+   */
+  static isNotebookCell(fsPath: string) {
+    return basename(fsPath).includes(`_${NOTEBOOK_CELL_BASE_NAME}_`);
+  }
+
+  /**
    * Converts a file system path for a notebook call back to a URI for
    * a notebook cell
    */
@@ -77,8 +85,29 @@ export class IDLFileHelper {
     const split = fsPath.split(`_${NOTEBOOK_CELL_BASE_NAME}_`);
     return URI.from({
       scheme: 'vscode-notebook-cell',
-      path: `/${split[0].replace(/\\/g, '/')}${IDL_NOTEBOOK_EXTENSION}`,
+      path: `${platform() === 'win32' ? '/' : ''}${split[0].replace(
+        /\\/g,
+        '/'
+      )}${IDL_NOTEBOOK_EXTENSION}`,
       fragment: basename(split[1], `.pro`),
     });
+  }
+
+  /**
+   * Returns the VSCode URI for a notebook document from the FS path
+   * for a notebook cell
+   */
+  static getParentNotebookFSPathFromNotebookCellFSPath(fsPath: string) {
+    return (
+      fsPath.split(`_${NOTEBOOK_CELL_BASE_NAME}_`)[0] + IDL_NOTEBOOK_EXTENSION
+    );
+  }
+
+  /**
+   * Returns the VSCode URI for a notebook document from the FS path
+   * for a notebook cell
+   */
+  static getParentNotebookURIFromNotebookCellFSPath(fsPath: string) {
+    return URI.file(this.getParentNotebookFSPathFromNotebookCellFSPath(fsPath));
   }
 }

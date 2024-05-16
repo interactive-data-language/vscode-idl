@@ -271,8 +271,8 @@ export type NonBasicTokenNames =
   | MainLevelToken
   | OperatorToken
   | OperatorCompoundToken
-  | OperatorIndexingToken
   | OperatorIncrementDecrementToken
+  | OperatorIndexingToken
   | OperatorLogicalToken
   | OperatorPointerToken
   | OperatorNegativeToken

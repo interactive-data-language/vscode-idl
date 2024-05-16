@@ -9,7 +9,7 @@ import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';
 
 import { ResetSettingsForTests } from './tests/helpers/reset-settings-for-tests';
-import { TestRunner } from './tests/runner';
+import { TestRunner } from './tests/test-runner';
 
 /**
  * Value returned from activating our extension

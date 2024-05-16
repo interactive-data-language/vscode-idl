@@ -486,6 +486,10 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `string literal expressions`,
         code: `a = \`\${42}\${42}\``,
       },
+      {
+        name: `indexed properties`,
+        code: `a = b.(0).(0).(1)`,
+      },
     ],
   },
   {
@@ -3499,6 +3503,13 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  !null = f[0]`,
           `  !null = g[0]`,
           ``,
+          `  ; OK`,
+          `  !null = c[!null]`,
+          `  !null = d[!null]`,
+          `  !null = e[!null]`,
+          `  !null = f[!null]`,
+          `  !null = g[0!null]`,
+          ``,
           `  ; also OK, though non standard IDL types`,
           `  !null = h[0]`,
           ``,
@@ -4472,6 +4483,132 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
       {
         name: `no problems`,
         code: [`; idl-disable unused-var, `],
+      },
+    ],
+  },
+  {
+    suiteName: `Detect standalone expressions`,
+    fileName: `code.108.standalone-expression.spec.ts`,
+    tests: [
+      {
+        name: `no problems`,
+        code: [`compile_opt idl2`, `a = 5`, `a++`, `++a`, `a++`, `end`],
+      },
+      {
+        name: `no problems`,
+        code: [
+          `compile_opt idl2`,
+          `@includeme`,
+          `repeat *val = 42 until *var`,
+          `repeat if !true then continue until !true`,
+          `end`,
+        ],
+      },
+      {
+        name: `indexing`,
+        code: [
+          `compile_opt idl2`,
+          `arr = [42, 84, 126]`,
+          `arr[5] = 6`,
+          `arr[5] += 6`,
+          `arr[5] +`,
+          `end`,
+        ],
+      },
+      {
+        name: `problems`,
+        code: [
+          `compile_opt idl2`,
+          `a = 5`,
+          `2 + 2`,
+          `(a)`,
+          `plot() + 5`,
+          `plot()`,
+          `a->`,
+          `end`,
+        ],
+      },
+      {
+        name: `multi-line problems`,
+        code: [`compile_opt idl2`, `2 + $`, `  2 + $`, `  2`, `end`],
+      },
+    ],
+  },
+  {
+    suiteName: `Detect standalone expressions`,
+    fileName: `code.109.implied-print-nb.spec.ts`,
+    tests: [
+      {
+        name: `no problems`,
+        code: [`compile_opt idl2`, `a = 5`, `a++`, `++a`, `a++`, `end`],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `no problems`,
+        code: [
+          `pro mypro`,
+          `  compile_opt idl2`,
+          `  a = 5`,
+          `  a++`,
+          `  ++a`,
+          `  a++`,
+          `end`,
+        ],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `no problems`,
+        code: [
+          `compile_opt idl2`,
+          `@includeme`,
+          `repeat *val = 42 until *var`,
+          `repeat if !true then continue until !true`,
+          `end`,
+        ],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `indexing`,
+        code: [
+          `compile_opt idl2`,
+          `arr = [42, 84, 126]`,
+          `arr[5] = 6`,
+          `arr[5] += 6`,
+          `arr[5] +`,
+          `end`,
+        ],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `problems`,
+        code: [
+          `compile_opt idl2`,
+          `a = 5`,
+          `2 + 2`,
+          `(a)`,
+          `plot() + 5`,
+          `plot()`,
+          `a->`,
+          `end`,
+        ],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `multi-line problems`,
+        code: [`compile_opt idl2`, `2 + $`, `  2 + $`, `  2`, `end`],
+        config: {
+          isNotebook: true,
+        },
       },
     ],
   },

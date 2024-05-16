@@ -14,6 +14,15 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
+import { GetTranslationKey } from './config/get-translation-key';
+
+/**
+ * Language icons
+ */
+export const IDL_LANGUAGE_ICONS = {
+  dark: 'extension/images/dark/idlicon-color.svg',
+  light: 'extension/images/light/idlicon-color.svg',
+};
 
 export const LANGUAGES = [
   {
@@ -22,24 +31,26 @@ export const LANGUAGES = [
     extensions: [PRO_FILE_EXTENSION],
     configuration: 'extension/language/syntaxes/language-configuration.json',
     mimetypes: ['text/idl', 'application/idl'],
-    // icons moved into icon themes
-    // icon: {
-    //   light: 'extension/images/idlicon.png',
-    //   dark: 'extension/images/idlicon.png',
-    // },
+    icon: IDL_LANGUAGE_ICONS,
   },
   {
     id: `${IDL_LANGUAGE_NAME}-md-injection`,
+    icon: IDL_LANGUAGE_ICONS,
+    aliases: [GetTranslationKey(`%languages.idlMdInject%`)],
   },
   {
     id: IDL_NOTEBOOK_LANGUAGE_NAME,
     extensions: [IDL_NOTEBOOK_EXTENSION],
+    icon: IDL_LANGUAGE_ICONS,
+    aliases: [GetTranslationKey(`%languages.idlNotebook%`)],
   },
   {
     id: LOG_LANGUAGE_NAME,
     mimetypes: ['text/idl-log', 'application/idl-log'],
     extensions: ['.idllog'],
     configuration: 'extension/language/syntaxes/language-configuration.json',
+    icon: IDL_LANGUAGE_ICONS,
+    aliases: [GetTranslationKey(`%languages.idlLog%`)],
   },
   {
     id: 'json',

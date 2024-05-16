@@ -16,6 +16,42 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
+## 4.5.0 - May 2024
+
+New-and improved IDL Notebook user experience!
+
+- When compiling cells, we don't show you the output from compiling to focus on what runs
+
+- The paths for notebook cells have been cleaned up and are now easy to read (before they had IDs in the names of the paths)
+
+- Notebook cells now offer implied print! For main level programs (i.e. cells by default), we detect and automatically print variables, outputs from function calls, and expressions like "2 + 42". You can see some examples of this in our sample IDL Notebook included with the extension.
+
+- Variables that will be printed have a special semantic token highlighting applied to them to make it clear it is not being interpreted as a procedure. This depends on your VSCode theme, but should either look like other variables or stands out compared to procedure calls.
+
+- After running a notebook cell, we check to see if there is any output. If there is no output, we do not create notebook cell output. Previously we always added output to cells, even if there wasn't anything to track.
+
+Fixed an issue where we incorrectly reported an error when using the property index signature to retrieve a property. This affected statements of the form "struct.(0).(0)"
+
+Add icons for the languages that we contribute to the extension
+
+Add human-readable names for the languages that we contribute
+
+Fixed an edge case when reporting that a variable cannot be indexed with the `!null` type
+
+Type detection now properly handles the following cases:
+
+- Any statement using `&&` or `||` will return boolean type
+
+- Any statement using a logical operator should return the correct type (i.e. `eq`, `ne`, `le`). For example: `[1,2,3] eq 5` should give a type of `Array<Boolean>`. This supports lists, hashes, orderedhashes, and dictionaries.
+
+These type changes help fix scenarios where we were incorrectly reporting errors for extension users.
+
+The extension now automatically detects when you have code that is "standalone" which needs to be assigned to a value (or have a value assigned to it).
+
+When running IDL through the debug console, we now properly catch stops/breakpoints that aren't a result of manually sending commands to IDL. This supports use cases where widget/UI applications are running and hit a stop or breakpoint in a callback routine.
+
+Moved the following features out of `preview` since there have been no reported issues:
+
 Added the ability to convert a notebook to a PDF! This requires an additional extension called ":"Markdown PDF", which you will be prompted to install. This includes:
 
 - A new sidebar entry for PDF generation and a button in the top-right of the notebook to generate a PDF

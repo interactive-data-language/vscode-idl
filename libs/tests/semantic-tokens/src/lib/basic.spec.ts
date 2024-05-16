@@ -25,16 +25,17 @@ describe(`[auto generated] Extracts semantic tokens`, () => {
     ];
 
     // extract tokens
-    const semantic = await index.getSemanticTokens(
+    const tokenized = await index.getParsedProCode(
       'not-real',
       code,
-      new CancellationToken()
+      new CancellationToken(),
+      { postProcess: true }
     );
 
     // define expected tokens
     const expected = [1, 4, 4, 0, 0, 1, 8, 4, 0, 0];
 
     // verify results
-    expect(semantic.data).toEqual(expected);
+    expect(tokenized.semantic.built.data).toEqual(expected);
   });
 });

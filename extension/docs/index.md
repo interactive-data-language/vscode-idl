@@ -14,7 +14,7 @@ hero:
       text: Let's go!
       link: /getting-started/
     - theme: brand
-      text: Join the upcoming webinar!
+      text: Watch the introductory webinar!
       link: https://www.nv5geospatialsoftware.com/Company/Events/Events-Detail/ArtMID/19015/ArticleID/24433/Reimagine-the-Way-You-Program-with-IDL-for-VSCode
 
 features:

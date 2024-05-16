@@ -136,6 +136,13 @@ describe(`[auto generated] Detects unknown tokens`, () => {
         end: [0, 6, 2],
         canReport: true,
       },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 5],
+        end: [0, 0, 5],
+        canReport: true,
+      },
     ];
 
     // verify results

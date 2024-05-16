@@ -5,7 +5,7 @@ import { TestGlobal } from '../helpers/test-global';
 import { Tokenizer } from '../tokenizer';
 import { IBaseTokenWithoutMatches, TOKEN_TYPES } from '../tokenizer.interface';
 import { TOKEN_NAMES, TokenName } from '../tokens.interface';
-import { OPERATOR } from '../tokens/defs/operators.interface';
+import { OPERATORS } from '../tokens/defs/operators.interface';
 
 describe('Validates operator parsing', () => {
   it('verifies we can detect most operators', () => {
@@ -198,7 +198,7 @@ describe('Validates operator parsing', () => {
   });
 
   it('verifies we dont catch arrow functions', () => {
-    expect(OPERATOR.match.test(`->`)).toBeFalsy();
+    expect(OPERATORS.match.test(`->`)).toBeFalsy();
   });
 
   it('verifies we dont catch operators in words', () => {
@@ -216,9 +216,9 @@ describe('Validates operator parsing', () => {
       `xor`,
     ];
     for (let i = 0; i < ignore.length; i++) {
-      expect(TestGlobal(`${ignore[i]}bcd`, OPERATOR.match)).toBeFalsy();
-      expect(TestGlobal(`a${ignore[i]}bcd`, OPERATOR.match)).toBeFalsy();
-      expect(TestGlobal(`_xy${ignore[i]}`, OPERATOR.match)).toBeFalsy();
+      expect(TestGlobal(`${ignore[i]}bcd`, OPERATORS.match)).toBeFalsy();
+      expect(TestGlobal(`a${ignore[i]}bcd`, OPERATORS.match)).toBeFalsy();
+      expect(TestGlobal(`_xy${ignore[i]}`, OPERATORS.match)).toBeFalsy();
     }
   });
 });

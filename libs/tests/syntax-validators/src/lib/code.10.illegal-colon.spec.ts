@@ -123,6 +123,13 @@ describe(`[auto generated] Detects illegal colon`, () => {
         canReport: true,
       },
       {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 7],
+        end: [0, 10, 1],
+        canReport: true,
+      },
+      {
         code: 99,
         info: 'Undefined variable "a"',
         start: [0, 7, 1],
@@ -171,6 +178,13 @@ describe(`[auto generated] Detects illegal colon`, () => {
       {
         code: 14,
         info: 'Colon detected in function call. If indexing array, you should be using square brackets instead of parentheses. Using parentheses for array indexing is ambiguous and problematic when there is a function with the same name as the variable you are indexing.',
+        start: [0, 0, 6],
+        end: [0, 9, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
         start: [0, 0, 6],
         end: [0, 9, 1],
         canReport: true,

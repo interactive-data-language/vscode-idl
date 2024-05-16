@@ -78,6 +78,13 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         end: [1, 1, 1],
         canReport: true,
       },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [1, 0, 1],
+        end: [1, 1, 1],
+        canReport: true,
+      },
     ];
 
     // verify results
@@ -344,6 +351,13 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
       {
         code: 69,
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
+        start: [1, 0, 1],
+        end: [1, 0, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
         start: [1, 0, 1],
         end: [1, 0, 1],
         canReport: true,
