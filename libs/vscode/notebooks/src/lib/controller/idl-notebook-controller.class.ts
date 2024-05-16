@@ -442,7 +442,7 @@ export class IDLNotebookController {
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_NOTEBOOK_LOG,
-        content: [IDL_TRANSLATION.notebooks.errors.failedExecute, err],
+        content: [IDL_TRANSLATION.notebooks.errors.failedExecute, err, 1],
         alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
       });
     }
@@ -838,12 +838,18 @@ export class IDLNotebookController {
         this.clearQueue();
 
         // alert user
-        IDL_LOGGER.log({
-          type: 'error',
-          log: IDL_NOTEBOOK_LOG,
-          content: [IDL_TRANSLATION.notebooks.errors.failedExecute, err],
-          alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
-        });
+        if (err !== 'Canceled') {
+          IDL_LOGGER.log({
+            type: 'error',
+            log: IDL_NOTEBOOK_LOG,
+            content: [
+              IDL_TRANSLATION.notebooks.errors.failedExecute,
+              err,
+              'Within _doExecute',
+            ],
+            alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
+          });
+        }
 
         // return
         return;
