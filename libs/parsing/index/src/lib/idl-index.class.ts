@@ -1132,13 +1132,13 @@ export class IDLIndex {
         continue;
       }
 
-      // convert pros to vars
-      ResolveNotebookVariablesFromProcedures(byCell[files[i]]);
-
       // inherit data types from cells above us
       if (i > 0) {
         PopulateNotebookVariables(files[i], byCell, false);
       }
+
+      // convert pros to vars
+      ResolveNotebookVariablesFromProcedures(byCell[files[i]]);
 
       // post process cell
       await this.postProcessProFile(
