@@ -13,6 +13,9 @@ import { RunNotebookStop } from './notebook-stop';
 import { NotebookToProCodeAllCells } from './notebook-to-pro-code-all-cells';
 import { NotebookToProCodeAllCells2 } from './notebook-to-pro-code-all-cells-2';
 import { NotebookToProCodeOnlyCode } from './notebook-to-pro-code-only-code';
+import { NotebooksReplaceCellPathsForError } from './notebooks-replace-cell-paths-for-error';
+import { NotebooksReplaceCellPathsOnStop } from './notebooks-replace-cell-paths-on-stop';
+import { NotebooksVerifyImpliedPrint } from './notebooks-verify-implied-print';
 import { OpenENVINotebookExample } from './open-envi-notebook-example';
 import { OpenIDLNotebookExample } from './open-idl-notebook-example';
 import { ResetNotebookExamples } from './reset-notebook-examples';
@@ -172,6 +175,26 @@ NOTEBOOK_RUNNER.addTest({
 NOTEBOOK_RUNNER.addTest({
   name: 'Stack trace decorations dont show for normal execution',
   fn: NotebookCallStackDecorationsNoDecorations,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Stack trace decorations dont show for normal execution',
+  fn: NotebookCallStackDecorationsNoDecorations,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Replace cell paths for stops',
+  fn: NotebooksReplaceCellPathsOnStop,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Replace cell paths for errors',
+  fn: NotebooksReplaceCellPathsForError,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Implied print does the right thing',
+  fn: NotebooksVerifyImpliedPrint,
 });
 
 // reset goes first
