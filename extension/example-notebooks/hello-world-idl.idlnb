@@ -168,6 +168,22 @@
     {
       "type": "markdown",
       "content": [
+        "Or you can just call a function and it the result will be printed out:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "findgen(10)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
         "> Pro tip: Printing statements like this only apply to code that lives outside of procedure or function definitions.",
         ">",
         "> If you put the above code in a routine definition, you would get a syntax error."
@@ -267,6 +283,27 @@
       "content": [
         "arr = findgen(42)",
         "help, arr"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "You can also mix-and-match routines with implied printing. Let's revisit our example cell that defined the function `foo`."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "function foo2",
+        "  compile_opt idl2",
+        "  return, 'I told you it wasn''t that simple! But it''s also not rocket science.'",
+        "end",
+        "",
+        "foo2()"
       ],
       "metadata": {},
       "outputs": []
