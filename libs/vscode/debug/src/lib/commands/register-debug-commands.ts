@@ -76,11 +76,13 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
         LogCommandInfo('Running file');
         return await RunFile();
       } catch (err) {
-        LogCommandError(
-          'Error while running file for IDL',
-          err,
-          cmdErrors.debug.runFile
-        );
+        if (err !== 'Canceled') {
+          LogCommandError(
+            'Error while running file for IDL',
+            err,
+            cmdErrors.debug.runFile
+          );
+        }
         return false;
       }
     })

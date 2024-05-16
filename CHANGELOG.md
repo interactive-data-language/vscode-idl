@@ -16,6 +16,10 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
+## Unreleased
+
+Remove a false error report when you stop IDL (terminate the process) while it is running
+
 ## 4.5.0 - May 2024
 
 New-and improved IDL Notebook user experience!
