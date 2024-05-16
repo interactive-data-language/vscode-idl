@@ -45,7 +45,7 @@ export const RunNotebookStop: RunnerFunction = async (init) => {
   vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
 
   // short pause
-  await Sleep(100);
+  await Sleep(300);
 
   // stop execution
   await vscode.commands.executeCommand(IDL_COMMANDS.NOTEBOOKS.STOP);
