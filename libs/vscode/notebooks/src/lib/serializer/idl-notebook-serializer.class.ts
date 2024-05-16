@@ -10,7 +10,7 @@ import { ToIDLRawNotebook } from './to/to-idl-raw-notebook';
 /**
  * Parses/serializes notebook data
  */
-export class IDLNotebookSerializer implements IDLNotebookSerializer {
+export class IDLNotebookSerializer {
   /**
    * Converts a serialized notebook back to a notebook document that
    * VSCode can render
