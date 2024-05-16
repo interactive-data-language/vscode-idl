@@ -14,6 +14,8 @@ end
 
 compile_opt idl2
 
-id = Timer.Set(1, 'myTimerCallback', 'woof')
+id = Timer.set(1, 'myTimerCallback', 'woof')
+
+for i = 0, 10 do wait, 0.1
 
 end
