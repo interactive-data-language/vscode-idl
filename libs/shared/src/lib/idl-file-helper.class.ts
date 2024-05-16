@@ -1,3 +1,4 @@
+import { platform } from 'os';
 import { basename, dirname, join } from 'path';
 import { URI } from 'vscode-uri';
 
@@ -84,7 +85,10 @@ export class IDLFileHelper {
     const split = fsPath.split(`_${NOTEBOOK_CELL_BASE_NAME}_`);
     return URI.from({
       scheme: 'vscode-notebook-cell',
-      path: `/${split[0].replace(/\\/g, '/')}${IDL_NOTEBOOK_EXTENSION}`,
+      path: `${platform() === 'win32' ? '/' : ''}${split[0].replace(
+        /\\/g,
+        '/'
+      )}${IDL_NOTEBOOK_EXTENSION}`,
       fragment: basename(split[1], `.pro`),
     });
   }
