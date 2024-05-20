@@ -196,7 +196,7 @@ export class IDLNotebookExecutionManager {
   /**
    * Output to append
    */
-  private async _appendToCurrentCellOutput(content: string) {
+  async _appendToCurrentCellOutput(content: string) {
     // log output
     IDL_LOGGER.log({
       log: IDL_NOTEBOOK_LOG,
@@ -454,7 +454,7 @@ export class IDLNotebookExecutionManager {
   /**
    * After launch and reset, commands we execute
    */
-  private async _postLaunchAndReset() {
+  async _postLaunchAndReset() {
     if (!this.isStarted()) {
       return;
     }
