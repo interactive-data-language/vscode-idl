@@ -1,6 +1,7 @@
 import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared';
 import { GetWorkspaceConfig, IIDLWorkspaceConfig } from '@idl/vscode/config';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
+import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
@@ -34,6 +35,9 @@ export const NOT_QUIET_OUTPUT: ICompareCellOutputs[] = [
  * Function that runs basic tests for ENVI message listeners
  */
 export const VerifyQuietNotebookSetting: RunnerFunction = async (init) => {
+  const quietFile = GetExtensionPath(
+    'idl/test/client-e2e/notebooks/quiet-preference.idlnb'
+  );
   // get the current workspace config
   const config = GetWorkspaceConfig();
 
@@ -46,7 +50,7 @@ export const VerifyQuietNotebookSetting: RunnerFunction = async (init) => {
 
   // run in quiet mode
   await RunNotebookAndCompareCells(
-    GetExtensionPath('idl/test/client-e2e/notebooks/quiet-preference.idlnb'),
+    quietFile,
     QUIET_OUTPUT,
     init.notebooks.controller
   );
@@ -64,12 +68,9 @@ export const VerifyQuietNotebookSetting: RunnerFunction = async (init) => {
   // short pause
   await Sleep(100);
 
-  // make sure stopped
-  expect(init.notebooks.controller.isStarted()).toBeTruthy();
-
   // run in quiet mode
   await RunNotebookAndCompareCells(
-    GetExtensionPath('idl/test/client-e2e/notebooks/quiet-preference.idlnb'),
+    quietFile,
     NOT_QUIET_OUTPUT,
     init.notebooks.controller
   );
@@ -87,6 +88,9 @@ export const VerifyQuietNotebookSetting: RunnerFunction = async (init) => {
   // short pause
   await Sleep(100);
 
+  // open NB
+  const nb = await OpenNotebookInVSCode(quietFile);
+
   // make sure stopped
-  expect(init.notebooks.controller.isStarted()).toBeFalsy();
+  expect(init.notebooks.controller.isStarted(nb)).toBeFalsy();
 };

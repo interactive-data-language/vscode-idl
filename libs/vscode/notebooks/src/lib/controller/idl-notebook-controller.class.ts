@@ -143,7 +143,11 @@ export class IDLNotebookController {
     this.knownNotebooks[_notebook.uri.toString()] = _notebook;
 
     /** Have manager run notebook cell */
-    this.getNotebookManager(_notebook)._execute(cells, _notebook, _controller);
+    await this.getNotebookManager(_notebook)._execute(
+      cells,
+      _notebook,
+      _controller
+    );
   }
 
   /**
