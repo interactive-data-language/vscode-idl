@@ -49,7 +49,7 @@ export async function RunNotebookAndCompareCells(
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
 
   // make sure launched
-  expect(controller.isStarted()).toBeTruthy();
+  expect(controller.isStarted(nb)).toBeTruthy();
 
   // short pause based on the number of cells we have
   // sometimes the rendering takes too long to register (like complex maps)

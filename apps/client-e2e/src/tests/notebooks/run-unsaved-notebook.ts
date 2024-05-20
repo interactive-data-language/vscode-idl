@@ -27,14 +27,6 @@ export const RunUnsavedNotebook: RunnerFunction = async (init) => {
   /** Get reference to the notebook controller */
   const controller = init.notebooks.controller;
 
-  // start IDL if it hasnt yet
-  if (!controller.isStarted()) {
-    await controller.launchIDL('Launching IDL');
-  }
-
-  // make sure launched
-  expect(controller.isStarted()).toBeTruthy();
-
   // make new notebook
   await vscode.commands.executeCommand(
     IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
@@ -52,6 +44,14 @@ export const RunUnsavedNotebook: RunnerFunction = async (init) => {
 
   /** Get reference to the current notebook */
   const nb = editor.notebook;
+
+  // start IDL if it hasnt yet
+  if (!controller.isStarted(nb)) {
+    await controller.launchIDL(nb, 'Launching IDL');
+  }
+
+  // make sure launched
+  expect(controller.isStarted(nb)).toBeTruthy();
 
   // update text
   const cells = nb.getCells();
