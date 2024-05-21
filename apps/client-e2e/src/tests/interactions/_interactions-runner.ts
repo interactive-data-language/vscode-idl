@@ -33,7 +33,7 @@ import { TasksInteractRight } from './tasks-interact-right';
  * Logger to be used for tests related to debugging
  */
 export const INTERACTIONS_TEST_LOGGER = new Logger(
-  'tests-interaction',
+  'interaction-tests',
   false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   () => {}
