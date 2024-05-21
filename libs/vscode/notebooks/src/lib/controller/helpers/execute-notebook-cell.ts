@@ -10,20 +10,21 @@ import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import * as vscode from 'vscode';
 
-import { IDLNotebookController } from '../idl-notebook-controller.class';
 import { ICurrentCell } from '../idl-notebook-controller.interface';
+import { IDLNotebookExecutionManager } from '../idl-notebook-execution-manager.class';
+import { ENVI_REGEX } from './execute-notebook-cell.interface';
 
 /**
  * Runs a notebook cell and manages logic for execution
  */
 export async function ExecuteNotebookCell(
-  controller: IDLNotebookController,
+  manager: IDLNotebookExecutionManager,
   cell: vscode.NotebookCell
 ): Promise<ICurrentCell> {
   /**
    * Create cell execution data
    */
-  const execution = controller._controller.createNotebookCellExecution(cell);
+  const execution = manager.vscodeController.createNotebookCellExecution(cell);
 
   /**
    * Track current cell
@@ -37,10 +38,10 @@ export async function ExecuteNotebookCell(
   };
 
   // attempt to launch IDL if we havent started yet
-  if (!controller.isStarted()) {
+  if (!manager.isStarted()) {
     try {
       if (
-        !(await controller.launchIDL(
+        !(await manager.launchIDL(
           IDL_TRANSLATION.notebooks.notifications.startingIDL,
           current
         ))
@@ -57,10 +58,10 @@ export async function ExecuteNotebookCell(
   }
 
   // save cell as current
-  controller._currentCell = current;
+  manager._currentCell = current;
 
   // set cell order
-  execution.executionOrder = ++controller._executionOrder;
+  execution.executionOrder = ++manager._executionOrder;
 
   // set start time
   execution.start(Date.now());
@@ -112,13 +113,13 @@ export async function ExecuteNotebookCell(
     });
 
     // update VSCode
-    await controller._endCellExecution(false);
+    await manager._endCellExecution(false);
     return current;
   }
 
   // check if empty main level
   if (resp.emptyMain) {
-    await controller._endCellExecution(true);
+    await manager._endCellExecution(true);
     return current;
   }
 
@@ -128,19 +129,41 @@ export async function ExecuteNotebookCell(
     content: ['Prepared notebook cell', resp.code.split(/\r*\n/gim)],
   });
 
+  /** Check if we are starting ENVI */
+  const enviPresent = ENVI_REGEX.test(resp.code);
+
+  // check for ENVI and alert user
+  if (enviPresent) {
+    /** Regex to detect comments */
+    const comments = /^\s*;/im;
+
+    /** Check lines of code */
+    const code = resp.code
+      .split('\n')
+      .filter((line) => line.trim())
+      .filter((line) => !comments.test(line));
+
+    // check if we have more than 2 lines of code then alert user (statement and "end" for the last line)
+    if (code.length > 2) {
+      await manager._appendToCurrentCellOutput(
+        IDL_TRANSLATION.notebooks.notifications.enviCellDetected
+      );
+    }
+  }
+
   // write file
   writeFileSync(fsPath, resp.code);
 
   // reset syntax errors
-  controller._runtime.resetErrorsByFile();
+  manager._runtime.resetErrorsByFile();
 
   // compile our code
-  await controller.evaluate(`.compile -v '${fsPath}'`, {
+  await manager.evaluate(`.compile -v '${fsPath}'`, {
     silent: true,
   });
 
   // get syntax errors
-  const errsWithPrint = controller._runtime.getErrorsByFile();
+  const errsWithPrint = manager._runtime.getErrorsByFile();
 
   // did we get syntax errors?
   if (Object.keys(errsWithPrint).length > 0) {
@@ -148,7 +171,7 @@ export async function ExecuteNotebookCell(
     writeFileSync(fsPath, resp.codeWithoutPrint);
 
     // compile our code again and show errors
-    await controller.evaluate(`.compile -v '${fsPath}'`, {
+    await manager.evaluate(`.compile -v '${fsPath}'`, {
       silent: false,
     });
   }
@@ -156,7 +179,7 @@ export async function ExecuteNotebookCell(
   // vscode.workspace.openNotebookDocument();
 
   // get syntax errors
-  const errs = controller._runtime.getErrorsByFile();
+  const errs = manager._runtime.getErrorsByFile();
 
   // delete file
   rmSync(fsPath);
@@ -176,17 +199,22 @@ export async function ExecuteNotebookCell(
   // check for syntax errors
   if (Object.keys(errs).length > 0) {
     // set finish time
-    await controller._endCellExecution(false);
+    await manager._endCellExecution(false);
   } else {
     // run main level program
     if (resp.hasMain) {
-      await controller.evaluate(`.go`);
+      await manager.evaluate(`.go`);
     }
 
     /**
      * End cell execution and post-process
      */
-    await controller._endCellExecution(true);
+    await manager._endCellExecution(true);
+  }
+
+  // properly set state of notebook since ENVI includes IDL internals
+  if (enviPresent) {
+    await manager._postLaunchAndReset();
   }
 
   // return as success

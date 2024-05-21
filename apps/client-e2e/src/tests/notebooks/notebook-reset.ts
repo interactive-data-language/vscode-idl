@@ -39,7 +39,7 @@ export const RunNotebookReset: RunnerFunction = async (init) => {
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
 
   // make sure launched
-  expect(init.notebooks.controller.isStarted()).toBeTruthy();
+  expect(init.notebooks.controller.isStarted(nb)).toBeTruthy();
 
   // trigger a run
   vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
@@ -54,7 +54,7 @@ export const RunNotebookReset: RunnerFunction = async (init) => {
   await Sleep(100);
 
   // make sure stopped
-  expect(init.notebooks.controller.isStarted()).toBeTruthy();
+  expect(init.notebooks.controller.isStarted(nb)).toBeTruthy();
 
   // compare state
   CompareCellOutputs(nb, CELL_OUTPUT);

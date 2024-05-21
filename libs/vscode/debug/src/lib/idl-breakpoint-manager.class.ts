@@ -83,12 +83,17 @@ export class IDLBreakpointManager {
     return breakpoints;
   }
 
+  /** Gets command fr removing a breakpoint */
+  private _getRemoveBreakpointCommand(file: string, line: number) {
+    return `breakpoint, /clear, '${CleanPath(file)}', ${line}`;
+  }
+
   /**
    * Removes a breakpoint from IDL
    */
   async removeBreakpoint(file: string, line: number) {
     await this.adapter.evaluate(
-      `breakpoint, /clear, '${CleanPath(file)}', ${line}`,
+      this._getRemoveBreakpointCommand(file, line),
       this._options
     );
   }
@@ -126,12 +131,23 @@ export class IDLBreakpointManager {
     // reverse
     bps.reverse();
 
+    /** Remove BP commands */
+    const commands: string[] = [];
+
     // find ones to remove from IDL
     for (let i = 0; i < bps.length; i++) {
       if (bps[i].file === cleaned) {
-        await this.removeBreakpoint(cleaned, bps[i].line);
+        commands.push(this._getRemoveBreakpointCommand(cleaned, bps[i].line));
       }
     }
+
+    // remove them all at once
+    await this.adapter.evaluate(commands.join(' & '), this._options);
+  }
+
+  /** Get the command to set a breakpoint */
+  private _getSetBreakpointCommand(file: string, line: number) {
+    return `breakpoint, /set, '${CleanPath(file)}', ${line}`;
   }
 
   /**
@@ -148,7 +164,7 @@ export class IDLBreakpointManager {
      * Add breakpoint via IDL
      */
     await this.adapter.evaluate(
-      `breakpoint, /set, '${CleanPath(file)}', ${line}`,
+      this._getSetBreakpointCommand(file, line),
       this._options
     );
 
@@ -183,10 +199,16 @@ export class IDLBreakpointManager {
     // clean up
     await this.resetBreakpointsForFile(file);
 
+    /** Commands to set all breakpoints */
+    const setCommands: string[] = [];
+
     // process each requested breakpoint
     for (let i = 0; i < bps.lines.length; i++) {
-      await this.setBreakpoint(file, bps.lines[i], false);
+      setCommands.push(this._getSetBreakpointCommand(file, bps.lines[i]));
     }
+
+    // set all breakpoints
+    await this.adapter.evaluate(setCommands.join(' & '), this._options);
 
     // update our breakpoint state
     await this.syncBreakpointState();
@@ -215,6 +237,9 @@ export class IDLBreakpointManager {
     /** Current breakpoints to report to VSCode */
     const current: DebugProtocol.Breakpoint[] = [];
 
+    /** Track duplicate breakpoints to remove */
+    const commands: string[] = [];
+
     // process each IDL breakpoint
     for (let i = 0; i < fromIDL.length; i++) {
       /** Make key for BP */
@@ -222,10 +247,7 @@ export class IDLBreakpointManager {
 
       // skip if it exists
       if (key in uniq) {
-        await this.adapter.evaluate(
-          `breakpoint, /clear, ${fromIDL[i].idx}`,
-          this._options
-        );
+        commands.push(`breakpoint, /clear, ${fromIDL[i].idx}`);
         continue;
       }
 
@@ -241,6 +263,11 @@ export class IDLBreakpointManager {
           new Source(IDLDebugAdapter.name, fromIDL[i].file)
         )
       );
+    }
+
+    // see if we have BPs to remove
+    if (commands.length > 0) {
+      await this.adapter.evaluate(commands.join(' & '), this._options);
     }
 
     /** Get existing breakpoints */

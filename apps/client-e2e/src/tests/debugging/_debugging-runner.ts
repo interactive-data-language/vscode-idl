@@ -22,7 +22,7 @@ import { VariableReplacement } from './variable-replacement';
  * Logger to be used for tests related to debugging
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-export const DEBUG_TEST_LOGGER = new Logger('tests-debug', false, () => {});
+export const DEBUG_TEST_LOGGER = new Logger('debugging-tests', false, () => {});
 
 /**
  * Test runner for debugging

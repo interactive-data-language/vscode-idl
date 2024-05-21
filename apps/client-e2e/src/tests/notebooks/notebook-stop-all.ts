@@ -4,25 +4,11 @@ import expect from 'expect';
 import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
-import { CompareCellOutputs } from './helpers/compare-cells';
-import { ICompareCellOutputs } from './helpers/compare-cells.interface';
 
 /**
- * Types of outputs from cells that we expect to have
+ * Stop all notebooks
  */
-export const CELL_OUTPUT: ICompareCellOutputs[] = [
-  {
-    idx: 0,
-    success: false,
-    mimeTypes: [],
-  },
-];
-
-/**
- * Function that verifies that we can do basic debugging of IDL sessions
- * and launch a new debugging session.
- */
-export const RunNotebookStop: RunnerFunction = async (init) => {
+export const RunNotebookStopAll: RunnerFunction = async (init) => {
   /**
    * Get the file we are going to open
    */
@@ -41,21 +27,12 @@ export const RunNotebookStop: RunnerFunction = async (init) => {
   // make sure launched
   expect(init.notebooks.controller.isStarted(nb)).toBeTruthy();
 
-  // trigger a run
-  vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
+  // stop all notebooks
+  await vscode.commands.executeCommand(IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS);
 
   // short pause
-  await Sleep(300);
-
-  // stop execution
-  await vscode.commands.executeCommand(IDL_COMMANDS.NOTEBOOKS.STOP);
-
-  // short pause
-  await Sleep(100);
+  await Sleep(500);
 
   // make sure stopped
   expect(init.notebooks.controller.isStarted(nb)).toBeFalsy();
-
-  // compare state
-  CompareCellOutputs(nb, CELL_OUTPUT);
 };

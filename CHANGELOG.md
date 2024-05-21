@@ -16,6 +16,26 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
+## 4.5.1 - May 2024
+
+Continuing with our story of IDL Notebook user experience, each session of notebook now gets it's own instance of IDL! This means a few things:
+
+- You can now run more than one IDL Notebook in parallel! This makes it easy to crank through data or multi-task to your heart's content.
+
+- Each session of IDL notebook is sand-boxed and a separate process. This means notebooks won't interact with each other.
+
+- When you close an IDL Notebook, the associated IDL Kernel is automatically stopped
+
+- A new sidebar entry in the Notebook section, allows you to stop all IDL Notebook Kernels
+
+Remove a false error report when you stop IDL (terminate the process) while it is running
+
+Fixed an error where we were not automatically returning from the main level when you compiled a main level program.
+
+Fixed an issue in IDL Notebooks where, once ENVI is started, a notebook no longer can embed multiple graphics in a single notebook cell.
+
+When ENVI is started, as long as the UI is not present, we now embed direct graphics. If the ENVI UI is open, we dont embed direct graphics.
+
 ## 4.5.0 - May 2024
 
 New-and improved IDL Notebook user experience!

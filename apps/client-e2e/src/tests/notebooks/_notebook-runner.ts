@@ -10,6 +10,7 @@ import { NotebookFormats_1_0_0 } from './notebook-formats-1.0.0';
 import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { RunNotebookReset } from './notebook-reset';
 import { RunNotebookStop } from './notebook-stop';
+import { RunNotebookStopAll } from './notebook-stop-all';
 import { NotebookToProCodeAllCells } from './notebook-to-pro-code-all-cells';
 import { NotebookToProCodeAllCells2 } from './notebook-to-pro-code-all-cells-2';
 import { NotebookToProCodeOnlyCode } from './notebook-to-pro-code-only-code';
@@ -20,6 +21,8 @@ import { OpenENVINotebookExample } from './open-envi-notebook-example';
 import { OpenIDLNotebookExample } from './open-idl-notebook-example';
 import { ResetNotebookExamples } from './reset-notebook-examples';
 import { RunENVIMessageListenerTestNotebook } from './run-envi-message-listener-test-notebook';
+import { RunENVIMultiPlotNotebook } from './run-envi-multi-plot-notebook';
+import { RunPlotRegressionNotebook } from './run-plot-regression-notebook';
 import { RunProblemNotebooks } from './run-problem-notebooks';
 import { RunTestENVIMapNotebook } from './run-test-envi-map-notebook';
 import { RunTestENVINotebook } from './run-test-envi-notebook';
@@ -32,7 +35,7 @@ import { VerifyQuietNotebookSetting } from './verify-quiet-notebook-setting';
  * Logger to be used for tests related to debugging
  */
 export const NOTEBOOK_TEST_LOGGER = new Logger(
-  'tests-notebook',
+  'notebook-tests',
   false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   () => {}
@@ -162,8 +165,25 @@ NOTEBOOK_RUNNER.addTest({
   ],
 });
 
+// can get multiple graphics when ENVI has started
 NOTEBOOK_RUNNER.addTest({
-  name: 'Stack trace decorations on execution halted 1',
+  name: 'Notebooks can display more than one plot when ENVI has started',
+  fn: RunENVIMultiPlotNotebook,
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Regression test to re-embed graphics on property changes',
+  fn: RunPlotRegressionNotebook,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Stack trace decorations on execution halted #1',
   fn: NotebookCallStackDecorationsOnExecutionHalted1,
 });
 
@@ -201,6 +221,13 @@ NOTEBOOK_RUNNER.addTest({
 NOTEBOOK_RUNNER.addTest({
   name: 'Reset does the right thing',
   fn: RunNotebookReset,
+  critical: true,
+});
+
+// stop all notebooks
+NOTEBOOK_RUNNER.addTest({
+  name: 'Stop all does the right thing',
+  fn: RunNotebookStopAll,
   critical: true,
 });
 

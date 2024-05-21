@@ -61,11 +61,20 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
 
         LogCommandInfo('Resetting IDL (notebook)');
 
+        /** Get notebooks */
+        const nb = GetActiveIDLNotebookWindow(true);
+
+        // return if no notebook
+        if (nb === undefined) {
+          return;
+        }
+
         // make sure we have launched IDL
-        if (IDL_NOTEBOOK_CONTROLLER.isStarted()) {
-          await IDL_NOTEBOOK_CONTROLLER.stop();
+        if (IDL_NOTEBOOK_CONTROLLER.isStarted(nb)) {
+          await IDL_NOTEBOOK_CONTROLLER.stop(nb);
           await Sleep(100);
           await IDL_NOTEBOOK_CONTROLLER.launchIDL(
+            nb,
             IDL_TRANSLATION.notebooks.notifications.resettingIDL
           );
         } else {
@@ -82,7 +91,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error resetting notebook',
           err,
-          cmdErrors.notebooks.resetIDL
+          cmdErrors.notebooks.resetIDLKernel
         );
         return false;
       }
@@ -98,10 +107,18 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
 
         LogCommandInfo('Stopping IDL (notebook)');
 
+        /** Get notebooks */
+        const nb = GetActiveIDLNotebookWindow(true);
+
+        // return if no notebook
+        if (nb === undefined) {
+          return;
+        }
+
         // check if launched
-        if (IDL_NOTEBOOK_CONTROLLER.isStarted()) {
+        if (IDL_NOTEBOOK_CONTROLLER.isStarted(nb)) {
           // trigger reset and create promise
-          const prom = IDL_NOTEBOOK_CONTROLLER.stop();
+          const prom = IDL_NOTEBOOK_CONTROLLER.stop(nb);
 
           // show startup progress
           vscode.window.withProgress(
@@ -131,11 +148,38 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error stopping notebook',
           err,
-          cmdErrors.notebooks.stopIDL
+          cmdErrors.notebooks.stopIDLKernel
         );
         return false;
       }
     })
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS,
+      async () => {
+        try {
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS,
+          });
+
+          LogCommandInfo('Stopping all IDL Notebook Kernels');
+
+          /** Stop all notebook sessions */
+          await IDL_NOTEBOOK_CONTROLLER.stopAll();
+
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error stopping notebook',
+            err,
+            cmdErrors.notebooks.stopIDLKernel
+          );
+          return false;
+        }
+      }
+    )
   );
 
   ctx.subscriptions.push(
