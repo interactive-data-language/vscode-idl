@@ -1,5 +1,5 @@
 import { Logger } from '@idl/logger';
-import { Sleep } from '@idl/shared';
+import { IDL_COMMANDS, Sleep } from '@idl/shared';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
 import { arch, platform } from 'os';
 import { performance } from 'perf_hooks';
@@ -37,10 +37,13 @@ export class Runner {
   }
 
   /**
-   *
+   * Close files and stop all notebook kernels
    */
   async closeAll() {
     await vscode.commands.executeCommand('workbench.action.closeAllEditors');
+    await vscode.commands.executeCommand(
+      IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS
+    );
   }
 
   /**
