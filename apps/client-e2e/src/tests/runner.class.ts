@@ -95,7 +95,9 @@ export class Runner {
       try {
         // check if we should skip running the test
         if (!this.canRunTest(this.tests[i])) {
-          this.logger.warn(`Skipping test: ${this.tests[i].name}`);
+          this.logger.warn(
+            `(${i + 1}/${nTests}) Skipping test: "${this.tests[i].name}"`
+          );
           continue;
         }
 
