@@ -1,9 +1,12 @@
 import { IDLEvaluateOptions } from '@idl/idl';
+import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import {
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_CONTROLLER_NAME,
   IDL_NOTEBOOK_LANGUAGE_NAME,
 } from '@idl/shared';
+import { IDL_TRANSLATION } from '@idl/translation';
+import { IDL_LOGGER } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 
 import { IDLNotebookExecutionManager } from './idl-notebook-execution-manager.class';
@@ -54,11 +57,32 @@ export class IDLNotebookController {
     this._controller = this.createController();
 
     // listen for when we close notebooks to clean up IDL processes
-    vscode.workspace.onDidCloseNotebookDocument((nb) => {
-      const uri = nb.uri.toString();
-      if (uri in this.notebookManagers) {
-        this.notebookManagers[uri].dispose();
-        delete this.notebookManagers[uri];
+    vscode.workspace.onDidCloseNotebookDocument(async (nb) => {
+      try {
+        // get the URI
+        const uri = nb.uri.toString();
+
+        // see if we are tracking it
+        if (uri in this.notebookManagers) {
+          // clean up
+          await this.notebookManagers[uri].dispose();
+
+          // remove reference
+          delete this.notebookManagers[uri];
+
+          // remove from known notebook
+          delete this.knownNotebooks[uri];
+        }
+      } catch (err) {
+        IDL_LOGGER.log({
+          log: IDL_NOTEBOOK_LOG,
+          content: [
+            IDL_TRANSLATION.notebooks.errors.onDidCloseNotebookDocument,
+            err,
+          ],
+          type: 'error',
+          alert: IDL_TRANSLATION.notebooks.errors.onDidCloseNotebookDocument,
+        });
       }
     });
   }
@@ -182,5 +206,18 @@ export class IDLNotebookController {
    */
   async stop(nb: vscode.NotebookDocument) {
     return this.getNotebookManager(nb).stop();
+  }
+
+  /**
+   * Stop kernel execution
+   */
+  async stopAll() {
+    /** Get all notebook sessions */
+    const sessions = Object.values(this.notebookManagers);
+
+    // stop each
+    for (let i = 0; i < sessions.length; i++) {
+      await sessions[i].stop();
+    }
   }
 }

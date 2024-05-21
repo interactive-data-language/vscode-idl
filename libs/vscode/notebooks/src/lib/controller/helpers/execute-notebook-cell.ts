@@ -12,6 +12,7 @@ import * as vscode from 'vscode';
 
 import { ICurrentCell } from '../idl-notebook-controller.interface';
 import { IDLNotebookExecutionManager } from '../idl-notebook-execution-manager.class';
+import { ENVI_REGEX } from './execute-notebook-cell.interface';
 
 /**
  * Runs a notebook cell and manages logic for execution
@@ -128,6 +129,28 @@ export async function ExecuteNotebookCell(
     content: ['Prepared notebook cell', resp.code.split(/\r*\n/gim)],
   });
 
+  /** Check if we are starting ENVI */
+  const enviPresent = ENVI_REGEX.test(resp.code);
+
+  // check for ENVI and alert user
+  if (enviPresent) {
+    /** Regex to detect comments */
+    const comments = /^\s*;/im;
+
+    /** Check lines of code */
+    const code = resp.code
+      .split('\n')
+      .filter((line) => line.trim())
+      .filter((line) => !comments.test(line));
+
+    // check if we have more than 2 lines of code then alert user (statement and "end" for the last line)
+    if (code.length > 2) {
+      await manager._appendToCurrentCellOutput(
+        IDL_TRANSLATION.notebooks.notifications.enviCellDetected
+      );
+    }
+  }
+
   // write file
   writeFileSync(fsPath, resp.code);
 
@@ -187,6 +210,11 @@ export async function ExecuteNotebookCell(
      * End cell execution and post-process
      */
     await manager._endCellExecution(true);
+  }
+
+  // properly set state of notebook since ENVI includes IDL internals
+  if (enviPresent) {
+    await manager._postLaunchAndReset();
   }
 
   // return as success

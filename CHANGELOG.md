@@ -22,6 +22,8 @@ Remove a false error report when you stop IDL (terminate the process) while it i
 
 Fixed an error where we were not automatically returning from the main level when you compiled a main level program.
 
+Fixed an issue in IDL Notebooks where, once ENVI is started, a notebook no longer can embed multiple graphics in a single notebook cell.
+
 ## 4.5.0 - May 2024
 
 New-and improved IDL Notebook user experience!

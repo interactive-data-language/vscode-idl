@@ -75,10 +75,11 @@ export const EN: ITranslation = {
         openIDLExample: 'IDL: Open IDL Example Notebook',
         openENVIExample: 'IDL: Open ENVI Example Notebook',
         // shorter because it shows in toolbar
-        resetIDL: 'IDL: Reset IDL Notebook',
+        resetIDLKernel: 'IDL: Reset IDL Notebook Kernel',
         resetNotebookExamples: 'IDL: Reset IDL and ENVI Example Notebooks',
         // shorter because it shows in toolbar
-        stopIDL: 'IDL: Stop IDL Notebook',
+        stopIDLKernel: 'IDL: Stop IDL Notebook Kernel',
+        stopAllIDLKernels: 'IDL: Stop All IDL Notebook Kernels',
       },
       terminal: {
         startIDL: 'IDL: Open an IDL Terminal Window',
@@ -139,9 +140,10 @@ export const EN: ITranslation = {
         notebookToProCode: 'Error while converting notebook to PRO code',
         openIDLExample: 'Error while opening IDL example notebook',
         openENVIExample: 'Error while opening ENVI example notebook',
-        resetIDL: 'Error while resetting IDL',
+        resetIDLKernel: 'Error while resetting IDL Notebook Kernel',
         resetNotebookExamples: 'Error while resetting example notebooks',
-        stopIDL: 'Error while stopping IDL',
+        stopIDLKernel: 'Error while stopping IDL Notebook Kernel',
+        stopAllIDLKernels: 'Error while stopping all IDL Notebook Kernels',
       },
       terminal: {
         startIDL: 'Error while opening IDL terminal indow',
@@ -716,6 +718,8 @@ export const EN: ITranslation = {
       checkingGraphics: 'Error while trying to retrieve any graphics to embed',
       handlingMessageFromRenderer:
         'Error while responding to message from notebook renderer',
+      onDidCloseNotebookDocument:
+        'Error while cleaning up after closed IDL Notebook',
     },
     notifications: {
       startingIDL: 'Starting IDL, please wait...',
@@ -736,6 +740,14 @@ export const EN: ITranslation = {
       startedIDLKernel: 'Started IDL {VERSION} for notebook!',
       notValidIDLVersion:
         'IDL Notebooks require IDL 8.8.0 or newer in order to run',
+      enviCellDetected: [
+        'ENVI startup detected in notebook cell.',
+        '',
+        'If you have graphics to embed, you will need to re-run the cell to get all items.',
+        '',
+        "Pro tip: Have a dedicated cell for ENVI startup so you don't need to re-run cells.",
+        '',
+      ].join('\n'),
     },
   },
   notifications: {

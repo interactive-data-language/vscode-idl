@@ -233,24 +233,27 @@ export class IDLProcess extends EventEmitter {
           ) + data
         ):
           {
-            // get length of captured output
-            const lBefore = this.capturedOutput.length;
-
             // remove IDL or ENVI prompt which might be split up
-            this.capturedOutput = `${this.capturedOutput}${data}`.replace(
-              REGEX_IDL_PROMPT,
-              ''
-            );
+            if (this.evaluating) {
+              // get length of captured output
+              const lBefore = this.capturedOutput.length;
 
-            // get the additional text to log to the console with prompt removed
-            const delta = this.capturedOutput.substring(
-              lBefore,
-              this.capturedOutput.length
-            );
+              // save output
+              this.capturedOutput = `${this.capturedOutput}${data}`.replace(
+                REGEX_IDL_PROMPT,
+                ''
+              );
 
-            // send if not empty - can have more than just the prompt return here
-            if (delta.trim() !== '' || first) {
-              this.sendOutput(first ? data : delta);
+              // get the additional text to log to the console with prompt removed
+              const delta = this.capturedOutput.substring(
+                lBefore,
+                this.capturedOutput.length
+              );
+
+              // send if not empty - can have more than just the prompt return here
+              if (delta.trim() !== '' || first) {
+                this.sendOutput(first ? data : delta);
+              }
             }
 
             /**
@@ -264,7 +267,10 @@ export class IDLProcess extends EventEmitter {
           break;
 
         case REGEX_EMPTY_LINE.test(data) && os.platform() === 'win32':
-          this.capturedOutput += '\n';
+          if (this.evaluating) {
+            this.capturedOutput += '\n';
+          }
+
           // too much nonsense comes from windows, but this is better logic on other platforms
           // mostly for startup
           if (!this.started) {
@@ -274,7 +280,9 @@ export class IDLProcess extends EventEmitter {
 
         // other data that we need to capture?
         default:
-          this.capturedOutput += data;
+          if (this.evaluating) {
+            this.capturedOutput += data;
+          }
 
           // check if we need to print to debug console
           this.sendOutput(data);

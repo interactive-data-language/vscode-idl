@@ -28,7 +28,8 @@ pro Graphic::Refresh, disable = disable
             dim = oWin.dimensions
             !magic.xsize = dim[0]
             !magic.ysize = dim[1]
-            IDLNotebook.addToNotebook, !magic
+            defsysv, '!IDLNotebookMagic', exists = _exists
+            if _exists then call_method, 'IDLNotebook.addToNotebook', !magic
           endif
           if (isa(oWin)) then oWin.draw
         endif

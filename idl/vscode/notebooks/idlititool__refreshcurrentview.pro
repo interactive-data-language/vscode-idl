@@ -33,7 +33,8 @@ pro IDLitTool::RefreshCurrentWindow
       dim = oWin.dimensions
       !magic.xsize = dim[0]
       !magic.ysize = dim[1]
-      IDLNotebook.addToNotebook, !magic
+      defsysv, '!IDLNotebookMagic', exists = _exists
+      if _exists then call_method, 'IDLNotebook.addToNotebook', !magic
     endif
     oWin.draw
     self._bnoredraw = 0b

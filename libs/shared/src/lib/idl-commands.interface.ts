@@ -111,11 +111,13 @@ export const IDL_COMMANDS = {
     /** Open ENVI example notebook */
     OPEN_ENVI_EXAMPLE: `${BASE_NOTEBOOK}openENVIExample`,
     /** Reset IDL session for notebook */
-    RESET: `${BASE_NOTEBOOK}resetIDL`,
+    RESET: `${BASE_NOTEBOOK}resetIDLKernel`,
     /** Reset example notebooks */
     RESET_NOTEBOOK_EXAMPLES: `${BASE_NOTEBOOK}resetNotebookExamples`,
     /** Reset IDL session for notebook */
-    STOP: `${BASE_NOTEBOOK}stopIDL`,
+    STOP: `${BASE_NOTEBOOK}stopIDLKernel`,
+    /** Stop all IDL kernels */
+    STOP_ALL_KERNELS: `${BASE_NOTEBOOK}stopAllIDLKernels`,
   },
   /** Commands for starting and interacting with a terminal session of IDL */
   TERMINAL: {
