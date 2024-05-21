@@ -10,6 +10,7 @@ import { NotebookFormats_1_0_0 } from './notebook-formats-1.0.0';
 import { NotebookFormats_2_0_0 } from './notebook-formats-2.0.0';
 import { RunNotebookReset } from './notebook-reset';
 import { RunNotebookStop } from './notebook-stop';
+import { RunNotebookStopAll } from './notebook-stop-all';
 import { NotebookToProCodeAllCells } from './notebook-to-pro-code-all-cells';
 import { NotebookToProCodeAllCells2 } from './notebook-to-pro-code-all-cells-2';
 import { NotebookToProCodeOnlyCode } from './notebook-to-pro-code-only-code';
@@ -220,6 +221,13 @@ NOTEBOOK_RUNNER.addTest({
 NOTEBOOK_RUNNER.addTest({
   name: 'Reset does the right thing',
   fn: RunNotebookReset,
+  critical: true,
+});
+
+// stop all notebooks
+NOTEBOOK_RUNNER.addTest({
+  name: 'Stop all does the right thing',
+  fn: RunNotebookStopAll,
   critical: true,
 });
 
