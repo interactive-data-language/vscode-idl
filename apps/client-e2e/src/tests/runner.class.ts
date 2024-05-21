@@ -185,10 +185,9 @@ export class Runner {
 
     // alert user
     this.logger.info([
-      `Finished running all tests in ${Math.ceil(
+      `Finished running ${total} tests in ${Math.ceil(
         (performance.now() - t0) / 1000
       )} seconds with ${failures} failed tests`,
-      { total, failures },
     ]);
 
     return failures;
