@@ -564,6 +564,10 @@ export const EN: ITranslation = {
             name: 'Reset Example Notebooks',
             description: '',
           },
+          stopAllNotebookKernels: {
+            name: 'Stop all IDL Notebook Kernels',
+            description: '',
+          },
         },
         terminal: {
           startTerminal: {

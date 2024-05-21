@@ -37,6 +37,15 @@ export const NOTEBOOK_ACTIONS: IChild[] = [
     commandName: IDL_COMMANDS.NOTEBOOKS.CONVERT_TO_PDF,
   },
   {
+    name: IDL_TRANSLATION.idl.tree.children.notebooks.stopAllNotebookKernels
+      .name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.notebooks.stopAllNotebookKernels
+        .description,
+    icon: 'stop.svg',
+    commandName: IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS,
+  },
+  {
     name: IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.name,
     description:
       IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.description,

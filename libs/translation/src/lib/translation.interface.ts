@@ -611,6 +611,8 @@ export interface ITranslation {
           notebookToProCode: ITreeInformation;
           /** Convert notebook to PDF */
           notebookToPDF: ITreeInformation;
+          /** Stop all notebook kernels */
+          stopAllNotebookKernels: ITreeInformation;
         };
         /** Deprecated, but tree entries for IDL terminals */
         terminal: {
