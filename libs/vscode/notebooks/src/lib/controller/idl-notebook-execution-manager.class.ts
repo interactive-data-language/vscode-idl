@@ -702,11 +702,13 @@ export class IDLNotebookExecutionManager {
   /**
    * TODO: What all do we need to do here?
    */
-  dispose(): void {
+  async dispose(): Promise<void> {
+    this._runtime.stop();
+
+    // stop listening
     if (this.listening) {
       this._runtime.removeAllListeners();
     }
-    this._runtime.stop();
   }
 
   /**

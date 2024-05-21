@@ -91,7 +91,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error resetting notebook',
           err,
-          cmdErrors.notebooks.resetIDL
+          cmdErrors.notebooks.resetIDLKernel
         );
         return false;
       }
@@ -148,11 +148,38 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error stopping notebook',
           err,
-          cmdErrors.notebooks.stopIDL
+          cmdErrors.notebooks.stopIDLKernel
         );
         return false;
       }
     })
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS,
+      async () => {
+        try {
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS,
+          });
+
+          LogCommandInfo('Stopping all IDL Notebook Kernels');
+
+          /** Stop all notebook sessions */
+          await IDL_NOTEBOOK_CONTROLLER.stopAll();
+
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error stopping notebook',
+            err,
+            cmdErrors.notebooks.stopIDLKernel
+          );
+          return false;
+        }
+      }
+    )
   );
 
   ctx.subscriptions.push(

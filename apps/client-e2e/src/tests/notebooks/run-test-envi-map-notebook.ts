@@ -12,7 +12,7 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
   {
     idx: 0,
     success: true,
-    mimeTypes: [],
+    mimeTypes: ['text/plain'],
   },
   {
     idx: 1,

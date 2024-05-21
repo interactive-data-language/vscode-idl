@@ -72,11 +72,13 @@ export interface ICommandTranslation {
     /** Open ENVI example notebook */
     openENVIExample: string;
     /** Reset notebook session */
-    resetIDL: string;
+    resetIDLKernel: string;
     /** Reset example notebooks */
     resetNotebookExamples: string;
     /** Stop notebook session */
-    stopIDL: string;
+    stopIDLKernel: string;
+    /** Stop all notebooks sessions */
+    stopAllIDLKernels: string;
   };
   /** Terminal commands */
   terminal: {
@@ -645,6 +647,7 @@ export interface ITranslation {
     renderer: string;
     /** Name of the notebook controller */
     controller: string;
+    /** Errors from notebooks */
     errors: {
       /** Bad notebook file */
       errorParsing: string;
@@ -666,6 +669,8 @@ export interface ITranslation {
       checkingGraphics: string;
       /** Problem with message from renderer being handled */
       handlingMessageFromRenderer: string;
+      /** When we close a notebooks */
+      onDidCloseNotebookDocument: string;
     };
     /** Notifications for working with notebooks */
     notifications: {
@@ -691,6 +696,8 @@ export interface ITranslation {
       startedIDLKernel: string;
       /** Notification for when IDL doesnt have the right version */
       notValidIDLVersion: string;
+      /** ENVI notebook cell detected */
+      enviCellDetected: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */

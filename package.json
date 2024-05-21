@@ -341,8 +341,8 @@
         "title": "%commands.idl.notebooks.openIDLExample%"
       },
       {
-        "command": "idl.notebooks.resetIDL",
-        "title": "%commands.idl.notebooks.resetIDL%",
+        "command": "idl.notebooks.resetIDLKernel",
+        "title": "%commands.idl.notebooks.resetIDLKernel%",
         "icon": {
           "light": "extension/images/light/renew.svg",
           "dark": "extension/images/dark/renew.svg"
@@ -353,8 +353,12 @@
         "title": "%commands.idl.notebooks.resetNotebookExamples%"
       },
       {
-        "command": "idl.notebooks.stopIDL",
-        "title": "%commands.idl.notebooks.stopIDL%",
+        "command": "idl.notebooks.stopAllIDLKernels",
+        "title": "%commands.idl.notebooks.stopAllIDLKernels%"
+      },
+      {
+        "command": "idl.notebooks.stopIDLKernel",
+        "title": "%commands.idl.notebooks.stopIDLKernel%",
         "icon": {
           "light": "extension/images/light/stop.svg",
           "dark": "extension/images/dark/stop.svg"
@@ -1414,12 +1418,12 @@
       ],
       "notebook/toolbar": [
         {
-          "command": "idl.notebooks.resetIDL",
+          "command": "idl.notebooks.resetIDLKernel",
           "group": "status",
           "when": "resourceExtname == .idlnb"
         },
         {
-          "command": "idl.notebooks.stopIDL",
+          "command": "idl.notebooks.stopIDLKernel",
           "group": "status",
           "when": "resourceExtname == .idlnb"
         },
