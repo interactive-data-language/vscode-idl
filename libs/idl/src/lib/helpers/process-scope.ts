@@ -9,8 +9,11 @@ import { CleanIDLOutput } from './clean-idl-output';
  * Processes scope information from IDL
  */
 export function ProcessScope(idl: IDLProcess, inOutput: string) {
+  /** Remove all white space from output */
+  const cleaned = CleanIDLOutput(inOutput);
+
   /** Get start of scope information */
-  const idxStart = inOutput.indexOf('{"scope"');
+  const idxStart = cleaned.indexOf('{"scope"');
 
   // verify we found what we were looking for
   if (idxStart === -1) {
@@ -18,16 +21,13 @@ export function ProcessScope(idl: IDLProcess, inOutput: string) {
   }
 
   // get part of string we care about
-  const output = inOutput.substring(idxStart);
-
-  // get the part of the string for parsing
-  const toParse = CleanIDLOutput(output);
+  const output = cleaned.substring(idxStart);
 
   // lets try to parse everything
   try {
     // const split = output.split('\n');
     // const parse = split[split.length - 2];
-    const info: IDLInfo = JSON.parse(toParse);
+    const info: IDLInfo = JSON.parse(output);
 
     // say that we have info
     info.hasInfo = true;
@@ -50,7 +50,7 @@ export function ProcessScope(idl: IDLProcess, inOutput: string) {
       content: [
         'Error parsing output',
         JSON.stringify(output),
-        JSON.stringify(toParse),
+        JSON.stringify(output),
       ],
       type: 'error',
       alert: IDL_TRANSLATION.debugger.adapter.scopeParseError,
