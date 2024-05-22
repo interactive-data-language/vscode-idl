@@ -8,11 +8,17 @@ import { CleanIDLOutput } from './clean-idl-output';
 /**
  * Processes scope information from IDL
  */
-export function ProcessScope(idl: IDLProcess, output: string) {
+export function ProcessScope(idl: IDLProcess, inOutput: string) {
+  /** Get start of scope information */
+  const idxStart = inOutput.indexOf('{"scope"');
+
   // verify we found what we were looking for
-  if (output.indexOf('{"scope"') === -1) {
+  if (idxStart === -1) {
     return copy(DEFAULT_IDL_INFO);
   }
+
+  // get part of string we care about
+  const output = inOutput.substring(idxStart);
 
   // get the part of the string for parsing
   const toParse = CleanIDLOutput(output);
