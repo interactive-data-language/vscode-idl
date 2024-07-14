@@ -1,8 +1,8 @@
-import { GlobalTokens } from '@idl/data-types/core';
-import { TaskToGlobalToken } from '@idl/data-types/tasks';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
 import { GetExtensionPath } from '@idl/shared';
+import { GlobalTokens } from '@idl/types/core';
+import { TaskToGlobalToken } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] envi`, async () => {
@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         name: 'enviexportrastertocadrgtask',
         pos: [0, 0, 0],
         meta: {
-          display: 'enviexportrastertocadrgtask',
+          display: 'ENVIExportRasterToCADRGTask',
           source: 'user',
           docs: 'This task exports a 3-band, byte image to the CADRG format.',
           private: false,

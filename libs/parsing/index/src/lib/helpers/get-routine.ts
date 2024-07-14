@@ -1,8 +1,3 @@
-import {
-  GLOBAL_TOKEN_TYPES,
-  GlobalIndexedRoutineToken,
-  IDL_TYPE_LOOKUP,
-} from '@idl/data-types/core';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import {
   CallFunctionMethodToken,
@@ -12,10 +7,16 @@ import {
   TOKEN_NAMES,
   TokenName,
 } from '@idl/parsing/tokenizer';
+import {
+  GLOBAL_TOKEN_TYPES,
+  GlobalIndexedRoutineToken,
+  IDL_TYPE_LOOKUP,
+} from '@idl/types/core';
 
 import { IDLIndex } from '../idl-index.class';
-import { FromENVIOrIDLTask } from '../post-process/populate-type/from/function/functions/envi-idl-task';
-import { FromObjNew } from '../post-process/populate-type/from/function/functions/obj-new';
+import { TypeFromCallFunction } from '../post-process/populate-type/from/function/functions/type-from-call-function';
+import { TypeFromObjNew } from '../post-process/populate-type/from/function/functions/type-from-obj-new';
+import { TypeFromTask } from '../post-process/populate-type/from/function/functions/type-from-task';
 import {
   CALL_ROUTINE_TOKENS,
   CallRoutineToken,
@@ -158,7 +159,7 @@ export function GetRoutine(
       switch (true) {
         case findThis === 'obj_new': {
           /** Get the class that is being initialized */
-          const className = FromObjNew(local);
+          const className = TypeFromObjNew(local);
 
           // if the class is not "any" then use that as the function
           // or init method
@@ -167,9 +168,20 @@ export function GetRoutine(
           }
           break;
         }
+        case findThis === 'call_function': {
+          /** Get the class that is being initialized */
+          const className = TypeFromCallFunction(local);
+
+          // if the class is not "any" then use that as the function
+          // or init method
+          if (className) {
+            findThis = className;
+          }
+          break;
+        }
         case findThis === 'envitask' || findThis === 'idltask': {
           /** Get the class that is being initialized */
-          const className = FromENVIOrIDLTask(
+          const className = TypeFromTask(
             index,
             parsed,
             local,

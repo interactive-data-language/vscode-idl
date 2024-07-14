@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -228,7 +228,7 @@ describe(`[auto generated] Types from output arguments`, () => {
               pos: [10, 28, 1],
             },
           },
-          docs: '\n```idl\nauto_doc_example, a, b, c\n```\n\n\n\n#### Arguments\n\n- **a**: in, required, ENVIRaster\n\n  Placeholder docs for argument, keyword, or property\n\n- **b**: out, required, Long\n\n  Placeholder docs for argument, keyword, or property\n\n- **c**: out, required, ENVIRaster\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nauto_doc_example, a, b, c\n```\n\n\n\n\n#### Arguments\n\n- **a**: in, required, ENVIRaster\n\n  Placeholder docs for argument, keyword, or property\n\n- **b**: out, required, Long\n\n  Placeholder docs for argument, keyword, or property\n\n- **c**: out, required, ENVIRaster\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'auto_doc_example',
           kws: {},

@@ -4,7 +4,6 @@ import {
   DOCS_NOTEBOOK_FOLDER,
   EXAMPLE_NOTEBOOKS,
 } from '@idl/notebooks/shared';
-import { INotebookToProCodeOptions } from '@idl/notebooks/types';
 import {
   CleanPath,
   GetExtensionPath,
@@ -15,6 +14,7 @@ import {
   Sleep,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { INotebookToProCodeOptions } from '@idl/types/notebooks';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   IDL_LOGGER,
@@ -31,6 +31,7 @@ import {
   GetActiveIDLNotebookWindow,
   OpenFileInVSCode,
   OpenNotebookInVSCode,
+  VSCODE_COMMANDS,
   VSCodeTelemetryLogger,
 } from '@idl/vscode/shared';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
@@ -60,11 +61,20 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
 
         LogCommandInfo('Resetting IDL (notebook)');
 
+        /** Get notebooks */
+        const nb = GetActiveIDLNotebookWindow(true);
+
+        // return if no notebook
+        if (nb === undefined) {
+          return;
+        }
+
         // make sure we have launched IDL
-        if (IDL_NOTEBOOK_CONTROLLER.isStarted()) {
-          await IDL_NOTEBOOK_CONTROLLER.stop();
+        if (IDL_NOTEBOOK_CONTROLLER.isStarted(nb)) {
+          await IDL_NOTEBOOK_CONTROLLER.stop(nb);
           await Sleep(100);
           await IDL_NOTEBOOK_CONTROLLER.launchIDL(
+            nb,
             IDL_TRANSLATION.notebooks.notifications.resettingIDL
           );
         } else {
@@ -81,7 +91,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error resetting notebook',
           err,
-          cmdErrors.notebooks.resetIDL
+          cmdErrors.notebooks.resetIDLKernel
         );
         return false;
       }
@@ -97,10 +107,18 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
 
         LogCommandInfo('Stopping IDL (notebook)');
 
+        /** Get notebooks */
+        const nb = GetActiveIDLNotebookWindow(true);
+
+        // return if no notebook
+        if (nb === undefined) {
+          return;
+        }
+
         // check if launched
-        if (IDL_NOTEBOOK_CONTROLLER.isStarted()) {
+        if (IDL_NOTEBOOK_CONTROLLER.isStarted(nb)) {
           // trigger reset and create promise
-          const prom = IDL_NOTEBOOK_CONTROLLER.stop();
+          const prom = IDL_NOTEBOOK_CONTROLLER.stop(nb);
 
           // show startup progress
           vscode.window.withProgress(
@@ -130,11 +148,38 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error stopping notebook',
           err,
-          cmdErrors.notebooks.stopIDL
+          cmdErrors.notebooks.stopIDLKernel
         );
         return false;
       }
     })
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS,
+      async () => {
+        try {
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS,
+          });
+
+          LogCommandInfo('Stopping all IDL Notebook Kernels');
+
+          /** Stop all notebook sessions */
+          await IDL_NOTEBOOK_CONTROLLER.stopAll();
+
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error stopping notebook',
+            err,
+            cmdErrors.notebooks.stopIDLKernel
+          );
+          return false;
+        }
+      }
+    )
   );
 
   ctx.subscriptions.push(
@@ -200,13 +245,18 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(
       IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
-      async () => {
+      async (dontSave?: boolean) => {
         try {
           const doc = await vscode.workspace.openNotebookDocument(
             IDL_NOTEBOOK_LANGUAGE_NAME
           );
 
           await vscode.window.showNotebookDocument(doc);
+
+          // prompt user to save
+          if (!dontSave) {
+            await vscode.commands.executeCommand(VSCODE_COMMANDS.SAVE_EDITOR);
+          }
 
           // return as though we succeeded
           return true;
@@ -238,7 +288,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           // if it doesnt exist, copy it
           if (!existsSync(exampleUri)) {
             await cp(
-              GetExtensionPath('extension/docs/notebooks'),
+              GetExtensionPath('extension/example-notebooks'),
               EXAMPLE_NOTEBOOKS,
               { recursive: true }
             );
@@ -277,7 +327,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           // if it doesnt exist, copy it
           if (!existsSync(exampleUri)) {
             await cp(
-              GetExtensionPath('extension/docs/notebooks'),
+              GetExtensionPath('extension/example-notebooks'),
               EXAMPLE_NOTEBOOKS,
               { recursive: true }
             );
@@ -413,7 +463,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           }
 
           await cp(
-            GetExtensionPath('extension/docs/notebooks'),
+            GetExtensionPath('extension/example-notebooks'),
             EXAMPLE_NOTEBOOKS,
             { recursive: true }
           );
@@ -513,10 +563,21 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
 
           const doc = await OpenFileInVSCode(mdUri, true);
 
+          // short pause to let extension start
+          await Sleep(200);
+
           /**
            * Convert to PDF
            */
-          await vscode.commands.executeCommand('extension.markdown-pdf.pdf');
+          const prom = vscode.commands.executeCommand(
+            'extension.markdown-pdf.pdf'
+          );
+
+          // close markdown file
+          await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
+
+          // wait for conversion to finish
+          await prom;
 
           /**
            * Get URI for NB conversion

@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -35,6 +35,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
         info: 'Illegal colon. Colons are only allowed in braces for indexing and structures for property creation/setting',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -73,12 +74,14 @@ describe(`[auto generated] Detects illegal colon`, () => {
         info: '"break" statements can only exist within a loop, case, or switch',
         start: [0, 0, 5],
         end: [0, 0, 5],
+        canReport: true,
       },
       {
         code: 10,
         info: 'Illegal colon. Colons are only allowed in braces for indexing and structures for property creation/setting',
         start: [0, 5, 1],
         end: [0, 5, 1],
+        canReport: true,
       },
     ];
 
@@ -117,18 +120,28 @@ describe(`[auto generated] Detects illegal colon`, () => {
         info: 'Colon detected in function call. If indexing array, you should be using square brackets instead of parentheses. Using parentheses for array indexing is ambiguous and problematic when there is a function with the same name as the variable you are indexing.',
         start: [0, 0, 7],
         end: [0, 10, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 7],
+        end: [0, 10, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [0, 7, 1],
         end: [0, 7, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "b"',
         start: [0, 9, 1],
         end: [0, 9, 1],
+        canReport: true,
       },
     ];
 
@@ -167,18 +180,28 @@ describe(`[auto generated] Detects illegal colon`, () => {
         info: 'Colon detected in function call. If indexing array, you should be using square brackets instead of parentheses. Using parentheses for array indexing is ambiguous and problematic when there is a function with the same name as the variable you are indexing.',
         start: [0, 0, 6],
         end: [0, 9, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 6],
+        end: [0, 9, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [0, 6, 1],
         end: [0, 6, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "b"',
         start: [0, 8, 1],
         end: [0, 8, 1],
+        canReport: true,
       },
     ];
 
@@ -217,6 +240,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 

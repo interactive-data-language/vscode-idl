@@ -1,4 +1,5 @@
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { IDLFileHelper } from '@idl/shared';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
@@ -100,25 +101,30 @@ export function SendProblems(inFiles: string[]) {
      *
      * If we are a notebook we always send problems
      */
-    if (IDL_INDEX.isIDLNotebookFile(files[i]) || CanReportProblems(files[i])) {
+    if (
+      (IDLFileHelper.isIDLNotebookFile(files[i]) ||
+        IDLFileHelper.isPROCode(files[i])) &&
+      CanReportProblems(files[i])
+    ) {
       /**
        * Are our tokens in another thread and we have stored the problems directly in parseProblems
        *
        * We use parseProblems to store "undefined" as a flag to sync files so we need an extra check
        */
-      if (files[i] in parseProblems) {
-        problems = parseProblems[files[i]];
+      if (parseProblems[files[i]]) {
+        problems = problems.concat(parseProblems[files[i]]);
       }
 
       // check for global problems
-      if (files[i] in globalProblems) {
+      if (globalProblems[files[i]]) {
         problems = problems.concat(globalProblems[files[i]]);
       }
 
       // filter problems by problem code
       if (problems.length > 0) {
         problems = problems.filter(
-          (problem) => !(problem.code in IGNORE_PROBLEM_CODES)
+          (problem) =>
+            !(problem.code in IGNORE_PROBLEM_CODES) && problem.canReport
         );
       }
     }
@@ -126,7 +132,9 @@ export function SendProblems(inFiles: string[]) {
     // sync problems
     SERVER_CONNECTION.sendDiagnostics({
       uri: URIFromIDLIndexFile(files[i]),
-      diagnostics: SyntaxProblemsToDiagnostic(problems),
+      diagnostics: SyntaxProblemsToDiagnostic(
+        INCLUDE_PROBLEMS_FOR.ALL ? problems : []
+      ),
     });
   }
 }

@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -316,7 +316,7 @@ describe(`[auto generated] Complex real world test`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: "\n```idl\nawesomeRasterIntersection, $\n [ /DEBUG ], $\n [ DATA_IGNORE_VALUE = Number ], $\n [ /GENERATE_PIXEL_STATE_MASK ], $\n INPUT_RASTER1 = ENVIRaster, $\n INPUT_RASTER2 = ENVIRaster, $\n [ OUTPUT_GRID_DEFINITION = ENVIGridDefinition ], $\n [ OUTPUT_RASTER1_URI = String ], $\n [ OUTPUT_RASTER2_URI = String ], $\n [ OUTPUT_MASK_RASTER_URI = String ], $\n [ RESAMPLING = String ]\n```\n\nTool for determining the intersection between two rasters based on their\nspatial reference and spatial extent. Both rasters will also contain only\nthe valid pixels from each scene for  analysis. In other words, if a pixel\nis `off` in the first image and not the second, it will be turned `off` in\neach of the output rasters for consistency. If one of the rasters does not\nhave a data ignore value, then a pixel state mask is automatically generated\nso that you can mask the output rasters if needed.\n\nThe pixel size of the output rasters will be the smallest x and y\npixel size from each raster.\n\n#### Keywords\n\n- **DEBUG**: in, optional, Boolean\n\n    If set, errors are stopped on.\n    Add a link to make sure it doesn't get picked up\n      https://en.wikipedia.org/wiki/Haversine_formula\n      http://en.wikipedia.org/wiki/Haversine_formula\n      ftp://en.wikipedia.org/wiki/Haversine_formula\n      s3://en.wikipedia.org/wiki/Haversine_formula\n      file://en.wikipedia.org/wiki/Haversine_formula\n\n- **DATA_IGNORE_VALUE**: in, optional, Number\n\n    If one or both of your input rasters do not have\n    a data ignore value metadata item, you can specify\n\n- **GENERATE_PIXEL_STATE_MASK**: in, optional, Boolean\n\n    If set, then an addititonal output raster is created\n    that represents which pixels can be processed or not.\n    \n    This will automatically be generated if one of the input\n    images does not have a data ignore value.\n\n- **INPUT_RASTER1**: in, required, ENVIRaster\n\n    Specify the first raster to use for intersection.\n\n- **INPUT_RASTER2**: in, required, ENVIRaster\n\n    Specify the second raster to use for intersection\n\n- **OUTPUT_GRID_DEFINITION**: out, optional, ENVIGridDefinition\n\n    Optionally return the ENVIGridDefinition object used to get the intersection\n    of the two scenes.\n\n- **OUTPUT_RASTER1_URI**: in, optional, String\n\n    Optionally specify the fully-qualified filepath\n    for the location of the first intersect raster.\n\n- **OUTPUT_RASTER2_URI**: in, optional, String\n\n    Optionally specify the fully-qualified filepath\n    for the location of the second intersect raster.\n\n- **OUTPUT_MASK_RASTER_URI**: in, optional, String\n\n    Optionally specify the fully-qualified filepath\n    for the location of the pixel state mask. Only applies\n    when `GENERATE_PIXEL_STATE_MASK` is set or one of the\n    input rasters does not have a data ignore value.\n\n- **RESAMPLING**: in, optional, String\n\n    Optionally return the ENVIGridDefinition object used to get the intersection\n    of the two scenes. Specify one of the following options:\n    - Nearest Neighbor\n    - Bilinear\n    - Cubic Convolution\n\n\n### Examples\n\n```idl\n;start ENVI\ne = envi(/HEADLESS)\n\n;make sure we have access to our ENVI tasks\nawesomeENVIAlgorithms, /INIT\n\n;specify two rasters to process\nraster1 = e.openRaster(file1)\nraster2 = e.openRaster(file2)\n\n;get our task\ntask = ENVITask('AwesomeRasterIntersection')\ntask.INPUT_RASTER1 = raster1\ntask.INPUT_RASTER2 = raster2\ntask.execute\n\n;print our output locations\nprint, task.OUTPUT_RASTER1_URI\nprint, task.OUTPUT_RASTER2_URI\n```\n### Author\n\nZachary Norman - GitHub: [znorman-harris](https://github.com/znorman-harris)",
+          docs: "\n```idl\nawesomeRasterIntersection, $\n  /DEBUG, $\n  DATA_IGNORE_VALUE = value, $\n  /GENERATE_PIXEL_STATE_MASK, $\n  INPUT_RASTER1 = value, $\n  INPUT_RASTER2 = value, $\n  OUTPUT_GRID_DEFINITION = value, $\n  OUTPUT_RASTER1_URI = value, $\n  OUTPUT_RASTER2_URI = value, $\n  OUTPUT_MASK_RASTER_URI = value, $\n  RESAMPLING = value\n```\n\nTool for determining the intersection between two rasters based on their\nspatial reference and spatial extent. Both rasters will also contain only\nthe valid pixels from each scene for  analysis. In other words, if a pixel\nis `off` in the first image and not the second, it will be turned `off` in\neach of the output rasters for consistency. If one of the rasters does not\nhave a data ignore value, then a pixel state mask is automatically generated\nso that you can mask the output rasters if needed.\n\nThe pixel size of the output rasters will be the smallest x and y\npixel size from each raster.\n\n\n#### Keywords\n\n- **DEBUG**: in, optional, Boolean\n\n    If set, errors are stopped on.\n    Add a link to make sure it doesn't get picked up\n      https://en.wikipedia.org/wiki/Haversine_formula\n      http://en.wikipedia.org/wiki/Haversine_formula\n      ftp://en.wikipedia.org/wiki/Haversine_formula\n      s3://en.wikipedia.org/wiki/Haversine_formula\n      file://en.wikipedia.org/wiki/Haversine_formula\n\n- **DATA_IGNORE_VALUE**: in, optional, Number\n\n    If one or both of your input rasters do not have\n    a data ignore value metadata item, you can specify\n\n- **GENERATE_PIXEL_STATE_MASK**: in, optional, Boolean\n\n    If set, then an addititonal output raster is created\n    that represents which pixels can be processed or not.\n    \n    This will automatically be generated if one of the input\n    images does not have a data ignore value.\n\n- **INPUT_RASTER1**: in, required, ENVIRaster\n\n    Specify the first raster to use for intersection.\n\n- **INPUT_RASTER2**: in, required, ENVIRaster\n\n    Specify the second raster to use for intersection\n\n- **OUTPUT_GRID_DEFINITION**: out, optional, ENVIGridDefinition\n\n    Optionally return the ENVIGridDefinition object used to get the intersection\n    of the two scenes.\n\n- **OUTPUT_RASTER1_URI**: in, optional, String\n\n    Optionally specify the fully-qualified filepath\n    for the location of the first intersect raster.\n\n- **OUTPUT_RASTER2_URI**: in, optional, String\n\n    Optionally specify the fully-qualified filepath\n    for the location of the second intersect raster.\n\n- **OUTPUT_MASK_RASTER_URI**: in, optional, String\n\n    Optionally specify the fully-qualified filepath\n    for the location of the pixel state mask. Only applies\n    when `GENERATE_PIXEL_STATE_MASK` is set or one of the\n    input rasters does not have a data ignore value.\n\n- **RESAMPLING**: in, optional, String\n\n    Optionally return the ENVIGridDefinition object used to get the intersection\n    of the two scenes. Specify one of the following options:\n    - Nearest Neighbor\n    - Bilinear\n    - Cubic Convolution\n\n\n\n### Examples\n\n```idl\n;start ENVI\ne = envi(/HEADLESS)\n\n;make sure we have access to our ENVI tasks\nawesomeENVIAlgorithms, /INIT\n\n;specify two rasters to process\nraster1 = e.openRaster(file1)\nraster2 = e.openRaster(file2)\n\n;get our task\ntask = ENVITask('AwesomeRasterIntersection')\ntask.INPUT_RASTER1 = raster1\ntask.INPUT_RASTER2 = raster2\ntask.execute\n\n;print our output locations\nprint, task.OUTPUT_RASTER1_URI\nprint, task.OUTPUT_RASTER2_URI\n```\n\n### Author\n\nZachary Norman - GitHub: [znorman-harris](https://github.com/znorman-harris)",
           docsLookup: {
             default:
               'Tool for determining the intersection between two rasters based on their\nspatial reference and spatial extent. Both rasters will also contain only\nthe valid pixels from each scene for  analysis. In other words, if a pixel\nis `off` in the first image and not the second, it will be turned `off` in\neach of the output rasters for consistency. If one of the rasters does not\nhave a data ignore value, then a pixel state mask is automatically generated\nso that you can mask the output rasters if needed.\n\nThe pixel size of the output rasters will be the smallest x and y\npixel size from each raster.',
@@ -479,6 +479,115 @@ describe(`[auto generated] Complex real world test`, () => {
     const expectedCompile: ICompileOptions = {
       func: {},
       pro: { awesomerasterintersection: ['idl2', 'hidden'] },
+      main: [],
+    };
+
+    // verify results
+    expect(tokenized.compile).toEqual(expectedCompile);
+  });
+
+  it(`[auto generated] allow parameters named "file"`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `;+`,
+      `; :Arguments:`,
+      `;   file: in, required, String`,
+      `;     Placeholder docs for argument, keyword, or property`,
+      `;`,
+      `;-`,
+      `pro argbug, file`,
+      `  compile_opt idl2`,
+      ``,
+      `  print, file`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected local variables
+    const expectedVars: ILocalTokens = {
+      func: {},
+      pro: {
+        argbug: {
+          file: {
+            type: 'v',
+            name: 'file',
+            pos: [6, 12, 4],
+            meta: {
+              display: 'file',
+              isDefined: true,
+              usage: [
+                [6, 12, 4],
+                [9, 9, 4],
+              ],
+              docs: 'Placeholder docs for argument, keyword, or property',
+              source: 'user',
+              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+            },
+          },
+        },
+      },
+      main: {},
+    };
+
+    // verify results
+    expect(tokenized.local).toEqual(expectedVars);
+
+    // define expected global variables
+    const expectedGlobal: GlobalTokens = [
+      {
+        type: 'p',
+        name: 'argbug',
+        pos: [6, 4, 6],
+        meta: {
+          source: 'user',
+          args: {
+            file: {
+              docs: 'Placeholder docs for argument, keyword, or property',
+              direction: 'in',
+              source: 'internal',
+              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              private: false,
+              req: true,
+              display: 'file',
+              code: true,
+              pos: [6, 12, 4],
+            },
+          },
+          docs: '\n```idl\nargbug, file\n```\n\n\n\n\n#### Arguments\n\n- **file**: in, required, String\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docsLookup: { default: '' },
+          display: 'argbug',
+          kws: {},
+          private: false,
+          struct: [],
+        },
+        file: 'not-real',
+      },
+    ];
+
+    // verify results
+    expect(tokenized.global).toEqual(expectedGlobal);
+
+    // define expected compile options
+    const expectedCompile: ICompileOptions = {
+      func: {},
+      pro: { argbug: ['idl2'] },
       main: [],
     };
 

@@ -1,9 +1,9 @@
+import { IParsed } from '@idl/parsing/syntax-tree';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalProcedureToken,
   IGlobalIndexedToken,
-} from '@idl/data-types/core';
-import { IParsed } from '@idl/parsing/syntax-tree';
+} from '@idl/types/core';
 
 /**
  * Given a filename and a parsed file, attempts to find a matching procedure

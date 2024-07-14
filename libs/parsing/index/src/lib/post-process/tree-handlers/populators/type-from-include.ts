@@ -1,10 +1,10 @@
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   BasicCallback,
   IParsed,
   SyntaxProblemWithTranslation,
 } from '@idl/parsing/syntax-tree';
 import { IncludeToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 
 import { GetVariables } from '../../../helpers/get-variables';

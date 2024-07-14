@@ -1,0 +1,1561 @@
+{
+  "name": "idl",
+  "scopeName": "source.idl",
+  "comment": "Generated automatically during the extension build process from YAML",
+  "uuid": "48F8858B-72FF-11D9-BFEE-000D93589AF6",
+  "patterns": [
+    {
+      "include": "#all_tokens"
+    }
+  ],
+  "repository": {
+    "all_tokens": {
+      "patterns": [
+        {
+          "include": "#routine_def_tokens"
+        },
+        {
+          "include": "#prompts"
+        },
+        {
+          "include": "#executive_command"
+        },
+        {
+          "include": "#default_tokens"
+        }
+      ]
+    },
+    "default_tokens": {
+      "patterns": [
+        {
+          "include": "#python"
+        },
+        {
+          "include": "#comma"
+        },
+        {
+          "include": "#assignment"
+        },
+        {
+          "include": "#control_tokens"
+        },
+        {
+          "include": "#operator_tokens"
+        },
+        {
+          "include": "#line_continuation"
+        },
+        {
+          "include": "#logical_tokens"
+        },
+        {
+          "include": "#loop_tokens"
+        },
+        {
+          "include": "#block"
+        },
+        {
+          "include": "#function_tokens"
+        },
+        {
+          "include": "#routine_call_pro_method"
+        },
+        {
+          "include": "#access_tokens"
+        },
+        {
+          "include": "#numbers"
+        },
+        {
+          "include": "#grouper_tokens"
+        },
+        {
+          "include": "#control_main_level_end"
+        },
+        {
+          "include": "#routine_call_pro"
+        },
+        {
+          "include": "#variable_tokens"
+        },
+        {
+          "include": "#quote_tokens"
+        },
+        {
+          "include": "#comment_tokens"
+        },
+        {
+          "include": "#include"
+        }
+      ]
+    },
+    "routine_tokens": {
+      "patterns": [
+        {
+          "include": "#comma"
+        },
+        {
+          "include": "#operator_tokens"
+        },
+        {
+          "include": "#line_continuation"
+        },
+        {
+          "include": "#logic_ternary_then"
+        },
+        {
+          "include": "#function_tokens"
+        },
+        {
+          "include": "#access_tokens"
+        },
+        {
+          "include": "#numbers"
+        },
+        {
+          "include": "#grouper_tokens"
+        },
+        {
+          "include": "#variable_tokens"
+        },
+        {
+          "include": "#quote_tokens"
+        },
+        {
+          "include": "#comment_tokens"
+        }
+      ]
+    },
+    "expression_tokens": {
+      "patterns": [
+        {
+          "include": "#operator_tokens"
+        },
+        {
+          "include": "#line_continuation"
+        },
+        {
+          "include": "#logic_ternary_then"
+        },
+        {
+          "include": "#function_tokens"
+        },
+        {
+          "include": "#access_tokens"
+        },
+        {
+          "include": "#numbers"
+        },
+        {
+          "include": "#grouper_tokens"
+        },
+        {
+          "include": "#variable_tokens"
+        },
+        {
+          "include": "#quote_tokens"
+        },
+        {
+          "include": "#comment_tokens"
+        }
+      ]
+    },
+    "access_tokens": {
+      "patterns": [
+        {
+          "include": "#access_property"
+        },
+        {
+          "include": "#access_indexed_property"
+        }
+      ]
+    },
+    "comment_tokens": {
+      "patterns": [
+        {
+          "include": "#comment_block"
+        },
+        {
+          "include": "#comment"
+        }
+      ]
+    },
+    "control_tokens": {
+      "patterns": [
+        {
+          "include": "#control_compound"
+        },
+        {
+          "include": "#control_jump"
+        },
+        {
+          "include": "#control_continue"
+        },
+        {
+          "include": "#control_break"
+        }
+      ]
+    },
+    "grouper_tokens": {
+      "patterns": [
+        {
+          "include": "#structure"
+        },
+        {
+          "include": "#bracket_square"
+        },
+        {
+          "include": "#bracket_paren"
+        }
+      ]
+    },
+    "function_tokens": {
+      "patterns": [
+        {
+          "include": "#routine_call_lambda"
+        },
+        {
+          "include": "#routine_call_func_method"
+        },
+        {
+          "include": "#routine_call_func"
+        }
+      ]
+    },
+    "logical_tokens": {
+      "patterns": [
+        {
+          "include": "#logic_if"
+        },
+        {
+          "include": "#logic_case"
+        },
+        {
+          "include": "#logic_switch"
+        }
+      ]
+    },
+    "loop_tokens": {
+      "patterns": [
+        {
+          "include": "#loop_for_foreach"
+        },
+        {
+          "include": "#loop_while"
+        },
+        {
+          "include": "#loop_repeat"
+        }
+      ]
+    },
+    "operator_tokens": {
+      "patterns": [
+        {
+          "include": "#operator_pointer"
+        },
+        {
+          "include": "#operator"
+        },
+        {
+          "include": "#operator_control"
+        }
+      ]
+    },
+    "quote_tokens": {
+      "patterns": [
+        {
+          "include": "#quote_double_number"
+        },
+        {
+          "include": "#quote_double_basic"
+        },
+        {
+          "include": "#quote_double"
+        },
+        {
+          "include": "#quote_single_number"
+        },
+        {
+          "include": "#quote_single_basic"
+        },
+        {
+          "include": "#quote_single"
+        },
+        {
+          "include": "#string_template_literal"
+        }
+      ]
+    },
+    "routine_def_tokens": {
+      "patterns": [
+        {
+          "include": "#routine_def"
+        }
+      ]
+    },
+    "routine_def_parameter_tokens": {
+      "patterns": [
+        {
+          "include": "#line_continuation"
+        },
+        {
+          "include": "#routine_kw_def"
+        },
+        {
+          "include": "#routine_arg"
+        },
+        {
+          "include": "#comment"
+        }
+      ]
+    },
+    "structure_tokens": {
+      "patterns": [
+        {
+          "include": "#line_continuation"
+        },
+        {
+          "include": "#comment_tokens"
+        },
+        {
+          "include": "#structure_name"
+        },
+        {
+          "include": "#structure_inheritance"
+        },
+        {
+          "include": "#structure_property"
+        }
+      ]
+    },
+    "named_structure_tokens": {
+      "patterns": [
+        {
+          "include": "#structure_inheritance"
+        },
+        {
+          "include": "#structure_property"
+        },
+        {
+          "include": "#routine_tokens"
+        }
+      ]
+    },
+    "type_tokens": {
+      "patterns": [
+        {
+          "include": "#type_no_highlight"
+        },
+        {
+          "include": "#numbers"
+        },
+        {
+          "include": "#quote_tokens"
+        }
+      ]
+    },
+    "variable_tokens": {
+      "patterns": [
+        {
+          "include": "#structure_self"
+        },
+        {
+          "include": "#variable_system"
+        },
+        {
+          "include": "#variable"
+        }
+      ]
+    },
+    "assignment": {
+      "name": "group.assignment.idl",
+      "begin": "(?i)(\\*|\\+|-|\\^|##|#|\\/|<|>|and|or|xor|eq|ne|lt|le|gt|ge|mod)?=",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.operator.idl"
+        }
+      },
+      "end": "(?i)(?=\\buntil\\b|\\belse\\b|\\bthen\\b|\\bdo\\b|\\bof\\b|\\)|\\]|\\}|,|;)|(?=(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#expression_tokens"
+        }
+      ]
+    },
+    "assignment_basic": {
+      "name": "keyword.operator.idl",
+      "match": "(?i)(\\*|\\+|-|\\^|##|#|\\/|<|>|and|or|xor|eq|ne|lt|le|gt|ge|mod)?="
+    },
+    "access_property": {
+      "match": "(?i)\\.([a-z_][a-z0-9_$]*)",
+      "captures": {
+        "1": {
+          "name": "entity.other.attribute-name.idl"
+        }
+      }
+    },
+    "access_indexed_property": {
+      "name": "group.property.indexed.idl",
+      "begin": "(?i)\\.\\(",
+      "beginCaptures": {
+        "0": {
+          "name": "entity.other.attribute-name.idl"
+        }
+      },
+      "end": "(?i)\\)",
+      "endCaptures": {
+        "0": {
+          "name": "entity.other.attribute-name.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#routine_tokens"
+        }
+      ]
+    },
+    "block": {
+      "name": "group.block.idl",
+      "begin": "(?i)\\s*\\bbegin\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)\\s*(\\bendif\\b|\\bendelse\\b|\\bendfor\\b|\\bendforeach\\b|\\bendrep\\b|\\bendwhile\\b|\\bendswitch\\b|\\bendcase\\b|\\bend\\b)",
+      "endCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#default_tokens"
+        }
+      ]
+    },
+    "block_loop": {
+      "name": "group.block.idl",
+      "begin": "(?i)\\s*\\bbegin\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)\\s*(\\bendif\\b|\\bendelse\\b|\\bendfor\\b|\\bendforeach\\b|\\bendrep\\b|\\bendwhile\\b|\\bendswitch\\b|\\bendcase\\b|\\bend\\b)",
+      "endCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#default_tokens"
+        }
+      ]
+    },
+    "block_logic": {
+      "name": "group.block.idl",
+      "begin": "(?i)\\s*\\bbegin\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)\\s*(\\bendif\\b|\\bendelse\\b|\\bendfor\\b|\\bendforeach\\b|\\bendrep\\b|\\bendwhile\\b|\\bendswitch\\b|\\bendcase\\b|\\bend\\b)",
+      "endCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#default_tokens"
+        }
+      ]
+    },
+    "bracket_square": {
+      "name": "group.brackets.square.idl",
+      "begin": "(?i)\\[",
+      "beginCaptures": {
+        "0": {
+          "name": "meta.brace.square.idl"
+        }
+      },
+      "end": "(?i)\\]",
+      "endCaptures": {
+        "0": {
+          "name": "meta.brace.square.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#expression_tokens"
+        }
+      ]
+    },
+    "bracket_paren": {
+      "name": "group.brackets.paren.idl",
+      "begin": "(?i)\\(",
+      "beginCaptures": {
+        "0": {
+          "name": "meta.brace.round.idl"
+        }
+      },
+      "end": "(?i)\\)",
+      "endCaptures": {
+        "0": {
+          "name": "meta.brace.round.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#expression_tokens"
+        }
+      ]
+    },
+    "comma": {
+      "name": "keyword.operator.idl",
+      "match": "(?i),"
+    },
+    "comment": {
+      "name": "comment.line.idl",
+      "match": "(?i);\\+?\\s*(TODO:)?(.*)$",
+      "captures": {
+        "1": {
+          "name": "constant.character.escape.idl"
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#comment_disabled_problem"
+            }
+          ]
+        }
+      }
+    },
+    "comment_disabled_problem": {
+      "patterns": [
+        {
+          "name": "storage.type.class.jsdoc",
+          "match": "(?i)idl-disable-next-line|idl-disable-line"
+        },
+        {
+          "name": "markup.heading.idl",
+          "match": "(?i)idl-disable"
+        }
+      ]
+    },
+    "comment_block": {
+      "name": "comment.block.idl",
+      "begin": "(?i)^\\s*(?=;\\s*\\+.*)",
+      "end": "(?i)^(?!\\s*;|\\s*$)",
+      "patterns": [
+        {
+          "include": "#comment_disabled_problem"
+        },
+        {
+          "include": "#comment_docs_header_legacy"
+        },
+        {
+          "include": "#comment_docs_header"
+        },
+        {
+          "include": "#comment_docs_arg_kw"
+        },
+        {
+          "include": "#comment_docs_prop"
+        },
+        {
+          "include": "#comment_example_code_block"
+        },
+        {
+          "include": "#comment"
+        }
+      ]
+    },
+    "comment_example_code_block": {
+      "begin": "(?i)^\\s*(;\\s*```idl.*$)",
+      "beginCaptures": {
+        "0": {
+          "name": "comment.line.idl"
+        }
+      },
+      "end": "(?i)^\\s*;\\s*```|^(?!\\s*(;|$))",
+      "endCaptures": {
+        "0": {
+          "name": "comment.line.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#comment_example_code_line"
+        }
+      ]
+    },
+    "comment_example_code_line": {
+      "match": "(?i)(;\\s*)(.*$)",
+      "captures": {
+        "1": {
+          "name": "comment.line.idl"
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#all_tokens"
+            }
+          ]
+        }
+      }
+    },
+    "comment_docs_header_legacy": {
+      "name": "comment.line.idl",
+      "match": "(?i);\\s*(@[a-z_$0-9]+\\s*(?:[a-z_0-9$]+(?:\\s*,\\s*)?)+)(.*$)",
+      "captures": {
+        "1": {
+          "patterns": [
+            {
+              "include": "#comment_docs_header_legacy_param"
+            },
+            {
+              "include": "#comment_docs_header_legacy_top_level"
+            }
+          ]
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#comment_docs_header_fancy_text"
+            }
+          ]
+        }
+      }
+    },
+    "comment_docs_header_fancy_text": {
+      "name": "entity.name.type.ts",
+      "match": "(?i)\\{[^\\}]*\\}"
+    },
+    "comment_docs_header_legacy_param": {
+      "name": "markup.italic.idl",
+      "match": "(?i)@(param|arg|keyword)\\s*((?:[a-z_0-9$]+(?:\\s*,\\s*)?)+)",
+      "captures": {
+        "2": {
+          "name": "support.type.idl"
+        }
+      }
+    },
+    "comment_docs_header_legacy_top_level": {
+      "name": "markup.heading.idl",
+      "match": "(?i)@[a-z_$0-9]+"
+    },
+    "comment_docs_header": {
+      "name": "comment.line.idl",
+      "match": "(?i);\\s*:([^:]*?):(.*)$",
+      "captures": {
+        "1": {
+          "name": "markup.heading.idl"
+        },
+        "2": {
+          "name": "entity.name.type.ts",
+          "patterns": [
+            {
+              "include": "#type_tokens"
+            }
+          ]
+        }
+      }
+    },
+    "comment_docs_arg_kw": {
+      "name": "comment.line.idl",
+      "match": "(?i);\\s*([^:\\s]*)\\s*:([^,]*),([^,]*),\\s*((?:[a-z_0-9$!'\"]+\\s*(?:<.+>)?\\s*\\|?\\s*)+),?([^,]*)?",
+      "captures": {
+        "1": {
+          "name": "markup.italic.idl"
+        },
+        "2": {
+          "name": "support.type.idl"
+        },
+        "3": {
+          "name": "support.type.idl"
+        },
+        "4": {
+          "name": "entity.name.type.ts",
+          "patterns": [
+            {
+              "include": "#type_tokens"
+            }
+          ]
+        },
+        "5": {
+          "name": "markup.bold.idl"
+        }
+      }
+    },
+    "comment_docs_prop": {
+      "name": "comment.line.idl",
+      "match": "(?i);\\s*(?!TODO)([^:\\s]*)\\s*:\\s*((?:[a-z_0-9$!'\"]+\\s*(?:<.+>)?\\s*\\|?\\s*)+)",
+      "captures": {
+        "1": {
+          "name": "markup.italic.idl"
+        },
+        "2": {
+          "name": "entity.name.type.ts",
+          "patterns": [
+            {
+              "include": "#type_tokens"
+            }
+          ]
+        }
+      }
+    },
+    "control_break": {
+      "name": "keyword.control.idl",
+      "match": "(?i)\\s*\\bbreak\\b"
+    },
+    "control_continue": {
+      "name": "keyword.control.idl",
+      "match": "(?i)\\s*\\bcontinue\\b"
+    },
+    "control_compound_option": {
+      "name": "variable.other.readwrite.ts.idl",
+      "match": "(?i)[a-z0-9_$]+"
+    },
+    "control_jump": {
+      "name": "entity.name.type.idl",
+      "match": "(?i)\\b[a-z][a-z0-9_$]*(\\s*:)"
+    },
+    "control_main_level_end": {
+      "name": "keyword.control.idl",
+      "match": "(?i)\\bend\\b"
+    },
+    "control_compound": {
+      "name": "group.control.compound.idl",
+      "begin": "(?i)\\s*(\\bcommon\\b|\\bcompile_opt\\b|\\bforward_function\\b|\\bgoto\\b|\\on_ioerror\\b)",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)(?=;|(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#line_continuation"
+        },
+        {
+          "include": "#control_compound_option"
+        },
+        {
+          "include": "#comma"
+        },
+        {
+          "include": "#comment"
+        }
+      ]
+    },
+    "empty_line": {
+      "name": "group.empty.line.idl",
+      "match": "(?i)^\\s*(;.*)?$",
+      "captures": {
+        "1": {
+          "patterns": [
+            {
+              "include": "#comment_tokens"
+            }
+          ]
+        }
+      }
+    },
+    "executive_command": {
+      "name": "entity.name.type.idl",
+      "match": "(?i)^\\s*(\\.[a-z_]+)\\s*(.*)$",
+      "captures": {
+        "1": {
+          "name": "entity.name.type.idl"
+        },
+        "2": {
+          "name": "variable.other.readwrite.ts.idl"
+        }
+      }
+    },
+    "include": {
+      "name": "entity.name.type.idl",
+      "match": "(?i)@([a-z0-9_$.]*)"
+    },
+    "line_continuation": {
+      "name": "group.line-continuation.idl",
+      "begin": "(?i)(\\$)(.*)$",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.operator.idl"
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#comment_tokens"
+            }
+          ]
+        }
+      },
+      "end": "(?i)^(?!(\\s*)(;.*)?$)",
+      "patterns": [
+        {
+          "include": "#line_continuation"
+        },
+        {
+          "include": "#comment_tokens"
+        },
+        {
+          "include": "#empty_line"
+        }
+      ]
+    },
+    "logic_if": {
+      "name": "group.logic.if.idl",
+      "begin": "(?i)\\s*\\bif\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)(?=;|(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#logic_if_then"
+        },
+        {
+          "include": "#expression_tokens"
+        }
+      ]
+    },
+    "logic_if_then": {
+      "name": "group.logic.then.idl",
+      "begin": "(?i)\\bthen\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)(?=;|(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#logic_if_then_else"
+        },
+        {
+          "include": "#default_tokens"
+        }
+      ]
+    },
+    "logic_if_then_else": {
+      "name": "group.logic.else.idl",
+      "begin": "(?i)\\belse\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)(?=;|(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#default_tokens"
+        }
+      ]
+    },
+    "logic_case": {
+      "name": "group.logic.case.idl",
+      "begin": "(?i)\\s*\\bcase\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)\\bendcase\\b|\\bend\\b",
+      "endCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#logic_case_switch_of"
+        },
+        {
+          "include": "#expression_tokens"
+        }
+      ]
+    },
+    "logic_switch": {
+      "name": "group.logic.switch.idl",
+      "begin": "(?i)\\s*\\bswitch\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)\\bendswitch\\b|\\bend\\b",
+      "endCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#logic_case_switch_of"
+        },
+        {
+          "include": "#expression_tokens"
+        }
+      ]
+    },
+    "logic_case_switch_of": {
+      "name": "group.logic.of.idl",
+      "begin": "(?i)\\bof\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)(?=\\bend)",
+      "patterns": [
+        {
+          "include": "#logic_case_switch_then"
+        },
+        {
+          "include": "#expression_tokens"
+        }
+      ]
+    },
+    "logic_case_switch_then": {
+      "name": "group.logic.then.idl",
+      "begin": "(?i)(\\s*else\\s*)?:",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)(?=;|(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#block_logic"
+        },
+        {
+          "include": "#default_tokens"
+        }
+      ]
+    },
+    "logic_ternary_then": {
+      "begin": "(?i)\\?",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)(?=\\buntil\\b|\\belse\\b|\\bthen\\b|\\bdo\\b|\\bof\\b|\\)|\\]|\\}|,|;)|(?=(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#logic_ternary_else"
+        },
+        {
+          "include": "#expression_tokens"
+        }
+      ]
+    },
+    "logic_ternary_else": {
+      "begin": "(?i)\\s*:\\s*",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)(?=\\buntil\\b|\\belse\\b|\\bthen\\b|\\bdo\\b|\\bof\\b|\\)|\\]|\\}|,|;|\\?|:]|(?=(?<!&)&(?!&))|\\|\\||\\bor\\b|(\\.|->)([a-z_][a-z0-9_$:]*)(?=\\s*(?<!&)&(?!&)|\\s*,|\\s*;|\\s+\\$|\\s*$))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#expression_tokens"
+        }
+      ]
+    },
+    "loop_for_foreach": {
+      "name": "group.loop.for-foreach.idl",
+      "begin": "(?i)\\bfor\\b|\\bforeach\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)(?<=\\bendif\\b|\\bendelse\\b|\\bendfor\\b|\\bendforeach\\b|\\bendrep\\b|\\bendwhile\\b|\\bendswitch\\b|\\bendcase\\b|\\bend\\b)|(?=;|(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#loop_do"
+        },
+        {
+          "include": "#assignment_basic"
+        },
+        {
+          "include": "#routine_tokens"
+        }
+      ]
+    },
+    "loop_while": {
+      "name": "group.loop.whileidl",
+      "begin": "(?i)\\s*\\bwhile\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)(?<=\\bendif\\b|\\bendelse\\b|\\bendfor\\b|\\bendforeach\\b|\\bendrep\\b|\\bendwhile\\b|\\bendswitch\\b|\\bendcase\\b|\\bend\\b)|(?=;|(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#loop_do"
+        },
+        {
+          "include": "#expression_tokens"
+        }
+      ]
+    },
+    "loop_do": {
+      "name": "group.loop.do.idl",
+      "begin": "(?i)\\bdo\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)(?<=\\bendif\\b|\\bendelse\\b|\\bendfor\\b|\\bendforeach\\b|\\bendrep\\b|\\bendwhile\\b|\\bendswitch\\b|\\bendcase\\b|\\bend\\b)|(?=;|(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#block_loop"
+        },
+        {
+          "include": "#default_tokens"
+        }
+      ]
+    },
+    "loop_repeat": {
+      "name": "group.loop.repeat.idl",
+      "begin": "(?i)\\brepeat\\b",
+      "end": "(?i)(?<=\\bendif\\b|\\bendelse\\b|\\bendfor\\b|\\bendforeach\\b|\\bendrep\\b|\\bendwhile\\b|\\bendswitch\\b|\\bendcase\\b|\\bend\\b)|(?=;|(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#loop_until"
+        },
+        {
+          "include": "#default_tokens"
+        }
+      ]
+    },
+    "loop_until": {
+      "name": "group.loop.until.idl",
+      "begin": "(?i)\\s*\\buntil\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)(?=;|(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#expression_tokens"
+        }
+      ]
+    },
+    "numbers": {
+      "name": "constant.numeric.idl",
+      "match": "(?i)(?<![a-z_$])(0[box][a-z0-9]*|[0-9.]+((e|d)\\+?-?[0-9]*|[a-z]*))(?:i|j)?"
+    },
+    "operator": {
+      "name": "keyword.operator.idl",
+      "match": "(?i)(\\*|\\+\\+|--|\\^|##|#|\\*|\\/|\\+|-(?!>)|<|(?<!-)>|~)(?!=)"
+    },
+    "operator_control": {
+      "name": "keyword.control.idl",
+      "match": "(?i)(\\bmod\\b|\\bnot\\b|\\beq\\b|\\bne\\b|\\ble\\b|\\blt\\b|\\bge\\b|\\bgt\\b|\\band\\b|\\bor\\b|\\bxor\\b|&&|\\|\\|)(?!=)"
+    },
+    "operator_pointer": {
+      "name": "entity.name.type.idl",
+      "match": "(?i)(?<=\\(|=|,|\\[|:|^)\\s*\\*"
+    },
+    "prompts": {
+      "name": "group.prompt.idl",
+      "begin": "(?i)^\\s*(?:idl|envi)>",
+      "beginCaptures": {
+        "0": {
+          "name": "entity.name.type.idl"
+        }
+      },
+      "end": "(?i)(?=(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "patterns": [
+        {
+          "include": "#default_tokens"
+        }
+      ]
+    },
+    "quote_escape": {
+      "name": "constant.character.escape.idl",
+      "match": "(?i)\\\\n|\\\\r"
+    },
+    "quote_double_basic": {
+      "name": "string.quoted.double.idl",
+      "match": "(?i)\"\""
+    },
+    "quote_double": {
+      "name": "string.quoted.double.idl",
+      "begin": "(?i)\"",
+      "end": "(?i)$|(?<!\")\"(?!\")",
+      "patterns": [
+        {
+          "include": "#quote_double_escape"
+        }
+      ]
+    },
+    "quote_double_escape": {
+      "name": "constant.character.escape.idl",
+      "match": "(?i)\"\""
+    },
+    "quote_double_number": {
+      "name": "constant.numeric.idl",
+      "match": "(?i)\"[^\"]+\"[box]u?(?:b|s|ll|l|i|j)*\\b|\"[0-7]+u?(?:b|s|ll|l|i|j)*(?=[^\\w.]|$)(?!\")"
+    },
+    "quote_single_basic": {
+      "name": "string.quoted.double.idl",
+      "match": "(?i)''"
+    },
+    "quote_single": {
+      "name": "string.quoted.single.idl",
+      "begin": "(?i)'",
+      "end": "(?i)$|(?<!')'(?!')",
+      "patterns": [
+        {
+          "include": "#quote_single_escape"
+        }
+      ]
+    },
+    "quote_single_escape": {
+      "name": "constant.character.escape.idl",
+      "match": "(?i)''"
+    },
+    "quote_single_number": {
+      "name": "constant.numeric.idl",
+      "match": "(?i)'[^']+'[box]u?(?:b|s|ll|l|i|j)*\\b"
+    },
+    "routine_kw": {
+      "name": "parameter.usage.keyword.idl",
+      "match": "(?i)\\b\\s*([a-z_][a-z0-9_$]*)(\\s*=)",
+      "captures": {
+        "1": {
+          "name": "entity.other.attribute-name.idl"
+        },
+        "2": {
+          "name": "keyword.operator.idl"
+        }
+      }
+    },
+    "routine_binary_kw": {
+      "name": "parameter.usage.keyword.idl",
+      "match": "(?i)(?<=^\\s*|\\(\\s*|,\\s*|\\[\\s*)(\\/[a-z_][a-z0-9_$]*)",
+      "captures": {
+        "1": {
+          "name": "entity.other.attribute-name.idl"
+        }
+      }
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "include": "#routine_kw"
+        },
+        {
+          "include": "#routine_binary_kw"
+        }
+      ]
+    },
+    "routine_call_lambda": {
+      "name": "group.call.func.idl",
+      "begin": "(?i)(lambda)\\s*(\\()",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.type.idl"
+        },
+        "2": {
+          "name": "meta.brace.round.idl"
+        }
+      },
+      "end": "(?i)\\)",
+      "endCaptures": {
+        "0": {
+          "name": "meta.brace.round.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#routine_tokens"
+        }
+      ]
+    },
+    "routine_call_func": {
+      "name": "group.call.func.idl",
+      "begin": "(?i)([a-z_][a-z0-9_$]*)\\s*(\\()",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.function.idl"
+        },
+        "2": {
+          "name": "meta.brace.round.idl"
+        }
+      },
+      "end": "(?i)\\)",
+      "endCaptures": {
+        "0": {
+          "name": "meta.brace.round.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#keywords"
+        },
+        {
+          "include": "#routine_tokens"
+        }
+      ]
+    },
+    "routine_call_func_method": {
+      "name": "group.call.func-method.idl",
+      "begin": "(?i)\\s*(\\.|->)\\s*([a-z0-9_$:]+)(\\()",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.operator.idl"
+        },
+        "2": {
+          "name": "entity.name.function.idl-method.idl"
+        },
+        "3": {
+          "name": "meta.brace.round.idl"
+        }
+      },
+      "end": "(?i)\\)",
+      "endCaptures": {
+        "0": {
+          "name": "meta.brace.round.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#keywords"
+        },
+        {
+          "include": "#routine_tokens"
+        }
+      ]
+    },
+    "routine_call_pro": {
+      "name": "group.call.pro.idl",
+      "begin": "(?i)(?<=^|\\bdo\\b|\\bthen\\b|\\belse\\b|\\brepeat\\b|:|^\\s*idl>|^\\s*envi>)\\s*([a-z_][a-z0-9_$]*)(?!\\.)(?=\\s*,|\\s*;|\\s+\\$|\\s*$|\\s*(?<!&)&(?!&))",
+      "beginCaptures": {
+        "1": {
+          "name": "support.function.idl-procedure"
+        }
+      },
+      "end": "(?i)(?=until|else|(?=(?<!&)&(?!&)))|(?<!\\$\\s*|\\$\\s*;)$",
+      "patterns": [
+        {
+          "include": "#keywords"
+        },
+        {
+          "include": "#routine_tokens"
+        }
+      ]
+    },
+    "routine_call_pro_method": {
+      "name": "group.call.pro-method.idl",
+      "begin": "(?i)(\\.|->)\\s*([a-z_][a-z0-9_$:]*)(?=\\s*(?<!&)&(?!&)|\\s*,|\\s*;|\\s+\\$|\\s*$)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.operator.idl"
+        },
+        "2": {
+          "name": "support.function.idl-procedure-method"
+        }
+      },
+      "end": "(?i)(?=until|else|(?=(?<!&)&(?!&)))|(?<!\\$\\s*|\\$\\s*;)$",
+      "patterns": [
+        {
+          "include": "#keywords"
+        },
+        {
+          "include": "#routine_tokens"
+        }
+      ]
+    },
+    "routine_arg": {
+      "match": "(?i),?\\s*([a-z_][a-z0-9_$]*)\\s*",
+      "captures": {
+        "1": {
+          "name": "variable.parameter.idl"
+        }
+      }
+    },
+    "routine_kw_def": {
+      "match": "(?i),?\\s*([a-z_][a-z0-9_$]*\\s*=\\s*)([a-z_][a-z0-9_$]*)",
+      "captures": {
+        "1": {
+          "patterns": [
+            {
+              "name": "parameter.definition.keyword.idl",
+              "match": "(?i)([a-z_][a-z0-9_$]*)(\\s*=\\s*)",
+              "captures": {
+                "1": {
+                  "name": "entity.other.attribute-name.idl"
+                },
+                "2": {
+                  "name": "keyword.operator.idl"
+                }
+              }
+            }
+          ]
+        },
+        "2": {
+          "name": "variable.other.readwrite.ts.idl"
+        }
+      }
+    },
+    "pro_name": {
+      "patterns": [
+        {
+          "name": "support.function.idl-procedure-method",
+          "match": "(?i)([a-z_$!0-9]+)::([a-z_$0-9]+)"
+        },
+        {
+          "name": "support.function.idl-procedure",
+          "match": "(?i)[a-z_$!0-9]+"
+        }
+      ]
+    },
+    "pro_name_and_parameters": {
+      "name": "group.routine.name.idl",
+      "begin": "(?i)(?<=\\bpro\\s+)([a-z_][a-z0-9_$:]*)",
+      "beginCaptures": {
+        "1": {
+          "patterns": [
+            {
+              "include": "#pro_name"
+            }
+          ]
+        }
+      },
+      "end": "(?i)$",
+      "patterns": [
+        {
+          "include": "#routine_def_parameter_tokens"
+        }
+      ]
+    },
+    "function_name": {
+      "patterns": [
+        {
+          "name": "entity.name.function.idl-method",
+          "match": "(?i)([a-z_$!0-9]+)::([a-z_$0-9]+)"
+        },
+        {
+          "name": "entity.name.function.idl",
+          "match": "(?i)[a-z_$!0-9]+"
+        }
+      ]
+    },
+    "function_name_and_parameters": {
+      "name": "group.routine.name.idl",
+      "begin": "(?i)(?<=\\bfunction\\s+)([a-z_][a-z0-9_$:]*)",
+      "beginCaptures": {
+        "1": {
+          "patterns": [
+            {
+              "include": "#function_name"
+            }
+          ]
+        }
+      },
+      "end": "(?i)$",
+      "patterns": [
+        {
+          "include": "#routine_def_parameter_tokens"
+        }
+      ]
+    },
+    "routine_def": {
+      "name": "group.routine.definition.idl",
+      "begin": "(?i)^\\s*(pro\\b|function\\b)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "end": "(?i)^\\s*\\bend\\b",
+      "endCaptures": {
+        "0": {
+          "name": "keyword.control.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#pro_name_and_parameters"
+        },
+        {
+          "include": "#function_name_and_parameters"
+        },
+        {
+          "include": "#default_tokens"
+        }
+      ]
+    },
+    "python": {
+      "name": "meta.embedded.block.python",
+      "begin": "(?i)^\\s*>>>",
+      "beginCaptures": {
+        "0": {
+          "name": "entity.name.type.idl"
+        }
+      },
+      "end": "(?i)$",
+      "patterns": [
+        {
+          "include": "source.python"
+        }
+      ]
+    },
+    "string_template_escape": {
+      "name": "constant.character.escape.idl",
+      "match": "(?i)\\\\(?:[\\\\bfnrtv$`]|x[a-f0-9]{2})?"
+    },
+    "string_template_literal": {
+      "name": "string.template.idl",
+      "begin": "(?i)`",
+      "beginCaptures": {
+        "0": {
+          "name": "string.template.idl"
+        }
+      },
+      "end": "(?i)`",
+      "endCaptures": {
+        "0": {
+          "name": "string.template.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#string_template_expression"
+        },
+        {
+          "include": "#string_template_escape"
+        },
+        {
+          "include": "#quote_escape"
+        }
+      ]
+    },
+    "string_template_expression": {
+      "name": "meta.embedded.idl",
+      "begin": "(?i)(\\$){",
+      "beginCaptures": {
+        "0": {
+          "name": "meta.brace.idl"
+        },
+        "1": {
+          "name": "entity.name.type.idl"
+        }
+      },
+      "end": "(?i)}",
+      "endCaptures": {
+        "0": {
+          "name": "meta.brace.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#expression_tokens"
+        }
+      ]
+    },
+    "structure": {
+      "name": "group.structure.idl",
+      "begin": "(?i){",
+      "beginCaptures": {
+        "0": {
+          "name": "meta.brace.idl"
+        }
+      },
+      "end": "(?i)}",
+      "endCaptures": {
+        "0": {
+          "name": "meta.brace.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#structure_tokens"
+        }
+      ]
+    },
+    "structure_name": {
+      "begin": "(?i)(?<=^|{)(\\s*[a-z0-9_$!]+\\s*)(?=,|}|\\$)",
+      "end": "(?i)(?=})",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.type.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#named_structure_tokens"
+        }
+      ]
+    },
+    "structure_inheritance": {
+      "match": "(?i)\\b(inherits)\\s+([a-z_0-9$]+)",
+      "captures": {
+        "1": {
+          "name": "keyword.control.idl"
+        },
+        "2": {
+          "name": "storage.type.idl"
+        }
+      }
+    },
+    "structure_property": {
+      "begin": "(?i)([a-z0-9_$]*\\s*):",
+      "end": "(?i)(?=\\buntil\\b|\\belse\\b|\\bthen\\b|\\bdo\\b|\\bof\\b|\\)|\\]|\\}|,|;)|(?=(?<!&)&(?!&))|(?<!\\$\\s*|\\$\\s*;.*)$",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.tag.idl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#routine_tokens"
+        }
+      ]
+    },
+    "structure_self": {
+      "name": "entity.name.type.idl",
+      "match": "(?i)\\bself\\b"
+    },
+    "type_no_highlight": {
+      "name": "variable.other.readwrite.ts.idl",
+      "match": "(?i)\\||<|>|,"
+    },
+    "variable": {
+      "name": "variable.other.readwrite.ts.idl",
+      "match": "(?i)(?<!\\.|\\/|::|->|@)\\b[a-z0-9_$]+(?![a-z0-9_$]*::)"
+    },
+    "variable_system": {
+      "name": "constant.language.idl",
+      "match": "(?i)![a-z0-9_$]+"
+    },
+    "white_space": {
+      "name": "meta.var.expr.idl",
+      "match": "(?i)\\s+"
+    }
+  }
+}

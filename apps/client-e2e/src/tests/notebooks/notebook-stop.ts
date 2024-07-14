@@ -39,13 +39,13 @@ export const RunNotebookStop: RunnerFunction = async (init) => {
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
 
   // make sure launched
-  expect(init.notebooks.controller.isStarted()).toBeTruthy();
+  expect(init.notebooks.controller.isStarted(nb)).toBeTruthy();
 
   // trigger a run
   vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
 
   // short pause
-  await Sleep(100);
+  await Sleep(300);
 
   // stop execution
   await vscode.commands.executeCommand(IDL_COMMANDS.NOTEBOOKS.STOP);
@@ -54,11 +54,8 @@ export const RunNotebookStop: RunnerFunction = async (init) => {
   await Sleep(100);
 
   // make sure stopped
-  expect(init.notebooks.controller.isStarted()).toBeFalsy();
+  expect(init.notebooks.controller.isStarted(nb)).toBeFalsy();
 
   // compare state
   CompareCellOutputs(nb, CELL_OUTPUT);
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 };

@@ -79,9 +79,15 @@ export function Parser(
     checksum: CodeChecksum(code),
     hasDetail: false,
     hasCache: false,
+    isNotebook: options.isNotebook,
     tokens: [],
     text: [],
     lines: 0,
+    disabledProblems: {
+      all: false,
+      forFile: {},
+      forLines: {},
+    },
     parseProblems: [],
     postProcessProblems: [],
     tree: [],
@@ -98,14 +104,14 @@ export function Parser(
     },
     uses: copy(DEFAULT_USES_THESE_GLOBAL_TOKEN),
     outline: [],
-    semantic: { data: [] },
+    semantic: { notProcedure: [], built: { data: [] } },
   };
 
   // extract tokens
   ParserTokenize(code, tokenized, cancel, options.full);
 
   // build the syntax tree and detect syntax problems
-  BuildSyntaxTree(tokenized, cancel, options.full, options.isNotebook);
+  BuildSyntaxTree(tokenized, cancel, options.full);
 
   /**
    * Populate our global, local (variables), and compile-opts
@@ -115,7 +121,7 @@ export function Parser(
    *
    * If it is off, we dont get hover help or useful auto-complete
    */
-  PopulateGlobalLocalCompileOpts(tokenized, cancel, true, options.isNotebook);
+  PopulateGlobalLocalCompileOpts(tokenized, cancel, true);
 
   // remove all problems if fast parse
   if (!options.full) {

@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Verifies that this folder is always on IDL's search path
 ;

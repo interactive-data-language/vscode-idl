@@ -1,4 +1,4 @@
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+import { PositionArray } from '@idl/types/tokenizer';
 
 /**
  * Checks if the end of our first position lines up with the

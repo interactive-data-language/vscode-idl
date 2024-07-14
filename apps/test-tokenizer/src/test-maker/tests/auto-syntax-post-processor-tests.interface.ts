@@ -184,6 +184,7 @@ export const AUTO_POST_PROCESSOR_TESTS: IAutoTest[] = [
           `  common blockName ; ignore for now`,
           `  forward_function myfunc1, myfunc2, myfunc3`,
           `  goto, stmnt`,
+          `  on_ioerror, stmnt`,
           ``,
           `end`,
         ],
@@ -633,6 +634,26 @@ export const AUTO_POST_PROCESSOR_TESTS: IAutoTest[] = [
       {
         name: `all parts of ternary operators`,
         code: [`a = *val ? *truthy : *falsy`],
+      },
+    ],
+  },
+  {
+    suiteName: `Regression test for increment/decrement`,
+    fileName: `operator.increment-decrement.regression.spec.ts`,
+    tests: [
+      {
+        name: `operators`,
+        code: [
+          `compile_opt idl2`,
+          `a = 5`,
+          ``,
+          `a++`,
+          ``,
+          `++a`,
+          ``,
+          `a++`,
+          `end`,
+        ],
       },
     ],
   },

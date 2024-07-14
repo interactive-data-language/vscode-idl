@@ -1,4 +1,3 @@
-import { IDLProblemCode } from '@idl/parsing/problem-codes';
 import {
   BasicTokenNames,
   NonBasicTokenNames,
@@ -6,7 +5,8 @@ import {
   TokenName,
   TokenStartMatches,
 } from '@idl/parsing/tokenizer';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+import { IDLProblemCode } from '@idl/types/problem-codes';
+import { PositionArray } from '@idl/types/tokenizer';
 
 /** Branch in our syntax tree that has a start, end, and potentially children */
 export type SyntaxTreeBranch = 0;

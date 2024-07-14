@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -34,6 +34,18 @@ describe(`[auto generated] Verify double quote styling`, () => {
       ``,
       `  ; number strings`,
       `  a = "010101"b`,
+      ``,
+      `  ; special escaped double quote`,
+      `  a = """string"""`,
+      ``,
+      `  ; special escaped single quote`,
+      `  a = '''string'''`,
+      ``,
+      `  ; special double quote with singles`,
+      `  a = "'string'"`,
+      ``,
+      `  ; special single quote with doubles`,
+      `  a = '"string"'`,
       `end`,
     ];
 
@@ -67,13 +79,25 @@ describe(`[auto generated] Verify double quote styling`, () => {
         `a = 'something'`,
         ``,
         `; double quote with single quote`,
-        `a = "'"`,
+        `a = ''''`,
         ``,
         `; escaped double quote`,
         `a = 'escaped"formatting'`,
         ``,
         `; number strings`,
         `a = '010101'b`,
+        ``,
+        `; special escaped double quote`,
+        `a = '"string"'`,
+        ``,
+        `; special escaped single quote`,
+        `a = '''string'''`,
+        ``,
+        `; special double quote with singles`,
+        `a = '''string'''`,
+        ``,
+        `; special single quote with doubles`,
+        `a = '"string"'`,
         `end`,
       ];
 
@@ -127,6 +151,18 @@ describe(`[auto generated] Verify double quote styling`, () => {
       ``,
       `  ; number strings`,
       `  a = "010101"b`,
+      ``,
+      `  ; special escaped double quote`,
+      `  a = """string"""`,
+      ``,
+      `  ; special escaped single quote`,
+      `  a = '''string'''`,
+      ``,
+      `  ; special double quote with singles`,
+      `  a = "'string'"`,
+      ``,
+      `  ; special single quote with doubles`,
+      `  a = '"string"'`,
       `end`,
     ];
 
@@ -160,13 +196,25 @@ describe(`[auto generated] Verify double quote styling`, () => {
         `a = "something"`,
         ``,
         `; double quote with single quote`,
-        `a = '"'`,
+        `a = """"`,
         ``,
         `; escaped double quote`,
         `a = "escaped""formatting"`,
         ``,
         `; number strings`,
         `a = "010101"b`,
+        ``,
+        `; special escaped double quote`,
+        `a = """string"""`,
+        ``,
+        `; special escaped single quote`,
+        `a = "'string'"`,
+        ``,
+        `; special double quote with singles`,
+        `a = "'string'"`,
+        ``,
+        `; special single quote with doubles`,
+        `a = """string"""`,
         `end`,
       ];
 

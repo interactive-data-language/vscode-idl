@@ -1,4 +1,4 @@
-import { IDL_TYPE_LOOKUP } from '@idl/data-types/core';
+import { IDL_TYPE_LOOKUP } from '@idl/types/core';
 
 /**
  * Order of our types in appearance of priority
@@ -21,6 +21,7 @@ ALLOWED_TYPES_AS_INDEX[IDL_TYPE_LOOKUP.BYTE] = true;
 ALLOWED_TYPES_AS_INDEX[IDL_TYPE_LOOKUP.BOOLEAN] = true;
 ALLOWED_TYPES_AS_INDEX[IDL_TYPE_LOOKUP.STRING] = true;
 ALLOWED_TYPES_AS_INDEX[IDL_TYPE_LOOKUP.ARRAY] = true;
+ALLOWED_TYPES_AS_INDEX[IDL_TYPE_LOOKUP.NULL] = true;
 
 /**
  * IDL types that we can index

@@ -3,7 +3,7 @@ import {
   IDLRawNotebook,
   IDLRawNotebookCell,
   IDLRawNotebookVersion_2_0_0,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import * as vscode from 'vscode';
 
 import { ToIDLRawNotebook } from './to-idl-raw-notebook.interface';
@@ -30,7 +30,7 @@ export const ToIDLRawNotebook_2_0_0: ToIDLRawNotebook<IDLRawNotebookVersion_2_0_
           data.cells[i].kind === vscode.NotebookCellKind.Code
             ? 'code'
             : 'markdown',
-        content: data.cells[i].value.split(/\r?\n/g),
+        content: data.cells[i].value.split(/\r?\n|\r/g),
       };
 
       // check for metadata

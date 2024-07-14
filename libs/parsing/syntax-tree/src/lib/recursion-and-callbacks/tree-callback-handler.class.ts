@@ -6,7 +6,7 @@ import {
 } from '@idl/parsing/tokenizer';
 
 import { ITreeRecurserOptions, TreeToken } from '../..';
-import { IParsed } from '../build-syntax-tree.interface';
+import { IParsed } from '../parsed.interface';
 import {
   BasicCallback,
   BasicCallbackLookup,

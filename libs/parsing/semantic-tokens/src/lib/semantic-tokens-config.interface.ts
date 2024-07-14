@@ -9,7 +9,10 @@ import {
  *
  * We can only send token types that we capture here
  */
-export const SEMANTIC_TOKEN_TYPES = [SemanticTokenTypes.class];
+export const SEMANTIC_TOKEN_TYPES = [
+  SemanticTokenTypes.class,
+  SemanticTokenTypes.variable,
+];
 
 /**
  * Lookup to map the types of semantic tokens from their names to array elements
@@ -26,7 +29,10 @@ for (let i = 0; i < SEMANTIC_TOKEN_TYPES.length; i++) {
  *
  * We can only send modifiers that we capture here
  */
-export const SEMANTIC_TOKEN_MODIFIERS = [SemanticTokenModifiers.definition];
+export const SEMANTIC_TOKEN_MODIFIERS = [
+  SemanticTokenModifiers.definition,
+  SemanticTokenModifiers.modification,
+];
 
 /**
  * Lookup to map the modifiers from their names to array elements

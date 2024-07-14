@@ -1,8 +1,8 @@
-import { GlobalTokens } from '@idl/data-types/core';
-import { TaskToGlobalToken } from '@idl/data-types/tasks';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
 import { GetExtensionPath } from '@idl/shared';
+import { GlobalTokens } from '@idl/types/core';
+import { TaskToGlobalToken } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] envi`, async () => {
@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         name: 'envibuildmosaicrastertask',
         pos: [0, 0, 0],
         meta: {
-          display: 'envibuildmosaicrastertask',
+          display: 'ENVIBuildMosaicRasterTask',
           source: 'user',
           docs: 'This task builds a mosaic raster based on a set of input rasters.',
           private: false,

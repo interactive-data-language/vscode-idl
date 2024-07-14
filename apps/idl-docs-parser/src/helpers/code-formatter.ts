@@ -3,9 +3,10 @@ import {
   ASSEMBLER_FORMATTER_LOOKUP,
   STYLE_FLAG_LOOKUP,
 } from '@idl/assembling/config';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { ElementsToText } from './elements-to-text';
 import { IParsedHTML } from './parser.interface';
@@ -42,10 +43,15 @@ const INDEX = new IDLIndex(
  */
 async function ParseAndFormatCode(code: string) {
   // parse
-  let tokenized = await INDEX.getParsedProCode('my_file.pro', code, {
-    postProcess: true,
-    isNotebook: true,
-  });
+  let tokenized = await INDEX.getParsedProCode(
+    'my_file.pro',
+    code,
+    new CancellationToken(),
+    {
+      postProcess: true,
+      isNotebook: true,
+    }
+  );
 
   // check for missing main level end
   let addEnd = false;
@@ -60,14 +66,19 @@ async function ParseAndFormatCode(code: string) {
 
   // add end and process again
   if (addEnd) {
-    tokenized = await INDEX.getParsedProCode('my_file.pro', code + '\nend', {
-      postProcess: true,
-      isNotebook: true,
-    });
+    tokenized = await INDEX.getParsedProCode(
+      'my_file.pro',
+      code + '\nend',
+      new CancellationToken(),
+      {
+        postProcess: true,
+        isNotebook: true,
+      }
+    );
   }
 
   // attempt to format
-  let formatted = Assembler(tokenized, {
+  let formatted = Assembler(tokenized, new CancellationToken(), {
     formatter: ASSEMBLER_FORMATTER_LOOKUP.FIDDLE,
     spaceOffset: 2,
     style: {

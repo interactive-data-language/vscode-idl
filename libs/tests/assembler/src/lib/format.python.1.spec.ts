@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -55,9 +55,9 @@ describe(`[auto generated] Format python code`, () => {
       const expectedFormatting: string[] = [
         `compile_opt idl2`,
         ``,
-        `>>> from idlpy import *`,
-        `>>> arr = IDL.randomu(None, 10000)`,
-        `>>> spec = IDL.fft_powerspectrum(arr, 0.1)`,
+        `>>>from idlpy import *`,
+        `>>>arr = IDL.randomu(None, 10000)`,
+        `>>>spec = IDL.fft_powerspectrum(arr, 0.1)`,
         `end`,
       ];
 

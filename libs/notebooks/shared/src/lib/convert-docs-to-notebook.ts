@@ -3,7 +3,7 @@ import {
   IDLRawNotebookCell,
   IDLRawNotebookCellType,
   IDLRawNotebookVersion_2_0_0,
-} from '@idl/notebooks/types';
+} from '@idl/types/notebooks';
 import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 
 import { CreateCodeForNotebooks } from './create-code-for-notebooks';
@@ -126,20 +126,6 @@ export async function ConvertDocsToNotebook(
   if (blocks.length === 1 || types.findIndex((el) => el === 'code') === -1) {
     return undefined;
   }
-
-  // add warning block at beginning
-  blocks.unshift([
-    '### Notebook Preview',
-    '',
-    'Please note that this is a preview feature of notebooks for IDL.',
-    '',
-    "Our Notebook API and file format are not set in stone, so please don't start creating many notebooks for personal use quite yet.",
-    '',
-    'Use the examples from documentation as a way to learn about how to use notebooks and see if you like them!',
-    '',
-    'If you have questions, comments, or concerns, let us know [here](https://github.com/interactive-data-language/vscode-idl/discussions/6) on GitHub.',
-  ]);
-  types.unshift('markdown');
 
   /**
    * Create raw notebook

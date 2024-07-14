@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   BRANCH_TYPES,
   IBranch,
@@ -6,6 +5,7 @@ import {
   SyntaxProblemWithTranslation,
 } from '@idl/parsing/syntax-tree';
 import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 /**
  * Track token names that trigger this happening from the reverse search.

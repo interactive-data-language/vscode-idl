@@ -2,7 +2,7 @@ import { Assembler } from '@idl/assembler';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -73,6 +73,7 @@ describe(`[auto generated] Verify we add missing return statement`, () => {
         info: 'In function definitions, the "return" procedure must be present and have one value that it returns',
         start: [5, 0, 9],
         end: [5, 15, 0],
+        canReport: true,
       },
     ];
 
@@ -148,12 +149,14 @@ describe(`[auto generated] Verify we add missing return statement`, () => {
         info: 'In function definitions, the "return" procedure must be present and have one value that it returns',
         start: [5, 0, 9],
         end: [5, 24, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [8, 2, 1],
         end: [8, 2, 1],
+        canReport: true,
       },
     ];
 

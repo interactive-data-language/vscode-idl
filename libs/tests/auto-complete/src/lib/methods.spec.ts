@@ -286,6 +286,13 @@ describe(`[auto generated] Methods`, () => {
           value: 'A reference to our object class',
         },
       },
+      {
+        label: 'a',
+        kind: 6,
+        sortText: '01',
+        detail: 'Variable',
+        documentation: '',
+      },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!z', kind: 21, sortText: '90', detail: 'System Variable' },
@@ -410,13 +417,6 @@ describe(`[auto generated] Methods`, () => {
       {
         label: "ENVITask('ClassActivationToPixelROI')",
         insertText: "ENVITask('ClassActivationToPixelROI')",
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
-      },
-      {
-        label: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
-        insertText: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
         kind: 3,
         sortText: '03',
         detail: 'Function',
@@ -476,6 +476,13 @@ describe(`[auto generated] Methods`, () => {
           value: 'A reference to our object class',
         },
       },
+      {
+        label: 'a',
+        kind: 6,
+        sortText: '01',
+        detail: 'Variable',
+        documentation: '',
+      },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!z', kind: 21, sortText: '90', detail: 'System Variable' },
@@ -604,13 +611,6 @@ describe(`[auto generated] Methods`, () => {
         sortText: '03',
         detail: 'Function',
       },
-      {
-        label: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
-        insertText: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
-      },
     ];
 
     // verify results
@@ -620,6 +620,53 @@ describe(`[auto generated] Methods`, () => {
           filepath,
           await readFile(filepath, 'utf-8'),
           position_6
+        )
+      ).slice(0, 50)
+    );
+    // define position
+    const position_7: Position = { line: 33, character: 11 };
+
+    // define expected token we extract
+    const expectedFound_7: CompletionItem[] = [
+      {
+        label: 'myProp',
+        insertText: 'myProp',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of TestCompletion',
+        documentation: {
+          kind: 'markdown',
+          value: 'Placeholder docs for argument, keyword, or property',
+        },
+      },
+      {
+        label: 'myProp2',
+        insertText: 'myProp2',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of TestCompletion',
+        documentation: {
+          kind: 'markdown',
+          value: 'Placeholder docs for argument, keyword, or property',
+        },
+      },
+      {
+        label: 'TestCompletion::method()',
+        insertText: 'method()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+    ];
+
+    // verify results
+    expect(expectedFound_7).toEqual(
+      (
+        await index.getAutoComplete(
+          filepath,
+          await readFile(filepath, 'utf-8'),
+          position_7
         )
       ).slice(0, 50)
     );

@@ -12,12 +12,14 @@
 ;     A list of procedures and functions for us to resolve
 ;   processed: in, optional, Hash<any>
 ;     A hash that tracks the routines we have processed to limit recursion
+;   unresolved: in, optional, Hash<any>
+;     Track unresolved routines
 ;   skip: in, optional, Hash<any>
 ;     A hash that tracks the routines we should skip (internal or not found)
 ;     to limit recursion.
 ;
 ;-
-pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
+pro vscode_BuildWorkspace_resolve, bdg, routines, processed, unresolved, skip
   compile_opt idl2, hidden
 
   ; track routines that we have processed
@@ -28,7 +30,7 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
   changes = !false
 
   ; reset bridge
-  bdg.Execute, '.reset'
+  bdg.execute, '.reset'
 
   ; reset path in child process - weird thing with resolving objects called as functions
   ; when they are on your path
@@ -37,20 +39,21 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
   ; compile all routines that we are aware of
   foreach routine, routines do begin
     ; skip if we have processed a routine or not
-    if skip.HasKey(routine) or processed.HasKey(routine) or strtrim(routine, 2) eq '' then continue
+    if skip.hasKey(routine) or processed.hasKey(routine) or strtrim(routine, 2) eq '' then continue
 
     ; nicely handle errors
     catch, err
     if (err ne 0) then begin
       catch, /cancel
       ; help, /last_message
+      unresolved[routine] = !null
       message, /reset
       continue
     endif
 
     ; compile file
     ; bdg.execute, '.compile "' + routine + '"'
-    bdg.Execute, 'resolve_routine, "' + routine + '", /COMPILE_FULL_FILE, /EITHER'
+    bdg.execute, 'resolve_routine, "' + routine + '", /COMPILE_FULL_FILE, /EITHER'
     catch, /cancel
 
     ; check for source location
@@ -63,17 +66,17 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
         catch, /cancel
         continue
       endif
-      bdg.Execute, 'info = json_serialize(routine_info("' + routine + '", /source, /function))'
+      bdg.execute, 'info = json_serialize(routine_info("' + routine + '", /source, /function))'
     endif else begin
-      bdg.Execute, 'info = json_serialize(routine_info("' + routine + '", /source))'
+      bdg.execute, 'info = json_serialize(routine_info("' + routine + '", /source))'
       catch, /cancel
     endelse
 
     ; get and parse the source struct
-    src = json_parse(bdg.GetVar('info'), /fold_case)
+    src = json_parse(bdg.getVar('info'), /fold_case)
 
     ; skip internal routines
-    if src['path'].StartsWith(!dir) or ~keyword_set(src['path']) then begin
+    if src['path'].startsWith(!dir) or ~keyword_set(src['path']) then begin
       skip[routine] = !true
       continue
     endif
@@ -86,19 +89,17 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, skip
   ; check if we have changes
   if changes then begin
     ; get the unresolved routines
-    bdg.Execute, 'info = json_serialize(orderedhash("procedures", routine_info(/UNRESOLVED), "functions", routine_info(/FUNCTIONS, /UNRESOLVED)))'
-    allRoutines = json_parse(bdg.GetVar('info'))
+    bdg.execute, 'info = json_serialize(orderedhash("procedures", routine_info(/UNRESOLVED), "functions", routine_info(/FUNCTIONS, /UNRESOLVED)))'
+    allRoutines = json_parse(bdg.getVar('info'))
 
     ; concat together
     toProcess = list()
-    if isa(allRoutines['procedures'], 'list') then toProcess.Add, allRoutines['procedures'], /extract
-    if isa(allRoutines['functions'], 'list') then toProcess.Add, allRoutines['functions'], /extract
+    if isa(allRoutines['procedures'], 'list') then toProcess.add, allRoutines['procedures'], /extract
+    if isa(allRoutines['functions'], 'list') then toProcess.add, allRoutines['functions'], /extract
 
     ; recurse
-    vscode_BuildWorkspace_resolve, bdg, toProcess, processed, skip
+    vscode_BuildWorkspace_resolve, bdg, toProcess, processed, unresolved, skip
   endif
-
-  s = {myProp: 5, otherProp: 6}
 end
 
 ;+
@@ -132,13 +133,13 @@ pro vscode_BuildWorkspace_CopyFiles, workspace, destination, types
     message, 'No files found to build', level = -1
 
   ; pluck the file extensions
-  extensions = strlowcase(files[idxCheck].Substring(dot))
+  extensions = strlowcase(files[idxCheck].substring(dot))
 
   ; make hash of allowed types
   okExtensions = hash(types, replicate(!true, n_elements(types)))
 
   ; get extensions we keep
-  idxOk = where(okExtensions.HasKey(extensions), countKeep)
+  idxOk = where(okExtensions.hasKey(extensions), countKeep)
 
   ; make sure that we have files
   if (countKeep eq 0) then $
@@ -150,23 +151,46 @@ end
 
 ;+
 ; :Description:
-;   Procedure that manages building a folder of code
+;   Compiles all code in a workspace and resolves all dependencies!
 ;
-;   Here's the process it follows:
-;   1. Copied file to the "dist" folder
-;   2. Cleans up files we don't need
-;   3. Compiles direct source files into SAVE files
-;   4. Gets first pass at unresolved routines
-;   5. Recursively finds dependencies and their dependencies
-;   6. Any dependency not located in the !dir folder we attempt to
-;      compile and save
+;   This routine expects that you have a folder called `src` at the root level of
+;   a workspace with all code and content that needs to be packaged.
+;
+;   This routine copies the `src` folder into another directory called `dist` which
+;   is deleted and re-created every time you build.
+;
+;   Dependency resolution is done using IDL's search path through VSCode with the workspace
+;   preprended so it is always discovered first.
+;
+;   This means that, if your path is incorrect, not all dependencies will be properly
+;   bundled as source code.
 ;
 ; :Arguments:
 ;   workspace: in, required, String
 ;     Fully-qualified path to the workspace that we want to build/compile
 ;
+; :Keywords:
+;   condense_to: in, optional, String
+;     If set, represents the name of a single SAVE file that will hold all resolved
+;     routines. By default, all routines are stored in separate SAVE files so this
+;     option allows you to change that behavior, if desired.
+;   description: in, optional, String
+;     When `condense_to` is set, optionally specify a description for the file
+;     that gets saved
+;
+; :Examples:
+;
+;   Here's a simple example showing how to run this procedure:
+;
+;   ```idl
+;   vscode_BuildWorkspace, 'C:\Users\awesome-user\my-workspace'
+;   ```
+;
+;   It does expect that all source code for the workspace is in a `src` folder
+;   found within the workspace.
+;
 ;-
-pro vscode_BuildWorkspace, workspace
+pro vscode_BuildWorkspace, workspace, condense_to = condense_to, description = description
   compile_opt idl2, hidden
   on_error, 2
 
@@ -178,11 +202,8 @@ pro vscode_BuildWorkspace, workspace
   if ~file_test(workspace, /directory) then $
     message, 'Workspace specified, but folder does not exist!', level = -1
 
-  ;+ get current folder
-  thisDir = file_dirname(routine_filepath())
-
-  ;+ specify the folder where our soruce code lives
-  srcDir = thisDir + path_sep() + 'src'
+  ;+ specify the folder where our source code lives
+  srcDir = workspace + path_sep() + 'src'
   if ~file_test(srcDir, /directory) then message, 'Source folder not found where expected'
 
   ;+ specify the output folder
@@ -198,7 +219,7 @@ pro vscode_BuildWorkspace, workspace
   file_copy, srcDir, outDir, /recursive
 
   ;+ specify the folder for our dependencies
-  depDir = thisDir + path_sep() + 'dist' + path_sep() + 'deps'
+  depDir = workspace + path_sep() + 'dist' + path_sep() + 'deps'
   if ~file_test(depDir, /directory) then file_mkdir, depDir
 
   ;+ Specify routines to skip
@@ -211,16 +232,13 @@ pro vscode_BuildWorkspace, workspace
 
   ;+ Track files to delete and not include in the builds
   delete = hash()
-  delete['atcorrectimagery.pro'] = !true
-  delete['atcorrectimagerywithflaash.task'] = !true
-  delete['atcorrectimagerywithquac.task'] = !true
 
   ; delete excess or unwanted task files
   files = file_search(outDir, '*.task', count = nCleanup)
   if (nCleanup gt 0) then begin
     foreach file, files do begin
       case (!true) of
-        delete.HasKey(file_basename(file)): file_delete, file
+        delete.hasKey(file_basename(file)): file_delete, file
         else: ; do nothing
       endcase
     endforeach
@@ -231,9 +249,9 @@ pro vscode_BuildWorkspace, workspace
   if (nCleanup gt 0) then begin
     foreach file, files do begin
       case (!true) of
-        file.EndsWith('.spec.pro'): file_delete, file
-        file.EndsWith('.spec.pro.log'): file_delete, file
-        delete.HasKey(file_basename(file)): file_delete, file
+        file.endsWith('.spec.pro'): file_delete, file
+        file.endsWith('.spec.pro.log'): file_delete, file
+        delete.hasKey(file_basename(file)): file_delete, file
         else: ; do nothing
       endcase
     endforeach
@@ -247,61 +265,64 @@ pro vscode_BuildWorkspace, workspace
   currentPath = !path
 
   ; update path to include just this folder
-  newPath = '+' + thisDir + path_sep(/search_path) + '<IDL_DEFAULT>'
+  newPath = strjoin(['+' + workspace, !path, '<IDL_DEFAULT>'], path_sep(/search_path))
 
   ; create process to build files
   bdg = IDL_IDLBridge()
-  bdg.SetVar, 'path', byte(newPath) ; goofy to avoid strings that are too long
-  bdg.Execute, 'path = string(path)'
-  bdg.Execute, 'pref_set, "IDL_PATH", path, /commit & path_cache, /rebuild'
+  bdg.setVar, 'path', byte(newPath) ; goofy to avoid strings that are too long
+  bdg.execute, 'path = string(path)'
+  bdg.execute, 'pref_set, "IDL_PATH", path, /commit & path_cache, /rebuild'
 
   ; compile and save all of our PRO files
   foreach file, files do begin
-    bdg.Execute, '.reset'
-    bdg.Execute, '.compile "' + file + '"'
-    bdg.Execute, 'save, /routines, filename = "' + file.Replace('.pro', '.sav') + '", /compress'
+    bdg.execute, '.reset'
+    bdg.execute, '.compile "' + file + '"'
+    bdg.execute, 'save, /routines, /compress, filename = "' + file.replace('.pro', '.sav') + '", /compress'
   endforeach
 
   ; reset bridge
-  bdg.Execute, '.reset'
+  bdg.execute, '.reset'
 
   ; compile all routines that we are aware of
   foreach file, files do begin
     ; compile file
-    bdg.Execute, '.compile "' + file + '"'
+    bdg.execute, '.compile "' + file + '"'
 
     ; clean up PRO file
     file_delete, file
   endforeach
 
   ; get the routines in our files
-  bdg.Execute, 'info = json_serialize(orderedhash("procedures", routine_info(/UNRESOLVED), "functions", routine_info(/FUNCTIONS, /UNRESOLVED)))'
-  allRoutines = json_parse(bdg.GetVar('info'))
+  bdg.execute, 'info = json_serialize(orderedhash("procedures", routine_info(/UNRESOLVED), "functions", routine_info(/FUNCTIONS, /UNRESOLVED)))'
+  allRoutines = json_parse(bdg.getVar('info'))
 
   ; reset bridge
-  bdg.Execute, '.reset'
+  bdg.execute, '.reset'
 
   ; initialize routines that we have processed
   processed = hash(/fold_case)
 
   ; concat unresolved functions and procedures ttogether
   toProcess = list()
-  if isa(allRoutines['procedures'], 'list') then toProcess.Add, allRoutines['procedures'], /extract
-  if isa(allRoutines['functions'], 'list') then toProcess.Add, allRoutines['functions'], /extract
+  if isa(allRoutines['procedures'], 'list') then toProcess.add, allRoutines['procedures'], /extract
+  if isa(allRoutines['functions'], 'list') then toProcess.add, allRoutines['functions'], /extract
+
+  ;+ track unresolved datasets
+  unresolved = hash(/fold_case)
 
   ; recurse
-  vscode_BuildWorkspace_resolve, bdg, toProcess, processed
+  vscode_BuildWorkspace_resolve, bdg, toProcess, processed, unresolved
 
   ; add object classes for resolving
   processed['awesomeenviprogress__define'] = !true
 
   ; process each dependency
-  foreach routine, processed.Keys() do begin
+  foreach routine, processed.keys() do begin
     ; return if we should be skipping
-    if skipThese.HasKey(routine) then continue
+    if skipThese.hasKey(routine) then continue
 
     ; reset bridge
-    bdg.Execute, '.reset'
+    bdg.execute, '.reset'
 
     ; nicely handle errors
     catch, err
@@ -312,15 +333,70 @@ pro vscode_BuildWorkspace, workspace
     endif
 
     ; attempt to resolve our routine
-    bdg.Execute, 'resolve_routine, "' + routine + '", /compile_full_file, /either'
+    bdg.execute, 'resolve_routine, "' + routine + '", /compile_full_file, /either'
 
     ; dont catch
     catch, /cancel
 
     ; we found it, so save
-    bdg.Execute, 'save, /routines, filename="' + depDir + path_sep() + strlowcase(routine) + '.sav"'
+    bdg.execute, 'save, /routines, /compress, filename="' + depDir + path_sep() + strlowcase(routine) + '.sav"'
   endforeach
+
+  ;+
+  ; Check if we need to save all routines to a single file or not
+  ;-
+  if isa(condense_to, /string) then begin
+    ;+ find SAVE files that we need to combine
+    files = file_search(outDir, '*.sav', count = nFiles)
+
+    ; verify that we have files
+    if (nFiles gt 0) then begin
+      ; reset bridge
+      bdg.execute, '.reset'
+
+      ; restore each file
+      foreach file, files do bdg.execute, 'restore, "' + file + '"'
+
+      ; clean up
+      file_delete, files
+
+      ; check if we have a description we need to pass through
+      if isa(description, /string) then bdg.setVar, 'description', description
+
+      ; save all routines back to disk
+      bdg.execute, 'save, /routines, /compress, description=description, filename="' + strjoin([outDir, condense_to], path_sep()) + '"'
+    endif
+
+    ;+ find folders that we might need to remove if empty
+    folders = file_search(outDir, '*', /test_directory, count = nDirs)
+    if (nDirs gt 0) then begin
+      ; check each sub-dir
+      foreach folder, folders do begin
+        !null = file_search(folder, '*', count = nSub)
+        if (nSub eq 0) then file_delete, folder
+      endforeach
+    endif
+  endif
 
   ; clean up
   obj_destroy, bdg
+
+  ; get unresolved names
+  unresolvedNames = (unresolved.keys()).sort()
+
+  ; check if we have unresolved
+  if (n_elements(unresolvedNames) gt 0) then begin
+    ; alert user
+    print, 'Detected unresolved routines, see "dist/unresolved.json"'
+    print, '  to make sure critical dependencies are not missing. It is'
+    print, '  normal to see "ENVI" routines in this list'
+
+    ;+ file we write unresolved routines to
+    uresolvedUri = outDir + path_sep() + 'unresolved.json'
+
+    ; write to disk
+    openw, lun, uresolvedUri, /get_lun
+    printf, lun, json_serialize(unresolvedNames, /pretty)
+    free_lun, lun
+  endif
 end

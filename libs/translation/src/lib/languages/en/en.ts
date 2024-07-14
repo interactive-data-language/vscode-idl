@@ -45,8 +45,12 @@ export const EN: ITranslation = {
       code: {
         initializeConfig: 'IDL: Initialize Config',
         addDocsToFile: 'IDL: Add/Update Docs for File',
+        disableProblemSetting: 'IDL: Disable Problem Code via Setting',
+        fixProblem: 'IDL: Fix Problem for Code Action',
         formatFile: 'IDL: Format File',
+        formatWorkspace: 'IDL: Format Files in Workspace',
         generateTask: 'IDL: Generate ENVI or IDL Task',
+        migrateToDL30API: 'IDL: Migrate Code to ENVI Deep Learning 3.0 API',
       },
       config: {
         specifyIDLDirectory: 'IDL: Specify IDL Directory (User-level)',
@@ -71,10 +75,11 @@ export const EN: ITranslation = {
         openIDLExample: 'IDL: Open IDL Example Notebook',
         openENVIExample: 'IDL: Open ENVI Example Notebook',
         // shorter because it shows in toolbar
-        resetIDL: 'Reset IDL',
+        resetIDLKernel: 'IDL: Reset IDL Notebook Kernel',
         resetNotebookExamples: 'IDL: Reset IDL and ENVI Example Notebooks',
         // shorter because it shows in toolbar
-        stopIDL: 'Stop IDL',
+        stopIDLKernel: 'IDL: Stop IDL Notebook Kernel',
+        stopAllIDLKernels: 'IDL: Stop All IDL Notebook Kernels',
       },
       terminal: {
         startIDL: 'IDL: Open an IDL Terminal Window',
@@ -82,7 +87,7 @@ export const EN: ITranslation = {
         runFile: 'IDL: Run PRO File in Terminal',
         executeBatchFile: 'IDL: Execute Batch File in Terminal',
         resetIDL: 'IDL: Reset Session in Terminal',
-        stopExecution: 'IDL: Stop Execution in Terminal',
+        pauseExecution: 'IDL: Stop Execution in Terminal',
         continueExecution: 'IDL: Continue Execution in Terminal',
         stepIn: 'IDL: Step In in Terminal',
         stepOver: 'IDL: Step Over in Terminal',
@@ -93,6 +98,7 @@ export const EN: ITranslation = {
       },
       docs: {
         open: 'IDL: Open Extension Docs',
+        openLink: 'IDL: Open Docs Link',
       },
     },
     errors: {
@@ -104,8 +110,13 @@ export const EN: ITranslation = {
       code: {
         initializeConfig: 'Error while initializing config for workspace',
         addDocsToFile: 'Error while adding/updating docs for file',
+        disableProblemSetting:
+          'Error while disabling problem code via settings',
+        fixProblem: 'Error while fixing problem from code action',
         formatFile: 'Error while formatting file',
+        formatWorkspace: 'Error while formatting workspace',
         generateTask: 'Error while generating task',
+        migrateToDL30API: 'Error while migrating code',
       },
       config: {
         specifyIDLDirectory: 'Error while setting IDL directory (User)',
@@ -129,9 +140,10 @@ export const EN: ITranslation = {
         notebookToProCode: 'Error while converting notebook to PRO code',
         openIDLExample: 'Error while opening IDL example notebook',
         openENVIExample: 'Error while opening ENVI example notebook',
-        resetIDL: 'Error while resetting IDL',
+        resetIDLKernel: 'Error while resetting IDL Notebook Kernel',
         resetNotebookExamples: 'Error while resetting example notebooks',
-        stopIDL: 'Error while stopping IDL',
+        stopIDLKernel: 'Error while stopping IDL Notebook Kernel',
+        stopAllIDLKernels: 'Error while stopping all IDL Notebook Kernels',
       },
       terminal: {
         startIDL: 'Error while opening IDL terminal indow',
@@ -139,7 +151,7 @@ export const EN: ITranslation = {
         runFile: 'Error while running PRO file in terminal',
         executeBatchFile: 'Error while executing batch file in terminal',
         resetIDL: 'Error while resetting session in terminal',
-        stopExecution: 'Error while stopping execution in terminal',
+        pauseExecution: 'Error while stopping execution in terminal',
         continueExecution: 'Error while continuing execution in terminal',
         stepIn: 'Error while stepping in in terminal',
         stepOver: 'Error while stepping over in terminal',
@@ -150,9 +162,16 @@ export const EN: ITranslation = {
       },
       docs: {
         open: 'Error while opening extension docs',
+        openLink: 'Error while opening docs link',
       },
     },
     notifications: {
+      formatWorkspace: {
+        notAllFilesFormatted:
+          'Some files were not formatted, see logs for more details',
+        pickWorkspace:
+          'Specify the open workspace to format all PRO files in workspace',
+      },
       initConfig: {
         noWorkspaceOpen: 'No currently open workspaces',
         allWorkspacesHaveConfig:
@@ -172,15 +191,16 @@ export const EN: ITranslation = {
   },
   configuration: {
     titles: {
-      root: 'IDL for VSCode',
       general: 'General',
-      idl: 'IDL',
-      formatting: 'Formatting',
-      problems: 'Problem Reporting',
-      questions: 'Questions',
       developer: 'Developer',
+      documentation: 'Documentation',
+      formatting: 'Formatting',
+      idl: 'IDL',
       languageServer: 'Language Server',
       notebooks: 'Notebooks',
+      problems: 'Problem Reporting',
+      questions: 'Questions',
+      root: 'IDL for VSCode',
     },
     idlDir: {
       notFound: 'IDL directory not found or specified by user, configure?',
@@ -206,15 +226,24 @@ export const EN: ITranslation = {
         'Preferences that control the session history (input and output) when running IDL.',
       'IDL.preferences': 'Placeholder',
 
+      code: 'code',
       'code.formatting': 'Top-level preferences for how code gets formatted.',
       'code.formattingStyle':
         'This controls how code is automatically formatted when using the buttons in the sidebar or formatting on save.',
 
+      documentation: 'documentation',
+      'documentation.localPort':
+        'When using local extension docs, what port do we serve them from?',
+      'documentation.useOnline':
+        'For extension documentation, do we use the online (hosted) version, or the local version packaged with the extension?',
+
       languageServer: 'Preferences that control the language server for IDL',
       'languageServer.fullParse':
-        '**Experimental and not all features may work when disabled**\n\nWhen the language server starts up, do we fully parse the code in workspaces and on your path?\n\nA full parse checks for syntax and type errors to give more insights into your code without opening each file. However, for large code bases (>1 million lines of code), this uses about 3x more CPU RAM and is about 50% slower.\n\nIf more than one workspace is open, and this is enabled for any workspace, we apply it for all open workspaces.',
+        'When the language server starts up, do we fully parse the code in workspaces and on your path?\n\nA full parse checks for syntax and type errors to give more insights into your code without opening each file. However, for large code bases (>1 million lines of code), this uses about 3x more CPU RAM and is about 50% slower.\n\nIf more than one workspace is open, and this is enabled for any workspace, we apply it for all open workspaces.',
 
       problems: 'Preferences that control how problems are reported',
+      'problems.reportProblems':
+        'Do we report problems found when analyzing your code? If disabled in one workspace, applies to all.',
       'problems.includeProblemsFromIDLPackages':
         'Report problems for all files where we find "idl_packages" in the path. This permits problem reporting from external libraries. If this is set in any open workspace, it applies to all of them.',
       'problems.includeProblemsFromIDLPath':
@@ -238,6 +267,7 @@ export const EN: ITranslation = {
       'dontAsk.forIconChange': "Don't ask to change icon font on startup.",
       'dontAsk.forFormatterChange':
         "Don't ask to set the extension as the default formatter for IDL code.",
+      'dontAsk.toOpenDocs': `Don't ask to open the documentation on extension startup`,
       // 'dontAsk.toInitConfig':
       //   'Don\'t ever ask to create an "idl.json" file for any open workspaces',
       // 'dontAsk.toInitConfigForTheseFolders':
@@ -363,7 +393,9 @@ export const EN: ITranslation = {
       promiseResolveError:
         'Error resolving promise for executing IDL statement',
       noRoutineFound:
-        'No main level program or function/procedure with same name as file found',
+        'No main level program, function, or procedure found to run',
+      syntaxErrorsFound:
+        'Syntax errors detected in your code, see above for more details',
       returning: 'File compiled while active, returning...',
       nothingToEdit: 'No matching file found',
       noPauseOnWindows: 'Pause is not currently supported on Windows platforms',
@@ -532,10 +564,14 @@ export const EN: ITranslation = {
             name: 'Reset Example Notebooks',
             description: '',
           },
+          stopAllNotebookKernels: {
+            name: 'Stop all IDL Notebook Kernels',
+            description: '',
+          },
         },
         terminal: {
-          openTerminal: {
-            name: 'Open',
+          startTerminal: {
+            name: 'Start',
             description: 'IDL in a terminal window',
           },
           compileTerminal: {
@@ -554,8 +590,8 @@ export const EN: ITranslation = {
             name: 'Reset',
             description: 'the IDL session in the terminal',
           },
-          stopTerminal: {
-            name: 'Stop',
+          pauseTerminal: {
+            name: 'Pause',
             description: 'the IDL terminal process',
           },
           continueTerminal: {
@@ -578,11 +614,25 @@ export const EN: ITranslation = {
       },
     },
   },
+  languages: {
+    idl: 'IDL',
+    idlLog: 'IDL Log File',
+    idlMdInject: 'IDL Markdown Code Blocks',
+    idlNotebook: 'IDL Notebook',
+  },
   logger: {
     defaultErrorMessage:
       'The IDL extension had an error :( See output/debug console for details',
   },
   lsp: {
+    codeActions: {
+      disableLine: 'Disable "PROBLEM" for line',
+      disableFile: 'Disable "PROBLEM" for file or cell',
+      disableUser: 'Disable "PROBLEM" in user settings',
+      disableWorkspace: 'Disable "PROBLEM" for workspace',
+      viewProblemCodeDocs: 'Learn more about "PROBLEM"',
+      viewProblemConfigDocs: 'Learn how to configure reported problems',
+    },
     config: {
       failedParse: 'Problem parsing IDL config file',
     },
@@ -600,6 +650,7 @@ export const EN: ITranslation = {
       onDocumentFormatting: 'Problem formatting file',
       onDocumentFormattingProblemCode:
         'Unable to format code due to syntax error or problem in file',
+      onWorkspaceFormatting: 'Error while formatting files in workspace',
       onHover: 'Problem resolving hover help',
       onAddDocs: 'Problem adding/updating routine docs for file',
       onDidClose: 'Problem when closing file',
@@ -620,7 +671,11 @@ export const EN: ITranslation = {
       onDidChangeNotebook: 'Error responding to notebook change event',
       onDidCloseNotebook: 'Error responding to notebook close event',
       onRetrieveDocs: 'Error responding to docs retrieval event',
+      onMigrateCode: 'Error while migrating code',
+      onMigrateCodeProblemCode:
+        'Unable to format code due to syntax error or problem in file',
       onNotebookToProCode: 'Error converting notebook to PRO code',
+      onPrepareNotebookCell: 'Error while preparing notebook cell to run',
     },
     errors: {
       unhandled: 'An unknown error ocurred within the IDL Language Server',
@@ -628,6 +683,11 @@ export const EN: ITranslation = {
       connection: 'Failed to send/receive message with the IDL Language Server',
       closed:
         'The IDL Language Server crashed. This is likely a memory issue, please see docs for more information and workarounds.',
+      startDocsServer:
+        'Error while starting local docs server, is the port already in use?',
+    },
+    progress: {
+      formatWorkspace: 'Formatting workspace...',
     },
     types: {
       unknown: {
@@ -655,11 +715,15 @@ export const EN: ITranslation = {
       didntStartRight:
         "The notebook session of IDL didn't start or reset right. Not everything may function as expected.",
       failedExecute: 'Failed to execute notebook cells',
+      failedCodePrepare:
+        'Unknown problem while preparing a notebook cell to run. Please save notebooks to disk, or file a bug if this persists.',
       crashed:
         'IDL crashed or was stopped by the user and needs to be restarted',
       checkingGraphics: 'Error while trying to retrieve any graphics to embed',
       handlingMessageFromRenderer:
         'Error while responding to message from notebook renderer',
+      onDidCloseNotebookDocument:
+        'Error while cleaning up after closed IDL Notebook',
     },
     notifications: {
       startingIDL: 'Starting IDL, please wait...',
@@ -677,6 +741,17 @@ export const EN: ITranslation = {
         'Converting a notebook to a PDF requires the extension "Markdown PDF", install and proceed?',
       markdownPDFWaitForInstall:
         'Wait for Markdown PDF to install chromium and then try again',
+      startedIDLKernel: 'Started IDL {VERSION} for notebook!',
+      notValidIDLVersion:
+        'IDL Notebooks require IDL 8.8.0 or newer in order to run',
+      enviCellDetected: [
+        'ENVI startup detected in notebook cell.',
+        '',
+        'If you have graphics to embed, you will need to re-run the cell to get all items.',
+        '',
+        "Pro tip: Have a dedicated cell for ENVI startup so you don't need to re-run cells.",
+        '',
+      ].join('\n'),
     },
   },
   notifications: {
@@ -693,6 +768,7 @@ export const EN: ITranslation = {
       'Format PRO code automatically on file save? This will not affect other languages and will be limited to PRO files.',
     initIDLJSON:
       'No "idl.json" file found at root level of workspace folder, create? Workspace:',
+    openDocs: 'Open official docs for IDL for VSCode?',
     configure: 'Configure',
     start: 'Start?',
     viewDocs: 'View docs',
@@ -700,7 +776,7 @@ export const EN: ITranslation = {
   packageJSON: {
     displayName: 'IDL for VSCode',
     description:
-      'IDL syntax highlighting, code snippets, running IDL programs, and much more!',
+      'IDL syntax highlighting, code snippets, running IDL programs, notebooks, and much more!',
   },
   parsing: {
     errors: {
@@ -813,6 +889,11 @@ export const EN: ITranslation = {
         'Illegal use of parentheses for indexing variable, use brackets instead (function name matches local variable). If this is a function call, add `compile_opt idl2` to delineate between the variable and function call.',
       '106':
         'Circular include statement found. This means that the included file includes this file (directly or indirectly).',
+      '107': 'Attempting to disable unknown problem',
+      '108':
+        'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+      '109':
+        'Expression will automatically be printed during notebook cell execution',
     },
   },
   terminal: {
@@ -831,10 +912,11 @@ export const EN: ITranslation = {
     indexing: 'Indexing code',
   },
   themes: {
-    new: 'Novus IDL',
     magmatic: 'Magmatic IDL',
     neon: 'Neon IDL',
+    new: 'Novus IDL',
     retro: 'Retro IDL',
+    stellar: 'Stellar IDL',
   },
   webview: {
     content: {
@@ -886,6 +968,8 @@ export const EN: ITranslation = {
       procedureMethod: 'Procedure Method',
       keyword: 'Keyword',
       structure: 'Structure',
+      enviTask: 'ENVI Task',
+      idltask: 'IDL Task',
     },
   },
   generators: {

@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -151,66 +151,77 @@ describe(`[auto generated] Apply keyword formatting`, () => {
         info: 'Undefined variable "var"',
         start: [31, 15, 3],
         end: [31, 15, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "meta"',
         start: [37, 28, 4],
         end: [37, 28, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw1"',
         start: [17, 36, 3],
         end: [17, 36, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw2"',
         start: [17, 47, 3],
         end: [17, 47, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg1"',
         start: [17, 18, 4],
         end: [17, 18, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg2"',
         start: [17, 24, 4],
         end: [17, 24, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [21, 2, 1],
         end: [21, 2, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "val"',
         start: [31, 10, 3],
         end: [31, 10, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "key"',
         start: [31, 20, 3],
         end: [31, 20, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "e"',
         start: [36, 2, 1],
         end: [36, 2, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "r"',
         start: [37, 2, 1],
         end: [37, 2, 1],
+        canReport: true,
       },
     ];
 

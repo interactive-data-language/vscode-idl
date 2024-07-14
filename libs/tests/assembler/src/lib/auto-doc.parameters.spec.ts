@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -99,18 +99,21 @@ describe(`[auto generated] Verify parameter formatting`, () => {
         info: 'Documented argument, keyword, or property does not exist: "b"',
         start: [4, 0, 27],
         end: [4, 0, 27],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [10, 11, 1],
         end: [10, 11, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "c"',
         start: [10, 14, 1],
         end: [10, 14, 1],
+        canReport: true,
       },
     ];
 
@@ -215,18 +218,21 @@ describe(`[auto generated] Verify parameter formatting`, () => {
         info: 'Documented argument, keyword, or property does not exist: "kw2"',
         start: [2, 0, 26],
         end: [2, 0, 26],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw1"',
         start: [12, 17, 3],
         end: [12, 17, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw"',
         start: [12, 25, 2],
         end: [12, 25, 2],
+        canReport: true,
       },
     ];
 

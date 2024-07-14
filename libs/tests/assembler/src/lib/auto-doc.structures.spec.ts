@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -182,12 +182,14 @@ describe(`[auto generated] Generate structure docs`, () => {
         info: 'No matching structure/object/class definition for structure named "MyStruct"',
         start: [5, 11, 8],
         end: [5, 11, 8],
+        canReport: true,
       },
       {
         code: 77,
         info: 'No matching structure/object/class definition for structure named "mystruct2"',
         start: [7, 11, 9],
         end: [7, 11, 9],
+        canReport: true,
       },
     ];
 
@@ -289,12 +291,14 @@ describe(`[auto generated] Generate structure docs`, () => {
         info: 'Documented argument, keyword, or property does not exist: "propfake"',
         start: [2, 0, 17],
         end: [2, 0, 17],
+        canReport: true,
       },
       {
         code: 80,
         info: 'Property is missing from documentation: "prop"',
         start: [13, 42, 5],
         end: [13, 42, 5],
+        canReport: true,
       },
     ];
 

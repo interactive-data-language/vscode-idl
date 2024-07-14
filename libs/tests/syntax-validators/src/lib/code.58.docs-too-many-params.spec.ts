@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -44,6 +44,7 @@ describe(`[auto generated] Detects when too many documentation parameters are pr
         info: 'Unused variable "var1"',
         start: [5, 23, 4],
         end: [5, 23, 4],
+        canReport: true,
       },
     ];
 
@@ -91,12 +92,14 @@ describe(`[auto generated] Detects when too many documentation parameters are pr
         info: 'Too many documentation arguments. Expected the pattern "parameterName: in/out, required/optional, dataType, private/public" at most',
         start: [2, 0, 51],
         end: [2, 0, 51],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [5, 23, 4],
         end: [5, 23, 4],
+        canReport: true,
       },
     ];
 
@@ -144,6 +147,7 @@ describe(`[auto generated] Detects when too many documentation parameters are pr
         info: 'Unused variable "var1"',
         start: [5, 28, 4],
         end: [5, 28, 4],
+        canReport: true,
       },
     ];
 
@@ -191,12 +195,14 @@ describe(`[auto generated] Detects when too many documentation parameters are pr
         info: 'Too many documentation arguments. Expected the pattern "parameterName: in/out, required/optional, dataType, private/public" at most',
         start: [2, 0, 55],
         end: [2, 0, 55],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [5, 28, 4],
         end: [5, 28, 4],
+        canReport: true,
       },
     ];
 

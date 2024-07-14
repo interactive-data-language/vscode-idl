@@ -21,7 +21,7 @@ export async function GetCodeSemanticTokens(
      * Check if it is pending
      */
     case file in PENDING_PRO_CODE:
-      return (await PENDING_PRO_CODE[file].promise).semantic;
+      return (await PENDING_PRO_CODE[file].promise).semantic.built;
 
     /**
      * Check if it is in our lookup
@@ -33,6 +33,6 @@ export async function GetCodeSemanticTokens(
      * Parse to get the outline
      */
     default:
-      return (await GetParsedPROCode(index, file, code, token)).semantic;
+      return (await GetParsedPROCode(index, file, code, token)).semantic.built;
   }
 }

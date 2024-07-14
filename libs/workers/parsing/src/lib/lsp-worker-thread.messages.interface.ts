@@ -1,14 +1,16 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import { MigrationType } from '@idl/assembling/migrators-types';
+import { ILogOptions } from '@idl/logger';
+import { IDLNotebookDocument } from '@idl/notebooks/shared';
+import { IParsed } from '@idl/parsing/syntax-tree';
 import {
   GlobalTokens,
   GlobalTokenType,
   IBaseIndexedToken,
-} from '@idl/data-types/core';
-import { ILogOptions } from '@idl/logger';
-import { IDLNotebookDocument } from '@idl/notebooks/shared';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
-import { IParsed } from '@idl/parsing/syntax-tree';
-import { PositionArray } from '@idl/parsing/tokenizer-types';
+} from '@idl/types/core';
+import { SyntaxProblems } from '@idl/types/problem-codes';
+import { PositionArray } from '@idl/types/tokenizer';
+import { PrepareNotebookCellMessage } from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { WorkerIOBaseMessage } from '@idl/workers/workerio';
 import {
@@ -255,6 +257,26 @@ export type LogManagerPayload = void;
 export type LogManagerResponse = ILogOptions;
 
 /**
+ * Message to migrate code
+ */
+export type MigrateCodeMessage = 'migrate-code';
+
+/**
+ * Payload when migrating PRO code
+ */
+export interface MigrateCodePayload {
+  file: string;
+  code: string | string[];
+  formatting: IAssemblerOptions<FormatterType>;
+  migrationType: MigrationType;
+}
+
+/**
+ * Response when migrating PRO code
+ */
+export type MigrateCodeResponse = string | undefined;
+
+/**
  * When we parse and post-process code (i.e. open editor, file not saved on disk)
  */
 export type ParseAndPostProcessCodeMessage = 'parse-code';
@@ -466,12 +488,14 @@ export type LSPWorkerThreadMessage =
   | GetTokenDefMessage
   | LoadGlobalMessage
   | LogManagerMessage
+  | MigrateCodeMessage
   | ParseAndPostProcessCodeMessage
   | ParseAndPostProcessFileMessage
   | ParseFilesMessage
   | ParseFilesFastMessage
   | ParseNotebookMessage
   | PostProcessFilesMessage
+  | PrepareNotebookCellMessage
   | RemoveFilesMessage
   | TrackGlobalTokensMessage;
 
@@ -528,6 +552,10 @@ interface ILSPWorkerThreadMessageLookup {
    */
   LOG_MANAGER: LogManagerMessage;
   /**
+   * Migrate to DL 3.0 API
+   */
+  MIGRATE_CODE: MigrateCodeMessage;
+  /**
    * When we parse and post-process code (i.e. open editor, file not saved on disk)
    */
   PARSE_CODE: ParseAndPostProcessCodeMessage;
@@ -551,6 +579,10 @@ interface ILSPWorkerThreadMessageLookup {
    * Post-process more than one file and return problems-per-file
    */
   POST_PROCESS_FILES: PostProcessFilesMessage;
+  /**
+   * Prep notebook cell for execution
+   */
+  PREPARE_NOTEBOOK_CELL: PrepareNotebookCellMessage;
   /**
    * Removes files from our thread, cleans up globals, and does post-processing
    */
@@ -577,12 +609,14 @@ export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   GET_TOKEN_DEF: 'get-token-def',
   LOAD_GLOBAL: 'load-global',
   LOG_MANAGER: 'log-manager',
+  MIGRATE_CODE: 'migrate-code',
   PARSE_CODE: 'parse-code',
   PARSE_FILE: 'parse-file',
   PARSE_FILES: 'parse-files',
   PARSE_FILES_FAST: 'parse-files-fast',
   PARSE_NOTEBOOK: 'parse-notebook',
   POST_PROCESS_FILES: 'post-process-files',
+  PREPARE_NOTEBOOK_CELL: 'prepare-notebook-cell',
   REMOVE_FILES: 'remove-files',
   TRACK_GLOBAL: 'track-global',
 };

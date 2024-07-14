@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "; first problem cell",
+        "; ",
+        "; ",
+        "; ",
+        "; ",
+        "; ",
+        "; ",
+        "print, "
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; second problem cell",
+        "print, 'foo', ",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   BasicCallback,
   SyntaxProblemWithoutTranslation,
@@ -9,6 +8,7 @@ import {
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { FindKeyword } from '../../../helpers/get-keyword';
 import { GetKeywordDisplayName } from '../../../helpers/get-keyword-display-name';

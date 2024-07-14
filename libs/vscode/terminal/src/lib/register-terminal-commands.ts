@@ -10,7 +10,7 @@ import * as vscode from 'vscode';
 
 import { SendCommandToIDLTerminal } from './idl-terminal';
 
-// get the command errors from IDL translatyion
+// get the command errors from IDL translation
 const cmdErrors = IDL_TRANSLATION.commands.errors;
 
 /**
@@ -27,9 +27,9 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
         return true;
       } catch (err) {
         LogCommandError(
-          'Error while opening IDL terminal',
+          'Error while starting IDL',
           err,
-          cmdErrors.terminal.openIDL
+          cmdErrors.terminal.startIDL
         );
         return false;
       }
@@ -105,7 +105,7 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
   );
 
   ctx.subscriptions.push(
-    vscode.commands.registerCommand(IDL_COMMANDS.TERMINAL.STOP, async () => {
+    vscode.commands.registerCommand(IDL_COMMANDS.TERMINAL.PAUSE, async () => {
       try {
         LogCommandInfo('Stopping execution in IDL terminal');
         await SendCommandToIDLTerminal({ label: 'Stop' });
@@ -114,7 +114,7 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error while stopping IDL',
           err,
-          cmdErrors.terminal.stopExecution
+          cmdErrors.terminal.pauseExecution
         );
         return false;
       }

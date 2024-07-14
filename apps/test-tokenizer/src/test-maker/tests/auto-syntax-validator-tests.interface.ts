@@ -168,6 +168,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `with basic upper-case comment`,
         code: `; todo: something`,
       },
+      {
+        name: `in comment block`,
+        code: `;+ todo: something`,
+      },
+      {
+        name: `remove disabled from todo`,
+        code: `;+ todo: something idl-disabled`,
+      },
+      {
+        name: `remove disabled from todo`,
+        code: `;   todo: something idl-disabled-line`,
+      },
+      {
+        name: `remove disabled from todo`,
+        code: `;todo: something idl-disabled-next-line`,
+      },
     ],
   },
   {
@@ -469,6 +485,10 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
       {
         name: `string literal expressions`,
         code: `a = \`\${42}\${42}\``,
+      },
+      {
+        name: `indexed properties`,
+        code: `a = b.(0).(0).(1)`,
       },
     ],
   },
@@ -1274,7 +1294,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
   },
   {
     suiteName: `Detects args missing from docs`,
-    fileName: `code.48.docs-missing-arg.spec.ts`,
+    fileName: `code.48.docs-missing-args.spec.ts`,
     tests: [
       {
         name: `no problems`,
@@ -1306,7 +1326,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
   },
   {
     suiteName: `Detects args missing from docs`,
-    fileName: `code.48.docs-missing-arg.idldoc-legacy.spec.ts`,
+    fileName: `code.48.docs-missing-args.idldoc-legacy.spec.ts`,
     tests: [
       {
         name: `no problems`,
@@ -1412,7 +1432,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
   },
   {
     suiteName: `Detects keywords missing from docs`,
-    fileName: `code.50.docs-missing-kw.spec.ts`,
+    fileName: `code.50.docs-missing-kws.spec.ts`,
     tests: [
       {
         name: `no problems`,
@@ -1444,7 +1464,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
   },
   {
     suiteName: `Detects keywords missing from docs`,
-    fileName: `code.50.docs-missing-kw.idldoc-legacy.spec.ts`,
+    fileName: `code.50.docs-missing-kws.idldoc-legacy.spec.ts`,
     tests: [
       {
         name: `no problems`,
@@ -1645,7 +1665,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
   },
   {
     suiteName: `Detects when required/optional is incorrect for docs`,
-    fileName: `code.54.docs-invalid-require.spec.ts`,
+    fileName: `code.54.docs-invalid-required.spec.ts`,
     tests: [
       {
         name: `no problems`,
@@ -3483,6 +3503,13 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  !null = f[0]`,
           `  !null = g[0]`,
           ``,
+          `  ; OK`,
+          `  !null = c[!null]`,
+          `  !null = d[!null]`,
+          `  !null = e[!null]`,
+          `  !null = f[!null]`,
+          `  !null = g[0!null]`,
+          ``,
           `  ; also OK, though non standard IDL types`,
           `  !null = h[0]`,
           ``,
@@ -4409,6 +4436,10 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `is not var`,
         code: [`compile_opt idl3`, `a = 5`, ``, `!null = a()`, ``, `end`],
       },
+      {
+        name: `is not var`,
+        code: [`compile_opt idl3`, `on_ioerror, jumpy`, `end`],
+      },
     ],
   },
   {
@@ -4434,49 +4465,256 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
-    suiteName: `All the places we want to make sure we test for`,
-    fileName: `type-validation-reference.spec.ts`,
+    suiteName: `Bad problem alias`,
+    fileName: `code.107.unknown-disabled-alias.spec.ts`,
     tests: [
       {
-        name: `type validation`,
+        name: `no problems`,
+        code: [`; idl-disable unused-var`],
+      },
+      {
+        name: `poroblems`,
+        code: [`; idl-disable foo-bar`],
+      },
+      {
+        name: `no problems`,
+        code: [`; idl-disable unused-var,`],
+      },
+      {
+        name: `no problems`,
+        code: [`; idl-disable unused-var, `],
+      },
+    ],
+  },
+  {
+    suiteName: `Detect standalone expressions`,
+    fileName: `code.108.standalone-expression.spec.ts`,
+    tests: [
+      {
+        name: `no problems`,
+        code: [`compile_opt idl2`, `a = 5`, `a++`, `++a`, `a++`, `end`],
+      },
+      {
+        name: `no problems`,
         code: [
-          `;+`,
-          `; :Arguments:`,
-          `;   arg3: in, required, Hash<any>`,
-          `;     Placeholder docs for argument, keyword, or property`,
-          `;   arg4: in, required, OrderedHash<Byte>`,
-          `;     Placeholder docs for argument, keyword, or property`,
-          `;`,
-          `;-`,
-          `pro validate_problems, arg3, arg4`,
-          `  compile_opt idl3`,
-          ``,
-          `  ; validation edge cases`,
-          `  ; same variables should always have validation applied, but not always saved`,
-          `  dup1 = arg3[arg4]`,
-          `  dup1 = arg3[arg4]`,
-          ``,
-          `  ; anything with assignment before should validate`,
-          `  !x.charsize = arg3[arg4]`,
-          `  !null = arg3[arg4]`,
-          ``,
-          `  ; arguments and keywords`,
-          `  a = polot1(arg3[arg4], $`,
-          `    arg3[arg4], $`,
-          `    thing = arg3[arg4], $`,
-          `    thang = arg3[arg4])`,
-          ``,
-          `  ; left-side of the equation`,
-          `  arg3[arg4] = 5`,
-          `  (arg3[arg4]) = 5`,
-          `  (myfunc(arg3[arg4])) = 5`,
-          `  !null = (myfunc2(arg3[arg4]))`,
-          `  !null = (myfunc3(arg3[arg4])) + 1`,
-          ``,
-          `  ; arguments`,
-          `  a = polot2(arg3[arg4], arg3[arg4])`,
+          `compile_opt idl2`,
+          `@includeme`,
+          `repeat *val = 42 until *var`,
+          `repeat if !true then continue until !true`,
           `end`,
         ],
+      },
+      {
+        name: `indexing`,
+        code: [
+          `compile_opt idl2`,
+          `arr = [42, 84, 126]`,
+          `arr[5] = 6`,
+          `arr[5] += 6`,
+          `arr[5] +`,
+          `end`,
+        ],
+      },
+      {
+        name: `problems`,
+        code: [
+          `compile_opt idl2`,
+          `a = 5`,
+          `2 + 2`,
+          `(a)`,
+          `plot() + 5`,
+          `plot()`,
+          `a->`,
+          `end`,
+        ],
+      },
+      {
+        name: `multi-line problems`,
+        code: [`compile_opt idl2`, `2 + $`, `  2 + $`, `  2`, `end`],
+      },
+    ],
+  },
+  {
+    suiteName: `Detect standalone expressions`,
+    fileName: `code.109.implied-print-nb.spec.ts`,
+    tests: [
+      {
+        name: `no problems`,
+        code: [`compile_opt idl2`, `a = 5`, `a++`, `++a`, `a++`, `end`],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `no problems`,
+        code: [
+          `pro mypro`,
+          `  compile_opt idl2`,
+          `  a = 5`,
+          `  a++`,
+          `  ++a`,
+          `  a++`,
+          `end`,
+        ],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `no problems`,
+        code: [
+          `compile_opt idl2`,
+          `@includeme`,
+          `repeat *val = 42 until *var`,
+          `repeat if !true then continue until !true`,
+          `end`,
+        ],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `indexing`,
+        code: [
+          `compile_opt idl2`,
+          `arr = [42, 84, 126]`,
+          `arr[5] = 6`,
+          `arr[5] += 6`,
+          `arr[5] +`,
+          `end`,
+        ],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `problems`,
+        code: [
+          `compile_opt idl2`,
+          `a = 5`,
+          `2 + 2`,
+          `(a)`,
+          `plot() + 5`,
+          `plot()`,
+          `a->`,
+          `end`,
+        ],
+        config: {
+          isNotebook: true,
+        },
+      },
+      {
+        name: `multi-line problems`,
+        code: [`compile_opt idl2`, `2 + $`, `  2 + $`, `  2`, `end`],
+        config: {
+          isNotebook: true,
+        },
+      },
+    ],
+  },
+  {
+    suiteName: `Disable problems:`,
+    fileName: `idl-disable.all.spec.ts`,
+    tests: [
+      {
+        name: `all problems`,
+        code: [
+          `; idl-disable`,
+          `i write perfect code`,
+          `with all the errors . . . . .`,
+          `-> a = (`,
+          `begin`,
+        ],
+      },
+      {
+        name: `all problems 2`,
+        code: [`; idl-disable     `, `a = 42`],
+      },
+    ],
+  },
+  {
+    suiteName: `Disable problems:`,
+    fileName: `idl-disable.args.spec.ts`,
+    tests: [
+      {
+        name: `single problem for whole file and report others`,
+        code: [
+          `; idl-disable unused-var`,
+          `compile_opt idl2`,
+          `a = 42`,
+          `b = ->`,
+          `end`,
+        ],
+      },
+      {
+        name: `be OK with unfinished statement`,
+        code: [
+          `; idl-disable unused-var,`,
+          `compile_opt idl2`,
+          `a = 42`,
+          `b = ->`,
+          `end`,
+        ],
+      },
+      {
+        name: `two problems problem for whole file`,
+        code: [
+          `; idl-disable unused-var, illegal-arrow`,
+          `compile_opt idl2`,
+          `a = 42`,
+          `b = ->`,
+          `end`,
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Disable problems:`,
+    fileName: `idl-disable.line.spec.ts`,
+    tests: [
+      {
+        name: `for line`,
+        code: [`b = -> ; idl-disable-line illegal-arrow`],
+      },
+      {
+        name: `ignore when before`,
+        code: [`; idl-disable-line illegal-arrow`, `a = ->`],
+      },
+    ],
+  },
+  {
+    suiteName: `Disable problems:`,
+    fileName: `idl-disable.next.spec.ts`,
+    tests: [
+      {
+        name: `for next line`,
+        code: [`; idl-disable-next-line illegal-arrow`, `a = ->`],
+      },
+      {
+        name: `for next line`,
+        code: [`;+ idl-disable-next-line illegal-arrow`, `a = ->`],
+      },
+      {
+        name: `for next line`,
+        code: [`;+`, `; idl-disable-next-line illegal-arrow`, `a = ->`],
+      },
+      {
+        name: `for next line`,
+        code: [`;+`, `; idl-disable-next-line illegal-arrow`, `;-`, `a = ->`],
+      },
+    ],
+  },
+  {
+    suiteName: `Disable nothing`,
+    fileName: `idl-disable.none.spec.ts`,
+    tests: [
+      {
+        name: `no disabling`,
+        code: [`; idl-disable-next     `, `a = 42`],
+      },
+      {
+        name: `no disabling`,
+        code: [`; idl-disableanything     `, `a = 42`],
       },
     ],
   },
@@ -4563,6 +4801,53 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `endif`,
           `idltasktest, input_raster = 5`,
           `rturn, 1`,
+          `end`,
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `All the places we want to make sure we test for`,
+    fileName: `type-validation-reference.spec.ts`,
+    tests: [
+      {
+        name: `type validation`,
+        code: [
+          `;+`,
+          `; :Arguments:`,
+          `;   arg3: in, required, Hash<any>`,
+          `;     Placeholder docs for argument, keyword, or property`,
+          `;   arg4: in, required, OrderedHash<Byte>`,
+          `;     Placeholder docs for argument, keyword, or property`,
+          `;`,
+          `;-`,
+          `pro validate_problems, arg3, arg4`,
+          `  compile_opt idl3`,
+          ``,
+          `  ; validation edge cases`,
+          `  ; same variables should always have validation applied, but not always saved`,
+          `  dup1 = arg3[arg4]`,
+          `  dup1 = arg3[arg4]`,
+          ``,
+          `  ; anything with assignment before should validate`,
+          `  !x.charsize = arg3[arg4]`,
+          `  !null = arg3[arg4]`,
+          ``,
+          `  ; arguments and keywords`,
+          `  a = polot1(arg3[arg4], $`,
+          `    arg3[arg4], $`,
+          `    thing = arg3[arg4], $`,
+          `    thang = arg3[arg4])`,
+          ``,
+          `  ; left-side of the equation`,
+          `  arg3[arg4] = 5`,
+          `  (arg3[arg4]) = 5`,
+          `  (myfunc(arg3[arg4])) = 5`,
+          `  !null = (myfunc2(arg3[arg4]))`,
+          `  !null = (myfunc3(arg3[arg4])) + 1`,
+          ``,
+          `  ; arguments`,
+          `  a = polot2(arg3[arg4], arg3[arg4])`,
           `end`,
         ],
       },

@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 describe(`[auto generated] Correctly map options for compound control statements`, () => {
   it(`[auto generated] Convert variables to control options`, () => {
@@ -12,6 +12,7 @@ describe(`[auto generated] Correctly map options for compound control statements
       `  common blockName ; ignore for now`,
       `  forward_function myfunc1, myfunc2, myfunc3`,
       `  goto, stmnt`,
+      `  on_ioerror, stmnt`,
       ``,
       `end`,
     ];
@@ -29,7 +30,7 @@ describe(`[auto generated] Correctly map options for compound control statements
         idx: 0,
         scope: [],
         parseProblems: [],
-        end: { pos: [6, 0, 3], match: ['end'] },
+        end: { pos: [7, 0, 3], match: ['end'] },
         kids: [
           {
             type: 0,
@@ -176,6 +177,36 @@ describe(`[auto generated] Correctly map options for compound control statements
                 match: ['stmnt'],
                 idx: 1,
                 scope: [72, 23],
+                parseProblems: [],
+              },
+            ],
+          },
+          {
+            type: 0,
+            name: 89,
+            pos: [5, 2, 10],
+            match: ['on_ioerror'],
+            idx: 6,
+            scope: [72],
+            parseProblems: [],
+            end: { pos: [5, 19, 0], match: [''] },
+            kids: [
+              {
+                type: 1,
+                name: 14,
+                pos: [5, 12, 1],
+                match: [','],
+                idx: 0,
+                scope: [72, 89],
+                parseProblems: [],
+              },
+              {
+                type: 1,
+                name: 25,
+                pos: [5, 14, 5],
+                match: ['stmnt'],
+                idx: 1,
+                scope: [72, 89],
                 parseProblems: [],
               },
             ],

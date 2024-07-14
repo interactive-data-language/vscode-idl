@@ -235,7 +235,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'A string with the semantic revision number of the task. As the task definition evolves over time, the changes will affect how the revision number is incremented, according to [semantic versioning](https://www.nv5geospatialsoftware.com/docs/ENVI.html#API_VERS) rules.',
+            'A string with the semantic revision number of the task. As the task definition evolves over time, the changes will affect how the revision number is incremented, according to [semantic versioning](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVI%20Routine/ENVI.htm#API%255FVERS%22%7D) rules.',
         },
       },
       {
@@ -361,7 +361,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to a string that indicates the color matching method to perform.\n\n* `Histogram Matching`: Map discrete greyscale levels from the histogram of the adjusted scenes to the corresponding greyscale levels in the reference scene. This helps to minimize the tonal differences across multiple scenes.\n* `None` (default): Do not perform color matching.',
+            'Set this property to a string that indicates the color matching method to perform.\n\n* `Histogram Matching`: Map discrete grayscale levels from the histogram of the adjusted scenes to the corresponding grayscale levels in the reference scene. This helps to minimize the tonal differences across multiple scenes.\n* `None` (default): Do not perform color matching.',
         },
       },
       {
@@ -385,7 +385,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            "Set this property to a pixel value that will be used to fill areas where no valid data appear in the output raster. The following rules apply:\n\n* The value must be within the range of the input scenes' data type (e.g., floating-point, byte, integer, etc.)\n* For scenes that are in [ENVI raster format](https://www.nv5geospatialsoftware.com/docs/ENVIImageFiles.html): if all scenes have the same data ignore value defined in their associated headers, that value will be the default output data ignore value.\n* For mosaics exported to ENVI raster format, the data ignore value is written to the `data ignore value` field in the associated header file. If you do not set a data ignore value, this field will not be added to the header file.\n* When the input scenes have a floating-point or double-precision floating-point data type, be sure to specify a double-precision value (for example, 100D).\n\nYou can set the data ignore value to an NaN (not a number) value as follows:\n\n```idl\n  Task.data_ignore_value = !values.f_nan\n```",
+            "Set this property to a pixel value that will be used to fill areas where no valid data appear in the output raster. The following rules apply:\n\n* The value must be within the range of the input scenes' data type (e.g., floating-point, byte, integer, etc.)\n* For scenes that are in [ENVI raster format](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExploreImagery/ENVIImageFiles.htm%22%7D): if all scenes have the same data ignore value defined in their associated headers, that value will be the default output data ignore value.\n* For mosaics exported to ENVI raster format, the data ignore value is written to the `data ignore value` field in the associated header file. If you do not set a data ignore value, this field will not be added to the header file.\n* When the input scenes have a floating-point or double-precision floating-point data type, be sure to specify a double-precision value (for example, 100D).\n\nYou can set the data ignore value to an NaN (not a number) value as follows:\n\n```idl\n  Task.data_ignore_value = !values.f_nan\n```",
         },
       },
       {
@@ -432,7 +432,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This is a reference to the output raster of filetype ENVI.\n\nIf you use the [Export method](https://www.nv5geospatialsoftware.com/docs/ENVIRaster__Export.html) to save a multi-band mosaic to disk, the output mosaic will have a band-interleaved-by-pixel (BIP) interleave format. This ensures optimal performance during the export step.',
+            'This is a reference to the output raster of filetype ENVI.\n\nIf you use the [Export method](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRaster/ENVIRaster%255F%255FExport.htm%22%7D) to save a multi-band mosaic to disk, the output mosaic will have a band-interleaved-by-pixel (BIP) interleave format. This ensures optimal performance during the export step.',
         },
       },
       {
@@ -468,7 +468,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to a string that indicates the method used to automatically generate seamlines:\n\n* `Geometry`: Seamline generation that is based on the use of seamline networks by area Voroni diagrams with overlap (Pan et al., 2009). See [Add Seamlines](https://www.nv5geospatialsoftware.com/docs/MosaicSeamless.html#Add) for more information.\n* `None`: (default) No seamline generation.\n\nIf SEAMLINE\\_METHOD is set to `Geometry`, then FEATHERING\\_METHOD must be set to `Seamline`.\n\n**Reference**: Pan, J., M. Wang, D. Li, and J. Li. "Automatic Generation of Seamline Network Using the Area Voronoi Diagram with Overlap." _IEEE Transactions on Geoscience and Remote Sensing_ 47, No. 6 (2009): 1737-174.',
+            'Set this property to a string that indicates the method used to automatically generate seamlines:\n\n* `Geometry`: Seamline generation that is based on the use of seamline networks by area Voroni diagrams with overlap (Pan et al., 2009). See [Add Seamlines](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/PreprocessImagery/CreateMosaics/MosaicSeamless.htm#Add%22%7D) for more information.\n* `None`: (default) No seamline generation.\n\nIf SEAMLINE\\_METHOD is set to `Geometry`, then FEATHERING\\_METHOD must be set to `Seamline`.\n\n**Reference**: Pan, J., M. Wang, D. Li, and J. Li. "Automatic Generation of Seamline Network Using the Area Voronoi Diagram with Overlap." _IEEE Transactions on Geoscience and Remote Sensing_ 47, No. 6 (2009): 1737-174.',
         },
       },
       {
@@ -543,7 +543,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'A string with the semantic revision number of the task. As the task definition evolves over time, the changes will affect how the revision number is incremented, according to [semantic versioning](https://www.nv5geospatialsoftware.com/docs/ENVI.html#API_VERS) rules.',
+            'A string with the semantic revision number of the task. As the task definition evolves over time, the changes will affect how the revision number is incremented, according to [semantic versioning](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVI%20Routine/ENVI.htm#API%255FVERS%22%7D) rules.',
         },
       },
       {

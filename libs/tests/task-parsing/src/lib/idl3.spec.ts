@@ -1,8 +1,8 @@
-import { GlobalTokens } from '@idl/data-types/core';
-import { TaskToGlobalToken } from '@idl/data-types/tasks';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
 import { GetExtensionPath } from '@idl/shared';
+import { GlobalTokens } from '@idl/types/core';
+import { TaskToGlobalToken } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] idl`, async () => {
@@ -22,7 +22,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         name: 'idlquerytasktask',
         pos: [0, 0, 0],
         meta: {
-          display: 'idlquerytasktask',
+          display: 'IDLQueryTaskTask',
           source: 'user',
           docs: 'This task returns a hash that describes the properties of an IDL task.',
           private: false,

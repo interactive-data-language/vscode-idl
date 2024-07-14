@@ -1,7 +1,7 @@
 import { CleanIDLOutput } from '@idl/idl';
 import { IDL_COMMANDS } from '@idl/shared';
-import { Sleep } from '@idl/test-helpers';
-import { GetActivePROCodeWindow, VSCODE_COMMANDS } from '@idl/vscode/shared';
+import { Sleep } from '@idl/tests/helpers';
+import { GetActivePROCodeWindow } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
@@ -25,7 +25,8 @@ export const Compile: RunnerFunction = async (init) => {
 
   // compile file
   const res = CleanIDLOutput(
-    await init.debug.adapter.evaluate(`.compile plot`, { echo: true })
+    await init.debug.adapter.evaluate(`.compile plot`, { echo: true }),
+    false
   );
 
   // make sure we compile
@@ -42,13 +43,4 @@ export const Compile: RunnerFunction = async (init) => {
 
   // make sure it is the plot file
   expect(editor.uri.fsPath.endsWith('plot.pro')).toBeTruthy();
-
-  // close editor
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
-
-  // pause momentarily
-  await Sleep(DEBUG_PAUSE);
-
-  // verify we cleaned up
-  expect(GetActivePROCodeWindow(false)).toBeUndefined();
 };

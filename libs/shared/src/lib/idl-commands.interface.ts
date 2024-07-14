@@ -59,8 +59,16 @@ export const IDL_COMMANDS = {
     ADD_DOCS_TO_FILE: `${BASE_CODE}addDocsToFile`,
     /** Formats a file */
     FORMAT_FILE: `${BASE_CODE}formatFile`,
+    /** Formats all files in a workspace */
+    FORMAT_WORKSPACE: `${BASE_CODE}formatWorkspace`,
     /** Generate task file */
     GENERATE_TASK: `${BASE_CODE}generateTask`,
+    /** Migrate PRO code to the ENVI DL 3.0 API */
+    MIGRATE_TO_DL30_API: `${BASE_CODE}migrateToDL30API`,
+    /** Disable problem code through settings */
+    DISABLE_PROBLEM_SETTING: `${BASE_CODE}disableProblemSetting`,
+    /** Auto fix problem */
+    FIX_PROBLEM: `${BASE_CODE}fixProblem`,
   },
   /** Commands to adjust the configuration of the extension for VSCode */
   CONFIG: {
@@ -103,35 +111,37 @@ export const IDL_COMMANDS = {
     /** Open ENVI example notebook */
     OPEN_ENVI_EXAMPLE: `${BASE_NOTEBOOK}openENVIExample`,
     /** Reset IDL session for notebook */
-    RESET: `${BASE_NOTEBOOK}resetIDL`,
+    RESET: `${BASE_NOTEBOOK}resetIDLKernel`,
     /** Reset example notebooks */
     RESET_NOTEBOOK_EXAMPLES: `${BASE_NOTEBOOK}resetNotebookExamples`,
     /** Reset IDL session for notebook */
-    STOP: `${BASE_NOTEBOOK}stopIDL`,
+    STOP: `${BASE_NOTEBOOK}stopIDLKernel`,
+    /** Stop all IDL kernels */
+    STOP_ALL_KERNELS: `${BASE_NOTEBOOK}stopAllIDLKernels`,
   },
-  // /** Commands for starting and interacting with a terminal session of IDL */
-  // TERMINAL: {
-  //   /** Start debug session */
-  //   START: `${BASE_TERMINAL}openIDL`,
-  //   /** Compile current PRO file */
-  //   COMPILE: `${BASE_TERMINAL}compileFile`,
-  //   /** Run current PRO file */
-  //   RUN: `${BASE_TERMINAL}runFile`,
-  //   /** Run current PRO file as a batch file */
-  //   EXECUTE_BATCH: `${BASE_TERMINAL}executeBatchFile`,
-  //   /** Reset IDL session */
-  //   RESET: `${BASE_TERMINAL}resetIDL`,
-  //   /** Interrupt IDL */
-  //   STOP: `${BASE_TERMINAL}stopExecution`,
-  //   /** Continue executing */
-  //   CONTINUE: `${BASE_TERMINAL}continueExecution`,
-  //   /** Step into routine */
-  //   STEP_IN: `${BASE_TERMINAL}stepIn`,
-  //   /** Step out of routine */
-  //   STEP_OVER: `${BASE_TERMINAL}stepOver`,
-  //   /** Step out of routine */
-  //   STEP_OUT: `${BASE_TERMINAL}stepOut`,
-  // },
+  /** Commands for starting and interacting with a terminal session of IDL */
+  TERMINAL: {
+    /** Start debug session */
+    START: `${BASE_TERMINAL}startIDL`,
+    /** Compile current PRO file */
+    COMPILE: `${BASE_TERMINAL}compileFile`,
+    /** Run current PRO file */
+    RUN: `${BASE_TERMINAL}runFile`,
+    /** Run current PRO file as a batch file */
+    EXECUTE_BATCH: `${BASE_TERMINAL}executeBatchFile`,
+    /** Reset IDL session */
+    RESET: `${BASE_TERMINAL}resetIDL`,
+    /** Interrupt IDL */
+    PAUSE: `${BASE_TERMINAL}pauseExecution`,
+    /** Continue executing */
+    CONTINUE: `${BASE_TERMINAL}continueExecution`,
+    /** Step into routine */
+    STEP_IN: `${BASE_TERMINAL}stepIn`,
+    /** Step out of routine */
+    STEP_OVER: `${BASE_TERMINAL}stepOver`,
+    /** Step out of routine */
+    STEP_OUT: `${BASE_TERMINAL}stepOut`,
+  },
   /** Commands related to our webview */
   WEBVIEW: {
     /** Starts/shows our webview */
@@ -141,5 +151,7 @@ export const IDL_COMMANDS = {
   DOCS: {
     /** Opens extension docs */
     OPEN: `${BASE_DOCS}open`,
+    /** Opens link from docs */
+    OPEN_LINK: `${BASE_DOCS}openLink`,
   },
 };

@@ -1,8 +1,8 @@
 import { TransformCase } from '@idl/assembling/shared';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
-import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 
 /**
  * Display names for internal functions
@@ -24,7 +24,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     const low = token.match[1].replace(/\s/gim, '').toLowerCase();
 
     // check if we have a known function
-    if (low in FUNCTIONS) {
+    if (low in FUNCTIONS && !meta.vanilla) {
       token.match[0] = `${TransformCase(FUNCTIONS[low], meta.style.routines)}(`;
     } else {
       token.match[0] = TransformCase(
@@ -46,7 +46,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
 
     // check if we have a known procedure
     token.match[0] = TransformCase(
-      low in PROCEDURES ? PROCEDURES[low] : token.match[0],
+      low in PROCEDURES && !meta.vanilla ? PROCEDURES[low] : token.match[0],
       meta.style.routines
     );
   }

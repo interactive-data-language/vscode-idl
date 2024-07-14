@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -35,18 +35,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"for" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 3],
         end: [0, 4, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "for"',
         start: [0, 4, 3],
         end: [0, 4, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -85,18 +88,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"foreach" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 7],
         end: [0, 4, 7],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "foreach"',
         start: [0, 4, 7],
         end: [0, 4, 7],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -135,18 +141,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"while" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 5],
         end: [0, 4, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "while"',
         start: [0, 4, 5],
         end: [0, 4, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -185,12 +194,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 4, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -229,18 +240,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"repeat" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 6],
         end: [0, 4, 6],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "repeat"',
         start: [0, 4, 6],
         end: [0, 4, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -279,12 +293,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 4, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -323,18 +339,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"if" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 2],
         end: [0, 4, 2],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "if"',
         start: [0, 4, 2],
         end: [0, 4, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -373,12 +392,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 4, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -417,12 +438,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 4, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -461,18 +484,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"switch" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 6],
         end: [0, 4, 6],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "switch"',
         start: [0, 4, 6],
         end: [0, 4, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -511,18 +537,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"case" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 4],
         end: [0, 4, 4],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "case"',
         start: [0, 4, 4],
         end: [0, 4, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -561,12 +590,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 4, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -605,18 +636,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"begin" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 5],
         end: [0, 4, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "begin"',
         start: [0, 4, 5],
         end: [0, 4, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -655,18 +689,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Unexpected closing statement',
         start: [0, 4, 3],
         end: [0, 4, 3],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 7, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -705,18 +742,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Unexpected closing statement',
         start: [0, 4, 5],
         end: [0, 4, 5],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 9, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -755,18 +795,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Unexpected closing statement',
         start: [0, 4, 7],
         end: [0, 4, 7],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 11, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -805,18 +848,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Unexpected closing statement',
         start: [0, 4, 6],
         end: [0, 4, 6],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 10, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -855,18 +901,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Unexpected closing statement',
         start: [0, 4, 10],
         end: [0, 4, 10],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 14, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -905,18 +954,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Unexpected closing statement',
         start: [0, 4, 6],
         end: [0, 4, 6],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 10, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -955,18 +1007,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Unexpected closing statement',
         start: [0, 4, 8],
         end: [0, 4, 8],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 12, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1005,18 +1060,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Unexpected closing statement',
         start: [0, 4, 9],
         end: [0, 4, 9],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 13, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1055,18 +1113,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Unexpected closing statement',
         start: [0, 4, 7],
         end: [0, 4, 7],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 2, 1],
         end: [0, 11, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1105,18 +1166,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"pro" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 3],
         end: [0, 4, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "pro"',
         start: [0, 4, 3],
         end: [0, 4, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1155,18 +1219,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"function" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 8],
         end: [0, 4, 8],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "function"',
         start: [0, 4, 8],
         end: [0, 4, 8],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1205,18 +1272,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"break" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 5],
         end: [0, 4, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "break"',
         start: [0, 4, 5],
         end: [0, 4, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1255,18 +1325,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"continue" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 8],
         end: [0, 4, 8],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "continue"',
         start: [0, 4, 8],
         end: [0, 4, 8],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1305,18 +1378,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"common" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 6],
         end: [0, 4, 6],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "common"',
         start: [0, 4, 6],
         end: [0, 4, 6],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1355,18 +1431,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"compile_opt" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 11],
         end: [0, 4, 11],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "compile_opt"',
         start: [0, 4, 11],
         end: [0, 4, 11],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1405,18 +1484,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"forward_function" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 16],
         end: [0, 4, 16],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "forward_function"',
         start: [0, 4, 16],
         end: [0, 4, 16],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1455,18 +1537,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"goto" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 4],
         end: [0, 4, 4],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "goto"',
         start: [0, 4, 4],
         end: [0, 4, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1505,12 +1590,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 4, 3],
         end: [0, 7, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1549,12 +1636,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 4, 3],
         end: [0, 7, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1593,12 +1682,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 4, 2],
         end: [0, 6, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1637,12 +1728,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 4, 2],
         end: [0, 6, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1681,12 +1774,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 4, 2],
         end: [0, 6, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1725,12 +1820,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 4, 2],
         end: [0, 6, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1769,12 +1866,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 4, 2],
         end: [0, 6, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1813,12 +1912,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 4, 2],
         end: [0, 6, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1857,12 +1958,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 4, 3],
         end: [0, 7, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1901,12 +2004,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 4, 2],
         end: [0, 6, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1945,12 +2050,14 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 4, 3],
         end: [0, 7, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -1989,18 +2096,21 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
         info: '"inherits" is a reserved name used for control statements. If you see this, make sure you don\'t have a syntax error in your code.',
         start: [0, 4, 8],
         end: [0, 4, 8],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "inherits"',
         start: [0, 4, 8],
         end: [0, 4, 8],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
     ];
 

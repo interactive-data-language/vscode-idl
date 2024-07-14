@@ -18,7 +18,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     const methods = (token.cache as ITokenCache)?.method;
 
     // check if we give benefit-of-the-doubt and dont have known
-    if (methods === undefined || methods.length === 0) {
+    if (meta.vanilla || methods === undefined || methods.length === 0) {
       token.match[0] = token.match[0].replace(
         token.match[2],
         TransformCase(token.match[2], meta.style.routineMethods)
@@ -51,7 +51,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     const methods = (token.cache as ITokenCache)?.method;
 
     // check if we give benefit-of-the-doubt and dont have known
-    if (methods === undefined || methods.length === 0) {
+    if (meta.vanilla || methods === undefined || methods.length === 0) {
       token.match[0] = token.match[0].replace(
         token.match[2],
         TransformCase(token.match[2], meta.style.routineMethods)

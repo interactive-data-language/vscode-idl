@@ -1,7 +1,7 @@
 import { BasicTokenNames, NonBasicTokenNames } from '@idl/parsing/tokenizer';
 
 import { SyntaxTree, TreeToken } from '../branches.interface';
-import { IParsed } from '../build-syntax-tree.interface';
+import { IParsed } from '../parsed.interface';
 import { ITreeRecurserCurrent } from './tree-recurser.interface';
 
 /**

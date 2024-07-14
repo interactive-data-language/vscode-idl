@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -216,7 +216,7 @@ describe(`[auto generated] Types from`, () => {
               pos: [8, 15, 1],
             },
           },
-          docs: '\n```idl\nresult = test( a)\n```\n\n\n\n#### Arguments\n\n- **a**: bidirectional, required, any\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\n;+\n; :Returns: ArrayPromotion<String>\n;+\nresult = test(a)\n```\n\n\n\n\n#### Arguments\n\n- **a**: bidirectional, required, any\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '', returns: 'ArrayPromotion<String>' },
           display: 'test',
           kws: {},

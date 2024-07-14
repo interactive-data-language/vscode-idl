@@ -50,6 +50,20 @@ export interface IDebugEvaluateOptions extends IDLEvaluateOptions {
    * if we were stopped on a breakpoint or something similar, that we have moved on
    */
   continued?: boolean;
+  /**
+   * If set, adds a new line to the output after running
+   */
+  newLine?: boolean;
+  /**
+   * If set, then we dont wait for the IDL startup promise to resolve
+   *
+   * ADVANCED USE CASE when we are starting IDL
+   */
+  noWait?: boolean;
+  /**
+   * Do we check IDL's output for errors? Also updates decorators
+   */
+  errorCheck?: boolean;
 }
 
 /**
@@ -60,4 +74,7 @@ export const DEFAULT_EVALUATE_OPTIONS: IDebugEvaluateOptions = {
   echo: false,
   silent: false,
   idlInfo: true,
+  newLine: false,
+  noWait: false,
+  errorCheck: false,
 };

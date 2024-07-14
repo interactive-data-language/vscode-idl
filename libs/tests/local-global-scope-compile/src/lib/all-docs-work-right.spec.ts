@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -158,7 +158,7 @@ describe(`[auto generated] Correctly gets docs and variables`, () => {
               pos: [13, 11, 4],
             },
           },
-          docs: '\n```idl\nmypro, var1, $\n [ /KW1 ]\n```\n\nMy procedure\n\n#### Arguments\n\n- **var1**: in, required, any\n\n  My favorite thing\n\n\n#### Keywords\n\n- **KW1**: in, optional, Boolean\n\n    Super Cool flag\n\n',
+          docs: '\n```idl\nmypro, var1, $\n  /KW1\n```\n\nMy procedure\n\n\n#### Arguments\n\n- **var1**: in, required, any\n\n  My favorite thing\n\n\n\n#### Keywords\n\n- **KW1**: in, optional, Boolean\n\n    Super Cool flag\n\n',
           docsLookup: { default: 'My procedure' },
           display: 'mypro',
           kws: {

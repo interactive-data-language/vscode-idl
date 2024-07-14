@@ -18,6 +18,7 @@ const TOKEN_MAP = {
   compile_opt: TOKEN_NAMES.CONTROL_COMPILE_OPT,
   forward_function: TOKEN_NAMES.CONTROL_FORWARD_FUNCTION,
   goto: TOKEN_NAMES.CONTROL_GO_TO,
+  on_ioerror: TOKEN_NAMES.CONTROL_ON_IOERROR,
 };
 
 export type ControlSimpleTokenDef = ITokenDef<
@@ -69,7 +70,8 @@ export type ControlCompoundTokenDef = ITokenDef<
  */
 export const CONTROL_COMPOUND: ControlCompoundTokenDef = {
   name: TOKEN_NAMES.CONTROL_COMMON,
-  match: /\bcommon\b|\bcompile_opt\b|\bforward_function\b|\bgoto\b/im,
+  match:
+    /\bcommon\b|\bon_ioerror\b|\bcompile_opt\b|\bforward_function\b|\bgoto\b/im,
   end: IDL_LOGICAL_STATEMENT_END,
   getTokenName: (matches) => {
     if (matches.length !== 1) {
@@ -85,7 +87,7 @@ export const CONTROL_COMPOUND: ControlCompoundTokenDef = {
       return TOKEN_MAP[compare];
     } else {
       console.log(
-        'Basic control token did not detect "common|compile_opt|forward_function|goto" as expected'
+        'Basic control token did not detect "common|on_ioerror|compile_opt|forward_function|goto" as expected'
       );
       return TOKEN_NAMES.CONTROL;
     }

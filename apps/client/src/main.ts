@@ -5,10 +5,12 @@ import {
   LANGUAGE_SERVER_FAILED_START,
 } from '@idl/vscode/client';
 import { InitializeDebugger } from '@idl/vscode/debug';
+import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { InitializeDocs } from '@idl/vscode/docs';
 import { InitializeENVIOpener } from '@idl/vscode/envi-opener';
 import { IInitializeType } from '@idl/vscode/initialize-types';
 import { InitializeNotebooks } from '@idl/vscode/notebooks';
+import { InitializeIDLTerminal } from '@idl/vscode/terminal';
 import { InitializeTree } from '@idl/vscode/tree-view';
 import { InitializeWebView } from '@idl/vscode/webview';
 import { ExtensionContext } from 'vscode';
@@ -30,7 +32,7 @@ export async function activate(
   const debug = InitializeDebugger(ctx);
 
   // add everything for IDL terminal
-  // InitializeIDLTerminal(ctx);
+  InitializeIDLTerminal(ctx);
 
   // initialize our tree view
   InitializeTree(ctx);
@@ -52,6 +54,7 @@ export async function activate(
     client,
     debug,
     notebooks,
+    decorations: IDL_DECORATIONS_MANAGER,
   };
 }
 

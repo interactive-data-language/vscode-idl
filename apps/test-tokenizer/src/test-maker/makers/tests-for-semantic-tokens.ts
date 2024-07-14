@@ -4,7 +4,7 @@ import { IDLIndex } from '@idl/parsing/index';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { ITokenTest } from '../tests.interface';
+import { ISyntaxValidatorTest } from '../tests.interface';
 import { ArrayifyCode } from './arrayify-code';
 import { StringifyCode } from './stringify-code';
 
@@ -16,7 +16,7 @@ import { StringifyCode } from './stringify-code';
  */
 export async function TestsForSemanticTokens(
   name: string,
-  tests: ITokenTest[],
+  tests: ISyntaxValidatorTest[],
   uri = join(process.cwd(), 'tokens.ts')
 ) {
   // track our strings
@@ -55,11 +55,20 @@ export async function TestsForSemanticTokens(
     // get the code to process
     const toProcess = ArrayifyCode(code);
 
+    /**
+     * Parsing config
+     */
+    const parseConfig = Object.assign(
+      { postProcess: true },
+      test.config !== undefined ? test.config : {}
+    );
+
     // extract our tokens from the cleaned code
-    const semantic = await index.getSemanticTokens(
+    const tokenized = await index.getParsedProCode(
       'not-real',
       toProcess,
-      new CancellationToken()
+      new CancellationToken(),
+      parseConfig
     );
 
     // build our code string to insert into the automated test
@@ -82,18 +91,22 @@ export async function TestsForSemanticTokens(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const semantic = await index.getSemanticTokens('not-real', code, new CancellationToken());`
+      `    const tokenized = await index.getParsedProCode('not-real', code, new CancellationToken(), ${JSON.stringify(
+        parseConfig
+      )});`
     );
     strings.push(``);
 
     // add the start to  our tokens
     strings.push(`    // define expected tokens`);
-    strings.push(`    const expected = ${JSON.stringify(semantic.data)}`);
+    strings.push(
+      `    const expected = ${JSON.stringify(tokenized.semantic.built.data)}`
+    );
     strings.push('');
 
     // verify results
     strings.push('    // verify results');
-    strings.push('    expect(semantic.data).toEqual(expected)');
+    strings.push('    expect(tokenized.semantic.built.data).toEqual(expected)');
 
     strings.push('  })');
     strings.push(``);

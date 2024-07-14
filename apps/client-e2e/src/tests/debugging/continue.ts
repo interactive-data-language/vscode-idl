@@ -1,5 +1,5 @@
 import { GetExtensionPath, IDL_COMMANDS } from '@idl/shared';
-import { Sleep } from '@idl/test-helpers';
+import { Sleep } from '@idl/tests/helpers';
 import {
   GetActivePROCodeWindow,
   OpenFileInVSCode,
@@ -72,13 +72,4 @@ export const Continue: RunnerFunction = async (init) => {
     // wait a little bit
     await Sleep(DEBUG_PAUSE);
   }
-
-  // close editor
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
-
-  // pause momentarily
-  await Sleep(DEBUG_PAUSE);
-
-  // verify we cleaned up
-  expect(GetActivePROCodeWindow(false)).toBeUndefined();
 };

@@ -4,7 +4,7 @@ import {
   GlobalTokens,
   IDL_TYPE_LOOKUP,
   IGlobalIndexedToken,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 
 /**
  * Structure definitions for types

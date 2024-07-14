@@ -1,5 +1,14 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
+  CommentBlockToken,
+  RoutineFunctionToken,
+  RoutineMethodNameToken,
+  RoutineNameToken,
+  RoutineProcedureToken,
+  TOKEN_NAMES,
+} from '@idl/parsing/tokenizer';
+import { IDL_TRANSLATION } from '@idl/translation';
+import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionMethodToken,
@@ -11,22 +20,13 @@ import {
   IGlobalIndexedToken,
   IRoutineMetadata,
   ParseIDLType,
-} from '@idl/data-types/core';
-import {
-  CommentBlockToken,
-  RoutineFunctionToken,
-  RoutineMethodNameToken,
-  RoutineNameToken,
-  RoutineProcedureToken,
-  TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
-import { IDL_TRANSLATION } from '@idl/translation';
+} from '@idl/types/core';
 import copy from 'fast-copy';
 
 import { IBranch } from '../branches.interface';
-import { IParsed } from '../build-syntax-tree.interface';
 import { GenerateRoutineDocsAndMetadata } from '../docs/generate-routine-docs-and-metadata';
 import { GenerateRoutineMetadataFast } from '../docs/generate-routine-metadata-fast';
+import { IParsed } from '../parsed.interface';
 import { FindStructureDefs } from './find-structure-defs';
 import { GetCompileOpts } from './get-compile-opts';
 import { GetUniqueVariables } from './get-unique-variables';
@@ -40,8 +40,7 @@ import { PopulateLocalForMain } from './populate-local-for-main';
 export function PopulateGlobalLocalCompileOpts(
   parsed: IParsed,
   cancel: CancellationToken,
-  full: boolean,
-  isNotebook: boolean
+  full: boolean
 ) {
   // get global placeholder
   const global = parsed.global;
@@ -110,6 +109,11 @@ export function PopulateGlobalLocalCompileOpts(
                 docs
               )
             : GenerateRoutineMetadataFast('function');
+
+          // make sure structures inherit private flag
+          for (let z = 0; z < structures.length; z++) {
+            structures[z].meta.private = meta.private;
+          }
 
           // check if method or function
           switch (first.name) {
@@ -236,6 +240,11 @@ export function PopulateGlobalLocalCompileOpts(
               )
             : GenerateRoutineMetadataFast('procedure');
 
+          // make sure structures inherit private flag
+          for (let z = 0; z < structures.length; z++) {
+            structures[z].meta.private = meta.private;
+          }
+
           // make sure it is the name of the routine
           switch (first.name) {
             case TOKEN_NAMES.ROUTINE_NAME: {
@@ -326,7 +335,7 @@ export function PopulateGlobalLocalCompileOpts(
         parsed.compile.main = full ? GetCompileOpts(branch) : [];
 
         // if we are a notebook, add main level program
-        if (isNotebook) {
+        if (parsed.isNotebook) {
           if (parsed.compile.main.indexOf('idl2') === -1) {
             parsed.compile.main.push('idl2');
           }

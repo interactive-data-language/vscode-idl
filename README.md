@@ -32,7 +32,7 @@
 
 <div  align="center">
   <video controls autoplay loop muted playsinline style="max-width: 720px; width: 100%">
-    <source src="https://l3harrisgeospatial-webcontent.s3.amazonaws.com/vscode-idl/vscode-tiny.mp4" type="video/mp4">
+    <source src="https://vis-webcontent.s3.amazonaws.com/vscode-idl/vscode-tiny.mp4" type="video/mp4">
   </video>
 </div>
 
@@ -66,7 +66,11 @@ The extension is tested against:
 
 Anything else is use-at-your-own-risk and may not work.
 
-For notebooks, we only test against the above versions, and the ENVI Notebook API does require ENVI in order to function.
+Notebooks have specific version requirements for IDL and ENVI:
+
+- For IDL, you'll need IDL 8.8.0 or newer (enforced, and checked, when notebooks start)
+
+- For ENVI, you'll need ENVI 6.0 or ENVI 5.7. Any other version of ENVI is not guaranteed to work.
 
 ## Features
 
@@ -183,6 +187,12 @@ See [CHANGELOG](CHANGELOG.md).
   - The icons used in VSCode either come from Material Icons (Google via npm "material-icons") or Material Design (Templarian via npm "@mdi/js")
 
   - PDF icon is from "Material Icon Theme"
+
+- PDF Generation
+
+  - We use a 3rd party extension called "Markdown PDF" to create PDFs
+
+  - Credit goes to [yzane](https://github.com/yzane/vscode-markdown-pdf/tree/master) as the creator of this extension
 
 ## Usage Metrics
 

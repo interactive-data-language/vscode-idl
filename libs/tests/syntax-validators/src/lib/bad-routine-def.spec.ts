@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -48,48 +48,56 @@ describe(`[auto generated] Verify that we can parse and report problems`, () => 
         info: 'Comma expected after statement',
         start: [4, 0, 1],
         end: [4, 0, 1],
+        canReport: true,
       },
       {
         code: 38,
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [0, 0, 9],
         end: [0, 0, 9],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [6, 44, 1],
         end: [6, 44, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "curlopt_header"',
         start: [6, 47, 14],
         end: [6, 47, 14],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [8, 44, 1],
         end: [8, 44, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "curlopt_url"',
         start: [8, 47, 11],
         end: [8, 47, 11],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [9, 46, 1],
         end: [9, 46, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [10, 19, 1],
         end: [10, 19, 1],
+        canReport: true,
       },
     ];
 
@@ -141,48 +149,56 @@ describe(`[auto generated] Verify that we can parse and report problems`, () => 
         info: 'Comma expected after statement',
         start: [4, 0, 1],
         end: [4, 0, 1],
+        canReport: true,
       },
       {
         code: 38,
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [0, 0, 4],
         end: [0, 0, 4],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [6, 44, 1],
         end: [6, 44, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "curlopt_header"',
         start: [6, 47, 14],
         end: [6, 47, 14],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [8, 44, 1],
         end: [8, 44, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "curlopt_url"',
         start: [8, 47, 11],
         end: [8, 47, 11],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [9, 46, 1],
         end: [9, 46, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "a"',
         start: [10, 19, 1],
         end: [10, 19, 1],
+        canReport: true,
       },
     ];
 

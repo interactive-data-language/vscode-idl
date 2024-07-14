@@ -14,6 +14,11 @@ Updated as we go, but here is the source for the images that we use in the exten
   https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Abug_report%3AFILL%401%3Bwght%40400%3BGRAD%400%3Bopsz%4048
 - code.svg
   https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Acode%3AFILL%400%3Bwght%40400%3BGRAD%400%3Bopsz%4048
+- debug-stackframe.svg
+  From the VSCode icons repository on GitHub.
+  Repo: https://github.com/microsoft/vscode-icons
+  License: Creative Commons Attribution 4.0 International
+  License URL: https://github.com/microsoft/vscode-icons/blob/main/LICENSE
 - file-batch.svg
   https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Adescription%3AFILL%400%3Bwght%40400%3BGRAD%400%3Bopsz%4048
 - file-play.svg
@@ -26,6 +31,8 @@ Updated as we go, but here is the source for the images that we use in the exten
   https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Ahelp%3AFILL%400%3Bwght%40400%3BGRAD%400%3Bopsz%4048
 - open-new.svg
   https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Aopen_in_new%3AFILL%400%3Bwght%40400%3BGRAD%400%3Bopsz%4048
+- pause
+  https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Apause%3AFILL%401%3Bwght%40400%3BGRAD%400%3Bopsz%4024
 - pdf.svg
   https://github.com/PKief/vscode-material-icon-theme/blob/main/icons/pdf.svg
 - play.svg

@@ -1,6 +1,7 @@
 import {
   EXTENSION_FULL_NAME,
   ICON_THEME_NAME,
+  IDL_COMMANDS,
   IDL_LANGUAGE_NAME,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -140,6 +141,23 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
           ICON_THEME_NAME,
           vscode.ConfigurationTarget.Global
         );
+      }
+    );
+  }
+
+  // prompt user to change icon theme if default theme
+  if (!IDL_EXTENSION_CONFIG.dontAsk.toOpenDocs) {
+    await QuestionAsker(
+      IDL_TRANSLATION.notifications.openDocs,
+      IDL_EXTENSION_CONFIG_KEYS.dontAskToOpenDocs,
+      true,
+      () => {
+        UpdateConfigObject<IDontAskConfig>(IDL_EXTENSION_CONFIG_KEYS.dontAsk, {
+          toOpenDocs: true,
+        });
+      },
+      () => {
+        vscode.commands.executeCommand(IDL_COMMANDS.DOCS.OPEN);
       }
     );
   }

@@ -1,21 +1,12 @@
-import { TaskAssembler } from '@idl/assembler';
-import {
-  DEFAULT_ASSEMBLER_OPTIONS,
-  FormatterType,
-  IAssemblerOptions,
-} from '@idl/assembling/config';
-import { ParsedTask } from '@idl/data-types/tasks';
+import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { LoadTask } from '@idl/schemas/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
+import { FormatFile } from '../../helpers/format-file';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
-import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
 import { UpdateDocument } from '../../helpers/update-document';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
-import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
@@ -24,17 +15,19 @@ import { SERVER_INITIALIZED } from '../is-initialized';
  * @param event The event from VSCode
  */
 export const ON_DOCUMENT_FORMATTING = async (
-  event: DocumentFormattingParams
+  event: DocumentFormattingParams,
+  formatting?: Partial<IAssemblerInputOptions<FormatterType>>
 ) => {
   await SERVER_INITIALIZED;
-  try {
-    // log information
-    IDL_LANGUAGE_SERVER_LOGGER.log({
-      log: IDL_LSP_LOG,
-      type: 'debug',
-      content: ['Document format request', event],
-    });
 
+  // log information
+  IDL_LANGUAGE_SERVER_LOGGER.log({
+    log: IDL_LSP_LOG,
+    type: 'debug',
+    content: ['Document format request', event],
+  });
+
+  try {
     /**
      * Resolve the fspath to our cell and retrieve code
      */
@@ -46,78 +39,11 @@ export const ON_DOCUMENT_FORMATTING = async (
     }
 
     /**
-     * Make default formatting config for info.fsPath
-     *
-     * Use settings from VSCode client as our default
+     * Format our file
      */
-    const clientConfig: IAssemblerOptions<FormatterType> = {
-      ...DEFAULT_ASSEMBLER_OPTIONS,
-      ...IDL_CLIENT_CONFIG.code.formatting,
-      style: IDL_CLIENT_CONFIG.code.formattingStyle,
-    };
+    const formatted = await FormatFile(event, formatting);
 
-    // // log information
-    // IDL_LANGUAGE_SERVER_LOGGER.log({
-    //   log: IDL_LSP_LOG,
-    //   type: 'debug',
-    //   content: ['Client config', clientConfig],
-    // });
-
-    /** Formatting config for info.fsPath */
-    const config = IDL_INDEX.getConfigForFile(info.fsPath, clientConfig);
-
-    // // log information
-    // IDL_LANGUAGE_SERVER_LOGGER.log({
-    //   log: IDL_LSP_LOG,
-    //   type: 'debug',
-    //   content: ['Formatting config', config],
-    // });
-
-    /**
-     * Formatted code
-     */
-    let formatted: string;
-
-    /**
-     * Apply correct formatter
-     */
-    switch (true) {
-      /**
-       * Handle task files and manually handle errors from loading tasks
-       */
-      case IDL_INDEX.isTaskFile(info.fsPath): {
-        let task: ParsedTask;
-        try {
-          task = await LoadTask(info.fsPath, info.code);
-        } catch (err) {
-          IDL_LANGUAGE_SERVER_LOGGER.log({
-            log: IDL_LSP_LOG,
-            type: 'error',
-            content: ['Error parsing/loading task info.fsPath', err],
-            alert: IDL_TRANSLATION.tasks.parsing.errors.invalidTaskFile,
-          });
-          return;
-        }
-        formatted = TaskAssembler(task, config);
-        break;
-      }
-      /**
-       * Handle PRO code
-       */
-      case IDL_INDEX.isPROCode(info.fsPath) ||
-        IDL_INDEX.isIDLNotebookFile(info.fsPath): {
-        formatted = await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
-          IDL_INDEX.getWorkerID(info.fsPath),
-          LSP_WORKER_THREAD_MESSAGE_LOOKUP.ASSEMBLE_PRO_CODE,
-          { file: info.fsPath, code: info.code, formatting: config }
-        ).response;
-        break;
-      }
-      default:
-        return undefined;
-    }
-
-    // check if we couldnt format
+    // check if we could not format
     if (formatted === undefined) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,
@@ -131,7 +57,7 @@ export const ON_DOCUMENT_FORMATTING = async (
           file: info.fsPath,
         },
       });
-      return;
+      return null;
     }
 
     // update doc

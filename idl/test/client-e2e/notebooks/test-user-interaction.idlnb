@@ -10,7 +10,9 @@
         "  compile_opt idl2",
         "end",
         "",
-        "mypronbtest"
+        "mypronbtest",
+        "",
+        "IDLNotebook.addToNotebook"
       ],
       "metadata": {},
       "outputs": []

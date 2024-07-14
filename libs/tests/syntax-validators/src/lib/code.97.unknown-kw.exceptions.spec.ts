@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -42,6 +42,7 @@ describe(`[auto generated] Check for known keywords`, () => {
         info: 'Unused variable "p"',
         start: [4, 0, 1],
         end: [4, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -113,12 +114,14 @@ describe(`[auto generated] Check for known keywords`, () => {
         info: 'Unused variable "ex"',
         start: [17, 31, 2],
         end: [17, 31, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "ex"',
         start: [6, 36, 2],
         end: [6, 36, 2],
+        canReport: true,
       },
     ];
 

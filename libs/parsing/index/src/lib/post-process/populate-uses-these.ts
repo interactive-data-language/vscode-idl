@@ -1,5 +1,4 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 import {
   FindDirectBranchChildren,
   IParsed,
@@ -7,6 +6,7 @@ import {
   TreeRecurserBasic,
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 
 import { GetMethod } from '../helpers/get-method';
 import { IDLIndex } from '../idl-index.class';

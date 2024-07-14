@@ -8,11 +8,7 @@ import * as vscode from 'vscode';
 
 import { CompareCellOutputs } from './compare-cells';
 import { ICompareCellOutputs } from './compare-cells.interface';
-
-/**
- * Default timeout, ms
- */
-export const DEFAULT_RUNNER_TIMEOUT = 100;
+import { DEFAULT_RUNNER_NOTEBOOK_TIMEOUT } from './notebook-timeout.interface';
 
 /**
  * helper function to:
@@ -28,13 +24,15 @@ export async function RunNotebookAndCompareCells(
   file: string,
   cells: ICompareCellOutputs[],
   controller: IDLNotebookController,
-  timeout: number,
   clear = true
 ) {
   // nuke .idl folder if it exists
   if (existsSync(NOTEBOOK_FOLDER)) {
     rmSync(NOTEBOOK_FOLDER, { recursive: true, force: true });
   }
+
+  // alert user
+  console.log(`  Running notebook: ${file}`);
 
   /**
    * Open the notebook
@@ -51,12 +49,12 @@ export async function RunNotebookAndCompareCells(
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
 
   // make sure launched
-  expect(controller.isStarted()).toBeTruthy();
+  expect(controller.isStarted(nb)).toBeTruthy();
 
   // short pause based on the number of cells we have
   // sometimes the rendering takes too long to register (like complex maps)
   // so we need an extra pause
-  await Sleep(timeout);
+  await Sleep(DEFAULT_RUNNER_NOTEBOOK_TIMEOUT);
 
   // compare cells
   await CompareCellOutputs(nb, cells);
@@ -70,7 +68,4 @@ export async function RunNotebookAndCompareCells(
 
   // save again
   await nb.save();
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 }

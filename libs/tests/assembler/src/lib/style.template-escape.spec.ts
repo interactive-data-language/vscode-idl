@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -95,6 +95,7 @@ describe(`[auto generated] Verify auto-fix/format of template escape characters`
         info: 'Illegal formatting for hex escape character. Should be of the form "\\xXX" and must start with "\\x"',
         start: [10, 10, 4],
         end: [10, 10, 4],
+        canReport: true,
       },
     ];
 
@@ -191,6 +192,7 @@ describe(`[auto generated] Verify auto-fix/format of template escape characters`
         info: 'Illegal formatting for hex escape character. Should be of the form "\\xXX" and must start with "\\x"',
         start: [10, 10, 4],
         end: [10, 10, 4],
+        canReport: true,
       },
     ];
 
@@ -287,6 +289,7 @@ describe(`[auto generated] Verify auto-fix/format of template escape characters`
         info: 'Illegal formatting for hex escape character. Should be of the form "\\xXX" and must start with "\\x"',
         start: [10, 10, 4],
         end: [10, 10, 4],
+        canReport: true,
       },
     ];
 

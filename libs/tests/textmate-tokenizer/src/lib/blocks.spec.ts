@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates block parsing auto-closes`, () => {
   it(`[auto generated] lib example from kruskal_wallis.pro`, async () => {

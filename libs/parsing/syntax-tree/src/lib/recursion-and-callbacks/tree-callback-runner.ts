@@ -2,7 +2,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { TokenName } from '@idl/parsing/tokenizer';
 
 import { TreeToken } from '../branches.interface';
-import { IParsed } from '../build-syntax-tree.interface';
+import { IParsed } from '../parsed.interface';
 import { TreeCallbackHandler } from './tree-callback-handler.class';
 import { IHandlerCallbackMetadata } from './tree-callback-handler.interface';
 import { TreeRecurser } from './tree-recurser';

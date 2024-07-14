@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -157,6 +157,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
             },
           },
           source: 'user',
+          private: false,
         },
         file: 'not-real',
       },
@@ -189,6 +190,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
             },
           },
           source: 'user',
+          private: false,
         },
         file: 'not-real',
       },
@@ -287,6 +289,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
           docs: '',
           props: {},
           source: 'user',
+          private: false,
         },
         file: 'not-real',
       },

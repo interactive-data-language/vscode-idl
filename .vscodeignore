@@ -30,8 +30,12 @@ dist/apps/server/assets/.gitkeep
 dist/apps/test-tokenizer/**
 dist/apps/tmlang-maker/**
 dist/apps/vscode-e2e-runner/**
-extension/docs/developer/**
+extension/dev-docs/**
+extension/docs/**
 extension/language/syntaxes/src/**
+extension/language/syntaxes/GENERATING_JSON_FILES.md
+extension/language/syntaxes/idl-log.tmLanguage.json
+extension/language/syntaxes/idl.tmLanguage.json
 extension/README.md
 idl/helpers/**
 idl/routines/notebooks/**

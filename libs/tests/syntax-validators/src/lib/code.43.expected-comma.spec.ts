@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -35,6 +35,7 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
         info: 'Comma expected after statement',
         start: [2, 2, 4],
         end: [2, 2, 4],
+        canReport: true,
       },
     ];
 
@@ -73,7 +74,15 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     );
 
     // define expected tokens
-    const expected: SyntaxProblems = [];
+    const expected: SyntaxProblems = [
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [3, 2, 1],
+        end: [3, 3, 7],
+        canReport: true,
+      },
+    ];
 
     // verify results
     expect(
@@ -111,10 +120,18 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
     // define expected tokens
     const expected: SyntaxProblems = [
       {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [2, 2, 5],
+        end: [2, 2, 5],
+        canReport: true,
+      },
+      {
         code: 99,
         info: 'Undefined variable "print"',
         start: [2, 2, 5],
         end: [2, 2, 5],
+        canReport: true,
       },
     ];
 
@@ -153,12 +170,14 @@ describe(`[auto generated] Detects statements that do expect a comma first`, () 
         info: 'Comma expected after statement',
         start: [0, 4, 5],
         end: [0, 4, 5],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [0, 10, 4],
         end: [0, 10, 4],
+        canReport: true,
       },
     ];
 

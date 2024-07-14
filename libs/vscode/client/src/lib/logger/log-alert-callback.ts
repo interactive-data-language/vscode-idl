@@ -14,7 +14,7 @@ export const LOG_ALERT_CALLBACK: LogAlertCallback = (options) => {
     let file: string;
 
     /** Markdown file */
-    let markdownFile: string;
+    let docsUrl: string;
 
     /** Items to display */
     const items: string[] = [];
@@ -42,8 +42,8 @@ export const LOG_ALERT_CALLBACK: LogAlertCallback = (options) => {
     }
 
     // check if we have an IDL folder to configure
-    if (options?.alertMeta?.openMarkdownDocs) {
-      markdownFile = options?.alertMeta?.openMarkdownDocs;
+    if (options?.alertMeta?.openDocsURL) {
+      docsUrl = options?.alertMeta?.openDocsURL;
       items.push(IDL_TRANSLATION.notifications.viewDocs);
     }
 
@@ -53,17 +53,17 @@ export const LOG_ALERT_CALLBACK: LogAlertCallback = (options) => {
         items.push(IDL_TRANSLATION.debugger.logs.viewLogs);
         vscode.window
           .showErrorMessage(options.alert, ...items)
-          .then((res) => ButtonCallback(res, file, markdownFile));
+          .then((res) => ButtonCallback(res, file, docsUrl));
         break;
       case 'warn':
         vscode.window
           .showWarningMessage(options.alert, ...items)
-          .then((res) => ButtonCallback(res, file, markdownFile));
+          .then((res) => ButtonCallback(res, file, docsUrl));
         break;
       case 'info':
         vscode.window
           .showInformationMessage(options.alert, ...items)
-          .then((res) => ButtonCallback(res, file, markdownFile));
+          .then((res) => ButtonCallback(res, file, docsUrl));
         break;
       default:
         break;

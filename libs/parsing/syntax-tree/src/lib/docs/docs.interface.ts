@@ -4,6 +4,8 @@ export type ArgsHeader = 'args';
 export type AuthorHeader = 'author';
 /** Default header for documentation when nothing is explicitly set */
 export type DefaultHeader = 'default';
+/** Header for examples */
+export type ExamplesHeader = 'examples';
 /** Header for keywords */
 export type KWHeader = 'keywords';
 /** If a routine is private */
@@ -20,6 +22,7 @@ export type IDLDocsHeaders =
   | ArgsHeader
   | AuthorHeader
   | DefaultHeader
+  | ExamplesHeader
   | KWHeader
   | ReturnsHeader
   | RevisionsHeader;
@@ -34,6 +37,8 @@ export interface IDocHeaderLookup {
   AUTHOR: AuthorHeader;
   /** Default header for documentation when nothing is explicitly set */
   DEFAULT: DefaultHeader;
+  /** Example docs */
+  EXAMPLES: ExamplesHeader;
   /** Header for keywords */
   KEYWORDS: KWHeader;
   /** If a routine is private */
@@ -55,6 +60,7 @@ export const IDL_DOCS_HEADERS: IDocHeaderLookup = {
   ARGS: 'args',
   AUTHOR: 'author',
   DEFAULT: 'default',
+  EXAMPLES: 'examples',
   KEYWORDS: 'keywords',
   PRIVATE: 'private',
   RETURNS: 'returns',

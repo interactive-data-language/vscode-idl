@@ -6,7 +6,7 @@ import * as vscode from 'vscode';
 import { RunnerFunction } from '../runner.interface';
 import { CompareCellOutputs } from './helpers/compare-cells';
 import { ICompareCellOutputs } from './helpers/compare-cells.interface';
-import { DEFAULT_RUNNER_TIMEOUT } from './helpers/run-notebook-and-compare-cells';
+import { DEFAULT_RUNNER_NOTEBOOK_TIMEOUT } from './helpers/notebook-timeout.interface';
 
 /**
  * Types of outputs from cells that we expect to have
@@ -27,19 +27,14 @@ export const RunUnsavedNotebook: RunnerFunction = async (init) => {
   /** Get reference to the notebook controller */
   const controller = init.notebooks.controller;
 
-  // start IDL if it hasnt yet
-  if (!controller.isStarted()) {
-    await controller.launchIDL('Launching IDL');
-  }
-
-  // make sure launched
-  expect(controller.isStarted()).toBeTruthy();
-
   // make new notebook
-  await vscode.commands.executeCommand(IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK);
+  await vscode.commands.executeCommand(
+    IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
+    true
+  );
 
   // short pause
-  await Sleep(DEFAULT_RUNNER_TIMEOUT);
+  await Sleep(DEFAULT_RUNNER_NOTEBOOK_TIMEOUT);
 
   // get active editor
   const editor = vscode.window.activeNotebookEditor;
@@ -49,6 +44,14 @@ export const RunUnsavedNotebook: RunnerFunction = async (init) => {
 
   /** Get reference to the current notebook */
   const nb = editor.notebook;
+
+  // start IDL if it hasnt yet
+  if (!controller.isStarted(nb)) {
+    await controller.launchIDL(nb, 'Launching IDL');
+  }
+
+  // make sure launched
+  expect(controller.isStarted(nb)).toBeTruthy();
 
   // update text
   const cells = nb.getCells();
@@ -62,11 +65,8 @@ export const RunUnsavedNotebook: RunnerFunction = async (init) => {
   // short pause based on the number of cells we have
   // sometimes the rendering takes too long to register (like complex maps)
   // so we need an extra pause
-  await Sleep(DEFAULT_RUNNER_TIMEOUT);
+  await Sleep(DEFAULT_RUNNER_NOTEBOOK_TIMEOUT);
 
   // compare cells
   await CompareCellOutputs(nb, CELL_OUTPUT);
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 };

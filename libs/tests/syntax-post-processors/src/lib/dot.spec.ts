@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 describe(`[auto generated] Correctly map periods to dots`, () => {
   it(`[auto generated] as procedure-method or property access, but incomplete`, () => {
@@ -76,6 +76,14 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
         start: [1, 1, 1],
         end: [1, 1, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [1, 0, 1],
+        end: [1, 1, 1],
+        canReport: true,
       },
     ];
 
@@ -178,6 +186,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
         start: [1, 5, 1],
         end: [1, 5, 1],
+        canReport: true,
       },
     ];
 
@@ -271,6 +280,7 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
         start: [1, 4, 1],
         end: [1, 4, 1],
+        canReport: true,
       },
     ];
 
@@ -343,6 +353,14 @@ describe(`[auto generated] Correctly map periods to dots`, () => {
         info: 'Unfinished statement or invalid syntax for properties, methods, or numbers',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [1, 0, 1],
+        end: [1, 0, 1],
+        canReport: true,
       },
     ];
 

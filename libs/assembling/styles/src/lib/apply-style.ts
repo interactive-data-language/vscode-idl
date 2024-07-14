@@ -14,6 +14,7 @@ export function ApplyStyle(
   parsed: IParsed,
   cancel: CancellationToken,
   style: ICodeStyle,
+  vanilla: boolean,
   styler: AssemblerStyler = ASSEMBLER_STYLER_LOOKUP.DEFAULT
 ) {
   // make sure we have scope detail
@@ -23,7 +24,7 @@ export function ApplyStyle(
     case ASSEMBLER_STYLER_LOOKUP.DEFAULT:
       // apply styling
       ASSEMBLER_DEFAULT_STYLING.run(parsed, cancel, (token, meta) => {
-        return { ...meta, style };
+        return { ...meta, style, vanilla: vanilla };
       });
       break;
     default:

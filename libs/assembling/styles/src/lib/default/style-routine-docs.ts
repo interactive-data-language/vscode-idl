@@ -1,15 +1,6 @@
 import { ICodeStyle } from '@idl/assembling/config';
 import { IncrementLineNumbers } from '@idl/assembling/shared';
 import {
-  GLOBAL_TOKEN_TYPES,
-  GlobalFunctionMethodToken,
-  GlobalFunctionToken,
-  GlobalProcedureMethodToken,
-  GlobalProcedureToken,
-  GlobalRoutineToken,
-  IGlobalIndexedToken,
-} from '@idl/data-types/core';
-import {
   BRANCH_TYPES,
   DocsToIDL,
   IBranch,
@@ -24,6 +15,15 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import {
+  GLOBAL_TOKEN_TYPES,
+  GlobalFunctionMethodToken,
+  GlobalFunctionToken,
+  GlobalProcedureMethodToken,
+  GlobalProcedureToken,
+  GlobalRoutineToken,
+  IGlobalIndexedToken,
+} from '@idl/types/core';
 
 import { FormatKeyword } from './style-keywords';
 

@@ -165,7 +165,7 @@ export class IDLParsedCache {
    */
   semantic(file: string): SemanticTokens | undefined {
     if (file in this.byFile) {
-      return this.byFile[file].semantic;
+      return this.byFile[file].semantic.built;
     }
   }
 
@@ -205,6 +205,15 @@ export class IDLParsedCache {
     if (file in this.byFile) {
       this.byFile[file].parseProblems = parsed.parseProblems;
       this.byFile[file].postProcessProblems = parsed.postProcessProblems;
+    }
+  }
+
+  /**
+   * Updates semantic tokens
+   */
+  updateSemantic(file: string, parsed: IParsed) {
+    if (file in this.byFile) {
+      this.byFile[file].semantic = parsed.semantic;
     }
   }
 }

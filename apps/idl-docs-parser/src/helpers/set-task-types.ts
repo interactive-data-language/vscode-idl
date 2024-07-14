@@ -1,12 +1,12 @@
+import { LoadTask } from '@idl/schemas/tasks';
+import { TASK_FILE_EXTENSION, TASK_FILE_GLOB_PATTERN } from '@idl/shared';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalStructureToken,
   GlobalTokens,
   IGlobalIndexedToken,
-} from '@idl/data-types/core';
-import { TaskToGlobalToken } from '@idl/data-types/tasks';
-import { LoadTask } from '@idl/schemas/tasks';
-import { TASK_FILE_EXTENSION, TASK_FILE_GLOB_PATTERN } from '@idl/shared';
+} from '@idl/types/core';
+import { TaskToGlobalToken } from '@idl/types/tasks';
 import * as glob from 'fast-glob';
 import { basename, join } from 'path';
 

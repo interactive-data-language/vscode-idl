@@ -6,7 +6,7 @@ import {
   SkipSelf,
   ViewChild,
 } from '@angular/core';
-import { IDLNotebookPlot } from '@idl/notebooks/types';
+import { IDLNotebookPlot } from '@idl/types/notebooks';
 import Chart from 'chart.js/auto';
 
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';

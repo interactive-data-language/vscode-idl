@@ -1,9 +1,9 @@
 import { GetExtensionPath } from '@idl/shared';
-import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
+import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 import { RunnerFunction } from '../runner.interface';
-import { CompareCellsAndOutputs } from './helpers/compare-cells';
+import { CompareCellKindsAndOutputs } from './helpers/compare-cells';
 import { ICompareCellAndOutputs } from './helpers/compare-cells.interface';
 
 /**
@@ -89,8 +89,5 @@ export const NotebookFormats_1_0_0: RunnerFunction = async (init) => {
   const nb = await OpenNotebookInVSCode(file);
 
   // compare state
-  CompareCellsAndOutputs(nb, CELL_OUTPUT);
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
+  CompareCellKindsAndOutputs(nb, CELL_OUTPUT);
 };

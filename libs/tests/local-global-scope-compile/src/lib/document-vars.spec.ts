@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -120,7 +120,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               pos: [0, 23, 4],
             },
           },
-          docs: '\n```idl\nmyclass.mymethod, var1\n```\n\n#### Arguments\n\n- **var1**: bidirectional, required, any\n\n  \n\n',
+          docs: '\n```idl\nmyclass.mymethod, var1\n```\n\n\n#### Arguments\n\n- **var1**: bidirectional, required, any\n\n  \n\n',
           docsLookup: {},
           display: 'myclass::mymethod',
           kws: {},
@@ -261,7 +261,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               pos: [0, 23, 4],
             },
           },
-          docs: '\n```idl\nmyclass.mymethod, var1\n```\n\n#### Arguments\n\n- **var1**: bidirectional, required, any\n\n  \n\n',
+          docs: '\n```idl\nmyclass.mymethod, var1\n```\n\n\n#### Arguments\n\n- **var1**: bidirectional, required, any\n\n  \n\n',
           docsLookup: {},
           display: 'myclass::mymethod',
           kws: {},
@@ -408,7 +408,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               pos: [0, 23, 4],
             },
           },
-          docs: '\n```idl\nmyclass.mymethod, var1\n```\n\n#### Arguments\n\n- **var1**: bidirectional, required, any\n\n  \n\n',
+          docs: '\n```idl\nmyclass.mymethod, var1\n```\n\n\n#### Arguments\n\n- **var1**: bidirectional, required, any\n\n  \n\n',
           docsLookup: {},
           display: 'myclass::mymethod',
           kws: {},

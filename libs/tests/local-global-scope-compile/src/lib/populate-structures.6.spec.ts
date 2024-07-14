@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -103,7 +103,7 @@ describe(`[auto generated] Find them in`, () => {
           method: 'method',
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = define_these_structures.method()\n```\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = define_these_structures.method()\n```\n',
           docsLookup: {},
           display: 'define_these_structures::method',
           kws: {},

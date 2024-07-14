@@ -35,10 +35,19 @@ export interface IDLExtensionsConfigKeys {
   /** History for your IDL sessions */
   readonly IDLhistory: 'IDL.history';
 
+  /** Key for code */
+  readonly code: 'code';
   /** Top-level formatting options, excluding style */
   readonly codeFormatting: 'code.formatting';
   /** Code-formatting style */
   readonly codeFormattingStyle: 'code.formattingStyle';
+
+  /** Key for documentation */
+  readonly documentation: 'documentation';
+  /** Do we use hosted docs? */
+  readonly documentationUseOnline: 'documentation.useOnline';
+  /** When using local docs, what port do we serve on? */
+  readonly documentationLocalPort: 'documentation.localPort';
 
   /** Key for language server preferences */
   readonly languageServer: 'languageServer';
@@ -54,6 +63,8 @@ export interface IDLExtensionsConfigKeys {
 
   /** Key for problem preferences */
   readonly problems: 'problems';
+  /** Do we report problems at all? */
+  readonly problemsReportProblems: 'problems.reportProblems';
   /** Do we report docs problems or not */
   readonly problemsReportDocsProblems: 'problems.reportDocsProblems';
   /** User configured problem codes to ignore */
@@ -72,6 +83,8 @@ export interface IDLExtensionsConfigKeys {
   readonly dontAskForIconChange: 'dontAsk.forIconChange';
   /** On startup, if we dont have a formatter configured for IDL code, should we ask for it or not */
   readonly dontAskForFormatterChange: 'dontAsk.forFormatterChange';
+  /** On startup, do we ask to open docs? */
+  readonly dontAskToOpenDocs: 'dontAsk.toOpenDocs';
   /** Controls if we ask to init config for folders or not */
   // readonly dontAskToInitConfig: 'dontAsk.toInitConfig';
   /** Folders that we don't ask to initialize config for */
@@ -129,9 +142,18 @@ export interface ICodeConfig {
   readonly formattingStyle: ICodeStyle;
 }
 
+export interface IDocsConfig {
+  /** Do we use our hosted docs for the online  */
+  readonly useOnline: boolean;
+  /** Code-formatting style */
+  readonly localPort: number;
+}
+
 export interface ILanguageServerConfig {
   /** Does the language server do a full parse of your code */
   fullParse: boolean;
+  /** Garbage collection interval, ms */
+  garbageIntervalMS: number;
 }
 
 export interface INotebookConfig {
@@ -142,6 +164,8 @@ export interface INotebookConfig {
 }
 
 export interface IProblemConfig {
+  /** Do we report problems at all? */
+  readonly reportProblems: boolean;
   /** Do we report docs problems or not? */
   readonly reportDocsProblems: boolean;
   /** User configured problem codes to ignore (problem codes or aliases) */
@@ -159,6 +183,8 @@ export interface IDontAskConfig {
   readonly forIconChange: boolean;
   /** On startup, if we dont have a formatter configured for IDL code, should we ask for it or not */
   readonly forFormatterChange: boolean;
+  /** Do we ask people to open docs on startup? */
+  readonly toOpenDocs: boolean;
   // /** Controls if we ask to init config for folders or not */
   // readonly toInitConfig: boolean;
   // /** Folders that we don't ask to initialize config for */
@@ -199,6 +225,11 @@ export interface IDLExtensionConfig {
    * directly within the VSCode UI
    */
   readonly code: ICodeConfig;
+
+  /**
+   * Configuration for documentation and how it opens
+   */
+  readonly documentation: IDocsConfig;
 
   /**
    * Configuration for the language server
@@ -247,8 +278,13 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   IDLenvironment: 'IDL.environment',
   IDLhistory: 'IDL.history',
 
+  code: 'code',
   codeFormatting: 'code.formatting',
   codeFormattingStyle: 'code.formattingStyle',
+
+  documentation: 'documentation',
+  documentationUseOnline: 'documentation.useOnline',
+  documentationLocalPort: 'documentation.localPort',
 
   languageServer: 'languageServer',
   languageServerFullParse: 'languageServer.fullParse',
@@ -258,6 +294,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   notebooksEmbedGraphics: 'notebooks.embedGraphics',
 
   problems: 'problems',
+  problemsReportProblems: 'problems.reportProblems',
   problemsReportDocsProblems: 'problems.reportDocsProblems',
   problemsIgnoreProblems: 'problems.ignoreProblems',
   problemsIncludeProblemsFromIDLPath: 'problems.includeProblemsFromIDLPath',
@@ -268,6 +305,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   dontAskForIDLDir: 'dontAsk.forIDLDir',
   dontAskForIconChange: 'dontAsk.forIconChange',
   dontAskForFormatterChange: 'dontAsk.forFormatterChange',
+  dontAskToOpenDocs: 'dontAsk.toOpenDocs',
   // dontAskToInitConfig: 'dontAsk.toInitConfig',
   // dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders',
 
@@ -313,14 +351,20 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     },
     formattingStyle: copy(DEFAULT_CODE_STYLE),
   },
+  documentation: {
+    useOnline: true,
+    localPort: 3344,
+  },
   languageServer: {
     fullParse: true,
+    garbageIntervalMS: 300000,
   },
   notebooks: {
     quietMode: true,
     embedGraphics: true,
   },
   problems: {
+    reportProblems: true,
     reportDocsProblems: true,
     ignoreProblems: [],
     includeProblemsFromIDLPath: true,
@@ -330,6 +374,7 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     forIDLDir: false,
     forIconChange: false,
     forFormatterChange: false,
+    toOpenDocs: false,
     // toInitConfig: false,
     // toInitConfigForTheseFolders: [],
   },

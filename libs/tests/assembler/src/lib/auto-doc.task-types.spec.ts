@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -106,30 +106,35 @@ describe(`[auto generated] Verify type formatting for`, () => {
         info: 'Unused variable "arg1"',
         start: [14, 10, 4],
         end: [14, 10, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg2"',
         start: [14, 16, 4],
         end: [14, 16, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg3"',
         start: [14, 22, 4],
         end: [14, 22, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg4"',
         start: [14, 28, 4],
         end: [14, 28, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg5"',
         start: [14, 34, 4],
         end: [14, 34, 4],
+        canReport: true,
       },
     ];
 

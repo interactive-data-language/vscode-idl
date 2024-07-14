@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates quote parsing`, () => {
   it(`[auto generated] parses standalone single quotes`, async () => {
@@ -1198,6 +1198,174 @@ describe(`[auto generated] Validates quote parsing`, () => {
           'group.assignment.idl',
           'group.brackets.square.idl',
           'meta.brace.square.idl',
+        ],
+      },
+    ];
+    expect(expected).toEqual(tokenized);
+  });
+
+  it(`[auto generated] verifies single quote escape`, async () => {
+    // test code to extract tokens from
+    const code = [`a = '''string'''`];
+
+    // extract tokens
+    const tokenized = await TextMateParse(code);
+
+    // define expected tokens
+    const expected = [
+      {
+        line: 0,
+        match: 'a',
+        startIndex: 0,
+        endIndex: 1,
+        scopes: ['source.idl', 'variable.other.readwrite.ts.idl'],
+      },
+      {
+        line: 0,
+        match: '=',
+        startIndex: 2,
+        endIndex: 3,
+        scopes: ['source.idl', 'group.assignment.idl', 'keyword.operator.idl'],
+      },
+      {
+        line: 0,
+        match: "'",
+        startIndex: 4,
+        endIndex: 5,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'string.quoted.single.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: "''",
+        startIndex: 5,
+        endIndex: 7,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'string.quoted.single.idl',
+          'constant.character.escape.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: 'string',
+        startIndex: 7,
+        endIndex: 13,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'string.quoted.single.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: "''",
+        startIndex: 13,
+        endIndex: 15,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'string.quoted.single.idl',
+          'constant.character.escape.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: "'",
+        startIndex: 15,
+        endIndex: 16,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'string.quoted.single.idl',
+        ],
+      },
+    ];
+    expect(expected).toEqual(tokenized);
+  });
+
+  it(`[auto generated] verifies double quote escape`, async () => {
+    // test code to extract tokens from
+    const code = [`a = """string"""`];
+
+    // extract tokens
+    const tokenized = await TextMateParse(code);
+
+    // define expected tokens
+    const expected = [
+      {
+        line: 0,
+        match: 'a',
+        startIndex: 0,
+        endIndex: 1,
+        scopes: ['source.idl', 'variable.other.readwrite.ts.idl'],
+      },
+      {
+        line: 0,
+        match: '=',
+        startIndex: 2,
+        endIndex: 3,
+        scopes: ['source.idl', 'group.assignment.idl', 'keyword.operator.idl'],
+      },
+      {
+        line: 0,
+        match: '"',
+        startIndex: 4,
+        endIndex: 5,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'string.quoted.double.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: '""',
+        startIndex: 5,
+        endIndex: 7,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'string.quoted.double.idl',
+          'constant.character.escape.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: 'string',
+        startIndex: 7,
+        endIndex: 13,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'string.quoted.double.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: '""',
+        startIndex: 13,
+        endIndex: 15,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'string.quoted.double.idl',
+          'constant.character.escape.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: '"',
+        startIndex: 15,
+        endIndex: 16,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'string.quoted.double.idl',
         ],
       },
     ];

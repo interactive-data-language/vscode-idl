@@ -1,24 +1,24 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
-  IDL_ARRAY_TYPE,
-  IDL_TYPE_LOOKUP,
-  IDLDataType,
-  IDLTypeHelper,
-  ParseIDLType,
-  SerializeIDLType,
-} from '@idl/data-types/core';
-import {
   IParsed,
   SplitTreeOnCommas,
   SplitTreeOnOperators,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { BracketToken } from '@idl/parsing/tokenizer';
+import {
+  IDL_ARRAY_TYPE,
+  IDL_TYPE_LOOKUP,
+  IDLDataType,
+  IDLTypeHelper,
+  ParseIDLType,
+  SerializeIDLType,
+} from '@idl/types/core';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
-import { TypeFromOperatorSplit } from './type-from-multiple-tokens';
-import { TypePromotion } from './type-promotion.ts';
+import { TypeFromOperatorSplit } from './type-from-operator-split';
+import { TypePromotion } from './type-promotion';
 
 /**
  * Get the type from array creation
@@ -58,18 +58,9 @@ export function TypeFromArrayCreation(
         operatorSplitTrees[j]
       );
 
-      // skip !nulls
-      let keep = true;
-      for (let z = 0; z < opSplit.length; z++) {
-        if (IDLTypeHelper.isType(opSplit[z], IDL_TYPE_LOOKUP.NULL)) {
-          keep = false;
-          break;
-        }
-      }
-
       // if not null, save
-      if (keep) {
-        foundTypes = foundTypes.concat(opSplit);
+      if (!IDLTypeHelper.isType(opSplit, IDL_TYPE_LOOKUP.NULL)) {
+        foundTypes = foundTypes.concat([opSplit]);
       }
     }
   }
@@ -83,7 +74,6 @@ export function TypeFromArrayCreation(
         index,
         parsed,
         foundTypes,
-        splitCommas,
         token.pos,
         token.end !== undefined ? token.end.pos : token.pos,
         true

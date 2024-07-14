@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -543,7 +543,7 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
               pos: [18, 59, 4],
             },
           },
-          docs: '\n```idl\ntype_parsing_test, arg1, arg2, arg3, arg4, arg5, arg6, arg7\n```\n\n\n\n#### Arguments\n\n- **arg1**: in, required, Pointer<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, Pointer<Array<any>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, Pointer<Array<Number>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, Pointer<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, Number | String\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg6**: in, required, Hash<Number> | List<Array<Number>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg7**: in, required, Hash<Number | String> | List<Array<Number | String> | List<ENVIRaster>>\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\ntype_parsing_test, arg1, arg2, arg3, arg4, arg5, arg6, arg7\n```\n\n\n\n\n#### Arguments\n\n- **arg1**: in, required, Pointer<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, Pointer<Array<any>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, Pointer<Array<Number>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, Pointer<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, Number | String\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg6**: in, required, Hash<Number> | List<Array<Number>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg7**: in, required, Hash<Number | String> | List<Array<Number | String> | List<ENVIRaster>>\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'type_parsing_test',
           kws: {},

@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates function method parsing`, () => {
   it(`[auto generated] parses function methods with dots`, async () => {

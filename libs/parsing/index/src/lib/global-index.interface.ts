@@ -1,5 +1,5 @@
-import { GlobalTokenType, IGlobalIndexedToken } from '@idl/data-types/core';
-import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/parsing/problem-codes';
+import { GlobalTokenType, IGlobalIndexedToken } from '@idl/types/core';
+import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 
 /**
  * By token type, wwe want to track the number of tokens we have with the
@@ -22,6 +22,13 @@ export type GlobalIndexedToken = IGlobalIndexedToken<GlobalTokenType>;
 export interface GlobalTokensByTypeByName {
   [key: string]: { [key: string]: GlobalIndexedToken[] };
 }
+
+/**
+ * Lookup with tokens by type for easier access when we export
+ */
+export type ExportedGlobalTokensByType = {
+  [key in GlobalTokenType]: IGlobalIndexedToken<key>[];
+};
 
 /**
  * For each file we index tokens for, track which types of tokens they

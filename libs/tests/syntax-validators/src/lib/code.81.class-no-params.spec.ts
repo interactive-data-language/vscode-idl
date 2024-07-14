@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -35,12 +35,14 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
         info: 'Class definitions should not have any arguments or keywords',
         start: [0, 4, 12],
         end: [0, 19, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [0, 18, 1],
         end: [0, 18, 1],
+        canReport: true,
       },
     ];
 
@@ -79,12 +81,14 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
         info: 'Class definitions should not have any arguments or keywords',
         start: [0, 4, 12],
         end: [0, 25, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw"',
         start: [0, 23, 2],
         end: [0, 23, 2],
+        canReport: true,
       },
     ];
 
@@ -128,18 +132,21 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
         info: 'Class definitions should not have any arguments or keywords',
         start: [0, 4, 12],
         end: [0, 30, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "kw"',
         start: [0, 28, 2],
         end: [0, 28, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg"',
         start: [0, 18, 3],
         end: [0, 18, 3],
+        canReport: true,
       },
     ];
 

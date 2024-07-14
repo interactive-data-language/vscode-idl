@@ -1,8 +1,8 @@
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { GetExtensionPath } from '@idl/shared';
-import { SanitizeAllProblems } from '@idl/test-helpers';
+import { SanitizeAllProblems } from '@idl/tests/helpers';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -49,6 +49,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "myclass__define"',
           start: [19, 4, 15],
           end: [19, 4, 15],
+          canReport: true,
           file: 'idl/test/global-problems/file1.pro',
         },
         {
@@ -56,6 +57,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function method definition: "myclass::method1"',
           start: [14, 9, 16],
           end: [14, 9, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file1.pro',
         },
         {
@@ -63,6 +65,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure method definition: "myclass::method1"',
           start: [9, 4, 16],
           end: [9, 4, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file1.pro',
         },
         {
@@ -70,6 +73,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function definition: "myfunc"',
           start: [4, 9, 6],
           end: [4, 9, 6],
+          canReport: true,
           file: 'idl/test/global-problems/file1.pro',
         },
         {
@@ -77,6 +81,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "mypro"',
           start: [0, 4, 5],
           end: [0, 4, 5],
+          canReport: true,
           file: 'idl/test/global-problems/file1.pro',
         },
       ],
@@ -86,6 +91,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "myclass__define"',
           start: [19, 4, 15],
           end: [19, 4, 15],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
         {
@@ -93,6 +99,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function method definition: "myclass::method1"',
           start: [14, 9, 16],
           end: [14, 9, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
         {
@@ -100,6 +107,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure method definition: "myclass::method1"',
           start: [9, 4, 16],
           end: [9, 4, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
         {
@@ -107,6 +115,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function definition: "myfunc"',
           start: [4, 9, 6],
           end: [4, 9, 6],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
         {
@@ -114,6 +123,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "mypro"',
           start: [0, 4, 5],
           end: [0, 4, 5],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
       ],
@@ -141,6 +151,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "myclass__define"',
           start: [19, 4, 15],
           end: [19, 4, 15],
+          canReport: true,
           file: 'idl/test/global-problems/file1.pro',
         },
         {
@@ -148,6 +159,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function method definition: "myclass::method1"',
           start: [14, 9, 16],
           end: [14, 9, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file1.pro',
         },
         {
@@ -155,6 +167,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure method definition: "myclass::method1"',
           start: [9, 4, 16],
           end: [9, 4, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file1.pro',
         },
         {
@@ -162,6 +175,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function definition: "myfunc"',
           start: [4, 9, 6],
           end: [4, 9, 6],
+          canReport: true,
           file: 'idl/test/global-problems/file1.pro',
         },
         {
@@ -169,6 +183,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "mypro"',
           start: [0, 4, 5],
           end: [0, 4, 5],
+          canReport: true,
           file: 'idl/test/global-problems/file1.pro',
         },
       ],
@@ -178,6 +193,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "myclass__define"',
           start: [19, 4, 15],
           end: [19, 4, 15],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
         {
@@ -185,6 +201,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function method definition: "myclass::method1"',
           start: [14, 9, 16],
           end: [14, 9, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
         {
@@ -192,6 +209,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure method definition: "myclass::method1"',
           start: [9, 4, 16],
           end: [9, 4, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
         {
@@ -199,6 +217,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function definition: "myfunc"',
           start: [4, 9, 6],
           end: [4, 9, 6],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
         {
@@ -206,6 +225,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "mypro"',
           start: [0, 4, 5],
           end: [0, 4, 5],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
       ],
@@ -215,6 +235,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "myclass__define"',
           start: [19, 4, 15],
           end: [19, 4, 15],
+          canReport: true,
           file: 'idl/test/global-problems/file3.pro',
         },
         {
@@ -222,6 +243,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function method definition: "myclass::method1"',
           start: [14, 9, 16],
           end: [14, 9, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file3.pro',
         },
         {
@@ -229,6 +251,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure method definition: "myclass::method1"',
           start: [9, 4, 16],
           end: [9, 4, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file3.pro',
         },
         {
@@ -236,6 +259,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function definition: "myfunc"',
           start: [4, 9, 6],
           end: [4, 9, 6],
+          canReport: true,
           file: 'idl/test/global-problems/file3.pro',
         },
         {
@@ -243,6 +267,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "mypro"',
           start: [0, 4, 5],
           end: [0, 4, 5],
+          canReport: true,
           file: 'idl/test/global-problems/file3.pro',
         },
       ],
@@ -271,6 +296,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "myclass__define"',
           start: [19, 4, 15],
           end: [19, 4, 15],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
         {
@@ -278,6 +304,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function method definition: "myclass::method1"',
           start: [14, 9, 16],
           end: [14, 9, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
         {
@@ -285,6 +312,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure method definition: "myclass::method1"',
           start: [9, 4, 16],
           end: [9, 4, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
         {
@@ -292,6 +320,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function definition: "myfunc"',
           start: [4, 9, 6],
           end: [4, 9, 6],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
         {
@@ -299,6 +328,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "mypro"',
           start: [0, 4, 5],
           end: [0, 4, 5],
+          canReport: true,
           file: 'idl/test/global-problems/file2.pro',
         },
       ],
@@ -308,6 +338,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "myclass__define"',
           start: [19, 4, 15],
           end: [19, 4, 15],
+          canReport: true,
           file: 'idl/test/global-problems/file3.pro',
         },
         {
@@ -315,6 +346,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function method definition: "myclass::method1"',
           start: [14, 9, 16],
           end: [14, 9, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file3.pro',
         },
         {
@@ -322,6 +354,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure method definition: "myclass::method1"',
           start: [9, 4, 16],
           end: [9, 4, 16],
+          canReport: true,
           file: 'idl/test/global-problems/file3.pro',
         },
         {
@@ -329,6 +362,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate function definition: "myfunc"',
           start: [4, 9, 6],
           end: [4, 9, 6],
+          canReport: true,
           file: 'idl/test/global-problems/file3.pro',
         },
         {
@@ -336,6 +370,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           info: 'Duplicate procedure definition: "mypro"',
           start: [0, 4, 5],
           end: [0, 4, 5],
+          canReport: true,
           file: 'idl/test/global-problems/file3.pro',
         },
       ],

@@ -1,7 +1,7 @@
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
 
 import { TreeBranchToken } from '../branches.interface';
-import { IParsed } from '../build-syntax-tree.interface';
+import { IParsed } from '../parsed.interface';
 import { ILocalTokenLookup } from '../populators/populate-local.interface';
 import { GetRoutineName } from './get-routine-name';
 

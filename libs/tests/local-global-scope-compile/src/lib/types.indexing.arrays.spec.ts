@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -875,7 +875,7 @@ describe(`[auto generated] Types from`, () => {
               usage: [[123, 2, 2]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
             },
           },
         },
@@ -1015,7 +1015,7 @@ describe(`[auto generated] Types from`, () => {
               pos: [38, 42, 4],
             },
           },
-          docs: '\n```idl\narrays, arg1, arg2, arg3, arg4, arg5, arg6\n```\n\n\n\n#### Arguments\n\n- **arg1**: in, required, Array<Number | String>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, Array<Number>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, Array<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, Array<Byte>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, Array<ENVIRaster>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg6**: in, required, any\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\narrays, arg1, arg2, arg3, arg4, arg5, arg6\n```\n\n\n\n\n#### Arguments\n\n- **arg1**: in, required, Array<Number | String>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, Array<Number>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, Array<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, Array<Byte>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, Array<ENVIRaster>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg6**: in, required, any\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'arrays',
           kws: {},
@@ -1031,7 +1031,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myfunc2()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: Array<Number>\n;+\nresult = myfunc2()\n```\n\n\n',
           docsLookup: { default: '', returns: 'Array<Number>' },
           display: 'myfunc2',
           kws: {},
@@ -1057,7 +1057,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myfunc()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: Number\n;+\nresult = myfunc()\n```\n\n\n',
           docsLookup: { default: '', returns: 'Number' },
           display: 'myfunc',
           kws: {},

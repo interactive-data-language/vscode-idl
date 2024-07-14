@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Creates a data cube visualization for a raster and displays it in a notebook.
 ;

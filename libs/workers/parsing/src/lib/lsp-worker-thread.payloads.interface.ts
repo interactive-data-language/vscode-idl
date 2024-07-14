@@ -1,5 +1,11 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
+  MigrateCodeLSPMessage,
+  PrepareNotebookCellMessage,
+  PrepareNotebookCellPayload,
+  PrepareNotebookCellResponse,
+} from '@idl/vscode/events/messages';
+import {
   PayloadFromWorkerBaseMessage,
   WorkerIOBaseMessage,
 } from '@idl/workers/workerio';
@@ -41,6 +47,9 @@ import {
   LogManagerPayload,
   LogManagerResponse,
   LSPWorkerThreadMessage,
+  MigrateCodeMessage,
+  MigrateCodePayload,
+  MigrateCodeResponse,
   ParseAndPostProcessCodeMessage,
   ParseAndPostProcessCodePayload,
   ParseAndPostProcessCodeResponse,
@@ -93,6 +102,8 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
     ? LoadGlobalPayload
     : T extends LogManagerMessage
     ? LogManagerPayload
+    : T extends MigrateCodeLSPMessage
+    ? MigrateCodePayload
     : T extends ParseAndPostProcessCodeMessage
     ? ParseAndPostProcessCodePayload
     : T extends ParseAndPostProcessFileMessage
@@ -105,6 +116,8 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
     ? ParseNotebookPayload
     : T extends PostProcessFilesMessage
     ? PostProcessFilesPayload
+    : T extends PrepareNotebookCellMessage
+    ? PrepareNotebookCellPayload
     : T extends RemoveFilesMessage
     ? RemoveFilesPayload
     : T extends TrackGlobalTokensMessage
@@ -139,6 +152,8 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
     ? GetTokenDefResponse
     : T extends LogManagerMessage
     ? LogManagerResponse
+    : T extends MigrateCodeMessage
+    ? MigrateCodeResponse
     : T extends ParseAndPostProcessCodeMessage
     ? ParseAndPostProcessCodeResponse
     : T extends ParseAndPostProcessFileMessage
@@ -151,6 +166,8 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
     ? ParseNotebookResponse
     : T extends PostProcessFilesMessage
     ? PostProcessFilesResponse
+    : T extends PrepareNotebookCellMessage
+    ? PrepareNotebookCellResponse
     : T extends RemoveFilesMessage
     ? RemoveFilesResponse
     : T extends WorkerIOBaseMessage

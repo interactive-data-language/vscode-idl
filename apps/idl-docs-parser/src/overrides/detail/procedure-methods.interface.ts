@@ -3,7 +3,7 @@ import {
   IDL_BOOLEAN_TYPE,
   IDL_NUMBER_TYPE,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 
 import { IProcedureMethodOverride } from '../detail.interface';
 

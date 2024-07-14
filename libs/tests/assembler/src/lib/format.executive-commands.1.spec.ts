@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -81,6 +81,7 @@ describe(`[auto generated] Executive command formatting`, () => {
         info: 'Main level program is missing an "end" statement',
         start: [4, 0, 1.7976931348623157e308],
         end: [4, 0, 1.7976931348623157e308],
+        canReport: true,
       },
     ];
 

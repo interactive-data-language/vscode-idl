@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
 import {
   BRANCH_TYPES,
   IBranch,
@@ -7,6 +6,7 @@ import {
   SyntaxTree,
 } from '@idl/parsing/syntax-tree';
 import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 /**
  * Operators to check children (i.e. recurse)
@@ -17,7 +17,7 @@ RECURSION_CHECK[TOKEN_NAMES.OPERATOR_COMPOUND] = true;
 RECURSION_CHECK[TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT] = true;
 
 /**
- * This tokens CAN be next to each other
+ * These tokens CAN be next to each other
  */
 const SKIP_CHECK: { [key: string]: boolean } = {};
 SKIP_CHECK[TOKEN_NAMES.OPERATOR_LOGICAL] = true;
@@ -25,6 +25,7 @@ SKIP_CHECK[TOKEN_NAMES.UNKNOWN] = true;
 SKIP_CHECK[TOKEN_NAMES.COMMENT] = true;
 SKIP_CHECK[TOKEN_NAMES.COMMENT_BLOCK] = true;
 SKIP_CHECK[TOKEN_NAMES.ACCESS_PROPERTY] = true;
+SKIP_CHECK[TOKEN_NAMES.STRUCTURE_INDEXED_PROPERTY] = true;
 SKIP_CHECK[TOKEN_NAMES.LINE_SEPARATION] = true;
 SKIP_CHECK[TOKEN_NAMES.LINE_SEPARATION_BASIC] = true;
 SKIP_CHECK[TOKEN_NAMES.LOGICAL_TERNARY_THEN] = true;

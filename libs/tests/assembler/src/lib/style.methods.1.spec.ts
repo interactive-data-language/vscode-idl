@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -86,24 +86,28 @@ describe(`[auto generated] Verify style for methods`, () => {
         info: 'Undefined variable "myclass"',
         start: [2, 5, 7],
         end: [2, 5, 7],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "myclass"',
         start: [3, 0, 7],
         end: [3, 0, 7],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "myclass"',
         start: [4, 5, 7],
         end: [4, 5, 7],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "myclass"',
         start: [5, 0, 7],
         end: [5, 0, 7],
+        canReport: true,
       },
     ];
 

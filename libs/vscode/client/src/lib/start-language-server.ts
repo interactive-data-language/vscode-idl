@@ -1,6 +1,7 @@
 import {
   ALL_DOCUMENT_SELECTORS,
   CleanPath,
+  IDL_JSON_GLOB_PATTERN,
   GetExtensionPath,
   IDL_LANGUAGE_NAME,
   NODE_MEMORY_CONFIG,
@@ -28,6 +29,7 @@ import {
 } from 'vscode-languageclient/node';
 
 import { ON_INDEX } from './events/indexing/on-index';
+import { VSCodeDisplayOrUpdateProgress } from './helpers/vscode-display-progress';
 import { IDL_CLIENT_OUTPUT_CHANNEL, IDL_LOGGER } from './initialize-client';
 import { START_LANGUAGE_SERVER_CONFIG } from './start-language-server.interface';
 
@@ -191,9 +193,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
           ],
           alert: IDL_TRANSLATION.lsp.errors.closed,
           alertMeta: {
-            openMarkdownDocs: GetExtensionPath(
-              'extension/docs/general/LANGUAGE_SERVER_CRASHES.md'
-            ),
+            openDocsURL: '/getting-started/faq/language_server_crashes.html',
           },
         });
         const res: CloseHandlerResult = {
@@ -234,6 +234,19 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
     LANGUAGE_SERVER_MESSAGE_LOOKUP.LOG,
     (payload) => {
       IDL_LOGGER.log(payload);
+    }
+  );
+
+  // listen for log messages from the server
+  LANGUAGE_SERVER_MESSENGER.onNotification(
+    LANGUAGE_SERVER_MESSAGE_LOOKUP.PROGRESS,
+    (payload) => {
+      VSCodeDisplayOrUpdateProgress(
+        payload.progressId,
+        payload.title,
+        payload.increment,
+        payload.finished
+      );
     }
   );
 

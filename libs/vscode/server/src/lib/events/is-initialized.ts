@@ -1,6 +1,5 @@
 import { IDL_LSP_LOG } from '@idl/logger';
 import { NUM_WORKERS } from '@idl/parsing/index';
-import { IDL_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/parsing/problem-codes';
 import {
   GetExtensionPath,
   RoundToNearest,
@@ -9,11 +8,13 @@ import {
   SystemMemoryUsedMB,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IDL_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/types/problem-codes';
 import {
   ILanguageServerStartupPayload,
   USAGE_METRIC_LOOKUP,
 } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
+import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { arch, cpus, platform } from 'os';
 
 import { CacheValidFSPath } from '../helpers/cache-valid';
@@ -141,7 +142,7 @@ SERVER_INFO.then(async (res) => {
         type: 'info',
         content: `Memory cleanup and usage check (mb): ${usage}`,
       });
-    }, 300000);
+    }, DEFAULT_IDL_EXTENSION_CONFIG.languageServer.garbageIntervalMS);
 
     /**
      * Merge folders together

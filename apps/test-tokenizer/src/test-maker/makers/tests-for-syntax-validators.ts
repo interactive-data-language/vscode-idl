@@ -28,7 +28,7 @@ export async function TestsForSyntaxValidators(
   strings.push(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
   );
-  strings.push(`import { SyntaxProblems } from '@idl/parsing/problem-codes';`);
+  strings.push(`import { SyntaxProblems } from '@idl/types/problem-codes';`);
   strings.push(``);
   strings.push(`IDL_INDEX_OPTIONS.IS_TEST = true;`);
   strings.push(``);

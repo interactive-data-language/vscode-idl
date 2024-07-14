@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -44,6 +44,7 @@ describe(`[auto generated] Detects when not enough documentation parameters are 
         info: 'Unused variable "var1"',
         start: [5, 23, 4],
         end: [5, 23, 4],
+        canReport: true,
       },
     ];
 
@@ -91,12 +92,14 @@ describe(`[auto generated] Detects when not enough documentation parameters are 
         info: 'Not enough documentation arguments. Expected the pattern "parameterName: in/out, required/optional, dataType" at a minimum',
         start: [2, 0, 22],
         end: [2, 0, 22],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [5, 23, 4],
         end: [5, 23, 4],
+        canReport: true,
       },
     ];
 
@@ -144,6 +147,7 @@ describe(`[auto generated] Detects when not enough documentation parameters are 
         info: 'Unused variable "var1"',
         start: [5, 28, 4],
         end: [5, 28, 4],
+        canReport: true,
       },
     ];
 
@@ -191,18 +195,21 @@ describe(`[auto generated] Detects when not enough documentation parameters are 
         info: 'Not enough documentation arguments. Expected the pattern "parameterName: in/out, required/optional, dataType" at a minimum',
         start: [2, 0, 21],
         end: [2, 0, 21],
+        canReport: true,
       },
       {
         code: 54,
         info: 'Parameter requirements should be either "required" or "optional"',
         start: [2, 14, 7],
         end: [2, 14, 7],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [5, 28, 4],
         end: [5, 28, 4],
+        canReport: true,
       },
     ];
 

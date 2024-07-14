@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "; not problem",
+        "1 + 2"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro mytestproblemreportingcell",
+        "  compile_opt idl2",
+        "  print, 'Foo'",
+        "",
+        "  ; problem",
+        "  1 + 2",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; no problems here for variable usage",
+        "arr = [1,2,3,4]",
+        "arr"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

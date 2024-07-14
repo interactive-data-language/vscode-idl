@@ -1,7 +1,7 @@
 import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
 import { TaskFormatter } from '@idl/assembling/tasks';
-import { ParsedTask } from '@idl/data-types/tasks';
 import { MergeConfig } from '@idl/schemas/idl.json';
+import { ParsedTask } from '@idl/types/tasks';
 
 /**
  * Assembles a parsed task file back into string on disk using

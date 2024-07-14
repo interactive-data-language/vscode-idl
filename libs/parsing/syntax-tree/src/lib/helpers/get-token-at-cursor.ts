@@ -8,7 +8,7 @@ import {
 import { Position } from 'vscode-languageserver/node';
 
 import { IBranch, TreeToken } from '../branches.interface';
-import { IParsed } from '../build-syntax-tree.interface';
+import { IParsed } from '../parsed.interface';
 import { PopulateScopeDetail } from '../populate-scope-detail';
 import { TreeRecurser } from '../recursion-and-callbacks/tree-recurser';
 import {

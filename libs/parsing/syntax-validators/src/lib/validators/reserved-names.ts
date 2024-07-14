@@ -1,9 +1,4 @@
 import {
-  IDL_PROBLEM_CODES,
-  ISyntaxProblem,
-  SyntaxProblems,
-} from '@idl/parsing/problem-codes';
-import {
   RESERVED_FUNCTION_METHODS,
   RESERVED_FUNCTIONS,
   RESERVED_PROCEDURE_METHODS,
@@ -20,6 +15,11 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import {
+  IDL_PROBLEM_CODES,
+  ISyntaxProblem,
+  SyntaxProblems,
+} from '@idl/types/problem-codes';
 
 /**
  * Handles checking a function or procedure branch for a routine or method

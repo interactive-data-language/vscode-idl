@@ -11,6 +11,7 @@ import {
   ROUTINE_NAME_FAST_TOKENS,
   STRUCTURE_FAST_TOKENS,
 } from './def-groups-fast.interface';
+import { COMMENT } from './defs/comment.interface';
 import { ROUTINE_NAME } from './defs/routines.definition.interface';
 
 export interface ISubTokenDefs {
@@ -33,6 +34,9 @@ SUB_DEFS_FAST[TOKEN_NAMES.ROUTINE_FUNCTION] = [ROUTINE_NAME];
 SUB_DEFS_FAST[TOKEN_NAMES.ROUTINE_PROCEDURE] = [ROUTINE_NAME];
 SUB_DEFS_FAST[TOKEN_NAMES.ROUTINE_NAME] = ROUTINE_NAME_FAST_TOKENS;
 SUB_DEFS_FAST[TOKEN_NAMES.ROUTINE_METHOD_NAME] = ROUTINE_NAME_FAST_TOKENS;
+
+// tokens for line continuations (in routine and structure defs)
+SUB_DEFS_FAST[TOKEN_NAMES.LINE_CONTINUATION] = [COMMENT];
 
 // tokens for assignment
 SUB_DEFS_FAST[TOKEN_NAMES.ASSIGNMENT] = EXPRESSION_TOKENS_FAST;

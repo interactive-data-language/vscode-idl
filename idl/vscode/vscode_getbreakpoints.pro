@@ -1,4 +1,6 @@
 ;+
+; :Private:
+;
 ; :Description:
 ;   Gets breakpoint information from IDL about current breakpoints and the
 ;   lines that they are on.

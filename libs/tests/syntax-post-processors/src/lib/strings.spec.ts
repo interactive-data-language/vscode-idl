@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 describe(`[auto generated] Correctly merge strings together`, () => {
   it(`[auto generated] merge single quotes`, () => {
@@ -203,6 +203,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
         info: 'Two statements of the same type are not allowed to be next to each other without a separator or operator',
         start: [0, 4, 8],
         end: [0, 13, 9],
+        canReport: true,
       },
     ];
 
@@ -283,6 +284,7 @@ describe(`[auto generated] Correctly merge strings together`, () => {
         info: 'Two statements of the same type are not allowed to be next to each other without a separator or operator',
         start: [0, 4, 8],
         end: [0, 13, 9],
+        canReport: true,
       },
     ];
 

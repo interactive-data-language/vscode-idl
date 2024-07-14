@@ -5,7 +5,7 @@ import {
 } from '@idl/vscode/extension-config';
 
 import { IPackageNLS } from '../../package.interface';
-import { EXTENSION_CONFIG } from '../configuration.interface';
+import { EXTENSION_CONFIG } from '../contributes-configuration.interface';
 import { IDLProblemCodeEnumAndTranslations } from '../helpers/enum-and-translations';
 import { VerifyNLS } from '../helpers/verify-nls';
 import { IDL_CONFIG_SCOPE } from './idl-config-scope.interface';
@@ -50,6 +50,19 @@ export function AddProblemsConfig(nls: IPackageNLS) {
       DEFAULT_IDL_EXTENSION_CONFIG.problems.includeProblemsFromIDLPackages,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.problemsIncludeProblemsFromIDLPackages,
+      nls
+    ),
+    scope: IDL_CONFIG_SCOPE,
+  };
+
+  // folders to not ask to init config for
+  ourConfig.properties[
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems}`
+  ] = {
+    type: 'boolean',
+    default: DEFAULT_IDL_EXTENSION_CONFIG.problems.reportProblems,
+    description: TranslationFromConfiguration(
+      IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems,
       nls
     ),
     scope: IDL_CONFIG_SCOPE,

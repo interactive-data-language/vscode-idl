@@ -1,10 +1,4 @@
 import {
-  GLOBAL_TOKEN_SOURCE_LOOKUP,
-  GlobalRoutineToken,
-  IDL_ANY_TYPE,
-  IParameterOrPropertyDetails,
-} from '@idl/data-types/core';
-import {
   CommentToken,
   MainLevelToken,
   RoutineFunctionToken,
@@ -13,14 +7,20 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
+import {
+  GLOBAL_TOKEN_SOURCE_LOOKUP,
+  GlobalRoutineToken,
+  IDL_ANY_TYPE,
+  IParameterOrPropertyDetails,
+} from '@idl/types/core';
 
 import { IBasicBranch, IBranch, TreeToken } from '../branches.interface';
-import { IParsed } from '../build-syntax-tree.interface';
 import { IDL_DOCS_HEADERS } from '../docs/docs.interface';
 import { ExtractDocs } from '../docs/extract-docs';
 import { JoinDocs } from '../docs/join-docs';
 import { FindAllBranchChildren } from '../helpers/searching/find-all-branch-children';
 import { FindAllBranchChildrenAndDocs } from '../helpers/searching/find-all-branch-children-and-docs';
+import { IParsed } from '../parsed.interface';
 import {
   ILocalIndexedToken,
   ILocalTokenLookup,

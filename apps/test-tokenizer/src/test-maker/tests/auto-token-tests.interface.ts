@@ -109,6 +109,24 @@ export const AUTO_TOKEN_TESTS: IAutoTest[] = [
     ],
   },
   {
+    suiteName: `Validates comment parsing for idl-disabled`,
+    fileName: `comments.idl-disabled.spec.ts`,
+    tests: [
+      { name: `example`, code: `;+ idl-disable` },
+      {
+        name: `example`,
+        code: `;+ some comment idl-disable-next-line unused-var`,
+      },
+      { name: `example`, code: `;+ var comment idl-disable-next-line` },
+      { name: `example`, code: `; idl-disable` },
+      {
+        name: `example`,
+        code: `; some comment idl-disable-next-line unused-var`,
+      },
+      { name: `example`, code: `; var comment idl-disable-next-line` },
+    ],
+  },
+  {
     suiteName: `Validates control statement parsing`,
     fileName: `control.1.spec.ts`,
     tests: [
@@ -148,6 +166,7 @@ export const AUTO_TOKEN_TESTS: IAutoTest[] = [
           `compile_opt`,
           `forward_function, idl2, hidden`,
           `goto, label`,
+          'on_ioerror, bad_num',
         ],
       },
       {
@@ -1058,6 +1077,14 @@ export const AUTO_TOKEN_TESTS: IAutoTest[] = [
       {
         name: 'verifies quote vs number is correctly identified',
         code: [`arr = ["0.00000000"]`],
+      },
+      {
+        name: 'verifies single quote escape',
+        code: [`a = '''string'''`],
+      },
+      {
+        name: 'verifies double quote escape',
+        code: [`a = """string"""`],
       },
     ],
   },

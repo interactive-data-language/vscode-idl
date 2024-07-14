@@ -44,8 +44,11 @@ export function InitializeDocumentManager() {
 
   /**
    * Listen for code formatting requests
+   *
+   * Override the type because its not smart enough to recognize optional
+   * parameters that do not break the patterns that exist
    */
-  SERVER_CONNECTION.onDocumentFormatting(ON_DOCUMENT_FORMATTING);
+  SERVER_CONNECTION.onDocumentFormatting(ON_DOCUMENT_FORMATTING as any);
 
   /**
    * Listen for document symbols

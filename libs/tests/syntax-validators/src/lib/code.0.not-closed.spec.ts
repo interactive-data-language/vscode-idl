@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -35,12 +35,21 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         info: 'Statement is not closed as expected',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -79,6 +88,14 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         info: 'Statement is not closed as expected',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -117,6 +134,14 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         info: 'Statement is not closed as expected',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -155,6 +180,14 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         info: 'Statement is not closed as expected',
         start: [0, 0, 7],
         end: [0, 0, 7],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 7],
+        end: [0, 0, 7],
+        canReport: true,
       },
     ];
 
@@ -193,6 +226,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         info: 'Statement is not closed as expected',
         start: [0, 0, 5],
         end: [0, 0, 5],
+        canReport: true,
       },
     ];
 
@@ -231,12 +265,14 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         info: 'Statement is not closed as expected',
         start: [0, 0, 6],
         end: [0, 0, 6],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 0, 6],
         end: [0, 0, 6],
+        canReport: true,
       },
     ];
 
@@ -275,12 +311,14 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         info: 'Statement is not closed as expected',
         start: [0, 0, 4],
         end: [0, 0, 4],
+        canReport: true,
       },
       {
         code: 68,
         info: 'Expected IDL statement or expression after, but none was found',
         start: [0, 0, 4],
         end: [0, 0, 4],
+        canReport: true,
       },
     ];
 
@@ -319,12 +357,14 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         info: 'Statement is not closed as expected',
         start: [0, 0, 4],
         end: [0, 0, 4],
+        canReport: true,
       },
       {
         code: 38,
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [0, 0, 4],
         end: [0, 9, 0],
+        canReport: true,
       },
     ];
 
@@ -363,18 +403,21 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         info: 'Statement is not closed as expected',
         start: [0, 0, 9],
         end: [0, 0, 9],
+        canReport: true,
       },
       {
         code: 31,
         info: 'In function definitions, the "return" procedure must be present and have one value that it returns',
         start: [0, 0, 9],
         end: [0, 15, 0],
+        canReport: true,
       },
       {
         code: 38,
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [0, 0, 9],
         end: [0, 15, 0],
+        canReport: true,
       },
     ];
 
@@ -413,6 +456,14 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         info: 'Statement is not closed as expected',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -456,42 +507,49 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         info: 'Statement is not closed as expected',
         start: [2, 2, 5],
         end: [2, 2, 5],
+        canReport: true,
       },
       {
         code: 16,
         info: 'Two statements of the same type are not allowed to be next to each other without a separator or operator',
         start: [1, 9, 3],
         end: [1, 13, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "var"',
         start: [1, 9, 3],
         end: [1, 9, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "var"',
         start: [1, 13, 3],
         end: [1, 13, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "var"',
         start: [2, 7, 3],
         end: [2, 7, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "var"',
         start: [2, 11, 3],
         end: [2, 11, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "p"',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -536,42 +594,49 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         info: 'Statement is not closed as expected',
         start: [3, 2, 5],
         end: [3, 2, 5],
+        canReport: true,
       },
       {
         code: 16,
         info: 'Two statements of the same type are not allowed to be next to each other without a separator or operator',
         start: [2, 9, 3],
         end: [2, 13, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "var"',
         start: [2, 9, 3],
         end: [2, 9, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "var"',
         start: [2, 13, 3],
         end: [2, 13, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "var"',
         start: [3, 7, 3],
         end: [3, 7, 3],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "var"',
         start: [3, 11, 3],
         end: [3, 11, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "p"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 

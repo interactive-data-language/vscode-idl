@@ -1,8 +1,8 @@
-import { GlobalTokens } from '@idl/data-types/core';
-import { TaskToGlobalToken } from '@idl/data-types/tasks';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
 import { GetExtensionPath } from '@idl/shared';
+import { GlobalTokens } from '@idl/types/core';
+import { TaskToGlobalToken } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] idl`, async () => {
@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         name: 'idldownload_s3_urltask',
         pos: [0, 0, 0],
         meta: {
-          display: 'idldownload_s3_urltask',
+          display: 'IDLDownload_S3_URLTask',
           source: 'user',
           docs: 'This task downloads a resource specified by an S3 URL into a local file.',
           private: false,

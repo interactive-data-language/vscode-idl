@@ -1,14 +1,14 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
-  IBaseIndexedToken,
-  IDL_TYPE_LOOKUP,
-  IDLTypeHelper,
-} from '@idl/data-types/core';
-import {
   GetTokenAtCursor,
   GetVariableTokenDef,
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import {
+  IBaseIndexedToken,
+  IDL_TYPE_LOOKUP,
+  IDLTypeHelper,
+} from '@idl/types/core';
 import { GetTokenDefResponse } from '@idl/workers/parsing';
 import { Position } from 'vscode-languageserver';
 

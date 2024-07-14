@@ -2,7 +2,7 @@ import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   ParseIDLType,
-} from '@idl/data-types/core';
+} from '@idl/types/core';
 
 import {
   FunctionRoutineType,

@@ -1,12 +1,12 @@
 import { GetExtensionPath, Sleep } from '@idl/shared';
-import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
+import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
-import * as vscode from 'vscode';
 import {
   CompletionItem as LanguageServerCompletionItem,
   TextDocumentPositionParams,
 } from 'vscode-languageserver';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -19,7 +19,7 @@ export const NotebookCompletionBasic: RunnerFunction = async (init) => {
   );
 
   // short pause
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   /**
    * Event params for LSP user interaction
@@ -67,7 +67,4 @@ export const NotebookCompletionBasic: RunnerFunction = async (init) => {
   // verify definition has return
   expect(completion2).toStrictEqual(expect.any(Array));
   expect(completion2.length).not.toEqual(0);
-
-  // clear any existing outputs
-  await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 };

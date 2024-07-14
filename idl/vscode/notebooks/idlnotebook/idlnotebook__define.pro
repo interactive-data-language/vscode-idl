@@ -295,15 +295,51 @@ function IDLNotebook::ExportItems
       catch, /cancel
       IDLNotebook.addToNotebook, !magic
     endif else begin
+      ; check for ENVI
       !null = ENVI.api_version
-      ; only embed non-direct-graphics if ENVI UI is up
-      ; otherwise we get weird items embedded in the UI
-      if (!magic.type ne 0) then begin
-        IDLNotebook.addToNotebook, !magic
-      endif
+
+      switch (!true) of
+        ;+
+        ; If not UI, attempt to embed everything
+        ;-
+        ENVI.widget_id eq 0: IDLNotebook.addToNotebook, !magic
+
+        ;+
+        ; If UI, only embed function graphics
+        ;-
+        ENVI.widget_id ne 0 && !magic.type eq 1: IDLNotebook.addToNotebook, !magic
+
+        ;+
+        ; Direct graphics with UI
+        ;-
+        else: begin
+          ; do nothing
+        end
+      endswitch
+
       catch, /cancel
     endelse
   endif
+
+  ;+
+  ; WIP: Placeholder code to try and fetch graphics without our hooks
+  ;
+  ; It re-embeds graphics after each cell, so doesn't work.
+  ;-
+  ; oSystem = _IDLitSys_GetSystem()
+  ; if obj_valid(oSystem) then begin
+  ; oToolContainer = oSystem.getByIdentifier('/TOOLS/')
+  ; oTools = oToolContainer.get(/all)
+  ; foreach tool, oTools do begin
+  ; oWin = tool.getCurrentWindow()
+  ; !magic.window = obj_valid(oWin, /get_heap_id)
+  ; dim = oWin.dimensions
+  ; !magic.type = 1
+  ; !magic.xsize = dim[0]
+  ; !magic.ysize = dim[1]
+  ; IDLNotebook.addToNotebook, !magic
+  ; endforeach
+  ; endif
 
   catch, err
   if (err ne 0) then begin
@@ -442,11 +478,13 @@ pro IDLNotebook::_TrackNotebookItem, item
 end
 
 ;+
+; :Private:
+;
 ; :Description:
 ;   Class definition procedure
 ;
 ; :IDLNotebook:
-;   enviListener: VSCodeENVIMessageInterceptor
+;   enviListener: VsCodeENVIMessageInterceptor
 ;     If we have created an ENVI listener or not
 ;   graphics: OrderedHash<!magic>
 ;     By window ID, track graphics that we need to embed

@@ -1,32 +1,16 @@
+import { GetIDLProblemSeverity } from '@idl/parsing/syntax-tree';
+import { IDL_LANGUAGE_NAME, ResolveExtensionDocsURL } from '@idl/shared';
+import { IDLDiagnostic } from '@idl/types/diagnostic';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_PROBLEM_DIAGNOSTIC_TAGS,
   IDL_PROBLEM_SEVERITY_LOOKUP,
   ISyntaxProblem,
   SyntaxProblems,
-} from '@idl/parsing/problem-codes';
-import { GetIDLProblemSeverity } from '@idl/parsing/syntax-tree';
-import { GetExtensionPath, IDL_LANGUAGE_NAME } from '@idl/shared';
-import { readdirSync } from 'fs';
-import { basename, join } from 'path';
-import { pathToFileURL } from 'url';
+} from '@idl/types/problem-codes';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver/node';
 
-const HELP_DIR = GetExtensionPath('extension/docs/problem-codes/codes');
-
-/**
- * Get markdown help files
- */
-const MD_HELPS = readdirSync(
-  GetExtensionPath('extension/docs/problem-codes/codes')
-).map((file) => join(HELP_DIR, file));
-
-const HELP_URIS: { [key: string]: string } = {};
-for (let j = 0; j < MD_HELPS.length; j++) {
-  HELP_URIS[basename(MD_HELPS[j], '.md')] = pathToFileURL(
-    MD_HELPS[j]
-  ).toString();
-}
+import { IDL_CLIENT_CONFIG } from './track-workspace-config';
 
 /**
  * Map IDL problem codes to the right level in VSCode
@@ -41,7 +25,9 @@ PROBLEM_MAP[IDL_PROBLEM_SEVERITY_LOOKUP.ERROR] = DiagnosticSeverity.Error;
 /**
  * Converts a syntax problem to a VSCode diagnostic that gets presented to the user
  */
-export function SyntaxProblemToDiagnostic(problem: ISyntaxProblem): Diagnostic {
+export function SyntaxProblemToDiagnostic(
+  problem: ISyntaxProblem
+): IDLDiagnostic {
   // get the severity level of our problem
   const severity = GetIDLProblemSeverity(problem.code);
 
@@ -68,7 +54,15 @@ export function SyntaxProblemToDiagnostic(problem: ISyntaxProblem): Diagnostic {
     code: `"${IDL_PROBLEM_CODE_ALIAS_LOOKUP[problem.code]}", ${problem.code}`,
     source: IDL_LANGUAGE_NAME,
     codeDescription: {
-      href: problem.code in HELP_URIS ? HELP_URIS[problem.code] : undefined,
+      href: ResolveExtensionDocsURL(
+        `/problem-codes/codes/${problem.code}.html`,
+        IDL_CLIENT_CONFIG
+      ),
+    },
+    data: {
+      type: 'idl',
+      code: problem.code,
+      alias: IDL_PROBLEM_CODE_ALIAS_LOOKUP[problem.code],
     },
   };
 }

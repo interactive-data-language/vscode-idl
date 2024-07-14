@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates control statement parsing`, () => {
   it(`[auto generated] parses basic control statements`, async () => {
@@ -141,8 +141,15 @@ describe(`[auto generated] Validates control statement parsing`, () => {
       },
       {
         line: 5,
-        match: ';comment',
+        match: ';',
         startIndex: 10,
+        endIndex: 11,
+        scopes: ['source.idl', 'comment.line.idl'],
+      },
+      {
+        line: 5,
+        match: 'comment',
+        startIndex: 11,
         endIndex: 18,
         scopes: ['source.idl', 'comment.line.idl'],
       },
@@ -534,6 +541,7 @@ describe(`[auto generated] Validates control statement parsing`, () => {
       `compile_opt`,
       `forward_function, idl2, hidden`,
       `goto, label`,
+      `on_ioerror, bad_num`,
     ];
 
     // extract tokens
@@ -642,8 +650,15 @@ describe(`[auto generated] Validates control statement parsing`, () => {
       },
       {
         line: 0,
-        match: '; comment',
+        match: '; ',
         startIndex: 32,
+        endIndex: 34,
+        scopes: ['source.idl', 'comment.line.idl'],
+      },
+      {
+        line: 0,
+        match: 'comment',
+        startIndex: 34,
         endIndex: 41,
         scopes: ['source.idl', 'comment.line.idl'],
       },
@@ -705,8 +720,20 @@ describe(`[auto generated] Validates control statement parsing`, () => {
       },
       {
         line: 1,
-        match: '; line continuation',
+        match: '; ',
         startIndex: 21,
+        endIndex: 23,
+        scopes: [
+          'source.idl',
+          'group.control.compound.idl',
+          'group.line-continuation.idl',
+          'comment.line.idl',
+        ],
+      },
+      {
+        line: 1,
+        match: 'line continuation',
+        startIndex: 23,
         endIndex: 40,
         scopes: [
           'source.idl',
@@ -819,6 +846,39 @@ describe(`[auto generated] Validates control statement parsing`, () => {
         match: 'label',
         startIndex: 6,
         endIndex: 11,
+        scopes: [
+          'source.idl',
+          'group.control.compound.idl',
+          'variable.other.readwrite.ts.idl',
+        ],
+      },
+      {
+        line: 6,
+        match: 'on_ioerror',
+        startIndex: 0,
+        endIndex: 10,
+        scopes: [
+          'source.idl',
+          'group.control.compound.idl',
+          'keyword.control.idl',
+        ],
+      },
+      {
+        line: 6,
+        match: ',',
+        startIndex: 10,
+        endIndex: 11,
+        scopes: [
+          'source.idl',
+          'group.control.compound.idl',
+          'keyword.operator.idl',
+        ],
+      },
+      {
+        line: 6,
+        match: 'bad_num',
+        startIndex: 12,
+        endIndex: 19,
         scopes: [
           'source.idl',
           'group.control.compound.idl',

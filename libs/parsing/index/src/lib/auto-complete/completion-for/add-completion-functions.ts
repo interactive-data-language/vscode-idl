@@ -4,10 +4,10 @@ import {
   STYLE_FLAG_LOOKUP,
 } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
-import { GLOBAL_TOKEN_TYPES } from '@idl/data-types/core';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
-import { TASK_REGEX, TaskFunctionName } from '@idl/parsing/syntax-tree';
+import { TaskFunctionName } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/core';
 import {
   Command,
   CompletionItem,
@@ -17,7 +17,7 @@ import {
 import { SORT_PRIORITY } from '../sort-priority.interface';
 
 /**
- * Display names for fuctions
+ * Display names for functions
  */
 const FUNCTIONS = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.FUNCTION];
 

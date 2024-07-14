@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -134,7 +134,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nparse_docs_below, $\n [ input_raster = ENVIRaster ], $\n [ output_raster_uri = String ], $\n, $\n [ third2 = any ]\n```\n\n\n\n#### Keywords\n\n- **input_raster**: in, optional, ENVIRaster\n\n    Thing 1\n\n- **output_raster_uri**: in, optional, String\n\n    Thing 2\n\n- **third2**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\nparse_docs_below, $\n  input_raster = value, $\n  output_raster_uri = value, $\n, $\n  third2 = value\n```\n\n\n\n\n#### Keywords\n\n- **input_raster**: in, optional, ENVIRaster\n\n    Thing 1\n\n- **output_raster_uri**: in, optional, String\n\n    Thing 2\n\n- **third2**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: { default: '' },
           display: 'parse_docs_below',
           kws: {
@@ -339,7 +339,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = parse_docs_below( [ input_raster = ENVIRaster ], $\n [ output_raster_uri = String ], $\n, $\n [ third2 = any ])\n```\n\n\n\n#### Keywords\n\n- **input_raster**: in, optional, ENVIRaster\n\n    Thing 1\n\n- **output_raster_uri**: in, optional, String\n\n    Thing 2\n\n- **third2**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = parse_docs_below( $\n  input_raster = value $\n  output_raster_uri = value $\n $\n  third2 = value)\n```\n\n\n\n\n#### Keywords\n\n- **input_raster**: in, optional, ENVIRaster\n\n    Thing 1\n\n- **output_raster_uri**: in, optional, String\n\n    Thing 2\n\n- **third2**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: { default: '' },
           display: 'parse_docs_below',
           kws: {

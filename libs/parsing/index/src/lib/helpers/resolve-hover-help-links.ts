@@ -1,8 +1,5 @@
-import {
-  DOCS_IMAGES_URL,
-  HostedDocsURLFromLocal,
-  MatchGlobal,
-} from '@idl/shared';
+import { IDL_COMMANDS, MatchGlobal } from '@idl/shared';
+import { PRODUCT_DOCS_IMAGES } from '@idl/types/websites';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { existsSync } from 'fs';
 import { basename, dirname } from 'path';
@@ -25,7 +22,7 @@ export function ResolveHoverHelpLinks(
   config: IDLExtensionConfig,
   isNotebook = false
 ) {
-  // check if we have a folder for IDL
+  // check if we have a folder for IDL so we can pull images locally
   const localHelp =
     config.IDL.directory !== '' && existsSync(config.IDL.directory);
 
@@ -79,10 +76,10 @@ export function ResolveHoverHelpLinks(
             if (existsSync(uri) && !isNotebook) {
               newLink = pathToFileURL(uri).toString();
             } else {
-              newLink = `${DOCS_IMAGES_URL}/${basename(back)}`;
+              newLink = `${PRODUCT_DOCS_IMAGES}/${basename(back)}`;
             }
           } else {
-            newLink = `${DOCS_IMAGES_URL}/${basename(back)}`;
+            newLink = `${PRODUCT_DOCS_IMAGES}/${basename(back)}`;
           }
 
           // reset value
@@ -92,45 +89,10 @@ export function ResolveHoverHelpLinks(
       // docs that we need to resolve
       case back.startsWith('IDL_DOCS'):
         {
-          // initialize the value for our link
-          let newLink = '';
-
-          //
-          // vscode does not properly honor file links so we need to use our default logic
-          //
-          // // check if we have IDL installed and configured
-          // if (localHelp) {
-          //   // get the relative filepath without our placeholder
-          //   const relative = dirname(back).replace('IDL_DOCS/../', '');
-
-          //   // get the fully-qualified docs folder
-          //   const localFolder = `${idlBase}/help/online_help/${relative}`;
-
-          //   // get actual URL within the file - this is not encoded when built
-          //   // in apps\idl-docs-parser\src\helpers\replace-links.ts
-          //   const localFile = decodeURI(basename(back.split('#')[0]));
-
-          //   // get our URI
-          //   const uri = `${localFolder}/${localFile}`;
-
-          //   // make sure it exists, otherwise default to the web-hosted
-          //   // could be that we dont have the content installed we are trying
-          //   // to reference
-          //   if (existsSync(uri)) {
-          //     newLink =
-          //       pathToFileURL(`${idlBase}/help/online_help`).toString() +
-          //       `/help.htm#../${encodeURI(relative)}/${basename(back)}`;
-          //   } else {
-          //     newLink = HostedDocsURLFromLocal(back);
-          //   }
-          // } else {
-          //   newLink = HostedDocsURLFromLocal(back);
-          // }
-
-          newLink = HostedDocsURLFromLocal(back);
-
-          // reset value
-          newUrl = `[${front}](${newLink})`;
+          // set that we resolve the link from the VSCode from-end and open there
+          newUrl = `[${front}](command:${
+            IDL_COMMANDS.DOCS.OPEN_LINK
+          }?${encodeURI(JSON.stringify({ link: back }))})`;
         }
         break;
       default:

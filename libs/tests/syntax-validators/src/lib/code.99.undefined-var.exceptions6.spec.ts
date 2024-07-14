@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -40,18 +40,21 @@ describe(`[auto generated] With common blocks`, () => {
         info: 'Unused variable "a1"',
         start: [2, 16, 2],
         end: [2, 16, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "bb"',
         start: [2, 20, 2],
         end: [2, 20, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "cc"',
         start: [2, 24, 2],
         end: [2, 24, 2],
+        canReport: true,
       },
     ];
 

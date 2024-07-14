@@ -173,22 +173,24 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
+        label: 'ENVITensorFlowGridModel()',
+        insertText: 'ENVITensorFlowGridModel()',
+        kind: 3,
+        sortText: '03',
+        detail: 'Function',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'ENVITensorFlowModel()',
+        insertText: 'ENVITensorFlowModel()',
+        kind: 3,
+        sortText: '03',
+        detail: 'Function',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
         label: "ENVITask('BuildDeepLearningRaster')",
         insertText: "ENVITask('BuildDeepLearningRaster')",
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
-      },
-      {
-        label: "ENVITask('BuildLabelRasterFromROI')",
-        insertText: "ENVITask('BuildLabelRasterFromROI')",
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
-      },
-      {
-        label: "ENVITask('BuildObjectDetectionRasterFromAnnotation')",
-        insertText: "ENVITask('BuildObjectDetectionRasterFromAnnotation')",
         kind: 3,
         sortText: '03',
         detail: 'Function',
@@ -250,7 +252,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            "Set this keyword to a named variable that will contain any error message issued during execution of this routine. If no error occurs, the ERROR variable will be set to a null string (`''`). If an error occurs and the routine is a function, then the function result will be undefined.\n\nWhen this keyword is not set and an error occurs, ENVI returns to the caller and execution halts. In this case, the error message is contained within !ERROR\\_STATE and can be caught using IDL's CATCH routine. See IDL Help for more information on !ERROR\\_STATE and CATCH.\n\nSee [Manage Errors](https://www.nv5geospatialsoftware.com/docs/ErrorHandling.html) for more information on error handling in ENVI programming.",
+            "Set this keyword to a named variable that will contain any error message issued during execution of this routine. If no error occurs, the ERROR variable will be set to a null string (`''`). If an error occurs and the routine is a function, then the function result will be undefined.\n\nWhen this keyword is not set and an error occurs, ENVI returns to the caller and execution halts. In this case, the error message is contained within !ERROR\\_STATE and can be caught using IDL's CATCH routine. See IDL Help for more information on !ERROR\\_STATE and CATCH.\n\nSee [Manage Errors](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ProgrammingGuide/ErrorHandling.htm%22%7D) for more information on error handling in ENVI programming.",
         },
       },
       {
@@ -262,7 +264,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            "Set this keyword to an ENVIRaster from which all metadata and the following properties will be copied: DATA\\_TYPE, INTERLEAVE, NBANDS, NCOLUMNS, and NROWS. \n\nData acquisition time (from the ENVIRaster TIME property) will not be copied.\n\nSince new rasters are often created as the output of processing an input raster, they typically have the same spatial and spectral dimensions, interleave, and data type as the input raster. The INHERITS\\_FROM keyword provides convenience in inheriting these properties. \n\nIf you do not specify the INHERITS\\_FROM keyword, you must either provide the _Data_ argument and INTERLEAVE is assumed to be 'bsq' if not set, or specify the NBANDS, NCOLUMNS, NROWS, and DATA\\_TYPE properties.\n\nThe NBANDS, NCOLUMNS, NROWS, and DATA\\_TYPE properties have precedence over the values in the INHERITS\\_FROM raster.\n\nSee [ENVIRasterMetadata](https://www.nv5geospatialsoftware.com/docs/ENVIRasterMetaData.html) for details on creating and modifying metadata.\n\n**Note:** If both the SPATIALREF and INHERITS\\_FROM keywords are specified, the spatial reference information from SPATIALREF takes precedence.",
+            "Set this keyword to an ENVIRaster from which all metadata and the following properties will be copied: DATA\\_TYPE, INTERLEAVE, NBANDS, NCOLUMNS, and NROWS. \n\nData acquisition time (from the ENVIRaster TIME property) will not be copied.\n\nSince new rasters are often created as the output of processing an input raster, they typically have the same spatial and spectral dimensions, interleave, and data type as the input raster. The INHERITS\\_FROM keyword provides convenience in inheriting these properties. \n\nIf you do not specify the INHERITS\\_FROM keyword, you must either provide the _Data_ argument and INTERLEAVE is assumed to be 'bsq' if not set, or specify the NBANDS, NCOLUMNS, NROWS, and DATA\\_TYPE properties.\n\nThe NBANDS, NCOLUMNS, NROWS, and DATA\\_TYPE properties have precedence over the values in the INHERITS\\_FROM raster.\n\nSee [ENVIRasterMetadata](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRasterMetadata/ENVIRasterMetaData.htm%22%7D) for details on creating and modifying metadata.\n\n_Note:_ If both the SPATIALREF and INHERITS\\_FROM keywords are specified, the spatial reference information from SPATIALREF takes precedence.",
         },
       },
       {
@@ -298,7 +300,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to the [ENVIRasterMetadata](https://www.nv5geospatialsoftware.com/docs/ENVIRasterMetaData.html) object. If METADATA and INHERITS\\_FROM are both set, the new raster will have the union of both sets of metadata. The METADATA values override those from INHERITS\\_FROM if there is a conflict.',
+            'This property retrieves a reference to the [ENVIRasterMetadata](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRasterMetadata/ENVIRasterMetaData.htm%22%7D) object. If METADATA and INHERITS\\_FROM are both set, the new raster will have the union of both sets of metadata. The METADATA values override those from INHERITS\\_FROM if there is a conflict.',
         },
       },
       {
@@ -343,7 +345,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to an [ENVIGLTRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIGLTRasterSpatialRef.html), [ENVIPseudoRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIPseudoRasterSpatialRef.html), [ENVIRPCRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIRPCRasterSpatialRef.html), or [ENVIStandardRasterSpatialRef](https://www.nv5geospatialsoftware.com/docs/ENVIStandardRasterSpatialRef.html) object.',
+            'This property retrieves a reference to an [ENVIGLTRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIGLTRasterSpatialRef/ENVIGLTRasterSpatialRef.htm%22%7D), [ENVIPseudoRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPseudoRasterSpatialRef/ENVIPseudoRasterSpatialRef.htm%22%7D), [ENVIRPCRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRPCRasterSpatialRef/ENVIRPCRasterSpatialRef.htm%22%7D), or [ENVIStandardRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIStandardRasterSpatialRef/ENVIStandardRasterSpatialRef.htm%22%7D) object.',
         },
       },
       {
@@ -355,7 +357,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'This property retrieves a reference to the [ENVITime](https://www.nv5geospatialsoftware.com/docs/ENVITime.html) object.',
+            'This property retrieves a reference to the [ENVITime](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVITime/ENVITime.htm%22%7D) object.',
         },
       },
       {

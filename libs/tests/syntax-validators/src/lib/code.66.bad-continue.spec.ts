@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -42,18 +42,21 @@ describe(`[auto generated] Detects bad continue statements`, () => {
         info: 'Undefined variable "key"',
         start: [2, 13, 3],
         end: [2, 13, 3],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "i"',
         start: [1, 4, 1],
         end: [1, 4, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "val"',
         start: [2, 8, 3],
         end: [2, 8, 3],
+        canReport: true,
       },
     ];
 
@@ -92,6 +95,7 @@ describe(`[auto generated] Detects bad continue statements`, () => {
         info: '"continue" statements can only exist within a loop',
         start: [1, 0, 8],
         end: [1, 0, 8],
+        canReport: true,
       },
     ];
 

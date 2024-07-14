@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -413,7 +413,7 @@ describe(`[auto generated] Types from`, () => {
               pos: [11, 24, 1],
             },
           },
-          docs: '\n```idl\nresult = most_cases( a, b)\n```\n\n\n\n#### Arguments\n\n- **a**: in, required, Number\n\n  Placeholder docs for argument, keyword, or property\n\n- **b**: in, required, ComplexNumber\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = most_cases(a, b)\n```\n\n\n\n\n#### Arguments\n\n- **a**: in, required, Number\n\n  Placeholder docs for argument, keyword, or property\n\n- **b**: in, required, ComplexNumber\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '', returns: 'any' },
           display: 'most_cases',
           kws: {},

@@ -1,6 +1,6 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 import { ICodeStyle, ITrueBaseAssemblerOptions } from '@idl/assembling/config';
-import { ProblemCodeLookup } from '@idl/parsing/problem-codes';
+import { ProblemCodeLookup } from '@idl/types/problem-codes';
 import {
   IDLExtensionsConfigKeys,
   IDLHistoryConfig,
@@ -27,8 +27,16 @@ export interface ICommandTranslation {
     addDocsToFile: string;
     /** Format file */
     formatFile: string;
+    /** Format all code in a workspace */
+    formatWorkspace: string;
     /** Generates a task file */
     generateTask: string;
+    /** Migrate PRO code to the ENVI DL 3.0 API */
+    migrateToDL30API: string;
+    /** Command to disable problem as setting */
+    disableProblemSetting: string;
+    /** problem we are fixing */
+    fixProblem: string;
   };
   /** Translations for configuration */
   config: {
@@ -64,11 +72,13 @@ export interface ICommandTranslation {
     /** Open ENVI example notebook */
     openENVIExample: string;
     /** Reset notebook session */
-    resetIDL: string;
+    resetIDLKernel: string;
     /** Reset example notebooks */
     resetNotebookExamples: string;
     /** Stop notebook session */
-    stopIDL: string;
+    stopIDLKernel: string;
+    /** Stop all notebooks sessions */
+    stopAllIDLKernels: string;
   };
   /** Terminal commands */
   terminal: {
@@ -77,7 +87,7 @@ export interface ICommandTranslation {
     runFile: string;
     executeBatchFile: string;
     resetIDL: string;
-    stopExecution: string;
+    pauseExecution: string;
     continueExecution: string;
     stepIn: string;
     stepOver: string;
@@ -92,6 +102,8 @@ export interface ICommandTranslation {
   docs: {
     /** Opening the docs */
     open: string;
+    /** Resolve link user clicked on from hover help */
+    openLink: string;
   };
 }
 
@@ -112,6 +124,7 @@ export interface IHoverHelpTranslations {
     pro: string;
     switch: string;
     while: string;
+    on_ioerror: string;
   };
 }
 
@@ -147,24 +160,26 @@ type KeysOfToStrings<T> = {
 export interface IConfigTranslation {
   /** Titles for configuration tabs */
   titles: {
-    /** Root/first level */
-    root: string;
+    /** Internal developer settings */
+    developer: string;
+    /** Documentation settings */
+    documentation: string;
+    /** Code formatting */
+    formatting: string;
     /** general preferences */
     general: string;
     /** IDL configuration */
     idl: string;
-    /** Code formatting */
-    formatting: string;
-    /** problem reporting */
-    problems: string;
-    /** Questions asked to the user */
-    questions: string;
-    /** Internal developer settings */
-    developer: string;
     /** Language server settings */
     languageServer: string;
     /** Notebook settings */
     notebooks: string;
+    /** problem reporting */
+    problems: string;
+    /** Questions asked to the user */
+    questions: string;
+    /** Root/first level */
+    root: string;
   };
   idlDir: {
     notFound: string;
@@ -303,6 +318,13 @@ export interface ITranslation {
         /** Title of the dialog for picking workspace folders to initialize config files for */
         dialogTitle: string;
       };
+      /** Messages when formatting the workspace */
+      formatWorkspace: {
+        /** Title of the dialog for picking workspace to format files in */
+        pickWorkspace: string;
+        /** When there are files we failed to format */
+        notAllFilesFormatted: string;
+      };
     };
   };
   /** Translations related to configuring the extension */
@@ -345,6 +367,8 @@ export interface ITranslation {
       promiseResolveError: string;
       /** Message when we try to run a file, but dont find anything */
       noRoutineFound: string;
+      /** When we detect syntax errors trying to run code */
+      syntaxErrorsFound: string;
       returning: string;
       /** Message to display when users try to pause IDL on windows */
       noPauseOnWindows: string;
@@ -405,6 +429,15 @@ export interface ITranslation {
    * Language server messages
    */
   lsp: {
+    /** Code action translations */
+    codeActions: {
+      disableUser: string;
+      disableWorkspace: string;
+      disableLine: string;
+      disableFile: string;
+      viewProblemCodeDocs: string;
+      viewProblemConfigDocs: string;
+    };
     /** Messages for config file */
     config: {
       /** When we fail to parse IDL's config file */
@@ -431,6 +464,8 @@ export interface ITranslation {
       onDefinition: string;
       /** Error formatting */
       onDocumentFormatting: string;
+      /** Error formatting workspace */
+      onWorkspaceFormatting: string;
       /** Unable to format because of syntax error */
       onDocumentFormattingProblemCode: string;
       /** Auto-complete */
@@ -469,8 +504,14 @@ export interface ITranslation {
       onDidCloseNotebook: string;
       /** Retrieving docs */
       onRetrieveDocs: string;
+      /** Problem migrating code */
+      onMigrateCode: string;
+      /** Unable to migrate code because of error */
+      onMigrateCodeProblemCode: string;
       /** Convert notebook to PRO code */
       onNotebookToProCode: string;
+      /** Convert notebook cell to code we can execute */
+      onPrepareNotebookCell: string;
     };
     /** Misc error reports */
     errors: {
@@ -482,6 +523,13 @@ export interface ITranslation {
       closed: string;
       /** Failed to start the language server */
       start: string;
+      /** Error when starting the docs server because of a port conflict */
+      startDocsServer: string;
+    };
+    /** Titles for progress messages */
+    progress: {
+      /** Progress for formatting workspace */
+      formatWorkspace: string;
     };
     /** Messages for types */
     types: {
@@ -563,15 +611,17 @@ export interface ITranslation {
           notebookToProCode: ITreeInformation;
           /** Convert notebook to PDF */
           notebookToPDF: ITreeInformation;
+          /** Stop all notebook kernels */
+          stopAllNotebookKernels: ITreeInformation;
         };
         /** Deprecated, but tree entries for IDL terminals */
         terminal: {
-          openTerminal: ITreeInformation;
+          startTerminal: ITreeInformation;
           compileTerminal: ITreeInformation;
           runTerminal: ITreeInformation;
           executeTerminal: ITreeInformation;
           resetTerminal: ITreeInformation;
-          stopTerminal: ITreeInformation;
+          pauseTerminal: ITreeInformation;
           continueTerminal: ITreeInformation;
           stepInTerminal: ITreeInformation;
           stepOverTerminal: ITreeInformation;
@@ -579,6 +629,13 @@ export interface ITranslation {
         };
       };
     };
+  };
+  /** Aliases for language names so they appear nice */
+  languages: {
+    idl: string;
+    idlLog: string;
+    idlMdInject: string;
+    idlNotebook: string;
   };
   /** Translations related to the logger */
   logger: {
@@ -592,6 +649,7 @@ export interface ITranslation {
     renderer: string;
     /** Name of the notebook controller */
     controller: string;
+    /** Errors from notebooks */
     errors: {
       /** Bad notebook file */
       errorParsing: string;
@@ -603,6 +661,8 @@ export interface ITranslation {
       failedStart: string;
       /** if we failed to execute one or more cells */
       failedExecute: string;
+      /** if we failed to prepare code to run */
+      failedCodePrepare: string;
       /** Alert users that IDL for notebooks didn't quite start or reset right */
       didntStartRight: string;
       /** IDL crashes while running something in the notebook */
@@ -611,6 +671,8 @@ export interface ITranslation {
       checkingGraphics: string;
       /** Problem with message from renderer being handled */
       handlingMessageFromRenderer: string;
+      /** When we close a notebooks */
+      onDidCloseNotebookDocument: string;
     };
     /** Notifications for working with notebooks */
     notifications: {
@@ -632,6 +694,12 @@ export interface ITranslation {
       needMarkdownPDF: string;
       /** When we need to wait for install before continuing  */
       markdownPDFWaitForInstall: string;
+      /** Notification for user when we start the IDL session for a notebook */
+      startedIDLKernel: string;
+      /** Notification for when IDL doesnt have the right version */
+      notValidIDLVersion: string;
+      /** ENVI notebook cell detected */
+      enviCellDetected: string;
     };
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */
@@ -658,6 +726,8 @@ export interface ITranslation {
     formatOnSave: string;
     /** Init "idl.json" question */
     initIDLJSON: string;
+    /** Do we ask to open docs on startup */
+    openDocs: string;
     /** Configure something */
     configure: string;
     /** Start IDL */
@@ -705,14 +775,16 @@ export interface ITranslation {
   };
   /** Translations related to the theme names */
   themes: {
-    /** Novus (New) IDL */
-    new: string;
     /** Magmatic IDL */
     magmatic: string;
     /** Neon IDL */
     neon: string;
+    /** Novus (New) IDL */
+    new: string;
     /** Retro IDL */
     retro: string;
+    /** Stellar IDL theme */
+    stellar: string;
   };
   /** Translations related to the webview */
   webview: {
@@ -789,6 +861,10 @@ export interface ITranslation {
       keyword: string;
       /** Structure name */
       structure: string;
+      /** ENVI Tasks */
+      enviTask: string;
+      /** IDL Tasks */
+      idltask: string;
     };
   };
   /** Messages from generators */

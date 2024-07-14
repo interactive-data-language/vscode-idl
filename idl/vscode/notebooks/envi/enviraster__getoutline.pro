@@ -1,4 +1,7 @@
 ;+
+;
+; :Private:
+;
 ; :Description:
 ;   Creates GeoJSON for an image bounding box
 ;
@@ -39,6 +42,9 @@ function getRasterBBox_serialize, features
 end
 
 ;+
+;
+; :Private:
+;
 ; :Description:
 ;   Generates a bounding box for a raster in-memory. The assumption is that the image
 ;   being passed to this routine is small and can be processed in-memory.
@@ -97,8 +103,11 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
     bands = useBands, $
     pixelstate = ps, $
     interleave = 0)) then begin
-    message, IDLcfLangCatQuery('Failed to get data array to generate thumbnail'), /noname
+    message, IDLcfLangCatQuery('Failed to get data array for generating outline'), /noname
   endif
+
+  ; create PS if it doesnt exist - edge case for some rasters where its not made
+  if ~isa(ps, /array) then ps = bytarr(size(dat, /dimensions))
 
   ; account for bad pixels
   if raster.metadata.hasTag('data ignore value') then begin

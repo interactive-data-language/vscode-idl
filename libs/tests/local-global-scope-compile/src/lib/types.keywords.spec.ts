@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -378,7 +378,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nmypro, $\n [ kw = Byte ]\n```\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Byte\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nmypro, $\n  kw = value\n```\n\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Byte\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'mypro',
           kws: {
@@ -406,7 +406,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myfunc( [ kw = Long ])\n```\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Long\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myfunc( $\n  kw = value)\n```\n\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Long\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '', returns: 'any' },
           display: 'myfunc',
           kws: {
@@ -467,6 +467,7 @@ describe(`[auto generated] Types from`, () => {
           docs: '',
           props: {},
           source: 'user',
+          private: false,
         },
         file: 'not-real',
       },
@@ -479,7 +480,7 @@ describe(`[auto generated] Types from`, () => {
           method: 'method',
           source: 'user',
           args: {},
-          docs: '\n```idl\nmyclass.method, $\n [ kw = ENVIRaster ]\n```\n\n\n\n#### Keywords\n\n- **kw**: out, optional, ENVIRaster\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nmyclass.method, $\n  kw = value\n```\n\n\n\n\n#### Keywords\n\n- **kw**: out, optional, ENVIRaster\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'myclass::method',
           kws: {
@@ -516,7 +517,7 @@ describe(`[auto generated] Types from`, () => {
           method: 'method',
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myclass.method( [ kw = Array<Number> ])\n```\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Array<Number>\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myclass.method( $\n  kw = value)\n```\n\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Array<Number>\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '', returns: 'any' },
           display: 'myclass::method',
           kws: {
@@ -556,7 +557,7 @@ describe(`[auto generated] Types from`, () => {
           method: 'init',
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myclass.Init()\n```\n\nConstructor\n',
+          docs: '\n```idl\n;+\n; :Returns: myclass\n;+\nresult = myclass()\n```\n\nConstructor\n',
           docsLookup: { default: 'Constructor', returns: 'myclass' },
           display: 'myclass::Init',
           kws: {},
@@ -575,7 +576,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nresult = myclass.Init()\n```\n\nConstructor\n',
+          docs: '\n```idl\n;+\n; :Returns: myclass\n;+\nresult = myclass()\n```\n\nConstructor\n',
           docsLookup: { default: 'Constructor', returns: 'myclass' },
           display: 'myclass',
           kws: {},

@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "code",
+      "content": [
+        "; dont show print",
+        "1 + ("
+      ],
+      "metadata": {},
+      "outputs": [
+        {
+          "items": [
+            {
+              "mime": "text/plain",
+              "content": [
+                "",
+                "1 + (",
+                " ^",
+                "% Syntax error.",
+                "  At: syntax-error.idlnb, Cell 1, Line 2",
+                "",
+                "% End of file encountered before end of program.",
+                "  At: syntax-error.idlnb, Cell 1, Line 3",
+                "% 2 Compilation error(s) in module $MAIN$.",
+                ""
+              ]
+            }
+          ],
+          "metadata": {
+            "id": "not-saved"
+          }
+        }
+      ]
+    }
+  ]
+}

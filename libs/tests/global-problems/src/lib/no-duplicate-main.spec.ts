@@ -1,8 +1,8 @@
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { GetExtensionPath } from '@idl/shared';
-import { SanitizeAllProblems } from '@idl/test-helpers';
+import { SanitizeAllProblems } from '@idl/tests/helpers';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 

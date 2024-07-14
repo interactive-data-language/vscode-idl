@@ -1,17 +1,17 @@
 import {
-  DEFAULT_DATA_TYPE,
-  GLOBAL_TOKEN_SOURCE_LOOKUP,
-  GlobalStructureToken,
-  IGlobalIndexedToken,
-  ParseIDLType,
-} from '@idl/data-types/core';
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
-import {
   RoutineMethodNameToken,
   RoutineNameToken,
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  DEFAULT_DATA_TYPE,
+  GLOBAL_TOKEN_SOURCE_LOOKUP,
+  GlobalStructureToken,
+  IGlobalIndexedToken,
+  ParseIDLType,
+} from '@idl/types/core';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 
 import { IBranch } from '../branches.interface';

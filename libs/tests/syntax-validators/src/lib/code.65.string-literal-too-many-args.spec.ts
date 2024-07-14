@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -29,7 +29,15 @@ describe(`[auto generated] Detects when a string literal has too many arguments`
     );
 
     // define expected tokens
-    const expected: SyntaxProblems = [];
+    const expected: SyntaxProblems = [
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 1],
+        end: [0, 18, 1],
+        canReport: true,
+      },
+    ];
 
     // verify results
     expect(
@@ -62,10 +70,18 @@ describe(`[auto generated] Detects when a string literal has too many arguments`
     // define expected tokens
     const expected: SyntaxProblems = [
       {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 1],
+        end: [0, 20, 1],
+        canReport: true,
+      },
+      {
         code: 99,
         info: 'Undefined variable "w"',
         start: [0, 13, 1],
         end: [0, 13, 1],
+        canReport: true,
       },
     ];
 
@@ -104,12 +120,21 @@ describe(`[auto generated] Detects when a string literal has too many arguments`
         info: 'String literals are only allowed to have up-to one comma to specify formatting',
         start: [0, 1, 2],
         end: [0, 21, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 1],
+        end: [0, 22, 1],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "abc"',
         start: [0, 9, 3],
         end: [0, 9, 3],
+        canReport: true,
       },
     ];
 

@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -70,48 +70,56 @@ describe(`[auto generated] Pointer de-ref without pointers`, () => {
         info: 'Pointer de-referencing can only be used with pointer data types',
         start: [26, 6, 1],
         end: [26, 8, 0],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg2"',
         start: [16, 20, 4],
         end: [16, 20, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "arg4"',
         start: [16, 32, 4],
         end: [16, 32, 4],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "a"',
         start: [20, 2, 1],
         end: [20, 2, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
         start: [23, 2, 1],
         end: [23, 2, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "d"',
         start: [26, 2, 1],
         end: [26, 2, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "f"',
         start: [29, 2, 1],
         end: [29, 2, 1],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "g"',
         start: [32, 2, 1],
         end: [32, 2, 1],
+        canReport: true,
       },
     ];
 

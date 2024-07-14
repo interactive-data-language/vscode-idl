@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -48,72 +48,84 @@ describe(`[auto generated] Detects unexpected closers`, () => {
         info: 'Unexpected closing statement',
         start: [0, 0, 1],
         end: [0, 0, 1],
+        canReport: true,
       },
       {
         code: 1,
         info: 'Unexpected closing statement',
         start: [1, 0, 1],
         end: [1, 0, 1],
+        canReport: true,
       },
       {
         code: 1,
         info: 'Unexpected closing statement',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
       {
         code: 1,
         info: 'Unexpected closing statement',
         start: [3, 0, 5],
         end: [3, 0, 5],
+        canReport: true,
       },
       {
         code: 1,
         info: 'Unexpected closing statement',
         start: [4, 0, 7],
         end: [4, 0, 7],
+        canReport: true,
       },
       {
         code: 1,
         info: 'Unexpected closing statement',
         start: [5, 0, 6],
         end: [5, 0, 6],
+        canReport: true,
       },
       {
         code: 1,
         info: 'Unexpected closing statement',
         start: [6, 0, 10],
         end: [6, 0, 10],
+        canReport: true,
       },
       {
         code: 1,
         info: 'Unexpected closing statement',
         start: [7, 0, 6],
         end: [7, 0, 6],
+        canReport: true,
       },
       {
         code: 1,
         info: 'Unexpected closing statement',
         start: [8, 0, 8],
         end: [8, 0, 8],
+        canReport: true,
       },
       {
         code: 1,
         info: 'Unexpected closing statement',
         start: [9, 0, 9],
         end: [9, 0, 9],
+        canReport: true,
       },
       {
         code: 1,
         info: 'Unexpected closing statement',
         start: [10, 0, 7],
         end: [10, 0, 7],
+        canReport: true,
       },
       {
         code: 34,
         info: 'Main level programs cannot be empty. IDL expects statements besides comments and "end".',
         start: [11, 0, 3],
         end: [11, 0, 3],
+        canReport: true,
       },
     ];
 
@@ -158,12 +170,14 @@ describe(`[auto generated] Detects unexpected closers`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [0, 0, 9],
         end: [0, 11, 0],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "fclip"',
         start: [1, 17, 5],
         end: [1, 17, 5],
+        canReport: true,
       },
     ];
 

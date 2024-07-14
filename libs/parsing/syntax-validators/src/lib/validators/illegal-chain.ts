@@ -1,4 +1,3 @@
-import { IDL_PROBLEM_CODES } from '@idl/parsing/problem-codes';
 import {
   IDL_SYNTAX_TREE_VALIDATOR,
   IParsed,
@@ -14,6 +13,7 @@ import {
   TOKEN_NAMES,
   TokenName,
 } from '@idl/parsing/tokenizer';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 /**
  * Tokens that need to be wrapped

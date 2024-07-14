@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates comment parsing`, () => {
   it(`[auto generated] parses simple comments`, async () => {
@@ -12,8 +12,15 @@ describe(`[auto generated] Validates comment parsing`, () => {
     const expected = [
       {
         line: 0,
-        match: '; something()',
+        match: '; ',
         startIndex: 1,
+        endIndex: 3,
+        scopes: ['source.idl', 'comment.line.idl'],
+      },
+      {
+        line: 0,
+        match: 'something()',
+        startIndex: 3,
         endIndex: 14,
         scopes: ['source.idl', 'comment.line.idl'],
       },
@@ -82,8 +89,15 @@ describe(`[auto generated] Validates comment parsing`, () => {
       },
       {
         line: 0,
-        match: '; something()',
+        match: '; ',
         startIndex: 8,
+        endIndex: 10,
+        scopes: ['source.idl', 'comment.line.idl'],
+      },
+      {
+        line: 0,
+        match: 'something()',
+        startIndex: 10,
         endIndex: 21,
         scopes: ['source.idl', 'comment.line.idl'],
       },

@@ -3,7 +3,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { GetTokenNames } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -73,6 +73,7 @@ describe(`[auto generated] Verify array formatting`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -164,6 +165,7 @@ describe(`[auto generated] Verify array formatting`, () => {
         info: 'Unused variable "a"',
         start: [2, 0, 1],
         end: [2, 0, 1],
+        canReport: true,
       },
     ];
 
@@ -267,126 +269,147 @@ describe(`[auto generated] Verify array formatting`, () => {
         info: 'Undefined variable "numRows"',
         start: [2, 12, 7],
         end: [2, 12, 7],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xRows"',
         start: [3, 0, 5],
         end: [3, 0, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xCobs"',
         start: [3, 24, 5],
         end: [3, 24, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xRows"',
         start: [4, 0, 5],
         end: [4, 0, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xCobs"',
         start: [4, 24, 5],
         end: [4, 24, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xRows"',
         start: [5, 0, 5],
         end: [5, 0, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xCobs"',
         start: [5, 24, 5],
         end: [5, 24, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xRows"',
         start: [6, 0, 5],
         end: [6, 0, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xCobs"',
         start: [6, 24, 5],
         end: [6, 24, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xRows"',
         start: [7, 0, 5],
         end: [7, 0, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xCobs"',
         start: [7, 24, 5],
         end: [7, 24, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xRows"',
         start: [8, 0, 5],
         end: [8, 0, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xCobs"',
         start: [8, 24, 5],
         end: [8, 24, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xRows"',
         start: [9, 0, 5],
         end: [9, 0, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xCobs"',
         start: [9, 24, 5],
         end: [9, 24, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xRows"',
         start: [10, 0, 5],
         end: [10, 0, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xCobs"',
         start: [10, 24, 5],
         end: [10, 24, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xRows"',
         start: [11, 0, 5],
         end: [11, 0, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xCobs"',
         start: [11, 24, 5],
         end: [11, 24, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xRows"',
         start: [12, 0, 5],
         end: [12, 0, 5],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "xCobs"',
         start: [12, 24, 5],
         end: [12, 24, 5],
+        canReport: true,
       },
     ];
 
@@ -460,36 +483,42 @@ describe(`[auto generated] Verify array formatting`, () => {
         info: 'Undefined variable "overlaps"',
         start: [0, 0, 8],
         end: [0, 0, 8],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "sIdx"',
         start: [0, 15, 4],
         end: [0, 15, 4],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "segs"',
         start: [0, 31, 4],
         end: [0, 31, 4],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "tSub"',
         start: [0, 36, 4],
         end: [0, 36, 4],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "tSub"',
         start: [0, 46, 4],
         end: [0, 46, 4],
+        canReport: true,
       },
       {
         code: 99,
         info: 'Undefined variable "tSub"',
         start: [0, 55, 4],
         end: [0, 55, 4],
+        canReport: true,
       },
     ];
 
@@ -561,6 +590,7 @@ describe(`[auto generated] Verify array formatting`, () => {
         info: 'Undefined variable "meta"',
         start: [0, 0, 4],
         end: [0, 0, 4],
+        canReport: true,
       },
     ];
 

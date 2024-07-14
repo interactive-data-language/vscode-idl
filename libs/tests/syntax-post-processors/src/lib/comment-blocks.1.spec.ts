@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 describe(`[auto generated] Correctly map comments to comment blocks`, () => {
   it(`[auto generated] ignore normal comments`, () => {
@@ -482,6 +482,7 @@ describe(`[auto generated] Correctly map comments to comment blocks`, () => {
         info: 'Documentation is not left-aligned with the start of docs (not enough spaces before docs)',
         start: [3, 0, 8],
         end: [3, 0, 8],
+        canReport: true,
       },
     ];
 

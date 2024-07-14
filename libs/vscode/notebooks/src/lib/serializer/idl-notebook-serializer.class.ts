@@ -1,5 +1,5 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { IDL_RAW_NOTEBOOK_VERSION_LOOKUP } from '@idl/notebooks/types';
+import { IDL_RAW_NOTEBOOK_VERSION_LOOKUP } from '@idl/types/notebooks';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';
@@ -10,7 +10,7 @@ import { ToIDLRawNotebook } from './to/to-idl-raw-notebook';
 /**
  * Parses/serializes notebook data
  */
-export class IDLNotebookSerializer implements IDLNotebookSerializer {
+export class IDLNotebookSerializer {
   /**
    * Converts a serialized notebook back to a notebook document that
    * VSCode can render

@@ -1,7 +1,7 @@
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
 import { GetExtensionPath } from '@idl/shared';
-import { SanitizeAllProblems } from '@idl/test-helpers';
+import { SanitizeAllProblems } from '@idl/tests/helpers';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
@@ -24,9 +24,9 @@ export async function TestsForGlobalProblems(
   strings.push(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
   );
-  strings.push(`import { SyntaxProblems } from '@idl/parsing/problem-codes';`);
   strings.push(`import { GetExtensionPath } from '@idl/shared';`);
-  strings.push(`import { SanitizeAllProblems } from '@idl/test-helpers';`);
+  strings.push(`import { SanitizeAllProblems } from '@idl/tests/helpers';`);
+  strings.push(`import { SyntaxProblems } from '@idl/types/problem-codes';`);
 
   strings.push(``);
   strings.push(`IDL_INDEX_OPTIONS.IS_TEST = true;`);

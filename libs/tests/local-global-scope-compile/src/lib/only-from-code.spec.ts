@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -135,7 +135,7 @@ describe(`[auto generated] Only use code for docs`, () => {
               pos: [8, 0, 27],
             },
           },
-          docs: '\n```idl\nmyPro, a,, $\n kw1 = Int, $\n\n```\n\nHeader\n\n#### Arguments\n\n- **a**: in, required, Int\n\n  Some cool statement across\n  \n  multiple lines\n\n\n#### Keywords\n\n- **kw1**: in, required, Int\n\n    Some cool statement across\n    \n    multiple lines\n\n\n### Author\n\nMeeeeeeeeeeeeeeeeeee',
+          docs: '\n```idl\nmyPro, a, , $\n  kw1 = value, $\n\n```\n\nHeader\n\n\n#### Arguments\n\n- **a**: in, required, Int\n\n  Some cool statement across\n  \n  multiple lines\n\n\n\n#### Keywords\n\n- **kw1**: in, required, Int\n\n    Some cool statement across\n    \n    multiple lines\n\n\n\n### Author\n\nMeeeeeeeeeeeeeeeeeee',
           docsLookup: { default: 'Header', author: 'Meeeeeeeeeeeeeeeeeee' },
           display: 'myPro',
           kws: {

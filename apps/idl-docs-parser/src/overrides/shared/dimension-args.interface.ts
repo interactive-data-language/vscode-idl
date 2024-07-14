@@ -1,4 +1,4 @@
-import { IDL_ANY_TYPE, IDL_NUMBER_TYPE } from '@idl/data-types/core';
+import { IDL_ANY_TYPE, IDL_NUMBER_TYPE } from '@idl/types/core';
 
 import { ISharedArgsOrKeywords } from './shared.interface';
 

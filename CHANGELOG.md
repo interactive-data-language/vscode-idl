@@ -8,6 +8,248 @@ For much more detail on incremental work for large features, see our [developer 
 
 This section of the CHANGELOG documents features that have been added to the extension, but are still in an experimental phase. Feel free to try them out and provide feedback via discussions or issues on our GitHub page.
 
+Document some advanced types so users may try them out and provide feedback. The following types are exclusive to functions and are:
+
+- `TypeOfArg<idx>` to indicate the function returns a matching data type for the zero-based index of the indicated argument
+
+- `ArrayPromotion<type>` will have the function return an array of the indicated type if any argument is an array. Otherwise it returns a scalar
+
+- Read more in the extension documentation
+
+## Unreleased
+
+Fixed an issue where we open a file that we have stopped in, even if it is compiled as a SAVE file. Now, only PRO files will be jumped to.
+
+## 4.5.1 - May 2024
+
+Continuing with our story of IDL Notebook user experience, each session of notebook now gets it's own instance of IDL! This means a few things:
+
+- You can now run more than one IDL Notebook in parallel! This makes it easy to crank through data or multi-task to your heart's content.
+
+- Each session of IDL notebook is sand-boxed and a separate process. This means notebooks won't interact with each other.
+
+- When you close an IDL Notebook, the associated IDL Kernel is automatically stopped
+
+- A new sidebar entry in the Notebook section, allows you to stop all IDL Notebook Kernels
+
+Remove a false error report when you stop IDL (terminate the process) while it is running
+
+Fixed an error where we were not automatically returning from the main level when you compiled a main level program.
+
+Fixed an issue in IDL Notebooks where, once ENVI is started, a notebook no longer can embed multiple graphics in a single notebook cell.
+
+When ENVI is started, as long as the UI is not present, we now embed direct graphics. If the ENVI UI is open, we dont embed direct graphics.
+
+## 4.5.0 - May 2024
+
+New-and improved IDL Notebook user experience!
+
+- When compiling cells, we don't show you the output from compiling to focus on what runs
+
+- The paths for notebook cells have been cleaned up and are now easy to read (before they had IDs in the names of the paths)
+
+- Notebook cells now offer implied print! For main level programs (i.e. cells by default), we detect and automatically print variables, outputs from function calls, and expressions like "2 + 42". You can see some examples of this in our sample IDL Notebook included with the extension.
+
+- Variables that will be printed have a special semantic token highlighting applied to them to make it clear it is not being interpreted as a procedure. This depends on your VSCode theme, but should either look like other variables or stands out compared to procedure calls.
+
+- After running a notebook cell, we check to see if there is any output. If there is no output, we do not create notebook cell output. Previously we always added output to cells, even if there wasn't anything to track.
+
+Fixed an issue where we incorrectly reported an error when using the property index signature to retrieve a property. This affected statements of the form "struct.(0).(0)"
+
+Add icons for the languages that we contribute to the extension
+
+Add human-readable names for the languages that we contribute
+
+Fixed an edge case when reporting that a variable cannot be indexed with the `!null` type
+
+Type detection now properly handles the following cases:
+
+- Any statement using `&&` or `||` will return boolean type
+
+- Any statement using a logical operator should return the correct type (i.e. `eq`, `ne`, `le`). For example: `[1,2,3] eq 5` should give a type of `Array<Boolean>`. This supports lists, hashes, orderedhashes, and dictionaries.
+
+These type changes help fix scenarios where we were incorrectly reporting errors for extension users.
+
+The extension now automatically detects when you have code that is "standalone" which needs to be assigned to a value (or have a value assigned to it).
+
+When running IDL through the debug console, we now properly catch stops/breakpoints that aren't a result of manually sending commands to IDL. This supports use cases where widget/UI applications are running and hit a stop or breakpoint in a callback routine.
+
+Moved the following features out of `preview` since there have been no reported issues:
+
+Added the ability to convert a notebook to a PDF! This requires an additional extension called ":"Markdown PDF", which you will be prompted to install. This includes:
+
+- A new sidebar entry for PDF generation and a button in the top-right of the notebook to generate a PDF
+
+- When you click the button to create a PDF, as long as your notebook is saved to disk, it will create Markdown, open it, and start the PDF generation process
+
+- Once finished, it closes the Markdown file
+
+- The Markdown and PDF file use the same base name as your notebook. Meaning if your notebook is called "My-notebook.idlnb" you will have a "My-notebook.md" and "My-notebook.pdf" file generated in the same folder
+
+- You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
+
+## 4.4.2 - April 2024
+
+For notebook cells, syntax errors are now highlighted and problems are reported on the lines that have errors. This behaves the same as PRO files when using the debug console as well.
+
+When you run a notebook cell, and IDL stops running, we now show the line in the cell that was stopped on to help track down problems.
+
+Syntax error and notebook decorations now cover the whole line instead of just the text on the line to help make them pop more.
+
+Improved the user experience for breakpoints when working with IDL. Some of the new behaviors include:
+
+- Properly setting breakpoints when you add them to a file before IDL starts
+
+- When you manually compile any file, we synchronize the actual location of breakpoints with VSCode
+
+Fixed a rare error where, when IDL was running in the debug console, we would fail to fetch internal information about IDL.
+
+When converting notebooks to PDFs, add a short pause before generating the PDF try avoid having to click the button twice.
+
+Fixed an issue where, when you would delete a notebook cell that had reported problems, the problems would always stick around in the "Problems" tab of VSCode
+
+Re-worked quote formatting to not potentially break user code. There are a few edge cases where the quotes cause errors when they were flipped from single to double (or double to single). Now, all quotes preserve the interior content of the string so that IDL interprets them the same.
+
+Fixed a small issue with syntax highlighting where we weren't detecting escaped quotes (and highlighting them) as we should have.
+
+Tweak setting IDL's DLM path when launching so that users can specify custom paths through normal environment variables and have it be supported.
+
+When IDL starts up for notebooks, we now check to make sure you have at least IDL 8.8.0 which has some required updates in order for the notebooks to function as expected.
+
+Updated the main README and notebooks docs to reflect the version requirements.
+
+When IDL starts for Notebooks, we update the kernel indicator in the top-right of the notebook to show the version of IDL we are using. We use this now instead of the pop-up window that used to appear.
+
+## 4.4.1 April 2024
+
+Fix a bug where watch variables were being executed and causing chaos in IDL debug sessions
+
+## 4.4.0 - April 2024
+
+Fixed an issue where the names of ENVI and IDL tasks were incorrectly lower-case instead of what the user had specified in the task files.
+
+Resolved a long-time bug where internal output would appear in the debug console when running IDL in VSCode.
+
+Reworked routine signatures that appear in hover help to be more user friendly!
+
+- You can now copy/paste the signature blocks and each one is valid IDL code
+
+- No brackets surrounding optional parameters
+
+- For functions and function methods, the return type is added before the routine syntax
+
+Changed the output from IDL in the debug console so that it no longer prints "IDL>" or "ENVI>" for a new user experience compared to the IDL Workbench.
+
+Fixed an issue with fast parsing where line continuations and comments were not handled correctly which would make parsing miss keywords, arguments, and make some up.
+
+Add back in the Terminal commands and buttons to the IDL sidebar for users that prefer to use terminals instead of the debug console.
+
+Fixed a bug that incorrectly reported a type incompatibility when using statements like `val eq !null`
+
+To help accentuate syntax errors in files, lines are now highlighted.
+
+As part of the syntax error line highlights, we have the framework to support code coverage in the future! Which should be coming in a release at some point.
+
+Tweak the snippets for for loops to use n_elements() on a variable instead of having a static value
+
+Re-work the logic for running files to be much more flexible. Here's how it behaves:
+
+1. If you have a main level program, compile the file and then run the main program
+
+2. If you have a procedure or function as the bottom-most routine, attempt to call without any arguments keywords
+
+3. If you have a function method or procedure method as the bottom-most routine, we do not run anything
+
+4. If we detect a syntax error when we compile your file, we stop before running
+
+Fixed an issue where, when a parameter had the name "file", "http", "https", "s3", or "ftp", it would incorrectly be skipped with docs parsing.
+
+## 4.3.1 February 2024
+
+Resolved an issue where the language server would take a while to startup when you didn't have any workspace folders open. It should be almost instantaneous now!
+
+Resolved an issue where problems were not correctly reported (or honoring settings changes) for files that didn't belong to a workspace.
+
+Added more controls to help fine-tune problem reporting and be able to disable it altogether:
+
+- Add code actions for being able to easily disable problem codes from within the editor for a workspace or user settings
+
+- Code actions work for notebooks or PRO files
+
+- Added an IDL comment-based API to control how problems are reported for files and lines of IDL code
+
+- Added a new preference that will disable problem reporting altogether
+
+Update documentation for all problem codes to point to our configuration guide for how to disable problems
+
+Fixed an issue where, after the new documentation was added to the extension, that we no longer correctly opened example notebooks.
+
+With the addition of new commands for code actions and fixing reported problems, we have retroactively removed some from the command palette that were meant for internal use.
+
+## 4.3.0 February 2024
+
+Added official documentation to the extension! It is hosted on Github pages and a local copy is included with the extension.
+
+- If you are offline, and working locally, you can update your preferences to serve the docs through the language server
+
+- If you do use local docs, make sure that the port is free and not currently in use
+
+- All problem codes include links that, based on your preference, will take you to examples in the docs and tips to fix
+
+- Let us know if there are more things that need to be documented, or if documentation can be improved in any way
+
+Fixed a bug where python statements of the form ">>>" were incorrectly formatted with an extra space after the arrows.
+
+For the upcoming release of ENVI Deep Learning 3.0, added a new pipeline for migrating code from older to newer versions. While we typically do not make breaking changes, if we ever do, we now have a pattern to help automate getting your code up-to-date with the latest version of IDL, ENVI, and module APIs.
+
+Updated the routine signatures (docs) to IDL 9.0, ENVI 6.0, and ENVI Deep Learning 3.0.
+
+When converting notebooks to PRO code, any markdown cells now get added in-line to the content at the main program level. This helps create code that more accurately follows the flow of what you had in your notebook (assuming not many routine definitions in the notebook cells).
+
+When converting notebooks to PRO code, any markdown cells now have leading and training white space removed before converting to comments.
+
+When an IDL Notebook is open, added a new, quick-access button in the top-right of the Notebook that allows you to convert your notebook to PRO code.
+
+When an IDL Notebook is open, we migrated the "Reset IDL" and "Stop IDL" buttons to the top-right of the Notebooks view to clean up the main action area.
+
+When IDL starts for a notebook, a notification message appears telling you which version of IDL is being used
+
+When creating a PDF from a notebook, we no longer keep the Markdown conversion of the notebook open. The file still sticks around on disk, but we thought this would cause less confusion.
+
+Fixed an issue where post-processing would fail with specific syntax errors and ENVI or IDL Task functions
+
+Added a new auto-completion method for the names of ENVI and IDL tasks which will insert the appropriate names for syntax cases matching:
+
+- `ENVITask('')` which lists all ENVI Tasks when auto-completion is triggered in the quotes
+
+- `IDL('')` which lists all IDL Tasks when auto-completion is triggered in the quotes
+
+- Supports single quotes, double quotes, and string literal strings
+
+Similar to `ENVITask` and `IDLTask`, add special auto-complete cases for `call_function()` and `obj_new()`
+
+Auto-complete for `call_function()` now shows keywords like `obj_new()` does
+
+Go-to-definition for `call_function()` goes to the function definition if in PRO code
+
+Hover-help for `call_function()` pulls the hover help for the function being called
+
+We now automatically detect the type from `call_function()` if we have a known function
+
+Fixed an edge case with types where the "any" type was not properly being detected with arrays of structures
+
+Fixed an issue where `on_ioerror` was treated as a procedure when it should be a control statement
+
+Fixed a typo in the problem code alias `docs-invalid-require` to correctly be `docs-invalid-required`. If you had this problem disabled, you will need to disable it again.
+
+Fixed a typo in the problem code alias `docs-missing-arg` to correctly be `docs-missing-args`. If you had this problem disabled, you will need to disable it again.
+
+Fixed a typo in the problem code alias `docs-missing-kw` to correctly be `docs-missing-kws`. If you had this problem disabled, you will need to disable it again.
+
+---
+
+Migrated the following features from "Preview Features" above:
+
 Code style revamp! We reworked how routines, routine methods, properties, and structure names get formatted. This includes:
 
 - Support for camel case ("camelCase") and pascal case ("PascalCase") styling. Mileage may vary here, based on the routine names, so please let us know if this doesn't look quite right or do what you expect. Some routines that start with "IDL" or "ENVI" might surprise you with the case conversion.
@@ -34,21 +276,29 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 
 - When generating ENVI and IDL tasks, using our new case libraries, we attempt to make a pretty display name from parameter names. For example converting the keyword "my_keyword" to "My Keyword". This applied to task and parameter display names.
 
+## 4.2.3 January 2024
+
+Resolved an issue with the auto-complete performance improvements where auto-complete would include character-by-character auto-completions for routines and structures. For example, if you created a function called `myplot`, you would get auto complete for `m`, `my`, `myp`, etc. depending on how fast you typed.
+
+## 4.2.2 December 2023
+
+Resolved a performance issue with notebooks where auto-complete and hover help would take a while to return if you have been making many edits in a short amount of time
+
+Fixed an issue with semantic tokens not showing up like they should.
+
+Tweaked the styling for PDF generation to have output cells look a little different than input.
+
+## 4.2.1 December 2023
+
+Fixed an issue where logs were sharing too much information and other logs were not properly reporting
+
 ## 4.2.0 December 2023
 
-Added the ability to convert a notebook to a PDF! This requires an additional extension called ":"Markdown PDF", which you will be prompted to install. This includes:
-
-- A new sidebar entry for PDF generation and a button in the top-right of the notebook to generate a PDF
-
-- When you click either, as long as your notebook is saved to disk, it will create Markdown, open it, and start the PDF generation process
-
-- Once finished, it closes the Markdown file
-
-- The Markdown and PDF file use the same base name as your notebook. Meaning if your notebook is called "My-notebook.idlnb" you will have a "My-notebook.md" and "My-notebook.pdf" file generated in the same folder
-
-- You do need to save your notebook to disk so we have a path to write the Markdown and PDF files
-
 Updated the ENVI Notebook maps to no longer show "No data available" images and, instead, zoom into the highest zoom level available for basemaps
+
+When you create a new notebook, you are prompted to save so that we can have auto-complete, hover help, and other user interactions.
+
+Also updated the content of the sample notebook to add a note about saving to disk in order to enable those features.
 
 Fixed an issue where we didn't have the right paths for IDL 9.0 on Mac and included a path for ARM64 for Apple Silicon
 
@@ -83,6 +333,8 @@ While re-working our data transfer pipeline, we also made some fixes and improve
 - Changed the logic for when we send properties, procedure methods, and function methods and made it context aware to only send things like procedure methods where they are allowed
 
 Resolve an issue where a circular error would be reported when creating JSON
+
+Fixed an issue where go-to-definition for a notebook cell wouldn't take you to the definition
 
 ## 4.1.2 December 2023
 

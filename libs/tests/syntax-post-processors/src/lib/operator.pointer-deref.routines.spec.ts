@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { SyntaxTree } from '@idl/parsing/syntax-tree';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
   it(`[auto generated] in functions`, () => {
@@ -948,6 +948,7 @@ describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
         info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
         start: [0, 0, 5],
         end: [0, 0, 5],
+        canReport: true,
       },
     ];
 

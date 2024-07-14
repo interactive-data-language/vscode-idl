@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
+import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -42,6 +42,7 @@ describe(`[auto generated] Detects when the returns tag is present for procedure
         info: 'Unused variable "var1"',
         start: [3, 15, 4],
         end: [3, 15, 4],
+        canReport: true,
       },
     ];
 
@@ -89,12 +90,14 @@ describe(`[auto generated] Detects when the returns tag is present for procedure
         info: 'For procedures, the ":Returns:" documentation tag is not needed because procedures cannot return values',
         start: [0, 0, 2],
         end: [4, 0, 2],
+        canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "var1"',
         start: [5, 15, 4],
         end: [5, 15, 4],
+        canReport: true,
       },
     ];
 

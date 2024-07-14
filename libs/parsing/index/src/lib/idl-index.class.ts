@@ -5,35 +5,32 @@ import {
 } from '@idl/assembling/config';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
-  GLOBAL_TOKEN_SOURCE_LOOKUP,
-  GlobalTokens,
-  GlobalTokenType,
-} from '@idl/data-types/core';
-import { TaskToGlobalToken } from '@idl/data-types/tasks';
-import {
   IDL_LSP_LOG,
   IDL_WORKER_THREAD_CONSOLE,
   LogManager,
 } from '@idl/logger';
 import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
 import { Parser } from '@idl/parser';
-import { SyntaxProblems } from '@idl/parsing/problem-codes';
 import { GetIncludeFile, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { IncludeToken } from '@idl/parsing/tokenizer';
 import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
 import {
   ALL_FILES_GLOB_PATTERN,
-  IDL_JSON_URI,
-  IDL_NOTEBOOK_EXTENSION,
-  IDL_SAVE_FILE_EXTENSION,
+  IDLFileHelper,
   NODE_MEMORY_CONFIG,
   PRO_DEF_EXTENSION,
   PRO_FILE_EXTENSION,
   SystemMemoryUsedMB,
-  TASK_FILE_EXTENSION,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  GLOBAL_TOKEN_SOURCE_LOOKUP,
+  GlobalTokens,
+  GlobalTokenType,
+} from '@idl/types/core';
+import { SyntaxProblems } from '@idl/types/problem-codes';
+import { TaskToGlobalToken } from '@idl/types/tasks';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDLExtensionConfig,
@@ -73,6 +70,7 @@ import { GetAutoComplete } from './auto-complete/get-auto-complete';
 import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
 import { GetParsedNotebook } from './get-parsed/get-parsed-notebook';
+import { GetParsedNotebookCell } from './get-parsed/get-parsed-notebook-cell';
 import { GetParsedPROCode } from './get-parsed/get-parsed-pro-code';
 import { ParseNotebook } from './get-parsed/parse-notebook';
 import { GlobalIndex } from './global-index.class';
@@ -80,6 +78,7 @@ import { GetCodeSemanticTokens } from './helpers/get-code-semantic-tokens';
 import { GetSyntaxProblems } from './helpers/get-syntax-problems';
 import { PopulateNotebookVariables } from './helpers/populate-notebook-variables';
 import { ResetGlobalDisplayNames } from './helpers/reset-global-display-names';
+import { ResolveNotebookVariablesFromProcedures } from './helpers/resolve-notebook-variables-from-procedures';
 import { SplitFiles } from './helpers/split-files';
 import { GetHoverHelpFromLookup } from './hover-help/get-hover-help-from-lookup';
 import { GetHoverHelpLookup } from './hover-help/get-hover-help-lookup';
@@ -422,7 +421,7 @@ export class IDLIndex {
     // track down our include
     for (let i = 0; i < files.length; i++) {
       // skip if not PRO file
-      if (!this.isPROCode(files[i])) {
+      if (!IDLFileHelper.isPROCode(files[i])) {
         continue;
       }
 
@@ -581,7 +580,7 @@ export class IDLIndex {
       }
     }
     this.changedFiles[file] = true;
-    this.syntaxProblemsByFile[file] = problems;
+    this.syntaxProblemsByFile[file] = problems || [];
   }
 
   /**
@@ -662,7 +661,9 @@ export class IDLIndex {
     token: CancellationToken
   ): Promise<DocumentSymbol[]> {
     // if document isnt PRO code, return
-    if (!(this.isPROCode(file) || this.isIDLNotebookFile(file))) {
+    if (
+      !(IDLFileHelper.isPROCode(file) || IDLFileHelper.isIDLNotebookFile(file))
+    ) {
       return undefined;
     }
 
@@ -955,7 +956,7 @@ export class IDLIndex {
    *
    * If the file has not been processed by a worker it is assigned an ID
    */
-  getWorkerID(file: string) {
+  getWorkerID(file: string): string {
     const useFile = file.split('#')[0];
     if (this.workerIDsByFile[useFile] !== undefined) {
       return this.workerIDsByFile[useFile];
@@ -963,6 +964,13 @@ export class IDLIndex {
       this.workerIDsByFile[useFile] = this.indexerPool.getIDs()[0];
       return this.workerIDsByFile[useFile];
     }
+  }
+
+  /**
+   * Gets the ID for a worker that we can send processing to
+   */
+  getNextWorkerID(): string {
+    return this.indexerPool.getIDs()[0];
   }
 
   /**
@@ -1014,7 +1022,7 @@ export class IDLIndex {
 
     // automatically detect if we are a notebook file
     if (!options.isNotebook) {
-      options.isNotebook = this.isIDLNotebookFile(file);
+      options.isNotebook = IDLFileHelper.isIDLNotebookFile(file);
     }
 
     // get old global tokens
@@ -1055,7 +1063,9 @@ export class IDLIndex {
     this.trackSyntaxProblemsForFile(file, GetSyntaxProblems(parsed));
 
     // save tokens for our file
-    this.tokensByFile.add(file, parsed);
+    if (!inOptions.noCache) {
+      this.tokensByFile.add(file, parsed);
+    }
 
     // return our tokens
     return parsed;
@@ -1086,6 +1096,17 @@ export class IDLIndex {
     options: Partial<IIndexProCodeOptions> = {}
   ): Promise<IParsed> {
     return GetParsedPROCode(this, file, code, token, options);
+  }
+
+  /**
+   * Returns the parsed version of a notebook cell
+   */
+  async getParsedNotebookCell(
+    file: string,
+    code: string | string[],
+    token: CancellationToken
+  ): Promise<IParsed> {
+    return GetParsedNotebookCell(this, file, code, token);
   }
 
   /**
@@ -1129,6 +1150,9 @@ export class IDLIndex {
       byCell[cellFSPath] = Parser(cell.text, token, {
         isNotebook: true,
       });
+
+      // track global tokens
+      this.globalIndex.trackGlobalTokens(byCell[cellFSPath].global, cellFSPath);
     }
 
     /**
@@ -1204,12 +1228,12 @@ export class IDLIndex {
       return;
     }
 
-    // remove notebook
-    await this.removeNotebook(file);
-
     // track as known file
     this.knownFiles[file] = undefined;
     this.fileTypes['idl-notebook'].add(file);
+
+    /** Remove global tokens for cells */
+    const cellUris = this.getNotebookFiles(file);
 
     /**
      * Get the IDs for our workers
@@ -1223,6 +1247,17 @@ export class IDLIndex {
 
     // parse our notebook
     const resp = await ParseNotebook(this, file, notebook);
+
+    /**
+     * Make sure we have all previous cells accounted for
+     *
+     * This handles cases where we deleted files and no longer have globals for it
+     */
+    for (let i = 0; i < cellUris.length; i++) {
+      if (!(cellUris[i] in resp.globals)) {
+        resp.globals[cellUris[i]] = [];
+      }
+    }
 
     // track cells as known files so we can clean up correctly next time
     this.trackFiles(Object.keys(resp.globals));
@@ -1253,7 +1288,7 @@ export class IDLIndex {
     const files = Object.keys(resp.globals);
     for (let i = 0; i < files.length; i++) {
       this.globalIndex.trackGlobalTokens(resp.globals[files[i]], files[i]);
-      this.trackSyntaxProblemsForFile(files[i], resp.problems[files[i]]);
+      this.trackSyntaxProblemsForFile(files[i], resp.problems[files[i]] || []);
     }
 
     // wait until synced
@@ -1357,19 +1392,19 @@ export class IDLIndex {
     // process all files
     for (let i = 0; i < files.length; i++) {
       switch (true) {
-        case this.isPROCode(files[i]):
+        case IDLFileHelper.isPROCode(files[i]):
           proFiles.push(files[i]);
           break;
-        case this.isConfigFile(files[i]):
+        case IDLFileHelper.isConfigFile(files[i]):
           configFiles.push(files[i]);
           break;
-        case this.isTaskFile(files[i]):
+        case IDLFileHelper.isTaskFile(files[i]):
           taskFiles.push(files[i]);
           break;
-        case this.isIDLNotebookFile(files[i]):
+        case IDLFileHelper.isIDLNotebookFile(files[i]):
           notebookFiles.push(files[i]);
           break;
-        case this.isSAVEFile(files[i]):
+        case IDLFileHelper.isSAVEFile(files[i]):
           saveFiles.push(files[i]);
           break;
         default:
@@ -1519,7 +1554,7 @@ export class IDLIndex {
     // process each file
     for (let i = 0; i < files.length; i++) {
       // check if we dont actually have pro code
-      if (!this.isPROCode(files[i])) {
+      if (!IDLFileHelper.isPROCode(files[i])) {
         continue;
       }
 
@@ -1665,6 +1700,12 @@ export class IDLIndex {
     changeDetection = false
   ) {
     try {
+      // convert pros to vars
+      if (parsed.isNotebook) {
+        ResolveNotebookVariablesFromProcedures(parsed);
+      }
+
+      // perform additional post processing
       PostProcessParsed(this, file, parsed, token);
 
       // check if we need to do change detection
@@ -2201,11 +2242,17 @@ export class IDLIndex {
      */
     const files = await this.findFiles(folder);
 
+    // add all files to known
+    for (let i = 0; i < files.length; i++) {
+      this.knownFiles[files[i]] = undefined;
+    }
+
     /**
      * Bucket them into separate groups
      */
     const buckets = this.bucketFiles(files);
 
+    // create a cancellation token
     const token = new CancellationToken();
 
     // save discovery time
@@ -2256,17 +2303,24 @@ export class IDLIndex {
       this.removeWorkspaceFiles([file]);
       return;
     }
+
+    // mark as known file
+    this.knownFiles[file] = undefined;
+
+    // get code if we dont have it
     if (code === undefined) {
       code = this.getFileStrings(file);
     }
+
+    // index appropriately
     switch (true) {
-      case this.isConfigFile(file):
+      case IDLFileHelper.isConfigFile(file):
         await this.indexConfigFile(file, code);
         break;
-      case this.isTaskFile(file):
+      case IDLFileHelper.isTaskFile(file):
         await this.indexTaskFile(file, code);
         break;
-      case this.isPROCode(file):
+      case IDLFileHelper.isPROCode(file):
         await this.getParsedProCode(
           file,
           code,
@@ -2288,6 +2342,11 @@ export class IDLIndex {
     cb: (file: string) => Promise<string>,
     token: CancellationToken
   ) {
+    // add all files to known
+    for (let i = 0; i < files.length; i++) {
+      this.knownFiles[files[i]] = undefined;
+    }
+
     /**
      * Bucket files
      */

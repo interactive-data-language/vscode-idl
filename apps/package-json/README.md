@@ -1,6 +1,6 @@
 # package-json
 
-This app handles the creation, and validation, of the extension's contribution points which are added in the primary `package.json` files.
+This app handles the creation, and validation, of the extension's contribution points which are added in the primary `package.json` files and makes sure we have docs files for all of our problem codes.
 
 If you need to add an extension point, you should be updating the code in the this app.
 

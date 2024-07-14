@@ -18,7 +18,7 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
     const prop = (token.cache as ITokenCache)?.property;
 
     // if we have a known property, transform the display name
-    if (prop !== undefined) {
+    if (prop !== undefined && !meta.vanilla) {
       token.match[0] = `.${TransformCase(prop.display, meta.style.properties)}`;
     } else {
       token.match[0] = TransformCase(
@@ -37,7 +37,9 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
 
     // transform case using known property or the text the user has written
     token.match[0] = TransformCase(
-      prop !== undefined ? prop.display : token.match[0].replace(/\s/g, ''),
+      prop !== undefined && !meta.vanilla
+        ? prop.display
+        : token.match[0].replace(/\s/g, ''),
       meta.style.properties
     );
   }

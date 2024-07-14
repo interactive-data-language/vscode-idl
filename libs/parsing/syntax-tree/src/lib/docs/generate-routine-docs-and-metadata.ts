@@ -1,13 +1,4 @@
 import {
-  DEFAULT_DATA_TYPE,
-  GLOBAL_TOKEN_SOURCE_LOOKUP,
-  GlobalStructureToken,
-  IGlobalIndexedToken,
-  IParameterLookup,
-  ParseIDLType,
-} from '@idl/data-types/core';
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/parsing/problem-codes';
-import {
   CommentBlockToken,
   CommentToken,
   RoutineFunctionToken,
@@ -17,6 +8,15 @@ import {
   TOKEN_NAMES,
 } from '@idl/parsing/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  DEFAULT_DATA_TYPE,
+  GLOBAL_TOKEN_SOURCE_LOOKUP,
+  GlobalStructureToken,
+  IGlobalIndexedToken,
+  IParameterLookup,
+  ParseIDLType,
+} from '@idl/types/core';
+import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 import { IBasicBranch, IBranch } from '../branches.interface';
 import { FindDirectBranchChildren } from '../helpers/searching/find-direct-branch-children';

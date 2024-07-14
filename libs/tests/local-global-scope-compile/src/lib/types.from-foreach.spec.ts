@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GlobalTokens, ICompileOptions } from '@idl/data-types/core';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { ILocalTokens } from '@idl/parsing/syntax-tree';
+import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -140,7 +140,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
               pos: [5, 13, 4],
             },
           },
-          docs: '\n```idl\nforeach, item\n```\n\n\n\n#### Arguments\n\n- **item**: in, required, List<Number>\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nforeach, item\n```\n\n\n\n\n#### Arguments\n\n- **item**: in, required, List<Number>\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'foreach',
           kws: {},
@@ -307,7 +307,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
               pos: [5, 13, 4],
             },
           },
-          docs: '\n```idl\nforeach, item\n```\n\n\n\n#### Arguments\n\n- **item**: in, required, Array<Number | String>\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nforeach, item\n```\n\n\n\n\n#### Arguments\n\n- **item**: in, required, Array<Number | String>\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'foreach',
           kws: {},
@@ -447,7 +447,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
               pos: [5, 13, 4],
             },
           },
-          docs: '\n```idl\nforeach, item\n```\n\n\n\n#### Arguments\n\n- **item**: in, required, String\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nforeach, item\n```\n\n\n\n\n#### Arguments\n\n- **item**: in, required, String\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'foreach',
           kws: {},
@@ -587,7 +587,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
               pos: [5, 13, 4],
             },
           },
-          docs: '\n```idl\nforeach, item\n```\n\n\n\n#### Arguments\n\n- **item**: in, required, Number\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nforeach, item\n```\n\n\n\n\n#### Arguments\n\n- **item**: in, required, Number\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'foreach',
           kws: {},

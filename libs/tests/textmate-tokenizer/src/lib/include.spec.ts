@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates include statements, but not correct location`, () => {
   it(`[auto generated] basic test`, async () => {
@@ -260,8 +260,15 @@ describe(`[auto generated] Validates include statements, but not correct locatio
       },
       {
         line: 0,
-        match: '; comment',
+        match: '; ',
         startIndex: 13,
+        endIndex: 15,
+        scopes: ['source.idl', 'comment.line.idl'],
+      },
+      {
+        line: 0,
+        match: 'comment',
+        startIndex: 15,
         endIndex: 22,
         scopes: ['source.idl', 'comment.line.idl'],
       },

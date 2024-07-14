@@ -1,4 +1,4 @@
-import { TextMateParse } from '@idl/test-helpers';
+import { TextMateParse } from '@idl/tests/helpers';
 
 describe(`[auto generated] Validates routine parsing`, () => {
   it(`[auto generated] verifies procedure with arguments and keywords`, async () => {
@@ -88,8 +88,21 @@ describe(`[auto generated] Validates routine parsing`, () => {
       },
       {
         line: 0,
-        match: '; comment',
+        match: '; ',
         startIndex: 22,
+        endIndex: 24,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.routine.name.idl',
+          'group.line-continuation.idl',
+          'comment.line.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: 'comment',
+        startIndex: 24,
         endIndex: 31,
         scopes: [
           'source.idl',
@@ -321,8 +334,21 @@ describe(`[auto generated] Validates routine parsing`, () => {
       },
       {
         line: 0,
-        match: '; comment',
+        match: '; ',
         startIndex: 25,
+        endIndex: 27,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.routine.name.idl',
+          'group.line-continuation.idl',
+          'comment.line.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: 'comment',
+        startIndex: 27,
         endIndex: 34,
         scopes: [
           'source.idl',
@@ -555,8 +581,21 @@ describe(`[auto generated] Validates routine parsing`, () => {
       },
       {
         line: 0,
-        match: '; comment',
+        match: '; ',
         startIndex: 31,
+        endIndex: 33,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.routine.name.idl',
+          'group.line-continuation.idl',
+          'comment.line.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: 'comment',
+        startIndex: 33,
         endIndex: 40,
         scopes: [
           'source.idl',
@@ -568,8 +607,22 @@ describe(`[auto generated] Validates routine parsing`, () => {
       },
       {
         line: 1,
-        match: '; skip empty lines',
+        match: '; ',
         startIndex: 2,
+        endIndex: 4,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.routine.name.idl',
+          'group.line-continuation.idl',
+          'group.empty.line.idl',
+          'comment.line.idl',
+        ],
+      },
+      {
+        line: 1,
+        match: 'skip empty lines',
+        startIndex: 4,
         endIndex: 20,
         scopes: [
           'source.idl',
@@ -804,8 +857,21 @@ describe(`[auto generated] Validates routine parsing`, () => {
       },
       {
         line: 0,
-        match: '; comment',
+        match: '; ',
         startIndex: 40,
+        endIndex: 42,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.routine.name.idl',
+          'group.line-continuation.idl',
+          'comment.line.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: 'comment',
+        startIndex: 42,
         endIndex: 49,
         scopes: [
           'source.idl',

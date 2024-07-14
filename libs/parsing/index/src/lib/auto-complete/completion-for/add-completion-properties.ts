@@ -1,5 +1,6 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,
@@ -7,8 +8,7 @@ import {
   IDLDataTypeBase,
   IDLTypes,
   ParseIDLType,
-} from '@idl/data-types/core';
-import { IDL_TRANSLATION } from '@idl/translation';
+} from '@idl/types/core';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
 import { IDLIndex } from '../../idl-index.class';

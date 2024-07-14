@@ -27,7 +27,7 @@ export async function CompareCellOutputs(
     const expected = cellOutput[i];
 
     // debug log
-    console.log(`  Comparing known output cell "${expected.idx}"`);
+    console.log(`    Comparing known output cell "${expected.idx}"`);
 
     /**
      * get notebook cell
@@ -65,7 +65,7 @@ export async function CompareCellOutputs(
 /**
  * Compares cells and outputs to make sure they match what we expect them to be
  */
-export function CompareCellsAndOutputs(
+export function CompareCellKindsAndOutputs(
   nb: vscode.NotebookDocument,
   cellsAndOutput: ICompareCellAndOutputs[]
 ) {

@@ -1,8 +1,3 @@
-import {
-  DEFAULT_ASSEMBLER_OPTIONS,
-  FormatterType,
-  IAssemblerOptions,
-} from '@idl/assembling/config';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   GenerateENVITask,
@@ -15,7 +10,7 @@ import {
 import { GenerateTaskResult } from '@idl/generators/tasks-shared';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
-import { GetFSPath, Sleep } from '@idl/shared';
+import { IDLFileHelper, GetFSPath, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GenerateTaskMessage,
@@ -23,7 +18,7 @@ import {
 } from '@idl/vscode/events/messages';
 
 import { GetFileStrings } from '../../helpers/get-file-strings';
-import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
+import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
 import { UpdateDocument } from '../../helpers/update-document';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { IDL_INDEX } from '../initialize-document-manager';
@@ -50,7 +45,7 @@ export const ON_GENERATE_TASK = async (
     const fsPath = GetFSPath(payload.uri);
 
     // return if not PRO code
-    if (!IDL_INDEX.isPROCode(fsPath)) {
+    if (!IDLFileHelper.isPROCode(fsPath)) {
       return;
     }
 
@@ -60,33 +55,8 @@ export const ON_GENERATE_TASK = async (
       content: `Init/update task for file: "${fsPath}"`,
     });
 
-    /**
-     * Make default formatting config for file
-     *
-     * Use settings from VSCode client as our default
-     */
-    const clientConfig: IAssemblerOptions<FormatterType> = {
-      ...DEFAULT_ASSEMBLER_OPTIONS,
-      ...IDL_CLIENT_CONFIG.code.formatting,
-      style: IDL_CLIENT_CONFIG.code.formattingStyle,
-    };
-
-    // log information
-    IDL_LANGUAGE_SERVER_LOGGER.log({
-      log: IDL_LSP_LOG,
-      type: 'debug',
-      content: ['Client config', clientConfig],
-    });
-
     /** Formatting config for file */
-    const config = IDL_INDEX.getConfigForFile(fsPath, clientConfig);
-
-    // log information
-    IDL_LANGUAGE_SERVER_LOGGER.log({
-      log: IDL_LSP_LOG,
-      type: 'debug',
-      content: ['Formatting config', config],
-    });
+    const config = GetFormattingConfigForFile(fsPath);
 
     /** Content of our PRO file */
     const proCode = await GetFileStrings(payload.uri);
