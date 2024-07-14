@@ -168,9 +168,11 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       await Sleep(100);
 
       // jump to stack to work around VSCode issue/change with latest release
-      await vscode.commands.executeCommand(
-        'workbench.action.debug.callStackTop'
-      );
+      if (stack.file.toLowerCase().endsWith('.pro')) {
+        await vscode.commands.executeCommand(
+          'workbench.action.debug.callStackTop'
+        );
+      }
     });
 
     // listen for debug output
