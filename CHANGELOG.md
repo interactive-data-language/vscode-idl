@@ -16,6 +16,10 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
+## Unreleased
+
+Fixed an issue where we open a file that we have stopped in, even if it is compiled as a SAVE file. Now, only PRO files will be jumped to.
+
 ## 4.5.1 - May 2024
 
 Continuing with our story of IDL Notebook user experience, each session of notebook now gets it's own instance of IDL! This means a few things:
