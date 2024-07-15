@@ -1,6 +1,6 @@
 import { CodeChecksum } from '@idl/parser';
 import { GetFSPath } from '@idl/shared';
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 
 import { DOCUMENT_MANAGER } from '../events/initialize-document-manager';
 import { URIFromFSPath } from './uri-from-fspath';
@@ -28,6 +28,11 @@ export function CacheValid(uri: string) {
    */
   const doc = DOCUMENT_MANAGER.get(uri);
 
+  /**
+   * Get path on file system
+   */
+  const fsPath = GetFSPath(uri);
+
   try {
     /**
      * Get checksum
@@ -35,7 +40,7 @@ export function CacheValid(uri: string) {
     const checksum =
       doc !== undefined
         ? CodeChecksum(doc.getText())
-        : CodeChecksum(readFileSync(GetFSPath(uri), 'utf-8'));
+        : CodeChecksum(readFileSync(fsPath, 'utf-8'));
 
     // see if we have tracked already or not
     if (uri in CHECKSUM_CACHE) {
@@ -45,7 +50,10 @@ export function CacheValid(uri: string) {
     // always save latest checksum
     CHECKSUM_CACHE[uri] = checksum;
   } catch (err) {
-    console.log(err);
+    // only print the error if the file exists
+    if (!existsSync(fsPath)) {
+      console.log(err);
+    }
   }
 
   return isValid;
