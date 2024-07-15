@@ -19,8 +19,6 @@ import {
   ALL_FILES_GLOB_PATTERN,
   IDLFileHelper,
   NODE_MEMORY_CONFIG,
-  PRO_DEF_EXTENSION,
-  PRO_FILE_EXTENSION,
   SystemMemoryUsedMB,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -305,52 +303,6 @@ export class IDLIndex {
         config,
       });
     }
-  }
-
-  /**
-   * Indicates if we have a file that we can process for tokens (PRO code).
-   *
-   * This is needed because we have other files that we watch as well.
-   */
-  isPROCode(file: string): boolean {
-    return file.toLowerCase().endsWith(PRO_FILE_EXTENSION);
-  }
-
-  /**
-   * Indicates if we have a PRO type definition file
-   */
-  isPRODef(file: string): boolean {
-    return file.toLowerCase().endsWith(PRO_DEF_EXTENSION);
-  }
-
-  /**
-   * Indicates that a file is a configuration file
-   */
-  isConfigFile(file: string): boolean {
-    return file.toLowerCase().endsWith(IDL_JSON_URI);
-  }
-
-  /**
-   * Indicates that a file is a task file (IDL, ENVI, etc.)
-   */
-  isTaskFile(file: string): boolean {
-    return file.toLowerCase().endsWith(TASK_FILE_EXTENSION);
-  }
-
-  /**
-   * Indicates that a file is an IDL notebook
-   */
-  isIDLNotebookFile(file: string): boolean {
-    return (
-      file.includes('#') || file.toLowerCase().endsWith(IDL_NOTEBOOK_EXTENSION)
-    );
-  }
-
-  /**
-   * Indicates that a file is a SAVE file
-   */
-  isSAVEFile(file: string): boolean {
-    return file.toLowerCase().endsWith(IDL_SAVE_FILE_EXTENSION);
   }
 
   /**
@@ -1031,7 +983,14 @@ export class IDLIndex {
     // track as known file
     this.knownFiles[file] = undefined;
     if (!options.isNotebook) {
-      this.fileTypes['pro'].add(file);
+      if (IDLFileHelper.isPRODef(file)) {
+        this.fileTypes['pro-def'].add(file);
+
+        // disable full parse for PRO def
+        options.full = false;
+      } else {
+        this.fileTypes['pro'].add(file);
+      }
     }
 
     /** Init value of parsed */
@@ -1316,6 +1275,8 @@ export class IDLIndex {
     // init files that we find
     const files = new Set<string>();
 
+    console.log({ pattern });
+
     // init folders
     let folders: string[] = [];
     let recursion: boolean[] = [];
@@ -1374,6 +1335,9 @@ export class IDLIndex {
    * Buckets files by file type
    */
   bucketFiles(files: string[]) {
+    /** PRO def files */
+    const proDefFiles: string[] = [];
+
     /** PRO files */
     const proFiles: string[] = [];
 
@@ -1392,6 +1356,9 @@ export class IDLIndex {
     // process all files
     for (let i = 0; i < files.length; i++) {
       switch (true) {
+        case IDLFileHelper.isPRODef(files[i]):
+          proDefFiles.push(files[i]);
+          break;
         case IDLFileHelper.isPROCode(files[i]):
           proFiles.push(files[i]);
           break;
@@ -1414,6 +1381,7 @@ export class IDLIndex {
     }
 
     return {
+      proDefFiles,
       proFiles,
       saveFiles,
       taskFiles,
@@ -2252,6 +2220,8 @@ export class IDLIndex {
      */
     const buckets = this.bucketFiles(files);
 
+    console.log(buckets);
+
     // create a cancellation token
     const token = new CancellationToken();
 
@@ -2278,6 +2248,9 @@ export class IDLIndex {
 
     // track notebook files
     await this.indexNotebookFiles(buckets.notebookFiles);
+
+    // do the indexing
+    await this.indexWorkspaceProFiles(buckets.proDefFiles, token, false);
 
     // do the indexing
     await this.indexWorkspaceProFiles(buckets.proFiles, token, full);
@@ -2320,7 +2293,7 @@ export class IDLIndex {
       case IDLFileHelper.isTaskFile(file):
         await this.indexTaskFile(file, code);
         break;
-      case IDLFileHelper.isPROCode(file):
+      case IDLFileHelper.isPROCode(file) || IDLFileHelper.isPRODef(file):
         await this.getParsedProCode(
           file,
           code,

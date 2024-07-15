@@ -131,7 +131,7 @@ export const TASK_FILE_GLOB_PATTERN = `**/*${TASK_FILE_EXTENSION}`;
 /**
  * Glob pattern for all files
  */
-export const ALL_FILES_GLOB_PATTERN = `**/*(*${PRO_FILE_EXTENSION}|*${PRO_DEF_GLOB_PATTERN}|*${IDL_SAVE_FILE_EXTENSION}|*${IDL_JSON_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
+export const ALL_FILES_GLOB_PATTERN = `**/*(*${PRO_FILE_EXTENSION}|*${PRO_DEF_EXTENSION}|*${IDL_SAVE_FILE_EXTENSION}|*${IDL_JSON_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
 
 /**
  * Glob pattern for files we want to actively watch in VSCode
@@ -156,8 +156,16 @@ export const LOG_LANGUAGE_TOKEN_SCOPE_NAME = `source.${LOG_LANGUAGE_NAME}`;
 /**
  * Language identifier for IDL (per docs for DocumentSelector)
  */
-export const IDL_DOCUMENT_SELECTOR = {
+export const PRO_CODE_DOCUMENT_SELECTOR = {
   pattern: PRO_CODE_GLOB_PATTERN,
+  scheme: 'file',
+};
+
+/**
+ * Language identifier for IDL def files
+ */
+export const PRO_DEF__DOCUMENT_SELECTOR = {
+  pattern: PRO_DEF_GLOB_PATTERN,
   scheme: 'file',
 };
 
@@ -189,7 +197,8 @@ export const IDL_NOTEBOOK_CELL_SELECTOR = {
  * All document selectors for the language server
  */
 export const ALL_DOCUMENT_SELECTORS = [
-  IDL_DOCUMENT_SELECTOR,
+  PRO_CODE_DOCUMENT_SELECTOR,
+  PRO_DEF__DOCUMENT_SELECTOR,
   TASK_FILE_DOCUMENT_SELECTOR,
   IDL_CONFIG_FILE_DOCUMENT_SELECTOR,
   IDL_NOTEBOOK_CELL_SELECTOR,

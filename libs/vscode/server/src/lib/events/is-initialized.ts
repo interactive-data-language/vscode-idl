@@ -214,6 +214,7 @@ SERVER_INFO.then(async (res) => {
         parse_time: RoundToNearest(stats.timePro / 1000, 0.01),
         parse_rate: Math.round(stats.linesPro / (stats.timePro / 1000)),
         num_pro: IDL_INDEX.fileTypes['pro'].size,
+        num_pro_def: IDL_INDEX.fileTypes['pro-def'].size,
         num_save: IDL_INDEX.fileTypes['save'].size,
         num_idl_task: IDL_INDEX.fileTypes['idl-task'].size,
         num_envi_task: IDL_INDEX.fileTypes['envi-task'].size,
@@ -247,6 +248,7 @@ SERVER_INFO.then(async (res) => {
       statsDetail.parse_time = RoundToNearest(statsDetail.parse_time, 1);
       statsDetail.parse_rate = RoundToNearest(statsDetail.parse_rate, 1000);
       statsDetail.num_pro = RoundToNearest(statsDetail.num_pro, 25);
+      statsDetail.num_pro_def = RoundToNearest(statsDetail.num_pro_def, 25);
       statsDetail.num_save = RoundToNearest(statsDetail.num_save, 25);
       statsDetail.num_idl_task = RoundToNearest(statsDetail.num_idl_task, 5);
       statsDetail.num_envi_task = RoundToNearest(statsDetail.num_envi_task, 5);

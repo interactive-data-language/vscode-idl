@@ -6,6 +6,7 @@ import {
   IDL_NOTEBOOK_LANGUAGE_NAME,
   LOG_LANGUAGE_NAME,
   MODEL_FILE_EXTENSION,
+  PRO_DEF_EXTENSION,
   PRO_FILE_EXTENSION,
   TASK_FILE_EXTENSION,
   TASK_STYLE_FILE_EXTENSION,
@@ -28,7 +29,7 @@ export const LANGUAGES = [
   {
     id: IDL_LANGUAGE_NAME,
     aliases: ['IDL', 'idl'],
-    extensions: [PRO_FILE_EXTENSION],
+    extensions: [PRO_FILE_EXTENSION, PRO_DEF_EXTENSION],
     configuration: 'extension/language/syntaxes/language-configuration.json',
     mimetypes: ['text/idl', 'application/idl'],
     icon: IDL_LANGUAGE_ICONS,

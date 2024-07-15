@@ -2,6 +2,7 @@ import {
   IDL_JSON_GLOB_PATTERN,
   NOTEBOOK_GLOB_PATTERN,
   PRO_CODE_GLOB_PATTERN,
+  PRO_DEF_GLOB_PATTERN,
   TASK_FILE_GLOB_PATTERN,
 } from '@idl/shared';
 
@@ -14,6 +15,7 @@ export const BASE_ACTIVATION_EVENTS: string[] = [
   // `onLanguage:${LOG_LANGUAGE_NAME}`,
   // `onLanguage:${IDL_NOTEBOOK_NAME}`,
   `workspaceContains:${PRO_CODE_GLOB_PATTERN}`,
+  `workspaceContains:${PRO_DEF_GLOB_PATTERN}`,
   `workspaceContains:${IDL_JSON_GLOB_PATTERN}`,
   `workspaceContains:${TASK_FILE_GLOB_PATTERN}`,
   `workspaceContains:${NOTEBOOK_GLOB_PATTERN}`,

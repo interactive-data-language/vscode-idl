@@ -113,6 +113,10 @@ export interface ILanguageServerStartupPayload extends IHardwareInfo {
    */
   num_pro: number;
   /**
+   * Number of PRO definition files
+   */
+  num_pro_def: number;
+  /**
    * NUmber of SAVE files
    */
   num_save: number;
