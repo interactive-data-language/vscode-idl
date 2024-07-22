@@ -982,15 +982,24 @@ export class IDLIndex {
 
     // track as known file
     this.knownFiles[file] = undefined;
-    if (!options.isNotebook) {
-      if (IDLFileHelper.isPRODef(file)) {
+
+    // track file by type in our maps
+    switch (true) {
+      // do nothing since this might be a cell
+      case options.isNotebook:
+        break;
+
+      // check for pro definition file
+      case IDLFileHelper.isPRODef(file):
         this.fileTypes['pro-def'].add(file);
 
-        // disable full parse for PRO def
+        // change default parse options
         options.full = false;
-      } else {
+        break;
+
+      default:
         this.fileTypes['pro'].add(file);
-      }
+        break;
     }
 
     /** Init value of parsed */
