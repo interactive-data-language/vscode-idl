@@ -15,7 +15,7 @@ export async function FormatDocsCode(index: IDLIndex, code: string) {
     code,
     new CancellationToken(),
     {
-      isNotebook: true,
+      type: 'notebook',
       postProcess: true,
       changeDetection: false,
       full: true,

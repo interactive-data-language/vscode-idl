@@ -793,7 +793,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -809,7 +809,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `something = 42`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -823,7 +823,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `a = myfunc()`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
     ],
@@ -973,42 +973,42 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `ok function`,
         code: [`function myfunc`, `  compile_opt idl2`, `  return,1`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `bad function`,
         code: [`function myfunc`, `  return,1`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `ok procedure`,
         code: [`pro mypro`, `  compile_opt idl2`, `  return`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `bad procedure`,
         code: [`pro mypro`, `  return`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `ok main`,
         code: [`compile_opt idl2`, `; main level program`, `  a = 5`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `bad main`,
         code: [`; main level program`, `  a = 5`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
     ],
@@ -4542,7 +4542,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `no problems`,
         code: [`compile_opt idl2`, `a = 5`, `a++`, `++a`, `a++`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -4557,7 +4557,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -4570,7 +4570,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -4584,7 +4584,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -4600,14 +4600,14 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `multi-line problems`,
         code: [`compile_opt idl2`, `2 + $`, `  2 + $`, `  2`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
     ],

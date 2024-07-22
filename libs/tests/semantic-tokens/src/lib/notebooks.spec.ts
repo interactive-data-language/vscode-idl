@@ -24,7 +24,7 @@ describe(`[auto generated] Extracts semantic tokens`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens

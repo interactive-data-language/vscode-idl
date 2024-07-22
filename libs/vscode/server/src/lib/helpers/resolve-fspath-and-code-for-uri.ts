@@ -60,7 +60,7 @@ export async function ResolveFSPathAndCodeForURI(
 
   // return our information
   return {
-    isNotebook: true,
+    type: 'notebook',
     uri: url,
     fsPath: `${fsPath}#${idx}`,
     code: cellDoc.getText(),

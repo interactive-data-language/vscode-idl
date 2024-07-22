@@ -25,7 +25,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
@@ -56,7 +56,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
@@ -95,7 +95,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
@@ -126,7 +126,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
@@ -165,7 +165,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
@@ -204,7 +204,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
