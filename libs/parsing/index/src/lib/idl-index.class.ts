@@ -972,11 +972,6 @@ export class IDLIndex {
       inOptions
     );
 
-    // automatically detect if we are a notebook file
-    if (!options.isNotebook) {
-      options.isNotebook = IDLFileHelper.isIDLNotebookFile(file);
-    }
-
     // get old global tokens
     const oldGlobals = this.getGlobalsForFile(file);
 
@@ -986,11 +981,12 @@ export class IDLIndex {
     // track file by type in our maps
     switch (true) {
       // do nothing since this might be a cell
-      case options.isNotebook:
+      case options.type === 'notebook' || IDLFileHelper.isIDLNotebookFile(file):
+        options.type = 'notebook';
         break;
 
       // check for pro definition file
-      case IDLFileHelper.isPRODef(file):
+      case options.type === 'def' || IDLFileHelper.isPRODef(file):
         this.fileTypes['pro-def'].add(file);
 
         // change default parse options
@@ -1116,7 +1112,7 @@ export class IDLIndex {
 
       // process the cell
       byCell[cellFSPath] = Parser(cell.text, token, {
-        isNotebook: true,
+        type: 'notebook',
       });
 
       // track global tokens
@@ -1678,7 +1674,7 @@ export class IDLIndex {
   ) {
     try {
       // convert pros to vars
-      if (parsed.isNotebook) {
+      if (parsed.type === 'notebook') {
         ResolveNotebookVariablesFromProcedures(parsed);
       }
 

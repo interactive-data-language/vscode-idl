@@ -79,7 +79,7 @@ export function Parser(
     checksum: CodeChecksum(code),
     hasDetail: false,
     hasCache: false,
-    isNotebook: options.isNotebook,
+    type: options.type,
     tokens: [],
     text: [],
     lines: 0,
@@ -136,7 +136,7 @@ export function Parser(
     /**
      * Never clean up notebooks as it is the only way to get our text from worker threads
      */
-    if (!(options.isNotebook || options.keepText)) {
+    if (!(options.type === 'notebook' || options.keepText)) {
       tokenized.text = [];
     }
   }

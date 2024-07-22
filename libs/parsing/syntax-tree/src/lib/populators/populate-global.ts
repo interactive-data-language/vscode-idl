@@ -335,7 +335,7 @@ export function PopulateGlobalLocalCompileOpts(
         parsed.compile.main = full ? GetCompileOpts(branch) : [];
 
         // if we are a notebook, add main level program
-        if (parsed.isNotebook) {
+        if (parsed.type === 'notebook') {
           if (parsed.compile.main.indexOf('idl2') === -1) {
             parsed.compile.main.push('idl2');
           }

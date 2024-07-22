@@ -43,7 +43,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
       );
 
       // update flag for if we can report
-      prob.canReport = !parsed.isNotebook;
+      prob.canReport = !(parsed.type === 'notebook');
 
       // save
       parsed.parseProblems.push(prob);
