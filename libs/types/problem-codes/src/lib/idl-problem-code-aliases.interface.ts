@@ -197,6 +197,18 @@ IDL_PROBLEM_CODE_SHORTHAND_CODE_LOOKUP[
 ];
 
 /**
+ * Lookup of docs problems for reporting info in def files
+ */
+export const IDL_DOCS_PROBLEMS: { [key: number]: undefined } = {};
+
+// set docs problems in our constant
+IDL_PROBLEM_CODE_SHORTHAND_CODE_LOOKUP[
+  IDL_PROBLEM_CODE_SHORTHAND_LOOKUP.IDL_DOCS
+].forEach((prob) => {
+  IDL_DOCS_PROBLEMS[prob] = undefined;
+});
+
+/**
  * For disabling compile-opt idl2 related errors
  */
 IDL_PROBLEM_CODE_SHORTHAND_CODE_LOOKUP[
