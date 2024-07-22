@@ -52,7 +52,7 @@ export function CacheValid(uri: string) {
   } catch (err) {
     // only print the error if the file exists
     if (existsSync(fsPath)) {
-      console.log(err);
+      console.warn('Problem trying to validate cache', err);
     }
   }
 
