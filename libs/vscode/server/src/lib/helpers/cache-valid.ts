@@ -51,7 +51,7 @@ export function CacheValid(uri: string) {
     CHECKSUM_CACHE[uri] = checksum;
   } catch (err) {
     // only print the error if the file exists
-    if (!existsSync(fsPath)) {
+    if (existsSync(fsPath)) {
       console.log(err);
     }
   }
