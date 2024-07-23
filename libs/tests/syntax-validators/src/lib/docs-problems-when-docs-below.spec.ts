@@ -242,10 +242,38 @@ describe(`[auto generated] Properly reports problems for docs`, () => {
     // define expected tokens
     const expected: SyntaxProblems = [
       {
+        code: 64,
+        info: 'Parameter is missing from documentation: "input_raster"',
+        start: [5, 34, 12],
+        end: [5, 34, 12],
+        canReport: true,
+      },
+      {
+        code: 64,
+        info: 'Parameter is missing from documentation: "output_raster_uri"',
+        start: [5, 63, 17],
+        end: [5, 63, 17],
+        canReport: true,
+      },
+      {
+        code: 64,
+        info: 'Parameter is missing from documentation: "third"',
+        start: [5, 102, 5],
+        end: [5, 102, 5],
+        canReport: true,
+      },
+      {
         code: 52,
         info: 'Expected a documentation tag for ":Returns:" since this is a function or function method',
-        start: [6, 0, 2],
-        end: [15, 0, 2],
+        start: [0, 0, 2],
+        end: [2, 0, 2],
+        canReport: true,
+      },
+      {
+        code: 50,
+        info: 'Keywords(s) are missing from the documentation for the routine',
+        start: [0, 0, 2],
+        end: [2, 0, 2],
         canReport: true,
       },
       {

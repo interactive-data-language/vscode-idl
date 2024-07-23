@@ -94,7 +94,10 @@ export function PopulateGlobalLocalCompileOpts(
           }
 
           // check for comments within routines
-          if (branch.kids[1]?.name === TOKEN_NAMES.COMMENT_BLOCK) {
+          if (
+            branch.kids[1]?.name === TOKEN_NAMES.COMMENT_BLOCK &&
+            docs === undefined
+          ) {
             docs = branch.kids[1];
           }
 
@@ -224,7 +227,10 @@ export function PopulateGlobalLocalCompileOpts(
           }
 
           // check for comments within routines
-          if (branch.kids[1]?.name === TOKEN_NAMES.COMMENT_BLOCK) {
+          if (
+            branch.kids[1]?.name === TOKEN_NAMES.COMMENT_BLOCK &&
+            docs === undefined
+          ) {
             docs = branch.kids[1];
           }
 
