@@ -124,7 +124,7 @@ export function Parser(
   PopulateGlobalLocalCompileOpts(tokenized, cancel, true);
 
   // remove all problems if fast parse
-  if (!options.full) {
+  if (!options.full && !(tokenized.type === 'def')) {
     tokenized.parseProblems = [];
   }
 

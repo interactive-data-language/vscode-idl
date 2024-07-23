@@ -2299,7 +2299,15 @@ export class IDLIndex {
       case IDLFileHelper.isTaskFile(file):
         await this.indexTaskFile(file, code);
         break;
-      case IDLFileHelper.isPROCode(file) || IDLFileHelper.isPRODef(file):
+      case IDLFileHelper.isPRODef(file):
+        await this.getParsedProCode(
+          file,
+          code,
+          new CancellationToken(),
+          Object.assign({ type: 'def' }, options)
+        );
+        break;
+      case IDLFileHelper.isPROCode(file):
         await this.getParsedProCode(
           file,
           code,
