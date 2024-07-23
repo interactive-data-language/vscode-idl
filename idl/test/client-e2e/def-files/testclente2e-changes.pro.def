@@ -1,0 +1,32 @@
+;+
+; :Description:
+;   reference to our super cool and awesome plot
+;   sample if statement
+;   sample for loop
+;   sample ENVI routine
+;   formatting matches whatever you type as a user
+;
+; :Arguments:
+;   arg1: bidirectional, required, any
+;     Placeholder docs for argument, keyword, or property
+;   arg2: bidirectional, required, any
+;     Placeholder docs for argument, keyword, or property
+;   arg3: bidirectional, required, any
+;     Placeholder docs for argument, keyword, or property
+;   arg4: bidirectional, required, any
+;     Placeholder docs for argument, keyword, or property
+;
+; :Keywords:
+;   kw1: bidirectional, optional, any
+;     Placeholder docs for argument, keyword, or property
+;   kw2: bidirectional, optional, any
+;     Placeholder docs for argument, keyword, or property
+;
+;-
+pro testclente2e, arg1, arg2, arg3, arg4, kw1 = kw1, kw2 = kw2
+
+
+
+
+
+end
