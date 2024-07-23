@@ -991,6 +991,7 @@ export class IDLIndex {
 
         // change default parse options
         options.full = false;
+        options.postProcess = false;
         break;
 
       default:
