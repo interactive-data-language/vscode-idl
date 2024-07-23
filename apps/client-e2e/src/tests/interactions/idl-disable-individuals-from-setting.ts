@@ -20,7 +20,7 @@ export const IDLDisableIndividualsFromSettings: RunnerFunction = async () => {
   );
 
   // short pause to make sure we open and parse
-  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(3);
@@ -38,7 +38,7 @@ export const IDLDisableIndividualsFromSettings: RunnerFunction = async () => {
   );
 
   // short pause
-  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   // make sure it ran fine
   expect(ok).toBeTruthy();
@@ -66,7 +66,7 @@ export const IDLDisableIndividualsFromSettings: RunnerFunction = async () => {
   );
 
   // short pause to make sure we have updates
-  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   // verify problems are back at the original value
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(3);
