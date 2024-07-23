@@ -21,6 +21,25 @@ export const AUTO_TOKEN_DEFINITION_TESTS: ITokenDefTests[] = [
     ],
   },
   {
+    suiteName: `Correctly get routine definition for`,
+    fileName: `def-files.1.spec.ts`,
+    tests: [
+      {
+        name: `for routine def files`,
+        files: [
+          `idl/test/token-def/from_def.pro`,
+          `idl/test/hover-help/testroutine.pro.def`,
+        ],
+        position: [
+          {
+            line: 2,
+            character: 7,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly find function definitions`,
     fileName: `functions.spec.ts`,
     tests: [

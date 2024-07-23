@@ -614,7 +614,11 @@ export class IDLIndex {
   ): Promise<DocumentSymbol[]> {
     // if document isnt PRO code, return
     if (
-      !(IDLFileHelper.isPROCode(file) || IDLFileHelper.isIDLNotebookFile(file))
+      !(
+        IDLFileHelper.isPROCode(file) ||
+        IDLFileHelper.isIDLNotebookFile(file) ||
+        IDLFileHelper.isPRODef(file)
+      )
     ) {
       return undefined;
     }
