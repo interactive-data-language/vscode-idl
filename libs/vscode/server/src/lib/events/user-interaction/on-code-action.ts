@@ -48,7 +48,7 @@ export const ON_CODE_ACTIONS = async (
     }
 
     // return if not a file we can process
-    if (!(IDLFileHelper.isPROCode(info.fsPath) || info.isNotebook)) {
+    if (!IDLFileHelper.isPROCode(info.fsPath) || !(info.type !== 'pro')) {
       return undefined;
     }
 
@@ -65,7 +65,7 @@ export const ON_CODE_ACTIONS = async (
       code,
       diags,
       config,
-      info.isNotebook ? +info.fsPath.split('#')[1] : undefined
+      info.type === 'notebook' ? +info.fsPath.split('#')[1] : undefined
     );
 
     /**

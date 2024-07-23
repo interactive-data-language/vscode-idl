@@ -28,7 +28,7 @@ export async function ResolveFSPathAndCodeForURI(
    */
   if (parsed.scheme === 'file') {
     return {
-      isNotebook: false,
+      type: 'pro',
       uri: url,
       fsPath,
       code: await GetFileStrings(url),
