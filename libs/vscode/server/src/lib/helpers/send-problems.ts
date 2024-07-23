@@ -1,5 +1,8 @@
 import { IDLFileHelper } from '@idl/shared';
-import { IDL_DOCS_PROBLEMS, SyntaxProblems } from '@idl/types/problem-codes';
+import {
+  IDL_DEF_FILE_PROBLEMS,
+  SyntaxProblems,
+} from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
@@ -131,10 +134,9 @@ export function SendProblems(inFiles: string[]) {
       if (IDLFileHelper.isPRODef(files[i])) {
         problems = problems.filter(
           (problem) =>
-            !(
-              problem.code in IDL_DOCS_PROBLEMS ||
-              problem.code in IGNORE_PROBLEM_CODES
-            ) && problem.canReport
+            problem.code in IDL_DEF_FILE_PROBLEMS &&
+            !(problem.code in IGNORE_PROBLEM_CODES) &&
+            problem.canReport
         );
       } else {
         problems = problems.filter(
