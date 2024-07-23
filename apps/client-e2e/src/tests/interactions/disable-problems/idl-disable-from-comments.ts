@@ -4,8 +4,8 @@ import expect from 'expect';
 import { readFileSync } from 'fs';
 import * as vscode from 'vscode';
 
-import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
-import { RunnerFunction } from '../runner.interface';
+import { CLIENT_E2E_CONFIG } from '../../client-e2e-config.interface';
+import { RunnerFunction } from '../../runner.interface';
 
 /**
  * Makes sure that we can disable reporting of all problems using comments in IDL

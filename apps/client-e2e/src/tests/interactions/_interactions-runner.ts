@@ -1,34 +1,37 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
-import { AddDocs } from './add-docs';
-import { DefFilesInteractRight } from './def-files-interact-right';
+import { DefFilesInteractRight } from './basic-interactions/def-files-interact-right';
+import { IDLJSONInteractRight } from './basic-interactions/idl-json-interact-right';
+import { IndexIDLFolderRightAndOpenEditClose } from './basic-interactions/index-idl-folder-right-and-open-edit-close';
+import { ProCodeInteractRight } from './basic-interactions/pro-code-interacts-right';
+import { TasksInteractRight } from './basic-interactions/tasks-interact-right';
 import {
   ExecuteCodeActionsWithEditForNotebook,
   ExecuteCodeActionsWithEditForPROFile,
-} from './execute-code-actions-with-edits';
-import { IDLDisableAllFromSettings } from './idl-disable-all-from-setting';
-import { IDLDisableAllFromSettingsForNotebook } from './idl-disable-all-from-setting-for-notebook';
-import {
-  IDLDisableAllFromComments,
-  IDLDisableLinesFromComments,
-} from './idl-disable-from-comments';
-import { IDLDisableIndividualsFromSettings } from './idl-disable-individuals-from-setting';
-import { IDLDisableIndividualsFromSettingsForNotebook } from './idl-disable-individuals-from-setting-for-notebook';
-import { IDLJSONInteractRight } from './idl-json-interact-right';
-import { IndexIDLFolderRightAndOpenEditClose } from './index-idl-folder-right-and-open-edit-close';
-import { MigrateCodeDL30, MigrateCodeDL30_2 } from './migrate-code-dl-3.0';
-import { NotebookImpliedPrintProblemReporting } from './notebook-implied-print-problem-reporting';
-import { NotebookProblemsTrackRight } from './notebook-problems-track-right';
-import { NotebookCompletionBasic } from './notebooks-completion-basic';
-import { NotebooksInteractRight } from './notebooks-interact-right';
-import { NotebooksNoDuplicateRoutines } from './notebooks-no-duplicate-routines';
+} from './code-actions/execute-code-actions-with-edits';
 import {
   ProCodeCodeActionsExisting,
   ProCodeCodeActionsNoExisting,
-} from './pro-code-code-actions';
-import { ProCodeInteractRight } from './pro-code-interacts-right';
-import { TasksInteractRight } from './tasks-interact-right';
+} from './code-actions/pro-code-code-actions';
+import { AddDocs } from './commands/add-docs';
+import {
+  MigrateCodeDL30,
+  MigrateCodeDL30_2,
+} from './commands/migrate-code-dl-3.0';
+import { IDLDisableAllFromSettings } from './disable-problems/idl-disable-all-from-setting';
+import { IDLDisableAllFromSettingsForNotebook } from './disable-problems/idl-disable-all-from-setting-for-notebook';
+import {
+  IDLDisableAllFromComments,
+  IDLDisableLinesFromComments,
+} from './disable-problems/idl-disable-from-comments';
+import { IDLDisableIndividualsFromSettings } from './disable-problems/idl-disable-individuals-from-setting';
+import { IDLDisableIndividualsFromSettingsForNotebook } from './disable-problems/idl-disable-individuals-from-setting-for-notebook';
+import { NotebookImpliedPrintProblemReporting } from './notebooks/notebook-implied-print-problem-reporting';
+import { NotebookProblemsTrackRight } from './notebooks/notebook-problems-track-right';
+import { NotebookCompletionBasic } from './notebooks/notebooks-completion-basic';
+import { NotebooksInteractRight } from './notebooks/notebooks-interact-right';
+import { NotebooksNoDuplicateRoutines } from './notebooks/notebooks-no-duplicate-routines';
 
 /*
  * Logger to be used for tests related to debugging

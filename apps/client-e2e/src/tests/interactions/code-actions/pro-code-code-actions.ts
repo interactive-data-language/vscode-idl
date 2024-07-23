@@ -4,8 +4,8 @@ import expect from 'expect';
 import * as vscode from 'vscode';
 import { CodeActionParams } from 'vscode-languageserver';
 
-import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
-import { RunnerFunction } from '../runner.interface';
+import { CLIENT_E2E_CONFIG } from '../../client-e2e-config.interface';
+import { RunnerFunction } from '../../runner.interface';
 
 /**
  * Verifies code actions do the right thing

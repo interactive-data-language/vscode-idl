@@ -7,7 +7,7 @@ import {
   TextDocumentPositionParams,
 } from 'vscode-languageserver';
 
-import { RunnerFunction } from '../runner.interface';
+import { RunnerFunction } from '../../runner.interface';
 
 /**
  * Verifies working with notebooks does the right thing with changes and doesnt trigger

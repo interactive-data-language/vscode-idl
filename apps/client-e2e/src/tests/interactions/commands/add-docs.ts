@@ -4,7 +4,7 @@ import expect from 'expect';
 import { readFileSync } from 'fs';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import { RunnerFunction } from '../../runner.interface';
 
 /**
  * Function that verifies we can correctly add docs to text document

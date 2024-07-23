@@ -7,8 +7,8 @@ import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
-import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
-import { RunnerFunction } from '../runner.interface';
+import { CLIENT_E2E_CONFIG } from '../../client-e2e-config.interface';
+import { RunnerFunction } from '../../runner.interface';
 
 /**
  * Makes sure that we can disable single problems

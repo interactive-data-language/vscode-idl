@@ -1,22 +1,20 @@
-import { GetExtensionPath, Sleep } from '@idl/shared';
+import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared';
+import { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
+import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
-import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
-import { RunnerFunction } from '../runner.interface';
+import { CLIENT_E2E_CONFIG } from '../../client-e2e-config.interface';
+import { RunnerFunction } from '../../runner.interface';
 
 /**
- * Makes sure that we can disable reporting of problems using our settings and that
- * it applies to notebooks
+ * Makes sure that we can disable single problems and it works for notebooks
  */
-export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
+export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
   async () => {
-    // get the current workspace config
-    const config = GetWorkspaceConfig();
-
     // open notebook
     const nb = await OpenNotebookInVSCode(
       GetExtensionPath('idl/test/client-e2e/problems/code-actions.idlnb')
@@ -37,15 +35,23 @@ export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
       )
     ).toEqual([1]);
 
-    // disable reporting problems
-    await config.update(
-      IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems,
-      false,
-      true
+    // create payload
+    const toDisable: IAutoFixIDLDiagnostic = {
+      code: IDL_PROBLEM_CODES.UNUSED_VARIABLE,
+      scope: 'user',
+    };
+
+    // run command
+    const ok = await vscode.commands.executeCommand(
+      IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
+      toDisable
     );
 
     // short pause
     await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
+
+    // make sure it ran fine
+    expect(ok).toBeTruthy();
 
     // verify problems
     expect(
@@ -54,14 +60,26 @@ export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
       )
     ).toEqual([0]);
 
-    // disable reporting problems
+    // run command again - should return "false" because we didnt add because it exists already
+    const ok2 = await vscode.commands.executeCommand(
+      IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
+      toDisable
+    );
+
+    // make sure it ran fine
+    expect(ok2).toBeFalsy();
+
+    // get config
+    const config = GetWorkspaceConfig();
+
+    // reset
     await config.update(
-      IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems,
-      true,
+      IDL_EXTENSION_CONFIG_KEYS.problemsIgnoreProblems,
+      [],
       true
     );
 
-    // short pause to make sure we open and parse
+    // short pause to make sure we have updates
     await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
     // verify problems
