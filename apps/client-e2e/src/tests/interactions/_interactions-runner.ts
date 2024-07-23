@@ -2,6 +2,7 @@ import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
 import { AddDocs } from './add-docs';
+import { DefFilesInteractRight } from './def-files-interact-right';
 import {
   ExecuteCodeActionsWithEditForNotebook,
   ExecuteCodeActionsWithEditForPROFile,
@@ -77,6 +78,11 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'PRO code interacts right',
   fn: ProCodeInteractRight,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'PRO def files interact right',
+  fn: DefFilesInteractRight,
 });
 
 INTERACTIONS_RUNNER.addTest({
