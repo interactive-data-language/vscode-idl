@@ -108,4 +108,52 @@ describe(`[auto generated] Detects when private/public is incorrect for docs`, (
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] problem for def`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `;+`,
+      `; :Params:`,
+      `;   var1: in, optional, boolean, hidden`,
+      `;     My favorite argument`,
+      `;-`,
+      `pro myclass::mymethod, var1`,
+      `  compile_opt idl2`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, type: 'def' }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 56,
+        info: 'The last docs parameter is only allowed to be "private" or "public". If not specified, it will be considered public',
+        start: [2, 33, 6],
+        end: [2, 33, 6],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });

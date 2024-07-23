@@ -292,7 +292,7 @@ export function BuildSyntaxTree(
   );
 
   // validate tree
-  if (full || parsed.type === 'def') {
+  if (full) {
     // set tree index again because we might have manipulated our syntax tree
     PopulateIndex(parsed.tree);
 

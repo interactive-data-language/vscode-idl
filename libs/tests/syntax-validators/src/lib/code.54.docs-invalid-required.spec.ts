@@ -108,4 +108,52 @@ describe(`[auto generated] Detects when required/optional is incorrect for docs`
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] problem for def`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `;+`,
+      `; :Params:`,
+      `;   var1: in, WRONG, boolean`,
+      `;     My favorite argument`,
+      `;-`,
+      `pro myclass::mymethod, var1`,
+      `  compile_opt idl2`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, type: 'def' }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 54,
+        info: 'Parameter requirements should be either "required" or "optional"',
+        start: [2, 14, 5],
+        end: [2, 14, 5],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });

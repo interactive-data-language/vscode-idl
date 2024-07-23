@@ -2372,5 +2372,20 @@ export class IDLIndex {
       // remove file from memory cache
       this.tokensByFile.remove(buckets.proFiles[i]);
     }
+
+    // process all of our PRO files def files
+    for (let i = 0; i < buckets.proDefFiles.length; i++) {
+      await this.getParsedProCode(
+        buckets.proDefFiles[i],
+        await cb(buckets.proDefFiles[i]),
+        token,
+        {
+          type: 'def',
+        }
+      );
+
+      // remove file from memory cache
+      this.tokensByFile.remove(buckets.proDefFiles[i]);
+    }
   }
 }
