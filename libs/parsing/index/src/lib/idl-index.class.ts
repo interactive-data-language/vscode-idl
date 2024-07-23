@@ -1281,8 +1281,6 @@ export class IDLIndex {
     // init files that we find
     const files = new Set<string>();
 
-    console.log({ pattern });
-
     // init folders
     let folders: string[] = [];
     let recursion: boolean[] = [];
@@ -2225,8 +2223,6 @@ export class IDLIndex {
      * Bucket them into separate groups
      */
     const buckets = this.bucketFiles(files);
-
-    console.log(buckets);
 
     // create a cancellation token
     const token = new CancellationToken();
