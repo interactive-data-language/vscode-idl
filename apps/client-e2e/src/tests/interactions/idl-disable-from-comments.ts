@@ -16,7 +16,7 @@ export const IDLDisableAllFromComments: RunnerFunction = async (init) => {
   );
 
   // short pause to make sure we open and parse
-  await Sleep(1000);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(3);
@@ -33,7 +33,7 @@ export const IDLDisableAllFromComments: RunnerFunction = async (init) => {
   );
 
   // short pause
-  await Sleep(1000);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(0);

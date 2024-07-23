@@ -1,4 +1,4 @@
-import { GetExtensionPath } from '@idl/shared';
+import { GetExtensionPath, Sleep } from '@idl/shared';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import {
@@ -7,6 +7,7 @@ import {
   TextDocumentPositionParams,
 } from 'vscode-languageserver';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -17,6 +18,8 @@ export const ProCodeInteractRight: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
     GetExtensionPath('idl/test/client-e2e/test_user_interaction.pro')
   );
+
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   /**
    * Get URi for the notebook

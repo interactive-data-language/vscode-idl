@@ -8,6 +8,7 @@ import expect from 'expect';
 import { readFileSync } from 'fs';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -27,7 +28,7 @@ export const IndexIDLFolderRightAndOpenEditClose: RunnerFunction = async (
   );
 
   // short pause to make sure we open and parse
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(0);
@@ -42,7 +43,7 @@ export const IndexIDLFolderRightAndOpenEditClose: RunnerFunction = async (
   );
 
   // short pause
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(1);
@@ -51,7 +52,7 @@ export const IndexIDLFolderRightAndOpenEditClose: RunnerFunction = async (
   await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);
 
   // short pause
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify problems are empty again via original content
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(0);

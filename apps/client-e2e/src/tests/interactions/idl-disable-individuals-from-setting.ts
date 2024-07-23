@@ -20,7 +20,7 @@ export const IDLDisableIndividualsFromSettings: RunnerFunction = async () => {
   );
 
   // short pause to make sure we open and parse
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(3);

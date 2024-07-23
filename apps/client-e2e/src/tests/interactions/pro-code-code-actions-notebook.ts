@@ -4,6 +4,7 @@ import expect from 'expect';
 import * as vscode from 'vscode';
 import { CodeActionParams } from 'vscode-languageserver';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -19,7 +20,7 @@ export const ProCodeCodeActionsNotebook: RunnerFunction = async (init) => {
   const doc = nb.getCells()[0].document;
 
   // short pause to make sure we open and parse
-  await Sleep(1000);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // get diagnostics
   const diags = GetRealDiagnostic(vscode.languages.getDiagnostics(doc.uri));

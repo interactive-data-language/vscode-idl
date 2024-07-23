@@ -9,6 +9,7 @@ import {
   TextDocumentPositionParams,
 } from 'vscode-languageserver';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -21,7 +22,7 @@ export const DefFilesInteractRight: RunnerFunction = async (init) => {
   );
 
   // short pause to make sure we open and parse
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   /**
    * Get URi for the notebook
@@ -106,7 +107,7 @@ export const DefFilesInteractRight: RunnerFunction = async (init) => {
   );
 
   // short pause
-  await Sleep(250);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(nOrig);
