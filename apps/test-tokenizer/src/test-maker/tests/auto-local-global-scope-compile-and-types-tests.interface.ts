@@ -750,6 +750,37 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Verify parsing as a def file works as expected`,
+      fileName: `parse-def.1.spec.ts`,
+      tests: [
+        {
+          name: 'to fix problem',
+          code: [
+            `;+`,
+            `; :MyStruct:`,
+            `;   prop: Long`,
+            `;     Placeholder docs for argument or keyword`,
+            `;   prop2: ENVIRaster`,
+            `;     Placeholder docs for argument or keyword`,
+            `;`,
+            `;-`,
+            `pro atVectorizeDifferenceImage, $`,
+            `  difference_raster = difference_raster, $`,
+            `  decrease_vector = decrease_vector, $ ; hack around ENVI not handling optional vectors and paired parameters the way we need`,
+            `  output_decrease_vector_uri = output_decrease_vector_uri, $`,
+            `  increase_vector = increase_vector, $ ; hack around ENVI not handling optional vectors and paired parameters the way we need`,
+            `  output_increase_vector_uri = output_increase_vector_uri`,
+            `  compile_opt idl2`,
+            ``,
+            `end`,
+          ],
+          config: {
+            type: 'def',
+          },
+        },
+      ],
+    },
+    {
       suiteName: `Verify fast parsing ignores docs`,
       fileName: `parse-fast.ignore-docs.1.spec.ts`,
       tests: [

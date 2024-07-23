@@ -4613,6 +4613,31 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
+    suiteName: `Def files ignore`,
+    fileName: `def-regression.1.spec.ts`,
+    tests: [
+      {
+        name: `all problems`,
+        code: [
+          `i write perfect code`,
+          `with all the errors . . . . .`,
+          `-> a = (`,
+          `begin`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
+      {
+        name: `all problems 2`,
+        code: [`a = 42`],
+        config: {
+          type: 'def',
+        },
+      },
+    ],
+  },
+  {
     suiteName: `Disable problems:`,
     fileName: `idl-disable.all.spec.ts`,
     tests: [
