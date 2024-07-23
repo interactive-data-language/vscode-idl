@@ -51,9 +51,20 @@ export const DEFAULT_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
 };
 
 /**
- * Default options for finding tokens
+ * OPtions for finding tokens with fast parsing
  */
 export const FAST_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
+  defs: [COMMENT, ROUTINE_DEF],
+  subDefs: SUB_DEFS_FAST,
+  // even though structure is deprecated, use it as it is a simpler regex expression
+  default: [COMMENT, ROUTINE_DEF, STRUCTURE],
+  full: false,
+};
+
+/**
+ * Options for finding tokens in def files
+ */
+export const DEF_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
   defs: [COMMENT, ROUTINE_DEF],
   subDefs: SUB_DEFS_FAST,
   // even though structure is deprecated, use it as it is a simpler regex expression
