@@ -20,6 +20,12 @@ Document some advanced types so users may try them out and provide feedback. The
 
 Fixed an issue where we open a file that we have stopped in, even if it is compiled as a SAVE file. Now, only PRO files will be jumped to.
 
+Fixed an issue where, if you have a comment block before and after a routine definition, the second comment block is picked. We now only use the comment block after a routine definition if we did not find one just before.
+
+Fixed an issue where documentation after a routine definition wasn't properly reporting problems.
+
+For both of the problems above, and for documentation inside of a routine, the interior comments must be on the next line after the definition otherwise they will not be detected. If this breaks existing behavior for you, let us know and we can change it back!
+
 ## 4.5.1 - May 2024
 
 Continuing with our story of IDL Notebook user experience, each session of notebook now gets it's own instance of IDL! This means a few things:

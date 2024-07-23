@@ -84,7 +84,9 @@ export function PopulateGlobalLocalCompileOpts(
         // make sure we have children
         if (branch.kids.length > 0) {
           // get our first child
-          const first = branch.kids[0];
+          const first = branch.kids[0] as IBranch<
+            RoutineNameToken | RoutineMethodNameToken
+          >;
 
           const name = first.match[0].toLowerCase();
 
@@ -98,7 +100,11 @@ export function PopulateGlobalLocalCompileOpts(
             branch.kids[1]?.name === TOKEN_NAMES.COMMENT_BLOCK &&
             docs === undefined
           ) {
-            docs = branch.kids[1];
+            if (first?.end) {
+              if (first.end.pos[0] + 1 === branch.kids[1].pos[0]) {
+                docs = branch.kids[1];
+              }
+            }
           }
 
           // generate metadata
@@ -106,7 +112,7 @@ export function PopulateGlobalLocalCompileOpts(
             ? GenerateRoutineDocsAndMetadata(
                 'function',
                 branch,
-                first as IBranch<RoutineNameToken | RoutineMethodNameToken>,
+                first,
                 parsed.parseProblems,
                 structures,
                 docs
@@ -216,7 +222,9 @@ export function PopulateGlobalLocalCompileOpts(
         // make sure we have children
         if (branch.kids.length > 0) {
           // get our first child
-          const first = branch.kids[0];
+          const first = branch.kids[0] as IBranch<
+            RoutineNameToken | RoutineMethodNameToken
+          >;
 
           // get the name
           const name = first.match[0].toLowerCase();
@@ -231,7 +239,11 @@ export function PopulateGlobalLocalCompileOpts(
             branch.kids[1]?.name === TOKEN_NAMES.COMMENT_BLOCK &&
             docs === undefined
           ) {
-            docs = branch.kids[1];
+            if (first?.end) {
+              if (first.end.pos[0] + 1 === branch.kids[1].pos[0]) {
+                docs = branch.kids[1];
+              }
+            }
           }
 
           // generate metadata
@@ -239,7 +251,7 @@ export function PopulateGlobalLocalCompileOpts(
             ? GenerateRoutineDocsAndMetadata(
                 'procedure',
                 branch,
-                first as IBranch<RoutineNameToken | RoutineMethodNameToken>,
+                first,
                 parsed.parseProblems,
                 structures,
                 docs

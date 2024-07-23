@@ -689,4 +689,240 @@ describe(`[auto generated] Extract docs below routines`, () => {
     // verify results
     expect(tokenized.compile).toEqual(expectedCompile);
   });
+
+  it(`[auto generated] ignore docs that are not immediately on the next line`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      ``,
+      `PRO mypro_dated, arg1, arg2, arg3, arg4, KW1 = kw1, KW2 = kw2`,
+      ``,
+      `  ;+ reference to our super cool and awesome plot`,
+      `  a = plot(/TEST)`,
+      ``,
+      `END`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected local variables
+    const expectedVars: ILocalTokens = {
+      func: {},
+      pro: {
+        mypro_dated: {
+          kw1: {
+            type: 'v',
+            name: 'kw1',
+            pos: [1, 47, 3],
+            meta: {
+              display: 'kw1',
+              isDefined: true,
+              usage: [[1, 47, 3]],
+              docs: '',
+              source: 'user',
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            },
+          },
+          kw2: {
+            type: 'v',
+            name: 'kw2',
+            pos: [1, 58, 3],
+            meta: {
+              display: 'kw2',
+              isDefined: true,
+              usage: [[1, 58, 3]],
+              docs: '',
+              source: 'user',
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            },
+          },
+          arg1: {
+            type: 'v',
+            name: 'arg1',
+            pos: [1, 17, 4],
+            meta: {
+              display: 'arg1',
+              isDefined: true,
+              usage: [[1, 17, 4]],
+              docs: '',
+              source: 'user',
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            },
+          },
+          arg2: {
+            type: 'v',
+            name: 'arg2',
+            pos: [1, 23, 4],
+            meta: {
+              display: 'arg2',
+              isDefined: true,
+              usage: [[1, 23, 4]],
+              docs: '',
+              source: 'user',
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            },
+          },
+          arg3: {
+            type: 'v',
+            name: 'arg3',
+            pos: [1, 29, 4],
+            meta: {
+              display: 'arg3',
+              isDefined: true,
+              usage: [[1, 29, 4]],
+              docs: '',
+              source: 'user',
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            },
+          },
+          arg4: {
+            type: 'v',
+            name: 'arg4',
+            pos: [1, 35, 4],
+            meta: {
+              display: 'arg4',
+              isDefined: true,
+              usage: [[1, 35, 4]],
+              docs: '',
+              source: 'user',
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            },
+          },
+          a: {
+            type: 'v',
+            name: 'a',
+            pos: [4, 2, 1],
+            meta: {
+              display: 'a',
+              isDefined: true,
+              usage: [[4, 2, 1]],
+              docs: 'reference to our super cool and awesome plot',
+              source: 'user',
+              type: [{ name: 'Plot', display: 'Plot', args: [], meta: {} }],
+            },
+          },
+        },
+      },
+      main: {},
+    };
+
+    // verify results
+    expect(tokenized.local).toEqual(expectedVars);
+
+    // define expected global variables
+    const expectedGlobal: GlobalTokens = [
+      {
+        type: 'p',
+        name: 'mypro_dated',
+        pos: [1, 4, 11],
+        meta: {
+          source: 'user',
+          args: {
+            arg1: {
+              docs: '',
+              private: false,
+              source: 'internal',
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              direction: 'bidirectional',
+              req: true,
+              display: 'arg1',
+              code: true,
+              pos: [1, 17, 4],
+            },
+            arg2: {
+              docs: '',
+              private: false,
+              source: 'internal',
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              direction: 'bidirectional',
+              req: true,
+              display: 'arg2',
+              code: true,
+              pos: [1, 23, 4],
+            },
+            arg3: {
+              docs: '',
+              private: false,
+              source: 'internal',
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              direction: 'bidirectional',
+              req: true,
+              display: 'arg3',
+              code: true,
+              pos: [1, 29, 4],
+            },
+            arg4: {
+              docs: '',
+              private: false,
+              source: 'internal',
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              direction: 'bidirectional',
+              req: true,
+              display: 'arg4',
+              code: true,
+              pos: [1, 35, 4],
+            },
+          },
+          docs: '\n```idl\nmypro_dated, arg1, arg2, arg3, arg4, $\n  KW1 = value, $\n  KW2 = value\n```\n\n\n#### Arguments\n\n- **arg1**: bidirectional, required, any\n\n  \n\n- **arg2**: bidirectional, required, any\n\n  \n\n- **arg3**: bidirectional, required, any\n\n  \n\n- **arg4**: bidirectional, required, any\n\n  \n\n\n\n#### Keywords\n\n- **KW1**: bidirectional, optional, any\n\n    \n\n- **KW2**: bidirectional, optional, any\n\n    \n\n',
+          docsLookup: {},
+          display: 'mypro_dated',
+          kws: {
+            kw1: {
+              docs: '',
+              private: false,
+              source: 'internal',
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              direction: 'bidirectional',
+              req: false,
+              display: 'KW1',
+              code: true,
+              pos: [1, 41, 3],
+            },
+            kw2: {
+              docs: '',
+              private: false,
+              source: 'internal',
+              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              direction: 'bidirectional',
+              req: false,
+              display: 'KW2',
+              code: true,
+              pos: [1, 52, 3],
+            },
+          },
+          private: false,
+          struct: [],
+        },
+        file: 'not-real',
+      },
+    ];
+
+    // verify results
+    expect(tokenized.global).toEqual(expectedGlobal);
+
+    // define expected compile options
+    const expectedCompile: ICompileOptions = {
+      func: {},
+      pro: { mypro_dated: [] },
+      main: [],
+    };
+
+    // verify results
+    expect(tokenized.compile).toEqual(expectedCompile);
+  });
 });
