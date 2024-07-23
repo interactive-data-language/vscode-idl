@@ -1,5 +1,5 @@
 import { IDLFileHelper } from '@idl/shared';
-import { SyntaxProblems } from '@idl/types/problem-codes';
+import { IDL_DOCS_PROBLEMS, SyntaxProblems } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
@@ -96,32 +96,47 @@ export function SendProblems(inFiles: string[]) {
     // init problems
     let problems: SyntaxProblems = [];
 
-    /**
-     * Check if we can report problems
-     *
-     * If we are a notebook we always send problems
-     */
+    // skip files we cant report problems for
+    if (!CanReportProblems(files[i])) {
+      continue;
+    }
+
+    // make sure we have a valid file that we can report problems for
     if (
-      (IDLFileHelper.isIDLNotebookFile(files[i]) ||
-        IDLFileHelper.isPROCode(files[i])) &&
-      CanReportProblems(files[i])
+      !(
+        IDLFileHelper.isPROCode(files[i]) ||
+        IDLFileHelper.isPRODef(files[i]) ||
+        IDLFileHelper.isIDLNotebookFile(files[i])
+      )
     ) {
-      /**
-       * Are our tokens in another thread and we have stored the problems directly in parseProblems
-       *
-       * We use parseProblems to store "undefined" as a flag to sync files so we need an extra check
-       */
-      if (parseProblems[files[i]]) {
-        problems = problems.concat(parseProblems[files[i]]);
-      }
+      continue;
+    }
 
-      // check for global problems
-      if (globalProblems[files[i]]) {
-        problems = problems.concat(globalProblems[files[i]]);
-      }
+    /**
+     * Are our tokens in another thread and we have stored the problems directly in parseProblems
+     *
+     * We use parseProblems to store "undefined" as a flag to sync files so we need an extra check
+     */
+    if (parseProblems[files[i]]) {
+      problems = problems.concat(parseProblems[files[i]]);
+    }
 
-      // filter problems by problem code
-      if (problems.length > 0) {
+    // check for global problems
+    if (globalProblems[files[i]]) {
+      problems = problems.concat(globalProblems[files[i]]);
+    }
+
+    // filter problems by problem code
+    if (problems.length > 0) {
+      if (IDLFileHelper.isPRODef(files[i])) {
+        problems = problems.filter(
+          (problem) =>
+            !(
+              problem.code in IDL_DOCS_PROBLEMS ||
+              problem.code in IGNORE_PROBLEM_CODES
+            ) && problem.canReport
+        );
+      } else {
         problems = problems.filter(
           (problem) =>
             !(problem.code in IGNORE_PROBLEM_CODES) && problem.canReport

@@ -51,7 +51,8 @@ export async function FormatFile(
      * Handle PRO code
      */
     case IDLFileHelper.isPROCode(info.fsPath) ||
-      IDLFileHelper.isIDLNotebookFile(info.fsPath): {
+      IDLFileHelper.isIDLNotebookFile(info.fsPath) ||
+      IDLFileHelper.isPRODef(info.fsPath): {
       formatted = await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
         IDL_INDEX.getWorkerID(info.fsPath),
         LSP_WORKER_THREAD_MESSAGE_LOOKUP.ASSEMBLE_PRO_CODE,

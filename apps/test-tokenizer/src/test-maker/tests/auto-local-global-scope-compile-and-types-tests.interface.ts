@@ -643,7 +643,7 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
           name: 'adds compile-opt idl2 for main and gets right default type',
           code: [`a = 42`, ``, `end`],
           config: {
-            isNotebook: true,
+            type: 'notebook',
           },
         },
       ],
@@ -656,7 +656,7 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
           name: 'ignores compile opt idl2 for procedures',
           code: [`pro myPro`, `  print, 'Hello world'`, `end`],
           config: {
-            isNotebook: true,
+            type: 'notebook',
           },
         },
         {
@@ -668,7 +668,7 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
             `end`,
           ],
           config: {
-            isNotebook: true,
+            type: 'notebook',
           },
         },
       ],

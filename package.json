@@ -189,6 +189,7 @@
   },
   "activationEvents": [
     "workspaceContains:**/*.pro",
+    "workspaceContains:**/*.pro.def",
     "workspaceContains:**/*idl.json",
     "workspaceContains:**/*.task",
     "workspaceContains:**/*.idlnb",
@@ -1272,7 +1273,8 @@
           "idl"
         ],
         "extensions": [
-          ".pro"
+          ".pro",
+          ".pro.def"
         ],
         "configuration": "extension/language/syntaxes/language-configuration.json",
         "mimetypes": [

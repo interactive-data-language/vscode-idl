@@ -35,7 +35,7 @@ describe(`[auto generated] Detects missing end to main level program`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
@@ -83,7 +83,7 @@ describe(`[auto generated] Detects missing end to main level program`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
@@ -136,7 +136,7 @@ describe(`[auto generated] Detects missing end to main level program`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens

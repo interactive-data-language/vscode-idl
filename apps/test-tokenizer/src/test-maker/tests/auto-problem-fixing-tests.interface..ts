@@ -275,7 +275,7 @@ export const AUTO_PROBLEM_FIXING_TESTS: IAutoAssemblerTest[] = [
           `end`,
         ],
         parseConfig: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -292,49 +292,49 @@ export const AUTO_PROBLEM_FIXING_TESTS: IAutoAssemblerTest[] = [
           `end`,
         ],
         parseConfig: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `for procedures`,
         code: [`;+`, `;-`, `pro mypro`, ``, `end`],
         parseConfig: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `for procedure methods`,
         code: [`;+`, `;-`, `pro myclass::mypro`, ``, `end`],
         parseConfig: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `for main case 1`,
         code: [`; comment`, ``, `end`],
         parseConfig: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `for main case 2`,
         code: [`a = 5`, ``, `end`],
         parseConfig: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `for main case 3`,
         code: [``, `; comment`, ``, `a = 42`, ``, `end`],
         parseConfig: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `for main case 4`,
         code: [``, `; comment`, ``, `a = 42`, ``, `end`],
         parseConfig: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -348,7 +348,7 @@ export const AUTO_PROBLEM_FIXING_TESTS: IAutoAssemblerTest[] = [
           `end`,
         ],
         parseConfig: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
     ],

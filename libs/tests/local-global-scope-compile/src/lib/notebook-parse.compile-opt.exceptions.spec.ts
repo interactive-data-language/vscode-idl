@@ -26,7 +26,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected local variables
@@ -97,7 +97,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected local variables

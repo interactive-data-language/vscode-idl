@@ -12,9 +12,18 @@ import {
 import { ILocalTokens } from './populators/populate-local.interface';
 
 /**
+ * Type of parsed item that we have
+ */
+export type ParsedType = 'def' | 'notebook' | 'pro';
+
+/**
  * Data structure for parsed code
  */
 export interface IParsed extends IFoundTokens {
+  /**
+   * type of parsed code
+   */
+  type: ParsedType;
   /**
    * Checksum for code, used for change detection
    */
@@ -28,10 +37,6 @@ export interface IParsed extends IFoundTokens {
    * If we have set a token cache or not
    */
   hasCache: boolean;
-  /**
-   * Track if our current parsed code is for a notebook or not
-   */
-  isNotebook: boolean;
   /** What problems are disabled? */
   disabledProblems: IDisabledProblems;
   /** Problems found within code from basic parsing */
@@ -66,7 +71,7 @@ export const DEFAULT_PARSED: IParsed = {
   checksum: '',
   hasDetail: false,
   hasCache: false,
-  isNotebook: false,
+  type: 'pro',
   tokens: [],
   text: [],
   lines: 0,
