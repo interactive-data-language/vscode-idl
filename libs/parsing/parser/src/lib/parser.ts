@@ -121,7 +121,11 @@ export function Parser(
    *
    * If it is off, we dont get hover help or useful auto-complete
    */
-  PopulateGlobalLocalCompileOpts(tokenized, cancel, true);
+  PopulateGlobalLocalCompileOpts(
+    tokenized,
+    cancel,
+    true || tokenized.type === 'def'
+  );
 
   // remove all problems if fast parse
   if (!options.full && !(tokenized.type === 'def')) {
