@@ -6,9 +6,9 @@ import expect from 'expect';
 import { existsSync, rmSync } from 'fs';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../../client-e2e-config.interface';
 import { CompareCellOutputs } from './compare-cells';
 import { ICompareCellOutputs } from './compare-cells.interface';
-import { DEFAULT_RUNNER_NOTEBOOK_TIMEOUT } from './notebook-timeout.interface';
 
 /**
  * helper function to:
@@ -54,7 +54,7 @@ export async function RunNotebookAndCompareCells(
   // short pause based on the number of cells we have
   // sometimes the rendering takes too long to register (like complex maps)
   // so we need an extra pause
-  await Sleep(DEFAULT_RUNNER_NOTEBOOK_TIMEOUT);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   // compare cells
   await CompareCellOutputs(nb, cells);

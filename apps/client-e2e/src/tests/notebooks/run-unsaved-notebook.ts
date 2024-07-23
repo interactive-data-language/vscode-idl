@@ -3,10 +3,10 @@ import { VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 import { CompareCellOutputs } from './helpers/compare-cells';
 import { ICompareCellOutputs } from './helpers/compare-cells.interface';
-import { DEFAULT_RUNNER_NOTEBOOK_TIMEOUT } from './helpers/notebook-timeout.interface';
 
 /**
  * Types of outputs from cells that we expect to have
@@ -34,7 +34,7 @@ export const RunUnsavedNotebook: RunnerFunction = async (init) => {
   );
 
   // short pause
-  await Sleep(DEFAULT_RUNNER_NOTEBOOK_TIMEOUT);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   // get active editor
   const editor = vscode.window.activeNotebookEditor;
@@ -65,7 +65,7 @@ export const RunUnsavedNotebook: RunnerFunction = async (init) => {
   // short pause based on the number of cells we have
   // sometimes the rendering takes too long to register (like complex maps)
   // so we need an extra pause
-  await Sleep(DEFAULT_RUNNER_NOTEBOOK_TIMEOUT);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   // compare cells
   await CompareCellOutputs(nb, CELL_OUTPUT);
