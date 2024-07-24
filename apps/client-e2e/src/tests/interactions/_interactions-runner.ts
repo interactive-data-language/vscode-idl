@@ -6,6 +6,9 @@ import { IDLJSONInteractRight } from './basic-interactions/idl-json-interact-rig
 import { IndexIDLFolderRightAndOpenEditClose } from './basic-interactions/index-idl-folder-right-and-open-edit-close';
 import { ProCodeInteractRight } from './basic-interactions/pro-code-interacts-right';
 import { TasksInteractRight } from './basic-interactions/tasks-interact-right';
+import { DuplicateGlobals } from './change-detection/duplicate-globals';
+import { DuplicateGlobalsFromDefs } from './change-detection/duplicate-globals-from-defs';
+import { DuplicateGlobalsFromOnlyDefs } from './change-detection/duplicate-globals-from-only-defs';
 import {
   ExecuteCodeActionsWithEditForNotebook,
   ExecuteCodeActionsWithEditForPROFile,
@@ -172,4 +175,19 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'Notebooks report problems right for implied print and standalone expressions',
   fn: NotebookImpliedPrintProblemReporting,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Detect duplicate globals from two PRO files',
+  fn: DuplicateGlobals,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Detect duplicate globals from PRO and def files',
+  fn: DuplicateGlobalsFromDefs,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Detect duplicate globals from only def files',
+  fn: DuplicateGlobalsFromOnlyDefs,
 });
