@@ -10,12 +10,6 @@ import { PostProcessParsed } from '../post-process/post-process-parsed';
 import { IChangeDetection } from './change-detection.interface';
 
 /**
- * Track the files that we are processing for change detection to make
- * sure that we only do this once
- */
-const IS_CHANGING: { [key: string]: undefined } = {};
-
-/**
  * Based on an array of global tokens, checks all index files in they
  * need to have post-processing run again
  *
@@ -37,14 +31,6 @@ export function ChangeDetection(
 
   // process each file
   for (let z = 0; z < files.length; z++) {
-    // skip if we have already processed
-    if (files[z] in IS_CHANGING) {
-      continue;
-    }
-
-    // track that we are doing change detection on this
-    IS_CHANGING[files[z]] = undefined;
-
     // get our parsed file
     const uses = index.tokensByFile.uses(files[z]);
 
@@ -107,11 +93,6 @@ export function ChangeDetection(
         postProcessThese.splice(idx, 1);
       }
     }
-  }
-
-  // remove files that we are doing change detection on
-  for (let i = 0; i < postProcessThese.length; i++) {
-    delete IS_CHANGING[postProcessThese[i]];
   }
 
   /**

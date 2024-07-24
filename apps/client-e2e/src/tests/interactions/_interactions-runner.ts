@@ -9,6 +9,7 @@ import { TasksInteractRight } from './basic-interactions/tasks-interact-right';
 import { DuplicateGlobals } from './change-detection/duplicate-globals';
 import { DuplicateGlobalsFromDefs } from './change-detection/duplicate-globals-from-defs';
 import { DuplicateGlobalsFromOnlyDefs } from './change-detection/duplicate-globals-from-only-defs';
+import { RoutineChange } from './change-detection/routine-change';
 import {
   ExecuteCodeActionsWithEditForNotebook,
   ExecuteCodeActionsWithEditForPROFile,
@@ -190,4 +191,9 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'Detect duplicate globals from only def files',
   fn: DuplicateGlobalsFromOnlyDefs,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Advanced change detection from routines changing',
+  fn: RoutineChange,
 });
