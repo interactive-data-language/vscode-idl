@@ -2293,8 +2293,13 @@ export class IDLIndex {
 
     // index appropriately
     switch (true) {
-      case IDLFileHelper.isConfigFile(file):
-        await this.indexConfigFile(file, code);
+      case IDLFileHelper.isPROCode(file):
+        await this.getParsedProCode(
+          file,
+          code,
+          new CancellationToken(),
+          Object.assign({ postProcess: true }, options)
+        );
         break;
       case IDLFileHelper.isTaskFile(file):
         await this.indexTaskFile(file, code);
@@ -2307,13 +2312,8 @@ export class IDLIndex {
           Object.assign({ type: 'def' }, options)
         );
         break;
-      case IDLFileHelper.isPROCode(file):
-        await this.getParsedProCode(
-          file,
-          code,
-          new CancellationToken(),
-          Object.assign({ postProcess: true }, options)
-        );
+      case IDLFileHelper.isConfigFile(file):
+        await this.indexConfigFile(file, code);
         break;
       default:
         break;
