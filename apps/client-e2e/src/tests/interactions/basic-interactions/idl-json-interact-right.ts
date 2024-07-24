@@ -8,8 +8,8 @@ import {
   TextDocumentPositionParams,
 } from 'vscode-languageserver';
 
-import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
-import { RunnerFunction } from '../runner.interface';
+import { CLIENT_E2E_CONFIG } from '../../client-e2e-config.interface';
+import { RunnerFunction } from '../../runner.interface';
 
 /**
  * Verifies idl.json does the right thing with changes and doesnt trigger
