@@ -25,6 +25,7 @@ set_global_tokenizer(
     AutoTokenizer.from_pretrained("NousResearch/Llama-2-7b-chat-hf").encode
 )
 
+
 def CreateIndex(source, index_id, destination, embed_model=None):
   """
   Create new index and persist it to disk
@@ -56,6 +57,7 @@ def LoadIndex(path, index_id)
 
   # load index
   return load_index_from_storage(storage_context, index_id=index_id)
+
 
 # ID for our index (from examples)
 INDEX_ID = "vector_index"
