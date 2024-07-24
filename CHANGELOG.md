@@ -26,6 +26,8 @@ Fixed an issue where documentation after a routine definition wasn't properly re
 
 For both of the problems above, and for documentation inside of a routine, the interior comments must be on the next line after the definition otherwise they will not be detected. If this breaks existing behavior for you, let us know and we can change it back!
 
+Resolved an issue where, when routine definitions changed, problems were not properly detected as they should be. Example: changing the name of a keyword should have an error appear in any file that used the old keyword.
+
 ## 4.5.1 - May 2024
 
 Continuing with our story of IDL Notebook user experience, each session of notebook now gets it's own instance of IDL! This means a few things:
