@@ -1,4 +1,4 @@
-import { IFoundTokens } from '@idl/parsing/tokenizer';
+import { IFoundTokens } from '@idl/tokenizer';
 import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';

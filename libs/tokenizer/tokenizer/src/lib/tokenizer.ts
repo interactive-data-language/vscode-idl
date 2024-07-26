@@ -1,4 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { TOKEN_TYPES } from '@idl/tokenizer/common';
 import { nanoid } from 'nanoid';
 
 import { FindMatches } from './helpers/find-matches';
@@ -15,7 +16,6 @@ import {
   IFoundTokens,
   IStartToken,
   NO_AUTO_CLOSE,
-  TOKEN_TYPES,
 } from './tokenizer.interface';
 import { ITokenDef, TokenName } from './tokens.interface';
 import { IDL_LINE_END } from './tokens/regex.interface';

@@ -1,7 +1,7 @@
 import {
   CallFunctionMethodToken,
   CallProcedureMethodToken,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 import { TokenFormatter } from '../../formatter-rule-set.interface';
 

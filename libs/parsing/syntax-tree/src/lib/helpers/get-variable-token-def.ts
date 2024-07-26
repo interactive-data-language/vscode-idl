@@ -1,4 +1,4 @@
-import { TokenName } from '@idl/parsing/tokenizer';
+import { TokenName } from '@idl/tokenizer';
 import copy from 'fast-copy';
 
 import { TreeToken } from '../branches.interface';

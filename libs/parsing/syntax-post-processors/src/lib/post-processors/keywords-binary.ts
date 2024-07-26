@@ -15,7 +15,7 @@ import {
   NonBasicTokenNames,
   OperatorToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 import { SKIP_TOKENS } from './arg-kw-def';
 

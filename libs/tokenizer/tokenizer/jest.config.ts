@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'parsing-tokenizer',
+  displayName: 'tokenizer-tokenizer',
 
   globals: {},
   transform: {
@@ -12,6 +12,6 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/parsing/tokenizer',
+  coverageDirectory: '../../../coverage/libs/tokenizer/tokenizer',
   preset: '../../../jest.preset.js',
 };

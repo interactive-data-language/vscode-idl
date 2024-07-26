@@ -1,5 +1,5 @@
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
-import { BracketToken } from '@idl/parsing/tokenizer';
+import { BracketToken } from '@idl/tokenizer';
 import { IDLDataType } from '@idl/types/core';
 import copy from 'fast-copy';
 

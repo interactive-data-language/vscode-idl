@@ -9,7 +9,7 @@ import {
   AssignmentToken,
   LogicalTernaryThenToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDLDataType } from '@idl/types/core';
 import copy from 'fast-copy';
 

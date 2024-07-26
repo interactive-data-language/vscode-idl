@@ -3,7 +3,7 @@ import {
   STRUCTURE_PROPERTY_CLEANER_REGEX,
   StructurePropertyToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 import { TreeToken } from '../branches.interface';
 

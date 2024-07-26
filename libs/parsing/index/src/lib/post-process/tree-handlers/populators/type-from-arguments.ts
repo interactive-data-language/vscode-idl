@@ -5,7 +5,7 @@ import {
   CallProcedureMethodToken,
   CallProcedureToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDL_ANY_TYPE } from '@idl/types/core';
 
 import { GetRoutine } from '../../../helpers/get-routine';

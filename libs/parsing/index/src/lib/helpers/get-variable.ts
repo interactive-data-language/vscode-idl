@@ -4,7 +4,7 @@ import {
   LocalVariableToken,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { VariableToken } from '@idl/parsing/tokenizer';
+import { VariableToken } from '@idl/tokenizer';
 
 import { GetVariables } from './get-variables';
 

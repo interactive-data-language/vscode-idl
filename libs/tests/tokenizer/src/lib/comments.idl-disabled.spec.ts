@@ -6,7 +6,7 @@ import {
   TOKEN_TYPES,
   Tokenizer,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 describe(`[auto generated] Validates comment parsing for idl-disabled`, () => {
   it(`[auto generated] example`, () => {

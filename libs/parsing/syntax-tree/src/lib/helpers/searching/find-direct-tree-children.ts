@@ -1,4 +1,4 @@
-import { TokenName } from '@idl/parsing/tokenizer';
+import { TokenName } from '@idl/tokenizer';
 
 import { SyntaxTree, TreeToken } from '../../branches.interface';
 

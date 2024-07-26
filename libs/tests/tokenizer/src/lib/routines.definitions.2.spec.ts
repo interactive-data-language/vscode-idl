@@ -6,7 +6,7 @@ import {
   TOKEN_TYPES,
   Tokenizer,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 describe(`[auto generated] Validates routine parsing`, () => {
   it(`[auto generated] verifies we only stop on "end"`, () => {

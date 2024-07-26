@@ -4,7 +4,7 @@ import {
   IDL_SYNTAX_TREE_POST_PROCESSOR,
   SyntaxTree,
 } from '@idl/parsing/syntax-tree';
-import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
 
 const MERGE: { [key: string]: boolean } = {};
 MERGE[TOKEN_NAMES.QUOTE_DOUBLE] = true;

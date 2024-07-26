@@ -3,10 +3,7 @@ import {
   IGlobalLocationLookup,
   IGlobalTokenPosition,
 } from '@idl/parsing/syntax-tree';
-import {
-  RoutineMethodNameToken,
-  TokenStartMatches,
-} from '@idl/parsing/tokenizer';
+import { RoutineMethodNameToken, TokenStartMatches } from '@idl/tokenizer';
 
 /**
  * Handles logic to save a match to our lookup. Just wraps handling arrays

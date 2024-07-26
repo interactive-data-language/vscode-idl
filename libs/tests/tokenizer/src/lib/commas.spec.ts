@@ -6,7 +6,7 @@ import {
   TOKEN_TYPES,
   Tokenizer,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 describe(`[auto generated] Validates comma parsing (mostly covered elsewhere)`, () => {
   it(`[auto generated] don't find commas on their own`, () => {

@@ -5,7 +5,7 @@ import {
   SyntaxProblemWithTranslation,
   SyntaxTree,
 } from '@idl/parsing/syntax-tree';
-import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 /**

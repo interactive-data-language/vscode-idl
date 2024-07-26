@@ -1,5 +1,5 @@
 import { TreeToken } from '@idl/parsing/syntax-tree';
-import { StructureNameToken } from '@idl/parsing/tokenizer';
+import { StructureNameToken } from '@idl/tokenizer';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 
 import { GlobalIndexedToken } from '../../global-index.interface';

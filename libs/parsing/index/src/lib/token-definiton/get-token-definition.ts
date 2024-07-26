@@ -3,7 +3,7 @@ import {
   GetTokenAtCursor,
   GetVariableTokenDef,
 } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 import {
   IBaseIndexedToken,
   IDL_TYPE_LOOKUP,

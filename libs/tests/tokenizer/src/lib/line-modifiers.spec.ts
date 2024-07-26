@@ -6,7 +6,7 @@ import {
   TOKEN_TYPES,
   Tokenizer,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 describe(`[auto generated] Validates line modifier (separators)`, () => {
   it(`[auto generated] parses multi-line as single-line`, () => {

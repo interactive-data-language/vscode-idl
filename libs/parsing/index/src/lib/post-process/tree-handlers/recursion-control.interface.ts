@@ -1,5 +1,5 @@
 import { ITreeRecurserOptions } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 
 /**
  * For these tokens, we recurse last

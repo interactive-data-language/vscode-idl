@@ -1,4 +1,4 @@
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 
 /**
  * Tracks tokens that increase our indent level while we are processing their children

@@ -1,5 +1,5 @@
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
-import { CallFunctionMethodToken } from '@idl/parsing/tokenizer';
+import { CallFunctionMethodToken } from '@idl/tokenizer';
 import {
   GlobalFunctionMethodToken,
   IDL_ANY_TYPE,

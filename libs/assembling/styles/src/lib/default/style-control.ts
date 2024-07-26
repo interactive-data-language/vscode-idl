@@ -5,7 +5,7 @@ import {
   AssemblerStyleMeta,
 } from '@idl/assembling/tree-handlers';
 import { BasicCallback, BranchCallback } from '@idl/parsing/syntax-tree';
-import { BasicTokenNames, NonBasicTokenNames } from '@idl/parsing/tokenizer';
+import { BasicTokenNames, NonBasicTokenNames } from '@idl/tokenizer';
 
 import { BASIC_CONTROL, BRANCH_CONTROL } from './style-control.interface';
 

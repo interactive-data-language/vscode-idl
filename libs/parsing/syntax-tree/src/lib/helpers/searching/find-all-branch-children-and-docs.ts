@@ -3,7 +3,7 @@ import {
   NonBasicTokenNames,
   TOKEN_NAMES,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 import { BRANCH_TYPES, IBranch, TreeToken } from '../../branches.interface';
 

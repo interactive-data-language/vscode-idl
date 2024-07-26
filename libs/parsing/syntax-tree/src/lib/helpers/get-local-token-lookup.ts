@@ -1,4 +1,4 @@
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 
 import { TreeBranchToken } from '../branches.interface';
 import { IParsed } from '../parsed.interface';

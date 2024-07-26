@@ -1,4 +1,4 @@
-import { NonBasicTokenNames, TokenName } from '@idl/parsing/tokenizer';
+import { NonBasicTokenNames, TokenName } from '@idl/tokenizer';
 
 import { IBranch } from '../../branches.interface';
 

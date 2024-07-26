@@ -3,7 +3,7 @@ import {
   KeywordBinaryToken,
   KeywordDefinitionToken,
   KeywordToken,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_TYPE_LOOKUP, IDLTypeHelper, ParseIDLType } from '@idl/types/core';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';

@@ -1,6 +1,6 @@
 import { AdjustCase } from '@idl/assembling/shared';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.LOGICAL_EXPRESSION_DEFAULT,

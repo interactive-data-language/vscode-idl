@@ -1,4 +1,9 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import {
+  IDetailedPosition,
+  IPosition,
+  TOKEN_TYPES,
+} from '@idl/tokenizer/common';
 import { PositionArray } from '@idl/types/tokenizer';
 
 import { GetMatchesArray } from './helpers/get-matches-array';
@@ -7,10 +12,7 @@ import { Split } from './helpers/split';
 import { ICurrent } from './iterator.interface';
 import {
   IBasicToken,
-  IDetailedPosition,
-  IPosition,
   PRESERVE_INTERIOR_SPACE,
-  TOKEN_TYPES,
   TokenizerToken,
 } from './tokenizer.interface';
 import {

@@ -1,5 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { BasicTokenNames, NonBasicTokenNames } from '@idl/parsing/tokenizer';
+import { BasicTokenNames, NonBasicTokenNames } from '@idl/tokenizer';
 
 import { TreeToken } from '../branches.interface';
 

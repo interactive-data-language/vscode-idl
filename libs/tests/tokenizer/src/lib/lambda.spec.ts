@@ -6,7 +6,7 @@ import {
   TOKEN_TYPES,
   Tokenizer,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 describe(`[auto generated] Validates lambda functions parsed as special token`, () => {
   it(`[auto generated] correctly parse lambda functions`, () => {

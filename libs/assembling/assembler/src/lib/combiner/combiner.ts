@@ -7,11 +7,7 @@ import {
   SyntaxTree,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import {
-  NonBasicTokenNames,
-  TOKEN_NAMES,
-  TokenName,
-} from '@idl/parsing/tokenizer';
+import { NonBasicTokenNames, TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 
 import { GetNewLine } from '../helpers/get-new-line';
 import { Stringify } from '../helpers/stringify';

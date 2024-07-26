@@ -4,7 +4,7 @@ import {
   IParsed,
   SyntaxTree,
 } from '@idl/parsing/syntax-tree';
-import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
 
 /**
  * Tokens that we filter out

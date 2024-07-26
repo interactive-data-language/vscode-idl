@@ -10,7 +10,7 @@ import {
   NonBasicTokenNames,
   TokenName,
   TokenStartMatches,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDLProblemCode } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';
 

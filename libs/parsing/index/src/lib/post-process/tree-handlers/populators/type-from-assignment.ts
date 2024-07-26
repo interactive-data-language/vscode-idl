@@ -7,7 +7,7 @@ import {
   SystemVariableToken,
   TOKEN_NAMES,
   VariableToken,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import copy from 'fast-copy';
 
 import { ITokenCache } from '../../../helpers/token-cache.interface';

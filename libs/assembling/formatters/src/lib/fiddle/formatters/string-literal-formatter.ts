@@ -1,4 +1,4 @@
-import { StringTemplateString } from '@idl/parsing/tokenizer';
+import { StringTemplateString } from '@idl/tokenizer';
 
 import { TokenFormatter } from '../../formatter-rule-set.interface';
 

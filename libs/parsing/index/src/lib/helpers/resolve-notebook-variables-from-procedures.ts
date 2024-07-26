@@ -1,10 +1,6 @@
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { BRANCH_TYPES, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
-import {
-  MainLevelToken,
-  TOKEN_NAMES,
-  VariableToken,
-} from '@idl/parsing/tokenizer';
+import { MainLevelToken, TOKEN_NAMES, VariableToken } from '@idl/tokenizer';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 
 /**

@@ -12,7 +12,7 @@ import {
 import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
 import { Parser } from '@idl/parser';
 import { GetIncludeFile, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
-import { IncludeToken } from '@idl/parsing/tokenizer';
+import { IncludeToken } from '@idl/tokenizer';
 import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
 import {

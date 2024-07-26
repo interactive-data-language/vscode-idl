@@ -6,7 +6,7 @@ import {
   TOKEN_TYPES,
   Tokenizer,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 describe(`[auto generated] Validates for if-then-else parsing [3]`, () => {
   it(`[auto generated] example from IDL code [1]`, () => {

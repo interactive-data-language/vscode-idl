@@ -1,7 +1,7 @@
 import { LogManager } from '@idl/logger';
 import { Parser } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { Tokenizer } from '@idl/parsing/tokenizer';
+import { Tokenizer } from '@idl/tokenizer';
 import {
   ALL_FILES_GLOB_PATTERN,
   IDL_JSON_GLOB_PATTERN,

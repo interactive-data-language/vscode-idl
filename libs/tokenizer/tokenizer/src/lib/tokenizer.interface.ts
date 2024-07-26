@@ -1,3 +1,9 @@
+import {
+  BasicToken,
+  EndToken,
+  FoundTokenType,
+  StartToken,
+} from '@idl/tokenizer/common';
 import { PositionArray } from '@idl/types/tokenizer';
 
 import { TokenStartMatches } from './token-matches.interface';
@@ -8,14 +14,6 @@ import { ROUTINE_DEF } from './tokens/defs/routines.definition.interface';
 import { STRUCTURE } from './tokens/defs/structure.interface';
 import { ISubTokenDefs, SUB_DEFS } from './tokens/sub-defs.interface';
 import { SUB_DEFS_FAST } from './tokens/sub-defs-fast.interface';
-
-/** Position of a token */
-export interface IPosition {
-  /** Line number we start on */
-  line: number;
-  /** Line number that we finish */
-  index: number;
-}
 
 /**
  * Options to customize how we find tokens
@@ -70,41 +68,6 @@ export const DEF_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
   // even though structure is deprecated, use it as it is a simpler regex expression
   default: [COMMENT, ROUTINE_DEF, STRUCTURE],
   full: false,
-};
-
-/**
- * Structure to store all the information about our match
- */
-export interface IDetailedPosition extends IPosition {
-  length: number;
-}
-
-/** Basic token with no closing statement */
-export type BasicToken = 0;
-/* Start of a multi-part token */
-export type StartToken = 1;
-/** End of a multi-part token */
-export type EndToken = 2;
-
-/** Types of tokens that we can match */
-export type FoundTokenType = BasicToken | StartToken | EndToken;
-
-/**
- * Strictly typed interface for constant of allowed token tupes
- */
-export interface ITokenTypes {
-  BASIC: BasicToken;
-  START: StartToken;
-  END: EndToken;
-}
-
-/**
- * Allowed types of tokens
- */
-export const TOKEN_TYPES: ITokenTypes = {
-  BASIC: 0,
-  START: 1,
-  END: 2,
 };
 
 /**

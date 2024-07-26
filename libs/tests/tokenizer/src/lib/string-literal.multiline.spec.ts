@@ -6,7 +6,7 @@ import {
   TOKEN_TYPES,
   Tokenizer,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 describe(`[auto generated] Verify string literal processing with multi-line statements`, () => {
   it(`[auto generated] preserve spacing and handle multi-line string literals`, () => {

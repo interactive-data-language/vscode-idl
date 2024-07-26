@@ -1,5 +1,5 @@
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
-import { AccessPropertyToken } from '@idl/parsing/tokenizer';
+import { AccessPropertyToken } from '@idl/tokenizer';
 import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
 import copy from 'fast-copy';
 

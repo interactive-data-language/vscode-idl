@@ -1,7 +1,7 @@
 import { TransformCase } from '@idl/assembling/shared';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 
 /**

@@ -14,7 +14,7 @@ import {
   RoutineFunctionToken,
   RoutineProcedureToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionMethodToken,

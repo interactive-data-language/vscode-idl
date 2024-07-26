@@ -2,7 +2,7 @@
 
 Converts IDL code into tokens which we can then do a lot of great things with!
 
-> Helpful note: The app `test-parsing-tokenizer` is an easy-to-use dev environment for adding new tokens or troubleshooting existing functionality.
+> Helpful note: The app `test-tokenizer-tokenizer` is an easy-to-use dev environment for adding new tokens or troubleshooting existing functionality.
 
 > Important note! See below on how to test and make your life easier when testing and automate test creation.
 
@@ -30,7 +30,7 @@ By comparison, it takes about 5 seconds to compile the code using IDL and a batc
 
 ## Testing
 
-There are quite a few tests written to verify that they parsing-tokenizer is doing the right thing.
+There are quite a few tests written to verify that they tokenizer-tokenizer is doing the right thing.
 
 Tests live in the `src/test` folder and are split up into two categories:
 
@@ -38,10 +38,10 @@ Tests live in the `src/test` folder and are split up into two categories:
 
 2. Automated: tests created automatically that were human-reviewed for correctness.
 
-To add more tests, automation is likely the key. To do this, add your tests to `apps/test-parsing-tokenizer/src/test-maker/auto-tests.interface.ts` (make sure to add them in alphabetically so they are easier to track down) and then run:
+To add more tests, automation is likely the key. To do this, add your tests to `apps/test-tokenizer-tokenizer/src/test-maker/auto-tests.interface.ts` (make sure to add them in alphabetically so they are easier to track down) and then run:
 
 ```
-npm run make-parsing-tokenizer-tests
+npm run make-tokenizer-tokenizer-tests
 ```
 
 This will create all of the automated tests and format them so false-changes won't be tracked.

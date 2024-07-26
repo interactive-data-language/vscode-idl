@@ -12,7 +12,7 @@ import {
   FAST_FIND_TOKEN_OPTIONS,
   IFindTokensOptions,
   Tokenizer,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import copy from 'fast-copy';
 import { existsSync, readFileSync } from 'fs';
 import { readFile } from 'fs/promises';

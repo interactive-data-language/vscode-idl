@@ -3,7 +3,7 @@ import {
   IParsed,
   SyntaxProblemWithTranslation,
 } from '@idl/parsing/syntax-tree';
-import { IncludeToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { IncludeToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 

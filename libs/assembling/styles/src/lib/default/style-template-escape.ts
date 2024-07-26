@@ -1,7 +1,7 @@
 import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 import { AdjustCase } from '@idl/assembling/shared';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 
 ASSEMBLER_DEFAULT_STYLING.onBasicToken(
   TOKEN_NAMES.STRING_TEMPLATE_ESCAPE,

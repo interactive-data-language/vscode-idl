@@ -1,4 +1,4 @@
-import { CommentToken } from '@idl/parsing/tokenizer';
+import { CommentToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   DEFAULT_DATA_TYPE,

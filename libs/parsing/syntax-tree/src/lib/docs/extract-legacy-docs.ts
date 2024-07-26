@@ -1,4 +1,4 @@
-import { CommentToken, GetMatchesArray } from '@idl/parsing/tokenizer';
+import { CommentToken, GetMatchesArray } from '@idl/tokenizer';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 

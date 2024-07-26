@@ -1,4 +1,4 @@
-import { LogicalExpressionDefaultToken } from '@idl/parsing/tokenizer';
+import { LogicalExpressionDefaultToken } from '@idl/tokenizer';
 
 import { TokenFormatter } from '../../formatter-rule-set.interface';
 

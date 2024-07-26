@@ -14,7 +14,7 @@ import {
   RoutineFunctionToken,
   RoutineProcedureToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { HasProblem } from '../helpers/has-problem';

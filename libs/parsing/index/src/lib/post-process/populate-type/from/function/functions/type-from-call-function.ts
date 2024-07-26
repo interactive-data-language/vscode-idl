@@ -1,5 +1,5 @@
 import { TreeToken } from '@idl/parsing/syntax-tree';
-import { CallFunctionToken } from '@idl/parsing/tokenizer';
+import { CallFunctionToken } from '@idl/tokenizer';
 
 import { EvaluateToken } from '../../../evaluate/evaluate-token';
 

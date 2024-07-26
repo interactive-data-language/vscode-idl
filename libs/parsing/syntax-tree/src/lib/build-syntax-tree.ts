@@ -3,11 +3,11 @@ import {
   IBasicToken,
   MainLevelToken,
   TOKEN_NAMES,
-  TOKEN_TYPES,
   TokenizerToken,
   TokenName,
   UnknownToken,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
+import { TOKEN_TYPES } from '@idl/tokenizer/common';
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 
 import {

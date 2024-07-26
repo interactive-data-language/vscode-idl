@@ -1,4 +1,4 @@
-import { CommentToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { CommentToken, TOKEN_NAMES } from '@idl/tokenizer';
 
 import { TokenFormatter } from '../../formatter-rule-set.interface';
 

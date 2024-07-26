@@ -1,4 +1,4 @@
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 
 import { SyntaxTree, TreeBranchToken } from '../../branches.interface';
 import { ISplitTreeOnArguments } from './split-tree-on-arguments.interface';

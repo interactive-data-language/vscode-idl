@@ -3,7 +3,7 @@ import {
   IParsed,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { NumberToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { NumberToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDLDataType } from '@idl/types/core';
 import copy from 'fast-copy';
 

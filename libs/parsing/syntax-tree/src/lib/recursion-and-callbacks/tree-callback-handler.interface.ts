@@ -1,4 +1,4 @@
-import { BasicTokenNames, NonBasicTokenNames } from '@idl/parsing/tokenizer';
+import { BasicTokenNames, NonBasicTokenNames } from '@idl/tokenizer';
 
 import { SyntaxTree, TreeToken } from '../branches.interface';
 import { IParsed } from '../parsed.interface';

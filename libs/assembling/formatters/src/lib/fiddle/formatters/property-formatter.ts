@@ -1,4 +1,4 @@
-import { TokenName } from '@idl/parsing/tokenizer';
+import { TokenName } from '@idl/tokenizer';
 
 import { TokenFormatter } from '../../formatter-rule-set.interface';
 

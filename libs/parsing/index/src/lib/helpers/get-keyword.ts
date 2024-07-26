@@ -3,7 +3,7 @@ import {
   KeywordBinaryToken,
   KeywordDefinitionToken,
   KeywordToken,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IParameterLookup, IParameterOrPropertyDetails } from '@idl/types/core';
 
 import { IDLIndex } from '../idl-index.class';

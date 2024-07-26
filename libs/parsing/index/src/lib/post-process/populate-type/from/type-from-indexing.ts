@@ -6,7 +6,7 @@ import {
   SyntaxProblemWithTranslation,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { BracketToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { BracketToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   IDL_ANY_TYPE,
   IDLDataType,

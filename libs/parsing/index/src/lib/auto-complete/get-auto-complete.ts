@@ -11,7 +11,7 @@ import {
   ControlCompileOptToken,
   StructureNameToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { GetAutoCompleteResponse } from '@idl/workers/parsing';
 import { MarkupKind, Position } from 'vscode-languageserver/node';

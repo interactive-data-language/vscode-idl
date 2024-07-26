@@ -1,5 +1,5 @@
 import { TreeToken } from '@idl/parsing/syntax-tree';
-import { IncludeToken } from '@idl/parsing/tokenizer';
+import { IncludeToken } from '@idl/tokenizer';
 import { IBaseIndexedToken } from '@idl/types/core';
 
 import { IDLIndex } from '../../idl-index.class';

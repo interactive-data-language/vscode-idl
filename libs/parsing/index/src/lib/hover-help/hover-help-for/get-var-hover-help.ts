@@ -4,7 +4,7 @@ import {
   IParsed,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { TokenName } from '@idl/parsing/tokenizer';
+import { TokenName } from '@idl/tokenizer';
 import { IDLTypeHelper } from '@idl/types/core';
 
 /**

@@ -9,7 +9,7 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 import { GetVariables } from '../../helpers/get-variables';
 

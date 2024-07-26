@@ -1,5 +1,5 @@
 import { ASSEMBLER_PRE_PROCESSOR } from '@idl/assembling/tree-handlers';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 
 /**
  * NOT USED

@@ -5,7 +5,7 @@ import {
   SplitTreeOnOperators,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { BracketToken } from '@idl/parsing/tokenizer';
+import { BracketToken } from '@idl/tokenizer';
 import {
   IDL_ARRAY_TYPE,
   IDL_TYPE_LOOKUP,

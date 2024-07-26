@@ -6,7 +6,7 @@ import {
   TOKEN_TYPES,
   Tokenizer,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 describe(`[auto generated] Validates block parsing auto-closes`, () => {
   it(`[auto generated] lib example from kruskal_wallis.pro`, () => {

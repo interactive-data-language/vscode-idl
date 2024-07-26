@@ -2,7 +2,7 @@ import {
   BasicTokenNames,
   NonBasicTokenNames,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 /**
  * Basic control tokens to format

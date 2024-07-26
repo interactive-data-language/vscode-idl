@@ -1,5 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { TOKEN_NAMES, TOKEN_TYPES, Tokenizer } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES, TOKEN_TYPES, Tokenizer } from '@idl/tokenizer';
 import deepCopy from 'fast-copy';
 import { writeFileSync } from 'fs';
 import { join } from 'path';

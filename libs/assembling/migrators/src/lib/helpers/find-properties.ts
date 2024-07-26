@@ -4,7 +4,7 @@ import {
   TreeBranchToken,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { AccessPropertyToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { AccessPropertyToken, TOKEN_NAMES } from '@idl/tokenizer';
 
 /**
  * When we encounter properties for specific variables, track the lines

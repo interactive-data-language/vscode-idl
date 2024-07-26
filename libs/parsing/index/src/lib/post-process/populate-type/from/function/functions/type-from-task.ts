@@ -3,7 +3,7 @@ import {
   IParsed,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { CallFunctionToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { CallFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { basename } from 'path';
 
 import { IDLIndex } from '../../../../../idl-index.class';

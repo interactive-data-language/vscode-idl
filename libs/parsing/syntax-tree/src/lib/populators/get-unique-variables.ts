@@ -6,7 +6,7 @@ import {
   RoutineNameToken,
   RoutineProcedureToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GlobalRoutineToken,

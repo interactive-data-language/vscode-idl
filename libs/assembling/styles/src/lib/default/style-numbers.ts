@@ -5,7 +5,7 @@ import {
   NUMBER_AS_DOUBLE_QUOTE,
   NUMBER_AS_SINGLE_QUOTE,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 /**
  * All of our tokens for numbers to process
