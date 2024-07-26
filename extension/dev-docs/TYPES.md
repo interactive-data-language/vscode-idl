@@ -137,7 +137,7 @@ type Dictionary<T extends VariableType, IDX extends IndexType> =
   | 'dict<T, IDX>'
   | 'Dictionary<T, IDX>';
 
-type Array<T extends VariableType> = 'array<T>' | 'T[];
+type Array<T extends VariableType> = 'array<T>' | 'T[]';
 
 // union type of all types that variables can be
 // so that we have recursive typing support
