@@ -1,7 +1,6 @@
 import { LogManager } from '@idl/logger';
 import { Parser } from '@idl/parser';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { Tokenizer } from '@idl/tokenizer';
 import {
   ALL_FILES_GLOB_PATTERN,
   IDL_JSON_GLOB_PATTERN,
@@ -12,6 +11,7 @@ import {
   TASK_FILE_GLOB_PATTERN,
   TimeItAsync,
 } from '@idl/shared';
+import { Tokenizer } from '@idl/tokenizer';
 import { readFileSync } from 'fs';
 import { performance } from 'perf_hooks';
 import * as progressBar from 'progress';

@@ -4,7 +4,7 @@ import {
   IAssemblerOptions,
 } from '@idl/assembling/config';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { IDLFileHelper, GetFSPath } from '@idl/shared';
+import { GetFSPath, IDLFileHelper } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   CompletionItem,

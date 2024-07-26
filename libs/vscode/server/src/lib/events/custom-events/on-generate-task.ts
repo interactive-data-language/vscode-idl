@@ -9,8 +9,8 @@ import {
 } from '@idl/generators/idl-task';
 import { GenerateTaskResult } from '@idl/generators/tasks-shared';
 import { IDL_LSP_LOG } from '@idl/logger';
+import { GetFSPath, IDLFileHelper, Sleep } from '@idl/shared';
 import { TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLFileHelper, GetFSPath, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GenerateTaskMessage,
