@@ -33,7 +33,7 @@ import {
  * Internally it separates code by new line characters and
  * processes a single line at a time.
  */
-export class Iterator {
+export class Iterator<T extends number> {
   /** Code separated by lines */
   split: string[];
 
@@ -47,7 +47,7 @@ export class Iterator {
   current: ICurrent;
 
   /** Tokens we have found in our code */
-  tokens: TokenizerToken<TokenName>[] = [];
+  tokens: TokenizerToken<T>[] = [];
 
   /** Set flag if we have code to process or not */
   canProcess = false;
@@ -99,7 +99,7 @@ export class Iterator {
             // const match = Match(this.split[i], COMMENT.start, true);
             const match = COMMENT.match.exec(this.split[i]);
             if (match !== null) {
-              const basic: IBasicToken<TokenName> = {
+              const basic: IBasicToken<T> = {
                 type: TOKEN_TYPES.BASIC,
                 name: TOKEN_NAMES.COMMENT,
                 pos: [i, match.index, match[0].length],
@@ -280,7 +280,7 @@ export class Iterator {
    * Inserts a token into our found tokens, finds the
    * correct position and inserts.
    */
-  insertToken(add: TokenizerToken<TokenName>) {
+  insertToken(add: TokenizerToken<T>) {
     // reverse search for where we fit
     const l = this.tokens.length;
 

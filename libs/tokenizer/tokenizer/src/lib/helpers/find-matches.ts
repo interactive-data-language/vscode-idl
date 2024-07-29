@@ -1,15 +1,15 @@
-import { ITokenDef, TokenName } from '../tokens.interface';
+import { IBaseTokenDef } from '@idl/tokenizer/common';
 
 /**
  * Finds matches for all regex expressions
  */
-export function FindMatches(
+export function FindMatches<T extends number>(
   lineText: string, // full line
   text: string, // subset
   linePosition: number,
-  foundDefs: ITokenDef<TokenName>[],
+  foundDefs: IBaseTokenDef<T>[],
   matches: RegExpExecArray[],
-  regex: ITokenDef<TokenName>[]
+  regex: IBaseTokenDef<T>[]
 ) {
   // clear previous matches - faster than setting length = 0
   foundDefs.splice(0, foundDefs.length);

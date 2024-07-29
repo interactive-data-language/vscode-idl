@@ -1,5 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { TOKEN_TYPES } from '@idl/tokenizer/common';
+import { IBaseTokenDef, TOKEN_TYPES } from '@idl/tokenizer/common';
 import { nanoid } from 'nanoid';
 
 import { FindMatches } from './helpers/find-matches';
@@ -17,7 +17,7 @@ import {
   IStartToken,
   NO_AUTO_CLOSE,
 } from './tokenizer.interface';
-import { ITokenDef, TokenName } from './tokens.interface';
+import { TokenName } from './tokens.interface';
 import { IDL_LINE_END } from './tokens/regex.interface';
 import { GetSubDefs } from './tokens/sub-defs';
 
@@ -39,7 +39,7 @@ import { GetSubDefs } from './tokens/sub-defs';
  *
  * Rinse and repeat for each line of code and then we return our results.
  */
-export function TokenizerRecurser(
+export function TokenizerRecurser<T extends number>(
   iterator: Iterator,
   options: IFindTokensOptions
 ) {
@@ -58,7 +58,7 @@ export function TokenizerRecurser(
   const hasCloser = options.closer !== undefined;
 
   /** All definitions we have found */
-  const foundDefs: ITokenDef<TokenName>[] = [];
+  const foundDefs: IBaseTokenDef<T>[] = [];
 
   /** All regex matches */
   const matches: RegExpExecArray[] = [];
