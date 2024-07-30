@@ -1,5 +1,4 @@
 ;+
-;
 ; :Private:
 ;
 ; :Description:
@@ -42,7 +41,6 @@ function getRasterBBox_serialize, features
 end
 
 ;+
-;
 ; :Private:
 ;
 ; :Description:
@@ -130,18 +128,11 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
   sRef = raster.spatialref
   coordSys = !null
 
-  ; build coord sys
-  if (sRef ne !null) then begin
-    if (sRef.coord_sys_code ne 0) then begin
-      coordSys = ENVICoordSys(coord_sys_code = sRef.coord_sys_code)
-    endif else begin
-      if keyword_set(sRef.coord_sys_str) then begin
-        coordSys = ENVICoordSys(coord_sys_str = sRef.coord_sys_str)
-      endif else begin
-        print, 'Raster "' + raster.uri + '" does nto have a standard spatial reference, ignoring center information'
-      endelse
-    endelse
-  endif
+  ;+ output coordinate system
+  outCoordSys = ENVICoordSys(coord_sys_code = epsg)
+
+  ; get coordinate system
+  if (sRef ne !null) then coordSys = raster.coord_sys
 
   ;+
   ; if we have no data ignore value, or end up with special cases below, just use
@@ -156,10 +147,22 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
 
     ; check if we need to convert our coordinates
     if (coordSys ne !null) then begin
-      sRef.convertFileToLonLat, lon, lat, lon, lat
+      ; convert file to map coordinates
+      sRef.convertFileToMap, lon, lat, lon, lat
 
-      ; convert center from old to new coordinate system
-      coordSys.convertLonLatToLonLat, lon, lat, lon, lat, ENVICoordSys(coord_sys_code = epsg)
+      ; convert from raster map to output coordinate system
+      coordSys.convertMapToMap, lon, lat, lon, lat, outCoordSys
+
+      ; convert map to lon lat coordinates
+      outCoordSys.convertMapToLonLat, lon, lat, lon, lat
+
+      ; ----------------------------------------------------------
+      ; ----------------------------------------------------------
+      ; works with other images
+      ; sRef.convertFileToLonLat, lon, lat, lon, lat
+
+      ; ; convert center from old to new coordinate system
+      ; coordSys.convertLonLatToLonLat, lon, lat, lon, lat, ENVICoordSys(coord_sys_code = epsg)
     endif
     coordinates = transpose([[lon], [lat]])
 
@@ -172,22 +175,9 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
 
   ; if we got here, we need to use our resampled raster for the sref
 
-  ; get our raste spatial reference
+  ; get our resampled raster spatial reference
   sRef = resampled.spatialref
-  coordSys = !null
-
-  ; build coord sys
-  if (sRef ne !null) then begin
-    if (sRef.coord_sys_code ne 0) then begin
-      coordSys = ENVICoordSys(coord_sys_code = sRef.coord_sys_code)
-    endif else begin
-      if keyword_set(sRef.coord_sys_str) then begin
-        coordSys = ENVICoordSys(coord_sys_str = sRef.coord_sys_str)
-      endif else begin
-        print, 'Raster "' + raster.uri + '" does nto have a standard spatial reference, ignoring center information'
-      endelse
-    endelse
-  endif
+  coordSys = resampled.coord_sys
 
   ; fill in holes in our image if we have bad pixels
   label = label_region(~ps)
@@ -260,10 +250,14 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
 
     ; check if we need to convert our coordinates
     if (coordSys ne !null) then begin
-      sRef.convertFileToLonLat, reform(verts[0, *]), reform(verts[1, *]), lon, lat
+      ; convert file to map coordinates
+      sRef.convertFileToMap, reform(verts[0, *]), reform(verts[1, *]), lon, lat
 
-      ; convert center from old to new coordinate system
-      coordSys.convertLonLatToLonLat, lon, lat, lon, lat, ENVICoordSys(coord_sys_code = epsg)
+      ; convert from raster map to output coordinate system
+      coordSys.convertMapToMap, lon, lat, lon, lat, outCoordSys
+
+      ; convert map to lon lat coordinates
+      outCoordSys.convertMapToLonLat, lon, lat, lon, lat
 
       ; remake our verts
       verts = transpose([[lon], [lat]])
