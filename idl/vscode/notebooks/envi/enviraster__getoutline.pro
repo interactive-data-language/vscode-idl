@@ -52,7 +52,7 @@ end
 ;   The result represents the outer polygon for valid pixels in the image.
 ;   The data ignore value is used to get the correct orientation of data.
 ;
-;   If the raster does not have a spatial reference, returns pixell-coordinates.
+;   If the raster does not have a spatial reference, returns pixel-coordinates.
 ;
 ; :Returns: any
 ;
