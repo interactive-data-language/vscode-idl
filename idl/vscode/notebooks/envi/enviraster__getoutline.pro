@@ -4,14 +4,14 @@
 ; :Description:
 ;   Creates GeoJSON for an image bounding box
 ;
-; :Returns: any
+; :Returns: String
 ;
 ; :Arguments:
 ;   features: in, required, List<any>
 ;     List of lists
 ;
 ;-
-function getRasterBBox_serialize, features
+function getOutlineFeatureCollection_serialize, features
   compile_opt idl2, hidden
 
   ; make geoJSON
@@ -54,7 +54,7 @@ end
 ;
 ;   If the raster does not have a spatial reference, returns pixel-coordinates.
 ;
-; :Returns: any
+; :Returns: String
 ;
 ; :Arguments:
 ;   raster: in, required, ENVIRaster
@@ -75,7 +75,7 @@ end
 ;   Zachary Norman - GitHub: znorman-harris
 ;
 ;-
-function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
+function getOutlineFeatureCollection, raster, epsg, skip_holes = skip_holes, method = method
   compile_opt idl2, hidden
 
   ; get current ENVI session
@@ -93,18 +93,18 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
   ; get the max pyramid level
   raster._component.getProperty, pyramid_levels = maxPyramidLevel
 
-  ; get the pyramid level we read at
+  ; get the pyramid level we read at - subtract 2 to put us at 1024 x 1024
   readlevel = maxPyramidLevel - 2 > 0
 
   ; get display bands
   !null = IDLcf$DefaultRasterDisplayBands(raster._component, useBands)
 
-  ; Get data at a reduced pyramid level - subtract 2 to put us at 1024 x 1024
+  ; Get data at a reduced pyramid level
   if (~raster._component.getData(dat, level = readlevel, $
     bands = useBands, $
     pixelstate = ps, $
     interleave = 0)) then begin
-    message, IDLcfLangCatQuery('Failed to get data array for generating outline'), /noname
+    message, IDLcfLangCatQuery('Failed to get data array to generate thumbnail'), /noname
   endif
 
   ; create PS if it doesnt exist - edge case for some rasters where its not made
@@ -123,9 +123,6 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
   ; binarize and get the pixels that we should keep
   ; i.e. pixel state of zero = good
   ps = temporary(ps) eq 0
-
-  ; resample to get coordinate system
-  resampled = ENVIResampleRaster(raster, dimensions = size(ps, /dimensions))
 
   ; get our raster spatial reference
   sRef = raster.spatialref
@@ -149,11 +146,8 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
     endif
     coordinates = transpose([[lon], [lat]])
 
-    ; clean up
-    resampled.close
-
     ; convert to geojson and return
-    return, getRasterBBox_serialize(list(list(coordinates)))
+    return, getOutlineFeatureCollection_serialize(list(list(coordinates)))
   endif
 
   ; fill in holes in our image if we have bad pixels
@@ -161,6 +155,9 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
 
   ; check for no real pixel state to check
   if (max(label) eq 0) then goto, nofeatures
+
+  ; resample to get coordinate system
+  resampled = ENVIResampleRaster(raster, dimensions = size(ps, /dimensions))
 
   ; -----------------------------------------------------------------
   ; if we got here, we need to use our resampled raster for the sref
@@ -199,10 +196,9 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
   ; define smoothing threshold
   SMOOTHING_THRESHOLD = 5
 
-  ; process each part
   ; process each chunk in our path and build the parts up
   for i = 0, n_elements(path_info) - 1 do begin
-    ; caluclate the indices in our new array
+    ; calculate the indices in our new array
     newIdx = path_info[i].offset + i + [0l : path_info[i].n]
     verts = vertices[*, path_info[i].offset + [[0l : path_info[i].n - 1], 0]]
     tot1 += n_elements(newIdx)
@@ -258,7 +254,7 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
 
   ; serialize the collection
   if (n_elements(valid) gt 0) then begin
-    collection = getRasterBBox_serialize(valid)
+    collection = getOutlineFeatureCollection_serialize(valid)
   endif else begin
     ; no features, so we need to use default logic
     goto, nofeatures
@@ -306,7 +302,7 @@ function ENVIRaster::getOutline, epsgCode, skip_holes = skip_holes, method = met
   if ~arg_present(epsgCode) then epsgCode = 3857
 
   ; get BBox and return
-  return, getRasterBBox(self, epsgCode, skip_holes = skip_holes, method = method)
+  return, getOutlineFeatureCollection(self, epsgCode, skip_holes = skip_holes, method = method)
 end
 
 ; Start the application
