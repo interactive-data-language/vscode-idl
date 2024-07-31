@@ -136,15 +136,17 @@ function getOutlineFeatureCollection, raster, epsg, skip_holes = skip_holes, met
     nofeatures:
 
     ; creating starting point for vars
-    lon = [0, raster.ncolumns, raster.ncolumns, 0, 0]
-    lat = [0, 0, raster.nrows, raster.nrows, 0]
+    fileX = [0, raster.ncolumns, raster.ncolumns, 0, 0]
+    fileY = [0, 0, raster.nrows, raster.nrows, 0]
 
-    ; check if we need to convert our coordinates
+    ; check if we need to convert our coordinates and update variables
     if (coordSys ne !null) then begin
-      sRef.convertFileToLonLat, lon, lat, lon1, lat1
+      sRef.convertFileToLonLat, fileX, fileY, lon1, lat1
       coordSys.convertLonLatToLonLat, lon1, lat1, lon, lat, outCoordSys
-    endif
-    coordinates = transpose([[lon], [lat]])
+      coordinates = transpose([[lon], [lat]])
+    endif else begin
+      coordinates = transpose([[fileX], [fileY]])
+    endelse
 
     ; convert to geojson and return
     return, getOutlineFeatureCollection_serialize(list(list(coordinates)))
