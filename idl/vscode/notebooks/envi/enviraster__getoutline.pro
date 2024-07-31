@@ -300,7 +300,7 @@ end
 ;-
 function ENVIRaster::getOutline, epsgCode, skip_holes = skip_holes, method = method
   compile_opt idl2, hidden
-  ; on_error, 2
+  on_error, 2
 
   ; make sure we have an EPSG code
   if ~arg_present(epsgCode) then epsgCode = 3857
