@@ -139,7 +139,7 @@ function getOutlineFeatureCollection, raster, epsg, skip_holes = skip_holes, met
     fileX = [0, raster.ncolumns, raster.ncolumns, 0, 0]
     fileY = [0, 0, raster.nrows, raster.nrows, 0]
 
-    ; check if we need to convert our coordinates and update variables
+    ; check if we need to convert our coordinates
     if (coordSys ne !null) then begin
       sRef.convertFileToLonLat, fileX, fileY, lon1, lat1
       coordSys.convertLonLatToLonLat, lon1, lat1, lon, lat, outCoordSys
@@ -314,12 +314,12 @@ e = envi(/headless)
 ; Open an input file
 file = filepath('qb_boulder_msi', root_dir = e.root_dir, $
   subdirectory = ['data'])
-file = 'c:\Users\znorman\Downloads\CAPELLA_C09_SM_GEO_HH_20230528080239_20230528080244.tif'
-; file = 'c:\TradeshowContent\ENVI_DEMOS\SAR\SICD\Helicopters\sar_cog.tif'
-raster = e.openRaster(file)
+file = 'C:\Users\Zachary.Norman\Downloads\11MAR14020425-P2AS-052498072030_01_P001.NTF'
+; file = 'C:\Users\Zachary.Norman\Downloads\11MAR14020425-P2AS-052498072030_01_P001.NTF'
+file = 'C:\Users\Zachary.Norman\Downloads\2024-01-01-02-10-11_UMBRA-04_SICD.nitf'
+file = 'C:\Users\Zachary.Norman\Downloads\11MAR14020425-P2AS-052498072030_01_P001.NTF'
+raster = e.openRaster('C:\Users\Zachary.Norman\Downloads\haiti-jagged-edge.dat')
 
-tic
-print, raster.getOutline(3857)
-toc
+print, raster.getOutline()
 
 end
