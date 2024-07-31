@@ -129,7 +129,7 @@ function getOutlineFeatureCollection, raster, epsg, skip_holes = skip_holes, met
   coordSys = sRef ne !null ? raster.coord_sys : !null
 
   ;+
-  ; if we have no data ignore value, or end up with special cases below, just use
+  ; if we have no good pixels, or end up with special cases below, just use
   ; the extents of the raster
   ;-
   if (min(ps) eq 1) then begin
