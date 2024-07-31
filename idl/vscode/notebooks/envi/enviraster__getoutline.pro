@@ -87,6 +87,9 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
   ; set method
   if ~keyword_set(method) then method = 'idl'
 
+  ;+ output coordinate system
+  outCoordSys = ENVICoordSys(coord_sys_code = epsg)
+
   ; get the max pyramid level
   raster._component.getProperty, pyramid_levels = maxPyramidLevel
 
@@ -124,15 +127,9 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
   ; resample to get coordinate system
   resampled = ENVIResampleRaster(raster, dimensions = size(ps, /dimensions))
 
-  ; get our raste spatial reference
+  ; get our raster spatial reference
   sRef = raster.spatialref
-  coordSys = !null
-
-  ;+ output coordinate system
-  outCoordSys = ENVICoordSys(coord_sys_code = epsg)
-
-  ; get coordinate system
-  if (sRef ne !null) then coordSys = raster.coord_sys
+  coordSys = sRef ne !null ? raster.coord_sys : !null
 
   ;+
   ; if we have no data ignore value, or end up with special cases below, just use
@@ -142,27 +139,13 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
     nofeatures:
 
     ; creating starting point for vars
-    lat = [0, 0, raster.nrows, raster.nrows, 0]
     lon = [0, raster.ncolumns, raster.ncolumns, 0, 0]
+    lat = [0, 0, raster.nrows, raster.nrows, 0]
 
     ; check if we need to convert our coordinates
     if (coordSys ne !null) then begin
-      ; convert file to map coordinates
-      sRef.convertFileToMap, lon, lat, lon, lat
-
-      ; convert from raster map to output coordinate system
-      coordSys.convertMapToMap, lon, lat, lon, lat, outCoordSys
-
-      ; convert map to lon lat coordinates
-      outCoordSys.convertMapToLonLat, lon, lat, lon, lat
-
-      ; ----------------------------------------------------------
-      ; ----------------------------------------------------------
-      ; works with other images
-      ; sRef.convertFileToLonLat, lon, lat, lon, lat
-
-      ; ; convert center from old to new coordinate system
-      ; coordSys.convertLonLatToLonLat, lon, lat, lon, lat, ENVICoordSys(coord_sys_code = epsg)
+      sRef.convertFileToLonLat, lon, lat, lon1, lat1
+      coordSys.convertLonLatToLonLat, lon1, lat1, lon, lat, outCoordSys
     endif
     coordinates = transpose([[lon], [lat]])
 
@@ -173,14 +156,19 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
     return, getRasterBBox_serialize(list(list(coordinates)))
   endif
 
+  ; fill in holes in our image if we have bad pixels
+  label = label_region(~ps)
+
+  ; check for no real pixel state to check
+  if (max(label) eq 0) then goto, nofeatures
+
+  ; -----------------------------------------------------------------
   ; if we got here, we need to use our resampled raster for the sref
+  ; -----------------------------------------------------------------
 
   ; get our resampled raster spatial reference
   sRef = resampled.spatialref
-  coordSys = resampled.coord_sys
-
-  ; fill in holes in our image if we have bad pixels
-  label = label_region(~ps)
+  coordSys = sRef ne !null ? resampled.coord_sys : !null
 
   ; get pixel locations
   ; label[0] will be the edges,
@@ -200,9 +188,6 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
 
   ; get entity outline
   contour, ps, path_info = path_info, path_xy = vertices, /path_data_coords, nlevels = 1
-
-  ; get the number of parts
-  ; nParts = n_elements(path_info) eq 1 ? 0 : n_elements(path_info)
 
   ; make a list to store our outlines
   valid = list()
@@ -250,14 +235,8 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
 
     ; check if we need to convert our coordinates
     if (coordSys ne !null) then begin
-      ; convert file to map coordinates
-      sRef.convertFileToMap, reform(verts[0, *]), reform(verts[1, *]), lon, lat
-
-      ; convert from raster map to output coordinate system
-      coordSys.convertMapToMap, lon, lat, lon, lat, outCoordSys
-
-      ; convert map to lon lat coordinates
-      outCoordSys.convertMapToLonLat, lon, lat, lon, lat
+      sRef.convertFileToLonLat, reform(verts[0, *]), reform(verts[1, *]), lon1, lat1
+      coordSys.convertLonLatToLonLat, lon1, lat1, lon, lat, outCoordSys
 
       ; remake our verts
       verts = transpose([[lon], [lat]])
