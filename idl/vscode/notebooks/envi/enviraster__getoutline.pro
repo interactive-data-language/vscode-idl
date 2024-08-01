@@ -84,6 +84,9 @@ function getOutlineFeatureCollection, raster, epsg, skip_holes = skip_holes, met
     message, 'ENVI has not started yet, required!'
   endif
 
+  ; make sure we have an EPSG code
+  if ~arg_present(epsg) then epsg = 3857
+
   ; set method
   if ~keyword_set(method) then method = 'idl'
 
