@@ -2,48 +2,6 @@
 ; :Private:
 ;
 ; :Description:
-;   Creates GeoJSON for an image bounding box
-;
-; :Returns: String
-;
-; :Arguments:
-;   features: in, required, List<any>
-;     List of lists
-;
-;-
-function getOutlineFeatureCollection_serialize, features
-  compile_opt idl2, hidden
-
-  ; make geoJSON
-  ; collection = orderedhash('type', 'FeatureCollection', 'features', list())
-  collection = '{"type":"FeatureCollection","features":['
-
-  strings = strarr(n_elements(features))
-
-  ; add all of our shapes
-  foreach shape, features, i do begin
-    feature = '{"type":"Feature","geometry":{"type":"Polygon","coordinates":['
-    foreach arr, shape, j do begin
-      if (j eq 0) then begin
-        feature += '[' + strjoin('[' + strjoin(strtrim(arr, 2), ',') + ']', ',') + ']'
-      endif else begin
-        feature += ',[' + strjoin('[' + strjoin(strtrim(arr, 2), ',') + ']', ',') + ']'
-      endelse
-    endforeach
-    feature += ']},"properties":{}}'
-    strings[i] = feature
-    ; collection['features'].add, orderedhash('type', 'Feature', 'geometry', orderedhash('type', 'Polygon', 'coordinates', shape), 'properties', hash())
-  endforeach
-
-  collection += strjoin(strings, ',') + ']}'
-
-  return, collection
-end
-
-;+
-; :Private:
-;
-; :Description:
 ;   Generates a bounding box for a raster in-memory. The assumption is that the image
 ;   being passed to this routine is small and can be processed in-memory.
 ;
@@ -152,7 +110,7 @@ function getOutlineFeatureCollection, raster, epsg, skip_holes = skip_holes, met
     endelse
 
     ; convert to geojson and return
-    return, getOutlineFeatureCollection_serialize(list(list(coordinates)))
+    return, SerializeVerticesAsGeoJSON(list(list(coordinates)))
   endif
 
   ; fill in holes in our image if we have bad pixels
@@ -259,7 +217,7 @@ function getOutlineFeatureCollection, raster, epsg, skip_holes = skip_holes, met
 
   ; serialize the collection
   if (n_elements(valid) gt 0) then begin
-    collection = getOutlineFeatureCollection_serialize(valid)
+    collection = SerializeVerticesAsGeoJSON(valid)
   endif else begin
     ; no features, so we need to use default logic
     goto, nofeatures

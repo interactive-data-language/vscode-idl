@@ -83,7 +83,7 @@ function IDLNotebookMap::_CreateNotebookItem, val
       newItem.uri = uri
       newItem.xSize = info.dimensions[0]
       newItem.ySize = info.dimensions[1]
-      newItem.extents = reproj.getExtents()
+      newItem.extents = reproj._getNotebookExtents()
 
       ; save new item
       return, IDLNotebook._createNotebookItem(newItem)
