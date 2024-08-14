@@ -3,10 +3,10 @@ import {
   IBaseToken,
   StripIDs,
   TOKEN_NAMES,
-  TOKEN_TYPES,
   Tokenizer,
   TokenName,
-} from '@idl/tokenizer';
+} from '@idl/parsing/tokenizer';
+import { TOKEN_TYPES } from '@idl/tokenizer/common';
 
 describe(`[auto generated] Verify string literal processing`, () => {
   it(`[auto generated] simple with substitution`, () => {

@@ -3,10 +3,10 @@ import {
   IBaseToken,
   StripIDs,
   TOKEN_NAMES,
-  TOKEN_TYPES,
   Tokenizer,
   TokenName,
-} from '@idl/tokenizer';
+} from '@idl/parsing/tokenizer';
+import { TOKEN_TYPES } from '@idl/tokenizer/common';
 
 describe(`[auto generated] Validates for if-then-else parsing [3]`, () => {
   it(`[auto generated] example from IDL code [1]`, () => {

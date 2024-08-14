@@ -3,10 +3,10 @@ import {
   IBaseToken,
   StripIDs,
   TOKEN_NAMES,
-  TOKEN_TYPES,
   Tokenizer,
   TokenName,
-} from '@idl/tokenizer';
+} from '@idl/parsing/tokenizer';
+import { TOKEN_TYPES } from '@idl/tokenizer/common';
 
 describe(`[auto generated] Validates structure parsing`, () => {
   it(`[auto generated] verifies multiple structure names (even though wrong syntax)`, () => {

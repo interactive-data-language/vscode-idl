@@ -1,5 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { TOKEN_NAMES, TOKEN_TYPES, Tokenizer } from '@idl/tokenizer';
+import { TOKEN_NAMES, Tokenizer } from '@idl/tokenizer';
+import { TOKEN_TYPES } from '@idl/tokenizer/common';
 import deepCopy from 'fast-copy';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
@@ -22,8 +23,9 @@ export function TestsForTokenizer(
   // add imports
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(
-    `import { IBaseToken, StripIDs, TOKEN_NAMES, TOKEN_TYPES, Tokenizer,TokenName } from '@idl/parsing/tokenizer';`
+    `import { IBaseToken, StripIDs, TOKEN_NAMES, Tokenizer,TokenName } from '@idl/parsing/tokenizer';`
   );
+  strings.push(`import { TOKEN_TYPES } from '@idl/tokenizer/common';`);
   strings.push(``);
 
   // add the basic code for our test
