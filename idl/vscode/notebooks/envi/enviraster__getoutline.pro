@@ -89,6 +89,10 @@ function getOutlineFeatureCollection, raster, epsg, skip_holes = skip_holes, met
   sRef = raster.spatialref
   coordSys = sRef ne !null ? raster.coord_sys : !null
 
+  ; check if we have a classification image
+  raster.getProperty, colormap = colormap
+  isClass = isa(colormap, 'EnviColorMap')
+
   ;+
   ; if we have no good pixels, or end up with special cases below, just use
   ; the extents of the raster
@@ -114,7 +118,21 @@ function getOutlineFeatureCollection, raster, epsg, skip_holes = skip_holes, met
   endif
 
   ; fill in holes in our image if we have bad pixels
-  label = label_region(~ps)
+  label = label_region(~ps, /all_neighbors)
+
+  ;+
+  ; Get the locations of bad pixels and check if we need to re-calculate the region
+  ;
+  ; This handles the case where we have so few pixels that are valid that we have
+  ; to not invert the pixel state
+  ;
+  ; From label region, a label of 0 counts as background so we need our good pixels to
+  ; be foreground and not background
+  ;-
+  idxOff = where(ps, countOff)
+  if (countOff gt 0) then begin
+    if (min(label[idxOff]) eq 0) then label = label_region(ps, /all_neighbors)
+  endif
 
   ; check for no real pixel state to check
   if (max(label) eq 0) then goto, nofeatures
@@ -136,12 +154,16 @@ function getOutlineFeatureCollection, raster, epsg, skip_holes = skip_holes, met
   h = histogram(label, min = 1, reverse_indices = r)
 
   ; define threshold for small pixel clump
-  IGNORE_CLUMP_MINIMUM = 100
+  IGNORE_CLUMP_MINIMUM = 1
+
+  ; check to see if we only have small clumps of pixels
+  ; if (total(h[1 : *] ge IGNORE_CLUMP_MINIMUM) eq 0) then goto, nofeatures
 
   ; process each histogram bin
   for i = 0, n_elements(h) - 1 do begin
     ; remove small pixel clumps
     if (h[i] le IGNORE_CLUMP_MINIMUM) and (h[i] gt 0) then begin
+      print, `Turning off: ${i}`
       ps[r[r[i] : r[i + 1] - 1]] = 0
     endif
   endfor
@@ -175,13 +197,11 @@ function getOutlineFeatureCollection, raster, epsg, skip_holes = skip_holes, met
     ; check if we are a hole or not
     isHole = ~path_info[i].high_low
 
-    ; check if we are a hole or not
+    ; handle cases where we are a hole
     if ~isHole then begin
       lastOutline = list()
       valid.add, lastOutline
-    endif else begin
-      if keyword_set(skip_holes) then break
-    endelse
+    endif
 
     ; increase smoothing by the complexity of the geometry
     factor = alog(sqrt(n_elements(newIdx)))
@@ -279,8 +299,9 @@ file = 'C:\Users\Zachary.Norman\Downloads\11MAR14020425-P2AS-052498072030_01_P00
 ; file = 'C:\Users\Zachary.Norman\Downloads\11MAR14020425-P2AS-052498072030_01_P001.NTF'
 file = 'C:\Users\Zachary.Norman\Downloads\2024-01-01-02-10-11_UMBRA-04_SICD.nitf'
 file = 'C:\Users\Zachary.Norman\Downloads\11MAR14020425-P2AS-052498072030_01_P001.NTF'
-raster = e.openRaster('C:\Users\Zachary.Norman\Downloads\haiti-jagged-edge.dat')
+file = 'C:\TradeshowContent\ENVI_DEMOS\Environmental\Methane_Detection\data\methane-map.dat'
+raster = e.openRaster(file)
 
-print, raster.getOutline()
+print, raster.getOutline(/skip_holes)
 
 end
