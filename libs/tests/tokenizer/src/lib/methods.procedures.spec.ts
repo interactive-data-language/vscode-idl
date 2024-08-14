@@ -5,7 +5,7 @@ import {
   TOKEN_NAMES,
   Tokenizer,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { TOKEN_TYPES } from '@idl/tokenizer/common';
 
 describe(`[auto generated] Validates procedure method parsing`, () => {

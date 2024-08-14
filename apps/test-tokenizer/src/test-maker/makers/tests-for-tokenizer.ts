@@ -23,7 +23,7 @@ export function TestsForTokenizer(
   // add imports
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(
-    `import { IBaseToken, StripIDs, TOKEN_NAMES, Tokenizer,TokenName } from '@idl/parsing/tokenizer';`
+    `import { IBaseToken, StripIDs, TOKEN_NAMES, Tokenizer,TokenName } from '@idl/tokenizer';`
   );
   strings.push(`import { TOKEN_TYPES } from '@idl/tokenizer/common';`);
   strings.push(``);
