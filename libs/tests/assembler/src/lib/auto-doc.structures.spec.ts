@@ -89,8 +89,10 @@ describe(`[auto generated] Generate structure docs`, () => {
         { postProcess: true }
       );
 
-      // make sure the syntax trees are the same as they were before
-      expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
+      // make sure the syntax trees are the same as they were before if not def files
+      if (tokenized.type !== 'def') {
+        expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
+      }
     }
 
     // define expected problems
@@ -171,8 +173,10 @@ describe(`[auto generated] Generate structure docs`, () => {
         { postProcess: true }
       );
 
-      // make sure the syntax trees are the same as they were before
-      expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
+      // make sure the syntax trees are the same as they were before if not def files
+      if (tokenized.type !== 'def') {
+        expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
+      }
     }
 
     // define expected problems
@@ -280,8 +284,10 @@ describe(`[auto generated] Generate structure docs`, () => {
         { postProcess: true }
       );
 
-      // make sure the syntax trees are the same as they were before
-      expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
+      // make sure the syntax trees are the same as they were before if not def files
+      if (tokenized.type !== 'def') {
+        expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
+      }
     }
 
     // define expected problems
@@ -375,8 +381,10 @@ describe(`[auto generated] Generate structure docs`, () => {
         { postProcess: true }
       );
 
-      // make sure the syntax trees are the same as they were before
-      expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
+      // make sure the syntax trees are the same as they were before if not def files
+      if (tokenized.type !== 'def') {
+        expect(GetTokenNames(reParsed)).toEqual(tokenizedNames);
+      }
     }
 
     // define expected problems

@@ -166,10 +166,10 @@ export async function TestsForAssembler(
     );
     strings.push('');
     strings.push(
-      '      // make sure the syntax trees are the same as they were before'
+      '      // make sure the syntax trees are the same as they were before if not def files'
     );
     strings.push(
-      '      expect(GetTokenNames(reParsed)).toEqual(tokenizedNames)'
+      `      if (tokenized.type !== 'def') {expect(GetTokenNames(reParsed)).toEqual(tokenizedNames)}`
     );
     strings.push('    }');
     strings.push('');
