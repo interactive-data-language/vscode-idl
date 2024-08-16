@@ -16,7 +16,7 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
-## Unreleased
+## 4.6.0 - August 2024
 
 Fixed an issue where we open a file that we have stopped in, even if it is compiled as a SAVE file. Now, only PRO files will be jumped to.
 
