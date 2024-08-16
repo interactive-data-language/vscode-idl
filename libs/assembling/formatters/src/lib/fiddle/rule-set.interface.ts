@@ -9,6 +9,7 @@ import { METHOD_FORMATTER } from './formatters/method-formatter';
 import { PROPERTY_FORMATTER } from './formatters/property-formatter';
 import { PYTHON_FORMATTER } from './formatters/python-formatter';
 import { STRING_TEMPLATE_STRING_FORMATTER } from './formatters/string-literal-formatter';
+import { STRUCTURE_FORMATTER } from './formatters/structure-formatter';
 
 /**
  * Formatters for the default assembler
@@ -42,5 +43,8 @@ FIDDLE_FORMATTERS[TOKEN_NAMES.EXECUTIVE_COMMAND] = EXECUTIVE_COMMAND_FORMATTER;
 FIDDLE_FORMATTERS[TOKEN_NAMES.STRING_TEMPLATE_STRING] =
   STRING_TEMPLATE_STRING_FORMATTER;
 
-// handle string literals
+// handle python
 FIDDLE_FORMATTERS[TOKEN_NAMES.PYTHON] = PYTHON_FORMATTER;
+
+// handle structures
+FIDDLE_FORMATTERS[TOKEN_NAMES.STRUCTURE] = STRUCTURE_FORMATTER;
