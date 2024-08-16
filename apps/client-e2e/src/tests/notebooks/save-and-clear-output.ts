@@ -40,7 +40,7 @@ export const SaveAndClearNotebook: RunnerFunction = async (init) => {
   await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   // compare cells
-  await CompareCellOutputs(nbAfter, CELL_OUTPUT);
+  await CompareCellOutputs(nbAfter, CELL_OUTPUT, false);
 
   // clear any existing outputs
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
