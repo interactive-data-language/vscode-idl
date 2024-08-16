@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # Routine Definition Files
 
 Routine definition files are a new concept that allows you to create a representation of functions, procedures, and structures that are packaged with pre-compiled code.
@@ -28,25 +32,11 @@ The contents of these files should be PRO code, but the routine definitions shou
 
 This makes it easy to create definition files without having to learn a brand new syntax and is patterned after TypeScript.
 
-## Important Behaviors
-
-Here's a few key notes about routine definition files:
-
-- Routine definitions are compatible with format on save and AutoDoc
-
-- Routine definitions only report problems for documentation, all other problems are ignored
-
-- Any problems that are disabled for PRO files will also be ignored within routine definition files
-
-- Auto-complete is disabled for routine definition files since there is no code that needs completing
-
-- Hover help works within definition files for the routine signature to make sure you can easily check if docs are formatted correctly
-
 ## Examples
 
 Here are a few examples showing the original code and then what the routine definition looks like.
 
-### Function Example
+### Function
 
 ::: code-group
 
@@ -113,7 +103,7 @@ end
 
 :::
 
-### Procedure Example
+### Procedure
 
 ::: code-group
 
@@ -166,7 +156,7 @@ end
 
 :::
 
-### Structure Definition Example
+### Structures
 
 ::: warning
 Compared to procedures and functions, structures require code to be present in the definition file so that we can make sure to detect inheritance and all properties (which then have types added from the documentation in the code).
@@ -226,23 +216,34 @@ end
 ;
 ;-
 pro IDLNotebookImage__define
-  compile_opt idl2, hidden
-  on_error, 2
-
   ;+
   ; Base data structure for image
   ;-
   !null = {IDLNotebookImage_Base, $
-    xSize: 0l, $
-    ySize: 0l}
+    xSize: !null, $
+    ySize: !null}
 
   ;+
   ; Data structure for embedding an image
   ;-
   !null = {IDLNotebookImage_Png, $
     inherits IDLNotebookImage_Base, $
-    data: 'base64'}
+    data: !null}
 end
 ```
 
 :::
+
+## Important Behaviors
+
+Here's a few key notes about routine definition files:
+
+- Routine definitions are compatible with format on save and AutoDoc
+
+- Routine definitions only report problems for documentation, all other problems are ignored
+
+- Any problems that are disabled for PRO files will also be ignored within routine definition files
+
+- Auto-complete is disabled for routine definition files since there is no code that needs completing
+
+- Hover help works within definition files for the routine signature to make sure you can easily check if docs are formatted correctly
