@@ -40,6 +40,8 @@ Created a new concept called a Routine Definition File for IDL. These files allo
 
 > See the new documentation page [here](https://interactive-data-language.github.io/vscode-idl/types/routine_definition_files.html) for more information.
 
+Fixed an issue where we were not correctly detecting unclosed quotes when there was an escaped quote within the content of the string.
+
 ## 4.5.1 - May 2024
 
 Continuing with our story of IDL Notebook user experience, each session of notebook now gets it's own instance of IDL! This means a few things:
