@@ -1242,6 +1242,30 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `bad single quote`,
         code: [`a = 'bad`],
       },
+      {
+        name: `bad double quote with escape`,
+        code: [`a = " ""`],
+      },
+      {
+        name: `bad double quote with escape 2`,
+        code: [`a = """`],
+      },
+      {
+        name: `bad double quote with escape 3`,
+        code: [`a = """ `],
+      },
+      {
+        name: `bad single quote with escape`,
+        code: [`a = ' ''`],
+      },
+      {
+        name: `bad single quote with escape 2`,
+        code: [`a = '''`],
+      },
+      {
+        name: `bad single quote with escape 3`,
+        code: [`a = ''' `],
+      },
     ],
   },
   {
