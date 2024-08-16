@@ -28,6 +28,10 @@ For both of the problems above, and for documentation inside of a routine, the i
 
 Resolved an issue where, when routine definitions changed, problems were not properly detected as they should be. Example: changing the name of a keyword should have an error appear in any file that used the old keyword.
 
+Notebooks now support compiling files! If a cell only has comments and compile statements, then it will be executed as a batch file. This allows you to merge notebooks and traditional editing/creation of PRO code.
+
+Updated the "Hello World" IDL Notebook example with this new behavior.
+
 ## 4.5.1 - May 2024
 
 Continuing with our story of IDL Notebook user experience, each session of notebook now gets it's own instance of IDL! This means a few things:

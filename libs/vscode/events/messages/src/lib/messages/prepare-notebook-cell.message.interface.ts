@@ -35,4 +35,8 @@ export interface PrepareNotebookCellResponse {
    * If the main level program is empty
    */
   emptyMain: boolean;
+  /**
+   * Are we a batch file?
+   */
+  isBatch: boolean;
 }

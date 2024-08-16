@@ -1,4 +1,5 @@
 import { IDLEvaluateOptions } from '@idl/idl';
+import { PrepareNotebookCellResponse } from '@idl/vscode/events/messages';
 import * as vscode from 'vscode';
 
 /**
@@ -15,6 +16,8 @@ export interface ICurrentCell {
   finished: boolean;
   /** Did we succeed or not */
   success: boolean;
+  /** Prepared notebook cell */
+  prepared?: PrepareNotebookCellResponse;
 }
 
 /**

@@ -1,9 +1,11 @@
-import { IParsed, TreeBranchToken } from '@idl/parsing/syntax-tree';
+import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { IsSingleLine } from '@idl/parsing/syntax-validators';
-import { TOKEN_NAMES } from '@idl/tokenizer';
+import { MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import { PrepareNotebookCellResponse } from '@idl/vscode/events/messages';
 import copy from 'fast-copy';
+
+import { BATCH_CELL_TOKENS } from './prepare-notebook-cell.interface';
 
 /**
  * Processes a notebook cell and prepares it to be run
@@ -25,36 +27,66 @@ export async function PrepareNotebookCell(
    */
   let emptyMain = false;
 
-  // check for main level program
-  if (parsed.tree[parsed.tree.length - 1]?.name === TOKEN_NAMES.MAIN_LEVEL) {
-    hasMain = true;
+  /**
+   * Are we a batch file
+   */
+  let isBatch = false;
 
-    // check if we are a single line
-    if (IsSingleLine(parsed.tree[parsed.tree.length - 1] as TreeBranchToken)) {
-      strings.push('end');
-    } else {
-      /**
-       * Get problem codes
-       */
-      const codes = parsed.parseProblems.map((problem) => problem.code);
+  // determine how to handle the code
+  switch (true) {
+    /**
+     * Check if we have a main level
+     */
+    case parsed.tree[parsed.tree.length - 1]?.name === TOKEN_NAMES.MAIN_LEVEL: {
+      hasMain = true;
 
-      // check special cases
-      for (let i = 0; i < codes.length; i++) {
-        // check for missing end to the main level program
-        if (codes[i] === IDL_PROBLEM_CODES.MISSING_MAIN_END) {
+      /** Get the main level token */
+      const mainToken = parsed.tree[
+        parsed.tree.length - 1
+      ] as TreeToken<MainLevelToken>;
+
+      // determine how to handle the main level
+      switch (true) {
+        // check if we only have comments or executive commands
+        case mainToken.kids.filter((token) => token.name in BATCH_CELL_TOKENS)
+          .length === mainToken.kids.length:
+          isBatch = true;
+          break;
+
+        // if it is a single line, just close
+        case IsSingleLine(mainToken):
           strings.push('end');
           break;
-        }
 
-        // check for empty main
-        if (codes[i] === IDL_PROBLEM_CODES.EMPTY_MAIN) {
-          emptyMain = true;
+        default:
+          {
+            /**
+             * Get problem codes
+             */
+            const codes = parsed.parseProblems.map((problem) => problem.code);
+
+            // check special cases
+            for (let i = 0; i < codes.length; i++) {
+              // check for missing end to the main level program
+              if (codes[i] === IDL_PROBLEM_CODES.MISSING_MAIN_END) {
+                strings.push('end');
+                break;
+              }
+
+              // check for empty main
+              if (codes[i] === IDL_PROBLEM_CODES.EMPTY_MAIN) {
+                emptyMain = true;
+                break;
+              }
+            }
+          }
           break;
-        }
       }
+      break;
     }
-  } else {
-    hasMain = false;
+    default:
+      hasMain = false;
+      break;
   }
 
   /**
@@ -84,6 +116,7 @@ export async function PrepareNotebookCell(
     code: strings.join('\n'),
     hasMain,
     emptyMain,
+    isBatch,
     codeWithoutPrint: withoutPrint.join('\n'),
   };
 }
