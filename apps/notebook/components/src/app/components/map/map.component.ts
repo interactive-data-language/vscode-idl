@@ -49,6 +49,12 @@ export const IDL_NB_MAP_COMPONENT_SELECTOR = 'idl-nb-map';
         color: black !important;
         background: rgba(150, 150, 150, 125);
       }
+
+      .controls {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+      }
     `,
   ],
 })
@@ -212,5 +218,14 @@ export class MapComponent
       // manually trigger a re-draw which seems to help when display stays black
       this.deck.redraw('YOLO');
     }
+  }
+
+  /**
+   * Set the view back to defaults
+   */
+  resetView() {
+    this.deck.setProps({
+      viewState: INITIAL_VIEW_STATE,
+    });
   }
 }
