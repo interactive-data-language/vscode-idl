@@ -36,6 +36,10 @@ Improve auto-complete for executive commands.
 
 For `.compile` we now have auto-complete for files known to the language server.
 
+Created a new concept called a Routine Definition File for IDL. These files allow developers, who deliver code as SAVE files or as DLLs/DLMs, to provide documentation so that other users get hover help, auto-complete, and the ability to create notebooks automatically from examples in the docs.
+
+> See the new documentation page [here](https://interactive-data-language.github.io/vscode-idl/types/routine_definition_files.html) for more information.
+
 ## 4.5.1 - May 2024
 
 Continuing with our story of IDL Notebook user experience, each session of notebook now gets it's own instance of IDL! This means a few things:
