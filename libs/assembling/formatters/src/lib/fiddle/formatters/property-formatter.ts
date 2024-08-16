@@ -14,6 +14,6 @@ export const PROPERTY_FORMATTER: TokenFormatter<TokenName> = (
 
   // if def file, add some code for the value of the property
   if (parsed.type === 'def') {
-    token.match[0] = `${token.match[0]} any`;
+    token.match[0] = `${token.match[0]} !null`;
   }
 };
