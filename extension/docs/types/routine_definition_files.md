@@ -14,7 +14,7 @@ Routine definitions are useful for:
 
 - SAVE files that you distribute with your source code
 
-> Note: In the future we will automatically create these definitions files for you through VSCode when compiling code
+> Note: In the future we will automatically create these definitions files for you through VSCode. This will be a part of a new feature to build code in your workspace and create SAVE files for you (similar to the IDL Workbench).
 
 ::: tip
 If you are sharing your PRO code directly, you don't need to worry about creating routine definition files.
