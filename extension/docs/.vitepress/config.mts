@@ -122,7 +122,7 @@ export default defineConfig({
         collapsed: true,
       },
       {
-        text: 'Type Detection',
+        text: 'Types',
         items: TYPES_SIDEBAR,
         // link: '/types/',
         collapsed: true,
