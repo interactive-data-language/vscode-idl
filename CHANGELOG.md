@@ -32,6 +32,10 @@ Notebooks now support compiling files! If a cell only has comments and compile s
 
 Updated the "Hello World" IDL Notebook example with this new behavior.
 
+Improve auto-complete for executive commands.
+
+For `.compile` we now have auto-complete for files known to the language server.
+
 ## 4.5.1 - May 2024
 
 Continuing with our story of IDL Notebook user experience, each session of notebook now gets it's own instance of IDL! This means a few things:

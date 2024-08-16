@@ -182,6 +182,36 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           },
         ],
       },
+      {
+        name: `dont send anything if we have a space`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 37,
+            character: 11,
+          },
+        ],
+      },
+      {
+        name: `files for .compile`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 38,
+            character: 17,
+          },
+        ],
+      },
+      {
+        name: `files for .compile`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 39,
+            character: 9,
+          },
+        ],
+      },
     ],
   },
   {
