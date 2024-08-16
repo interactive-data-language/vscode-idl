@@ -464,10 +464,8 @@ export class IDLNotebookExecutionManager {
      */
     const compile = [
       `compile_opt idl2`,
-      `!quiet = ${IDL_EXTENSION_CONFIG.notebooks.quietMode ? '1' : '0'}`,
-      `!magic.embed = ${
-        IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
-      }`,
+      `!quiet = ${IDL_EXTENSION_CONFIG.notebooks.quietMode ? 1 : 0}`,
+      `!magic.embed = ${IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? 1 : 0}`,
       `vscode_notebookInit`,
     ];
 
