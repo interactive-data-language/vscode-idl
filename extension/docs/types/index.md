@@ -8,7 +8,7 @@ Types come from a few places:
 
 1. IDL and ENVI documentation includes some automated guesses at most types.
 
-These aren't perfect, so let us know if there is an error and we are happy to fix it!
+> These aren't perfect, so let us know if there is an error and we are happy to fix it!
 
 2. From your code itself. This is where formatting and documentation come in so that we get the information we need to make it easier for you to program and stay organized.
 
