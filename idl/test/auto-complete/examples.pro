@@ -38,5 +38,10 @@ compile_opt idl2
 .compile -v
 .compile -v plot 
 .compile 
+.com 
+.comp 
+.compi 
+.compil 
+.
 
 end

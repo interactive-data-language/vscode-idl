@@ -20,7 +20,7 @@ const EXECUTIVE_COMMANDS = [
   '.go',
   '.out',
   '.reset_session',
-  'return',
+  '.return',
   // '.rnew',
   // '.run',
   '.skip',
