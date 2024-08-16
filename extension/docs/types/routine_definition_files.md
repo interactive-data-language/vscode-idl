@@ -17,7 +17,7 @@ If you are sharing your PRO code directly, you don't need to worry about creatin
 
 Your PRO code will be parsed and, as long as it is on IDL's search path or in a VSCode workspace, users will have the normal user experience.
 
-For ease of use, we still recommend adding comments to your code so other developers can use what you have created. Learn more [here](code-comments/) about how to comment your code.
+For ease of use, we still recommend adding comments to your code so other developers can use what you have created. Learn more [here](/code-comments/) about how to comment your code.
 :::
 
 ## Creating Routine Definitions
