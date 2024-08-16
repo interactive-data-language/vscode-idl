@@ -119,7 +119,7 @@ pro IDLNotebookImage__define
   on_error, 2
 
   ;+
-  ; Base datas tructure for image
+  ; Base data structure for image
   ;-
   !null = {IDLNotebookImage_Base, $
     xSize: 0l, $
@@ -156,7 +156,7 @@ pro myAwesomePro
   meaningOfLife = 42
 
   ;+
-  ; We can use a mulit-line block of comments to add
+  ; We can use a multi-line block of comments to add
   ; all the important information that we want
   ;-
   but = `It's not that simple`
