@@ -1,7 +1,8 @@
-import { GetExtensionPath } from '@idl/shared';
+import { GetExtensionPath, Sleep } from '@idl/shared';
 import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 import { CompareCellOutputs } from './helpers/compare-cells';
 import { VerifyEmpty } from './helpers/verify-empty';
@@ -35,11 +36,17 @@ export const SaveAndClearNotebook: RunnerFunction = async (init) => {
    */
   const nbAfter = await OpenNotebookInVSCode(file);
 
+  // pause
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
+
   // compare cells
   await CompareCellOutputs(nbAfter, CELL_OUTPUT);
 
   // clear any existing outputs
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
+
+  // pause
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   // verify that our cells are empty
   VerifyEmpty(nbAfter);
