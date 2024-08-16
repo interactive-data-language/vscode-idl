@@ -36,7 +36,7 @@ export const SaveAndClearNotebook: RunnerFunction = async (init) => {
   const nbAfter = await OpenNotebookInVSCode(file);
 
   // compare cells
-  CompareCellOutputs(nbAfter, CELL_OUTPUT);
+  await CompareCellOutputs(nbAfter, CELL_OUTPUT);
 
   // clear any existing outputs
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);
