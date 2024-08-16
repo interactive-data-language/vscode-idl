@@ -212,6 +212,56 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           },
         ],
       },
+      {
+        name: `files for .compile`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 40,
+            character: 5,
+          },
+        ],
+      },
+      {
+        name: `files for .compile`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 41,
+            character: 6,
+          },
+        ],
+      },
+      {
+        name: `files for .compile`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 42,
+            character: 7,
+          },
+        ],
+      },
+      {
+        name: `files for .compile`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 43,
+            character: 8,
+          },
+        ],
+      },
+      {
+        name: `with just dot, send executive commands`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 44,
+            character: 1,
+          },
+        ],
+      },
     ],
   },
   {

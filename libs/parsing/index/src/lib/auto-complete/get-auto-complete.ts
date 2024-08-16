@@ -164,7 +164,8 @@ export async function GetAutoComplete(
       case token?.name === TOKEN_NAMES.SYSTEM_VARIABLE:
         AddCompletionSystemVariables(items, formatting);
         return items;
-      case token?.name === TOKEN_NAMES.EXECUTIVE_COMMAND:
+      case token?.name === TOKEN_NAMES.EXECUTIVE_COMMAND ||
+        (token?.name === TOKEN_NAMES.DOT && token.pos[1] === 0):
         AddCompletionExecutiveCommands(items, token, formatting, index);
         return items;
       case token?.name === TOKEN_NAMES.STRUCTURE && token?.kids?.length === 0:

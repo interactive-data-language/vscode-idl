@@ -46,7 +46,7 @@ export function AddCompletionExecutiveCommands(
      * If we have a compile statement, lets do auto-complete for files on path
      */
     if (
-      token.match[0].toLowerCase().startsWith(`.compile`) &&
+      token.match[0].toLowerCase().startsWith(`.com`) &&
       token.match[0].endsWith(' ')
     ) {
       /**
@@ -79,10 +79,15 @@ export function AddCompletionExecutiveCommands(
 
   // add all executive commands
   for (let i = 0; i < EXECUTIVE_COMMANDS.length; i++) {
+    // properly case the executive command
+    const cased = AdjustCase(EXECUTIVE_COMMANDS[i], formatting.style.control);
+
+    // save completion item
     complete.push({
-      label: AdjustCase(EXECUTIVE_COMMANDS[i], formatting.style.control),
+      label: cased,
       kind: CompletionItemKind.Constructor,
       sortText: SORT_PRIORITY.EXECUTIVE_COMMANDS,
+      insertText: cased.substring(1),
     });
   }
 }
