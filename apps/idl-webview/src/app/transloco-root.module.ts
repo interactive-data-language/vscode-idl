@@ -7,7 +7,7 @@ import {
   translocoConfig,
   TranslocoLoader,
   TranslocoModule,
-} from '@ngneat/transloco';
+} from '@jsverse/transloco';
 
 import { environment } from '../environments/environment';
 
