@@ -7,16 +7,20 @@ import {
   SkipSelf,
   ViewChild,
 } from '@angular/core';
-import { Deck, WebMercatorViewport } from '@deck.gl/core';
+import { Deck, FlyToInterpolator, WebMercatorViewport } from '@deck.gl/core';
 import { TileLayer } from '@deck.gl/geo-layers';
 import { BitmapLayer } from '@deck.gl/layers';
 import { IDLNotebookMap } from '@idl/types/notebooks';
+import copy from 'fast-copy';
 
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
 import { CreateLayers } from './helpers/create-layers';
 
+/**
+ * Initial view state
+ */
 const INITIAL_VIEW_STATE = {
   latitude: 39.99758595367171,
   longitude: -105.2101538546129,
@@ -216,7 +220,7 @@ export class MapComponent
       });
 
       // manually trigger a re-draw which seems to help when display stays black
-      this.deck.redraw('YOLO');
+      this.deck.redraw();
     }
   }
 
@@ -225,7 +229,11 @@ export class MapComponent
    */
   resetView() {
     this.deck.setProps({
-      viewState: { ...this.deck.props.viewState, ...INITIAL_VIEW_STATE },
+      initialViewState: {
+        ...copy(INITIAL_VIEW_STATE),
+        transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
+        transitionDuration: 'auto',
+      },
     });
   }
 }
