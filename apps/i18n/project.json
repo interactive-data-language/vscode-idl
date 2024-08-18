@@ -11,6 +11,7 @@
         "outputPath": "dist/apps/i18n",
         "main": "apps/i18n/src/main.ts",
         "tsConfig": "apps/i18n/tsconfig.app.json",
+        "webpackConfig": "apps/i18n/webpack.config.js",
         "assets": ["apps/i18n/src/assets"],
         "target": "node",
         "compiler": "tsc"
