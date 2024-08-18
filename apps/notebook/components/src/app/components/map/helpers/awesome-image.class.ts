@@ -1,7 +1,7 @@
 // ...
 
-import { LayerContext, LayerProps } from '@deck.gl/core/typed';
-import { BitmapLayer, BitmapLayerProps } from '@deck.gl/layers/typed';
+import { LayerContext, LayerProps } from '@deck.gl/core';
+import { BitmapLayer, BitmapLayerProps } from '@deck.gl/layers';
 
 import { ColorTransform } from './color-transform.class';
 import { ImageDisplayOptions } from './color-transform.interface';

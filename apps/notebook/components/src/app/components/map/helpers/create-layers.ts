@@ -1,5 +1,5 @@
-import { LayersList } from '@deck.gl/core/typed';
-import { GeoJsonLayer } from '@deck.gl/layers/typed';
+import { LayersList } from '@deck.gl/core';
+import { GeoJsonLayer } from '@deck.gl/layers';
 import {
   IDLNotebookEmbeddedItem,
   IDLNotebookMap,

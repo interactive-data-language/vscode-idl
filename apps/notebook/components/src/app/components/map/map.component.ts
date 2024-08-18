@@ -7,9 +7,9 @@ import {
   SkipSelf,
   ViewChild,
 } from '@angular/core';
-import { Deck, WebMercatorViewport } from '@deck.gl/core/typed';
-import { TileLayer } from '@deck.gl/geo-layers/typed';
-import { BitmapLayer } from '@deck.gl/layers/typed';
+import { Deck, WebMercatorViewport } from '@deck.gl/core';
+import { TileLayer } from '@deck.gl/geo-layers';
+import { BitmapLayer } from '@deck.gl/layers';
 import { IDLNotebookMap } from '@idl/types/notebooks';
 
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
@@ -225,7 +225,7 @@ export class MapComponent
    */
   resetView() {
     this.deck.setProps({
-      viewState: INITIAL_VIEW_STATE,
+      viewState: { ...this.deck.props.viewState, ...INITIAL_VIEW_STATE },
     });
   }
 }
