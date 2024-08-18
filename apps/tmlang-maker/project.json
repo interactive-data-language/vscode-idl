@@ -49,17 +49,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/tmlang-maker/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/tmlang-maker"],
       "options": {
-        "jestConfig": "apps/tmlang-maker/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/tmlang-maker/jest.config.ts"
       }
     }
   },

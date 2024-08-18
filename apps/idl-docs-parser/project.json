@@ -37,17 +37,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/idl-docs-parser/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/idl-docs-parser"],
       "options": {
-        "jestConfig": "apps/idl-docs-parser/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/idl-docs-parser/jest.config.ts"
       }
     }
   },

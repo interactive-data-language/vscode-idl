@@ -6,17 +6,13 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/vscode/initialize-types/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/vscode/initialize-types"],
       "options": {
-        "jestConfig": "libs/vscode/initialize-types/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/vscode/initialize-types/jest.config.ts"
       }
     }
   },

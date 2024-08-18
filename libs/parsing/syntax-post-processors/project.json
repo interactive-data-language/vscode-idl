@@ -6,10 +6,7 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/parsing/syntax-post-processors/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -17,8 +14,7 @@
         "{workspaceRoot}/coverage/libs/parsing/syntax-post-processors"
       ],
       "options": {
-        "jestConfig": "libs/parsing/syntax-post-processors/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/parsing/syntax-post-processors/jest.config.ts"
       }
     }
   },

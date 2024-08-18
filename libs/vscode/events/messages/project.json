@@ -6,17 +6,13 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/vscode/events/messages/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/vscode/events/messages"],
       "options": {
-        "jestConfig": "libs/vscode/events/messages/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/vscode/events/messages/jest.config.ts"
       }
     }
   },

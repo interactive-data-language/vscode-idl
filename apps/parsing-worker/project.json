@@ -38,17 +38,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/parsing-worker/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/parsing-worker"],
       "options": {
-        "jestConfig": "apps/parsing-worker/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/parsing-worker/jest.config.ts"
       }
     }
   },

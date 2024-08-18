@@ -37,17 +37,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["apps/performance/**/*.ts"]
-      },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/performance"],
       "options": {
-        "jestConfig": "apps/performance/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/performance/jest.config.ts"
       }
     }
   },

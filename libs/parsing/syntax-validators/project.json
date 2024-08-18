@@ -6,17 +6,13 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/parsing/syntax-validators/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/parsing/syntax-validators"],
       "options": {
-        "jestConfig": "libs/parsing/syntax-validators/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/parsing/syntax-validators/jest.config.ts"
       }
     }
   },

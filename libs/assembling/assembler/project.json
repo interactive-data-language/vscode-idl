@@ -6,17 +6,13 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/assembling/assembler/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/assembling/assembler"],
       "options": {
-        "jestConfig": "libs/assembling/assembler/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/assembling/assembler/jest.config.ts"
       }
     }
   },

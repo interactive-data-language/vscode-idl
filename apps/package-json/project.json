@@ -38,17 +38,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/package-json/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/package-json"],
       "options": {
-        "jestConfig": "apps/package-json/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/package-json/jest.config.ts"
       }
     }
   },

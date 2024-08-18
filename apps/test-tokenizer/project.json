@@ -37,17 +37,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["apps/test-tokenizer/**/*.ts"]
-      },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/test-tokenizer"],
       "options": {
-        "jestConfig": "apps/test-tokenizer/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/test-tokenizer/jest.config.ts"
       }
     }
   },

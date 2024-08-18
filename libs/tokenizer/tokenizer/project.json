@@ -6,17 +6,13 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["libs/tokenizer/tokenizer/**/*.ts"]
-      },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/tokenizer/tokenizer"],
       "options": {
-        "jestConfig": "libs/tokenizer/tokenizer/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/tokenizer/tokenizer/jest.config.ts"
       }
     }
   },

@@ -59,10 +59,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "idl-webview:build:production"
+          "buildTarget": "idl-webview:build:production"
         },
         "development": {
-          "browserTarget": "idl-webview:build:development"
+          "buildTarget": "idl-webview:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -70,25 +70,18 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "idl-webview:build"
+        "buildTarget": "idl-webview:build"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/idl-webview/src/**/*.ts",
-          "apps/idl-webview/src/**/*.html"
-        ]
-      },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/idl-webview"],
       "options": {
-        "jestConfig": "apps/idl-webview/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/idl-webview/jest.config.ts"
       }
     }
   },

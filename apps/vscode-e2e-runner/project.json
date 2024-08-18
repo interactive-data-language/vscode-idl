@@ -42,17 +42,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/vscode-e2e-runner/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/vscode-e2e-runner"],
       "options": {
-        "jestConfig": "apps/vscode-e2e-runner/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/vscode-e2e-runner/jest.config.ts"
       }
     }
   },
