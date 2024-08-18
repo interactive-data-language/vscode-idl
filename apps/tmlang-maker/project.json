@@ -11,7 +11,7 @@
         "outputPath": "dist/apps/tmlang-maker",
         "main": "apps/tmlang-maker/src/main.ts",
         "tsConfig": "apps/tmlang-maker/tsconfig.app.json",
-        "webpackConfig": "apps/tmlang-maker/webpack.config.js",
+        "webpackConfig": "webpack.app.config.js",
         "assets": [
           "apps/tmlang-maker/src/assets",
           {
