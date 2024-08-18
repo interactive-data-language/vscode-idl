@@ -11,6 +11,7 @@
         "outputPath": "dist/apps/parsing-worker",
         "main": "apps/parsing-worker/src/main.ts",
         "tsConfig": "apps/parsing-worker/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
         "assets": ["apps/parsing-worker/src/assets"],
         "externalDependencies": "none",
         "target": "node",

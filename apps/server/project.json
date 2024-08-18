@@ -11,6 +11,7 @@
         "outputPath": "dist/apps/server",
         "main": "apps/server/src/main.ts",
         "tsConfig": "apps/server/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
         "assets": ["apps/server/src/assets"],
         "externalDependencies": "none",
         "target": "node",

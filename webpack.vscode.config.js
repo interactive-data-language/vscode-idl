@@ -1,13 +1,18 @@
-const webpack = require('webpack');
+const { composePlugins, withNx } = require('@nx/webpack');
 
 /**
- * Webpack config used for the client and server for our extension.
+ * ABOUT
  *
- * Primarily to ignore vscode from dependencies and leave everything else
- * at default, but leaves room for customization in the future.
+ * Base webpack file for our apps that need webpack
+ *
+ * Some issue migrating where this is something that should be set for anything
+ * that builds using webpack.
+ *
+ * Setting this up for a shared webpack file that all of the other configs can use
  */
 
-module.exports = (/**@type WebpackConfig*/ config, context) => {
+// Nx plugins for webpack.
+module.exports = composePlugins(withNx(), (config) => {
   /**@type WebpackConfig*/
   const newConfig = {
     ...config,
@@ -42,4 +47,4 @@ module.exports = (/**@type WebpackConfig*/ config, context) => {
   };
   // console.log(JSON.stringify(config, undefined, 2));
   return newConfig;
-};
+});

@@ -12,7 +12,7 @@
         "main": "apps/client-e2e/src/main.ts",
         "tsConfig": "apps/client-e2e/tsconfig.app.json",
         "assets": [],
-        "webpackConfig": "webpack.base.config.js",
+        "webpackConfig": "webpack.vscode.config.js",
         "externalDependencies": "none",
         "target": "node",
         "compiler": "tsc"

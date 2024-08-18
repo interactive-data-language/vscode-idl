@@ -12,7 +12,7 @@
         "main": "apps/client/src/main.ts",
         "tsConfig": "apps/client/tsconfig.app.json",
         "assets": ["apps/client/src/assets"],
-        "webpackConfig": "webpack.base.config.js",
+        "webpackConfig": "webpack.vscode.config.js",
         "externalDependencies": "none",
         "target": "node",
         "compiler": "tsc"

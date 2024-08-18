@@ -11,6 +11,7 @@
         "outputPath": "dist/apps/test-tokenizer",
         "main": "apps/test-tokenizer/src/main.ts",
         "tsConfig": "apps/test-tokenizer/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
         "assets": ["apps/test-tokenizer/src/assets"],
         "target": "node",
         "compiler": "tsc"

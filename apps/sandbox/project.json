@@ -11,6 +11,7 @@
         "outputPath": "dist/apps/sandbox",
         "main": "apps/sandbox/src/main.ts",
         "tsConfig": "apps/sandbox/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
         "assets": ["apps/sandbox/src/assets"],
         "target": "node",
         "compiler": "tsc"

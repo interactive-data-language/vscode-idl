@@ -11,6 +11,7 @@
         "outputPath": "dist/apps/idl-docs-parser",
         "main": "apps/idl-docs-parser/src/main.ts",
         "tsConfig": "apps/idl-docs-parser/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
         "assets": ["apps/idl-docs-parser/src/assets"],
         "target": "node",
         "compiler": "tsc"

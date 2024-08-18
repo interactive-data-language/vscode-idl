@@ -12,7 +12,7 @@
         "main": "apps/package-json/src/main.ts",
         "tsConfig": "apps/package-json/tsconfig.app.json",
         "assets": ["apps/package-json/src/assets"],
-        "webpackConfig": "webpack.app.config.js",
+        "webpackConfig": "webpack.node.config.js",
         "target": "node",
         "compiler": "tsc"
       },

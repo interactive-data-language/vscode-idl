@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/notebook/components",
         "index": "apps/notebook/components/src/index.html",
         "main": "apps/notebook/components/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": "apps/notebook/components/src/polyfills.ts",
         "tsConfig": "apps/notebook/components/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "styles": [],
