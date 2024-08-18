@@ -11,6 +11,7 @@
         "outputPath": "dist/apps/vscode-e2e-runner",
         "main": "apps/vscode-e2e-runner/src/main.ts",
         "tsConfig": "apps/vscode-e2e-runner/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
         "assets": ["apps/vscode-e2e-runner/src/assets"],
         "target": "node",
         "compiler": "tsc"
