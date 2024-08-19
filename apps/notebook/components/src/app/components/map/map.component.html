@@ -3,7 +3,11 @@
 <div class="map-container cell-item-full-height" style="position: relative">
   <canvas #MapCanvas></canvas>
 
-  <div class="map-controls" fxLayout="row" fxLayoutAlign="space-around center">
+  <div
+    class="map-controls toolbar"
+    fxLayout="row"
+    fxLayoutAlign="space-around center"
+  >
     <mat-icon
       (click)="resetView()"
       class="icon-button"

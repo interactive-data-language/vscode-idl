@@ -35,7 +35,7 @@ $cell-height-limit: 500px;
 // override class for more compact icon buttons without "<button>"
 .icon-button {
   cursor: pointer;
-  color: var(--vscode-activityBar-foreground);
+  // color: var(--vscode-activityBar-foreground);
 }
 
 .renderer-toolbar {
@@ -77,18 +77,30 @@ $cell-height-limit: 500px;
   max-width: calc(100% - 50px);
 }
 
+.toolbar {
+  color: var(--vscode-activityBar-foreground);
+  background: var(--vscode-activityBar-background);
+  border-radius: 10px;
+  padding: 5px;
+}
+
 .map-controls {
   position: absolute;
   left: 5px;
   bottom: 5px;
-  padding: 5px;
-  background: var(--vscode-activityBar-background);
-  border-radius: 10px;
 }
 
 .custom-slider {
   input[type='range'] {
-    accent-color: var(--vscode-activityBarBadge-background) !important;
+    accent-color: var(--vscode-activityBar-foreground) !important;
+    outline: var(--vscode-activityBar-foreground) !important;
+  }
+
+  ::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    outline-style: solid !important;
+    outline-width: 1px !important;
+    outline: var(--vscode-activityBar-foreground) !important;
   }
 
   :focus {
