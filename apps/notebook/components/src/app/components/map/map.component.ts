@@ -223,10 +223,22 @@ export class MapComponent
    * Set the view back to defaults
    */
   resetView() {
+    /**
+     * Reset initial view state so deck.gl picks up changes
+     *
+     * Without this, the next code doesnt work
+     */
+    this.deck.setProps({ initialViewState: undefined });
+
+    /**
+     * Set view state with an animation
+     */
     this.deck.setProps({
       initialViewState: {
         ...copy(INITIAL_VIEW_STATE),
-        transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
+        transitionInterpolator: new FlyToInterpolator({
+          speed: 2,
+        }),
         transitionDuration: 'auto',
       },
     });
