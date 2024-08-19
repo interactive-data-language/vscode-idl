@@ -1,4 +1,7 @@
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { ApplicationRef, DoBootstrap, Injector, NgModule } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -28,16 +31,19 @@ import { VSCodeRendererMessenger } from './services/vscode-renderer-messenger.se
 
 @NgModule({
   declarations: [AppComponent],
+  bootstrap: [],
+  exports: [],
   imports: [
     BrowserModule,
-    HttpClientModule,
     MaterialCssVarsModule.forRoot({}),
     MaterialModule,
     ComponentsModule,
   ],
-  providers: [MaterialCssVarsService, VSCodeRendererMessenger],
-  bootstrap: [],
-  exports: [],
+  providers: [
+    MaterialCssVarsService,
+    VSCodeRendererMessenger,
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
 })
 export class AppModule implements DoBootstrap {
   constructor(

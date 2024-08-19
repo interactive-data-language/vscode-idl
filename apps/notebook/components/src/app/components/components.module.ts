@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { MaterialCssVarsModule } from 'angular-material-css-vars';
 
@@ -22,12 +25,6 @@ import { PlotComponent } from './plot/plot.component';
     MapPropertySheetComponent,
     AnimationControlsComponent,
   ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    MaterialCssVarsModule,
-    MaterialModule,
-  ],
   exports: [
     EntryComponent,
     ImageComponent,
@@ -38,6 +35,7 @@ import { PlotComponent } from './plot/plot.component';
     AnimationControlsComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  imports: [CommonModule, MaterialCssVarsModule, MaterialModule],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
 })
 export class ComponentsModule {}
