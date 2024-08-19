@@ -42,6 +42,8 @@ Created a new concept called a Routine Definition File for IDL. These files allo
 
 Fixed an issue where we were not correctly detecting unclosed quotes when there was an escaped quote within the content of the string.
 
+Re-work the toolbar for animations in IDL Notebooks. The new toolbar uses the same colors/style as the sidebar and will look good on most themes. There was an issue, after a library update, where colors for high contrast themes did not work with the slider and have now been fixed.
+
 ## 4.5.1 - May 2024
 
 Continuing with our story of IDL Notebook user experience, each session of notebook now gets it's own instance of IDL! This means a few things:
