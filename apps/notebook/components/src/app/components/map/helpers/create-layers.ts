@@ -10,11 +10,14 @@ import { bboxify } from '@mapbox/geojson-extent';
 import { nanoid } from 'nanoid';
 
 import { AwesomeImage } from './awesome-image.class';
+import { ILayers, LayerBounds } from './create-layers.interface';
 
 /**
  * Creates the deck.gl layers for the map
  */
-export function CreateLayers(embed: IDLNotebookEmbeddedItem<IDLNotebookMap>) {
+export function CreateLayers(
+  embed: IDLNotebookEmbeddedItem<IDLNotebookMap>
+): ILayers {
   /**
    * Create layers that we want to embed
    */
@@ -28,7 +31,7 @@ export function CreateLayers(embed: IDLNotebookEmbeddedItem<IDLNotebookMap>) {
   /**
    * Track bounds
    */
-  let bounds: [number, number, number, number] = undefined as any;
+  let bounds: LayerBounds = undefined as any;
 
   // process all of our data
   for (let i = 0; i < toEmbed.length; i++) {

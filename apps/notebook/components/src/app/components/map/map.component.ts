@@ -18,6 +18,7 @@ import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenge
 import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
 import { CreateLayers } from './helpers/create-layers';
+import { ILayers } from './helpers/create-layers.interface';
 
 /**
  * Initial view state
@@ -72,6 +73,9 @@ export class MapComponent
    */
   private deck!: Deck;
 
+  /** Current layers */
+  private layers!: ILayers;
+
   /**
    * Interval callback to make sure we render
    *
@@ -125,29 +129,11 @@ export class MapComponent
        */
       const layers = CreateLayers(this._embed);
 
-      // check if we have bounds from our layers
-      if (layers.bounds) {
-        /**
-         * Get viewport
-         */
-        const { longitude, latitude, zoom } = new WebMercatorViewport({
-          width: this.el.nativeElement.offsetWidth,
-          height: this.el.nativeElement.offsetHeight,
-        }).fitBounds(
-          [
-            [layers.bounds[0], layers.bounds[1]],
-            [layers.bounds[2], layers.bounds[3]],
-          ],
-          {
-            padding: 100,
-          }
-        );
+      // save layers
+      this.layers = layers;
 
-        /**
-         * Update view state
-         */
-        Object.assign(INITIAL_VIEW_STATE, { longitude, latitude, zoom });
-      }
+      // update default view state
+      this.updateInitialViewState();
 
       /**
        * Create instance of deck with basemap and layers
@@ -220,6 +206,37 @@ export class MapComponent
   }
 
   /**
+   * Updates our view state based on data extents and the current map size
+   */
+  updateInitialViewState() {
+    if (this.layers) {
+      // check if we have bounds from our layers
+      if (this.layers.bounds) {
+        /**
+         * Get viewport
+         */
+        const { longitude, latitude, zoom } = new WebMercatorViewport({
+          width: this.el.nativeElement.offsetWidth,
+          height: this.el.nativeElement.offsetHeight,
+        }).fitBounds(
+          [
+            [this.layers.bounds[0], this.layers.bounds[1]],
+            [this.layers.bounds[2], this.layers.bounds[3]],
+          ],
+          {
+            padding: 100,
+          }
+        );
+
+        /**
+         * Update view state
+         */
+        Object.assign(INITIAL_VIEW_STATE, { longitude, latitude, zoom });
+      }
+    }
+  }
+
+  /**
    * Set the view back to defaults
    */
   resetView() {
@@ -229,6 +246,9 @@ export class MapComponent
      * Without this, the next code doesnt work
      */
     this.deck.setProps({ initialViewState: undefined });
+
+    // update our view state in case the map size has changed
+    this.updateInitialViewState();
 
     /**
      * Set view state with an animation
