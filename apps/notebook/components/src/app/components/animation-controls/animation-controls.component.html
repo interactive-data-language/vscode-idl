@@ -31,8 +31,19 @@
     ></mat-icon>
   </div>
 
-  <!-- band index slider -->
-  <mat-slider
+  <div class="custom-slider">
+    <input
+      type="range"
+      [value]="frame"
+      min="0"
+      max="{{ nFrames - 1 }}"
+      (mousedown)="pause()"
+      (mouseup)="play()"
+      (input)="onInputChange($event)"
+    />
+  </div>
+
+  <!-- <mat-slider
     style="width: 50%"
     min="0"
     max="{{ nFrames - 1 }}"
@@ -45,5 +56,5 @@
       (dragStart)="pause()"
       (input)="onInputChange($event)"
     />
-  </mat-slider>
+  </mat-slider> -->
 </div>

@@ -66,3 +66,13 @@ $cell-height-limit: 500px;
 .embedded-image-with-horizontal-toolbar {
   max-width: calc(100% - 50px);
 }
+
+.custom-slider {
+  input[type='range'] {
+    accent-color: #{$accent} !important;
+  }
+
+  :focus {
+    outline: none !important;
+  }
+}
