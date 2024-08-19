@@ -47,18 +47,12 @@ export const IDL_NB_MAP_COMPONENT_SELECTOR = 'idl-nb-map';
         width: 100%;
       }
 
-      .credits {
+      .map-credits {
         position: absolute;
         right: 0;
         bottom: 0;
         color: black !important;
         background: rgba(150, 150, 150, 125);
-      }
-
-      .controls {
-        position: absolute;
-        left: 0;
-        bottom: 0;
       }
     `,
   ],

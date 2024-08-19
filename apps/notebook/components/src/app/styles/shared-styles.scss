@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-$accent: var(--vscode-activityBarBadge-background);
 $cell-height-limit: 500px;
 
 .div {
@@ -10,11 +9,21 @@ $cell-height-limit: 500px;
 }
 
 .mat-primary {
-  --mdc-slider-handle-color: #{$accent} !important;
-  --mdc-slider-focus-handle-color: #{$accent} !important;
-  --mdc-slider-hover-handle-color: #{$accent} !important;
-  --mdc-slider-active-track-color: #{$accent} !important;
-  --mdc-slider-inactive-track-color: #{$accent} !important;
+  --mdc-slider-handle-color: var(
+    --vscode-activityBarBadge-background
+  ) !important;
+  --mdc-slider-focus-handle-color: var(
+    --vscode-activityBarBadge-background
+  ) !important;
+  --mdc-slider-hover-handle-color: var(
+    --vscode-activityBarBadge-background
+  ) !important;
+  --mdc-slider-active-track-color: var(
+    --vscode-activityBarBadge-background
+  ) !important;
+  --mdc-slider-inactive-track-color: var(
+    --vscode-activityBarBadge-background
+  ) !important;
   /* --mdc-slider-with-tick-marks-inactive-container-color: var(
     --vscode-activityBarBadge-background
   ) !important; */
@@ -26,14 +35,11 @@ $cell-height-limit: 500px;
 // override class for more compact icon buttons without "<button>"
 .icon-button {
   cursor: pointer;
+  color: var(--vscode-activityBar-foreground);
 }
 
 .renderer-toolbar {
-  // outline-style: solid !important;
-  // outline-width: 1px !important;
-  // outline-color: #{$accent} !important;
   margin-bottom: 15px;
-  // width: 100%;
 }
 
 .renderer-toolbar-vertical-left {
@@ -45,9 +51,13 @@ $cell-height-limit: 500px;
 }
 
 .vscode-outlined {
+  outline: none;
+}
+
+.vscode-outlined-focus {
   outline-style: solid !important;
   outline-width: 1px !important;
-  outline-color: #{$accent} !important;
+  outline-color: var(--vscode-notebook-focusedCellBorder) !important;
 }
 
 .cell-item-height-max {
@@ -67,9 +77,18 @@ $cell-height-limit: 500px;
   max-width: calc(100% - 50px);
 }
 
+.map-controls {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  padding: 5px;
+  background: var(--vscode-activityBar-background);
+  border-radius: 10px;
+}
+
 .custom-slider {
   input[type='range'] {
-    accent-color: #{$accent} !important;
+    accent-color: var(--vscode-activityBarBadge-background) !important;
   }
 
   :focus {

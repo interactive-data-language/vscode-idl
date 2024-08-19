@@ -28,6 +28,7 @@ import { PLAY } from './icons/play';
 import { SAVE } from './icons/save';
 import { MaterialModule } from './material.module';
 import { VSCodeRendererMessenger } from './services/vscode-renderer-messenger.service';
+import { MY_LOCATION_FILLED } from './icons/my-location-fill';
 
 @NgModule({
   declarations: [AppComponent],
@@ -92,6 +93,7 @@ export class AppModule implements DoBootstrap {
     const icons: { [key: string]: any } = {
       'fast-forward': FAST_FORWARD,
       'fast-rewind': FAST_REWIND,
+      my_location_fill: MY_LOCATION_FILLED,
       pause: PAUSE,
       play: PLAY,
       save: SAVE,
