@@ -76,6 +76,9 @@ export class MapComponent
   /** Current layers */
   private layers!: ILayers;
 
+  /** Do we show the layers dialog */
+  showLayers = false;
+
   /**
    * Interval callback to make sure we render
    *

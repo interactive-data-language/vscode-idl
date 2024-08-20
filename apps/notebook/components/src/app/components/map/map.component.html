@@ -3,16 +3,27 @@
 <div class="map-container cell-item-full-height" style="position: relative">
   <canvas #MapCanvas></canvas>
 
-  <div
-    class="map-controls toolbar"
-    fxLayout="row"
-    fxLayoutAlign="space-around center"
-  >
-    <mat-icon
-      (click)="resetView()"
-      class="icon-button"
-      svgIcon="my_location_fill"
-    ></mat-icon>
+  <div class="map-controls" fxLayout="column" fxLayoutAlign="center start">
+    <!-- <div
+      *ngIf="showLayers"
+      fxLayout="column"
+      class="toolbar"
+      style="margin-bottom: 5px"
+    >
+      Something cool
+    </div> -->
+    <div fxLayout="row" fxLayoutAlign="space-around center" class="toolbar">
+      <mat-icon
+        (click)="resetView()"
+        class="icon-button"
+        svgIcon="my_location_fill"
+      ></mat-icon>
+      <!-- <mat-icon
+        (click)="showLayers = !showLayers"
+        class="icon-button"
+        svgIcon="layers"
+      ></mat-icon> -->
+    </div>
   </div>
 
   <div class="map-credits">

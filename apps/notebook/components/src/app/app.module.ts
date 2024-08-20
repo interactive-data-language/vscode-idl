@@ -6,6 +6,7 @@ import { ApplicationRef, DoBootstrap, Injector, NgModule } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { MatIconRegistry } from '@angular/material/icon';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MaterialCssVarsModule,
   MaterialCssVarsService,
@@ -23,12 +24,13 @@ import {
 } from './components/map/map-property-sheet/map-property-sheet.component';
 import { FAST_FORWARD } from './icons/fast-forward';
 import { FAST_REWIND } from './icons/fast-rewind';
+import { LAYERS } from './icons/layers';
+import { MY_LOCATION_FILLED } from './icons/my-location-fill';
 import { PAUSE } from './icons/pause';
 import { PLAY } from './icons/play';
 import { SAVE } from './icons/save';
 import { MaterialModule } from './material.module';
 import { VSCodeRendererMessenger } from './services/vscode-renderer-messenger.service';
-import { MY_LOCATION_FILLED } from './icons/my-location-fill';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,6 +38,7 @@ import { MY_LOCATION_FILLED } from './icons/my-location-fill';
   exports: [],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     MaterialCssVarsModule.forRoot({}),
     MaterialModule,
     ComponentsModule,
@@ -93,6 +96,7 @@ export class AppModule implements DoBootstrap {
     const icons: { [key: string]: any } = {
       'fast-forward': FAST_FORWARD,
       'fast-rewind': FAST_REWIND,
+      layers: LAYERS,
       my_location_fill: MY_LOCATION_FILLED,
       pause: PAUSE,
       play: PLAY,
