@@ -14,7 +14,7 @@ import {
   RoutineFunctionToken,
   RoutineProcedureToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionMethodToken,
@@ -188,13 +188,11 @@ export function ReplaceRoutineDocs(parsed: IParsed, style: ICodeStyle) {
      * Check if we have a comment block after
      */
     if (
+      !before &&
       useTree[i].name in REPLACE &&
       (useTree[i] as TreeBranchToken)?.kids[1]?.name ===
         TOKEN_NAMES.COMMENT_BLOCK
     ) {
-      /** Comment block is after */
-      before = false;
-
       /** Extract our routine */
       routine = useTree[i] as TreeToken<
         RoutineProcedureToken | RoutineFunctionToken
@@ -272,6 +270,18 @@ export function ReplaceRoutineDocs(parsed: IParsed, style: ICodeStyle) {
           routine.end.pos[0] += delta;
           IncrementLineNumbers(routine.kids.slice(2), delta);
           IncrementLineNumbers(useTree.slice(i + 1), delta);
+        }
+
+        /**
+         * If we are on a comment block and the next token is a routine
+         * definition, then skip ahead since we already processed our
+         * routine.
+         *
+         * If we don't do this, the next loop checks inside for docs and
+         * we don't want to do that since we already processed a comment block
+         */
+        if (before) {
+          i++;
         }
       }
     }

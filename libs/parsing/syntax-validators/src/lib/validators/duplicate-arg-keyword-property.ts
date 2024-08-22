@@ -18,7 +18,7 @@ import {
   StructureToken,
   TOKEN_NAMES,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 
 /**

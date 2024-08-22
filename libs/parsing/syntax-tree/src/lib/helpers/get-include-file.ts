@@ -1,4 +1,4 @@
-import { IncludeToken } from '@idl/parsing/tokenizer';
+import { IncludeToken } from '@idl/tokenizer';
 
 import { TreeToken } from '../branches.interface';
 

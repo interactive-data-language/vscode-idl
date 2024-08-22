@@ -1,6 +1,8 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
+import { ExecutiveCommandsExpectedOutput } from './executive-commands-expected-output';
+import { ExecutiveCompileFailure } from './executive-compile-failure';
 import { NewNotebook } from './new-notebook';
 import { NotebookCallStackDecorationsNoDecorations } from './notebook-call-stack-decorations-no-decorations';
 import { NotebookCallStackDecorationsOnExecutionHalted1 } from './notebook-call-stack-decorations-on-execution-halted';
@@ -110,6 +112,16 @@ NOTEBOOK_RUNNER.addTest({
   name: 'Run notebook that tests successes',
   fn: RunTestNotebook,
   critical: true,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Detect failure in executive commands running',
+  fn: ExecutiveCompileFailure,
+});
+
+NOTEBOOK_RUNNER.addTest({
+  name: 'Ensure output from executive commands is right',
+  fn: ExecutiveCommandsExpectedOutput,
 });
 
 NOTEBOOK_RUNNER.addTest({

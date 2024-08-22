@@ -1,4 +1,4 @@
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 
 import { CALL_ROUTINE_TOKENS } from '../helpers/get-keywords.interface';
 

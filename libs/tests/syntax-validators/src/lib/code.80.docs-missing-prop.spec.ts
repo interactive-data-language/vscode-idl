@@ -57,4 +57,56 @@ describe(`[auto generated] Check for missing properties`, () => {
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] in our docs for def`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `;+`,
+      `; :MyStruct:`,
+      `;   prop: any`,
+      `;     Placeholder docs for argument or keyword`,
+      `;`,
+      `;-`,
+      `pro pro4__define`,
+      `  compile_opt idl2`,
+      ``,
+      `  !null = {MyStruct, inherits IDL_object, prop: 1, prop2: 4}`,
+      ``,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, type: 'def' }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 80,
+        info: 'Property is missing from documentation: "prop2"',
+        start: [9, 51, 6],
+        end: [9, 51, 6],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });

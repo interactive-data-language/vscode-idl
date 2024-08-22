@@ -137,4 +137,64 @@ describe(`[auto generated] Detects when a documented parameter does not exist in
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] problem with args and keywords in def`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `;+`,
+      `; My procedure`,
+      `;`,
+      `; @param var1 My favorite thing`,
+      `; @param var2 My favorite thing`,
+      `;`,
+      `; @keyword kw1 Super Cool Flag`,
+      `; @keyword kw2 Super Cool Flag`,
+      `;`,
+      `;-`,
+      `pro mypro, var2, KW2=kw2`,
+      `  compile_opt idl2`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, type: 'def' }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 63,
+        info: 'Documented argument, keyword, or property does not exist: "var1"',
+        start: [3, 0, 31],
+        end: [3, 0, 31],
+        canReport: true,
+      },
+      {
+        code: 63,
+        info: 'Documented argument, keyword, or property does not exist: "kw1"',
+        start: [6, 0, 30],
+        end: [6, 0, 30],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });

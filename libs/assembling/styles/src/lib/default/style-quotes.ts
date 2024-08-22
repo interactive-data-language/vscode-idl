@@ -1,6 +1,6 @@
 import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 
 /**
  * All of our tokens for numbers to process

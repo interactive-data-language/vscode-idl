@@ -267,9 +267,7 @@ export class IDLProcess extends EventEmitter {
           break;
 
         case REGEX_EMPTY_LINE.test(data) && os.platform() === 'win32':
-          if (this.evaluating) {
-            this.capturedOutput += '\n';
-          }
+          this.capturedOutput += '\n';
 
           // too much nonsense comes from windows, but this is better logic on other platforms
           // mostly for startup
@@ -280,9 +278,7 @@ export class IDLProcess extends EventEmitter {
 
         // other data that we need to capture?
         default:
-          if (this.evaluating) {
-            this.capturedOutput += data;
-          }
+          this.capturedOutput += data;
 
           // check if we need to print to debug console
           this.sendOutput(data);

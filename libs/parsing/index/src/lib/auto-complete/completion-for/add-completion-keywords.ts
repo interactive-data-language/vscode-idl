@@ -5,7 +5,7 @@ import {
   IParsed,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES, TokenName } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_TYPE_LOOKUP,

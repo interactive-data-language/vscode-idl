@@ -4,7 +4,7 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
   VariableToken,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import {

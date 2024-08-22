@@ -2,7 +2,7 @@ import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { AdjustCase } from '@idl/assembling/shared';
 import { TreeToken } from '@idl/parsing/syntax-tree';
 import { ALLOWED_COMPILE_OPTIONS } from '@idl/parsing/syntax-validators';
-import { ControlCompileOptToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { ControlCompileOptToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
 import { SORT_PRIORITY } from '../sort-priority.interface';

@@ -6,6 +6,16 @@ import { IOutlineTests } from '../tests.interface';
 export const AUTO_OUTLINE_TESTS: IOutlineTests[] = [
   {
     suiteName: `Extracts outline`,
+    fileName: `def-files.1.spec.ts`,
+    tests: [
+      {
+        name: `for def files`,
+        file: `idl/test/hover-help/testroutine.pro.def`,
+      },
+    ],
+  },
+  {
+    suiteName: `Extracts outline`,
     fileName: `ex-1.spec.ts`,
     tests: [
       {

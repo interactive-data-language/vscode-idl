@@ -2,7 +2,7 @@ import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { MigrationType } from '@idl/assembling/migrators-types';
 import { ILogOptions } from '@idl/logger';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
-import { IParsed } from '@idl/parsing/syntax-tree';
+import { IParsed, ParsedType } from '@idl/parsing/syntax-tree';
 import {
   GlobalTokens,
   GlobalTokenType,
@@ -288,7 +288,7 @@ export interface ParseAndPostProcessCodePayload {
   file: string;
   code: string | string[];
   postProcess: boolean;
-  isNotebook: boolean;
+  type: ParsedType;
 }
 
 /**

@@ -2,7 +2,7 @@ import {
   IDL_SYNTAX_TREE_VALIDATOR,
   SyntaxProblemWithTranslation,
 } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { IsSingleLine } from '../helpers/is-single-line';
@@ -43,7 +43,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
       );
 
       // update flag for if we can report
-      prob.canReport = !parsed.isNotebook;
+      prob.canReport = !(parsed.type === 'notebook');
 
       // save
       parsed.parseProblems.push(prob);

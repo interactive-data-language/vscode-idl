@@ -182,6 +182,86 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           },
         ],
       },
+      {
+        name: `dont send anything if we have a space`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 37,
+            character: 11,
+          },
+        ],
+      },
+      {
+        name: `files for .compile`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 38,
+            character: 17,
+          },
+        ],
+      },
+      {
+        name: `files for .compile`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 39,
+            character: 9,
+          },
+        ],
+      },
+      {
+        name: `files for .compile`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 40,
+            character: 5,
+          },
+        ],
+      },
+      {
+        name: `files for .compile`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 41,
+            character: 6,
+          },
+        ],
+      },
+      {
+        name: `files for .compile`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 42,
+            character: 7,
+          },
+        ],
+      },
+      {
+        name: `files for .compile`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 43,
+            character: 8,
+          },
+        ],
+      },
+      {
+        name: `with just dot, send executive commands`,
+        file: `idl/test/auto-complete/examples.pro`,
+        position: [
+          {
+            line: 44,
+            character: 1,
+          },
+        ],
+      },
     ],
   },
   {

@@ -106,6 +106,49 @@ describe(`[auto generated] Detects when the returns tag has too much information
     ).toEqual(expected);
   });
 
+  it(`[auto generated] problem in def`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `;+`,
+      `; @param var1 My favorite argument`,
+      `;`,
+      `; @returns number`,
+      `;   Fun fact about zach`,
+      `;   he is a vegetarian`,
+      `;-`,
+      `function myfunc, var1`,
+      `  compile_opt idl2`,
+      `  return, 1`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, type: 'def' }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
+
   it(`[auto generated] no problem with extra spaces`, async () => {
     // create index
     const index = new IDLIndex(

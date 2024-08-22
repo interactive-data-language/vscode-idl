@@ -8,6 +8,7 @@ import {
   IDL_JSON_URI,
   IDL_NOTEBOOK_EXTENSION,
   IDL_SAVE_FILE_EXTENSION,
+  PRO_DEF_EXTENSION,
   PRO_FILE_EXTENSION,
   TASK_FILE_EXTENSION,
 } from './language.interface';
@@ -25,6 +26,13 @@ export class IDLFileHelper {
    */
   static isPROCode(file: string): boolean {
     return file.toLowerCase().endsWith(PRO_FILE_EXTENSION);
+  }
+
+  /**
+   * Indicates if we have the routine signature for definition file
+   */
+  static isPRODef(file: string): boolean {
+    return file.toLowerCase().endsWith(PRO_DEF_EXTENSION);
   }
 
   /**

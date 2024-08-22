@@ -11,6 +11,7 @@
         "outputPath": "dist/apps/idl-docs-parser",
         "main": "apps/idl-docs-parser/src/main.ts",
         "tsConfig": "apps/idl-docs-parser/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
         "assets": ["apps/idl-docs-parser/src/assets"],
         "target": "node",
         "compiler": "tsc"
@@ -37,17 +38,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/idl-docs-parser/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/idl-docs-parser"],
       "options": {
-        "jestConfig": "apps/idl-docs-parser/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/idl-docs-parser/jest.config.ts"
       }
     }
   },

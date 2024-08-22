@@ -1,0 +1,20 @@
+{
+  "name": "tokenizer-tokenizer",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tokenizer/tokenizer/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/tokenizer/tokenizer"],
+      "options": {
+        "jestConfig": "libs/tokenizer/tokenizer/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

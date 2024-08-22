@@ -4,6 +4,7 @@ import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
 import { CleanPath, IDLFileHelper } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER, LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
+import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
@@ -12,7 +13,10 @@ import * as vscode from 'vscode';
 
 import { ICurrentCell } from '../idl-notebook-controller.interface';
 import { IDLNotebookExecutionManager } from '../idl-notebook-execution-manager.class';
-import { ENVI_REGEX } from './execute-notebook-cell.interface';
+import {
+  COMPILE_FILE_ERROR,
+  ENVI_REGEX,
+} from './execute-notebook-cell.interface';
 
 /**
  * Runs a notebook cell and manages logic for execution
@@ -117,6 +121,9 @@ export async function ExecuteNotebookCell(
     return current;
   }
 
+  // save response
+  current.prepared = resp;
+
   // check if empty main level
   if (resp.emptyMain) {
     await manager._endCellExecution(true);
@@ -157,26 +164,51 @@ export async function ExecuteNotebookCell(
   // reset syntax errors
   manager._runtime.resetErrorsByFile();
 
-  // compile our code
-  await manager.evaluate(`.compile -v '${fsPath}'`, {
-    silent: true,
-  });
+  // if batch, then disable quiet so that we can see compile output
+  if (resp.isBatch) {
+    await manager.evaluate('!quiet = 0');
+  }
+
+  // try to run and check for errors
+  const firstOutput = await manager.evaluate(
+    resp.isBatch ? `@'${fsPath}'` : `.compile -v '${fsPath}'`,
+    {
+      silent: true,
+    }
+  );
 
   // get syntax errors
   const errsWithPrint = manager._runtime.getErrorsByFile();
 
   // did we get syntax errors?
-  if (Object.keys(errsWithPrint).length > 0) {
+  if (
+    Object.keys(errsWithPrint).length > 0 ||
+    (resp.isBatch && COMPILE_FILE_ERROR.test(firstOutput))
+  ) {
     // write file without print
     writeFileSync(fsPath, resp.codeWithoutPrint);
 
     // compile our code again and show errors
-    await manager.evaluate(`.compile -v '${fsPath}'`, {
-      silent: false,
-    });
+    await manager.evaluate(
+      resp.isBatch ? `@'${fsPath}'` : `.compile -v '${fsPath}'`,
+      {
+        silent: false,
+      }
+    );
+  } else {
+    /**
+     * If we didnt fail, but we have a batch file, then we
+     * need to append the cell output
+     *
+     * This is because, for normal cells, we compile then check for
+     * errors then run,
+     *
+     * Batch files just "run" and we check for errors in the output
+     */
+    if (resp.isBatch) {
+      await manager._appendToCurrentCellOutput(firstOutput);
+    }
   }
-
-  // vscode.workspace.openNotebookDocument();
 
   // get syntax errors
   const errs = manager._runtime.getErrorsByFile();
@@ -196,14 +228,31 @@ export async function ExecuteNotebookCell(
   // add decorations
   IDL_DECORATIONS_MANAGER.syncSyntaxErrorDecorations(errReport);
 
-  // check for syntax errors
-  if (Object.keys(errs).length > 0) {
+  // reset quiet flag
+  if (resp.isBatch) {
+    await manager.evaluate(
+      `!quiet = ${IDL_EXTENSION_CONFIG.notebooks.quietMode ? 1 : 0}`
+    );
+  }
+
+  // check for syntax errors or errors from compile statements
+  if (
+    Object.keys(errs).length > 0 ||
+    (resp.isBatch && COMPILE_FILE_ERROR.test(firstOutput))
+  ) {
     // set finish time
     await manager._endCellExecution(false);
   } else {
-    // run main level program
-    if (resp.hasMain) {
-      await manager.evaluate(`.go`);
+    switch (true) {
+      // dont do anything else if our batch file
+      case resp.isBatch:
+        break;
+      // if main, execute
+      case resp.hasMain:
+        await manager.evaluate(`.go`);
+        break;
+      default:
+        break;
     }
 
     /**

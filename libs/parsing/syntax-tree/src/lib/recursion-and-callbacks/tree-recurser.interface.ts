@@ -4,7 +4,7 @@ import {
   NonBasicTokenNames,
   TOKEN_NAMES,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import copy from 'fast-copy';
 
 import { TreeToken } from '../branches.interface';

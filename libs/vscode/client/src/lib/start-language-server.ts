@@ -1,12 +1,9 @@
 import {
   ALL_DOCUMENT_SELECTORS,
   CleanPath,
-  IDL_JSON_GLOB_PATTERN,
   IDL_LANGUAGE_NAME,
   NODE_MEMORY_CONFIG,
-  NOTEBOOK_GLOB_PATTERN,
-  PRO_CODE_GLOB_PATTERN,
-  TASK_FILE_GLOB_PATTERN,
+  NOTIFY_FILES_GLOB_PATTERN,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
@@ -156,10 +153,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
     synchronize: {
       // Notify the server about file changes to IDL-related files contained in the workspace
       fileEvents: [
-        workspace.createFileSystemWatcher(PRO_CODE_GLOB_PATTERN),
-        workspace.createFileSystemWatcher(IDL_JSON_GLOB_PATTERN),
-        workspace.createFileSystemWatcher(TASK_FILE_GLOB_PATTERN),
-        workspace.createFileSystemWatcher(NOTEBOOK_GLOB_PATTERN),
+        workspace.createFileSystemWatcher(NOTIFY_FILES_GLOB_PATTERN),
       ],
     },
     outputChannel: IDL_CLIENT_OUTPUT_CHANNEL,

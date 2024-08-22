@@ -35,5 +35,13 @@ compile_opt idl2
 
 ; executive commands
 .r
+.compile -v
+.compile -v plot 
+.compile 
+.com 
+.comp 
+.compi 
+.compil 
+.
 
 end

@@ -3,7 +3,7 @@ import {
   SyntaxProblemWithTranslation,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { OperatorPointerToken } from '@idl/parsing/tokenizer';
+import { OperatorPointerToken } from '@idl/tokenizer';
 import {
   IDL_ANY_TYPE,
   IDL_TYPE_LOOKUP,

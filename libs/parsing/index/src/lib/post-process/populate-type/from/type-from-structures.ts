@@ -6,7 +6,7 @@ import {
   SyntaxProblemWithoutTranslation,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { StructureToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { StructureToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GLOBAL_TOKEN_TYPES,

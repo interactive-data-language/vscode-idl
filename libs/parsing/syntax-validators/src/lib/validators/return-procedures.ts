@@ -9,7 +9,7 @@ import {
   MainLevelToken,
   RoutineProcedureToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 import { FILTER_TOKENS } from './expected-comma';

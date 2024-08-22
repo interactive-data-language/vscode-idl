@@ -6,17 +6,13 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/vscode/terminal/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/vscode/terminal"],
       "options": {
-        "jestConfig": "libs/vscode/terminal/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/vscode/terminal/jest.config.ts"
       }
     }
   },

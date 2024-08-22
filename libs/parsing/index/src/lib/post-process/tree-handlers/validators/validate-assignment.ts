@@ -1,5 +1,5 @@
 import { BranchCallback, GetBeforeInBranch } from '@idl/parsing/syntax-tree';
-import { AssignmentToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { AssignmentToken, TOKEN_NAMES } from '@idl/tokenizer';
 
 import { ITokenCache } from '../../../helpers/token-cache.interface';
 import { TypeFromTokens } from '../../populate-type/from/type-from-tokens';

@@ -29,6 +29,7 @@ export async function GetHoverHelpWrapper(
   if (
     !(
       IDLFileHelper.isPROCode(info.fsPath) ||
+      IDLFileHelper.isPRODef(info.fsPath) ||
       IDLFileHelper.isIDLNotebookFile(info.fsPath)
     )
   ) {

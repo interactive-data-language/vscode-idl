@@ -194,6 +194,34 @@
     {
       "type": "markdown",
       "content": [
+        "### Manually Compiling Files"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "You can use `.compile` statements in notebook cells. If a cell has only `.compile` statements and comments, then it will be executed as an IDL batch file.",
+        "",
+        "This allows you to compile normal PRO files in the current IDL Notebook session. The main use case is where you need to update a routine definition for code from PRO files that isn't in your notebook. ",
+        "",
+        "Note: when you have cells with `.compile`, we set `!quiet = 0` so that you see the output from IDL. We then set this to match the preference in that users have set in VSCode."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ".compile -v plot"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
         "### Routines and Main Level Programs"
       ],
       "metadata": {},

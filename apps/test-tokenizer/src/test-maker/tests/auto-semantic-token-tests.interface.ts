@@ -45,7 +45,7 @@ export const AUTO_SEMANTIC_TOKEN_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `for notebook cells`,
         code: [`compile_opt idl2`, `arr = [1,2,3,4]`, `arr`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
     ],

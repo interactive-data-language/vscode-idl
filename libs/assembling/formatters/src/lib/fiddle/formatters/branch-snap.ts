@@ -5,7 +5,7 @@ import {
   TreeBranchToken,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { LogicalOfToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { LogicalOfToken, TOKEN_NAMES } from '@idl/tokenizer';
 /**
  * Routine definitions for special cases snapping after names
  */

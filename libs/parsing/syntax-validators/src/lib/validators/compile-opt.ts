@@ -11,7 +11,7 @@ import {
   RoutineFunctionToken,
   RoutineProcedureToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 import { IsSingleLine } from '../helpers/is-single-line';
@@ -96,7 +96,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
 IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.MAIN_LEVEL,
   (token, parsed) => {
-    if (parsed.isNotebook || IsSingleLine(token)) {
+    if (parsed.type === 'notebook' || IsSingleLine(token)) {
       return;
     }
 

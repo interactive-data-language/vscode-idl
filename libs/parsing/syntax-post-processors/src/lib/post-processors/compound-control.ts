@@ -10,7 +10,7 @@ import {
   ControlGoToToken,
   NonBasicTokenNames,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 /**
  * Turns variables for compound control statements into control options

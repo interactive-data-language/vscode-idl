@@ -5,7 +5,7 @@ import {
   SyntaxTree,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { TokenName } from '@idl/parsing/tokenizer';
+import { TokenName } from '@idl/tokenizer';
 import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
 import copy from 'fast-copy';
 

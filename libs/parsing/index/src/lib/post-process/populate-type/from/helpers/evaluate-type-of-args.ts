@@ -1,8 +1,5 @@
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
-import {
-  CallFunctionMethodToken,
-  CallFunctionToken,
-} from '@idl/parsing/tokenizer';
+import { CallFunctionMethodToken, CallFunctionToken } from '@idl/tokenizer';
 import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
 
 import { IDLIndex } from '../../../../idl-index.class';

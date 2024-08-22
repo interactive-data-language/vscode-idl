@@ -139,4 +139,62 @@ describe(`[auto generated] Detects when a defined parameter is missing from user
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] problem with args and keywords in def`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `;+`,
+      `; My procedure`,
+      `;`,
+      `; :Args:`,
+      `;`,
+      `; :Keywords:`,
+      `;`,
+      `;-`,
+      `pro mypro, var1, KW1=kw1`,
+      `  compile_opt idl2`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, type: 'def' }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 64,
+        info: 'Parameter is missing from documentation: "var1"',
+        start: [8, 11, 4],
+        end: [8, 11, 4],
+        canReport: true,
+      },
+      {
+        code: 64,
+        info: 'Parameter is missing from documentation: "kw1"',
+        start: [8, 17, 3],
+        end: [8, 17, 3],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });

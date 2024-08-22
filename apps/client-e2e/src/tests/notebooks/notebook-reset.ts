@@ -3,6 +3,7 @@ import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 import { CompareCellOutputs } from './helpers/compare-cells';
 import { ICompareCellOutputs } from './helpers/compare-cells.interface';
@@ -56,8 +57,11 @@ export const RunNotebookReset: RunnerFunction = async (init) => {
   // make sure stopped
   expect(init.notebooks.controller.isStarted(nb)).toBeTruthy();
 
+  // pause
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
+
   // compare state
-  CompareCellOutputs(nb, CELL_OUTPUT);
+  await CompareCellOutputs(nb, CELL_OUTPUT);
 
   // clear outputs
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS);

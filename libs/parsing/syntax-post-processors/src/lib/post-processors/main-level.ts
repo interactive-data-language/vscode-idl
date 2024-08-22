@@ -3,7 +3,7 @@ import {
   IBranch,
   IDL_SYNTAX_TREE_POST_PROCESSOR,
 } from '@idl/parsing/syntax-tree';
-import { MainLevelToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
 import copy from 'fast-copy';
 
 /**

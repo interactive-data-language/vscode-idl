@@ -4,7 +4,7 @@ import {
   IDLSyntaxValidatorMeta,
   SyntaxProblemWithTranslation,
 } from '@idl/parsing/syntax-tree';
-import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 /**

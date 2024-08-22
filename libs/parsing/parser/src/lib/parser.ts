@@ -8,7 +8,11 @@ import {
   PostProcessProblems,
 } from '@idl/parsing/syntax-tree';
 import { ActivateDefaultSyntaxRules } from '@idl/parsing/syntax-validators';
-import { FAST_FIND_TOKEN_OPTIONS, Tokenizer } from '@idl/parsing/tokenizer';
+import {
+  FAST_FIND_TOKEN_OPTIONS,
+  IFindTokensOptions,
+  Tokenizer,
+} from '@idl/tokenizer';
 import copy from 'fast-copy';
 import { existsSync, readFileSync } from 'fs';
 import { readFile } from 'fs/promises';
@@ -30,18 +34,33 @@ export function ParserTokenize(
   cancel: CancellationToken,
   full = true
 ) {
+  /** Define options for extracting tokens */
+  let tokenOptions: IFindTokensOptions;
+
+  // determine how to set our options
+  switch (true) {
+    // handle def files
+    case tokenized.type === 'def':
+      // tokenOptions = DEF_FIND_TOKEN_OPTIONS;
+      tokenOptions = FAST_FIND_TOKEN_OPTIONS;
+      break;
+
+    // not full parse
+    case !full:
+      tokenOptions = FAST_FIND_TOKEN_OPTIONS;
+      break;
+
+    default:
+      break;
+  }
+
   /**
    * Dont catch errors at this level, we want failures to happen
    * when we have problems using the tokenizer so they
    * get caught and reported
    */
   // try {
-  Object.assign(
-    tokenized,
-    full
-      ? Tokenizer(code, cancel)
-      : Tokenizer(code, cancel, FAST_FIND_TOKEN_OPTIONS)
-  );
+  Object.assign(tokenized, Tokenizer(code, cancel, tokenOptions));
 
   // } catch (err) {
   //   console.error(err);
@@ -79,7 +98,7 @@ export function Parser(
     checksum: CodeChecksum(code),
     hasDetail: false,
     hasCache: false,
-    isNotebook: options.isNotebook,
+    type: options.type,
     tokens: [],
     text: [],
     lines: 0,
@@ -121,10 +140,14 @@ export function Parser(
    *
    * If it is off, we dont get hover help or useful auto-complete
    */
-  PopulateGlobalLocalCompileOpts(tokenized, cancel, true);
+  PopulateGlobalLocalCompileOpts(
+    tokenized,
+    cancel,
+    true || tokenized.type === 'def'
+  );
 
   // remove all problems if fast parse
-  if (!options.full) {
+  if (!options.full && !(tokenized.type === 'def')) {
     tokenized.parseProblems = [];
   }
 
@@ -136,7 +159,7 @@ export function Parser(
     /**
      * Never clean up notebooks as it is the only way to get our text from worker threads
      */
-    if (!(options.isNotebook || options.keepText)) {
+    if (!(options.type === 'notebook' || options.keepText)) {
       tokenized.text = [];
     }
   }

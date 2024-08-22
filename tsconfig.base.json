@@ -62,7 +62,6 @@
       "@idl/parsing/syntax-validators": [
         "libs/parsing/syntax-validators/src/index.ts"
       ],
-      "@idl/parsing/tokenizer": ["libs/parsing/tokenizer/src/index.ts"],
       "@idl/schemas/idl.json": ["libs/schemas/idl.json/src/index.ts"],
       "@idl/schemas/tasks": ["libs/schemas/tasks/src/index.ts"],
       "@idl/shared": ["libs/shared/src/index.ts"],
@@ -97,6 +96,11 @@
         "libs/tests/token-definition/src/index.ts"
       ],
       "@idl/tests/tokenizer": ["libs/tests/tokenizer/src/index.ts"],
+      "@idl/tokenizer": ["libs/tokenizer/tokenizer/src/index.ts"],
+      "@idl/tokenizer/common": ["libs/tokenizer/common/src/index.ts"],
+      "@idl/tokenizer/idl-type-tokens": [
+        "libs/tokenizer/idl-type-tokens/src/index.ts"
+      ],
       "@idl/translation": ["libs/translation/src/index.ts"],
       "@idl/types/core": ["libs/types/core/src/index.ts"],
       "@idl/types/diagnostic": ["libs/types/diagnostic/src/index.ts"],

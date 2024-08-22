@@ -6,17 +6,13 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/vscode/webview/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/vscode/webview"],
       "options": {
-        "jestConfig": "libs/vscode/webview/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/vscode/webview/jest.config.ts"
       }
     }
   },

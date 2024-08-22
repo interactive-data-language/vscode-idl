@@ -2,8 +2,13 @@ import {
   IDL_SYNTAX_TREE_VALIDATOR,
   SyntaxProblemWithTranslation,
 } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+
+/**
+ * Valid end for double quote
+ */
+const DOUBLE_QUOTE = /"/gim;
 
 /**
  * Make sure double quotes are closed
@@ -11,7 +16,8 @@ import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(
   TOKEN_NAMES.QUOTE_DOUBLE,
   (token, parsed) => {
-    if (!token.match[0].endsWith(`"`)) {
+    // split on quote, odd number means even quotes
+    if (token.match[0].split(DOUBLE_QUOTE).length % 2 === 0) {
       token.parseProblems.push(IDL_PROBLEM_CODES.UNCLOSED_QUOTE);
       parsed.parseProblems.push(
         SyntaxProblemWithTranslation(
@@ -25,12 +31,18 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(
 );
 
 /**
+ * Valid end for single quote
+ */
+const SINGLE_QUOTE = /'/gim;
+
+/**
  * Make sure single quotes are closed
  */
 IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(
   TOKEN_NAMES.QUOTE_SINGLE,
   (token, parsed) => {
-    if (!token.match[0].endsWith(`'`)) {
+    // split on quote, odd number means even quotes
+    if (token.match[0].split(SINGLE_QUOTE).length % 2 === 0) {
       token.parseProblems.push(IDL_PROBLEM_CODES.UNCLOSED_QUOTE);
       parsed.parseProblems.push(
         SyntaxProblemWithTranslation(

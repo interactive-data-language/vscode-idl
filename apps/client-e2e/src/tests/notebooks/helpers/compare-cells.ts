@@ -12,7 +12,8 @@ import {
  */
 export async function CompareCellOutputs(
   nb: vscode.NotebookDocument,
-  cellOutput: ICompareCellOutputs[]
+  cellOutput: ICompareCellOutputs[],
+  checkExecution = true
 ) {
   /**
    * get notebook cells
@@ -38,10 +39,12 @@ export async function CompareCellOutputs(
     expect(nbCell).not.toBeUndefined();
 
     // validate success if we have it
-    if (expected.success) {
-      expect(nbCell.executionSummary?.success).toBeTruthy();
-    } else {
-      expect(nbCell.executionSummary?.success).toBeFalsy();
+    if (checkExecution) {
+      if (expected.success) {
+        expect(nbCell.executionSummary?.success).toBeTruthy();
+      } else {
+        expect(nbCell.executionSummary?.success).toBeFalsy();
+      }
     }
 
     // get output mime types

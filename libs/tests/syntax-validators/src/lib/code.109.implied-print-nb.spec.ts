@@ -25,7 +25,7 @@ describe(`[auto generated] Detect standalone expressions`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
@@ -64,7 +64,7 @@ describe(`[auto generated] Detect standalone expressions`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
@@ -101,7 +101,7 @@ describe(`[auto generated] Detect standalone expressions`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
@@ -154,7 +154,7 @@ describe(`[auto generated] Detect standalone expressions`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
@@ -209,7 +209,7 @@ describe(`[auto generated] Detect standalone expressions`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens
@@ -283,7 +283,7 @@ describe(`[auto generated] Detect standalone expressions`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // define expected tokens

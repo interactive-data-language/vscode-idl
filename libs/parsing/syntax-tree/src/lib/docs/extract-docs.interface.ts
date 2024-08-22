@@ -1,4 +1,4 @@
-import { CommentToken } from '@idl/parsing/tokenizer';
+import { CommentToken } from '@idl/tokenizer';
 import { PositionArray } from '@idl/types/tokenizer';
 
 import { IBasicBranch } from '../branches.interface';

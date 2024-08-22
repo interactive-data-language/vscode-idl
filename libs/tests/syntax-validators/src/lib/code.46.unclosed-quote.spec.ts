@@ -214,4 +214,280 @@ describe(`[auto generated] Detects unclosed quotes`, () => {
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] bad double quote with escape`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [`a = " ""`];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 46,
+        info: 'Quote/string is not closed. While not a syntax error, this can lead to bugs.',
+        start: [0, 4, 4],
+        end: [0, 4, 4],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
+
+  it(`[auto generated] bad double quote with escape 2`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [`a = """`];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 46,
+        info: 'Quote/string is not closed. While not a syntax error, this can lead to bugs.',
+        start: [0, 4, 3],
+        end: [0, 4, 3],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
+
+  it(`[auto generated] bad double quote with escape 3`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [`a = """ `];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 46,
+        info: 'Quote/string is not closed. While not a syntax error, this can lead to bugs.',
+        start: [0, 4, 4],
+        end: [0, 4, 4],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
+
+  it(`[auto generated] bad single quote with escape`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [`a = ' ''`];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 46,
+        info: 'Quote/string is not closed. While not a syntax error, this can lead to bugs.',
+        start: [0, 4, 4],
+        end: [0, 4, 4],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
+
+  it(`[auto generated] bad single quote with escape 2`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [`a = '''`];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 46,
+        info: 'Quote/string is not closed. While not a syntax error, this can lead to bugs.',
+        start: [0, 4, 3],
+        end: [0, 4, 3],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
+
+  it(`[auto generated] bad single quote with escape 3`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [`a = ''' `];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 46,
+        info: 'Quote/string is not closed. While not a syntax error, this can lead to bugs.',
+        start: [0, 4, 4],
+        end: [0, 4, 4],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });

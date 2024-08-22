@@ -62,22 +62,28 @@ export async function TestsForAssembler(
       0
     );
 
-    // tokenize
-    const tokenized = await index.getParsedProCode(
-      'my_file.pro',
-      code,
-      new CancellationToken(),
-      {
-        postProcess: true,
-      }
-    );
-
     // update test config
     test.config = {
       ...(test.config || {}),
       autoFix: false,
       formatter: 'fiddle',
     };
+
+    /**
+     * Parsing config
+     */
+    const parseConfig = Object.assign(
+      { postProcess: true },
+      test.parseConfig !== undefined ? test.parseConfig : {}
+    );
+
+    // tokenize
+    const tokenized = await index.getParsedProCode(
+      'my_file.pro',
+      code,
+      new CancellationToken(),
+      parseConfig
+    );
 
     // format
     const formatted = Assembler(
@@ -103,7 +109,9 @@ export async function TestsForAssembler(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = await index.getParsedProCode('my_file.pro', code, new CancellationToken(), {postProcess: true});`
+      `    const tokenized = await index.getParsedProCode('my_file.pro', code, new CancellationToken(), ${JSON.stringify(
+        parseConfig
+      )});`
     );
     strings.push(``);
     strings.push(`    // extract token names`);
@@ -158,10 +166,10 @@ export async function TestsForAssembler(
     );
     strings.push('');
     strings.push(
-      '      // make sure the syntax trees are the same as they were before'
+      '      // make sure the syntax trees are the same as they were before if not def files'
     );
     strings.push(
-      '      expect(GetTokenNames(reParsed)).toEqual(tokenizedNames)'
+      `      if (tokenized.type !== 'def') {expect(GetTokenNames(reParsed)).toEqual(tokenizedNames)}`
     );
     strings.push('    }');
     strings.push('');

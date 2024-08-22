@@ -11,6 +11,7 @@
         "outputPath": "dist/apps/parsing-worker",
         "main": "apps/parsing-worker/src/main.ts",
         "tsConfig": "apps/parsing-worker/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
         "assets": ["apps/parsing-worker/src/assets"],
         "externalDependencies": "none",
         "target": "node",
@@ -38,17 +39,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/parsing-worker/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/parsing-worker"],
       "options": {
-        "jestConfig": "apps/parsing-worker/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/parsing-worker/jest.config.ts"
       }
     }
   },

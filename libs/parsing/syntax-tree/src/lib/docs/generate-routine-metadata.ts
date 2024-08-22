@@ -2,7 +2,7 @@ import {
   RoutineMethodNameToken,
   RoutineNameToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   DEFAULT_DATA_TYPE,

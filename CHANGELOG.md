@@ -16,6 +16,36 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
+## 4.6.0 - August 2024
+
+Fixed an issue where we open a file that we have stopped in, even if it is compiled as a SAVE file. Now, only PRO files will be jumped to.
+
+Fixed an issue where, if you have a comment block before and after a routine definition, the second comment block is picked. We now only use the comment block after a routine definition if we did not find one just before.
+
+Fixed an issue where documentation after a routine definition wasn't properly reporting problems.
+
+For both of the problems above, and for documentation inside of a routine, the interior comments must be on the next line after the definition otherwise they will not be detected. If this breaks existing behavior for you, let us know and we can change it back!
+
+Resolved an issue where, when routine definitions changed, problems were not properly detected as they should be. Example: changing the name of a keyword should have an error appear in any file that used the old keyword.
+
+Notebooks now support compiling files! If a cell only has comments and compile statements, then it will be executed as a batch file. This allows you to merge notebooks and traditional editing/creation of PRO code.
+
+Updated the "Hello World" IDL Notebook example with this new behavior.
+
+Improve auto-complete for executive commands.
+
+For `.compile` we now have auto-complete for files known to the language server.
+
+Created a new concept called a Routine Definition File for IDL. These files allow developers, who deliver code as SAVE files or as DLLs/DLMs, to provide documentation so that other users get hover help, auto-complete, and the ability to create notebooks automatically from examples in the docs.
+
+> See the new documentation page [here](https://interactive-data-language.github.io/vscode-idl/types/routine_definition_files.html) for more information.
+
+Fixed an issue where we were not correctly detecting unclosed quotes when there was an escaped quote within the content of the string.
+
+Re-work the toolbar for animations in IDL Notebooks. The new toolbar uses the same colors/style as the sidebar and will look good on most themes. There was an issue, after a library update, where colors for high contrast themes did not work with the slider and have now been fixed.
+
+Notebook maps (requires ENVI) now have a button that will reset the view to the initial state. Helpful in case you zoom out or lose the location of your imagery while zooming/panning around.
+
 ## 4.5.1 - May 2024
 
 Continuing with our story of IDL Notebook user experience, each session of notebook now gets it's own instance of IDL! This means a few things:

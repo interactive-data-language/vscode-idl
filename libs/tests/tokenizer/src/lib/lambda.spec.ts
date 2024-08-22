@@ -3,10 +3,10 @@ import {
   IBaseToken,
   StripIDs,
   TOKEN_NAMES,
-  TOKEN_TYPES,
   Tokenizer,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
+import { TOKEN_TYPES } from '@idl/tokenizer/common';
 
 describe(`[auto generated] Validates lambda functions parsed as special token`, () => {
   it(`[auto generated] correctly parse lambda functions`, () => {

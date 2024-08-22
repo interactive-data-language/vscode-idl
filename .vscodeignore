@@ -69,4 +69,5 @@ package-lock.json
 perf.txt
 problems.json
 tsconfig.base.json
-webpack.base.config.js
+webpack.node.config.js
+webpack.vscode.config.js

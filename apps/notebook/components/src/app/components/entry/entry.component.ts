@@ -17,6 +17,10 @@ import { DataSharingService } from '../data-sharing.service';
  */
 export const IDL_NB_ENTRY_COMPONENT_SELECTOR = 'idl-nb-entry';
 
+const DEFAULT_CLASS = 'vscode-outlined';
+
+const OUTLINED_CLASS = 'vscode-outlined-focus';
+
 /**
  * Entry components handles the logic of determining the right thing
  * to render and creates the correct type of element to display
@@ -68,7 +72,7 @@ export class EntryComponent implements AfterViewInit {
    */
   embed!: IDLNotebookEmbeddedItem<IDLNotebook_EmbedType>;
 
-  class = '';
+  class = DEFAULT_CLASS;
 
   constructor(
     @Host() private dataShare: DataSharingService,
@@ -76,11 +80,11 @@ export class EntryComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit() {
-    this.el.nativeElement.onclick = () => {
-      this.class = 'vscode-outlined';
+    this.el.nativeElement.onmousedown = () => {
+      this.class = OUTLINED_CLASS;
     };
     this.el.nativeElement.onmouseleave = () => {
-      this.class = '';
+      this.class = DEFAULT_CLASS;
     };
   }
 }

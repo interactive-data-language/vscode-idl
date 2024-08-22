@@ -8,7 +8,7 @@ export const CLIENT_E2E_CONFIG = {
   DELAYS: {
     /** Problem delay for PRO files and anything else */
     DEFAULT: 1000,
-    /** Problem delay for IDL Notebooks */
-    PROBLEMS_NOTEBOOK: 1000,
+    /** Delay for tests using problem reporting and notebooks */
+    PROBLEMS_NOTEBOOK: 2000,
   },
 };

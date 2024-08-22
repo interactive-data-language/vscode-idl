@@ -1,4 +1,4 @@
-import { CommaToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { CommaToken, TOKEN_NAMES } from '@idl/tokenizer';
 
 import { SyntaxTree, TreeToken } from '../../branches.interface';
 

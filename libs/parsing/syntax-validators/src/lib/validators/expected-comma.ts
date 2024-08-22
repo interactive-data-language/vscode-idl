@@ -9,7 +9,7 @@ import {
   ControlGoToToken,
   RoutineNameToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 /**

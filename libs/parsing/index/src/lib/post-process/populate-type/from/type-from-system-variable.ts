@@ -1,5 +1,5 @@
 import { TreeToken } from '@idl/parsing/syntax-tree';
-import { SystemVariableToken } from '@idl/parsing/tokenizer';
+import { SystemVariableToken } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,

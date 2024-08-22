@@ -1,5 +1,5 @@
 import { TreeToken } from '@idl/parsing/syntax-tree';
-import { NumberToken } from '@idl/parsing/tokenizer';
+import { NumberToken } from '@idl/tokenizer';
 import {
   IDL_BYTE_TYPE,
   IDL_DOUBLE_COMPLEX_TYPE,

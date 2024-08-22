@@ -1,5 +1,5 @@
 import { TreeToken } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES, TokenName } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 
 import {
   ALWAYS_SPACE_AFTER,

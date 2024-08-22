@@ -3,11 +3,7 @@ import {
   SyntaxProblemWithoutTranslation,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import {
-  CommentToken,
-  NonBasicTokenNames,
-  TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+import { CommentToken, NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   DISABLED_PROBLEM_FLAGS,

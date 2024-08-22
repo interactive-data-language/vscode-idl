@@ -3,7 +3,7 @@ import {
   RoutineFunctionToken,
   RoutineProcedureToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 import { IBranch } from '../branches.interface';
 import { FindAllBranchChildren } from '../helpers/searching/find-all-branch-children';

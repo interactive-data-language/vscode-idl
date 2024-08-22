@@ -4,7 +4,7 @@ import {
   NonBasicTokenNames,
   RoutineFunctionToken,
   RoutineProcedureToken,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import copy from 'fast-copy';
 
 import {

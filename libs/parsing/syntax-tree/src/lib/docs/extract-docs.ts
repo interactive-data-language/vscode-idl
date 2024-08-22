@@ -1,4 +1,4 @@
-import { CommentToken, GetMatchesArray } from '@idl/parsing/tokenizer';
+import { CommentToken, GetMatchesArray } from '@idl/tokenizer';
 
 import { IBasicBranch } from '../branches.interface';
 import { CleanComment } from '../helpers/clean-comment';

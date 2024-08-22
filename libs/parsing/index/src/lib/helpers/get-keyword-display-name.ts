@@ -4,7 +4,7 @@ import {
   KeywordDefinitionToken,
   KeywordToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 /**
  * Gets the display name for a keyword since we have two kinds and

@@ -6,17 +6,13 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/tests/helpers/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/tests/helpers"],
       "options": {
-        "jestConfig": "libs/tests/helpers/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/tests/helpers/jest.config.ts"
       }
     }
   },

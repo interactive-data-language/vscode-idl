@@ -5,7 +5,7 @@ import {
   GetPropertyName,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { StructureNameToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { StructureNameToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';

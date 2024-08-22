@@ -6,7 +6,7 @@ import {
   START_COMMENT_BLOCK,
   SyntaxTree,
 } from '@idl/parsing/syntax-tree';
-import { CommentBlockToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { CommentBlockToken, TOKEN_NAMES } from '@idl/tokenizer';
 import copy from 'fast-copy';
 
 /**

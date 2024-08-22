@@ -1,4 +1,4 @@
-import { TokenName } from '@idl/parsing/tokenizer';
+import { TokenName } from '@idl/tokenizer';
 
 import { TreeBranchToken, TreeToken } from '../branches.interface';
 import { ITreeRecurserCurrent } from '../recursion-and-callbacks/tree-recurser.interface';

@@ -112,4 +112,61 @@ describe(`[auto generated] Detects documented keywords when there are no keyword
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] problem for def`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `;+`,
+      `;`,
+      `; :Keywords:`,
+      `;   KW1: in, optional, type=boolean`,
+      `;     My favorite argument`,
+      `;`,
+      `;-`,
+      `pro myclass::mymethod`,
+      `  compile_opt idl2`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true, type: 'def' }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 63,
+        info: 'Documented argument, keyword, or property does not exist: "kw1"',
+        start: [3, 0, 35],
+        end: [3, 0, 35],
+        canReport: true,
+      },
+      {
+        code: 51,
+        info: 'Documentation includes keywords, but none are present in routine definition',
+        start: [2, 2, 11],
+        end: [5, 0, 1],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });

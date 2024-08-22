@@ -49,7 +49,7 @@ async function ParseAndFormatCode(code: string) {
     new CancellationToken(),
     {
       postProcess: true,
-      isNotebook: true,
+      type: 'notebook',
     }
   );
 
@@ -72,7 +72,7 @@ async function ParseAndFormatCode(code: string) {
       new CancellationToken(),
       {
         postProcess: true,
-        isNotebook: true,
+        type: 'notebook',
       }
     );
   }

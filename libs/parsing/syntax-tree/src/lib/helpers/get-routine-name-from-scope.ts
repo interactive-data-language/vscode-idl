@@ -4,7 +4,7 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 import { TreeToken } from '../branches.interface';
 import { GetRoutineName } from './get-routine-name';

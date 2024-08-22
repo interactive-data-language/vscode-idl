@@ -1,3 +1,5 @@
+import { ParsedType } from '@idl/parsing/syntax-tree';
+
 /**
  * Options for parsing
  */
@@ -14,7 +16,7 @@ export interface IParserOptions {
    * Are we parsing a notebook cell? This need to be manually set when interacting
    * directly with the `Parser()`, but from the IDLIndex it is set automatically
    */
-  isNotebook: boolean;
+  type: ParsedType;
   /**
    * If we are cleaning up, do we keep the text?
    */
@@ -27,6 +29,6 @@ export interface IParserOptions {
 export const DEFAULT_PARSER_OPTIONS: IParserOptions = {
   full: true,
   cleanup: true,
-  isNotebook: false,
+  type: 'pro',
   keepText: false,
 };

@@ -5,7 +5,7 @@ import {
   CallProcedureMethodToken,
   CallProcedureToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { GlobalIndexedRoutineToken, IParameterLookup } from '@idl/types/core';
 
 /**

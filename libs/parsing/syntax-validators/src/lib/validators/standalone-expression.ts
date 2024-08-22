@@ -11,7 +11,7 @@ import {
   NonBasicTokenNames,
   OperatorIncrementDecrementToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 /**
@@ -105,7 +105,7 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
       ) {
         parsed.parseProblems.push(
           SyntaxProblemWithTranslation(
-            inMain && parsed.isNotebook
+            inMain && parsed.type === 'notebook'
               ? IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
               : IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
             kids[i].pos,
@@ -133,7 +133,7 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
       if (!(kids[i + 1]?.name in AFTER_VAR)) {
         parsed.parseProblems.push(
           SyntaxProblemWithTranslation(
-            inMain && parsed.isNotebook
+            inMain && parsed.type === 'notebook'
               ? IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
               : IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
             kids[orig].pos,
@@ -151,7 +151,7 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
     // default
     parsed.parseProblems.push(
       SyntaxProblemWithTranslation(
-        inMain && parsed.isNotebook
+        inMain && parsed.type === 'notebook'
           ? IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
           : IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
         kids[i].pos,

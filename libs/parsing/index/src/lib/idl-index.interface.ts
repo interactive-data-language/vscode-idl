@@ -46,6 +46,7 @@ export interface IFolderRecursion {
  */
 export type IDLFileType =
   | 'pro'
+  | 'pro-def'
   | 'save'
   | 'idl.json'
   | 'envi-task'

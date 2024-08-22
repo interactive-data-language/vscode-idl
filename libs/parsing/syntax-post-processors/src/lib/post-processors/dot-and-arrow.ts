@@ -1,10 +1,5 @@
 import { IDL_SYNTAX_TREE_POST_PROCESSOR } from '@idl/parsing/syntax-tree';
-import {
-  ArrowToken,
-  DotToken,
-  IBasicToken,
-  TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+import { ArrowToken, DotToken, IBasicToken, TOKEN_NAMES } from '@idl/tokenizer';
 
 /**
  * Map unknown arrow to an arrow

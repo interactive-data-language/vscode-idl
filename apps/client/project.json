@@ -12,7 +12,7 @@
         "main": "apps/client/src/main.ts",
         "tsConfig": "apps/client/tsconfig.app.json",
         "assets": ["apps/client/src/assets"],
-        "webpackConfig": "webpack.base.config.js",
+        "webpackConfig": "webpack.vscode.config.js",
         "externalDependencies": "none",
         "target": "node",
         "compiler": "tsc"
@@ -39,17 +39,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/client/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/client"],
       "options": {
-        "jestConfig": "apps/client/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/client/jest.config.ts"
       }
     }
   },

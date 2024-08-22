@@ -18,3 +18,4 @@ apps/test-tokenizer/src/test-maker/cache/cache.json
 .angular
 
 /.nx/cache
+/.nx/workspace-data

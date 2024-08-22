@@ -11,7 +11,7 @@ import {
   RoutineMethodNameToken,
   RoutineNameToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 export const SKIP_TOKENS: { [key: string]: any } = {};
 SKIP_TOKENS[TOKEN_NAMES.COMMA] = true;

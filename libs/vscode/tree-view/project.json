@@ -6,17 +6,13 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/vscode/tree-view/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/vscode/tree-view"],
       "options": {
-        "jestConfig": "libs/vscode/tree-view/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/vscode/tree-view/jest.config.ts"
       }
     }
   },

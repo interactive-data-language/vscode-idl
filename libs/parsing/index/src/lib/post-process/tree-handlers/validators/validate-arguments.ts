@@ -5,7 +5,7 @@ import {
   CallProcedureMethodToken,
   CallProcedureToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 
 import { GetArgTypes } from '../helpers/get-arg-types';
 import { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';

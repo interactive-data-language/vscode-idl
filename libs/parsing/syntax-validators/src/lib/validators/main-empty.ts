@@ -2,7 +2,7 @@ import {
   IDL_SYNTAX_TREE_VALIDATOR,
   SyntaxProblemWithTranslation,
 } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 /**

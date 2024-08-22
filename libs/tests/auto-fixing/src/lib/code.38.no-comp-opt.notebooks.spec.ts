@@ -36,7 +36,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // format code
@@ -110,7 +110,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // format code
@@ -174,7 +174,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // format code
@@ -233,7 +233,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // format code
@@ -292,7 +292,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // format code
@@ -345,7 +345,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // format code
@@ -398,7 +398,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // format code
@@ -451,7 +451,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // format code
@@ -511,7 +511,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, isNotebook: true }
+      { postProcess: true, type: 'notebook' }
     );
 
     // format code

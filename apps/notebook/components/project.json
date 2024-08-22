@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/notebook/components",
         "index": "apps/notebook/components/src/index.html",
         "main": "apps/notebook/components/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": "apps/notebook/components/src/polyfills.ts",
         "tsConfig": "apps/notebook/components/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "styles": [],
@@ -61,10 +61,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "notebook-components:build:production"
+          "buildTarget": "notebook-components:build:production"
         },
         "development": {
-          "browserTarget": "notebook-components:build:development"
+          "buildTarget": "notebook-components:build:development"
         }
       },
       "defaultConfiguration": "development",
@@ -77,31 +77,18 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "notebook-components:build"
+        "buildTarget": "notebook-components:build"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "apps/notebook/components/**/*.ts",
-          "apps/notebook/components/**/*.html"
-        ]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/notebook/components/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "jestConfig": "apps/notebook/components/jest.config.ts"
       }
     },
     "serve-static": {

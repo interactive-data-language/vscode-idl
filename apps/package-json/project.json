@@ -12,7 +12,7 @@
         "main": "apps/package-json/src/main.ts",
         "tsConfig": "apps/package-json/tsconfig.app.json",
         "assets": ["apps/package-json/src/assets"],
-        "webpackConfig": "webpack.base.config.js",
+        "webpackConfig": "webpack.node.config.js",
         "target": "node",
         "compiler": "tsc"
       },
@@ -38,17 +38,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/package-json/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/package-json"],
       "options": {
-        "jestConfig": "apps/package-json/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/package-json/jest.config.ts"
       }
     }
   },

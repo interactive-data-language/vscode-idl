@@ -1,9 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import {
-  BasicTokenNames,
-  NonBasicTokenNames,
-  TokenName,
-} from '@idl/parsing/tokenizer';
+import { BasicTokenNames, NonBasicTokenNames, TokenName } from '@idl/tokenizer';
 
 import { ITreeRecurserOptions, TreeToken } from '../..';
 import { IParsed } from '../parsed.interface';

@@ -1,5 +1,5 @@
 import { BasicCallback, GetNextInBranch } from '@idl/parsing/syntax-tree';
-import { KeywordToken, TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { KeywordToken, TOKEN_NAMES } from '@idl/tokenizer';
 
 import { GetKeyword } from '../../../helpers/get-keyword';
 import { ITokenCache } from '../../../helpers/token-cache.interface';

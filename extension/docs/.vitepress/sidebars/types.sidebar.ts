@@ -12,4 +12,8 @@ export const TYPES_SIDEBAR: SidebarEntry[] = [
     text: 'Types: TLDR',
     link: '/types/types_tldr',
   },
+  {
+    text: 'Routine Definition Files',
+    link: '/types/routine_definition_files',
+  },
 ];

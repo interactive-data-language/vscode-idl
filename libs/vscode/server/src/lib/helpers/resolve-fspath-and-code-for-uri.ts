@@ -28,7 +28,7 @@ export async function ResolveFSPathAndCodeForURI(
    */
   if (parsed.scheme === 'file') {
     return {
-      isNotebook: false,
+      type: 'pro',
       uri: url,
       fsPath,
       code: await GetFileStrings(url),
@@ -60,7 +60,7 @@ export async function ResolveFSPathAndCodeForURI(
 
   // return our information
   return {
-    isNotebook: true,
+    type: 'notebook',
     uri: url,
     fsPath: `${fsPath}#${idx}`,
     code: cellDoc.getText(),

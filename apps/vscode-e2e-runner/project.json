@@ -11,6 +11,7 @@
         "outputPath": "dist/apps/vscode-e2e-runner",
         "main": "apps/vscode-e2e-runner/src/main.ts",
         "tsConfig": "apps/vscode-e2e-runner/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
         "assets": ["apps/vscode-e2e-runner/src/assets"],
         "target": "node",
         "compiler": "tsc"
@@ -42,17 +43,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/vscode-e2e-runner/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/vscode-e2e-runner"],
       "options": {
-        "jestConfig": "apps/vscode-e2e-runner/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/vscode-e2e-runner/jest.config.ts"
       }
     }
   },

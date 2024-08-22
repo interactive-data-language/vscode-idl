@@ -7,16 +7,22 @@ import {
   SkipSelf,
   ViewChild,
 } from '@angular/core';
-import { Deck, WebMercatorViewport } from '@deck.gl/core/typed';
-import { TileLayer } from '@deck.gl/geo-layers/typed';
-import { BitmapLayer } from '@deck.gl/layers/typed';
+import { Deck, FlyToInterpolator, WebMercatorViewport } from '@deck.gl/core';
+import { TileLayer } from '@deck.gl/geo-layers';
+import { BitmapLayer } from '@deck.gl/layers';
 import { IDLNotebookMap } from '@idl/types/notebooks';
+import copy from 'fast-copy';
+import { firstValueFrom } from 'rxjs';
 
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
 import { CreateLayers } from './helpers/create-layers';
+import { ILayers } from './helpers/create-layers.interface';
 
+/**
+ * Initial view state
+ */
 const INITIAL_VIEW_STATE = {
   latitude: 39.99758595367171,
   longitude: -105.2101538546129,
@@ -42,7 +48,7 @@ export const IDL_NB_MAP_COMPONENT_SELECTOR = 'idl-nb-map';
         width: 100%;
       }
 
-      .credits {
+      .map-credits {
         position: absolute;
         right: 0;
         bottom: 0;
@@ -66,6 +72,12 @@ export class MapComponent
    * Reference to our map
    */
   private deck!: Deck;
+
+  /** Current layers */
+  private layers!: ILayers;
+
+  /** Do we show the layers dialog */
+  showLayers = false;
 
   /**
    * Interval callback to make sure we render
@@ -120,29 +132,11 @@ export class MapComponent
        */
       const layers = CreateLayers(this._embed);
 
-      // check if we have bounds from our layers
-      if (layers.bounds) {
-        /**
-         * Get viewport
-         */
-        const { longitude, latitude, zoom } = new WebMercatorViewport({
-          width: this.el.nativeElement.offsetWidth,
-          height: this.el.nativeElement.offsetHeight,
-        }).fitBounds(
-          [
-            [layers.bounds[0], layers.bounds[1]],
-            [layers.bounds[2], layers.bounds[3]],
-          ],
-          {
-            padding: 100,
-          }
-        );
+      // save layers
+      this.layers = layers;
 
-        /**
-         * Update view state
-         */
-        Object.assign(INITIAL_VIEW_STATE, { longitude, latitude, zoom });
-      }
+      // update default view state
+      this.updateInitialViewState();
 
       /**
        * Create instance of deck with basemap and layers
@@ -190,12 +184,12 @@ export class MapComponent
 
             fetch: async (url) => {
               // get value as bloc
-              const val = await this.http
-                .get(url, {
+              const val = await firstValueFrom(
+                this.http.get(url, {
                   withCredentials: false,
                   responseType: 'blob',
                 })
-                .toPromise();
+              );
 
               // convert to data URI and display
               return URL.createObjectURL(val);
@@ -210,7 +204,66 @@ export class MapComponent
       });
 
       // manually trigger a re-draw which seems to help when display stays black
-      this.deck.redraw('YOLO');
+      this.deck.redraw();
     }
+  }
+
+  /**
+   * Updates our view state based on data extents and the current map size
+   */
+  updateInitialViewState() {
+    if (this.layers) {
+      // check if we have bounds from our layers
+      if (this.layers.bounds) {
+        /**
+         * Get viewport
+         */
+        const { longitude, latitude, zoom } = new WebMercatorViewport({
+          width: this.el.nativeElement.offsetWidth,
+          height: this.el.nativeElement.offsetHeight,
+        }).fitBounds(
+          [
+            [this.layers.bounds[0], this.layers.bounds[1]],
+            [this.layers.bounds[2], this.layers.bounds[3]],
+          ],
+          {
+            padding: 100,
+          }
+        );
+
+        /**
+         * Update view state
+         */
+        Object.assign(INITIAL_VIEW_STATE, { longitude, latitude, zoom });
+      }
+    }
+  }
+
+  /**
+   * Set the view back to defaults
+   */
+  resetView() {
+    /**
+     * Reset initial view state so deck.gl picks up changes
+     *
+     * Without this, the next code doesnt work
+     */
+    this.deck.setProps({ initialViewState: undefined });
+
+    // update our view state in case the map size has changed
+    this.updateInitialViewState();
+
+    /**
+     * Set view state with an animation
+     */
+    this.deck.setProps({
+      initialViewState: {
+        ...copy(INITIAL_VIEW_STATE),
+        transitionInterpolator: new FlyToInterpolator({
+          speed: 2,
+        }),
+        transitionDuration: 'auto',
+      },
+    });
   }
 }

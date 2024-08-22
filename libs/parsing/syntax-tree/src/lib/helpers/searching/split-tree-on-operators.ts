@@ -5,7 +5,7 @@ import {
   OperatorNegativeToken,
   OperatorToken,
   TOKEN_NAMES,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { PositionArray } from '@idl/types/tokenizer';
 
 import {

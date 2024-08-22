@@ -5,7 +5,7 @@ import {
   SyntaxTree,
   TreeBranchToken,
 } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES } from '@idl/parsing/tokenizer';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 
 /**
  * Branches that we skip

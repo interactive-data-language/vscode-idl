@@ -1,1 +1,299 @@
-{"version":"1.0.0","cells":[{"type":"markdown","content":"Rmlyc3QgdGhyZWUgY2VsbHMgYXJlIGVtcHR5IGFuZCBzaG91bGQgbm90IHJ1biBvciBnZW5lcmF0ZSBlbnkgb3V0cHV0","metadata":{},"outputs":[]},{"type":"code","content":"","metadata":{},"outputs":[]},{"type":"code","content":"DQoNCg0KICAgICANCg0KDQo=","metadata":{},"outputs":[]},{"type":"code","content":"OyBkbyBub3RoaW5n","metadata":{},"outputs":[]},{"type":"code","content":"OyBydW4gd2hlbiB3ZSBkb250IGhhdmUgY29tcGlsZSBvcHQgb3IgbWFpbiBsZXZlbA0KYXJyID0gZmluZGdlbig0MikNCmhlbHAsIGFycg==","metadata":{},"outputs":[]},{"type":"code","content":"OyB3ZSBoYXZlIGNvbXBpbGVfb3B0IGlkbDIsIHNvIHdlIHNob3VsZCBoYXZlIGEgbG9uZw0KYSA9IDE1DQpoZWxwLCBh","metadata":{},"outputs":[]},{"type":"code","content":"O25vIG91dHB1dCBmcm9tIHJ1bm5pbmcgdGhpcyBjZWxsDQpwcm8gdGVzdDENCiAgY29tcGlsZV9vcHQgaWRsMg0KDQogIHByaW50LCA0Mg0KDQplbmQ=","metadata":{},"outputs":[]},{"type":"code","content":"OyBydW4gb3VyIHByb2NlZHVyZSBmcm9tIGFib3ZlDQp0ZXN0MQ==","metadata":{},"outputs":[]},{"type":"code","content":"O3J1biB3aGVuIHdlIGhhdmUgY29tcGlsZSBvcHQgYW5kIG1haW4gbGV2ZWwgZW5kDQoNCmNvbXBpbGVfb3B0IGlkbDINCg0KcHJpbnQsIDUNCg0KZW5k","metadata":{},"outputs":[]},{"type":"code","content":"OyBpZiB3ZSBoYXZlIGEgbWFpbiBsZXZlbCwgdGhlbiBydW4gaXQNCmZ1bmN0aW9uIGZvbzENCiAgY29tcGlsZV9vcHQgaWRsMg0KICByZXR1cm4sIDQyDQplbmQNCg0KOyB3ZSBoYXZlIGNvbXBpbGVfb3B0IGlkbDIsIHNvIHdlIHNob3VsZCBoYXZlIGEgbG9uZw0KYSA9IDE1DQpoZWxwLCBhDQoNCmVuZA==","metadata":{},"outputs":[]},{"type":"code","content":"OyBtYWluIGxldmVsIHByb2dyYW1zIGRvbnQgbmVlZCB0byBoYXZlIGFuIGVuZA0KZnVuY3Rpb24gZm9vMg0KICBjb21waWxlX29wdCBpZGwyDQogIHJldHVybiwgNDINCmVuZA0KDQo7IHdlIGhhdmUgY29tcGlsZV9vcHQgaWRsMiwgc28gd2Ugc2hvdWxkIGhhdmUgYSBsb25nDQphID0gMTUNCmhlbHAsIGE=","metadata":{},"outputs":[]},{"type":"code","content":"OyBlbWJlZCBncmFwaGljcw0KcCA9IHBsb3QoL3Rlc3Qp","metadata":{},"outputs":[]},{"type":"code","content":"OyBydW4gY2VsbCBhbmQgZG9udCBjYXB0dXJlIGltYWdlIG91dHB1dCAob3IgYW55IG91dHB1dCkNCiFudWxsID0gNDI=","metadata":{},"outputs":[]},{"type":"code","content":"OyBlbWJlZCBtb3JlIHRoYW4gb25lIGdyYXBoaWMNCnAxID0gcGxvdCgvdGVzdCkNCnAyID0gc3VyZmFjZSgvdGVzdCkNCnAzID0gYmFycGxvdCgvdGVzdCk=","metadata":{},"outputs":[]},{"type":"code","content":"OyB3aGVuIHdlIGhhdmUgYSBzdG9wIG9yIHN5bnRheCBlcnJvciwgZG9udCBzdG9wIGF0IGl0DQpwcm8gbXlwcm8NCiAgY29tcGlsZV9vcHQgaWRsMg0KICBzdG9wDQplbmQ=","metadata":{},"outputs":[]},{"type":"code","content":"OyBydW4gcm91dGluZSB3aXRoIGEgc3RvcA0KbXlwcm8=","metadata":{},"outputs":[]},{"type":"code","content":"OyB2ZXJpZnkgd2UgYXJlIGF0IHRoZSBtYWluIGxldmVsIChvbmUgaXRlbSBpbiBzdGFjayB0cmFjZSkNCnByaW50LCBuX2VsZW1lbnRzKHNjb3BlX3RyYWNlYmFjaygpKSwgL2ltcGxpZWRfcHJpbnQ=","metadata":{},"outputs":[]},{"type":"code","content":"OyBkb250IGV4ZWN1dGUgd2hlbiB3ZSBoYXZlIHN5bnRheCBlcnJvcnMgMQ0KYSA9IA0K","metadata":{},"outputs":[]},{"type":"code","content":"OyBkb250IGV4ZWN1dGUgd2hlbiB3ZSBoYXZlIHN5bnRheCBlcnJvcnMgMg0KcHJvIHN5bnRheF9lcnJvcg0KICBjb21waWxlX29wdCBpZGwyDQoNCiAgYSA9IA0KZW5k","metadata":{},"outputs":[]}]}
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "First three cells are empty and should not run or generate eny output"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "!quiet"
+      ],
+      "metadata": {},
+      "outputs": [
+        {
+          "items": [
+            {
+              "mime": "text/plain",
+              "content": [
+                "           1"
+              ]
+            }
+          ],
+          "metadata": {
+            "id": "not-saved"
+          }
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "content": [
+        ".compile plot"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "!quiet"
+      ],
+      "metadata": {},
+      "outputs": [
+        {
+          "items": [
+            {
+              "mime": "text/plain",
+              "content": [
+                "           1"
+              ]
+            }
+          ],
+          "metadata": {
+            "id": "not-saved"
+          }
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "content": [
+        ".compile -v envitasktest"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "!quiet"
+      ],
+      "metadata": {},
+      "outputs": [
+        {
+          "items": [
+            {
+              "mime": "text/plain",
+              "content": [
+                "           1"
+              ]
+            }
+          ],
+          "metadata": {
+            "id": "not-saved"
+          }
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "content": [
+        ".compile -v fakeyfile"
+      ],
+      "metadata": {},
+      "outputs": [
+        {
+          "items": [
+            {
+              "mime": "text/plain",
+              "content": [
+                "% Error opening file. File: fakeyfile",
+                ""
+              ]
+            }
+          ],
+          "metadata": {
+            "id": "not-saved"
+          }
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "content": [
+        "; do nothing"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; run when we dont have compile opt or main level",
+        "arr = findgen(42)",
+        "help, arr"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; we have compile_opt idl2, so we should have a long",
+        "a = 15",
+        "help, a"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";no output from running this cell",
+        "pro test1",
+        "  compile_opt idl2",
+        "",
+        "  print, 42",
+        "",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; run our procedure from above",
+        "test1"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";run when we have compile opt and main level end",
+        "",
+        "compile_opt idl2",
+        "",
+        "print, 5",
+        "",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; if we have a main level, then run it",
+        "function foo1",
+        "  compile_opt idl2",
+        "  return, 42",
+        "end",
+        "",
+        "; we have compile_opt idl2, so we should have a long",
+        "a = 15",
+        "help, a",
+        "",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; main level programs dont need to have an end",
+        "function foo2",
+        "  compile_opt idl2",
+        "  return, 42",
+        "end",
+        "",
+        "; we have compile_opt idl2, so we should have a long",
+        "a = 15",
+        "help, a"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; embed graphics",
+        "p = plot(/test)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; run cell and dont capture image output (or any output)",
+        "!null = 42"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; embed more than one graphic",
+        "p1 = plot(/test)",
+        "p2 = surface(/test)",
+        "p3 = barplot(/test)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; when we have a stop or syntax error, dont stop at it",
+        "pro mypro",
+        "  compile_opt idl2",
+        "  stop",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; run routine with a stop",
+        "mypro"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; verify we are at the main level (one item in stack trace)",
+        "print, n_elements(scope_traceback()), /implied_print"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; dont execute when we have syntax errors 1",
+        "a = ",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; dont execute when we have syntax errors 2",
+        "pro syntax_error",
+        "  compile_opt idl2",
+        "",
+        "  a = ",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

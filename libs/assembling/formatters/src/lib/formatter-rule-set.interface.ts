@@ -1,5 +1,9 @@
-import { IHandlerCallbackMetadata, TreeToken } from '@idl/parsing/syntax-tree';
-import { TokenName } from '@idl/parsing/tokenizer';
+import {
+  IHandlerCallbackMetadata,
+  IParsed,
+  TreeToken,
+} from '@idl/parsing/syntax-tree';
+import { TokenName } from '@idl/tokenizer';
 
 /**
  * Callback to format our tokens.
@@ -9,7 +13,8 @@ import { TokenName } from '@idl/parsing/tokenizer';
  */
 export type TokenFormatter<T extends TokenName> = (
   token: TreeToken<T>,
-  meta: IHandlerCallbackMetadata
+  meta: IHandlerCallbackMetadata,
+  parsed: IParsed
 ) => void;
 
 /**

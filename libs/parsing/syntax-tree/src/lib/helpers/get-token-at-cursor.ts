@@ -4,7 +4,7 @@ import {
   RoutineFunctionToken,
   RoutineProcedureToken,
   TokenName,
-} from '@idl/parsing/tokenizer';
+} from '@idl/tokenizer';
 import { Position } from 'vscode-languageserver/node';
 
 import { IBranch, TreeToken } from '../branches.interface';

@@ -1,48 +1,4 @@
 ;+
-;
-; :Private:
-;
-; :Description:
-;   Creates GeoJSON for an image bounding box
-;
-; :Returns: any
-;
-; :Arguments:
-;   features: in, required, List<any>
-;     List of lists
-;
-;-
-function getRasterBBox_serialize, features
-  compile_opt idl2, hidden
-
-  ; make geoJSON
-  ; collection = orderedhash('type', 'FeatureCollection', 'features', list())
-  collection = '{"type":"FeatureCollection","features":['
-
-  strings = strarr(n_elements(features))
-
-  ; add all of our shapes
-  foreach shape, features, i do begin
-    feature = '{"type":"Feature","geometry":{"type":"Polygon","coordinates":['
-    foreach arr, shape, j do begin
-      if (j eq 0) then begin
-        feature += '[' + strjoin('[' + strjoin(strtrim(arr, 2), ',') + ']', ',') + ']'
-      endif else begin
-        feature += ',[' + strjoin('[' + strjoin(strtrim(arr, 2), ',') + ']', ',') + ']'
-      endelse
-    endforeach
-    feature += ']},"properties":{}}'
-    strings[i] = feature
-    ; collection['features'].add, orderedhash('type', 'Feature', 'geometry', orderedhash('type', 'Polygon', 'coordinates', shape), 'properties', hash())
-  endforeach
-
-  collection += strjoin(strings, ',') + ']}'
-
-  return, collection
-end
-
-;+
-;
 ; :Private:
 ;
 ; :Description:
@@ -54,9 +10,9 @@ end
 ;   The result represents the outer polygon for valid pixels in the image.
 ;   The data ignore value is used to get the correct orientation of data.
 ;
-;   If the raster does not have a spatial reference, returns pixell-coordinates.
+;   If the raster does not have a spatial reference, returns pixel-coordinates.
 ;
-; :Returns: any
+; :Returns: String
 ;
 ; :Arguments:
 ;   raster: in, required, ENVIRaster
@@ -77,7 +33,7 @@ end
 ;   Zachary Norman - GitHub: znorman-harris
 ;
 ;-
-function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
+function getOutlineFeatureCollection, raster, epsg, skip_holes = skip_holes, method = method
   compile_opt idl2, hidden
 
   ; get current ENVI session
@@ -86,25 +42,34 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
     message, 'ENVI has not started yet, required!'
   endif
 
+  ; make sure we have an EPSG code
+  if ~arg_present(epsg) then epsg = 3857
+
   ; set method
   if ~keyword_set(method) then method = 'idl'
+
+  ;+ output coordinate system
+  outCoordSys = ENVICoordSys(coord_sys_code = epsg)
 
   ; get the max pyramid level
   raster._component.getProperty, pyramid_levels = maxPyramidLevel
 
-  ; get the pyramid level we read at
+  ; get the pyramid level we read at - subtract 2 to put us at 1024 x 1024
   readlevel = maxPyramidLevel - 2 > 0
 
   ; get display bands
   !null = IDLcf$DefaultRasterDisplayBands(raster._component, useBands)
 
-  ; Get data at a reduced pyramid level - subtract 2 to put us at 1024 x 1024
+  ; Get data at a reduced pyramid level
   if (~raster._component.getData(dat, level = readlevel, $
     bands = useBands, $
     pixelstate = ps, $
     interleave = 0)) then begin
     message, IDLcfLangCatQuery('Failed to get data array to generate thumbnail'), /noname
   endif
+
+  ; create PS if it doesnt exist - edge case for some rasters where its not made
+  if ~isa(ps, /array) then ps = bytarr(size(dat, /dimensions))
 
   ; account for bad pixels
   if raster.metadata.hasTag('data ignore value') then begin
@@ -120,74 +85,50 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
   ; i.e. pixel state of zero = good
   ps = temporary(ps) eq 0
 
-  ; resample to get coordinate system
-  resampled = ENVIResampleRaster(raster, dimensions = size(ps, /dimensions))
-
-  ; get our raste spatial reference
+  ; get our raster spatial reference
   sRef = raster.spatialref
-  coordSys = !null
-
-  ; build coord sys
-  if (sRef ne !null) then begin
-    if (sRef.coord_sys_code ne 0) then begin
-      coordSys = ENVICoordSys(coord_sys_code = sRef.coord_sys_code)
-    endif else begin
-      if keyword_set(sRef.coord_sys_str) then begin
-        coordSys = ENVICoordSys(coord_sys_str = sRef.coord_sys_str)
-      endif else begin
-        print, 'Raster "' + raster.uri + '" does nto have a standard spatial reference, ignoring center information'
-      endelse
-    endelse
-  endif
+  coordSys = sRef ne !null ? raster.coord_sys : !null
 
   ;+
-  ; if we have no data ignore value, or end up with special cases below, just use
+  ; if we have no good pixels, or end up with special cases below, just use
   ; the extents of the raster
   ;-
   if (min(ps) eq 1) then begin
     nofeatures:
 
     ; creating starting point for vars
-    lat = [0, 0, raster.nrows, raster.nrows, 0]
-    lon = [0, raster.ncolumns, raster.ncolumns, 0, 0]
+    fileX = [0, raster.ncolumns, raster.ncolumns, 0, 0]
+    fileY = [0, 0, raster.nrows, raster.nrows, 0]
 
     ; check if we need to convert our coordinates
     if (coordSys ne !null) then begin
-      sRef.convertFileToLonLat, lon, lat, lon, lat
-
-      ; convert center from old to new coordinate system
-      coordSys.convertLonLatToLonLat, lon, lat, lon, lat, ENVICoordSys(coord_sys_code = epsg)
-    endif
-    coordinates = transpose([[lon], [lat]])
-
-    ; clean up
-    resampled.close
+      sRef.convertFileToLonLat, fileX, fileY, lon1, lat1
+      coordSys.convertLonLatToLonLat, lon1, lat1, lon, lat, outCoordSys
+      coordinates = transpose([[lon], [lat]])
+    endif else begin
+      coordinates = transpose([[fileX], [fileY]])
+    endelse
 
     ; convert to geojson and return
-    return, getRasterBBox_serialize(list(list(coordinates)))
-  endif
-
-  ; if we got here, we need to use our resampled raster for the sref
-
-  ; get our raste spatial reference
-  sRef = resampled.spatialref
-  coordSys = !null
-
-  ; build coord sys
-  if (sRef ne !null) then begin
-    if (sRef.coord_sys_code ne 0) then begin
-      coordSys = ENVICoordSys(coord_sys_code = sRef.coord_sys_code)
-    endif else begin
-      if keyword_set(sRef.coord_sys_str) then begin
-        coordSys = ENVICoordSys(coord_sys_str = sRef.coord_sys_str)
-      endif else begin
-        print, 'Raster "' + raster.uri + '" does nto have a standard spatial reference, ignoring center information'
-      endelse
-    endelse
+    return, SerializeVerticesAsGeoJSON(list(list(coordinates)))
   endif
 
   ; fill in holes in our image if we have bad pixels
   label = label_region(~ps)
+
+  ; check for no real pixel state to check
+  if (max(label) eq 0) then goto, nofeatures
+
+  ; resample to get coordinate system
+  resampled = ENVIResampleRaster(raster, dimensions = size(ps, /dimensions))
+
+  ; -----------------------------------------------------------------
+  ; if we got here, we need to use our resampled raster for the sref
+  ; -----------------------------------------------------------------
+
+  ; get our resampled raster spatial reference
+  sRef = resampled.spatialref
+  coordSys = sRef ne !null ? resampled.coord_sys : !null
 
   ; get pixel locations
   ; label[0] will be the edges,
@@ -208,9 +149,6 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
   ; get entity outline
   contour, ps, path_info = path_info, path_xy = vertices, /path_data_coords, nlevels = 1
 
-  ; get the number of parts
-  ; nParts = n_elements(path_info) eq 1 ? 0 : n_elements(path_info)
-
   ; make a list to store our outlines
   valid = list()
 
@@ -221,10 +159,9 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
   ; define smoothing threshold
   SMOOTHING_THRESHOLD = 5
 
-  ; process each part
   ; process each chunk in our path and build the parts up
   for i = 0, n_elements(path_info) - 1 do begin
-    ; caluclate the indices in our new array
+    ; calculate the indices in our new array
     newIdx = path_info[i].offset + i + [0l : path_info[i].n]
     verts = vertices[*, path_info[i].offset + [[0l : path_info[i].n - 1], 0]]
     tot1 += n_elements(newIdx)
@@ -257,10 +194,8 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
 
     ; check if we need to convert our coordinates
     if (coordSys ne !null) then begin
-      sRef.convertFileToLonLat, reform(verts[0, *]), reform(verts[1, *]), lon, lat
-
-      ; convert center from old to new coordinate system
-      coordSys.convertLonLatToLonLat, lon, lat, lon, lat, ENVICoordSys(coord_sys_code = epsg)
+      sRef.convertFileToLonLat, reform(verts[0, *]), reform(verts[1, *]), lon1, lat1
+      coordSys.convertLonLatToLonLat, lon1, lat1, lon, lat, outCoordSys
 
       ; remake our verts
       verts = transpose([[lon], [lat]])
@@ -282,7 +217,7 @@ function getRasterBBox, raster, epsg, skip_holes = skip_holes, method = method
 
   ; serialize the collection
   if (n_elements(valid) gt 0) then begin
-    collection = getRasterBBox_serialize(valid)
+    collection = SerializeVerticesAsGeoJSON(valid)
   endif else begin
     ; no features, so we need to use default logic
     goto, nofeatures
@@ -324,13 +259,13 @@ end
 ;-
 function ENVIRaster::getOutline, epsgCode, skip_holes = skip_holes, method = method
   compile_opt idl2, hidden
-  ; on_error, 2
+  on_error, 2
 
   ; make sure we have an EPSG code
   if ~arg_present(epsgCode) then epsgCode = 3857
 
   ; get BBox and return
-  return, getRasterBBox(self, epsgCode, skip_holes = skip_holes, method = method)
+  return, getOutlineFeatureCollection(self, epsgCode, skip_holes = skip_holes, method = method)
 end
 
 ; Start the application
@@ -340,12 +275,12 @@ e = envi(/headless)
 ; Open an input file
 file = filepath('qb_boulder_msi', root_dir = e.root_dir, $
   subdirectory = ['data'])
-file = 'c:\Users\znorman\Downloads\CAPELLA_C09_SM_GEO_HH_20230528080239_20230528080244.tif'
-; file = 'c:\TradeshowContent\ENVI_DEMOS\SAR\SICD\Helicopters\sar_cog.tif'
-raster = e.openRaster(file)
+file = 'C:\Users\Zachary.Norman\Downloads\11MAR14020425-P2AS-052498072030_01_P001.NTF'
+; file = 'C:\Users\Zachary.Norman\Downloads\11MAR14020425-P2AS-052498072030_01_P001.NTF'
+file = 'C:\Users\Zachary.Norman\Downloads\2024-01-01-02-10-11_UMBRA-04_SICD.nitf'
+file = 'C:\Users\Zachary.Norman\Downloads\11MAR14020425-P2AS-052498072030_01_P001.NTF'
+raster = e.openRaster('C:\Users\Zachary.Norman\Downloads\haiti-jagged-edge.dat')
 
-tic
-print, raster.getOutline(3857)
-toc
+print, raster.getOutline()
 
 end

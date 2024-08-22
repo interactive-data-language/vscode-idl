@@ -793,7 +793,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -809,7 +809,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `something = 42`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -823,7 +823,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `a = myfunc()`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
     ],
@@ -973,42 +973,42 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `ok function`,
         code: [`function myfunc`, `  compile_opt idl2`, `  return,1`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `bad function`,
         code: [`function myfunc`, `  return,1`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `ok procedure`,
         code: [`pro mypro`, `  compile_opt idl2`, `  return`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `bad procedure`,
         code: [`pro mypro`, `  return`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `ok main`,
         code: [`compile_opt idl2`, `; main level program`, `  a = 5`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `bad main`,
         code: [`; main level program`, `  a = 5`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
     ],
@@ -1242,6 +1242,30 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `bad single quote`,
         code: [`a = 'bad`],
       },
+      {
+        name: `bad double quote with escape`,
+        code: [`a = " ""`],
+      },
+      {
+        name: `bad double quote with escape 2`,
+        code: [`a = """`],
+      },
+      {
+        name: `bad double quote with escape 3`,
+        code: [`a = """ `],
+      },
+      {
+        name: `bad single quote with escape`,
+        code: [`a = ' ''`],
+      },
+      {
+        name: `bad single quote with escape 2`,
+        code: [`a = '''`],
+      },
+      {
+        name: `bad single quote with escape 3`,
+        code: [`a = ''' `],
+      },
     ],
   },
   {
@@ -1322,6 +1346,20 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `;`,
+          `;-`,
+          `pro myclass::mymethod, var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
     ],
   },
   {
@@ -1355,6 +1393,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  compile_opt idl2`,
           `end`,
         ],
+      },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `; @description`,
+          `;   My favorite routine`,
+          `;`,
+          `;-`,
+          `pro myclass::mymethod, var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -1392,6 +1446,24 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `;`,
+          `; :Params:`,
+          `;   var1: in, optional, type=boolean`,
+          `;     My favorite argument`,
+          `;`,
+          `;-`,
+          `pro myclass::mymethod`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
     ],
   },
   {
@@ -1428,6 +1500,24 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `; @description`,
+          `;   My favorite routine`,
+          `;`,
+          `; @param var1 My favorite argument`,
+          `;`,
+          `;-`,
+          `pro myclass::mymethod`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
     ],
   },
   {
@@ -1459,6 +1549,20 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  compile_opt idl2`,
           `end`,
         ],
+      },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `;`,
+          `;-`,
+          `pro myclass::mymethod, KW1=kw1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -1493,6 +1597,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  compile_opt idl2`,
           `end`,
         ],
+      },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `; @description`,
+          `;   My favorite thing`,
+          `;`,
+          `;-`,
+          `pro myclass::mymethod, KW1=kw1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -1530,6 +1650,24 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `;`,
+          `; :Keywords:`,
+          `;   KW1: in, optional, type=boolean`,
+          `;     My favorite argument`,
+          `;`,
+          `;-`,
+          `pro myclass::mymethod`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
     ],
   },
   {
@@ -1566,6 +1704,24 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `; @description`,
+          `;   My favorite thing`,
+          `;`,
+          `; @keyword kw1 My favorite keyword`,
+          `;`,
+          `;-`,
+          `pro myclass::mymethod`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
     ],
   },
   {
@@ -1594,6 +1750,20 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  return, 1`,
           `end`,
         ],
+      },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `;-`,
+          `function myfunc`,
+          `  compile_opt idl2`,
+          `  return, 1`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -1629,6 +1799,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `; @description`,
+          `;   Thing`,
+          `;-`,
+          `function myfunc`,
+          `  compile_opt idl2`,
+          `  return, 1`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
     ],
   },
   {
@@ -1660,6 +1846,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  compile_opt idl2`,
           `end`,
         ],
+      },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `; :Params:`,
+          `;   var1: wrong, optional, type=boolean`,
+          `;     My favorite argument`,
+          `;-`,
+          `pro myclass::mymethod, var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -1693,6 +1895,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `; :Params:`,
+          `;   var1: in, WRONG, boolean`,
+          `;     My favorite argument`,
+          `;-`,
+          `pro myclass::mymethod, var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
     ],
   },
   {
@@ -1724,6 +1942,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  compile_opt idl2`,
           `end`,
         ],
+      },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `; :Params:`,
+          `;   var1: in, optional, boolean, hidden`,
+          `;     My favorite argument`,
+          `;-`,
+          `pro myclass::mymethod, var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -1758,6 +1992,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         ],
       },
       {
+        name: `problem for args in def file`,
+        code: [
+          `;+`,
+          `; :Params:`,
+          `;   var1: in, optional`,
+          `;     My favorite argument`,
+          `;-`,
+          `pro myclass::mymethod, var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
+      {
         name: `no problems for keywords`,
         code: [
           `;+`,
@@ -1782,6 +2032,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  compile_opt idl2`,
           `end`,
         ],
+      },
+      {
+        name: `problem for keywords in def file`,
+        code: [
+          `;+`,
+          `; :Keywords:`,
+          `;   var1: in, boolean`,
+          `;     My favorite argument`,
+          `;-`,
+          `pro myclass::mymethod, VAR1=var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -1816,6 +2082,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         ],
       },
       {
+        name: `problem for args in def file`,
+        code: [
+          `;+`,
+          `; :Params:`,
+          `;   var1: in, optional, boolean, private, mcScrooge`,
+          `;     My favorite argument`,
+          `;-`,
+          `pro myclass::mymethod, var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
+      {
         name: `no problems for keywords`,
         code: [
           `;+`,
@@ -1840,6 +2122,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  compile_opt idl2`,
           `end`,
         ],
+      },
+      {
+        name: `problem for keywords in def file`,
+        code: [
+          `;+`,
+          `; :Keywords:`,
+          `;   var1: in, optional, boolean, public, somethingWrong`,
+          `;     My favorite argument`,
+          `;-`,
+          `pro myclass::mymethod, VAR1=var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -1876,6 +2174,23 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         ],
       },
       {
+        name: `problems in params/keywords for def`,
+        code: [
+          `;+`,
+          `; :Params:`,
+          `;   var1: in, optional, boolean`,
+          `;     My favorite argument`,
+          `;    And another line`,
+          `;-`,
+          `pro myclass::mymethod, var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
+      {
         name: `problems in other blocks`,
         code: [
           `;+`,
@@ -1890,6 +2205,25 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  compile_opt idl2`,
           `end`,
         ],
+      },
+      {
+        name: `problems in other blocks for def`,
+        code: [
+          `;+`,
+          `;    First line is great`,
+          `;   THEN CHAOS ENSUES`,
+          `;`,
+          `; :Params:`,
+          `;   var1: in, optional, boolean`,
+          `;     My favorite argument`,
+          `;-`,
+          `pro myclass::mymethod, var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
       {
         name: `no problems in variables`,
@@ -1916,6 +2250,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  a = 42`,
           `end`,
         ],
+      },
+      {
+        name: `problems in variables for def blocks`,
+        code: [
+          `pro myclass::mymethod, var1`,
+          `  compile_opt idl2`,
+          `  ;+`,
+          `  ; Some things are really awesome`,
+          `  ;and need a big description`,
+          `  ;-`,
+          `  a = 42`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -1953,6 +2303,24 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `problem for def`,
+        code: [
+          `;+`,
+          `; :Params:`,
+          `;   var1: in, optional, boolean, public`,
+          `;     My favorite argument`,
+          `; :Returns:`,
+          `;-`,
+          `function myfunc, var1`,
+          `  compile_opt idl2`,
+          `  return, 1`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
     ],
   },
   {
@@ -1986,6 +2354,23 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  return, 1`,
           `end`,
         ],
+      },
+      {
+        name: `problem in def`,
+        code: [
+          `;+`,
+          `; @param var1 My favorite argument`,
+          `;`,
+          `; @returns`,
+          `;-`,
+          `function myfunc, var1`,
+          `  compile_opt idl2`,
+          `  return, 1`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -2024,6 +2409,26 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  return, 1`,
           `end`,
         ],
+      },
+      {
+        name: `problem in def`,
+        code: [
+          `;+`,
+          `; :Params:`,
+          `;   var1: in, optional, boolean, public`,
+          `;     My favorite argument`,
+          `; :Returns: number`,
+          `;   Fun fact about zach`,
+          `;   he is a vegetarian`,
+          `;-`,
+          `function myfunc, var1`,
+          `  compile_opt idl2`,
+          `  return, 1`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
       {
         name: `no problem with extra spaces`,
@@ -2080,6 +2485,25 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         ],
       },
       {
+        name: `problem in def`,
+        code: [
+          `;+`,
+          `; @param var1 My favorite argument`,
+          `;`,
+          `; @returns number`,
+          `;   Fun fact about zach`,
+          `;   he is a vegetarian`,
+          `;-`,
+          `function myfunc, var1`,
+          `  compile_opt idl2`,
+          `  return, 1`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
+      {
         name: `no problem with extra spaces`,
         code: [
           `;+`,
@@ -2129,6 +2553,23 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `problem in def`,
+        code: [
+          `;+`,
+          `; :Params:`,
+          `;   var1: in, optional, boolean, public`,
+          `;     My favorite argument`,
+          `; :Returns: number`,
+          `;-`,
+          `pro myroutine, var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
     ],
   },
   {
@@ -2158,6 +2599,22 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  compile_opt idl2`,
           `end`,
         ],
+      },
+      {
+        name: `problem in def`,
+        code: [
+          `;+`,
+          `; @param var1 My favorite argument`,
+          `;`,
+          `; @returns number`,
+          `;-`,
+          `pro myroutine, var1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -2206,6 +2663,29 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         ],
       },
       {
+        name: `problem with args and keywords for def`,
+        code: [
+          `;+`,
+          `; My procedure`,
+          `;`,
+          `; :Args:`,
+          `;  var1: in, required, any`,
+          `;    My favorite thing`,
+          `;`,
+          `; :Keywords:`,
+          `;  kw1: in, optional, type=boolean`,
+          `;    Super Cool flag`,
+          `;`,
+          `;-`,
+          `pro mypro, var2, KW2=kw2`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
+      {
         name: `do not mistake colons in the description as parameters`,
         code: [
           `;+`,
@@ -2243,6 +2723,28 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           ``,
           `end`,
         ],
+      },
+      {
+        name: `detect in structures for def`,
+        code: [
+          `;+`,
+          `; :MyStruct:`,
+          `;   prop: any`,
+          `;     Placeholder docs for argument or keyword`,
+          `;   prop3: any`,
+          `;     Placeholder docs for argument or keyword`,
+          `;`,
+          `;-`,
+          `pro pro4__define`,
+          `  compile_opt idl2`,
+          ``,
+          `  !null = {MyStruct, inherits IDL_object, prop: 1}`,
+          ``,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -2283,6 +2785,27 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  compile_opt idl2`,
           `end`,
         ],
+      },
+      {
+        name: `problem with args and keywords in def`,
+        code: [
+          `;+`,
+          `; My procedure`,
+          `;`,
+          `; @param var1 My favorite thing`,
+          `; @param var2 My favorite thing`,
+          `;`,
+          `; @keyword kw1 Super Cool Flag`,
+          `; @keyword kw2 Super Cool Flag`,
+          `;`,
+          `;-`,
+          `pro mypro, var2, KW2=kw2`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -2326,6 +2849,25 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `problem with args and keywords in def`,
+        code: [
+          `;+`,
+          `; My procedure`,
+          `;`,
+          `; :Args:`,
+          `;`,
+          `; :Keywords:`,
+          `;`,
+          `;-`,
+          `pro mypro, var1, KW1=kw1`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
     ],
   },
   {
@@ -2363,6 +2905,25 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  compile_opt idl2`,
           `end`,
         ],
+      },
+      {
+        name: `problem with args and keywords in def`,
+        code: [
+          `;+`,
+          `; My procedure`,
+          `;`,
+          `; @param var1 My favorite thing`,
+          `;`,
+          `; @keyword kw1 Super Cool Flag`,
+          `;`,
+          `;-`,
+          `pro mypro, var1, var2, KW1=kw1, KW2=kw2`,
+          `  compile_opt idl2`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -2853,6 +3414,24 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         ],
       },
       {
+        name: `from docs 1 for def`,
+        code: [
+          `;+`,
+          `;-`,
+          `pro pro4__define`,
+          `  compile_opt idl2`,
+          ``,
+          `  !null = {MyStruct, inherits IDL_object, prop: 1, prop2: 4}`,
+          ``,
+          `  !null = {mystruct2, inherits IDL_object, prop: 1, prop2: 4}`,
+          ``,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
+      {
         name: `from docs 2`,
         code: [
           `;+`,
@@ -2874,6 +3453,30 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         ],
       },
       {
+        name: `from docs 2 for def`,
+        code: [
+          `;+`,
+          `; :MyStruct:`,
+          `;   prop: any`,
+          `;     Placeholder docs for argument or keyword`,
+          `;   prop2:any`,
+          `;     Placeholder docs for argument or keyword`,
+          `;`,
+          `;-`,
+          `pro pro4__define`,
+          `  compile_opt idl2`,
+          ``,
+          `  !null = {MyStruct, inherits IDL_object, prop: 1, prop2: 4}`,
+          ``,
+          `  !null = {mystruct2, inherits IDL_object, prop: 1, prop2: 4}`,
+          ``,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
+      {
         name: `ignore when no docs`,
         code: [
           `pro pro4__define`,
@@ -2883,6 +3486,20 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           ``,
           `end`,
         ],
+      },
+      {
+        name: `ignore when no docs for def`,
+        code: [
+          `pro pro4__define`,
+          `  compile_opt idl2`,
+          ``,
+          `  !null = {MyStruct, inherits IDL_object, prop: 1, prop2: 4}`,
+          ``,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
       {
         name: `ignore when just procedure`,
@@ -2935,6 +3552,26 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           ``,
           `end`,
         ],
+      },
+      {
+        name: `in our docs for def`,
+        code: [
+          `;+`,
+          `; :MyStruct:`,
+          `;   prop: any`,
+          `;     Placeholder docs for argument or keyword`,
+          `;`,
+          `;-`,
+          `pro pro4__define`,
+          `  compile_opt idl2`,
+          ``,
+          `  !null = {MyStruct, inherits IDL_object, prop: 1, prop2: 4}`,
+          ``,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
     ],
   },
@@ -2992,6 +3629,31 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         ],
       },
       {
+        name: `without anything for def`,
+        code: [
+          `;+`,
+          `; :NYStruct0:`,
+          `;   prop1:`,
+          `;     Placeholder docs for argument, keyword, or property`,
+          `;`,
+          `; :NYStruct:`,
+          `;   prop2:  `,
+          `;     Placeholder docs for argument, keyword, or property`,
+          `;`,
+          `;-`,
+          `pro pro3__define`,
+          `  compile_opt idl3`,
+          ``,
+          `  !null = {NYStruct0, prop1: 5}`,
+          ``,
+          `  !null = {NYStruct, inherits NYStruct0, prop2: 6}`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
+      {
         name: `no problems`,
         code: [
           `;+`,
@@ -3040,6 +3702,31 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  !null = {NYStruct, inherits NYStruct0, prop2: 6}`,
           `end`,
         ],
+      },
+      {
+        name: `with extra for def`,
+        code: [
+          `;+`,
+          `; :NYStruct0:`,
+          `;   prop1: any, bad`,
+          `;     Placeholder docs for argument, keyword, or property`,
+          `;`,
+          `; :NYStruct:`,
+          `;   prop2: String, noop`,
+          `;     Placeholder docs for argument, keyword, or property`,
+          `;`,
+          `;-`,
+          `pro pro3__define`,
+          `  compile_opt idl3`,
+          ``,
+          `  !null = {NYStruct0, prop1: 5}`,
+          ``,
+          `  !null = {NYStruct, inherits NYStruct0, prop2: 6}`,
+          `end`,
+        ],
+        config: {
+          type: 'def',
+        },
       },
       {
         name: `no problems`,
@@ -4542,7 +5229,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `no problems`,
         code: [`compile_opt idl2`, `a = 5`, `a++`, `++a`, `a++`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -4557,7 +5244,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -4570,7 +5257,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -4584,7 +5271,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
@@ -4600,14 +5287,39 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
         config: {
-          isNotebook: true,
+          type: 'notebook',
         },
       },
       {
         name: `multi-line problems`,
         code: [`compile_opt idl2`, `2 + $`, `  2 + $`, `  2`, `end`],
         config: {
-          isNotebook: true,
+          type: 'notebook',
+        },
+      },
+    ],
+  },
+  {
+    suiteName: `Def files ignore`,
+    fileName: `def-regression.1.spec.ts`,
+    tests: [
+      {
+        name: `all problems`,
+        code: [
+          `i write perfect code`,
+          `with all the errors . . . . .`,
+          `-> a = (`,
+          `begin`,
+        ],
+        config: {
+          type: 'def',
+        },
+      },
+      {
+        name: `all problems 2`,
+        code: [`a = 42`],
+        config: {
+          type: 'def',
         },
       },
     ],

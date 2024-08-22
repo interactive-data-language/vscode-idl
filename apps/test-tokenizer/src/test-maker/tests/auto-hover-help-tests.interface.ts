@@ -87,6 +87,22 @@ export const AUTO_HOVER_HELP_TESTS: IHoverHelpTests[] = [
     ],
   },
   {
+    suiteName: `Correctly get hover help`,
+    fileName: `def-files.1.spec.ts`,
+    tests: [
+      {
+        name: `for routine def files`,
+        file: `idl/test/hover-help/testroutine.pro.def`,
+        position: [
+          {
+            line: 25,
+            character: 9,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly overrides doc hover help`,
     fileName: `docs-overrides.spec.ts`,
     tests: [

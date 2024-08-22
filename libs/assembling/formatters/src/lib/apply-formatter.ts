@@ -35,7 +35,7 @@ export function ApplyFormatter(
     onBasicToken: (token, current) => {
       if (token.name in ruleSet) {
         // not sure why, but we need any here to have it work
-        ruleSet[token.name](token as any, current);
+        ruleSet[token.name](token as any, current, parsed);
       } else {
         DefaultFormatter(token);
       }
@@ -43,7 +43,7 @@ export function ApplyFormatter(
     onBranchToken: (token, current) => {
       if (token.name in ruleSet) {
         // not sure why, but we need any here to have it work
-        ruleSet[token.name](token as any, current);
+        ruleSet[token.name](token as any, current, parsed);
       } else {
         DefaultFormatter(token);
       }

@@ -11,6 +11,7 @@
         "outputPath": "dist/apps/i18n",
         "main": "apps/i18n/src/main.ts",
         "tsConfig": "apps/i18n/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
         "assets": ["apps/i18n/src/assets"],
         "target": "node",
         "compiler": "tsc"
@@ -37,17 +38,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/i18n/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/i18n"],
       "options": {
-        "jestConfig": "apps/i18n/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/i18n/jest.config.ts"
       }
     }
   },

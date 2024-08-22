@@ -10,7 +10,7 @@ import { IDL_DIRS } from './idl-dirs.interface';
  *
  * The folder is where the IDL executable lives (i.e. bin directory)
  */
-export function FindIDL(): string | undefined {
+export function FindIDL(version?: string): string | undefined {
   // detect IDL's installation directory
   let idlDir: string;
 
@@ -18,9 +18,16 @@ export function FindIDL(): string | undefined {
   const testDirs = IDL_DIRS[os.platform()];
   for (let i = 0; i < testDirs.length; i++) {
     const dir = testDirs[i];
-    if (fs.existsSync(dir)) {
-      idlDir = dir;
-      break;
+    if (version) {
+      if (fs.existsSync(dir) && dir.toLowerCase().includes(version)) {
+        idlDir = dir;
+        break;
+      }
+    } else {
+      if (fs.existsSync(dir)) {
+        idlDir = dir;
+        break;
+      }
     }
   }
 

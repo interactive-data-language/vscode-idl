@@ -11,6 +11,7 @@
         "outputPath": "dist/apps/tmlang-maker",
         "main": "apps/tmlang-maker/src/main.ts",
         "tsConfig": "apps/tmlang-maker/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
         "assets": [
           "apps/tmlang-maker/src/assets",
           {
@@ -49,17 +50,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/tmlang-maker/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/tmlang-maker"],
       "options": {
-        "jestConfig": "apps/tmlang-maker/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/tmlang-maker/jest.config.ts"
       }
     }
   },
