@@ -20,13 +20,7 @@ import {
   IDL_NB_MAP_PROPERTY_SHEET_SELECTOR,
   MapPropertySheetComponent,
 } from './components/map/map-property-sheet/map-property-sheet.component';
-import { FAST_FORWARD } from './icons/fast-forward';
-import { FAST_REWIND } from './icons/fast-rewind';
-import { LAYERS } from './icons/layers';
-import { MY_LOCATION_FILLED } from './icons/my-location-fill';
-import { PAUSE } from './icons/pause';
-import { PLAY } from './icons/play';
-import { SAVE } from './icons/save';
+import { RegisterIcons } from './icons/register-icons';
 import { MaterialModule } from './material.module';
 import { VSCodeRendererMessenger } from './services/vscode-renderer-messenger.service';
 
@@ -52,35 +46,7 @@ export class AppModule implements DoBootstrap {
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
-    this.registerIcons();
-  }
-
-  /**
-   * Adds custom icons for use in material
-   *
-   * This has been updated to directly include the SVG content
-   * instead of needing to load the SVGs via HTTP
-   */
-  registerIcons() {
-    // icons we load
-    const icons: { [key: string]: any } = {
-      'fast-forward': FAST_FORWARD,
-      'fast-rewind': FAST_REWIND,
-      layers: LAYERS,
-      my_location_fill: MY_LOCATION_FILLED,
-      pause: PAUSE,
-      play: PLAY,
-      save: SAVE,
-    };
-
-    // process all of our icons
-    const keys = Object.keys(icons);
-    for (let i = 0; i < keys.length; i++) {
-      this.matIconRegistry.addSvgIconLiteral(
-        keys[i],
-        this.domSanitizer.bypassSecurityTrustHtml(icons[keys[i]])
-      );
-    }
+    RegisterIcons(this.matIconRegistry, this.domSanitizer);
   }
 
   /**
