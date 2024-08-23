@@ -4,8 +4,15 @@ import {
   IDLNotebookFromRendererMessage,
   IDLNotebookFromRendererMessageType,
   IDLNotebookOutputMetadata,
+  IDLNotebookToRendererBaseMessage,
   IDLNotebookToRendererMessage,
+  IDLNotebookToRendererMessageType,
 } from '@idl/types/notebooks';
+import {
+  applyTheme,
+  argbFromHex,
+  themeFromSourceColor,
+} from '@material/material-color-utilities';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 import type { RendererContext } from 'vscode-notebook-renderer';
@@ -53,12 +60,44 @@ export class VSCodeRendererMessenger implements OnDestroy {
       this.canPostMessage() &&
       this.context.onDidReceiveMessage !== undefined
     ) {
-      this.context.onDidReceiveMessage((msg: IDLNotebookToRendererMessage) => {
-        if (msg.cellId === this.metadata.id) {
-          this.messages$.next(msg);
+      this.context.onDidReceiveMessage(
+        (
+          msg: IDLNotebookToRendererBaseMessage<IDLNotebookToRendererMessageType>
+        ) => {
+          switch (msg.type) {
+            case 'theme-change':
+              this.setMaterialTheme();
+              break;
+            default:
+              break;
+          }
+          // IDLNotebookRendererMessageBase
+          // if (msg.cellId === this.metadata.id) {
+          //   this.messages$.next(msg);
+          // }
         }
-      });
+      );
     }
+
+    // set material theme
+    this.setMaterialTheme();
+  }
+
+  /**
+   * Sets theme for our material components
+   *
+   * https://www.npmjs.com/package/@material/material-color-utilities
+   */
+  setMaterialTheme() {
+    const style = getComputedStyle(document.body);
+
+    // Get the theme from a hex color
+    const theme = themeFromSourceColor(
+      argbFromHex(style.getPropertyValue('--vscode-activityBar-foreground'))
+    );
+
+    // Apply the theme to the body by updating custom properties for material tokens
+    applyTheme(theme, { target: document.body, dark: this.darkTheme });
   }
 
   /**

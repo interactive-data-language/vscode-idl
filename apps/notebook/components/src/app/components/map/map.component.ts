@@ -18,7 +18,11 @@ import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenge
 import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
 import { CreateLayers } from './helpers/create-layers';
-import { ILayers } from './helpers/create-layers.interface';
+import {
+  NotebookMapLayers,
+  NotebookMapLayerType,
+} from './helpers/create-layers.interface';
+import { RecreateLayers } from './helpers/recreate-layers';
 
 /**
  * Initial view state
@@ -42,7 +46,7 @@ export const IDL_NB_MAP_COMPONENT_SELECTOR = 'idl-nb-map';
   templateUrl: './map.component.html',
   styles: [
     `
-      @import 'shared-styles.scss';
+      @import 'styles.scss';
 
       .map-container {
         width: 100%;
@@ -74,7 +78,7 @@ export class MapComponent
   private deck!: Deck;
 
   /** Current layers */
-  private layers!: ILayers;
+  layers!: NotebookMapLayers<NotebookMapLayerType>;
 
   /** Do we show the layers dialog */
   showLayers = false;
@@ -105,6 +109,47 @@ export class MapComponent
       this.deck.redraw();
     }
   };
+
+  /** Layer for the basemap */
+  baseMapLayer = new TileLayer({
+    data: this.messenger.darkTheme
+      ? `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`
+      : `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`,
+
+    minZoom: 0,
+    maxZoom: 16,
+    tileSize: 256,
+
+    renderSubLayers: (props) => {
+      return new BitmapLayer(props, {
+        data: undefined,
+        image: props.data,
+        bounds: [
+          props.tile.boundingBox[0][0],
+          props.tile.boundingBox[0][1],
+          props.tile.boundingBox[1][0],
+          props.tile.boundingBox[1][1],
+        ],
+      });
+    },
+
+    fetch: async (url) => {
+      // get value as bloc
+      const val = await firstValueFrom(
+        this.http.get(url, {
+          withCredentials: false,
+          responseType: 'blob',
+        })
+      );
+
+      // convert to data URI and display
+      return URL.createObjectURL(val);
+    },
+
+    onTileUnload: (tile) => {
+      URL.revokeObjectURL(tile.data);
+    },
+  });
 
   /**
    * We can access the latest data directly through our dataService which tracks
@@ -160,46 +205,8 @@ export class MapComponent
         //   }
         // },
         layers: [
-          new TileLayer({
-            data: this.messenger.darkTheme
-              ? `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`
-              : `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`,
-
-            minZoom: 0,
-            maxZoom: 16,
-            tileSize: 256,
-
-            renderSubLayers: (props) => {
-              return new BitmapLayer(props, {
-                data: undefined,
-                image: props.data,
-                bounds: [
-                  props.tile.boundingBox[0][0],
-                  props.tile.boundingBox[0][1],
-                  props.tile.boundingBox[1][0],
-                  props.tile.boundingBox[1][1],
-                ],
-              });
-            },
-
-            fetch: async (url) => {
-              // get value as bloc
-              const val = await firstValueFrom(
-                this.http.get(url, {
-                  withCredentials: false,
-                  responseType: 'blob',
-                })
-              );
-
-              // convert to data URI and display
-              return URL.createObjectURL(val);
-            },
-
-            onTileUnload: (tile) => {
-              URL.revokeObjectURL(tile.data);
-            },
-          }),
-          ...layers.layers,
+          this.baseMapLayer,
+          ...layers.layers.map((nbLayer) => nbLayer.layer),
         ],
       });
 
@@ -264,6 +271,15 @@ export class MapComponent
         }),
         transitionDuration: 'auto',
       },
+    });
+  }
+
+  /**
+   * Re-render layers because properties have changed
+   */
+  propertyChange() {
+    this.deck.setProps({
+      layers: [this.baseMapLayer, ...RecreateLayers(this.layers)],
     });
   }
 }

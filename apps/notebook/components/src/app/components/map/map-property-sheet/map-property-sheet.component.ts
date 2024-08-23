@@ -10,7 +10,7 @@ export const IDL_NB_MAP_PROPERTY_SHEET_SELECTOR = 'idl-nb-map-property-sheet';
   templateUrl: './map-property-sheet.component.html',
   styles: [
     `
-      @import 'shared-styles.scss';
+      @import 'styles.scss';
 
       table.property-sheet {
         max-height: 150px !important;

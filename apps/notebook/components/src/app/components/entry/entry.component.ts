@@ -17,8 +17,14 @@ import { DataSharingService } from '../data-sharing.service';
  */
 export const IDL_NB_ENTRY_COMPONENT_SELECTOR = 'idl-nb-entry';
 
+/**
+ * Class for rendered when not focused
+ */
 const DEFAULT_CLASS = 'vscode-outlined';
 
+/**
+ * Class for the renderer when focused
+ */
 const OUTLINED_CLASS = 'vscode-outlined-focus';
 
 /**
@@ -37,7 +43,6 @@ const OUTLINED_CLASS = 'vscode-outlined-focus';
   templateUrl: './entry.component.html',
   styles: [
     `
-      @import 'shared-styles.scss';
       @import 'styles.scss';
     `,
   ],

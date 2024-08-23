@@ -1,0 +1,14 @@
+<div fxLayout="row" fxLayoutAlign=" center">
+  <p style="padding-right: 10px">{{ layer.name }}</p>
+
+  <div class="custom-slider">
+    <input
+      style="width: 75px !important"
+      type="range"
+      [value]="opacity"
+      min="0"
+      max="100"
+      (input)="onOpacityChange($event)"
+    />
+  </div>
+</div>

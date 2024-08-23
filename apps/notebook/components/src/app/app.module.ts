@@ -1,3 +1,5 @@
+import '@material/web/all';
+
 import {
   provideHttpClient,
   withInterceptorsFromDi,
@@ -7,10 +9,6 @@ import { createCustomElement } from '@angular/elements';
 import { MatIconRegistry } from '@angular/material/icon';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MaterialCssVarsModule,
-  MaterialCssVarsService,
-} from 'angular-material-css-vars';
 
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
@@ -39,12 +37,10 @@ import { VSCodeRendererMessenger } from './services/vscode-renderer-messenger.se
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialCssVarsModule.forRoot({}),
     MaterialModule,
     ComponentsModule,
   ],
   providers: [
-    MaterialCssVarsService,
     VSCodeRendererMessenger,
     provideHttpClient(withInterceptorsFromDi()),
   ],
@@ -54,35 +50,9 @@ export class AppModule implements DoBootstrap {
     private injector: Injector,
     private appRef: ApplicationRef,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
-    private materialCssVarsService: MaterialCssVarsService
+    private domSanitizer: DomSanitizer
   ) {
     this.registerIcons();
-    // this.updateTheme();
-  }
-
-  /**
-   * Updates the theme based on current CSS variables
-   */
-  updateTheme() {
-    // get the body element
-    const body = document.body;
-
-    // get css class list
-    const classes = body.classList;
-
-    // flag if dark mode
-    const isDark = !classes.contains('vscode-light');
-
-    // get our colors
-    const accent = getComputedStyle(body).getPropertyValue(
-      '--vscode-activityBarBadge-background'
-    );
-
-    // set colors/themes/properties
-    this.materialCssVarsService.setDarkTheme(isDark);
-    // this.materialCssVarsService.setPrimaryColor(hex);
-    this.materialCssVarsService.setAccentColor(accent);
   }
 
   /**

@@ -115,6 +115,8 @@
     "@deck.gl/mesh-layers": "^9.0.27",
     "@jsverse/transloco": "^7.4.3",
     "@mapbox/geojson-extent": "^1.0.1",
+    "@material/material-color-utilities": "^0.3.0",
+    "@material/web": "^2.1.0",
     "@mdi/js": "^7.3.67",
     "@ngbracket/ngx-layout": "^18.0.0",
     "@nx/angular": "19.5.7",
