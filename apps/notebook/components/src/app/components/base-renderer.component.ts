@@ -1,8 +1,9 @@
-import { Component, Input, SkipSelf } from '@angular/core';
+import { Component, Input, OnDestroy, SkipSelf } from '@angular/core';
 import {
   IDLNotebook_EmbedType,
   IDLNotebookEmbeddedItem,
 } from '@idl/types/notebooks';
+import { Subscription } from 'rxjs';
 
 import { VSCodeRendererMessenger } from '../services/vscode-renderer-messenger.service';
 import { DataSharingService } from './data-sharing.service';
@@ -12,7 +13,9 @@ import { DataSharingService } from './data-sharing.service';
   template: ` <p>base works!</p> `,
   styles: [],
 })
-export class BaseRendererComponent<T extends IDLNotebook_EmbedType> {
+export class BaseRendererComponent<T extends IDLNotebook_EmbedType>
+  implements OnDestroy
+{
   /**
    * Track if we set data or not
    */
@@ -39,6 +42,11 @@ export class BaseRendererComponent<T extends IDLNotebook_EmbedType> {
   messenger: VSCodeRendererMessenger;
 
   /**
+   * Subscriptions that we need to clean up
+   */
+  _subscriptions = new Subscription();
+
+  /**
    * Item we are embedding
    *
    * Use set to we can properly type because the ngSwitch case does not
@@ -57,5 +65,9 @@ export class BaseRendererComponent<T extends IDLNotebook_EmbedType> {
     this.dataService = dataService;
     this.messenger = messenger;
     this.canMessage = messenger.canPostMessage();
+  }
+
+  ngOnDestroy() {
+    this._subscriptions.unsubscribe();
   }
 }

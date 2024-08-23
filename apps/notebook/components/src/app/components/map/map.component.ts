@@ -110,46 +110,8 @@ export class MapComponent
     }
   };
 
-  /** Layer for the basemap */
-  baseMapLayer = new TileLayer({
-    data: this.messenger.darkTheme
-      ? `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`
-      : `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`,
-
-    minZoom: 0,
-    maxZoom: 16,
-    tileSize: 256,
-
-    renderSubLayers: (props) => {
-      return new BitmapLayer(props, {
-        data: undefined,
-        image: props.data,
-        bounds: [
-          props.tile.boundingBox[0][0],
-          props.tile.boundingBox[0][1],
-          props.tile.boundingBox[1][0],
-          props.tile.boundingBox[1][1],
-        ],
-      });
-    },
-
-    fetch: async (url) => {
-      // get value as bloc
-      const val = await firstValueFrom(
-        this.http.get(url, {
-          withCredentials: false,
-          responseType: 'blob',
-        })
-      );
-
-      // convert to data URI and display
-      return URL.createObjectURL(val);
-    },
-
-    onTileUnload: (tile) => {
-      URL.revokeObjectURL(tile.data);
-    },
-  });
+  /** Layer for the base map */
+  baseMapLayer = this.createBaseMapLayer();
 
   /**
    * We can access the latest data directly through our dataService which tracks
@@ -163,9 +125,61 @@ export class MapComponent
   ) {
     super(dataService, messenger);
     window.addEventListener('resize', this.resizeCb);
+    this._subscriptions.add(
+      this.messenger.themeChange$.subscribe((isDark) => {
+        this.baseMapLayer = this.createBaseMapLayer();
+        this.propertyChange();
+      })
+    );
   }
 
-  ngOnDestroy() {
+  /**
+   * Creates our basemap layer
+   */
+  createBaseMapLayer() {
+    return new TileLayer({
+      data: this.messenger.darkTheme
+        ? `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`
+        : `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`,
+
+      minZoom: 0,
+      maxZoom: 16,
+      tileSize: 256,
+
+      renderSubLayers: (props) => {
+        return new BitmapLayer(props, {
+          data: undefined,
+          image: props.data,
+          bounds: [
+            props.tile.boundingBox[0][0],
+            props.tile.boundingBox[0][1],
+            props.tile.boundingBox[1][0],
+            props.tile.boundingBox[1][1],
+          ],
+        });
+      },
+
+      fetch: async (url) => {
+        // get value as bloc
+        const val = await firstValueFrom(
+          this.http.get(url, {
+            withCredentials: false,
+            responseType: 'blob',
+          })
+        );
+
+        // convert to data URI and display
+        return URL.createObjectURL(val);
+      },
+
+      onTileUnload: (tile) => {
+        URL.revokeObjectURL(tile.data);
+      },
+    });
+  }
+
+  override ngOnDestroy() {
+    super.ngOnDestroy();
     window.removeEventListener('resize', this.resizeCb);
     window.clearInterval(this.interval);
   }

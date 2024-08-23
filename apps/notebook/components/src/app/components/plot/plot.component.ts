@@ -114,7 +114,8 @@ export class PlotComponent
   /**
    * Remove callbacks to prevent memory leaks
    */
-  ngOnDestroy() {
+  override ngOnDestroy() {
+    super.ngOnDestroy();
     window.removeEventListener('resize', this.resizeCb);
     if (this.hasData) {
       this.hasData = false;

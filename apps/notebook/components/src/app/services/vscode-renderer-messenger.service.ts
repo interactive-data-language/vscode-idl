@@ -38,6 +38,13 @@ export class VSCodeRendererMessenger implements OnDestroy {
    */
   messages$ = new Subject<IDLNotebookToRendererMessage>();
 
+  /**
+   * Observable that emits when the VSCode theme changes
+   *
+   * Sends a boolean flag if dark theme or not
+   */
+  themeChange$ = new Subject<boolean>();
+
   /** If we have a light or dark theme */
   darkTheme = true;
 
@@ -64,6 +71,10 @@ export class VSCodeRendererMessenger implements OnDestroy {
         (
           msg: IDLNotebookToRendererBaseMessage<IDLNotebookToRendererMessageType>
         ) => {
+          // update dark theme flag
+          this.darkTheme = !document.body.classList.contains('vscode-light');
+
+          // handle message
           switch (msg.type) {
             case 'theme-change':
               this.setMaterialTheme();
@@ -75,6 +86,9 @@ export class VSCodeRendererMessenger implements OnDestroy {
           // if (msg.cellId === this.metadata.id) {
           //   this.messages$.next(msg);
           // }
+
+          // send event
+          this.themeChange$.next(this.darkTheme);
         }
       );
     }
@@ -106,6 +120,7 @@ export class VSCodeRendererMessenger implements OnDestroy {
   ngOnDestroy() {
     // clean up observable
     this.messages$.complete();
+    this.themeChange$.complete();
   }
 
   /**
