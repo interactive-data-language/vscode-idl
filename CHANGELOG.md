@@ -23,6 +23,8 @@ Added layer controls to the Notebook Map.
 - Generic title for each layer (raster/vector)
 - Slider to make transparent or not
 
+Layers have a handle which allows you to use drag and drop to re-order the layers
+
 Notebook maps now listen to theme changes from VSCode and, when swapping between light and dark themes, the basemap will update to match the theme of VSCode (light map for light theme; dark map for dark theme)
 
 ## 4.6.0 - August 2024

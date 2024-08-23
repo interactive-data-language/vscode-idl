@@ -14,6 +14,10 @@ $cell-height-limit: 500px;
   // color: var(--vscode-activityBar-foreground);
 }
 
+.drag-me {
+  cursor: move;
+}
+
 .renderer-toolbar {
   margin-bottom: 15px;
 }

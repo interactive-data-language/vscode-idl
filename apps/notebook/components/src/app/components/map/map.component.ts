@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
@@ -295,5 +296,17 @@ export class MapComponent
     this.deck.setProps({
       layers: [this.baseMapLayer, ...RecreateLayers(this.layers)],
     });
+  }
+
+  /**
+   * Handle drop events
+   */
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.layers.layers,
+      event.previousIndex,
+      event.currentIndex
+    );
+    this.propertyChange();
   }
 }

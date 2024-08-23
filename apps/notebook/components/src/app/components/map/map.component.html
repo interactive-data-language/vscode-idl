@@ -12,11 +12,21 @@
     >
       <!-- display layers -->
       <div *ngIf="layers !== undefined; else elseBlock">
-        <idl-map-layer-card
-          *ngFor="let iLayer of layers.layers; let idx = index"
-          (propChange)="propertyChange()"
-          [layer]="iLayer"
-        ></idl-map-layer-card>
+        <div
+          cdkDropList
+          (cdkDropListDropped)="drop($event)"
+          cdkDragLockAxis="y"
+        >
+          @for (iLayer of layers.layers; track iLayer) {
+          <div fxLayout="row" fxLayoutAlign=" center">
+            <!-- cdkDrag is on the map layer card -->
+            <idl-map-layer-card
+              (propChange)="propertyChange()"
+              [layer]="iLayer"
+            ></idl-map-layer-card>
+          </div>
+          }
+        </div>
       </div>
 
       <!-- alert user if no map layers -->
