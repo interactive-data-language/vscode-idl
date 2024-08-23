@@ -4,7 +4,6 @@ import { GeoJsonLayer } from '@deck.gl/layers';
 import { CreateImage } from './create-image';
 import {
   NotebookMapLayer,
-  NotebookMapLayers,
   NotebookMapLayerType,
 } from './create-layers.interface';
 
@@ -12,16 +11,16 @@ import {
  * Regenerates layers
  */
 export function RecreateLayers(
-  layers: NotebookMapLayers<NotebookMapLayerType>
+  layers: NotebookMapLayer<NotebookMapLayerType>[]
 ): Layer[] {
   /** Layers for deck.gl */
   const deckLayers: Layer[] = [];
 
   // process all layers
-  for (let i = 0; i < layers.layers.length; i++) {
-    switch (layers.layers[i].type) {
+  for (let i = 0; i < layers.length; i++) {
+    switch (layers[i].type) {
       case 'geojson': {
-        const typed = layers.layers[i] as any as NotebookMapLayer<'geojson'>;
+        const typed = layers[i] as any as NotebookMapLayer<'geojson'>;
         deckLayers.push(
           new GeoJsonLayer({
             id: typed.layer.id,
@@ -36,7 +35,7 @@ export function RecreateLayers(
         break;
       }
       case 'image': {
-        const typed = layers.layers[i] as any as NotebookMapLayer<'image'>;
+        const typed = layers[i] as any as NotebookMapLayer<'image'>;
         deckLayers.push(CreateImage(typed.embed, typed.props));
         break;
       }

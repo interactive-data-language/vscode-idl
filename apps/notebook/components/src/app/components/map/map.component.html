@@ -15,7 +15,8 @@
         <div
           cdkDropList
           (cdkDropListDropped)="drop($event)"
-          cdkDragLockAxis="y"
+          (cdkDropListSorted)="dragging($event)"
+          cdkDropListLockAxis="y"
         >
           @for (iLayer of layers.layers; track iLayer) {
           <div fxLayout="row" fxLayoutAlign=" center">

@@ -1,4 +1,8 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  CdkDragSortEvent,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
@@ -20,6 +24,7 @@ import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
 import { CreateLayers } from './helpers/create-layers';
 import {
+  NotebookMapLayer,
   NotebookMapLayers,
   NotebookMapLayerType,
 } from './helpers/create-layers.interface';
@@ -111,6 +116,11 @@ export class MapComponent
     }
   };
 
+  /**
+   * Temporary map layers for drag and drop while dragging
+   */
+  tmpLayers?: NotebookMapLayer<NotebookMapLayerType>[];
+
   /** Layer for the base map */
   baseMapLayer = this.createBaseMapLayer();
 
@@ -179,12 +189,9 @@ export class MapComponent
     });
   }
 
-  override ngOnDestroy() {
-    super.ngOnDestroy();
-    window.removeEventListener('resize', this.resizeCb);
-    window.clearInterval(this.interval);
-  }
-
+  /**
+   * Set up view after initialized if we have data
+   */
   ngAfterViewInit() {
     if (this.hasData) {
       /**
@@ -228,6 +235,13 @@ export class MapComponent
       // manually trigger a re-draw which seems to help when display stays black
       this.deck.redraw();
     }
+  }
+
+  /** Cleanup */
+  override ngOnDestroy() {
+    super.ngOnDestroy();
+    window.removeEventListener('resize', this.resizeCb);
+    window.clearInterval(this.interval);
   }
 
   /**
@@ -292,9 +306,12 @@ export class MapComponent
   /**
    * Re-render layers because properties have changed
    */
-  propertyChange() {
+  propertyChange(layers?: NotebookMapLayer<NotebookMapLayerType>[]) {
     this.deck.setProps({
-      layers: [this.baseMapLayer, ...RecreateLayers(this.layers)],
+      layers: [
+        this.baseMapLayer,
+        ...RecreateLayers(Array.isArray(layers) ? layers : this.layers.layers),
+      ],
     });
   }
 
@@ -302,11 +319,33 @@ export class MapComponent
    * Handle drop events
    */
   drop(event: CdkDragDrop<string[]>) {
+    // move data
     moveItemInArray(
       this.layers.layers,
       event.previousIndex,
       event.currentIndex
     );
+
+    // update deck
     this.propertyChange();
+
+    // clear temp layers
+    this.tmpLayers = undefined;
+  }
+
+  /**
+   * Handle drop events
+   */
+  dragging(event: CdkDragSortEvent<string[]>) {
+    // copy layers while we drag so we dont mess up original data
+    if (this.tmpLayers === undefined) {
+      this.tmpLayers = copy(this.layers.layers);
+    }
+
+    // move
+    moveItemInArray(this.tmpLayers, event.previousIndex, event.currentIndex);
+
+    // update display
+    this.propertyChange(this.tmpLayers);
   }
 }
