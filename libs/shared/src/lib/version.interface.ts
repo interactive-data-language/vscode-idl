@@ -1,4 +1,4 @@
 /**
  * Version of the extension
  */
-export const VERSION = '4.6.0';
+export const VERSION = '4.6.1';
