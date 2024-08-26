@@ -234,6 +234,9 @@ export class MapComponent
 
       // manually trigger a re-draw which seems to help when display stays black
       this.deck.redraw();
+
+      // reverse our layers so that we can have the right order in the layers tab
+      this.layers.layers.reverse();
     }
   }
 
@@ -305,12 +308,16 @@ export class MapComponent
 
   /**
    * Re-render layers because properties have changed
+   *
+   * We reverse the layers here because we need the layers in the UI to appear correct
    */
   propertyChange(layers?: NotebookMapLayer<NotebookMapLayerType>[]) {
     this.deck.setProps({
       layers: [
         this.baseMapLayer,
-        ...RecreateLayers(Array.isArray(layers) ? layers : this.layers.layers),
+        ...RecreateLayers(
+          Array.isArray(layers) ? layers : this.layers.layers
+        ).reverse(),
       ],
     });
   }
