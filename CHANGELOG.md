@@ -16,7 +16,7 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
-## Unreleased
+## 4.6.1 - September 2024
 
 Added layer controls to the Notebook Map.
 
