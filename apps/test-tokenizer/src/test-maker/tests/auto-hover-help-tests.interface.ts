@@ -67,6 +67,32 @@ export const AUTO_HOVER_HELP_TESTS: IHoverHelpTests[] = [
     ],
   },
   {
+    suiteName: `Basic checks for call_procedure hover help`,
+    fileName: `call-procedure.1.spec.ts`,
+    tests: [
+      {
+        name: `for function`,
+        file: `idl/test/hover-help/call_procedure.pro`,
+        position: [
+          {
+            line: 3,
+            character: 7,
+          },
+        ],
+      },
+      {
+        name: `for keywords`,
+        file: `idl/test/hover-help/call_procedure.pro`,
+        position: [
+          {
+            line: 3,
+            character: 29,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly get hover help`,
     fileName: `comment-regression.spec.ts`,
     tests: [
