@@ -8,7 +8,7 @@ import { basename } from 'path';
 
 import { IDLIndex } from '../../../../../idl-index.class';
 import { EvaluateToken } from '../../../evaluate/evaluate-token';
-import { TypeFromVariable } from '../../type-from-variable';
+import { EvaluateVariableOrToken } from '../../helpers/evaluate-variable-or-token';
 
 /**
  * Attempt to determine the type of task that we are working with
@@ -33,20 +33,7 @@ export function TypeFromTask(
    */
   switch (kids.length) {
     case 1: {
-      /**
-       * Get our first child
-       */
-      const kid = kids[0];
-
-      // check what our kid is
-      switch (kid.name) {
-        case TOKEN_NAMES.VARIABLE:
-          taskName = TypeFromVariable(index, parsed, kid)[0].value;
-          break;
-        default:
-          taskName = EvaluateToken(kids[0]);
-          break;
-      }
+      taskName = EvaluateVariableOrToken(index, parsed, kids[0]);
       break;
     }
     default: {

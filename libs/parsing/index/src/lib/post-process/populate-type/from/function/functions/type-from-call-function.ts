@@ -1,7 +1,8 @@
-import { TreeToken } from '@idl/parsing/syntax-tree';
+import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { CallFunctionToken } from '@idl/tokenizer';
 
-import { EvaluateToken } from '../../../evaluate/evaluate-token';
+import { IDLIndex } from '../../../../../idl-index.class';
+import { TypeFromFirstArg } from '../../helpers/type-from-first-arg';
 
 /**
  * Return the name of the function being called from a `call_function` function
@@ -9,23 +10,9 @@ import { EvaluateToken } from '../../../evaluate/evaluate-token';
  *
  */
 export function TypeFromCallFunction(
+  index: IDLIndex,
+  parsed: IParsed,
   token: TreeToken<CallFunctionToken>
 ): string {
-  // get children
-  const kids = token.kids;
-
-  switch (true) {
-    case kids.length > 0: {
-      const value = EvaluateToken(kids[0]);
-      if (value !== undefined) {
-        return value;
-      }
-      break;
-    }
-    default:
-      break;
-  }
-
-  // unsure, so return default task
-  return undefined;
+  return TypeFromFirstArg(index, parsed, token);
 }
