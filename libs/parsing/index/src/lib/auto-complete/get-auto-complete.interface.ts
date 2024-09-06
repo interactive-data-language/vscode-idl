@@ -19,7 +19,7 @@ CAN_PROCEDURE_HERE[TOKEN_NAMES.LOGICAL_EXPRESSION_DEFAULT] = true;
 
 /** Where can we send completion for procedures? */
 export const PROCEDURES: { [key: string]: boolean } = { ...CAN_PROCEDURE_HERE };
-PROCEDURES[TOKEN_NAMES.CALL_PROCEDURE] = true;
+// PROCEDURES[TOKEN_NAMES.CALL_PROCEDURE] = true;
 PROCEDURES[TOKEN_NAMES.CALL_LAMBDA_FUNCTION] = true;
 
 /** Function tokens for customized property behavior */

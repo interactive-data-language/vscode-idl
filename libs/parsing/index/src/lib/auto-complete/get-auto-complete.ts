@@ -31,6 +31,8 @@ import { AddCompletionProperties } from './completion-for/add-completion-propert
 import { AddCompletionPropertiesInStructures } from './completion-for/add-completion-properties-in-structures';
 import { AddCompletionSpecialFunctions } from './completion-for/add-completion-special-functions';
 import { SPECIAL_FUNCTION_REGEX } from './completion-for/add-completion-special-functions.interface';
+import { AddCompletionSpecialProcedures } from './completion-for/add-completion-special-procedures';
+import { SPECIAL_PROCEDURE_REGEX } from './completion-for/add-completion-special-procedures.interface';
 import { AddCompletionStructureNames } from './completion-for/add-completion-structure-names';
 import { AddCompletionSystemVariables } from './completion-for/add-completion-system-variables';
 import { AddCompletionVariables } from './completion-for/add-completion-variables';
@@ -133,13 +135,23 @@ export async function GetAutoComplete(
      */
     switch (true) {
       /**
-       * Custom auto-complete in ENVI or IDL task
+       * Custom auto-complete functions where we have literal values
        */
       case token?.scope[token.scope.length - 1] === TOKEN_NAMES.CALL_FUNCTION &&
         SPECIAL_FUNCTION_REGEX.test(
           token?.scopeTokens[token.scope.length - 1]?.match[0]
         ):
         AddCompletionSpecialFunctions(items, index, token, formatting);
+        return items;
+      /**
+       * Custom auto-complete procedures where we have literal values
+       */
+      case token?.scope[token.scope.length - 1] ===
+        TOKEN_NAMES.CALL_PROCEDURE &&
+        SPECIAL_PROCEDURE_REGEX.test(
+          token?.scopeTokens[token.scope.length - 1]?.match[0]
+        ):
+        AddCompletionSpecialProcedures(items, index, token, formatting);
         return items;
       case token?.name in SKIP_THESE_TOKENS ||
         local?.name in SKIP_THESE_PARENTS:
@@ -385,7 +397,10 @@ export async function GetAutoComplete(
         }
 
         // check if we can send procedures or if it needs to be functions
-        if (token?.name in PROCEDURES) {
+        if (
+          token?.name in PROCEDURES ||
+          (isWithinStart && token?.name === TOKEN_NAMES.CALL_PROCEDURE)
+        ) {
           AddCompletionProcedures(items, formatting);
         } else {
           AddCompletionFunctions(items, formatting, addParen);

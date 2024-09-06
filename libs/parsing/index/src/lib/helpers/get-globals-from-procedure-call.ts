@@ -28,7 +28,7 @@ export function GetGlobalsFromProcedureCall(
   switch (true) {
     case proName === 'obj_destroy': {
       let type = TypeFromFirstArg(index, parsed, local);
-      if (type === IDL_TYPE_LOOKUP.ANY) {
+      if (!type || type === IDL_TYPE_LOOKUP.ANY) {
         type = undefined;
       }
 
@@ -51,7 +51,7 @@ export function GetGlobalsFromProcedureCall(
     }
     case proName === 'call_procedure': {
       let type = TypeFromFirstArg(index, parsed, local);
-      if (type === IDL_TYPE_LOOKUP.ANY) {
+      if (!type || type === IDL_TYPE_LOOKUP.ANY) {
         type = undefined;
       }
 

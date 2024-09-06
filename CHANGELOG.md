@@ -29,6 +29,10 @@ Notebook maps now listen to theme changes from VSCode and, when swapping between
 
 Fixed an issue where we weren't properly detecting keywords for `obj_destroy` when a custom object class had a `::cleanup` method present
 
+Fixed a bug with auto-complete where, instead of variables, arguments, or functions, you would end up with procedures being suggested inside of a procedure call.
+
+Similar to `call_function()` and `obj_new()`, add special auto-complete for `call_procedure` to give you the list of procedure names with string literals
+
 ## 4.6.0 - August 2024
 
 Fixed an issue where we open a file that we have stopped in, even if it is compiled as a SAVE file. Now, only PRO files will be jumped to.

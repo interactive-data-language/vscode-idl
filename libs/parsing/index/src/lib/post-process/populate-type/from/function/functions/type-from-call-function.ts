@@ -16,5 +16,5 @@ export function TypeFromCallFunction(
   token: TreeToken<CallFunctionToken>
 ): string {
   const type = TypeFromFirstArg(index, parsed, token);
-  return type !== IDL_TYPE_LOOKUP.ANY ? type : undefined;
+  return type && type !== IDL_TYPE_LOOKUP.ANY ? type : undefined;
 }

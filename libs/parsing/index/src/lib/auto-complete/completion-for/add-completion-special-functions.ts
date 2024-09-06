@@ -2,7 +2,7 @@ import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TaskNameOnly, TreeToken } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
+import { TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
@@ -11,18 +11,11 @@ import { IDLIndex } from '../../idl-index.class';
 import { EvaluateToken } from '../../post-process/populate-type/evaluate/evaluate-token';
 import { SORT_PRIORITY } from '../sort-priority.interface';
 import {
+  ALLOWED_SPECIAL_COMPLETION,
   ENVI_TASK_REGEX,
   IDL_TASK_REGEX,
 } from './add-completion-special-functions.interface';
 import { AddCompletionStructureNames } from './add-completion-structure-names';
-
-/**
- * Track tokens that we can do task completion for
- */
-export const ALLOWED_TASK_COMPLETION: { [key: string]: undefined } = {};
-ALLOWED_TASK_COMPLETION[TOKEN_NAMES.QUOTE_SINGLE] = undefined;
-ALLOWED_TASK_COMPLETION[TOKEN_NAMES.QUOTE_DOUBLE] = undefined;
-ALLOWED_TASK_COMPLETION[TOKEN_NAMES.STRING_TEMPLATE_LITERAL] = undefined;
 
 /**
  * Display names for functions
@@ -41,7 +34,7 @@ export function AddCompletionSpecialFunctions(
   /**
    * Filter tokens that are not the first child or in our white list
    */
-  if (!(token.name in ALLOWED_TASK_COMPLETION) || token.idx !== 0) {
+  if (!(token.name in ALLOWED_SPECIAL_COMPLETION) || token.idx !== 0) {
     return;
   }
 
