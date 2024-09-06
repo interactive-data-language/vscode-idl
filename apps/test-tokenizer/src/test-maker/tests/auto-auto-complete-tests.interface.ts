@@ -593,6 +593,22 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Correctly return auto-complete from obj-destroy`,
+    fileName: `obj-destroy.spec.ts`,
+    tests: [
+      {
+        name: `real`,
+        file: `idl/test/auto-complete/obj_destroy.pro`,
+        position: [
+          {
+            line: 23,
+            character: 21,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly return auto-complete from obj-new`,
     fileName: `obj-new.spec.ts`,
     tests: [

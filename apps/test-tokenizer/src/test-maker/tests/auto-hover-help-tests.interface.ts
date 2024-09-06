@@ -307,6 +307,32 @@ export const AUTO_HOVER_HELP_TESTS: IHoverHelpTests[] = [
     ],
   },
   {
+    suiteName: `Correctly find find definition from obj destroy`,
+    fileName: `obj-destroy.spec.ts`,
+    tests: [
+      {
+        name: `case 1`,
+        file: `idl/test/hover-help/obj_destroy.pro`,
+        position: [
+          {
+            line: 23,
+            character: 8,
+          },
+        ],
+      },
+      {
+        name: `keywords`,
+        file: `idl/test/hover-help/obj_destroy.pro`,
+        position: [
+          {
+            line: 23,
+            character: 24,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly find find definition from obj new`,
     fileName: `obj-new.spec.ts`,
     tests: [
