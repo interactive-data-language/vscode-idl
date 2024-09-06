@@ -35,13 +35,9 @@ export function GetGlobalsFromFunctionCall(
       break;
     }
     case findThis === 'call_function': {
-      /** Get the class that is being initialized */
-      const className = TypeFromCallFunction(index, parsed, local);
-
-      // if the class is not "any" then use that as the function
-      // or init method
-      if (className) {
-        findThis = className;
+      const functionName = TypeFromCallFunction(index, parsed, local);
+      if (functionName) {
+        findThis = functionName;
       }
       break;
     }

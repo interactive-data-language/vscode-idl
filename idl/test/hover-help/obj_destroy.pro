@@ -22,4 +22,6 @@ pro test
   obj = obj_new('TestClass', 1)
 
   obj_destroy, obj, /keyword 
+
+  obj_destroy
 end

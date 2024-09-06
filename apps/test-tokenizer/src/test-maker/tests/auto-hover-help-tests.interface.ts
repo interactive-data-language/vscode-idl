@@ -330,6 +330,16 @@ export const AUTO_HOVER_HELP_TESTS: IHoverHelpTests[] = [
           },
         ],
       },
+      {
+        name: `no arguments and default to normal`,
+        file: `idl/test/hover-help/obj_destroy.pro`,
+        position: [
+          {
+            line: 25,
+            character: 7,
+          },
+        ],
+      },
     ],
   },
   {

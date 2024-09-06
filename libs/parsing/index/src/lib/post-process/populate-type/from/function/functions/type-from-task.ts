@@ -4,6 +4,7 @@ import {
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { CallFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { IDL_TYPE_LOOKUP } from '@idl/types/core';
 import { basename } from 'path';
 
 import { IDLIndex } from '../../../../../idl-index.class';
@@ -34,6 +35,9 @@ export function TypeFromTask(
   switch (kids.length) {
     case 1: {
       taskName = EvaluateVariableOrToken(index, parsed, kids[0]);
+      if (taskName === IDL_TYPE_LOOKUP.ANY) {
+        taskName = undefined;
+      }
       break;
     }
     default: {

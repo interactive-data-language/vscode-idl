@@ -1,5 +1,6 @@
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { CallFunctionToken } from '@idl/tokenizer';
+import { IDL_TYPE_LOOKUP } from '@idl/types/core';
 
 import { IDLIndex } from '../../../../../idl-index.class';
 import { TypeFromFirstArg } from '../../helpers/type-from-first-arg';
@@ -14,5 +15,6 @@ export function TypeFromCallFunction(
   parsed: IParsed,
   token: TreeToken<CallFunctionToken>
 ): string {
-  return TypeFromFirstArg(index, parsed, token);
+  const type = TypeFromFirstArg(index, parsed, token);
+  return type !== IDL_TYPE_LOOKUP.ANY ? type : undefined;
 }

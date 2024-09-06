@@ -1,6 +1,10 @@
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { CallProcedureToken } from '@idl/tokenizer';
-import { GLOBAL_TOKEN_TYPES, GlobalIndexedRoutineToken } from '@idl/types/core';
+import {
+  GLOBAL_TOKEN_TYPES,
+  GlobalIndexedRoutineToken,
+  IDL_TYPE_LOOKUP,
+} from '@idl/types/core';
 
 import { IDLIndex } from '../idl-index.class';
 import { TypeFromFirstArg } from '../post-process/populate-type/from/helpers/type-from-first-arg';
@@ -23,7 +27,10 @@ export function GetGlobalsFromProcedureCall(
 
   switch (true) {
     case proName === 'obj_destroy': {
-      const type = TypeFromFirstArg(index, parsed, local);
+      let type = TypeFromFirstArg(index, parsed, local);
+      if (type === IDL_TYPE_LOOKUP.ANY) {
+        type = undefined;
+      }
 
       // if we have a type, search
       if (type !== undefined) {
@@ -43,11 +50,14 @@ export function GetGlobalsFromProcedureCall(
       break;
     }
     case proName === 'call_procedure': {
-      const type = TypeFromFirstArg(index, parsed, local);
+      let type = TypeFromFirstArg(index, parsed, local);
+      if (type === IDL_TYPE_LOOKUP.ANY) {
+        type = undefined;
+      }
 
       global = index.findMatchingGlobalToken(
         GLOBAL_TOKEN_TYPES.PROCEDURE,
-        type
+        type !== undefined ? type : proName
       );
       break;
     }
