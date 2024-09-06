@@ -27,6 +27,8 @@ Layers have a handle which allows you to use drag and drop to re-order them. As 
 
 Notebook maps now listen to theme changes from VSCode and, when swapping between light and dark themes, the basemap will update to match the theme of VSCode (light map for light theme; dark map for dark theme)
 
+Fixed an issue where we weren't properly detecting keywords for `obj_destroy` when a custom object class had a `::cleanup` method present
+
 ## 4.6.0 - August 2024
 
 Fixed an issue where we open a file that we have stopped in, even if it is compiled as a SAVE file. Now, only PRO files will be jumped to.
