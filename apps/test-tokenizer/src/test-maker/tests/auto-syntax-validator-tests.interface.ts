@@ -3889,6 +3889,15 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `no err`,
+        code: [
+          `compile_opt idl2`,
+          `sign = hash('N', 1, 'S', -1, 'E', 1, 'W', -1)`,
+          `num = 1.0 * sign[strmid(fooeyfunc(), 1, 1)]`,
+          `end`,
+        ],
+      },
     ],
   },
   {
@@ -3913,6 +3922,15 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `no err`,
+        code: [
+          `compile_opt idl2`,
+          `sign = orderedhash('N', 1, 'S', -1, 'E', 1, 'W', -1)`,
+          `num = 1.0 * sign[strmid(fooeyfunc(), 1, 1)]`,
+          `end`,
+        ],
+      },
     ],
   },
   {
@@ -3934,6 +3952,15 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `d = dictionary() + orderedhash()`,
           ``,
           `e = dictionary() + dictionary()`,
+          `end`,
+        ],
+      },
+      {
+        name: `no err`,
+        code: [
+          `compile_opt idl2`,
+          `sign = dictionary('N', 1, 'S', -1, 'E', 1, 'W', -1)`,
+          `num = 1.0 * sign[strmid(fooeyfunc(), 1, 1)]`,
           `end`,
         ],
       },
@@ -4145,6 +4172,17 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           ``,
           `  ; union of type args`,
           `  g = *arg6`,
+          `end`,
+        ],
+      },
+      {
+        name: `no problems`,
+        code: [
+          `function TestClass::get, which`,
+          `  compile_opt idl2`,
+          `  retval = which eq 'foo' ? *self.foo : *self.bar`,
+          ``,
+          `  return, retval`,
           `end`,
         ],
       },

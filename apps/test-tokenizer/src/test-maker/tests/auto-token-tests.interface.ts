@@ -454,6 +454,10 @@ export const AUTO_TOKEN_TESTS: IAutoTest[] = [
         name: `ternary works in braces as expected`,
         code: [`_17 = arr[!true ? 0 : -3: -1]`],
       },
+      {
+        name: `capture trailing properties`,
+        code: [`retval = !true ? *self.foo : *self.bar`],
+      },
     ],
   },
   {

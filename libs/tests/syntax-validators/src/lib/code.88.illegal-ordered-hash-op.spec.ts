@@ -100,4 +100,55 @@ describe(`[auto generated] Illegal ordered hash`, () => {
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] no err`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `compile_opt idl2`,
+      `sign = orderedhash('N', 1, 'S', -1, 'E', 1, 'W', -1)`,
+      `num = 1.0 * sign[strmid(fooeyfunc(), 1, 1)]`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 88,
+        info: 'Illegal use of ordered hashes. When using operators with ordered hashes, all other arguments must be of type hash, ordered hash, or dictionaries',
+        start: [2, 6, 3],
+        end: [2, 42, 1],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "num"',
+        start: [2, 0, 3],
+        end: [2, 0, 3],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });

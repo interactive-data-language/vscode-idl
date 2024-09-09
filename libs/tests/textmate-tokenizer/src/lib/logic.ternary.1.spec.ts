@@ -1100,4 +1100,116 @@ describe(`[auto generated] Validates for ternary statement parsing`, () => {
     ];
     expect(expected).toEqual(tokenized);
   });
+
+  it(`[auto generated] capture trailing properties`, async () => {
+    // test code to extract tokens from
+    const code = [`retval = !true ? *self.foo : *self.bar`];
+
+    // extract tokens
+    const tokenized = await TextMateParse(code);
+
+    // define expected tokens
+    const expected = [
+      {
+        line: 0,
+        match: 'retval',
+        startIndex: 0,
+        endIndex: 6,
+        scopes: ['source.idl', 'variable.other.readwrite.ts.idl'],
+      },
+      {
+        line: 0,
+        match: '=',
+        startIndex: 7,
+        endIndex: 8,
+        scopes: ['source.idl', 'group.assignment.idl', 'keyword.operator.idl'],
+      },
+      {
+        line: 0,
+        match: '!true',
+        startIndex: 9,
+        endIndex: 14,
+        scopes: ['source.idl', 'group.assignment.idl', 'constant.language.idl'],
+      },
+      {
+        line: 0,
+        match: '?',
+        startIndex: 15,
+        endIndex: 16,
+        scopes: ['source.idl', 'group.assignment.idl', 'keyword.control.idl'],
+      },
+      {
+        line: 0,
+        match: '*',
+        startIndex: 17,
+        endIndex: 18,
+        scopes: ['source.idl', 'group.assignment.idl', 'keyword.operator.idl'],
+      },
+      {
+        line: 0,
+        match: 'self',
+        startIndex: 18,
+        endIndex: 22,
+        scopes: ['source.idl', 'group.assignment.idl', 'entity.name.type.idl'],
+      },
+      {
+        line: 0,
+        match: '.',
+        startIndex: 22,
+        endIndex: 23,
+        scopes: ['source.idl', 'group.assignment.idl'],
+      },
+      {
+        line: 0,
+        match: 'foo',
+        startIndex: 23,
+        endIndex: 26,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'entity.other.attribute-name.idl',
+        ],
+      },
+      {
+        line: 0,
+        match: ' : ',
+        startIndex: 26,
+        endIndex: 29,
+        scopes: ['source.idl', 'group.assignment.idl', 'keyword.control.idl'],
+      },
+      {
+        line: 0,
+        match: '*',
+        startIndex: 29,
+        endIndex: 30,
+        scopes: ['source.idl', 'group.assignment.idl', 'keyword.operator.idl'],
+      },
+      {
+        line: 0,
+        match: 'self',
+        startIndex: 30,
+        endIndex: 34,
+        scopes: ['source.idl', 'group.assignment.idl', 'entity.name.type.idl'],
+      },
+      {
+        line: 0,
+        match: '.',
+        startIndex: 34,
+        endIndex: 35,
+        scopes: ['source.idl', 'group.assignment.idl'],
+      },
+      {
+        line: 0,
+        match: 'bar',
+        startIndex: 35,
+        endIndex: 38,
+        scopes: [
+          'source.idl',
+          'group.assignment.idl',
+          'entity.other.attribute-name.idl',
+        ],
+      },
+    ];
+    expect(expected).toEqual(tokenized);
+  });
 });

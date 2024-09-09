@@ -18,8 +18,8 @@ import {
   IDL_BLOCK_END,
   IDL_IF_STATEMENT_END,
   IDL_LOGICAL_STATEMENT_END,
-  IDL_OPERATOR_END,
   IDL_STATEMENT_END,
+  IDL_TERNARY_ELSE_END,
 } from '../regex.interface';
 
 /**
@@ -168,6 +168,6 @@ export type LogicalTernaryElseTokenDef = ITokenDef<LogicalTernaryElseToken>;
 export const TERNARY_ELSE: LogicalTernaryElseTokenDef = {
   name: TOKEN_NAMES.LOGICAL_TERNARY_ELSE,
   match: /:/im,
-  end: IDL_OPERATOR_END,
+  end: IDL_TERNARY_ELSE_END,
   closeParentTokenAfterEnd: TOKEN_NAMES.LOGICAL_TERNARY_THEN,
 };

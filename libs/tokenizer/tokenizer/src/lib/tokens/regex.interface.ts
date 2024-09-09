@@ -55,6 +55,14 @@ export const IDL_PRO_END =
   /(?=until|else|(?=(?<!&)&(?!&)))|(?<!\$\s*|\$\s*;)$/im;
 
 /**
+ * End for ternary operators
+ *
+ * Same as assignment end, but includes an extra catch for other ternary statements
+ */
+export const IDL_TERNARY_ELSE_END =
+  /(?=\buntil\b|\belse\b|\bthen\b|\bdo\b|\bof\b|[),\]};:])|(?=(?<!&)&(?!&))|(?<!\$\s*|\$\s*;.*)$/im;
+
+/**
  * What represents an end of A line of IDL code.
  *
  * Supposed to stop at commas or the end of a line.
