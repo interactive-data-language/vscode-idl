@@ -263,4 +263,44 @@ describe(`[auto generated] Detect standalone expressions`, () => {
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] no problems`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `compile_opt idl2`,
+      `var = dictionary('key', 42)`,
+      ``,
+      `var['key']++`,
+      ``,
+      `(var['key'])++`,
+      ``,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });

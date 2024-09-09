@@ -5256,6 +5256,19 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `multi-line problems`,
         code: [`compile_opt idl2`, `2 + $`, `  2 + $`, `  2`, `end`],
       },
+      {
+        name: `no problems`,
+        code: [
+          `compile_opt idl2`,
+          `var = dictionary('key', 42)`,
+          ``,
+          `var['key']++`,
+          ``,
+          `(var['key'])++`,
+          ``,
+          `end`,
+        ],
+      },
     ],
   },
   {

@@ -130,7 +130,7 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
       i = GetChainEnd(kids, i);
 
       /** If the next token is not allowed, then we have problem */
-      if (!(kids[i + 1]?.name in AFTER_VAR)) {
+      if (!(kids[i + 1]?.name in AFTER_VAR) && kids[i + 1]) {
         parsed.parseProblems.push(
           SyntaxProblemWithTranslation(
             inMain && parsed.type === 'notebook'

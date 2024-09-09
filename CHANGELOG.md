@@ -33,6 +33,8 @@ Fixed a bug with auto-complete where, instead of variables, arguments, or functi
 
 Similar to `call_function()` and `obj_new()`, add special auto-complete for `call_procedure` to give you the list of procedure names with string literals
 
+Fixed a bug where we were incorrectly detecting standalone expressions and reporting as problems.
+
 ## 4.6.0 - August 2024
 
 Fixed an issue where we open a file that we have stopped in, even if it is compiled as a SAVE file. Now, only PRO files will be jumped to.
