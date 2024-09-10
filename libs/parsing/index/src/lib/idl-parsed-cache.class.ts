@@ -237,6 +237,10 @@ export class IDLParsedCache {
    */
   remove(file: string) {
     delete this.byFile[file];
+    if (file in this.pendingCompression) {
+      clearTimeout(this.pendingCompression[file]);
+      delete this.pendingCompression[file];
+    }
   }
 
   /**
