@@ -16,6 +16,8 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
+IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks.
+
 ## 4.6.1 - September 2024
 
 Added layer controls to the Notebook Map.

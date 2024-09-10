@@ -1,6 +1,7 @@
 import {
   CleanIDLOutput,
   IDL_EVENT_LOOKUP,
+  IDL_PROGRESS,
   IDLEvaluateOptions,
   IDLInteractionManager,
   REGEX_NEW_LINE,
@@ -206,8 +207,15 @@ export class IDLNotebookExecutionManager {
 
     // check what we need to do
     if (this._currentCell !== undefined) {
-      // update overall output
-      this._currentCell.output = `${this._currentCell.output}${content}`;
+      /** Check for IDL progress bar */
+      const match = IDL_PROGRESS.exec(content);
+
+      // update content
+      if (match !== null) {
+        this._currentCell.output = content.substring(match.index + 1);
+      } else {
+        this._currentCell.output = `${this._currentCell.output}${content}`;
+      }
 
       // replace the output for the cell
       await this._replaceCellOutput(
