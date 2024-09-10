@@ -51,6 +51,33 @@ export class IDLParsedCache {
   private pendingCompression: { [key: string]: NodeJS.Timeout } = {};
 
   /**
+   * Create timeout to compress data
+   */
+  private _compressTimeout(file: string, orig: IParsed) {
+    return setTimeout(() => {
+      // clean up and make non-circular
+      // RemoveScopeDetailAndResetTokenCache(orig, new CancellationToken());
+      RemoveScopeDetail(orig, new CancellationToken(), true);
+
+      /**
+       * Copy our original
+       */
+      const parsed = copy(orig);
+
+      // compress the keys
+      for (let i = 0; i < COMPRESS_THESE.length; i++) {
+        parsed[COMPRESS_THESE[i]] = JSON.stringify(parsed[COMPRESS_THESE[i]]);
+      }
+
+      // clean up timeout
+      delete this.pendingCompression[file];
+
+      // save compressed
+      this.byFile[file] = parsed;
+    }, COMPRESSION_DELAY);
+  }
+
+  /**
    * Compress
    */
   private compress(file: string, orig: IParsed) {
@@ -75,27 +102,7 @@ export class IDLParsedCache {
     /**
      * Save as pending compression
      */
-    this.pendingCompression[file] = setTimeout(() => {
-      // clean up and make non-circular
-      // RemoveScopeDetailAndResetTokenCache(orig, new CancellationToken());
-      RemoveScopeDetail(orig, new CancellationToken(), true);
-
-      /**
-       * Copy our original
-       */
-      const parsed = copy(orig);
-
-      // compress the keys
-      for (let i = 0; i < COMPRESS_THESE.length; i++) {
-        parsed[COMPRESS_THESE[i]] = JSON.stringify(parsed[COMPRESS_THESE[i]]);
-      }
-
-      // clean up timeout
-      delete this.pendingCompression[file];
-
-      // save compressed
-      this.byFile[file] = parsed;
-    }, COMPRESSION_DELAY);
+    this.pendingCompression[file] = this._compressTimeout(file, orig);
   }
 
   /**
@@ -103,14 +110,27 @@ export class IDLParsedCache {
    */
   private decompress(file: string, compressed: IParsed): IParsed {
     /**
+     * Check for files that are pending compression
+     */
+    if (file in this.pendingCompression) {
+      // remove timeout since we are accessing our data
+      clearTimeout(this.pendingCompression[file]);
+
+      // set timeout again
+      this.pendingCompression[file] = this._compressTimeout(file, compressed);
+
+      // return data since it is not actually compressed
+      return compressed;
+    }
+
+    /**
      * Check if we don't have compression enabled
      *
      * Or if our file is not compressed yet
      */
     if (
       !IDL_INDEX_OPTIONS.COMPRESSION ||
-      compressed.lines >= COMPRESSION_LINE_THRESHOLD ||
-      file in this.pendingCompression
+      compressed.lines >= COMPRESSION_LINE_THRESHOLD
     ) {
       return compressed;
     }
