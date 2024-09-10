@@ -12,15 +12,6 @@ import { IDL_INDEX_OPTIONS } from './idl-index.interface';
 const COMPRESSION_LINE_THRESHOLD = 2000;
 
 /**
- * After this many milliseconds, if we haven;t compressed a file
- * that is subject to compression, then compress it
- *
- * Otherwise it helps reduce memory usage for data that is frequently
- * accessed (parse/serialization adds up)
- */
-const COMPRESSION_DELAY = 60000;
-
-/**
  * Tags that we compress/uncompress
  */
 const COMPRESS_THESE = ['tree', 'global'];
@@ -46,44 +37,9 @@ export class IDLParsedCache {
   private byFile: { [key: string]: IParsed } = {};
 
   /**
-   * Track if we have a compressed file or not
-   */
-  private pendingCompression: { [key: string]: NodeJS.Timeout } = {};
-
-  /**
-   * Create timeout to compress data
-   */
-  private _compressTimeout(file: string, orig: IParsed) {
-    return setTimeout(() => {
-      // clean up and make non-circular
-      // RemoveScopeDetailAndResetTokenCache(orig, new CancellationToken());
-      RemoveScopeDetail(orig, new CancellationToken(), true);
-
-      /**
-       * Copy our original
-       */
-      const parsed = copy(orig);
-
-      // compress the keys
-      for (let i = 0; i < COMPRESS_THESE.length; i++) {
-        parsed[COMPRESS_THESE[i]] = JSON.stringify(parsed[COMPRESS_THESE[i]]);
-      }
-
-      // clean up timeout
-      delete this.pendingCompression[file];
-
-      // save compressed
-      this.byFile[file] = parsed;
-    }, COMPRESSION_DELAY);
-  }
-
-  /**
    * Compress
    */
-  private compress(file: string, orig: IParsed) {
-    // save original
-    this.byFile[file] = orig;
-
+  private compress(orig: IParsed): IParsed {
     /**
      * Check if we don't have compression enabled
      */
@@ -91,42 +47,33 @@ export class IDLParsedCache {
       !IDL_INDEX_OPTIONS.COMPRESSION ||
       orig.lines >= COMPRESSION_LINE_THRESHOLD
     ) {
-      return;
+      return orig;
     }
 
-    // clear any pending timeout if we are accessing data
-    if (file in this.pendingCompression) {
-      clearTimeout(this.pendingCompression[file]);
-    }
+    // clean up and make non-circular
+    // RemoveScopeDetailAndResetTokenCache(orig, new CancellationToken());
+    RemoveScopeDetail(orig, new CancellationToken(), true);
 
     /**
-     * Save as pending compression
+     * Copy our original
      */
-    this.pendingCompression[file] = this._compressTimeout(file, orig);
+    const parsed = copy(orig);
+
+    // compress the keys
+    for (let i = 0; i < COMPRESS_THESE.length; i++) {
+      parsed[COMPRESS_THESE[i]] = JSON.stringify(parsed[COMPRESS_THESE[i]]);
+    }
+
+    // return
+    return parsed;
   }
 
   /**
    * Decompress
    */
-  private decompress(file: string, compressed: IParsed): IParsed {
-    /**
-     * Check for files that are pending compression
-     */
-    if (file in this.pendingCompression) {
-      // remove timeout since we are accessing our data
-      clearTimeout(this.pendingCompression[file]);
-
-      // set timeout again
-      this.pendingCompression[file] = this._compressTimeout(file, compressed);
-
-      // return data since it is not actually compressed
-      return compressed;
-    }
-
+  private decompress(compressed: IParsed): IParsed {
     /**
      * Check if we don't have compression enabled
-     *
-     * Or if our file is not compressed yet
      */
     if (
       !IDL_INDEX_OPTIONS.COMPRESSION ||
@@ -153,7 +100,7 @@ export class IDLParsedCache {
    * Add parsed to the cache
    */
   add(file: string, parsed: IParsed) {
-    this.compress(file, parsed);
+    this.byFile[file] = this.compress(parsed);
   }
 
   /**
@@ -180,7 +127,7 @@ export class IDLParsedCache {
    */
   get(file: string): IParsed | undefined {
     if (file in this.byFile) {
-      return this.decompress(file, this.byFile[file]);
+      return this.decompress(this.byFile[file]);
     }
     return undefined;
   }
@@ -237,10 +184,6 @@ export class IDLParsedCache {
    */
   remove(file: string) {
     delete this.byFile[file];
-    if (file in this.pendingCompression) {
-      clearTimeout(this.pendingCompression[file]);
-      delete this.pendingCompression[file];
-    }
   }
 
   /**
