@@ -12,6 +12,15 @@ import { IDL_INDEX_OPTIONS } from './idl-index.interface';
 const COMPRESSION_LINE_THRESHOLD = 2000;
 
 /**
+ * After this many milliseconds, if we haven;t compressed a file
+ * that is subject to compression, then compress it
+ *
+ * Otherwise it helps reduce memory usage for data that is frequently
+ * accessed (parse/serialization adds up)
+ */
+const COMPRESSION_DELAY = 60000;
+
+/**
  * Tags that we compress/uncompress
  */
 const COMPRESS_THESE = ['tree', 'global'];
@@ -37,9 +46,17 @@ export class IDLParsedCache {
   private byFile: { [key: string]: IParsed } = {};
 
   /**
+   * Track if we have a compressed file or not
+   */
+  private pendingCompression: { [key: string]: NodeJS.Timeout } = {};
+
+  /**
    * Compress
    */
-  private compress(orig: IParsed): IParsed {
+  private compress(file: string, orig: IParsed) {
+    // save original
+    this.byFile[file] = orig;
+
     /**
      * Check if we don't have compression enabled
      */
@@ -47,37 +64,53 @@ export class IDLParsedCache {
       !IDL_INDEX_OPTIONS.COMPRESSION ||
       orig.lines >= COMPRESSION_LINE_THRESHOLD
     ) {
-      return orig;
+      return;
     }
 
-    // clean up and make non-circular
-    // RemoveScopeDetailAndResetTokenCache(orig, new CancellationToken());
-    RemoveScopeDetail(orig, new CancellationToken(), true);
+    // clear any pending timeout if we are accessing data
+    if (file in this.pendingCompression) {
+      clearTimeout(this.pendingCompression[file]);
+    }
 
     /**
-     * Copy our original
+     * Save as pending compression
      */
-    const parsed = copy(orig);
+    this.pendingCompression[file] = setTimeout(() => {
+      // clean up and make non-circular
+      // RemoveScopeDetailAndResetTokenCache(orig, new CancellationToken());
+      RemoveScopeDetail(orig, new CancellationToken(), true);
 
-    // compress the keys
-    for (let i = 0; i < COMPRESS_THESE.length; i++) {
-      parsed[COMPRESS_THESE[i]] = JSON.stringify(parsed[COMPRESS_THESE[i]]);
-    }
+      /**
+       * Copy our original
+       */
+      const parsed = copy(orig);
 
-    // return
-    return parsed;
+      // compress the keys
+      for (let i = 0; i < COMPRESS_THESE.length; i++) {
+        parsed[COMPRESS_THESE[i]] = JSON.stringify(parsed[COMPRESS_THESE[i]]);
+      }
+
+      // clean up timeout
+      delete this.pendingCompression[file];
+
+      // save compressed
+      this.byFile[file] = parsed;
+    }, COMPRESSION_DELAY);
   }
 
   /**
    * Decompress
    */
-  private decompress(compressed: IParsed): IParsed {
+  private decompress(file: string, compressed: IParsed): IParsed {
     /**
      * Check if we don't have compression enabled
+     *
+     * Or if our file is not compressed yet
      */
     if (
       !IDL_INDEX_OPTIONS.COMPRESSION ||
-      compressed.lines >= COMPRESSION_LINE_THRESHOLD
+      compressed.lines >= COMPRESSION_LINE_THRESHOLD ||
+      file in this.pendingCompression
     ) {
       return compressed;
     }
@@ -100,7 +133,7 @@ export class IDLParsedCache {
    * Add parsed to the cache
    */
   add(file: string, parsed: IParsed) {
-    this.byFile[file] = this.compress(parsed);
+    this.compress(file, parsed);
   }
 
   /**
@@ -127,7 +160,7 @@ export class IDLParsedCache {
    */
   get(file: string): IParsed | undefined {
     if (file in this.byFile) {
-      return this.decompress(this.byFile[file]);
+      return this.decompress(file, this.byFile[file]);
     }
     return undefined;
   }
