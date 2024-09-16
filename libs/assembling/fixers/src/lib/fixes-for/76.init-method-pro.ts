@@ -1,8 +1,5 @@
-import {
-  AddCodeToSyntaxTree,
-  GenerateCodeToInsert,
-} from '@idl/assembling/shared';
 import { ASSEMBLER_PROBLEM_FIXERS } from '@idl/assembling/tree-handlers';
+import { AddCodeToSyntaxTree, GenerateCodeToInsert } from '@idl/parser';
 import {
   FindDirectBranchChildren,
   IParsed,
@@ -65,7 +62,7 @@ function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
 
       // update our syntax tree
       AddCodeToSyntaxTree({
-        parsed,
+        tree: parsed.tree,
         lineStart: endPos[0],
         insertCode: ['return, 1'],
         idxInsert: token.kids.length,

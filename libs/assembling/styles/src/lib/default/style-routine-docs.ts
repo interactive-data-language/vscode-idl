@@ -1,5 +1,5 @@
 import { ICodeStyle } from '@idl/assembling/config';
-import { IncrementLineNumbers } from '@idl/assembling/shared';
+import { IncrementLineNumbers } from '@idl/parser';
 import {
   BRANCH_TYPES,
   DocsToIDL,

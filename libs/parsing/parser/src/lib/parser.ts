@@ -11,15 +11,17 @@ import { ActivateDefaultSyntaxRules } from '@idl/parsing/syntax-validators';
 import {
   FAST_FIND_TOKEN_OPTIONS,
   IFindTokensOptions,
+  Split,
   Tokenizer,
 } from '@idl/tokenizer';
 import copy from 'fast-copy';
 import { existsSync, readFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 
-import { CodeChecksum } from './code-checksum';
+import { CodeChecksum } from './helpers/code-checksum';
 import { DEFAULT_PARSER_OPTIONS, IParserOptions } from './parser.interface';
 import { ParserGetOutline } from './parser-get-outline';
+import { ParserPartial } from './parser-partial';
 
 // call a function from our validators so the code gets loaded and bundled
 ActivateDefaultSyntaxRules();
@@ -93,8 +95,15 @@ export function Parser(
    */
   const options = Object.assign(copy(DEFAULT_PARSER_OPTIONS), inOptions);
 
-  // initialize out tokenized response
-  const tokenized: IParsed = {
+  /**
+   * Do we do a partial parse?
+   */
+  const doPartial = options.changes && options.previous;
+
+  let didPartial = false;
+
+  /** Current result to return */
+  const tokenized = {
     checksum: CodeChecksum(code),
     hasDetail: false,
     hasCache: false,
@@ -126,11 +135,41 @@ export function Parser(
     semantic: { notProcedure: [], built: { data: [] } },
   };
 
-  // extract tokens
-  ParserTokenize(code, tokenized, cancel, options.full);
+  /**
+   * Check if we should attempt to partially parse
+   */
+  if (doPartial) {
+    /**
+     * Can't cancel or things get f-ed up
+     * */
+    const partial = ParserPartial(code, cancel, options);
 
-  // build the syntax tree and detect syntax problems
-  BuildSyntaxTree(tokenized, cancel, options.full);
+    /**
+     * Reset some props
+     */
+    if (partial) {
+      didPartial = true;
+      tokenized.text = Split(code);
+      tokenized.lines = tokenized.text.length;
+      tokenized.tree = partial.tree;
+    }
+  }
+
+  /**
+   * Try to fully parse
+   */
+  if (!didPartial) {
+    // extract tokens
+    ParserTokenize(code, tokenized, cancel, options.full);
+
+    // build the syntax tree and detect syntax problems
+    BuildSyntaxTree(tokenized, cancel, options.full);
+
+    // if only parse, return
+    if (options.onlyParse) {
+      return tokenized;
+    }
+  }
 
   /**
    * Populate our global, local (variables), and compile-opts

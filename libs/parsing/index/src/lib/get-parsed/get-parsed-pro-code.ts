@@ -69,10 +69,8 @@ export async function GetParsedPROCode(
   }
 
   // check if we have the file in our cache and it matches our checksum
-  if (index.tokensByFile.has(file)) {
-    if (index.tokensByFile.checksumMatches(file, checksum)) {
-      return index.tokensByFile.get(file);
-    }
+  if (index.tokensByFile.checksumMatches(file, checksum)) {
+    return index.tokensByFile.get(file);
   }
 
   // determine how to proceed
@@ -183,6 +181,11 @@ export async function GetParsedPROCode(
     }
 
     default:
+  }
+
+  // check if we have changes
+  if (options.changes) {
+    options.previous = index.tokensByFile.get(file);
   }
 
   /**

@@ -1,5 +1,5 @@
-import { AddCodeToSyntaxTree } from '@idl/assembling/shared';
 import { ASSEMBLER_PROBLEM_FIXERS } from '@idl/assembling/tree-handlers';
+import { AddCodeToSyntaxTree } from '@idl/parser';
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { RoutineFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
@@ -33,7 +33,7 @@ function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
 
     // update our syntax tree
     AddCodeToSyntaxTree({
-      parsed,
+      tree: parsed.tree,
       lineStart: endPos[0],
       insertCode: ['return, !null'],
       idxInsert: token.kids.length,

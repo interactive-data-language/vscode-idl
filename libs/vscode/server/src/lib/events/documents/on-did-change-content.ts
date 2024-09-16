@@ -1,7 +1,6 @@
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { TextDocumentChangeEvent } from 'vscode-languageserver/node';
-import { TextDocument } from 'vscode-languageserver-textdocument';
+import { getPatch } from 'fast-array-diff';
 
 import { CacheValid } from '../../helpers/cache-valid';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
@@ -15,33 +14,42 @@ import { SERVER_INITIALIZED } from '../is-initialized';
  *
  * TODO: work with just the changed parts of a document
  *
- * @param event The event from VSCode
+ * @param uri The event from VSCode
+ * @param before The text before
  */
-export const ON_DID_CHANGE_CONTENT = async (
-  event: TextDocumentChangeEvent<TextDocument>
-) => {
+export const ON_DID_CHANGE_CONTENT = async (uri: string, before: string) => {
   await SERVER_INITIALIZED;
   try {
     // return if our cache is valid and the content has not changed
-    if (CacheValid(event.document.uri)) {
+    if (CacheValid(uri)) {
       return;
     }
 
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
       type: 'debug',
-      content: ['Changed content', event.document.uri],
+      content: ['Changed content', uri],
     });
 
     /**
      * Resolve the fspath to our cell and retrieve code
      */
-    const info = await ResolveFSPathAndCodeForURI(event.document.uri);
+    const info = await ResolveFSPathAndCodeForURI(uri);
 
     // return if nothing found
     if (info === undefined) {
       return undefined;
     }
+
+    /**
+     * Get original code
+     */
+    const original = before.split(/\r?\n/gim);
+
+    /**
+     * Calculate changes
+     */
+    const delta = getPatch(original, info.code.split(/\r?\n/gim));
 
     // re-index our file
     await IDL_INDEX.indexFile(
@@ -53,7 +61,13 @@ export const ON_DID_CHANGE_CONTENT = async (
        * We need it as the file is most likely not saved on disk and the language server logic
        * is to use what is on disk
        */
-      { keepText: true }
+      {
+        keepText: true,
+        changes: {
+          delta,
+          original,
+        },
+      }
     );
 
     // send problems

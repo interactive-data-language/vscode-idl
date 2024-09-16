@@ -1,4 +1,4 @@
-import { IParsed, SyntaxTree } from '@idl/parsing/syntax-tree';
+import { SyntaxTree } from '@idl/parsing/syntax-tree';
 
 /**
  * When adding code into an existing syntax tree, the parameters
@@ -6,7 +6,7 @@ import { IParsed, SyntaxTree } from '@idl/parsing/syntax-tree';
  */
 export interface IAddCodeToSyntaxTreeOptions {
   /** Original parsed code */
-  parsed: IParsed;
+  tree: SyntaxTree;
   /** IDL code that we insert */
   insertCode: string[];
   /** The syntax tree we are adding to, can be anything */

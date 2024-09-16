@@ -10,6 +10,10 @@ export function ConditionalLineNumberIncrement(
   start: number,
   increment: number
 ) {
+  if (increment === 0) {
+    return;
+  }
+
   // process all children
   for (let i = 0; i < tree.length; i++) {
     // move start

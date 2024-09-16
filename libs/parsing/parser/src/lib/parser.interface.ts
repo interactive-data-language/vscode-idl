@@ -1,4 +1,5 @@
-import { ParsedType } from '@idl/parsing/syntax-tree';
+import { IParsed, ParsedType } from '@idl/parsing/syntax-tree';
+import { Patch } from 'fast-array-diff';
 
 /**
  * Options for parsing
@@ -21,6 +22,23 @@ export interface IParserOptions {
    * If we are cleaning up, do we keep the text?
    */
   keepText: boolean;
+  /**
+   * Changes made from previous version of the document
+   */
+  changes?: {
+    /** Diffs from original */
+    delta: Patch<string>;
+    /** Original code */
+    original: string[];
+  };
+  /**
+   * Previous syntax tree that we are editing/replacing
+   */
+  previous?: IParsed;
+  /**
+   * Do we only parse code and build the syntax tree, nothing else?
+   */
+  onlyParse?: boolean;
 }
 
 /**

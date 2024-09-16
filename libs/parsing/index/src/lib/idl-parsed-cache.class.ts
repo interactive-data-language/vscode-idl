@@ -112,6 +112,8 @@ export class IDLParsedCache {
 
   /**
    * Checks to see if our checksum matches and is the same
+   *
+   * If no known file, returns false
    */
   checksumMatches(file: string, checksum: string) {
     if (file in this.byFile) {

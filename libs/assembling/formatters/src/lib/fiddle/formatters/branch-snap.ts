@@ -1,4 +1,4 @@
-import { ConditionalLineNumberIncrement } from '@idl/assembling/shared';
+import { ConditionalLineNumberIncrement } from '@idl/parser';
 import {
   BRANCH_TYPES,
   SyntaxTree,

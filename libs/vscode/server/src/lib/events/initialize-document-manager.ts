@@ -63,7 +63,7 @@ export function InitializeDocumentManager() {
   /**
    * Call back when the content of files has changed
    */
-  DOCUMENT_MANAGER.onDidChangeContent(ON_DID_CHANGE_CONTENT);
+  // DOCUMENT_MANAGER.onDidChangeContent(ON_DID_CHANGE_CONTENT);
 
   /**
    * Callback when a file is opened
@@ -84,12 +84,7 @@ export function InitializeDocumentManager() {
   // 	// params.text the initial full content of the document.
   // 	connection.console.log(`${params.textDocument.uri} opened.`);
   // });
-  // connection.onDidChangeTextDocument((params) => {
-  // 	// The content of a text document did change in VSCode.
-  // 	// params.uri uniquely identifies the document.
-  // 	// params.contentChanges describe the content changes to the document.
-  // 	connection.console.log(`${params.textDocument.uri} changed: ${JSON.stringify(params.contentChanges)}`);
-  // });
+
   // connection.onDidCloseTextDocument((params) => {
   // 	// A text document got closed in VSCode.
   // 	// params.uri uniquely identifies the document.
@@ -99,4 +94,27 @@ export function InitializeDocumentManager() {
   // Make the text document manager listen on the connection
   // for open, change and close text document events
   DOCUMENT_MANAGER.listen(SERVER_CONNECTION);
+
+  /**
+   * Custom handler for document changes
+   *
+   * Add this after document manager listens, otherwise
+   * the document manage change callback gets used
+   */
+  SERVER_CONNECTION.onDidChangeTextDocument((params) => {
+    const doc = DOCUMENT_MANAGER.get(params.textDocument.uri);
+
+    // if no doc, we dont manage it, so return
+    if (!doc) {
+      return;
+    }
+
+    const before = doc.getText();
+
+    // update doc in the manager with the changes
+    TextDocument.update(doc, params.contentChanges, doc.version);
+
+    // handle changed content event
+    ON_DID_CHANGE_CONTENT(params.textDocument.uri, before);
+  });
 }
