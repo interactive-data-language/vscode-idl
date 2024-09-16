@@ -6,19 +6,25 @@ import { ControlCompileOptToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
 import { SORT_PRIORITY } from '../sort-priority.interface';
+import { ICompileOptRecipeOptions } from './add-completion-compile-opts.interface';
 
-/**
- * Adds compile opt completion items
- */
-export function AddCompletionCompileOpts(
+export function GetCompileOptCompletionOptions(
+  token: TreeToken<ControlCompileOptToken>
+): ICompileOptRecipeOptions {
+  return {
+    current: token.kids
+      .filter((kid) => kid.name === TOKEN_NAMES.CONTROL_OPTION)
+      .map((kid) => kid.match[0].toLowerCase().trim()),
+  };
+}
+
+export function BuildCompileOptCompletionItems(
   complete: CompletionItem[],
-  token: TreeToken<ControlCompileOptToken>,
+  options: ICompileOptRecipeOptions,
   formatting: IAssemblerOptions<FormatterType>
 ) {
   // get current compile opts
-  const opts = token.kids
-    .filter((kid) => kid.name === TOKEN_NAMES.CONTROL_OPTION)
-    .map((kid) => kid.match[0].toLowerCase().trim());
+  const opts = options.current;
 
   // get compile opts we should add in
   const addOpts = Object.keys(ALLOWED_COMPILE_OPTIONS).filter(
@@ -33,4 +39,19 @@ export function AddCompletionCompileOpts(
       sortText: SORT_PRIORITY.CONTROL,
     });
   }
+}
+
+/**
+ * Adds compile opt completion items
+ */
+export function AddCompletionCompileOpts(
+  complete: CompletionItem[],
+  token: TreeToken<ControlCompileOptToken>,
+  formatting: IAssemblerOptions<FormatterType>
+) {
+  BuildCompileOptCompletionItems(
+    complete,
+    GetCompileOptCompletionOptions(token),
+    formatting
+  );
 }
