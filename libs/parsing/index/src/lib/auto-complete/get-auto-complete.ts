@@ -21,7 +21,10 @@ import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
 import { AddCompletionCompileOpts } from './completion-for/add-completion-compile-opts';
 import { AddCompletionExecutiveCommands } from './completion-for/add-completion-executive-commands';
-import { AddCompletionFunctionMethods } from './completion-for/add-completion-function-methods';
+import {
+  BuildCompileOptCompletionItems,
+  BuildFunctionMethodCompletionOptions,
+} from './completion-for/add-completion-function-methods';
 import { AddCompletionFunctions } from './completion-for/add-completion-functions';
 import { AddCompletionInclude } from './completion-for/add-completion-include';
 import { AddCompletionKeywords } from './completion-for/add-completion-keywords';
@@ -356,12 +359,11 @@ export async function GetAutoComplete(
         if (isWithinStart) {
           switch (true) {
             case token?.name in FUNCTION_METHOD_COMPLETION:
-              AddCompletionFunctionMethods(
+              BuildCompileOptCompletionItems(
                 items,
-                index,
+                BuildFunctionMethodCompletionOptions(type, addParen),
                 formatting,
-                type,
-                addParen
+                index
               );
               break;
             case token?.name in ALL_METHODS_COMPLETION:
@@ -371,12 +373,11 @@ export async function GetAutoComplete(
               ) {
                 AddCompletionProcedureMethods(items, index, formatting, type);
               }
-              AddCompletionFunctionMethods(
+              BuildCompileOptCompletionItems(
                 items,
-                index,
+                BuildFunctionMethodCompletionOptions(type, addParen),
                 formatting,
-                type,
-                addParen
+                index
               );
               break;
             default:

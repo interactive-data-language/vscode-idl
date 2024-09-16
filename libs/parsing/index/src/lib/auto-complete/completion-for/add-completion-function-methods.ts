@@ -18,6 +18,7 @@ import {
 
 import { IDLIndex } from '../../idl-index.class';
 import { SORT_PRIORITY } from '../sort-priority.interface';
+import { IFunctionMethodCompletionOptions } from './add-completion-function-methods.interface';
 
 /**
  * Display names for function methods
@@ -29,19 +30,19 @@ const FUNCTION_METHODS = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.FUNCTION_METHOD];
  */
 function AddCompletionFunctionMethodsForType(
   complete: CompletionItem[],
-  index: IDLIndex,
+  options: IFunctionMethodCompletionOptions,
   formatting: IAssemblerOptions<FormatterType>,
+  index: IDLIndex,
   type: IDLDataTypeBase<IDLTypes>,
-  addParen: boolean,
   found: { [key: string]: any } = {}
 ) {
   /** If we add parentheses or not */
-  const add = addParen ? '()' : '';
+  const add = options.addParen ? '()' : '';
 
   /** Cursor movement command */
   const command: Command = {
     title: 'Cursor Adjust',
-    command: addParen ? 'cursorLeft' : 'cursorRight',
+    command: options.addParen ? 'cursorLeft' : 'cursorRight',
   };
 
   /**
@@ -104,12 +105,14 @@ function AddCompletionFunctionMethodsForType(
     const inherits = global[0].meta.inherits;
     if (inherits.length > 0) {
       for (let i = 0; i < inherits.length; i++) {
-        AddCompletionFunctionMethods(
+        BuildCompileOptCompletionItems(
           complete,
-          index,
+          {
+            addParen: options.addParen,
+            type: ParseIDLType(inherits[i]),
+          },
           formatting,
-          ParseIDLType(inherits[i]),
-          addParen,
+          index,
           found
         );
       }
@@ -118,24 +121,36 @@ function AddCompletionFunctionMethodsForType(
 }
 
 /**
+ * Creates options for creating auto-complete
+ */
+export function BuildFunctionMethodCompletionOptions(
+  type: IDLDataType,
+  addParen: boolean
+): IFunctionMethodCompletionOptions {
+  return {
+    addParen,
+    type,
+  };
+}
+
+/**
  * Adds variables to our completion items
  */
-export function AddCompletionFunctionMethods(
+export function BuildCompileOptCompletionItems(
   complete: CompletionItem[],
-  index: IDLIndex,
+  options: IFunctionMethodCompletionOptions,
   formatting: IAssemblerOptions<FormatterType>,
-  type: IDLDataType,
-  addParen: boolean,
+  index: IDLIndex,
   found: { [key: string]: any } = {}
 ) {
   // process each type
-  for (let i = 0; i < type.length; i++) {
+  for (let i = 0; i < options.type.length; i++) {
     AddCompletionFunctionMethodsForType(
       complete,
-      index,
+      options,
       formatting,
-      type[i],
-      addParen,
+      index,
+      options.type[i],
       found
     );
   }
