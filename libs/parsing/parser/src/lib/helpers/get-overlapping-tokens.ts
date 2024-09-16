@@ -50,7 +50,7 @@ export function GetOverlappingTokens(
     switch (el.type) {
       case BRANCH_TYPES.BRANCH: {
         // don't process incomplete tokens
-        if (!el.end.pos) {
+        if (!el?.end?.pos) {
           break;
         }
 

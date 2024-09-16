@@ -142,6 +142,11 @@ export function ParserPartial(
   let issueUpdating = false;
 
   /**
+   * Additional tokens we added to the tree
+   */
+  let offset = 0;
+
+  /**
    * Check if we can partial parse
    */
   if (canPartial) {
@@ -158,7 +163,10 @@ export function ParserPartial(
       }
 
       /** Get as i */
-      const i = idxU[j];
+      const i = +idxU[j] + offset;
+
+      /** Index in our syntax tree */
+      const tIdx = i + offset;
 
       // skip if we are removing
       if (i in idxRemove) {
@@ -169,7 +177,7 @@ export function ParserPartial(
       const updates = idxUpdate[i];
 
       // get token - assumed branch from overlap logic
-      const token: TreeToken<NonBasicTokenNames> = tree[i];
+      const token = tree[tIdx] as TreeToken<NonBasicTokenNames>;
 
       // update positions
       for (let z = 0; z < updates.length; z++) {
@@ -187,8 +195,6 @@ export function ParserPartial(
       /** Merge changes with code */
       const iCode = applyPatch(before, updates);
 
-      console.log('Update this', { iCode });
-
       /**
        * Re-parse our segment of code
        */
@@ -200,16 +206,21 @@ export function ParserPartial(
         break;
       }
 
+      /**
+       * Token offset for our tree
+       */
+      offset += replace.tree.length - 1;
+
       // increment line numbers
       IncrementLineNumbers(replace.tree, token.pos[0]);
 
       // merge
-      tree.splice(+i, 1, ...replace.tree);
+      tree.splice(tIdx, 1, ...replace.tree);
 
-      // update overall line numbers
+      // update overall line numbers after the token we replaced
       ConditionalLineNumberIncrement(
         tree,
-        token.pos[0],
+        token.end.pos[0] + 1,
         iCode.length - before.length
       );
     }
@@ -220,11 +231,13 @@ export function ParserPartial(
     const idxR = Object.keys(idxRemove).sort().reverse();
 
     // remove all elements
+    // TODO: i dont think the offset is quite right here
+    // maybe we remove and track offsets after certain checkpoints?
     for (let i = 0; i < idxR.length; i++) {
       if (issueUpdating) {
         break;
       }
-      tree.splice(+idxR[i], 1);
+      tree.splice(+idxR[i] + offset, 1);
     }
   }
 
