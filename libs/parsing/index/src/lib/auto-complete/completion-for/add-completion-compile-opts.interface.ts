@@ -6,7 +6,7 @@ export type CompileOptCompletion = 'compile-opt';
 /**
  * Options for adding compile-opt auto-complete
  */
-export interface ICompileOptRecipeOptions {
+export interface ICompileOptCompletionOptions {
   /**
    * Current compile opt options
    */

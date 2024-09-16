@@ -6,11 +6,11 @@ import { ControlCompileOptToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import { ICompileOptRecipeOptions } from './add-completion-compile-opts.interface';
+import { ICompileOptCompletionOptions } from './add-completion-compile-opts.interface';
 
 export function GetCompileOptCompletionOptions(
   token: TreeToken<ControlCompileOptToken>
-): ICompileOptRecipeOptions {
+): ICompileOptCompletionOptions {
   return {
     current: token.kids
       .filter((kid) => kid.name === TOKEN_NAMES.CONTROL_OPTION)
@@ -20,7 +20,7 @@ export function GetCompileOptCompletionOptions(
 
 export function BuildCompileOptCompletionItems(
   complete: CompletionItem[],
-  options: ICompileOptRecipeOptions,
+  options: ICompileOptCompletionOptions,
   formatting: IAssemblerOptions<FormatterType>
 ) {
   // get current compile opts
