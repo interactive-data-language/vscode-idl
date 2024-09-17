@@ -23,8 +23,6 @@ import { AddCompletionProcedureMethods } from './completion-for/add-completion-p
 import { AddCompletionProcedures } from './completion-for/add-completion-procedures';
 import { AddCompletionProperties } from './completion-for/add-completion-properties';
 import { AddCompletionPropertiesInStructures } from './completion-for/add-completion-properties-in-structures';
-import { AddCompletionSpecialFunctions } from './completion-for/add-completion-special-functions';
-import { SPECIAL_FUNCTION_REGEX } from './completion-for/add-completion-special-functions.interface';
 import {
   BuildCompileOptCompletionItems,
   GetCompileOptCompletionOptions,
@@ -46,6 +44,11 @@ import {
   BuildKeywordCompletionItems,
   GetKeywordCompletionOptions,
 } from './completion-for/completion-keywords';
+import {
+  BuildSpecialFunctionCompletionItems,
+  GetSpecialFunctionCompletionOptions,
+} from './completion-for/completion-special-functions';
+import { SPECIAL_FUNCTION_REGEX } from './completion-for/completion-special-functions.interface';
 import {
   BuildSpecialProcedureCompletionItems,
   GetSpecialProcedureCompletionOptions,
@@ -162,7 +165,12 @@ export async function GetAutoComplete(
         SPECIAL_FUNCTION_REGEX.test(
           token?.scopeTokens[token.scope.length - 1]?.match[0]
         ):
-        AddCompletionSpecialFunctions(complete, index, token, formatting);
+        BuildSpecialFunctionCompletionItems({
+          complete,
+          index,
+          formatting,
+          options: GetSpecialFunctionCompletionOptions(token),
+        });
         return complete;
       /**
        * Custom auto-complete procedures where we have literal values

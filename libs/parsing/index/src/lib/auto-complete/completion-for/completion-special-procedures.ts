@@ -9,7 +9,7 @@ import { CompletionItemKind } from 'vscode-languageserver';
 import { EvaluateToken } from '../../post-process/populate-type/evaluate/evaluate-token';
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import { ALLOWED_SPECIAL_COMPLETION } from './add-completion-special-functions.interface';
+import { ALLOWED_SPECIAL_COMPLETION } from './completion-special-functions.interface';
 import {
   ISpecialProcedureCompletionOptions,
   SpecialProcedureCompletion,

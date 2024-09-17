@@ -12,6 +12,7 @@ import { BuildFunctionMethodCompletionItems } from './completion-for/completion-
 import { BuildFunctionCompletionItems } from './completion-for/completion-functions';
 import { BuildIncludeCompletionItems } from './completion-for/completion-include';
 import { BuildKeywordCompletionItems } from './completion-for/completion-keywords';
+import { BuildSpecialFunctionCompletionItems } from './completion-for/completion-special-functions';
 import { BuildSpecialProcedureCompletionItems } from './completion-for/completion-special-procedures';
 import { BuildCompletionStructureNameItems } from './completion-for/completion-structure-names';
 import { BuildCompletionSystemVariableItems } from './completion-for/completion-system-variables';
@@ -51,6 +52,7 @@ export const ALL_COMPLETION_ITEM_BUILDERS: BuildCompletionItemsLookup = {
   function: BuildFunctionCompletionItems,
   include: BuildIncludeCompletionItems,
   keyword: BuildKeywordCompletionItems,
+  'special-function': BuildSpecialFunctionCompletionItems,
   'special-procedure': BuildSpecialProcedureCompletionItems,
   'structure-name': BuildCompletionStructureNameItems,
   'system-variable': BuildCompletionSystemVariableItems,
