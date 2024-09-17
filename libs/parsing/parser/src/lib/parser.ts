@@ -100,6 +100,7 @@ export function Parser(
    */
   const doPartial = options.changes && options.previous;
 
+  /** Track if we did a partial parse */
   let didPartial = false;
 
   /** Current result to return */
