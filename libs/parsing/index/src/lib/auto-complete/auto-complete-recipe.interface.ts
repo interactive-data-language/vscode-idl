@@ -65,8 +65,8 @@ import {
 export type AutoCompleteType =
   | CompileOptCompletion
   | ExecutiveCommandCompletion
-  | FunctionMethodCompletion
   | FunctionCompletion
+  | FunctionMethodCompletion
   | IncludeCompletion
   | KeywordCompletion
   | ProcedureCompletion
@@ -123,4 +123,46 @@ export type AutoCompleteRecipe<T extends AutoCompleteType> = {
   type: T;
   /** Options to add auto-complete values */
   options: AutoCompleteRecipeOptions<T>;
+};
+
+/**
+ * Strictly typed lookup for completion types
+ */
+interface IAutoCompleteTypeLookup {
+  COMPILE_OPT: CompileOptCompletion;
+  EXECUTIVE_COMMAND: ExecutiveCommandCompletion;
+  FUNCTION: FunctionCompletion;
+  FUNCTION_METHOD: FunctionMethodCompletion;
+  INCLUDE: IncludeCompletion;
+  KEYWORD: KeywordCompletion;
+  PROCEDURE: ProcedureCompletion;
+  PROCEDURE_METHOD: ProcedureMethodCompletion;
+  PROPERTY: PropertyCompletion;
+  PROPERTY_IN_STRUCTURE: PropertyInStructureCompletion;
+  SPECIAL_FUNCTION: SpecialFunctionCompletion;
+  SPECIAL_PROCEDURE: SpecialProcedureCompletion;
+  STRUCTURE_NAME: StructureNameCompletion;
+  SYSTEM_VARIABLE: SystemVariableCompletion;
+  VARIABLE: VariableCompletion;
+}
+
+/**
+ * Lookup of all types of auto-complete
+ */
+export const AUTO_COMPLETE_TYPE_LOOKUP: IAutoCompleteTypeLookup = {
+  COMPILE_OPT: 'compile-opt',
+  EXECUTIVE_COMMAND: 'executive-command',
+  FUNCTION: 'function',
+  FUNCTION_METHOD: 'function-method',
+  INCLUDE: 'include',
+  KEYWORD: 'keyword',
+  PROCEDURE: 'procedure',
+  PROCEDURE_METHOD: 'procedure-method',
+  PROPERTY: 'property',
+  PROPERTY_IN_STRUCTURE: 'property-in-structure',
+  SPECIAL_FUNCTION: 'special-function',
+  SPECIAL_PROCEDURE: 'special-procedure',
+  STRUCTURE_NAME: 'structure-name',
+  SYSTEM_VARIABLE: 'system-variable',
+  VARIABLE: 'variable',
 };

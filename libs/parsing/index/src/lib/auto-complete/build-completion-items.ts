@@ -1,6 +1,8 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
-import { CompletionItem } from 'vscode-languageserver';
+import { IDLExtensionConfig } from '@idl/vscode/extension-config';
+import { CompletionItem, MarkupKind } from 'vscode-languageserver';
 
+import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
 import {
   AutoCompleteRecipe,
@@ -12,9 +14,10 @@ import { ALL_COMPLETION_ITEM_BUILDERS } from './build-completion-items.interface
  * Builds auto-complete items from our recipes
  */
 export function BuildCompletionItems(
+  index: IDLIndex,
   recipes: AutoCompleteRecipe<AutoCompleteType>[],
   formatting: IAssemblerOptions<FormatterType>,
-  index: IDLIndex
+  config: IDLExtensionConfig
 ) {
   /** initial list of completion items */
   const complete: CompletionItem[] = [];
@@ -29,6 +32,20 @@ export function BuildCompletionItems(
         formatting,
         index,
       });
+    }
+  }
+
+  // resolve links in any completion items and indicate that
+  // we have markdown to present
+  for (let i = 0; i < complete.length; i++) {
+    if (complete[i].documentation) {
+      complete[i].documentation = {
+        kind: MarkupKind.Markdown,
+        value: ResolveHoverHelpLinks(
+          complete[i].documentation as string,
+          config
+        ),
+      };
     }
   }
 
