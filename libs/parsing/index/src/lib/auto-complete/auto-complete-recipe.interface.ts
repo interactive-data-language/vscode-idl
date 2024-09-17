@@ -22,6 +22,14 @@ import {
   IKeywordCompletionOptions,
   KeywordCompletion,
 } from './completion-for/completion-keyword.interface';
+import {
+  ISystemVariableCompletionOptions,
+  SystemVariableCompletion,
+} from './completion-for/completion-system-variables.interface';
+import {
+  IVariableCompletionOptions,
+  VariableCompletion,
+} from './completion-for/completion-variables.interface';
 
 /**
  * Types of auto-complete
@@ -32,7 +40,9 @@ export type AutoCompleteType =
   | FunctionMethodCompletion
   | FunctionCompletion
   | IncludeCompletion
-  | KeywordCompletion;
+  | KeywordCompletion
+  | SystemVariableCompletion
+  | VariableCompletion;
 
 /**
  * Options passed to auto-complete
@@ -50,6 +60,10 @@ export type AutoCompleteRecipeOptions<T extends AutoCompleteType> =
     ? IIncludeCompletionOptions
     : T extends KeywordCompletion
     ? IKeywordCompletionOptions
+    : T extends SystemVariableCompletion
+    ? ISystemVariableCompletionOptions
+    : T extends VariableCompletion
+    ? IVariableCompletionOptions
     : never;
 
 /**

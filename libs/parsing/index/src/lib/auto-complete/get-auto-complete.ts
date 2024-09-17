@@ -28,8 +28,6 @@ import { SPECIAL_FUNCTION_REGEX } from './completion-for/add-completion-special-
 import { AddCompletionSpecialProcedures } from './completion-for/add-completion-special-procedures';
 import { SPECIAL_PROCEDURE_REGEX } from './completion-for/add-completion-special-procedures.interface';
 import { AddCompletionStructureNames } from './completion-for/add-completion-structure-names';
-import { AddCompletionSystemVariables } from './completion-for/add-completion-system-variables';
-import { AddCompletionVariables } from './completion-for/add-completion-variables';
 import {
   BuildCompileOptCompletionItems,
   GetCompileOptCompletionOptions,
@@ -51,6 +49,11 @@ import {
   BuildKeywordCompletionItems,
   GetKeywordCompletionOptions,
 } from './completion-for/completion-keywords';
+import { BuildCompletionSystemVariableItems } from './completion-for/completion-system-variables';
+import {
+  BuildVariableCompletionItems,
+  GetVariableCompletionOptions,
+} from './completion-for/completion-variables';
 import {
   ALL_METHODS_COMPLETION,
   CAN_PROCEDURE_HERE,
@@ -200,7 +203,12 @@ export async function GetAutoComplete(
         });
         return complete;
       case token?.name === TOKEN_NAMES.SYSTEM_VARIABLE:
-        AddCompletionSystemVariables(complete, formatting);
+        BuildCompletionSystemVariableItems({
+          complete,
+          formatting,
+          index,
+          options: {},
+        });
         return complete;
       case token?.name === TOKEN_NAMES.EXECUTIVE_COMMAND ||
         (token?.name === TOKEN_NAMES.DOT && token.pos[1] === 0):
@@ -379,8 +387,18 @@ export async function GetAutoComplete(
          * Check if we need to add variables
          */
         if (!isWithinStart && addVariables) {
-          AddCompletionVariables(complete, parsed, global?.token);
-          AddCompletionSystemVariables(complete, formatting);
+          BuildVariableCompletionItems({
+            complete,
+            formatting,
+            index,
+            options: GetVariableCompletionOptions(parsed, global?.token),
+          });
+          BuildCompletionSystemVariableItems({
+            complete,
+            formatting,
+            index,
+            options: {},
+          });
           BuildFunctionCompletionItems({
             complete,
             formatting,
@@ -434,8 +452,18 @@ export async function GetAutoComplete(
        */
       default:
         if (addVariables) {
-          AddCompletionVariables(complete, parsed, global?.token);
-          AddCompletionSystemVariables(complete, formatting);
+          BuildVariableCompletionItems({
+            complete,
+            formatting,
+            index,
+            options: GetVariableCompletionOptions(parsed, global?.token),
+          });
+          BuildCompletionSystemVariableItems({
+            complete,
+            formatting,
+            index,
+            options: {},
+          });
         }
 
         // check if we can send procedures or if it needs to be functions
