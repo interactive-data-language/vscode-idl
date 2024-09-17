@@ -25,7 +25,7 @@ const FUNCTION_METHODS = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.FUNCTION_METHOD];
 /**
  * Adds variables to our completion items
  */
-function AddCompletionFunctionMethodsForType(
+function BuildFunctionMethodCompletionItemsForType(
   arg: IFunctionMethodCompletionArg,
   type: IDLDataTypeBase<IDLTypes>
 ) {
@@ -138,6 +138,6 @@ export function BuildFunctionMethodCompletionItems(
 
   // process each type
   for (let i = 0; i < arg.options.type.length; i++) {
-    AddCompletionFunctionMethodsForType(arg, arg.options.type[i]);
+    BuildFunctionMethodCompletionItemsForType(arg, arg.options.type[i]);
   }
 }

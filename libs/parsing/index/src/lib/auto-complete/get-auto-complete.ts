@@ -19,8 +19,6 @@ import { MarkupKind, Position } from 'vscode-languageserver/node';
 import { GetTypeBefore } from '../helpers/get-type-before';
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
-import { AddCompletionProcedureMethods } from './completion-for/add-completion-procedure-methods';
-import { AddCompletionPropertiesInStructures } from './completion-for/add-completion-properties-in-structures';
 import {
   BuildCompileOptCompletionItems,
   GetCompileOptCompletionOptions,
@@ -42,11 +40,19 @@ import {
   BuildKeywordCompletionItems,
   GetKeywordCompletionOptions,
 } from './completion-for/completion-keywords';
+import {
+  BuildProcedureMethodCompletionItems,
+  GetProcedureMethodCompletionOptions,
+} from './completion-for/completion-procedure-methods';
 import { BuildProcedureCompletionItems } from './completion-for/completion-procedures';
 import {
   BuildPropertyCompletionItems,
   GetPropertyCompletionOptions,
 } from './completion-for/completion-properties';
+import {
+  BuildPropertyInStructureCompletionItems,
+  GetPropertyInStructureCompletionOptions,
+} from './completion-for/completion-properties-in-structures';
 import {
   BuildSpecialFunctionCompletionItems,
   GetSpecialFunctionCompletionOptions,
@@ -268,12 +274,14 @@ export async function GetAutoComplete(
         });
         return complete;
       case token?.name === TOKEN_NAMES.STRUCTURE_NAME:
-        AddCompletionPropertiesInStructures(
+        BuildPropertyInStructureCompletionItems({
           complete,
+          formatting,
           index,
-          token as IBranch<StructureNameToken>,
-          formatting
-        );
+          options: GetPropertyInStructureCompletionOptions(
+            token as IBranch<StructureNameToken>
+          ),
+        });
         return complete;
       // return if we have a parent token that we are never supposed to process
       default:
@@ -461,12 +469,12 @@ export async function GetAutoComplete(
                 local?.name in CAN_PROCEDURE_HERE ||
                 token?.name === TOKEN_NAMES.CALL_PROCEDURE_METHOD
               ) {
-                AddCompletionProcedureMethods(
+                BuildProcedureMethodCompletionItems({
                   complete,
-                  index,
                   formatting,
-                  type
-                );
+                  index,
+                  options: GetProcedureMethodCompletionOptions(type),
+                });
               }
               BuildFunctionMethodCompletionItems({
                 complete,

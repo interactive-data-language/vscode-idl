@@ -12,8 +12,10 @@ import { BuildFunctionMethodCompletionItems } from './completion-for/completion-
 import { BuildFunctionCompletionItems } from './completion-for/completion-functions';
 import { BuildIncludeCompletionItems } from './completion-for/completion-include';
 import { BuildKeywordCompletionItems } from './completion-for/completion-keywords';
+import { BuildProcedureMethodCompletionItems } from './completion-for/completion-procedure-methods';
 import { BuildProcedureCompletionItems } from './completion-for/completion-procedures';
 import { BuildPropertyCompletionItems } from './completion-for/completion-properties';
+import { BuildPropertyInStructureCompletionItems } from './completion-for/completion-properties-in-structures';
 import { BuildSpecialFunctionCompletionItems } from './completion-for/completion-special-functions';
 import { BuildSpecialProcedureCompletionItems } from './completion-for/completion-special-procedures';
 import { BuildCompletionStructureNameItems } from './completion-for/completion-structure-names';
@@ -55,7 +57,9 @@ export const ALL_COMPLETION_ITEM_BUILDERS: BuildCompletionItemsLookup = {
   include: BuildIncludeCompletionItems,
   keyword: BuildKeywordCompletionItems,
   procedure: BuildProcedureCompletionItems,
+  'procedure-method': BuildProcedureMethodCompletionItems,
   property: BuildPropertyCompletionItems,
+  'property-in-structure': BuildPropertyInStructureCompletionItems,
   'special-function': BuildSpecialFunctionCompletionItems,
   'special-procedure': BuildSpecialProcedureCompletionItems,
   'structure-name': BuildCompletionStructureNameItems,

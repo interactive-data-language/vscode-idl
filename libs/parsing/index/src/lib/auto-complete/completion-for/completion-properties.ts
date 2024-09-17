@@ -19,7 +19,7 @@ import {
 /**
  * Adds variables to our completion items
  */
-function AddCompletionPropertiesForType(
+function BuildPropertyCompletionItemsForType(
   arg: IPropertyCompletionArg,
   type: IDLDataTypeBase<IDLTypes>
 ) {
@@ -131,6 +131,6 @@ export function BuildPropertyCompletionItems(arg: IPropertyCompletionArg) {
 
   // process each type
   for (let i = 0; i < arg.options.type.length; i++) {
-    AddCompletionPropertiesForType(arg, arg.options.type[i]);
+    BuildPropertyCompletionItemsForType(arg, arg.options.type[i]);
   }
 }

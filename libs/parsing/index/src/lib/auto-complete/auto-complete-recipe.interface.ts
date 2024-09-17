@@ -23,6 +23,10 @@ import {
   KeywordCompletion,
 } from './completion-for/completion-keyword.interface';
 import {
+  IProcedureMethodCompletionOptions,
+  ProcedureMethodCompletion,
+} from './completion-for/completion-procedure-methods.interface';
+import {
   IProcedureCompletionOptions,
   ProcedureCompletion,
 } from './completion-for/completion-procedures.interface';
@@ -30,6 +34,10 @@ import {
   IPropertyCompletionOptions,
   PropertyCompletion,
 } from './completion-for/completion-properties.interface';
+import {
+  IPropertyInStructureCompletionOptions,
+  PropertyInStructureCompletion,
+} from './completion-for/completion-properties-in-structures.interface';
 import {
   ISpecialFunctionCompletionOptions,
   SpecialFunctionCompletion,
@@ -62,7 +70,9 @@ export type AutoCompleteType =
   | IncludeCompletion
   | KeywordCompletion
   | ProcedureCompletion
+  | ProcedureMethodCompletion
   | PropertyCompletion
+  | PropertyInStructureCompletion
   | SpecialFunctionCompletion
   | SpecialProcedureCompletion
   | StructureNameCompletion
@@ -87,8 +97,12 @@ export type AutoCompleteRecipeOptions<T extends AutoCompleteType> =
     ? IKeywordCompletionOptions
     : T extends ProcedureCompletion
     ? IProcedureCompletionOptions
+    : T extends ProcedureMethodCompletion
+    ? IProcedureMethodCompletionOptions
     : T extends PropertyCompletion
     ? IPropertyCompletionOptions
+    : T extends PropertyInStructureCompletion
+    ? IPropertyInStructureCompletionOptions
     : T extends SpecialFunctionCompletion
     ? ISpecialFunctionCompletionOptions
     : T extends SpecialProcedureCompletion

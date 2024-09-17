@@ -11,7 +11,12 @@ import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
 import { IDLIndex } from '../../idl-index.class';
+import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
+import {
+  IPropertyInStructureCompletionOptions,
+  PropertyInStructureCompletion,
+} from './completion-properties-in-structures.interface';
 
 /**
  *Recursively finds properties and adds them to our completion list if we have not
@@ -69,14 +74,11 @@ function ResolveProperties(
 }
 
 /**
- * Adds keyword completion properties inside of structures
+ * Get options to do auto-complete in structures
  */
-export function AddCompletionPropertiesInStructures(
-  complete: CompletionItem[],
-  index: IDLIndex,
-  token: TreeToken<StructureNameToken>,
-  formatting: IAssemblerOptions<FormatterType>
-) {
+export function GetPropertyInStructureCompletionOptions(
+  token: TreeToken<StructureNameToken>
+): IPropertyInStructureCompletionOptions {
   // get the name of of our structure
   const name = token.match[0];
 
@@ -89,6 +91,24 @@ export function AddCompletionPropertiesInStructures(
     found[GetPropertyName(props[i]).toLowerCase()] = true;
   }
 
+  return {
+    name,
+    found,
+  };
+}
+
+/**
+ * Adds keyword completion properties inside of structures
+ */
+export function BuildPropertyInStructureCompletionItems(
+  arg: BuildCompletionItemsArg<PropertyInStructureCompletion>
+) {
   // resolve properties
-  ResolveProperties(complete, index, formatting, name, found);
+  ResolveProperties(
+    arg.complete,
+    arg.index,
+    arg.formatting,
+    arg.options.name,
+    arg.options.found
+  );
 }
