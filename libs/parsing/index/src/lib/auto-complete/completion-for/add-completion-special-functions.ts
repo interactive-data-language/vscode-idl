@@ -15,7 +15,7 @@ import {
   ENVI_TASK_REGEX,
   IDL_TASK_REGEX,
 } from './add-completion-special-functions.interface';
-import { AddCompletionStructureNames } from './add-completion-structure-names';
+import { BuildCompletionStructureNameItems } from './completion-structure-names';
 
 /**
  * Display names for functions
@@ -106,7 +106,7 @@ export function AddCompletionSpecialFunctions(
      * Handle calls to obj_new
      */
     case functionName === 'obj_new(': {
-      return AddCompletionStructureNames(complete, formatting);
+      return BuildCompletionStructureNameItems(complete, formatting);
     }
     /**
      * Handle calls to call_function

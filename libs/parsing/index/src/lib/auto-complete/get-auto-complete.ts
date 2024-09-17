@@ -25,9 +25,6 @@ import { AddCompletionProperties } from './completion-for/add-completion-propert
 import { AddCompletionPropertiesInStructures } from './completion-for/add-completion-properties-in-structures';
 import { AddCompletionSpecialFunctions } from './completion-for/add-completion-special-functions';
 import { SPECIAL_FUNCTION_REGEX } from './completion-for/add-completion-special-functions.interface';
-import { AddCompletionSpecialProcedures } from './completion-for/add-completion-special-procedures';
-import { SPECIAL_PROCEDURE_REGEX } from './completion-for/add-completion-special-procedures.interface';
-import { AddCompletionStructureNames } from './completion-for/add-completion-structure-names';
 import {
   BuildCompileOptCompletionItems,
   GetCompileOptCompletionOptions,
@@ -49,6 +46,12 @@ import {
   BuildKeywordCompletionItems,
   GetKeywordCompletionOptions,
 } from './completion-for/completion-keywords';
+import {
+  BuildSpecialProcedureCompletionItems,
+  GetSpecialProcedureCompletionOptions,
+} from './completion-for/completion-special-procedures';
+import { SPECIAL_PROCEDURE_REGEX } from './completion-for/completion-special-procedures.interface';
+import { BuildCompletionStructureNameItems } from './completion-for/completion-structure-names';
 import { BuildCompletionSystemVariableItems } from './completion-for/completion-system-variables';
 import {
   BuildVariableCompletionItems,
@@ -169,7 +172,12 @@ export async function GetAutoComplete(
         SPECIAL_PROCEDURE_REGEX.test(
           token?.scopeTokens[token.scope.length - 1]?.match[0]
         ):
-        AddCompletionSpecialProcedures(complete, index, token, formatting);
+        BuildSpecialProcedureCompletionItems({
+          complete,
+          index,
+          formatting,
+          options: GetSpecialProcedureCompletionOptions(token),
+        });
         return complete;
       case token?.name in SKIP_THESE_TOKENS ||
         local?.name in SKIP_THESE_PARENTS:
@@ -220,18 +228,33 @@ export async function GetAutoComplete(
         });
         return complete;
       case token?.name === TOKEN_NAMES.STRUCTURE && token?.kids?.length === 0:
-        AddCompletionStructureNames(complete, formatting);
+        BuildCompletionStructureNameItems({
+          complete,
+          formatting,
+          index,
+          options: {},
+        });
         return complete;
       case token?.name === TOKEN_NAMES.STRUCTURE_INHERITANCE &&
         // fully typed inherits
         token.match[0].trim().toLowerCase() === 'inherits' &&
         // make sure it ends with a space
         token.match[0].endsWith(' '):
-        AddCompletionStructureNames(complete, formatting);
+        BuildCompletionStructureNameItems({
+          complete,
+          formatting,
+          index,
+          options: {},
+        });
         return complete;
       case token?.name === TOKEN_NAMES.STRUCTURE_NAME &&
         token?.kids?.length === 0:
-        AddCompletionStructureNames(complete, formatting);
+        BuildCompletionStructureNameItems({
+          complete,
+          formatting,
+          index,
+          options: {},
+        });
         return complete;
       case token?.name === TOKEN_NAMES.STRUCTURE_NAME:
         AddCompletionPropertiesInStructures(

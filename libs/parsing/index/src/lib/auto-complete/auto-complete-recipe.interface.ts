@@ -23,6 +23,14 @@ import {
   KeywordCompletion,
 } from './completion-for/completion-keyword.interface';
 import {
+  ISpecialProcedureCompletionOptions,
+  SpecialProcedureCompletion,
+} from './completion-for/completion-special-procedures.interface';
+import {
+  IStructureNameCompletionOptions,
+  StructureNameCompletion,
+} from './completion-for/completion-structure-names.interface';
+import {
   ISystemVariableCompletionOptions,
   SystemVariableCompletion,
 } from './completion-for/completion-system-variables.interface';
@@ -41,6 +49,8 @@ export type AutoCompleteType =
   | FunctionCompletion
   | IncludeCompletion
   | KeywordCompletion
+  | SpecialProcedureCompletion
+  | StructureNameCompletion
   | SystemVariableCompletion
   | VariableCompletion;
 
@@ -60,6 +70,10 @@ export type AutoCompleteRecipeOptions<T extends AutoCompleteType> =
     ? IIncludeCompletionOptions
     : T extends KeywordCompletion
     ? IKeywordCompletionOptions
+    : T extends SpecialProcedureCompletion
+    ? ISpecialProcedureCompletionOptions
+    : T extends StructureNameCompletion
+    ? IStructureNameCompletionOptions
     : T extends SystemVariableCompletion
     ? ISystemVariableCompletionOptions
     : T extends VariableCompletion
