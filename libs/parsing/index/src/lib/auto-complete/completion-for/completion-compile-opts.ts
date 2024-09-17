@@ -9,7 +9,7 @@ import { SORT_PRIORITY } from '../sort-priority.interface';
 import {
   CompileOptCompletion,
   ICompileOptCompletionOptions,
-} from './add-completion-compile-opts.interface';
+} from './completion-compile-opts.interface';
 
 /**
  * Generates options for creating compile opts

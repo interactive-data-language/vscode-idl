@@ -6,10 +6,10 @@ import {
   AutoCompleteRecipeOptions,
   AutoCompleteType,
 } from './auto-complete-recipe.interface';
-import { BuildCompileOptCompletionItems } from './completion-for/add-completion-compile-opts';
-import { BuildExecutiveCommandCompletionItems } from './completion-for/add-completion-executive-commands';
-import { BuildFunctionMethodCompletionItems } from './completion-for/add-completion-function-methods';
-import { BuildFunctionCompletionItems } from './completion-for/add-completion-functions';
+import { BuildCompileOptCompletionItems } from './completion-for/completion-compile-opts';
+import { BuildExecutiveCommandCompletionItems } from './completion-for/completion-executive-commands';
+import { BuildFunctionMethodCompletionItems } from './completion-for/completion-function-methods';
+import { BuildFunctionCompletionItems } from './completion-for/completion-functions';
 
 /**
  * Options passed into all completion items that we build

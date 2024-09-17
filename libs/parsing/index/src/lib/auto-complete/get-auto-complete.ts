@@ -19,22 +19,6 @@ import { MarkupKind, Position } from 'vscode-languageserver/node';
 import { GetTypeBefore } from '../helpers/get-type-before';
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
-import {
-  BuildCompileOptCompletionItems,
-  GetCompileOptCompletionOptions,
-} from './completion-for/add-completion-compile-opts';
-import {
-  BuildExecutiveCommandCompletionItems,
-  GetExecutiveCommandCompletionOptions,
-} from './completion-for/add-completion-executive-commands';
-import {
-  BuildFunctionMethodCompletionItems,
-  BuildFunctionMethodCompletionOptions,
-} from './completion-for/add-completion-function-methods';
-import {
-  BuildFunctionCompletionItems,
-  GetFunctionCompletionOptions,
-} from './completion-for/add-completion-functions';
 import { AddCompletionInclude } from './completion-for/add-completion-include';
 import { AddCompletionKeywords } from './completion-for/add-completion-keywords';
 import { AddCompletionProcedureMethods } from './completion-for/add-completion-procedure-methods';
@@ -48,6 +32,22 @@ import { SPECIAL_PROCEDURE_REGEX } from './completion-for/add-completion-special
 import { AddCompletionStructureNames } from './completion-for/add-completion-structure-names';
 import { AddCompletionSystemVariables } from './completion-for/add-completion-system-variables';
 import { AddCompletionVariables } from './completion-for/add-completion-variables';
+import {
+  BuildCompileOptCompletionItems,
+  GetCompileOptCompletionOptions,
+} from './completion-for/completion-compile-opts';
+import {
+  BuildExecutiveCommandCompletionItems,
+  GetExecutiveCommandCompletionOptions,
+} from './completion-for/completion-executive-commands';
+import {
+  BuildFunctionMethodCompletionItems,
+  BuildFunctionMethodCompletionOptions,
+} from './completion-for/completion-function-methods';
+import {
+  BuildFunctionCompletionItems,
+  GetFunctionCompletionOptions,
+} from './completion-for/completion-functions';
 import {
   ALL_METHODS_COMPLETION,
   CAN_PROCEDURE_HERE,

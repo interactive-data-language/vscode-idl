@@ -15,7 +15,7 @@ import { SORT_PRIORITY } from '../sort-priority.interface';
 import {
   IFunctionMethodCompletionArg,
   IFunctionMethodCompletionOptions,
-} from './add-completion-function-methods.interface';
+} from './completion-function-methods.interface';
 
 /**
  * Display names for function methods

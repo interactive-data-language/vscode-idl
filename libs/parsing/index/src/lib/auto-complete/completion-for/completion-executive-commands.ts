@@ -10,7 +10,7 @@ import { SORT_PRIORITY } from '../sort-priority.interface';
 import {
   ExecutiveCommandCompletion,
   IExecutiveCommandCompletionOptions,
-} from './add-completion-executive-commands.interface';
+} from './completion-executive-commands.interface';
 
 /**
  * All executive commands

@@ -1,19 +1,19 @@
 import {
   CompileOptCompletion,
   ICompileOptCompletionOptions,
-} from './completion-for/add-completion-compile-opts.interface';
+} from './completion-for/completion-compile-opts.interface';
 import {
   ExecutiveCommandCompletion,
   IExecutiveCommandCompletionOptions,
-} from './completion-for/add-completion-executive-commands.interface';
+} from './completion-for/completion-executive-commands.interface';
 import {
   FunctionMethodCompletion,
   IFunctionMethodCompletionOptions,
-} from './completion-for/add-completion-function-methods.interface';
+} from './completion-for/completion-function-methods.interface';
 import {
   FunctionCompletion,
   IFunctionCompletionOptions,
-} from './completion-for/add-completion-functions.interface';
+} from './completion-for/completion-functions.interface';
 
 /**
  * Types of auto-complete
