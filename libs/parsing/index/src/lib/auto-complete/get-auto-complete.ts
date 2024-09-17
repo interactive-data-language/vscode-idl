@@ -20,7 +20,6 @@ import { GetTypeBefore } from '../helpers/get-type-before';
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
 import { AddCompletionProcedureMethods } from './completion-for/add-completion-procedure-methods';
-import { AddCompletionProcedures } from './completion-for/add-completion-procedures';
 import { AddCompletionProperties } from './completion-for/add-completion-properties';
 import { AddCompletionPropertiesInStructures } from './completion-for/add-completion-properties-in-structures';
 import {
@@ -44,6 +43,7 @@ import {
   BuildKeywordCompletionItems,
   GetKeywordCompletionOptions,
 } from './completion-for/completion-keywords';
+import { BuildProcedureCompletionItems } from './completion-for/completion-procedures';
 import {
   BuildSpecialFunctionCompletionItems,
   GetSpecialFunctionCompletionOptions,
@@ -502,7 +502,12 @@ export async function GetAutoComplete(
           token?.name in PROCEDURES ||
           (isWithinStart && token?.name === TOKEN_NAMES.CALL_PROCEDURE)
         ) {
-          AddCompletionProcedures(complete, formatting);
+          BuildProcedureCompletionItems({
+            complete,
+            formatting,
+            index,
+            options: {},
+          });
         } else {
           BuildFunctionCompletionItems({
             complete,
