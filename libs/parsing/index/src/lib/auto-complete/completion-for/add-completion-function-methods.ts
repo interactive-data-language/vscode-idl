@@ -1,4 +1,3 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -10,15 +9,13 @@ import {
   IDLTypes,
   ParseIDLType,
 } from '@idl/types/core';
-import {
-  Command,
-  CompletionItem,
-  CompletionItemKind,
-} from 'vscode-languageserver';
+import { Command, CompletionItemKind } from 'vscode-languageserver';
 
-import { IDLIndex } from '../../idl-index.class';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import { IFunctionMethodCompletionOptions } from './add-completion-function-methods.interface';
+import {
+  IFunctionMethodCompletionArg,
+  IFunctionMethodCompletionOptions,
+} from './add-completion-function-methods.interface';
 
 /**
  * Display names for function methods
@@ -29,20 +26,16 @@ const FUNCTION_METHODS = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.FUNCTION_METHOD];
  * Adds variables to our completion items
  */
 function AddCompletionFunctionMethodsForType(
-  complete: CompletionItem[],
-  options: IFunctionMethodCompletionOptions,
-  formatting: IAssemblerOptions<FormatterType>,
-  index: IDLIndex,
-  type: IDLDataTypeBase<IDLTypes>,
-  found: { [key: string]: any } = {}
+  arg: IFunctionMethodCompletionArg,
+  type: IDLDataTypeBase<IDLTypes>
 ) {
   /** If we add parentheses or not */
-  const add = options.addParen ? '()' : '';
+  const add = arg.options.addParen ? '()' : '';
 
   /** Cursor movement command */
   const command: Command = {
     title: 'Cursor Adjust',
-    command: options.addParen ? 'cursorLeft' : 'cursorRight',
+    command: arg.options.addParen ? 'cursorLeft' : 'cursorRight',
   };
 
   /**
@@ -51,12 +44,12 @@ function AddCompletionFunctionMethodsForType(
   if (type.name === IDL_TYPE_LOOKUP.ANY) {
     const displayNames = Object.values(FUNCTION_METHODS);
     for (let i = 0; i < displayNames.length; i++) {
-      complete.push({
+      arg.complete.push({
         label: displayNames[i] + '()',
         insertText:
           TransformCase(
             displayNames[i].split('::')[1],
-            formatting.style.routineMethods
+            arg.formatting.style.routineMethods
           ) + add,
         kind: CompletionItemKind.Method,
         sortText: SORT_PRIORITY.METHODS,
@@ -76,27 +69,27 @@ function AddCompletionFunctionMethodsForType(
     const methodName = names[i].split('::')[1];
     if (
       names[i].startsWith(compareType) &&
-      !(methodName in found) &&
+      !(methodName in arg.found) &&
       !(methodName === 'init')
     ) {
-      complete.push({
+      arg.complete.push({
         label: FUNCTION_METHODS[names[i]] + '()',
         insertText:
           TransformCase(
             FUNCTION_METHODS[names[i]].split('::')[1],
-            formatting.style.routineMethods
+            arg.formatting.style.routineMethods
           ) + add,
         kind: CompletionItemKind.Method,
         sortText: SORT_PRIORITY.METHODS,
         detail: IDL_TRANSLATION.autoComplete.detail.functionMethod,
         command,
       });
-      found[methodName] = true;
+      arg.found[methodName] = true;
     }
   }
 
   // check for global token
-  const global = index.findMatchingGlobalToken(
+  const global = arg.index.findMatchingGlobalToken(
     GLOBAL_TOKEN_TYPES.STRUCTURE,
     type.name.toLocaleLowerCase()
   );
@@ -105,16 +98,15 @@ function AddCompletionFunctionMethodsForType(
     const inherits = global[0].meta.inherits;
     if (inherits.length > 0) {
       for (let i = 0; i < inherits.length; i++) {
-        BuildCompileOptCompletionItems(
-          complete,
-          {
-            addParen: options.addParen,
-            type: ParseIDLType(inherits[i]),
+        BuildFunctionMethodCompletionItems({
+          ...arg,
+          ...{
+            options: {
+              addParen: arg.options.addParen,
+              type: ParseIDLType(inherits[i]),
+            },
           },
-          formatting,
-          index,
-          found
-        );
+        });
       }
     }
   }
@@ -136,22 +128,16 @@ export function BuildFunctionMethodCompletionOptions(
 /**
  * Adds variables to our completion items
  */
-export function BuildCompileOptCompletionItems(
-  complete: CompletionItem[],
-  options: IFunctionMethodCompletionOptions,
-  formatting: IAssemblerOptions<FormatterType>,
-  index: IDLIndex,
-  found: { [key: string]: any } = {}
+export function BuildFunctionMethodCompletionItems(
+  arg: IFunctionMethodCompletionArg
 ) {
+  // track found if we dont have it
+  if (!arg.found) {
+    arg.found = {};
+  }
+
   // process each type
-  for (let i = 0; i < options.type.length; i++) {
-    AddCompletionFunctionMethodsForType(
-      complete,
-      options,
-      formatting,
-      index,
-      options.type[i],
-      found
-    );
+  for (let i = 0; i < arg.options.type.length; i++) {
+    AddCompletionFunctionMethodsForType(arg, arg.options.type[i]);
   }
 }

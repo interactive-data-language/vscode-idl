@@ -2,20 +2,34 @@ import {
   CompileOptCompletion,
   ICompileOptCompletionOptions,
 } from './completion-for/add-completion-compile-opts.interface';
-import { ExecutiveCommandCompletion } from './completion-for/add-completion-executive-commands.interface';
+import {
+  ExecutiveCommandCompletion,
+  IExecutiveCommandCompletionOptions,
+} from './completion-for/add-completion-executive-commands.interface';
+import {
+  FunctionMethodCompletion,
+  IFunctionMethodCompletionOptions,
+} from './completion-for/add-completion-function-methods.interface';
 
 /**
  * Types of auto-complete
  */
 export type AutoCompleteType =
   | CompileOptCompletion
-  | ExecutiveCommandCompletion;
+  | ExecutiveCommandCompletion
+  | FunctionMethodCompletion;
 
 /**
  * Options passed to auto-complete
  */
 export type AutoCompleteRecipeOptions<T extends AutoCompleteType> =
-  T extends CompileOptCompletion ? ICompileOptCompletionOptions : never;
+  T extends CompileOptCompletion
+    ? ICompileOptCompletionOptions
+    : T extends ExecutiveCommandCompletion
+    ? IExecutiveCommandCompletionOptions
+    : T extends FunctionMethodCompletion
+    ? IFunctionMethodCompletionOptions
+    : never;
 
 /**
  * Recipe to describe auto-completion parameters

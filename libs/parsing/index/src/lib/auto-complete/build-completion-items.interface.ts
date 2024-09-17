@@ -8,15 +8,23 @@ import {
 } from './auto-complete-recipe.interface';
 import { BuildCompileOptCompletionItems } from './completion-for/add-completion-compile-opts';
 import { BuildExecutiveCommandCompletionItems } from './completion-for/add-completion-executive-commands';
+import { BuildFunctionMethodCompletionItems } from './completion-for/add-completion-function-methods';
+
+/**
+ * Options passed into all completion items that we build
+ */
+export type BuildCompletionItemsArg<T extends AutoCompleteType> = {
+  complete: CompletionItem[];
+  options: AutoCompleteRecipeOptions<T>;
+  formatting: IAssemblerOptions<FormatterType>;
+  index: IDLIndex;
+};
 
 /**
  * Callback structure for completion items
  */
 export type BuildCompletionItemsCallback<T extends AutoCompleteType> = (
-  complete: CompletionItem[],
-  options: AutoCompleteRecipeOptions<T>,
-  formatting: IAssemblerOptions<FormatterType>,
-  index: IDLIndex
+  options: BuildCompletionItemsArg<T>
 ) => void;
 
 /**
@@ -32,4 +40,5 @@ export type BuildCompletionItemsLookup = {
 export const ALL_COMPLETION_ITEM_BUILDERS: BuildCompletionItemsLookup = {
   'compile-opt': BuildCompileOptCompletionItems,
   'executive-command': BuildExecutiveCommandCompletionItems,
+  'function-method': BuildFunctionMethodCompletionItems,
 };

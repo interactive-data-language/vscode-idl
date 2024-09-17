@@ -1,14 +1,16 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { AdjustCase } from '@idl/assembling/shared';
 import { TreeToken } from '@idl/parsing/syntax-tree';
 import { IDLFileHelper } from '@idl/shared';
 import { TokenName } from '@idl/tokenizer';
 import { basename } from 'path';
-import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
+import { CompletionItemKind } from 'vscode-languageserver';
 
-import { IDLIndex } from '../../idl-index.class';
+import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import { IExecutiveCommandCompletionOptions } from './add-completion-executive-commands.interface';
+import {
+  ExecutiveCommandCompletion,
+  IExecutiveCommandCompletionOptions,
+} from './add-completion-executive-commands.interface';
 
 /**
  * All executive commands
@@ -69,17 +71,14 @@ export function GetExecutiveCommandCompletionOptions(
  * Build auto-complete from options
  */
 export function BuildExecutiveCommandCompletionItems(
-  complete: CompletionItem[],
-  options: IExecutiveCommandCompletionOptions,
-  formatting: IAssemblerOptions<FormatterType>,
-  index: IDLIndex
+  arg: BuildCompletionItemsArg<ExecutiveCommandCompletion>
 ) {
   switch (true) {
-    case options.addFiles: {
+    case arg.options.addFiles: {
       /**
        * Get all files
        */
-      const files = Object.keys(index.knownFiles);
+      const files = Object.keys(arg.index.knownFiles);
 
       // process all files
       for (let i = 0; i < files.length; i++) {
@@ -94,7 +93,7 @@ export function BuildExecutiveCommandCompletionItems(
         const base = basename(files[i]);
 
         // add in our completion item
-        complete.push({
+        arg.complete.push({
           label: base,
           insertText: base.toLowerCase().replace('.pro', ''),
           kind: CompletionItemKind.File,
@@ -102,7 +101,7 @@ export function BuildExecutiveCommandCompletionItems(
       }
       break;
     }
-    case options.isCompile:
+    case arg.options.isCompile:
       // do nothing
       break;
     default:
@@ -111,11 +110,11 @@ export function BuildExecutiveCommandCompletionItems(
         // properly case the executive command
         const cased = AdjustCase(
           EXECUTIVE_COMMANDS[i],
-          formatting.style.control
+          arg.formatting.style.control
         );
 
         // save completion item
-        complete.push({
+        arg.complete.push({
           label: cased,
           kind: CompletionItemKind.Constructor,
           sortText: SORT_PRIORITY.EXECUTIVE_COMMANDS,
@@ -124,21 +123,4 @@ export function BuildExecutiveCommandCompletionItems(
       }
       break;
   }
-}
-
-/**
- * Adds completion for executive commands
- */
-export function AddCompletionExecutiveCommands(
-  complete: CompletionItem[],
-  token: TreeToken<TokenName>,
-  formatting: IAssemblerOptions<FormatterType>,
-  index: IDLIndex
-) {
-  BuildExecutiveCommandCompletionItems(
-    complete,
-    GetExecutiveCommandCompletionOptions(token),
-    formatting,
-    index
-  );
 }

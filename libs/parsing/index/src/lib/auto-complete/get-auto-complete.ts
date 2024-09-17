@@ -19,10 +19,16 @@ import { MarkupKind, Position } from 'vscode-languageserver/node';
 import { GetTypeBefore } from '../helpers/get-type-before';
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
-import { AddCompletionCompileOpts } from './completion-for/add-completion-compile-opts';
-import { AddCompletionExecutiveCommands } from './completion-for/add-completion-executive-commands';
 import {
   BuildCompileOptCompletionItems,
+  GetCompileOptCompletionOptions,
+} from './completion-for/add-completion-compile-opts';
+import {
+  BuildExecutiveCommandCompletionItems,
+  GetExecutiveCommandCompletionOptions,
+} from './completion-for/add-completion-executive-commands';
+import {
+  BuildFunctionMethodCompletionItems,
   BuildFunctionMethodCompletionOptions,
 } from './completion-for/add-completion-function-methods';
 import { AddCompletionFunctions } from './completion-for/add-completion-functions';
@@ -93,7 +99,7 @@ export async function GetAutoComplete(
   formatting: IAssemblerOptions<FormatterType>
 ): Promise<GetAutoCompleteResponse> {
   // initialize the value of our help
-  const items: GetAutoCompleteResponse = [];
+  const complete: GetAutoCompleteResponse = [];
 
   // get the tokens for our file
   const parsed = await index.getParsedProCode(
@@ -144,8 +150,8 @@ export async function GetAutoComplete(
         SPECIAL_FUNCTION_REGEX.test(
           token?.scopeTokens[token.scope.length - 1]?.match[0]
         ):
-        AddCompletionSpecialFunctions(items, index, token, formatting);
-        return items;
+        AddCompletionSpecialFunctions(complete, index, token, formatting);
+        return complete;
       /**
        * Custom auto-complete procedures where we have literal values
        */
@@ -154,57 +160,68 @@ export async function GetAutoComplete(
         SPECIAL_PROCEDURE_REGEX.test(
           token?.scopeTokens[token.scope.length - 1]?.match[0]
         ):
-        AddCompletionSpecialProcedures(items, index, token, formatting);
-        return items;
+        AddCompletionSpecialProcedures(complete, index, token, formatting);
+        return complete;
       case token?.name in SKIP_THESE_TOKENS ||
         local?.name in SKIP_THESE_PARENTS:
         return [];
       case token?.name === TOKEN_NAMES.INCLUDE:
-        AddCompletionInclude(items, index);
-        return items;
+        AddCompletionInclude(complete, index);
+        return complete;
       case local?.name === TOKEN_NAMES.CONTROL_COMPILE_OPT:
-        AddCompletionCompileOpts(
-          items,
-          local as TreeToken<ControlCompileOptToken>,
-          formatting
-        );
-        return items;
+        BuildCompileOptCompletionItems({
+          complete,
+          options: GetCompileOptCompletionOptions(
+            local as TreeToken<ControlCompileOptToken>
+          ),
+          formatting,
+          index,
+        });
+        return complete;
       case token?.name === TOKEN_NAMES.CONTROL_COMPILE_OPT:
-        AddCompletionCompileOpts(
-          items,
-          token as TreeToken<ControlCompileOptToken>,
-          formatting
-        );
-        return items;
+        BuildCompileOptCompletionItems({
+          complete,
+          options: GetCompileOptCompletionOptions(
+            token as TreeToken<ControlCompileOptToken>
+          ),
+          formatting,
+          index,
+        });
+        return complete;
       case token?.name === TOKEN_NAMES.SYSTEM_VARIABLE:
-        AddCompletionSystemVariables(items, formatting);
-        return items;
+        AddCompletionSystemVariables(complete, formatting);
+        return complete;
       case token?.name === TOKEN_NAMES.EXECUTIVE_COMMAND ||
         (token?.name === TOKEN_NAMES.DOT && token.pos[1] === 0):
-        AddCompletionExecutiveCommands(items, token, formatting, index);
-        return items;
+        BuildExecutiveCommandCompletionItems({
+          complete,
+          options: GetExecutiveCommandCompletionOptions(token),
+          formatting,
+          index,
+        });
+        return complete;
       case token?.name === TOKEN_NAMES.STRUCTURE && token?.kids?.length === 0:
-        AddCompletionStructureNames(items, formatting);
-        return items;
+        AddCompletionStructureNames(complete, formatting);
+        return complete;
       case token?.name === TOKEN_NAMES.STRUCTURE_INHERITANCE &&
         // fully typed inherits
         token.match[0].trim().toLowerCase() === 'inherits' &&
         // make sure it ends with a space
         token.match[0].endsWith(' '):
-        AddCompletionStructureNames(items, formatting);
-        return items;
+        AddCompletionStructureNames(complete, formatting);
+        return complete;
       case token?.name === TOKEN_NAMES.STRUCTURE_NAME &&
         token?.kids?.length === 0:
-        AddCompletionStructureNames(items, formatting);
-        return items;
+        AddCompletionStructureNames(complete, formatting);
+        return complete;
       case token?.name === TOKEN_NAMES.STRUCTURE_NAME:
         AddCompletionPropertiesInStructures(
-          items,
+          complete,
           index,
           token as IBranch<StructureNameToken>,
           formatting
         );
-        return items;
+        return complete;
       // return if we have a parent token that we are never supposed to process
       default:
     }
@@ -293,7 +310,7 @@ export async function GetAutoComplete(
        */
       if (canKeyword && !(noProKeywords || noFunctionKeywords)) {
         AddCompletionKeywords(
-          items,
+          complete,
           parsed,
           index,
           token || cursor.scopeTokens[cursor.scopeTokens.length - 1],
@@ -336,7 +353,7 @@ export async function GetAutoComplete(
          */
         if (isWithinStart && !(token?.name in NO_PROPERTIES)) {
           AddCompletionProperties(
-            items,
+            complete,
             index,
             type,
             local?.name in PROCEDURES ? '' : '',
@@ -348,9 +365,9 @@ export async function GetAutoComplete(
          * Check if we need to add variables
          */
         if (!isWithinStart && addVariables) {
-          AddCompletionVariables(items, parsed, global?.token);
-          AddCompletionSystemVariables(items, formatting);
-          AddCompletionFunctions(items, formatting, addParen);
+          AddCompletionVariables(complete, parsed, global?.token);
+          AddCompletionSystemVariables(complete, formatting);
+          AddCompletionFunctions(complete, formatting, addParen);
         }
 
         /**
@@ -359,26 +376,31 @@ export async function GetAutoComplete(
         if (isWithinStart) {
           switch (true) {
             case token?.name in FUNCTION_METHOD_COMPLETION:
-              BuildCompileOptCompletionItems(
-                items,
-                BuildFunctionMethodCompletionOptions(type, addParen),
+              BuildFunctionMethodCompletionItems({
+                complete,
+                options: BuildFunctionMethodCompletionOptions(type, addParen),
                 formatting,
-                index
-              );
+                index,
+              });
               break;
             case token?.name in ALL_METHODS_COMPLETION:
               if (
                 local?.name in CAN_PROCEDURE_HERE ||
                 token?.name === TOKEN_NAMES.CALL_PROCEDURE_METHOD
               ) {
-                AddCompletionProcedureMethods(items, index, formatting, type);
+                AddCompletionProcedureMethods(
+                  complete,
+                  index,
+                  formatting,
+                  type
+                );
               }
-              BuildCompileOptCompletionItems(
-                items,
-                BuildFunctionMethodCompletionOptions(type, addParen),
+              BuildFunctionMethodCompletionItems({
+                complete,
+                options: BuildFunctionMethodCompletionOptions(type, addParen),
                 formatting,
-                index
-              );
+                index,
+              });
               break;
             default:
               break;
@@ -393,8 +415,8 @@ export async function GetAutoComplete(
        */
       default:
         if (addVariables) {
-          AddCompletionVariables(items, parsed, global?.token);
-          AddCompletionSystemVariables(items, formatting);
+          AddCompletionVariables(complete, parsed, global?.token);
+          AddCompletionSystemVariables(complete, formatting);
         }
 
         // check if we can send procedures or if it needs to be functions
@@ -402,23 +424,26 @@ export async function GetAutoComplete(
           token?.name in PROCEDURES ||
           (isWithinStart && token?.name === TOKEN_NAMES.CALL_PROCEDURE)
         ) {
-          AddCompletionProcedures(items, formatting);
+          AddCompletionProcedures(complete, formatting);
         } else {
-          AddCompletionFunctions(items, formatting, addParen);
+          AddCompletionFunctions(complete, formatting, addParen);
         }
     }
   }
 
   // resolve links in any completion items and indicate that
   // we have markdown to present
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].documentation) {
-      items[i].documentation = {
+  for (let i = 0; i < complete.length; i++) {
+    if (complete[i].documentation) {
+      complete[i].documentation = {
         kind: MarkupKind.Markdown,
-        value: ResolveHoverHelpLinks(items[i].documentation as string, config),
+        value: ResolveHoverHelpLinks(
+          complete[i].documentation as string,
+          config
+        ),
       };
     }
   }
 
-  return items;
+  return complete;
 }

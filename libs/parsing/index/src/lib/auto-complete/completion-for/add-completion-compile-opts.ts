@@ -1,13 +1,19 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { AdjustCase } from '@idl/assembling/shared';
 import { TreeToken } from '@idl/parsing/syntax-tree';
 import { ALLOWED_COMPILE_OPTIONS } from '@idl/parsing/syntax-validators';
 import { ControlCompileOptToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
+import { CompletionItemKind } from 'vscode-languageserver';
 
+import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import { ICompileOptCompletionOptions } from './add-completion-compile-opts.interface';
+import {
+  CompileOptCompletion,
+  ICompileOptCompletionOptions,
+} from './add-completion-compile-opts.interface';
 
+/**
+ * Generates options for creating compile opts
+ */
 export function GetCompileOptCompletionOptions(
   token: TreeToken<ControlCompileOptToken>
 ): ICompileOptCompletionOptions {
@@ -18,13 +24,14 @@ export function GetCompileOptCompletionOptions(
   };
 }
 
+/**
+ * Generates completion items from our options
+ */
 export function BuildCompileOptCompletionItems(
-  complete: CompletionItem[],
-  options: ICompileOptCompletionOptions,
-  formatting: IAssemblerOptions<FormatterType>
+  arg: BuildCompletionItemsArg<CompileOptCompletion>
 ) {
   // get current compile opts
-  const opts = options.current;
+  const opts = arg.options.current;
 
   // get compile opts we should add in
   const addOpts = Object.keys(ALLOWED_COMPILE_OPTIONS).filter(
@@ -33,25 +40,10 @@ export function BuildCompileOptCompletionItems(
 
   // add user procedures first
   for (let i = 0; i < addOpts.length; i++) {
-    complete.push({
-      label: AdjustCase(addOpts[i], formatting.style.control),
+    arg.complete.push({
+      label: AdjustCase(addOpts[i], arg.formatting.style.control),
       kind: CompletionItemKind.EnumMember,
       sortText: SORT_PRIORITY.CONTROL,
     });
   }
-}
-
-/**
- * Adds compile opt completion items
- */
-export function AddCompletionCompileOpts(
-  complete: CompletionItem[],
-  token: TreeToken<ControlCompileOptToken>,
-  formatting: IAssemblerOptions<FormatterType>
-) {
-  BuildCompileOptCompletionItems(
-    complete,
-    GetCompileOptCompletionOptions(token),
-    formatting
-  );
 }
