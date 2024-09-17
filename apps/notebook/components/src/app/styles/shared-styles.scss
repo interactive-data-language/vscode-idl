@@ -8,34 +8,14 @@ $cell-height-limit: 500px;
   font-size: var(--font-size) !important;
 }
 
-.mat-primary {
-  --mdc-slider-handle-color: var(
-    --vscode-activityBarBadge-background
-  ) !important;
-  --mdc-slider-focus-handle-color: var(
-    --vscode-activityBarBadge-background
-  ) !important;
-  --mdc-slider-hover-handle-color: var(
-    --vscode-activityBarBadge-background
-  ) !important;
-  --mdc-slider-active-track-color: var(
-    --vscode-activityBarBadge-background
-  ) !important;
-  --mdc-slider-inactive-track-color: var(
-    --vscode-activityBarBadge-background
-  ) !important;
-  /* --mdc-slider-with-tick-marks-inactive-container-color: var(
-    --vscode-activityBarBadge-background
-  ) !important; */
-  /* --mat-mdc-slider-ripple-color: var(
-    --vscode-activityBarBadge-background
-  ) !important; */
-}
-
 // override class for more compact icon buttons without "<button>"
 .icon-button {
   cursor: pointer;
   // color: var(--vscode-activityBar-foreground);
+}
+
+.drag-me {
+  cursor: move;
 }
 
 .renderer-toolbar {

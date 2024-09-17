@@ -7,16 +7,11 @@ import {
   TOKEN_NAMES,
   TokenName,
 } from '@idl/tokenizer';
-import {
-  GLOBAL_TOKEN_TYPES,
-  GlobalIndexedRoutineToken,
-  IDL_TYPE_LOOKUP,
-} from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES, GlobalIndexedRoutineToken } from '@idl/types/core';
 
 import { IDLIndex } from '../idl-index.class';
-import { TypeFromCallFunction } from '../post-process/populate-type/from/function/functions/type-from-call-function';
-import { TypeFromObjNew } from '../post-process/populate-type/from/function/functions/type-from-obj-new';
-import { TypeFromTask } from '../post-process/populate-type/from/function/functions/type-from-task';
+import { GetGlobalsFromFunctionCall } from './get-globals-from-function-call';
+import { GetGlobalsFromProcedureCall } from './get-globals-from-procedure-call';
 import {
   CALL_ROUTINE_TOKENS,
   CallRoutineToken,
@@ -153,64 +148,7 @@ export function GetRoutine(
   // figure out what to search our global index by to find help
   switch (local.name) {
     case TOKEN_NAMES.CALL_FUNCTION: {
-      /** The thing we search for */
-      let findThis = local.match[1].toLowerCase();
-
-      switch (true) {
-        case findThis === 'obj_new': {
-          /** Get the class that is being initialized */
-          const className = TypeFromObjNew(local);
-
-          // if the class is not "any" then use that as the function
-          // or init method
-          if (className !== IDL_TYPE_LOOKUP.ANY) {
-            findThis = className;
-          }
-          break;
-        }
-        case findThis === 'call_function': {
-          /** Get the class that is being initialized */
-          const className = TypeFromCallFunction(local);
-
-          // if the class is not "any" then use that as the function
-          // or init method
-          if (className) {
-            findThis = className;
-          }
-          break;
-        }
-        case findThis === 'envitask' || findThis === 'idltask': {
-          /** Get the class that is being initialized */
-          const className = TypeFromTask(
-            index,
-            parsed,
-            local,
-            findThis === 'envitask' ? 'ENVI' : 'IDL'
-          );
-
-          // if the class is not "any" then use that as the function
-          // or init method
-          if (className !== IDL_TYPE_LOOKUP.ANY) {
-            findThis = className;
-          }
-          break;
-        }
-        default:
-          break;
-      }
-
-      global = index.findMatchingGlobalToken(
-        GLOBAL_TOKEN_TYPES.FUNCTION,
-        findThis
-      );
-
-      // check for init method
-      if (global.length === 0) {
-        global = index.findMatchingGlobalToken(
-          GLOBAL_TOKEN_TYPES.FUNCTION_METHOD,
-          `${findThis}::init`
-        );
-      }
+      global = GetGlobalsFromFunctionCall(index, parsed, local);
       break;
     }
     case TOKEN_NAMES.CALL_FUNCTION_METHOD:
@@ -222,10 +160,7 @@ export function GetRoutine(
       );
       break;
     case TOKEN_NAMES.CALL_PROCEDURE:
-      global = index.findMatchingGlobalToken(
-        GLOBAL_TOKEN_TYPES.PROCEDURE,
-        local.match[0]
-      );
+      global = GetGlobalsFromProcedureCall(index, parsed, local);
       break;
     case TOKEN_NAMES.CALL_PROCEDURE_METHOD:
       global = GetMethod(

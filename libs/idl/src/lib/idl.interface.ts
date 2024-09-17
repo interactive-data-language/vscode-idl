@@ -252,3 +252,6 @@ export const IDL_CODE_COVERAGE_LOOKUP: IDLCodeCoverageLookup = {
  * Data structure for code coverage from IDL
  */
 export type IDLCodeCoverage = Array<IDLCodeCoverageFlag>;
+
+/** Progress bar percentage */
+export const IDL_PROGRESS = /\r\s*[0-9]+(?:\.[0-9]+)?%/im;

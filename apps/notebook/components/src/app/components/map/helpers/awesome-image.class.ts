@@ -20,6 +20,10 @@ interface IAwesomeImageProps {
   colorTransformOptions?: ImageDisplayOptions;
 }
 
+export type AwesomeImageProps = Partial<
+  IAwesomeImageProps & Required<BitmapLayerProps> & Required<LayerProps>
+>;
+
 /**
  * Extension of the BitmapLayer that allows you to set display of data
  * using web.gl shaders to adjust data display at a layer-level
@@ -30,11 +34,7 @@ export class AwesomeImage extends BitmapLayer<IAwesomeImageProps> {
    */
   private colorTransform = new ColorTransform();
 
-  constructor(
-    ...propObjects: Partial<
-      IAwesomeImageProps & Required<BitmapLayerProps> & Required<LayerProps>
-    >[]
-  ) {
+  constructor(...propObjects: AwesomeImageProps[]) {
     super(...propObjects);
 
     // check if we have a color transform

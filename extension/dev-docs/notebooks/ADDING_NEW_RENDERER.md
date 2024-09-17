@@ -18,9 +18,11 @@ Make sure to follow naming pattern for other embed types and expose at the botto
 
 ## Add New Renderer Component
 
+> THIS IS NOT CURRENT AND HAS CHANGED
+
 This is where we will walk through creating and registering a new Angular component.
 
-1. Using the NX CLI, create a new component.
+1. Using NX, create a new component.
 
 > Pro tip: Use the NX VSCode extension to help
 >
@@ -46,7 +48,7 @@ npx nx generate @nx/angular:component --name=new-renderer --project=notebook-com
 >
 > This way everything is bundled together and is what worked to get the pattern established for creating components
 
-2. Update the new component to inherit from our BaseComponent like `apps/notebook/components/src/app/components/image/image.component.ts`
+2. Update the new component to inherit from our BaseRendererComponent like `apps/notebook/components/src/app/components/image/image.component.ts`
 
 This makes sure all components have the same inputs for getting data and have access to the VSCode messenger API
 

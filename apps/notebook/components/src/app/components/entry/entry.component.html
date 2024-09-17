@@ -1,4 +1,4 @@
-<div [ngClass]="class" style="width: 100%">
+<div [ngClass]="class" style="width: 100%" class="mat-theme">
   <div *ngIf="hasData; then thenBlock; else elseBlock"></div>
 
   <ng-template #thenBlock [ngSwitch]="embed.type">

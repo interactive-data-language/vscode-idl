@@ -19,7 +19,7 @@ export const IDL_NB_IMAGE_COMPONENT_SELECTOR = 'idl-nb-image';
   templateUrl: './image.component.html',
   styles: [
     `
-      @import 'shared-styles.scss';
+      @import 'styles.scss';
     `,
   ],
 })

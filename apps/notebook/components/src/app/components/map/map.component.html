@@ -4,25 +4,46 @@
   <canvas #MapCanvas></canvas>
 
   <div class="map-controls" fxLayout="column" fxLayoutAlign="center start">
-    <!-- <div
+    <div
       *ngIf="showLayers"
       fxLayout="column"
       class="toolbar"
       style="margin-bottom: 5px"
     >
-      Something cool
-    </div> -->
+      <!-- display layers -->
+      <div *ngIf="layers !== undefined; else elseBlock">
+        <div
+          cdkDropList
+          (cdkDropListDropped)="drop($event)"
+          (cdkDropListSorted)="dragging($event)"
+          cdkDropListLockAxis="y"
+        >
+          @for (iLayer of layers.layers; track iLayer) {
+          <div fxLayout="row" fxLayoutAlign=" center">
+            <!-- cdkDrag is on the map layer card -->
+            <idl-map-layer-card
+              (propChange)="propertyChange()"
+              [layer]="iLayer"
+            ></idl-map-layer-card>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- alert user if no map layers -->
+      <ng-template #elseBlock>No layers to show</ng-template>
+    </div>
     <div fxLayout="row" fxLayoutAlign="space-around center" class="toolbar">
       <mat-icon
         (click)="resetView()"
         class="icon-button"
         svgIcon="my_location_fill"
       ></mat-icon>
-      <!-- <mat-icon
+      <mat-icon
         (click)="showLayers = !showLayers"
         class="icon-button"
         svgIcon="layers"
-      ></mat-icon> -->
+      ></mat-icon>
     </div>
   </div>
 

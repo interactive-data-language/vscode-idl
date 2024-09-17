@@ -20,7 +20,7 @@ export function RoundToNearest(num: number, to: number) {
   templateUrl: './image-animator.component.html',
   styles: [
     `
-      @import 'shared-styles.scss';
+      @import 'styles.scss';
     `,
   ],
 })

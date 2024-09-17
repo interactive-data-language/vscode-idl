@@ -1,0 +1,16 @@
+<div cdkDrag fxLayout="row" fxLayoutAlign=" center">
+  <mat-icon cdkDragHandle svgIcon="drag_indicator" class="drag-me"></mat-icon>
+
+  <p style="padding-right: 10px; width: 65px !important">{{ layer.name }}</p>
+
+  <div class="custom-slider">
+    <input
+      style="width: 75px !important"
+      type="range"
+      [value]="opacity"
+      min="0"
+      max="100"
+      (input)="onOpacityChange($event)"
+    />
+  </div>
+</div>

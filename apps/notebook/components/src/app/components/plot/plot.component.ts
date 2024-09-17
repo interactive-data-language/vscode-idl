@@ -29,7 +29,7 @@ export const IDL_NB_PLOT_COMPONENT_SELECTOR = 'idl-nb-plot';
   templateUrl: './plot.component.html',
   styles: [
     `
-      @import 'shared-styles.scss';
+      @import 'styles.scss';
     `,
   ],
 })
@@ -114,7 +114,8 @@ export class PlotComponent
   /**
    * Remove callbacks to prevent memory leaks
    */
-  ngOnDestroy() {
+  override ngOnDestroy() {
+    super.ngOnDestroy();
     window.removeEventListener('resize', this.resizeCb);
     if (this.hasData) {
       this.hasData = false;

@@ -53,7 +53,7 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
             character: 23,
           },
           {
-            line: 10,
+            line: 9,
             character: 23,
           },
           {
@@ -75,6 +75,50 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           {
             line: 15,
             character: 30,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Add names of procedures that we can auto-complete`,
+    fileName: `call-procedures.procedures.spec.ts`,
+    tests: [
+      {
+        name: `for all cases`,
+        file: `idl/test/auto-complete/call_procedure.pro`,
+        position: [
+          {
+            line: 3,
+            character: 14,
+          },
+          {
+            line: 6,
+            character: 17,
+          },
+          {
+            line: 9,
+            character: 17,
+          },
+          {
+            line: 12,
+            character: 17,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Keywords for call procedure`,
+    fileName: `call-procedure.keywords.spec.ts`,
+    tests: [
+      {
+        name: `for basic cases`,
+        file: `idl/test/auto-complete/call_procedure.pro`,
+        position: [
+          {
+            line: 15,
+            character: 25,
           },
         ],
       },
@@ -593,6 +637,22 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Correctly return auto-complete from obj-destroy`,
+    fileName: `obj-destroy.spec.ts`,
+    tests: [
+      {
+        name: `real`,
+        file: `idl/test/auto-complete/obj_destroy.pro`,
+        position: [
+          {
+            line: 23,
+            character: 21,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly return auto-complete from obj-new`,
     fileName: `obj-new.spec.ts`,
     tests: [
@@ -663,16 +723,42 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
-    suiteName: `When in procedure, send procedure tokens`,
+    suiteName: `Send procedure tokens`,
     fileName: `procedures.1.spec.ts`,
     tests: [
       {
-        name: `for functions`,
+        name: `in name`,
         file: `idl/test/auto-complete/procedures.pro`,
         position: [
           {
             line: 4,
             character: 2,
+          },
+        ],
+      },
+      {
+        name: `in name2`,
+        file: `idl/test/auto-complete/procedures.pro`,
+        position: [
+          {
+            line: 10,
+            character: 5,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Do not send procedures`,
+    fileName: `procedures.2.spec.ts`,
+    tests: [
+      {
+        name: `when not in procedure name`,
+        file: `idl/test/auto-complete/procedures.pro`,
+        position: [
+          {
+            line: 7,
+            character: 6,
           },
         ],
       },

@@ -1,3 +1,8 @@
+import {
+  CdkDragDrop,
+  CdkDragSortEvent,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
@@ -18,7 +23,12 @@ import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenge
 import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
 import { CreateLayers } from './helpers/create-layers';
-import { ILayers } from './helpers/create-layers.interface';
+import {
+  NotebookMapLayer,
+  NotebookMapLayers,
+  NotebookMapLayerType,
+} from './helpers/create-layers.interface';
+import { RecreateLayers } from './helpers/recreate-layers';
 
 /**
  * Initial view state
@@ -42,7 +52,7 @@ export const IDL_NB_MAP_COMPONENT_SELECTOR = 'idl-nb-map';
   templateUrl: './map.component.html',
   styles: [
     `
-      @import 'shared-styles.scss';
+      @import 'styles.scss';
 
       .map-container {
         width: 100%;
@@ -74,7 +84,7 @@ export class MapComponent
   private deck!: Deck;
 
   /** Current layers */
-  private layers!: ILayers;
+  layers!: NotebookMapLayers<NotebookMapLayerType>;
 
   /** Do we show the layers dialog */
   showLayers = false;
@@ -107,6 +117,14 @@ export class MapComponent
   };
 
   /**
+   * Temporary map layers for drag and drop while dragging
+   */
+  tmpLayers?: NotebookMapLayer<NotebookMapLayerType>[];
+
+  /** Layer for the base map */
+  baseMapLayer = this.createBaseMapLayer();
+
+  /**
    * We can access the latest data directly through our dataService which tracks
    * the last value on $embed
    */
@@ -118,13 +136,62 @@ export class MapComponent
   ) {
     super(dataService, messenger);
     window.addEventListener('resize', this.resizeCb);
+    this._subscriptions.add(
+      this.messenger.themeChange$.subscribe((isDark) => {
+        this.baseMapLayer = this.createBaseMapLayer();
+        this.propertyChange();
+      })
+    );
   }
 
-  ngOnDestroy() {
-    window.removeEventListener('resize', this.resizeCb);
-    window.clearInterval(this.interval);
+  /**
+   * Creates our basemap layer
+   */
+  createBaseMapLayer() {
+    return new TileLayer({
+      data: this.messenger.darkTheme
+        ? `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`
+        : `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`,
+
+      minZoom: 0,
+      maxZoom: 16,
+      tileSize: 256,
+
+      renderSubLayers: (props) => {
+        return new BitmapLayer(props, {
+          data: undefined,
+          image: props.data,
+          bounds: [
+            props.tile.boundingBox[0][0],
+            props.tile.boundingBox[0][1],
+            props.tile.boundingBox[1][0],
+            props.tile.boundingBox[1][1],
+          ],
+        });
+      },
+
+      fetch: async (url) => {
+        // get value as bloc
+        const val = await firstValueFrom(
+          this.http.get(url, {
+            withCredentials: false,
+            responseType: 'blob',
+          })
+        );
+
+        // convert to data URI and display
+        return URL.createObjectURL(val);
+      },
+
+      onTileUnload: (tile) => {
+        URL.revokeObjectURL(tile.data);
+      },
+    });
   }
 
+  /**
+   * Set up view after initialized if we have data
+   */
   ngAfterViewInit() {
     if (this.hasData) {
       /**
@@ -160,52 +227,24 @@ export class MapComponent
         //   }
         // },
         layers: [
-          new TileLayer({
-            data: this.messenger.darkTheme
-              ? `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`
-              : `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`,
-
-            minZoom: 0,
-            maxZoom: 16,
-            tileSize: 256,
-
-            renderSubLayers: (props) => {
-              return new BitmapLayer(props, {
-                data: undefined,
-                image: props.data,
-                bounds: [
-                  props.tile.boundingBox[0][0],
-                  props.tile.boundingBox[0][1],
-                  props.tile.boundingBox[1][0],
-                  props.tile.boundingBox[1][1],
-                ],
-              });
-            },
-
-            fetch: async (url) => {
-              // get value as bloc
-              const val = await firstValueFrom(
-                this.http.get(url, {
-                  withCredentials: false,
-                  responseType: 'blob',
-                })
-              );
-
-              // convert to data URI and display
-              return URL.createObjectURL(val);
-            },
-
-            onTileUnload: (tile) => {
-              URL.revokeObjectURL(tile.data);
-            },
-          }),
-          ...layers.layers,
+          this.baseMapLayer,
+          ...layers.layers.map((nbLayer) => nbLayer.layer),
         ],
       });
 
       // manually trigger a re-draw which seems to help when display stays black
       this.deck.redraw();
+
+      // reverse our layers so that we can have the right order in the layers tab
+      this.layers.layers.reverse();
     }
+  }
+
+  /** Cleanup */
+  override ngOnDestroy() {
+    super.ngOnDestroy();
+    window.removeEventListener('resize', this.resizeCb);
+    window.clearInterval(this.interval);
   }
 
   /**
@@ -265,5 +304,55 @@ export class MapComponent
         transitionDuration: 'auto',
       },
     });
+  }
+
+  /**
+   * Re-render layers because properties have changed
+   *
+   * We reverse the layers here because we need the layers in the UI to appear correct
+   */
+  propertyChange(layers?: NotebookMapLayer<NotebookMapLayerType>[]) {
+    this.deck.setProps({
+      layers: [
+        this.baseMapLayer,
+        ...RecreateLayers(
+          Array.isArray(layers) ? layers : this.layers.layers
+        ).reverse(),
+      ],
+    });
+  }
+
+  /**
+   * Handle drop events
+   */
+  drop(event: CdkDragDrop<string[]>) {
+    // move data
+    moveItemInArray(
+      this.layers.layers,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    // update deck
+    this.propertyChange();
+
+    // clear temp layers
+    this.tmpLayers = undefined;
+  }
+
+  /**
+   * Handle drop events
+   */
+  dragging(event: CdkDragSortEvent<string[]>) {
+    // copy layers while we drag so we dont mess up original data
+    if (this.tmpLayers === undefined) {
+      this.tmpLayers = copy(this.layers.layers);
+    }
+
+    // move
+    moveItemInArray(this.tmpLayers, event.previousIndex, event.currentIndex);
+
+    // update display
+    this.propertyChange(this.tmpLayers);
   }
 }

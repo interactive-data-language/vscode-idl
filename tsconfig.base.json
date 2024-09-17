@@ -102,6 +102,7 @@
         "libs/tokenizer/idl-type-tokens/src/index.ts"
       ],
       "@idl/translation": ["libs/translation/src/index.ts"],
+      "@idl/types/auto-complete": ["libs/types/auto-complete/src/index.ts"],
       "@idl/types/core": ["libs/types/core/src/index.ts"],
       "@idl/types/diagnostic": ["libs/types/diagnostic/src/index.ts"],
       "@idl/types/notebooks": ["libs/types/notebooks/src/index.ts"],

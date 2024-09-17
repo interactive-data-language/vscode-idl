@@ -941,4 +941,114 @@ describe(`[auto generated] Validates for ternary statement parsing`, () => {
 
     expect(StripIDs(tokenized.tokens)).toEqual(expected);
   });
+
+  it(`[auto generated] capture trailing properties`, () => {
+    // test code to extract tokens from
+    const code = [`retval = !true ? *self.foo : *self.bar`];
+
+    // extract tokens
+    const tokenized = Tokenizer(code, new CancellationToken());
+
+    // define expected tokens
+    const expected: IBaseToken<TokenName>[] = [
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.VARIABLE,
+        pos: [0, 0, 6],
+        matches: [`retval`],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.ASSIGNMENT,
+        pos: [0, 7, 1],
+        matches: [`=`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.SYSTEM_VARIABLE,
+        pos: [0, 9, 5],
+        matches: [`!true`],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.LOGICAL_TERNARY_THEN,
+        pos: [0, 15, 1],
+        matches: [`?`],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.OPERATOR,
+        pos: [0, 17, 1],
+        matches: [`*`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.VARIABLE,
+        pos: [0, 18, 4],
+        matches: [`self`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.ACCESS_PROPERTY,
+        pos: [0, 22, 4],
+        matches: [`.foo`],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.OPERATOR,
+        pos: [0, 27, 0],
+        matches: [``],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.LOGICAL_TERNARY_ELSE,
+        pos: [0, 27, 1],
+        matches: [`:`],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.OPERATOR,
+        pos: [0, 29, 1],
+        matches: [`*`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.VARIABLE,
+        pos: [0, 30, 4],
+        matches: [`self`],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.OPERATOR,
+        pos: [0, 34, 0],
+        matches: [``, `.`, `bar`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.ACCESS_PROPERTY,
+        pos: [0, 34, 4],
+        matches: [`.bar`],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.LOGICAL_TERNARY_ELSE,
+        pos: [0, 38, 0],
+        matches: [``],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.LOGICAL_TERNARY_THEN,
+        pos: [0, 38, 0],
+        matches: [``],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.ASSIGNMENT,
+        pos: [0, 38, 0],
+        matches: [``],
+      },
+    ];
+
+    expect(StripIDs(tokenized.tokens)).toEqual(expected);
+  });
 });

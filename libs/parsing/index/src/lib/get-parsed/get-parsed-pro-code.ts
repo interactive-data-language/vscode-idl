@@ -87,7 +87,7 @@ export async function GetParsedPROCode(
        */
       const base = file.split('#')[0];
       if (base in PENDING_NOTEBOOK) {
-        await PENDING_NOTEBOOK[base];
+        await PENDING_NOTEBOOK[base].promise;
       }
 
       /**

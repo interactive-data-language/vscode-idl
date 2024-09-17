@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "4.6.0",
+  "version": "4.6.1",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -115,6 +115,8 @@
     "@deck.gl/mesh-layers": "^9.0.27",
     "@jsverse/transloco": "^7.4.3",
     "@mapbox/geojson-extent": "^1.0.1",
+    "@material/material-color-utilities": "^0.3.0",
+    "@material/web": "^2.1.0",
     "@mdi/js": "^7.3.67",
     "@ngbracket/ngx-layout": "^18.0.0",
     "@nx/angular": "19.5.7",
@@ -130,6 +132,7 @@
     "@schematics/angular": "18.1.4",
     "@swc-node/register": "1.9.2",
     "@swc/core": "1.5.7",
+    "@swc/helpers": "~0.5.11",
     "@types/glob-to-regexp": "^0.4.4",
     "@types/jest": "29.4.4",
     "@types/mapbox__geojson-extent": "^1.0.2",
@@ -187,7 +190,7 @@
   "engines": {
     "vscode": "^1.82.0",
     "npm": "^9.2 || ^10.0",
-    "node": ">=20.12.2 || ^10.5.0"
+    "node": ">=20.12.0 || ^10.5.0"
   },
   "activationEvents": [
     "workspaceContains:**/*.pro",

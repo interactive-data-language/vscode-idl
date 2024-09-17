@@ -16,6 +16,31 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
+IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks.
+
+## 4.6.1 - September 2024
+
+Added layer controls to the Notebook Map.
+
+- Generic title for each layer (raster/vector)
+- Slider to make transparent or not
+
+Layers have a handle which allows you to use drag and drop to re-order them. As you re-order, the map updates with changes.
+
+Notebook maps now listen to theme changes from VSCode and, when swapping between light and dark themes, the basemap will update to match the theme of VSCode (light map for light theme; dark map for dark theme)
+
+Fixed an issue where we weren't properly detecting keywords for `obj_destroy` when a custom object class had a `::cleanup` method present
+
+Fixed a bug with auto-complete where, instead of variables, arguments, or functions, you would end up with procedures being suggested inside of a procedure call.
+
+Similar to `call_function()` and `obj_new()`, add special auto-complete for `call_procedure` to give you the list of procedure names with string literals
+
+Fixed a bug where we were incorrectly detecting standalone expressions and reporting as problems.
+
+Fixed a parsing issue where we would not correctly determine the end of ternary operators which could report errors incorrectly in your code.
+
+Re-worked auto-complete to function the same way as hover help. Now, we determine types of features to send from one of our worker threads and then the main thread builds out the completion items. The advantage of this is that we can now send back documentation and other information (which doesn't exist in our worker threads).
+
 ## 4.6.0 - August 2024
 
 Fixed an issue where we open a file that we have stopped in, even if it is compiled as a SAVE file. Now, only PRO files will be jumped to.

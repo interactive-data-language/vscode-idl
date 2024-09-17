@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import {
   DEFAULT_VSCODE_MESSAGE,
   IProfilerMessage,
@@ -11,7 +11,7 @@ import { DEFAULT_VSCODE_STATE, IVSCodeState } from '../core/vscode.interface';
 @Injectable({
   providedIn: 'root',
 })
-export class VSCodeService {
+export class VSCodeService implements OnDestroy {
   // things that we emit that others can listen to
   messages = new BehaviorSubject<IVSCodeMessage>(DEFAULT_VSCODE_MESSAGE);
   newTheme = new BehaviorSubject<boolean>(false);
@@ -51,6 +51,9 @@ export class VSCodeService {
     this.handleMessage(state.lastMessage);
   }
 
+  /**
+   * Handle message from VSCode
+   */
   handleMessage(message: IVSCodeMessage) {
     // determine what to do with the events
     switch (message.command) {
@@ -73,6 +76,9 @@ export class VSCodeService {
     this.messages.next(message);
   }
 
+  /**
+   * Get state of web app
+   */
   getState(): IVSCodeState {
     let state = this.vscodeApi.getState();
     if (this.firstState) {
@@ -85,7 +91,19 @@ export class VSCodeService {
     return state;
   }
 
+  /**
+   * Set state of web app
+   */
   setState(state: IVSCodeState) {
     this.vscodeApi.setState(state);
+  }
+
+  /**
+   * Clean up
+   */
+  ngOnDestroy() {
+    this.messages.complete();
+    this.newTheme.complete();
+    this.profiler.complete();
   }
 }

@@ -44,6 +44,23 @@ export type IDLNotebookFromRendererBaseMessage<
 };
 
 /**
+ * Type of message sent to the renderer
+ */
+export type IDLNotebookToRendererMessageType = 'theme-change';
+
+/**
+ * Message structure we send to the rendered
+ */
+export type IDLNotebookToRendererBaseMessage<
+  T extends IDLNotebookToRendererMessageType
+> = {
+  /**
+   * Type of the message
+   */
+  type: T;
+};
+
+/**
  * Base message for messages to/from renderers
  */
 export interface IDLNotebookRendererMessageBase {

@@ -67,6 +67,32 @@ export const AUTO_HOVER_HELP_TESTS: IHoverHelpTests[] = [
     ],
   },
   {
+    suiteName: `Basic checks for call_procedure hover help`,
+    fileName: `call-procedure.1.spec.ts`,
+    tests: [
+      {
+        name: `for function`,
+        file: `idl/test/hover-help/call_procedure.pro`,
+        position: [
+          {
+            line: 3,
+            character: 7,
+          },
+        ],
+      },
+      {
+        name: `for keywords`,
+        file: `idl/test/hover-help/call_procedure.pro`,
+        position: [
+          {
+            line: 3,
+            character: 29,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly get hover help`,
     fileName: `comment-regression.spec.ts`,
     tests: [
@@ -301,6 +327,42 @@ export const AUTO_HOVER_HELP_TESTS: IHoverHelpTests[] = [
           {
             line: 3,
             character: 10,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly find find definition from obj destroy`,
+    fileName: `obj-destroy.spec.ts`,
+    tests: [
+      {
+        name: `case 1`,
+        file: `idl/test/hover-help/obj_destroy.pro`,
+        position: [
+          {
+            line: 23,
+            character: 8,
+          },
+        ],
+      },
+      {
+        name: `keywords`,
+        file: `idl/test/hover-help/obj_destroy.pro`,
+        position: [
+          {
+            line: 23,
+            character: 24,
+          },
+        ],
+      },
+      {
+        name: `no arguments and default to normal`,
+        file: `idl/test/hover-help/obj_destroy.pro`,
+        position: [
+          {
+            line: 25,
+            character: 7,
           },
         ],
       },

@@ -17,6 +17,9 @@ import {
   AssembleProCodeMessage,
   AssembleProCodePayload,
   AssembleProCodeResponse,
+  AutoCompleteRecipeMessage,
+  AutoCompleteRecipePayload,
+  AutoCompleteRecipeResponse,
   ChangeDetectionMessage,
   ChangeDetectionPayload,
   ChangeDetectionResponse,
@@ -82,6 +85,8 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
     ? AllFilesPayload
     : T extends AssembleProCodeMessage
     ? AssembleProCodePayload
+    : T extends AutoCompleteRecipeMessage
+    ? AutoCompleteRecipePayload
     : T extends ChangeDetectionMessage
     ? ChangeDetectionPayload
     : T extends CleanUpMessage
@@ -134,6 +139,8 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
     ? AllFilesResponse
     : T extends AssembleProCodeMessage
     ? AssembleProCodeResponse
+    : T extends AutoCompleteRecipeMessage
+    ? AutoCompleteRecipeResponse
     : T extends ChangeDetectionMessage
     ? ChangeDetectionResponse
     : T extends CleanUpMessage

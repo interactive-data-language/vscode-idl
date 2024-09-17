@@ -1,4 +1,3 @@
-import { LayersList } from '@deck.gl/core';
 import { GeoJsonLayer } from '@deck.gl/layers';
 import {
   IDLNotebookEmbeddedItem,
@@ -9,19 +8,30 @@ import {
 import { bboxify } from '@mapbox/geojson-extent';
 import { nanoid } from 'nanoid';
 
-import { AwesomeImage } from './awesome-image.class';
-import { ILayers, LayerBounds } from './create-layers.interface';
+import { CreateImage } from './create-image';
+import {
+  LayerBounds,
+  NotebookMapLayer,
+  NotebookMapLayers,
+  NotebookMapLayerType,
+} from './create-layers.interface';
 
 /**
  * Creates the deck.gl layers for the map
  */
 export function CreateLayers(
   embed: IDLNotebookEmbeddedItem<IDLNotebookMap>
-): ILayers {
+): NotebookMapLayers<NotebookMapLayerType> {
   /**
    * Create layers that we want to embed
    */
-  const embedLayers: LayersList = [];
+  const embedLayers: NotebookMapLayer<NotebookMapLayerType>[] = [];
+
+  /** Count rasters for default names */
+  let nRasters = 0;
+
+  /** Count vectors for default names */
+  let nVectors = 0;
 
   /**
    * Get all items to embed
@@ -72,8 +82,11 @@ export function CreateLayers(
           }
         }
 
-        embedLayers.push(
-          new GeoJsonLayer({
+        const newLayer: NotebookMapLayer<'geojson'> = {
+          type: 'geojson',
+          name: `Vector ${nVectors + 1}`,
+          embed: typed,
+          layer: new GeoJsonLayer({
             id: nanoid(),
             stroked: true,
             filled: true,
@@ -87,8 +100,16 @@ export function CreateLayers(
             },
             data: parsed,
             pickable: true,
-          })
-        );
+          }),
+          props: {
+            opacity: 1,
+          },
+        };
+
+        nVectors++;
+
+        // save layer
+        embedLayers.push(newLayer);
         break;
       }
       case mapEmbed.type === 'idlnotebookmap_image': {
@@ -114,15 +135,21 @@ export function CreateLayers(
           bounds = [extent.xmin, extent.ymin, extent.xmax, extent.ymax];
         }
 
-        embedLayers.push(
-          new AwesomeImage({
-            id: nanoid(),
-            image: `data:image/png;base64,${typed.item.data}`,
-            bounds: [extent.xmin, extent.ymin, extent.xmax, extent.ymax],
-            pickable: false,
-          })
-        );
+        const newLayer: NotebookMapLayer<'image'> = {
+          type: 'image',
+          name: `Raster ${nRasters + 1}`,
+          embed: typed,
+          layer: CreateImage(typed),
+          props: {
+            opacity: 1,
+          },
+        };
 
+        // save layer
+        embedLayers.push(newLayer);
+
+        // update raster counter
+        nRasters++;
         break;
       }
       default:

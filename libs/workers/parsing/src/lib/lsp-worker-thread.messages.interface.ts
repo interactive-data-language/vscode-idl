@@ -3,6 +3,7 @@ import { MigrationType } from '@idl/assembling/migrators-types';
 import { ILogOptions } from '@idl/logger';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
 import { IParsed, ParsedType } from '@idl/parsing/syntax-tree';
+import { AutoCompleteRecipe, AutoCompleteType } from '@idl/types/auto-complete';
 import {
   GlobalTokens,
   GlobalTokenType,
@@ -55,6 +56,25 @@ export interface AssembleProCodePayload {
  * Response when assembling PRO code
  */
 export type AssembleProCodeResponse = string | undefined;
+
+/**
+ * Message to give us auto-complete recipe that we can re-build
+ */
+export type AutoCompleteRecipeMessage = 'auto-complete-recipe';
+
+/**
+ * Payload when asking to get recipe for auto-complete
+ */
+export interface AutoCompleteRecipePayload {
+  file: string;
+  code: string | string[];
+  position: Position;
+}
+
+/**
+ * Response when getting recipes for auto-complete
+ */
+export type AutoCompleteRecipeResponse = AutoCompleteRecipe<AutoCompleteType>[];
 
 /**
  * Message when we need to perform change detection
@@ -478,6 +498,7 @@ export type LSPWorkerThreadMessage =
   | WorkerIOBaseMessage
   | AllFilesMessage
   | AssembleProCodeMessage
+  | AutoCompleteRecipeMessage
   | ChangeDetectionMessage
   | CleanUpMessage
   | GetAutoCompleteMessage
@@ -507,6 +528,10 @@ interface ILSPWorkerThreadMessageLookup {
    * Load global tokens using our extension configuration
    */
   ALL_FILES: AllFilesMessage;
+  /**
+   * Get recipe for auto-complete
+   */
+  AUTO_COMPLETE_RECIPE: AutoCompleteRecipeMessage;
   /**
    * When we format PRO code in the worker
    */
@@ -599,6 +624,7 @@ interface ILSPWorkerThreadMessageLookup {
 export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   ALL_FILES: 'all-files',
   ASSEMBLE_PRO_CODE: 'assemble-pro-code',
+  AUTO_COMPLETE_RECIPE: 'auto-complete-recipe',
   CHANGE_DETECTION: 'change-detection',
   CLEAN_UP: 'clean-up',
   GET_AUTO_COMPLETE: 'get-auto-complete',

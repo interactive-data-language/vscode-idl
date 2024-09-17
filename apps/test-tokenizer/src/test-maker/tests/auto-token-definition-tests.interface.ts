@@ -354,6 +354,32 @@ export const AUTO_TOKEN_DEFINITION_TESTS: ITokenDefTests[] = [
     ],
   },
   {
+    suiteName: `Correctly find find definition from obj destroy`,
+    fileName: `obj-destroy.spec.ts`,
+    tests: [
+      {
+        name: `real`,
+        files: [`idl/test/token-def/obj_destroy.pro`],
+        position: [
+          {
+            line: 23,
+            character: 6,
+          },
+        ],
+      },
+      {
+        name: `fake`,
+        files: [`idl/test/token-def/obj_destroy.pro`],
+        position: [
+          {
+            line: 25,
+            character: 6,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly find find definition from obj new`,
     fileName: `obj-new.spec.ts`,
     tests: [

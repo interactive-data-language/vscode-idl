@@ -1,3 +1,5 @@
+import '@material/web/all';
+
 import {
   provideHttpClient,
   withInterceptorsFromDi,
@@ -7,10 +9,6 @@ import { createCustomElement } from '@angular/elements';
 import { MatIconRegistry } from '@angular/material/icon';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MaterialCssVarsModule,
-  MaterialCssVarsService,
-} from 'angular-material-css-vars';
 
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
@@ -22,13 +20,7 @@ import {
   IDL_NB_MAP_PROPERTY_SHEET_SELECTOR,
   MapPropertySheetComponent,
 } from './components/map/map-property-sheet/map-property-sheet.component';
-import { FAST_FORWARD } from './icons/fast-forward';
-import { FAST_REWIND } from './icons/fast-rewind';
-import { LAYERS } from './icons/layers';
-import { MY_LOCATION_FILLED } from './icons/my-location-fill';
-import { PAUSE } from './icons/pause';
-import { PLAY } from './icons/play';
-import { SAVE } from './icons/save';
+import { RegisterIcons } from './icons/register-icons';
 import { MaterialModule } from './material.module';
 import { VSCodeRendererMessenger } from './services/vscode-renderer-messenger.service';
 
@@ -39,12 +31,10 @@ import { VSCodeRendererMessenger } from './services/vscode-renderer-messenger.se
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialCssVarsModule.forRoot({}),
     MaterialModule,
     ComponentsModule,
   ],
   providers: [
-    MaterialCssVarsService,
     VSCodeRendererMessenger,
     provideHttpClient(withInterceptorsFromDi()),
   ],
@@ -54,63 +44,9 @@ export class AppModule implements DoBootstrap {
     private injector: Injector,
     private appRef: ApplicationRef,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
-    private materialCssVarsService: MaterialCssVarsService
+    private domSanitizer: DomSanitizer
   ) {
-    this.registerIcons();
-    // this.updateTheme();
-  }
-
-  /**
-   * Updates the theme based on current CSS variables
-   */
-  updateTheme() {
-    // get the body element
-    const body = document.body;
-
-    // get css class list
-    const classes = body.classList;
-
-    // flag if dark mode
-    const isDark = !classes.contains('vscode-light');
-
-    // get our colors
-    const accent = getComputedStyle(body).getPropertyValue(
-      '--vscode-activityBarBadge-background'
-    );
-
-    // set colors/themes/properties
-    this.materialCssVarsService.setDarkTheme(isDark);
-    // this.materialCssVarsService.setPrimaryColor(hex);
-    this.materialCssVarsService.setAccentColor(accent);
-  }
-
-  /**
-   * Adds custom icons for use in material
-   *
-   * This has been updated to directly include the SVG content
-   * instead of needing to load the SVGs via HTTP
-   */
-  registerIcons() {
-    // icons we load
-    const icons: { [key: string]: any } = {
-      'fast-forward': FAST_FORWARD,
-      'fast-rewind': FAST_REWIND,
-      layers: LAYERS,
-      my_location_fill: MY_LOCATION_FILLED,
-      pause: PAUSE,
-      play: PLAY,
-      save: SAVE,
-    };
-
-    // process all of our icons
-    const keys = Object.keys(icons);
-    for (let i = 0; i < keys.length; i++) {
-      this.matIconRegistry.addSvgIconLiteral(
-        keys[i],
-        this.domSanitizer.bypassSecurityTrustHtml(icons[keys[i]])
-      );
-    }
+    RegisterIcons(this.matIconRegistry, this.domSanitizer);
   }
 
   /**

@@ -39,11 +39,11 @@ export function TypeFromFunction(
       returnNameAsType = true;
       break;
     case 'obj_new':
-      name = TypeFromObjNew(token);
+      name = TypeFromObjNew(index, parsed, token);
       returnNameAsType = true;
       break;
     case 'call_function':
-      name = TypeFromCallFunction(token) || name;
+      name = TypeFromCallFunction(index, parsed, token) || name;
       break;
     default:
   }

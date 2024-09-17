@@ -12,7 +12,7 @@ export function RoundToNearest(num: number, to: number) {
   templateUrl: './animation-controls.component.html',
   styles: [
     `
-      @import 'shared-styles.scss';
+      @import 'styles.scss';
     `,
   ],
 })
