@@ -115,7 +115,7 @@ function AddCompletionFunctionMethodsForType(
 /**
  * Creates options for creating auto-complete
  */
-export function BuildFunctionMethodCompletionOptions(
+export function GetFunctionMethodCompletionOptions(
   type: IDLDataType,
   addParen: boolean
 ): IFunctionMethodCompletionOptions {

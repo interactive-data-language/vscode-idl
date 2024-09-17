@@ -20,7 +20,6 @@ import { GetTypeBefore } from '../helpers/get-type-before';
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
 import { AddCompletionProcedureMethods } from './completion-for/add-completion-procedure-methods';
-import { AddCompletionProperties } from './completion-for/add-completion-properties';
 import { AddCompletionPropertiesInStructures } from './completion-for/add-completion-properties-in-structures';
 import {
   BuildCompileOptCompletionItems,
@@ -32,7 +31,7 @@ import {
 } from './completion-for/completion-executive-commands';
 import {
   BuildFunctionMethodCompletionItems,
-  BuildFunctionMethodCompletionOptions,
+  GetFunctionMethodCompletionOptions,
 } from './completion-for/completion-function-methods';
 import {
   BuildFunctionCompletionItems,
@@ -44,6 +43,10 @@ import {
   GetKeywordCompletionOptions,
 } from './completion-for/completion-keywords';
 import { BuildProcedureCompletionItems } from './completion-for/completion-procedures';
+import {
+  BuildPropertyCompletionItems,
+  GetPropertyCompletionOptions,
+} from './completion-for/completion-properties';
 import {
   BuildSpecialFunctionCompletionItems,
   GetSpecialFunctionCompletionOptions,
@@ -405,13 +408,15 @@ export async function GetAutoComplete(
          * dot for properties because something else needs to come afterwards
          */
         if (isWithinStart && !(token?.name in NO_PROPERTIES)) {
-          AddCompletionProperties(
+          BuildPropertyCompletionItems({
             complete,
+            formatting,
             index,
-            type,
-            local?.name in PROCEDURES ? '' : '',
-            formatting
-          );
+            options: GetPropertyCompletionOptions(
+              local?.name in PROCEDURES ? '' : '',
+              type
+            ),
+          });
         }
 
         /**
@@ -448,7 +453,7 @@ export async function GetAutoComplete(
                 complete,
                 formatting,
                 index,
-                options: BuildFunctionMethodCompletionOptions(type, addParen),
+                options: GetFunctionMethodCompletionOptions(type, addParen),
               });
               break;
             case token?.name in ALL_METHODS_COMPLETION:
@@ -467,7 +472,7 @@ export async function GetAutoComplete(
                 complete,
                 formatting,
                 index,
-                options: BuildFunctionMethodCompletionOptions(type, addParen),
+                options: GetFunctionMethodCompletionOptions(type, addParen),
               });
               break;
             default:
