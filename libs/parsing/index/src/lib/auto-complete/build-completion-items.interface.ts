@@ -11,6 +11,7 @@ import { BuildExecutiveCommandCompletionItems } from './completion-for/completio
 import { BuildFunctionMethodCompletionItems } from './completion-for/completion-function-methods';
 import { BuildFunctionCompletionItems } from './completion-for/completion-functions';
 import { BuildIncludeCompletionItems } from './completion-for/completion-include';
+import { BuildKeywordCompletionItems } from './completion-for/completion-keywords';
 
 /**
  * Options passed into all completion items that we build
@@ -45,4 +46,5 @@ export const ALL_COMPLETION_ITEM_BUILDERS: BuildCompletionItemsLookup = {
   'function-method': BuildFunctionMethodCompletionItems,
   function: BuildFunctionCompletionItems,
   include: BuildIncludeCompletionItems,
+  keyword: BuildKeywordCompletionItems,
 };

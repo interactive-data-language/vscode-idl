@@ -19,7 +19,6 @@ import { MarkupKind, Position } from 'vscode-languageserver/node';
 import { GetTypeBefore } from '../helpers/get-type-before';
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
-import { AddCompletionKeywords } from './completion-for/add-completion-keywords';
 import { AddCompletionProcedureMethods } from './completion-for/add-completion-procedure-methods';
 import { AddCompletionProcedures } from './completion-for/add-completion-procedures';
 import { AddCompletionProperties } from './completion-for/add-completion-properties';
@@ -48,6 +47,10 @@ import {
   GetFunctionCompletionOptions,
 } from './completion-for/completion-functions';
 import { BuildIncludeCompletionItems } from './completion-for/completion-include';
+import {
+  BuildKeywordCompletionItems,
+  GetKeywordCompletionOptions,
+} from './completion-for/completion-keywords';
 import {
   ALL_METHODS_COMPLETION,
   CAN_PROCEDURE_HERE,
@@ -317,13 +320,16 @@ export async function GetAutoComplete(
        * If we can keyword, double check we arent in the start of a routine
        */
       if (canKeyword && !(noProKeywords || noFunctionKeywords)) {
-        AddCompletionKeywords(
+        BuildKeywordCompletionItems({
           complete,
-          parsed,
+          formatting,
           index,
-          token || cursor.scopeTokens[cursor.scopeTokens.length - 1],
-          formatting
-        );
+          options: GetKeywordCompletionOptions(
+            parsed,
+            index,
+            token || cursor.scopeTokens[cursor.scopeTokens.length - 1]
+          ),
+        });
       }
     }
 

@@ -18,6 +18,10 @@ import {
   IIncludeCompletionOptions,
   IncludeCompletion,
 } from './completion-for/completion-include.interface';
+import {
+  IKeywordCompletionOptions,
+  KeywordCompletion,
+} from './completion-for/completion-keyword.interface';
 
 /**
  * Types of auto-complete
@@ -27,7 +31,8 @@ export type AutoCompleteType =
   | ExecutiveCommandCompletion
   | FunctionMethodCompletion
   | FunctionCompletion
-  | IncludeCompletion;
+  | IncludeCompletion
+  | KeywordCompletion;
 
 /**
  * Options passed to auto-complete
@@ -43,6 +48,8 @@ export type AutoCompleteRecipeOptions<T extends AutoCompleteType> =
     ? IFunctionCompletionOptions
     : T extends IncludeCompletion
     ? IIncludeCompletionOptions
+    : T extends KeywordCompletion
+    ? IKeywordCompletionOptions
     : never;
 
 /**
