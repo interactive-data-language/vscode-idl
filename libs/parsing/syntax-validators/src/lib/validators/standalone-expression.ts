@@ -13,6 +13,7 @@ import {
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { PositionArray } from '@idl/types/tokenizer';
 
 /**
  * Tokens that can appear first
@@ -77,6 +78,18 @@ AFTER_VAR[TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT] = true;
 AFTER_VAR[TOKEN_NAMES.CALL_PROCEDURE_METHOD] = true;
 
 /**
+ * Checks if two tokens are on the same line or not
+ *
+ * If nothing after, then returns true because we are on the "same" line
+ */
+function ValidateSameLine(ref: PositionArray, next?: PositionArray) {
+  if (!next) {
+    return false;
+  }
+  return ref[0] === next[0];
+}
+
+/**
  * Call back to make sure that, if we have children, there is a comma first
  */
 function Callback(token: TreeBranchToken, parsed: IParsed) {
@@ -129,20 +142,40 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
       /** Get the end of the chain */
       i = GetChainEnd(kids, i);
 
-      /** If the next token is not allowed, then we have problem */
-      if (!(kids[i + 1]?.name in AFTER_VAR) && kids[i + 1]) {
-        parsed.parseProblems.push(
-          SyntaxProblemWithTranslation(
-            inMain && parsed.type === 'notebook'
-              ? IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
-              : IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
-            kids[orig].pos,
-            (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos
-          )
-        );
-      } else {
+      switch (true) {
+        /**
+         * Check last item in chain for valid skip condition
+         */
+        case kids[i].name === TOKEN_NAMES.OPERATOR_INCREMENT_DECREMENT:
+          break;
+        /**
+         * If there's a next token, but it is not on the same line, then
+         * we have a problem
+         */
+        case !(kids[i + 1] !== undefined) &&
+          !ValidateSameLine(
+            (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos,
+            kids[i + 1]?.pos
+          ):
+        /**
+         * If the next token can't be next, then we have a problem
+         */
+        // eslint-disable-next-line no-fallthrough
+        case !(kids[i + 1]?.name in AFTER_VAR):
+          parsed.parseProblems.push(
+            SyntaxProblemWithTranslation(
+              inMain && parsed.type === 'notebook'
+                ? IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
+                : IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
+              kids[orig].pos,
+              (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos
+            )
+          );
+          break;
         // shift
-        i++;
+        default:
+          i++;
+          break;
       }
 
       continue;

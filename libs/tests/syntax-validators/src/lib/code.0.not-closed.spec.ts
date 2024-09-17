@@ -44,6 +44,13 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
         end: [0, 0, 1],
         canReport: true,
       },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
+        canReport: true,
+      },
     ];
 
     // verify results
@@ -447,6 +454,13 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       {
         code: 0,
         info: 'Statement is not closed as expected',
+        start: [0, 0, 1],
+        end: [0, 0, 1],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
         start: [0, 0, 1],
         end: [0, 0, 1],
         canReport: true,

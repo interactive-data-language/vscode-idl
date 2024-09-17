@@ -5307,6 +5307,18 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `problems`,
+        code: [`compile_opt idl2`, `!quiet`, `end`],
+      },
+      {
+        name: `no problems (procedure)`,
+        code: [`compile_opt idl2`, `a = hash()`, `a`, `end`],
+      },
+      {
+        name: `problems`,
+        code: [`compile_opt idl2`, `a = hash()`, `a['key']`, `end`],
+      },
     ],
   },
   {

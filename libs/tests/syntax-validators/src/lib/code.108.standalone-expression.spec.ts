@@ -303,4 +303,121 @@ describe(`[auto generated] Detect standalone expressions`, () => {
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] problems`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [`compile_opt idl2`, `!quiet`, `end`];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [1, 0, 6],
+        end: [1, 0, 6],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
+
+  it(`[auto generated] no problems (procedure)`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [`compile_opt idl2`, `a = hash()`, `a`, `end`];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [1, 0, 1],
+        end: [1, 0, 1],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
+
+  it(`[auto generated] problems`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [`compile_opt idl2`, `a = hash()`, `a['key']`, `end`];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [2, 0, 1],
+        end: [2, 7, 1],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });
