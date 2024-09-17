@@ -14,6 +14,10 @@ import {
   FunctionCompletion,
   IFunctionCompletionOptions,
 } from './completion-for/completion-functions.interface';
+import {
+  IIncludeCompletionOptions,
+  IncludeCompletion,
+} from './completion-for/completion-include.interface';
 
 /**
  * Types of auto-complete
@@ -22,7 +26,8 @@ export type AutoCompleteType =
   | CompileOptCompletion
   | ExecutiveCommandCompletion
   | FunctionMethodCompletion
-  | FunctionCompletion;
+  | FunctionCompletion
+  | IncludeCompletion;
 
 /**
  * Options passed to auto-complete
@@ -36,6 +41,8 @@ export type AutoCompleteRecipeOptions<T extends AutoCompleteType> =
     ? IFunctionMethodCompletionOptions
     : T extends FunctionCompletion
     ? IFunctionCompletionOptions
+    : T extends IncludeCompletion
+    ? IIncludeCompletionOptions
     : never;
 
 /**

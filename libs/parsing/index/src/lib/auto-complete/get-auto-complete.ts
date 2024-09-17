@@ -19,7 +19,6 @@ import { MarkupKind, Position } from 'vscode-languageserver/node';
 import { GetTypeBefore } from '../helpers/get-type-before';
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
-import { AddCompletionInclude } from './completion-for/add-completion-include';
 import { AddCompletionKeywords } from './completion-for/add-completion-keywords';
 import { AddCompletionProcedureMethods } from './completion-for/add-completion-procedure-methods';
 import { AddCompletionProcedures } from './completion-for/add-completion-procedures';
@@ -48,6 +47,7 @@ import {
   BuildFunctionCompletionItems,
   GetFunctionCompletionOptions,
 } from './completion-for/completion-functions';
+import { BuildIncludeCompletionItems } from './completion-for/completion-include';
 import {
   ALL_METHODS_COMPLETION,
   CAN_PROCEDURE_HERE,
@@ -169,7 +169,12 @@ export async function GetAutoComplete(
         local?.name in SKIP_THESE_PARENTS:
         return [];
       case token?.name === TOKEN_NAMES.INCLUDE:
-        AddCompletionInclude(complete, index);
+        BuildIncludeCompletionItems({
+          complete,
+          index,
+          formatting,
+          options: {},
+        });
         return complete;
       case local?.name === TOKEN_NAMES.CONTROL_COMPILE_OPT:
         BuildCompileOptCompletionItems({

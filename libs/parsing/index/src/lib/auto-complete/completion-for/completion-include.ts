@@ -1,20 +1,20 @@
 import { IDLFileHelper } from '@idl/shared';
 import { basename } from 'path';
-import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
+import { CompletionItemKind } from 'vscode-languageserver';
 
-import { IDLIndex } from '../../idl-index.class';
+import { BuildCompletionItemsArg } from '../build-completion-items.interface';
+import { IncludeCompletion } from './completion-include.interface';
 
 /**
  * Adds completion items for include
  */
-export function AddCompletionInclude(
-  complete: CompletionItem[],
-  index: IDLIndex
+export function BuildIncludeCompletionItems(
+  arg: BuildCompletionItemsArg<IncludeCompletion>
 ) {
   /**
    * Get all files
    */
-  const files = Object.keys(index.knownFiles);
+  const files = Object.keys(arg.index.knownFiles);
 
   // process all files
   for (let i = 0; i < files.length; i++) {
@@ -29,7 +29,7 @@ export function AddCompletionInclude(
     const base = basename(files[i]);
 
     // add in our completion item
-    complete.push({
+    arg.complete.push({
       label: base,
       insertText: base.toLowerCase().replace('.pro', ''),
       kind: CompletionItemKind.File,
