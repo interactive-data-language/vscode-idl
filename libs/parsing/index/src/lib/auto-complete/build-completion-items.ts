@@ -1,13 +1,10 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import { AutoCompleteRecipe, AutoCompleteType } from '@idl/types/auto-complete';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { CompletionItem, MarkupKind } from 'vscode-languageserver';
 
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
-import {
-  AutoCompleteRecipe,
-  AutoCompleteType,
-} from './auto-complete-recipe.interface';
 import { ALL_COMPLETION_ITEM_BUILDERS } from './build-completion-items.interface';
 
 /**
@@ -16,8 +13,8 @@ import { ALL_COMPLETION_ITEM_BUILDERS } from './build-completion-items.interface
 export function BuildCompletionItems(
   index: IDLIndex,
   recipes: AutoCompleteRecipe<AutoCompleteType>[],
-  formatting: IAssemblerOptions<FormatterType>,
-  config: IDLExtensionConfig
+  config: IDLExtensionConfig,
+  formatting: IAssemblerOptions<FormatterType>
 ) {
   /** initial list of completion items */
   const complete: CompletionItem[] = [];

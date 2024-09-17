@@ -1,12 +1,12 @@
 import { AdjustCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { SystemVariableCompletion } from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import { SystemVariableCompletion } from './completion-system-variables.interface';
 
 /**
  * Display names for internal system variables

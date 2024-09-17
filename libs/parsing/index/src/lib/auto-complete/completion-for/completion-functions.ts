@@ -3,15 +3,15 @@ import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TaskFunctionName } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  FunctionCompletion,
+  IFunctionCompletionOptions,
+} from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/core';
 import { Command, CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import {
-  FunctionCompletion,
-  IFunctionCompletionOptions,
-} from './completion-functions.interface';
 
 /**
  * Display names for functions

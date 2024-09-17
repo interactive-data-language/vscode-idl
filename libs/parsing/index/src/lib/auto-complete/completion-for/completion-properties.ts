@@ -1,5 +1,6 @@
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IPropertyCompletionOptions } from '@idl/types/auto-complete';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,
@@ -11,10 +12,7 @@ import {
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import {
-  IPropertyCompletionArg,
-  IPropertyCompletionOptions,
-} from './completion-properties.interface';
+import { IPropertyCompletionArg } from './completion-properties.interface';
 
 /**
  * Adds variables to our completion items

@@ -2,15 +2,15 @@ import { AdjustCase } from '@idl/assembling/shared';
 import { TreeToken } from '@idl/parsing/syntax-tree';
 import { IDLFileHelper } from '@idl/shared';
 import { TokenName } from '@idl/tokenizer';
+import {
+  ExecutiveCommandCompletion,
+  IExecutiveCommandCompletionOptions,
+} from '@idl/types/auto-complete';
 import { basename } from 'path';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import {
-  ExecutiveCommandCompletion,
-  IExecutiveCommandCompletionOptions,
-} from './completion-executive-commands.interface';
 
 /**
  * All executive commands

@@ -1,9 +1,9 @@
 import { IDLFileHelper } from '@idl/shared';
+import { IncludeCompletion } from '@idl/types/auto-complete';
 import { basename } from 'path';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
-import { IncludeCompletion } from './completion-include.interface';
 
 /**
  * Adds completion items for include

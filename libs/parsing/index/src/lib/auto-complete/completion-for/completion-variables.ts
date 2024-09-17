@@ -4,14 +4,14 @@ import {
   TreeBranchToken,
 } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  IVariableCompletionOptions,
+  VariableCompletion,
+} from '@idl/types/auto-complete';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import {
-  IVariableCompletionOptions,
-  VariableCompletion,
-} from './completion-variables.interface';
 
 /**
  * Creates options for keyword auto-complete

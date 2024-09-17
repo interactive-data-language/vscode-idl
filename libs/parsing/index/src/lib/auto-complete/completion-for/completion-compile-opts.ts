@@ -2,14 +2,14 @@ import { AdjustCase } from '@idl/assembling/shared';
 import { TreeToken } from '@idl/parsing/syntax-tree';
 import { ALLOWED_COMPILE_OPTIONS } from '@idl/parsing/syntax-validators';
 import { ControlCompileOptToken, TOKEN_NAMES } from '@idl/tokenizer';
+import {
+  CompileOptCompletion,
+  ICompileOptCompletionOptions,
+} from '@idl/types/auto-complete';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import {
-  CompileOptCompletion,
-  ICompileOptCompletionOptions,
-} from './completion-compile-opts.interface';
 
 /**
  * Generates options for creating compile opts

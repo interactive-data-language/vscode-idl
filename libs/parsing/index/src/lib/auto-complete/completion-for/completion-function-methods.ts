@@ -1,6 +1,7 @@
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IFunctionMethodCompletionOptions } from '@idl/types/auto-complete';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,
@@ -12,10 +13,7 @@ import {
 import { Command, CompletionItemKind } from 'vscode-languageserver';
 
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import {
-  IFunctionMethodCompletionArg,
-  IFunctionMethodCompletionOptions,
-} from './completion-function-methods.interface';
+import { IFunctionMethodCompletionArg } from './completion-function-methods.interface';
 
 /**
  * Display names for function methods

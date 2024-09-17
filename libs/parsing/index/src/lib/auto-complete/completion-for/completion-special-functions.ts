@@ -3,6 +3,10 @@ import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TaskNameOnly, TreeToken } from '@idl/parsing/syntax-tree';
 import { TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  ISpecialFunctionCompletionOptions,
+  SpecialFunctionCompletion,
+} from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { CompletionItemKind } from 'vscode-languageserver';
 
@@ -13,8 +17,6 @@ import {
   ALLOWED_SPECIAL_COMPLETION,
   ENVI_TASK_REGEX,
   IDL_TASK_REGEX,
-  ISpecialFunctionCompletionOptions,
-  SpecialFunctionCompletion,
 } from './completion-special-functions.interface';
 import { BuildCompletionStructureNameItems } from './completion-structure-names';
 

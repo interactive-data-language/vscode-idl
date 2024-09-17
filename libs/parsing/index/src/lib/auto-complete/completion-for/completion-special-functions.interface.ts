@@ -22,26 +22,3 @@ export const ALLOWED_SPECIAL_COMPLETION: { [key: string]: undefined } = {};
 ALLOWED_SPECIAL_COMPLETION[TOKEN_NAMES.QUOTE_SINGLE] = undefined;
 ALLOWED_SPECIAL_COMPLETION[TOKEN_NAMES.QUOTE_DOUBLE] = undefined;
 ALLOWED_SPECIAL_COMPLETION[TOKEN_NAMES.STRING_TEMPLATE_LITERAL] = undefined;
-
-/**
- * Auto-complete for special functions
- */
-export type SpecialFunctionCompletion = 'special-function';
-
-/**
- * Options for adding special function completion
- */
-export interface ISpecialFunctionCompletionOptions {
-  /**
-   * Flag if we can process special procedures or not
-   */
-  notSpecial: boolean;
-  /**
-   * The value of the token when evaluated
-   */
-  value?: string;
-  /**
-   * Name of procedure we are calling, lower case
-   */
-  functionName?: string;
-}

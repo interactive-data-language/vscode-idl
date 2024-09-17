@@ -3,6 +3,10 @@ import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { MAIN_LEVEL_NAME, TreeToken } from '@idl/parsing/syntax-tree';
 import { TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  ISpecialProcedureCompletionOptions,
+  SpecialProcedureCompletion,
+} from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { CompletionItemKind } from 'vscode-languageserver';
 
@@ -10,10 +14,6 @@ import { EvaluateToken } from '../../post-process/populate-type/evaluate/evaluat
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
 import { ALLOWED_SPECIAL_COMPLETION } from './completion-special-functions.interface';
-import {
-  ISpecialProcedureCompletionOptions,
-  SpecialProcedureCompletion,
-} from './completion-special-procedures.interface';
 
 /**
  * Display names for functions

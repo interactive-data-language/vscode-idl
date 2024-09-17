@@ -1,11 +1,11 @@
 import { AdjustCase, TransformCase } from '@idl/assembling/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { StructureNameCompletion } from '@idl/types/auto-complete';
 import { CUSTOM_TYPE_DISPLAY_NAMES } from '@idl/types/core';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import { StructureNameCompletion } from './completion-structure-names.interface';
 
 /**
  * Adds variables to our completion items

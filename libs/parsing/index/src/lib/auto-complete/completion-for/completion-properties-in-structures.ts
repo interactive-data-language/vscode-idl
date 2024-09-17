@@ -7,16 +7,16 @@ import {
 } from '@idl/parsing/syntax-tree';
 import { StructureNameToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  IPropertyInStructureCompletionOptions,
+  PropertyInStructureCompletion,
+} from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
 import { IDLIndex } from '../../idl-index.class';
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import {
-  IPropertyInStructureCompletionOptions,
-  PropertyInStructureCompletion,
-} from './completion-properties-in-structures.interface';
 
 /**
  *Recursively finds properties and adds them to our completion list if we have not

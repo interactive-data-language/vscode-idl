@@ -7,6 +7,10 @@ import {
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
+  IKeywordCompletionOptions,
+  KeywordCompletion,
+} from '@idl/types/auto-complete';
+import {
   GlobalIndexedRoutineToken,
   IDL_TYPE_LOOKUP,
   IDLTypeHelper,
@@ -23,10 +27,6 @@ import { GetRoutine } from '../../helpers/get-routine';
 import { IDLIndex } from '../../idl-index.class';
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import {
-  IKeywordCompletionOptions,
-  KeywordCompletion,
-} from './completion-keyword.interface';
 
 /**
  * If we encounter these tokens, remove the "/" for boolean keywords

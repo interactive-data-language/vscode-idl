@@ -22,5 +22,5 @@ export async function GetAutoComplete(
   const recipes = await GetCompletionRecipes(index, file, code, position);
 
   // build completion items
-  return BuildCompletionItems(index, recipes, formatting, config);
+  return BuildCompletionItems(index, recipes, config, formatting);
 }

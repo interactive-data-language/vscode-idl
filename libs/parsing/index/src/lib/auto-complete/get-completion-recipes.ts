@@ -11,47 +11,43 @@ import {
   StructureNameToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { Position } from 'vscode-languageserver/node';
-
-import { GetTypeBefore } from '../helpers/get-type-before';
-import { IDLIndex } from '../idl-index.class';
 import {
   AUTO_COMPLETE_TYPE_LOOKUP,
   AutoCompleteRecipe,
   AutoCompleteType,
-} from './auto-complete-recipe.interface';
+  CompileOptCompletion,
+  ExecutiveCommandCompletion,
+  FunctionCompletion,
+  FunctionMethodCompletion,
+  IncludeCompletion,
+  KeywordCompletion,
+  ProcedureCompletion,
+  ProcedureMethodCompletion,
+  PropertyCompletion,
+  PropertyInStructureCompletion,
+  SpecialFunctionCompletion,
+  SpecialProcedureCompletion,
+  StructureNameCompletion,
+  SystemVariableCompletion,
+  VariableCompletion,
+} from '@idl/types/auto-complete';
+import { Position } from 'vscode-languageserver/node';
+
+import { GetTypeBefore } from '../helpers/get-type-before';
+import { IDLIndex } from '../idl-index.class';
 import { GetCompileOptCompletionOptions } from './completion-for/completion-compile-opts';
-import { CompileOptCompletion } from './completion-for/completion-compile-opts.interface';
 import { GetExecutiveCommandCompletionOptions } from './completion-for/completion-executive-commands';
-import { ExecutiveCommandCompletion } from './completion-for/completion-executive-commands.interface';
 import { GetFunctionMethodCompletionOptions } from './completion-for/completion-function-methods';
-import { FunctionMethodCompletion } from './completion-for/completion-function-methods.interface';
 import { GetFunctionCompletionOptions } from './completion-for/completion-functions';
-import { FunctionCompletion } from './completion-for/completion-functions.interface';
-import { IncludeCompletion } from './completion-for/completion-include.interface';
-import { KeywordCompletion } from './completion-for/completion-keyword.interface';
 import { GetKeywordCompletionOptions } from './completion-for/completion-keywords';
 import { GetProcedureMethodCompletionOptions } from './completion-for/completion-procedure-methods';
-import { ProcedureMethodCompletion } from './completion-for/completion-procedure-methods.interface';
-import { ProcedureCompletion } from './completion-for/completion-procedures.interface';
 import { GetPropertyCompletionOptions } from './completion-for/completion-properties';
-import { PropertyCompletion } from './completion-for/completion-properties.interface';
 import { GetPropertyInStructureCompletionOptions } from './completion-for/completion-properties-in-structures';
-import { PropertyInStructureCompletion } from './completion-for/completion-properties-in-structures.interface';
 import { GetSpecialFunctionCompletionOptions } from './completion-for/completion-special-functions';
-import {
-  SPECIAL_FUNCTION_REGEX,
-  SpecialFunctionCompletion,
-} from './completion-for/completion-special-functions.interface';
+import { SPECIAL_FUNCTION_REGEX } from './completion-for/completion-special-functions.interface';
 import { GetSpecialProcedureCompletionOptions } from './completion-for/completion-special-procedures';
-import {
-  SPECIAL_PROCEDURE_REGEX,
-  SpecialProcedureCompletion,
-} from './completion-for/completion-special-procedures.interface';
-import { StructureNameCompletion } from './completion-for/completion-structure-names.interface';
-import { SystemVariableCompletion } from './completion-for/completion-system-variables.interface';
+import { SPECIAL_PROCEDURE_REGEX } from './completion-for/completion-special-procedures.interface';
 import { GetVariableCompletionOptions } from './completion-for/completion-variables';
-import { VariableCompletion } from './completion-for/completion-variables.interface';
 import {
   ALL_METHODS_COMPLETION,
   CAN_PROCEDURE_HERE,
