@@ -3,7 +3,7 @@ import { GlobalIndexedRoutineToken } from '@idl/types/core';
 /**
  * Auto-complete for keywords
  */
-export type IncludeCompletion = 'keyword';
+export type KeywordCompletion = 'keyword';
 
 /**
  * Options for adding keyword completion
