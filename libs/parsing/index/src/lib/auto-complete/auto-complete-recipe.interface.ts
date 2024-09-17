@@ -10,6 +10,10 @@ import {
   FunctionMethodCompletion,
   IFunctionMethodCompletionOptions,
 } from './completion-for/add-completion-function-methods.interface';
+import {
+  FunctionCompletion,
+  IFunctionCompletionOptions,
+} from './completion-for/add-completion-functions.interface';
 
 /**
  * Types of auto-complete
@@ -17,7 +21,8 @@ import {
 export type AutoCompleteType =
   | CompileOptCompletion
   | ExecutiveCommandCompletion
-  | FunctionMethodCompletion;
+  | FunctionMethodCompletion
+  | FunctionCompletion;
 
 /**
  * Options passed to auto-complete
@@ -29,6 +34,8 @@ export type AutoCompleteRecipeOptions<T extends AutoCompleteType> =
     ? IExecutiveCommandCompletionOptions
     : T extends FunctionMethodCompletion
     ? IFunctionMethodCompletionOptions
+    : T extends FunctionCompletion
+    ? IFunctionCompletionOptions
     : never;
 
 /**

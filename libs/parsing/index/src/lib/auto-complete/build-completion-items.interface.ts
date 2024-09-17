@@ -9,6 +9,7 @@ import {
 import { BuildCompileOptCompletionItems } from './completion-for/add-completion-compile-opts';
 import { BuildExecutiveCommandCompletionItems } from './completion-for/add-completion-executive-commands';
 import { BuildFunctionMethodCompletionItems } from './completion-for/add-completion-function-methods';
+import { BuildFunctionCompletionItems } from './completion-for/add-completion-functions';
 
 /**
  * Options passed into all completion items that we build
@@ -41,4 +42,5 @@ export const ALL_COMPLETION_ITEM_BUILDERS: BuildCompletionItemsLookup = {
   'compile-opt': BuildCompileOptCompletionItems,
   'executive-command': BuildExecutiveCommandCompletionItems,
   'function-method': BuildFunctionMethodCompletionItems,
+  function: BuildFunctionCompletionItems,
 };

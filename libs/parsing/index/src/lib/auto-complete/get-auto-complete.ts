@@ -31,7 +31,10 @@ import {
   BuildFunctionMethodCompletionItems,
   BuildFunctionMethodCompletionOptions,
 } from './completion-for/add-completion-function-methods';
-import { AddCompletionFunctions } from './completion-for/add-completion-functions';
+import {
+  BuildFunctionCompletionItems,
+  GetFunctionCompletionOptions,
+} from './completion-for/add-completion-functions';
 import { AddCompletionInclude } from './completion-for/add-completion-include';
 import { AddCompletionKeywords } from './completion-for/add-completion-keywords';
 import { AddCompletionProcedureMethods } from './completion-for/add-completion-procedure-methods';
@@ -171,21 +174,21 @@ export async function GetAutoComplete(
       case local?.name === TOKEN_NAMES.CONTROL_COMPILE_OPT:
         BuildCompileOptCompletionItems({
           complete,
+          formatting,
+          index,
           options: GetCompileOptCompletionOptions(
             local as TreeToken<ControlCompileOptToken>
           ),
-          formatting,
-          index,
         });
         return complete;
       case token?.name === TOKEN_NAMES.CONTROL_COMPILE_OPT:
         BuildCompileOptCompletionItems({
           complete,
+          formatting,
+          index,
           options: GetCompileOptCompletionOptions(
             token as TreeToken<ControlCompileOptToken>
           ),
-          formatting,
-          index,
         });
         return complete;
       case token?.name === TOKEN_NAMES.SYSTEM_VARIABLE:
@@ -195,9 +198,9 @@ export async function GetAutoComplete(
         (token?.name === TOKEN_NAMES.DOT && token.pos[1] === 0):
         BuildExecutiveCommandCompletionItems({
           complete,
-          options: GetExecutiveCommandCompletionOptions(token),
           formatting,
           index,
+          options: GetExecutiveCommandCompletionOptions(token),
         });
         return complete;
       case token?.name === TOKEN_NAMES.STRUCTURE && token?.kids?.length === 0:
@@ -367,7 +370,12 @@ export async function GetAutoComplete(
         if (!isWithinStart && addVariables) {
           AddCompletionVariables(complete, parsed, global?.token);
           AddCompletionSystemVariables(complete, formatting);
-          AddCompletionFunctions(complete, formatting, addParen);
+          BuildFunctionCompletionItems({
+            complete,
+            formatting,
+            index,
+            options: GetFunctionCompletionOptions(addParen),
+          });
         }
 
         /**
@@ -378,9 +386,9 @@ export async function GetAutoComplete(
             case token?.name in FUNCTION_METHOD_COMPLETION:
               BuildFunctionMethodCompletionItems({
                 complete,
-                options: BuildFunctionMethodCompletionOptions(type, addParen),
                 formatting,
                 index,
+                options: BuildFunctionMethodCompletionOptions(type, addParen),
               });
               break;
             case token?.name in ALL_METHODS_COMPLETION:
@@ -397,9 +405,9 @@ export async function GetAutoComplete(
               }
               BuildFunctionMethodCompletionItems({
                 complete,
-                options: BuildFunctionMethodCompletionOptions(type, addParen),
                 formatting,
                 index,
+                options: BuildFunctionMethodCompletionOptions(type, addParen),
               });
               break;
             default:
@@ -426,7 +434,12 @@ export async function GetAutoComplete(
         ) {
           AddCompletionProcedures(complete, formatting);
         } else {
-          AddCompletionFunctions(complete, formatting, addParen);
+          BuildFunctionCompletionItems({
+            complete,
+            formatting,
+            index,
+            options: GetFunctionCompletionOptions(addParen),
+          });
         }
     }
   }
