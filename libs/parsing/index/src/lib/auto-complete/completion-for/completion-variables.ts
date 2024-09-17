@@ -4,20 +4,35 @@ import {
   TreeBranchToken,
 } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
+import {
+  IVariableCompletionOptions,
+  VariableCompletion,
+} from '@idl/types/auto-complete';
+import { CompletionItemKind } from 'vscode-languageserver';
 
+import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
+
+/**
+ * Creates options for keyword auto-complete
+ */
+export function GetVariableCompletionOptions(
+  parsed: IParsed,
+  parent?: TreeBranchToken
+): IVariableCompletionOptions {
+  return {
+    lookup: GetLocalTokenLookup(parsed, parent),
+  };
+}
 
 /**
  * Adds variables to our completion items
  */
-export function AddCompletionVariables(
-  complete: CompletionItem[],
-  parsed: IParsed,
-  parent?: TreeBranchToken
+export function BuildVariableCompletionItems(
+  arg: BuildCompletionItemsArg<VariableCompletion>
 ) {
   // get our lookup
-  const lookup = GetLocalTokenLookup(parsed, parent);
+  const lookup = arg.options.lookup;
 
   // add to completion items
   const keys = Object.keys(lookup);
@@ -26,7 +41,7 @@ export function AddCompletionVariables(
     const variable = lookup[keys[i]];
 
     // add
-    complete.push({
+    arg.complete.push({
       label: variable.meta.display,
       kind: CompletionItemKind.Variable,
       sortText: SORT_PRIORITY.VARIABLES,

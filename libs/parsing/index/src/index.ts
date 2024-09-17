@@ -1,3 +1,4 @@
+export * from './lib/auto-complete/get-completion-recipes';
 export * from './lib/change-detection/change-detection';
 export * from './lib/global-index.class';
 export * from './lib/global-index.interface';

@@ -1,7 +1,7 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IProcedureMethodCompletionOptions } from '@idl/types/auto-complete';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,
@@ -10,10 +10,10 @@ import {
   IDLTypes,
   ParseIDLType,
 } from '@idl/types/core';
-import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
+import { CompletionItemKind } from 'vscode-languageserver';
 
-import { IDLIndex } from '../../idl-index.class';
 import { SORT_PRIORITY } from '../sort-priority.interface';
+import { IProcedureMethodCompletionArg } from './completion-procedure-methods.interface';
 
 /**
  * Display names for procedure methods
@@ -24,12 +24,9 @@ const PROCEDURE_METHODS =
 /**
  * Adds variables to our completion items
  */
-function AddCompletionProcedureMethodsForType(
-  complete: CompletionItem[],
-  index: IDLIndex,
-  formatting: IAssemblerOptions<FormatterType>,
-  type: IDLDataTypeBase<IDLTypes>,
-  found: { [key: string]: any } = {}
+function BuildProcedureMethodCompletionItemsForType(
+  arg: IProcedureMethodCompletionArg,
+  type: IDLDataTypeBase<IDLTypes>
 ) {
   /**
    * If we have any type, return everything
@@ -37,11 +34,11 @@ function AddCompletionProcedureMethodsForType(
   if (type.name === IDL_TYPE_LOOKUP.ANY) {
     const displayNames = Object.values(PROCEDURE_METHODS);
     for (let i = 0; i < displayNames.length; i++) {
-      complete.push({
+      arg.complete.push({
         label: displayNames[i],
         insertText: TransformCase(
           displayNames[i].split('::')[1],
-          formatting.style.routineMethods
+          arg.formatting.style.routineMethods
         ),
         kind: CompletionItemKind.Function,
         sortText: SORT_PRIORITY.METHODS,
@@ -58,23 +55,23 @@ function AddCompletionProcedureMethodsForType(
   const keysInternal = Object.keys(PROCEDURE_METHODS);
   for (let i = 0; i < keysInternal.length; i++) {
     const methodName = keysInternal[i].split('::')[1];
-    if (keysInternal[i].startsWith(compareType) && !(methodName in found)) {
-      complete.push({
+    if (keysInternal[i].startsWith(compareType) && !(methodName in arg.found)) {
+      arg.complete.push({
         label: PROCEDURE_METHODS[keysInternal[i]],
         insertText: TransformCase(
           PROCEDURE_METHODS[keysInternal[i]].split('::')[1],
-          formatting.style.routineMethods
+          arg.formatting.style.routineMethods
         ),
         kind: CompletionItemKind.Function,
         sortText: SORT_PRIORITY.METHODS,
         detail: IDL_TRANSLATION.autoComplete.detail.procedureMethod,
       });
-      found[methodName] = true;
+      arg.found[methodName] = true;
     }
   }
 
   // check for global token
-  const global = index.findMatchingGlobalToken(
+  const global = arg.index.findMatchingGlobalToken(
     GLOBAL_TOKEN_TYPES.STRUCTURE,
     type.name.toLocaleLowerCase()
   );
@@ -83,36 +80,43 @@ function AddCompletionProcedureMethodsForType(
     const inherits = global[0].meta.inherits;
     if (inherits.length > 0) {
       for (let i = 0; i < inherits.length; i++) {
-        AddCompletionProcedureMethods(
-          complete,
-          index,
-          formatting,
-          ParseIDLType(inherits[i]),
-          found
-        );
+        BuildProcedureMethodCompletionItems({
+          ...arg,
+          ...{
+            options: {
+              type: ParseIDLType(inherits[i]),
+            },
+          },
+        });
       }
     }
   }
 }
 
 /**
+ * Creates options for creating property completion items
+ */
+export function GetProcedureMethodCompletionOptions(
+  type: IDLDataType
+): IProcedureMethodCompletionOptions {
+  return {
+    type,
+  };
+}
+
+/**
  * Adds variables to our completion items
  */
-export function AddCompletionProcedureMethods(
-  complete: CompletionItem[],
-  index: IDLIndex,
-  formatting: IAssemblerOptions<FormatterType>,
-  type: IDLDataType,
-  found: { [key: string]: any } = {}
+export function BuildProcedureMethodCompletionItems(
+  arg: IProcedureMethodCompletionArg
 ) {
+  // track found if we dont have it
+  if (!arg.found) {
+    arg.found = {};
+  }
+
   // process each type
-  for (let i = 0; i < type.length; i++) {
-    AddCompletionProcedureMethodsForType(
-      complete,
-      index,
-      formatting,
-      type[i],
-      found
-    );
+  for (let i = 0; i < arg.options.type.length; i++) {
+    BuildProcedureMethodCompletionItemsForType(arg, arg.options.type[i]);
   }
 }

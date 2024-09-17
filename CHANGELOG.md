@@ -39,6 +39,8 @@ Fixed a bug where we were incorrectly detecting standalone expressions and repor
 
 Fixed a parsing issue where we would not correctly determine the end of ternary operators which could report errors incorrectly in your code.
 
+Re-worked auto-complete to function the same way as hover help. Now, we determine types of features to send from one of our worker threads and then the main thread builds out the completion items. The advantage of this is that we can now send back documentation and other information (which doesn't exist in our worker threads).
+
 ## 4.6.0 - August 2024
 
 Fixed an issue where we open a file that we have stopped in, even if it is compiled as a SAVE file. Now, only PRO files will be jumped to.

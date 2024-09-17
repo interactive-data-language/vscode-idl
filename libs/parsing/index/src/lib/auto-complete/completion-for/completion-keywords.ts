@@ -1,4 +1,3 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { AdjustCase } from '@idl/assembling/shared';
 import {
   FindDirectBranchChildren,
@@ -8,19 +7,25 @@ import {
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
+  IKeywordCompletionOptions,
+  KeywordCompletion,
+} from '@idl/types/auto-complete';
+import {
+  GlobalIndexedRoutineToken,
   IDL_TYPE_LOOKUP,
   IDLTypeHelper,
   IParameterLookup,
 } from '@idl/types/core';
-import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
+import { CompletionItemKind } from 'vscode-languageserver';
 
 import { FindKeyword } from '../../helpers/get-keyword';
-import { GetKeywords } from '../../helpers/get-keywords';
 import {
   CALL_ROUTINE_TOKENS,
   CallRoutineToken,
 } from '../../helpers/get-keywords.interface';
+import { GetRoutine } from '../../helpers/get-routine';
 import { IDLIndex } from '../../idl-index.class';
+import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
 
 /**
@@ -31,19 +36,18 @@ BINARY_TOKEN_CHECK[TOKEN_NAMES.OPERATOR] = true;
 BINARY_TOKEN_CHECK[TOKEN_NAMES.KEYWORD_BINARY] = true;
 
 /**
- * Adds keyword completion keywords to functions
+ * Creates options for keyword auto-complete
  */
-export function AddCompletionKeywords(
-  complete: CompletionItem[],
+export function GetKeywordCompletionOptions(
   parsed: IParsed,
   index: IDLIndex,
-  token: TreeToken<TokenName>,
-  formatting: IAssemblerOptions<FormatterType>
-) {
-  /**
-   * Best-guess keywords
-   */
-  const keywords = GetKeywords(index, parsed, token);
+  token: TreeToken<TokenName>
+): IKeywordCompletionOptions {
+  /** Get matching global token */
+  const global = GetRoutine(index, parsed, token, true);
+
+  /** Defined keywords */
+  const defined: IParameterLookup = global.length > 0 ? global[0].meta.kws : {};
 
   // find the right parent
   let local: CallRoutineToken =
@@ -70,10 +74,6 @@ export function AddCompletionKeywords(
     }
   }
 
-  // get our defined keywords
-  const defined: IParameterLookup =
-    keywords !== undefined ? keywords.keywords : {};
-
   // get local keywords - check if we have
   const used =
     local === undefined
@@ -99,23 +99,59 @@ export function AddCompletionKeywords(
             )
           );
 
+  return {
+    global: global[0],
+    used,
+    binaryAdd,
+    forceBinary,
+  };
+}
+
+/**
+ * Adds keyword completion keywords to functions
+ */
+export function BuildKeywordCompletionItems(
+  arg: BuildCompletionItemsArg<KeywordCompletion>
+) {
+  // get our defined keywords
+  let defined: IParameterLookup = {};
+
+  /**
+   * Find global token in our lookup
+   */
+  if (arg.options.global) {
+    /**
+     * Specify type which matches from up above
+     */
+    const global: GlobalIndexedRoutineToken[] =
+      arg.index.globalIndex.findMatchingGlobalToken(
+        arg.options.global.type,
+        arg.options.global.name
+      );
+
+    if (global.length > 0) {
+      defined = global[0].meta.kws;
+    }
+  }
+
   // add all of our defined keywords
   const kws = Object.keys(defined);
   for (let i = 0; i < kws.length; i++) {
     // make sure we havent used it already
-    if (used.indexOf(kws[i]) === -1) {
+    if (arg.options.used.indexOf(kws[i]) === -1) {
       // get keyword
       const kw = defined[kws[i]];
 
       // get display name of our keyword
-      const display = AdjustCase(kw.display, formatting.style.keywords);
+      const display = AdjustCase(kw.display, arg.formatting.style.keywords);
 
       // add keyword
-      complete.push({
+      arg.complete.push({
         label: display + ' = ',
         insertText:
-          forceBinary || IDLTypeHelper.isType(kw.type, IDL_TYPE_LOOKUP.BOOLEAN)
-            ? binaryAdd + display
+          arg.options.forceBinary ||
+          IDLTypeHelper.isType(kw.type, IDL_TYPE_LOOKUP.BOOLEAN)
+            ? arg.options.binaryAdd + display
             : display + ' = ',
         kind: CompletionItemKind.EnumMember,
         sortText: SORT_PRIORITY.KEYWORDS,

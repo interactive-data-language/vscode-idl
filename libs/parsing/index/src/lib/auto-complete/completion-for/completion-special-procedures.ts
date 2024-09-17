@@ -1,36 +1,70 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { MAIN_LEVEL_NAME, TreeToken } from '@idl/parsing/syntax-tree';
 import { TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  ISpecialProcedureCompletionOptions,
+  SpecialProcedureCompletion,
+} from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
-import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
+import { CompletionItemKind } from 'vscode-languageserver';
 
-import { IDLIndex } from '../../idl-index.class';
 import { EvaluateToken } from '../../post-process/populate-type/evaluate/evaluate-token';
+import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
-import { ALLOWED_SPECIAL_COMPLETION } from './add-completion-special-functions.interface';
+import { ALLOWED_SPECIAL_COMPLETION } from './completion-special-functions.interface';
 
 /**
  * Display names for functions
  */
 const PROCEDURES = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.PROCEDURE];
 
+export function GetSpecialProcedureCompletionOptions(
+  token: TreeToken<TokenName>
+): ISpecialProcedureCompletionOptions {
+  // init result
+  const opts: ISpecialProcedureCompletionOptions = {
+    /**
+     * Filter tokens that are not the first child or in our white list
+     */
+    notSpecial: !(token.name in ALLOWED_SPECIAL_COMPLETION) || token.idx !== 1,
+  };
+
+  // make sure we can proceed
+  if (!opts.notSpecial) {
+    // get literal value
+    const value = EvaluateToken(token);
+
+    /**
+     * Make sure we can get the value of our string - more for simple literals than
+     * anything else
+     */
+    if (value === undefined) {
+      return opts;
+    }
+
+    // save
+    opts.value = value;
+
+    // s ave procedure name because we made it this far
+    opts.procedureName =
+      token?.scopeTokens[token.scope.length - 1]?.match[0].toLowerCase();
+  }
+
+  return opts;
+}
+
 /**
  * Handles auto-complete for special functions
  */
-export function AddCompletionSpecialProcedures(
-  complete: CompletionItem[],
-  index: IDLIndex,
-  token: TreeToken<TokenName>,
-  formatting: IAssemblerOptions<FormatterType>
+export function BuildSpecialProcedureCompletionItems(
+  arg: BuildCompletionItemsArg<SpecialProcedureCompletion>
 ) {
-  console.log();
   /**
    * Filter tokens that are not the first child or in our white list
    */
-  if (!(token.name in ALLOWED_SPECIAL_COMPLETION) || token.idx !== 1) {
+  if (arg.options.notSpecial) {
     return;
   }
 
@@ -38,14 +72,12 @@ export function AddCompletionSpecialProcedures(
    * Make sure we can get the value of our string - more for simple literals than
    * anything else
    */
-  const value = EvaluateToken(token);
-  if (value === undefined) {
+  if (arg.options.value === undefined) {
     return;
   }
 
   // get procedure name
-  const procedureName =
-    token?.scopeTokens[token.scope.length - 1]?.match[0].toLowerCase();
+  const procedureName = arg.options.procedureName;
 
   /** Display names to add auto complete for */
   const displayNames: string[] = Object.values(PROCEDURES);
@@ -69,9 +101,9 @@ export function AddCompletionSpecialProcedures(
 
         const display = TransformCase(
           displayNames[i],
-          formatting.style.routines
+          arg.formatting.style.routines
         );
-        complete.push({
+        arg.complete.push({
           label: display,
           kind: CompletionItemKind.Function,
           sortText: SORT_PRIORITY.ROUTINES,

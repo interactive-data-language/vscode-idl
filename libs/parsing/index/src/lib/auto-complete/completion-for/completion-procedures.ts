@@ -1,11 +1,12 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { MAIN_LEVEL_NAME } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { ProcedureCompletion } from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
-import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
+import { CompletionItemKind } from 'vscode-languageserver';
 
+import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
 
 /**
@@ -14,11 +15,10 @@ import { SORT_PRIORITY } from '../sort-priority.interface';
 const PROCEDURES = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.PROCEDURE];
 
 /**
- * Adds variables to our completion items
+ * Makes completion items for procedures
  */
-export function AddCompletionProcedures(
-  complete: CompletionItem[],
-  formatting: IAssemblerOptions<FormatterType>
+export function BuildProcedureCompletionItems(
+  arg: BuildCompletionItemsArg<ProcedureCompletion>
 ) {
   // add user procedures first
   const displayNames = Object.values(PROCEDURES);
@@ -26,8 +26,8 @@ export function AddCompletionProcedures(
     if (displayNames[i] === MAIN_LEVEL_NAME) {
       continue;
     }
-    complete.push({
-      label: TransformCase(displayNames[i], formatting.style.routines),
+    arg.complete.push({
+      label: TransformCase(displayNames[i], arg.formatting.style.routines),
       kind: CompletionItemKind.Function,
       sortText: SORT_PRIORITY.ROUTINES,
       detail: IDL_TRANSLATION.autoComplete.detail.procedure,

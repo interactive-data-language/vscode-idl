@@ -1,19 +1,16 @@
-import {
-  FormatterType,
-  IAssemblerOptions,
-  STYLE_FLAG_LOOKUP,
-} from '@idl/assembling/config';
+import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TaskFunctionName } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/core';
 import {
-  Command,
-  CompletionItem,
-  CompletionItemKind,
-} from 'vscode-languageserver';
+  FunctionCompletion,
+  IFunctionCompletionOptions,
+} from '@idl/types/auto-complete';
+import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/core';
+import { Command, CompletionItemKind } from 'vscode-languageserver';
 
+import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { SORT_PRIORITY } from '../sort-priority.interface';
 
 /**
@@ -22,24 +19,33 @@ import { SORT_PRIORITY } from '../sort-priority.interface';
 const FUNCTIONS = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.FUNCTION];
 
 /**
+ * Generates options for creating compile opts
+ */
+export function GetFunctionCompletionOptions(
+  addParen: boolean
+): IFunctionCompletionOptions {
+  return {
+    addParen,
+  };
+}
+
+/**
  * Adds variables to our completion items
  */
-export function AddCompletionFunctions(
-  complete: CompletionItem[],
-  formatting: IAssemblerOptions<FormatterType>,
-  addParen: boolean
+export function BuildFunctionCompletionItems(
+  arg: BuildCompletionItemsArg<FunctionCompletion>
 ) {
   /** If we add parentheses or not */
-  const add = addParen ? '()' : '';
+  const add = arg.options.addParen ? '()' : '';
 
   /** Get quote styling */
   const quote =
-    formatting.style.quotes === STYLE_FLAG_LOOKUP.SINGLE ? `'` : `"`;
+    arg.formatting.style.quotes === STYLE_FLAG_LOOKUP.SINGLE ? `'` : `"`;
 
   /** Cursor movement command */
   const command: Command = {
     title: 'Cursor Adjust',
-    command: addParen ? 'cursorLeft' : 'cursorRight',
+    command: arg.options.addParen ? 'cursorLeft' : 'cursorRight',
   };
 
   // add internal routines
@@ -50,7 +56,7 @@ export function AddCompletionFunctions(
      */
     if (TASK_REGEX.exec(displayNames[i])) {
       const display = TaskFunctionName(displayNames[i], quote);
-      complete.push({
+      arg.complete.push({
         label: display,
         insertText: display,
         kind: CompletionItemKind.Function,
@@ -58,8 +64,11 @@ export function AddCompletionFunctions(
         detail: IDL_TRANSLATION.autoComplete.detail.function,
       });
     } else {
-      const display = TransformCase(displayNames[i], formatting.style.routines);
-      complete.push({
+      const display = TransformCase(
+        displayNames[i],
+        arg.formatting.style.routines
+      );
+      arg.complete.push({
         label: `${display}()`,
         insertText: `${display}${add}`,
         kind: CompletionItemKind.Function,

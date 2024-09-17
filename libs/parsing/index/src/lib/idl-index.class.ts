@@ -64,6 +64,7 @@ import {
 } from 'vscode-languageserver/node';
 import { Worker } from 'worker_threads';
 
+import { BuildCompletionItems } from './auto-complete/build-completion-items';
 import { GetAutoComplete } from './auto-complete/get-auto-complete';
 import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
@@ -457,11 +458,13 @@ export class IDLIndex {
     formatting: IAssemblerOptions<FormatterType> = DEFAULT_ASSEMBLER_OPTIONS
   ): Promise<GetAutoCompleteResponse> {
     if (this.isMultiThreaded()) {
-      return await this.indexerPool.workerio.postAndReceiveMessage(
+      const recipes = await this.indexerPool.workerio.postAndReceiveMessage(
         this.getWorkerID(file),
-        LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_AUTO_COMPLETE,
-        { file, code, position, config }
+        LSP_WORKER_THREAD_MESSAGE_LOOKUP.AUTO_COMPLETE_RECIPE,
+        { file, code, position }
       ).response;
+
+      return BuildCompletionItems(this, recipes, config, formatting);
     } else {
       return GetAutoComplete(this, file, code, position, config, formatting);
     }

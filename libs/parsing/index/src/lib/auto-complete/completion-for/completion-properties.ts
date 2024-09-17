@@ -1,6 +1,6 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IPropertyCompletionOptions } from '@idl/types/auto-complete';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,
@@ -9,21 +9,17 @@ import {
   IDLTypes,
   ParseIDLType,
 } from '@idl/types/core';
-import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
+import { CompletionItemKind } from 'vscode-languageserver';
 
-import { IDLIndex } from '../../idl-index.class';
 import { SORT_PRIORITY } from '../sort-priority.interface';
+import { IPropertyCompletionArg } from './completion-properties.interface';
 
 /**
  * Adds variables to our completion items
  */
-function AddCompletionPropertiesForType(
-  complete: CompletionItem[],
-  index: IDLIndex,
-  type: IDLDataTypeBase<IDLTypes>,
-  add = '',
-  formatting: IAssemblerOptions<FormatterType>,
-  found: { [key: string]: any } = {}
+function BuildPropertyCompletionItemsForType(
+  arg: IPropertyCompletionArg,
+  type: IDLDataTypeBase<IDLTypes>
 ) {
   // return if we dont have a type
   if (type.name === IDL_TYPE_LOOKUP.ANY) {
@@ -36,30 +32,30 @@ function AddCompletionPropertiesForType(
     const keys = Object.keys(properties);
     for (let i = 0; i < keys.length; i++) {
       const lowKey = keys[i].toLowerCase();
-      if (!(lowKey in found)) {
+      if (!(lowKey in arg.found)) {
         const display = TransformCase(
           properties[keys[i]].display,
-          formatting.style.properties
+          arg.formatting.style.properties
         );
 
         // add to completion
-        complete.push({
+        arg.complete.push({
           label: display,
-          insertText: display + add,
+          insertText: display + arg.options.add,
           kind: CompletionItemKind.Field,
           sortText: SORT_PRIORITY.PROPERTIES,
           documentation: properties[keys[i]].docs,
         });
 
         // save that we already processed this property
-        found[lowKey] = true;
+        arg.found[lowKey] = true;
       }
     }
     return;
   }
 
   // check for global token first
-  const global = index.findMatchingGlobalToken(
+  const global = arg.index.findMatchingGlobalToken(
     GLOBAL_TOKEN_TYPES.STRUCTURE,
     type.name.toLocaleLowerCase()
   );
@@ -70,16 +66,16 @@ function AddCompletionPropertiesForType(
     const keys = Object.keys(properties);
     for (let i = 0; i < keys.length; i++) {
       const lowKey = keys[i].toLowerCase();
-      if (!(lowKey in found)) {
+      if (!(lowKey in arg.found)) {
         const display = TransformCase(
           properties[keys[i]].display,
-          formatting.style.properties
+          arg.formatting.style.properties
         );
 
         // add to completion
-        complete.push({
+        arg.complete.push({
           label: display,
-          insertText: display + add,
+          insertText: display + arg.options.add,
           kind: CompletionItemKind.Field,
           sortText: SORT_PRIORITY.PROPERTIES,
           detail: `${IDL_TRANSLATION.autoComplete.detail.property} ${global[0].meta.display}`,
@@ -87,7 +83,7 @@ function AddCompletionPropertiesForType(
         });
 
         // save that we already processed this property
-        found[lowKey] = true;
+        arg.found[lowKey] = true;
       }
     }
 
@@ -95,39 +91,44 @@ function AddCompletionPropertiesForType(
     const inherits = global[0].meta.inherits;
     if (inherits.length > 0) {
       for (let i = 0; i < inherits.length; i++) {
-        AddCompletionProperties(
-          complete,
-          index,
-          ParseIDLType(inherits[i]),
-          add,
-          formatting,
-          found
-        );
+        BuildPropertyCompletionItems({
+          ...arg,
+          ...{
+            options: {
+              add: arg.options.add,
+              type: ParseIDLType(inherits[i]),
+            },
+          },
+        });
       }
     }
   }
 }
 
 /**
+ * Creates options for creating property completion items
+ */
+export function GetPropertyCompletionOptions(
+  add: string,
+  type: IDLDataType
+): IPropertyCompletionOptions {
+  return {
+    add,
+    type,
+  };
+}
+
+/**
  * Adds variables to our completion items
  */
-export function AddCompletionProperties(
-  complete: CompletionItem[],
-  index: IDLIndex,
-  type: IDLDataType,
-  add = '',
-  formatting: IAssemblerOptions<FormatterType>,
-  found: { [key: string]: any } = {}
-) {
+export function BuildPropertyCompletionItems(arg: IPropertyCompletionArg) {
+  // track found if we dont have it
+  if (!arg.found) {
+    arg.found = {};
+  }
+
   // process each type
-  for (let i = 0; i < type.length; i++) {
-    AddCompletionPropertiesForType(
-      complete,
-      index,
-      type[i],
-      add,
-      formatting,
-      found
-    );
+  for (let i = 0; i < arg.options.type.length; i++) {
+    BuildPropertyCompletionItemsForType(arg, arg.options.type[i]);
   }
 }

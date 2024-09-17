@@ -5,6 +5,7 @@ import { PrepareNotebookCell } from '@idl/notebooks/idl-index';
 import { ParseFileSync } from '@idl/parser';
 import {
   ChangeDetection,
+  GetCompletionRecipes,
   GetHoverHelpLookup,
   GetSyntaxProblems,
   IDL_INDEX_OPTIONS,
@@ -130,6 +131,21 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL, async (message) => {
     );
   }
 });
+
+/**
+ * Handle requests to parse and post process code for a file
+ */
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.AUTO_COMPLETE_RECIPE,
+  async (message, cancel) => {
+    return GetCompletionRecipes(
+      WORKER_INDEX,
+      message.file,
+      message.code,
+      message.position
+    );
+  }
+);
 
 /**
  * Handle change detection

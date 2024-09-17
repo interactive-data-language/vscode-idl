@@ -37,7 +37,10 @@ describe(`[auto generated] Verify auto-complete in structures`, () => {
         kind: 5,
         sortText: '02',
         detail: 'Property of NYStruct',
-        documentation: 'Placeholder docs for argument, keyword, or property',
+        documentation: {
+          kind: 'markdown',
+          value: 'Placeholder docs for argument, keyword, or property',
+        },
       },
       {
         label: 'prop2',
@@ -45,7 +48,10 @@ describe(`[auto generated] Verify auto-complete in structures`, () => {
         kind: 5,
         sortText: '02',
         detail: 'Property of NYStruct',
-        documentation: 'Placeholder docs for argument, keyword, or property',
+        documentation: {
+          kind: 'markdown',
+          value: 'Placeholder docs for argument, keyword, or property',
+        },
       },
     ];
 
