@@ -1,20 +1,15 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IParsed, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import copy from 'fast-copy';
+import { performance } from 'perf_hooks';
 import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver';
 
 import { IDL_INDEX_OPTIONS } from './idl-index.interface';
-
-/**
- * If files have more than this many lines of code, we dont compress because
- * it is just too slow
- */
-const COMPRESSION_LINE_THRESHOLD = 2000;
-
-/**
- * Tags that we compress/uncompress
- */
-const COMPRESS_THESE = ['tree', 'global'];
+import {
+  ACCESS_EXPIRATION_MS,
+  COMPRESS_THESE,
+  COMPRESSION_LINE_THRESHOLD,
+} from './idl-parsed-cache.interface';
 
 /**
  * The keys that we compress so we can pick out a single field
@@ -35,6 +30,11 @@ export class IDLParsedCache {
    * Track parsed by file
    */
   private byFile: { [key: string]: IParsed } = {};
+
+  /**
+   * Track last time we accessed teh file
+   */
+  private lastAccess: { [key: string]: number } = {};
 
   /**
    * Compress
@@ -97,10 +97,18 @@ export class IDLParsedCache {
   }
 
   /**
+   * Last time we accessed an item in our cache
+   */
+  private _trackAccess(file: string) {
+    this.lastAccess[file] = performance.now();
+  }
+
+  /**
    * Add parsed to the cache
    */
   add(file: string, parsed: IParsed) {
     this.byFile[file] = this.compress(parsed);
+    this._trackAccess(file);
   }
 
   /**
@@ -115,6 +123,7 @@ export class IDLParsedCache {
    */
   checksumMatches(file: string, checksum: string) {
     if (file in this.byFile) {
+      this._trackAccess(file);
       return this.byFile[file].checksum === checksum;
     }
     return false;
@@ -125,8 +134,23 @@ export class IDLParsedCache {
    */
   cleanup(all = false) {
     if (all) {
-      delete this.byFile;
       this.byFile = {};
+      this.lastAccess = {};
+    } else {
+      /** Time right now */
+      const now = performance.now();
+
+      /** Current files */
+      const keys = Object.keys(this.byFile);
+
+      // process all the files we have
+      for (let i = 0; i < keys.length; i++) {
+        if (keys[i] in this.lastAccess) {
+          if (now - this.lastAccess[keys[i]] > ACCESS_EXPIRATION_MS) {
+            this.remove(keys[i]);
+          }
+        }
+      }
     }
   }
 
@@ -137,6 +161,7 @@ export class IDLParsedCache {
    */
   get(file: string): IParsed | undefined {
     if (file in this.byFile) {
+      this._trackAccess(file);
       return this.decompress(this.byFile[file]);
     }
     return undefined;
@@ -154,6 +179,7 @@ export class IDLParsedCache {
    */
   lines(file: string): number | undefined {
     if (file in this.byFile) {
+      this._trackAccess(file);
       return this.byFile[file].lines;
     }
   }
@@ -163,6 +189,7 @@ export class IDLParsedCache {
    */
   outline(file: string): DocumentSymbol[] | undefined {
     if (file in this.byFile) {
+      this._trackAccess(file);
       return this.byFile[file].outline;
     }
   }
@@ -175,6 +202,7 @@ export class IDLParsedCache {
    */
   semantic(file: string): SemanticTokens | undefined {
     if (file in this.byFile) {
+      this._trackAccess(file);
       return this.byFile[file].semantic.built;
     }
   }
@@ -185,6 +213,7 @@ export class IDLParsedCache {
    */
   text(file: string): string[] | undefined {
     if (file in this.byFile) {
+      this._trackAccess(file);
       return this.byFile[file].text;
     }
   }
@@ -194,6 +223,7 @@ export class IDLParsedCache {
    */
   remove(file: string) {
     delete this.byFile[file];
+    delete this.lastAccess[file];
   }
 
   /**
@@ -203,6 +233,7 @@ export class IDLParsedCache {
    */
   uses(file: string) {
     if (file in this.byFile) {
+      this._trackAccess(file);
       return this.byFile[file].uses;
     }
   }
@@ -213,6 +244,7 @@ export class IDLParsedCache {
    */
   updateProblems(file: string, parsed: IParsed) {
     if (file in this.byFile) {
+      this._trackAccess(file);
       this.byFile[file].parseProblems = parsed.parseProblems;
       this.byFile[file].postProcessProblems = parsed.postProcessProblems;
     }
@@ -223,6 +255,7 @@ export class IDLParsedCache {
    */
   updateSemantic(file: string, parsed: IParsed) {
     if (file in this.byFile) {
+      this._trackAccess(file);
       this.byFile[file].semantic = parsed.semantic;
     }
   }

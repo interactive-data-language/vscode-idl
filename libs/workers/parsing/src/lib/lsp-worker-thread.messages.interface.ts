@@ -2,7 +2,7 @@ import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { MigrationType } from '@idl/assembling/migrators-types';
 import { ILogOptions } from '@idl/logger';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
-import { IParsed, ParsedType } from '@idl/parsing/syntax-tree';
+import { IParsedLightWeight, ParsedType } from '@idl/parsing/syntax-tree';
 import { AutoCompleteRecipe, AutoCompleteType } from '@idl/types/auto-complete';
 import {
   GlobalTokens,
@@ -109,27 +109,15 @@ export type CleanUpMessage = 'clean-up';
 /**
  * Payload on cleanup
  */
-export type CleanUpPayload = void;
+export type CleanUpPayload = {
+  /** Do we remove all files from cache or not? */
+  all?: boolean;
+};
 
 /**
  * Response from cleanup
  */
 export type CleanUpResponse = void;
-
-/**
- * Message to clear cache of parsed tokens
- */
-export type ClearCache = 'clear-cache';
-
-/**
- * Payload to clear cache of parsed tokens
- */
-export type ClearCachePayload = void;
-
-/**
- * Response to clear cache of parsed tokens
- */
-export type ClearCacheResponse = void;
 
 /**
  * Message when we want to get auto complete for a file
@@ -202,7 +190,7 @@ export interface GetNotebookCellPayload {
 /**
  * Response for getting notebook cell
  */
-export type GetNotebookCellResponse = IParsed;
+export type GetNotebookCellResponse = IParsedLightWeight;
 
 /**
  * Message when we want to get the outline for a file
@@ -329,7 +317,7 @@ export interface ParseAndPostProcessCodePayload {
 /**
  * Response when we have a single file from code to parse and post-process
  */
-export type ParseAndPostProcessCodeResponse = IParsed;
+export type ParseAndPostProcessCodeResponse = IParsedLightWeight;
 
 /**
  * When we parse and post-process one file
@@ -347,7 +335,7 @@ export interface ParseAndPostProcessFilePayload {
 /**
  * Response when we have a single file to parse and post-process
  */
-export type ParseAndPostProcessFileResponse = IParsed;
+export type ParseAndPostProcessFileResponse = IParsedLightWeight;
 
 /**
  * Parse more than one file and return global tokens
@@ -516,7 +504,6 @@ export type LSPWorkerThreadMessage =
   | AutoCompleteRecipeMessage
   | ChangeDetectionMessage
   | CleanUpMessage
-  | ClearCache
   | GetAutoCompleteMessage
   | GetHoverHelpLookupMessage
   | GetNotebookCellMessage
@@ -560,10 +547,6 @@ interface ILSPWorkerThreadMessageLookup {
    * Message to clean up
    */
   CLEAN_UP: CleanUpMessage;
-  /**
-   * Message to clear cache of parsed tokens
-   */
-  CLEAR_CACHE: ClearCache;
   /**
    * Message when we want to get auto complete for a file
    */
@@ -647,7 +630,6 @@ export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   AUTO_COMPLETE_RECIPE: 'auto-complete-recipe',
   CHANGE_DETECTION: 'change-detection',
   CLEAN_UP: 'clean-up',
-  CLEAR_CACHE: 'clear-cache',
   GET_AUTO_COMPLETE: 'get-auto-complete',
   GET_HOVER_HELP_LOOKUP: 'get-hover-help-lookup',
   GET_NOTEBOOK_CELL: 'get-notebook-cell',

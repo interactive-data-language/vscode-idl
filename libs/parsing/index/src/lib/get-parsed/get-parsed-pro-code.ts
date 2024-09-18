@@ -107,7 +107,7 @@ export async function GetParsedPROCode(
         const newPending: IGetParsedPROCodePending = {
           checksum,
           token: resp.token,
-          promise: resp.response,
+          promise: resp.response as any,
         };
 
         // save new pending file
@@ -144,7 +144,7 @@ export async function GetParsedPROCode(
       const newPending: IGetParsedPROCodePending = {
         checksum,
         token: resp.token,
-        promise: resp.response,
+        promise: resp.response as any,
       };
 
       // save new pending file

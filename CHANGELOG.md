@@ -18,6 +18,16 @@ Document some advanced types so users may try them out and provide feedback. The
 
 IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks.
 
+## Unreleased
+
+Changed the language server startup process to remove all files from memory after initial startup. This reduces RAM by 0.25-0.5 GB of memory after startup, depending on the volume of code in workspaces and on your path.
+
+When we clean up the language server (happens every 5 minutes), we now check our in-memory cache and remove any files that haven't been accessed recently. Helps reduce overall RAM when VSCode is open for long periods at a time.
+
+Changed the way that the language server sends work to the threads that parse code. The main difference is that we no longer send the parsed version of code back to the main thread which we were doing.
+
+For large files, this had a significant impact on perceived performance as the worker threads could get locked serializing and de-serializing objects (also leads to more memory usage). Now, large files like slicer3.pro which are included in the IDL installation, provide auto-complete and hover help in about ~0.5 seconds instead of 5+ seconds.
+
 ## 4.6.1 - September 2024
 
 Added layer controls to the Notebook Map.

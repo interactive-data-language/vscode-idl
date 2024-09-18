@@ -13,7 +13,10 @@ import {
   IDLIndex,
   ReduceGlobals,
 } from '@idl/parsing/index';
-import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
+import {
+  IParsedLightWeight,
+  RemoveScopeDetail,
+} from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   ChangeDetectionResponse,
@@ -181,15 +184,9 @@ client.on(
 /**
  * Clean up and return memory usage
  */
-client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, async () => {
+client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, async (message) => {
+  await WORKER_INDEX.clearParsedCache(message?.all);
   await WORKER_INDEX.cleanUp();
-});
-
-/**
- * Listen for messages about removing tokens from our in-memory cache
- */
-client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAR_CACHE, async () => {
-  await WORKER_INDEX.clearParsedCache(true);
 });
 
 /**
@@ -264,11 +261,15 @@ client.on(
       message
     );
 
-    // make non-circular
-    RemoveScopeDetail(parsed, cancel, true);
+    const lightParsed: IParsedLightWeight = {
+      disabledProblems: parsed.disabledProblems,
+      global: parsed.global,
+      parseProblems: parsed.parseProblems,
+      postProcessProblems: parsed.postProcessProblems,
+    };
 
     // return
-    return parsed;
+    return lightParsed;
   }
 );
 
@@ -291,8 +292,15 @@ client.on(
     // make non-circular
     RemoveScopeDetail(parsed, cancel, true);
 
+    const lightParsed: IParsedLightWeight = {
+      disabledProblems: parsed.disabledProblems,
+      global: parsed.global,
+      parseProblems: parsed.parseProblems,
+      postProcessProblems: parsed.postProcessProblems,
+    };
+
     // return
-    return parsed;
+    return lightParsed;
   }
 );
 
@@ -476,12 +484,13 @@ client.on(
       cancel
     );
 
-    // make non-circular
-    if (parsed !== undefined) {
-      RemoveScopeDetail(parsed, cancel, true);
-    }
-
-    return parsed;
+    const lightParsed: IParsedLightWeight = {
+      disabledProblems: parsed.disabledProblems,
+      global: parsed.global,
+      parseProblems: parsed.parseProblems,
+      postProcessProblems: parsed.postProcessProblems,
+    };
+    return lightParsed;
   }
 );
 

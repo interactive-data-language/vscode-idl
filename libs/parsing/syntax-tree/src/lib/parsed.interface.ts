@@ -17,9 +17,23 @@ import { ILocalTokens } from './populators/populate-local.interface';
 export type ParsedType = 'def' | 'notebook' | 'pro';
 
 /**
+ * Lightweight parsed response for advanced use cases
+ */
+export interface IParsedLightWeight {
+  /** What problems are disabled? */
+  disabledProblems: IDisabledProblems;
+  /** Problems found within code from basic parsing */
+  parseProblems: SyntaxProblems;
+  /** Problems from post processing (type errors) which get reset every time we post-process */
+  postProcessProblems: SyntaxProblems;
+  /** Global tokens that we want to find in other places */
+  global: GlobalTokens;
+}
+
+/**
  * Data structure for parsed code
  */
-export interface IParsed extends IFoundTokens {
+export interface IParsed extends IFoundTokens, IParsedLightWeight {
   /**
    * type of parsed code
    */
@@ -37,16 +51,8 @@ export interface IParsed extends IFoundTokens {
    * If we have set a token cache or not
    */
   hasCache: boolean;
-  /** What problems are disabled? */
-  disabledProblems: IDisabledProblems;
-  /** Problems found within code from basic parsing */
-  parseProblems: SyntaxProblems;
-  /** Problems from post processing (type errors) which get reset every time we post-process */
-  postProcessProblems: SyntaxProblems;
   /** Tokens converted into syntax tree */
   tree: SyntaxTree;
-  /** Global tokens that we want to find in other places */
-  global: GlobalTokens;
   /** Local tokens that we have found */
   local: ILocalTokens;
   /** Compile options by routine */

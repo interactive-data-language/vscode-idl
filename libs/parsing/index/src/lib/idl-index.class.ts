@@ -332,7 +332,7 @@ export class IDLIndex {
             this.indexerPool.workerio.postAndReceiveMessage(
               ids[i],
               LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-              undefined
+              { all: false }
             ).response
           );
         }
@@ -1933,10 +1933,9 @@ export class IDLIndex {
     await Promise.all(postProcessing);
 
     // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {
+      all: true,
+    });
 
     // save syntax problems for our file
     for (let i = 0; i < postProcessing.length; i++) {
