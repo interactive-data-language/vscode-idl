@@ -33,6 +33,7 @@ import {
 } from '@idl/types/auto-complete';
 import { Position } from 'vscode-languageserver/node';
 
+import { GetParsedPROCode } from '../get-parsed/get-parsed-pro-code';
 import { GetTypeBefore } from '../helpers/get-type-before';
 import { IDLIndex } from '../idl-index.class';
 import { GetCompileOptCompletionOptions } from './completion-for/completion-compile-opts';
@@ -103,7 +104,8 @@ export async function GetCompletionRecipes(
   const recipes: AutoCompleteRecipe<AutoCompleteType>[] = [];
 
   // get the tokens for our file
-  const parsed = await index.getParsedProCode(
+  const parsed = await GetParsedPROCode(
+    index,
     file,
     code,
     new CancellationToken(),

@@ -12,6 +12,7 @@ import {
 import { GetTokenDefResponse } from '@idl/workers/parsing';
 import { Position } from 'vscode-languageserver';
 
+import { GetParsedPROCode } from '../get-parsed/get-parsed-pro-code';
 import { GetKeyword } from '../helpers/get-keyword';
 import { GetProperty } from '../helpers/get-property';
 import { IDLIndex } from '../idl-index.class';
@@ -37,7 +38,8 @@ export async function GetTokenDefinition(
   let info: IBaseIndexedToken;
 
   // get the tokens for our file
-  const parsed = await index.getParsedProCode(
+  const parsed = await GetParsedPROCode(
+    index,
     file,
     code,
     new CancellationToken(),

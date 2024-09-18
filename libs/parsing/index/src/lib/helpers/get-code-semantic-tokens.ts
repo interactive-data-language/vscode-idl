@@ -26,8 +26,8 @@ export async function GetCodeSemanticTokens(
     /**
      * Check if it is in our lookup
      */
-    case index.tokensByFile.has(file):
-      return index.tokensByFile.semantic(file);
+    case index.parsedCache.has(file):
+      return index.parsedCache.semantic(file);
 
     /**
      * Parse to get the outline

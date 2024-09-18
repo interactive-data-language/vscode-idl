@@ -57,7 +57,7 @@ export const ON_SEMANTIC_HIGHLIGHTING = async (
     );
 
     // remove from our main thread lookup
-    IDL_INDEX.tokensByFile.remove(fsPath);
+    IDL_INDEX.parsedCache.remove(fsPath);
 
     // return
     return tokens;

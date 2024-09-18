@@ -117,6 +117,21 @@ export type CleanUpPayload = void;
 export type CleanUpResponse = void;
 
 /**
+ * Message to clear cache of parsed tokens
+ */
+export type ClearCache = 'clear-cache';
+
+/**
+ * Payload to clear cache of parsed tokens
+ */
+export type ClearCachePayload = void;
+
+/**
+ * Response to clear cache of parsed tokens
+ */
+export type ClearCacheResponse = void;
+
+/**
  * Message when we want to get auto complete for a file
  */
 export type GetAutoCompleteMessage = 'get-auto-complete';
@@ -501,6 +516,7 @@ export type LSPWorkerThreadMessage =
   | AutoCompleteRecipeMessage
   | ChangeDetectionMessage
   | CleanUpMessage
+  | ClearCache
   | GetAutoCompleteMessage
   | GetHoverHelpLookupMessage
   | GetNotebookCellMessage
@@ -544,6 +560,10 @@ interface ILSPWorkerThreadMessageLookup {
    * Message to clean up
    */
   CLEAN_UP: CleanUpMessage;
+  /**
+   * Message to clear cache of parsed tokens
+   */
+  CLEAR_CACHE: ClearCache;
   /**
    * Message when we want to get auto complete for a file
    */
@@ -627,6 +647,7 @@ export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   AUTO_COMPLETE_RECIPE: 'auto-complete-recipe',
   CHANGE_DETECTION: 'change-detection',
   CLEAN_UP: 'clean-up',
+  CLEAR_CACHE: 'clear-cache',
   GET_AUTO_COMPLETE: 'get-auto-complete',
   GET_HOVER_HELP_LOOKUP: 'get-hover-help-lookup',
   GET_NOTEBOOK_CELL: 'get-notebook-cell',

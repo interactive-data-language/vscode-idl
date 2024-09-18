@@ -1,5 +1,6 @@
 export * from './lib/auto-complete/get-completion-recipes';
 export * from './lib/change-detection/change-detection';
+export * from './lib/get-parsed/get-parsed-pro-code';
 export * from './lib/global-index.class';
 export * from './lib/global-index.interface';
 export * from './lib/helpers/get-routine';

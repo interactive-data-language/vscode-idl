@@ -121,6 +121,16 @@ export class IDLParsedCache {
   }
 
   /**
+   * Removes items from our parsed cache to reduce memory usage
+   */
+  cleanup(all = false) {
+    if (all) {
+      delete this.byFile;
+      this.byFile = {};
+    }
+  }
+
+  /**
    * Retrieve tokens by file
    *
    * Returns undefined if not present, so use the `has` method to check

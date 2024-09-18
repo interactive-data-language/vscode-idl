@@ -7,6 +7,7 @@ import {
   ChangeDetection,
   GetCompletionRecipes,
   GetHoverHelpLookup,
+  GetParsedPROCode,
   GetSyntaxProblems,
   IDL_INDEX_OPTIONS,
   IDLIndex,
@@ -107,7 +108,8 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.MIGRATE_CODE,
   async (message, cancel) => {
     // index the file
-    const parsed = await WORKER_INDEX.getParsedProCode(
+    const parsed = await GetParsedPROCode(
+      WORKER_INDEX,
       message.file,
       message.code,
       cancel
@@ -184,6 +186,13 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, async () => {
 });
 
 /**
+ * Listen for messages about removing tokens from our in-memory cache
+ */
+client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAR_CACHE, async () => {
+  await WORKER_INDEX.clearParsedCache(true);
+});
+
+/**
  * Get auto complete for files we manage
  */
 client.on(
@@ -247,7 +256,8 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILE,
   async (message, cancel) => {
     // index the file
-    const parsed = await WORKER_INDEX.getParsedProCode(
+    const parsed = await GetParsedPROCode(
+      WORKER_INDEX,
       message.file,
       WORKER_INDEX.getFileStrings(message.file),
       cancel,
@@ -269,7 +279,9 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
   async (message, cancel) => {
     // index the file
-    const parsed = await WORKER_INDEX.getParsedProCode(
+
+    const parsed = await GetParsedPROCode(
+      WORKER_INDEX,
       message.file,
       message.code,
       cancel,
@@ -390,12 +402,12 @@ client.on(
       /**
        * Skip if we dont have a file. Could happen from parsing errors
        */
-      if (!WORKER_INDEX.tokensByFile.has(files[i])) {
+      if (!WORKER_INDEX.parsedCache.has(files[i])) {
         continue;
       }
 
       // save lines
-      resp.lines += WORKER_INDEX.tokensByFile.lines(files[i]);
+      resp.lines += WORKER_INDEX.parsedCache.lines(files[i]);
 
       // track globals
       resp.globals[files[i]] = WORKER_INDEX.getGlobalsForFile(files[i]);
@@ -457,7 +469,8 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
   async (message, cancel) => {
     // get parsed code and return
-    const parsed = await WORKER_INDEX.getParsedProCode(
+    const parsed = await GetParsedPROCode(
+      WORKER_INDEX,
       message.file,
       message.code,
       cancel
@@ -481,7 +494,7 @@ client.on(
     /** Get files */
     const files = Array.isArray(message.files)
       ? message.files
-      : WORKER_INDEX.tokensByFile.allFiles();
+      : WORKER_INDEX.parsedCache.allFiles();
 
     // post process, no change detection
     const missing = await WORKER_INDEX.postProcessProFiles(
@@ -511,12 +524,12 @@ client.on(
       /**
        * Skip if we dont have a file. Could happen from parsing errors
        */
-      if (!WORKER_INDEX.tokensByFile.has(files[i])) {
+      if (!WORKER_INDEX.parsedCache.has(files[i])) {
         continue;
       }
 
       // save lines
-      resp.lines += WORKER_INDEX.tokensByFile.lines(files[i]);
+      resp.lines += WORKER_INDEX.parsedCache.lines(files[i]);
 
       // populate problems
       resp.problems[files[i]] = problems[files[i]] || [];
@@ -559,7 +572,7 @@ client.on(
     await WORKER_INDEX.removeWorkspaceFiles(message.files, false);
 
     /** Get files that we manage */
-    const ourFiles = WORKER_INDEX.tokensByFile.allFiles();
+    const ourFiles = WORKER_INDEX.parsedCache.allFiles();
 
     // post process all of our files again
     const missing = await WORKER_INDEX.postProcessProFiles(
@@ -588,7 +601,7 @@ client.on(
       /**
        * Skip if we dont have a file. Could happen from parsing errors
        */
-      if (!WORKER_INDEX.tokensByFile.has(ourFiles[i])) {
+      if (!WORKER_INDEX.parsedCache.has(ourFiles[i])) {
         continue;
       }
 

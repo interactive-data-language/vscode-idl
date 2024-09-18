@@ -27,12 +27,12 @@ export function ChangeDetection(
   const missingFiles: string[] = [];
 
   /** Get the current indexed files */
-  const files = index.tokensByFile.allFiles();
+  const files = index.parsedCache.allFiles();
 
   // process each file
   for (let z = 0; z < files.length; z++) {
     // get our parsed file
-    const uses = index.tokensByFile.uses(files[z]);
+    const uses = index.parsedCache.uses(files[z]);
 
     // check for a match
     for (let i = 0; i < changed.length; i++) {
@@ -56,7 +56,7 @@ export function ChangeDetection(
       PostProcessParsed(
         index,
         postProcessThese[z],
-        index.tokensByFile.get(postProcessThese[z]),
+        index.parsedCache.get(postProcessThese[z]),
         token
       );
     } catch (err) {

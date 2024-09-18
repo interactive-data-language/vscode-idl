@@ -50,6 +50,6 @@ export function PostProcessParsed(
   index.trackSyntaxProblemsForFile(file, GetSyntaxProblems(parsed));
 
   // update cache
-  index.tokensByFile.updateProblems(file, parsed);
-  index.tokensByFile.updateSemantic(file, parsed);
+  index.parsedCache.updateProblems(file, parsed);
+  index.parsedCache.updateSemantic(file, parsed);
 }

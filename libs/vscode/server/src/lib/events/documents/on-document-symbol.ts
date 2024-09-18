@@ -43,7 +43,7 @@ export const ON_DOCUMENT_SYMBOL = async (
     );
 
     // remove file from memory cache
-    IDL_INDEX.tokensByFile.remove(info.fsPath);
+    IDL_INDEX.parsedCache.remove(info.fsPath);
 
     // return outline
     return outline;
