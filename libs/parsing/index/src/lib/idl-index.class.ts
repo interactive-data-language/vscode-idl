@@ -1026,7 +1026,7 @@ export class IDLIndex {
         // do nothing if not full parse
         break;
       case options.postProcess:
-        this.postProcessProFile(
+        await this.postProcessProFile(
           file,
           parsed,
           token,
