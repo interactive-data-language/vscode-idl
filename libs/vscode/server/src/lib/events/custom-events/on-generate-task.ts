@@ -9,6 +9,7 @@ import {
 } from '@idl/generators/idl-task';
 import { GenerateTaskResult } from '@idl/generators/tasks-shared';
 import { IDL_LSP_LOG } from '@idl/logger';
+import { GetParsedPROCode } from '@idl/parsing/index';
 import { GetFSPath, IDLFileHelper, Sleep } from '@idl/shared';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -62,7 +63,8 @@ export const ON_GENERATE_TASK = async (
     const proCode = await GetFileStrings(payload.uri);
 
     // re-index the file
-    const parsed = await IDL_INDEX.getParsedProCode(
+    const parsed = await GetParsedPROCode(
+      IDL_INDEX,
       fsPath,
       proCode,
       new CancellationToken(),

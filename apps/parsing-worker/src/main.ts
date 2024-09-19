@@ -7,12 +7,16 @@ import {
   ChangeDetection,
   GetCompletionRecipes,
   GetHoverHelpLookup,
+  GetParsedPROCode,
   GetSyntaxProblems,
   IDL_INDEX_OPTIONS,
   IDLIndex,
   ReduceGlobals,
 } from '@idl/parsing/index';
-import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
+import {
+  IParsedLightWeight,
+  RemoveScopeDetail,
+} from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   ChangeDetectionResponse,
@@ -107,7 +111,8 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.MIGRATE_CODE,
   async (message, cancel) => {
     // index the file
-    const parsed = await WORKER_INDEX.getParsedProCode(
+    const parsed = await GetParsedPROCode(
+      WORKER_INDEX,
       message.file,
       message.code,
       cancel
@@ -179,7 +184,8 @@ client.on(
 /**
  * Clean up and return memory usage
  */
-client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, async () => {
+client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, async (message) => {
+  await WORKER_INDEX.clearParsedCache(message?.all);
   await WORKER_INDEX.cleanUp();
 });
 
@@ -247,18 +253,23 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILE,
   async (message, cancel) => {
     // index the file
-    const parsed = await WORKER_INDEX.getParsedProCode(
+    const parsed = await GetParsedPROCode(
+      WORKER_INDEX,
       message.file,
       WORKER_INDEX.getFileStrings(message.file),
       cancel,
       message
     );
 
-    // make non-circular
-    RemoveScopeDetail(parsed, cancel, true);
+    const lightParsed: IParsedLightWeight = {
+      disabledProblems: parsed.disabledProblems,
+      global: parsed.global,
+      parseProblems: parsed.parseProblems,
+      postProcessProblems: parsed.postProcessProblems,
+    };
 
     // return
-    return parsed;
+    return lightParsed;
   }
 );
 
@@ -269,7 +280,9 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_CODE,
   async (message, cancel) => {
     // index the file
-    const parsed = await WORKER_INDEX.getParsedProCode(
+
+    const parsed = await GetParsedPROCode(
+      WORKER_INDEX,
       message.file,
       message.code,
       cancel,
@@ -279,8 +292,15 @@ client.on(
     // make non-circular
     RemoveScopeDetail(parsed, cancel, true);
 
+    const lightParsed: IParsedLightWeight = {
+      disabledProblems: parsed.disabledProblems,
+      global: parsed.global,
+      parseProblems: parsed.parseProblems,
+      postProcessProblems: parsed.postProcessProblems,
+    };
+
     // return
-    return parsed;
+    return lightParsed;
   }
 );
 
@@ -390,12 +410,12 @@ client.on(
       /**
        * Skip if we dont have a file. Could happen from parsing errors
        */
-      if (!WORKER_INDEX.tokensByFile.has(files[i])) {
+      if (!WORKER_INDEX.parsedCache.has(files[i])) {
         continue;
       }
 
       // save lines
-      resp.lines += WORKER_INDEX.tokensByFile.lines(files[i]);
+      resp.lines += WORKER_INDEX.parsedCache.lines(files[i]);
 
       // track globals
       resp.globals[files[i]] = WORKER_INDEX.getGlobalsForFile(files[i]);
@@ -457,18 +477,20 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_NOTEBOOK_CELL,
   async (message, cancel) => {
     // get parsed code and return
-    const parsed = await WORKER_INDEX.getParsedProCode(
+    const parsed = await GetParsedPROCode(
+      WORKER_INDEX,
       message.file,
       message.code,
       cancel
     );
 
-    // make non-circular
-    if (parsed !== undefined) {
-      RemoveScopeDetail(parsed, cancel, true);
-    }
-
-    return parsed;
+    const lightParsed: IParsedLightWeight = {
+      disabledProblems: parsed.disabledProblems,
+      global: parsed.global,
+      parseProblems: parsed.parseProblems,
+      postProcessProblems: parsed.postProcessProblems,
+    };
+    return lightParsed;
   }
 );
 
@@ -481,7 +503,7 @@ client.on(
     /** Get files */
     const files = Array.isArray(message.files)
       ? message.files
-      : WORKER_INDEX.tokensByFile.allFiles();
+      : WORKER_INDEX.parsedCache.allFiles();
 
     // post process, no change detection
     const missing = await WORKER_INDEX.postProcessProFiles(
@@ -511,12 +533,12 @@ client.on(
       /**
        * Skip if we dont have a file. Could happen from parsing errors
        */
-      if (!WORKER_INDEX.tokensByFile.has(files[i])) {
+      if (!WORKER_INDEX.parsedCache.has(files[i])) {
         continue;
       }
 
       // save lines
-      resp.lines += WORKER_INDEX.tokensByFile.lines(files[i]);
+      resp.lines += WORKER_INDEX.parsedCache.lines(files[i]);
 
       // populate problems
       resp.problems[files[i]] = problems[files[i]] || [];
@@ -559,7 +581,7 @@ client.on(
     await WORKER_INDEX.removeWorkspaceFiles(message.files, false);
 
     /** Get files that we manage */
-    const ourFiles = WORKER_INDEX.tokensByFile.allFiles();
+    const ourFiles = WORKER_INDEX.parsedCache.allFiles();
 
     // post process all of our files again
     const missing = await WORKER_INDEX.postProcessProFiles(
@@ -588,7 +610,7 @@ client.on(
       /**
        * Skip if we dont have a file. Could happen from parsing errors
        */
-      if (!WORKER_INDEX.tokensByFile.has(ourFiles[i])) {
+      if (!WORKER_INDEX.parsedCache.has(ourFiles[i])) {
         continue;
       }
 

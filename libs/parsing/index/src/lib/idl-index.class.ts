@@ -155,7 +155,7 @@ export class IDLIndex {
   /**
    * Track tokens for each file that we process
    */
-  tokensByFile = new IDLParsedCache();
+  parsedCache = new IDLParsedCache();
 
   /**
    * Track the workers that own each file
@@ -332,7 +332,7 @@ export class IDLIndex {
             this.indexerPool.workerio.postAndReceiveMessage(
               ids[i],
               LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-              undefined
+              { all: false }
             ).response
           );
         }
@@ -344,6 +344,13 @@ export class IDLIndex {
 
     // return RAM usage
     return SystemMemoryUsedMB();
+  }
+
+  /**
+   * Clean up our parsed cache
+   */
+  async clearParsedCache(all = false) {
+    this.parsedCache.cleanup(all);
   }
 
   /**
@@ -649,7 +656,7 @@ export class IDLIndex {
     const global = this.globalIndex.removeTokensForFile(file);
 
     // remove file from lookups
-    this.tokensByFile.remove(file);
+    this.parsedCache.remove(file);
     delete this.knownFiles[file];
 
     // track file as changed to remove syntax problems
@@ -950,8 +957,8 @@ export class IDLIndex {
       /**
        * Check if local
        */
-      case this.tokensByFile.has(file):
-        globals = this.tokensByFile.get(file).global;
+      case this.parsedCache.has(file):
+        globals = this.parsedCache.get(file).global;
         break;
 
       default:
@@ -1019,7 +1026,7 @@ export class IDLIndex {
         // do nothing if not full parse
         break;
       case options.postProcess:
-        this.postProcessProFile(
+        await this.postProcessProFile(
           file,
           parsed,
           token,
@@ -1036,7 +1043,7 @@ export class IDLIndex {
 
     // save tokens for our file
     if (!inOptions.noCache) {
-      this.tokensByFile.add(file, parsed);
+      this.parsedCache.add(file, parsed);
     }
 
     // return our tokens
@@ -1053,21 +1060,6 @@ export class IDLIndex {
     //   });
     //   return undefined;
     // }
-  }
-
-  /**
-   * Returns the tokens for some code.
-   *
-   * Assumes that code is more up-to-date than whatever is on disk, so we wait for any
-   * pending processes for the file to finish before we index it again
-   */
-  async getParsedProCode(
-    file: string,
-    code: string | string[],
-    token: CancellationToken,
-    options: Partial<IIndexProCodeOptions> = {}
-  ): Promise<IParsed> {
-    return GetParsedPROCode(this, file, code, token, options);
   }
 
   /**
@@ -1168,7 +1160,7 @@ export class IDLIndex {
       );
 
       // update stored token
-      this.tokensByFile.add(files[i], byCell[files[i]]);
+      this.parsedCache.add(files[i], byCell[files[i]]);
     }
 
     return byCell;
@@ -1503,8 +1495,8 @@ export class IDLIndex {
    */
   getFileStrings(file: string) {
     // check if we have the file in our lookup
-    if (this.tokensByFile.has(file)) {
-      const text = this.tokensByFile.text(file);
+    if (this.parsedCache.has(file)) {
+      const text = this.parsedCache.text(file);
       if (text.length > 0) {
         return text.join('\n');
       }
@@ -1545,7 +1537,8 @@ export class IDLIndex {
 
       // parse (or wait for it to finish if pending)
       try {
-        await this.getParsedProCode(
+        await GetParsedPROCode(
+          this,
           files[i],
           this.getFileStrings(files[i]),
           token,
@@ -1663,6 +1656,15 @@ export class IDLIndex {
     }
   }
 
+  async getParsedProCode(
+    file: string,
+    code: string | string[],
+    token = new CancellationToken(),
+    options?: Partial<IIndexProCodeOptions>
+  ) {
+    return GetParsedPROCode(this, file, code, token, options);
+  }
+
   /**
    * Post-process a single file
    *
@@ -1732,14 +1734,14 @@ export class IDLIndex {
       }
 
       // skip if we dont have a file
-      if (!this.tokensByFile.has(files[i])) {
+      if (!this.parsedCache.has(files[i])) {
         continue;
       }
 
       try {
         await this.postProcessProFile(
           files[i],
-          this.tokensByFile.get(files[i]),
+          this.parsedCache.get(files[i]),
           token,
           [],
           changeDetection
@@ -1940,10 +1942,9 @@ export class IDLIndex {
     await Promise.all(postProcessing);
 
     // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {
+      all: true,
+    });
 
     // save syntax problems for our file
     for (let i = 0; i < postProcessing.length; i++) {
@@ -2297,7 +2298,8 @@ export class IDLIndex {
     // index appropriately
     switch (true) {
       case IDLFileHelper.isPROCode(file):
-        await this.getParsedProCode(
+        await GetParsedPROCode(
+          this,
           file,
           code,
           new CancellationToken(),
@@ -2308,7 +2310,8 @@ export class IDLIndex {
         await this.indexTaskFile(file, code);
         break;
       case IDLFileHelper.isPRODef(file):
-        await this.getParsedProCode(
+        await GetParsedPROCode(
+          this,
           file,
           code,
           new CancellationToken(),
@@ -2367,7 +2370,8 @@ export class IDLIndex {
     // this is not optimized, but works and the number of files here
     // should be small, so this should be pretty fast
     for (let i = 0; i < buckets.proFiles.length; i++) {
-      await this.getParsedProCode(
+      await GetParsedPROCode(
+        this,
         buckets.proFiles[i],
         await cb(buckets.proFiles[i]),
         token,
@@ -2377,12 +2381,13 @@ export class IDLIndex {
       );
 
       // remove file from memory cache
-      this.tokensByFile.remove(buckets.proFiles[i]);
+      this.parsedCache.remove(buckets.proFiles[i]);
     }
 
     // process all of our PRO files def files
     for (let i = 0; i < buckets.proDefFiles.length; i++) {
-      await this.getParsedProCode(
+      await GetParsedPROCode(
+        this,
         buckets.proDefFiles[i],
         await cb(buckets.proDefFiles[i]),
         token,
@@ -2392,7 +2397,7 @@ export class IDLIndex {
       );
 
       // remove file from memory cache
-      this.tokensByFile.remove(buckets.proDefFiles[i]);
+      this.parsedCache.remove(buckets.proDefFiles[i]);
     }
   }
 }

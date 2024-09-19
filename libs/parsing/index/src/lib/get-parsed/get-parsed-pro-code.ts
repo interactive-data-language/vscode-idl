@@ -69,9 +69,9 @@ export async function GetParsedPROCode(
   }
 
   // check if we have the file in our cache and it matches our checksum
-  if (index.tokensByFile.has(file)) {
-    if (index.tokensByFile.checksumMatches(file, checksum)) {
-      return index.tokensByFile.get(file);
+  if (index.parsedCache.has(file)) {
+    if (index.parsedCache.checksumMatches(file, checksum)) {
+      return index.parsedCache.get(file);
     }
   }
 
@@ -107,7 +107,7 @@ export async function GetParsedPROCode(
         const newPending: IGetParsedPROCodePending = {
           checksum,
           token: resp.token,
-          promise: resp.response,
+          promise: resp.response as any,
         };
 
         // save new pending file
@@ -144,7 +144,7 @@ export async function GetParsedPROCode(
       const newPending: IGetParsedPROCodePending = {
         checksum,
         token: resp.token,
-        promise: resp.response,
+        promise: resp.response as any,
       };
 
       // save new pending file
@@ -176,7 +176,7 @@ export async function GetParsedPROCode(
       }
 
       // make sure that we never cache in memory if we are the main thread
-      index.tokensByFile.remove(file);
+      index.parsedCache.remove(file);
 
       // return the tokens from the worker
       return current;

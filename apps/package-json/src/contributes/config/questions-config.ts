@@ -42,7 +42,6 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
     properties: {
       forIDLDir: {
         type: 'boolean',
-        default: false,
         description: TranslationFromConfiguration(
           IDL_EXTENSION_CONFIG_KEYS.dontAskForIDLDir,
           nls
@@ -50,7 +49,6 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
       },
       forIconChange: {
         type: 'boolean',
-        default: false,
         description: TranslationFromConfiguration(
           IDL_EXTENSION_CONFIG_KEYS.dontAskForIconChange,
           nls
@@ -58,9 +56,15 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
       },
       forFormatterChange: {
         type: 'boolean',
-        default: false,
         description: TranslationFromConfiguration(
           IDL_EXTENSION_CONFIG_KEYS.dontAskForFormatterChange,
+          nls
+        ),
+      },
+      toOpenDocs: {
+        type: 'boolean',
+        description: TranslationFromConfiguration(
+          IDL_EXTENSION_CONFIG_KEYS.dontAskToOpenDocs,
           nls
         ),
       },

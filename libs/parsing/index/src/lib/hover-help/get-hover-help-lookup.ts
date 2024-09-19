@@ -10,6 +10,7 @@ import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
 import { Position } from 'vscode-languageserver';
 
+import { GetParsedPROCode } from '../get-parsed/get-parsed-pro-code';
 import { CALL_ROUTINE_TOKENS } from '../helpers/get-keywords.interface';
 import { GetRoutine } from '../helpers/get-routine';
 import { IDLIndex } from '../idl-index.class';
@@ -44,7 +45,8 @@ export async function GetHoverHelpLookup(
   };
 
   // get the tokens for our file
-  const parsed = await index.getParsedProCode(
+  const parsed = await GetParsedPROCode(
+    index,
     file,
     code,
     new CancellationToken(),

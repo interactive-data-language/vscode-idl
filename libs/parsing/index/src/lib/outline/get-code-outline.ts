@@ -27,8 +27,8 @@ export async function GetCodeOutline(
     /**
      * Check if it is in our lookup
      */
-    case index.tokensByFile.has(file):
-      return index.tokensByFile.outline(file);
+    case index.parsedCache.has(file):
+      return index.parsedCache.outline(file);
 
     /**
      * Parse to get the outline

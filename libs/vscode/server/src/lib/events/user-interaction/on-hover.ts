@@ -45,7 +45,7 @@ export async function GetHoverHelpWrapper(
   );
 
   // remove from our main thread lookup
-  IDL_INDEX.tokensByFile.remove(info.fsPath);
+  IDL_INDEX.parsedCache.remove(info.fsPath);
 
   return hover;
 }

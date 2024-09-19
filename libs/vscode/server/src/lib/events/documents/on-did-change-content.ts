@@ -60,7 +60,7 @@ export const ON_DID_CHANGE_CONTENT = async (
     SendProblems([info.fsPath]);
 
     // remove file from memory cache
-    IDL_INDEX.tokensByFile.remove(info.fsPath);
+    IDL_INDEX.parsedCache.remove(info.fsPath);
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

@@ -37,9 +37,9 @@ export async function GetParsedNotebookCell(
   }
 
   // check if we have already parsed the file
-  if (index.tokensByFile.has(cellFile)) {
-    if (index.tokensByFile.checksumMatches(cellFile, checksum)) {
-      return index.tokensByFile.get(cellFile);
+  if (index.parsedCache.has(cellFile)) {
+    if (index.parsedCache.checksumMatches(cellFile, checksum)) {
+      return index.parsedCache.get(cellFile);
     }
   }
 

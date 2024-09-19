@@ -82,7 +82,10 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
   });
 
   // check if we should ask about setting the default formatter
-  if (editor.get('defaultFormatter') !== EXTENSION_FULL_NAME) {
+  if (
+    editor.get('defaultFormatter') !== EXTENSION_FULL_NAME &&
+    !IDL_EXTENSION_CONFIG.dontAsk.forFormatterChange
+  ) {
     await QuestionAsker(
       IDL_TRANSLATION.notifications.changeFormatter,
       IDL_EXTENSION_CONFIG_KEYS.dontAskForFormatterChange,

@@ -2,7 +2,7 @@ import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { MigrationType } from '@idl/assembling/migrators-types';
 import { ILogOptions } from '@idl/logger';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
-import { IParsed, ParsedType } from '@idl/parsing/syntax-tree';
+import { IParsedLightWeight, ParsedType } from '@idl/parsing/syntax-tree';
 import { AutoCompleteRecipe, AutoCompleteType } from '@idl/types/auto-complete';
 import {
   GlobalTokens,
@@ -109,7 +109,10 @@ export type CleanUpMessage = 'clean-up';
 /**
  * Payload on cleanup
  */
-export type CleanUpPayload = void;
+export type CleanUpPayload = {
+  /** Do we remove all files from cache or not? */
+  all?: boolean;
+};
 
 /**
  * Response from cleanup
@@ -187,7 +190,7 @@ export interface GetNotebookCellPayload {
 /**
  * Response for getting notebook cell
  */
-export type GetNotebookCellResponse = IParsed;
+export type GetNotebookCellResponse = IParsedLightWeight;
 
 /**
  * Message when we want to get the outline for a file
@@ -314,7 +317,7 @@ export interface ParseAndPostProcessCodePayload {
 /**
  * Response when we have a single file from code to parse and post-process
  */
-export type ParseAndPostProcessCodeResponse = IParsed;
+export type ParseAndPostProcessCodeResponse = IParsedLightWeight;
 
 /**
  * When we parse and post-process one file
@@ -332,7 +335,7 @@ export interface ParseAndPostProcessFilePayload {
 /**
  * Response when we have a single file to parse and post-process
  */
-export type ParseAndPostProcessFileResponse = IParsed;
+export type ParseAndPostProcessFileResponse = IParsedLightWeight;
 
 /**
  * Parse more than one file and return global tokens

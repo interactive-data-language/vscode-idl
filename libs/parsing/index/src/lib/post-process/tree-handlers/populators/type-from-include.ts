@@ -73,8 +73,8 @@ const cb: BasicCallback<ProcessToken, PopulateTypeHandlerMeta> = (
   /**
    * Get parsed file for include
    */
-  const includeParsed = meta.index.tokensByFile.has(foundFile)
-    ? meta.index.tokensByFile.get(foundFile)
+  const includeParsed = meta.index.parsedCache.has(foundFile)
+    ? meta.index.parsedCache.get(foundFile)
     : IncludeCache(meta.index, foundFile, meta.cancel);
 
   // remove from cache as trying to include
