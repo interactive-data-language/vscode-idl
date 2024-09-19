@@ -18,7 +18,7 @@ Document some advanced types so users may try them out and provide feedback. The
 
 IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks.
 
-## Unreleased
+## 4.6.2 - September 2024
 
 Changed the language server startup process to remove all files from memory after initial startup. This reduces RAM by 0.25-0.5 GB of memory after startup, depending on the volume of code in workspaces and on your path.
 
@@ -29,6 +29,8 @@ Changed the way that the language server sends work to the threads that parse co
 For large files, this had a significant impact on perceived performance as the worker threads could get locked serializing and de-serializing objects (also leads to more memory usage). Now, large files like slicer3.pro which are included in the IDL installation, provide auto-complete and hover help in about ~0.5 seconds instead of 5+ seconds.
 
 Fixed an issue where, from the JSON settings editor, a valid extension setting would be highlighted as being an incorrect value.
+
+Fixed an issue where the "don't ask again" options didn't honor your choice for using IDL as the formatter.
 
 ## 4.6.1 - September 2024
 
