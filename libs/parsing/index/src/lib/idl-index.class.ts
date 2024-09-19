@@ -1656,6 +1656,15 @@ export class IDLIndex {
     }
   }
 
+  async getParsedProCode(
+    file: string,
+    code: string | string[],
+    token = new CancellationToken(),
+    options?: Partial<IIndexProCodeOptions>
+  ) {
+    return GetParsedPROCode(this, file, code, token, options);
+  }
+
   /**
    * Post-process a single file
    *
