@@ -1139,18 +1139,19 @@
             "properties": {
               "forIDLDir": {
                 "type": "boolean",
-                "default": false,
                 "description": "%configuration.descriptions.dontAsk.forIDLDir%"
               },
               "forIconChange": {
                 "type": "boolean",
-                "default": false,
                 "description": "%configuration.descriptions.dontAsk.forIconChange%"
               },
               "forFormatterChange": {
                 "type": "boolean",
-                "default": false,
                 "description": "%configuration.descriptions.dontAsk.forFormatterChange%"
+              },
+              "toOpenDocs": {
+                "type": "boolean",
+                "description": "%configuration.descriptions.dontAsk.toOpenDocs%"
               }
             }
           }

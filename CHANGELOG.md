@@ -28,6 +28,8 @@ Changed the way that the language server sends work to the threads that parse co
 
 For large files, this had a significant impact on perceived performance as the worker threads could get locked serializing and de-serializing objects (also leads to more memory usage). Now, large files like slicer3.pro which are included in the IDL installation, provide auto-complete and hover help in about ~0.5 seconds instead of 5+ seconds.
 
+Fixed an issue where, from the JSON settings editor, a valid extension setting would be highlighted as being an incorrect value.
+
 ## 4.6.1 - September 2024
 
 Added layer controls to the Notebook Map.
