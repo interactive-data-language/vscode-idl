@@ -66,8 +66,8 @@ import { Worker } from 'worker_threads';
 
 import { BuildCompletionItems } from './auto-complete/build-completion-items';
 import { GetAutoComplete } from './auto-complete/get-auto-complete';
-import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
+import { GetChangedGlobals } from './change-detection/get-changed-globals';
 import { GetParsedNotebook } from './get-parsed/get-parsed-notebook';
 import { GetParsedNotebookCell } from './get-parsed/get-parsed-notebook-cell';
 import { GetParsedPROCode } from './get-parsed/get-parsed-pro-code';
@@ -1584,17 +1584,10 @@ export class IDLIndex {
     newGlobals: GlobalTokens,
     oldGlobals: GlobalTokens
   ) {
-    // verify we have changes in our global tokens
-    if (CanChangeDetection(newGlobals, oldGlobals)) {
-      /**
-       * Merge old and new globals together. While there will be some
-       * duplication, the number of globals is small.
-       *
-       * And we need this in case we removed a routine def that is in
-       * the old globals and not the new ones
-       */
-      const changed = newGlobals.concat(oldGlobals);
+    const changed = GetChangedGlobals(newGlobals, oldGlobals);
 
+    // verify we have changes in our global tokens
+    if (changed.length > 0) {
       /**
        * Check if we run in our worker
        */
