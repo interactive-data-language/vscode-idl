@@ -57,6 +57,11 @@ function _Validate(local: ILocalTokenLookup, parsed: IParsed) {
 
 /**
  * Helper function that validates variable usage
+ *
+ * Meaning we check to see if variables are defined or not
+ *
+ * This is pretty lightweight and uses derived information from the
+ * syntax tree to do the evaluation.
  */
 export function ValidateVariableUsage(parsed: IParsed) {
   // process each procedure
