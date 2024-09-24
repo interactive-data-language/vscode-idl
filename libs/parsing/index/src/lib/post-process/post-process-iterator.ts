@@ -1,5 +1,5 @@
-import './tree-handlers/populate-type';
-import './tree-handlers/validate-type';
+import './tree-handlers/populate-type.index';
+import './tree-handlers/validate-type.index';
 
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
@@ -15,6 +15,7 @@ import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 
 import { GetMethod } from '../helpers/get-method';
 import { IDLIndex } from '../idl-index.class';
+import { PopulateAndValidateReturnType } from './populate-type/return/populate-and-validate-return-type';
 import { RECURSE_INTO } from './post-process-iterator.interface';
 import { POPULATE_TYPE_HANDLER } from './tree-handlers/populate-type-handler';
 import { SetVariables } from './tree-handlers/set-variables';
@@ -38,12 +39,15 @@ export function PostProcessIterator(
   file: string,
   parsed: IParsed,
   cancel: CancellationToken
-) {
+): boolean {
   // init variables
   const variables: ILocalTokenLookup = {};
 
   /** Base metadata */
   const baseMeta = { variables, index, file };
+
+  /** Track if docs change */
+  let docsChanges = false;
 
   /**
    * Loop through top-level tokens
@@ -96,6 +100,9 @@ export function PostProcessIterator(
             baseMeta
           );
 
+          /**
+           * Track which global tokens we use
+           */
           switch (token.name) {
             case TOKEN_NAMES.SYSTEM_VARIABLE:
               parsed.uses[GLOBAL_TOKEN_TYPES.SYSTEM_VARIABLE][
@@ -114,6 +121,9 @@ export function PostProcessIterator(
             baseMeta
           );
 
+          /**
+           * Track which global tokens we use
+           */
           switch (token.name) {
             case TOKEN_NAMES.CALL_FUNCTION:
               parsed.uses[GLOBAL_TOKEN_TYPES.FUNCTION][
@@ -173,6 +183,13 @@ export function PostProcessIterator(
 
       // make sure variables are used right
       ValidateVariableUsage(parsed, variables);
+
+      // populate return type
+      if (topToken.name === TOKEN_NAMES.ROUTINE_FUNCTION) {
+        docsChanges =
+          docsChanges ||
+          PopulateAndValidateReturnType(index, parsed, topToken, cancel);
+      }
     }
   }
 
@@ -185,4 +202,7 @@ export function PostProcessIterator(
    * Process the whole tree
    */
   VALIDATE_TYPE_HANDLER.processTree(parsed.tree, parsed, baseMeta);
+
+  // return flag if docs have changed or not
+  return docsChanges;
 }
