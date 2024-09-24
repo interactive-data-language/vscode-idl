@@ -3,13 +3,17 @@ import './tree-handlers/validate-type';
 
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
+  FindDirectBranchChildren,
   ILocalTokenLookup,
   IParsed,
   ITreeRecurserOptions,
   TreeBranchToken,
   TreeRecurser,
 } from '@idl/parsing/syntax-tree';
+import { TOKEN_NAMES } from '@idl/tokenizer';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 
+import { GetMethod } from '../helpers/get-method';
 import { IDLIndex } from '../idl-index.class';
 import { RECURSE_INTO } from './post-process-iterator.interface';
 import { POPULATE_TYPE_HANDLER } from './tree-handlers/populate-type-handler';
@@ -91,6 +95,16 @@ export function PostProcessIterator(
             current,
             baseMeta
           );
+
+          switch (token.name) {
+            case TOKEN_NAMES.SYSTEM_VARIABLE:
+              parsed.uses[GLOBAL_TOKEN_TYPES.SYSTEM_VARIABLE][
+                token.match[0].toLowerCase()
+              ] = true;
+              break;
+            default:
+              break;
+          }
         },
         onBranchToken: (token, current) => {
           VALIDATE_TYPE_HANDLER.processBranchToken(
@@ -99,6 +113,53 @@ export function PostProcessIterator(
             current,
             baseMeta
           );
+
+          switch (token.name) {
+            case TOKEN_NAMES.CALL_FUNCTION:
+              parsed.uses[GLOBAL_TOKEN_TYPES.FUNCTION][
+                token.match[1].toLowerCase()
+              ] = true;
+              break;
+            case TOKEN_NAMES.CALL_PROCEDURE:
+              parsed.uses[GLOBAL_TOKEN_TYPES.PROCEDURE][
+                token.match[0].toLowerCase()
+              ] = true;
+              break;
+            case TOKEN_NAMES.CALL_FUNCTION_METHOD:
+              {
+                const methods = GetMethod(index, parsed, token);
+                if (methods.length > 0) {
+                  parsed.uses[GLOBAL_TOKEN_TYPES.FUNCTION_METHOD][
+                    methods[0].name
+                  ] = true;
+                }
+              }
+              break;
+            case TOKEN_NAMES.CALL_PROCEDURE_METHOD:
+              {
+                const methods = GetMethod(index, parsed, token);
+                if (methods.length > 0) {
+                  parsed.uses[GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD][
+                    methods[0].name
+                  ] = true;
+                }
+              }
+              break;
+            case TOKEN_NAMES.STRUCTURE: {
+              const names = FindDirectBranchChildren(
+                token,
+                TOKEN_NAMES.STRUCTURE_NAME
+              );
+              if (names.length > 0) {
+                parsed.uses[GLOBAL_TOKEN_TYPES.STRUCTURE][
+                  names[0].match[0].toLowerCase()
+                ] = true;
+              }
+              break;
+            }
+            default:
+              break;
+          }
         },
       };
       /**

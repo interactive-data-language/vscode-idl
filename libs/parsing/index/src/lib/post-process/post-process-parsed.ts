@@ -7,7 +7,6 @@ import {
 
 import { GetSyntaxProblems } from '../helpers/get-syntax-problems';
 import { IDLIndex } from '../idl-index.class';
-import { PopulateUsesThese } from './populate-uses-these';
 import { PostProcessIterator } from './post-process-iterator';
 
 /**
@@ -31,11 +30,6 @@ export function PostProcessParsed(
    * Populate types of local variables and validate them
    */
   PostProcessIterator(index, file, parsed, cancel);
-
-  /**
-   * Populate the global tokens that we use
-   */
-  PopulateUsesThese(index, parsed, cancel);
 
   // update semantic tokens
   GetSemanticTokens(parsed);
