@@ -104,13 +104,6 @@ describe(`[auto generated] Verify tokens after main get removed on formatting`, 
         canReport: true,
       },
       {
-        code: 99,
-        info: 'Undefined variable "worse"',
-        start: [6, 1, 5],
-        end: [6, 1, 5],
-        canReport: true,
-      },
-      {
         code: 104,
         info: 'Unused variable "a"',
         start: [1, 0, 1],

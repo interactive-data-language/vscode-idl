@@ -18,6 +18,15 @@ import { VALIDATE_TYPE_HANDLER } from './tree-handlers/validate-type-handler';
 
 /**
  * Apply post-processing to a parsed file
+ *
+ * This uses a structured approach which allows for more flexibility in injecting
+ * custom steps to the process
+ *
+ * This iterator loops through top-level tokens and only recurses into functions,
+ * procedures, and main level programs.
+ *
+ * Some regression tests change because we dont process all tokens which is
+ * OK (code after main, or before routine definitions).
  */
 export function PostProcessIterator(
   index: IDLIndex,
