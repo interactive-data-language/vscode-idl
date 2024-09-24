@@ -15,6 +15,7 @@ import { RECURSE_INTO } from './post-process-iterator.interface';
 import { POPULATE_TYPE_HANDLER } from './tree-handlers/populate-type-handler';
 import { SetVariables } from './tree-handlers/set-variables';
 import { VALIDATE_TYPE_HANDLER } from './tree-handlers/validate-type-handler';
+import { ValidateVariableUsage } from './tree-handlers/validate-variable-usage';
 
 /**
  * Apply post-processing to a parsed file
@@ -108,6 +109,9 @@ export function PostProcessIterator(
         cancel,
         Object.assign(VALIDATE_TYPE_HANDLER.recursionOptions, validateOpts)
       );
+
+      // make sure variables are used right
+      ValidateVariableUsage(parsed, variables);
     }
   }
 

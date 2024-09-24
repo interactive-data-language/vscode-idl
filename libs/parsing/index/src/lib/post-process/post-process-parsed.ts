@@ -9,7 +9,6 @@ import { GetSyntaxProblems } from '../helpers/get-syntax-problems';
 import { IDLIndex } from '../idl-index.class';
 import { PopulateUsesThese } from './populate-uses-these';
 import { PostProcessIterator } from './post-process-iterator';
-import { ValidateVariableUsage } from './tree-handlers/validate-variable-usage';
 
 /**
  * Apply post-processing to a parsed file
@@ -28,17 +27,10 @@ export function PostProcessParsed(
    */
   PopulateScopeDetailAndResetTokenCache(parsed, cancel);
 
-  PostProcessIterator(index, file, parsed, cancel);
-
-  // /**
-  //  * Populate types of local variables
-  //  */
-  // PopulateAndValidateType(index, file, parsed, cancel);
-
   /**
-   * Validate variables
+   * Populate types of local variables and validate them
    */
-  ValidateVariableUsage(parsed);
+  PostProcessIterator(index, file, parsed, cancel);
 
   /**
    * Populate the global tokens that we use

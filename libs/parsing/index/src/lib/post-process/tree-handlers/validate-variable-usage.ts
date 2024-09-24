@@ -15,7 +15,7 @@ SKIP_VARIABLES['self'] = undefined;
 /**
  * Helper function that validates variable usage
  */
-function _Validate(local: ILocalTokenLookup, parsed: IParsed) {
+function _Validate(parsed: IParsed, local: ILocalTokenLookup) {
   const variables = Object.values(local);
 
   // process variables that are only added once to add highlighting indicating that they are unused
@@ -63,14 +63,9 @@ function _Validate(local: ILocalTokenLookup, parsed: IParsed) {
  * This is pretty lightweight and uses derived information from the
  * syntax tree to do the evaluation.
  */
-export function ValidateVariableUsage(parsed: IParsed) {
-  // process each procedure
-  const locals = [parsed.local.main].concat(
-    Object.values(parsed.local.pro).concat(Object.values(parsed.local.func))
-  );
-
-  // process each local set
-  for (let i = 0; i < locals.length; i++) {
-    _Validate(locals[i], parsed);
-  }
+export function ValidateVariableUsage(
+  parsed: IParsed,
+  local: ILocalTokenLookup
+) {
+  _Validate(parsed, local);
 }
