@@ -8,7 +8,7 @@ import { ITreeRecurserCurrent } from './tree-recurser.interface';
  * Information passed to each handler callback
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IHandlerCallbackMetadata extends ITreeRecurserCurrent {}
+export interface IHandlerCallbackMetadata {}
 
 /**
  * @param {TreeToken<BasicTokenNames>} token The token we are pre-processing
@@ -27,7 +27,12 @@ export type BaseBasicCallbackArgs<T extends BasicTokenNames> = [
 export type BasicCallbackArgs<
   T extends BasicTokenNames,
   TMeta extends IHandlerCallbackMetadata
-> = [token: TreeToken<T>, parsed: IParsed, meta: TMeta];
+> = [
+  token: TreeToken<T>,
+  parsed: IParsed,
+  current: ITreeRecurserCurrent,
+  meta: TMeta
+];
 
 /**
  * Callback to process a basic token
@@ -53,7 +58,12 @@ export type BasicCallbackLookup<TMeta extends IHandlerCallbackMetadata> = {
 export type BranchCallbackArgs<
   T extends NonBasicTokenNames,
   TMeta extends IHandlerCallbackMetadata
-> = [branch: TreeToken<T>, parsed: IParsed, meta: TMeta];
+> = [
+  branch: TreeToken<T>,
+  parsed: IParsed,
+  current: ITreeRecurserCurrent,
+  meta: TMeta
+];
 
 /**
  * Callback to process a branch

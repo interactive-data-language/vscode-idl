@@ -7,8 +7,8 @@ import {
 
 import { GetSyntaxProblems } from '../helpers/get-syntax-problems';
 import { IDLIndex } from '../idl-index.class';
-import { PopulateAndValidateType } from './populate-and-validate-type';
 import { PopulateUsesThese } from './populate-uses-these';
+import { PostProcessIterator } from './post-process-iterator';
 import { ValidateVariableUsage } from './tree-handlers/validate-variable-usage';
 
 /**
@@ -28,10 +28,12 @@ export function PostProcessParsed(
    */
   PopulateScopeDetailAndResetTokenCache(parsed, cancel);
 
-  /**
-   * Populate types of local variables
-   */
-  PopulateAndValidateType(index, file, parsed, cancel);
+  PostProcessIterator(index, file, parsed, cancel);
+
+  // /**
+  //  * Populate types of local variables
+  //  */
+  // PopulateAndValidateType(index, file, parsed, cancel);
 
   /**
    * Validate variables

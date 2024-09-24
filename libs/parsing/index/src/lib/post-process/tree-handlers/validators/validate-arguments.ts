@@ -36,6 +36,7 @@ const TOKENS: CallRoutineToken[] = [
 const cb: BranchCallback<CallRoutineToken, PopulateTypeHandlerMeta> = (
   token,
   parsed,
+  current,
   meta
 ) => {
   /**

@@ -18,7 +18,7 @@ function StyleStructureName(name: string, flag: FullCaseStyleFlags) {
 // handle inheritance statements
 ASSEMBLER_DEFAULT_STYLING.onBasicToken(
   TOKEN_NAMES.STRUCTURE_INHERITANCE,
-  (token, parsed, meta) => {
+  (token, parsed, current, meta) => {
     /**
      * Style inheritance control statement
      */
@@ -47,7 +47,7 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
 // handle inheritance statements
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.STRUCTURE_NAME,
-  (token, parsed, meta) => {
+  (token, parsed, current, meta) => {
     switch (true) {
       // check for system variable
       case token.match[0].trim().startsWith('!'):

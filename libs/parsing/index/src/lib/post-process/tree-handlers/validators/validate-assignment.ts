@@ -26,6 +26,7 @@ SKIP_IF_BEFORE[TOKEN_NAMES.KEYWORD_DEFINITION] = true;
 const cb: BranchCallback<AssignmentToken, ValidateTypeHandlerMeta> = (
   token,
   parsed,
+  current,
   meta
 ) => {
   // check if we have assignment next to validate

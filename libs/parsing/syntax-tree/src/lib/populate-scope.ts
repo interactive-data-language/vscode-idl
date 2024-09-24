@@ -12,7 +12,7 @@ export function PopulateScope(
   parsed: IParsed,
   cancel: CancellationToken
 ): void {
-  TreeRecurser(parsed, cancel, {
+  TreeRecurser(parsed.tree, cancel, {
     onBasicToken: (token, current) => {
       token.scope = current.scope.slice(0);
     },

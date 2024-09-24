@@ -52,7 +52,7 @@ export function GetTokenAtCursor(
   let foundToken: TreeToken<TokenName> = undefined;
 
   // recurse through the tree to find a match
-  TreeRecurser(parsed, cancel, {
+  TreeRecurser(parsed.tree, cancel, {
     processBranchFirst: true,
     onBasicToken: (token, current) => {
       // return if our token is before our line

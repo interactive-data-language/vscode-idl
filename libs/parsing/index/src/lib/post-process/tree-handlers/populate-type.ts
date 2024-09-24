@@ -12,7 +12,7 @@ import { POPULATE_TYPE_HANDLER } from './populate-type-handler';
 import { SetVariables } from './set-variables';
 
 /**
- * Applies styles from a tree handler to our parsed code
+ * Populates data types in our syntax tree
  */
 export function PopulateType(
   index: IDLIndex,

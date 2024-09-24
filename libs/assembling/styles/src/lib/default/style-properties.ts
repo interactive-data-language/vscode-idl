@@ -13,7 +13,7 @@ const PROPERTIES = [
 
 ASSEMBLER_DEFAULT_STYLING.onBasicToken(
   TOKEN_NAMES.ACCESS_PROPERTY,
-  (token, parsed, meta) => {
+  (token, parsed, current, meta) => {
     // check for a property in our token cache
     const prop = (token.cache as ITokenCache)?.property;
 
@@ -31,7 +31,7 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
 
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.STRUCTURE_PROPERTY,
-  (token, parsed, meta) => {
+  (token, parsed, current, meta) => {
     // check for a property in our token cache
     const prop = (token.cache as ITokenCache)?.property;
 

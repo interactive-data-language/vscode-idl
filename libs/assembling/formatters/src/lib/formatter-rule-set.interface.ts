@@ -1,6 +1,6 @@
 import {
-  IHandlerCallbackMetadata,
   IParsed,
+  ITreeRecurserCurrent,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { TokenName } from '@idl/tokenizer';
@@ -13,7 +13,7 @@ import { TokenName } from '@idl/tokenizer';
  */
 export type TokenFormatter<T extends TokenName> = (
   token: TreeToken<T>,
-  meta: IHandlerCallbackMetadata,
+  current: ITreeRecurserCurrent,
   parsed: IParsed
 ) => void;
 

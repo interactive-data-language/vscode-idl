@@ -22,16 +22,16 @@ export function TreeCallbackRunner<TMeta extends IHandlerCallbackMetadata>(
 ) {
   // use our tree recurser to process what we parsed
   TreeRecurser(
-    parsed,
+    parsed.tree,
     cancel,
     Object.assign(handler.recursionOptions, {
       onBasicToken: (token, current) => {
-        handler.processBasicToken(token, parsed, () =>
+        handler.processBasicToken(token, parsed, current, () =>
           metaResolver(token, current)
         );
       },
       onBranchToken: (token, current) => {
-        handler.processBranchToken(token, parsed, () =>
+        handler.processBranchToken(token, parsed, current, () =>
           metaResolver(token, current)
         );
       },

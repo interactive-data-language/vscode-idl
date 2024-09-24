@@ -12,7 +12,7 @@ import { SetVariables } from './set-variables';
 import { VALIDATE_TYPE_HANDLER } from './validate-type-handler';
 
 /**
- * Applies styles from a tree handler to our parsed code
+ * Validates data types in our syntax tree
  */
 export function ValidateType(
   index: IDLIndex,

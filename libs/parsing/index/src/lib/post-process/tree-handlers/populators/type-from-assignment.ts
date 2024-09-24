@@ -36,11 +36,11 @@ FAKE_ASSIGNMENT_PARENTS[TOKEN_NAMES.OPERATOR_POINTER] = true;
 const cb: BasicCallback<
   VariableToken | SystemVariableToken,
   PopulateTypeHandlerMeta
-> = (token, parsed, meta) => {
+> = (token, parsed, current, meta) => {
   // return if keyword is before
   const before = GetBefore(GetBefore(token));
   if (before?.name === TOKEN_NAMES.KEYWORD) {
-    TYPE_FROM_KEYWORDS(before, parsed, meta);
+    TYPE_FROM_KEYWORDS(before, parsed, current, meta);
     return;
   }
 
