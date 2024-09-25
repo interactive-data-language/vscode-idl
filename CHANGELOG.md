@@ -18,6 +18,14 @@ Document some advanced types so users may try them out and provide feedback. The
 
 IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks.
 
+## Unreleased
+
+Tweaked the in-memory cache for parsed files to optimize performance. We no longer copy complex data structures which adds a 10-15% performance improvement for how quickly we parse large workspaces.
+
+Added a first pass of being able to statically determine the return types for functions and function methods that don't have documentation. This type detection processes routines in files from the top-down which follows the standard for creating routines in IDL.
+
+Optimized the language server change detection process to focus on only routines/globals that have changed (change detection is a process for validating code/usage of routines in other files when the source definition is updated).
+
 ## 4.6.2 - September 2024
 
 Changed the language server startup process to remove all files from memory after initial startup. This reduces RAM by 0.25-0.5 GB of memory after startup, depending on the volume of code in workspaces and on your path.

@@ -63,6 +63,9 @@ export function PostProcessIterator(
       // update variables that we are tracking
       SetVariables(topToken.scopeTokens[0] || topToken, parsed, variables);
 
+      /**
+       * Callbacks for populating types
+       */
       const populateOps: Partial<ITreeRecurserOptions> = {
         onBasicToken: (token, current) => {
           POPULATE_TYPE_HANDLER.processBasicToken(
@@ -91,6 +94,9 @@ export function PostProcessIterator(
         Object.assign(POPULATE_TYPE_HANDLER.recursionOptions, populateOps)
       );
 
+      /**
+       * Callbacks for validating data types
+       */
       const validateOpts: Partial<ITreeRecurserOptions> = {
         onBasicToken: (token, current) => {
           VALIDATE_TYPE_HANDLER.processBasicToken(
@@ -172,6 +178,7 @@ export function PostProcessIterator(
           }
         },
       };
+
       /**
        * Validate type
        */
@@ -181,10 +188,14 @@ export function PostProcessIterator(
         Object.assign(VALIDATE_TYPE_HANDLER.recursionOptions, validateOpts)
       );
 
-      // make sure variables are used right
+      /**
+       * Check usage of variables for the routine we are in
+       */
       ValidateVariableUsage(parsed, variables);
 
-      // populate return type
+      /**
+       * Populate return type
+       */
       if (topToken.name === TOKEN_NAMES.ROUTINE_FUNCTION) {
         docsChanges =
           docsChanges ||
@@ -194,12 +205,12 @@ export function PostProcessIterator(
   }
 
   /**
-   * Process the whole tree
+   * Execute callbacks for type population that need the whole tree
    */
   POPULATE_TYPE_HANDLER.processTree(parsed.tree, parsed, baseMeta);
 
   /**
-   * Process the whole tree
+   * Execute callbacks for type validation that need the whole tree
    */
   VALIDATE_TYPE_HANDLER.processTree(parsed.tree, parsed, baseMeta);
 

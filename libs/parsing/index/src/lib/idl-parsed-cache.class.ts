@@ -1,6 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IParsed, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
-import copy from 'fast-copy';
 import { performance } from 'perf_hooks';
 import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver';
 
@@ -55,9 +54,9 @@ export class IDLParsedCache {
     RemoveScopeDetail(orig, new CancellationToken(), true);
 
     /**
-     * Copy our original
+     * Shallow copy our original
      */
-    const parsed = copy(orig);
+    const parsed = { ...orig };
 
     // compress the keys
     for (let i = 0; i < COMPRESS_THESE.length; i++) {
@@ -104,7 +103,10 @@ export class IDLParsedCache {
   }
 
   /**
-   * Add parsed to the cache
+   * Add parsed content to the cache
+   *
+   * This creates a shallow copy and compresses specific properties
+   * on the data structure (convert to string instead of complex data).
    */
   add(file: string, parsed: IParsed) {
     this.byFile[file] = this.compress(parsed);

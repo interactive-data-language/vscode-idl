@@ -17,7 +17,7 @@ export function PostProcessParsed(
   file: string,
   parsed: IParsed,
   cancel: CancellationToken
-) {
+): boolean {
   // clear secondary problems
   parsed.postProcessProblems = [];
 
@@ -29,7 +29,7 @@ export function PostProcessParsed(
   /**
    * Populate types of local variables and validate them
    */
-  PostProcessIterator(index, file, parsed, cancel);
+  const updatedGlobals = PostProcessIterator(index, file, parsed, cancel);
 
   // update semantic tokens
   GetSemanticTokens(parsed);
@@ -40,4 +40,6 @@ export function PostProcessParsed(
   // update cache
   index.parsedCache.updateProblems(file, parsed);
   index.parsedCache.updateSemantic(file, parsed);
+
+  return updatedGlobals;
 }
