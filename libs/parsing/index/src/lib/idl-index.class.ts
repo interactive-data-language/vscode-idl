@@ -777,6 +777,10 @@ export class IDLIndex {
       // return global token
       return global;
     } catch (err) {
+      /**
+       * Silently ignore errors as we could have many while
+       * people are editing or changing task files
+       */
       return [];
       // this.log.log({
       //   log: IDL_LSP_LOG,
