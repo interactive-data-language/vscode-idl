@@ -857,7 +857,7 @@ export const EN: ITranslation = {
       '74': 'Property specified more than one time',
       '75': 'Keywords can only be used once in routine or method calls',
       '76': 'The "::init" method for object classes should be a function',
-      '77': 'No matching structure/object/class definition for structure named',
+      '77': 'No matching structure/object/class definition for structure named #SNAME. If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
       '78': 'Function and function methods need to be wrapped in parentheses to be part of a chain of commands.',
       '79': 'Structure definition is missing from docs',
       '80': 'Property is missing from documentation',
