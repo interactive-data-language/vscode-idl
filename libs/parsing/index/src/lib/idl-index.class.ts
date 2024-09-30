@@ -777,6 +777,10 @@ export class IDLIndex {
       // return global token
       return global;
     } catch (err) {
+      /**
+       * Silently ignore errors as we could have many while
+       * people are editing or changing task files
+       */
       return [];
       // this.log.log({
       //   log: IDL_LSP_LOG,
@@ -987,7 +991,7 @@ export class IDLIndex {
     );
 
     // get old global tokens
-    const oldGlobals = this.getGlobalsForFile(file);
+    const oldGlobals = copy(this.getGlobalsForFile(file));
 
     // track as known file
     this.knownFiles[file] = undefined;
@@ -1578,13 +1582,18 @@ export class IDLIndex {
   /**
    * Performs change detection and triggers post-processing of all files
    * that use our affected global tokens
+   *
+   * If one argument is present, assumed it is just the changed globals. If two, we determine
+   * the changed globals for you
    */
   async changeDetection(
     token: CancellationToken,
-    newGlobals: GlobalTokens,
-    oldGlobals: GlobalTokens
+    changesOrNewGlobals: GlobalTokens,
+    oldGlobals?: GlobalTokens
   ) {
-    const changed = GetChangedGlobals(newGlobals, oldGlobals);
+    const changed = Array.isArray(oldGlobals)
+      ? GetChangedGlobals(changesOrNewGlobals, oldGlobals)
+      : changesOrNewGlobals;
 
     // verify we have changes in our global tokens
     if (changed.length > 0) {
@@ -1639,7 +1648,7 @@ export class IDLIndex {
         /**
          * Run locally
          */
-        const change = ChangeDetection(this, token, changed);
+        const change = await ChangeDetection(this, token, changed);
 
         // check for missing files
         if (change.missing.length > 0) {
@@ -1672,7 +1681,7 @@ export class IDLIndex {
     token: CancellationToken,
     oldGlobals: GlobalTokens,
     changeDetection = false
-  ) {
+  ): Promise<boolean> {
     try {
       // convert pros to vars
       if (parsed.type === 'notebook') {
@@ -1680,12 +1689,14 @@ export class IDLIndex {
       }
 
       // perform additional post processing
-      PostProcessParsed(this, file, parsed, token);
+      const changed = PostProcessParsed(this, file, parsed, token);
 
       // check if we need to do change detection
       if (changeDetection) {
         await this.changeDetection(token, parsed.global, oldGlobals);
       }
+
+      return changed;
     } catch (err) {
       this.log.log({
         log: IDL_LSP_LOG,
@@ -1714,9 +1725,12 @@ export class IDLIndex {
     files: string[],
     token: CancellationToken,
     changeDetection = false
-  ): Promise<string[]> {
+  ) {
     /** Track any files that are missing and should no longer be tracked */
-    const missingFiles: string[] = [];
+    const missing: string[] = [];
+
+    /** Track changed global tokens */
+    const globals: { [key: string]: GlobalTokens } = {};
 
     // process each file
     for (let i = 0; i < files.length; i++) {
@@ -1732,17 +1746,26 @@ export class IDLIndex {
       }
 
       try {
-        await this.postProcessProFile(
+        /** Get file from cache */
+        const parsed = this.parsedCache.get(files[i]);
+
+        /** Post-process and check for global changes */
+        const didChange = await this.postProcessProFile(
           files[i],
-          this.parsedCache.get(files[i]),
+          parsed,
           token,
           [],
           changeDetection
         );
+
+        // if changes, then save them
+        if (didChange) {
+          globals[files[i]] = parsed.global;
+        }
       } catch (err) {
         // check if we have a "false" error because a file was deleted
         if (!existsSync(files[i]) && !files[i].includes('#')) {
-          missingFiles.push(files[i]);
+          missing.push(files[i]);
           this.log.log({
             log: IDL_WORKER_THREAD_CONSOLE,
             type: 'warn',
@@ -1765,7 +1788,7 @@ export class IDLIndex {
       }
     }
 
-    return missingFiles;
+    return { missing, globals };
   }
 
   /**
@@ -1939,10 +1962,18 @@ export class IDLIndex {
       all: true,
     });
 
+    /**
+     * Track changed files
+     */
+    const changed: { [key: string]: GlobalTokens } = {};
+
     // save syntax problems for our file
     for (let i = 0; i < postProcessing.length; i++) {
       // get response
       const res = await postProcessing[i];
+
+      // save global changes
+      Object.assign(changed, res.globals);
 
       // update lines of code
       lines += res.lines;
@@ -1955,6 +1986,55 @@ export class IDLIndex {
       for (let z = 0; z < keys.length; z++) {
         this.trackSyntaxProblemsForFile(keys[z], res.problems[keys[z]]);
       }
+    }
+
+    /**
+     * Get files that had global changes
+     */
+    const changedFiles = Object.keys(changed);
+
+    // process again
+    if (changedFiles.length > 0) {
+      /** Track all new globals */
+      const changedGlobals: GlobalTokens = [];
+
+      for (let i = 0; i < changedFiles.length; i++) {
+        // track the changed globals
+        changedGlobals.push(
+          ...GetChangedGlobals(
+            this.globalIndex.globalTokensByFile[changedFiles[i]],
+            changed[changedFiles[i]]
+          )
+        );
+
+        // track in our process
+        this.globalIndex.trackGlobalTokens(
+          changed[changedFiles[i]],
+          changedFiles[i]
+        );
+      }
+
+      /**
+       * Messages for global token synchronization
+       */
+      const reSync: Promise<LoadGlobalResponse>[] = [];
+
+      // send message to all other workers
+      for (let j = 0; j < this.nWorkers; j++) {
+        reSync.push(
+          this.indexerPool.workerio.postAndReceiveMessage(
+            ids[j],
+            LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
+            changed
+          ).response
+        );
+      }
+
+      // wait for sync
+      await Promise.all(reSync);
+
+      // run change detection
+      await this.changeDetection(new CancellationToken(), changedGlobals);
     }
 
     // save stats
@@ -2130,10 +2210,10 @@ export class IDLIndex {
       const missing1 = await this.indexProFiles(files, token, false);
 
       // post-process all of our files
-      const missing2 = await this.postProcessProFiles(files, token);
+      const postProcessed = await this.postProcessProFiles(files, token);
 
       // remove missing files if we have them
-      const allMissing = missing1.concat(missing2);
+      const allMissing = missing1.concat(postProcessed.missing);
       if (allMissing.length > 0) {
         this.removeWorkspaceFiles(allMissing);
       }

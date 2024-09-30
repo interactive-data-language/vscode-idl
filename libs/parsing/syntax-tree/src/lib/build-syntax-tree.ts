@@ -117,7 +117,8 @@ function BuildTreeRecurser(
           IDL_SYNTAX_TREE_POST_PROCESSOR.processBasicToken(
             basic,
             DEFAULT_PARSED,
-            () => DEFAULT_CURRENT
+            DEFAULT_CURRENT,
+            {}
           );
         }
         break;
@@ -181,7 +182,8 @@ function BuildTreeRecurser(
           IDL_SYNTAX_TREE_POST_PROCESSOR.processBranchToken(
             branch,
             DEFAULT_PARSED,
-            () => DEFAULT_CURRENT
+            DEFAULT_CURRENT,
+            {}
           );
         }
         break;

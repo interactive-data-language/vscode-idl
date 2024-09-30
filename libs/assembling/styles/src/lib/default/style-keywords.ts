@@ -20,7 +20,10 @@ const KEYWORDS = [
 ];
 
 for (let i = 0; i < KEYWORDS.length; i++) {
-  ASSEMBLER_DEFAULT_STYLING.onBasicToken(KEYWORDS[i], (token, parsed, meta) => {
-    token.match[0] = FormatKeyword(token.match[0], meta.style.keywords);
-  });
+  ASSEMBLER_DEFAULT_STYLING.onBasicToken(
+    KEYWORDS[i],
+    (token, parsed, current, meta) => {
+      token.match[0] = FormatKeyword(token.match[0], meta.style.keywords);
+    }
+  );
 }

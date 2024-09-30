@@ -19,7 +19,7 @@ const PROCEDURES = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.PROCEDURE];
  */
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.CALL_FUNCTION,
-  (token, parsed, meta) => {
+  (token, parsed, current, meta) => {
     /** Lower-case name of routine */
     const low = token.match[1].replace(/\s/gim, '').toLowerCase();
 
@@ -40,7 +40,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
  */
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.CALL_PROCEDURE,
-  (token, parsed, meta) => {
+  (token, parsed, current, meta) => {
     /** Lower-case name of routine */
     const low = token.match[0].toLowerCase();
 

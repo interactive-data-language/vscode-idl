@@ -40,6 +40,7 @@ const IS_INCLUDING: { [key: string]: IParsed } = {};
 const cb: BasicCallback<ProcessToken, PopulateTypeHandlerMeta> = (
   token,
   parsed,
+  current,
   meta
 ) => {
   /**
@@ -75,7 +76,7 @@ const cb: BasicCallback<ProcessToken, PopulateTypeHandlerMeta> = (
    */
   const includeParsed = meta.index.parsedCache.has(foundFile)
     ? meta.index.parsedCache.get(foundFile)
-    : IncludeCache(meta.index, foundFile, meta.cancel);
+    : IncludeCache(meta.index, foundFile, current.cancel);
 
   // remove from cache as trying to include
   delete IS_INCLUDING[foundFile];

@@ -7,7 +7,7 @@ export const COMPRESSION_LINE_THRESHOLD = 2000;
 /**
  * Tags that we compress/decompress
  */
-export const COMPRESS_THESE = ['tree', 'global'];
+export const COMPRESS_THESE = ['tree'];
 
 /**
  * How long (ms) before we remove items from our cache without

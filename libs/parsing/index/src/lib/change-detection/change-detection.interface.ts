@@ -1,3 +1,5 @@
+import { GlobalTokens } from '@idl/types/core';
+
 /**
  * rResponse from change detection
  */
@@ -9,4 +11,6 @@ export interface IChangeDetection {
    * report it.
    */
   missing: string[];
+  /** Global tokens that have changed */
+  globals: { [key: string]: GlobalTokens };
 }

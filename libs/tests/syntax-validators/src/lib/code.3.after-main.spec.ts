@@ -58,13 +58,6 @@ describe(`[auto generated] Detects problems after main level`, () => {
         end: [2, 5, 0],
         canReport: true,
       },
-      {
-        code: 99,
-        info: 'Undefined variable "a"',
-        start: [2, 0, 1],
-        end: [2, 0, 1],
-        canReport: true,
-      },
     ];
 
     // verify results

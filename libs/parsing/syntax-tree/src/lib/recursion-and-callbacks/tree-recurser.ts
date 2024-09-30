@@ -16,7 +16,6 @@ import {
   TreeToken,
 } from '../branches.interface';
 import { GetRoutineName } from '../helpers/get-routine-name';
-import { IParsed } from '../parsed.interface';
 import {
   BASE_TREE_RECURSER_OPTIONS,
   DEFAULT_CURRENT,
@@ -148,17 +147,17 @@ function _Recurser(
 }
 
 /**
- * Based on a syntax tree cursor location, return the token that we
- * have covered.
+ * Recurse through our syntax tree with custom options for how
+ * we recurse (branches or basic tokens first, metadata, .etc)
  */
 export function TreeRecurser(
-  parsed: IParsed,
+  tree: SyntaxTree,
   cancel: CancellationToken,
   options: Partial<ITreeRecurserOptions>
 ) {
   // recurse through the tree
   _Recurser(
-    parsed.tree,
+    tree,
     Object.assign(
       copy(BASE_TREE_RECURSER_OPTIONS),
       copy(DEFAULT_CURRENT),

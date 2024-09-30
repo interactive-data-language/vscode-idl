@@ -108,13 +108,6 @@ describe(`[auto generated] Keep tokens after main level programs`, () => {
         canReport: true,
       },
       {
-        code: 99,
-        info: 'Undefined variable "b"',
-        start: [5, 0, 1],
-        end: [5, 0, 1],
-        canReport: true,
-      },
-      {
         code: 104,
         info: 'Unused variable "a"',
         start: [2, 0, 1],

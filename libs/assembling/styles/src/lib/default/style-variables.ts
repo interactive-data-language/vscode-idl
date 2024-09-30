@@ -7,7 +7,7 @@ import { SerializeIDLType } from '@idl/types/core';
 
 ASSEMBLER_DEFAULT_STYLING.onBasicToken(
   TOKEN_NAMES.SYSTEM_VARIABLE,
-  (token, parsed, meta) => {
+  (token, parsed, current, meta) => {
     // return if nothing to do
     if (meta.style.systemVariables === STYLE_FLAG_LOOKUP.NONE) {
       return;
@@ -19,7 +19,7 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
 
 ASSEMBLER_DEFAULT_STYLING.onBasicToken(
   TOKEN_NAMES.VARIABLE,
-  (token, parsed, meta) => {
+  (token, parsed, current, meta) => {
     // return if nothing to do
     if (meta.style.localVariables === STYLE_FLAG_LOOKUP.NONE) {
       return;

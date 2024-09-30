@@ -42,6 +42,7 @@ const SKIP_VARIABLES: { [key: string]: any } = {
 const cb: BasicCallback<VariableToken, ValidateTypeHandlerMeta> = (
   token,
   parsed,
+  current,
   meta
 ) => {
   // return if we are in a common block

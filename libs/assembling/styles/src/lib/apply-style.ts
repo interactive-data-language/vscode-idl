@@ -23,8 +23,9 @@ export function ApplyStyle(
   switch (styler) {
     case ASSEMBLER_STYLER_LOOKUP.DEFAULT:
       // apply styling
-      ASSEMBLER_DEFAULT_STYLING.run(parsed, cancel, (token, meta) => {
-        return { ...meta, style, vanilla: vanilla };
+      ASSEMBLER_DEFAULT_STYLING.run(parsed, cancel, {
+        style,
+        vanilla: vanilla,
       });
       break;
     default:

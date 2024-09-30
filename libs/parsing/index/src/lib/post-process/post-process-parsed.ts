@@ -7,9 +7,7 @@ import {
 
 import { GetSyntaxProblems } from '../helpers/get-syntax-problems';
 import { IDLIndex } from '../idl-index.class';
-import { PopulateAndValidateType } from './populate-and-validate-type';
-import { PopulateUsesThese } from './populate-uses-these';
-import { ValidateVariableUsage } from './tree-handlers/validate-variable-usage';
+import { PostProcessIterator } from './post-process-iterator';
 
 /**
  * Apply post-processing to a parsed file
@@ -19,7 +17,7 @@ export function PostProcessParsed(
   file: string,
   parsed: IParsed,
   cancel: CancellationToken
-) {
+): boolean {
   // clear secondary problems
   parsed.postProcessProblems = [];
 
@@ -29,19 +27,9 @@ export function PostProcessParsed(
   PopulateScopeDetailAndResetTokenCache(parsed, cancel);
 
   /**
-   * Populate types of local variables
+   * Populate types of local variables and validate them
    */
-  PopulateAndValidateType(index, file, parsed, cancel);
-
-  /**
-   * Validate variables
-   */
-  ValidateVariableUsage(parsed);
-
-  /**
-   * Populate the global tokens that we use
-   */
-  PopulateUsesThese(index, parsed, cancel);
+  const updatedGlobals = PostProcessIterator(index, file, parsed, cancel);
 
   // update semantic tokens
   GetSemanticTokens(parsed);
@@ -52,4 +40,6 @@ export function PostProcessParsed(
   // update cache
   index.parsedCache.updateProblems(file, parsed);
   index.parsedCache.updateSemantic(file, parsed);
+
+  return updatedGlobals;
 }

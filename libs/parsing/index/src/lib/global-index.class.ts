@@ -22,6 +22,8 @@ import {
 import { SaveGlobalDisplayNames } from './helpers/save-global-display-names';
 import { IDL_INDEX_OPTIONS } from './idl-index.interface';
 import GlobToRegExp = require('glob-to-regexp');
+import copy from 'fast-copy';
+
 import { ShouldExportItem } from './helpers/should-export-item';
 
 /**
@@ -159,7 +161,7 @@ export class GlobalIndex {
 
       // process all tokens
       for (let j = 0; j < forFile.length; j++) {
-        exported[forFile[j].type].push(forFile[j] as any);
+        exported[forFile[j].type].push(copy(forFile[j]) as any);
       }
     }
 
