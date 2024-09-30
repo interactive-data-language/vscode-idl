@@ -5319,6 +5319,21 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
         name: `problems`,
         code: [`compile_opt idl2`, `a = hash()`, `a['key']`, `end`],
       },
+      {
+        name: 'no problems with pointers',
+        code: [
+          `compile_opt idl2`,
+          ``,
+          `val = ptr_new()`,
+          ``,
+          `if (!true) then begin`,
+          `  *val = 5`,
+          ``,
+          `  *(val) = 5`,
+          `endif`,
+          `end`,
+        ],
+      },
     ],
   },
   {

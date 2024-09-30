@@ -521,6 +521,27 @@ export const AUTO_POST_PROCESSOR_TESTS: IAutoTest[] = [
   },
   {
     suiteName: `Correctly identify pointer dereferencing`,
+    fileName: `operator.pointer-deref.begin.spec.ts`,
+    tests: [
+      {
+        name: `id in begin`,
+        code: [
+          `compile_opt idl2`,
+          ``,
+          `val = ptr_new()`,
+          ``,
+          `if (!true) then begin`,
+          `  *val = 5`,
+          ``,
+          `  *(val) = 5`,
+          `endif`,
+          `end`,
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly identify pointer dereferencing`,
     fileName: `operator.pointer-deref.case.spec.ts`,
     tests: [
       {
