@@ -3644,6 +3644,21 @@ export const AUTO_ASSEMBLER_TESTS: IAutoAssemblerTest[] = [
         code: [`compile_opt idl2`, ``, `*ptr = 42`, `end`],
       },
       {
+        name: 'pointers',
+        code: [
+          `compile_opt idl2`,
+          ``,
+          `val = ptr_new()`,
+          ``,
+          `if (!true) then begin`,
+          `  *val = 5`,
+          ``,
+          `  *(val) = 5`,
+          `endif`,
+          `end`,
+        ],
+      },
+      {
         name: `operators that should not have spaces`,
         code: [
           `compile_opt idl2`,

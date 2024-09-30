@@ -32,6 +32,10 @@ Fixed an issue where, from the JSON settings editor, a valid extension setting w
 
 Fixed an issue where the "don't ask again" options didn't honor your choice for using IDL as the formatter.
 
+## Unreleased
+
+Fixed an issue where the language server was not correctly detecting pointers being de-referenced. This caused false errors for "standalone expressions" to be reported and for formatting to not function correctly.
+
 ## 4.6.1 - September 2024
 
 Added layer controls to the Notebook Map.
