@@ -159,7 +159,11 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.CHANGE_DETECTION,
   async (message, cancel) => {
     // run change detection!
-    const changed = ChangeDetection(WORKER_INDEX, cancel, message.changed);
+    const changed = await ChangeDetection(
+      WORKER_INDEX,
+      cancel,
+      message.changed
+    );
 
     // get syntax problems
     const problems = WORKER_INDEX.getSyntaxProblems();
@@ -506,7 +510,7 @@ client.on(
       : WORKER_INDEX.parsedCache.allFiles();
 
     // post process, no change detection
-    const missing = await WORKER_INDEX.postProcessProFiles(
+    const postProcess = await WORKER_INDEX.postProcessProFiles(
       files,
       cancel,
       false
@@ -518,7 +522,8 @@ client.on(
     // craft our response
     const resp: PostProcessFilesResponse = {
       problems: {},
-      missing,
+      missing: postProcess.missing,
+      globals: postProcess.globals,
       lines: 0,
     };
 
@@ -584,7 +589,7 @@ client.on(
     const ourFiles = WORKER_INDEX.parsedCache.allFiles();
 
     // post process all of our files again
-    const missing = await WORKER_INDEX.postProcessProFiles(
+    const postProcess = await WORKER_INDEX.postProcessProFiles(
       ourFiles,
       cancel,
       false
@@ -596,7 +601,7 @@ client.on(
     // craft our response
     const resp: RemoveFilesResponse = {
       problems: {},
-      missing,
+      missing: postProcess.missing,
     };
 
     // populate response

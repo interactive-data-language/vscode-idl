@@ -441,6 +441,10 @@ export interface PostProcessFilesResponse {
   problems: {
     [file: string]: SyntaxProblems;
   };
+  /** Global tokens that have changed, by file (contains all globals for file) */
+  globals: {
+    [file: string]: GlobalTokens;
+  };
   /** Files we tried to post-process, but were missing */
   missing: string[];
   /** Number of lines of code */
