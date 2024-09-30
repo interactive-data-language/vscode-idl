@@ -991,7 +991,7 @@ export class IDLIndex {
     );
 
     // get old global tokens
-    const oldGlobals = this.getGlobalsForFile(file);
+    const oldGlobals = copy(this.getGlobalsForFile(file));
 
     // track as known file
     this.knownFiles[file] = undefined;
