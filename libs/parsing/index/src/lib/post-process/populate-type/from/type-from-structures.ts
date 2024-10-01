@@ -53,7 +53,7 @@ export function TypeFromStructure(
             IDL_PROBLEM_CODES.UNKNOWN_STRUCTURE,
             IDL_TRANSLATION.parsing.errors[
               IDL_PROBLEM_CODES.UNKNOWN_STRUCTURE
-            ].replace('#SNAME', `"${name[0].match[0]}"`),
+            ].replace('#SNAME', `"${name[0].match[0].trim()}"`),
             name[0].pos,
             name[0].pos
           )

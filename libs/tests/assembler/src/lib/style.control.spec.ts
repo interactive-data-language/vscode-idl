@@ -225,7 +225,7 @@ describe(`[auto generated] Control statement styling`, () => {
       },
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "myname"',
+        info: 'No matching structure/object/class definition for structure named "myname". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [54, 12, 6],
         end: [54, 12, 6],
         canReport: true,
@@ -490,7 +490,7 @@ describe(`[auto generated] Control statement styling`, () => {
       },
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "myname"',
+        info: 'No matching structure/object/class definition for structure named "myname". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [54, 12, 6],
         end: [54, 12, 6],
         canReport: true,
@@ -755,7 +755,7 @@ describe(`[auto generated] Control statement styling`, () => {
       },
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "myname"',
+        info: 'No matching structure/object/class definition for structure named "myname". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [54, 12, 6],
         end: [54, 12, 6],
         canReport: true,
