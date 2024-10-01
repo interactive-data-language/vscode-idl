@@ -18,13 +18,24 @@ Document some advanced types so users may try them out and provide feedback. The
 
 IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks.
 
-## Unreleased
+## 4.7.0 - October 2024
 
-Tweaked the in-memory cache for parsed files to optimize performance. We no longer copy complex data structures which adds a 10-15% performance improvement for how quickly we parse large workspaces.
+Added a first pass of being able to statically determine the return types for functions and function methods that don't have documentation. This means that, for the following example, we properly detect that we return a long:
 
-Added a first pass of being able to statically determine the return types for functions and function methods that don't have documentation. This type detection processes routines in files from the top-down which follows the standard for creating routines in IDL.
+```idl
+function myFunc
+  compile_opt idl2
+  return, 42 ; or is it 84?
+end
+```
 
-Optimized the language server change detection process to focus on only routines/globals that have changed (change detection is a process for validating code/usage of routines in other files when the source definition is updated).
+This marks the first step of an iterative process to automatically detect types from code when you don't have strict documentation. We can also, in the future, check to make sure actual return values match docs.
+
+In order to detect types from your code, we had to make some pretty big changes to the language server in order to support this new paradigm. With that, if you notice any odd behaviors or issues, please reach out to us on Github to let us know of any problems.
+
+Tweaked the in-memory cache for parsed files to optimize performance. We no longer copy complex data structures which adds a 10-15% performance improvement parse speed and helps reduce memory usage.
+
+Optimized the language server change detection process to focus on only routines/globals that have changed (change detection is a process for validating usage of routines in other files when the source definition is updated).
 
 Changed the error message reported when we can't find a structure definition. This adds some context for why we might not know about a structure definition to help users who aren't following best practices.
 
