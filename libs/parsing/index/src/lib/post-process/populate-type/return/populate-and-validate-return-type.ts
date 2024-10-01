@@ -55,6 +55,13 @@ export function PopulateAndValidateReturnType(
   ).filter((global) => Object.keys(global.meta.docsLookup).length === 0);
 
   /**
+   * Get names of all function methods (for ::init or class name for new obj)
+   */
+  const initNames = parsed.global
+    .filter((item) => item.type === GLOBAL_TOKEN_TYPES.FUNCTION_METHOD)
+    .map((item) => item.name);
+
+  /**
    * Do nothing if we have no matches
    */
   if (functions.length === 0) {
@@ -68,6 +75,14 @@ export function PopulateAndValidateReturnType(
 
     // get the function we need
     const func = functions[i];
+
+    /**
+     * Check if we are a function call for class initialization. This is because we have the init
+     * method in our current globals and we add the function call manually
+     */
+    if (initNames.indexOf(`${func.name}::init`) !== -1) {
+      continue;
+    }
 
     // if not inside token, return
     if (
