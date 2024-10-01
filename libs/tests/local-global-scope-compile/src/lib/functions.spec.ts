@@ -170,7 +170,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               pos: [0, 29, 4],
             },
           },
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myfunc(arg1, arg2, arg3, $\n  KW1 = value, $\n  KW2 = value, $\n  KW3 = value)\n```\n\n\n#### Arguments\n\n- **arg1**: bidirectional, required, any\n\n  \n\n- **arg2**: bidirectional, required, any\n\n  \n\n- **arg3**: bidirectional, required, any\n\n  \n\n\n\n#### Keywords\n\n- **KW1**: bidirectional, optional, any\n\n    \n\n- **KW2**: bidirectional, optional, any\n\n    \n\n- **KW3**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\n;+\n; :Returns: Long\n;+\nresult = myfunc(arg1, arg2, arg3, $\n  KW1 = value, $\n  KW2 = value, $\n  KW3 = value)\n```\n\n\n#### Arguments\n\n- **arg1**: bidirectional, required, any\n\n  \n\n- **arg2**: bidirectional, required, any\n\n  \n\n- **arg3**: bidirectional, required, any\n\n  \n\n\n\n#### Keywords\n\n- **KW1**: bidirectional, optional, any\n\n    \n\n- **KW2**: bidirectional, optional, any\n\n    \n\n- **KW3**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: {},
           display: 'myfunc',
           kws: {
@@ -209,7 +209,9 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             },
           },
           private: false,
-          returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+          returns: [
+            { display: 'Long', name: 'Long', args: [], meta: {}, value: '1' },
+          ],
           struct: [],
         },
         file: 'not-real',
