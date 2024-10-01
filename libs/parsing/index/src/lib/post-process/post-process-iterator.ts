@@ -198,8 +198,8 @@ export function PostProcessIterator(
        */
       if (topToken.name === TOKEN_NAMES.ROUTINE_FUNCTION) {
         docsChanges =
-          docsChanges ||
-          PopulateAndValidateReturnType(index, parsed, topToken, cancel);
+          PopulateAndValidateReturnType(index, parsed, topToken, cancel) ||
+          docsChanges;
       }
     }
   }
