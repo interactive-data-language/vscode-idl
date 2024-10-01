@@ -1996,6 +1996,36 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
             `end`,
           ],
         },
+        {
+          name: 'handles syntax errors 1',
+          code: [
+            `function myFunc`,
+            `  compile_opt idl2`,
+            `  print, 'Hello world'`,
+            `  return, `,
+            `end`,
+          ],
+        },
+        {
+          name: 'handles syntax errors 2',
+          code: [
+            `function myFunc`,
+            `  compile_opt idl2`,
+            `  print, 'Hello world'`,
+            `  return 42`,
+            `end`,
+          ],
+        },
+        {
+          name: 'handles syntax errors 3',
+          code: [
+            `function myPro`,
+            `  compile_opt idl2`,
+            `  print, 'Hello world'`,
+            `  return`,
+            `end`,
+          ],
+        },
       ],
     },
     {
