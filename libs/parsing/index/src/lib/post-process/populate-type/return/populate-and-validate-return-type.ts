@@ -106,8 +106,16 @@ export function PopulateAndValidateReturnType(
       TOKEN_NAMES.CALL_PROCEDURE
     )
       .filter((pro) => pro.match[0].toLowerCase() === 'return')
+      .filter((pro) => pro.kids.length > 1)
       .map((pro) => TypeFromTokens(index, parsed, pro.kids))
       .flat();
+
+    /**
+     * Skip if we didnt get types from kids
+     */
+    if (allTypes.length === 0) {
+      continue;
+    }
 
     // reduce type
     const reduced = IDLTypeHelper.reduceIDLDataType(allTypes);
