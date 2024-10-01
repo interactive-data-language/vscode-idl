@@ -37,7 +37,7 @@ describe(`[auto generated] Correctly find definitions for function methods`, () 
         method: 'funcmethod1',
         source: 'user',
         args: {},
-        docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = NYStruct0.FuncMethod1( $\n  kw = value $\n  kwb = value)\n```\n\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
+        docs: '\n```idl\n;+\n; :Returns: Long\n;+\nresult = NYStruct0.FuncMethod1( $\n  kw = value $\n  kwb = value)\n```\n\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
         docsLookup: {},
         display: 'NYStruct0::FuncMethod1',
         kws: {
@@ -65,7 +65,9 @@ describe(`[auto generated] Correctly find definitions for function methods`, () 
           },
         },
         private: false,
-        returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+        returns: [
+          { display: 'Long', name: 'Long', args: [], meta: {}, value: '1' },
+        ],
         struct: [],
       },
     };
@@ -96,7 +98,7 @@ describe(`[auto generated] Correctly find definitions for function methods`, () 
         method: 'funcmethod2',
         source: 'user',
         args: {},
-        docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = NYStruct.FuncMethod2( $\n  kw = value $\n  kwb = value)\n```\n\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
+        docs: '\n```idl\n;+\n; :Returns: Long\n;+\nresult = NYStruct.FuncMethod2( $\n  kw = value $\n  kwb = value)\n```\n\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
         docsLookup: {},
         display: 'NYStruct::FuncMethod2',
         kws: {
@@ -124,7 +126,9 @@ describe(`[auto generated] Correctly find definitions for function methods`, () 
           },
         },
         private: false,
-        returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+        returns: [
+          { display: 'Long', name: 'Long', args: [], meta: {}, value: '1' },
+        ],
         struct: [],
       },
     };
