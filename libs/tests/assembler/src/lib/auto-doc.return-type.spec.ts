@@ -7,8 +7,8 @@ import { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
-describe(`[auto generated] Only use AutoDoc`, () => {
-  it(`[auto generated] and leave everything else the same`, async () => {
+describe(`[auto generated] Verify we use return type`, () => {
+  it(`[auto generated] for initial docs`, async () => {
     // create index
     const index = new IDLIndex(
       new LogManager({
@@ -21,25 +21,9 @@ describe(`[auto generated] Only use AutoDoc`, () => {
 
     // test code to extract tokens from
     const code = [
-      `function dist,n,m  ;Return a rectangular array in which each pixel = euclidian`,
-      `;distance from the origin.`,
-      `compile_opt idl2`,
-      ``,
-      `on_error,2              ;Return to caller if an error occurs`,
-      ``,
-      `n1 = n[0]`,
-      `m1 = (n_elements(m) le 0) ? n1 : m[0]`,
-      `x=findgen(n1)    ;Make a row`,
-      `x = (x < (n1-x)) ^ 2  ;column squares`,
-      ``,
-      `a = FLTARR(n1,m1,/NOZERO)  ;Make array`,
-      ``,
-      `for i=0L, m1/2 do begin  ;Row loop`,
-      `y = sqrt(x + i^2.) ;Euclidian distance`,
-      `a[0,i] = y  ;Insert the row`,
-      `if i ne 0 then a[0, m1-i] = y ;Symmetrical`,
-      `endfor`,
-      `return,a`,
+      `function get_dir, arg`,
+      `  compile_opt idl2`,
+      `  if arg eq 0 then return, 'NSEW' else return, 0`,
       `end`,
     ];
 
@@ -57,7 +41,6 @@ describe(`[auto generated] Only use AutoDoc`, () => {
     // format code
     const formatted = Assembler(tokenized, new CancellationToken(), {
       autoDoc: true,
-      styleAndFormat: false,
       autoFix: false,
       formatter: 'fiddle',
     });
@@ -69,34 +52,16 @@ describe(`[auto generated] Only use AutoDoc`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `;+`,
-        `; :Returns: Array<Float>`,
+        `; :Returns: String | Long`,
         `;`,
         `; :Arguments:`,
-        `;   n: bidirectional, required, any`,
-        `;     Placeholder docs for argument, keyword, or property`,
-        `;   m: bidirectional, required, any`,
+        `;   arg: bidirectional, required, any`,
         `;     Placeholder docs for argument, keyword, or property`,
         `;`,
         `;-`,
-        `function dist,n,m  ;Return a rectangular array in which each pixel = euclidian`,
-        `;distance from the origin.`,
-        `compile_opt idl2`,
-        ``,
-        `on_error,2              ;Return to caller if an error occurs`,
-        ``,
-        `n1 = n[0]`,
-        `m1 = (n_elements(m) le 0) ? n1 : m[0]`,
-        `x=findgen(n1)    ;Make a row`,
-        `x = (x < (n1-x)) ^ 2  ;column squares`,
-        ``,
-        `a = FLTARR(n1,m1,/NOZERO)  ;Make array`,
-        ``,
-        `for i=0L, m1/2 do begin  ;Row loop`,
-        `y = sqrt(x + i^2.) ;Euclidian distance`,
-        `a[0,i] = y  ;Insert the row`,
-        `if i ne 0 then a[0, m1-i] = y ;Symmetrical`,
-        `endfor`,
-        `return,a`,
+        `function get_dir, arg`,
+        `  compile_opt idl2`,
+        `  if arg eq 0 then return, 'NSEW' else return, 0`,
         `end`,
       ];
 

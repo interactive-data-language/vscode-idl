@@ -151,4 +151,51 @@ describe(`[auto generated] Illegal dictionary`, () => {
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] no err`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      ``,
+      `function get_dir, arg`,
+      `  compile_opt idl2`,
+      `  if arg eq 0 then return, 'NSEW' else return, 0`,
+      `end`,
+      ``,
+      ``,
+      `pro test`,
+      `  compile_opt idl2`,
+      ``,
+      `  sign = dictionary('N', 1, 'S', -1, 'E', 1, 'W', -1)`,
+      `  num = 1.0 * sign[strmid(get_dir(0), 1, 1)]`,
+      ``,
+      `  print, num`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });
