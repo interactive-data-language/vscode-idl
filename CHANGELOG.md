@@ -16,7 +16,7 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
-IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks.
+IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks (not all types are supported).
 
 ## 4.7.0 - October 2024
 
