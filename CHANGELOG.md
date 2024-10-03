@@ -43,6 +43,8 @@ Fixed a bug where code actions were not appearing in notebook cells.
 
 Fixed an issue with code actions in notebook cells where, if it was the first line, that the IDL code would get replaced instead of have a new line added above.
 
+Fixed an issue where the language server was not correctly detecting pointers being de-referenced. This caused false errors for "standalone expressions" to be reported and for formatting to not function correctly.
+
 ## 4.6.2 - September 2024
 
 Changed the language server startup process to remove all files from memory after initial startup. This reduces RAM by 0.25-0.5 GB of memory after startup, depending on the volume of code in workspaces and on your path.
@@ -56,10 +58,6 @@ For large files, this had a significant impact on perceived performance as the w
 Fixed an issue where, from the JSON settings editor, a valid extension setting would be highlighted as being an incorrect value.
 
 Fixed an issue where the "don't ask again" options didn't honor your choice for using IDL as the formatter.
-
-## Unreleased
-
-Fixed an issue where the language server was not correctly detecting pointers being de-referenced. This caused false errors for "standalone expressions" to be reported and for formatting to not function correctly.
 
 ## 4.6.1 - September 2024
 
