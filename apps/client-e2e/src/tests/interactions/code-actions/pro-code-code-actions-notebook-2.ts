@@ -13,11 +13,11 @@ import { RunnerFunction } from '../../runner.interface';
 export const ProCodeCodeActionsNotebook2: RunnerFunction = async (init) => {
   /** Open notebooks */
   const nb = await OpenNotebookInVSCode(
-    GetExtensionPath('idl/test/client-e2e/problems/code-actions.idlnb')
+    GetExtensionPath('idl/test/client-e2e/problems/code-actions-2.idlnb')
   );
 
   /** Get first cell */
-  const doc = nb.getCells()[1].document;
+  const doc = nb.getCells()[0].document;
 
   // short pause to make sure we open and parse
   await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
@@ -26,7 +26,7 @@ export const ProCodeCodeActionsNotebook2: RunnerFunction = async (init) => {
   const diags = GetRealDiagnostic(vscode.languages.getDiagnostics(doc.uri));
 
   // verify problems
-  expect(diags.length).toEqual(3);
+  expect(diags.length).toEqual(1);
 
   /**
    * Get URi for the notebook
@@ -62,7 +62,7 @@ export const ProCodeCodeActionsNotebook2: RunnerFunction = async (init) => {
             {
               line: 0,
               text: '; idl-disable-next-line undefined-var\nbillboards.thing',
-              cell: 1,
+              cell: 0,
             },
           ],
         ],
@@ -79,7 +79,7 @@ export const ProCodeCodeActionsNotebook2: RunnerFunction = async (init) => {
             {
               line: 0,
               text: ';+\n; idl-disable undefined-var\n;-\n\nbillboards.thing',
-              cell: 1,
+              cell: 0,
             },
           ],
         ],

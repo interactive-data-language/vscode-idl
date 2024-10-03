@@ -4,8 +4,7 @@
     {
       "type": "code",
       "content": [
-        "",
-        "a = 5"
+        "billboards.thing"
       ],
       "metadata": {},
       "outputs": []
