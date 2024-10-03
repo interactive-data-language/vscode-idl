@@ -39,6 +39,10 @@ Optimized the language server change detection process to focus on only routines
 
 Changed the error message reported when we can't find a structure definition. This adds some context for why we might not know about a structure definition to help users who aren't following best practices.
 
+Fixed a bug where code actions were not appearing in notebook cells.
+
+Fixed an issue with code actions in notebook cells where, if it was the first line, that the IDL code would get replaced instead of have a new line added above.
+
 ## 4.6.2 - September 2024
 
 Changed the language server startup process to remove all files from memory after initial startup. This reduces RAM by 0.25-0.5 GB of memory after startup, depending on the volume of code in workspaces and on your path.

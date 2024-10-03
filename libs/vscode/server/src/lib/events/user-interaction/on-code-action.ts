@@ -48,7 +48,13 @@ export const ON_CODE_ACTIONS = async (
     }
 
     // return if not a file we can process
-    if (!IDLFileHelper.isPROCode(info.fsPath) || info.type === 'def') {
+    if (
+      !(
+        IDLFileHelper.isPROCode(info.fsPath) ||
+        IDLFileHelper.isIDLNotebookFile(info.fsPath)
+      ) ||
+      info.type === 'def'
+    ) {
       return undefined;
     }
 
