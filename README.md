@@ -54,7 +54,25 @@ This extension adds syntax highlighting, code snippets, debugging, problem repor
 
 For a full list of changes, see [CHANGELOG.md](./CHANGELOG.md) for lots of details.
 
-## IDL Requirement
+## Features
+
+- A full-featured IDL code editor, with variable type detection, auto complete, chromacoding, problem reporting, and code formatting
+
+- Does not require IDL to be installed to write/edit code. IDL is only required when debugging/running code or using IDL Notebooks.
+
+- An integrated debugger with breakpoints, or run command-line IDL within the VS Code terminal
+
+- Native support IDL Notebooks with embedded graphics and save to PDF (this is from VSCode, does not require Python)
+
+- Hover help contains the complete documentation for ENVI and IDL, including examples that you can open in IDL Notebooks.
+
+- Create routine-definition documentation for routines within SAVE files or DLMs
+
+- Support for internationalization
+
+  - Submit a bug/feature for adding languages. Hopefully they are for a language that you speak, so you could also help with the translation :)
+
+## IDL and ENVI Requirement
 
 Using the "debug" sessions of IDL requires that you have a version of IDL with lists, hashes, and orderedhashes (and the ability to parse/serialize JSON).
 
@@ -71,64 +89,6 @@ Notebooks have specific version requirements for IDL and ENVI:
 - For IDL, you'll need IDL 8.8.0 or newer (enforced, and checked, when notebooks start)
 
 - For ENVI, you'll need ENVI 6.0 or ENVI 5.7. Any other version of ENVI is not guaranteed to work.
-
-## Features
-
-- IDL Notebooks for a new, modern, and ad-hoc way to develop IDL code! Check out the examples to learn about how they work (accessible through the sidebar of the extension).
-
-- Before compiling any code, more than 100 syntax errors/problems/hints are detected and reported to users.
-
-- Syntax errors you encounter while writing code offer information/details on why they are problems to help you learn the in's and out's of IDL better.
-
-- Syntax-based highlighting to make it easy to visually catch errors. This new-and-improved highlighting experience also accentuates keywords and operators like never before. Actual colors will depend on your theme and there is a guide for how you can customize token colors/appearances for IDL.
-
-- Ability to format your code on save and have control over key formatting preferences. The default matches what we think of as a modern approach and styling to IDL code that will be welcoming to new users.
-
-- AutoDoc which, if enabled, automatically adds/updates documentation for user routines as you save your files. Works for routines and structure definitions found within "\_\_define" named procedures
-
-- **Debugging!** A preview release of debugging has been implemented and is stable enough for use. **Note**: this is going to be re-worked over the course of the next 3-6 months
-
-- Hover help for user-defined variables, functions, procedures, arguments, and keywords.
-
-- Integrated hover help for core IDL and ENVI routines, their keywords, and structure properties.
-
-- Integrated support for ENVI and IDL task files in workspaces and on IDL's path, including auto complete and hover help
-
-- Go-to definition for functions, procedures, and methods from user defined routines
-
-- Extensive auto-complete built on the IDL and ENVI documentation. Auto-complete is also automatic (you don't have to press Ctrl + Space in order to trigger it).
-
-- Provides a high-level outline of your code with global constructs (i.e. routines and main level programs)
-
-- Profiling. Get basic profiling information for your routines and access via buttons or commands.
-
-- Custom IDL color themes. If you are feeling like you miss the IDL Workbench, then the "Retro IDL" theme is for you! Two more dark themes are included and are "Novus IDL" and "Neon IDL."
-
-- Finds `TODO` statements just like the workbench
-
-- Support for VSCode's auto-comment (Ctrl+/ or command+/)
-
-- Code snippets for common code blocks
-
-- Colorization and schema validation of ENVI and IDL task files.
-
-- Commands (Ctrl+shift+p) for terminal and debug sessions:
-
-  - Opening an IDL session
-
-  - Compiling
-
-  - Running PRO files (run button in the workbench)
-
-  - Executing PRO files as batch files (single line statements)
-
-  - Execution controls (stop, in, over, out) for IDL in a terminal
-
-  - Plus some others!
-
-- Support for internationalization
-
-  - Submit a bug/feature for adding languages. Hopefully they are for a language that you speak, so you could also help with the translation :)
 
 ## Known Issues
 
