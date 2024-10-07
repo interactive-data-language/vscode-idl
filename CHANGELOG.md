@@ -45,6 +45,8 @@ Fixed an issue with code actions in notebook cells where, if it was the first li
 
 Fixed an issue where the language server was not correctly detecting pointers being de-referenced. This caused false errors for "standalone expressions" to be reported and for formatting to not function correctly.
 
+Update extension docs with the latest version od node.js that we require (to work around language server crashes).
+
 ## 4.6.2 - September 2024
 
 Changed the language server startup process to remove all files from memory after initial startup. This reduces RAM by 0.25-0.5 GB of memory after startup, depending on the volume of code in workspaces and on your path.

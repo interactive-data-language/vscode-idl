@@ -14,7 +14,7 @@ There are two ways to work around the language server memory errors.
 
 When the IDL extension starts, if it finds node.js on your path, it will automatically start the language server using node, which should remove this limitation. If you still see memory errors, then reach out to us on GitHub and let us know.
 
-To install node.js, get the latest v18 release from https://nodejs.org/en/download/releases.
+To install node.js, get the latest v20 release from https://nodejs.org/en/download/releases.
 
 Once you install node.js, completely close and re-start VSCode (you may need to restart your computer so that it appears on your path).
 

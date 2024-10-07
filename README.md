@@ -38,21 +38,21 @@
 
 **4.0.0 is here!**
 
-This release headlines our newest feature: IDL Notebooks! The IDL Notebook format is standalone and only requires this extension to function (no extra dependencies on Python or Jupyter).
+This release headlines our newest feature: IDL Notebooks! The IDL Notebook format is standalone and only requires this extension to function (no extra dependencies on Python or Jupyter). We include several "hello world" notebooks for IDL and ENVI to help you get up-and-running.
 
-Within the extension, you'll find a new sidebar entry to help create a new notebook, open IDL and ENVI Notebook examples, and convert your IDL Notebooks to a PRO file as well. If you have questions, feel free to reach out to us on GitHub with any feedback or issues you encounter.
+Support for notebooks also includes:
 
-In addition to this, we have revamped our tools for styling/formatting your code to include other case styles like pascal and camel case.
+- A friendly user experience that mirrors the the IDL Command line
 
-That's not all that is included in this release, so check out the [CHANGELOG.md](./CHANGELOG.md) for full details.
+- Ability to open examples from documentation as an IDL Notebook directly from hover-help
+
+- Printable notebooks (enabled through a 3rd party VSCode Extension)
+
+For a full list of changes, see [CHANGELOG.md](./CHANGELOG.md) for lots of details.
 
 > If you are looking to contribute, or get your development environment setup, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
-
-This extension adds syntax highlighting, code snippets, debugging, problem reporting (undefined variables and syntax errors, 100+ in total!), IDL Notebooks, and much more for the Interactive Data Language (IDL) from NV5 Geospatial Software (formerly Research Systems, Inc.).
-
-For a full list of changes, see [CHANGELOG.md](./CHANGELOG.md) for lots of details.
 
 ## Features
 
@@ -98,7 +98,7 @@ Notebooks have specific version requirements for IDL and ENVI:
 
   When the IDL extension starts, if it finds node.js on your path, it will automatically start the language server using node, which should remove this limitation. If you still see memory errors, then reach out to us on GitHub and let us know.
 
-  To install node.js, get the latest v18 release from https://nodejs.org/en/download/releases.
+  To install node.js, get the latest v20 release from https://nodejs.org/en/download/releases.
 
 - As a part of the code that we parse, we also do our best to statically determine types and do type checking. If you notice issues with type checks being wrong, or there are incorrectly documented routines, let us know!
 
