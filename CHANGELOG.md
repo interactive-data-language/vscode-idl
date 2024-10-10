@@ -47,6 +47,8 @@ Fixed an issue where the language server was not correctly detecting pointers be
 
 Update extension docs with the latest version od node.js that we require (to work around language server crashes).
 
+Updated hover help packaged with the extension with ENVI 6.1, IDL 9.1, and ENVI Deep Learning 3.0.1 docs
+
 ## 4.6.2 - September 2024
 
 Changed the language server startup process to remove all files from memory after initial startup. This reduces RAM by 0.25-0.5 GB of memory after startup, depending on the volume of code in workspaces and on your path.
