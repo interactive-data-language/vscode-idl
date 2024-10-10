@@ -58,6 +58,13 @@ export async function ParsedToGlobal(
     // get the parsed routine
     const r = parsedRoutines[i];
 
+    /**
+     * Debug code to fix problems with specific HTML files
+     */
+    // if (!(r.name || '').toLowerCase().startsWith('cli_progress')) {
+    //   continue;
+    // }
+
     // increment our progress bar
     bar.tick({
       title: `"${r.name}": "${r.type}"`,

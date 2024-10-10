@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-US" xml:lang="en-US" data-mc-search-type="Stem" data-mc-help-system-file-name="idl.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="Routines (alphabetical)|Routines: C" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CLI_Progress</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Branding/Branding.css" rel="stylesheet" type="text/css" />
+        <link href="../../Resources/Stylesheets/Doc_Style.css" rel="stylesheet" type="text/css" />
+        <link href="../../Resources/TableStyles/Property_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <link href="../../Resources/TableStyles/VersionTable.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapGlobal.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapDom.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapUtilities.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapXhr.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapTextEffects.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapSlideshow.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapMessageBus.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapMessageBus.CrossFrame.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapDefault.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapMediaQueries.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAccessibility.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapHelpSystem.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAliasFile.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapTopicFeedback.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapFeedbackHelper.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapSkinHelper.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapToc.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapToc.Breadcrumbs.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapToc.MiniToc.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapToc.SideMenu.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapIndex.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapGlossary.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapParser.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapSearch.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapNavigateTopics.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapLms.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapELearning.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapTopic.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapFeedback.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapMicroContentComponent.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapSearchHelper.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapTopicElements.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapTriPane.js" type="text/javascript" defer="defer">
+        </script>
+        <!-- Dark Mode -->
+        <script type="text/javascript" src="../../../Resources/Scripts/VISDarkMode.js"></script>
+        <script type="text/javascript">setSkinTheme("../../Resources/Stylesheets/Doc_Style_Dark.css");</script>
+    </head>
+    <body>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" role="navigation" aria-label="Breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">IDL &gt; </span>
+            </div>
+        </div>
+        <div role="main" id="mc-main-content">
+            <h1 class="ObjClass"><a name="kanchor4971"></a>CLI_Progress</h1>
+            <p>CLI_Progress implements a command line progress bar in the IDL Workbench console or when running IDL in a terminal.<br /></p>
+            <p class="Note" data-mc-autonum="&lt;i&gt;Note: &lt;/i&gt;"><span class="autonumber"><span><i>Note: </i></span></span>Because CLI_Progress takes over the IDL standard output, you should not do any other output (using <a href="../P/PRINT.htm">print</a> for example) while the progress bar is in effect. In addition, only one command-line progress bar can be running at a time.</p>
+            <h2 class="API">Example</h2>
+            <p>Initialize a CLI_Progress bar with a title and maximum length. Then run the progress bar in a loop.</p>
+            <p class="Code">length = 1000 ; for example, file length in bytes</p>
+            <p class="Code">cli_progress.initialize, title = 'Download', maximum = length</p>
+            <p class="Code">for i=0,length do begin &amp; $</p>
+            <p class="Code_Indented">cli_progress.update, i &amp; $</p>
+            <p class="Code_Indented">wait,0.01 &amp; $</p>
+            <p class="Code">endfor</p>
+            <p>IDL prints:</p>
+            <p class="Code">Download 100% [########################################]</p>
+            <p>For more examples see <a href="CLI_ProgressExamples.htm">CLI_Progress Examples</a>.</p>
+            <h2 class="API">Methods</h2>
+            <li><a href="#Initialize">CLI_Progress::Initialize</a>
+            </li>
+            <li><a href="#Update">CLI_Progress::Update</a>
+            </li>
+            <li><a href="#Finish">CLI_Progress::Finish</a>
+            </li>
+            <li><a href="#NewLine">CLI_Progress::NewLine</a>
+            </li>
+            <li><a href="#Erase">CLI_Progress::Erase</a>
+            </li>
+            <h1 class="ObjMethod"><a name="Initialize"></a><a name="kanchor4972"></a>CLI_Progress::Initialize</h1>
+            <p>The CLI_Progress::Initialize static method  sets up a new progress bar and allows you to set multiple properties.</p>
+            <h2 class="API">Syntax</h2>
+            <p class="Syntax">CLI_Progress.Initialize, <a href="#AUTO_FINISH">AUTO_FINISH</a>=0|1, <a href="#COMPLETE_CHAR">COMPLETE_CHAR</a>=<i>string</i>, <a href="#INCOMPLETE_CHAR">INCOMPLETE_CHAR</a>=<i>string</i>, <a href="#MAXIMUM">MAXIMUM</a>=<i>value</i>, <a href="#PERCENT">PERCENT</a>=0|1, <a href="#PING_PONG">/PING_PONG</a>, <a href="#PRESET">PRESET</a>=<i>string</i>, /<a href="#REMAINING">REMAINING</a>, /<a href="#REVERSE">REVERSE</a>, <a href="#SPINNER">SPINNER</a>=<i>integer</i>, <a href="#TEXT">TEXT</a>=<i>string</i>, <a href="#TITLE">TITLE</a>=<i>string</i>, <a href="#WIDTH">WIDTH</a>=<i>integer</i></p>
+            <h2 class="API">Arguments</h2>
+            <p>None</p>
+            <h2 class="API">Keywords</h2>
+            <p>For an example of setting properties see <a href="CLI_ProgressExamples.htm">Setting and Using Properties</a>.</p>
+            <h3 class="Keyword"><a name="AUTO_FINISH"></a>AUTO_FINISH</h3>
+            <p>By default, when the progress bar reaches its maximum, the progress bar will automatically "complete", sending the cursor to the next line and returning control to the user. If this property is set to false (0), then when the progress bar reaches its maximum, the bar will not send the cursor to the next line but will instead keep the cursor  captured and wait for a <a href="#Finish">CLI_Progress::Finish</a> call. The default is true (1).</p>
+            <h3 class="Keyword"><a name="COMPLETE_CHAR"></a>COMPLETE_CHAR</h3>
+            <p>Set this property to a string containing the character (or characters) to use for the "completed" portion of the progress bar. The default is a single hash, "#".</p>
+            <p class="Tip" data-mc-autonum="&lt;i&gt;Tip: &lt;/i&gt;"><span class="autonumber"><span><i>Tip: </i></span></span>When using a <a href="#PING_PONG">PING_PONG</a> bar this property will be used for the string that gets bounced back and forth.</p>
+            <p class="Note" data-mc-autonum="&lt;i&gt;Note: &lt;/i&gt;"><span class="autonumber"><span><i>Note: </i></span></span>COMPLETE_CHAR, INCOMPLETE_CHAR, and WIDTH&#160;are unaware of each other. For example, if you want to use a two-character COMPLETE_CHAR you should also use a two-character INCOMPLETE_CHAR or else the progress bar will grow in length with each call to <a href="#Update">CLI_Progress::Update</a>. In this example, the progress bar will also have a width that is twice the value of the WIDTH&#160;property. </p>
+            <h3 class="Keyword"><a name="INCOMPLETE_CHAR"></a>INCOMPLETE_CHAR</h3>
+            <p>Set this property to a string containing the character (or characters) to use for the "incomplete" portion (the background) of the progress bar. The default is a single dash, "–".</p>
+            <p class="Note" data-mc-autonum="&lt;i&gt;Note: &lt;/i&gt;"><span class="autonumber"><span><i>Note: </i></span></span>COMPLETE_CHAR, INCOMPLETE_CHAR, and WIDTH&#160;are unaware of each other. For example, if you want to use a two-character COMPLETE_CHAR you should also use a two-character INCOMPLETE_CHAR or else the progress bar will grow in length with each call to <a href="#Update">CLI_Progress::Update</a>. In this example, the progress bar will also have a width that is twice the value of the WIDTH&#160;property.</p>
+            <h3 class="Keyword"><a name="MAXIMUM"></a>MAXIMUM</h3>
+            <p>Set this property to an integer giving the maximum value for the progress bar. Once the progress bar reaches this maximum then the bar will "complete", sending the cursor to the next line and returning control to the user. To disable this auto complete see AUTO_FINISH. It also factors into how CLI_Progress determines the completeness of your bar and how the PERCENT keyword is calculated. The default is 100.</p>
+            <p class="Note" data-mc-autonum="&lt;i&gt;Note: &lt;/i&gt;"><span class="autonumber"><span><i>Note: </i></span></span>A ping pong bar defines its Maximum to INF&#160;by default. This can be changed.</p>
+            <h3 class="Keyword"><a name="PERCENT"></a>PERCENT</h3>
+            <p>By default the progress bar automatically displays the percent completed at the front of the progress bar. Set to false (0) to suppress the percentage. The default is true (1) for normal progress bars and false for ping pong bars.</p>
+            <p>PERCENT will add decimal places depending on the size of MAXIMUM.<br />For maximum values: 100-999 it will use 1 decimal place (e.g., 0.8%), 1000-9999 it will use 2 decimal places (e.g., 0.75%), 10000 it will use 3 decimal places (e.g., 0.750%).<br /></p>
+            <p class="Note" data-mc-autonum="&lt;i&gt;Note: &lt;/i&gt;"><span class="autonumber"><span><i>Note: </i></span></span>Because a ping pong bar has no inherent maximum the percent property does not work on ping pong bars unless you also define a MAXIMUM.</p>
+            <h3 class="Keyword"><a name="PING_PONG"></a>PING_PONG</h3>
+            <p>By default, the progress bar displays a normal progress from incomplete to complete, along with a percentage. Instead you can set the PING_PONG property to true (1) to convert the progress bar to a "ping pong" bar (also known as a marquee loading bar). The ping pong bar shows progress through bouncing a character (or set of characters) back and forth from one end of the bar to the other.  The ping pong bar will not end until the <a href="#Finish">CLI_Progress::Finish</a> method is called.</p>
+            <p class="Note" data-mc-autonum="&lt;i&gt;Note: &lt;/i&gt;"><span class="autonumber"><span><i>Note: </i></span></span>Because a ping pong bar has no inherent maximum the PERCENT property will not work on ping pong bars unless you also define a MAXIMUM.</p>
+            <h3 class="Keyword"><a name="PRESET"></a>PRESET</h3>
+            <p>Set this property to a string to specify a pre-canned property bar. Using one of these presets will automatically set multiple properties. You can also combine one of the preset values with additional properties or even override one of the preset properties. Possible values are:</p>
+            <table class="TableStyle-Property_Table" style="mc-table-style: url('../../Resources/TableStyles/Property_Table.css');margin-left: 0;margin-right: auto;caption-side: top;" cellspacing="0">
+                <col style="width: 161px;" class="TableStyle-Property_Table-Column-Column1" />
+                <col class="TableStyle-Property_Table-Column-Column1" />
+                <col style="width: 93px;" class="TableStyle-Property_Table-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Property_Table-Head-Header1">
+                        <th class="TableStyle-Property_Table-HeadE-Column1-Header1">Property value</th>
+                        <th class="TableStyle-Property_Table-HeadE-Column1-Header1">Example</th>
+                        <th class="TableStyle-Property_Table-HeadD-Column1-Header1">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Property_Table-Body-Body1">
+                        <td class="TableStyle-Property_Table-BodyH-Column1-Body1">
+                            <p>"retro"						</p>
+                        </td>
+                        <td class="TableStyle-Property_Table-BodyH-Column1-Body1">
+                            <p class="Code">[|]  30% [============----------------------------]						</p>
+                        </td>
+                        <td class="TableStyle-Property_Table-BodyG-Column1-Body1">
+                            <p>Uses no Unicode characters						</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Property_Table-Body-Body1">
+                        <td class="TableStyle-Property_Table-BodyE-Column1-Body1">
+                            <p>"diamonds"					</p>
+                        </td>
+                        <td class="TableStyle-Property_Table-BodyE-Column1-Body1">
+                            <p class="Code">30% [◆◆◆◆◆◆◆◆◆◆◆◆◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇]</p>
+                        </td>
+                        <td class="TableStyle-Property_Table-BodyD-Column1-Body1">
+                            <p>Unicode, may not work in some terminals</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Property_Table-Body-Body2">
+                        <td class="TableStyle-Property_Table-BodyH-Column1-Body2">
+                            <p>"shades"						</p>
+                        </td>
+                        <td class="TableStyle-Property_Table-BodyH-Column1-Body2">
+                            <p class="Code">30% [████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░]</p>
+                        </td>
+                        <td class="TableStyle-Property_Table-BodyG-Column1-Body2">
+                            <p>Unicode, may not work in some terminals</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Property_Table-Body-Body2">
+                        <td class="TableStyle-Property_Table-BodyE-Column1-Body2">
+                            <p>"squares"						</p>
+                        </td>
+                        <td class="TableStyle-Property_Table-BodyE-Column1-Body2">
+                            <p class="Code">30% [■■■■■■■■■■■■&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;]</p>
+                        </td>
+                        <td class="TableStyle-Property_Table-BodyD-Column1-Body2">
+                            <p>Unicode, may not work in some terminals						</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Property_Table-Body-Body1">
+                        <td class="TableStyle-Property_Table-BodyB-Column1-Body1">
+                            <p>"ping_pong"					</p>
+                        </td>
+                        <td class="TableStyle-Property_Table-BodyB-Column1-Body1">
+                            <p class="Code">[------------------------------&lt;&gt;----------]					</p>
+                        </td>
+                        <td class="TableStyle-Property_Table-BodyA-Column1-Body1">
+                            <p>
+						Uses no Unicode characters</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3 class="Keyword"><a name="REVERSE"></a>REVERSE</h3>
+            <p>Reverse is a <a href="#PING_PONG">PING_PONG</a> only keyword.<br />Normally, for ping pong bars the ping pong string (set via the COMPLETE_CHAR property) will simply bounce back and forth unchanged. Set REVERSE to true (1) to force the ping pong string to be reversed when traveling from right to left. This is useful for ping pong strings that have a definite "head" and "tail".</p>
+            <h3 class="Keyword"><a name="SPINNER"></a>SPINNER</h3>
+            <p>Set this property to an integer giving the default "spinner value". The spinner is displayed to the left of the progress bar. Each call to <a href="#Update">CLI_Progress::Update</a> will automatically cycle through the spinner characters, giving the illusion of a "busy" indicator. Possible values are:</p>
+           
+            <h3 class="Keyword"><a name="TEXT"></a>TEXT</h3>
+            <p>Set this property to a string containing the text description for the progress bar. The text is displayed to the <i>right</i> of the progress bar. The default is an empty string.</p>
+            <h3 class="Keyword"><a name="TITLE"></a>TITLE</h3>
+            <p>Set this property to a string containing the title for the progress bar. The title is displayed to the <i>left</i> of the progress bar. The default is an empty string.</p>
+            <h3 class="Keyword"><a name="WIDTH"></a>WIDTH</h3>
+            <p>Set this property to an integer giving the width of the progress bar in characters. This width is just for the characters within the square brackets, and does not include the title or percentage. The default is 40.</p>
+            <h3 class="Keyword"><a name="REMAINING"></a>REMAINING</h3>
+            <p>Set this property to display the remaining time at the end of your progress bar, positioned before your <a href="#TEXT">TEXT</a>. The approximate remaining time is automatically computed after each update.<a href="CLI_ProgressExamples.htm#REMAININGEX"> See example</a>. </p>
+            <p class="Tip" data-mc-autonum="&lt;i&gt;Tip: &lt;/i&gt;"><span class="autonumber"><span><i>Tip: </i></span></span>For a more precise estimation, space your updates evenly throughout the execution of your code.</p>
+            <h1 class="ObjMethod"><a name="Update"></a><a name="kanchor4973"></a>CLI_Progress::Update</h1>
+            <p>The CLI_Progress::Update static method updates the progress bar.<br /></p>
+            <h2 class="API">Syntax</h2>
+            <p class="Syntax">CLI_Progress.Update [,&#160;<i>Progress</i>,&#160;OUTPUT=<i>variable</i>] [,&#160;TEXT=<i>string</i>]</p>
+            <h2 class="API">Arguments</h2>
+            <h3 class="Keyword">PROGRESS</h3>
+            <p>The optional progress argument specifies the current completeness of the progress bar. This progress value should be relative to the value of the MAXIMUM property. If <i>Progress</i> is not specified then CLI_Progress will be incremented by 1.</p>
+            <h2 class="API">Keywords</h2>
+            <h3 class="Keyword">OUTPUT</h3>
+            <p> Set this keyword to a named variable to skip printing. If OUTPUT is present then the intended output will be written to this variable instead. <a href="CLI_ProgressExamples.htm#OUTPUTEX">See example</a></p>
+            <h3 class="Keyword">TEXT</h3>
+            <p> Set this keyword to a string giving the new value for the TEXT property, which is output to the right of the progress bar.</p>
+            <h1 class="ObjMethod"><a name="Finish"></a><a name="kanchor4974"></a>CLI_Progress::Finish</h1>
+            <p>The CLI_Progress::Finish static method updates the progress bar to the "complete" state, sending the cursor to the next line and returning control to the user.  If the progress bar is already finished then calling CLI_Progress::Finish will have no effect. <br /></p>
+            <h2 class="API">Syntax</h2>
+            <p class="Syntax">CLI_Progress.Finish [,&#160;OUTPUT=<i>variable</i>] [,&#160;TEXT=<i>string</i>]</p>
+            <h2 class="API">Arguments</h2>
+            <p>None</p>
+            <h2 class="API">Keywords</h2>
+            <h3 class="Keyword">OUTPUT</h3>
+            <p> Set this keyword to a named variable to skip printing. If OUTPUT is present then the intended output will be written to this variable instead.<a href="CLI_ProgressExamples.htm#OUTPUTEX"> See example</a>.</p>
+            <h3 class="Keyword">TEXT</h3>
+            <p> Set this keyword to a string giving the new value for the TEXT property, which is output to the right of the progress bar.</p>
+            <h1 class="ObjMethod"><a name="NewLine"></a><a name="kanchor4975"></a>CLI_Progress::NewLine</h1>
+            <p>The CLI_Progress::NewLine static method outputs a newline to the console. </p>
+            <p class="Tip" data-mc-autonum="&lt;i&gt;Tip: &lt;/i&gt;"><span class="autonumber"><span><i>Tip: </i></span></span>While the progress bar is active, the cursor is temporarily frozen until the bar finishes. You can use this method to output a newline, perhaps before outputting some additional information.</p>
+            <p class="Note" data-mc-autonum="&lt;i&gt;Note: &lt;/i&gt;"><span class="autonumber"><span><i>Note: </i></span></span>If you resume using the progress bar, the progress bar will continue on the next line; it will not return to the original progress bar line.</p>
+            <h2 class="API">Syntax</h2>
+            <p class="Syntax">CLI_Progress.Newline</p>
+            <h2 class="API">Arguments</h2>
+            <p>None</p>
+            <h2 class="API">Keywords</h2>
+            <p>None</p>
+            <h1 class="ObjMethod"><a name="Erase"></a><a name="kanchor4976"></a>CLI_Progress::Erase</h1>
+            <p>The CLI_Progress::Erase static method will erase the progress bar and return the cursor to the start of the line.</p>
+            <h2 class="API">Syntax</h2>
+            <p class="Syntax">CLI_Progress.Erase</p>
+            <h2 class="API">Arguments</h2>
+            <p>None</p>
+            <h2 class="API">Keywords</h2>
+            <p>None</p>
+            <h2 class="API">Version History</h2>
+            <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/VersionTable.css');" cellspacing="0" class="TableStyle-VersionTable">
+                <col class="TableStyle-VersionTable-Column-Column1" />
+                <col class="TableStyle-VersionTable-Column-Column1" />
+                <tbody>
+                    <tr class="TableStyle-VersionTable-Body-Body1">
+                        <td class="TableStyle-VersionTable-BodyB-Column1-Body1">
+                            <p>9.1</p>
+                        </td>
+                        <td class="TableStyle-VersionTable-BodyA-Column1-Body1">
+                            <p>Introduced</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 class="API">See Also</h2>
+            <p><a href="CLI_ProgressExamples.htm">CLI_Progress Examples</a>
+            </p>
+        </div>
+        <div class="mp_footer">© <span class="mc-variable DocumentTitle.CopyrightYear variable">2024</span> <span class="mc-variable DocumentTitle.CopyrightCompanyName variable">NV5 Geospatial Solutions, Inc.</span> All Rights Reserved.<br />This information is not subject to the controls of the International Traffic in Arms Regulations (ITAR) or the Export Administration Regulations (EAR).</div>
+    </body>
+</html>

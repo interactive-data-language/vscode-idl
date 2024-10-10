@@ -1,5 +1,5 @@
-import { writeFileSync } from 'fs';
-import { join } from 'path';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { dirname, join } from 'path';
 
 import { ParsedToGlobal } from './helpers/parsed-to-global';
 import { SetTaskTypes } from './helpers/set-task-types';
@@ -54,11 +54,14 @@ async function Main() {
   // save all of our type overrides to disk, now that they have been updated
   // SaveTypeOverrides();
 
+  const unknowns = join(process.cwd(), './parse-test/unknown.json');
+  const unknownsDir = dirname(unknowns);
+  if (!existsSync(unknownsDir)) {
+    mkdirSync(unknownsDir, { recursive: true });
+  }
+
   // write to disk
-  writeFileSync(
-    join(process.cwd(), './parse-test/unknown.json'),
-    JSON.stringify(UNKNOWN_GUESSES, null, 2)
-  );
+  writeFileSync(unknowns, JSON.stringify(UNKNOWN_GUESSES, null, 2));
 
   console.log('Done!');
   console.log('');

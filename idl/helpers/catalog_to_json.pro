@@ -198,6 +198,12 @@ function getTypeOverrides
   typeOverride['yaml_sequence'] = 'f'
   typeOverride['yaml_stream_sequence'] = 'f'
   typeOverride['yaml_value'] = 'f'
+  typeOverride['idl_hashvar'] = 'f'
+  typeOverride['CLI_Progress'] = 'f'
+  typeOverride['CLI_Progress::Initialize'] = 'pm'
+  typeOverride['CLI_Progress::Update'] = 'pm'
+  typeOverride['ExtractDeepLearningObjectModelFromFile'] = 'f'
+  typeOverride['ExtractDeepLearningGridModelFromFile'] = 'f'
 
   ; valuidate our overrides
   stahp = !false
@@ -241,6 +247,9 @@ function getNameOverrides
   nameOverride['idl_validname'] = 'IDL_ValidName'
   nameOverride['idlexbr_assistant'] = 'IDLExBr_Assistant'
   nameOverride['idlitsys_createtool'] = 'IDLITSys_CreateTool'
+
+  ; typo in docs for 9.1
+  nameOverride['cli_progres:initialize'] = 'CLI_Progress::Initialize'
 
   return, nameOverride
 end
@@ -659,11 +668,13 @@ for i = 0, n_elements(internalFunc) - 1 do internalFuncHash[internalFunc[i]] = !
 ; parse files if we have not already
 ; this is a main level program to store the results in memory
 ; because they are large XML files to parse
+; idl-disable-next-line var-use-before-def
 if ~isa(parsedFiles, 'hash') then begin
   parsedFiles = orderedhash()
 endif
 
 ; load our tooltips
+; idl-disable-next-line var-use-before-def
 if ~isa(tooltips, 'orderedhash') then begin
   print, 'Loading tooltips...'
   tooltips = catalog_to_json_get_tooltips()
@@ -674,6 +685,9 @@ nProcessed = 0
 
 ; initialize all of our items
 allItems = list()
+
+; add a few manual items that are missing from the XML files
+allItems.add, hash('name', 'CLI_Progress::Initialize', 'link', 'CLI_Progress.htm#Initialize', 'type', 'pm', 'source', 'idl')
 
 ; type overrides for routine types
 typeOverride = getTypeOverrides()

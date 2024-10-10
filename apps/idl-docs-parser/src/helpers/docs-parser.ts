@@ -6,8 +6,10 @@ import {
   OBSOLETE_PROCEDURES,
 } from '@idl/parsing/routines';
 import { IDL_DOCS_HEADERS } from '@idl/parsing/syntax-tree';
-import { readFileSync } from 'fs';
+import { GetExtensionPath } from '@idl/shared';
+import { existsSync, readFileSync } from 'fs';
 import { parse } from 'himalaya';
+import { basename, join } from 'path';
 
 import { IHTMLByRoutine, IRoutineHTML } from '../main.interface';
 import { InheritanceGuess } from '../type-guess/inheritance-guess';
@@ -17,6 +19,8 @@ import { HTMLToMarkdownBasic } from './html-to-markdown';
 import { JoinCode } from './join-code';
 import { IParsedHTML } from './parser.interface';
 import { IParameterHTML } from './process-parameters.interface';
+
+const HTML_DIR = GetExtensionPath('apps/idl-docs-parser/src/htmls');
 
 /**
  * Cleans the name of an item that we store in an object. Must clean up
@@ -47,9 +51,15 @@ function IsLikelyObsolete(name: string) {
 /**
  * Loads and parses HTML data for docs
  */
-export async function ParseDocsHTML(file: string) {
+export async function ParseDocsHTML(docsFile: string) {
+  /** Get override path */
+  const override = join(HTML_DIR, basename(docsFile));
+
+  /** Check for override file */
+  const useFile = existsSync(override) ? override : docsFile;
+
   // read a file
-  const strings = readFileSync(file, { encoding: 'utf-8' });
+  const strings = readFileSync(useFile, { encoding: 'utf-8' });
 
   /** Parse the HTML */
   const parsed: IParsedHTML[] = parse(strings);
@@ -341,7 +351,6 @@ export async function ParseDocsHTML(file: string) {
               break;
             }
             default:
-              element.tagName === 'h5';
               children.push(element);
               // children = [];
               // routineDocs[title] = children;
