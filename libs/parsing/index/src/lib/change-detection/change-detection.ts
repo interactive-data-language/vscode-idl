@@ -31,13 +31,19 @@ export async function ChangeDetectionWorkerThread(
   /** Files that we will post-process again */
   const postProcessThese: string[] = [];
 
-  /** Get files */
-  const files = Array.from(index.fileTypes['pro']);
+  /** Get files we know about */
+  const files = index.parsedCache.allFiles();
+  // const files = Array.from(index.fileTypes['pro']);
 
   // process each file
   for (let z = 0; z < files.length; z++) {
     // get our parsed file
     const uses = index.parsedCache.uses(files[z]);
+
+    // skip if we dont have the lookup
+    if (!uses) {
+      continue;
+    }
 
     // check for a match
     for (let i = 0; i < changed.length; i++) {
