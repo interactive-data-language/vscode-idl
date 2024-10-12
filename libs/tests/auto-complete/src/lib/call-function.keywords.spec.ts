@@ -208,18 +208,12 @@ describe(`[auto generated] Keywords for call function`, () => {
       { label: '!path', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!prompt', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!quiet', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!theme', kind: 21, sortText: '90', detail: 'System Variable' },
       {
         label: '!version',
         kind: 21,
         sortText: '90',
         detail: 'System Variable',
-      },
-      {
-        label: "ENVITask('InitializeENVINet5MultiModel')",
-        insertText: "ENVITask('InitializeENVINet5MultiModel')",
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
       },
     ];
 

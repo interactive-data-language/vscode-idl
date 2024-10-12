@@ -412,6 +412,14 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
+        label: 'IDL_Variable::where()',
+        insertText: 'where()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
         label: 'IDL_String::capWords()',
         insertText: 'capWords()',
         kind: 2,
@@ -438,14 +446,6 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
       {
         label: 'IDL_String::contains()',
         insertText: 'contains()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_String::decrypt()',
-        insertText: 'decrypt()',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',
@@ -1280,6 +1280,14 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
       {
         label: 'IDL_Variable::uniq()',
         insertText: 'uniq()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_Variable::where()',
+        insertText: 'where()',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',

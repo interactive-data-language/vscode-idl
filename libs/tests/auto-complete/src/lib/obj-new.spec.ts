@@ -130,6 +130,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
       { label: '!path', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!prompt', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!quiet', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!theme', kind: 21, sortText: '90', detail: 'System Variable' },
       {
         label: '!version',
         kind: 21,
@@ -187,13 +188,6 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         sortText: '03',
         detail: 'Function',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: "ENVITask('BuildDeepLearningRaster')",
-        insertText: "ENVITask('BuildDeepLearningRaster')",
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
       },
     ];
 

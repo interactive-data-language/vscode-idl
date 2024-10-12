@@ -877,6 +877,14 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
+      {
+        label: 'IDL_Variable::where()',
+        insertText: 'where()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
     ];
 
     // verify results
@@ -1001,7 +1009,31 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ExtractDeepLearningObjectModelFromFile',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITensorFlowPixelClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ExtractDeepLearningGridModelFromFile',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIClassActivationToPolygonROITask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITensorFlowOptimizedObjectClassificationTask',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
@@ -1049,13 +1081,13 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVITrainTensorFlowGridModelTask',
+        label: 'ENVIExtractDeepLearningLabelRasterFromFileTask',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
       },
       {
-        label: 'ENVIExtractDeepLearningLabelRasterFromFileTask',
+        label: 'ENVITrainTensorFlowGridModelTask',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
@@ -1103,19 +1135,7 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVITensorFlowOptimizedObjectClassificationTask',
-        kind: 7,
-        sortText: '00',
-        detail: 'Structure',
-      },
-      {
         label: 'ENVITensorFlowOptimizedPixelClassificationTask',
-        kind: 7,
-        sortText: '00',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVITensorFlowPixelClassificationTask',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
@@ -1157,6 +1177,12 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVITopographicBreaklinesTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIConvertGeographicToMapCoordinatesTask',
         kind: 7,
         sortText: '00',
@@ -1166,24 +1192,6 @@ describe(`[auto generated] Structures`, () => {
       { label: 'ENVIAbortable', kind: 7, sortText: '00', detail: 'Structure' },
       {
         label: 'ENVILinearSpectralUnmixingTask',
-        kind: 7,
-        sortText: '00',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIVectorRecordsToBoundingBoxTask',
-        kind: 7,
-        sortText: '00',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIMaximumLikelihoodClassificationTask',
-        kind: 7,
-        sortText: '00',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVICalibrateRaster',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
@@ -1293,7 +1301,31 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ExtractDeepLearningObjectModelFromFile',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITensorFlowPixelClassificationTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ExtractDeepLearningGridModelFromFile',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIClassActivationToPolygonROITask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVITensorFlowOptimizedObjectClassificationTask',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
@@ -1341,13 +1373,13 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVITrainTensorFlowGridModelTask',
+        label: 'ENVIExtractDeepLearningLabelRasterFromFileTask',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
       },
       {
-        label: 'ENVIExtractDeepLearningLabelRasterFromFileTask',
+        label: 'ENVITrainTensorFlowGridModelTask',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
@@ -1395,19 +1427,7 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVITensorFlowOptimizedObjectClassificationTask',
-        kind: 7,
-        sortText: '00',
-        detail: 'Structure',
-      },
-      {
         label: 'ENVITensorFlowOptimizedPixelClassificationTask',
-        kind: 7,
-        sortText: '00',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVITensorFlowPixelClassificationTask',
         kind: 7,
         sortText: '00',
         detail: 'Structure',
@@ -1449,6 +1469,12 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVITopographicBreaklinesTask',
+        kind: 7,
+        sortText: '00',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIConvertGeographicToMapCoordinatesTask',
         kind: 7,
         sortText: '00',
@@ -1458,24 +1484,6 @@ describe(`[auto generated] Structures`, () => {
       { label: 'ENVIAbortable', kind: 7, sortText: '00', detail: 'Structure' },
       {
         label: 'ENVILinearSpectralUnmixingTask',
-        kind: 7,
-        sortText: '00',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIVectorRecordsToBoundingBoxTask',
-        kind: 7,
-        sortText: '00',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIMaximumLikelihoodClassificationTask',
-        kind: 7,
-        sortText: '00',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVICalibrateRaster',
         kind: 7,
         sortText: '00',
         detail: 'Structure',

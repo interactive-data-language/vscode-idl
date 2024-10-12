@@ -145,6 +145,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-destroy`, () 
       { label: '!path', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!prompt', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!quiet', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!theme', kind: 21, sortText: '90', detail: 'System Variable' },
       {
         label: '!version',
         kind: 21,
@@ -182,14 +183,6 @@ describe(`[auto generated] Correctly return auto-complete from obj-destroy`, () 
       {
         label: 'ENVIBoundingBoxSet()',
         insertText: 'ENVIBoundingBoxSet()',
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'ENVITensorFlowGridModel()',
-        insertText: 'ENVITensorFlowGridModel()',
         kind: 3,
         sortText: '03',
         detail: 'Function',

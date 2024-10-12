@@ -150,6 +150,7 @@ describe(`[auto generated] Verify auto-complete for`, () => {
       { label: '!path', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!prompt', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!quiet', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!theme', kind: 21, sortText: '90', detail: 'System Variable' },
       {
         label: '!version',
         kind: 21,
@@ -187,14 +188,6 @@ describe(`[auto generated] Verify auto-complete for`, () => {
       {
         label: 'ENVIBoundingBoxSet()',
         insertText: 'ENVIBoundingBoxSet()',
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'ENVITensorFlowGridModel()',
-        insertText: 'ENVITensorFlowGridModel()',
         kind: 3,
         sortText: '03',
         detail: 'Function',
@@ -349,6 +342,7 @@ describe(`[auto generated] Verify auto-complete for`, () => {
       { label: '!path', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!prompt', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!quiet', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!theme', kind: 21, sortText: '90', detail: 'System Variable' },
       {
         label: '!version',
         kind: 21,
@@ -382,14 +376,6 @@ describe(`[auto generated] Verify auto-complete for`, () => {
         kind: 3,
         sortText: '03',
         detail: 'Function',
-      },
-      {
-        label: 'ENVIBoundingBoxSet()',
-        insertText: 'ENVIBoundingBoxSet()',
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
     ];
 

@@ -102,6 +102,18 @@ describe(`[auto generated] Verify types being used for`, () => {
         },
       },
       {
+        label: 'modality',
+        insertText: 'modality',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of ENVIRaster',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A string specifying the type (category) of the raster. Possible values are `Optical`, `Radar`, `DEM`, and `Thermal`. ENVI extracts this property based on the value of the [sensor type](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExploreImagery/ENVIHeaderFiles.htm#sensor%255Ftype%22%7D) metadata. If sensor type is not set, modality will be an empty string.',
+        },
+      },
+      {
         label: 'nbands',
         insertText: 'nbands',
         kind: 5,
@@ -313,6 +325,18 @@ describe(`[auto generated] Verify types being used for`, () => {
           kind: 'markdown',
           value:
             'This property retrieves a reference to the [ENVIRasterMetadata](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRasterMetadata/ENVIRasterMetaData.htm%22%7D) object. If METADATA and INHERITS\\_FROM are both set, the new raster will have the union of both sets of metadata. The METADATA values override those from INHERITS\\_FROM if there is a conflict.',
+        },
+      },
+      {
+        label: 'modality',
+        insertText: 'modality',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of ENVIRaster',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A string specifying the type (category) of the raster. Possible values are `Optical`, `Radar`, `DEM`, and `Thermal`. ENVI extracts this property based on the value of the [sensor type](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExploreImagery/ENVIHeaderFiles.htm#sensor%255Ftype%22%7D) metadata. If sensor type is not set, modality will be an empty string.',
         },
       },
       {
