@@ -14,3 +14,8 @@ export interface IChangeDetection {
   /** Global tokens that have changed */
   globals: { [key: string]: GlobalTokens };
 }
+
+/**
+ * Maximum number of change detection jumps
+ */
+export const CHANGE_DETECTION_MAX_DEPTH = 10;

@@ -97,6 +97,10 @@ export type ChangeDetectionResponse = {
   problems: {
     [file: string]: SyntaxProblems;
   };
+  /** Any globals that have changed, by file */
+  globals: {
+    [file: string]: GlobalTokens;
+  };
   /** Files we tried to perform change detection on, but were missing */
   missing: string[];
 };
@@ -436,17 +440,7 @@ export interface PostProcessFilesPayload {
 /**
  * Response when we post process files
  */
-export interface PostProcessFilesResponse {
-  /** Problems we detected, by file */
-  problems: {
-    [file: string]: SyntaxProblems;
-  };
-  /** Global tokens that have changed, by file (contains all globals for file) */
-  globals: {
-    [file: string]: GlobalTokens;
-  };
-  /** Files we tried to post-process, but were missing */
-  missing: string[];
+export interface PostProcessFilesResponse extends ChangeDetectionResponse {
   /** Number of lines of code */
   lines: number;
 }

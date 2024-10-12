@@ -4,7 +4,7 @@ import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
 import { PrepareNotebookCell } from '@idl/notebooks/idl-index';
 import { ParseFileSync } from '@idl/parser';
 import {
-  ChangeDetection,
+  ChangeDetectionWorkerThread,
   GetCompletionRecipes,
   GetHoverHelpLookup,
   GetParsedPROCode,
@@ -129,7 +129,23 @@ client.on(
 client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL, async (message) => {
   const files = Object.keys(message);
   for (let i = 0; i < files.length; i++) {
+    /**
+     * Ignore files that we have parsed
+     *
+     * We need to have the same object references for global tokens
+     * and the parsed data structure so thats why we skip this
+     *
+     * Not to mention we update these locally on post-processing so
+     * we dont need it from everyone
+     */
+    if (WORKER_INDEX.parsedCache.has(files[i])) {
+      continue;
+    }
+
+    // save as known file
     WORKER_INDEX.knownFiles[files[i]] = undefined;
+
+    // update global tokens we track
     WORKER_INDEX.globalIndex.trackGlobalTokens(
       ReduceGlobals(message[files[i]]),
       files[i]
@@ -159,7 +175,7 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.CHANGE_DETECTION,
   async (message, cancel) => {
     // run change detection!
-    const changed = await ChangeDetection(
+    const changed = await ChangeDetectionWorkerThread(
       WORKER_INDEX,
       cancel,
       message.changed
@@ -172,6 +188,7 @@ client.on(
     const problemsByFile: ChangeDetectionResponse = {
       problems: {},
       missing: changed.missing,
+      globals: changed.globals,
     };
 
     // populate
@@ -189,7 +206,12 @@ client.on(
  * Clean up and return memory usage
  */
 client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, async (message) => {
-  await WORKER_INDEX.clearParsedCache(message?.all);
+  /**
+   * Don't clean up parsed cache - otherwise change detection doesnt work
+   */
+  // await WORKER_INDEX.clearParsedCache(message?.all);
+
+  // run GC
   await WORKER_INDEX.cleanUp();
 });
 

@@ -33,6 +33,8 @@ This marks the first step of an iterative process to automatically detect types 
 
 In order to detect types from your code, we had to make some pretty big changes to the language server in order to support this new paradigm. With that, if you notice any odd behaviors or issues, please reach out to us on Github to let us know of any problems.
 
+In order for our type detection functionality to function correctly, we did have to revert a change we recently made to reduce long-term memory usage of the language server.
+
 Tweaked the in-memory cache for parsed files to optimize performance. We no longer copy complex data structures which adds a 10-15% performance improvement parse speed and helps reduce memory usage.
 
 Optimized the language server change detection process to focus on only routines/globals that have changed (change detection is a process for validating usage of routines in other files when the source definition is updated).
