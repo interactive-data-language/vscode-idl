@@ -4,6 +4,7 @@
 /.github
 /.vscode
 /.vscode-test
+apps/idl-docs-parser/src/htmls
 /dist
 /coverage
 /idl/test/client-e2e
