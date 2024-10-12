@@ -110,6 +110,9 @@ export async function ChangeDetectionMainThread(
 
   // eslint-disable-next-line no-constant-condition
   while (true) {
+    // check if we canceled
+    token.throwIfCancelled();
+
     /**
      * Check exit conditions
      */
