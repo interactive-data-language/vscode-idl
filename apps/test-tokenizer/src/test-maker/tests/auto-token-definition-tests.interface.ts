@@ -22,6 +22,28 @@ export const AUTO_TOKEN_DEFINITION_TESTS: ITokenDefTests[] = [
   },
   {
     suiteName: `Correctly get routine definition for`,
+    fileName: `change-detection-dynamic.1.spec.ts`,
+    tests: [
+      {
+        name: `change detection with proper type`,
+        files: [
+          `idl/test/change-detection/dynamic/leap4.pro`,
+          // purposely out of order
+          `idl/test/change-detection/dynamic/leap2.pro`,
+          `idl/test/change-detection/dynamic/leap.pro`,
+          `idl/test/change-detection/dynamic/leap3.pro`,
+        ],
+        position: [
+          {
+            line: 8,
+            character: 11,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly get routine definition for`,
     fileName: `def-files.1.spec.ts`,
     tests: [
       {
