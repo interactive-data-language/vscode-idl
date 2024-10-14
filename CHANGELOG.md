@@ -20,7 +20,7 @@ IDL 9.1 introduces new, command-line based progress bars. We have a first-pass o
 
 ## 4.7.0 - October 2024
 
-Added a first pass of being able to statically determine the return types for functions and function methods that don't have documentation. This means that, for the following example, we properly detect that we return a long:
+Added the ability to statically determine the return types for functions and function methods that don't have documentation. This means that, for the following example, we properly detect that we return an IDL Long (because of `compile_opt idl2`):
 
 ```idl
 function myFunc
@@ -31,19 +31,19 @@ end
 
 This marks the first step of an iterative process to automatically detect types from code when you don't have strict documentation. We can also, in the future, check to make sure actual return values match docs.
 
-In order to detect types from your code, we had to make some pretty big changes to the language server in order to support this new paradigm. With that, if you notice any odd behaviors or issues, please reach out to us on Github to let us know of any problems.
+In order to detect types from your code, we had to make some pretty big changes to the language server in order to properly resolve types that don't come from documentation. With that, if you notice any odd behaviors or issues, please reach out to us on Github to let us know of any problems. For large workspaces, such as the IDL lib folder, this means it will take about 1.5-2.5 more seconds to parse your code (depending on complexity of your code base and how many routines are called in other files).
 
-In order for our type detection functionality to function correctly, we did have to revert a change we recently made to reduce long-term memory usage of the language server.
+In order for our type detection functionality to work correctly, we did have to revert a change we recently made to reduce long-term memory usage of the language server.
 
-Tweaked the in-memory cache for parsed files to optimize performance. We no longer copy complex data structures which adds a 10-15% performance improvement parse speed and helps reduce memory usage.
+However, we did tweak the in-memory cache for parsed files to optimize performance. We no longer copy complex data structures which adds a 10-15% performance improvement parse speed and helps reduce memory usage.
 
-Optimized the language server change detection process to focus on only routines/globals that have changed (change detection is a process for validating usage of routines in other files when the source definition is updated).
+Optimized the language server change detection process to focus on only routines/globals that have changed and not everything in a file (change detection is a process for validating usage of routines in other files when the source definition is updated).
 
-Changed the error message reported when we can't find a structure definition. This adds some context for why we might not know about a structure definition to help users who aren't following best practices.
+Changed the error message reported when we can't find a structure definition. This adds some context for why we might not know about a structure definition to help users who aren't following best practices/standards.
 
 Fixed a bug where code actions were not appearing in notebook cells.
 
-Fixed an issue with code actions in notebook cells where, if it was the first line, that the IDL code would get replaced instead of have a new line added above.
+Fixed an issue with code actions, in notebooks, incorrectly fixed issues on the first line of a cell.
 
 Fixed an issue where the language server was not correctly detecting pointers being de-referenced. This caused false errors for "standalone expressions" to be reported and for formatting to not function correctly.
 
