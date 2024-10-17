@@ -325,7 +325,8 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
     workerId: string,
     type: T,
     payload: PayloadToWorkerBaseMessage<T>,
-    timeout?: number
+    timeout?: number,
+    cancel = new CancellationToken()
   ): IPostAndReceiveMessageResult<T> {
     // make sure we have an ID to send a message to
     if (!(workerId in this.workers)) {
@@ -333,11 +334,6 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
         `Attempted to send message to worker "${workerId}", but it does not exist`
       );
     }
-
-    /**
-     * Create cancellation token
-     */
-    const cancel = new CancellationToken();
 
     // make message we send to the worker
     const msg: IMessageToWorker<_Message> = {

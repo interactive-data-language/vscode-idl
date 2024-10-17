@@ -1,3 +1,4 @@
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { IPostAndReceiveMessageResult, IWorkerIO } from '@idl/workers/workerio';
 import { Subject } from 'rxjs';
 
@@ -42,7 +43,8 @@ export interface ILSPWorkerWorkerIO<_Message extends LSPWorkerThreadMessage>
     workerId: string,
     type: T,
     payload: PayloadToLSPWorker<T>,
-    timeout?: number
+    timeout?: number,
+    cancel?: CancellationToken
   ): ILSPWorkerWorkerIOPostAndReceiveMessageResult<T>;
 
   /**

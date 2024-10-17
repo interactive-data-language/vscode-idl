@@ -85,7 +85,7 @@ export async function ChangeDetectionWorkerThread(
  */
 export async function ChangeDetectionMainThread(
   index: IDLIndex,
-  token: CancellationToken,
+  cancel: CancellationToken,
   changed: GlobalTokens
 ) {
   /**
@@ -117,7 +117,7 @@ export async function ChangeDetectionMainThread(
   // eslint-disable-next-line no-constant-condition
   while (true) {
     // check if we canceled
-    token.throwIfCancelled();
+    cancel.throwIfCancelled();
 
     /**
      * Check exit conditions
@@ -145,7 +145,9 @@ export async function ChangeDetectionMainThread(
         index.indexerPool.workerio.postAndReceiveMessage(
           ids[i],
           LSP_WORKER_THREAD_MESSAGE_LOOKUP.CHANGE_DETECTION,
-          { changed }
+          { changed },
+          undefined,
+          cancel
         ).response
       );
     }
