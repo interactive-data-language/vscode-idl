@@ -4,7 +4,7 @@ function leap4
   return, leap3()
 end
 
-compil_opt idl2
+compile_opt idl2
 
 _void = leap4()
 
