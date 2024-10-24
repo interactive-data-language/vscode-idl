@@ -1529,4 +1529,35 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       },
     },
   },
+  window: {
+    returns: ParseIDLType('Window'),
+    args: {},
+    kws: {
+      buffer: {
+        direction: 'in',
+        docs: 'Set this keyword to 1 to direct the graphics to an off-screen buffer instead of creating a window.',
+        type: IDL_BOOLEAN_TYPE,
+      },
+      dimensions: {
+        direction: 'in',
+        docs: `Set this keyword to a two-element vector of the form [width, height] to specify the window dimensions in pixels.\n\nTip: The minimum width is set by the toolbar in the window, usually around 400 pixels. To create a smaller graphics window, use the NO_TOOLBAR keyword.`,
+        type: ParseIDLType(`Array<Number>`),
+      },
+      location: {
+        direction: 'out',
+        docs: "Set this keyword to a two-element vector [X offset, Y offset] giving the window's screen offset in pixels.",
+        type: ParseIDLType(`Array<any>`),
+      },
+      no_toolbar: {
+        direction: 'in',
+        docs: "By default the graphics window will have a toolbar containing some common tools such as Print and Save. Set this keyword to remove the toolbar. This keyword has no effect if the window is already created.\n\nTip: When the toolbar exists, the minimum window width is set to the 's width, usually around 400 pixels. To create a smaller graphics window, use the NO_TOOLBAR keyword.",
+        type: IDL_BOOLEAN_TYPE,
+      },
+      widgets: {
+        direction: 'in',
+        docs: 'By default, when running from the IDL Workbench, the graphics window will use the native widgets for your platform. Set this keyword to instead use IDL widgets for the graphics window. This keyword is ignored when running from the IDL command line, since IDL widgets are always used in that case.',
+        type: IDL_BOOLEAN_TYPE,
+      },
+    },
+  },
 };
