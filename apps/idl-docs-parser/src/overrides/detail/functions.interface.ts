@@ -1412,6 +1412,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     args: {},
     kws: {},
   },
+  strcmp: {
+    returns: IDL_BOOLEAN_TYPE,
+    args: {},
+    kws: {},
+  },
   total: {
     returns: ParseIDLType('Number | Array<Number>'),
     args: {
