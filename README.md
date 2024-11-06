@@ -17,8 +17,8 @@
   </div>
   <br>
   <div align="center" style="height: 2.5em;">
-    <a href="https://marketplace.visualstudio.com/items?itemName=IDL.idl-for-vscode">
-      <img alt="VS Code Marketplace Downloads" src="https://img.shields.io/visual-studio-marketplace/d/idl.idl-for-vscode"></a>
+    <!-- <a href="https://marketplace.visualstudio.com/items?itemName=IDL.idl-for-vscode">
+      <img alt="VS Code Marketplace Downloads" src="https://img.shields.io/visual-studio-marketplace/d/idl.idl-for-vscode"></a> -->
     <a href="https://marketplace.visualstudio.com/items?itemName=idl.idl-for-vscode">
       <img alt="VS Code Marketplace Installs" src="https://img.shields.io/visual-studio-marketplace/i/idl.idl-for-vscode"></a>
     <a href="https://github.com/interactive-data-language/vscode-idl">
@@ -26,35 +26,16 @@
     <a href="https://github.com/interactive-data-language/vscode-idl">
       <img alt="GitHub" src="extension/images/github.png"></a>
   </div>
+  <div align="center" style="height: 2.5em;">
+    Want to learn more? Check out our <a href="https://interactive-data-language.github.io/vscode-idl/">official docs site</a>
+  </div>
 </p>
 
-<hr>
+## About
 
-<div  align="center">
-  <video controls autoplay loop muted playsinline style="max-width: 720px; width: 100%">
-    <source src="https://vis-webcontent.s3.amazonaws.com/vscode-idl/vscode-tiny.mp4" type="video/mp4">
-  </video>
-</div>
+An open-source extension which brings IDL (Interactive Data Language) to Visual Studio Code! This extension does _not_ include IDL, but you can download it from our website [here](https://portal.nv5geospatialsoftware.com/).
 
-**4.0.0 is here!**
-
-This release headlines our newest feature: IDL Notebooks! The IDL Notebook format is standalone and only requires this extension to function (no extra dependencies on Python or Jupyter). We include several "hello world" notebooks for IDL and ENVI to help you get up-and-running.
-
-Support for notebooks also includes:
-
-- A friendly user experience that mirrors the the IDL Command line
-
-- Ability to open examples from documentation as an IDL Notebook directly from hover-help
-
-- Printable notebooks (enabled through a 3rd party VSCode Extension)
-
-For a full list of changes, see [CHANGELOG.md](./CHANGELOG.md) for lots of details.
-
-> If you are looking to contribute, or get your development environment setup, see [CONTRIBUTING.md](./CONTRIBUTING.md).
-
----
-
-## Features
+This extension includes:
 
 - A full-featured IDL code editor, with variable type detection, auto complete, chromacoding, problem reporting, and code formatting
 
@@ -74,17 +55,11 @@ For a full list of changes, see [CHANGELOG.md](./CHANGELOG.md) for lots of detai
 
 ## IDL and ENVI Requirement
 
-Using the "debug" sessions of IDL requires that you have a version of IDL with lists, hashes, and orderedhashes (and the ability to parse/serialize JSON).
+You do not need IDL installed to write code with this extension. If you are using IDL Notebooks, the debug sessions of IDL, or running IDL in a terminal window, you will need to have IDL installed on the same machine where VSCode is running.
 
-The extension is tested against:
+While there are many versions of IDL out there, we test the extension against the two latest versions of IDL. As of right now, that would be IDL 9.1 and IDL 9.0. Any other version is use-at-your-own-risk and may not work (you need lists, hashes, and ordered hashes for it to function).
 
-- IDL 8.9
-
-- IDL 9.0
-
-Anything else is use-at-your-own-risk and may not work.
-
-Notebooks have specific version requirements for IDL and ENVI:
+IDL Notebooks have specific version requirements for IDL and ENVI:
 
 - For IDL, you'll need IDL 8.8.0 or newer (enforced, and checked, when notebooks start)
 
@@ -100,9 +75,7 @@ Notebooks have specific version requirements for IDL and ENVI:
 
   To install node.js, get the latest v20 release from https://nodejs.org/en/download/releases.
 
-- As a part of the code that we parse, we also do our best to statically determine types and do type checking. If you notice issues with type checks being wrong, or there are incorrectly documented routines, let us know!
-
-- The debugger is back and has some improvements. However, this is still a pre-release version of the ability to interactively run IDL code. For the next IDL release in late 2023 we are hoping to have this dramatically improved. Here's a few important things to know:
+- The debugger is back and has some improvements. However, this is still a pre-release version of the ability to interactively run IDL code. Here's a few important things to know:
 
   - Pausing is not supported on Windows, this will hopefully be resolved in the near future. Currently it kills the IDL process and is being worked on.
 
@@ -166,6 +139,6 @@ To learn more about what we collect and why, view our [USAGE_METRICS](./extensio
 
 ## Legal
 
-Copyright (c) 2023, NV5 Geospatial Software, Inc.
+Copyright (c) 2024, NV5 Geospatial Software, Inc.
 
 Licensed under MIT, see LICENSE.txt.
