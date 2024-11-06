@@ -51,6 +51,10 @@ Update extension docs with the latest version od node.js that we require (to wor
 
 Updated hover help packaged with the extension with ENVI 6.1, IDL 9.1, and ENVI Deep Learning 3.0.1 docs
 
+Tweak the logic for reporting problems to always send problems for a file. This means that, adjusting some of the problem reporting settings, should update real-time and tweak what VSCode knowns about.
+
+Improved the logic when checking if we report problems or not for a file to account for the folder on IDL's path being recursive or not.
+
 ## 4.6.2 - September 2024
 
 Changed the language server startup process to remove all files from memory after initial startup. This reduces RAM by 0.25-0.5 GB of memory after startup, depending on the volume of code in workspaces and on your path.

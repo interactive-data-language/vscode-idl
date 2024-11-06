@@ -5,6 +5,7 @@ import {
 } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
+import { dirname } from 'path';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
 import { CAN_SEND_PROBLEMS } from '../events/is-initialized';
@@ -46,12 +47,27 @@ export function CanReportProblems(file: string) {
 
   // filter using files
   if (report && !INCLUDE_PROBLEMS_FOR.IDL_PATH) {
-    report = false;
+    /** Get directory */
+    const dir = dirname(file);
+
+    /** Get paths for folders */
     const folders = Object.keys(IDL_PATH_FOLDERS);
+
+    // compare
     for (let z = 0; z < folders.length; z++) {
-      if (file.startsWith(folders[z])) {
-        report = true;
-        break;
+      // is it a recursive folder?
+      if (IDL_PATH_FOLDERS[folders[z]]) {
+        // if recursive, just check if our path starts with recursive directory
+        if (file.startsWith(folders[z])) {
+          report = false;
+          break;
+        }
+      } else {
+        // check if we are in a non-recursive folder
+        if (folders[z] === dir) {
+          report = false;
+          break;
+        }
       }
     }
   }
@@ -99,11 +115,6 @@ export function SendProblems(inFiles: string[]) {
     // init problems
     let problems: SyntaxProblems = [];
 
-    // skip files we cant report problems for
-    if (!CanReportProblems(files[i])) {
-      continue;
-    }
-
     // make sure we have a valid file that we can report problems for
     if (
       !(
@@ -112,6 +123,18 @@ export function SendProblems(inFiles: string[]) {
         IDLFileHelper.isIDLNotebookFile(files[i])
       )
     ) {
+      continue;
+    }
+
+    // skip files we cant report problems for
+    if (!CanReportProblems(files[i])) {
+      // sync problems
+      SERVER_CONNECTION.sendDiagnostics({
+        uri: URIFromIDLIndexFile(files[i]),
+        diagnostics: SyntaxProblemsToDiagnostic(
+          INCLUDE_PROBLEMS_FOR.ALL ? problems : []
+        ),
+      });
       continue;
     }
 

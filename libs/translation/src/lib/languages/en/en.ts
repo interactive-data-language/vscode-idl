@@ -245,9 +245,9 @@ export const EN: ITranslation = {
       'problems.reportProblems':
         'Do we report problems found when analyzing your code? If disabled in one workspace, applies to all.',
       'problems.includeProblemsFromIDLPackages':
-        'Report problems for all files where we find "idl_packages" in the path. This permits problem reporting from external libraries. If this is set in any open workspace, it applies to all of them.',
+        'Report problems for all files where we find "idl_packages" in the path. This permits problem reporting from external libraries. If this is set in any open workspace, it applies to all of them.\n\nImportant note: VSCode may require a restart for changes to take effect.',
       'problems.includeProblemsFromIDLPath':
-        'Report problems for all files on IDL path. This permits problem reporting for any file that is found on the IDL Path preference. If this is set in any open workspace, it applies to all of them.',
+        "Report problems for all files on IDL's path. This permits problem reporting for any file that is found on the IDL Path preference. If this is set in any open workspace, it applies to all of them.\n\nImportant note: VSCode may require a restart for changes to take effect.",
       'problems.reportDocsProblems':
         'Do we report problems for user documentation? If disabled, no problems are reported regarding documentation. Alternatively, you can disable problems one-by-one using `ignoreProblems`.\n\nImportant note: If this is disabled for one open workspace, it is disabled for all.\n\nImportant note: VSCode may require a restart for changes to take effect.',
       'problems.ignoreProblems':
