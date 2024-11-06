@@ -26,9 +26,6 @@
     <a href="https://github.com/interactive-data-language/vscode-idl">
       <img alt="GitHub" src="extension/images/github.png"></a>
   </div>
-  <div align="center" style="height: 2.5em;">
-    Want to learn more? Check out our <a href="https://interactive-data-language.github.io/vscode-idl/">official docs site</a>
-  </div>
 </p>
 
 ## About
@@ -52,6 +49,8 @@ This extension includes:
 - Support for internationalization
 
   - Submit a bug/feature for adding languages. Hopefully they are for a language that you speak, so you could also help with the translation :)
+
+Check out our [official docs site](https://interactive-data-language.github.io/vscode-idl/) to learn more about these features and what else is included in the extension.
 
 ## IDL and ENVI Requirement
 
