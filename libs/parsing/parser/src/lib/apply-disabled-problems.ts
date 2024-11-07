@@ -5,7 +5,7 @@ import { IDisabledProblems, IDLProblemCode } from '@idl/types/problem-codes';
  * Checks if a problem for a line should be disabled
  */
 export function IsProblemDisabled(
-  code: IDLProblemCode,
+  problemCode: IDLProblemCode,
   line: number,
   disabled: IDisabledProblems
 ) {
@@ -15,13 +15,13 @@ export function IsProblemDisabled(
   }
 
   // check if its disabled by file
-  if (code in disabled.forFile) {
+  if (problemCode in disabled.forFile) {
     return true;
   }
 
   // check if disabled for our line
   if (line in disabled.forLines) {
-    if (code in disabled.forLines[line]) {
+    if (problemCode in disabled.forLines[line]) {
       return true;
     }
   }
