@@ -252,6 +252,8 @@ export const EN: ITranslation = {
         'Do we report problems for user documentation? If disabled, no problems are reported regarding documentation. Alternatively, you can disable problems one-by-one using `ignoreProblems`.\n\nImportant note: If this is disabled for one open workspace, it is disabled for all.\n\nImportant note: VSCode may require a restart for changes to take effect.',
       'problems.ignoreProblems':
         'Specify the problem code to ignore and not report to Visual Studio Code',
+      'problems.excludeProblemsForPath':
+        "Specify folders that you don't want to report problems for.  Add a '+' before the folder to also exclude subdirectories from problem reporting.",
 
       notebooks:
         'Preferences that control notebook user experience for IDL Notebooks',

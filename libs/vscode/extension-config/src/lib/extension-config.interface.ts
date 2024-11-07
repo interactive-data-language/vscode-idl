@@ -67,6 +67,8 @@ export interface IDLExtensionsConfigKeys {
   readonly problemsReportProblems: 'problems.reportProblems';
   /** Do we report docs problems or not */
   readonly problemsReportDocsProblems: 'problems.reportDocsProblems';
+  /** Paths that we exclude reporting problems for, follows the same pattern for IDL's search path */
+  readonly problemsExcludeProblemsForPath: 'problems.excludeProblemsForPath';
   /** User configured problem codes to ignore */
   readonly problemsIgnoreProblems: 'problems.ignoreProblems';
   /** If we include problems to files that live in an open workspace */
@@ -168,6 +170,8 @@ export interface IProblemConfig {
   readonly reportProblems: boolean;
   /** Do we report docs problems or not? */
   readonly reportDocsProblems: boolean;
+  /** Paths that we exclude reporting problems for, follows the same pattern for IDL's search path */
+  readonly excludeProblemsForPath: string[];
   /** User configured problem codes to ignore (problem codes or aliases) */
   readonly ignoreProblems: (number | string)[];
   /** If we include problems to files that live in an open workspace */
@@ -296,6 +300,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   problems: 'problems',
   problemsReportProblems: 'problems.reportProblems',
   problemsReportDocsProblems: 'problems.reportDocsProblems',
+  problemsExcludeProblemsForPath: 'problems.excludeProblemsForPath',
   problemsIgnoreProblems: 'problems.ignoreProblems',
   problemsIncludeProblemsFromIDLPath: 'problems.includeProblemsFromIDLPath',
   problemsIncludeProblemsFromIDLPackages:
@@ -366,6 +371,7 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
   problems: {
     reportProblems: true,
     reportDocsProblems: true,
+    excludeProblemsForPath: [],
     ignoreProblems: [],
     includeProblemsFromIDLPath: true,
     includeProblemsFromIDLPackages: false,

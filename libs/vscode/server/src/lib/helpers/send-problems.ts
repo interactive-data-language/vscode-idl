@@ -12,6 +12,7 @@ import { CAN_SEND_PROBLEMS } from '../events/is-initialized';
 import { SERVER_CONNECTION } from '../initialize-server';
 import {
   IDL_PATH_FOLDERS,
+  IDL_PROBLEM_EXCLUSION_FOLDERS,
   IGNORE_PROBLEM_CODES,
   INCLUDE_PROBLEMS_FOR,
 } from './merge-config';
@@ -57,6 +58,33 @@ export function CanReportProblems(file: string) {
     for (let z = 0; z < folders.length; z++) {
       // is it a recursive folder?
       if (IDL_PATH_FOLDERS[folders[z]]) {
+        // if recursive, just check if our path starts with recursive directory
+        if (file.startsWith(folders[z])) {
+          report = false;
+          break;
+        }
+      } else {
+        // check if we are in a non-recursive folder
+        if (folders[z] === dir) {
+          report = false;
+          break;
+        }
+      }
+    }
+  }
+
+  // filter folders that we should exclude from user settings
+  if (report) {
+    /** Get directory */
+    const dir = dirname(file);
+
+    /** Get paths for folders */
+    const folders = Object.keys(IDL_PROBLEM_EXCLUSION_FOLDERS);
+
+    // compare
+    for (let z = 0; z < folders.length; z++) {
+      // is it a recursive folder?
+      if (IDL_PROBLEM_EXCLUSION_FOLDERS[folders[z]]) {
         // if recursive, just check if our path starts with recursive directory
         if (file.startsWith(folders[z])) {
           report = false;

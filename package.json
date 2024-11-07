@@ -858,6 +858,16 @@
         "title": "%configuration.titles.problems%",
         "additionalProperties": false,
         "properties": {
+          "idl.problems.excludeProblemsForPath": {
+            "type": "array",
+            "default": [],
+            "description": "%configuration.descriptions.problems.excludeProblemsForPath%",
+            "scope": "machine-overridable",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
           "idl.problems.includeProblemsFromIDLPath": {
             "type": "boolean",
             "default": true,
