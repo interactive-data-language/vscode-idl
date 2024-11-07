@@ -5,24 +5,14 @@ import {
 } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
-import { dirname } from 'path';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
 import { CAN_SEND_PROBLEMS } from '../events/is-initialized';
 import { SERVER_CONNECTION } from '../initialize-server';
-import {
-  IDL_PATH_FOLDERS,
-  IDL_PROBLEM_EXCLUSION_FOLDERS,
-  IGNORE_PROBLEM_CODES,
-  INCLUDE_PROBLEMS_FOR,
-} from './merge-config';
+import { CanReportProblems } from './can-report-problems';
+import { IGNORE_PROBLEM_CODES, INCLUDE_PROBLEMS_FOR } from './merge-config';
 import { SyntaxProblemsToDiagnostic } from './syntax-problem-to-diagnostic';
 import { URIFromIDLIndexFile } from './uri-from-idl-index-file';
-
-/**
- * Regex to check if we are in a package file
- */
-const IDL_PACKAGES_REGEX = /(?:\\|\/)idl_packages(?:$|\\|\/)/i;
 
 /**
  * Last value of old exclude
@@ -33,75 +23,6 @@ let OLD_INCLUDE = copy(INCLUDE_PROBLEMS_FOR);
  * Last copy of old ignore codes
  */
 let OLD_IGNORE = copy(IGNORE_PROBLEM_CODES);
-
-/**
- * Determines if we can report problems for a file or not
- */
-export function CanReportProblems(file: string) {
-  /** Flag if we can report problems for our file */
-  let report = true;
-
-  // filter using IDL packages
-  if (report && !INCLUDE_PROBLEMS_FOR.IDL_PACKAGES) {
-    report = !IDL_PACKAGES_REGEX.test(file);
-  }
-
-  // filter using files
-  if (report && !INCLUDE_PROBLEMS_FOR.IDL_PATH) {
-    /** Get directory */
-    const dir = dirname(file);
-
-    /** Get paths for folders */
-    const folders = Object.keys(IDL_PATH_FOLDERS);
-
-    // compare
-    for (let z = 0; z < folders.length; z++) {
-      // is it a recursive folder?
-      if (IDL_PATH_FOLDERS[folders[z]]) {
-        // if recursive, just check if our path starts with recursive directory
-        if (file.startsWith(folders[z])) {
-          report = false;
-          break;
-        }
-      } else {
-        // check if we are in a non-recursive folder
-        if (folders[z] === dir) {
-          report = false;
-          break;
-        }
-      }
-    }
-  }
-
-  // filter folders that we should exclude from user settings
-  if (report) {
-    /** Get directory */
-    const dir = dirname(file);
-
-    /** Get paths for folders */
-    const folders = Object.keys(IDL_PROBLEM_EXCLUSION_FOLDERS);
-
-    // compare
-    for (let z = 0; z < folders.length; z++) {
-      // is it a recursive folder?
-      if (IDL_PROBLEM_EXCLUSION_FOLDERS[folders[z]]) {
-        // if recursive, just check if our path starts with recursive directory
-        if (file.startsWith(folders[z])) {
-          report = false;
-          break;
-        }
-      } else {
-        // check if we are in a non-recursive folder
-        if (folders[z] === dir) {
-          report = false;
-          break;
-        }
-      }
-    }
-  }
-
-  return report;
-}
 
 /**
  * Sends problems to the current VSCode session
