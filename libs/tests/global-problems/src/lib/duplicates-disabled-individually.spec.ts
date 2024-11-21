@@ -49,6 +49,22 @@ describe(`[auto generated] track that global problems should not be reported`, (
     const problems_1: { [key: string]: SyntaxProblems } = {
       'idl/test/global-problems/disabled/file1_individual.pro': [
         {
+          code: 23,
+          info: 'Duplicate procedure definition: "myclass__define"',
+          start: [23, 4, 15],
+          end: [23, 4, 15],
+          canReport: true,
+          file: 'idl/test/global-problems/disabled/file1_individual.pro',
+        },
+        {
+          code: 27,
+          info: 'Duplicate structure definition: "mystruct"',
+          start: [27, 11, 8],
+          end: [27, 11, 8],
+          canReport: false,
+          file: 'idl/test/global-problems/disabled/file1_individual.pro',
+        },
+        {
           code: 26,
           info: 'Duplicate function method definition: "myclass::method1"',
           start: [18, 9, 16],
@@ -82,6 +98,22 @@ describe(`[auto generated] track that global problems should not be reported`, (
         },
       ],
       'idl/test/global-problems/disabled/file2_individual.pro': [
+        {
+          code: 23,
+          info: 'Duplicate procedure definition: "myclass__define"',
+          start: [19, 4, 15],
+          end: [19, 4, 15],
+          canReport: true,
+          file: 'idl/test/global-problems/disabled/file2_individual.pro',
+        },
+        {
+          code: 27,
+          info: 'Duplicate structure definition: "mystruct"',
+          start: [22, 11, 8],
+          end: [22, 11, 8],
+          canReport: true,
+          file: 'idl/test/global-problems/disabled/file2_individual.pro',
+        },
         {
           code: 26,
           info: 'Duplicate function method definition: "myclass::method1"',
