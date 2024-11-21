@@ -27,7 +27,11 @@ import {
   GlobalTokens,
   GlobalTokenType,
 } from '@idl/types/core';
-import { SyntaxProblems } from '@idl/types/problem-codes';
+import {
+  DEFAULT_DISABLED_PROBLEMS,
+  IDisabledProblems,
+  SyntaxProblems,
+} from '@idl/types/problem-codes';
 import { TaskToGlobalToken } from '@idl/types/tasks';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
@@ -601,8 +605,13 @@ export class IDLIndex {
   /**
    * Indexes global symbols
    */
-  async saveGlobalTokens(file: string, global: GlobalTokens, sync = true) {
-    this.globalIndex.trackGlobalTokens(global, file);
+  async saveGlobalTokens(
+    global: GlobalTokens,
+    file: string,
+    disabled: IDisabledProblems,
+    sync = true
+  ) {
+    this.globalIndex.trackGlobalTokens(global, file, disabled);
     if (sync) {
       await this.syncGlobal(file, global);
     }
@@ -768,7 +777,7 @@ export class IDLIndex {
       }
 
       // track and sync if needed
-      this.saveGlobalTokens(file, global, sync);
+      this.saveGlobalTokens(global, file, DEFAULT_DISABLED_PROBLEMS, sync);
 
       // track as known file
       this.knownFiles[file] = undefined;
@@ -1021,7 +1030,7 @@ export class IDLIndex {
     this.workerIDsByFile[file] = undefined;
 
     // add to our global index - do this before we post-process
-    await this.saveGlobalTokens(file, parsed.global);
+    await this.saveGlobalTokens(parsed.global, file, parsed.disabledProblems);
 
     // determine how to process
     switch (true) {
@@ -1821,6 +1830,11 @@ export class IDLIndex {
     const firstGlobals: { [key: string]: GlobalTokens } = {};
 
     /**
+     * Track disabled problems
+     */
+    const disabled: { [key: string]: IDisabledProblems } = {};
+
+    /**
      * Sync global tokens to other workers
      */
     for (let i = 0; i < this.nWorkers; i++) {
@@ -1835,6 +1849,9 @@ export class IDLIndex {
 
       // track all global tokens
       Object.assign(firstGlobals, res.globals);
+
+      // track disabled problems
+      Object.assign(disabled, res.disabledProblems);
     }
 
     /**
@@ -1844,7 +1861,11 @@ export class IDLIndex {
 
     // save all global tokens in main index
     for (let j = 0; j < iFiles.length; j++) {
-      this.globalIndex.trackGlobalTokens(firstGlobals[iFiles[j]], iFiles[j]);
+      this.globalIndex.trackGlobalTokens(
+        firstGlobals[iFiles[j]],
+        iFiles[j],
+        disabled[iFiles[j]]
+      );
     }
 
     /**

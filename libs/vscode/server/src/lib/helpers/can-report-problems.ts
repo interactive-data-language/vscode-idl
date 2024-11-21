@@ -29,7 +29,7 @@ export function CanReportProblems(file: string) {
 
   // filter folders that we should exclude from user settings
   if (report) {
-    report = IsFileOnPath(file, IDL_PROBLEM_EXCLUSION_FOLDERS);
+    report = !IsFileOnPath(file, IDL_PROBLEM_EXCLUSION_FOLDERS);
   }
 
   return report;

@@ -9,7 +9,7 @@ import {
   GlobalTokenType,
   IBaseIndexedToken,
 } from '@idl/types/core';
-import { SyntaxProblems } from '@idl/types/problem-codes';
+import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';
 import { PrepareNotebookCellMessage } from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
@@ -360,6 +360,10 @@ export interface ParseFilesResponse {
   /** Globals we found, by file */
   globals: {
     [file: string]: GlobalTokens;
+  };
+  /** Track disabled problems by file */
+  disabledProblems: {
+    [file: string]: IDisabledProblems;
   };
   /** Files we tried to parse, but were missing */
   missing: string[];

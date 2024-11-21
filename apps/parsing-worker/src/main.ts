@@ -342,6 +342,7 @@ client.on(
     // craft our response
     const resp: ParseFilesFastResponse = {
       globals: {},
+      disabledProblems: {},
       problems: {},
       missing: [],
       lines: 0,
@@ -365,7 +366,11 @@ client.on(
         WORKER_INDEX.trackSyntaxProblemsForFile(files[i], parsed.parseProblems);
 
         // save global tokens
-        await WORKER_INDEX.saveGlobalTokens(files[i], parsed.global);
+        await WORKER_INDEX.saveGlobalTokens(
+          parsed.global,
+          files[i],
+          parsed.disabledProblems
+        );
 
         // save lines
         resp.lines += parsed.lines;
@@ -421,6 +426,7 @@ client.on(
     // craft our response
     const resp: ParseFilesResponse = {
       globals: {},
+      disabledProblems: {},
       missing,
       lines: 0,
     };
@@ -445,6 +451,10 @@ client.on(
 
       // track globals
       resp.globals[files[i]] = WORKER_INDEX.getGlobalsForFile(files[i]);
+
+      // track disabled
+      resp.disabledProblems[files[i]] =
+        WORKER_INDEX.parsedCache.disabledProblems(files[i]);
     }
 
     return resp;

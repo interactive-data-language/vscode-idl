@@ -1,5 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IParsed, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
+import { IDisabledProblems } from '@idl/types/problem-codes';
 import { performance } from 'perf_hooks';
 import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver';
 
@@ -183,6 +184,16 @@ export class IDLParsedCache {
     if (file in this.byFile) {
       this._trackAccess(file);
       return this.byFile[file].lines;
+    }
+  }
+
+  /**
+   * Return disabled problems
+   */
+  disabledProblems(file: string): IDisabledProblems | undefined {
+    if (file in this.byFile) {
+      this._trackAccess(file);
+      return this.byFile[file].disabledProblems;
     }
   }
 

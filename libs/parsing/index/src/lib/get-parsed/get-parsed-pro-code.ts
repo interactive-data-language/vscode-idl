@@ -163,7 +163,11 @@ export async function GetParsedPROCode(
       const oldGlobals = index.getGlobalsForFile(file);
 
       // save and sync global tokens
-      await index.saveGlobalTokens(file, current.global);
+      await index.saveGlobalTokens(
+        current.global,
+        file,
+        current.disabledProblems
+      );
 
       // track syntax problems
       index.trackSyntaxProblemsForFile(file, GetSyntaxProblems(current));
