@@ -41,6 +41,46 @@ export const AUTO_GLOBAL_PROBLEM_TESTS: IGlobalProblemTests[] = [
     ],
   },
   {
+    suiteName: `track that global problems should not be reported`,
+    fileName: `duplicates-disabled-all.spec.ts`,
+    tests: [
+      {
+        name: 'while adding files',
+        workspace: 'idl/test/global-problems/disabled',
+        actions: [
+          {
+            action: 'add',
+            file: 'file1_all.pro',
+          },
+          {
+            action: 'add',
+            file: 'file2_all.pro',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `track that global problems should not be reported`,
+    fileName: `duplicates-disabled-individually.spec.ts`,
+    tests: [
+      {
+        name: 'while adding files',
+        workspace: 'idl/test/global-problems/disabled',
+        actions: [
+          {
+            action: 'add',
+            file: 'file1_individual.pro',
+          },
+          {
+            action: 'add',
+            file: 'file2_individual.pro',
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly ignore main level programs as duplicates`,
     fileName: `no-duplicate-main.spec.ts`,
     tests: [
