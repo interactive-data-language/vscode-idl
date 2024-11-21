@@ -55,6 +55,8 @@ Tweak the logic for reporting problems to always send problems for a file. This 
 
 Improved the logic when checking if we report problems or not for a file to account for the folder on IDL's path being recursive or not.
 
+Fixed an issue where, when disabling problems from duplicate routines, they were still being reported.
+
 ## 4.6.2 - September 2024
 
 Changed the language server startup process to remove all files from memory after initial startup. This reduces RAM by 0.25-0.5 GB of memory after startup, depending on the volume of code in workspaces and on your path.
