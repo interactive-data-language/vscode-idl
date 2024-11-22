@@ -63,6 +63,7 @@ describe(`[auto generated] System variable styling`, () => {
         `  tpool_nthreads: 0l, tpool_min_elts: 0l, tpool_max_elts: 0l}`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -161,6 +162,7 @@ describe(`[auto generated] System variable styling`, () => {
         `  tpool_nthreads: 0l, tpool_min_elts: 0l, tpool_max_elts: 0l}`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -259,6 +261,7 @@ describe(`[auto generated] System variable styling`, () => {
         `  tpool_nthreads: 0l, tpool_min_elts: 0l, tpool_max_elts: 0l}`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

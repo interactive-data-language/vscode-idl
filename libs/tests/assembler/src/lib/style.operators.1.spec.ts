@@ -58,6 +58,7 @@ describe(`[auto generated] Verify operators`, () => {
         `(*pstate).coDesCovIdArr[(*pstate).coDesCovIdArrIdx++] = ogc_wcs_descov(ev.top, (*pstate).owcs, covNames, '')`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -163,6 +164,7 @@ describe(`[auto generated] Verify operators`, () => {
         ``,
         `*ptr = 42`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -257,6 +259,7 @@ describe(`[auto generated] Verify operators`, () => {
         `  *(val) = 5`,
         `endif`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -345,6 +348,7 @@ describe(`[auto generated] Verify operators`, () => {
         `m = --6`,
         `n = ++4`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -463,6 +467,7 @@ describe(`[auto generated] Verify operators`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `if ~keyword_set(difference_raster_uri) then difference_raster_uri = e.getTemporaryFilename()`,
+        ``,
       ];
 
       // verify formatting
@@ -556,6 +561,7 @@ describe(`[auto generated] Verify operators`, () => {
         `b = *ptr`,
         `segsUpper.add, *overlaps.lower[mapXY[0], mapXY[1] - 1], /extract`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -703,6 +709,7 @@ describe(`[auto generated] Verify operators`, () => {
         `deltas = ranges[1, *] - ranges[0, *]`,
         `idxMin = [0 : -2]`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -812,6 +819,7 @@ describe(`[auto generated] Verify operators`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `a = ['Anomaly Detection: ' + task.mean_calculation_method]`,
+        ``,
       ];
 
       // verify formatting
@@ -893,6 +901,7 @@ describe(`[auto generated] Verify operators`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `cs = !dpi * [0d : num_period - 1]`,
+        ``,
       ];
 
       // verify formatting
@@ -1000,6 +1009,7 @@ describe(`[auto generated] Verify operators`, () => {
         `if (or filtMask and igMask) then filters = 'Image Files'`,
         `if (xor filtMask and igMask) then filters = 'Image Files'`,
         `end`,
+        ``,
       ];
 
       // verify formatting

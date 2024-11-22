@@ -49,6 +49,7 @@ describe(`[auto generated] Verify array formatting`, () => {
         ``,
         `a = [1, 2, 3, 4, 5]`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -143,6 +144,7 @@ describe(`[auto generated] Verify array formatting`, () => {
         `  5 $`,
         `  ]`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -249,6 +251,7 @@ describe(`[auto generated] Verify array formatting`, () => {
         `endfor`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -465,6 +468,7 @@ describe(`[auto generated] Verify array formatting`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `overlaps.lower[sIdx] = ptr_new(segs[tSub[0] : tSub[2], tSub[3]])`,
+        ``,
       ];
 
       // verify formatting
@@ -574,6 +578,7 @@ describe(`[auto generated] Verify array formatting`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `meta['band names'] = 'Awesome Label Regions'`,
+        ``,
       ];
 
       // verify formatting
@@ -660,6 +665,7 @@ describe(`[auto generated] Verify array formatting`, () => {
         `  'buffer', ['number', 'required'])`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

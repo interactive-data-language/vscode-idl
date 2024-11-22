@@ -71,6 +71,7 @@ describe(`[auto generated] Verify auto-fix/format of template escape characters`
         `a = \`\\v\``,
         `a = \`\\x00 \\xaf\``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -170,6 +171,7 @@ describe(`[auto generated] Verify auto-fix/format of template escape characters`
         `a = \`\\v\``,
         `a = \`\\x00 \\xAF\``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -269,6 +271,7 @@ describe(`[auto generated] Verify auto-fix/format of template escape characters`
         `a = \`\\v\``,
         `a = \`\\x00 \\xaF\``,
         `end`,
+        ``,
       ];
 
       // verify formatting

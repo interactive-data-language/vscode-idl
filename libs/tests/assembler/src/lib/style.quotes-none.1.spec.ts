@@ -100,6 +100,7 @@ describe(`[auto generated] Verify no formatting of quotes`, () => {
         `; special single quote with doubles`,
         `a = '"string"'`,
         `end`,
+        ``,
       ];
 
       // verify formatting

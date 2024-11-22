@@ -63,6 +63,7 @@ describe(`[auto generated] Verify we use return type`, () => {
         `  compile_opt idl2`,
         `  if arg eq 0 then return, 'NSEW' else return, 0`,
         `end`,
+        ``,
       ];
 
       // verify formatting

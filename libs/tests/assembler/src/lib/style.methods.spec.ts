@@ -63,6 +63,7 @@ describe(`[auto generated] Method styling`, () => {
         `myclass.mymethod`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -175,6 +176,7 @@ describe(`[auto generated] Method styling`, () => {
         `myclass->mymethod`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -287,6 +289,7 @@ describe(`[auto generated] Method styling`, () => {
         `myclass->mymethod`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

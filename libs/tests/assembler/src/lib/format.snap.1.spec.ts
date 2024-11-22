@@ -177,6 +177,7 @@ describe(`[auto generated] Verify snapping branches to remove leading and traili
         `print, 'Finished'`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

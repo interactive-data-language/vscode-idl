@@ -90,6 +90,7 @@ describe(`[auto generated] Verify we style if-then`, () => {
         `endelse`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -190,6 +191,7 @@ describe(`[auto generated] Verify we style if-then`, () => {
         ``,
         `a = 5`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -286,6 +288,7 @@ describe(`[auto generated] Verify we style if-then`, () => {
         `  imageNElts = n_elements(bigImage)`,
         `endif`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -527,6 +530,7 @@ describe(`[auto generated] Verify we style if-then`, () => {
         `endif`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

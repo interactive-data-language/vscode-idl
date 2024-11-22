@@ -98,6 +98,7 @@ describe(`[auto generated] Only use AutoDoc`, () => {
         `endfor`,
         `return,a`,
         `end`,
+        ``,
       ];
 
       // verify formatting

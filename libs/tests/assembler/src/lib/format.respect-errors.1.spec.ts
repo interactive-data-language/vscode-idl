@@ -172,7 +172,12 @@ describe(`[auto generated] Verify we do not format when we have bad syntax error
       expect(formatted).toEqual(undefined);
     } else {
       // define expected problems
-      const expectedFormatting: string[] = [`compile_opt idl2`, ``, `a = 5`];
+      const expectedFormatting: string[] = [
+        `compile_opt idl2`,
+        ``,
+        `a = 5`,
+        ``,
+      ];
 
       // verify formatting
       expect(formatted.split(`\n`)).toEqual(expectedFormatting);

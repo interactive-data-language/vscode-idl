@@ -57,6 +57,7 @@ describe(`[auto generated] Verify double quote parsing`, () => {
         `message, 'Each dimension must be greater than 1."'`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -134,6 +135,7 @@ describe(`[auto generated] Verify double quote parsing`, () => {
         `message, "Each dimension must be greater than 1.'"`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

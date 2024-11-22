@@ -77,6 +77,7 @@ describe(`[auto generated] Verify complex formatting`, () => {
         `pro test_things2`,
         `  compile_opt idl2`,
         `end`,
+        ``,
       ];
 
       // verify formatting

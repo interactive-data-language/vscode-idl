@@ -81,6 +81,7 @@ describe(`[auto generated] Number styling`, () => {
         `a = 'fff'xll`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -182,6 +183,7 @@ describe(`[auto generated] Number styling`, () => {
         `a = 'FFF'xLL`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -283,6 +285,7 @@ describe(`[auto generated] Number styling`, () => {
         `a = 'fFf'xlL`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

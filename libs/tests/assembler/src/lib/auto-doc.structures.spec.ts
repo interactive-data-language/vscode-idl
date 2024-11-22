@@ -76,6 +76,7 @@ describe(`[auto generated] Generate structure docs`, () => {
         ``,
         `  !null = {Mystruct2, inherits IDL_Object, prop: 1, prop2: 4}`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -160,6 +161,7 @@ describe(`[auto generated] Generate structure docs`, () => {
         ``,
         `  !null = {Mystruct2, inherits IDL_Object, prop: 1, prop2: 4}`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -271,6 +273,7 @@ describe(`[auto generated] Generate structure docs`, () => {
         ``,
         `  !null = {MyStruct, inherits IDL_Object, prop: 1, prop2: 4}`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -368,6 +371,7 @@ describe(`[auto generated] Generate structure docs`, () => {
         ``,
         `  !null = {MyStruct}`,
         `end`,
+        ``,
       ];
 
       // verify formatting

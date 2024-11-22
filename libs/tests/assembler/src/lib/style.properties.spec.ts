@@ -61,6 +61,7 @@ describe(`[auto generated] Property styling`, () => {
         `!null = b.SomeThing`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -157,6 +158,7 @@ describe(`[auto generated] Property styling`, () => {
         `!null = b.SomeThing`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -253,6 +255,7 @@ describe(`[auto generated] Property styling`, () => {
         `!null = b.someThing`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -349,6 +352,7 @@ describe(`[auto generated] Property styling`, () => {
         `!null = b.something`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -445,6 +449,7 @@ describe(`[auto generated] Property styling`, () => {
         `!null = b.SOMETHING`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -541,6 +546,7 @@ describe(`[auto generated] Property styling`, () => {
         `!null = b.SomeThing`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

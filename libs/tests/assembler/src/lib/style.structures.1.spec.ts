@@ -54,6 +54,7 @@ describe(`[auto generated] Verify structures`, () => {
         `fourty2 = {Mystruct}`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -178,6 +179,7 @@ describe(`[auto generated] Verify structures`, () => {
         `    _incallback: 0b $`,
         `    }`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -271,6 +273,7 @@ describe(`[auto generated] Verify structures`, () => {
         `    right_means: ptrarr(mapDims) $`,
         `    }`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -382,6 +385,7 @@ describe(`[auto generated] Verify structures`, () => {
         `  { $`,
         `    _foo: 5}`,
         `end`,
+        ``,
       ];
 
       // verify formatting

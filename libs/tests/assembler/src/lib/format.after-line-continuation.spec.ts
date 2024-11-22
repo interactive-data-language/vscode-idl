@@ -57,6 +57,7 @@ describe(`[auto generated] Keep tokens after line continuations`, () => {
         `a = $ something bad ;`,
         `  5`,
         `end`,
+        ``,
       ];
 
       // verify formatting

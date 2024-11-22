@@ -58,6 +58,7 @@ describe(`[auto generated] Keep tokens after main level programs`, () => {
         `end`,
         `; comment`,
         `b = 17`,
+        ``,
       ];
 
       // verify formatting

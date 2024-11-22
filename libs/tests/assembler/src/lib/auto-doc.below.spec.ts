@@ -87,6 +87,7 @@ describe(`[auto generated] Verify auto-doc when below`, () => {
         `  endif`,
         `  idltasktest, input_raster = 5`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -228,6 +229,7 @@ describe(`[auto generated] Verify auto-doc when below`, () => {
         `compile_opt idl2`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

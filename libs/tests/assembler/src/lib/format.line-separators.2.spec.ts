@@ -68,6 +68,7 @@ describe(`[auto generated] Line separators (&)`, () => {
         `endif`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

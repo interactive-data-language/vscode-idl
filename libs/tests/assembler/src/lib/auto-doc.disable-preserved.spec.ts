@@ -84,6 +84,7 @@ describe(`[auto generated] Verify autoDoc`, () => {
         `  a03, a04, a01, a02`,
         `  compile_opt idl2`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -218,6 +219,7 @@ describe(`[auto generated] Verify autoDoc`, () => {
         `  a03, a04, a01, a02`,
         `  compile_opt idl2`,
         `end`,
+        ``,
       ];
 
       // verify formatting

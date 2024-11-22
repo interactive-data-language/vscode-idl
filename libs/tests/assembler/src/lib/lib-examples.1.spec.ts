@@ -80,6 +80,7 @@ describe(`[auto generated] Verify code snippets from the lib folder`, () => {
         `endfor`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -285,6 +286,7 @@ describe(`[auto generated] Verify code snippets from the lib folder`, () => {
         `endif`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

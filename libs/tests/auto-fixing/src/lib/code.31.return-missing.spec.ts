@@ -59,6 +59,7 @@ describe(`[auto generated] Verify we add missing return statement`, () => {
       `  ; comment`,
       `  return, !null`,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -135,6 +136,7 @@ describe(`[auto generated] Verify we add missing return statement`, () => {
       `  a = 5`,
       `  return, !null`,
       `end`,
+      ``,
     ];
 
     // verify formatting

@@ -101,6 +101,7 @@ describe(`[auto generated] Verify single quote parsing`, () => {
         `; special single quote with doubles`,
         `a = """string"""`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -222,6 +223,7 @@ describe(`[auto generated] Verify single quote parsing`, () => {
         `; special single quote with doubles`,
         `a = '"string"'`,
         `end`,
+        ``,
       ];
 
       // verify formatting

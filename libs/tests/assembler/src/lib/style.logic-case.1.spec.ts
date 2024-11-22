@@ -74,6 +74,7 @@ describe(`[auto generated] Verify we style case`, () => {
         `  end`,
         `endcase`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -191,6 +192,7 @@ describe(`[auto generated] Verify we style case`, () => {
         `  end`,
         `endcase`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -325,6 +327,7 @@ describe(`[auto generated] Verify we style case`, () => {
         `  end`,
         `endcase`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -486,6 +489,7 @@ describe(`[auto generated] Verify we style case`, () => {
         `  else: ; remove my space to the left after "else"`,
         `endcase`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -612,6 +616,7 @@ describe(`[auto generated] Verify we style case`, () => {
         `    oSystem.registerTool, strName, strClassName, _extra = _extra`,
         `endcase`,
         `end`,
+        ``,
       ];
 
       // verify formatting

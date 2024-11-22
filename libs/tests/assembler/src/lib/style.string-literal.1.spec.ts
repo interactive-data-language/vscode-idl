@@ -62,6 +62,7 @@ describe(`[auto generated] Verify string literal styling`, () => {
         `a = \`with   \${expression()}  else\``,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -164,6 +165,7 @@ describe(`[auto generated] Verify string literal styling`, () => {
         `  third`,
         `\``,
         `end`,
+        ``,
       ];
 
       // verify formatting

@@ -57,6 +57,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       ``,
       `  return, 1`,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -131,6 +132,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       ``,
       `  return, 1`,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -190,6 +192,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       `pro mypro`,
       `  compile_opt idl2`,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -249,6 +252,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       `pro myclass::mypro`,
       `  compile_opt idl2`,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -302,7 +306,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     });
 
     // define expected problems
-    const expectedFormatting: string[] = [`; comment`, ``, `end`];
+    const expectedFormatting: string[] = [`; comment`, ``, `end`, ``];
 
     // verify formatting
     expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
@@ -355,7 +359,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     });
 
     // define expected problems
-    const expectedFormatting: string[] = [`a = 5`, ``, `end`];
+    const expectedFormatting: string[] = [`a = 5`, ``, `end`, ``];
 
     // verify formatting
     expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
@@ -408,7 +412,14 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     });
 
     // define expected problems
-    const expectedFormatting: string[] = [`; comment`, ``, `a = 42`, ``, `end`];
+    const expectedFormatting: string[] = [
+      `; comment`,
+      ``,
+      `a = 42`,
+      ``,
+      `end`,
+      ``,
+    ];
 
     // verify formatting
     expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
@@ -461,7 +472,14 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
     });
 
     // define expected problems
-    const expectedFormatting: string[] = [`; comment`, ``, `a = 42`, ``, `end`];
+    const expectedFormatting: string[] = [
+      `; comment`,
+      ``,
+      `a = 42`,
+      ``,
+      `end`,
+      ``,
+    ];
 
     // verify formatting
     expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
@@ -529,6 +547,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       ``,
       `  return, 1`,
       `end`,
+      ``,
     ];
 
     // verify formatting

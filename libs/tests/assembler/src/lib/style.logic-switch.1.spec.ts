@@ -74,6 +74,7 @@ describe(`[auto generated] Verify we style switch`, () => {
         `  end`,
         `endcase`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -191,6 +192,7 @@ describe(`[auto generated] Verify we style switch`, () => {
         `  end`,
         `endcase`,
         `end`,
+        ``,
       ];
 
       // verify formatting

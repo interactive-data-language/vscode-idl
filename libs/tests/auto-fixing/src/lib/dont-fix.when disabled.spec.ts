@@ -57,6 +57,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
       `  ; comment`,
       `  return, 42`,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -130,6 +131,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
       `  a = 5`,
       `  return, 42`,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -206,6 +208,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
       `return, 42`,
       ``,
       `end`,
+      ``,
     ];
 
     // verify formatting

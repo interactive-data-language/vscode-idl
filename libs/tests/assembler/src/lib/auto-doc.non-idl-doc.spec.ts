@@ -189,6 +189,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
         `  endfor`,
         `  return, a`,
         `end`,
+        ``,
       ];
 
       // verify formatting

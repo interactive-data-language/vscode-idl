@@ -52,6 +52,7 @@ describe(`[auto generated] Verify tokens after main get removed on formatting`, 
       ``,
       `; bad`,
       `worse = not 42`,
+      ``,
     ];
 
     // verify formatting

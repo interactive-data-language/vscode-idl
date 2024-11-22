@@ -167,6 +167,7 @@ describe(`[auto generated] Control statement styling`, () => {
         `.reset`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -432,6 +433,7 @@ describe(`[auto generated] Control statement styling`, () => {
         `.RESET`,
         ``,
         `END`,
+        ``,
       ];
 
       // verify formatting
@@ -697,6 +699,7 @@ describe(`[auto generated] Control statement styling`, () => {
         `.reset`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

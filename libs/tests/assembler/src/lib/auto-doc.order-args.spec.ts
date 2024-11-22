@@ -80,6 +80,7 @@ describe(`[auto generated] Verify arg ordering`, () => {
         `  a03, a04, a01, a02`,
         `  compile_opt idl2`,
         `end`,
+        ``,
       ];
 
       // verify formatting

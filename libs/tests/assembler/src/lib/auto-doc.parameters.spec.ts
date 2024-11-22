@@ -75,6 +75,7 @@ describe(`[auto generated] Verify parameter formatting`, () => {
         `  compile_opt idl2`,
         `  print, 'Hello world'`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -196,6 +197,7 @@ describe(`[auto generated] Verify parameter formatting`, () => {
         `  compile_opt idl2`,
         `  print, 'Hello world'`,
         `end`,
+        ``,
       ];
 
       // verify formatting

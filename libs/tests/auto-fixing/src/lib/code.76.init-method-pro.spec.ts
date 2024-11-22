@@ -61,6 +61,7 @@ describe(`[auto generated] Verify we change procedure init methods to function m
       `  ; comment`,
       `  return, 1`,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -156,6 +157,7 @@ describe(`[auto generated] Verify we change procedure init methods to function m
       `  compile_opt idl2`,
       `  return, 1`,
       `end`,
+      ``,
     ];
 
     // verify formatting

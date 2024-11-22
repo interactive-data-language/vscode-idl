@@ -59,6 +59,7 @@ describe(`[auto generated] Verify structure names`, () => {
         `!null = {idlNotebook}`,
         `!null = {!map} ; special case, handled by sys var`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -146,6 +147,7 @@ describe(`[auto generated] Verify structure names`, () => {
         `!null = {IDLNotebook}`,
         `!null = {!map} ; special case, handled by sys var`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -233,6 +235,7 @@ describe(`[auto generated] Verify structure names`, () => {
         `!null = {idlNotebook}`,
         `!null = {!map} ; special case, handled by sys var`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -320,6 +323,7 @@ describe(`[auto generated] Verify structure names`, () => {
         `!null = {IDLNOTEBOOK}`,
         `!null = {!map} ; special case, handled by sys var`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -407,6 +411,7 @@ describe(`[auto generated] Verify structure names`, () => {
         `!null = {idlnotebook}`,
         `!null = {!map} ; special case, handled by sys var`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -494,6 +499,7 @@ describe(`[auto generated] Verify structure names`, () => {
         `!null = {idlNotebook}`,
         `!null = {!map} ; special case, handled by sys var`,
         `end`,
+        ``,
       ];
 
       // verify formatting

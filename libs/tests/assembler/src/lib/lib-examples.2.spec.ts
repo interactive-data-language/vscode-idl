@@ -86,6 +86,7 @@ describe(`[auto generated] Lib examples 2`, () => {
         `  endfor`,
         `  return, a`,
         `end`,
+        ``,
       ];
 
       // verify formatting

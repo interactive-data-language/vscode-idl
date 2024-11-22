@@ -230,6 +230,7 @@ describe(`[auto generated] Verify type formatting`, () => {
         `  a31, a32, a33, a34, a35, a36, a37, a38, a39, a40`,
         `  compile_opt idl2`,
         `end`,
+        ``,
       ];
 
       // verify formatting

@@ -89,6 +89,7 @@ describe(`[auto generated] Style internal routines`, () => {
         `!null = STRTOK('something')`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -227,6 +228,7 @@ describe(`[auto generated] Style internal routines`, () => {
         `!null = Strtok('something')`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -365,6 +367,7 @@ describe(`[auto generated] Style internal routines`, () => {
         `!null = strtok('something')`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -503,6 +506,7 @@ describe(`[auto generated] Style internal routines`, () => {
         `!null = STRTOK('something')`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -641,6 +645,7 @@ describe(`[auto generated] Style internal routines`, () => {
         `!null = strtok('something')`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -779,6 +784,7 @@ describe(`[auto generated] Style internal routines`, () => {
         `!null = STRTOK('something')`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
