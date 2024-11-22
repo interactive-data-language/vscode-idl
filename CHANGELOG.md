@@ -57,6 +57,10 @@ Improved the logic when checking if we report problems or not for a file to acco
 
 Fixed an issue where, when disabling problems from duplicate routines, they were still being reported.
 
+Updating our formatting logic to add a final line feed or carriage return after the last line of a file when formatting your code.
+
+Potential fix for resolving actual filepaths when following symbolic links to discover files that we need to parse. We were originally getting two paths to the same files that persist on disk, causing extra duplicate routines to be reported.
+
 ## 4.6.2 - September 2024
 
 Changed the language server startup process to remove all files from memory after initial startup. This reduces RAM by 0.25-0.5 GB of memory after startup, depending on the volume of code in workspaces and on your path.
