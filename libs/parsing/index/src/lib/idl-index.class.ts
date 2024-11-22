@@ -56,7 +56,7 @@ import { WorkerIOPool } from '@idl/workers/workerio';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 import { glob } from 'fast-glob';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, realpathSync } from 'fs';
 import { cpus, platform } from 'os';
 import { basename, dirname, join } from 'path';
 import { performance } from 'perf_hooks';
@@ -1326,7 +1326,9 @@ export class IDLIndex {
           dot: true,
           deep: recursion[i] ? 100000000 : 1,
         })
-      ).map((file) => join(folders[i], file));
+      )
+        .map((file) => join(folders[i], file))
+        .map((file) => realpathSync(file));
 
       // add to our set
       for (let j = 0; j < inFolder.length; j++) {
