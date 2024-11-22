@@ -2305,6 +2305,33 @@ export const AUTO_ASSEMBLER_TESTS: IAutoAssemblerTest[] = [
     ],
   },
   {
+    suiteName: `Style user routines`,
+    fileName: `style.user-routines.regression1.spec.ts`,
+    tests: [
+      {
+        name: `none`,
+        code: [
+          `pro UPPERCASE_TEST`,
+          `  compile_opt idl2`,
+          `end`,
+          ``,
+          `pro uppercase_test_func`,
+          `  compile_opt idl2`,
+          `  UPPERCASE_TEST`,
+          `  a = widget_base()`,
+          `end`,
+          ``,
+        ],
+        config: {
+          formatter: 'fiddle',
+          style: {
+            routines: STYLE_FLAG_LOOKUP.NONE,
+          },
+        },
+      },
+    ],
+  },
+  {
     suiteName: `Keyword styling`,
     fileName: `style.keywords.1.spec.ts`,
     tests: [

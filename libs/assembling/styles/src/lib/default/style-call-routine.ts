@@ -1,3 +1,4 @@
+import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
@@ -20,6 +21,10 @@ const PROCEDURES = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.PROCEDURE];
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.CALL_FUNCTION,
   (token, parsed, current, meta) => {
+    if (meta.style.routines === STYLE_FLAG_LOOKUP.NONE) {
+      return;
+    }
+
     /** Lower-case name of routine */
     const low = token.match[1].replace(/\s/gim, '').toLowerCase();
 
@@ -41,6 +46,10 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.CALL_PROCEDURE,
   (token, parsed, current, meta) => {
+    if (meta.style.routines === STYLE_FLAG_LOOKUP.NONE) {
+      return;
+    }
+
     /** Lower-case name of routine */
     const low = token.match[0].toLowerCase();
 

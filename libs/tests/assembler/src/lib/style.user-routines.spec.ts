@@ -552,8 +552,8 @@ describe(`[auto generated] Style user routines`, () => {
         ``,
         `compile_opt idl2`,
         ``,
-        `test_things`,
-        `!null = test_THINGS()`,
+        `TEST_THINGS`,
+        `!null = test_things()`,
         `end`,
         ``,
       ];

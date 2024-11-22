@@ -75,6 +75,8 @@ Fixed an issue where, from the JSON settings editor, a valid extension setting w
 
 Fixed an issue where the "don't ask again" options didn't honor your choice for using IDL as the formatter.
 
+Fix an issue where "none" style for routines was not being honored as expected.
+
 ## 4.6.1 - September 2024
 
 Added layer controls to the Notebook Map.
