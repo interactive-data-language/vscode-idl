@@ -18,7 +18,7 @@ import { IDLIndex } from '../idl-index.class';
 import { PopulateAndValidateReturnType } from './populate-type/return/populate-and-validate-return-type';
 import { RECURSE_INTO } from './post-process-iterator.interface';
 import { POPULATE_TYPE_HANDLER } from './tree-handlers/populate-type-handler';
-import { SetVariables } from './tree-handlers/set-variables';
+import { SetVariablesForIterators } from './tree-handlers/set-variables-for-iterators';
 import { VALIDATE_TYPE_HANDLER } from './tree-handlers/validate-type-handler';
 import { ValidateVariableUsage } from './tree-handlers/validate-variable-usage';
 
@@ -61,7 +61,11 @@ export function PostProcessIterator(
      */
     if (topToken.name in RECURSE_INTO) {
       // update variables that we are tracking
-      SetVariables(topToken.scopeTokens[0] || topToken, parsed, variables);
+      SetVariablesForIterators(
+        topToken.scopeTokens[0] || topToken,
+        parsed,
+        variables
+      );
 
       /**
        * Callbacks for populating types
