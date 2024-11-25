@@ -69,10 +69,8 @@ export async function GetParsedPROCode(
   }
 
   // check if we have the file in our cache and it matches our checksum
-  if (index.parsedCache.has(file)) {
-    if (index.parsedCache.checksumMatches(file, checksum)) {
-      return index.parsedCache.get(file);
-    }
+  if (index.parsedCache.checksumMatches(file, checksum)) {
+    return index.parsedCache.get(file);
   }
 
   // determine how to proceed
@@ -165,7 +163,11 @@ export async function GetParsedPROCode(
       const oldGlobals = index.getGlobalsForFile(file);
 
       // save and sync global tokens
-      await index.saveGlobalTokens(file, current.global);
+      await index.saveGlobalTokens(
+        current.global,
+        file,
+        current.disabledProblems
+      );
 
       // track syntax problems
       index.trackSyntaxProblemsForFile(file, GetSyntaxProblems(current));

@@ -29,7 +29,7 @@ export function PopulateUsesThese(
     onBasicToken: (token) => {
       switch (token.name) {
         case TOKEN_NAMES.SYSTEM_VARIABLE:
-          parsed.uses[GLOBAL_TOKEN_TYPES.FUNCTION][
+          parsed.uses[GLOBAL_TOKEN_TYPES.SYSTEM_VARIABLE][
             token.match[0].toLowerCase()
           ] = true;
           break;
@@ -74,7 +74,7 @@ export function PopulateUsesThese(
             TOKEN_NAMES.STRUCTURE_NAME
           );
           if (names.length > 0) {
-            parsed.uses[GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD][
+            parsed.uses[GLOBAL_TOKEN_TYPES.STRUCTURE][
               names[0].match[0].toLowerCase()
             ] = true;
           }

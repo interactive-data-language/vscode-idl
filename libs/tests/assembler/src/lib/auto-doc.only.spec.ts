@@ -69,7 +69,7 @@ describe(`[auto generated] Only use AutoDoc`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `;+`,
-        `; :Returns: any`,
+        `; :Returns: Array<Float>`,
         `;`,
         `; :Arguments:`,
         `;   n: bidirectional, required, any`,
@@ -98,6 +98,7 @@ describe(`[auto generated] Only use AutoDoc`, () => {
         `endfor`,
         `return,a`,
         `end`,
+        ``,
       ];
 
       // verify formatting

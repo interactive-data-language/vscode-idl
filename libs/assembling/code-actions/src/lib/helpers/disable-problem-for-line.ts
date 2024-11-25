@@ -57,6 +57,11 @@ export function DisableProblemForLine(
       /** Make text to inject */
       inject = `${indent}; ${DISABLED_PROBLEM_FLAGS.NEXT} ${alias}${lf}${code[line]}`;
     }
+  } else {
+    /**
+     * Fixing problem on first line, so just add an extra line before
+     */
+    inject = `; ${DISABLED_PROBLEM_FLAGS.NEXT} ${alias}${lf}${code[line]}`;
   }
 
   /** Build our edit */

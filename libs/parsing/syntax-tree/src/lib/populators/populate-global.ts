@@ -29,10 +29,10 @@ import { GenerateRoutineMetadataFast } from '../docs/generate-routine-metadata-f
 import { IParsed } from '../parsed.interface';
 import { FindStructureDefs } from './find-structure-defs';
 import { GetCompileOpts } from './get-compile-opts';
-import { GetUniqueVariables } from './get-unique-variables';
 import { MAIN_LEVEL_NAME } from './populate-global.interface';
 import { LOCAL_TOKEN_LOOKUP } from './populate-local.interface';
 import { PopulateLocalForMain } from './populate-local-for-main';
+import { PopulateVariables } from './populate-variables';
 
 /**
  * Populates a lookup with quick information for where things are defined
@@ -137,7 +137,7 @@ export function PopulateGlobalLocalCompileOpts(
               global.push(add);
               parsed.compile.func[name] = full ? GetCompileOpts(branch) : [];
               parsed.local.func[name] = full
-                ? GetUniqueVariables(
+                ? PopulateVariables(
                     branch as IBranch<RoutineFunctionToken>,
                     parsed,
                     parsed.compile.func[name],
@@ -187,7 +187,7 @@ export function PopulateGlobalLocalCompileOpts(
 
               parsed.compile.func[name] = full ? GetCompileOpts(branch) : [];
               parsed.local.func[name] = full
-                ? GetUniqueVariables(
+                ? PopulateVariables(
                     branch as IBranch<RoutineFunctionToken>,
                     parsed,
                     parsed.compile.func[name],
@@ -203,6 +203,7 @@ export function PopulateGlobalLocalCompileOpts(
                 meta: {
                   display: 'self',
                   isDefined: true,
+                  canReset: false,
                   docs: IDL_TRANSLATION.docs.hover.params.self,
                   source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
                   type: ParseIDLType(split[0]),
@@ -276,7 +277,7 @@ export function PopulateGlobalLocalCompileOpts(
               global.push(add);
               parsed.compile.pro[name] = full ? GetCompileOpts(branch) : [];
               parsed.local.pro[name] = full
-                ? GetUniqueVariables(
+                ? PopulateVariables(
                     branch as IBranch<RoutineProcedureToken>,
                     parsed,
                     parsed.compile.pro[name],
@@ -303,7 +304,7 @@ export function PopulateGlobalLocalCompileOpts(
               global.push(add);
               parsed.compile.pro[name] = full ? GetCompileOpts(branch) : [];
               parsed.local.pro[name] = full
-                ? GetUniqueVariables(
+                ? PopulateVariables(
                     branch as IBranch<RoutineProcedureToken>,
                     parsed,
                     parsed.compile.pro[name],
@@ -319,6 +320,7 @@ export function PopulateGlobalLocalCompileOpts(
                 meta: {
                   display: 'self',
                   isDefined: true,
+                  canReset: false,
                   docs: IDL_TRANSLATION.docs.hover.params.self,
                   source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
                   type: ParseIDLType(split[0]),

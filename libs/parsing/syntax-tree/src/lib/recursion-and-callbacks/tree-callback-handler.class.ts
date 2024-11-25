@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { BasicTokenNames, NonBasicTokenNames, TokenName } from '@idl/tokenizer';
+import { BasicTokenNames, NonBasicTokenNames } from '@idl/tokenizer';
 
-import { ITreeRecurserOptions, TreeToken } from '../..';
+import { ITreeRecurserCurrent, ITreeRecurserOptions, TreeToken } from '../..';
 import { IParsed } from '../parsed.interface';
 import {
   BasicCallback,
@@ -23,7 +23,7 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
   /**
    * Callbacks for basic tokens, organized by token name
    */
-  private basic: BasicCallbackLookup<TMeta> = {};
+  basic: BasicCallbackLookup<TMeta> = {};
 
   /**
    * Callbacks for branches, organized by token name
@@ -69,14 +69,15 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
   processBasicToken<T extends BasicTokenNames>(
     token: TreeToken<T>,
     parsed: IParsed,
-    cb: () => TMeta
+    current: ITreeRecurserCurrent,
+    cb: TMeta | (() => TMeta)
   ) {
     // process if we have validators
     if (token.name in this.basic) {
-      const meta = cb();
+      const meta = typeof cb === 'function' ? cb() : cb;
       const cbs = this.basic[token.name];
       for (let i = 0; i < cbs.length; i++) {
-        cbs[i](token, parsed, meta);
+        cbs[i](token, parsed, current, meta);
       }
     }
   }
@@ -103,14 +104,14 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
   processBranchToken<T extends NonBasicTokenNames>(
     token: TreeToken<T>,
     parsed: IParsed,
-    cb: () => TMeta
+    current: ITreeRecurserCurrent,
+    meta: TMeta
   ) {
     // process if we have validators
     if (token.name in this.branch) {
-      const meta = cb();
       const cbs = this.branch[token.name];
       for (let i = 0; i < cbs.length; i++) {
-        cbs[i](token, parsed, meta);
+        cbs[i](token, parsed, current, meta);
       }
     }
   }
@@ -134,11 +135,7 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
   /**
    * Loop through our tree and execute/run all of our callbacks
    */
-  run(
-    parsed: IParsed,
-    cancel: CancellationToken,
-    cb: (token: TreeToken<TokenName>, meta: IHandlerCallbackMetadata) => TMeta
-  ) {
-    TreeCallbackRunner(this, parsed, cancel, cb);
+  run(parsed: IParsed, cancel: CancellationToken, meta: TMeta) {
+    TreeCallbackRunner(this, parsed, cancel, meta);
   }
 }

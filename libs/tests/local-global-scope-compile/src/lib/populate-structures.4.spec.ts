@@ -50,6 +50,7 @@ describe(`[auto generated] Find them in`, () => {
             meta: {
               display: 'fhdr',
               isDefined: true,
+              canReset: true,
               usage: [[2, 0, 4]],
               docs: '',
               source: 'user',
@@ -81,12 +82,14 @@ describe(`[auto generated] Find them in`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = define_these_structures()\n```\n',
+          docs: '\n```idl\n;+\n; :Returns: Long\n;+\nresult = define_these_structures()\n```\n',
           docsLookup: {},
           display: 'define_these_structures',
           kws: {},
           private: false,
-          returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+          returns: [
+            { display: 'Long', name: 'Long', args: [], meta: {}, value: '1' },
+          ],
           struct: [],
         },
         file: 'not-real',

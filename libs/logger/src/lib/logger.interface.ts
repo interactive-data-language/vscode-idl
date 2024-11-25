@@ -47,7 +47,7 @@ export const LOGGING_CONFIG = {
    * When printing objects, we use utils for coloring and this indicates
    * the depth that utils will go to for objects/arrays/etc.
    */
-  UTILS_LEVEL: 3,
+  UTILS_LEVEL: 6,
   /**
    * When printing more than one item, how large should the indent be
    * to make them easier to find compared to items on the far-left.

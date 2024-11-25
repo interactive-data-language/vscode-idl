@@ -127,6 +127,7 @@ describe(`[auto generated] Apply keyword formatting`, () => {
         `  e = envi()`,
         `  r = ENVIRaster(metadata = meta) ; formatting matches docs`,
         `end`,
+        ``,
       ];
 
       // verify formatting

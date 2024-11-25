@@ -23,6 +23,7 @@ const TOKENS: LoopTokens[] = [TOKEN_NAMES.LOOP_FOREACH];
 const cb: BranchCallback<LoopTokens, PopulateTypeHandlerMeta> = (
   token,
   parsed,
+  current,
   meta
 ) => {
   // split the tokens by our arguments

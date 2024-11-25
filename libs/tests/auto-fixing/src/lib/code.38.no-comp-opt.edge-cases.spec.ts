@@ -55,6 +55,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       `function`,
       ``,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -118,6 +119,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       `pro`,
       ``,
       `end`,
+      ``,
     ];
 
     // verify formatting

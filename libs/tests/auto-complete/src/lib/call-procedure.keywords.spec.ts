@@ -80,6 +80,18 @@ describe(`[auto generated] Keywords for call procedure`, () => {
         },
       },
       {
+        label: 'newline = ',
+        insertText: '/newline',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to 0 to suppress the newline (\\\\n) character at the end of the output. The default is 1, which outputs a newline and advances the output to the next line. By calling PRINT multiple times with NEWLINE=0, all of the output will appear on a single line.',
+        },
+      },
+      {
         label: 'months = ',
         insertText: 'months = ',
         kind: 20,
@@ -212,19 +224,7 @@ describe(`[auto generated] Keywords for call procedure`, () => {
       { label: '!path', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!prompt', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!quiet', kind: 21, sortText: '90', detail: 'System Variable' },
-      {
-        label: '!version',
-        kind: 21,
-        sortText: '90',
-        detail: 'System Variable',
-      },
-      {
-        label: "ENVITask('InitializeENVINet5MultiModel')",
-        insertText: "ENVITask('InitializeENVINet5MultiModel')",
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
-      },
+      { label: '!theme', kind: 21, sortText: '90', detail: 'System Variable' },
     ];
 
     // verify results

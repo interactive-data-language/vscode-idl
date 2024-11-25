@@ -429,7 +429,7 @@ describe(`[auto generated] Detects statements that don't expect a comma first`, 
       },
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "name"',
+        info: 'No matching structure/object/class definition for structure named "name". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [2, 8, 4],
         end: [2, 8, 4],
         canReport: true,

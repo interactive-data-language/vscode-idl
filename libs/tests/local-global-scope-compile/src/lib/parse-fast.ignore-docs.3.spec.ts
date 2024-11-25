@@ -59,6 +59,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[14, 53, 3]],
               docs: '',
               source: 'user',
@@ -72,6 +73,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
             meta: {
               display: 'arg1',
               isDefined: true,
+              canReset: false,
               usage: [[14, 17, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -92,6 +94,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
             meta: {
               display: 'arg2',
               isDefined: true,
+              canReset: false,
               usage: [[14, 23, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -112,6 +115,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
             meta: {
               display: 'arg3',
               isDefined: true,
+              canReset: false,
               usage: [[14, 29, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -156,6 +160,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
             meta: {
               display: 'arg4',
               isDefined: true,
+              canReset: false,
               usage: [[14, 35, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -185,6 +190,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
             meta: {
               display: 'arg5',
               isDefined: true,
+              canReset: false,
               usage: [[14, 41, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',

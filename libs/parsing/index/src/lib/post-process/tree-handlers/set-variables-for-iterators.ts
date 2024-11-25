@@ -30,10 +30,12 @@ SET_VARIABLE_TOKENS[TOKEN_NAMES.ROUTINE_PROCEDURE] = true;
 SET_VARIABLE_TOKENS[TOKEN_NAMES.MAIN_LEVEL] = true;
 
 /**
- * Callback to set variables based on the top-level routine we are
- * within
+ * Sets the variables for the global token we are within
+ *
+ * This makes sure our tree iterators have the right variables for
+ * procedures, functions, main level programs, etc.
  */
-export function SetVariables(
+export function SetVariablesForIterators(
   token: TreeToken<TokenName>,
   parsed: IParsed,
   variables: ILocalTokenLookup
@@ -45,9 +47,5 @@ export function SetVariables(
   }
 
   // fill
-  const newVars = GetVariables(token, parsed);
-  const add = Object.keys(newVars);
-  for (let i = 0; i < add.length; i++) {
-    variables[add[i]] = newVars[add[i]];
-  }
+  Object.assign(variables, GetVariables(token, parsed));
 }

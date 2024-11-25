@@ -77,6 +77,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
         ``,
         `  return, 42`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -238,6 +239,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
         `  compile_opt idl2`,
         `  print, 'Hello world'`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -331,6 +333,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
         ``,
         `  return, 42`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -441,7 +444,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `;+`,
-        `; :Returns: any`,
+        `; :Returns: Long`,
         `;`,
         `; :Arguments:`,
         `;   a: bidirectional, required, any`,
@@ -462,6 +465,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
         ``,
         `  return, 42`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -590,7 +594,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
         `end`,
         ``,
         `;+`,
-        `; :Returns: any`,
+        `; :Returns: Long`,
         `;`,
         `; :Arguments:`,
         `;   a: bidirectional, required, any`,
@@ -611,6 +615,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
         ``,
         `  return, 42`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -750,6 +755,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
         `;-`,
         `pro test_things`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -851,6 +857,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
         `pro test_things2, a, b, kw2 = kw222`,
         `  compile_opt idl2`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -950,6 +957,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
         `pro test_things2, a, b`,
         `  compile_opt idl2`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -1047,6 +1055,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
         `pro test_things2, kw222 = kw2, kw3 = kw3`,
         `  compile_opt idl2`,
         `end`,
+        ``,
       ];
 
       // verify formatting

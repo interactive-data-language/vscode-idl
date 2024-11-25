@@ -62,6 +62,7 @@ describe(`[auto generated] Verify new lines`, () => {
         ``,
         `  return`,
         `end`,
+        ``,
       ];
 
       // verify formatting

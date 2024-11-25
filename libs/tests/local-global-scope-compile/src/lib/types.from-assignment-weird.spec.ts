@@ -51,6 +51,7 @@ describe(`[auto generated] Types from assignment`, () => {
           meta: {
             display: 'c',
             isDefined: true,
+            canReset: true,
             usage: [[4, 0, 1]],
             docs: '',
             source: 'user',
@@ -64,6 +65,7 @@ describe(`[auto generated] Types from assignment`, () => {
           meta: {
             display: 'd',
             isDefined: true,
+            canReset: true,
             usage: [
               [4, 4, 1],
               [4, 9, 1],
@@ -82,6 +84,7 @@ describe(`[auto generated] Types from assignment`, () => {
           meta: {
             display: 'f',
             isDefined: true,
+            canReset: true,
             usage: [[7, 0, 1]],
             docs: '',
             source: 'user',
@@ -95,6 +98,7 @@ describe(`[auto generated] Types from assignment`, () => {
           meta: {
             display: 'g',
             isDefined: true,
+            canReset: true,
             usage: [
               [7, 5, 1],
               [7, 14, 1],

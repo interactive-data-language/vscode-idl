@@ -27,14 +27,17 @@ import {
   GlobalTokens,
   GlobalTokenType,
 } from '@idl/types/core';
-import { SyntaxProblems } from '@idl/types/problem-codes';
+import {
+  DEFAULT_DISABLED_PROBLEMS,
+  IDisabledProblems,
+  SyntaxProblems,
+} from '@idl/types/problem-codes';
 import { TaskToGlobalToken } from '@idl/types/tasks';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDLExtensionConfig,
 } from '@idl/vscode/extension-config';
 import {
-  ChangeDetectionResponse,
   GetAutoCompleteResponse,
   GetSemanticTokensResponse,
   GetTokenDefResponse,
@@ -53,7 +56,7 @@ import { WorkerIOPool } from '@idl/workers/workerio';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 import { glob } from 'fast-glob';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, realpathSync } from 'fs';
 import { cpus, platform } from 'os';
 import { basename, dirname, join } from 'path';
 import { performance } from 'perf_hooks';
@@ -66,8 +69,8 @@ import { Worker } from 'worker_threads';
 
 import { BuildCompletionItems } from './auto-complete/build-completion-items';
 import { GetAutoComplete } from './auto-complete/get-auto-complete';
-import { CanChangeDetection } from './change-detection/can-change-detection';
 import { ChangeDetection } from './change-detection/change-detection';
+import { ProcessChangeDetectionResults } from './change-detection/process-change-detection-results';
 import { GetParsedNotebook } from './get-parsed/get-parsed-notebook';
 import { GetParsedNotebookCell } from './get-parsed/get-parsed-notebook-cell';
 import { GetParsedPROCode } from './get-parsed/get-parsed-pro-code';
@@ -119,9 +122,9 @@ export class IDLIndex {
   indexerPool: ILSPWorkerThreadPool<LSPWorkerThreadMessage>;
 
   /**
-   * NUmber of workers that we populate our indexer pool with
+   * Number of workers that we populate our indexer pool with
    */
-  private nWorkers: number;
+  nWorkers: number;
 
   /**
    * Class for logging nicely formatted text to the console and/or files
@@ -602,8 +605,13 @@ export class IDLIndex {
   /**
    * Indexes global symbols
    */
-  async saveGlobalTokens(file: string, global: GlobalTokens, sync = true) {
-    this.globalIndex.trackGlobalTokens(global, file);
+  async saveGlobalTokens(
+    global: GlobalTokens,
+    file: string,
+    disabled: IDisabledProblems,
+    sync = true
+  ) {
+    this.globalIndex.trackGlobalTokens(global, file, disabled);
     if (sync) {
       await this.syncGlobal(file, global);
     }
@@ -769,7 +777,7 @@ export class IDLIndex {
       }
 
       // track and sync if needed
-      this.saveGlobalTokens(file, global, sync);
+      this.saveGlobalTokens(global, file, DEFAULT_DISABLED_PROBLEMS, sync);
 
       // track as known file
       this.knownFiles[file] = undefined;
@@ -777,6 +785,10 @@ export class IDLIndex {
       // return global token
       return global;
     } catch (err) {
+      /**
+       * Silently ignore errors as we could have many while
+       * people are editing or changing task files
+       */
       return [];
       // this.log.log({
       //   log: IDL_LSP_LOG,
@@ -987,7 +999,7 @@ export class IDLIndex {
     );
 
     // get old global tokens
-    const oldGlobals = this.getGlobalsForFile(file);
+    const oldGlobals = copy(this.getGlobalsForFile(file));
 
     // track as known file
     this.knownFiles[file] = undefined;
@@ -1018,7 +1030,7 @@ export class IDLIndex {
     this.workerIDsByFile[file] = undefined;
 
     // add to our global index - do this before we post-process
-    await this.saveGlobalTokens(file, parsed.global);
+    await this.saveGlobalTokens(parsed.global, file, parsed.disabledProblems);
 
     // determine how to process
     switch (true) {
@@ -1314,7 +1326,9 @@ export class IDLIndex {
           dot: true,
           deep: recursion[i] ? 100000000 : 1,
         })
-      ).map((file) => join(folders[i], file));
+      )
+        .map((file) => join(folders[i], file))
+        .map((file) => realpathSync(file));
 
       // add to our set
       for (let j = 0; j < inFolder.length; j++) {
@@ -1578,82 +1592,16 @@ export class IDLIndex {
   /**
    * Performs change detection and triggers post-processing of all files
    * that use our affected global tokens
+   *
+   * If one argument is present, assumed it is just the changed globals. If two, we determine
+   * the changed globals for you
    */
   async changeDetection(
     token: CancellationToken,
-    newGlobals: GlobalTokens,
-    oldGlobals: GlobalTokens
+    changesOrNewGlobals: GlobalTokens,
+    oldGlobals?: GlobalTokens
   ) {
-    // verify we have changes in our global tokens
-    if (CanChangeDetection(newGlobals, oldGlobals)) {
-      /**
-       * Merge old and new globals together. While there will be some
-       * duplication, the number of globals is small.
-       *
-       * And we need this in case we removed a routine def that is in
-       * the old globals and not the new ones
-       */
-      const changed = newGlobals.concat(oldGlobals);
-
-      /**
-       * Check if we run in our worker
-       */
-      if (this.isMultiThreaded()) {
-        /** Get the IDs of all of our workers */
-        const ids = this.indexerPool.getIDs();
-
-        /** track promises for async processing */
-        const proms: Promise<ChangeDetectionResponse>[] = [];
-
-        // send the messages
-        for (let i = 0; i < ids.length; i++) {
-          // track promise
-          proms.push(
-            this.indexerPool.workerio.postAndReceiveMessage(
-              ids[i],
-              LSP_WORKER_THREAD_MESSAGE_LOOKUP.CHANGE_DETECTION,
-              { changed }
-            ).response
-          );
-        }
-
-        // wait for it to finish
-        await Promise.all(proms);
-
-        // track missing files
-        let missing: string[] = [];
-
-        // save syntax problems for our files
-        for (let i = 0; i < proms.length; i++) {
-          // get response
-          const res = await proms[i];
-
-          // update missing
-          missing = missing.concat(res.missing);
-
-          // track problems
-          const keys = Object.keys(res.problems);
-          for (let z = 0; z < keys.length; z++) {
-            this.trackSyntaxProblemsForFile(keys[z], res.problems[keys[z]]);
-          }
-        }
-
-        // handle missing files if we have them
-        if (missing.length > 0) {
-          await this.removeWorkspaceFiles(missing);
-        }
-      } else {
-        /**
-         * Run locally
-         */
-        const change = ChangeDetection(this, token, changed);
-
-        // check for missing files
-        if (change.missing.length > 0) {
-          await this.removeWorkspaceFiles(change.missing);
-        }
-      }
-    }
+    await ChangeDetection(this, token, changesOrNewGlobals, oldGlobals);
   }
 
   async getParsedProCode(
@@ -1679,7 +1627,7 @@ export class IDLIndex {
     token: CancellationToken,
     oldGlobals: GlobalTokens,
     changeDetection = false
-  ) {
+  ): Promise<boolean> {
     try {
       // convert pros to vars
       if (parsed.type === 'notebook') {
@@ -1687,12 +1635,14 @@ export class IDLIndex {
       }
 
       // perform additional post processing
-      PostProcessParsed(this, file, parsed, token);
+      const changed = PostProcessParsed(this, file, parsed, token);
 
       // check if we need to do change detection
       if (changeDetection) {
         await this.changeDetection(token, parsed.global, oldGlobals);
       }
+
+      return changed;
     } catch (err) {
       this.log.log({
         log: IDL_LSP_LOG,
@@ -1721,9 +1671,12 @@ export class IDLIndex {
     files: string[],
     token: CancellationToken,
     changeDetection = false
-  ): Promise<string[]> {
+  ) {
     /** Track any files that are missing and should no longer be tracked */
-    const missingFiles: string[] = [];
+    const missing: string[] = [];
+
+    /** Track changed global tokens */
+    const globals: { [key: string]: GlobalTokens } = {};
 
     // process each file
     for (let i = 0; i < files.length; i++) {
@@ -1739,17 +1692,26 @@ export class IDLIndex {
       }
 
       try {
-        await this.postProcessProFile(
+        /** Get file from cache */
+        const parsed = this.parsedCache.get(files[i]);
+
+        /** Post-process and check for global changes */
+        const didChange = await this.postProcessProFile(
           files[i],
-          this.parsedCache.get(files[i]),
+          parsed,
           token,
           [],
           changeDetection
         );
+
+        // if changes, then save them
+        if (didChange) {
+          globals[files[i]] = parsed.global;
+        }
       } catch (err) {
         // check if we have a "false" error because a file was deleted
         if (!existsSync(files[i]) && !files[i].includes('#')) {
-          missingFiles.push(files[i]);
+          missing.push(files[i]);
           this.log.log({
             log: IDL_WORKER_THREAD_CONSOLE,
             type: 'warn',
@@ -1772,7 +1734,7 @@ export class IDLIndex {
       }
     }
 
-    return missingFiles;
+    return { missing, globals };
   }
 
   /**
@@ -1865,50 +1827,71 @@ export class IDLIndex {
     let missingFiles: string[] = [];
 
     /**
+     * Track first globals
+     */
+    const firstGlobals: { [key: string]: GlobalTokens } = {};
+
+    /**
+     * Track disabled problems
+     */
+    const disabled: { [key: string]: IDisabledProblems } = {};
+
+    /**
      * Sync global tokens to other workers
      */
     for (let i = 0; i < this.nWorkers; i++) {
       // unpack response
       const res = await parsing[i];
 
+      // update lines of code
+      lines += res.lines;
+
       // update any files that were missing
       missingFiles = missingFiles.concat(res.missing);
 
-      // get files we parsed from our globals
-      const iFiles = Object.keys(res.globals);
-      for (let j = 0; j < iFiles.length; j++) {
-        // track in our process
-        this.globalIndex.trackGlobalTokens(res.globals[iFiles[j]], iFiles[j]);
-      }
+      // track all global tokens
+      Object.assign(firstGlobals, res.globals);
 
-      // send message to all other workers
-      for (let j = 0; j < this.nWorkers; j++) {
-        // skip ourself
-        if (j === i) {
-          continue;
-        }
-        synchronize.push(
-          this.indexerPool.workerio.postAndReceiveMessage(
-            ids[j],
-            LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
-            res.globals
-          ).response
-        );
-      }
+      // track disabled problems
+      Object.assign(disabled, res.disabledProblems);
     }
 
+    /**
+     * Get all files we parsed
+     */
+    const iFiles = Object.keys(firstGlobals);
+
+    // save all global tokens in main index
+    for (let j = 0; j < iFiles.length; j++) {
+      this.globalIndex.trackGlobalTokens(
+        firstGlobals[iFiles[j]],
+        iFiles[j],
+        disabled[iFiles[j]]
+      );
+    }
+
+    /**
+     * Send globals to all workers
+     *
+     * Each worker ignores files that it manages itself
+     */
+    for (let j = 0; j < this.nWorkers; j++) {
+      synchronize.push(
+        this.indexerPool.workerio.postAndReceiveMessage(
+          ids[j],
+          LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
+          firstGlobals
+        ).response
+      );
+    }
+
+    // clean up
     if (global.gc) {
       global.gc();
     }
 
     // wait for all the sync messages to be processed
     await Promise.all(synchronize);
-
-    // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined
-    );
 
     /**
      * Post-processing promises
@@ -1942,38 +1925,45 @@ export class IDLIndex {
     await Promise.all(postProcessing);
 
     // send message to clean up
-    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {
-      all: true,
-    });
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
 
-    // save syntax problems for our file
-    for (let i = 0; i < postProcessing.length; i++) {
-      // get response
-      const res = await postProcessing[i];
+    /**
+     * Process our results
+     */
+    const changes = await ProcessChangeDetectionResults(this, postProcessing);
 
-      // update lines of code
-      lines += res.lines;
+    /**
+     * If we have changes, then run change detection
+     */
+    if (changes.changedGlobals.length > 0) {
+      // print log
+      this.log.log({
+        log: IDL_LSP_LOG,
+        type: 'info',
+        content: [
+          `Running change detection with ${changes.changedGlobals.length} global(s) updated after type detection`,
+        ],
+      });
 
-      // update missing files
-      missingFiles = missingFiles.concat(res.missing);
-
-      // track syntax problems for each file
-      const keys = Object.keys(res.problems);
-      for (let z = 0; z < keys.length; z++) {
-        this.trackSyntaxProblemsForFile(keys[z], res.problems[keys[z]]);
-      }
+      // change!
+      await this.changeDetection(
+        new CancellationToken(),
+        changes.changedGlobals
+      );
     }
 
     // save stats
     this.lastWorkspaceIndexStats.timePro = Math.floor(performance.now() - t0);
     this.lastWorkspaceIndexStats.linesPro = lines;
 
-    /**
-     * Check if we had any files that were deleted while we were trying to process
-     */
-    if (missingFiles.length > 0) {
-      await this.removeWorkspaceFiles(missingFiles, false);
-    }
+    // send message to clean up
+    this.indexerPool.postToAll(
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
+      undefined
+    );
   }
 
   /**
@@ -2137,10 +2127,10 @@ export class IDLIndex {
       const missing1 = await this.indexProFiles(files, token, false);
 
       // post-process all of our files
-      const missing2 = await this.postProcessProFiles(files, token);
+      const postProcessed = await this.postProcessProFiles(files, token);
 
       // remove missing files if we have them
-      const allMissing = missing1.concat(missing2);
+      const allMissing = missing1.concat(postProcessed.missing);
       if (allMissing.length > 0) {
         this.removeWorkspaceFiles(allMissing);
       }

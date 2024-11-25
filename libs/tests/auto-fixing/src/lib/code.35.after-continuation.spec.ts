@@ -41,6 +41,7 @@ describe(`[auto generated] Verify tokens after line continuation get removed on 
       `a = $ 5 * bad ; comment`,
       `  5`,
       `end`,
+      ``,
     ];
 
     // verify formatting

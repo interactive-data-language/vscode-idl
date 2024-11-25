@@ -74,6 +74,7 @@ describe(`[auto generated] Verify we style case`, () => {
         `  end`,
         `endcase`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -104,7 +105,7 @@ describe(`[auto generated] Verify we style case`, () => {
       },
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "myStruct"',
+        info: 'No matching structure/object/class definition for structure named "myStruct". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [9, 10, 8],
         end: [9, 10, 8],
         canReport: true,
@@ -191,6 +192,7 @@ describe(`[auto generated] Verify we style case`, () => {
         `  end`,
         `endcase`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -325,6 +327,7 @@ describe(`[auto generated] Verify we style case`, () => {
         `  end`,
         `endcase`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -486,6 +489,7 @@ describe(`[auto generated] Verify we style case`, () => {
         `  else: ; remove my space to the left after "else"`,
         `endcase`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -612,6 +616,7 @@ describe(`[auto generated] Verify we style case`, () => {
         `    oSystem.registerTool, strName, strClassName, _extra = _extra`,
         `endcase`,
         `end`,
+        ``,
       ];
 
       // verify formatting

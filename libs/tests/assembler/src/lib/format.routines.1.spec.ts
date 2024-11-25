@@ -55,6 +55,7 @@ describe(`[auto generated] Verify we format routines`, () => {
         `  kw2 = kw2, kw3 = kw3`,
         `  compile_opt idl2`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -175,6 +176,7 @@ describe(`[auto generated] Verify we format routines`, () => {
         `  compile_opt idl2`,
         `  return, 1`,
         `end`,
+        ``,
       ];
 
       // verify formatting

@@ -44,6 +44,7 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       `!null = a[]`,
       ``,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -118,6 +119,7 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       `!null = a()`,
       ``,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -192,6 +194,7 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       `!null = a()`,
       ``,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -252,6 +255,7 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
       `!null = a()`,
       ``,
       `end`,
+      ``,
     ];
 
     // verify formatting

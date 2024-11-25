@@ -44,6 +44,7 @@ describe(`[auto generated] Verify function to array for`, () => {
       `compile_opt idl2`,
       `coefs = coefs_spc[*, 0 : junk - 1]`,
       `end`,
+      ``,
     ];
 
     // verify formatting

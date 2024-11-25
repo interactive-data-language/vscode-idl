@@ -37,7 +37,7 @@ describe(`[auto generated] Check for structure names`, () => {
     const expected: SyntaxProblems = [
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "ENVIRaster2"',
+        info: 'No matching structure/object/class definition for structure named "ENVIRaster2". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [2, 7, 11],
         end: [2, 7, 11],
         canReport: true,

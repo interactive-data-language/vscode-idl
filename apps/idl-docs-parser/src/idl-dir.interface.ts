@@ -3,7 +3,7 @@ import { dirname } from 'path';
 /**
  * Location of IDL, ENVI, and ENVI Deep learning
  */
-export const IDL_DIR = `C:\\Program Files\\NV5\\ENVI60\\IDL90`;
+export const IDL_DIR = `C:\\Program Files\\NV5\\ENVI61\\IDL91`;
 
 /**
  * Root folder for ENVI's installation

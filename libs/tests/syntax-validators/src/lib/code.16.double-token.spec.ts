@@ -230,7 +230,7 @@ describe(`[auto generated] Detects two tokens next to each other`, () => {
     const expected: SyntaxProblems = [
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "mystruct"',
+        info: 'No matching structure/object/class definition for structure named "mystruct". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [0, 5, 8],
         end: [0, 5, 8],
         canReport: true,

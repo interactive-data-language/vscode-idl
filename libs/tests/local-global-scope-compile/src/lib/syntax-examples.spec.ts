@@ -58,6 +58,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[5, 30, 3]],
               docs: '',
               source: 'user',
@@ -73,6 +74,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[0, 38, 3]],
               docs: '',
               source: 'user',
@@ -86,6 +88,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: false,
               usage: [[0, 23, 1]],
               docs: '',
               source: 'user',
@@ -99,6 +102,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'b',
               isDefined: true,
+              canReset: false,
               usage: [[0, 26, 1]],
               docs: '',
               source: 'user',
@@ -112,6 +116,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'c',
               isDefined: true,
+              canReset: false,
               usage: [[0, 29, 1]],
               docs: '',
               source: 'user',
@@ -129,6 +134,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[14, 17, 3]],
               docs: '',
               source: 'user',
@@ -144,6 +150,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[10, 25, 3]],
               docs: '',
               source: 'user',
@@ -157,6 +164,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: false,
               usage: [[10, 10, 1]],
               docs: '',
               source: 'user',
@@ -170,6 +178,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'b',
               isDefined: true,
+              canReset: false,
               usage: [[10, 13, 1]],
               docs: '',
               source: 'user',
@@ -183,6 +192,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'c',
               isDefined: true,
+              canReset: false,
               usage: [[10, 16, 1]],
               docs: '',
               source: 'user',
@@ -296,7 +306,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = testfunction2( $\n  kw1 = value)\n```\n\n\n#### Keywords\n\n- **kw1**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\n;+\n; :Returns: Long\n;+\nresult = testfunction2( $\n  kw1 = value)\n```\n\n\n#### Keywords\n\n- **kw1**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: {},
           display: 'testfunction2',
           kws: {
@@ -313,7 +323,9 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             },
           },
           private: false,
-          returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+          returns: [
+            { display: 'Long', name: 'Long', args: [], meta: {}, value: '1' },
+          ],
           struct: [],
         },
         file: 'not-real',
@@ -359,7 +371,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               pos: [0, 29, 1],
             },
           },
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = testfunction(a, b, c, $\n  kw1 = value)\n```\n\n\n#### Arguments\n\n- **a**: bidirectional, required, any\n\n  \n\n- **b**: bidirectional, required, any\n\n  \n\n- **c**: bidirectional, required, any\n\n  \n\n\n\n#### Keywords\n\n- **kw1**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\n;+\n; :Returns: Long\n;+\nresult = testfunction(a, b, c, $\n  kw1 = value)\n```\n\n\n#### Arguments\n\n- **a**: bidirectional, required, any\n\n  \n\n- **b**: bidirectional, required, any\n\n  \n\n- **c**: bidirectional, required, any\n\n  \n\n\n\n#### Keywords\n\n- **kw1**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: {},
           display: 'testfunction',
           kws: {
@@ -376,7 +388,9 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             },
           },
           private: false,
-          returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+          returns: [
+            { display: 'Long', name: 'Long', args: [], meta: {}, value: '1' },
+          ],
           struct: [],
         },
         file: 'not-real',

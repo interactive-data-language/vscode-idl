@@ -9,18 +9,10 @@ import { deepEqual } from 'fast-equals';
 import { IDL_INDEX } from '../events/initialize-document-manager';
 import { CAN_SEND_PROBLEMS } from '../events/is-initialized';
 import { SERVER_CONNECTION } from '../initialize-server';
-import {
-  IDL_PATH_FOLDERS,
-  IGNORE_PROBLEM_CODES,
-  INCLUDE_PROBLEMS_FOR,
-} from './merge-config';
+import { CanReportProblems } from './can-report-problems';
+import { IGNORE_PROBLEM_CODES, INCLUDE_PROBLEMS_FOR } from './merge-config';
 import { SyntaxProblemsToDiagnostic } from './syntax-problem-to-diagnostic';
 import { URIFromIDLIndexFile } from './uri-from-idl-index-file';
-
-/**
- * Regex to check if we are in a package file
- */
-const IDL_PACKAGES_REGEX = /(?:\\|\/)idl_packages(?:$|\\|\/)/i;
 
 /**
  * Last value of old exclude
@@ -31,33 +23,6 @@ let OLD_INCLUDE = copy(INCLUDE_PROBLEMS_FOR);
  * Last copy of old ignore codes
  */
 let OLD_IGNORE = copy(IGNORE_PROBLEM_CODES);
-
-/**
- * Determines if we can report problems for a file or not
- */
-export function CanReportProblems(file: string) {
-  /** Flag if we can report problems for our file */
-  let report = true;
-
-  // filter using IDL packages
-  if (report && !INCLUDE_PROBLEMS_FOR.IDL_PACKAGES) {
-    report = !IDL_PACKAGES_REGEX.test(file);
-  }
-
-  // filter using files
-  if (report && !INCLUDE_PROBLEMS_FOR.IDL_PATH) {
-    report = false;
-    const folders = Object.keys(IDL_PATH_FOLDERS);
-    for (let z = 0; z < folders.length; z++) {
-      if (file.startsWith(folders[z])) {
-        report = true;
-        break;
-      }
-    }
-  }
-
-  return report;
-}
 
 /**
  * Sends problems to the current VSCode session
@@ -99,11 +64,6 @@ export function SendProblems(inFiles: string[]) {
     // init problems
     let problems: SyntaxProblems = [];
 
-    // skip files we cant report problems for
-    if (!CanReportProblems(files[i])) {
-      continue;
-    }
-
     // make sure we have a valid file that we can report problems for
     if (
       !(
@@ -112,6 +72,18 @@ export function SendProblems(inFiles: string[]) {
         IDLFileHelper.isIDLNotebookFile(files[i])
       )
     ) {
+      continue;
+    }
+
+    // skip files we cant report problems for
+    if (!CanReportProblems(files[i])) {
+      // sync problems
+      SERVER_CONNECTION.sendDiagnostics({
+        uri: URIFromIDLIndexFile(files[i]),
+        diagnostics: SyntaxProblemsToDiagnostic(
+          INCLUDE_PROBLEMS_FOR.ALL ? problems : []
+        ),
+      });
       continue;
     }
 

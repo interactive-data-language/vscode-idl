@@ -55,6 +55,7 @@ describe(`[auto generated] Verify trimming lines`, () => {
         `  kw2 = kw2, kw3 = kw3`,
         `  compile_opt idl2`,
         `end`,
+        ``,
       ];
 
       // verify formatting

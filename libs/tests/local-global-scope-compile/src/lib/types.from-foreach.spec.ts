@@ -52,6 +52,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
             meta: {
               display: 'item',
               isDefined: true,
+              canReset: false,
               usage: [
                 [5, 13, 4],
                 [8, 15, 4],
@@ -77,6 +78,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
             meta: {
               display: 'val',
               isDefined: true,
+              canReset: true,
               usage: [
                 [8, 10, 3],
                 [8, 35, 3],
@@ -93,6 +95,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
             meta: {
               display: 'key',
               isDefined: true,
+              canReset: true,
               usage: [[8, 21, 3]],
               docs: '',
               source: 'user',
@@ -210,6 +213,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
             meta: {
               display: 'item',
               isDefined: true,
+              canReset: false,
               usage: [
                 [5, 13, 4],
                 [8, 15, 4],
@@ -238,6 +242,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
             meta: {
               display: 'val',
               isDefined: true,
+              canReset: true,
               usage: [
                 [8, 10, 3],
                 [8, 35, 3],
@@ -257,6 +262,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
             meta: {
               display: 'key',
               isDefined: true,
+              canReset: true,
               usage: [[8, 21, 3]],
               docs: '',
               source: 'user',
@@ -377,6 +383,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
             meta: {
               display: 'item',
               isDefined: true,
+              canReset: false,
               usage: [
                 [5, 13, 4],
                 [8, 15, 4],
@@ -393,6 +400,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
             meta: {
               display: 'val',
               isDefined: true,
+              canReset: true,
               usage: [
                 [8, 10, 3],
                 [8, 35, 3],
@@ -409,6 +417,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
             meta: {
               display: 'key',
               isDefined: true,
+              canReset: true,
               usage: [[8, 21, 3]],
               docs: '',
               source: 'user',
@@ -517,6 +526,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
             meta: {
               display: 'item',
               isDefined: true,
+              canReset: false,
               usage: [
                 [5, 13, 4],
                 [8, 15, 4],
@@ -533,6 +543,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
             meta: {
               display: 'val',
               isDefined: true,
+              canReset: true,
               usage: [
                 [8, 10, 3],
                 [8, 35, 3],
@@ -549,6 +560,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
             meta: {
               display: 'key',
               isDefined: true,
+              canReset: true,
               usage: [[8, 21, 3]],
               docs: '',
               source: 'user',

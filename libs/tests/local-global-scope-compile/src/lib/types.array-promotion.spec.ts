@@ -69,6 +69,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: false,
               usage: [[8, 15, 1]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -86,6 +87,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'scalar1',
             isDefined: true,
+            canReset: true,
             usage: [[17, 0, 7]],
             docs: '',
             source: 'user',
@@ -99,6 +101,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'array1',
             isDefined: true,
+            canReset: true,
             usage: [[20, 0, 6]],
             docs: '',
             source: 'user',
@@ -121,6 +124,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'array2',
             isDefined: true,
+            canReset: true,
             usage: [[21, 0, 6]],
             docs: '',
             source: 'user',
@@ -143,6 +147,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'c',
             isDefined: true,
+            canReset: true,
             usage: [
               [24, 0, 1],
               [25, 14, 1],
@@ -159,6 +164,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'either',
             isDefined: true,
+            canReset: true,
             usage: [[25, 0, 6]],
             docs: '',
             source: 'user',

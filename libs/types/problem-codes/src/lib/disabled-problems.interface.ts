@@ -29,3 +29,12 @@ export interface IDisabledProblems {
    */
   forLines: { [key: number]: { [key: number]: true } };
 }
+
+/**
+ * Default disabled problems to use for tracking any problems
+ */
+export const DEFAULT_DISABLED_PROBLEMS: IDisabledProblems = {
+  all: false,
+  forFile: {},
+  forLines: {},
+};

@@ -132,6 +132,7 @@ describe(`[auto generated] Add names of procedures that we can auto-complete`, (
       { label: '!path', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!prompt', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!quiet', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!theme', kind: 21, sortText: '90', detail: 'System Variable' },
       {
         label: '!version',
         kind: 21,
@@ -150,7 +151,6 @@ describe(`[auto generated] Add names of procedures that we can auto-complete`, (
       { label: 'print', kind: 3, sortText: '03', detail: 'Procedure' },
       { label: 'printf', kind: 3, sortText: '03', detail: 'Procedure' },
       { label: 'read', kind: 3, sortText: '03', detail: 'Procedure' },
-      { label: 'readf', kind: 3, sortText: '03', detail: 'Procedure' },
     ];
 
     // verify results

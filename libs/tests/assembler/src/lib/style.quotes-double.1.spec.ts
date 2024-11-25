@@ -99,6 +99,7 @@ describe(`[auto generated] Verify double quote styling`, () => {
         `; special single quote with doubles`,
         `a = '"string"'`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -218,6 +219,7 @@ describe(`[auto generated] Verify double quote styling`, () => {
         `; special single quote with doubles`,
         `a = """string"""`,
         `end`,
+        ``,
       ];
 
       // verify formatting

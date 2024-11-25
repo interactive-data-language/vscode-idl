@@ -24,7 +24,7 @@ import {
 import { DEFAULT_PARSED, IParsed } from './parsed.interface';
 import { PopulateIndex } from './populate-index';
 import { PopulateScope } from './populate-scope';
-import { GetUniqueVariables } from './populators/get-unique-variables';
+import { PopulateVariables } from './populators/populate-variables';
 import { IDL_SYNTAX_TREE_POST_PROCESSOR } from './post-processor.interface';
 import { DEFAULT_CURRENT } from './recursion-and-callbacks/tree-recurser.interface';
 import { SyntaxProblemWithTranslation } from './syntax-problem-with';
@@ -117,7 +117,8 @@ function BuildTreeRecurser(
           IDL_SYNTAX_TREE_POST_PROCESSOR.processBasicToken(
             basic,
             DEFAULT_PARSED,
-            () => DEFAULT_CURRENT
+            DEFAULT_CURRENT,
+            {}
           );
         }
         break;
@@ -181,7 +182,8 @@ function BuildTreeRecurser(
           IDL_SYNTAX_TREE_POST_PROCESSOR.processBranchToken(
             branch,
             DEFAULT_PARSED,
-            () => DEFAULT_CURRENT
+            DEFAULT_CURRENT,
+            {}
           );
         }
         break;
@@ -333,7 +335,7 @@ export function PopulateLocal(parsed: IParsed) {
       // inside of "populate-global.ts" or you can search for the name of the
       // function "GetUniqueVariables("
       case TOKEN_NAMES.MAIN_LEVEL:
-        local.main = GetUniqueVariables(
+        local.main = PopulateVariables(
           branch as IBranch<MainLevelToken>,
           parsed,
           parsed.compile.main

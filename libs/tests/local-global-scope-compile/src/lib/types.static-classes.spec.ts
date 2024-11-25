@@ -49,6 +49,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: true,
               usage: [[3, 2, 1]],
               docs: '',
               source: 'user',
@@ -62,6 +63,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'IDL_Number',
               isDefined: true,
+              canReset: true,
               usage: [[3, 6, 10]],
               docs: 'A static reference to the class "IDL_Number"',
               source: 'user',
@@ -83,6 +85,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'b',
               isDefined: true,
+              canReset: true,
               usage: [[4, 2, 1]],
               docs: '',
               source: 'user',
@@ -118,6 +121,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'envi',
               isDefined: true,
+              canReset: true,
               usage: [[4, 6, 4]],
               docs: 'A static reference to the class "ENVI"',
               source: 'user',
@@ -132,6 +136,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'any1',
               isDefined: true,
+              canReset: true,
               usage: [[5, 2, 4]],
               docs: '',
               source: 'user',
@@ -145,6 +150,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'image',
               isDefined: false,
+              canReset: true,
               usage: [[5, 9, 5]],
               docs: '',
               source: 'user',

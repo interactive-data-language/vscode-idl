@@ -65,6 +65,7 @@ describe(`[auto generated] Verify complex formatting`, () => {
         ``,
         `test_things`,
         `end`,
+        ``,
       ];
 
       // verify formatting

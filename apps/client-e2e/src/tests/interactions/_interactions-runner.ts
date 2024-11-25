@@ -18,6 +18,8 @@ import {
   ProCodeCodeActionsExisting,
   ProCodeCodeActionsNoExisting,
 } from './code-actions/pro-code-code-actions';
+import { ProCodeCodeActionsNotebook } from './code-actions/pro-code-code-actions-notebook';
+import { ProCodeCodeActionsNotebook2 } from './code-actions/pro-code-code-actions-notebook-2';
 import { AddDocs } from './commands/add-docs';
 import {
   MigrateCodeDL30,
@@ -138,7 +140,12 @@ INTERACTIONS_RUNNER.addTest({
 
 INTERACTIONS_RUNNER.addTest({
   name: 'Code actions for notebook cell',
-  fn: ProCodeCodeActionsExisting,
+  fn: ProCodeCodeActionsNotebook,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Code actions for notebook cell 2',
+  fn: ProCodeCodeActionsNotebook2,
 });
 
 INTERACTIONS_RUNNER.addTest({

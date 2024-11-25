@@ -20,7 +20,7 @@ export function PopulateScopeDetailAndResetTokenCache(
 ): void {
   switch (true) {
     case !parsed.hasDetail:
-      TreeRecurser(parsed, cancel, {
+      TreeRecurser(parsed.tree, cancel, {
         onBasicToken: (token, current) => {
           token.scopeTokens = current.scopeTokens.slice();
           token.accessTokens = current.accessTokens.slice();

@@ -76,6 +76,7 @@ describe(`[auto generated] Only use code for docs`, () => {
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[27, 20, 3]],
               docs: 'Some cool statement across\n\nmultiple lines',
               source: 'user',
@@ -89,6 +90,7 @@ describe(`[auto generated] Only use code for docs`, () => {
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: false,
               usage: [[27, 11, 1]],
               docs: 'Some cool statement across\n\nmultiple lines',
               source: 'user',

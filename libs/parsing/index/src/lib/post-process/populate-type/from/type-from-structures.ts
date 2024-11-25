@@ -51,11 +51,9 @@ export function TypeFromStructure(
         parsed.postProcessProblems.push(
           SyntaxProblemWithoutTranslation(
             IDL_PROBLEM_CODES.UNKNOWN_STRUCTURE,
-            `${
-              IDL_TRANSLATION.parsing.errors[
-                IDL_PROBLEM_CODES.UNKNOWN_STRUCTURE
-              ]
-            } "${name[0].match[0]}"`,
+            IDL_TRANSLATION.parsing.errors[
+              IDL_PROBLEM_CODES.UNKNOWN_STRUCTURE
+            ].replace('#SNAME', `"${name[0].match[0].trim()}"`),
             name[0].pos,
             name[0].pos
           )

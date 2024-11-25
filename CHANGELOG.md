@@ -16,7 +16,50 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
-IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks.
+IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks (not all types are supported).
+
+## 4.7.0 - November 2024
+
+Added the ability to statically determine the return types for functions and function methods that don't have documentation. This means that, for the following example, we properly detect that we return an IDL Long (because of `compile_opt idl2`):
+
+```idl
+function myFunc
+  compile_opt idl2
+  return, 42 ; or is it 84?
+end
+```
+
+This marks the first step of an iterative process to automatically detect types from code when you don't have strict documentation. We can also, in the future, check to make sure actual return values match docs.
+
+In order to detect types from your code, we had to make some pretty big changes to the language server in order to properly resolve types that don't come from documentation. With that, if you notice any odd behaviors or issues, please reach out to us on Github to let us know of any problems. For large workspaces, such as the IDL lib folder, this means it will take about 1.5-2.5 more seconds to parse your code (depending on complexity of your code base and how many routines are called in other files).
+
+In order for our type detection functionality to work correctly, we did have to revert a change we recently made to reduce long-term memory usage of the language server.
+
+However, we did tweak the in-memory cache for parsed files to optimize performance. We no longer copy complex data structures which adds a 10-15% performance improvement parse speed and helps reduce memory usage.
+
+Optimized the language server change detection process to focus on only routines/globals that have changed and not everything in a file (change detection is a process for validating usage of routines in other files when the source definition is updated).
+
+Changed the error message reported when we can't find a structure definition. This adds some context for why we might not know about a structure definition to help users who aren't following best practices/standards.
+
+Fixed a bug where code actions were not appearing in notebook cells.
+
+Fixed an issue where code actions, in notebooks, incorrectly fixed issues on the first line of a cell.
+
+Fixed an issue where the language server was not correctly detecting pointers being de-referenced. This caused false errors for "standalone expressions" to be reported and for formatting to not function correctly.
+
+Update extension docs with the latest version of node.js that we require (to work around language server crashes).
+
+Updated hover help packaged with the extension with ENVI 6.1, IDL 9.1, and ENVI Deep Learning 3.0.1 docs
+
+Tweak the logic for how we respond to settings changes for problems that we report. This change means, as you change which problems you want reported in real-time, the problems tab in VSCode will add/remove problems that you do/don't want to see. Previously you would need to restart VSCode for the changes to take effect.
+
+Improved the logic when checking if we report problems or not for a file to account for the folder on IDL's path being recursive or not.
+
+Fixed an issue where, when disabling problems from duplicate routines, they were still being reported.
+
+Updating our formatting logic to add a final line feed or carriage return after the last line of a file when formatting your code.
+
+POtential fix to resolve canonical (true) filepaths when you have symbolic links in your workspace or on IDL's search path. This should fix a problem where the same file was incorrectly having two paths and reporting duplicate problems.
 
 ## 4.6.2 - September 2024
 
@@ -31,6 +74,8 @@ For large files, this had a significant impact on perceived performance as the w
 Fixed an issue where, from the JSON settings editor, a valid extension setting would be highlighted as being an incorrect value.
 
 Fixed an issue where the "don't ask again" options didn't honor your choice for using IDL as the formatter.
+
+Fixed an issue where "none" style for functions and procedures was not being honored as expected.
 
 ## 4.6.1 - September 2024
 

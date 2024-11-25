@@ -40,6 +40,7 @@ describe(`[auto generated] Verify function method to array for`, () => {
       `compile_opt idl2`,
       `a = objOrStruct.var[0 : -1]`,
       `end`,
+      ``,
     ];
 
     // verify formatting

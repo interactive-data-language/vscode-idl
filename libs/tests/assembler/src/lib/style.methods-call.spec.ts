@@ -89,6 +89,7 @@ describe(`[auto generated] Method styling`, () => {
         `  !null = p.getFullIdentifier()`,
         `  p.setVertexAttributeData`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -198,6 +199,7 @@ describe(`[auto generated] Method styling`, () => {
         `  !null = p.GetFullIdentifier()`,
         `  p.SetVertexAttributeData`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -307,6 +309,7 @@ describe(`[auto generated] Method styling`, () => {
         `  !null = p.getFullIdentifier()`,
         `  p.setVertexAttributeData`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -416,6 +419,7 @@ describe(`[auto generated] Method styling`, () => {
         `  !null = p.GETFULLIDENTIFIER()`,
         `  p.SETVERTEXATTRIBUTEDATA`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -525,6 +529,7 @@ describe(`[auto generated] Method styling`, () => {
         `  !null = p.getfullidentifier()`,
         `  p.setvertexattributedata`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -634,6 +639,7 @@ describe(`[auto generated] Method styling`, () => {
         `  !null = p.getFullIdentifier()`,
         `  p.SETVERTEXATTRIBUTEDATA`,
         `end`,
+        ``,
       ];
 
       // verify formatting

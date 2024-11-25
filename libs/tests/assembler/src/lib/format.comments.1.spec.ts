@@ -58,6 +58,7 @@ describe(`[auto generated] Verify comment`, () => {
         `compile_opt idl2`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -179,6 +180,7 @@ describe(`[auto generated] Verify comment`, () => {
         `    print, 'yes'`,
         `  endif`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -309,6 +311,7 @@ describe(`[auto generated] Verify comment`, () => {
         `;-   stopped here`,
         `a = 'something'`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -410,6 +413,7 @@ describe(`[auto generated] Verify comment`, () => {
         `message, $ ; keep my space!`,
         `  'baaaad'`,
         `end`,
+        ``,
       ];
 
       // verify formatting

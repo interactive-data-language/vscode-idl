@@ -15,7 +15,7 @@ import { BASIC_CONTROL, BRANCH_CONTROL } from './style-control.interface';
 const BasicControlCallback: BasicCallback<
   BasicTokenNames,
   AssemblerStyleMeta
-> = (token, parsed, meta) => {
+> = (token, parsed, current, meta) => {
   token.match[0] = AdjustCase(token.match[0], meta.style.control);
 };
 
@@ -33,7 +33,7 @@ for (let i = 0; i < BASIC_CONTROL.length; i++) {
 const BranchControlCallback: BranchCallback<
   NonBasicTokenNames,
   AssemblerStyleMeta
-> = (token, parsed, meta) => {
+> = (token, parsed, current, meta) => {
   if (meta.style.control === STYLE_FLAG_LOOKUP.NONE) {
     return;
   }

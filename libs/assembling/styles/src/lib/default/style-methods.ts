@@ -11,21 +11,24 @@ const METHODS = [
 ];
 
 for (let i = 0; i < METHODS.length; i++) {
-  ASSEMBLER_DEFAULT_STYLING.onBranchToken(METHODS[i], (token, parsed, meta) => {
-    // check if we should ignore formatting
-    if (meta.style.methods === STYLE_FLAG_LOOKUP.NONE) {
-      return;
-    }
+  ASSEMBLER_DEFAULT_STYLING.onBranchToken(
+    METHODS[i],
+    (token, parsed, current, meta) => {
+      // check if we should ignore formatting
+      if (meta.style.methods === STYLE_FLAG_LOOKUP.NONE) {
+        return;
+      }
 
-    switch (meta.style.methods) {
-      case STYLE_FLAG_LOOKUP.DOT:
-        token.match[0] = token.match[0].replace('->', '.');
-        break;
-      case STYLE_FLAG_LOOKUP.ARROW:
-        token.match[0] = token.match[0].replace('.', '->');
-        break;
-      default:
-      // do nothing
+      switch (meta.style.methods) {
+        case STYLE_FLAG_LOOKUP.DOT:
+          token.match[0] = token.match[0].replace('->', '.');
+          break;
+        case STYLE_FLAG_LOOKUP.ARROW:
+          token.match[0] = token.match[0].replace('.', '->');
+          break;
+        default:
+        // do nothing
+      }
     }
-  });
+  );
 }

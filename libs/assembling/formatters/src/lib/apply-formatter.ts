@@ -31,7 +31,7 @@ export function ApplyFormatter(
   }
 
   // use our tree recurser to process what we parsed
-  TreeRecurser(parsed, cancel, {
+  TreeRecurser(parsed.tree, cancel, {
     onBasicToken: (token, current) => {
       if (token.name in ruleSet) {
         // not sure why, but we need any here to have it work

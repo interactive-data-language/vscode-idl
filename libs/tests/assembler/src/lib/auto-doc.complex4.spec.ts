@@ -122,6 +122,7 @@ describe(`[auto generated] Verify complex formatting`, () => {
         ``,
         `  return, 1`,
         `end`,
+        ``,
       ];
 
       // verify formatting

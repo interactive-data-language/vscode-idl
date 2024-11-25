@@ -77,6 +77,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'meters',
               isDefined: true,
+              canReset: false,
               usage: [[31, 58, 6]],
               docs: 'Set this keyword to return the distance in meters',
               source: 'user',
@@ -90,6 +91,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'radians',
               isDefined: true,
+              canReset: false,
               usage: [[31, 76, 7]],
               docs: 'Set this keyword if inputs are specified in radians (the default is degrees)',
               source: 'user',
@@ -103,6 +105,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'radius',
               isDefined: true,
+              canReset: false,
               usage: [[31, 95, 6]],
               docs: 'Set this keyword to a value specifying the radius of the sphere to be used, in [km]\n  the default value is the Authalic radius (equal area hyothetical perfect sphere) = 6371.0072',
               source: 'user',
@@ -116,6 +119,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'semimajor_axis',
               isDefined: true,
+              canReset: false,
               usage: [[31, 120, 14]],
               docs: 'Set this keyword to the length of the semimajor axis of the reference ellipsoid, in [m]\n  the default value is the WGS-84 6378137',
               source: 'user',
@@ -129,6 +133,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'semiminor_axis',
               isDefined: true,
+              canReset: false,
               usage: [[31, 153, 14]],
               docs: 'Set this keyword to the length of the semiminor axis of the reference ellipsoid, in [m]\n  the default value is the WGS-84 6356752.314245',
               source: 'user',
@@ -142,6 +147,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'lon1',
               isDefined: true,
+              canReset: false,
               usage: [[31, 17, 4]],
               docs: 'Longitude and latitude of the 1st point, p0',
               source: 'user',
@@ -155,6 +161,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'lat1',
               isDefined: true,
+              canReset: false,
               usage: [[31, 23, 4]],
               docs: 'Longitude and latitude of the 1st point, p0',
               source: 'user',
@@ -168,6 +175,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'lon2',
               isDefined: true,
+              canReset: false,
               usage: [[31, 29, 4]],
               docs: 'Longitude and latitude of the 2nd point, p1',
               source: 'user',
@@ -181,6 +189,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'lat2',
               isDefined: true,
+              canReset: false,
               usage: [[31, 35, 4]],
               docs: 'Longitude and latitude of the 2nd point, p1',
               source: 'user',
@@ -194,6 +203,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'method',
               isDefined: true,
+              canReset: false,
               usage: [[31, 41, 6]],
               docs: 'The method to be used, options are:\n  1 - Haversine (sphere) - selected by default\n  2 - Vincenty  (spheroid)',
               source: 'user',
@@ -433,6 +443,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'meters',
               isDefined: true,
+              canReset: false,
               usage: [[33, 63, 6]],
               docs: 'Set this keyword to return the distance in meters',
               source: 'user',
@@ -446,6 +457,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'radians',
               isDefined: true,
+              canReset: false,
               usage: [[33, 81, 7]],
               docs: 'Set this keyword if inputs are specified in radians (the default is degrees)',
               source: 'user',
@@ -459,6 +471,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'radius',
               isDefined: true,
+              canReset: false,
               usage: [[33, 100, 6]],
               docs: 'Set this keyword to a value specifying the radius of the sphere to be used, in [km]\n  the default value is the Authalic radius (equal area hyothetical perfect sphere) = 6371.0072',
               source: 'user',
@@ -472,6 +485,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'semimajor_axis',
               isDefined: true,
+              canReset: false,
               usage: [[33, 125, 14]],
               docs: 'Set this keyword to the length of the semimajor axis of the reference ellipsoid, in [m]\n  the default value is the WGS-84 6378137',
               source: 'user',
@@ -485,6 +499,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'semiminor_axis',
               isDefined: true,
+              canReset: false,
               usage: [[33, 158, 14]],
               docs: 'Set this keyword to the length of the semiminor axis of the reference ellipsoid, in [m]\n  the default value is the WGS-84 6356752.314245',
               source: 'user',
@@ -498,6 +513,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'lon1',
               isDefined: true,
+              canReset: false,
               usage: [[33, 22, 4]],
               docs: 'Longitude and latitude of the 1st point, p0',
               source: 'user',
@@ -511,6 +527,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'lat1',
               isDefined: true,
+              canReset: false,
               usage: [[33, 28, 4]],
               docs: 'Longitude and latitude of the 1st point, p0',
               source: 'user',
@@ -524,6 +541,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'lon2',
               isDefined: true,
+              canReset: false,
               usage: [[33, 34, 4]],
               docs: 'Longitude and latitude of the 2nd point, p1',
               source: 'user',
@@ -537,6 +555,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'lat2',
               isDefined: true,
+              canReset: false,
               usage: [[33, 40, 4]],
               docs: 'Longitude and latitude of the 2nd point, p1',
               source: 'user',
@@ -550,6 +569,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             meta: {
               display: 'method',
               isDefined: true,
+              canReset: false,
               usage: [[33, 46, 6]],
               docs: 'The method to be used, options are:\n  1 - Haversine (sphere) - selected by default\n  2 - Vincenty  (spheroid)',
               source: 'user',

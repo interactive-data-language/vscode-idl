@@ -5,7 +5,7 @@ import { TOKEN_NAMES } from '@idl/tokenizer';
 
 ASSEMBLER_DEFAULT_STYLING.onBasicToken(
   TOKEN_NAMES.STRING_TEMPLATE_ESCAPE,
-  (token, parsed, meta) => {
+  (token, parsed, current, meta) => {
     const compare = token.match[0].toLowerCase();
 
     // hex, so lets format like all the other hexes

@@ -167,6 +167,7 @@ describe(`[auto generated] Control statement styling`, () => {
         `.reset`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -203,8 +204,29 @@ describe(`[auto generated] Control statement styling`, () => {
         canReport: true,
       },
       {
+        code: 104,
+        info: 'Unused variable "var1"',
+        start: [5, 16, 4],
+        end: [5, 16, 4],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "var2"',
+        start: [5, 22, 4],
+        end: [5, 22, 4],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "etc"',
+        start: [5, 28, 3],
+        end: [5, 28, 3],
+        canReport: true,
+      },
+      {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "myname"',
+        info: 'No matching structure/object/class definition for structure named "myname". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [54, 12, 6],
         end: [54, 12, 6],
         canReport: true,
@@ -242,27 +264,6 @@ describe(`[auto generated] Control statement styling`, () => {
         info: 'Unused variable "mystruct"',
         start: [54, 0, 8],
         end: [54, 0, 8],
-        canReport: true,
-      },
-      {
-        code: 104,
-        info: 'Unused variable "var1"',
-        start: [5, 16, 4],
-        end: [5, 16, 4],
-        canReport: true,
-      },
-      {
-        code: 104,
-        info: 'Unused variable "var2"',
-        start: [5, 22, 4],
-        end: [5, 22, 4],
-        canReport: true,
-      },
-      {
-        code: 104,
-        info: 'Unused variable "etc"',
-        start: [5, 28, 3],
-        end: [5, 28, 3],
         canReport: true,
       },
     ];
@@ -432,6 +433,7 @@ describe(`[auto generated] Control statement styling`, () => {
         `.RESET`,
         ``,
         `END`,
+        ``,
       ];
 
       // verify formatting
@@ -468,8 +470,29 @@ describe(`[auto generated] Control statement styling`, () => {
         canReport: true,
       },
       {
+        code: 104,
+        info: 'Unused variable "var1"',
+        start: [5, 16, 4],
+        end: [5, 16, 4],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "var2"',
+        start: [5, 22, 4],
+        end: [5, 22, 4],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "etc"',
+        start: [5, 28, 3],
+        end: [5, 28, 3],
+        canReport: true,
+      },
+      {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "myname"',
+        info: 'No matching structure/object/class definition for structure named "myname". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [54, 12, 6],
         end: [54, 12, 6],
         canReport: true,
@@ -507,27 +530,6 @@ describe(`[auto generated] Control statement styling`, () => {
         info: 'Unused variable "mystruct"',
         start: [54, 0, 8],
         end: [54, 0, 8],
-        canReport: true,
-      },
-      {
-        code: 104,
-        info: 'Unused variable "var1"',
-        start: [5, 16, 4],
-        end: [5, 16, 4],
-        canReport: true,
-      },
-      {
-        code: 104,
-        info: 'Unused variable "var2"',
-        start: [5, 22, 4],
-        end: [5, 22, 4],
-        canReport: true,
-      },
-      {
-        code: 104,
-        info: 'Unused variable "etc"',
-        start: [5, 28, 3],
-        end: [5, 28, 3],
         canReport: true,
       },
     ];
@@ -697,6 +699,7 @@ describe(`[auto generated] Control statement styling`, () => {
         `.reset`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -733,8 +736,29 @@ describe(`[auto generated] Control statement styling`, () => {
         canReport: true,
       },
       {
+        code: 104,
+        info: 'Unused variable "var1"',
+        start: [5, 16, 4],
+        end: [5, 16, 4],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "var2"',
+        start: [5, 22, 4],
+        end: [5, 22, 4],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "etc"',
+        start: [5, 28, 3],
+        end: [5, 28, 3],
+        canReport: true,
+      },
+      {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "myname"',
+        info: 'No matching structure/object/class definition for structure named "myname". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [54, 12, 6],
         end: [54, 12, 6],
         canReport: true,
@@ -772,27 +796,6 @@ describe(`[auto generated] Control statement styling`, () => {
         info: 'Unused variable "mystruct"',
         start: [54, 0, 8],
         end: [54, 0, 8],
-        canReport: true,
-      },
-      {
-        code: 104,
-        info: 'Unused variable "var1"',
-        start: [5, 16, 4],
-        end: [5, 16, 4],
-        canReport: true,
-      },
-      {
-        code: 104,
-        info: 'Unused variable "var2"',
-        start: [5, 22, 4],
-        end: [5, 22, 4],
-        canReport: true,
-      },
-      {
-        code: 104,
-        info: 'Unused variable "etc"',
-        start: [5, 28, 3],
-        end: [5, 28, 3],
         canReport: true,
       },
     ];

@@ -345,14 +345,14 @@ describe(`[auto generated] Check for missing structure definitions`, () => {
     const expected: SyntaxProblems = [
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "MyStruct"',
+        info: 'No matching structure/object/class definition for structure named "MyStruct". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [5, 11, 8],
         end: [5, 11, 8],
         canReport: true,
       },
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "mystruct2"',
+        info: 'No matching structure/object/class definition for structure named "mystruct2". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [7, 11, 9],
         end: [7, 11, 9],
         canReport: true,
@@ -401,14 +401,14 @@ describe(`[auto generated] Check for missing structure definitions`, () => {
     const expected: SyntaxProblems = [
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "MyStruct"',
+        info: 'No matching structure/object/class definition for structure named "MyStruct". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [3, 11, 8],
         end: [3, 11, 8],
         canReport: true,
       },
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "mystruct2"',
+        info: 'No matching structure/object/class definition for structure named "mystruct2". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [5, 11, 9],
         end: [5, 11, 9],
         canReport: true,

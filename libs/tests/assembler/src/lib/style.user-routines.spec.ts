@@ -75,6 +75,7 @@ describe(`[auto generated] Style user routines`, () => {
         `test_things`,
         `!null = test_THINGS()`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -170,6 +171,7 @@ describe(`[auto generated] Style user routines`, () => {
         `Test_Things`,
         `!null = Test_Things()`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -265,6 +267,7 @@ describe(`[auto generated] Style user routines`, () => {
         `test_things`,
         `!null = test_things()`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -360,6 +363,7 @@ describe(`[auto generated] Style user routines`, () => {
         `TEST_THINGS`,
         `!null = TEST_THINGS()`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -455,6 +459,7 @@ describe(`[auto generated] Style user routines`, () => {
         `test_things`,
         `!null = test_things()`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -547,9 +552,10 @@ describe(`[auto generated] Style user routines`, () => {
         ``,
         `compile_opt idl2`,
         ``,
-        `test_things`,
-        `!null = test_THINGS()`,
+        `TEST_THINGS`,
+        `!null = test_things()`,
         `end`,
+        ``,
       ];
 
       // verify formatting

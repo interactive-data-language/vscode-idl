@@ -76,6 +76,7 @@ describe(`[auto generated] Generate structure docs`, () => {
         ``,
         `  !null = {Struct3, prop: 'socool'}`,
         `end`,
+        ``,
       ];
 
       // verify formatting

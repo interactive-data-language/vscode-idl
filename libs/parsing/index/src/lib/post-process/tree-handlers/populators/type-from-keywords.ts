@@ -17,7 +17,7 @@ const TOKENS = [TOKEN_NAMES.KEYWORD];
 export const TYPE_FROM_KEYWORDS: BasicCallback<
   KeywordToken,
   PopulateTypeHandlerMeta
-> = (token, parsed, meta) => {
+> = (token, parsed, current, meta) => {
   // get the next keyword
   const next = GetNextInBranch(token);
 

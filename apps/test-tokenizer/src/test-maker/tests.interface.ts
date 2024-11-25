@@ -127,7 +127,7 @@ export interface ITokenDefTest {
    * content you might need to get a token def.
    */
   files: string[];
-  /** Cursor position */
+  /** Cursor positions, only for the first file */
   position: Position[];
 }
 

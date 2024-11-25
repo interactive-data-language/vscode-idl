@@ -30,6 +30,23 @@ export function AddProblemsConfig(nls: IPackageNLS) {
 
   // folders to not ask to init config for
   ourConfig.properties[
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsExcludeProblemsForPath}`
+  ] = {
+    type: 'array',
+    default: [],
+    description: TranslationFromConfiguration(
+      IDL_EXTENSION_CONFIG_KEYS.problemsExcludeProblemsForPath,
+      nls
+    ),
+    scope: IDL_CONFIG_SCOPE,
+    items: {
+      type: 'string',
+      format: 'uri',
+    },
+  };
+
+  // folders to not ask to init config for
+  ourConfig.properties[
     `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsIncludeProblemsFromIDLPath}`
   ] = {
     type: 'boolean',

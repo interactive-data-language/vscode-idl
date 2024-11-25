@@ -63,6 +63,7 @@ describe(`[auto generated] Prompt styling`, () => {
         `ENVI> a = 5 + 6`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

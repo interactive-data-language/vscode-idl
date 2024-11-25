@@ -57,6 +57,7 @@ describe(`[auto generated] Correctly remove idl-disable statements`, () => {
             meta: {
               display: 'var1',
               isDefined: true,
+              canReset: false,
               usage: [[11, 11, 4]],
               docs: 'My favorite thing',
               source: 'user',

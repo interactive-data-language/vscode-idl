@@ -52,6 +52,7 @@ describe(`[auto generated] Verify tokens after main get removed on formatting`, 
       ``,
       `; bad`,
       `worse = not 42`,
+      ``,
     ];
 
     // verify formatting
@@ -101,13 +102,6 @@ describe(`[auto generated] Verify tokens after main get removed on formatting`, 
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [6, 15, 0],
         end: [6, 15, 0],
-        canReport: true,
-      },
-      {
-        code: 99,
-        info: 'Undefined variable "worse"',
-        start: [6, 1, 5],
-        end: [6, 1, 5],
         canReport: true,
       },
       {

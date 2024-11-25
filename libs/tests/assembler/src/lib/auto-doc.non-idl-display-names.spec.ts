@@ -74,6 +74,7 @@ describe(`[auto generated] Verify type formatting uses display names`, () => {
         `pro pro3, arg1, arg2, arg3`,
         `  compile_opt idl3`,
         `end`,
+        ``,
       ];
 
       // verify formatting

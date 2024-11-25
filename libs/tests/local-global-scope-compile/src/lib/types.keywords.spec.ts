@@ -133,6 +133,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'kw',
               isDefined: true,
+              canReset: false,
               usage: [[58, 22, 2]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -148,6 +149,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'kw',
               isDefined: true,
+              canReset: false,
               usage: [[23, 31, 2]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -170,6 +172,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'self',
               isDefined: true,
+              canReset: false,
               docs: 'A reference to our object class',
               source: 'user',
               type: [
@@ -187,6 +190,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'self',
               isDefined: true,
+              canReset: false,
               docs: 'A reference to our object class',
               source: 'user',
               type: [
@@ -206,6 +210,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'kw',
               isDefined: true,
+              canReset: false,
               usage: [[69, 16, 2]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -221,6 +226,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'struct',
               isDefined: true,
+              canReset: true,
               usage: [[46, 2, 6]],
               docs: '',
               source: 'user',
@@ -238,6 +244,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'kw',
               isDefined: true,
+              canReset: false,
               usage: [[34, 26, 2]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -258,6 +265,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'self',
               isDefined: true,
+              canReset: false,
               docs: 'A reference to our object class',
               source: 'user',
               type: [
@@ -276,6 +284,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'a',
             isDefined: true,
+            canReset: true,
             usage: [[78, 12, 1]],
             docs: '',
             source: 'user',
@@ -289,6 +298,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'b',
             isDefined: true,
+            canReset: true,
             usage: [[81, 20, 1]],
             docs: '',
             source: 'user',
@@ -302,6 +312,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'var',
             isDefined: true,
+            canReset: true,
             usage: [
               [84, 0, 3],
               [87, 0, 3],
@@ -319,6 +330,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'c',
             isDefined: true,
+            canReset: true,
             usage: [[87, 17, 1]],
             docs: '',
             source: 'user',
@@ -334,6 +346,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'd',
             isDefined: true,
+            canReset: true,
             usage: [[90, 24, 1]],
             docs: '',
             source: 'user',

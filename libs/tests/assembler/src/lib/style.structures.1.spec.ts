@@ -54,6 +54,7 @@ describe(`[auto generated] Verify structures`, () => {
         `fourty2 = {Mystruct}`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -77,7 +78,7 @@ describe(`[auto generated] Verify structures`, () => {
     const expectedProblems: SyntaxProblems = [
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "mystruct   "',
+        info: 'No matching structure/object/class definition for structure named "mystruct". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [1, 16, 11],
         end: [1, 16, 11],
         canReport: true,
@@ -178,6 +179,7 @@ describe(`[auto generated] Verify structures`, () => {
         `    _incallback: 0b $`,
         `    }`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -271,6 +273,7 @@ describe(`[auto generated] Verify structures`, () => {
         `    right_means: ptrarr(mapDims) $`,
         `    }`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -382,6 +385,7 @@ describe(`[auto generated] Verify structures`, () => {
         `  { $`,
         `    _foo: 5}`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -405,14 +409,14 @@ describe(`[auto generated] Verify structures`, () => {
     const expectedProblems: SyntaxProblems = [
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "IDLNotebook"',
+        info: 'No matching structure/object/class definition for structure named "IDLNotebook". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [1, 9, 11],
         end: [1, 9, 11],
         canReport: true,
       },
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "IDLNotebook"',
+        info: 'No matching structure/object/class definition for structure named "IDLNotebook". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [5, 5, 11],
         end: [5, 5, 11],
         canReport: true,

@@ -62,6 +62,7 @@ describe(`[auto generated] Verify style for methods`, () => {
         `myclass.mymethod`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

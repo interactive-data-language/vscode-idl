@@ -33,6 +33,17 @@ export const LOCAL_TOKEN_LOOKUP: ILocalTokenNameLookup = {
 export interface ILocalVariableTokenMetadata extends IBaseValueDetails {
   /** A flag indicating if our variable has been defined or not */
   isDefined: boolean;
+  /**
+   * For variables that we detect, can we reset them during our post-processing?
+   *
+   * This is needed because we have variables from arguments and keywords which can't reset as
+   * they are static, but we have variables inside code from things like `a = plot()` where, if
+   * the function "plot()" changes, we have to reset the variable and re-determine the type for
+   * said variable.
+   *
+   * We don't do this for args/keywords though because they are static.
+   */
+  canReset: boolean;
   /** Flag indicating if our variable represents a static class or not */
   isStaticClass?: boolean;
   /**
@@ -64,17 +75,15 @@ export interface ILocalIndexedToken<T extends LocalTokenTypes>
   meta: LocalTokenMetadata<T>;
 }
 
-/**
- * Local tokens that we extract from a routine or main level program
- */
-export type LocalTokens = ILocalIndexedToken<LocalTokenTypes>[];
+/** Single local token (i.e. variable in IDL code) */
+export type LocalToken = ILocalIndexedToken<LocalTokenTypes>;
 
 /**
  * Lookup for tokens defined locally within a routine or main level program
  */
 export interface ILocalTokenLookup {
   /** Key should be lower-case variable name */
-  [key: string]: ILocalIndexedToken<LocalTokenTypes>;
+  [key: string]: LocalToken;
 }
 
 /**
@@ -94,3 +103,12 @@ export interface ILocalTokens {
    */
   main: ILocalTokenLookup;
 }
+
+/**
+ * Default tokens for local
+ */
+export const DEFAULT_LOCAL_TOKENS: ILocalTokens = {
+  pro: {},
+  func: {},
+  main: {},
+};

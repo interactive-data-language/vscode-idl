@@ -62,6 +62,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'input_raster',
               isDefined: true,
+              canReset: false,
               usage: [[0, 37, 12]],
               docs: 'Thing 1',
               source: 'user',
@@ -82,6 +83,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'output_raster_uri',
               isDefined: true,
+              canReset: false,
               usage: [[0, 71, 17]],
               docs: 'Thing 2',
               source: 'user',
@@ -95,6 +97,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'third',
               isDefined: true,
+              canReset: false,
               usage: [[0, 99, 5]],
               docs: '',
               source: 'user',
@@ -108,6 +111,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'e',
               isDefined: true,
+              canReset: true,
               usage: [
                 [14, 0, 1],
                 [15, 4, 1],
@@ -266,6 +270,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'input_raster',
               isDefined: true,
+              canReset: false,
               usage: [[0, 42, 12]],
               docs: 'Thing 1',
               source: 'user',
@@ -286,6 +291,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'output_raster_uri',
               isDefined: true,
+              canReset: false,
               usage: [[0, 76, 17]],
               docs: 'Thing 2',
               source: 'user',
@@ -299,6 +305,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'third',
               isDefined: true,
+              canReset: false,
               usage: [[0, 104, 5]],
               docs: '',
               source: 'user',
@@ -312,6 +319,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'e',
               isDefined: true,
+              canReset: true,
               usage: [
                 [14, 0, 1],
                 [15, 4, 1],
@@ -490,6 +498,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'input_raster',
               isDefined: true,
+              canReset: false,
               usage: [[18, 42, 12]],
               docs: '',
               source: 'user',
@@ -503,6 +512,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'output_raster_uri',
               isDefined: true,
+              canReset: false,
               usage: [[18, 76, 17]],
               docs: '',
               source: 'user',
@@ -516,6 +526,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'third',
               isDefined: true,
+              canReset: false,
               usage: [[18, 104, 5]],
               docs: '',
               source: 'user',
@@ -529,6 +540,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'e',
               isDefined: true,
+              canReset: true,
               usage: [
                 [32, 0, 1],
                 [33, 4, 1],
@@ -732,6 +744,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[1, 47, 3]],
               docs: '',
               source: 'user',
@@ -745,6 +758,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'kw2',
               isDefined: true,
+              canReset: false,
               usage: [[1, 58, 3]],
               docs: '',
               source: 'user',
@@ -758,6 +772,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'arg1',
               isDefined: true,
+              canReset: false,
               usage: [[1, 17, 4]],
               docs: '',
               source: 'user',
@@ -771,6 +786,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'arg2',
               isDefined: true,
+              canReset: false,
               usage: [[1, 23, 4]],
               docs: '',
               source: 'user',
@@ -784,6 +800,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'arg3',
               isDefined: true,
+              canReset: false,
               usage: [[1, 29, 4]],
               docs: '',
               source: 'user',
@@ -797,6 +814,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'arg4',
               isDefined: true,
+              canReset: false,
               usage: [[1, 35, 4]],
               docs: '',
               source: 'user',
@@ -810,6 +828,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: true,
               usage: [[4, 2, 1]],
               docs: 'reference to our super cool and awesome plot',
               source: 'user',

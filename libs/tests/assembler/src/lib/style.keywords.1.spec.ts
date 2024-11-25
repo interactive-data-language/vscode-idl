@@ -49,6 +49,7 @@ describe(`[auto generated] Verify keywords`, () => {
         ``,
         `a = myfunc(kw1 = kw2, /kw3)`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -146,6 +147,7 @@ describe(`[auto generated] Verify keywords`, () => {
         `  graphic = graphic`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -293,6 +295,7 @@ describe(`[auto generated] Verify keywords`, () => {
         ``,
         `a = myfunc(kw1 = kw2)`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -377,6 +380,7 @@ describe(`[auto generated] Verify keywords`, () => {
         ``,
         `a = myfunc(/kw2)`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -461,6 +465,7 @@ describe(`[auto generated] Verify keywords`, () => {
         `  kw = 2`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

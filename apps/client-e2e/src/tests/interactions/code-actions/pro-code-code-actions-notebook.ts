@@ -26,7 +26,7 @@ export const ProCodeCodeActionsNotebook: RunnerFunction = async (init) => {
   const diags = GetRealDiagnostic(vscode.languages.getDiagnostics(doc.uri));
 
   // verify problems
-  expect(diags.length).toEqual(3);
+  expect(diags.length).toEqual(1);
 
   /**
    * Get URi for the notebook
@@ -40,7 +40,7 @@ export const ProCodeCodeActionsNotebook: RunnerFunction = async (init) => {
     textDocument: {
       uri,
     },
-    range: diags[1].range,
+    range: diags[0].range,
     context: {
       diagnostics: [diags[0]],
     },

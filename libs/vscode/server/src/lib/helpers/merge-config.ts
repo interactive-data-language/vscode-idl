@@ -34,6 +34,11 @@ export const INCLUDE_PROBLEMS_FOR = {
 export const IDL_PATH_FOLDERS: IFolderRecursion = {};
 
 /**
+ * Track folders that we don't report problems for
+ */
+export const IDL_PROBLEM_EXCLUSION_FOLDERS: IFolderRecursion = {};
+
+/**
  * Regex to test folder path for recursion or not
  */
 const RECURSIVE_REGEX = /^\+/i;
@@ -60,6 +65,12 @@ export function MergeConfig() {
   const currentFolders = Object.keys(IDL_PATH_FOLDERS);
   for (let i = 0; i < currentFolders.length; i++) {
     delete IDL_PATH_FOLDERS[currentFolders[i]];
+  }
+
+  // empty problem folders
+  const currentProblemFolders = Object.keys(IDL_PROBLEM_EXCLUSION_FOLDERS);
+  for (let i = 0; i < currentProblemFolders.length; i++) {
+    delete IDL_PROBLEM_EXCLUSION_FOLDERS[currentProblemFolders[i]];
   }
 
   // always turn off implied print problem
@@ -105,6 +116,30 @@ export function MergeConfig() {
         // if we have another entry that is not recursive, and we are, replace it with recursion
         if (isRecursive && !IDL_PATH_FOLDERS[pathEntry]) {
           IDL_PATH_FOLDERS[pathEntry] = isRecursive;
+        }
+      }
+    }
+
+    // save IDL path folders
+    for (let j = 0; j < el.problems.excludeProblemsForPath.length; j++) {
+      // replace plus sign
+      const pathEntry = el.problems.excludeProblemsForPath[j].replace(
+        RECURSIVE_REGEX,
+        ''
+      );
+
+      // check if recursive
+      const isRecursive = RECURSIVE_REGEX.test(
+        el.problems.excludeProblemsForPath[j]
+      );
+
+      // if not in, then save
+      if (!(pathEntry in IDL_PROBLEM_EXCLUSION_FOLDERS)) {
+        IDL_PROBLEM_EXCLUSION_FOLDERS[pathEntry] = isRecursive;
+      } else {
+        // if we have another entry that is not recursive, and we are, replace it with recursion
+        if (isRecursive && !IDL_PROBLEM_EXCLUSION_FOLDERS[pathEntry]) {
+          IDL_PROBLEM_EXCLUSION_FOLDERS[pathEntry] = isRecursive;
         }
       }
     }

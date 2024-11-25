@@ -47,6 +47,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
             meta: {
               display: 'var1',
               isDefined: true,
+              canReset: false,
               usage: [[0, 23, 4]],
               docs: '',
               source: 'user',
@@ -60,6 +61,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: true,
               usage: [[3, 2, 1]],
               docs: 'meaning of life',
               source: 'user',
@@ -81,6 +83,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
             meta: {
               display: 'self',
               isDefined: true,
+              canReset: false,
               docs: 'A reference to our object class',
               source: 'user',
               type: [
@@ -188,6 +191,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
             meta: {
               display: 'var1',
               isDefined: true,
+              canReset: false,
               usage: [[0, 23, 4]],
               docs: '',
               source: 'user',
@@ -201,6 +205,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: true,
               usage: [[6, 2, 1]],
               docs: 'Some things are really awesome\nand need a big description',
               source: 'user',
@@ -222,6 +227,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
             meta: {
               display: 'self',
               isDefined: true,
+              canReset: false,
               docs: 'A reference to our object class',
               source: 'user',
               type: [
@@ -332,6 +338,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
             meta: {
               display: 'var1',
               isDefined: true,
+              canReset: false,
               usage: [[0, 23, 4]],
               docs: '',
               source: 'user',
@@ -345,6 +352,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: true,
               usage: [
                 [6, 2, 1],
                 [9, 2, 1],
@@ -369,6 +377,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
             meta: {
               display: 'self',
               isDefined: true,
+              canReset: false,
               docs: 'A reference to our object class',
               source: 'user',
               type: [

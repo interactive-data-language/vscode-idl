@@ -51,6 +51,7 @@ describe(`[auto generated] Hex number styling`, () => {
         `a = 0xaef`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -130,6 +131,7 @@ describe(`[auto generated] Hex number styling`, () => {
         `a = 0xAEF`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -209,6 +211,7 @@ describe(`[auto generated] Hex number styling`, () => {
         `a = 0XaEf`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

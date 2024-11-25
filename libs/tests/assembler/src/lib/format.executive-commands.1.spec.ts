@@ -57,6 +57,7 @@ describe(`[auto generated] Executive command formatting`, () => {
         `.run something`,
         `.compile myfile.pro`,
         `.reset`,
+        ``,
       ];
 
       // verify formatting

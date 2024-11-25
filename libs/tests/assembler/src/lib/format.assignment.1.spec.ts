@@ -62,6 +62,7 @@ describe(`[auto generated] Verify assignment formatting`, () => {
         `  4 + $`,
         `  5`,
         `end`,
+        ``,
       ];
 
       // verify formatting

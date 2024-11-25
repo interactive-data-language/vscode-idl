@@ -51,6 +51,7 @@ describe(`[auto generated] Octal number styling`, () => {
         `a = 0oaef`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -130,6 +131,7 @@ describe(`[auto generated] Octal number styling`, () => {
         `a = 0oAEF`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -209,6 +211,7 @@ describe(`[auto generated] Octal number styling`, () => {
         `a = 0OaEf`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

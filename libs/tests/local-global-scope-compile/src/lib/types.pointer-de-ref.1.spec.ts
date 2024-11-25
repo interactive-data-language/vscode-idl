@@ -87,6 +87,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'arg1',
               isDefined: true,
+              canReset: false,
               usage: [
                 [18, 14, 4],
                 [22, 7, 4],
@@ -113,6 +114,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'arg2',
               isDefined: true,
+              canReset: false,
               usage: [[18, 20, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -135,6 +137,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'arg3',
               isDefined: true,
+              canReset: false,
               usage: [
                 [18, 26, 4],
                 [25, 7, 4],
@@ -176,6 +179,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'arg4',
               isDefined: true,
+              canReset: false,
               usage: [
                 [18, 32, 4],
                 [34, 7, 4],
@@ -202,6 +206,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'arg5',
               isDefined: true,
+              canReset: false,
               usage: [
                 [18, 38, 4],
                 [37, 7, 4],
@@ -225,6 +230,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'arg6',
               isDefined: true,
+              canReset: false,
               usage: [
                 [18, 44, 4],
                 [40, 7, 4],
@@ -258,6 +264,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'arg7',
               isDefined: true,
+              canReset: false,
               usage: [
                 [18, 50, 4],
                 [43, 7, 4],
@@ -294,6 +301,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: true,
               usage: [[22, 2, 1]],
               docs: '',
               source: 'user',
@@ -307,6 +315,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'b',
               isDefined: true,
+              canReset: true,
               usage: [[25, 2, 1]],
               docs: '',
               source: 'user',
@@ -327,6 +336,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'c',
               isDefined: true,
+              canReset: true,
               usage: [[28, 2, 1]],
               docs: '',
               source: 'user',
@@ -349,6 +359,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'd',
               isDefined: true,
+              canReset: true,
               usage: [[31, 2, 1]],
               docs: '',
               source: 'user',
@@ -362,6 +373,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'e',
               isDefined: true,
+              canReset: true,
               usage: [[34, 2, 1]],
               docs: '',
               source: 'user',
@@ -375,6 +387,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'f',
               isDefined: true,
+              canReset: true,
               usage: [[37, 2, 1]],
               docs: '',
               source: 'user',
@@ -388,6 +401,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
             meta: {
               display: 'g',
               isDefined: true,
+              canReset: true,
               usage: [
                 [40, 2, 1],
                 [43, 2, 1],

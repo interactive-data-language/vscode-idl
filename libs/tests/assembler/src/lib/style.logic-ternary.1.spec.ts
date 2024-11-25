@@ -46,6 +46,7 @@ describe(`[auto generated] Verify we style ternary operators well`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `nPrint = (nTiles lt 100) ? 1 : ceil(nTiles / 100.0)`,
+        ``,
       ];
 
       // verify formatting
@@ -134,6 +135,7 @@ describe(`[auto generated] Verify we style ternary operators well`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `oWorld = obj_valid(oLayer) ? oLayer.getWorld() : obj_new()`,
+        ``,
       ];
 
       // verify formatting

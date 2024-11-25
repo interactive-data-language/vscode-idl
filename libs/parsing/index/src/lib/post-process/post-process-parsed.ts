@@ -3,13 +3,12 @@ import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
 import {
   IParsed,
   PopulateScopeDetailAndResetTokenCache,
+  ResetVariables,
 } from '@idl/parsing/syntax-tree';
 
 import { GetSyntaxProblems } from '../helpers/get-syntax-problems';
 import { IDLIndex } from '../idl-index.class';
-import { PopulateAndValidateType } from './populate-and-validate-type';
-import { PopulateUsesThese } from './populate-uses-these';
-import { ValidateVariableUsage } from './tree-handlers/validate-variable-usage';
+import { PostProcessIterator } from './post-process-iterator';
 
 /**
  * Apply post-processing to a parsed file
@@ -19,7 +18,7 @@ export function PostProcessParsed(
   file: string,
   parsed: IParsed,
   cancel: CancellationToken
-) {
+): boolean {
   // clear secondary problems
   parsed.postProcessProblems = [];
 
@@ -29,19 +28,14 @@ export function PostProcessParsed(
   PopulateScopeDetailAndResetTokenCache(parsed, cancel);
 
   /**
-   * Populate types of local variables
+   * Reset variables so we can update types
    */
-  PopulateAndValidateType(index, file, parsed, cancel);
+  ResetVariables(parsed);
 
   /**
-   * Validate variables
+   * Populate types of local variables and validate them
    */
-  ValidateVariableUsage(parsed);
-
-  /**
-   * Populate the global tokens that we use
-   */
-  PopulateUsesThese(index, parsed, cancel);
+  const updatedGlobals = PostProcessIterator(index, file, parsed, cancel);
 
   // update semantic tokens
   GetSemanticTokens(parsed);
@@ -52,4 +46,6 @@ export function PostProcessParsed(
   // update cache
   index.parsedCache.updateProblems(file, parsed);
   index.parsedCache.updateSemantic(file, parsed);
+
+  return updatedGlobals;
 }

@@ -132,6 +132,7 @@ describe(`[auto generated] Convert old IDL Doc comments`, () => {
         `pro idltasktest, lon1, lat1, lon2, lat2, method, meters = meters, radians = radians, radius = radius, semimajor_axis = semimajor_axis, semiminor_axis = semiminor_axis`,
         `  compile_opt idl2`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -362,6 +363,7 @@ describe(`[auto generated] Convert old IDL Doc comments`, () => {
         ``,
         `  return, 1`,
         `end`,
+        ``,
       ];
 
       // verify formatting

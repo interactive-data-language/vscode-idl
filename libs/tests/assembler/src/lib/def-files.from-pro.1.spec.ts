@@ -88,6 +88,7 @@ describe(`[auto generated] Format def files correctly`, () => {
         `pro vscode_getScopeInfo, level, output = output`,
         `  ; + is it though?`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -220,6 +221,7 @@ describe(`[auto generated] Format def files correctly`, () => {
         ``,
         `  ; return 1 as valid object`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -345,6 +347,7 @@ describe(`[auto generated] Format def files correctly`, () => {
         `    inherits IDLNotebookImage_Base, $`,
         `    data: !null}`,
         `end`,
+        ``,
       ];
 
       // verify formatting

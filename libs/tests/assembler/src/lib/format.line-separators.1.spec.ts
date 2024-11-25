@@ -63,6 +63,7 @@ describe(`[auto generated] Line separator formatting`, () => {
         `endif`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

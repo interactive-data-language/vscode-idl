@@ -53,6 +53,7 @@ describe(`[auto generated] Ignore them in`, () => {
             meta: {
               display: 'fhdr',
               isDefined: true,
+              canReset: true,
               usage: [[2, 0, 4]],
               docs: '',
               source: 'user',
@@ -73,6 +74,7 @@ describe(`[auto generated] Ignore them in`, () => {
             meta: {
               display: '_exists',
               isDefined: false,
+              canReset: true,
               usage: [[8, 4, 7]],
               docs: '',
               source: 'user',
@@ -250,6 +252,7 @@ describe(`[auto generated] Ignore them in`, () => {
             meta: {
               display: 'fhdr',
               isDefined: true,
+              canReset: true,
               usage: [[2, 0, 4]],
               docs: '',
               source: 'user',

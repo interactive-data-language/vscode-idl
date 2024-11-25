@@ -46,6 +46,7 @@ const TOKENS: CallRoutineToken[] = [
 const cb: BranchCallback<CallRoutineToken, PopulateTypeHandlerMeta> = (
   token,
   parsed,
+  current,
   meta
 ) => {
   const keywords = GetKeywords(meta.index, parsed, token);

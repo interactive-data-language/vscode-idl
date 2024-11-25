@@ -55,6 +55,7 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[9, 15, 3]],
               docs: 'Super Cool flag',
               source: 'user',

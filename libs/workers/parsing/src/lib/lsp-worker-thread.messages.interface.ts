@@ -9,7 +9,7 @@ import {
   GlobalTokenType,
   IBaseIndexedToken,
 } from '@idl/types/core';
-import { SyntaxProblems } from '@idl/types/problem-codes';
+import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';
 import { PrepareNotebookCellMessage } from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
@@ -96,6 +96,10 @@ export type ChangeDetectionResponse = {
   /** Problems we detected, by file */
   problems: {
     [file: string]: SyntaxProblems;
+  };
+  /** Any globals that have changed, by file */
+  globals: {
+    [file: string]: GlobalTokens;
   };
   /** Files we tried to perform change detection on, but were missing */
   missing: string[];
@@ -357,6 +361,10 @@ export interface ParseFilesResponse {
   globals: {
     [file: string]: GlobalTokens;
   };
+  /** Track disabled problems by file */
+  disabledProblems: {
+    [file: string]: IDisabledProblems;
+  };
   /** Files we tried to parse, but were missing */
   missing: string[];
   /** Number of lines of code */
@@ -436,13 +444,7 @@ export interface PostProcessFilesPayload {
 /**
  * Response when we post process files
  */
-export interface PostProcessFilesResponse {
-  /** Problems we detected, by file */
-  problems: {
-    [file: string]: SyntaxProblems;
-  };
-  /** Files we tried to post-process, but were missing */
-  missing: string[];
+export interface PostProcessFilesResponse extends ChangeDetectionResponse {
   /** Number of lines of code */
   lines: number;
 }

@@ -49,6 +49,7 @@ describe(`[auto generated] Add function for`, () => {
             meta: {
               display: 'kw2',
               isDefined: true,
+              canReset: false,
               usage: [[0, 39, 3]],
               docs: '',
               source: 'user',
@@ -62,6 +63,7 @@ describe(`[auto generated] Add function for`, () => {
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: false,
               usage: [[0, 24, 1]],
               docs: '',
               source: 'user',
@@ -75,6 +77,7 @@ describe(`[auto generated] Add function for`, () => {
             meta: {
               display: 'b',
               isDefined: true,
+              canReset: false,
               usage: [[0, 27, 1]],
               docs: '',
               source: 'user',
@@ -88,6 +91,7 @@ describe(`[auto generated] Add function for`, () => {
             meta: {
               display: 'c',
               isDefined: true,
+              canReset: false,
               usage: [[0, 30, 1]],
               docs: '',
               source: 'user',
@@ -101,6 +105,7 @@ describe(`[auto generated] Add function for`, () => {
             meta: {
               display: 'z',
               isDefined: true,
+              canReset: true,
               usage: [[4, 2, 1]],
               docs: '',
               source: 'user',
@@ -116,6 +121,7 @@ describe(`[auto generated] Add function for`, () => {
             meta: {
               display: 'self',
               isDefined: true,
+              canReset: false,
               docs: 'A reference to our object class',
               source: 'user',
               type: [

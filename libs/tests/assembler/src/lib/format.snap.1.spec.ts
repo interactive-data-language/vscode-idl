@@ -177,6 +177,7 @@ describe(`[auto generated] Verify snapping branches to remove leading and traili
         `print, 'Finished'`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -201,29 +202,15 @@ describe(`[auto generated] Verify snapping branches to remove leading and traili
       {
         code: 104,
         info: 'Unused variable "a"',
-        start: [25, 10, 1],
-        end: [25, 10, 1],
+        start: [0, 15, 1],
+        end: [0, 15, 1],
         canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
-        start: [26, 2, 1],
-        end: [26, 2, 1],
-        canReport: true,
-      },
-      {
-        code: 104,
-        info: 'Unused variable "a"',
-        start: [18, 17, 1],
-        end: [18, 17, 1],
-        canReport: true,
-      },
-      {
-        code: 104,
-        info: 'Unused variable "b"',
-        start: [19, 2, 1],
-        end: [19, 2, 1],
+        start: [1, 2, 1],
+        end: [1, 2, 1],
         canReport: true,
       },
       {
@@ -243,15 +230,29 @@ describe(`[auto generated] Verify snapping branches to remove leading and traili
       {
         code: 104,
         info: 'Unused variable "a"',
-        start: [0, 15, 1],
-        end: [0, 15, 1],
+        start: [18, 17, 1],
+        end: [18, 17, 1],
         canReport: true,
       },
       {
         code: 104,
         info: 'Unused variable "b"',
-        start: [1, 2, 1],
-        end: [1, 2, 1],
+        start: [19, 2, 1],
+        end: [19, 2, 1],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "a"',
+        start: [25, 10, 1],
+        end: [25, 10, 1],
+        canReport: true,
+      },
+      {
+        code: 104,
+        info: 'Unused variable "b"',
+        start: [26, 2, 1],
+        end: [26, 2, 1],
         canReport: true,
       },
     ];

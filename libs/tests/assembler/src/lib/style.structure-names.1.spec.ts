@@ -59,6 +59,7 @@ describe(`[auto generated] Verify structure names`, () => {
         `!null = {idlNotebook}`,
         `!null = {!map} ; special case, handled by sys var`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -82,7 +83,7 @@ describe(`[auto generated] Verify structure names`, () => {
     const expectedProblems: SyntaxProblems = [
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "idlNotebook   "',
+        info: 'No matching structure/object/class definition for structure named "idlNotebook". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [3, 14, 14],
         end: [3, 14, 14],
         canReport: true,
@@ -146,6 +147,7 @@ describe(`[auto generated] Verify structure names`, () => {
         `!null = {IDLNotebook}`,
         `!null = {!map} ; special case, handled by sys var`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -169,7 +171,7 @@ describe(`[auto generated] Verify structure names`, () => {
     const expectedProblems: SyntaxProblems = [
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "idlNotebook   "',
+        info: 'No matching structure/object/class definition for structure named "idlNotebook". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [3, 14, 14],
         end: [3, 14, 14],
         canReport: true,
@@ -233,6 +235,7 @@ describe(`[auto generated] Verify structure names`, () => {
         `!null = {idlNotebook}`,
         `!null = {!map} ; special case, handled by sys var`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -256,7 +259,7 @@ describe(`[auto generated] Verify structure names`, () => {
     const expectedProblems: SyntaxProblems = [
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "idlNotebook   "',
+        info: 'No matching structure/object/class definition for structure named "idlNotebook". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [3, 14, 14],
         end: [3, 14, 14],
         canReport: true,
@@ -320,6 +323,7 @@ describe(`[auto generated] Verify structure names`, () => {
         `!null = {IDLNOTEBOOK}`,
         `!null = {!map} ; special case, handled by sys var`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -343,7 +347,7 @@ describe(`[auto generated] Verify structure names`, () => {
     const expectedProblems: SyntaxProblems = [
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "idlNotebook   "',
+        info: 'No matching structure/object/class definition for structure named "idlNotebook". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [3, 14, 14],
         end: [3, 14, 14],
         canReport: true,
@@ -407,6 +411,7 @@ describe(`[auto generated] Verify structure names`, () => {
         `!null = {idlnotebook}`,
         `!null = {!map} ; special case, handled by sys var`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -430,7 +435,7 @@ describe(`[auto generated] Verify structure names`, () => {
     const expectedProblems: SyntaxProblems = [
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "idlNotebook   "',
+        info: 'No matching structure/object/class definition for structure named "idlNotebook". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [3, 14, 14],
         end: [3, 14, 14],
         canReport: true,
@@ -494,6 +499,7 @@ describe(`[auto generated] Verify structure names`, () => {
         `!null = {idlNotebook}`,
         `!null = {!map} ; special case, handled by sys var`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -517,7 +523,7 @@ describe(`[auto generated] Verify structure names`, () => {
     const expectedProblems: SyntaxProblems = [
       {
         code: 77,
-        info: 'No matching structure/object/class definition for structure named "idlNotebook   "',
+        info: 'No matching structure/object/class definition for structure named "idlNotebook". If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
         start: [3, 14, 14],
         end: [3, 14, 14],
         canReport: true,

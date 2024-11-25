@@ -76,6 +76,9 @@ export function Assembler<T extends FormatterType>(
       break;
   }
 
+  /** Get line ending */
+  const lf = useOptions?.eol === 'crlf' ? '\r\n' : '\n';
+
   // combine strings and return
-  return strings.join(useOptions?.eol === 'crlf' ? '\r\n' : '\n');
+  return strings.join(lf) + lf;
 }

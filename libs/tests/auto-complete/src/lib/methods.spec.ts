@@ -394,6 +394,7 @@ describe(`[auto generated] Methods`, () => {
       { label: '!path', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!prompt', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!quiet', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!theme', kind: 21, sortText: '90', detail: 'System Variable' },
       {
         label: '!version',
         kind: 21,
@@ -410,13 +411,6 @@ describe(`[auto generated] Methods`, () => {
       {
         label: "ENVITask('BuildLabelRasterFromClassification')",
         insertText: "ENVITask('BuildLabelRasterFromClassification')",
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
-      },
-      {
-        label: "ENVITask('ClassActivationToPixelROI')",
-        insertText: "ENVITask('ClassActivationToPixelROI')",
         kind: 3,
         sortText: '03',
         detail: 'Function',
@@ -584,6 +578,7 @@ describe(`[auto generated] Methods`, () => {
       { label: '!path', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!prompt', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!quiet', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!theme', kind: 21, sortText: '90', detail: 'System Variable' },
       {
         label: '!version',
         kind: 21,
@@ -600,13 +595,6 @@ describe(`[auto generated] Methods`, () => {
       {
         label: "ENVITask('BuildLabelRasterFromClassification')",
         insertText: "ENVITask('BuildLabelRasterFromClassification')",
-        kind: 3,
-        sortText: '03',
-        detail: 'Function',
-      },
-      {
-        label: "ENVITask('ClassActivationToPixelROI')",
-        insertText: "ENVITask('ClassActivationToPixelROI')",
         kind: 3,
         sortText: '03',
         detail: 'Function',

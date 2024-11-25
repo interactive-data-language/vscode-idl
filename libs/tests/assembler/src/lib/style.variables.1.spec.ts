@@ -63,6 +63,7 @@ describe(`[auto generated] Verify variable styling`, () => {
         `  !null = ENVI.openRaster()`,
         `  !null = ENVITask.parameter()`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -146,6 +147,7 @@ describe(`[auto generated] Verify variable styling`, () => {
         `  !null = enVi.openRaster()`,
         `  !null = enviTask.parameter()`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -231,6 +233,7 @@ describe(`[auto generated] Verify variable styling`, () => {
         `  !null = ENVITask.parameter()`,
         `  return, taSK`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -316,6 +319,7 @@ describe(`[auto generated] Verify variable styling`, () => {
         `  !null = enviTask.parameter()`,
         `  return, task`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -397,6 +401,7 @@ describe(`[auto generated] Verify variable styling`, () => {
         `!null = ENVI.openRaster()`,
         `!null = ENVITask.parameter()`,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -507,6 +512,7 @@ describe(`[auto generated] Verify variable styling`, () => {
         `!null = enVi.openRaster()`,
         `!null = enviTask.parameter()`,
         `end`,
+        ``,
       ];
 
       // verify formatting

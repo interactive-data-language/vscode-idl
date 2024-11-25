@@ -9,7 +9,7 @@ import { TOKEN_NAMES } from '@idl/tokenizer';
  */
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.CALL_FUNCTION_METHOD,
-  (token, parsed, meta) => {
+  (token, parsed, current, meta) => {
     if (meta.style.routineMethods === STYLE_FLAG_LOOKUP.NONE) {
       return;
     }
@@ -42,7 +42,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
  */
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
   TOKEN_NAMES.CALL_PROCEDURE_METHOD,
-  (token, parsed, meta) => {
+  (token, parsed, current, meta) => {
     if (meta.style.routineMethods === STYLE_FLAG_LOOKUP.NONE) {
       return;
     }

@@ -57,6 +57,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       ``,
       `  return, 1`,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -131,6 +132,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       ``,
       `  return, 1`,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -190,6 +192,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       `pro mypro`,
       `  compile_opt idl2`,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -249,6 +252,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       `pro myclass::mypro`,
       `  compile_opt idl2`,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -307,6 +311,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       `compile_opt idl2`,
       ``,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -372,6 +377,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       `a = 5`,
       ``,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -439,6 +445,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       `a = 42`,
       ``,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -506,6 +513,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       `a = 42`,
       ``,
       `end`,
+      ``,
     ];
 
     // verify formatting
@@ -581,6 +589,7 @@ describe(`[auto generated] Verify we add compile opt idl2`, () => {
       ``,
       `  return, 1`,
       `end`,
+      ``,
     ];
 
     // verify formatting

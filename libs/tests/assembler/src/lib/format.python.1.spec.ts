@@ -59,6 +59,7 @@ describe(`[auto generated] Format python code`, () => {
         `>>>arr = IDL.randomu(None, 10000)`,
         `>>>spec = IDL.fft_powerspectrum(arr, 0.1)`,
         `end`,
+        ``,
       ];
 
       // verify formatting

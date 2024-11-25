@@ -58,6 +58,7 @@ describe(`[auto generated] Keep tokens after main level programs`, () => {
         `end`,
         `; comment`,
         `b = 17`,
+        ``,
       ];
 
       // verify formatting
@@ -105,13 +106,6 @@ describe(`[auto generated] Keep tokens after main level programs`, () => {
         info: 'Token found after main level program. If this is incorrect, check your closing statements using "end"',
         start: [5, 6, 0],
         end: [5, 6, 0],
-        canReport: true,
-      },
-      {
-        code: 99,
-        info: 'Undefined variable "b"',
-        start: [5, 0, 1],
-        end: [5, 0, 1],
         canReport: true,
       },
       {

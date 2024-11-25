@@ -1985,6 +1985,51 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
     },
     {
       suiteName: `Types from`,
+      fileName: `types.from-returns1.spec.ts`,
+      tests: [
+        {
+          name: 'returns without docs',
+          code: [
+            `function get_dir, arg`,
+            `  compile_opt idl2`,
+            `  if arg eq 0 then return, 'NSEW' else return, 0`,
+            `end`,
+          ],
+        },
+        {
+          name: 'handles syntax errors 1',
+          code: [
+            `function myFunc`,
+            `  compile_opt idl2`,
+            `  print, 'Hello world'`,
+            `  return, `,
+            `end`,
+          ],
+        },
+        {
+          name: 'handles syntax errors 2',
+          code: [
+            `function myFunc`,
+            `  compile_opt idl2`,
+            `  print, 'Hello world'`,
+            `  return 42`,
+            `end`,
+          ],
+        },
+        {
+          name: 'handles syntax errors 3',
+          code: [
+            `function myPro`,
+            `  compile_opt idl2`,
+            `  print, 'Hello world'`,
+            `  return`,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
+      suiteName: `Types from`,
       fileName: `types.from-type-of-arg.spec.ts`,
       tests: [
         {

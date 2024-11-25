@@ -151,6 +151,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'debug',
               isDefined: true,
+              canReset: false,
               usage: [[96, 10, 5]],
               docs: "If set, errors are stopped on.\nAdd a link to make sure it doesn't get picked up\n  https://en.wikipedia.org/wiki/Haversine_formula\n  http://en.wikipedia.org/wiki/Haversine_formula\n  ftp://en.wikipedia.org/wiki/Haversine_formula\n  s3://en.wikipedia.org/wiki/Haversine_formula\n  file://en.wikipedia.org/wiki/Haversine_formula",
               source: 'user',
@@ -166,6 +167,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'data_ignore_value',
               isDefined: true,
+              canReset: false,
               usage: [[97, 22, 17]],
               docs: 'If one or both of your input rasters do not have\na data ignore value metadata item, you can specify',
               source: 'user',
@@ -179,6 +181,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'generate_pixel_state_mask',
               isDefined: true,
+              canReset: false,
               usage: [[98, 30, 25]],
               docs: 'If set, then an addititonal output raster is created\nthat represents which pixels can be processed or not.\n\nThis will automatically be generated if one of the input\nimages does not have a data ignore value.',
               source: 'user',
@@ -194,6 +197,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'input_raster1',
               isDefined: true,
+              canReset: false,
               usage: [[99, 18, 13]],
               docs: 'Specify the first raster to use for intersection.',
               source: 'user',
@@ -214,6 +218,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'input_raster2',
               isDefined: true,
+              canReset: false,
               usage: [[100, 18, 13]],
               docs: 'Specify the second raster to use for intersection',
               source: 'user',
@@ -234,6 +239,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'output_mask_raster_uri',
               isDefined: true,
+              canReset: false,
               usage: [[101, 27, 22]],
               docs: 'Optionally specify the fully-qualified filepath\nfor the location of the pixel state mask. Only applies\nwhen `GENERATE_PIXEL_STATE_MASK` is set or one of the\ninput rasters does not have a data ignore value.',
               source: 'user',
@@ -247,6 +253,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'output_grid_definition',
               isDefined: true,
+              canReset: false,
               usage: [[102, 27, 22]],
               docs: 'Optionally return the ENVIGridDefinition object used to get the intersection\nof the two scenes.',
               source: 'user',
@@ -267,6 +274,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'output_raster1_uri',
               isDefined: true,
+              canReset: false,
               usage: [[103, 23, 18]],
               docs: 'Optionally specify the fully-qualified filepath\nfor the location of the first intersect raster.',
               source: 'user',
@@ -280,6 +288,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'output_raster2_uri',
               isDefined: true,
+              canReset: false,
               usage: [[104, 23, 18]],
               docs: 'Optionally specify the fully-qualified filepath\nfor the location of the second intersect raster.',
               source: 'user',
@@ -293,6 +302,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'resampling',
               isDefined: true,
+              canReset: false,
               usage: [[105, 15, 10]],
               docs: 'Optionally return the ENVIGridDefinition object used to get the intersection\nof the two scenes. Specify one of the following options:\n- Nearest Neighbor\n- Bilinear\n- Cubic Convolution',
               source: 'user',
@@ -532,6 +542,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'file',
               isDefined: true,
+              canReset: false,
               usage: [
                 [6, 12, 4],
                 [9, 9, 4],

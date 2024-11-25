@@ -30,7 +30,7 @@ const TOKENS = [TOKEN_NAMES.KEYWORD, TOKEN_NAMES.KEYWORD_BINARY];
 const cb: BasicCallback<
   KeywordToken | KeywordBinaryToken,
   ValidateTypeHandlerMeta
-> = (token, parsed, meta) => {
+> = (token, parsed, current, meta) => {
   // get keywords
   const foundKeywords = GetKeywords(meta.index, parsed, token);
 

@@ -51,6 +51,7 @@ describe(`[auto generated] Binary number styling`, () => {
         `a = 0baef`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -130,6 +131,7 @@ describe(`[auto generated] Binary number styling`, () => {
         `a = 0bAEF`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting
@@ -209,6 +211,7 @@ describe(`[auto generated] Binary number styling`, () => {
         `a = 0BaEf`,
         ``,
         `end`,
+        ``,
       ];
 
       // verify formatting

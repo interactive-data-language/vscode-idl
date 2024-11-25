@@ -60,6 +60,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
             meta: {
               display: 'arg1',
               isDefined: true,
+              canReset: false,
               usage: [[14, 10, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -80,6 +81,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
             meta: {
               display: 'arg2',
               isDefined: true,
+              canReset: false,
               usage: [[14, 16, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -100,6 +102,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
             meta: {
               display: 'arg3',
               isDefined: true,
+              canReset: false,
               usage: [[14, 22, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -144,6 +147,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
             meta: {
               display: 'arg4',
               isDefined: true,
+              canReset: false,
               usage: [[14, 28, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -173,6 +177,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
             meta: {
               display: 'arg5',
               isDefined: true,
+              canReset: false,
               usage: [[14, 34, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',

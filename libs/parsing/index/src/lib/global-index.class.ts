@@ -11,7 +11,7 @@ import {
   GlobalTokenType,
   IGlobalIndexedToken,
 } from '@idl/types/core';
-import { SyntaxProblems } from '@idl/types/problem-codes';
+import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 
 import {
   ExportedGlobalTokensByType,
@@ -22,12 +22,18 @@ import {
 import { SaveGlobalDisplayNames } from './helpers/save-global-display-names';
 import { IDL_INDEX_OPTIONS } from './idl-index.interface';
 import GlobToRegExp = require('glob-to-regexp');
+import { IsProblemDisabled } from '@idl/parser';
+import copy from 'fast-copy';
+
 import { ShouldExportItem } from './helpers/should-export-item';
 
 /**
  * Class that manages storing/querying our index of global tokens
  */
 export class GlobalIndex {
+  /** track disabled problems by each file */
+  disabledProblemsByFile: { [key: string]: IDisabledProblems } = {};
+
   /**
    * By file name, track the global token types that are present.
    *
@@ -159,7 +165,7 @@ export class GlobalIndex {
 
       // process all tokens
       for (let j = 0; j < forFile.length; j++) {
-        exported[forFile[j].type].push(forFile[j] as any);
+        exported[forFile[j].type].push(copy(forFile[j]) as any);
       }
     }
 
@@ -306,15 +312,29 @@ export class GlobalIndex {
       if (!(token.file in this.globalSyntaxProblemsByFile)) {
         this.globalSyntaxProblemsByFile[token.file] = [];
       }
-      this.globalSyntaxProblemsByFile[token.file].push(
-        SyntaxProblemWithoutTranslation(
-          PROBLEM_MAP[token.type],
-          this.getProblemDetail(token),
-          token.pos,
-          token.pos,
-          token.file
-        )
+
+      /**
+       * Make a new problem that we report
+       */
+      const prob = SyntaxProblemWithoutTranslation(
+        PROBLEM_MAP[token.type],
+        this.getProblemDetail(token),
+        token.pos,
+        token.pos,
+        token.file
       );
+
+      // check if we have information about disabled problems
+      if (token.file in this.disabledProblemsByFile) {
+        prob.canReport = !IsProblemDisabled(
+          prob.code,
+          prob.start[0],
+          this.disabledProblemsByFile[token.file]
+        );
+      }
+
+      // save problem
+      this.globalSyntaxProblemsByFile[token.file].push(prob);
       this.changedFiles[token.file] = true;
     }
   }
@@ -427,6 +447,9 @@ export class GlobalIndex {
       this.globalSyntaxProblemsByFile[file] = [];
     }
 
+    // remove disabled problem key
+    delete this.disabledProblemsByFile[file];
+
     return tokens;
   }
 
@@ -434,13 +457,22 @@ export class GlobalIndex {
    * Add tokens to our global index. Removes any tokens previously found for
    * a file.
    */
-  trackGlobalTokens(tokens: GlobalTokens, file?: string) {
+  trackGlobalTokens(
+    tokens: GlobalTokens,
+    file?: string,
+    disabled?: IDisabledProblems
+  ) {
     // check if we need to clean up first
     if (file) {
       if (file in this.globalTokensByFile) {
         this.removeTokensForFile(file);
       }
       this.globalTokensByFile[file] = tokens;
+
+      // save disabled problems by file
+      if (disabled) {
+        this.disabledProblemsByFile[file] = disabled;
+      }
     }
 
     // save display names for global - do this here where we index code and files

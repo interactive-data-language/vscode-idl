@@ -116,20 +116,6 @@ describe(`[auto generated] Detects invalid tokens before routine definition`, ()
         canReport: true,
       },
       {
-        code: 99,
-        info: 'Undefined variable "this"',
-        start: [1, 0, 4],
-        end: [1, 0, 4],
-        canReport: true,
-      },
-      {
-        code: 99,
-        info: 'Undefined variable "wrong"',
-        start: [1, 7, 5],
-        end: [1, 7, 5],
-        canReport: true,
-      },
-      {
         code: 104,
         info: 'Unused variable "something"',
         start: [10, 0, 9],

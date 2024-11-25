@@ -245,13 +245,15 @@ export const EN: ITranslation = {
       'problems.reportProblems':
         'Do we report problems found when analyzing your code? If disabled in one workspace, applies to all.',
       'problems.includeProblemsFromIDLPackages':
-        'Report problems for all files where we find "idl_packages" in the path. This permits problem reporting from external libraries. If this is set in any open workspace, it applies to all of them.',
+        'Report problems for all files where we find "idl_packages" in the path. This permits problem reporting from external libraries. If this is set in any open workspace, it applies to all of them.\n\nImportant note: VSCode may require a restart for changes to take effect.',
       'problems.includeProblemsFromIDLPath':
-        'Report problems for all files on IDL path. This permits problem reporting for any file that is found on the IDL Path preference. If this is set in any open workspace, it applies to all of them.',
+        "Report problems for all files on IDL's path. This permits problem reporting for any file that is found on the IDL Path preference. If this is set in any open workspace, it applies to all of them.\n\nImportant note: VSCode may require a restart for changes to take effect.",
       'problems.reportDocsProblems':
         'Do we report problems for user documentation? If disabled, no problems are reported regarding documentation. Alternatively, you can disable problems one-by-one using `ignoreProblems`.\n\nImportant note: If this is disabled for one open workspace, it is disabled for all.\n\nImportant note: VSCode may require a restart for changes to take effect.',
       'problems.ignoreProblems':
         'Specify the problem code to ignore and not report to Visual Studio Code',
+      'problems.excludeProblemsForPath':
+        "Specify folders that you don't want to report problems for.  Add a '+' before the folder to also exclude subdirectories from problem reporting.",
 
       notebooks:
         'Preferences that control notebook user experience for IDL Notebooks',
@@ -857,7 +859,7 @@ export const EN: ITranslation = {
       '74': 'Property specified more than one time',
       '75': 'Keywords can only be used once in routine or method calls',
       '76': 'The "::init" method for object classes should be a function',
-      '77': 'No matching structure/object/class definition for structure named',
+      '77': 'No matching structure/object/class definition for structure named #SNAME. If this is a structure definition, please place it in a procedure that ends in "__define" to be properly detected and follow IDL standards.',
       '78': 'Function and function methods need to be wrapped in parentheses to be part of a chain of commands.',
       '79': 'Structure definition is missing from docs',
       '80': 'Property is missing from documentation',

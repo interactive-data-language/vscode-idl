@@ -47,6 +47,7 @@ describe(`[auto generated] Types from call_function()`, () => {
           meta: {
             display: 'known',
             isDefined: true,
+            canReset: true,
             usage: [[2, 0, 5]],
             docs: '',
             source: 'user',
@@ -60,6 +61,7 @@ describe(`[auto generated] Types from call_function()`, () => {
           meta: {
             display: 'unknown',
             isDefined: true,
+            canReset: true,
             usage: [[3, 0, 7]],
             docs: '',
             source: 'user',

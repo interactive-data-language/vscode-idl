@@ -47,6 +47,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'rb_match',
             isDefined: true,
+            canReset: true,
             usage: [[2, 0, 8]],
             docs: '',
             source: 'user',
@@ -132,6 +133,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'polyColors',
             isDefined: true,
+            canReset: true,
             usage: [
               [1, 0, 10],
               [2, 9, 10],
@@ -157,6 +159,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'array1',
             isDefined: true,
+            canReset: true,
             usage: [[2, 0, 6]],
             docs: '',
             source: 'user',
@@ -177,6 +180,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'idx',
             isDefined: false,
+            canReset: true,
             usage: [[2, 20, 3]],
             docs: '',
             source: 'user',
@@ -190,6 +194,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'nMax',
             isDefined: false,
+            canReset: true,
             usage: [[2, 26, 4]],
             docs: '',
             source: 'user',
@@ -203,6 +208,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'array2',
             isDefined: true,
+            canReset: true,
             usage: [[3, 0, 6]],
             docs: '',
             source: 'user',

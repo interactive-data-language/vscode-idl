@@ -74,6 +74,7 @@ describe(`[auto generated] Verify arg formatting`, () => {
         `pro pro3, arg1, arg2, ARG3`,
         `  compile_opt idl3`,
         `end`,
+        ``,
       ];
 
       // verify formatting

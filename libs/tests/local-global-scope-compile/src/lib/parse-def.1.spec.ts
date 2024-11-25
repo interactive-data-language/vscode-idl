@@ -59,6 +59,7 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
             meta: {
               display: 'difference_raster',
               isDefined: true,
+              canReset: false,
               usage: [[9, 22, 17]],
               docs: '',
               source: 'user',
@@ -72,6 +73,7 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
             meta: {
               display: 'decrease_vector',
               isDefined: true,
+              canReset: false,
               usage: [[10, 20, 15]],
               docs: '',
               source: 'user',
@@ -85,6 +87,7 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
             meta: {
               display: 'output_decrease_vector_uri',
               isDefined: true,
+              canReset: false,
               usage: [[11, 31, 26]],
               docs: '',
               source: 'user',
@@ -98,6 +101,7 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
             meta: {
               display: 'increase_vector',
               isDefined: true,
+              canReset: false,
               usage: [[12, 20, 15]],
               docs: '',
               source: 'user',
@@ -111,6 +115,7 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
             meta: {
               display: 'output_increase_vector_uri',
               isDefined: true,
+              canReset: false,
               usage: [[13, 31, 26]],
               docs: '',
               source: 'user',

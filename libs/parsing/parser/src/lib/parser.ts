@@ -13,6 +13,7 @@ import {
   IFindTokensOptions,
   Tokenizer,
 } from '@idl/tokenizer';
+import { DEFAULT_DISABLED_PROBLEMS } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 import { existsSync, readFileSync } from 'fs';
 import { readFile } from 'fs/promises';
@@ -102,11 +103,7 @@ export function Parser(
     tokens: [],
     text: [],
     lines: 0,
-    disabledProblems: {
-      all: false,
-      forFile: {},
-      forLines: {},
-    },
+    disabledProblems: copy(DEFAULT_DISABLED_PROBLEMS),
     parseProblems: [],
     postProcessProblems: [],
     tree: [],

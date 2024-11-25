@@ -55,6 +55,7 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
             meta: {
               display: 'var1',
               isDefined: true,
+              canReset: false,
               usage: [[9, 11, 4]],
               docs: 'My favorite thing',
               source: 'user',
