@@ -2,6 +2,7 @@ import { IFoundTokens } from '@idl/tokenizer';
 import { GlobalTokens, ICompileOptions } from '@idl/types/core';
 import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';
+import copy from 'fast-copy';
 import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver';
 
 import { SyntaxTree } from './branches.interface';
@@ -9,7 +10,10 @@ import {
   DEFAULT_USES_THESE_GLOBAL_TOKEN,
   UsesTheseGlobalTokens,
 } from './build-syntax-tree.interface';
-import { ILocalTokens } from './populators/populate-local.interface';
+import {
+  DEFAULT_LOCAL_TOKENS,
+  ILocalTokens,
+} from './populators/populate-local.interface';
 
 /**
  * Type of parsed item that we have
@@ -90,11 +94,7 @@ export const DEFAULT_PARSED: IParsed = {
   postProcessProblems: [],
   tree: [],
   global: [],
-  local: {
-    func: {},
-    pro: {},
-    main: {},
-  },
+  local: copy(DEFAULT_LOCAL_TOKENS),
   compile: {
     func: {},
     pro: {},

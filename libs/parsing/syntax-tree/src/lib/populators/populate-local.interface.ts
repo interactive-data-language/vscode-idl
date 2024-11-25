@@ -64,17 +64,15 @@ export interface ILocalIndexedToken<T extends LocalTokenTypes>
   meta: LocalTokenMetadata<T>;
 }
 
-/**
- * Local tokens that we extract from a routine or main level program
- */
-export type LocalTokens = ILocalIndexedToken<LocalTokenTypes>[];
+/** Single local token (i.e. variable in IDL code) */
+export type LocalToken = ILocalIndexedToken<LocalTokenTypes>;
 
 /**
  * Lookup for tokens defined locally within a routine or main level program
  */
 export interface ILocalTokenLookup {
   /** Key should be lower-case variable name */
-  [key: string]: ILocalIndexedToken<LocalTokenTypes>;
+  [key: string]: LocalToken;
 }
 
 /**
@@ -94,3 +92,12 @@ export interface ILocalTokens {
    */
   main: ILocalTokenLookup;
 }
+
+/**
+ * Default tokens for local
+ */
+export const DEFAULT_LOCAL_TOKENS: ILocalTokens = {
+  pro: {},
+  func: {},
+  main: {},
+};
