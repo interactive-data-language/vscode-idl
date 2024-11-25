@@ -14,9 +14,10 @@ IS_PARENT[TOKEN_NAMES.ROUTINE_PROCEDURE] = true;
 IS_PARENT[TOKEN_NAMES.MAIN_LEVEL] = true;
 
 /**
- * Get source information for a variable
+ * Creates our lookup for variables in a given token
  *
- * If we don't have a matching variable, returns undefined
+ * Used to create starting point for variables within different routines
+ * so that we can populate them with types and such.
  */
 export function GetVariables(
   token: TreeToken<TokenName>,
