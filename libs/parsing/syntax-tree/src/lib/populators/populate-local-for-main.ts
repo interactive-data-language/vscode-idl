@@ -2,7 +2,7 @@ import { MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
 
 import { IBranch } from '../branches.interface';
 import { IParsed } from '../parsed.interface';
-import { GetUniqueVariables } from './get-unique-variables';
+import { PopulateVariables } from './populate-variables';
 
 /**
  * Populates a lookup with quick information for where local things are defined
@@ -25,7 +25,7 @@ export function PopulateLocalForMain(parsed: IParsed) {
       // inside of "populate-global.ts" or you can search for the name of the
       // function "GetUniqueVariables("
       case TOKEN_NAMES.MAIN_LEVEL:
-        local.main = GetUniqueVariables(
+        local.main = PopulateVariables(
           branch as IBranch<MainLevelToken>,
           parsed,
           parsed.compile.main

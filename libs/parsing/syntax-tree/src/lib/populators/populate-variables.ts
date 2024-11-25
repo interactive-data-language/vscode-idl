@@ -36,7 +36,7 @@ import { ReplaceFunctionsAsVariables } from './replace-functions-as-variables';
  * idl2 or strictarr, then we check and see if there are functions that should
  * really be represented as variables.
  */
-export function GetUniqueVariables(
+export function PopulateVariables(
   branch: IBranch<
     RoutineProcedureToken | RoutineFunctionToken | MainLevelToken
   >,
@@ -106,6 +106,7 @@ export function GetUniqueVariables(
         meta: {
           display: variable.match[0],
           isDefined: true,
+          canReset: false,
           usage: [], // dont init, populated below
           docs: kw.docs,
           source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
@@ -137,6 +138,7 @@ export function GetUniqueVariables(
         meta: {
           display: origName,
           isDefined: true,
+          canReset: false,
           usage: [args[i].pos], // dont init, populated below
           docs: name in gArgs ? gArgs[name].docs : '',
           source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
@@ -195,6 +197,10 @@ export function GetUniqueVariables(
         vars[i].token.scope[1] === TOKEN_NAMES.ROUTINE_NAME ||
         vars[i].token.scope[1] === TOKEN_NAMES.ROUTINE_METHOD_NAME;
 
+      /** Check if the variable is defined */
+      const isDefined =
+        (inDef && name !== 'self') || parent === TOKEN_NAMES.CONTROL_COMMON;
+
       // define what we add, do this so it is strictly typed
       const add: ILocalIndexedToken<LocalVariableToken> = {
         type: LOCAL_TOKEN_LOOKUP.VARIABLE,
@@ -202,10 +208,8 @@ export function GetUniqueVariables(
         pos: vars[i].token.pos,
         meta: {
           display: origName,
-          isDefined:
-            (inDef && name !== 'self') || parent === TOKEN_NAMES.CONTROL_COMMON
-              ? true
-              : false,
+          isDefined: isDefined ? true : false,
+          canReset: isDefined ? false : true,
           usage: [vars[i].token.pos],
           docs: docs,
           source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
