@@ -14,10 +14,8 @@ IS_PARENT[TOKEN_NAMES.ROUTINE_PROCEDURE] = true;
 IS_PARENT[TOKEN_NAMES.MAIN_LEVEL] = true;
 
 /**
- * Creates our lookup for variables in a given token
- *
- * Used to create starting point for variables within different routines
- * so that we can populate them with types and such.
+ * Gets the currently defined variables for a procedure, function, or
+ * main level program.
  */
 export function GetVariables(
   token: TreeToken<TokenName>,
