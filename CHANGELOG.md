@@ -43,7 +43,7 @@ Changed the error message reported when we can't find a structure definition. Th
 
 Fixed a bug where code actions were not appearing in notebook cells.
 
-Fixed an issue with code actions, in notebooks, incorrectly fixed issues on the first line of a cell.
+Fixed an issue where code actions, in notebooks, incorrectly fixed issues on the first line of a cell.
 
 Fixed an issue where the language server was not correctly detecting pointers being de-referenced. This caused false errors for "standalone expressions" to be reported and for formatting to not function correctly.
 
