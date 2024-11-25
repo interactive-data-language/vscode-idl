@@ -59,6 +59,7 @@ export * from './lib/recursion-and-callbacks/tree-recurser-basic';
 export * from './lib/remove-scope-detail';
 export * from './lib/remove-scope-detail-and-reset-token-cache';
 export * from './lib/reset-token-cache';
+export * from './lib/reset-variables';
 export * from './lib/set-token-cache';
 export * from './lib/syntax-problem-with';
 export * from './lib/validator.class.interface';

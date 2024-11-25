@@ -203,6 +203,7 @@ export function PopulateGlobalLocalCompileOpts(
                 meta: {
                   display: 'self',
                   isDefined: true,
+                  canReset: false,
                   docs: IDL_TRANSLATION.docs.hover.params.self,
                   source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
                   type: ParseIDLType(split[0]),
@@ -319,6 +320,7 @@ export function PopulateGlobalLocalCompileOpts(
                 meta: {
                   display: 'self',
                   isDefined: true,
+                  canReset: false,
                   docs: IDL_TRANSLATION.docs.hover.params.self,
                   source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
                   type: ParseIDLType(split[0]),

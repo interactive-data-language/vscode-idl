@@ -3,6 +3,7 @@ import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
 import {
   IParsed,
   PopulateScopeDetailAndResetTokenCache,
+  ResetVariables,
 } from '@idl/parsing/syntax-tree';
 
 import { GetSyntaxProblems } from '../helpers/get-syntax-problems';
@@ -25,6 +26,11 @@ export function PostProcessParsed(
    * Reset cache and set scope detail if we need it
    */
   PopulateScopeDetailAndResetTokenCache(parsed, cancel);
+
+  /**
+   * Reset variables so we can update types
+   */
+  ResetVariables(parsed);
 
   /**
    * Populate types of local variables and validate them
