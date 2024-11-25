@@ -18,7 +18,7 @@ Document some advanced types so users may try them out and provide feedback. The
 
 IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks (not all types are supported).
 
-## 4.7.0 - October 2024
+## 4.7.0 - November 2024
 
 Added the ability to statically determine the return types for functions and function methods that don't have documentation. This means that, for the following example, we properly detect that we return an IDL Long (because of `compile_opt idl2`):
 
@@ -47,11 +47,11 @@ Fixed an issue where code actions, in notebooks, incorrectly fixed issues on the
 
 Fixed an issue where the language server was not correctly detecting pointers being de-referenced. This caused false errors for "standalone expressions" to be reported and for formatting to not function correctly.
 
-Update extension docs with the latest version od node.js that we require (to work around language server crashes).
+Update extension docs with the latest version of node.js that we require (to work around language server crashes).
 
 Updated hover help packaged with the extension with ENVI 6.1, IDL 9.1, and ENVI Deep Learning 3.0.1 docs
 
-Tweak the logic for reporting problems to always send problems for a file. This means that, adjusting some of the problem reporting settings, should update real-time and tweak what VSCode knowns about.
+Tweak the logic for how we respond to settings changes for problems that we report. This change means, as you change which problems you want reported in real-time, the problems tab in VSCode will add/remove problems that you do/don't want to see. Previously you would need to restart VSCode for the changes to take effect.
 
 Improved the logic when checking if we report problems or not for a file to account for the folder on IDL's path being recursive or not.
 
@@ -59,7 +59,7 @@ Fixed an issue where, when disabling problems from duplicate routines, they were
 
 Updating our formatting logic to add a final line feed or carriage return after the last line of a file when formatting your code.
 
-Potential fix for resolving actual filepaths when following symbolic links to discover files that we need to parse. We were originally getting two paths to the same files that persist on disk, causing extra duplicate routines to be reported.
+POtential fix to resolve canonical (true) filepaths when you have symbolic links in your workspace or on IDL's search path. This should fix a problem where the same file was incorrectly having two paths and reporting duplicate problems.
 
 ## 4.6.2 - September 2024
 
