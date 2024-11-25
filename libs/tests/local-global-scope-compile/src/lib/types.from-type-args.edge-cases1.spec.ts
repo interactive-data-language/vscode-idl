@@ -50,6 +50,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'item',
               isDefined: true,
+              canReset: false,
               usage: [[5, 13, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',

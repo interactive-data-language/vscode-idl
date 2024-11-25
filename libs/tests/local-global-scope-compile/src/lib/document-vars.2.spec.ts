@@ -57,6 +57,7 @@ describe(`[auto generated] Exclude idl-disabled from`, () => {
           meta: {
             display: 'a',
             isDefined: true,
+            canReset: true,
             usage: [[3, 0, 1]],
             docs: '',
             source: 'user',
@@ -78,6 +79,7 @@ describe(`[auto generated] Exclude idl-disabled from`, () => {
           meta: {
             display: 'b',
             isDefined: true,
+            canReset: true,
             usage: [[6, 0, 1]],
             docs: 'TODO: var comment',
             source: 'user',
@@ -99,6 +101,7 @@ describe(`[auto generated] Exclude idl-disabled from`, () => {
           meta: {
             display: 'c',
             isDefined: true,
+            canReset: true,
             usage: [[9, 0, 1]],
             docs: 'some comment',
             source: 'user',
@@ -120,6 +123,7 @@ describe(`[auto generated] Exclude idl-disabled from`, () => {
           meta: {
             display: 'd',
             isDefined: true,
+            canReset: true,
             usage: [[12, 0, 1]],
             docs: 'var comment',
             source: 'user',

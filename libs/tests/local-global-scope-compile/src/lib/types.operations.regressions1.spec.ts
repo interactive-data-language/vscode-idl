@@ -51,6 +51,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'long1',
               isDefined: true,
+              canReset: true,
               usage: [
                 [3, 2, 5],
                 [5, 12, 5],
@@ -75,6 +76,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'long2',
               isDefined: true,
+              canReset: true,
               usage: [
                 [5, 2, 5],
                 [7, 20, 5],
@@ -91,6 +93,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'long3',
               isDefined: true,
+              canReset: true,
               usage: [[7, 2, 5]],
               docs: '',
               source: 'user',

@@ -48,6 +48,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: true,
               usage: [[4, 2, 1]],
               docs: '',
               source: 'user',
@@ -70,6 +71,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'x',
               isDefined: true,
+              canReset: true,
               usage: [[4, 13, 1]],
               docs: '',
               source: 'user',
@@ -160,6 +162,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'e',
               isDefined: true,
+              canReset: true,
               usage: [
                 [2, 2, 1],
                 [3, 6, 1],
@@ -176,6 +179,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'r',
               isDefined: true,
+              canReset: true,
               usage: [
                 [3, 2, 1],
                 [5, 9, 1],
@@ -214,6 +218,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'arr',
               isDefined: true,
+              canReset: true,
               usage: [[5, 2, 3]],
               docs: '',
               source: 'user',
@@ -320,6 +325,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'arr1',
               isDefined: true,
+              canReset: true,
               usage: [[2, 2, 4]],
               docs: '',
               source: 'user',
@@ -362,6 +368,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'arr2',
               isDefined: true,
+              canReset: true,
               usage: [[3, 2, 4]],
               docs: '',
               source: 'user',
@@ -391,6 +398,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'bad',
               isDefined: true,
+              canReset: true,
               usage: [[5, 2, 3]],
               docs: '',
               source: 'user',

@@ -49,6 +49,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'lookup',
               isDefined: true,
+              canReset: true,
               usage: [[3, 2, 6]],
               docs: '',
               source: 'user',
@@ -69,6 +70,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'regName',
               isDefined: false,
+              canReset: true,
               usage: [[4, 6, 7]],
               docs: '',
               source: 'user',

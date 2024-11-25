@@ -60,6 +60,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'string',
             isDefined: true,
+            canReset: true,
             usage: [[13, 0, 6]],
             docs: '',
             source: 'user',
@@ -73,6 +74,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'any',
             isDefined: true,
+            canReset: true,
             usage: [[14, 0, 3]],
             docs: '',
             source: 'user',
@@ -86,6 +88,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'float',
             isDefined: true,
+            canReset: true,
             usage: [[15, 0, 5]],
             docs: '',
             source: 'user',
@@ -99,6 +102,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'array',
             isDefined: true,
+            canReset: true,
             usage: [[16, 0, 5]],
             docs: '',
             source: 'user',
@@ -227,6 +231,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'string',
             isDefined: true,
+            canReset: true,
             usage: [[13, 0, 6]],
             docs: '',
             source: 'user',
@@ -240,6 +245,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'any',
             isDefined: true,
+            canReset: true,
             usage: [[14, 0, 3]],
             docs: '',
             source: 'user',
@@ -253,6 +259,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'float',
             isDefined: true,
+            canReset: true,
             usage: [[15, 0, 5]],
             docs: '',
             source: 'user',
@@ -266,6 +273,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'array',
             isDefined: true,
+            canReset: true,
             usage: [[16, 0, 5]],
             docs: '',
             source: 'user',
@@ -394,6 +402,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'string',
             isDefined: true,
+            canReset: true,
             usage: [[13, 0, 6]],
             docs: '',
             source: 'user',
@@ -407,6 +416,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'any',
             isDefined: true,
+            canReset: true,
             usage: [[14, 0, 3]],
             docs: '',
             source: 'user',
@@ -420,6 +430,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'float',
             isDefined: true,
+            canReset: true,
             usage: [[15, 0, 5]],
             docs: '',
             source: 'user',
@@ -433,6 +444,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'array',
             isDefined: true,
+            canReset: true,
             usage: [[16, 0, 5]],
             docs: '',
             source: 'user',
@@ -554,6 +566,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'string',
             isDefined: true,
+            canReset: true,
             usage: [[13, 0, 6]],
             docs: '',
             source: 'user',
@@ -567,6 +580,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'any',
             isDefined: true,
+            canReset: true,
             usage: [[14, 0, 3]],
             docs: '',
             source: 'user',
@@ -580,6 +594,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'float',
             isDefined: true,
+            canReset: true,
             usage: [[15, 0, 5]],
             docs: '',
             source: 'user',
@@ -593,6 +608,7 @@ describe(`[auto generated] Types from`, () => {
           meta: {
             display: 'array',
             isDefined: true,
+            canReset: true,
             usage: [[16, 0, 5]],
             docs: '',
             source: 'user',

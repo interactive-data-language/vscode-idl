@@ -58,6 +58,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[5, 30, 3]],
               docs: '',
               source: 'user',
@@ -73,6 +74,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[0, 38, 3]],
               docs: '',
               source: 'user',
@@ -86,6 +88,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: false,
               usage: [[0, 23, 1]],
               docs: '',
               source: 'user',
@@ -99,6 +102,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'b',
               isDefined: true,
+              canReset: false,
               usage: [[0, 26, 1]],
               docs: '',
               source: 'user',
@@ -112,6 +116,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'c',
               isDefined: true,
+              canReset: false,
               usage: [[0, 29, 1]],
               docs: '',
               source: 'user',
@@ -129,6 +134,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[14, 17, 3]],
               docs: '',
               source: 'user',
@@ -144,6 +150,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[10, 25, 3]],
               docs: '',
               source: 'user',
@@ -157,6 +164,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: false,
               usage: [[10, 10, 1]],
               docs: '',
               source: 'user',
@@ -170,6 +178,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'b',
               isDefined: true,
+              canReset: false,
               usage: [[10, 13, 1]],
               docs: '',
               source: 'user',
@@ -183,6 +192,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
             meta: {
               display: 'c',
               isDefined: true,
+              canReset: false,
               usage: [[10, 16, 1]],
               docs: '',
               source: 'user',

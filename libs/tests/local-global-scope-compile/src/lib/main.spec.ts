@@ -41,6 +41,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
           meta: {
             display: 'a',
             isDefined: true,
+            canReset: true,
             usage: [
               [1, 0, 1],
               [2, 7, 1],
@@ -59,6 +60,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
           meta: {
             display: 'b',
             isDefined: true,
+            canReset: true,
             usage: [[2, 10, 1]],
             docs: '',
             source: 'user',
@@ -72,6 +74,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
           meta: {
             display: 'c',
             isDefined: true,
+            canReset: true,
             usage: [[2, 13, 1]],
             docs: '',
             source: 'user',
@@ -85,6 +88,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
           meta: {
             display: 'd',
             isDefined: true,
+            canReset: true,
             usage: [[2, 16, 1]],
             docs: '',
             source: 'user',

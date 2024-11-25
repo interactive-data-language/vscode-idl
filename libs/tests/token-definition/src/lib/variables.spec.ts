@@ -35,6 +35,7 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
       meta: {
         display: 'st',
         isDefined: true,
+        canReset: true,
         usage: [
           [40, 0, 2],
           [46, 8, 2],
@@ -96,6 +97,7 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
       meta: {
         display: 'st3',
         isDefined: false,
+        canReset: true,
         usage: [[49, 8, 3]],
         docs: '',
         source: 'user',

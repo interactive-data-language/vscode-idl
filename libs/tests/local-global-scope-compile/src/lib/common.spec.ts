@@ -47,6 +47,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             meta: {
               display: 'wxsize',
               isDefined: true,
+              canReset: false,
               usage: [[3, 19, 6]],
               docs: '',
               source: 'user',
@@ -60,6 +61,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             meta: {
               display: 'wysize',
               isDefined: true,
+              canReset: false,
               usage: [[3, 27, 6]],
               docs: '',
               source: 'user',
@@ -73,6 +75,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             meta: {
               display: 'r0',
               isDefined: true,
+              canReset: false,
               usage: [[3, 35, 2]],
               docs: '',
               source: 'user',

@@ -61,6 +61,7 @@ describe(`[auto generated] Types from output arguments`, () => {
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: false,
               usage: [[10, 22, 1]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -81,6 +82,7 @@ describe(`[auto generated] Types from output arguments`, () => {
             meta: {
               display: 'b',
               isDefined: true,
+              canReset: false,
               usage: [[10, 25, 1]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -94,6 +96,7 @@ describe(`[auto generated] Types from output arguments`, () => {
             meta: {
               display: 'c',
               isDefined: true,
+              canReset: false,
               usage: [[10, 28, 1]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -117,6 +120,7 @@ describe(`[auto generated] Types from output arguments`, () => {
           meta: {
             display: 'arg1',
             isDefined: false,
+            canReset: true,
             usage: [[17, 18, 4]],
             docs: '',
             source: 'user',
@@ -130,6 +134,7 @@ describe(`[auto generated] Types from output arguments`, () => {
           meta: {
             display: 'arg2',
             isDefined: true,
+            canReset: true,
             usage: [[17, 24, 4]],
             docs: '',
             source: 'user',
@@ -143,6 +148,7 @@ describe(`[auto generated] Types from output arguments`, () => {
           meta: {
             display: 'arg3',
             isDefined: true,
+            canReset: true,
             usage: [[17, 30, 4]],
             docs: '',
             source: 'user',

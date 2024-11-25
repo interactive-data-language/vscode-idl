@@ -45,6 +45,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'arg',
               isDefined: true,
+              canReset: false,
               usage: [
                 [0, 18, 3],
                 [2, 5, 3],
@@ -231,6 +232,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'return',
               isDefined: false,
+              canReset: true,
               usage: [[3, 2, 6]],
               docs: '',
               source: 'user',

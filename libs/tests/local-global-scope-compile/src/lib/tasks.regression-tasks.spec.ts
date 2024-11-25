@@ -50,6 +50,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           meta: {
             display: 'task1',
             isDefined: true,
+            canReset: true,
             usage: [[1, 0, 5]],
             docs: '',
             source: 'user',
@@ -70,6 +71,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           meta: {
             display: 'task2',
             isDefined: true,
+            canReset: true,
             usage: [[2, 0, 5]],
             docs: '',
             source: 'user',
@@ -90,6 +92,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           meta: {
             display: 'task3',
             isDefined: true,
+            canReset: true,
             usage: [[3, 0, 5]],
             docs: '',
             source: 'user',
@@ -110,6 +113,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           meta: {
             display: 'task4',
             isDefined: true,
+            canReset: true,
             usage: [[4, 0, 5]],
             docs: '',
             source: 'user',
@@ -130,6 +134,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           meta: {
             display: 'task5',
             isDefined: true,
+            canReset: true,
             usage: [[5, 0, 5]],
             docs: '',
             source: 'user',
@@ -150,6 +155,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           meta: {
             display: 'task6',
             isDefined: true,
+            canReset: true,
             usage: [[6, 0, 5]],
             docs: '',
             source: 'user',
@@ -235,6 +241,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           meta: {
             display: 'task1',
             isDefined: true,
+            canReset: true,
             usage: [[1, 0, 5]],
             docs: '',
             source: 'user',
@@ -320,6 +327,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           meta: {
             display: 'task1',
             isDefined: true,
+            canReset: true,
             usage: [[1, 0, 5]],
             docs: '',
             source: 'user',
@@ -405,6 +413,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           meta: {
             display: 'task1',
             isDefined: true,
+            canReset: true,
             usage: [[1, 0, 5]],
             docs: '',
             source: 'user',
@@ -490,6 +499,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           meta: {
             display: 'task1',
             isDefined: true,
+            canReset: true,
             usage: [[1, 0, 5]],
             docs: '',
             source: 'user',
@@ -575,6 +585,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           meta: {
             display: 'task1',
             isDefined: true,
+            canReset: true,
             usage: [[1, 0, 5]],
             docs: '',
             source: 'user',
@@ -660,6 +671,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           meta: {
             display: 'task1',
             isDefined: true,
+            canReset: true,
             usage: [[1, 0, 5]],
             docs: '',
             source: 'user',

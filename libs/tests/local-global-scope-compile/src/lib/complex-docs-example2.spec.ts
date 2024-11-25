@@ -77,6 +77,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'init',
               isDefined: true,
+              canReset: false,
               usage: [[30, 43, 4]],
               docs: 'Optional argument which allows you to pass in a string array of extra commands\nto have each IDL_IDLBridge object execute upon creation.',
               source: 'user',
@@ -90,6 +91,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'msg',
               isDefined: true,
+              canReset: false,
               usage: [[30, 55, 3]],
               docs: 'Optional argument to show the message prefix when a bridge process has completed for the TIME\nkeyword in bridge_it::run and bridge_it::run().',
               source: 'user',
@@ -103,6 +105,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'logdir',
               isDefined: true,
+              canReset: false,
               usage: [[30, 69, 6]],
               docs: 'Specify the directory that the log file will be written to. The log file is just a text file with\nall of the IDL Console output from each child process.',
               source: 'user',
@@ -116,6 +119,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'nrefresh',
               isDefined: true,
+              canReset: false,
               usage: [[30, 88, 8]],
               docs: "Specify the number of bridge processes to execute before closing and re-starting the\nchild process. Necessary for some ENVI routines so that we don't have memory fragmentation\nregarding opening lots of small rasters.",
               source: 'user',
@@ -129,6 +133,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'prefix',
               isDefined: true,
+              canReset: false,
               usage: [[30, 107, 6]],
               docs: 'This optional keyword specifies the prefix which is used to differentiate between arguments and\nkeywords when it comes time to parse the arguments and keyword that will be passed into a routine.',
               source: 'user',
@@ -142,6 +147,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'nbridges',
               isDefined: true,
+              canReset: false,
               usage: [[30, 26, 8]],
               docs: 'The number of bridges that you want to create',
               source: 'user',
@@ -155,6 +161,7 @@ describe(`[auto generated] Complex real world test`, () => {
             meta: {
               display: 'self',
               isDefined: true,
+              canReset: false,
               docs: 'A reference to our object class',
               source: 'user',
               type: [

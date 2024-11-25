@@ -50,6 +50,7 @@ describe(`[auto generated] Find them in`, () => {
             meta: {
               display: 'fhdr',
               isDefined: true,
+              canReset: true,
               usage: [[2, 0, 4]],
               docs: '',
               source: 'user',
@@ -70,6 +71,7 @@ describe(`[auto generated] Find them in`, () => {
             meta: {
               display: 'self',
               isDefined: true,
+              canReset: false,
               docs: 'A reference to our object class',
               source: 'user',
               type: [

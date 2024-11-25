@@ -47,6 +47,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[0, 33, 3]],
               docs: '',
               source: 'user',
@@ -60,6 +61,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             meta: {
               display: 'kw2',
               isDefined: true,
+              canReset: false,
               usage: [[1, 8, 3]],
               docs: '',
               source: 'user',
@@ -73,6 +75,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             meta: {
               display: 'kw3',
               isDefined: true,
+              canReset: false,
               usage: [[1, 19, 3]],
               docs: '',
               source: 'user',
@@ -86,6 +89,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             meta: {
               display: 'arg1',
               isDefined: true,
+              canReset: false,
               usage: [[0, 11, 4]],
               docs: '',
               source: 'user',
@@ -99,6 +103,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             meta: {
               display: 'arg2',
               isDefined: true,
+              canReset: false,
               usage: [[0, 17, 4]],
               docs: '',
               source: 'user',
@@ -112,6 +117,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             meta: {
               display: 'arg3',
               isDefined: true,
+              canReset: false,
               usage: [[0, 23, 4]],
               docs: '',
               source: 'user',

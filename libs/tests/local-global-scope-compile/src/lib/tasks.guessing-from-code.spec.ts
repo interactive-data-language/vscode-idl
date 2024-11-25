@@ -59,6 +59,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
           meta: {
             display: 'mosaic1',
             isDefined: true,
+            canReset: true,
             usage: [[2, 0, 7]],
             docs: '',
             source: 'user',
@@ -88,6 +89,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
           meta: {
             display: 'mosaic2',
             isDefined: true,
+            canReset: true,
             usage: [[3, 0, 7]],
             docs: '',
             source: 'user',
@@ -117,6 +119,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
           meta: {
             display: 'uri',
             isDefined: true,
+            canReset: true,
             usage: [
               [5, 0, 3],
               [6, 19, 3],
@@ -146,6 +149,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
           meta: {
             display: 'mosaic3',
             isDefined: true,
+            canReset: true,
             usage: [[6, 0, 7]],
             docs: '',
             source: 'user',
@@ -175,6 +179,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
           meta: {
             display: 'envitaskany1',
             isDefined: true,
+            canReset: true,
             usage: [[8, 0, 12]],
             docs: '',
             source: 'user',
@@ -195,6 +200,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
           meta: {
             display: 'idlmosaic1',
             isDefined: true,
+            canReset: true,
             usage: [[10, 0, 10]],
             docs: '',
             source: 'user',
@@ -224,6 +230,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
           meta: {
             display: 'idlmosaic2',
             isDefined: true,
+            canReset: true,
             usage: [[11, 0, 10]],
             docs: '',
             source: 'user',
@@ -253,6 +260,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
           meta: {
             display: 'idlmosaic3',
             isDefined: true,
+            canReset: true,
             usage: [[13, 0, 10]],
             docs: '',
             source: 'user',
@@ -282,6 +290,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
           meta: {
             display: 'idltaskany1',
             isDefined: true,
+            canReset: true,
             usage: [[15, 0, 11]],
             docs: '',
             source: 'user',

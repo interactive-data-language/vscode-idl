@@ -41,6 +41,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
           meta: {
             display: 'a',
             isDefined: true,
+            canReset: true,
             usage: [[0, 0, 1]],
             docs: '',
             source: 'user',

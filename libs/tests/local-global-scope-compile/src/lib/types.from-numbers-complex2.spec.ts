@@ -92,6 +92,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'byte1',
               isDefined: true,
+              canReset: true,
               usage: [[4, 0, 5]],
               docs: '',
               source: 'user',
@@ -113,6 +114,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'byte2',
               isDefined: true,
+              canReset: true,
               usage: [[5, 0, 5]],
               docs: '',
               source: 'user',
@@ -134,6 +136,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'jnt1',
               isDefined: true,
+              canReset: true,
               usage: [[8, 0, 4]],
               docs: '',
               source: 'user',
@@ -155,6 +158,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'compOptLong',
               isDefined: true,
+              canReset: true,
               usage: [[11, 0, 11]],
               docs: '',
               source: 'user',
@@ -176,6 +180,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'ujnt1',
               isDefined: true,
+              canReset: true,
               usage: [[14, 0, 5]],
               docs: '',
               source: 'user',
@@ -197,6 +202,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'ujnt2',
               isDefined: true,
+              canReset: true,
               usage: [[15, 0, 5]],
               docs: '',
               source: 'user',
@@ -218,6 +224,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'long1',
               isDefined: true,
+              canReset: true,
               usage: [[18, 0, 5]],
               docs: '',
               source: 'user',
@@ -239,6 +246,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'ulong1',
               isDefined: true,
+              canReset: true,
               usage: [[21, 0, 6]],
               docs: '',
               source: 'user',
@@ -260,6 +268,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'long641',
               isDefined: true,
+              canReset: true,
               usage: [[24, 0, 7]],
               docs: '',
               source: 'user',
@@ -281,6 +290,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'ulong641',
               isDefined: true,
+              canReset: true,
               usage: [[27, 0, 8]],
               docs: '',
               source: 'user',
@@ -302,6 +312,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'float1',
               isDefined: true,
+              canReset: true,
               usage: [[30, 0, 6]],
               docs: '',
               source: 'user',
@@ -323,6 +334,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'float2',
               isDefined: true,
+              canReset: true,
               usage: [[31, 0, 6]],
               docs: '',
               source: 'user',
@@ -344,6 +356,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'float3',
               isDefined: true,
+              canReset: true,
               usage: [[32, 0, 6]],
               docs: '',
               source: 'user',
@@ -365,6 +378,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'float4',
               isDefined: true,
+              canReset: true,
               usage: [[33, 0, 6]],
               docs: '',
               source: 'user',
@@ -386,6 +400,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'float5',
               isDefined: true,
+              canReset: true,
               usage: [[34, 0, 6]],
               docs: '',
               source: 'user',
@@ -407,6 +422,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'float6',
               isDefined: true,
+              canReset: true,
               usage: [[35, 0, 6]],
               docs: '',
               source: 'user',
@@ -428,6 +444,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'float7',
               isDefined: true,
+              canReset: true,
               usage: [[36, 0, 6]],
               docs: '',
               source: 'user',
@@ -449,6 +466,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'float8',
               isDefined: true,
+              canReset: true,
               usage: [[37, 0, 6]],
               docs: '',
               source: 'user',
@@ -470,6 +488,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'double0',
               isDefined: true,
+              canReset: true,
               usage: [[40, 0, 7]],
               docs: '',
               source: 'user',
@@ -491,6 +510,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'double1',
               isDefined: true,
+              canReset: true,
               usage: [[41, 0, 7]],
               docs: '',
               source: 'user',
@@ -512,6 +532,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'double2',
               isDefined: true,
+              canReset: true,
               usage: [[42, 0, 7]],
               docs: '',
               source: 'user',
@@ -533,6 +554,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'double3',
               isDefined: true,
+              canReset: true,
               usage: [[43, 0, 7]],
               docs: '',
               source: 'user',
@@ -554,6 +576,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'double4',
               isDefined: true,
+              canReset: true,
               usage: [[44, 0, 7]],
               docs: '',
               source: 'user',
@@ -575,6 +598,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'double5',
               isDefined: true,
+              canReset: true,
               usage: [[45, 0, 7]],
               docs: '',
               source: 'user',
@@ -596,6 +620,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'double6',
               isDefined: true,
+              canReset: true,
               usage: [[46, 0, 7]],
               docs: '',
               source: 'user',
@@ -617,6 +642,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'double7',
               isDefined: true,
+              canReset: true,
               usage: [[47, 0, 7]],
               docs: '',
               source: 'user',
@@ -638,6 +664,7 @@ describe(`[auto generated] Types from`, () => {
             meta: {
               display: 'double8',
               isDefined: true,
+              canReset: true,
               usage: [[48, 0, 7]],
               docs: '',
               source: 'user',

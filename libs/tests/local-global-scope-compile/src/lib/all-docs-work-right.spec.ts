@@ -66,6 +66,7 @@ describe(`[auto generated] Correctly gets docs and variables`, () => {
             meta: {
               display: 'kw1',
               isDefined: true,
+              canReset: false,
               usage: [[13, 21, 3]],
               docs: 'Super Cool flag',
               source: 'user',
@@ -81,6 +82,7 @@ describe(`[auto generated] Correctly gets docs and variables`, () => {
             meta: {
               display: 'var1',
               isDefined: true,
+              canReset: false,
               usage: [[13, 11, 4]],
               docs: 'My favorite thing',
               source: 'user',
@@ -94,6 +96,7 @@ describe(`[auto generated] Correctly gets docs and variables`, () => {
             meta: {
               display: 'a',
               isDefined: true,
+              canReset: true,
               usage: [[16, 2, 1]],
               docs: 'awesome variable with docs',
               source: 'user',
@@ -115,6 +118,7 @@ describe(`[auto generated] Correctly gets docs and variables`, () => {
             meta: {
               display: 'b',
               isDefined: true,
+              canReset: true,
               usage: [[21, 2, 1]],
               docs: 'Big comment block here\nlike a great code writer',
               source: 'user',

@@ -64,6 +64,7 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
             meta: {
               display: 'arg1',
               isDefined: true,
+              canReset: false,
               usage: [[18, 23, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -84,6 +85,7 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
             meta: {
               display: 'arg2',
               isDefined: true,
+              canReset: false,
               usage: [[18, 29, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -115,6 +117,7 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
             meta: {
               display: 'arg3',
               isDefined: true,
+              canReset: false,
               usage: [[18, 35, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -153,6 +156,7 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
             meta: {
               display: 'arg4',
               isDefined: true,
+              canReset: false,
               usage: [[18, 41, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -173,6 +177,7 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
             meta: {
               display: 'arg5',
               isDefined: true,
+              canReset: false,
               usage: [[18, 47, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -189,6 +194,7 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
             meta: {
               display: 'arg6',
               isDefined: true,
+              canReset: false,
               usage: [[18, 53, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
@@ -235,6 +241,7 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
             meta: {
               display: 'arg7',
               isDefined: true,
+              canReset: false,
               usage: [[18, 59, 4]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
