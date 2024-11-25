@@ -59,7 +59,7 @@ Fixed an issue where, when disabling problems from duplicate routines, they were
 
 Updating our formatting logic to add a final line feed or carriage return after the last line of a file when formatting your code.
 
-POtential fix to resolve canonical (true) filepaths when you have symbolic links in your workspace or on IDL's search path. This should fix a problem where the same file was incorrectly having two paths and reporting duplicate problems.
+Potential fix to resolve canonical (true) filepaths when you have symbolic links in your workspace or on IDL's search path. This should fix a problem where the same file was incorrectly having two paths and reporting duplicate problems.
 
 ## 4.6.2 - September 2024
 
