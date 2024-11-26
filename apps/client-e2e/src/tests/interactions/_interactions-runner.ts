@@ -1,6 +1,7 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
+import { BasicSymbolicLinks } from './basic-interactions/basic-symbolic-links';
 import { DefFilesInteractRight } from './basic-interactions/def-files-interact-right';
 import { IDLJSONInteractRight } from './basic-interactions/idl-json-interact-right';
 import { IndexIDLFolderRightAndOpenEditClose } from './basic-interactions/index-idl-folder-right-and-open-edit-close';
@@ -92,6 +93,17 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'PRO def files interact right',
   fn: DefFilesInteractRight,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Basic tests for files from symbolic links with no duplicate problems',
+  fn: BasicSymbolicLinks,
+  includeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64', 'x64'],
+    },
+  ],
 });
 
 INTERACTIONS_RUNNER.addTest({
