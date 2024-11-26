@@ -50,24 +50,42 @@ export class Runner {
    * Check if we can run a test
    */
   canRunTest(test: IRunnerTest) {
-    if (!test.excludeOS) {
-      return true;
-    }
+    switch (true) {
+      case test.excludeOS !== undefined: {
+        // get platforms we skip
+        const skipThese = test.excludeOS;
 
-    // get platforms we skip
-    const skipThese = test.excludeOS;
+        // check to run
+        for (let i = 0; i < skipThese.length; i++) {
+          if (
+            skipThese[i].architecture.indexOf(arch() as any) !== -1 &&
+            skipThese[i].os.indexOf(platform()) !== -1
+          ) {
+            return false;
+          }
+        }
+        break;
+      }
+      case test.includeOS !== undefined: {
+        // get platforms we include
+        const includeThese = test.includeOS;
 
-    // check to run
-    for (let i = 0; i < skipThese.length; i++) {
-      if (
-        skipThese[i].architecture.indexOf(arch() as any) !== -1 &&
-        skipThese[i].os.indexOf(platform()) !== -1
-      ) {
+        // check to run
+        for (let i = 0; i < includeThese.length; i++) {
+          if (
+            includeThese[i].architecture.indexOf(arch() as any) !== -1 &&
+            includeThese[i].os.indexOf(platform()) !== -1
+          ) {
+            return true;
+          }
+        }
+
         return false;
       }
+      default:
     }
 
-    // return true if we can run
+    // if we make it here, run the test
     return true;
   }
 

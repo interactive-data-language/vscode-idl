@@ -10,7 +10,7 @@ export type RunnerFunction = (init: IInitializeType) => Promise<void>;
  * Data structure to turn off tests for some hardware setups, such as arm macs
  * which need to skip ENVI code for notebooks.
  */
-export interface IExcludedOS {
+export interface IOSDefinition {
   /** The name of the OS we exclude for */
   os: NodeJS.Platform[];
   /** The name of the architecture we exclude */
@@ -31,7 +31,9 @@ export interface IRunnerTest {
   /** Do we keep or close all editors? */
   dontCloseAll?: boolean;
   /** Hardware we skip the test for */
-  excludeOS?: IExcludedOS[];
+  excludeOS?: IOSDefinition[];
+  /** What hardware is our test specific for? */
+  includeOS?: IOSDefinition[];
 }
 
 /**
