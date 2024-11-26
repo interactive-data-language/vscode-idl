@@ -157,6 +157,15 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       },
     },
   },
+  cw_fslider: {
+    args: {},
+    kws: {
+      event_func: {
+        direction: 'in',
+        type: IDL_STRING_TYPE,
+      },
+    },
+  },
   dblarr: {
     returns: ParseIDLType('Array<Double>'),
     args: {},
