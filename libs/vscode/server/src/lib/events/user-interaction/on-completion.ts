@@ -4,7 +4,7 @@ import {
   IAssemblerOptions,
 } from '@idl/assembling/config';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { GetFSPath, IDLFileHelper } from '@idl/shared';
+import { IDLFileHelper } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   CompletionItem,
@@ -57,10 +57,7 @@ export async function GetAutoCompleteWrapper(
   /**
    * Get assembler options
    */
-  const idlJson = IDL_INDEX.getConfigForFile(
-    GetFSPath(params.textDocument.uri),
-    clientConfig
-  );
+  const idlJson = IDL_INDEX.getConfigForFile(info.fsPath, clientConfig);
 
   // listen for hover help
   const completion = await IDL_INDEX.getAutoComplete(
@@ -70,9 +67,6 @@ export async function GetAutoCompleteWrapper(
     IDL_CLIENT_CONFIG,
     idlJson
   );
-
-  // remove from our main thread lookup
-  IDL_INDEX.parsedCache.remove(info.fsPath);
 
   // return completion
   return completion;

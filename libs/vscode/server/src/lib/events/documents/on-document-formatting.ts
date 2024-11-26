@@ -41,7 +41,7 @@ export const ON_DOCUMENT_FORMATTING = async (
     /**
      * Format our file
      */
-    const formatted = await FormatFile(event, formatting);
+    const formatted = await FormatFile(info, formatting);
 
     // check if we could not format
     if (formatted === undefined) {

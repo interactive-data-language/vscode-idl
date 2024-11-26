@@ -42,9 +42,6 @@ export const ON_DOCUMENT_SYMBOL = async (
       new CancellationToken()
     );
 
-    // remove file from memory cache
-    IDL_INDEX.parsedCache.remove(info.fsPath);
-
     // return outline
     return outline;
   } catch (err) {

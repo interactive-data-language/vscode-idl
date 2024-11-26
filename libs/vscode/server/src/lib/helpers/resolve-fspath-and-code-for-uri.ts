@@ -1,4 +1,5 @@
 import { CleanPath, IDLFileHelper } from '@idl/shared';
+import { realpathSync } from 'fs';
 import { URI } from 'vscode-uri';
 
 import { NOTEBOOK_MANAGER } from '../events/initialize-notebook-manager';
@@ -9,6 +10,9 @@ import { IResolvedFSPathAndCodeForURI } from './resolve-fspath-and-code-for-uri.
  * Given a URI, resolves the appropriate file system path and retrieves
  * the code so that we have a centralized location to create and re-use
  * this logic which accounts for notebooks and PRO code.
+ *
+ * Resolves symbolic links to get true paths on disk, so use the "fsPath" that
+ * gets returned here for the tru paths on disk.
  */
 export async function ResolveFSPathAndCodeForURI(
   url: string
@@ -21,7 +25,7 @@ export async function ResolveFSPathAndCodeForURI(
   /**
    * Get official FSPath for root file
    */
-  const fsPath = CleanPath(parsed.fsPath);
+  const fsPath = realpathSync(CleanPath(parsed.fsPath));
 
   /**
    * Check if PRO code
@@ -31,7 +35,7 @@ export async function ResolveFSPathAndCodeForURI(
       type: 'pro',
       uri: url,
       fsPath,
-      code: await GetFileStrings(url),
+      code: await GetFileStrings(url, fsPath),
     };
   }
 

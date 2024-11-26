@@ -44,9 +44,6 @@ export async function GetHoverHelpWrapper(
     IDL_CLIENT_CONFIG
   );
 
-  // remove from our main thread lookup
-  IDL_INDEX.parsedCache.remove(info.fsPath);
-
   return hover;
 }
 

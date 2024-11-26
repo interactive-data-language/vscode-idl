@@ -45,9 +45,6 @@ export async function GetTokenDefinitionLocation(
     params.position
   );
 
-  // remove from our main thread lookup
-  IDL_INDEX.parsedCache.remove(info.fsPath);
-
   // verify defined
   if (def !== undefined) {
     // verify we have a file location

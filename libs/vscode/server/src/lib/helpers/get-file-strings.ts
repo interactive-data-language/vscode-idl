@@ -10,8 +10,13 @@ import { URIFromFSPath } from './uri-from-fspath';
  *
  * This routine is needed because, when we have changes, the file may nopt always be saved to disk
  * and could be un-saved changes in the editor.
+ *
+ * Resolves symbolic links to get true paths on disk.
  */
-export async function GetFileStrings(uri: string): Promise<string> {
+export async function GetFileStrings(
+  uri: string,
+  fsPath: string
+): Promise<string> {
   // init return value
   let strings = '';
 
@@ -20,9 +25,6 @@ export async function GetFileStrings(uri: string): Promise<string> {
   if (doc !== undefined) {
     strings = doc.getText();
   } else {
-    /** Get fs path */
-    const fsPath = GetFSPath(uri);
-
     /**
      * Silently ignore when the file is deleted which is handled
      * elsewhere
@@ -37,7 +39,9 @@ export async function GetFileStrings(uri: string): Promise<string> {
 
 /**
  * Wrapper that gets file strings from a filesystem path
+ *
+ * Resolves symbolic links to get true paths on disk.
  */
 export async function GetFileStringsFromFSPath(fsPath: string) {
-  return GetFileStrings(URIFromFSPath(fsPath).toString());
+  return GetFileStrings(URIFromFSPath(fsPath).toString(), fsPath);
 }

@@ -12,7 +12,7 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
 import { execSync } from 'child_process';
 import { compare } from 'compare-versions';
-import { lstatSync } from 'fs';
+import { lstatSync, realpathSync } from 'fs';
 import * as path from 'path';
 import { ExtensionContext, workspace } from 'vscode';
 import {
@@ -290,8 +290,8 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
       {
         files: event.files.map((item) => {
           return {
-            oldUri: CleanPath(item.oldUri.fsPath),
-            newUri: CleanPath(item.newUri.fsPath),
+            oldUri: realpathSync(CleanPath(item.oldUri.fsPath)),
+            newUri: realpathSync(CleanPath(item.newUri.fsPath)),
           };
         }),
       }

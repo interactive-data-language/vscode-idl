@@ -3,24 +3,18 @@ import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
 import { LoadTask } from '@idl/schemas/tasks';
 import { IDLFileHelper } from '@idl/shared';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
-import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
 import { GetFormattingConfigForFile } from './get-formatting-config-for-file';
-import { ResolveFSPathAndCodeForURI } from './resolve-fspath-and-code-for-uri';
+import { IResolvedFSPathAndCodeForURI } from './resolve-fspath-and-code-for-uri.interface';
 
 /**
  * Formats a file in the language server
  */
 export async function FormatFile(
-  event: DocumentFormattingParams,
+  info: IResolvedFSPathAndCodeForURI,
   formatting?: Partial<IAssemblerInputOptions<FormatterType>>
 ): Promise<string | undefined> {
-  /**
-   * Resolve the fspath to our cell and retrieve code
-   */
-  const info = await ResolveFSPathAndCodeForURI(event.textDocument.uri);
-
   // return if nothing found
   if (info === undefined) {
     return undefined;

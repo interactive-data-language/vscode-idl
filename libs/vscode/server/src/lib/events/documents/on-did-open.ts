@@ -46,9 +46,6 @@ export const ON_DID_OPEN = async (
 
     // send problems
     SendProblems([info.fsPath]);
-
-    // remove file from memory cache
-    IDL_INDEX.parsedCache.remove(info.fsPath);
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

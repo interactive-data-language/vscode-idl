@@ -60,7 +60,7 @@ export const ON_GENERATE_TASK = async (
     const config = GetFormattingConfigForFile(fsPath);
 
     /** Content of our PRO file */
-    const proCode = await GetFileStrings(payload.uri);
+    const proCode = await GetFileStrings(payload.uri, fsPath);
 
     // re-index the file
     const parsed = await GetParsedPROCode(

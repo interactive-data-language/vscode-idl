@@ -89,16 +89,7 @@ export const ON_FORMAT_WORKSPACE = async (
             /**
              * Attempt to format
              */
-            const formatted = await FormatFile({
-              // options are ignored
-              options: {
-                tabSize: 2,
-                insertSpaces: true,
-              },
-              textDocument: {
-                uri: info.uri,
-              },
-            });
+            const formatted = await FormatFile(info);
 
             /**
              * Check if we failed to format
