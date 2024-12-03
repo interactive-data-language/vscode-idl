@@ -1543,6 +1543,16 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       },
     },
   },
+  widget_droplist: {
+    args: {},
+    kws: {
+      align_left: {
+        direction: 'in',
+        docs: '',
+        type: IDL_BOOLEAN_TYPE,
+      },
+    },
+  },
   window: {
     returns: ParseIDLType('Window'),
     args: {},
