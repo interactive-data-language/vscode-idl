@@ -18,6 +18,14 @@ Document some advanced types so users may try them out and provide feedback. The
 
 IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks (not all types are supported).
 
+## 4.7.1 - December 2024
+
+Fixed an issue with the IDL Webview that showed a blank tab when opened. This affect things like the profiler in the extension.
+
+Added basic support for symbolic links and managing files that have symbolic links. This includes tests for baseline user experience as well.
+
+When we encounter a file with a symbolic link, we report problems for the true file on disk (not the path including the link). This means you won't see problems actively reported for the file if you edit it as a link.
+
 ## 4.7.0 - November 2024
 
 Added the ability to statically determine the return types for functions and function methods that don't have documentation. This means that, for the following example, we properly detect that we return an IDL Long (because of `compile_opt idl2`):
