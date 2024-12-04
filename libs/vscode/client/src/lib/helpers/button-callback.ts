@@ -19,6 +19,11 @@ export async function ButtonCallback(
       // do nothing
       case res === undefined:
         break;
+      case res === IDL_TRANSLATION.notifications.reportBug:
+        await vscode.commands.executeCommand(
+          IDL_COMMANDS.CLIENT.REPORT_PROBLEM
+        );
+        break;
       case res === IDL_TRANSLATION.debugger.logs.specifyIDLLocation:
         await vscode.commands.executeCommand(IDL_COMMANDS.CONFIG.IDL_DIR_USER);
         break;

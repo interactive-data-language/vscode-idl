@@ -1,10 +1,10 @@
 import {
   DEFAULT_VSCODE_MESSAGE,
-  IVSCodeMessage,
+  VSCodeWebViewMessage,
 } from '@idl/vscode/webview-shared';
 
 export interface IVSCodeState {
-  lastMessage: IVSCodeMessage;
+  lastMessage: VSCodeWebViewMessage;
 }
 
 export const DEFAULT_VSCODE_STATE: IVSCodeState = {

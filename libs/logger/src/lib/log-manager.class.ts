@@ -1,3 +1,4 @@
+import { ObjectifyError } from '@idl/error-shared';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 
 import {
@@ -14,7 +15,6 @@ import {
   LOGGING_CONFIG,
   LogLevel,
 } from './logger.interface';
-import { ObjectifyError } from './objectify-error';
 
 /**
  * Class for managing many logs!

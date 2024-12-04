@@ -10,6 +10,7 @@ import { Continue } from './continue';
 import { Edit } from './edit';
 import { Exit } from './exit';
 import { ImpliedPrint } from './implied-print';
+import { ProfileTest } from './profile';
 import { QueueRight } from './queue-right';
 import { RigorousAlwaysReturn } from './rigorous-always-return';
 import { RunFile } from './run-file';
@@ -32,6 +33,12 @@ export const DEBUGGING_RUNNER = new Runner(DEBUG_TEST_LOGGER);
 DEBUGGING_RUNNER.addTest({
   name: 'Start debugging and run basic command',
   fn: StartDebugging,
+  critical: true,
+});
+
+DEBUGGING_RUNNER.addTest({
+  name: 'Verify profiling and webview work as expected',
+  fn: ProfileTest,
   critical: true,
 });
 

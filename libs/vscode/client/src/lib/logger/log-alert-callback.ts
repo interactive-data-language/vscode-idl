@@ -47,6 +47,11 @@ export const LOG_ALERT_CALLBACK: LogAlertCallback = (options) => {
       items.push(IDL_TRANSLATION.notifications.viewDocs);
     }
 
+    // check if we want to show the report bug button
+    if (options?.alertMeta?.reportBug) {
+      items.push(IDL_TRANSLATION.notifications.reportBug);
+    }
+
     // handle the type of window
     switch (options.type) {
       case 'error':

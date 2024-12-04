@@ -734,6 +734,8 @@ export interface ITranslation {
     start: string;
     /** Question to ask if want to view docs file */
     viewDocs: string;
+    /** Question to ask if want to report a bug */
+    reportBug: string;
   };
   /** Translations for our main package.json file */
   packageJSON: {
@@ -807,6 +809,9 @@ export interface ITranslation {
         linesRun: string;
         linesTotal: string;
       };
+    };
+    error: {
+      unhandledError: string;
     };
   };
   /** Translations for docs */

@@ -38,7 +38,7 @@ export async function activate(
   InitializeTree(ctx);
 
   // add our webview
-  InitializeWebView(ctx);
+  const webview = InitializeWebView(ctx);
 
   // add our ENVI file opener
   InitializeENVIOpener(ctx);
@@ -54,6 +54,7 @@ export async function activate(
     client,
     debug,
     notebooks,
+    webview,
     decorations: IDL_DECORATIONS_MANAGER,
   };
 }

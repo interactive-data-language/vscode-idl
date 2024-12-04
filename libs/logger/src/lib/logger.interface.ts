@@ -135,6 +135,8 @@ export interface IBasicLogOptions {
       /** Folder to initialize */
       folder: string;
     };
+    /** Show option to report bug */
+    reportBug?: boolean;
   };
 }
 

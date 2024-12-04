@@ -1,3 +1,4 @@
+import { ObjectifyError } from '@idl/error-shared';
 import { CleanPath } from '@idl/shared';
 import * as fs from 'fs';
 import * as minilog from 'minilog';
@@ -10,7 +11,6 @@ import {
   PRETTY_LOG_NAMES,
   UGLY_LOG_NAMES,
 } from './logger.interface';
-import { ObjectifyError } from './objectify-error';
 import { StringifyData, StringifyDataForLog } from './stringify-data';
 
 minilog.enable();

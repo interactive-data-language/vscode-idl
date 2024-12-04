@@ -2,6 +2,7 @@
  * Message command (i.e. type)
  */
 export type IMessageCommand =
+  | 'error'
   | 'recolor'
   | 'profiler'
   | 'nothing'
@@ -12,7 +13,7 @@ export type IMessageCommand =
 /**
  * Interface for VSCode messages that we send back and forth
  */
-export interface IVSCodeMessage {
+export interface VSCodeWebViewMessage {
   command: IMessageCommand;
   data?: any;
 }
@@ -20,13 +21,13 @@ export interface IVSCodeMessage {
 /**
  * Message for profilers
  */
-export interface IProfilerMessage extends IVSCodeMessage {
+export interface IProfilerMessage extends VSCodeWebViewMessage {
   data: string;
 }
 
 /**
  * Default message stored in VSCode
  */
-export const DEFAULT_VSCODE_MESSAGE: IVSCodeMessage = {
+export const DEFAULT_VSCODE_MESSAGE: VSCodeWebViewMessage = {
   command: 'nothing',
 };

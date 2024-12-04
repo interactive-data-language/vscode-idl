@@ -1,8 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { ObjectifyError } from '@idl/error-shared';
 import {
   DEFAULT_VSCODE_MESSAGE,
   IProfilerMessage,
-  IVSCodeMessage,
+  VSCodeWebViewMessage,
 } from '@idl/vscode/webview-shared';
 import { BehaviorSubject } from 'rxjs';
 
@@ -13,14 +14,14 @@ import { DEFAULT_VSCODE_STATE, IVSCodeState } from '../core/vscode.interface';
 })
 export class VSCodeService implements OnDestroy {
   // things that we emit that others can listen to
-  messages = new BehaviorSubject<IVSCodeMessage>(DEFAULT_VSCODE_MESSAGE);
+  messages = new BehaviorSubject<VSCodeWebViewMessage>(DEFAULT_VSCODE_MESSAGE);
   newTheme = new BehaviorSubject<boolean>(false);
   profiler = new BehaviorSubject<IProfilerMessage>({
     command: 'profiler',
     data: '[]',
   });
   vscodeApi: {
-    postMessage: (msg: IVSCodeMessage) => void;
+    postMessage: (msg: VSCodeWebViewMessage) => void;
     getState(): IVSCodeState;
     setState(state: IVSCodeState): void;
   };
@@ -31,13 +32,14 @@ export class VSCodeService implements OnDestroy {
     // put API reference in vscode service
     // actually defined in the index.html file
     this.vscodeApi = (window as any).vscode;
+
     // get our state
     const state = this.getState();
 
     // listen for messages from VSCode
     window.addEventListener('message', (ev) => {
       // get our actual message
-      const message: IVSCodeMessage = ev.data;
+      const message: VSCodeWebViewMessage = ev.data;
       this.handleMessage(message);
 
       // save our state
@@ -47,6 +49,42 @@ export class VSCodeService implements OnDestroy {
     // alert vscode that we are ready
     this.vscodeApi.postMessage({ command: 'started' });
 
+    /**
+     * Console error function
+     */
+    const _error = console.error;
+
+    // console.log = () => {
+    //     logOfConsole.push({method: 'log', arguments: arguments});
+    //     return _log.apply(console, arguments);
+    // };
+
+    // console.warn = () => {
+    //     logOfConsole.push({method: 'warn', arguments: arguments});
+    //     return _warn.apply(console, arguments);
+    // };
+
+    /**
+     * replace console error message to catch unexpected errors
+     */
+    console.error = (...args) => {
+      /** Second arg should be the message */
+      const err = args[1];
+
+      /** init payload */
+      let data: any;
+
+      /** Verify we have an error */
+      if (err) {
+        data = ObjectifyError(err);
+      }
+      this.vscodeApi.postMessage({
+        command: 'error',
+        data,
+      });
+      return _error.apply(console, args);
+    };
+
     // handle the last message if we had one
     this.handleMessage(state.lastMessage);
   }
@@ -54,7 +92,7 @@ export class VSCodeService implements OnDestroy {
   /**
    * Handle message from VSCode
    */
-  handleMessage(message: IVSCodeMessage) {
+  handleMessage(message: VSCodeWebViewMessage) {
     // determine what to do with the events
     switch (message.command) {
       case 'show-on-startup-setting':

@@ -772,6 +772,7 @@ export const EN: ITranslation = {
       'No "idl.json" file found at root level of workspace folder, create? Workspace:',
     openDocs: 'Open official docs for IDL for VSCode?',
     configure: 'Configure',
+    reportBug: 'Report Bug',
     start: 'Start?',
     viewDocs: 'View docs',
   },
@@ -924,7 +925,9 @@ export const EN: ITranslation = {
     content: {
       notFound: 'IDL webview content not found',
     },
-    title: 'IDL',
+    error: {
+      unhandledError: 'Unhandled error from IDL Webview',
+    },
     home: {
       title: 'No content to show',
     },
@@ -941,6 +944,7 @@ export const EN: ITranslation = {
         linesTotal: 'Lines Total',
       },
     },
+    title: 'IDL',
   },
   docs: {
     placeholder: {

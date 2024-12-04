@@ -7,7 +7,10 @@ import {
   IDL_EXTENSION_CONFIG_KEYS,
   IDontShowConfig,
 } from '@idl/vscode/extension-config';
-import { IProfilerMessage, IVSCodeMessage } from '@idl/vscode/webview-shared';
+import {
+  IProfilerMessage,
+  VSCodeWebViewMessage,
+} from '@idl/vscode/webview-shared';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
@@ -26,9 +29,18 @@ export class IDLWebView {
 
   private readonly _panel: vscode.WebviewPanel;
   private readonly _extensionPath: string;
+
+  /** Things to cleanup */
   private _disposables: vscode.Disposable[] = [];
-  private _pending: IVSCodeMessage[] = [];
-  private started = false;
+
+  /** Pending messages to send */
+  private _pending: VSCodeWebViewMessage[] = [];
+
+  /** Check if there was an error */
+  wasError = false;
+
+  /** Has the webview properly started */
+  started = false;
 
   static createOrShow(extensionPath: string) {
     IDL_LOGGER.log({
@@ -88,7 +100,7 @@ export class IDLWebView {
 
   // wrapper for sending commands to the webview
   // kind of excessive, but very verbose in what each message type is and what we expect
-  sendCommand(message: IVSCodeMessage) {
+  sendCommand(message: VSCodeWebViewMessage) {
     IDL_LOGGER.log({
       log: IDL_WEB_VIEW_LOG,
       type: 'debug',
@@ -196,7 +208,12 @@ export class IDLWebView {
 
     // Handle messages from the webview
     this._panel.webview.onDidReceiveMessage(
-      (message: IVSCodeMessage) => {
+      (message: VSCodeWebViewMessage) => {
+        IDL_LOGGER.log({
+          log: IDL_WEB_VIEW_LOG,
+          type: 'debug',
+          content: ['Message from webview', message],
+        });
         switch (message.command) {
           case 'show-on-startup-setting':
             UpdateConfigObject<IDontShowConfig>(
@@ -208,6 +225,20 @@ export class IDLWebView {
             return;
           case 'alert':
             vscode.window.showErrorMessage(message.data);
+            return;
+          case 'error':
+            IDL_LOGGER.log({
+              log: IDL_WEB_VIEW_LOG,
+              type: 'error',
+              content: ['Unhandled error from IDL webview', message],
+              alert: IDL_TRANSLATION.webview.error.unhandledError,
+              alertMeta: {
+                reportBug: true,
+              },
+            });
+
+            // update our flag that we had an error
+            this.wasError = true;
             return;
           case 'started':
             IDL_LOGGER.log({

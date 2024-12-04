@@ -1,5 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { ObjectifyError } from '@idl/logger';
+import { ObjectifyError } from '@idl/error-shared';
 import { SimplePromiseQueue } from '@idl/shared';
 import { MessagePort } from 'worker_threads';
 

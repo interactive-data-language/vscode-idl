@@ -28,4 +28,6 @@ export function InitializeWebView(ctx: ExtensionContext) {
     //   vscode.commands.executeCommand(IDL_COMMANDS.WEBVIEW.START);
     // }
   }
+
+  return IDLWebView;
 }
