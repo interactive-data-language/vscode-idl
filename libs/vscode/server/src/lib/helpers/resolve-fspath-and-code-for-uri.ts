@@ -1,5 +1,4 @@
-import { CleanPath, IDLFileHelper } from '@idl/shared';
-import { realpathSync } from 'fs';
+import { GetFSPath, IDLFileHelper } from '@idl/shared';
 import { URI } from 'vscode-uri';
 
 import { NOTEBOOK_MANAGER } from '../events/initialize-notebook-manager';
@@ -25,7 +24,7 @@ export async function ResolveFSPathAndCodeForURI(
   /**
    * Get official FSPath for root file
    */
-  const fsPath = realpathSync(CleanPath(parsed.fsPath));
+  const fsPath = GetFSPath(url);
 
   /**
    * Check if PRO code

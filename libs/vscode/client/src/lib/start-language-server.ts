@@ -1,6 +1,7 @@
 import {
   ALL_DOCUMENT_SELECTORS,
   CleanPath,
+  GetCanonicalPath,
   IDL_LANGUAGE_NAME,
   NODE_MEMORY_CONFIG,
   NOTIFY_FILES_GLOB_PATTERN,
@@ -12,7 +13,7 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
 import { execSync } from 'child_process';
 import { compare } from 'compare-versions';
-import { lstatSync, realpathSync } from 'fs';
+import { lstatSync } from 'fs';
 import * as path from 'path';
 import { ExtensionContext, workspace } from 'vscode';
 import {
@@ -290,8 +291,8 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
       {
         files: event.files.map((item) => {
           return {
-            oldUri: realpathSync(CleanPath(item.oldUri.fsPath)),
-            newUri: realpathSync(CleanPath(item.newUri.fsPath)),
+            oldUri: GetCanonicalPath(CleanPath(item.oldUri.fsPath)),
+            newUri: GetCanonicalPath(CleanPath(item.newUri.fsPath)),
           };
         }),
       }
