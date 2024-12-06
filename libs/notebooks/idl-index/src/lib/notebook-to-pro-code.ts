@@ -111,7 +111,6 @@ export async function NotebookToProCode(
         ...formatting,
         autoDoc: false,
         styleAndFormat: false,
-        trailingSpace: false,
       });
 
       // TODO: figure out what to do if syntax error
