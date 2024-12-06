@@ -1,7 +1,6 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
-import { BasicSymbolicLinks } from './basic-interactions/basic-symbolic-links';
 import { DefFilesInteractRight } from './basic-interactions/def-files-interact-right';
 import { IDLJSONInteractRight } from './basic-interactions/idl-json-interact-right';
 import { IndexIDLFolderRightAndOpenEditClose } from './basic-interactions/index-idl-folder-right-and-open-edit-close';
@@ -39,6 +38,7 @@ import { NotebookProblemsTrackRight } from './notebooks/notebook-problems-track-
 import { NotebookCompletionBasic } from './notebooks/notebooks-completion-basic';
 import { NotebooksInteractRight } from './notebooks/notebooks-interact-right';
 import { NotebooksNoDuplicateRoutines } from './notebooks/notebooks-no-duplicate-routines';
+import { BasicSymbolicLinks } from './symbolic-links/basic-symbolic-links';
 
 /*
  * Logger to be used for tests related to debugging
