@@ -62,6 +62,7 @@ describe(`[auto generated] Correctly identify parses and returns config files`, 
       autoDoc: false,
       styleAndFormat: true,
       spaceOffset: 0,
+      trailingSpace: true,
     }).toEqual(index.getConfigForFile(filepath_3));
 
     // specify filepath
@@ -92,6 +93,7 @@ describe(`[auto generated] Correctly identify parses and returns config files`, 
       autoDoc: false,
       styleAndFormat: true,
       spaceOffset: 0,
+      trailingSpace: true,
     }).toEqual(index.getConfigForFile(filepath_4));
 
     // specify filepath
@@ -122,6 +124,7 @@ describe(`[auto generated] Correctly identify parses and returns config files`, 
       autoDoc: false,
       styleAndFormat: true,
       spaceOffset: 0,
+      trailingSpace: true,
     }).toEqual(index.getConfigForFile(filepath_5));
   });
 });

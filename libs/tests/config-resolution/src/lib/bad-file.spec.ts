@@ -50,6 +50,7 @@ describe(`[auto generated] Parse invalid config files`, () => {
       autoDoc: false,
       styleAndFormat: true,
       spaceOffset: 0,
+      trailingSpace: true,
     }).toEqual(index.getConfigForFile(filepath_1));
   });
 });
