@@ -85,7 +85,9 @@ export function PopulateNotebookVariables(
          */
         const otherVarName = otherVars[j];
 
-        // inherit variable
+        /**
+         * Inherit variable that we detect
+         */
         if (otherVarName in ourMain) {
           /**
            * Check if we need to set the variable (it hasnt been processed already)
@@ -109,13 +111,18 @@ export function PopulateNotebookVariables(
             weSet[otherVarName] = undefined;
           }
 
-          // if we arent defined, inherit
+          // if we arent defined in our cell, inherit
           if (!ourMain[otherVarName].meta.isDefined) {
             ourMain[otherVarName].meta.isDefined =
               otherMain[otherVarName].meta.isDefined;
             ourMain[otherVarName].meta.type = otherMain[otherVarName].meta.type;
             ourMain[otherVarName].meta.isStaticClass =
               otherMain[otherVarName].meta.isStaticClass;
+
+            // if the other variable is defined, then set as we dont reset for post-processing
+            if (otherMain[otherVarName].meta.isDefined) {
+              ourMain[otherVarName].meta.canReset = false;
+            }
           }
         } else {
           // copy

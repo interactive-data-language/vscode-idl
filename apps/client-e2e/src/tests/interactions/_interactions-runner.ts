@@ -38,6 +38,7 @@ import { NotebookProblemsTrackRight } from './notebooks/notebook-problems-track-
 import { NotebookCompletionBasic } from './notebooks/notebooks-completion-basic';
 import { NotebooksInteractRight } from './notebooks/notebooks-interact-right';
 import { NotebooksNoDuplicateRoutines } from './notebooks/notebooks-no-duplicate-routines';
+import { NotebooksNoUndefinedVars } from './notebooks/notebooks-no-undefined-vars';
 import { BasicSymbolicLinks } from './symbolic-links/basic-symbolic-links';
 import { BasicSymbolicLinksWithProblems } from './symbolic-links/basic-symbolic-links-with-problems';
 import { InteractionSymbolicLinkProblemReporting } from './symbolic-links/interaction-symbolic-links-problem-reporting';
@@ -219,6 +220,11 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'Notebooks report problems right for implied print and standalone expressions',
   fn: NotebookImpliedPrintProblemReporting,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Notebooks properly inherit variables',
+  fn: NotebooksNoUndefinedVars,
 });
 
 INTERACTIONS_RUNNER.addTest({
