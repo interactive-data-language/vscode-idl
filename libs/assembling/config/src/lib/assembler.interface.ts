@@ -82,6 +82,8 @@ export interface IAssemblerInputOptions<T extends FormatterType>
   style: Partial<ICodeStyle>;
   /** Do we process the code as if we know nothing about the source? */
   vanilla?: boolean;
+  /** Do we have a trailing space or not? */
+  trailingSpace?: boolean;
 }
 
 /**
@@ -105,4 +107,5 @@ export const DEFAULT_ASSEMBLER_OPTIONS: IAssemblerOptions<FiddleFormatter> = {
   autoDoc: false,
   styleAndFormat: true,
   spaceOffset: 0,
+  trailingSpace: true,
 };

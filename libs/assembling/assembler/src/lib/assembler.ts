@@ -80,5 +80,5 @@ export function Assembler<T extends FormatterType>(
   const lf = useOptions?.eol === 'crlf' ? '\r\n' : '\n';
 
   // combine strings and return
-  return strings.join(lf) + lf;
+  return strings.join(lf) + (useOptions.trailingSpace ? lf : '');
 }
