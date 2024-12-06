@@ -17,6 +17,12 @@ export async function AssembleWithIndex<T extends FormatterType>(
   // get the tokens for our file
   const parsed = await GetParsedPROCode(index, file, code, cancel);
 
+  // get assembled code!
+  const assembled = Assembler(parsed, cancel, formatting);
+
+  // clean up cache since we much with the tree
+  index.parsedCache.remove(file);
+
   // format and return
-  return Assembler(parsed, cancel, formatting);
+  return assembled;
 }
