@@ -86,6 +86,7 @@ async function ParseAndFormatCode(code: string) {
     },
     autoFix: true,
     autoDoc: false,
+    trailingSpace: false,
   });
 
   // remove extra end if we have it
