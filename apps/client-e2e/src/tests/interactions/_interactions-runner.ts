@@ -39,6 +39,8 @@ import { NotebookCompletionBasic } from './notebooks/notebooks-completion-basic'
 import { NotebooksInteractRight } from './notebooks/notebooks-interact-right';
 import { NotebooksNoDuplicateRoutines } from './notebooks/notebooks-no-duplicate-routines';
 import { BasicSymbolicLinks } from './symbolic-links/basic-symbolic-links';
+import { BasicSymbolicLinksWithProblems } from './symbolic-links/basic-symbolic-links-with-problems';
+import { InteractionSymbolicLinkProblemReporting } from './symbolic-links/interaction-symbolic-links-problem-reporting';
 
 /*
  * Logger to be used for tests related to debugging
@@ -96,8 +98,30 @@ INTERACTIONS_RUNNER.addTest({
 });
 
 INTERACTIONS_RUNNER.addTest({
-  name: 'Basic tests for files from symbolic links with no duplicate problems',
+  name: 'Basic tests for files from symbolic links with no duplicate routine problems',
   fn: BasicSymbolicLinks,
+  includeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64', 'x64'],
+    },
+  ],
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Regression test for problem reporting with symbolic links',
+  fn: BasicSymbolicLinksWithProblems,
+  includeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64', 'x64'],
+    },
+  ],
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Regression test for main interactions on symbolic links files (hover help, complete, etc)',
+  fn: InteractionSymbolicLinkProblemReporting,
   includeOS: [
     {
       os: ['darwin'],
