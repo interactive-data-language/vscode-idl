@@ -110,6 +110,9 @@ export class Runner {
 
     // run all of our tests
     for (let i = 0; i < this.tests.length; i++) {
+      // reset log error tracking information
+      ACTIVATION_RESULT.client.logger.resetTracker();
+
       try {
         // check if we should skip running the test
         if (!this.canRunTest(this.tests[i])) {
@@ -124,6 +127,13 @@ export class Runner {
 
         // attempt to run test
         await this.tests[i].fn(ACTIVATION_RESULT);
+
+        // check for unhandled errors
+        if (ACTIVATION_RESULT.client.logger.tracker.errors > 0) {
+          throw new Error(
+            'Unhandled error detected on the language server during test'
+          );
+        }
 
         // reset config
         await ResetSettingsForTests(config);
