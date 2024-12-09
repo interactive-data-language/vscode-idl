@@ -1,25 +1,15 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import {
-  GenerateENVITask,
-  GenerateENVITaskMainLevelProgram,
-} from '@idl/generators/envi-task';
-import {
-  GenerateIDLTask,
-  GenerateIDLTaskMainLevelProgram,
-} from '@idl/generators/idl-task';
 import { GenerateTaskResult } from '@idl/generators/tasks-shared';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { GetParsedPROCode } from '@idl/parsing/index';
-import { GetFSPath, IDLFileHelper, Sleep } from '@idl/shared';
-import { TOKEN_NAMES } from '@idl/tokenizer';
+import { IDLFileHelper, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GenerateTaskMessage,
   LanguageServerPayload,
 } from '@idl/vscode/events/messages';
+import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 
-import { GetFileStrings } from '../../helpers/get-file-strings';
 import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
+import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { UpdateDocument } from '../../helpers/update-document';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
 import { IDL_INDEX } from '../initialize-document-manager';
@@ -41,56 +31,53 @@ export const ON_GENERATE_TASK = async (
   await SERVER_INITIALIZED;
   try {
     /**
-     * File we want to make a task for
+     * Resolve the fspath to our cell and retrieve code
      */
-    const fsPath = GetFSPath(payload.uri);
+    const info = await ResolveFSPathAndCodeForURI(payload.uri);
 
-    // return if not PRO code
-    if (!IDLFileHelper.isPROCode(fsPath)) {
-      return;
+    // return if nothing found
+    if (info === undefined) {
+      return undefined;
     }
+
+    // do nothing
+    if (!IDLFileHelper.isPROCode(info.fsPath)) {
+      return undefined;
+    }
+
+    /** Formatting config for info.fsPath */
+    const config = GetFormattingConfigForFile(info.fsPath);
 
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
       type: 'info',
-      content: `Init/update task for file: "${fsPath}"`,
+      content: `Init/update task for file: "${info.fsPath}"`,
     });
 
-    /** Formatting config for file */
-    const config = GetFormattingConfigForFile(fsPath);
-
-    /** Content of our PRO file */
-    const proCode = await GetFileStrings(payload.uri, fsPath);
-
-    // re-index the file
-    const parsed = await GetParsedPROCode(
-      IDL_INDEX,
-      fsPath,
-      proCode,
-      new CancellationToken(),
-      {
-        postProcess: true,
-      }
-    );
-
     /**
-     * Make our task
+     * Formatted code
      */
-    const result =
-      payload.type === 'envi'
-        ? await GenerateENVITask(fsPath, parsed, config, WRITE_TASK)
-        : await GenerateIDLTask(fsPath, parsed, config, WRITE_TASK);
+    const response = await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
+      IDL_INDEX.getWorkerID(info.fsPath),
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.GENERATE_TASK,
+      {
+        ...payload,
+        fsPath: info.fsPath,
+        code: info.code,
+        config,
+      }
+    ).response;
 
     // check for error
-    if (!result.success) {
+    if (!response.result.success) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,
         type: 'error',
         content: [
           'Error while initializing/updating task file',
-          (result as GenerateTaskResult<false>).failureReason,
+          (response.result as GenerateTaskResult<false>).failureReason,
         ],
-        alert: (result as GenerateTaskResult<false>).failureReason,
+        alert: (response.result as GenerateTaskResult<false>).failureReason,
       });
       return;
     }
@@ -115,28 +102,19 @@ export const ON_GENERATE_TASK = async (
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
       type: 'info',
-      content: `Initialized/updated task for file: "${fsPath}"`,
+      content: `Initialized/updated task for file: "${info.fsPath}"`,
       alert: IDL_TRANSLATION.commands.notifications.initTask.created,
       alertMeta: {
-        openFile: (result as GenerateTaskResult<true>).taskFile,
+        openFile: (response.result as GenerateTaskResult<true>).taskFile,
       },
     });
 
     // slight pause, to allow server to parse task file
     await Sleep(200);
 
-    // check of we have a main level program
-    if (parsed.tree[parsed.tree.length - 1].name !== TOKEN_NAMES.MAIN_LEVEL) {
-      const mainAdd =
-        payload.type === 'envi'
-          ? GenerateENVITaskMainLevelProgram(result as GenerateTaskResult<true>)
-          : GenerateIDLTaskMainLevelProgram(result as GenerateTaskResult<true>);
-
-      // make new text
-      const newContent = proCode + '\n' + mainAdd;
-
-      // send content
-      await UpdateDocument(payload.uri, newContent);
+    // update main level program if needed
+    if (response.proCode) {
+      await UpdateDocument(payload.uri, response.proCode);
     }
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({

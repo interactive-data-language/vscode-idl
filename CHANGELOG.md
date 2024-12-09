@@ -22,11 +22,13 @@ IDL 9.1 introduces new, command-line based progress bars. We have a first-pass o
 
 Fixed an issue with the IDL Webview that showed a blank tab when opened. This affect things like the profiler in the extension.
 
-If there are unexpected errors in the webview, we now try to catch them and alert the user. Errors should be printed to the logs and a button will appear to make it easy to report an issue.
+If there are unexpected errors in the webview, we now try to catch them and alert the user. Errors should be printed to the logs and a button will appear to make it easy to report an issue if this happens in the future.
 
 Added basic support for symbolic links and managing files that have symbolic links. This includes tests for baseline user experience as well.
 
 When we encounter a file with a symbolic link, we report problems for the true file on disk (not the path including the link). This means you won't see problems actively reported for the file if you edit it as a link.
+
+Resolved an issue where task file generation wouldn't update your original code with a main level program if you didn't have one.
 
 ## 4.7.0 - November 2024
 

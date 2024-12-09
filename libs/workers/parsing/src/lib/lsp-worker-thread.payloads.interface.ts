@@ -26,6 +26,9 @@ import {
   CleanUpMessage,
   CleanUpPayload,
   CleanUpResponse,
+  GenerateTaskMessage,
+  GenerateTaskPayload,
+  GenerateTaskResponse,
   GetAutoCompleteMessage,
   GetAutoCompletePayload,
   GetAutoCompleteResponse,
@@ -91,6 +94,8 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
     ? ChangeDetectionPayload
     : T extends CleanUpMessage
     ? CleanUpPayload
+    : T extends GenerateTaskMessage
+    ? GenerateTaskPayload
     : T extends GetAutoCompleteMessage
     ? GetAutoCompletePayload
     : T extends GetHoverHelpLookupMessage
@@ -145,6 +150,8 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
     ? ChangeDetectionResponse
     : T extends CleanUpMessage
     ? CleanUpResponse
+    : T extends GenerateTaskMessage
+    ? GenerateTaskResponse
     : T extends GetAutoCompleteMessage
     ? GetAutoCompleteResponse
     : T extends GetHoverHelpLookupMessage

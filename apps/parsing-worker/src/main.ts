@@ -1,5 +1,14 @@
 import { AssembleWithIndex } from '@idl/assembler';
 import { Migrator } from '@idl/assembling/migrators';
+import {
+  GenerateENVITask,
+  GenerateENVITaskMainLevelProgram,
+} from '@idl/generators/envi-task';
+import {
+  GenerateIDLTask,
+  GenerateIDLTaskMainLevelProgram,
+} from '@idl/generators/idl-task';
+import { GenerateTaskResult } from '@idl/generators/tasks-shared';
 import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
 import { PrepareNotebookCell } from '@idl/notebooks/idl-index';
 import { ParseFileSync } from '@idl/parser';
@@ -17,6 +26,7 @@ import {
   IParsedLightWeight,
   RemoveScopeDetail,
 } from '@idl/parsing/syntax-tree';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   ChangeDetectionResponse,
@@ -214,6 +224,75 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, async (message) => {
   // run GC
   await WORKER_INDEX.cleanUp();
 });
+
+/**
+ * Handle requests to make a task file
+ */
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.GENERATE_TASK,
+  async (message, cancel) => {
+    // index the file
+    const parsed = await GetParsedPROCode(
+      WORKER_INDEX,
+      message.fsPath,
+      message.code,
+      cancel,
+      {
+        postProcess: true,
+      }
+    );
+
+    /**
+     * Do we write to disk or not?
+     */
+    const WRITE_TASK = true;
+
+    /**
+     * Make our task
+     */
+    const result =
+      message.type === 'envi'
+        ? await GenerateENVITask(
+            message.fsPath,
+            parsed,
+            message.config,
+            WRITE_TASK
+          )
+        : await GenerateIDLTask(
+            message.fsPath,
+            parsed,
+            message.config,
+            WRITE_TASK
+          );
+
+    /** Return value for PRO code */
+    let proCode: string;
+
+    // if we made a task, then make PRO code
+    if (result.success) {
+      // check of we have a main level program
+      if (parsed.tree[parsed.tree.length - 1].name !== TOKEN_NAMES.MAIN_LEVEL) {
+        const mainAdd =
+          message.type === 'envi'
+            ? GenerateENVITaskMainLevelProgram(
+                result as GenerateTaskResult<true>
+              )
+            : GenerateIDLTaskMainLevelProgram(
+                result as GenerateTaskResult<true>
+              );
+
+        // make new text
+        proCode = message.code + '\n' + mainAdd;
+      }
+    }
+
+    // return
+    return {
+      result,
+      proCode,
+    };
+  }
+);
 
 /**
  * Get auto complete for files we manage

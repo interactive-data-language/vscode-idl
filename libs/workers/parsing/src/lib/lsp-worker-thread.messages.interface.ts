@@ -1,5 +1,6 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { MigrationType } from '@idl/assembling/migrators-types';
+import { GenerateTaskResult } from '@idl/generators/tasks-shared';
 import { ILogOptions } from '@idl/logger';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
 import { IParsedLightWeight, ParsedType } from '@idl/parsing/syntax-tree';
@@ -11,7 +12,10 @@ import {
 } from '@idl/types/core';
 import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';
-import { PrepareNotebookCellMessage } from '@idl/vscode/events/messages';
+import {
+  IGenerateTaskPayload,
+  PrepareNotebookCellMessage,
+} from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { WorkerIOBaseMessage } from '@idl/workers/workerio';
 import {
@@ -122,6 +126,35 @@ export type CleanUpPayload = {
  * Response from cleanup
  */
 export type CleanUpResponse = void;
+
+/**
+ * Message to generate a task file
+ */
+export type GenerateTaskMessage = 'generate-task';
+
+/**
+ * Payload on cleanup
+ */
+export type GenerateTaskPayload = {
+  /** FS path on disk */
+  fsPath: string;
+  /** Code for the file */
+  code: string;
+  /** Formatting config */
+  config: IAssemblerOptions<FormatterType>;
+} & IGenerateTaskPayload;
+
+/**
+ * Response from cleanup
+ */
+export type GenerateTaskResponse = {
+  /** Type for return from generating a task */
+  result: GenerateTaskResult<boolean>;
+  /**
+   * New PRO code to save, if we have main level program
+   */
+  proCode?: string;
+};
 
 /**
  * Message when we want to get auto complete for a file
@@ -506,6 +539,7 @@ export type LSPWorkerThreadMessage =
   | AutoCompleteRecipeMessage
   | ChangeDetectionMessage
   | CleanUpMessage
+  | GenerateTaskMessage
   | GetAutoCompleteMessage
   | GetHoverHelpLookupMessage
   | GetNotebookCellMessage
@@ -549,6 +583,10 @@ interface ILSPWorkerThreadMessageLookup {
    * Message to clean up
    */
   CLEAN_UP: CleanUpMessage;
+  /**
+   * Generate a task file
+   */
+  GENERATE_TASK: GenerateTaskMessage;
   /**
    * Message when we want to get auto complete for a file
    */
@@ -632,6 +670,7 @@ export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   AUTO_COMPLETE_RECIPE: 'auto-complete-recipe',
   CHANGE_DETECTION: 'change-detection',
   CLEAN_UP: 'clean-up',
+  GENERATE_TASK: 'generate-task',
   GET_AUTO_COMPLETE: 'get-auto-complete',
   GET_HOVER_HELP_LOOKUP: 'get-hover-help-lookup',
   GET_NOTEBOOK_CELL: 'get-notebook-cell',
