@@ -45,3 +45,21 @@ export const DEFAULT_LOGGER_OPTIONS: ILogOptions = {
   // dont include alert message otherwise we always print since it is present
   // alert: IDL_TRANSLATION.logger.defaultErrorMessage,
 };
+
+/**
+ * Data structure to track different kinds of messages in the logger
+ */
+export interface ILogManagerTracker {
+  /** NUmber of errors */
+  errors: number;
+  /** Number of warnings */
+  warnings: number;
+}
+
+/**
+ * Default values for tracker
+ */
+export const DEFAULT_TRACKER: ILogManagerTracker = {
+  errors: 0,
+  warnings: 0,
+};

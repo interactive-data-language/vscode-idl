@@ -1,8 +1,10 @@
 import { ObjectifyError } from '@idl/error-shared';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
+import copy from 'fast-copy';
 
 import {
   DEFAULT_LOGGER_OPTIONS,
+  DEFAULT_TRACKER,
   ILogManagerOptions,
   ILogOptions,
   LogInterceptor,
@@ -25,7 +27,11 @@ import {
  * Manages log collections with the ability to do console and/or file logging.
  */
 export class LogManager implements ILogManagerOptions {
+  /** Are we debug mode or not? */
   debug = DEFAULT_IDL_EXTENSION_CONFIG.debugMode;
+
+  /** Track errors and warnings */
+  tracker = copy(DEFAULT_TRACKER);
 
   /** How do we handle existing logs? */
   mode: FileLogMode = LOGGING_CONFIG.FILE_LOG_MODE;
@@ -152,6 +158,18 @@ export class LogManager implements ILogManagerOptions {
       return;
     }
 
+    // track number of warnings or errors
+    switch (options.type) {
+      case 'error':
+        this.tracker.errors++;
+        break;
+      case 'warn':
+        this.tracker.warnings++;
+        break;
+      default:
+        break;
+    }
+
     // check if we have
     if (this.interceptor !== undefined) {
       // get data we are sending
@@ -199,5 +217,12 @@ export class LogManager implements ILogManagerOptions {
         this.logs[IDL_LOG].log(useOptions);
         break;
     }
+  }
+
+  /**
+   * Reset counts for types of logs we are tracking
+   */
+  resetTracker() {
+    this.tracker = copy(DEFAULT_TRACKER);
   }
 }
