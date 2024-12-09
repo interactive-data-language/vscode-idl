@@ -40,13 +40,13 @@ export const ON_MIGRATE_CODE = async (
       return undefined;
     }
 
-    /** Formatting config for info.fsPath */
-    const config = GetFormattingConfigForFile(info.fsPath);
-
     // do nothing
     if (!IDLFileHelper.isPROCode(info.fsPath)) {
       return undefined;
     }
+
+    /** Formatting config for info.fsPath */
+    const config = GetFormattingConfigForFile(info.fsPath);
 
     /**
      * Formatted code
