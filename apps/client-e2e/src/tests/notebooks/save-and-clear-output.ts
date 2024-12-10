@@ -25,7 +25,10 @@ export const SaveAndClearNotebook: RunnerFunction = async (init) => {
    */
   const nb = await OpenNotebookInVSCode(file);
 
-  // save contents of notebook which should have outputs from `run-test-notebook.ts`
+  // clear any existing outputs
+  await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
+
+  // save contents of notebook
   await nb.save();
 
   // clear any existing outputs
