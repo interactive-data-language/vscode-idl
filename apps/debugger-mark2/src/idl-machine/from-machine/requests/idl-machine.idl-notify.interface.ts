@@ -1,7 +1,7 @@
 /**
  * IDL Notify request
  */
-export type IDLNotifyRequest = 'breakpoint';
+export type IDLNotifyRequest = 'idlNotify';
 
 /**
  * Parameters from IDL Notify function:
