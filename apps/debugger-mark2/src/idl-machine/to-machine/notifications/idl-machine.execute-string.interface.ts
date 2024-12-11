@@ -14,7 +14,7 @@ type ExecuteStringFlags = UpdateDebugExecuteFlag | SilentExecuteFlag;
 
 /** Number of items to return */
 export type ExecuteStringParams = {
-  /** Code to execute */
+  /** Code to execute (limit of 32k characters) */
   string: string;
   /** Flags to execute */
   flags?: ExecuteStringFlags;

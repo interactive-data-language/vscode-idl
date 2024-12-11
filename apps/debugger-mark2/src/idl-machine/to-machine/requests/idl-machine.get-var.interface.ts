@@ -3,7 +3,7 @@
  */
 export type GetVarRequest = 'getVar';
 
-/** The name of the variable to return */
+/** The name of the variable to return (should be UPPER CASE) */
 export type GetVarParams = string;
 
 /**

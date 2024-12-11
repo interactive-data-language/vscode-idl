@@ -12,6 +12,7 @@ export type ReadProgramLineRequest = 'readProgramLine';
  */
 export type ReadProgramLineParams = {
   prompt: string;
+  /** Max length of content to return */
   size: number;
 };
 

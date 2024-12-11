@@ -7,6 +7,6 @@ export type IsQueueEmptyRequest = 'isQueueEmpty';
 export type IsQueueEmptyParams = void;
 
 /**
- * If yhr queue is empty or noy
+ * If your queue is empty or noy
  */
 export type IsQueueEmptyResponse = boolean;

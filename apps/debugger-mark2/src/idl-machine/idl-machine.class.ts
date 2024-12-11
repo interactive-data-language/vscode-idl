@@ -16,6 +16,7 @@ import {
 } from './to-machine/to-machine.notifications.interface';
 import {
   ToIDLMachineRequestParams,
+  ToIDLMachineRequestResponse,
   ToIDLMachineRequests,
 } from './to-machine/to-machine.requests.interface';
 
@@ -103,17 +104,17 @@ export class IDLMachine {
   async sendRequest<T extends ToIDLMachineRequests>(
     request: T,
     params: ToIDLMachineRequestParams<T>
-  ) {
+  ): Promise<ToIDLMachineRequestResponse<T>> {
     return this.connection.sendRequest(request, params);
   }
 
   /**
    * Send a notification to the IDL Machine
    */
-  sendNotification<T extends ToIDLMachineNotifications>(
+  async sendNotification<T extends ToIDLMachineNotifications>(
     notification: T,
     params: ToIDLMachineNotificationParams<T>
   ) {
-    this.connection.sendNotification(notification, params);
+    await this.connection.sendNotification(notification, params);
   }
 }

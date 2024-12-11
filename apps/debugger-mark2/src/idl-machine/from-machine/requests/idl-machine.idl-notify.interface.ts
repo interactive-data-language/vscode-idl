@@ -17,4 +17,4 @@ export type IDLNotifyParams = {
 /**
  * Integer number returned from our response
  */
-export type IDLNotifyResponse = boolean;
+export type IDLNotifyResponse = number;

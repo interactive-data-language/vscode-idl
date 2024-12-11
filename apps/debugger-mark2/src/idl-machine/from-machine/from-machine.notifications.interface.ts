@@ -1,7 +1,7 @@
 import {
   BreakpointMovedNotification,
   BreakpointMovedParams,
-} from './notifications/idl-machine.breakpoint-movedt.interface';
+} from './notifications/idl-machine.breakpoint-moved.interface';
 import {
   CommandFinishedNotification,
   CommandFinishedParams,

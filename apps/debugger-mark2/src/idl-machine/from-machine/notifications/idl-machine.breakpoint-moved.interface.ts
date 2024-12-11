@@ -22,6 +22,5 @@ export type BreakpointMovedParams = {
   condition: string;
   once: boolean;
   after: number;
-  /** Is "R" upper case? */
   onRecompile: boolean;
 };

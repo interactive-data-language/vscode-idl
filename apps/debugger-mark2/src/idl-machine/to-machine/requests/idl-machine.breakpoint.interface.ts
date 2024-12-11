@@ -17,7 +17,7 @@ export type BreakpointParams = {
   condition?: string;
   once?: boolean;
   after?: number;
-  onrecompile?: boolean;
+  onRecompile?: boolean;
 };
 
 /**

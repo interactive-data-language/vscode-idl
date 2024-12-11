@@ -1,5 +1,5 @@
 /**
- * Notification to stop IDL
+ * Notification to stop IDL (interrupt like Ctrl + C)
  */
 export type AbortNotification = 'abort';
 
