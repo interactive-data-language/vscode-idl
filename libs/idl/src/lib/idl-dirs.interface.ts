@@ -21,6 +21,9 @@ export const IDL_DIRS: IDLDirs = {
    * Don't forget to add arm for future versions
    */
   darwin: [
+    '/Applications/NV5/envi612/idl92/bin/bin.darwin.x86_64',
+    '/Applications/NV5/idl92/bin/bin.darwin.x86_64',
+    '/Applications/NV5/idl92/bin/bin.darwin.arm64',
     '/Applications/NV5/envi61/idl91/bin/bin.darwin.x86_64',
     '/Applications/NV5/idl91/bin/bin.darwin.x86_64',
     '/Applications/NV5/idl91/bin/bin.darwin.arm64',
@@ -37,6 +40,8 @@ export const IDL_DIRS: IDLDirs = {
     '/Applications/harris/idl86/bin/bin.darwin.x86_64',
   ],
   linux: [
+    '/usr/local/nv5/envi62/idl92/bin/bin.linux.x86_64',
+    '/usr/local/nv5/idl92/bin/bin.linux.x86_64',
     '/usr/local/nv5/envi61/idl91/bin/bin.linux.x86_64',
     '/usr/local/nv5/idl91/bin/bin.linux.x86_64',
     '/usr/local/nv5/envi60/idl90/bin/bin.linux.x86_64',
@@ -51,6 +56,8 @@ export const IDL_DIRS: IDLDirs = {
     '/usr/local/harris/idl86/bin/bin.linux.x86_64',
   ],
   win32: [
+    'C:\\Program Files\\NV5\\ENVI62\\IDL92\\bin\\bin.x86_64',
+    'C:\\Program Files\\NV5\\IDL92\\bin\\bin.x86_64',
     'C:\\Program Files\\NV5\\ENVI61\\IDL91\\bin\\bin.x86_64',
     'C:\\Program Files\\NV5\\IDL91\\bin\\bin.x86_64',
     'C:\\Program Files\\NV5\\ENVI60\\IDL90\\bin\\bin.x86_64',
