@@ -1,5 +1,3 @@
-import { performance } from 'perf_hooks';
-
 /**
  * Class to manage handling stdout from our IDLMachine process
  *
@@ -26,7 +24,14 @@ export class OutputQueue {
    */
   private opened = 0;
 
-  parsed: string[] = [];
+  /**
+   * Callback for messages we receive
+   */
+  private onMessage: (msg: string) => void;
+
+  constructor(onMessage: (msg: string) => void) {
+    this.onMessage = onMessage;
+  }
 
   /**
    * When we have output that we need to check
@@ -55,8 +60,6 @@ export class OutputQueue {
 
     // update processing flag
     this.processing = true;
-
-    const t0 = performance.now();
 
     // update content we are parsing
     this.captured = `${this.captured}${this.pending.shift()}`;
@@ -115,10 +118,8 @@ export class OutputQueue {
           // reset flag
           foundOpenerOrCloser = false;
 
-          const msg = this.captured.substring(0, i + 1);
-
-          // save message
-          this.parsed.push(msg);
+          // emit message
+          this.onMessage(this.captured.substring(0, i + 1));
 
           // update message
           this.captured = this.captured.substring(i + 1);
@@ -140,8 +141,6 @@ export class OutputQueue {
 
     // update flag
     this.processing = false;
-
-    console.log(`Processing time (ms): ${performance.now() - t0}`);
 
     this._next();
   }
