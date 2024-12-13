@@ -10,7 +10,7 @@ export interface IRequestHandlers {
   /**
    * Request messages that we handle
    */
-  requests: { [key: string]: (msg: any) => void | Promise<any> };
+  requests: { [key: string]: (msg: any) => any | Promise<any> };
 }
 
 /**

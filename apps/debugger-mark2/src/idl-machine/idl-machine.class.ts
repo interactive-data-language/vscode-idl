@@ -64,8 +64,10 @@ export class IDLMachine {
       /** Parse */
       parsed = JSON.parse(msg);
     } catch (err) {
-      console.log(`Error while parsing message from server`);
-      console.log(msg.substring(0, 50));
+      console.log(
+        `Error while parsing message from server, partial message below`
+      );
+      console.log(msg.slice(0, 50));
       console.log(err);
       return;
     }
@@ -191,7 +193,9 @@ export class IDLMachine {
     request: T,
     cb: (
       params: FromIDLMachineRequestParams<T>
-    ) => Promise<FromIDLMachineRequestResponse<T>>
+    ) =>
+      | FromIDLMachineRequestResponse<T>
+      | Promise<FromIDLMachineRequestResponse<T>>
   ) {
     this.handlers.requests[request] = cb;
   }
