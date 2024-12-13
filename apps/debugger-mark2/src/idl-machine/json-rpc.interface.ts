@@ -2,7 +2,7 @@ export interface JSONRPCNotification {
   /**
    * A String specifying the version of the JSON-RPC protocol. MUST be exactly "2.0".
    */
-  jsonrpc: string;
+  jsonrpc: '2.0';
   /**
    * Method to run
    */
@@ -36,7 +36,7 @@ export interface JSONRPCResponse {
   /**
    * A String specifying the version of the JSON-RPC protocol. MUST be exactly "2.0".
    */
-  jsonrpc: string;
+  jsonrpc: '2.0';
   /**
    * This member is REQUIRED on success.
    * This member MUST NOT exist if there was an error invoking the method.
