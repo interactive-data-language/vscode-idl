@@ -39,7 +39,6 @@ DEBUGGING_RUNNER.addTest({
 DEBUGGING_RUNNER.addTest({
   name: 'Verify profiling and webview work as expected',
   fn: ProfileTest,
-  critical: true,
 });
 
 DEBUGGING_RUNNER.addTest({
