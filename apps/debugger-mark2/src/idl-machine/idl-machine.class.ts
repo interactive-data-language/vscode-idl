@@ -1,3 +1,4 @@
+import { ObjectifyError } from '@idl/error-shared';
 import { ChildProcess } from 'child_process';
 
 import {
@@ -52,57 +53,107 @@ export class IDLMachine {
   /**
    * Message handler from the IDL Machine
    */
-  private _onMessage = (msg: string) => {
+  private _onMessage = async (msg: string) => {
+    let parsed: any;
+
     try {
       /** Parse */
-      const parsed = JSON.parse(msg);
-
-      switch (true) {
-        /**
-         * Response from IDL Machine with an error
-         */
-        case (parsed as JSONRPCResponse).error !== undefined:
-          if ((parsed as JSONRPCResponse).id in this.resolvers) {
-            this.resolvers[(parsed as JSONRPCResponse).id].reject(
-              (parsed as JSONRPCResponse).error
-            );
-          }
-          break;
-
-        /**
-         * Response from IDL Machine with a result
-         */
-        case (parsed as JSONRPCResponse).result !== undefined:
-          if ((parsed as JSONRPCResponse).id in this.resolvers) {
-            this.resolvers[(parsed as JSONRPCResponse).id].resolve(
-              (parsed as JSONRPCResponse).result
-            );
-          }
-          break;
-
-        /**
-         * Request from the IDL Machine
-         */
-        case (parsed as JSONRPCRequest).id !== undefined:
-          break;
-
-        /**
-         * Notification from the IDL Machine
-         */
-        default:
-          if (
-            (parsed as JSONRPCNotification).method in
-            this.handlers.notifications
-          ) {
-            this.handlers.notifications[(parsed as JSONRPCNotification).method](
-              parsed
-            );
-          }
-          break;
-      }
+      parsed = JSON.parse(msg);
     } catch (err) {
+      console.log(`Error while parsing message from server`);
       console.log(err);
       console.log(msg);
+      return;
+    }
+
+    switch (true) {
+      /**
+       * Response from IDL Machine with an error
+       */
+      case (parsed as JSONRPCResponse).error !== undefined:
+        if ((parsed as JSONRPCResponse).id in this.resolvers) {
+          this.resolvers[(parsed as JSONRPCResponse).id].reject(
+            (parsed as JSONRPCResponse).error
+          );
+        }
+        break;
+
+      /**
+       * Response from IDL Machine with a result
+       */
+      case (parsed as JSONRPCResponse).result !== undefined:
+        if ((parsed as JSONRPCResponse).id in this.resolvers) {
+          this.resolvers[(parsed as JSONRPCResponse).id].resolve(
+            (parsed as JSONRPCResponse).result
+          );
+        }
+        break;
+
+      /**
+       * Request from the IDL Machine
+       *
+       * TODO
+       */
+      case (parsed as JSONRPCRequest).id !== undefined:
+        /**
+         * Check for handler
+         */
+        if ((parsed as JSONRPCRequest).method in this.handlers.requests) {
+          try {
+            /**
+             * Get what we send back
+             */
+            const result = await this.handlers.requests[
+              (parsed as JSONRPCRequest).method
+            ]((parsed as JSONRPCRequest).params);
+
+            // send message
+            this._writeResponse((parsed as JSONRPCRequest).id, result);
+          } catch (err) {
+            console.log(`Error responding to request`, err);
+            const resp: JSONRPCResponse = {
+              jsonrpc: '2.0',
+              id: (parsed as JSONRPCRequest).id,
+              error: {
+                code: -32000,
+                message: JSON.stringify(ObjectifyError(err)),
+              },
+            };
+            this.idl.stdin.write(JSON.stringify(resp));
+          }
+        } else {
+          console.log(`Unhandled request from IDL machine`, parsed);
+          /**
+           * Alert if we have no handler to send a response back
+           */
+          const resp: JSONRPCResponse = {
+            jsonrpc: '2.0',
+            id: (parsed as JSONRPCRequest).id,
+            error: {
+              code: -32601,
+              message: 'Unhandled method',
+            },
+          };
+          this.idl.stdin.write(JSON.stringify(resp));
+        }
+        break;
+
+      /**
+       * Notification from the IDL Machine
+       */
+      default:
+        if (
+          (parsed as JSONRPCNotification).method in this.handlers.notifications
+        ) {
+          try {
+            await this.handlers.notifications[
+              (parsed as JSONRPCNotification).method
+            ]((parsed as JSONRPCNotification).params);
+          } catch (err) {
+            console.log(`Error responding to notification`, err);
+          }
+        }
+        break;
     }
   };
 
@@ -176,6 +227,19 @@ export class IDLMachine {
         id,
         method,
         params,
+      })
+    );
+  }
+
+  /**
+   * Writes out a JSON RPC response to the IDL Machine
+   */
+  private _writeResponse(id: number, result: any) {
+    this.idl.stdin.write(
+      JSON.stringify({
+        jsonrpc: '2.0',
+        id,
+        result,
       })
     );
   }
