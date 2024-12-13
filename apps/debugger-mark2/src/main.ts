@@ -18,6 +18,17 @@ async function Main() {
 
   machine.onNotification('tout', (msg) => console.log(msg));
 
+  machine.onNotification('commandStarted', () => {
+    console.log('Command started');
+  });
+  machine.onNotification('commandFinished', () => {
+    console.log('Command finished');
+  });
+  machine.onNotification('interpreterStopped', (msg) => {
+    console.log(`Interpreter stopped`);
+    console.log(msg);
+  });
+
   // const resp = await machine.sendRequest('history', 500);
 
   // machine.onNotification('serverReady', async () => {
@@ -30,7 +41,10 @@ async function Main() {
 
   await Sleep(1000);
 
-  machine.sendNotification('exec', { string: 'print, 42' });
+  machine.sendNotification('exec', { string: 'print, 42', flags: 0x1 });
+  // machine.sendNotification('exec', {
+  //   string: '.compile plot',
+  // });
 
   await Sleep(1000);
 

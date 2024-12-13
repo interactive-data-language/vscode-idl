@@ -54,15 +54,19 @@ export class IDLMachine {
    * Message handler from the IDL Machine
    */
   private _onMessage = async (msg: string) => {
+    /** Parsed message */
     let parsed: any;
 
+    /**
+     * Try to parse and properly handle errors
+     */
     try {
       /** Parse */
       parsed = JSON.parse(msg);
     } catch (err) {
       console.log(`Error while parsing message from server`);
+      console.log(msg.substring(0, 50));
       console.log(err);
-      console.log(msg);
       return;
     }
 
@@ -152,6 +156,12 @@ export class IDLMachine {
           } catch (err) {
             console.log(`Error responding to notification`, err);
           }
+        } else {
+          console.log(
+            `Unhandled notification "${
+              (parsed as JSONRPCNotification).method
+            }" from IDL Machine`
+          );
         }
         break;
     }
