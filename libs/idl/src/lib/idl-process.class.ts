@@ -7,7 +7,6 @@ import { existsSync } from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import { delimiter } from 'path';
-import * as kill from 'tree-kill';
 
 import { IDLListenerArgs } from './args.interface';
 import { IDL_EVENT_LOOKUP, IDLEvent } from './events.interface';
@@ -18,9 +17,8 @@ import {
   IStartIDLConfig,
   StopReason,
 } from './idl.interface';
+import { IDLProcessLegacy } from './idl-process-legacy.class';
 import {
-  REGEX_EMPTY_LINE,
-  REGEX_IDL_PROMPT,
   REGEX_NEW_LINE_COMPRESS,
   REGEX_STOP_DETECTION,
   REGEX_STOP_DETECTION_BASIC,
@@ -53,15 +51,28 @@ export class IDLProcess extends EventEmitter {
   vscodeProDir: string;
 
   /** Flag that indicates if we are evaluating a statement or not */
-  private evaluating = false;
+  evaluating = false;
 
   /** Currently captured output from stdout/stderr */
-  private capturedOutput = '';
+  capturedOutput = '';
+
+  /**
+   * Old way of interacting with IDL
+   */
+  _legacy: IDLProcessLegacy;
+
+  /**
+   * Have we started the IDL Machine or just legacy IDL?
+   */
+  private isMachine = false;
 
   constructor(log: Logger, vscodeProDir: string) {
     super();
     this.log = log;
     this.vscodeProDir = vscodeProDir;
+
+    // create classes
+    this._legacy = new IDLProcessLegacy(this);
   }
 
   /**
@@ -162,8 +173,24 @@ export class IDLProcess extends EventEmitter {
       }
     }
 
+    // check for IDL machine
+    if (os.platform() === 'win32') {
+      this.isMachine = existsSync(
+        path.join(args.config.IDL.directory, 'idl_machine.exe')
+      );
+    } else {
+      this.isMachine = existsSync(
+        path.join(args.config.IDL.directory, 'idl_machine')
+      );
+    }
+
+    // hard code to false right now
+    this.isMachine = false;
+
     // build the command for starting IDL
-    const cmd = `${args.config.IDL.directory}${path.sep}idl`;
+    const cmd = `${args.config.IDL.directory}${path.sep}${
+      this.isMachine ? 'idl_machine' : 'idl'
+    }`;
 
     // start our idl debug session and wait for prompt ready
     this.log.log({
@@ -198,131 +225,19 @@ export class IDLProcess extends EventEmitter {
       return;
     }
 
-    // write the IDL prompt if not windows so that we properly
-    // detect start. for our "poor man's solution" this is the indicator
-    // that we are ready to go again
-    if (os.platform() !== 'win32') {
-      this.idl.stdin.write("print, 'IDL>'\n");
+    // listen to IDL
+    if (!this.isMachine) {
+      this._legacy.listen(this.idl);
+    } else {
+      throw new Error('Not implemented yet');
     }
-
-    /**
-     * Flag indicating it is the first time we get a prompt and we should
-     * fire the event that we have started
-     */
-    let first = true;
 
     /** Error from child process, if we have one */
     let error: Error;
 
-    /**
-     * Callback to handle output from IDL (stdout and stderr).
-     *
-     * If print is true, we emit an output event.
-     */
-    const handleOutput = (buff: any) => {
-      /** Current stdout or stderr */
-      const data = buff.toString('utf8');
-
-      // what do we do?
-      switch (true) {
-        // back to "IDL> or ENVI>"" prompt? use the last 50 characters of the total captured output to see
-        // if the prompt partially came through before
-        case REGEX_IDL_PROMPT.test(
-          this.capturedOutput.substring(
-            Math.max(this.capturedOutput.length - 50, 0)
-          ) + data
-        ):
-          {
-            // remove IDL or ENVI prompt which might be split up
-            if (this.evaluating) {
-              // get length of captured output
-              const lBefore = this.capturedOutput.length;
-
-              // save output
-              this.capturedOutput = `${this.capturedOutput}${data}`.replace(
-                REGEX_IDL_PROMPT,
-                ''
-              );
-
-              // get the additional text to log to the console with prompt removed
-              const delta = this.capturedOutput.substring(
-                lBefore,
-                this.capturedOutput.length
-              );
-
-              // send if not empty - can have more than just the prompt return here
-              if (delta.trim() !== '' || first) {
-                this.sendOutput(first ? data : delta);
-              }
-            }
-
-            /**
-             * setTimeout solves a race condition where the default case comes through after
-             * the prompt does which means we miss out on content coming back to the first process.
-             */
-            setTimeout(() => {
-              this.emit(IDL_EVENT_LOOKUP.PROMPT_READY, this.capturedOutput);
-            }, 50);
-          }
-          break;
-
-        case REGEX_EMPTY_LINE.test(data) && os.platform() === 'win32':
-          this.capturedOutput += '\n';
-
-          // too much nonsense comes from windows, but this is better logic on other platforms
-          // mostly for startup
-          if (!this.started) {
-            this.sendOutput(' \n');
-          }
-          break;
-
-        // other data that we need to capture?
-        default:
-          this.capturedOutput += data;
-
-          // check if we need to print to debug console
-          this.sendOutput(data);
-          break;
-      }
-
-      // check for recompile
-      if (data.indexOf('% Procedure was compiled while active:') !== -1) {
-        this.emit(IDL_EVENT_LOOKUP.CONTINUE);
-      }
-      if (
-        data.indexOf(
-          '% You compiled a main program while inside a procedure.  Returning.'
-        ) !== -1
-      ) {
-        this.emit(IDL_EVENT_LOOKUP.CONTINUE);
-      }
-    };
-
     // listen for errors
     this.idl.on('error', (err) => {
       error = err;
-    });
-
-    // listen for standard out output from IDL
-    this.idl.stdout.on('data', handleOutput);
-
-    // listen for standard error output from IDL
-    this.idl.stderr.on('data', handleOutput);
-
-    // set flag the first time we start up to be ready to accept input
-    this.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
-      first = false;
-      this.started = true;
-
-      // alert user
-      this.log.log({
-        type: 'info',
-        content: 'IDL has started!',
-      });
-
-      // alert parent that we are ready for input - different from prompt ready
-      // because we need to do the "reset" work once it has really opened
-      this.emit(IDL_EVENT_LOOKUP.IDL_STARTED, output);
     });
 
     // listen for closing
@@ -409,8 +324,11 @@ export class IDLProcess extends EventEmitter {
   stop() {
     this.closing = true;
     this.started = false;
-    kill(this.idl.pid);
-    this.idl.kill('SIGINT');
+    if (!this.isMachine) {
+      this._legacy.stop();
+    } else {
+      throw new Error('Not implemented yet');
+    }
     this.idlInfo = { ...DEFAULT_IDL_INFO };
   }
 
@@ -418,7 +336,11 @@ export class IDLProcess extends EventEmitter {
    * Pause execution
    */
   pause() {
-    this.idl.kill('SIGINT');
+    if (!this.isMachine) {
+      this._legacy.pause();
+    } else {
+      throw new Error('Not implemented yet');
+    }
   }
 
   /**
@@ -429,22 +351,19 @@ export class IDLProcess extends EventEmitter {
       throw new Error('IDL is not started');
     }
 
-    // run our command
-    const res = await this._evaluate(command);
-
-    // handle the string output and check for stop conditions
-    this.stopCheck(res);
-
-    // return the output
-    return res;
+    if (!this.isMachine) {
+      return this._legacy.evaluate(command);
+    } else {
+      throw new Error('Not implemented yet');
+    }
   }
 
   /**
    * Parse output from IDL and check if we have any reasons that we stopped
    */
-  private stopCheck(origInput: string): boolean {
+  stopCheck(origOutput: string): boolean {
     // get rid of bad characters, lots of carriage returns in the output (\r\r\n) on windows at least
-    const output = origInput.replace(REGEX_NEW_LINE_COMPRESS, '');
+    const output = origOutput.replace(REGEX_NEW_LINE_COMPRESS, '');
 
     this.log.log({
       type: 'debug',
@@ -501,56 +420,5 @@ export class IDLProcess extends EventEmitter {
 
     // return flag if we found a reason to stop
     return traceback.length > 0;
-  }
-
-  /**
-   * Runs a command in IDL with the assumption that we are IDLE.
-   *
-   * DO NOT USE THIS METHOD IF IDL IS ACTIVELY RUNNING SOMETHING because
-   * it will screw up events.
-   *
-   * The use for this is getting scope information immediately before we return
-   * as being complete and cleans up our event management
-   */
-  private _evaluate(command: string): Promise<string> {
-    // return promise
-    return new Promise((resolve, reject) => {
-      // handle errors writing to stdin
-      if (!this.idl.stdin.writable) {
-        reject(new Error('no stdin available'));
-      }
-
-      this.log.log({
-        type: 'debug',
-        content: [`Executing:`, { command }],
-      });
-
-      // reset captured output
-      this.capturedOutput = '';
-      this.evaluating = true;
-
-      // send the command to IDL
-      if (os.platform() !== 'win32') {
-        // print the "terminal" so we know we are ready for input
-        this.idl.stdin.write(`${command}\nprint,'IDL>'\n`);
-      } else {
-        this.idl.stdin.write(`${command}\n`);
-      }
-
-      // listen for our event returning back to the command prompt
-      this.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output: string) => {
-        this.log.log({
-          type: 'debug',
-          content: [`Output:`, { output }],
-        });
-
-        // reset captured output
-        this.capturedOutput = '';
-        this.evaluating = false;
-
-        // resolve our parent promise
-        resolve(output);
-      });
-    });
   }
 }
