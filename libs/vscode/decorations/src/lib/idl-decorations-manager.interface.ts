@@ -1,4 +1,4 @@
-import { IDLCodeCoverage } from '@idl/idl';
+import { IDLCodeCoverage } from '@idl/idl/idl-process';
 import { GetExtensionPath } from '@idl/shared';
 import * as vscode from 'vscode';
 

@@ -1,4 +1,4 @@
-import { FindIDL } from '@idl/idl';
+import { FindIDL } from '@idl/idl/idl-process';
 import { EXTENSION_FULL_NAME, GetExtensionPath } from '@idl/shared';
 import { Sleep } from '@idl/tests/helpers';
 import { GetWorkspaceConfig } from '@idl/vscode/config';

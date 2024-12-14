@@ -46,7 +46,7 @@
       "@idl/generators/tasks-shared": [
         "libs/generators/tasks-shared/src/index.ts"
       ],
-      "@idl/idl": ["libs/idl/src/index.ts"],
+      "@idl/idl/idl-process": ["libs/idl/idl-process/src/index.ts"],
       "@idl/logger": ["libs/logger/src/index.ts"],
       "@idl/notebooks/idl-index": ["libs/notebooks/idl-index/src/index.ts"],
       "@idl/notebooks/shared": ["libs/notebooks/shared/src/index.ts"],

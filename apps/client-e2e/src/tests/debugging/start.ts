@@ -1,4 +1,4 @@
-import { CleanIDLOutput } from '@idl/idl';
+import { CleanIDLOutput } from '@idl/idl/idl-process';
 import { IDL_COMMANDS, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import expect from 'expect';

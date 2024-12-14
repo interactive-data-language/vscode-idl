@@ -1,0 +1,20 @@
+{
+  "name": "idl-process",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/idl/idl-process/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/idl/idl-process"],
+      "options": {
+        "jestConfig": "libs/idl/idl-process/jest.config.ts"
+      }
+    }
+  }
+}

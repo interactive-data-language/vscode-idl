@@ -2,7 +2,7 @@ import {
   IDL_CODE_COVERAGE_LOOKUP,
   IDLCodeCoverage,
   IDLSyntaxErrorLookup,
-} from '@idl/idl';
+} from '@idl/idl/idl-process';
 import { IDLFileHelper, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {

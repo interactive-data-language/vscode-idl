@@ -1,4 +1,4 @@
-import { CleanIDLOutput } from '@idl/idl';
+import { CleanIDLOutput } from '@idl/idl/idl-process';
 import { IDL_COMMANDS } from '@idl/shared';
 import { Sleep } from '@idl/tests/helpers';
 import { GetActivePROCodeWindow } from '@idl/vscode/shared';

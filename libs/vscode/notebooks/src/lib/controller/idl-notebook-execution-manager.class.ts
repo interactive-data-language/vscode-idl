@@ -5,7 +5,7 @@ import {
   IDLEvaluateOptions,
   IDLInteractionManager,
   REGEX_NEW_LINE,
-} from '@idl/idl';
+} from '@idl/idl/idl-process';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDLFileHelper, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';

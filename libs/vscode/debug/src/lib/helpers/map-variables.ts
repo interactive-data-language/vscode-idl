@@ -1,4 +1,4 @@
-import { IDLVariable } from '@idl/idl';
+import { IDLVariable } from '@idl/idl/idl-process';
 import { Variable } from '@vscode/debugadapter';
 
 /**
