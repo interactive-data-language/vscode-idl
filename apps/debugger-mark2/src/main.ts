@@ -29,6 +29,13 @@ async function Main() {
     console.log(msg);
   });
 
+  machine.onRequest('readIOLine', (msg) => {
+    console.log(`read line`);
+    console.log(msg);
+
+    return 'I have been read!';
+  });
+
   // const resp = await machine.sendRequest('history', 500);
 
   // machine.onNotification('serverReady', async () => {
@@ -41,7 +48,29 @@ async function Main() {
 
   await Sleep(1000);
 
-  machine.sendNotification('exec', { string: 'print, 42', flags: 0x1 });
+  machine.sendNotification('exec', {
+    string: "b = ''",
+    flags: 0x1,
+  });
+
+  await Sleep(1000);
+
+  // machine.sendNotification('exec', {
+  //   string: 'print, b',
+  //   flags: 0x1,
+  // });
+
+  // machine.sendNotification('exec', {
+  //   string: 'read, b, prompt = "Give me input!"',
+  //   flags: 0x1,
+  // });
+
+  // await Sleep(1000);
+
+  machine.sendNotification('exec', {
+    string: 'print, b',
+    flags: 0x1,
+  });
   // machine.sendNotification('exec', {
   //   string: '.compile plot',
   // });
