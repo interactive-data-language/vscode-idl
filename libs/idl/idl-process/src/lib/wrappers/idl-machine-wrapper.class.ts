@@ -1,4 +1,8 @@
-import { IDLMachine } from '@idl/idl/idl-machine';
+import {
+  FromIDLMachineNotificationParams,
+  IDLMachine,
+  TOutNotification,
+} from '@idl/idl/idl-machine';
 import { IDL_EVENT_LOOKUP, IDLEvent, IDLListenerArgs } from '@idl/idl/shared';
 import { ChildProcess } from 'child_process';
 import * as kill from 'tree-kill';
@@ -55,6 +59,20 @@ export class IDLMachineWrapper {
   }
 
   /**
+   * Takes output from IDL and makes the proper string
+   */
+  stringifyOutput(params: FromIDLMachineNotificationParams<TOutNotification>) {
+    switch (true) {
+      case (params.f & 0x002) > 0:
+        return '\n' + params.s;
+      case (params.f & 0x004) > 0:
+        return params.s + '\n';
+      default:
+        return params.s;
+    }
+  }
+
+  /**
    * Start our debugging session
    */
   listen(idl: ChildProcess) {
@@ -68,8 +86,9 @@ export class IDLMachineWrapper {
     });
 
     this.machine.onNotification('tout', (msg) => {
-      this.parent.capturedOutput = `${this.parent.capturedOutput}${msg.s}`;
-      this.parent.sendOutput(msg.s);
+      const stringified = this.stringifyOutput(msg);
+      this.parent.capturedOutput = `${this.parent.capturedOutput}${stringified}`;
+      this.parent.sendOutput(stringified);
 
       // check for recompile
       if (
@@ -88,6 +107,27 @@ export class IDLMachineWrapper {
       }
     });
 
+    this.machine.onRequest('idlNotify', (params) => {
+      console.log(params);
+      return -1;
+    });
+
+    this.machine.onNotification('promptChange', (prompt) => {
+      this.emit(IDL_EVENT_LOOKUP.PROMPT, prompt);
+    });
+
+    this.machine.onNotification('workingDirChange', (dir) => {
+      // do nothing
+    });
+
+    this.machine.onNotification('pathChange', (dir) => {
+      // do nothing
+    });
+
+    this.machine.onNotification('debugSend', (dir) => {
+      // do nothing
+    });
+
     this.machine.onNotification('commandStarted', () => {
       console.log('Command started');
     });
@@ -97,6 +137,14 @@ export class IDLMachineWrapper {
     this.machine.onNotification('interpreterStopped', (msg) => {
       console.log(`Interpreter stopped`);
       console.log(msg);
+    });
+
+    this.machine.onRequest('resetSessionConfirm', () => {
+      return true;
+    });
+
+    this.machine.onRequest('getKeyboard', () => {
+      return 'f';
     });
 
     this.machine.onRequest('readIOLine', (msg) => {
