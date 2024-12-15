@@ -9,14 +9,14 @@ import { ChildProcess } from 'child_process';
 import * as os from 'os';
 import * as kill from 'tree-kill';
 
-import { IDLProcess } from './idl-process.class';
+import { IDLProcess } from '../idl-process.class';
 
 /**
  * Class that manages talking to IDL directly through standard IO
  *
  * Prone to errors and not perfect, but works OK.
  */
-export class IDLStdIO {
+export class IDLStdIOWrapper {
   /**
    * Parent class that handles primary logic that we plug into
    */

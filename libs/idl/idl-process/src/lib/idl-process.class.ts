@@ -21,7 +21,8 @@ import * as os from 'os';
 import * as path from 'path';
 import { delimiter } from 'path';
 
-import { IDLStdIO } from './idl-std-io.class';
+import { IDLMachineWrapper } from './wrappers/idl-machine-wrapper.class';
+import { IDLStdIOWrapper } from './wrappers/idl-std-io-wrapper.class';
 
 /**
  * Class that manages and spawns a session of IDL with event-emitter events
@@ -58,7 +59,12 @@ export class IDLProcess extends EventEmitter {
   /**
    * Old way of interacting with IDL
    */
-  _legacy: IDLStdIO;
+  _legacy: IDLStdIOWrapper;
+
+  /**
+   * IDL machine
+   */
+  _machine: IDLMachineWrapper;
 
   /**
    * Have we started the IDL Machine or just legacy IDL?
@@ -71,7 +77,8 @@ export class IDLProcess extends EventEmitter {
     this.vscodeProDir = vscodeProDir;
 
     // create classes
-    this._legacy = new IDLStdIO(this);
+    this._legacy = new IDLStdIOWrapper(this);
+    this._machine = new IDLMachineWrapper(this);
   }
 
   /**
@@ -183,9 +190,6 @@ export class IDLProcess extends EventEmitter {
       );
     }
 
-    // hard code to false right now
-    this.isMachine = false;
-
     // build the command for starting IDL
     const cmd = `${args.config.IDL.directory}${path.sep}${
       this.isMachine ? 'idl_machine' : 'idl'
@@ -228,7 +232,7 @@ export class IDLProcess extends EventEmitter {
     if (!this.isMachine) {
       this._legacy.listen(this.idl);
     } else {
-      throw new Error('Not implemented yet');
+      this._machine.listen(this.idl);
     }
 
     /** Error from child process, if we have one */
@@ -326,7 +330,7 @@ export class IDLProcess extends EventEmitter {
     if (!this.isMachine) {
       this._legacy.stop();
     } else {
-      throw new Error('Not implemented yet');
+      this._machine.stop();
     }
     this.idlInfo = { ...DEFAULT_IDL_INFO };
   }
@@ -338,7 +342,7 @@ export class IDLProcess extends EventEmitter {
     if (!this.isMachine) {
       this._legacy.pause();
     } else {
-      throw new Error('Not implemented yet');
+      this._machine.pause();
     }
   }
 
@@ -353,7 +357,7 @@ export class IDLProcess extends EventEmitter {
     if (!this.isMachine) {
       return this._legacy.evaluate(command);
     } else {
-      throw new Error('Not implemented yet');
+      return this._machine.evaluate(command);
     }
   }
 
