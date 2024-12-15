@@ -1,3 +1,16 @@
+import {
+  DEFAULT_IDL_INFO,
+  IDL_EVENT_LOOKUP,
+  IDL_STOPS,
+  IDLCallStackItem,
+  IDLEvent,
+  IDLListenerArgs,
+  IStartIDLConfig,
+  REGEX_NEW_LINE_COMPRESS,
+  REGEX_STOP_DETECTION,
+  REGEX_STOP_DETECTION_BASIC,
+  StopReason,
+} from '@idl/idl/shared';
 import { Logger } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { ChildProcess, execSync, spawn } from 'child_process';
@@ -8,21 +21,7 @@ import * as os from 'os';
 import * as path from 'path';
 import { delimiter } from 'path';
 
-import { IDLListenerArgs } from './args.interface';
-import { IDL_EVENT_LOOKUP, IDLEvent } from './events.interface';
-import {
-  DEFAULT_IDL_INFO,
-  IDL_STOPS,
-  IDLCallStackItem,
-  IStartIDLConfig,
-  StopReason,
-} from './idl.interface';
-import { IDLProcessLegacy } from './idl-process-legacy.class';
-import {
-  REGEX_NEW_LINE_COMPRESS,
-  REGEX_STOP_DETECTION,
-  REGEX_STOP_DETECTION_BASIC,
-} from './utils/regex';
+import { IDLStdIO } from './idl-std-io.class';
 
 /**
  * Class that manages and spawns a session of IDL with event-emitter events
@@ -59,7 +58,7 @@ export class IDLProcess extends EventEmitter {
   /**
    * Old way of interacting with IDL
    */
-  _legacy: IDLProcessLegacy;
+  _legacy: IDLStdIO;
 
   /**
    * Have we started the IDL Machine or just legacy IDL?
@@ -72,7 +71,7 @@ export class IDLProcess extends EventEmitter {
     this.vscodeProDir = vscodeProDir;
 
     // create classes
-    this._legacy = new IDLProcessLegacy(this);
+    this._legacy = new IDLStdIO(this);
   }
 
   /**

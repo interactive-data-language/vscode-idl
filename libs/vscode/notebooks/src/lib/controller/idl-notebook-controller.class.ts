@@ -1,4 +1,4 @@
-import { IDLEvaluateOptions } from '@idl/idl/idl-process';
+import { IDLEvaluateOptions } from '@idl/idl/shared';
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import {
   IDL_LANGUAGE_NAME,

@@ -1,11 +1,10 @@
+import { CleanIDLOutput, IDLInteractionManager } from '@idl/idl/idl-process';
 import {
-  CleanIDLOutput,
   IDL_EVENT_LOOKUP,
   IDL_PROGRESS,
   IDLEvaluateOptions,
-  IDLInteractionManager,
   REGEX_NEW_LINE,
-} from '@idl/idl/idl-process';
+} from '@idl/idl/shared';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDLFileHelper, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';

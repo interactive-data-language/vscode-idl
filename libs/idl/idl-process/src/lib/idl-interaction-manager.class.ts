@@ -1,29 +1,29 @@
 import { Logger } from '@idl/logger';
 
-import { IDLListenerArgs } from './args.interface';
-import { IDL_EVENT_LOOKUP, IDLEvent } from './events.interface';
 import { ProcessScope } from './helpers/process-scope';
+import { IDLEvaluationItem } from './idl-interaction-manager.interface';
+import { IDLProcess } from './idl-process.class';
+import EventEmitter = require('events');
 import {
   DEFAULT_IDL_EVALUATE_OPTIONS,
   DEFAULT_IDL_INFO,
+  IDL_EVENT_LOOKUP,
   IDLBreakpoint,
   IDLCallStack,
   IDLCallStackItem,
   IDLCodeCoverage,
   IDLEvaluateOptions,
+  IDLEvent,
   IDLInfo,
+  IDLListenerArgs,
   IDLSyntaxError,
   IDLSyntaxErrorLookup,
   IDLVariable,
   IRawBreakpoint,
   IStartIDLConfig,
-} from './idl.interface';
-import { IDLEvaluationItem } from './idl-interaction-manager.interface';
-import { IDLProcess } from './idl-process.class';
-import EventEmitter = require('events');
+  REGEX_COMPILE_ERROR,
+} from '@idl/idl/shared';
 import { URI } from 'vscode-uri';
-
-import { REGEX_COMPILE_ERROR } from './utils/regex';
 
 /**
  * Class that manages interacting with IDL.

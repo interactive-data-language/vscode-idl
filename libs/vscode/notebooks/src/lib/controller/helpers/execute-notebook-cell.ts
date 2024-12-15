@@ -1,4 +1,4 @@
-import { IDLSyntaxErrorLookup } from '@idl/idl/idl-process';
+import { IDLSyntaxErrorLookup } from '@idl/idl/shared';
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
 import { CleanPath, IDLFileHelper } from '@idl/shared';

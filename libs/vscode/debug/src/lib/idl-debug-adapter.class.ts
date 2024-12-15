@@ -1,8 +1,7 @@
+import { CleanIDLOutput, IDLInteractionManager } from '@idl/idl/idl-process';
 import {
-  CleanIDLOutput,
   IDL_EVENT_LOOKUP,
   IDLCallStackItem,
-  IDLInteractionManager,
   REGEX_COMPILE_COMMAND,
   REGEX_COMPILE_EDIT_COMMAND,
   REGEX_COMPILED_MAIN,
@@ -12,7 +11,7 @@ import {
   REGEX_IDL_RESTART,
   REGEX_IDL_RETALL,
   StopReason,
-} from '@idl/idl/idl-process';
+} from '@idl/idl/shared';
 import { IDL_DEBUG_ADAPTER_LOG, IDL_DEBUG_LOG } from '@idl/logger';
 import { Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';

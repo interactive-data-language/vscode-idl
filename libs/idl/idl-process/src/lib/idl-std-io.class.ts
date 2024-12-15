@@ -1,17 +1,22 @@
+import {
+  IDL_EVENT_LOOKUP,
+  IDLEvent,
+  IDLListenerArgs,
+  REGEX_EMPTY_LINE,
+  REGEX_IDL_PROMPT,
+} from '@idl/idl/shared';
 import { ChildProcess } from 'child_process';
 import * as os from 'os';
 import * as kill from 'tree-kill';
 
-import { IDLListenerArgs } from './args.interface';
-import { IDL_EVENT_LOOKUP, IDLEvent } from './events.interface';
 import { IDLProcess } from './idl-process.class';
-import { REGEX_EMPTY_LINE, REGEX_IDL_PROMPT } from './utils/regex';
 
 /**
- * Class that manages and spawns a session of IDL with event-emitter events
- * for when major actions happen.
+ * Class that manages talking to IDL directly through standard IO
+ *
+ * Prone to errors and not perfect, but works OK.
  */
-export class IDLProcessLegacy {
+export class IDLStdIO {
   /**
    * Parent class that handles primary logic that we plug into
    */

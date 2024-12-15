@@ -1,4 +1,4 @@
-import { REGEX_NEW_LINE } from '@idl/idl/idl-process';
+import { REGEX_NEW_LINE } from '@idl/idl/shared';
 import { IDL_DEBUG_OUTPUT_CHANNEL } from '@idl/vscode/client';
 
 import { AddHistory } from './add-history';
