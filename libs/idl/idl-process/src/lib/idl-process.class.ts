@@ -166,10 +166,6 @@ export class IDLProcess extends EventEmitter {
       args.env[pathVar] = args.config.IDL.directory;
     }
 
-    // set IDL prompt - initial launch to override user preferences
-    // since this controls parsing
-    args.env.IDL_PROMPT = 'IDL> ';
-
     // check if we need to manage the language environment variable
     if (os.platform() === 'darwin') {
       if (!('LANG' in args.env)) {
@@ -188,6 +184,13 @@ export class IDLProcess extends EventEmitter {
       this.isMachine = existsSync(
         path.join(args.config.IDL.directory, 'idl_machine')
       );
+    }
+
+    /**
+     * If not the IDL machine, set the prompt because we need this with stdio
+     */
+    if (!this.isMachine) {
+      args.env.IDL_PROMPT = 'IDL> ';
     }
 
     // build the command for starting IDL

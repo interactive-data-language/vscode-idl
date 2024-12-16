@@ -108,11 +108,12 @@ export class IDLMachineWrapper {
     });
 
     this.machine.onRequest('idlNotify', (params) => {
-      console.log(params);
-      return -1;
+      console.log('IDL Notify message', params);
+      return 1;
     });
 
     this.machine.onNotification('promptChange', (prompt) => {
+      console.log('Prompt change', prompt);
       this.emit(IDL_EVENT_LOOKUP.PROMPT, prompt);
     });
 

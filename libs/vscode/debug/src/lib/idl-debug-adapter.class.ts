@@ -215,11 +215,15 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // listen for when our prompt chang es
     this._runtime.on(IDL_EVENT_LOOKUP.PROMPT, (prompt) => {
-      // change prompt for status bar
-      if (this._runtime.getIDLInfo().envi) {
-        IDL_STATUS_BAR.setPrompt('ENVI');
+      if (this._runtime.isIDLMachine()) {
+        IDL_STATUS_BAR.setPrompt(prompt);
       } else {
-        IDL_STATUS_BAR.setPrompt('IDL');
+        // change prompt for status bar
+        if (this._runtime.getIDLInfo().envi) {
+          IDL_STATUS_BAR.setPrompt('ENVI');
+        } else {
+          IDL_STATUS_BAR.setPrompt('IDL');
+        }
       }
     });
 

@@ -124,6 +124,6 @@ export class IDLDebugStatusBar {
    * Updates the IDL prompt
    */
   setPrompt(prompt: string) {
-    this.prompt = prompt.replace('> ', '');
+    this.prompt = prompt.replace('>', '').trim();
   }
 }
