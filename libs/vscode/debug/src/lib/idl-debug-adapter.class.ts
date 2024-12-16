@@ -1291,7 +1291,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       });
 
       // only pause if we are not on windows
-      if (platform() !== 'win32') {
+      if (platform() !== 'win32' || this._runtime.isIDLMachine()) {
         this._runtime.pause();
       } else {
         vscode.window.showWarningMessage(

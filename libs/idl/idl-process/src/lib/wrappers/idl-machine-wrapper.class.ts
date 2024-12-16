@@ -87,7 +87,7 @@ export class IDLMachineWrapper {
 
     this.machine.onNotification('tout', (msg) => {
       const stringified = this.stringifyOutput(msg);
-      this.parent.capturedOutput = `${this.parent.capturedOutput}${stringified}`;
+      this.parent.capturedOutput += stringified;
       this.parent.sendOutput(stringified);
 
       // check for recompile

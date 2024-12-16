@@ -69,7 +69,7 @@ export class IDLProcess extends EventEmitter {
   /**
    * Have we started the IDL Machine or just legacy IDL?
    */
-  private isMachine = false;
+  isMachine = false;
 
   constructor(log: Logger, vscodeProDir: string) {
     super();

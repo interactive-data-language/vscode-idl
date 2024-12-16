@@ -370,6 +370,13 @@ export class IDLInteractionManager {
   }
 
   /**
+   * Let's us know if we are the IDL Machine or not
+   */
+  isIDLMachine() {
+    return this.idl.isMachine;
+  }
+
+  /**
    * Let's you know if IDL has started or not
    */
   isStarted() {
