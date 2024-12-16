@@ -20,7 +20,7 @@ interface IVariable {
   param: boolean;
   heap: boolean;
   common: boolean;
-  readonly: boolean;
+  readOnly: boolean;
   settable: boolean;
   changes: VariableChanges;
   /** String representation of the value of the variable */
