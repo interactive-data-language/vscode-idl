@@ -72,6 +72,11 @@ export class IDLMachine {
       return;
     }
 
+    /**
+     * TODO: Listen for internal errors from IDL Machine and alert user
+     * as noted
+     */
+
     switch (true) {
       /**
        * Response from IDL Machine with an error

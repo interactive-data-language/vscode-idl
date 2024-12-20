@@ -80,7 +80,7 @@ export class IDLMachineWrapper {
     this.idl = idl;
     this.machine = new IDLMachine(idl);
 
-    this.machine.onNotification('serverReady', (msg) => {
+    this.machine.onNotification('serverReady', () => {
       this.parent.started = true;
       this.emit(IDL_EVENT_LOOKUP.IDL_STARTED, 'not implemented');
     });
@@ -108,8 +108,8 @@ export class IDLMachineWrapper {
     });
 
     this.machine.onRequest('idlNotify', (params) => {
-      console.log('IDL Notify message', params);
-      return 1;
+      // console.log('IDL Notify message', params);
+      return 0;
     });
 
     this.machine.onNotification('promptChange', (prompt) => {
@@ -117,27 +117,31 @@ export class IDLMachineWrapper {
       this.emit(IDL_EVENT_LOOKUP.PROMPT, prompt);
     });
 
-    this.machine.onNotification('workingDirChange', (dir) => {
+    this.machine.onNotification('workingDirChange', () => {
       // do nothing
     });
 
-    this.machine.onNotification('pathChange', (dir) => {
+    this.machine.onNotification('pathChange', () => {
       // do nothing
     });
 
-    this.machine.onNotification('debugSend', (dir) => {
+    this.machine.onNotification('debugSend', () => {
       // do nothing
     });
 
     this.machine.onNotification('commandStarted', () => {
-      console.log('Command started');
+      // console.log('Command started');
     });
     this.machine.onNotification('commandFinished', () => {
       this.emit(IDL_EVENT_LOOKUP.PROMPT_READY, this.parent.capturedOutput);
     });
     this.machine.onNotification('interpreterStopped', (msg) => {
-      console.log(`Interpreter stopped`);
-      console.log(msg);
+      // console.log(`Interpreter stopped`);
+      // console.log(msg);
+    });
+
+    this.machine.onNotification('compilerOpenFile', () => {
+      // do nothing
     });
 
     this.machine.onRequest('resetSessionConfirm', () => {
@@ -149,8 +153,8 @@ export class IDLMachineWrapper {
     });
 
     this.machine.onRequest('readIOLine', (msg) => {
-      console.log(`read line`);
-      console.log(msg);
+      // console.log(`read line`);
+      // console.log(msg);
 
       return 'I have been read!';
     });
