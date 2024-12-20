@@ -124,6 +124,14 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
+        label: 'IDL_Number::max()',
+        insertText: 'max()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
         label: 'IDL_Number::mean()',
         insertText: 'mean()',
         kind: 2,
@@ -134,14 +142,6 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
       {
         label: 'IDL_Number::median()',
         insertText: 'median()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Number::max()',
-        insertText: 'max()',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',
@@ -190,6 +190,198 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
       {
         label: 'IDL_Number::total()',
         insertText: 'total()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::capWords()',
+        insertText: 'capWords()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::charAt()',
+        insertText: 'charAt()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::compress()',
+        insertText: 'compress()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::contains()',
+        insertText: 'contains()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::decrypt()',
+        insertText: 'decrypt()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::encrypt()',
+        insertText: 'encrypt()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::endsWith()',
+        insertText: 'endsWith()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::extract()',
+        insertText: 'extract()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::indexOf()',
+        insertText: 'indexOf()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::insert()',
+        insertText: 'insert()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::join()',
+        insertText: 'join()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::lastIndexOf()',
+        insertText: 'lastIndexOf()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::matches()',
+        insertText: 'matches()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::remove()',
+        insertText: 'remove()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::replace()',
+        insertText: 'replace()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::reverse()',
+        insertText: 'reverse()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::split()',
+        insertText: 'split()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::startsWith()',
+        insertText: 'startsWith()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::strlen()',
+        insertText: 'strlen()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::substring()',
+        insertText: 'substring()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::toByte()',
+        insertText: 'toByte()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::toLower()',
+        insertText: 'toLower()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::toUpper()',
+        insertText: 'toUpper()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'IDL_String::trim()',
+        insertText: 'trim()',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',
@@ -254,198 +446,6 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
       {
         label: 'IDL_Variable::fromBits()',
         insertText: 'fromBits()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::hashcode()',
-        insertText: 'hashcode()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::hasValue()',
-        insertText: 'hasValue()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::isFinite()',
-        insertText: 'isFinite()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::isInfinite()',
-        insertText: 'isInfinite()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::isNaN()',
-        insertText: 'isNaN()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::isReal()',
-        insertText: 'isReal()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::map()',
-        insertText: 'map()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::nestedMap()',
-        insertText: 'nestedMap()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::ptrValid()',
-        insertText: 'ptrValid()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::reduce()',
-        insertText: 'reduce()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::reform()',
-        insertText: 'reform()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::shift()',
-        insertText: 'shift()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::sort()',
-        insertText: 'sort()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::toBits()',
-        insertText: 'toBits()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::toDouble()',
-        insertText: 'toDouble()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::toInteger()',
-        insertText: 'toInteger()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::toList()',
-        insertText: 'toList()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::toString()',
-        insertText: 'toString()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::uniq()',
-        insertText: 'uniq()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Variable::where()',
-        insertText: 'where()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_String::capWords()',
-        insertText: 'capWords()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_String::charAt()',
-        insertText: 'charAt()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_String::compress()',
-        insertText: 'compress()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_String::contains()',
-        insertText: 'contains()',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',
@@ -998,6 +998,14 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
+        label: 'IDL_Number::max()',
+        insertText: 'max()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
         label: 'IDL_Number::mean()',
         insertText: 'mean()',
         kind: 2,
@@ -1008,14 +1016,6 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
       {
         label: 'IDL_Number::median()',
         insertText: 'median()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Number::max()',
-        insertText: 'max()',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',
@@ -1347,6 +1347,18 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         },
       },
       {
+        label: 'axis_style',
+        insertText: 'axis_style',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to one of the following values:\n\n* 0 - No axes. Decrease the margins so the graphic almost fills the window. This is the default for images.\n* 1 - Single X, Y (and Z if 3D) axes located at the minimum data value. The margins will be adjusted to leave space for the axes. This is the default for 3D graphics.\n* 2 - Box axes - multiple axes located at both the minimum and maximum data values. The margins will be adjusted to leave space for the axes. This is the default for 2D graphics.\n* 3 - Crosshair-style axes - located at the midpoint of each data dimension. Since the axes are in the middle, decrease the margins so the graphic almost fills the window. This is the default for polar plots.\n* 4 - No axes, but use the same margins as if axes were there. This is useful if you want to later add another graphic that does have axes, and you want the two visualizations to be aligned properly.\n\nYou can set the following properties on the axes:\n\n| Property                 | Description                                                                                                                                                                                                                                                                                                                                                                                                            |\n| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| \\[XYZ\\]COLOR             | A string or RGB vector containing the axis color.                                                                                                                                                                                                                                                                                                                                                                      |\n| \\[XYZ\\]GRIDSTYLE         | A string, integer, or 2-element vector giving the linestyle for tickmarks.                                                                                                                                                                                                                                                                                                                                             |\n| \\[XYZ\\]LOG               | Set to 1 if the axis is logarithmic. The minimum value of the axis range must be greater than zero.                                                                                                                                                                                                                                                                                                                    |\n| \\[XYZ\\]MAJOR             | The number of major tick marks. Set to -1 to auto-compute, set to 0 to suppress.                                                                                                                                                                                                                                                                                                                                       |\n| \\[XYZ\\]MINOR             | The number of minor tick marks. Set to -1 to auto-compute, set to 0 to suppress.                                                                                                                                                                                                                                                                                                                                       |\n| \\[XYZ\\]SUBGRIDSTYLE      | A string, integer, or 2-element vector giving the linestyle for the minor tickmarks. The default is 0, for solid lines. Set to -1 to force minor ticks to have the same linestyle as major ticks.                                                                                                                                                                                                                      |\n| \\[XYZ\\]SHOWTEXT          | Set to 1 to show text labels or 0 to hide the text labels.                                                                                                                                                                                                                                                                                                                                                             |\n| \\[XYZ\\]STYLE             | The axis range style. The valid values are: (0) Nice range. Default for all graphics except Image, Barplot, and Map. (1) Force the exact data range. Default for Image, Barplot, and Map. (2) Pad the axes slightly beyond the nice range. (3) Pad the axes slightly beyond the exact data range. The \\[XYZ\\]RANGE takes precedence over this property.                                                                |\n| \\[XYZ\\]SUBTICKLEN        | The ratio of the minor tick length to the major tick length. The default is 0.5.                                                                                                                                                                                                                                                                                                                                       |\n| \\[XYZ\\]TEXT\\_COLOR       | A string or RGB vector containing the axis text color.                                                                                                                                                                                                                                                                                                                                                                 |\n| \\[XYZ\\]TEXT\\_ORIENTATION | The angle (in degrees) of the tick mark labels.                                                                                                                                                                                                                                                                                                                                                                        |\n| \\[XYZ\\]TEXTPOS           | Set to 1 to position text above the axis. The default is 0, below the axis.                                                                                                                                                                                                                                                                                                                                            |\n| \\[XYZ\\]THICK             | Set to a floating-point value between 0 and 10 to specify the line thickness for tickmarks. A thickness of 0 gives a thin hairline. The default is 1.                                                                                                                                                                                                                                                                  |\n| \\[XYZ\\]TICKDIR           | Set to 1 to draw the tickmarks facing outwards. The default is 0, facing inwards.                                                                                                                                                                                                                                                                                                                                      |\n| \\[XYZ\\]TICKFONT\\_NAME    | A string containing the font name for the axis text.                                                                                                                                                                                                                                                                                                                                                                   |\n| \\[XYZ\\]TICKFONT\\_SIZE    | The axis text size in points.                                                                                                                                                                                                                                                                                                                                                                                          |\n| \\[XYZ\\]TICKFONT\\_STYLE   | A string or integer containing the font style: normal (0), **bold** (1), _italic_ (2), or **bold italic** (3).                                                                                                                                                                                                                                                                                                         |\n| \\[XYZ\\]TICKFORMAT        | A string or string array of tick label formats. See [Format Codes](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Creating%20IDL%20Programs/Components%20of%20the%20IDL%20Language/Format%255FCodes%255FFortran.htm%22%7D) for more information.                                                                                                                                                                                                                                      |\n| \\[XYZ\\]TICKINTERVAL      | The interval between major tick marks.                                                                                                                                                                                                                                                                                                                                                                                 |\n| \\[XYZ\\]TICKLAYOUT        | Set to 1 to suppress tick marks; set to 2 to draw a box around the tick labels.                                                                                                                                                                                                                                                                                                                                        |\n| \\[XYZ\\]TICKLEN           | The length of each major tick mark, normalized to the width or height of the graphic. The default value is automatically calculated based upon the aspect ratio of the graphic.                                                                                                                                                                                                                                        |\n| \\[XYZ\\]TICKNAME          | A string array containing the tick labels.                                                                                                                                                                                                                                                                                                                                                                             |\n| \\[XYZ\\]TICKUNITS         | A string giving the tick units. Valid values are: null (the default, signified by empty quotes), Years, Months, Days, Hours, Minutes, Seconds, Time, exponent for exponential notation, or scientific for scientific notation. If any of the time units are utilized, then the tick values are interpreted as Julian date/time values. If more than one unit is provided, the axis will be drawn with multiple levels. |\n| \\[XYZ\\]TICKVALUES        | An array of tick mark locations.                                                                                                                                                                                                                                                                                                                                                                                       |\n| \\[XYZ\\]TITLE             | A string giving the axis title.                                                                                                                                                                                                                                                                                                                                                                                        |\n| \\[XYZ\\]TRANSPARENCY      | An integer from 0-100 giving the percent transparency.                                                                                                                                                                                                                                                                                                                                                                 |\n\nFor more detailed explanations of these properties, see the [AXIS](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Reference%20Material/A/AXIS.htm%22%7D) function.\n\n_Tip:_ You can also use the [AXIS](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Reference%20Material/A/AXIS.htm%22%7D) function to insert additional axes after the graphic has been created.',
+        },
+      },
+      {
         label: 'background_color',
         insertText: 'background_color',
         kind: 5,
@@ -1368,6 +1380,18 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             'Set this property to an integer between 0 and 100 giving the percent transparency of the background color. The default is 100 (completely transparent).\n\n_Note:_ If the BACKGROUND\\_COLOR property is changed, and the current background transparency is 100, then the BACKGROUND\\_TRANSPARENCY will be automatically set to 0 (opaque) so that you can see the new color.',
+        },
+      },
+      {
+        label: 'buffer',
+        insertText: 'buffer',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to 1 to direct the graphics to an off-screen buffer instead of creating a window.',
         },
       },
       {
@@ -1404,6 +1428,42 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             'Use this property to retrieve a reference to the Crosshair graphic. All graphics objects within the same set of axes share a single Crosshair graphic. For Plot graphics the default behavior is to display the crosshair when a Mouse\\_Down event is received. For other graphics the crosshair is disabled. The STYLE property may be used to automatically draw the crosshair, while the LOCATION property may be used to manually draw the crosshair.\n\nYou can get and set the following properties on the retrieved crosshair:\n\n| Property     | Description                                                                                                                                                                                                                                                                                                                                                                               |\n| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| ANTIALIAS    | Set to 1 to enable anti-aliasing for the lines.                                                                                                                                                                                                                                                                                                                                           |\n| COLOR        | A string or RGB vector containing the color.                                                                                                                                                                                                                                                                                                                                              |\n| HIDE         | Set to 1 to hide the crosshair, 0 to show.                                                                                                                                                                                                                                                                                                                                                |\n| INTERPOLATE  | Set to 1 to force interpolation between Plot data points when SNAP is active. For other graphics this property is ignored. The default is 0.                                                                                                                                                                                                                                              |\n| LINESTYLE    | An integer or string giving the line style. The default is \'dot\'. See [Linestyle Values](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/IDL%20Graphics/FormattingSymsAndLines.htm#LinestyleValues%22%7D) for additional options.                                                                                                                                                                                                           |\n| LOCATION     | The location at which to draw the crosshair. For Plot graphics, if SNAP is enabled, then only the X coordinate needs to be supplied. Otherwise, LOCATION should be set to a two-element vector \\[X, Y\\] for two-dimensional graphics or \\[X, Y, Z\\] for three-dimensional graphics. If STYLE is currently "None", then setting the LOCATION will automatically set the STYLE to "Manual". |\n| NAME         | The name of the graphic.                                                                                                                                                                                                                                                                                                                                                                  |\n| SNAP         | Set to 1 to snap the crosshair to the nearest Plot data point. For other graphics this property is ignored. The default is 1.                                                                                                                                                                                                                                                             |\n| STYLE        | An integer or string giving the crosshair style. Possible values are: 0 - "None" - never draw the crosshair. This is the default for all graphics except 2D plots. 1 - "Manual" - draw the crosshair using the LOCATION property. 2 - "Auto" - automatically draw the crosshair. This is the default for 2D plots.                                                                        |\n| THICK        | The thickness of the lines. The default is 1.                                                                                                                                                                                                                                                                                                                                             |\n| TRANSPARENCY | The percent transparency of the lines. The default is 50.                                                                                                                                                                                                                                                                                                                                 |\n| UVALUE       | An IDL variable of any data type.                                                                                                                                                                                                                                                                                                                                                         |\n\nFor example, use the CROSSHAIR property to draw a crosshair on an image:\n\n```idl\n  im = image(/test, transparency = 50, axis_style = 2)\n  c = im.crosshair\n  c.color = \'red\'\n  c.thick = 2\n  c.location = [300, 200]\n```\n\nSee [Creating Functions to Control Mouse Events](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/GuideMe/MouseEventFunctions.htm%22%7D) for a more detailed crosshair example.',
+        },
+      },
+      {
+        label: 'current',
+        insertText: 'current',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "Set this keyword to create the graphic in the current window with a new set of axes. If no window exists, a new window is created. The WINDOW's [SetCurrent](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/IDL%20Graphics/SetCurrent%20Method.htm%22%7D) method may be used to set the current window.\n\nOr, set this keyword to an existing IDL Graphic reference to make that window be the current window and direct the new graphic to that window.\n\n_Tip:_ The CURRENT keyword is usually used with the LAYOUT keyword or POSITION property to produce a window which has multiple graphics in different locations.\n\n_Tip:_ For the graphic share the _same_ axes as an existing graphic, use the OVERPLOT keyword instead.",
+        },
+      },
+      {
+        label: 'device',
+        insertText: 'device',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword if values are specified in device coordinates (pixels) for the MARGIN and POSITION keywords. (Normalized coordinates are the default for these keywords.)',
+        },
+      },
+      {
+        label: 'dimensions',
+        insertText: 'dimensions',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to a two-element vector of the form \\[_width_, _height_\\] to specify the window dimensions in pixels. If you do not specify a value for DIMENSIONS, IDL by default uses the values of the IDL\\_GR\\_WIN\\_HEIGHT and IDL\\_GR\\_WIN\\_WIDTH preferences for Windows platforms or the IDL\\_GR\\_X\\_HEIGHT and IDL\\_GR\\_X\\_WIDTH preferences for X Windows systems on UNIX.\n\n_Tip:_ The minimum _width_ is set by the toolbar in the window, usually around 400 pixels. To create a smaller graphics window, use the NO\\_TOOLBAR keyword.',
         },
       },
       {
@@ -1562,6 +1622,18 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         },
       },
       {
+        label: 'layout',
+        insertText: 'layout',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to a three-element vector \\[_ncol_, _nrow_, _index_\\] that arranges graphics in a grid. The first dimension _ncol_ is the number of columns in the grid, _nrow_ is the number of rows, and _index_ is the grid position at which to place the graphic (starting at element 1). This keyword is ignored if either OVERPLOT or POSITION is specified.',
+        },
+      },
+      {
         label: 'linestyle',
         insertText: 'linestyle',
         kind: 5,
@@ -1571,6 +1643,30 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             "Set this property to an integer or string giving the line style for the plot.\n\nThe following table lists the index values, strings, and characters you can use with the LINESTYLE property, and the equivalent characters and strings you can use in the _Format_ string argument.\n\n| Index | LINESTYLE Property                     | Format Argument             | Description      |\n| ----- | -------------------------------------- | --------------------------- | ---------------- |\n| 0     | 'solid\\_line', '-'(dash)               | '-' (dash)                  | solid line       |\n| 1     | 'dot', ':'(colon)                      | ':'(colon)                  | dotted           |\n| 2     | 'dash', '--' (double dashes)           | '--' (double dashes)        | dashed           |\n| 3     | 'dash\\_dot', '-.'                      | '-.'                        | dash dot         |\n| 4     | 'dash\\_dot\\_dot\\_dot', '-:'            | '-:'                        | dash dot dot dot |\n| 5     | 'long\\_dash', '\\_\\_' (two underscores) | '\\_\\_' (double underscores) | long dash        |\n| 6     | 'none', ' ' (space)                    | ' ' (space)                 | no line          |\n\n_Note:_ If you use the LINESTYLE value or _Format_ string '-.', the linestyle is set to dash-dot and the plot symbol is not set.\n\n_Note:_ You can also set LINESTYLE to a two-element vector, \\[_repeat_, _bitmask_\\], specifying a stippling pattern. The _repeat_ indicates the number of times that individual bits in the _bitmask_ should be repeated. (That is, if three consecutive 0’s appear in the _bitmask_ and the value of _repeat_ is 2, then the line that is drawn will have six consecutive bits turned off.) The value of _repeat_ must be an integer between 1 and 255\\. The _bitmask_ indicates which pixels are drawn and which are not along the length of the line. The _bitmask_ should be specified as a 16-bit hexadecimal value. For example, LINESTYLE = \\[2, 'F0F0'X\\] describes a dashed line (8 bits on, 8 bits off, 8 bits on, 8 bits off).",
+        },
+      },
+      {
+        label: 'location',
+        insertText: 'location',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "Set this keyword to a two-element vector \\[_X offset_, _Y offset_\\] giving the window's screen offset in pixels.",
+        },
+      },
+      {
+        label: 'map_projection',
+        insertText: 'map_projection',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A string giving the name of the current map projection. After creation, use this property to retrieve or set the current map projection.',
         },
       },
       {
@@ -1598,15 +1694,15 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         },
       },
       {
-        label: 'map_projection',
-        insertText: 'map_projection',
+        label: 'margin',
+        insertText: 'margin',
         kind: 5,
         sortText: '02',
         detail: 'Property of Plot',
         documentation: {
           kind: 'markdown',
           value:
-            'A string giving the name of the current map projection. After creation, use this property to retrieve or set the current map projection.',
+            'Set this keyword to the current graphic’s margin values in the layout specified by the LAYOUT property. Use a scalar value to set the same margin on all sides, or use a four-element vector \\[_left_, _bottom_, _right_, _top_\\] to specify different margins on each side.\n\nBy default, margin values are expressed in normalized units ranging from 0.0 to 0.5\\. If the DEVICE keyword is set, the values are given in device units (pixels).\n\nThis keyword is ignored if either OVERPLOT or POSITION is specified.',
         },
       },
       {
@@ -1643,6 +1739,42 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             'A string that specifies the name of the graphic. The name can be used to retrieve the graphic using the brackets array notation. If NAME is not set then a default name is chosen based on the graphic type.',
+        },
+      },
+      {
+        label: 'no_toolbar',
+        insertText: 'no_toolbar',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "By default the graphics window will have a toolbar containing some common tools such as Print and Save. Set this keyword to remove the toolbar. This keyword has no effect if the window is already created.\n\n_Tip:_ When the toolbar exists, the minimum window _width_ is set to the toolbar's width, usually around 400 pixels. To create a smaller graphics window, use the NO\\_TOOLBAR keyword.",
+        },
+      },
+      {
+        label: 'nodata',
+        insertText: 'nodata',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to 1 to create the graphic, but without any data attached to it. The axes and title (if present) are also created and displayed. If the OVERPLOT keyword is specified, axis ranges will not change.\n\n_Note:_ You must still provide valid input arguments. The data range of the input arguments are used to automatically set the range of the axes. The \\[XYZ\\]RANGE properties may be used to override these default ranges.',
+        },
+      },
+      {
+        label: 'overplot',
+        insertText: 'overplot',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "Set this keyword to 1 (one) to place the graphic on top of the currently-selected graphic within the current window. The two graphics items will then share the same set of axes. If no current window exists, then this keyword is ignored and a new window is created.\n\nIf you have a graphic in another window that is not currently selected, you can also set this keyword to that graphic's reference to overplot on top of that graphic.\n\n_Tip:_ For the graphic to have a _new_ set of axes, use the CURRENT keyword instead.",
         },
       },
       {
@@ -1694,17 +1826,6 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         },
       },
       {
-        label: 'sym_filled',
-        insertText: 'sym_filled',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value: 'Set this property to 1 to fill the symbols.',
-        },
-      },
-      {
         label: 'sym_fill_color',
         insertText: 'sym_fill_color',
         kind: 5,
@@ -1714,6 +1835,17 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             'Set this property to a [string or RGB vector](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/IDL%20Graphics/FormattingSymsAndLines.htm#Color%22%7D) that specifies the color of the filled portion of the symbol. If this property is not set then the symbol fill color will match the SYM\\_COLOR.',
+        },
+      },
+      {
+        label: 'sym_filled',
+        insertText: 'sym_filled',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value: 'Set this property to 1 to fill the symbols.',
         },
       },
       {
@@ -1774,137 +1906,6 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             'An integer between 0 and 100 that specifies the percent transparency of the symbols. The default value is 0.',
-        },
-      },
-      {
-        label: 'symbol',
-        insertText: 'symbol',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A string giving the symbol name. Allowed values are:\n\n| "None" (the default) "Plus" or "+" "Asterisk" or "\\*" "Period" or "dot" "Diamond" or "D" "Triangle" or "tu" "Square" or "s" "X" "Greater\\_than" or ">" | "Less\\_than" or "<" "Triangle\\_down" or "td" "Triangle\\_left" or "tl" "Triangle\\_right" or "tr" "Tri\\_up" or "Tu" "Tri\\_down" or "Td" "Tri\\_left" or "Tl" "Tri\\_right" or "Tr" | "Thin\\_diamond" or "d" "Pentagon" or "p" "Hexagon\\_1" or "h" "Hexagon\\_2" or "H" "Vline" or "\\|" "Hline" or "\\_" "Star" or "S" "Circle" or "o" |\n| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |\n\nNote that all plot symbol names are case sensitive.\n\n_Note:_ When using custom plotting symbols, note that the SYM\\_OBJECT property takes precedence over the SYMBOL property. In other words, if you set a custom symbol using SYM\\_OBJECT, then try to change that symbol using the SYMBOL property, IDL ignores the new SYMBOL property and retains SYM\\_OBJECT.',
-        },
-      },
-      {
-        label: 'thick',
-        insertText: 'thick',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Set this property to a value between 0 and 10 that specifies the plot line thickness. A thickness of 0 displays a thin hairline on the chosen device. The default value is 1.',
-        },
-      },
-      {
-        label: 'title',
-        insertText: 'title',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Set this property to a string specifying a title. The title properties may be modified using FONT\\_COLOR, FONT\\_NAME, FONT\\_SIZE, and FONT\\_STYLE. After creation the TITLE property may be used to retrieve a reference to the title text object, and the [TEXT](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Reference%20Material/T/TEXT.htm%22%7D) properties may be used to modify the title object. For example:\n\n```idl\n  p = plot([0, 1], title = \'My Title\')\n  p.title.font_size = 16\n```\n\nYou can add Greek letters and mathematical symbols using a TeX-like syntax, enclosed within a pair of "$" characters. See [Adding Mathematical Symbols and Greek Letters to the Text String](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Reference%20Material/T/TEXT.htm#Adding%22%7D) for details.',
-        },
-      },
-      {
-        label: 'transparency',
-        insertText: 'transparency',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'An integer between 0 and 100 that specifies the percent transparency of the plot line. The default value is 0.',
-        },
-      },
-      {
-        label: 'uvalue',
-        insertText: 'uvalue',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value: 'Set this property to an IDL variable of any data type.',
-        },
-      },
-      {
-        label: 'vert_colors',
-        insertText: 'vert_colors',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A vector of indices into the color table for the color of each vertex (plot data point). Alternately, a 3 x _N_ byte array containing vertex color values. If the values supplied are not of type byte, they are scaled to the byte range using BYTSCL. If indices are supplied but no colors are provided with the RGB\\_TABLE property, a default grayscale ramp is used. If a 3 x _N_ array of colors is provided, the colors are used directly and the color values provided with RGB\\_TABLE are ignored. If the number of indices or colors specified is less than the number of vertices, the colors are repeated cyclically.\n\n_Note:_ VERT\\_COLORS can be an array of RGB triplets or RGBA colors.',
-        },
-      },
-      {
-        label: 'window',
-        insertText: 'window',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'This property retrieves a reference to the [WINDOW](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Reference%20Material/W/WINDOW.htm%22%7D) object which contains the graphic.',
-        },
-      },
-      {
-        label: 'window_title',
-        insertText: 'window_title',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            "Set this property to the title of the IDL Graphic window. The title is displayed in the window's title bar.",
-        },
-      },
-      {
-        label: 'xrange',
-        insertText: 'xrange',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A two-element vector giving the X data range to plot. The default behavior is to plot the entire data range.',
-        },
-      },
-      {
-        label: 'yrange',
-        insertText: 'yrange',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A two-element vector giving the Y data range to plot. The default behavior is to plot the entire data range.',
-        },
-      },
-      {
-        label: 'zvalue',
-        insertText: 'zvalue',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A scalar value to be used as the z-coordinate for the entire plot. By default, 0.0 is used as the z-coordinate.',
         },
       },
     ];
@@ -1961,6 +1962,18 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         },
       },
       {
+        label: 'axis_style',
+        insertText: 'axis_style',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to one of the following values:\n\n* 0 - No axes. Decrease the margins so the graphic almost fills the window. This is the default for images.\n* 1 - Single X, Y (and Z if 3D) axes located at the minimum data value. The margins will be adjusted to leave space for the axes. This is the default for 3D graphics.\n* 2 - Box axes - multiple axes located at both the minimum and maximum data values. The margins will be adjusted to leave space for the axes. This is the default for 2D graphics.\n* 3 - Crosshair-style axes - located at the midpoint of each data dimension. Since the axes are in the middle, decrease the margins so the graphic almost fills the window. This is the default for polar plots.\n* 4 - No axes, but use the same margins as if axes were there. This is useful if you want to later add another graphic that does have axes, and you want the two visualizations to be aligned properly.\n\nYou can set the following properties on the axes:\n\n| Property                 | Description                                                                                                                                                                                                                                                                                                                                                                                                            |\n| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| \\[XYZ\\]COLOR             | A string or RGB vector containing the axis color.                                                                                                                                                                                                                                                                                                                                                                      |\n| \\[XYZ\\]GRIDSTYLE         | A string, integer, or 2-element vector giving the linestyle for tickmarks.                                                                                                                                                                                                                                                                                                                                             |\n| \\[XYZ\\]LOG               | Set to 1 if the axis is logarithmic. The minimum value of the axis range must be greater than zero.                                                                                                                                                                                                                                                                                                                    |\n| \\[XYZ\\]MAJOR             | The number of major tick marks. Set to -1 to auto-compute, set to 0 to suppress.                                                                                                                                                                                                                                                                                                                                       |\n| \\[XYZ\\]MINOR             | The number of minor tick marks. Set to -1 to auto-compute, set to 0 to suppress.                                                                                                                                                                                                                                                                                                                                       |\n| \\[XYZ\\]SUBGRIDSTYLE      | A string, integer, or 2-element vector giving the linestyle for the minor tickmarks. The default is 0, for solid lines. Set to -1 to force minor ticks to have the same linestyle as major ticks.                                                                                                                                                                                                                      |\n| \\[XYZ\\]SHOWTEXT          | Set to 1 to show text labels or 0 to hide the text labels.                                                                                                                                                                                                                                                                                                                                                             |\n| \\[XYZ\\]STYLE             | The axis range style. The valid values are: (0) Nice range. Default for all graphics except Image, Barplot, and Map. (1) Force the exact data range. Default for Image, Barplot, and Map. (2) Pad the axes slightly beyond the nice range. (3) Pad the axes slightly beyond the exact data range. The \\[XYZ\\]RANGE takes precedence over this property.                                                                |\n| \\[XYZ\\]SUBTICKLEN        | The ratio of the minor tick length to the major tick length. The default is 0.5.                                                                                                                                                                                                                                                                                                                                       |\n| \\[XYZ\\]TEXT\\_COLOR       | A string or RGB vector containing the axis text color.                                                                                                                                                                                                                                                                                                                                                                 |\n| \\[XYZ\\]TEXT\\_ORIENTATION | The angle (in degrees) of the tick mark labels.                                                                                                                                                                                                                                                                                                                                                                        |\n| \\[XYZ\\]TEXTPOS           | Set to 1 to position text above the axis. The default is 0, below the axis.                                                                                                                                                                                                                                                                                                                                            |\n| \\[XYZ\\]THICK             | Set to a floating-point value between 0 and 10 to specify the line thickness for tickmarks. A thickness of 0 gives a thin hairline. The default is 1.                                                                                                                                                                                                                                                                  |\n| \\[XYZ\\]TICKDIR           | Set to 1 to draw the tickmarks facing outwards. The default is 0, facing inwards.                                                                                                                                                                                                                                                                                                                                      |\n| \\[XYZ\\]TICKFONT\\_NAME    | A string containing the font name for the axis text.                                                                                                                                                                                                                                                                                                                                                                   |\n| \\[XYZ\\]TICKFONT\\_SIZE    | The axis text size in points.                                                                                                                                                                                                                                                                                                                                                                                          |\n| \\[XYZ\\]TICKFONT\\_STYLE   | A string or integer containing the font style: normal (0), **bold** (1), _italic_ (2), or **bold italic** (3).                                                                                                                                                                                                                                                                                                         |\n| \\[XYZ\\]TICKFORMAT        | A string or string array of tick label formats. See [Format Codes](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Creating%20IDL%20Programs/Components%20of%20the%20IDL%20Language/Format%255FCodes%255FFortran.htm%22%7D) for more information.                                                                                                                                                                                                                                      |\n| \\[XYZ\\]TICKINTERVAL      | The interval between major tick marks.                                                                                                                                                                                                                                                                                                                                                                                 |\n| \\[XYZ\\]TICKLAYOUT        | Set to 1 to suppress tick marks; set to 2 to draw a box around the tick labels.                                                                                                                                                                                                                                                                                                                                        |\n| \\[XYZ\\]TICKLEN           | The length of each major tick mark, normalized to the width or height of the graphic. The default value is automatically calculated based upon the aspect ratio of the graphic.                                                                                                                                                                                                                                        |\n| \\[XYZ\\]TICKNAME          | A string array containing the tick labels.                                                                                                                                                                                                                                                                                                                                                                             |\n| \\[XYZ\\]TICKUNITS         | A string giving the tick units. Valid values are: null (the default, signified by empty quotes), Years, Months, Days, Hours, Minutes, Seconds, Time, exponent for exponential notation, or scientific for scientific notation. If any of the time units are utilized, then the tick values are interpreted as Julian date/time values. If more than one unit is provided, the axis will be drawn with multiple levels. |\n| \\[XYZ\\]TICKVALUES        | An array of tick mark locations.                                                                                                                                                                                                                                                                                                                                                                                       |\n| \\[XYZ\\]TITLE             | A string giving the axis title.                                                                                                                                                                                                                                                                                                                                                                                        |\n| \\[XYZ\\]TRANSPARENCY      | An integer from 0-100 giving the percent transparency.                                                                                                                                                                                                                                                                                                                                                                 |\n\nFor more detailed explanations of these properties, see the [AXIS](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Reference%20Material/A/AXIS.htm%22%7D) function.\n\n_Tip:_ You can also use the [AXIS](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Reference%20Material/A/AXIS.htm%22%7D) function to insert additional axes after the graphic has been created.',
+        },
+      },
+      {
         label: 'background_color',
         insertText: 'background_color',
         kind: 5,
@@ -1982,6 +1995,18 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             'Set this property to an integer between 0 and 100 giving the percent transparency of the background color. The default is 100 (completely transparent).\n\n_Note:_ If the BACKGROUND\\_COLOR property is changed, and the current background transparency is 100, then the BACKGROUND\\_TRANSPARENCY will be automatically set to 0 (opaque) so that you can see the new color.',
+        },
+      },
+      {
+        label: 'buffer',
+        insertText: 'buffer',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to 1 to direct the graphics to an off-screen buffer instead of creating a window.',
         },
       },
       {
@@ -2018,6 +2043,42 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             'Use this property to retrieve a reference to the Crosshair graphic. All graphics objects within the same set of axes share a single Crosshair graphic. For Plot graphics the default behavior is to display the crosshair when a Mouse\\_Down event is received. For other graphics the crosshair is disabled. The STYLE property may be used to automatically draw the crosshair, while the LOCATION property may be used to manually draw the crosshair.\n\nYou can get and set the following properties on the retrieved crosshair:\n\n| Property     | Description                                                                                                                                                                                                                                                                                                                                                                               |\n| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| ANTIALIAS    | Set to 1 to enable anti-aliasing for the lines.                                                                                                                                                                                                                                                                                                                                           |\n| COLOR        | A string or RGB vector containing the color.                                                                                                                                                                                                                                                                                                                                              |\n| HIDE         | Set to 1 to hide the crosshair, 0 to show.                                                                                                                                                                                                                                                                                                                                                |\n| INTERPOLATE  | Set to 1 to force interpolation between Plot data points when SNAP is active. For other graphics this property is ignored. The default is 0.                                                                                                                                                                                                                                              |\n| LINESTYLE    | An integer or string giving the line style. The default is \'dot\'. See [Linestyle Values](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/IDL%20Graphics/FormattingSymsAndLines.htm#LinestyleValues%22%7D) for additional options.                                                                                                                                                                                                           |\n| LOCATION     | The location at which to draw the crosshair. For Plot graphics, if SNAP is enabled, then only the X coordinate needs to be supplied. Otherwise, LOCATION should be set to a two-element vector \\[X, Y\\] for two-dimensional graphics or \\[X, Y, Z\\] for three-dimensional graphics. If STYLE is currently "None", then setting the LOCATION will automatically set the STYLE to "Manual". |\n| NAME         | The name of the graphic.                                                                                                                                                                                                                                                                                                                                                                  |\n| SNAP         | Set to 1 to snap the crosshair to the nearest Plot data point. For other graphics this property is ignored. The default is 1.                                                                                                                                                                                                                                                             |\n| STYLE        | An integer or string giving the crosshair style. Possible values are: 0 - "None" - never draw the crosshair. This is the default for all graphics except 2D plots. 1 - "Manual" - draw the crosshair using the LOCATION property. 2 - "Auto" - automatically draw the crosshair. This is the default for 2D plots.                                                                        |\n| THICK        | The thickness of the lines. The default is 1.                                                                                                                                                                                                                                                                                                                                             |\n| TRANSPARENCY | The percent transparency of the lines. The default is 50.                                                                                                                                                                                                                                                                                                                                 |\n| UVALUE       | An IDL variable of any data type.                                                                                                                                                                                                                                                                                                                                                         |\n\nFor example, use the CROSSHAIR property to draw a crosshair on an image:\n\n```idl\n  im = image(/test, transparency = 50, axis_style = 2)\n  c = im.crosshair\n  c.color = \'red\'\n  c.thick = 2\n  c.location = [300, 200]\n```\n\nSee [Creating Functions to Control Mouse Events](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/GuideMe/MouseEventFunctions.htm%22%7D) for a more detailed crosshair example.',
+        },
+      },
+      {
+        label: 'current',
+        insertText: 'current',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "Set this keyword to create the graphic in the current window with a new set of axes. If no window exists, a new window is created. The WINDOW's [SetCurrent](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/IDL%20Graphics/SetCurrent%20Method.htm%22%7D) method may be used to set the current window.\n\nOr, set this keyword to an existing IDL Graphic reference to make that window be the current window and direct the new graphic to that window.\n\n_Tip:_ The CURRENT keyword is usually used with the LAYOUT keyword or POSITION property to produce a window which has multiple graphics in different locations.\n\n_Tip:_ For the graphic share the _same_ axes as an existing graphic, use the OVERPLOT keyword instead.",
+        },
+      },
+      {
+        label: 'device',
+        insertText: 'device',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword if values are specified in device coordinates (pixels) for the MARGIN and POSITION keywords. (Normalized coordinates are the default for these keywords.)',
+        },
+      },
+      {
+        label: 'dimensions',
+        insertText: 'dimensions',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to a two-element vector of the form \\[_width_, _height_\\] to specify the window dimensions in pixels. If you do not specify a value for DIMENSIONS, IDL by default uses the values of the IDL\\_GR\\_WIN\\_HEIGHT and IDL\\_GR\\_WIN\\_WIDTH preferences for Windows platforms or the IDL\\_GR\\_X\\_HEIGHT and IDL\\_GR\\_X\\_WIDTH preferences for X Windows systems on UNIX.\n\n_Tip:_ The minimum _width_ is set by the toolbar in the window, usually around 400 pixels. To create a smaller graphics window, use the NO\\_TOOLBAR keyword.',
         },
       },
       {
@@ -2176,6 +2237,18 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         },
       },
       {
+        label: 'layout',
+        insertText: 'layout',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to a three-element vector \\[_ncol_, _nrow_, _index_\\] that arranges graphics in a grid. The first dimension _ncol_ is the number of columns in the grid, _nrow_ is the number of rows, and _index_ is the grid position at which to place the graphic (starting at element 1). This keyword is ignored if either OVERPLOT or POSITION is specified.',
+        },
+      },
+      {
         label: 'linestyle',
         insertText: 'linestyle',
         kind: 5,
@@ -2185,6 +2258,30 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             "Set this property to an integer or string giving the line style for the plot.\n\nThe following table lists the index values, strings, and characters you can use with the LINESTYLE property, and the equivalent characters and strings you can use in the _Format_ string argument.\n\n| Index | LINESTYLE Property                     | Format Argument             | Description      |\n| ----- | -------------------------------------- | --------------------------- | ---------------- |\n| 0     | 'solid\\_line', '-'(dash)               | '-' (dash)                  | solid line       |\n| 1     | 'dot', ':'(colon)                      | ':'(colon)                  | dotted           |\n| 2     | 'dash', '--' (double dashes)           | '--' (double dashes)        | dashed           |\n| 3     | 'dash\\_dot', '-.'                      | '-.'                        | dash dot         |\n| 4     | 'dash\\_dot\\_dot\\_dot', '-:'            | '-:'                        | dash dot dot dot |\n| 5     | 'long\\_dash', '\\_\\_' (two underscores) | '\\_\\_' (double underscores) | long dash        |\n| 6     | 'none', ' ' (space)                    | ' ' (space)                 | no line          |\n\n_Note:_ If you use the LINESTYLE value or _Format_ string '-.', the linestyle is set to dash-dot and the plot symbol is not set.\n\n_Note:_ You can also set LINESTYLE to a two-element vector, \\[_repeat_, _bitmask_\\], specifying a stippling pattern. The _repeat_ indicates the number of times that individual bits in the _bitmask_ should be repeated. (That is, if three consecutive 0’s appear in the _bitmask_ and the value of _repeat_ is 2, then the line that is drawn will have six consecutive bits turned off.) The value of _repeat_ must be an integer between 1 and 255\\. The _bitmask_ indicates which pixels are drawn and which are not along the length of the line. The _bitmask_ should be specified as a 16-bit hexadecimal value. For example, LINESTYLE = \\[2, 'F0F0'X\\] describes a dashed line (8 bits on, 8 bits off, 8 bits on, 8 bits off).",
+        },
+      },
+      {
+        label: 'location',
+        insertText: 'location',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "Set this keyword to a two-element vector \\[_X offset_, _Y offset_\\] giving the window's screen offset in pixels.",
+        },
+      },
+      {
+        label: 'map_projection',
+        insertText: 'map_projection',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A string giving the name of the current map projection. After creation, use this property to retrieve or set the current map projection.',
         },
       },
       {
@@ -2212,15 +2309,15 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         },
       },
       {
-        label: 'map_projection',
-        insertText: 'map_projection',
+        label: 'margin',
+        insertText: 'margin',
         kind: 5,
         sortText: '02',
         detail: 'Property of Plot',
         documentation: {
           kind: 'markdown',
           value:
-            'A string giving the name of the current map projection. After creation, use this property to retrieve or set the current map projection.',
+            'Set this keyword to the current graphic’s margin values in the layout specified by the LAYOUT property. Use a scalar value to set the same margin on all sides, or use a four-element vector \\[_left_, _bottom_, _right_, _top_\\] to specify different margins on each side.\n\nBy default, margin values are expressed in normalized units ranging from 0.0 to 0.5\\. If the DEVICE keyword is set, the values are given in device units (pixels).\n\nThis keyword is ignored if either OVERPLOT or POSITION is specified.',
         },
       },
       {
@@ -2257,6 +2354,42 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             'A string that specifies the name of the graphic. The name can be used to retrieve the graphic using the brackets array notation. If NAME is not set then a default name is chosen based on the graphic type.',
+        },
+      },
+      {
+        label: 'no_toolbar',
+        insertText: 'no_toolbar',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "By default the graphics window will have a toolbar containing some common tools such as Print and Save. Set this keyword to remove the toolbar. This keyword has no effect if the window is already created.\n\n_Tip:_ When the toolbar exists, the minimum window _width_ is set to the toolbar's width, usually around 400 pixels. To create a smaller graphics window, use the NO\\_TOOLBAR keyword.",
+        },
+      },
+      {
+        label: 'nodata',
+        insertText: 'nodata',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to 1 to create the graphic, but without any data attached to it. The axes and title (if present) are also created and displayed. If the OVERPLOT keyword is specified, axis ranges will not change.\n\n_Note:_ You must still provide valid input arguments. The data range of the input arguments are used to automatically set the range of the axes. The \\[XYZ\\]RANGE properties may be used to override these default ranges.',
+        },
+      },
+      {
+        label: 'overplot',
+        insertText: 'overplot',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "Set this keyword to 1 (one) to place the graphic on top of the currently-selected graphic within the current window. The two graphics items will then share the same set of axes. If no current window exists, then this keyword is ignored and a new window is created.\n\nIf you have a graphic in another window that is not currently selected, you can also set this keyword to that graphic's reference to overplot on top of that graphic.\n\n_Tip:_ For the graphic to have a _new_ set of axes, use the CURRENT keyword instead.",
         },
       },
       {
@@ -2308,17 +2441,6 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         },
       },
       {
-        label: 'sym_filled',
-        insertText: 'sym_filled',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value: 'Set this property to 1 to fill the symbols.',
-        },
-      },
-      {
         label: 'sym_fill_color',
         insertText: 'sym_fill_color',
         kind: 5,
@@ -2328,6 +2450,17 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             'Set this property to a [string or RGB vector](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/IDL%20Graphics/FormattingSymsAndLines.htm#Color%22%7D) that specifies the color of the filled portion of the symbol. If this property is not set then the symbol fill color will match the SYM\\_COLOR.',
+        },
+      },
+      {
+        label: 'sym_filled',
+        insertText: 'sym_filled',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value: 'Set this property to 1 to fill the symbols.',
         },
       },
       {
@@ -2388,137 +2521,6 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             'An integer between 0 and 100 that specifies the percent transparency of the symbols. The default value is 0.',
-        },
-      },
-      {
-        label: 'symbol',
-        insertText: 'symbol',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A string giving the symbol name. Allowed values are:\n\n| "None" (the default) "Plus" or "+" "Asterisk" or "\\*" "Period" or "dot" "Diamond" or "D" "Triangle" or "tu" "Square" or "s" "X" "Greater\\_than" or ">" | "Less\\_than" or "<" "Triangle\\_down" or "td" "Triangle\\_left" or "tl" "Triangle\\_right" or "tr" "Tri\\_up" or "Tu" "Tri\\_down" or "Td" "Tri\\_left" or "Tl" "Tri\\_right" or "Tr" | "Thin\\_diamond" or "d" "Pentagon" or "p" "Hexagon\\_1" or "h" "Hexagon\\_2" or "H" "Vline" or "\\|" "Hline" or "\\_" "Star" or "S" "Circle" or "o" |\n| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |\n\nNote that all plot symbol names are case sensitive.\n\n_Note:_ When using custom plotting symbols, note that the SYM\\_OBJECT property takes precedence over the SYMBOL property. In other words, if you set a custom symbol using SYM\\_OBJECT, then try to change that symbol using the SYMBOL property, IDL ignores the new SYMBOL property and retains SYM\\_OBJECT.',
-        },
-      },
-      {
-        label: 'thick',
-        insertText: 'thick',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Set this property to a value between 0 and 10 that specifies the plot line thickness. A thickness of 0 displays a thin hairline on the chosen device. The default value is 1.',
-        },
-      },
-      {
-        label: 'title',
-        insertText: 'title',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Set this property to a string specifying a title. The title properties may be modified using FONT\\_COLOR, FONT\\_NAME, FONT\\_SIZE, and FONT\\_STYLE. After creation the TITLE property may be used to retrieve a reference to the title text object, and the [TEXT](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Reference%20Material/T/TEXT.htm%22%7D) properties may be used to modify the title object. For example:\n\n```idl\n  p = plot([0, 1], title = \'My Title\')\n  p.title.font_size = 16\n```\n\nYou can add Greek letters and mathematical symbols using a TeX-like syntax, enclosed within a pair of "$" characters. See [Adding Mathematical Symbols and Greek Letters to the Text String](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Reference%20Material/T/TEXT.htm#Adding%22%7D) for details.',
-        },
-      },
-      {
-        label: 'transparency',
-        insertText: 'transparency',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'An integer between 0 and 100 that specifies the percent transparency of the plot line. The default value is 0.',
-        },
-      },
-      {
-        label: 'uvalue',
-        insertText: 'uvalue',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value: 'Set this property to an IDL variable of any data type.',
-        },
-      },
-      {
-        label: 'vert_colors',
-        insertText: 'vert_colors',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A vector of indices into the color table for the color of each vertex (plot data point). Alternately, a 3 x _N_ byte array containing vertex color values. If the values supplied are not of type byte, they are scaled to the byte range using BYTSCL. If indices are supplied but no colors are provided with the RGB\\_TABLE property, a default grayscale ramp is used. If a 3 x _N_ array of colors is provided, the colors are used directly and the color values provided with RGB\\_TABLE are ignored. If the number of indices or colors specified is less than the number of vertices, the colors are repeated cyclically.\n\n_Note:_ VERT\\_COLORS can be an array of RGB triplets or RGBA colors.',
-        },
-      },
-      {
-        label: 'window',
-        insertText: 'window',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'This property retrieves a reference to the [WINDOW](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/idl/Content/Reference%20Material/W/WINDOW.htm%22%7D) object which contains the graphic.',
-        },
-      },
-      {
-        label: 'window_title',
-        insertText: 'window_title',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            "Set this property to the title of the IDL Graphic window. The title is displayed in the window's title bar.",
-        },
-      },
-      {
-        label: 'xrange',
-        insertText: 'xrange',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A two-element vector giving the X data range to plot. The default behavior is to plot the entire data range.',
-        },
-      },
-      {
-        label: 'yrange',
-        insertText: 'yrange',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A two-element vector giving the Y data range to plot. The default behavior is to plot the entire data range.',
-        },
-      },
-      {
-        label: 'zvalue',
-        insertText: 'zvalue',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A scalar value to be used as the z-coordinate for the entire plot. By default, 0.0 is used as the z-coordinate.',
         },
       },
     ];
