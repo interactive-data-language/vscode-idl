@@ -1,7 +1,7 @@
 /**
  * Priority for sorting so we have nice display
  */
-export const SORT_PRIORITY = {
+export const COMPLETION_SORT_PRIORITY = {
   STRUCTURES: '00',
   KEYWORDS: '00',
   VARIABLES: '01',

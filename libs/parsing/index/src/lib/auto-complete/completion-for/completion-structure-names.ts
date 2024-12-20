@@ -5,7 +5,7 @@ import { CUSTOM_TYPE_DISPLAY_NAMES } from '@idl/types/core';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**
  * Adds variables to our completion items
@@ -24,7 +24,7 @@ export function BuildCompletionStructureNameItems(
         ? AdjustCase(displayNames[i], arg.formatting.style.systemVariables)
         : TransformCase(displayNames[i], arg.formatting.style.structureNames),
       kind: CompletionItemKind.Class,
-      sortText: SORT_PRIORITY.STRUCTURES,
+      sortText: COMPLETION_SORT_PRIORITY.STRUCTURES,
       detail: IDL_TRANSLATION.autoComplete.detail.structure,
     });
   }

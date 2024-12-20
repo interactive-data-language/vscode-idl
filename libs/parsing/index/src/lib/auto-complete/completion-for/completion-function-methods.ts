@@ -12,7 +12,7 @@ import {
 } from '@idl/types/core';
 import { Command, CompletionItemKind } from 'vscode-languageserver';
 
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 import { IFunctionMethodCompletionArg } from './completion-function-methods.interface';
 
 /**
@@ -50,7 +50,7 @@ function BuildFunctionMethodCompletionItemsForType(
             arg.formatting.style.routineMethods
           ) + add,
         kind: CompletionItemKind.Method,
-        sortText: SORT_PRIORITY.METHODS,
+        sortText: COMPLETION_SORT_PRIORITY.METHODS,
         detail: IDL_TRANSLATION.autoComplete.detail.functionMethod,
         command,
       });
@@ -78,7 +78,7 @@ function BuildFunctionMethodCompletionItemsForType(
             arg.formatting.style.routineMethods
           ) + add,
         kind: CompletionItemKind.Method,
-        sortText: SORT_PRIORITY.METHODS,
+        sortText: COMPLETION_SORT_PRIORITY.METHODS,
         detail: IDL_TRANSLATION.autoComplete.detail.functionMethod,
         command,
       });

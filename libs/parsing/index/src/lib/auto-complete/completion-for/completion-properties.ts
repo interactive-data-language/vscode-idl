@@ -11,7 +11,7 @@ import {
 } from '@idl/types/core';
 import { CompletionItemKind } from 'vscode-languageserver';
 
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 import { IPropertyCompletionArg } from './completion-properties.interface';
 
 /**
@@ -43,7 +43,7 @@ function BuildPropertyCompletionItemsForType(
           label: display,
           insertText: display + arg.options.add,
           kind: CompletionItemKind.Field,
-          sortText: SORT_PRIORITY.PROPERTIES,
+          sortText: COMPLETION_SORT_PRIORITY.PROPERTIES,
           documentation: properties[keys[i]].docs,
         });
 
@@ -77,7 +77,7 @@ function BuildPropertyCompletionItemsForType(
           label: display,
           insertText: display + arg.options.add,
           kind: CompletionItemKind.Field,
-          sortText: SORT_PRIORITY.PROPERTIES,
+          sortText: COMPLETION_SORT_PRIORITY.PROPERTIES,
           detail: `${IDL_TRANSLATION.autoComplete.detail.property} ${global[0].meta.display}`,
           documentation: properties[keys[i]].docs,
         });

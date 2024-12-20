@@ -12,7 +12,7 @@ import {
 } from '@idl/types/core';
 import { CompletionItemKind } from 'vscode-languageserver';
 
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 import { IProcedureMethodCompletionArg } from './completion-procedure-methods.interface';
 
 /**
@@ -41,7 +41,7 @@ function BuildProcedureMethodCompletionItemsForType(
           arg.formatting.style.routineMethods
         ),
         kind: CompletionItemKind.Function,
-        sortText: SORT_PRIORITY.METHODS,
+        sortText: COMPLETION_SORT_PRIORITY.METHODS,
         detail: IDL_TRANSLATION.autoComplete.detail.procedureMethod,
       });
     }
@@ -63,7 +63,7 @@ function BuildProcedureMethodCompletionItemsForType(
           arg.formatting.style.routineMethods
         ),
         kind: CompletionItemKind.Function,
-        sortText: SORT_PRIORITY.METHODS,
+        sortText: COMPLETION_SORT_PRIORITY.METHODS,
         detail: IDL_TRANSLATION.autoComplete.detail.procedureMethod,
       });
       arg.found[methodName] = true;

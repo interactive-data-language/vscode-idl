@@ -26,7 +26,7 @@ import {
 import { GetRoutine } from '../../helpers/get-routine';
 import { IDLIndex } from '../../idl-index.class';
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**
  * If we encounter these tokens, remove the "/" for boolean keywords
@@ -154,7 +154,7 @@ export function BuildKeywordCompletionItems(
             ? arg.options.binaryAdd + display
             : display + ' = ',
         kind: CompletionItemKind.EnumMember,
-        sortText: SORT_PRIORITY.KEYWORDS,
+        sortText: COMPLETION_SORT_PRIORITY.KEYWORDS,
         detail: IDL_TRANSLATION.autoComplete.detail.keyword,
         documentation: kw.docs,
       });

@@ -6,7 +6,7 @@ import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**
  * Display names for internal system variables
@@ -25,7 +25,7 @@ export function BuildCompletionSystemVariableItems(
     arg.complete.push({
       label: AdjustCase(displayNames[i], arg.formatting.style.systemVariables),
       kind: CompletionItemKind.Constant,
-      sortText: SORT_PRIORITY.SYSTEM_VARIABLES,
+      sortText: COMPLETION_SORT_PRIORITY.SYSTEM_VARIABLES,
       detail: IDL_TRANSLATION.autoComplete.detail.systemVariable,
     });
   }
