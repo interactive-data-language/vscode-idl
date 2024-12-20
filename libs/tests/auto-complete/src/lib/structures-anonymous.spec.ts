@@ -590,6 +590,14 @@ describe(`[auto generated] Structures`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
+        label: 'IDL_Number::max()',
+        insertText: 'max()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
         label: 'IDL_Number::mean()',
         insertText: 'mean()',
         kind: 2,
@@ -600,14 +608,6 @@ describe(`[auto generated] Structures`, () => {
       {
         label: 'IDL_Number::median()',
         insertText: 'median()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'IDL_Number::max()',
-        insertText: 'max()',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',

@@ -202,7 +202,7 @@ describe(`[auto generated] Complex real world test`, () => {
               pos: [30, 26, 8],
             },
           },
-          docs: "\n```idl\n;+\n; :Returns: any\n;+\nresult = bridge_it(nbridges, $\n  INIT = value, $\n  MSG = value, $\n  LOGDIR = value, $\n  NREFRESH = value, $\n  PREFIX = value)\n```\n\nFunction which will initialize the bdige_it object and start all bridges. When bridges are initialized\nthey are done so in parallel, but whe function will not return until every bridge is idle again.\n\n\n#### Arguments\n\n- **nbridges**: in, required, Int\n\n  The number of bridges that you want to create\n\n\n\n#### Keywords\n\n- **INIT**: in, optional, strarr\n\n    Optional argument which allows you to pass in a string array of extra commands\n    to have each IDL_IDLBridge object execute upon creation.\n\n- **MSG**: in, optional, String\n\n    Optional argument to show the message prefix when a bridge process has completed for the TIME\n    keyword in bridge_it::run and bridge_it::run().\n\n- **LOGDIR**: in, optional, String\n\n    Specify the directory that the log file will be written to. The log file is just a text file with\n    all of the IDL Console output from each child process.\n\n- **NREFRESH**: in, optional, Long\n\n    Specify the number of bridge processes to execute before closing and re-starting the\n    child process. Necessary for some ENVI routines so that we don't have memory fragmentation\n    regarding opening lots of small rasters.\n\n- **PREFIX**: in, optional, String\n\n    This optional keyword specifies the prefix which is used to differentiate between arguments and\n    keywords when it comes time to parse the arguments and keyword that will be passed into a routine.\n\n\n\n### Author\n\nZachary Norman - GitHub: [znorman-harris](https://github.com/znorman-harris)",
+          docs: "\n```idl\n;+\n; :Returns: any\n;+\nresult = bridge_it(nbridges, $\n  INIT = value, $\n  LOGDIR = value, $\n  MSG = value, $\n  NREFRESH = value, $\n  PREFIX = value)\n```\n\nFunction which will initialize the bdige_it object and start all bridges. When bridges are initialized\nthey are done so in parallel, but whe function will not return until every bridge is idle again.\n\n\n#### Arguments\n\n- **nbridges**: in, required, Int\n\n  The number of bridges that you want to create\n\n\n\n#### Keywords\n\n- **INIT**: in, optional, strarr\n\n    Optional argument which allows you to pass in a string array of extra commands\n    to have each IDL_IDLBridge object execute upon creation.\n\n- **LOGDIR**: in, optional, String\n\n    Specify the directory that the log file will be written to. The log file is just a text file with\n    all of the IDL Console output from each child process.\n\n- **MSG**: in, optional, String\n\n    Optional argument to show the message prefix when a bridge process has completed for the TIME\n    keyword in bridge_it::run and bridge_it::run().\n\n- **NREFRESH**: in, optional, Long\n\n    Specify the number of bridge processes to execute before closing and re-starting the\n    child process. Necessary for some ENVI routines so that we don't have memory fragmentation\n    regarding opening lots of small rasters.\n\n- **PREFIX**: in, optional, String\n\n    This optional keyword specifies the prefix which is used to differentiate between arguments and\n    keywords when it comes time to parse the arguments and keyword that will be passed into a routine.\n\n\n\n### Author\n\nZachary Norman - GitHub: [znorman-harris](https://github.com/znorman-harris)",
           docsLookup: {
             default:
               'Function which will initialize the bdige_it object and start all bridges. When bridges are initialized\nthey are done so in parallel, but whe function will not return until every bridge is idle again.',
@@ -222,17 +222,6 @@ describe(`[auto generated] Complex real world test`, () => {
               code: true,
               pos: [30, 36, 4],
             },
-            msg: {
-              docs: 'Optional argument to show the message prefix when a bridge process has completed for the TIME\nkeyword in bridge_it::run and bridge_it::run().',
-              direction: 'in',
-              source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
-              private: false,
-              req: false,
-              display: 'MSG',
-              code: true,
-              pos: [30, 49, 3],
-            },
             logdir: {
               docs: 'Specify the directory that the log file will be written to. The log file is just a text file with\nall of the IDL Console output from each child process.',
               direction: 'in',
@@ -243,6 +232,17 @@ describe(`[auto generated] Complex real world test`, () => {
               display: 'LOGDIR',
               code: true,
               pos: [30, 60, 6],
+            },
+            msg: {
+              docs: 'Optional argument to show the message prefix when a bridge process has completed for the TIME\nkeyword in bridge_it::run and bridge_it::run().',
+              direction: 'in',
+              source: 'internal',
+              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              private: false,
+              req: false,
+              display: 'MSG',
+              code: true,
+              pos: [30, 49, 3],
             },
             nrefresh: {
               docs: "Specify the number of bridge processes to execute before closing and re-starting the\nchild process. Necessary for some ENVI routines so that we don't have memory fragmentation\nregarding opening lots of small rasters.",
@@ -294,7 +294,7 @@ describe(`[auto generated] Complex real world test`, () => {
               pos: [30, 26, 8],
             },
           },
-          docs: "\n```idl\n;+\n; :Returns: any\n;+\nresult = bridge_it(nbridges, $\n  INIT = value, $\n  MSG = value, $\n  LOGDIR = value, $\n  NREFRESH = value, $\n  PREFIX = value)\n```\n\nFunction which will initialize the bdige_it object and start all bridges. When bridges are initialized\nthey are done so in parallel, but whe function will not return until every bridge is idle again.\n\n\n#### Arguments\n\n- **nbridges**: in, required, Int\n\n  The number of bridges that you want to create\n\n\n\n#### Keywords\n\n- **INIT**: in, optional, strarr\n\n    Optional argument which allows you to pass in a string array of extra commands\n    to have each IDL_IDLBridge object execute upon creation.\n\n- **MSG**: in, optional, String\n\n    Optional argument to show the message prefix when a bridge process has completed for the TIME\n    keyword in bridge_it::run and bridge_it::run().\n\n- **LOGDIR**: in, optional, String\n\n    Specify the directory that the log file will be written to. The log file is just a text file with\n    all of the IDL Console output from each child process.\n\n- **NREFRESH**: in, optional, Long\n\n    Specify the number of bridge processes to execute before closing and re-starting the\n    child process. Necessary for some ENVI routines so that we don't have memory fragmentation\n    regarding opening lots of small rasters.\n\n- **PREFIX**: in, optional, String\n\n    This optional keyword specifies the prefix which is used to differentiate between arguments and\n    keywords when it comes time to parse the arguments and keyword that will be passed into a routine.\n\n\n\n### Author\n\nZachary Norman - GitHub: [znorman-harris](https://github.com/znorman-harris)",
+          docs: "\n```idl\n;+\n; :Returns: any\n;+\nresult = bridge_it(nbridges, $\n  INIT = value, $\n  LOGDIR = value, $\n  MSG = value, $\n  NREFRESH = value, $\n  PREFIX = value)\n```\n\nFunction which will initialize the bdige_it object and start all bridges. When bridges are initialized\nthey are done so in parallel, but whe function will not return until every bridge is idle again.\n\n\n#### Arguments\n\n- **nbridges**: in, required, Int\n\n  The number of bridges that you want to create\n\n\n\n#### Keywords\n\n- **INIT**: in, optional, strarr\n\n    Optional argument which allows you to pass in a string array of extra commands\n    to have each IDL_IDLBridge object execute upon creation.\n\n- **LOGDIR**: in, optional, String\n\n    Specify the directory that the log file will be written to. The log file is just a text file with\n    all of the IDL Console output from each child process.\n\n- **MSG**: in, optional, String\n\n    Optional argument to show the message prefix when a bridge process has completed for the TIME\n    keyword in bridge_it::run and bridge_it::run().\n\n- **NREFRESH**: in, optional, Long\n\n    Specify the number of bridge processes to execute before closing and re-starting the\n    child process. Necessary for some ENVI routines so that we don't have memory fragmentation\n    regarding opening lots of small rasters.\n\n- **PREFIX**: in, optional, String\n\n    This optional keyword specifies the prefix which is used to differentiate between arguments and\n    keywords when it comes time to parse the arguments and keyword that will be passed into a routine.\n\n\n\n### Author\n\nZachary Norman - GitHub: [znorman-harris](https://github.com/znorman-harris)",
           docsLookup: {
             default:
               'Function which will initialize the bdige_it object and start all bridges. When bridges are initialized\nthey are done so in parallel, but whe function will not return until every bridge is idle again.',
@@ -314,17 +314,6 @@ describe(`[auto generated] Complex real world test`, () => {
               code: true,
               pos: [30, 36, 4],
             },
-            msg: {
-              docs: 'Optional argument to show the message prefix when a bridge process has completed for the TIME\nkeyword in bridge_it::run and bridge_it::run().',
-              direction: 'in',
-              source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
-              private: false,
-              req: false,
-              display: 'MSG',
-              code: true,
-              pos: [30, 49, 3],
-            },
             logdir: {
               docs: 'Specify the directory that the log file will be written to. The log file is just a text file with\nall of the IDL Console output from each child process.',
               direction: 'in',
@@ -335,6 +324,17 @@ describe(`[auto generated] Complex real world test`, () => {
               display: 'LOGDIR',
               code: true,
               pos: [30, 60, 6],
+            },
+            msg: {
+              docs: 'Optional argument to show the message prefix when a bridge process has completed for the TIME\nkeyword in bridge_it::run and bridge_it::run().',
+              direction: 'in',
+              source: 'internal',
+              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              private: false,
+              req: false,
+              display: 'MSG',
+              code: true,
+              pos: [30, 49, 3],
             },
             nrefresh: {
               docs: "Specify the number of bridge processes to execute before closing and re-starting the\nchild process. Necessary for some ENVI routines so that we don't have memory fragmentation\nregarding opening lots of small rasters.",

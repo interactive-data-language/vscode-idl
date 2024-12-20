@@ -44,6 +44,14 @@ describe(`[auto generated] Keywords for call procedure`, () => {
         },
       },
       {
+        label: 'days_of_the_week = ',
+        insertText: 'days_of_the_week = ',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
         label: 'days_of_week = ',
         insertText: 'days_of_week = ',
         kind: 20,
@@ -80,18 +88,6 @@ describe(`[auto generated] Keywords for call procedure`, () => {
         },
       },
       {
-        label: 'newline = ',
-        insertText: '/newline',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Set this keyword to 0 to suppress the newline (\\\\n) character at the end of the output. The default is 1, which outputs a newline and advances the output to the next line. By calling PRINT multiple times with NEWLINE=0, all of the output will appear on a single line.',
-        },
-      },
-      {
         label: 'months = ',
         insertText: 'months = ',
         kind: 20,
@@ -101,6 +97,18 @@ describe(`[auto generated] Keywords for call procedure`, () => {
           kind: 'markdown',
           value:
             'Supplies a string array of 12 names to be used for the names of the months when processing explicitly formatted dates (CMOA, CMoA, and CmoA format codes) with the FORMAT keyword.',
+        },
+      },
+      {
+        label: 'newline = ',
+        insertText: '/newline',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to 0 to suppress the newline (\\\\n) character at the end of the output. The default is 1, which outputs a newline and advances the output to the next line. By calling PRINT multiple times with NEWLINE=0, all of the output will appear on a single line.',
         },
       },
       {
@@ -114,14 +122,6 @@ describe(`[auto generated] Keywords for call procedure`, () => {
           value:
             'Set this keyword to allow the writing of data files readable by C or FORTRAN programs on a given platform; it is otherwise unnecessary.The various systems supported by IDL differ widely in the representation used for non-finite floating point values (i.e., NaN and Infinity). Consider that the following are all possible representations for NaN on at least one IDL platform:\n\n```idl\n  NaN, NanQ, ? .0000, nan0x2, nan0x7, 1. # QNAN, -1. # IND0.\n```\n\nAnd the following are considered to be Infinity:\n\n```idl\nInf, Infinity, ++.0000, ----.0000, 1.#INF\n\n```\n\nOn input, IDL can recognize any of these, but on output, it uses the same standard representation on all platforms. This promotes cross-platform consistency. To cause IDL to use the system C library `sprintf()` function to format such values, yielding the native representation for that platform, set the STDIO\\_NON\\_FINITE keyword. ',
         },
-      },
-      {
-        label: 'days_of_the_week = ',
-        insertText: 'days_of_the_week = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
       },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },

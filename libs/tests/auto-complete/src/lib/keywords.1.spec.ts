@@ -510,6 +510,17 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
     // define expected token we extract
     const expectedFound_2: CompletionItem[] = [
       {
+        label: '_extra = ',
+        insertText: '_extra = ',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value: 'Support for additional keywords',
+        },
+      },
+      {
         label: 'axis_style = ',
         insertText: 'axis_style = ',
         kind: 20,
@@ -642,6 +653,14 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         },
       },
       {
+        label: 'test = ',
+        insertText: '/test',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
         label: 'widgets = ',
         insertText: 'widgets = ',
         kind: 20,
@@ -652,25 +671,6 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
           value:
             'By default, when running from the IDL Workbench, the graphics window will use the native widgets for your platform. Set this keyword to instead use IDL widgets for the graphics window. This keyword is ignored when running from the IDL command line, since IDL widgets are always used in that case.',
         },
-      },
-      {
-        label: '_extra = ',
-        insertText: '_extra = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value: 'Support for additional keywords',
-        },
-      },
-      {
-        label: 'test = ',
-        insertText: '/test',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
       },
       {
         label: 'a',
@@ -785,6 +785,17 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
 
     // define expected token we extract
     const expectedFound_3: CompletionItem[] = [
+      {
+        label: '_extra = ',
+        insertText: '_extra',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value: 'Support for additional keywords',
+        },
+      },
       {
         label: 'axis_style = ',
         insertText: 'axis_style',
@@ -918,6 +929,14 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         },
       },
       {
+        label: 'test = ',
+        insertText: 'test',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
         label: 'widgets = ',
         insertText: 'widgets',
         kind: 20,
@@ -928,25 +947,6 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
           value:
             'By default, when running from the IDL Workbench, the graphics window will use the native widgets for your platform. Set this keyword to instead use IDL widgets for the graphics window. This keyword is ignored when running from the IDL command line, since IDL widgets are always used in that case.',
         },
-      },
-      {
-        label: '_extra = ',
-        insertText: '_extra',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value: 'Support for additional keywords',
-        },
-      },
-      {
-        label: 'test = ',
-        insertText: 'test',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
       },
     ];
 
@@ -965,42 +965,6 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
 
     // define expected token we extract
     const expectedFound_4: CompletionItem[] = [
-      {
-        label: 'headless = ',
-        insertText: 'headless',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Set this property to 1 to start the application without creating the user interface. The WIDGET\\_ID property is 0 when running ENVI in headless mode.',
-        },
-      },
-      {
-        label: 'language = ',
-        insertText: 'language',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            "_Note:_ Windows only\n\nSet this property to a string specifying the name of the language to use for the user interface. This property affects components such as menus, buttons and messages. You can also specify the three-character [ISO 639-3 language code](https://iso639-3.sil.org/code%5Ftables/639/data) (for example, jpn for Japanese).\n\nThe following example shows how to set the interface language to Japanese:\n\n```idl\n  e = envi(language = 'jpn')\n```",
-        },
-      },
-      {
-        label: 'preferences = ',
-        insertText: 'preferences',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'This property retrieves the [ENVIPreferences](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPreferences/ENVIPreferences.htm%22%7D) class associated with the ENVI application. At application start-up, set the PREFERENCES keyword to the URI of a JSON file in which ENVI will load and save preferences.',
-        },
-      },
       {
         label: 'current = ',
         insertText: 'current',
@@ -1026,6 +990,30 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         },
       },
       {
+        label: 'headless = ',
+        insertText: 'headless',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this property to 1 to start the application without creating the user interface. The WIDGET\\_ID property is 0 when running ENVI in headless mode.',
+        },
+      },
+      {
+        label: 'language = ',
+        insertText: 'language',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "_Note:_ Windows only\n\nSet this property to a string specifying the name of the language to use for the user interface. This property affects components such as menus, buttons and messages. You can also specify the three-character [ISO 639-3 language code](https://iso639-3.sil.org/code%5Ftables/639/data) (for example, jpn for Japanese).\n\nThe following example shows how to set the interface language to Japanese:\n\n```idl\n  e = envi(language = 'jpn')\n```",
+        },
+      },
+      {
         label: 'layout = ',
         insertText: 'layout',
         kind: 20,
@@ -1040,6 +1028,18 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         sortText: '00',
         detail: 'Keyword',
         documentation: '',
+      },
+      {
+        label: 'preferences = ',
+        insertText: 'preferences',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'This property retrieves the [ENVIPreferences](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPreferences/ENVIPreferences.htm%22%7D) class associated with the ENVI application. At application start-up, set the PREFERENCES keyword to the URI of a JSON file in which ENVI will load and save preferences.',
+        },
       },
     ];
 
