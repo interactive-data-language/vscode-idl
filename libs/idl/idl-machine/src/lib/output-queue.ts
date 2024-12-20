@@ -25,6 +25,11 @@ export class OutputQueue {
   private opened = 0;
 
   /**
+   * Track open quotes
+   */
+  private quotes = 0;
+
+  /**
    * Callback for messages we receive
    */
   private onMessage: (msg: string) => void;
@@ -66,6 +71,7 @@ export class OutputQueue {
 
     // reset opened
     this.opened = 0;
+    this.quotes = 0;
 
     /** Did we find something to make us check more? */
     let foundOpenerOrCloser = false;
@@ -79,6 +85,32 @@ export class OutputQueue {
     while (keepChecking) {
       // check for messages
       for (let i = 0; i < this.captured.length; i++) {
+        /**
+         * Are we in a string or not?
+         */
+        if (i > 0) {
+          if (this.captured[i] === '"' && this.captured[i - 1] !== '\\') {
+            if (this.quotes === 0) {
+              this.quotes++;
+            } else {
+              this.quotes--;
+            }
+          }
+        } else {
+          if (this.captured[i] === '"') {
+            if (this.quotes === 0) {
+              this.quotes++;
+            } else {
+              this.quotes--;
+            }
+          }
+        }
+
+        // do nothing else if we are in a string
+        if (this.quotes > 0) {
+          continue;
+        }
+
         /**
          * Are we processing a character past the start?
          */
