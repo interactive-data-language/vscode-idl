@@ -120,7 +120,12 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
         }
 
         // populate docs
-        meta.args = ExtractParameterDocs(docs[keys[i]], argRef, useProblems);
+        meta.args = ExtractParameterDocs(
+          docs[keys[i]],
+          argRef,
+          useProblems,
+          false
+        );
         break;
       }
 
@@ -139,7 +144,12 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
         }
 
         // populate docs
-        meta.kws = ExtractParameterDocs(docs[keys[i]], kwRef, useProblems);
+        meta.kws = ExtractParameterDocs(
+          docs[keys[i]],
+          kwRef,
+          useProblems,
+          true
+        );
         break;
       }
 
@@ -168,6 +178,7 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
             docs[keys[i]],
             refProps,
             useProblems,
+            true,
             true
           );
 

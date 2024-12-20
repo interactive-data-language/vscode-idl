@@ -4,6 +4,7 @@ import {
   IParsed,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
+import { GetSortIndexForStrings } from '@idl/shared';
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -135,7 +136,12 @@ export function BuildKeywordCompletionItems(
   }
 
   // add all of our defined keywords
-  const kws = Object.keys(defined);
+  let kws: string[] = Object.keys(defined);
+
+  // sort
+  kws = GetSortIndexForStrings(kws).map((val) => kws[val]);
+
+  // process keywords
   for (let i = 0; i < kws.length; i++) {
     // make sure we havent used it already
     if (arg.options.used.indexOf(kws[i]) === -1) {

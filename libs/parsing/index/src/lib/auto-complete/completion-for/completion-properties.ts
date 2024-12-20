@@ -1,4 +1,5 @@
 import { TransformCase } from '@idl/assembling/shared';
+import { GetSortIndexForStrings } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IPropertyCompletionOptions } from '@idl/types/auto-complete';
 import {
@@ -127,8 +128,31 @@ export function BuildPropertyCompletionItems(arg: IPropertyCompletionArg) {
     arg.found = {};
   }
 
+  // save original complete
+  const complete = arg.complete;
+
+  // set for only properties since we recurse
+  arg.complete = [];
+
   // process each type
   for (let i = 0; i < arg.options.type.length; i++) {
     BuildPropertyCompletionItemsForType(arg, arg.options.type[i]);
   }
+
+  /**
+   * Sort based on the label
+   *
+   * Since this is recursive based on types and inheritance, we do it at this level
+   */
+  const idxSorted = GetSortIndexForStrings(
+    arg.complete.map((item) => item.label)
+  );
+
+  // merge while perserving original array reference
+  for (let i = 0; i < idxSorted.length; i++) {
+    complete.push(arg.complete[idxSorted[i]]);
+  }
+
+  // combine items
+  arg.complete = complete;
 }
