@@ -18,6 +18,14 @@ Document some advanced types so users may try them out and provide feedback. The
 
 IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks (not all types are supported).
 
+## Unreleased
+
+Re-work the way that we handle keywords and properties when we parse, provide hover help, and auto-complete to ensure that we are sorted alphabetically independent of case.
+
+This means that things like documentation will now be alphabetically sorted for properties and keywords which may cause some code changes.
+
+This helps normalize the internal documentation provided with IDL which is not always consistent and makes it easier to find what you are looking for in auto-complete and hover help.
+
 ## 4.7.1 - December 2024
 
 Fixed an issue with the IDL Webview that showed a blank tab when opened. This affect things like the profiler in the extension.
