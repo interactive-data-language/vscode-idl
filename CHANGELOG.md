@@ -24,7 +24,7 @@ Re-work the way that we handle keywords and properties when we parse, provide ho
 
 This means that things like documentation will now be alphabetically sorted for properties and keywords which may cause some code changes.
 
-This helps normalize the internal documentation provided with IDL which is not always consistent and makes it easier to find what you are looking for in auto-complete and hover help.
+This helps normalize the internal documentation provided with IDL which, when we add in type information, gets out of order sometimes. This makes it easier to find what you are looking for in auto-complete and hover help.
 
 ## 4.7.1 - December 2024
 
