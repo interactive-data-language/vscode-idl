@@ -114,7 +114,6 @@ export class IDLMachineWrapper {
     });
 
     this.machine.onNotification('promptChange', (prompt) => {
-      console.log('Prompt change', prompt);
       this.emit(IDL_EVENT_LOOKUP.PROMPT, prompt);
     });
 
