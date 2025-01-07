@@ -10,7 +10,10 @@ type UpdateDebugExecuteFlag = 0x1;
 type SilentExecuteFlag = 0x2;
 
 /** Execution flags to change how IDL executes */
-type ExecuteStringFlags = UpdateDebugExecuteFlag | SilentExecuteFlag;
+export type ExecuteStringFlags =
+  | UpdateDebugExecuteFlag
+  | SilentExecuteFlag
+  | (UpdateDebugExecuteFlag & SilentExecuteFlag);
 
 /** Number of items to return */
 export type ExecuteStringParams = {

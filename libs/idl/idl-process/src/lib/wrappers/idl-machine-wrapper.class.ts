@@ -1,4 +1,5 @@
 import {
+  ExecuteStringFlags,
   FromIDLMachineNotificationParams,
   IDLMachine,
   TOutNotification,
@@ -215,7 +216,17 @@ export class IDLMachineWrapper {
       this.parent.capturedOutput = '';
       this.parent.evaluating = true;
 
-      this.machine.sendNotification('exec', { string: command, flags: 0x1 });
+      /**
+       * Get flags with proper type
+       */
+      const flags: ExecuteStringFlags = this.parent.silent
+        ? ((0x1 | 0x2) as ExecuteStringFlags)
+        : 0x1;
+
+      this.machine.sendNotification('exec', {
+        string: command,
+        flags,
+      });
 
       // listen for our event returning back to the command prompt
       this.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output: string) => {
