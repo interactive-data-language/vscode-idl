@@ -196,7 +196,9 @@ export class IDLProcess extends EventEmitter {
     /**
      * If not the IDL machine, set the prompt because we need this with stdio
      */
-    if (!this.isMachine) {
+    if (this.isMachine) {
+      args.env.IDL_IS_IDL_MACHINE = 'true';
+    } else {
       args.env.IDL_PROMPT = 'IDL> ';
     }
 
