@@ -326,7 +326,7 @@ describe(`[auto generated] Complex real world test`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: "\n```idl\nawesomeRasterIntersection, $\n  /DEBUG, $\n  DATA_IGNORE_VALUE = value, $\n  /GENERATE_PIXEL_STATE_MASK, $\n  INPUT_RASTER1 = value, $\n  INPUT_RASTER2 = value, $\n  OUTPUT_GRID_DEFINITION = value, $\n  OUTPUT_RASTER1_URI = value, $\n  OUTPUT_RASTER2_URI = value, $\n  OUTPUT_MASK_RASTER_URI = value, $\n  RESAMPLING = value\n```\n\nTool for determining the intersection between two rasters based on their\nspatial reference and spatial extent. Both rasters will also contain only\nthe valid pixels from each scene for  analysis. In other words, if a pixel\nis `off` in the first image and not the second, it will be turned `off` in\neach of the output rasters for consistency. If one of the rasters does not\nhave a data ignore value, then a pixel state mask is automatically generated\nso that you can mask the output rasters if needed.\n\nThe pixel size of the output rasters will be the smallest x and y\npixel size from each raster.\n\n\n#### Keywords\n\n- **DEBUG**: in, optional, Boolean\n\n    If set, errors are stopped on.\n    Add a link to make sure it doesn't get picked up\n      https://en.wikipedia.org/wiki/Haversine_formula\n      http://en.wikipedia.org/wiki/Haversine_formula\n      ftp://en.wikipedia.org/wiki/Haversine_formula\n      s3://en.wikipedia.org/wiki/Haversine_formula\n      file://en.wikipedia.org/wiki/Haversine_formula\n\n- **DATA_IGNORE_VALUE**: in, optional, Number\n\n    If one or both of your input rasters do not have\n    a data ignore value metadata item, you can specify\n\n- **GENERATE_PIXEL_STATE_MASK**: in, optional, Boolean\n\n    If set, then an addititonal output raster is created\n    that represents which pixels can be processed or not.\n    \n    This will automatically be generated if one of the input\n    images does not have a data ignore value.\n\n- **INPUT_RASTER1**: in, required, ENVIRaster\n\n    Specify the first raster to use for intersection.\n\n- **INPUT_RASTER2**: in, required, ENVIRaster\n\n    Specify the second raster to use for intersection\n\n- **OUTPUT_GRID_DEFINITION**: out, optional, ENVIGridDefinition\n\n    Optionally return the ENVIGridDefinition object used to get the intersection\n    of the two scenes.\n\n- **OUTPUT_RASTER1_URI**: in, optional, String\n\n    Optionally specify the fully-qualified filepath\n    for the location of the first intersect raster.\n\n- **OUTPUT_RASTER2_URI**: in, optional, String\n\n    Optionally specify the fully-qualified filepath\n    for the location of the second intersect raster.\n\n- **OUTPUT_MASK_RASTER_URI**: in, optional, String\n\n    Optionally specify the fully-qualified filepath\n    for the location of the pixel state mask. Only applies\n    when `GENERATE_PIXEL_STATE_MASK` is set or one of the\n    input rasters does not have a data ignore value.\n\n- **RESAMPLING**: in, optional, String\n\n    Optionally return the ENVIGridDefinition object used to get the intersection\n    of the two scenes. Specify one of the following options:\n    - Nearest Neighbor\n    - Bilinear\n    - Cubic Convolution\n\n\n\n### Examples\n\n```idl\n;start ENVI\ne = envi(/HEADLESS)\n\n;make sure we have access to our ENVI tasks\nawesomeENVIAlgorithms, /INIT\n\n;specify two rasters to process\nraster1 = e.openRaster(file1)\nraster2 = e.openRaster(file2)\n\n;get our task\ntask = ENVITask('AwesomeRasterIntersection')\ntask.INPUT_RASTER1 = raster1\ntask.INPUT_RASTER2 = raster2\ntask.execute\n\n;print our output locations\nprint, task.OUTPUT_RASTER1_URI\nprint, task.OUTPUT_RASTER2_URI\n```\n\n### Author\n\nZachary Norman - GitHub: [znorman-harris](https://github.com/znorman-harris)",
+          docs: "\n```idl\nawesomeRasterIntersection, $\n  DATA_IGNORE_VALUE = value, $\n  /DEBUG, $\n  /GENERATE_PIXEL_STATE_MASK, $\n  INPUT_RASTER1 = value, $\n  INPUT_RASTER2 = value, $\n  OUTPUT_GRID_DEFINITION = value, $\n  OUTPUT_MASK_RASTER_URI = value, $\n  OUTPUT_RASTER1_URI = value, $\n  OUTPUT_RASTER2_URI = value, $\n  RESAMPLING = value\n```\n\nTool for determining the intersection between two rasters based on their\nspatial reference and spatial extent. Both rasters will also contain only\nthe valid pixels from each scene for  analysis. In other words, if a pixel\nis `off` in the first image and not the second, it will be turned `off` in\neach of the output rasters for consistency. If one of the rasters does not\nhave a data ignore value, then a pixel state mask is automatically generated\nso that you can mask the output rasters if needed.\n\nThe pixel size of the output rasters will be the smallest x and y\npixel size from each raster.\n\n\n#### Keywords\n\n- **DATA_IGNORE_VALUE**: in, optional, Number\n\n    If one or both of your input rasters do not have\n    a data ignore value metadata item, you can specify\n\n- **DEBUG**: in, optional, Boolean\n\n    If set, errors are stopped on.\n    Add a link to make sure it doesn't get picked up\n      https://en.wikipedia.org/wiki/Haversine_formula\n      http://en.wikipedia.org/wiki/Haversine_formula\n      ftp://en.wikipedia.org/wiki/Haversine_formula\n      s3://en.wikipedia.org/wiki/Haversine_formula\n      file://en.wikipedia.org/wiki/Haversine_formula\n\n- **GENERATE_PIXEL_STATE_MASK**: in, optional, Boolean\n\n    If set, then an addititonal output raster is created\n    that represents which pixels can be processed or not.\n    \n    This will automatically be generated if one of the input\n    images does not have a data ignore value.\n\n- **INPUT_RASTER1**: in, required, ENVIRaster\n\n    Specify the first raster to use for intersection.\n\n- **INPUT_RASTER2**: in, required, ENVIRaster\n\n    Specify the second raster to use for intersection\n\n- **OUTPUT_GRID_DEFINITION**: out, optional, ENVIGridDefinition\n\n    Optionally return the ENVIGridDefinition object used to get the intersection\n    of the two scenes.\n\n- **OUTPUT_MASK_RASTER_URI**: in, optional, String\n\n    Optionally specify the fully-qualified filepath\n    for the location of the pixel state mask. Only applies\n    when `GENERATE_PIXEL_STATE_MASK` is set or one of the\n    input rasters does not have a data ignore value.\n\n- **OUTPUT_RASTER1_URI**: in, optional, String\n\n    Optionally specify the fully-qualified filepath\n    for the location of the first intersect raster.\n\n- **OUTPUT_RASTER2_URI**: in, optional, String\n\n    Optionally specify the fully-qualified filepath\n    for the location of the second intersect raster.\n\n- **RESAMPLING**: in, optional, String\n\n    Optionally return the ENVIGridDefinition object used to get the intersection\n    of the two scenes. Specify one of the following options:\n    - Nearest Neighbor\n    - Bilinear\n    - Cubic Convolution\n\n\n\n### Examples\n\n```idl\n;start ENVI\ne = envi(/HEADLESS)\n\n;make sure we have access to our ENVI tasks\nawesomeENVIAlgorithms, /INIT\n\n;specify two rasters to process\nraster1 = e.openRaster(file1)\nraster2 = e.openRaster(file2)\n\n;get our task\ntask = ENVITask('AwesomeRasterIntersection')\ntask.INPUT_RASTER1 = raster1\ntask.INPUT_RASTER2 = raster2\ntask.execute\n\n;print our output locations\nprint, task.OUTPUT_RASTER1_URI\nprint, task.OUTPUT_RASTER2_URI\n```\n\n### Author\n\nZachary Norman - GitHub: [znorman-harris](https://github.com/znorman-harris)",
           docsLookup: {
             default:
               'Tool for determining the intersection between two rasters based on their\nspatial reference and spatial extent. Both rasters will also contain only\nthe valid pixels from each scene for  analysis. In other words, if a pixel\nis `off` in the first image and not the second, it will be turned `off` in\neach of the output rasters for consistency. If one of the rasters does not\nhave a data ignore value, then a pixel state mask is automatically generated\nso that you can mask the output rasters if needed.\n\nThe pixel size of the output rasters will be the smallest x and y\npixel size from each raster.',
@@ -339,6 +339,17 @@ describe(`[auto generated] Complex real world test`, () => {
           },
           display: 'awesomeRasterIntersection',
           kws: {
+            data_ignore_value: {
+              docs: 'If one or both of your input rasters do not have\na data ignore value metadata item, you can specify',
+              direction: 'in',
+              source: 'internal',
+              type: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+              private: false,
+              req: false,
+              display: 'DATA_IGNORE_VALUE',
+              code: true,
+              pos: [97, 2, 17],
+            },
             debug: {
               docs: "If set, errors are stopped on.\nAdd a link to make sure it doesn't get picked up\n  https://en.wikipedia.org/wiki/Haversine_formula\n  http://en.wikipedia.org/wiki/Haversine_formula\n  ftp://en.wikipedia.org/wiki/Haversine_formula\n  s3://en.wikipedia.org/wiki/Haversine_formula\n  file://en.wikipedia.org/wiki/Haversine_formula",
               direction: 'in',
@@ -351,17 +362,6 @@ describe(`[auto generated] Complex real world test`, () => {
               display: 'DEBUG',
               code: true,
               pos: [96, 2, 5],
-            },
-            data_ignore_value: {
-              docs: 'If one or both of your input rasters do not have\na data ignore value metadata item, you can specify',
-              direction: 'in',
-              source: 'internal',
-              type: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
-              private: false,
-              req: false,
-              display: 'DATA_IGNORE_VALUE',
-              code: true,
-              pos: [97, 2, 17],
             },
             generate_pixel_state_mask: {
               docs: 'If set, then an addititonal output raster is created\nthat represents which pixels can be processed or not.\n\nThis will automatically be generated if one of the input\nimages does not have a data ignore value.',
@@ -430,6 +430,17 @@ describe(`[auto generated] Complex real world test`, () => {
               code: true,
               pos: [102, 2, 22],
             },
+            output_mask_raster_uri: {
+              docs: 'Optionally specify the fully-qualified filepath\nfor the location of the pixel state mask. Only applies\nwhen `GENERATE_PIXEL_STATE_MASK` is set or one of the\ninput rasters does not have a data ignore value.',
+              direction: 'in',
+              source: 'internal',
+              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              private: false,
+              req: false,
+              display: 'OUTPUT_MASK_RASTER_URI',
+              code: true,
+              pos: [101, 2, 22],
+            },
             output_raster1_uri: {
               docs: 'Optionally specify the fully-qualified filepath\nfor the location of the first intersect raster.',
               direction: 'in',
@@ -451,17 +462,6 @@ describe(`[auto generated] Complex real world test`, () => {
               display: 'OUTPUT_RASTER2_URI',
               code: true,
               pos: [104, 2, 18],
-            },
-            output_mask_raster_uri: {
-              docs: 'Optionally specify the fully-qualified filepath\nfor the location of the pixel state mask. Only applies\nwhen `GENERATE_PIXEL_STATE_MASK` is set or one of the\ninput rasters does not have a data ignore value.',
-              direction: 'in',
-              source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
-              private: false,
-              req: false,
-              display: 'OUTPUT_MASK_RASTER_URI',
-              code: true,
-              pos: [101, 2, 22],
             },
             resampling: {
               docs: 'Optionally return the ENVIGridDefinition object used to get the intersection\nof the two scenes. Specify one of the following options:\n- Nearest Neighbor\n- Bilinear\n- Cubic Convolution',

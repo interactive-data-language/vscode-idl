@@ -75,6 +75,18 @@ describe(`[auto generated] Task auto complete`, () => {
         },
       },
       {
+        label: 'error = ',
+        insertText: 'error = ',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "Set this keyword to a named variable that will contain any error message issued during execution of this routine. If no error occurs, the ERROR variable will be set to a null string (`''`). If an error occurs and the routine is a function, then the function result will be undefined.\n\nWhen this keyword is not set and an error occurs, ENVI returns to the caller and execution halts. In this case, the error message is contained within !ERROR\\_STATE and can be caught using IDL's CATCH routine. See IDL Help for more information on !ERROR\\_STATE and CATCH.\n\nSee [Manage Errors](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ProgrammingGuide/ErrorHandling.htm%22%7D) for more information on error handling in ENVI programming.",
+        },
+      },
+      {
         label: 'name = ',
         insertText: 'name = ',
         kind: 20,
@@ -116,18 +128,6 @@ describe(`[auto generated] Task auto complete`, () => {
           kind: 'markdown',
           value:
             'A scalar string or an array of strings that help categorize the task. It can be empty with a value of !NULL.',
-        },
-      },
-      {
-        label: 'error = ',
-        insertText: 'error = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            "Set this keyword to a named variable that will contain any error message issued during execution of this routine. If no error occurs, the ERROR variable will be set to a null string (`''`). If an error occurs and the routine is a function, then the function result will be undefined.\n\nWhen this keyword is not set and an error occurs, ENVI returns to the caller and execution halts. In this case, the error message is contained within !ERROR\\_STATE and can be caught using IDL's CATCH routine. See IDL Help for more information on !ERROR\\_STATE and CATCH.\n\nSee [Manage Errors](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ProgrammingGuide/ErrorHandling.htm%22%7D) for more information on error handling in ENVI programming.",
         },
       },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },

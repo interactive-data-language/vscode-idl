@@ -6,6 +6,7 @@ export * from './lib/envi-opener.interface';
 export * from './lib/get-canonical-path';
 export * from './lib/get-extension-path';
 export * from './lib/get-fs-path';
+export * from './lib/get-sort-idx';
 export * from './lib/idl-commands.interface';
 export * from './lib/idl-file-helper.class';
 export * from './lib/idl-file-helper.interface';

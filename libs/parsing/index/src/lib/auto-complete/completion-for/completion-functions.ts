@@ -11,7 +11,7 @@ import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/core';
 import { Command, CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**
  * Display names for functions
@@ -60,7 +60,7 @@ export function BuildFunctionCompletionItems(
         label: display,
         insertText: display,
         kind: CompletionItemKind.Function,
-        sortText: SORT_PRIORITY.ROUTINES,
+        sortText: COMPLETION_SORT_PRIORITY.ROUTINES,
         detail: IDL_TRANSLATION.autoComplete.detail.function,
       });
     } else {
@@ -72,7 +72,7 @@ export function BuildFunctionCompletionItems(
         label: `${display}()`,
         insertText: `${display}${add}`,
         kind: CompletionItemKind.Function,
-        sortText: SORT_PRIORITY.ROUTINES,
+        sortText: COMPLETION_SORT_PRIORITY.ROUTINES,
         detail: IDL_TRANSLATION.autoComplete.detail.function,
         command,
       });

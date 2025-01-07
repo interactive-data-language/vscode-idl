@@ -1,6 +1,6 @@
 import { GlobalDisplayNameLookup, IGlobalFromIDL } from '@idl/parsing/routines';
 import { DocsToMarkdown, MARKDOWN_TYPE_LOOKUP } from '@idl/parsing/syntax-tree';
-import { ResolveProductDocsURL } from '@idl/shared';
+import { ResolveProductDocsURL, SortObject } from '@idl/shared';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
@@ -111,7 +111,8 @@ function MergeHelper(
 function MergeEntries(
   params: IParameterDocs,
   override: { [key: string]: Partial<IParameterOrPropertyDetails> },
-  jsonOverride: { [key: string]: IParameterOverride }
+  jsonOverride: { [key: string]: IParameterOverride },
+  sort = false
 ) {
   // check if we have thread pool keywords
   if ('thread pool keywords' in params) {
@@ -188,7 +189,7 @@ function MergeEntries(
     }
   }
 
-  return ready;
+  return sort ? SortObject(ready) : ready;
 }
 
 /**
@@ -424,7 +425,8 @@ export async function RoutineToGlobal(
               kws: MergeEntries(
                 routine.keywords,
                 FUNCTION_OVERRIDE[useName]?.kws || {},
-                FUNCTION_TYPE_OVERRIDES[useName]?.kws || {}
+                FUNCTION_TYPE_OVERRIDES[useName]?.kws || {},
+                true
               ),
               docsLookup: routine.docs,
               struct: [],
@@ -540,7 +542,8 @@ export async function RoutineToGlobal(
               kws: MergeEntries(
                 routine.keywords,
                 FUNCTION_METHOD_OVERRIDE[useName]?.kws || {},
-                FUNCTION_METHOD_TYPE_OVERRIDES[useName]?.kws || {}
+                FUNCTION_METHOD_TYPE_OVERRIDES[useName]?.kws || {},
+                true
               ),
               docsLookup: routine.docs,
               struct: [],
@@ -621,7 +624,8 @@ export async function RoutineToGlobal(
             kws: MergeEntries(
               routine.keywords,
               PROCEDURE_OVERRIDE[useName]?.kws || {},
-              PROCEDURE_TYPE_OVERRIDES[useName]?.kws || {}
+              PROCEDURE_TYPE_OVERRIDES[useName]?.kws || {},
+              true
             ),
             docsLookup: routine.docs,
             struct: [],
@@ -726,7 +730,8 @@ export async function RoutineToGlobal(
             kws: MergeEntries(
               routine.keywords,
               PROCEDURE_METHOD_OVERRIDE[useName]?.kws || {},
-              PROCEDURE_METHOD_TYPE_OVERRIDES[useName]?.kws || {}
+              PROCEDURE_METHOD_TYPE_OVERRIDES[useName]?.kws || {},
+              true
             ),
             docsLookup: routine.docs,
             struct: [],
@@ -824,7 +829,8 @@ export async function RoutineToGlobal(
           props: MergeEntries(
             routine.properties || {},
             STRUCTURE_OVERRIDE[useName]?.properties || {},
-            IDL_STRUCTURE_TYPE_OVERRIDES[useName]?.properties || {}
+            IDL_STRUCTURE_TYPE_OVERRIDES[useName]?.properties || {},
+            true
           ),
         },
       };
@@ -869,7 +875,8 @@ export function RoutineToGlobalAddMissingStructures(global: GlobalTokens) {
         props: MergeEntries(
           {},
           STRUCTURE_OVERRIDE[keys[i]]?.properties || {},
-          IDL_STRUCTURE_TYPE_OVERRIDES[keys[i]]?.properties || {}
+          IDL_STRUCTURE_TYPE_OVERRIDES[keys[i]]?.properties || {},
+          true
         ),
       },
     };

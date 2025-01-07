@@ -341,6 +341,18 @@ describe(`[auto generated] Task auto complete`, () => {
     // define expected token we extract
     const expectedFound_2: CompletionItem[] = [
       {
+        label: 'aborted',
+        insertText: 'aborted',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of ENVITask',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A boolean that returns `true` if the task was aborted. Not all tasks support aborting; in these cases the property always returns `false`.',
+        },
+      },
+      {
         label: 'color_matching_actions',
         insertText: 'color_matching_actions',
         kind: 5,
@@ -377,6 +389,30 @@ describe(`[auto generated] Task auto complete`, () => {
         },
       },
       {
+        label: 'commute_on_downsample',
+        insertText: 'commute_on_downsample',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of ENVITask',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A string that defines whether the result of running the ENVITask first, then down-sampling the output raster, matches the result of down-sampling the input raster(s) first before running the ENVITask.\n\nAn ENVITask developer can use the scripts provided in More Examples below to determine the COMMUTE\\_ON\\_DOWNSAMPLE property value when creating an ENVITask.\n\nValid values are:\n\n`Yes:` Downsample the input raster(s) first, and then run the task. The resulting output raster matches the result if the task is run first, then downsample the output raster.\n\n`Approximate:` The two results look close to each other, but do not exactly match.\n\n`No:` The two results are significantly different.\n\n`Unknown:` The property value is unknown.',
+        },
+      },
+      {
+        label: 'commute_on_subset',
+        insertText: 'commute_on_subset',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of ENVITask',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A string that defines whether the result of running the ENVITask first, then subsetting the output raster, matches the result of subsetting the input raster(s) first before running the ENVITask.\n\nAn ENVITask developer can use the scripts provided in More Examples below to determine the COMMUTE\\_ON\\_SUBSET property value when creating an ENVITask.\n\nValid values are:\n\n* `Yes:` Subset the input raster(s) first, and then run the task. The resulting output raster matches the result if the task is run first, then subset the output raster.\n* `Approximate:` The two results look close to each other, but do not exactly match.\n* `No:` The two results are significantly different.\n* `Unknown:` The property value is unknown.',
+        },
+      },
+      {
         label: 'data_ignore_value',
         insertText: 'data_ignore_value',
         kind: 5,
@@ -386,6 +422,25 @@ describe(`[auto generated] Task auto complete`, () => {
           kind: 'markdown',
           value:
             "Set this property to a pixel value that will be used to fill areas where no valid data appear in the output raster. The following rules apply:\n\n* The value must be within the range of the input scenes' data type (e.g., floating-point, byte, integer, etc.)\n* For scenes that are in [ENVI raster format](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExploreImagery/ENVIImageFiles.htm%22%7D): if all scenes have the same data ignore value defined in their associated headers, that value will be the default output data ignore value.\n* For mosaics exported to ENVI raster format, the data ignore value is written to the `data ignore value` field in the associated header file. If you do not set a data ignore value, this field will not be added to the header file.\n* When the input scenes have a floating-point or double-precision floating-point data type, be sure to specify a double-precision value (for example, 100D).\n\nYou can set the data ignore value to an NaN (not a number) value as follows:\n\n```idl\n  Task.data_ignore_value = !values.f_nan\n```",
+        },
+      },
+      {
+        label: 'description',
+        insertText: 'description',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of ENVITask',
+        documentation: { kind: 'markdown', value: 'Text describing the task.' },
+      },
+      {
+        label: 'display_name',
+        insertText: 'display_name',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of ENVITask',
+        documentation: {
+          kind: 'markdown',
+          value: 'The name of the task as it appears in the user interface.',
         },
       },
       {
@@ -424,6 +479,14 @@ describe(`[auto generated] Task auto complete`, () => {
         },
       },
       {
+        label: 'name',
+        insertText: 'name',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of ENVITask',
+        documentation: { kind: 'markdown', value: 'The name of the task.' },
+      },
+      {
         label: 'output_raster',
         insertText: 'output_raster',
         kind: 5,
@@ -460,81 +523,6 @@ describe(`[auto generated] Task auto complete`, () => {
         },
       },
       {
-        label: 'seamline_method',
-        insertText: 'seamline_method',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVIBuildMosaicRasterTask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Set this property to a string that indicates the method used to automatically generate seamlines:\n\n* `Geometry`: Seamline generation that is based on the use of seamline networks by area Voroni diagrams with overlap (Pan et al., 2009). See [Add Seamlines](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/PreprocessImagery/CreateMosaics/MosaicSeamless.htm#Add%22%7D) for more information.\n* `None`: (default) No seamline generation.\n\nIf SEAMLINE\\_METHOD is set to `Geometry`, then FEATHERING\\_METHOD must be set to `Seamline`.\n\n**Reference**: Pan, J., M. Wang, D. Li, and J. Li. "Automatic Generation of Seamline Network Using the Area Voronoi Diagram with Overlap." _IEEE Transactions on Geoscience and Remote Sensing_ 47, No. 6 (2009): 1737-174.',
-        },
-      },
-      {
-        label: 'aborted',
-        insertText: 'aborted',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVITask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A boolean that returns `true` if the task was aborted. Not all tasks support aborting; in these cases the property always returns `false`.',
-        },
-      },
-      {
-        label: 'commute_on_downsample',
-        insertText: 'commute_on_downsample',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVITask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A string that defines whether the result of running the ENVITask first, then down-sampling the output raster, matches the result of down-sampling the input raster(s) first before running the ENVITask.\n\nAn ENVITask developer can use the scripts provided in More Examples below to determine the COMMUTE\\_ON\\_DOWNSAMPLE property value when creating an ENVITask.\n\nValid values are:\n\n`Yes:` Downsample the input raster(s) first, and then run the task. The resulting output raster matches the result if the task is run first, then downsample the output raster.\n\n`Approximate:` The two results look close to each other, but do not exactly match.\n\n`No:` The two results are significantly different.\n\n`Unknown:` The property value is unknown.',
-        },
-      },
-      {
-        label: 'commute_on_subset',
-        insertText: 'commute_on_subset',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVITask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A string that defines whether the result of running the ENVITask first, then subsetting the output raster, matches the result of subsetting the input raster(s) first before running the ENVITask.\n\nAn ENVITask developer can use the scripts provided in More Examples below to determine the COMMUTE\\_ON\\_SUBSET property value when creating an ENVITask.\n\nValid values are:\n\n* `Yes:` Subset the input raster(s) first, and then run the task. The resulting output raster matches the result if the task is run first, then subset the output raster.\n* `Approximate:` The two results look close to each other, but do not exactly match.\n* `No:` The two results are significantly different.\n* `Unknown:` The property value is unknown.',
-        },
-      },
-      {
-        label: 'description',
-        insertText: 'description',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVITask',
-        documentation: { kind: 'markdown', value: 'Text describing the task.' },
-      },
-      {
-        label: 'display_name',
-        insertText: 'display_name',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVITask',
-        documentation: {
-          kind: 'markdown',
-          value: 'The name of the task as it appears in the user interface.',
-        },
-      },
-      {
-        label: 'name',
-        insertText: 'name',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVITask',
-        documentation: { kind: 'markdown', value: 'The name of the task.' },
-      },
-      {
         label: 'revision',
         insertText: 'revision',
         kind: 5,
@@ -544,6 +532,18 @@ describe(`[auto generated] Task auto complete`, () => {
           kind: 'markdown',
           value:
             'A string with the semantic revision number of the task. As the task definition evolves over time, the changes will affect how the revision number is incremented, according to [semantic versioning](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVI%20Routine/ENVI.htm#API%255FVERS%22%7D) rules.',
+        },
+      },
+      {
+        label: 'seamline_method',
+        insertText: 'seamline_method',
+        kind: 5,
+        sortText: '02',
+        detail: 'Property of ENVIBuildMosaicRasterTask',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this property to a string that indicates the method used to automatically generate seamlines:\n\n* `Geometry`: Seamline generation that is based on the use of seamline networks by area Voroni diagrams with overlap (Pan et al., 2009). See [Add Seamlines](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/PreprocessImagery/CreateMosaics/MosaicSeamless.htm#Add%22%7D) for more information.\n* `None`: (default) No seamline generation.\n\nIf SEAMLINE\\_METHOD is set to `Geometry`, then FEATHERING\\_METHOD must be set to `Seamline`.\n\n**Reference**: Pan, J., M. Wang, D. Li, and J. Li. "Automatic Generation of Seamline Network Using the Area Voronoi Diagram with Overlap." _IEEE Transactions on Geoscience and Remote Sensing_ 47, No. 6 (2009): 1737-174.',
         },
       },
       {

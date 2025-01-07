@@ -1,4 +1,4 @@
-import { FindIDL } from '@idl/idl';
+import { FindIDL } from '@idl/idl/idl-process';
 import { GetExtensionPath, IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IIDLWorkspaceConfig } from '@idl/vscode/config';
 import {
@@ -51,7 +51,10 @@ async function ResetConfigToDefault(config: IIDLWorkspaceConfig, key: string) {
 /**
  * Reset extension config for running tests to make sure it is always fresh and consistent
  */
-export async function ResetSettingsForTests(config: IIDLWorkspaceConfig) {
+export async function ResetSettingsForTests(
+  config: IIDLWorkspaceConfig,
+  idlDir?: string
+) {
   // reset our safe copy
   SAFE_COPY = copy(DEFAULT_IDL_EXTENSION_CONFIG);
 
@@ -98,7 +101,7 @@ export async function ResetSettingsForTests(config: IIDLWorkspaceConfig) {
   /**
    * Manually specify IDL folder
    */
-  const idlDir = FindIDL();
+  idlDir = idlDir !== undefined ? idlDir : FindIDL();
 
   // validate we know where it is
   if (!idlDir) {

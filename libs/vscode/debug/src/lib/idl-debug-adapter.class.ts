@@ -1,8 +1,7 @@
+import { CleanIDLOutput, IDLInteractionManager } from '@idl/idl/idl-process';
 import {
-  CleanIDLOutput,
   IDL_EVENT_LOOKUP,
   IDLCallStackItem,
-  IDLInteractionManager,
   REGEX_COMPILE_COMMAND,
   REGEX_COMPILE_EDIT_COMMAND,
   REGEX_COMPILED_MAIN,
@@ -12,7 +11,7 @@ import {
   REGEX_IDL_RESTART,
   REGEX_IDL_RETALL,
   StopReason,
-} from '@idl/idl';
+} from '@idl/idl/shared';
 import { IDL_DEBUG_ADAPTER_LOG, IDL_DEBUG_LOG } from '@idl/logger';
 import { Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -119,7 +118,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // create our runtime session - does not immediately start IDL
     this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_LOG),
-      VSCODE_PRO_DIR
+      VSCODE_PRO_DIR,
+      `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`
     );
 
     // create breakpoint manager
@@ -216,11 +216,15 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // listen for when our prompt chang es
     this._runtime.on(IDL_EVENT_LOOKUP.PROMPT, (prompt) => {
-      // change prompt for status bar
-      if (this._runtime.getIDLInfo().envi) {
-        IDL_STATUS_BAR.setPrompt('ENVI');
+      if (this._runtime.isIDLMachine()) {
+        IDL_STATUS_BAR.setPrompt(prompt);
       } else {
-        IDL_STATUS_BAR.setPrompt('IDL');
+        // change prompt for status bar
+        if (this._runtime.getIDLInfo().envi) {
+          IDL_STATUS_BAR.setPrompt('ENVI');
+        } else {
+          IDL_STATUS_BAR.setPrompt('IDL');
+        }
       }
     });
 
@@ -722,7 +726,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       // create new instance of runtime
       this._runtime = new IDLInteractionManager(
         IDL_LOGGER.getLog(IDL_DEBUG_LOG),
-        VSCODE_PRO_DIR
+        VSCODE_PRO_DIR,
+        `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`
       );
 
       // listen to events
@@ -807,12 +812,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     args: IDLDebugConfiguration
   ) {
     try {
-      this.sendEvent(
-        new OutputEvent(
-          `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`,
-          'stderr'
-        )
-      );
       this.sendEvent(
         new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.start}\n`)
       );
@@ -1292,7 +1291,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       });
 
       // only pause if we are not on windows
-      if (platform() !== 'win32') {
+      if (platform() !== 'win32' || this._runtime.isIDLMachine()) {
         this._runtime.pause();
       } else {
         vscode.window.showWarningMessage(

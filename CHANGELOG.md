@@ -18,6 +18,18 @@ Document some advanced types so users may try them out and provide feedback. The
 
 IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks (not all types are supported).
 
+IDL for VSCode now includes beta support for IDL 9.2 (unreleased) which will include a brand new debugger. The new debugger is more responsive, not prone to errors like the old implementation, and will enable better integration between IDL and VSCode in the future.
+
+With this change, our old debugger will still be present to maintain backwards compatibility with older versions of IDL. It will still function with debug sessions and IDL Notebooks. The new debugger will automatically be used when it is detected in your installation.
+
+## Unreleased
+
+Re-work the way that we handle keywords and properties when we parse, provide hover help, and auto-complete to ensure that we are sorted alphabetically independent of case.
+
+This means that things like documentation will now be alphabetically sorted for properties and keywords which may cause some code changes.
+
+This helps normalize the internal documentation provided with IDL which, when we add in type information, gets out of order sometimes. This makes it easier to find what you are looking for in auto-complete and hover help.
+
 ## 4.7.1 - December 2024
 
 Fixed an issue with the IDL Webview that showed a blank tab when opened. This affect things like the profiler in the extension.

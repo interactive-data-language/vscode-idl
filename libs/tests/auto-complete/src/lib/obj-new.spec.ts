@@ -226,6 +226,30 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
     // define expected token we extract
     const expectedFound_0: CompletionItem[] = [
       {
+        label: 'auxiliary_spatialref = ',
+        insertText: 'auxiliary_spatialref = ',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
+        label: 'auxiliary_uri = ',
+        insertText: 'auxiliary_uri = ',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
+        label: 'coord_sys = ',
+        insertText: 'coord_sys = ',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
         label: 'data_ignore_value = ',
         insertText: 'data_ignore_value = ',
         kind: 20,
@@ -235,6 +259,18 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
           kind: 'markdown',
           value:
             'Set this keyword to a pixel value that will be ignored when the raster is displayed. This overrides any data ignore values set in the metadata.',
+        },
+      },
+      {
+        label: 'data_type = ',
+        insertText: 'data_type = ',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'An integer or string specifying the raster data type (strings are not case-sensitive). When retrieving the property, a string is returned.\n\n| String | Value | Data Type                                 |\n| ------ | ----- | ----------------------------------------- |\n| byte   | 1     | Byte (8 bits)                             |\n| double | 5     | Double-precision floating point (64 bits) |\n| float  | 4     | Floating point (32 bits)                  |\n| int    | 2     | Integer (16 bits)                         |\n| long   | 3     | Long integer (32 bits)                    |\n| uint   | 12    | Unsigned integer (16 bits)                |\n| ulong  | 13    | Unsigned long integer (32 bits)           |\n\nYou cannot create or modify an ENVIRaster that contains complex data.',
         },
       },
       {
@@ -259,18 +295,6 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
           kind: 'markdown',
           value:
             "Set this keyword to an ENVIRaster from which all metadata and the following properties will be copied: DATA\\_TYPE, INTERLEAVE, NBANDS, NCOLUMNS, and NROWS. \n\nData acquisition time (from the ENVIRaster TIME property) will not be copied.\n\nSince new rasters are often created as the output of processing an input raster, they typically have the same spatial and spectral dimensions, interleave, and data type as the input raster. The INHERITS\\_FROM keyword provides convenience in inheriting these properties. \n\nIf you do not specify the INHERITS\\_FROM keyword, you must either provide the _Data_ argument and INTERLEAVE is assumed to be 'bsq' if not set, or specify the NBANDS, NCOLUMNS, NROWS, and DATA\\_TYPE properties.\n\nThe NBANDS, NCOLUMNS, NROWS, and DATA\\_TYPE properties have precedence over the values in the INHERITS\\_FROM raster.\n\nSee [ENVIRasterMetadata](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRasterMetadata/ENVIRasterMetaData.htm%22%7D) for details on creating and modifying metadata.\n\n_Note:_ If both the SPATIALREF and INHERITS\\_FROM keywords are specified, the spatial reference information from SPATIALREF takes precedence.",
-        },
-      },
-      {
-        label: 'data_type = ',
-        insertText: 'data_type = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'An integer or string specifying the raster data type (strings are not case-sensitive). When retrieving the property, a string is returned.\n\n| String | Value | Data Type                                 |\n| ------ | ----- | ----------------------------------------- |\n| byte   | 1     | Byte (8 bits)                             |\n| double | 5     | Double-precision floating point (64 bits) |\n| float  | 4     | Floating point (32 bits)                  |\n| int    | 2     | Integer (16 bits)                         |\n| long   | 3     | Long integer (32 bits)                    |\n| uint   | 12    | Unsigned integer (16 bits)                |\n| ulong  | 13    | Unsigned long integer (32 bits)           |\n\nYou cannot create or modify an ENVIRaster that contains complex data.',
         },
       },
       {
@@ -331,6 +355,22 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         },
       },
       {
+        label: 'pyramid_exists = ',
+        insertText: '/pyramid_exists',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
+        label: 'read_only = ',
+        insertText: '/read_only',
+        kind: 20,
+        sortText: '00',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
         label: 'spatialref = ',
         insertText: 'spatialref = ',
         kind: 20,
@@ -365,46 +405,6 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
           value:
             'A string that is a fully qualified raster file path. If not set on initialization, a temporary file will be generated.',
         },
-      },
-      {
-        label: 'auxiliary_spatialref = ',
-        insertText: 'auxiliary_spatialref = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
-      },
-      {
-        label: 'auxiliary_uri = ',
-        insertText: 'auxiliary_uri = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
-      },
-      {
-        label: 'coord_sys = ',
-        insertText: 'coord_sys = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
-      },
-      {
-        label: 'pyramid_exists = ',
-        insertText: '/pyramid_exists',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
-      },
-      {
-        label: 'read_only = ',
-        insertText: '/read_only',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
       },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },

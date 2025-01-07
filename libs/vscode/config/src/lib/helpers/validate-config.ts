@@ -1,4 +1,4 @@
-import { FindIDL } from '@idl/idl';
+import { FindIDL } from '@idl/idl/idl-process';
 import {
   IDL_EXTENSION_CONFIG_KEYS,
   IDLExtensionConfig,

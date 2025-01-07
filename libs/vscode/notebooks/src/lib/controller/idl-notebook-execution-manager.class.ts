@@ -1,11 +1,10 @@
+import { CleanIDLOutput, IDLInteractionManager } from '@idl/idl/idl-process';
 import {
-  CleanIDLOutput,
   IDL_EVENT_LOOKUP,
   IDL_PROGRESS,
   IDLEvaluateOptions,
-  IDLInteractionManager,
   REGEX_NEW_LINE,
-} from '@idl/idl';
+} from '@idl/idl/shared';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDLFileHelper, Sleep } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -86,7 +85,8 @@ export class IDLNotebookExecutionManager {
     // create our runtime session - does not immediately start IDL
     this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_NOTEBOOK_LOG),
-      VSCODE_PRO_DIR
+      VSCODE_PRO_DIR,
+      ''
     );
     this.listenToEvents();
 
@@ -571,7 +571,8 @@ export class IDLNotebookExecutionManager {
     // create new instance of runtime
     this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_NOTEBOOK_LOG),
-      VSCODE_PRO_DIR
+      VSCODE_PRO_DIR,
+      ''
     );
 
     // listen to events

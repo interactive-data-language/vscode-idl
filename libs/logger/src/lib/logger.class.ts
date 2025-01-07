@@ -1,6 +1,4 @@
 import { ObjectifyError } from '@idl/error-shared';
-import { CleanPath } from '@idl/shared';
-import * as fs from 'fs';
 import * as minilog from 'minilog';
 
 import { LogInterceptor } from './log-manager.interface';
@@ -15,23 +13,6 @@ import { StringifyData, StringifyDataForLog } from './stringify-data';
 
 minilog.enable();
 
-/** Check if we can log to a file */
-const logToFile = process.env.VSCODE_IDL_LOG_TO_FILE;
-
-/** Log file to write to */
-const logFile = process.env.VSCODE_IDL_LOGFILE;
-
-/** flag if writing to disk is OK */
-const okFileLog = logToFile === 'true' && logFile !== '';
-
-/**
- * Write stream for content from our logging
- */
-let writeStream: fs.WriteStream;
-if (okFileLog) {
-  writeStream = fs.createWriteStream(CleanPath(logFile), { flags: 'w' });
-}
-
 /**
  * Simply class that emulates the library Minilog which doesn't have types. Since we can use the library
  * chalk with the utils lib to do the same, we will!
@@ -41,9 +22,6 @@ if (okFileLog) {
 export class Logger {
   /** The file that we write our log to */
   file?: string;
-
-  /** Reference to our write stream */
-  stream?: fs.WriteStream;
 
   /** The name of our log, printed out first */
   name: string;
@@ -78,43 +56,41 @@ export class Logger {
     this.enableDebugLogs = enableDebugLogs;
     this.alertCb = alertCb;
     this.logUgly = logUgly;
+  }
 
-    // check if we have a file to write
-    if (okFileLog) {
-      // get the name of our file and replace illegal characters and any starting underscores
-      this.file = logFile;
-
-      // make sure that we have a valid file
-      this.stream = writeStream;
-    }
+  /**
+   * Clean up our log which just removes the write stream if we have it
+   */
+  destroy() {
+    // this.stream?.close();
   }
 
   /**
    * Log debug data to the console
    */
-  debug(data: any, toFile = true) {
-    this.logItem('debug', data, toFile);
+  debug(data: any) {
+    this.logItem('debug', data);
   }
 
   /**
    * Log an error to the console
    */
-  error(data: any, toFile = true) {
-    this.logItem('error', data, toFile);
+  error(data: any) {
+    this.logItem('error', data);
   }
 
   /**
    * Log information to the console
    */
-  info(data: any, toFile = true) {
-    this.logItem('info', data, toFile);
+  info(data: any) {
+    this.logItem('info', data);
   }
 
   /**
    * Log a warning to the console
    */
-  warn(data: any, toFile = true) {
-    this.logItem('warn', data, toFile);
+  warn(data: any) {
+    this.logItem('warn', data);
   }
 
   /**
@@ -167,7 +143,7 @@ export class Logger {
   /**
    * Generic log method where you can specify the log type and the data to log
    * */
-  private logItem(type: LogType, data: any, toFile = true) {
+  private logItem(type: LogType, data: any) {
     // check if we exclude debug logging items
     if (!this.enableDebugLogs && type === 'debug') {
       return;
@@ -195,11 +171,6 @@ export class Logger {
         if (type in PRETTY_LOG_NAMES) {
           // prettyLogType = PRETTY_LOG_NAMES[type];
           uglyLogType = UGLY_LOG_NAMES[type];
-        }
-
-        // do we need to write to file?
-        if (toFile && this.file) {
-          this._logUgly(`${this.name} ${uglyLogType} `, useData[i]);
         }
 
         // skip if not allowed to log to console
@@ -239,11 +210,6 @@ export class Logger {
         //   useData[i]
         // );
       } else {
-        // do we need to write to file?
-        if (toFile && this.file) {
-          this._logUgly('', useData[i], true);
-        }
-
         // skip if not allowed to log to console
         if (this.quiet) {
           continue;
@@ -258,13 +224,6 @@ export class Logger {
         }
       }
     }
-  }
-
-  /**
-   * Clean up our log which just removes the write stream if we have it
-   */
-  destroy() {
-    this.stream?.close();
   }
 
   /**
@@ -287,16 +246,5 @@ export class Logger {
    */
   private _consoleLogUgly(front: string, data: any, indent = false) {
     console.log(`${StringifyDataForLog(front, data, indent, false)}\n`);
-  }
-
-  /**
-   * Logs plain text to a file for us
-   *
-   * @private
-   * @param {string} front The front part of the string with name/formatting applied
-   * @param {*} data The data to write to disk
-   */
-  private _logUgly(front: string, data: any, indent = false) {
-    this.stream?.write(`${StringifyDataForLog(front, data, indent, false)}\n`);
   }
 }

@@ -1,4 +1,4 @@
-import { FindIDL } from '@idl/idl';
+import { FindIDL } from '@idl/idl/idl-process';
 import { EXTENSION_FULL_NAME, GetExtensionPath } from '@idl/shared';
 import { Sleep } from '@idl/tests/helpers';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
@@ -70,7 +70,7 @@ export async function run(): Promise<void> {
     const config = GetWorkspaceConfig();
 
     // reset config
-    await ResetSettingsForTests(config);
+    await ResetSettingsForTests(config, idlDir);
 
     // flag if we have started or not
     let started = false;

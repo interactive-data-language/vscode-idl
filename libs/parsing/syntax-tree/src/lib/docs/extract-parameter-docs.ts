@@ -1,3 +1,4 @@
+import { SortObject } from '@idl/shared';
 import { CommentToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -34,6 +35,7 @@ export function ExtractParameterDocs(
   header: IHeaderDocs,
   reference: { [key: string]: string }, // contains the reference display names
   problems: SyntaxProblems,
+  sort: boolean,
   properties = false
 ): {
   [key: string]: IParameterOrPropertyDetails;
@@ -413,5 +415,9 @@ export function ExtractParameterDocs(
     }
   }
 
-  return details;
+  /**
+   * Do we sort our parameters? i.e. keywords or properties
+   * should be sorted
+   */
+  return sort ? SortObject(details) : details;
 }

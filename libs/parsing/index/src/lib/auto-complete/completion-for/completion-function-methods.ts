@@ -1,5 +1,6 @@
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
+import { GetSortIndexForStrings } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IFunctionMethodCompletionOptions } from '@idl/types/auto-complete';
 import {
@@ -12,7 +13,7 @@ import {
 } from '@idl/types/core';
 import { Command, CompletionItemKind } from 'vscode-languageserver';
 
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 import { IFunctionMethodCompletionArg } from './completion-function-methods.interface';
 
 /**
@@ -50,7 +51,7 @@ function BuildFunctionMethodCompletionItemsForType(
             arg.formatting.style.routineMethods
           ) + add,
         kind: CompletionItemKind.Method,
-        sortText: SORT_PRIORITY.METHODS,
+        sortText: COMPLETION_SORT_PRIORITY.METHODS,
         detail: IDL_TRANSLATION.autoComplete.detail.functionMethod,
         command,
       });
@@ -78,7 +79,7 @@ function BuildFunctionMethodCompletionItemsForType(
             arg.formatting.style.routineMethods
           ) + add,
         kind: CompletionItemKind.Method,
-        sortText: SORT_PRIORITY.METHODS,
+        sortText: COMPLETION_SORT_PRIORITY.METHODS,
         detail: IDL_TRANSLATION.autoComplete.detail.functionMethod,
         command,
       });
@@ -134,8 +135,31 @@ export function BuildFunctionMethodCompletionItems(
     arg.found = {};
   }
 
+  // save original complete
+  const complete = arg.complete;
+
+  // set for only properties since we recurse
+  arg.complete = [];
+
   // process each type
   for (let i = 0; i < arg.options.type.length; i++) {
     BuildFunctionMethodCompletionItemsForType(arg, arg.options.type[i]);
   }
+
+  /**
+   * Sort based on the label
+   *
+   * Since this is recursive based on types and inheritance, we do it at this level
+   */
+  const idxSorted = GetSortIndexForStrings(
+    arg.complete.map((item) => item.label)
+  );
+
+  // merge while perserving original array reference
+  for (let i = 0; i < idxSorted.length; i++) {
+    complete.push(arg.complete[idxSorted[i]]);
+  }
+
+  // combine items
+  arg.complete = complete;
 }

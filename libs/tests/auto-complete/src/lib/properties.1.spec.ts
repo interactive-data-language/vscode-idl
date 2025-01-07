@@ -207,14 +207,6 @@ describe(`[auto generated] Verify types being used for`, () => {
         },
       },
       {
-        label: 'ENVIRaster::getData()',
-        insertText: 'getData()',
-        kind: 2,
-        sortText: '03',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
         label: 'ENVIRaster::createTileIterator()',
         insertText: 'createTileIterator()',
         kind: 2,
@@ -225,6 +217,14 @@ describe(`[auto generated] Verify types being used for`, () => {
       {
         label: 'ENVIRaster::dehydrate()',
         insertText: 'dehydrate()',
+        kind: 2,
+        sortText: '03',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'ENVIRaster::getData()',
+        insertText: 'getData()',
         kind: 2,
         sortText: '03',
         detail: 'Function Method',
