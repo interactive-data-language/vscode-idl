@@ -13,9 +13,7 @@
       "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
       "outFiles": ["${workspaceFolder}/dist/apps/client/**/*.js"],
       "env": {
-        "VSCODE_IDL_DEBUGGING": "true",
-        "VSCODE_IDL_LOG_TO_FILE": "false",
-        "VSCODE_IDL_LOGFILE": ""
+        "VSCODE_IDL_DEBUGGING": "true"
       }
     },
     {
