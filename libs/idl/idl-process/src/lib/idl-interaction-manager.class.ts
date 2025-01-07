@@ -219,11 +219,13 @@ export class IDLInteractionManager {
         this.idl.idlInfo = { ...DEFAULT_IDL_INFO };
       }
 
-      // emit prompt
-      this.idl.emit(
-        IDL_EVENT_LOOKUP.PROMPT,
-        this.idl.idlInfo.envi ? 'ENVI>' : 'IDL>'
-      );
+      // emit prompt - IDL Machine handles this properly, only stdio
+      if (!this.isIDLMachine()) {
+        this.idl.emit(
+          IDL_EVENT_LOOKUP.PROMPT,
+          this.idl.idlInfo.envi ? 'ENVI>' : 'IDL>'
+        );
+      }
     }
 
     // reset silent flag

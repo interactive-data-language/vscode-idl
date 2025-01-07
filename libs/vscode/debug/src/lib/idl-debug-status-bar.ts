@@ -102,7 +102,7 @@ export class IDLDebugStatusBar {
    */
   setStoppedStatus(text: string) {
     this.clearTimeout();
-    this.bar.text = `${START_IDL_ICON} IDL: ${text} :( ${IDL_TRANSLATION.statusBar.startAgainQuestion}`;
+    this.bar.text = `${START_IDL_ICON} IDL: ${text}`;
   }
 
   /**
@@ -118,6 +118,7 @@ export class IDLDebugStatusBar {
    */
   resetPrompt() {
     this.prompt = DEFAULT_IDL_PROMPT;
+    this.reDraw();
   }
 
   /**
@@ -125,5 +126,17 @@ export class IDLDebugStatusBar {
    */
   setPrompt(prompt: string) {
     this.prompt = prompt.replace('>', '').trim();
+    this.reDraw();
+  }
+
+  /**
+   * Re-draw license
+   */
+  reDraw() {
+    /** Extract the text from the status bar */
+    const split = this.bar.text.split(/(?<=\$\(.*\)).*:/);
+
+    // rebuild with new prompt
+    this.bar.text = `${split[0]} ${this.prompt}: ${split[1].trim()}`;
   }
 }
