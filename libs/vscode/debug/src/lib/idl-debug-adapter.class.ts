@@ -118,7 +118,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // create our runtime session - does not immediately start IDL
     this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_LOG),
-      VSCODE_PRO_DIR
+      VSCODE_PRO_DIR,
+      `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`
     );
 
     // create breakpoint manager
@@ -725,7 +726,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       // create new instance of runtime
       this._runtime = new IDLInteractionManager(
         IDL_LOGGER.getLog(IDL_DEBUG_LOG),
-        VSCODE_PRO_DIR
+        VSCODE_PRO_DIR,
+        `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`
       );
 
       // listen to events
@@ -810,12 +812,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     args: IDLDebugConfiguration
   ) {
     try {
-      this.sendEvent(
-        new OutputEvent(
-          `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`,
-          'stderr'
-        )
-      );
       this.sendEvent(
         new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.start}\n`)
       );

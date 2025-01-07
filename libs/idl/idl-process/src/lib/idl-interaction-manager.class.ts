@@ -46,8 +46,11 @@ export class IDLInteractionManager {
    */
   errorsByFile: IDLSyntaxErrorLookup = {};
 
-  constructor(log: Logger, vscodeProDir: string) {
-    this.idl = new IDLProcess(log, vscodeProDir);
+  /**
+   * @param startupMessage The message we print to standard error on non IDL Machine startups
+   */
+  constructor(log: Logger, vscodeProDir: string, startupMessage: string) {
+    this.idl = new IDLProcess(log, vscodeProDir, startupMessage);
   }
 
   /**

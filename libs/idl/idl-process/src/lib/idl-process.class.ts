@@ -71,10 +71,17 @@ export class IDLProcess extends EventEmitter {
    */
   isMachine = false;
 
-  constructor(log: Logger, vscodeProDir: string) {
+  /** Optional message to emit on startup for users */
+  startupMessage: string;
+
+  /**
+   * @param startupMessage The message we print to standard error on non IDL Machine startups
+   */
+  constructor(log: Logger, vscodeProDir: string, startupMessage: string) {
     super();
     this.log = log;
     this.vscodeProDir = vscodeProDir;
+    this.startupMessage = startupMessage;
 
     // create classes
     this._legacy = new IDLStdIOWrapper(this);
@@ -233,6 +240,7 @@ export class IDLProcess extends EventEmitter {
 
     // listen to IDL
     if (!this.isMachine) {
+      this.emit(IDL_EVENT_LOOKUP.STANDARD_ERR, this.startupMessage);
       this._legacy.listen(this.idl);
     } else {
       this._machine.listen(this.idl);

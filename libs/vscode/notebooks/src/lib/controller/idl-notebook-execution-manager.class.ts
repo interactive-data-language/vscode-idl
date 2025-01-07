@@ -85,7 +85,8 @@ export class IDLNotebookExecutionManager {
     // create our runtime session - does not immediately start IDL
     this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_NOTEBOOK_LOG),
-      VSCODE_PRO_DIR
+      VSCODE_PRO_DIR,
+      ''
     );
     this.listenToEvents();
 
@@ -570,7 +571,8 @@ export class IDLNotebookExecutionManager {
     // create new instance of runtime
     this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_NOTEBOOK_LOG),
-      VSCODE_PRO_DIR
+      VSCODE_PRO_DIR,
+      ''
     );
 
     // listen to events
