@@ -1,10 +1,11 @@
+export const WHILE = `
 ### While Loop
 
 Executes a statement or groups of statements until a condition is met.
 
-> Infinity is closer than you think when using `while` loops, so make sure to have proper exit conditions
+> Infinity is closer than you think when using \`while\` loops, so make sure to have proper exit conditions
 
-```idl
+\`\`\`idl
 ; a basic while loop
 i = 0
 while (i lt 10) do i++
@@ -20,4 +21,5 @@ while (meaningOfLife eq 42) do begin
   ; make sure to have exit conditions
   if (itsNotThatSimple) then break
 endwhile
-```
+\`\`\`
+`;

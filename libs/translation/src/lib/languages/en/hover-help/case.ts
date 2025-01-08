@@ -1,12 +1,13 @@
+export const CASE = `
 ### Case
 
-The `case` statement evaluates one or more logical statements and executes the first one that equates to true. Think of the case statement as a way to organize an if-then statement with more than one condition.
+The \`case\` statement evaluates one or more logical statements and executes the first one that equates to true. Think of the case statement as a way to organize an if-then statement with more than one condition.
 
 > The case statement only executes one statement, compared to the switch, which can execute more than one.
 
 > You can think of the case statement like
 
-```idl
+\`\`\`idl
 ; it really is
 myFavoriteNumber = 17
 
@@ -23,4 +24,5 @@ case myFavoriteNumber of
   ; default if nothing else if true
   else: print, 'I do not know your favorite number :('
 endcase
-```
+\`\`\`
+`;

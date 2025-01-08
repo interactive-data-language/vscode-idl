@@ -1,8 +1,9 @@
+export const BREAK = `
 ### Break
 
 The break statement stops the current loop or switch statement from progressing and exits.
 
-```idl
+\`\`\`idl
 ; how worthy is our super hero
 worthiness = 0
 
@@ -15,4 +16,5 @@ while !true do begin
   doSomeSuperHeroTraining
   worthiness++
 endwhile
-```
+\`\`\`
+`;

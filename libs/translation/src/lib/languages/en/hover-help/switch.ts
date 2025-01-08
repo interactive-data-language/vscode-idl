@@ -1,10 +1,11 @@
+export const SWITCH = `
 ### Switch
 
-The `switch` statement evaluates one or more logical statements and evaluates the first one found to be true. Additionally, `switch` will execute every statement that doesn't include a `break` to stop execution.
+The \`switch\` statement evaluates one or more logical statements and evaluates the first one found to be true. Additionally, \`switch\` will execute every statement that doesn't include a \`break\` to stop execution.
 
-> Pro tip: Think of the `switch` statement like a literal switch. Once it turns on, it evaluates everything afterwards unless it in interrupted with a break
+> Pro tip: Think of the \`switch\` statement like a literal switch. Once it turns on, it evaluates everything afterwards unless it in interrupted with a break
 
-```idl
+\`\`\`idl
 ; the situation we are in
 howBad = 0
 
@@ -25,4 +26,5 @@ switch howBad of
   ; default if nothing else if true
   else: print, 'It is not a dire situation'
 endswitch
-```
+\`\`\`
+`;

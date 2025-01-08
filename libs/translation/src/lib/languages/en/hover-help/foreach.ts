@@ -1,8 +1,9 @@
+export const FOREACH = `
 ### Foreach Loop
 
 Use the foreach loop to iterate through all elements of a variable or statement.
 
-```idl
+\`\`\`idl
 ; a basic foreach loop
 foreach value, [0,1,2,3,4] do print, value
 ; output: 0, 1, 2, 3, 4...
@@ -19,4 +20,5 @@ foreach value, orderedhash('key1', 1, 'key2', 42), key do print, key
 foreach value, [0,1,2,3,4] do begin
   meaningOfLine = value ; but its not that simple...
 endforeach
-```
+\`\`\`
+`;

@@ -1,8 +1,9 @@
+export const FOR = `
 ### For Loop
 
 Use the for loop to execute one or more statements repeatedly until the exit condition is met.
 
-```idl
+\`\`\`idl
 ; a basic for loop
 for i=0, 9 do print, i
 ; output: 0, 1, 2, 3, 4...
@@ -15,4 +16,5 @@ for i=0, 9, 2 do print, i
 for i = 0, 42 do begin
   meaningOfLine = i ; but its not that simple...
 endfor
-```
+\`\`\`
+`;
