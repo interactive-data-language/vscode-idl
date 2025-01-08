@@ -4,6 +4,7 @@ import {
   IAssemblerOptions,
 } from '@idl/assembling/config';
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { IDLFileHelper, IFolderRecursion } from '@idl/idl/files';
 import {
   IDL_LSP_LOG,
   IDL_WORKER_THREAD_CONSOLE,
@@ -14,12 +15,7 @@ import { Parser } from '@idl/parser';
 import { GetIncludeFile, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
-import {
-  ALL_FILES_GLOB_PATTERN,
-  IDLFileHelper,
-  NODE_MEMORY_CONFIG,
-  SystemMemoryUsedMB,
-} from '@idl/shared';
+import { IDL_FILE_TYPE_LOOKUP } from '@idl/shared';
 import { IncludeToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -55,8 +51,7 @@ import {
 import { WorkerIOPool } from '@idl/workers/workerio';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
-import { glob } from 'fast-glob';
-import { existsSync, readFileSync, realpathSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { cpus, platform } from 'os';
 import { basename, dirname, join } from 'path';
 import { performance } from 'perf_hooks';
@@ -87,8 +82,6 @@ import { GetHoverHelpLookup } from './hover-help/get-hover-help-lookup';
 import {
   DEFAULT_INDEX_PRO_CODE_OPTIONS,
   IDL_INDEX_OPTIONS,
-  IDLFileTypeLookup,
-  IFolderRecursion,
   IIndexProCodeOptions,
   IIndexWorkspaceStats,
 } from './idl-index.interface';
@@ -145,15 +138,7 @@ export class IDLIndex {
   /**
    * The types of files that we have
    */
-  fileTypes: IDLFileTypeLookup = {
-    pro: new Set(),
-    'pro-def': new Set(),
-    save: new Set(),
-    'idl.json': new Set(),
-    'idl-task': new Set(),
-    'envi-task': new Set(),
-    'idl-notebook': new Set(),
-  };
+  fileTypes = IDL_FILE_TYPE_LOOKUP;
 
   /**
    * Track tokens for each file that we process
@@ -344,9 +329,6 @@ export class IDLIndex {
         await Promise.all(clean);
       }
     }
-
-    // return RAM usage
-    return SystemMemoryUsedMB();
   }
 
   /**
@@ -1281,74 +1263,6 @@ export class IDLIndex {
   }
 
   /**
-   * Helper routine to search for PRO code files in one or more folders.
-   *
-   * When pattern in not specified, defaults to PRO code
-   */
-  async findFiles(
-    folder: string | string[] | IFolderRecursion,
-    pattern = ALL_FILES_GLOB_PATTERN
-  ): Promise<string[]> {
-    // init files that we find
-    const files = new Set<string>();
-
-    // init folders
-    let folders: string[] = [];
-    let recursion: boolean[] = [];
-
-    // handle our input type
-    switch (true) {
-      case typeof folder === 'string':
-        folders.push(folder as string);
-        recursion.push(true);
-        break;
-      case Array.isArray(folder):
-        folders = folder as string[];
-        recursion = new Array(folders.length).fill(true);
-        break;
-      default:
-        folders = Object.keys(folder as IFolderRecursion);
-        recursion = Object.values(folder as IFolderRecursion);
-        break;
-    }
-
-    // process all of our folder
-    for (let i = 0; i < folders.length; i++) {
-      // skip folders if they dont exist
-      if (!existsSync(folders[i])) {
-        continue;
-      }
-
-      // find the files in our folder
-      const inFolder = (
-        await glob(pattern, {
-          cwd: folders[i],
-          dot: true,
-          deep: recursion[i] ? 100000000 : 1,
-        })
-      )
-        .map((file) => join(folders[i], file))
-        .map((file) => realpathSync(file));
-
-      // add to our set
-      for (let j = 0; j < inFolder.length; j++) {
-        files.add(inFolder[j]);
-      }
-    }
-
-    /**
-     * Get unique files from our set
-     */
-    const uniqFiles = Array.from(files);
-
-    // track the files we found and sync them
-    this.trackFiles(uniqFiles);
-
-    // get files
-    return uniqFiles;
-  }
-
-  /**
    * Buckets files by file type
    */
   bucketFiles(files: string[]) {
@@ -1485,23 +1399,6 @@ export class IDLIndex {
     if (missing.length > 0) {
       await this.removeWorkspaceFiles(missing, changeDetection);
     }
-  }
-
-  /**
-   * Removes one or more workspaces from the search index
-   */
-  async removeWorkspace(
-    folder: string | string[] | IFolderRecursion,
-    changeDetection?: boolean
-  ): Promise<string[]> {
-    // find files to remove
-    const files = await this.findFiles(folder);
-
-    // remove files and handle threads
-    await this.removeWorkspaceFiles(files, changeDetection);
-
-    // return files we found
-    return files;
   }
 
   /**
@@ -2198,24 +2095,18 @@ export class IDLIndex {
   /**
    * Adds one or more workspace folders to the index
    */
-  async indexWorkspace(
+  async indexWorkspaceFiles(
+    files: string[],
     folder: string | string[] | IFolderRecursion,
     full = true
-  ): Promise<string[]> {
+  ): Promise<void> {
     /**
      * Get start time
      */
     const t0 = performance.now();
 
-    /**
-     * Find files in our folder
-     */
-    const files = await this.findFiles(folder);
-
-    // add all files to known
-    for (let i = 0; i < files.length; i++) {
-      this.knownFiles[files[i]] = undefined;
-    }
+    // track files that we found
+    this.trackFiles(files);
 
     /**
      * Bucket them into separate groups
@@ -2257,9 +2148,6 @@ export class IDLIndex {
 
     // save total time
     this.lastWorkspaceIndexStats.timeTotal = Math.floor(performance.now() - t0);
-
-    // return the files we found
-    return files;
   }
 
   /**
@@ -2273,7 +2161,7 @@ export class IDLIndex {
     options: Partial<IIndexProCodeOptions> = {}
   ) {
     if (!existsSync(file)) {
-      this.removeWorkspaceFiles([file]);
+      await this.removeWorkspaceFiles([file]);
       return;
     }
 

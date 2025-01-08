@@ -1,5 +1,6 @@
+import { CleanPath, IDLFileHelper } from '@idl/idl/files';
 import { REGEX_IDL_LOCATION, REGEX_STOP_DETECTION } from '@idl/idl/shared';
-import { CleanPath, IDLFileHelper, NOTEBOOK_CELL_BASE_NAME } from '@idl/shared';
+import { NOTEBOOK_CELL_BASE_NAME } from '@idl/shared';
 import { basename } from 'path';
 
 import { IDLNotebookController } from '../idl-notebook-controller.class';

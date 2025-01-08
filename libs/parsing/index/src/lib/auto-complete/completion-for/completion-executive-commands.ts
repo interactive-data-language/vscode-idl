@@ -1,6 +1,6 @@
 import { AdjustCase } from '@idl/assembling/shared';
+import { IDLFileHelper } from '@idl/idl/files';
 import { TreeToken } from '@idl/parsing/syntax-tree';
-import { IDLFileHelper } from '@idl/shared';
 import { TokenName } from '@idl/tokenizer';
 import {
   ExecutiveCommandCompletion,

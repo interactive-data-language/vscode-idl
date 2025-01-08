@@ -1,4 +1,4 @@
-import { IFolderRecursion } from '@idl/parsing/index';
+import { IFolderRecursion } from '@idl/idl/files';
 import { dirname } from 'path';
 
 /**

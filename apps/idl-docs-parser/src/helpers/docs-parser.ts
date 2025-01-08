@@ -1,3 +1,4 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import {
   GlobalDisplayNameLookup,
   OBSOLETE_FUNCTION_METHODS,
@@ -6,7 +7,6 @@ import {
   OBSOLETE_PROCEDURES,
 } from '@idl/parsing/routines';
 import { IDL_DOCS_HEADERS } from '@idl/parsing/syntax-tree';
-import { GetExtensionPath } from '@idl/shared';
 import { existsSync, readFileSync } from 'fs';
 import { parse } from 'himalaya';
 import { basename, join } from 'path';

@@ -46,6 +46,7 @@
       "@idl/generators/tasks-shared": [
         "libs/generators/tasks-shared/src/index.ts"
       ],
+      "@idl/idl/files": ["libs/idl/files/src/index.ts"],
       "@idl/idl/idl-machine": ["libs/idl/idl-machine/src/index.ts"],
       "@idl/idl/idl-process": ["libs/idl/idl-process/src/index.ts"],
       "@idl/idl/shared": ["libs/idl/shared/src/index.ts"],

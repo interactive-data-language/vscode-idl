@@ -1,4 +1,4 @@
-import { GetExtensionPath } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
 import { readFileSync } from 'fs';
 
 import { IHoverHelpTranslations } from '../../translation.interface';

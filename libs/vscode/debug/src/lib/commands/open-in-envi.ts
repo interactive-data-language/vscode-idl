@@ -1,4 +1,4 @@
-import { CleanPath } from '@idl/shared';
+import { CleanPath } from '@idl/idl/files';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import { OutputEvent } from '@vscode/debugadapter';

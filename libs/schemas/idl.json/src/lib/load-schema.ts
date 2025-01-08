@@ -1,4 +1,4 @@
-import { GetExtensionPath } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
 import Ajv, { ValidateFunction } from 'ajv';
 import { readFile } from 'fs/promises';
 import * as RefResolver from 'json-schema-resolver';

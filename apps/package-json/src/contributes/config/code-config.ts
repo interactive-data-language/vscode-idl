@@ -1,4 +1,5 @@
-import { GetExtensionPath, IDL_LANGUAGE_NAME } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
+import { IDL_LANGUAGE_NAME } from '@idl/shared';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDL_EXTENSION_CONFIG_KEYS,

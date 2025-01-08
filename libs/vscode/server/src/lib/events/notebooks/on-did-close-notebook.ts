@@ -1,5 +1,5 @@
+import { GetFSPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { NotebookDocument } from 'vscode-languageserver/node';
 

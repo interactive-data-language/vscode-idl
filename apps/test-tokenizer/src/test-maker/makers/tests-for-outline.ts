@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { writeFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';

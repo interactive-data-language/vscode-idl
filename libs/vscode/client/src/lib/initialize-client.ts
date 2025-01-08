@@ -1,5 +1,6 @@
+import { CleanPath } from '@idl/idl/files';
 import { IDL_CONSOLE, IDL_LOG, LogManager } from '@idl/logger';
-import { CleanPath, LOG_LANGUAGE_NAME } from '@idl/shared';
+import { LOG_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_TRANSLATION, InitializeTranslation } from '@idl/translation';
 import {
   InitializeUsageMetrics,

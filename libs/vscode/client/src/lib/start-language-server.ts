@@ -1,9 +1,7 @@
+import { CleanPath, GetCanonicalPath } from '@idl/idl/files';
 import {
   ALL_DOCUMENT_SELECTORS,
-  CleanPath,
-  GetCanonicalPath,
   IDL_LANGUAGE_NAME,
-  NODE_MEMORY_CONFIG,
   NOTIFY_FILES_GLOB_PATTERN,
 } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';

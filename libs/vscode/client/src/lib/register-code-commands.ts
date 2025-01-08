@@ -1,6 +1,7 @@
 import { MIGRATION_TYPE_LOOKUP } from '@idl/assembling/migrators-types';
+import { CleanPath } from '@idl/idl/files';
 import { IDL_COMMAND_LOG } from '@idl/logger';
-import { CleanPath, IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared';
+import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
 import {

@@ -1,3 +1,4 @@
+import { FindFiles } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
@@ -45,19 +46,28 @@ export const ON_DID_CHANGE_WORKSPACE_FOLDERS = async (
       { type: 'start' }
     );
 
+    /** Find files we added */
+    const filesAdded = await FindFiles(
+      MergeFolderRecursion(infoRemoved.folders.added, infoAdded.folders.added)
+    );
+
     // add workspaces
-    const filesAdded = await IDL_INDEX.indexWorkspace(
+    await IDL_INDEX.indexWorkspaceFiles(
+      filesAdded,
       MergeFolderRecursion(infoRemoved.folders.added, infoAdded.folders.added),
       GLOBAL_SERVER_SETTINGS.fullParse
     );
 
-    // remove workspaces last to trigger change detection for missing globals
-    const filesRemoved = await IDL_INDEX.removeWorkspace(
+    /** Find files we removed */
+    const filesRemoved = await FindFiles(
       MergeFolderRecursion(
         infoRemoved.folders.removed,
         infoAdded.folders.removed
       )
     );
+
+    // remove workspaces that we dont need
+    await IDL_INDEX.removeWorkspaceFiles(filesRemoved);
 
     // send problems
     SendProblems(Array.from(new Set(filesRemoved.concat(filesAdded))));

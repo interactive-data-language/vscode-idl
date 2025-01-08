@@ -1,4 +1,4 @@
-import { DOT_IDL_FOLDER, GetFSPath } from '@idl/shared';
+import { DOT_IDL_FOLDER, GetFSPath } from '@idl/idl/files';
 import { homedir } from 'os';
 import * as vscode from 'vscode';
 

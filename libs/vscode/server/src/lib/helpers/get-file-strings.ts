@@ -1,4 +1,4 @@
-import { GetFSPath } from '@idl/shared';
+import { GetFSPath } from '@idl/idl/files';
 import { existsSync, readFileSync } from 'fs';
 
 import { DOCUMENT_MANAGER } from '../events/initialize-document-manager';

@@ -8,9 +8,9 @@ import {
   GenerateIDLTaskMainLevelProgram,
 } from '@idl/generators/idl-task';
 import { GenerateTaskResult } from '@idl/generators/tasks-shared';
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 

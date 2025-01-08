@@ -1,4 +1,4 @@
-import { CleanPath } from '@idl/shared';
+import { CleanPath } from '@idl/idl/files';
 import {
   IDLNotebookEmbeddedItem,
   IDLNotebookImage_PNG,

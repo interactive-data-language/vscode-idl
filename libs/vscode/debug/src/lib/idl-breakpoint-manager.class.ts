@@ -1,4 +1,4 @@
-import { CleanPath, IDLFileHelper } from '@idl/shared';
+import { CleanPath, IDLFileHelper } from '@idl/idl/files';
 import { Breakpoint, BreakpointEvent, Source } from '@vscode/debugadapter';
 import { DebugProtocol } from '@vscode/debugprotocol';
 

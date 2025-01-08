@@ -1,7 +1,6 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
-
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
 describe(`[auto generated] Correctly identify parses and returns config files`, () => {

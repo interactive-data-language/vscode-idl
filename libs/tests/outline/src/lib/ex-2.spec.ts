@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { readFile } from 'fs/promises';
 import { DocumentSymbol } from 'vscode-languageserver/node';
 

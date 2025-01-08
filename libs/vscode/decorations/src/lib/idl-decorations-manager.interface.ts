@@ -1,5 +1,5 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { IDLCodeCoverage } from '@idl/idl/shared';
-import { GetExtensionPath } from '@idl/shared';
 import * as vscode from 'vscode';
 
 /** When resetting decorations, what do we reset for? */

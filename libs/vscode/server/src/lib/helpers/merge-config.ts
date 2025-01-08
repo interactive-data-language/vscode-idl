@@ -1,4 +1,4 @@
-import { IFolderRecursion } from '@idl/parsing/index';
+import { IFolderRecursion } from '@idl/idl/files';
 import {
   IDL_PROBLEM_CODE_SHORTHAND_CODE_LOOKUP,
   IDL_PROBLEM_CODE_SHORTHAND_LOOKUP,

@@ -1,6 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { GetFSPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { GetFSPath } from '@idl/shared';
 import {
   DidChangeWatchedFilesParams,
   FileChangeType,

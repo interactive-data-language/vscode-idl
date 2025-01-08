@@ -1,7 +1,6 @@
+import { RoundToNearest } from '@idl/shared';
 import { totalmem } from 'os';
 import { memoryUsage } from 'process';
-
-import { RoundToNearest } from './round-to-nearest';
 
 /**
  * Gets the total system memory in GB

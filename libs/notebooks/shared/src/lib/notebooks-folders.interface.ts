@@ -1,4 +1,4 @@
-import { DOT_IDL_FOLDER } from '@idl/shared';
+import { DOT_IDL_FOLDER } from '@idl/idl/files';
 import { join } from 'path';
 
 /**

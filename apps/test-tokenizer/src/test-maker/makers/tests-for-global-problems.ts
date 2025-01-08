@@ -1,6 +1,6 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { SanitizeAllProblems } from '@idl/tests/helpers';
 import { writeFileSync } from 'fs';
 import { join } from 'path';

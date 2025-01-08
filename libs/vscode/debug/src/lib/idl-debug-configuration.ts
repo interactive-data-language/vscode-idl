@@ -1,5 +1,5 @@
+import { CleanPath } from '@idl/idl/files';
 import { IDL_DEBUG_CONFIGURATION_LOG } from '@idl/logger';
-import { CleanPath } from '@idl/shared';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
