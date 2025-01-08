@@ -11,5 +11,5 @@
     "**/*.test.ts",
     "./src/test/**/*.ts"
   ],
-  "include": ["**/*.ts", "../../libs/client-lib/src/lib/utils/clean-path.ts"]
+  "include": ["**/*.ts"]
 }
