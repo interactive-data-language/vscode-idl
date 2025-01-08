@@ -1,5 +1,4 @@
-import { GetExtensionPath } from '@idl/idl/files';
-import { readFileSync } from 'fs';
+import { VERSION } from '@idl/shared';
 
 import { UsageMetric } from './events/usage-metrics.interface';
 import { GA4Client } from './ga4/ga4-client.class';
@@ -15,13 +14,6 @@ export let GA4: GA4Client<UsageMetric> = undefined;
  * Do we run in debug mode
  */
 const DEBUG = false;
-
-/**
- * Version of the app
- */
-export const APP_VERSION = JSON.parse(
-  readFileSync(GetExtensionPath('package.json'), 'utf-8')
-).version;
 
 /**
  * Inits/creates the information we need to capture usage metrics
@@ -54,5 +46,5 @@ export function InitializeUsageMetrics() {
   /**
    * Override the ID of the app
    */
-  GA4.setEventsParameter('app_version', APP_VERSION);
+  GA4.setEventsParameter('app_version', VERSION);
 }
