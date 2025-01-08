@@ -164,8 +164,10 @@ export class IDLMachineWrapper {
    * Stops our IDL debug session
    */
   stop() {
-    kill(this.idl.pid);
-    this.idl.kill('SIGINT');
+    this.machine.sendNotification('exit', undefined);
+    setTimeout(() => {
+      kill(this.idl.pid);
+    }, 100);
   }
 
   /**
