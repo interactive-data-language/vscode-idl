@@ -1,4 +1,4 @@
-const { composePlugins, withNx } = require('@nx/webpack');
+const { composePlugins, withNx, devServerExecutor } = require('@nx/webpack');
 
 // Nx plugins for webpack.
 module.exports = composePlugins(
@@ -6,8 +6,16 @@ module.exports = composePlugins(
     target: 'web',
   }),
   (config) => {
-    // Update the webpack config as needed here.
-    // e.g. `config.plugins.push(new MyPlugin())`
+    // add polyfills for some node libs
+    config.resolve.fallback = {
+      os: require.resolve('os-browserify/browser'),
+      path: require.resolve('path-browserify'),
+    };
+
+    config.externals = {
+      vscode: 'commonjs vscode', // ignored because it doesn't exist
+    };
+
     return config;
   }
 );
