@@ -207,6 +207,7 @@
     "onDebug"
   ],
   "main": "./dist/apps/client/main",
+  "browser": "./dist/apps/client-web/main.js",
   "categories": [
     "Debuggers",
     "Formatters",
