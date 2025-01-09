@@ -4,7 +4,7 @@ import {
   PRO_CODE_GLOB_PATTERN,
   PRO_DEF_GLOB_PATTERN,
   TASK_FILE_GLOB_PATTERN,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
 

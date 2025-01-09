@@ -1,4 +1,4 @@
-import { IDL_NOTEBOOK_LANGUAGE_NAME } from '@idl/shared';
+import { IDL_NOTEBOOK_LANGUAGE_NAME } from '@idl/shared/extension';
 import { IDL_LOGGER } from '@idl/vscode/client';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';

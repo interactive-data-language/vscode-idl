@@ -3,7 +3,7 @@ import {
   ALL_DOCUMENT_SELECTORS,
   IDL_LANGUAGE_NAME,
   NOTIFY_FILES_GLOB_PATTERN,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { VSCodeClientEventManager } from '@idl/vscode/events/client';

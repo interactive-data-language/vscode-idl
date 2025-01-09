@@ -1,4 +1,4 @@
-import { VERSION } from '@idl/shared';
+import { VERSION } from '@idl/shared/extension';
 
 import { UsageMetric } from './events/usage-metrics.interface';
 import { GA4Client } from './ga4/ga4-client.class';

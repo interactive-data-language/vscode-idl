@@ -1,4 +1,4 @@
-import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared';
+import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import { existsSync } from 'fs';
 import { join } from 'path';
 

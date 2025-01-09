@@ -1,4 +1,4 @@
-import { MatchGlobal } from '@idl/shared';
+import { MatchGlobal } from '@idl/shared/extension';
 
 import { IDL_DIR } from '../idl-dir.interface';
 import { IRoutineDocs } from '../main.interface';

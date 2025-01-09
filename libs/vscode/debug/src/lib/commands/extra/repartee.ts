@@ -1,4 +1,4 @@
-import { Sleep } from '@idl/shared';
+import { Sleep } from '@idl/shared/extension';
 import { OutputEvent } from '@vscode/debugadapter';
 
 import { IDL_DEBUG_ADAPTER } from '../../initialize-debugger';

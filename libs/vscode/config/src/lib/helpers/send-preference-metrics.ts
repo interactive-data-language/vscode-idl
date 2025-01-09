@@ -2,7 +2,7 @@ import {
   EXTENSION_FULL_NAME,
   ICON_THEME_NAME,
   IDL_LANGUAGE_NAME,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,

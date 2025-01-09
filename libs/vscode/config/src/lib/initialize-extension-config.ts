@@ -3,7 +3,7 @@ import {
   ICON_THEME_NAME,
   IDL_COMMANDS,
   IDL_LANGUAGE_NAME,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_EXTENSION_CONFIG_KEYS,

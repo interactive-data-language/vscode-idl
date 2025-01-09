@@ -1,4 +1,4 @@
-import { GetExtensionPath, IDL_COMMANDS } from '@idl/shared';
+import { GetExtensionPath, IDL_COMMANDS } from '@idl/shared/extension';
 import { Sleep } from '@idl/tests/helpers';
 import { OpenFileInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';

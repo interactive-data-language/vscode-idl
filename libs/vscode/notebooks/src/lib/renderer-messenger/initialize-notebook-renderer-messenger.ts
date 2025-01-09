@@ -1,4 +1,4 @@
-import { IDL_NOTEBOOK_RENDERER_NAME } from '@idl/shared';
+import { IDL_NOTEBOOK_RENDERER_NAME } from '@idl/shared/extension';
 import { IDLNotebookToRendererBaseMessage } from '@idl/types/notebooks';
 import * as vscode from 'vscode';
 

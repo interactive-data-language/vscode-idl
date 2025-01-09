@@ -1,5 +1,5 @@
 import { Logger } from '@idl/logger';
-import { IDL_COMMANDS, Sleep } from '@idl/shared';
+import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
 import { arch, platform } from 'os';
 import { performance } from 'perf_hooks';

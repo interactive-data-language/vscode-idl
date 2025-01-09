@@ -1,4 +1,4 @@
-import { MatchGlobal } from '@idl/shared';
+import { MatchGlobal } from '@idl/shared/extension';
 import { existsSync } from 'fs';
 import { basename, dirname } from 'path';
 

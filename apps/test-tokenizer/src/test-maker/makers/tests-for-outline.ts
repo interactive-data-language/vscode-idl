@@ -25,7 +25,7 @@ export async function TestsForOutline(
   strings.push(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
   );
-  strings.push(`import { GetExtensionPath } from '@idl/shared';`);
+  strings.push(`import { GetExtensionPath } from '@idl/shared/extension';`);
   strings.push(`import { readFile } from 'fs/promises';`);
   strings.push(`import { DocumentSymbol } from 'vscode-languageserver/node';`);
   strings.push(``);

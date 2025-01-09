@@ -1,7 +1,7 @@
 import {
   COMPLETION_TRIGGER_CHARACTERS,
   IDL_NOTEBOOK_CELL_SELECTOR,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { LANGUAGE_SERVER_CLIENT } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 import {

@@ -1,4 +1,4 @@
-import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared';
+import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';

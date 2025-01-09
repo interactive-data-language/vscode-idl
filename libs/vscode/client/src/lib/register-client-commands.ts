@@ -1,6 +1,6 @@
 import { CleanPath } from '@idl/idl/files';
 import { FindIDL } from '@idl/idl/idl-process';
-import { EXTENSION_FULL_NAME, IDL_COMMANDS } from '@idl/shared';
+import { EXTENSION_FULL_NAME, IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';

@@ -4,7 +4,7 @@ import {
   IDLCodeCoverage,
   IDLSyntaxErrorLookup,
 } from '@idl/idl/shared';
-import { Sleep } from '@idl/shared';
+import { Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GetTextEditorForURIString,

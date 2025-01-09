@@ -1,5 +1,8 @@
 import { GetIDLProblemSeverity } from '@idl/parsing/syntax-tree';
-import { IDL_LANGUAGE_NAME, ResolveExtensionDocsURL } from '@idl/shared';
+import {
+  IDL_LANGUAGE_NAME,
+  ResolveExtensionDocsURL,
+} from '@idl/shared/extension';
 import { IDLDiagnostic } from '@idl/types/diagnostic';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,

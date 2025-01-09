@@ -1,4 +1,4 @@
-import { MatchGlobal } from '@idl/shared';
+import { MatchGlobal } from '@idl/shared/extension';
 
 import { INHERITANCE_OVERRIDE } from '../overrides/detail/inheritance-override.interface';
 import { SmartMerge } from '../type-guess/inheritance-guess';

@@ -2,7 +2,7 @@ import {
   IDL_COMMANDS,
   ResolveExtensionDocsURL,
   ResolveProductDocsURL,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_LOGGER, LogCommandError } from '@idl/vscode/client';

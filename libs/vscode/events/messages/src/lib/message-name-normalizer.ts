@@ -1,4 +1,4 @@
-import { IDL_LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 
 /**
  * Internal function to wrap the name of all messages so that we are

@@ -24,7 +24,7 @@ export async function TestsForGlobalProblems(
   strings.push(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
   );
-  strings.push(`import { GetExtensionPath } from '@idl/shared';`);
+  strings.push(`import { GetExtensionPath } from '@idl/shared/extension';`);
   strings.push(`import { SanitizeAllProblems } from '@idl/tests/helpers';`);
   strings.push(`import { SyntaxProblems } from '@idl/types/problem-codes';`);
 

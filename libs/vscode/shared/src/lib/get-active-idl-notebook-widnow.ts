@@ -1,4 +1,4 @@
-import { IDL_NOTEBOOK_LANGUAGE_NAME } from '@idl/shared';
+import { IDL_NOTEBOOK_LANGUAGE_NAME } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import * as vscode from 'vscode';
 

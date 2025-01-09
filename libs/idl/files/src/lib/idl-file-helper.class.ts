@@ -6,7 +6,7 @@ import {
   PRO_DEF_EXTENSION,
   PRO_FILE_EXTENSION,
   TASK_FILE_EXTENSION,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { platform } from 'os';
 import { basename, dirname, join } from 'path';
 import { URI } from 'vscode-uri';

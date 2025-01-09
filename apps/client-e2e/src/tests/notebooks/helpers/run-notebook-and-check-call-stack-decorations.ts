@@ -1,5 +1,5 @@
 import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
-import { Sleep } from '@idl/shared';
+import { Sleep } from '@idl/shared/extension';
 import {
   IDLDecorationsManager,
   IStackTraceLookup,

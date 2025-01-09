@@ -1,4 +1,4 @@
-import { IDL_NOTEBOOK_CELL_SELECTOR } from '@idl/shared';
+import { IDL_NOTEBOOK_CELL_SELECTOR } from '@idl/shared/extension';
 import { LANGUAGE_SERVER_CLIENT } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 import {

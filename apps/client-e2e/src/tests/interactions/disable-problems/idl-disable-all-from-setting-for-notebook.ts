@@ -1,4 +1,4 @@
-import { GetExtensionPath, Sleep } from '@idl/shared';
+import { GetExtensionPath, Sleep } from '@idl/shared/extension';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';

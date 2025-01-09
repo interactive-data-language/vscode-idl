@@ -11,7 +11,7 @@ import {
   IDL_NOTEBOOK_EXTENSION,
   IDL_NOTEBOOK_LANGUAGE_NAME,
   Sleep,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { INotebookToProCodeOptions } from '@idl/types/notebooks';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';

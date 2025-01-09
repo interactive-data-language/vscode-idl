@@ -1,4 +1,4 @@
-import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared';
+import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import { GetWorkspaceConfig } from '@idl/vscode/config';

@@ -1,4 +1,4 @@
-import { IDL_JSON_URI, TASK_FILE_EXTENSION } from '@idl/shared';
+import { IDL_JSON_URI, TASK_FILE_EXTENSION } from '@idl/shared/extension';
 import { existsSync } from 'fs';
 import { join } from 'path';
 

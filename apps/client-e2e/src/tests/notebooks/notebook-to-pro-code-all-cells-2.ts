@@ -3,7 +3,7 @@ import {
   IDL_COMMANDS,
   IDL_LANGUAGE_NAME,
   Sleep,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { INotebookToProCodeOptions } from '@idl/types/notebooks';
 import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';

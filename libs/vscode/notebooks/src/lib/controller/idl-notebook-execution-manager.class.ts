@@ -7,7 +7,7 @@ import {
   REGEX_NEW_LINE,
 } from '@idl/idl/shared';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { Sleep } from '@idl/shared';
+import { Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLNotebookEmbeddedItems } from '@idl/types/notebooks';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';

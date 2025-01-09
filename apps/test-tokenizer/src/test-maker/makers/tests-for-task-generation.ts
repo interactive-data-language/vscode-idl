@@ -43,7 +43,7 @@ export async function TestsForTaskGeneration(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
   );
   strings.push(`import { LoadTask } from '@idl/schemas/tasks';`);
-  strings.push(`import { GetExtensionPath } from '@idl/shared';`);
+  strings.push(`import { GetExtensionPath } from '@idl/shared/extension';`);
   strings.push(`import { readFileSync } from 'fs';`);
   strings.push(``);
   strings.push(`IDL_INDEX_OPTIONS.IS_TEST = true;`);

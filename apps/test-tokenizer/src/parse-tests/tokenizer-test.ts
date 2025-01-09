@@ -2,7 +2,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { FindFiles } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
-import { TimeItAsync } from '@idl/shared';
+import { TimeItAsync } from '@idl/shared/extension';
 import { Tokenizer } from '@idl/tokenizer';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';

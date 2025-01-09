@@ -22,7 +22,7 @@ export async function TestsForConfigFileResolving(
   strings.push(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
   );
-  strings.push(`import { GetExtensionPath } from '@idl/shared';`);
+  strings.push(`import { GetExtensionPath } from '@idl/shared/extension';`);
 
   strings.push(``);
   strings.push(`IDL_INDEX_OPTIONS.IS_TEST = true;`);

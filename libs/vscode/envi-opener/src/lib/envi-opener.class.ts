@@ -1,5 +1,5 @@
 import { CleanPath } from '@idl/idl/files';
-import { ENVI_OPENER_TYPE } from '@idl/shared';
+import { ENVI_OPENER_TYPE } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { OpenInENVI } from '@idl/vscode/debug';
 import * as vscode from 'vscode';

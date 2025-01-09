@@ -1,5 +1,5 @@
 import { TransformCase } from '@idl/assembling/shared';
-import { GetSortIndexForStrings } from '@idl/shared';
+import { GetSortIndexForStrings } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IPropertyCompletionOptions } from '@idl/types/auto-complete';
 import {

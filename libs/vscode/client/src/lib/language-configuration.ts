@@ -1,4 +1,4 @@
-import { IDL_LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import * as vscode from 'vscode';
 
 import { LANGUAGE_CONFIGURATION } from './language-configuration.interface';

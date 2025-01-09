@@ -3,7 +3,8 @@ import { SEMANTIC_TOKEN_LEGEND } from '@idl/parsing/semantic-tokens';
 import {
   COMPLETION_TRIGGER_CHARACTERS,
   IDL_NOTEBOOK_LANGUAGE_NAME,
-} from '@idl/shared';
+} from '@idl/shared/extension';
+import { GetVSCodeLocale } from '@idl/shared/node';
 import { IDL_TRANSLATION, InitializeTranslation } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeServerEventManager } from '@idl/vscode/events/server';
@@ -111,7 +112,7 @@ console.error = (...args: any[]) => {
  */
 export function InitializeServer() {
   // load our translations in our server
-  InitializeTranslation();
+  InitializeTranslation(GetVSCodeLocale());
 
   // create our server event manager
   SERVER_EVENT_MANAGER = new VSCodeServerEventManager(SERVER_CONNECTION);

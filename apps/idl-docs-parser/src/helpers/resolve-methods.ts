@@ -1,5 +1,5 @@
 import { GlobalDisplayNameLookup, IGlobalFromIDL } from '@idl/parsing/routines';
-import { MatchGlobal } from '@idl/shared';
+import { MatchGlobal } from '@idl/shared/extension';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 
 import { IDL_DIR } from '../idl-dir.interface';

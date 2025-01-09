@@ -10,7 +10,7 @@ import {
   SystemMemoryUsedGB,
   TASK_FILE_GLOB_PATTERN,
   TimeItAsync,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { Tokenizer } from '@idl/tokenizer';
 import { readFileSync } from 'fs';
 import { performance } from 'perf_hooks';

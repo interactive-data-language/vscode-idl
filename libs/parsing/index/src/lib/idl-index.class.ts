@@ -15,7 +15,7 @@ import { Parser } from '@idl/parser';
 import { GetIncludeFile, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
-import { IDL_FILE_TYPE_LOOKUP } from '@idl/shared';
+import { IDL_FILE_TYPE_LOOKUP } from '@idl/shared/extension';
 import { IncludeToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {

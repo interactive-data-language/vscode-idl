@@ -1,4 +1,4 @@
-import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared';
+import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import {
   GetTextEditorForURI,
   OpenNotebookInVSCode,

@@ -1,4 +1,4 @@
-import { SortObject } from '@idl/shared';
+import { SortObject } from '@idl/shared/extension';
 import { CommentToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {

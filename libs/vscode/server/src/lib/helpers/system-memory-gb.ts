@@ -1,4 +1,4 @@
-import { RoundToNearest } from '@idl/shared';
+import { RoundToNearest } from '@idl/shared/extension';
 import { totalmem } from 'os';
 import { memoryUsage } from 'process';
 

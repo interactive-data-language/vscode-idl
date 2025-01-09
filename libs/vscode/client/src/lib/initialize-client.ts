@@ -1,6 +1,7 @@
 import { CleanPath } from '@idl/idl/files';
 import { IDL_CONSOLE, IDL_LOG, LogManager } from '@idl/logger';
-import { LOG_LANGUAGE_NAME } from '@idl/shared';
+import { LOG_LANGUAGE_NAME } from '@idl/shared/extension';
+import { GetVSCodeLocale } from '@idl/shared/node';
 import { IDL_TRANSLATION, InitializeTranslation } from '@idl/translation';
 import {
   InitializeUsageMetrics,
@@ -139,7 +140,7 @@ export async function InitializeClient(
   LoadLanguageConfiguration();
 
   // first, handle translation
-  InitializeTranslation();
+  InitializeTranslation(GetVSCodeLocale());
 
   // callback for when our configuration changes
   const onConfigChanges = () => {
