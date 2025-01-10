@@ -17,6 +17,18 @@
       }
     },
     {
+      "name": "Run IDL Extension (Web)",
+      "type": "extensionHost",
+      "debugWebWorkerHost": true,
+      "request": "launch", 
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionDevelopmentKind=web"
+      ],
+      "outFiles": ["${workspaceFolder}/dist/client-web/**/*.js"]
+    },
+    {
       "name": "Run IDL Extension Tests",
       "type": "extensionHost",
       "request": "launch",

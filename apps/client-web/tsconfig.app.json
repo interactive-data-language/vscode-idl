@@ -137,7 +137,6 @@
       "@idl/workers/parsing": ["libs/workers/parsing/src/index.ts"],
       "@idl/workers/vscode": ["libs/workers/vscode/src/index.ts"],
       "@idl/workers/workerio": ["libs/workers/workerio/src/index.ts"],
-      "@idl/shared": ["libs/shared/src/index.ts"],
       "path": ["node_modules/path-browserify"]
     }
   },
