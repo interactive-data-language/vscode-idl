@@ -65,7 +65,7 @@
     "ansi-styles": "^6.1.0",
     "await-notify": "^1.0.1",
     "case-anything": "^2.1.13",
-    "chalk": "^4.1.2",
+    "chalk": "^5.4.1",
     "compare-versions": "^6.1.1",
     "deepmerge": "^4.2.2",
     "express": "^4.19.2",

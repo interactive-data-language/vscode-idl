@@ -1,4 +1,7 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
+
+// force chalk to be enabled
+chalk.level = 2;
 
 import { Logger } from './logger.class';
 

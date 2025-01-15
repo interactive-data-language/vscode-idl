@@ -1,5 +1,5 @@
 import { ObjectifyError } from '@idl/error-shared';
-import * as minilog from 'minilog';
+import chalk from 'chalk';
 
 import { LogInterceptor } from './log-manager.interface';
 import {
@@ -11,7 +11,8 @@ import {
 } from './logger.interface';
 import { StringifyData, StringifyDataForLog } from './stringify-data';
 
-minilog.enable();
+// force chalk to be enabled
+chalk.level = 2;
 
 /**
  * Simply class that emulates the library Minilog which doesn't have types. Since we can use the library
@@ -25,9 +26,6 @@ export class Logger {
 
   /** The name of our log, printed out first */
   name: string;
-
-  /** reference to minilog */
-  mlog: minilog;
 
   /** Do we print debug statements */
   enableDebugLogs = false;
@@ -52,7 +50,6 @@ export class Logger {
   ) {
     // save properties
     this.name = name;
-    this.mlog = minilog(name);
     this.enableDebugLogs = enableDebugLogs;
     this.alertCb = alertCb;
     this.logUgly = logUgly;
@@ -164,12 +161,12 @@ export class Logger {
       // for the first, use special formatting with the log name
       if (i === 0) {
         // set default log info
-        // let prettyLogType = PRETTY_LOG_NAMES.log;
+        let prettyLogType = PRETTY_LOG_NAMES.log;
         let uglyLogType = UGLY_LOG_NAMES.log;
 
         // check if we have a type that we know about
         if (type in PRETTY_LOG_NAMES) {
-          // prettyLogType = PRETTY_LOG_NAMES[type];
+          prettyLogType = PRETTY_LOG_NAMES[type];
           uglyLogType = UGLY_LOG_NAMES[type];
         }
 
@@ -184,31 +181,10 @@ export class Logger {
           continue;
         }
 
-        // convert data to a string
-        const toWrite = StringifyData(useData[i], true);
-
-        // print to the console with minilog since chalk isnt working
-        switch (type) {
-          case 'info':
-            this.mlog.info(toWrite);
-            break;
-          case 'debug':
-            this.mlog.debug(toWrite);
-            break;
-          case 'error':
-            this.mlog.error(toWrite);
-            break;
-          case 'warn':
-            this.mlog.warn(toWrite);
-            break;
-          default:
-            this.mlog.log(toWrite);
-            break;
-        }
-        // this._logPretty(
-        //   `${chalk.gray(this.name)} ${prettyLogType} `,
-        //   useData[i]
-        // );
+        this._logPretty(
+          `${chalk.gray(this.name)} ${prettyLogType}`,
+          chalk.white(StringifyData(useData[i], true))
+        );
       } else {
         // skip if not allowed to log to console
         if (this.quiet) {
@@ -234,7 +210,7 @@ export class Logger {
    * @param {*} data The data to write to disk
    */
   private _logPretty(front: string, data: any, indent = false) {
-    console.log(StringifyDataForLog(front, data, indent, true));
+    console.log(chalk.white(StringifyDataForLog(front, data, indent, true)));
   }
 
   /**
