@@ -1,4 +1,6 @@
+import { InitializeTranslation } from '@idl/translation';
 import { MEASUREMENT } from '@idl/usage-metrics';
+import { InitializeExtensionConfig } from '@idl/vscode/config';
 import { ExtensionContext } from 'vscode';
 
 import { environment } from './environments/environment';
@@ -11,7 +13,11 @@ console.log('loaded JS!');
  * Function that activates our extension
  */
 export async function activate(ctx: ExtensionContext): Promise<void> {
-  // InitializeTranslation('en');
+  InitializeTranslation('en');
+
+  InitializeExtensionConfig(() => {
+    // do nothing on config changes
+  });
 
   // ctx.extensionUri
 
