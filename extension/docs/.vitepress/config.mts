@@ -9,7 +9,7 @@ import { CODE_COMMENTS_SIDEBAR } from './sidebars/code-comments.sidebar';
 import { NOTEBOOK_SIDEBAR } from './sidebars/notebook.sidebar';
 import { GETTING_STARTED_SIDEBAR } from './sidebars/getting-started.sidebar';
 import { PROBLEMS_SIDEBAR } from './sidebars/problems.sidebar';
-import { VERSION } from '../../../libs/shared/src/lib/version.interface';
+import { VERSION } from '../../../libs/shared/extension/src/lib/version.interface';
 import { SCRIPT, VSCODE_ICON } from './constants';
 
 // https://vitepress.dev/reference/site-config
