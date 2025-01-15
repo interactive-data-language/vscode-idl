@@ -22,6 +22,10 @@ IDL for VSCode now includes beta support for IDL 9.2 (unreleased) which will inc
 
 With this change, our old debugger will still be present to maintain backwards compatibility with older versions of IDL. It will still function with debug sessions and IDL Notebooks. The new debugger will automatically be used when it is detected in your installation.
 
+## Web Extension Changes
+
+We no longer check for the IDL directory existing and being a valid folder on extension startup. Instead, this check is made, and dialogs appear, when starting debug sessions, running notebooks, or starting a terminal session.
+
 ## Unreleased
 
 Re-work the way that we handle keywords and properties when we parse, provide hover help, and auto-complete to ensure that we are sorted alphabetically independent of case.
