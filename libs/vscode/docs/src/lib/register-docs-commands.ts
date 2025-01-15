@@ -35,7 +35,11 @@ export function RegisterDocsCommands(ctx: ExtensionContext) {
           /**
            * Get the URL we want to open
            */
-          const url = ResolveExtensionDocsURL('', IDL_EXTENSION_CONFIG);
+          const url = ResolveExtensionDocsURL(
+            '',
+            IDL_EXTENSION_CONFIG.documentation.useOnline,
+            IDL_EXTENSION_CONFIG.documentation.localPort
+          );
 
           vscode.commands.executeCommand(
             'vscode.open',

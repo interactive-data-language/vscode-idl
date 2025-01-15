@@ -59,7 +59,8 @@ export function SyntaxProblemToDiagnostic(
     codeDescription: {
       href: ResolveExtensionDocsURL(
         `/problem-codes/codes/${problem.code}.html`,
-        IDL_CLIENT_CONFIG
+        IDL_CLIENT_CONFIG.documentation.useOnline,
+        IDL_CLIENT_CONFIG.documentation.localPort
       ),
     },
     data: {
