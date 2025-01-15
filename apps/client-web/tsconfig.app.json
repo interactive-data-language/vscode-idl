@@ -140,7 +140,11 @@
       "@idl/workers/parsing": ["libs/workers/parsing/src/index.ts"],
       "@idl/workers/vscode": ["libs/workers/vscode/src/index.ts"],
       "@idl/workers/workerio": ["libs/workers/workerio/src/index.ts"],
-      "path": ["node_modules/path-browserify"]
+      "os": ["node_modules/os-browserify"],
+      "path": ["node_modules/path-browserify"],
+      "stream": ["node_modules/stream-browserify"],
+      "tty": ["node_modules/tty-browserify"],
+      "util": ["node_modules/util"]
     }
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
