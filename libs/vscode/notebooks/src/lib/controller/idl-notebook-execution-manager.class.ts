@@ -20,6 +20,7 @@ import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import {
   DEFAULT_IDL_DEBUG_CONFIGURATION,
   IDL_DEBUG_CONFIGURATION_PROVIDER,
+  IsIDLDirValid,
 } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
@@ -544,19 +545,7 @@ export class IDLNotebookExecutionManager {
     });
 
     // verify that we have the right info, otherwise alert, terminate, and return
-    if (IDL_EXTENSION_CONFIG.IDL.directory === '') {
-      IDL_LOGGER.log({
-        log: IDL_NOTEBOOK_LOG,
-        content:
-          'The IDL directory has not been configured, cannot run notebook cell',
-        type: 'error',
-        alert: IDL_TRANSLATION.debugger.adapter.noIDLDir,
-        alertMeta: {
-          idlLoc: true,
-        },
-      });
-
-      // return and dont continue
+    if (!IsIDLDirValid(IDL_EXTENSION_CONFIG.IDL.directory)) {
       return false;
     }
 
