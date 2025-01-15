@@ -1,4 +1,5 @@
 const { composePlugins, withNx } = require('@nx/webpack');
+const webpack = require('webpack');
 
 // Nx plugins for webpack.
 module.exports = composePlugins(
@@ -15,6 +16,13 @@ module.exports = composePlugins(
     config.externals = {
       vscode: 'commonjs vscode', // ignored because it doesn't exist
     };
+
+    // provide a shim for the global `process` variable
+    config.plugins.push(
+      new webpack.ProvidePlugin({
+        process: 'process/browser',
+      })
+    );
 
     return config;
   }
