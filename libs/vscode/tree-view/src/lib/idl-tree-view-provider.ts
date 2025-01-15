@@ -27,7 +27,11 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
   private _onDidChangeTreeData: vscode.EventEmitter<IDLAction | undefined> =
     new vscode.EventEmitter<IDLAction | undefined>();
 
-  constructor() {
+  private extensionFolder: string;
+
+  constructor(extensionFolder: string) {
+    this.extensionFolder = extensionFolder;
+
     this.onDidChangeTreeData = this._onDidChangeTreeData.event;
 
     // build our tree
@@ -116,7 +120,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
       '',
       vscode.TreeItemCollapsibleState.Expanded,
       'idlicon.svg',
-      ''
+      '',
+      this.extensionFolder
     );
     this.tree[IDL_TRANSLATION.idl.tree.parents.debugging] =
       DEBUGGING_BUTTONS.map(
@@ -126,7 +131,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
             child.description,
             vscode.TreeItemCollapsibleState.None,
             child.icon,
-            child.commandName
+            child.commandName,
+            this.extensionFolder
           )
       );
 
@@ -137,7 +143,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
       '',
       vscode.TreeItemCollapsibleState.Collapsed,
       'terminal.svg',
-      ''
+      '',
+      this.extensionFolder
     );
     this.tree[IDL_TRANSLATION.idl.tree.parents.terminal] = TERMINAL_BUTTONS.map(
       (child) =>
@@ -146,7 +153,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
           child.description,
           vscode.TreeItemCollapsibleState.None,
           child.icon,
-          child.commandName
+          child.commandName,
+          this.extensionFolder
         )
     );
 
@@ -159,7 +167,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
       '',
       vscode.TreeItemCollapsibleState.Expanded,
       'code.svg',
-      ''
+      '',
+      this.extensionFolder
     );
     this.tree[IDL_TRANSLATION.idl.tree.parents.codeActions] = CODE_ACTIONS.map(
       (child) =>
@@ -168,7 +177,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
           child.description,
           vscode.TreeItemCollapsibleState.None,
           child.icon,
-          child.commandName
+          child.commandName,
+          this.extensionFolder
         )
     );
 
@@ -181,7 +191,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
       '',
       vscode.TreeItemCollapsibleState.Expanded,
       'post.svg',
-      ''
+      '',
+      this.extensionFolder
     );
     this.tree[IDL_TRANSLATION.idl.tree.parents.notebooks] =
       NOTEBOOK_ACTIONS.map(
@@ -191,7 +202,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
             child.description,
             vscode.TreeItemCollapsibleState.None,
             child.icon,
-            child.commandName
+            child.commandName,
+            this.extensionFolder
           )
       );
 
@@ -204,7 +216,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
       '',
       vscode.TreeItemCollapsibleState.Expanded,
       'quick-reference-all.svg',
-      ''
+      '',
+      this.extensionFolder
     );
     this.tree[IDL_TRANSLATION.idl.tree.parents.quickAccess] =
       ADDITIONAL_ACTIONS.map(
@@ -214,7 +227,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
             child.description,
             vscode.TreeItemCollapsibleState.None,
             child.icon,
-            child.commandName
+            child.commandName,
+            this.extensionFolder
           )
       );
   }

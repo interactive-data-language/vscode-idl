@@ -17,6 +17,6 @@ export function InitializeTree(ctx: ExtensionContext) {
 
   // generate our tree provider and get the view for listening to events
   IDL_LOGGER.log({ content: 'Creating IDL tree view' });
-  TREE_VIEW_PROVIDER = new IDLTreeViewProvider();
+  TREE_VIEW_PROVIDER = new IDLTreeViewProvider(ctx.extensionPath);
   TREE_VIEW_PROVIDER.createView();
 }
