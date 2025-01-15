@@ -23,7 +23,7 @@ import {
   IsIDLDirValid,
 } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
-import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { compareVersions } from 'compare-versions';
 import copy from 'fast-copy';
 import * as vscode from 'vscode';

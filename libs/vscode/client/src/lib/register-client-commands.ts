@@ -5,7 +5,8 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
-import { VSCODE_COMMANDS, VSCodeTelemetryLogger } from '@idl/vscode/shared';
+import { VSCODE_COMMANDS } from '@idl/vscode/shared';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 import { URI } from 'vscode-uri'; // handle URI to file system and back

@@ -18,7 +18,8 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_LOGGER, VSCODE_PRO_DIR } from '@idl/vscode/client';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
-import { VSCODE_COMMANDS, VSCodeTelemetryLogger } from '@idl/vscode/shared';
+import { VSCODE_COMMANDS } from '@idl/vscode/shared';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import {
   ContinuedEvent,
   InitializedEvent,

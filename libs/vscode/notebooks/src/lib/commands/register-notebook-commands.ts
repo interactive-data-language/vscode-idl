@@ -31,8 +31,8 @@ import {
   OpenFileInVSCode,
   OpenNotebookInVSCode,
   VSCODE_COMMANDS,
-  VSCodeTelemetryLogger,
 } from '@idl/vscode/shared';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 import { cp } from 'fs/promises';
 import { join } from 'path';

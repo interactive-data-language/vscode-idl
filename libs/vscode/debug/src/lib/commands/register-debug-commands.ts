@@ -6,7 +6,7 @@ import {
   LogCommandError,
   LogCommandInfo,
 } from '@idl/vscode/client';
-import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { IDLWebView } from '@idl/vscode/webview';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';

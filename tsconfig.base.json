@@ -142,6 +142,7 @@
       "@idl/vscode/shared": ["libs/vscode/shared/src/index.ts"],
       "@idl/vscode/terminal": ["libs/vscode/terminal/src/index.ts"],
       "@idl/vscode/tree-view": ["libs/vscode/tree-view/src/index.ts"],
+      "@idl/vscode/usage-metrics": ["libs/vscode/usage-metrics/src/index.ts"],
       "@idl/vscode/webview": ["libs/vscode/webview/src/index.ts"],
       "@idl/vscode/webview-shared": ["libs/vscode/webview-shared/src/index.ts"],
       "@idl/workers/parsing": ["libs/workers/parsing/src/index.ts"],

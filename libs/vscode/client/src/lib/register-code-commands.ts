@@ -17,8 +17,8 @@ import {
   GetActivePROCodeOrTaskWindow,
   GetActivePROCodeWindow,
   ReplaceDocumentContent,
-  VSCodeTelemetryLogger,
 } from '@idl/vscode/shared';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { basename } from 'path';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
