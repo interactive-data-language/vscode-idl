@@ -6,7 +6,7 @@ import {
   IDLRawNotebookVersion_1_0_0,
   IDLRawNotebookVersion_2_0_0,
 } from '@idl/types/notebooks';
-import { IDL_LOGGER } from '@idl/vscode/client';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
 import { FromIDLRawNotebook_1_0_0 } from './from-idl-raw-notebook-1.0.0';

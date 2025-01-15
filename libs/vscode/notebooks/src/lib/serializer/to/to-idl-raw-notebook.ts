@@ -2,7 +2,7 @@ import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { EncodeNotebook } from '@idl/notebooks/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLRawNotebook, IDLRawNotebookVersion } from '@idl/types/notebooks';
-import { IDL_LOGGER } from '@idl/vscode/client';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
 import { CleanOutputMetadata } from './clean-output-metadata';

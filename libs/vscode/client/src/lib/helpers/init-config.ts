@@ -5,9 +5,9 @@ import {
   IDL_EXTENSION_CONFIG_KEYS,
   IDontAskConfig,
 } from '@idl/vscode/extension-config';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
-import { IDL_LOGGER } from '../initialize-client';
 import { LANGUAGE_SERVER_MESSENGER } from '../start-language-server';
 
 /**

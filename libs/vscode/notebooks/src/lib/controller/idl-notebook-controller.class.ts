@@ -6,7 +6,7 @@ import {
   IDL_NOTEBOOK_LANGUAGE_NAME,
 } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_LOGGER } from '@idl/vscode/client';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
 import { IDLNotebookExecutionManager } from './idl-notebook-execution-manager.class';

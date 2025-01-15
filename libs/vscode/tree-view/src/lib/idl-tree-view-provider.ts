@@ -1,6 +1,6 @@
 import { IDL_TREE_VIEW_ID } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_LOGGER } from '@idl/vscode/client';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
 import { IDLAction } from './idl-action.class';

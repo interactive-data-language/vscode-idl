@@ -1,4 +1,4 @@
-import { IDL_LOGGER } from '@idl/vscode/client';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import { ExtensionContext } from 'vscode';
 
 import { IDLTreeClickHandler } from './idl-tree-click-handler';

@@ -138,6 +138,7 @@
       "@idl/vscode/initialize-types": [
         "libs/vscode/initialize-types/src/index.ts"
       ],
+      "@idl/vscode/logger": ["libs/vscode/logger/src/index.ts"],
       "@idl/vscode/notebooks": ["libs/vscode/notebooks/src/index.ts"],
       "@idl/vscode/server": ["libs/vscode/server/src/index.ts"],
       "@idl/vscode/shared": ["libs/vscode/shared/src/index.ts"],

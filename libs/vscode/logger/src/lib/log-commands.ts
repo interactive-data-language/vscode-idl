@@ -1,6 +1,6 @@
 import { IDL_COMMAND_LOG } from '@idl/logger';
 
-import { IDL_LOGGER } from '../initialize-client';
+import { IDL_LOGGER } from './initialize-logger';
 
 /**
  * Logs an information statement to the IDL command log

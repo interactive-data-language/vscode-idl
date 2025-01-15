@@ -4,7 +4,7 @@ import {
   IDLNotebookFromRendererMessage,
   IDLNotebookFromRendererMessageType,
 } from '@idl/types/notebooks';
-import { IDL_LOGGER } from '@idl/vscode/client';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
 import { SaveNotebookImage } from './save-notebook-image';

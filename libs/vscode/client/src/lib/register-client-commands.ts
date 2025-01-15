@@ -6,13 +6,17 @@ import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
+import {
+  IDL_LOGGER,
+  LogCommandError,
+  LogCommandInfo,
+} from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 import { URI } from 'vscode-uri'; // handle URI to file system and back
 
-import { IDL_CLIENT_OUTPUT_CHANNEL, IDL_LOGGER } from './initialize-client';
-import { LogCommandError, LogCommandInfo } from './logger/logger-helpers';
+import { IDL_CLIENT_OUTPUT_CHANNEL } from './initialize-client';
 
 // get the command errors from IDL translation
 const cmdErrors = IDL_TRANSLATION.commands.errors;

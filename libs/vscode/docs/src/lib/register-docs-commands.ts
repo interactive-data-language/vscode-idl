@@ -5,8 +5,8 @@ import {
 } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
-import { IDL_LOGGER, LogCommandError } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
+import { IDL_LOGGER, LogCommandError } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { existsSync } from 'fs';
 import { basename, dirname } from 'path';

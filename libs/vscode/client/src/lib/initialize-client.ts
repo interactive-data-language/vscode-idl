@@ -1,5 +1,5 @@
 import { CleanPath } from '@idl/idl/files';
-import { IDL_CONSOLE, IDL_LOG, LogManager } from '@idl/logger';
+import { IDL_LOG } from '@idl/logger';
 import { LOG_LANGUAGE_NAME } from '@idl/shared/extension';
 import { GetVSCodeLocale } from '@idl/shared/node';
 import { IDL_TRANSLATION, InitializeTranslation } from '@idl/translation';
@@ -14,6 +14,7 @@ import {
 } from '@idl/vscode/config';
 import { InitializeDecorations } from '@idl/vscode/decorations';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
+import { IDL_LOGGER, InitializeLogger } from '@idl/vscode/logger';
 import { join } from 'path';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
@@ -52,37 +53,8 @@ export const IDL_DEBUG_OUTPUT_CHANNEL = vscode.window.createOutputChannel(
   LOG_LANGUAGE_NAME
 );
 
-/**
- * Our logger to handle logic of logging to disk
- */
-export const IDL_LOGGER = new LogManager({
-  alert: LOG_ALERT_CALLBACK,
-});
-
-/**
- * Replace console logs to capture all content and normalize output logging
- */
-console.log = (...args: any[]) => {
-  IDL_LOGGER.log({
-    log: IDL_CONSOLE,
-    content: args,
-  });
-};
-console.warn = (...args: any[]) => {
-  IDL_LOGGER.log({
-    log: IDL_CONSOLE,
-    content: args,
-    type: 'warn',
-  });
-};
-console.error = (...args: any[]) => {
-  IDL_LOGGER.log({
-    log: IDL_CONSOLE,
-    content: args,
-    type: 'error',
-    alert: IDL_TRANSLATION.client.errors.unhandled,
-  });
-};
+// initialize logging
+InitializeLogger(LOG_ALERT_CALLBACK);
 
 /**
  * Check if we are in runtime or development mode (debugging)

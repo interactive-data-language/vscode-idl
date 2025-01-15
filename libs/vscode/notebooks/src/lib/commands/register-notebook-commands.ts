@@ -16,17 +16,17 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { INotebookToProCodeOptions } from '@idl/types/notebooks';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
-import {
-  IDL_LOGGER,
-  LANGUAGE_SERVER_MESSENGER,
-  LogCommandError,
-  LogCommandInfo,
-} from '@idl/vscode/client';
+import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { BasicQuestionAsker } from '@idl/vscode/config';
 import {
   IRetrieveDocsPayload,
   LANGUAGE_SERVER_MESSAGE_LOOKUP,
 } from '@idl/vscode/events/messages';
+import {
+  IDL_LOGGER,
+  LogCommandError,
+  LogCommandInfo,
+} from '@idl/vscode/logger';
 import {
   GetActiveIDLNotebookWindow,
   OpenFileInVSCode,

@@ -1,5 +1,5 @@
 import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
-import { IDL_LOGGER } from '@idl/vscode/client';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
 import { RegisterDebugCommands } from './commands/register-debug-commands';

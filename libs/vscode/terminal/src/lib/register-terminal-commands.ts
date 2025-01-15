@@ -4,7 +4,7 @@ import {
   IDL_LOGGER,
   LogCommandError,
   LogCommandInfo,
-} from '@idl/vscode/client';
+} from '@idl/vscode/logger';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 

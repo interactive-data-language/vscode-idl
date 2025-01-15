@@ -11,11 +11,7 @@ import { Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLNotebookEmbeddedItems } from '@idl/types/notebooks';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
-import {
-  IDL_LOGGER,
-  VSCODE_NOTEBOOK_PRO_DIR,
-  VSCODE_PRO_DIR,
-} from '@idl/vscode/client';
+import { VSCODE_NOTEBOOK_PRO_DIR, VSCODE_PRO_DIR } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import {
   DEFAULT_IDL_DEBUG_CONFIGURATION,
@@ -23,6 +19,7 @@ import {
   IsIDLDirValid,
 } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { compareVersions } from 'compare-versions';
 import copy from 'fast-copy';

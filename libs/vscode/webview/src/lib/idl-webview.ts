@@ -1,12 +1,13 @@
 import { IDL_WEB_VIEW_LOG } from '@idl/logger';
 import { WEB_VIEW_PANEL_ID } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { I18N_FOLDER, IDL_LOGGER } from '@idl/vscode/client';
+import { I18N_FOLDER } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG, UpdateConfigObject } from '@idl/vscode/config';
 import {
   IDL_EXTENSION_CONFIG_KEYS,
   IDontShowConfig,
 } from '@idl/vscode/extension-config';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import {
   IProfilerMessage,
   VSCodeWebViewMessage,

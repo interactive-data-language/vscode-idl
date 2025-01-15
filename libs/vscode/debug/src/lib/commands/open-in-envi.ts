@@ -1,6 +1,6 @@
 import { CleanPath } from '@idl/idl/files';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_LOGGER } from '@idl/vscode/client';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import { OutputEvent } from '@vscode/debugadapter';
 import * as vscode from 'vscode';
 

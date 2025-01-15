@@ -1,9 +1,10 @@
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
-import { IDL_CLIENT_OUTPUT_CHANNEL, IDL_LOGGER } from '../initialize-client';
+import { IDL_CLIENT_OUTPUT_CHANNEL } from '../initialize-client';
 
 /**
  * Callback to handle when we have options on our buttons
