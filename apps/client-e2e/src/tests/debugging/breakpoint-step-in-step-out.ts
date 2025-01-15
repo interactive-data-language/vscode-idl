@@ -1,10 +1,8 @@
-import { GetExtensionPath, IDL_COMMANDS } from '@idl/shared/extension';
+import { GetExtensionPath } from '@idl/idl/files';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { Sleep } from '@idl/tests/helpers';
-import {
-  GetActivePROCodeWindow,
-  OpenFileInVSCode,
-  VSCODE_COMMANDS,
-} from '@idl/vscode/shared';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
+import { GetActivePROCodeWindow, OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 

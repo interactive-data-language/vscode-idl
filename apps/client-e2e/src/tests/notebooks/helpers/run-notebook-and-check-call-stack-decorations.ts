@@ -1,11 +1,12 @@
 import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
 import { Sleep } from '@idl/shared/extension';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import {
   IDLDecorationsManager,
   IStackTraceLookup,
 } from '@idl/vscode/decorations';
 import { IDLNotebookController } from '@idl/vscode/notebooks';
-import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
+import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import { existsSync, rmSync } from 'fs';
 import * as vscode from 'vscode';

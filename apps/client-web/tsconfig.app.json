@@ -106,6 +106,7 @@
       "@idl/types/syntax-tree": ["libs/types/syntax-tree/src/index.ts"],
       "@idl/types/tasks": ["libs/types/tasks/src/index.ts"],
       "@idl/types/tokenizer": ["libs/types/tokenizer/src/index.ts"],
+      "@idl/types/vscode": ["libs/types/vscode/src/index.ts"],
       "@idl/types/websites": ["libs/types/websites/src/index.ts"],
       "@idl/usage-metrics": ["libs/usage-metrics/src/index.ts"],
       "@idl/vscode/client": ["libs/vscode/client/src/index.ts"],

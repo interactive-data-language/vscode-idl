@@ -15,10 +15,10 @@ import {
 import { IDL_DEBUG_ADAPTER_LOG, IDL_DEBUG_LOG } from '@idl/logger';
 import { Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_LOGGER, VSCODE_PRO_DIR } from '@idl/vscode/client';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
-import { VSCODE_COMMANDS } from '@idl/vscode/shared';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import {
   ContinuedEvent,

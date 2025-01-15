@@ -12,5 +12,3 @@ export * from './lib/replace-document-content';
 export * from './lib/replace-editor-content';
 export * from './lib/variables-reference-substitution';
 export * from './lib/variables-reference-substitution.interface';
-export * from './lib/vscode-commands.interface';
-export * from './lib/vscode-telemetry-logger';

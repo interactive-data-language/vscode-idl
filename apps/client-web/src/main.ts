@@ -1,6 +1,7 @@
 import { InitializeTranslation } from '@idl/translation';
 import { MEASUREMENT } from '@idl/usage-metrics';
 import { InitializeExtensionConfig } from '@idl/vscode/config';
+import { InitializeTree } from '@idl/vscode/tree-view';
 import { ExtensionContext } from 'vscode';
 
 import { environment } from './environments/environment';
@@ -18,6 +19,9 @@ export async function activate(ctx: ExtensionContext): Promise<void> {
   InitializeExtensionConfig(() => {
     // do nothing on config changes
   });
+
+  // initialize our tree view
+  InitializeTree(ctx);
 
   // ctx.extensionUri
 

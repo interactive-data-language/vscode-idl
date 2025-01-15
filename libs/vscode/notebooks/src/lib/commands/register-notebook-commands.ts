@@ -14,6 +14,7 @@ import {
 } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { INotebookToProCodeOptions } from '@idl/types/notebooks';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   IDL_LOGGER,
@@ -30,7 +31,6 @@ import {
   GetActiveIDLNotebookWindow,
   OpenFileInVSCode,
   OpenNotebookInVSCode,
-  VSCODE_COMMANDS,
 } from '@idl/vscode/shared';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
