@@ -13,19 +13,16 @@ import {
 import { InitializeLogger } from '@idl/vscode/logger';
 import { InitializeTree } from '@idl/vscode/tree-view';
 import { ExtensionContext } from 'vscode';
+import * as vscode from 'vscode';
 
 import { environment } from './environments/environment';
 
 MEASUREMENT.ID = environment.measurement;
 
-console.log('loaded JS!');
-
 /**
  * Function that activates our extension
  */
 export async function activate(ctx: ExtensionContext) {
-  console.log('They want me to activate!');
-
   try {
     InitializeTranslation('en');
     InitializeLogger(() => {
@@ -47,9 +44,11 @@ export async function activate(ctx: ExtensionContext) {
     // initialize our tree view
     InitializeTree(ctx);
   } catch (err) {
+    vscode.window.showErrorMessage(
+      'Failed to activate IDL for VSCode extension'
+    );
     console.log(err);
   }
-  console.log('I have finished activation!');
 }
 
 /**
