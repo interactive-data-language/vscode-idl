@@ -1,6 +1,9 @@
+// import './polyfills';
+
 import { InitializeTranslation } from '@idl/translation';
 import { MEASUREMENT } from '@idl/usage-metrics';
 import { InitializeExtensionConfig } from '@idl/vscode/config';
+import { InitializeLogger } from '@idl/vscode/logger';
 import { InitializeTree } from '@idl/vscode/tree-view';
 import { ExtensionContext } from 'vscode';
 
@@ -13,28 +16,33 @@ console.log('loaded JS!');
 /**
  * Function that activates our extension
  */
-export async function activate(ctx: ExtensionContext): Promise<void> {
-  InitializeTranslation('en');
+export default function activate(ctx: ExtensionContext) {
+  console.log('They want me to activate!');
 
-  InitializeExtensionConfig(() => {
-    // do nothing on config changes
-  });
+  try {
+    InitializeLogger(() => {
+      // do nothing
+    });
 
-  // initialize our tree view
-  InitializeTree(ctx);
+    InitializeTranslation('en');
 
-  // ctx.extensionUri
+    // // set logging callback for metrics
+    // SetUsageMetricLogger((ev, payload) => {
+    //   // do nothing because VSCode has a dedicated channel for viewing telemetry
+    //   // and logs it for you
+    // });
 
-  // const ext = vscode.extensions.getExtension(EXTENSION_NAME);
+    // InitializeUsageMetrics();
 
-  // console.log(ext.extensionPath);
+    InitializeExtensionConfig(() => {
+      // do nothing on config changes
+    });
 
-  // const contents = await vscode.workspace.fs.readFile();
-
-  // readFileSync(GetExtensionPath('idl/routines/global.json'), {
-  //   encoding: 'utf-8',
-  // });
-  console.log('I have activated!');
+    // initialize our tree view
+    InitializeTree(ctx);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 /**
