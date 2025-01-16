@@ -34,9 +34,6 @@ export async function activate(
   // add everything for IDL terminal
   InitializeIDLTerminal(ctx);
 
-  // initialize our tree view
-  InitializeTree(ctx);
-
   // add our webview
   const webview = InitializeWebView(ctx);
 
@@ -48,6 +45,9 @@ export async function activate(
 
   // add notebooks
   const notebooks = InitializeNotebooks(ctx);
+
+  // initialize our tree view
+  InitializeTree(ctx);
 
   // return result
   return {
