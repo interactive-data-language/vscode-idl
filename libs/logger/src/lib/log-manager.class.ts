@@ -102,6 +102,19 @@ export class LogManager implements ILogManagerOptions {
   }
 
   /**
+   * Set log alert for everyone
+   */
+  setAlert(alert: LogAlertCallback) {
+    this.alert = alert;
+
+    // update all of our logs
+    const logs = Object.values(this.logs);
+    for (let i = 0; i < logs.length; i++) {
+      logs[i].alertCb = alert;
+    }
+  }
+
+  /**
    * Updates all logs to do fancy or basic logging
    */
   setUgly(flag: boolean) {

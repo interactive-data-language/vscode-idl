@@ -29,14 +29,15 @@ console.error = (...args: any[]) => {
 /**
  * Our logger to handle logic of logging to disk
  */
-export let IDL_LOGGER: LogManager;
+export const IDL_LOGGER = new LogManager({
+  alert: () => {
+    // do nothing
+  },
+});
 
 /**
  * Initializes the logger class
  */
 export function InitializeLogger(alert: LogAlertCallback) {
-  // create log
-  IDL_LOGGER = new LogManager({
-    alert,
-  });
+  IDL_LOGGER.setAlert(alert);
 }
