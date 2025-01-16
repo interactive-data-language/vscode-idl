@@ -9,6 +9,17 @@ module.exports = composePlugins(withNx(), (config) => {
   //   path: require.resolve('path-browserify'),
   // };
 
+  // force to be web
+  config.target = ['webworker'];
+
+  /**
+   * Force commonjs
+   *
+   * For whatever reason, NX changes this from commonjs when
+   * web worker is set as the target
+   */
+  config.output.libraryTarget = 'commonjs';
+
   config.externals = {
     vscode: 'commonjs vscode', // ignored because it doesn't exist
   };

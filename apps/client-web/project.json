@@ -10,7 +10,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "target": "node",
+        "target": "webworker",
         "compiler": "tsc",
         "outputPath": "dist/apps/client-web",
         "main": "apps/client-web/src/main.ts",
