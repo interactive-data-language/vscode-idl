@@ -6,7 +6,7 @@ import {
   StringifyDataForLog,
 } from '@idl/logger';
 
-import { IDL_CLIENT_OUTPUT_CHANNEL } from '../initialize-client';
+import { IDL_CLIENT_OUTPUT_CHANNEL } from '../initialize-client-logger';
 
 /**
  * Interceptor to nicely handle output to our output channel.

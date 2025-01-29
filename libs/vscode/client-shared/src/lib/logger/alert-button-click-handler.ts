@@ -4,12 +4,12 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
-import { IDL_CLIENT_OUTPUT_CHANNEL } from '../initialize-client';
+import { IDL_CLIENT_OUTPUT_CHANNEL } from '../initialize-client-logger';
 
 /**
  * Callback to handle when we have options on our buttons
  */
-export async function ButtonCallback(
+export async function AlertButtonClickHandler(
   res: string | undefined,
   file?: string,
   docsUrl?: string

@@ -11,6 +11,10 @@ import * as vscode from 'vscode';
 import { LANGUAGE_SERVER_MESSENGER } from '../start-language-server';
 
 /**
+ * @deprecated
+ *
+ * Not deprecated insomuch as we just took this functionality out for now
+ *
  * Asks the user if they want to initialize config for a workspace or not
  * and handles any errors or preferences as well
  */

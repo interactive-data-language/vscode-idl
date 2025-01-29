@@ -3,7 +3,7 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
-import { ButtonCallback } from '../helpers/button-callback';
+import { AlertButtonClickHandler } from './alert-button-click-handler';
 
 /**
  * Callback for when we have an alert that we need to handle
@@ -58,17 +58,17 @@ export const LOG_ALERT_CALLBACK: LogAlertCallback = (options) => {
         items.push(IDL_TRANSLATION.debugger.logs.viewLogs);
         vscode.window
           .showErrorMessage(options.alert, ...items)
-          .then((res) => ButtonCallback(res, file, docsUrl));
+          .then((res) => AlertButtonClickHandler(res, file, docsUrl));
         break;
       case 'warn':
         vscode.window
           .showWarningMessage(options.alert, ...items)
-          .then((res) => ButtonCallback(res, file, docsUrl));
+          .then((res) => AlertButtonClickHandler(res, file, docsUrl));
         break;
       case 'info':
         vscode.window
           .showInformationMessage(options.alert, ...items)
-          .then((res) => ButtonCallback(res, file, docsUrl));
+          .then((res) => AlertButtonClickHandler(res, file, docsUrl));
         break;
       default:
         break;

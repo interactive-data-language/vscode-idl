@@ -5,6 +5,10 @@ import {
   NOTIFY_FILES_GLOB_PATTERN,
 } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  IDL_CLIENT_OUTPUT_CHANNEL,
+  VSCodeDisplayOrUpdateProgress,
+} from '@idl/vscode/client-shared';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { VSCodeClientEventManager } from '@idl/vscode/events/client';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
@@ -27,8 +31,6 @@ import {
 } from 'vscode-languageclient/node';
 
 import { ON_INDEX } from './events/indexing/on-index';
-import { VSCodeDisplayOrUpdateProgress } from './helpers/vscode-display-progress';
-import { IDL_CLIENT_OUTPUT_CHANNEL } from './initialize-client';
 import { START_LANGUAGE_SERVER_CONFIG } from './start-language-server.interface';
 
 /**

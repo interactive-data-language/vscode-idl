@@ -114,6 +114,29 @@ export interface ILogs {
 }
 
 /**
+ * Alert messages that you can add as options when logging
+ *
+ * These are passed all the way to VSCode
+ */
+export interface ILogAlerts {
+  /** If present and we have an alert, opens the specified file */
+  openFile?: string;
+  /** Filepath for a markdown file to display */
+  openDocsURL?: string;
+  /** A file to open */
+  file?: string;
+  /** If set, add a message to ask for the IDL directory */
+  idlLoc?: boolean;
+  /** If we need to ask user to initialize config for a folder */
+  initConfig?: {
+    /** Folder to initialize */
+    folder: string;
+  };
+  /** Show option to report bug */
+  reportBug?: boolean;
+}
+
+/**
  * Options when logging from the logger
  */
 export interface IBasicLogOptions {
@@ -124,23 +147,7 @@ export interface IBasicLogOptions {
   /** Do we have a message to alert users with */
   alert?: string;
   /** Metadata for alert */
-  alertMeta?: {
-    /** If present and we have an alert, opens the specified file */
-    openFile?: string;
-    /** Filepath for a markdown file to display */
-    openDocsURL?: string;
-    /** A file to open */
-    file?: string;
-    /** If set, add a message to ask for the IDL directory */
-    idlLoc?: boolean;
-    /** If we need to ask user to initialize config for a folder */
-    initConfig?: {
-      /** Folder to initialize */
-      folder: string;
-    };
-    /** Show option to report bug */
-    reportBug?: boolean;
-  };
+  alertMeta?: ILogAlerts;
 }
 
 /**

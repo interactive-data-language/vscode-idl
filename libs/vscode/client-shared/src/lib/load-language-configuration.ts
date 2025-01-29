@@ -1,7 +1,7 @@
 import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import * as vscode from 'vscode';
 
-import { LANGUAGE_CONFIGURATION } from './language-configuration.interface';
+import { LANGUAGE_CONFIGURATION } from './language-config/language-configuration.interface';
 
 /**
  * Use the VSCode API to configure our language rather than the atrocious

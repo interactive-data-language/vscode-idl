@@ -1,6 +1,6 @@
 import { LanguageConfiguration } from 'vscode';
 
-import { ON_ENTER_COMMENTS } from './helpers/on-enter-comments';
+import { ON_ENTER_COMMENTS } from './on-enter-comments';
 
 /**
  * IDL's language

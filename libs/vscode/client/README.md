@@ -1,3 +1,3 @@
-# vscode-client
+# Client
 
-Library that contains the majority of the code loaded in the **client** app. Initializes and sets up the entire UI for the VSCode extension.
+Code that actually creates the extension client for node runtimes (i.e. VSCode desktop).
