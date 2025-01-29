@@ -2,6 +2,11 @@ import { FindFiles, GetExtensionPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { NUM_WORKERS } from '@idl/parsing/index';
 import { RoundToNearest } from '@idl/shared/extension';
+import {
+  SystemMemoryGB,
+  SystemMemoryUsedGB,
+  SystemMemoryUsedMB,
+} from '@idl/system-memory';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/types/problem-codes';
 import {
@@ -19,11 +24,6 @@ import {
 } from '../helpers/merge-config';
 import { SendProblems } from '../helpers/send-problems';
 import { SendUsageMetricServer } from '../helpers/send-usage-metric-server';
-import {
-  SystemMemoryGB,
-  SystemMemoryUsedGB,
-  SystemMemoryUsedMB,
-} from '../helpers/system-memory-gb';
 import { IDL_CLIENT_CONFIG } from '../helpers/track-workspace-config';
 import {
   GLOBAL_SERVER_SETTINGS,

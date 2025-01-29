@@ -4,6 +4,7 @@ import {
   IDL_LANGUAGE_NAME,
   NOTIFY_FILES_GLOB_PATTERN,
 } from '@idl/shared/extension';
+import { NODE_MEMORY_CONFIG } from '@idl/system-memory';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_CLIENT_OUTPUT_CHANNEL,

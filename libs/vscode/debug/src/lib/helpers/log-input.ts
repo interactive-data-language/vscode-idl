@@ -1,5 +1,5 @@
 import { REGEX_NEW_LINE } from '@idl/idl/shared';
-import { IDL_DEBUG_OUTPUT_CHANNEL } from '@idl/vscode/client';
+import { IDL_DEBUG_OUTPUT_CHANNEL } from '@idl/vscode/client-shared';
 
 import { AddHistoryInput } from './add-history-input';
 import { OUTPUT_CONFIG } from './log-output';

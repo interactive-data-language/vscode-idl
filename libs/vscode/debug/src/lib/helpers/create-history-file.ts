@@ -1,6 +1,6 @@
 import { IDL_DEBUG_ADAPTER_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_DEBUG_OUTPUT_CHANNEL } from '@idl/vscode/client';
+import { IDL_DEBUG_OUTPUT_CHANNEL } from '@idl/vscode/client-shared';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VariablesReferenceSubstitution } from '@idl/vscode/shared';
