@@ -3,7 +3,6 @@ import { IDL_DEBUG_CONFIGURATION_LOG } from '@idl/logger';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { IDL_LOGGER } from '@idl/vscode/logger';
-import { VariablesReferenceSubstitution } from '@idl/vscode/shared';
 import copy from 'fast-copy';
 import * as path from 'path';
 import {
@@ -16,6 +15,7 @@ import {
 import * as vscode from 'vscode';
 import { URI } from 'vscode-uri';
 
+import { VariablesReferenceSubstitution } from './helpers/variables-reference-substitution';
 import {
   DEFAULT_IDL_DEBUG_CONFIGURATION,
   IDLDebugConfiguration,

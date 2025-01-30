@@ -10,5 +10,3 @@ export * from './lib/open-markdown-preview';
 export * from './lib/open-notebook-in-vscode';
 export * from './lib/replace-document-content';
 export * from './lib/replace-editor-content';
-export * from './lib/variables-reference-substitution';
-export * from './lib/variables-reference-substitution.interface';
