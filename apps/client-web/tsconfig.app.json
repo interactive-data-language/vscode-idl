@@ -144,11 +144,12 @@
       "@idl/workers/workerio": ["libs/workers/workerio/src/index.ts"],
       "os": ["node_modules/os-browserify"],
       "path": ["node_modules/path-browserify"],
+      "process": ["node_modules/process"],
       "stream": ["node_modules/stream-browserify"],
       "tty": ["node_modules/tty-browserify"],
       "util": ["node_modules/util"]
     }
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "include": ["src/**/*.ts"]
+  "include": ["src/globals.d.ts", "src/**/*.ts"]
 }
