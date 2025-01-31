@@ -21,14 +21,25 @@ const base = baseConfig.compilerOptions.paths;
 const existing = extendedConfig.compilerOptions.paths;
 
 /** Get all paths that should be shared */
-const paths = Object.keys(base);
+const sharedPaths = Object.keys(base);
 
 /** Track if there are changes */
 let changes = false;
 
 // check for changes - so we dont always break formatting
-for (let i = 0; i < paths.length; i++) {
-  if (!(paths[i] in existing)) {
+for (let i = 0; i < sharedPaths.length; i++) {
+  if (!(sharedPaths[i] in existing)) {
+    changes = true;
+    break;
+  }
+}
+
+/** Get all paths in the file to merge */
+const existingPaths = Object.keys(existing);
+
+// check for changes - so we dont always break formatting
+for (let i = 0; i < existingPaths.length; i++) {
+  if (!(existingPaths[i] in base)) {
     changes = true;
     break;
   }
@@ -37,6 +48,13 @@ for (let i = 0; i < paths.length; i++) {
 // exit if no changes
 if (!changes) {
   process.exit();
+}
+
+// check for changes - so we dont always break formatting
+for (let i = 0; i < existingPaths.length; i++) {
+  if (existingPaths[i].startsWith('@idl')) {
+    delete existing[existingPaths[i]];
+  }
 }
 
 // Merge paths
