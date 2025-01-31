@@ -18,7 +18,7 @@ const extendedConfig = JSON.parse(fs.readFileSync(extendedConfigPath, 'utf-8'));
 const base = baseConfig.compilerOptions.paths;
 
 /** Get existing paths in our second config file */
-const existing = extendedConfig.compilerOptions.paths;
+const toExtend = extendedConfig.compilerOptions.paths;
 
 /** Get all paths that should be shared */
 const sharedPaths = Object.keys(base);
@@ -28,14 +28,14 @@ let changes = false;
 
 // check for changes - so we dont always break formatting
 for (let i = 0; i < sharedPaths.length; i++) {
-  if (!(sharedPaths[i] in existing)) {
+  if (!(sharedPaths[i] in toExtend)) {
     changes = true;
     break;
   }
 }
 
 /** Get all paths in the file to merge */
-const existingPaths = Object.keys(existing);
+const existingPaths = Object.keys(toExtend);
 
 // check for changes - so we dont always break formatting
 for (let i = 0; i < existingPaths.length; i++) {
@@ -53,7 +53,7 @@ if (!changes) {
 // check for changes - so we dont always break formatting
 for (let i = 0; i < existingPaths.length; i++) {
   if (existingPaths[i].startsWith('@idl')) {
-    delete existing[existingPaths[i]];
+    delete toExtend[existingPaths[i]];
   }
 }
 
