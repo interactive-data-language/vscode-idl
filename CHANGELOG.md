@@ -34,6 +34,8 @@ This means that things like documentation will now be alphabetically sorted for 
 
 This helps normalize the internal documentation provided with IDL which, when we add in type information, gets out of order sometimes. This makes it easier to find what you are looking for in auto-complete and hover help.
 
+Improved syntax highlighting for executive commands and statements like ".compile" should not highlight strings, support comments, and not be bold depending on your theme.
+
 ## 4.7.1 - December 2024
 
 Fixed an issue with the IDL Webview that showed a blank tab when opened. This affect things like the profiler in the extension.

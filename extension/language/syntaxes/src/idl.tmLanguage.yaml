@@ -544,11 +544,10 @@ repository:
 
   # executive commands
   executive_command:
-    name: {{name_special}}
     match: '^\s*(\.[a-z_]+)\s*(.*)$'
     captures:
       '1': { name: {{name_special}} }
-      '2': { name: {{name_variable}} }
+      '2': { patterns: [{include: '#quote_tokens'}, {include: '#variable'}, {include: '#comment_tokens'}] }
 
   # using '@' to include other PRO files
   include:
