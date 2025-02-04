@@ -102,7 +102,7 @@ export class IDLDebugStatusBar {
    */
   setStoppedStatus(text: string) {
     this.clearTimeout();
-    this.bar.text = `${START_IDL_ICON} IDL: ${text}`;
+    this.bar.text = `${START_IDL_ICON} IDL: ${text} :( ${IDL_TRANSLATION.statusBar.startAgainQuestion}`;
   }
 
   /**
