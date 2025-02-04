@@ -5,6 +5,7 @@ import {
   TOutNotification,
 } from '@idl/idl/idl-machine';
 import { IDL_EVENT_LOOKUP, IDLEvent, IDLListenerArgs } from '@idl/idl/shared';
+import { LogType } from '@idl/logger';
 import { ChildProcess } from 'child_process';
 import * as kill from 'tree-kill';
 
@@ -110,6 +111,32 @@ export class IDLMachineWrapper {
 
     this.machine.onRequest('idlNotify', (params) => {
       // console.log('IDL Notify message', params);
+
+      /**
+       * Specific cases for IDL Notifications that we need to handle
+       */
+      switch (params.id) {
+        /**
+         * See vscode_log.pro for parameter information and how
+         * it maps to our logger
+         */
+        case 'vscode-log':
+          try {
+            this.parent.log.log({
+              type: params.param1 as LogType,
+              content: ['Message from IDL', JSON.parse(params.param2)],
+            });
+          } catch (err) {
+            this.parent.log.log({
+              type: 'error',
+              content: [`Error handling IDL Notify request:`, params, err],
+            });
+          }
+          return 1;
+        default:
+          // do nothing
+          break;
+      }
       return 0;
     });
 

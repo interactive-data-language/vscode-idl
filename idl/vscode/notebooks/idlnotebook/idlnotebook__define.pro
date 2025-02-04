@@ -288,6 +288,8 @@ function IDLNotebook::ExportItems
   compile_opt idl2, hidden, static
   on_error, 2
 
+  vscode_log, 'Exporting items'
+
   ; check if we have a new graphics item (or maybe direct graphics)
   if (!magic.window ne -1) then begin
     catch, err
