@@ -42,7 +42,7 @@ export async function run(): Promise<void> {
     /**
      * Manually specify IDL folder
      */
-    const idlDir = FindIDL('idl90');
+    const idlDir = FindIDL('idl92');
 
     // validate we know where it is
     if (!idlDir) {
