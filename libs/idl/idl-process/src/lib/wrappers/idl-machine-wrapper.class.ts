@@ -75,18 +75,120 @@ export class IDLMachineWrapper {
   }
 
   /**
-   * Start our debugging session
+   * Listen for notifications
    */
-  listen(idl: ChildProcess) {
-    // save IDL prop
-    this.idl = idl;
-    this.machine = new IDLMachine(idl);
-
-    this.machine.onNotification('serverReady', () => {
-      this.parent.started = true;
-      this.emit(IDL_EVENT_LOOKUP.IDL_STARTED, 'not implemented');
+  _listenForNotifications() {
+    this.machine.onNotification('breakpointMoved', () => {
+      // do nothing
     });
 
+    /**
+     * Listen for IDL being done executing
+     */
+    this.machine.onNotification('commandFinished', () => {
+      this.emit(IDL_EVENT_LOOKUP.PROMPT_READY, this.parent.capturedOutput);
+    });
+
+    this.machine.onNotification('commandStarted', () => {
+      /**
+       * Nothing to do here, already handled with legacy solution
+       */
+    });
+
+    this.machine.onNotification('compilerOpenFile', () => {
+      /**
+       * Nothing to do here for now
+       */
+    });
+
+    this.machine.onNotification('deathHint', () => {
+      /**
+       * TODO
+       */
+    });
+
+    this.machine.onNotification('debugSend', () => {
+      /**
+       * Nothing to do here, already handled with legacy solution
+       */
+    });
+
+    this.machine.onNotification('delVar', () => {
+      /**
+       * TODO
+       */
+    });
+
+    this.machine.onNotification('exitDone', () => {
+      /**
+       * TODO
+       */
+    });
+
+    this.machine.onNotification('helpTopic', () => {
+      /**
+       * TODO
+       */
+    });
+
+    this.machine.onNotification('interpreterStopped', () => {
+      /**
+       * Nothing to do here, already handled
+       */
+    });
+
+    this.machine.onNotification('modalMessage', () => {
+      /**
+       * TODO
+       */
+    });
+
+    this.machine.onNotification('openFile', () => {
+      /**
+       * Nothing to do here for now
+       */
+    });
+
+    this.machine.onNotification('pathChange', () => {
+      /**
+       * Nothing to do here
+       */
+    });
+
+    this.machine.onNotification('promptChange', (prompt) => {
+      this.emit(IDL_EVENT_LOOKUP.PROMPT, prompt);
+    });
+
+    this.machine.onNotification('resetSessionDone', () => {
+      /**
+       * Nothing to do here
+       */
+    });
+
+    this.machine.onNotification('runtimeError', (msg) => {
+      this.parent.log.log({
+        type: 'error',
+        content: ['IDL Machine error', msg],
+      });
+    });
+
+    this.machine.onNotification('showBreakpoint', () => {
+      /**
+       * Nothing to do here
+       */
+    });
+
+    /**
+     * Listen for startup
+     */
+    this.machine.onNotification('serverReady', () => {
+      this.parent.started = true;
+      this.emit(IDL_EVENT_LOOKUP.IDL_STARTED, '');
+    });
+
+    /**
+     * Handle output from IDL
+     */
     this.machine.onNotification('tout', (msg) => {
       const stringified = this.stringifyOutput(msg);
       this.parent.capturedOutput += stringified;
@@ -109,6 +211,29 @@ export class IDLMachineWrapper {
       }
     });
 
+    this.machine.onNotification('workingDirChange', () => {
+      /**
+       * Nothing to do here for right now
+       */
+    });
+  }
+
+  /**
+   * Register all of our handlers for requests
+   */
+  _listenForRequests() {
+    this.machine.onRequest('getKeyboard', () => {
+      /**
+       * TODO
+       */
+      return 'f';
+    });
+
+    /**
+     * Handle calls to the IDLNotify function
+     *
+     * IDL syntax: IDLNotify('id', param1, param2)
+     */
     this.machine.onRequest('idlNotify', (params) => {
       // console.log('IDL Notify message', params);
 
@@ -140,45 +265,9 @@ export class IDLMachineWrapper {
       return 0;
     });
 
-    this.machine.onNotification('promptChange', (prompt) => {
-      this.emit(IDL_EVENT_LOOKUP.PROMPT, prompt);
-    });
-
-    this.machine.onNotification('workingDirChange', () => {
-      // do nothing
-    });
-
-    this.machine.onNotification('pathChange', () => {
-      // do nothing
-    });
-
-    this.machine.onNotification('debugSend', () => {
-      // do nothing
-    });
-
-    this.machine.onNotification('commandStarted', () => {
-      // console.log('Command started');
-    });
-    this.machine.onNotification('commandFinished', () => {
-      this.emit(IDL_EVENT_LOOKUP.PROMPT_READY, this.parent.capturedOutput);
-    });
-    this.machine.onNotification('interpreterStopped', (msg) => {
-      // console.log(`Interpreter stopped`);
-      // console.log(msg);
-    });
-
-    this.machine.onNotification('compilerOpenFile', () => {
-      // do nothing
-    });
-
-    this.machine.onRequest('resetSessionConfirm', () => {
-      return true;
-    });
-
-    this.machine.onRequest('getKeyboard', () => {
-      return 'f';
-    });
-
+    /**
+     * TODO
+     */
     this.machine.onRequest('readIOLine', (msg) => {
       // console.log(`read line`);
       // console.log(msg);
@@ -186,9 +275,29 @@ export class IDLMachineWrapper {
       return 'I have been read!';
     });
 
+    this.machine.onRequest('resetSessionConfirm', () => {
+      // always reset
+      return true;
+    });
+
+    /**
+     * Always return true even though we don't do anything right now
+     */
     this.machine.onRequest('setForegroundWindowConfirm', () => {
       return true;
     });
+  }
+
+  /**
+   * Start our debugging session
+   */
+  listen(idl: ChildProcess) {
+    // save IDL prop
+    this.idl = idl;
+    this.machine = new IDLMachine(idl);
+
+    this._listenForNotifications();
+    this._listenForRequests();
   }
 
   /**
