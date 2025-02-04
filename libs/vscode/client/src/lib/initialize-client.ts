@@ -79,8 +79,8 @@ export async function InitializeClient(
   // set language configuration
   LoadLanguageConfiguration();
 
-  // manage the extension configuration
-  await InitializeExtensionConfig(ON_CONFIG_CHANGES_CLIENT);
+  /** Dont await - blocking questions asked to client if you do */
+  InitializeExtensionConfig(ON_CONFIG_CHANGES_CLIENT);
 
   // set logging callback for metrics
   SetUsageMetricLogger((ev, payload) => {
