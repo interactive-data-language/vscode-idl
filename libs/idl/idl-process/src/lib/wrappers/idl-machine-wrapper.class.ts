@@ -158,6 +158,10 @@ export class IDLMachineWrapper {
 
       return 'I have been read!';
     });
+
+    this.machine.onRequest('setForegroundWindowConfirm', () => {
+      return true;
+    });
   }
 
   /**

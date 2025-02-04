@@ -23,6 +23,11 @@ import {
   ResetSessionConfirmRequest,
   ResetSessionConfirmResponse,
 } from './requests/idl-machine.reset-session-confirm.interface';
+import {
+  SetForegroundWindowConfirmParams,
+  SetForegroundWindowConfirmRequest,
+  SetForegroundWindowConfirmResponse,
+} from './requests/idl-machine.set-foreground-window-confirm.interface';
 
 /**
  * All types of requests from the IDL Machine
@@ -32,7 +37,8 @@ export type FromIDLMachineRequests =
   | IDLNotifyRequest
   | ReadIOLineRequest
   | ReadProgramLineRequest
-  | ResetSessionConfirmRequest;
+  | ResetSessionConfirmRequest
+  | SetForegroundWindowConfirmRequest;
 
 /**
  * Parameters from requests sent by the IDL Machine
@@ -48,6 +54,8 @@ export type FromIDLMachineRequestParams<T extends FromIDLMachineRequests> =
     ? ReadProgramLineParams
     : T extends ResetSessionConfirmRequest
     ? ResetSessionConfirmParams
+    : T extends SetForegroundWindowConfirmRequest
+    ? SetForegroundWindowConfirmParams
     : never;
 
 /**
@@ -64,4 +72,6 @@ export type FromIDLMachineRequestResponse<T extends FromIDLMachineRequests> =
     ? ReadProgramLineResponse
     : T extends ResetSessionConfirmRequest
     ? ResetSessionConfirmResponse
+    : T extends SetForegroundWindowConfirmRequest
+    ? SetForegroundWindowConfirmResponse
     : never;
