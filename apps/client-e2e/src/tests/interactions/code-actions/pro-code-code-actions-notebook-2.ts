@@ -1,4 +1,5 @@
-import { GetExtensionPath, Sleep } from '@idl/shared/extension';
+import { GetExtensionPath } from '@idl/idl/files';
+import { Sleep } from '@idl/shared/extension';
 import { GetRealDiagnostic, OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';

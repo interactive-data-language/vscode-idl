@@ -1,4 +1,5 @@
-import { GetExtensionPath, IDL_COMMANDS } from '@idl/shared/extension';
+import { GetExtensionPath } from '@idl/idl/files';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { Sleep } from '@idl/tests/helpers';
 import { OpenFileInVSCode, ReplaceDocumentContent } from '@idl/vscode/shared';
 import expect from 'expect';
