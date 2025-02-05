@@ -17,6 +17,7 @@ import {
   SendPreferenceUsageMetrics,
 } from '@idl/vscode/config';
 import { IDL_LOGGER, InitializeLogger } from '@idl/vscode/logger';
+import { InitializeNotebooksWeb } from '@idl/vscode/notebooks/client-web';
 import { InitializeTree } from '@idl/vscode/tree-view';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
@@ -67,6 +68,8 @@ export async function activate(ctx: ExtensionContext) {
 
     // initialize our tree view
     InitializeTree(ctx, true);
+
+    InitializeNotebooksWeb(ctx);
   } catch (err) {
     vscode.window.showErrorMessage(
       'Failed to activate IDL for VSCode extension'

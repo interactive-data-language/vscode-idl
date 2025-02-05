@@ -6,3 +6,4 @@ export * from './lib/get-canonical-path';
 export * from './lib/get-extension-path';
 export * from './lib/get-fs-path';
 export * from './lib/idl-file-helper.class';
+export * from './lib/notebook-folders.interface';

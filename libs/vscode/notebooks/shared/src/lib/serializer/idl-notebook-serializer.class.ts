@@ -1,7 +1,6 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_RAW_NOTEBOOK_VERSION_LOOKUP } from '@idl/types/notebooks';
 import { IDL_LOGGER } from '@idl/vscode/logger';
-import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';
 
 import { FromIDLRawNotebook } from './from/from-idl-raw-notebook';
@@ -22,7 +21,7 @@ export class IDLNotebookSerializer {
     /**
      * Get start time
      */
-    const t0 = performance.now();
+    const t0 = Date.now();
 
     /**
      * Parse and convert to a VSCode notebook
@@ -34,7 +33,7 @@ export class IDLNotebookSerializer {
       type: 'debug',
       log: IDL_NOTEBOOK_LOG,
       content: `It took ${Math.floor(
-        performance.now() - t0
+        Date.now() - t0
       )} ms to deserialize notebook`,
     });
 
@@ -52,7 +51,7 @@ export class IDLNotebookSerializer {
     /**
      * Get start time
      */
-    const t0 = performance.now();
+    const t0 = Date.now();
 
     /**
      * Encode notebook as array of bytes
@@ -68,7 +67,7 @@ export class IDLNotebookSerializer {
       type: 'debug',
       log: IDL_NOTEBOOK_LOG,
       content: `It took ${Math.floor(
-        performance.now() - t0
+        Date.now() - t0
       )} ms to serialize notebook to ${Math.floor(encoded.length / 1024)} kb`,
     });
 

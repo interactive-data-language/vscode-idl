@@ -1,5 +1,6 @@
-import { DOT_IDL_FOLDER } from '@idl/idl/files';
 import { join } from 'path';
+
+import { DOT_IDL_FOLDER } from './dot-idl-folder.interface';
 
 /**
  * Notebook folder for cells

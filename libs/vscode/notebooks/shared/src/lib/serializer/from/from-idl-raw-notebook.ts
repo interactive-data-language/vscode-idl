@@ -1,5 +1,4 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { DecodeNotebook } from '@idl/notebooks/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDLRawNotebook,
@@ -9,6 +8,7 @@ import {
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
+import { DecodeNotebook } from '../../encoding/decode-notebook';
 import { FromIDLRawNotebook_1_0_0 } from './from-idl-raw-notebook-1.0.0';
 import { FromIDLRawNotebook_2_0_0 } from './from-idl-raw-notebook-2.0.0';
 import { RestoreOutputMetadata } from './restore-output-metadata';
