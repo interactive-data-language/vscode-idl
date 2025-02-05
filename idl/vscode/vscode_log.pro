@@ -23,5 +23,5 @@ pro vscode_log, item, level = level
   if ~isa(level, /string) then level = 'info'
 
   ; alert VSCode
-  !null = IDLNotify('vscode-log', level, json_serialize(hash('message', item)))
+  !null = IDLNotify('vscode-log', level, JSON_Serialize(hash('message', item)))
 end
