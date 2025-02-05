@@ -1,7 +1,12 @@
-import { EXTENSION_FULL_NAME, IDL_COMMANDS } from '@idl/shared/extension';
+import {
+  EXTENSION_FULL_NAME,
+  IDL_COMMANDS,
+  ResolveExtensionDocsURL,
+} from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
+import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import {
   IDL_LOGGER,
   LogCommandError,
@@ -22,6 +27,38 @@ const cmdErrors = IDL_TRANSLATION.commands.errors;
  */
 export function RegisterClientSharedCommands(ctx: ExtensionContext) {
   IDL_LOGGER.log({ content: 'Registering client shared commands' });
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.DOCS.OPEN,
+      async (path: string) => {
+        try {
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.DOCS.OPEN,
+          });
+
+          /**
+           * Get the URL we want to open
+           */
+          const url = ResolveExtensionDocsURL(
+            '',
+            IDL_EXTENSION_CONFIG.documentation.useOnline,
+            IDL_EXTENSION_CONFIG.documentation.localPort
+          );
+
+          vscode.commands.executeCommand(
+            'vscode.open',
+            vscode.Uri.parse(`${url}${path || ''}`)
+          );
+
+          return true;
+        } catch (err) {
+          LogCommandError('Error while opening docs', err, cmdErrors.docs.open);
+          return false;
+        }
+      }
+    )
+  );
 
   ctx.subscriptions.push(
     vscode.commands.registerCommand(

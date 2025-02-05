@@ -47,7 +47,7 @@ export async function activate(
   const notebooks = InitializeNotebooks(ctx);
 
   // initialize our tree view
-  InitializeTree(ctx);
+  InitializeTree(ctx, false);
 
   // return result
   return {

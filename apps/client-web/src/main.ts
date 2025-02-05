@@ -7,7 +7,10 @@ import {
   MEASUREMENT,
   SetUsageMetricLogger,
 } from '@idl/usage-metrics';
-import { LoadLanguageConfiguration } from '@idl/vscode/client-shared';
+import {
+  LoadLanguageConfiguration,
+  RegisterClientSharedCommands,
+} from '@idl/vscode/client-shared';
 import {
   IDL_EXTENSION_CONFIG,
   InitializeExtensionConfig,
@@ -60,10 +63,10 @@ export async function activate(ctx: ExtensionContext) {
     // update logger configuration and log information about our workspace config
     IDL_LOGGER.setDebug(IDL_EXTENSION_CONFIG.debugMode);
 
-    // RegisterClientSharedCommands(ctx);
+    RegisterClientSharedCommands(ctx);
 
     // initialize our tree view
-    InitializeTree(ctx);
+    InitializeTree(ctx, true);
   } catch (err) {
     vscode.window.showErrorMessage(
       'Failed to activate IDL for VSCode extension'

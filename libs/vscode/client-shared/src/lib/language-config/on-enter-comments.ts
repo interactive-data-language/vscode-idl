@@ -1,4 +1,4 @@
-import { ARG_KW_PROPERTY_TAG } from '@idl/parsing/syntax-tree';
+import { ARG_KW_PROPERTY_TAG } from '@idl/types/syntax-tree';
 import { IndentAction, OnEnterRule } from 'vscode';
 
 /** Comment before cursor */

@@ -155,3 +155,23 @@ export const IDL_COMMANDS = {
     OPEN_LINK: `${BASE_DOCS}openLink`,
   },
 };
+
+/**
+ * Track which commands are enabled for the web or not
+ *
+ * Used for our config file
+ */
+export const IDL_WEB_COMMANDS: { [key: string]: any } = {};
+
+/**
+ * Enable all client commands
+ */
+IDL_WEB_COMMANDS[IDL_COMMANDS.CLIENT.REPORT_PROBLEM] = true;
+IDL_WEB_COMMANDS[IDL_COMMANDS.CLIENT.VIEW_LOGS] = true;
+IDL_WEB_COMMANDS[IDL_COMMANDS.CLIENT.VIEW_SETTING] = true;
+
+/**
+ * Enable all docs commands
+ */
+IDL_WEB_COMMANDS[IDL_COMMANDS.DOCS.OPEN] = true;
+IDL_WEB_COMMANDS[IDL_COMMANDS.DOCS.OPEN_LINK] = true;

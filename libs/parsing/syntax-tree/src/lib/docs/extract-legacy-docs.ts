@@ -1,16 +1,16 @@
 import { CommentToken, GetMatchesArray } from '@idl/tokenizer';
+import {
+  ARG_KW_PROPERTY_TAG,
+  HEADER_TAG_LEGACY,
+  LEGACY_PARAMETER_DIRECTION,
+  LEGACY_PARAMETER_NAME_SPLIT,
+} from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
 import { IBasicBranch } from '../branches.interface';
 import { CleanComment } from '../helpers/clean-comment';
 import { IDL_DOCS_HEADERS } from './docs.interface';
-import {
-  ARG_KW_PROPERTY_TAG,
-  HEADER_TAG_LEGACY,
-  LEGACY_PARAMETER_DIRECTION,
-  LEGACY_PARAMETER_NAME_SPLIT,
-} from './docs.regex.interface';
 import {
   END_COMMENT_BLOCK_REGEX,
   IDocs,

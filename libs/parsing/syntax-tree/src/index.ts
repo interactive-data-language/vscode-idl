@@ -2,7 +2,6 @@ export * from './lib/branches.interface';
 export * from './lib/build-syntax-tree';
 export * from './lib/build-syntax-tree.interface';
 export * from './lib/docs/docs.interface';
-export * from './lib/docs/docs.regex.interface';
 export * from './lib/docs/extract-docs.interface';
 export * from './lib/docs/idl/docs-to-idl';
 export * from './lib/docs/make-spaces';
