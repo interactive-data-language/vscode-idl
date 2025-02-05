@@ -150,6 +150,7 @@
       "@idl/workers/parsing": ["libs/workers/parsing/src/index.ts"],
       "@idl/workers/vscode": ["libs/workers/vscode/src/index.ts"],
       "@idl/workers/workerio": ["libs/workers/workerio/src/index.ts"],
+      "buffer": ["node_modules/buffer"],
       "os": ["node_modules/os-browserify"],
       "path": ["node_modules/path-browserify"],
       "process": ["node_modules/process"],

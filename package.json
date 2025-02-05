@@ -161,6 +161,7 @@
     "@webcomponents/webcomponentsjs": "^2.8.0",
     "angular-material-css-vars": "^7.0.0",
     "axios": "1.7.4",
+    "buffer": "^6.0.3",
     "chart.js": "^4.4.3",
     "cypress": "13.13.3",
     "esbuild": "0.19.2",

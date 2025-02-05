@@ -24,10 +24,20 @@ module.exports = composePlugins(withNx(), (config) => {
     vscode: 'commonjs vscode', // ignored because it doesn't exist
   };
 
-  // provide a shim for the global `process` variable
+  /**
+   * These runtime plugins also have type stubs in `./src/globals.d.ts`
+   *
+   * The type stubs are generic and any to enable compiling. VSCode editing uses
+   * types from node, so it doesn't look like a problem
+   */
   config.plugins.push(
+    // provide a shim for the global `process` variable
     new webpack.ProvidePlugin({
       process: 'process/browser',
+    }),
+    // provide a shim for the global `Buffer` variable
+    new webpack.ProvidePlugin({
+      Buffer: 'buffer',
     })
   );
 
