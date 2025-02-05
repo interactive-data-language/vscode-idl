@@ -3,11 +3,14 @@ const webpack = require('webpack');
 
 // Nx plugins for webpack.
 module.exports = composePlugins(withNx(), (config) => {
-  // // add polyfills for some node libs
-  // config.resolve.fallback = {
-  //   os: require.resolve('os-browserify/browser'),
-  //   path: require.resolve('path-browserify'),
-  // };
+  // if we dont have fallback add it
+  // do this so we extend default config instead of resplace it
+  if (!('fallback' in config.resolve)) {
+    config.resolve.fallback = {};
+  }
+
+  // Ensure Webpack resolves `buffer`
+  config.resolve.fallback['buffer'] = require.resolve('buffer/');
 
   // force to be web
   config.target = ['webworker'];
@@ -35,9 +38,9 @@ module.exports = composePlugins(withNx(), (config) => {
     new webpack.ProvidePlugin({
       process: 'process/browser',
     }),
-    // provide a shim for the global `Buffer` variable
+    // Make `Buffer` globally available
     new webpack.ProvidePlugin({
-      Buffer: 'buffer',
+      Buffer: ['buffer', 'Buffer'],
     })
   );
 
