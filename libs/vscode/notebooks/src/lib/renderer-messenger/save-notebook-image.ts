@@ -1,9 +1,7 @@
-import { CleanPath } from '@idl/idl/files';
 import {
   IDLNotebookEmbeddedItem,
   IDLNotebookImage_PNG,
 } from '@idl/types/notebooks';
-import { writeFileSync } from 'fs';
 import * as vscode from 'vscode';
 
 /**
@@ -24,8 +22,8 @@ export async function SaveNotebookImage(
   }
 
   // write files to disk
-  writeFileSync(
-    CleanPath(res.fsPath),
+  await vscode.workspace.fs.writeFile(
+    res,
     Buffer.from(payload.item.data, 'base64')
   );
 }
