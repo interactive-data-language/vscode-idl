@@ -3,6 +3,7 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
+import { FilterWebCommands, HasWebCommands } from './has-web-commands';
 import { IDLAction } from './idl-action.class';
 import { TREE_VIEW_CLICK_HANDLER } from './initialize-tree';
 import { CODE_ACTIONS } from './trees/code-actions.tree.interface';
@@ -27,10 +28,15 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
   private _onDidChangeTreeData: vscode.EventEmitter<IDLAction | undefined> =
     new vscode.EventEmitter<IDLAction | undefined>();
 
+  /** Extension folder */
   private extensionFolder: string;
 
-  constructor(extensionFolder: string) {
+  /** Is web tree or not */
+  private web: boolean;
+
+  constructor(extensionFolder: string, web: boolean) {
     this.extensionFolder = extensionFolder;
+    this.web = web;
 
     this.onDidChangeTreeData = this._onDidChangeTreeData.event;
 
@@ -114,17 +120,19 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
     /**
      * Add debugging branch and children
      */
-    this.parents[IDL_TRANSLATION.idl.tree.parents.debugging] = new IDLAction(
-      // override type, OK because click handler ignores parents
-      IDL_TRANSLATION.idl.tree.parents.debugging,
-      '',
-      vscode.TreeItemCollapsibleState.Expanded,
-      'idlicon.svg',
-      '',
-      this.extensionFolder
-    );
-    this.tree[IDL_TRANSLATION.idl.tree.parents.debugging] =
-      DEBUGGING_BUTTONS.map(
+    if (!this.web || (this.web && HasWebCommands(DEBUGGING_BUTTONS))) {
+      this.parents[IDL_TRANSLATION.idl.tree.parents.debugging] = new IDLAction(
+        // override type, OK because click handler ignores parents
+        IDL_TRANSLATION.idl.tree.parents.debugging,
+        '',
+        vscode.TreeItemCollapsibleState.Expanded,
+        'idlicon.svg',
+        '',
+        this.extensionFolder
+      );
+      this.tree[IDL_TRANSLATION.idl.tree.parents.debugging] = (
+        this.web ? FilterWebCommands(DEBUGGING_BUTTONS) : DEBUGGING_BUTTONS
+      ).map(
         (child) =>
           new IDLAction(
             child.name,
@@ -135,67 +143,79 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
             this.extensionFolder
           )
       );
+    }
 
     // add terminal parents and children
-    this.parents[IDL_TRANSLATION.idl.tree.parents.terminal] = new IDLAction(
-      // override type, OK because click handler ignores parents
-      IDL_TRANSLATION.idl.tree.parents.terminal,
-      '',
-      vscode.TreeItemCollapsibleState.Collapsed,
-      'terminal.svg',
-      '',
-      this.extensionFolder
-    );
-    this.tree[IDL_TRANSLATION.idl.tree.parents.terminal] = TERMINAL_BUTTONS.map(
-      (child) =>
-        new IDLAction(
-          child.name,
-          child.description,
-          vscode.TreeItemCollapsibleState.None,
-          child.icon,
-          child.commandName,
-          this.extensionFolder
-        )
-    );
+    if (!this.web || (this.web && HasWebCommands(TERMINAL_BUTTONS))) {
+      this.parents[IDL_TRANSLATION.idl.tree.parents.terminal] = new IDLAction(
+        // override type, OK because click handler ignores parents
+        IDL_TRANSLATION.idl.tree.parents.terminal,
+        '',
+        vscode.TreeItemCollapsibleState.Collapsed,
+        'terminal.svg',
+        '',
+        this.extensionFolder
+      );
+      this.tree[IDL_TRANSLATION.idl.tree.parents.terminal] = (
+        this.web ? FilterWebCommands(TERMINAL_BUTTONS) : TERMINAL_BUTTONS
+      ).map(
+        (child) =>
+          new IDLAction(
+            child.name,
+            child.description,
+            vscode.TreeItemCollapsibleState.None,
+            child.icon,
+            child.commandName,
+            this.extensionFolder
+          )
+      );
+    }
 
     /**
      * Add code actions
      */
-    this.parents[IDL_TRANSLATION.idl.tree.parents.codeActions] = new IDLAction(
-      // override type, OK because click handler ignores parents
-      IDL_TRANSLATION.idl.tree.parents.codeActions,
-      '',
-      vscode.TreeItemCollapsibleState.Expanded,
-      'code.svg',
-      '',
-      this.extensionFolder
-    );
-    this.tree[IDL_TRANSLATION.idl.tree.parents.codeActions] = CODE_ACTIONS.map(
-      (child) =>
+    if (!this.web || (this.web && HasWebCommands(CODE_ACTIONS))) {
+      this.parents[IDL_TRANSLATION.idl.tree.parents.codeActions] =
         new IDLAction(
-          child.name,
-          child.description,
-          vscode.TreeItemCollapsibleState.None,
-          child.icon,
-          child.commandName,
+          // override type, OK because click handler ignores parents
+          IDL_TRANSLATION.idl.tree.parents.codeActions,
+          '',
+          vscode.TreeItemCollapsibleState.Expanded,
+          'code.svg',
+          '',
           this.extensionFolder
-        )
-    );
+        );
+      this.tree[IDL_TRANSLATION.idl.tree.parents.codeActions] = (
+        this.web ? FilterWebCommands(CODE_ACTIONS) : CODE_ACTIONS
+      ).map(
+        (child) =>
+          new IDLAction(
+            child.name,
+            child.description,
+            vscode.TreeItemCollapsibleState.None,
+            child.icon,
+            child.commandName,
+            this.extensionFolder
+          )
+      );
+    }
 
     /**
      * Add notebook commands
      */
-    this.parents[IDL_TRANSLATION.idl.tree.parents.notebooks] = new IDLAction(
-      // override type, OK because click handler ignores parents
-      IDL_TRANSLATION.idl.tree.parents.notebooks,
-      '',
-      vscode.TreeItemCollapsibleState.Expanded,
-      'post.svg',
-      '',
-      this.extensionFolder
-    );
-    this.tree[IDL_TRANSLATION.idl.tree.parents.notebooks] =
-      NOTEBOOK_ACTIONS.map(
+    if (!this.web || (this.web && HasWebCommands(NOTEBOOK_ACTIONS))) {
+      this.parents[IDL_TRANSLATION.idl.tree.parents.notebooks] = new IDLAction(
+        // override type, OK because click handler ignores parents
+        IDL_TRANSLATION.idl.tree.parents.notebooks,
+        '',
+        vscode.TreeItemCollapsibleState.Expanded,
+        'post.svg',
+        '',
+        this.extensionFolder
+      );
+      this.tree[IDL_TRANSLATION.idl.tree.parents.notebooks] = (
+        this.web ? FilterWebCommands(NOTEBOOK_ACTIONS) : NOTEBOOK_ACTIONS
+      ).map(
         (child) =>
           new IDLAction(
             child.name,
@@ -206,21 +226,25 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
             this.extensionFolder
           )
       );
+    }
 
     /**
      * Additional commands/actions that we want to have buttons for
      */
-    this.parents[IDL_TRANSLATION.idl.tree.parents.quickAccess] = new IDLAction(
-      // override type, OK because click handler ignores parents
-      IDL_TRANSLATION.idl.tree.parents.quickAccess,
-      '',
-      vscode.TreeItemCollapsibleState.Expanded,
-      'quick-reference-all.svg',
-      '',
-      this.extensionFolder
-    );
-    this.tree[IDL_TRANSLATION.idl.tree.parents.quickAccess] =
-      ADDITIONAL_ACTIONS.map(
+    if (!this.web || (this.web && HasWebCommands(ADDITIONAL_ACTIONS))) {
+      this.parents[IDL_TRANSLATION.idl.tree.parents.quickAccess] =
+        new IDLAction(
+          // override type, OK because click handler ignores parents
+          IDL_TRANSLATION.idl.tree.parents.quickAccess,
+          '',
+          vscode.TreeItemCollapsibleState.Expanded,
+          'quick-reference-all.svg',
+          '',
+          this.extensionFolder
+        );
+      this.tree[IDL_TRANSLATION.idl.tree.parents.quickAccess] = (
+        this.web ? FilterWebCommands(ADDITIONAL_ACTIONS) : ADDITIONAL_ACTIONS
+      ).map(
         (child) =>
           new IDLAction(
             child.name,
@@ -231,5 +255,6 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
             this.extensionFolder
           )
       );
+    }
   }
 }

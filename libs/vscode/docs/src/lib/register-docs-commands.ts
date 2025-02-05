@@ -1,8 +1,4 @@
-import {
-  IDL_COMMANDS,
-  ResolveExtensionDocsURL,
-  ResolveProductDocsURL,
-} from '@idl/shared/extension';
+import { IDL_COMMANDS, ResolveProductDocsURL } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
@@ -22,38 +18,6 @@ const cmdErrors = IDL_TRANSLATION.commands.errors;
  */
 export function RegisterDocsCommands(ctx: ExtensionContext) {
   IDL_LOGGER.log({ content: 'Registering docs commands' });
-
-  ctx.subscriptions.push(
-    vscode.commands.registerCommand(
-      IDL_COMMANDS.DOCS.OPEN,
-      async (path: string) => {
-        try {
-          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
-            idl_command: IDL_COMMANDS.DOCS.OPEN,
-          });
-
-          /**
-           * Get the URL we want to open
-           */
-          const url = ResolveExtensionDocsURL(
-            '',
-            IDL_EXTENSION_CONFIG.documentation.useOnline,
-            IDL_EXTENSION_CONFIG.documentation.localPort
-          );
-
-          vscode.commands.executeCommand(
-            'vscode.open',
-            vscode.Uri.parse(`${url}${path || ''}`)
-          );
-
-          return true;
-        } catch (err) {
-          LogCommandError('Error while opening docs', err, cmdErrors.docs.open);
-          return false;
-        }
-      }
-    )
-  );
 
   ctx.subscriptions.push(
     vscode.commands.registerCommand(
