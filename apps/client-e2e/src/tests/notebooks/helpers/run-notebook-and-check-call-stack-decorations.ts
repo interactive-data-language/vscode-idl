@@ -5,7 +5,7 @@ import {
   IDLDecorationsManager,
   IStackTraceLookup,
 } from '@idl/vscode/decorations';
-import { IDLNotebookController } from '@idl/vscode/notebooks';
+import { IDLNotebookController } from '@idl/vscode/notebooks/client';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import { existsSync, rmSync } from 'fs';

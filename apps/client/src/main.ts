@@ -9,7 +9,7 @@ import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { InitializeDocs } from '@idl/vscode/docs';
 import { InitializeENVIOpener } from '@idl/vscode/envi-opener';
 import { IInitializeType } from '@idl/vscode/initialize-types';
-import { InitializeNotebooks } from '@idl/vscode/notebooks';
+import { InitializeNotebooks } from '@idl/vscode/notebooks/client';
 import { InitializeIDLTerminal } from '@idl/vscode/terminal';
 import { InitializeTree } from '@idl/vscode/tree-view';
 import { InitializeWebView } from '@idl/vscode/webview';
