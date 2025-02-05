@@ -1,4 +1,8 @@
-import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared/extension';
+import {
+  IDL_COMMANDS,
+  IDL_LANGUAGE_NAME,
+  IDL_WEB_COMMANDS,
+} from '@idl/shared/extension';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
@@ -113,7 +117,8 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
   }
   const menus = contrib['menus'];
 
-  // get command menu
+  // get command menu to hide commands from the palette
+  // https://code.visualstudio.com/api/extension-guides/command#controlling-when-a-command-shows-up-in-the-command-palette
   if (!('commandPalette' in menus)) {
     menus['commandPalette'] = [];
   }
@@ -182,9 +187,24 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
       add['icon'] = icon;
     }
 
-    // check if we need to hide it from the palette
-    if (command in HIDDEN_COMMAND) {
-      commandMenus.push({ command, when: 'false' });
+    /**
+     * Check if we need context for when we can access different commands
+     */
+    switch (true) {
+      /**
+       * Internal command not for palette
+       */
+      case command in HIDDEN_COMMAND:
+        commandMenus.push({ command, when: 'false' });
+        break;
+      /**
+       * Commands not for web
+       */
+      case !(command in IDL_WEB_COMMANDS):
+        commandMenus.push({ command, when: '!isWeb' });
+        break;
+      default:
+        break;
     }
 
     // save command

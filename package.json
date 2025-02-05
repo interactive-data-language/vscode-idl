@@ -1412,6 +1412,10 @@
     "menus": {
       "commandPalette": [
         {
+          "command": "idl.code.addDocsToFile",
+          "when": "!isWeb"
+        },
+        {
           "command": "idl.code.disableProblemSetting",
           "when": "false"
         },
@@ -1420,12 +1424,140 @@
           "when": "false"
         },
         {
+          "command": "idl.code.formatFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.code.formatWorkspace",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.code.generateTask",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.code.migrateToDL30API",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.config.specifyIDLDirectory",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.config.specifyIDLDirectoryWorkspace",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.compileFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.executeBatchFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.resetIDL",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.runFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.startIDL",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.startProfiling",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.stopProfiling",
+          "when": "!isWeb"
+        },
+        {
           "command": "idl.docs.openLink",
           "when": "false"
         },
         {
+          "command": "idl.notebooks.convertToPDF",
+          "when": "!isWeb"
+        },
+        {
           "command": "idl.notebooks.helpAsNotebook",
           "when": "false"
+        },
+        {
+          "command": "idl.notebooks.newNotebook",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.notebookToProCode",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.openENVIExample",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.openIDLExample",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.resetIDLKernel",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.resetNotebookExamples",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.stopAllIDLKernels",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.stopIDLKernel",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.compileFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.continueExecution",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.executeBatchFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.pauseExecution",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.resetIDL",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.runFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.startIDL",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.stepIn",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.stepOut",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.stepOver",
+          "when": "!isWeb"
         },
         {
           "command": "idl.webview.start",
