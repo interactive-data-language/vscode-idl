@@ -41,6 +41,7 @@
       "@idl/idl/idl-process": ["libs/idl/idl-process/src/index.ts"],
       "@idl/idl/shared": ["libs/idl/shared/src/index.ts"],
       "@idl/logger": ["libs/logger/src/index.ts"],
+      "@idl/notebooks/encoders": ["libs/notebooks/encoders/src/index.ts"],
       "@idl/notebooks/idl-index": ["libs/notebooks/idl-index/src/index.ts"],
       "@idl/notebooks/shared": ["libs/notebooks/shared/src/index.ts"],
       "@idl/parser": ["libs/parsing/parser/src/index.ts"],

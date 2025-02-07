@@ -1,10 +1,10 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
+import { EncodeNotebook } from '@idl/notebooks/encoders';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLRawNotebook, IDLRawNotebookVersion } from '@idl/types/notebooks';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
-import { EncodeNotebook } from '../../encoding/encode-notebook';
 import { CleanOutputMetadata } from './clean-output-metadata';
 import { ToIDLRawNotebook_1_0_0 } from './to-idl-raw-notebook-1.0.0';
 import { ToIDLRawNotebook_2_0_0 } from './to-idl-raw-notebook-2.0.0';
