@@ -1,4 +1,4 @@
-import { NOTEBOOK_FOLDER } from '@idl/notebooks/shared';
+import { NOTEBOOK_FOLDER } from '@idl/idl/files';
 import { Sleep } from '@idl/shared/extension';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { IDLNotebookController } from '@idl/vscode/notebooks/client';

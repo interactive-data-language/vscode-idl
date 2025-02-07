@@ -1,4 +1,4 @@
-import { EXAMPLE_NOTEBOOKS } from '@idl/notebooks/shared';
+import { EXAMPLE_NOTEBOOKS } from '@idl/idl/files';
 import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import expect from 'expect';
 import { existsSync, rmSync } from 'fs';

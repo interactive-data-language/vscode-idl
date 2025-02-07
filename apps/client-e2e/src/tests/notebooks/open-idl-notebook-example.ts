@@ -1,5 +1,4 @@
-import { CleanPath } from '@idl/idl/files';
-import { EXAMPLE_NOTEBOOKS } from '@idl/notebooks/shared';
+import { CleanPath, EXAMPLE_NOTEBOOKS } from '@idl/idl/files';
 import {
   IDL_COMMANDS,
   IDL_NOTEBOOK_LANGUAGE_NAME,
