@@ -131,6 +131,12 @@ export class IDLMachineWrapper {
        */
     });
 
+    this.machine.onNotification('licensingEvent', () => {
+      /**
+       * Do nothing right now
+       */
+    });
+
     this.machine.onNotification('interpreterStopped', () => {
       /**
        * Nothing to do here, already handled

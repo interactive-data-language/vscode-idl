@@ -35,6 +35,10 @@ import {
   InterpreterStoppedParams,
 } from './notifications/idl-machine.interpreter-stopped.interface';
 import {
+  LicensingEventNotification,
+  LicensingEventParams,
+} from './notifications/idl-machine.licensing-event.interface';
+import {
   ModalMessageNotification,
   ModalMessageParams,
 } from './notifications/idl-machine.modal-message.interface';
@@ -93,6 +97,7 @@ export type FromIDLMachineNotifications =
   | ExitDoneNotification
   | HelpTopicNotification
   | InterpreterStoppedNotification
+  | LicensingEventNotification
   | ModalMessageNotification
   | OpenFileNotification
   | PathChangeNotification
@@ -127,6 +132,8 @@ export type FromIDLMachineNotificationParams<
   ? ExitDoneParams
   : T extends HelpTopicNotification
   ? HelpTopicParams
+  : T extends LicensingEventNotification
+  ? LicensingEventParams
   : T extends InterpreterStoppedNotification
   ? InterpreterStoppedParams
   : T extends ModalMessageNotification
