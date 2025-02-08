@@ -4,7 +4,12 @@ import { IStartIDLConfig } from '@idl/types/idl/idl-process';
 export type ToIDLWebSocketMessage_Evaluate = 'evaluate';
 
 /** Command to evaluate */
-export type ToIDLWebSocketPayload_Evaluate = string;
+export type ToIDLWebSocketPayload_Evaluate = {
+  /** Command to run */
+  command: string;
+  /** Are we silent or not */
+  silent: boolean;
+};
 
 /** When IDL should pause */
 export type ToIDLWebSocketMessage_PauseIDL = 'pause-idl';

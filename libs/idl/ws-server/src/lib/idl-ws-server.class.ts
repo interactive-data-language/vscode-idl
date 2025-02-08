@@ -66,7 +66,8 @@ export class IDlWebSocketServer {
               msg as ToIDLWebSocketMessage<ToIDLWebSocketMessage_Evaluate>
             ).payload;
             if (this.process) {
-              this.process.evaluate(payload);
+              this.process.silent = payload.silent;
+              this.process.evaluate(payload.command);
             }
             break;
           }

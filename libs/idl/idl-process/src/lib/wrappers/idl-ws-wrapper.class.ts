@@ -27,30 +27,13 @@ export class IDLWebSocketWrapper {
    * Start IDL session
    */
   start(vscodeProDir: string, config: IStartIDLConfig, startupMessage: string) {
-    console.log('starting');
-
-    console.log('listening');
     this.client.listen();
-
-    // alert parent that we have started
-    // this.process.once(IDL_EVENT_LOOKUP.STANDARD_ERR, (data) => {
-    //   this.process.capturedOutput += data;
-    // });
-    this.process.once(IDL_EVENT_LOOKUP.STANDARD_OUT, (data) => {
-      this.process.capturedOutput += data;
-    });
 
     // alert parent that we have started
     this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, (data) => {
       this.process.started = true;
-      // this.process.emit(IDL_EVENT_LOOKUP.IDL_STARTED, data);
-    });
-    this.process.once(IDL_EVENT_LOOKUP.IDL_STARTED, (data) => {
-      this.process.started = true;
-      // this.process.emit(IDL_EVENT_LOOKUP.IDL_STARTED, data);
     });
 
-    console.log('sending');
     this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.START_IDL, {
       startupMessage,
       vscodeProDir,
@@ -125,7 +108,10 @@ export class IDLWebSocketWrapper {
         }
       );
 
-      this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.EVALUATE, command);
+      this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.EVALUATE, {
+        command,
+        silent: this.process.silent,
+      });
     });
   }
 }
