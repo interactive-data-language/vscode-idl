@@ -1,7 +1,5 @@
 import {
   IDL_EVENT_LOOKUP,
-  IDLEvent,
-  IDLListenerArgs,
   REGEX_EMPTY_LINE,
   REGEX_IDL_PROMPT,
 } from '@idl/types/idl/idl-process';
@@ -20,43 +18,13 @@ export class IDLStdIOWrapper {
   /**
    * Parent class that handles primary logic that we plug into
    */
-  private parent: IDLProcess;
+  private process: IDLProcess;
 
   /** The IDL process */
   private idl: ChildProcess;
 
-  constructor(parent: IDLProcess) {
-    this.parent = parent;
-  }
-
-  /**
-   * Wraps node.js event emitter with types for supported events and
-   * event data.
-   */
-  emit<T extends IDLEvent>(event: T, ...args: IDLListenerArgs<T>) {
-    return this.parent.emit(event, ...args);
-  }
-
-  /**
-   * Wraps node.js event emitter with types for supported events and
-   * event data.
-   */
-  on<T extends IDLEvent>(
-    event: T,
-    listener: (...args: IDLListenerArgs<T>) => void
-  ): IDLProcess {
-    return this.parent.on(event, listener);
-  }
-
-  /**
-   * Wraps node.js event emitter with types for supported events and
-   * event data.
-   */
-  once<T extends IDLEvent>(
-    event: T,
-    listener: (...args: IDLListenerArgs<T>) => void
-  ): IDLProcess {
-    return this.parent.once(event, listener);
+  constructor(process: IDLProcess) {
+    this.process = process;
   }
 
   /**
@@ -93,32 +61,32 @@ export class IDLStdIOWrapper {
         // back to "IDL> or ENVI>"" prompt? use the last 50 characters of the total captured output to see
         // if the prompt partially came through before
         case REGEX_IDL_PROMPT.test(
-          this.parent.capturedOutput.substring(
-            Math.max(this.parent.capturedOutput.length - 50, 0)
+          this.process.capturedOutput.substring(
+            Math.max(this.process.capturedOutput.length - 50, 0)
           ) + data
         ):
           {
             // remove IDL or ENVI prompt which might be split up
-            if (this.parent.evaluating) {
+            if (this.process.evaluating) {
               // get length of captured output
-              const lBefore = this.parent.capturedOutput.length;
+              const lBefore = this.process.capturedOutput.length;
 
               // save output
-              this.parent.capturedOutput =
-                `${this.parent.capturedOutput}${data}`.replace(
+              this.process.capturedOutput =
+                `${this.process.capturedOutput}${data}`.replace(
                   REGEX_IDL_PROMPT,
                   ''
                 );
 
               // get the additional text to log to the console with prompt removed
-              const delta = this.parent.capturedOutput.substring(
+              const delta = this.process.capturedOutput.substring(
                 lBefore,
-                this.parent.capturedOutput.length
+                this.process.capturedOutput.length
               );
 
               // send if not empty - can have more than just the prompt return here
               if (delta.trim() !== '' || first) {
-                this.parent.sendOutput(first ? data : delta);
+                this.process.sendOutput(first ? data : delta);
               }
             }
 
@@ -127,43 +95,43 @@ export class IDLStdIOWrapper {
              * the prompt does which means we miss out on content coming back to the first process.
              */
             setTimeout(() => {
-              this.emit(
+              this.process.emit(
                 IDL_EVENT_LOOKUP.PROMPT_READY,
-                this.parent.capturedOutput
+                this.process.capturedOutput
               );
             }, 50);
           }
           break;
 
         case REGEX_EMPTY_LINE.test(data) && os.platform() === 'win32':
-          this.parent.capturedOutput += '\n';
+          this.process.capturedOutput += '\n';
 
           // too much nonsense comes from windows, but this is better logic on other platforms
           // mostly for startup
-          if (!this.parent.started) {
-            this.parent.sendOutput(' \n');
+          if (!this.process.started) {
+            this.process.sendOutput(' \n');
           }
           break;
 
         // other data that we need to capture?
         default:
-          this.parent.capturedOutput += data;
+          this.process.capturedOutput += data;
 
           // check if we need to print to debug console
-          this.parent.sendOutput(data);
+          this.process.sendOutput(data);
           break;
       }
 
       // check for recompile
       if (data.indexOf('% Procedure was compiled while active:') !== -1) {
-        this.emit(IDL_EVENT_LOOKUP.CONTINUE);
+        this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
       }
       if (
         data.indexOf(
           '% You compiled a main program while inside a procedure.  Returning.'
         ) !== -1
       ) {
-        this.emit(IDL_EVENT_LOOKUP.CONTINUE);
+        this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
       }
     };
 
@@ -174,19 +142,19 @@ export class IDLStdIOWrapper {
     this.idl.stderr.on('data', handleOutput);
 
     // set flag the first time we start up to be ready to accept input
-    this.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
+    this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
       first = false;
-      this.parent.started = true;
+      this.process.started = true;
 
       // alert user
-      this.parent.log.log({
+      this.process.log.log({
         type: 'info',
         content: 'IDL has started!',
       });
 
       // alert parent that we are ready for input - different from prompt ready
       // because we need to do the "reset" work once it has really opened
-      this.emit(IDL_EVENT_LOOKUP.IDL_STARTED, output);
+      this.process.emit(IDL_EVENT_LOOKUP.IDL_STARTED, output);
     });
   }
 
@@ -213,7 +181,7 @@ export class IDLStdIOWrapper {
     const res = await this._evaluate(command);
 
     // handle the string output and check for stop conditions
-    this.parent.stopCheck(res);
+    this.process.stopCheck(res);
 
     // return the output
     return res;
@@ -236,14 +204,32 @@ export class IDLStdIOWrapper {
         reject(new Error('no stdin available'));
       }
 
-      this.parent.log.log({
+      this.process.log.log({
         type: 'debug',
         content: [`Executing:`, { command }],
       });
 
       // reset captured output
-      this.parent.capturedOutput = '';
-      this.parent.evaluating = true;
+      this.process.capturedOutput = '';
+      this.process.evaluating = true;
+
+      // listen for our event returning back to the command prompt
+      this.process.once(
+        IDL_EVENT_LOOKUP.PROMPT_READY,
+        async (output: string) => {
+          this.process.log.log({
+            type: 'debug',
+            content: [`Output:`, { output }],
+          });
+
+          // reset captured output
+          this.process.capturedOutput = '';
+          this.process.evaluating = false;
+
+          // resolve our parent promise
+          resolve(output);
+        }
+      );
 
       // send the command to IDL
       if (os.platform() !== 'win32') {
@@ -252,21 +238,6 @@ export class IDLStdIOWrapper {
       } else {
         this.idl.stdin.write(`${command}\n`);
       }
-
-      // listen for our event returning back to the command prompt
-      this.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output: string) => {
-        this.parent.log.log({
-          type: 'debug',
-          content: [`Output:`, { output }],
-        });
-
-        // reset captured output
-        this.parent.capturedOutput = '';
-        this.parent.evaluating = false;
-
-        // resolve our parent promise
-        resolve(output);
-      });
     });
   }
 }

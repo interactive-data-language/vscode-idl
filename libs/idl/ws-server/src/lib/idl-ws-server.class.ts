@@ -1,0 +1,157 @@
+import { IDLProcess } from '@idl/idl/idl-process';
+import { Logger } from '@idl/logger';
+import {
+  FROM_IDL_WEB_SOCKET_MESSAGE_LOOKUP,
+  FromIDLWebSocketMessage,
+  FromIDLWebSocketMessageTypes,
+  FromIDLWebSocketPayload,
+  IDL_WS_MESSAGE,
+  TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP,
+  ToIDLWebSocketMessage,
+  ToIDLWebSocketMessage_Evaluate,
+  ToIDLWebSocketMessage_StartIDL,
+  ToIDLWebSocketMessageTypes,
+} from '@idl/types/idl/ws-client';
+import { Socket } from 'socket.io';
+
+export class IDlWebSocketServer {
+  /** Logger */
+  log: Logger;
+
+  /** IDL process */
+  process?: IDLProcess;
+
+  /** Socket connection from server */
+  socket: Socket;
+
+  constructor(socket: Socket, log: Logger) {
+    this.log = log;
+    this.socket = socket;
+  }
+
+  /**
+   * Emits messages to the client- normalizes and enforces type checking
+   */
+  private _emit<T extends FromIDLWebSocketMessageTypes>(
+    message: FromIDLWebSocketMessage<T>
+  ) {
+    this.socket.emit(IDL_WS_MESSAGE, message);
+  }
+
+  /**
+   * Cleanup when disconnected
+   */
+  cleanup() {
+    if (this.process) {
+      this.process.stop();
+    }
+  }
+
+  /**
+   * Listen to events on our connection
+   *
+   * TODO: Handle errors and async things
+   */
+  listen() {
+    this.socket.on(
+      IDL_WS_MESSAGE,
+      (msg: ToIDLWebSocketMessage<ToIDLWebSocketMessageTypes>) => {
+        switch (msg.type) {
+          /**
+           * Run a command
+           */
+          case TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.EVALUATE: {
+            /** Typed payload */
+            const payload = (
+              msg as ToIDLWebSocketMessage<ToIDLWebSocketMessage_Evaluate>
+            ).payload;
+            if (this.process) {
+              this.process.evaluate(payload);
+            }
+            break;
+          }
+
+          /**
+           * Pause the IDL process
+           */
+          case TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.PAUSE_IDL:
+            if (this.process) {
+              this.process.pause();
+            }
+            break;
+
+          /**
+           * Start IDL session
+           */
+          case TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.START_IDL: {
+            /** Typed payload */
+            const payload = (
+              msg as ToIDLWebSocketMessage<ToIDLWebSocketMessage_StartIDL>
+            ).payload;
+
+            // create process
+            this.process = new IDLProcess(
+              this.log,
+              payload.vscodeProDir,
+              payload.startupMessage
+            );
+
+            /**
+             * Get original emit handler
+             */
+            const emitOrig = this.process.emit;
+
+            /**
+             * Re-route the emit handler for our process to send the messages
+             * via our web socket connection
+             *
+             * TODO: This might break everything since we use some of these
+             * events to listen to and capture things ourselves
+             */
+            this.process.emit = (type, ...args) => {
+              /** Send original emit */
+              emitOrig(type, ...args);
+
+              /** Send to socket connection */
+              this.send(FROM_IDL_WEB_SOCKET_MESSAGE_LOOKUP.IDL_EVENT, {
+                type,
+                args,
+              });
+              return true;
+            };
+
+            // start the IDL process
+            this.process.start(payload.config);
+            break;
+          }
+
+          /**
+           * Stop the IDL process
+           */
+          case TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.STOP_IDL:
+            if (this.process) {
+              this.process.stop();
+            }
+            break;
+
+          // do nothing
+          default:
+            break;
+        }
+      }
+    );
+  }
+
+  /**
+   * Sends a message to the web socket client
+   */
+  send<T extends FromIDLWebSocketMessageTypes>(
+    type: T,
+    payload: FromIDLWebSocketPayload<T>
+  ) {
+    this._emit({
+      type,
+      payload,
+    });
+  }
+}

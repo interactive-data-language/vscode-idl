@@ -21,8 +21,10 @@ import * as os from 'os';
 import * as path from 'path';
 import { delimiter } from 'path';
 
+import { IDLProcessType } from './idl-process.interface';
 import { IDLMachineWrapper } from './wrappers/idl-machine-wrapper.class';
 import { IDLStdIOWrapper } from './wrappers/idl-std-io-wrapper.class';
+import { IDLWebSocketWrapper } from './wrappers/idl-ws-wrapper.class';
 
 /**
  * Class that manages and spawns a session of IDL with event-emitter events
@@ -59,7 +61,7 @@ export class IDLProcess extends EventEmitter {
   /**
    * Old way of interacting with IDL
    */
-  _legacy: IDLStdIOWrapper;
+  _stdio: IDLStdIOWrapper;
 
   /**
    * IDL machine
@@ -67,9 +69,14 @@ export class IDLProcess extends EventEmitter {
   _machine: IDLMachineWrapper;
 
   /**
+   * IDL Web Socket client
+   */
+  _ws: IDLWebSocketWrapper;
+
+  /**
    * Have we started the IDL Machine or just legacy IDL?
    */
-  isMachine = false;
+  processType: IDLProcessType = 'machine';
 
   /** Optional message to emit on startup for users */
   startupMessage: string;
@@ -84,8 +91,9 @@ export class IDLProcess extends EventEmitter {
     this.startupMessage = startupMessage;
 
     // create classes
-    this._legacy = new IDLStdIOWrapper(this);
+    this._stdio = new IDLStdIOWrapper(this);
     this._machine = new IDLMachineWrapper(this);
+    this._ws = new IDLWebSocketWrapper(this);
   }
 
   /**
@@ -184,19 +192,23 @@ export class IDLProcess extends EventEmitter {
 
     // check for IDL machine
     if (os.platform() === 'win32') {
-      this.isMachine = existsSync(
+      this.processType = existsSync(
         path.join(args.config.IDL.directory, 'idl_machine.exe')
-      );
+      )
+        ? 'machine'
+        : 'stdio';
     } else {
-      this.isMachine = existsSync(
+      this.processType = existsSync(
         path.join(args.config.IDL.directory, 'idl_machine')
-      );
+      )
+        ? 'machine'
+        : 'stdio';
     }
 
     /**
      * If not the IDL machine, set the prompt because we need this with stdio
      */
-    if (this.isMachine) {
+    if (this.processType === 'machine') {
       args.env.IDL_IS_IDL_MACHINE = 'true';
     } else {
       args.env.IDL_PROMPT = 'IDL> ';
@@ -204,7 +216,7 @@ export class IDLProcess extends EventEmitter {
 
     // build the command for starting IDL
     const cmd = `${args.config.IDL.directory}${path.sep}${
-      this.isMachine ? 'idl_machine' : 'idl'
+      this.processType === 'machine' ? 'idl_machine' : 'idl'
     }`;
 
     // start our idl debug session and wait for prompt ready
@@ -241,9 +253,9 @@ export class IDLProcess extends EventEmitter {
     }
 
     // listen to IDL
-    if (!this.isMachine) {
+    if (this.processType === 'stdio') {
       this.emit(IDL_EVENT_LOOKUP.STANDARD_ERR, this.startupMessage);
-      this._legacy.listen(this.idl);
+      this._stdio.listen(this.idl);
     } else {
       this._machine.listen(this.idl);
     }
@@ -340,10 +352,16 @@ export class IDLProcess extends EventEmitter {
   stop() {
     this.closing = true;
     this.started = false;
-    if (!this.isMachine) {
-      this._legacy.stop();
-    } else {
-      this._machine.stop();
+    switch (this.processType) {
+      case 'machine':
+        this._machine.stop();
+        break;
+      case 'ws':
+        this._ws.stop();
+        break;
+      default:
+        this._stdio.stop();
+        break;
     }
     this.idlInfo = { ...DEFAULT_IDL_INFO };
   }
@@ -352,25 +370,37 @@ export class IDLProcess extends EventEmitter {
    * Pause execution
    */
   pause() {
-    if (!this.isMachine) {
-      this._legacy.pause();
-    } else {
-      this._machine.pause();
+    switch (this.processType) {
+      case 'machine':
+        this._machine.pause();
+        break;
+      case 'ws':
+        this._ws.pause();
+        break;
+      default:
+        this._stdio.pause();
+        break;
     }
   }
 
   /**
    * External method to execute something in IDL
+   *
+   * TODO: Migrate logic from the three methods below to here
+   * since we have a fair amount of overlap between them all
    */
   async evaluate(command: string): Promise<string> {
     if (!this.started) {
       throw new Error('IDL is not started');
     }
 
-    if (!this.isMachine) {
-      return this._legacy.evaluate(command);
-    } else {
-      return this._machine.evaluate(command);
+    switch (this.processType) {
+      case 'machine':
+        return this._machine.evaluate(command);
+      case 'ws':
+        return this._ws.evaluate(command);
+      default:
+        return this._stdio.evaluate(command);
     }
   }
 

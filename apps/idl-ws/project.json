@@ -6,35 +6,22 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/esbuild:esbuild",
+      "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "platform": "node",
+        "target": "node",
+        "compiler": "tsc",
+        "externalDependencies": "none",
         "outputPath": "dist/apps/idl-ws",
-        "format": ["cjs"],
-        "bundle": false,
         "main": "apps/idl-ws/src/main.ts",
         "tsConfig": "apps/idl-ws/tsconfig.app.json",
         "assets": ["apps/idl-ws/src/assets"],
-        "generatePackageJson": true,
-        "esbuildOptions": {
-          "sourcemap": true,
-          "outExtension": {
-            ".js": ".js"
-          }
-        }
+        "webpackConfig": "webpack.node.config.js"
       },
       "configurations": {
         "development": {},
-        "production": {
-          "esbuildOptions": {
-            "sourcemap": false,
-            "outExtension": {
-              ".js": ".js"
-            }
-          }
-        }
+        "production": {}
       }
     },
     "serve": {

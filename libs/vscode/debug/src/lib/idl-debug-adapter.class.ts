@@ -1,4 +1,10 @@
-import { CleanIDLOutput, IDLInteractionManager } from '@idl/idl/idl-process';
+import {
+  CleanIDLOutput,
+  IDLInteractionManager,
+} from '@idl/idl/idl-interaction-manager';
+import { IDL_DEBUG_ADAPTER_LOG, IDL_DEBUG_LOG } from '@idl/logger';
+import { Sleep } from '@idl/shared/extension';
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_EVENT_LOOKUP,
   IDLCallStackItem,
@@ -12,9 +18,6 @@ import {
   REGEX_IDL_RETALL,
   StopReason,
 } from '@idl/types/idl/idl-process';
-import { IDL_DEBUG_ADAPTER_LOG, IDL_DEBUG_LOG } from '@idl/logger';
-import { Sleep } from '@idl/shared/extension';
-import { IDL_TRANSLATION } from '@idl/translation';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { VSCODE_PRO_DIR } from '@idl/vscode/client';

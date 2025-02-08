@@ -1,5 +1,4 @@
-import { CleanPath } from '@idl/idl/files';
-import { FindIDL } from '@idl/idl/idl-process';
+import { CleanPath, FindIDL } from '@idl/idl/files';
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';

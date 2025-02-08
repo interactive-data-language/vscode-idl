@@ -80,6 +80,7 @@
     "nanoid": "^3.3.7",
     "rxjs": "^7.8.1",
     "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "tslib": "^2.3.0",
     "util": "^0.12.5",
     "vscode-jsonrpc": "^8.2.1",

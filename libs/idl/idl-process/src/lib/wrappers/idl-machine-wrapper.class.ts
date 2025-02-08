@@ -5,11 +5,7 @@ import {
   TOutNotification,
 } from '@idl/idl/idl-machine';
 import { LogType } from '@idl/logger';
-import {
-  IDL_EVENT_LOOKUP,
-  IDLEvent,
-  IDLListenerArgs,
-} from '@idl/types/idl/idl-process';
+import { IDL_EVENT_LOOKUP } from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
 import * as kill from 'tree-kill';
 
@@ -22,7 +18,7 @@ export class IDLMachineWrapper {
   /**
    * Parent class that handles primary logic that we plug into
    */
-  private parent: IDLProcess;
+  private process: IDLProcess;
 
   /** The IDL process */
   private idl: ChildProcess;
@@ -30,38 +26,8 @@ export class IDLMachineWrapper {
   /** The IDL Machine */
   private machine: IDLMachine;
 
-  constructor(parent: IDLProcess) {
-    this.parent = parent;
-  }
-
-  /**
-   * Wraps node.js event emitter with types for supported events and
-   * event data.
-   */
-  emit<T extends IDLEvent>(event: T, ...args: IDLListenerArgs<T>) {
-    return this.parent.emit(event, ...args);
-  }
-
-  /**
-   * Wraps node.js event emitter with types for supported events and
-   * event data.
-   */
-  on<T extends IDLEvent>(
-    event: T,
-    listener: (...args: IDLListenerArgs<T>) => void
-  ): IDLProcess {
-    return this.parent.on(event, listener);
-  }
-
-  /**
-   * Wraps node.js event emitter with types for supported events and
-   * event data.
-   */
-  once<T extends IDLEvent>(
-    event: T,
-    listener: (...args: IDLListenerArgs<T>) => void
-  ): IDLProcess {
-    return this.parent.once(event, listener);
+  constructor(process: IDLProcess) {
+    this.process = process;
   }
 
   /**
@@ -90,7 +56,10 @@ export class IDLMachineWrapper {
      * Listen for IDL being done executing
      */
     this.machine.onNotification('commandFinished', () => {
-      this.emit(IDL_EVENT_LOOKUP.PROMPT_READY, this.parent.capturedOutput);
+      this.process.emit(
+        IDL_EVENT_LOOKUP.PROMPT_READY,
+        this.process.capturedOutput
+      );
     });
 
     this.machine.onNotification('commandStarted', () => {
@@ -166,7 +135,7 @@ export class IDLMachineWrapper {
     });
 
     this.machine.onNotification('promptChange', (prompt) => {
-      this.emit(IDL_EVENT_LOOKUP.PROMPT, prompt);
+      this.process.emit(IDL_EVENT_LOOKUP.PROMPT, prompt);
     });
 
     this.machine.onNotification('resetSessionDone', () => {
@@ -176,7 +145,7 @@ export class IDLMachineWrapper {
     });
 
     this.machine.onNotification('runtimeError', (msg) => {
-      this.parent.log.log({
+      this.process.log.log({
         type: 'error',
         content: ['IDL Machine error', msg],
       });
@@ -192,8 +161,8 @@ export class IDLMachineWrapper {
      * Listen for startup
      */
     this.machine.onNotification('serverReady', () => {
-      this.parent.started = true;
-      this.emit(IDL_EVENT_LOOKUP.IDL_STARTED, '');
+      this.process.started = true;
+      this.process.emit(IDL_EVENT_LOOKUP.IDL_STARTED, '');
     });
 
     /**
@@ -201,23 +170,23 @@ export class IDLMachineWrapper {
      */
     this.machine.onNotification('tout', (msg) => {
       const stringified = this.stringifyOutput(msg);
-      this.parent.capturedOutput += stringified;
-      this.parent.sendOutput(stringified);
+      this.process.capturedOutput += stringified;
+      this.process.sendOutput(stringified);
 
       // check for recompile
       if (
-        this.parent.capturedOutput.indexOf(
+        this.process.capturedOutput.indexOf(
           '% Procedure was compiled while active:'
         ) !== -1
       ) {
-        this.emit(IDL_EVENT_LOOKUP.CONTINUE);
+        this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
       }
       if (
-        this.parent.capturedOutput.indexOf(
+        this.process.capturedOutput.indexOf(
           '% You compiled a main program while inside a procedure.  Returning.'
         ) !== -1
       ) {
-        this.emit(IDL_EVENT_LOOKUP.CONTINUE);
+        this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
       }
     });
 
@@ -257,12 +226,12 @@ export class IDLMachineWrapper {
          */
         case 'vscode-log':
           try {
-            this.parent.log.log({
+            this.process.log.log({
               type: params.param1 as LogType,
               content: ['Message from IDL', JSON.parse(params.param2)],
             });
           } catch (err) {
-            this.parent.log.log({
+            this.process.log.log({
               type: 'error',
               content: [`Error handling IDL Notify request:`, params, err],
             });
@@ -335,7 +304,7 @@ export class IDLMachineWrapper {
     const res = await this._evaluate(command);
 
     // handle the string output and check for stop conditions
-    this.parent.stopCheck(res);
+    this.process.stopCheck(res);
 
     // return the output
     return res;
@@ -358,40 +327,43 @@ export class IDLMachineWrapper {
         reject(new Error('no stdin available'));
       }
 
-      this.parent.log.log({
+      this.process.log.log({
         type: 'debug',
         content: [`Executing:`, { command }],
       });
 
       // reset captured output
-      this.parent.capturedOutput = '';
-      this.parent.evaluating = true;
+      this.process.capturedOutput = '';
+      this.process.evaluating = true;
 
       /**
        * Get flags with proper type
        */
-      const flags: ExecuteStringFlags = this.parent.silent
+      const flags: ExecuteStringFlags = this.process.silent
         ? ((0x1 | 0x2) as ExecuteStringFlags)
         : 0x1;
+
+      // listen for our event returning back to the command prompt
+      this.process.once(
+        IDL_EVENT_LOOKUP.PROMPT_READY,
+        async (output: string) => {
+          this.process.log.log({
+            type: 'debug',
+            content: [`Output:`, { output }],
+          });
+
+          // reset captured output
+          this.process.capturedOutput = '';
+          this.process.evaluating = false;
+
+          // resolve our parent promise
+          resolve(output);
+        }
+      );
 
       this.machine.sendNotification('exec', {
         string: command,
         flags,
-      });
-
-      // listen for our event returning back to the command prompt
-      this.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output: string) => {
-        this.parent.log.log({
-          type: 'debug',
-          content: [`Output:`, { output }],
-        });
-
-        // reset captured output
-        this.parent.capturedOutput = '';
-        this.parent.evaluating = false;
-
-        // resolve our parent promise
-        resolve(output);
       });
     });
   }

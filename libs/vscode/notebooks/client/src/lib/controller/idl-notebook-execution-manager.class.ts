@@ -1,14 +1,17 @@
 import { IDLFileHelper } from '@idl/idl/files';
-import { CleanIDLOutput, IDLInteractionManager } from '@idl/idl/idl-process';
+import {
+  CleanIDLOutput,
+  IDLInteractionManager,
+} from '@idl/idl/idl-interaction-manager';
+import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
+import { Sleep } from '@idl/shared/extension';
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_EVENT_LOOKUP,
   IDL_PROGRESS,
   IDLEvaluateOptions,
   REGEX_NEW_LINE,
 } from '@idl/types/idl/idl-process';
-import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { Sleep } from '@idl/shared/extension';
-import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLNotebookEmbeddedItems } from '@idl/types/notebooks';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { VSCODE_NOTEBOOK_PRO_DIR, VSCODE_PRO_DIR } from '@idl/vscode/client';

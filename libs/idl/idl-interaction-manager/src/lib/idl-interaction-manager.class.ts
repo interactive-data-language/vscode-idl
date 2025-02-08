@@ -1,9 +1,8 @@
 import { Logger } from '@idl/logger';
 
-import { ProcessScope } from './helpers/process-scope';
 import { IDLEvaluationItem } from './idl-interaction-manager.interface';
-import { IDLProcess } from './idl-process.class';
 import EventEmitter = require('events');
+import { IDLProcess } from '@idl/idl/idl-process';
 import {
   DEFAULT_IDL_EVALUATE_OPTIONS,
   DEFAULT_IDL_INFO,
@@ -24,6 +23,8 @@ import {
   REGEX_COMPILE_ERROR,
 } from '@idl/types/idl/idl-process';
 import { URI } from 'vscode-uri';
+
+import { ProcessScope } from './helpers/process-scope';
 
 /**
  * Class that manages interacting with IDL.
@@ -378,7 +379,7 @@ export class IDLInteractionManager {
    * Let's us know if we are the IDL Machine or not
    */
   isIDLMachine() {
-    return this.idl.isMachine;
+    return this.idl.processType;
   }
 
   /**

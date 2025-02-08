@@ -1,7 +1,7 @@
 {
-  "name": "idl-ws-client",
+  "name": "idl-idl-interaction-manager",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/idl/ws-client/src",
+  "sourceRoot": "libs/idl/idl-interaction-manager/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -12,7 +12,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/idl/ws-client/jest.config.ts"
+        "jestConfig": "libs/idl/idl-interaction-manager/jest.config.ts"
       }
     }
   }

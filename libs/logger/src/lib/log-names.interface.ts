@@ -79,6 +79,16 @@ export const IDL_WORKER_THREAD_CONSOLE = 'idl-worker-console';
 export const IDL_USAGE_METRIC = 'idl-usage-metric';
 
 /**
+ * Log for web socket server
+ */
+export const IDL_WS_CONSOLE = 'idl-ws-console';
+
+/**
+ * Log for web socket server
+ */
+export const IDL_WS_SERVER = 'idl-ws-server';
+
+/**
  * All logs for the extension
  */
 export const ALL_IDL_LOGS = [
@@ -96,5 +106,7 @@ export const ALL_IDL_LOGS = [
   IDL_LSP_LOG,
   IDL_LSP_CONSOLE,
   IDL_WORKER_THREAD_CONSOLE,
+  IDL_WS_CONSOLE,
+  IDL_WS_SERVER,
   IDL_USAGE_METRIC,
 ];
