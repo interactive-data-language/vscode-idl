@@ -11,7 +11,7 @@ import {
   REGEX_IDL_RESTART,
   REGEX_IDL_RETALL,
   StopReason,
-} from '@idl/idl/shared';
+} from '@idl/types/idl/idl-process';
 import { IDL_DEBUG_ADAPTER_LOG, IDL_DEBUG_LOG } from '@idl/logger';
 import { Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';

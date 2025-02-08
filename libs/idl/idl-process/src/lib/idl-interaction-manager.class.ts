@@ -22,7 +22,7 @@ import {
   IRawBreakpoint,
   IStartIDLConfig,
   REGEX_COMPILE_ERROR,
-} from '@idl/idl/shared';
+} from '@idl/types/idl/idl-process';
 import { URI } from 'vscode-uri';
 
 /**

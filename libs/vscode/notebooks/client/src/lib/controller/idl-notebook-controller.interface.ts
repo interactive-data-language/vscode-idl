@@ -1,4 +1,4 @@
-import { IDLEvaluateOptions } from '@idl/idl/shared';
+import { IDLEvaluateOptions } from '@idl/types/idl/idl-process';
 import { PrepareNotebookCellResponse } from '@idl/vscode/events/messages';
 import * as vscode from 'vscode';
 

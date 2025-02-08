@@ -1,3 +1,5 @@
+import { Logger } from '@idl/logger';
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   DEFAULT_IDL_INFO,
   IDL_EVENT_LOOKUP,
@@ -10,9 +12,7 @@ import {
   REGEX_STOP_DETECTION,
   REGEX_STOP_DETECTION_BASIC,
   StopReason,
-} from '@idl/idl/shared';
-import { Logger } from '@idl/logger';
-import { IDL_TRANSLATION } from '@idl/translation';
+} from '@idl/types/idl/idl-process';
 import { ChildProcess, execSync, spawn } from 'child_process';
 import { EventEmitter } from 'events';
 import copy from 'fast-copy';

@@ -1,5 +1,5 @@
-import { DEFAULT_IDL_INFO, IDLInfo } from '@idl/idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { DEFAULT_IDL_INFO, IDLInfo } from '@idl/types/idl/idl-process';
 import copy from 'fast-copy';
 
 import { IDLProcess } from '../idl-process.class';

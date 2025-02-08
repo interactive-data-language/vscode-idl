@@ -12,7 +12,7 @@ export interface IStartIDLConfig {
   /** Extension config */
   config: IDLExtensionConfig;
   /** Environment variables */
-  env: NodeJS.ProcessEnv;
+  env: { [key: string]: any };
   /** optionally specify the directory that IDL starts in */
   cwd?: string;
 }

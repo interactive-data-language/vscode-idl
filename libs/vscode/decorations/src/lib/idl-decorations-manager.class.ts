@@ -3,7 +3,7 @@ import {
   IDL_CODE_COVERAGE_LOOKUP,
   IDLCodeCoverage,
   IDLSyntaxErrorLookup,
-} from '@idl/idl/shared';
+} from '@idl/types/idl/idl-process';
 import { Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {

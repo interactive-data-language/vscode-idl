@@ -1,5 +1,5 @@
 import { CleanPath, IDLFileHelper, NOTEBOOK_FOLDER } from '@idl/idl/files';
-import { IDLSyntaxErrorLookup } from '@idl/idl/shared';
+import { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';

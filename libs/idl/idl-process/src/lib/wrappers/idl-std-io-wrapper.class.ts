@@ -4,7 +4,7 @@ import {
   IDLListenerArgs,
   REGEX_EMPTY_LINE,
   REGEX_IDL_PROMPT,
-} from '@idl/idl/shared';
+} from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
 import * as os from 'os';
 import * as kill from 'tree-kill';

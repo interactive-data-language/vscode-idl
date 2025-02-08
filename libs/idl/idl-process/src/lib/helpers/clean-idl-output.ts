@@ -1,4 +1,7 @@
-import { REGEX_CLEAN_IDL_OUTPUT, REGEX_NEW_LINE } from '@idl/idl/shared';
+import {
+  REGEX_CLEAN_IDL_OUTPUT,
+  REGEX_NEW_LINE,
+} from '@idl/types/idl/idl-process';
 
 /**
  * Removes excess spaces, new lines, and compiled/restored statements

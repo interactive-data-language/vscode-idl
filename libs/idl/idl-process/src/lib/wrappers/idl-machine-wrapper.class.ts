@@ -4,8 +4,12 @@ import {
   IDLMachine,
   TOutNotification,
 } from '@idl/idl/idl-machine';
-import { IDL_EVENT_LOOKUP, IDLEvent, IDLListenerArgs } from '@idl/idl/shared';
 import { LogType } from '@idl/logger';
+import {
+  IDL_EVENT_LOOKUP,
+  IDLEvent,
+  IDLListenerArgs,
+} from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
 import * as kill from 'tree-kill';
 
