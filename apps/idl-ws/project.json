@@ -21,7 +21,11 @@
       },
       "configurations": {
         "development": {},
-        "production": {}
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false
+        }
       }
     },
     "serve": {

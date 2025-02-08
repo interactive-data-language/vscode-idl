@@ -5,7 +5,12 @@ import {
 } from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
 import * as os from 'os';
-import * as kill from 'tree-kill';
+
+/**
+ * If we use import, it complains about types
+ */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const kill = require('tree-kill');
 
 import { IDLProcess } from '../idl-process.class';
 

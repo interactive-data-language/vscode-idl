@@ -7,7 +7,12 @@ import {
 import { LogType } from '@idl/logger';
 import { IDL_EVENT_LOOKUP } from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
-import * as kill from 'tree-kill';
+
+/**
+ * If we use import, it complains about types
+ */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const kill = require('tree-kill');
 
 import { IDLProcess } from '../idl-process.class';
 
