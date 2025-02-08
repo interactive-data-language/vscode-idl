@@ -775,7 +775,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
           IDL_LOGGER.log({
             type: 'error',
             log: IDL_DEBUG_ADAPTER_LOG,
-            content: [IDL_TRANSLATION.debugger.errors.idlDetails, err],
+            content: [IDL_TRANSLATION.debugger.errors.idlDetails, err, version],
             alert: IDL_TRANSLATION.debugger.errors.idlDetails,
           });
         }
