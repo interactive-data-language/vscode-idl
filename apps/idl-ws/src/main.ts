@@ -1,6 +1,5 @@
 import { IDlWebSocketServer } from '@idl/idl/ws-server';
-import { IDL_WS_CONSOLE, IDL_WS_SERVER, LogManager } from '@idl/logger';
-import { IDL_TRANSLATION } from '@idl/translation';
+import { IDL_WS_SERVER, LogManager } from '@idl/logger';
 import cors from 'cors';
 import express from 'express';
 import { createServer } from 'http';
@@ -15,35 +14,35 @@ const LOG_MANAGER = new LogManager({
   },
 });
 
-/**
- * Old console.log routine
- */
-const OLD_LOG = console.log;
-const OLD_WARN = console.warn;
-const OLD_ERROR = console.error;
+// /**
+//  * Old console.log routine
+//  */
+// const OLD_LOG = console.log;
+// const OLD_WARN = console.warn;
+// const OLD_ERROR = console.error;
 
-// replace logs
-console.log = (...args: any[]) => {
-  LOG_MANAGER.log({
-    log: IDL_WS_CONSOLE,
-    content: args,
-  });
-};
-console.warn = (...args: any[]) => {
-  LOG_MANAGER.log({
-    log: IDL_WS_CONSOLE,
-    content: args,
-    type: 'warn',
-  });
-};
-console.error = (...args: any[]) => {
-  LOG_MANAGER.log({
-    log: IDL_WS_CONSOLE,
-    content: args,
-    type: 'error',
-    alert: IDL_TRANSLATION.lsp.errors.unhandled,
-  });
-};
+// // replace logs
+// console.log = (...args: any[]) => {
+//   LOG_MANAGER.log({
+//     log: IDL_WS_CONSOLE,
+//     content: args,
+//   });
+// };
+// console.warn = (...args: any[]) => {
+//   LOG_MANAGER.log({
+//     log: IDL_WS_CONSOLE,
+//     content: args,
+//     type: 'warn',
+//   });
+// };
+// console.error = (...args: any[]) => {
+//   LOG_MANAGER.log({
+//     log: IDL_WS_CONSOLE,
+//     content: args,
+//     type: 'error',
+//     alert: IDL_TRANSLATION.lsp.errors.unhandled,
+//   });
+// };
 
 /** Host for server */
 const HOST = process.env.HOST ?? 'localhost';
