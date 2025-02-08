@@ -112,6 +112,11 @@ export class IDlWebSocketServer {
               /** Send original emit */
               emitOrig.apply(this.process, args);
 
+              console.log({
+                type: args[0],
+                args: args.slice(1, args.length),
+              });
+
               /** Send to socket connection */
               this.send(FROM_IDL_WEB_SOCKET_MESSAGE_LOOKUP.IDL_EVENT, {
                 type: args[0],

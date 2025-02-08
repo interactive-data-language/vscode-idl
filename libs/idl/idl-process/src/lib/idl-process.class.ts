@@ -194,11 +194,13 @@ export class IDLProcess extends EventEmitter {
      * Check if web socket
      */
     if (ws) {
+      this.processType = 'ws';
       try {
         this._ws.start(this.vscodeProDir, args, this.startupMessage);
       } catch (err) {
         console.log(`Error`, err);
       }
+      return;
     }
 
     // check for IDL machine
