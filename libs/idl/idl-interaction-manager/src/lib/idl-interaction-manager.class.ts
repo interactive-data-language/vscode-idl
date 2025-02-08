@@ -379,7 +379,7 @@ export class IDLInteractionManager {
    * Let's us know if we are the IDL Machine or not
    */
   isIDLMachine() {
-    return this.idl.processType;
+    return this.idl.processType !== 'stdio';
   }
 
   /**
@@ -461,7 +461,7 @@ export class IDLInteractionManager {
    * Start IDL
    */
   start(config: IStartIDLConfig) {
-    this.idl.start(config);
+    this.idl.start(config, true);
   }
 
   /**

@@ -1,4 +1,4 @@
-import { IDL_EVENT_LOOKUP } from '@idl/types/idl/idl-process';
+import { IDL_EVENT_LOOKUP, IStartIDLConfig } from '@idl/types/idl/idl-process';
 import { TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP } from '@idl/types/idl/ws-client';
 
 import { IDLProcess } from '../idl-process.class';
@@ -21,6 +21,23 @@ export class IDLWebSocketWrapper {
   constructor(process: IDLProcess, url = 'http://localhost:3333') {
     this.process = process;
     this.client = new IDLWebSocketClient(process, url);
+  }
+
+  /**
+   * Start IDL session
+   */
+  start(vscodeProDir: string, config: IStartIDLConfig, startupMessage: string) {
+    console.log('starting');
+
+    console.log('listening');
+    this.client.listen();
+
+    console.log('sending');
+    this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.START_IDL, {
+      startupMessage,
+      vscodeProDir,
+      config,
+    });
   }
 
   /**

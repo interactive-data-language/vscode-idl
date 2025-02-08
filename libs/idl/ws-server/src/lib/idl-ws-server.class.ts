@@ -108,14 +108,14 @@ export class IDlWebSocketServer {
              * TODO: This might break everything since we use some of these
              * events to listen to and capture things ourselves
              */
-            this.process.emit = (type, ...args) => {
+            this.process.emit = (...args) => {
               /** Send original emit */
-              emitOrig(type, ...args);
+              emitOrig.apply(this.process, args);
 
               /** Send to socket connection */
               this.send(FROM_IDL_WEB_SOCKET_MESSAGE_LOOKUP.IDL_EVENT, {
-                type,
-                args,
+                type: args[0],
+                args: args.slice(1, args.length),
               });
               return true;
             };

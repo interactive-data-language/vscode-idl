@@ -83,40 +83,52 @@ function main() {
    * TODO: How to get console logs to client-side connection for IDL process?
    */
   io.on('connection', (socket) => {
+    // print that we have connection
+    console.log(`User connected: ${socket.id}`);
+
     /**
      * Create our web socket server class that manages
      * sending/receiving web socket messages
      */
-    const idlWsServer = new IDlWebSocketServer(
-      socket,
-      LOG_MANAGER.getLog(IDL_WS_SERVER)
-    );
+    let idlWsServer: IDlWebSocketServer;
 
-    /**
-     * Listen to events
-     *
-     * Separate so there can be authentication or something else before
-     * everything just works
-     */
-    idlWsServer.listen();
+    try {
+      idlWsServer = new IDlWebSocketServer(
+        socket,
+        LOG_MANAGER.getLog(IDL_WS_SERVER)
+      );
 
-    // print that we have connection
-    console.log(`User connected: ${socket.id}`);
+      /**
+       * Listen to events
+       *
+       * Separate so there can be authentication or something else before
+       * everything just works
+       */
+      idlWsServer.listen();
+    } catch (err) {
+      console.log(err);
+    }
 
     /**
      * Listen for disconnects so we can cleanup
      */
     socket.on('disconnect', () => {
-      // print disconnection
-      console.log(`User disconnected: ${socket.id}`);
+      try {
+        // print disconnection
+        console.log(`User disconnected: ${socket.id}`);
 
-      // cleanup connection for this user
-      idlWsServer.cleanup();
+        // cleanup connection for this user
+        if (idlWsServer) {
+          idlWsServer.cleanup();
+        }
+      } catch (err) {
+        console.log('Error cleaning up on disconnect', err);
+      }
     });
   });
 
   // have express listen
-  app.listen(PORT, HOST, () => {
+  server.listen(PORT, HOST, () => {
     console.log(`Server listening at http://${HOST}:${PORT}`);
   });
 }

@@ -28,7 +28,7 @@ export class IDLWebSocketClient {
     /**
      * Create socket connection
      */
-    this.socket = io(url);
+    this.socket = io(url, { autoConnect: false });
   }
 
   /**
@@ -44,6 +44,14 @@ export class IDLWebSocketClient {
    * Listen to events on our connection
    */
   listen() {
+    this.socket.on('connect', () => {
+      console.log('IDL WS Client connected');
+    });
+
+    this.socket.on('disconnect', () => {
+      console.log('IDL WS Client disconnected');
+    });
+
     this.socket.on(
       IDL_WS_MESSAGE,
       (msg: FromIDLWebSocketMessage<FromIDLWebSocketMessageTypes>) => {
@@ -66,6 +74,10 @@ export class IDLWebSocketClient {
         }
       }
     );
+
+    // connect
+    console.log('Trying to connect');
+    this.socket.connect();
   }
 
   /**

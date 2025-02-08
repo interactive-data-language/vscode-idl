@@ -129,7 +129,7 @@ export class IDLProcess extends EventEmitter {
   /**
    * Start our debugging session
    */
-  start(args: IStartIDLConfig) {
+  start(args: IStartIDLConfig, ws?: boolean) {
     // reset props if needed
     if (this.started) {
       return;
@@ -187,6 +187,17 @@ export class IDLProcess extends EventEmitter {
         args.env['LANG'] = `${execSync(`defaults read -g AppleLocale`)
           .toString()
           .trim()}.UTF-8`;
+      }
+    }
+
+    /**
+     * Check if web socket
+     */
+    if (ws) {
+      try {
+        this._ws.start(this.vscodeProDir, args, this.startupMessage);
+      } catch (err) {
+        console.log(`Error`, err);
       }
     }
 
