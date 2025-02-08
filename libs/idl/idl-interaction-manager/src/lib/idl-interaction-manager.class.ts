@@ -461,7 +461,7 @@ export class IDLInteractionManager {
    * Start IDL
    */
   start(config: IStartIDLConfig) {
-    this.idl.start(config, true);
+    this.idl.start(config);
   }
 
   /**
