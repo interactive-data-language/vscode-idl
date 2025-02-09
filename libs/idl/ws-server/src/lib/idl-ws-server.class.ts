@@ -85,6 +85,11 @@ export class IDlWebSocketServer {
            * Start IDL session
            */
           case TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.START_IDL: {
+            // stop if already started
+            if (this.process) {
+              this.process.stop();
+            }
+
             /** Typed payload */
             const payload = (
               msg as ToIDLWebSocketMessage<ToIDLWebSocketMessage_StartIDL>
