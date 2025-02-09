@@ -16,7 +16,12 @@ import {
 import { join } from 'path';
 import { Socket } from 'socket.io';
 
+import { IDLTempFolderManager } from './idl-temp-folder-manager';
+
 export class IDlWebSocketServer {
+  /** Manage temp folders */
+  folderManager = new IDLTempFolderManager();
+
   /** Logger */
   log: Logger;
 
@@ -47,6 +52,9 @@ export class IDlWebSocketServer {
     if (this.process) {
       this.process.stop();
     }
+
+    // remove our temp folder
+    this.folderManager.removeTempFolder(this.socket);
   }
 
   /**
@@ -107,6 +115,14 @@ export class IDlWebSocketServer {
             if (this.process) {
               this.process.stop();
             }
+
+            // create a temp folder for our connection
+            const temp = this.folderManager.createTempFolder(this.socket);
+
+            /**
+             * TODO: Update environment for .idl location and anything else
+             * to use this instead of home
+             */
 
             /** Typed payload */
             const payload = (
