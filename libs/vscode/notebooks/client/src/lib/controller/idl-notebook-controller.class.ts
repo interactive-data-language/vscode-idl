@@ -1,4 +1,3 @@
-import { IDLEvaluateOptions } from '@idl/types/idl/idl-process';
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import {
   IDL_LANGUAGE_NAME,
@@ -6,6 +5,7 @@ import {
   IDL_NOTEBOOK_LANGUAGE_NAME,
 } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IDLEvaluateOptions } from '@idl/types/idl/idl-process';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 

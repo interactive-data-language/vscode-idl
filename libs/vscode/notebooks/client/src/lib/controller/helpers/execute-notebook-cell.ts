@@ -1,7 +1,7 @@
 import { CleanPath, IDLFileHelper, NOTEBOOK_FOLDER } from '@idl/idl/files';
-import { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
 import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';

@@ -1,11 +1,11 @@
 import { IDLFileHelper } from '@idl/idl/files';
+import { Sleep } from '@idl/shared/extension';
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_CODE_COVERAGE_LOOKUP,
   IDLCodeCoverage,
   IDLSyntaxErrorLookup,
 } from '@idl/types/idl/idl-process';
-import { Sleep } from '@idl/shared/extension';
-import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GetTextEditorForURIString,
   OpenFileInVSCodeFromURI,
