@@ -196,7 +196,7 @@ export class IDLProcess extends EventEmitter {
     if (ws) {
       this.processType = 'ws';
       try {
-        this._ws.start(this.vscodeProDir, args, this.startupMessage);
+        this._ws.start(args, this.startupMessage);
       } catch (err) {
         console.log(`Error`, err);
       }

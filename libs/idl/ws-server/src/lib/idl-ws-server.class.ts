@@ -1,3 +1,4 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { IDLProcess } from '@idl/idl/idl-process';
 import { Logger } from '@idl/logger';
 import {
@@ -12,6 +13,7 @@ import {
   ToIDLWebSocketMessage_StartIDL,
   ToIDLWebSocketMessageTypes,
 } from '@idl/types/idl/ws-client';
+import { join } from 'path';
 import { Socket } from 'socket.io';
 
 export class IDlWebSocketServer {
@@ -114,7 +116,7 @@ export class IDlWebSocketServer {
             // create process
             this.process = new IDLProcess(
               this.log,
-              payload.vscodeProDir,
+              GetExtensionPath(join('idl', 'vscode')),
               payload.startupMessage
             );
 

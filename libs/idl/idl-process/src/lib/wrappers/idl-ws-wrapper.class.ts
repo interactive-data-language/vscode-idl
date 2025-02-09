@@ -33,7 +33,7 @@ export class IDLWebSocketWrapper {
   /**
    * Start IDL session
    */
-  start(vscodeProDir: string, config: IStartIDLConfig, startupMessage: string) {
+  start(config: IStartIDLConfig, startupMessage: string) {
     this.client.listen();
 
     /**
@@ -47,7 +47,6 @@ export class IDLWebSocketWrapper {
 
     this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.START_IDL, {
       startupMessage,
-      vscodeProDir,
       config,
     });
   }

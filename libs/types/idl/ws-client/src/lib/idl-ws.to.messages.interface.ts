@@ -22,8 +22,6 @@ export type ToIDLWebSocketMessage_StartIDL = 'start-idl';
 
 /** Payload to start IDL */
 export type ToIDLWebSocketPayload_StartIDL = {
-  /** Directory with VSCode PRO code */
-  vscodeProDir: string;
   /** Startup message */
   startupMessage: string;
   /** Startup config */
