@@ -65,7 +65,8 @@ export class IDLWebSocketClient {
               msg as FromIDLWebSocketMessage<FromIDLWebSocketMessage_IDLEvent>
             ).payload;
 
-            console.log(`Event from websocket`, payload);
+            // debug information
+            // console.log(`Event from websocket`, payload);
 
             this.process.emit(payload.type, ...payload.args);
             break;
