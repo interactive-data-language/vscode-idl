@@ -66,6 +66,13 @@ export class IDlWebSocketServer {
               msg as ToIDLWebSocketMessage<ToIDLWebSocketMessage_Evaluate>
             ).payload;
             if (this.process) {
+              this.log.log({
+                type: 'info',
+                content: [
+                  `Run command in IDL for connection ${this.socket.id}`,
+                  payload,
+                ],
+              });
               this.process.silent = payload.silent;
               this.process.evaluate(payload.command);
             }
@@ -77,6 +84,10 @@ export class IDlWebSocketServer {
            */
           case TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.PAUSE_IDL:
             if (this.process) {
+              this.log.log({
+                type: 'info',
+                content: `Request to pause IDL for connection ${this.socket.id}`,
+              });
               this.process.pause();
             }
             break;
@@ -85,6 +96,11 @@ export class IDlWebSocketServer {
            * Start IDL session
            */
           case TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.START_IDL: {
+            this.log.log({
+              type: 'info',
+              content: `Start IDL session for connection ${this.socket.id}`,
+            });
+
             // stop if already started
             if (this.process) {
               this.process.stop();
@@ -118,10 +134,11 @@ export class IDlWebSocketServer {
               /** Send original emit */
               emitOrig.apply(this.process, args);
 
-              console.log({
-                type: args[0],
-                args: args.slice(1, args.length),
-              });
+              // debug logs
+              // console.log({
+              //   type: args[0],
+              //   args: args.slice(1, args.length),
+              // });
 
               /** Send to socket connection */
               this.send(FROM_IDL_WEB_SOCKET_MESSAGE_LOOKUP.IDL_EVENT, {
@@ -141,6 +158,10 @@ export class IDlWebSocketServer {
            */
           case TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.STOP_IDL:
             if (this.process) {
+              this.log.log({
+                type: 'info',
+                content: `Stoping IDL session for connection ${this.socket.id}`,
+              });
               this.process.stop();
             }
             break;
