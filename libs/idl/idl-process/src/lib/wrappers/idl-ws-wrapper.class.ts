@@ -81,6 +81,9 @@ export class IDLWebSocketWrapper {
   private _evaluate(command: string): Promise<string> {
     // return promise
     return new Promise((resolve, reject) => {
+      /**
+       * TODO: Make sure that we have a connection
+       */
       this.process.log.log({
         type: 'debug',
         content: [`Executing:`, { command }],
