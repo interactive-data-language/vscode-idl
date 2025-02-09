@@ -24,10 +24,21 @@ export class IDLWebSocketWrapper {
   }
 
   /**
+   * Returns a flag if we are connected or not
+   */
+  isConnected() {
+    return this.client.socket.connected;
+  }
+
+  /**
    * Start IDL session
    */
   start(vscodeProDir: string, config: IStartIDLConfig, startupMessage: string) {
     this.client.listen();
+
+    /**
+     * TODO: Add some wait/pause for connection before we actually start up
+     */
 
     // alert parent that we have started
     this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, (data) => {
@@ -67,6 +78,10 @@ export class IDLWebSocketWrapper {
   async evaluate(command: string): Promise<string> {
     // return promise
     return new Promise((resolve, reject) => {
+      if (!this.isConnected()) {
+        reject(new Error('Not connected to web socket server'));
+      }
+
       // listen for our event returning back to the command prompt
       this.process.once(
         IDL_EVENT_LOOKUP.PROMPT_READY,
