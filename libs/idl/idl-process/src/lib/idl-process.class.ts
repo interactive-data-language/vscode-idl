@@ -407,14 +407,53 @@ export class IDLProcess extends EventEmitter {
       throw new Error('IDL is not started');
     }
 
+    // debug information
+    this.log.log({
+      type: 'debug',
+      content: [`Executing via ${this.processType}:`, { command }],
+    });
+
+    // reset captured output
+    this.capturedOutput = '';
+
+    // set state that we are running
+    this.evaluating = true;
+
+    /** Result from running */
+    let res: string;
+
+    /**
+     * Send to the right process we are running
+     */
     switch (this.processType) {
       case 'machine':
-        return this._machine.evaluate(command);
+        res = await this._machine.evaluate(command);
+        break;
       case 'ws':
-        return this._ws.evaluate(command);
+        res = await this._ws.evaluate(command);
+        break;
       default:
-        return this._stdio.evaluate(command);
+        res = await this._stdio.evaluate(command);
+        break;
     }
+
+    // debug information
+    this.log.log({
+      type: 'debug',
+      content: [`Output:`, { res }],
+    });
+
+    // reset captured output
+    this.capturedOutput = '';
+
+    // reset state
+    this.evaluating = false;
+
+    // check for stops
+    this.stopCheck(res);
+
+    // return output
+    return res;
   }
 
   /**

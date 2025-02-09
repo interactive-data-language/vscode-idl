@@ -56,20 +56,6 @@ export class IDLWebSocketWrapper {
   }
 
   /**
-   * External method to execute something in IDL
-   */
-  async evaluate(command: string): Promise<string> {
-    // run our command
-    const res = await this._evaluate(command);
-
-    // handle the string output and check for stop conditions
-    this.process.stopCheck(res);
-
-    // return the output
-    return res;
-  }
-
-  /**
    * Runs a command in IDL with the assumption that we are IDLE.
    *
    * DO NOT USE THIS METHOD IF IDL IS ACTIVELY RUNNING SOMETHING because
@@ -78,35 +64,13 @@ export class IDLWebSocketWrapper {
    * The use for this is getting scope information immediately before we return
    * as being complete and cleans up our event management
    */
-  private _evaluate(command: string): Promise<string> {
+  async evaluate(command: string): Promise<string> {
     // return promise
     return new Promise((resolve, reject) => {
-      /**
-       * TODO: Make sure that we have a connection
-       */
-      this.process.log.log({
-        type: 'debug',
-        content: [`Executing:`, { command }],
-      });
-
-      // reset captured output
-      this.process.capturedOutput = '';
-      this.process.evaluating = true;
-
       // listen for our event returning back to the command prompt
       this.process.once(
         IDL_EVENT_LOOKUP.PROMPT_READY,
         async (output: string) => {
-          this.process.log.log({
-            type: 'debug',
-            content: [`Output:`, { output }],
-          });
-
-          // reset captured output
-          this.process.capturedOutput = '';
-          this.process.evaluating = false;
-
-          // resolve our parent promise
           resolve(output);
         }
       );

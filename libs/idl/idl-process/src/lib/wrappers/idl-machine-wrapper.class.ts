@@ -280,6 +280,8 @@ export class IDLMachineWrapper {
     this.idl = idl;
     this.machine = new IDLMachine(idl);
 
+    // register listeners for our notifications and requests
+    // form the server
     this._listenForNotifications();
     this._listenForRequests();
   }
@@ -289,6 +291,8 @@ export class IDLMachineWrapper {
    */
   stop() {
     this.machine.sendNotification('exit', undefined);
+
+    // short timeout to make sure it shuts down
     setTimeout(() => {
       kill(this.idl.pid);
     }, 100);
@@ -302,20 +306,6 @@ export class IDLMachineWrapper {
   }
 
   /**
-   * External method to execute something in IDL
-   */
-  async evaluate(command: string): Promise<string> {
-    // run our command
-    const res = await this._evaluate(command);
-
-    // handle the string output and check for stop conditions
-    this.process.stopCheck(res);
-
-    // return the output
-    return res;
-  }
-
-  /**
    * Runs a command in IDL with the assumption that we are IDLE.
    *
    * DO NOT USE THIS METHOD IF IDL IS ACTIVELY RUNNING SOMETHING because
@@ -324,22 +314,12 @@ export class IDLMachineWrapper {
    * The use for this is getting scope information immediately before we return
    * as being complete and cleans up our event management
    */
-  private _evaluate(command: string): Promise<string> {
-    // return promise
+  async evaluate(command: string): Promise<string> {
     return new Promise((resolve, reject) => {
       // handle errors writing to stdin
       if (!this.idl.stdin.writable) {
         reject(new Error('no stdin available'));
       }
-
-      this.process.log.log({
-        type: 'debug',
-        content: [`Executing:`, { command }],
-      });
-
-      // reset captured output
-      this.process.capturedOutput = '';
-      this.process.evaluating = true;
 
       /**
        * Get flags with proper type
@@ -352,16 +332,6 @@ export class IDLMachineWrapper {
       this.process.once(
         IDL_EVENT_LOOKUP.PROMPT_READY,
         async (output: string) => {
-          this.process.log.log({
-            type: 'debug',
-            content: [`Output:`, { output }],
-          });
-
-          // reset captured output
-          this.process.capturedOutput = '';
-          this.process.evaluating = false;
-
-          // resolve our parent promise
           resolve(output);
         }
       );
