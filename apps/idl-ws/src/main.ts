@@ -14,6 +14,17 @@ const LOG_MANAGER = new LogManager({
   },
 });
 
+/**
+ * The below block of code creates a circular logging call stack because the log
+ * manager doesn't have an interceptor set up
+ *
+ * For now, leave the logs to print out in our server process and don't
+ * worry about anything in the client.
+ *
+ * This should be OK since 90% of the information makes it back to the client
+ * and can be in logs for debugging.
+ */
+
 // /**
 //  * Old console.log routine
 //  */
