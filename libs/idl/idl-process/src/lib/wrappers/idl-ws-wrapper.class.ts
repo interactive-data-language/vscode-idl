@@ -40,11 +40,6 @@ export class IDLWebSocketWrapper {
      * TODO: Add some wait/pause for connection before we actually start up
      */
 
-    // alert parent that we have started
-    this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, (data) => {
-      this.process.started = true;
-    });
-
     this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.START_IDL, {
       startupMessage,
       config,

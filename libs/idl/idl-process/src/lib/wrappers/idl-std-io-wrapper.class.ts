@@ -170,11 +170,6 @@ export class IDLStdIOWrapper {
         this.process.emit(IDL_EVENT_LOOKUP.IDL_STARTED, output);
       }, 25);
     });
-
-    // listen for our IDL started event and set up the flags for our parent process
-    this.process.once(IDL_EVENT_LOOKUP.IDL_STARTED, () => {
-      this.process.started = true;
-    });
   }
 
   /**

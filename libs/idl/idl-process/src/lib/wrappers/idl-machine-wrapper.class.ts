@@ -166,7 +166,6 @@ export class IDLMachineWrapper {
      * Listen for startup
      */
     this.machine.onNotification('serverReady', () => {
-      this.process.started = true;
       this.process.emit(IDL_EVENT_LOOKUP.IDL_STARTED, '');
     });
 

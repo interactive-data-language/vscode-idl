@@ -261,6 +261,11 @@ export class IDLProcess extends EventEmitter {
       return;
     }
 
+    // listen for startup
+    this.once(IDL_EVENT_LOOKUP.IDL_STARTED, () => {
+      this.started = true;
+    });
+
     // listen to IDL
     if (this.processType === 'stdio') {
       this.emit(IDL_EVENT_LOOKUP.STANDARD_ERR, this.startupMessage);
