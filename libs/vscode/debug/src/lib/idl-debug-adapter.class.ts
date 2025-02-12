@@ -145,7 +145,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // list for failures to start
     this._runtime.on(IDL_EVENT_LOOKUP.FAILED_START, () => {
-      this._IDLCrashed('failed-start');
+      this._IDLStopped('failed-start');
       LogSessionStop('failed-start');
     });
 
@@ -209,14 +209,20 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // detect crash event
     this._runtime.on(IDL_EVENT_LOOKUP.END, () => {
-      this._IDLCrashed('crash');
+      this._IDLStopped('crash');
       LogSessionStop('crashed');
     });
 
     // listen for IDL crashing
     this._runtime.on(IDL_EVENT_LOOKUP.CRASHED, () => {
-      this._IDLCrashed('crash');
+      this._IDLStopped('crash');
       LogSessionStop('crashed');
+    });
+
+    // listen for lost connections
+    this._runtime.on(IDL_EVENT_LOOKUP.LOST_CONNECTION, () => {
+      this._IDLStopped('lost-connection');
+      LogSessionStop('lost-connection');
     });
 
     // listen for when our prompt chang es
@@ -257,7 +263,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   /**
    * Method we call when IDL was stopped - not via user, but a likely crash
    */
-  private _IDLCrashed(reason: 'crash' | 'failed-start') {
+  private _IDLStopped(reason: 'crash' | 'failed-start' | 'lost-connection') {
     // this._runtime.removeAllListeners(); // this breaks things
     this.sendEvent(new TerminatedEvent());
 
@@ -269,6 +275,11 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // alert user
     switch (reason) {
+      case 'lost-connection':
+        vscode.window.showErrorMessage(
+          IDL_TRANSLATION.notifications.lostIDLConnection
+        );
+        break;
       case 'failed-start':
         IDL_STATUS_BAR.setStoppedStatus(
           IDL_TRANSLATION.statusBar.problemStarting
@@ -800,7 +811,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
           LogSessionStop('failed-start');
 
           // emit event that we failed to start - handled status bar update
-          this._IDLCrashed('failed-start');
+          this._IDLStopped('failed-start');
 
           // return
           res(false);

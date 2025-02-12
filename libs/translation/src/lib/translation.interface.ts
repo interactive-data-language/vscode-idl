@@ -704,18 +704,8 @@ export interface ITranslation {
   };
   /** Translations related to notifications in dialogs that pop up in VSCode */
   notifications: {
-    /** When no PRO code if found in the editor */
-    noProCode: string;
-    /** When we have no IDL notebook in the editor */
-    noIDLNotebook: string;
-    /** No pro code or task file */
-    noProCodeOrTaskFile: string;
-    /** When the IDL directory is not found */
-    noIDLDirFound: string;
-    /** Translation for yes */
-    yes: string;
-    /** Translation for no */
-    no: string;
+    /** Configure something */
+    configure: string;
     /** Translation to not ask again */
     dontAsk: string;
     /** Text that shows to ask if a user wants to change their icon theme */
@@ -724,18 +714,30 @@ export interface ITranslation {
     changeFormatter: string;
     /** Text that, after a user changes the default formatter to IDL, asks if they want to format on save */
     formatOnSave: string;
+    /** When we lose our connection to IDL via websocket */
+    lostIDLConnection: string;
     /** Init "idl.json" question */
     initIDLJSON: string;
+    /** Translation for no */
+    no: string;
+    /** When the IDL directory is not found */
+    noIDLDirFound: string;
+    /** When we have no IDL notebook in the editor */
+    noIDLNotebook: string;
+    /** When no PRO code if found in the editor */
+    noProCode: string;
+    /** No pro code or task file */
+    noProCodeOrTaskFile: string;
     /** Do we ask to open docs on startup */
     openDocs: string;
-    /** Configure something */
-    configure: string;
+    /** Question to ask if want to report a bug */
+    reportBug: string;
     /** Start IDL */
     start: string;
     /** Question to ask if want to view docs file */
     viewDocs: string;
-    /** Question to ask if want to report a bug */
-    reportBug: string;
+    /** Translation for yes */
+    yes: string;
   };
   /** Translations for our main package.json file */
   packageJSON: {

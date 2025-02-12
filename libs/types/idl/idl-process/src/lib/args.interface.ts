@@ -5,6 +5,7 @@ import {
   FailedStartEvent,
   IDLEvent,
   IDLStartedEvent,
+  LostConnectionEvent,
   OutputEvent,
   PromptEvent,
   PromptReadyEvent,
@@ -45,6 +46,11 @@ type FailedStartArgs = [reason: string];
  * @param {string} output The string content captured when starting IDL
  */
 type IDLStartedArgs = [output: string];
+
+/**
+ * @param {string} reason The reason that we lost our connection
+ */
+type LostConnectionArgs = [reason: string];
 
 /**
  * @param {string} content Standard output from IDL
@@ -94,6 +100,8 @@ export type IDLListenerArgs<T extends IDLEvent> = T extends ContinueEvent
   ? FailedStartArgs
   : T extends IDLStartedEvent
   ? IDLStartedArgs
+  : T extends LostConnectionEvent
+  ? LostConnectionArgs
   : T extends OutputEvent
   ? OutputArgs
   : T extends PromptEvent

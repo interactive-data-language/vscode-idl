@@ -23,6 +23,9 @@ export type EndEvent = 'end';
 /** Fired when IDL has started and is ready for input */
 export type IDLStartedEvent = 'idl-started';
 
+/** Fired when we lose a connection to IDL */
+export type LostConnectionEvent = 'lost-connection';
+
 /**
  * Sent when we have content to display from IDL (i.e. potentially command that
  * runs), but not standout or stderr
@@ -55,6 +58,7 @@ export type IDLEvent =
   | EndEvent
   | FailedStartEvent
   | IDLStartedEvent
+  | LostConnectionEvent
   | OutputEvent
   | PromptEvent
   | PromptReadyEvent
@@ -79,6 +83,8 @@ interface IEventLookup {
   FAILED_START: FailedStartEvent;
   /** Fired when IDL has started and is ready for input */
   IDL_STARTED: IDLStartedEvent;
+  /** When we lose a connection to IDL */
+  LOST_CONNECTION: LostConnectionEvent;
   /**
    * Sent when we have content to display from IDL (i.e. potentially command that
    * runs), but not standout or stderr
@@ -109,6 +115,7 @@ export const IDL_EVENT_LOOKUP: IEventLookup = {
   END: 'end',
   FAILED_START: 'failed-start',
   IDL_STARTED: 'idl-started',
+  LOST_CONNECTION: 'lost-connection',
   OUTPUT: 'output',
   PROMPT: 'prompt',
   PROMPT_READY: 'prompt-ready',

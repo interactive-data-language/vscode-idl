@@ -1,3 +1,4 @@
+import { IDL_EVENT_LOOKUP } from '@idl/types/idl/idl-process';
 import {
   FROM_IDL_WEB_SOCKET_MESSAGE_LOOKUP,
   FromIDLWebSocketMessage,
@@ -48,8 +49,10 @@ export class IDLWebSocketClient {
       console.log('IDL WS Client connected');
     });
 
-    this.socket.on('disconnect', () => {
-      console.log('IDL WS Client disconnected');
+    // handle disconnects
+    this.socket.on('disconnect', (reason) => {
+      console.log(`Disconnected from socket because: ${reason}`);
+      this.process.emit(IDL_EVENT_LOOKUP.LOST_CONNECTION, reason);
     });
 
     this.socket.on(

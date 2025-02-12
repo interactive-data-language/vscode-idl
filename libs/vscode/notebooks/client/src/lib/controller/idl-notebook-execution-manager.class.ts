@@ -115,7 +115,7 @@ export class IDLNotebookExecutionManager {
 
     // list for failures to start
     this._runtime.on(IDL_EVENT_LOOKUP.FAILED_START, () => {
-      this._IDLCrashed('failed-start');
+      this._IDLStopped('failed-start');
     });
 
     // listen for events when we continue processing
@@ -162,7 +162,12 @@ export class IDLNotebookExecutionManager {
 
     // listen for IDL crashing
     this._runtime.on(IDL_EVENT_LOOKUP.CRASHED, () => {
-      this._IDLCrashed('crash');
+      this._IDLStopped('crash');
+    });
+
+    // listen for IDL crashing
+    this._runtime.on(IDL_EVENT_LOOKUP.LOST_CONNECTION, () => {
+      this._IDLStopped('lost-connection');
     });
 
     // update flag that we have started listening to events
@@ -171,29 +176,43 @@ export class IDLNotebookExecutionManager {
 
   /**
    * Method we call when IDL was stopped - not via user, but a likely crash
+   *
+   * Marks cell execution as finished
    */
-  private async _IDLCrashed(reason: 'crash' | 'failed-start') {
-    if (reason === 'crash') {
-      await this._appendToCurrentCellOutput(
-        IDL_TRANSLATION.notebooks.errors.crashed
-      );
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_NOTEBOOK_LOG,
-        content: [IDL_TRANSLATION.notebooks.errors.crashed],
-        alert: IDL_TRANSLATION.notebooks.errors.crashed,
-      });
-    } else {
-      await this._appendToCurrentCellOutput(
-        IDL_TRANSLATION.debugger.adapter.failedStart
-      );
+  private async _IDLStopped(
+    reason: 'crash' | 'failed-start' | 'lost-connection'
+  ) {
+    switch (reason) {
+      case 'crash':
+        await this._appendToCurrentCellOutput(
+          IDL_TRANSLATION.notebooks.errors.crashed
+        );
+        IDL_LOGGER.log({
+          type: 'error',
+          log: IDL_NOTEBOOK_LOG,
+          content: [IDL_TRANSLATION.notebooks.errors.crashed],
+          alert: IDL_TRANSLATION.notebooks.errors.crashed,
+        });
+        break;
+      case 'failed-start':
+        await this._appendToCurrentCellOutput(
+          IDL_TRANSLATION.debugger.adapter.failedStart
+        );
+        break;
+      case 'lost-connection':
+        await this._appendToCurrentCellOutput(
+          IDL_TRANSLATION.notifications.lostIDLConnection
+        );
+        break;
+      default:
+        break;
     }
-
-    // reset decorations
-    IDL_DECORATIONS_MANAGER.reset('notebook');
 
     // mark as failed execution
     await this._endCellExecution(false);
+
+    // stop the process
+    await this.stop();
   }
 
   /**
@@ -665,7 +684,7 @@ export class IDLNotebookExecutionManager {
       this._runtime.once(IDL_EVENT_LOOKUP.FAILED_START, () => {
         if (!this.isStarted()) {
           // emit event that we failed to start - handled status bar update
-          this._IDLCrashed('failed-start');
+          this._IDLStopped('failed-start');
           res(false);
         }
       });
