@@ -203,20 +203,16 @@ export class IDLProcess extends EventEmitter {
       return;
     }
 
-    // check for IDL machine
-    if (os.platform() === 'win32') {
-      this.processType = existsSync(
-        path.join(args.config.IDL.directory, 'idl_machine.exe')
-      )
-        ? 'machine'
-        : 'stdio';
-    } else {
-      this.processType = existsSync(
-        path.join(args.config.IDL.directory, 'idl_machine')
-      )
-        ? 'machine'
-        : 'stdio';
-    }
+    /**
+     * Name of IDL machine executable
+     */
+    const machineExe = path.join(
+      args.config.IDL.directory,
+      os.platform() === 'win32' ? 'idl_machine.exe' : 'idl_machine'
+    );
+
+    // check for process type
+    this.processType = existsSync(machineExe) ? 'machine' : 'stdio';
 
     /**
      * If not the IDL machine, set the prompt because we need this with stdio
