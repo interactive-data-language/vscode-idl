@@ -77,12 +77,9 @@ export class IDLWebSocketWrapper {
       }
 
       // listen for our event returning back to the command prompt
-      this.process.once(
-        IDL_EVENT_LOOKUP.PROMPT_READY,
-        async (output: string) => {
-          resolve(output);
-        }
-      );
+      this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
+        resolve(output);
+      });
 
       this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.EVALUATE, {
         command,

@@ -204,12 +204,9 @@ export class IDLStdIOWrapper {
       }
 
       // listen for our event returning back to the command prompt
-      this.process.once(
-        IDL_EVENT_LOOKUP.PROMPT_READY,
-        async (output: string) => {
-          resolve(output);
-        }
-      );
+      this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
+        resolve(output);
+      });
 
       // send the command to IDL
       if (os.platform() !== 'win32') {
