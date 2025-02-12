@@ -5,6 +5,7 @@ import {
 } from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
 import * as os from 'os';
+import stripAnsi from 'strip-ansi';
 
 /**
  * If we use import, it complains about types
@@ -59,7 +60,7 @@ export class IDLStdIOWrapper {
      */
     const handleOutput = (buff: any) => {
       /** Current stdout or stderr */
-      const data = buff.toString('utf8');
+      const data = stripAnsi(buff.toString('utf8'));
 
       // what do we do?
       switch (true) {
@@ -149,7 +150,6 @@ export class IDLStdIOWrapper {
     // set flag the first time we start up to be ready to accept input
     this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
       first = false;
-      this.process.started = true;
 
       // alert user
       this.process.log.log({
@@ -169,6 +169,11 @@ export class IDLStdIOWrapper {
         // because we need to do the "reset" work once it has really opened
         this.process.emit(IDL_EVENT_LOOKUP.IDL_STARTED, output);
       }, 25);
+    });
+
+    // listen for our IDL started event and set up the flags for our parent process
+    this.process.once(IDL_EVENT_LOOKUP.IDL_STARTED, () => {
+      this.process.started = true;
     });
   }
 
