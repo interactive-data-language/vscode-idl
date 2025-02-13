@@ -18,11 +18,11 @@ export async function TestsForConfigFileResolving(
   const strings: string[] = [];
 
   // add imports
+  strings.push(`import { GetExtensionPath } from '@idl/idl/files';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
   );
-  strings.push(`import { GetExtensionPath } from '@idl/shared/extension';`);
 
   strings.push(``);
   strings.push(`IDL_INDEX_OPTIONS.IS_TEST = true;`);

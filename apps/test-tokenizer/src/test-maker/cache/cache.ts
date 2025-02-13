@@ -1,4 +1,4 @@
-import { GetRuntimePath } from '@idl/shared/extension';
+import { GetRuntimePath } from '@idl/idl/files';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 
 /**
