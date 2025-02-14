@@ -36,6 +36,8 @@ This helps normalize the internal documentation provided with IDL which, when we
 
 Improved syntax highlighting for executive commands and statements like ".compile" should now highlight strings, support comments, and not be bold depending on your theme.
 
+Fixed a typo in hover help for task files
+
 ## 4.7.1 - December 2024
 
 Fixed an issue with the IDL Webview that showed a blank tab when opened. This affect things like the profiler in the extension.
