@@ -20,6 +20,47 @@ import { CleanPath } from './clean-path';
  */
 export class IDLFileHelper {
   /**
+   * Returns the VSCode URI for a notebook document from the FS path
+   * for a notebook cell
+   */
+  static getParentNotebookFSPathFromNotebookCellFSPath(fsPath: string) {
+    return (
+      fsPath.split(`_${NOTEBOOK_CELL_BASE_NAME}_`)[0] + IDL_NOTEBOOK_EXTENSION
+    );
+  }
+
+  /**
+   * Returns the VSCode URI for a notebook document from the FS path
+   * for a notebook cell
+   */
+  static getParentNotebookURIFromNotebookCellFSPath(fsPath: string) {
+    return URI.file(this.getParentNotebookFSPathFromNotebookCellFSPath(fsPath));
+  }
+
+  /**
+   * Indicates that a file is a configuration file
+   */
+  static isConfigFile(file: string): boolean {
+    return file.toLowerCase().endsWith(IDL_JSON_URI);
+  }
+
+  /**
+   * Indicates that a file is an IDL notebook
+   */
+  static isIDLNotebookFile(file: string): boolean {
+    return (
+      file.includes('#') || file.toLowerCase().endsWith(IDL_NOTEBOOK_EXTENSION)
+    );
+  }
+
+  /**
+   * Determines if a path is a notebook cell or not
+   */
+  static isNotebookCell(fsPath: string) {
+    return basename(fsPath).includes(`_${NOTEBOOK_CELL_BASE_NAME}_`);
+  }
+
+  /**
    * Indicates if we have a file that we can process for tokens (PRO code).
    *
    * This is needed because we have other files that we watch as well.
@@ -36,29 +77,6 @@ export class IDLFileHelper {
   }
 
   /**
-   * Indicates that a file is a configuration file
-   */
-  static isConfigFile(file: string): boolean {
-    return file.toLowerCase().endsWith(IDL_JSON_URI);
-  }
-
-  /**
-   * Indicates that a file is a task file (IDL, ENVI, etc.)
-   */
-  static isTaskFile(file: string): boolean {
-    return file.toLowerCase().endsWith(TASK_FILE_EXTENSION);
-  }
-
-  /**
-   * Indicates that a file is an IDL notebook
-   */
-  static isIDLNotebookFile(file: string): boolean {
-    return (
-      file.includes('#') || file.toLowerCase().endsWith(IDL_NOTEBOOK_EXTENSION)
-    );
-  }
-
-  /**
    * Indicates that a file is a SAVE file
    */
   static isSAVEFile(file: string): boolean {
@@ -66,23 +84,10 @@ export class IDLFileHelper {
   }
 
   /**
-   * Converts a URI for a notebook cell to the filepath on disk that should be used
+   * Indicates that a file is a task file (IDL, ENVI, etc.)
    */
-  static notebookCellUriToFSPath(uri: URI) {
-    return join(
-      CleanPath(dirname(uri.fsPath)),
-      `${basename(
-        uri.fsPath,
-        IDL_NOTEBOOK_EXTENSION
-      )}_${NOTEBOOK_CELL_BASE_NAME}_${uri.fragment}.pro`
-    );
-  }
-
-  /**
-   * Determines if a path is a notebook cell or not
-   */
-  static isNotebookCell(fsPath: string) {
-    return basename(fsPath).includes(`_${NOTEBOOK_CELL_BASE_NAME}_`);
+  static isTaskFile(file: string): boolean {
+    return file.toLowerCase().endsWith(TASK_FILE_EXTENSION);
   }
 
   /**
@@ -102,20 +107,15 @@ export class IDLFileHelper {
   }
 
   /**
-   * Returns the VSCode URI for a notebook document from the FS path
-   * for a notebook cell
+   * Converts a URI for a notebook cell to the filepath on disk that should be used
    */
-  static getParentNotebookFSPathFromNotebookCellFSPath(fsPath: string) {
-    return (
-      fsPath.split(`_${NOTEBOOK_CELL_BASE_NAME}_`)[0] + IDL_NOTEBOOK_EXTENSION
+  static notebookCellUriToFSPath(uri: URI) {
+    return join(
+      CleanPath(dirname(uri.fsPath)),
+      `${basename(
+        uri.fsPath,
+        IDL_NOTEBOOK_EXTENSION
+      )}_${NOTEBOOK_CELL_BASE_NAME}_${uri.fragment}.pro`
     );
-  }
-
-  /**
-   * Returns the VSCode URI for a notebook document from the FS path
-   * for a notebook cell
-   */
-  static getParentNotebookURIFromNotebookCellFSPath(fsPath: string) {
-    return URI.file(this.getParentNotebookFSPathFromNotebookCellFSPath(fsPath));
   }
 }

@@ -29,9 +29,9 @@ BAD_BEFORE[TOKEN_NAMES.CALL_FUNCTION_METHOD] = true;
 function BadBefore(
   token: TreeToken<
     | AccessPropertyToken
-    | StructureIndexedPropertyToken
-    | CallProcedureMethodToken
     | CallFunctionMethodToken
+    | CallProcedureMethodToken
+    | StructureIndexedPropertyToken
   >,
   parsed: IParsed,
   before?: TreeToken<TokenName>

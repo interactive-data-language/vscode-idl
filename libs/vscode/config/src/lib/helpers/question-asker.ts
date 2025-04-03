@@ -47,11 +47,11 @@ export async function QuestionAsker(
 
     // otherwise check user response
     switch (resp.title) {
-      case IDL_TRANSLATION.notifications.yes:
-        await onSuccess();
-        break;
       case IDL_TRANSLATION.notifications.dontAsk:
         await onDontAsk();
+        break;
+      case IDL_TRANSLATION.notifications.yes:
+        await onSuccess();
         break;
       default:
         break;

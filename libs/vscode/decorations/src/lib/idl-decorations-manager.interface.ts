@@ -3,7 +3,7 @@ import { IDLCodeCoverage } from '@idl/types/idl/idl-process';
 import * as vscode from 'vscode';
 
 /** When resetting decorations, what do we reset for? */
-export type IDLDecorationsResetFlag = 'all' | 'pro' | 'notebook';
+export type IDLDecorationsResetFlag = 'all' | 'notebook' | 'pro';
 
 /**
  * VSCode debug diagnostic collection

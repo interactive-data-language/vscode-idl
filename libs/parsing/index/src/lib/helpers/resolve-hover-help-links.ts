@@ -30,7 +30,7 @@ export function ResolveHoverHelpLinks(
   const idlBase = dirname(dirname(config.IDL.directory));
 
   /** Current matches */
-  let match: RegExpExecArray | null = MatchGlobal(help, LINK_REGEX, true);
+  let match: null | RegExpExecArray = MatchGlobal(help, LINK_REGEX, true);
 
   /** Front of the match */
   let front = '';

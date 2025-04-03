@@ -32,15 +32,15 @@ type HelpOut = 0x080;
 
 /** Output flag from IDL */
 type OutputFlag =
-  | StderrOut
+  | BaseOut
+  | FlushBufferOut
+  | FormFeedOut
+  | HelpOut
+  | MoreOut
   | NewLineBeginningOut
   | NewLineEndOut
-  | MoreOut
-  | FormFeedOut
-  | FlushBufferOut
   | NotIDLOut
-  | BaseOut
-  | HelpOut;
+  | StderrOut;
 
 /** Parameters from the server being ready */
 export type TOutParams = {

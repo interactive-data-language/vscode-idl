@@ -13,8 +13,8 @@ export class AppComponent implements OnInit {
   // theming
   @HostBinding('class') activeThemeCssClass!: string;
 
-  title = 'idl-webview';
   message = { ...DEFAULT_VSCODE_MESSAGE };
+  title = 'idl-webview';
 
   constructor(
     public materialCssVarsService: MaterialCssVarsService,

@@ -26,12 +26,12 @@ export type ParsedType = 'def' | 'notebook' | 'pro';
 export interface IParsedLightWeight {
   /** What problems are disabled? */
   disabledProblems: IDisabledProblems;
+  /** Global tokens that we want to find in other places */
+  global: GlobalTokens;
   /** Problems found within code from basic parsing */
   parseProblems: SyntaxProblems;
   /** Problems from post processing (type errors) which get reset every time we post-process */
   postProcessProblems: SyntaxProblems;
-  /** Global tokens that we want to find in other places */
-  global: GlobalTokens;
 }
 
 /**
@@ -39,30 +39,22 @@ export interface IParsedLightWeight {
  */
 export interface IParsed extends IFoundTokens, IParsedLightWeight {
   /**
-   * type of parsed code
-   */
-  type: ParsedType;
-  /**
    * Checksum for code, used for change detection
    */
   checksum: string;
+  /** Compile options by routine */
+  compile: ICompileOptions;
+  /**
+   * If we have set a token cache or not
+   */
+  hasCache: boolean;
   /**
    * Flag indicating if our parsed content has detail added to
    * our tokens which is used for types.
    */
   hasDetail: boolean;
-  /**
-   * If we have set a token cache or not
-   */
-  hasCache: boolean;
-  /** Tokens converted into syntax tree */
-  tree: SyntaxTree;
   /** Local tokens that we have found */
   local: ILocalTokens;
-  /** Compile options by routine */
-  compile: ICompileOptions;
-  /** Global constructs that we call (for change detection) */
-  uses: UsesTheseGlobalTokens;
   /** The outline of our current PRO code */
   outline: DocumentSymbol[];
   /** Semantic tokens that we highlight */
@@ -72,6 +64,14 @@ export interface IParsed extends IFoundTokens, IParsedLightWeight {
     /** Built semantic tokens */
     built: SemanticTokens;
   };
+  /** Tokens converted into syntax tree */
+  tree: SyntaxTree;
+  /**
+   * type of parsed code
+   */
+  type: ParsedType;
+  /** Global constructs that we call (for change detection) */
+  uses: UsesTheseGlobalTokens;
 }
 
 /**

@@ -45,7 +45,7 @@ PROCEDURE_TYPES[GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD] = true;
  * Finds our matching global token based on a tree token
  */
 function GetMatchingGlobalToken(
-  routine: TreeToken<RoutineProcedureToken | RoutineFunctionToken>,
+  routine: TreeToken<RoutineFunctionToken | RoutineProcedureToken>,
   parsed: IParsed
 ): GlobalRoutineToken | undefined {
   /** Extract the name of our routine which needs to descend the tree */
@@ -67,7 +67,7 @@ function GetMatchingGlobalToken(
       case routine.name === TOKEN_NAMES.ROUTINE_FUNCTION: {
         if (global.type in FUNCTION_TYPES && global.name === name) {
           return global as IGlobalIndexedToken<
-            GlobalFunctionToken | GlobalFunctionMethodToken
+            GlobalFunctionMethodToken | GlobalFunctionToken
           >;
         }
         break;
@@ -75,7 +75,7 @@ function GetMatchingGlobalToken(
       case routine.name === TOKEN_NAMES.ROUTINE_PROCEDURE: {
         if (global.type in PROCEDURE_TYPES && global.name === name) {
           return global as IGlobalIndexedToken<
-            GlobalProcedureToken | GlobalProcedureMethodToken
+            GlobalProcedureMethodToken | GlobalProcedureToken
           >;
         }
         break;
@@ -157,7 +157,7 @@ export function ReplaceRoutineDocs(parsed: IParsed, style: ICodeStyle) {
   // process only top level children and dont recurse
   for (let i = 0; i < useTree.length; i++) {
     /** Routine def that we found */
-    let routine: TreeToken<RoutineProcedureToken | RoutineFunctionToken>;
+    let routine: TreeToken<RoutineFunctionToken | RoutineProcedureToken>;
 
     /** Comment block associated with the routine */
     let block: IBranch<CommentBlockToken>;
@@ -180,7 +180,7 @@ export function ReplaceRoutineDocs(parsed: IParsed, style: ICodeStyle) {
 
       /** Extract our routine */
       routine = useTree[i + 1] as TreeToken<
-        RoutineProcedureToken | RoutineFunctionToken
+        RoutineFunctionToken | RoutineProcedureToken
       >;
     }
 
@@ -195,7 +195,7 @@ export function ReplaceRoutineDocs(parsed: IParsed, style: ICodeStyle) {
     ) {
       /** Extract our routine */
       routine = useTree[i] as TreeToken<
-        RoutineProcedureToken | RoutineFunctionToken
+        RoutineFunctionToken | RoutineProcedureToken
       >;
 
       /** Comment block */

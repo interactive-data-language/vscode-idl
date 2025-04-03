@@ -17,7 +17,7 @@ import { GetArgTypes } from '../../../tree-handlers/helpers/get-arg-types';
 export function EvaluateArrayPromotion(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<CallFunctionToken | CallFunctionMethodToken>,
+  token: TreeToken<CallFunctionMethodToken | CallFunctionToken>,
   promoted: IDLDataType
 ): IDLDataType {
   // get the types from our arguments

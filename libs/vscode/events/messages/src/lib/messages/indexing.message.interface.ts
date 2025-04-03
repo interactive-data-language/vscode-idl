@@ -8,5 +8,5 @@ export type IndexingMessage = 'indexing';
  */
 export interface IIndexingMessagePayload {
   /** Flag if we start or stop indexing */
-  type: 'start' | 'finish';
+  type: 'finish' | 'start';
 }

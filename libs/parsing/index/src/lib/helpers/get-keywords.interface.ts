@@ -21,13 +21,13 @@ CALL_ROUTINE_TOKENS[TOKEN_NAMES.CALL_PROCEDURE_METHOD] = true;
  * Expected parent for keyword hover help
  */
 export type CallRoutineToken = TreeToken<
-  | CallFunctionToken
   | CallFunctionMethodToken
-  | CallProcedureToken
+  | CallFunctionToken
   | CallProcedureMethodToken
+  | CallProcedureToken
 >;
 
 export interface IFoundKeywords {
-  keywords: IParameterLookup;
   global: GlobalIndexedRoutineToken;
+  keywords: IParameterLookup;
 }

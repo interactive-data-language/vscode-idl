@@ -2,13 +2,13 @@
  * Types of files that we track
  */
 export type IDLFileType =
-  | 'pro'
-  | 'pro-def'
-  | 'save'
-  | 'idl.json'
   | 'envi-task'
+  | 'idl-notebook'
   | 'idl-task'
-  | 'idl-notebook';
+  | 'idl.json'
+  | 'pro-def'
+  | 'pro'
+  | 'save';
 
 /**
  * Lookup by file type

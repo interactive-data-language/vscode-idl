@@ -10,25 +10,25 @@ export interface ICurrentCell {
   cell: vscode.NotebookCell;
   /** Cell execution */
   execution: vscode.NotebookCellExecution;
-  /** Currently captured output */
-  output: string;
   /** Are we done processing? */
   finished: boolean;
-  /** Did we succeed or not */
-  success: boolean;
+  /** Currently captured output */
+  output: string;
   /** Prepared notebook cell */
   prepared?: PrepareNotebookCellResponse;
+  /** Did we succeed or not */
+  success: boolean;
 }
 
 /**
  * Actions we take at the end of a notebook cell being executed
  */
 export interface IEndCellExecutionActions {
+  decorateStack?: boolean;
   /**
    * Do we try to add any graphics
    */
   postExecute?: boolean;
-  decorateStack?: boolean;
 }
 
 /**

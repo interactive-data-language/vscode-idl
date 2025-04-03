@@ -52,7 +52,7 @@ export async function ResolveMethods(
   const strung = HTMLToMarkdown(methodHTML, dir);
 
   /** Current matches */
-  let match: RegExpExecArray | null = MatchGlobal(strung, LINK_REGEX, true);
+  let match: null | RegExpExecArray = MatchGlobal(strung, LINK_REGEX, true);
 
   // recursively process our strings
   while (match !== null) {

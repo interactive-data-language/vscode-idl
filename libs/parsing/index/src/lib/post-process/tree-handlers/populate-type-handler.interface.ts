@@ -11,17 +11,17 @@ import { IDLIndex } from '../../idl-index.class';
  */
 export interface PopulateTypeHandlerMeta extends IHandlerCallbackMetadata {
   /**
-   * Track variables that we have found
+   * Name of the file we are processing
    */
-  variables: ILocalTokenLookup;
+  file: string;
   /**
    * Global index
    */
   index: IDLIndex;
   /**
-   * Name of the file we are processing
+   * Track variables that we have found
    */
-  file: string;
+  variables: ILocalTokenLookup;
 }
 
 /**

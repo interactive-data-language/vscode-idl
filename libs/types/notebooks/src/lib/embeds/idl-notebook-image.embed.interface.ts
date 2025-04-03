@@ -74,8 +74,8 @@ export interface IDLNotebookImage_PNGData extends IDLNotebookImage_Base {
 export type IDLNotebookImage_EmbedType =
   | IDLNotebookImage_AnimationFromPNGs
   | IDLNotebookImage_AnimationFromUris
-  | IDLNotebookImage_PNG
-  | IDLNotebookImage_FromURI;
+  | IDLNotebookImage_FromURI
+  | IDLNotebookImage_PNG;
 
 /**
  * Data embedded in a notebook cell

@@ -18,31 +18,31 @@ export type GlobalCommonToken = 'c';
  * Global tokens for routines that we call
  */
 export type GlobalRoutineType =
-  | GlobalFunctionToken
-  | GlobalProcedureToken
   | GlobalFunctionMethodToken
-  | GlobalProcedureMethodToken;
+  | GlobalFunctionToken
+  | GlobalProcedureMethodToken
+  | GlobalProcedureToken;
 
 /**
  * Allowed global types of tokens that we track
  */
 export type GlobalTokenType =
+  | GlobalCommonToken
   | GlobalRoutineType
   | GlobalStructureToken
-  | GlobalSystemVariableToken
-  | GlobalCommonToken;
+  | GlobalSystemVariableToken;
 
 /**
  * Strictly types data structure for global token lookup
  */
 interface IGlobalTokenTypeLookup {
+  COMMON: GlobalCommonToken;
   FUNCTION: GlobalFunctionToken;
-  PROCEDURE: GlobalProcedureToken;
   FUNCTION_METHOD: GlobalFunctionMethodToken;
+  PROCEDURE: GlobalProcedureToken;
   PROCEDURE_METHOD: GlobalProcedureMethodToken;
   STRUCTURE: GlobalStructureToken;
   SYSTEM_VARIABLE: GlobalSystemVariableToken;
-  COMMON: GlobalCommonToken;
 }
 
 /**
@@ -75,21 +75,21 @@ type UserTokenSource = 'user';
  * Source for global tokens
  */
 export type GlobalTokenSource =
-  | InternalTokenSource
-  | IDLTokenSource
-  | ENVITokenSource
   | ENVIDLTokenSource
   | ENVIMLTokenSource
+  | ENVITokenSource
+  | IDLTokenSource
+  | InternalTokenSource
   | UserTokenSource;
 
 interface IGlobalTokenSourceLookup {
-  /** Native (i.e. C, C++, or something we don't have PRO code for) */
-  INTERNAL: InternalTokenSource;
-  IDL: IDLTokenSource;
   ENVI: ENVITokenSource;
   ENVI_DL: ENVIDLTokenSource;
   /** ENVI machine learning */
   ENVI_ML: ENVIMLTokenSource;
+  IDL: IDLTokenSource;
+  /** Native (i.e. C, C++, or something we don't have PRO code for) */
+  INTERNAL: InternalTokenSource;
   /** A user's code */
   USER: UserTokenSource;
 }
@@ -114,10 +114,10 @@ export interface IBaseTokenMetadata {
   display: string;
   /** Joined string for our tokens documentation */
   docs: string;
-  /** Source information for a routine */
-  source: GlobalTokenSource;
   /** Is it private? */
   private?: boolean;
+  /** Source information for a routine */
+  source: GlobalTokenSource;
 }
 
 /**
@@ -131,20 +131,20 @@ export interface IBaseValueDetails extends IBaseTokenMetadata {
 /**
  * Direction that a parameter goes in
  */
-export type ParameterDirection = 'in' | 'out' | 'bidirectional';
+export type ParameterDirection = 'bidirectional' | 'in' | 'out';
 
 /**
  * Information about keywords or arguments.
  */
 export interface IParameterOrPropertyDetails extends IBaseValueDetails {
-  /** Is it input, output, or bidirectional? */
-  direction: ParameterDirection;
-  /** Is it required or optional? */
-  req?: boolean;
   /** Sets a flag that tells us the parameter comes from code */
   code: boolean;
+  /** Is it input, output, or bidirectional? */
+  direction: ParameterDirection;
   /** If from code, the position of our token */
   pos: PositionArray;
+  /** Is it required or optional? */
+  req?: boolean;
 }
 
 /**
@@ -166,17 +166,17 @@ export interface IParameterLookup {
  * Metadata for routines
  */
 export interface IRoutineMetadata extends IBaseTokenMetadata {
-  /** Source information for a routine */
-  source: GlobalTokenSource;
   /** Arguments by name - should preserve order */
   args: IParameterLookup;
-  /** Keywords by name - should preserve order */
-  kws: IParameterLookup;
   /**
    * Documentation fields for our routine, it contains the content not captured
    * by keywords or arguments such as header, Author, Date, revisions, etc.
    */
   docsLookup: { [key: string]: string };
+  /** Keywords by name - should preserve order */
+  kws: IParameterLookup;
+  /** Source information for a routine */
+  source: GlobalTokenSource;
   /**
    * Names of structures that are defined in our routine
    */
@@ -205,8 +205,8 @@ export interface IMethodMetadata extends IRoutineMetadata {
  * Metadata for function and procedure methods
  */
 export interface IFunctionMethodMetadata
-  extends IMethodMetadata,
-    IFunctionMetadata {}
+  extends IFunctionMetadata,
+    IMethodMetadata {}
 
 /**
  * Information that we save for properties
@@ -219,14 +219,14 @@ export interface IPropertyLookup {
  * Metadata for structures/classes and their properties
  */
 export interface IStructureMetadata extends IBaseTokenMetadata {
-  /** Source information for a routine */
-  source: GlobalTokenSource;
+  /** Documentation fields, cleared after use */
+  docsLookup?: { [key: string]: string };
   /** An array of lower-case class names that we inherit */
   inherits: string[];
   /** Properties by name - should preserve order */
   props: IPropertyLookup;
-  /** Documentation fields, cleared after use */
-  docsLookup?: { [key: string]: string };
+  /** Source information for a routine */
+  source: GlobalTokenSource;
 }
 
 /**
@@ -252,14 +252,6 @@ export type GlobalTokenMetadata<T extends GlobalTokenType> =
  */
 export interface IBaseIndexedToken {
   /**
-   * Lower-case name of the tracked token (i.e. function name).
-   *
-   * Display name can be found as a property on the metadata
-   */
-  name: string;
-  /** Position of definition */
-  pos: PositionArray;
-  /**
    * File that our token is found in.
    *
    * Used to indicate that the token we have does not originate in the same file
@@ -277,6 +269,14 @@ export interface IBaseIndexedToken {
    * Used for edge cases with "@include" statements
    */
   filePos?: PositionArray;
+  /**
+   * Lower-case name of the tracked token (i.e. function name).
+   *
+   * Display name can be found as a property on the metadata
+   */
+  name: string;
+  /** Position of definition */
+  pos: PositionArray;
 }
 
 /**
@@ -284,29 +284,29 @@ export interface IBaseIndexedToken {
  */
 export interface IGlobalIndexedToken<T extends GlobalTokenType>
   extends IBaseIndexedToken {
-  /** Type of the token we are tracking */
-  type: T;
   /** Metadata for our global token. Typed to match the "type" property */
   meta: GlobalTokenMetadata<T>;
+  /** Type of the token we are tracking */
+  type: T;
 }
 
 /**
  * Union of all global routine token types
  */
 export type GlobalRoutineTokenType =
-  | GlobalFunctionToken
   | GlobalFunctionMethodToken
-  | GlobalProcedureToken
-  | GlobalProcedureMethodToken;
+  | GlobalFunctionToken
+  | GlobalProcedureMethodToken
+  | GlobalProcedureToken;
 
 /**
  * Union type for all global tokens for routines
  */
 export type GlobalRoutineToken = IGlobalIndexedToken<
-  | GlobalFunctionToken
   | GlobalFunctionMethodToken
-  | GlobalProcedureToken
+  | GlobalFunctionToken
   | GlobalProcedureMethodToken
+  | GlobalProcedureToken
 >;
 
 /**
@@ -319,10 +319,6 @@ export type GlobalTokens = IGlobalIndexedToken<GlobalTokenType>[];
  */
 export interface ICompileOptions {
   /**
-   * Compile options for procedures by name in a single file
-   */
-  pro: { [key: string]: string[] };
-  /**
    * Compile options for functions by name in a single file
    */
   func: { [key: string]: string[] };
@@ -330,6 +326,10 @@ export interface ICompileOptions {
    * Compile options at main level
    */
   main: string[];
+  /**
+   * Compile options for procedures by name in a single file
+   */
+  pro: { [key: string]: string[] };
 }
 
 /**

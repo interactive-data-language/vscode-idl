@@ -123,7 +123,7 @@ export function GetTokenAtCursor(
       result.globalParent = {
         name: GetRoutineName(
           foundToken.scopeTokens[0] as IBranch<
-            RoutineProcedureToken | RoutineFunctionToken | MainLevelToken
+            MainLevelToken | RoutineFunctionToken | RoutineProcedureToken
           >
         ),
         type: DEFAULT_GLOBAL_PARENTS[foundToken.scopeTokens[0].name],

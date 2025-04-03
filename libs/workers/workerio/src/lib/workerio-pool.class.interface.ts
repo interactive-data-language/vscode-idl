@@ -15,8 +15,10 @@ import { IPostMessageOptions } from './workerio-pool.interface';
  * that has proper signatures for our messages
  */
 export interface IWorkerIOPool<_Message extends string> {
-  /** Reference to our WorkerIO class that does the work of talking to our worker threads */
-  workerio: IWorkerIO<_Message>;
+  /**
+   * Clean up our workerIO interface and stop all worker threads
+   */
+  destroy(): void;
 
   /**
    * Returns a copy of our work IDs
@@ -41,19 +43,17 @@ export interface IWorkerIOPool<_Message extends string> {
   ): void;
 
   /**
+   * Updates the logger that we use
+   */
+  setLog(newLog: LogManager): void;
+
+  /**
    * Subscribe to all messages with the same ID from any worker
    */
   subscribeToGlobalMessages<T extends _Message>(
     type: T
   ): Subject<IMessageFromWorker<T>>;
 
-  /**
-   * Updates the logger that we use
-   */
-  setLog(newLog: LogManager): void;
-
-  /**
-   * Clean up our workerIO interface and stop all worker threads
-   */
-  destroy(): void;
+  /** Reference to our WorkerIO class that does the work of talking to our worker threads */
+  workerio: IWorkerIO<_Message>;
 }

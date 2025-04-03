@@ -34,23 +34,14 @@ import {
  * processes a single line at a time.
  */
 export class Iterator {
-  /** Code separated by lines */
-  split: string[];
-
-  /** Track which lines we should process */
-  process: boolean[];
-
-  /** Track if we have processed our line for leftovers already since we could get called more than once */
-  processedLeftovers: boolean[];
-
-  /** Current position of our iterator */
-  current: ICurrent;
-
-  /** Tokens we have found in our code */
-  tokens: TokenizerToken<TokenName>[] = [];
+  /** Cancellation token */
+  cancel: CancellationToken;
 
   /** Set flag if we have code to process or not */
   canProcess = false;
+
+  /** Current position of our iterator */
+  current: ICurrent;
 
   /** Flag that indicates if our iterator is done or not */
   done = false;
@@ -58,8 +49,17 @@ export class Iterator {
   /** Are we doing a full parse or not */
   full: boolean;
 
-  /** Cancellation token */
-  cancel: CancellationToken;
+  /** Track which lines we should process */
+  process: boolean[];
+
+  /** Track if we have processed our line for leftovers already since we could get called more than once */
+  processedLeftovers: boolean[];
+
+  /** Code separated by lines */
+  split: string[];
+
+  /** Tokens we have found in our code */
+  tokens: TokenizerToken<TokenName>[] = [];
 
   constructor(code: string | string[], cancel: CancellationToken, full = true) {
     /** Split our strings */
@@ -154,118 +154,6 @@ export class Iterator {
   }
 
   /**
-   * Gives us detailed information about our match position
-   */
-  positionArray(match?: RegExpMatchArray): PositionArray {
-    if (match !== undefined) {
-      return [
-        this.current.line,
-        this.current.linePosition + match.index,
-        match[0].length,
-      ];
-    } else {
-      return [this.current.line, this.current.linePosition, 0];
-    }
-  }
-
-  /**
-   * Gives our position in our iterator and, optionally, accounts for the
-   * starting index of a match
-   */
-  position(match?: RegExpMatchArray): IPosition {
-    if (match !== undefined) {
-      return {
-        line: this.current.line,
-        index: this.current.linePosition + match.index,
-      };
-    } else {
-      return {
-        line: this.current.line,
-        index: this.current.linePosition,
-      };
-    }
-  }
-
-  /**
-   * Shifts our iterator based on the current match from a regular expression.
-   *
-   * Uses Iterator::shift internally.
-   */
-  shiftByMatch(match: RegExpExecArray) {
-    return this.shift(match.index + match[0].length, match.index);
-  }
-
-  /**
-   * Shifts our active position further down the line.
-   *
-   * Returns a value of `true` when we are ready to go to the
-   * next line.
-   */
-  shift(increment: number, tokenStart: number) {
-    // const increment = Math.max(inCrement, 1);
-    // if (increment >= this.current.sub.length - 1) {
-    //   return true;
-    // }
-
-    // check for cancellation
-    this.cancel.throwIfCancelled();
-
-    // get the text before token start that we are shifting for
-    if (tokenStart > 0 && this.full) {
-      const before = this.current.sub.substring(0, tokenStart);
-      if (before.trim() !== '') {
-        const basic: IBasicToken<UnknownToken> = {
-          type: TOKEN_TYPES.BASIC,
-          name: TOKEN_NAMES.UNKNOWN,
-          pos: [this.current.line, this.current.linePosition, tokenStart],
-          matches: [before],
-        };
-
-        // save our token
-        this.insertToken(basic);
-      }
-    }
-
-    // get our increment based on string length
-    const useInc = Math.min(increment, this.current.sub.length);
-
-    // update our current position
-    this.current.linePosition += useInc;
-    this.current.sub = this.current.sub.substring(useInc);
-
-    // skip white space
-    this._skipOverSpaces();
-
-    // we can
-    return this.current.sub === '';
-  }
-
-  /**
-   * Handles skipping white space as we iterate and manages internal checks to verify
-   * that we can shift
-   */
-  private _skipOverSpaces() {
-    // check if we can remove white space
-    let shift = true;
-    if (this.current.parents.length > 0) {
-      shift = !(
-        this.current.parents[this.current.parents.length - 1] in
-        PRESERVE_INTERIOR_SPACE
-      );
-    }
-
-    if (this.current.sub.length !== 0 && shift) {
-      const match = NON_SPACE_CHARACTER.exec(this.current.sub);
-      if (match !== null) {
-        if (match.index > 0) {
-          this.current.linePosition += match.index;
-          this.current.sub = this.current.sub.substring(match.index);
-        }
-      }
-    }
-  }
-
-  /**
    * Method called when we find a token to save it
    */
   foundToken(token: TokenizerToken<TokenName>) {
@@ -300,40 +188,6 @@ export class Iterator {
         break;
       }
     }
-  }
-
-  /**
-   * Checks the current line for leftover tokens
-   */
-  private findLeftovers() {
-    if (!this.full) {
-      return;
-    }
-
-    // get current line
-    const line = this.current.line;
-
-    // check if we have processed
-    if (this.processedLeftovers[line]) {
-      return;
-    }
-
-    // check if we have leftovers to process - which could be because
-    // there were no more matches in our line
-    if (this.current.sub.trim() !== '') {
-      const basic: IBasicToken<UnknownToken> = {
-        type: TOKEN_TYPES.BASIC,
-        name: TOKEN_NAMES.UNKNOWN,
-        pos: [line, this.current.linePosition, this.current.sub.length],
-        matches: [this.current.sub],
-      };
-
-      // add our token into the tree
-      this.insertToken(basic);
-    }
-
-    // update our flag
-    this.processedLeftovers[line] = true;
   }
 
   /**
@@ -400,5 +254,151 @@ export class Iterator {
 
     // return true, indicating that we need to keep iterating
     return true;
+  }
+
+  /**
+   * Gives our position in our iterator and, optionally, accounts for the
+   * starting index of a match
+   */
+  position(match?: RegExpMatchArray): IPosition {
+    if (match !== undefined) {
+      return {
+        line: this.current.line,
+        index: this.current.linePosition + match.index,
+      };
+    } else {
+      return {
+        line: this.current.line,
+        index: this.current.linePosition,
+      };
+    }
+  }
+
+  /**
+   * Gives us detailed information about our match position
+   */
+  positionArray(match?: RegExpMatchArray): PositionArray {
+    if (match !== undefined) {
+      return [
+        this.current.line,
+        this.current.linePosition + match.index,
+        match[0].length,
+      ];
+    } else {
+      return [this.current.line, this.current.linePosition, 0];
+    }
+  }
+
+  /**
+   * Shifts our active position further down the line.
+   *
+   * Returns a value of `true` when we are ready to go to the
+   * next line.
+   */
+  shift(increment: number, tokenStart: number) {
+    // const increment = Math.max(inCrement, 1);
+    // if (increment >= this.current.sub.length - 1) {
+    //   return true;
+    // }
+
+    // check for cancellation
+    this.cancel.throwIfCancelled();
+
+    // get the text before token start that we are shifting for
+    if (tokenStart > 0 && this.full) {
+      const before = this.current.sub.substring(0, tokenStart);
+      if (before.trim() !== '') {
+        const basic: IBasicToken<UnknownToken> = {
+          type: TOKEN_TYPES.BASIC,
+          name: TOKEN_NAMES.UNKNOWN,
+          pos: [this.current.line, this.current.linePosition, tokenStart],
+          matches: [before],
+        };
+
+        // save our token
+        this.insertToken(basic);
+      }
+    }
+
+    // get our increment based on string length
+    const useInc = Math.min(increment, this.current.sub.length);
+
+    // update our current position
+    this.current.linePosition += useInc;
+    this.current.sub = this.current.sub.substring(useInc);
+
+    // skip white space
+    this._skipOverSpaces();
+
+    // we can
+    return this.current.sub === '';
+  }
+
+  /**
+   * Shifts our iterator based on the current match from a regular expression.
+   *
+   * Uses Iterator::shift internally.
+   */
+  shiftByMatch(match: RegExpExecArray) {
+    return this.shift(match.index + match[0].length, match.index);
+  }
+
+  /**
+   * Handles skipping white space as we iterate and manages internal checks to verify
+   * that we can shift
+   */
+  private _skipOverSpaces() {
+    // check if we can remove white space
+    let shift = true;
+    if (this.current.parents.length > 0) {
+      shift = !(
+        this.current.parents[this.current.parents.length - 1] in
+        PRESERVE_INTERIOR_SPACE
+      );
+    }
+
+    if (this.current.sub.length !== 0 && shift) {
+      const match = NON_SPACE_CHARACTER.exec(this.current.sub);
+      if (match !== null) {
+        if (match.index > 0) {
+          this.current.linePosition += match.index;
+          this.current.sub = this.current.sub.substring(match.index);
+        }
+      }
+    }
+  }
+
+  /**
+   * Checks the current line for leftover tokens
+   */
+  private findLeftovers() {
+    if (!this.full) {
+      return;
+    }
+
+    // get current line
+    const line = this.current.line;
+
+    // check if we have processed
+    if (this.processedLeftovers[line]) {
+      return;
+    }
+
+    // check if we have leftovers to process - which could be because
+    // there were no more matches in our line
+    if (this.current.sub.trim() !== '') {
+      const basic: IBasicToken<UnknownToken> = {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.UNKNOWN,
+        pos: [line, this.current.linePosition, this.current.sub.length],
+        matches: [this.current.sub],
+      };
+
+      // add our token into the tree
+      this.insertToken(basic);
+    }
+
+    // update our flag
+    this.processedLeftovers[line] = true;
   }
 }

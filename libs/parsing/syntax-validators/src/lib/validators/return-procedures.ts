@@ -18,7 +18,7 @@ import { FILTER_TOKENS } from './expected-comma';
  * Call back to make sure that, if we have children, there is a comma first
  */
 function Callback(
-  token: IBranch<RoutineProcedureToken | MainLevelToken>,
+  token: IBranch<MainLevelToken | RoutineProcedureToken>,
   syntax: SyntaxProblems
 ) {
   // get all procedures we are calling

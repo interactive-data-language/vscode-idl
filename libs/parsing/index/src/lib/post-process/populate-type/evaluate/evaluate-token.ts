@@ -10,9 +10,9 @@ export function EvaluateToken(token: TreeToken<TokenName>): string | undefined {
   switch (token.name) {
     case TOKEN_NAMES.NUMBER:
       return token.match[0].trim();
-    case TOKEN_NAMES.QUOTE_SINGLE:
-      return token.match[1] || '';
     case TOKEN_NAMES.QUOTE_DOUBLE:
+      return token.match[1] || '';
+    case TOKEN_NAMES.QUOTE_SINGLE:
       return token.match[1] || '';
     case TOKEN_NAMES.STRING_TEMPLATE_LITERAL:
       if (token.kids.length === 1) {

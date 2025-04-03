@@ -8,11 +8,11 @@ export type GenerateTaskMessage = 'generate/task';
  */
 export interface IGenerateTaskPayload {
   /**
-   * PRO file we generate a task for
-   */
-  uri: string;
-  /**
    * Type of task that we generate
    */
   type: 'envi' | 'idl';
+  /**
+   * PRO file we generate a task for
+   */
+  uri: string;
 }

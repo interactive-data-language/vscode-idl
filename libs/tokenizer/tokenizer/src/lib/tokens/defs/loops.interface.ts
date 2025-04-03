@@ -12,10 +12,10 @@ import { IDL_STATEMENT_END } from '../regex.interface';
 
 /** Union for all allowed loop tokens */
 export type LoopStartTokens =
-  | LoopForToken
   | LoopForeachToken
-  | LoopWhileToken
-  | LoopRepeatToken;
+  | LoopForToken
+  | LoopRepeatToken
+  | LoopWhileToken;
 
 export type LoopStartTokenDef = ITokenDef<LoopStartTokens>;
 

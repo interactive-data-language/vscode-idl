@@ -60,14 +60,14 @@ export const LOG_ALERT_CALLBACK: LogAlertCallback = (options) => {
           .showErrorMessage(options.alert, ...items)
           .then((res) => AlertButtonClickHandler(res, file, docsUrl));
         break;
-      case 'warn':
-        vscode.window
-          .showWarningMessage(options.alert, ...items)
-          .then((res) => AlertButtonClickHandler(res, file, docsUrl));
-        break;
       case 'info':
         vscode.window
           .showInformationMessage(options.alert, ...items)
+          .then((res) => AlertButtonClickHandler(res, file, docsUrl));
+        break;
+      case 'warn':
+        vscode.window
+          .showWarningMessage(options.alert, ...items)
           .then((res) => AlertButtonClickHandler(res, file, docsUrl));
         break;
       default:

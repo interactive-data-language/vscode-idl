@@ -6,7 +6,7 @@ import * as chalk from 'chalk';
 import { Logger } from './logger.class';
 
 // simple type for what types we are allowed to print
-export type LogType = 'debug' | 'info' | 'log' | 'warn' | 'error';
+export type LogType = 'debug' | 'error' | 'info' | 'log' | 'warn';
 
 /** When logging to files, how do we handle existing logs? */
 export type FileLogMode = 'append' | 'truncate';
@@ -22,11 +22,11 @@ export type LogLevel = -1 | 0 | 1 | 2 | 3 | 4;
 interface ILogLevels {
   [key: string]: LogLevel;
   any: LogLevel;
-  log: LogLevel;
-  info: LogLevel;
-  warn: LogLevel;
-  error: LogLevel;
   debug: LogLevel;
+  error: LogLevel;
+  info: LogLevel;
+  log: LogLevel;
+  warn: LogLevel;
 }
 
 /**
@@ -119,10 +119,6 @@ export interface ILogs {
  * These are passed all the way to VSCode
  */
 export interface ILogAlerts {
-  /** If present and we have an alert, opens the specified file */
-  openFile?: string;
-  /** Filepath for a markdown file to display */
-  openDocsURL?: string;
   /** A file to open */
   file?: string;
   /** If set, add a message to ask for the IDL directory */
@@ -132,6 +128,10 @@ export interface ILogAlerts {
     /** Folder to initialize */
     folder: string;
   };
+  /** Filepath for a markdown file to display */
+  openDocsURL?: string;
+  /** If present and we have an alert, opens the specified file */
+  openFile?: string;
   /** Show option to report bug */
   reportBug?: boolean;
 }
@@ -140,14 +140,14 @@ export interface ILogAlerts {
  * Options when logging from the logger
  */
 export interface IBasicLogOptions {
-  /** Type of log */
-  type?: LogType;
-  /** Content to log, scalar or array */
-  content: any | any[];
   /** Do we have a message to alert users with */
   alert?: string;
   /** Metadata for alert */
   alertMeta?: ILogAlerts;
+  /** Content to log, scalar or array */
+  content: any | any[];
+  /** Type of log */
+  type?: LogType;
 }
 
 /**

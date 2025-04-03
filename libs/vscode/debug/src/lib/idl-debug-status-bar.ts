@@ -31,14 +31,14 @@ export class IDLDebugStatusBar {
   bar: vscode.StatusBarItem;
 
   /**
-   * The prompt to show in the status bar
-   */
-  private prompt = DEFAULT_IDL_PROMPT;
-
-  /**
    * Timeout for a slight delay when we change the status bar entry
    */
   private _timeout: any;
+
+  /**
+   * The prompt to show in the status bar
+   */
+  private prompt = DEFAULT_IDL_PROMPT;
 
   constructor() {
     // create the bar - right-most on the left
@@ -61,16 +61,6 @@ export class IDLDebugStatusBar {
   }
 
   /**
-   * Clears existing timeout
-   */
-  clearTimeout() {
-    if (this._timeout !== undefined) {
-      clearTimeout(this._timeout);
-      this._timeout = undefined;
-    }
-  }
-
-  /**
    * Sets the status bar to a text string and activates the spinner
    * after a short delay
    */
@@ -90,6 +80,16 @@ export class IDLDebugStatusBar {
   }
 
   /**
+   * Clears existing timeout
+   */
+  clearTimeout() {
+    if (this._timeout !== undefined) {
+      clearTimeout(this._timeout);
+      this._timeout = undefined;
+    }
+  }
+
+  /**
    * Sets status text after a command has finished and stops the spinner
    */
   ready(text = IDL_TRANSLATION.statusBar.ready) {
@@ -98,11 +98,22 @@ export class IDLDebugStatusBar {
   }
 
   /**
-   * Sets status text after a command has finished and stops the spinner
+   * Re-draw license
    */
-  setStoppedStatus(text: string) {
-    this.clearTimeout();
-    this.bar.text = `${START_IDL_ICON} IDL: ${text} :( ${IDL_TRANSLATION.statusBar.startAgainQuestion}`;
+  reDraw() {
+    /** Extract the text from the status bar */
+    const split = this.bar.text.split(/(?<=\$\(.*\)).*:/);
+
+    // rebuild with new prompt
+    this.bar.text = `${split[0]} ${this.prompt}: ${split[1].trim()}`;
+  }
+
+  /**
+   * Updates the IDL prompt
+   */
+  resetPrompt() {
+    this.prompt = DEFAULT_IDL_PROMPT;
+    this.reDraw();
   }
 
   /**
@@ -116,27 +127,16 @@ export class IDLDebugStatusBar {
   /**
    * Updates the IDL prompt
    */
-  resetPrompt() {
-    this.prompt = DEFAULT_IDL_PROMPT;
-    this.reDraw();
-  }
-
-  /**
-   * Updates the IDL prompt
-   */
   setPrompt(prompt: string) {
     this.prompt = prompt.replace('>', '').trim();
     this.reDraw();
   }
 
   /**
-   * Re-draw license
+   * Sets status text after a command has finished and stops the spinner
    */
-  reDraw() {
-    /** Extract the text from the status bar */
-    const split = this.bar.text.split(/(?<=\$\(.*\)).*:/);
-
-    // rebuild with new prompt
-    this.bar.text = `${split[0]} ${this.prompt}: ${split[1].trim()}`;
+  setStoppedStatus(text: string) {
+    this.clearTimeout();
+    this.bar.text = `${START_IDL_ICON} IDL: ${text} :( ${IDL_TRANSLATION.statusBar.startAgainQuestion}`;
   }
 }

@@ -100,7 +100,7 @@ function _Recursor(
 export function ReplaceFunctionsAsVariables(
   parsed: IParsed,
   branch: IBranch<
-    RoutineProcedureToken | RoutineFunctionToken | MainLevelToken
+    MainLevelToken | RoutineFunctionToken | RoutineProcedureToken
   >,
   local: ILocalTokenLookup
 ) {

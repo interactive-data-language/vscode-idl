@@ -51,8 +51,8 @@ export type AssembleProCodeMessage = 'assemble-pro-code';
  * Payload when assembling PRO code
  */
 export interface AssembleProCodePayload {
-  file: string;
   code: string | string[];
+  file: string;
   formatting: IAssemblerOptions<FormatterType>;
 }
 
@@ -70,8 +70,8 @@ export type AutoCompleteRecipeMessage = 'auto-complete-recipe';
  * Payload when asking to get recipe for auto-complete
  */
 export interface AutoCompleteRecipePayload {
-  file: string;
   code: string | string[];
+  file: string;
   position: Position;
 }
 
@@ -165,10 +165,10 @@ export type GetAutoCompleteMessage = 'get-auto-complete';
  * Payload to get auto complete
  */
 export interface GetAutoCompletePayload {
-  file: string;
   code: string | string[];
-  position: Position;
   config: IDLExtensionConfig;
+  file: string;
+  position: Position;
 }
 
 /**
@@ -185,30 +185,30 @@ export type GetHoverHelpLookupMessage = 'get-hover-help-lookup';
  * Payload to get hover help lookup
  */
 export interface GetHoverHelpPayload {
-  file: string;
   code: string | string[];
-  position: Position;
   config: IDLExtensionConfig;
+  file: string;
+  position: Position;
 }
 
 /**
  * Response for hover help lookup
  */
 export interface GetHoverHelpLookupResponse {
+  /** Name of the argument we want */
+  arg?: string;
   /** Actual help content if we have it */
   contents?: string;
-  /** Type of global token */
-  type?: GlobalTokenType;
+  /** Name of the argument we want */
+  kw?: string;
   /** Name of the global token */
   name?: string;
   /** Position in our document that we show hover help for */
   pos: PositionArray;
-  /** Name of the argument we want */
-  arg?: string;
-  /** Name of the argument we want */
-  kw?: string;
   /** Name of the property we want */
   prop?: string;
+  /** Type of global token */
+  type?: GlobalTokenType;
 }
 
 /**
@@ -220,8 +220,8 @@ export type GetNotebookCellMessage = 'get-notebook-cell';
  * Payload to get notebook cell
  */
 export interface GetNotebookCellPayload {
-  file: string;
   code: string | string[];
+  file: string;
 }
 
 /**
@@ -238,8 +238,8 @@ export type GetOutlineMessage = 'get-outline';
  * Payload to get outline for a file
  */
 export interface GetOutlinePayload {
-  file: string;
   code: string | string[];
+  file: string;
 }
 
 /**
@@ -256,8 +256,8 @@ export type GetSemanticTokensMessage = 'get-semantic-tokens';
  * Payload to get semantic tokens for a file
  */
 export interface GetSemanticTokensPayload {
-  file: string;
   code: string | string[];
+  file: string;
 }
 
 /**
@@ -274,8 +274,8 @@ export type GetTokenDefMessage = 'get-token-def';
  * Payload to get token def
  */
 export interface GetTokenDefPayload {
-  file: string;
   code: string | string[];
+  file: string;
   position: Position;
 }
 
@@ -325,8 +325,8 @@ export type MigrateCodeMessage = 'migrate-code';
  * Payload when migrating PRO code
  */
 export interface MigrateCodePayload {
-  file: string;
   code: string | string[];
+  file: string;
   formatting: IAssemblerOptions<FormatterType>;
   migrationType: MigrationType;
 }
@@ -345,8 +345,8 @@ export type ParseAndPostProcessCodeMessage = 'parse-code';
  * Payload when we have a single file from code to parse and post-process
  */
 export interface ParseAndPostProcessCodePayload {
-  file: string;
   code: string | string[];
+  file: string;
   postProcess: boolean;
   type: ParsedType;
 }
@@ -390,18 +390,18 @@ export interface ParseFilesPayload {
  * Response when we parse files
  */
 export interface ParseFilesResponse {
-  /** Globals we found, by file */
-  globals: {
-    [file: string]: GlobalTokens;
-  };
   /** Track disabled problems by file */
   disabledProblems: {
     [file: string]: IDisabledProblems;
   };
-  /** Files we tried to parse, but were missing */
-  missing: string[];
+  /** Globals we found, by file */
+  globals: {
+    [file: string]: GlobalTokens;
+  };
   /** Number of lines of code */
   lines: number;
+  /** Files we tried to parse, but were missing */
+  missing: string[];
 }
 
 /**
@@ -417,14 +417,14 @@ export interface ParseFilesFastResponse extends ParseFilesResponse {
   globals: {
     [file: string]: GlobalTokens;
   };
+  /** Number of lines of code */
+  lines: number;
+  /** Files we tried to parse, but were missing */
+  missing: string[];
   /** Problems we detected, by file */
   problems: {
     [file: string]: SyntaxProblems;
   };
-  /** Files we tried to parse, but were missing */
-  missing: string[];
-  /** Number of lines of code */
-  lines: number;
 }
 
 /**
@@ -450,12 +450,12 @@ export interface ParseNotebookResponse {
   globals: {
     [file: string]: GlobalTokens;
   };
+  /** Number of lines of code */
+  lines: number;
   /** Problems we detected, by file */
   problems: {
     [file: string]: SyntaxProblems;
   };
-  /** Number of lines of code */
-  lines: number;
 }
 
 /**
@@ -504,12 +504,12 @@ export interface RemoveFilesPayload {
  * Response when we remove files
  */
 export interface RemoveFilesResponse {
+  /** Files we tried to post-process after removing tracked files, but were missing */
+  missing: string[];
   /** Problems we detected, by file */
   problems: {
     [file: string]: SyntaxProblems;
   };
-  /** Files we tried to post-process after removing tracked files, but were missing */
-  missing: string[];
 }
 
 /**
@@ -533,7 +533,6 @@ export type TrackGlobalTokensResponse = void;
  * All messages that we send with the language server
  */
 export type LSPWorkerThreadMessage =
-  | WorkerIOBaseMessage
   | AllFilesMessage
   | AssembleProCodeMessage
   | AutoCompleteRecipeMessage
@@ -551,13 +550,14 @@ export type LSPWorkerThreadMessage =
   | MigrateCodeMessage
   | ParseAndPostProcessCodeMessage
   | ParseAndPostProcessFileMessage
-  | ParseFilesMessage
   | ParseFilesFastMessage
+  | ParseFilesMessage
   | ParseNotebookMessage
   | PostProcessFilesMessage
   | PrepareNotebookCellMessage
   | RemoveFilesMessage
-  | TrackGlobalTokensMessage;
+  | TrackGlobalTokensMessage
+  | WorkerIOBaseMessage;
 
 /**
  * Strictly typed worker thread message lookup
@@ -568,13 +568,13 @@ interface ILSPWorkerThreadMessageLookup {
    */
   ALL_FILES: AllFilesMessage;
   /**
-   * Get recipe for auto-complete
-   */
-  AUTO_COMPLETE_RECIPE: AutoCompleteRecipeMessage;
-  /**
    * When we format PRO code in the worker
    */
   ASSEMBLE_PRO_CODE: AssembleProCodeMessage;
+  /**
+   * Get recipe for auto-complete
+   */
+  AUTO_COMPLETE_RECIPE: AutoCompleteRecipeMessage;
   /**
    * Message when we need to perform change detection
    */

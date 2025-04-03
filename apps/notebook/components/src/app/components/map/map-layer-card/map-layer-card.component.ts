@@ -36,13 +36,13 @@ export class MapLayerCardComponent {
    */
   @Input() layer!: NotebookMapLayer<NotebookMapLayerType>;
 
+  /** Current opacity */
+  opacity = 100;
+
   /**
    * Output event that is emitted when our frame changes
    */
   @Output() propChange = new EventEmitter<undefined>();
-
-  /** Current opacity */
-  opacity = 100;
 
   /**
    * When opacity slider changes, callback

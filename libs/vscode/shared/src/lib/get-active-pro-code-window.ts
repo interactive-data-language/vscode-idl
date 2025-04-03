@@ -9,7 +9,7 @@ import * as vscode from 'vscode';
  */
 export function GetActivePROCodeWindow(
   alert = true
-): vscode.TextDocument | undefined {
+): undefined | vscode.TextDocument {
   // get active editor
   const editor = vscode.window.activeTextEditor;
 

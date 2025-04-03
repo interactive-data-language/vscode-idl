@@ -5,6 +5,21 @@
  */
 export class OutputQueue {
   /**
+   * total output we have captured
+   */
+  private captured = '';
+
+  /**
+   * Callback for messages we receive
+   */
+  private onMessage: (msg: string) => void;
+
+  /**
+   * Number of items we have opened of closed from JSON parsing perspective
+   */
+  private opened = 0;
+
+  /**
    * Pending items that we need to process
    */
   private pending: string[] = [];
@@ -15,24 +30,9 @@ export class OutputQueue {
   private processing = false;
 
   /**
-   * total output we have captured
-   */
-  private captured = '';
-
-  /**
-   * Number of items we have opened of closed from JSON parsing perspective
-   */
-  private opened = 0;
-
-  /**
    * Track open quotes
    */
   private quotes = 0;
-
-  /**
-   * Callback for messages we receive
-   */
-  private onMessage: (msg: string) => void;
 
   constructor(onMessage: (msg: string) => void) {
     this.onMessage = onMessage;

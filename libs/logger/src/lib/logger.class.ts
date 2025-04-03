@@ -21,26 +21,26 @@ import { StringifyData, StringifyDataForLog } from './stringify-data';
  * for old times sakes, here is the lib we started with: https://github.com/mixu/minilog
  */
 export class Logger {
-  /** The file that we write our log to */
-  file?: string;
-
-  /** The name of our log, printed out first */
-  name: string;
+  /** Callback when we get a message to alert */
+  alertCb: LogAlertCallback;
 
   /** Do we print debug statements */
   enableDebugLogs = false;
 
-  /** Callback when we get a message to alert */
-  alertCb: LogAlertCallback;
+  /** The file that we write our log to */
+  file?: string;
+
+  /** optionally set a log interceptor to interrupt any logging messages */
+  interceptor?: LogInterceptor;
 
   /** If we should not use fancy formatting when printing to the console */
   logUgly = false;
 
+  /** The name of our log, printed out first */
+  name: string;
+
   /** If we are quiet and dont log output to the console, still allows file logging */
   quiet = false;
-
-  /** optionally set a log interceptor to interrupt any logging messages */
-  interceptor?: LogInterceptor;
 
   constructor(
     name: string,
@@ -56,17 +56,17 @@ export class Logger {
   }
 
   /**
-   * Clean up our log which just removes the write stream if we have it
-   */
-  destroy() {
-    // this.stream?.close();
-  }
-
-  /**
    * Log debug data to the console
    */
   debug(data: any) {
     this.logItem('debug', data);
+  }
+
+  /**
+   * Clean up our log which just removes the write stream if we have it
+   */
+  destroy() {
+    // this.stream?.close();
   }
 
   /**
@@ -81,13 +81,6 @@ export class Logger {
    */
   info(data: any) {
     this.logItem('info', data);
-  }
-
-  /**
-   * Log a warning to the console
-   */
-  warn(data: any) {
-    this.logItem('warn', data);
   }
 
   /**
@@ -135,6 +128,35 @@ export class Logger {
     if (options.alert) {
       this.alertCb(options);
     }
+  }
+
+  /**
+   * Log a warning to the console
+   */
+  warn(data: any) {
+    this.logItem('warn', data);
+  }
+
+  /**
+   * Logs plain text to the console
+   *
+   * @private
+   * @param {string} front The front part of the string with name/formatting applied
+   * @param {*} data The data to write to disk
+   */
+  private _consoleLogUgly(front: string, data: any, indent = false) {
+    console.log(`${StringifyDataForLog(front, data, indent, false)}\n`);
+  }
+
+  /**
+   * Nicely logs content to the console for us
+   *
+   * @private
+   * @param {string} front The front part of the string with name/formatting applied
+   * @param {*} data The data to write to disk
+   */
+  private _logPretty(front: string, data: any, indent = false) {
+    console.log(chalk.white(StringifyDataForLog(front, data, indent, true)));
   }
 
   /**
@@ -200,27 +222,5 @@ export class Logger {
         }
       }
     }
-  }
-
-  /**
-   * Nicely logs content to the console for us
-   *
-   * @private
-   * @param {string} front The front part of the string with name/formatting applied
-   * @param {*} data The data to write to disk
-   */
-  private _logPretty(front: string, data: any, indent = false) {
-    console.log(chalk.white(StringifyDataForLog(front, data, indent, true)));
-  }
-
-  /**
-   * Logs plain text to the console
-   *
-   * @private
-   * @param {string} front The front part of the string with name/formatting applied
-   * @param {*} data The data to write to disk
-   */
-  private _consoleLogUgly(front: string, data: any, indent = false) {
-    console.log(`${StringifyDataForLog(front, data, indent, false)}\n`);
   }
 }

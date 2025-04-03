@@ -6,7 +6,7 @@ import { EscapeHtml } from './escape';
 export function CreateOutputText(
   idx: number,
   content: string,
-  style: 'text' | 'image'
+  style: 'image' | 'text'
 ) {
   if (style === 'text') {
     const string = `

@@ -440,7 +440,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
                 LANGUAGE_SERVER_MESSAGE_LOOKUP.GENERATE_TASK,
                 {
                   uri: file.uri.toString(),
-                  type: res.target as 'idl' | 'envi',
+                  type: res.target as 'envi' | 'idl',
                 }
               );
             }

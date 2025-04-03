@@ -88,7 +88,7 @@ export function MergeConfig() {
 
     // process all ignore codes
     for (let j = 0; j < el.problems.ignoreProblems.length; j++) {
-      const code: string | number = el.problems.ignoreProblems[j];
+      const code: number | string = el.problems.ignoreProblems[j];
 
       // map code if string
       if (typeof code === 'string') {

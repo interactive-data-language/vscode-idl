@@ -40,10 +40,10 @@ export function FindIDL(version?: string): string | undefined {
       // check if we have anything to add to the path
       let add = '';
       switch (os.platform()) {
-        case 'linux':
+        case 'darwin':
           add = 'bin';
           break;
-        case 'darwin':
+        case 'linux':
           add = 'bin';
           break;
         default:

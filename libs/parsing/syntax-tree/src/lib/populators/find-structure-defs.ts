@@ -31,7 +31,7 @@ SKIP_THESE[TOKEN_NAMES.STRUCTURE_PROPERTY] = true;
  * Finds all named structures within a procedure and returns an array of global tokens
  */
 export function FindStructureDefs(
-  token: TreeToken<RoutineProcedureToken | RoutineFunctionToken>,
+  token: TreeToken<RoutineFunctionToken | RoutineProcedureToken>,
   routineName: string,
   structures: { [key: string]: any }
 ): IGlobalIndexedToken<GlobalStructureToken>[] {

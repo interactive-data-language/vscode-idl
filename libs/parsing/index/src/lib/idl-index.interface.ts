@@ -38,10 +38,6 @@ export const IDL_INDEX_OPTIONS = {
  */
 export interface IIndexProCodeOptions extends IParserOptions {
   /**
-   * Do we post process the file or not
-   */
-  postProcess: boolean;
-  /**
    * Do change detection when we index
    */
   changeDetection: boolean;
@@ -49,6 +45,10 @@ export interface IIndexProCodeOptions extends IParserOptions {
    * Do we add to our cache or not?
    */
   noCache: boolean;
+  /**
+   * Do we post process the file or not
+   */
+  postProcess: boolean;
 }
 
 /**

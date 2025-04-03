@@ -39,7 +39,7 @@ export class IDLDebugConfigurationProvider
    * e.g. add all missing attributes to the debug configuration.
    */
   resolveDebugConfiguration(
-    folder: WorkspaceFolder | undefined,
+    folder: undefined | WorkspaceFolder,
     config: DebugConfiguration,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     token?: CancellationToken

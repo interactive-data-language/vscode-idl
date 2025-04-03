@@ -72,22 +72,30 @@ export class MapComponent
   extends BaseRendererComponent<IDLNotebookMap>
   implements AfterViewInit, OnDestroy
 {
+  /** Layer for the base map */
+  baseMapLayer = this.createBaseMapLayer();
+
   /**
    * Canvas we draw to
    */
   @ViewChild('MapCanvas')
   canvas!: ElementRef<HTMLCanvasElement>;
 
-  /**
-   * Reference to our map
-   */
-  private deck!: Deck;
-
   /** Current layers */
   layers!: NotebookMapLayers<NotebookMapLayerType>;
 
   /** Do we show the layers dialog */
   showLayers = false;
+
+  /**
+   * Temporary map layers for drag and drop while dragging
+   */
+  tmpLayers?: NotebookMapLayer<NotebookMapLayerType>[];
+
+  /**
+   * Reference to our map
+   */
+  private deck!: Deck;
 
   /**
    * Interval callback to make sure we render
@@ -100,29 +108,6 @@ export class MapComponent
       this.deck.redraw('YOLO');
     }
   }, 100);
-
-  /**
-   * Callback to resize chart on window resize
-   *
-   * It re-draws when we get smaller, but not when we grow again
-   */
-  private resizeCb = () => {
-    if (this.deck !== undefined) {
-      this.deck.setProps({
-        width: this.el.nativeElement.offsetWidth,
-        height: this.el.nativeElement.offsetHeight,
-      });
-      this.deck.redraw();
-    }
-  };
-
-  /**
-   * Temporary map layers for drag and drop while dragging
-   */
-  tmpLayers?: NotebookMapLayer<NotebookMapLayerType>[];
-
-  /** Layer for the base map */
-  baseMapLayer = this.createBaseMapLayer();
 
   /**
    * We can access the latest data directly through our dataService which tracks
@@ -190,6 +175,40 @@ export class MapComponent
   }
 
   /**
+   * Handle drop events
+   */
+  dragging(event: CdkDragSortEvent<string[]>) {
+    // copy layers while we drag so we dont mess up original data
+    if (this.tmpLayers === undefined) {
+      this.tmpLayers = copy(this.layers.layers);
+    }
+
+    // move
+    moveItemInArray(this.tmpLayers, event.previousIndex, event.currentIndex);
+
+    // update display
+    this.propertyChange(this.tmpLayers);
+  }
+
+  /**
+   * Handle drop events
+   */
+  drop(event: CdkDragDrop<string[]>) {
+    // move data
+    moveItemInArray(
+      this.layers.layers,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    // update deck
+    this.propertyChange();
+
+    // clear temp layers
+    this.tmpLayers = undefined;
+  }
+
+  /**
    * Set up view after initialized if we have data
    */
   ngAfterViewInit() {
@@ -248,34 +267,19 @@ export class MapComponent
   }
 
   /**
-   * Updates our view state based on data extents and the current map size
+   * Re-render layers because properties have changed
+   *
+   * We reverse the layers here because we need the layers in the UI to appear correct
    */
-  updateInitialViewState() {
-    if (this.layers) {
-      // check if we have bounds from our layers
-      if (this.layers.bounds) {
-        /**
-         * Get viewport
-         */
-        const { longitude, latitude, zoom } = new WebMercatorViewport({
-          width: this.el.nativeElement.offsetWidth,
-          height: this.el.nativeElement.offsetHeight,
-        }).fitBounds(
-          [
-            [this.layers.bounds[0], this.layers.bounds[1]],
-            [this.layers.bounds[2], this.layers.bounds[3]],
-          ],
-          {
-            padding: 100,
-          }
-        );
-
-        /**
-         * Update view state
-         */
-        Object.assign(INITIAL_VIEW_STATE, { longitude, latitude, zoom });
-      }
-    }
+  propertyChange(layers?: NotebookMapLayer<NotebookMapLayerType>[]) {
+    this.deck.setProps({
+      layers: [
+        this.baseMapLayer,
+        ...RecreateLayers(
+          Array.isArray(layers) ? layers : this.layers.layers
+        ).reverse(),
+      ],
+    });
   }
 
   /**
@@ -307,52 +311,48 @@ export class MapComponent
   }
 
   /**
-   * Re-render layers because properties have changed
-   *
-   * We reverse the layers here because we need the layers in the UI to appear correct
+   * Updates our view state based on data extents and the current map size
    */
-  propertyChange(layers?: NotebookMapLayer<NotebookMapLayerType>[]) {
-    this.deck.setProps({
-      layers: [
-        this.baseMapLayer,
-        ...RecreateLayers(
-          Array.isArray(layers) ? layers : this.layers.layers
-        ).reverse(),
-      ],
-    });
-  }
+  updateInitialViewState() {
+    if (this.layers) {
+      // check if we have bounds from our layers
+      if (this.layers.bounds) {
+        /**
+         * Get viewport
+         */
+        const { longitude, latitude, zoom } = new WebMercatorViewport({
+          width: this.el.nativeElement.offsetWidth,
+          height: this.el.nativeElement.offsetHeight,
+        }).fitBounds(
+          [
+            [this.layers.bounds[0], this.layers.bounds[1]],
+            [this.layers.bounds[2], this.layers.bounds[3]],
+          ],
+          {
+            padding: 100,
+          }
+        );
 
-  /**
-   * Handle drop events
-   */
-  drop(event: CdkDragDrop<string[]>) {
-    // move data
-    moveItemInArray(
-      this.layers.layers,
-      event.previousIndex,
-      event.currentIndex
-    );
-
-    // update deck
-    this.propertyChange();
-
-    // clear temp layers
-    this.tmpLayers = undefined;
-  }
-
-  /**
-   * Handle drop events
-   */
-  dragging(event: CdkDragSortEvent<string[]>) {
-    // copy layers while we drag so we dont mess up original data
-    if (this.tmpLayers === undefined) {
-      this.tmpLayers = copy(this.layers.layers);
+        /**
+         * Update view state
+         */
+        Object.assign(INITIAL_VIEW_STATE, { longitude, latitude, zoom });
+      }
     }
-
-    // move
-    moveItemInArray(this.tmpLayers, event.previousIndex, event.currentIndex);
-
-    // update display
-    this.propertyChange(this.tmpLayers);
   }
+
+  /**
+   * Callback to resize chart on window resize
+   *
+   * It re-draws when we get smaller, but not when we grow again
+   */
+  private resizeCb = () => {
+    if (this.deck !== undefined) {
+      this.deck.setProps({
+        width: this.el.nativeElement.offsetWidth,
+        height: this.el.nativeElement.offsetHeight,
+      });
+      this.deck.redraw();
+    }
+  };
 }

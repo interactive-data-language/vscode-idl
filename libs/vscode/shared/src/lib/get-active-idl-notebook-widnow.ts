@@ -9,7 +9,7 @@ import * as vscode from 'vscode';
  */
 export function GetActiveIDLNotebookWindow(
   alert = true
-): vscode.NotebookDocument | undefined {
+): undefined | vscode.NotebookDocument {
   // get active editor
   const editor = vscode.window.activeNotebookEditor;
 

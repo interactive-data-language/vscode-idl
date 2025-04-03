@@ -16,9 +16,9 @@ export type IDLTaskSchema10 = 'idltask_1.0';
  *  IDL Task schema versions
  */
 export type IDLTaskSchemaVersion =
-  | IDLTaskSchema12
+  | IDLTaskSchema10
   | IDLTaskSchema11
-  | IDLTaskSchema10;
+  | IDLTaskSchema12;
 
 /**
  * Data structure for task parameters for 1.0
@@ -85,11 +85,9 @@ export type IDLTaskProperties<T extends IDLTaskSchemaVersion> =
 /**
  * Data structure for IDL tasks
  */
-export type IDLTask<T extends IDLTaskSchemaVersion> =
-  /** The "&" is for intersection which makes it also have the properties of our other type above */
-  IDLTaskProperties<T> & {
-    /** Version of the task, designates our other properties */
-    schema: T;
-    /** Task parameters */
-    parameters: IDLTaskParameter<T>[];
-  };
+export type IDLTask<T extends IDLTaskSchemaVersion> = {
+  /** Version of the task, designates our other properties */
+  schema: T;
+  /** Task parameters */
+  parameters: IDLTaskParameter<T>[];
+} /** The "&" is for intersection which makes it also have the properties of our other type above */ & IDLTaskProperties<T>;

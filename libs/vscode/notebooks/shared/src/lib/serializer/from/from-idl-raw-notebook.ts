@@ -37,20 +37,20 @@ export async function FromIDLRawNotebook(
     // determine the version and parse
     switch (parsed.version) {
       /**
-       * Check if version 2.0.0
-       */
-      case '2.0.0':
-        nb = await FromIDLRawNotebook_2_0_0(
-          parsed as IDLRawNotebook<IDLRawNotebookVersion_2_0_0>,
-          _token
-        );
-        break;
-      /**
        * Check if version 1.0.0
        */
       case '1.0.0':
         nb = await FromIDLRawNotebook_1_0_0(
           parsed as IDLRawNotebook<IDLRawNotebookVersion_1_0_0>,
+          _token
+        );
+        break;
+      /**
+       * Check if version 2.0.0
+       */
+      case '2.0.0':
+        nb = await FromIDLRawNotebook_2_0_0(
+          parsed as IDLRawNotebook<IDLRawNotebookVersion_2_0_0>,
           _token
         );
         break;

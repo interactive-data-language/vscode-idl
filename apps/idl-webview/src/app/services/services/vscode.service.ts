@@ -13,6 +13,8 @@ import { DEFAULT_VSCODE_STATE, IVSCodeState } from '../core/vscode.interface';
   providedIn: 'root',
 })
 export class VSCodeService implements OnDestroy {
+  dontShowOnStartup = false;
+  firstState = true;
   // things that we emit that others can listen to
   messages = new BehaviorSubject<VSCodeWebViewMessage>(DEFAULT_VSCODE_MESSAGE);
   newTheme = new BehaviorSubject<boolean>(false);
@@ -25,8 +27,6 @@ export class VSCodeService implements OnDestroy {
     getState(): IVSCodeState;
     setState(state: IVSCodeState): void;
   };
-  firstState = true;
-  dontShowOnStartup = false;
 
   constructor() {
     // put API reference in vscode service
@@ -90,31 +90,6 @@ export class VSCodeService implements OnDestroy {
   }
 
   /**
-   * Handle message from VSCode
-   */
-  handleMessage(message: VSCodeWebViewMessage) {
-    // determine what to do with the events
-    switch (message.command) {
-      case 'show-on-startup-setting':
-        this.dontShowOnStartup = message.data;
-        break;
-      case 'recolor':
-        this.newTheme.next(true);
-        break;
-      case 'profiler':
-        this.profiler.next(message as IProfilerMessage);
-        break;
-
-      // do nothing
-      default:
-        break;
-    }
-
-    // emit the message
-    this.messages.next(message);
-  }
-
-  /**
    * Get state of web app
    */
   getState(): IVSCodeState {
@@ -130,10 +105,28 @@ export class VSCodeService implements OnDestroy {
   }
 
   /**
-   * Set state of web app
+   * Handle message from VSCode
    */
-  setState(state: IVSCodeState) {
-    this.vscodeApi.setState(state);
+  handleMessage(message: VSCodeWebViewMessage) {
+    // determine what to do with the events
+    switch (message.command) {
+      case 'profiler':
+        this.profiler.next(message as IProfilerMessage);
+        break;
+      case 'recolor':
+        this.newTheme.next(true);
+        break;
+      case 'show-on-startup-setting':
+        this.dontShowOnStartup = message.data;
+        break;
+
+      // do nothing
+      default:
+        break;
+    }
+
+    // emit the message
+    this.messages.next(message);
   }
 
   /**
@@ -143,5 +136,12 @@ export class VSCodeService implements OnDestroy {
     this.messages.complete();
     this.newTheme.complete();
     this.profiler.complete();
+  }
+
+  /**
+   * Set state of web app
+   */
+  setState(state: IVSCodeState) {
+    this.vscodeApi.setState(state);
   }
 }

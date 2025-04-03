@@ -113,14 +113,8 @@ export async function SendCommandToIDLTerminal(
       await code.save();
       idl.sendText(`.compile -v '${CleanPath(code.uri.fsPath)}'`);
       break;
-    case 'Run':
-      code = GetActivePROCodeWindow(true);
-      if (!code) {
-        return false;
-      }
-      await code.save();
-      idl.sendText(`.compile -v '${CleanPath(code.uri.fsPath)}'`);
-      idl.sendText('.go');
+    case 'Continue':
+      idl.sendText('.continue');
       break;
     case 'Execute':
       code = GetActivePROCodeWindow(true);
@@ -130,23 +124,29 @@ export async function SendCommandToIDLTerminal(
       await code.save();
       idl.sendText(`@${CleanPath(code.uri.fsPath)}`);
       break;
-    case 'Stop':
-      idl.sendText('\u0003', false);
+    case 'Reset':
+      idl.sendText('.reset');
       break;
-    case 'Continue':
-      idl.sendText('.continue');
+    case 'Run':
+      code = GetActivePROCodeWindow(true);
+      if (!code) {
+        return false;
+      }
+      await code.save();
+      idl.sendText(`.compile -v '${CleanPath(code.uri.fsPath)}'`);
+      idl.sendText('.go');
       break;
     case 'Step In':
       idl.sendText('.step');
       break;
-    case 'Step Over':
-      idl.sendText('.stepover');
-      break;
     case 'Step Out':
       idl.sendText('.out');
       break;
-    case 'Reset':
-      idl.sendText('.reset');
+    case 'Step Over':
+      idl.sendText('.stepover');
+      break;
+    case 'Stop':
+      idl.sendText('\u0003', false);
       break;
     default:
     // do nothing

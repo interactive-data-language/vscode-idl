@@ -31,32 +31,10 @@ import { IDLWebSocketWrapper } from './wrappers/idl-ws-wrapper.class';
  * for when major actions happen.
  */
 export class IDLProcess extends EventEmitter {
-  /** Reference to our child process */
-  idl: ChildProcess;
-
-  /** Have we started IDL or not? */
-  started = false;
-
-  /** Are we in the process of closing? */
-  closing = false;
-
-  /** Whether we emit event for standard out or not */
-  silent = false;
-
-  /** Information about our current IDL session */
-  idlInfo = copy(DEFAULT_IDL_INFO);
-
-  /** The logger for our session of IDL, all messages go through this */
-  log: Logger;
-
-  /** Fully-qualified path to vscode.pro, needed for auxiliary IDL routines */
-  vscodeProDir: string;
-
-  /** Flag that indicates if we are evaluating a statement or not */
-  evaluating = false;
-
-  /** Currently captured output from stdout/stderr */
-  capturedOutput = '';
+  /**
+   * IDL machine
+   */
+  _machine: IDLMachineWrapper;
 
   /**
    * Old way of interacting with IDL
@@ -64,22 +42,44 @@ export class IDLProcess extends EventEmitter {
   _stdio: IDLStdIOWrapper;
 
   /**
-   * IDL machine
-   */
-  _machine: IDLMachineWrapper;
-
-  /**
    * IDL Web Socket client
    */
   _ws: IDLWebSocketWrapper;
+
+  /** Currently captured output from stdout/stderr */
+  capturedOutput = '';
+
+  /** Are we in the process of closing? */
+  closing = false;
+
+  /** Flag that indicates if we are evaluating a statement or not */
+  evaluating = false;
+
+  /** Reference to our child process */
+  idl: ChildProcess;
+
+  /** Information about our current IDL session */
+  idlInfo = copy(DEFAULT_IDL_INFO);
+
+  /** The logger for our session of IDL, all messages go through this */
+  log: Logger;
 
   /**
    * Have we started the IDL Machine or just legacy IDL?
    */
   processType: IDLProcessType = 'machine';
 
+  /** Whether we emit event for standard out or not */
+  silent = false;
+
+  /** Have we started IDL or not? */
+  started = false;
+
   /** Optional message to emit on startup for users */
   startupMessage: string;
+
+  /** Fully-qualified path to vscode.pro, needed for auxiliary IDL routines */
+  vscodeProDir: string;
 
   /**
    * @param startupMessage The message we print to standard error on non IDL Machine startups
@@ -105,6 +105,66 @@ export class IDLProcess extends EventEmitter {
   }
 
   /**
+   * External method to execute something in IDL
+   *
+   * TODO: Migrate logic from the three methods below to here
+   * since we have a fair amount of overlap between them all
+   */
+  async evaluate(command: string): Promise<string> {
+    if (!this.started) {
+      throw new Error('IDL is not started');
+    }
+
+    // debug information
+    this.log.log({
+      type: 'debug',
+      content: [`Executing via ${this.processType}:`, { command }],
+    });
+
+    // reset captured output
+    this.capturedOutput = '';
+
+    // set state that we are running
+    this.evaluating = true;
+
+    /** Result from running */
+    let res: string;
+
+    /**
+     * Send to the right process we are running
+     */
+    switch (this.processType) {
+      case 'machine':
+        res = await this._machine.evaluate(command);
+        break;
+      case 'ws':
+        res = await this._ws.evaluate(command);
+        break;
+      default:
+        res = await this._stdio.evaluate(command);
+        break;
+    }
+
+    // debug information
+    this.log.log({
+      type: 'debug',
+      content: [`Output:`, { res }],
+    });
+
+    // reset captured output
+    this.capturedOutput = '';
+
+    // reset state
+    this.evaluating = false;
+
+    // check for stops
+    this.stopCheck(res);
+
+    // return output
+    return res;
+  }
+
+  /**
    * Wraps node.js event emitter with types for supported events and
    * event data.
    */
@@ -124,6 +184,62 @@ export class IDLProcess extends EventEmitter {
     listener: (...args: IDLListenerArgs<T>) => void
   ): this {
     return super.once(event, listener);
+  }
+
+  /**
+   * Pause execution
+   */
+  pause() {
+    switch (this.processType) {
+      case 'machine':
+        this._machine.pause();
+        break;
+      case 'ws':
+        this._ws.pause();
+        break;
+      default:
+        this._stdio.pause();
+        break;
+    }
+  }
+
+  /**
+   * Wraps emitting standard output to make sure all checks happen in one place
+   */
+  sendOutput(data: any) {
+    // send output only if we are not silent
+    if (!this.silent) {
+      this.emit(IDL_EVENT_LOOKUP.STANDARD_OUT, data);
+    }
+
+    /**
+     * If we are not evaluating a statement, then do a stop check
+     *
+     * This handles a case where:
+     *
+     * 1. I have PRO code with a breakpoint set
+     * 2. I start an IDL UI application
+     * 3. A UI callback runs the routine with a breakpoint
+     *
+     * When in this mode, we don't capture the output and save in our variable
+     * because it is not directly from the command that we were executing
+     */
+    if (!this.evaluating && this.started) {
+      if (
+        REGEX_STOP_DETECTION_BASIC.test(
+          this.capturedOutput.replace(/\r*\n/gim, '')
+        )
+      ) {
+        setTimeout(() => {
+          this.emit(IDL_EVENT_LOOKUP.STOP, 'stop', {
+            file: '$main$',
+            index: 0,
+            line: 0,
+            name: '$main$',
+          });
+        }, 0);
+      }
+    }
   }
 
   /**
@@ -322,45 +438,6 @@ export class IDLProcess extends EventEmitter {
   }
 
   /**
-   * Wraps emitting standard output to make sure all checks happen in one place
-   */
-  sendOutput(data: any) {
-    // send output only if we are not silent
-    if (!this.silent) {
-      this.emit(IDL_EVENT_LOOKUP.STANDARD_OUT, data);
-    }
-
-    /**
-     * If we are not evaluating a statement, then do a stop check
-     *
-     * This handles a case where:
-     *
-     * 1. I have PRO code with a breakpoint set
-     * 2. I start an IDL UI application
-     * 3. A UI callback runs the routine with a breakpoint
-     *
-     * When in this mode, we don't capture the output and save in our variable
-     * because it is not directly from the command that we were executing
-     */
-    if (!this.evaluating && this.started) {
-      if (
-        REGEX_STOP_DETECTION_BASIC.test(
-          this.capturedOutput.replace(/\r*\n/gim, '')
-        )
-      ) {
-        setTimeout(() => {
-          this.emit(IDL_EVENT_LOOKUP.STOP, 'stop', {
-            file: '$main$',
-            index: 0,
-            line: 0,
-            name: '$main$',
-          });
-        }, 0);
-      }
-    }
-  }
-
-  /**
    * Stops our IDL debug session
    */
   stop() {
@@ -378,83 +455,6 @@ export class IDLProcess extends EventEmitter {
         break;
     }
     this.idlInfo = { ...DEFAULT_IDL_INFO };
-  }
-
-  /**
-   * Pause execution
-   */
-  pause() {
-    switch (this.processType) {
-      case 'machine':
-        this._machine.pause();
-        break;
-      case 'ws':
-        this._ws.pause();
-        break;
-      default:
-        this._stdio.pause();
-        break;
-    }
-  }
-
-  /**
-   * External method to execute something in IDL
-   *
-   * TODO: Migrate logic from the three methods below to here
-   * since we have a fair amount of overlap between them all
-   */
-  async evaluate(command: string): Promise<string> {
-    if (!this.started) {
-      throw new Error('IDL is not started');
-    }
-
-    // debug information
-    this.log.log({
-      type: 'debug',
-      content: [`Executing via ${this.processType}:`, { command }],
-    });
-
-    // reset captured output
-    this.capturedOutput = '';
-
-    // set state that we are running
-    this.evaluating = true;
-
-    /** Result from running */
-    let res: string;
-
-    /**
-     * Send to the right process we are running
-     */
-    switch (this.processType) {
-      case 'machine':
-        res = await this._machine.evaluate(command);
-        break;
-      case 'ws':
-        res = await this._ws.evaluate(command);
-        break;
-      default:
-        res = await this._stdio.evaluate(command);
-        break;
-    }
-
-    // debug information
-    this.log.log({
-      type: 'debug',
-      content: [`Output:`, { res }],
-    });
-
-    // reset captured output
-    this.capturedOutput = '';
-
-    // reset state
-    this.evaluating = false;
-
-    // check for stops
-    this.stopCheck(res);
-
-    // return output
-    return res;
   }
 
   /**

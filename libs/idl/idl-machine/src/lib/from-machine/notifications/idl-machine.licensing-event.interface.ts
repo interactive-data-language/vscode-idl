@@ -7,10 +7,10 @@ export type LicensingEventNotification = 'licensingEvent';
 export type LicensingEventParams = {
   /** The type of licensing event */
   event:
-    | 'InitializeFailure'
-    | 'InitializeSuccess'
+    | 'AcquireFailure'
     | 'AcquireSuccess'
-    | 'AcquireFailure';
+    | 'InitializeFailure'
+    | 'InitializeSuccess';
   /** Message about event */
   param: string;
 };

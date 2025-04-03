@@ -36,7 +36,7 @@ import { JoinDocs } from './join-docs';
  * documentation for things like hover help and auto-complete.
  */
 export function GenerateRoutineMetadata<T extends RoutineType>(
-  nameToken: IBranch<RoutineNameToken | RoutineMethodNameToken>,
+  nameToken: IBranch<RoutineMethodNameToken | RoutineNameToken>,
   type: T,
   docs: IDocs,
   structures: IGlobalIndexedToken<GlobalStructureToken>[],

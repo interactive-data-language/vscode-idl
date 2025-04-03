@@ -24,43 +24,6 @@ export class IDLWebSocketWrapper {
   }
 
   /**
-   * Returns a flag if we are connected or not
-   */
-  isConnected() {
-    return this.client.socket.connected;
-  }
-
-  /**
-   * Start IDL session
-   */
-  start(config: IStartIDLConfig, startupMessage: string) {
-    this.client.listen();
-
-    /**
-     * TODO: Add some wait/pause for connection before we actually start up
-     */
-
-    this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.START_IDL, {
-      startupMessage,
-      config,
-    });
-  }
-
-  /**
-   * Stops our IDL debug session
-   */
-  stop() {
-    this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.STOP_IDL, undefined);
-  }
-
-  /**
-   * Pause execution
-   */
-  pause() {
-    this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.PAUSE_IDL, undefined);
-  }
-
-  /**
    * Runs a command in IDL with the assumption that we are IDLE.
    *
    * DO NOT USE THIS METHOD IF IDL IS ACTIVELY RUNNING SOMETHING because
@@ -86,5 +49,42 @@ export class IDLWebSocketWrapper {
         silent: this.process.silent,
       });
     });
+  }
+
+  /**
+   * Returns a flag if we are connected or not
+   */
+  isConnected() {
+    return this.client.socket.connected;
+  }
+
+  /**
+   * Pause execution
+   */
+  pause() {
+    this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.PAUSE_IDL, undefined);
+  }
+
+  /**
+   * Start IDL session
+   */
+  start(config: IStartIDLConfig, startupMessage: string) {
+    this.client.listen();
+
+    /**
+     * TODO: Add some wait/pause for connection before we actually start up
+     */
+
+    this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.START_IDL, {
+      startupMessage,
+      config,
+    });
+  }
+
+  /**
+   * Stops our IDL debug session
+   */
+  stop() {
+    this.client.send(TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP.STOP_IDL, undefined);
   }
 }

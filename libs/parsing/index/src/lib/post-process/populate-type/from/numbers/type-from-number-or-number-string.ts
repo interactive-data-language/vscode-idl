@@ -24,6 +24,9 @@ export function TypeFromNumberOrNumberString(
   // check if we have scope tokens to look for
   if (token.scopeTokens.length > 0) {
     switch (token.scopeTokens[0].name) {
+      case TOKEN_NAMES.MAIN_LEVEL:
+        compOpts = parsed.compile.main;
+        break;
       case TOKEN_NAMES.ROUTINE_FUNCTION: {
         const routineName = GetRoutineNameFromScope(token);
         if (routineName in parsed.compile.func) {
@@ -38,9 +41,6 @@ export function TypeFromNumberOrNumberString(
         }
         break;
       }
-      case TOKEN_NAMES.MAIN_LEVEL:
-        compOpts = parsed.compile.main;
-        break;
       default:
         break;
     }

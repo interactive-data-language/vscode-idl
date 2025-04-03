@@ -16,14 +16,19 @@ import { IDLNotebookExecutionManager } from './idl-notebook-execution-manager.cl
  */
 export class IDLNotebookController {
   /**
+   * Actual notebook controller
+   */
+  readonly _controller: vscode.NotebookController;
+
+  /**
    * ID of our controller
    */
   readonly controllerId = IDL_NOTEBOOK_CONTROLLER_NAME;
 
   /**
-   * Type of notebook
+   * Track notebooks by URI
    */
-  readonly notebookType = IDL_NOTEBOOK_LANGUAGE_NAME;
+  knownNotebooks: { [key: string]: vscode.NotebookDocument } = {};
 
   /**
    * Label for our controller
@@ -33,24 +38,19 @@ export class IDLNotebookController {
   readonly label = 'IDL'; // IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME;
 
   /**
-   * Languages we support
-   */
-  readonly supportedLanguages = [IDL_LANGUAGE_NAME];
-
-  /**
-   * Actual notebook controller
-   */
-  readonly _controller: vscode.NotebookController;
-
-  /**
-   * Track notebooks by URI
-   */
-  knownNotebooks: { [key: string]: vscode.NotebookDocument } = {};
-
-  /**
    * Track notebooks by URI
    */
   notebookManagers: { [key: string]: IDLNotebookExecutionManager } = {};
+
+  /**
+   * Type of notebook
+   */
+  readonly notebookType = IDL_NOTEBOOK_LANGUAGE_NAME;
+
+  /**
+   * Languages we support
+   */
+  readonly supportedLanguages = [IDL_LANGUAGE_NAME];
 
   constructor() {
     // create notebook controller
@@ -88,6 +88,27 @@ export class IDLNotebookController {
   }
 
   /**
+   * Execute notebook cells wrapped around a queue
+   */
+  async _execute(
+    cells: vscode.NotebookCell[],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _notebook: vscode.NotebookDocument,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _controller: vscode.NotebookController
+  ): Promise<void> {
+    /** Track known notebooks */
+    this.knownNotebooks[_notebook.uri.toString()] = _notebook;
+
+    /** Have manager run notebook cell */
+    await this.getNotebookManager(_notebook)._execute(
+      cells,
+      _notebook,
+      _controller
+    );
+  }
+
+  /**
    * Creates a notebook controller
    */
   createController() {
@@ -104,6 +125,38 @@ export class IDLNotebookController {
     _controller.executeHandler = this._execute.bind(this);
 
     return _controller;
+  }
+
+  /**
+   * TODO: What all do we need to do here?
+   */
+  dispose(): void {
+    /** Get all of our managers */
+    const managers = Object.values(this.notebookManagers);
+
+    // remove references
+    this.notebookManagers = {};
+
+    // dispose of each
+    for (let i = 0; i < managers.length; i++) {
+      managers[i].dispose();
+    }
+
+    // dispose of our controller
+    this._controller.dispose();
+  }
+
+  /**
+   * If IDL has started, evaluates a command in IDL
+   *
+   * You should check the "launched" property before calling this
+   */
+  async evaluate(
+    nb: vscode.NotebookDocument,
+    command: string,
+    inOptions?: IDLEvaluateOptions
+  ) {
+    return this.getNotebookManager(nb).evaluate(command, inOptions);
   }
 
   /**
@@ -132,59 +185,6 @@ export class IDLNotebookController {
    */
   isStarted(nb: vscode.NotebookDocument) {
     return this.getNotebookManager(nb)._runtime.isStarted();
-  }
-
-  /**
-   * TODO: What all do we need to do here?
-   */
-  dispose(): void {
-    /** Get all of our managers */
-    const managers = Object.values(this.notebookManagers);
-
-    // remove references
-    this.notebookManagers = {};
-
-    // dispose of each
-    for (let i = 0; i < managers.length; i++) {
-      managers[i].dispose();
-    }
-
-    // dispose of our controller
-    this._controller.dispose();
-  }
-
-  /**
-   * Execute notebook cells wrapped around a queue
-   */
-  async _execute(
-    cells: vscode.NotebookCell[],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _notebook: vscode.NotebookDocument,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _controller: vscode.NotebookController
-  ): Promise<void> {
-    /** Track known notebooks */
-    this.knownNotebooks[_notebook.uri.toString()] = _notebook;
-
-    /** Have manager run notebook cell */
-    await this.getNotebookManager(_notebook)._execute(
-      cells,
-      _notebook,
-      _controller
-    );
-  }
-
-  /**
-   * If IDL has started, evaluates a command in IDL
-   *
-   * You should check the "launched" property before calling this
-   */
-  async evaluate(
-    nb: vscode.NotebookDocument,
-    command: string,
-    inOptions?: IDLEvaluateOptions
-  ) {
-    return this.getNotebookManager(nb).evaluate(command, inOptions);
   }
 
   /**

@@ -10,14 +10,14 @@ import { IPackageJSON, IPackageNLS } from '../package.interface';
 import { VerifyNLS } from './helpers/verify-nls';
 
 interface ICommandIcon {
-  light: string;
   dark: string;
+  light: string;
 }
 
 interface ICommand {
   command: string;
-  title: string;
   icon?: ICommandIcon;
+  title: string;
 }
 
 /**

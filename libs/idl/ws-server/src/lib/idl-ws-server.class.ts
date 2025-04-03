@@ -37,15 +37,6 @@ export class IDlWebSocketServer {
   }
 
   /**
-   * Emits messages to the client- normalizes and enforces type checking
-   */
-  private _emit<T extends FromIDLWebSocketMessageTypes>(
-    message: FromIDLWebSocketMessage<T>
-  ) {
-    this.socket.emit(IDL_WS_MESSAGE, message);
-  }
-
-  /**
    * Cleanup when disconnected
    */
   cleanup() {
@@ -203,5 +194,14 @@ export class IDlWebSocketServer {
       type,
       payload,
     });
+  }
+
+  /**
+   * Emits messages to the client- normalizes and enforces type checking
+   */
+  private _emit<T extends FromIDLWebSocketMessageTypes>(
+    message: FromIDLWebSocketMessage<T>
+  ) {
+    this.socket.emit(IDL_WS_MESSAGE, message);
   }
 }

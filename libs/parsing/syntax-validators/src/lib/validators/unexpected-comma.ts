@@ -22,13 +22,13 @@ import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
  */
 type CommaTokens =
   | BracketToken
+  | CallFunctionMethodToken
+  | CallFunctionToken
   | ControlCommonToken
   | ControlCompileOptToken
   | ControlForwardFunctionOptToken
-  | CallFunctionMethodToken
-  | CallFunctionToken
-  | LoopForToken
   | LoopForeachToken
+  | LoopForToken
   | StructureToken;
 
 /**

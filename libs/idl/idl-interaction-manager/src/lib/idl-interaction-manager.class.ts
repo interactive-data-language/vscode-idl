@@ -33,52 +33,25 @@ import { ProcessScope } from './helpers/process-scope';
  * can get the information we need from IDL to do things like debugging.
  */
 export class IDLInteractionManager {
-  /** promise queue to manage pending requests */
-  private _queue: IDLEvaluationItem[] = [];
-
-  /** Track the current item we are processing */
-  private _processing: IDLEvaluationItem;
-
-  /** Our instance of IDL */
-  private idl: IDLProcess;
-
   /**
    * Track syntax errors by file and continually update as we run commands
    */
   errorsByFile: IDLSyntaxErrorLookup = {};
+
+  /** Track the current item we are processing */
+  private _processing: IDLEvaluationItem;
+
+  /** promise queue to manage pending requests */
+  private _queue: IDLEvaluationItem[] = [];
+
+  /** Our instance of IDL */
+  private idl: IDLProcess;
 
   /**
    * @param startupMessage The message we print to standard error on non IDL Machine startups
    */
   constructor(log: Logger, vscodeProDir: string, startupMessage: string) {
     this.idl = new IDLProcess(log, vscodeProDir, startupMessage);
-  }
-
-  /**
-   * Handle when we have another statement to execute
-   */
-  private async _next() {
-    /** Return if processing or nothing to do */
-    if (this._processing !== undefined || this._queue.length === 0) {
-      return;
-    }
-
-    // get the next command to execute
-    const info = this._queue.shift();
-
-    // return if nothing to do
-    if (info === undefined) {
-      return;
-    }
-
-    // update what we are processing
-    this._processing = info;
-
-    // run in IDL and return the output
-    await info.execute();
-
-    // run again!
-    this._next();
   }
 
   /**
@@ -137,13 +110,6 @@ export class IDLInteractionManager {
 
     // update tracked errors
     Object.assign(this.errorsByFile, newErrorsByFile);
-  }
-
-  /**
-   * Returns true/false if we are processing or not
-   */
-  executing(): boolean {
-    return this._processing !== undefined;
   }
 
   /**
@@ -240,6 +206,13 @@ export class IDLInteractionManager {
 
     // return results
     return results;
+  }
+
+  /**
+   * Returns true/false if we are processing or not
+   */
+  executing(): boolean {
+    return this._processing !== undefined;
   }
 
   /**
@@ -472,5 +445,32 @@ export class IDLInteractionManager {
     if (this.isStarted()) {
       this.idl.stop();
     }
+  }
+
+  /**
+   * Handle when we have another statement to execute
+   */
+  private async _next() {
+    /** Return if processing or nothing to do */
+    if (this._processing !== undefined || this._queue.length === 0) {
+      return;
+    }
+
+    // get the next command to execute
+    const info = this._queue.shift();
+
+    // return if nothing to do
+    if (info === undefined) {
+      return;
+    }
+
+    // update what we are processing
+    this._processing = info;
+
+    // run in IDL and return the output
+    await info.execute();
+
+    // run again!
+    this._next();
   }
 }

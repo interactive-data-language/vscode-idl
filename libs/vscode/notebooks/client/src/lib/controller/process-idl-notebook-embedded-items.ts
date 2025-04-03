@@ -45,35 +45,6 @@ export function ProcessIDLNotebookEmbeddedItems(
      */
     switch (embed.type) {
       /**
-       * Check if we have an image we are embedding from a URI on disk
-       */
-      case 'idlnotebookimage_fromuri': {
-        /**
-         * Strictly type
-         */
-        const toEmbed =
-          embed as IDLNotebookEmbeddedItem<IDLNotebookImage_FromURI>;
-
-        /**
-         * Strictly type item we are actually embedding
-         */
-        const realEmbed: IDLNotebookEmbeddedItem<IDLNotebookImage_PNG> = {
-          type: 'idlnotebookimage_png',
-          item: {
-            data: Buffer.from(readFileSync(toEmbed.item.uri)).toString(
-              'base64'
-            ),
-            xsize: toEmbed.item.xsize,
-            ysize: toEmbed.item.ysize,
-          },
-        };
-
-        // update var with what we embed
-        embedThis = realEmbed;
-        break;
-      }
-
-      /**
        * Check if we have an animation we are embedding from files
        */
       case 'idlnotebookimage_animationfromuris': {
@@ -97,6 +68,35 @@ export function ProcessIDLNotebookEmbeddedItems(
               ysize: toEmbed.item.ysize,
             },
           };
+
+        // update var with what we embed
+        embedThis = realEmbed;
+        break;
+      }
+
+      /**
+       * Check if we have an image we are embedding from a URI on disk
+       */
+      case 'idlnotebookimage_fromuri': {
+        /**
+         * Strictly type
+         */
+        const toEmbed =
+          embed as IDLNotebookEmbeddedItem<IDLNotebookImage_FromURI>;
+
+        /**
+         * Strictly type item we are actually embedding
+         */
+        const realEmbed: IDLNotebookEmbeddedItem<IDLNotebookImage_PNG> = {
+          type: 'idlnotebookimage_png',
+          item: {
+            data: Buffer.from(readFileSync(toEmbed.item.uri)).toString(
+              'base64'
+            ),
+            xsize: toEmbed.item.xsize,
+            ysize: toEmbed.item.ysize,
+          },
+        };
 
         // update var with what we embed
         embedThis = realEmbed;

@@ -11,7 +11,7 @@ import {
  * two cases.
  */
 export function GetKeywordDisplayName(
-  token: TreeToken<KeywordToken | KeywordBinaryToken | KeywordDefinitionToken>
+  token: TreeToken<KeywordBinaryToken | KeywordDefinitionToken | KeywordToken>
 ) {
   return token.name === TOKEN_NAMES.KEYWORD_BINARY
     ? token.match[1]

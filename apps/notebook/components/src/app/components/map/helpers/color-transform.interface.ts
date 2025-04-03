@@ -3,9 +3,9 @@
  */
 export interface ImageDisplayOptions {
   /**
-   * Gamma
+   * Scale for blue
    */
-  gamma: number;
+  blue: number;
   /**
    * Brightness of image
    */
@@ -15,21 +15,21 @@ export interface ImageDisplayOptions {
    */
   contrast: number;
   /**
-   * Saturation of image
+   * Gamma
    */
-  saturation: number;
-  /**
-   * Scale for red
-   */
-  red: number;
+  gamma: number;
   /**
    * Scale for green
    */
   green: number;
   /**
-   * Scale for blue
+   * Scale for red
    */
-  blue: number;
+  red: number;
+  /**
+   * Saturation of image
+   */
+  saturation: number;
 }
 
 export const DEFAULT_IMAGE_DISPLAY: ImageDisplayOptions = {

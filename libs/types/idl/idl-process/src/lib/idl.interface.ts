@@ -11,10 +11,10 @@ export const DEFAULT_PROMPT_LIMIT = 1;
 export interface IStartIDLConfig {
   /** Extension config */
   config: IDLExtensionConfig;
-  /** Environment variables */
-  env: { [key: string]: any };
   /** optionally specify the directory that IDL starts in */
   cwd?: string;
+  /** Environment variables */
+  env: { [key: string]: any };
 }
 
 /**
@@ -23,76 +23,76 @@ export interface IStartIDLConfig {
  * Source: vscode_getBreakpoints
  */
 export interface IRawBreakpoint {
-  /** index of the breakpoint */
-  i: number;
-  /** Line number */
-  l: number;
   /** Attributes for the breakpoints */
   a: string;
   /** File */
   f: string;
+  /** index of the breakpoint */
+  i: number;
+  /** Line number */
+  l: number;
 }
 
 /**
  * Breakpoints we share with VSCode, nicely formatted
  */
 export interface IDLBreakpoint {
-  /** Line number for breakpoint */
-  line: number;
-  /** File for breakpoint */
-  path: string;
-  /** Name of the breakpoint */
-  name?: string;
   /** ID of the breakpoint */
   id?: string;
+  /** Line number for breakpoint */
+  line: number;
+  /** Name of the breakpoint */
+  name?: string;
+  /** File for breakpoint */
+  path: string;
 }
 
 /**
  * Call stack information for IDL
  */
 export interface IDLCallStack {
-  /** Call stack */
-  frames: IDLCallStackItem[];
   /** Number of frames */
   count: number;
+  /** Call stack */
+  frames: IDLCallStackItem[];
 }
 
 /**
  * Entry for a call stack routine
  */
 export interface IDLCallStackItem {
-  /** Index of our call stack */
-  index: number;
-  /** Routine name */
-  name: string;
   /** File we are in */
   file: string;
+  /** Index of our call stack */
+  index: number;
   /** Line number */
   line: number;
+  /** Routine name */
+  name: string;
 }
 
 /**
  * Callback/scope information
  */
 export interface IDLScopeItem {
-  /** Routine name */
-  routine: string;
   /** File we are in */
   file: string;
   /** Line number */
   line: number;
+  /** Routine name */
+  routine: string;
 }
 
 /**
  * Data structure that we use for capturing IDL variables
  */
 export interface IDLVariable {
+  /** Description or other information about the variable */
+  description: number | string;
   /** Name of the variable */
   name: string;
   /** Type of the variable */
   type: string;
-  /** Description or other information about the variable */
-  description: string | number;
 }
 
 /**
@@ -101,14 +101,14 @@ export interface IDLVariable {
  * Unless turned off, retrieved after any user-driven action completes.
  */
 export interface IDLInfo {
+  /** If ENVI has started or not */
+  envi: boolean;
   /** Flag if we have IDL information or not */
   hasInfo: boolean;
   /** Call stack */
   scope: IDLScopeItem[];
   /** Variables in our current scope */
   variables: IDLVariable[];
-  /** If ENVI has started or not */
-  envi: boolean;
 }
 
 /**
@@ -126,12 +126,9 @@ export const DEFAULT_IDL_INFO: IDLInfo = {
  */
 export interface IDLEvaluateOptions {
   /**
-   * Not used, but present in case we are executing a command in a
-   * specific IDL scope
+   * When specified, the command being executed jumps to the front of the pending queue
    */
-  frameId?: number;
-  /** If set, don't echo content from IDL to the debug console */
-  silent?: boolean;
+  cut?: boolean;
   /**
    * When set, indicates that we should echo output to the debug console the
    * same style as commands manually entered
@@ -142,12 +139,15 @@ export interface IDLEvaluateOptions {
    * the command.
    */
   echoThis?: string;
+  /**
+   * Not used, but present in case we are executing a command in a
+   * specific IDL scope
+   */
+  frameId?: number;
   /** Retrieve information about the IDL session */
   idlInfo?: boolean;
-  /**
-   * When specified, the command being executed jumps to the front of the pending queue
-   */
-  cut?: boolean;
+  /** If set, don't echo content from IDL to the debug console */
+  silent?: boolean;
 }
 
 /**
@@ -226,17 +226,17 @@ type IDLCodeCoverageExecutedFlag = 2;
 
 /** Flag to track cover coverage */
 export type IDLCodeCoverageFlag =
+  | IDLCodeCoverageExecutedFlag
   | IDLCodeCoverageNotCodeFlag
-  | IDLCodeCoverageNotExecutedFlag
-  | IDLCodeCoverageExecutedFlag;
+  | IDLCodeCoverageNotExecutedFlag;
 
 /**
  * Strictly typed lookup of code coverage flags
  */
 interface IDLCodeCoverageLookup {
+  EXECUTED: IDLCodeCoverageExecutedFlag;
   NOT_CODE: IDLCodeCoverageNotCodeFlag;
   NOT_EXECUTED: IDLCodeCoverageNotExecutedFlag;
-  EXECUTED: IDLCodeCoverageExecutedFlag;
 }
 
 /**

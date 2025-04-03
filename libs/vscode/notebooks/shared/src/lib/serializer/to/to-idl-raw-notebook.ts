@@ -50,11 +50,11 @@ export async function ToIDLRawNotebook<T extends IDLRawNotebookVersion>(
   try {
     // determine the version and parse
     switch (version) {
-      case '2.0.0':
-        nb = (await ToIDLRawNotebook_2_0_0(data, _token)) as IDLRawNotebook<T>;
-        break;
       case '1.0.0':
         nb = (await ToIDLRawNotebook_1_0_0(data, _token)) as IDLRawNotebook<T>;
+        break;
+      case '2.0.0':
+        nb = (await ToIDLRawNotebook_2_0_0(data, _token)) as IDLRawNotebook<T>;
         break;
       default:
         throw new Error(

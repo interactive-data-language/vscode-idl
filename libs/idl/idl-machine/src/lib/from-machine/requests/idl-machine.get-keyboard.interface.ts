@@ -7,7 +7,7 @@ type SingleChar = 0;
 type SingleCharOrANSI = 1;
 type SingleASCIIOrFunctionKey = 2;
 
-type GetKeyboardType = SingleChar | SingleCharOrANSI | SingleASCIIOrFunctionKey;
+type GetKeyboardType = SingleASCIIOrFunctionKey | SingleChar | SingleCharOrANSI;
 
 /**
  * Get keyboard parameters

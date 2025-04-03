@@ -138,7 +138,7 @@ export async function ParseDocsHTML(docsFile: string) {
   let propChildren: IParsedHTML[] = [];
 
   /** Current arg/keyword that we are parsing */
-  let current: 'none' | 'arg' | 'kw' | 'prop';
+  let current: 'arg' | 'kw' | 'none' | 'prop';
 
   /** Flag if we have docs along the line of "Name Properties" so we only have properties */
   let onlyProperties = false;

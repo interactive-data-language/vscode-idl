@@ -3,7 +3,7 @@ export interface ISimplePromiseQueueOptions {
 }
 
 export interface ISimplePromiseQueueItem {
-  reject(value: any): void;
   promiseGenerator(): Promise<void>;
+  reject(value: any): void;
   resolve(): void;
 }

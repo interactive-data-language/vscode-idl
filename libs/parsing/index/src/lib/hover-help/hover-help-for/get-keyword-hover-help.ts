@@ -21,7 +21,7 @@ import { IDLIndex } from '../../idl-index.class';
 export function GetKeywordHoverHelp(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<KeywordToken | KeywordBinaryToken | KeywordDefinitionToken>,
+  token: TreeToken<KeywordBinaryToken | KeywordDefinitionToken | KeywordToken>,
   lookup: GetHoverHelpLookupResponse
 ) {
   // get the keyword

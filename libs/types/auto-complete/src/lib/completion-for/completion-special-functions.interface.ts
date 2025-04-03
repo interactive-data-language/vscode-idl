@@ -8,6 +8,10 @@ export type SpecialFunctionCompletion = 'special-function';
  */
 export interface ISpecialFunctionCompletionOptions {
   /**
+   * Name of procedure we are calling, lower case
+   */
+  functionName?: string;
+  /**
    * Flag if we can process special procedures or not
    */
   notSpecial: boolean;
@@ -15,8 +19,4 @@ export interface ISpecialFunctionCompletionOptions {
    * The value of the token when evaluated
    */
   value?: string;
-  /**
-   * Name of procedure we are calling, lower case
-   */
-  functionName?: string;
 }

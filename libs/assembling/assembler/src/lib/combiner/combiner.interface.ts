@@ -12,14 +12,14 @@ export interface IStringsByLine {
  * Options for the combiner when we recurse
  */
 export interface ICombinerRecursionOptions {
+  /** Are we within a comment block? */
+  commentBlock: boolean;
+  /** If we should ignore line continuations that we encounter and not add indents */
+  ignoreLineContinuation: boolean;
   /** Indent level for joining strings */
   indentLevel: number;
   /** If we found a line continuation beforehand */
   lineContinuation: boolean;
-  /** If we should ignore line continuations that we encounter and not add indents */
-  ignoreLineContinuation: boolean;
-  /** Are we within a comment block? */
-  commentBlock: boolean;
   /** Number of additional lines that we have created to split code up for long lines */
   lineOffset: number;
   /** The token before our current token */

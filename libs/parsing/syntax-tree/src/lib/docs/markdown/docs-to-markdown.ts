@@ -21,10 +21,10 @@ export function DocsToMarkdown<T extends MarkdownType>(
   switch (type) {
     case MARKDOWN_TYPE_LOOKUP.GENERAL:
       return GeneralToMarkdown(info as { [key: string]: string });
-    case MARKDOWN_TYPE_LOOKUP.VARIABLE:
-      return VariablesToMarkdown(info as IDocs);
     case MARKDOWN_TYPE_LOOKUP.ROUTINE:
       return RoutinesToMarkdown(info as MarkdownInfo<RoutineMarkdown>);
+    case MARKDOWN_TYPE_LOOKUP.VARIABLE:
+      return VariablesToMarkdown(info as IDocs);
     default:
       break;
   }

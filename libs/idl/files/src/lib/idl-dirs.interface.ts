@@ -4,13 +4,13 @@
 export interface IDLDirs {
   // index signature
   [key: string]: string[];
-  darwin: string[];
-  linux: string[];
-  win32: string[];
   aix: string[];
+  darwin: string[];
   freebsd: string[];
+  linux: string[];
   openbsd: string[];
   sunos: string[];
+  win32: string[];
 }
 
 /**

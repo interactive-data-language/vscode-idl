@@ -19,9 +19,9 @@ import * as progressBar from 'progress';
 import { IParsingPerformanceRunnerOpts } from './options.interface';
 
 interface IProblem {
+  erased: string;
   line: number;
   text: string;
-  erased: string;
 }
 
 /**
@@ -145,12 +145,6 @@ export async function ParsingPerformanceRunner(
       }
 
       switch (options.method) {
-        case 'tokenizer':
-          Tokenizer(code[i]);
-          break;
-        case 'parser':
-          Parser(code[i], options);
-          break;
         case 'index-single':
           if (global.gc) {
             if (i % IDL_INDEX_OPTIONS.GC_FREQUENCY === 0) {
@@ -159,6 +153,12 @@ export async function ParsingPerformanceRunner(
           }
           // index and make up file
           await index.getParsedProCode(`${j}.pro`, code[i], options);
+          break;
+        case 'parser':
+          Parser(code[i], options);
+          break;
+        case 'tokenizer':
+          Tokenizer(code[i]);
           break;
         default:
           throw new Error(`Not implemented: ${options.method}`);

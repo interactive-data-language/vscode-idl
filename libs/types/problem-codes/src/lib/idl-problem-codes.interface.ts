@@ -223,116 +223,116 @@ type ImpliedPrintForNotebookCode = 109;
  * Union type of all allowed problem codes for IDL
  */
 export type IDLProblemCode =
-  | NotClosedCode
-  | UnexpectedCloserCode
-  | UnknownBranchTokenCode
   | AfterMainEndCode
-  | EmbarrassingTokenCode
-  | EmbarrassingFileCode
-  | ToDoCode
-  | UnknownTokenCode
-  | IllegalArrowCode
-  | IllegalCommaCode
-  | IllegalColonCode
-  | IllegalIncludeCode
-  | ReservedVariableNameCode
-  | IllegalTernaryCode
+  | AmbiguousKeywordAbbreviationCode
+  | ArgMissingFromDocsCode
+  | ArgsFirstCode
+  | BadBreakLocationCode
+  | BadContinueLocationCode
+  | CircularIncludeCode
+  | ClassNoParametersCode
   | ColonInFunctionCode
   | ColonInFunctionMethodCode
+  | DocsNotLeftAlignedCode
+  | DocumentedParameterDoesntExistCode
   | DoubleTokenCode
-  | IllegalStructureCode
-  | IllegalParenthesesCode
-  | IllegalBracketCode
-  | ReturnValuesIllegalProcedureCode
-  | ReturnValuesIllegalFunctionsCode
-  | ReturnValuesMissingFunctionsCode
-  | DuplicateProcedureCode
+  | DuplicateArgKeywordVariableDefCode
   | DuplicateFunctionCode
-  | DuplicateProcedureMethodCode
   | DuplicateFunctionMethodCode
+  | DuplicateKeywordDefCode
+  | DuplicateKeywordUsageCode
+  | DuplicateProcedureCode
+  | DuplicateProcedureMethodCode
+  | DuplicatePropertyCode
   | DuplicateStructureCode
   | DuplicateSystemVariableCode
-  | ReservedProcedureCode
-  | ReservedFunctionCode
-  | ReturnProcedureMissingCode
-  | RoutinesFirstCode
-  | MissingMainEndCode
+  | EmbarrassingFileCode
+  | EmbarrassingTokenCode
   | EmptyMainCode
-  | IllegalAfterContinuationCode
-  | ReservedProcedureMethodCode
-  | ReservedFunctionMethodCode
-  | NoCompileOptCode
-  | NoCompileOptIDL2Code
-  | IllegalCompileOptCode
-  | MissingCompileOptionsCode
-  | UseIDL2CompileOptCode
   | ExpectedCommaCode
-  | UnexpectedCommaCode
-  | MultipleCompileOptsCode
-  | UnclosedQuoteCode
-  | ArgsFirstCode
-  | ArgMissingFromDocsCode
-  | NoArgsToDocumentCode
-  | KeywordMissingFromDocsCode
-  | NoKeywordsToDocumentCode
-  | ReturnsMissingFromDocsCode
+  | ExpectedStatementCode
+  | IllegalAfterContinuationCode
+  | IllegalArrowCode
+  | IllegalBracketCode
+  | IllegalChainCode
+  | IllegalColonCode
+  | IllegalCommaCode
+  | IllegalCompileOptCode
+  | IllegalDictionaryOperationCode
+  | IllegalHashOperationCode
+  | IllegalIncludeCode
+  | IllegalIndexTypeCode
+  | IllegalListOperationCode
+  | IllegalOrderedHashOperationCode
+  | IllegalParenthesesCode
+  | IllegalStructureCode
+  | IllegalStructureOperationCode
+  | IllegalSubscriptCode
+  | IllegalTemplateLiteralHexCode
+  | IllegalTernaryCode
+  | IllegalVariableIndexCode
+  | ImpliedPrintForNotebookCode
+  | IncompleteTernaryCode
+  | IndexingErrorCode
+  | InitMethodNotFunctionCode
   | InvalidInOutDocsCode
   | InvalidIRequiredOptionalDocsCode
-  | InvalidTypeDocsCode
   | InvalidPrivateDocsCode
-  | NotEnoughDocumentationParametersCode
-  | TooManyDocumentationParametersCode
-  | DocsNotLeftAlignedCode
-  | ReturnDocsMissingDataTypeCode
-  | ReturnDocsInvalidCode
-  | ReturnDocsNotNeededCode
-  | DocumentedParameterDoesntExistCode
-  | ParameterIsMissingFromDocsCode
-  | StringLiteralTooManyArgsCode
-  | BadContinueLocationCode
-  | BadBreakLocationCode
-  | ExpectedStatementCode
-  | StandaloneDotCode
-  | IllegalTemplateLiteralHexCode
-  | UnknownTemplateLiteralEscapeCode
-  | DuplicateArgKeywordVariableDefCode
-  | DuplicateKeywordDefCode
-  | DuplicatePropertyCode
-  | DuplicateKeywordUsageCode
-  | InitMethodNotFunctionCode
-  | UnknownStructureNameCode
-  | IllegalChainCode
+  | InvalidTypeDocsCode
+  | KeywordMissingFromDocsCode
+  | MissingCompileOptionsCode
+  | MissingMainEndCode
   | MissingStructureFromDocsCode
-  | PropertyMissingFromDocsCode
-  | ClassNoParametersCode
+  | MultipleCompileOptsCode
+  | NoArgsToDocumentCode
+  | NoCompileOptCode
+  | NoCompileOptIDL2Code
+  | NoKeywordsToDocumentCode
+  | NotClosedCode
+  | NotEnoughDocumentationParametersCode
   | NotEnoughPropertyDocumentationParametersCode
-  | TooManyPropertyDocumentationParametersCode
-  | IllegalSubscriptCode
-  | IllegalStructureOperationCode
-  | IllegalListOperationCode
-  | IllegalHashOperationCode
-  | IllegalOrderedHashOperationCode
-  | IllegalDictionaryOperationCode
-  | PotentialTypeIncompatibilitiesCode
-  | IllegalIndexTypeCode
-  | PotentialArrayTypeIncompatibilitiesCode
-  | PointerNothingToDeReferenceCode
-  | PointerDeReferenceIllegalTypeCode
-  | IndexingErrorCode
+  | ParameterIsMissingFromDocsCode
   | PointerDeRefAmbiguityOperationCode
-  | UnknownKeywordCode
-  | IncompleteTernaryCode
-  | UndefinedVariableCode
+  | PointerDeReferenceIllegalTypeCode
+  | PointerNothingToDeReferenceCode
+  | PotentialArrayTypeIncompatibilitiesCode
   | PotentiallyUndefinedVariableCode
-  | VariableUsageBeforeDefinitionCode
+  | PotentialTypeIncompatibilitiesCode
   | PotentialVariableUsageBeforeDefinitionCode
-  | AmbiguousKeywordAbbreviationCode
-  | UnusedVariableCode
-  | IllegalVariableIndexCode
-  | CircularIncludeCode
-  | UnknownDisabledAliasCode
+  | PropertyMissingFromDocsCode
+  | ReservedFunctionCode
+  | ReservedFunctionMethodCode
+  | ReservedProcedureCode
+  | ReservedProcedureMethodCode
+  | ReservedVariableNameCode
+  | ReturnDocsInvalidCode
+  | ReturnDocsMissingDataTypeCode
+  | ReturnDocsNotNeededCode
+  | ReturnProcedureMissingCode
+  | ReturnsMissingFromDocsCode
+  | ReturnValuesIllegalFunctionsCode
+  | ReturnValuesIllegalProcedureCode
+  | ReturnValuesMissingFunctionsCode
+  | RoutinesFirstCode
+  | StandaloneDotCode
   | StandaloneExpressionCode
-  | ImpliedPrintForNotebookCode;
+  | StringLiteralTooManyArgsCode
+  | ToDoCode
+  | TooManyDocumentationParametersCode
+  | TooManyPropertyDocumentationParametersCode
+  | UnclosedQuoteCode
+  | UndefinedVariableCode
+  | UnexpectedCloserCode
+  | UnexpectedCommaCode
+  | UnknownBranchTokenCode
+  | UnknownDisabledAliasCode
+  | UnknownKeywordCode
+  | UnknownStructureNameCode
+  | UnknownTemplateLiteralEscapeCode
+  | UnknownTokenCode
+  | UnusedVariableCode
+  | UseIDL2CompileOptCode
+  | VariableUsageBeforeDefinitionCode;
 
 /**
  * Type to be used in translation to make sure that we have all of our expected translations
@@ -345,226 +345,226 @@ export type ProblemCodeLookup = {
  * Strictly types interface for looking up the problems with IDL code
  */
 interface IProblemLookup {
-  /** When a block statement is not closed */
-  NOT_CLOSED: NotClosedCode;
-  /** When we encounter an unexpected closing statement */
-  UNEXPECTED_CLOSER: UnexpectedCloserCode;
-  /** When we encounter an unhandled token */
-  UNKNOWN_BRANCH_TOKEN: UnknownBranchTokenCode;
   /** When we encounter a token after a main level program has ended */
   AFTER_MAIN: AfterMainEndCode;
-  /** When we have a problem with validating tokens */
-  EMBARRASSING_TOKEN: EmbarrassingTokenCode;
-  /** When we have a problem with syntax tree or creating tokens for our file */
-  EMBARRASSING_FILE: EmbarrassingFileCode;
-  /** TODO statement in PRO code */
-  TODO: ToDoCode;
-  /** Unknown token (something unexpected) not handled below */
-  UNKNOWN_TOKEN: UnknownTokenCode;
-  /** Uncaptured (or incomplete) arrow function */
-  ILLEGAL_ARROW: IllegalArrowCode;
-  /** Comma where not expected */
-  ILLEGAL_COMMA: IllegalCommaCode;
-  /** Colon character not where expected */
-  ILLEGAL_COLON: IllegalColonCode;
-  /** Include statement not where expected */
-  ILLEGAL_INCLUDE: IllegalIncludeCode;
-  /** When our variable name is reserved */
-  RESERVED_VARIABLE: ReservedVariableNameCode;
-  /** Ternary operator in the wrong place */
-  ILLEGAL_TERNARY: IllegalTernaryCode;
-  /** Colon in function call for array indexing */
-  COLON_IN_FUNCTION: ColonInFunctionCode;
-  /** Colon in function method call for array indexing */
-  COLON_IN_FUNCTION_METHOD: ColonInFunctionMethodCode;
-  /** Find two tokens with the same name next to each other */
-  DOUBLE_TOKEN: DoubleTokenCode;
-  /** Structure not where expected */
-  ILLEGAL_STRUCTURE: IllegalStructureCode;
-  /** Parentheses not where expected */
-  ILLEGAL_PARENTHESES: IllegalParenthesesCode;
-  /** Brackets not where expected */
-  ILLEGAL_BRACKET: IllegalBracketCode;
-  /** Return values in procedures having values */
-  RETURN_VALUES_PROCEDURES: ReturnValuesIllegalProcedureCode;
-  /** Return values in functions having too many values */
-  RETURN_VALUES_FUNCTIONS: ReturnValuesIllegalFunctionsCode;
-  /** Return values in functions missing a value */
-  RETURN_FUNCTION_MISSING: ReturnValuesMissingFunctionsCode;
-  /** More than one definition of a routine */
-  DUPLICATE_PROCEDURE: DuplicateProcedureCode;
-  /** More than one definition of a routine */
-  DUPLICATE_FUNCTION: DuplicateFunctionCode;
-  /** More than one definition of a routine */
-  DUPLICATE_PROCEDURE_METHOD: DuplicateProcedureMethodCode;
-  /** More than one definition of a routine */
-  DUPLICATE_FUNCTION_METHOD: DuplicateFunctionMethodCode;
-  /** More than one structure definition with the same name */
-  DUPLICATE_STRUCTURE: DuplicateStructureCode;
-  /** More than one structure definition with the same name */
-  DUPLICATE_SYSTEM_VARIABLE: DuplicateSystemVariableCode;
-  /** Procedure name that is a reserved IDL internal procedure */
-  RESERVED_PROCEDURE: ReservedProcedureCode;
-  /** Function name that is a reserved IDL internal function */
-  RESERVED_FUNCTION: ReservedFunctionCode;
-  /** Return function missing from function or function method */
-  RETURN_MISSING: ReturnProcedureMissingCode;
-  /** Nothing besides a function or procedure can come before a function or procedure definition */
-  ROUTINES_FIRST: RoutinesFirstCode;
-  /** No end to main level program */
-  MISSING_MAIN_END: MissingMainEndCode;
-  /** Main level program needs to have content */
-  EMPTY_MAIN: EmptyMainCode;
-  /** Illegal token after line continuation */
-  ILLEGAL_AFTER_LINE_CONTINUATION: IllegalAfterContinuationCode;
-  /** Procedure method name that is a reserved IDL internal procedure */
-  RESERVED_PROCEDURE_METHOD: ReservedProcedureMethodCode;
-  /** Function method name that is a reserved IDL internal function */
-  RESERVED_FUNCTION_METHOD: ReservedFunctionMethodCode;
-  /** Missing compile-opt statement in a routine */
-  NO_COMPILE_OPT: NoCompileOptCode;
-  /** Missing idl2 as a compile option for compile opt */
-  NO_COMPILE_OPT_IDL2: NoCompileOptIDL2Code;
-  /** Illegal compile option */
-  ILLEGAL_COMPILE_OPT: IllegalCompileOptCode;
-  /** Compile_opt with no compile options */
-  MISSING_COMPILE_OPTIONS: MissingCompileOptionsCode;
-  /** If we encounter defint32 or strictarr, user should use idl2 */
-  USE_IDL2_COMPILE_OPT: UseIDL2CompileOptCode;
-  /** When we expect to encounter a comma (i.e. after compile_opt idl2) */
-  EXPECTED_COMMA: ExpectedCommaCode;
-  /** When dont expect to encounter a comma */
-  UNEXPECTED_COMMA: UnexpectedCommaCode;
-  /** When you have more than one compile_opt statement */
-  MULTIPLE_COMPILE_OPT: MultipleCompileOptsCode;
-  /** When you have a quote that is not closed. Not a syntax error per-IDL, but is a bug */
-  UNCLOSED_QUOTE: UnclosedQuoteCode;
+  /** When we use shorthand notation for a keyword that is ambiguous */
+  AMBIGUOUS_KEYWORD_ABBREVIATION: AmbiguousKeywordAbbreviationCode;
   /** When arguments are not defined first */
   ARGS_FIRST: ArgsFirstCode;
   /** When a routine has arguments, but the ":Args:" section is missing from docs */
   ARGS_MISSING_FROM_DOCS: ArgMissingFromDocsCode;
-  /** When routine docs has ":Args:", but the routine has no arguments */
-  NO_ARGS_TO_DOCUMENT: NoArgsToDocumentCode;
-  /** When a routine has keywords, but the ":Keywords:" section is missing from docs */
-  KEYWORDS_MISSING_FROM_DOCS: KeywordMissingFromDocsCode;
-  /** When routine docs has ":Keywords:", but the routine has no keywords */
-  NO_KEYWORDS_TO_DOCUMENT: NoKeywordsToDocumentCode;
-  /** When docs for functions don't have return information */
-  RETURNS_MISSING_FROM_DOCS: ReturnsMissingFromDocsCode;
+  /** When a break statement isn't found in the right location */
+  BAD_BREAK_LOCATION: BadBreakLocationCode;
+  /** When a continue statement isn't found in the right location */
+  BAD_CONTINUE_LOCATION: BadContinueLocationCode;
+  /** IWhen include references are circular */
+  CIRCULAR_INCLUDE: CircularIncludeCode;
+  /** When a class definition has keywords or arguments and shouldn't */
+  CLASS_NO_PARAMETERS: ClassNoParametersCode;
+  /** Colon in function call for array indexing */
+  COLON_IN_FUNCTION: ColonInFunctionCode;
+  /** Colon in function method call for array indexing */
+  COLON_IN_FUNCTION_METHOD: ColonInFunctionMethodCode;
+  /** A line of docs is not left-aligned and will be trimmed */
+  DOCS_NOT_LEFT_ALIGNED: DocsNotLeftAlignedCode;
+  /** When a documented parameter does not really exist */
+  DOCUMENTED_PARAMETER_DOESNT_EXIST: DocumentedParameterDoesntExistCode;
+  /** Find two tokens with the same name next to each other */
+  DOUBLE_TOKEN: DoubleTokenCode;
+  /** Two argument definitions or internal keyword definitions with the same name */
+  DUPLICATE_ARG_VARIABLE_DEF: DuplicateArgKeywordVariableDefCode;
+  /** More than one definition of a routine */
+  DUPLICATE_FUNCTION: DuplicateFunctionCode;
+  /** More than one definition of a routine */
+  DUPLICATE_FUNCTION_METHOD: DuplicateFunctionMethodCode;
+  /** Two keyword definitions with the same name */
+  DUPLICATE_KEYWORD_DEF: DuplicateKeywordDefCode;
+  /** Using the same keyword more than once */
+  DUPLICATE_KEYWORD_USAGE: DuplicateKeywordUsageCode;
+  /** More than one definition of a routine */
+  DUPLICATE_PROCEDURE: DuplicateProcedureCode;
+  /** More than one definition of a routine */
+  DUPLICATE_PROCEDURE_METHOD: DuplicateProcedureMethodCode;
+  /** Using the same property in a structure more than once */
+  DUPLICATE_PROPERTY: DuplicatePropertyCode;
+  /** More than one structure definition with the same name */
+  DUPLICATE_STRUCTURE: DuplicateStructureCode;
+  /** More than one structure definition with the same name */
+  DUPLICATE_SYSTEM_VARIABLE: DuplicateSystemVariableCode;
+  /** When we have a problem with syntax tree or creating tokens for our file */
+  EMBARRASSING_FILE: EmbarrassingFileCode;
+  /** When we have a problem with validating tokens */
+  EMBARRASSING_TOKEN: EmbarrassingTokenCode;
+  /** Main level program needs to have content */
+  EMPTY_MAIN: EmptyMainCode;
+  /** When we expect to encounter a comma (i.e. after compile_opt idl2) */
+  EXPECTED_COMMA: ExpectedCommaCode;
+  /** When we expect to have a statement after a token or as the child of a token */
+  EXPECTED_STATEMENT: ExpectedStatementCode;
+  /** Illegal token after line continuation */
+  ILLEGAL_AFTER_LINE_CONTINUATION: IllegalAfterContinuationCode;
+  /** Uncaptured (or incomplete) arrow function */
+  ILLEGAL_ARROW: IllegalArrowCode;
+  /** Brackets not where expected */
+  ILLEGAL_BRACKET: IllegalBracketCode;
+  /** When we have a bad chain of statements and need to wrap it before continuing */
+  ILLEGAL_CHAIN: IllegalChainCode;
+  /** Colon character not where expected */
+  ILLEGAL_COLON: IllegalColonCode;
+  /** Comma where not expected */
+  ILLEGAL_COMMA: IllegalCommaCode;
+  /** Illegal compile option */
+  ILLEGAL_COMPILE_OPT: IllegalCompileOptCode;
+  /** When we try to use any operators with dictionaries as our first type and not all others are hashes, ordered hashes, or dictionaries */
+  ILLEGAL_DICTIONARY_OPERATION: IllegalDictionaryOperationCode;
+  /** When we try to use any operators with hashes as our first type and not all others are hashes, ordered hashes, or dictionaries */
+  ILLEGAL_HASH_OPERATION: IllegalHashOperationCode;
+  /** Include statement not where expected */
+  ILLEGAL_INCLUDE: IllegalIncludeCode;
+  /** When we have non-standard types for indexing */
+  ILLEGAL_INDEX_TYPE: IllegalIndexTypeCode;
+  /** When we try to use any operators with lists where not all types are lists */
+  ILLEGAL_LIST_OPERATION: IllegalListOperationCode;
+  /** When we try to use any operators with ordered hashes as our first type and not all others are hashes, ordered hashes, or dictionaries */
+  ILLEGAL_ORDERED_HASH_OPERATION: IllegalOrderedHashOperationCode;
+  /** Parentheses not where expected */
+  ILLEGAL_PARENTHESES: IllegalParenthesesCode;
+  /** Structure not where expected */
+  ILLEGAL_STRUCTURE: IllegalStructureCode;
+  /** When we try to use any operators with structures (not allowed) */
+  ILLEGAL_STRUCTURE_OPERATION: IllegalStructureOperationCode;
+  /** When we try to use subscripting (':') with a data type that doesnt work */
+  ILLEGAL_SUBSCRIPT: IllegalSubscriptCode;
+  /** Ternary operator in the wrong place */
+  ILLEGAL_TERNARY: IllegalTernaryCode;
+  /** Illegal use of parentheses for indexing */
+  ILLEGAL_VARIABLE_INDEX: IllegalVariableIndexCode;
+  /** When we will automatically print a statement in notebooks */
+  IMPLIED_PRINT_NOTEBOOK: ImpliedPrintForNotebookCode;
+  /** When a ternary operator is incomplete */
+  INCOMPLETE_TERNARY: IncompleteTernaryCode;
+  /** When we try to index something and one or more types doesnt allow it */
+  INDEXING_ERROR: IndexingErrorCode;
+  /** When an init method for an object class is not a function */
+  INIT_METHOD_NOT_FUNCTION: InitMethodNotFunctionCode;
   /** When in/out for docs is incorrect */
   INVALID_IN_OUT_DOCS: InvalidInOutDocsCode;
+  /** When the last flag is not private/public */
+  INVALID_PRIVATE_DOCS: InvalidPrivateDocsCode;
   /** When the required/optional parameter for docs are incorrect */
   INVALID_REQUIRED_OPTIONAL_DOCS: InvalidIRequiredOptionalDocsCode;
   /** When the type for docs is incorrect */
   INVALID_TYPE_DOCS: InvalidTypeDocsCode;
-  /** When the last flag is not private/public */
-  INVALID_PRIVATE_DOCS: InvalidPrivateDocsCode;
-  /** Not enough docs arguments for args or keywords (i.e. in/out, required/optional, dataType) */
-  NOT_ENOUGH_DOCS_PARAMETERS: NotEnoughDocumentationParametersCode;
-  /** Too many docs arguments for args or keywords (i.e. in/out, required/optional, dataType, private/public) */
-  TOO_MANY_DOCS_PARAMETERS: TooManyDocumentationParametersCode;
-  /** A line of docs is not left-aligned and will be trimmed */
-  DOCS_NOT_LEFT_ALIGNED: DocsNotLeftAlignedCode;
-  /** When the return statement is not immediately followed by the data type */
-  RETURN_DOCS_MISSING_TYPE: ReturnDocsMissingDataTypeCode;
-  /** When the ":Returns:" in documentation does not *only* contain the type */
-  RETURN_DOCS_INVALID: ReturnDocsInvalidCode;
-  /** When the ":Returns:" is specified for a procedure */
-  RETURN_DOCS_NOT_NEEDED: ReturnDocsNotNeededCode;
-  /** When a documented parameter does not really exist */
-  DOCUMENTED_PARAMETER_DOESNT_EXIST: DocumentedParameterDoesntExistCode;
-  /** When a parameter is missing from the documentation */
-  PARAMETER_IS_MISSING_FROM_DOCS: ParameterIsMissingFromDocsCode;
-  /** When a string literal expression has too many arguments */
-  STRING_LITERAL_TOO_MANY_ARGS: StringLiteralTooManyArgsCode;
-  /** When a continue statement isn't found in the right location */
-  BAD_CONTINUE_LOCATION: BadContinueLocationCode;
-  /** When a break statement isn't found in the right location */
-  BAD_BREAK_LOCATION: BadBreakLocationCode;
-  /** When we expect to have a statement after a token or as the child of a token */
-  EXPECTED_STATEMENT: ExpectedStatementCode;
-  /** When we encounter a single dot (i.e. access or method, but unfinished) */
-  STANDALONE_DOT: StandaloneDotCode;
-  /** When we encounter a hex escape character that is wrong */
-  TEMPLATE_LITERAL_HEX: IllegalTemplateLiteralHexCode;
-  /** When we encounter an escape sequence that is unknown or illegal */
-  UNKNOWN_TEMPLATE_LITERAL_ESCAPE: UnknownTemplateLiteralEscapeCode;
-  /** Two argument definitions or internal keyword definitions with the same name */
-  DUPLICATE_ARG_VARIABLE_DEF: DuplicateArgKeywordVariableDefCode;
-  /** Two keyword definitions with the same name */
-  DUPLICATE_KEYWORD_DEF: DuplicateKeywordDefCode;
-  /** Using the same property in a structure more than once */
-  DUPLICATE_PROPERTY: DuplicatePropertyCode;
-  /** Using the same keyword more than once */
-  DUPLICATE_KEYWORD_USAGE: DuplicateKeywordUsageCode;
-  /** When an init method for an object class is not a function */
-  INIT_METHOD_NOT_FUNCTION: InitMethodNotFunctionCode;
-  /** When we don't know structure that is being referenced as a name */
-  UNKNOWN_STRUCTURE: UnknownStructureNameCode;
-  /** When we have a bad chain of statements and need to wrap it before continuing */
-  ILLEGAL_CHAIN: IllegalChainCode;
+  /** When a routine has keywords, but the ":Keywords:" section is missing from docs */
+  KEYWORDS_MISSING_FROM_DOCS: KeywordMissingFromDocsCode;
+  /** Compile_opt with no compile options */
+  MISSING_COMPILE_OPTIONS: MissingCompileOptionsCode;
+  /** No end to main level program */
+  MISSING_MAIN_END: MissingMainEndCode;
   /** When we don't have a structure definition in our docs */
   MISSING_STRUCTURE_FROM_DOCS: MissingStructureFromDocsCode;
-  /** When a property is missing from the docs */
-  PROPERTY_MISSING_FROM_DOCS: PropertyMissingFromDocsCode;
-  /** When a class definition has keywords or arguments and shouldn't */
-  CLASS_NO_PARAMETERS: ClassNoParametersCode;
+  /** When you have more than one compile_opt statement */
+  MULTIPLE_COMPILE_OPT: MultipleCompileOptsCode;
+  /** When routine docs has ":Args:", but the routine has no arguments */
+  NO_ARGS_TO_DOCUMENT: NoArgsToDocumentCode;
+  /** Missing compile-opt statement in a routine */
+  NO_COMPILE_OPT: NoCompileOptCode;
+  /** Missing idl2 as a compile option for compile opt */
+  NO_COMPILE_OPT_IDL2: NoCompileOptIDL2Code;
+  /** When routine docs has ":Keywords:", but the routine has no keywords */
+  NO_KEYWORDS_TO_DOCUMENT: NoKeywordsToDocumentCode;
+  /** When a block statement is not closed */
+  NOT_CLOSED: NotClosedCode;
+  /** Not enough docs arguments for args or keywords (i.e. in/out, required/optional, dataType) */
+  NOT_ENOUGH_DOCS_PARAMETERS: NotEnoughDocumentationParametersCode;
   /** Not enough docs arguments for properties (i.e. empty) */
   NOT_ENOUGH_PROPERTY_DOCS_PARAMETERS: NotEnoughPropertyDocumentationParametersCode;
-  /** Too many docs arguments for parameters (i.e. more than just type) */
-  TOO_MANY_PROPERTY_DOCS_PARAMETERS: TooManyPropertyDocumentationParametersCode;
-  /** When we try to use subscripting (':') with a data type that doesnt work */
-  ILLEGAL_SUBSCRIPT: IllegalSubscriptCode;
-  /** When we try to use any operators with structures (not allowed) */
-  ILLEGAL_STRUCTURE_OPERATION: IllegalStructureOperationCode;
-  /** When we try to use any operators with lists where not all types are lists */
-  ILLEGAL_LIST_OPERATION: IllegalListOperationCode;
-  /** When we try to use any operators with hashes as our first type and not all others are hashes, ordered hashes, or dictionaries */
-  ILLEGAL_HASH_OPERATION: IllegalHashOperationCode;
-  /** When we try to use any operators with ordered hashes as our first type and not all others are hashes, ordered hashes, or dictionaries */
-  ILLEGAL_ORDERED_HASH_OPERATION: IllegalOrderedHashOperationCode;
-  /** When we try to use any operators with dictionaries as our first type and not all others are hashes, ordered hashes, or dictionaries */
-  ILLEGAL_DICTIONARY_OPERATION: IllegalDictionaryOperationCode;
-  /** When we have unknown types being operated on */
-  POTENTIAL_TYPE_INCOMPATIBILITIES: PotentialTypeIncompatibilitiesCode;
-  /** When we have non-standard types for indexing */
-  ILLEGAL_INDEX_TYPE: IllegalIndexTypeCode;
-  /** When we merge arrays with unknown types */
-  POTENTIAL_IDL_ARRAY_TYPE_INCOMPATIBILITIES: PotentialArrayTypeIncompatibilitiesCode;
-  /** When we are trying to dereference a point, but we dont have anything */
-  POINTER_NOTHING_TO_DE_REF: PointerNothingToDeReferenceCode;
-  /** When we are trying to dereference something besides a pointer */
-  POINTER_DE_REF_ILLEGAL_TYPE: PointerDeReferenceIllegalTypeCode;
-  /** When we try to index something and one or more types doesnt allow it */
-  INDEXING_ERROR: IndexingErrorCode;
+  /** When a parameter is missing from the documentation */
+  PARAMETER_IS_MISSING_FROM_DOCS: ParameterIsMissingFromDocsCode;
   /** When we try to de-reference a pointer and not all types allow it */
   POINTER_DE_REF_AMBIGUITY: PointerDeRefAmbiguityOperationCode;
-  /** When we have a keyword being used, but dont know what it is */
-  UNKNOWN_KEYWORD: UnknownKeywordCode;
-  /** When a ternary operator is incomplete */
-  INCOMPLETE_TERNARY: IncompleteTernaryCode;
-  /** When a variable is undefined and hasn't been defined */
-  UNDEFINED_VAR: UndefinedVariableCode;
-  /** When a variable is undefined and hasn't been defined, but a common block is present */
-  POTENTIALLY_UNDEFINED_VAR: PotentiallyUndefinedVariableCode;
-  /** When a variable is defined, but we use it before it is actually defined */
-  VAR_USAGE_BEFORE_DEF: VariableUsageBeforeDefinitionCode;
+  /** When we are trying to dereference something besides a pointer */
+  POINTER_DE_REF_ILLEGAL_TYPE: PointerDeReferenceIllegalTypeCode;
+  /** When we are trying to dereference a point, but we dont have anything */
+  POINTER_NOTHING_TO_DE_REF: PointerNothingToDeReferenceCode;
+  /** When we merge arrays with unknown types */
+  POTENTIAL_IDL_ARRAY_TYPE_INCOMPATIBILITIES: PotentialArrayTypeIncompatibilitiesCode;
+  /** When we have unknown types being operated on */
+  POTENTIAL_TYPE_INCOMPATIBILITIES: PotentialTypeIncompatibilitiesCode;
   /** When a variable is defined, but we use it before it is actually defined and we have a common block */
   POTENTIAL_VAR_USAGE_BEFORE_DEF: PotentialVariableUsageBeforeDefinitionCode;
-  /** When we use shorthand notation for a keyword that is ambiguous */
-  AMBIGUOUS_KEYWORD_ABBREVIATION: AmbiguousKeywordAbbreviationCode;
-  /** When we have a variable that is not used */
-  UNUSED_VARIABLE: UnusedVariableCode;
-  /** Illegal use of parentheses for indexing */
-  ILLEGAL_VARIABLE_INDEX: IllegalVariableIndexCode;
-  /** IWhen include references are circular */
-  CIRCULAR_INCLUDE: CircularIncludeCode;
-  /** When we disable a problem, but the alias is unknown */
-  UNKNOWN_DISABLED_ALIAS: UnknownDisabledAliasCode;
+  /** When a variable is undefined and hasn't been defined, but a common block is present */
+  POTENTIALLY_UNDEFINED_VAR: PotentiallyUndefinedVariableCode;
+  /** When a property is missing from the docs */
+  PROPERTY_MISSING_FROM_DOCS: PropertyMissingFromDocsCode;
+  /** Function name that is a reserved IDL internal function */
+  RESERVED_FUNCTION: ReservedFunctionCode;
+  /** Function method name that is a reserved IDL internal function */
+  RESERVED_FUNCTION_METHOD: ReservedFunctionMethodCode;
+  /** Procedure name that is a reserved IDL internal procedure */
+  RESERVED_PROCEDURE: ReservedProcedureCode;
+  /** Procedure method name that is a reserved IDL internal procedure */
+  RESERVED_PROCEDURE_METHOD: ReservedProcedureMethodCode;
+  /** When our variable name is reserved */
+  RESERVED_VARIABLE: ReservedVariableNameCode;
+  /** When the ":Returns:" in documentation does not *only* contain the type */
+  RETURN_DOCS_INVALID: ReturnDocsInvalidCode;
+  /** When the return statement is not immediately followed by the data type */
+  RETURN_DOCS_MISSING_TYPE: ReturnDocsMissingDataTypeCode;
+  /** When the ":Returns:" is specified for a procedure */
+  RETURN_DOCS_NOT_NEEDED: ReturnDocsNotNeededCode;
+  /** Return values in functions missing a value */
+  RETURN_FUNCTION_MISSING: ReturnValuesMissingFunctionsCode;
+  /** Return function missing from function or function method */
+  RETURN_MISSING: ReturnProcedureMissingCode;
+  /** Return values in functions having too many values */
+  RETURN_VALUES_FUNCTIONS: ReturnValuesIllegalFunctionsCode;
+  /** Return values in procedures having values */
+  RETURN_VALUES_PROCEDURES: ReturnValuesIllegalProcedureCode;
+  /** When docs for functions don't have return information */
+  RETURNS_MISSING_FROM_DOCS: ReturnsMissingFromDocsCode;
+  /** Nothing besides a function or procedure can come before a function or procedure definition */
+  ROUTINES_FIRST: RoutinesFirstCode;
+  /** When we encounter a single dot (i.e. access or method, but unfinished) */
+  STANDALONE_DOT: StandaloneDotCode;
   /** When we detect code that is floating and should have assignment or something as part of it */
   STANDALONE_EXPRESSION: StandaloneExpressionCode;
-  /** When we will automatically print a statement in notebooks */
-  IMPLIED_PRINT_NOTEBOOK: ImpliedPrintForNotebookCode;
+  /** When a string literal expression has too many arguments */
+  STRING_LITERAL_TOO_MANY_ARGS: StringLiteralTooManyArgsCode;
+  /** When we encounter a hex escape character that is wrong */
+  TEMPLATE_LITERAL_HEX: IllegalTemplateLiteralHexCode;
+  /** TODO statement in PRO code */
+  TODO: ToDoCode;
+  /** Too many docs arguments for args or keywords (i.e. in/out, required/optional, dataType, private/public) */
+  TOO_MANY_DOCS_PARAMETERS: TooManyDocumentationParametersCode;
+  /** Too many docs arguments for parameters (i.e. more than just type) */
+  TOO_MANY_PROPERTY_DOCS_PARAMETERS: TooManyPropertyDocumentationParametersCode;
+  /** When you have a quote that is not closed. Not a syntax error per-IDL, but is a bug */
+  UNCLOSED_QUOTE: UnclosedQuoteCode;
+  /** When a variable is undefined and hasn't been defined */
+  UNDEFINED_VAR: UndefinedVariableCode;
+  /** When we encounter an unexpected closing statement */
+  UNEXPECTED_CLOSER: UnexpectedCloserCode;
+  /** When dont expect to encounter a comma */
+  UNEXPECTED_COMMA: UnexpectedCommaCode;
+  /** When we encounter an unhandled token */
+  UNKNOWN_BRANCH_TOKEN: UnknownBranchTokenCode;
+  /** When we disable a problem, but the alias is unknown */
+  UNKNOWN_DISABLED_ALIAS: UnknownDisabledAliasCode;
+  /** When we have a keyword being used, but dont know what it is */
+  UNKNOWN_KEYWORD: UnknownKeywordCode;
+  /** When we don't know structure that is being referenced as a name */
+  UNKNOWN_STRUCTURE: UnknownStructureNameCode;
+  /** When we encounter an escape sequence that is unknown or illegal */
+  UNKNOWN_TEMPLATE_LITERAL_ESCAPE: UnknownTemplateLiteralEscapeCode;
+  /** Unknown token (something unexpected) not handled below */
+  UNKNOWN_TOKEN: UnknownTokenCode;
+  /** When we have a variable that is not used */
+  UNUSED_VARIABLE: UnusedVariableCode;
+  /** If we encounter defint32 or strictarr, user should use idl2 */
+  USE_IDL2_COMPILE_OPT: UseIDL2CompileOptCode;
+  /** When a variable is defined, but we use it before it is actually defined */
+  VAR_USAGE_BEFORE_DEF: VariableUsageBeforeDefinitionCode;
 }
 
 /**

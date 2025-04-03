@@ -7,7 +7,7 @@ import {
 import { IDL_OPERATOR_END } from '../regex.interface';
 
 export type OperatorTokenDef = ITokenDef<
-  OperatorToken | OperatorIncrementDecrementToken
+  OperatorIncrementDecrementToken | OperatorToken
 >;
 
 const TOKEN_LOOKUP = {

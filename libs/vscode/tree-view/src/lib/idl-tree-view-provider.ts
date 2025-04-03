@@ -13,6 +13,8 @@ import { ADDITIONAL_ACTIONS } from './trees/quick-access.tree.interface';
 import { TERMINAL_BUTTONS } from './trees/terminal-buttons.interface';
 
 export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
+  onDidChangeTreeData: vscode.Event<IDLAction | undefined>;
+
   /**
    * Parent nodes
    */
@@ -22,8 +24,6 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
    * Node of trees
    */
   tree: { [key: string]: IDLAction[] };
-
-  onDidChangeTreeData: vscode.Event<IDLAction | undefined>;
 
   private _onDidChangeTreeData: vscode.EventEmitter<IDLAction | undefined> =
     new vscode.EventEmitter<IDLAction | undefined>();
@@ -42,45 +42,6 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
 
     // build our tree
     this._buildTree();
-  }
-
-  refresh() {
-    this._onDidChangeTreeData.fire(undefined);
-  }
-
-  getTreeItem(element: IDLAction): vscode.TreeItem {
-    return element;
-  }
-
-  getParent(element: IDLAction): vscode.ProviderResult<IDLAction | null> {
-    if (this.tree[element.label]) {
-      return null;
-    }
-
-    const parents = Object.keys(this.tree);
-    for (let i = 0; i < parents.length; i++) {
-      const idx = this.tree[parents[i]]
-        .map((c) => c.label)
-        .indexOf(element.label);
-      if (idx !== -1) {
-        return this.parents[parents[i]];
-      }
-    }
-    return null;
-  }
-
-  getChildren(element?: IDLAction): Thenable<IDLAction[]> {
-    // return all of our parent elements
-    switch (true) {
-      case !element: {
-        const keys = Object.keys(this.parents);
-        return Promise.resolve(keys.map((key) => this.parents[key]));
-      }
-      case element.label in this.tree:
-        return Promise.resolve(this.tree[element.label]);
-      default:
-        return Promise.resolve([]);
-    }
   }
 
   /**
@@ -107,6 +68,45 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
         });
       }
     });
+  }
+
+  getChildren(element?: IDLAction): Thenable<IDLAction[]> {
+    // return all of our parent elements
+    switch (true) {
+      case !element: {
+        const keys = Object.keys(this.parents);
+        return Promise.resolve(keys.map((key) => this.parents[key]));
+      }
+      case element.label in this.tree:
+        return Promise.resolve(this.tree[element.label]);
+      default:
+        return Promise.resolve([]);
+    }
+  }
+
+  getParent(element: IDLAction): vscode.ProviderResult<IDLAction | null> {
+    if (this.tree[element.label]) {
+      return null;
+    }
+
+    const parents = Object.keys(this.tree);
+    for (let i = 0; i < parents.length; i++) {
+      const idx = this.tree[parents[i]]
+        .map((c) => c.label)
+        .indexOf(element.label);
+      if (idx !== -1) {
+        return this.parents[parents[i]];
+      }
+    }
+    return null;
+  }
+
+  getTreeItem(element: IDLAction): vscode.TreeItem {
+    return element;
+  }
+
+  refresh() {
+    this._onDidChangeTreeData.fire(undefined);
   }
 
   /**

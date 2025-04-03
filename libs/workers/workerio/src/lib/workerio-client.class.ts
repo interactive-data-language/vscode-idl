@@ -20,16 +20,16 @@ import { WorkerIOParseMessageToWorker } from './workerio-message';
 export class WorkerIOClient<_Message extends string>
   implements IWorkerIOClient<_Message>
 {
-  /** Message port */
-  private port: MessagePort;
+  /** Track cancellation tokens for requests */
+  private cancels: { [key: string]: CancellationToken } = {};
 
   /** Events that we listen to */
   private events: {
     [P in _Message]?: (payload: any, cancel: CancellationToken) => Promise<any>;
   } = {};
 
-  /** Track cancellation tokens for requests */
-  private cancels: { [key: string]: CancellationToken } = {};
+  /** Message port */
+  private port: MessagePort;
 
   /** Promise queue to throttle number of things we do at once */
   private queue: SimplePromiseQueue;
@@ -64,12 +64,13 @@ export class WorkerIOClient<_Message extends string>
     });
   }
 
-  /** Subscribe to messages from our parent thread */
-  on(
-    message: _Message,
-    promiseGenerator: (arg: any, cancel: CancellationToken) => Promise<any>
-  ) {
-    this.events[message] = promiseGenerator;
+  /**
+   * Cancel message by ID
+   */
+  cancel(messageId: string) {
+    if (messageId in this.cancels) {
+      this.cancels[messageId].cancel();
+    }
   }
 
   /**
@@ -90,6 +91,27 @@ export class WorkerIOClient<_Message extends string>
   }
 
   /**
+   * Listen for messages from our parent thread. If you don't call this, then
+   * nothing will happen!
+   */
+  listen() {
+    // listen to messages from our client
+    this.port.on('message', async (message) => {
+      /**
+       * Messages from workerio.class are all stringified, so we have to parse them all here
+       *
+       * Doing this dramatically increases performance
+       */
+      this._handleMessage(WorkerIOParseMessageToWorker(message));
+    });
+
+    // listen to close/cleanup events
+    this.port.on('close', () => {
+      process.exit(0);
+    });
+  }
+
+  /**
    * Log something to our parent thread
    */
   log(logThis: any) {
@@ -101,13 +123,12 @@ export class WorkerIOClient<_Message extends string>
     this._postMessage(outgoing as IMessageFromWorker<_Message>);
   }
 
-  /**
-   * Cancel message by ID
-   */
-  cancel(messageId: string) {
-    if (messageId in this.cancels) {
-      this.cancels[messageId].cancel();
-    }
+  /** Subscribe to messages from our parent thread */
+  on(
+    message: _Message,
+    promiseGenerator: (arg: any, cancel: CancellationToken) => Promise<any>
+  ) {
+    this.events[message] = promiseGenerator;
   }
 
   /**
@@ -125,14 +146,6 @@ export class WorkerIOClient<_Message extends string>
 
     // send the message
     return this._postMessage(msg);
-  }
-
-  /**
-   * Send a message to our parent thread
-   */
-  private _postMessage(message: IMessageFromWorker<_Message>) {
-    // this.port.postMessage(message);
-    this.port.postMessage(JSON.stringify(message));
   }
 
   /**
@@ -178,23 +191,10 @@ export class WorkerIOClient<_Message extends string>
   }
 
   /**
-   * Listen for messages from our parent thread. If you don't call this, then
-   * nothing will happen!
+   * Send a message to our parent thread
    */
-  listen() {
-    // listen to messages from our client
-    this.port.on('message', async (message) => {
-      /**
-       * Messages from workerio.class are all stringified, so we have to parse them all here
-       *
-       * Doing this dramatically increases performance
-       */
-      this._handleMessage(WorkerIOParseMessageToWorker(message));
-    });
-
-    // listen to close/cleanup events
-    this.port.on('close', () => {
-      process.exit(0);
-    });
+  private _postMessage(message: IMessageFromWorker<_Message>) {
+    // this.port.postMessage(message);
+    this.port.postMessage(JSON.stringify(message));
   }
 }

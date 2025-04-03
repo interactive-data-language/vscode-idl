@@ -7,7 +7,7 @@ import * as vscode from 'vscode';
  */
 export function GetTextEditorForURIString(
   uriString: string
-): vscode.TextEditor | undefined {
+): undefined | vscode.TextEditor {
   // return current editor
   return vscode.window.visibleTextEditors.filter(
     (editor) => editor.document.uri.toString() === uriString
@@ -21,7 +21,7 @@ export function GetTextEditorForURIString(
  */
 export function GetTextEditorForURI(
   uri: vscode.Uri
-): vscode.TextEditor | undefined {
+): undefined | vscode.TextEditor {
   // return current editor
   return GetTextEditorForURIString(uri.toString());
 }

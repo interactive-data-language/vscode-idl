@@ -20,33 +20,19 @@ import { IDLProcess } from '../idl-process.class';
  * Wraps the IDL Machine process and connects events from it to/from our IDL Process class
  */
 export class IDLMachineWrapper {
-  /**
-   * Parent class that handles primary logic that we plug into
-   */
-  private process: IDLProcess;
-
   /** The IDL process */
   private idl: ChildProcess;
 
   /** The IDL Machine */
   private machine: IDLMachine;
 
+  /**
+   * Parent class that handles primary logic that we plug into
+   */
+  private process: IDLProcess;
+
   constructor(process: IDLProcess) {
     this.process = process;
-  }
-
-  /**
-   * Takes output from IDL and makes the proper string
-   */
-  stringifyOutput(params: FromIDLMachineNotificationParams<TOutNotification>) {
-    switch (true) {
-      case (params.f & 0x002) > 0:
-        return '\n' + params.s;
-      case (params.f & 0x004) > 0:
-        return params.s + '\n';
-      default:
-        return params.s;
-    }
   }
 
   /**
@@ -272,39 +258,6 @@ export class IDLMachineWrapper {
   }
 
   /**
-   * Start our debugging session
-   */
-  listen(idl: ChildProcess) {
-    // save IDL prop
-    this.idl = idl;
-    this.machine = new IDLMachine(idl);
-
-    // register listeners for our notifications and requests
-    // form the server
-    this._listenForNotifications();
-    this._listenForRequests();
-  }
-
-  /**
-   * Stops our IDL debug session
-   */
-  stop() {
-    this.machine.sendNotification('exit', undefined);
-
-    // short timeout to make sure it shuts down
-    setTimeout(() => {
-      kill(this.idl.pid);
-    }, 100);
-  }
-
-  /**
-   * Pause execution
-   */
-  pause() {
-    this.machine.sendNotification('abort', undefined);
-  }
-
-  /**
    * Runs a command in IDL with the assumption that we are IDLE.
    *
    * DO NOT USE THIS METHOD IF IDL IS ACTIVELY RUNNING SOMETHING because
@@ -337,5 +290,52 @@ export class IDLMachineWrapper {
         flags,
       });
     });
+  }
+
+  /**
+   * Start our debugging session
+   */
+  listen(idl: ChildProcess) {
+    // save IDL prop
+    this.idl = idl;
+    this.machine = new IDLMachine(idl);
+
+    // register listeners for our notifications and requests
+    // form the server
+    this._listenForNotifications();
+    this._listenForRequests();
+  }
+
+  /**
+   * Pause execution
+   */
+  pause() {
+    this.machine.sendNotification('abort', undefined);
+  }
+
+  /**
+   * Stops our IDL debug session
+   */
+  stop() {
+    this.machine.sendNotification('exit', undefined);
+
+    // short timeout to make sure it shuts down
+    setTimeout(() => {
+      kill(this.idl.pid);
+    }, 100);
+  }
+
+  /**
+   * Takes output from IDL and makes the proper string
+   */
+  stringifyOutput(params: FromIDLMachineNotificationParams<TOutNotification>) {
+    switch (true) {
+      case (params.f & 0x002) > 0:
+        return '\n' + params.s;
+      case (params.f & 0x004) > 0:
+        return params.s + '\n';
+      default:
+        return params.s;
+    }
   }
 }

@@ -47,12 +47,6 @@ export async function InitConfig(folder: string) {
 
     // check what our response was
     switch (res) {
-      case IDL_TRANSLATION.notifications.yes:
-        LANGUAGE_SERVER_MESSENGER.sendNotification(
-          LANGUAGE_SERVER_MESSAGE_LOOKUP.INIT_WORKSPACE_CONFIG,
-          { folder }
-        );
-        break;
       case IDL_TRANSLATION.commands.notifications.initConfig.dontAsk:
         // extra sanity check to make sure we didnt already add
         // something to our preference
@@ -78,6 +72,12 @@ export async function InitConfig(folder: string) {
         UpdateConfigObject<IDontAskConfig>(IDL_EXTENSION_CONFIG_KEYS.dontAsk, {
           toInitConfig: true,
         });
+        break;
+      case IDL_TRANSLATION.notifications.yes:
+        LANGUAGE_SERVER_MESSENGER.sendNotification(
+          LANGUAGE_SERVER_MESSAGE_LOOKUP.INIT_WORKSPACE_CONFIG,
+          { folder }
+        );
         break;
       default:
         // do nothing

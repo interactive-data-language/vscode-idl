@@ -17,10 +17,10 @@ import { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
  * Union type of call routine tokens
  */
 export type CallRoutineToken =
-  | CallProcedureToken
-  | CallProcedureMethodToken
+  | CallFunctionMethodToken
   | CallFunctionToken
-  | CallFunctionMethodToken;
+  | CallProcedureMethodToken
+  | CallProcedureToken;
 
 /**
  * Tokens that we are validating

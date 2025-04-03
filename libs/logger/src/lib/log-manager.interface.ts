@@ -15,16 +15,16 @@ export type LogInterceptor = (options: ILogOptions) => void;
  * Options for creating our log manager
  */
 export interface ILogManagerOptions {
-  /** Folder where we write our logs to */
-  folder?: string;
-  /** How to handle existing log files */
-  mode?: FileLogMode;
-  /** Level of log to print */
-  logLevel?: LogLevel;
-  /** Don't log anything */
-  quiet?: boolean;
   /** Callback for logs */
   alert: LogAlertCallback;
+  /** Folder where we write our logs to */
+  folder?: string;
+  /** Level of log to print */
+  logLevel?: LogLevel;
+  /** How to handle existing log files */
+  mode?: FileLogMode;
+  /** Don't log anything */
+  quiet?: boolean;
 }
 
 /**

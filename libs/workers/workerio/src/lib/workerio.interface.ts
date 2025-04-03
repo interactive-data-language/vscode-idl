@@ -3,8 +3,8 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.interface';
 
 export interface IMessagePromise {
-  resolve: (data: any) => void;
   reject: (data: any) => void;
+  resolve: (data: any) => void;
   timeout: any | undefined;
 }
 
@@ -21,35 +21,35 @@ interface IBaseMessage {
  */
 export interface IMessageToWorker<_Message extends string> {
   /**
-   * Type of message that is coming back
+   * A reference to a shared array buffer that holds our
+   * cancellation flag
    */
-  type: _Message;
-  /**
-   * Associated payload for our message
-   */
-  payload: any;
+  cancel: SharedArrayBuffer;
   /**
    * Flag saying that we don't expect a response and that we are
    * simply sending a one-way message
    */
   noResponse?: boolean;
   /**
+   * Associated payload for our message
+   */
+  payload: any;
+  /**
    * Transfer ownership of vars to worker thread
    */
   transfer?: boolean;
   /**
-   * A reference to a shared array buffer that holds our
-   * cancellation flag
+   * Type of message that is coming back
    */
-  cancel: SharedArrayBuffer;
+  type: _Message;
 }
 
 /**
  * Message we send to a worker internally
  */
 export interface ISentMessageToWorker<_Message extends string>
-  extends IMessageToWorker<_Message>,
-    IBaseMessage {}
+  extends IBaseMessage,
+    IMessageToWorker<_Message> {}
 
 /**
  * Message we get back from a worker
@@ -57,13 +57,13 @@ export interface ISentMessageToWorker<_Message extends string>
 export interface IMessageFromWorker<_Message extends string>
   extends IBaseMessage {
   /**
-   * Type of message that is coming back
-   */
-  type: _Message;
-  /**
    * Associated payload for our message
    */
   payload: any;
+  /**
+   * Type of message that is coming back
+   */
+  type: _Message;
 }
 
 /**
@@ -71,11 +71,11 @@ export interface IMessageFromWorker<_Message extends string>
  */
 export interface IPostAndReceiveMessageResult<_Message extends string> {
   /**
-   * Cancellation token
-   */
-  token: CancellationToken;
-  /**
    * Response from the server
    */
   response: Promise<PayloadFromWorkerBaseMessage<_Message>>;
+  /**
+   * Cancellation token
+   */
+  token: CancellationToken;
 }

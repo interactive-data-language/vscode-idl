@@ -49,6 +49,12 @@ const OUTLINED_CLASS = 'vscode-outlined-focus';
   providers: [DataSharingService],
 })
 export class EntryComponent implements AfterViewInit {
+  class = DEFAULT_CLASS;
+
+  /**
+   * Parsed data
+   */
+  embed!: IDLNotebookEmbeddedItem<IDLNotebook_EmbedType>;
   /**
    * Flag if we have data or not
    */
@@ -61,6 +67,7 @@ export class EntryComponent implements AfterViewInit {
   get data(): string {
     return JSON.stringify(this.embed);
   }
+
   set data(data: string) {
     if (data in (window as any)) {
       this.embed = (window as any)[data];
@@ -71,13 +78,6 @@ export class EntryComponent implements AfterViewInit {
       delete (window as any)[data];
     }
   }
-
-  /**
-   * Parsed data
-   */
-  embed!: IDLNotebookEmbeddedItem<IDLNotebook_EmbedType>;
-
-  class = DEFAULT_CLASS;
 
   constructor(
     @Host() private dataShare: DataSharingService,

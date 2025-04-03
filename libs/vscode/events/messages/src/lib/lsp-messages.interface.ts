@@ -62,18 +62,18 @@ import {
 export type LanguageServerMessage =
   | AddDocsMessage
   | FileRenameMessage
+  | FolderDeleteMessage
   | FormatFileMessage
   | FormatWorkspaceMessage
-  | FolderDeleteMessage
   | GenerateTaskMessage
   | IndexingMessage
   | InitWorkspaceConfigMessage
   | LoggingMessage
   | MigrateCodeLSPMessage
   | NotebookToProCodeMessage
+  | PrepareNotebookCellMessage
   | ProgressMessage
   | RetrieveDocsMessage
-  | PrepareNotebookCellMessage
   | UsageMetricLSPMessage
   | WorkspaceConfigMessage;
 
@@ -151,16 +151,16 @@ export interface ILanguageServerMessages {
   MIGRATE_CODE: MigrateCodeLSPMessage;
   /** Convert notebooks to PRO code */
   NOTEBOOK_TO_PRO_CODE: NotebookToProCodeMessage;
+  /** Prepare notebook cell for execution */
+  PREPARE_NOTEBOOK_CELL: PrepareNotebookCellMessage;
   /** Progress message */
   PROGRESS: ProgressMessage;
   /** Message to retrieve docs */
   RETRIEVE_DOCS: RetrieveDocsMessage;
-  /** Prepare notebook cell for execution */
-  PREPARE_NOTEBOOK_CELL: PrepareNotebookCellMessage;
-  /** Message to update workspace config */
-  WORKSPACE_CONFIG: WorkspaceConfigMessage;
   /** Message from language server with usage metric to report */
   USAGE_METRIC: UsageMetricLSPMessage;
+  /** Message to update workspace config */
+  WORKSPACE_CONFIG: WorkspaceConfigMessage;
 }
 
 /**

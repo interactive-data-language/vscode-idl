@@ -6,9 +6,9 @@ import { join } from 'path';
 import * as progressBar from 'progress';
 
 interface IProblem {
+  erased: string;
   line: number;
   text: string;
-  erased: string;
 }
 
 /**

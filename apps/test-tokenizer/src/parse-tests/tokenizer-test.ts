@@ -11,9 +11,9 @@ import * as progressBar from 'progress';
 import { ExportPopularity } from './routine-popularity';
 
 interface IProblem {
+  erased: string;
   line: number;
   text: string;
-  erased: string;
 }
 
 /**

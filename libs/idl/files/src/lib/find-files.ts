@@ -11,7 +11,7 @@ import { IFolderRecursion } from './find-files.interface';
  * Handles recursion like IDL
  */
 export async function FindFiles(
-  folder: string | string[] | IFolderRecursion,
+  folder: IFolderRecursion | string | string[],
   pattern = ALL_FILES_GLOB_PATTERN
 ): Promise<string[]> {
   // init files that we find

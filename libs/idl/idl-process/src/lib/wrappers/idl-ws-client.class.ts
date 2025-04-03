@@ -33,15 +33,6 @@ export class IDLWebSocketClient {
   }
 
   /**
-   * Emits messages to the server - normalizes and enforces type checking
-   */
-  private _emitToServer<T extends ToIDLWebSocketMessageTypes>(
-    message: ToIDLWebSocketMessage<T>
-  ) {
-    this.socket.emit(IDL_WS_MESSAGE, message);
-  }
-
-  /**
    * Listen to events on our connection
    */
   listen() {
@@ -98,5 +89,14 @@ export class IDLWebSocketClient {
       type,
       payload,
     });
+  }
+
+  /**
+   * Emits messages to the server - normalizes and enforces type checking
+   */
+  private _emitToServer<T extends ToIDLWebSocketMessageTypes>(
+    message: ToIDLWebSocketMessage<T>
+  ) {
+    this.socket.emit(IDL_WS_MESSAGE, message);
   }
 }

@@ -12,10 +12,10 @@ import {
 export interface IFoundParameter
   extends IBaseIndexedToken,
     IParameterOrPropertyDetails {
-  /** Type of global token */
-  globalType: GlobalTokenType;
   /** Name of the global token */
   globalName: string;
+  /** Type of global token */
+  globalType: GlobalTokenType;
 }
 
 /**

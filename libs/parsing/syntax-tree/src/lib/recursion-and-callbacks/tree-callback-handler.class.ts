@@ -26,6 +26,14 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
   basic: BasicCallbackLookup<TMeta> = {};
 
   /**
+   * Controls recursion if we dive into children before processing parents
+   * which is the default
+   */
+  recursionOptions: Partial<ITreeRecurserOptions> = {
+    processBranchFirst: false,
+  };
+
+  /**
    * Callbacks for branches, organized by token name
    */
   private branch: BranchCallbackLookup<TMeta> = {};
@@ -34,14 +42,6 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
    * Callbacks for entire syntax trees
    */
   private tree: TreeCallbackLookup<TMeta> = [];
-
-  /**
-   * Controls recursion if we dive into children before processing parents
-   * which is the default
-   */
-  recursionOptions: Partial<ITreeRecurserOptions> = {
-    processBranchFirst: false,
-  };
 
   constructor(recursionOptions: Partial<ITreeRecurserOptions> = {}) {
     Object.assign(this.recursionOptions, recursionOptions);
@@ -64,25 +64,6 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
   }
 
   /**
-   * Execute all callbacks for basic token
-   */
-  processBasicToken<T extends BasicTokenNames>(
-    token: TreeToken<T>,
-    parsed: IParsed,
-    current: ITreeRecurserCurrent,
-    cb: TMeta | (() => TMeta)
-  ) {
-    // process if we have validators
-    if (token.name in this.basic) {
-      const meta = typeof cb === 'function' ? cb() : cb;
-      const cbs = this.basic[token.name];
-      for (let i = 0; i < cbs.length; i++) {
-        cbs[i](token, parsed, current, meta);
-      }
-    }
-  }
-
-  /**
    * Add a callback for branch tokens
    */
   onBranchToken<T extends NonBasicTokenNames>(
@@ -96,6 +77,32 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
 
     // save callback
     this.branch[token].push(callback);
+  }
+
+  /**
+   * Add a callback for the syntax tree
+   */
+  onTree(callback: TreeCallback<TMeta>) {
+    this.tree.push(callback);
+  }
+
+  /**
+   * Execute all callbacks for basic token
+   */
+  processBasicToken<T extends BasicTokenNames>(
+    token: TreeToken<T>,
+    parsed: IParsed,
+    current: ITreeRecurserCurrent,
+    cb: (() => TMeta) | TMeta
+  ) {
+    // process if we have validators
+    if (token.name in this.basic) {
+      const meta = typeof cb === 'function' ? cb() : cb;
+      const cbs = this.basic[token.name];
+      for (let i = 0; i < cbs.length; i++) {
+        cbs[i](token, parsed, current, meta);
+      }
+    }
   }
 
   /**
@@ -114,13 +121,6 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
         cbs[i](token, parsed, current, meta);
       }
     }
-  }
-
-  /**
-   * Add a callback for the syntax tree
-   */
-  onTree(callback: TreeCallback<TMeta>) {
-    this.tree.push(callback);
   }
 
   /**

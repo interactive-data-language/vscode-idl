@@ -83,11 +83,6 @@ export class IDLBreakpointManager {
     return breakpoints;
   }
 
-  /** Gets command fr removing a breakpoint */
-  private _getRemoveBreakpointCommand(file: string, line: number) {
-    return `breakpoint, /clear, '${CleanPath(file)}', ${line}`;
-  }
-
   /**
    * Removes a breakpoint from IDL
    */
@@ -143,35 +138,6 @@ export class IDLBreakpointManager {
 
     // remove them all at once
     await this.adapter.evaluate(commands.join(' & '), this._options);
-  }
-
-  /** Get the command to set a breakpoint */
-  private _getSetBreakpointCommand(file: string, line: number) {
-    return `breakpoint, /set, '${CleanPath(file)}', ${line}`;
-  }
-
-  /**
-   * Sets an individual breakpoint for a file and line
-   *
-   * Line number is one-based
-   */
-  private async setBreakpoint(
-    file: string,
-    line: number,
-    sync = true
-  ): Promise<void> {
-    /**
-     * Add breakpoint via IDL
-     */
-    await this.adapter.evaluate(
-      this._getSetBreakpointCommand(file, line),
-      this._options
-    );
-
-    // check if we need to sync with VSCode
-    if (sync) {
-      await this.syncBreakpointState();
-    }
   }
 
   /**
@@ -287,5 +253,39 @@ export class IDLBreakpointManager {
     }
 
     return current;
+  }
+
+  /** Gets command fr removing a breakpoint */
+  private _getRemoveBreakpointCommand(file: string, line: number) {
+    return `breakpoint, /clear, '${CleanPath(file)}', ${line}`;
+  }
+
+  /** Get the command to set a breakpoint */
+  private _getSetBreakpointCommand(file: string, line: number) {
+    return `breakpoint, /set, '${CleanPath(file)}', ${line}`;
+  }
+
+  /**
+   * Sets an individual breakpoint for a file and line
+   *
+   * Line number is one-based
+   */
+  private async setBreakpoint(
+    file: string,
+    line: number,
+    sync = true
+  ): Promise<void> {
+    /**
+     * Add breakpoint via IDL
+     */
+    await this.adapter.evaluate(
+      this._getSetBreakpointCommand(file, line),
+      this._options
+    );
+
+    // check if we need to sync with VSCode
+    if (sync) {
+      await this.syncBreakpointState();
+    }
   }
 }

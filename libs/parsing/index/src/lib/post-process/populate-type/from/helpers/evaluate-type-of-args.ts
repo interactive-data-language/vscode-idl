@@ -21,7 +21,7 @@ function IsNumber(name: string) {
 export function EvaluateTypeOfArgs(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<CallFunctionToken | CallFunctionMethodToken>,
+  token: TreeToken<CallFunctionMethodToken | CallFunctionToken>,
   argType: IDLDataType
 ): IDLDataType {
   // get the types from our arguments

@@ -21,16 +21,47 @@ import { IDLProcess } from '../idl-process.class';
  * Prone to errors and not perfect, but works OK.
  */
 export class IDLStdIOWrapper {
+  /** The IDL process */
+  private idl: ChildProcess;
+
   /**
    * Parent class that handles primary logic that we plug into
    */
   private process: IDLProcess;
 
-  /** The IDL process */
-  private idl: ChildProcess;
-
   constructor(process: IDLProcess) {
     this.process = process;
+  }
+
+  /**
+   * Runs a command in IDL with the assumption that we are IDLE.
+   *
+   * DO NOT USE THIS METHOD IF IDL IS ACTIVELY RUNNING SOMETHING because
+   * it will screw up events.
+   *
+   * The use for this is getting scope information immediately before we return
+   * as being complete and cleans up our event management
+   */
+  async evaluate(command: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      // handle errors writing to stdin
+      if (!this.idl.stdin.writable) {
+        reject(new Error('no stdin available'));
+      }
+
+      // listen for our event returning back to the command prompt
+      this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
+        resolve(output);
+      });
+
+      // send the command to IDL
+      if (os.platform() !== 'win32') {
+        // print the "terminal" so we know we are ready for input
+        this.idl.stdin.write(`${command}\nprint,'IDL>'\n`);
+      } else {
+        this.idl.stdin.write(`${command}\n`);
+      }
+    });
   }
 
   /**
@@ -173,14 +204,6 @@ export class IDLStdIOWrapper {
   }
 
   /**
-   * Stops our IDL debug session
-   */
-  stop() {
-    kill(this.idl.pid);
-    this.idl.kill('SIGINT');
-  }
-
-  /**
    * Pause execution
    */
   pause() {
@@ -188,33 +211,10 @@ export class IDLStdIOWrapper {
   }
 
   /**
-   * Runs a command in IDL with the assumption that we are IDLE.
-   *
-   * DO NOT USE THIS METHOD IF IDL IS ACTIVELY RUNNING SOMETHING because
-   * it will screw up events.
-   *
-   * The use for this is getting scope information immediately before we return
-   * as being complete and cleans up our event management
+   * Stops our IDL debug session
    */
-  async evaluate(command: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      // handle errors writing to stdin
-      if (!this.idl.stdin.writable) {
-        reject(new Error('no stdin available'));
-      }
-
-      // listen for our event returning back to the command prompt
-      this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
-        resolve(output);
-      });
-
-      // send the command to IDL
-      if (os.platform() !== 'win32') {
-        // print the "terminal" so we know we are ready for input
-        this.idl.stdin.write(`${command}\nprint,'IDL>'\n`);
-      } else {
-        this.idl.stdin.write(`${command}\n`);
-      }
-    });
+  stop() {
+    kill(this.idl.pid);
+    this.idl.kill('SIGINT');
   }
 }
