@@ -3,7 +3,7 @@ import {
   LANGUAGE_TOKEN_SCOPE_NAME,
   LOG_LANGUAGE_NAME,
   LOG_LANGUAGE_TOKEN_SCOPE_NAME,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { existsSync } from 'fs';
 import { join } from 'path';
 

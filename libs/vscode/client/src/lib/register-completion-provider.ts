@@ -1,7 +1,7 @@
 import {
   ALL_DOCUMENT_SELECTORS,
   COMPLETION_TRIGGER_CHARACTERS,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import * as vscode from 'vscode';
 import {
   CompletionItem as LanguageServerCompletionItem,

@@ -30,7 +30,7 @@ export const HEX_STRING_TEST = /^[0-9a-f]*$/i;
  */
 export const OCTAL_STRING_TEST = /^[0-7]*$/i;
 
-export type QuoteSingleTokenDef = ITokenDef<QuoteSingleToken | NumberToken>;
+export type QuoteSingleTokenDef = ITokenDef<NumberToken | QuoteSingleToken>;
 
 /**
  * Regex to find single quotes
@@ -57,7 +57,7 @@ export const QUOTE_SINGLE: QuoteSingleTokenDef = {
 /**
  * Double quotes can be either numbers or strings
  */
-export type QuoteDoubleTokenDef = ITokenDef<QuoteDoubleToken | NumberToken>;
+export type QuoteDoubleTokenDef = ITokenDef<NumberToken | QuoteDoubleToken>;
 
 /**
  * Regex to find double quotes

@@ -30,18 +30,6 @@ export function TypeFromMultipleTokens(
   // check for ternary operators
   for (let i = 0; i < children.length; i++) {
     switch (children[i].name) {
-      case TOKEN_NAMES.LOGICAL_TERNARY_THEN:
-        if ('type' in (children[i].cache as ITokenCache)) {
-          return (children[i].cache as ITokenCache).type;
-        }
-
-        (children[i].cache as ITokenCache).type = TypeFromTernary(
-          index,
-          parsed,
-          children[i] as TreeToken<LogicalTernaryThenToken>
-        );
-        return (children[i].cache as ITokenCache).type;
-
       /** Syntax like `a = (b + 5)` */
       case TOKEN_NAMES.ASSIGNMENT: {
         // get the token that comes before
@@ -73,6 +61,18 @@ export function TypeFromMultipleTokens(
 
         return copy(type);
       }
+
+      case TOKEN_NAMES.LOGICAL_TERNARY_THEN:
+        if ('type' in (children[i].cache as ITokenCache)) {
+          return (children[i].cache as ITokenCache).type;
+        }
+
+        (children[i].cache as ITokenCache).type = TypeFromTernary(
+          index,
+          parsed,
+          children[i] as TreeToken<LogicalTernaryThenToken>
+        );
+        return (children[i].cache as ITokenCache).type;
       default:
         break;
     }

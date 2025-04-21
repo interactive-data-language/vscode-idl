@@ -1,10 +1,9 @@
-import { EXAMPLE_NOTEBOOKS } from '@idl/notebooks/shared';
+import { CleanPath, EXAMPLE_NOTEBOOKS } from '@idl/idl/files';
 import {
-  CleanPath,
   IDL_COMMANDS,
   IDL_NOTEBOOK_LANGUAGE_NAME,
   Sleep,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import expect from 'expect';
 import { join } from 'path';
 import * as vscode from 'vscode';

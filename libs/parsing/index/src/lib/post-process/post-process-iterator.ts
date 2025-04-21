@@ -140,11 +140,6 @@ export function PostProcessIterator(
                 token.match[1].toLowerCase()
               ] = true;
               break;
-            case TOKEN_NAMES.CALL_PROCEDURE:
-              parsed.uses[GLOBAL_TOKEN_TYPES.PROCEDURE][
-                token.match[0].toLowerCase()
-              ] = true;
-              break;
             case TOKEN_NAMES.CALL_FUNCTION_METHOD:
               {
                 const methods = GetMethod(index, parsed, token);
@@ -177,6 +172,11 @@ export function PostProcessIterator(
               }
               break;
             }
+            case TOKEN_NAMES.CALL_PROCEDURE:
+              parsed.uses[GLOBAL_TOKEN_TYPES.PROCEDURE][
+                token.match[0].toLowerCase()
+              ] = true;
+              break;
             default:
               break;
           }

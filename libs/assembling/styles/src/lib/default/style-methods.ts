@@ -20,11 +20,11 @@ for (let i = 0; i < METHODS.length; i++) {
       }
 
       switch (meta.style.methods) {
-        case STYLE_FLAG_LOOKUP.DOT:
-          token.match[0] = token.match[0].replace('->', '.');
-          break;
         case STYLE_FLAG_LOOKUP.ARROW:
           token.match[0] = token.match[0].replace('.', '->');
+          break;
+        case STYLE_FLAG_LOOKUP.DOT:
+          token.match[0] = token.match[0].replace('->', '.');
           break;
         default:
         // do nothing

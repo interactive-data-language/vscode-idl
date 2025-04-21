@@ -1,5 +1,5 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
-import { IDL_COMMANDS } from '@idl/shared';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLDiagnostic } from '@idl/types/diagnostic';
 import { CodeAction, CodeActionKind } from 'vscode-languageserver';

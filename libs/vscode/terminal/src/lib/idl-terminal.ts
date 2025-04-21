@@ -1,6 +1,7 @@
-import { CleanPath, IDL_COMMANDS } from '@idl/shared';
+import { CleanPath } from '@idl/idl/files';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
+import { IsIDLDirValid } from '@idl/vscode/debug';
 import { GetActivePROCodeWindow, IDLCommandAction } from '@idl/vscode/shared';
 import { IDLAction } from '@idl/vscode/tree-view';
 import { platform } from 'os';
@@ -26,19 +27,7 @@ export function GetActiveIDLTerminal(): vscode.Terminal[] {
  * Function that attempts to start an IDL terminal
  */
 export function StartIDLTerminal(): boolean {
-  // make sure we have a folder
-  if (!IDL_EXTENSION_CONFIG.IDL.directory) {
-    vscode.window
-      .showInformationMessage(IDL_TRANSLATION.notifications.noIDLDirFound, {
-        title: IDL_TRANSLATION.notifications.configure,
-      })
-      .then((res) => {
-        if (res !== undefined) {
-          if (res.title === IDL_TRANSLATION.notifications.configure) {
-            vscode.commands.executeCommand(IDL_COMMANDS.CONFIG.IDL_DIR_USER);
-          }
-        }
-      });
+  if (!IsIDLDirValid(IDL_EXTENSION_CONFIG.IDL.directory)) {
     return false;
   }
 
@@ -124,14 +113,8 @@ export async function SendCommandToIDLTerminal(
       await code.save();
       idl.sendText(`.compile -v '${CleanPath(code.uri.fsPath)}'`);
       break;
-    case 'Run':
-      code = GetActivePROCodeWindow(true);
-      if (!code) {
-        return false;
-      }
-      await code.save();
-      idl.sendText(`.compile -v '${CleanPath(code.uri.fsPath)}'`);
-      idl.sendText('.go');
+    case 'Continue':
+      idl.sendText('.continue');
       break;
     case 'Execute':
       code = GetActivePROCodeWindow(true);
@@ -141,23 +124,29 @@ export async function SendCommandToIDLTerminal(
       await code.save();
       idl.sendText(`@${CleanPath(code.uri.fsPath)}`);
       break;
-    case 'Stop':
-      idl.sendText('\u0003', false);
+    case 'Reset':
+      idl.sendText('.reset');
       break;
-    case 'Continue':
-      idl.sendText('.continue');
+    case 'Run':
+      code = GetActivePROCodeWindow(true);
+      if (!code) {
+        return false;
+      }
+      await code.save();
+      idl.sendText(`.compile -v '${CleanPath(code.uri.fsPath)}'`);
+      idl.sendText('.go');
       break;
     case 'Step In':
       idl.sendText('.step');
       break;
-    case 'Step Over':
-      idl.sendText('.stepover');
-      break;
     case 'Step Out':
       idl.sendText('.out');
       break;
-    case 'Reset':
-      idl.sendText('.reset');
+    case 'Step Over':
+      idl.sendText('.stepover');
+      break;
+    case 'Stop':
+      idl.sendText('\u0003', false);
       break;
     default:
     // do nothing

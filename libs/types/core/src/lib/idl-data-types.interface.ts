@@ -41,19 +41,19 @@ export type IDLBigInteger = 'BigInteger';
 
 /** Union type of all numbers */
 export type IDLNumberUnion =
+  | IDLBigInteger
   | IDLByte
-  | IDLInteger
-  | IDLUnsignedInteger
-  | IDLLong
-  | IDLUnsignedLong
-  | IDLLong64
-  | IDLUnsignedLong64
-  | IDLFloat
-  | IDLDouble
   | IDLComplexFloat
-  | IDLDoubleComplex
   | IDLComplexNumber
-  | IDLBigInteger;
+  | IDLDouble
+  | IDLDoubleComplex
+  | IDLFloat
+  | IDLInteger
+  | IDLLong
+  | IDLLong64
+  | IDLUnsignedInteger
+  | IDLUnsignedLong
+  | IDLUnsignedLong64;
 
 /** Generic number type */
 export type IDLNumber = 'Number';
@@ -108,27 +108,27 @@ export type ENVITaskType = 'ENVITask';
 
 /** Known IDL data types from core IDL */
 export type IDLKnownTypes =
+  | ENVITaskType
   | IDLAny
   | IDLArray
   | IDLBoolean
   | IDLDictionary
   | IDLHash
-  | IDLOrderedHash
   | IDLList
   | IDLNull
   | IDLNumber
   | IDLNumberUnion
   | IDLObject
+  | IDLOrderedHash
   | IDLPointer
   | IDLString
   | IDLStructure
-  | IDLTaskType
-  | ENVITaskType;
+  | IDLTaskType;
 
 /** Union type of allowed variables */
 export type IDLTypes =
-  | IDLKnownTypes
   | IDLArrayPromotion
+  | IDLKnownTypes
   | IDLTypeOfArg
   | string;
 
@@ -154,10 +154,10 @@ interface IIDLTypeLookup {
   COMPLEX_FLOAT: IDLComplexFloat;
   /** Generic type for complex numbers */
   COMPLEX_NUMBER: IDLComplexNumber;
-  /** 64-bit floating point */
-  DOUBLE: IDLDouble;
   /** Dictionaries in IDL */
   DICTIONARY: IDLDictionary;
+  /** 64-bit floating point */
+  DOUBLE: IDLDouble;
   /** ENVI Task */
   ENVI_TASK: ENVITaskType;
   /** 32-bit floating point */
@@ -238,12 +238,10 @@ export const IDL_TYPE_LOOKUP: IIDLTypeLookup = {
  * Base structure for types in IDL for a single type
  */
 export interface IDLDataTypeBase<T extends IDLTypes> {
-  /** Type value for our item */
-  name: T;
-  /** Type to display to the user */
-  display: string;
   /** Sub-types */
   args: IDLDataType[];
+  /** Type to display to the user */
+  display: string;
   /**
    * Metadata for our type, most likely always empty, but is intended to store
    * properties about our member.
@@ -252,6 +250,8 @@ export interface IDLDataTypeBase<T extends IDLTypes> {
    * about the properties right here.
    */
   meta: IPropertyLookup;
+  /** Type value for our item */
+  name: T;
   /**
    * The value of a type (if it can be inferred or if it is literal)
    */

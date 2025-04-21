@@ -1,6 +1,7 @@
 import { MIGRATION_TYPE_LOOKUP } from '@idl/assembling/migrators-types';
+import { CleanPath } from '@idl/idl/files';
 import { IDL_COMMAND_LOG } from '@idl/logger';
-import { CleanPath, IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared';
+import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
 import {
@@ -12,19 +13,22 @@ import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import {
+  IDL_LOGGER,
+  LogCommandError,
+  LogCommandInfo,
+} from '@idl/vscode/logger';
+import {
   GetActiveIDLNotebookWindow,
   GetActivePROCodeOrTaskWindow,
   GetActivePROCodeWindow,
   ReplaceDocumentContent,
-  VSCodeTelemetryLogger,
 } from '@idl/vscode/shared';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { basename } from 'path';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
 // handle URI to file system and back
-import { IDL_LOGGER } from './initialize-client';
-import { LogCommandError, LogCommandInfo } from './logger/logger-helpers';
 import { LANGUAGE_SERVER_MESSENGER } from './start-language-server';
 
 // get the command errors from IDL translation
@@ -436,7 +440,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
                 LANGUAGE_SERVER_MESSAGE_LOOKUP.GENERATE_TASK,
                 {
                   uri: file.uri.toString(),
-                  type: res.target as 'idl' | 'envi',
+                  type: res.target as 'envi' | 'idl',
                 }
               );
             }

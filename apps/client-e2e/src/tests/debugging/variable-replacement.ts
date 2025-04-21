@@ -1,8 +1,8 @@
 import { CleanIDLOutput } from '@idl/idl/idl-process';
-import { IDL_COMMANDS, Sleep } from '@idl/shared';
+import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
-import { VSCODE_COMMANDS } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 

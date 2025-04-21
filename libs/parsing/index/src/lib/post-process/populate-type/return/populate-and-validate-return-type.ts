@@ -51,7 +51,7 @@ export function PopulateAndValidateReturnType(
     parsed.global.filter(
       (global) =>
         global.type in RETURN_TYPES_FOR && !global.name.endsWith('::init')
-    ) as IGlobalIndexedToken<GlobalFunctionToken | GlobalFunctionMethodToken>[]
+    ) as IGlobalIndexedToken<GlobalFunctionMethodToken | GlobalFunctionToken>[]
   ).filter((global) => Object.keys(global.meta.docsLookup).length === 0);
 
   /**

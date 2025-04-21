@@ -59,27 +59,17 @@ export async function GetTokenDefinition(
     if (token !== undefined) {
       // check what we have selected and act accordingly
       switch (token.name) {
-        case TOKEN_NAMES.KEYWORD:
-          info = GetKeyword(index, parsed, token, CACHE_FOR_TOKEN_DEF);
-          break;
-        case TOKEN_NAMES.KEYWORD_BINARY:
-          info = GetKeyword(index, parsed, token, CACHE_FOR_TOKEN_DEF);
-          break;
-        case TOKEN_NAMES.VARIABLE: {
-          info = GetVariableTokenDef(parsed, token, parent);
-          // set file if we have a variable
-          if (info !== undefined) {
-            // if we dont have a file source, set as current file
-            // other case if from include
-            if (info.file === undefined) {
-              info.file = file;
-            }
-
-            // overwrite position if we have true source
-            if (info.filePos !== undefined) {
-              info.pos = info.filePos;
+        case TOKEN_NAMES.ACCESS_PROPERTY: {
+          const pInfo = GetProperty(index, parsed, token, CACHE_FOR_TOKEN_DEF);
+          if (pInfo !== undefined) {
+            /**
+             * If we have an anonymous structure, then set the file as local
+             */
+            if (IDLTypeHelper.isType(pInfo.class, IDL_TYPE_LOOKUP.STRUCTURE)) {
+              pInfo.file = file;
             }
           }
+          info = pInfo;
           break;
         }
         case TOKEN_NAMES.CALL_FUNCTION:
@@ -96,6 +86,16 @@ export async function GetTokenDefinition(
           info = GetCallRoutineTokenDef(index, parsed, token);
           break;
         }
+        case TOKEN_NAMES.INCLUDE: {
+          info = GetIncludeDef(index, token);
+          break;
+        }
+        case TOKEN_NAMES.KEYWORD:
+          info = GetKeyword(index, parsed, token, CACHE_FOR_TOKEN_DEF);
+          break;
+        case TOKEN_NAMES.KEYWORD_BINARY:
+          info = GetKeyword(index, parsed, token, CACHE_FOR_TOKEN_DEF);
+          break;
         case TOKEN_NAMES.STRUCTURE_NAME:
           info = GetStructureDef(index, token);
           break;
@@ -103,21 +103,21 @@ export async function GetTokenDefinition(
           info = GetProperty(index, parsed, token, CACHE_FOR_TOKEN_DEF);
           break;
         }
-        case TOKEN_NAMES.ACCESS_PROPERTY: {
-          const pInfo = GetProperty(index, parsed, token, CACHE_FOR_TOKEN_DEF);
-          if (pInfo !== undefined) {
-            /**
-             * If we have an anonymous structure, then set the file as local
-             */
-            if (IDLTypeHelper.isType(pInfo.class, IDL_TYPE_LOOKUP.STRUCTURE)) {
-              pInfo.file = file;
+        case TOKEN_NAMES.VARIABLE: {
+          info = GetVariableTokenDef(parsed, token, parent);
+          // set file if we have a variable
+          if (info !== undefined) {
+            // if we dont have a file source, set as current file
+            // other case if from include
+            if (info.file === undefined) {
+              info.file = file;
+            }
+
+            // overwrite position if we have true source
+            if (info.filePos !== undefined) {
+              info.pos = info.filePos;
             }
           }
-          info = pInfo;
-          break;
-        }
-        case TOKEN_NAMES.INCLUDE: {
-          info = GetIncludeDef(index, token);
           break;
         }
         default:

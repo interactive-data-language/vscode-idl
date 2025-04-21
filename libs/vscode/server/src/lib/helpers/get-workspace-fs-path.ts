@@ -1,4 +1,4 @@
-import { GetFSPath } from '@idl/shared';
+import { GetFSPath } from '@idl/idl/files';
 import { WorkspaceFolder } from 'vscode-languageserver/node';
 
 /**

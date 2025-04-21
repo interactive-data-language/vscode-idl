@@ -44,7 +44,7 @@ export const LOGICAL_IF: LogicalIfTokenDef = {
 };
 
 export type LogicalThenElseTokenDef = ITokenDef<
-  LogicalThenToken | LogicalElseToken
+  LogicalElseToken | LogicalThenToken
 >;
 
 /**

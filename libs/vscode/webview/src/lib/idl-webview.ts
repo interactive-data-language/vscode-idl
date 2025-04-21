@@ -1,12 +1,13 @@
 import { IDL_WEB_VIEW_LOG } from '@idl/logger';
-import { WEB_VIEW_PANEL_ID } from '@idl/shared';
+import { WEB_VIEW_PANEL_ID } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { I18N_FOLDER, IDL_LOGGER } from '@idl/vscode/client';
+import { I18N_FOLDER } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG, UpdateConfigObject } from '@idl/vscode/config';
 import {
   IDL_EXTENSION_CONFIG_KEYS,
   IDontShowConfig,
 } from '@idl/vscode/extension-config';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import {
   IProfilerMessage,
   VSCodeWebViewMessage,
@@ -24,123 +25,23 @@ export class IDLWebView {
    */
   static currentPanel: IDLWebView | undefined;
 
-  static readonly viewType = WEB_VIEW_PANEL_ID;
   static readonly displayName = 'IDL';
+  static readonly viewType = WEB_VIEW_PANEL_ID;
 
-  private readonly _panel: vscode.WebviewPanel;
-  private readonly _extensionPath: string;
+  /** Has the webview properly started */
+  started = false;
+  /** Check if there was an error */
+  wasError = false;
 
   /** Things to cleanup */
   private _disposables: vscode.Disposable[] = [];
 
+  private readonly _extensionPath: string;
+
+  private readonly _panel: vscode.WebviewPanel;
+
   /** Pending messages to send */
   private _pending: VSCodeWebViewMessage[] = [];
-
-  /** Check if there was an error */
-  wasError = false;
-
-  /** Has the webview properly started */
-  started = false;
-
-  static createOrShow(extensionPath: string) {
-    IDL_LOGGER.log({
-      log: IDL_WEB_VIEW_LOG,
-      type: 'debug',
-      content: 'Create or show Webview panel',
-    });
-    const column = vscode.window.activeTextEditor
-      ? vscode.window.activeTextEditor.viewColumn
-      : undefined;
-
-    // If we already have a panel, show it.
-    if (IDLWebView.currentPanel) {
-      IDLWebView.currentPanel._panel.reveal(column);
-      return;
-    }
-
-    // get the directory for our webview
-    const viewDir = path.join(extensionPath, 'dist', 'apps', 'idl-webview');
-    // const assetsDir = path.join(viewDir, 'assets');
-    // const i18nDir = path.join(assetsDir, 'i18n');
-
-    // Otherwise, create a new panel.
-    const panel = vscode.window.createWebviewPanel(
-      IDLWebView.viewType,
-      IDLWebView.displayName,
-      column || vscode.ViewColumn.One,
-      {
-        // Enable javascript in the webview
-        enableScripts: true,
-
-        // keep the iframe when it is hidden, but this doesnt seem to do anything
-        // THIS GETS BUGGY -not like chrome tabs when hiding, just have to deal
-        // with a couple second overhead
-        retainContextWhenHidden: false,
-
-        // And restrict the webview to only loading content from our extension's `idl-webview/dist` directory.
-        localResourceRoots: [
-          vscode.Uri.file(viewDir),
-          vscode.Uri.file(I18N_FOLDER),
-        ],
-      }
-    );
-
-    IDLWebView.currentPanel = new IDLWebView(panel, extensionPath);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  static revive(panel: vscode.WebviewPanel, extensionPath: string, state: any) {
-    IDL_LOGGER.log({
-      log: IDL_WEB_VIEW_LOG,
-      type: 'debug',
-      content: 'Revive Webview panel',
-    });
-    IDLWebView.currentPanel = new IDLWebView(panel, extensionPath);
-  }
-
-  // wrapper for sending commands to the webview
-  // kind of excessive, but very verbose in what each message type is and what we expect
-  sendCommand(message: VSCodeWebViewMessage) {
-    IDL_LOGGER.log({
-      log: IDL_WEB_VIEW_LOG,
-      type: 'debug',
-      content: `Webview command "${message.command}"`,
-    });
-    if (!this.started) {
-      this._pending.push(message);
-      return;
-    }
-    switch (message.command) {
-      case 'recolor':
-        this._panel.webview.postMessage(message);
-        break;
-      case 'profiler':
-        this._panel.webview.postMessage(message as IProfilerMessage);
-        break;
-      default:
-        break;
-    }
-  }
-
-  doRefactor() {
-    // Send a message to the webview webview.
-    // You can send any JSON serializable data.
-    this._panel.webview.postMessage({ command: 'refactor' });
-  }
-
-  dispose() {
-    IDLWebView.currentPanel = undefined;
-
-    // Clean up our resources
-    this._panel.dispose();
-
-    while (this._disposables.length) {
-      const x = this._disposables.pop();
-      if (x) {
-        x.dispose();
-      }
-    }
-  }
 
   private constructor(panel: vscode.WebviewPanel, extensionPath: string) {
     this._panel = panel;
@@ -215,14 +116,6 @@ export class IDLWebView {
           content: ['Message from webview', message],
         });
         switch (message.command) {
-          case 'show-on-startup-setting':
-            UpdateConfigObject<IDontShowConfig>(
-              IDL_EXTENSION_CONFIG_KEYS.dontShow,
-              {
-                welcomePage: message.data,
-              }
-            );
-            return;
           case 'alert':
             vscode.window.showErrorMessage(message.data);
             return;
@@ -239,6 +132,14 @@ export class IDLWebView {
 
             // update our flag that we had an error
             this.wasError = true;
+            return;
+          case 'show-on-startup-setting':
+            UpdateConfigObject<IDontShowConfig>(
+              IDL_EXTENSION_CONFIG_KEYS.dontShow,
+              {
+                welcomePage: message.data,
+              }
+            );
             return;
           case 'started':
             IDL_LOGGER.log({
@@ -264,29 +165,104 @@ export class IDLWebView {
     );
   }
 
-  private _update() {
-    const webview = this._panel.webview;
+  static createOrShow(extensionPath: string) {
+    IDL_LOGGER.log({
+      log: IDL_WEB_VIEW_LOG,
+      type: 'debug',
+      content: 'Create or show Webview panel',
+    });
+    const column = vscode.window.activeTextEditor
+      ? vscode.window.activeTextEditor.viewColumn
+      : undefined;
 
-    // Vary the webview's content based on where it is located in the editor.
-    switch (this._panel.viewColumn) {
-      // case vscode.ViewColumn.Two:
-      //   this._updateTheView(webview);
-      //   return;
+    // If we already have a panel, show it.
+    if (IDLWebView.currentPanel) {
+      IDLWebView.currentPanel._panel.reveal(column);
+      return;
+    }
 
-      // case vscode.ViewColumn.Three:
-      //   this._updateTheView(webview);
-      //   return;
+    // get the directory for our webview
+    const viewDir = path.join(extensionPath, 'dist', 'apps', 'idl-webview');
+    // const assetsDir = path.join(viewDir, 'assets');
+    // const i18nDir = path.join(assetsDir, 'i18n');
 
-      // case vscode.ViewColumn.One:
-      default:
-        this._updateTheView(webview);
-        return;
+    // Otherwise, create a new panel.
+    const panel = vscode.window.createWebviewPanel(
+      IDLWebView.viewType,
+      IDLWebView.displayName,
+      column || vscode.ViewColumn.One,
+      {
+        // Enable javascript in the webview
+        enableScripts: true,
+
+        // keep the iframe when it is hidden, but this doesnt seem to do anything
+        // THIS GETS BUGGY -not like chrome tabs when hiding, just have to deal
+        // with a couple second overhead
+        retainContextWhenHidden: false,
+
+        // And restrict the webview to only loading content from our extension's `idl-webview/dist` directory.
+        localResourceRoots: [
+          vscode.Uri.file(viewDir),
+          vscode.Uri.file(I18N_FOLDER),
+        ],
+      }
+    );
+
+    IDLWebView.currentPanel = new IDLWebView(panel, extensionPath);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  static revive(panel: vscode.WebviewPanel, extensionPath: string, state: any) {
+    IDL_LOGGER.log({
+      log: IDL_WEB_VIEW_LOG,
+      type: 'debug',
+      content: 'Revive Webview panel',
+    });
+    IDLWebView.currentPanel = new IDLWebView(panel, extensionPath);
+  }
+
+  dispose() {
+    IDLWebView.currentPanel = undefined;
+
+    // Clean up our resources
+    this._panel.dispose();
+
+    while (this._disposables.length) {
+      const x = this._disposables.pop();
+      if (x) {
+        x.dispose();
+      }
     }
   }
 
-  private _updateTheView(webview: vscode.Webview) {
-    // this._panel.title = catName;
-    this._panel.webview.html = this._getHtmlForWebview(webview);
+  doRefactor() {
+    // Send a message to the webview webview.
+    // You can send any JSON serializable data.
+    this._panel.webview.postMessage({ command: 'refactor' });
+  }
+
+  // wrapper for sending commands to the webview
+  // kind of excessive, but very verbose in what each message type is and what we expect
+  sendCommand(message: VSCodeWebViewMessage) {
+    IDL_LOGGER.log({
+      log: IDL_WEB_VIEW_LOG,
+      type: 'debug',
+      content: `Webview command "${message.command}"`,
+    });
+    if (!this.started) {
+      this._pending.push(message);
+      return;
+    }
+    switch (message.command) {
+      case 'profiler':
+        this._panel.webview.postMessage(message as IProfilerMessage);
+        break;
+      case 'recolor':
+        this._panel.webview.postMessage(message);
+        break;
+      default:
+        break;
+    }
   }
 
   private _getHtmlForWebview(webview: vscode.Webview) {
@@ -342,5 +318,30 @@ export class IDLWebView {
 
     // return changes
     return strings;
+  }
+
+  private _update() {
+    const webview = this._panel.webview;
+
+    // Vary the webview's content based on where it is located in the editor.
+    switch (this._panel.viewColumn) {
+      // case vscode.ViewColumn.Two:
+      //   this._updateTheView(webview);
+      //   return;
+
+      // case vscode.ViewColumn.Three:
+      //   this._updateTheView(webview);
+      //   return;
+
+      // case vscode.ViewColumn.One:
+      default:
+        this._updateTheView(webview);
+        return;
+    }
+  }
+
+  private _updateTheView(webview: vscode.Webview) {
+    // this._panel.title = catName;
+    this._panel.webview.html = this._getHtmlForWebview(webview);
   }
 }

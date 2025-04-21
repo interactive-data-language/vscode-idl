@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "4.7.1",
+  "version": "4.8.0",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -13,7 +13,8 @@
   "homepage": "https://interactive-data-language.github.io/vscode-idl/",
   "scripts": {
     "build-client": "nx run-many --target=build --projects=client,idl-webview --prod",
-    "build-extension": "npm-run-all -s clean build-package-json build-docs build-client build-renderer build-server",
+    "build-client-web": "node ./tools/merge-client-web-paths.js && nx build client-web --prod",
+    "build-extension": "npm-run-all -s clean build-package-json build-docs build-client build-renderer build-server build-client-web",
     "build-docs": "node ./tools/build-and-copy-docs.js",
     "build-i18n": "nx build i18n && node ./dist/apps/i18n/main.js",
     "build-package-json": "npm run build-tmlang && npm run build-i18n && nx build package-json && node ./dist/apps/package-json/main.js && prettier --write ./extension/language/schemas/config",
@@ -44,6 +45,7 @@
     "test-perf": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 ./dist/apps/performance/main.js",
     "test-perf-profile": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 --prof ./dist/apps/performance/main.js",
     "start": "npm run build-package-json && npm run build-renderer-dev && npm run build-docs && nx run-many --target=build --projects=parsing-worker,server,client --watch --parallel",
+    "start-web": "npm run build-package-json && npm run build-renderer-dev && npm run build-docs && node ./tools/merge-client-web-paths.js && nx build client-web --watch",
     "start-client": "nx run-many --target=build --projects=client --watch --parallel",
     "start-perf": "nx run-many --target=build --projects=parsing-worker,performance --watch --parallel",
     "start-notebook": "nx run-many --target=build --projects=notebook-renderer,notebook-components --watch --parallel --configuration=development",
@@ -65,6 +67,7 @@
     "case-anything": "^2.1.13",
     "chalk": "^4.1.2",
     "compare-versions": "^6.1.1",
+    "cors": "^2.8.5",
     "deepmerge": "^4.2.2",
     "express": "^4.19.2",
     "fast-copy": "^3.0.2",
@@ -76,7 +79,11 @@
     "minilog": "^3.1.0",
     "nanoid": "^3.3.7",
     "rxjs": "^7.8.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "strip-ansi": "^7.1.0",
     "tslib": "^2.3.0",
+    "util": "^0.12.5",
     "vscode-jsonrpc": "^8.2.1",
     "vscode-languageclient": "^9.0.1",
     "vscode-languageserver": "^9.0.1",
@@ -137,12 +144,14 @@
     "@swc-node/register": "1.9.2",
     "@swc/core": "1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@types/express": "~4.17.13",
     "@types/glob-to-regexp": "^0.4.4",
     "@types/jest": "29.4.4",
     "@types/mapbox__geojson-extent": "^1.0.2",
     "@types/mime-types": "^2.1.4",
     "@types/minilog": "^2.0.31",
     "@types/node": "^18.16.9",
+    "@types/path-browserify": "^1.0.3",
     "@types/plist": "^3.0.4",
     "@types/progress": "^2.0.6",
     "@types/vscode": "^1.82.0",
@@ -157,13 +166,16 @@
     "@webcomponents/webcomponentsjs": "^2.8.0",
     "angular-material-css-vars": "^7.0.0",
     "axios": "1.7.4",
+    "buffer": "^6.0.3",
     "chart.js": "^4.4.3",
     "cypress": "13.13.3",
     "esbuild": "0.19.2",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-cypress": "2.13.4",
+    "eslint-plugin-perfectionist": "^4.8.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-typescript-sort-keys": "^3.3.0",
     "eslint-plugin-unused-imports": "^4.1.3",
     "expect": "^29.4.3",
     "get-port": "^7.1.0",
@@ -178,15 +190,20 @@
     "node-html-markdown": "^1.2.0",
     "npm-run-all": "^4.1.5",
     "nx": "19.5.7",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "plist": "^3.0.6",
     "prettier": "2.7.1",
+    "process": "^0.11.10",
     "progress": "^2.0.3",
     "protobufjs": "^7.3.2",
     "react-refresh": "^0.10.0",
     "rimraf": "^6.0.1",
+    "stream-browserify": "^3.0.0",
     "terser-webpack-plugin": "^5.3.1",
     "ts-jest": "29.1.0",
     "ts-node": "10.9.1",
+    "tty-browserify": "^0.0.1",
     "typescript": "5.5.4",
     "vitepress": "^1.3.3",
     "vscode-oniguruma": "^2.0.1",
@@ -207,6 +224,7 @@
     "onDebug"
   ],
   "main": "./dist/apps/client/main",
+  "browser": "./dist/apps/client-web/main.js",
   "categories": [
     "Debuggers",
     "Formatters",
@@ -1402,6 +1420,10 @@
     "menus": {
       "commandPalette": [
         {
+          "command": "idl.code.addDocsToFile",
+          "when": "!isWeb"
+        },
+        {
           "command": "idl.code.disableProblemSetting",
           "when": "false"
         },
@@ -1410,12 +1432,140 @@
           "when": "false"
         },
         {
+          "command": "idl.code.formatFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.code.formatWorkspace",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.code.generateTask",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.code.migrateToDL30API",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.config.specifyIDLDirectory",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.config.specifyIDLDirectoryWorkspace",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.compileFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.executeBatchFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.resetIDL",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.runFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.startIDL",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.startProfiling",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.stopProfiling",
+          "when": "!isWeb"
+        },
+        {
           "command": "idl.docs.openLink",
           "when": "false"
         },
         {
+          "command": "idl.notebooks.convertToPDF",
+          "when": "!isWeb"
+        },
+        {
           "command": "idl.notebooks.helpAsNotebook",
           "when": "false"
+        },
+        {
+          "command": "idl.notebooks.newNotebook",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.notebookToProCode",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.openENVIExample",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.openIDLExample",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.resetIDLKernel",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.resetNotebookExamples",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.stopAllIDLKernels",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.notebooks.stopIDLKernel",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.compileFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.continueExecution",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.executeBatchFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.pauseExecution",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.resetIDL",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.runFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.startIDL",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.stepIn",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.stepOut",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.terminal.stepOver",
+          "when": "!isWeb"
         },
         {
           "command": "idl.webview.start",

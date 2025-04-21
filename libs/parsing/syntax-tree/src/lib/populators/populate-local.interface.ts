@@ -31,8 +31,6 @@ export const LOCAL_TOKEN_LOOKUP: ILocalTokenNameLookup = {
  * Metadata for variable tokens
  */
 export interface ILocalVariableTokenMetadata extends IBaseValueDetails {
-  /** A flag indicating if our variable has been defined or not */
-  isDefined: boolean;
   /**
    * For variables that we detect, can we reset them during our post-processing?
    *
@@ -44,6 +42,8 @@ export interface ILocalVariableTokenMetadata extends IBaseValueDetails {
    * We don't do this for args/keywords though because they are static.
    */
   canReset: boolean;
+  /** A flag indicating if our variable has been defined or not */
+  isDefined: boolean;
   /** Flag indicating if our variable represents a static class or not */
   isStaticClass?: boolean;
   /**
@@ -69,10 +69,10 @@ export type LocalTokenMetadata<T extends LocalTokenTypes> =
  */
 export interface ILocalIndexedToken<T extends LocalTokenTypes>
   extends IBaseIndexedToken {
-  /** Type of local token we are tracking (NOT DATA TYPE, SEE meta.type) */
-  type: T;
   /** Metadata for our local token. Typed to match the "type" property */
   meta: LocalTokenMetadata<T>;
+  /** Type of local token we are tracking (NOT DATA TYPE, SEE meta.type) */
+  type: T;
 }
 
 /** Single local token (i.e. variable in IDL code) */
@@ -91,10 +91,6 @@ export interface ILocalTokenLookup {
  */
 export interface ILocalTokens {
   /**
-   * Local tokens for procedures by name in a single file
-   */
-  pro: { [key: string]: ILocalTokenLookup };
-  /**
    * Local tokens for functions by name in a single file
    */
   func: { [key: string]: ILocalTokenLookup };
@@ -102,6 +98,10 @@ export interface ILocalTokens {
    * Local tokens defined in main level programs
    */
   main: ILocalTokenLookup;
+  /**
+   * Local tokens for procedures by name in a single file
+   */
+  pro: { [key: string]: ILocalTokenLookup };
 }
 
 /**

@@ -3,10 +3,10 @@ import { ParseIDLType } from '@idl/types/core';
 import { OverrideParamOrProp } from './shared.interface';
 
 export interface ISharedOverrides {
-  /** Spatial ref for rasters */
-  SPATIALREF: OverrideParamOrProp;
   /** interleave for rasters */
   INTERLEAVE: OverrideParamOrProp;
+  /** Spatial ref for rasters */
+  SPATIALREF: OverrideParamOrProp;
 }
 
 /**

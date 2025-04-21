@@ -15,9 +15,9 @@ import { HasProblem } from '../helpers/has-problem';
  * Tokens that, if they have children, expect a comma to be the first thing
  */
 type RoutineTokens =
-  | RoutineProcedureToken
+  | MainLevelToken
   | RoutineFunctionToken
-  | MainLevelToken;
+  | RoutineProcedureToken;
 
 /**
  * Tokens to check for unexpected commas

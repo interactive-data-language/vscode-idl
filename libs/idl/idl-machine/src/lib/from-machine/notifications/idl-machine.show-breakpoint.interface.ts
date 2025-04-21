@@ -12,10 +12,10 @@ type BreakpointDisabled = 0x8;
  * Why the breakpoint changed
  */
 type BreakpointState =
-  | BreakpointSet
   | BreakpointCleared
   | BreakpointDisabled
-  | BreakpointEnabled;
+  | BreakpointEnabled
+  | BreakpointSet;
 
 /** Parameters for when a breakpoint was updated */
 export type ShowBreakpointParams = {

@@ -76,6 +76,56 @@ export class IDLTypeHelper {
   }
 
   /**
+   * Reduces data types for purposes of array creation using brackets
+   */
+  static arrayReduce(type: IDLDataType): IDLDataType {
+    /**
+     * Map types to array-compatible versions where we can add
+     * scalars and arrays of the same type (including objects) together
+     */
+    let mapped: IDLDataType = [];
+    for (let i = 0; i < type.length; i++) {
+      if (type[i].name === IDL_TYPE_LOOKUP.ARRAY) {
+        /** Because we have an array, recurse */
+        mapped = mapped.concat(IDLTypeHelper.arrayReduce(type[i].args[0]));
+      } else {
+        mapped.push(type[i]);
+      }
+    }
+
+    // reduce and return
+    return this.reduceIDLDataType(mapped);
+  }
+
+  /**
+   * Returns all type arguments from the given data type
+   */
+  static getAllTypeArgs(type: IDLDataType): IDLDataType {
+    const withArgs = this.getTypesWithArgs(type);
+
+    // get all possible return types, first type argument for any compound type
+    let possibleTypes: IDLDataType = [];
+    for (let i = 0; i < withArgs.length; i++) {
+      possibleTypes = possibleTypes.concat(withArgs[i].args[0]);
+    }
+
+    return possibleTypes;
+  }
+
+  /**
+   * Return types matching our filter
+   */
+  static getMatchingTypes(type: IDLDataType, findThis: string): IDLDataType {
+    const found: IDLDataType = [];
+    for (let i = 0; i < type.length; i++) {
+      if (type[i].name === findThis) {
+        found.push(type[i]);
+      }
+    }
+    return found;
+  }
+
+  /**
    * Returns the first matching meta key from our data type.
    *
    * Returns undefined if nothing is found
@@ -98,31 +148,10 @@ export class IDLTypeHelper {
   }
 
   /**
-   * Return types matching our filter
+   * Checks if a data type is a value of any
    */
-  static getMatchingTypes(type: IDLDataType, findThis: string): IDLDataType {
-    const found: IDLDataType = [];
-    for (let i = 0; i < type.length; i++) {
-      if (type[i].name === findThis) {
-        found.push(type[i]);
-      }
-    }
-    return found;
-  }
-
-  /**
-   * Returns all type arguments from the given data type
-   */
-  static getAllTypeArgs(type: IDLDataType): IDLDataType {
-    const withArgs = this.getTypesWithArgs(type);
-
-    // get all possible return types, first type argument for any compound type
-    let possibleTypes: IDLDataType = [];
-    for (let i = 0; i < withArgs.length; i++) {
-      possibleTypes = possibleTypes.concat(withArgs[i].args[0]);
-    }
-
-    return possibleTypes;
+  static isAnyType(type: IDLDataType) {
+    return this.isType(type, IDL_TYPE_LOOKUP.ANY);
   }
 
   /**
@@ -137,13 +166,6 @@ export class IDLTypeHelper {
       }
     }
     return false;
-  }
-
-  /**
-   * Checks if a data type is a value of any
-   */
-  static isAnyType(type: IDLDataType) {
-    return this.isType(type, IDL_TYPE_LOOKUP.ANY);
   }
 
   /**
@@ -181,27 +203,5 @@ export class IDLTypeHelper {
     for (let i = 0; i < type.length; i++) {
       delete type[i].value;
     }
-  }
-
-  /**
-   * Reduces data types for purposes of array creation using brackets
-   */
-  static arrayReduce(type: IDLDataType): IDLDataType {
-    /**
-     * Map types to array-compatible versions where we can add
-     * scalars and arrays of the same type (including objects) together
-     */
-    let mapped: IDLDataType = [];
-    for (let i = 0; i < type.length; i++) {
-      if (type[i].name === IDL_TYPE_LOOKUP.ARRAY) {
-        /** Because we have an array, recurse */
-        mapped = mapped.concat(IDLTypeHelper.arrayReduce(type[i].args[0]));
-      } else {
-        mapped.push(type[i]);
-      }
-    }
-
-    // reduce and return
-    return this.reduceIDLDataType(mapped);
   }
 }

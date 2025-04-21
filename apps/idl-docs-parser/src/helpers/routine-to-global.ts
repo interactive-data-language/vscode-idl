@@ -1,6 +1,6 @@
 import { GlobalDisplayNameLookup, IGlobalFromIDL } from '@idl/parsing/routines';
 import { DocsToMarkdown, MARKDOWN_TYPE_LOOKUP } from '@idl/parsing/syntax-tree';
-import { ResolveProductDocsURL, SortObject } from '@idl/shared';
+import { ResolveProductDocsURL, SortObject } from '@idl/shared/extension';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,

@@ -1,3 +1,4 @@
+import { EncodeNotebook } from '@idl/notebooks/encoders';
 import {
   IDLRawNotebook,
   IDLRawNotebookCell,
@@ -7,7 +8,6 @@ import {
 import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 
 import { CreateCodeForNotebooks } from './create-code-for-notebooks';
-import { EncodeNotebook } from './encode-notebook';
 
 /**
  * When does code block start

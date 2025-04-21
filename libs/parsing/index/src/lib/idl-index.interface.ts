@@ -34,40 +34,9 @@ export const IDL_INDEX_OPTIONS = {
 };
 
 /**
- * Data structure that tracks recursion for folders that we
- * need to process so that we match how IDL works
- */
-export interface IFolderRecursion {
-  [key: string]: boolean;
-}
-
-/**
- * Types of files that we track
- */
-export type IDLFileType =
-  | 'pro'
-  | 'pro-def'
-  | 'save'
-  | 'idl.json'
-  | 'envi-task'
-  | 'idl-task'
-  | 'idl-notebook';
-
-/**
- * Lookup by file type
- */
-export type IDLFileTypeLookup = {
-  [T in IDLFileType]: Set<string>;
-};
-
-/**
  * Options when indexing PRO code
  */
 export interface IIndexProCodeOptions extends IParserOptions {
-  /**
-   * Do we post process the file or not
-   */
-  postProcess: boolean;
   /**
    * Do change detection when we index
    */
@@ -76,6 +45,10 @@ export interface IIndexProCodeOptions extends IParserOptions {
    * Do we add to our cache or not?
    */
   noCache: boolean;
+  /**
+   * Do we post process the file or not
+   */
+  postProcess: boolean;
 }
 
 /**

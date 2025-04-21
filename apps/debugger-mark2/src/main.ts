@@ -1,5 +1,5 @@
 import { IDLMachine } from '@idl/idl/idl-machine';
-import { Sleep } from '@idl/shared';
+import { Sleep } from '@idl/shared/extension';
 import { spawn } from 'child_process';
 
 async function Main() {

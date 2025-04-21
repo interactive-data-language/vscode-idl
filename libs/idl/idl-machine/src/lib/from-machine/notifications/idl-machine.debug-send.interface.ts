@@ -3,42 +3,42 @@
  */
 export type DebugSendNotification = 'debugSend';
 
-type VariableChanges = 'self' | 'child' | 'redo child';
+type VariableChanges = 'child' | 'redo child' | 'self';
 
 interface IVariable {
+  changes: VariableChanges;
+  /** Child variables */
+  children: IVariable[];
+  common: boolean;
+  /** Dimensions */
+  dims: number[];
+  heap: boolean;
+  index: number;
   /** Scope level */
   level: number;
   /** Variable name */
   name: string;
-  /** IDL data type */
-  type: number;
+  param: boolean;
+  readOnly: boolean;
   /** Is it a scalar? */
   scalar: boolean;
-  /** Dimensions */
-  dims: number[];
-  index: number;
-  param: boolean;
-  heap: boolean;
-  common: boolean;
-  readOnly: boolean;
   settable: boolean;
-  changes: VariableChanges;
+  /** IDL data type */
+  type: number;
   /** String representation of the value of the variable */
   value: string;
-  /** Child variables */
-  children: IVariable[];
 }
 
 interface IFrame {
-  /** Scope level */
-  level: number;
+  changes: VariableChanges;
   /** File routine is in */
   file: string;
-  /** ??????? */
-  name: string;
+  /** Scope level */
+  level: number;
   /** Line, one based */
   line: number;
-  changes: VariableChanges;
+  /** ??????? */
+  name: string;
   /** Variables in the frame */
   variables: IVariable[];
 }

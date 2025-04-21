@@ -1,6 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { GetFSPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { GetFSPath } from '@idl/shared';
 import {
   DidChangeWatchedFilesParams,
   FileChangeType,
@@ -44,12 +44,6 @@ export const ON_DID_CHANGE_WATCHED_FILES = async (
       const fsPath = GetFSPath(change.uri);
 
       switch (change.type) {
-        case FileChangeType.Created:
-          added.push(fsPath);
-          break;
-        case FileChangeType.Deleted:
-          deleted.push(fsPath);
-          break;
         // TODO: overlaps with document.onDidChangeContent but this is needed
         // because of file changes that we dont have open. we are super fast for
         // indexing files, so it should not be a huge issue
@@ -59,6 +53,12 @@ export const ON_DID_CHANGE_WATCHED_FILES = async (
             continue;
           }
           updated.push(fsPath);
+          break;
+        case FileChangeType.Created:
+          added.push(fsPath);
+          break;
+        case FileChangeType.Deleted:
+          deleted.push(fsPath);
           break;
         default:
           // do nothing

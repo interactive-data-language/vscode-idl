@@ -37,6 +37,183 @@ export class IDLParsedCache {
   private lastAccess: { [key: string]: number } = {};
 
   /**
+   * Add parsed content to the cache
+   *
+   * This creates a shallow copy and compresses specific properties
+   * on the data structure (convert to string instead of complex data).
+   */
+  add(file: string, parsed: IParsed) {
+    this.byFile[file] = this.compress(parsed);
+    this._trackAccess(file);
+  }
+
+  /**
+   * Returns all the files we manage
+   */
+  allFiles() {
+    return Object.keys(this.byFile);
+  }
+
+  /**
+   * Checks to see if our checksum matches and is the same
+   */
+  checksumMatches(file: string, checksum: string) {
+    if (file in this.byFile) {
+      this._trackAccess(file);
+      return this.byFile[file].checksum === checksum;
+    }
+    return false;
+  }
+
+  /**
+   * Removes items from our parsed cache to reduce memory usage
+   */
+  cleanup(all = false) {
+    if (all) {
+      this.byFile = {};
+      this.lastAccess = {};
+    } else {
+      /** Time right now */
+      const now = performance.now();
+
+      /** Current files */
+      const keys = Object.keys(this.byFile);
+
+      // process all the files we have
+      for (let i = 0; i < keys.length; i++) {
+        if (keys[i] in this.lastAccess) {
+          if (now - this.lastAccess[keys[i]] > ACCESS_EXPIRATION_MS) {
+            this.remove(keys[i]);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Return disabled problems
+   */
+  disabledProblems(file: string): IDisabledProblems | undefined {
+    if (file in this.byFile) {
+      this._trackAccess(file);
+      return this.byFile[file].disabledProblems;
+    }
+  }
+
+  /**
+   * Retrieve tokens by file
+   *
+   * Returns undefined if not present, so use the `has` method to check
+   */
+  get(file: string): IParsed | undefined {
+    if (file in this.byFile) {
+      this._trackAccess(file);
+      return this.decompress(this.byFile[file]);
+    }
+    return undefined;
+  }
+
+  /**
+   * Tells us if we have tokens or not
+   */
+  has(file: string): boolean {
+    return file in this.byFile;
+  }
+
+  /**
+   * Return file lines
+   */
+  lines(file: string): number | undefined {
+    if (file in this.byFile) {
+      this._trackAccess(file);
+      return this.byFile[file].lines;
+    }
+  }
+
+  /**
+   * Return file outline
+   */
+  outline(file: string): DocumentSymbol[] | undefined {
+    if (file in this.byFile) {
+      this._trackAccess(file);
+      return this.byFile[file].outline;
+    }
+  }
+
+  /**
+   * Remove tokens by file
+   */
+  remove(file: string) {
+    delete this.byFile[file];
+    delete this.lastAccess[file];
+  }
+
+  /**
+   * Return file semantic tokens
+   *
+   * Only created/updated after we post-process a file, otherwise
+   * value is empty
+   */
+  semantic(file: string): SemanticTokens | undefined {
+    if (file in this.byFile) {
+      this._trackAccess(file);
+      return this.byFile[file].semantic.built;
+    }
+  }
+
+  /**
+   * Returns the text for a given file or undefined if the file
+   * does not exist in our cache
+   */
+  text(file: string): string[] | undefined {
+    if (file in this.byFile) {
+      this._trackAccess(file);
+      return this.byFile[file].text;
+    }
+  }
+
+  /**
+   * Updates problems in cached parsed to reflect the latest state if we
+   * are tracking the file
+   */
+  updateProblems(file: string, parsed: IParsed) {
+    if (file in this.byFile) {
+      this._trackAccess(file);
+      this.byFile[file].parseProblems = parsed.parseProblems;
+      this.byFile[file].postProcessProblems = parsed.postProcessProblems;
+    }
+  }
+
+  /**
+   * Updates semantic tokens
+   */
+  updateSemantic(file: string, parsed: IParsed) {
+    if (file in this.byFile) {
+      this._trackAccess(file);
+      this.byFile[file].semantic = parsed.semantic;
+    }
+  }
+
+  /**
+   * Returns the things that we use for a file
+   *
+   * Returns undefined if no matching file
+   */
+  uses(file: string) {
+    if (file in this.byFile) {
+      this._trackAccess(file);
+      return this.byFile[file].uses;
+    }
+  }
+
+  /**
+   * Last time we accessed an item in our cache
+   */
+  private _trackAccess(file: string) {
+    this.lastAccess[file] = performance.now();
+  }
+
+  /**
    * Compress
    */
   private compress(orig: IParsed): IParsed {
@@ -94,182 +271,5 @@ export class IDLParsedCache {
 
     // return
     return parsed;
-  }
-
-  /**
-   * Last time we accessed an item in our cache
-   */
-  private _trackAccess(file: string) {
-    this.lastAccess[file] = performance.now();
-  }
-
-  /**
-   * Add parsed content to the cache
-   *
-   * This creates a shallow copy and compresses specific properties
-   * on the data structure (convert to string instead of complex data).
-   */
-  add(file: string, parsed: IParsed) {
-    this.byFile[file] = this.compress(parsed);
-    this._trackAccess(file);
-  }
-
-  /**
-   * Returns all the files we manage
-   */
-  allFiles() {
-    return Object.keys(this.byFile);
-  }
-
-  /**
-   * Checks to see if our checksum matches and is the same
-   */
-  checksumMatches(file: string, checksum: string) {
-    if (file in this.byFile) {
-      this._trackAccess(file);
-      return this.byFile[file].checksum === checksum;
-    }
-    return false;
-  }
-
-  /**
-   * Removes items from our parsed cache to reduce memory usage
-   */
-  cleanup(all = false) {
-    if (all) {
-      this.byFile = {};
-      this.lastAccess = {};
-    } else {
-      /** Time right now */
-      const now = performance.now();
-
-      /** Current files */
-      const keys = Object.keys(this.byFile);
-
-      // process all the files we have
-      for (let i = 0; i < keys.length; i++) {
-        if (keys[i] in this.lastAccess) {
-          if (now - this.lastAccess[keys[i]] > ACCESS_EXPIRATION_MS) {
-            this.remove(keys[i]);
-          }
-        }
-      }
-    }
-  }
-
-  /**
-   * Retrieve tokens by file
-   *
-   * Returns undefined if not present, so use the `has` method to check
-   */
-  get(file: string): IParsed | undefined {
-    if (file in this.byFile) {
-      this._trackAccess(file);
-      return this.decompress(this.byFile[file]);
-    }
-    return undefined;
-  }
-
-  /**
-   * Tells us if we have tokens or not
-   */
-  has(file: string): boolean {
-    return file in this.byFile;
-  }
-
-  /**
-   * Return file lines
-   */
-  lines(file: string): number | undefined {
-    if (file in this.byFile) {
-      this._trackAccess(file);
-      return this.byFile[file].lines;
-    }
-  }
-
-  /**
-   * Return disabled problems
-   */
-  disabledProblems(file: string): IDisabledProblems | undefined {
-    if (file in this.byFile) {
-      this._trackAccess(file);
-      return this.byFile[file].disabledProblems;
-    }
-  }
-
-  /**
-   * Return file outline
-   */
-  outline(file: string): DocumentSymbol[] | undefined {
-    if (file in this.byFile) {
-      this._trackAccess(file);
-      return this.byFile[file].outline;
-    }
-  }
-
-  /**
-   * Return file semantic tokens
-   *
-   * Only created/updated after we post-process a file, otherwise
-   * value is empty
-   */
-  semantic(file: string): SemanticTokens | undefined {
-    if (file in this.byFile) {
-      this._trackAccess(file);
-      return this.byFile[file].semantic.built;
-    }
-  }
-
-  /**
-   * Returns the text for a given file or undefined if the file
-   * does not exist in our cache
-   */
-  text(file: string): string[] | undefined {
-    if (file in this.byFile) {
-      this._trackAccess(file);
-      return this.byFile[file].text;
-    }
-  }
-
-  /**
-   * Remove tokens by file
-   */
-  remove(file: string) {
-    delete this.byFile[file];
-    delete this.lastAccess[file];
-  }
-
-  /**
-   * Returns the things that we use for a file
-   *
-   * Returns undefined if no matching file
-   */
-  uses(file: string) {
-    if (file in this.byFile) {
-      this._trackAccess(file);
-      return this.byFile[file].uses;
-    }
-  }
-
-  /**
-   * Updates problems in cached parsed to reflect the latest state if we
-   * are tracking the file
-   */
-  updateProblems(file: string, parsed: IParsed) {
-    if (file in this.byFile) {
-      this._trackAccess(file);
-      this.byFile[file].parseProblems = parsed.parseProblems;
-      this.byFile[file].postProcessProblems = parsed.postProcessProblems;
-    }
-  }
-
-  /**
-   * Updates semantic tokens
-   */
-  updateSemantic(file: string, parsed: IParsed) {
-    if (file in this.byFile) {
-      this._trackAccess(file);
-      this.byFile[file].semantic = parsed.semantic;
-    }
   }
 }

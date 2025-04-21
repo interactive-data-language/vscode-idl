@@ -31,7 +31,7 @@ export function GetRoutineNameFromScope(token: TreeToken<TokenName>): string {
     if (scope[i].name in NAME_THESE) {
       return GetRoutineName(
         scope[i] as TreeToken<
-          RoutineProcedureToken | RoutineFunctionToken | MainLevelToken
+          MainLevelToken | RoutineFunctionToken | RoutineProcedureToken
         >
       );
     }

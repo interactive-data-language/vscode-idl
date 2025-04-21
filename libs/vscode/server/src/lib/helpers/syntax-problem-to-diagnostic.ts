@@ -1,5 +1,8 @@
 import { GetIDLProblemSeverity } from '@idl/parsing/syntax-tree';
-import { IDL_LANGUAGE_NAME, ResolveExtensionDocsURL } from '@idl/shared';
+import {
+  IDL_LANGUAGE_NAME,
+  ResolveExtensionDocsURL,
+} from '@idl/shared/extension';
 import { IDLDiagnostic } from '@idl/types/diagnostic';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
@@ -56,7 +59,8 @@ export function SyntaxProblemToDiagnostic(
     codeDescription: {
       href: ResolveExtensionDocsURL(
         `/problem-codes/codes/${problem.code}.html`,
-        IDL_CLIENT_CONFIG
+        IDL_CLIENT_CONFIG.documentation.useOnline,
+        IDL_CLIENT_CONFIG.documentation.localPort
       ),
     },
     data: {

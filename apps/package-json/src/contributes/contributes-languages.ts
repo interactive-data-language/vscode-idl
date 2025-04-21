@@ -10,7 +10,7 @@ import {
   PRO_FILE_EXTENSION,
   TASK_FILE_EXTENSION,
   TASK_STYLE_FILE_EXTENSION,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { existsSync } from 'fs';
 import { join } from 'path';
 

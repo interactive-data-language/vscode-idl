@@ -18,7 +18,7 @@ export class ServerIDLDebugAdapterFactory
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     session: vscode.DebugSession,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    executable: vscode.DebugAdapterExecutable | undefined
+    executable: undefined | vscode.DebugAdapterExecutable
   ): vscode.ProviderResult<vscode.DebugAdapterDescriptor> {
     if (!this.server) {
       // start listening on a random port

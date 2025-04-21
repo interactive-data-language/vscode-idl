@@ -9,10 +9,10 @@ import { SplitOperatorToken } from './split-tree-on-operators';
 export interface ISplitTreeOnOperators {
   /** The tokens being operated on */
   children: SyntaxTree[];
+  /** End position of the operators */
+  endPos: PositionArray;
   /** The operators we split on */
   operators: SplitOperatorToken[];
   /** Start position of operators */
   startPos: PositionArray;
-  /** End position of the operators */
-  endPos: PositionArray;
 }

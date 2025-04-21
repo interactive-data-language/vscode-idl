@@ -5,7 +5,7 @@ export interface IRequestHandlers {
   /**
    * Notification messages that we handle
    */
-  notifications: { [key: string]: (msg: any) => void | Promise<void> };
+  notifications: { [key: string]: (msg: any) => Promise<void> | void };
 
   /**
    * Request messages that we handle

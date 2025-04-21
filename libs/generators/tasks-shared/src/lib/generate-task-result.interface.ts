@@ -31,7 +31,7 @@ type ResponseProperties<T extends boolean> = T extends true
  * The ampersand in the definition is the "union" operator and adds in properties from our conditional
  * type above
  */
-export type GenerateTaskResult<T extends boolean> = ResponseProperties<T> & {
+export type GenerateTaskResult<T extends boolean> = {
   /** Boolean flag if we succeeded or not */
   success: T;
-};
+} & ResponseProperties<T>;

@@ -79,13 +79,40 @@ export function PopulateGlobalLocalCompileOpts(
 
     // determine how to proceed
     switch (branch.name) {
+      // custom case for main level programs so they end up in our outline
+      case TOKEN_NAMES.MAIN_LEVEL: {
+        const add: IGlobalIndexedToken<GlobalProcedureToken> = {
+          type: GLOBAL_TOKEN_TYPES.PROCEDURE,
+          name: MAIN_LEVEL_NAME,
+          pos: branch.pos,
+          meta: {
+            display: MAIN_LEVEL_NAME,
+            docs: 'Main level program',
+            docsLookup: {},
+            args: {},
+            kws: {},
+            source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
+            struct: copy(structures),
+          },
+        };
+        global.push(add);
+        parsed.compile.main = full ? GetCompileOpts(branch) : [];
+
+        // if we are a notebook, add main level program
+        if (parsed.type === 'notebook') {
+          if (parsed.compile.main.indexOf('idl2') === -1) {
+            parsed.compile.main.push('idl2');
+          }
+        }
+        break;
+      }
       // handle functions
       case TOKEN_NAMES.ROUTINE_FUNCTION:
         // make sure we have children
         if (branch.kids.length > 0) {
           // get our first child
           const first = branch.kids[0] as IBranch<
-            RoutineNameToken | RoutineMethodNameToken
+            RoutineMethodNameToken | RoutineNameToken
           >;
 
           const name = first.match[0].toLowerCase();
@@ -126,26 +153,6 @@ export function PopulateGlobalLocalCompileOpts(
 
           // check if method or function
           switch (first.name) {
-            case TOKEN_NAMES.ROUTINE_NAME: {
-              // make our token
-              const add: IGlobalIndexedToken<GlobalFunctionToken> = {
-                type: GLOBAL_TOKEN_TYPES.FUNCTION,
-                name,
-                pos: first.pos,
-                meta: meta as IFunctionMetadata,
-              };
-              global.push(add);
-              parsed.compile.func[name] = full ? GetCompileOpts(branch) : [];
-              parsed.local.func[name] = full
-                ? PopulateVariables(
-                    branch as IBranch<RoutineFunctionToken>,
-                    parsed,
-                    parsed.compile.func[name],
-                    add
-                  )
-                : {};
-              break;
-            }
             case TOKEN_NAMES.ROUTINE_METHOD_NAME: {
               // split our method name
               const hiSplit = first.match[0].split('::');
@@ -212,6 +219,26 @@ export function PopulateGlobalLocalCompileOpts(
               };
               break;
             }
+            case TOKEN_NAMES.ROUTINE_NAME: {
+              // make our token
+              const add: IGlobalIndexedToken<GlobalFunctionToken> = {
+                type: GLOBAL_TOKEN_TYPES.FUNCTION,
+                name,
+                pos: first.pos,
+                meta: meta as IFunctionMetadata,
+              };
+              global.push(add);
+              parsed.compile.func[name] = full ? GetCompileOpts(branch) : [];
+              parsed.local.func[name] = full
+                ? PopulateVariables(
+                    branch as IBranch<RoutineFunctionToken>,
+                    parsed,
+                    parsed.compile.func[name],
+                    add
+                  )
+                : {};
+              break;
+            }
             default:
               // do nothing
               break;
@@ -224,7 +251,7 @@ export function PopulateGlobalLocalCompileOpts(
         if (branch.kids.length > 0) {
           // get our first child
           const first = branch.kids[0] as IBranch<
-            RoutineNameToken | RoutineMethodNameToken
+            RoutineMethodNameToken | RoutineNameToken
           >;
 
           // get the name
@@ -266,26 +293,6 @@ export function PopulateGlobalLocalCompileOpts(
 
           // make sure it is the name of the routine
           switch (first.name) {
-            case TOKEN_NAMES.ROUTINE_NAME: {
-              // make our token
-              const add: IGlobalIndexedToken<GlobalProcedureToken> = {
-                type: GLOBAL_TOKEN_TYPES.PROCEDURE,
-                name,
-                pos: first.pos,
-                meta: meta as IRoutineMetadata,
-              };
-              global.push(add);
-              parsed.compile.pro[name] = full ? GetCompileOpts(branch) : [];
-              parsed.local.pro[name] = full
-                ? PopulateVariables(
-                    branch as IBranch<RoutineProcedureToken>,
-                    parsed,
-                    parsed.compile.pro[name],
-                    add
-                  )
-                : {};
-              break;
-            }
             case TOKEN_NAMES.ROUTINE_METHOD_NAME: {
               // split our method name
               const split = first.match[0].toLowerCase().split('::');
@@ -329,39 +336,32 @@ export function PopulateGlobalLocalCompileOpts(
               };
               break;
             }
+            case TOKEN_NAMES.ROUTINE_NAME: {
+              // make our token
+              const add: IGlobalIndexedToken<GlobalProcedureToken> = {
+                type: GLOBAL_TOKEN_TYPES.PROCEDURE,
+                name,
+                pos: first.pos,
+                meta: meta as IRoutineMetadata,
+              };
+              global.push(add);
+              parsed.compile.pro[name] = full ? GetCompileOpts(branch) : [];
+              parsed.local.pro[name] = full
+                ? PopulateVariables(
+                    branch as IBranch<RoutineProcedureToken>,
+                    parsed,
+                    parsed.compile.pro[name],
+                    add
+                  )
+                : {};
+              break;
+            }
             default:
               // do nothing
               break;
           }
         }
         break;
-      // custom case for main level programs so they end up in our outline
-      case TOKEN_NAMES.MAIN_LEVEL: {
-        const add: IGlobalIndexedToken<GlobalProcedureToken> = {
-          type: GLOBAL_TOKEN_TYPES.PROCEDURE,
-          name: MAIN_LEVEL_NAME,
-          pos: branch.pos,
-          meta: {
-            display: MAIN_LEVEL_NAME,
-            docs: 'Main level program',
-            docsLookup: {},
-            args: {},
-            kws: {},
-            source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
-            struct: copy(structures),
-          },
-        };
-        global.push(add);
-        parsed.compile.main = full ? GetCompileOpts(branch) : [];
-
-        // if we are a notebook, add main level program
-        if (parsed.type === 'notebook') {
-          if (parsed.compile.main.indexOf('idl2') === -1) {
-            parsed.compile.main.push('idl2');
-          }
-        }
-        break;
-      }
       default:
         // do nothing
         break;

@@ -1,6 +1,6 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
-import { GetExtensionPath } from '@idl/shared';
 import { GlobalTokens } from '@idl/types/core';
 import { TaskToGlobalToken } from '@idl/types/tasks';
 

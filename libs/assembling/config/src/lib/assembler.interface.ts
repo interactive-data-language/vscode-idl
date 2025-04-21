@@ -50,16 +50,16 @@ export const ASSEMBLER_FORMATTER_LOOKUP: IAssemblerFormatterLookup = {
  * Assembler options independent of formatter
  */
 export interface ITrueBaseAssemblerOptions {
-  /** How many spaces do we use for indents */
-  tabWidth: number;
-  /** Character used for end-of-line. Follows pattern for prettier at https://prettier.io/docs/en/options.html#end-of-line */
-  eol: 'lf' | 'crlf';
-  /** Do we auto-fix problems or not? */
-  autoFix: boolean;
   /** Do we auto-fix problems or not? */
   autoDoc: boolean;
+  /** Do we auto-fix problems or not? */
+  autoFix: boolean;
+  /** Character used for end-of-line. Follows pattern for prettier at https://prettier.io/docs/en/options.html#end-of-line */
+  eol: 'crlf' | 'lf';
   /** Flag that indicates we apply our styles and format the code */
   styleAndFormat: boolean;
+  /** How many spaces do we use for indents */
+  tabWidth: number;
 }
 
 /**
@@ -80,10 +80,10 @@ export interface IAssemblerInputOptions<T extends FormatterType>
   extends IBaseAssemblerOptions<T> {
   /** Config for the assembler that we are using */
   style: Partial<ICodeStyle>;
-  /** Do we process the code as if we know nothing about the source? */
-  vanilla?: boolean;
   /** Do we have a trailing space or not? */
   trailingSpace?: boolean;
+  /** Do we process the code as if we know nothing about the source? */
+  vanilla?: boolean;
 }
 
 /**

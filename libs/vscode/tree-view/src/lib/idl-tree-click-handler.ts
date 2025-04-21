@@ -1,6 +1,6 @@
 import { IDL_TREE_CLICK_HANDLER_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_LOGGER } from '@idl/vscode/client';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
 import { IDLAction } from './idl-action.class';

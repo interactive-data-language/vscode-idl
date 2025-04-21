@@ -31,24 +31,8 @@ import {
  * Class to talk to the IDL machine
  */
 export class IDLMachine {
-  /**
-   * Handlers for events from servers
-   */
-  private handlers: IRequestHandlers = {
-    notifications: {},
-    requests: {},
-  };
-
   /** Message IDs */
   id = 1;
-
-  /** IDL process */
-  private idl: ChildProcess;
-
-  /**
-   * Callbacks for promises
-   */
-  private resolvers: IRequestResolver = {};
 
   /**
    * Message handler from the IDL Machine
@@ -182,6 +166,22 @@ export class IDLMachine {
    */
   private _queue = new OutputQueue(this._onMessage);
 
+  /**
+   * Handlers for events from servers
+   */
+  private handlers: IRequestHandlers = {
+    notifications: {},
+    requests: {},
+  };
+
+  /** IDL process */
+  private idl: ChildProcess;
+
+  /**
+   * Callbacks for promises
+   */
+  private resolvers: IRequestResolver = {};
+
   constructor(idl: ChildProcess) {
     this.idl = idl;
 
@@ -189,6 +189,16 @@ export class IDLMachine {
     idl.stdout.on('data', (data: Buffer) => {
       this._queue.handleOutput(data.toString());
     });
+  }
+
+  /**
+   * Listen for notifications from the IDL Machine
+   */
+  onNotification<T extends FromIDLMachineNotifications>(
+    notification: T,
+    cb: (params: FromIDLMachineNotificationParams<T>) => Promise<void> | void
+  ) {
+    this.handlers.notifications[notification] = cb;
   }
 
   /**
@@ -206,13 +216,13 @@ export class IDLMachine {
   }
 
   /**
-   * Listen for notifications from the IDL Machine
+   * Send a notification to the IDL Machine
    */
-  onNotification<T extends FromIDLMachineNotifications>(
+  async sendNotification<T extends ToIDLMachineNotifications>(
     notification: T,
-    cb: (params: FromIDLMachineNotificationParams<T>) => void | Promise<void>
+    params: ToIDLMachineNotificationParams<T>
   ) {
-    this.handlers.notifications[notification] = cb;
+    this._writeNotification(notification, params);
   }
 
   /**
@@ -239,6 +249,19 @@ export class IDLMachine {
   /**
    * Writes a JSON RPC notification message
    */
+  private _writeNotification(method: string, params: any) {
+    this.idl.stdin.write(
+      JSON.stringify({
+        jsonrpc: '2.0',
+        method,
+        params,
+      })
+    );
+  }
+
+  /**
+   * Writes a JSON RPC notification message
+   */
   private _writeRequest(id: number, method: string, params: any) {
     this.idl.stdin.write(
       JSON.stringify({
@@ -259,29 +282,6 @@ export class IDLMachine {
         jsonrpc: '2.0',
         id,
         result,
-      })
-    );
-  }
-
-  /**
-   * Send a notification to the IDL Machine
-   */
-  async sendNotification<T extends ToIDLMachineNotifications>(
-    notification: T,
-    params: ToIDLMachineNotificationParams<T>
-  ) {
-    this._writeNotification(notification, params);
-  }
-
-  /**
-   * Writes a JSON RPC notification message
-   */
-  private _writeNotification(method: string, params: any) {
-    this.idl.stdin.write(
-      JSON.stringify({
-        jsonrpc: '2.0',
-        method,
-        params,
       })
     );
   }

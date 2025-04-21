@@ -1,0 +1,59 @@
+{
+  "name": "idl-ws",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/idl-ws/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "externalDependencies": "none",
+        "outputPath": "dist/apps/idl-ws",
+        "main": "apps/idl-ws/src/main.ts",
+        "tsConfig": "apps/idl-ws/tsconfig.app.json",
+        "assets": ["apps/idl-ws/src/assets"],
+        "webpackConfig": "webpack.node.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "idl-ws:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "idl-ws:build:development"
+        },
+        "production": {
+          "buildTarget": "idl-ws:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/idl-ws/jest.config.ts"
+      }
+    }
+  }
+}

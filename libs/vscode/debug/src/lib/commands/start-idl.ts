@@ -1,10 +1,10 @@
-import { IDL_COMMANDS } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
-import { VSCODE_COMMANDS } from '@idl/vscode/shared';
 import copy from 'fast-copy';
 import * as vscode from 'vscode';
 
+import { IsIDLDirValid } from '../helpers/is-idl-dir-valid';
 import { DEFAULT_IDL_DEBUG_CONFIGURATION } from '../idl-debug-adapter.interface';
 import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';
 
@@ -23,18 +23,7 @@ export async function StartIDL(): Promise<boolean> {
   }
 
   // make sure we have a folder
-  if (!IDL_EXTENSION_CONFIG.IDL.directory) {
-    vscode.window
-      .showInformationMessage(IDL_TRANSLATION.notifications.noIDLDirFound, {
-        title: IDL_TRANSLATION.notifications.configure,
-      })
-      .then((res) => {
-        if (res !== undefined) {
-          if (res.title === IDL_TRANSLATION.notifications.configure) {
-            vscode.commands.executeCommand(IDL_COMMANDS.CONFIG.IDL_DIR_USER);
-          }
-        }
-      });
+  if (!IsIDLDirValid(IDL_EXTENSION_CONFIG.IDL.directory)) {
     return false;
   }
 

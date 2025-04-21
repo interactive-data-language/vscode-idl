@@ -6,6 +6,10 @@ import { IParsedIDLNotebook } from '@idl/notebooks/shared';
  */
 export interface IGetParsedNotebookPending {
   /**
+   * The checksums for the code cells
+   */
+  checksums: string[];
+  /**
    * Promise that resolves to the parsed notebook
    */
   promise: Promise<IParsedIDLNotebook>;
@@ -13,8 +17,4 @@ export interface IGetParsedNotebookPending {
    * Cancellation token that we can use
    */
   token: CancellationToken;
-  /**
-   * The checksums for the code cells
-   */
-  checksums: string[];
 }

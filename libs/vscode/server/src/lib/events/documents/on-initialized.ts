@@ -1,5 +1,5 @@
+import { FindFiles, IFolderRecursion } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { IFolderRecursion } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { InitializedParams } from 'vscode-languageserver/node';
@@ -107,16 +107,21 @@ export const ON_INITIALIZED = async (event: InitializedParams) => {
          * on failures
          */
         try {
+          /** Find files we added */
+          const addedFiles = await FindFiles(info.folders.added);
+
           // index workspace folders mapped to locations on disk
-          const addedFiles = await IDL_INDEX.indexWorkspace(
+          await IDL_INDEX.indexWorkspaceFiles(
+            addedFiles,
             info.folders.added,
             GLOBAL_SERVER_SETTINGS.fullParse
           );
 
+          /** Find files we removed */
+          const removedFiles = await FindFiles(info.folders.removed);
+
           // remove workspaces that we dont need
-          const removedFiles = await IDL_INDEX.removeWorkspace(
-            info.folders.removed
-          );
+          await IDL_INDEX.removeWorkspaceFiles(removedFiles);
 
           // send problems
           SendProblems(Array.from(new Set(addedFiles.concat(removedFiles))));

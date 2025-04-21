@@ -6,18 +6,18 @@ import { ITreeRecurserCurrent } from '../recursion-and-callbacks/tree-recurser.i
 /**
  * Parent for a selected token
  */
-export type SelectedTokenParent = 'function' | 'procedure' | 'main';
+export type SelectedTokenParent = 'function' | 'main' | 'procedure';
 
 /**
  * Information about our parent so that we can quickly look it up
  */
 export interface IParentInformation {
-  /** Type of the token we are tracking */
-  type: SelectedTokenParent;
   /** Name of our parent token */
   name: string;
   /** Actual token */
   token: TreeBranchToken;
+  /** Type of the token we are tracking */
+  type: SelectedTokenParent;
 }
 
 /**

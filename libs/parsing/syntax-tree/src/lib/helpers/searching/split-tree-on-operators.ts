@@ -31,10 +31,10 @@ OPERATORS[TOKEN_NAMES.OPERATOR_NEGATIVE] = true;
  * can be strictly typed
  */
 export type SplitOperatorToken = TreeToken<
-  | OperatorToken
   | OperatorIncrementDecrementToken
   | OperatorLogicalToken
   | OperatorNegativeToken
+  | OperatorToken
 >;
 
 /**

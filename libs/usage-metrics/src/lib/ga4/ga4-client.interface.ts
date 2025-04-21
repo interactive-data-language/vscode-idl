@@ -43,6 +43,10 @@ export interface IGA4Options {
    */
   session_id?: string;
   /**
+   * Text for user agent in the events we send
+   */
+  user_agent?: string;
+  /**
    * ID of the user
    */
   user_id?: string;
@@ -50,16 +54,12 @@ export interface IGA4Options {
    * The IP address to use for the events
    */
   user_ip_address?: string;
-  /**
-   * Text for user agent in the events we send
-   */
-  user_agent?: string;
 }
 
 /**
  * Allowed data types for GA4 parameter values
  */
-export type GA4DataType = number | string | boolean;
+export type GA4DataType = boolean | number | string;
 
 /**
  *  Allowed data types for GA4 parameters
@@ -73,33 +73,33 @@ export interface IGA4EventParameters {
  */
 export interface IGA4PayloadData {
   /**
-   * GA protocol for sending events and how we format them
-   */
-  protocol_version: number;
-  /**
    * Are we a debug event that shows up in the debug event stream
    */
   _is_debug?: 1;
-  /**
-   * Do we send personalized ads?
-   */
-  non_personalized_ads?: 1;
-  /**
-   * Total number of events
-   */
-  hit_count: number;
   /**
    * The ID of the client that is sending events
    */
   client_id: string;
   /**
-   * The ID of the session
+   * Total number of events
    */
-  session_id: string;
+  hit_count: number;
+  /**
+   * Do we send personalized ads?
+   */
+  non_personalized_ads?: 1;
+  /**
+   * GA protocol for sending events and how we format them
+   */
+  protocol_version: number;
   /**
    * Did we start a session
    */
   session_engaged?: 1;
+  /**
+   * The ID of the session
+   */
+  session_id: string;
   /**
    * ID of the user
    */

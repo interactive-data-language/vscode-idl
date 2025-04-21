@@ -18,19 +18,9 @@ export function RoundToNearest(num: number, to: number) {
 })
 export class AnimationControlsComponent implements OnInit {
   /**
-   * The maximum number of frames that we have
+   * When we click fast forward or slow down, what do we do?
    */
-  @Input() nFrames = 1;
-
-  /**
-   * Animation interval (ms)
-   */
-  @Input() interval = 1000;
-
-  /**
-   * Output event that is emitted when our frame changes
-   */
-  @Output() frameChange = new EventEmitter<number>();
+  fastMultiplier = 2;
 
   /**
    * The current frame we are on
@@ -38,14 +28,14 @@ export class AnimationControlsComponent implements OnInit {
   frame = 0;
 
   /**
-   * Multiplier for speed
+   * Output event that is emitted when our frame changes
    */
-  multiplier = 1;
+  @Output() frameChange = new EventEmitter<number>();
 
   /**
-   * When we click fast forward or slow down, what do we do?
+   * Animation interval (ms)
    */
-  fastMultiplier = 2;
+  @Input() interval = 1000;
 
   /**
    * If we are paused or not
@@ -53,12 +43,32 @@ export class AnimationControlsComponent implements OnInit {
   isPaused = false;
 
   /**
+   * Multiplier for speed
+   */
+  multiplier = 1;
+
+  /**
+   * The maximum number of frames that we have
+   */
+  @Input() nFrames = 1;
+
+  /**
    * reference to current animation timeout
    */
   private _timeout!: any | undefined;
 
-  ngOnInit() {
-    this.play();
+  /**
+   * Gets the interval time (in ms) given current parameters
+   */
+  getInterval() {
+    return this.interval * this.multiplier;
+  }
+
+  /**
+   * Label for the tooltip
+   */
+  label(value: number) {
+    return `${value + 1}`;
   }
 
   /**
@@ -69,6 +79,10 @@ export class AnimationControlsComponent implements OnInit {
       1 / this.multiplier,
       this.multiplier > 1 ? 0.1 : 1
     )}x`;
+  }
+
+  ngOnInit() {
+    this.play();
   }
 
   /**
@@ -83,10 +97,24 @@ export class AnimationControlsComponent implements OnInit {
   }
 
   /**
-   * Label for the tooltip
+   * Resets/stops timeout for next frame
    */
-  label(value: number) {
-    return `${value + 1}`;
+  pause() {
+    this.isPaused = true;
+    if (this._timeout !== undefined) {
+      window.clearTimeout(this._timeout);
+    }
+  }
+
+  /**
+   * Pauses execution
+   */
+  pauseOrPlay() {
+    if (!this.isPaused) {
+      this.pause();
+    } else {
+      this.play();
+    }
   }
 
   /**
@@ -117,31 +145,12 @@ export class AnimationControlsComponent implements OnInit {
   }
 
   /**
-   * Gets the interval time (in ms) given current parameters
+   * Makes it play slower
    */
-  getInterval() {
-    return this.interval * this.multiplier;
-  }
-
-  /**
-   * Pauses execution
-   */
-  pauseOrPlay() {
-    if (!this.isPaused) {
-      this.pause();
-    } else {
-      this.play();
-    }
-  }
-
-  /**
-   * Resets/stops timeout for next frame
-   */
-  pause() {
-    this.isPaused = true;
-    if (this._timeout !== undefined) {
-      window.clearTimeout(this._timeout);
-    }
+  slowDown() {
+    this.pause();
+    this.multiplier = Math.min((this.multiplier *= this.fastMultiplier), 2);
+    this.play();
   }
 
   /**
@@ -150,15 +159,6 @@ export class AnimationControlsComponent implements OnInit {
   speedUp() {
     this.pause();
     this.multiplier = Math.max((this.multiplier /= this.fastMultiplier), 0.125);
-    this.play();
-  }
-
-  /**
-   * Makes it play slower
-   */
-  slowDown() {
-    this.pause();
-    this.multiplier = Math.min((this.multiplier *= this.fastMultiplier), 2);
     this.play();
   }
 }

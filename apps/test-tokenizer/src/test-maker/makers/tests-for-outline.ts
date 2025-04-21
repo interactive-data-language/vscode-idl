@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { writeFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
@@ -20,12 +20,12 @@ export async function TestsForOutline(
   const strings: string[] = [];
 
   // add imports
+  strings.push(`import { GetExtensionPath } from '@idl/idl/files';`);
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
   );
-  strings.push(`import { GetExtensionPath } from '@idl/shared';`);
   strings.push(`import { readFile } from 'fs/promises';`);
   strings.push(`import { DocumentSymbol } from 'vscode-languageserver/node';`);
   strings.push(``);

@@ -1,8 +1,8 @@
 import { IDL_DEBUG_ADAPTER_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_DEBUG_OUTPUT_CHANNEL, IDL_LOGGER } from '@idl/vscode/client';
+import { IDL_DEBUG_OUTPUT_CHANNEL } from '@idl/vscode/client-shared';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
-import { VariablesReferenceSubstitution } from '@idl/vscode/shared';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import {
   appendFileSync,
   existsSync,
@@ -13,6 +13,7 @@ import {
 import { dirname, join } from 'path';
 
 import { OUTPUT_CONFIG } from './log-output';
+import { VariablesReferenceSubstitution } from './variables-reference-substitution';
 
 /**
  * Creates/manages the location of the output file for our console input/output

@@ -1,9 +1,9 @@
-import { IDLCodeCoverage } from '@idl/idl/shared';
-import { GetExtensionPath } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
+import { IDLCodeCoverage } from '@idl/types/idl/idl-process';
 import * as vscode from 'vscode';
 
 /** When resetting decorations, what do we reset for? */
-export type IDLDecorationsResetFlag = 'all' | 'pro' | 'notebook';
+export type IDLDecorationsResetFlag = 'all' | 'notebook' | 'pro';
 
 /**
  * VSCode debug diagnostic collection

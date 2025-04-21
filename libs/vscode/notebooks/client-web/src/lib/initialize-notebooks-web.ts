@@ -1,0 +1,49 @@
+import { IDL_NOTEBOOK_LANGUAGE_NAME } from '@idl/shared/extension';
+import { IDL_LOGGER } from '@idl/vscode/logger';
+import { IDLNotebookSerializer } from '@idl/vscode/notebooks/shared';
+import { ExtensionContext } from 'vscode';
+import * as vscode from 'vscode';
+
+import { IInitializeNotebooksWeb } from './initialize-notebooks-web.interface';
+
+/**
+ * Serializer for IDL notebooks
+ */
+export const IDL_NOTEBOOK_SERIALIZER = new IDLNotebookSerializer();
+
+/**
+ * Initializes our tree views
+ */
+export function InitializeNotebooksWeb(
+  ctx: ExtensionContext
+): IInitializeNotebooksWeb {
+  IDL_LOGGER.log({
+    content: 'Registering notebook serializer and controller',
+  });
+  ctx.subscriptions.push(
+    vscode.workspace.registerNotebookSerializer(
+      IDL_NOTEBOOK_LANGUAGE_NAME,
+      IDL_NOTEBOOK_SERIALIZER
+    )
+  );
+  // ctx.subscriptions.push(IDL_NOTEBOOK_CONTROLLER);
+
+  // // create messenger for renderer
+  // IDL_LOGGER.log({
+  //   content: 'Creating notebook renderer messenger',
+  // });
+  // InitializeNotebookRendererMessenger();
+
+  // // register our providers for user interactions
+  // // RegisterNotebookHoverProvider();
+  // // RegisterNotebookCompletionProvider();
+  // // RegisterNotebookDefinitionProvider();
+  // // RegisterNotebookSymbolProvider();
+
+  // // register notebook commands
+  // RegisterNotebookCommands(ctx);
+
+  return {
+    serializer: IDL_NOTEBOOK_SERIALIZER,
+  };
+}

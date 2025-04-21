@@ -14,7 +14,8 @@
         "webpackConfig": "webpack.node.config.js",
         "assets": ["apps/test-tokenizer/src/assets"],
         "target": "node",
-        "compiler": "tsc"
+        "compiler": "tsc",
+        "externalDependencies": "none"
       },
       "configurations": {
         "production": {

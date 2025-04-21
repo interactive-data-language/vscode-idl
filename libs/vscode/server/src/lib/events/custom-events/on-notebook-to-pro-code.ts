@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { GetFSPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { NotebookToProCode } from '@idl/notebooks/idl-index';
 import { NotebookToIDLNotebook } from '@idl/notebooks/shared';
-import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   INotebookToProCodePayload,

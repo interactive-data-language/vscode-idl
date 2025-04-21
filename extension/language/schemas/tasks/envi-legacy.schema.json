@@ -136,7 +136,7 @@
         "keyword": {
           "type": "string",
           "title": "Keyword",
-          "description": "Optionally specify the keyword name for \"routine\" if the keyword doe snot match \"name\"."
+          "description": "Optionally specify the keyword name for \"routine\" if the keyword does not match \"name\"."
         },
         "displayName": {
           "type": "string",

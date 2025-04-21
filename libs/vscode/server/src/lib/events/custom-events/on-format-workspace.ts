@@ -1,5 +1,6 @@
+import { FindFiles } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { PRO_CODE_GLOB_PATTERN } from '@idl/shared';
+import { PRO_CODE_GLOB_PATTERN } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   FormatWorkspacePayload,
@@ -17,7 +18,6 @@ import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_EVENT_MANAGER,
 } from '../../initialize-server';
-import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
@@ -37,10 +37,7 @@ export const ON_FORMAT_WORKSPACE = async (
     /**
      * Find files and exclude notebooks
      */
-    const files = await IDL_INDEX.findFiles(
-      event.folders,
-      PRO_CODE_GLOB_PATTERN
-    );
+    const files = await FindFiles(event.folders, PRO_CODE_GLOB_PATTERN);
 
     /** Track file failures */
     const failures: string[] = [];

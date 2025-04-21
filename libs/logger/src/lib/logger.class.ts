@@ -1,5 +1,5 @@
 import { ObjectifyError } from '@idl/error-shared';
-import * as minilog from 'minilog';
+import * as chalk from 'chalk';
 
 import { LogInterceptor } from './log-manager.interface';
 import {
@@ -11,7 +11,8 @@ import {
 } from './logger.interface';
 import { StringifyData, StringifyDataForLog } from './stringify-data';
 
-minilog.enable();
+// force chalk to be enabled
+(chalk as any).level = 2;
 
 /**
  * Simply class that emulates the library Minilog which doesn't have types. Since we can use the library
@@ -20,29 +21,26 @@ minilog.enable();
  * for old times sakes, here is the lib we started with: https://github.com/mixu/minilog
  */
 export class Logger {
-  /** The file that we write our log to */
-  file?: string;
-
-  /** The name of our log, printed out first */
-  name: string;
-
-  /** reference to minilog */
-  mlog: minilog;
+  /** Callback when we get a message to alert */
+  alertCb: LogAlertCallback;
 
   /** Do we print debug statements */
   enableDebugLogs = false;
 
-  /** Callback when we get a message to alert */
-  alertCb: LogAlertCallback;
+  /** The file that we write our log to */
+  file?: string;
+
+  /** optionally set a log interceptor to interrupt any logging messages */
+  interceptor?: LogInterceptor;
 
   /** If we should not use fancy formatting when printing to the console */
   logUgly = false;
 
+  /** The name of our log, printed out first */
+  name: string;
+
   /** If we are quiet and dont log output to the console, still allows file logging */
   quiet = false;
-
-  /** optionally set a log interceptor to interrupt any logging messages */
-  interceptor?: LogInterceptor;
 
   constructor(
     name: string,
@@ -52,17 +50,9 @@ export class Logger {
   ) {
     // save properties
     this.name = name;
-    this.mlog = minilog(name);
     this.enableDebugLogs = enableDebugLogs;
     this.alertCb = alertCb;
     this.logUgly = logUgly;
-  }
-
-  /**
-   * Clean up our log which just removes the write stream if we have it
-   */
-  destroy() {
-    // this.stream?.close();
   }
 
   /**
@@ -70,6 +60,13 @@ export class Logger {
    */
   debug(data: any) {
     this.logItem('debug', data);
+  }
+
+  /**
+   * Clean up our log which just removes the write stream if we have it
+   */
+  destroy() {
+    // this.stream?.close();
   }
 
   /**
@@ -84,13 +81,6 @@ export class Logger {
    */
   info(data: any) {
     this.logItem('info', data);
-  }
-
-  /**
-   * Log a warning to the console
-   */
-  warn(data: any) {
-    this.logItem('warn', data);
   }
 
   /**
@@ -141,6 +131,35 @@ export class Logger {
   }
 
   /**
+   * Log a warning to the console
+   */
+  warn(data: any) {
+    this.logItem('warn', data);
+  }
+
+  /**
+   * Logs plain text to the console
+   *
+   * @private
+   * @param {string} front The front part of the string with name/formatting applied
+   * @param {*} data The data to write to disk
+   */
+  private _consoleLogUgly(front: string, data: any, indent = false) {
+    console.log(`${StringifyDataForLog(front, data, indent, false)}\n`);
+  }
+
+  /**
+   * Nicely logs content to the console for us
+   *
+   * @private
+   * @param {string} front The front part of the string with name/formatting applied
+   * @param {*} data The data to write to disk
+   */
+  private _logPretty(front: string, data: any, indent = false) {
+    console.log(chalk.white(StringifyDataForLog(front, data, indent, true)));
+  }
+
+  /**
    * Generic log method where you can specify the log type and the data to log
    * */
   private logItem(type: LogType, data: any) {
@@ -164,12 +183,12 @@ export class Logger {
       // for the first, use special formatting with the log name
       if (i === 0) {
         // set default log info
-        // let prettyLogType = PRETTY_LOG_NAMES.log;
+        let prettyLogType = PRETTY_LOG_NAMES.log;
         let uglyLogType = UGLY_LOG_NAMES.log;
 
         // check if we have a type that we know about
         if (type in PRETTY_LOG_NAMES) {
-          // prettyLogType = PRETTY_LOG_NAMES[type];
+          prettyLogType = PRETTY_LOG_NAMES[type];
           uglyLogType = UGLY_LOG_NAMES[type];
         }
 
@@ -184,31 +203,10 @@ export class Logger {
           continue;
         }
 
-        // convert data to a string
-        const toWrite = StringifyData(useData[i], true);
-
-        // print to the console with minilog since chalk isnt working
-        switch (type) {
-          case 'info':
-            this.mlog.info(toWrite);
-            break;
-          case 'debug':
-            this.mlog.debug(toWrite);
-            break;
-          case 'error':
-            this.mlog.error(toWrite);
-            break;
-          case 'warn':
-            this.mlog.warn(toWrite);
-            break;
-          default:
-            this.mlog.log(toWrite);
-            break;
-        }
-        // this._logPretty(
-        //   `${chalk.gray(this.name)} ${prettyLogType} `,
-        //   useData[i]
-        // );
+        this._logPretty(
+          `${chalk.gray(this.name)} ${prettyLogType}`,
+          chalk.white(StringifyData(useData[i], true))
+        );
       } else {
         // skip if not allowed to log to console
         if (this.quiet) {
@@ -224,27 +222,5 @@ export class Logger {
         }
       }
     }
-  }
-
-  /**
-   * Nicely logs content to the console for us
-   *
-   * @private
-   * @param {string} front The front part of the string with name/formatting applied
-   * @param {*} data The data to write to disk
-   */
-  private _logPretty(front: string, data: any, indent = false) {
-    console.log(StringifyDataForLog(front, data, indent, true));
-  }
-
-  /**
-   * Logs plain text to the console
-   *
-   * @private
-   * @param {string} front The front part of the string with name/formatting applied
-   * @param {*} data The data to write to disk
-   */
-  private _consoleLogUgly(front: string, data: any, indent = false) {
-    console.log(`${StringifyDataForLog(front, data, indent, false)}\n`);
   }
 }

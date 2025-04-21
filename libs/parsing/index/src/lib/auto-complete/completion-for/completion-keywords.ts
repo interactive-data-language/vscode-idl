@@ -4,7 +4,7 @@ import {
   IParsed,
   TreeToken,
 } from '@idl/parsing/syntax-tree';
-import { GetSortIndexForStrings } from '@idl/shared';
+import { GetSortIndexForStrings } from '@idl/shared/extension';
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {

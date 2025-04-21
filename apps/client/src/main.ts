@@ -9,7 +9,7 @@ import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { InitializeDocs } from '@idl/vscode/docs';
 import { InitializeENVIOpener } from '@idl/vscode/envi-opener';
 import { IInitializeType } from '@idl/vscode/initialize-types';
-import { InitializeNotebooks } from '@idl/vscode/notebooks';
+import { InitializeNotebooks } from '@idl/vscode/notebooks/client';
 import { InitializeIDLTerminal } from '@idl/vscode/terminal';
 import { InitializeTree } from '@idl/vscode/tree-view';
 import { InitializeWebView } from '@idl/vscode/webview';
@@ -34,9 +34,6 @@ export async function activate(
   // add everything for IDL terminal
   InitializeIDLTerminal(ctx);
 
-  // initialize our tree view
-  InitializeTree(ctx);
-
   // add our webview
   const webview = InitializeWebView(ctx);
 
@@ -48,6 +45,9 @@ export async function activate(
 
   // add notebooks
   const notebooks = InitializeNotebooks(ctx);
+
+  // initialize our tree view
+  InitializeTree(ctx, false);
 
   // return result
   return {

@@ -3,7 +3,7 @@ import {
   ICON_THEME_NAME,
   IDL_COMMANDS,
   IDL_LANGUAGE_NAME,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_EXTENSION_CONFIG_KEYS,
@@ -25,6 +25,12 @@ export let IDL_EXTENSION_CONFIG: IIDLWorkspaceConfig;
 
 /**
  * Get's IDL's workspace  config
+ *
+ * DONT AWAIT THIS FUNCTION
+ *
+ * It has some blocking async logic so that you arent spammed with questions
+ *
+ * So, if you await this callback, it will wait until all questions are answered before returning
  */
 export async function InitializeExtensionConfig(onConfigChanges: () => void) {
   // get the current workspace config
@@ -150,7 +156,7 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
 
   // prompt user to change icon theme if default theme
   if (!IDL_EXTENSION_CONFIG.dontAsk.toOpenDocs) {
-    await QuestionAsker(
+    QuestionAsker(
       IDL_TRANSLATION.notifications.openDocs,
       IDL_EXTENSION_CONFIG_KEYS.dontAskToOpenDocs,
       true,

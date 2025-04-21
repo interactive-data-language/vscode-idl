@@ -1,12 +1,12 @@
+import { FindFiles, GetExtensionPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { NUM_WORKERS } from '@idl/parsing/index';
+import { RoundToNearest } from '@idl/shared/extension';
 import {
-  GetExtensionPath,
-  RoundToNearest,
   SystemMemoryGB,
   SystemMemoryUsedGB,
   SystemMemoryUsedMB,
-} from '@idl/shared';
+} from '@idl/system-memory';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/types/problem-codes';
 import {
@@ -126,7 +126,8 @@ SERVER_INFO.then(async (res) => {
 
       // cleanup - wrap in try/catch because async
       try {
-        usage = await IDL_INDEX.cleanUp();
+        await IDL_INDEX.cleanUp();
+        usage = SystemMemoryGB();
       } catch (err) {
         IDL_LANGUAGE_SERVER_LOGGER.log({
           log: IDL_LSP_LOG,
@@ -179,12 +180,15 @@ SERVER_INFO.then(async (res) => {
 
     try {
       /**
-       * Merge folders that we need to process.
-       *
-       * The second promise (for workspace) should win because it will
-       * always be recursive
+       * Find files that we need to parse
        */
-      const files = await IDL_INDEX.indexWorkspace(
+      const files = await FindFiles(merged);
+
+      /**
+       * Index workspace files we found
+       */
+      await IDL_INDEX.indexWorkspaceFiles(
+        files,
         merged,
         GLOBAL_SERVER_SETTINGS.fullParse
       );

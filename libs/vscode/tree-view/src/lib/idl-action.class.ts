@@ -1,4 +1,3 @@
-import { EXTENSION_FOLDER } from '@idl/vscode/client';
 import { join } from 'path';
 import * as vscode from 'vscode';
 
@@ -9,7 +8,8 @@ export class IDLAction extends vscode.TreeItem {
     private version: string,
     readonly collapsibleState: vscode.TreeItemCollapsibleState,
     private iconName: string,
-    readonly commandName: string
+    readonly commandName: string,
+    private extensionFolder: string
   ) {
     super(label, collapsibleState);
 
@@ -24,8 +24,8 @@ export class IDLAction extends vscode.TreeItem {
         : 'child';
 
     this.iconPath = {
-      light: join(EXTENSION_FOLDER, 'extension', 'images', 'light', iconName),
-      dark: join(EXTENSION_FOLDER, 'extension', 'images', 'dark', iconName),
+      light: join(extensionFolder, 'extension', 'images', 'light', iconName),
+      dark: join(extensionFolder, 'extension', 'images', 'dark', iconName),
     };
   }
 }

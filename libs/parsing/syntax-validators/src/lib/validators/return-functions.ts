@@ -51,10 +51,6 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
         // get number of commas
         const commas = FindDirectBranchChildren(returns[i], TOKEN_NAMES.COMMA);
         switch (commas.length) {
-          // good
-          case 1:
-            // do nothing
-            break;
           // missing
           case 0:
             returns[i].parseProblems.push(
@@ -67,6 +63,10 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
                 returns[i].end ? returns[i].end.pos : returns[i].pos
               )
             );
+            break;
+          // good
+          case 1:
+            // do nothing
             break;
           default:
             // too many

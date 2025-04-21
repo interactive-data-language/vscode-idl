@@ -1140,8 +1140,6 @@
       </dict>
       <key>executive_command</key>
       <dict>
-        <key>name</key>
-        <string>entity.name.type.idl</string>
         <key>match</key>
         <string>(?i)^\s*(\.[a-z_]+)\s*(.*)$</string>
         <key>captures</key>
@@ -1153,8 +1151,21 @@
           </dict>
           <key>2</key>
           <dict>
-            <key>name</key>
-            <string>variable.other.readwrite.ts.idl</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#quote_tokens</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#variable</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#comment_tokens</string>
+              </dict>
+            </array>
           </dict>
         </dict>
       </dict>

@@ -19,24 +19,35 @@ export type SyntaxTreeUnknown = 2;
 
 /** All allowed types of branches */
 export type SyntaxTreeBranches =
-  | SyntaxTreeBranch
   | SyntaxTreeBasic
+  | SyntaxTreeBranch
   | SyntaxTreeUnknown;
 
 /** Data structure for overriding hovers */
 export interface IHoverOverride {
-  /** Cursor location for hover override */
-  pos: PositionArray;
   /** Docs to show on hover */
   docs: string;
+  /** Cursor location for hover override */
+  pos: PositionArray;
 }
 
 /** Base data structure for a branch */
 interface IBranchBase<T extends TokenName> {
-  /** Type of the branch */
-  type: SyntaxTreeBranches;
-  /** Type of the token we are starting */
-  name: T;
+  /**
+   * Access tokens that come before to be able to determine data type
+   *
+   * These include variables, properties, and a few other items as well
+   */
+  accessTokens?: TreeToken<TokenName>[];
+  /**
+   * Property to hold any user data.
+   */
+  cache?: any;
+  /**
+   * Override for hover help in tokens, primarily allows for custom
+   * hover help with routine docs.
+   */
+  hoverOverride?: IHoverOverride[];
   /**
    * The index of our token in our immediate parent's children.
    *
@@ -47,62 +58,51 @@ interface IBranchBase<T extends TokenName> {
    * to sort out the potentially complex logic of this.
    */
   idx: number;
+  /** Type of the token we are starting */
+  name: T;
   /** Track problems for our tokens */
   parseProblems: IDLProblemCode[];
   /** Names of branch tokens that are our parents */
   scope: NonBasicTokenNames[];
   /** Actual branch tokens that are our parents */
   scopeTokens?: TreeToken<NonBasicTokenNames>[];
-  /**
-   * Access tokens that come before to be able to determine data type
-   *
-   * These include variables, properties, and a few other items as well
-   */
-  accessTokens?: TreeToken<TokenName>[];
-  /**
-   * Override for hover help in tokens, primarily allows for custom
-   * hover help with routine docs.
-   */
-  hoverOverride?: IHoverOverride[];
-  /**
-   * Property to hold any user data.
-   */
-  cache?: any;
+  /** Type of the branch */
+  type: SyntaxTreeBranches;
 }
 
 /** Basic branch with no children */
 export interface IBasicBranch<T extends BasicTokenNames>
   extends IBranchBase<T> {
-  name: T;
-  type: SyntaxTreeBasic | SyntaxTreeUnknown;
-  /** The position of our token as `[line, index, length]` */
-  pos: PositionArray;
   /** Matches from regex. First is the entire match, any other elements are capture groups */
   match: TokenStartMatches<T>;
+  name: T;
+  /** The position of our token as `[line, index, length]` */
+  pos: PositionArray;
+  type: SyntaxTreeBasic | SyntaxTreeUnknown;
 }
 
 /**
  * Information about the start/end of a branch
  */
 export interface IBranchEnd {
-  /** The position of our token */
-  pos: PositionArray;
   /** Matches from token extraction */
   match: TokenStartMatches<TokenName>;
+  /** The position of our token */
+  pos: PositionArray;
 }
 
 /** Recursive branch with no children */
 export interface IBranch<T extends NonBasicTokenNames> extends IBranchBase<T> {
-  type: SyntaxTreeBranch;
-  name: T;
-  /** The position of our token */
-  pos: PositionArray;
-  /** Matches from regex. First is the entire match, any other elements are capture groups */
-  match: TokenStartMatches<T>;
   /** End token, don't always have */
   end?: IBranchEnd;
   /** Children of our branch */
   kids: SyntaxTree;
+  /** Matches from regex. First is the entire match, any other elements are capture groups */
+  match: TokenStartMatches<T>;
+  name: T;
+  /** The position of our token */
+  pos: PositionArray;
+  type: SyntaxTreeBranch;
 }
 
 /**
@@ -140,10 +140,10 @@ export interface ITokensByLine {
  * Data structure for branch lookup
  */
 interface IBranchLookup {
-  /** Token has a start and end */
-  BRANCH: SyntaxTreeBranch;
   /** Token has no children and is basic */
   BASIC: SyntaxTreeBasic;
+  /** Token has a start and end */
+  BRANCH: SyntaxTreeBranch;
   /** Unknown branch that we parsed */
   UNKNOWN: SyntaxTreeUnknown;
 }

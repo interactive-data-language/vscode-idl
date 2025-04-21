@@ -15,11 +15,11 @@ const INDEX_BAR = new IDLIndexingStatusBar();
  */
 export const ON_INDEX = (payload: LanguageServerPayload<IndexingMessage>) => {
   switch (payload.type) {
-    case 'start':
-      INDEX_BAR.startedIndexing();
-      break;
     case 'finish':
       INDEX_BAR.finishedIndexing();
+      break;
+    case 'start':
+      INDEX_BAR.startedIndexing();
       break;
     default:
       break;

@@ -112,10 +112,10 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
  * Checks for duplicate keyword usage
  */
 const CALLBACK_KW_USAGE: BranchCallback<
-  | CallFunctionToken
   | CallFunctionMethodToken
-  | CallProcedureToken
-  | CallProcedureMethodToken,
+  | CallFunctionToken
+  | CallProcedureMethodToken
+  | CallProcedureToken,
   IDLSyntaxValidatorMeta
 > = (branch, parsed) => {
   // return if no children

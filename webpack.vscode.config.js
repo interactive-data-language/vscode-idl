@@ -45,6 +45,5 @@ module.exports = composePlugins(withNx(), (config) => {
     //   reasons: false,
     // }
   };
-  // console.log(JSON.stringify(config, undefined, 2));
   return newConfig;
 });

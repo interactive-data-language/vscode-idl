@@ -34,21 +34,21 @@ export function PopulateReserved(globals: GlobalTokens) {
 
     // check where to save it
     switch (rout.type) {
+      // function
+      case GLOBAL_TOKEN_TYPES.FUNCTION:
+        RESERVED_FUNCTIONS[name] = i;
+        break;
       // function method
       case GLOBAL_TOKEN_TYPES.FUNCTION_METHOD:
         RESERVED_FUNCTION_METHODS[name] = i;
-        break;
-      // procedure method
-      case GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD:
-        RESERVED_PROCEDURE_METHODS[name] = i;
         break;
       // procedure
       case GLOBAL_TOKEN_TYPES.PROCEDURE:
         RESERVED_PROCEDURES[name] = i;
         break;
-      // function
-      case GLOBAL_TOKEN_TYPES.FUNCTION:
-        RESERVED_FUNCTIONS[name] = i;
+      // procedure method
+      case GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD:
+        RESERVED_PROCEDURE_METHODS[name] = i;
         break;
       default:
         break;

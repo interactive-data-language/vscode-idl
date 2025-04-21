@@ -6,20 +6,20 @@ import { Position } from 'vscode-languageserver/node';
  * Data structure to automate test creation
  */
 export interface ITokenTest {
-  /** Name of the test */
-  name: string;
   /** Code for the test */
   code: string | string[];
+  /** Name of the test */
+  name: string;
 }
 
 /**
  * High-level data for all automated tests
  */
 interface IBaseAutoTest {
-  /** Name of the test suite that we are creating */
-  suiteName: string;
   /** Base name of the file to write */
   fileName: string;
+  /** Name of the test suite that we are creating */
+  suiteName: string;
 }
 
 /**
@@ -82,10 +82,10 @@ export interface IAutoLocalGlobalScopeCompileTest extends IBaseAutoTest {
  * Data structure to automate test creation
  */
 export interface IHoverHelpTest {
-  /** Name of the test */
-  name: string;
   /** Base name or relative path of the file we are acting on within the workspace */
   file: string;
+  /** Name of the test */
+  name: string;
   /** Cursor position */
   position: Position[];
 }
@@ -118,8 +118,6 @@ export interface IAutoCompleteTests extends IHoverHelpTests {
  * Data structure to automate test creation
  */
 export interface ITokenDefTest {
-  /** Name of the test */
-  name: string;
   /**
    * Files we are indexing for token defs.
    *
@@ -127,6 +125,8 @@ export interface ITokenDefTest {
    * content you might need to get a token def.
    */
   files: string[];
+  /** Name of the test */
+  name: string;
   /** Cursor positions, only for the first file */
   position: Position[];
 }
@@ -143,10 +143,10 @@ export interface ITokenDefTests extends IBaseAutoTest {
  * Data structure to automate test creation
  */
 export interface ITaskGenerationTest {
-  /** Name of the test */
-  name: string;
   /** Base name or relative path of the file we are acting on within the workspace */
   file: string;
+  /** Name of the test */
+  name: string;
   /** Type of task generator */
   type: 'envi' | 'idl';
 }
@@ -163,12 +163,12 @@ export interface ITaskGenerationTests extends IBaseAutoTest {
  * Data structure to automate test creation
  */
 export interface ITaskParsingTest {
-  /** Name of the test */
-  name: string;
   /**
    * Task file to parse and extract global tokens from
    */
   file: string;
+  /** Name of the test */
+  name: string;
 }
 
 /**
@@ -183,10 +183,10 @@ export interface ITaskParsingTests extends IBaseAutoTest {
  * Data structure to automate test creation
  */
 export interface IOutlineTest {
-  /** Name of the test */
-  name: string;
   /** Base name or relative path of the file we are acting on within the workspace */
   file: string;
+  /** Name of the test */
+  name: string;
 }
 
 /**
@@ -247,12 +247,12 @@ interface IGlobalActionTest {
  * Tests for global problem detection
  */
 export interface IGlobalProblemTest {
+  /** For our base workspace, the actions we4 take */
+  actions: IGlobalActionTest[];
   /** Name of the test */
   name: string;
   /** Path with respect to the extension folder, used to fully-qualify test locations */
   workspace: string;
-  /** For our base workspace, the actions we4 take */
-  actions: IGlobalActionTest[];
 }
 
 /** Data structure for automated assembler tests */
@@ -276,12 +276,12 @@ interface IConfigActionTest {
  * Tests for global problem detection
  */
 export interface IConfigTest {
+  /** For our base workspace, the actions we4 take */
+  actions: IConfigActionTest[];
   /** Name of the test */
   name: string;
   /** Path with respect to the extension folder, used to fully-qualify test locations */
   workspace: string;
-  /** For our base workspace, the actions we4 take */
-  actions: IConfigActionTest[];
 }
 
 /** Data structure for automated assembler tests */

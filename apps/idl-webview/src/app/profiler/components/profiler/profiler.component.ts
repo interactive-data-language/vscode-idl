@@ -16,31 +16,50 @@ const VSCODE_REGEX = /^vscode_/i;
   styleUrls: ['./profiler.component.scss'],
 })
 export class ProfilerComponent implements OnInit {
-  /** Current profiler string from IDL */
-  profilerString = '';
-
   /** Current profiler data, parsed version of string */
   profilerData: IProfilerItem[] = [];
-
-  /** Columns of profiler data that we display */
-  displayedColumns = ['r', 'n', 't', 't_s', 'l_r', 'l_t'];
-
-  /** Total time we have spent profiling code */
-  totalTime = 1;
 
   /** Table data source */
   dataSource = new MatTableDataSource(this.profilerData);
 
-  /** Sort controls for table */
-  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  /** Columns of profiler data that we display */
+  displayedColumns = ['r', 'n', 't', 't_s', 'l_r', 'l_t'];
+
+  /** Current profiler string from IDL */
+  profilerString = '';
 
   /** vscode component for filtering table */
   @ViewChild('filterInput') someInput!: ElementRef;
+
+  /** Sort controls for table */
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+
+  /** Total time we have spent profiling code */
+  totalTime = 1;
 
   // track timer for filer when typing
   private timeout?: number;
 
   constructor(private vscode: VSCodeService) {}
+
+  /**
+   * Applies our filter to the list of profiled entities
+   */
+  applyFilter(event: KeyboardEvent) {
+    // if there is already a timeout in process cancel it
+    if (this.timeout) {
+      window.clearTimeout(this.timeout);
+    }
+
+    // get value of our search filter
+    const filterValue = this.someInput.nativeElement.value;
+
+    // set new timeout before applying the filter
+    this.timeout = window.setTimeout(() => {
+      this.timeout = undefined;
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+    }, 500);
+  }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
@@ -85,25 +104,6 @@ export class ProfilerComponent implements OnInit {
           return compare(a[sort.active], b[sort.active], isAsc);
       }
     });
-  }
-
-  /**
-   * Applies our filter to the list of profiled entities
-   */
-  applyFilter(event: KeyboardEvent) {
-    // if there is already a timeout in process cancel it
-    if (this.timeout) {
-      window.clearTimeout(this.timeout);
-    }
-
-    // get value of our search filter
-    const filterValue = this.someInput.nativeElement.value;
-
-    // set new timeout before applying the filter
-    this.timeout = window.setTimeout(() => {
-      this.timeout = undefined;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-    }, 500);
   }
 }
 

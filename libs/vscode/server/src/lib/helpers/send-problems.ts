@@ -1,4 +1,4 @@
-import { IDLFileHelper } from '@idl/shared';
+import { IDLFileHelper } from '@idl/idl/files';
 import {
   IDL_DEF_FILE_PROBLEMS,
   SyntaxProblems,

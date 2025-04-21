@@ -2,13 +2,13 @@
  * Message command (i.e. type)
  */
 export type IMessageCommand =
-  | 'error'
-  | 'recolor'
-  | 'profiler'
-  | 'nothing'
   | 'alert'
-  | 'started'
-  | 'show-on-startup-setting';
+  | 'error'
+  | 'nothing'
+  | 'profiler'
+  | 'recolor'
+  | 'show-on-startup-setting'
+  | 'started';
 
 /**
  * Interface for VSCode messages that we send back and forth

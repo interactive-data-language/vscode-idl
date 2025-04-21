@@ -44,9 +44,9 @@ export class PlotComponent
   canvas!: ElementRef<HTMLCanvasElement>;
 
   /**
-   * A reference to our chart
+   * Frame rate for animations
    */
-  private chart: Chart<any> | undefined;
+  interval = 1000;
 
   /**
    * Track a reference to our created plots
@@ -58,26 +58,9 @@ export class PlotComponent
   };
 
   /**
-   * Frame rate for animations
+   * A reference to our chart
    */
-  interval = 1000;
-
-  /**
-   * Callback to resize chart on window resize
-   *
-   * It re-draws when we get smaller, but not when we grow again
-   */
-  private resizeCb = () => {
-    if (this.chart !== undefined) {
-      this.canvas.nativeElement.style.width = `${
-        this.el.nativeElement.offsetWidth * 0.9
-      }px;`;
-      this.canvas.nativeElement.style.height = `${
-        this.el.nativeElement.offsetHeight * 0.9
-      }px;`;
-      this.chart.resize();
-    }
-  };
+  private chart: Chart<any> | undefined;
 
   /**
    * We can access the latest data directly through our dataService which tracks
@@ -92,40 +75,6 @@ export class PlotComponent
 
     // add resize event listener
     window.addEventListener('resize', this.resizeCb);
-  }
-
-  /**
-   * If we have an animation, updates chart data
-   */
-  setFrame(frame: number) {
-    if (this.hasData) {
-      const nAnimations = this.plots.animationCallbacks.length;
-      if (nAnimations > 0) {
-        for (let i = 0; i < nAnimations; i++) {
-          this.plots.animationCallbacks[i](frame);
-        }
-
-        // update chart with no animation
-        this.chart?.update('none');
-      }
-    }
-  }
-
-  /**
-   * Remove callbacks to prevent memory leaks
-   */
-  override ngOnDestroy() {
-    super.ngOnDestroy();
-    window.removeEventListener('resize', this.resizeCb);
-    if (this.hasData) {
-      this.hasData = false;
-      this.plots = {
-        animationCallbacks: [],
-        data: [],
-        nFrames: 0,
-      };
-      this.chart?.destroy();
-    }
   }
 
   ngAfterViewInit() {
@@ -150,4 +99,55 @@ export class PlotComponent
       });
     }
   }
+
+  /**
+   * Remove callbacks to prevent memory leaks
+   */
+  override ngOnDestroy() {
+    super.ngOnDestroy();
+    window.removeEventListener('resize', this.resizeCb);
+    if (this.hasData) {
+      this.hasData = false;
+      this.plots = {
+        animationCallbacks: [],
+        data: [],
+        nFrames: 0,
+      };
+      this.chart?.destroy();
+    }
+  }
+
+  /**
+   * If we have an animation, updates chart data
+   */
+  setFrame(frame: number) {
+    if (this.hasData) {
+      const nAnimations = this.plots.animationCallbacks.length;
+      if (nAnimations > 0) {
+        for (let i = 0; i < nAnimations; i++) {
+          this.plots.animationCallbacks[i](frame);
+        }
+
+        // update chart with no animation
+        this.chart?.update('none');
+      }
+    }
+  }
+
+  /**
+   * Callback to resize chart on window resize
+   *
+   * It re-draws when we get smaller, but not when we grow again
+   */
+  private resizeCb = () => {
+    if (this.chart !== undefined) {
+      this.canvas.nativeElement.style.width = `${
+        this.el.nativeElement.offsetWidth * 0.9
+      }px;`;
+      this.canvas.nativeElement.style.height = `${
+        this.el.nativeElement.offsetHeight * 0.9
+      }px;`;
+      this.chart.resize();
+    }
+  };
 }

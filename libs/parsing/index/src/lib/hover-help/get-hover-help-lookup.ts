@@ -85,13 +85,37 @@ export async function GetHoverHelpLookup(
 
       // check what we have selected and act accordingly
       switch (token.name) {
+        case TOKEN_NAMES.ACCESS_PROPERTY:
+        case TOKEN_NAMES.STRUCTURE_PROPERTY: {
+          GetPropertyHoverHelp(index, parsed, token, lookup);
+          break;
+        }
+        case TOKEN_NAMES.ARG_DEFINITION:
+        case TOKEN_NAMES.VARIABLE: {
+          lookup.contents = GetVarHoverHelp(parsed, token, parent);
+          break;
+        }
+        // help when we hover over a routine that a user has defined, right after pro or function
+        case TOKEN_NAMES.CALL_FUNCTION:
+        case TOKEN_NAMES.CALL_FUNCTION_METHOD:
+        case TOKEN_NAMES.CALL_PROCEDURE:
+        case TOKEN_NAMES.CALL_PROCEDURE_METHOD:
+        case TOKEN_NAMES.ROUTINE_METHOD_NAME:
+        case TOKEN_NAMES.ROUTINE_NAME: {
+          const global = GetRoutine(index, parsed, token, false);
+          if (global.length > 0) {
+            lookup.type = global[0].type;
+            lookup.name = global[0].name;
+          }
+          break;
+        }
         // keyword within the routine name branch, part of function or procedure definition
-        case TOKEN_NAMES.KEYWORD_DEFINITION:
-        case TOKEN_NAMES.KEYWORD: {
+        case TOKEN_NAMES.KEYWORD:
+        case TOKEN_NAMES.KEYWORD_DEFINITION: {
           GetKeywordHoverHelp(
             index,
             parsed,
-            token as TreeToken<KeywordToken | KeywordDefinitionToken>,
+            token as TreeToken<KeywordDefinitionToken | KeywordToken>,
             lookup
           );
           break;
@@ -111,31 +135,6 @@ export async function GetHoverHelpLookup(
               );
             }
           }
-          break;
-        }
-
-        // help when we hover over a routine that a user has defined, right after pro or function
-        case TOKEN_NAMES.CALL_PROCEDURE_METHOD:
-        case TOKEN_NAMES.CALL_PROCEDURE:
-        case TOKEN_NAMES.CALL_FUNCTION_METHOD:
-        case TOKEN_NAMES.CALL_FUNCTION:
-        case TOKEN_NAMES.ROUTINE_NAME:
-        case TOKEN_NAMES.ROUTINE_METHOD_NAME: {
-          const global = GetRoutine(index, parsed, token, false);
-          if (global.length > 0) {
-            lookup.type = global[0].type;
-            lookup.name = global[0].name;
-          }
-          break;
-        }
-        case TOKEN_NAMES.ARG_DEFINITION:
-        case TOKEN_NAMES.VARIABLE: {
-          lookup.contents = GetVarHoverHelp(parsed, token, parent);
-          break;
-        }
-        case TOKEN_NAMES.ACCESS_PROPERTY:
-        case TOKEN_NAMES.STRUCTURE_PROPERTY: {
-          GetPropertyHoverHelp(index, parsed, token, lookup);
           break;
         }
         case TOKEN_NAMES.SYSTEM_VARIABLE: {

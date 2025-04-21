@@ -1,10 +1,11 @@
+import { IDLFileHelper } from '@idl/idl/files';
+import { Sleep } from '@idl/shared/extension';
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_CODE_COVERAGE_LOOKUP,
   IDLCodeCoverage,
   IDLSyntaxErrorLookup,
-} from '@idl/idl/shared';
-import { IDLFileHelper, Sleep } from '@idl/shared';
-import { IDL_TRANSLATION } from '@idl/translation';
+} from '@idl/types/idl/idl-process';
 import {
   GetTextEditorForURIString,
   OpenFileInVSCodeFromURI,
@@ -100,141 +101,6 @@ export class IDLDecorationsManager {
   }
 
   /**
-   * Callback that applies all decorations to a file
-   */
-  applyDecorations(uri: vscode.Uri) {
-    // check for debug decorations
-    const asString = uri.toString();
-
-    // apply syntax errors
-    if (asString in this.decorations.syntaxErrors) {
-      this.addSyntaxErrorDecorations(
-        uri,
-        this.decorations.syntaxErrors[asString]
-      );
-    }
-
-    // apply code coverage
-    if (asString in this.decorations.coverage) {
-      this.addCodeCoverageDecorations(uri, this.decorations.coverage[asString]);
-    }
-
-    // apply stack trace decorations
-    if (asString in this.decorations.stack) {
-      this.addStackTraceDecorations(uri, this.decorations.stack[asString]);
-    }
-  }
-
-  /**
-   * Applied decorations to a file of a given type
-   */
-  private _applyDecorations(
-    uriString: string,
-    decorationType: vscode.TextEditorDecorationType,
-    decorations: vscode.DecorationOptions[]
-  ) {
-    const editor = GetTextEditorForURIString(uriString);
-
-    // update decorations
-    if (editor !== undefined) {
-      editor.setDecorations(decorationType, decorations);
-    }
-  }
-
-  /**
-   * Syncs syntax errors and updates what we track in our decorator
-   */
-  syncSyntaxErrorDecorations(problems: IDLSyntaxErrorLookup) {
-    /** Get paths for files */
-    const uriStrings = Object.keys(problems);
-
-    // process each file
-    for (let i = 0; i < uriStrings.length; i++) {
-      this.addSyntaxErrorDecorations(
-        vscode.Uri.parse(uriStrings[i]),
-        problems[uriStrings[i]].map((problem) => {
-          return {
-            range: this._rangeFromLine(problem.line - 1),
-          };
-        })
-      );
-    }
-  }
-
-  /**
-   * Add decorations for syntax errors which makes lines appear red
-   * and adds problems to the diagnostics
-   */
-  addSyntaxErrorDecorations(
-    uri: vscode.Uri,
-    decorations: vscode.DecorationOptions[]
-  ) {
-    /** Get string URI */
-    const asString = uri.toString();
-
-    // save decorations
-    this.decorations.syntaxErrors[asString] = decorations;
-
-    // convert to diagnostics
-    const diags: vscode.Diagnostic[] = decorations.map((decoration) => {
-      const diag: vscode.Diagnostic = {
-        message: IDL_TRANSLATION.debugger.adapter.syntaxError,
-        range: decoration.range,
-        severity: vscode.DiagnosticSeverity.Error,
-      };
-      return diag;
-    });
-
-    // update diagnostic collection
-    DEBUG_DIAGNOSTIC_COLLECTION.set(uri, diags);
-
-    // apply decorations
-    this._applyDecorations(asString, SYNTAX_ERROR_DECORATION, decorations);
-
-    // if we have problems, open the file
-    if (diags.length > 0) {
-      OpenFileInVSCodeFromURI(uri);
-    }
-  }
-
-  /**
-   * Resets syntax error decorations
-   */
-  private _resetSyntaxErrorDecorations(
-    flag: IDLDecorationsResetFlag,
-    reApply = false
-  ) {
-    /**
-     * Get all files we track
-     */
-    const uriStrings = Object.keys(this.decorations.syntaxErrors);
-
-    // process each file
-    for (let i = 0; i < uriStrings.length; i++) {
-      // skip if we cant reset
-      if (!this._canResetEntry(uriStrings[i], flag)) {
-        continue;
-      }
-
-      /** Get errors */
-      const errors = this.decorations.syntaxErrors[uriStrings[i]];
-
-      /** Parse as URI */
-      const uri = vscode.Uri.parse(uriStrings[i]);
-
-      // reset
-      this.addSyntaxErrorDecorations(uri, []);
-
-      // apply again
-      if (reApply) {
-        this.addSyntaxErrorDecorations(uri, errors);
-      } else {
-        delete this.decorations.syntaxErrors[uriStrings[i]];
-      }
-    }
-  }
-
-  /**
    * Add decorations for code coverage
    */
   addCodeCoverageDecorations(uri: vscode.Uri, coverage: IDLCodeCoverage) {
@@ -293,42 +159,6 @@ export class IDLDecorationsManager {
   }
 
   /**
-   * Resets code coverage decorations
-   *
-   * Not private so it can be toggled on and off on demand
-   */
-  resetCodeCoverageDecorations(flag: IDLDecorationsResetFlag, reApply = false) {
-    /**
-     * Get all files we track
-     */
-    const uriStrings = Object.keys(this.decorations.coverage);
-
-    // process each file
-    for (let i = 0; i < uriStrings.length; i++) {
-      // skip if we cant reset
-      if (!this._canResetEntry(uriStrings[i], flag)) {
-        continue;
-      }
-
-      /** Get code coverage */
-      const coverage = this.decorations.coverage[uriStrings[i]];
-
-      /** Parse as URI */
-      const uri = vscode.Uri.parse(uriStrings[i]);
-
-      // reset
-      this.addCodeCoverageDecorations(uri, []);
-
-      // apply again
-      if (reApply) {
-        this.addCodeCoverageDecorations(uri, coverage);
-      } else {
-        delete this.decorations.coverage[uriStrings[i]];
-      }
-    }
-  }
-
-  /**
    * Add decorations for stack track
    *
    * For PRO files, lines are one-based
@@ -370,6 +200,133 @@ export class IDLDecorationsManager {
   }
 
   /**
+   * Add decorations for syntax errors which makes lines appear red
+   * and adds problems to the diagnostics
+   */
+  addSyntaxErrorDecorations(
+    uri: vscode.Uri,
+    decorations: vscode.DecorationOptions[]
+  ) {
+    /** Get string URI */
+    const asString = uri.toString();
+
+    // save decorations
+    this.decorations.syntaxErrors[asString] = decorations;
+
+    // convert to diagnostics
+    const diags: vscode.Diagnostic[] = decorations.map((decoration) => {
+      const diag: vscode.Diagnostic = {
+        message: IDL_TRANSLATION.debugger.adapter.syntaxError,
+        range: decoration.range,
+        severity: vscode.DiagnosticSeverity.Error,
+      };
+      return diag;
+    });
+
+    // update diagnostic collection
+    DEBUG_DIAGNOSTIC_COLLECTION.set(uri, diags);
+
+    // apply decorations
+    this._applyDecorations(asString, SYNTAX_ERROR_DECORATION, decorations);
+
+    // if we have problems, open the file
+    if (diags.length > 0) {
+      OpenFileInVSCodeFromURI(uri);
+    }
+  }
+
+  /**
+   * Callback that applies all decorations to a file
+   */
+  applyDecorations(uri: vscode.Uri) {
+    // check for debug decorations
+    const asString = uri.toString();
+
+    // apply syntax errors
+    if (asString in this.decorations.syntaxErrors) {
+      this.addSyntaxErrorDecorations(
+        uri,
+        this.decorations.syntaxErrors[asString]
+      );
+    }
+
+    // apply code coverage
+    if (asString in this.decorations.coverage) {
+      this.addCodeCoverageDecorations(uri, this.decorations.coverage[asString]);
+    }
+
+    // apply stack trace decorations
+    if (asString in this.decorations.stack) {
+      this.addStackTraceDecorations(uri, this.decorations.stack[asString]);
+    }
+  }
+
+  /**
+   * Removes decorations for a given URI
+   */
+  remove(uri: vscode.Uri) {
+    /** Convert to string */
+    const asString = uri.toString();
+
+    // remove code coverage
+    this.addCodeCoverageDecorations(uri, []);
+    delete this.decorations.coverage[asString];
+
+    // remove stack trace
+    this.addStackTraceDecorations(uri, []);
+    delete this.decorations.stack[asString];
+
+    // remove syntax errors
+    this.addSyntaxErrorDecorations(uri, []);
+    delete this.decorations.syntaxErrors[asString];
+  }
+
+  /**
+   * Resets or re-applies decorations
+   */
+  reset(flag: IDLDecorationsResetFlag, reApply = false) {
+    this.resetCodeCoverageDecorations(flag, reApply);
+    this.resetStackTraceDecorations(flag, reApply);
+    this._resetSyntaxErrorDecorations(flag, reApply);
+  }
+
+  /**
+   * Resets code coverage decorations
+   *
+   * Not private so it can be toggled on and off on demand
+   */
+  resetCodeCoverageDecorations(flag: IDLDecorationsResetFlag, reApply = false) {
+    /**
+     * Get all files we track
+     */
+    const uriStrings = Object.keys(this.decorations.coverage);
+
+    // process each file
+    for (let i = 0; i < uriStrings.length; i++) {
+      // skip if we cant reset
+      if (!this._canResetEntry(uriStrings[i], flag)) {
+        continue;
+      }
+
+      /** Get code coverage */
+      const coverage = this.decorations.coverage[uriStrings[i]];
+
+      /** Parse as URI */
+      const uri = vscode.Uri.parse(uriStrings[i]);
+
+      // reset
+      this.addCodeCoverageDecorations(uri, []);
+
+      // apply again
+      if (reApply) {
+        this.addCodeCoverageDecorations(uri, coverage);
+      } else {
+        delete this.decorations.coverage[uriStrings[i]];
+      }
+    }
+  }
+
+  /**
    * Resets stack trace decorations
    *
    * Not private so it can be toggled on and off on demand
@@ -406,6 +363,57 @@ export class IDLDecorationsManager {
   }
 
   /**
+   * Syncs syntax errors and updates what we track in our decorator
+   */
+  syncSyntaxErrorDecorations(problems: IDLSyntaxErrorLookup) {
+    /** Get paths for files */
+    const uriStrings = Object.keys(problems);
+
+    // process each file
+    for (let i = 0; i < uriStrings.length; i++) {
+      this.addSyntaxErrorDecorations(
+        vscode.Uri.parse(uriStrings[i]),
+        problems[uriStrings[i]].map((problem) => {
+          return {
+            range: this._rangeFromLine(problem.line - 1),
+          };
+        })
+      );
+    }
+  }
+
+  /**
+   * Applied decorations to a file of a given type
+   */
+  private _applyDecorations(
+    uriString: string,
+    decorationType: vscode.TextEditorDecorationType,
+    decorations: vscode.DecorationOptions[]
+  ) {
+    const editor = GetTextEditorForURIString(uriString);
+
+    // update decorations
+    if (editor !== undefined) {
+      editor.setDecorations(decorationType, decorations);
+    }
+  }
+
+  /**
+   * Detects the type of file we are wanting to reset and determines if
+   * we can or not
+   */
+  private _canResetEntry(file: string, flag: IDLDecorationsResetFlag): boolean {
+    switch (flag) {
+      case 'notebook':
+        return IDLFileHelper.isIDLNotebookFile(file);
+      case 'pro':
+        return IDLFileHelper.isPROCode(file);
+      default:
+        return true;
+    }
+  }
+
+  /**
    * Creates a VSCode range that covers an entire line
    */
   private _rangeFromLine(line: number) {
@@ -416,46 +424,39 @@ export class IDLDecorationsManager {
   }
 
   /**
-   * Detects the type of file we are wanting to reset and determines if
-   * we can or not
+   * Resets syntax error decorations
    */
-  private _canResetEntry(file: string, flag: IDLDecorationsResetFlag): boolean {
-    switch (flag) {
-      case 'pro':
-        return IDLFileHelper.isPROCode(file);
-      case 'notebook':
-        return IDLFileHelper.isIDLNotebookFile(file);
-      default:
-        return true;
+  private _resetSyntaxErrorDecorations(
+    flag: IDLDecorationsResetFlag,
+    reApply = false
+  ) {
+    /**
+     * Get all files we track
+     */
+    const uriStrings = Object.keys(this.decorations.syntaxErrors);
+
+    // process each file
+    for (let i = 0; i < uriStrings.length; i++) {
+      // skip if we cant reset
+      if (!this._canResetEntry(uriStrings[i], flag)) {
+        continue;
+      }
+
+      /** Get errors */
+      const errors = this.decorations.syntaxErrors[uriStrings[i]];
+
+      /** Parse as URI */
+      const uri = vscode.Uri.parse(uriStrings[i]);
+
+      // reset
+      this.addSyntaxErrorDecorations(uri, []);
+
+      // apply again
+      if (reApply) {
+        this.addSyntaxErrorDecorations(uri, errors);
+      } else {
+        delete this.decorations.syntaxErrors[uriStrings[i]];
+      }
     }
-  }
-
-  /**
-   * Removes decorations for a given URI
-   */
-  remove(uri: vscode.Uri) {
-    /** Convert to string */
-    const asString = uri.toString();
-
-    // remove code coverage
-    this.addCodeCoverageDecorations(uri, []);
-    delete this.decorations.coverage[asString];
-
-    // remove stack trace
-    this.addStackTraceDecorations(uri, []);
-    delete this.decorations.stack[asString];
-
-    // remove syntax errors
-    this.addSyntaxErrorDecorations(uri, []);
-    delete this.decorations.syntaxErrors[asString];
-  }
-
-  /**
-   * Resets or re-applies decorations
-   */
-  reset(flag: IDLDecorationsResetFlag, reApply = false) {
-    this.resetCodeCoverageDecorations(flag, reApply);
-    this.resetStackTraceDecorations(flag, reApply);
-    this._resetSyntaxErrorDecorations(flag, reApply);
   }
 }

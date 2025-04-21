@@ -7,10 +7,10 @@ export type MigrateCodeLSPMessage = 'migrate-code';
  * Payload to migrate to latest DL 3.0 API
  */
 export interface MigrateCodeLSPPayload {
-  /** File to migrate */
-  uri: string;
   /** The type of migration */
   migrationType: MigrationType;
+  /** File to migrate */
+  uri: string;
 }
 
 /*

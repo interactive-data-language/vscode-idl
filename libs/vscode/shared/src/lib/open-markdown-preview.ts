@@ -1,6 +1,5 @@
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import * as vscode from 'vscode';
-
-import { VSCODE_COMMANDS } from './vscode-commands.interface';
 
 /**
  * Given a markdown file, open as preview

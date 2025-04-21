@@ -1,12 +1,12 @@
-import { IDL_COMMANDS } from '@idl/shared';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   IDL_LOGGER,
   LogCommandError,
   LogCommandInfo,
-} from '@idl/vscode/client';
-import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
+} from '@idl/vscode/logger';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { IDLWebView } from '@idl/vscode/webview';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';

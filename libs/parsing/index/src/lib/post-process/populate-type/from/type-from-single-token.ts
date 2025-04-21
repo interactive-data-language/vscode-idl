@@ -40,39 +40,18 @@ export function TypeFromSingleToken(
 
   // determine what kind of token we have
   switch (token.name) {
-    case TOKEN_NAMES.CALL_FUNCTION:
-      (token.cache as ITokenCache).type = TypeFromFunction(
-        index,
-        parsed,
-        token
-      );
-      break;
-    case TOKEN_NAMES.VARIABLE:
-      (token.cache as ITokenCache).type = TypeFromVariable(
-        index,
-        parsed,
-        token
-      );
-      break;
-    case TOKEN_NAMES.SYSTEM_VARIABLE:
-      (token.cache as ITokenCache).type = TypeFromSystemVariable(index, token);
-      break;
-    case TOKEN_NAMES.STRUCTURE:
-      (token.cache as ITokenCache).type = TypeFromStructure(
-        index,
-        token,
-        parsed
-      );
-      break;
-    case TOKEN_NAMES.NUMBER:
-      (token.cache as ITokenCache).type = TypeFromNumberOrNumberString(
-        index,
-        token,
-        parsed
-      );
-      break;
     case TOKEN_NAMES.ACCESS_PROPERTY:
       (token.cache as ITokenCache).type = TypeFromProperty(
+        index,
+        parsed,
+        token
+      );
+      break;
+    case TOKEN_NAMES.BRACKET:
+      (token.cache as ITokenCache).type = TypeFromBracket(index, parsed, token);
+      break;
+    case TOKEN_NAMES.CALL_FUNCTION:
+      (token.cache as ITokenCache).type = TypeFromFunction(
         index,
         parsed,
         token
@@ -85,6 +64,20 @@ export function TypeFromSingleToken(
         token
       );
       break;
+    case TOKEN_NAMES.NUMBER:
+      (token.cache as ITokenCache).type = TypeFromNumberOrNumberString(
+        index,
+        token,
+        parsed
+      );
+      break;
+    case TOKEN_NAMES.OPERATOR_POINTER:
+      (token.cache as ITokenCache).type = TypeFromPointerDeref(
+        index,
+        parsed,
+        token
+      );
+      break;
     case TOKEN_NAMES.PARENTHESES:
       (token.cache as ITokenCache).type = TypeFromMultipleTokens(
         index,
@@ -92,11 +85,18 @@ export function TypeFromSingleToken(
         token.kids
       );
       break;
-    case TOKEN_NAMES.BRACKET:
-      (token.cache as ITokenCache).type = TypeFromBracket(index, parsed, token);
+    case TOKEN_NAMES.STRUCTURE:
+      (token.cache as ITokenCache).type = TypeFromStructure(
+        index,
+        token,
+        parsed
+      );
       break;
-    case TOKEN_NAMES.OPERATOR_POINTER:
-      (token.cache as ITokenCache).type = TypeFromPointerDeref(
+    case TOKEN_NAMES.SYSTEM_VARIABLE:
+      (token.cache as ITokenCache).type = TypeFromSystemVariable(index, token);
+      break;
+    case TOKEN_NAMES.VARIABLE:
+      (token.cache as ITokenCache).type = TypeFromVariable(
         index,
         parsed,
         token

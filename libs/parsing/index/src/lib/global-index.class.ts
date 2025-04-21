@@ -31,8 +31,19 @@ import { ShouldExportItem } from './helpers/should-export-item';
  * Class that manages storing/querying our index of global tokens
  */
 export class GlobalIndex {
+  /**
+   * Track changed files that we need to sync problems for regarding
+   * global tokens (i.e. duplicate problems)
+   */
+  changedFiles: { [key: string]: boolean } = {};
+
   /** track disabled problems by each file */
   disabledProblemsByFile: { [key: string]: IDisabledProblems } = {};
+
+  /**
+   * Track all of our syntax problems
+   */
+  globalSyntaxProblemsByFile: { [key: string]: SyntaxProblems } = {};
 
   /**
    * By file name, track the global token types that are present.
@@ -45,17 +56,6 @@ export class GlobalIndex {
    * Tokens categorized by type to reduce number of checks for global conflicts
    */
   globalTokensByTypeByName: GlobalTokensByTypeByName = {};
-
-  /**
-   * Track all of our syntax problems
-   */
-  globalSyntaxProblemsByFile: { [key: string]: SyntaxProblems } = {};
-
-  /**
-   * Track changed files that we need to sync problems for regarding
-   * global tokens (i.e. duplicate problems)
-   */
-  changedFiles: { [key: string]: boolean } = {};
 
   /**
    * Constructor which initializes properties in our constants so that they
@@ -173,16 +173,6 @@ export class GlobalIndex {
   }
 
   /**
-   * Resets all lookups to an initial state
-   */
-  reset() {
-    const types = Object.values(GLOBAL_TOKEN_TYPES);
-    for (let i = 0; i < types.length; i++) {
-      this.globalTokensByTypeByName[types[i]] = {};
-    }
-  }
-
-  /**
    * Retrieve global tokens that match our name and type
    */
   findMatchingGlobalToken<T extends GlobalTokenType>(
@@ -204,165 +194,6 @@ export class GlobalIndex {
 
     // get the tokens of the matching type
     return [];
-  }
-
-  // /**
-  //  * Use fuzzy searching to search global tokens of the specified type
-  //  */
-  // searchGlobalTokens<T extends GlobalTokenType>(
-  //   type: T,
-  //   searchFor: string
-  // ): IGlobalIndexedToken<T>[] {
-  //   // convert the name to lower case
-  //   const useSearch = searchFor.trim().toLowerCase();
-
-  //   // initialize the results
-  //   const results: IGlobalIndexedToken<T>[] = [];
-
-  //   // get the tokens to process
-  //   if (type in this.tokensByType) {
-  //     // search for matching global tokens
-  //     const found = fuzzysort.go(useSearch, this.tokensByType[type], {
-  //       key: 'name',
-  //       limit: 100, // don't return more results than you need!
-  //       threshold: -10000, // don't return bad results
-  //     });
-
-  //     // extract actual results and return
-  //     for (let i = 0; i < found.length; i++) {
-  //       results.push(found[i].obj as IGlobalIndexedToken<T>);
-  //     }
-  //   }
-
-  //   // get the tokens of the matching type
-  //   return results;
-  // }
-
-  /**
-   * Returns string for our IDL problem that a user sees
-   */
-  private getProblemDetail(token: GlobalIndexedToken): string {
-    // map problem code
-    return (
-      IDL_TRANSLATION.parsing.errors[PROBLEM_MAP[token.type]] +
-      `: "${token.name}"`
-    );
-  }
-
-  /**
-   * Searches all files to remove duplicate token problems.
-   *
-   * Pseudo efficient and only processes files that have tokens of the
-   * same type.
-   *
-   * @param token The token we are removing
-   * @param clear If set, we don't check the file and remove all
-   */
-  private removeDuplicateTokenProblems(
-    token: GlobalIndexedToken,
-    clear = true
-  ) {
-    // sting we match at the beginning
-    const problemCode = PROBLEM_MAP[token.type];
-
-    // string we match at the end
-    const endMatch = `: "${token.name}"`;
-
-    // check all files that we need to process
-    const files = this.globalTokensByTypeByName[token.type][token.name]
-      .filter((item) => item.file !== undefined)
-      .map((item) => item.file);
-
-    // process each file
-    for (let z = 0; z < files.length; z++) {
-      // get the problems for our file
-      const problems = this.globalSyntaxProblemsByFile[files[z]] || [];
-
-      // get number of problems
-      const l = problems.length;
-
-      // process problems
-      for (let i = 0; i < l; i++) {
-        // reverse index
-        const j = l - i - 1;
-
-        // extract the problem
-        const problem = problems[j];
-
-        // check if our file matches
-        if (
-          (problem.file === token.file || clear) &&
-          problem.code === problemCode &&
-          problem.info.endsWith(endMatch)
-        ) {
-          this.changedFiles[problem.file] = true;
-          problems.splice(j, 1);
-        }
-      }
-    }
-  }
-
-  /**
-   * Track problems with duplicate global variables
-   */
-  private addDuplicateTokenProblem(token: GlobalIndexedToken) {
-    // as long as we have a file, save our problem
-    if (token.file !== undefined) {
-      // check if we need to initialize the value in our file
-      if (!(token.file in this.globalSyntaxProblemsByFile)) {
-        this.globalSyntaxProblemsByFile[token.file] = [];
-      }
-
-      /**
-       * Make a new problem that we report
-       */
-      const prob = SyntaxProblemWithoutTranslation(
-        PROBLEM_MAP[token.type],
-        this.getProblemDetail(token),
-        token.pos,
-        token.pos,
-        token.file
-      );
-
-      // check if we have information about disabled problems
-      if (token.file in this.disabledProblemsByFile) {
-        prob.canReport = !IsProblemDisabled(
-          prob.code,
-          prob.start[0],
-          this.disabledProblemsByFile[token.file]
-        );
-      }
-
-      // save problem
-      this.globalSyntaxProblemsByFile[token.file].push(prob);
-      this.changedFiles[token.file] = true;
-    }
-  }
-
-  /**
-   * When we save a token, properly accounts for the number of tokens we have
-   * with the same name and where they come from.
-   */
-  private checkForDuplicate(token: GlobalIndexedToken) {
-    if (!IDL_INDEX_OPTIONS.IS_MAIN_THREAD) {
-      return;
-    }
-    if (token.name in this.globalTokensByTypeByName[token.type]) {
-      // check if we have a problem
-      switch (true) {
-        case this.globalTokensByTypeByName[token.type][token.name].length > 1:
-          this.addDuplicateTokenProblem(token);
-          break;
-        case this.globalTokensByTypeByName[token.type][token.name].length === 1:
-          this.addDuplicateTokenProblem(
-            this.globalTokensByTypeByName[token.type][token.name][0]
-          );
-          this.addDuplicateTokenProblem(token);
-          break;
-        default:
-          break;
-      }
-    }
   }
 
   /**
@@ -453,6 +284,48 @@ export class GlobalIndex {
     return tokens;
   }
 
+  // /**
+  //  * Use fuzzy searching to search global tokens of the specified type
+  //  */
+  // searchGlobalTokens<T extends GlobalTokenType>(
+  //   type: T,
+  //   searchFor: string
+  // ): IGlobalIndexedToken<T>[] {
+  //   // convert the name to lower case
+  //   const useSearch = searchFor.trim().toLowerCase();
+
+  //   // initialize the results
+  //   const results: IGlobalIndexedToken<T>[] = [];
+
+  //   // get the tokens to process
+  //   if (type in this.tokensByType) {
+  //     // search for matching global tokens
+  //     const found = fuzzysort.go(useSearch, this.tokensByType[type], {
+  //       key: 'name',
+  //       limit: 100, // don't return more results than you need!
+  //       threshold: -10000, // don't return bad results
+  //     });
+
+  //     // extract actual results and return
+  //     for (let i = 0; i < found.length; i++) {
+  //       results.push(found[i].obj as IGlobalIndexedToken<T>);
+  //     }
+  //   }
+
+  //   // get the tokens of the matching type
+  //   return results;
+  // }
+
+  /**
+   * Resets all lookups to an initial state
+   */
+  reset() {
+    const types = Object.values(GLOBAL_TOKEN_TYPES);
+    for (let i = 0; i < types.length; i++) {
+      this.globalTokensByTypeByName[types[i]] = {};
+    }
+  }
+
   /**
    * Add tokens to our global index. Removes any tokens previously found for
    * a file.
@@ -502,6 +375,133 @@ export class GlobalIndex {
         this.globalTokensByTypeByName[token.type][token.name].push(token);
       } else {
         this.globalTokensByTypeByName[token.type][token.name] = [token];
+      }
+    }
+  }
+
+  /**
+   * Track problems with duplicate global variables
+   */
+  private addDuplicateTokenProblem(token: GlobalIndexedToken) {
+    // as long as we have a file, save our problem
+    if (token.file !== undefined) {
+      // check if we need to initialize the value in our file
+      if (!(token.file in this.globalSyntaxProblemsByFile)) {
+        this.globalSyntaxProblemsByFile[token.file] = [];
+      }
+
+      /**
+       * Make a new problem that we report
+       */
+      const prob = SyntaxProblemWithoutTranslation(
+        PROBLEM_MAP[token.type],
+        this.getProblemDetail(token),
+        token.pos,
+        token.pos,
+        token.file
+      );
+
+      // check if we have information about disabled problems
+      if (token.file in this.disabledProblemsByFile) {
+        prob.canReport = !IsProblemDisabled(
+          prob.code,
+          prob.start[0],
+          this.disabledProblemsByFile[token.file]
+        );
+      }
+
+      // save problem
+      this.globalSyntaxProblemsByFile[token.file].push(prob);
+      this.changedFiles[token.file] = true;
+    }
+  }
+
+  /**
+   * When we save a token, properly accounts for the number of tokens we have
+   * with the same name and where they come from.
+   */
+  private checkForDuplicate(token: GlobalIndexedToken) {
+    if (!IDL_INDEX_OPTIONS.IS_MAIN_THREAD) {
+      return;
+    }
+    if (token.name in this.globalTokensByTypeByName[token.type]) {
+      // check if we have a problem
+      switch (true) {
+        case this.globalTokensByTypeByName[token.type][token.name].length > 1:
+          this.addDuplicateTokenProblem(token);
+          break;
+        case this.globalTokensByTypeByName[token.type][token.name].length === 1:
+          this.addDuplicateTokenProblem(
+            this.globalTokensByTypeByName[token.type][token.name][0]
+          );
+          this.addDuplicateTokenProblem(token);
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  /**
+   * Returns string for our IDL problem that a user sees
+   */
+  private getProblemDetail(token: GlobalIndexedToken): string {
+    // map problem code
+    return (
+      IDL_TRANSLATION.parsing.errors[PROBLEM_MAP[token.type]] +
+      `: "${token.name}"`
+    );
+  }
+
+  /**
+   * Searches all files to remove duplicate token problems.
+   *
+   * Pseudo efficient and only processes files that have tokens of the
+   * same type.
+   *
+   * @param token The token we are removing
+   * @param clear If set, we don't check the file and remove all
+   */
+  private removeDuplicateTokenProblems(
+    token: GlobalIndexedToken,
+    clear = true
+  ) {
+    // sting we match at the beginning
+    const problemCode = PROBLEM_MAP[token.type];
+
+    // string we match at the end
+    const endMatch = `: "${token.name}"`;
+
+    // check all files that we need to process
+    const files = this.globalTokensByTypeByName[token.type][token.name]
+      .filter((item) => item.file !== undefined)
+      .map((item) => item.file);
+
+    // process each file
+    for (let z = 0; z < files.length; z++) {
+      // get the problems for our file
+      const problems = this.globalSyntaxProblemsByFile[files[z]] || [];
+
+      // get number of problems
+      const l = problems.length;
+
+      // process problems
+      for (let i = 0; i < l; i++) {
+        // reverse index
+        const j = l - i - 1;
+
+        // extract the problem
+        const problem = problems[j];
+
+        // check if our file matches
+        if (
+          (problem.file === token.file || clear) &&
+          problem.code === problemCode &&
+          problem.info.endsWith(endMatch)
+        ) {
+          this.changedFiles[problem.file] = true;
+          problems.splice(j, 1);
+        }
       }
     }
   }

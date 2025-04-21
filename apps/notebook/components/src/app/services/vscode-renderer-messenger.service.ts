@@ -21,15 +21,8 @@ import type { RendererContext } from 'vscode-notebook-renderer';
   providedIn: 'any',
 })
 export class VSCodeRendererMessenger implements OnDestroy {
-  /**
-   * Renderer context from VSCode so we can send messages
-   */
-  private context!: RendererContext<any>;
-
-  /**
-   * The output ID of the cell
-   */
-  private metadata!: IDLNotebookOutputMetadata;
+  /** If we have a light or dark theme */
+  darkTheme = true;
 
   /**
    * Observable for messages from VSCode
@@ -45,8 +38,15 @@ export class VSCodeRendererMessenger implements OnDestroy {
    */
   themeChange$ = new Subject<boolean>();
 
-  /** If we have a light or dark theme */
-  darkTheme = true;
+  /**
+   * Renderer context from VSCode so we can send messages
+   */
+  private context!: RendererContext<any>;
+
+  /**
+   * The output ID of the cell
+   */
+  private metadata!: IDLNotebookOutputMetadata;
 
   constructor() {
     // get messaging context
@@ -98,20 +98,12 @@ export class VSCodeRendererMessenger implements OnDestroy {
   }
 
   /**
-   * Sets theme for our material components
-   *
-   * https://www.npmjs.com/package/@material/material-color-utilities
+   * Method that tells us if we can post messages or not
    */
-  setMaterialTheme() {
-    const style = getComputedStyle(document.body);
-
-    // Get the theme from a hex color
-    const theme = themeFromSourceColor(
-      argbFromHex(style.getPropertyValue('--vscode-activityBar-foreground'))
+  canPostMessage() {
+    return (
+      this.context.postMessage !== undefined && this.metadata !== undefined
     );
-
-    // Apply the theme to the body by updating custom properties for material tokens
-    applyTheme(theme, { target: document.body, dark: this.darkTheme });
   }
 
   /**
@@ -121,15 +113,6 @@ export class VSCodeRendererMessenger implements OnDestroy {
     // clean up observable
     this.messages$.complete();
     this.themeChange$.complete();
-  }
-
-  /**
-   * Method that tells us if we can post messages or not
-   */
-  canPostMessage() {
-    return (
-      this.context.postMessage !== undefined && this.metadata !== undefined
-    );
   }
 
   /**
@@ -146,5 +129,22 @@ export class VSCodeRendererMessenger implements OnDestroy {
       };
       this.context.postMessage(typed);
     }
+  }
+
+  /**
+   * Sets theme for our material components
+   *
+   * https://www.npmjs.com/package/@material/material-color-utilities
+   */
+  setMaterialTheme() {
+    const style = getComputedStyle(document.body);
+
+    // Get the theme from a hex color
+    const theme = themeFromSourceColor(
+      argbFromHex(style.getPropertyValue('--vscode-activityBar-foreground'))
+    );
+
+    // Apply the theme to the body by updating custom properties for material tokens
+    applyTheme(theme, { target: document.body, dark: this.darkTheme });
   }
 }

@@ -5,13 +5,13 @@ import {
 } from '@idl/parsing/syntax-tree';
 
 interface ISimplifiedTree {
-  type: any[];
-  name: any[];
   idx: any[];
   match: any[];
-  pos: any[];
+  name: any[];
   parseProblems: any[];
+  pos: any[];
   scope: any[];
+  type: any[];
 }
 
 /**

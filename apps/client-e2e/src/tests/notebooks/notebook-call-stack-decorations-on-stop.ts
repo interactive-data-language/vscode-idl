@@ -1,4 +1,4 @@
-import { GetExtensionPath } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
 import { IStackTraceLookup } from '@idl/vscode/decorations';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 

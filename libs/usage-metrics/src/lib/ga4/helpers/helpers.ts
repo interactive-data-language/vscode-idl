@@ -1,5 +1,3 @@
-import { performance } from 'perf_hooks';
-
 /**
  * Determines if value is number
  */
@@ -18,5 +16,5 @@ export function RandomInt() {
  * Get current timestamp in seconds
  */
 export function TimeStampInSeconds() {
-  return Math.floor(performance.now() / 1000);
+  return Math.floor(Date.now() / 1000);
 }

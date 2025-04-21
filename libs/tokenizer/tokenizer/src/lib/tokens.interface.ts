@@ -201,27 +201,27 @@ export type BasicTokenNames =
   | ControlJumpToken
   | ControlOptionToken
   | DotToken
+  | ExecutiveCommandToken
   | IncludeToken
-  | KeywordToken
   | KeywordBinaryToken
   | KeywordDefinitionToken
+  | KeywordToken
   | LineContinuationBasicToken
   | LineSeparationBasicToken
   | MainLevelEndToken
   | NumberToken
   | PromptToken
   | PythonToken
-  | QuoteSingleToken
   | QuoteDoubleToken
+  | QuoteSingleToken
   | StringTemplateEscape
   | StringTemplateString
   | StructureInheritanceToken
   | SystemVariableToken
-  | UnknownToken
-  | VariableToken
-  | UnexpectedCloserToken
   | TextToken
-  | ExecutiveCommandToken;
+  | UnexpectedCloserToken
+  | UnknownToken
+  | VariableToken;
 
 /**
  * Union type of all basic tokens that do recurse.
@@ -235,47 +235,47 @@ export type NonBasicTokenNames =
   | AssignmentToken
   | BlockToken
   | BracketToken
-  | CallFunctionToken
   | CallFunctionMethodToken
+  | CallFunctionToken
   | CallLambdaFunctionToken
-  | CallProcedureToken
   | CallProcedureMethodToken
+  | CallProcedureToken
   | CommentBlockToken
-  | ControlToken
   | ControlCommonToken
   | ControlCompileOptToken
   | ControlForwardFunctionOptToken
   | ControlGoToToken
   | ControlOnIoErrorToken
+  | ControlToken
   | LineContinuationToken
   | LineSeparationToken
-  | LogicalToken
-  | LogicalCaseToken
   | LogicalCaseSwitchThenToken
+  | LogicalCaseToken
   | LogicalElseToken
-  | LogicalExpressionToken
   | LogicalExpressionDefaultToken
+  | LogicalExpressionToken
   | LogicalIfToken
   | LogicalOfToken
   | LogicalSwitchToken
   | LogicalTernaryElseToken
   | LogicalTernaryThenToken
   | LogicalThenToken
-  | LoopToken
+  | LogicalToken
   | LoopDoToken
-  | LoopForToken
   | LoopForeachToken
+  | LoopForToken
   | LoopRepeatToken
+  | LoopToken
   | LoopUntilToken
   | LoopWhileToken
   | MainLevelToken
-  | OperatorToken
   | OperatorCompoundToken
   | OperatorIncrementDecrementToken
   | OperatorIndexingToken
   | OperatorLogicalToken
-  | OperatorPointerToken
   | OperatorNegativeToken
+  | OperatorPointerToken
+  | OperatorToken
   | ParenthesesToken
   | RoutineFunctionToken
   | RoutineMethodNameToken
@@ -283,10 +283,10 @@ export type NonBasicTokenNames =
   | RoutineProcedureToken
   | StringTemplateExpression
   | StringTemplateLiteral
-  | StructureToken
   | StructureIndexedPropertyToken
   | StructureNameToken
   | StructurePropertyToken
+  | StructureToken
   | ToDoToken;
 
 /**
@@ -298,10 +298,10 @@ export type TokenName = BasicTokenNames | NonBasicTokenNames;
  * Strictly typed data structure with easy-lookup of token types
  */
 export interface ITokenNameLookup {
-  /** When an argument is defined */
-  ARG_DEFINITION: ArgDefinitionToken;
   /** Property being accessed */
   ACCESS_PROPERTY: AccessPropertyToken;
+  /** When an argument is defined */
+  ARG_DEFINITION: ArgDefinitionToken;
   /** A standalone arrow for method invocation, found when incomplete  */
   ARROW: ArrowToken;
   /** Generic token for assignment. can be expanded into variables, properties, or compound operators */
@@ -342,12 +342,12 @@ export interface ITokenNameLookup {
   CONTROL_COMPILE_OPT: ControlCompileOptToken;
   /** Continue statement in loops */
   CONTROL_CONTINUE: ControlContinueToken;
+  /** Forward function */
+  CONTROL_FORWARD_FUNCTION: ControlForwardFunctionOptToken;
   /** GoTo statement */
   CONTROL_GO_TO: ControlGoToToken;
   /** GoTo label that we actually go to */
   CONTROL_JUMP: ControlJumpToken;
-  /** Forward function */
-  CONTROL_FORWARD_FUNCTION: ControlForwardFunctionOptToken;
   /** Handling on_ioerror */
   CONTROL_ON_IOERROR: ControlOnIoErrorToken;
   /** Options for compound control statements (i.e. compile_opt, forward_function) */
@@ -364,16 +364,24 @@ export interface ITokenNameLookup {
   KEYWORD_BINARY: KeywordBinaryToken;
   /** When a keyword is defined */
   KEYWORD_DEFINITION: KeywordDefinitionToken;
+  /** Line continuation */
+  LINE_CONTINUATION: LineContinuationToken;
+  /** Line continuation basic */
+  LINE_CONTINUATION_BASIC: LineContinuationBasicToken;
+  /** Line separation */
+  LINE_SEPARATION: LineSeparationToken;
+  /** Line separation within switch/case */
+  LINE_SEPARATION_BASIC: LineSeparationBasicToken;
   /** General logic statement type */
   LOGICAL: LogicalToken;
   /** Case statement start */
   LOGICAL_CASE: LogicalCaseToken;
+  /** The thing we do for a case or switch then statement */
+  LOGICAL_CASE_SWITCH_THEN: LogicalCaseSwitchThenToken;
   /** Else statement start */
   LOGICAL_ELSE: LogicalElseToken;
   /** The "if" portion of case and switch statements */
   LOGICAL_EXPRESSION: LogicalExpressionToken;
-  /** The thing we do for a case or switch then statement */
-  LOGICAL_CASE_SWITCH_THEN: LogicalCaseSwitchThenToken;
   /** The default case for case or switch */
   LOGICAL_EXPRESSION_DEFAULT: LogicalExpressionDefaultToken;
   /** If statement start */
@@ -388,14 +396,6 @@ export interface ITokenNameLookup {
   LOGICAL_TERNARY_THEN: LogicalTernaryThenToken;
   /** Then statement start */
   LOGICAL_THEN: LogicalThenToken;
-  /** Line continuation */
-  LINE_CONTINUATION: LineContinuationToken;
-  /** Line continuation basic */
-  LINE_CONTINUATION_BASIC: LineContinuationBasicToken;
-  /** Line separation */
-  LINE_SEPARATION: LineSeparationToken;
-  /** Line separation within switch/case */
-  LINE_SEPARATION_BASIC: LineSeparationBasicToken;
   /** Generic loop token */
   LOOP: LoopToken;
   /** Do part of loop */
@@ -472,12 +472,12 @@ export interface ITokenNameLookup {
   TEXT: TextToken;
   /** TODO statement in comment */
   TODO: ToDoToken;
-  /** Variables and system variables (TODO: separate in future) */
-  VARIABLE: VariableToken;
   /** When we encounter an unexpected closing statement */
   UNEXPECTED_CLOSER: UnexpectedCloserToken;
   /** When we encounter something that was not parsed (i.e. its unknown)  */
   UNKNOWN: UnknownToken;
+  /** Variables and system variables (TODO: separate in future) */
+  VARIABLE: VariableToken;
 }
 
 /**
@@ -582,32 +582,6 @@ export const TOKEN_NAMES: ITokenNameLookup = {
  * Structure for regular expressions that parse our code
  */
 export interface ITokenDef<T extends TokenName> {
-  /** Name of the token */
-  name: T;
-  /** RegExp for the start or whole token */
-  match: RegExp;
-  /** If we have more text than our match, this indicates the end of our token */
-  end?: RegExp;
-  /**
-   * When we close our token, do we go to the next line after?
-   *
-   * This handles special cases, like line continuations when, after line continuation
-   * and an optional comment, we need to skip to the next line.
-   */
-  nextLineOnClose?: boolean;
-  /**
-   * Optional callback used to get the token name from matches. Use case
-   * for this customization is when we have a single regex used for
-   * different types of tokens.
-   *
-   * For example: for, foreach, and while are one regex
-   * For example: if, then, and else are one regex
-   */
-  getTokenName?: (matches: TokenStartMatches<T>) => T;
-  /**
-   * Optional post-processing for token matches. Called AFTER getTokenName
-   */
-  postProcessMatches?: (name: T, matches: string[]) => TokenStartMatches<T>;
   /**
    * When a non-basic token ends, check if we have a matching parent token that should
    * be closed immediately afterwards.
@@ -619,9 +593,35 @@ export interface ITokenDef<T extends TokenName> {
    * Resets tokens to DEFAULT_TOKENS after closing a token
    */
   defaultTokens?: boolean;
+  /** If we have more text than our match, this indicates the end of our token */
+  end?: RegExp;
+  /**
+   * Optional callback used to get the token name from matches. Use case
+   * for this customization is when we have a single regex used for
+   * different types of tokens.
+   *
+   * For example: for, foreach, and while are one regex
+   * For example: if, then, and else are one regex
+   */
+  getTokenName?: (matches: TokenStartMatches<T>) => T;
+  /** RegExp for the start or whole token */
+  match: RegExp;
+  /** Name of the token */
+  name: T;
+  /**
+   * When we close our token, do we go to the next line after?
+   *
+   * This handles special cases, like line continuations when, after line continuation
+   * and an optional comment, we need to skip to the next line.
+   */
+  nextLineOnClose?: boolean;
   /**
    * Flag that, if set, will prevent this token from being a match
    * if we are *not* at the beginning on a file
    */
   onlyFirst?: boolean;
+  /**
+   * Optional post-processing for token matches. Called AFTER getTokenName
+   */
+  postProcessMatches?: (name: T, matches: string[]) => TokenStartMatches<T>;
 }

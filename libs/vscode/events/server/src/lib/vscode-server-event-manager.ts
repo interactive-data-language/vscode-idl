@@ -20,10 +20,25 @@ export class VSCodeServerEventManager {
   }
 
   /**
-   * Helper that checks to see if we can send a message or not
+   * Respond to messages from the language server
    */
-  private canSendNotification(asString: string) {
-    return !asString.includes(CANCELLATION_MESSAGE);
+  onNotification<T extends LanguageServerMessage>(
+    message: T,
+    callback: (payload: LanguageServerPayload<T>) => void
+  ) {
+    this.connection.onNotification(MessageNameNormalizer(message), callback);
+  }
+
+  /**
+   * Respond to requests from the language server
+   */
+  onRequest<T extends LanguageServerMessage>(
+    message: T,
+    callback: (
+      payload: LanguageServerPayload<T>
+    ) => LanguageServerResponse<T> | Promise<LanguageServerResponse<T>>
+  ) {
+    this.connection.onRequest(MessageNameNormalizer(message), callback);
   }
 
   /**
@@ -43,24 +58,9 @@ export class VSCodeServerEventManager {
   }
 
   /**
-   * Respond to messages from the language server
+   * Helper that checks to see if we can send a message or not
    */
-  onNotification<T extends LanguageServerMessage>(
-    message: T,
-    callback: (payload: LanguageServerPayload<T>) => void
-  ) {
-    this.connection.onNotification(MessageNameNormalizer(message), callback);
-  }
-
-  /**
-   * Respond to requests from the language server
-   */
-  onRequest<T extends LanguageServerMessage>(
-    message: T,
-    callback: (
-      payload: LanguageServerPayload<T>
-    ) => Promise<LanguageServerResponse<T>> | LanguageServerResponse<T>
-  ) {
-    this.connection.onRequest(MessageNameNormalizer(message), callback);
+  private canSendNotification(asString: string) {
+    return !asString.includes(CANCELLATION_MESSAGE);
   }
 }

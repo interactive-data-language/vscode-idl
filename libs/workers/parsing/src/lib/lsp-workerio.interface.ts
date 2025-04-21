@@ -28,15 +28,6 @@ export interface ILSPWorkerWorkerIOPostAndReceiveMessageResult<
 export interface ILSPWorkerWorkerIO<_Message extends LSPWorkerThreadMessage>
   extends IWorkerIO<_Message> {
   /**
-   * Send a message to our worker, but don't want for a response
-   */
-  postMessage<T extends _Message>(
-    workerId: string,
-    type: T,
-    payload: PayloadToLSPWorker<T>
-  ): string;
-
-  /**
    * Send a message to our worker and wait for a response
    */
   postAndReceiveMessage<T extends _Message>(
@@ -46,6 +37,15 @@ export interface ILSPWorkerWorkerIO<_Message extends LSPWorkerThreadMessage>
     timeout?: number,
     cancel?: CancellationToken
   ): ILSPWorkerWorkerIOPostAndReceiveMessageResult<T>;
+
+  /**
+   * Send a message to our worker, but don't want for a response
+   */
+  postMessage<T extends _Message>(
+    workerId: string,
+    type: T,
+    payload: PayloadToLSPWorker<T>
+  ): string;
 
   /**
    * Subscribe to all messages with the same ID from any worker

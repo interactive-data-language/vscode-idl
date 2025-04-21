@@ -13,23 +13,23 @@ export type IDLErrorLevel = 'error';
  * Union type of all allowed severity levels
  */
 export type IDLProblemSeverity =
+  | IDLErrorLevel
   | IDLHintLevel
   | IDLInformationLevel
-  | IDLWarningLevel
-  | IDLErrorLevel;
+  | IDLWarningLevel;
 
 /**
  * Strictly typed lookup of problem severity
  */
 interface IDLProblemSeverityLookup {
+  /** When a problem is an error */
+  ERROR: IDLErrorLevel;
   /** When a problem is a hint */
   HINT: IDLHintLevel;
   /** When a problem is informational */
   INFORMATION: IDLInformationLevel;
   /** When a problem is a warning */
   WARNING: IDLWarningLevel;
-  /** When a problem is an error */
-  ERROR: IDLErrorLevel;
 }
 
 /**

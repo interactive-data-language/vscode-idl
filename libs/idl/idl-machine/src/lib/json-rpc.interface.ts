@@ -26,23 +26,13 @@ export interface JSONRPCRequest extends JSONRPCNotification {
 export interface IJSONRPCError {
   /** Code for the error */
   code: number;
-  /** Error message information */
-  message: string;
   /** Additional information about the error */
   data?: any;
+  /** Error message information */
+  message: string;
 }
 
 export interface JSONRPCResponse {
-  /**
-   * A String specifying the version of the JSON-RPC protocol. MUST be exactly "2.0".
-   */
-  jsonrpc: '2.0';
-  /**
-   * This member is REQUIRED on success.
-   * This member MUST NOT exist if there was an error invoking the method.
-   * The value of this member is determined by the method invoked on the Server.
-   */
-  result?: any;
   /**
    * This member is REQUIRED on error.
    * This member MUST NOT exist if there was no error triggered during invocation.
@@ -55,4 +45,14 @@ export interface JSONRPCResponse {
    * If there was an error in detecting the id in the Request object (e.g. Parse error/Invalid Request), it MUST be Null.
    */
   id: number;
+  /**
+   * A String specifying the version of the JSON-RPC protocol. MUST be exactly "2.0".
+   */
+  jsonrpc: '2.0';
+  /**
+   * This member is REQUIRED on success.
+   * This member MUST NOT exist if there was an error invoking the method.
+   * The value of this member is determined by the method invoked on the Server.
+   */
+  result?: any;
 }

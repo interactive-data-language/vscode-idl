@@ -19,8 +19,8 @@ import { EvaluateTypeOfArgs } from './evaluate-type-of-args';
 export function EvaluateReturnType(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<CallFunctionToken | CallFunctionMethodToken>,
-  global: IGlobalIndexedToken<GlobalFunctionToken | GlobalFunctionMethodToken>
+  token: TreeToken<CallFunctionMethodToken | CallFunctionToken>,
+  global: IGlobalIndexedToken<GlobalFunctionMethodToken | GlobalFunctionToken>
 ): IDLDataType {
   /**
    * Check for the `TypeOfArg<ArgIdx>` type

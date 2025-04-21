@@ -1,6 +1,6 @@
 import { CreateCodeActions } from '@idl/assembling/code-actions';
+import { IDLFileHelper } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { IDLFileHelper } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLDiagnostic } from '@idl/types/diagnostic';
 import { CodeAction, CodeActionParams } from 'vscode-languageserver/node';

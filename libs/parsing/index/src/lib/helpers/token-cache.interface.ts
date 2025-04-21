@@ -23,6 +23,26 @@ import { IFoundParameter, IFoundProperty } from './get-property.interface';
  * logic in the miscellaneous routines as we check for cache values by key name
  */
 export interface ITokenCache {
+  /** Arguments and keywords */
+  argSplit?: ISplitTreeOnArguments;
+  /** For each argument, the data type */
+  argTypes?: IDLDataType[];
+  /** Global token */
+  global?: IGlobalIndexedToken<GlobalTokenType>;
+  /**
+   * Keyword for given token
+   */
+  keyword?: IFoundParameter;
+  /** Keywords */
+  keywords?: IFoundKeywords;
+  /** Method */
+  method?: IGlobalIndexedToken<
+    GlobalFunctionMethodToken | GlobalProcedureMethodToken
+  >[];
+  /** Property */
+  property?: IFoundProperty;
+  /** Routines */
+  routine?: GlobalIndexedRoutineToken[];
   /** The type of our token */
   type?: IDLDataType;
   /**
@@ -32,30 +52,10 @@ export interface ITokenCache {
    * making sure things like properties and methods exist or not.
    */
   typeBefore?: IDLDataType;
-  /**
-   * Keyword for given token
-   */
-  keyword?: IFoundParameter;
-  /** Keywords */
-  keywords?: IFoundKeywords;
-  /** Variables */
-  variables?: ILocalTokenLookup;
-  /** Routines */
-  routine?: GlobalIndexedRoutineToken[];
-  /** Global token */
-  global?: IGlobalIndexedToken<GlobalTokenType>;
-  /** Method */
-  method?: IGlobalIndexedToken<
-    GlobalFunctionMethodToken | GlobalProcedureMethodToken
-  >[];
-  /** Property */
-  property?: IFoundProperty;
   /** Flag indicating that we have validated the type to our left already for a token */
   validatedLeft?: boolean;
   /** Flag indicating that we have validated the type to our right already for a token */
   validatedRight?: boolean;
-  /** Arguments and keywords */
-  argSplit?: ISplitTreeOnArguments;
-  /** For each argument, the data type */
-  argTypes?: IDLDataType[];
+  /** Variables */
+  variables?: ILocalTokenLookup;
 }

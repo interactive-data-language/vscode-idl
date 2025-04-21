@@ -1,6 +1,6 @@
 import { StartExpressDocsServer } from '@idl/docs/server';
+import { FindFiles, IFolderRecursion } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { IFolderRecursion } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   LANGUAGE_SERVER_MESSAGE_LOOKUP,
@@ -128,13 +128,16 @@ export const ON_WORKSPACE_CONFIG = async (
      */
     try {
       // add folders
-      await IDL_INDEX.indexWorkspace(
+      await IDL_INDEX.indexWorkspaceFiles(
+        await FindFiles(info.folders.added),
         info.folders.added,
         GLOBAL_SERVER_SETTINGS.fullParse
       );
 
       // remove folders
-      await IDL_INDEX.removeWorkspace(info.folders.removed);
+      await IDL_INDEX.removeWorkspaceFiles(
+        await FindFiles(info.folders.removed)
+      );
 
       // send problems with settings changes
       SendProblems(Object.keys(IDL_INDEX.getSyntaxProblems()));

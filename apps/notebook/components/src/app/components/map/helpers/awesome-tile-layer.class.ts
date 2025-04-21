@@ -18,14 +18,6 @@ export class AwesomeTileLayer extends TileLayer {
   private color = new ColorTransform();
 
   /**
-   * Update the image display
-   */
-  updateImageDisplay(opts: Partial<ImageDisplayOptions>) {
-    this.color.update(opts);
-    this.setNeedsRedraw();
-  }
-
-  /**
    * Draw and pass in uniforms from filter
    */
   override draw(options: any) {
@@ -46,6 +38,14 @@ export class AwesomeTileLayer extends TileLayer {
       ...super.getShaders(shaders),
       ...this.color.shader,
     };
+  }
+
+  /**
+   * Update the image display
+   */
+  updateImageDisplay(opts: Partial<ImageDisplayOptions>) {
+    this.color.update(opts);
+    this.setNeedsRedraw();
   }
 }
 AwesomeTileLayer.layerName = 'AwesomeTileLayer';
