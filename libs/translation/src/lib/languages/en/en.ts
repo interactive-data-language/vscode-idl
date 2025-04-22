@@ -461,8 +461,7 @@ export const EN: ITranslation = {
       noUI: 'ENVI has started, but has no UI. Please restart ENVI with the UI to display data',
       openError: 'Unable to open dataset, see the IDL console for more details',
     },
-    openerText:
-      'ENVI should attempt to open the image shortly, please wait.\nTo disable this behavior, view the documentation for the extension "IDL for VSCode".',
+    openerText: 'ENVI should attempt to open the image shortly, please wait.',
     openerTitle: 'ENVI File Opener',
   },
   generators: {

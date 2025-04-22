@@ -2,6 +2,7 @@ import { IDL_MCP_LOG } from '@idl/logger';
 import { StartMCPServer } from '@idl/mcp/server';
 
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../initialize-server';
+import { RegisterENVIChangeDetectionTool } from './tools/register-envi-change-detection-tool';
 import { RegisterOpenInENVITool } from './tools/register-open-in-envi-tool';
 import { RegisterStartENVITool } from './tools/register-start-envi-tool';
 
@@ -22,6 +23,7 @@ export function InitializeMCPServer() {
   });
 
   // register our tools
+  RegisterENVIChangeDetectionTool();
   RegisterOpenInENVITool();
   RegisterStartENVITool();
 }

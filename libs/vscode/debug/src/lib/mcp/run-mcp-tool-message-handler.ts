@@ -6,6 +6,7 @@ import {
 } from '@idl/vscode/events/messages';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 
+import { RunMCPENVIChangeDetection } from './tools/run-mcp-envi-change-detection';
 import { RunMCPOpenInENVI } from './tools/run-mcp-open-in-envi';
 import { RunMCPStartENVI } from './tools/run-mcp-start-envi';
 
@@ -17,6 +18,7 @@ export const MCP_TOOL_LOOKUP: {
     params: MCPToolParams<key>
   ) => MCPToolResponse<key> | Promise<MCPToolResponse<key>>;
 } = {
+  'envi-change-detection': RunMCPENVIChangeDetection,
   'open-in-envi': RunMCPOpenInENVI,
   'start-envi': RunMCPStartENVI,
 };
@@ -38,7 +40,15 @@ export async function RunMCPToolMessageHandler(
     // try to run
     try {
       // use any to override specific types
-      return MCP_TOOL_LOOKUP[payload.tool](payload.params as any);
+      const res = await MCP_TOOL_LOOKUP[payload.tool](payload.params as any);
+
+      IDL_LOGGER.log({
+        type: 'info',
+        log: IDL_MCP_LOG,
+        content: [`MCP tool results: ${payload.tool}`, res],
+      });
+
+      return res;
     } catch (err) {
       // log error
       IDL_LOGGER.log({
@@ -54,6 +64,7 @@ export async function RunMCPToolMessageHandler(
       // return that we failed
       return {
         success: false,
+        err: 'There was an unhandled error during the execution of the tool',
       };
     }
   } else {
@@ -67,6 +78,7 @@ export async function RunMCPToolMessageHandler(
     // also return that we failed
     return {
       success: false,
+      err: 'Attempt to run an unknown tool',
     };
   }
 }

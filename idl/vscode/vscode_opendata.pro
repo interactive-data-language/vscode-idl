@@ -14,20 +14,13 @@ pro vscode_openData, uri
   on_error, 2
   vscode_verifyPath
 
-  ; initialize output
-  out = orderedhash()
-  out['succeeded'] = !false
-  out['reason'] = ''
-  out['error'] = ''
-
   ; handle errors accessing ENVI
   catch, err
   if (err ne 0) then begin
     catch, /cancel
     help, /last_message, output = o
-    out['reason'] = 'envi-error'
-    out['error'] = o
-    goto, result
+    vscode_reportENVISuccess, !false, 'envi-error', o
+    return
   endif else begin
     ; get the current instance of ENVI
     e = envi(/current)
@@ -37,8 +30,8 @@ pro vscode_openData, uri
       e = envi()
     endif else begin
       if (e.widget_id eq 0) then begin
-        out['reason'] = 'no-envi-ui'
-        goto, result
+        vscode_reportENVISuccess, !false, 'no-envi-ui', ''
+        return
       endif
     endelse
   endelse
@@ -50,9 +43,8 @@ pro vscode_openData, uri
 
   ; check for problem
   if keyword_set(err) then begin
-    out['reason'] = 'open-error'
-    out['error'] = err
-    goto, result
+    vscode_reportENVISuccess, !false, 'open-error', err
+    return
   endif
 
   ; display our raster
@@ -62,10 +54,6 @@ pro vscode_openData, uri
   view.zoom, /full_extent
   e.refresh
 
-  ; update flags
-  out['succeeded'] = !true
-
-  ; print message for VSCode
-  result:
-  print, json_serialize(out)
+  ; report success
+  vscode_reportENVISuccess, !true, '', ''
 end

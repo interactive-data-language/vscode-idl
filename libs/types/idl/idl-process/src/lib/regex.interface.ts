@@ -124,4 +124,12 @@ export const REGEX_COMPILED_MAIN = /% Compiled module: \$MAIN\$\./im;
  * remove them from IDL's output
  */
 export const REGEX_CLEAN_IDL_OUTPUT =
-  /^% (?:Compiled module|Restored file):.*$/gim;
+  /^% (?:Compiled module|Restored file|Loaded DLM):.*$/gim;
+
+/**
+ * Regex to detect compile and restore statements so we can
+ * remove them from IDL's output
+ *
+ * Relaxed to be more flexible
+ */
+export const REGEX_CLEAN_IDL_OUTPUT_RELAXED = /^%.*:.*$/gim;
