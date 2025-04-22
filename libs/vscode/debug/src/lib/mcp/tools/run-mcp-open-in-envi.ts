@@ -6,7 +6,7 @@ import { IDL_DEBUG_ADAPTER } from '../../initialize-debugger';
 /**
  * Open a dataset in ENVI
  */
-export async function OpenInENVI(
+export async function RunMCPOpenInENVI(
   params: MCPToolParams<MCPOpenInENVI>
 ): Promise<MCPToolResponse<MCPOpenInENVI>> {
   /**

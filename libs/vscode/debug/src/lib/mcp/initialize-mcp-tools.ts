@@ -1,8 +1,8 @@
 import { MCPToolParams, MCPToolResponse, MCPTools } from '@idl/types/mcp';
 import { ExtensionContext } from 'vscode';
 
-import { OpenInENVI } from './tools/open-in-envi';
-import { StartENVI } from './tools/start-envi';
+import { RunMCPOpenInENVI } from './tools/run-mcp-open-in-envi';
+import { RunMCPStartENVI } from './tools/run-mcp-start-envi';
 
 /**
  * Typed lookup of functions that we register for our tools
@@ -18,7 +18,7 @@ export let MCP_TOOL_LOOKUP: {
  */
 export function InitializeMCPTools(ctx: ExtensionContext) {
   MCP_TOOL_LOOKUP = {
-    'open-in-envi': OpenInENVI,
-    'start-envi': StartENVI,
+    'open-in-envi': RunMCPOpenInENVI,
+    'start-envi': RunMCPStartENVI,
   };
 }

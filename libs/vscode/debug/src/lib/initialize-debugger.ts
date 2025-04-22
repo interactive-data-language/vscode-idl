@@ -8,7 +8,7 @@ import { ServerIDLDebugAdapterFactory } from './idl-debug-adapter-factory.class'
 import { IDLDebugConfigurationProvider } from './idl-debug-configuration';
 import { IDLDebugStatusBar } from './idl-debug-status-bar';
 import { IInitializeDebuggerResult } from './initialize-debugger.interface';
-import { InitializeMCPTools } from './mcp-tools/initialize-mcp-tools';
+import { InitializeMCPTools } from './mcp/initialize-mcp-tools';
 
 /**
  * The debug adapter that manages interacting with our session of IDL

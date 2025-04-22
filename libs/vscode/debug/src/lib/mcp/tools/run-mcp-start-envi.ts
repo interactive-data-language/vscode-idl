@@ -6,7 +6,7 @@ import { IDL_DEBUG_ADAPTER } from '../../initialize-debugger';
 /**
  * Open a dataset in ENVI
  */
-export async function StartENVI(
+export async function RunMCPStartENVI(
   params: MCPToolParams<MCPStartENVI>
 ): Promise<MCPToolResponse<MCPStartENVI>> {
   /**
@@ -21,7 +21,7 @@ export async function StartENVI(
 
   // execute our command
   await IDL_DEBUG_ADAPTER.evaluate(
-    params.headless ? 'e = envi(/headless' : 'e = envi()'
+    params.headless ? 'e = envi(/headless)' : 'e = envi()'
   );
 
   // we made it here, so lets return
