@@ -267,7 +267,8 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
       if (payload.tool in MCP_TOOL_LOOKUP) {
         // try to run
         try {
-          return MCP_TOOL_LOOKUP[payload.tool](payload.params);
+          // use any to override specific types
+          return MCP_TOOL_LOOKUP[payload.tool](payload.params as any);
         } catch (err) {
           // log error
           IDL_LOGGER.log({
