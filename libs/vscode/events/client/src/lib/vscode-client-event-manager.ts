@@ -28,6 +28,18 @@ export class VSCodeClientEventManager {
   }
 
   /**
+   * Respond to requests from the language server
+   */
+  onRequest<T extends LanguageServerMessage>(
+    message: T,
+    callback: (
+      payload: LanguageServerPayload<T>
+    ) => LanguageServerResponse<T> | Promise<LanguageServerResponse<T>>
+  ) {
+    this.client.onRequest(MessageNameNormalizer(message), callback);
+  }
+
+  /**
    * Send message to the language server
    */
   sendNotification<T extends LanguageServerMessage>(

@@ -1,4 +1,5 @@
 import { ILogOptions } from '@idl/logger';
+import { MCPTools } from '@idl/types/mcp';
 import { IUsageMetricAndPayload, UsageMetric } from '@idl/usage-metrics';
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
@@ -22,6 +23,11 @@ import {
   IndexingMessage,
 } from './messages/indexing.message.interface';
 import { LoggingMessage } from './messages/logging.message.interface';
+import {
+  MCP_LSP_Message,
+  MCP_LSP_MessagePayload,
+  MCP_LSP_MessageResponse,
+} from './messages/mcp-messages.interface';
 import {
   MigrateCodeLSPMessage,
   MigrateCodeLSPPayload,
@@ -69,6 +75,7 @@ export type LanguageServerMessage =
   | IndexingMessage
   | InitWorkspaceConfigMessage
   | LoggingMessage
+  | MCP_LSP_Message
   | MigrateCodeLSPMessage
   | NotebookToProCodeMessage
   | PrepareNotebookCellMessage
@@ -97,6 +104,8 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? IInitWorkspaceConfigPayload
     : T extends LoggingMessage
     ? ILogOptions
+    : T extends MCP_LSP_Message
+    ? MCP_LSP_MessagePayload<MCPTools>
     : T extends MigrateCodeLSPMessage
     ? MigrateCodeLSPPayload
     : T extends NotebookToProCodeMessage
@@ -117,6 +126,8 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
 export type LanguageServerResponse<T extends LanguageServerMessage> =
   T extends FormatWorkspaceMessage
     ? FormatWorkspaceResponse
+    : T extends MCP_LSP_Message
+    ? MCP_LSP_MessageResponse<MCPTools>
     : T extends MigrateCodeLSPMessage
     ? MigrateCodeLSPResponse
     : T extends NotebookToProCodeMessage
@@ -147,6 +158,8 @@ export interface ILanguageServerMessages {
   INIT_WORKSPACE_CONFIG: InitWorkspaceConfigMessage;
   /** Log content from the LSP */
   LOG: LoggingMessage;
+  /** MCP message to run a tool */
+  MCP: MCP_LSP_Message;
   /** Message to migrate ENVI DL API to 3.0 */
   MIGRATE_CODE: MigrateCodeLSPMessage;
   /** Convert notebooks to PRO code */
@@ -179,6 +192,7 @@ export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   INDEXING: 'indexing',
   INIT_WORKSPACE_CONFIG: 'init-workspace-config',
   LOG: 'log',
+  MCP: 'mcp',
   MIGRATE_CODE: 'migrate-code',
   NOTEBOOK_TO_PRO_CODE: 'notebook/to-pro-code',
   PROGRESS: 'progress',

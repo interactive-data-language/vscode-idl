@@ -1,4 +1,5 @@
 import { CleanPath, GetCanonicalPath } from '@idl/idl/files';
+import { IDL_MCP_LOG } from '@idl/logger';
 import {
   ALL_DOCUMENT_SELECTORS,
   IDL_LANGUAGE_NAME,
@@ -11,6 +12,7 @@ import {
   VSCodeDisplayOrUpdateProgress,
 } from '@idl/vscode/client-shared';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
+import { MCP_TOOL_LOOKUP } from '@idl/vscode/debug';
 import { VSCodeClientEventManager } from '@idl/vscode/events/client';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { IDL_LOGGER } from '@idl/vscode/logger';
@@ -248,6 +250,54 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
         payload.increment,
         payload.finished
       );
+    }
+  );
+
+  // listen for MCP tool requests
+  LANGUAGE_SERVER_MESSENGER.onRequest(
+    LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
+    (payload) => {
+      IDL_LOGGER.log({
+        type: 'info',
+        log: IDL_MCP_LOG,
+        content: [`Run MCP tool: ${payload.tool}`, payload.params],
+      });
+
+      // make sure we know how to run the tool
+      if (payload.tool in MCP_TOOL_LOOKUP) {
+        // try to run
+        try {
+          return MCP_TOOL_LOOKUP[payload.tool](payload.params);
+        } catch (err) {
+          // log error
+          IDL_LOGGER.log({
+            type: 'error',
+            log: IDL_MCP_LOG,
+            content: [
+              `Error while running MCP tool: ${payload.tool}`,
+              payload.params,
+              err,
+            ],
+          });
+
+          // return that we failed
+          return {
+            success: false,
+          };
+        }
+      } else {
+        // log error
+        IDL_LOGGER.log({
+          type: 'error',
+          log: IDL_MCP_LOG,
+          content: [`Unknown MCP tool: ${payload.tool}`, payload.params],
+        });
+
+        // also return that we failed
+        return {
+          success: false,
+        };
+      }
     }
   );
 

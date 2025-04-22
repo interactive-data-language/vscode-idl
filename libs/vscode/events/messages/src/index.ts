@@ -1,3 +1,4 @@
+export * from './lib//messages/mcp-messages.interface';
 export * from './lib/lsp-messages.interface';
 export * from './lib/message-name-normalizer';
 export * from './lib/messages/folder-delete.message.interface';

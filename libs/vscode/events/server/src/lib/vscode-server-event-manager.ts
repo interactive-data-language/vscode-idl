@@ -58,6 +58,25 @@ export class VSCodeServerEventManager {
   }
 
   /**
+   * Send request to the VSCode Client
+   */
+  sendRequest<T extends LanguageServerMessage>(
+    message: T,
+    payload: LanguageServerPayload<T>
+  ): LanguageServerResponse<T> | Promise<LanguageServerResponse<T>> {
+    // serialize our message
+    const serialized = SerializeServerMessage(payload);
+
+    // check if we can send our notification
+    if (this.canSendNotification(serialized)) {
+      return this.connection.sendRequest(
+        MessageNameNormalizer(message),
+        payload
+      );
+    }
+  }
+
+  /**
    * Helper that checks to see if we can send a message or not
    */
   private canSendNotification(asString: string) {
