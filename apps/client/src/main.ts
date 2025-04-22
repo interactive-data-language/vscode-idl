@@ -3,11 +3,13 @@ import {
   InitializeClient,
   LANGUAGE_SERVER_CLIENT,
   LANGUAGE_SERVER_FAILED_START,
+  LANGUAGE_SERVER_MESSENGER,
 } from '@idl/vscode/client';
 import { InitializeDebugger } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { InitializeDocs } from '@idl/vscode/docs';
 import { InitializeENVIOpener } from '@idl/vscode/envi-opener';
+import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { IInitializeType } from '@idl/vscode/initialize-types';
 import { InitializeNotebooks } from '@idl/vscode/notebooks/client';
 import { InitializeIDLTerminal } from '@idl/vscode/terminal';
@@ -30,6 +32,12 @@ export async function activate(
 
   // add debugging
   const debug = InitializeDebugger(ctx);
+
+  // listen for MCP tool requests - needs to be done here to avoid circular dependencies
+  LANGUAGE_SERVER_MESSENGER.onRequest(
+    LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
+    debug.mcpHandler
+  );
 
   // add everything for IDL terminal
   InitializeIDLTerminal(ctx);

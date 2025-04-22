@@ -5,4 +5,3 @@ export * from './lib/helpers/is-idl-dir-valid';
 export * from './lib/idl-debug-adapter.interface';
 export * from './lib/initialize-debugger';
 export * from './lib/initialize-debugger.interface';
-export * from './lib/mcp/initialize-mcp-tools';

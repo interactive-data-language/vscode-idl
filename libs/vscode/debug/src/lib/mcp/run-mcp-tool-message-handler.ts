@@ -1,0 +1,72 @@
+import { IDL_MCP_LOG } from '@idl/logger';
+import { MCPToolParams, MCPToolResponse, MCPTools } from '@idl/types/mcp';
+import {
+  MCP_LSP_MessagePayload,
+  MCP_LSP_MessageResponse,
+} from '@idl/vscode/events/messages';
+import { IDL_LOGGER } from '@idl/vscode/logger';
+
+import { RunMCPOpenInENVI } from './tools/run-mcp-open-in-envi';
+import { RunMCPStartENVI } from './tools/run-mcp-start-envi';
+
+/**
+ * Typed lookup of functions that we register for our tools
+ */
+export const MCP_TOOL_LOOKUP: {
+  [key in MCPTools]: (
+    params: MCPToolParams<key>
+  ) => MCPToolResponse<key> | Promise<MCPToolResponse<key>>;
+} = {
+  'open-in-envi': RunMCPOpenInENVI,
+  'start-envi': RunMCPStartENVI,
+};
+
+/**
+ * Handle messages
+ */
+export async function RunMCPToolMessageHandler(
+  payload: MCP_LSP_MessagePayload<MCPTools>
+): Promise<MCP_LSP_MessageResponse<MCPTools>> {
+  IDL_LOGGER.log({
+    type: 'info',
+    log: IDL_MCP_LOG,
+    content: [`Run MCP tool: ${payload.tool}`, payload.params],
+  });
+
+  // make sure we know how to run the tool
+  if (payload.tool in MCP_TOOL_LOOKUP) {
+    // try to run
+    try {
+      // use any to override specific types
+      return MCP_TOOL_LOOKUP[payload.tool](payload.params as any);
+    } catch (err) {
+      // log error
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_MCP_LOG,
+        content: [
+          `Error while running MCP tool: ${payload.tool}`,
+          payload.params,
+          err,
+        ],
+      });
+
+      // return that we failed
+      return {
+        success: false,
+      };
+    }
+  } else {
+    // log error
+    IDL_LOGGER.log({
+      type: 'error',
+      log: IDL_MCP_LOG,
+      content: [`Unknown MCP tool: ${payload.tool}`, payload.params],
+    });
+
+    // also return that we failed
+    return {
+      success: false,
+    };
+  }
+}
