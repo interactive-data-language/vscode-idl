@@ -1,7 +1,3 @@
-# types-mcp
+# Types: MCP
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test types-mcp` to execute the unit tests via [Jest](https://jestjs.io).
+Shared types and constants for the MCP tools.
