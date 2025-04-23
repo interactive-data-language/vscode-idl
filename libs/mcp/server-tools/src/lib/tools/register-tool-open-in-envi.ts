@@ -14,7 +14,11 @@ export function RegisterToolOpenInENVI(
     MCP_TOOL_LOOKUP.OPEN_IN_ENVI,
     'Open an image in ENVI',
     {
-      uri: z.string().describe('The local file to open in ENVI'),
+      uri: z
+        .string()
+        .describe(
+          'The local file to open in ENVI. Should be a fully-qualified filepath.'
+        ),
     },
     async ({ uri }) => {
       const resp = await messenger.sendRequest(

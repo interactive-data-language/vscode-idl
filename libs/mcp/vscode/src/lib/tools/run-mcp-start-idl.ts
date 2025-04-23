@@ -16,11 +16,5 @@ export async function RunMCPStartIDL(
    */
   const started = await StartIDL();
 
-  // return if unable to start IDL
-  if (!started) {
-    return { success: false };
-  }
-
-  // we made it here, so lets return
-  return { success: true };
+  return { success: started.started, err: started.reason };
 }

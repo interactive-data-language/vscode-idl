@@ -397,6 +397,7 @@ export interface ITranslation {
       existingSessionFound: string;
       label: string;
       name: string;
+      idlNotConfigured: string;
       pleaseStart: string;
       startProfiling: string;
       stopProfiling: string;

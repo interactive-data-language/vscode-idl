@@ -417,7 +417,9 @@ export const EN: ITranslation = {
       description:
         'Start a new, interactive session of IDL with the ability to compile + run files and reset the session, like the IDL Workbench.',
       existingSessionFound:
-        'An existing session is running. Please close it before starting IDL',
+        'An existing debug session is running that is not IDL. Please stop it before starting IDL',
+      idlNotConfigured:
+        'IDL has not been properly configured. Please make sure to set the IDL directory in the IDL for VSCode settings. If IDL is installed, it is not in one of the default locations and needs to be specified.',
       label: 'IDL: Launch',
       name: 'Launch IDL',
       pleaseStart: 'Please start a session of IDL',

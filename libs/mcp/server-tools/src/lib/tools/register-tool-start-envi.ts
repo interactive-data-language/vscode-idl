@@ -12,7 +12,7 @@ export function RegisterToolStartENVI(
 ) {
   MCP_SERVER.tool(
     MCP_TOOL_LOOKUP.START_ENVI,
-    'Starts ENVI',
+    'Starts a session of ENVI.',
     {
       headless: z.boolean().describe('Should ENVI be started without the UI?'),
     },

@@ -23,8 +23,8 @@ export async function RunMCPENVIChangeDetection(
   const started = await StartIDL();
 
   // return if unable to start IDL
-  if (!started) {
-    return { success: false };
+  if (!started.started) {
+    return { success: false, err: started.reason };
   }
 
   // run our command to open in ENVI
