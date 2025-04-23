@@ -1,12 +1,16 @@
-import { MCPOpenInENVI, MCPToolParams, MCPToolResponse } from '@idl/types/mcp';
+import {
+  MCPTool_OpenInENVI,
+  MCPToolParams,
+  MCPToolResponse,
+} from '@idl/types/mcp';
 import { OpenInENVI, StartIDL } from '@idl/vscode/debug';
 
 /**
  * Open a dataset in ENVI
  */
 export async function RunMCPOpenInENVI(
-  params: MCPToolParams<MCPOpenInENVI>
-): Promise<MCPToolResponse<MCPOpenInENVI>> {
+  params: MCPToolParams<MCPTool_OpenInENVI>
+): Promise<MCPToolResponse<MCPTool_OpenInENVI>> {
   /**
    * Start IDL
    */

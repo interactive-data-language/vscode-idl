@@ -1,7 +1,7 @@
 import { CleanPath } from '@idl/idl/files';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
-  MCPENVIChangeDetection,
+  MCPTool_ENVIChangeDetection,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -15,8 +15,8 @@ import {
  * Open a dataset in ENVI
  */
 export async function RunMCPENVIChangeDetection(
-  params: MCPToolParams<MCPENVIChangeDetection>
-): Promise<MCPToolResponse<MCPENVIChangeDetection>> {
+  params: MCPToolParams<MCPTool_ENVIChangeDetection>
+): Promise<MCPToolResponse<MCPTool_ENVIChangeDetection>> {
   /**
    * Start IDL
    */

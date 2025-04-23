@@ -1,14 +1,14 @@
-import { IMCPBaseResponse } from './mcp-base-response.interface';
+import { IMCPBaseResponse as IMCPTool_BaseResponse } from './mcp-base-response.interface';
 
 /**
  * Message when running change detection in ENVI
  */
-export type MCPENVIChangeDetection = 'envi-change-detection';
+export type MCPTool_ENVIChangeDetection = 'envi-change-detection';
 
 /**
- * Payload when running change detection in ENVI
+ * Parameters when running change detection in ENVI
  */
-export interface MCPENVIChangeDetectionPayload {
+export interface MCPToolParams_ENVIChangeDetection {
   /**
    * Time 1 raster
    */
@@ -22,17 +22,17 @@ export interface MCPENVIChangeDetectionPayload {
 /**
  * Response when running change detection in ENVI
  */
-export type MCPENVIChangeDetectionResponse = IMCPBaseResponse;
+export type MCPToolResponse_ENVIChangeDetection = IMCPTool_BaseResponse;
 
 /**
  * Message when opening an image in ENVI
  */
-export type MCPOpenInENVI = 'open-in-envi';
+export type MCPTool_OpenInENVI = 'open-in-envi';
 
 /**
- * Payload for opening an image in ENVI
+ * Parameters for opening an image in ENVI
  */
-export interface MCPOpenInENVIPayload {
+export interface MCPToolParams_OpenInENVI {
   /**
    * Do we display the image or not?
    */
@@ -46,17 +46,17 @@ export interface MCPOpenInENVIPayload {
 /**
  * Response for opening an image in ENVI
  */
-export type MCPOpenInENVIResponse = IMCPBaseResponse;
+export type MCPResponse_OpenInENVI = IMCPTool_BaseResponse;
 
 /**
  * Message when start ENVI
  */
-export type MCPStartENVI = 'start-envi';
+export type MCPTool_StartENVI = 'start-envi';
 
 /**
  * Payload for starting ENVI
  */
-export interface MCPStartENVIPayload {
+export interface MCPToolParams_StartENVI {
   /**
    * Do we display the UI or not?
    */
@@ -66,34 +66,38 @@ export interface MCPStartENVIPayload {
 /**
  * Response for starting ENVI
  */
-export type MCPStartENVIResponse = IMCPBaseResponse;
+export type MCPToolResponse_StartENVI = IMCPTool_BaseResponse;
 
 /**
  * Types of MCP messages
  */
-export type MCPTools = MCPENVIChangeDetection | MCPOpenInENVI | MCPStartENVI;
+export type MCPTools =
+  | MCPTool_ENVIChangeDetection
+  | MCPTool_OpenInENVI
+  | MCPTool_StartENVI;
 
 /**
  * Payloads for all MCP messages
  */
-export type MCPToolParams<T extends MCPTools> = T extends MCPENVIChangeDetection
-  ? MCPENVIChangeDetectionPayload
-  : T extends MCPOpenInENVI
-  ? MCPOpenInENVIPayload
-  : T extends MCPStartENVI
-  ? MCPStartENVIPayload
-  : never;
+export type MCPToolParams<T extends MCPTools> =
+  T extends MCPTool_ENVIChangeDetection
+    ? MCPToolParams_ENVIChangeDetection
+    : T extends MCPTool_OpenInENVI
+    ? MCPToolParams_OpenInENVI
+    : T extends MCPTool_StartENVI
+    ? MCPToolParams_StartENVI
+    : never;
 
 /**
  * Payloads for all MCP messages
  */
 export type MCPToolResponse<T extends MCPTools> =
-  T extends MCPENVIChangeDetection
-    ? MCPENVIChangeDetectionResponse
-    : T extends MCPOpenInENVI
-    ? MCPOpenInENVIResponse
-    : T extends MCPStartENVI
-    ? MCPStartENVIResponse
+  T extends MCPTool_ENVIChangeDetection
+    ? MCPToolResponse_ENVIChangeDetection
+    : T extends MCPTool_OpenInENVI
+    ? MCPResponse_OpenInENVI
+    : T extends MCPTool_StartENVI
+    ? MCPToolResponse_StartENVI
     : never;
 
 /**
@@ -101,11 +105,11 @@ export type MCPToolResponse<T extends MCPTools> =
  */
 interface IMCPToolLookup {
   /** Run change detection in ENVI */
-  ENVI_CHANGE_DETECTION: MCPENVIChangeDetection;
+  ENVI_CHANGE_DETECTION: MCPTool_ENVIChangeDetection;
   /** Open a dataset in ENVI */
-  OPEN_IN_ENVI: MCPOpenInENVI;
+  OPEN_IN_ENVI: MCPTool_OpenInENVI;
   /** Start ENVI */
-  START_ENVI: MCPStartENVI;
+  START_ENVI: MCPTool_StartENVI;
 }
 
 /**

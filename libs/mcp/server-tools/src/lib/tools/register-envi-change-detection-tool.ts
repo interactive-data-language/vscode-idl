@@ -1,7 +1,7 @@
 import { MCP_SERVER } from '@idl/mcp/server';
 import {
   MCP_TOOL_LOOKUP,
-  MCPENVIChangeDetection,
+  MCPTool_ENVIChangeDetection,
   MCPToolParams,
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
@@ -31,7 +31,7 @@ export function RegisterENVIChangeDetectionTool(
     },
     async ({ time1Uri, time2Uri }) => {
       // strictly typed parameters
-      const params: MCPToolParams<MCPENVIChangeDetection> = {
+      const params: MCPToolParams<MCPTool_ENVIChangeDetection> = {
         time1Uri,
         time2Uri,
       };
