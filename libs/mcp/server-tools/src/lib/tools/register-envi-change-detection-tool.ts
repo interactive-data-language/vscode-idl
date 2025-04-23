@@ -5,14 +5,15 @@ import {
   MCPToolParams,
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
+import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
-
-import { SERVER_EVENT_MANAGER } from '../../initialize-server';
 
 /**
  * Registers a tool that allows us to open an image in ENVI
  */
-export function RegisterENVIChangeDetectionTool() {
+export function RegisterENVIChangeDetectionTool(
+  messenger: VSCodeLanguageServerMessenger
+) {
   MCP_SERVER.tool(
     MCP_TOOL_LOOKUP.ENVI_CHANGE_DETECTION,
     'Runs change detection in ENVI using two separate images over an area of interest. Creates a visual change detection result to allow users to inspect their area of interest and quantify changes.',
@@ -36,7 +37,7 @@ export function RegisterENVIChangeDetectionTool() {
       };
 
       // request work to happen
-      const resp = await SERVER_EVENT_MANAGER.sendRequest(
+      const resp = await messenger.sendRequest(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
         {
           tool: MCP_TOOL_LOOKUP.ENVI_CHANGE_DETECTION,

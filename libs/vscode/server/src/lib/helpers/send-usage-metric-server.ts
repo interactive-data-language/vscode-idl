@@ -1,7 +1,7 @@
 import { UsageMetric, UsageMetricPayload } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 
-import { SERVER_EVENT_MANAGER } from '../initialize-server';
+import { SERVER_MESSENGER } from '../initialize-server';
 
 /**
  * Send a message to the VSCode client that we have a usage metric to report
@@ -15,7 +15,7 @@ export function SendUsageMetricServer<T extends UsageMetric>(
   event: T,
   payload: UsageMetricPayload<T>
 ) {
-  SERVER_EVENT_MANAGER.sendNotification(
+  SERVER_MESSENGER.sendNotification(
     LANGUAGE_SERVER_MESSAGE_LOOKUP.USAGE_METRIC,
     {
       event,

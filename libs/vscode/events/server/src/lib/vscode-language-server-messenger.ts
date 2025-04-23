@@ -11,7 +11,7 @@ import { _Connection } from 'vscode-languageserver/node';
 /**
  * Class for sending/receiving messages between the VSCode language server and client
  */
-export class VSCodeServerEventManager {
+export class VSCodeLanguageServerMessenger {
   /** Connection to the language client */
   private connection: _Connection;
 

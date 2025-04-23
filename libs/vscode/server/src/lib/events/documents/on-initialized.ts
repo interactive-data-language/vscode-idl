@@ -11,7 +11,7 @@ import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_CONNECTION,
-  SERVER_EVENT_MANAGER,
+  SERVER_MESSENGER,
 } from '../../initialize-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { PROMISE_TIMEOUT, SERVER_INITIALIZED } from '../is-initialized';
@@ -97,7 +97,7 @@ export const ON_INITIALIZED = async (event: InitializedParams) => {
         });
 
         // alert that we have started indexing
-        SERVER_EVENT_MANAGER.sendNotification(
+        SERVER_MESSENGER.sendNotification(
           LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
           { type: 'start' }
         );
@@ -127,13 +127,13 @@ export const ON_INITIALIZED = async (event: InitializedParams) => {
           SendProblems(Array.from(new Set(addedFiles.concat(removedFiles))));
 
           // alert that we have started indexing
-          SERVER_EVENT_MANAGER.sendNotification(
+          SERVER_MESSENGER.sendNotification(
             LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
             { type: 'finish' }
           );
         } catch (err) {
           // alert that we have started indexing
-          SERVER_EVENT_MANAGER.sendNotification(
+          SERVER_MESSENGER.sendNotification(
             LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
             { type: 'finish' }
           );

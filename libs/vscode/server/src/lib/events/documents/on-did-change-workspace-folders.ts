@@ -13,7 +13,7 @@ import {
 import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
-  SERVER_EVENT_MANAGER,
+  SERVER_MESSENGER,
 } from '../../initialize-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
@@ -41,10 +41,9 @@ export const ON_DID_CHANGE_WORKSPACE_FOLDERS = async (
     const infoAdded = await TrackWorkspaceConfigs(ev.added);
 
     // alert that we have started indexing
-    SERVER_EVENT_MANAGER.sendNotification(
-      LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-      { type: 'start' }
-    );
+    SERVER_MESSENGER.sendNotification(LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING, {
+      type: 'start',
+    });
 
     /** Find files we added */
     const filesAdded = await FindFiles(
@@ -73,10 +72,9 @@ export const ON_DID_CHANGE_WORKSPACE_FOLDERS = async (
     SendProblems(Array.from(new Set(filesRemoved.concat(filesAdded))));
 
     // alert that we have started indexing
-    SERVER_EVENT_MANAGER.sendNotification(
-      LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-      { type: 'finish' }
-    );
+    SERVER_MESSENGER.sendNotification(LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING, {
+      type: 'finish',
+    });
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

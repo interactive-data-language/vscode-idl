@@ -10,7 +10,7 @@ import {
 /**
  * Check if server is started or not
  */
-let IS_MCP_SERVER_STARTED = false;
+export let IS_MCP_SERVER_STARTED = false;
 
 /**
  * MCP server instance
