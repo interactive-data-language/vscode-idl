@@ -168,7 +168,6 @@
       "@idl/vscode/webview": ["libs/vscode/webview/src/index.ts"],
       "@idl/vscode/webview-shared": ["libs/vscode/webview-shared/src/index.ts"],
       "@idl/workers/parsing": ["libs/workers/parsing/src/index.ts"],
-      "@idl/workers/vscode": ["libs/workers/vscode/src/index.ts"],
       "@idl/workers/workerio": ["libs/workers/workerio/src/index.ts"]
     }
   },
