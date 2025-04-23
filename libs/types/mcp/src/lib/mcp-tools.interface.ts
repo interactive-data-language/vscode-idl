@@ -1,4 +1,4 @@
-import { IMCPBaseResponse } from './mcp-base-messages.interface';
+import { IMCPBaseResponse } from './mcp-base-response.interface';
 
 /**
  * Message when running change detection in ENVI

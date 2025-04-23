@@ -1,7 +1,5 @@
 import { MCPOpenInENVI, MCPToolParams, MCPToolResponse } from '@idl/types/mcp';
-
-import { OpenInENVI } from '../../commands/open-in-envi';
-import { StartIDL } from '../../commands/start-idl';
+import { OpenInENVI, StartIDL } from '@idl/vscode/debug';
 
 /**
  * Open a dataset in ENVI

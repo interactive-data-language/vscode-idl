@@ -8,7 +8,6 @@ import { ServerIDLDebugAdapterFactory } from './idl-debug-adapter-factory.class'
 import { IDLDebugConfigurationProvider } from './idl-debug-configuration';
 import { IDLDebugStatusBar } from './idl-debug-status-bar';
 import { IInitializeDebuggerResult } from './initialize-debugger.interface';
-import { RunMCPToolMessageHandler } from './mcp/run-mcp-tool-message-handler';
 
 /**
  * The debug adapter that manages interacting with our session of IDL
@@ -69,6 +68,5 @@ export function InitializeDebugger(
   return {
     adapter: IDL_DEBUG_ADAPTER,
     statusBar: IDL_STATUS_BAR,
-    mcpHandler: RunMCPToolMessageHandler,
   };
 }

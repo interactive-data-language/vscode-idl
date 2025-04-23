@@ -8,9 +8,7 @@ import { RegisterStartENVITool } from './tools/register-start-envi-tool';
 /**
  * Helper that adds all tools to the MCP server
  */
-export function RegisterAllMCPTools(
-  eventManger: VSCodeLanguageServerMessenger
-) {
+export function RegisterAllMCPTools(messenger: VSCodeLanguageServerMessenger) {
   if (!IS_MCP_SERVER_STARTED) {
     return;
   }
@@ -18,7 +16,7 @@ export function RegisterAllMCPTools(
   /**
    * Register all of our tools
    */
-  RegisterENVIChangeDetectionTool(eventManger);
-  RegisterOpenInENVITool(eventManger);
-  RegisterStartENVITool(eventManger);
+  RegisterENVIChangeDetectionTool(messenger);
+  RegisterOpenInENVITool(messenger);
+  RegisterStartENVITool(messenger);
 }

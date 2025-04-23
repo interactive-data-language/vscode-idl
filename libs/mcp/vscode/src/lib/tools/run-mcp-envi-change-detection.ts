@@ -5,10 +5,11 @@ import {
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
-
-import { StartIDL } from '../../commands/start-idl';
-import { HandleENVISuccess } from '../../helpers/handle-envi-success';
-import { IDL_DEBUG_ADAPTER } from '../../initialize-debugger';
+import {
+  HandleENVISuccess,
+  IDL_DEBUG_ADAPTER,
+  StartIDL,
+} from '@idl/vscode/debug';
 
 /**
  * Open a dataset in ENVI
