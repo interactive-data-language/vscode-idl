@@ -66,7 +66,26 @@ export function StartMCPServer(
       delete transports[transport.sessionId];
     });
 
+    // connect
     await MCP_SERVER.connect(transport);
+
+    // https://github.com/nrwl/nx-console/blob/bc58d3a5c5c661e3d1fe00248e160cb19575e7aa/apps/nx-mcp/src/main.ts#L127
+    // create interval to keep connection alive
+    const keepAliveInterval = setInterval(() => {
+      // Check if the connection is still open using the socket's writable state
+      if (!res.writableEnded && !res.writableFinished) {
+        res.write(':beat\n\n');
+      } else {
+        // console.log('SSE connection closed, clearing keep-alive interval');
+        clearInterval(keepAliveInterval);
+      }
+    }, MCP_SERVER_CONFIG.KEEP_ALIVE_INTERVAL);
+
+    // Clean up interval if the client disconnects
+    req.on('close', () => {
+      // console.log('SSE connection closed by client');
+      clearInterval(keepAliveInterval);
+    });
   });
 
   // Legacy message endpoint for older clients
