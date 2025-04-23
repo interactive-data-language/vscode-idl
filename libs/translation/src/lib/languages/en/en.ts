@@ -253,7 +253,7 @@ export const EN: ITranslation = {
       'mcp.enabled':
         'Do we automatically launch the MCP server on language server startup? If enabled in one workspace, enabled for all.',
       'mcp.port':
-        'What port does the MCP server start on? Requires a VSCode restart to take effect. If there is more than one configured port across open workspaces, we use the first value we find. This is printed to the logs when the extension starts.\n\nIf you change this value, make sure that you MCP configuration is also updated to match.',
+        'What port does the MCP server start on? Requires a VSCode restart to take effect. If there is more than one configured port across open workspaces, we use the first value we find. This is printed to the logs when the extension starts.\n\nIf you change this value, make sure that your MCP server configuration in VSCode is also updated to match.',
 
       notebooks:
         'Preferences that control notebook user experience for IDL Notebooks',
@@ -366,7 +366,7 @@ export const EN: ITranslation = {
       general: 'General',
       idl: 'IDL',
       languageServer: 'Language Server',
-      mcp: 'MCP (Model Context Protocol)',
+      mcp: 'MCP Server',
       notebooks: 'Notebooks',
       problems: 'Problem Reporting',
       questions: 'Questions',
