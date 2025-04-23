@@ -38,7 +38,7 @@
       "@idl/cancellation-tokens": ["libs/cancellation-tokens/src/index.ts"],
       "@idl/docs/exporter": ["libs/docs/exporter/src/index.ts"],
       "@idl/docs/server": ["libs/docs/server/src/index.ts"],
-      "@idl/error-shared": ["libs/error-shared/src/index.ts"],
+      "@idl/error-shared": ["libs/shared/error/src/index.ts"],
       "@idl/generators/envi-task": ["libs/generators/envi-task/src/index.ts"],
       "@idl/generators/idl-task": ["libs/generators/idl-task/src/index.ts"],
       "@idl/generators/idl.json": ["libs/generators/idl.json/src/index.ts"],
