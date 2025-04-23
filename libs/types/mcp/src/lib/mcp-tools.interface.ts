@@ -69,12 +69,29 @@ export interface MCPToolParams_StartENVI {
 export type MCPToolResponse_StartENVI = IMCPTool_BaseResponse;
 
 /**
+ * Message when start IDL
+ */
+export type MCPTool_StartIDL = 'start-idl';
+
+/**
+ * Payload for starting IDL
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MCPToolParams_StartIDL {}
+
+/**
+ * Response for starting IDL
+ */
+export type MCPToolResponse_StartIDL = IMCPTool_BaseResponse;
+
+/**
  * Types of MCP messages
  */
 export type MCPTools =
   | MCPTool_ENVIChangeDetection
   | MCPTool_OpenInENVI
-  | MCPTool_StartENVI;
+  | MCPTool_StartENVI
+  | MCPTool_StartIDL;
 
 /**
  * Payloads for all MCP messages
@@ -86,6 +103,8 @@ export type MCPToolParams<T extends MCPTools> =
     ? MCPToolParams_OpenInENVI
     : T extends MCPTool_StartENVI
     ? MCPToolParams_StartENVI
+    : T extends MCPTool_StartIDL
+    ? MCPToolParams_StartIDL
     : never;
 
 /**
@@ -98,6 +117,8 @@ export type MCPToolResponse<T extends MCPTools> =
     ? MCPResponse_OpenInENVI
     : T extends MCPTool_StartENVI
     ? MCPToolResponse_StartENVI
+    : T extends MCPTool_StartIDL
+    ? MCPToolResponse_StartIDL
     : never;
 
 /**
@@ -110,6 +131,8 @@ interface IMCPToolLookup {
   OPEN_IN_ENVI: MCPTool_OpenInENVI;
   /** Start ENVI */
   START_ENVI: MCPTool_StartENVI;
+  /** Start IDL */
+  START_IDL: MCPTool_StartIDL;
 }
 
 /**
@@ -119,4 +142,5 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   ENVI_CHANGE_DETECTION: 'envi-change-detection',
   OPEN_IN_ENVI: 'open-in-envi',
   START_ENVI: 'start-envi',
+  START_IDL: 'start-idl',
 };

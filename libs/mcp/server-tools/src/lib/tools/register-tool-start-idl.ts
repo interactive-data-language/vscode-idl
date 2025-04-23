@@ -1,0 +1,28 @@
+import { MCP_SERVER } from '@idl/mcp/server';
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
+import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
+import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
+
+/**
+ * Registers a tool that allows us to start IDL
+ */
+export function RegisterToolStartIDL(messenger: VSCodeLanguageServerMessenger) {
+  MCP_SERVER.tool(MCP_TOOL_LOOKUP.START_ENVI, 'Starts IDL', {}, async () => {
+    const resp = await messenger.sendRequest(
+      LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
+      {
+        tool: MCP_TOOL_LOOKUP.START_IDL,
+        params: {},
+      }
+    );
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `Tool execution status: ${JSON.stringify(resp)}`,
+        },
+      ],
+    };
+  });
+}

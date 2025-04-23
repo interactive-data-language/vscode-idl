@@ -7,7 +7,7 @@ import { z } from 'zod';
 /**
  * Registers a tool that allows us to start ENVI
  */
-export function RegisterStartENVITool(
+export function RegisterToolStartENVI(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCP_SERVER.tool(

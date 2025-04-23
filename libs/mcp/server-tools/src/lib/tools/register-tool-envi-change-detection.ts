@@ -11,7 +11,7 @@ import { z } from 'zod';
 /**
  * Registers a tool that allows us to open an image in ENVI
  */
-export function RegisterENVIChangeDetectionTool(
+export function RegisterToolENVIChangeDetection(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCP_SERVER.tool(
