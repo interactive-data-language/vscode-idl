@@ -1,10 +1,12 @@
 import { IDL_MCP_LOG } from '@idl/logger';
 import { MCPToolParams, MCPToolResponse, MCPTools } from '@idl/types/mcp';
+import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   MCP_LSP_MessagePayload,
   MCP_LSP_MessageResponse,
 } from '@idl/vscode/events/messages';
 import { IDL_LOGGER } from '@idl/vscode/logger';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 
 import { RunMCPENVIChangeDetection } from './tools/run-mcp-envi-change-detection';
 import { RunMCPOpenInENVI } from './tools/run-mcp-open-in-envi';
@@ -39,6 +41,11 @@ export async function RunMCPToolMessageHandler(
 
   // make sure we know how to run the tool
   if (payload.tool in MCP_TOOL_LOOKUP) {
+    // track tool usage
+    VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+      idl_command: `mcp.${payload.tool}`,
+    });
+
     // try to run
     try {
       // use any to override specific types
