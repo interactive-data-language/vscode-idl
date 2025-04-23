@@ -25,6 +25,7 @@ import {
 import { SendProblems } from '../helpers/send-problems';
 import { SendUsageMetricServer } from '../helpers/send-usage-metric-server';
 import { IDL_CLIENT_CONFIG } from '../helpers/track-workspace-config';
+import { InitializeMCPServer } from '../initialize-mcp-server';
 import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
@@ -144,6 +145,11 @@ SERVER_INFO.then(async (res) => {
         content: `Memory cleanup and usage check (mb): ${usage}`,
       });
     }, DEFAULT_IDL_EXTENSION_CONFIG.languageServer.garbageIntervalMS);
+
+    /**
+     * Attempt to start MCP server
+     */
+    InitializeMCPServer();
 
     /**
      * Merge folders together

@@ -8,7 +8,7 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
  */
 export function RegisterToolStartIDL(messenger: VSCodeLanguageServerMessenger) {
   MCP_SERVER.tool(
-    MCP_TOOL_LOOKUP.START_ENVI,
+    MCP_TOOL_LOOKUP.START_IDL,
     'Starts a session of IDL',
     {},
     async () => {

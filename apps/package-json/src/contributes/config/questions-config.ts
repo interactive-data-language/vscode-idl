@@ -61,6 +61,13 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
           nls
         ),
       },
+      forMCPConfig: {
+        type: 'boolean',
+        description: TranslationFromConfiguration(
+          IDL_EXTENSION_CONFIG_KEYS.dontAskForMCPConfig,
+          nls
+        ),
+      },
       toOpenDocs: {
         type: 'boolean',
         description: TranslationFromConfiguration(

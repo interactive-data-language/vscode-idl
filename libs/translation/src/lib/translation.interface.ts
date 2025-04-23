@@ -227,6 +227,8 @@ export interface IConfigTranslation {
     idl: string;
     /** Language server settings */
     languageServer: string;
+    /** Model Context Protocol */
+    mcp: string;
     /** Notebook settings */
     notebooks: string;
     /** problem reporting */
@@ -598,10 +600,12 @@ export interface ITranslation {
       closed: string;
       /** When we cant start, or the server gets closed */
       connection: string;
+      /** Error when starting a server that has a port conflict */
+      mcpStartup: string;
       /** Failed to start the language server */
       start: string;
-      /** Error when starting the docs server because of a port conflict */
-      startDocsServer: string;
+      /** Error when starting a server that has a port conflict */
+      startingServer: string;
       /** Unknown error ocurred and was reported via console.error */
       unhandled: string;
     };
@@ -764,6 +768,8 @@ export interface ITranslation {
     changeIcons: string;
     /** Configure something */
     configure: string;
+    /** Text that shows to ask if a user wants to add MCP configuration for GitHUb Copilot */
+    configureMCP: string;
     /** Translation to not ask again */
     dontAsk: string;
     /** Text that, after a user changes the default formatter to IDL, asks if they want to format on save */

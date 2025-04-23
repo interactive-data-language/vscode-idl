@@ -94,8 +94,8 @@ export const ON_WORKSPACE_CONFIG = async (
           IDL_LANGUAGE_SERVER_LOGGER.log({
             log: IDL_LSP_LOG,
             type: 'error',
-            content: ['Error starting docs server', err],
-            alert: IDL_TRANSLATION.lsp.errors.startDocsServer,
+            content: ['Error starting server', err],
+            alert: IDL_TRANSLATION.lsp.errors.startingServer,
           });
         }, IDL_CLIENT_CONFIG.documentation.localPort);
         // catch all other errors
@@ -104,7 +104,7 @@ export const ON_WORKSPACE_CONFIG = async (
           log: IDL_LSP_LOG,
           type: 'error',
           content: ['Error starting docs server', err],
-          alert: IDL_TRANSLATION.lsp.errors.startDocsServer,
+          alert: IDL_TRANSLATION.lsp.errors.startingServer,
         });
       }
     }

@@ -220,9 +220,10 @@ export const EN: ITranslation = {
       'dontAsk.forFormatterChange':
         "Don't ask to set the extension as the default formatter for IDL code.",
       'dontAsk.forIconChange': "Don't ask to change icon font on startup.",
-
       'dontAsk.forIDLDir':
         "Don't ask for IDL directory on extension startup if it is not set.",
+      'dontAsk.forMCPConfig':
+        "Don't ask to automatically configure the MCP server for use with the GitHub Copilot Agent embedded within VSCode.",
       'dontAsk.toOpenDocs': `Don't ask to open the documentation on extension startup`,
 
       dontShow:
@@ -247,6 +248,13 @@ export const EN: ITranslation = {
       languageServer: 'Preferences that control the language server for IDL',
       'languageServer.fullParse':
         'When the language server starts up, do we fully parse the code in workspaces and on your path?\n\nA full parse checks for syntax and type errors to give more insights into your code without opening each file. However, for large code bases (>1 million lines of code), this uses about 3x more CPU RAM and is about 50% slower.\n\nIf more than one workspace is open, and this is enabled for any workspace, we apply it for all open workspaces.',
+
+      mcp: 'Preferences that control the built-in MCP server',
+      'mcp.enabled':
+        'Do we automatically launch the MCP server on language server startup? If enabled in one workspace, enabled for all.',
+      'mcp.port':
+        'What port does the MCP server start on? Requires a VSCode restart to take effect. If there is more than one configured port across open workspaces, we use the first value we find. This is printed to the logs when the extension starts.\n\nIf you change this value, make sure that you MCP configuration is also updated to match.',
+
       notebooks:
         'Preferences that control notebook user experience for IDL Notebooks',
       'notebooks.embedGraphics':
@@ -358,6 +366,7 @@ export const EN: ITranslation = {
       general: 'General',
       idl: 'IDL',
       languageServer: 'Language Server',
+      mcp: 'MCP (Model Context Protocol)',
       notebooks: 'Notebooks',
       problems: 'Problem Reporting',
       questions: 'Questions',
@@ -671,9 +680,11 @@ export const EN: ITranslation = {
       closed:
         'The IDL Language Server crashed. This is likely a memory issue, please see docs for more information and workarounds.',
       connection: 'Failed to send/receive message with the IDL Language Server',
+      mcpStartup:
+        'Error reported while starting the MCP server and registering tools',
       start: 'Failed to start the IDL Language Server',
-      startDocsServer:
-        'Error while starting local docs server, is the port already in use?',
+      startingServer:
+        'Error while starting local server (MCP or documentation), is the port already in use? See logs for more details.',
       unhandled: 'An unknown error ocurred within the IDL Language Server',
     },
     events: {
@@ -789,6 +800,8 @@ export const EN: ITranslation = {
     changeFormatter: 'Set extension as default formatter for IDL code?',
     changeIcons: 'Switch to IDL file icons? Adds new icons for PRO code.',
     configure: 'Configure',
+    configureMCP:
+      'Configure GitHub Copilot to use the IDL for VSCode MCP server?',
     dontAsk: "Don't ask again",
     formatOnSave:
       'Format PRO code automatically on file save? This will not affect other languages and will be limited to PRO files.',
