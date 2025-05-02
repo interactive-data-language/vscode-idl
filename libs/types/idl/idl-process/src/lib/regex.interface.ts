@@ -65,6 +65,11 @@ export const REGEX_COMPILE_ERROR =
   /% Syntax error\.\s*At:(\s*([^,]*),\s*Line\s*([0-9]*))/gim;
 
 /**
+ * Error when we compile the file
+ */
+export const COMPILE_FILE_ERROR = /%\s*Error\s*opening\s*file\.\s*File:/im;
+
+/**
  * Detects locations in IDL's output
  *
  * First group: File + line

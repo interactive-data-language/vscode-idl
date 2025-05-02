@@ -9,6 +9,7 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 
 import { RunMCPENVIChangeDetection } from './tools/run-mcp-envi-change-detection';
+import { RunMCPExecuteIDLCode } from './tools/run-mcp-execute-idl-code';
 import { RunMCPOpenInENVI } from './tools/run-mcp-open-in-envi';
 import { RunMCPStartENVI } from './tools/run-mcp-start-envi';
 import { RunMCPStartIDL } from './tools/run-mcp-start-idl';
@@ -22,6 +23,7 @@ export const MCP_TOOL_LOOKUP: {
   ) => MCPToolResponse<key> | Promise<MCPToolResponse<key>>;
 } = {
   'envi-change-detection': RunMCPENVIChangeDetection,
+  'execute-idl-code': RunMCPExecuteIDLCode,
   'open-in-envi': RunMCPOpenInENVI,
   'start-envi': RunMCPStartENVI,
   'start-idl': RunMCPStartIDL,

@@ -1,7 +1,10 @@
 import { CleanPath, IDLFileHelper, NOTEBOOK_FOLDER } from '@idl/idl/files';
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
+import {
+  COMPILE_FILE_ERROR,
+  IDLSyntaxErrorLookup,
+} from '@idl/types/idl/idl-process';
 import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
@@ -13,13 +16,12 @@ import * as vscode from 'vscode';
 
 import { ICurrentCell } from '../idl-notebook-controller.interface';
 import { IDLNotebookExecutionManager } from '../idl-notebook-execution-manager.class';
-import {
-  COMPILE_FILE_ERROR,
-  ENVI_REGEX,
-} from './execute-notebook-cell.interface';
+import { ENVI_REGEX } from './execute-notebook-cell.interface';
 
 /**
  * Runs a notebook cell and manages logic for execution
+ *
+ * Any changes here should also be reflected in `execute-mcp-idl-code.ts`
  */
 export async function ExecuteNotebookCell(
   manager: IDLNotebookExecutionManager,

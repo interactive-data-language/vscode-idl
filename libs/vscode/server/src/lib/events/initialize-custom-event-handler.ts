@@ -9,6 +9,7 @@ import { ON_GENERATE_TASK } from './custom-events/on-generate-task';
 import { ON_INIT_WORKSPACE_CONFIG } from './custom-events/on-init-workspace-config';
 import { ON_MIGRATE_CODE } from './custom-events/on-migrate-code';
 import { ON_NOTEBOOK_TO_PRO_CODE } from './custom-events/on-notebook-to-pro-code';
+import { ON_PREPARE_IDL_CODE } from './custom-events/on-prepare-idl-code';
 import { ON_PREPARE_NOTEBOOK_CELL } from './custom-events/on-prepare-notebook-cell';
 import { ON_RETRIEVE_DOCS } from './custom-events/on-retrieve-docs';
 import { ON_WORKSPACE_CONFIG } from './custom-events/on-workspace-config';
@@ -83,6 +84,12 @@ export function InitializeCustomEventHandler() {
   SERVER_MESSENGER.onRequest(
     LANGUAGE_SERVER_MESSAGE_LOOKUP.NOTEBOOK_TO_PRO_CODE,
     ON_NOTEBOOK_TO_PRO_CODE
+  );
+
+  // listen for preparing IDL code for execution
+  SERVER_MESSENGER.onRequest(
+    LANGUAGE_SERVER_MESSAGE_LOOKUP.PREPARE_IDL_CODE,
+    ON_PREPARE_IDL_CODE
   );
 
   // listen for converting notebooks to PRO code

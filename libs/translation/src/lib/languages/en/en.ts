@@ -419,6 +419,8 @@ export const EN: ITranslation = {
       stepOut: 'Error while handling "stepOut" request',
       terminate: 'Error while handling "terminate" request',
       threads: 'Error while handling "threads" request',
+      unableToLicenseIDL:
+        'Unable to license IDL, check the License Manager and try again',
       variables: 'Error while handling "variables" request',
     },
     idl: {
@@ -712,6 +714,7 @@ export const EN: ITranslation = {
       onMigrateCodeProblemCode:
         'Unable to format code due to syntax error or problem in file',
       onNotebookToProCode: 'Error converting notebook to PRO code',
+      onPrepareIDLCode: 'Error while preparing IDL code for execution',
       onPrepareNotebookCell: 'Error while preparing notebook cell to run',
       onRetrieveDocs: 'Error responding to docs retrieval event',
       onSemanticHighlighting: 'Problem resolving semantic tokens',
@@ -742,6 +745,12 @@ export const EN: ITranslation = {
         property: 'Unknown property',
         sysVar: 'Unknown system variable',
       },
+    },
+  },
+  mcp: {
+    errors: {
+      failedCodePrepare:
+        'Failed to prepare IDL code to run, see IDL logs for more details',
     },
   },
   notebooks: {

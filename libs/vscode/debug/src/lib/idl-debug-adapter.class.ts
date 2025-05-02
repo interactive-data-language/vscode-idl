@@ -477,6 +477,16 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     return this._runtime.getErrorsByFile();
   }
 
+  /** Check if we are at the main level */
+  isAtMain() {
+    const info = this._runtime.getIDLInfo();
+
+    return (
+      info.scope.length === 0 ||
+      (info.scope.length === 1 && info.scope[0].line === 1)
+    );
+  }
+
   /**
    * Tells us if we have started IDL or not
    */

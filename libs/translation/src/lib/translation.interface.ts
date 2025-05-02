@@ -391,6 +391,7 @@ export interface ITranslation {
       stepOut: string;
       terminate: string;
       threads: string;
+      unableToLicenseIDL: string;
       variables: string;
     };
     idl: {
@@ -653,6 +654,8 @@ export interface ITranslation {
       onMigrateCodeProblemCode: string;
       /** Convert notebook to PRO code */
       onNotebookToProCode: string;
+      /** Error while preparing IDL code */
+      onPrepareIDLCode: string;
       /** Convert notebook cell to code we can execute */
       onPrepareNotebookCell: string;
       /** Retrieving docs */
@@ -697,6 +700,14 @@ export interface ITranslation {
         property: string;
         sysVar: string;
       };
+    };
+  };
+  /** Translations for MXP */
+  mcp: {
+    /** MCP error messages */
+    errors: {
+      /** if we failed to prepare code to run */
+      failedCodePrepare: string;
     };
   };
   /** Translations for notebooks */

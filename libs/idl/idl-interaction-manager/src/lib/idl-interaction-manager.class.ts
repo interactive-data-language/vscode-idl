@@ -123,6 +123,8 @@ export class IDLInteractionManager {
       throw new Error('Start IDL before evaluating any expressions');
     }
 
+    console.log(this.getIDLInfo().scope);
+
     /**
      * Fill options with all values
      */
@@ -194,6 +196,8 @@ export class IDLInteractionManager {
         );
       }
     }
+
+    console.log(this.getIDLInfo().scope);
 
     // reset silent flag
     this.idl.silent = false;

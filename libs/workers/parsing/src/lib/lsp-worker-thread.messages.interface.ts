@@ -14,6 +14,7 @@ import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';
 import {
   IGenerateTaskPayload,
+  PrepareIDLCodelMessage,
   PrepareNotebookCellMessage,
 } from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
@@ -554,6 +555,7 @@ export type LSPWorkerThreadMessage =
   | ParseFilesMessage
   | ParseNotebookMessage
   | PostProcessFilesMessage
+  | PrepareIDLCodelMessage
   | PrepareNotebookCellMessage
   | RemoveFilesMessage
   | TrackGlobalTokensMessage
@@ -647,6 +649,8 @@ interface ILSPWorkerThreadMessageLookup {
    * Post-process more than one file and return problems-per-file
    */
   POST_PROCESS_FILES: PostProcessFilesMessage;
+  /** Prepare idl code for execution */
+  PREPARE_IDL_CODE: PrepareIDLCodelMessage;
   /**
    * Prep notebook cell for execution
    */
@@ -686,6 +690,7 @@ export const LSP_WORKER_THREAD_MESSAGE_LOOKUP: ILSPWorkerThreadMessageLookup = {
   PARSE_FILES_FAST: 'parse-files-fast',
   PARSE_NOTEBOOK: 'parse-notebook',
   POST_PROCESS_FILES: 'post-process-files',
+  PREPARE_IDL_CODE: 'prepare-idl-code',
   PREPARE_NOTEBOOK_CELL: 'prepare-notebook-cell',
   REMOVE_FILES: 'remove-files',
   TRACK_GLOBAL: 'track-global',

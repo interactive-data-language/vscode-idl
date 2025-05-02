@@ -39,6 +39,11 @@ import {
   NotebookToProCodeMessage,
 } from './messages/notebook-to-pro-code.message.interface';
 import {
+  PrepareIDLCodelMessage,
+  PrepareIDLCodePayload,
+  PrepareIDLCodeResponse,
+} from './messages/prepare-idl-code.message.interface';
+import {
   PrepareNotebookCellMessage,
   PrepareNotebookCellPayload,
   PrepareNotebookCellResponse,
@@ -78,6 +83,7 @@ export type LanguageServerMessage =
   | MCP_LSP_Message
   | MigrateCodeLSPMessage
   | NotebookToProCodeMessage
+  | PrepareIDLCodelMessage
   | PrepareNotebookCellMessage
   | ProgressMessage
   | RetrieveDocsMessage
@@ -114,6 +120,8 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? IRetrieveDocsPayload
     : T extends ProgressMessage
     ? ProgressMessagePayload
+    : T extends PrepareIDLCodelMessage
+    ? PrepareIDLCodePayload
     : T extends PrepareNotebookCellMessage
     ? PrepareNotebookCellPayload
     : T extends UsageMetricLSPMessage
@@ -134,6 +142,8 @@ export type LanguageServerResponse<T extends LanguageServerMessage> =
     ? INotebookToProCodeResponse
     : T extends RetrieveDocsMessage
     ? IRetrieveDocsResponse
+    : T extends PrepareIDLCodelMessage
+    ? PrepareIDLCodeResponse
     : T extends PrepareNotebookCellMessage
     ? PrepareNotebookCellResponse
     : any;
@@ -164,6 +174,8 @@ export interface ILanguageServerMessages {
   MIGRATE_CODE: MigrateCodeLSPMessage;
   /** Convert notebooks to PRO code */
   NOTEBOOK_TO_PRO_CODE: NotebookToProCodeMessage;
+  /** Prepare idl code for execution */
+  PREPARE_IDL_CODE: PrepareIDLCodelMessage;
   /** Prepare notebook cell for execution */
   PREPARE_NOTEBOOK_CELL: PrepareNotebookCellMessage;
   /** Progress message */
@@ -197,6 +209,7 @@ export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   NOTEBOOK_TO_PRO_CODE: 'notebook/to-pro-code',
   PROGRESS: 'progress',
   RETRIEVE_DOCS: 'retrieve-docs',
+  PREPARE_IDL_CODE: 'prepare-idl-code',
   PREPARE_NOTEBOOK_CELL: 'prepare-notebook-cell',
   USAGE_METRIC: 'usage-metric-lsp',
   WORKSPACE_CONFIG: 'workspace-config',

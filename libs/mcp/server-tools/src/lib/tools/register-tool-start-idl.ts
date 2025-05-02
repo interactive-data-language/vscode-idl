@@ -1,5 +1,9 @@
 import { MCP_SERVER } from '@idl/mcp/server';
-import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
+import {
+  MCP_TOOL_LOOKUP,
+  MCPTool_StartIDL,
+  MCPToolParams,
+} from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
@@ -12,11 +16,14 @@ export function RegisterToolStartIDL(messenger: VSCodeLanguageServerMessenger) {
     'Starts a session of IDL',
     {},
     async () => {
+      // strictly typed parameters
+      const params: MCPToolParams<MCPTool_StartIDL> = {};
+
       const resp = await messenger.sendRequest(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
         {
           tool: MCP_TOOL_LOOKUP.START_IDL,
-          params: {},
+          params,
         }
       );
 

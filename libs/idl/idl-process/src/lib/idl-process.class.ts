@@ -61,6 +61,9 @@ export class IDLProcess extends EventEmitter {
   /** Information about our current IDL session */
   idlInfo = copy(DEFAULT_IDL_INFO);
 
+  /** Is IDL licensed? */
+  licensed = true;
+
   /** The logger for our session of IDL, all messages go through this */
   log: Logger;
 
@@ -405,7 +408,22 @@ export class IDLProcess extends EventEmitter {
           // do nothing because we are closing IDL
           this.emit(IDL_EVENT_LOOKUP.CLOSED_CLEANLY);
           break;
+        case !this.licensed:
+          this.log.log({
+            type: 'error',
+            content: [
+              'Failed to license IDL',
+              { cmd, code, signal, capturedOutput: this.capturedOutput, error },
+            ],
+            alert: IDL_TRANSLATION.debugger.errors.unableToLicenseIDL,
+          });
+          this.emit(
+            IDL_EVENT_LOOKUP.FAILED_START,
+            IDL_TRANSLATION.debugger.errors.unableToLicenseIDL
+          );
+          break;
         case !this.started:
+          console.log(`Are we licensed: ${this.licensed}`);
           this.log.log({
             type: 'error',
             content: [

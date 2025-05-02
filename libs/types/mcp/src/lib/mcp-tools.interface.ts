@@ -25,6 +25,29 @@ export interface MCPToolParams_ENVIChangeDetection {
 export type MCPToolResponse_ENVIChangeDetection = IMCPTool_BaseResponse;
 
 /**
+ * Message when we want to run IDL code
+ */
+export type MCPTool_ExecuteIDLCode = 'execute-idl-code';
+
+/**
+ * Parameters for running IDL code
+ */
+export interface MCPToolParams_ExecuteIDLCode {
+  /**
+   * Do we display the image or not?
+   */
+  code: string;
+}
+
+/**
+ * Response for running IDL code
+ */
+export interface MCPToolResponse_ExecuteIDLCode extends IMCPTool_BaseResponse {
+  /** output from IDL */
+  idlOutput?: string;
+}
+
+/**
  * Message when opening an image in ENVI
  */
 export type MCPTool_OpenInENVI = 'open-in-envi';
@@ -46,7 +69,7 @@ export interface MCPToolParams_OpenInENVI {
 /**
  * Response for opening an image in ENVI
  */
-export type MCPResponse_OpenInENVI = IMCPTool_BaseResponse;
+export type MCPToolResponse_OpenInENVI = IMCPTool_BaseResponse;
 
 /**
  * Message when start ENVI
@@ -89,6 +112,7 @@ export type MCPToolResponse_StartIDL = IMCPTool_BaseResponse;
  */
 export type MCPTools =
   | MCPTool_ENVIChangeDetection
+  | MCPTool_ExecuteIDLCode
   | MCPTool_OpenInENVI
   | MCPTool_StartENVI
   | MCPTool_StartIDL;
@@ -99,6 +123,8 @@ export type MCPTools =
 export type MCPToolParams<T extends MCPTools> =
   T extends MCPTool_ENVIChangeDetection
     ? MCPToolParams_ENVIChangeDetection
+    : T extends MCPTool_ExecuteIDLCode
+    ? MCPToolParams_ExecuteIDLCode
     : T extends MCPTool_OpenInENVI
     ? MCPToolParams_OpenInENVI
     : T extends MCPTool_StartENVI
@@ -113,8 +139,10 @@ export type MCPToolParams<T extends MCPTools> =
 export type MCPToolResponse<T extends MCPTools> =
   T extends MCPTool_ENVIChangeDetection
     ? MCPToolResponse_ENVIChangeDetection
+    : T extends MCPTool_ExecuteIDLCode
+    ? MCPToolResponse_ExecuteIDLCode
     : T extends MCPTool_OpenInENVI
-    ? MCPResponse_OpenInENVI
+    ? MCPToolResponse_OpenInENVI
     : T extends MCPTool_StartENVI
     ? MCPToolResponse_StartENVI
     : T extends MCPTool_StartIDL
@@ -127,6 +155,8 @@ export type MCPToolResponse<T extends MCPTools> =
 interface IMCPToolLookup {
   /** Run change detection in ENVI */
   ENVI_CHANGE_DETECTION: MCPTool_ENVIChangeDetection;
+  /** Run code in IDL */
+  EXECUTE_IDL_CODE: MCPTool_ExecuteIDLCode;
   /** Open a dataset in ENVI */
   OPEN_IN_ENVI: MCPTool_OpenInENVI;
   /** Start ENVI */
@@ -140,6 +170,7 @@ interface IMCPToolLookup {
  */
 export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   ENVI_CHANGE_DETECTION: 'envi-change-detection',
+  EXECUTE_IDL_CODE: 'execute-idl-code',
   OPEN_IN_ENVI: 'open-in-envi',
   START_ENVI: 'start-envi',
   START_IDL: 'start-idl',

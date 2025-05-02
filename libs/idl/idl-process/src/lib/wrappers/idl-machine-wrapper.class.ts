@@ -14,6 +14,8 @@ import { ChildProcess } from 'child_process';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const kill = require('tree-kill');
 
+import { IDL_TRANSLATION } from '@idl/translation';
+
 import { IDLProcess } from '../idl-process.class';
 
 /**
@@ -95,10 +97,14 @@ export class IDLMachineWrapper {
        */
     });
 
-    this.machine.onNotification('licensingEvent', () => {
-      /**
-       * Do nothing right now
-       */
+    this.machine.onNotification('licensingEvent', (params) => {
+      if (params.event === 'AcquireFailure') {
+        this.process.licensed = false;
+        this.process.emit(
+          IDL_EVENT_LOOKUP.STANDARD_ERR,
+          IDL_TRANSLATION.debugger.errors.unableToLicenseIDL
+        );
+      }
     });
 
     this.machine.onNotification('interpreterStopped', () => {

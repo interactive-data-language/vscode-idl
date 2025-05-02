@@ -1,7 +1,7 @@
 import { MCP_SERVER } from '@idl/mcp/server';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_OpenInENVI,
+  MCPTool_ExecuteIDLCode,
   MCPToolParams,
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
@@ -9,32 +9,31 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
 /**
- * Registers a tool that allows us to open an image in ENVI
+ * Registers a tool that allows us to start IDL
  */
-export function RegisterToolOpenInENVI(
+export function RegisterToolExecuteIDLCode(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCP_SERVER.tool(
-    MCP_TOOL_LOOKUP.OPEN_IN_ENVI,
-    'Open an image in ENVI',
+    MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
+    'Executes a string of IDL code. There can be multiple lines of code which will be prepared, executed, and standard output will be returned.',
     {
-      uri: z
+      code: z
         .string()
         .describe(
-          'The local file to open in ENVI. Should be a fully-qualified filepath.'
+          'The IDL code that should be executed. The code will always run with IDL\'s `idl2` compile option set and, if needed, will have an "end" statement appended to the code before it runs.'
         ),
     },
-    async ({ uri }) => {
+    async ({ code }) => {
       // strictly typed parameters
-      const params: MCPToolParams<MCPTool_OpenInENVI> = {
-        display: true,
-        uri,
+      const params: MCPToolParams<MCPTool_ExecuteIDLCode> = {
+        code,
       };
 
       const resp = await messenger.sendRequest(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
         {
-          tool: MCP_TOOL_LOOKUP.OPEN_IN_ENVI,
+          tool: MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
           params,
         }
       );
