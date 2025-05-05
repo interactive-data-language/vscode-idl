@@ -16,7 +16,7 @@ export function RegisterToolStartENVI(
 ) {
   MCP_SERVER.tool(
     MCP_TOOL_LOOKUP.START_ENVI,
-    'Starts a session of ENVI.',
+    "Starts a session of ENVI and IDL in VSCode. If ENVI has already started, this tool won't do anything.",
     {
       headless: z.boolean().describe('Should ENVI be started without the UI?'),
     },

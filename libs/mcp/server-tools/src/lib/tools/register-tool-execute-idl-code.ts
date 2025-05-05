@@ -8,6 +8,8 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
+import { EXECUTE_IDL_CODE_DESCRIPTION } from './register-tool-execute-idl-code.interface';
+
 /**
  * Registers a tool that allows us to start IDL
  */
@@ -16,12 +18,12 @@ export function RegisterToolExecuteIDLCode(
 ) {
   MCP_SERVER.tool(
     MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
-    'Executes a string of IDL code. There can be multiple lines of code which will be prepared, executed, and standard output will be returned.',
+    EXECUTE_IDL_CODE_DESCRIPTION,
     {
       code: z
         .string()
         .describe(
-          'The IDL code that should be executed. The code will always run with IDL\'s `idl2` compile option set and, if needed, will have an "end" statement appended to the code before it runs.'
+          "The IDL code that should be executed. The code will always run with IDL's `idl2` compile option set and, if needed, will have an \"end\" statement appended to the code before it runs. If there is a file that should run, then the syntax to execute should follow the form:\n\n```idl\n.compile'C:\\path-to-file\\my_file.pro'"
         ),
     },
     async ({ code }) => {
