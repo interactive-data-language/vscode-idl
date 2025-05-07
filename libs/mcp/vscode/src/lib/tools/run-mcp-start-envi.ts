@@ -6,7 +6,7 @@ import {
 import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
 
 /**
- * Open a dataset in ENVI
+ * Start ENVI
  */
 export async function RunMCPStartENVI(
   params: MCPToolParams<MCPTool_StartENVI>

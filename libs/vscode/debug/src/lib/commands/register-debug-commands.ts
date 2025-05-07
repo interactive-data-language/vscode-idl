@@ -50,12 +50,8 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.DEBUG.COMPILE, async () => {
       try {
-        if (!VerifyIDLHasStarted(true)) {
-          return false;
-        }
         LogCommandInfo('Compiling file');
-        await CompileFile();
-        return true;
+        return await CompileFile();
       } catch (err) {
         LogCommandError(
           'Error while compiling file for IDL',
@@ -70,9 +66,6 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.DEBUG.RUN, async () => {
       try {
-        if (!VerifyIDLHasStarted(true)) {
-          return false;
-        }
         LogCommandInfo('Running file');
         return await RunFile();
       } catch (err) {

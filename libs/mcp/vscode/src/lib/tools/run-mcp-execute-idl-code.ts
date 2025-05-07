@@ -11,11 +11,12 @@ import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { IDL_LOGGER } from '@idl/vscode/logger';
+import { OpenFileInVSCode } from '@idl/vscode/shared';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 /**
- * Open a dataset in ENVI
+ * Executes IDL code
  */
 export async function RunMCPExecuteIDLCode(
   params: MCPToolParams<MCPTool_ExecuteIDLCode>
@@ -84,6 +85,12 @@ export async function RunMCPExecuteIDLCode(
 
   // write file
   writeFileSync(fsPath, resp.code);
+
+  // display in VScode
+  const doc = await OpenFileInVSCode(fsPath);
+
+  // save to disk
+  // await doc.save();
 
   // reset syntax errors
   IDL_DEBUG_ADAPTER._runtime.resetErrorsByFile();

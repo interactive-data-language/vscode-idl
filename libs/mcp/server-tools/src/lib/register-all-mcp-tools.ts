@@ -1,8 +1,8 @@
 import { IS_MCP_SERVER_STARTED } from '@idl/mcp/server';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
-import { RegisterToolENVIChangeDetection } from './tools/register-tool-envi-change-detection';
 import { RegisterToolExecuteIDLCode } from './tools/register-tool-execute-idl-code';
+import { RegisterToolExecuteIDLFile } from './tools/register-tool-execute-idl-file';
 import { RegisterToolOpenInENVI } from './tools/register-tool-open-in-envi';
 import { RegisterToolStartENVI } from './tools/register-tool-start-envi';
 import { RegisterToolStartIDL } from './tools/register-tool-start-idl';
@@ -26,8 +26,8 @@ export function RegisterAllMCPTools(messenger: VSCodeLanguageServerMessenger) {
   /**
    * Register all of our tools
    */
-  RegisterToolENVIChangeDetection(messenger);
   RegisterToolExecuteIDLCode(messenger);
+  RegisterToolExecuteIDLFile(messenger);
   RegisterToolOpenInENVI(messenger);
   RegisterToolStartENVI(messenger);
   RegisterToolStartIDL(messenger);

@@ -1,4 +1,5 @@
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
 import { GetActivePROCodeWindow, GetDocumentOutline } from '@idl/vscode/shared';
 import { OutputEvent } from '@vscode/debugadapter';
 
@@ -8,10 +9,13 @@ import { CompileFile } from './compile-file';
 /**
  * Compile current pro file and runs
  */
-export async function RunFile(): Promise<boolean> {
+export async function RunFile(): Promise<IRunIDLCommandResult> {
+  /** Compile file */
+  const compile = await CompileFile();
+
   // return if we didnt compile successfully
-  if (!(await CompileFile())) {
-    return false;
+  if (!compile.success) {
+    return compile;
   }
 
   /** Get the current PRO code */
@@ -19,7 +23,10 @@ export async function RunFile(): Promise<boolean> {
 
   // sanity check
   if (!code) {
-    return false;
+    return {
+      success: false,
+      err: IDL_TRANSLATION.debugger.commandErrors.noProFile,
+    };
   }
 
   /**
@@ -52,7 +59,10 @@ export async function RunFile(): Promise<boolean> {
           'stderr'
         )
       );
-      return false;
+      return {
+        success: false,
+        err: IDL_TRANSLATION.debugger.adapter.noRoutineFound,
+      };
 
     /**
      * Main level program
@@ -77,11 +87,25 @@ export async function RunFile(): Promise<boolean> {
   }
 
   // execute our command
-  await IDL_DEBUG_ADAPTER.evaluate(command, {
+  const idlOutput = await IDL_DEBUG_ADAPTER.evaluate(command, {
     echo: true,
     newLine: true,
     errorCheck: true,
   });
 
-  return true;
+  /**
+   * Check if we ran successfully or not
+   */
+  if (IDL_DEBUG_ADAPTER.isAtMain()) {
+    return {
+      success: true,
+      idlOutput,
+    };
+  } else {
+    return {
+      success: false,
+      idlOutput,
+      err: IDL_TRANSLATION.debugger.commandErrors.idlStopped,
+    };
+  }
 }

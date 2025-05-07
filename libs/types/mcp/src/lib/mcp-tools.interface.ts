@@ -1,30 +1,6 @@
 import { IMCPBaseResponse as IMCPTool_BaseResponse } from './mcp-base-response.interface';
 
 /**
- * Message when running change detection in ENVI
- */
-export type MCPTool_ENVIChangeDetection = 'envi-change-detection';
-
-/**
- * Parameters when running change detection in ENVI
- */
-export interface MCPToolParams_ENVIChangeDetection {
-  /**
-   * Time 1 raster
-   */
-  time1Uri: string;
-  /**
-   * Time 2 raster
-   */
-  time2Uri: string;
-}
-
-/**
- * Response when running change detection in ENVI
- */
-export type MCPToolResponse_ENVIChangeDetection = IMCPTool_BaseResponse;
-
-/**
  * Message when we want to run IDL code
  */
 export type MCPTool_ExecuteIDLCode = 'execute-idl-code';
@@ -34,7 +10,7 @@ export type MCPTool_ExecuteIDLCode = 'execute-idl-code';
  */
 export interface MCPToolParams_ExecuteIDLCode {
   /**
-   * Do we display the image or not?
+   * The code to run
    */
   code: string;
 }
@@ -43,7 +19,30 @@ export interface MCPToolParams_ExecuteIDLCode {
  * Response for running IDL code
  */
 export interface MCPToolResponse_ExecuteIDLCode extends IMCPTool_BaseResponse {
-  /** output from IDL */
+  /** Output from IDL */
+  idlOutput?: string;
+}
+
+/**
+ * Message when we want to run IDL code within a file
+ */
+export type MCPTool_ExecuteIDLFile = 'execute-idl-file';
+
+/**
+ * Parameters for running IDL code within a file
+ */
+export interface MCPToolParams_ExecuteIDLFile {
+  /**
+   * The fully-qualified path to the file to run
+   */
+  uri: string;
+}
+
+/**
+ * Response for running IDL code within a file
+ */
+export interface MCPToolResponse_ExecuteIDLFile extends IMCPTool_BaseResponse {
+  /** Output from IDL */
   idlOutput?: string;
 }
 
@@ -111,8 +110,8 @@ export type MCPToolResponse_StartIDL = IMCPTool_BaseResponse;
  * Types of MCP messages
  */
 export type MCPTools =
-  | MCPTool_ENVIChangeDetection
   | MCPTool_ExecuteIDLCode
+  | MCPTool_ExecuteIDLFile
   | MCPTool_OpenInENVI
   | MCPTool_StartENVI
   | MCPTool_StartIDL;
@@ -120,27 +119,26 @@ export type MCPTools =
 /**
  * Payloads for all MCP messages
  */
-export type MCPToolParams<T extends MCPTools> =
-  T extends MCPTool_ENVIChangeDetection
-    ? MCPToolParams_ENVIChangeDetection
-    : T extends MCPTool_ExecuteIDLCode
-    ? MCPToolParams_ExecuteIDLCode
-    : T extends MCPTool_OpenInENVI
-    ? MCPToolParams_OpenInENVI
-    : T extends MCPTool_StartENVI
-    ? MCPToolParams_StartENVI
-    : T extends MCPTool_StartIDL
-    ? MCPToolParams_StartIDL
-    : never;
+export type MCPToolParams<T extends MCPTools> = T extends MCPTool_ExecuteIDLCode
+  ? MCPToolParams_ExecuteIDLCode
+  : T extends MCPTool_ExecuteIDLFile
+  ? MCPToolParams_ExecuteIDLFile
+  : T extends MCPTool_OpenInENVI
+  ? MCPToolParams_OpenInENVI
+  : T extends MCPTool_StartENVI
+  ? MCPToolParams_StartENVI
+  : T extends MCPTool_StartIDL
+  ? MCPToolParams_StartIDL
+  : never;
 
 /**
  * Payloads for all MCP messages
  */
 export type MCPToolResponse<T extends MCPTools> =
-  T extends MCPTool_ENVIChangeDetection
-    ? MCPToolResponse_ENVIChangeDetection
-    : T extends MCPTool_ExecuteIDLCode
+  T extends MCPTool_ExecuteIDLCode
     ? MCPToolResponse_ExecuteIDLCode
+    : T extends MCPTool_ExecuteIDLFile
+    ? MCPToolResponse_ExecuteIDLFile
     : T extends MCPTool_OpenInENVI
     ? MCPToolResponse_OpenInENVI
     : T extends MCPTool_StartENVI
@@ -153,10 +151,10 @@ export type MCPToolResponse<T extends MCPTools> =
  * Strictly typed messages that we can send back and forth
  */
 interface IMCPToolLookup {
-  /** Run change detection in ENVI */
-  ENVI_CHANGE_DETECTION: MCPTool_ENVIChangeDetection;
   /** Run code in IDL */
   EXECUTE_IDL_CODE: MCPTool_ExecuteIDLCode;
+  /** Run code in IDL that comes from a file */
+  EXECUTE_IDL_FILE: MCPTool_ExecuteIDLFile;
   /** Open a dataset in ENVI */
   OPEN_IN_ENVI: MCPTool_OpenInENVI;
   /** Start ENVI */
@@ -169,8 +167,8 @@ interface IMCPToolLookup {
  * Lookup with types of messages
  */
 export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
-  ENVI_CHANGE_DETECTION: 'envi-change-detection',
   EXECUTE_IDL_CODE: 'execute-idl-code',
+  EXECUTE_IDL_FILE: 'execute-idl-file',
   OPEN_IN_ENVI: 'open-in-envi',
   START_ENVI: 'start-envi',
   START_IDL: 'start-idl',

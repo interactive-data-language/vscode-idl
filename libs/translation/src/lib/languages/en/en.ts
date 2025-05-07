@@ -397,6 +397,16 @@ export const EN: ITranslation = {
       syntaxErrorsFound:
         'Syntax errors detected in your code, see above for more details',
     },
+    commandErrors: {
+      compileFile: 'Error compiling file. Likely syntax errors in the code.',
+      idlHasNotStarted: 'IDL has not started yet',
+      idlStopped:
+        'The IDL process ran, but likely stopped somewhere, meaning that the code did not finish executing and may have runtime errors that need to be fixed',
+      noProFile: 'No PRO file in VSCode to run or compile',
+      noRoutineFound: 'No routine in file to run',
+      runFile: '',
+      syntaxErrors: 'Syntax errors detected in file',
+    },
     errors: {
       addHistory:
         'Error while adding content to IDL history file. Does the location have write permissions?',

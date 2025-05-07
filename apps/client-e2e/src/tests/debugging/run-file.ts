@@ -1,5 +1,6 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
+import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
@@ -122,13 +123,15 @@ export const RunFile: RunnerFunction = async (init) => {
     await Sleep(100);
 
     // run
-    const res = await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RUN);
+    const res: IRunIDLCommandResult = await vscode.commands.executeCommand(
+      IDL_COMMANDS.DEBUG.RUN
+    );
 
     // verify result
     if (TO_RUN[i].result) {
-      expect(res).toBeTruthy();
+      expect(res.success).toBeTruthy();
     } else {
-      expect(res).toBeFalsy();
+      expect(res.success).toBeFalsy();
     }
 
     // close

@@ -369,6 +369,16 @@ export interface ITranslation {
       /** When we detect syntax errors trying to run code */
       syntaxErrorsFound: string;
     };
+    /** Text descriptions of debugging commands that add context to why something failed */
+    commandErrors: {
+      compileFile: string;
+      noProFile: string;
+      noRoutineFound: string;
+      idlHasNotStarted: string;
+      idlStopped: string;
+      runFile: string;
+      syntaxErrors: string;
+    };
     /** Error translations */
     errors: {
       /** Problem adding history */
