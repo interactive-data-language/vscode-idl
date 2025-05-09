@@ -1,9 +1,6 @@
 import { MCP_SERVER } from '@idl/mcp/server';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
-// operators
-// no double backslashes in IDL unless you use backticks
-
 /**
  * Registers infomration about server resources for how to write IDL code
  */
@@ -11,10 +8,13 @@ export function RegisterResourceIDLOperators(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCP_SERVER.resource(
-    'docs-writing-idl-code',
-    'docs://writing-idl-code',
+    'docs-idl-operators',
+    'docs://idl-operators',
+    {
+      description:
+        'Information about writing IDL code and what operators should be used in your code',
+    },
     async (uri) => {
-      console.log('Requested docs writing code');
       return {
         contents: [
           {
