@@ -23,7 +23,6 @@ export function RegisterAllMCPResources(
 
   /**
    * TODO:
-   * operators (< vs lt)
    * no double backslashes in IDL unless you use backticks
    * Running IDL code
    */
