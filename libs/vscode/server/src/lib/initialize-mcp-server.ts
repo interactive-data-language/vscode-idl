@@ -41,9 +41,11 @@ export function InitializeMCPServer() {
       });
     }, MCP_CONFIG.port);
 
+    // register all of our resources
+    RegisterAllMCPResources(SERVER_MESSENGER);
+
     // register all of our tools
     RegisterAllMCPTools(SERVER_MESSENGER);
-    RegisterAllMCPResources(SERVER_MESSENGER);
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_MCP_LOG,
