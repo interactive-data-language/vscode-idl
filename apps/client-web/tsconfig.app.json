@@ -3,144 +3,307 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
-    "types": ["web"],
+    "types": [
+      "web"
+    ],
     "paths": {
-      "@idl/assembler": ["libs/assembling/assembler/src/index.ts"],
+      "@idl/assembler": [
+        "libs/assembling/assembler/src/index.ts"
+      ],
       "@idl/assembling/code-actions": [
         "libs/assembling/code-actions/src/index.ts"
       ],
-      "@idl/assembling/config": ["libs/assembling/config/src/index.ts"],
-      "@idl/assembling/fixers": ["libs/assembling/fixers/src/index.ts"],
-      "@idl/assembling/formatters": ["libs/assembling/formatters/src/index.ts"],
+      "@idl/assembling/config": [
+        "libs/assembling/config/src/index.ts"
+      ],
+      "@idl/assembling/fixers": [
+        "libs/assembling/fixers/src/index.ts"
+      ],
+      "@idl/assembling/formatters": [
+        "libs/assembling/formatters/src/index.ts"
+      ],
       "@idl/assembling/json-formatter": [
         "libs/assembling/json-formatter/src/index.ts"
       ],
-      "@idl/assembling/migrators": ["libs/assembling/migrators/src/index.ts"],
+      "@idl/assembling/migrators": [
+        "libs/assembling/migrators/src/index.ts"
+      ],
       "@idl/assembling/migrators-types": [
         "libs/assembling/migrators-types/src/index.ts"
       ],
-      "@idl/assembling/shared": ["libs/assembling/shared/src/index.ts"],
-      "@idl/assembling/styles": ["libs/assembling/styles/src/index.ts"],
-      "@idl/assembling/tasks": ["libs/assembling/tasks/src/index.ts"],
+      "@idl/assembling/shared": [
+        "libs/assembling/shared/src/index.ts"
+      ],
+      "@idl/assembling/styles": [
+        "libs/assembling/styles/src/index.ts"
+      ],
+      "@idl/assembling/tasks": [
+        "libs/assembling/tasks/src/index.ts"
+      ],
       "@idl/assembling/tree-handlers": [
         "libs/assembling/tree-handlers/src/index.ts"
       ],
-      "@idl/cancellation-tokens": ["libs/cancellation-tokens/src/index.ts"],
-      "@idl/docs/exporter": ["libs/docs/exporter/src/index.ts"],
-      "@idl/docs/server": ["libs/docs/server/src/index.ts"],
-      "@idl/error-shared": ["libs/shared/error/src/index.ts"],
-      "@idl/generators/envi-task": ["libs/generators/envi-task/src/index.ts"],
-      "@idl/generators/idl-task": ["libs/generators/idl-task/src/index.ts"],
-      "@idl/generators/idl.json": ["libs/generators/idl.json/src/index.ts"],
-      "@idl/generators/task-tests": ["libs/generators/task-tests/src/index.ts"],
+      "@idl/cancellation-tokens": [
+        "libs/cancellation-tokens/src/index.ts"
+      ],
+      "@idl/docs/exporter": [
+        "libs/docs/exporter/src/index.ts"
+      ],
+      "@idl/docs/server": [
+        "libs/docs/server/src/index.ts"
+      ],
+      "@idl/error-shared": [
+        "libs/shared/error/src/index.ts"
+      ],
+      "@idl/generators/envi-task": [
+        "libs/generators/envi-task/src/index.ts"
+      ],
+      "@idl/generators/idl-task": [
+        "libs/generators/idl-task/src/index.ts"
+      ],
+      "@idl/generators/idl.json": [
+        "libs/generators/idl.json/src/index.ts"
+      ],
+      "@idl/generators/task-tests": [
+        "libs/generators/task-tests/src/index.ts"
+      ],
       "@idl/generators/tasks-shared": [
         "libs/generators/tasks-shared/src/index.ts"
       ],
-      "@idl/idl/files": ["libs/idl/files/src/index.ts"],
+      "@idl/idl/files": [
+        "libs/idl/files/src/index.ts"
+      ],
       "@idl/idl/idl-interaction-manager": [
         "libs/idl/idl-interaction-manager/src/index.ts"
       ],
-      "@idl/idl/idl-machine": ["libs/idl/idl-machine/src/index.ts"],
-      "@idl/idl/idl-process": ["libs/idl/idl-process/src/index.ts"],
-      "@idl/idl/ws-server": ["libs/idl/ws-server/src/index.ts"],
-      "@idl/logger": ["libs/logger/src/index.ts"],
-      "@idl/mcp/server": ["libs/mcp/server/src/index.ts"],
-      "@idl/mcp/server-tools": ["libs/mcp/server-tools/src/index.ts"],
-      "@idl/mcp/vscode": ["libs/mcp/vscode/src/index.ts"],
-      "@idl/notebooks/encoders": ["libs/notebooks/encoders/src/index.ts"],
-      "@idl/notebooks/idl-index": ["libs/notebooks/idl-index/src/index.ts"],
-      "@idl/notebooks/shared": ["libs/notebooks/shared/src/index.ts"],
-      "@idl/parser": ["libs/parsing/parser/src/index.ts"],
-      "@idl/parsing/index": ["libs/parsing/index/src/index.ts"],
-      "@idl/parsing/routines": ["libs/parsing/routines/src/index.ts"],
+      "@idl/idl/idl-machine": [
+        "libs/idl/idl-machine/src/index.ts"
+      ],
+      "@idl/idl/idl-process": [
+        "libs/idl/idl-process/src/index.ts"
+      ],
+      "@idl/idl/ws-server": [
+        "libs/idl/ws-server/src/index.ts"
+      ],
+      "@idl/logger": [
+        "libs/logger/src/index.ts"
+      ],
+      "@idl/mcp/server": [
+        "libs/mcp/server/src/index.ts"
+      ],
+      "@idl/mcp/server-tools": [
+        "libs/mcp/server-tools/src/index.ts"
+      ],
+      "@idl/mcp/vscode": [
+        "libs/mcp/vscode/src/index.ts"
+      ],
+      "@idl/notebooks/encoders": [
+        "libs/notebooks/encoders/src/index.ts"
+      ],
+      "@idl/notebooks/idl-index": [
+        "libs/notebooks/idl-index/src/index.ts"
+      ],
+      "@idl/notebooks/shared": [
+        "libs/notebooks/shared/src/index.ts"
+      ],
+      "@idl/parser": [
+        "libs/parsing/parser/src/index.ts"
+      ],
+      "@idl/parsing/index": [
+        "libs/parsing/index/src/index.ts"
+      ],
+      "@idl/parsing/routines": [
+        "libs/parsing/routines/src/index.ts"
+      ],
       "@idl/parsing/semantic-tokens": [
         "libs/parsing/semantic-tokens/src/index.ts"
       ],
       "@idl/parsing/syntax-post-processors": [
         "libs/parsing/syntax-post-processors/src/index.ts"
       ],
-      "@idl/parsing/syntax-tree": ["libs/parsing/syntax-tree/src/index.ts"],
+      "@idl/parsing/syntax-tree": [
+        "libs/parsing/syntax-tree/src/index.ts"
+      ],
       "@idl/parsing/syntax-validators": [
         "libs/parsing/syntax-validators/src/index.ts"
       ],
-      "@idl/schemas/idl.json": ["libs/schemas/idl.json/src/index.ts"],
-      "@idl/schemas/tasks": ["libs/schemas/tasks/src/index.ts"],
-      "@idl/shared/extension": ["libs/shared/extension/src/index.ts"],
-      "@idl/shared/node": ["libs/shared/node/src/index.ts"],
-      "@idl/system-memory": ["libs/system-memory/src/index.ts"],
-      "@idl/tests/assembler": ["libs/tests/assembler/src/index.ts"],
-      "@idl/tests/auto-complete": ["libs/tests/auto-complete/src/index.ts"],
-      "@idl/tests/auto-fixing": ["libs/tests/auto-fixing/src/index.ts"],
+      "@idl/schemas/idl.json": [
+        "libs/schemas/idl.json/src/index.ts"
+      ],
+      "@idl/schemas/tasks": [
+        "libs/schemas/tasks/src/index.ts"
+      ],
+      "@idl/shared/extension": [
+        "libs/shared/extension/src/index.ts"
+      ],
+      "@idl/shared/node": [
+        "libs/shared/node/src/index.ts"
+      ],
+      "@idl/system-memory": [
+        "libs/system-memory/src/index.ts"
+      ],
+      "@idl/tests/assembler": [
+        "libs/tests/assembler/src/index.ts"
+      ],
+      "@idl/tests/auto-complete": [
+        "libs/tests/auto-complete/src/index.ts"
+      ],
+      "@idl/tests/auto-fixing": [
+        "libs/tests/auto-fixing/src/index.ts"
+      ],
       "@idl/tests/config-resolution": [
         "libs/tests/config-resolution/src/index.ts"
       ],
-      "@idl/tests/global-problems": ["libs/tests/global-problems/src/index.ts"],
-      "@idl/tests/helpers": ["libs/tests/helpers/src/index.ts"],
-      "@idl/tests/hover-help": ["libs/tests/hover-help/src/index.ts"],
+      "@idl/tests/global-problems": [
+        "libs/tests/global-problems/src/index.ts"
+      ],
+      "@idl/tests/helpers": [
+        "libs/tests/helpers/src/index.ts"
+      ],
+      "@idl/tests/hover-help": [
+        "libs/tests/hover-help/src/index.ts"
+      ],
       "@idl/tests/local-global-scope-compile": [
         "libs/tests/local-global-scope-compile/src/index.ts"
       ],
-      "@idl/tests/outline": ["libs/tests/outline/src/index.ts"],
-      "@idl/tests/semantic-tokens": ["libs/tests/semantic-tokens/src/index.ts"],
+      "@idl/tests/outline": [
+        "libs/tests/outline/src/index.ts"
+      ],
+      "@idl/tests/semantic-tokens": [
+        "libs/tests/semantic-tokens/src/index.ts"
+      ],
       "@idl/tests/syntax-post-processors": [
         "libs/tests/syntax-post-processors/src/index.ts"
       ],
       "@idl/tests/syntax-validators": [
         "libs/tests/syntax-validators/src/index.ts"
       ],
-      "@idl/tests/task-assembler": ["libs/tests/task-assembler/src/index.ts"],
-      "@idl/tests/task-generation": ["libs/tests/task-generation/src/index.ts"],
-      "@idl/tests/task-parsing": ["libs/tests/task-parsing/src/index.ts"],
+      "@idl/tests/task-assembler": [
+        "libs/tests/task-assembler/src/index.ts"
+      ],
+      "@idl/tests/task-generation": [
+        "libs/tests/task-generation/src/index.ts"
+      ],
+      "@idl/tests/task-parsing": [
+        "libs/tests/task-parsing/src/index.ts"
+      ],
       "@idl/tests/textmate-tokenizer": [
         "libs/tests/textmate-tokenizer/src/index.ts"
       ],
-      "@idl/tests/token-at-cursor": ["libs/tests/token-at-cursor/src/index.ts"],
+      "@idl/tests/token-at-cursor": [
+        "libs/tests/token-at-cursor/src/index.ts"
+      ],
       "@idl/tests/token-definition": [
         "libs/tests/token-definition/src/index.ts"
       ],
-      "@idl/tests/tokenizer": ["libs/tests/tokenizer/src/index.ts"],
-      "@idl/tokenizer": ["libs/tokenizer/tokenizer/src/index.ts"],
-      "@idl/tokenizer/common": ["libs/tokenizer/common/src/index.ts"],
+      "@idl/tests/tokenizer": [
+        "libs/tests/tokenizer/src/index.ts"
+      ],
+      "@idl/tokenizer": [
+        "libs/tokenizer/tokenizer/src/index.ts"
+      ],
+      "@idl/tokenizer/common": [
+        "libs/tokenizer/common/src/index.ts"
+      ],
       "@idl/tokenizer/idl-type-tokens": [
         "libs/tokenizer/idl-type-tokens/src/index.ts"
       ],
-      "@idl/translation": ["libs/translation/src/index.ts"],
-      "@idl/types/auto-complete": ["libs/types/auto-complete/src/index.ts"],
-      "@idl/types/core": ["libs/types/core/src/index.ts"],
-      "@idl/types/diagnostic": ["libs/types/diagnostic/src/index.ts"],
-      "@idl/types/idl/idl-process": ["libs/types/idl/idl-process/src/index.ts"],
-      "@idl/types/idl/ws-client": ["libs/types/idl/ws-client/src/index.ts"],
-      "@idl/types/mcp": ["libs/types/mcp/src/index.ts"],
-      "@idl/types/notebooks": ["libs/types/notebooks/src/index.ts"],
-      "@idl/types/problem-codes": ["libs/types/problem-codes/src/index.ts"],
-      "@idl/types/profiler": ["libs/types/profiler/src/index.ts"],
-      "@idl/types/syntax-tree": ["libs/types/syntax-tree/src/index.ts"],
-      "@idl/types/tasks": ["libs/types/tasks/src/index.ts"],
-      "@idl/types/tokenizer": ["libs/types/tokenizer/src/index.ts"],
-      "@idl/types/vscode": ["libs/types/vscode/src/index.ts"],
-      "@idl/types/websites": ["libs/types/websites/src/index.ts"],
-      "@idl/usage-metrics": ["libs/usage-metrics/src/index.ts"],
-      "@idl/vscode/client": ["libs/vscode/client/src/index.ts"],
-      "@idl/vscode/client-shared": ["libs/vscode/client-shared/src/index.ts"],
-      "@idl/vscode/commands": ["libs/vscode/commands/src/index.ts"],
-      "@idl/vscode/config": ["libs/vscode/config/src/index.ts"],
-      "@idl/vscode/debug": ["libs/vscode/debug/src/index.ts"],
-      "@idl/vscode/decorations": ["libs/vscode/decorations/src/index.ts"],
-      "@idl/vscode/docs": ["libs/vscode/docs/src/index.ts"],
-      "@idl/vscode/envi-opener": ["libs/vscode/envi-opener/src/index.ts"],
-      "@idl/vscode/events/client": ["libs/vscode/events/client/src/index.ts"],
+      "@idl/translation": [
+        "libs/translation/src/index.ts"
+      ],
+      "@idl/types/auto-complete": [
+        "libs/types/auto-complete/src/index.ts"
+      ],
+      "@idl/types/core": [
+        "libs/types/core/src/index.ts"
+      ],
+      "@idl/types/diagnostic": [
+        "libs/types/diagnostic/src/index.ts"
+      ],
+      "@idl/types/idl/idl-process": [
+        "libs/types/idl/idl-process/src/index.ts"
+      ],
+      "@idl/types/idl/ws-client": [
+        "libs/types/idl/ws-client/src/index.ts"
+      ],
+      "@idl/types/mcp": [
+        "libs/types/mcp/src/index.ts"
+      ],
+      "@idl/types/notebooks": [
+        "libs/types/notebooks/src/index.ts"
+      ],
+      "@idl/types/problem-codes": [
+        "libs/types/problem-codes/src/index.ts"
+      ],
+      "@idl/types/profiler": [
+        "libs/types/profiler/src/index.ts"
+      ],
+      "@idl/types/syntax-tree": [
+        "libs/types/syntax-tree/src/index.ts"
+      ],
+      "@idl/types/tasks": [
+        "libs/types/tasks/src/index.ts"
+      ],
+      "@idl/types/tokenizer": [
+        "libs/types/tokenizer/src/index.ts"
+      ],
+      "@idl/types/vscode": [
+        "libs/types/vscode/src/index.ts"
+      ],
+      "@idl/types/vscode-debug": [
+        "libs/types/vscode-debug/src/index.ts"
+      ],
+      "@idl/types/websites": [
+        "libs/types/websites/src/index.ts"
+      ],
+      "@idl/usage-metrics": [
+        "libs/usage-metrics/src/index.ts"
+      ],
+      "@idl/vscode/client": [
+        "libs/vscode/client/src/index.ts"
+      ],
+      "@idl/vscode/client-shared": [
+        "libs/vscode/client-shared/src/index.ts"
+      ],
+      "@idl/vscode/commands": [
+        "libs/vscode/commands/src/index.ts"
+      ],
+      "@idl/vscode/config": [
+        "libs/vscode/config/src/index.ts"
+      ],
+      "@idl/vscode/debug": [
+        "libs/vscode/debug/src/index.ts"
+      ],
+      "@idl/vscode/decorations": [
+        "libs/vscode/decorations/src/index.ts"
+      ],
+      "@idl/vscode/docs": [
+        "libs/vscode/docs/src/index.ts"
+      ],
+      "@idl/vscode/envi-opener": [
+        "libs/vscode/envi-opener/src/index.ts"
+      ],
+      "@idl/vscode/events/client": [
+        "libs/vscode/events/client/src/index.ts"
+      ],
       "@idl/vscode/events/messages": [
         "libs/vscode/events/messages/src/index.ts"
       ],
-      "@idl/vscode/events/server": ["libs/vscode/events/server/src/index.ts"],
+      "@idl/vscode/events/server": [
+        "libs/vscode/events/server/src/index.ts"
+      ],
       "@idl/vscode/extension-config": [
         "libs/vscode/extension-config/src/index.ts"
       ],
-      "@idl/vscode/help-view": ["libs/vscode/help-view/src/index.ts"],
+      "@idl/vscode/help-view": [
+        "libs/vscode/help-view/src/index.ts"
+      ],
       "@idl/vscode/initialize-types": [
         "libs/vscode/initialize-types/src/index.ts"
       ],
-      "@idl/vscode/logger": ["libs/vscode/logger/src/index.ts"],
+      "@idl/vscode/logger": [
+        "libs/vscode/logger/src/index.ts"
+      ],
       "@idl/vscode/notebooks/client": [
         "libs/vscode/notebooks/client/src/index.ts"
       ],
@@ -150,24 +313,63 @@
       "@idl/vscode/notebooks/shared": [
         "libs/vscode/notebooks/shared/src/index.ts"
       ],
-      "@idl/vscode/server": ["libs/vscode/server/src/index.ts"],
-      "@idl/vscode/shared": ["libs/vscode/shared/src/index.ts"],
-      "@idl/vscode/terminal": ["libs/vscode/terminal/src/index.ts"],
-      "@idl/vscode/tree-view": ["libs/vscode/tree-view/src/index.ts"],
-      "@idl/vscode/usage-metrics": ["libs/vscode/usage-metrics/src/index.ts"],
-      "@idl/vscode/webview": ["libs/vscode/webview/src/index.ts"],
-      "@idl/vscode/webview-shared": ["libs/vscode/webview-shared/src/index.ts"],
-      "@idl/workers/parsing": ["libs/workers/parsing/src/index.ts"],
-      "@idl/workers/workerio": ["libs/workers/workerio/src/index.ts"],
-      "buffer": ["node_modules/buffer"],
-      "os": ["node_modules/os-browserify"],
-      "path": ["node_modules/path-browserify"],
-      "process": ["node_modules/process"],
-      "stream": ["node_modules/stream-browserify"],
-      "tty": ["node_modules/tty-browserify"],
-      "util": ["node_modules/util"]
+      "@idl/vscode/server": [
+        "libs/vscode/server/src/index.ts"
+      ],
+      "@idl/vscode/shared": [
+        "libs/vscode/shared/src/index.ts"
+      ],
+      "@idl/vscode/terminal": [
+        "libs/vscode/terminal/src/index.ts"
+      ],
+      "@idl/vscode/tree-view": [
+        "libs/vscode/tree-view/src/index.ts"
+      ],
+      "@idl/vscode/usage-metrics": [
+        "libs/vscode/usage-metrics/src/index.ts"
+      ],
+      "@idl/vscode/webview": [
+        "libs/vscode/webview/src/index.ts"
+      ],
+      "@idl/vscode/webview-shared": [
+        "libs/vscode/webview-shared/src/index.ts"
+      ],
+      "@idl/workers/parsing": [
+        "libs/workers/parsing/src/index.ts"
+      ],
+      "@idl/workers/workerio": [
+        "libs/workers/workerio/src/index.ts"
+      ],
+      "buffer": [
+        "node_modules/buffer"
+      ],
+      "os": [
+        "node_modules/os-browserify"
+      ],
+      "path": [
+        "node_modules/path-browserify"
+      ],
+      "process": [
+        "node_modules/process"
+      ],
+      "stream": [
+        "node_modules/stream-browserify"
+      ],
+      "tty": [
+        "node_modules/tty-browserify"
+      ],
+      "util": [
+        "node_modules/util"
+      ]
     }
   },
-  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "include": ["src/globals.d.ts", "src/**/*.ts"]
+  "exclude": [
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ],
+  "include": [
+    "src/globals.d.ts",
+    "src/**/*.ts"
+  ]
 }

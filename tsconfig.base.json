@@ -55,6 +55,7 @@
       "@idl/idl/ws-server": ["libs/idl/ws-server/src/index.ts"],
       "@idl/logger": ["libs/logger/src/index.ts"],
       "@idl/mcp/server": ["libs/mcp/server/src/index.ts"],
+      "@idl/mcp/server-resources": ["libs/mcp/server-resources/src/index.ts"],
       "@idl/mcp/server-tools": ["libs/mcp/server-tools/src/index.ts"],
       "@idl/mcp/vscode": ["libs/mcp/vscode/src/index.ts"],
       "@idl/notebooks/encoders": ["libs/notebooks/encoders/src/index.ts"],

@@ -1,5 +1,6 @@
 import { IDL_MCP_LOG } from '@idl/logger';
 import { StartMCPServer } from '@idl/mcp/server';
+import { RegisterAllMCPResources } from '@idl/mcp/server-resources';
 import { RegisterAllMCPTools } from '@idl/mcp/server-tools';
 import { IDL_TRANSLATION } from '@idl/translation';
 
@@ -42,6 +43,7 @@ export function InitializeMCPServer() {
 
     // register all of our tools
     RegisterAllMCPTools(SERVER_MESSENGER);
+    RegisterAllMCPResources(SERVER_MESSENGER);
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_MCP_LOG,
