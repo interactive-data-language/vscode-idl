@@ -9,6 +9,7 @@ import { StartIDL } from '@idl/vscode/debug';
  * Start IDL
  */
 export async function RunMCPStartIDL(
+  id: string,
   params: MCPToolParams<MCPTool_StartIDL>
 ): Promise<MCPToolResponse<MCPTool_StartIDL>> {
   /**

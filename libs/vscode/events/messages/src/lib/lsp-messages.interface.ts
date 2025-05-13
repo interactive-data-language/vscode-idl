@@ -29,6 +29,10 @@ import {
   MCP_LSP_MessageResponse,
 } from './messages/mcp-messages.interface';
 import {
+  MCPProgress_LSP_Message,
+  MCPProgress_LSP_MessagePayload,
+} from './messages/mcp-progress-messages.interface';
+import {
   MigrateCodeLSPMessage,
   MigrateCodeLSPPayload,
   MigrateCodeLSPResponse,
@@ -81,6 +85,7 @@ export type LanguageServerMessage =
   | InitWorkspaceConfigMessage
   | LoggingMessage
   | MCP_LSP_Message
+  | MCPProgress_LSP_Message
   | MigrateCodeLSPMessage
   | NotebookToProCodeMessage
   | PrepareIDLCodelMessage
@@ -112,6 +117,8 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? ILogOptions
     : T extends MCP_LSP_Message
     ? MCP_LSP_MessagePayload<MCPTools>
+    : T extends MCPProgress_LSP_Message
+    ? MCPProgress_LSP_MessagePayload
     : T extends MigrateCodeLSPMessage
     ? MigrateCodeLSPPayload
     : T extends NotebookToProCodeMessage
@@ -146,7 +153,7 @@ export type LanguageServerResponse<T extends LanguageServerMessage> =
     ? PrepareIDLCodeResponse
     : T extends PrepareNotebookCellMessage
     ? PrepareNotebookCellResponse
-    : any;
+    : never;
 
 /** Strictly typed lookup of language server messages */
 export interface ILanguageServerMessages {
@@ -170,6 +177,8 @@ export interface ILanguageServerMessages {
   LOG: LoggingMessage;
   /** MCP message to run a tool */
   MCP: MCP_LSP_Message;
+  /** Progress message via LSP */
+  MCP_PROGRESS: MCPProgress_LSP_Message;
   /** Message to migrate ENVI DL API to 3.0 */
   MIGRATE_CODE: MigrateCodeLSPMessage;
   /** Convert notebooks to PRO code */
@@ -205,6 +214,7 @@ export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   INIT_WORKSPACE_CONFIG: 'init-workspace-config',
   LOG: 'log',
   MCP: 'mcp',
+  MCP_PROGRESS: 'mcp-progress',
   MIGRATE_CODE: 'migrate-code',
   NOTEBOOK_TO_PRO_CODE: 'notebook/to-pro-code',
   PROGRESS: 'progress',

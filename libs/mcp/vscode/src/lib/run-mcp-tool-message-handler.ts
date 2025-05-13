@@ -19,6 +19,7 @@ import { RunMCPStartIDL } from './tools/run-mcp-start-idl';
  */
 export const MCP_TOOL_LOOKUP: {
   [key in MCPTools]: (
+    id: string,
     params: MCPToolParams<key>
   ) => MCPToolResponse<key> | Promise<MCPToolResponse<key>>;
 } = {
@@ -38,7 +39,10 @@ export async function RunMCPToolMessageHandler(
   IDL_LOGGER.log({
     type: 'info',
     log: IDL_MCP_LOG,
-    content: [`Run MCP tool: ${payload.tool}`, payload.params],
+    content: [
+      `Run MCP tool: "${payload.tool}" with ID "${payload.id}"`,
+      payload.params,
+    ],
   });
 
   // make sure we know how to run the tool
@@ -51,7 +55,10 @@ export async function RunMCPToolMessageHandler(
     // try to run
     try {
       // use any to override specific types
-      const res = await MCP_TOOL_LOOKUP[payload.tool](payload.params as any);
+      const res = await MCP_TOOL_LOOKUP[payload.tool](
+        payload.id,
+        payload.params as any
+      );
 
       IDL_LOGGER.log({
         type: 'info',

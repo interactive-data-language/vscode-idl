@@ -1,3 +1,4 @@
+import { VERSION } from '@idl/shared/extension';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import * as express from 'express';
@@ -32,10 +33,17 @@ export function StartMCPServer(
   }
 
   // Initialize MCP server
-  MCP_SERVER = new McpServer({
-    name: 'My SSE MCP Server',
-    version: '1.0.0',
-  });
+  MCP_SERVER = new McpServer(
+    {
+      name: 'IDL for VSCode MCP Server',
+      version: VERSION,
+    },
+    {
+      capabilities: {
+        logging: {},
+      },
+    }
+  );
 
   /** Create express app */
   const app = express();

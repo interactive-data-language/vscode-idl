@@ -718,6 +718,10 @@ export interface ITranslation {
     errors: {
       /** if we failed to prepare code to run */
       failedCodePrepare: string;
+      /** Failed to start the MCP server */
+      failedStart: string;
+      /** Failed to handle progress messages */
+      failedProgress: string;
     };
   };
   /** Translations for notebooks */

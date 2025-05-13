@@ -18,6 +18,7 @@ import * as vscode from 'vscode';
  * Run a file of IDL code
  */
 export async function RunMCPExecuteIDLFile(
+  id: string,
   params: MCPToolParams<MCPTool_ExecuteIDLFile>
 ): Promise<MCPToolResponse<MCPTool_ExecuteIDLFile>> {
   /**

@@ -1,11 +1,18 @@
 import { IS_MCP_SERVER_STARTED } from '@idl/mcp/server';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
+import { MCPToolContext } from './mcp-tool-context.class';
 import { RegisterToolExecuteIDLCode } from './tools/register-tool-execute-idl-code';
 import { RegisterToolExecuteIDLFile } from './tools/register-tool-execute-idl-file';
 import { RegisterToolOpenInENVI } from './tools/register-tool-open-in-envi';
 import { RegisterToolStartENVI } from './tools/register-tool-start-envi';
 import { RegisterToolStartIDL } from './tools/register-tool-start-idl';
+
+/**
+ * Track contexts for all actively running tools so we can send notification
+ * messages backand forth
+ */
+export const MCP_TOOL_CONTEXT = new MCPToolContext();
 
 /**
  * Track if we registered our tools or not

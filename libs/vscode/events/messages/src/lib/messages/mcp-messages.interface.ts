@@ -7,7 +7,11 @@ export type MCP_LSP_Message = 'mcp';
  * Payloads when we send messages from the server to the client
  */
 export type MCP_LSP_MessagePayload<T extends MCPTools> = {
+  /** ID of the tool run */
+  id: string;
+  /** Tool we are running */
   tool: T;
+  /** Parameters for running the tool */
   params: MCPToolParams<T>;
 };
 
