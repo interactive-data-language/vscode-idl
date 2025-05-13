@@ -8,6 +8,7 @@ import {
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 
+import { RunMCPCreateIDLNotebook } from './tools/run-mcp-create-idl-notebooks';
 import { RunMCPExecuteIDLCode } from './tools/run-mcp-execute-idl-code';
 import { RunMCPExecuteIDLFile } from './tools/run-mcp-execute-idl-file';
 import { RunMCPOpenInENVI } from './tools/run-mcp-open-in-envi';
@@ -23,6 +24,7 @@ export const MCP_TOOL_LOOKUP: {
     params: MCPToolParams<key>
   ) => MCPToolResponse<key> | Promise<MCPToolResponse<key>>;
 } = {
+  'create-idl-notebook': RunMCPCreateIDLNotebook,
   'execute-idl-code': RunMCPExecuteIDLCode,
   'execute-idl-file': RunMCPExecuteIDLFile,
   'open-in-envi': RunMCPOpenInENVI,

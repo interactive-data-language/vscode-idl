@@ -25,7 +25,7 @@ export function RegisterToolOpenInENVI(
           'The local file to open in ENVI. Should be a fully-qualified filepath.'
         ),
     },
-    async (id, { uri }, context) => {
+    async (id, { uri }) => {
       // strictly typed parameters
       const params: MCPToolParams<MCPTool_OpenInENVI> = {
         display: true,

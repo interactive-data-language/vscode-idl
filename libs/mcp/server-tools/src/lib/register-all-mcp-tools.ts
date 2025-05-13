@@ -2,6 +2,7 @@ import { IS_MCP_SERVER_STARTED } from '@idl/mcp/server';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { MCPToolContext } from './mcp-tool-context.class';
+import { RegisterToolCreateIDLNotebook } from './tools/register-tool-create-idl-notebook';
 import { RegisterToolExecuteIDLCode } from './tools/register-tool-execute-idl-code';
 import { RegisterToolExecuteIDLFile } from './tools/register-tool-execute-idl-file';
 import { RegisterToolOpenInENVI } from './tools/register-tool-open-in-envi';
@@ -33,6 +34,7 @@ export function RegisterAllMCPTools(messenger: VSCodeLanguageServerMessenger) {
   /**
    * Register all of our tools
    */
+  RegisterToolCreateIDLNotebook(messenger);
   RegisterToolExecuteIDLCode(messenger);
   RegisterToolExecuteIDLFile(messenger);
   RegisterToolOpenInENVI(messenger);

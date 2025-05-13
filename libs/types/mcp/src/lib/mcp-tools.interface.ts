@@ -1,6 +1,28 @@
 import { IMCPBaseResponse as IMCPTool_BaseResponse } from './mcp-base-response.interface';
 
 /**
+ * Message when we want to create an IDL Notebook
+ */
+export type MCPTool_CreateIDLNotebook = 'create-idl-notebook';
+
+/**
+ * Parameters for creating an IDL Notebook
+ */
+export interface MCPToolParams_CreateIDLNotebook {
+  /**
+   * The notebook cells
+   */
+  cells: { type: 'code' | 'markdown'; content: string }[];
+  /** File on disk to create */
+  uri: string;
+}
+
+/**
+ * Response for creating an IDL Notebook
+ */
+export type MCPToolResponse_CreateIDLNotebook = IMCPTool_BaseResponse;
+
+/**
  * Message when we want to run IDL code
  */
 export type MCPTool_ExecuteIDLCode = 'execute-idl-code';
@@ -110,6 +132,7 @@ export type MCPToolResponse_StartIDL = IMCPTool_BaseResponse;
  * Types of MCP messages
  */
 export type MCPTools =
+  | MCPTool_CreateIDLNotebook
   | MCPTool_ExecuteIDLCode
   | MCPTool_ExecuteIDLFile
   | MCPTool_OpenInENVI
@@ -119,23 +142,28 @@ export type MCPTools =
 /**
  * Payloads for all MCP messages
  */
-export type MCPToolParams<T extends MCPTools> = T extends MCPTool_ExecuteIDLCode
-  ? MCPToolParams_ExecuteIDLCode
-  : T extends MCPTool_ExecuteIDLFile
-  ? MCPToolParams_ExecuteIDLFile
-  : T extends MCPTool_OpenInENVI
-  ? MCPToolParams_OpenInENVI
-  : T extends MCPTool_StartENVI
-  ? MCPToolParams_StartENVI
-  : T extends MCPTool_StartIDL
-  ? MCPToolParams_StartIDL
-  : never;
+export type MCPToolParams<T extends MCPTools> =
+  T extends MCPTool_CreateIDLNotebook
+    ? MCPToolParams_CreateIDLNotebook
+    : T extends MCPTool_ExecuteIDLCode
+    ? MCPToolParams_ExecuteIDLCode
+    : T extends MCPTool_ExecuteIDLFile
+    ? MCPToolParams_ExecuteIDLFile
+    : T extends MCPTool_OpenInENVI
+    ? MCPToolParams_OpenInENVI
+    : T extends MCPTool_StartENVI
+    ? MCPToolParams_StartENVI
+    : T extends MCPTool_StartIDL
+    ? MCPToolParams_StartIDL
+    : never;
 
 /**
  * Payloads for all MCP messages
  */
 export type MCPToolResponse<T extends MCPTools> =
-  T extends MCPTool_ExecuteIDLCode
+  T extends MCPTool_CreateIDLNotebook
+    ? MCPToolResponse_CreateIDLNotebook
+    : T extends MCPTool_ExecuteIDLCode
     ? MCPToolResponse_ExecuteIDLCode
     : T extends MCPTool_ExecuteIDLFile
     ? MCPToolResponse_ExecuteIDLFile
@@ -151,6 +179,8 @@ export type MCPToolResponse<T extends MCPTools> =
  * Strictly typed messages that we can send back and forth
  */
 interface IMCPToolLookup {
+  /** Create an IDL Notebook */
+  CREATE_IDL_NOTEBOOK: MCPTool_CreateIDLNotebook;
   /** Run code in IDL */
   EXECUTE_IDL_CODE: MCPTool_ExecuteIDLCode;
   /** Run code in IDL that comes from a file */
@@ -167,6 +197,7 @@ interface IMCPToolLookup {
  * Lookup with types of messages
  */
 export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
+  CREATE_IDL_NOTEBOOK: 'create-idl-notebook',
   EXECUTE_IDL_CODE: 'execute-idl-code',
   EXECUTE_IDL_FILE: 'execute-idl-file',
   OPEN_IN_ENVI: 'open-in-envi',
