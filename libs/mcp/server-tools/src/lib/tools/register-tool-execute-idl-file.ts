@@ -8,7 +8,7 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
 import { MCPToolRegistry } from '../mcp-tool-registry.class';
-import { EXECUTE_IDL_CODE_DESCRIPTION } from './register-tool-execute-idl-code.interface';
+import { EXECUTE_IDL_FILE_DESCRIPTION } from './register-tool-execute-idl-file.interface';
 
 /**
  * Registers a tool that runs a file of IDL code
@@ -18,7 +18,7 @@ export function RegisterToolExecuteIDLFile(
 ) {
   MCPToolRegistry.tool(
     MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE,
-    EXECUTE_IDL_CODE_DESCRIPTION,
+    EXECUTE_IDL_FILE_DESCRIPTION,
     {
       uri: z
         .string()

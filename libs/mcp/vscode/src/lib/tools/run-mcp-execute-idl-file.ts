@@ -1,5 +1,5 @@
 import { IDL_MCP_LOG } from '@idl/logger';
-import { IDL_COMMANDS } from '@idl/shared/extension';
+import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCPTool_ExecuteIDLFile,
