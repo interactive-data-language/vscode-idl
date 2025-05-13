@@ -11,7 +11,7 @@ import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { IDL_LOGGER } from '@idl/vscode/logger';
-import { OpenFileInVSCode, ReplaceDocumentContent } from '@idl/vscode/shared';
+import { OpenFileInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 /**
@@ -60,7 +60,7 @@ export async function RunMCPExecuteIDLFile(
   }
 
   // update file code to be correct
-  await ReplaceDocumentContent(doc, resp.code);
+  // await ReplaceDocumentContent(doc, resp.code);
 
   /** Run our file */
   const result: IRunIDLCommandResult = await vscode.commands.executeCommand(
