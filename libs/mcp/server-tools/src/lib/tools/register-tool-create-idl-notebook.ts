@@ -43,7 +43,7 @@ export function RegisterToolCreateIDLNotebook(
         .describe('The content for the IDL Notebook file'),
     },
     async (id, { uri, cells }) => {
-      // strictly typed parameters
+      // strictly typed parameters and make sure we always have content in the cells
       const params: MCPToolParams<MCPTool_CreateIDLNotebook> = {
         uri: CleanPath(uri),
         cells: cells.map((cell) => {
