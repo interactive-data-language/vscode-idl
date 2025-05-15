@@ -19,19 +19,19 @@ export const ProfileTest: RunnerFunction = async (init) => {
   expect(started).toBeTruthy();
 
   // short pause
-  await Sleep(100);
+  await Sleep(500);
 
   // start profiling
   await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.PROFILER_START);
 
   // short pause
-  await Sleep(250);
+  await Sleep(500);
 
   // stop profiling
   await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.PROFILER_STOP);
 
   // short pause
-  await Sleep(500);
+  await Sleep(2500);
 
   // make sure we have a debug panel
   const panel = init.webview.currentPanel;
