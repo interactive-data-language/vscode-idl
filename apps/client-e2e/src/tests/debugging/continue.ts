@@ -32,6 +32,9 @@ export const Continue: RunnerFunction = async (init) => {
   // verify we started
   expect(started).toBeTruthy();
 
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
+
   // show the debug console
   await vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
 
@@ -70,4 +73,7 @@ export const Continue: RunnerFunction = async (init) => {
     // wait a little bit
     await Sleep(DEBUG_PAUSE);
   }
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

@@ -44,4 +44,7 @@ export const ProfileTest: RunnerFunction = async (init) => {
 
   // verify we did not get an error
   expect(panel.wasError).toBeFalsy();
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

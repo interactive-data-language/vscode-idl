@@ -23,6 +23,9 @@ export const BreakpointCompileBehavior: RunnerFunction = async (init) => {
   // verify we started
   expect(started).toBeTruthy();
 
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
+
   // show the debug console
   await vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
 

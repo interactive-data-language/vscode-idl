@@ -93,4 +93,7 @@ export const SyntaxErrorTracking: RunnerFunction = async (init) => {
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(1);
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

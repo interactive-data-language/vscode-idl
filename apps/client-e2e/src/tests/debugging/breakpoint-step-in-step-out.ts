@@ -24,6 +24,9 @@ export const BreakpointStepInStepOut: RunnerFunction = async (init) => {
   // verify we started
   expect(started).toBeTruthy();
 
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
+
   // show the debug console
   await vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
 
@@ -84,6 +87,6 @@ export const BreakpointStepInStepOut: RunnerFunction = async (init) => {
   // remove all breakpoints
   await init.debug.adapter._breakpoints.resetBreakpoints();
 
-  // reset
-  await init.debug.adapter.evaluate('.reset');
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

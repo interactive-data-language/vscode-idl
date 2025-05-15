@@ -58,4 +58,7 @@ export const RigorousAlwaysReturn: RunnerFunction = async (init) => {
 
   // fake test to indicate we finished
   expect(true).toBeTruthy();
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

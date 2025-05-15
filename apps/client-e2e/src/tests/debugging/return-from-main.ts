@@ -68,4 +68,7 @@ export const ReturnFromMain: RunnerFunction = async (init) => {
 
   // make sure our call stack matches
   expect(stack2).toEqual([{ line: 1, file }]);
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

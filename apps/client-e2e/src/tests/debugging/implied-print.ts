@@ -27,4 +27,7 @@ export const ImpliedPrint: RunnerFunction = async (init) => {
 
   // make sure we compile
   expect(res.includes('attempt to call undefined procedure')).toBeFalsy();
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };
