@@ -337,7 +337,7 @@ export class IDLNotebookExecutionManager {
         `retall`,
         `!quiet = ${IDL_EXTENSION_CONFIG.notebooks.quietMode ? '1' : '0'}`,
         `!magic.embed = ${
-          IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
+          IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? 1 : 0
         }`,
         '!magic.window = -1',
         `IDLNotebook.Reset`,
