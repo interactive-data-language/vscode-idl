@@ -526,7 +526,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this._runtime.start(this.lastLaunchArgs);
 
       // listen for when we started
-      this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
+      this._runtime.once(IDL_EVENT_LOOKUP.IDL_READY, async () => {
         // add new line now that we have started
         LogOutput('\n');
 

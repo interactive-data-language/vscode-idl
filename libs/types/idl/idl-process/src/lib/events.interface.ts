@@ -20,8 +20,11 @@ export type FailedStartEvent = 'failed-start';
 /** Emitted when our process ends */
 export type EndEvent = 'end';
 
-/** Fired when IDL has started and is ready for input */
+/** Fired when IDL has started */
 export type IDLStartedEvent = 'idl-started';
+
+/** Emitted when IDL has started and is ready for user interaction */
+export type IDLReadyEvent = 'idl-ready';
 
 /** Fired when we lose a connection to IDL */
 export type LostConnectionEvent = 'lost-connection';
@@ -57,6 +60,7 @@ export type IDLEvent =
   | CrashEvent
   | EndEvent
   | FailedStartEvent
+  | IDLReadyEvent
   | IDLStartedEvent
   | LostConnectionEvent
   | OutputEvent
@@ -81,7 +85,9 @@ interface IEventLookup {
   END: EndEvent;
   /** Event fired when we fail to start IDL */
   FAILED_START: FailedStartEvent;
-  /** Fired when IDL has started and is ready for input */
+  /** Emitted when IDL is ready for user interction and is ready for user input. */
+  IDL_READY: IDLReadyEvent;
+  /** Fired when IDL has started */
   IDL_STARTED: IDLStartedEvent;
   /** When we lose a connection to IDL */
   LOST_CONNECTION: LostConnectionEvent;
@@ -114,6 +120,7 @@ export const IDL_EVENT_LOOKUP: IEventLookup = {
   CRASHED: 'crashed',
   END: 'end',
   FAILED_START: 'failed-start',
+  IDL_READY: 'idl-ready',
   IDL_STARTED: 'idl-started',
   LOST_CONNECTION: 'lost-connection',
   OUTPUT: 'output',

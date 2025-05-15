@@ -597,7 +597,7 @@ export class IDLNotebookExecutionManager {
      */
     const launchPromise = new Promise<boolean>((res) => {
       // listen for when we started
-      this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
+      this._runtime.once(IDL_EVENT_LOOKUP.IDL_READY, async () => {
         // set everything up
         await this._postLaunchAndReset();
 

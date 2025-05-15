@@ -383,6 +383,7 @@ export class IDLProcess extends EventEmitter {
     // listen for startup
     this.once(IDL_EVENT_LOOKUP.IDL_STARTED, () => {
       this.started = true;
+      this.emit(IDL_EVENT_LOOKUP.IDL_READY);
     });
 
     // listen to IDL
