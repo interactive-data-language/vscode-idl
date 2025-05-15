@@ -42,6 +42,7 @@ export function StartMCPServer(
       capabilities: {
         logging: {},
         resources: {},
+        tools: {},
       },
     }
   );
