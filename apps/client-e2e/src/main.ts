@@ -1,5 +1,4 @@
-import { GetExtensionPath } from '@idl/idl/files';
-import { FindIDL } from '@idl/idl/idl-process';
+import { FindIDL, GetExtensionPath } from '@idl/idl/files';
 import { EXTENSION_FULL_NAME } from '@idl/shared/extension';
 import { Sleep } from '@idl/tests/helpers';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
