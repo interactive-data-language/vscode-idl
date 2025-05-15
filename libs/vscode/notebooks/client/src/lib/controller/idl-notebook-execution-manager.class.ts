@@ -1,3 +1,4 @@
+import { ObjectifyError } from '@idl/error-shared';
 import { IDLFileHelper } from '@idl/idl/files';
 import {
   CleanIDLOutput,
@@ -316,12 +317,17 @@ export class IDLNotebookExecutionManager {
       }
     } catch (err) {
       success = false;
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_NOTEBOOK_LOG,
-        content: [IDL_TRANSLATION.notebooks.errors.failedExecute, err, 1],
-        alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
-      });
+      if (err !== 'Canceled') {
+        IDL_LOGGER.log({
+          type: 'error',
+          log: IDL_NOTEBOOK_LOG,
+          content: [
+            IDL_TRANSLATION.notebooks.errors.failedExecute,
+            ObjectifyError(err),
+          ],
+          alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
+        });
+      }
     }
 
     // always return from current scope

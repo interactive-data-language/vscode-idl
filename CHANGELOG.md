@@ -24,6 +24,8 @@ With this change, our old debugger will still be present to maintain backwards c
 
 Fixed an issue where, on Windows with no workspaces open, IDL's path would be set incorrectly. This could cause a very slow startup time with the extension depending on your system setup.
 
+No longer report a fake error when you stop a notebook while a cell is actively running.
+
 ## Web Extension Changes
 
 We no longer check for the IDL directory existing and being a valid folder on extension startup. Instead, this check is made, and dialogs appear, when starting debug sessions, running notebooks, or starting a terminal session.
