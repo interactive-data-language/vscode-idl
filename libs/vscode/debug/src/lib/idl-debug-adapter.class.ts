@@ -483,7 +483,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     return (
       info.scope.length === 0 ||
-      (info.scope.length === 1 && info.scope[0].line === 1)
+      (info.scope.length === 1 && info.scope[0].line <= 1)
     );
   }
 
