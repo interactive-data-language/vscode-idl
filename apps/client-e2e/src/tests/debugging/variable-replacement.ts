@@ -1,4 +1,4 @@
-import { CleanIDLOutput } from '@idl/idl/idl-process';
+import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';

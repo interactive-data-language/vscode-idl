@@ -1,5 +1,4 @@
-import { GetExtensionPath } from '@idl/idl/files';
-import { FindIDL } from '@idl/idl/idl-process';
+import { FindIDL, GetExtensionPath } from '@idl/idl/files';
 import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import { IIDLWorkspaceConfig } from '@idl/vscode/config';
 import {

@@ -1,4 +1,4 @@
-import { CleanIDLOutput } from '@idl/idl/idl-process';
+import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import expect from 'expect';
 import * as vscode from 'vscode';
