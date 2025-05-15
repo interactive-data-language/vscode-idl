@@ -23,6 +23,10 @@ import {
   DebugSendParams,
 } from './notifications/idl-machine.debug-send.interface';
 import {
+  ServerExitNotification,
+  ServerExitParams,
+} from './notifications/idl-machine.erver-exit.interface';
+import {
   ExitDoneNotification,
   ExitDoneParams,
 } from './notifications/idl-machine.exit-done.interface';
@@ -71,6 +75,10 @@ import {
   ShowBreakpointParams,
 } from './notifications/idl-machine.show-breakpoint.interface';
 import {
+  CompileOpenFileParams,
+  ShowCompileErrorNotification,
+} from './notifications/idl-machine.show-compile-error.interface';
+import {
   TOutNotification,
   TOutParams,
 } from './notifications/idl-machine.tout.interface';
@@ -104,8 +112,10 @@ export type FromIDLMachineNotifications =
   | PromptChangeNotification
   | ResetSessionDoneNotification
   | RuntimeErrorNotification
+  | ServerExitNotification
   | ServerReadyNotification
   | ShowBreakpointNotification
+  | ShowCompileErrorNotification
   | TOutNotification
   | WorkingDirChangeNotification;
 
@@ -148,10 +158,14 @@ export type FromIDLMachineNotificationParams<
   ? ResetSessionDoneParams
   : T extends RuntimeErrorNotification
   ? RuntimeErrorParams
+  : T extends ServerExitNotification
+  ? ServerExitParams
   : T extends ServerReadyNotification
   ? ServerReadyParams
   : T extends ShowBreakpointNotification
   ? ShowBreakpointParams
+  : T extends ShowCompileErrorNotification
+  ? CompileOpenFileParams
   : T extends TOutNotification
   ? TOutParams
   : T extends WorkingDirChangeNotification

@@ -1,10 +1,10 @@
 /**
  * Notification that we have a compile error for a file
  */
-export type ShowCompilerErrorNotification = 'showCompileError';
+export type ShowCompileErrorNotification = 'showCompileError';
 
 /** The parameters for compile errors */
-export type CompilerOpenFileParams = {
+export type CompileOpenFileParams = {
   /** FIle with error */
   file: string;
   /** Line one-based */

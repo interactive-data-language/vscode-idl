@@ -154,6 +154,18 @@ export class IDLMachineWrapper {
        */
     });
 
+    this.machine.onNotification('showCompileError', () => {
+      /**
+       * Nothing to do here
+       */
+    });
+
+    this.machine.onNotification('serverExit', () => {
+      /**
+       * Nothing to do here
+       */
+    });
+
     /**
      * Listen for startup
      */
