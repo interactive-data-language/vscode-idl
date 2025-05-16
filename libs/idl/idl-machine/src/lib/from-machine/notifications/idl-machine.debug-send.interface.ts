@@ -47,9 +47,9 @@ interface IFrame {
 export type DebugSendParams = {
   stack: {
     /** Were there changes in the stack? */
-    changes: boolean;
+    changed: boolean;
     /** Frames */
-    frames: IFrame[];
+    frames?: IFrame[];
   };
   system: IVariable[];
 };
