@@ -26,6 +26,8 @@ Fixed an issue where, on Windows with no workspaces open, IDL's path would be se
 
 No longer report a fake error when you stop a notebook while a cell is actively running.
 
+When running a session of IDL, all user actions now properly handle cancellations. This means we no longer show you a message that we failed run run code, for example, when IDL is busy and you then stop the process.
+
 ## Web Extension Changes
 
 We no longer check for the IDL directory existing and being a valid folder on extension startup. Instead, this check is made, and dialogs appear, when starting debug sessions, running notebooks, or starting a terminal session.
