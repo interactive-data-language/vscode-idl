@@ -48,7 +48,7 @@ export type DebugSendParams = {
   stack: {
     /** Were there changes in the stack? */
     changed: boolean;
-    /** Frames */
+    /** Frames, current is the last one (oppostire of VSCode) */
     frames?: IFrame[];
   };
   system: IVariable[];

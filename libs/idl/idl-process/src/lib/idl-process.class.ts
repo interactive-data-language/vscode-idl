@@ -160,8 +160,19 @@ export class IDLProcess extends EventEmitter {
     // reset state
     this.evaluating = false;
 
-    // check for stops
-    this.stopCheck(res);
+    /**
+     * Check for any extra steps that we need to handle
+     */
+    switch (this.processType) {
+      case 'machine':
+        break;
+      case 'ws':
+        break;
+      default:
+        // check for stops
+        this.stopCheck(res);
+        break;
+    }
 
     // return output
     return res;
