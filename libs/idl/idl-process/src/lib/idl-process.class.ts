@@ -7,6 +7,7 @@ import {
   IDLCallStackItem,
   IDLEvent,
   IDLListenerArgs,
+  IDLOutput,
   IStartIDLConfig,
   REGEX_NEW_LINE_COMPRESS,
   REGEX_STOP_DETECTION,
@@ -131,7 +132,7 @@ export class IDLProcess extends EventEmitter {
     this.evaluating = true;
 
     /** Result from running */
-    let res: string;
+    let res: IDLOutput;
 
     /**
      * Send to the right process we are running
@@ -160,22 +161,13 @@ export class IDLProcess extends EventEmitter {
     // reset state
     this.evaluating = false;
 
-    /**
-     * Check for any extra steps that we need to handle
-     */
-    switch (this.processType) {
-      case 'machine':
-        break;
-      case 'ws':
-        break;
-      default:
-        // check for stops
-        this.stopCheck(res);
-        break;
+    // check if we stopped
+    if (res.stopped) {
+      this.emit(IDL_EVENT_LOOKUP.STOP, res.stopped.reason, res.stopped.stack);
     }
 
     // return output
-    return res;
+    return res.idlOutput;
   }
 
   /**
@@ -489,9 +481,9 @@ export class IDLProcess extends EventEmitter {
   /**
    * Parse output from IDL and check if we have any reasons that we stopped
    */
-  stopCheck(origOutput: string): boolean {
+  stopCheck(res: IDLOutput): boolean {
     // get rid of bad characters, lots of carriage returns in the output (\r\r\n) on windows at least
-    const output = origOutput.replace(REGEX_NEW_LINE_COMPRESS, '');
+    const output = res.idlOutput.replace(REGEX_NEW_LINE_COMPRESS, '');
 
     this.log.log({
       type: 'debug',
@@ -539,11 +531,10 @@ export class IDLProcess extends EventEmitter {
     // TODO: the traceback is not always correct, but it is not used, just sent with the event
     // vscode makes a request for the traceback instead
     if (traceback.length > 0) {
-      this.emit(
-        IDL_EVENT_LOOKUP.STOP,
-        reasons[reasons.length - 1],
-        traceback[traceback.length - 1]
-      );
+      res.stopped = {
+        reason: reasons[reasons.length - 1],
+        stack: traceback[traceback.length - 1],
+      };
     }
 
     // return flag if we found a reason to stop

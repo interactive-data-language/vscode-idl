@@ -6,7 +6,7 @@ import {
 } from '@idl/idl/idl-machine';
 import { LogType } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_EVENT_LOOKUP } from '@idl/types/idl/idl-process';
+import { IDL_EVENT_LOOKUP, IDLOutput } from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
 import { deepEqual } from 'fast-equals';
 
@@ -126,24 +126,31 @@ export class IDLMachineWrapper {
       // save the parameters
       lastStop = params;
 
-      // emit that IDL is ready
-      this.process.emit(
-        IDL_EVENT_LOOKUP.PROMPT_READY,
-        this.process.capturedOutput
-      );
+      // create output parameters
+      const res: IDLOutput = {
+        idlOutput: this.process.capturedOutput,
+      };
 
       /**
        * See if we need to emit a stop event
        */
       if (lastDebugSend.stack.changed && params.line > 0) {
-        this.process.emit(IDL_EVENT_LOOKUP.STOP, 'stop', {
-          file:
-            params.routine.toLowerCase() === '$main$' ? '$main$' : params.file,
-          index: 0,
-          line: params.line,
-          name: params.routine,
-        });
+        res.stopped = {
+          reason: 'stop',
+          stack: {
+            file:
+              params.routine.toLowerCase() === '$main$'
+                ? '$main$'
+                : params.file,
+            index: 0,
+            line: params.line,
+            name: params.routine,
+          },
+        };
       }
+
+      // emit that IDL is ready
+      this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, res);
     });
 
     this.machine.onNotification('modalMessage', () => {
@@ -316,7 +323,7 @@ export class IDLMachineWrapper {
    * The use for this is getting scope information immediately before we return
    * as being complete and cleans up our event management
    */
-  async evaluate(command: string): Promise<string> {
+  async evaluate(command: string): Promise<IDLOutput> {
     return new Promise((resolve, reject) => {
       // handle errors writing to stdin
       if (!this.idl.stdin.writable) {
@@ -331,9 +338,8 @@ export class IDLMachineWrapper {
         : 0x1;
 
       // listen for our event returning back to the command prompt
-      this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
-        console.log(' ');
-        resolve(output);
+      this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (idlOutput) => {
+        resolve(idlOutput);
       });
 
       // run it!

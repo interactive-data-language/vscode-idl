@@ -1,4 +1,8 @@
-import { IDL_EVENT_LOOKUP, IStartIDLConfig } from '@idl/types/idl/idl-process';
+import {
+  IDL_EVENT_LOOKUP,
+  IDLOutput,
+  IStartIDLConfig,
+} from '@idl/types/idl/idl-process';
 import { TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP } from '@idl/types/idl/ws-client';
 
 import { IDLProcess } from '../idl-process.class';
@@ -32,7 +36,7 @@ export class IDLWebSocketWrapper {
    * The use for this is getting scope information immediately before we return
    * as being complete and cleans up our event management
    */
-  async evaluate(command: string): Promise<string> {
+  async evaluate(command: string): Promise<IDLOutput> {
     // return promise
     return new Promise((resolve, reject) => {
       if (!this.isConnected()) {

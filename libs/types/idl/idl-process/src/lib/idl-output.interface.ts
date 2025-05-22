@@ -1,4 +1,4 @@
-import { IDLCallStackItem } from './idl.interface';
+import { IDLCallStackItem, StopReason } from './idl.interface';
 
 /**
  * Output that gets returned from our IDL process
@@ -10,6 +10,8 @@ export interface IDLOutput {
   idlOutput: string;
   /** Information about where we stopped */
   stopped?: {
+    /** Reason why we stopped */
+    reason: StopReason;
     /** Where are we stopped */
     stack: IDLCallStackItem;
   };
