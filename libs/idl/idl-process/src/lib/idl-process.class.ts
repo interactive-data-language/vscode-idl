@@ -435,7 +435,6 @@ export class IDLProcess extends EventEmitter {
           );
           break;
         case !this.started:
-          console.log(`Are we licensed: ${this.licensed}`);
           this.log.log({
             type: 'error',
             content: [
