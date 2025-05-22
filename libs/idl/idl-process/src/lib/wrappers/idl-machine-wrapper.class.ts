@@ -214,20 +214,19 @@ export class IDLMachineWrapper {
       this.process.capturedOutput += stringified;
       this.process.sendOutput(stringified);
 
-      // check for recompile
-      if (
-        this.process.capturedOutput.indexOf(
+      switch (true) {
+        case this.process.capturedOutput.indexOf(
           '% Procedure was compiled while active:'
-        ) !== -1
-      ) {
-        this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
-      }
-      if (
-        this.process.capturedOutput.indexOf(
+        ) !== -1:
+          this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
+          break;
+        case this.process.capturedOutput.indexOf(
           '% You compiled a main program while inside a procedure.  Returning.'
-        ) !== -1
-      ) {
-        this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
+        ) !== -1:
+          this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
+          break;
+        default:
+          break;
       }
     });
 
