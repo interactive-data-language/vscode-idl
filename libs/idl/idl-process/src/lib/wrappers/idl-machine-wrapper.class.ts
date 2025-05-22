@@ -5,18 +5,18 @@ import {
   TOutNotification,
 } from '@idl/idl/idl-machine';
 import { LogType } from '@idl/logger';
+import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_EVENT_LOOKUP } from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
+import { deepEqual } from 'fast-equals';
+
+import { IDLProcess } from '../idl-process.class';
 
 /**
  * If we use import, it complains about types
  */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const kill = require('tree-kill');
-
-import { IDL_TRANSLATION } from '@idl/translation';
-
-import { IDLProcess } from '../idl-process.class';
 
 /**
  * Wraps the IDL Machine process and connects events from it to/from our IDL Process class
@@ -49,10 +49,10 @@ export class IDLMachineWrapper {
      * Listen for IDL being done executing
      */
     this.machine.onNotification('commandFinished', () => {
-      this.process.emit(
-        IDL_EVENT_LOOKUP.PROMPT_READY,
-        this.process.capturedOutput
-      );
+      // this.process.emit(
+      //   IDL_EVENT_LOOKUP.PROMPT_READY,
+      //   this.process.capturedOutput
+      // );
     });
 
     this.machine.onNotification('commandStarted', () => {
@@ -73,10 +73,11 @@ export class IDLMachineWrapper {
        */
     });
 
-    this.machine.onNotification('debugSend', () => {
-      /**
-       * Nothing to do here, already handled with legacy solution
-       */
+    /** Track last debug send parameters */
+    let lastDebugSend: FromIDLMachineNotificationParams<'debugSend'>;
+
+    this.machine.onNotification('debugSend', (params) => {
+      lastDebugSend = params;
     });
 
     this.machine.onNotification('delVar', () => {
@@ -107,10 +108,42 @@ export class IDLMachineWrapper {
       }
     });
 
-    this.machine.onNotification('interpreterStopped', () => {
+    /** Track the last interpreter stopped params */
+    let lastStop: FromIDLMachineNotificationParams<'interpreterStopped'>;
+
+    this.machine.onNotification('interpreterStopped', (params) => {
       /**
-       * Nothing to do here, already handled
+       * Check to see if we have stopped
+       *
+       * Line check is for main level programs (having a line of zero)
        */
+      // const check = params.line > 0 && !deepEqual(params, lastStop);
+      const check =
+        params.line > 0 &&
+        lastStop !== undefined &&
+        !deepEqual(params, lastStop);
+
+      // save the parameters
+      lastStop = params;
+
+      // emit that IDL is ready
+      this.process.emit(
+        IDL_EVENT_LOOKUP.PROMPT_READY,
+        this.process.capturedOutput
+      );
+
+      /**
+       * See if we need to emit a stop event
+       */
+      if (lastDebugSend.stack.changed && params.line > 0) {
+        this.process.emit(IDL_EVENT_LOOKUP.STOP, 'stop', {
+          file:
+            params.routine.toLowerCase() === '$main$' ? '$main$' : params.file,
+          index: 0,
+          line: params.line,
+          name: params.routine,
+        });
+      }
     });
 
     this.machine.onNotification('modalMessage', () => {
@@ -300,9 +333,11 @@ export class IDLMachineWrapper {
 
       // listen for our event returning back to the command prompt
       this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
+        console.log(' ');
         resolve(output);
       });
 
+      // run it!
       this.machine.sendNotification('exec', {
         string: command,
         flags,
