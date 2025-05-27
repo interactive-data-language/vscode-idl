@@ -110,9 +110,6 @@ export class IDLProcess extends EventEmitter {
 
   /**
    * External method to execute something in IDL
-   *
-   * TODO: Migrate logic from the three methods below to here
-   * since we have a fair amount of overlap between them all
    */
   async evaluate(command: string): Promise<string> {
     if (!this.started) {
