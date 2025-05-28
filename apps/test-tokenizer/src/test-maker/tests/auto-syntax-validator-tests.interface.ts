@@ -5354,6 +5354,10 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `end`,
         ],
       },
+      {
+        name: `regression for multiple lines with only variables`,
+        code: [`compile_opt idl2`, `!dir`, `!version`, `end`],
+      },
     ],
   },
   {
