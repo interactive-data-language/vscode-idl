@@ -1,10 +1,7 @@
 import { FindIDL, GetExtensionPath } from '@idl/idl/files';
 import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import { IIDLWorkspaceConfig } from '@idl/vscode/config';
-import {
-  DEFAULT_IDL_EXTENSION_CONFIG,
-  IDL_EXTENSION_CONFIG_KEYS,
-} from '@idl/vscode/extension-config';
+import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 import { readFileSync } from 'fs';
@@ -49,6 +46,11 @@ async function ResetConfigToDefault(config: IIDLWorkspaceConfig, key: string) {
 }
 
 /**
+ * IDL directory to use for tests
+ */
+let IDL_DIR = FindIDL();
+
+/**
  * Reset extension config for running tests to make sure it is always fresh and consistent
  */
 export async function ResetSettingsForTests(
@@ -57,6 +59,14 @@ export async function ResetSettingsForTests(
 ) {
   // reset our safe copy
   SAFE_COPY = copy(DEFAULT_IDL_EXTENSION_CONFIG);
+
+  // check if we have a new IDL dir to set
+  if (idlDir) {
+    IDL_DIR = idlDir;
+  }
+
+  // update IDL directory for all tests
+  (SAFE_COPY.IDL as any).directory = IDL_DIR;
 
   // track props to update
   let props: string[] = [];
@@ -98,16 +108,16 @@ export async function ResetSettingsForTests(
   // // Close the active settings.json editor
   // await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
 
-  /**
-   * Manually specify IDL folder
-   */
-  idlDir = idlDir !== undefined ? idlDir : FindIDL();
+  // /**
+  //  * Manually specify IDL folder
+  //  */
+  // idlDir = idlDir !== undefined ? idlDir : FindIDL();
 
-  // validate we know where it is
-  if (!idlDir) {
-    throw new Error('Unable to find IDL, cannot run tests');
-  }
+  // // validate we know where it is
+  // if (!idlDir) {
+  //   throw new Error('Unable to find IDL, cannot run tests');
+  // }
 
-  // set latest IDL folder
-  await config.update(IDL_EXTENSION_CONFIG_KEYS.IDLDirectory, idlDir, true);
+  // // set latest IDL folder
+  // await config.update(IDL_EXTENSION_CONFIG_KEYS.IDLDirectory, idlDir, true);
 }
