@@ -1,4 +1,4 @@
-import { TOKEN_NAMES } from '@idl/tokenizer';
+import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 
 import { SyntaxTree } from '../../branches.interface';
 
@@ -41,6 +41,9 @@ export function GetChainEnd(children: SyntaxTree, start: number): number {
   /** Track the last entry in our access chain */
   let chainEnd: number = undefined;
 
+  /** Track the last token name */
+  let last: TokenName;
+
   // process each child
   for (let i = start; i < children.length; i++) {
     // if we have an operator to skip, then skip
@@ -54,7 +57,15 @@ export function GetChainEnd(children: SyntaxTree, start: number): number {
 
     // check if we have a token for a chain
     if (children[i].name in CHAIN_TOKENS) {
+      // if we have two tokens in a row with the same name, return as that is invalid syntax
+      if (last === children[i].name) {
+        return start;
+      }
+
       chainEnd = i;
+
+      // save last name
+      last = children[i].name;
     } else {
       /**
        * If we had a chain, but this token isn't part of that chain, then get the type for

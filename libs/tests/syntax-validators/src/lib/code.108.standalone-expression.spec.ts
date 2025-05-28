@@ -462,4 +462,50 @@ describe(`[auto generated] Detect standalone expressions`, () => {
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] regression for multiple lines with only variables`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [`compile_opt idl2`, `!dir`, `!version`, `end`];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [1, 0, 4],
+        end: [1, 0, 4],
+        canReport: true,
+      },
+      {
+        code: 108,
+        info: 'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
+        start: [2, 0, 8],
+        end: [2, 0, 8],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });
