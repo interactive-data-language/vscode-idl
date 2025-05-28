@@ -429,7 +429,6 @@ export class IDLNotebookExecutionManager {
        * Handle object graphics and override with our custom method
        */
       await this.evaluate('.compile idlittool__define');
-      // outputs.push(await this.evaluate('.compile idlittool__define'));
       outputs.push(
         await this.evaluate(
           `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/idlititool__refreshcurrentview.pro'`
@@ -440,7 +439,6 @@ export class IDLNotebookExecutionManager {
        * Handle functions graphics and override with our custom method
        */
       await this.evaluate('.compile graphic__define');
-      // outputs.push(await this.evaluate('.compile graphic__define'));
       outputs.push(
         await this.evaluate(
           `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/graphic__refresh.pro'`
