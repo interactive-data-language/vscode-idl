@@ -59,6 +59,7 @@
     "docs:preview": "vitepress preview extension/docs"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.1",
     "@vscode/debugadapter": "^1.66.0",
     "@vscode/debugprotocol": "^1.66.0",
     "ajv": "^8.17.1",
@@ -90,6 +91,7 @@
     "vscode-languageserver-textdocument": "^1.0.12",
     "vscode-textmate": "^9.1.0",
     "vscode-uri": "^3.0.8",
+    "zod": "^3.24.3",
     "zone.js": "0.14.8"
   },
   "optionalDependencies": {
@@ -859,6 +861,27 @@
       },
       {
         "type": "object",
+        "title": "%configuration.titles.mcp%",
+        "additionalProperties": false,
+        "properties": {
+          "idl.mcp.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.descriptions.mcp.enabled%",
+            "scope": "machine-overridable"
+          },
+          "idl.mcp.port": {
+            "type": "number",
+            "default": 4142,
+            "description": "%configuration.descriptions.mcp.port%",
+            "scope": "machine-overridable",
+            "minimum": 1024,
+            "maximum": 65535
+          }
+        }
+      },
+      {
+        "type": "object",
         "title": "%configuration.titles.notebooks%",
         "additionalProperties": false,
         "properties": {
@@ -1167,6 +1190,7 @@
               "forIDLDir": false,
               "forIconChange": false,
               "forFormatterChange": false,
+              "forMCPConfig": false,
               "toOpenDocs": false
             },
             "properties": {
@@ -1181,6 +1205,10 @@
               "forFormatterChange": {
                 "type": "boolean",
                 "description": "%configuration.descriptions.dontAsk.forFormatterChange%"
+              },
+              "forMCPConfig": {
+                "type": "boolean",
+                "description": "%configuration.descriptions.dontAsk.forMCPConfig%"
               },
               "toOpenDocs": {
                 "type": "boolean",

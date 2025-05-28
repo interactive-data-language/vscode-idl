@@ -69,6 +69,11 @@ export const IDL_LSP_LOG = 'idl-lsp';
 export const IDL_LSP_CONSOLE = 'idl-lsp-console';
 
 /**
+ * Log for the IDL MCP server
+ */
+export const IDL_MCP_LOG = 'idl-mcp';
+
+/**
  * Override for console log
  */
 export const IDL_WORKER_THREAD_CONSOLE = 'idl-worker-console';
@@ -105,6 +110,7 @@ export const ALL_IDL_LOGS = [
   IDL_INDEX_LOG,
   IDL_LSP_LOG,
   IDL_LSP_CONSOLE,
+  IDL_MCP_LOG,
   IDL_WORKER_THREAD_CONSOLE,
   IDL_WS_CONSOLE,
   IDL_WS_SERVER,

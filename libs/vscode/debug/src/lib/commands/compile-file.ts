@@ -1,5 +1,6 @@
 import { CleanPath } from '@idl/idl/files';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
 import { GetActivePROCodeWindow } from '@idl/vscode/shared';
 import { OutputEvent } from '@vscode/debugadapter';
 
@@ -9,10 +10,13 @@ import { VerifyIDLHasStarted } from './start-idl';
 /**
  * Compile current pro file
  */
-export async function CompileFile(): Promise<boolean> {
+export async function CompileFile(): Promise<IRunIDLCommandResult> {
   // return if IDL hasnt started
   if (!VerifyIDLHasStarted(true)) {
-    return false;
+    return {
+      success: false,
+      err: IDL_TRANSLATION.debugger.commandErrors.idlHasNotStarted,
+    };
   }
 
   // get code and make sure it is ready for use
@@ -20,7 +24,10 @@ export async function CompileFile(): Promise<boolean> {
 
   // return if no PRO code
   if (!code) {
-    return false;
+    return {
+      success: false,
+      err: IDL_TRANSLATION.debugger.commandErrors.noProFile,
+    };
   }
 
   // save file
@@ -30,7 +37,7 @@ export async function CompileFile(): Promise<boolean> {
   const uri = code.uri.toString();
 
   // compile
-  await IDL_DEBUG_ADAPTER.evaluate(
+  const idlOutput = await IDL_DEBUG_ADAPTER.evaluate(
     `.compile -v '${CleanPath(code.uri.fsPath)}'`,
     { echo: true, newLine: true, errorCheck: true }
   );
@@ -47,9 +54,13 @@ export async function CompileFile(): Promise<boolean> {
           'stderr'
         )
       );
-      return false;
+      return {
+        success: false,
+        err: IDL_TRANSLATION.debugger.commandErrors.syntaxErrors,
+        idlOutput,
+      };
     }
   }
 
-  return true;
+  return { success: true, idlOutput };
 }

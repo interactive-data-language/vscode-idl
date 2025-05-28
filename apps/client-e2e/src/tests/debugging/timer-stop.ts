@@ -62,4 +62,7 @@ export const TimerStop: RunnerFunction = async (init) => {
 
   // return again to work around windows bug
   await init.debug.adapter.evaluate('retall');
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

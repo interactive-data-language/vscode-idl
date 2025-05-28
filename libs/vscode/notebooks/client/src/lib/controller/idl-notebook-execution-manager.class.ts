@@ -1,3 +1,4 @@
+import { ObjectifyError } from '@idl/error-shared';
 import { IDLFileHelper } from '@idl/idl/files';
 import {
   CleanIDLOutput,
@@ -316,12 +317,17 @@ export class IDLNotebookExecutionManager {
       }
     } catch (err) {
       success = false;
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_NOTEBOOK_LOG,
-        content: [IDL_TRANSLATION.notebooks.errors.failedExecute, err, 1],
-        alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
-      });
+      if (err !== 'Canceled') {
+        IDL_LOGGER.log({
+          type: 'error',
+          log: IDL_NOTEBOOK_LOG,
+          content: [
+            IDL_TRANSLATION.notebooks.errors.failedExecute,
+            ObjectifyError(err),
+          ],
+          alert: IDL_TRANSLATION.notebooks.errors.failedExecute,
+        });
+      }
     }
 
     // always return from current scope
@@ -337,7 +343,7 @@ export class IDLNotebookExecutionManager {
         `retall`,
         `!quiet = ${IDL_EXTENSION_CONFIG.notebooks.quietMode ? '1' : '0'}`,
         `!magic.embed = ${
-          IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? '1' : '0'
+          IDL_EXTENSION_CONFIG.notebooks.embedGraphics ? 1 : 0
         }`,
         '!magic.window = -1',
         `IDLNotebook.Reset`,
@@ -423,7 +429,6 @@ export class IDLNotebookExecutionManager {
        * Handle object graphics and override with our custom method
        */
       await this.evaluate('.compile idlittool__define');
-      // outputs.push(await this.evaluate('.compile idlittool__define'));
       outputs.push(
         await this.evaluate(
           `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/idlititool__refreshcurrentview.pro'`
@@ -434,7 +439,6 @@ export class IDLNotebookExecutionManager {
        * Handle functions graphics and override with our custom method
        */
       await this.evaluate('.compile graphic__define');
-      // outputs.push(await this.evaluate('.compile graphic__define'));
       outputs.push(
         await this.evaluate(
           `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/graphic__refresh.pro'`
@@ -597,7 +601,7 @@ export class IDLNotebookExecutionManager {
      */
     const launchPromise = new Promise<boolean>((res) => {
       // listen for when we started
-      this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
+      this._runtime.once(IDL_EVENT_LOOKUP.IDL_READY, async () => {
         // set everything up
         await this._postLaunchAndReset();
 
@@ -824,17 +828,6 @@ export class IDLNotebookExecutionManager {
     // listen for events when we continue processing
     this._runtime.on(IDL_EVENT_LOOKUP.CONTINUE, () => {
       // this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
-    });
-
-    // listen for stops
-    this._runtime.on(IDL_EVENT_LOOKUP.STOP, async (reason, stack) => {
-      IDL_LOGGER.log({
-        type: 'debug',
-        log: IDL_NOTEBOOK_LOG,
-        content: [`Stopped because: "${reason}"`, stack],
-      });
-
-      await this._endCellExecution(false, { decorateStack: true });
     });
 
     // listen for debug output

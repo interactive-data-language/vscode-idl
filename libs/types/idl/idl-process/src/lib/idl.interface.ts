@@ -101,8 +101,6 @@ export interface IDLVariable {
  * Unless turned off, retrieved after any user-driven action completes.
  */
 export interface IDLInfo {
-  /** If ENVI has started or not */
-  envi: boolean;
   /** Flag if we have IDL information or not */
   hasInfo: boolean;
   /** Call stack */
@@ -118,7 +116,6 @@ export const DEFAULT_IDL_INFO: IDLInfo = {
   hasInfo: false,
   scope: [],
   variables: [],
-  envi: false,
 };
 
 /**

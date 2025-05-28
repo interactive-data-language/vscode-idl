@@ -1,7 +1,11 @@
 import { CleanPath, IDLFileHelper, NOTEBOOK_FOLDER } from '@idl/idl/files';
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
+import {
+  COMPILE_FILE_ERROR,
+  IDL_EVENT_LOOKUP,
+  IDLSyntaxErrorLookup,
+} from '@idl/types/idl/idl-process';
 import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
@@ -13,13 +17,12 @@ import * as vscode from 'vscode';
 
 import { ICurrentCell } from '../idl-notebook-controller.interface';
 import { IDLNotebookExecutionManager } from '../idl-notebook-execution-manager.class';
-import {
-  COMPILE_FILE_ERROR,
-  ENVI_REGEX,
-} from './execute-notebook-cell.interface';
+import { ENVI_REGEX } from './execute-notebook-cell.interface';
 
 /**
  * Runs a notebook cell and manages logic for execution
+ *
+ * Any changes here should also be reflected in `execute-mcp-idl-code.ts`
  */
 export async function ExecuteNotebookCell(
   manager: IDLNotebookExecutionManager,
@@ -243,22 +246,44 @@ export async function ExecuteNotebookCell(
     // set finish time
     await manager._endCellExecution(false);
   } else {
+    /** Track if we stopped or not */
+    let stop = false;
+
+    /** Handler when we have a stop */
+    const onStop = () => {
+      stop = true;
+    };
+
+    // listen for stop one time
+    manager._runtime.once(IDL_EVENT_LOOKUP.STOP, onStop);
+
+    /**
+     * Determine how to run our cell
+     */
     switch (true) {
       // dont do anything else if our batch file
       case resp.isBatch:
         break;
       // if main, execute
       case resp.hasMain:
+        // run notebook cell
         await manager.evaluate(`.go`);
         break;
       default:
         break;
     }
 
+    // remove event handler
+    manager._runtime.off(IDL_EVENT_LOOKUP.STOP, onStop);
+
     /**
      * End cell execution and post-process
      */
-    await manager._endCellExecution(true);
+    if (stop) {
+      await manager._endCellExecution(false, { decorateStack: true });
+    } else {
+      await manager._endCellExecution(true);
+    }
   }
 
   // properly set state of notebook since ENVI includes IDL internals

@@ -1,5 +1,6 @@
 import {
   REGEX_CLEAN_IDL_OUTPUT,
+  REGEX_CLEAN_IDL_OUTPUT_RELAXED,
   REGEX_NEW_LINE,
 } from '@idl/types/idl/idl-process';
 
@@ -9,11 +10,14 @@ import {
  *
  * If not a full clean, compile and restore statements are preserved
  */
-export function CleanIDLOutput(output: string, full = true) {
+export function CleanIDLOutput(output: string, full = true, relaxed = false) {
   if (full) {
     return output
       .trim()
-      .replace(REGEX_CLEAN_IDL_OUTPUT, '')
+      .replace(
+        relaxed ? REGEX_CLEAN_IDL_OUTPUT_RELAXED : REGEX_CLEAN_IDL_OUTPUT,
+        ''
+      )
       .replace(REGEX_NEW_LINE, '');
   } else {
     return output.trim().replace(REGEX_NEW_LINE, '');

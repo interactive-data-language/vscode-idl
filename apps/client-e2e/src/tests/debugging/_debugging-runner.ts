@@ -15,7 +15,7 @@ import { QueueRight } from './queue-right';
 import { RigorousAlwaysReturn } from './rigorous-always-return';
 import { RunFile } from './run-file';
 import { StartDebugging } from './start';
-import { SyntaxErrorTracking } from './syntax_error_tracking';
+import { SyntaxErrorTracking } from './syntax-error-tracking';
 import { TimerStop } from './timer-stop';
 import { VariableReplacement } from './variable-replacement';
 

@@ -25,10 +25,11 @@ import {
 import { SendProblems } from '../helpers/send-problems';
 import { SendUsageMetricServer } from '../helpers/send-usage-metric-server';
 import { IDL_CLIENT_CONFIG } from '../helpers/track-workspace-config';
+import { InitializeMCPServer } from '../initialize-mcp-server';
 import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
-  SERVER_EVENT_MANAGER,
+  SERVER_MESSENGER,
 } from '../initialize-server';
 import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
 import { WORKSPACE_INITIALIZATION } from './documents/on-initialized';
@@ -146,6 +147,11 @@ SERVER_INFO.then(async (res) => {
     }, DEFAULT_IDL_EXTENSION_CONFIG.languageServer.garbageIntervalMS);
 
     /**
+     * Attempt to start MCP server
+     */
+    InitializeMCPServer();
+
+    /**
      * Merge folders together
      */
     const merged = { ...res[0], ...res[1] };
@@ -173,10 +179,9 @@ SERVER_INFO.then(async (res) => {
     }
 
     // alert that we have started indexing
-    SERVER_EVENT_MANAGER.sendNotification(
-      LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-      { type: 'start' }
-    );
+    SERVER_MESSENGER.sendNotification(LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING, {
+      type: 'start',
+    });
 
     try {
       /**
@@ -283,10 +288,9 @@ SERVER_INFO.then(async (res) => {
     CAN_SEND_PROBLEMS = true;
 
     // alert that we are done
-    SERVER_EVENT_MANAGER.sendNotification(
-      LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-      { type: 'finish' }
-    );
+    SERVER_MESSENGER.sendNotification(LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING, {
+      type: 'finish',
+    });
 
     // send problems with settings changes
     SendProblems(Object.keys(IDL_INDEX.getSyntaxProblems()));

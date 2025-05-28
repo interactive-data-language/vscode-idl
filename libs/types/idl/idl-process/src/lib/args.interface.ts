@@ -15,6 +15,7 @@ import {
   UnhandledErrorEvent,
 } from './events.interface';
 import { IDLCallStackItem, StopReason } from './idl.interface';
+import { IDLOutput } from './idl-output.interface';
 
 /**
  * Because our IDL class (./idl.class.ts) inherits from EventEmitter,
@@ -65,7 +66,7 @@ type PromptArgs = [prompt: string];
 /**
  * @param {string} output The content returned from executing something in IDL
  */
-type PromptReadyArgs = [output: string];
+type PromptReadyArgs = [output: IDLOutput];
 
 /**
  * @param {string} output New standard error from IDL

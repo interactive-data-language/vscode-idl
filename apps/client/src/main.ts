@@ -1,3 +1,4 @@
+import { InitializeMCPVSCode } from '@idl/mcp/vscode';
 import { MEASUREMENT } from '@idl/usage-metrics';
 import {
   InitializeClient,
@@ -30,6 +31,9 @@ export async function activate(
 
   // add debugging
   const debug = InitializeDebugger(ctx);
+
+  // register handlers for MCP tools - MUST be after debugging
+  InitializeMCPVSCode(ctx);
 
   // add everything for IDL terminal
   InitializeIDLTerminal(ctx);

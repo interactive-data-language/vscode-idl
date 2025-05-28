@@ -84,14 +84,15 @@ export class IDLDebugConfigurationProvider
       );
     }
 
-    // check if we have workspace folders to add
-    // do this first so the routines take priority in IDL
-    if (useConfig.config.IDL.addWorkspaceFoldersToPath) {
-      folderAdd += `+${folders.join(joinchar)}${path.delimiter}`;
-    }
-
-    // set the start directory - always do if we have a start folder
+    // see if we have folders to update/set
     if (folders.length > 0) {
+      // check if we have workspace folders to add
+      // do this first so the routines take priority in IDL
+      if (useConfig.config.IDL.addWorkspaceFoldersToPath) {
+        folderAdd += `+${folders.join(joinchar)}${path.delimiter}`;
+      }
+
+      // set the start directory - always do if we have a start folder
       useConfig.env.IDL_START_DIR = folders[0];
       useConfig.cwd = folders[0];
     }

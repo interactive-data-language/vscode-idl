@@ -72,6 +72,6 @@ export const BreakpointSetBeforeStart: RunnerFunction = async (init) => {
   // reset breakpoints
   await init.debug.adapter._breakpoints.resetBreakpoints();
 
-  // reset
-  await init.debug.adapter.evaluate('.reset');
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

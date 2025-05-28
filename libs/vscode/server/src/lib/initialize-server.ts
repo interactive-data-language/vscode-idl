@@ -7,7 +7,7 @@ import {
 import { GetVSCodeLocale } from '@idl/shared/node';
 import { IDL_TRANSLATION, InitializeTranslation } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
-import { VSCodeServerEventManager } from '@idl/vscode/events/server';
+import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { ILanguageServerConfig } from '@idl/vscode/extension-config';
 import copy from 'fast-copy';
 import {
@@ -28,6 +28,7 @@ import { InitializeDocumentManager } from './events/initialize-document-manager'
 import { InitializeNotebookManager } from './events/initialize-notebook-manager';
 import { InitializeUserInteractions } from './events/initialize-user-interactions';
 import { IDL_CLIENT_CONFIG } from './helpers/track-workspace-config';
+import { InitializeMCPServer } from './initialize-mcp-server';
 import { DEFAULT_SERVER_SETTINGS } from './settings.interface';
 
 /**
@@ -61,7 +62,7 @@ export const SERVER_CONNECTION = createConnection(ProposedFeatures.all);
  * Event manager for the language server to send/receive custom notifications
  * from the language client.
  */
-export let SERVER_EVENT_MANAGER: VSCodeServerEventManager;
+export let SERVER_MESSENGER: VSCodeLanguageServerMessenger;
 
 /**
  * Logger for our language server
@@ -115,11 +116,11 @@ export function InitializeServer() {
   InitializeTranslation(GetVSCodeLocale());
 
   // create our server event manager
-  SERVER_EVENT_MANAGER = new VSCodeServerEventManager(SERVER_CONNECTION);
+  SERVER_MESSENGER = new VSCodeLanguageServerMessenger(SERVER_CONNECTION);
 
   // intercept log messages and send to client
   IDL_LANGUAGE_SERVER_LOGGER.setInterceptor((options) => {
-    SERVER_EVENT_MANAGER.sendNotification(
+    SERVER_MESSENGER.sendNotification(
       LANGUAGE_SERVER_MESSAGE_LOOKUP.LOG,
       options
     );
@@ -253,6 +254,9 @@ export function InitializeServer() {
 
   // turn on our event listeners for custom messages
   InitializeCustomEventHandler();
+
+  // start MCP server
+  InitializeMCPServer();
 
   // listen for notebook events
   InitializeNotebookManager();

@@ -227,6 +227,8 @@ export interface IConfigTranslation {
     idl: string;
     /** Language server settings */
     languageServer: string;
+    /** Model Context Protocol */
+    mcp: string;
     /** Notebook settings */
     notebooks: string;
     /** problem reporting */
@@ -367,6 +369,16 @@ export interface ITranslation {
       /** When we detect syntax errors trying to run code */
       syntaxErrorsFound: string;
     };
+    /** Text descriptions of debugging commands that add context to why something failed */
+    commandErrors: {
+      compileFile: string;
+      noProFile: string;
+      noRoutineFound: string;
+      idlHasNotStarted: string;
+      idlStopped: string;
+      runFile: string;
+      syntaxErrors: string;
+    };
     /** Error translations */
     errors: {
       /** Problem adding history */
@@ -389,6 +401,7 @@ export interface ITranslation {
       stepOut: string;
       terminate: string;
       threads: string;
+      unableToLicenseIDL: string;
       variables: string;
     };
     idl: {
@@ -397,6 +410,7 @@ export interface ITranslation {
       existingSessionFound: string;
       label: string;
       name: string;
+      idlNotConfigured: string;
       pleaseStart: string;
       startProfiling: string;
       stopProfiling: string;
@@ -597,10 +611,12 @@ export interface ITranslation {
       closed: string;
       /** When we cant start, or the server gets closed */
       connection: string;
+      /** Error when starting a server that has a port conflict */
+      mcpStartup: string;
       /** Failed to start the language server */
       start: string;
-      /** Error when starting the docs server because of a port conflict */
-      startDocsServer: string;
+      /** Error when starting a server that has a port conflict */
+      startingServer: string;
       /** Unknown error ocurred and was reported via console.error */
       unhandled: string;
     };
@@ -648,6 +664,8 @@ export interface ITranslation {
       onMigrateCodeProblemCode: string;
       /** Convert notebook to PRO code */
       onNotebookToProCode: string;
+      /** Error while preparing IDL code */
+      onPrepareIDLCode: string;
       /** Convert notebook cell to code we can execute */
       onPrepareNotebookCell: string;
       /** Retrieving docs */
@@ -692,6 +710,18 @@ export interface ITranslation {
         property: string;
         sysVar: string;
       };
+    };
+  };
+  /** Translations for MXP */
+  mcp: {
+    /** MCP error messages */
+    errors: {
+      /** if we failed to prepare code to run */
+      failedCodePrepare: string;
+      /** Failed to start the MCP server */
+      failedStart: string;
+      /** Failed to handle progress messages */
+      failedProgress: string;
     };
   };
   /** Translations for notebooks */
@@ -763,6 +793,8 @@ export interface ITranslation {
     changeIcons: string;
     /** Configure something */
     configure: string;
+    /** Text that shows to ask if a user wants to add MCP configuration for GitHUb Copilot */
+    configureMCP: string;
     /** Translation to not ask again */
     dontAsk: string;
     /** Text that, after a user changes the default formatter to IDL, asks if they want to format on save */

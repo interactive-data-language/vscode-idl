@@ -477,6 +477,16 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     return this._runtime.getErrorsByFile();
   }
 
+  /** Check if we are at the main level */
+  isAtMain() {
+    const info = this._runtime.getIDLInfo();
+
+    return (
+      info.scope.length === 0 ||
+      (info.scope.length === 1 && info.scope[0].line <= 1)
+    );
+  }
+
   /**
    * Tells us if we have started IDL or not
    */
@@ -516,7 +526,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this._runtime.start(this.lastLaunchArgs);
 
       // listen for when we started
-      this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
+      this._runtime.once(IDL_EVENT_LOOKUP.IDL_READY, async () => {
         // add new line now that we have started
         LogOutput('\n');
 
@@ -679,12 +689,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       if (this._runtime.isIDLMachine()) {
         IDL_STATUS_BAR.setPrompt(prompt);
       } else {
-        // change prompt for status bar
-        if (this._runtime.getIDLInfo().envi) {
-          IDL_STATUS_BAR.setPrompt('ENVI');
-        } else {
-          IDL_STATUS_BAR.setPrompt('IDL');
-        }
+        IDL_STATUS_BAR.setPrompt('IDL');
       }
     });
 
@@ -753,6 +758,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     } catch (err) {
       response.success = false;
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -778,6 +789,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this.sendResponse(response);
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -795,21 +812,24 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response: DebugProtocol.ConfigurationDoneResponse,
     args: DebugProtocol.ConfigurationDoneArguments
   ) {
+    IDL_LOGGER.log({
+      log: IDL_DEBUG_ADAPTER_LOG,
+      type: 'debug',
+      content: ['Configuration done request'],
+    });
+
     try {
       super.configurationDoneRequest(response, args);
-
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Configuration done request'],
-      });
     } catch (err) {
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.configDone, err],
-        alert: IDL_TRANSLATION.debugger.errors.configDone,
-      });
+      // make sure its a real error
+      if (err !== 'Canceled') {
+        IDL_LOGGER.log({
+          type: 'error',
+          log: IDL_DEBUG_ADAPTER_LOG,
+          content: [IDL_TRANSLATION.debugger.errors.configDone, err],
+          alert: IDL_TRANSLATION.debugger.errors.configDone,
+        });
+      }
     }
 
     // notify the launchRequest that configuration has finished
@@ -838,6 +858,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       await this.evaluate('.continue', { silent: false, echo: true });
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -927,6 +953,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this.sendResponse(response);
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1040,6 +1072,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this.sendResponse(response);
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1070,6 +1108,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       await this.evaluate('.stepover', { silent: false, echo: true });
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1108,6 +1152,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this.sendResponse(response);
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1150,6 +1200,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1181,6 +1237,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this.sendResponse(response);
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1215,6 +1277,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     } catch (err) {
       response.success = false;
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1276,6 +1344,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this.sendResponse(response);
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1306,6 +1380,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       await this.evaluate('.step', { silent: false, echo: true });
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1336,6 +1416,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       await this.evaluate('.out', { silent: false, echo: true });
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1368,6 +1454,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this.sendResponse(response);
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1386,6 +1478,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this.sendResponse(response);
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1429,6 +1527,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this.sendResponse(response);
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,

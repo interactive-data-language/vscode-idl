@@ -65,6 +65,11 @@ export const REGEX_COMPILE_ERROR =
   /% Syntax error\.\s*At:(\s*([^,]*),\s*Line\s*([0-9]*))/gim;
 
 /**
+ * Error when we compile the file
+ */
+export const COMPILE_FILE_ERROR = /%\s*Error\s*opening\s*file\.\s*File:/im;
+
+/**
  * Detects locations in IDL's output
  *
  * First group: File + line
@@ -124,4 +129,12 @@ export const REGEX_COMPILED_MAIN = /% Compiled module: \$MAIN\$\./im;
  * remove them from IDL's output
  */
 export const REGEX_CLEAN_IDL_OUTPUT =
-  /^% (?:Compiled module|Restored file):.*$/gim;
+  /^% (?:Compiled module|Restored file|Loaded DLM):.*$/gim;
+
+/**
+ * Regex to detect compile and restore statements so we can
+ * remove them from IDL's output
+ *
+ * Relaxed to be more flexible
+ */
+export const REGEX_CLEAN_IDL_OUTPUT_RELAXED = /^%.*:.*$/gim;

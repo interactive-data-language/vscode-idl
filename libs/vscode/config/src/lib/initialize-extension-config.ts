@@ -154,7 +154,60 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
     );
   }
 
+  // check for configured MCP server
+  /** Get MCP config */
+  const mcpConfig = vscode.workspace.getConfiguration('mcp');
+
+  /** Get servers */
+  const servers = mcpConfig.has('servers') ? mcpConfig.get('servers') : {};
+
   // prompt user to change icon theme if default theme
+  if (
+    !(IDL_TRANSLATION.packageJSON.displayName in (servers as any)) &&
+    !IDL_EXTENSION_CONFIG.dontAsk.forMCPConfig
+  ) {
+    await QuestionAsker(
+      IDL_TRANSLATION.notifications.configureMCP,
+      IDL_EXTENSION_CONFIG_KEYS.dontAskForMCPConfig,
+      true,
+      () => {
+        UpdateConfigObject<IDontAskConfig>(IDL_EXTENSION_CONFIG_KEYS.dontAsk, {
+          forMCPConfig: true,
+        });
+      },
+      () => {
+        const patch = {};
+        patch[IDL_TRANSLATION.packageJSON.displayName] = {
+          type: 'sse',
+          url: `http://localhost:${IDL_EXTENSION_CONFIG.mcp.port}/sse`,
+        };
+
+        /**
+         * Get patched object
+         */
+        const patched = {
+          ...((mcpConfig.get('servers') as any) || {}),
+          ...patch,
+        };
+
+        /**
+         * Fetch the default keys so that we can remove a weird python default MCP
+         * server (which is wild since it doesnt work and its hidden if you open user settings)
+         */
+        const defaultKeys = Object.keys(
+          mcpConfig.inspect('servers')?.defaultValue || {}
+        );
+        for (let i = 0; i < defaultKeys.length; i++) {
+          delete patched[defaultKeys[i]];
+        }
+
+        // patch config
+        mcpConfig.update('servers', patched, true);
+      }
+    );
+  }
+
+  // ask user if they want to open the documentation
   if (!IDL_EXTENSION_CONFIG.dontAsk.toOpenDocs) {
     QuestionAsker(
       IDL_TRANSLATION.notifications.openDocs,

@@ -1,1 +1,1 @@
-export * from './lib/vscode-server-event-manager';
+export * from './lib/vscode-language-server-messenger';

@@ -220,9 +220,10 @@ export const EN: ITranslation = {
       'dontAsk.forFormatterChange':
         "Don't ask to set the extension as the default formatter for IDL code.",
       'dontAsk.forIconChange': "Don't ask to change icon font on startup.",
-
       'dontAsk.forIDLDir':
         "Don't ask for IDL directory on extension startup if it is not set.",
+      'dontAsk.forMCPConfig':
+        "Don't ask to automatically configure the MCP server for use with the GitHub Copilot Agent embedded within VSCode.",
       'dontAsk.toOpenDocs': `Don't ask to open the documentation on extension startup`,
 
       dontShow:
@@ -247,6 +248,13 @@ export const EN: ITranslation = {
       languageServer: 'Preferences that control the language server for IDL',
       'languageServer.fullParse':
         'When the language server starts up, do we fully parse the code in workspaces and on your path?\n\nA full parse checks for syntax and type errors to give more insights into your code without opening each file. However, for large code bases (>1 million lines of code), this uses about 3x more CPU RAM and is about 50% slower.\n\nIf more than one workspace is open, and this is enabled for any workspace, we apply it for all open workspaces.',
+
+      mcp: 'Preferences that control the built-in MCP server',
+      'mcp.enabled':
+        'Do we automatically launch the MCP server on language server startup? If enabled in one workspace, enabled for all.',
+      'mcp.port':
+        'What port does the MCP server start on? Requires a VSCode restart to take effect. If there is more than one configured port across open workspaces, we use the first value we find. This is printed to the logs when the extension starts.\n\nIf you change this value, make sure that your MCP server configuration in VSCode is also updated to match.',
+
       notebooks:
         'Preferences that control notebook user experience for IDL Notebooks',
       'notebooks.embedGraphics':
@@ -358,6 +366,7 @@ export const EN: ITranslation = {
       general: 'General',
       idl: 'IDL',
       languageServer: 'Language Server',
+      mcp: 'MCP Server',
       notebooks: 'Notebooks',
       problems: 'Problem Reporting',
       questions: 'Questions',
@@ -388,6 +397,16 @@ export const EN: ITranslation = {
       syntaxErrorsFound:
         'Syntax errors detected in your code, see above for more details',
     },
+    commandErrors: {
+      compileFile: 'Error compiling file. Likely syntax errors in the code.',
+      idlHasNotStarted: 'IDL has not started yet',
+      idlStopped:
+        'The IDL process ran, but likely stopped somewhere, meaning that the code did not finish executing and may have runtime errors that need to be fixed',
+      noProFile: 'No PRO file in VSCode to run or compile',
+      noRoutineFound: 'No routine in file to run',
+      runFile: '',
+      syntaxErrors: 'Syntax errors detected in file',
+    },
     errors: {
       addHistory:
         'Error while adding content to IDL history file. Does the location have write permissions?',
@@ -410,6 +429,8 @@ export const EN: ITranslation = {
       stepOut: 'Error while handling "stepOut" request',
       terminate: 'Error while handling "terminate" request',
       threads: 'Error while handling "threads" request',
+      unableToLicenseIDL:
+        'Unable to license IDL, check the License Manager and try again',
       variables: 'Error while handling "variables" request',
     },
     idl: {
@@ -417,7 +438,9 @@ export const EN: ITranslation = {
       description:
         'Start a new, interactive session of IDL with the ability to compile + run files and reset the session, like the IDL Workbench.',
       existingSessionFound:
-        'An existing session is running. Please close it before starting IDL',
+        'An existing debug session is running that is not IDL. Please stop it before starting IDL',
+      idlNotConfigured:
+        'IDL has not been properly configured. Please make sure to set the IDL directory in the IDL for VSCode settings. If IDL is installed, it is not in one of the default locations and needs to be specified.',
       label: 'IDL: Launch',
       name: 'Launch IDL',
       pleaseStart: 'Please start a session of IDL',
@@ -461,8 +484,7 @@ export const EN: ITranslation = {
       noUI: 'ENVI has started, but has no UI. Please restart ENVI with the UI to display data',
       openError: 'Unable to open dataset, see the IDL console for more details',
     },
-    openerText:
-      'ENVI should attempt to open the image shortly, please wait.\nTo disable this behavior, view the documentation for the extension "IDL for VSCode".',
+    openerText: 'ENVI should attempt to open the image shortly, please wait.',
     openerTitle: 'ENVI File Opener',
   },
   generators: {
@@ -670,9 +692,11 @@ export const EN: ITranslation = {
       closed:
         'The IDL Language Server crashed. This is likely a memory issue, please see docs for more information and workarounds.',
       connection: 'Failed to send/receive message with the IDL Language Server',
+      mcpStartup:
+        'Error reported while starting the MCP server and registering tools',
       start: 'Failed to start the IDL Language Server',
-      startDocsServer:
-        'Error while starting local docs server, is the port already in use?',
+      startingServer:
+        'Error while starting local server (MCP or documentation), is the port already in use? See logs for more details.',
       unhandled: 'An unknown error ocurred within the IDL Language Server',
     },
     events: {
@@ -700,6 +724,7 @@ export const EN: ITranslation = {
       onMigrateCodeProblemCode:
         'Unable to format code due to syntax error or problem in file',
       onNotebookToProCode: 'Error converting notebook to PRO code',
+      onPrepareIDLCode: 'Error while preparing IDL code for execution',
       onPrepareNotebookCell: 'Error while preparing notebook cell to run',
       onRetrieveDocs: 'Error responding to docs retrieval event',
       onSemanticHighlighting: 'Problem resolving semantic tokens',
@@ -730,6 +755,15 @@ export const EN: ITranslation = {
         property: 'Unknown property',
         sysVar: 'Unknown system variable',
       },
+    },
+  },
+  mcp: {
+    errors: {
+      failedCodePrepare:
+        'Failed to prepare IDL code to run, see IDL logs for more details',
+      failedStart:
+        'Failed to start MCP server. Is the port available? If not, this can be changed in the extension settings.',
+      failedProgress: 'Failed to handle progress message to MCP server',
     },
   },
   notebooks: {
@@ -788,6 +822,8 @@ export const EN: ITranslation = {
     changeFormatter: 'Set extension as default formatter for IDL code?',
     changeIcons: 'Switch to IDL file icons? Adds new icons for PRO code.',
     configure: 'Configure',
+    configureMCP:
+      'Configure GitHub Copilot to use the IDL for VSCode MCP server?',
     dontAsk: "Don't ask again",
     formatOnSave:
       'Format PRO code automatically on file save? This will not affect other languages and will be limited to PRO files.',

@@ -1,4 +1,5 @@
 import { ILogOptions } from '@idl/logger';
+import { MCPTools } from '@idl/types/mcp';
 import { IUsageMetricAndPayload, UsageMetric } from '@idl/usage-metrics';
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
@@ -23,6 +24,15 @@ import {
 } from './messages/indexing.message.interface';
 import { LoggingMessage } from './messages/logging.message.interface';
 import {
+  MCP_LSP_Message,
+  MCP_LSP_MessagePayload,
+  MCP_LSP_MessageResponse,
+} from './messages/mcp-messages.interface';
+import {
+  MCPProgress_LSP_Message,
+  MCPProgress_LSP_MessagePayload,
+} from './messages/mcp-progress-messages.interface';
+import {
   MigrateCodeLSPMessage,
   MigrateCodeLSPPayload,
   MigrateCodeLSPResponse,
@@ -32,6 +42,11 @@ import {
   INotebookToProCodeResponse,
   NotebookToProCodeMessage,
 } from './messages/notebook-to-pro-code.message.interface';
+import {
+  PrepareIDLCodelMessage,
+  PrepareIDLCodePayload,
+  PrepareIDLCodeResponse,
+} from './messages/prepare-idl-code.message.interface';
 import {
   PrepareNotebookCellMessage,
   PrepareNotebookCellPayload,
@@ -69,8 +84,11 @@ export type LanguageServerMessage =
   | IndexingMessage
   | InitWorkspaceConfigMessage
   | LoggingMessage
+  | MCP_LSP_Message
+  | MCPProgress_LSP_Message
   | MigrateCodeLSPMessage
   | NotebookToProCodeMessage
+  | PrepareIDLCodelMessage
   | PrepareNotebookCellMessage
   | ProgressMessage
   | RetrieveDocsMessage
@@ -97,6 +115,10 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? IInitWorkspaceConfigPayload
     : T extends LoggingMessage
     ? ILogOptions
+    : T extends MCP_LSP_Message
+    ? MCP_LSP_MessagePayload<MCPTools>
+    : T extends MCPProgress_LSP_Message
+    ? MCPProgress_LSP_MessagePayload
     : T extends MigrateCodeLSPMessage
     ? MigrateCodeLSPPayload
     : T extends NotebookToProCodeMessage
@@ -105,6 +127,8 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? IRetrieveDocsPayload
     : T extends ProgressMessage
     ? ProgressMessagePayload
+    : T extends PrepareIDLCodelMessage
+    ? PrepareIDLCodePayload
     : T extends PrepareNotebookCellMessage
     ? PrepareNotebookCellPayload
     : T extends UsageMetricLSPMessage
@@ -117,15 +141,19 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
 export type LanguageServerResponse<T extends LanguageServerMessage> =
   T extends FormatWorkspaceMessage
     ? FormatWorkspaceResponse
+    : T extends MCP_LSP_Message
+    ? MCP_LSP_MessageResponse<MCPTools>
     : T extends MigrateCodeLSPMessage
     ? MigrateCodeLSPResponse
     : T extends NotebookToProCodeMessage
     ? INotebookToProCodeResponse
     : T extends RetrieveDocsMessage
     ? IRetrieveDocsResponse
+    : T extends PrepareIDLCodelMessage
+    ? PrepareIDLCodeResponse
     : T extends PrepareNotebookCellMessage
     ? PrepareNotebookCellResponse
-    : any;
+    : never;
 
 /** Strictly typed lookup of language server messages */
 export interface ILanguageServerMessages {
@@ -147,10 +175,16 @@ export interface ILanguageServerMessages {
   INIT_WORKSPACE_CONFIG: InitWorkspaceConfigMessage;
   /** Log content from the LSP */
   LOG: LoggingMessage;
+  /** MCP message to run a tool */
+  MCP: MCP_LSP_Message;
+  /** Progress message via LSP */
+  MCP_PROGRESS: MCPProgress_LSP_Message;
   /** Message to migrate ENVI DL API to 3.0 */
   MIGRATE_CODE: MigrateCodeLSPMessage;
   /** Convert notebooks to PRO code */
   NOTEBOOK_TO_PRO_CODE: NotebookToProCodeMessage;
+  /** Prepare idl code for execution */
+  PREPARE_IDL_CODE: PrepareIDLCodelMessage;
   /** Prepare notebook cell for execution */
   PREPARE_NOTEBOOK_CELL: PrepareNotebookCellMessage;
   /** Progress message */
@@ -179,10 +213,13 @@ export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   INDEXING: 'indexing',
   INIT_WORKSPACE_CONFIG: 'init-workspace-config',
   LOG: 'log',
+  MCP: 'mcp',
+  MCP_PROGRESS: 'mcp-progress',
   MIGRATE_CODE: 'migrate-code',
   NOTEBOOK_TO_PRO_CODE: 'notebook/to-pro-code',
   PROGRESS: 'progress',
   RETRIEVE_DOCS: 'retrieve-docs',
+  PREPARE_IDL_CODE: 'prepare-idl-code',
   PREPARE_NOTEBOOK_CELL: 'prepare-notebook-cell',
   USAGE_METRIC: 'usage-metric-lsp',
   WORKSPACE_CONFIG: 'workspace-config',

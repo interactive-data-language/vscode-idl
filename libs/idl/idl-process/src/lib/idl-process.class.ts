@@ -7,6 +7,7 @@ import {
   IDLCallStackItem,
   IDLEvent,
   IDLListenerArgs,
+  IDLOutput,
   IStartIDLConfig,
   REGEX_NEW_LINE_COMPRESS,
   REGEX_STOP_DETECTION,
@@ -61,6 +62,9 @@ export class IDLProcess extends EventEmitter {
   /** Information about our current IDL session */
   idlInfo = copy(DEFAULT_IDL_INFO);
 
+  /** Is IDL licensed? */
+  licensed = true;
+
   /** The logger for our session of IDL, all messages go through this */
   log: Logger;
 
@@ -106,9 +110,6 @@ export class IDLProcess extends EventEmitter {
 
   /**
    * External method to execute something in IDL
-   *
-   * TODO: Migrate logic from the three methods below to here
-   * since we have a fair amount of overlap between them all
    */
   async evaluate(command: string): Promise<string> {
     if (!this.started) {
@@ -128,7 +129,7 @@ export class IDLProcess extends EventEmitter {
     this.evaluating = true;
 
     /** Result from running */
-    let res: string;
+    let res: IDLOutput;
 
     /**
      * Send to the right process we are running
@@ -157,11 +158,13 @@ export class IDLProcess extends EventEmitter {
     // reset state
     this.evaluating = false;
 
-    // check for stops
-    this.stopCheck(res);
+    // check if we stopped
+    if (res.stopped) {
+      this.emit(IDL_EVENT_LOOKUP.STOP, res.stopped.reason, res.stopped.stack);
+    }
 
     // return output
-    return res;
+    return res.idlOutput;
   }
 
   /**
@@ -380,6 +383,7 @@ export class IDLProcess extends EventEmitter {
     // listen for startup
     this.once(IDL_EVENT_LOOKUP.IDL_STARTED, () => {
       this.started = true;
+      this.emit(IDL_EVENT_LOOKUP.IDL_READY);
     });
 
     // listen to IDL
@@ -404,6 +408,20 @@ export class IDLProcess extends EventEmitter {
         case this.closing:
           // do nothing because we are closing IDL
           this.emit(IDL_EVENT_LOOKUP.CLOSED_CLEANLY);
+          break;
+        case !this.licensed:
+          this.log.log({
+            type: 'error',
+            content: [
+              'Failed to license IDL',
+              { cmd, code, signal, capturedOutput: this.capturedOutput, error },
+            ],
+            alert: IDL_TRANSLATION.debugger.errors.unableToLicenseIDL,
+          });
+          this.emit(
+            IDL_EVENT_LOOKUP.FAILED_START,
+            IDL_TRANSLATION.debugger.errors.unableToLicenseIDL
+          );
           break;
         case !this.started:
           this.log.log({
@@ -460,9 +478,9 @@ export class IDLProcess extends EventEmitter {
   /**
    * Parse output from IDL and check if we have any reasons that we stopped
    */
-  stopCheck(origOutput: string): boolean {
+  stopCheck(res: IDLOutput): boolean {
     // get rid of bad characters, lots of carriage returns in the output (\r\r\n) on windows at least
-    const output = origOutput.replace(REGEX_NEW_LINE_COMPRESS, '');
+    const output = res.idlOutput.replace(REGEX_NEW_LINE_COMPRESS, '');
 
     this.log.log({
       type: 'debug',
@@ -510,11 +528,10 @@ export class IDLProcess extends EventEmitter {
     // TODO: the traceback is not always correct, but it is not used, just sent with the event
     // vscode makes a request for the traceback instead
     if (traceback.length > 0) {
-      this.emit(
-        IDL_EVENT_LOOKUP.STOP,
-        reasons[reasons.length - 1],
-        traceback[traceback.length - 1]
-      );
+      res.stopped = {
+        reason: reasons[reasons.length - 1],
+        stack: traceback[traceback.length - 1],
+      };
     }
 
     // return flag if we found a reason to stop

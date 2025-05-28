@@ -1,5 +1,4 @@
-import { GetExtensionPath } from '@idl/idl/files';
-import { FindIDL } from '@idl/idl/idl-process';
+import { FindIDL, GetExtensionPath } from '@idl/idl/files';
 import { EXTENSION_FULL_NAME } from '@idl/shared/extension';
 import { Sleep } from '@idl/tests/helpers';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
@@ -42,7 +41,7 @@ export async function run(): Promise<void> {
     /**
      * Manually specify IDL folder
      */
-    const idlDir = FindIDL('idl92');
+    const idlDir = FindIDL();
 
     // validate we know where it is
     if (!idlDir) {

@@ -168,8 +168,11 @@ export class IDLInteractionManager {
 
     /**
      * Check if we need to get scope information
+     *
+     * Only do this when not the IDL machine since it handles
+     * this for us
      */
-    if (options.idlInfo) {
+    if (options.idlInfo && !this.isIDLMachine()) {
       // make IDL silent
       this.idl.silent = true;
 
@@ -184,14 +187,6 @@ export class IDLInteractionManager {
         this.idl.idlInfo = scopeInfo;
       } else {
         this.idl.idlInfo = { ...DEFAULT_IDL_INFO };
-      }
-
-      // emit prompt - IDL Machine handles this properly, only stdio
-      if (!this.isIDLMachine()) {
-        this.idl.emit(
-          IDL_EVENT_LOOKUP.PROMPT,
-          this.idl.idlInfo.envi ? 'ENVI>' : 'IDL>'
-        );
       }
     }
 
@@ -299,13 +294,17 @@ export class IDLInteractionManager {
    * Gets the current call stack for IDL without using the most recent from running commands
    */
   async getCurrentStack() {
-    return ProcessScope(
-      this.idl,
-      await this.evaluate(this.scopeInfoCommand(0), {
-        silent: true,
-        idlInfo: false,
-      })
-    ).scope;
+    if (this.isIDLMachine()) {
+      return this.idl.idlInfo.scope;
+    } else {
+      return ProcessScope(
+        this.idl,
+        await this.evaluate(this.scopeInfoCommand(0), {
+          silent: true,
+          idlInfo: false,
+        })
+      ).scope;
+    }
   }
 
   /**

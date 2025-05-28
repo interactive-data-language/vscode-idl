@@ -22,6 +22,12 @@ IDL for VSCode now includes beta support for IDL 9.2 (unreleased) which will inc
 
 With this change, our old debugger will still be present to maintain backwards compatibility with older versions of IDL. It will still function with debug sessions and IDL Notebooks. The new debugger will automatically be used when it is detected in your installation.
 
+Fixed an issue where, on Windows with no workspaces open, IDL's path would be set incorrectly. This could cause a very slow startup time with the extension depending on your system setup.
+
+No longer report a fake error when you stop a notebook while a cell is actively running.
+
+When running a session of IDL, all user actions now properly handle cancellations. This means we no longer show you a message that we failed run run code, for example, when IDL is busy and you then stop the process.
+
 ## Web Extension Changes
 
 We no longer check for the IDL directory existing and being a valid folder on extension startup. Instead, this check is made, and dialogs appear, when starting debug sessions, running notebooks, or starting a terminal session.
@@ -37,6 +43,8 @@ This helps normalize the internal documentation provided with IDL which, when we
 Improved syntax highlighting for executive commands and statements like ".compile" should now highlight strings, support comments, and not be bold depending on your theme.
 
 Fixed a typo in hover help for task files
+
+Because of the new integration with IDL, the status bar (lower left of VSCode) no longer indicates you have a different prompt unless you are using IDL 9.2. This change needed to be made to simplify the new integration with VSCode.
 
 ## 4.7.1 - December 2024
 

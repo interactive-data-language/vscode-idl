@@ -1,5 +1,6 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
+import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
@@ -51,12 +52,12 @@ export const ReturnFromMain: RunnerFunction = async (init) => {
   expect(stack).toEqual([{ line: 3, file }]);
 
   // compile
-  const recompile = await vscode.commands.executeCommand(
+  const recompile: IRunIDLCommandResult = await vscode.commands.executeCommand(
     IDL_COMMANDS.DEBUG.COMPILE
   );
 
   // make sure that we could run
-  expect(recompile).toBeTruthy();
+  expect(recompile.success).toBeTruthy();
 
   // get call stack
   const stack2 = (await init.debug.adapter._runtime.getCallStack()).frames.map(
@@ -67,4 +68,7 @@ export const ReturnFromMain: RunnerFunction = async (init) => {
 
   // make sure our call stack matches
   expect(stack2).toEqual([{ line: 1, file }]);
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

@@ -5,16 +5,19 @@ import {
   TOutNotification,
 } from '@idl/idl/idl-machine';
 import { LogType } from '@idl/logger';
-import { IDL_EVENT_LOOKUP } from '@idl/types/idl/idl-process';
+import { IDL_TRANSLATION } from '@idl/translation';
+import { IDL_EVENT_LOOKUP, IDLOutput } from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
+import copy from 'fast-copy';
+import { deepEqual } from 'fast-equals';
+
+import { IDLProcess } from '../idl-process.class';
 
 /**
  * If we use import, it complains about types
  */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const kill = require('tree-kill');
-
-import { IDLProcess } from '../idl-process.class';
 
 /**
  * Wraps the IDL Machine process and connects events from it to/from our IDL Process class
@@ -47,10 +50,10 @@ export class IDLMachineWrapper {
      * Listen for IDL being done executing
      */
     this.machine.onNotification('commandFinished', () => {
-      this.process.emit(
-        IDL_EVENT_LOOKUP.PROMPT_READY,
-        this.process.capturedOutput
-      );
+      // this.process.emit(
+      //   IDL_EVENT_LOOKUP.PROMPT_READY,
+      //   this.process.capturedOutput
+      // );
     });
 
     this.machine.onNotification('commandStarted', () => {
@@ -71,10 +74,36 @@ export class IDLMachineWrapper {
        */
     });
 
-    this.machine.onNotification('debugSend', () => {
+    /** Track last debug send parameters */
+    let lastDebugSend: FromIDLMachineNotificationParams<'debugSend'>;
+
+    this.machine.onNotification('debugSend', (params) => {
+      lastDebugSend = params;
+
       /**
-       * Nothing to do here, already handled with legacy solution
+       * Only update if we changed
        */
+      if (params.stack.changed) {
+        this.process.idlInfo = {
+          hasInfo: true,
+          scope: copy(params.stack.frames)
+            .reverse()
+            .map((frame) => {
+              return {
+                file: frame.file,
+                line: frame.line,
+                routine: frame.name,
+              };
+            }),
+          variables: params.stack.frames[0].variables.map((variable) => {
+            return {
+              name: variable.name.toLowerCase(),
+              type: `${variable.type}`,
+              description: variable.value,
+            };
+          }),
+        };
+      }
     });
 
     this.machine.onNotification('delVar', () => {
@@ -95,16 +124,59 @@ export class IDLMachineWrapper {
        */
     });
 
-    this.machine.onNotification('licensingEvent', () => {
-      /**
-       * Do nothing right now
-       */
+    this.machine.onNotification('licensingEvent', (params) => {
+      if (params.event === 'AcquireFailure') {
+        this.process.licensed = false;
+        this.process.emit(
+          IDL_EVENT_LOOKUP.STANDARD_ERR,
+          IDL_TRANSLATION.debugger.errors.unableToLicenseIDL
+        );
+      }
     });
 
-    this.machine.onNotification('interpreterStopped', () => {
+    /** Track the last interpreter stopped params */
+    let lastStop: FromIDLMachineNotificationParams<'interpreterStopped'>;
+
+    this.machine.onNotification('interpreterStopped', (params) => {
       /**
-       * Nothing to do here, already handled
+       * Check to see if we have stopped
+       *
+       * Line check is for main level programs (having a line of zero)
        */
+      // const check = params.line > 0 && !deepEqual(params, lastStop);
+      const check =
+        params.line > 0 &&
+        lastStop !== undefined &&
+        !deepEqual(params, lastStop);
+
+      // save the parameters
+      lastStop = params;
+
+      // create output parameters
+      const res: IDLOutput = {
+        idlOutput: this.process.capturedOutput,
+      };
+
+      /**
+       * See if we need to emit a stop event
+       */
+      if (lastDebugSend.stack.changed && params.line > 0) {
+        res.stopped = {
+          reason: 'stop',
+          stack: {
+            file:
+              params.routine.toLowerCase() === '$main$'
+                ? '$main$'
+                : params.file,
+            index: 0,
+            line: params.line,
+            name: params.routine,
+          },
+        };
+      }
+
+      // emit that IDL is ready
+      this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, res);
     });
 
     this.machine.onNotification('modalMessage', () => {
@@ -148,6 +220,18 @@ export class IDLMachineWrapper {
        */
     });
 
+    this.machine.onNotification('showCompileError', () => {
+      /**
+       * Nothing to do here
+       */
+    });
+
+    this.machine.onNotification('serverExit', () => {
+      /**
+       * Nothing to do here
+       */
+    });
+
     /**
      * Listen for startup
      */
@@ -163,20 +247,19 @@ export class IDLMachineWrapper {
       this.process.capturedOutput += stringified;
       this.process.sendOutput(stringified);
 
-      // check for recompile
-      if (
-        this.process.capturedOutput.indexOf(
+      switch (true) {
+        case this.process.capturedOutput.indexOf(
           '% Procedure was compiled while active:'
-        ) !== -1
-      ) {
-        this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
-      }
-      if (
-        this.process.capturedOutput.indexOf(
+        ) !== -1:
+          this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
+          break;
+        case this.process.capturedOutput.indexOf(
           '% You compiled a main program while inside a procedure.  Returning.'
-        ) !== -1
-      ) {
-        this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
+        ) !== -1:
+          this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
+          break;
+        default:
+          break;
       }
     });
 
@@ -266,7 +349,7 @@ export class IDLMachineWrapper {
    * The use for this is getting scope information immediately before we return
    * as being complete and cleans up our event management
    */
-  async evaluate(command: string): Promise<string> {
+  async evaluate(command: string): Promise<IDLOutput> {
     return new Promise((resolve, reject) => {
       // handle errors writing to stdin
       if (!this.idl.stdin.writable) {
@@ -281,10 +364,11 @@ export class IDLMachineWrapper {
         : 0x1;
 
       // listen for our event returning back to the command prompt
-      this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
-        resolve(output);
+      this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (idlOutput) => {
+        resolve(idlOutput);
       });
 
+      // run it!
       this.machine.sendNotification('exec', {
         string: command,
         flags,

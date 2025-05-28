@@ -30,4 +30,7 @@ export const QueueRight: RunnerFunction = async (init) => {
   // make sure the outputs are the same
   expect((await p1).trim()).toEqual('');
   expect((await p2).trim()).toEqual('');
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

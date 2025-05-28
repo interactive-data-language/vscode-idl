@@ -48,9 +48,10 @@ export interface IDLExtensionsConfigKeys {
   readonly dontAskForFormatterChange: 'dontAsk.forFormatterChange';
   /** On startup, if we dont have our icon theme as default, should we ask for it or not */
   readonly dontAskForIconChange: 'dontAsk.forIconChange';
-
   /** On startup, if we dont have IDL configured, should we ask for it or not */
   readonly dontAskForIDLDir: 'dontAsk.forIDLDir';
+  /** On startup, do we auto-configure our MCP server to users? */
+  readonly dontAskForMCPConfig: 'dontAsk.forMCPConfig';
   /** On startup, do we ask to open docs? */
   readonly dontAskToOpenDocs: 'dontAsk.toOpenDocs';
 
@@ -78,9 +79,16 @@ export interface IDLExtensionsConfigKeys {
 
   /** Key for language server preferences */
   readonly languageServer: 'languageServer';
-
   /** Do we do a full parse or not */
   readonly languageServerFullParse: 'languageServer.fullParse';
+
+  /** Key for MCP preferences */
+  readonly mcp: 'mcp';
+  /** Do we enable the MCP server or not? */
+  readonly mcpEnabled: 'mcp.enabled';
+  /** What port does the MCP server run on? */
+  readonly mcpPort: 'mcp.port';
+
   /** Key for notebook preferences */
   readonly notebooks: 'notebooks';
   /** Do we embed graphics or not */
@@ -187,6 +195,8 @@ export interface IDontAskConfig {
   readonly forIconChange: boolean;
   /** On startup, if we dont have IDL configured, should we ask for it or not */
   readonly forIDLDir: boolean;
+  /** On startup, do we auto-configure our MCP server to users? */
+  readonly forMCPConfig: boolean;
   /** Do we ask people to open docs on startup? */
   readonly toOpenDocs: boolean;
   // /** Controls if we ask to init config for folders or not */
@@ -209,6 +219,13 @@ export interface IDeveloperConfig {
   readonly ENVIMachineLearning: boolean;
   /** IDL developer */
   readonly IDL: boolean;
+}
+
+export interface IMCPConfig {
+  /** Do we enable the MCP server or not? */
+  readonly enabled: boolean;
+  /** What port does the MCP server run on? */
+  readonly port: number;
 }
 
 /**
@@ -254,6 +271,11 @@ export interface IDLExtensionConfig {
   readonly languageServer: ILanguageServerConfig;
 
   /**
+   * Configuration for the MCP server
+   */
+  readonly mcp: IMCPConfig;
+
+  /**
    * Configuration for notebooks
    */
   readonly notebooks: INotebookConfig;
@@ -272,6 +294,24 @@ export interface IDLExtensionConfig {
  */
 export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   debugMode: 'debugMode',
+
+  dontAsk: 'dontAsk',
+  dontAskForIDLDir: 'dontAsk.forIDLDir',
+  dontAskForIconChange: 'dontAsk.forIconChange',
+  dontAskForFormatterChange: 'dontAsk.forFormatterChange',
+  dontAskForMCPConfig: 'dontAsk.forMCPConfig',
+  dontAskToOpenDocs: 'dontAsk.toOpenDocs',
+  // dontAskToInitConfig: 'dontAsk.toInitConfig',
+  // dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders',
+
+  dontShow: 'dontShow',
+  dontShowWelcomePage: 'dontShow.welcomePage',
+
+  developer: 'developer',
+  developerIDL: 'developer.IDL',
+  developerENVI: 'developer.ENVI',
+  developerENVIDeepLearning: 'developer.ENVIDeepLearning',
+  developerENVIMachineLearning: 'developer.ENVIMachineLearning',
 
   IDL: 'IDL',
   IDLDirectory: 'IDL.directory',
@@ -293,6 +333,10 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   languageServer: 'languageServer',
   languageServerFullParse: 'languageServer.fullParse',
 
+  mcp: 'mcp',
+  mcpEnabled: 'mcp.enabled',
+  mcpPort: 'mcp.port',
+
   notebooks: 'notebooks',
   notebooksQuietMode: 'notebooks.quietMode',
   notebooksEmbedGraphics: 'notebooks.embedGraphics',
@@ -305,23 +349,6 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   problemsIncludeProblemsFromIDLPath: 'problems.includeProblemsFromIDLPath',
   problemsIncludeProblemsFromIDLPackages:
     'problems.includeProblemsFromIDLPackages',
-
-  dontAsk: 'dontAsk',
-  dontAskForIDLDir: 'dontAsk.forIDLDir',
-  dontAskForIconChange: 'dontAsk.forIconChange',
-  dontAskForFormatterChange: 'dontAsk.forFormatterChange',
-  dontAskToOpenDocs: 'dontAsk.toOpenDocs',
-  // dontAskToInitConfig: 'dontAsk.toInitConfig',
-  // dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders',
-
-  dontShow: 'dontShow',
-  dontShowWelcomePage: 'dontShow.welcomePage',
-
-  developer: 'developer',
-  developerIDL: 'developer.IDL',
-  developerENVI: 'developer.ENVI',
-  developerENVIDeepLearning: 'developer.ENVIDeepLearning',
-  developerENVIMachineLearning: 'developer.ENVIMachineLearning',
 };
 
 /**
@@ -331,6 +358,24 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
  */
 export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
   debugMode: false,
+  dontAsk: {
+    forIDLDir: false,
+    forIconChange: false,
+    forFormatterChange: false,
+    forMCPConfig: false,
+    toOpenDocs: false,
+    // toInitConfig: false,
+    // toInitConfigForTheseFolders: [],
+  },
+  dontShow: {
+    welcomePage: false,
+  },
+  developer: {
+    IDL: false,
+    ENVI: false,
+    ENVIDeepLearning: false,
+    ENVIMachineLearning: false,
+  },
   IDL: {
     directory: '',
     path: [],
@@ -364,6 +409,10 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     fullParse: true,
     garbageIntervalMS: 300000,
   },
+  mcp: {
+    enabled: true,
+    port: 4142,
+  },
   notebooks: {
     quietMode: true,
     embedGraphics: true,
@@ -375,22 +424,5 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     ignoreProblems: [],
     includeProblemsFromIDLPath: true,
     includeProblemsFromIDLPackages: false,
-  },
-  dontAsk: {
-    forIDLDir: false,
-    forIconChange: false,
-    forFormatterChange: false,
-    toOpenDocs: false,
-    // toInitConfig: false,
-    // toInitConfigForTheseFolders: [],
-  },
-  dontShow: {
-    welcomePage: false,
-  },
-  developer: {
-    IDL: false,
-    ENVI: false,
-    ENVIDeepLearning: false,
-    ENVIMachineLearning: false,
   },
 };

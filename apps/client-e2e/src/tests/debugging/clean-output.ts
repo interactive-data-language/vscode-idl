@@ -1,4 +1,4 @@
-import { CleanIDLOutput } from '@idl/idl/idl-process';
+import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import expect from 'expect';
 import * as vscode from 'vscode';
@@ -29,6 +29,7 @@ const STATEMENTS: string[] = [
   `% Compiled module: VOLUME::QUERYPROPERTY.`,
   `% Compiled module: TEXT::GETTEXTDIMENSIONS.`,
   `% Compiled module: GRAPHIC__DEFINE.`,
+  `% Loaded DLM: HPGRAPHICS.`,
 ];
 
 /**
@@ -56,9 +57,25 @@ export const CleanOutput: RunnerFunction = async (init) => {
     await init.debug.adapter.evaluate(
       `print, '${STATEMENTS.join(`' & print, '`)}'`,
       { echo: true }
-    )
+    ),
+    true
   );
 
   // verify we get the right output
   expect(res).toEqual('');
+
+  /**
+   * Evaluate something and get result
+   */
+  const res2 = CleanIDLOutput(
+    await init.debug.adapter.evaluate(
+      `print, '${STATEMENTS.join(`' & print, '`)}'`,
+      { echo: true }
+    ),
+    true,
+    true
+  );
+
+  // verify we get the right output
+  expect(res2).toEqual('');
 };
