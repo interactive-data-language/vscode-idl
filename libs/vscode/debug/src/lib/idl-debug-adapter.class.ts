@@ -689,12 +689,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       if (this._runtime.isIDLMachine()) {
         IDL_STATUS_BAR.setPrompt(prompt);
       } else {
-        // change prompt for status bar
-        if (this._runtime.getIDLInfo().envi) {
-          IDL_STATUS_BAR.setPrompt('ENVI');
-        } else {
-          IDL_STATUS_BAR.setPrompt('IDL');
-        }
+        IDL_STATUS_BAR.setPrompt('IDL');
       }
     });
 

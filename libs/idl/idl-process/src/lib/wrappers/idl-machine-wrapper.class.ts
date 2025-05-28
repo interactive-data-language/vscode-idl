@@ -8,6 +8,7 @@ import { LogType } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_EVENT_LOOKUP, IDLOutput } from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
+import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
 import { IDLProcess } from '../idl-process.class';
@@ -78,6 +79,31 @@ export class IDLMachineWrapper {
 
     this.machine.onNotification('debugSend', (params) => {
       lastDebugSend = params;
+
+      /**
+       * Only update if we changed
+       */
+      if (params.stack.changed) {
+        this.process.idlInfo = {
+          hasInfo: true,
+          scope: copy(params.stack.frames)
+            .reverse()
+            .map((frame) => {
+              return {
+                file: frame.file,
+                line: frame.line,
+                routine: frame.name,
+              };
+            }),
+          variables: params.stack.frames[0].variables.map((variable) => {
+            return {
+              name: variable.name.toLowerCase(),
+              type: `${variable.type}`,
+              description: variable.value,
+            };
+          }),
+        };
+      }
     });
 
     this.machine.onNotification('delVar', () => {
