@@ -236,6 +236,12 @@ export class IDLMachineWrapper {
      * Listen for startup
      */
     this.machine.onNotification('serverReady', () => {
+      /**
+       * Set the size of the terminal, this fixes issues where IDL becomes unresponsize
+       * after printing out stop statements with very long filepaths.
+       */
+      this.machine.sendNotification('setTTYSize', { columns: 2048, lines: 40 });
+
       this.process.emit(IDL_EVENT_LOOKUP.IDL_STARTED, '');
     });
 
