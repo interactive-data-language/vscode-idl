@@ -282,7 +282,7 @@ export async function ExecuteNotebookCell(
     if (stop) {
       await manager._endCellExecution(false, { decorateStack: true });
     } else {
-      await manager._endCellExecution(true);
+      await manager._endCellExecution(true, { postExecute: !enviPresent });
     }
   }
 

@@ -46,6 +46,8 @@ Fixed a typo in hover help for task files
 
 Because of the new integration with IDL, the status bar (lower left of VSCode) no longer indicates you have a different prompt unless you are using IDL 9.2. This change needed to be made to simplify the new integration with VSCode.
 
+When using notebooks and starting the ENVI UI, we disable embedding graphics for the cell that starts the ENVI UI. This addresses some issues where empty/blank graphics would be embedded in notebook cells when they shouldn't have. The workaround for this is to have a dedicated cell for ENVI startup and other cells to embed graphics.
+
 ## 4.7.1 - December 2024
 
 Fixed an issue with the IDL Webview that showed a blank tab when opened. This affect things like the profiler in the extension.

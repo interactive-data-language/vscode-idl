@@ -789,11 +789,9 @@ export const EN: ITranslation = {
     },
     notifications: {
       enviCellDetected: [
-        'ENVI startup detected in notebook cell.',
+        'ENVI startup detected in notebook cell which disables the embedding of graphics for this cell.',
         '',
-        'If you have graphics to embed, you will need to re-run the cell to get all items.',
-        '',
-        "Pro tip: Have a dedicated cell for ENVI startup so you don't need to re-run cells.",
+        'If you have graphics to embed, you should make a dedicated cell to start ENVI and embed graphics afterwards.',
         '',
       ].join('\n'),
       idlNotStarted:
