@@ -830,17 +830,6 @@ export class IDLNotebookExecutionManager {
       // this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
     });
 
-    // listen for stops
-    this._runtime.on(IDL_EVENT_LOOKUP.STOP, async (reason, stack) => {
-      IDL_LOGGER.log({
-        type: 'debug',
-        log: IDL_NOTEBOOK_LOG,
-        content: [`Stopped because: "${reason}"`, stack],
-      });
-
-      await this._endCellExecution(false, { decorateStack: true });
-    });
-
     // listen for debug output
     this._runtime.on(IDL_EVENT_LOOKUP.OUTPUT, async (msg) => {
       await this._appendToCurrentCellOutput(msg);
