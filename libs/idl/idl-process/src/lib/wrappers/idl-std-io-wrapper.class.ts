@@ -132,15 +132,20 @@ export class IDLStdIOWrapper {
               }
             }
 
-            /**
-             * setTimeout solves a race condition where the default case comes through after
-             * the prompt does which means we miss out on content coming back to the first process.
-             */
-            setTimeout(() => {
-              this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, {
-                idlOutput: this.process.capturedOutput,
-              });
-            }, 50);
+            // emit that the IDL prompt is ready
+            this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, {
+              idlOutput: this.process.capturedOutput,
+            });
+
+            // /**
+            //  * setTimeout solves a race condition where the default case comes through after
+            //  * the prompt does which means we miss out on content coming back to the first process.
+            //  */
+            // setTimeout(() => {
+            // this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, {
+            //   idlOutput: this.process.capturedOutput,
+            // });
+            // }, 50);
           }
           break;
 
@@ -192,18 +197,21 @@ export class IDLStdIOWrapper {
         content: 'IDL has started!',
       });
 
-      /**
-       * Use a small timeout so that the prompt ready event propagates
-       * before the IDL started event
-       *
-       * Without this, we have a small race condition with the web socket
-       * connection to run IDL
-       */
-      setTimeout(() => {
-        // alert parent that we are ready for input - different from prompt ready
-        // because we need to do the "reset" work once it has really opened
-        this.process.emit(IDL_EVENT_LOOKUP.IDL_STARTED, output.idlOutput);
-      }, 25);
+      // emit that IDL has started
+      this.process.emit(IDL_EVENT_LOOKUP.IDL_STARTED, output.idlOutput);
+
+      // /**
+      //  * Use a small timeout so that the prompt ready event propagates
+      //  * before the IDL started event
+      //  *
+      //  * Without this, we have a small race condition with the web socket
+      //  * connection to run IDL
+      //  */
+      // setTimeout(() => {
+      //   // alert parent that we are ready for input - different from prompt ready
+      //   // because we need to do the "reset" work once it has really opened
+      //   this.process.emit(IDL_EVENT_LOOKUP.IDL_STARTED, output.idlOutput);
+      // }, 25);
     });
   }
 
