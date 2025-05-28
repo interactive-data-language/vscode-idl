@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "4.8.0",
+  "version": "5.0.0",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
