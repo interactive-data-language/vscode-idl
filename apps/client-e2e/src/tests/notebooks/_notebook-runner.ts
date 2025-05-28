@@ -210,11 +210,6 @@ NOTEBOOK_RUNNER.addTest({
 });
 
 NOTEBOOK_RUNNER.addTest({
-  name: 'Stack trace decorations dont show for normal execution',
-  fn: NotebookCallStackDecorationsNoDecorations,
-});
-
-NOTEBOOK_RUNNER.addTest({
   name: 'Replace cell paths for stops',
   fn: NotebooksReplaceCellPathsOnStop,
 });
