@@ -160,7 +160,7 @@
     "@typescript-eslint/parser": "7.18.0",
     "@typescript-eslint/utils": "^7.16.0",
     "@vscode/test-electron": "^2.4.1",
-    "@vscode/vsce": "^3.0.0",
+    "@vscode/vsce": "3.0.0",
     "@vscode/webview-ui-toolkit": "^1.4.0",
     "@webcomponents/webcomponentsjs": "^2.8.0",
     "angular-material-css-vars": "^8.0.0",
