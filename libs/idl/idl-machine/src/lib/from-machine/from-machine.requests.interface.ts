@@ -75,3 +75,12 @@ export type FromIDLMachineRequestResponse<T extends FromIDLMachineRequests> =
     : T extends SetForegroundWindowConfirmRequest
     ? SetForegroundWindowConfirmResponse
     : never;
+
+/**
+ * Typed callback for functions that handle IDL Machine requests
+ */
+export type FromIDLMachineRequestHandler<T extends FromIDLMachineRequests> = (
+  params: FromIDLMachineRequestParams<T>
+) =>
+  | FromIDLMachineRequestResponse<T>
+  | Promise<FromIDLMachineRequestResponse<T>>;

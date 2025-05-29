@@ -2,6 +2,10 @@ import { Logger } from '@idl/logger';
 
 import { IDLEvaluationItem } from './idl-interaction-manager.interface';
 import EventEmitter = require('events');
+import {
+  FromIDLMachineRequestHandler,
+  FromIDLMachineRequests,
+} from '@idl/idl/idl-machine';
 import { IDLProcess } from '@idl/idl/idl-process';
 import {
   DEFAULT_IDL_EVALUATE_OPTIONS,
@@ -399,6 +403,18 @@ export class IDLInteractionManager {
    */
   pause() {
     this.idl.pause();
+  }
+
+  /**
+   * Add a custom request handler for a given request from the IDL Machine
+   *
+   * Only one handler can be registered at a time for any event
+   */
+  registerRequestHandler<T extends FromIDLMachineRequests>(
+    event: T,
+    handler: FromIDLMachineRequestHandler<T>
+  ) {
+    this.idl.registerRequestHandler(event, handler);
   }
 
   /**

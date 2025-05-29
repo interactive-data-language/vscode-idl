@@ -6,6 +6,7 @@ import {
   FromIDLMachineNotifications,
 } from './from-machine/from-machine.notifications.interface';
 import {
+  FromIDLMachineRequestHandler,
   FromIDLMachineRequestParams,
   FromIDLMachineRequestResponse,
   FromIDLMachineRequests,
@@ -31,6 +32,15 @@ import {
  * Class to talk to the IDL machine
  */
 export class IDLMachine {
+  /**
+   * Track any request handlers that we may need to respond to manually
+   *
+   * These supercede the defaults we register
+   */
+  _customHandlers: {
+    [T in FromIDLMachineRequests]?: FromIDLMachineRequestHandler<T>;
+  } = {};
+
   /** Message IDs */
   id = 1;
 
@@ -94,27 +104,68 @@ export class IDLMachine {
          * Check for handler
          */
         if ((parsed as JSONRPCRequest).method in this.handlers.requests) {
-          try {
+          /**
+           * Determine how we handle the request
+           */
+          switch (true) {
             /**
-             * Get what we send back
+             * See if theres a custom handler
              */
-            const result = await this.handlers.requests[
-              (parsed as JSONRPCRequest).method
-            ]((parsed as JSONRPCRequest).params);
+            case (parsed as JSONRPCRequest).method in this._customHandlers:
+              try {
+                /**
+                 * Get what we send back
+                 */
+                const result = await this._customHandlers[
+                  (parsed as JSONRPCRequest).method
+                ]((parsed as JSONRPCRequest).params);
 
-            // send message
-            this._writeResponse((parsed as JSONRPCRequest).id, result);
-          } catch (err) {
-            console.log(`Error responding to request`, err);
-            const resp: JSONRPCResponse = {
-              jsonrpc: '2.0',
-              id: (parsed as JSONRPCRequest).id,
-              error: {
-                code: -32000,
-                message: JSON.stringify(ObjectifyError(err)),
-              },
-            };
-            this.idl.stdin.write(JSON.stringify(resp));
+                // send message
+                this._writeResponse((parsed as JSONRPCRequest).id, result);
+              } catch (err) {
+                console.log(
+                  `Error responding to request with custom handler`,
+                  err
+                );
+                const resp: JSONRPCResponse = {
+                  jsonrpc: '2.0',
+                  id: (parsed as JSONRPCRequest).id,
+                  error: {
+                    code: -32000,
+                    message: JSON.stringify(ObjectifyError(err)),
+                  },
+                };
+                this.idl.stdin.write(JSON.stringify(resp));
+              }
+              break;
+
+            /**
+             * Otherwise default to an item we have registered
+             */
+            default:
+              try {
+                /**
+                 * Get what we send back
+                 */
+                const result = await this.handlers.requests[
+                  (parsed as JSONRPCRequest).method
+                ]((parsed as JSONRPCRequest).params);
+
+                // send message
+                this._writeResponse((parsed as JSONRPCRequest).id, result);
+              } catch (err) {
+                console.log(`Error responding to request`, err);
+                const resp: JSONRPCResponse = {
+                  jsonrpc: '2.0',
+                  id: (parsed as JSONRPCRequest).id,
+                  error: {
+                    code: -32000,
+                    message: JSON.stringify(ObjectifyError(err)),
+                  },
+                };
+                this.idl.stdin.write(JSON.stringify(resp));
+              }
+              break;
           }
         } else {
           console.log(`Unhandled request from IDL machine`, parsed);
@@ -213,6 +264,18 @@ export class IDLMachine {
       | Promise<FromIDLMachineRequestResponse<T>>
   ) {
     this.handlers.requests[request] = cb;
+  }
+
+  /**
+   * Add a custom request handler for a given request from the IDL Machine
+   *
+   * Only one handler can be registered at a time for any event
+   */
+  registerRequestHandler<T extends FromIDLMachineRequests>(
+    event: T,
+    handler: FromIDLMachineRequestHandler<T>
+  ) {
+    this._customHandlers[event] = handler as any;
   }
 
   /**

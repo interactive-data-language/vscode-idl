@@ -23,6 +23,7 @@ import {
   IsIDLDirValid,
 } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
+import { RegisterIDLMachineRequestHandlers } from '@idl/vscode/idl-machine';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { compareVersions } from 'compare-versions';
@@ -602,6 +603,9 @@ export class IDLNotebookExecutionManager {
     const launchPromise = new Promise<boolean>((res) => {
       // listen for when we started
       this._runtime.once(IDL_EVENT_LOOKUP.IDL_READY, async () => {
+        // register custom handlers for IDL notifications
+        RegisterIDLMachineRequestHandlers(this._runtime);
+
         // set everything up
         await this._postLaunchAndReset();
 

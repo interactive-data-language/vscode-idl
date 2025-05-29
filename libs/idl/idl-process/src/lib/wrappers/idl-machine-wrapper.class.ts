@@ -1,6 +1,8 @@
 import {
   ExecuteStringFlags,
   FromIDLMachineNotificationParams,
+  FromIDLMachineRequestHandler,
+  FromIDLMachineRequests,
   IDLMachine,
   TOutNotification,
 } from '@idl/idl/idl-machine';
@@ -281,10 +283,7 @@ export class IDLMachineWrapper {
    */
   _listenForRequests() {
     this.machine.onRequest('getKeyboard', () => {
-      /**
-       * TODO
-       */
-      return 'f';
+      return '';
     });
 
     /**
@@ -323,14 +322,12 @@ export class IDLMachineWrapper {
       return 0;
     });
 
-    /**
-     * TODO
-     */
     this.machine.onRequest('readIOLine', (msg) => {
-      // console.log(`read line`);
-      // console.log(msg);
+      return '';
+    });
 
-      return 'I have been read!';
+    this.machine.onRequest('readProgramLine', (msg) => {
+      return '';
     });
 
     this.machine.onRequest('resetSessionConfirm', () => {
@@ -401,6 +398,18 @@ export class IDLMachineWrapper {
    */
   pause() {
     this.machine.sendNotification('abort', undefined);
+  }
+
+  /**
+   * Add a custom request handler for a given request from the IDL Machine
+   *
+   * Only one handler can be registered at a time for any event
+   */
+  registerRequestHandler<T extends FromIDLMachineRequests>(
+    event: T,
+    handler: FromIDLMachineRequestHandler<T>
+  ) {
+    this.machine.registerRequestHandler(event, handler);
   }
 
   /**

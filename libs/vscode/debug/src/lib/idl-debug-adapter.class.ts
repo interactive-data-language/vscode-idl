@@ -22,6 +22,7 @@ import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { VSCODE_PRO_DIR } from '@idl/vscode/client';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
+import { RegisterIDLMachineRequestHandlers } from '@idl/vscode/idl-machine';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import {
@@ -529,6 +530,9 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this._runtime.once(IDL_EVENT_LOOKUP.IDL_READY, async () => {
         // add new line now that we have started
         LogOutput('\n');
+
+        // register custom handlers
+        RegisterIDLMachineRequestHandlers(this._runtime);
 
         // get information about IDL
         const version = CleanIDLOutput(

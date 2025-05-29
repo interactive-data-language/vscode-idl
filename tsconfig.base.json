@@ -150,6 +150,7 @@
         "libs/vscode/extension-config/src/index.ts"
       ],
       "@idl/vscode/help-view": ["libs/vscode/help-view/src/index.ts"],
+      "@idl/vscode/idl-machine": ["libs/vscode/idl-machine/src/index.ts"],
       "@idl/vscode/initialize-types": [
         "libs/vscode/initialize-types/src/index.ts"
       ],
