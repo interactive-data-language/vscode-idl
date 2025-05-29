@@ -46,6 +46,7 @@ const OUTLINED_CLASS = 'vscode-outlined-focus';
       @import 'styles.scss';
     `,
   ],
+  standalone: false,
   providers: [DataSharingService],
 })
 export class EntryComponent implements AfterViewInit {

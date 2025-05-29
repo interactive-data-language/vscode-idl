@@ -15,6 +15,7 @@ export function RoundToNearest(num: number, to: number) {
       @import 'styles.scss';
     `,
   ],
+  standalone: false,
 })
 export class AnimationControlsComponent implements OnInit {
   /**

@@ -8,6 +8,7 @@ import { VSCodeService } from './services/services/vscode.service';
   selector: 'idlwv-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: false,
 })
 export class AppComponent implements OnInit {
   // theming

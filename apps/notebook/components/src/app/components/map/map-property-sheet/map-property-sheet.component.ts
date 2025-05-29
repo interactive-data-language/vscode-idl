@@ -22,6 +22,7 @@ export const IDL_NB_MAP_PROPERTY_SHEET_SELECTOR = 'idl-nb-map-property-sheet';
       }
     `,
   ],
+  standalone: false,
 })
 export class MapPropertySheetComponent implements OnInit {
   /**

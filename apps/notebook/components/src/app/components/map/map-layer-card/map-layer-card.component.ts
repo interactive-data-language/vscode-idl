@@ -29,6 +29,7 @@ import {
       }
     `,
   ],
+  standalone: false,
 })
 export class MapLayerCardComponent {
   /**

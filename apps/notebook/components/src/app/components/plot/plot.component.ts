@@ -32,6 +32,7 @@ export const IDL_NB_PLOT_COMPONENT_SELECTOR = 'idl-nb-plot';
       @import 'styles.scss';
     `,
   ],
+  standalone: false,
 })
 export class PlotComponent
   extends BaseRendererComponent<IDLNotebookPlot>
