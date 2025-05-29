@@ -105,7 +105,7 @@
     "@angular-eslint/template-parser": "19.2.0",
     "@angular/animations": "19.2.14",
     "@angular/cdk": "19.2.18",
-    "@angular/cli": "~19.2.18",
+    "@angular/cli": "~19.2.0",
     "@angular/common": "19.2.14",
     "@angular/compiler": "19.2.14",
     "@angular/compiler-cli": "19.2.14",
