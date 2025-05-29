@@ -67,6 +67,7 @@ export const IDL_NB_MAP_COMPONENT_SELECTOR = 'idl-nb-map';
       }
     `,
   ],
+  standalone: false,
 })
 export class MapComponent
   extends BaseRendererComponent<IDLNotebookMap>

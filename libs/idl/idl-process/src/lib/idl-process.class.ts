@@ -1,3 +1,7 @@
+import {
+  FromIDLMachineRequestHandler,
+  FromIDLMachineRequests,
+} from '@idl/idl/idl-machine';
 import { Logger } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -204,6 +208,18 @@ export class IDLProcess extends EventEmitter {
         this._stdio.pause();
         break;
     }
+  }
+
+  /**
+   * Add a custom request handler for a given request from the IDL Machine
+   *
+   * Only one handler can be registered at a time for any event
+   */
+  registerRequestHandler<T extends FromIDLMachineRequests>(
+    event: T,
+    handler: FromIDLMachineRequestHandler<T>
+  ) {
+    this._machine.registerRequestHandler(event, handler);
   }
 
   /**

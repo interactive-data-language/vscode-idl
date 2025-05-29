@@ -22,6 +22,7 @@ export const IDL_NB_IMAGE_COMPONENT_SELECTOR = 'idl-nb-image';
       @import 'styles.scss';
     `,
   ],
+  standalone: false,
 })
 export class ImageComponent
   extends BaseRendererComponent<IDLNotebookImage_PNG>

@@ -14,6 +14,7 @@ const VSCODE_REGEX = /^vscode_/i;
   selector: 'idlwv-profiler',
   templateUrl: './profiler.component.html',
   styleUrls: ['./profiler.component.scss'],
+  standalone: false,
 })
 export class ProfilerComponent implements OnInit {
   /** Current profiler data, parsed version of string */
