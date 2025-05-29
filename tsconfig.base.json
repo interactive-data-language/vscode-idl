@@ -78,6 +78,7 @@
       "@idl/schemas/tasks": ["libs/schemas/tasks/src/index.ts"],
       "@idl/shared/extension": ["libs/shared/extension/src/index.ts"],
       "@idl/shared/node": ["libs/shared/node/src/index.ts"],
+      "@idl/strip-ansi": ["libs/strip-ansi/src/index.ts"],
       "@idl/system-memory": ["libs/system-memory/src/index.ts"],
       "@idl/tests/assembler": ["libs/tests/assembler/src/index.ts"],
       "@idl/tests/auto-complete": ["libs/tests/auto-complete/src/index.ts"],

@@ -6,7 +6,7 @@ import {
 } from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
 import * as os from 'os';
-import stripAnsi from 'strip-ansi';
+import { StripANSI } from '@idl/strip-ansi';
 
 /**
  * If we use import, it complains about types
@@ -96,7 +96,7 @@ export class IDLStdIOWrapper {
      */
     const handleOutput = (buff: any) => {
       /** Current stdout or stderr */
-      const data = stripAnsi(buff.toString('utf8'));
+      const data = StripANSI(buff.toString('utf8'));
 
       // what do we do?
       switch (true) {

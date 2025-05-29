@@ -1,4 +1,4 @@
-import stripAnsi from 'strip-ansi';
+import { StripANSI } from '@idl/strip-ansi';
 
 /**
  * Extracts properties of our error message so that
@@ -9,11 +9,11 @@ export function ObjectifyError(err: Error) {
   return {
     message:
       typeof err.message === 'string'
-        ? stripAnsi(err.message).split('\n')
+        ? StripANSI(err.message).split('\n')
         : err.message,
     stack:
       typeof err.stack === 'string'
-        ? stripAnsi(err.stack).split('\n')
+        ? StripANSI(err.stack).split('\n')
         : err.stack,
   };
 }
