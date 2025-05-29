@@ -92,7 +92,7 @@
     "vscode-textmate": "^9.1.0",
     "vscode-uri": "^3.0.8",
     "zod": "^3.24.3",
-    "zone.js": "^0.15.1"
+    "zone.js": "^0.14.10"
   },
   "optionalDependencies": {
     "@vis/compliance": "^0.2.3"
