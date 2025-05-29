@@ -60,3 +60,5 @@ compliance/3rdpartylicenses_condensed.md
 compliance/3rdpartylicenses_encryption.csv
 compliance/3rdpartylicenses.csv
 compliance/compliance.json
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md

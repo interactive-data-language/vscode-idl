@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/idl-webview/src",
   "prefix": "idl",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -65,7 +66,8 @@
           "buildTarget": "idl-webview:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -84,6 +86,5 @@
         "jestConfig": "apps/idl-webview/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }
