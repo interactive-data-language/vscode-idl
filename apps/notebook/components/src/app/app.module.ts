@@ -1,5 +1,3 @@
-import '@material/web/all';
-
 import {
   provideHttpClient,
   withInterceptorsFromDi,
