@@ -7,6 +7,14 @@ import { IDLMachineReadIOLineRequestHandler } from './from-machine-requests/idl-
 export function RegisterIDLMachineRequestHandlers(
   manager: IDLInteractionManager
 ) {
+  // i fnot machine, return
+  if (!manager.isIDLMachine()) {
+    return;
+  }
+
+  /**
+   * Register request handlers
+   */
   manager.registerRequestHandler(
     'readIOLine',
     IDLMachineReadIOLineRequestHandler
