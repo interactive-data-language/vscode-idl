@@ -7,10 +7,9 @@ import {
 } from './from-machine/from-machine.notifications.interface';
 import {
   FromIDLMachineRequestHandler,
-  FromIDLMachineRequestParams,
-  FromIDLMachineRequestResponse,
   FromIDLMachineRequests,
 } from './from-machine/from-machine.requests.interface';
+import { IDLNotifyRequest } from './from-machine/requests/idl-machine.idl-notify.interface';
 import { IRequestHandlers, IRequestResolver } from './idl-machine.interface';
 import {
   JSONRPCNotification,
@@ -33,13 +32,21 @@ import {
  */
 export class IDLMachine {
   /**
-   * Track any request handlers that we may need to respond to manually
+   * Track any custom request handlers for the IDL Machine
    *
-   * These supercede the defaults we register
+   * TODO: replace with event-driven messages to support web socket connections
    */
-  _customHandlers: {
-    [T in FromIDLMachineRequests]?: FromIDLMachineRequestHandler<T>;
-  } = {};
+  _customRequestHandlers: {
+    idlNotify: {
+      [key: string]: FromIDLMachineRequestHandler<IDLNotifyRequest>;
+    };
+    handlers: {
+      [T in FromIDLMachineRequests]?: FromIDLMachineRequestHandler<T>;
+    };
+  } = {
+    idlNotify: {},
+    handlers: {},
+  };
 
   /** Message IDs */
   id = 1;
@@ -111,12 +118,13 @@ export class IDLMachine {
             /**
              * See if theres a custom handler
              */
-            case (parsed as JSONRPCRequest).method in this._customHandlers:
+            case (parsed as JSONRPCRequest).method in
+              this._customRequestHandlers.handlers:
               try {
                 /**
                  * Get what we send back
                  */
-                const result = await this._customHandlers[
+                const result = await this._customRequestHandlers.handlers[
                   (parsed as JSONRPCRequest).method
                 ]((parsed as JSONRPCRequest).params);
 
@@ -257,13 +265,19 @@ export class IDLMachine {
    */
   onRequest<T extends FromIDLMachineRequests>(
     request: T,
-    cb: (
-      params: FromIDLMachineRequestParams<T>
-    ) =>
-      | FromIDLMachineRequestResponse<T>
-      | Promise<FromIDLMachineRequestResponse<T>>
+    cb: FromIDLMachineRequestHandler<T>
   ) {
     this.handlers.requests[request] = cb;
+  }
+
+  /**
+   * Add a custom handler for IDL Notify
+   */
+  registerIDLNotifyHandler(
+    idlNotifyEvent: string,
+    handler: FromIDLMachineRequestHandler<IDLNotifyRequest>
+  ) {
+    this._customRequestHandlers.idlNotify[idlNotifyEvent] = handler;
   }
 
   /**
@@ -275,7 +289,7 @@ export class IDLMachine {
     event: T,
     handler: FromIDLMachineRequestHandler<T>
   ) {
-    this._customHandlers[event] = handler as any;
+    this._customRequestHandlers.handlers[event] = handler as any;
   }
 
   /**

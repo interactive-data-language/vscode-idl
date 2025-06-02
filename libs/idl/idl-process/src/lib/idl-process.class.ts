@@ -211,6 +211,16 @@ export class IDLProcess extends EventEmitter {
   }
 
   /**
+   * Add a custom handler for IDL Notify
+   */
+  registerIDLNotifyHandler(
+    idlNotifyEvent: string,
+    handler: FromIDLMachineRequestHandler<'idlNotify'>
+  ) {
+    this._machine.registerIDLNotifyHandler(idlNotifyEvent, handler);
+  }
+
+  /**
    * Add a custom request handler for a given request from the IDL Machine
    *
    * Only one handler can be registered at a time for any event

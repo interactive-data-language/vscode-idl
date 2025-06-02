@@ -291,8 +291,25 @@ export class IDLMachineWrapper {
      *
      * IDL syntax: IDLNotify('id', param1, param2)
      */
-    this.machine.onRequest('idlNotify', (params) => {
+    this.machine.onRequest('idlNotify', async (params) => {
       // console.log('IDL Notify message', params);
+
+      /**
+       * Check for custom handler
+       */
+      if (params.id in this.machine._customRequestHandlers.idlNotify) {
+        try {
+          return await this.machine._customRequestHandlers.idlNotify[params.id](
+            params
+          );
+        } catch (err) {
+          this.process.log.log({
+            type: 'error',
+            content: [`Error handling custom IDL Notify request:`, params, err],
+          });
+          return 0;
+        }
+      }
 
       /**
        * Specific cases for IDL Notifications that we need to handle
@@ -349,8 +366,8 @@ export class IDLMachineWrapper {
    * DO NOT USE THIS METHOD IF IDL IS ACTIVELY RUNNING SOMETHING because
    * it will screw up events.
    *
-   * The use for this is getting scope information immediately before we return
-   * as being complete and cleans up our event management
+   * This method gets called from the IDL Interaction Manager and IDL Process
+   * class which manage the queue for IDL doing work.
    */
   async evaluate(command: string): Promise<IDLOutput> {
     return new Promise((resolve, reject) => {
@@ -398,6 +415,16 @@ export class IDLMachineWrapper {
    */
   pause() {
     this.machine.sendNotification('abort', undefined);
+  }
+
+  /**
+   * Add a custom handler for IDL Notify
+   */
+  registerIDLNotifyHandler(
+    idlNotifyEvent: string,
+    handler: FromIDLMachineRequestHandler<'idlNotify'>
+  ) {
+    this.machine.registerIDLNotifyHandler(idlNotifyEvent, handler);
   }
 
   /**

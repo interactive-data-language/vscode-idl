@@ -19,4 +19,12 @@ export function RegisterIDLMachineRequestHandlers(
     'readIOLine',
     IDLMachineReadIOLineRequestHandler
   );
+
+  // /**
+  //  * Example custom notification handler
+  //  */
+  // manager.registerIDLNotifyHandler('my-notification', (params) => {
+  //   console.log('Custom notification', params);
+  //   return 1;
+  // });
 }
