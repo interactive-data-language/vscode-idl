@@ -1,4 +1,4 @@
-import { PRO_FILE_EXTENSION, TASK_FILE_EXTENSION } from '@idl/shared/extension';
+import { IDLFileHelper } from '@idl/idl/files';
 import { IDL_TRANSLATION } from '@idl/translation';
 import * as vscode from 'vscode';
 
@@ -8,7 +8,8 @@ import * as vscode from 'vscode';
  * Returns undefined if no file is found
  */
 export function GetActivePROCodeOrTaskWindow(
-  alert = true
+  alert = true,
+  allFiles = false
 ): undefined | vscode.TextDocument {
   // get active editor
   const editor = vscode.window.activeTextEditor;
@@ -25,11 +26,23 @@ export function GetActivePROCodeOrTaskWindow(
       return undefined;
 
     // PRO code
-    case editor.document.uri.fsPath.endsWith(PRO_FILE_EXTENSION):
+    case IDLFileHelper.isPROCode(editor.document.uri.fsPath):
+      return editor.document;
+
+    // PRO def file
+    case IDLFileHelper.isPRODef(editor.document.uri.fsPath):
       return editor.document;
 
     // task file
-    case editor.document.uri.fsPath.endsWith(TASK_FILE_EXTENSION):
+    case IDLFileHelper.isTaskFile(editor.document.uri.fsPath):
+      return editor.document;
+
+    // idl.json
+    case allFiles && IDLFileHelper.isConfigFile(editor.document.uri.fsPath):
+      return editor.document;
+
+    // IDL package file
+    case allFiles && IDLFileHelper.isIDLPackageFile(editor.document.uri.fsPath):
       return editor.document;
 
     // nothing we care about

@@ -216,6 +216,7 @@
     "workspaceContains:**/*.pro",
     "workspaceContains:**/*.pro.def",
     "workspaceContains:**/*idl.json",
+    "workspaceContains:**/*idlpackage.json",
     "workspaceContains:**/*.task",
     "workspaceContains:**/*.idlnb",
     "onWebviewPanel:idlPanel",
@@ -1326,6 +1327,10 @@
       {
         "fileMatch": "*idl.json",
         "url": "./extension/language/schemas/config/schema.json"
+      },
+      {
+        "fileMatch": "*idlpackage.json",
+        "url": "./extension/language/schemas/idlpackage/schema.json"
       }
     ],
     "languages": [

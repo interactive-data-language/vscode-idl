@@ -1,4 +1,8 @@
-import { IDL_JSON_URI, TASK_FILE_EXTENSION } from '@idl/shared/extension';
+import {
+  IDL_JSON_URI,
+  IDL_PACKAGE_URI,
+  TASK_FILE_EXTENSION,
+} from '@idl/shared/extension';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
@@ -12,6 +16,10 @@ export const JSON_VALIDATORS = [
   {
     fileMatch: `*${IDL_JSON_URI}`,
     url: './extension/language/schemas/config/schema.json',
+  },
+  {
+    fileMatch: `*${IDL_PACKAGE_URI}`,
+    url: './extension/language/schemas/idlpackage/schema.json',
   },
 ];
 

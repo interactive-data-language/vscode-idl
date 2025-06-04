@@ -1,5 +1,6 @@
 import {
   IDL_JSON_GLOB_PATTERN,
+  IDL_PACKAGE_GLOB_PATTERN,
   NOTEBOOK_GLOB_PATTERN,
   PRO_CODE_GLOB_PATTERN,
   PRO_DEF_GLOB_PATTERN,
@@ -17,6 +18,7 @@ export const BASE_ACTIVATION_EVENTS: string[] = [
   `workspaceContains:${PRO_CODE_GLOB_PATTERN}`,
   `workspaceContains:${PRO_DEF_GLOB_PATTERN}`,
   `workspaceContains:${IDL_JSON_GLOB_PATTERN}`,
+  `workspaceContains:${IDL_PACKAGE_GLOB_PATTERN}`,
   `workspaceContains:${TASK_FILE_GLOB_PATTERN}`,
   `workspaceContains:${NOTEBOOK_GLOB_PATTERN}`,
 ];

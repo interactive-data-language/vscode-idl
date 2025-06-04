@@ -285,8 +285,9 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
       try {
         LogCommandInfo('Format file');
 
-        // check for PRO file
-        const file = GetActivePROCodeOrTaskWindow();
+        // check for active file that we know how to handle
+        // const file = GetActivePROCodeOrTaskWindow(true, true);
+        const file = GetActivePROCodeOrTaskWindow(true);
 
         // make sure we have a file
         if (file !== undefined) {

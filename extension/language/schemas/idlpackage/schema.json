@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Specify the name of the package.",
+      "default": "MyAwesomePackage"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "description": "A description of the package and what it does"
+    },
+    "version": {
+      "type": "string",
+      "title": "Version",
+      "description": "Specify the version of the package. Should be of the format \"major.minor.patch\" such as \"1.0.0\".",
+      "default": "1.0.0"
+    },
+    "author": {
+      "type": "string",
+      "title": "Author",
+      "description": "Specify the author of the package."
+    },
+    "date": {
+      "type": "string",
+      "title": "Date",
+      "description": "Specify the date for package creation. Can be a specific date or a month. Human-readable is OK, no need for special formatting like ISO 8601.",
+      "default": "MyAwesomePackage"
+    },
+    "dependencies": {
+      "type": "array",
+      "title": "Dependencies",
+      "description": "Dependencies of the IDL Package.",
+      "items": {
+        "$ref": "#/definitions/idlpackage-dependency"
+      }
+    },
+    "additionalProperties": true
+  },
+  "description": "Description of an IDL Package for the IDL Package Manager.",
+  "definitions": {
+    "idlpackage-dependency": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "Specify the name of the package to install as a dependency.",
+          "default": "MyAwesomeDependency"
+        },
+        "version": {
+          "type": "string",
+          "title": "Version",
+          "description": "Basic Ranges\n\nA basic range has the form \">1.2.3\". This tells IDL to use the latest version that is after version \"1.2.3\".\n\nNote: No spaces are allowed between the operator and the version number. Also, no spaces are allowed in the version string itself.\n\nIPM supports the following operators:\n\n- \"=\": equal (this is the default when no operator is supplied)\n- \">\": greater than\n- \"<\": less than\n- \">=\": greater than or equal to\n- \"<=\": less than or equal to\n\n---\n\nCombined Ranges\n\nA space between two basic ranges means both ranges must be satisfied. To use range 1 OR range 2, use  \"||\" between two ranges.\n\n- \">=1.2 <1.6\" means any version greater than or equal to 1.2 but also less than 1.6.\n- \">=1.5 || 1.3\" means any version greater than or equal to 1.5, but also allow version 1.3\n\n---\n\nMajor Ranges\n\nThe caret (^) comparison operator is for major level changes (i.e., the major version must be the same). This is useful when comparisons of versions as a major change is breaking.\n\n- \"^1.2.3\" means any version greater than or equal to 1.2.3, but less than 2.0.0 (>=1.2.3 <2.0.0)\n\n---\n\nMinor Ranges\n\nThe tilde (~) comparison operator is for patch level ranges, i.e., both the major and minor versions must be the same.\n\n- \"~1.2.3\" means any version greater than or equal to 1.2.3, but less than 1.3.0 (>=1.2.3 <1.3.0)",
+          "default": "1.0.0"
+        },
+        "url": {
+          "type": "string",
+          "title": "URL",
+          "description": "Specify the URL for the dependency. This should be the GitHub repository or ENVI and IDL Repository server that it can be found at"
+        }
+      }
+    }
+  }
+}

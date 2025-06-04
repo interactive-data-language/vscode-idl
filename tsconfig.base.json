@@ -22,6 +22,7 @@
       "@idl/assembling/config": ["libs/assembling/config/src/index.ts"],
       "@idl/assembling/fixers": ["libs/assembling/fixers/src/index.ts"],
       "@idl/assembling/formatters": ["libs/assembling/formatters/src/index.ts"],
+      "@idl/assembling/idlpackage": ["libs/assembling/idlpackage/src/index.ts"],
       "@idl/assembling/json-formatter": [
         "libs/assembling/json-formatter/src/index.ts"
       ],

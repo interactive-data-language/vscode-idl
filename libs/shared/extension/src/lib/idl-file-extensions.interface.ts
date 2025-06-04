@@ -14,6 +14,11 @@ export const EVS_FILE_EXTENSION = '.evs';
 export const IDL_JSON_URI = 'idl.json';
 
 /**
+ * File naming for IDL Package JSON file
+ */
+export const IDL_PACKAGE_URI = 'idlpackage.json';
+
+/**
  * File extension for IDL notebooks
  */
 export const IDL_NOTEBOOK_EXTENSION = '.idlnb';
@@ -54,6 +59,11 @@ export const TASK_STYLE_FILE_EXTENSION = '.style';
 export const IDL_JSON_GLOB_PATTERN = `**/*${IDL_JSON_URI}`;
 
 /**
+ * Glob pattern for IDL Package files
+ */
+export const IDL_PACKAGE_GLOB_PATTERN = `**/*${IDL_PACKAGE_URI}`;
+
+/**
  * Glob pattern for notebooks
  */
 export const NOTEBOOK_GLOB_PATTERN = `**/*${IDL_NOTEBOOK_EXTENSION}`;
@@ -81,9 +91,9 @@ export const TASK_FILE_GLOB_PATTERN = `**/*${TASK_FILE_EXTENSION}`;
 /**
  * Glob pattern for all files
  */
-export const ALL_FILES_GLOB_PATTERN = `**/*(*${PRO_FILE_EXTENSION}|*${PRO_DEF_EXTENSION}|*${IDL_SAVE_FILE_EXTENSION}|*${IDL_JSON_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
+export const ALL_FILES_GLOB_PATTERN = `**/*(*${PRO_FILE_EXTENSION}|*${PRO_DEF_EXTENSION}|*${IDL_SAVE_FILE_EXTENSION}|*${IDL_JSON_URI}||*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
 
 /**
  * Glob pattern for files we want to actively watch in VSCode
  */
-export const NOTIFY_FILES_GLOB_PATTERN = `**/*(*${PRO_FILE_EXTENSION}|*${PRO_DEF_GLOB_PATTERN}|*${IDL_JSON_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
+export const NOTIFY_FILES_GLOB_PATTERN = `**/*(*${PRO_FILE_EXTENSION}|*${PRO_DEF_EXTENSION}|*${IDL_JSON_URI}||*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;

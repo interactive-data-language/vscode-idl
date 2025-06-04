@@ -1,6 +1,7 @@
 import {
   IDL_JSON_URI,
   IDL_NOTEBOOK_EXTENSION,
+  IDL_PACKAGE_URI,
   IDL_SAVE_FILE_EXTENSION,
   NOTEBOOK_CELL_BASE_NAME,
   PRO_DEF_EXTENSION,
@@ -51,6 +52,13 @@ export class IDLFileHelper {
     return (
       file.includes('#') || file.toLowerCase().endsWith(IDL_NOTEBOOK_EXTENSION)
     );
+  }
+
+  /**
+   * Indicates that a file is an IDL Package file
+   */
+  static isIDLPackageFile(file: string): boolean {
+    return file.toLowerCase().endsWith(IDL_PACKAGE_URI);
   }
 
   /**

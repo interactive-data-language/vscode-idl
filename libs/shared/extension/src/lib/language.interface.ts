@@ -1,5 +1,6 @@
 import {
   IDL_JSON_GLOB_PATTERN,
+  IDL_PACKAGE_GLOB_PATTERN,
   PRO_CODE_GLOB_PATTERN,
   PRO_DEF_GLOB_PATTERN,
   TASK_FILE_GLOB_PATTERN,
@@ -74,32 +75,40 @@ export const LOG_LANGUAGE_TOKEN_SCOPE_NAME = `source.${LOG_LANGUAGE_NAME}`;
  * Language identifier for IDL (per docs for DocumentSelector)
  */
 export const PRO_CODE_DOCUMENT_SELECTOR = {
-  pattern: PRO_CODE_GLOB_PATTERN,
   scheme: 'file',
+  pattern: PRO_CODE_GLOB_PATTERN,
 };
 
 /**
  * Language identifier for IDL def files
  */
-export const PRO_DEF__DOCUMENT_SELECTOR = {
-  pattern: PRO_DEF_GLOB_PATTERN,
+export const PRO_DEF_DOCUMENT_SELECTOR = {
   scheme: 'file',
+  pattern: PRO_DEF_GLOB_PATTERN,
 };
 
 /**
  * Language identifier for task files
  */
 export const TASK_FILE_DOCUMENT_SELECTOR = {
-  pattern: IDL_JSON_GLOB_PATTERN,
   scheme: 'file',
+  pattern: TASK_FILE_GLOB_PATTERN,
 };
 
 /**
- * Language identifier for task files
+ * Language identifier for IDL JSON config files
  */
 export const IDL_CONFIG_FILE_DOCUMENT_SELECTOR = {
-  pattern: TASK_FILE_GLOB_PATTERN,
   scheme: 'file',
+  pattern: IDL_JSON_GLOB_PATTERN,
+};
+
+/**
+ * Language identifier for IDL JSON config files
+ */
+export const IDL_PACKAGE_FILE_DOCUMENT_SELECTOR = {
+  scheme: 'file',
+  pattern: IDL_PACKAGE_GLOB_PATTERN,
 };
 
 /**
@@ -115,8 +124,9 @@ export const IDL_NOTEBOOK_CELL_SELECTOR = {
  */
 export const ALL_DOCUMENT_SELECTORS = [
   PRO_CODE_DOCUMENT_SELECTOR,
-  PRO_DEF__DOCUMENT_SELECTOR,
+  PRO_DEF_DOCUMENT_SELECTOR,
   TASK_FILE_DOCUMENT_SELECTOR,
   IDL_CONFIG_FILE_DOCUMENT_SELECTOR,
   IDL_NOTEBOOK_CELL_SELECTOR,
+  // IDL_PACKAGE_FILE_DOCUMENT_SELECTOR,
 ];
