@@ -58,6 +58,7 @@ export function ENVITaskToGlobal(
       display: task.parameters[i].name.toLowerCase(),
       docs: param.description,
       type: TaskTypeToIDLType(param.type),
+      req: param.required,
     };
   }
 

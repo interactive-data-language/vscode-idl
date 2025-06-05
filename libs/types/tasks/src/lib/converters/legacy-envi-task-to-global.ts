@@ -61,6 +61,7 @@ export function LegacyENVITaskToGlobal(
       display: task.parameters[i].name.toLowerCase(),
       docs: param.description,
       type: TaskTypeToIDLType(param.dataType),
+      req: param.parameterType === 'required',
     };
   }
 
