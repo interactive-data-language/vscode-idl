@@ -1,3 +1,4 @@
+import { StripANSI } from '@idl/strip-ansi';
 import {
   IDL_EVENT_LOOKUP,
   IDLOutput,
@@ -6,7 +7,6 @@ import {
 } from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
 import * as os from 'os';
-import { StripANSI } from '@idl/strip-ansi';
 
 /**
  * If we use import, it complains about types
