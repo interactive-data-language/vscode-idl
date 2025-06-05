@@ -1,7 +1,7 @@
 import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { DocumentFormattingParams } from 'vscode-languageserver/node';
+import { DocumentFormattingParams, TextEdit } from 'vscode-languageserver/node';
 
 import { FormatFile } from '../../helpers/format-file';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
@@ -16,8 +16,9 @@ import { SERVER_INITIALIZED } from '../is-initialized';
  */
 export const ON_DOCUMENT_FORMATTING = async (
   event: DocumentFormattingParams,
-  formatting?: Partial<IAssemblerInputOptions<FormatterType>>
-) => {
+  formatting?: Partial<IAssemblerInputOptions<FormatterType>>,
+  update = true
+): Promise<TextEdit[]> => {
   await SERVER_INITIALIZED;
 
   // log information
@@ -60,8 +61,22 @@ export const ON_DOCUMENT_FORMATTING = async (
       return null;
     }
 
-    // update doc
-    await UpdateDocument(info.uri, formatted, info.doc);
+    /**
+     * Check if we need to update the document
+     */
+    if (update) {
+      await UpdateDocument(info.uri, formatted, info.doc);
+    }
+
+    return [
+      {
+        range: {
+          start: { line: 0, character: 0 },
+          end: { line: Number.MAX_VALUE, character: Number.MAX_VALUE },
+        },
+        newText: formatted,
+      },
+    ];
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,

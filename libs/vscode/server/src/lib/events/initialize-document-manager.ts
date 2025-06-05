@@ -48,7 +48,9 @@ export function InitializeDocumentManager() {
    * Override the type because its not smart enough to recognize optional
    * parameters that do not break the patterns that exist
    */
-  SERVER_CONNECTION.onDocumentFormatting(ON_DOCUMENT_FORMATTING as any);
+  SERVER_CONNECTION.onDocumentFormatting((params) => {
+    return ON_DOCUMENT_FORMATTING(params, {}, false);
+  });
 
   /**
    * Listen for document symbols
