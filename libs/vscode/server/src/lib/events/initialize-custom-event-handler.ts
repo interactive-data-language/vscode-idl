@@ -1,6 +1,6 @@
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 
-import { SERVER_MESSENGER } from '../initialize-server';
+import { SERVER_MESSENGER } from '../initialize-language-server';
 import { ON_ADD_DOCS } from './custom-events/on-add-docs';
 import { ON_DID_RENAME } from './custom-events/on-did-rename';
 import { ON_FOLDER_DELETE } from './custom-events/on-folder-delete';

@@ -5,7 +5,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_CONNECTION,
-} from '../initialize-server';
+} from '../initialize-language-server';
 import { ON_DID_CHANGE_CONTENT } from './documents/on-did-change-content';
 import { ON_DID_CHANGE_WATCHED_FILES } from './documents/on-did-change-watched-files';
 import { ON_DID_CLOSE } from './documents/on-did-close';

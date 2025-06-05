@@ -8,7 +8,7 @@ import { CodeAction, CodeActionParams } from 'vscode-languageserver/node';
 import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
 import { IsIDLDiagnostic } from '../../helpers/is-idl-diagnostinc';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
-import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**

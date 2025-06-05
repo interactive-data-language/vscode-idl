@@ -8,7 +8,7 @@ import {
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import copy from 'fast-copy';
 
-import { GLOBAL_SERVER_SETTINGS } from '../initialize-server';
+import { GLOBAL_SERVER_SETTINGS } from '../initialize-language-server';
 import {
   IDL_CLIENT_CONFIG,
   WORKSPACE_FOLDER_CONFIGS,

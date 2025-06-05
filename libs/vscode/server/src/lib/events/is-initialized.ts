@@ -25,12 +25,12 @@ import {
 import { SendProblems } from '../helpers/send-problems';
 import { SendUsageMetricServer } from '../helpers/send-usage-metric-server';
 import { IDL_CLIENT_CONFIG } from '../helpers/track-workspace-config';
-import { InitializeMCPServer } from '../initialize-mcp-server';
 import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
-} from '../initialize-server';
+} from '../initialize-language-server';
+import { InitializeMCPServer } from '../initialize-mcp-server';
 import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
 import { WORKSPACE_INITIALIZATION } from './documents/on-initialized';
 import { IDL_INDEX } from './initialize-document-manager';

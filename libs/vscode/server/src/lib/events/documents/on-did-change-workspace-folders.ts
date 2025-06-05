@@ -14,7 +14,7 @@ import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
-} from '../../initialize-server';
+} from '../../initialize-language-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 

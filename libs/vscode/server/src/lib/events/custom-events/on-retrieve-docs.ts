@@ -8,7 +8,7 @@ import {
 } from '@idl/vscode/events/messages';
 
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';
-import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 

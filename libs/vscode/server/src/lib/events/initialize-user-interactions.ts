@@ -1,6 +1,6 @@
 import { CompletionItem } from 'vscode-languageserver/node';
 
-import { SERVER_CONNECTION } from '../initialize-server';
+import { SERVER_CONNECTION } from '../initialize-language-server';
 import { ON_CODE_ACTIONS } from './user-interaction/on-code-action';
 import { ON_COMPLETION } from './user-interaction/on-completion';
 import { ON_DEFINITION } from './user-interaction/on-definition';

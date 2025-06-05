@@ -8,7 +8,7 @@ import { deepEqual } from 'fast-equals';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
 import { CAN_SEND_PROBLEMS } from '../events/is-initialized';
-import { SERVER_CONNECTION } from '../initialize-server';
+import { SERVER_CONNECTION } from '../initialize-language-server';
 import { CanReportProblems } from './can-report-problems';
 import { IGNORE_PROBLEM_CODES, INCLUDE_PROBLEMS_FOR } from './merge-config';
 import { SyntaxProblemsToDiagnostic } from './syntax-problem-to-diagnostic';

@@ -12,7 +12,7 @@ import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_CONNECTION,
   SERVER_MESSENGER,
-} from '../../initialize-server';
+} from '../../initialize-language-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { PROMISE_TIMEOUT, SERVER_INITIALIZED } from '../is-initialized';
 import { ON_DID_CHANGE_WORKSPACE_FOLDERS } from './on-did-change-workspace-folders';

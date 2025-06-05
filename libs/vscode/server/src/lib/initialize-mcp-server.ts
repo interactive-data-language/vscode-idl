@@ -9,7 +9,7 @@ import { MCP_CONFIG } from './helpers/merge-config';
 import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
-} from './initialize-server';
+} from './initialize-language-server';
 
 /**
  * Starts our MCP Server and adds all of our known tools

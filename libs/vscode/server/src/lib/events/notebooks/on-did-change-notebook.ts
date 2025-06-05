@@ -8,7 +8,7 @@ import { NotebookCacheValid } from '../../helpers/notebook-cache-valid';
 import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_CONNECTION,
-} from '../../initialize-server';
+} from '../../initialize-language-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { NOTEBOOK_MANAGER } from '../initialize-notebook-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';

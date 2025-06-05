@@ -17,7 +17,7 @@ import { UpdateDocument } from '../../helpers/update-document';
 import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
-} from '../../initialize-server';
+} from '../../initialize-language-server';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
