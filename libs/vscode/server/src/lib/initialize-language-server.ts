@@ -111,7 +111,7 @@ console.error = (...args: any[]) => {
 /**
  * Initialized functionality for our language server
  */
-export function InitializeServer() {
+export function InitializeLanguageServer() {
   // load our translations in our server
   InitializeTranslation(GetVSCodeLocale());
 
