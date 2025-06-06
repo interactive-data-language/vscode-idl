@@ -22,7 +22,7 @@ export function RegisterNotebookCLIProgressHandler(
 
         // attempt to replace
         try {
-          await manager._replaceCellOutput(manager._currentCell, msg.param1);
+          manager._replaceCellOutput(manager._currentCell, msg.param1);
         } catch (err) {
           IDL_LOGGER.log({
             type: 'error',
