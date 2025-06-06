@@ -761,6 +761,8 @@ export interface ITranslation {
       failedExecute: string;
       /** IDL doesn't start in the notebook */
       failedStart: string;
+      /** In notebooks, when we have problems handling CLI progress messages */
+      failedToHandleProgress: string;
       /** Problem with message from renderer being handled */
       handlingMessageFromRenderer: string;
       /** When we close a notebooks */

@@ -1,5 +1,8 @@
-import { CleanPath, IDLFileHelper } from '@idl/idl/files';
-import { NOTEBOOK_CELL_BASE_NAME } from '@idl/shared/extension';
+import {
+  CleanPath,
+  IDLFileHelper,
+  NOTEBOOK_CELL_BASE_NAME,
+} from '@idl/shared/extension';
 import {
   REGEX_IDL_LOCATION,
   REGEX_STOP_DETECTION,

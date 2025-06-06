@@ -51,6 +51,7 @@ import { LogOutput } from './helpers/log-output';
 import { LogSessionStart } from './helpers/log-session-start';
 import { LogSessionStop } from './helpers/log-session-stop';
 import { MapVariables } from './helpers/map-variables';
+import { RegisterDebugAdapterCLIProgressHandler } from './helpers/register-debug-adapter-cli-progress-handler';
 import { IDLBreakpointManager } from './idl-breakpoint-manager.class';
 import {
   DEFAULT_EVALUATE_OPTIONS,
@@ -533,6 +534,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
         // register custom handlers
         RegisterIDLMachineRequestHandlers(this._runtime);
+        RegisterDebugAdapterCLIProgressHandler(this);
 
         // get information about IDL
         const version = CleanIDLOutput(

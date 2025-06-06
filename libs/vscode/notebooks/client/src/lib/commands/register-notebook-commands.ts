@@ -1,5 +1,4 @@
 import {
-  CleanPath,
   DOCS_NOTEBOOK_FOLDER,
   EXAMPLE_NOTEBOOKS,
   GetExtensionPath,
@@ -7,6 +6,7 @@ import {
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { ConvertDocsToNotebook } from '@idl/notebooks/shared';
 import {
+  CleanPath,
   IDL_COMMANDS,
   IDL_LANGUAGE_NAME,
   IDL_NOTEBOOK_EXTENSION,

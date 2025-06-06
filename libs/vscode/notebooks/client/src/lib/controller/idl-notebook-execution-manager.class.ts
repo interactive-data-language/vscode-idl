@@ -1,11 +1,10 @@
 import { ObjectifyError } from '@idl/error-shared';
-import { IDLFileHelper } from '@idl/idl/files';
 import {
   CleanIDLOutput,
   IDLInteractionManager,
 } from '@idl/idl/idl-interaction-manager';
 import { IDL_DEBUG_NOTEBOOK_LOG, IDL_NOTEBOOK_LOG } from '@idl/logger';
-import { Sleep } from '@idl/shared/extension';
+import { IDLFileHelper, Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_EVENT_LOOKUP,
@@ -32,6 +31,7 @@ import * as vscode from 'vscode';
 import { URI } from 'vscode-uri';
 
 import { ExecuteNotebookCell } from './helpers/execute-notebook-cell';
+import { RegisterNotebookCLIProgressHandler } from './helpers/register-notebook-cli-progress-handler';
 import { ReplaceNotebookPaths } from './helpers/replace-notebook-paths';
 import { IDLNotebookController } from './idl-notebook-controller.class';
 import {
@@ -605,6 +605,7 @@ export class IDLNotebookExecutionManager {
       this._runtime.once(IDL_EVENT_LOOKUP.IDL_READY, async () => {
         // register custom handlers for IDL notifications
         RegisterIDLMachineRequestHandlers(this._runtime);
+        RegisterNotebookCLIProgressHandler(this);
 
         // set everything up
         await this._postLaunchAndReset();

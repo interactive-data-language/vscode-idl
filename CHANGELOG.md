@@ -30,6 +30,8 @@ When running a session of IDL, all user actions now properly handle cancellation
 
 Fixed an issue where, for format on save, you would need to save twice for VSCode to pick it up.
 
+IDL Notebooks and the IDL Debug Console now better handle CLI progress events when using IDL 9.2. Notebooks behave like a terminal window and the IDL Debug Console shows progress messages on new lines (limitation of VSCode debug console).
+
 ## Web Extension Changes
 
 We no longer check for the IDL directory existing and being a valid folder on extension startup. Instead, this check is made, and dialogs appear, when starting debug sessions, running notebooks, or starting a terminal session.

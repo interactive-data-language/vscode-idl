@@ -1,6 +1,7 @@
-import { CleanPath, GetCanonicalPath } from '@idl/idl/files';
+import { GetCanonicalPath } from '@idl/idl/files';
 import {
   ALL_DOCUMENT_SELECTORS,
+  CleanPath,
   IDL_LANGUAGE_NAME,
   NOTIFY_FILES_GLOB_PATTERN,
 } from '@idl/shared/extension';

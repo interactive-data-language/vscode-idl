@@ -792,6 +792,8 @@ export const EN: ITranslation = {
         'Unknown problem while preparing a notebook cell to run. Please save notebooks to disk, or file a bug if this persists.',
       failedExecute: 'Failed to execute notebook cells',
       failedStart: 'The notebook session of IDL failed to start',
+      failedToHandleProgress:
+        'Unknown problem trying to embed progress messages in a notebook cell',
       handlingMessageFromRenderer:
         'Error while responding to message from notebook renderer',
       onDidCloseNotebookDocument:

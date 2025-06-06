@@ -1,5 +1,6 @@
-import { CleanPath, IDLFileHelper, NOTEBOOK_FOLDER } from '@idl/idl/files';
+import { NOTEBOOK_FOLDER } from '@idl/idl/files';
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
+import { CleanPath, IDLFileHelper } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   COMPILE_FILE_ERROR,
