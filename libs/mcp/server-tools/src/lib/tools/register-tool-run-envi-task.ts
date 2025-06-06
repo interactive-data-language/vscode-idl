@@ -96,6 +96,11 @@ export function RegisterToolRunENVITask(
       continue;
     }
 
+    // skip private parameters
+    if (prop.private) {
+      continue;
+    }
+
     /** Get cleaned parameter docs */
     const docs = GetCleanDescription(prop.docs); // markdownToTxt(prop.docs);
 
