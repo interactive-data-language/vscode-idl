@@ -73,6 +73,17 @@ pro vscode_runENVITask, taskJSON
     endcase
   end
 
+  ;+
+  ; make sure we have files on disk, no virtual raster stuff
+  ;-
+  params = task.parameterNames()
+  foreach name, params do begin
+    param = task.parameter(name)
+
+    ; set filepaths on disk
+    if (param.type eq 'ENVIVIRTUALIZABLEURI') then param.value = e.getTemporaryFilename(/cleanup_on_exit)
+  endforeach
+
   ; run the task
   task.execute, error = err
 
