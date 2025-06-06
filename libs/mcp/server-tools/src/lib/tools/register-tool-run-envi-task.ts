@@ -1,6 +1,5 @@
 import {
   GlobalStructureToken,
-  IDLTypeHelper,
   IGlobalIndexedToken,
   TASK_REGEX,
 } from '@idl/types/core';
@@ -12,10 +11,9 @@ import {
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
-import { z, ZodRawShape } from 'zod';
+import { ZodRawShape } from 'zod';
 
-import { MCPENVIRaster } from '../helpers/envi-parameters/mcp-envi-raster';
-import { MCPENVIVector } from '../helpers/envi-parameters/mcp-envi-vector';
+import { CreateENVIMCPParameter } from '../helpers/envi-parameters/create-envi-mcp-parameter';
 import { GetCleanDescription } from '../helpers/get-clean-description';
 import { MCPToolRegistry } from '../mcp-tool-registry.class';
 
@@ -46,17 +44,11 @@ export function RegisterToolRunENVITask(
    */
   const args: ZodRawShape = {};
 
-  /** Defualt values */
-  const defaults: { [key: string]: any } = {};
-
   /** Get task properties */
   const props = task.meta.props;
 
   /** Get names of properties */
   const names = Object.keys(props);
-
-  /** Track unhandled parameters and return if we have unknowns */
-  let unhandled = false;
 
   // map them in!
   for (let i = 0; i < names.length; i++) {
@@ -75,125 +67,17 @@ export function RegisterToolRunENVITask(
     /** Get cleaned parameter docs */
     const docs = GetCleanDescription(prop.docs); // markdownToTxt(prop.docs);
 
-    /**
-     * Convert to ZOD
-     */
-    switch (true) {
-      /**
-       * Handle arrays of values
-       */
-      case IDLTypeHelper.isType(prop.type, 'array'): {
-        /** Get type arguments for arrays (i.e. Array<TypeArg>) */
-        const typeArgs = IDLTypeHelper.getAllTypeArgs(prop.type);
+    /** Make zod parameter */
+    const param = CreateENVIMCPParameter(names[i], docs, prop.type);
 
-        switch (true) {
-          /**
-           * Raster
-           */
-          case IDLTypeHelper.isType(typeArgs, 'enviraster'):
-            args[names[i]] = z
-              .array(MCPENVIRaster('Each raster to process'))
-              .describe(docs);
-            break;
-
-          /**
-           * ENVI spectral index
-           */
-          case IDLTypeHelper.isType(typeArgs, 'envispectralindex'):
-            args[names[i]] = z.array(z.string()).describe(docs);
-            break;
-
-          /**
-           * Vector
-           */
-          case IDLTypeHelper.isType(typeArgs, 'envivector'):
-            args[names[i]] = z
-              .array(MCPENVIVector('Each vector to process'))
-              .describe(docs);
-            break;
-
-          /**
-           * String
-           */
-          case IDLTypeHelper.isType(typeArgs, 'string'):
-            args[names[i]] = z.array(z.string()).describe(docs);
-            break;
-
-          /**
-           * bool
-           */
-          case IDLTypeHelper.isType(typeArgs, 'boolean'):
-            args[names[i]] = z.array(z.boolean()).describe(docs);
-            break;
-
-          default:
-            unhandled = true;
-            break;
-        }
-
-        break;
-      }
-
-      /**
-       * ENVI URI
-       */
-      case IDLTypeHelper.isType(prop.type, 'string') &&
-        names[i].endsWith('uri'):
-        defaults[names[i]] = '*';
-        // args[names[i]] = z.string().describe(prop.docs).default('*');
-        break;
-
-      /**
-       * Raster
-       */
-      case IDLTypeHelper.isType(prop.type, 'enviraster'):
-        args[names[i]] = MCPENVIRaster(docs);
-        break;
-
-      /**
-       * ENVI spectral index
-       */
-      case IDLTypeHelper.isType(prop.type, 'envispectralindex'):
-        args[names[i]] = z.string().describe(docs);
-        break;
-
-      /**
-       * Vector
-       */
-      case IDLTypeHelper.isType(prop.type, 'envivector'):
-        args[names[i]] = MCPENVIVector(docs);
-        break;
-
-      /**
-       * String
-       */
-      case IDLTypeHelper.isType(prop.type, 'string'):
-        args[names[i]] = z.string().describe(docs);
-        break;
-
-      /**
-       * Bool
-       */
-      case IDLTypeHelper.isType(prop.type, 'boolean'):
-        args[names[i]] = z.boolean().describe(docs);
-        break;
-
-      default:
-        unhandled = true;
-        break;
-    }
-
-    // return if unhandled
-    if (unhandled) {
+    // check if unknown parameter
+    if (!param) {
       // console.log(`Unhandled task "${task.name}" with parameter`, prop);
       return;
     }
-  }
 
-  // return if unhandled
-  if (unhandled) {
-    // console.log(`Unhandled task "${task.name}" with parameter`, prop);
-    return;
+    // save parameter
+    args[names[i]] = param;
   }
 
   MCPToolRegistry.tool(
@@ -204,7 +88,7 @@ export function RegisterToolRunENVITask(
       // strictly typed parameters and make sure we always have content in the cells
       const params: MCPToolParams<MCPTool_RunENVITask> = {
         taskName,
-        inputParameters: { ...defaults, ...inputParameters },
+        inputParameters,
       };
 
       const resp = (await messenger.sendRequest(
