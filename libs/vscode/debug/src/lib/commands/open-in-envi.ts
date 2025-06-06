@@ -1,4 +1,4 @@
-import { CleanPath } from '@idl/idl/files';
+import { CleanPath } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';

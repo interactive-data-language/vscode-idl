@@ -1,4 +1,4 @@
-import { CleanPath } from '@idl/idl/files';
+import { CleanPath } from '@idl/shared/extension';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_CreateIDLNotebook,

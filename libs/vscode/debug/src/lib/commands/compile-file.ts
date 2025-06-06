@@ -1,4 +1,4 @@
-import { CleanPath } from '@idl/idl/files';
+import { CleanPath } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
 import { GetActivePROCodeWindow } from '@idl/vscode/shared';

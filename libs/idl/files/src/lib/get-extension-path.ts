@@ -1,7 +1,6 @@
+import { CleanPath } from '@idl/shared/extension';
 import { existsSync } from 'fs';
 import { dirname, join } from 'path';
-
-import { CleanPath } from './clean-path';
 
 /**
  * URI for the extension folder when we have a built package

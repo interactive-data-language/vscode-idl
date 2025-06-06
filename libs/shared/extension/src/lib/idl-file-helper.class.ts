@@ -1,18 +1,18 @@
-import {
-  IDL_JSON_URI,
-  IDL_NOTEBOOK_EXTENSION,
-  IDL_PACKAGE_URI,
-  IDL_SAVE_FILE_EXTENSION,
-  NOTEBOOK_CELL_BASE_NAME,
-  PRO_DEF_EXTENSION,
-  PRO_FILE_EXTENSION,
-  TASK_FILE_EXTENSION,
-} from '@idl/shared/extension';
 import { platform } from 'os';
 import { basename, dirname, join } from 'path';
 import { URI } from 'vscode-uri';
 
 import { CleanPath } from './clean-path';
+import {
+  IDL_JSON_URI,
+  IDL_NOTEBOOK_EXTENSION,
+  IDL_PACKAGE_URI,
+  IDL_SAVE_FILE_EXTENSION,
+  PRO_DEF_EXTENSION,
+  PRO_FILE_EXTENSION,
+  TASK_FILE_EXTENSION,
+} from './idl-file-extensions.interface';
+import { NOTEBOOK_CELL_BASE_NAME } from './idl-file-helper.interface';
 
 /**
  * Helper class to determine what kind of file a file is

@@ -1,6 +1,6 @@
+import { CleanPath } from '@idl/shared/extension';
 import { URI } from 'vscode-uri';
 
-import { CleanPath } from './clean-path';
 import { GetCanonicalPath } from './get-canonical-path';
 
 /**

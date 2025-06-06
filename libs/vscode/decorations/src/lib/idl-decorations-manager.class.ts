@@ -1,4 +1,5 @@
-import { IDLFileHelper } from '@idl/idl/files';
+import { IDLFileHelper } from '@idl/shared/extension';
+
 import { Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {

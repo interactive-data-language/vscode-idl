@@ -1,4 +1,3 @@
-export * from './lib/clean-path';
 export * from './lib/create-random-filename';
 export * from './lib/dot-idl-folder.interface';
 export * from './lib/find-files';
@@ -8,6 +7,5 @@ export * from './lib/get-canonical-path';
 export * from './lib/get-extension-path';
 export * from './lib/get-fs-path';
 export * from './lib/idl-dirs.interface';
-export * from './lib/idl-file-helper.class';
 export * from './lib/mcp-folders.interface';
 export * from './lib/notebook-folders.interface';

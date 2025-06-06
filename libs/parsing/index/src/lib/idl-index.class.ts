@@ -4,7 +4,7 @@ import {
   IAssemblerOptions,
 } from '@idl/assembling/config';
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IDLFileHelper, IFolderRecursion } from '@idl/idl/files';
+import { IFolderRecursion } from '@idl/idl/files';
 import {
   IDL_LSP_LOG,
   IDL_WORKER_THREAD_CONSOLE,
@@ -15,7 +15,7 @@ import { Parser } from '@idl/parser';
 import { GetIncludeFile, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
-import { IDL_FILE_TYPE_LOOKUP } from '@idl/shared/extension';
+import { IDL_FILE_TYPE_LOOKUP, IDLFileHelper } from '@idl/shared/extension';
 import { NODE_MEMORY_CONFIG } from '@idl/system-memory';
 import { IncludeToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';

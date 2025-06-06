@@ -1,4 +1,4 @@
-import { CleanPath } from '@idl/idl/files';
+import { CleanPath } from '@idl/shared/extension';
 import { GetActivePROCodeWindow } from '@idl/vscode/shared';
 
 import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';

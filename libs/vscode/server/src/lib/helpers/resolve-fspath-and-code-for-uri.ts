@@ -1,4 +1,5 @@
-import { GetFSPath, IDLFileHelper } from '@idl/idl/files';
+import { GetFSPath } from '@idl/idl/files';
+import { IDLFileHelper } from '@idl/shared/extension';
 import { URI } from 'vscode-uri';
 
 import { NOTEBOOK_MANAGER } from '../events/initialize-notebook-manager';

@@ -1,8 +1,8 @@
 import { TaskAssembler } from '@idl/assembler';
 import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
 import { IDLPackageFormatter } from '@idl/assembling/idlpackage';
-import { IDLFileHelper } from '@idl/idl/files';
 import { LoadTask } from '@idl/schemas/tasks';
+import { IDLFileHelper } from '@idl/shared/extension';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
