@@ -486,6 +486,16 @@ export const EN: ITranslation = {
     },
     openerText: 'ENVI should attempt to open the image shortly, please wait.',
     openerTitle: 'ENVI File Opener',
+    task: {
+      enviNotStarted: 'ENVI has not been started yet or is in a bad state.',
+      executeError:
+        'Error while running the task, see the IDL console for more details',
+      unknownParam:
+        'Unknown ENVI Task parameter detected. Are the input parameters right? The extension uses parameters from the latest ENVI version, so there may be a mismatch if you are not on the latest version.',
+      unknownTask:
+        'Unknown ENVI Task (or we cannot find the code for a task). See debug console for more details.',
+    },
+    taskText: 'Attempting to run task in ENVI',
   },
   generators: {
     errors: {

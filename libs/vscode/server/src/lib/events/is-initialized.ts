@@ -31,6 +31,7 @@ import {
   SERVER_MESSENGER,
 } from '../initialize-language-server';
 import { InitializeMCPServer } from '../initialize-mcp-server';
+import { RegisterUserMCPTools } from '../mcp/register-user-mcp-tools';
 import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
 import { WORKSPACE_INITIALIZATION } from './documents/on-initialized';
 import { IDL_INDEX } from './initialize-document-manager';
@@ -269,6 +270,9 @@ SERVER_INFO.then(async (res) => {
         USAGE_METRIC_LOOKUP.LANGUAGE_SERVER_STARTUP,
         statsDetail
       );
+
+      // using what we parsed, register MCP tools for the user
+      RegisterUserMCPTools();
     } catch (err) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,

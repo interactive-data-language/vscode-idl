@@ -20,6 +20,11 @@ export function RegisterIDLMachineRequestHandlers(
     IDLMachineReadIOLineRequestHandler
   );
 
+  // manager.registerIDLNotifyHandler('cli_progressNotification', params => {
+  //   console.log(params.param1)
+  //   return 1
+  // })
+
   // /**
   //  * Example custom notification handler
   //  */

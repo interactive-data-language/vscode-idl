@@ -93,6 +93,35 @@ export interface MCPToolParams_OpenInENVI {
 export type MCPToolResponse_OpenInENVI = IMCPTool_BaseResponse;
 
 /**
+ * Message when we run an ENVI Task
+ */
+export type MCPTool_RunENVITask = 'run-envi-task';
+
+/**
+ * Payload for running an ENVI Task
+ */
+export interface MCPToolParams_RunENVITask {
+  /** Parameters */
+  inputParameters: { [key: string]: any };
+  /**
+   * Name of the task
+   */
+  taskName: string;
+}
+
+/**
+ * Response for starting ENVI
+ */
+export interface MCPToolResponse_RunENVITask extends IMCPTool_BaseResponse {
+  /** output from IDL */
+  idlOutput?: string;
+  /** output parameters */
+  outputParameters: {
+    [key: string]: any;
+  };
+}
+
+/**
  * Message when start ENVI
  */
 export type MCPTool_StartENVI = 'start-envi';
@@ -136,6 +165,7 @@ export type MCPTools =
   | MCPTool_ExecuteIDLCode
   | MCPTool_ExecuteIDLFile
   | MCPTool_OpenInENVI
+  | MCPTool_RunENVITask
   | MCPTool_StartENVI
   | MCPTool_StartIDL;
 
@@ -151,6 +181,8 @@ export type MCPToolParams<T extends MCPTools> =
     ? MCPToolParams_ExecuteIDLFile
     : T extends MCPTool_OpenInENVI
     ? MCPToolParams_OpenInENVI
+    : T extends MCPTool_RunENVITask
+    ? MCPToolParams_RunENVITask
     : T extends MCPTool_StartENVI
     ? MCPToolParams_StartENVI
     : T extends MCPTool_StartIDL
@@ -169,6 +201,8 @@ export type MCPToolResponse<T extends MCPTools> =
     ? MCPToolResponse_ExecuteIDLFile
     : T extends MCPTool_OpenInENVI
     ? MCPToolResponse_OpenInENVI
+    : T extends MCPTool_RunENVITask
+    ? MCPToolResponse_RunENVITask
     : T extends MCPTool_StartENVI
     ? MCPToolResponse_StartENVI
     : T extends MCPTool_StartIDL
@@ -187,6 +221,8 @@ interface IMCPToolLookup {
   EXECUTE_IDL_FILE: MCPTool_ExecuteIDLFile;
   /** Open a dataset in ENVI */
   OPEN_IN_ENVI: MCPTool_OpenInENVI;
+  /** Run ENVI Task */
+  RUN_ENVI_TASK: MCPTool_RunENVITask;
   /** Start ENVI */
   START_ENVI: MCPTool_StartENVI;
   /** Start IDL */
@@ -201,6 +237,7 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   EXECUTE_IDL_CODE: 'execute-idl-code',
   EXECUTE_IDL_FILE: 'execute-idl-file',
   OPEN_IN_ENVI: 'open-in-envi',
+  RUN_ENVI_TASK: 'run-envi-task',
   START_ENVI: 'start-envi',
   START_IDL: 'start-idl',
 };

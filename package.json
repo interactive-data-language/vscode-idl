@@ -78,6 +78,7 @@
     "fuzzysort": "^3.0.2",
     "glob-to-regexp": "^0.4.1",
     "json-schema-resolver": "^3.0.0",
+    "markdown-to-txt": "^2.0.1",
     "nanoid": "^3.3.7",
     "rxjs": "^7.8.1",
     "socket.io": "^4.8.1",

@@ -474,10 +474,23 @@ export interface ITranslation {
       /** Error when executing ENVI::OpenRaster */
       openError: string;
     };
-    /** Test to be displayed in the webview for opening files in ENVI */
+    /** Text to be displayed in the webview for opening files in ENVI */
     openerText: string;
     /** Title for our custom editor window */
     openerTitle: string;
+    /** Text to print when we run a task */
+    taskText: string;
+    /** Translations when we try to run an ENVI Task */
+    task: {
+      /** ENVI not started */
+      enviNotStarted: string;
+      /** Error while executing our task */
+      executeError: string;
+      /** Unknown task parameter */
+      unknownParam: string;
+      /** Trouble making task */
+      unknownTask: string;
+    };
   };
   /** Messages from generators */
   generators: {
