@@ -18,7 +18,6 @@ import { MCPENVIRaster } from '../helpers/envi-parameters/mcp-envi-raster';
 import { MCPENVIVector } from '../helpers/envi-parameters/mcp-envi-vector';
 import { GetCleanDescription } from '../helpers/get-clean-description';
 import { MCPToolRegistry } from '../mcp-tool-registry.class';
-import { SKIP_THESE_TASKS } from './register-tool-run-envi-task.interface';
 
 /**
  * Registers a tool that can run an ENVI Task
@@ -28,36 +27,8 @@ export function RegisterToolRunENVITask(
   task: IGlobalIndexedToken<GlobalStructureToken>,
   taskId: string // ID for task if we dont want to use names for shorter tools
 ) {
-  // return if not an ENVI task
-  if (
-    !(task.name.startsWith('envi') && task.name.endsWith('task')) ||
-    task.name === 'envitask'
-  ) {
-    return;
-  }
-
-  /**
-   * Cases that we return from
-   */
-  switch (true) {
-    // exclude anything not a task
-    case !(task.name.startsWith('envi') && task.name.endsWith('task')) ||
-      task.name === 'envitask':
-      return;
-    // exluced any of the extract routines which we dont need
-    case task.name.startsWith('extract') && task.name.endsWith('fromfile'):
-      return;
-    default:
-      break;
-  }
-
   /** Get the task name */
   const taskName = TASK_REGEX.exec(task.meta.display)[1];
-
-  // check if we need to skip adding these tools
-  if (taskName.toLowerCase() in SKIP_THESE_TASKS) {
-    return;
-  }
 
   /** Get task description */
   const description = GetCleanDescription(task.meta.docs);
