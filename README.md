@@ -30,6 +30,58 @@
 
 ## About
 
+Version 5.0 is here! This release brings many changes and enhancements. Here's the highlights:
+
+### The IDL Machine
+
+Starting with IDL 9.2, IDL is now natively integrated with VSCode and provides a much better user experience
+
+Here's some of the high-level features and differences compared to previous versions of IDL:
+
+- Faster startup and more responsive execution of commands
+
+- Pause is now natively supported on Windows
+
+- Much better detection of when IDL has stopped and is ready for input
+
+- Internal commands no longer show up in IDL's history items
+
+- Support for the "read" procedure which will prompt users to provide input (supported in the VSCode debug console and IDL Notebooks).
+
+- IDL command line progress natively integrated with IDL Notebooks and has improved user experience in the VSCode debug console
+
+VSCode automatically detects if you are using a newer version of IDL that supports the IDL Machine or if you are on a previous version.
+
+### GitHub Copilot Integration
+
+We now offer a variety of tools that, in Agent mode, GitHub copilot can access and run.
+
+This is a first pass at enabling AI to accelerate IDL development and assist users with their tasks.
+
+Here are some of the tools that we provide and what they do:
+
+- Start IDL
+
+- Execute IDL Code
+
+- Create an IDL Notebook (GitHub Copilot can run notebooks for users)
+
+- Start ENVI
+
+- Open a file in ENVI
+
+### Basic Web Extension
+
+A new, lightweight version of the extension is now supported in the web-based version of VSCode.
+
+This web-extension is very basic, but allows you to have syntax highting, file association, and the ability to view IDL notebooks all from within a browser.
+
+Do note that is does not include the full suite of language features (such as auto-complete, hover help, or the ability to run IDL).
+
+If you use web extensions and would like more features, please reach out and let us know!
+
+---
+
 An open-source extension which brings IDL (Interactive Data Language) to Visual Studio Code! This extension does _not_ include IDL, but you can download it from our website [here](https://portal.nv5geospatialsoftware.com/).
 
 This extension includes:
