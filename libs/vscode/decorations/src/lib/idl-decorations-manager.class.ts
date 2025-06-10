@@ -1,6 +1,4 @@
-import { IDLFileHelper } from '@idl/shared/extension';
-
-import { Sleep } from '@idl/shared/extension';
+import { IDLFileHelper, Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_CODE_COVERAGE_LOOKUP,
