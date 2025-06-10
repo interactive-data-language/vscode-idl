@@ -28,17 +28,17 @@
   </div>
 </p>
 
-## About
+---
 
-Version 5.0 is here! This release brings many changes and enhancements. Here's the highlights:
+**Version 5.0 is here!** This release introduces major new features and improvements. Here are the highlights:
 
-- New integration with IDL (9.2 and later) powered by the IDL Machine
+- **New native integration with IDL 9.2+** powered by the _IDL Machine_ for a faster, more responsive experience in VSCode
 
-- Basic GitHub Copilot integration to help AI run your IDL code and help automate user actions
+- **Initial GitHub Copilot integration** to let AI start IDL, run code, and automate common development tasks
 
-- First pass at a web-extension that allows you to view IDL code and IDL Notebooks in the browser. Do note this is very basic for now and is a first pass at desktop/browser common functionality.
+- **First version of a web extension** allowing you to view IDL code and notebooks directly in the browser — lightweight for now, but a step toward full desktop/browser parity
 
-See the [changelog](./CHANGELOG.md) for more details.
+See the [changelog](./CHANGELOG.md) for full details.
 
 ---
 

@@ -16,92 +16,107 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
-  5.0.0 – June 2024
-  This release introduces a significant evolution in extension functionality, warranting the major version bump to 5.0.0.
+## 5.0.0 – June 2024
 
-⚠️ IDL 9.2 Dependency Notice
-Some features introduced in this release depend on IDL 9.2, which is scheduled for release in July–August 2025. If you are not using IDL 9.2, these features will not be available.
+This release introduces a significant evolution in extension functionality, warranting the major version bump to 5.0.0.
 
-🔧 The IDL Machine
-With IDL 9.2, IDL now offers native integration with VSCode, bringing substantial improvements in performance and user experience.
+### ⚠️ IDL 9.2 Dependency Notice
 
-Key Improvements:
-Faster startup and more responsive command execution
+Some features introduced in this release depend on **IDL 9.2**, which is scheduled for release in **July–August 2025**. If you are not using IDL 9.2, these not all features will not be available.
 
-Pause support is now fully functional on Windows
+---
 
-Improved detection of when IDL is idle and ready for input
+### The IDL Machine
 
-Internal commands are excluded from command history
+With IDL 9.2, IDL now offers **native integration with VSCode**, bringing substantial improvements in performance and user experience.
 
-Support for the READ procedure (interactive user input) in the VSCode Debug Console and IDL Notebooks
+- Faster startup and more responsive command execution
 
-Enhanced progress reporting:
+- Pause support is now fully functional on Windows
 
-Native integration with IDL Notebooks
+- Improved detection of when IDL is idle and ready for input
 
-Cleaner output in the VSCode Debug Console
+- Internal commands are excluded from command history
+
+- Support for the `read` procedure (interactive user input) in the VSCode Debug Console and IDL Notebooks
+
+- Enhanced progress reporting:
+
+  - Native integration with IDL Notebooks
+
+  - Cleaner output in the VSCode Debug Console
 
 VSCode will automatically detect whether your IDL version supports these new features. The legacy debugger remains available for compatibility with older IDL versions and continues to work with both debug sessions and notebooks.
 
-Note: The status bar (bottom-left of VSCode) will no longer display a custom prompt unless you're using IDL 9.2 or newer. This was necessary to streamline the new integration.
+**Note:** The status bar (bottom-left of VSCode) will no longer display a custom prompt unless you're using IDL 9.2 or newer. This was necessary to streamline the new integration.
 
-🤖 GitHub Copilot Integration
-We’ve added initial support for GitHub Copilot in Agent Mode, enabling AI-powered interactions with IDL.
+---
 
-Available Actions:
-Start an IDL session
+### 🤖 GitHub Copilot Integration
 
-Execute IDL code
+We've added initial support for **GitHub Copilot in Agent Mode**, enabling AI-powered interactions with IDL.
 
-Create and run IDL Notebooks
+#### Available Actions:
 
-Launch ENVI
+- Start an IDL session
 
-Open files in ENVI
+- Execute IDL code
 
-This marks our first step toward AI-assisted development in IDL. More capabilities will follow — feedback is welcome!
+- Create and run IDL Notebooks
 
-🌐 Web Extension Support
-We now provide a lightweight version of the extension for the web-based version of VSCode.
+- Launch ENVI
 
-Current Features:
-Syntax highlighting
+- Open files in ENVI
 
-File association for .pro, .sav, and related files
+This marks our first step toward AI-assisted development in IDL. More capabilities will follow and feedback is welcome!
 
-View support for IDL Notebooks
+---
 
-⚠️ This version does not support advanced language features such as auto-completion, hover help, or code execution.
+### 🌐 Web Extension Support
 
-Let us know if you’d like to see more features supported in the web version.
+We now provide a lightweight version of the extension for the **web-based version of VSCode**.
 
-🛠 Fixes and Improvements
-Windows-specific fix: Resolved an issue where IDL’s path was incorrectly set when no workspace was open, potentially causing slow startup.
+#### Current Features:
 
-Notebook stability: No longer reports false errors when stopping a cell mid-execution.
+- Syntax highlighting
 
-Cancellation handling: User actions like code execution now correctly respond to cancellations, preventing misleading error messages.
+- File association for `.pro`, `.sav`, and related files
 
-Format-on-save: Fixed an issue where saving twice was required to trigger formatting.
+- View support for IDL Notebooks
 
-CLI progress handling:
+> ⚠️ This version does **not** support advanced language features such as auto-completion, hover help, or code execution.
 
-IDL Notebooks now mimic terminal output
+Let us know if you'd like to see more features supported in the web version.
 
-VSCode Debug Console shows progress updates on new lines (due to inherent limitations)
+---
 
-Notebook print logic: Corrected auto-detection of implied print for consecutive lines.
+### Fixes and Improvements
 
-Startup checks: Directory validation for IDL now occurs when starting a session, not during extension startup.
+- **Windows-specific fix:** Resolved an issue where IDL's path was incorrectly set when no workspace was open, potentially causing slow startup.
 
-Autocomplete improvements: Property and keyword documentation in hover and auto-complete lists are now alphabetically sorted for easier navigation.
+- **Notebook stability:** No longer reports false errors when stopping a cell mid-execution.
 
-Syntax highlighting: Enhanced for commands like .compile, with proper support for strings, comments, and theme-friendly styling.
+- **Cancellation handling:** User actions like code execution now correctly respond to cancellations, preventing misleading error messages.
 
-Hover help: Fixed a typo in task file documentation.
+- **Format-on-save:** Fixed an issue where saving twice was required to trigger formatting.
 
-ENVI + Notebooks: Starting ENVI UI in a notebook now disables graphics embedding in that cell to prevent blank/empty outputs. For best results, use a dedicated cell to start ENVI and separate cells for visual output.
+- **CLI progress handling:**
+
+  - IDL Notebooks now mimic terminal output
+
+  - VSCode Debug Console shows progress updates on new lines (due to inherent limitations)
+
+- **Notebook auto-print logic:** Corrected auto-detection of implied print for consecutive lines.
+
+- **Startup checks:** Directory validation for IDL now occurs when starting a session, not during extension startup.
+
+- **Autocomplete improvements:** Property and keyword documentation in hover and auto-complete lists are now alphabetically sorted for easier navigation.
+
+- **Syntax highlighting:** Enhanced for commands like `.compile`, with proper support for strings, comments, and theme-friendly styling.
+
+- **Hover help:** Fixed a typo in task file documentation.
+
+- **ENVI + Notebooks:** Starting ENVI UI in a notebook now disables graphics embedding in that cell to prevent blank/empty outputs. For best results, use a dedicated cell to start ENVI and separate cells for visual output. issue where saving twice was required to trigger formatting.
 
 ## 4.7.1 - December 2024
 
