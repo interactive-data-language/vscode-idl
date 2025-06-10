@@ -24,7 +24,7 @@ import {
   IDLVariable,
   IRawBreakpoint,
   IStartIDLConfig,
-  REGEX_COMPILE_ERROR,
+  REGEX_SYNTAX_ERROR,
 } from '@idl/types/idl/idl-process';
 import { URI } from 'vscode-uri';
 
@@ -86,7 +86,7 @@ export class IDLInteractionManager {
 
     /** Match for syntax errors */
     let me: RegExpExecArray;
-    while ((me = REGEX_COMPILE_ERROR.exec(output)) !== null) {
+    while ((me = REGEX_SYNTAX_ERROR.exec(output)) !== null) {
       errors.push({ file: URI.file(me[2]).toString(), line: parseInt(me[3]) });
     }
 

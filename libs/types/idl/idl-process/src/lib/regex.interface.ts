@@ -61,7 +61,7 @@ export const REGEX_STOP_DETECTION_BASIC =
  * Second group: File
  * Third group: Line
  */
-export const REGEX_COMPILE_ERROR =
+export const REGEX_SYNTAX_ERROR =
   /% Syntax error\.\s*At:(\s*([^,]*),\s*Line\s*([0-9]*))/gim;
 
 /**
