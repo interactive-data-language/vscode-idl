@@ -15,6 +15,8 @@ import { FilterMCPENVITasks } from './filter-mcp-envi-tasks';
 
 /**
  * Registers user MCP tools from code and tasks that we have parsed
+ *
+ * WIP: Not complete and GitHub Copilot isn't the best here
  */
 export async function RegisterUserMCPTools() {
   IDL_LANGUAGE_SERVER_LOGGER.log({
@@ -30,7 +32,7 @@ export async function RegisterUserMCPTools() {
     ];
 
   /** Find names of ENVI Tasks  */
-  const keys = FilterMCPENVITasks(Object.keys(structures));
+  const keys = FilterMCPENVITasks(Object.keys(structures)).sort();
 
   // add all ENVI Tasks
   for (let i = 0; i < keys.length; i++) {
