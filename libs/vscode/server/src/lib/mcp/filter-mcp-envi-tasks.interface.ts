@@ -2,6 +2,9 @@
  * Track tasks that we skip running
  */
 export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
+  buildlabelrasterfromclassification: undefined,
+  buildobjectdetectionrasterfromannotation: undefined,
+  buildobjectdetectionrasterfromvector: undefined,
   buildrasterpyramids: undefined,
 
   calculatequacgainoffset: undefined,
@@ -17,10 +20,16 @@ export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
   findrasters: undefined,
 
   geopackagetoshapefile: undefined,
+  generatefilename: undefined,
+  generateindexarray: undefined,
+  getcolorslices: undefined,
+  getcolortable: undefined,
   getversion: undefined,
 
   initializeenvinet5model: undefined,
   initializeenvinet5multimodel: undefined,
+
+  mirrorraster: undefined,
 
   queryalltasks: undefined,
   querytask: undefined,
@@ -39,6 +48,7 @@ export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
   traintensorflowmaskmodel: undefined,
   traintensorflowpixelmodel: undefined,
   traintensorflowobjectmodel: undefined,
+  transposeraster: undefined,
 
   vectortofeaturecount: undefined,
 };
