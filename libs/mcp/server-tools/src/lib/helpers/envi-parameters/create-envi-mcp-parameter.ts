@@ -1,4 +1,4 @@
-import { IDLDataType, IDLTypeHelper } from '@idl/types/core';
+import { IDL_TYPE_LOOKUP, IDLDataType, IDLTypeHelper } from '@idl/types/core';
 import { z } from 'zod';
 
 import { MCPENVIRaster } from './mcp-envi-raster';
@@ -16,7 +16,7 @@ export function CreateENVIMCPParameter(
     /**
      * Handle arrays of values
      */
-    case IDLTypeHelper.isType(type, 'array'): {
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.ARRAY): {
       /** Get type arguments for arrays (i.e. Array<TypeArg>) */
       const typeArgs = IDLTypeHelper.getAllTypeArgs(type);
 
@@ -34,7 +34,8 @@ export function CreateENVIMCPParameter(
     /**
      * ENVI URI
      */
-    case IDLTypeHelper.isType(type, 'string') && name.endsWith('uri'):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.STRING) &&
+      name.endsWith('uri'):
       return z
         .literal('*')
         .describe(
@@ -62,14 +63,30 @@ export function CreateENVIMCPParameter(
     /**
      * String
      */
-    case IDLTypeHelper.isType(type, 'string'):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.STRING):
       return z.string().describe(docs);
 
     /**
      * Bool
      */
-    case IDLTypeHelper.isType(type, 'boolean'):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.BOOLEAN):
       return z.boolean().describe(docs);
+
+    /**
+     * Numbers
+     */
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.NUMBER):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.BIG_INTEGER):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.DOUBLE):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.FLOAT):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.UNSIGNED_LONG64):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.LONG64):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.UNSIGNED_LONG):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.LONG):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.UNSIGNED_INTEGER):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.INTEGER):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.BYTE):
+      return z.number().describe(docs);
 
     default:
       break;
