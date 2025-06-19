@@ -30,6 +30,14 @@
       "description": "Specify the date for package creation. Can be a specific date or a month. Human-readable is OK, no need for special formatting like ISO 8601.",
       "default": "MyAwesomePackage"
     },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "description": "Specify any tags associated with the package."
+    },
     "dependencies": {
       "type": "array",
       "title": "Dependencies",
