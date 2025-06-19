@@ -1,5 +1,5 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { RegisterToolRunENVITask } from '@idl/mcp/server-tools';
+import { TrackENVITaskForMCPServer } from '@idl/mcp/server-tools';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalStructureToken,
@@ -36,7 +36,7 @@ export async function RegisterUserMCPTools() {
 
   // add all ENVI Tasks
   for (let i = 0; i < keys.length; i++) {
-    RegisterToolRunENVITask(
+    TrackENVITaskForMCPServer(
       SERVER_MESSENGER,
       structures[keys[i]][0] as IGlobalIndexedToken<GlobalStructureToken>,
       `${i}`

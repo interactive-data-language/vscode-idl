@@ -93,6 +93,16 @@ export interface MCPToolParams_OpenInENVI {
 export type MCPToolResponse_OpenInENVI = IMCPTool_BaseResponse;
 
 /**
+ * Message when query what tasks ENVI can run
+ */
+export type MCPTool_QueryENVITasks = 'query-envi-tasks';
+
+/**
+ * Message when query what parameters a specific ENVI Task
+ */
+export type MCPTool_QueryENVITaskParmaeters = 'query-envi-task-parameters';
+
+/**
  * Message when we run an ENVI Task
  */
 export type MCPTool_RunENVITask = 'run-envi-task';
@@ -165,6 +175,8 @@ export type MCPTools =
   | MCPTool_ExecuteIDLCode
   | MCPTool_ExecuteIDLFile
   | MCPTool_OpenInENVI
+  | MCPTool_QueryENVITaskParmaeters
+  | MCPTool_QueryENVITasks
   | MCPTool_RunENVITask
   | MCPTool_StartENVI
   | MCPTool_StartIDL;
@@ -221,6 +233,10 @@ interface IMCPToolLookup {
   EXECUTE_IDL_FILE: MCPTool_ExecuteIDLFile;
   /** Open a dataset in ENVI */
   OPEN_IN_ENVI: MCPTool_OpenInENVI;
+  /** Query parameters for tasks ENVI has */
+  QUERY_ENVI_TASK_PARAMETERS: MCPTool_QueryENVITaskParmaeters;
+  /** Query ENVI's tasks */
+  QUERY_ENVI_TASKS: MCPTool_QueryENVITasks;
   /** Run ENVI Task */
   RUN_ENVI_TASK: MCPTool_RunENVITask;
   /** Start ENVI */
@@ -237,6 +253,8 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   EXECUTE_IDL_CODE: 'execute-idl-code',
   EXECUTE_IDL_FILE: 'execute-idl-file',
   OPEN_IN_ENVI: 'open-in-envi',
+  QUERY_ENVI_TASKS: 'query-envi-tasks',
+  QUERY_ENVI_TASK_PARAMETERS: 'query-envi-task-parameters',
   RUN_ENVI_TASK: 'run-envi-task',
   START_ENVI: 'start-envi',
   START_IDL: 'start-idl',
