@@ -17,7 +17,7 @@ export function RegisterToolOpenInENVI(
 ) {
   MCPToolRegistry.tool(
     MCP_TOOL_LOOKUP.OPEN_IN_ENVI,
-    'Open an image in ENVI',
+    'Open an image in ENVI and shows it in the display. Easy way to view imagery for users.',
     {
       uri: z
         .string()

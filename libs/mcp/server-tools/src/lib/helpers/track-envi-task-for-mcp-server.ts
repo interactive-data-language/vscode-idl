@@ -23,7 +23,7 @@ export function TrackENVITaskForMCPServer(
   /** Get the task name */
   const taskName = TASK_REGEX.exec(task.meta.display)[1];
 
-  /** Get task description */
+  /** Get short task description */
   const description = GetCleanDescription(task.meta.docs);
 
   /**
@@ -83,6 +83,8 @@ export function TrackENVITaskForMCPServer(
   // save in lookup
   TASK_LOOKUP[taskName] = description;
 
-  // save parameters
-  PARAMETER_LOOKUP[taskName] = zodToJsonSchema(z.object(args));
+  // save parameters with full description
+  PARAMETER_LOOKUP[taskName] = zodToJsonSchema(
+    z.object(args).describe(GetCleanDescription(task.meta.docs, false))
+  );
 }

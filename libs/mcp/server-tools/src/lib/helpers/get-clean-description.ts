@@ -4,7 +4,12 @@ import markdownToTxt from 'markdown-to-txt';
  * Strips markdown from descriptions and removes any examples (assuming they are code)
  * so that we have smalled payloads for tools
  */
-export function GetCleanDescription(description: string, limit = false) {
+export function GetCleanDescription(description: string, limit = true) {
+  // if we dont limit the description, just remove markdown styling
+  if (!limit) {
+    return markdownToTxt(description);
+  }
+
   /** Strip out examples since they are code */
   const pos = description.toLowerCase().indexOf('## example');
 

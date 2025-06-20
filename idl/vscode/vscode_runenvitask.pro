@@ -45,6 +45,7 @@ pro vscode_runENVITask, taskJSON
     catch, err
     if (err ne 0) then begin
       catch, /cancel
+      help, /last_message
       vscode_reportENVIFailure, 'task-param-error', err
       return
     endif
@@ -56,8 +57,23 @@ pro vscode_runENVITask, taskJSON
       ;+ dehydrate overrides
       strcmp(param.type, 'list', /fold_case): param.value = val
       strcmp(param.type, 'hash', /fold_case): param.value = val
-      strcmp(param.type, 'orderedhash', /fold_case): param.value = param.value = val
+      strcmp(param.type, 'orderedhash', /fold_case): param.value = val
       strcmp(param.type, 'dictionary', /fold_case): param.value = json_parse(json_serialize(val), /dictionary)
+
+      ;+
+      ; Lists or hashes likely need to be hydrated, so try that or just try
+      ; setting the value
+      ;-
+      isa(val, 'hash') || isa(val, 'list'): begin
+        catch, err
+        if (err ne 0) then begin
+          catch, /cancel
+          param.value = val
+        endif else begin
+          param.value = ENVIHydrate(val)
+        endelse
+        catch, /cancel
+      end
 
       ; encrypt password
       strcmp(param.type, 'ENVISecureString', /fold_case): param.value = ENVISecureString(plaintext = val, task.public_key)
