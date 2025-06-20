@@ -68,6 +68,9 @@ pro vscode_runENVITask, taskJSON
         catch, /cancel
       end
 
+      ; encrypt password
+      isa(param.type eq 'ENVISECURESTRING'): param.value = ENVISecureString(plaintext = val, task.public_key)
+
       ; default to just set the value
       else: param.value = val
     endcase
