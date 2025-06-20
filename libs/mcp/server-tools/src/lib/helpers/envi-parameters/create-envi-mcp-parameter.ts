@@ -1,8 +1,10 @@
 import { IDL_TYPE_LOOKUP, IDLDataType, IDLTypeHelper } from '@idl/types/core';
 import { z } from 'zod';
 
-import { MCPENVIRaster } from './mcp-envi-raster';
-import { MCPENVIVector } from './mcp-envi-vector';
+import { MCPENVIRaster } from './types/mcp-envi-raster';
+import { MCPENVIROI } from './types/mcp-envi-roi';
+import { MCPENVISpectralLibrary } from './types/mcp-envi-spectral-library';
+import { MCPENVIVector } from './types/mcp-envi-vector';
 
 export function CreateENVIMCPParameter(
   name: string,
@@ -49,10 +51,29 @@ export function CreateENVIMCPParameter(
       return MCPENVIRaster(docs);
 
     /**
+     * ROI
+     */
+    case IDLTypeHelper.isType(type, 'enviroi'):
+      return MCPENVIROI(docs);
+
+    /**
+     * Passwords - map to proper parameters when we
+     * run the task
+     */
+    case IDLTypeHelper.isType(type, 'envisecurestring'):
+      return z.string().describe(docs);
+
+    /**
      * ENVI spectral index
      */
     case IDLTypeHelper.isType(type, 'envispectralindex'):
       return z.string().describe(docs);
+
+    /**
+     * ENVI spectral library
+     */
+    case IDLTypeHelper.isType(type, 'envispectrallibrary'):
+      return MCPENVISpectralLibrary(docs);
 
     /**
      * Vector
