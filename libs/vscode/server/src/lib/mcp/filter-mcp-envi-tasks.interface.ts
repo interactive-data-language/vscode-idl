@@ -45,6 +45,7 @@ export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
   subsetlabelraster: undefined,
 
   trainingclassificationstatistics: undefined,
+  traintensorflowgridmodel: undefined,
   traintensorflowmaskmodel: undefined,
   traintensorflowpixelmodel: undefined,
   traintensorflowobjectmodel: undefined,

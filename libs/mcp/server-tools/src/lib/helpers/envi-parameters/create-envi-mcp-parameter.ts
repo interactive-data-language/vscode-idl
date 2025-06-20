@@ -1,7 +1,12 @@
 import { IDL_TYPE_LOOKUP, IDLDataType, IDLTypeHelper } from '@idl/types/core';
 import { z } from 'zod';
 
+import { MCPENVICoordSys } from './types/mcp-envi-coord-sys';
+import { MCPENVIDeepLearningONNXModel } from './types/mcp-envi-deep-learning-onnx-model';
+import { MCPENVIGeoJSON } from './types/mcp-envi-geojson';
+import { ENVIMachineLearningModel } from './types/mcp-envi-machine-learning-model';
 import { MCPENVIRaster } from './types/mcp-envi-raster';
+import { MCPENVIRasterSeries } from './types/mcp-envi-raster-series';
 import { MCPENVIROI } from './types/mcp-envi-roi';
 import { MCPENVISpectralLibrary } from './types/mcp-envi-spectral-library';
 import { MCPENVIVector } from './types/mcp-envi-vector';
@@ -45,10 +50,40 @@ export function CreateENVIMCPParameter(
         );
 
     /**
+     * Coordinate system
+     */
+    case IDLTypeHelper.isType(type, 'envicoordsys'):
+      return MCPENVICoordSys(docs);
+
+    /**
+     * Deep Learning model
+     */
+    case IDLTypeHelper.isType(type, 'envideeplearningonnxmodel'):
+      return MCPENVIDeepLearningONNXModel(docs);
+
+    /**
+     * GeoJSON
+     */
+    case IDLTypeHelper.isType(type, 'envigeojson'):
+      return MCPENVIGeoJSON(docs);
+
+    /**
+     * Machine Learning model
+     */
+    case IDLTypeHelper.isType(type, 'envimachinelearningmodel'):
+      return ENVIMachineLearningModel(docs);
+
+    /**
      * Raster
      */
     case IDLTypeHelper.isType(type, 'enviraster'):
       return MCPENVIRaster(docs);
+
+    /**
+     * Raster series
+     */
+    case IDLTypeHelper.isType(type, 'envirasterseries'):
+      return MCPENVIRasterSeries(docs);
 
     /**
      * ROI
@@ -92,6 +127,20 @@ export function CreateENVIMCPParameter(
      */
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.BOOLEAN):
       return z.boolean().describe(docs);
+
+    /**
+     * List
+     */
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.LIST):
+      return z.array(z.any()).describe(docs);
+
+    /**
+     * Objects/hashes
+     */
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.HASH):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.ORDERED_HASH):
+    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.DICTIONARY):
+      return z.record(z.any()).describe(docs);
 
     /**
      * Numbers

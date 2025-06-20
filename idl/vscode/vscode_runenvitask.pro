@@ -53,23 +53,14 @@ pro vscode_runENVITask, taskJSON
     ; Handle variations of parameters
     ;-
     case (!true) of
-      ;+
-      ; Lists or hashes likely need to be hydrated, so try that or just try
-      ; setting the value
-      ;-
-      isa(val, 'hash') || isa(val, 'list'): begin
-        catch, err
-        if (err ne 0) then begin
-          catch, /cancel
-          param.value = val
-        endif else begin
-          param.value = ENVIHydrate(val)
-        endelse
-        catch, /cancel
-      end
+      ;+ dehydrate overrides
+      strcmp(param.type, 'list', /fold_case): param.value = val
+      strcmp(param.type, 'hash', /fold_case): param.value = val
+      strcmp(param.type, 'orderedhash', /fold_case): param.value = param.value = val
+      strcmp(param.type, 'dictionary', /fold_case): param.value = json_parse(json_serialize(val), /dictionary)
 
       ; encrypt password
-      isa(param.type eq 'ENVISECURESTRING'): param.value = ENVISecureString(plaintext = val, task.public_key)
+      strcmp(param.type, 'ENVISecureString', /fold_case): param.value = ENVISecureString(plaintext = val, task.public_key)
 
       ; default to just set the value
       else: param.value = val
