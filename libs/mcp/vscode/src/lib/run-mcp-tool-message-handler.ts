@@ -1,5 +1,11 @@
 import { IDL_MCP_LOG } from '@idl/logger';
-import { MCPToolParams, MCPToolResponse, MCPTools } from '@idl/types/mcp';
+import {
+  MCPTool_QueryENVITaskParmaeters,
+  MCPTool_QueryENVITasks,
+  MCPToolParams,
+  MCPToolResponse,
+  MCPTools,
+} from '@idl/types/mcp';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   MCP_LSP_MessagePayload,
@@ -20,7 +26,10 @@ import { RunMCPStartIDL } from './tools/run-mcp-start-idl';
  * Typed lookup of functions that we register for our tools
  */
 export const MCP_TOOL_LOOKUP: {
-  [key in MCPTools]: (
+  [key in Exclude<
+    MCPTools,
+    MCPTool_QueryENVITaskParmaeters | MCPTool_QueryENVITasks
+  >]: (
     id: string,
     params: MCPToolParams<key>
   ) => MCPToolResponse<key> | Promise<MCPToolResponse<key>>;
