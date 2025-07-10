@@ -495,7 +495,8 @@
               "autoFix": true,
               "eol": "lf",
               "styleAndFormat": true,
-              "tabWidth": 2
+              "tabWidth": 2,
+              "hangingIndent": false
             },
             "properties": {
               "autoDoc": {
@@ -525,6 +526,10 @@
               "tabWidth": {
                 "type": "number",
                 "description": "%configuration.properties.code.formatting.tabWidth%"
+              },
+              "hangingIndent": {
+                "type": "boolean",
+                "description": "%configuration.properties.code.formatting.hangingIndent%"
               }
             }
           },

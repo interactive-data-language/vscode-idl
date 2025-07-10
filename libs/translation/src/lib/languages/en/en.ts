@@ -320,6 +320,8 @@ export const EN: ITranslation = {
         styleAndFormat:
           'When we process our code, do we apply our styles and format?\n\nIf this is set to `false` and `autoDoc` is enabled, then we add documentation to your code without changing anything else.',
         tabWidth: 'Number of spaces to use for indentation.',
+        hangingIndent:
+          'Do we use hanging indentation for multi-line statements?\n\nFor multi-line statements this means that the first line begins at the standard indentation level and all subsequent lines are indented further to align with a syntactic element (e.g., after an opening parenthesis), rather than using a uniform block indent.\n\nThis affect routine names, function calls, procedure calls, arrays, structures, and parentheses.',
       },
       'code.formattingStyle': {
         binary:

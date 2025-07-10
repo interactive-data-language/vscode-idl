@@ -9,14 +9,25 @@ import { DONT_INDENT_INSIDE_OF } from './merge-rules.interface';
 export function GetNewLine(
   indentLevel: number,
   tabWidth: number,
-  tokenParent: TreeToken<TokenName> | undefined
+  tokenParent: TreeToken<TokenName> | undefined,
+  hangingLine: number | undefined
 ): string[] {
-  // determine how to start our line
-  if (!(tokenParent?.name in DONT_INDENT_INSIDE_OF)) {
-    if (indentLevel > 0) {
-      return [MakeSpaces(indentLevel * tabWidth)];
-    }
+  // return if we dont indent
+  if (tokenParent?.name in DONT_INDENT_INSIDE_OF) {
+    return [''];
   }
 
-  return [''];
+  // check for presence of hanging line
+  if (hangingLine) {
+    return [MakeSpaces(hangingLine)];
+  }
+
+  switch (true) {
+    // if we have an indent level, then indent
+    case indentLevel > 0:
+      return [MakeSpaces(indentLevel * tabWidth)];
+
+    default:
+      return [''];
+  }
 }

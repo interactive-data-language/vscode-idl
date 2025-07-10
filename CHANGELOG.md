@@ -100,6 +100,8 @@ Let us know if you'd like to see more features supported in the web version.
 
 - **Format-on-save:** Fixed an issue where saving twice was required to trigger formatting.
 
+- **Formatting supports hanging indent:** There's a new option in the formatter that allows you to enable hanging indent instead of the default block indent.
+
 - **CLI progress handling:**
 
   - IDL Notebooks now mimic terminal output

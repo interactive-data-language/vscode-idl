@@ -392,12 +392,13 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
   },
   code: {
     formatting: {
-      // manually unpack as there are extra properties we dont want/need
+      // manually unpack as there are extra properties we dont want/need exposed
       autoDoc: DEFAULT_ASSEMBLER_OPTIONS.autoDoc,
       autoFix: DEFAULT_ASSEMBLER_OPTIONS.autoFix,
       eol: DEFAULT_ASSEMBLER_OPTIONS.eol,
       styleAndFormat: DEFAULT_ASSEMBLER_OPTIONS.styleAndFormat,
       tabWidth: DEFAULT_ASSEMBLER_OPTIONS.tabWidth,
+      hangingIndent: DEFAULT_ASSEMBLER_OPTIONS.hangingIndent,
     },
     formattingStyle: copy(DEFAULT_CODE_STYLE),
   },

@@ -56,6 +56,8 @@ export interface ITrueBaseAssemblerOptions {
   autoFix: boolean;
   /** Character used for end-of-line. Follows pattern for prettier at https://prettier.io/docs/en/options.html#end-of-line */
   eol: 'crlf' | 'lf';
+  /** Do we use a hanging indent or not? */
+  hangingIndent: boolean;
   /** Flag that indicates we apply our styles and format the code */
   styleAndFormat: boolean;
   /** How many spaces do we use for indents */
@@ -100,6 +102,7 @@ export interface IAssemblerOptions<T extends FormatterType>
  */
 export const DEFAULT_ASSEMBLER_OPTIONS: IAssemblerOptions<FiddleFormatter> = {
   formatter: ASSEMBLER_FORMATTER_LOOKUP.FIDDLE,
+  hangingIndent: false,
   tabWidth: 2,
   eol: 'lf',
   style: DEFAULT_CODE_STYLE,

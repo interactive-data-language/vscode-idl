@@ -233,6 +233,14 @@ export function AddCodeConfig(nls: IPackageNLS) {
           formatPropertyBase
         ),
       },
+      hangingIndent: {
+        type: 'boolean',
+        description: TranslationFromConfiguration(
+          'hangingIndent',
+          nls,
+          formatPropertyBase
+        ),
+      },
     },
   };
 

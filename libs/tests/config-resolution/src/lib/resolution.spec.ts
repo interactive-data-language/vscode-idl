@@ -40,6 +40,7 @@ describe(`[auto generated] Correctly identify parses and returns config files`, 
     // verify results
     expect({
       formatter: 'fiddle',
+      hangingIndent: false,
       tabWidth: 2,
       eol: 'lf',
       style: {
@@ -71,6 +72,7 @@ describe(`[auto generated] Correctly identify parses and returns config files`, 
     // verify results
     expect({
       formatter: 'fiddle',
+      hangingIndent: false,
       tabWidth: 2,
       eol: 'lf',
       style: {
@@ -102,6 +104,7 @@ describe(`[auto generated] Correctly identify parses and returns config files`, 
     // verify results
     expect({
       formatter: 'fiddle',
+      hangingIndent: false,
       tabWidth: 2,
       eol: 'lf',
       style: {
