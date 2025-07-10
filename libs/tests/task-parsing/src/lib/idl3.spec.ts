@@ -38,6 +38,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'task_name',
               docs: 'The name of a task that will be queried for its definition.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: true,
             },
             definition: {
               source: 'user',
@@ -55,6 +56,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: true,
             },
           },
         },

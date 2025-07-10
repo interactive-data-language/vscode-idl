@@ -47,6 +47,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: true,
             },
             raster_filename: {
               source: 'user',
@@ -57,6 +58,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'raster_filename',
               docs: 'Filename string of the input raster.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             header_location: {
               source: 'user',
@@ -67,6 +69,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'header_location',
               docs: "Directory where the file's header, which contains the new metadata, will be saved.",
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             ncolumns: {
               source: 'user',
@@ -77,6 +80,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'ncolumns',
               docs: 'The number of column or samples per image for each band.',
               type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              req: true,
             },
             nrows: {
               source: 'user',
@@ -87,6 +91,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'nrows',
               docs: 'The number of lines or rows per image for each band.',
               type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              req: true,
             },
             nbands: {
               source: 'user',
@@ -97,6 +102,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'nbands',
               docs: 'The number of bands per image file.',
               type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              req: true,
             },
             interleave: {
               source: 'user',
@@ -107,6 +113,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'interleave',
               docs: 'Specifies the data interleave of the raster.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: true,
             },
             byte_order: {
               source: 'user',
@@ -117,6 +124,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'byte_order',
               docs: 'The order of the bytes in integer, long integer, 64-bit integer, unsigned 64-bit integer, floating point, double precision, and complex data types. Byte order=0 (Host (Intel) in the Header Info dialog) is least significant byte first (LSF) data (DEC and MS-DOS systems). Byte order=1 (Network (IEEE) in the Header Info dialog) is most significant byte first (MSF) data (all other platforms).',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: true,
             },
             data_type: {
               source: 'user',
@@ -127,6 +135,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'data_type',
               docs: 'The data type of the raster pixel data.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: true,
             },
             file_type: {
               source: 'user',
@@ -137,6 +146,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'file_type',
               docs: 'File type in which the raster is stored.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             header_offset: {
               source: 'user',
@@ -149,6 +159,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               type: [
                 { name: 'ULong64', display: 'ULong64', args: [], meta: {} },
               ],
+              req: false,
             },
             x_start: {
               source: 'user',
@@ -159,6 +170,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'x_start',
               docs: 'Defines the X image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.',
               type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              req: false,
             },
             y_start: {
               source: 'user',
@@ -169,6 +181,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'y_start',
               docs: 'Defines the Y image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.',
               type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              req: false,
             },
             default_stretch: {
               source: 'user',
@@ -179,6 +192,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'default_stretch',
               docs: 'Determines what type of stretch (% linear, linear range, Gaussian, equalization, square root) to use when ENVI displays the image.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             acquisition_time: {
               source: 'user',
@@ -189,6 +203,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'acquisition_time',
               docs: 'Data acquisition time string that conforms to the ISO-8601 standard..',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             band_names: {
               source: 'user',
@@ -208,6 +223,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             classes: {
               source: 'user',
@@ -218,6 +234,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'classes',
               docs: 'The number of classes in the image.',
               type: [{ name: 'UInt', display: 'UInt', args: [], meta: {} }],
+              req: false,
             },
             class_names: {
               source: 'user',
@@ -237,6 +254,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             class_lookup: {
               source: 'user',
@@ -256,6 +274,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             cloud_cover: {
               source: 'user',
@@ -266,6 +285,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'cloud_cover',
               docs: 'Percentage of cloud cover within the raster.',
               type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              req: false,
             },
             complex_function: {
               source: 'user',
@@ -276,6 +296,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'complex_function',
               docs: 'Specifies the values to calculate from a complex image and to use when displaying the image, calculating statistics for the image, or writing the image to a new file.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             data_ignore_value: {
               source: 'user',
@@ -286,6 +307,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'data_ignore_value',
               docs: 'Pixel value that should be ignored in image processing.',
               type: [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+              req: false,
             },
             _description: {
               source: 'user',
@@ -305,6 +327,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             data_gain_values: {
               source: 'user',
@@ -324,6 +347,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             data_offset_values: {
               source: 'user',
@@ -343,6 +367,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             data_reflectance_gain_values: {
               source: 'user',
@@ -362,6 +387,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             data_reflectance_offset_values: {
               source: 'user',
@@ -381,6 +407,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             fwhm: {
               source: 'user',
@@ -400,6 +427,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             bbl: {
               source: 'user',
@@ -417,6 +445,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             default_bands: {
               source: 'user',
@@ -436,6 +465,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             spatialref: {
               source: 'user',
@@ -453,6 +483,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             auxiliary_rpc_spatialref: {
               source: 'user',
@@ -470,6 +501,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             read_procedures: {
               source: 'user',
@@ -489,6 +521,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             z_plot_titles: {
               source: 'user',
@@ -508,6 +541,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             z_plot_range: {
               source: 'user',
@@ -527,6 +561,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             reflectance_scale_factor: {
               source: 'user',
@@ -537,6 +572,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'reflectance_scale_factor',
               docs: 'The value that, when divided into your data, would scale it from 0-1 reflectance. For example, if the value of 10,000 in your data represents a reflectance value of 1.0, enter a reflectance scale factor of 10,000.',
               type: [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+              req: false,
             },
             security_tag: {
               source: 'user',
@@ -547,6 +583,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'security_tag',
               docs: 'A string with security information inherited from formats that typically contain security classification levels (such as NITF).',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             sensor_type: {
               source: 'user',
@@ -564,6 +601,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             dem_file: {
               source: 'user',
@@ -574,6 +612,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'dem_file',
               docs: 'Path and filename of a DEM associated with the image.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             dem_band: {
               source: 'user',
@@ -584,6 +623,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'dem_band',
               docs: 'Index (starting at 1) of a selected DEM band associated with the image.',
               type: [{ name: 'UInt', display: 'UInt', args: [], meta: {} }],
+              req: false,
             },
             wavelength: {
               source: 'user',
@@ -603,6 +643,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             wavelength_units: {
               source: 'user',
@@ -613,6 +654,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'wavelength_units',
               docs: 'Specifies the units of the wavelength information.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             sun_elevation: {
               source: 'user',
@@ -623,6 +665,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'sun_elevation',
               docs: 'Angle of the sun (in degrees) above the horizon.',
               type: [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+              req: false,
             },
             sun_azimuth: {
               source: 'user',
@@ -633,6 +676,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'sun_azimuth',
               docs: 'Angle of the sun (in degrees) from due north in a clockwise direction.',
               type: [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+              req: false,
             },
             solar_irradiance: {
               source: 'user',
@@ -652,6 +696,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             timestamp: {
               source: 'user',
@@ -671,6 +716,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             custom_metadata: {
               source: 'user',
@@ -688,6 +734,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             output_raster_uri: {
               source: 'user',
@@ -698,6 +745,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'output_raster_uri',
               docs: 'Specify a string with the fully-qualified path and filename for output_raster.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             output_raster: {
               source: 'user',
@@ -715,6 +763,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
           },
         },

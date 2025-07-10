@@ -49,6 +49,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: false,
             },
             task_definitions: {
               source: 'user',
@@ -66,6 +67,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: true,
             },
           },
         },

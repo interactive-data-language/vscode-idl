@@ -47,6 +47,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: true,
             },
             scale: {
               source: 'user',
@@ -57,6 +58,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'scale',
               docs: 'Specify the scale of the CADRG files.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             classification: {
               source: 'user',
@@ -67,6 +69,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'classification',
               docs: 'Specify the classification level of the CADRG files.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             producer_code: {
               source: 'user',
@@ -77,6 +80,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'producer_code',
               docs: 'Specify the producer code of the CADRG files.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             release_code: {
               source: 'user',
@@ -87,6 +91,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'release_code',
               docs: 'Specify the release code of the CADRG files.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             country_code: {
               source: 'user',
@@ -97,6 +102,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'country_code',
               docs: 'Specify the country code of the CADRG files.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             originating_station_id: {
               source: 'user',
@@ -107,6 +113,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'originating_station_id',
               docs: 'Specify the Originating Station ID tag used by NITF.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             originator_name: {
               source: 'user',
@@ -117,6 +124,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'originator_name',
               docs: "Specify the Originator's Name tag used by NITF.",
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: false,
             },
             output_directory: {
               source: 'user',
@@ -127,6 +135,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'output_directory',
               docs: 'Directory in which the resulting CADRG files will be written.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: true,
             },
             output_raster: {
               source: 'user',
@@ -153,6 +162,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   meta: {},
                 },
               ],
+              req: true,
             },
           },
         },

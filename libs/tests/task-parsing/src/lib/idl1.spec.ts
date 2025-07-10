@@ -40,6 +40,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 's3_url',
               docs: 'The S3 URL to download.  This must use the HTTP[S] scheme, not S3 scheme.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: true,
             },
             local_file: {
               source: 'user',
@@ -50,6 +51,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'local_file',
               docs: 'The local file in which to download the S3 resource.',
               type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              req: true,
             },
           },
         },
