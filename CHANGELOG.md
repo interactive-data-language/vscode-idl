@@ -102,6 +102,8 @@ Let us know if you'd like to see more features supported in the web version.
 
 - **Formatting supports hanging indent:** There's a new option in the formatter that allows you to enable hanging indent instead of the default block indent.
 
+- **Formatting with syntax errors**: Improved handling of two scenarios where formatting would run when it shouldn't and would break your code.
+
 - **Outline now enables sticky headers:** The outline has been updated to provide a sticky header showing you what routine you are working inside of
 
 - **CLI progress handling:**

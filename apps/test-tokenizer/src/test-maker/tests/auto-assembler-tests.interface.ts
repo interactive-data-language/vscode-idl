@@ -1090,6 +1090,78 @@ export const AUTO_ASSEMBLER_TESTS: IAutoAssemblerTest[] = [
     ],
   },
   {
+    suiteName: `Verify we do not format when we have bad syntax errors`,
+    fileName: `can-assemble.double-token.1.spec.ts`,
+    tests: [
+      {
+        name: `do not format when double token is present`,
+        code: [`compile_opt idl2`, `print, a + +   2`, `end`],
+      },
+    ],
+  },
+  {
+    suiteName: `Verify we do not format when we have bad syntax errors`,
+    fileName: `can-assemble.reserved-var.1.spec.ts`,
+    tests: [
+      {
+        name: `like reserved variables for procedure defs`,
+        code: [
+          ``,
+          `function test`,
+          `  compile_opt idl2`,
+          `  foreach a, [1, 2, 3] do begin`,
+          `    print, a`,
+          `  end`,
+          ``,
+          ``,
+          `  pro test`,
+          `  compile_opt idl2`,
+          `  test`,
+          `end`,
+        ],
+      },
+      {
+        name: `like reserved variables for function defs`,
+        code: [
+          ``,
+          `function test`,
+          `  compile_opt idl2`,
+          `  foreach a, [1, 2, 3] do begin`,
+          `    print, a`,
+          `  end`,
+          ``,
+          ``,
+          `  function test`,
+          `  compile_opt idl2`,
+          `  test`,
+          `  return, 1`,
+          `end`,
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Verify we do not format when we have bad syntax errors`,
+    fileName: `can-assemble.unclosed-token.1.spec.ts`,
+    tests: [
+      {
+        name: `unclosed tokens are ignored`,
+        code: [
+          `pro mypro,   arg1, arg2, arg3,  KW1=kw1,$ ; commment`,
+          `KW2 = kw2, KW3 = kw3     `,
+          `     compile_opt idl2    `,
+          `        `,
+          `  a = myfunc(`,
+          `end     `,
+        ],
+      },
+      {
+        name: `unclosed main level is ignored`,
+        code: [`     compile_opt idl2    `, `        `, `a = 5     `],
+      },
+    ],
+  },
+  {
     suiteName: `Format def files correctly`,
     fileName: `def-files.from-pro.1.spec.ts`,
     tests: [
@@ -1581,27 +1653,6 @@ export const AUTO_ASSEMBLER_TESTS: IAutoAssemblerTest[] = [
           `end`,
           ``,
         ],
-      },
-    ],
-  },
-  {
-    suiteName: `Verify we do not format when we have bad syntax errors`,
-    fileName: `format.respect-errors.1.spec.ts`,
-    tests: [
-      {
-        name: `unclosed tokens are ignored`,
-        code: [
-          `pro mypro,   arg1, arg2, arg3,  KW1=kw1,$ ; commment`,
-          `KW2 = kw2, KW3 = kw3     `,
-          `     compile_opt idl2    `,
-          `        `,
-          `  a = myfunc(`,
-          `end     `,
-        ],
-      },
-      {
-        name: `unclosed main level is ignored`,
-        code: [`     compile_opt idl2    `, `        `, `a = 5     `],
       },
     ],
   },
