@@ -1,5 +1,5 @@
-import { GetExtensionPath } from '@idl/idl/files';
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { readFile } from 'fs/promises';

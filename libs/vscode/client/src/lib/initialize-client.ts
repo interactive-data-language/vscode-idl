@@ -1,5 +1,5 @@
-import { CleanPath } from '@idl/shared/extension';
 import { IDL_LOG } from '@idl/logger';
+import { CleanPath } from '@idl/shared/extension';
 import { GetVSCodeLocale } from '@idl/shared/node';
 import { InitializeTranslation } from '@idl/translation';
 import {

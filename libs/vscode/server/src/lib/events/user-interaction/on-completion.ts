@@ -3,9 +3,8 @@ import {
   FormatterType,
   IAssemblerOptions,
 } from '@idl/assembling/config';
-import { IDLFileHelper } from '@idl/shared/extension';
-
 import { IDL_LSP_LOG } from '@idl/logger';
+import { IDLFileHelper } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   CompletionItem,

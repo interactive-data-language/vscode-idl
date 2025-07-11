@@ -1,7 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IDLFileHelper } from '@idl/shared/extension';
-
 import { IDL_LSP_LOG } from '@idl/logger';
+import { IDLFileHelper } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   SemanticTokens,

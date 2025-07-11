@@ -1,8 +1,6 @@
 import { GenerateTaskResult } from '@idl/generators/tasks-shared';
-import { IDLFileHelper } from '@idl/shared/extension';
-
 import { IDL_LSP_LOG } from '@idl/logger';
-import { Sleep } from '@idl/shared/extension';
+import { IDLFileHelper, Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GenerateTaskMessage,
