@@ -181,6 +181,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 11],
+        range: { start: [0, 0, 11], end: [7, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',
@@ -267,6 +268,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 11],
+        range: { start: [0, 0, 11], end: [0, 0, 11] },
         meta: {
           display: '$main$',
           docs: 'Main level program',
@@ -353,6 +355,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 11],
+        range: { start: [0, 0, 11], end: [0, 0, 11] },
         meta: {
           display: '$main$',
           docs: 'Main level program',
@@ -439,6 +442,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 11],
+        range: { start: [0, 0, 11], end: [0, 0, 11] },
         meta: {
           display: '$main$',
           docs: 'Main level program',
@@ -525,6 +529,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 11],
+        range: { start: [0, 0, 11], end: [0, 0, 11] },
         meta: {
           display: '$main$',
           docs: 'Main level program',
@@ -611,6 +616,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 11],
+        range: { start: [0, 0, 11], end: [0, 0, 11] },
         meta: {
           display: '$main$',
           docs: 'Main level program',
@@ -697,6 +703,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 11],
+        range: { start: [0, 0, 11], end: [0, 0, 11] },
         meta: {
           display: '$main$',
           docs: 'Main level program',

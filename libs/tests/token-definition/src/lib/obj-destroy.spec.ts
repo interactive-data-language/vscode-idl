@@ -34,6 +34,7 @@ describe(`[auto generated] Correctly find find definition from obj destroy`, () 
       type: 'pm',
       name: 'testclass::cleanup',
       pos: [12, 4, 18],
+      range: { start: [12, 0, 4], end: [16, 0, 3] },
       meta: {
         className: 'testclass',
         method: 'cleanup',

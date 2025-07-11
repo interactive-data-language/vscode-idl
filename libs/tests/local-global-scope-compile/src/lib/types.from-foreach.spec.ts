@@ -119,6 +119,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
         type: 'p',
         name: 'foreach',
         pos: [5, 4, 7],
+        range: { start: [5, 0, 4], end: [9, 0, 3] },
         meta: {
           source: 'user',
           args: {
@@ -286,6 +287,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
         type: 'p',
         name: 'foreach',
         pos: [5, 4, 7],
+        range: { start: [5, 0, 4], end: [9, 0, 3] },
         meta: {
           source: 'user',
           args: {
@@ -441,6 +443,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
         type: 'p',
         name: 'foreach',
         pos: [5, 4, 7],
+        range: { start: [5, 0, 4], end: [9, 0, 3] },
         meta: {
           source: 'user',
           args: {
@@ -584,6 +587,7 @@ describe(`[auto generated] Types from foreach loop`, () => {
         type: 'p',
         name: 'foreach',
         pos: [5, 4, 7],
+        range: { start: [5, 0, 4], end: [9, 0, 3] },
         meta: {
           source: 'user',
           args: {

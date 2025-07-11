@@ -45,6 +45,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
         type: 'p',
         name: 'mypro',
         pos: [0, 4, 5],
+        range: { start: [0, 0, 4], end: [2, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -133,6 +134,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
         type: 'f',
         name: 'mypro',
         pos: [0, 9, 5],
+        range: { start: [0, 0, 9], end: [3, 0, 3] },
         meta: {
           source: 'user',
           args: {},

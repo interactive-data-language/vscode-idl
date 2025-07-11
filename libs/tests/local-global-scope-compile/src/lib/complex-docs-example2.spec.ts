@@ -185,6 +185,7 @@ describe(`[auto generated] Complex real world test`, () => {
         type: 'fm',
         name: 'bridge_it::init',
         pos: [30, 9, 15],
+        range: { start: [30, 0, 9], end: [35, 0, 3] },
         meta: {
           className: 'bridge_it',
           method: 'init',
@@ -279,6 +280,7 @@ describe(`[auto generated] Complex real world test`, () => {
         type: 'f',
         name: 'bridge_it',
         pos: [30, 9, 15],
+        range: { start: [30, 0, 9], end: [35, 0, 3] },
         meta: {
           source: 'user',
           args: {

@@ -319,6 +319,7 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
         type: 'p',
         name: 'type_parsing_test',
         pos: [18, 4, 17],
+        range: { start: [18, 0, 4], end: [21, 0, 3] },
         meta: {
           source: 'user',
           args: {

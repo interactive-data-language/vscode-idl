@@ -78,6 +78,7 @@ describe(`[auto generated] Correctly remove idl-disable statements`, () => {
         type: 'p',
         name: 'mypro',
         pos: [11, 4, 5],
+        range: { start: [11, 0, 4], end: [13, 0, 3] },
         meta: {
           source: 'user',
           args: {

@@ -926,6 +926,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'arrays',
         pos: [38, 4, 6],
+        range: { start: [38, 0, 4], end: [124, 0, 3] },
         meta: {
           source: 'user',
           args: {
@@ -1062,6 +1063,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'f',
         name: 'myfunc2',
         pos: [16, 9, 7],
+        range: { start: [16, 0, 9], end: [20, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -1088,6 +1090,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'f',
         name: 'myfunc',
         pos: [5, 9, 6],
+        range: { start: [5, 0, 9], end: [9, 0, 3] },
         meta: {
           source: 'user',
           args: {},

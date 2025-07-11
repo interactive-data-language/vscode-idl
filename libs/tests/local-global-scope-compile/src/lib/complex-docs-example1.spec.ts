@@ -323,6 +323,7 @@ describe(`[auto generated] Complex real world test`, () => {
         type: 'p',
         name: 'awesomerasterintersection',
         pos: [95, 4, 25],
+        range: { start: [95, 0, 4], end: [107, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -566,6 +567,7 @@ describe(`[auto generated] Complex real world test`, () => {
         type: 'p',
         name: 'argbug',
         pos: [6, 4, 6],
+        range: { start: [6, 0, 4], end: [10, 0, 3] },
         meta: {
           source: 'user',
           args: {

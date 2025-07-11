@@ -1044,6 +1044,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'pro4',
         pos: [0, 4, 4],
+        range: { start: [0, 0, 4], end: [70, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -1135,6 +1136,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'pro1',
         pos: [0, 4, 4],
+        range: { start: [0, 0, 4], end: [4, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -1412,6 +1414,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'pro2',
         pos: [0, 4, 4],
+        range: { start: [0, 0, 4], end: [14, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -1695,6 +1698,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'pro3',
         pos: [0, 4, 4],
+        range: { start: [0, 0, 4], end: [14, 0, 3] },
         meta: {
           source: 'user',
           args: {},

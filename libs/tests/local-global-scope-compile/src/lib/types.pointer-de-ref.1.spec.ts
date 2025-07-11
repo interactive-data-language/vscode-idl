@@ -428,6 +428,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
         type: 'p',
         name: 'pointers',
         pos: [18, 4, 8],
+        range: { start: [18, 0, 4], end: [44, 0, 3] },
         meta: {
           source: 'user',
           args: {

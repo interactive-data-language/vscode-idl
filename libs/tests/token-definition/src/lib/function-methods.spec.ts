@@ -32,6 +32,7 @@ describe(`[auto generated] Correctly find definitions for function methods`, () 
       type: 'fm',
       name: 'nystruct0::funcmethod1',
       pos: [15, 9, 22],
+      range: { start: [15, 0, 9], end: [18, 0, 3] },
       meta: {
         className: 'nystruct0',
         method: 'funcmethod1',
@@ -93,6 +94,7 @@ describe(`[auto generated] Correctly find definitions for function methods`, () 
       type: 'fm',
       name: 'nystruct::funcmethod2',
       pos: [20, 9, 21],
+      range: { start: [20, 0, 9], end: [23, 0, 3] },
       meta: {
         className: 'nystruct',
         method: 'funcmethod2',

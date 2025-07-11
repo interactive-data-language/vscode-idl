@@ -135,6 +135,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
         type: 'p',
         name: 'parse_docs_below',
         pos: [0, 4, 16],
+        range: { start: [0, 0, 4], end: [19, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -344,6 +345,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
         type: 'f',
         name: 'parse_docs_below',
         pos: [0, 9, 16],
+        range: { start: [0, 0, 9], end: [20, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -565,6 +567,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
         type: 'f',
         name: 'parse_docs_below',
         pos: [18, 9, 16],
+        range: { start: [18, 0, 9], end: [38, 0, 3] },
         meta: {
           source: 'user',
           args: {
@@ -849,6 +852,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
         type: 'p',
         name: 'mypro_dated',
         pos: [1, 4, 11],
+        range: { start: [1, 0, 4], end: [6, 0, 3] },
         meta: {
           source: 'user',
           args: {

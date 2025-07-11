@@ -1,5 +1,5 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
 import { GetExtensionPath } from '@idl/idl/files';
+import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { readFile } from 'fs/promises';
@@ -33,8 +33,8 @@ describe(`[auto generated] Extracts outline`, () => {
         kind: 12,
         name: 'testroutine',
         range: {
-          start: { line: 25, character: 4 },
-          end: { line: 25, character: 15 },
+          start: { line: 25, character: 0 },
+          end: { line: 27, character: 3 },
         },
         selectionRange: {
           start: { line: 25, character: 4 },

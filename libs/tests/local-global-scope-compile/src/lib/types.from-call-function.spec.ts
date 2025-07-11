@@ -80,6 +80,7 @@ describe(`[auto generated] Types from call_function()`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 12],
+        range: { start: [0, 0, 12], end: [4, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',

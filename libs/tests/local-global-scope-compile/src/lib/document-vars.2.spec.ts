@@ -150,6 +150,7 @@ describe(`[auto generated] Exclude idl-disabled from`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 11],
+        range: { start: [0, 0, 11], end: [14, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',

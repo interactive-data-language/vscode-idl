@@ -68,6 +68,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 1],
+        range: { start: [0, 0, 1], end: [2, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',

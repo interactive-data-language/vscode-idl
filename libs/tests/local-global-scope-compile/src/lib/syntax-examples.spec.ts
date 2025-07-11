@@ -213,6 +213,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
         type: 'p',
         name: 'test2',
         pos: [14, 4, 5],
+        range: { start: [14, 0, 4], end: [16, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -241,6 +242,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
         type: 'p',
         name: 'test',
         pos: [10, 4, 4],
+        range: { start: [10, 0, 4], end: [12, 0, 3] },
         meta: {
           source: 'user',
           args: {
@@ -303,6 +305,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
         type: 'f',
         name: 'testfunction2',
         pos: [5, 9, 13],
+        range: { start: [5, 0, 9], end: [8, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -334,6 +337,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
         type: 'f',
         name: 'testfunction',
         pos: [0, 9, 12],
+        range: { start: [0, 0, 9], end: [3, 0, 3] },
         meta: {
           source: 'user',
           args: {

@@ -214,6 +214,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
         type: 'p',
         name: 'pro3',
         pos: [14, 4, 4],
+        range: { start: [14, 0, 4], end: [17, 0, 3] },
         meta: {
           source: 'user',
           args: {

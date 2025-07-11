@@ -193,6 +193,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: '$main$',
         pos: [14, 0, 11],
+        range: { start: [14, 0, 11], end: [27, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',
@@ -207,6 +208,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'f',
         name: 'test',
         pos: [8, 9, 4],
+        range: { start: [8, 0, 9], end: [12, 0, 3] },
         meta: {
           source: 'user',
           args: {

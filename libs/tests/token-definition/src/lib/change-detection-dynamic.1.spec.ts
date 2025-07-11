@@ -51,6 +51,7 @@ describe(`[auto generated] Correctly get routine definition for`, () => {
       type: 'f',
       name: 'leap4',
       pos: [0, 9, 5],
+      range: { start: [0, 0, 9], end: [4, 0, 3] },
       meta: {
         source: 'user',
         args: {},

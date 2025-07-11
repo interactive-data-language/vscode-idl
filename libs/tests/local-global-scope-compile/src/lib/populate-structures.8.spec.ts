@@ -57,6 +57,7 @@ describe(`[auto generated] Take first instance we encounter`, () => {
         type: 'p',
         name: 'my_def__define',
         pos: [0, 4, 14],
+        range: { start: [0, 0, 4], end: [10, 0, 3] },
         meta: {
           source: 'user',
           args: {},

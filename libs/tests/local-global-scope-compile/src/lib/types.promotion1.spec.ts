@@ -398,6 +398,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'f',
         name: 'most_cases',
         pos: [11, 9, 10],
+        range: { start: [11, 0, 9], end: [46, 0, 3] },
         meta: {
           source: 'user',
           args: {

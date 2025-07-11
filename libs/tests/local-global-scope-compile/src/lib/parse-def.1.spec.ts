@@ -136,6 +136,7 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
         type: 'p',
         name: 'atvectorizedifferenceimage',
         pos: [8, 4, 26],
+        range: { start: [8, 0, 4], end: [16, 0, 3] },
         meta: {
           source: 'user',
           args: {},

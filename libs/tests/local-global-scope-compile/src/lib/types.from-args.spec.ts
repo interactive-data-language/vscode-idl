@@ -169,6 +169,7 @@ describe(`[auto generated] Types from output arguments`, () => {
         type: 'p',
         name: '$main$',
         pos: [15, 0, 12],
+        range: { start: [15, 0, 12], end: [18, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',
@@ -183,6 +184,7 @@ describe(`[auto generated] Types from output arguments`, () => {
         type: 'p',
         name: 'auto_doc_example',
         pos: [10, 4, 16],
+        range: { start: [10, 0, 4], end: [13, 0, 3] },
         meta: {
           source: 'user',
           args: {

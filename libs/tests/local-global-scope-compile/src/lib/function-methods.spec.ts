@@ -155,6 +155,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
         type: 'fm',
         name: 'myclass::mymethod',
         pos: [0, 9, 17],
+        range: { start: [0, 0, 9], end: [5, 0, 3] },
         meta: {
           className: 'myclass',
           method: 'mymethod',

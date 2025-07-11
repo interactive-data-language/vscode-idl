@@ -34,6 +34,7 @@ describe(`[auto generated] Correctly find function definitions`, () => {
       type: 'f',
       name: 'go_to_def_call_function',
       pos: [0, 9, 23],
+      range: { start: [0, 0, 9], end: [3, 0, 3] },
       meta: {
         source: 'user',
         args: {},

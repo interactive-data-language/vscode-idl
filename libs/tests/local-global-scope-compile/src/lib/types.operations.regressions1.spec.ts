@@ -114,6 +114,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'regressions',
         pos: [0, 4, 11],
+        range: { start: [0, 0, 4], end: [8, 0, 3] },
         meta: {
           source: 'user',
           args: {},

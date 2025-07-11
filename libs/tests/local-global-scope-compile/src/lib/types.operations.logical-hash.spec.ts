@@ -368,6 +368,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'typetest',
         pos: [0, 4, 8],
+        range: { start: [0, 0, 4], end: [21, 0, 3] },
         meta: {
           source: 'user',
           args: {},

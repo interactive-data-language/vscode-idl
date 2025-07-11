@@ -32,6 +32,7 @@ describe(`[auto generated] Correctly find definitions for procedure methods`, ()
       type: 'pm',
       name: 'nystruct0::promethod1',
       pos: [5, 4, 21],
+      range: { start: [5, 0, 4], end: [8, 0, 3] },
       meta: {
         className: 'nystruct0',
         method: 'promethod1',
@@ -90,6 +91,7 @@ describe(`[auto generated] Correctly find definitions for procedure methods`, ()
       type: 'pm',
       name: 'nystruct::promethod2',
       pos: [10, 4, 20],
+      range: { start: [10, 0, 4], end: [13, 0, 3] },
       meta: {
         className: 'nystruct',
         method: 'promethod2',

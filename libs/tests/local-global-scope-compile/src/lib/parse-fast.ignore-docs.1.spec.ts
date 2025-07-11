@@ -60,6 +60,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
         type: 'p',
         name: 'mystruct__define',
         pos: [8, 4, 16],
+        range: { start: [8, 0, 4], end: [13, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -232,6 +233,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
         type: 'p',
         name: 'mystruct__define',
         pos: [10, 4, 16],
+        range: { start: [10, 0, 4], end: [15, 0, 3] },
         meta: {
           source: 'user',
           args: {},

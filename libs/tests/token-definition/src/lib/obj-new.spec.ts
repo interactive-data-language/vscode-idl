@@ -32,6 +32,7 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
       type: 'f',
       name: 'myclass',
       pos: [8, 9, 13],
+      range: { start: [8, 0, 9], end: [12, 0, 3] },
       meta: {
         source: 'user',
         args: {},
