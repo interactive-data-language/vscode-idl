@@ -10,6 +10,7 @@ import {
   IGlobalIndexedToken,
   IPropertyLookup,
 } from '@idl/types/core';
+import { PositionRange } from '@idl/types/tokenizer';
 
 import { TreeToken } from '../branches.interface';
 import { GetPropertyName } from '../helpers/get-property-name';
@@ -91,6 +92,18 @@ export function FindStructureDefs(
      */
     const props: IPropertyLookup = {};
 
+    // get range for our token
+    let range: PositionRange;
+
+    // if we have scope tokens, then use to get our parent
+    if (structs[i].scopeTokens) {
+      const parent = structs[i].scopeTokens[structs[i].scopeTokens.length - 1];
+      range = {
+        start: parent.pos,
+        end: parent?.end?.pos,
+      };
+    }
+
     /**
      * Initialize our global token
      */
@@ -98,6 +111,7 @@ export function FindStructureDefs(
       type: GLOBAL_TOKEN_TYPES.STRUCTURE,
       name: lowName,
       pos: structs[i].pos,
+      range,
       meta: {
         display: name,
         inherits,

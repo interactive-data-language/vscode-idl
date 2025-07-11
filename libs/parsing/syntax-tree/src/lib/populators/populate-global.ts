@@ -85,6 +85,10 @@ export function PopulateGlobalLocalCompileOpts(
           type: GLOBAL_TOKEN_TYPES.PROCEDURE,
           name: MAIN_LEVEL_NAME,
           pos: branch.pos,
+          range: {
+            start: branch.pos,
+            end: branch?.end?.pos,
+          },
           meta: {
             display: MAIN_LEVEL_NAME,
             docs: 'Main level program',
@@ -163,6 +167,10 @@ export function PopulateGlobalLocalCompileOpts(
                 type: GLOBAL_TOKEN_TYPES.FUNCTION_METHOD,
                 name,
                 pos: first.pos,
+                range: {
+                  start: branch.pos,
+                  end: branch?.end?.pos,
+                },
                 meta: {
                   className: split[0],
                   method: split[1],
@@ -183,6 +191,10 @@ export function PopulateGlobalLocalCompileOpts(
                   type: GLOBAL_TOKEN_TYPES.FUNCTION,
                   name: split[0],
                   pos: first.pos,
+                  range: {
+                    start: branch.pos,
+                    end: branch?.end?.pos,
+                  },
                   meta: {
                     ...(meta as IFunctionMetadata),
                     display: hiSplit[0],
@@ -225,6 +237,10 @@ export function PopulateGlobalLocalCompileOpts(
                 type: GLOBAL_TOKEN_TYPES.FUNCTION,
                 name,
                 pos: first.pos,
+                range: {
+                  start: branch.pos,
+                  end: branch?.end?.pos,
+                },
                 meta: meta as IFunctionMetadata,
               };
               global.push(add);
@@ -302,6 +318,10 @@ export function PopulateGlobalLocalCompileOpts(
                 type: GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD,
                 name,
                 pos: first.pos,
+                range: {
+                  start: branch.pos,
+                  end: branch?.end?.pos,
+                },
                 meta: {
                   className: split[0],
                   method: split[1],
@@ -342,6 +362,10 @@ export function PopulateGlobalLocalCompileOpts(
                 type: GLOBAL_TOKEN_TYPES.PROCEDURE,
                 name,
                 pos: first.pos,
+                range: {
+                  start: branch.pos,
+                  end: branch?.end?.pos,
+                },
                 meta: meta as IRoutineMetadata,
               };
               global.push(add);

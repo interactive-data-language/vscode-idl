@@ -4,6 +4,7 @@ import {
   GlobalTokenType,
   IGlobalIndexedToken,
 } from '@idl/types/core';
+import { PositionRange } from '@idl/types/tokenizer';
 import { DocumentSymbol } from 'vscode-languageserver';
 
 import {
@@ -47,6 +48,14 @@ export async function ParserGetOutline(parsed: IParsed) {
 
     // check if we need to save
     if (globali.type in OUTLINE_THESE_TOKENS) {
+      // get end of our global token
+      const range: PositionRange = globali.range || { start: globali.pos };
+
+      // pick range end if we dont have one
+      if (!range.end) {
+        range.end = globali.pos;
+      }
+
       tracked[globali.pos[0]] = {
         kind:
           globali.type in OUTLINE_TOKEN_KIND_MAP
@@ -55,12 +64,12 @@ export async function ParserGetOutline(parsed: IParsed) {
         name: OutlineDisplayName(globali),
         range: {
           start: {
-            line: globali.pos[0],
-            character: globali.pos[1],
+            line: range.start[0],
+            character: range.start[1],
           },
           end: {
-            line: globali.pos[0],
-            character: globali.pos[1] + globali.pos[2],
+            line: range.end[0],
+            character: range.end[1] + range.end[2],
           },
         },
         selectionRange: {

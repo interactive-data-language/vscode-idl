@@ -1,7 +1,7 @@
 // global tokens
 // dont use token names because they dont properly overlap with what we need to
 
-import { PositionArray } from '@idl/types/tokenizer';
+import { PositionArray, PositionRange } from '@idl/types/tokenizer';
 
 import { IDLDataType } from '../idl-data-types.interface';
 
@@ -286,6 +286,8 @@ export interface IGlobalIndexedToken<T extends GlobalTokenType>
   extends IBaseIndexedToken {
   /** Metadata for our global token. Typed to match the "type" property */
   meta: GlobalTokenMetadata<T>;
+  /** The range of our token which may include parents (i.e. routine names are surrounded by pro or func) */
+  range?: PositionRange;
   /** Type of the token we are tracking */
   type: T;
 }
