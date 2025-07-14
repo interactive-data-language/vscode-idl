@@ -277,7 +277,7 @@ pro vscode_BuildWorkspace, workspace, condense_to = condense_to, description = d
   foreach file, files do begin
     bdg.execute, '.reset'
     bdg.execute, '.compile "' + file + '"'
-    bdg.execute, 'save, /routines, /compress, filename = "' + file.replace('.pro', '.sav') + '", /compress'
+    bdg.execute, 'save, /routines, /compress, filename = "' + file.replace('.pro', '.sav') + '"'
   endforeach
 
   ; reset bridge
