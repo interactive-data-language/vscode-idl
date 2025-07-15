@@ -124,6 +124,8 @@ Let us know if you'd like to see more features supported in the web version.
 
 - **ENVI + Notebooks:** Starting ENVI UI in a notebook now disables graphics embedding in that cell to prevent blank/empty outputs. For best results, use a dedicated cell to start ENVI and separate cells for visual output. issue where saving twice was required to trigger formatting.
 
+- **Syntax highlighting and method detection**: Fixed an issue where we would not properly highlightor parse procedure and function methods when in case/switch statements.
+
 ## 4.7.1 - December 2024
 
 Fixed an issue with the IDL Webview that showed a blank tab when opened. This affect things like the profiler in the extension.

@@ -1879,7 +1879,7 @@
         <key>name</key>
         <string>group.call.func-method.idl</string>
         <key>begin</key>
-        <string>(?i)\s*(\.|-&gt;)\s*([a-z0-9_$:]+)(\()</string>
+        <string>(?i)\s*(\.|-&gt;)\s*([a-z0-9_$]+(?:::[a-z0-9_$]+)?)(\()</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -1953,7 +1953,7 @@
         <key>name</key>
         <string>group.call.pro-method.idl</string>
         <key>begin</key>
-        <string>(?i)(\.|-&gt;)\s*([a-z_][a-z0-9_$:]*)(?=\s*(?&lt;!&amp;)&amp;(?!&amp;)|\s*,|\s*;|\s+\$|\s*$)</string>
+        <string>(?i)(\.|-&gt;)\s*([a-z_][a-z0-9_$]*(?:::[a-z0-9_$]+)?)(?=\s*(?&lt;!&amp;)&amp;(?!&amp;)|\s*,|\s*;|\s+\$|\s*$)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>

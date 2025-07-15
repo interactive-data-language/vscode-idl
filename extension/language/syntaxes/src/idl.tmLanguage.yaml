@@ -858,7 +858,7 @@ repository:
   # calling functions
   routine_call_func_method:
     name: {{group_call_func_method}}
-    begin: '\s*(\.|->)\s*([a-z0-9_$:]+)(\()'
+    begin: '\s*(\.|->)\s*([a-z0-9_$]+(?:::[a-z0-9_$]+)?)(\()'
     beginCaptures:
       '1': { name: {{name_operator}} }
       '2': { name: {{name_call_func_method}} }
@@ -884,7 +884,7 @@ repository:
   # calling procedures
   routine_call_pro_method:
     name: {{group_call_pro_method}}
-    begin: '(\.|->)\s*([a-z_][a-z0-9_$:]*)(?=\s*(?<!&)&(?!&)|\s*,|\s*;|\s+\$|\s*$)'
+    begin: '(\.|->)\s*([a-z_][a-z0-9_$]*(?:::[a-z0-9_$]+)?)(?=\s*(?<!&)&(?!&)|\s*,|\s*;|\s+\$|\s*$)'
     beginCaptures:
       '1': { name: {{name_operator}} }
       '2': { name: {{name_call_pro_method}} }
