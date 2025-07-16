@@ -1,5 +1,43 @@
 ;+
 ; :Description:
+;   Returns true/false that we should include/skip a routine we found
+;   when checking for dependencies
+;
+; :Returns: Boolean
+;
+; :Arguments:
+;   path: in, required, String
+;     The path to a dependency that we need to try to include or not
+;
+;-
+function vscode_BuildWorkspace_skipRoutine, path
+  compile_opt idl2, hidden
+
+  ; return if we dont have a path
+  if ~keyword_set(path) then return, !true
+
+  ;+ try to figure out if we have ENVI or not
+  isEnvi = stregex(file_basename(file_dirname(!dir)), 'envi[0-9]{2}', /boolean, /fold_case)
+
+  ;+
+  ; Check how we filter paths
+  ;-
+  case (!true) of
+    ; ENVI
+    isEnvi && path.startsWith(file_dirname(!dir)): return, !true
+
+    ; IDL
+    path.startsWith(!dir): return, !true
+
+    ; default
+    else: return, !false
+  endcase
+
+  return, !false
+end
+
+;+
+; :Description:
 ;   Procedure that recursively identifies routines that we need
 ;   to compile and include as dependencies given an initial list
 ;   of unresolved routines
@@ -76,7 +114,7 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, unresolved, skip
     src = json_parse(bdg.getVar('info'), /fold_case)
 
     ; skip internal routines
-    if src['path'].startsWith(!dir) or ~keyword_set(src['path']) then begin
+    if vscode_BuildWorkspace_skipRoutine(src['path']) then begin
       skip[routine] = !true
       continue
     endif
@@ -204,7 +242,7 @@ pro vscode_BuildWorkspace, workspace, condense_to = condense_to, description = d
 
   ;+ specify the folder where our source code lives
   srcDir = workspace + path_sep() + 'src'
-  if ~file_test(srcDir, /directory) then message, 'Source folder not found where expected'
+  if ~file_test(srcDir, /directory) then message, 'Workspace does not include a "src" folder as expected'
 
   ;+ specify the output folder
   outDir = workspace + path_sep() + 'dist'
