@@ -5,10 +5,10 @@ export type DebugSendNotification = 'debugSend';
 
 type VariableChanges = 'child' | 'redo child' | 'self';
 
-interface IVariable {
+interface IDLVariable {
   changes: VariableChanges;
   /** Child variables */
-  children: IVariable[];
+  children: IDLVariable[];
   common: boolean;
   /** Dimensions */
   dims: number[];
@@ -29,7 +29,7 @@ interface IVariable {
   value: string;
 }
 
-interface IFrame {
+export interface IDLFrame {
   changes: VariableChanges;
   /** File routine is in */
   file: string;
@@ -40,7 +40,7 @@ interface IFrame {
   /** ??????? */
   name: string;
   /** Variables in the frame */
-  variables: IVariable[];
+  variables: IDLVariable[];
 }
 
 /** Parameters for when we get debug information from IDL */
@@ -49,7 +49,7 @@ export type DebugSendParams = {
     /** Were there changes in the stack? */
     changed: boolean;
     /** Frames, current is the last one (oppostire of VSCode) */
-    frames?: IFrame[];
+    frames?: IDLFrame[];
   };
-  system: IVariable[];
+  system: IDLVariable[];
 };

@@ -330,6 +330,11 @@ export class IDLInteractionManager {
    * Get variables for current scope
    */
   async getVariables(frameId: number): Promise<IDLVariable[]> {
+    // if we are the IDL machine return the variables we were already sent
+    if (this.isIDLMachine()) {
+      return this.idl._machine.getVariables(frameId);
+    }
+
     // init result
     let vars: IDLVariable[] = [];
 

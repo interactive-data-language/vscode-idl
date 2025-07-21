@@ -3,17 +3,26 @@ import {
   FromIDLMachineNotificationParams,
   FromIDLMachineRequestHandler,
   FromIDLMachineRequests,
+  IDLFrame,
   IDLMachine,
   TOutNotification,
 } from '@idl/idl/idl-machine';
 import { LogType } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_EVENT_LOOKUP, IDLOutput } from '@idl/types/idl/idl-process';
+import { ParseIDLType, SerializeIDLType } from '@idl/types/core';
+import {
+  IDL_EVENT_LOOKUP,
+  IDLOutput,
+  IDLVariable,
+} from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
-import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
 import { IDLProcess } from '../idl-process.class';
+import {
+  IDL_DATA_TYPE_MAP,
+  OBJ_CLASS_REGEX,
+} from './idl-machine-wrapper.interface';
 
 /**
  * If we use import, it complains about types
@@ -27,6 +36,9 @@ const kill = require('tree-kill');
 export class IDLMachineWrapper {
   /** The IDL process */
   private idl: ChildProcess;
+
+  /** last debug send */
+  private lastDebugSend: FromIDLMachineNotificationParams<'debugSend'>;
 
   /** The IDL Machine */
   private machine: IDLMachine;
@@ -77,10 +89,14 @@ export class IDLMachineWrapper {
     });
 
     /** Track last debug send parameters */
-    let lastDebugSend: FromIDLMachineNotificationParams<'debugSend'>;
+    this.lastDebugSend = undefined;
 
     this.machine.onNotification('debugSend', (params) => {
-      lastDebugSend = params;
+      // reverse the order from IDL to match VSCode
+      params.stack.frames = (params.stack.frames || []).reverse();
+
+      // save last debug send
+      this.lastDebugSend = params;
 
       /**
        * Only update if we changed
@@ -88,22 +104,14 @@ export class IDLMachineWrapper {
       if (params.stack.changed) {
         this.process.idlInfo = {
           hasInfo: true,
-          scope: copy(params.stack.frames)
-            .reverse()
-            .map((frame) => {
-              return {
-                file: frame.file,
-                line: frame.line,
-                routine: frame.name,
-              };
-            }),
-          variables: params.stack.frames[0].variables.map((variable) => {
+          scope: params.stack.frames.map((frame) => {
             return {
-              name: variable.name.toLowerCase(),
-              type: `${variable.type}`,
-              description: variable.value,
+              file: frame.file,
+              line: frame.line,
+              routine: frame.name,
             };
           }),
+          variables: this._mapVariables(params.stack.frames[0]),
         };
       }
     });
@@ -140,16 +148,8 @@ export class IDLMachineWrapper {
     let lastStop: FromIDLMachineNotificationParams<'interpreterStopped'>;
 
     this.machine.onNotification('interpreterStopped', (params) => {
-      /**
-       * Check to see if we have stopped
-       *
-       * Line check is for main level programs (having a line of zero)
-       */
-      // const check = params.line > 0 && !deepEqual(params, lastStop);
-      const check =
-        params.line > 0 &&
-        lastStop !== undefined &&
-        !deepEqual(params, lastStop);
+      /** Check if our last stop is different */
+      const stopDelta = lastStop !== undefined || !deepEqual(params, lastStop);
 
       // save the parameters
       lastStop = params;
@@ -162,7 +162,7 @@ export class IDLMachineWrapper {
       /**
        * See if we need to emit a stop event
        */
-      if (lastDebugSend.stack.changed && params.line > 0) {
+      if (this.lastDebugSend.stack.changed && params.line > 0 && stopDelta) {
         res.stopped = {
           reason: 'stop',
           stack: {
@@ -361,6 +361,77 @@ export class IDLMachineWrapper {
   }
 
   /**
+   * Maps variables from a frame that the IDL Machine sends
+   * to what VSCode expects
+   */
+  _mapVariables(frame: IDLFrame): IDLVariable[] {
+    return (frame?.variables || []).map((variable) => {
+      // create new variable
+      const newVar = {
+        name: variable.name.toLowerCase(),
+        type: `${variable.type}`,
+        description: variable.value,
+      };
+
+      // fine tune the types that get displayed
+      this.cleanVariableInformation(newVar, variable.value);
+
+      // return
+      return newVar;
+    });
+  }
+
+  /**
+   * Cleans up our variable information to follow patterns for parsing
+   * and type detection
+   */
+  cleanVariableInformation(variable: IDLVariable, value: string) {
+    /** Check for a match for an object */
+    const match = OBJ_CLASS_REGEX.exec(value);
+
+    // if we have an object, return
+    if (match !== null) {
+      variable.type = SerializeIDLType(ParseIDLType(match[1]));
+      variable.description = '';
+      return;
+    }
+
+    /** Get default type string */
+    const typeString =
+      variable.type in IDL_DATA_TYPE_MAP
+        ? SerializeIDLType(ParseIDLType(IDL_DATA_TYPE_MAP[variable.type]))
+        : `${variable.type}`;
+
+    // set type by default
+    variable.type = typeString;
+
+    // update variable
+    switch (true) {
+      /** Handle pointers */
+      case typeString.startsWith('Pointer'):
+        variable.description = '';
+        break;
+
+      /** Undefined variables */
+      case typeString === 'Undefined':
+        variable.description = '';
+        break;
+
+      /** Arrays for value */
+      case value.includes('['):
+        variable.type = `Array<${typeString}, ${value.substring(
+          value.indexOf('[')
+        )}>`;
+        variable.description = '';
+        break;
+
+      // do nothing
+      default:
+        break;
+    }
+  }
+
+  /**
    * Runs a command in IDL with the assumption that we are IDLE.
    *
    * DO NOT USE THIS METHOD IF IDL IS ACTIVELY RUNNING SOMETHING because
@@ -394,6 +465,21 @@ export class IDLMachineWrapper {
         flags,
       });
     });
+  }
+
+  /**
+   * Gets variables from a frame stack
+   *
+   * Frame is zero-based from the top
+   *
+   * First frame is where we are located
+   */
+  getVariables(frame: number): IDLVariable[] {
+    if (this.lastDebugSend.stack.frames) {
+      return this._mapVariables(this.lastDebugSend.stack.frames[frame]);
+    } else {
+      return [];
+    }
   }
 
   /**

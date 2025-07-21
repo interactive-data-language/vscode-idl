@@ -81,3 +81,9 @@ export const DEFAULT_EVALUATE_OPTIONS: IDebugEvaluateOptions = {
   noWait: false,
   errorCheck: false,
 };
+
+/** Log level for debug adapter method */
+export const ADAPTER_METHOD_LOG_LEVEL = 'debug';
+
+/** How long do we wait before refocusing the stack trace (ms) */
+export const ADAPTER_STOP_DELAY = 100;

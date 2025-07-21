@@ -12,7 +12,10 @@ export function MapVariables(vars: IDLVariable[]): Variable[] {
   for (let i = 0; i < vars.length; i++) {
     mapped.push({
       name: vars[i].name,
-      value: `${vars[i].type}, ${vars[i].description}`,
+      // add description if we have it, otherwise just use the type
+      value: vars[i].description
+        ? `${vars[i].type}, ${vars[i].description}`
+        : vars[i].type,
       variablesReference: 0,
     });
   }

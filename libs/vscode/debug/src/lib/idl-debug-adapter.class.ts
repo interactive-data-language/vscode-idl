@@ -26,7 +26,6 @@ import { RegisterIDLMachineRequestHandlers } from '@idl/vscode/idl-machine';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import {
-  ContinuedEvent,
   InitializedEvent,
   Logger,
   logger,
@@ -35,7 +34,6 @@ import {
   Scope,
   Source,
   StackFrame,
-  StoppedEvent,
   TerminatedEvent,
   Thread,
 } from '@vscode/debugadapter';
@@ -54,10 +52,13 @@ import { MapVariables } from './helpers/map-variables';
 import { RegisterDebugAdapterCLIProgressHandler } from './helpers/register-debug-adapter-cli-progress-handler';
 import { IDLBreakpointManager } from './idl-breakpoint-manager.class';
 import {
+  ADAPTER_METHOD_LOG_LEVEL,
+  ADAPTER_STOP_DELAY,
   DEFAULT_EVALUATE_OPTIONS,
   IDebugEvaluateOptions,
   IDLDebugConfiguration,
 } from './idl-debug-adapter.interface';
+import { IDLDebugAdapterEventHelper } from './idl-debug-adapter-event-helper.class';
 import { IDL_STATUS_BAR } from './initialize-debugger';
 
 /**
@@ -69,10 +70,13 @@ import { IDL_STATUS_BAR } from './initialize-debugger';
  */
 export class IDLDebugAdapter extends LoggingDebugSession {
   // we don't support multiple threads, so we can use a hardcoded ID for the default thread
-  private static readonly THREAD_ID = 1;
+  static readonly THREAD_ID = 1;
 
   /** Breakpoint manager */
   _breakpoints: IDLBreakpointManager;
+
+  /** Helper class to track/manage some complex event logic */
+  _eventHelper: IDLDebugAdapterEventHelper;
 
   /** IDL interaction manager to communicate with the IDL process */
   _runtime: IDLInteractionManager;
@@ -121,6 +125,9 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // init promise for startup and resolver callback
     this._setStartupPromise();
+
+    // create event helper
+    this._eventHelper = new IDLDebugAdapterEventHelper(this);
 
     // create our runtime session - does not immediately start IDL
     this._runtime = new IDLInteractionManager(
@@ -260,7 +267,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // check if we need to send an event that we have continued
     if (options.continued) {
-      this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
+      this._eventHelper.resetStopAndContinue();
     }
 
     // update status bar
@@ -335,7 +342,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         this.sendEvent(
           new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.returning}\n`)
         );
-        this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
+        this._eventHelper.resetStopAndContinue();
       }
     }
 
@@ -404,10 +411,10 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // determine how to proceed
     switch (true) {
       case reset:
-        this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
+        this._eventHelper.resetStopAndContinue();
         break;
       case shouldContinue:
-        this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
+        this._eventHelper.resetStopAndContinue();
         break;
       default:
         break;
@@ -514,6 +521,9 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         this.listening = false;
       }
 
+      // create event helper
+      this._eventHelper = new IDLDebugAdapterEventHelper(this);
+
       // create new instance of runtime
       this._runtime = new IDLInteractionManager(
         IDL_LOGGER.getLog(IDL_DEBUG_LOG),
@@ -616,32 +626,19 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // listen for events when we continue processing
     this._runtime.on(IDL_EVENT_LOOKUP.CONTINUE, () => {
-      this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
+      this._eventHelper.resetStopAndContinue();
     });
 
     // listen for stops
     this._runtime.on(IDL_EVENT_LOOKUP.STOP, async (reason, stack) => {
-      IDL_LOGGER.log({
-        type: 'debug',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [`Stopped because: "${reason}"`, stack],
-      });
-      this.stopped = {
-        reason,
-        stack,
-      };
-      this.sendEvent(
-        new StoppedEvent(this.stopped.reason, IDLDebugAdapter.THREAD_ID)
-      );
-
-      // short pause to make sure APIs catch up
-      await Sleep(100);
-
-      // jump to stack to work around VSCode issue/change with latest release
-      if (stack.file.toLowerCase().endsWith('.pro')) {
-        await vscode.commands.executeCommand(
-          'workbench.action.debug.callStackTop'
-        );
+      try {
+        await this._eventHelper.reportStop(reason, stack);
+      } catch (err) {
+        IDL_LOGGER.log({
+          log: IDL_DEBUG_ADAPTER_LOG,
+          type: 'error',
+          content: ['Error while handling stop event', err],
+        });
       }
     });
 
@@ -740,10 +737,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     request?: DebugProtocol.Request
   ) {
+    this._eventHelper.trackStopBlocker();
+
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Breakpoint location request', args],
       });
 
@@ -767,6 +766,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
       // make sure its a real error
       if (err === 'Canceled') {
+        this._eventHelper.removeStopBlocker();
         return;
       }
 
@@ -777,6 +777,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         alert: IDL_TRANSLATION.debugger.errors.breakpointLocations,
       });
     }
+
+    this._eventHelper.removeStopBlocker();
   }
 
   protected cancelRequest(
@@ -788,7 +790,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Cancel request', args],
       });
 
@@ -802,8 +804,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       }
 
       IDL_LOGGER.log({
-        type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
+        type: 'error',
         content: [IDL_TRANSLATION.debugger.errors.cancel, err],
         alert: IDL_TRANSLATION.debugger.errors.cancel,
       });
@@ -820,7 +822,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   ) {
     IDL_LOGGER.log({
       log: IDL_DEBUG_ADAPTER_LOG,
-      type: 'debug',
+      type: ADAPTER_METHOD_LOG_LEVEL,
       content: ['Configuration done request'],
     });
 
@@ -854,7 +856,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Continue request', args],
       });
       // emit event and send response
@@ -933,7 +935,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Evaluate request', args],
       });
 
@@ -957,6 +959,13 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         variablesReference: -1,
       };
       this.sendResponse(response);
+
+      // if user-specified, reset focus because we move it in the event helper
+      // in reportStop() within libs\vscode\debug\src\lib\idl-debug-adapter-event-helper.class.ts
+      if (args?.context === 'repl') {
+        await Sleep(1.25 * ADAPTER_STOP_DELAY);
+        await vscode.commands.executeCommand('workbench.panel.repl.view.focus');
+      }
     } catch (err) {
       this.sendResponse(response);
 
@@ -1064,7 +1073,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       // start our idl debug session and wait for prompt ready
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Attempting to start a session of IDL', args],
       });
 
@@ -1105,8 +1114,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Step over request', args],
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Step over (next) request', args],
       });
       this.sendResponse(response);
 
@@ -1142,7 +1151,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Pause request', args],
       });
 
@@ -1186,7 +1195,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: 'Restart (i.e. reset) request',
       });
 
@@ -1202,8 +1211,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       // send text to console since it gets cleared
       this.sendEvent(new OutputEvent(`.reset\n`));
 
-      // alert vscode we have started again
-      this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
+      // reset stop events and alert VScode
+      this._eventHelper.resetStopAndContinue();
     } catch (err) {
       this.sendResponse(response);
 
@@ -1230,10 +1239,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     request?: DebugProtocol.Request
   ) {
+    this._eventHelper.trackStopBlocker();
+
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Scopes request', args],
       });
       this.lastFrameId = args.frameId;
@@ -1246,6 +1257,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
       // make sure its a real error
       if (err === 'Canceled') {
+        this._eventHelper.removeStopBlocker();
         return;
       }
 
@@ -1256,6 +1268,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         alert: IDL_TRANSLATION.debugger.errors.scopes,
       });
     }
+
+    this._eventHelper.removeStopBlocker();
   }
 
   /**
@@ -1265,11 +1279,13 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response: DebugProtocol.SetBreakpointsResponse,
     args: DebugProtocol.SetBreakpointsArguments
   ) {
+    this._eventHelper.trackStopBlocker();
+
     try {
       // add to logs
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Setting breakpoints for file', args],
       });
 
@@ -1286,6 +1302,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
       // make sure its a real error
       if (err === 'Canceled') {
+        this._eventHelper.removeStopBlocker();
         return;
       }
 
@@ -1296,6 +1313,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         alert: IDL_TRANSLATION.debugger.errors.setBreakpoint,
       });
     }
+
+    this._eventHelper.removeStopBlocker();
   }
 
   /**
@@ -1307,10 +1326,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     request?: DebugProtocol.Request
   ) {
+    this._eventHelper.trackStopBlocker();
+
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Stack trace request', args],
       });
 
@@ -1341,8 +1362,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       };
 
       IDL_LOGGER.log({
-        type: 'debug',
         log: IDL_DEBUG_ADAPTER_LOG,
+        type: 'debug',
         content: ['Call stack', response.body.stackFrames],
       });
 
@@ -1353,6 +1374,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
       // make sure its a real error
       if (err === 'Canceled') {
+        this._eventHelper.removeStopBlocker();
         return;
       }
 
@@ -1363,6 +1385,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         alert: IDL_TRANSLATION.debugger.errors.stackTrace,
       });
     }
+
+    this._eventHelper.removeStopBlocker();
   }
 
   /**
@@ -1377,7 +1401,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Step in request', args],
       });
       this.sendResponse(response);
@@ -1413,7 +1437,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Step out request', args],
       });
       this.sendResponse(response);
@@ -1449,7 +1473,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Terminate request', args],
       });
 
@@ -1509,10 +1533,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     request?: DebugProtocol.Request
   ) {
+    this._eventHelper.trackStopBlocker();
+
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Variables request', { frameId: this.lastFrameId }],
       });
 
@@ -1536,6 +1562,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
       // make sure its a real error
       if (err === 'Canceled') {
+        this._eventHelper.removeStopBlocker();
         return;
       }
 
@@ -1546,6 +1573,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         alert: IDL_TRANSLATION.debugger.errors.variables,
       });
     }
+
+    this._eventHelper.removeStopBlocker();
   }
 
   /**
