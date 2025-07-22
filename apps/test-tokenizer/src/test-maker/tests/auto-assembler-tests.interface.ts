@@ -238,7 +238,7 @@ export const AUTO_ASSEMBLER_TESTS: IAutoAssemblerTest[] = [
   },
   {
     suiteName: `Convert old IDL Doc comments`,
-    fileName: `auto-doc.convert-idldoc-legacy.spec.ts`,
+    fileName: `auto-doc.convert-idldoc-legacy.1.spec.ts`,
     tests: [
       {
         name: `for procedures`,
@@ -323,6 +323,34 @@ export const AUTO_ASSEMBLER_TESTS: IAutoAssemblerTest[] = [
           `  compile_opt idl2 `,
           ``,
           `  return, 1`,
+          `end`,
+        ],
+        config: {
+          autoDoc: true,
+        },
+      },
+    ],
+  },
+  {
+    suiteName: `Convert old IDL Doc comments`,
+    fileName: `auto-doc.convert-idldoc-legacy.2.spec.ts`,
+    tests: [
+      {
+        name: `from multi-line complex docs`,
+        code: [
+          `;+`,
+          `; @Param`,
+          `;   TheParam {out}{required}`,
+          `;     My docs for a parameter`,
+          `;`,
+          `; @Keyword`,
+          `;   TheKeyword {in}{optional}{type=boolean}{default=0}`,
+          `;     My docs for a keyword`,
+          `;`,
+          `;-`,
+          `pro mypro2, TheParam, thekeyword = keyword`,
+          `  compile_opt idl2`,
+          ``,
           `end`,
         ],
         config: {

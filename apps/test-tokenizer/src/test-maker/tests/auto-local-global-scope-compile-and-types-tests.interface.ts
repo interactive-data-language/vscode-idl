@@ -472,6 +472,31 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Parse legacy IDL Doc styles`,
+      fileName: `docs-idldoc-legacy.2.spec.ts`,
+      tests: [
+        {
+          name: 'for multi line and complex docs',
+          code: [
+            `;+`,
+            `; @Param`,
+            `;   TheParam {out}{required}`,
+            `;     My docs for a parameter`,
+            `;`,
+            `; @Keyword`,
+            `;   TheKeyword {in}{optional}{type=boolean}{default=0}`,
+            `;     My docs for a keyword`,
+            `;`,
+            `;-`,
+            `pro mypro2, TheParam, thekeyword = keyword`,
+            `  compile_opt idl2`,
+            ``,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
       suiteName: `Correctly extract docs for`,
       fileName: `document-vars.spec.ts`,
       tests: [
