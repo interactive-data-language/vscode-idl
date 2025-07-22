@@ -799,6 +799,21 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     args: {},
     kws: INDGEN_KEYWORDS,
   },
+  legend: {
+    args: {},
+    kws: {
+      auto_text_color: {
+        direction: 'in',
+        docs: 'Set this property to true (1) to draw the text labels using the same color as the associated plot lines. If this property is set then the TEXT_COLOR property is ignored. The default is false (0).',
+        type: IDL_BOOLEAN_TYPE,
+      },
+      position: {
+        direction: 'in',
+        docs: 'Set this property to set the location of the legend. POSITION is specified as a 2 element vector: [X, Y], defining the upper right corner of the legend. If the DEVICE property is set, the units are given in device units (pixels).',
+        type: ParseIDLType('Array<Number>'),
+      },
+    },
+  },
   long: {
     returns: ParseIDLType('ArrayPromotion<Long>'),
     args: TYPE_FUNCTION_ARGS,
@@ -1286,6 +1301,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       },
     },
   },
+  routine_dir: {
+    returns: IDL_STRING_TYPE,
+    args: {},
+    kws: {},
+  },
   routine_filepath: {
     returns: IDL_STRING_TYPE,
     args: {
@@ -1567,10 +1587,20 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
         docs: `Set this keyword to a two-element vector of the form [width, height] to specify the window dimensions in pixels.\n\nTip: The minimum width is set by the toolbar in the window, usually around 400 pixels. To create a smaller graphics window, use the NO_TOOLBAR keyword.`,
         type: ParseIDLType(`Array<Number>`),
       },
+      font_size: {
+        direction: 'in',
+        docs: ``,
+        type: IDL_NUMBER_TYPE,
+      },
       location: {
         direction: 'out',
         docs: "Set this keyword to a two-element vector [X offset, Y offset] giving the window's screen offset in pixels.",
         type: ParseIDLType(`Array<any>`),
+      },
+      name: {
+        direction: 'in',
+        docs: '',
+        type: IDL_STRING_TYPE,
       },
       no_toolbar: {
         direction: 'in',
@@ -1581,6 +1611,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
         direction: 'in',
         docs: 'By default, when running from the IDL Workbench, the graphics window will use the native widgets for your platform. Set this keyword to instead use IDL widgets for the graphics window. This keyword is ignored when running from the IDL command line, since IDL widgets are always used in that case.',
         type: IDL_BOOLEAN_TYPE,
+      },
+      window_title: {
+        direction: 'in',
+        docs: '',
+        type: IDL_STRING_TYPE,
       },
     },
   },
