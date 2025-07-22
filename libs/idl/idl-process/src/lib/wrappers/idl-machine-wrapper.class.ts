@@ -419,9 +419,9 @@ export class IDLMachineWrapper {
 
       /** Arrays for value */
       case value.includes('['):
-        variable.type = `Array<${typeString}, ${value.substring(
+        variable.type = `Array<${typeString}>, Size=${value.substring(
           value.indexOf('[')
-        )}>`;
+        )}`;
         variable.description = '';
         break;
 
