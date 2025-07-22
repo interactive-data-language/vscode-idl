@@ -31,6 +31,7 @@ import {
   SERVER_MESSENGER,
 } from '../initialize-language-server';
 import { InitializeMCPServer } from '../initialize-mcp-server';
+import { RegisterUserMCPTools } from '../mcp/register-user-mcp-tools';
 import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
 import { WORKSPACE_INITIALIZATION } from './documents/on-initialized';
 import { IDL_INDEX } from './initialize-document-manager';
@@ -38,7 +39,7 @@ import { IDL_INDEX } from './initialize-document-manager';
 /**
  * Timeout for all global promises if we don't get the right responses
  */
-export const PROMISE_TIMEOUT = 5000;
+export const PROMISE_TIMEOUT = 10000;
 
 /**
  * Set a flag to make sure that we can send problems
@@ -271,7 +272,7 @@ SERVER_INFO.then(async (res) => {
       );
 
       // using what we parsed, register MCP tools for the user
-      // RegisterUserMCPTools();
+      RegisterUserMCPTools();
     } catch (err) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,
