@@ -241,7 +241,7 @@ export function ExtractLegacyDocs(
           );
           lastFound.comments.push(comments[i]);
         } else {
-          lastFound.docs.push(CleanComment(after.trim()));
+          lastFound.docs.push(CleanComment(after));
           lastFound.comments.push(comments[i]);
         }
 
