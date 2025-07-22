@@ -33,7 +33,7 @@ import {
 import { InitializeMCPServer } from '../initialize-mcp-server';
 import { RegisterUserMCPTools } from '../mcp/register-user-mcp-tools';
 import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
-import { WORKSPACE_INITIALIZATION } from './documents/on-initialized';
+import { WORKSPACE_FOLDER_LIST } from './documents/on-connection-initialized';
 import { IDL_INDEX } from './initialize-document-manager';
 
 /**
@@ -73,7 +73,7 @@ export const SERVER_INITIALIZED = new Promise<void>((res) => {
  */
 export const SERVER_INFO = Promise.all([
   CONFIG_INITIALIZATION,
-  WORKSPACE_INITIALIZATION,
+  WORKSPACE_FOLDER_LIST,
 ]);
 
 // on initialization, load global tokens

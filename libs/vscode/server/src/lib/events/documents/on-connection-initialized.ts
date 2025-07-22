@@ -33,17 +33,17 @@ let RESOLVER: (folders: IFolderRecursion) => void;
  *
  * Automatically resolves after 5 seconds in case we don't get this message
  */
-export const WORKSPACE_INITIALIZATION = new Promise<IFolderRecursion>((res) => {
+export const WORKSPACE_FOLDER_LIST = new Promise<IFolderRecursion>((res) => {
   RESOLVER = res;
 });
 
 /**
- * Callback to handle initialized our initialized connection
+ * Callback to handle initialization of our workspace connection
  *
  * @param event The event from VSCode
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const ON_INITIALIZED = async (event: InitializedParams) => {
+export const ON_CONNECTION_INITIALIZED = async (event: InitializedParams) => {
   try {
     // embed timeout here because, for some reason, this gets "in init" callback get called multiple times (i.e. not really on init?)
     if (!IS_RESOLVED) {
@@ -52,7 +52,7 @@ export const ON_INITIALIZED = async (event: InitializedParams) => {
           IDL_LANGUAGE_SERVER_LOGGER.log({
             log: IDL_LSP_LOG,
             type: 'warn',
-            content: ['Unexpectedly reached ON_INITIALIZED timeout'],
+            content: ['Unexpectedly reached ON_CONNECTION_INITIALIZED timeout'],
           });
           IS_RESOLVED = true;
           RESOLVER({});
