@@ -204,8 +204,15 @@ function getTypeOverrides
   typeOverride['CLI_Progress::Update'] = 'pm'
   typeOverride['ExtractDeepLearningObjectModelFromFile'] = 'f'
   typeOverride['ExtractDeepLearningGridModelFromFile'] = 'f'
+  typeOverride['IPM::Create'] = 'pm'
+  typeOverride['IPM::Publish'] = 'pm'
+  typeOverride['IPM::Query'] = 'pm'
+  typeOverride['IPM::Update'] = 'pm'
+  typeOverride['ipm'] = 'p'
+  typeOverride['dialog_calendar'] = 'f'
+  typeOverride['ENVIWorkflowStep::StyleSheetHideParameters'] = 'pm'
 
-  ; valuidate our overrides
+  ; validate our overrides
   stahp = !false
   foreach val, typeOverride, key do begin
     if (strlowcase(val) eq 'populate') then begin
@@ -247,6 +254,8 @@ function getNameOverrides
   nameOverride['idl_validname'] = 'IDL_ValidName'
   nameOverride['idlexbr_assistant'] = 'IDLExBr_Assistant'
   nameOverride['idlitsys_createtool'] = 'IDLITSys_CreateTool'
+  nameOverride['envi'] = 'envi'
+  nameOverride['idl_hashvar'] = 'idl_hashvar'
 
   ; typo in docs for 9.1
   nameOverride['cli_progres:initialize'] = 'CLI_Progress::Initialize'
@@ -764,6 +773,7 @@ skipTheseFiles['/envi/Content/ExtendCustomize/Obsolete/ENVI_GET_HEADER_VALUE.htm
 skipTheseFiles['/envi/Content/ExtendCustomize/Obsolete/MORPH_DOIT.htm'] = !true
 skipTheseFiles['/envi/Content/ExtendCustomize/Obsolete/ENVI_GET_ROI_INFORMATION.htm'] = !true
 skipTheseFiles['/envi/Content/ExtendCustomize/Obsolete/ENVI_GET_PATH.htm'] = !true
+skipTheseFiles['/machine_learning/Content/WhatsNewPrevReleases/WhatsNewList.htm'] = !true
 
 ; track base names to skip
 skipTheseBases = orderedhash()
@@ -771,6 +781,7 @@ skipTheseBases['ContactUs.htm'] = !true
 skipTheseBases['Preferences.htm'] = !true
 skipTheseBases['LegalAndCopyrightNotices.htm'] = !true
 skipTheseBases['WhatsNew.htm'] = !true
+skipTheseBases['WhatsNewList.htm'] = !true
 skipTheseBases['EventHandling.htm'] = !true
 skipTheseBases['SampleIDLObject.htm'] = !true
 skipTheseBases['Projects.htm'] = !true
@@ -784,6 +795,7 @@ skipTheseBases['ProgrammingRoutinesTasks.htm'] = !true
 skipTheseBases['Introduction.htm'] = !true
 skipTheseBases['Tutorials.htm'] = !true
 skipTheseBases['SystemRequirements.htm'] = !true
+skipTheseBases['Obsolete.htm'] = !true
 
 ; fix HTML files being incorrect (at least is wrong with ENVI)
 ; key is routine name, space, then routine type
@@ -849,7 +861,8 @@ foreach item, allItems do begin
 
   ; check for type override
   if typeOverride.hasKey(itemName) then begin
-    item['type'] = typeOverride[itemName]
+    ; special case for window which points to the wrong file
+    if ~(item['link'] eq 'WINDOW_Procedure.htm') then item['type'] = typeOverride[itemName]
   endif
 
   ; check for name override
@@ -894,7 +907,7 @@ foreach item, allItems do begin
   if map.hasKey(file) then begin
     item['link'] = map[file] + item['link'].replace(origfile, '')
   endif else begin
-    print, 'Missing file for item "' + item['label'] + '"'
+    message, 'Missing file for item "' + item['name'] + '"'
   endelse
 
   ; check if we have properties
@@ -909,7 +922,7 @@ foreach item, allItems do begin
     if map.hasKey(file) then begin
       item['properties'] = map[file] + item['properties'].replace(origfile, '')
     endif else begin
-      message, 'Missing file for properties for item "' + item['label'] + '"'
+      message, 'Missing file for properties for item "' + item['name'] + '"'
     endelse
   endif
 
