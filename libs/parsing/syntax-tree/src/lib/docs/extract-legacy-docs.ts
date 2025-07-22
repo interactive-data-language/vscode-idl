@@ -146,14 +146,16 @@ export function ExtractLegacyDocs(
         blocks[key] = lastFound;
       }
 
-      /** Track if we shifted or not */
-      let shifted = false;
-
       // get the text afterwards if we have any
       let after = line.substring(match.index + match[0].length).trim();
 
       // check the next line if this one doesnt have anything afterwards
-      if (!after && i < comments.length - 2) {
+      // but only do this for keywords and arguments
+      if (
+        (key === IDL_DOCS_HEADERS.ARGS || key === IDL_DOCS_HEADERS.KEYWORDS) &&
+        !after &&
+        i < comments.length - 2
+      ) {
         /** Get text on the next line instead */
         const nextLine = comments[i + 1].match[0].replace(
           REMOVE_COMMENT_REGEX,
@@ -163,7 +165,6 @@ export function ExtractLegacyDocs(
         if (LEGACY_PARAMETER_NAME_SPLIT.test(nextLine)) {
           i++;
           after = nextLine;
-          shifted = true;
         }
       }
 
@@ -229,18 +230,16 @@ export function ExtractLegacyDocs(
           lastFound.comments.push(comments[i]);
 
           // save description if we didnt shift
-          if (!shifted) {
-            lastFound.docs.push(
-              '     ' +
-                CleanComment(
-                  after
-                    .substring(name.length)
-                    .replace(LEGACY_PARAMETER_INFO, '')
-                    .trim()
-                )
-            );
-            lastFound.comments.push(comments[i]);
-          }
+          lastFound.docs.push(
+            '     ' +
+              CleanComment(
+                after
+                  .substring(name.length)
+                  .replace(LEGACY_PARAMETER_INFO, '')
+                  .trim()
+              )
+          );
+          lastFound.comments.push(comments[i]);
         } else {
           lastFound.docs.push(CleanComment(after.trim()));
           lastFound.comments.push(comments[i]);
