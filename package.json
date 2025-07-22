@@ -27,7 +27,7 @@
     "code-prep": "nx run-many --all --target=lint --fix --parallel=5 && nx format:write",
     "compliance": "node compliance/compliance.js",
     "build-test-maker": "nx build test-tokenizer",
-    "make-tests": "node ./dist/apps/test-tokenizer/main.js",
+    "make-tests": "node ./dist/apps/test-tokenizer/main.js --generate",
     "generate-tests": "npm-run-all build-test-maker make-tests code-prep",
     "test-libs": "nx run-many --target=test --runInBand --projects=\"tests*\" --parallel=5 && nx run-many --target=test --runInBand --projects=parsing-tokenizer --parallel=5",
     "ng": "nx",
@@ -492,7 +492,8 @@
               "eol": "lf",
               "styleAndFormat": true,
               "tabWidth": 2,
-              "hangingIndent": false
+              "hangingIndent": false,
+              "maxIndent": 40
             },
             "properties": {
               "autoDoc": {
@@ -526,6 +527,10 @@
               "hangingIndent": {
                 "type": "boolean",
                 "description": "%configuration.properties.code.formatting.hangingIndent%"
+              },
+              "maxIndent": {
+                "type": "number",
+                "description": "%configuration.properties.code.formatting.maxIndent%"
               }
             }
           },
