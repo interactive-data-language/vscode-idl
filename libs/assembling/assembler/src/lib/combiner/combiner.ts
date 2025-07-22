@@ -170,12 +170,12 @@ function _Recursor<T extends FormatterType>(
       // see if we should have hanging indent
       if (options.hangingIndent && tree[i].name in HANGING_ROUTINES) {
         // if we had a previous value, save it so we can reset when we return
-        if (recurse.hangingIndentStart) {
+        if (recurse.hangingIndentStart !== undefined) {
           lastHang = recurse.hangingIndentStart;
         }
 
-        // set to the end of the start of our branch
-        recurse.hangingIndentStart = tree[i].pos[1] + tree[i].pos[2];
+        // set hanging indent to the length of our current line
+        recurse.hangingIndentStart = line.join('').length; // tree[i].pos[1] + tree[i].pos[2];
       }
 
       // process our children
@@ -238,7 +238,7 @@ function _Recursor<T extends FormatterType>(
 
       // check if we need to reset our hanging indent
       if (options.hangingIndent && tree[i].name in HANGING_ROUTINES) {
-        if (lastHang) {
+        if (lastHang !== undefined) {
           recurse.hangingIndentStart = lastHang;
           lastHang = undefined;
         } else {
