@@ -370,11 +370,11 @@ export class IDLMachineWrapper {
       const newVar = {
         name: variable.name.toLowerCase(),
         type: `${variable.type}`,
-        description: variable.value,
+        description: variable.value.trim(),
       };
 
       // fine tune the types that get displayed
-      this.cleanVariableInformation(newVar, variable.value);
+      this.cleanVariableInformation(newVar, newVar.description);
 
       // return
       return newVar;
