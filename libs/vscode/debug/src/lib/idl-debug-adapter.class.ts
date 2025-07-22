@@ -18,6 +18,7 @@ import {
   REGEX_IDL_RETALL,
   StopReason,
 } from '@idl/types/idl/idl-process';
+import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { VSCODE_PRO_DIR } from '@idl/vscode/client';
@@ -192,7 +193,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
      * statements at a time.
      */
     const splitCommands = command
-      .split(/\r?\n/gim)
+      .split(LINE_SEPARATOR)
       .map((line) => line.trim())
       .filter((line) => line.length > 0);
 

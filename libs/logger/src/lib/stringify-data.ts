@@ -1,3 +1,4 @@
+import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import * as util from 'util';
 
 import { LOGGING_CONFIG } from './logger.interface';
@@ -7,11 +8,11 @@ import { LOGGING_CONFIG } from './logger.interface';
  */
 export function StringifyData(data: any, color = true) {
   if (typeof data === 'string') {
-    return data.replace(/\r?\n|\r/g, `\n${LOGGING_CONFIG.INDENT}`);
+    return data.replace(LINE_SEPARATOR, `\n${LOGGING_CONFIG.INDENT}`);
   } else {
     return util
       .inspect(data, undefined, LOGGING_CONFIG.UTILS_LEVEL, color)
-      .replace(/\r?\n|\r/g, `\n${LOGGING_CONFIG.INDENT}`);
+      .replace(LINE_SEPARATOR, `\n${LOGGING_CONFIG.INDENT}`);
   }
 }
 

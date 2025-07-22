@@ -4,6 +4,7 @@ import {
   IDLRawNotebook,
   IDLRawNotebookVersion_2_0_0,
 } from '@idl/types/notebooks';
+import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 
 /**
  * Creates a new IDL Notebook and returns it encoded as byte data
@@ -19,7 +20,7 @@ export async function CreateNewIDLNotebook(
     cells: payload.cells.map((cell) => {
       return {
         type: cell.type,
-        content: cell.content.split(/\r?\n|\r/g),
+        content: cell.content.split(LINE_SEPARATOR),
       };
     }),
   };

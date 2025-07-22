@@ -4,6 +4,7 @@ import {
   IDLRawNotebookCell,
   IDLRawNotebookVersion_2_0_0,
 } from '@idl/types/notebooks';
+import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import * as vscode from 'vscode';
 
 import { ToIDLRawNotebook } from './to-idl-raw-notebook.interface';
@@ -30,7 +31,7 @@ export const ToIDLRawNotebook_2_0_0: ToIDLRawNotebook<IDLRawNotebookVersion_2_0_
           data.cells[i].kind === vscode.NotebookCellKind.Code
             ? 'code'
             : 'markdown',
-        content: data.cells[i].value.split(/\r?\n|\r/g),
+        content: data.cells[i].value.split(LINE_SEPARATOR),
       };
 
       // check for metadata
@@ -51,7 +52,9 @@ export const ToIDLRawNotebook_2_0_0: ToIDLRawNotebook<IDLRawNotebookVersion_2_0_
               } else {
                 return {
                   mime: item.mime,
-                  content: Buffer.from(item.data).toString().split(/\r?\n/g),
+                  content: Buffer.from(item.data)
+                    .toString()
+                    .split(LINE_SEPARATOR),
                 };
               }
             }),

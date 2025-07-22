@@ -2,6 +2,7 @@ import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { IsSingleLine } from '@idl/parsing/syntax-validators';
 import { MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import { PrepareNotebookCellResponse } from '@idl/vscode/events/messages';
 import copy from 'fast-copy';
 
@@ -15,7 +16,7 @@ export async function PrepareNotebookCell(
   text: string
 ): Promise<PrepareNotebookCellResponse> {
   /** Get array of strings */
-  const strings = text.split(/\r?\n/g);
+  const strings = text.split(LINE_SEPARATOR);
 
   /**
    * Flag if we have a main level program or not

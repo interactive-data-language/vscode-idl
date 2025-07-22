@@ -6,6 +6,7 @@ import {
   IDLNotebookMap,
   IDLNotebookMap_Image,
 } from '@idl/types/notebooks';
+import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import { NotebookCellKind, NotebookDocument } from 'vscode';
 
 import { CreateOutputText } from './create-output-text';
@@ -42,7 +43,9 @@ export async function NotebookToMarkdown(
        */
       case cell.kind === NotebookCellKind.Markup:
         // add markdown directly
-        markdown = markdown.concat(cell.document.getText().split(/\r?\n/g));
+        markdown = markdown.concat(
+          cell.document.getText().split(LINE_SEPARATOR)
+        );
 
         // add new line
         markdown.push('');
@@ -54,7 +57,9 @@ export async function NotebookToMarkdown(
       case cell.kind === NotebookCellKind.Code: {
         // add code cell for IDL
         markdown.push('```idl');
-        markdown = markdown.concat(cell.document.getText().split(/\r?\n/g));
+        markdown = markdown.concat(
+          cell.document.getText().split(LINE_SEPARATOR)
+        );
         markdown.push('```');
 
         // add new line
@@ -158,7 +163,7 @@ export async function NotebookToMarkdown(
               markdown.push(
                 CreateOutputText(
                   nOut,
-                  asString.split(/\r?\n/g).join('\n'),
+                  asString.split(LINE_SEPARATOR).join('\n'),
                   'text'
                 )
               );

@@ -1,6 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_COMMANDS, IDL_LANGUAGE_NAME, Sleep } from '@idl/shared/extension';
 import { INotebookToProCodeOptions } from '@idl/types/notebooks';
+import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
@@ -29,7 +30,7 @@ export const NotebookToProCodeAllCells: RunnerFunction = async (init) => {
 
   // get the code we should expect, independent of line ending
   const expected = readFileSync(expectedUri, { encoding: 'utf-8' }).split(
-    /\r?\n/gim
+    LINE_SEPARATOR
   );
 
   /**
@@ -58,7 +59,7 @@ export const NotebookToProCodeAllCells: RunnerFunction = async (init) => {
   expect(editor?.document?.languageId).toEqual(IDL_LANGUAGE_NAME);
 
   // get strings in editor
-  const actualContent = editor.document.getText().split(/\r?\n/gim);
+  const actualContent = editor.document.getText().split(LINE_SEPARATOR);
 
   // close editor
   await vscode.commands.executeCommand(VSCODE_COMMANDS.CLOSE_EDITOR);

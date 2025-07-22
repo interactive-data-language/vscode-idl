@@ -3,6 +3,7 @@ import { IDL_LSP_LOG } from '@idl/logger';
 import { IDLFileHelper } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLDiagnostic } from '@idl/types/diagnostic';
+import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import { CodeAction, CodeActionParams } from 'vscode-languageserver/node';
 
 import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
@@ -64,7 +65,7 @@ export const ON_CODE_ACTIONS = async (
     const config = GetFormattingConfigForFile(info.fsPath);
 
     /** Get code as string array */
-    const code = info.code.split(/\r?\n/gim);
+    const code = info.code.split(LINE_SEPARATOR);
 
     /** get code actions */
     const actions = await CreateCodeActions(
