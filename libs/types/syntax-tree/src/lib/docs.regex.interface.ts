@@ -22,6 +22,31 @@ export const HEADER_TAG_LEGACY = /^\s*@([a-z_$0-9]+)/i;
 export const LEGACY_PARAMETER_NAME_SPLIT = /^\s*(?:[a-z_0-9$]+(,\s*)?)+/i;
 
 /**
- * If we have an input direction parameter
+ * If we have an input parameter
  */
-export const LEGACY_PARAMETER_DIRECTION = /\{input\}/gi;
+export const LEGACY_PARAMETER_DIRECTION_IN = /\{(?:input|in)\}/i;
+
+/**
+ * If we have an output parameter
+ */
+export const LEGACY_PARAMETER_DIRECTION_OUT = /\{(?:output|out)\}/i;
+
+/**
+ * If we have an optional parameter (default is required)
+ */
+export const LEGACY_PARAMETER_OPTIONAL = /\{(?:optional)\}/i;
+
+/**
+ * If we have an optional parameter (default is required)
+ */
+export const LEGACY_PARAMETER_REQUIRED = /\{(?:required)\}/i;
+
+/**
+ * If we have type information
+ */
+export const LEGACY_PARAMETER_TYPE = /\{(?:type=)([a-z0-9_!$]+)\}/i;
+
+/**
+ * Matches all docs strings with legacy docs
+ */
+export const LEGACY_PARAMETER_INFO = /{([^}]*)}/gi;

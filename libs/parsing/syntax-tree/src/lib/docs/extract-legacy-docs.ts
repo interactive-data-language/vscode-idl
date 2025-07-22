@@ -2,8 +2,13 @@ import { CommentToken, GetMatchesArray } from '@idl/tokenizer';
 import {
   ARG_KW_PROPERTY_TAG,
   HEADER_TAG_LEGACY,
-  LEGACY_PARAMETER_DIRECTION,
+  LEGACY_PARAMETER_DIRECTION_IN,
+  LEGACY_PARAMETER_DIRECTION_OUT,
+  LEGACY_PARAMETER_INFO,
   LEGACY_PARAMETER_NAME_SPLIT,
+  LEGACY_PARAMETER_OPTIONAL,
+  LEGACY_PARAMETER_REQUIRED,
+  LEGACY_PARAMETER_TYPE,
 } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
@@ -141,8 +146,28 @@ export function ExtractLegacyDocs(
         blocks[key] = lastFound;
       }
 
+      /** Track if we shifted or not */
+      let shifted = false;
+
       // get the text afterwards if we have any
-      const after = line.substring(match.index + match[0].length).trim();
+      let after = line.substring(match.index + match[0].length).trim();
+
+      // check the next line if this one doesnt have anything afterwards
+      if (!after && i < comments.length - 2) {
+        /** Get text on the next line instead */
+        const nextLine = comments[i + 1].match[0].replace(
+          REMOVE_COMMENT_REGEX,
+          ''
+        );
+        // check the next line
+        if (LEGACY_PARAMETER_NAME_SPLIT.test(nextLine)) {
+          i++;
+          after = nextLine;
+          shifted = true;
+        }
+      }
+
+      // check if we have a line for docs
       if (after !== '') {
         /**
          * Do we have a parameter that we need to map to the IDL doc format?
@@ -165,27 +190,59 @@ export function ExtractLegacyDocs(
             ] = lastFound;
           }
 
+          /** Check for direction */
+          let direction = 'bidirectional';
+          switch (true) {
+            case LEGACY_PARAMETER_DIRECTION_IN.test(after):
+              direction = 'in';
+              break;
+            case LEGACY_PARAMETER_DIRECTION_OUT.test(after):
+              direction = 'out';
+              break;
+            default:
+              break;
+          }
+
+          /** Check if required or not */
+          let required = 'required';
+          switch (true) {
+            case LEGACY_PARAMETER_OPTIONAL.test(after):
+              required = 'optional';
+              break;
+            case LEGACY_PARAMETER_REQUIRED.test(after):
+              break;
+            default:
+              break;
+          }
+
+          /** Check for type */
+          let type = 'any';
+          const typeMatch = LEGACY_PARAMETER_TYPE.exec(after);
+          if (typeMatch !== null) {
+            type = typeMatch[1];
+          }
+
           // put official RST docs
           lastFound.docs.push(
-            `   ${split[0]}: ${
-              LEGACY_PARAMETER_DIRECTION.test(after) ? 'in' : 'bidirectional'
-            }, required, any`
+            `   ${split[0]}: ${direction}, ${required}, ${type}`
           );
           lastFound.comments.push(comments[i]);
 
-          // save description
-          lastFound.docs.push(
-            '     ' +
-              CleanComment(
-                after
-                  .substring(name.length)
-                  .replace(LEGACY_PARAMETER_DIRECTION, '')
-                  .trim()
-              )
-          );
-          lastFound.comments.push(comments[i]);
+          // save description if we didnt shift
+          if (!shifted) {
+            lastFound.docs.push(
+              '     ' +
+                CleanComment(
+                  after
+                    .substring(name.length)
+                    .replace(LEGACY_PARAMETER_INFO, '')
+                    .trim()
+                )
+            );
+            lastFound.comments.push(comments[i]);
+          }
         } else {
-          lastFound.docs.push(CleanComment(after));
+          lastFound.docs.push(CleanComment(after.trim()));
           lastFound.comments.push(comments[i]);
         }
 
