@@ -49,7 +49,7 @@ export function InitializeDocumentManager() {
    * parameters that do not break the patterns that exist
    */
   SERVER_CONNECTION.onDocumentFormatting((params) => {
-    return ON_DOCUMENT_FORMATTING(params, {}, false);
+    return ON_DOCUMENT_FORMATTING(params, undefined, false);
   });
 
   /**
