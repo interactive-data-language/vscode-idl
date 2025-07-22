@@ -34,6 +34,10 @@ With IDL 9.2, IDL now offers **native integration with VSCode**, bringing substa
 
 - Pause support is now fully functional on Windows
 
+- Debugging shows better information about variables and their values
+
+- Debugging workflow, and inputting commands in the debug console, has been completely re-worked for a more streamlined user experience
+
 - Improved detection of when IDL is idle and ready for input
 
 - Internal commands are excluded from command history
@@ -125,6 +129,8 @@ Let us know if you'd like to see more features supported in the web version.
 - **ENVI + Notebooks:** Starting ENVI UI in a notebook now disables graphics embedding in that cell to prevent blank/empty outputs. For best results, use a dedicated cell to start ENVI and separate cells for visual output. issue where saving twice was required to trigger formatting.
 
 - **Syntax highlighting and method detection**: Fixed an issue where we would not properly highlightor parse procedure and function methods when in case/switch statements.
+
+- **Legacy Documentation Parsing**: Updated the docs parsing for older style code comments to support a wider range of parameters that we parse (i.e. data type, direction) and multi-line starter blocks of docs
 
 ## 4.7.1 - December 2024
 
