@@ -30,6 +30,7 @@ describe(`[auto generated] Parse invalid config files`, () => {
       formatter: 'fiddle',
       hangingIndent: false,
       tabWidth: 2,
+      maxIndent: 30,
       eol: 'lf',
       style: {
         quotes: 'single',
