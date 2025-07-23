@@ -1,5 +1,6 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { ICLIProgressNotification } from '@idl/types/idl/idl-machine';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 
 import { IDLNotebookExecutionManager } from '../idl-notebook-execution-manager.class';
@@ -22,7 +23,11 @@ export function RegisterNotebookCLIProgressHandler(
 
         // attempt to replace
         try {
-          manager._replaceCellOutput(manager._currentCell, msg.param1);
+          /** Parse the message */
+          const parsed: ICLIProgressNotification = JSON.parse(msg.param1);
+
+          // replace the cell output
+          manager._replaceCellOutput(manager._currentCell, parsed.string);
         } catch (err) {
           IDL_LOGGER.log({
             type: 'error',

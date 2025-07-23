@@ -121,6 +121,7 @@
       "@idl/types/auto-complete": ["libs/types/auto-complete/src/index.ts"],
       "@idl/types/core": ["libs/types/core/src/index.ts"],
       "@idl/types/diagnostic": ["libs/types/diagnostic/src/index.ts"],
+      "@idl/types/idl/idl-machine": ["libs/types/idl/idl-machine/src/index.ts"],
       "@idl/types/idl/idl-process": ["libs/types/idl/idl-process/src/index.ts"],
       "@idl/types/idl/ws-client": ["libs/types/idl/ws-client/src/index.ts"],
       "@idl/types/mcp": ["libs/types/mcp/src/index.ts"],
