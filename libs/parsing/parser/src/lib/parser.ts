@@ -4,7 +4,6 @@ import {
   BuildSyntaxTree,
   DEFAULT_USES_THESE_GLOBAL_TOKEN,
   IParsed,
-  PopulateGlobalLocalCompileOpts,
   PostProcessProblems,
 } from '@idl/parsing/syntax-tree';
 import { ActivateDefaultSyntaxRules } from '@idl/parsing/syntax-validators';
@@ -128,20 +127,6 @@ export function Parser(
 
   // build the syntax tree and detect syntax problems
   BuildSyntaxTree(tokenized, cancel, options.full);
-
-  /**
-   * Populate our global, local (variables), and compile-opts
-   *
-   * Populate global tokens - do note that this also populates docs
-   * so we probably dont want to turn it off
-   *
-   * If it is off, we dont get hover help or useful auto-complete
-   */
-  PopulateGlobalLocalCompileOpts(
-    tokenized,
-    cancel,
-    true || tokenized.type === 'def'
-  );
 
   // remove all problems if fast parse
   if (!options.full && !(tokenized.type === 'def')) {

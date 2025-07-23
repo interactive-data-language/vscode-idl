@@ -24,6 +24,7 @@ import {
 import { DEFAULT_PARSED, IParsed } from './parsed.interface';
 import { PopulateIndex } from './populate-index';
 import { PopulateScope } from './populate-scope';
+import { PopulateGlobalLocalCompileOpts } from './populators/populate-global';
 import { PopulateVariables } from './populators/populate-variables';
 import { IDL_SYNTAX_TREE_POST_PROCESSOR } from './post-processor.interface';
 import { DEFAULT_CURRENT } from './recursion-and-callbacks/tree-recurser.interface';
@@ -292,6 +293,16 @@ export function BuildSyntaxTree(
     parsed,
     DEFAULT_CURRENT
   );
+
+  /**
+   * Populate our global, local (variables), and compile-opts
+   *
+   * Populate global tokens - do note that this also populates docs
+   * so we probably dont want to turn it off
+   *
+   * If it is off, we dont get hover help or useful auto-complete
+   */
+  PopulateGlobalLocalCompileOpts(parsed, cancel, true || parsed.type === 'def');
 
   // validate tree
   if (full) {
