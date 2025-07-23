@@ -421,7 +421,7 @@ export class IDLMachineWrapper {
       case value.includes('['):
         variable.type = `Array<${typeString}>, Size=${value.substring(
           value.indexOf('[')
-        )}`;
+        ).replace(/\s+/g, '')}`;
         variable.description = '';
         break;
 
