@@ -1,4 +1,5 @@
 import { PositionArray } from '@idl/types/tokenizer';
+import { TextEdit } from 'vscode-languageserver';
 
 import { IDLProblemCode } from './idl-problem-codes.interface';
 
@@ -12,6 +13,8 @@ export interface ISyntaxProblem {
   // _id: string;
   /** Number for the syntax problem that was detected */
   code: IDLProblemCode;
+  /** Any text edits associated with this problem to fix the issue at hand */
+  edits?: TextEdit[];
   /** Optional end of the syntax problem `[line, index, length]` */
   end: PositionArray;
   /** The file that the problem occurs in */

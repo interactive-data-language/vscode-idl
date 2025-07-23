@@ -67,6 +67,7 @@ export function SyntaxProblemToDiagnostic(
       type: 'idl',
       code: problem.code,
       alias: IDL_PROBLEM_CODE_ALIAS_LOOKUP[problem.code],
+      edits: problem.edits,
     },
   };
 }

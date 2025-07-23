@@ -610,6 +610,7 @@ export interface ITranslation {
       disableLine: string;
       disableUser: string;
       disableWorkspace: string;
+      quickFixProblem: string;
       viewProblemCodeDocs: string;
       viewProblemConfigDocs: string;
     };

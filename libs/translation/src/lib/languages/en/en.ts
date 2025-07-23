@@ -696,6 +696,7 @@ export const EN: ITranslation = {
       disableLine: 'Disable "PROBLEM" for line',
       disableUser: 'Disable "PROBLEM" in user settings',
       disableWorkspace: 'Disable "PROBLEM" for workspace',
+      quickFixProblem: 'Fix "PROBLEM"',
       viewProblemCodeDocs: 'Learn more about "PROBLEM"',
       viewProblemConfigDocs: 'Learn how to configure reported problems',
     },
@@ -976,6 +977,14 @@ export const EN: ITranslation = {
         'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
       '109':
         'Expression will automatically be printed during notebook cell execution',
+      '110':
+        'Detected an "and" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `&&` operator is preferred as the behavior might not match what you expect.',
+      '111':
+        'Detected an "or" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `||` operator is preferred as the behavior might not match what you expect.',
+      '112':
+        'Detected a "not" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `~` operator is preferred as the behavior might not match what you expect.',
+      '113':
+        'Detected an "xor" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The behavior might not match what you expect.',
     },
   },
   statusBar: {

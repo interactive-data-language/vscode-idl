@@ -1,5 +1,5 @@
 import { IDLProblemCode } from '@idl/types/problem-codes';
-import { Diagnostic } from 'vscode-languageserver';
+import { Diagnostic, TextEdit } from 'vscode-languageserver';
 
 /**
  * Type of IDL diagnostic
@@ -19,5 +19,7 @@ export interface IDLDiagnostic extends Diagnostic {
     code: IDLProblemCode;
     /** Alias for the problem code */
     alias: string;
+    /** Text edits for the library */
+    edits?: TextEdit[];
   };
 }

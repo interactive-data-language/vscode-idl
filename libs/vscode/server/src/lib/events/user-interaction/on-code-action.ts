@@ -72,6 +72,7 @@ export const ON_CODE_ACTIONS = async (
       code,
       diags,
       config,
+      params.textDocument.uri,
       info.type === 'notebook' ? +info.fsPath.split('#')[1] : undefined
     );
 

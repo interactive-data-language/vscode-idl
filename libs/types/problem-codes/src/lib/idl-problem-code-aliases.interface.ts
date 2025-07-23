@@ -131,6 +131,10 @@ export const IDL_PROBLEM_CODE_ALIAS_LOOKUP: ProblemCodeAliasLookup = {
   107: 'unknown-disabled-alias',
   108: 'standalone-expression',
   109: 'implied-print-nb',
+  110: 'logical-predicate-and',
+  111: 'logical-predicate-or',
+  112: 'logical-predicate-not',
+  113: 'logical-predicate-xor',
 };
 
 /** Reverse lookup for problems codes with alias giving the problem code back */
