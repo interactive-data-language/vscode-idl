@@ -388,7 +388,7 @@ export const EN: ITranslation = {
         'No main level program, function, or procedure found to run',
       nothingToEdit: 'No matching file found',
       previewWarning:
-        '\n-----------------------------\nRunning IDL from within VSCode is not fully implemented yet.\nMost things should work but you may encounter a few issues.\nIn particular, the "Pause" button does not work on Windows, and you may occasionally see some internal output in the debug console.\n-----------------------------\n',
+        '\n-----------------------------\nRunning IDL from within VSCode is fully integrated with IDL 9.2 so please upgrade :)\nMost functionality should work using an older version, but you may encounter a few issues.\nIn particular, the "Pause" button does not work on Windows, and you may occasionally see some internal output in the debug console.\n-----------------------------\n',
       promiseResolveError:
         'Error resolving promise for executing IDL statement',
       restart: 'Restarting IDL!',
