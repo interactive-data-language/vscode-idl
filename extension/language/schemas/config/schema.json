@@ -46,6 +46,12 @@
       "description": "When we process our code, do we apply our styles and format?\n\nIf this is set to `false` and `autoDoc` is enabled, then we add documentation to your code without changing anything else.",
       "default": true
     },
+    "maxIndent": {
+      "type": "number",
+      "title": "Max Indent",
+      "description": "Maximum indent size (number of spaces) that we will insert when auto-indenting your code during formatting",
+      "default": 30
+    },
     "style": {
       "$ref": "v1.schema.json#/definitions/1.0.0-options"
     },

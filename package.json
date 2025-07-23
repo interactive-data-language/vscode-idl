@@ -24,7 +24,7 @@
     "build-tmlang": "nx build tmlang-maker && node ./dist/apps/tmlang-maker/main.js --trace-warnings",
     "build-test": "nx build vscode-e2e-runner && nx build client-e2e",
     "clean": "rimraf ./dist",
-    "code-prep": "nx run-many --all --target=lint --fix --parallel=5 && nx format:write",
+    "code-prep": "nx run-many --all --target=lint --fix --parallel=8 --skip-nx-cache && nx format:write",
     "compliance": "node compliance/compliance.js",
     "build-test-maker": "nx build test-tokenizer",
     "make-tests": "node ./dist/apps/test-tokenizer/main.js --generate",
@@ -493,7 +493,7 @@
               "styleAndFormat": true,
               "tabWidth": 2,
               "hangingIndent": false,
-              "maxIndent": 40
+              "maxIndent": 30
             },
             "properties": {
               "autoDoc": {

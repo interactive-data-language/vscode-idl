@@ -43,6 +43,7 @@ function _Recursor<T extends FormatterType>(
   let line = GetNewLine(
     recurse.indentLevel,
     options.tabWidth,
+    options.maxIndent,
     recurse.tokenParent,
     recurse.hangingIndentStart
   );
@@ -113,6 +114,7 @@ function _Recursor<T extends FormatterType>(
         line = GetNewLine(
           recurse.indentLevel,
           options.tabWidth,
+          options.maxIndent,
           recurse.tokenParent,
           recurse.hangingIndentStart
         );
@@ -212,6 +214,7 @@ function _Recursor<T extends FormatterType>(
               closeAdd = GetNewLine(
                 recurse.indentLevel - indentOffset,
                 options.tabWidth,
+                options.maxIndent,
                 recurse.tokenParent,
                 recurse.hangingIndentStart
               );
@@ -228,6 +231,7 @@ function _Recursor<T extends FormatterType>(
           line = GetNewLine(
             recurse.indentLevel - indentOffset,
             options.tabWidth,
+            options.maxIndent,
             recurse.tokenParent,
             recurse.hangingIndentStart
           );

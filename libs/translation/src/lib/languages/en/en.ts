@@ -322,6 +322,8 @@ export const EN: ITranslation = {
         tabWidth: 'Number of spaces to use for indentation.',
         hangingIndent:
           'Do we use hanging indentation for multi-line statements?\n\nFor multi-line statements this means that the first line begins at the standard indentation level and all subsequent lines are indented further to align with a syntactic element (e.g., after an opening parenthesis), rather than using a uniform block indent.\n\nThis affect routine names, function calls, procedure calls, arrays, structures, and parentheses.',
+        maxIndent:
+          'Maximum indent size (number of spaces) that we will insert when auto-indenting your code during formatting',
       },
       'code.formattingStyle': {
         binary:

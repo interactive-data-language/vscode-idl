@@ -399,6 +399,7 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
       styleAndFormat: DEFAULT_ASSEMBLER_OPTIONS.styleAndFormat,
       tabWidth: DEFAULT_ASSEMBLER_OPTIONS.tabWidth,
       hangingIndent: DEFAULT_ASSEMBLER_OPTIONS.hangingIndent,
+      maxIndent: DEFAULT_ASSEMBLER_OPTIONS.maxIndent,
     },
     formattingStyle: copy(DEFAULT_CODE_STYLE),
   },

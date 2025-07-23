@@ -241,6 +241,14 @@ export function AddCodeConfig(nls: IPackageNLS) {
           formatPropertyBase
         ),
       },
+      maxIndent: {
+        type: 'number',
+        description: TranslationFromConfiguration(
+          'maxIndent',
+          nls,
+          formatPropertyBase
+        ),
+      },
     },
   };
 
