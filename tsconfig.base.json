@@ -124,6 +124,7 @@
       "@idl/types/idl/idl-machine": ["libs/types/idl/idl-machine/src/index.ts"],
       "@idl/types/idl/idl-process": ["libs/types/idl/idl-process/src/index.ts"],
       "@idl/types/idl/ws-client": ["libs/types/idl/ws-client/src/index.ts"],
+      "@idl/types/json-rpc": ["libs/types/json-rpc/src/index.ts"],
       "@idl/types/mcp": ["libs/types/mcp/src/index.ts"],
       "@idl/types/notebooks": ["libs/types/notebooks/src/index.ts"],
       "@idl/types/problem-codes": ["libs/types/problem-codes/src/index.ts"],

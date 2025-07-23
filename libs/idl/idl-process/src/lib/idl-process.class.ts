@@ -1,9 +1,9 @@
+import { Logger } from '@idl/logger';
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   FromIDLMachineRequestHandler,
   FromIDLMachineRequests,
-} from '@idl/idl/idl-machine';
-import { Logger } from '@idl/logger';
-import { IDL_TRANSLATION } from '@idl/translation';
+} from '@idl/types/idl/idl-machine';
 import {
   DEFAULT_IDL_INFO,
   IDL_EVENT_LOOKUP,

@@ -3,7 +3,7 @@
  *
  * Makes sure we process messages in order so that we dont stomp on previous values
  */
-export class OutputQueue {
+export class IDLMachineOutputQueue {
   /**
    * total output we have captured
    */

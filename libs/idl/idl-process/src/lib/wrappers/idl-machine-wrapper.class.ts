@@ -1,15 +1,15 @@
+import { IDLMachine } from '@idl/idl/idl-machine';
+import { LogType } from '@idl/logger';
+import { IDL_TRANSLATION } from '@idl/translation';
+import { ParseIDLType, SerializeIDLType } from '@idl/types/core';
 import {
   ExecuteStringFlags,
   FromIDLMachineNotificationParams,
   FromIDLMachineRequestHandler,
   FromIDLMachineRequests,
   IDLFrame,
-  IDLMachine,
   TOutNotification,
-} from '@idl/idl/idl-machine';
-import { LogType } from '@idl/logger';
-import { IDL_TRANSLATION } from '@idl/translation';
-import { ParseIDLType, SerializeIDLType } from '@idl/types/core';
+} from '@idl/types/idl/idl-machine';
 import {
   IDL_EVENT_LOOKUP,
   IDLOutput,
@@ -419,9 +419,9 @@ export class IDLMachineWrapper {
 
       /** Arrays for value */
       case value.includes('['):
-        variable.type = `Array<${typeString}>, Size=${value.substring(
-          value.indexOf('[')
-        ).replace(/\s+/g, '')}`;
+        variable.type = `Array<${typeString}>, Size=${value
+          .substring(value.indexOf('['))
+          .replace(/\s+/g, '')}`;
         variable.description = '';
         break;
 

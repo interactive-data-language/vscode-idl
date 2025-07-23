@@ -1,31 +1,25 @@
 import { ObjectifyError } from '@idl/error-shared';
-import { ChildProcess } from 'child_process';
-
 import {
   FromIDLMachineNotificationParams,
   FromIDLMachineNotifications,
-} from './from-machine/from-machine.notifications.interface';
-import {
   FromIDLMachineRequestHandler,
   FromIDLMachineRequests,
-} from './from-machine/from-machine.requests.interface';
-import { IDLNotifyRequest } from './from-machine/requests/idl-machine.idl-notify.interface';
-import { IRequestHandlers, IRequestResolver } from './idl-machine.interface';
+  IDLNotifyRequest,
+  ToIDLMachineNotificationParams,
+  ToIDLMachineNotifications,
+  ToIDLMachineRequestParams,
+  ToIDLMachineRequestResponse,
+  ToIDLMachineRequests,
+} from '@idl/types/idl/idl-machine';
 import {
   JSONRPCNotification,
   JSONRPCRequest,
   JSONRPCResponse,
-} from './json-rpc.interface';
-import { OutputQueue } from './output-queue';
-import {
-  ToIDLMachineNotificationParams,
-  ToIDLMachineNotifications,
-} from './to-machine/to-machine.notifications.interface';
-import {
-  ToIDLMachineRequestParams,
-  ToIDLMachineRequestResponse,
-  ToIDLMachineRequests,
-} from './to-machine/to-machine.requests.interface';
+} from '@idl/types/json-rpc';
+import { ChildProcess } from 'child_process';
+
+import { IRequestHandlers, IRequestResolver } from './idl-machine.interface';
+import { IDLMachineOutputQueue } from './idl-machine-output-queue';
 
 /**
  * Class to talk to the IDL machine
@@ -223,7 +217,7 @@ export class IDLMachine {
    * Makes sure we process one message/chunk at a time and
    * dont try to parse/process everything
    */
-  private _queue = new OutputQueue(this._onMessage);
+  private _queue = new IDLMachineOutputQueue(this._onMessage);
 
   /**
    * Handlers for events from servers

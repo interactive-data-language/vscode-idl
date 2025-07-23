@@ -2,11 +2,11 @@ import { Logger } from '@idl/logger';
 
 import { IDLEvaluationItem } from './idl-interaction-manager.interface';
 import EventEmitter = require('events');
+import { IDLProcess } from '@idl/idl/idl-process';
 import {
   FromIDLMachineRequestHandler,
   FromIDLMachineRequests,
-} from '@idl/idl/idl-machine';
-import { IDLProcess } from '@idl/idl/idl-process';
+} from '@idl/types/idl/idl-machine';
 import {
   DEFAULT_IDL_EVALUATE_OPTIONS,
   DEFAULT_IDL_INFO,
