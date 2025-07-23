@@ -101,7 +101,7 @@ describe(`[auto generated] Verify hanging indent`, () => {
         ``,
         `raster = ENVIRaster(ine, $`,
         `                    make_array(foo, bar, $`,
-        `                               thing), $`,
+        `                              thing), $`,
         `                    )`,
         ``,
         `triangulate, a, b, c, $`,
