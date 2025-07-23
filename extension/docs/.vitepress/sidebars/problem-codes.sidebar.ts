@@ -446,4 +446,20 @@ export const PROBLEM_CODES_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
     text: '"implied-print-nb"',
     link: '/problem-codes/codes/109.md',
   },
+  {
+    text: '"logical-and"',
+    link: '/problem-codes/codes/110.md',
+  },
+  {
+    text: '"logical-or"',
+    link: '/problem-codes/codes/111.md',
+  },
+  {
+    text: '"logical-not"',
+    link: '/problem-codes/codes/112.md',
+  },
+  {
+    text: '"logical-xor"',
+    link: '/problem-codes/codes/113.md',
+  },
 ];
