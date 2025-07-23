@@ -24,6 +24,17 @@ PROBLEM_LOOKUP['or'] = IDL_PROBLEM_CODES.LOGICAL_OR;
 PROBLEM_LOOKUP['not'] = IDL_PROBLEM_CODES.LOGICAL_NOT;
 PROBLEM_LOOKUP['xor'] = IDL_PROBLEM_CODES.LOGICAL_XOR;
 
+/** Track tokens we dont recurse into */
+const DONT_RECURSE = {};
+DONT_RECURSE[TOKEN_NAMES.LOGICAL_THEN] = undefined;
+DONT_RECURSE[TOKEN_NAMES.LOGICAL_ELSE] = undefined;
+DONT_RECURSE[TOKEN_NAMES.LOGICAL_CASE_SWITCH_THEN] = undefined;
+DONT_RECURSE[TOKEN_NAMES.LOGICAL_EXPRESSION_DEFAULT] = undefined;
+DONT_RECURSE[TOKEN_NAMES.CALL_FUNCTION] = undefined;
+DONT_RECURSE[TOKEN_NAMES.CALL_FUNCTION_METHOD] = undefined;
+DONT_RECURSE[TOKEN_NAMES.BRACKET] = undefined;
+DONT_RECURSE[TOKEN_NAMES.STRUCTURE] = undefined;
+
 /**
  * Callback to handle operators
  */
@@ -80,18 +91,11 @@ function ValidateOperators(
     return;
   }
 
-  /** Track tokens we dont recurse into */
-  const dontRecurse = {};
-  dontRecurse[TOKEN_NAMES.LOGICAL_THEN] = undefined;
-  dontRecurse[TOKEN_NAMES.LOGICAL_ELSE] = undefined;
-  dontRecurse[TOKEN_NAMES.LOGICAL_CASE_SWITCH_THEN] = undefined;
-  dontRecurse[TOKEN_NAMES.LOGICAL_EXPRESSION_DEFAULT] = undefined;
-
   /** Find all kids */
   const kids = FindAllBranchChildren(
     token,
     TOKEN_NAMES.OPERATOR_LOGICAL,
-    dontRecurse
+    DONT_RECURSE
   );
 
   // process all kids
