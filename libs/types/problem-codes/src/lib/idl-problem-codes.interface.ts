@@ -219,13 +219,13 @@ type StandaloneExpressionCode = 108;
 /** When we will automatically print a statement in notebooks */
 type ImpliedPrintForNotebookCode = 109;
 /** When logical predicate is engaged and we detect "and" within logical statements */
-type LogicalPredicateAndDetectedCode = 110;
+type LogicalAndDetectedCode = 110;
 /** When logical predicate is engaged and we detect "or" within logical statements */
-type LogicalPredicateOrDetectedCode = 111;
+type LogicalOrDetectedCode = 111;
 /** When logical predicate is engaged and we detect "not" within logical statements */
-type LogicalPredicateNotDetectedCode = 112;
+type LogicalNotDetectedCode = 112;
 /** When logical predicate is engaged and we detect "xor" within logical statements */
-type LogicalPredicateXOrDetectedCode = 113;
+type LogicalXOrDetectedCode = 113;
 
 /**
  * Union type of all allowed problem codes for IDL
@@ -288,10 +288,10 @@ export type IDLProblemCode =
   | InvalidPrivateDocsCode
   | InvalidTypeDocsCode
   | KeywordMissingFromDocsCode
-  | LogicalPredicateAndDetectedCode
-  | LogicalPredicateNotDetectedCode
-  | LogicalPredicateOrDetectedCode
-  | LogicalPredicateXOrDetectedCode
+  | LogicalAndDetectedCode
+  | LogicalNotDetectedCode
+  | LogicalOrDetectedCode
+  | LogicalXOrDetectedCode
   | MissingCompileOptionsCode
   | MissingMainEndCode
   | MissingStructureFromDocsCode
@@ -469,14 +469,14 @@ interface IProblemLookup {
   INVALID_TYPE_DOCS: InvalidTypeDocsCode;
   /** When a routine has keywords, but the ":Keywords:" section is missing from docs */
   KEYWORDS_MISSING_FROM_DOCS: KeywordMissingFromDocsCode;
-  /** When llogical predicate is engaged and we detect "and" within llogical statements */
-  LOGICAL_PREDICATE_AND: LogicalPredicateAndDetectedCode;
-  /** When llogical predicate is engaged and we detect "not" within llogical statements */
-  LOGICAL_PREDICATE_NOT: LogicalPredicateNotDetectedCode;
-  /** When llogical predicate is engaged and we detect "or" within llogical statements */
-  LOGICAL_PREDICATE_OR: LogicalPredicateOrDetectedCode;
+  /** When logical predicate is engaged and we detect "and" within logical statements */
+  LOGICAL_AND: LogicalAndDetectedCode;
+  /** When logical predicate is engaged and we detect "not" within logical statements */
+  LOGICAL_NOT: LogicalNotDetectedCode;
+  /** When logical predicate is engaged and we detect "or" within logical statements */
+  LOGICAL_OR: LogicalOrDetectedCode;
   /** When logical predicate is engaged and we detect "xor" within logical statements */
-  LOGICAL_PREDICATE_XOR: LogicalPredicateXOrDetectedCode;
+  LOGICAL_XOR: LogicalXOrDetectedCode;
   /** Compile_opt with no compile options */
   MISSING_COMPILE_OPTIONS: MissingCompileOptionsCode;
   /** No end to main level program */
@@ -701,8 +701,8 @@ export const IDL_PROBLEM_CODES: IProblemLookup = {
   UNKNOWN_DISABLED_ALIAS: 107,
   STANDALONE_EXPRESSION: 108,
   IMPLIED_PRINT_NOTEBOOK: 109,
-  LOGICAL_PREDICATE_AND: 110,
-  LOGICAL_PREDICATE_OR: 111,
-  LOGICAL_PREDICATE_NOT: 112,
-  LOGICAL_PREDICATE_XOR: 113,
+  LOGICAL_AND: 110,
+  LOGICAL_OR: 111,
+  LOGICAL_NOT: 112,
+  LOGICAL_XOR: 113,
 };
