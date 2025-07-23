@@ -15,6 +15,7 @@ import { deepEqual } from 'fast-equals';
 
 import { IBasicBranch } from '../branches.interface';
 import { CleanComment } from '../helpers/clean-comment';
+import { CondenseLegacyDocs } from './condense-legacy-docs';
 import { IDL_DOCS_HEADERS } from './docs.interface';
 import {
   END_COMMENT_BLOCK_REGEX,
@@ -39,6 +40,9 @@ export function ExtractLegacyDocs(
   if (!deepEqual(Object.keys(blocks), [IDL_DOCS_HEADERS.DEFAULT])) {
     return;
   }
+
+  // merge multi-line parameters to the same line
+  CondenseLegacyDocs(comments);
 
   /**
    * Get the docs
@@ -147,26 +151,7 @@ export function ExtractLegacyDocs(
       }
 
       // get the text afterwards if we have any
-      let after = line.substring(match.index + match[0].length).trim();
-
-      // check the next line if this one doesnt have anything afterwards
-      // but only do this for keywords and arguments
-      if (
-        (key === IDL_DOCS_HEADERS.ARGS || key === IDL_DOCS_HEADERS.KEYWORDS) &&
-        !after &&
-        i < comments.length - 2
-      ) {
-        /** Get text on the next line instead */
-        const nextLine = comments[i + 1].match[0].replace(
-          REMOVE_COMMENT_REGEX,
-          ''
-        );
-        // check the next line
-        if (LEGACY_PARAMETER_NAME_SPLIT.test(nextLine)) {
-          i++;
-          after = nextLine;
-        }
-      }
+      const after = line.substring(match.index + match[0].length).trim();
 
       // check if we have a line for docs
       if (after !== '') {
@@ -229,17 +214,19 @@ export function ExtractLegacyDocs(
           );
           lastFound.comments.push(comments[i]);
 
-          // save description if we didnt shift
-          lastFound.docs.push(
-            '     ' +
-              CleanComment(
-                after
-                  .substring(name.length)
-                  .replace(LEGACY_PARAMETER_INFO, '')
-                  .trim()
-              )
+          // trim the text
+          const trimmed = CleanComment(
+            after
+              .substring(name.length)
+              .replace(LEGACY_PARAMETER_INFO, '')
+              .trim()
           );
-          lastFound.comments.push(comments[i]);
+
+          // make sure we have text to save
+          if (trimmed.trim()) {
+            lastFound.docs.push('     ' + trimmed);
+            lastFound.comments.push(comments[i]);
+          }
         } else {
           lastFound.docs.push(CleanComment(after));
           lastFound.comments.push(comments[i]);
@@ -311,6 +298,7 @@ export function ExtractLegacyDocs(
       }
     }
   }
+
   /**
    * Check for arguments
    */
