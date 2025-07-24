@@ -55,17 +55,17 @@ describe(`[auto generated] Verify we correctly fix brackets for indexing`, () =>
     // define expected problems
     const expectedProblems: SyntaxProblems = [
       {
-        code: 38,
-        info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
-        start: [0, 0, 9],
-        end: [0, 0, 9],
-        canReport: true,
-      },
-      {
         code: 105,
         info: 'Illegal use of parentheses for indexing variable, use brackets instead (function name matches local variable). If this is a function call, add `compile_opt idl2` to delineate between the variable and function call.',
         start: [4, 9, 1],
         end: [4, 10, 1],
+        canReport: true,
+      },
+      {
+        code: 38,
+        info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
+        start: [0, 0, 9],
+        end: [0, 0, 9],
         canReport: true,
       },
     ];
