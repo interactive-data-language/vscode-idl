@@ -120,6 +120,11 @@ export class IDLBreakpointManager {
     /** Get the current breakpoints in IDL */
     const bps = await this.getBreakpoints();
 
+    // return if no breakpoints
+    if (bps.length === 0) {
+      return;
+    }
+
     /** Clean the path */
     const cleaned = CleanPath(file);
 
@@ -151,6 +156,11 @@ export class IDLBreakpointManager {
 
     // return nothing if notebooks
     if (IDLFileHelper.isIDLNotebookFile(bps.source?.path || '')) {
+      return [];
+    }
+
+    // return if no breakpoints
+    if (!bps.lines || bps.lines.length === 0) {
       return [];
     }
 
