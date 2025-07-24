@@ -41,6 +41,14 @@ describe(`[auto generated] Logical predicate with not`, () => {
       `  (not !true): var = not 5`,
       `  else: var = not 5`,
       `endcase`,
+      ``,
+      `repeat begin`,
+      `  var = not 5`,
+      `endrep until not b`,
+      ``,
+      `while (not b) do begin`,
+      `  var = not 5`,
+      `endwhile`,
       `end`,
     ];
 
@@ -96,6 +104,14 @@ describe(`[auto generated] Logical predicate with not`, () => {
       `  (not !true): var = not 5`,
       `  else: var = not 5`,
       `endcase`,
+      ``,
+      `repeat begin`,
+      `  var = not 5`,
+      `endrep until not b`,
+      ``,
+      `while (not b) do begin`,
+      `  var = not 5`,
+      `endwhile`,
       `end`,
     ];
 
@@ -184,6 +200,38 @@ describe(`[auto generated] Logical predicate with not`, () => {
             range: {
               start: { line: 19, character: 3 },
               end: { line: 19, character: 6 },
+            },
+            newText: '~',
+          },
+        ],
+      },
+      {
+        code: 112,
+        info: 'Detected a "not" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `~` operator is preferred as the behavior might not match what you expect.',
+        start: [25, 13, 3],
+        end: [25, 13, 3],
+        canReport: true,
+        edits: [
+          {
+            range: {
+              start: { line: 25, character: 13 },
+              end: { line: 25, character: 16 },
+            },
+            newText: '~',
+          },
+        ],
+      },
+      {
+        code: 112,
+        info: 'Detected a "not" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `~` operator is preferred as the behavior might not match what you expect.',
+        start: [27, 7, 3],
+        end: [27, 7, 3],
+        canReport: true,
+        edits: [
+          {
+            range: {
+              start: { line: 27, character: 7 },
+              end: { line: 27, character: 10 },
             },
             newText: '~',
           },
@@ -232,6 +280,14 @@ describe(`[auto generated] Logical predicate with not`, () => {
       `  (not !true): var = not 5`,
       `  else: var = not 5`,
       `endcase`,
+      ``,
+      `repeat begin`,
+      `  var = not 5`,
+      `endrep until not b`,
+      ``,
+      `while (not b) do begin`,
+      `  var = not 5`,
+      `endwhile`,
       `end`,
     ];
 
@@ -320,6 +376,38 @@ describe(`[auto generated] Logical predicate with not`, () => {
             range: {
               start: { line: 19, character: 3 },
               end: { line: 19, character: 6 },
+            },
+            newText: '~',
+          },
+        ],
+      },
+      {
+        code: 112,
+        info: 'Detected a "not" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `~` operator is preferred as the behavior might not match what you expect.',
+        start: [25, 13, 3],
+        end: [25, 13, 3],
+        canReport: true,
+        edits: [
+          {
+            range: {
+              start: { line: 25, character: 13 },
+              end: { line: 25, character: 16 },
+            },
+            newText: '~',
+          },
+        ],
+      },
+      {
+        code: 112,
+        info: 'Detected a "not" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `~` operator is preferred as the behavior might not match what you expect.',
+        start: [27, 7, 3],
+        end: [27, 7, 3],
+        canReport: true,
+        edits: [
+          {
+            range: {
+              start: { line: 27, character: 7 },
+              end: { line: 27, character: 10 },
             },
             newText: '~',
           },

@@ -41,6 +41,14 @@ describe(`[auto generated] Logical predicate with or`, () => {
       `  (!true or !true): var = [1, 2, 3] or 5`,
       `  else: var = [1, 2, 3] or 5`,
       `endcase`,
+      ``,
+      `repeat begin`,
+      `  var = [1, 2, 3] or 5`,
+      `endrep until a or b`,
+      ``,
+      `while (a or b) do begin`,
+      `  var = [1, 2, 3] or 5`,
+      `endwhile`,
       `end`,
     ];
 
@@ -96,6 +104,14 @@ describe(`[auto generated] Logical predicate with or`, () => {
       `  (!true or !true): var = [1, 2, 3] or 5`,
       `  else: var = [1, 2, 3] or 5`,
       `endcase`,
+      ``,
+      `repeat begin`,
+      `  var = [1, 2, 3] or 5`,
+      `endrep until a or b`,
+      ``,
+      `while (a or b) do begin`,
+      `  var = [1, 2, 3] or 5`,
+      `endwhile`,
       `end`,
     ];
 
@@ -184,6 +200,38 @@ describe(`[auto generated] Logical predicate with or`, () => {
             range: {
               start: { line: 19, character: 9 },
               end: { line: 19, character: 11 },
+            },
+            newText: '||',
+          },
+        ],
+      },
+      {
+        code: 111,
+        info: 'Detected an "or" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `||` operator is preferred as the behavior might not match what you expect.',
+        start: [25, 15, 2],
+        end: [25, 15, 2],
+        canReport: true,
+        edits: [
+          {
+            range: {
+              start: { line: 25, character: 15 },
+              end: { line: 25, character: 17 },
+            },
+            newText: '||',
+          },
+        ],
+      },
+      {
+        code: 111,
+        info: 'Detected an "or" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `||` operator is preferred as the behavior might not match what you expect.',
+        start: [27, 9, 2],
+        end: [27, 9, 2],
+        canReport: true,
+        edits: [
+          {
+            range: {
+              start: { line: 27, character: 9 },
+              end: { line: 27, character: 11 },
             },
             newText: '||',
           },
@@ -232,6 +280,14 @@ describe(`[auto generated] Logical predicate with or`, () => {
       `  (!true or !true): var = [1, 2, 3] or 5`,
       `  else: var = [1, 2, 3] or 5`,
       `endcase`,
+      ``,
+      `repeat begin`,
+      `  var = [1, 2, 3] or 5`,
+      `endrep until a or b`,
+      ``,
+      `while (a or b) do begin`,
+      `  var = [1, 2, 3] or 5`,
+      `endwhile`,
       `end`,
     ];
 
@@ -320,6 +376,38 @@ describe(`[auto generated] Logical predicate with or`, () => {
             range: {
               start: { line: 19, character: 9 },
               end: { line: 19, character: 11 },
+            },
+            newText: '||',
+          },
+        ],
+      },
+      {
+        code: 111,
+        info: 'Detected an "or" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `||` operator is preferred as the behavior might not match what you expect.',
+        start: [25, 15, 2],
+        end: [25, 15, 2],
+        canReport: true,
+        edits: [
+          {
+            range: {
+              start: { line: 25, character: 15 },
+              end: { line: 25, character: 17 },
+            },
+            newText: '||',
+          },
+        ],
+      },
+      {
+        code: 111,
+        info: 'Detected an "or" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `||` operator is preferred as the behavior might not match what you expect.',
+        start: [27, 9, 2],
+        end: [27, 9, 2],
+        canReport: true,
+        edits: [
+          {
+            range: {
+              start: { line: 27, character: 9 },
+              end: { line: 27, character: 11 },
             },
             newText: '||',
           },

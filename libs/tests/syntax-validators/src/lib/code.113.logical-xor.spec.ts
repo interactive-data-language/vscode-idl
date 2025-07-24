@@ -41,6 +41,14 @@ describe(`[auto generated] Logical predicate with xor`, () => {
       `  (!true xor !true): var = [1, 2, 3] xor 5`,
       `  else: var = [1, 2, 3] xor 5`,
       `endcase`,
+      ``,
+      `repeat begin`,
+      `  var = [1, 2, 3] xor 5`,
+      `endrep until a xor b`,
+      ``,
+      `while (a xor b) do begin`,
+      `  var = [1, 2, 3] xor 5`,
+      `endwhile`,
       `end`,
     ];
 
@@ -96,6 +104,14 @@ describe(`[auto generated] Logical predicate with xor`, () => {
       `  (!true xor !true): var = [1, 2, 3] xor 5`,
       `  else: var = [1, 2, 3] xor 5`,
       `endcase`,
+      ``,
+      `repeat begin`,
+      `  var = [1, 2, 3] xor 5`,
+      `endrep until a xor b`,
+      ``,
+      `while (a xor b) do begin`,
+      `  var = [1, 2, 3] xor 5`,
+      `endwhile`,
       `end`,
     ];
 
@@ -142,6 +158,20 @@ describe(`[auto generated] Logical predicate with xor`, () => {
         info: 'Detected an "xor" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The behavior might not match what you expect.',
         start: [19, 9, 3],
         end: [19, 9, 3],
+        canReport: true,
+      },
+      {
+        code: 113,
+        info: 'Detected an "xor" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The behavior might not match what you expect.',
+        start: [25, 15, 3],
+        end: [25, 15, 3],
+        canReport: true,
+      },
+      {
+        code: 113,
+        info: 'Detected an "xor" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The behavior might not match what you expect.',
+        start: [27, 9, 3],
+        end: [27, 9, 3],
         canReport: true,
       },
     ];
@@ -187,6 +217,14 @@ describe(`[auto generated] Logical predicate with xor`, () => {
       `  (!true xor !true): var = [1, 2, 3] xor 5`,
       `  else: var = [1, 2, 3] xor 5`,
       `endcase`,
+      ``,
+      `repeat begin`,
+      `  var = [1, 2, 3] xor 5`,
+      `endrep until a xor b`,
+      ``,
+      `while (a xor b) do begin`,
+      `  var = [1, 2, 3] xor 5`,
+      `endwhile`,
       `end`,
     ];
 
@@ -233,6 +271,20 @@ describe(`[auto generated] Logical predicate with xor`, () => {
         info: 'Detected an "xor" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The behavior might not match what you expect.',
         start: [19, 9, 3],
         end: [19, 9, 3],
+        canReport: true,
+      },
+      {
+        code: 113,
+        info: 'Detected an "xor" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The behavior might not match what you expect.',
+        start: [25, 15, 3],
+        end: [25, 15, 3],
+        canReport: true,
+      },
+      {
+        code: 113,
+        info: 'Detected an "xor" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The behavior might not match what you expect.',
+        start: [27, 9, 3],
+        end: [27, 9, 3],
         canReport: true,
       },
     ];

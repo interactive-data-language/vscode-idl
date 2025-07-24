@@ -41,6 +41,14 @@ describe(`[auto generated] Logical predicate with and`, () => {
       `  (!true and !true): var = [1, 2, 3] and 5`,
       `  else: var = [1, 2, 3] and 5`,
       `endcase`,
+      ``,
+      `repeat begin`,
+      `  var = [1, 2, 3] and 5`,
+      `endrep until a and b`,
+      ``,
+      `while (a and b) do begin`,
+      `  var = [1, 2, 3] and 5`,
+      `endwhile`,
       `end`,
     ];
 
@@ -96,6 +104,14 @@ describe(`[auto generated] Logical predicate with and`, () => {
       `  (!true and !true): var = [1, 2, 3] and 5`,
       `  else: var = [1, 2, 3] and 5`,
       `endcase`,
+      ``,
+      `repeat begin`,
+      `  var = [1, 2, 3] and 5`,
+      `endrep until a and b`,
+      ``,
+      `while (a and b) do begin`,
+      `  var = [1, 2, 3] and 5`,
+      `endwhile`,
       `end`,
     ];
 
@@ -184,6 +200,38 @@ describe(`[auto generated] Logical predicate with and`, () => {
             range: {
               start: { line: 19, character: 9 },
               end: { line: 19, character: 12 },
+            },
+            newText: '&&',
+          },
+        ],
+      },
+      {
+        code: 110,
+        info: 'Detected an "and" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `&&` operator is preferred as the behavior might not match what you expect.',
+        start: [25, 15, 3],
+        end: [25, 15, 3],
+        canReport: true,
+        edits: [
+          {
+            range: {
+              start: { line: 25, character: 15 },
+              end: { line: 25, character: 18 },
+            },
+            newText: '&&',
+          },
+        ],
+      },
+      {
+        code: 110,
+        info: 'Detected an "and" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `&&` operator is preferred as the behavior might not match what you expect.',
+        start: [27, 9, 3],
+        end: [27, 9, 3],
+        canReport: true,
+        edits: [
+          {
+            range: {
+              start: { line: 27, character: 9 },
+              end: { line: 27, character: 12 },
             },
             newText: '&&',
           },
@@ -232,6 +280,14 @@ describe(`[auto generated] Logical predicate with and`, () => {
       `  (!true and !true): var = [1, 2, 3] and 5`,
       `  else: var = [1, 2, 3] and 5`,
       `endcase`,
+      ``,
+      `repeat begin`,
+      `  var = [1, 2, 3] and 5`,
+      `endrep until a and b`,
+      ``,
+      `while (a and b) do begin`,
+      `  var = [1, 2, 3] and 5`,
+      `endwhile`,
       `end`,
     ];
 
@@ -320,6 +376,38 @@ describe(`[auto generated] Logical predicate with and`, () => {
             range: {
               start: { line: 19, character: 9 },
               end: { line: 19, character: 12 },
+            },
+            newText: '&&',
+          },
+        ],
+      },
+      {
+        code: 110,
+        info: 'Detected an "and" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `&&` operator is preferred as the behavior might not match what you expect.',
+        start: [25, 15, 3],
+        end: [25, 15, 3],
+        canReport: true,
+        edits: [
+          {
+            range: {
+              start: { line: 25, character: 15 },
+              end: { line: 25, character: 18 },
+            },
+            newText: '&&',
+          },
+        ],
+      },
+      {
+        code: 110,
+        info: 'Detected an "and" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `&&` operator is preferred as the behavior might not match what you expect.',
+        start: [27, 9, 3],
+        end: [27, 9, 3],
+        canReport: true,
+        edits: [
+          {
+            range: {
+              start: { line: 27, character: 9 },
+              end: { line: 27, character: 12 },
             },
             newText: '&&',
           },

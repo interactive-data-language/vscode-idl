@@ -10,6 +10,8 @@ import {
   LogicalCaseToken,
   LogicalIfToken,
   LogicalSwitchToken,
+  LoopUntilToken,
+  LoopWhileToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { PositionToRange } from '@idl/tokenizer/common';
@@ -34,12 +36,19 @@ DONT_RECURSE[TOKEN_NAMES.CALL_FUNCTION] = undefined;
 DONT_RECURSE[TOKEN_NAMES.CALL_FUNCTION_METHOD] = undefined;
 DONT_RECURSE[TOKEN_NAMES.BRACKET] = undefined;
 DONT_RECURSE[TOKEN_NAMES.STRUCTURE] = undefined;
+DONT_RECURSE[TOKEN_NAMES.LOOP_DO] = undefined;
 
 /**
  * Callback to handle operators
  */
 function ValidateOperators(
-  token: TreeToken<LogicalCaseToken | LogicalIfToken | LogicalSwitchToken>,
+  token: TreeToken<
+    | LogicalCaseToken
+    | LogicalIfToken
+    | LogicalSwitchToken
+    | LoopUntilToken
+    | LoopWhileToken
+  >,
   parsed: IParsed,
   current: ITreeRecurserCurrent
 ) {
@@ -151,6 +160,8 @@ const BRANCHES = [
   TOKEN_NAMES.LOGICAL_IF,
   TOKEN_NAMES.LOGICAL_CASE,
   TOKEN_NAMES.LOGICAL_SWITCH,
+  TOKEN_NAMES.LOOP_WHILE,
+  TOKEN_NAMES.LOOP_UNTIL,
 ];
 
 for (let i = 0; i < BRANCHES.length; i++) {
