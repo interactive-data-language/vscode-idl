@@ -1,5 +1,6 @@
-import { CleanPath, EXAMPLE_NOTEBOOKS } from '@idl/idl/files';
+import { EXAMPLE_NOTEBOOKS } from '@idl/idl/files';
 import {
+  CleanPath,
   IDL_COMMANDS,
   IDL_NOTEBOOK_LANGUAGE_NAME,
   Sleep,
