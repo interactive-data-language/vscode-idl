@@ -107,7 +107,7 @@ describe(`[auto generated] Correctly identify variables instead of function call
                 name: 7,
                 pos: [3, 9, 1],
                 match: ['('],
-                idx: 0,
+                idx: 1,
                 scope: [54, 3],
                 parseProblems: [105],
                 end: { pos: [3, 10, 1], match: [')'] },
