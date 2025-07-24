@@ -360,7 +360,7 @@ export class IDLInteractionManager {
    * Let's us know if we are the IDL Machine or not
    */
   isIDLMachine() {
-    return this.idl.processType !== 'stdio';
+    return this.idl.isIDLMachine();
   }
 
   /**

@@ -34,6 +34,9 @@ const kill = require('tree-kill');
  * Wraps the IDL Machine process and connects events from it to/from our IDL Process class
  */
 export class IDLMachineWrapper {
+  /** Flag that we are expecting a stop or end to command running */
+  private expectingStop = false;
+
   /** The IDL process */
   private idl: ChildProcess;
 
@@ -161,8 +164,13 @@ export class IDLMachineWrapper {
 
       /**
        * See if we need to emit a stop event
+       *
+       * debugSend comes before this event
        */
-      if (this.lastDebugSend.stack.changed && params.line > 0 && stopDelta) {
+      if (
+        params.line > 0 &&
+        (!this.expectingStop || (this.lastDebugSend.stack.changed && stopDelta))
+      ) {
         res.stopped = {
           reason: 'stop',
           stack: {
@@ -177,8 +185,17 @@ export class IDLMachineWrapper {
         };
       }
 
-      // emit that IDL is ready
-      this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, res);
+      // check if we are expecting to stop or not
+      if (this.expectingStop) {
+        // emit that IDL is ready
+        this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, res);
+      } else {
+        this.process.emit(
+          IDL_EVENT_LOOKUP.STOP,
+          res.stopped.reason,
+          res.stopped.stack
+        );
+      }
     });
 
     this.machine.onNotification('modalMessage', () => {
@@ -456,8 +473,12 @@ export class IDLMachineWrapper {
 
       // listen for our event returning back to the command prompt
       this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (idlOutput) => {
+        this.expectingStop = false;
         resolve(idlOutput);
       });
+
+      // update flag that we are expecting an answer
+      this.expectingStop = true;
 
       // run it!
       this.machine.sendNotification('exec', {

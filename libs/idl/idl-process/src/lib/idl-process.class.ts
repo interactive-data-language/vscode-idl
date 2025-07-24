@@ -172,6 +172,13 @@ export class IDLProcess extends EventEmitter {
   }
 
   /**
+   * Let's us know if we are the IDL Machine or not
+   */
+  isIDLMachine() {
+    return this.processType === 'machine';
+  }
+
+  /**
    * Wraps node.js event emitter with types for supported events and
    * event data.
    */
@@ -239,6 +246,11 @@ export class IDLProcess extends EventEmitter {
     // send output only if we are not silent
     if (!this.silent) {
       this.emit(IDL_EVENT_LOOKUP.STANDARD_OUT, data);
+    }
+
+    // do not check output for a stop and return
+    if (this.isIDLMachine()) {
+      return;
     }
 
     /**
