@@ -7,7 +7,6 @@ import { Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_EVENT_LOOKUP,
-  IDLCallStackItem,
   REGEX_COMPILE_COMMAND,
   REGEX_COMPILE_EDIT_COMMAND,
   REGEX_COMPILED_MAIN,
@@ -16,7 +15,6 @@ import {
   REGEX_IDL_LINE_CONTINUATION,
   REGEX_IDL_RESTART,
   REGEX_IDL_RETALL,
-  StopReason,
 } from '@idl/types/idl/idl-process';
 import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
@@ -96,13 +94,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
   /** Are we listening to events from IDL or not? */
   listening = false;
-
-  /**
-   * Current location we are stopped at, only set/updated when we stop
-   *
-   * Exposed as a helper for testing to make sure we are in the right place
-   */
-  stopped?: { reason: StopReason; stack: IDLCallStackItem };
 
   /** Event to fire when our configuration has been completed, from VSCode example */
   private readonly _configurationDone = new Subject();

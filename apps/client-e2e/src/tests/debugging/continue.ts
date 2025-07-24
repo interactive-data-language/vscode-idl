@@ -65,7 +65,9 @@ export const Continue: RunnerFunction = async (init) => {
   // verify all of our lines
   for (let i = 0; i < EXPECTED_LINES.length; i++) {
     // verify we are on the right line
-    expect(init.debug.adapter.stopped?.stack?.line).toEqual(EXPECTED_LINES[i]);
+    expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(
+      EXPECTED_LINES[i]
+    );
 
     // continue running
     await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_CONTINUE);

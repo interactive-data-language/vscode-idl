@@ -62,27 +62,27 @@ export const BreakpointStepInStepOut: RunnerFunction = async (init) => {
   /** Run our file */
   await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RUN);
   await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(19);
+  expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(19);
 
   // step in
   await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_INTO);
   await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(9);
+  expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(9);
 
   // step over
   await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_OVER);
   await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(11);
+  expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(11);
 
   // step in
   await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_OVER);
   await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(12);
+  expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(12);
 
   // step in
   await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_OUT);
   await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(21);
+  expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(21);
 
   // remove all breakpoints
   await init.debug.adapter._breakpoints.resetBreakpoints();

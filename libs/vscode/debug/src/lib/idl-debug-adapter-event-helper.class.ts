@@ -12,6 +12,9 @@ import {
 } from './idl-debug-adapter.interface';
 
 export class IDLDebugAdapterEventHelper {
+  /** Track information about latest stop */
+  stopped?: { reason: StopReason; stack: IDLCallStackItem };
+
   /** Reference to the debug adapter */
   private adapter: IDLDebugAdapter;
 
@@ -19,9 +22,6 @@ export class IDLDebugAdapterEventHelper {
   private counters = {
     stopBlockers: 0,
   };
-
-  /** Track information about latest stop */
-  private stopped?: { reason: StopReason; stack: IDLCallStackItem };
 
   constructor(adapter: IDLDebugAdapter) {
     this.adapter = adapter;
