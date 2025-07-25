@@ -16,7 +16,7 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
-## 5.0.0 – June 2024
+## 5.0.0 – July 2024
 
 This release introduces a significant evolution in extension functionality, warranting the major version bump to 5.0.0.
 
@@ -36,7 +36,7 @@ With IDL 9.2, IDL now offers **native integration with VSCode**, bringing substa
 
 - Debugging shows better information about variables and their values
 
-- Debugging workflow, and inputting commands in the debug console, has been completely re-worked for a more streamlined user experience
+- Debugging workflow, and inputting commands in the debug console, has been completely re-worked for a more streamlined user experience and consistent keyboard focus
 
 - Improved detection of when IDL is idle and ready for input
 
@@ -131,6 +131,16 @@ Let us know if you'd like to see more features supported in the web version.
 - **Syntax highlighting and method detection**: Fixed an issue where we would not properly highlightor parse procedure and function methods when in case/switch statements.
 
 - **Legacy Documentation Parsing**: Updated the docs parsing for older style code comments to support a wider range of parameters that we parse (i.e. data type, direction) and multi-line starter blocks of docs
+
+- **Logical Operator Detection**: When using compile option `idl3`, we now detect and warn about certain operators being used. These have custom code actions to fix and also get fixed with formatting on save
+
+- **Notebook Variable Detection**: Fixed an issue where IDL Notebooks would incorrectly report a variable as undefined when it was, in fact, defined.
+
+### Other Bug Fixes
+
+Fixed a parsin error where we would confuse case/switch if statements and methods
+
+Manually updated some documentation to account for missing/invalid keywords that were actually correct.
 
 ## 4.7.1 - December 2024
 
