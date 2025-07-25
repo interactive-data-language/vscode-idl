@@ -2,6 +2,9 @@
   "cli": {
     "packageManager": "npm"
   },
+  "tui": {
+    "enabled": false
+  },
   "defaultProject": "idl-webview",
   "generators": {
     "@nx/angular:application": {
