@@ -8,7 +8,7 @@ import { deepEqual } from 'fast-equals';
 import { NotebookCellKind } from 'vscode-languageserver';
 
 import { IDLIndex } from '../idl-index.class';
-import { IParsedNotebookPending } from './parse-notebook.interface';
+import { IParsedNotebookPending } from './worker-parse-notebook.interface';
 
 /**
  * Track the pending files
@@ -18,7 +18,7 @@ const PENDING_NOTEBOOK: { [key: string]: IParsedNotebookPending } = {};
 /**
  * Handles getting a parsed notebook from the IDL index
  */
-export async function ParseNotebook(
+export async function WorkerParseNotebook(
   index: IDLIndex,
   file: string,
   notebook: IDLNotebookDocument

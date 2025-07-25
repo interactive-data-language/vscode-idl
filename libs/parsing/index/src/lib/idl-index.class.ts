@@ -70,7 +70,7 @@ import { ProcessChangeDetectionResults } from './change-detection/process-change
 import { GetParsedNotebook } from './get-parsed/get-parsed-notebook';
 import { GetParsedNotebookCell } from './get-parsed/get-parsed-notebook-cell';
 import { GetParsedPROCode } from './get-parsed/get-parsed-pro-code';
-import { ParseNotebook } from './get-parsed/parse-notebook';
+import { WorkerParseNotebook } from './get-parsed/worker-parse-notebook';
 import { GlobalIndex } from './global-index.class';
 import { GetCodeSemanticTokens } from './helpers/get-code-semantic-tokens';
 import { GetSyntaxProblems } from './helpers/get-syntax-problems';
@@ -1192,7 +1192,7 @@ export class IDLIndex {
     const id = this.getWorkerID(file);
 
     // parse our notebook
-    const resp = await ParseNotebook(this, file, notebook);
+    const resp = await WorkerParseNotebook(this, file, notebook);
 
     /**
      * Make sure we have all previous cells accounted for
