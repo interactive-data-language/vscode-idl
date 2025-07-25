@@ -12,7 +12,9 @@
     {
       "type": "code",
       "content": [
-        "print, e.task_names, /implied_print"
+        "print, e.task_names, /implied_print",
+        "",
+        "e"
       ],
       "metadata": {},
       "outputs": []
