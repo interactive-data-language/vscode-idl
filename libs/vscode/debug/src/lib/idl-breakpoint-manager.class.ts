@@ -154,13 +154,8 @@ export class IDLBreakpointManager {
     // wait for IDL to start before we add them
     await this.adapter._startup;
 
-    // return nothing if notebooks
+    // return if notebooks
     if (IDLFileHelper.isIDLNotebookFile(bps.source?.path || '')) {
-      return [];
-    }
-
-    // return if no breakpoints
-    if (!bps.lines || bps.lines.length === 0) {
       return [];
     }
 
@@ -174,6 +169,11 @@ export class IDLBreakpointManager {
 
     // clean up
     await this.resetBreakpointsForFile(file);
+
+    // return if no breakpoints
+    if (!bps.lines || bps.lines.length === 0) {
+      return [];
+    }
 
     /** Commands to set all breakpoints */
     const setCommands: string[] = [];
