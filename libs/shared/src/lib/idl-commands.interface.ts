@@ -31,6 +31,9 @@ export const BASE_WEBVIEW = `${BASE_COMMAND}webview.`;
 /** Base string for docs commands */
 export const BASE_DOCS = `${BASE_COMMAND}docs.`;
 
+/** Base string for idl-tutorials */
+export const BASE_IDL_TUTORIAL = `${BASE_COMMAND}idlTutorials.`;
+
 /**
  * Constant representing all of our commands in IDL.
  *
@@ -153,5 +156,9 @@ export const IDL_COMMANDS = {
     OPEN: `${BASE_DOCS}open`,
     /** Opens link from docs */
     OPEN_LINK: `${BASE_DOCS}openLink`,
+  },
+  TUTORIALS: {
+    /** Opens tutorial "what is IDL" */
+    OPEN_IDL_TUTORIAL: `${BASE_IDL_TUTORIAL}openIDLTutorial`,
   },
 };

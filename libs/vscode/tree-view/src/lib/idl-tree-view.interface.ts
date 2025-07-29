@@ -6,4 +6,5 @@ export interface IChild {
   description: string;
   icon: string;
   commandName: string;
+  commandArgs?: any[];
 }

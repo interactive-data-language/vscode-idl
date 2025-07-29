@@ -315,6 +315,10 @@
         "title": "%commands.idl.docs.openLink%"
       },
       {
+        "command": "idl.idlTutorials.openIDLTutorial",
+        "title": "%commands.idl.idlTutorials.openIDLTutorial%"
+      },
+      {
         "command": "idl.notebooks.convertToPDF",
         "title": "%commands.idl.notebooks.convertToPDF%",
         "icon": {

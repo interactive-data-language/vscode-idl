@@ -1,0 +1,77 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "# What is IDL?",
+        "**IDL**, the **Interactive Data Language**, is a programming  language made for fast and accessible data analysis, visualization, and scientific scripting. It is was created by David Stern in 1977 for the Laboratory for Atmospheric and Space Physics at the University of Colorado Boulder.  ",
+        "",
+        "IDL is used for:  ",
+        "- Scientific Computing and Data Analysis",
+        "- Image Processing",
+        "- Software Development",
+        "- Rapid Prototyping and Interactive Analysis",
+        "",
+        "IDL is popular in astronomy and space science, remote sensing, atmospheric and oceanic sciences, medical and biomedical research, and engineering. ",
+        "___",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "# Why Choose IDL?",
+        "",
+        "- **Easy-to-Read, Easy-to-Write** – Designed to be simple and intuitive.  ",
+        "- **Built-in GUI Support** – Create Graphical User Interface (GUI) applications easily.  ",
+        "- **Cross-Platform** – The same code (including GUI applications) runs on Windows, macOS, and Linux.  ",
+        "- **Faster than Other Interpreted Languages** – The IDL interpreter is highly optimized and is several times faster than Python.",
+        "- **Great for Rapid Prototyping and Interactive Analysis** – Ideal for quick testing and ad-hoc data analysis.  ",
+        "- **Optimized for Performance** – Vectorized matrix and array operations, almost all math routines are multi-threaded.  ",
+        "- **Supports Scientific Data Formats** – Full support for formats such as HDF5, NetCDF, GRIB, and ASDF.",
+        "- **Stable & Reliable** – Almost all code is fully backwards compatible; used in research for decades.",
+        "- **Fully Supported** - Dedicated tech support team that works directly with the developers, ensuring rapid response and long-term support.",
+        "___"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Example**"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "print, \"Let's get creating.\"",
+        "",
+        "; This example plots the power spectrum of a noisy signal with two specified frequency components.",
+        "; Specify the time interval",
+        "dt = 1/16000.",
+        "; Create an array of time indices",
+        "t = [0:3:dt]",
+        "; Create a signal with two frequencies",
+        "freq1 = 2100",
+        "freq2 = 6400",
+        "x = cos(2*!pi*t * freq1)+ sin(2*!pi*t * freq2)",
+        "; Add some random noise",
+        "x += randomn(seed, t.length)",
+        "; Compute the power spectrum of the signal",
+        "f = FFT_PowerSpectrum(x, dt, FREQ=freq, $",
+        "/TUKEY, WIDTH=0.01, SIGNIFICANCE=signif)",
+        "; Plot the results",
+        "p = PLOT(freq/1000, f, /YLOG, XTITLE='Frequency (kHz)')",
+        "p1 = PLOT(freq/1000, signif, 'r', /OVERPLOT)"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

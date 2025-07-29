@@ -1,0 +1,102 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "# Expressions",
+        "___"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## **Defining a Expression**",
+        "",
+        "An **Expression** is any combination of constants, values, and operators.",
+        "",
+        "- A **Variable** is a symbolic name used to store a value. As defined in **02-01**.",
+        "- A **Constant** is any number or string value that is not in a Variable, and therefore cannot change.",
+        "- An **Operator** is a symbol that performs an operation. As defined in **02-02**.",
+        "---"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## **Using expressions**"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "toBeAdded = 2",
+        "var = 2 + toBeAdded",
+        "",
+        "print, var",
+        "",
+        "; If you do not store the result in a variable, a temporary variable will be created and then deleted after printing.",
+        "2 + toBeAdded"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "#### **Exercise 1**",
+        "Using **all the variables**, including **one additional constant of your choice**, create and print an expression that equals 12."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "X = 10",
+        "Y = 4"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "<details>",
+        "  <summary>Click to reveal a possible answer</summary>",
+        "",
+        "  **One Possible Answer**: </br>",
+        "  `X = 10`  </br>",
+        "  `Y = 4`  </br>",
+        "  `X + Y / 2` </br>",
+        "",
+        "</details>"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "### Good work!"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "cli_progress.update,27, Text = \"Now that we can express ourselves, lets take a look at syntax.\""
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

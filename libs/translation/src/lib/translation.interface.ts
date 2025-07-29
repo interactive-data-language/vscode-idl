@@ -105,6 +105,11 @@ export interface ICommandTranslation {
     /** Resolve link user clicked on from hover help */
     openLink: string;
   };
+  /** Commands for opening tutorials */
+  idlTutorials: {
+    /** Open the IDL tutorial */
+    openIDLTutorial: string;
+  };
 }
 
 /**
@@ -559,6 +564,7 @@ export interface ITranslation {
       clickHandlerError: string;
       /** Parent tabs/sections in the sidebar */
       parents: {
+        IDLTutorials: string;
         quickAccess: string;
         debugging: string;
         codeActions: string;
@@ -567,6 +573,10 @@ export interface ITranslation {
       };
       /** Children of any of the sidebars, should have the command as the key name */
       children: {
+        idlTutorials: {
+          /** Format notebook */
+          testTutorial: ITreeInformation;
+        };
         /** Additional actions */
         quickAccess: {
           pickIDL: ITreeInformation;

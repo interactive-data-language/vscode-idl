@@ -93,6 +93,9 @@ export const EN: ITranslation = {
         stepOver: 'IDL: Step Over in Terminal',
         stepOut: 'IDL: Step Out in Terminal',
       },
+      idlTutorials: {
+        openIDLTutorial: 'IDL: Open IDL Tutorial',
+      },
       webview: {
         start: 'IDL: Start Webview',
       },
@@ -156,6 +159,9 @@ export const EN: ITranslation = {
         stepIn: 'Error while stepping in in terminal',
         stepOver: 'Error while stepping over in terminal',
         stepOut: 'Error while stepping out in terminal',
+      },
+      idlTutorials: {
+        openIDLTutorial: 'Error while opening IDL tutorial',
       },
       webview: {
         start: 'Error while starting webview',
@@ -461,6 +467,7 @@ export const EN: ITranslation = {
         notebooks: 'Notebooks',
         debugging: 'IDL',
         terminal: 'Terminal',
+        IDLTutorials: 'IDLTutorials',
       },
       children: {
         quickAccess: {
@@ -611,6 +618,12 @@ export const EN: ITranslation = {
           stepOutTerminal: {
             name: 'Step Out',
             description: 'of routine call in terminal',
+          },
+        },
+        idlTutorials: {
+          testTutorial: {
+            name: 'test_tutorial',
+            description: '',
           },
         },
       },

@@ -1,0 +1,199 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "# IDL Syntax"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## **Comments in IDL**",
+        "`;` is the comment character in IDL. This means that anything that comes after a `;` will not be run."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "print, \"will run.\" ; will not run",
+        "",
+        "; print, \"will not run\""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Comments are used to document code within the code itself. Comments should be **clear, concise, consistent, descriptive, and non-redundant**. Additionally, it is considered best practice to explain 'Why is this happening?' rather than 'What is happening?'"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "## **\"Begin\" and \"End\" in IDL**"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "- `begin`",
+        "- `end`"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "`Begin` and `End` are used to **group multiple statements together** into a \"Code Block\". It is the equivalent of `{}` in C or JavaScript. and `tabs` in python.  ",
+        "",
+        "It is typically used after **loops** or **conditionals**:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "x = 2",
+        "if x eq 2 then begin",
+        "    print, \"Hello\"",
+        "    print, \"World\"",
+        "endif"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "#### **End in IDL.**",
+        "",
+        "The **end** keyword comes in several different *flavors* depending on the structure being closed:",
+        "",
+        "- **end**: Functions, procedures, general blocks",
+        "- **endif**: IF statements",
+        "- **endelse**: ELSE blocks",
+        "- **endfor**: FOR loops",
+        "- **endforeach**: FOREACH loops",
+        "- **endwhile**: WHILE loops",
+        "- **endcase**: CASE statements",
+        "- **endswitch**: SWITCH statements",
+        "",
+        "While you _can_ use **`end`** to close any block, it is better to use these variants to improve readability.",
+        "___"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "x = 2",
+        "",
+        "if (x eq 2) then begin",
+        "  print, \"Hello\"",
+        "  print, \"World\"",
+        "end ; you could do this.",
+        "",
+        "print, \"\"",
+        "",
+        "if (x eq 2) then begin",
+        "  print, \"Hello\"",
+        "  print, \"World\"",
+        "endif ; But this is better.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Functions and Procedures are the only code blocks to use an `end` without using a `begin`, as it is implied."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "function example, arg1",
+        "  compile_opt idl2",
+        "  print, arg1",
+        "  return, arg1 + 1",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro example, arg1",
+        "  compile_opt idl2",
+        "  print, arg1",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "## **($) Line continuation**"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "The `$` symbol is used as a line continuation character. This means that anything on the line following `$` will be treated as if it is part of the same line.  ",
+        "",
+        "for **example:**"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "print, \"This line is too long for my liking,\" + $",
+        "    \" So lets split it up into multiple lines.\""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "### Good work!"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "cli_progress.update, 36, Text = \"Now you know the 'grammar'. Lets take a look at Casting next, it can get tricky.\""
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

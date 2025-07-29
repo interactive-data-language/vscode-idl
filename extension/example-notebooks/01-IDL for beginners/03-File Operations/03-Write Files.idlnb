@@ -1,0 +1,75 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "### **Writing to a File**  ",
+        "",
+        "Once a file is opened, you can write in your own data using:  ",
+        "",
+        "- **`printf`** — **`printf`** works like `print`, but writes text or ASCII to a file instead of the screen.  ",
+        "- **`writeu`** — Writes raw, unformatted binary data to a file without any processing. ",
+        "",
+        "After you are finished printing you must use the `close` procedure for your changes to take effect.  "
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "file = filepath('fileToWriteTo.txt', /tmp)",
+        "openw, lun, file, /GET_LUN",
+        "printf, lun, \"Hello World.\"",
+        "close, lun",
+        "free_lun, lun",
+        "print, file"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Now let's write out a double-precision array as unformatted binary data:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "file = filepath('array100x100.dat', /tmp)",
+        "data = randomu(seed, 100, 100, /double)",
+        "openw, lun, file, /GET_LUN",
+        "writeu, lun, data",
+        "close, lun",
+        "free_lun, lun",
+        "print, file",
+        "info = file_info(file)",
+        "print, `Size is ${info.size} bytes`"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "#### **Other writing methods**",
+        "As with Reading files there are other built in methods that write for specific file formats, such as `WRITE_PNG`, `WRITE_JPEG`, etc."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "### Good work!"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}
