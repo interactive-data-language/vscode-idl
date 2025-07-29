@@ -2,6 +2,7 @@
  * Priority for sorting so we have nice display
  */
 export const COMPLETION_SORT_PRIORITY = {
+  BLOCKS: '00',
   STRUCTURES: '10',
   KEYWORDS: '10',
   VARIABLES: '20',

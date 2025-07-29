@@ -1,4 +1,5 @@
 export * from './lib/auto-complete-recipe.interface';
+export * from './lib/completion-for/completion-blocks.interface';
 export * from './lib/completion-for/completion-compile-opts.interface';
 export * from './lib/completion-for/completion-executive-commands.interface';
 export * from './lib/completion-for/completion-function-methods.interface';
