@@ -170,11 +170,6 @@ export class IDLBreakpointManager {
     // clean up
     await this.resetBreakpointsForFile(file);
 
-    // return if no breakpoints
-    if (!bps.lines || bps.lines.length === 0) {
-      return [];
-    }
-
     /** Commands to set all breakpoints */
     const setCommands: string[] = [];
 
@@ -184,7 +179,9 @@ export class IDLBreakpointManager {
     }
 
     // set all breakpoints
-    await this.adapter.evaluate(setCommands.join(' & '), this._options);
+    if (setCommands.length > 0) {
+      await this.adapter.evaluate(setCommands.join(' & '), this._options);
+    }
 
     // update our breakpoint state
     await this.syncBreakpointState();
