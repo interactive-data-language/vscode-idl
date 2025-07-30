@@ -1,5 +1,7 @@
 import {
+  LogicalCaseSwitchThenToken,
   LogicalElseToken,
+  LogicalExpressionDefaultToken,
   LogicalIfToken,
   LogicalThenToken,
   TOKEN_NAMES,
@@ -21,7 +23,9 @@ export interface IBlockCompletionOptions {
 }
 
 export type CompletionBlockTokens =
+  | LogicalCaseSwitchThenToken
   | LogicalElseToken
+  | LogicalExpressionDefaultToken
   | LogicalIfToken
   | LogicalThenToken;
 
@@ -34,3 +38,5 @@ export const COMPLETION_BLOCKS: CompletionBlockTokenLookup = {};
 COMPLETION_BLOCKS[TOKEN_NAMES.LOGICAL_IF] = undefined;
 COMPLETION_BLOCKS[TOKEN_NAMES.LOGICAL_THEN] = undefined;
 COMPLETION_BLOCKS[TOKEN_NAMES.LOGICAL_ELSE] = undefined;
+COMPLETION_BLOCKS[TOKEN_NAMES.LOGICAL_CASE_SWITCH_THEN] = undefined;
+COMPLETION_BLOCKS[TOKEN_NAMES.LOGICAL_EXPRESSION_DEFAULT] = undefined;

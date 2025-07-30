@@ -6,6 +6,30 @@ import { IAutoCompleteTests } from '../tests.interface';
 export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
   {
     suiteName: `Custom block auto-complete`,
+    fileName: `blocks.case.1.spec.ts`,
+    tests: [
+      {
+        name: `for case`,
+        file: `idl/test/auto-complete/case_switch_then_else.pro`,
+        position: [
+          {
+            line: 3,
+            character: 10,
+          },
+          {
+            line: 4,
+            character: 11,
+          },
+          {
+            line: 5,
+            character: 7,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Custom block auto-complete`,
     fileName: `blocks.if-then-else.1.spec.ts`,
     tests: [
       {
@@ -63,6 +87,30 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           {
             line: 18,
             character: 45,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Custom block auto-complete`,
+    fileName: `blocks.switch.1.spec.ts`,
+    tests: [
+      {
+        name: `for switch`,
+        file: `idl/test/auto-complete/case_switch_then_else.pro`,
+        position: [
+          {
+            line: 9,
+            character: 10,
+          },
+          {
+            line: 10,
+            character: 11,
+          },
+          {
+            line: 11,
+            character: 8,
           },
         ],
       },

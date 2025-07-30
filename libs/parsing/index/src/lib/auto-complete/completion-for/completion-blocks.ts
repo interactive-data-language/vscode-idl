@@ -72,6 +72,27 @@ export function GetBlockCompletionOptions(
    */
   switch (blocksFor.name) {
     /**
+     * "then" portion after a colon in case/switch
+     */
+    case TOKEN_NAMES.LOGICAL_CASE_SWITCH_THEN:
+    case TOKEN_NAMES.LOGICAL_EXPRESSION_DEFAULT: {
+      if (blocksFor.kids.length === 0) {
+        const blockElse: AutoCompleteRecipe<BlockCompletion> = {
+          type: AUTO_COMPLETE_TYPE_LOOKUP.BLOCK,
+          options: {
+            label:
+              blocksFor.name === TOKEN_NAMES.LOGICAL_CASE_SWITCH_THEN
+                ? 'Then block'
+                : 'Else block',
+            snippet: [front.replace(/(else)?:/i, '') + 'begin', '  $1', 'end'],
+          },
+        };
+        recipes.push(blockElse);
+      }
+      break;
+    }
+
+    /**
      * Else
      */
     case TOKEN_NAMES.LOGICAL_ELSE: {
