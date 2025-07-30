@@ -1,10 +1,16 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { TrackENVITaskForMCPServer } from '@idl/mcp/server-tools';
+import {
+  RegisterToolQueryENVITaskParameters,
+  RegisterToolQueryENVITasks,
+  RegisterToolRunENVITask,
+  TrackENVITaskForMCPServer,
+} from '@idl/mcp/server-tools';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/core';
+import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
 import {
@@ -18,12 +24,19 @@ import { FilterMCPENVITasks } from './filter-mcp-envi-tasks';
  *
  * WIP: Not complete and GitHub Copilot isn't the best here
  */
-export async function RegisterUserMCPTools() {
+export async function RegisterUserMCPTools(
+  messenger: VSCodeLanguageServerMessenger
+) {
   IDL_LANGUAGE_SERVER_LOGGER.log({
     log: IDL_LSP_LOG,
     type: 'info',
     content: 'Registering MCP user tools',
   });
+
+  // register additional tools
+  RegisterToolQueryENVITasks(messenger);
+  RegisterToolQueryENVITaskParameters(messenger);
+  RegisterToolRunENVITask(messenger);
 
   /** Get all structures that we know about */
   const structures =
