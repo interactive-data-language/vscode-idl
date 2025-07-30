@@ -22,10 +22,15 @@ import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface'
  * Generates options for blocks of code
  */
 export function GetBlockCompletionOptions(
-  token: TreeToken<TokenName>,
+  token: TreeToken<TokenName> | undefined,
   pos: Position,
   recipes: AutoCompleteRecipe<AutoCompleteType>[]
 ) {
+  // return if no token
+  if (!token) {
+    return;
+  }
+
   /** Variable that we add blocks for */
   let blocksFor: TreeToken<CompletionBlockTokens>;
 
