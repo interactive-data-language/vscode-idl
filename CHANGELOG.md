@@ -16,6 +16,8 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
+Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
+
 ## 5.0.0 – July 2024
 
 This release introduces a significant evolution in extension functionality, warranting the major version bump to 5.0.0.
