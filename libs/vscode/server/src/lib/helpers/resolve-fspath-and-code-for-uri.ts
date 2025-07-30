@@ -59,6 +59,11 @@ export async function ResolveFSPathAndCodeForURI(
   // get the cell index
   const idx = nb.cells.findIndex((cell) => cell.document === url);
 
+  // return if we don't have a cell
+  if (!nb.cells[idx]) {
+    return undefined;
+  }
+
   // get cell document
   const cellDoc = NOTEBOOK_MANAGER.getCellTextDocument(nb.cells[idx]);
 
