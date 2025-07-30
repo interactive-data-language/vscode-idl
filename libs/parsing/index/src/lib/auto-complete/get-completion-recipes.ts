@@ -36,6 +36,7 @@ import { Position } from 'vscode-languageserver/node';
 import { GetParsedPROCode } from '../get-parsed/get-parsed-pro-code';
 import { GetTypeBefore } from '../helpers/get-type-before';
 import { IDLIndex } from '../idl-index.class';
+import { GetBlockCompletionOptions } from './completion-for/completion-blocks';
 import { GetCompileOptCompletionOptions } from './completion-for/completion-compile-opts';
 import { GetExecutiveCommandCompletionOptions } from './completion-for/completion-executive-commands';
 import { GetFunctionMethodCompletionOptions } from './completion-for/completion-function-methods';
@@ -143,6 +144,11 @@ export async function GetCompletionRecipes(
     }
 
     /**
+     * Add block completions
+     */
+    GetBlockCompletionOptions(token || local, position, recipes);
+
+    /**
      * Handle special cases for auto-complete
      */
     switch (true) {
@@ -160,16 +166,6 @@ export async function GetCompletionRecipes(
         recipes.push(typed);
         return recipes;
       }
-
-      // /**
-      //  * Block statements
-      //  */
-      // case token?.name === TOKEN_NAMES.LOGICAL_THEN &&
-      //   token?.match[0].length === token?.match[0].trim().length: {
-      //   console.log(token.match);
-      //   GetBlockCompletionOptions(token, recipes);
-      //   return recipes;
-      // }
 
       /**
        * Custom auto-complete procedures where we have literal values

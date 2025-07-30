@@ -5,6 +5,70 @@ import { IAutoCompleteTests } from '../tests.interface';
  */
 export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
   {
+    suiteName: `Custom block auto-complete`,
+    fileName: `blocks.if-then-else.1.spec.ts`,
+    tests: [
+      {
+        name: `for if`,
+        file: `idl/test/auto-complete/if_then_else.pro`,
+        position: [
+          {
+            line: 5,
+            character: 2,
+          },
+          {
+            line: 6,
+            character: 3,
+          },
+          {
+            line: 8,
+            character: 18,
+          },
+          {
+            line: 9,
+            character: 19,
+          },
+        ],
+      },
+      {
+        name: `for then`,
+        file: `idl/test/auto-complete/if_then_else.pro`,
+        position: [
+          {
+            line: 11,
+            character: 23,
+          },
+          {
+            line: 12,
+            character: 24,
+          },
+        ],
+      },
+      {
+        name: `for else`,
+        file: `idl/test/auto-complete/if_then_else.pro`,
+        position: [
+          {
+            line: 14,
+            character: 34,
+          },
+          {
+            line: 15,
+            character: 35,
+          },
+          {
+            line: 17,
+            character: 44,
+          },
+          {
+            line: 18,
+            character: 45,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly provides auto complete for`,
     fileName: `bracket-paren.1.spec.ts`,
     tests: [
@@ -308,6 +372,7 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
       },
     ],
   },
+
   {
     suiteName: `Include properties`,
     fileName: `include-properties.spec.ts`,
