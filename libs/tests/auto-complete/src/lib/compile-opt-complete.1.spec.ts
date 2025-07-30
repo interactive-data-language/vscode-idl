@@ -31,17 +31,17 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
 
     // define expected token we extract
     const expectedFound_0: CompletionItem[] = [
-      { label: 'idl2', kind: 20, sortText: '04' },
-      { label: 'idl3', kind: 20, sortText: '04' },
-      { label: 'defint32', kind: 20, sortText: '04' },
-      { label: 'float64', kind: 20, sortText: '04' },
-      { label: 'hidden', kind: 20, sortText: '04' },
-      { label: 'logical_predicate', kind: 20, sortText: '04' },
-      { label: 'nosave', kind: 20, sortText: '04' },
-      { label: 'obsolete', kind: 20, sortText: '04' },
-      { label: 'static', kind: 20, sortText: '04' },
-      { label: 'strictarr', kind: 20, sortText: '04' },
-      { label: 'strictarrsubs', kind: 20, sortText: '04' },
+      { label: 'idl2', kind: 20, sortText: '50' },
+      { label: 'idl3', kind: 20, sortText: '50' },
+      { label: 'defint32', kind: 20, sortText: '50' },
+      { label: 'float64', kind: 20, sortText: '50' },
+      { label: 'hidden', kind: 20, sortText: '50' },
+      { label: 'logical_predicate', kind: 20, sortText: '50' },
+      { label: 'nosave', kind: 20, sortText: '50' },
+      { label: 'obsolete', kind: 20, sortText: '50' },
+      { label: 'static', kind: 20, sortText: '50' },
+      { label: 'strictarr', kind: 20, sortText: '50' },
+      { label: 'strictarrsubs', kind: 20, sortText: '50' },
     ];
 
     // verify results
@@ -59,16 +59,16 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
 
     // define expected token we extract
     const expectedFound_1: CompletionItem[] = [
-      { label: 'idl3', kind: 20, sortText: '04' },
-      { label: 'defint32', kind: 20, sortText: '04' },
-      { label: 'float64', kind: 20, sortText: '04' },
-      { label: 'hidden', kind: 20, sortText: '04' },
-      { label: 'logical_predicate', kind: 20, sortText: '04' },
-      { label: 'nosave', kind: 20, sortText: '04' },
-      { label: 'obsolete', kind: 20, sortText: '04' },
-      { label: 'static', kind: 20, sortText: '04' },
-      { label: 'strictarr', kind: 20, sortText: '04' },
-      { label: 'strictarrsubs', kind: 20, sortText: '04' },
+      { label: 'idl3', kind: 20, sortText: '50' },
+      { label: 'defint32', kind: 20, sortText: '50' },
+      { label: 'float64', kind: 20, sortText: '50' },
+      { label: 'hidden', kind: 20, sortText: '50' },
+      { label: 'logical_predicate', kind: 20, sortText: '50' },
+      { label: 'nosave', kind: 20, sortText: '50' },
+      { label: 'obsolete', kind: 20, sortText: '50' },
+      { label: 'static', kind: 20, sortText: '50' },
+      { label: 'strictarr', kind: 20, sortText: '50' },
+      { label: 'strictarrsubs', kind: 20, sortText: '50' },
     ];
 
     // verify results

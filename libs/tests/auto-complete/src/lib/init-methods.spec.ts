@@ -32,7 +32,7 @@ describe(`[auto generated] Verify auto-complete for`, () => {
       {
         label: 'kw2',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: {
           kind: 'markdown',
@@ -42,7 +42,7 @@ describe(`[auto generated] Verify auto-complete for`, () => {
       {
         label: 'self',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: {
           kind: 'markdown',
@@ -161,35 +161,35 @@ describe(`[auto generated] Verify auto-complete for`, () => {
         label: "ENVITask('InitializeENVINet5MultiModel')",
         insertText: "ENVITask('InitializeENVINet5MultiModel')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: "ENVITask('BuildLabelRasterFromClassification')",
         insertText: "ENVITask('BuildLabelRasterFromClassification')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: "ENVITask('ClassActivationToPixelROI')",
         insertText: "ENVITask('ClassActivationToPixelROI')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
         insertText: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: 'ENVIBoundingBoxSet()',
         insertText: 'ENVIBoundingBoxSet()',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -214,7 +214,7 @@ describe(`[auto generated] Verify auto-complete for`, () => {
         label: 'kw2 = ',
         insertText: '/kw2',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -224,7 +224,7 @@ describe(`[auto generated] Verify auto-complete for`, () => {
       {
         label: 'kw2',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: {
           kind: 'markdown',
@@ -234,7 +234,7 @@ describe(`[auto generated] Verify auto-complete for`, () => {
       {
         label: 'self',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: {
           kind: 'markdown',
@@ -353,28 +353,28 @@ describe(`[auto generated] Verify auto-complete for`, () => {
         label: "ENVITask('InitializeENVINet5MultiModel')",
         insertText: "ENVITask('InitializeENVINet5MultiModel')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: "ENVITask('BuildLabelRasterFromClassification')",
         insertText: "ENVITask('BuildLabelRasterFromClassification')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: "ENVITask('ClassActivationToPixelROI')",
         insertText: "ENVITask('ClassActivationToPixelROI')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
         insertText: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
     ];

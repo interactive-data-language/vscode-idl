@@ -35,7 +35,7 @@ describe(`[auto generated] Keywords for call procedure`, () => {
         label: 'am_pm = ',
         insertText: 'am_pm = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -47,7 +47,7 @@ describe(`[auto generated] Keywords for call procedure`, () => {
         label: 'days_of_the_week = ',
         insertText: 'days_of_the_week = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: '',
       },
@@ -55,7 +55,7 @@ describe(`[auto generated] Keywords for call procedure`, () => {
         label: 'days_of_week = ',
         insertText: 'days_of_week = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -67,7 +67,7 @@ describe(`[auto generated] Keywords for call procedure`, () => {
         label: 'format = ',
         insertText: 'format = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -79,7 +79,7 @@ describe(`[auto generated] Keywords for call procedure`, () => {
         label: 'implied_print = ',
         insertText: '/implied_print',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -91,7 +91,7 @@ describe(`[auto generated] Keywords for call procedure`, () => {
         label: 'months = ',
         insertText: 'months = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -103,7 +103,7 @@ describe(`[auto generated] Keywords for call procedure`, () => {
         label: 'newline = ',
         insertText: '/newline',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -115,7 +115,7 @@ describe(`[auto generated] Keywords for call procedure`, () => {
         label: 'stdio_non_finite = ',
         insertText: '/stdio_non_finite',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',

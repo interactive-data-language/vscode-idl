@@ -35,7 +35,7 @@ describe(`[auto generated] Keywords for call function`, () => {
         label: 'current = ',
         insertText: '/current',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -47,7 +47,7 @@ describe(`[auto generated] Keywords for call function`, () => {
         label: 'error = ',
         insertText: 'error = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -59,7 +59,7 @@ describe(`[auto generated] Keywords for call function`, () => {
         label: 'headless = ',
         insertText: '/headless',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -71,7 +71,7 @@ describe(`[auto generated] Keywords for call function`, () => {
         label: 'language = ',
         insertText: 'language = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -83,7 +83,7 @@ describe(`[auto generated] Keywords for call function`, () => {
         label: 'layout = ',
         insertText: 'layout = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: '',
       },
@@ -91,7 +91,7 @@ describe(`[auto generated] Keywords for call function`, () => {
         label: 'log_file = ',
         insertText: 'log_file = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: '',
       },
@@ -99,7 +99,7 @@ describe(`[auto generated] Keywords for call function`, () => {
         label: 'preferences = ',
         insertText: 'preferences = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',

@@ -33,7 +33,7 @@ describe(`[auto generated] Do not send procedures`, () => {
         label: 'am_pm = ',
         insertText: 'am_pm = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -45,7 +45,7 @@ describe(`[auto generated] Do not send procedures`, () => {
         label: 'days_of_the_week = ',
         insertText: 'days_of_the_week = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: '',
       },
@@ -53,7 +53,7 @@ describe(`[auto generated] Do not send procedures`, () => {
         label: 'days_of_week = ',
         insertText: 'days_of_week = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -65,7 +65,7 @@ describe(`[auto generated] Do not send procedures`, () => {
         label: 'format = ',
         insertText: 'format = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -77,7 +77,7 @@ describe(`[auto generated] Do not send procedures`, () => {
         label: 'implied_print = ',
         insertText: '/implied_print',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -89,7 +89,7 @@ describe(`[auto generated] Do not send procedures`, () => {
         label: 'months = ',
         insertText: 'months = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -101,7 +101,7 @@ describe(`[auto generated] Do not send procedures`, () => {
         label: 'newline = ',
         insertText: '/newline',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -113,7 +113,7 @@ describe(`[auto generated] Do not send procedures`, () => {
         label: 'stdio_non_finite = ',
         insertText: '/stdio_non_finite',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',

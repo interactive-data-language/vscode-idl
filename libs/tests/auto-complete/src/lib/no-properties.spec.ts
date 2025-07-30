@@ -33,7 +33,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLgrSurface::getCTM()',
         insertText: 'getCtm',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -41,7 +41,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::editUserDefProperty()',
         insertText: 'editUserDefProperty',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -49,7 +49,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::getFullIdentifier()',
         insertText: 'getFullIdentifier',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -57,7 +57,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::getPropertyByIdentifier()',
         insertText: 'getPropertyByIdentifier',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -65,7 +65,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::queryProperty()',
         insertText: 'queryProperty',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -90,7 +90,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLgrSurface::getCTM()',
         insertText: 'getCtm',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -98,7 +98,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::editUserDefProperty()',
         insertText: 'editUserDefProperty',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -106,7 +106,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::getFullIdentifier()',
         insertText: 'getFullIdentifier',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -114,7 +114,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::getPropertyByIdentifier()',
         insertText: 'getPropertyByIdentifier',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -122,7 +122,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::queryProperty()',
         insertText: 'queryProperty',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -166,7 +166,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'all',
         insertText: 'all',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -178,7 +178,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'alpha_channel',
         insertText: 'alpha_channel',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -190,7 +190,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'ambient',
         insertText: 'ambient',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -202,7 +202,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'antialias',
         insertText: 'antialias',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -214,7 +214,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'bottom',
         insertText: 'bottom',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -226,7 +226,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'clip_planes',
         insertText: 'clip_planes',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -238,7 +238,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'color',
         insertText: 'color',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -250,7 +250,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'component_version',
         insertText: 'component_version',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -262,7 +262,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'data',
         insertText: 'data',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -274,7 +274,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'datax',
         insertText: 'datax',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -286,7 +286,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'datay',
         insertText: 'datay',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -298,7 +298,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'dataz',
         insertText: 'dataz',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -310,7 +310,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'depth_offset',
         insertText: 'depth_offset',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -322,7 +322,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'depth_test_disable',
         insertText: 'depth_test_disable',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -334,7 +334,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'depth_test_function',
         insertText: 'depth_test_function',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -346,7 +346,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'depth_write_disable',
         insertText: 'depth_write_disable',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -358,7 +358,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'description',
         insertText: 'description',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -370,7 +370,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'diffuse',
         insertText: 'diffuse',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -382,7 +382,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'double',
         insertText: 'double',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -394,7 +394,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'emission',
         insertText: 'emission',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -406,7 +406,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'extended_lego',
         insertText: 'extended_lego',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -418,7 +418,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'help',
         insertText: 'help',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -430,7 +430,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'hidden_lines',
         insertText: 'hidden_lines',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -442,7 +442,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'hide',
         insertText: 'hide',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -454,7 +454,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'icon',
         insertText: 'icon',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -466,7 +466,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'identifier',
         insertText: 'identifier',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -478,7 +478,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'linestyle',
         insertText: 'linestyle',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -490,7 +490,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'max_value',
         insertText: 'max_value',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -502,7 +502,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'min_value',
         insertText: 'min_value',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -514,7 +514,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'name',
         insertText: 'name',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -526,7 +526,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'palette',
         insertText: 'palette',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -538,7 +538,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'parent',
         insertText: 'parent',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -550,7 +550,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'private',
         insertText: 'private',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -562,7 +562,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'register_properties',
         insertText: 'register_properties',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -574,7 +574,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'reset_data',
         insertText: 'reset_data',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -586,7 +586,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'shade_range',
         insertText: 'shade_range',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -598,7 +598,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'shader',
         insertText: 'shader',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -610,7 +610,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'shading',
         insertText: 'shading',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -622,7 +622,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'share_data',
         insertText: 'share_data',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -634,7 +634,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'shininess',
         insertText: 'shininess',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -646,7 +646,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'show_skirt',
         insertText: 'show_skirt',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -658,7 +658,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'skirt',
         insertText: 'skirt',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -670,7 +670,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'specular',
         insertText: 'specular',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -682,7 +682,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'style',
         insertText: 'style',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -694,7 +694,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'texture_coord',
         insertText: 'texture_coord',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -706,7 +706,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'texture_highres',
         insertText: 'texture_highres',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -718,7 +718,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'texture_interp',
         insertText: 'texture_interp',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -730,7 +730,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'texture_map',
         insertText: 'texture_map',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -742,7 +742,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'thick',
         insertText: 'thick',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -754,7 +754,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'use_triangles',
         insertText: 'use_triangles',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',

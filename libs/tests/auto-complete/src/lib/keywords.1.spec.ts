@@ -33,7 +33,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'center = ',
         insertText: '/center',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -45,7 +45,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'dimension = ',
         insertText: 'dimension = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -57,7 +57,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'double = ',
         insertText: 'double = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -69,7 +69,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'inverse = ',
         insertText: '/inverse',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -81,7 +81,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'overwrite = ',
         insertText: '/overwrite',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -93,7 +93,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'tpool_max_elts = ',
         insertText: 'tpool_max_elts = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -105,7 +105,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'tpool_min_elts = ',
         insertText: 'tpool_min_elts = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -117,7 +117,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'tpool_nothread = ',
         insertText: '/tpool_nothread',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -128,35 +128,35 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
       {
         label: 'a',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
       {
         label: 'b',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
       {
         label: 'p',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
       {
         label: 'e',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
       {
         label: 'var',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
@@ -273,7 +273,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'center = ',
         insertText: 'center',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -285,7 +285,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'dimension = ',
         insertText: 'dimension',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -297,7 +297,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'double = ',
         insertText: 'double',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -309,7 +309,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'inverse = ',
         insertText: 'inverse',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -321,7 +321,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'overwrite = ',
         insertText: 'overwrite',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -333,7 +333,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'tpool_max_elts = ',
         insertText: 'tpool_max_elts',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -345,7 +345,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'tpool_min_elts = ',
         insertText: 'tpool_min_elts',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -357,7 +357,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'tpool_nothread = ',
         insertText: 'tpool_nothread',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -368,35 +368,35 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
       {
         label: 'a',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
       {
         label: 'b',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
       {
         label: 'p',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
       {
         label: 'e',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
       {
         label: 'var',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
@@ -513,7 +513,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: '_extra = ',
         insertText: '_extra = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -524,7 +524,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'axis_style = ',
         insertText: 'axis_style = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -536,7 +536,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'buffer = ',
         insertText: '/buffer',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -548,7 +548,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'current = ',
         insertText: '/current',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -560,7 +560,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'device = ',
         insertText: '/device',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -572,7 +572,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'dimensions = ',
         insertText: 'dimensions = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -584,7 +584,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'layout = ',
         insertText: 'layout = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -596,7 +596,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'location = ',
         insertText: 'location = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -608,7 +608,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'margin = ',
         insertText: 'margin = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -620,7 +620,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'no_toolbar = ',
         insertText: 'no_toolbar = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -632,7 +632,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'nodata = ',
         insertText: 'nodata = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -644,7 +644,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'overplot = ',
         insertText: '/overplot',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -656,7 +656,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'test = ',
         insertText: '/test',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: '',
       },
@@ -664,7 +664,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'widgets = ',
         insertText: 'widgets = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -675,35 +675,35 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
       {
         label: 'a',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
       {
         label: 'b',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
       {
         label: 'p',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
       {
         label: 'e',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
       {
         label: 'var',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
@@ -789,7 +789,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: '_extra = ',
         insertText: '_extra',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -800,7 +800,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'axis_style = ',
         insertText: 'axis_style',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -812,7 +812,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'buffer = ',
         insertText: 'buffer',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -824,7 +824,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'current = ',
         insertText: 'current',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -836,7 +836,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'device = ',
         insertText: 'device',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -848,7 +848,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'dimensions = ',
         insertText: 'dimensions',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -860,7 +860,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'layout = ',
         insertText: 'layout',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -872,7 +872,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'location = ',
         insertText: 'location',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -884,7 +884,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'margin = ',
         insertText: 'margin',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -896,7 +896,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'no_toolbar = ',
         insertText: 'no_toolbar',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -908,7 +908,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'nodata = ',
         insertText: 'nodata',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -920,7 +920,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'overplot = ',
         insertText: 'overplot',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -932,7 +932,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'test = ',
         insertText: 'test',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: '',
       },
@@ -940,7 +940,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'widgets = ',
         insertText: 'widgets',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -969,7 +969,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'current = ',
         insertText: 'current',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -981,7 +981,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'error = ',
         insertText: 'error',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -993,7 +993,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'headless = ',
         insertText: 'headless',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -1005,7 +1005,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'language = ',
         insertText: 'language',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -1017,7 +1017,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'layout = ',
         insertText: 'layout',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: '',
       },
@@ -1025,7 +1025,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'log_file = ',
         insertText: 'log_file',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: '',
       },
@@ -1033,7 +1033,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         label: 'preferences = ',
         insertText: 'preferences',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',

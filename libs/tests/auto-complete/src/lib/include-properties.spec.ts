@@ -33,7 +33,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'all',
         insertText: 'all',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -45,7 +45,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'alpha_channel',
         insertText: 'alpha_channel',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -57,7 +57,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ambient',
         insertText: 'ambient',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -69,7 +69,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'antialias',
         insertText: 'antialias',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -81,7 +81,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'bottom',
         insertText: 'bottom',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -93,7 +93,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'clip_planes',
         insertText: 'clip_planes',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -105,7 +105,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'color',
         insertText: 'color',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -117,7 +117,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'component_version',
         insertText: 'component_version',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -129,7 +129,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'data',
         insertText: 'data',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -141,7 +141,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'datax',
         insertText: 'datax',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -153,7 +153,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'datay',
         insertText: 'datay',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -165,7 +165,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'dataz',
         insertText: 'dataz',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -177,7 +177,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'depth_offset',
         insertText: 'depth_offset',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -189,7 +189,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'depth_test_disable',
         insertText: 'depth_test_disable',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -201,7 +201,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'depth_test_function',
         insertText: 'depth_test_function',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -213,7 +213,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'depth_write_disable',
         insertText: 'depth_write_disable',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -225,7 +225,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'description',
         insertText: 'description',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -237,7 +237,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'diffuse',
         insertText: 'diffuse',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -249,7 +249,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'double',
         insertText: 'double',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -261,7 +261,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'emission',
         insertText: 'emission',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -273,7 +273,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'extended_lego',
         insertText: 'extended_lego',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -285,7 +285,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'help',
         insertText: 'help',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -297,7 +297,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'hidden_lines',
         insertText: 'hidden_lines',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -309,7 +309,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'hide',
         insertText: 'hide',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -321,7 +321,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'icon',
         insertText: 'icon',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -333,7 +333,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'identifier',
         insertText: 'identifier',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -345,7 +345,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'linestyle',
         insertText: 'linestyle',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -357,7 +357,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'max_value',
         insertText: 'max_value',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -369,7 +369,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'min_value',
         insertText: 'min_value',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -381,7 +381,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'name',
         insertText: 'name',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -393,7 +393,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'palette',
         insertText: 'palette',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -405,7 +405,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'parent',
         insertText: 'parent',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -417,7 +417,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'private',
         insertText: 'private',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLitComponent',
         documentation: {
           kind: 'markdown',
@@ -429,7 +429,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'register_properties',
         insertText: 'register_properties',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -441,7 +441,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'reset_data',
         insertText: 'reset_data',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -453,7 +453,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'shade_range',
         insertText: 'shade_range',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -465,7 +465,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'shader',
         insertText: 'shader',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -477,7 +477,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'shading',
         insertText: 'shading',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -489,7 +489,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'share_data',
         insertText: 'share_data',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -501,7 +501,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'shininess',
         insertText: 'shininess',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -513,7 +513,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'show_skirt',
         insertText: 'show_skirt',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -525,7 +525,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'skirt',
         insertText: 'skirt',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -537,7 +537,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'specular',
         insertText: 'specular',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -549,7 +549,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'style',
         insertText: 'style',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -561,7 +561,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'texture_coord',
         insertText: 'texture_coord',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -573,7 +573,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'texture_highres',
         insertText: 'texture_highres',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -585,7 +585,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'texture_interp',
         insertText: 'texture_interp',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -597,7 +597,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'texture_map',
         insertText: 'texture_map',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -609,7 +609,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'thick',
         insertText: 'thick',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -621,7 +621,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'use_triangles',
         insertText: 'use_triangles',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -669,7 +669,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'api_version',
         insertText: 'api_version',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -681,7 +681,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'current',
         insertText: 'current',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -693,7 +693,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'data',
         insertText: 'data',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -705,7 +705,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'error',
         insertText: 'error',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -717,7 +717,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'headless',
         insertText: 'headless',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -729,7 +729,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'language',
         insertText: 'language',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -741,7 +741,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'layout',
         insertText: 'layout',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -753,7 +753,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'log_file',
         insertText: 'log_file',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -765,7 +765,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'preferences',
         insertText: 'preferences',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -777,7 +777,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'root_dir',
         insertText: 'root_dir',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -788,7 +788,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'root_direction',
         insertText: 'root_direction',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: '',
       },
@@ -796,7 +796,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'task_names',
         insertText: 'task_names',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -808,7 +808,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ui',
         insertText: 'ui',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -820,7 +820,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'uvalue',
         insertText: 'uvalue',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -831,7 +831,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'version',
         insertText: 'version',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -843,7 +843,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'widget_id',
         insertText: 'widget_id',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
@@ -855,7 +855,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::createRaster()',
         insertText: 'createRaster()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -863,7 +863,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::createRasterMetadata()',
         insertText: 'createRasterMetadata()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -871,7 +871,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::createRasterSpatialRef()',
         insertText: 'createRasterSpatialRef()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -879,7 +879,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::createView()',
         insertText: 'createView()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -887,7 +887,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::getBroadcastChannel()',
         insertText: 'getBroadcastChannel()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -895,7 +895,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::getOpenData()',
         insertText: 'getOpenData()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -903,7 +903,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::getPreference()',
         insertText: 'getPreference()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -911,7 +911,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::getTemporaryFilename()',
         insertText: 'getTemporaryFilename()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -919,7 +919,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::getView()',
         insertText: 'getView()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -927,7 +927,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::openAnnotation()',
         insertText: 'openAnnotation()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -935,7 +935,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::openPointCloud()',
         insertText: 'openPointCloud()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -943,7 +943,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::openRaster()',
         insertText: 'openRaster()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -951,7 +951,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::openROI()',
         insertText: 'openROI()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -959,7 +959,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::openVector()',
         insertText: 'openVector()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -967,7 +967,7 @@ describe(`[auto generated] Include properties`, () => {
         label: 'ENVI::queryPointCloud()',
         insertText: 'queryPointCloud()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },

@@ -140,15 +140,15 @@ describe(`[auto generated] Send procedure tokens`, () => {
       {
         label: 'ENVITensorBoard',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Procedure',
       },
-      { label: 'openr', kind: 3, sortText: '03', detail: 'Procedure' },
-      { label: 'openu', kind: 3, sortText: '03', detail: 'Procedure' },
-      { label: 'openw', kind: 3, sortText: '03', detail: 'Procedure' },
-      { label: 'print', kind: 3, sortText: '03', detail: 'Procedure' },
-      { label: 'printf', kind: 3, sortText: '03', detail: 'Procedure' },
-      { label: 'read', kind: 3, sortText: '03', detail: 'Procedure' },
+      { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
+      { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
+      { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },
+      { label: 'print', kind: 3, sortText: '40', detail: 'Procedure' },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
+      { label: 'read', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 
     // verify results
@@ -296,15 +296,15 @@ describe(`[auto generated] Send procedure tokens`, () => {
       {
         label: 'ENVITensorBoard',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Procedure',
       },
-      { label: 'openr', kind: 3, sortText: '03', detail: 'Procedure' },
-      { label: 'openu', kind: 3, sortText: '03', detail: 'Procedure' },
-      { label: 'openw', kind: 3, sortText: '03', detail: 'Procedure' },
-      { label: 'print', kind: 3, sortText: '03', detail: 'Procedure' },
-      { label: 'printf', kind: 3, sortText: '03', detail: 'Procedure' },
-      { label: 'read', kind: 3, sortText: '03', detail: 'Procedure' },
+      { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
+      { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
+      { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },
+      { label: 'print', kind: 3, sortText: '40', detail: 'Procedure' },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
+      { label: 'read', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 
     // verify results
