@@ -230,7 +230,9 @@
     "Linters",
     "Programming Languages",
     "Snippets",
-    "Themes"
+    "Themes",
+    "AI",
+    "Notebooks"
   ],
   "icon": "extension/images/idlicon.png",
   "contributes": {
