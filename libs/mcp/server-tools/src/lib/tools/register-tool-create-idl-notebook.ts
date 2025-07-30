@@ -36,7 +36,7 @@ export function RegisterToolCreateIDLNotebook(
             content: z
               .string()
               .describe(
-                'The content of the notebook cell as a single-line string separated by new line chatacters'
+                'The content of the notebook cell as a single-line string separated by new line characters'
               ),
           })
         )
