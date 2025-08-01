@@ -205,6 +205,46 @@ export function GetBlockCompletionOptions(
       }
       break;
     }
+
+    /**
+     * Do portion of a loop
+     */
+    case TOKEN_NAMES.LOOP_DO: {
+      if (blocksFor.kids.length === 0) {
+        /** Get the parent which determines how we close */
+        const parent = blocksFor.scopeTokens[blocksFor.scopeTokens.length - 1];
+
+        let label = 'Begin block';
+        let endText = 'end';
+
+        switch (parent.name) {
+          case TOKEN_NAMES.LOOP_FOR:
+            label = 'For-do block';
+            endText = 'endfor';
+            break;
+          case TOKEN_NAMES.LOOP_FOREACH:
+            label = 'Foreach-do block';
+            endText = 'endforeach';
+            break;
+          case TOKEN_NAMES.LOOP_WHILE:
+            label = 'While block';
+            endText = 'endwhile';
+            break;
+          default:
+            break;
+        }
+
+        const blockElse: AutoCompleteRecipe<BlockCompletion> = {
+          type: AUTO_COMPLETE_TYPE_LOOKUP.BLOCK,
+          options: {
+            label,
+            snippet: [front + 'begin', '  $1', endText],
+          },
+        };
+        recipes.push(blockElse);
+      }
+      break;
+    }
     default:
       break;
   }

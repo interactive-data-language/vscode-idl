@@ -30,6 +30,46 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
   },
   {
     suiteName: `Custom block auto-complete`,
+    fileName: `blocks.for.1.spec.ts`,
+    tests: [
+      {
+        name: `for for loops`,
+        file: `idl/test/auto-complete/for_foreach_while.pro`,
+        position: [
+          {
+            line: 2,
+            character: 33,
+          },
+          {
+            line: 3,
+            character: 34,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Custom block auto-complete`,
+    fileName: `blocks.foreach.1.spec.ts`,
+    tests: [
+      {
+        name: `for foreach loops`,
+        file: `idl/test/auto-complete/for_foreach_while.pro`,
+        position: [
+          {
+            line: 5,
+            character: 19,
+          },
+          {
+            line: 6,
+            character: 20,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Custom block auto-complete`,
     fileName: `blocks.if-then-else.1.spec.ts`,
     tests: [
       {
@@ -111,6 +151,26 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           {
             line: 11,
             character: 8,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Custom block auto-complete`,
+    fileName: `blocks.while.1.spec.ts`,
+    tests: [
+      {
+        name: `for while loops`,
+        file: `idl/test/auto-complete/for_foreach_while.pro`,
+        position: [
+          {
+            line: 8,
+            character: 16,
+          },
+          {
+            line: 9,
+            character: 17,
           },
         ],
       },
