@@ -4,10 +4,16 @@ import { IDL_LOGGER } from '@idl/vscode/client';
 import * as vscode from 'vscode';
 
 import { IDLAction } from './idl-action.class';
+import { IChild } from './idl-tree-view.interface';
 import { TREE_VIEW_CLICK_HANDLER } from './initialize-tree';
 import { CODE_ACTIONS } from './trees/code-actions.tree.interface';
 import { DEBUGGING_BUTTONS } from './trees/debugging.tree.interface';
-import { IDLTUTORIAL_ACTIONS } from './trees/IDLTutorials.tree.interface';
+import {
+  IDLTUTORIAL_ACTIONS,
+  IDLTUTORIAL_FILEOPERATIONS,
+  IDLTUTORIAL_GETTINGSTARTED,
+  IDLTUTORIAL_IDLBASICS,
+} from './trees/IDLTutorials.tree.interface';
 import { NOTEBOOK_ACTIONS } from './trees/notebook-actions.tree.interface';
 import { ADDITIONAL_ACTIONS } from './trees/quick-access.tree.interface';
 import { TERMINAL_BUTTONS } from './trees/terminal-buttons.interface';
@@ -98,6 +104,25 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
         });
       }
     });
+  }
+
+  private addBranch(
+    branchName: string,
+    leafNodes: IChild[],
+    collapsibleState: vscode.TreeItemCollapsibleState = vscode
+      .TreeItemCollapsibleState.None
+  ) {
+    this.tree[branchName] = leafNodes.map(
+      (child) =>
+        new IDLAction(
+          child.name,
+          child.description,
+          collapsibleState,
+          child.icon,
+          child.commandName,
+          child.commandArgs
+        )
+    );
   }
 
   /**
@@ -203,22 +228,80 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
       // override type, OK because click handler ignores parents
       IDL_TRANSLATION.idl.tree.parents.IDLTutorials,
       '',
-      vscode.TreeItemCollapsibleState.Expanded,
-      'post.svg',
+      vscode.TreeItemCollapsibleState.Collapsed,
+      'idlicon.svg',
       ''
     );
+
     this.tree[IDL_TRANSLATION.idl.tree.parents.IDLTutorials] =
       IDLTUTORIAL_ACTIONS.map(
         (child) =>
           new IDLAction(
             child.name,
             child.description,
-            vscode.TreeItemCollapsibleState.None,
+            vscode.TreeItemCollapsibleState.Collapsed,
             child.icon,
             child.commandName,
             child.commandArgs
           )
       );
+
+    this.addBranch(
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.gettingStarted.name,
+      IDLTUTORIAL_GETTINGSTARTED,
+      vscode.TreeItemCollapsibleState.None
+    );
+    this.addBranch(
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.name,
+      IDLTUTORIAL_IDLBASICS,
+      vscode.TreeItemCollapsibleState.None
+    );
+    this.addBranch(
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.fileOperations.name,
+      IDLTUTORIAL_FILEOPERATIONS,
+      vscode.TreeItemCollapsibleState.None
+    );
+
+    // this.tree[
+    //   IDL_TRANSLATION.idl.tree.children.idlTutorials.gettingStarted.name
+    // ] = IDLTUTORIAL_GETTINGSTARTED.map(
+    //   (child) =>
+    //     new IDLAction(
+    //       child.name,
+    //       child.description,
+    //       vscode.TreeItemCollapsibleState.None,
+    //       child.icon,
+    //       child.commandName,
+    //       child.commandArgs
+    //     )
+    // );
+
+    // this.tree[IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.name] =
+    //   IDLTUTORIAL_IDLBASICS.map(
+    //     (child) =>
+    //       new IDLAction(
+    //         child.name,
+    //         child.description,
+    //         vscode.TreeItemCollapsibleState.None,
+    //         child.icon,
+    //         child.commandName,
+    //         child.commandArgs
+    //       )
+    //   );
+
+    // this.tree[
+    //   IDL_TRANSLATION.idl.tree.children.idlTutorials.fileOperations.name
+    // ] = IDLTUTORIAL_FILEOPERATIONS.map(
+    //   (child) =>
+    //     new IDLAction(
+    //       child.name,
+    //       child.description,
+    //       vscode.TreeItemCollapsibleState.None,
+    //       child.icon,
+    //       child.commandName,
+    //       child.commandArgs
+    //     )
+    // );
 
     /**
      * Additional commands/actions that we want to have buttons for

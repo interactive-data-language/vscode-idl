@@ -141,6 +141,8 @@ export interface ITreeInformation {
   name: string;
   /** Description of the tree item */
   description: string;
+  /** Optional children for nested tree structure */
+  children?: { [key: string]: ITreeInformation };
 }
 
 /**
@@ -574,8 +576,10 @@ export interface ITranslation {
       /** Children of any of the sidebars, should have the command as the key name */
       children: {
         idlTutorials: {
-          /** Format notebook */
-          testTutorial: ITreeInformation;
+          // set up the directories for the tutorials
+          gettingStarted: ITreeInformation;
+          idlBasics: ITreeInformation;
+          fileOperations: ITreeInformation;
         };
         /** Additional actions */
         quickAccess: {
