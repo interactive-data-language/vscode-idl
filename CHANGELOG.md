@@ -20,6 +20,8 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 ## 5.0.2 - Unreleased
 
+Tweak hanging indent for procedures and procedure methods to use the first comma as the syntax we align to
+
 Fix an issue with catching standalone expressions where the problem would be incorrectly reported for chained property access.
 
 ## 5.0.1 - July 2024
