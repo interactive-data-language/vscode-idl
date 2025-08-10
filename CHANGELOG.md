@@ -18,6 +18,10 @@ Document some advanced types so users may try them out and provide feedback. The
 
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
+## 5.0.2 - Unreleased
+
+Fix an issue with catching standalone expressions where the problem would be incorrectly reported for chained property access.
+
 ## 5.0.1 - July 2024
 
 Fix a bug with IDL Notebooks when you would open a new notebook though the MCP tools.

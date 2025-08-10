@@ -508,4 +508,54 @@ describe(`[auto generated] Detect standalone expressions`, () => {
       tokenized.parseProblems.concat(tokenized.postProcessProblems)
     ).toEqual(expected);
   });
+
+  it(`[auto generated] regression for multiple property accessors`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `compile_opt idl2`,
+      `altState.sProjState.projReso = graphic.projReso`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true }
+    );
+
+    // define expected tokens
+    const expected: SyntaxProblems = [
+      {
+        code: 99,
+        info: 'Undefined variable "altState"',
+        start: [1, 0, 8],
+        end: [1, 0, 8],
+        canReport: true,
+      },
+      {
+        code: 99,
+        info: 'Undefined variable "graphic"',
+        start: [1, 31, 7],
+        end: [1, 31, 7],
+        canReport: true,
+      },
+    ];
+
+    // verify results
+    expect(
+      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+    ).toEqual(expected);
+  });
 });
