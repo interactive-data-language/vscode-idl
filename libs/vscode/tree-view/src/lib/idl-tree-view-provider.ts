@@ -262,47 +262,6 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
       vscode.TreeItemCollapsibleState.None
     );
 
-    // this.tree[
-    //   IDL_TRANSLATION.idl.tree.children.idlTutorials.gettingStarted.name
-    // ] = IDLTUTORIAL_GETTINGSTARTED.map(
-    //   (child) =>
-    //     new IDLAction(
-    //       child.name,
-    //       child.description,
-    //       vscode.TreeItemCollapsibleState.None,
-    //       child.icon,
-    //       child.commandName,
-    //       child.commandArgs
-    //     )
-    // );
-
-    // this.tree[IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.name] =
-    //   IDLTUTORIAL_IDLBASICS.map(
-    //     (child) =>
-    //       new IDLAction(
-    //         child.name,
-    //         child.description,
-    //         vscode.TreeItemCollapsibleState.None,
-    //         child.icon,
-    //         child.commandName,
-    //         child.commandArgs
-    //       )
-    //   );
-
-    // this.tree[
-    //   IDL_TRANSLATION.idl.tree.children.idlTutorials.fileOperations.name
-    // ] = IDLTUTORIAL_FILEOPERATIONS.map(
-    //   (child) =>
-    //     new IDLAction(
-    //       child.name,
-    //       child.description,
-    //       vscode.TreeItemCollapsibleState.None,
-    //       child.icon,
-    //       child.commandName,
-    //       child.commandArgs
-    //     )
-    // );
-
     /**
      * Additional commands/actions that we want to have buttons for
      */
