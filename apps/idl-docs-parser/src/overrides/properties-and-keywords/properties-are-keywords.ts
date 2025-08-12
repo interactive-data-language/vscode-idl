@@ -36,3 +36,6 @@ PROPERTIES_ARE_KEYWORDS['idlsysmonitorinfo'] = [
   ['idlsysmonitorinfo::setproperty', GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD],
 ];
 PROPERTIES_ARE_KEYWORDS['enviroi'] = [['enviroi', GLOBAL_TOKEN_TYPES.FUNCTION]];
+PROPERTIES_ARE_KEYWORDS['colorbar'] = [
+  ['colorbar', GLOBAL_TOKEN_TYPES.FUNCTION],
+];

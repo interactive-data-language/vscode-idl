@@ -24,6 +24,8 @@ Tweak hanging indent for procedures and procedure methods to use the first comma
 
 Fix an issue with catching standalone expressions where the problem would be incorrectly reported for chained property access.
 
+Fix docs issues with `colorbar()` function not having all properties for keywords.
+
 ## 5.0.1 - July 2024
 
 Fix a bug with IDL Notebooks when you would open a new notebook though the MCP tools.
