@@ -26,6 +26,8 @@ Fix an issue with catching standalone expressions where the problem would be inc
 
 Fix docs issues with `colorbar()` function not having all properties for keywords.
 
+Fix docs issue where "ipm" was an unknown structure and would throw fake errors when using the static methods on the class.
+
 ## 5.0.1 - July 2024
 
 Fix a bug with IDL Notebooks when you would open a new notebook though the MCP tools.
