@@ -1,0 +1,292 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "# Casting and Type Promotion",
+        "___"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "For the most part IDL will automatically determine the most appropriate data type for you.  ",
+        "",
+        "**Casting** allows you to manually change a variable's type.",
+        "",
+        "Before running the following example, **what do you think will happen?**"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; here we convert (or \"cast\") the number 63000 into a short (16-bit) Integer.",
+        "exampleInt = fix(63000)",
+        "; here we let IDL choose our type for us",
+        "exampleAuto = 63000",
+        "",
+        "help, exampleInt",
+        "help, exampleAuto"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "**Madness**!  ",
+        "Well, maybe not. The **exampleInt** suffered from an **Arithmetic Overflow**. This occurs when you assign a value to a type that cannot store it. In this case, **INT** can store up to 32,767. Since 63000 is larger than 32,767, this causes an \"overflow\".",
+        "",
+        "Notice when we don't explicitly set our Type, then IDL automatically detects this and **promotes** our **Int** to a **Long** which can handle the larger number. Thus we get a output we expect."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### idl type casting",
+        "",
+        "| to        | function          |",
+        "|-----------|------------------|",
+        "| int       | `fix(var)`       |",
+        "| long      | `long(var)`      |",
+        "| float     | `float(var)`     |",
+        "| double    | `double(var)`    |",
+        "| string    | `string(var)`    |",
+        "| byte      | `byte(var)`      |",
+        "| complex   | `complex(var)`   |",
+        "| dcomplex  | `dcomplex(var)`  |",
+        "| uint      | `uint(var)`      |",
+        "| ulong     | `ulong(var)`     |"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "IDL supports mass operations on arrays, where an operation is done for every element with a single statement. For example, you can cast an entire array to a different type:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "doubleArray = [0d:100d]",
+        "help, doubleArray",
+        "",
+        "intArray = fix(doubleArray)",
+        "help,intArray"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "## **Type Promotion**",
+        "What happens when a expression **mixes** a **Float** (can store decimals) with an **Integer** (cannot)?"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "2.5 * 3"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "The answer is IDL does a **type promotion**.  ",
+        "",
+        "This means that IDL will look at the entire expression and **automatically convert (or promote)** variables to match the most flexible or capable compatible type **already in the expression**. This type is chosen because IDL knows it can handle more complex operations, at the cost of performance.",
+        "",
+        "In this case, the IDL interpreter processes the example as: "
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "2.5 * float(3)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "This also means your result will also be **promoted** to be type float.",
+        ">It's important to note your result is not being **explicitly** promoted but rather is being **implicitly** promoted by IDL."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "result = 2.5 * 3",
+        "help, result"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "The distinction between implicit and explicit promotion is important to keep in mind in the cases where promotion does not occour when it may be expected.  ",
+        "For example:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "result = 3 / 2",
+        "",
+        "help, result"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "This happens because IDL interprets the expression as having two **integers**.  ",
+        "Since the integers are directly compatible with each-other **no type is promoted**, and you end up with a long integer as a result.  ",
+        "",
+        ">Since the math is done usinc integer arithmetic, the answer is truncated, not rounded.",
+        "___"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "#### **Exercise 2**",
+        "Consider the following code. What type do you think the result type will be. What will result value be?"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; run to reveal answer",
+        "help, (11 / 2) * 3d"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "<details>",
+        "  <summary>Click to reveal the reasoning</summary>",
+        "",
+        "  **Answer**: </br>",
+        "  This one is a bit tricky and uses some concepts from **02-01**. </br>",
+        "  </br>",
+        "  First, lets look at `(11 / 2)`. This is evaluated as `11L / 2L`. Since it's in parenthesis, it is evaluated as a **complete expression** all on its own, and the result is stored in a temporary variable.</br>",
+        "  The expression `11 / 2` does not require type promotion because both numbers are integers (`long` type).</br>",
+        "  The temporary result therefore, is `5`.</br>",
+        "  </br>",
+        "  Finally, we are left with `temp * 3d` or `(5L * 3d)`. As a result the 5 (a long) is promoted to a `double`, and thus the final result is a **double**.</br>",
+        "",
+        "</details>  ",
+        "",
+        "---"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "#### **Exercise 3 (creativity bonus)**",
+        "Lets say you wanted to round **up** but you didn't want to use IDL's reliable and trusty `round()` function. How could you utilize **type casting** and **integer truncation** to do this?"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "toBeRounded = 5.8",
+        "; Please code your answer here."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "<details>",
+        "  <summary>Click to reveal the answer</summary>",
+        "",
+        "  **Answer**: </br>",
+        "  This one is hard so don't get down if you didn't get it.</br>",
+        "  </br>",
+        "  `print, long(toBeRounded + .5)` </br>",
+        "  </br>",
+        "  Let's break this down. </br>",
+        "  `toBeRounded + .5` is going to be calculated first because it is inside the parentheses. </br>",
+        "  `(toBeRounded + .5) = 6.3` </br>",
+        "  6.3 then gets plugged into `long()` with will **cast** our float into a long.</br>",
+        "  `long(6.3) = 6`</br>",
+        "  </br>",
+        "  Notice this works for rounding down (less than 0.5) as well. </br>",
+        "  `toBeRounded = 5.2`</br>",
+        "  `(toBeRounded + .5) = 5.7`</br>",
+        "  `long(5.7) = 5`</br>",
+        "  </br>",
+        "  Please do use the `round()` function though. It is much clearer, is faster, and handles some special edge cases.",
+        "</details>  ",
+        "",
+        "---"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "",
+        "### Tricky but you got through!"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "cli_progress.update, 45, Text = \"Great work! next is conditional expressions!\""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Beware the trickiness of auto-casting. Time for some [Logic](./06-Conditional%20Expressions.idlnb)!"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

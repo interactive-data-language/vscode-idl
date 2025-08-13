@@ -1,0 +1,60 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "# Introduction to File Operations",
+        "### **Opening a file**  ",
+        "To open text or binary files, use the `OPENR`, `OPENU`, or `OPENW` functions.",
+        ">Note: typing **?routine** into the IDL command line will take you to the documentation for a function or procedure. So **?OPENR** would open the OPENR documentation.",
+        "",
+        "For other types of files you can use any number of specialized reading/writing functions such as ",
+        "- `read_png`/`write_png`",
+        "- `read_binary`",
+        "- `read_csv`",
+        "- `read_ascii`",
+        "- **etc**",
+        "",
+        "These will take care of the `Open`for you."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Lun**",
+        "`Open` will need a **Logical Unit Number** (`LUN`) which is a integer identifier to reference a file.",
+        "",
+        "The lun **must be freed** once you are finished with it. A file associated with a active LUN will be locked or inaccessible for future operations until IDL exits."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Open the file located at ./01-IDL for beginners/03-File Operations/example.txt and assign it a LUN.",
+        "openr, file_LUN, `01-IDL for beginners/03-File Operations/example.txt`, /GET_LUN",
+        "",
+        "; Release the LUN after use to free system resources.",
+        "free_lun, file_LUN"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "### Now lets try doing stuff with the data in the file!",
+        "",
+        "- [Read Files](./02-Read%20Files.idlnb)! <br>",
+        "- [Write Files](./03-Write%20Files.idlnb)!"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

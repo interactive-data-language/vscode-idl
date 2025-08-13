@@ -42,7 +42,7 @@ export const IDLTUTORIAL_GETTINGSTARTED: IChild[] = [
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
     commandArgs: [
-      '01-IDL for beginners/01-Getting started/01-Running IDL in Notebooks.idlnb',
+      'IDL Tutorials/Getting Started/01-Running IDL in Notebooks.idlnb',
     ],
   },
   {
@@ -54,7 +54,7 @@ export const IDLTUTORIAL_GETTINGSTARTED: IChild[] = [
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
     commandArgs: [
-      '01-IDL for beginners/01-Getting started/02-Navigating the Guide.idlnb',
+      'IDL Tutorials/Getting Started/02-Navigating the Guide.idlnb',
     ],
   },
 ];
@@ -68,7 +68,7 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
         .whatIsIDL.description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: ['01-IDL for beginners/02-IDL Basics/00-What Is IDL.idlnb'],
+    commandArgs: ['IDL Tutorials/IDL Basics/00-What Is IDL.idlnb'],
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.children
@@ -79,7 +79,7 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
     commandArgs: [
-      '01-IDL for beginners/02-IDL Basics/01-Values,Types, and Variables.idlnb',
+      'IDL Tutorials/IDL Basics/01-Values, Types, and Variables.idlnb',
     ],
   },
   {
@@ -90,7 +90,7 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
         .operators.description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: ['01-IDL for beginners/02-IDL Basics/02-Operators.idlnb'],
+    commandArgs: ['IDL Tutorials/IDL Basics/02-Operators.idlnb'],
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.children
@@ -100,7 +100,7 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
         .expressions.description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: ['01-IDL for beginners/02-IDL Basics/03-Expressions.idlnb'],
+    commandArgs: ['IDL Tutorials/IDL Basics/03-Expressions.idlnb'],
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.children
@@ -110,7 +110,7 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
         .idlSyntax.description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: ['01-IDL for beginners/02-IDL Basics/04-IDL Syntax.idlnb'],
+    commandArgs: ['IDL Tutorials/IDL Basics/04-IDL Syntax.idlnb'],
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.children
@@ -120,7 +120,7 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
         .description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: ['01-IDL for beginners/02-IDL Basics/05-Casting.idlnb'],
+    commandArgs: ['IDL Tutorials/IDL Basics/05-Casting.idlnb'],
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.children
@@ -130,9 +130,7 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
         .conditionalExpressions.description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: [
-      '01-IDL for beginners/02-IDL Basics/06-Conditional Expressions.idlnb',
-    ],
+    commandArgs: ['IDL Tutorials/IDL Basics/06-Conditional Expressions.idlnb'],
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.children
@@ -142,7 +140,7 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
         .description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: ['01-IDL for beginners/02-IDL Basics/07-Loops.idlnb'],
+    commandArgs: ['IDL Tutorials/IDL Basics/07-Loops.idlnb'],
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.children
@@ -152,7 +150,7 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
         .description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: ['01-IDL for beginners/02-IDL Basics/08-Arrays.idlnb'],
+    commandArgs: ['IDL Tutorials/IDL Basics/08-Arrays.idlnb'],
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.children
@@ -162,7 +160,7 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
         .description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: ['01-IDL for beginners/02-IDL Basics/09-Strings.idlnb'],
+    commandArgs: ['IDL Tutorials/IDL Basics/09-Strings.idlnb'],
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.children
@@ -172,9 +170,7 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
         .functionsAndProcedures.description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: [
-      '01-IDL for beginners/02-IDL Basics/10-Functions and Procedures.idlnb',
-    ],
+    commandArgs: ['IDL Tutorials/IDL Basics/10-Functions and Procedures.idlnb'],
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.children
@@ -184,7 +180,7 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
         .introToObjects.description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: ['01-IDL for beginners/02-IDL Basics/11-IntroToObjects.idlnb'],
+    commandArgs: ['IDL Tutorials/IDL Basics/11-IntroToObjects.idlnb'],
   },
 ];
 
@@ -198,7 +194,7 @@ export const IDLTUTORIAL_FILEOPERATIONS: IChild[] = [
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
     commandArgs: [
-      '01-IDL for beginners/03-File Operations/01-Intro to file operations.idlnb',
+      'IDL Tutorials/File Operations/01-Intro to file operations.idlnb',
     ],
   },
   {
@@ -209,9 +205,7 @@ export const IDLTUTORIAL_FILEOPERATIONS: IChild[] = [
         .readFiles.description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: [
-      '01-IDL for beginners/03-File Operations/02-Read Files.idlnb',
-    ],
+    commandArgs: ['IDL Tutorials/File Operations/02-Read Files.idlnb'],
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.fileOperations.children
@@ -221,8 +215,6 @@ export const IDLTUTORIAL_FILEOPERATIONS: IChild[] = [
         .writeFiles.description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: [
-      '01-IDL for beginners/03-File Operations/03-Write Files.idlnb',
-    ],
+    commandArgs: ['IDL Tutorials/File Operations/03-Write Files.idlnb'],
   },
 ];

@@ -8,7 +8,7 @@ import { RegisterIDLTutorialsCommands } from './commands/register-idl-tutorials-
  */
 export function InitializeIDLTutorials(ctx: ExtensionContext) {
   IDL_LOGGER.log({
-    content: 'Registering notebook serializer and controller',
+    content: 'initializing IDL tutorials',
   });
 
   RegisterIDLTutorialsCommands(ctx);

@@ -1,0 +1,68 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "# Basic Syntax for this Guide",
+        "----------------------"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## **The basics**",
+        "Here we will briefly cover some syntax and shorthands that may be used throughout this guide.",
+        " 1. Comments in code blocks.",
+        " 2. Referencing other guides.",
+        " 3. Additional notes."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## 1. Commenting in Code blocks",
+        "In IDL code you may occasionally see a semicolon \"**;**\" alongside some text. This is a **comment**. Any text after a semicolon on the same line will not be executed by IDL. Comments are a excellent way to describe your code and leave notes while you work.  ",
+        "",
+        "A good rule of thumb for commenting is:  ",
+        "Write comments to explain *why* the code exists or is written in a certain way, not *what it does*, unless it is overly confusing. **Keep them concise and meaningful**.",
+        "  ",
+        "*For example:*"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "print, (\"hello world\") ;This comment is here to show the reader what a comment is."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## 2. Medium for the Guide",
+        "",
+        "We will be using **IDL Notebooks** for this guide as they allow us to embed code alongside markdown for better readability and interactivity.",
+        "",
+        "However, IDL Notebooks may not yet support all features, such as full interactivity with IDL graphics, or code profiling. For more advanced programming, we recommend familiarizing yourself with either the **IDLDE (IDL Development Environment)** or the **IDL for VS Code** extension."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Want to get started? Check out [What is IDL](../IDL%20Basics/00-What%20Is%20IDL.idlnb)!"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

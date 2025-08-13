@@ -1,0 +1,358 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "## **IDL Objects**",
+        "",
+        "### **Definition:**",
+        "- **Object** - In IDL, objects provide a way to **encapsulate data and methods together**. Objects are instances of **classes**, which define behavior and properties.",
+        "- **Method** - Methods are functions or procedures that **belong** to an object class.",
+        "- **Class** - A Class is a blueprint/template for a object. **A class defines a Object**, including all of its properties and methods."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **How to define a class:**"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro MyClass__define",
+        "compile_opt idl2",
+        "  !null = { MyClass, name: '', value: 0, inherits IDL_Object}",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "- `__define` - Tells IDL that this is supposed to be a class.",
+        "- `!null = { MyClass, name: '', value: 0 }` - Sets up the name of the object and allocates the space for the data in a structure.",
+        "- `inherits IDL_Object` - This is the _superclass_ for the class. In this case, inheriting from `IDL_Object` gives you access to additional functionality such as **Operator Overloading** and **Dot Notation**.",
+        ">Note: all fields in a class structure are \"zeroed\". This means that you cannot set default values here. Instead, you should set default values in the `::Init` method (see below).",
+        "",
+        "---"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Using a object**",
+        "To use an object, you first need to **set up the class (what we will do below.)**.  ",
+        "Then, use that class to **initialize an object**.  ",
+        "From there, you can **use the object to your heart's content**!"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Exobj is a rather boring object at the moment. So we cannot do much with it.",
+        "Exobj = MyClass()"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **The Init method:**",
+        "Certain method names are reserved. The **Init method** will be called **automatically** whenever you make a object using your class."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "function classWithMethods::init, name, VALUE = value ",
+        "compile_opt idl2",
+        "    ",
+        "    self.name = name",
+        "",
+        "    if keyword_set(value) then begin ",
+        "        self.value = value",
+        "    endif else begin",
+        "        ; default value.",
+        "        self.value = 100",
+        "    endelse",
+        "",
+        "    return, 1  ; Successful initialization",
+        "end",
+        "",
+        "pro classWithMethods__define",
+        "compile_opt idl2",
+        "  !null = { classWithMethods, name: '', value: 0, inherits IDL_Object  }",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Now our object will have some **default values**.  ",
+        "Let’s create a method to **retrieve those values**.",
+        "",
+        "---",
+        "### **Dot Notation, GetProperty, and SetProperty**",
+        "By inheriting IDL_object one of the abilities we get is **dot notation**.  ",
+        "To have this work properly we need to be sure to set up a ",
+        "- **SetProperty**  ",
+        "and",
+        "- **GetProperty**.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "The **SetProperty** method is a setter. Meaning it will be used to set properties.",
+        "To enable dot notation it must be defined like below.  ",
+        ">Note: the **self** in `self.name` refers to the object the function belongs to. So `self.name` changes the name variable that belongs to the classWithMethods object."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro classWithDotNotation::setProperty, name=name, value=value",
+        "  compile_opt idl2",
+        "",
+        "  if isa(name) then self.name = name",
+        "  if isa(value) then self.value = value",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "The **GetProperty** method is a getter in object-oriented programming.",
+        "To enable dot notation it must be defined like below."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro classWithDotNotation::getProperty, name=name, value=value",
+        "  compile_opt idl2",
+        "",
+        "  if arg_present(name) then name = self.name",
+        "  if arg_present(value) then value = self.value",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Lets go ahead and make an actual class with get, set, and init.",
+        "> Note: Once you define a method for a class you cannot modify it without recompiling the class file. Another way is to just reset or restart IDL. The easiest way to reset everything is by running '.reset' or by pressing the reset button."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "function classWithDotNotation::init, name, VALUE = value ",
+        "compile_opt idl2",
+        "    ",
+        "    self.name = name",
+        "",
+        "    if keyword_set(value) then begin ",
+        "        self.value = value",
+        "    endif else begin",
+        "        ; default value.",
+        "        self.value = 100",
+        "    endelse",
+        "",
+        "    return, 1  ; Successful initialization",
+        "end",
+        "",
+        "pro classWithDotNotation__define",
+        "compile_opt idl2",
+        "  !null = { classWithDotNotation, name: '', value: 0, inherits IDL_Object  }",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Now that our **setProperty** and our **getProperty** are properly defined **and** we are **inheriting IDL_Object**, then we should be able to not only use the set and get properties, but also use dot notation."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "",
+        "; initialize the object",
+        "exObj = classWithDotNotation(\"Hello Object\")",
+        "",
+        ";use the getProperty method normally.",
+        "exObj->GetProperty, name=local_name",
+        "print, local_name",
+        "",
+        "; or because we have our getProperty and setProperty set up we can use dot notation.",
+        "print, exObj.name",
+        "",
+        "exObj.name = \"New Name\"",
+        "print, exObj.name"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "### **Custom methods:**",
+        "In IDL, any method that is **not a reserved method** (like `::INIT` or `::CLEANUP`) is considered a **custom method**.  ",
+        "This means you can define your own functionality to interact with the object’s data.",
+        "",
+        "Let’s build a custom method to access the default values!"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "function classWithMethods::combineProperties, custom",
+        "  compile_opt idl2",
+        "  return, `${self.name} ${self.value} ${custom}`",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; make a object. Set its initial value",
+        "exObj = classWithMethods(\"Hello Object\", value = 20)",
+        "",
+        "; use the object",
+        "print, exObj.combineProperties(\"some extra stuff\")"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "### **CleanUp**",
+        "Cleanup is called when your object is destroyed, either by using `obj_destroy` or by it going out of scope.  ",
+        "You can use this method to clean up anything you need to.",
+        "",
+        "such as:",
+        "- Releasing memory or handles",
+        "- Closing files or connections",
+        "- Logging or finalizing state"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "function classWithCleanup::init, name, VALUE = value ",
+        "compile_opt idl2",
+        "    ",
+        "    self.name = name",
+        "",
+        "    if keyword_set(value) then begin ",
+        "        self.value = value",
+        "    endif else begin",
+        "        ; default value.",
+        "        self.value = 100",
+        "    endelse",
+        "",
+        "    return, 1  ; Successful initialization",
+        "end",
+        "",
+        "pro classWithCleanup::CleanUp",
+        "  compile_opt idl2",
+        "",
+        "  print, `${self.name} cleaning up here.`",
+        "end",
+        "",
+        "pro classWithCleanup__define",
+        "compile_opt idl2",
+        "  !null = { classWithCleanup, name: '', value: 0, inherits IDL_Object  }",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Here we have a reference to our exObj object",
+        "exObj = classWithCleanup(\"Hello Object\", value = 20)",
+        "exObj = 0  ; remove the only reference - garbage collection will free it!"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Because you can't change an object class without a .reset we are just going to run one at the end of this example so future edits work better."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ".reset"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "### You did it! Congratulations on finishing the guide!"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "cli_progress.update, 100, Text = \"You are now a IDL Beginner, Welcome! You're now part of a legacy of data wizards and problem-solvers.\""
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

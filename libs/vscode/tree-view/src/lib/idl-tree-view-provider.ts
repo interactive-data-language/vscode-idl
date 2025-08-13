@@ -13,7 +13,7 @@ import {
   IDLTUTORIAL_FILEOPERATIONS,
   IDLTUTORIAL_GETTINGSTARTED,
   IDLTUTORIAL_IDLBASICS,
-} from './trees/IDLTutorials.tree.interface';
+} from './trees/idl-tutorials.tree.interface';
 import { NOTEBOOK_ACTIONS } from './trees/notebook-actions.tree.interface';
 import { ADDITIONAL_ACTIONS } from './trees/quick-access.tree.interface';
 import { TERMINAL_BUTTONS } from './trees/terminal-buttons.interface';
@@ -222,7 +222,7 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
       );
 
     /**
-     * Add notebook commands
+     * Add IDL tutorial commands
      */
     this.parents[IDL_TRANSLATION.idl.tree.parents.IDLTutorials] = new IDLAction(
       // override type, OK because click handler ignores parents

@@ -467,7 +467,7 @@ export const EN: ITranslation = {
         notebooks: 'Notebooks',
         debugging: 'IDL',
         terminal: 'Terminal',
-        IDLTutorials: 'IDLTutorials',
+        IDLTutorials: 'IDL Tutorials',
       },
       children: {
         quickAccess: {
@@ -622,95 +622,88 @@ export const EN: ITranslation = {
         },
         idlTutorials: {
           gettingStarted: {
-            name: '01-Getting Started',
-            description: 'Setting up and running the tutorial',
+            name: 'Getting Started',
+            description: '',
             children: {
               runningInIDLNotebooks: {
                 name: '01-Running in IDL Notebooks',
-                description:
-                  'Learn how to execute code and manage cells within IDL Notebooks.',
+                description: '',
               },
               navigatingTheGuide: {
                 name: '02-Navigating the Guide',
-                description: 'A guide to basic syntax and notes for the guide.',
+                description: '',
               },
             },
           },
           idlBasics: {
-            name: '02-IDL Basics',
-            description: 'Basic commands and operations in IDL',
+            name: 'IDL Basics',
+            description: '',
             children: {
               whatIsIDL: {
                 name: '00-What Is IDL',
-                description: 'An introduction to IDL and its capabilities.',
+                description: '',
               },
               valuesTypesAndVariables: {
-                name: '01-Values,Types, and Variables',
-                description: 'A guide to basic syntax and notes for the guide.',
+                name: '01-Values, Types, and Variables',
+                description: '',
               },
               operators: {
                 name: '02-Operators',
-                description:
-                  'Learn about operators available in IDL and how to use them.',
+                description: '',
               },
               expressions: {
                 name: '03-Expressions',
-                description:
-                  'Understand how to build and evaluate expressions in IDL.',
+                description: '',
               },
               idlSyntax: {
                 name: '04-IDL Syntax',
-                description: 'Overview of IDL syntax rules and conventions.',
+                description: '',
               },
               casting: {
                 name: '05-Casting',
-                description:
-                  'How to convert between different data types in IDL.',
+                description: '',
               },
               conditionalExpressions: {
                 name: '06-Conditional Expressions',
-                description: 'Using conditional logic and expressions in IDL.',
+                description: '',
               },
               loops: {
                 name: '07-Loops',
-                description:
-                  'Learn about loop constructs for iteration in IDL.',
+                description: '',
               },
               arrays: {
                 name: '08-Arrays',
-                description: 'Working with arrays and array operations in IDL.',
+                description: '',
               },
               strings: {
                 name: '09-Strings',
-                description: 'Manipulating and using strings in IDL.',
+                description: '',
               },
               functionsAndProcedures: {
                 name: '10-Functions and Procedures',
-                description:
-                  'Defining and calling functions and procedures in IDL.',
+                description: '',
               },
               introToObjects: {
                 name: '11-IntroToObjects',
-                description:
-                  'Introduction to object-oriented programming in IDL.',
+                description: '',
               },
             },
           },
           fileOperations: {
-            name: '03-File Operations',
-            description: 'FIle input/output and data handling',
+            name: 'File Operations',
+            description: '',
             children: {
               introToFileOperations: {
                 name: '01-Intro to file operations',
-                description: 'Introduction to file operations in IDL.',
+                description: '',
               },
               readFiles: {
                 name: '02-Read Files',
-                description: 'How to read files in IDL.',
+                description: '',
               },
               writeFiles: {
                 name: '03-Write Files',
-                description: 'How to write files in IDL.',
+                description: '',
               },
             },
           },

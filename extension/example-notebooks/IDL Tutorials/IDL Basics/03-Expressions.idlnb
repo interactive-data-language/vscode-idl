@@ -1,0 +1,110 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "# Expressions",
+        "___"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## **Defining a Expression**",
+        "",
+        "An **Expression** is any combination of values, and operators.",
+        "",
+        "- A **Variable** is a symbolic name used to store a value. As defined in [**01-Values, Types, and Variables**](./01-Values,%20Types,%20and%20Variables.idlnb).",
+        "- A **Constant** is any number or string value that is not in a Variable, and therefore cannot change.",
+        "- An **Operator** is a symbol that performs an operation. As defined in [**02-Operators**](./02-Operators.idlnb).",
+        "---"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## **Using expressions**"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "toBeAdded = 2",
+        "var = 2 + toBeAdded",
+        "",
+        "print, var",
+        "",
+        "; If you do not store the result in a variable, a temporary variable will be created and then deleted after printing.",
+        "2 + toBeAdded"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "#### **Exercise 1**",
+        "Using **all provided variables** plus **one constant of your choice**, use **an operator** to create and print an expression that equals to **12**."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "X = 10",
+        "Y = 4"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "<details>",
+        "  <summary>Click to reveal a possible answer</summary>",
+        "",
+        "  **One Possible Answer**: </br>",
+        "  `X = 10`  </br>",
+        "  `Y = 4`  </br>",
+        "  `X + Y / 2` </br>",
+        "",
+        "</details>"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "### Blasting through!"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "cli_progress.update,27, Text = \"Now that we can express ourselves, lets take a look at syntax.\""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Simple enough right? Lets learn some IDL specific [Syntax](./04-IDL%20Syntax.idlnb)!"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

@@ -1,0 +1,559 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "# Functions and Procedures",
+        "",
+        "In programming, functions and procedures are both blocks of code that perform specific tasks, but they differ in how they are used and what they return. In IDL, both functions and procedures can accept input/output parameters and input/output keywords. The only difference is that functions return a value, while procedures do not.",
+        "",
+        "- [Functions](#Defining-a-Function)  ",
+        "- [Procedures](#Defining-a-Procedure)",
+        "___"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## **Differences between IDL Functions and Procedures**  ",
+        " The main difference is that **procedures don't return anything**. That, and the **way they are defined and called**, change the ways they are commonly used.  ",
+        "",
+        "**A basic rule of thumb**, if you want a **return** value, use a **Function**. Otherwise, use a **Procedure**."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## **Defining a Function** ",
+        "",
+        "A **Function** is a reusable block of code that performs a specific task and **returns a value**.",
+        "",
+        "- A **Function** has zero or more inputs called **arguments** (also called a **parameter**). The arguments are passed _by reference_, meaning that the function receives the actual variable. Modifying the argument inside the function will change the value of the variable outside the function.",
+        "- Functions can also have **keywords** that modify the behavior of the function. Again, these variables are passed _by reference_.",
+        "- A **Function** has one **return** variable, which can contain anything.",
+        "- **Variables defined inside the function** will be **local** to the function, meaning they won’t have any value outside of it.  ",
+        "",
+        "Functions are used to make programs modular and easier to maintain.",
+        "___"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Syntax of a Function in IDL**  "
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "Function function_name, argument1, argument2, keyword1=keyword1 ;...",
+        "    ; See below for info on this.",
+        "    compile_opt idl3",
+        "",
+        "    ; Function body/logic",
+        "    result = argument1 + argument2",
+        "",
+        "    if keyword_set(keyword1) then result *= 2",
+        "",
+        "    ; Return the result",
+        "    return, result",
+        "end",
+        "",
+        "result = function_name(2, 3)",
+        "print, result",
+        "print, function_name(2, 3, /keyword1)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "#### **compile_opt**",
+        "Notice the **`compile_opt`**. This is not necessary; however, it is considered good practice. This tells the compiler which options to include when compiling your file. I recommend using whatever is current.  ",
+        "",
+        "It is designed this way so as to introduce breaking changes to the compiler without breaking legacy code. IDL will always prioritize not breaking your code.  ",
+        "",
+        "The latest **`compile_opt`** as of writing is **`IDL3`**, and if one is not present, IDL will use the default (original) options.  "
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Calling a Function**  ",
+        "To **call a function** means to **use a predefined function**  ",
+        "Calling a function is simple! simply use the format:  ",
+        "```idl",
+        "VariableForValue = FunctionName(arg1, arg2, ..., argn)",
+        "```",
+        "A **Function** needs a Variable (temp or otherwise) for the **return value** to be assigned to.  ",
+        "See **example**:",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Function Examples**",
+        "#### **Example 1**",
+        "A function with no arguments."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; This is a example of a function that does not take in any arguments but still has a output",
+        "; This function generates the current time in seconds.",
+        "Function function_noArg",
+        "    compile_opt idl2",
+        "    timeInSeconds = SYSTIME(/Julian)",
+        "    return, timeInSeconds",
+        "end",
+        "",
+        "; Both valid ways to stor a functions return value.",
+        "; Use explicit variable.",
+        "returnValue = function_noArg()",
+        "print, returnValue",
+        "",
+        "; Use a temp variable.",
+        "print, function_noArg()"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "#### **Example 2**",
+        "A function with 2 arguments.  ",
+        "Also show that arguments are **local** to the function."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; This is a example of a function just adds 2 arguments together",
+        "Function addition, arg1, arg2",
+        "    compile_opt idl2",
+        "",
+        "    print, `See how arg1 has the first value in the function call \"${arg1}\".`",
+        "    print, `And how arg2 has the second value in the function call \"${arg2}\".`",
+        "",
+        "    return, arg1 + arg2",
+        "end",
+        "",
+        "; arguments enter your function the way they go in.",
+        "; so in this case 2 = arg1 and 3 = arg2",
+        "print, addition(2,3)",
+        "",
+        "; also notice how arg1 and arg2 do not have values \"outside the function\" (between the word \"function\" and the word \"end\")",
+        "; error is expected. This is because arg1 does not exist.",
+        "help, arg1"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "___",
+        "## **Defining a Procedure**",
+        "",
+        "A **Procedure** is a reusable block of code that performs a specific task and **does not** return a value.",
+        "",
+        "- A **Procedure** has zero or more inputs. Just like functions, these arguments are passed _by reference_, meaning that the function receives the actual variable. Modifying the argument inside the function will change the value of the variable outside the function.",
+        "- A **Procedure** has **NO** result.",
+        "- **Variables defined inside the procedure** will be **local** to the procedure, meaning they won’t have any value outside of it. ",
+        "",
+        "Procedures are used for naming a block of code. They also make programs modular and easier to maintain.",
+        "___"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Syntax of a Procedure in IDL**  "
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro Procedure_name, argument1, argument2, keyword1 = keyword1 ;...",
+        "    ; See syntax of a function for a explanation on compile_opt.",
+        "    compile_opt idl2",
+        "    ; Procedure body/logic",
+        "    ; this cannot return a value. ",
+        "    print, `Lets use our Procedure to print, ${argument1}, ${argument2}`",
+        "    if isa(keyword1) gt 0 then print, `  keyword1 = \"${keyword1}\"`",
+        "end",
+        "",
+        "; Procedures get called without \"()\" and do not assign to a variable.",
+        "Procedure_name, 2, 3",
+        "Procedure_name, 4, 5, keyword1 = \"hello!\""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "#### **Calling a Procedure**  ",
+        "Calling a Procedure is simple very similar to Calling a function. However you pass variables in without parenthesis `()`",
+        "```idl",
+        "ProcedureName,arg1, arg2, ..., argn",
+        "```"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Procedure Examples**",
+        "#### **Example 1**",
+        "A procedure that formats a message into a pre specified format."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro PrintMessage, message",
+        "    compile_opt IDL2",
+        "",
+        "    ; Have one spot that handles what you prepend your messages with.",
+        "    prepend = `InternalMessage: `",
+        "",
+        "    ; Print the provided message",
+        "    print, prepend, message",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "PrintMessage, \"Hello\""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "#### **Example 2**",
+        "A procedure that modifies a argument. See [Pass by Reference](#pass-by-reference)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro IncrementValue, value, increment",
+        "    compile_opt IDL2",
+        "",
+        "    ; If increment is not provided, set a default value of 1",
+        "    if n_params() lt 2 then increment = 1  ",
+        "",
+        "    ; Modify the input variable (pass by reference)",
+        "    value += increment",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "Counter = 0",
+        "",
+        "print, `Counters First Value ${Counter}`",
+        "IncrementValue, Counter",
+        "print, `Counters Second Value ${Counter}`",
+        "IncrementValue, Counter, 20",
+        "print, `Counters Third Value ${Counter}`"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "## **IDL Specific functionality**"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "",
+        "### **Pass by Reference**  ",
+        "",
+        "IDL **passes arguments by reference**, giving the user greater **flexibility** and **control** over a function/procedures behavior. It also improves **performance** by avoiding unnecessary data copying.",
+        "",
+        "This means:  ",
+        "A **variable** passed into the function will be the same **variable inside the function**.  ",
+        "If the **value stored in that variable changes inside the function,** **it will change outside the function as well**.",
+        "",
+        "Lets see a **Example**:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "Function Adding10, toBeAdded",
+        "    compile_opt idl2",
+        "",
+        "    ; add 10 to its own value",
+        "    toBeAdded += 10",
+        "    ",
+        "    ; return a arbitrary 1. ",
+        "    ; This would also work in a procedure. I am returning a 1 here to prove it can be used in either",
+        "    return, 1",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "NumDogs = 0",
+        "print, `Before function ${NumDogs}`",
+        "returnValue = Adding10(NumDogs)",
+        "print, `After function ${NumDogs}`",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "As demonstrated in the example, **pass by reference** allows the function/procedure to **modify the original variable directly**.  ",
+        "",
+        "This behavior is **different from pass by value**, where a copy of the variable would be passed instead, leaving the original unchanged.  ",
+        "",
+        "To get **pass by value** behavior in IDL, you can either not modify the input argument, or you can pass an _exoression_ instead of a variable.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro Adding10MakeACopy, toBeAdded",
+        "    compile_opt idl2",
+        "    ; break reference",
+        "    toBeAddedCopy = toBeAdded",
+        "    ; add 10 to its own value",
+        "    toBeAddedCopy += 10",
+        "end",
+        "",
+        "NumDogs = 0",
+        "print, `Before call ${NumDogs}`",
+        "Adding10MakeACopy, NumDogs",
+        "print, `After call ${NumDogs}`"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "pro Adding10Modified, toBeAdded",
+        "    compile_opt idl2",
+        "    ; modify the input argument",
+        "    toBeAdded += 10",
+        "end",
+        "",
+        "NumDogs = 0",
+        "print, `Before call ${NumDogs}`",
+        "Adding10Modified, NumDogs",
+        "print, `After call ${NumDogs}`",
+        "Adding10Modified, NumDogs + 0 ; pass an expression",
+        "print, `After call ${NumDogs}`"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Note that in general, it is better to avoid modifying input arguments, to avoid unexpected side effects. It is usually better to use a function and return a new value, or have extra \"output\" arguments for modified values. This makes the code easier to understand and maintain."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "### **Keywords**",
+        "",
+        "IDL has the ability to define **keywords** in its functions and procedures. **Keywords** are **optional** parameters that are not order-specific.  ",
+        "",
+        "They follow the pattern:  ",
+        "```IDL",
+        "ExternalArgumentName = InternalArgumentName"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "Function KeyWordFunction, internalArgument1, ExternalKeywordName = internalKeywordName",
+        "compile_opt idl2",
+        "",
+        "return, 1",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Lets code with it! **Below** is some code that utilizes a Keyword  "
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Our function adds the keywords value to an argument if the keyword is present.  ",
+        "; Otherwise, it will just return the normal argument.",
+        "Function addKeyword, normalArg, ExtraArg = toAdd",
+        "    compile_opt idl2",
+        "",
+        "    if isa(toAdd) then begin",
+        "        result = normalArg + toAdd",
+        "    endif else begin",
+        "        result = normalArg",
+        "    end",
+        "",
+        "    return, result",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        ";Observe that you do not need to use the keyword for the Function to work",
+        "print, addKeyword(10)",
+        "",
+        ";However if we do have the keyword it changes the use of the function and also returns.",
+        "print, addKeyword(10, ExtraArg = 5)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "If a function does not care about the **value** of the **keyword**, only its **existence**, you can **activate it** using a `/` in the following format:  ",
+        "",
+        "```idl",
+        "Var = ExampleFunction(/KeywordON)",
+        "```",
+        "See **Example**:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "Function BooleanKeyword, KeyWordON = keyWordINT",
+        "    compile_opt idl2",
+        "",
+        "    if keyword_set(keyWordINT) then begin",
+        "        message = \"KeyWord is ON\"",
+        "    endif else begin",
+        "        message = \"KeyWord is OFF\"",
+        "    end",
+        "    ",
+        "    return, message",
+        "end"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "print, BooleanKeyword(/KeyWordON)",
+        "print, BooleanKeyword()"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "The **keyword_set** is a shorthand way to check if the keyword exists, and if so, whether it was set to a nonzero value. When you pass a keyword using the `/keyword` notation, this is equivalent to setting `keyword = 1`."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "### Almost through!"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "cli_progress.update, 90, Text = \"Now you can encapsulate! next is objects in IDL so we can take it to the next level.\""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Now you can code. However, IDL is a Object Oriented language. Lets figure out what that means. [Objects](./11-IntroToObjects.idlnb)."
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

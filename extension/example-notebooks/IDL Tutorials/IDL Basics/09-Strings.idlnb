@@ -1,0 +1,228 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "# Strings In IDL",
+        "",
+        "### **Defining a String**",
+        "",
+        "A **String** is a sequence of characters enclosed in single quotes `'abc'`, double quotes `\"def\"`, or backtick quotes `` `ghi` ``. Strings are typically used to represent text.",
+        "",
+        "- A **Character** is a single unit of text. So 'H' would be a character. In IDL, there is no difference between a character and a string of length 1.",
+        "- You can use single quotes, double quotes, or backtick quotes interchangeably for strings. However, backtick quotes are often used for template literals, allowing for multi-line strings, escape characters, and embedding variables. More on that later.",
+        "---"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Strings in IDL**"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Lets start by **assigning a string value** to a variable:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; \"\" is the most common. ",
+        "; Any characters enclosed in the quotes will be part of the string.",
+        "stringDoubleQuotes = \"Hello World\"",
+        "",
+        "; '' IDL will also accept single quotes. ",
+        "stringSingleQuotes = 'Hello World'",
+        "",
+        "; IDL has also introduced template literal strings. marked by back ticks ``.",
+        "; These are the newest and most versatile so I would recommend them for many cases.",
+        "stringBackTicks = `Hello World`",
+        "; or fancy like!",
+        "stringBackTicksNewline = `Hello\\nWorld`",
+        "",
+        "print, \"Double quotes: \" + stringDoubleQuotes",
+        "print, \"Single quotes: \" + stringSingleQuotes",
+        "print, \"Back ticks: \" + stringBackTicks",
+        "print, \"Back ticks with newline: \" + stringBackTicksNewline"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Strings in IDL are more similar to C strings than they are to Python strings. This can lead to some confusion from the python-inclined among us. Some of the differences include:",
+        "- An IDL string cannot be indexed into.  ",
+        "- An IDL string uses the single-byte character set for encoding, similar to byte strings in Python. There are no Unicode strings in IDL, although there are routines to encode and decode IDL strings to and from UTF-8.",
+        "```idl",
+        "---"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **String Operators**",
+        "Strings can use the Operators defined in [02-Operators](./02-Operators.idlnb):"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Examples, but in a code block.",
+        "print, `Hello` + ` World`",
+        "print, `Hello` eq `Hello`, `apple` le `zebra`, `zebra` ge `apple`"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "### **String Formating**"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "---"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **String Methods and Functions**  ",
+        "Strings have methods and functions that can be used on them.  ",
+        "",
+        "Method:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "StringForExample = `hello world`",
+        "print, StringForExample.ToUpper()"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Function:"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "StringForExample = `This consists of 30 characters`",
+        "print, strlen(StringForExample)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "These both accomplish the same goal. But they do it in different ways."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "These are just a few of the many string-based procedures IDL has to offer.  ",
+        "",
+        "**Additional functions** can be found in the official documentation:  ",
+        "[IDL String Functions](https://www.nv5geospatialsoftware.com/docs/String_Operations.html)  ",
+        "",
+        "**Additional methods** for strings can be found here:  ",
+        "[IDL String Methods](https://www.nv5geospatialsoftware.com/docs/IDL_String.html)",
+        "___"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Manipulating Strings**",
+        "Strings in IDL are **Immutable** This means that once a string is defined it cannot be edited. This is fairly standard and you can always create new strings by manipulating existing ones.  ",
+        "",
+        "Let's work through a few examples.  ",
+        "",
+        "#### **Example 1:**",
+        "Create a string variable that consists of the second half of a different string."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "stringToBeCut = `First Half Second Half`",
+        "length = strlen(stringToBeCut)",
+        "print, length",
+        "",
+        ";strmid is a general use string cutting function. The second argument is the length (or the end if not supplied).",
+        "firstHalf = strmid(stringToBeCut, 0, length/2 - 1)",
+        "secondHalf = strmid(stringToBeCut, length/2)",
+        "print, firstHalf",
+        "print, secondHalf",
+        "",
+        "; Same thing but using a method call. Be careful! Here, the second argument is the ending index.",
+        "print, stringToBeCut.substring(0, length / 2 - 1)",
+        "print, stringToBeCut.substring(length / 2, length - 1)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "___",
+        "### It can talk now!"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "cli_progress.update, 81, Text = \"Strings never stood a chance\""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Lets further compartmentalize our code with [Functions and Procedures](./10-Functions%20and%20Procedures.idlnb)."
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}
