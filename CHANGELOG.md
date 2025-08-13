@@ -28,6 +28,8 @@ Fix docs issues with `colorbar()` function not having all properties for keyword
 
 Fix docs issue where "ipm" was an unknown structure and would throw fake errors when using the static methods on the class.
 
+Fixed an issue where IDL would show an error message about being unable to check the version if you had an IDL_STARTUP file specified that generated output.
+
 ## 5.0.1 - July 2024
 
 Fix a bug with IDL Notebooks when you would open a new notebook though the MCP tools.
