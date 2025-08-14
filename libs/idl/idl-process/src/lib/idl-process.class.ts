@@ -419,8 +419,24 @@ export class IDLProcess extends EventEmitter {
     }
 
     // listen for startup
-    this.once(IDL_EVENT_LOOKUP.IDL_STARTED, () => {
+    this.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
       this.started = true;
+
+      /**
+       * Run a dummy command
+       *
+       * This is here because we need to trigger the output from IDL startup files
+       * and that only happens on the first command
+       *
+       * If we don't, then startup files execute on the first command that we run which
+       * can add unexpected output when we check for the version of IDL
+       */
+      if (this.isIDLMachine()) {
+        this.sendOutput('\n');
+        await this.evaluate('!null = 42');
+      }
+
+      // emit that we are ready
       this.emit(IDL_EVENT_LOOKUP.IDL_READY);
     });
 
