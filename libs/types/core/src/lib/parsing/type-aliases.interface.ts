@@ -9,7 +9,7 @@ import { IDL_TYPE_LOOKUP, IDLTypes } from '../..';
  *
  * User's code will only change if they have AutoDoc enabled with formatting
  */
-export const PARSED_TO_KNOWN_TYPES: { [key: string]: IDLTypes } = {
+export const TYPE_ALIASES: { [key: string]: IDLTypes } = {
   any: IDL_TYPE_LOOKUP.ANY,
 
   array: IDL_TYPE_LOOKUP.ARRAY,
