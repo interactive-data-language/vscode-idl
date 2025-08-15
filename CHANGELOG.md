@@ -20,6 +20,8 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 ## 5.0.2 - Unreleased
 
+With the GitHub Copilot integration, we have changed the extension so that it always activates in VSCode. Otherwise tools in Agent mode would fail to run as our extension was not started.
+
 Tweak hanging indent for procedures and procedure methods to use the first comma as the syntax we align to
 
 Fix an issue with catching standalone expressions where the problem would be incorrectly reported for chained property access.

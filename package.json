@@ -213,12 +213,7 @@
     "node": ">=20.12.0 || ^10.5.0"
   },
   "activationEvents": [
-    "workspaceContains:**/*.pro",
-    "workspaceContains:**/*.pro.def",
-    "workspaceContains:**/*idl.json",
-    "workspaceContains:**/*idlpackage.json",
-    "workspaceContains:**/*.task",
-    "workspaceContains:**/*.idlnb",
+    "*",
     "onWebviewPanel:idlPanel",
     "onDebug"
   ],
