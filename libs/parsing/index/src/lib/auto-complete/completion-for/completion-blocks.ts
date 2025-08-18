@@ -41,10 +41,12 @@ export function GetBlockCompletionOptions(
     /**
      * Check our scope for any blocks that we can add
      */
-    for (let i = token.scopeTokens.length - 1; i >= 0; i--) {
-      if (token.scopeTokens[i].name in COMPLETION_BLOCKS) {
-        blocksFor = token.scopeTokens[i] as TreeToken<CompletionBlockTokens>;
-        break;
+    if (token.scopeTokens) {
+      for (let i = token.scopeTokens.length - 1; i >= 0; i--) {
+        if (token.scopeTokens[i].name in COMPLETION_BLOCKS) {
+          blocksFor = token.scopeTokens[i] as TreeToken<CompletionBlockTokens>;
+          break;
+        }
       }
     }
   }

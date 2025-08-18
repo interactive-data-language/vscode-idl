@@ -32,6 +32,8 @@ Fix docs issue where "ipm" was an unknown structure and would throw fake errors 
 
 Fixed an issue where IDL would show an error message about being unable to check the version if you had an IDL_STARTUP file specified that generated output.
 
+Potentially fix an issue with auto-complete that would occur sometimes with code blocks.
+
 ## 5.0.1 - July 2024
 
 Fix a bug with IDL Notebooks when you would open a new notebook though the MCP tools.
