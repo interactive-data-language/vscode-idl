@@ -8,7 +8,7 @@ import { PositionArray } from '@idl/types/tokenizer';
 
 import { GetMatchesArray } from './helpers/get-matches-array';
 import { NOT_EMPTY_LINE_REGEX } from './helpers/is-empty-line';
-import { Split } from './helpers/split';
+import { SplitCode } from './helpers/split-code';
 import { ICurrent } from './iterator.interface';
 import {
   IBasicToken,
@@ -63,7 +63,7 @@ export class Iterator {
 
   constructor(code: string | string[], cancel: CancellationToken, full = true) {
     /** Split our strings */
-    this.split = Split(code);
+    this.split = SplitCode(code);
     this.processedLeftovers = new Array(this.split.length).fill(false);
     this.full = full;
     this.cancel = cancel;
