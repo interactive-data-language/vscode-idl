@@ -34,6 +34,10 @@ Fixed an issue where IDL would show an error message about being unable to check
 
 Potentially fix an issue with auto-complete that would occur sometimes with code blocks.
 
+Updated type parsing to support older code that used array types as the name of the function. We now map types such as "bytarr" to the proper IDL types of "Array<Byte>" for full type/auto complete support.
+
+Tweak notebook formatting that removes the trailing space at the end of cells. When you have many cells, this adds empty space that's not always needed or helpful.
+
 ## 5.0.1 - July 2024
 
 Fix a bug with IDL Notebooks when you would open a new notebook though the MCP tools.
