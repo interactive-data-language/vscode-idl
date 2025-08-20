@@ -84,6 +84,8 @@ export const IDL_COMMANDS = {
   DEBUG: {
     /** Start debug session */
     START: `${BASE_DEBUG}startIDL`,
+    /** Start ENVI */
+    START_ENVI: `${BASE_DEBUG}startENVI`,
     /** Compile current PRO file */
     COMPILE: `${BASE_DEBUG}compileFile`,
     /** Run current PRO file */

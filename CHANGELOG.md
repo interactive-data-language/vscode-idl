@@ -24,7 +24,9 @@ This verion introduces a new selection of IDL Tutorials! These come as a collect
 
 > With this change, we have also migrated the ENVI and IDL Example notebooks under the tutorials section.
 
-With the GitHub Copilot integration, we have changed the extension so that it always activates in VSCode. Otherwise tools in Agent mode would fail to run as our extension was not started.
+Add a new sidebar entry to launch a session of ENVI and IDL. Requires an ENVI license and that you are using the IDL that is packaged with ENVI.
+
+With the extension including GitHub Copilot integration, we have changed the extension so that it always activates in VSCode. Otherwise tools in Agent mode through GitHub Copilot would fail to run as our extension was not started.
 
 Tweak hanging indent for procedures and procedure methods to use the first comma as the syntax we align to
 

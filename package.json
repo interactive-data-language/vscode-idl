@@ -314,6 +314,10 @@
         }
       },
       {
+        "command": "idl.debug.startENVI",
+        "title": "%commands.idl.debug.startENVI%"
+      },
+      {
         "command": "idl.debug.startIDL",
         "title": "%commands.idl.debug.startIDL%"
       },
@@ -1509,6 +1513,10 @@
         },
         {
           "command": "idl.debug.runFile",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.debug.startENVI",
           "when": "!isWeb"
         },
         {

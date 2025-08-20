@@ -60,6 +60,7 @@ export const EN: ITranslation = {
           'IDL: Specify IDL Directory (Workspace-level)',
       },
       debug: {
+        startENVI: 'IDL: Start a Session of ENVI and IDL',
         startIDL: 'IDL: Start a Session of IDL',
         compileFile: 'IDL: Compile PRO File',
         runFile: 'IDL: Run PRO File',
@@ -131,6 +132,7 @@ export const EN: ITranslation = {
         executeBatchFile: 'Error while executing batch file',
         resetIDL: 'Error while resetting IDL',
         runFile: 'Error while running file for IDL',
+        startENVI: 'Error while starting ENVI and IDL',
         startIDL: 'Error while starting IDL',
         startProfiling: 'Error while starting profiling',
         stopProfiling: 'Error while stopping profiling',
@@ -557,6 +559,10 @@ export const EN: ITranslation = {
           start: {
             description: 'a session of IDL',
             name: 'Start',
+          },
+          startENVI: {
+            description: 'and IDL',
+            name: 'Start ENVI',
           },
           startProfiling: {
             description: 'the IDL session',

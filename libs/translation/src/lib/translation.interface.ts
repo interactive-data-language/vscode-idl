@@ -51,6 +51,7 @@ export interface ICommandTranslation {
     executeBatchFile: string;
     resetIDL: string;
     runFile: string;
+    startENVI: string;
     startIDL: string;
     startProfiling: string;
     stopProfiling: string;
@@ -584,6 +585,7 @@ export interface ITranslation {
           reset: ITreeInformation;
           run: ITreeInformation;
           start: ITreeInformation;
+          startENVI: ITreeInformation;
           startProfiling: ITreeInformation;
           stopProfiling: ITreeInformation;
         };
