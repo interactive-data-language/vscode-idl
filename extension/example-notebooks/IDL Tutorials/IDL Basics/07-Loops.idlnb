@@ -1,0 +1,232 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "# Loops in IDL",
+        "",
+        "---",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "**Loops** are used to **repeat a block of code multiple times**.  ",
+        "IDL supports **two main types of loops**:",
+        "",
+        "- [**`for`**](#for-loops) – Runs a set number of times.",
+        "- [**`while`**](#while) – Runs as long as a condition is true.",
+        "",
+        "#### **Other Types of Loops:**",
+        "",
+        "- [**`foreach`**](#foreach) – Iterates through each item in an array, list, or hash.",
+        "- [**`repeat until`**](#repeat-until) – Runs at least once and continues until a condition is met.",
+        "",
+        "#### **Loop Control Statements:**",
+        "",
+        "- [**`break`**](#break)– Immediately exits the loop.",
+        "- [**`continue`**](#continue)– Skips the rest of the current iteration and moves to the next one.",
+        "",
+        "---",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## **For Loops**",
+        "",
+        "The **For Loop** is best used for **fixed iterations**. Think of it as \"I want to loop **for** <10> iterations\".",
+        "",
+        "### **Syntax of a For Loop in IDL:**",
+        "",
+        "A `for` loop in IDL follows this structure:",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "**`for`** _variable_ = _start_, _end_, _step (optional, default = 1)_ **`do begin`**  ",
+        "&emsp;&emsp;< statements >  ",
+        "**`endfor`**",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "for i = 0, 100, 10 do begin",
+        "  print, i",
+        "endfor"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "---",
+        "",
+        "## **ForEach**",
+        "",
+        "The **ForEach Loop** is used to loop through an array, list, or hash with a set number of elements.",
+        "",
+        "### **Syntax of a ForEach in IDL:**",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "animals = ['dog', 'cat', 'hamster', 'tiger']",
+        "",
+        "foreach animal, animals do begin",
+        "  print, animal",
+        "endforeach"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "---",
+        "",
+        "## **While**",
+        "",
+        "A **While** loop repeats a block of code as long as a **condition** remains **true**.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "x = 0",
+        "while (x le 100) do begin",
+        "  print, x",
+        "  x = x + 10",
+        "endwhile"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "---",
+        "",
+        "## **Repeat until**",
+        "",
+        "A **Repeat** loop executes a block of code **at least once** and keeps running until a **condition** is met.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "x = 0",
+        "repeat begin",
+        "  print, x",
+        "  x = x + 10",
+        "endrep until (x gt 100)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## **The Break and Continue statements.**",
+        "",
+        "**These statements will work within any loop.**",
+        "",
+        "#### **Break:**",
+        "",
+        "The **break** statement \"breaks ouf the loop\" and can stop a loop even if the loop condition is not true:",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "x = 0",
+        "while (x lt 100) do begin",
+        "  x = x + 10",
+        "  print, x",
+        "  if (x eq 40) then break",
+        "endwhile"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "#### **Continue:**",
+        "",
+        "The **Continue** statement skips the remaining statements in a loop and continues the loop execution.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "for x = 0, 50, 10 do begin",
+        "  if (x eq 30) then continue",
+        "  print, x",
+        "endfor"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "---",
+        "",
+        "### Going loopy!",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "CLI_Progress.update, 63, text = 'You just keep betting better and better at IDL.'"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Onto [Arrays](./08-Arrays.idlnb)!",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

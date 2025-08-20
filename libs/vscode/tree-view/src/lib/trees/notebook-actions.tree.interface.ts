@@ -45,18 +45,4 @@ export const NOTEBOOK_ACTIONS: IChild[] = [
     icon: 'stop.svg',
     commandName: IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS,
   },
-  {
-    name: IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.name,
-    description:
-      IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.description,
-    icon: 'idlicon.svg',
-    commandName: IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE,
-  },
-  {
-    name: IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.name,
-    description:
-      IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.description,
-    icon: 'enviicon.svg',
-    commandName: IDL_COMMANDS.NOTEBOOKS.OPEN_ENVI_EXAMPLE,
-  },
 ];

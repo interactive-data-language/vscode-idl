@@ -1,5 +1,6 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
+import { SplitCode } from '@idl/tokenizer';
 import { AutoFixProblem } from '@idl/types/problem-codes';
 import { OpenFileInVSCode, OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
@@ -83,12 +84,14 @@ export const ExecuteCodeActionsWithEditForNotebook: RunnerFunction = async (
   const doc = nb.getCells()[edit[0].cell].document;
 
   // make sure output is correct
-  expect(doc.getText()).toEqual(
-    readFileSync(
-      GetExtensionPath(
-        'idl/test/client-e2e/problems/code_actions_fix_cell_after.pro'
-      ),
-      'utf-8'
+  expect(SplitCode(doc.getText())).toEqual(
+    SplitCode(
+      readFileSync(
+        GetExtensionPath(
+          'idl/test/client-e2e/problems/code_actions_fix_cell_after.pro'
+        ),
+        'utf-8'
+      )
     )
   );
 };

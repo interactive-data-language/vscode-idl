@@ -62,6 +62,13 @@ export interface ICommandTranslation {
     /** Resolve link user clicked on from hover help */
     openLink: string;
   };
+  /** Commands for opening tutorials */
+  idlTutorials: {
+    /** Open the IDL tutorial */
+    openIDLTutorial: string;
+    /** Reset example notebooks */
+    resetTutorials: string;
+  };
   /** Commands for notebooks */
   notebooks: {
     /** Convert notebook to markdown */
@@ -74,14 +81,8 @@ export interface ICommandTranslation {
     newNotebook: string;
     /** Convert a notebook to PRO code */
     notebookToProCode: string;
-    /** Open ENVI example notebook */
-    openENVIExample: string;
-    /** Open IDL example notebook */
-    openIDLExample: string;
     /** Reset notebook session */
     resetIDLKernel: string;
-    /** Reset example notebooks */
-    resetNotebookExamples: string;
     /** Stop all notebooks sessions */
     stopAllIDLKernels: string;
     /** Stop notebook session */
@@ -132,6 +133,8 @@ export interface IHoverHelpTranslations {
  * Data structure for translation of items in the sidebar tree view
  */
 export interface ITreeInformation {
+  /** Optional children for nested tree structure */
+  children?: { [key: string]: ITreeInformation };
   /** Description of the tree item */
   description: string;
   /** Name of the item in the tree */
@@ -515,6 +518,55 @@ export interface ITranslation {
     tree: {
       /** Children of any of the sidebars, should have the command as the key name */
       children: {
+        idlTutorials: {
+          /** Getting started and installing IDL */
+          gettingStarted: {
+            name: string;
+            description: string;
+            children: {
+              runningInIDLNotebooks: ITreeInformation;
+              navigatingTheGuide: ITreeInformation;
+            };
+          };
+          /** Basics of IDL programming */
+          idlBasics: {
+            name: string;
+            description: string;
+            children: {
+              whatIsIDL: ITreeInformation;
+              valuesTypesAndVariables: ITreeInformation;
+              operators: ITreeInformation;
+              expressions: ITreeInformation;
+              idlSyntax: ITreeInformation;
+              casting: ITreeInformation;
+              conditionalExpressions: ITreeInformation;
+              loops: ITreeInformation;
+              arrays: ITreeInformation;
+              strings: ITreeInformation;
+              functionsAndProcedures: ITreeInformation;
+              introToObjects: ITreeInformation;
+            };
+          };
+          /** File operations */
+          fileOperations: {
+            name: string;
+            description: string;
+            children: {
+              introToFileOperations: ITreeInformation;
+              readFiles: ITreeInformation;
+              writeFiles: ITreeInformation;
+            };
+          };
+          /** Example/quick start notebooks */
+          notebooks: {
+            name: string;
+            description: string;
+            children: {
+              quickIDL: ITreeInformation;
+              quickENVI: ITreeInformation;
+            };
+          };
+        };
         codeActions: {
           /** Only add docs to file */
           addDocs: ITreeInformation;
@@ -582,6 +634,7 @@ export interface ITranslation {
       parents: {
         codeActions: string;
         debugging: string;
+        idlTutorials: string;
         notebooks: string;
         quickAccess: string;
         terminal: string;

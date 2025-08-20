@@ -334,6 +334,14 @@
         "title": "%commands.idl.docs.openLink%"
       },
       {
+        "command": "idl.idlTutorials.openIDLTutorial",
+        "title": "%commands.idl.idlTutorials.openIDLTutorial%"
+      },
+      {
+        "command": "idl.idlTutorials.resetTutorials",
+        "title": "%commands.idl.idlTutorials.resetTutorials%"
+      },
+      {
         "command": "idl.notebooks.convertToPDF",
         "title": "%commands.idl.notebooks.convertToPDF%",
         "icon": {
@@ -358,24 +366,12 @@
         }
       },
       {
-        "command": "idl.notebooks.openENVIExample",
-        "title": "%commands.idl.notebooks.openENVIExample%"
-      },
-      {
-        "command": "idl.notebooks.openIDLExample",
-        "title": "%commands.idl.notebooks.openIDLExample%"
-      },
-      {
         "command": "idl.notebooks.resetIDLKernel",
         "title": "%commands.idl.notebooks.resetIDLKernel%",
         "icon": {
           "light": "extension/images/light/renew.svg",
           "dark": "extension/images/dark/renew.svg"
         }
-      },
-      {
-        "command": "idl.notebooks.resetNotebookExamples",
-        "title": "%commands.idl.notebooks.resetNotebookExamples%"
       },
       {
         "command": "idl.notebooks.stopAllIDLKernels",
@@ -1532,6 +1528,14 @@
           "when": "false"
         },
         {
+          "command": "idl.idlTutorials.openIDLTutorial",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.idlTutorials.resetTutorials",
+          "when": "!isWeb"
+        },
+        {
           "command": "idl.notebooks.convertToPDF",
           "when": "!isWeb"
         },
@@ -1548,19 +1552,7 @@
           "when": "!isWeb"
         },
         {
-          "command": "idl.notebooks.openENVIExample",
-          "when": "!isWeb"
-        },
-        {
-          "command": "idl.notebooks.openIDLExample",
-          "when": "!isWeb"
-        },
-        {
           "command": "idl.notebooks.resetIDLKernel",
-          "when": "!isWeb"
-        },
-        {
-          "command": "idl.notebooks.resetNotebookExamples",
           "when": "!isWeb"
         },
         {

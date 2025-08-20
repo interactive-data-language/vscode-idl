@@ -9,6 +9,7 @@ import { InitializeDebugger } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { InitializeDocs } from '@idl/vscode/docs';
 import { InitializeENVIOpener } from '@idl/vscode/envi-opener';
+import { InitializeIDLTutorials } from '@idl/vscode/idl-tutorials';
 import { IInitializeType } from '@idl/vscode/initialize-types';
 import { InitializeNotebooks } from '@idl/vscode/notebooks/client';
 import { InitializeIDLTerminal } from '@idl/vscode/terminal';
@@ -52,6 +53,8 @@ export async function activate(
 
   // initialize our tree view
   InitializeTree(ctx, false);
+
+  InitializeIDLTutorials(ctx);
 
   // return result
   return {
