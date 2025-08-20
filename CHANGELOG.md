@@ -18,7 +18,11 @@ Document some advanced types so users may try them out and provide feedback. The
 
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
-## 5.0.2 - Unreleased
+## 5.1.0 - August 2025
+
+This verion introduces a new selection of IDL Tutorials! These come as a collection of notebooks to help new users get up and running. In the IDL sidebar, you'll see a new section called "IDL Tutorials" with language-specific content.
+
+> With this change, we have also migrated the ENVI and IDL Example notebooks under the tutorials section.
 
 With the GitHub Copilot integration, we have changed the extension so that it always activates in VSCode. Otherwise tools in Agent mode would fail to run as our extension was not started.
 
