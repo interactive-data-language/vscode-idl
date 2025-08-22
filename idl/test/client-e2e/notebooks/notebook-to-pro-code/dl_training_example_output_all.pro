@@ -8,7 +8,6 @@ compile_opt idl2
 ;+ start ENVI with the UI
 e = envi()
 
-
 ; Get folders for input and output
 
 ;+ get this directory
@@ -25,9 +24,7 @@ timestamp = (strsplit(timestamp, '.', /extract))[0]
 modelDir = strjoin([thisDir, 'models-air', timestamp], path_sep())
 if ~file_test(modelDir, /directory) then file_mkdir, modelDir
 
-
 extension = '.dat'
-
 
 ; Where we want the model to go
 
@@ -36,7 +33,6 @@ bestUri = modelDir + path_sep() + 'best.h5'
 
 ;+ last mode (last epoch of training)
 lastUri = modelDir + path_sep() + 'last.h5'
-
 
 ; Training parameters
 
@@ -51,7 +47,6 @@ bpr = 0.3
 
 ;+ how many times we run through all positive examples of our features
 epochs = 100
-
 
 ; Load data and split into training and validation buckets
 
@@ -80,7 +75,6 @@ idx = sort(randomu(seed, nFiles))
 training = rasters[*]
 validation = rasters[idx[-nValidation : -1]]
 
-
 ; Create our training task and specify model parameters
 
 ; Get the task from the catalog of ENVITasks
@@ -99,40 +93,30 @@ Task.background_patch_ratio = bpr
 Task.output_model_uri = bestUri
 Task.output_last_model_uri = lastUri
 
+Task.execute
 
 Task.execute
 
-
 Task.execute
-
-
-Task.execute
-
 
 orig = e.openRaster('D:\luno\sky-sat\mosaics\SkySatScene.ntf')
 raster = dlAutoPrepareRaster(orig)
 e.data.add, raster
 
-
 stop
 
-
 Task.execute
 
-
 Task.execute
-
 
 ; Train! Now this will take a while, so don't close VSCode or run any other notebooks.
 
 Task.execute
 
-
 ; Optionally, classify some of our validation images so we can see what our results look like.
 
 ; stopped so we dont accidentally process all of our images which will take a while!
 stop
-
 
 ; Specify the output folder and open our model
 
@@ -142,12 +126,10 @@ validationDir = modelDir + path_sep() + 'validation'
 ; make sure it exists
 if ~file_test(validationDir, /directory) then file_mkdir, validationDir
 
-
 ; Open our model!
 
 ;+ restore the model to process our data with
 model = ENVITensorFlowObjectModel(lastUri)
-
 
 ; Process our data!
 
@@ -184,5 +166,4 @@ foreach file, validationUris, i do begin
   ; clean up
   raster.close
 endforeach
-
 end
