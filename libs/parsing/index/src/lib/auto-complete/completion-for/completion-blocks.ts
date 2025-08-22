@@ -76,20 +76,30 @@ export function GetBlockCompletionOptions(
     /**
      * "then" portion after a colon in case/switch
      */
-    case TOKEN_NAMES.LOGICAL_CASE_SWITCH_THEN:
-    case TOKEN_NAMES.LOGICAL_EXPRESSION_DEFAULT: {
+    case TOKEN_NAMES.LOGICAL_CASE_SWITCH_THEN: {
       if (blocksFor.kids.length === 0) {
-        const blockElse: AutoCompleteRecipe<BlockCompletion> = {
+        /** Get the parent we are in */
+        const parent = blocksFor.scope[blocksFor.scopeTokens.length - 2];
+
+        /** Get snippet */
+        const snippet =
+          parent === TOKEN_NAMES.LOGICAL_SWITCH
+            ? [
+                front.replace(/(else)?:/i, '') + 'begin',
+                '  $1',
+                '  break',
+                'end',
+              ]
+            : [front.replace(/(else)?:/i, '') + 'begin', '  $1', 'end'];
+
+        const blockThen: AutoCompleteRecipe<BlockCompletion> = {
           type: AUTO_COMPLETE_TYPE_LOOKUP.BLOCK,
           options: {
-            label:
-              blocksFor.name === TOKEN_NAMES.LOGICAL_CASE_SWITCH_THEN
-                ? 'Then block'
-                : 'Else block',
-            snippet: [front.replace(/(else)?:/i, '') + 'begin', '  $1', 'end'],
+            label: 'Then block',
+            snippet,
           },
         };
-        recipes.push(blockElse);
+        recipes.push(blockThen);
       }
       break;
     }
@@ -111,11 +121,38 @@ export function GetBlockCompletionOptions(
       break;
     }
 
+    case TOKEN_NAMES.LOGICAL_EXPRESSION_DEFAULT: {
+      if (blocksFor.kids.length === 0) {
+        /**
+         * Check what our parent is
+         */
+
+        const blockElse: AutoCompleteRecipe<BlockCompletion> = {
+          type: AUTO_COMPLETE_TYPE_LOOKUP.BLOCK,
+          options: {
+            label: 'Else block',
+            snippet: [front.replace(/(else)?:/i, '') + 'begin', '  $1', 'end'],
+          },
+        };
+        recipes.push(blockElse);
+      }
+      break;
+    }
+
     /**
      * If
      */
     case TOKEN_NAMES.LOGICAL_IF: {
       if (blocksFor.kids.length === 0) {
+        const ifThenBlock: AutoCompleteRecipe<BlockCompletion> = {
+          type: AUTO_COMPLETE_TYPE_LOOKUP.BLOCK,
+          options: {
+            label: 'If-then block',
+            snippet: [front + '(${1:!true}) then begin', '  $2', 'endif'],
+          },
+        };
+        recipes.push(ifThenBlock);
+
         const ifThenElseBlock: AutoCompleteRecipe<BlockCompletion> = {
           type: AUTO_COMPLETE_TYPE_LOOKUP.BLOCK,
           options: {

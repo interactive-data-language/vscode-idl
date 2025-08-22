@@ -24,11 +24,13 @@ This verion introduces a new selection of IDL Tutorials! These come as a collect
 
 > With this change, we have also migrated the ENVI and IDL Example notebooks under the tutorials section.
 
+Add a new auto-complete for block statements (i.e. if-then-begin) that functions much better compared to what we had. If there are any weird cases, or cases for block auto-complete that are missing, let us know and we can add them in.
+
 Add a new sidebar entry to launch a session of ENVI and IDL. Requires an ENVI license and that you are using the IDL that is packaged with ENVI.
 
 With the extension including GitHub Copilot integration, we have changed the extension so that it always activates in VSCode. Otherwise tools in Agent mode through GitHub Copilot would fail to run as our extension was not started.
 
-Tweak hanging indent for procedures and procedure methods to use the first comma as the syntax we align to
+Tweak hanging indent for procedures and procedure methods to use the first comma as the syntax we align to.
 
 Fix an issue with catching standalone expressions where the problem would be incorrectly reported for chained property access.
 

@@ -32,6 +32,14 @@ describe(`[auto generated] Custom block auto-complete`, () => {
     // define expected token we extract
     const expectedFound_0: CompletionItem[] = [
       {
+        label: 'If-then block',
+        kind: 15,
+        sortText: '00',
+        insertText: 'if (${1:!true}) then begin\n  $2\nendif',
+        insertTextFormat: 2,
+        preselect: true,
+      },
+      {
         label: 'If-then-else block',
         kind: 15,
         sortText: '00',
@@ -184,13 +192,6 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         sortText: '40',
         detail: 'Function',
       },
-      {
-        label: "ENVITask('ClassActivationToPixelROI')",
-        insertText: "ENVITask('ClassActivationToPixelROI')",
-        kind: 3,
-        sortText: '40',
-        detail: 'Function',
-      },
     ];
 
     // verify results
@@ -208,6 +209,14 @@ describe(`[auto generated] Custom block auto-complete`, () => {
 
     // define expected token we extract
     const expectedFound_1: CompletionItem[] = [
+      {
+        label: 'If-then block',
+        kind: 15,
+        sortText: '00',
+        insertText: '(${1:!true}) then begin\n  $2\nendif',
+        insertTextFormat: 2,
+        preselect: true,
+      },
       {
         label: 'If-then-else block',
         kind: 15,
@@ -357,13 +366,6 @@ describe(`[auto generated] Custom block auto-complete`, () => {
       {
         label: "ENVITask('BuildLabelRasterFromClassification')",
         insertText: "ENVITask('BuildLabelRasterFromClassification')",
-        kind: 3,
-        sortText: '40',
-        detail: 'Function',
-      },
-      {
-        label: "ENVITask('ClassActivationToPixelROI')",
-        insertText: "ENVITask('ClassActivationToPixelROI')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
