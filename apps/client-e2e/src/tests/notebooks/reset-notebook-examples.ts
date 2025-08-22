@@ -20,9 +20,7 @@ export const ResetNotebookExamples: RunnerFunction = async (init) => {
   expect(existsSync(EXAMPLE_NOTEBOOKS)).toBeFalsy();
 
   // close
-  await vscode.commands.executeCommand(
-    IDL_COMMANDS.NOTEBOOKS.RESET_NOTEBOOK_EXAMPLES
-  );
+  await vscode.commands.executeCommand(IDL_COMMANDS.TUTORIALS.RESET_TUTORIALS);
 
   // pause momentarily
   await Sleep(100);

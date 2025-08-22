@@ -16,7 +16,10 @@ import { RunnerFunction } from '../runner.interface';
  */
 export const OpenIDLNotebookExample: RunnerFunction = async (init) => {
   // make a new notebook
-  await vscode.commands.executeCommand(IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE);
+  await vscode.commands.executeCommand(
+    IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
+    'hello-world-idl.idlnb'
+  );
 
   // short pause
   await Sleep(100);
