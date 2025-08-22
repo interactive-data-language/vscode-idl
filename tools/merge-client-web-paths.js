@@ -20,28 +20,41 @@ const base = baseConfig.compilerOptions.paths;
 /** Get existing paths in our second config file */
 const toExtend = extendedConfig.compilerOptions.paths;
 
+/**
+ * Extract any keys that aren't from our lib (i.e. will have polyfills)
+ */
+const saveThese = {};
+
+/** Get all paths in the file to merge */
+const existingPaths = Object.keys(toExtend);
+
+// delete any changed libraries
+for (let i = 0; i < existingPaths.length; i++) {
+  // check for polyfill and not local library
+  if (!existingPaths[i].startsWith('@idl')) {
+    saveThese[existingPaths[i]] = toExtend[existingPaths[i]];
+    delete toExtend[existingPaths[i]];
+    continue;
+  }
+
+  // remove if lib is not in existing source
+  if (!(existingPaths[i] in base) && existingPaths[i] in toExtend) {
+    delete toExtend[existingPaths[i]];
+    changes = true;
+  }
+}
+
 /** Get all paths that should be shared */
 const sharedPaths = Object.keys(base);
 
 /** Track if there are changes */
 let changes = false;
 
-// check for changes - so we dont always break formatting
+// add any missing libraries
 for (let i = 0; i < sharedPaths.length; i++) {
   if (!(sharedPaths[i] in toExtend)) {
+    toExtend[sharedPaths[i]] = base[sharedPaths[i]];
     changes = true;
-    break;
-  }
-}
-
-/** Get all paths in the file to merge */
-const existingPaths = Object.keys(toExtend);
-
-// check for changes - so we dont always break formatting
-for (let i = 0; i < existingPaths.length; i++) {
-  if (!(existingPaths[i] in base)) {
-    changes = true;
-    break;
   }
 }
 
@@ -50,21 +63,8 @@ if (!changes) {
   process.exit();
 }
 
-// check for changes - so we dont always break formatting
-for (let i = 0; i < existingPaths.length; i++) {
-  if (existingPaths[i].startsWith('@idl')) {
-    delete toExtend[existingPaths[i]];
-  }
-}
-
-// Merge paths
-const mergedPaths = {
-  ...baseConfig.compilerOptions.paths,
-  ...extendedConfig.compilerOptions.paths,
-};
-
 // Update extended config
-extendedConfig.compilerOptions.paths = mergedPaths;
+extendedConfig.compilerOptions.paths = { ...toExtend, ...saveThese };
 
 // Write updated config
 fs.writeFileSync(extendedConfigPath, JSON.stringify(extendedConfig, null, 2));
