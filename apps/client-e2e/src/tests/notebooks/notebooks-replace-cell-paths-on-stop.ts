@@ -5,8 +5,22 @@ import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
+import { CompareCellOutputs } from './helpers/compare-cells';
+import { ICompareCellOutputs } from './helpers/compare-cells.interface';
 import { CompareNotebookJSONOutputs } from './helpers/compare-notebook-json-outputs';
+
+/**
+ * Types of outputs from cells that we expect to have
+ */
+export const CELL_OUTPUT: ICompareCellOutputs[] = [
+  {
+    idx: 0,
+    success: false,
+    mimeTypes: ['text/plain'],
+  },
+];
 
 /**
  * Verifies we replace paths when we stop
@@ -24,13 +38,44 @@ export const NotebooksReplaceCellPathsOnStop: RunnerFunction = async (init) => {
   const nb = await OpenNotebookInVSCode(nbUri, true);
 
   // short pause to parse
-  await Sleep(500);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // run all cells
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
 
   // save to disk
   await nb.save();
+
+  // wait
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
+
+  // compare cells
+  await CompareCellOutputs(nb, CELL_OUTPUT);
+
+  /**
+   * ==================================================================
+   * Run all cells again and compare the outputs to make sure
+   * we catch stopping right
+   * ==================================================================
+   */
+
+  // run all cells
+  await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
+
+  // save to disk
+  await nb.save();
+
+  // wait
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
+
+  // compare cells
+  await CompareCellOutputs(nb, CELL_OUTPUT);
+
+  /**
+   * ==================================================================
+   * Make sure JSON paths match
+   * ==================================================================
+   */
 
   // compare outputs
   await CompareNotebookJSONOutputs(expectedUri, nbUri);

@@ -41,10 +41,12 @@ export function GetBlockCompletionOptions(
     /**
      * Check our scope for any blocks that we can add
      */
-    for (let i = token.scopeTokens.length - 1; i >= 0; i--) {
-      if (token.scopeTokens[i].name in COMPLETION_BLOCKS) {
-        blocksFor = token.scopeTokens[i] as TreeToken<CompletionBlockTokens>;
-        break;
+    if (token.scopeTokens) {
+      for (let i = token.scopeTokens.length - 1; i >= 0; i--) {
+        if (token.scopeTokens[i].name in COMPLETION_BLOCKS) {
+          blocksFor = token.scopeTokens[i] as TreeToken<CompletionBlockTokens>;
+          break;
+        }
       }
     }
   }
@@ -72,6 +74,37 @@ export function GetBlockCompletionOptions(
    */
   switch (blocksFor.name) {
     /**
+     * "then" portion after a colon in case/switch
+     */
+    case TOKEN_NAMES.LOGICAL_CASE_SWITCH_THEN: {
+      if (blocksFor.kids.length === 0) {
+        /** Get the parent we are in */
+        const parent = blocksFor.scope[blocksFor.scopeTokens.length - 2];
+
+        /** Get snippet */
+        const snippet =
+          parent === TOKEN_NAMES.LOGICAL_SWITCH
+            ? [
+                front.replace(/(else)?:/i, '') + 'begin',
+                '  $1',
+                '  break',
+                'end',
+              ]
+            : [front.replace(/(else)?:/i, '') + 'begin', '  $1', 'end'];
+
+        const blockThen: AutoCompleteRecipe<BlockCompletion> = {
+          type: AUTO_COMPLETE_TYPE_LOOKUP.BLOCK,
+          options: {
+            label: 'Then block',
+            snippet,
+          },
+        };
+        recipes.push(blockThen);
+      }
+      break;
+    }
+
+    /**
      * Else
      */
     case TOKEN_NAMES.LOGICAL_ELSE: {
@@ -88,11 +121,38 @@ export function GetBlockCompletionOptions(
       break;
     }
 
+    case TOKEN_NAMES.LOGICAL_EXPRESSION_DEFAULT: {
+      if (blocksFor.kids.length === 0) {
+        /**
+         * Check what our parent is
+         */
+
+        const blockElse: AutoCompleteRecipe<BlockCompletion> = {
+          type: AUTO_COMPLETE_TYPE_LOOKUP.BLOCK,
+          options: {
+            label: 'Else block',
+            snippet: [front.replace(/(else)?:/i, '') + 'begin', '  $1', 'end'],
+          },
+        };
+        recipes.push(blockElse);
+      }
+      break;
+    }
+
     /**
      * If
      */
     case TOKEN_NAMES.LOGICAL_IF: {
       if (blocksFor.kids.length === 0) {
+        const ifThenBlock: AutoCompleteRecipe<BlockCompletion> = {
+          type: AUTO_COMPLETE_TYPE_LOOKUP.BLOCK,
+          options: {
+            label: 'If-then block',
+            snippet: [front + '(${1:!true}) then begin', '  $2', 'endif'],
+          },
+        };
+        recipes.push(ifThenBlock);
+
         const ifThenElseBlock: AutoCompleteRecipe<BlockCompletion> = {
           type: AUTO_COMPLETE_TYPE_LOOKUP.BLOCK,
           options: {
@@ -181,6 +241,46 @@ export function GetBlockCompletionOptions(
           },
         };
         recipes.push(simpleElse);
+      }
+      break;
+    }
+
+    /**
+     * Do portion of a loop
+     */
+    case TOKEN_NAMES.LOOP_DO: {
+      if (blocksFor.kids.length === 0) {
+        /** Get the parent which determines how we close */
+        const parent = blocksFor.scopeTokens[blocksFor.scopeTokens.length - 1];
+
+        let label = 'Begin block';
+        let endText = 'end';
+
+        switch (parent.name) {
+          case TOKEN_NAMES.LOOP_FOR:
+            label = 'For-do block';
+            endText = 'endfor';
+            break;
+          case TOKEN_NAMES.LOOP_FOREACH:
+            label = 'Foreach-do block';
+            endText = 'endforeach';
+            break;
+          case TOKEN_NAMES.LOOP_WHILE:
+            label = 'While block';
+            endText = 'endwhile';
+            break;
+          default:
+            break;
+        }
+
+        const blockElse: AutoCompleteRecipe<BlockCompletion> = {
+          type: AUTO_COMPLETE_TYPE_LOOKUP.BLOCK,
+          options: {
+            label,
+            snippet: [front + 'begin', '  $1', endText],
+          },
+        };
+        recipes.push(blockElse);
       }
       break;
     }

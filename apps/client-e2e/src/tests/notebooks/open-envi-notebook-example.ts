@@ -17,7 +17,8 @@ import { RunnerFunction } from '../runner.interface';
 export const OpenENVINotebookExample: RunnerFunction = async (init) => {
   // make a new notebook
   await vscode.commands.executeCommand(
-    IDL_COMMANDS.NOTEBOOKS.OPEN_ENVI_EXAMPLE
+    IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
+    'hello-world-envi.idlnb'
   );
 
   // short pause

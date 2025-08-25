@@ -328,7 +328,8 @@
       "content": [
         "Lastly, we can also create animations for raster series datasets.",
         "",
-        "This has the same API as basic display of a raster and embeds an animation within our notebook."
+        "This has the same API as basic display of a raster and embeds an animation within our notebook.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -365,7 +366,8 @@
         "",
         "When ENVI is in headless mode and the UI is not present, we can embed the progress messages from ENVI Tasks directly within our notebook.",
         "",
-        "To do with, we use the `ENVINotebook.embedProgress` method to enable and disable."
+        "To do with, we use the `ENVINotebook.embedProgress` method to enable and disable.",
+        ""
       ],
       "metadata": {},
       "outputs": []

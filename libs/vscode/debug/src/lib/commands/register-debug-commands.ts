@@ -11,6 +11,7 @@ import { IDLWebView } from '@idl/vscode/webview';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
+import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';
 import { CompileFile } from './compile-file';
 import { ExecuteFile } from './execute-file';
 import { StartProfiling, StopProfiling } from './profiling';
@@ -41,6 +42,30 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
           'Error while opening IDL',
           err,
           cmdErrors.debug.startIDL
+        );
+        return false;
+      }
+    })
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(IDL_COMMANDS.DEBUG.START_ENVI, async () => {
+      try {
+        LogCommandInfo('Opening ENVI and IDL');
+        VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+          idl_command: IDL_COMMANDS.DEBUG.START_ENVI,
+        });
+        await StartIDL();
+        await IDL_DEBUG_ADAPTER.evaluate('e = envi()', {
+          echo: true,
+          newLine: true,
+        });
+        return true;
+      } catch (err) {
+        LogCommandError(
+          'Error while opening ENVI IDL',
+          err,
+          cmdErrors.debug.startENVI
         );
         return false;
       }

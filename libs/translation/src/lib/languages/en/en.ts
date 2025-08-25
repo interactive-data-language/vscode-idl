@@ -38,6 +38,73 @@ export const EN: ITranslation = {
     },
   },
   commands: {
+    idl: {
+      client: {
+        fileABug: 'IDL: File a Bug',
+        viewLogs: 'IDL: View Extension Logs',
+        viewSettings: 'IDL: View Extension Settings',
+      },
+      code: {
+        initializeConfig: 'IDL: Initialize Config',
+        addDocsToFile: 'IDL: Add/Update Docs for File',
+        disableProblemSetting: 'IDL: Disable Problem Code via Setting',
+        fixProblem: 'IDL: Fix Problem for Code Action',
+        formatFile: 'IDL: Format File',
+        formatWorkspace: 'IDL: Format Files in Workspace',
+        generateTask: 'IDL: Generate ENVI or IDL Task',
+        migrateToDL30API: 'IDL: Migrate Code to ENVI Deep Learning 3.0 API',
+      },
+      config: {
+        specifyIDLDirectory: 'IDL: Specify IDL Directory (User-level)',
+        specifyIDLDirectoryWorkspace:
+          'IDL: Specify IDL Directory (Workspace-level)',
+      },
+      debug: {
+        startENVI: 'IDL: Start a Session of ENVI and IDL',
+        startIDL: 'IDL: Start a Session of IDL',
+        compileFile: 'IDL: Compile PRO File',
+        runFile: 'IDL: Run PRO File',
+        executeBatchFile: 'IDL: Execute Batch File',
+        resetIDL: 'IDL: Reset Session',
+        startProfiling: 'IDL: Start Profiling',
+        stopProfiling: 'IDL: Stop Profiling',
+      },
+      notebooks: {
+        convertToMarkdown: 'IDL: Convert IDL Notebook to Markdown',
+        convertToPDF: 'IDL: Convert IDL Notebook to PDF',
+        helpAsNotebook: 'IDL: Convert Help to Notebook',
+        newNotebook: 'IDL: Create New IDL Notebook',
+        notebookToProCode: 'IDL: Convert IDL Notebook to PRO Code',
+        // shorter because it shows in toolbar
+        resetIDLKernel: 'IDL: Reset IDL Notebook Kernel',
+        // shorter because it shows in toolbar
+        stopIDLKernel: 'IDL: Stop IDL Notebook Kernel',
+        stopAllIDLKernels: 'IDL: Stop All IDL Notebook Kernels',
+      },
+      terminal: {
+        startIDL: 'IDL: Open an IDL Terminal Window',
+        compileFile: 'IDL: Compile PRO File in Terminal',
+        runFile: 'IDL: Run PRO File in Terminal',
+        executeBatchFile: 'IDL: Execute Batch File in Terminal',
+        resetIDL: 'IDL: Reset Session in Terminal',
+        pauseExecution: 'IDL: Stop Execution in Terminal',
+        continueExecution: 'IDL: Continue Execution in Terminal',
+        stepIn: 'IDL: Step In in Terminal',
+        stepOver: 'IDL: Step Over in Terminal',
+        stepOut: 'IDL: Step Out in Terminal',
+      },
+      idlTutorials: {
+        openIDLTutorial: 'IDL: Open IDL Tutorial',
+        resetTutorials: 'IDL: Reset Tutorials',
+      },
+      webview: {
+        start: 'IDL: Start Webview',
+      },
+      docs: {
+        open: 'IDL: Open Extension Docs',
+        openLink: 'IDL: Open Docs Link',
+      },
+    },
     errors: {
       client: {
         fileABug: 'Unable to open GitHub URL',
@@ -65,6 +132,7 @@ export const EN: ITranslation = {
         executeBatchFile: 'Error while executing batch file',
         resetIDL: 'Error while resetting IDL',
         runFile: 'Error while running file for IDL',
+        startENVI: 'Error while starting ENVI and IDL',
         startIDL: 'Error while starting IDL',
         startProfiling: 'Error while starting profiling',
         stopProfiling: 'Error while stopping profiling',
@@ -79,10 +147,7 @@ export const EN: ITranslation = {
         helpAsNotebook: 'Error while converting help to notebook',
         newNotebook: 'Error while creating new notebook',
         notebookToProCode: 'Error while converting notebook to PRO code',
-        openENVIExample: 'Error while opening ENVI example notebook',
-        openIDLExample: 'Error while opening IDL example notebook',
         resetIDLKernel: 'Error while resetting IDL Notebook Kernel',
-        resetNotebookExamples: 'Error while resetting example notebooks',
         stopAllIDLKernels: 'Error while stopping all IDL Notebook Kernels',
         stopIDLKernel: 'Error while stopping IDL Notebook Kernel',
       },
@@ -98,73 +163,12 @@ export const EN: ITranslation = {
         stepOut: 'Error while stepping out in terminal',
         stepOver: 'Error while stepping over in terminal',
       },
+      idlTutorials: {
+        openIDLTutorial: 'Error while opening IDL tutorial',
+        resetTutorials: 'Error while resetting tutorials',
+      },
       webview: {
         start: 'Error while starting webview',
-      },
-    },
-    idl: {
-      client: {
-        fileABug: 'IDL: File a Bug',
-        viewLogs: 'IDL: View Extension Logs',
-        viewSettings: 'IDL: View Extension Settings',
-      },
-      code: {
-        addDocsToFile: 'IDL: Add/Update Docs for File',
-        disableProblemSetting: 'IDL: Disable Problem Code via Setting',
-        fixProblem: 'IDL: Fix Problem for Code Action',
-        formatFile: 'IDL: Format File',
-        formatWorkspace: 'IDL: Format Files in Workspace',
-        generateTask: 'IDL: Generate ENVI or IDL Task',
-        initializeConfig: 'IDL: Initialize Config',
-        migrateToDL30API: 'IDL: Migrate Code to ENVI Deep Learning 3.0 API',
-      },
-      config: {
-        specifyIDLDirectory: 'IDL: Specify IDL Directory (User-level)',
-        specifyIDLDirectoryWorkspace:
-          'IDL: Specify IDL Directory (Workspace-level)',
-      },
-      debug: {
-        compileFile: 'IDL: Compile PRO File',
-        executeBatchFile: 'IDL: Execute Batch File',
-        resetIDL: 'IDL: Reset Session',
-        runFile: 'IDL: Run PRO File',
-        startIDL: 'IDL: Start a Session of IDL',
-        startProfiling: 'IDL: Start Profiling',
-        stopProfiling: 'IDL: Stop Profiling',
-      },
-      docs: {
-        open: 'IDL: Open Extension Docs',
-        openLink: 'IDL: Open Docs Link',
-      },
-      notebooks: {
-        convertToMarkdown: 'IDL: Convert IDL Notebook to Markdown',
-        convertToPDF: 'IDL: Convert IDL Notebook to PDF',
-        helpAsNotebook: 'IDL: Convert Help to Notebook',
-        newNotebook: 'IDL: Create New IDL Notebook',
-        notebookToProCode: 'IDL: Convert IDL Notebook to PRO Code',
-        openENVIExample: 'IDL: Open ENVI Example Notebook',
-        openIDLExample: 'IDL: Open IDL Example Notebook',
-        // shorter because it shows in toolbar
-        resetIDLKernel: 'IDL: Reset IDL Notebook Kernel',
-        resetNotebookExamples: 'IDL: Reset IDL and ENVI Example Notebooks',
-        stopAllIDLKernels: 'IDL: Stop All IDL Notebook Kernels',
-        // shorter because it shows in toolbar
-        stopIDLKernel: 'IDL: Stop IDL Notebook Kernel',
-      },
-      terminal: {
-        compileFile: 'IDL: Compile PRO File in Terminal',
-        continueExecution: 'IDL: Continue Execution in Terminal',
-        executeBatchFile: 'IDL: Execute Batch File in Terminal',
-        pauseExecution: 'IDL: Stop Execution in Terminal',
-        resetIDL: 'IDL: Reset Session in Terminal',
-        runFile: 'IDL: Run PRO File in Terminal',
-        startIDL: 'IDL: Open an IDL Terminal Window',
-        stepIn: 'IDL: Step In in Terminal',
-        stepOut: 'IDL: Step Out in Terminal',
-        stepOver: 'IDL: Step Over in Terminal',
-      },
-      webview: {
-        start: 'IDL: Start Webview',
       },
     },
     notifications: {
@@ -556,6 +560,10 @@ export const EN: ITranslation = {
             description: 'a session of IDL',
             name: 'Start',
           },
+          startENVI: {
+            description: 'and IDL',
+            name: 'Start ENVI',
+          },
           startProfiling: {
             description: 'the IDL session',
             name: 'Start Profiling',
@@ -667,12 +675,115 @@ export const EN: ITranslation = {
             name: 'Step Over',
           },
         },
+        idlTutorials: {
+          gettingStarted: {
+            name: 'Getting Started',
+            description: '',
+            children: {
+              runningInIDLNotebooks: {
+                name: 'Running in IDL Notebooks',
+                description: '',
+              },
+              navigatingTheGuide: {
+                name: 'Navigating the Guide',
+                description: '',
+              },
+            },
+          },
+          idlBasics: {
+            name: 'IDL Basics',
+            description: '',
+            children: {
+              whatIsIDL: {
+                name: 'What Is IDL',
+                description: '',
+              },
+              valuesTypesAndVariables: {
+                name: 'Values, Types, and Variables',
+                description: '',
+              },
+              operators: {
+                name: 'Operators',
+                description: '',
+              },
+              expressions: {
+                name: 'Expressions',
+                description: '',
+              },
+              idlSyntax: {
+                name: 'IDL Syntax',
+                description: '',
+              },
+              casting: {
+                name: 'Casting',
+                description: '',
+              },
+              conditionalExpressions: {
+                name: 'Conditional Expressions',
+                description: '',
+              },
+              loops: {
+                name: 'Loops',
+                description: '',
+              },
+              arrays: {
+                name: 'Arrays',
+                description: '',
+              },
+              strings: {
+                name: 'Strings',
+                description: '',
+              },
+              functionsAndProcedures: {
+                name: 'Functions and Procedures',
+                description: '',
+              },
+              introToObjects: {
+                name: 'Intro to Objects',
+                description: '',
+              },
+            },
+          },
+          fileOperations: {
+            name: 'File Operations',
+            description: '',
+            children: {
+              introToFileOperations: {
+                name: 'Intro to File Operations',
+                description: '',
+              },
+              readFiles: {
+                name: 'Read Files',
+                description: '',
+              },
+              writeFiles: {
+                name: 'Write Files',
+                description: '',
+              },
+            },
+          },
+          notebooks: {
+            name: 'Example Notebooks',
+            description: '',
+            children: {
+              quickIDL: {
+                name: 'IDL Notebook: Hello World',
+                description: '',
+              },
+              quickENVI: {
+                name: 'ENVI Notebook: Hello World',
+                description: '',
+              },
+            },
+          },
+        },
       },
       clickHandlerError: 'Error while handling IDL tree click event',
       name: 'Actions and Commands',
       parents: {
         codeActions: 'Code',
         debugging: 'IDL',
+        idlTutorials: 'IDL Tutorials',
         notebooks: 'Notebooks',
         quickAccess: 'Quick Access',
         terminal: 'Terminal',

@@ -4,11 +4,12 @@ import {
   IDLTypes,
 } from '../idl-data-types.interface';
 import { ReduceIDLDataType } from '../serializing/reduce-types';
+import { ARRAY_SHORTHAND_TYPES } from './array-shorthand-types.interface';
 import { GetTaskDisplayName } from './get-task-display-name';
-import { PARSED_TO_KNOWN_TYPES } from './parsed-to-known-type-map.interface';
-import { PopulateDisplayName } from './populate-display-name';
+import { PopulateTypeDisplayName } from './populate-type-display-name';
 import { SetDefaultTypes } from './set-default-types';
 import { SplitType } from './split-type';
+import { TYPE_ALIASES } from './type-aliases.interface';
 
 /**
  * Regular expression for parsing types
@@ -44,11 +45,21 @@ function _ParseTheTypes(type: string): IDLDataType {
   const types: IDLDataType = [];
 
   // remove `type` from the string
-  const use = type.replace(/type\s*=\s*/gim, '').trim();
+  let use = type.replace(/type\s*=\s*/gim, '').trim();
 
   // return if nothing to process
   if (use === '') {
     return types;
+  }
+
+  // normalize case
+  const lc = use.toLowerCase();
+
+  // check if we have a shorthand arr type
+  if (lc.endsWith('arr')) {
+    if (lc in ARRAY_SHORTHAND_TYPES) {
+      use = ARRAY_SHORTHAND_TYPES[lc];
+    }
   }
 
   /**
@@ -86,8 +97,8 @@ function _ParseTheTypes(type: string): IDLDataType {
     };
 
     // set the name of the data type
-    if (thisType.name.toLowerCase() in PARSED_TO_KNOWN_TYPES) {
-      thisType.name = PARSED_TO_KNOWN_TYPES[thisType.name.toLowerCase()];
+    if (thisType.name.toLowerCase() in TYPE_ALIASES) {
+      thisType.name = TYPE_ALIASES[thisType.name.toLowerCase()];
     }
 
     // check for type args
@@ -117,7 +128,7 @@ export function ParseIDLType(type: string): IDLDataType {
   SetDefaultTypes(types);
 
   // set display names
-  PopulateDisplayName(types);
+  PopulateTypeDisplayName(types);
 
   // reduce types so that, if we have duplicates, we remove them
   const reduced = ReduceIDLDataType(types);

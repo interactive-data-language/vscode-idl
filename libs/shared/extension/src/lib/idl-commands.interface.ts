@@ -31,6 +31,9 @@ export const BASE_WEBVIEW = `${BASE_COMMAND}webview.`;
 /** Base string for docs commands */
 export const BASE_DOCS = `${BASE_COMMAND}docs.`;
 
+/** Base string for idl-tutorials */
+export const BASE_IDL_TUTORIAL = `${BASE_COMMAND}idlTutorials.`;
+
 /**
  * Constant representing all of our commands in IDL.
  *
@@ -81,6 +84,8 @@ export const IDL_COMMANDS = {
   DEBUG: {
     /** Start debug session */
     START: `${BASE_DEBUG}startIDL`,
+    /** Start ENVI */
+    START_ENVI: `${BASE_DEBUG}startENVI`,
     /** Compile current PRO file */
     COMPILE: `${BASE_DEBUG}compileFile`,
     /** Run current PRO file */
@@ -106,14 +111,8 @@ export const IDL_COMMANDS = {
     NEW_NOTEBOOK: `${BASE_NOTEBOOK}newNotebook`,
     /** Convert a notebook to PRO code */
     NOTEBOOK_TO_PRO_CODE: `${BASE_NOTEBOOK}notebookToProCode`,
-    /** Open IDL example notebook */
-    OPEN_IDL_EXAMPLE: `${BASE_NOTEBOOK}openIDLExample`,
-    /** Open ENVI example notebook */
-    OPEN_ENVI_EXAMPLE: `${BASE_NOTEBOOK}openENVIExample`,
     /** Reset IDL session for notebook */
     RESET: `${BASE_NOTEBOOK}resetIDLKernel`,
-    /** Reset example notebooks */
-    RESET_NOTEBOOK_EXAMPLES: `${BASE_NOTEBOOK}resetNotebookExamples`,
     /** Reset IDL session for notebook */
     STOP: `${BASE_NOTEBOOK}stopIDLKernel`,
     /** Stop all IDL kernels */
@@ -153,6 +152,12 @@ export const IDL_COMMANDS = {
     OPEN: `${BASE_DOCS}open`,
     /** Opens link from docs */
     OPEN_LINK: `${BASE_DOCS}openLink`,
+  },
+  TUTORIALS: {
+    /** Reset noteboo tutorials */
+    RESET_TUTORIALS: `${BASE_IDL_TUTORIAL}resetTutorials`,
+    /** Opens tutorial "what is IDL" */
+    OPEN_IDL_TUTORIAL: `${BASE_IDL_TUTORIAL}openIDLTutorial`,
   },
 };
 

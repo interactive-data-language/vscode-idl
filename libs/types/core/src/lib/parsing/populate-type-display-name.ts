@@ -1,12 +1,12 @@
 import { CUSTOM_TYPE_DISPLAY_NAMES } from '../..';
 import { IDLDataType } from '../idl-data-types.interface';
-import { PARSED_TO_KNOWN_TYPES } from './parsed-to-known-type-map.interface';
 import { PostProcessTypeName, TASK_NAME_REGEX } from './post-process-type-name';
+import { TYPE_ALIASES } from './type-aliases.interface';
 
 /**
  * Recurse into our type statement and parse everything
  */
-export function PopulateDisplayName(types: IDLDataType) {
+export function PopulateTypeDisplayName(types: IDLDataType) {
   // do any post-processing for types
   PostProcessTypeName(types);
 
@@ -33,8 +33,8 @@ export function PopulateDisplayName(types: IDLDataType) {
     }
 
     switch (true) {
-      case lc in PARSED_TO_KNOWN_TYPES:
-        base = PARSED_TO_KNOWN_TYPES[lc];
+      case lc in TYPE_ALIASES:
+        base = TYPE_ALIASES[lc];
         break;
       case lc in CUSTOM_TYPE_DISPLAY_NAMES:
         base = CUSTOM_TYPE_DISPLAY_NAMES[lc];
@@ -54,7 +54,7 @@ export function PopulateDisplayName(types: IDLDataType) {
         const args = struct.args[i];
 
         // populate the display name of the child
-        PopulateDisplayName(args);
+        PopulateTypeDisplayName(args);
 
         // process each arg
         for (let j = 0; j < args.length; j++) {

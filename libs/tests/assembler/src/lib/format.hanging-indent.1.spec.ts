@@ -105,7 +105,7 @@ describe(`[auto generated] Verify hanging indent`, () => {
         `                    )`,
         ``,
         `triangulate, a, b, c, $`,
-        `           connectivity = conn`,
+        `             connectivity = conn`,
         ``,
         `foo = [1, 2, 3, $`,
         `       4, 5, 6]`,

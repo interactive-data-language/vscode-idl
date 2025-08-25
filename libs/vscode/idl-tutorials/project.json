@@ -1,0 +1,19 @@
+{
+  "name": "vscode-idl-tutorials",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/vscode/idl-tutorials/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/vscode/idl-tutorials/jest.config.ts"
+      }
+    }
+  }
+}

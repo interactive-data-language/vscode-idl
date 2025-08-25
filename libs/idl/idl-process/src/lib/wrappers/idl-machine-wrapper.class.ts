@@ -34,14 +34,17 @@ const kill = require('tree-kill');
  * Wraps the IDL Machine process and connects events from it to/from our IDL Process class
  */
 export class IDLMachineWrapper {
+  /** last debug send */
+  lastDebugSend: FromIDLMachineNotificationParams<'debugSend'>;
+
+  /** Track the last interpreter stopped params */
+  lastStop: FromIDLMachineNotificationParams<'interpreterStopped'>;
+
   /** Flag that we are expecting a stop or end to command running */
   private expectingStop = false;
 
   /** The IDL process */
   private idl: ChildProcess;
-
-  /** last debug send */
-  private lastDebugSend: FromIDLMachineNotificationParams<'debugSend'>;
 
   /** The IDL Machine */
   private machine: IDLMachine;
@@ -147,15 +150,13 @@ export class IDLMachineWrapper {
       }
     });
 
-    /** Track the last interpreter stopped params */
-    let lastStop: FromIDLMachineNotificationParams<'interpreterStopped'>;
-
     this.machine.onNotification('interpreterStopped', (params) => {
       /** Check if our last stop is different */
-      const stopDelta = lastStop !== undefined || !deepEqual(params, lastStop);
+      const stopDelta =
+        this.lastStop !== undefined || !deepEqual(params, this.lastStop);
 
       // save the parameters
-      lastStop = params;
+      this.lastStop = params;
 
       // create output parameters
       const res: IDLOutput = {
@@ -169,7 +170,7 @@ export class IDLMachineWrapper {
        */
       if (
         params.line > 0 &&
-        (!this.expectingStop || (this.lastDebugSend.stack.changed && stopDelta))
+        (!this.expectingStop || this.lastDebugSend.stack.changed || stopDelta)
       ) {
         res.stopped = {
           reason: 'stop',
@@ -188,7 +189,9 @@ export class IDLMachineWrapper {
       // check if we are expecting to stop or not
       if (this.expectingStop) {
         // emit that IDL is ready
-        this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, res);
+        setTimeout(() => {
+          this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, res);
+        }, 10);
       } else {
         this.process.emit(
           IDL_EVENT_LOOKUP.STOP,

@@ -31,7 +31,10 @@ export class IDLTreeClickHandler {
           });
 
           // determine if we are a command or not
-          await vscode.commands.executeCommand(item.commandName);
+          await vscode.commands.executeCommand(
+            item.commandName,
+            ...(item.commandArgs || [])
+          );
           break;
         default:
         // do nothing because it is a parent

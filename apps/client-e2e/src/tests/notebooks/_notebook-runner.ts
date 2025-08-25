@@ -210,7 +210,7 @@ NOTEBOOK_RUNNER.addTest({
 });
 
 NOTEBOOK_RUNNER.addTest({
-  name: 'Replace cell paths for stops',
+  name: 'Replace cell paths for stops and make sure stop always works',
   fn: NotebooksReplaceCellPathsOnStop,
 });
 

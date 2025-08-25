@@ -18,6 +18,34 @@ Document some advanced types so users may try them out and provide feedback. The
 
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
+## 5.1.0 - August 2025
+
+This verion introduces a new selection of IDL Tutorials! These come as a collection of notebooks to help new users get up and running. In the IDL sidebar, you'll see a new section called "IDL Tutorials" with language-specific content.
+
+> With this change, we have also migrated the ENVI and IDL Example notebooks under the tutorials section.
+
+Add a new auto-complete for block statements (i.e. if-then-begin) that functions much better compared to what we had. If there are any weird cases, or cases for block auto-complete that are missing, let us know and we can add them in.
+
+Add a new sidebar entry to launch a session of ENVI and IDL. Requires an ENVI license and that you are using the IDL that is packaged with ENVI.
+
+With the extension including GitHub Copilot integration, we have changed the extension so that it always activates in VSCode. Otherwise tools in Agent mode through GitHub Copilot would fail to run as our extension was not started.
+
+Tweak hanging indent for procedures and procedure methods to use the first comma as the syntax we align to.
+
+Fix an issue with catching standalone expressions where the problem would be incorrectly reported for chained property access.
+
+Fix docs issues with `colorbar()` function not having all properties for keywords.
+
+Fix docs issue where "ipm" was an unknown structure and would throw fake errors when using the static methods on the class.
+
+Fixed an issue where IDL would show an error message about being unable to check the version if you had an IDL_STARTUP file specified that generated output.
+
+Potentially fix an issue with auto-complete that would occur sometimes with code blocks.
+
+Updated type parsing to support older code that used the name of the functions to create arrays as array types. We now map types such as "bytarr" to the proper IDL types of "Array<Byte>" for full type/auto complete support.
+
+Tweak notebook formatting that removes the trailing space at the end of cells. When you have many cells, this adds empty space that's not always needed or helpful.
+
 ## 5.0.1 - July 2024
 
 Fix a bug with IDL Notebooks when you would open a new notebook though the MCP tools.

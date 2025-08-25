@@ -132,20 +132,23 @@ export class IDLStdIOWrapper {
               }
             }
 
-            // emit that the IDL prompt is ready
-            this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, {
-              idlOutput: this.process.capturedOutput,
-            });
-
-            // /**
-            //  * setTimeout solves a race condition where the default case comes through after
-            //  * the prompt does which means we miss out on content coming back to the first process.
-            //  */
-            // setTimeout(() => {
+            // // emit that the IDL prompt is ready
             // this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, {
             //   idlOutput: this.process.capturedOutput,
             // });
-            // }, 50);
+
+            /**
+             * setTimeout solves a race condition where the default case comes through after
+             * the prompt does which means we miss out on content coming back to the first process.
+             *
+             * This was removed in place of the code just above, but added back in because, without it,
+             * this race condition on Mac causes us to miss IDL output in some cases.
+             */
+            setTimeout(() => {
+              this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, {
+                idlOutput: this.process.capturedOutput,
+              });
+            }, 50);
           }
           break;
 

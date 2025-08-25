@@ -28,3 +28,4 @@ KEYWORD_ARE_PROPS['arrow'] = true;
 KEYWORD_ARE_PROPS['mapgridline'] = true;
 KEYWORD_ARE_PROPS['crosshair'] = true;
 KEYWORD_ARE_PROPS['fillplot'] = true;
+KEYWORD_ARE_PROPS['colorbar'] = true;

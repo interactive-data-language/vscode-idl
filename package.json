@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -33,8 +33,8 @@
     "generate-tests": "npm-run-all build-test-maker make-tests lint-tests format-tests",
     "test-libs": "nx run-many --target=test --runInBand --projects=\"tests*\" --parallel=5 && nx run-many --target=test --runInBand --projects=parsing-tokenizer --parallel=5",
     "ng": "nx",
-    "package": "npm i && npm-run-all build-extension pre-package && vsce package",
-    "package-and-test": "npm i && npm-run-all build-extension pre-package test-parsing build-test integration-test && vsce package",
+    "package": "npm i && npm-run-all build-extension pre-package && vsce package --allow-star-activation",
+    "package-and-test": "npm i && npm-run-all build-extension pre-package test-parsing build-test integration-test && vsce package --allow-star-activation",
     "parse-docs": "nx build idl-docs-parser --prod-false && node dist/apps/idl-docs-parser/main.js",
     "pre-package": "rimraf ./node_modules/__ngcc_entry_points__.json",
     "pre-dev": "npm-run-all build-package-json build-webview",
@@ -213,12 +213,7 @@
     "node": ">=20.12.0 || ^10.5.0"
   },
   "activationEvents": [
-    "workspaceContains:**/*.pro",
-    "workspaceContains:**/*.pro.def",
-    "workspaceContains:**/*idl.json",
-    "workspaceContains:**/*idlpackage.json",
-    "workspaceContains:**/*.task",
-    "workspaceContains:**/*.idlnb",
+    "*",
     "onWebviewPanel:idlPanel",
     "onDebug"
   ],
@@ -230,7 +225,9 @@
     "Linters",
     "Programming Languages",
     "Snippets",
-    "Themes"
+    "Themes",
+    "AI",
+    "Notebooks"
   ],
   "icon": "extension/images/idlicon.png",
   "contributes": {
@@ -317,6 +314,10 @@
         }
       },
       {
+        "command": "idl.debug.startENVI",
+        "title": "%commands.idl.debug.startENVI%"
+      },
+      {
         "command": "idl.debug.startIDL",
         "title": "%commands.idl.debug.startIDL%"
       },
@@ -335,6 +336,14 @@
       {
         "command": "idl.docs.openLink",
         "title": "%commands.idl.docs.openLink%"
+      },
+      {
+        "command": "idl.idlTutorials.openIDLTutorial",
+        "title": "%commands.idl.idlTutorials.openIDLTutorial%"
+      },
+      {
+        "command": "idl.idlTutorials.resetTutorials",
+        "title": "%commands.idl.idlTutorials.resetTutorials%"
       },
       {
         "command": "idl.notebooks.convertToPDF",
@@ -361,24 +370,12 @@
         }
       },
       {
-        "command": "idl.notebooks.openENVIExample",
-        "title": "%commands.idl.notebooks.openENVIExample%"
-      },
-      {
-        "command": "idl.notebooks.openIDLExample",
-        "title": "%commands.idl.notebooks.openIDLExample%"
-      },
-      {
         "command": "idl.notebooks.resetIDLKernel",
         "title": "%commands.idl.notebooks.resetIDLKernel%",
         "icon": {
           "light": "extension/images/light/renew.svg",
           "dark": "extension/images/dark/renew.svg"
         }
-      },
-      {
-        "command": "idl.notebooks.resetNotebookExamples",
-        "title": "%commands.idl.notebooks.resetNotebookExamples%"
       },
       {
         "command": "idl.notebooks.stopAllIDLKernels",
@@ -1519,6 +1516,10 @@
           "when": "!isWeb"
         },
         {
+          "command": "idl.debug.startENVI",
+          "when": "!isWeb"
+        },
+        {
           "command": "idl.debug.startIDL",
           "when": "!isWeb"
         },
@@ -1533,6 +1534,14 @@
         {
           "command": "idl.docs.openLink",
           "when": "false"
+        },
+        {
+          "command": "idl.idlTutorials.openIDLTutorial",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.idlTutorials.resetTutorials",
+          "when": "!isWeb"
         },
         {
           "command": "idl.notebooks.convertToPDF",
@@ -1551,19 +1560,7 @@
           "when": "!isWeb"
         },
         {
-          "command": "idl.notebooks.openENVIExample",
-          "when": "!isWeb"
-        },
-        {
-          "command": "idl.notebooks.openIDLExample",
-          "when": "!isWeb"
-        },
-        {
           "command": "idl.notebooks.resetIDLKernel",
-          "when": "!isWeb"
-        },
-        {
-          "command": "idl.notebooks.resetNotebookExamples",
           "when": "!isWeb"
         },
         {

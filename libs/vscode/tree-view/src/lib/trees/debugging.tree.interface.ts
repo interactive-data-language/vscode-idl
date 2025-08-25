@@ -14,6 +14,13 @@ export const DEBUGGING_BUTTONS: IChild[] = [
     commandName: IDL_COMMANDS.DEBUG.START,
   },
   {
+    name: IDL_TRANSLATION.idl.tree.children.debugging.startENVI.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.debugging.startENVI.description,
+    icon: 'enviicon.svg',
+    commandName: IDL_COMMANDS.DEBUG.START_ENVI,
+  },
+  {
     name: IDL_TRANSLATION.idl.tree.children.debugging.compile.name,
     description:
       IDL_TRANSLATION.idl.tree.children.debugging.compile.description,

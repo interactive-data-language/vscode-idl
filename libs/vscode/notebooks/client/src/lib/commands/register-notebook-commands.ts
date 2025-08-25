@@ -1,8 +1,4 @@
-import {
-  DOCS_NOTEBOOK_FOLDER,
-  EXAMPLE_NOTEBOOKS,
-  GetExtensionPath,
-} from '@idl/idl/files';
+import { DOCS_NOTEBOOK_FOLDER } from '@idl/idl/files';
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { ConvertDocsToNotebook } from '@idl/notebooks/shared';
 import {
@@ -34,8 +30,7 @@ import {
   OpenNotebookInVSCode,
 } from '@idl/vscode/shared';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
-import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
-import { cp } from 'fs/promises';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
@@ -274,84 +269,6 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
 
   ctx.subscriptions.push(
     vscode.commands.registerCommand(
-      IDL_COMMANDS.NOTEBOOKS.OPEN_ENVI_EXAMPLE,
-      async () => {
-        try {
-          // make folder if it doesnt exist
-          if (!existsSync(EXAMPLE_NOTEBOOKS)) {
-            mkdirSync(EXAMPLE_NOTEBOOKS, { recursive: true });
-          }
-
-          // get destination path
-          const exampleUri = join(EXAMPLE_NOTEBOOKS, 'hello-world-envi.idlnb');
-
-          // if it doesnt exist, copy it
-          if (!existsSync(exampleUri)) {
-            await cp(
-              GetExtensionPath('extension/example-notebooks'),
-              EXAMPLE_NOTEBOOKS,
-              { recursive: true }
-            );
-          }
-
-          // open the notebook in vscode
-          await OpenNotebookInVSCode(exampleUri, true, false);
-
-          // return as though we succeeded
-          return true;
-        } catch (err) {
-          LogCommandError(
-            'Error opening IDL example notebook',
-            err,
-            cmdErrors.notebooks.openIDLExample
-          );
-          return false;
-        }
-      }
-    )
-  );
-
-  ctx.subscriptions.push(
-    vscode.commands.registerCommand(
-      IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE,
-      async () => {
-        try {
-          // make folder if it doesnt exist
-          if (!existsSync(EXAMPLE_NOTEBOOKS)) {
-            mkdirSync(EXAMPLE_NOTEBOOKS, { recursive: true });
-          }
-
-          // get destination path
-          const exampleUri = join(EXAMPLE_NOTEBOOKS, 'hello-world-idl.idlnb');
-
-          // if it doesnt exist, copy it
-          if (!existsSync(exampleUri)) {
-            await cp(
-              GetExtensionPath('extension/example-notebooks'),
-              EXAMPLE_NOTEBOOKS,
-              { recursive: true }
-            );
-          }
-
-          // open the notebook in vscode
-          await OpenNotebookInVSCode(exampleUri, true, false);
-
-          // return as though we succeeded
-          return true;
-        } catch (err) {
-          LogCommandError(
-            'Error opening IDL example notebook',
-            err,
-            cmdErrors.notebooks.openIDLExample
-          );
-          return false;
-        }
-      }
-    )
-  );
-
-  ctx.subscriptions.push(
-    vscode.commands.registerCommand(
       IDL_COMMANDS.NOTEBOOKS.NOTEBOOK_TO_PRO_CODE,
       async (options?: Partial<INotebookToProCodeOptions>) => {
         try {
@@ -440,41 +357,6 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             'Error converting notebook to PRO code',
             err,
             cmdErrors.notebooks.notebookToProCode
-          );
-          return false;
-        }
-      }
-    )
-  );
-
-  ctx.subscriptions.push(
-    vscode.commands.registerCommand(
-      IDL_COMMANDS.NOTEBOOKS.RESET_NOTEBOOK_EXAMPLES,
-      async () => {
-        try {
-          // make folder if it doesnt exist
-          if (existsSync(EXAMPLE_NOTEBOOKS)) {
-            rmSync(EXAMPLE_NOTEBOOKS, { recursive: true });
-          }
-
-          // make folder if it doesnt exist
-          if (!existsSync(EXAMPLE_NOTEBOOKS)) {
-            mkdirSync(EXAMPLE_NOTEBOOKS, { recursive: true });
-          }
-
-          await cp(
-            GetExtensionPath('extension/example-notebooks'),
-            EXAMPLE_NOTEBOOKS,
-            { recursive: true }
-          );
-
-          // return as though we succeeded
-          return true;
-        } catch (err) {
-          LogCommandError(
-            'Error while resetting example notebooks',
-            err,
-            cmdErrors.notebooks.resetNotebookExamples
           );
           return false;
         }

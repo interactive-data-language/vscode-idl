@@ -5,9 +5,17 @@ import * as vscode from 'vscode';
 
 import { FilterWebCommands, HasWebCommands } from './has-web-commands';
 import { IDLAction } from './idl-action.class';
+import { IChild } from './idl-tree-view.interface';
 import { TREE_VIEW_CLICK_HANDLER } from './initialize-tree';
 import { CODE_ACTIONS } from './trees/code-actions.tree.interface';
 import { DEBUGGING_BUTTONS } from './trees/debugging.tree.interface';
+import {
+  IDLTUTORIAL_ACTIONS,
+  IDLTUTORIAL_FILEOPERATIONS,
+  IDLTUTORIAL_GETTINGSTARTED,
+  IDLTUTORIAL_IDLBASICS,
+  IDLTUTORIAL_NOTEBOOKS,
+} from './trees/idl-tutorials.tree.interface';
 import { NOTEBOOK_ACTIONS } from './trees/notebook-actions.tree.interface';
 import { ADDITIONAL_ACTIONS } from './trees/quick-access.tree.interface';
 import { TERMINAL_BUTTONS } from './trees/terminal-buttons.interface';
@@ -229,6 +237,54 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
     }
 
     /**
+     * Add IDL tutorial commands
+     */
+    this.parents[IDL_TRANSLATION.idl.tree.parents.idlTutorials] = new IDLAction(
+      // override type, OK because click handler ignores parents
+      IDL_TRANSLATION.idl.tree.parents.idlTutorials,
+      '',
+      vscode.TreeItemCollapsibleState.Collapsed,
+      'idlicon.svg',
+      '',
+      this.extensionFolder
+    );
+
+    this.tree[IDL_TRANSLATION.idl.tree.parents.idlTutorials] =
+      IDLTUTORIAL_ACTIONS.map(
+        (child) =>
+          new IDLAction(
+            child.name,
+            child.description,
+            vscode.TreeItemCollapsibleState.Collapsed,
+            child.icon,
+            child.commandName,
+            this.extensionFolder,
+            child.commandArgs
+          )
+      );
+
+    this.addBranch(
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.gettingStarted.name,
+      IDLTUTORIAL_GETTINGSTARTED,
+      vscode.TreeItemCollapsibleState.None
+    );
+    this.addBranch(
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.name,
+      IDLTUTORIAL_IDLBASICS,
+      vscode.TreeItemCollapsibleState.None
+    );
+    this.addBranch(
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.fileOperations.name,
+      IDLTUTORIAL_FILEOPERATIONS,
+      vscode.TreeItemCollapsibleState.None
+    );
+    this.addBranch(
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.name,
+      IDLTUTORIAL_NOTEBOOKS,
+      vscode.TreeItemCollapsibleState.None
+    );
+
+    /**
      * Additional commands/actions that we want to have buttons for
      */
     if (!this.web || (this.web && HasWebCommands(ADDITIONAL_ACTIONS))) {
@@ -256,5 +312,25 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
           )
       );
     }
+  }
+
+  private addBranch(
+    branchName: string,
+    leafNodes: IChild[],
+    collapsibleState: vscode.TreeItemCollapsibleState = vscode
+      .TreeItemCollapsibleState.None
+  ) {
+    this.tree[branchName] = leafNodes.map(
+      (child) =>
+        new IDLAction(
+          child.name,
+          child.description,
+          collapsibleState,
+          child.icon,
+          child.commandName,
+          this.extensionFolder,
+          child.commandArgs
+        )
+    );
   }
 }

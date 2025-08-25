@@ -82,6 +82,7 @@ pro vscode_runENVITask, taskJSON
       else: param.value = val
     endcase
   end
+  catch, /cancel
 
   ;+
   ; make sure we have files on disk, no virtual raster stuff
@@ -99,6 +100,17 @@ pro vscode_runENVITask, taskJSON
 
   ; check for problem
   if keyword_set(err) then begin
+    vscode_reportENVIFailure, 'task-execute-error', err
+    return
+  endif
+
+  ;+
+  ; Listen for errors trying to get results, likely means canceled
+  ;-
+  catch, err
+  if (err ne 0) then begin
+    catch, /cancel
+    help, /last_message
     vscode_reportENVIFailure, 'task-execute-error', err
     return
   endif
@@ -132,7 +144,7 @@ compile_opt idl2
 e = envi(/headless)
 
 ; Open an input file
-File = Filepath('qb_boulder_msi', subdir = ['data'], $
+File = filepath('qb_boulder_msi', subdir = ['data'], $
   root_dir = e.root_dir)
 Raster = e.openRaster(File)
 
@@ -140,6 +152,6 @@ params = hash('taskName', 'QuerySpectralIndices', 'inputParameters', hash('input
 
 stringy = json_serialize(params)
 
-vscode_RunENVITask, stringy
+vscode_runENVITask, stringy
 
 end

@@ -440,6 +440,13 @@ export class IDLInteractionManager {
   }
 
   /**
+   * Resets information about the call stack so that we are always fresh
+   */
+  async resetCallStack() {
+    await this.idl.resetCallStack();
+  }
+
+  /**
    * Reset errors by file
    */
   resetErrorsByFile() {

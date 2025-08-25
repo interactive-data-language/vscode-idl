@@ -9,7 +9,8 @@ export class IDLAction extends vscode.TreeItem {
     readonly collapsibleState: vscode.TreeItemCollapsibleState,
     private iconName: string,
     readonly commandName: string,
-    private extensionFolder: string
+    private extensionFolder: string,
+    readonly commandArgs?: any[]
   ) {
     super(label, collapsibleState);
 

@@ -58,7 +58,7 @@ export function GetChainEnd(children: SyntaxTree, start: number): number {
     // check if we have a token for a chain
     if (children[i].name in CHAIN_TOKENS) {
       // if we have two tokens in a row with the same name, return as that is invalid syntax
-      if (last === children[i].name) {
+      if (last === children[i].name && last !== TOKEN_NAMES.ACCESS_PROPERTY) {
         return start;
       }
 

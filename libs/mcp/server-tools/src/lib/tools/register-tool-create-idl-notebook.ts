@@ -18,7 +18,7 @@ export function RegisterToolCreateIDLNotebook(
 ) {
   MCPToolRegistry.tool(
     MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK,
-    'Creates an IDL Notebook',
+    'Creates an IDL Notebook.\n\nThis is a native IDL Notebook and does not use or require Jupyter or any other configuration in order to work.',
     {
       uri: z
         .string()
@@ -36,7 +36,7 @@ export function RegisterToolCreateIDLNotebook(
             content: z
               .string()
               .describe(
-                'The content of the notebook cell as a single-line string separated by new line chatacters'
+                'The content of the notebook cell as a single-line string separated by new line characters'
               ),
           })
         )
