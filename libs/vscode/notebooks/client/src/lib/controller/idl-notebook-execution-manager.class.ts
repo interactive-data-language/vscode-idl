@@ -355,6 +355,9 @@ export class IDLNotebookExecutionManager {
        * Clean things up and get our !magic system variable
        */
       await this.evaluate(commands.join(' & '));
+
+      // reset the call stack
+      this.resetCallStack();
     }
 
     // remove listener
@@ -731,6 +734,13 @@ export class IDLNotebookExecutionManager {
     if (!this.isStarted()) {
       throw new Error('Failed to start IDL');
     }
+  }
+
+  /**
+   * Resets information about the call stack so that we are always fresh
+   */
+  async resetCallStack() {
+    await this._runtime.resetCallStack();
   }
 
   /**

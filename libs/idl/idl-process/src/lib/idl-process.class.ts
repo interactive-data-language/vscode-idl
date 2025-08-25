@@ -240,6 +240,20 @@ export class IDLProcess extends EventEmitter {
   }
 
   /**
+   * Resets information about the call stack so that we are always fresh
+   */
+  async resetCallStack() {
+    /**
+     * If machine, forget the last place we stopped to trigger a new stop as unexpected
+     */
+    if (this.isIDLMachine()) {
+      this._machine.lastStop = undefined;
+    } else {
+      this.idlInfo = copy(DEFAULT_IDL_INFO);
+    }
+  }
+
+  /**
    * Wraps emitting standard output to make sure all checks happen in one place
    */
   sendOutput(data: any) {
