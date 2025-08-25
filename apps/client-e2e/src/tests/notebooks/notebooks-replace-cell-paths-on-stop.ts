@@ -5,6 +5,7 @@ import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 import { CompareNotebookJSONOutputs } from './helpers/compare-notebook-json-outputs';
 
@@ -24,13 +25,16 @@ export const NotebooksReplaceCellPathsOnStop: RunnerFunction = async (init) => {
   const nb = await OpenNotebookInVSCode(nbUri, true);
 
   // short pause to parse
-  await Sleep(500);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // run all cells
   await vscode.commands.executeCommand(VSCODE_COMMANDS.NOTEBOOK_RUN_ALL);
 
   // save to disk
   await nb.save();
+
+  // wait
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
 
   // compare outputs
   await CompareNotebookJSONOutputs(expectedUri, nbUri);
