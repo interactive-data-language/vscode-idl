@@ -3,6 +3,7 @@ import {
   IDL_ANY_TYPE,
   IDL_INT_TYPE,
   IDL_LONG_TYPE,
+  IDL_LONG64_TYPE,
   IDL_NUMBER_TYPE,
   IDL_STRING_TYPE,
   ParseIDLType,
@@ -428,6 +429,20 @@ export const STRUCTURE_OVERRIDE: IStructureOverride = {
   },
   ipm: {
     display: 'ipm',
+  },
+  envitime: {
+    display: 'ENVITime',
+    properties: {
+      acquisition: {
+        type: IDL_STRING_TYPE,
+      },
+      unix_milliseconds: {
+        type: IDL_LONG64_TYPE,
+      },
+      unix_seconds: {
+        type: IDL_LONG64_TYPE,
+      },
+    },
   },
   envivector: {
     display: 'ENVIVector',
