@@ -1,8 +1,10 @@
 import { EXAMPLE_NOTEBOOKS, GetExtensionPath } from '@idl/idl/files';
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_LOGGER, LogCommandError } from '@idl/vscode/logger';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { existsSync, mkdirSync, rmSync } from 'fs';
 import { cp } from 'fs/promises';
 import { join } from 'path';
@@ -26,6 +28,11 @@ export function RegisterIDLTutorialsCommands(ctx: ExtensionContext) {
           if (!path) {
             return;
           }
+
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
+          });
+
           // make folder if it doesnt exist
           if (!existsSync(EXAMPLE_NOTEBOOKS)) {
             mkdirSync(EXAMPLE_NOTEBOOKS, { recursive: true });
@@ -65,6 +72,10 @@ export function RegisterIDLTutorialsCommands(ctx: ExtensionContext) {
       IDL_COMMANDS.TUTORIALS.RESET_TUTORIALS,
       async () => {
         try {
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.TUTORIALS.RESET_TUTORIALS,
+          });
+
           // make folder if it doesnt exist
           if (existsSync(EXAMPLE_NOTEBOOKS)) {
             rmSync(EXAMPLE_NOTEBOOKS, { recursive: true });
