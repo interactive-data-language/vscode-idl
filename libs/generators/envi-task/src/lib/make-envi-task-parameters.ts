@@ -100,7 +100,7 @@ export function MakeENVITaskParameters(
         /** First pass at parameter */
         const paired: ENVITaskParameter<ENVITaskSchema33> = {
           name: addName,
-          display_name: addName,
+          display_name: GetDisplayName(addName),
           description: 'A reference to the ENVIRaster that is generated',
           type: 'ENVIRaster',
           required: true,
@@ -122,7 +122,7 @@ export function MakeENVITaskParameters(
         /** First pass at parameter */
         const paired: ENVITaskParameter<ENVITaskSchema33> = {
           name: addName,
-          display_name: addName,
+          display_name: GetDisplayName(addName),
           description: 'A reference to the ENVIVector that is generated',
           type: 'ENVIVector',
           required: true,
