@@ -15,8 +15,10 @@ export interface IDetailedPosition extends IPosition {
 
 /** Basic token with no closing statement */
 export type BasicToken = 0;
+
 /* Start of a multi-part token */
 export type StartToken = 1;
+
 /** End of a multi-part token */
 export type EndToken = 2;
 
