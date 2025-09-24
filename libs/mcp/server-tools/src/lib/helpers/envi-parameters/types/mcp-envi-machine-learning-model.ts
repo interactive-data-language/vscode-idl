@@ -3,7 +3,7 @@ import { z } from 'zod';
 /**
  * Returns an ENVI Machine Learning Model parameter
  */
-export function ENVIMachineLearningModel(description: string) {
+export function MCPENVIMachineLearningModel(description: string) {
   return z.object({
     factory: z
       .literal('MachineLearningModel')

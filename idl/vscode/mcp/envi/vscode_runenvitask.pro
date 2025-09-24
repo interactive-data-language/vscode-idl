@@ -8,12 +8,12 @@
 ;-
 pro vscode_runENVITask, taskJSON
   compile_opt idl2, hidden
-  ; on_error, 2
+  on_error, 2
 
   ; get the current session of ENVI
   e = envi(/current)
   if (e eq !null) then begin
-    vscode_reportENVIFailure, 'envi-not-started', 'ENVI has not started yet and should be. If ENVI was started, you may need to reset your IDL session'
+    vscode_reportENVIFailure, /machine, 'envi-not-started', 'ENVI has not started yet and should be. If ENVI was started, you may need to reset your IDL session'
     return
   endif
 
@@ -25,7 +25,7 @@ pro vscode_runENVITask, taskJSON
 
   ; check for problem
   if keyword_set(err) then begin
-    vscode_reportENVIFailure, 'task-error', err
+    vscode_reportENVIFailure, /machine, 'task-error', err
     return
   endif
 
@@ -35,7 +35,7 @@ pro vscode_runENVITask, taskJSON
 
     ; check for problem
     if keyword_set(err) then begin
-      vscode_reportENVIFailure, 'task-param-error', err
+      vscode_reportENVIFailure, /machine, 'task-param-error', err
       return
     endif
 
@@ -46,7 +46,7 @@ pro vscode_runENVITask, taskJSON
     if (err ne 0) then begin
       catch, /cancel
       help, /last_message
-      vscode_reportENVIFailure, 'task-param-error', err
+      vscode_reportENVIFailure, /machine, 'task-param-error', err
       return
     endif
 
@@ -100,7 +100,7 @@ pro vscode_runENVITask, taskJSON
 
   ; check for problem
   if keyword_set(err) then begin
-    vscode_reportENVIFailure, 'task-execute-error', err
+    vscode_reportENVIFailure, /machine, 'task-execute-error', err
     return
   endif
 
@@ -111,7 +111,7 @@ pro vscode_runENVITask, taskJSON
   if (err ne 0) then begin
     catch, /cancel
     help, /last_message
-    vscode_reportENVIFailure, 'task-execute-error', err
+    vscode_reportENVIFailure, /machine, 'task-execute-error', err
     return
   endif
 
@@ -136,7 +136,7 @@ pro vscode_runENVITask, taskJSON
   endforeach
 
   ; report that we win!
-  vscode_reportENVISuccess, outputParameters
+  vscode_reportENVISuccess, /machine, outputParameters
 end
 
 compile_opt idl2

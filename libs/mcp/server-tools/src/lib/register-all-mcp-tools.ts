@@ -6,6 +6,7 @@ import { RegisterToolCreateIDLNotebook } from './tools/register-tool-create-idl-
 import { RegisterToolExecuteIDLCode } from './tools/register-tool-execute-idl-code';
 import { RegisterToolExecuteIDLFile } from './tools/register-tool-execute-idl-file';
 import { RegisterToolOpenInENVI } from './tools/register-tool-open-in-envi';
+import { RegisterToolQueryDataset } from './tools/register-tool-query-dataset';
 import { RegisterToolStartENVI } from './tools/register-tool-start-envi';
 import { RegisterToolStartIDL } from './tools/register-tool-start-idl';
 
@@ -38,6 +39,7 @@ export function RegisterAllMCPTools(messenger: VSCodeLanguageServerMessenger) {
   RegisterToolExecuteIDLCode(messenger);
   RegisterToolExecuteIDLFile(messenger);
   RegisterToolOpenInENVI(messenger);
+  RegisterToolQueryDataset(messenger);
   RegisterToolStartENVI(messenger);
   RegisterToolStartIDL(messenger);
 

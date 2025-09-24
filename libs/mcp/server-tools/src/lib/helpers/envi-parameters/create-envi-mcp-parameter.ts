@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { MCPENVICoordSys } from './types/mcp-envi-coord-sys';
 import { MCPENVIDeepLearningONNXModel } from './types/mcp-envi-deep-learning-onnx-model';
 import { MCPENVIGeoJSON } from './types/mcp-envi-geojson';
-import { ENVIMachineLearningModel } from './types/mcp-envi-machine-learning-model';
+import { MCPENVIMachineLearningModel } from './types/mcp-envi-machine-learning-model';
 import { MCPENVIRaster } from './types/mcp-envi-raster';
 import { MCPENVIRasterSeries } from './types/mcp-envi-raster-series';
 import { MCPENVIROI } from './types/mcp-envi-roi';
@@ -71,7 +71,7 @@ export function CreateENVIMCPParameter(
      * Machine Learning model
      */
     case IDLTypeHelper.isType(type, 'envimachinelearningmodel'):
-      return ENVIMachineLearningModel(docs);
+      return MCPENVIMachineLearningModel(docs);
 
     /**
      * Raster

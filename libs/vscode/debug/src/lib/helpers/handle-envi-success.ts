@@ -1,22 +1,11 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IENVISuccess } from '@idl/types/vscode-debug';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { OutputEvent } from '@vscode/debugadapter';
 import * as vscode from 'vscode';
 
 import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';
-
-/** Parameters from ENVI report */
-interface IHandleENVISuccess {
-  /** Full reason why error */
-  error?: string;
-  /** Success response */
-  payload?: { [key: string]: any };
-  /** Short reason why error */
-  reason?: string;
-  /** If we succeeded or not */
-  succeeded: boolean;
-}
 
 /**
  * Checks an ENVI result for our success message from ENVI
@@ -25,7 +14,7 @@ interface IHandleENVISuccess {
  */
 export async function HandleENVISuccess(
   resOrig: string
-): Promise<IHandleENVISuccess> {
+): Promise<IENVISuccess> {
   // remove IDL print statements
   const res = CleanIDLOutput(resOrig, true, true);
 
@@ -34,7 +23,7 @@ export async function HandleENVISuccess(
   const sub = res.substring(pos);
 
   // parse the text
-  const parsed: IHandleENVISuccess = JSON.parse(sub);
+  const parsed: IENVISuccess = JSON.parse(sub);
 
   // check if we failed
   if (!parsed.succeeded) {

@@ -18,6 +18,7 @@ import { RunMCPCreateIDLNotebook } from './tools/run-mcp-create-idl-notebooks';
 import { RunMCPExecuteIDLCode } from './tools/run-mcp-execute-idl-code';
 import { RunMCPExecuteIDLFile } from './tools/run-mcp-execute-idl-file';
 import { RunMCPOpenInENVI } from './tools/run-mcp-open-in-envi';
+import { RunMCPQueryDataset } from './tools/run-mcp-query-dataset';
 import { RunMCPRunENVITask } from './tools/run-mcp-run-envi-task';
 import { RunMCPStartENVI } from './tools/run-mcp-start-envi';
 import { RunMCPStartIDL } from './tools/run-mcp-start-idl';
@@ -38,6 +39,7 @@ export const MCP_TOOL_LOOKUP: {
   'execute-idl-code': RunMCPExecuteIDLCode,
   'execute-idl-file': RunMCPExecuteIDLFile,
   'open-in-envi': RunMCPOpenInENVI,
+  'query-dataset': RunMCPQueryDataset,
   'run-envi-task': RunMCPRunENVITask,
   'start-envi': RunMCPStartENVI,
   'start-idl': RunMCPStartIDL,

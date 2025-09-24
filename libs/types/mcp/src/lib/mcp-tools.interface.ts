@@ -93,6 +93,29 @@ export interface MCPToolParams_OpenInENVI {
 export type MCPToolResponse_OpenInENVI = IMCPTool_BaseResponse;
 
 /**
+ * Message when querying a dataset for more information
+ */
+export type MCPTool_QueryDataset = 'query-dataset';
+
+/**
+ * Parameters for opening an image in ENVI
+ */
+export interface MCPToolParams_QueryDataset {
+  /**
+   * Dehydrated form of the dataset we want to query
+   */
+  dataset: { [key: string]: any };
+}
+
+/**
+ * Response for opening an image in ENVI
+ */
+export interface MCPToolResponse_QueryDataset extends IMCPTool_BaseResponse {
+  /** Information about the dataset that we return to the agent */
+  info: { [key: string]: any };
+}
+
+/**
  * Message when query what tasks ENVI can run
  */
 export type MCPTool_QueryENVITasks = 'query-envi-tasks';
@@ -175,6 +198,7 @@ export type MCPTools =
   | MCPTool_ExecuteIDLCode
   | MCPTool_ExecuteIDLFile
   | MCPTool_OpenInENVI
+  | MCPTool_QueryDataset
   | MCPTool_QueryENVITaskParmaeters
   | MCPTool_QueryENVITasks
   | MCPTool_RunENVITask
@@ -193,6 +217,8 @@ export type MCPToolParams<T extends MCPTools> =
     ? MCPToolParams_ExecuteIDLFile
     : T extends MCPTool_OpenInENVI
     ? MCPToolParams_OpenInENVI
+    : T extends MCPTool_QueryDataset
+    ? MCPToolParams_QueryDataset
     : T extends MCPTool_RunENVITask
     ? MCPToolParams_RunENVITask
     : T extends MCPTool_StartENVI
@@ -213,6 +239,8 @@ export type MCPToolResponse<T extends MCPTools> =
     ? MCPToolResponse_ExecuteIDLFile
     : T extends MCPTool_OpenInENVI
     ? MCPToolResponse_OpenInENVI
+    : T extends MCPTool_QueryDataset
+    ? MCPToolResponse_QueryDataset
     : T extends MCPTool_RunENVITask
     ? MCPToolResponse_RunENVITask
     : T extends MCPTool_StartENVI
@@ -233,6 +261,8 @@ interface IMCPToolLookup {
   EXECUTE_IDL_FILE: MCPTool_ExecuteIDLFile;
   /** Open a dataset in ENVI */
   OPEN_IN_ENVI: MCPTool_OpenInENVI;
+  /** Get additional information about a dataset */
+  QUERY_DATASET: MCPTool_QueryDataset;
   /** Query parameters for tasks ENVI has */
   QUERY_ENVI_TASK_PARAMETERS: MCPTool_QueryENVITaskParmaeters;
   /** Query ENVI's tasks */
@@ -253,6 +283,7 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   EXECUTE_IDL_CODE: 'execute-idl-code',
   EXECUTE_IDL_FILE: 'execute-idl-file',
   OPEN_IN_ENVI: 'open-in-envi',
+  QUERY_DATASET: 'query-dataset',
   QUERY_ENVI_TASKS: 'query-envi-tasks',
   QUERY_ENVI_TASK_PARAMETERS: 'query-envi-task-parameters',
   RUN_ENVI_TASK: 'run-envi-task',

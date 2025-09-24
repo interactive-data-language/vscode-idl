@@ -494,6 +494,7 @@ export const EN: ITranslation = {
     },
     openerText: 'ENVI should attempt to open the image shortly, please wait.',
     openerTitle: 'ENVI File Opener',
+    queryText: 'Querying dataset with ENVI',
     task: {
       enviNotStarted: 'ENVI has not been started yet or is in a bad state.',
       executeError:
