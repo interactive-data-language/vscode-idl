@@ -20,6 +20,8 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 ### Unreleased
 
+Change the way that we detect the types from ENVI and IDL tasks in your code. If we don't know which ENVI or IDL task you are using, we set the type as a generic ENVITask or IDLTask. This makes sure you still get some type of auto-complete and hover help for a better developer experience.
+
 Fixed an issue with task generation not correctly adjusting the names of paired parameters.
 
 ## 5.1.0 - August 2025
