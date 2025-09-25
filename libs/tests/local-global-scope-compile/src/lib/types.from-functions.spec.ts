@@ -196,11 +196,9 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'idlmytasktask',
-                  display: 'IDLTask<mytask>',
-                  args: [
-                    [{ name: 'mytask', display: 'mytask', args: [], meta: {} }],
-                  ],
+                  name: 'idltask',
+                  display: 'IDLTask<any>',
+                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
                   meta: {},
                 },
               ],
@@ -408,11 +406,9 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'idlmytasktask',
-                  display: 'IDLTask<mytask>',
-                  args: [
-                    [{ name: 'mytask', display: 'mytask', args: [], meta: {} }],
-                  ],
+                  name: 'idltask',
+                  display: 'IDLTask<any>',
+                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
                   meta: {},
                 },
               ],
@@ -431,11 +427,9 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'idlmytasktask',
-                  display: 'IDLTask<mytask>',
-                  args: [
-                    [{ name: 'mytask', display: 'mytask', args: [], meta: {} }],
-                  ],
+                  name: 'idltask',
+                  display: 'IDLTask<any>',
+                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
                   meta: {},
                 },
               ],

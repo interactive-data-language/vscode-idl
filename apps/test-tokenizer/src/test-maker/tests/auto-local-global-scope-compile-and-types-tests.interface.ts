@@ -1356,6 +1356,21 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
       ],
     },
     {
+      suiteName: `Verify type regression tests`,
+      fileName: `tasks.unknwown-tasks.spec.ts`,
+      tests: [
+        {
+          name: `for task parsing unknown tasks`,
+          code: [
+            `compile_opt idl3`,
+            `task1 = ENVITask('fooooooo')`,
+            `task2 = IDLTask('barrrrrr')`,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
       suiteName: `Types from output arguments`,
       fileName: `types.from-args.spec.ts`,
       tests: [

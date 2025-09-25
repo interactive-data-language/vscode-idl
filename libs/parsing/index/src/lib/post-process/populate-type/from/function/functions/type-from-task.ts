@@ -70,11 +70,16 @@ export function TypeFromTask(
     }
   }
 
+  /** Sanitize task name */
+  if (taskName !== undefined) {
+    taskName = basename(taskName).replace(/\.task/i, '');
+  }
+
   /**
    * Do we have a task name?
    */
-  if (taskName !== undefined) {
-    return `${type}${basename(taskName).replace(/\.task/i, '')}Task`;
+  if (taskName) {
+    return `${type}${taskName}Task`;
   } else {
     // if not, resort to function call/base class
     return `${type}Task`;

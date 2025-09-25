@@ -90,7 +90,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
         },
         {
           name: 'output_raster',
-          display_name: 'output_raster',
+          display_name: 'Output Raster',
           description: 'A reference to the ENVIRaster that is generated',
           type: 'ENVIRaster',
           required: true,
@@ -108,7 +108,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
         },
         {
           name: 'output_vector',
-          display_name: 'output_vector',
+          display_name: 'Output Vector',
           description: 'A reference to the ENVIVector that is generated',
           type: 'ENVIVector',
           required: true,

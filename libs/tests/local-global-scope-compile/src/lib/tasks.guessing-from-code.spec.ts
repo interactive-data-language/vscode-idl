@@ -206,18 +206,9 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'idlbuildmosaicrastertask',
-                display: 'IDLTask<buildmosaicraster>',
-                args: [
-                  [
-                    {
-                      name: 'buildmosaicraster',
-                      display: 'buildmosaicraster',
-                      args: [],
-                      meta: {},
-                    },
-                  ],
-                ],
+                name: 'idltask',
+                display: 'IDLTask<any>',
+                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
                 meta: {},
               },
             ],
@@ -236,18 +227,9 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'idlbuildmosaicrastertask',
-                display: 'IDLTask<buildmosaicraster>',
-                args: [
-                  [
-                    {
-                      name: 'buildmosaicraster',
-                      display: 'buildmosaicraster',
-                      args: [],
-                      meta: {},
-                    },
-                  ],
-                ],
+                name: 'idltask',
+                display: 'IDLTask<any>',
+                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
                 meta: {},
               },
             ],
@@ -266,18 +248,9 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'idlbuildmosaicrastertask',
-                display: 'IDLTask<buildmosaicraster>',
-                args: [
-                  [
-                    {
-                      name: 'buildmosaicraster',
-                      display: 'buildmosaicraster',
-                      args: [],
-                      meta: {},
-                    },
-                  ],
-                ],
+                name: 'idltask',
+                display: 'IDLTask<any>',
+                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
                 meta: {},
               },
             ],
