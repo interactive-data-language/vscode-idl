@@ -42,11 +42,9 @@ export async function RunMCPQueryDataset(
     { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false }
   );
 
-  console.log(res);
+  // TODO: double check IDL finished successfully
 
   const success = GetLastENVISuccessMessage();
-
-  console.log(success);
 
   return {
     success: success.succeeded,

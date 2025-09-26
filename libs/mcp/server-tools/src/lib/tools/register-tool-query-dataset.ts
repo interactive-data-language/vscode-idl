@@ -14,6 +14,7 @@ import { MCPENVIROI } from '../helpers/envi-parameters/types/mcp-envi-roi';
 import { MCPENVISpectralLibrary } from '../helpers/envi-parameters/types/mcp-envi-spectral-library';
 import { MCPENVIVector } from '../helpers/envi-parameters/types/mcp-envi-vector';
 import { MCPToolRegistry } from '../mcp-tool-registry.class';
+import { DESCRIPTION } from './register-tool-query-dataset.interface';
 
 /**
  * Registers a tool that allows an agent to get additional information about a dataset
@@ -23,7 +24,7 @@ export function RegisterToolQueryDataset(
 ) {
   MCPToolRegistry.tool(
     MCP_TOOL_LOOKUP.QUERY_DATASET,
-    'Using ENVI, returns information about a variety of datasets. Supports nearly any imagery or remote sensing format (ENVI, TIFF, NITF, and many more), vector, ENVI ROIs, spectral libraries, ONNX models configured for ENVI, and Machine Learning models created with ENVI.',
+    DESCRIPTION,
     {
       dataset: z
         .union([
