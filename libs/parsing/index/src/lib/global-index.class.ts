@@ -5,6 +5,7 @@ import {
 } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
+  CUSTOM_TYPE_DISPLAY_NAMES,
   GLOBAL_TOKEN_TYPES,
   GlobalTokens,
   GlobalTokenType,
@@ -22,7 +23,6 @@ import { SaveGlobalDisplayNames } from './helpers/save-global-display-names';
 import { IDL_INDEX_OPTIONS } from './idl-index.interface';
 import GlobToRegExp = require('glob-to-regexp');
 import { IsProblemDisabled } from '@idl/parser';
-import { CUSTOM_TYPE_DISPLAY_NAMES } from '@idl/parsing/types';
 import copy from 'fast-copy';
 
 import { ShouldExportItem } from './helpers/should-export-item';

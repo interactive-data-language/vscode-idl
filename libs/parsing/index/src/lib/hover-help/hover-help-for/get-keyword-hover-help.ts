@@ -5,7 +5,7 @@ import {
   KeywordToken,
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDLTypeHelper, ParseIDLType } from '@idl/parsing/types';
+import { IDLTypeHelper, ParseIDLType } from '@idl/parser';
 import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
 

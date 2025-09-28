@@ -4,7 +4,7 @@ import {
   StructurePropertyToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { ParseIDLType } from '@idl/parsing/types';
+import { ParseIDLType } from '@idl/parser';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_STRUCTURE_TYPE,

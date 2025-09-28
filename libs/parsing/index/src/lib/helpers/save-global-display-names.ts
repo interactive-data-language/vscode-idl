@@ -1,6 +1,9 @@
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
-import { CUSTOM_TYPE_DISPLAY_NAMES } from '@idl/parsing/types';
-import { GLOBAL_TOKEN_TYPES, GlobalTokens } from '@idl/types/idl-data-types';
+import {
+  CUSTOM_TYPE_DISPLAY_NAMES,
+  GLOBAL_TOKEN_TYPES,
+  GlobalTokens,
+} from '@idl/types/idl-data-types';
 
 /**
  * Adds any global tokens to our user display name lookup for global tokens

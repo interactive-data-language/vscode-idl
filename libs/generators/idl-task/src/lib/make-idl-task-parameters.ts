@@ -1,5 +1,5 @@
 import { GetDisplayName } from '@idl/generators/tasks-shared';
-import { IDLTypeHelper, SerializeIDLType } from '@idl/parsing/types';
+import { IDLTypeHelper, SerializeIDLType } from '@idl/parser';
 import {
   GlobalProcedureToken,
   IDL_TYPE_LOOKUP,

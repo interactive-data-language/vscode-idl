@@ -6,11 +6,7 @@ import {
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { BracketToken } from '@idl/tokenizer';
-import {
-  IDLTypeHelper,
-  ParseIDLType,
-  SerializeIDLType,
-} from '@idl/parsing/types';
+import { IDLTypeHelper, ParseIDLType, SerializeIDLType } from '@idl/parser';
 import {
   IDL_ARRAY_TYPE,
   IDL_TYPE_LOOKUP,

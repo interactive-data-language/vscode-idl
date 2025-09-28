@@ -1,5 +1,5 @@
 import { IDL_TRANSLATION } from '@idl/translation';
-import { SerializeIDLType } from '@idl/parsing/types';
+import { SerializeIDLType } from '@idl/parser';
 import {
   GlobalStructureToken,
   IGlobalIndexedToken,

@@ -1,11 +1,7 @@
 import { SortObject } from '@idl/shared/extension';
 import { CommentToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
-  ParseIDLType,
-  SerializeIDLType,
-  TYPE_DOCS_REGEX,
-} from '@idl/parsing/types';
+import { ParseIDLType, SerializeIDLType, TYPE_DOCS_REGEX } from '@idl/parser';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,

@@ -1,6 +1,6 @@
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { LogicalTernaryThenToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLTypeHelper } from '@idl/parsing/types';
+import { IDLTypeHelper } from '@idl/parser';
 import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/idl-data-types';
 import copy from 'fast-copy';
 

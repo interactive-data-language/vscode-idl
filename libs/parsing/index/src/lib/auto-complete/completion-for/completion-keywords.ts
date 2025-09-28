@@ -1,4 +1,5 @@
 import { AdjustCase } from '@idl/assembling/shared';
+import { IDLTypeHelper } from '@idl/parser';
 import {
   FindDirectBranchChildren,
   IParsed,
@@ -11,7 +12,6 @@ import {
   IKeywordCompletionOptions,
   KeywordCompletion,
 } from '@idl/types/auto-complete';
-import { IDLTypeHelper } from '@idl/parsing/types';
 import {
   GlobalIndexedRoutineToken,
   IDL_TYPE_LOOKUP,

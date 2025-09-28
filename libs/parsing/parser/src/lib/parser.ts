@@ -18,9 +18,9 @@ import copy from 'fast-copy';
 import { existsSync, readFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 
-import { CodeChecksum } from './code-checksum';
+import { CodeChecksum } from './helpers/code-checksum';
+import { ParserGetOutline } from './helpers/parser-get-outline';
 import { DEFAULT_PARSER_OPTIONS, IParserOptions } from './parser.interface';
-import { ParserGetOutline } from './parser-get-outline';
 
 // call a function from our validators so the code gets loaded and bundled
 ActivateDefaultSyntaxRules();

@@ -4,7 +4,7 @@ import {
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { OperatorPointerToken } from '@idl/tokenizer';
-import { IDLTypeHelper } from '@idl/parsing/types';
+import { IDLTypeHelper } from '@idl/parser';
 import {
   IDL_ANY_TYPE,
   IDL_TYPE_LOOKUP,

@@ -2,11 +2,7 @@ import {
   IParsed,
   SyntaxProblemWithTranslation,
 } from '@idl/parsing/syntax-tree';
-import {
-  IDLTypeHelper,
-  ParseIDLType,
-  SerializeIDLType,
-} from '@idl/parsing/types';
+import { IDLTypeHelper, ParseIDLType, SerializeIDLType } from '@idl/parser';
 import {
   IDL_ANY_TYPE,
   IDL_ARRAY_TYPE,

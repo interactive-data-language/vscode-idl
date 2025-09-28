@@ -1,6 +1,6 @@
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLTypeHelper, ParseIDLType } from '@idl/parsing/types';
+import { IDLTypeHelper, ParseIDLType } from '@idl/parser';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalRoutineToken,

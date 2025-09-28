@@ -1,7 +1,7 @@
 import { GetPropertyName, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { AccessPropertyToken, StructurePropertyToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDLTypeHelper } from '@idl/parsing/types';
+import { IDLTypeHelper } from '@idl/parser';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,

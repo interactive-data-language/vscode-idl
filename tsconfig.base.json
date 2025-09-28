@@ -75,7 +75,6 @@
       "@idl/parsing/syntax-validators": [
         "libs/parsing/syntax-validators/src/index.ts"
       ],
-      "@idl/parsing/types": ["libs/parsing/types/src/index.ts"],
       "@idl/schemas/idl.json": ["libs/schemas/idl.json/src/index.ts"],
       "@idl/schemas/tasks": ["libs/schemas/tasks/src/index.ts"],
       "@idl/shared/extension": ["libs/shared/extension/src/index.ts"],

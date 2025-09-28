@@ -3,7 +3,7 @@ import {
   IDLTypeHelper,
   SerializeIDLType,
   TASK_REGEX,
-} from '@idl/parsing/types';
+} from '@idl/parser';
 import { IDL_TYPE_LOOKUP, IFunctionMetadata } from '@idl/types/idl-data-types';
 
 import { TaskFunctionName } from '../../../helpers/task-function-name';

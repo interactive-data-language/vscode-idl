@@ -8,7 +8,7 @@ import {
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { RoutineFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLTypeHelper } from '@idl/parsing/types';
+import { IDLTypeHelper } from '@idl/parser';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionMethodToken,

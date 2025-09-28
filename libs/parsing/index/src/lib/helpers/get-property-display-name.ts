@@ -1,4 +1,4 @@
-import { SerializeIDLType } from '@idl/parsing/types';
+import { SerializeIDLType } from '@idl/parser';
 import { IDLDataType } from '@idl/types/idl-data-types';
 
 /**

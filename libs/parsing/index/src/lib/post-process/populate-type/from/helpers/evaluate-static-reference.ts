@@ -6,7 +6,7 @@ import {
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, VariableToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { ParseIDLType } from '@idl/parsing/types';
+import { ParseIDLType } from '@idl/parser';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 
 import { IDLIndex } from '../../../../idl-index.class';

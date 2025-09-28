@@ -8,7 +8,7 @@ import {
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { ParseIDLType } from '@idl/parsing/types';
+import { ParseIDLType } from '@idl/parser';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,

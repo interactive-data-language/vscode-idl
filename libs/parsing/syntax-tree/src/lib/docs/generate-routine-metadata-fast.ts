@@ -1,4 +1,4 @@
-import { ParseIDLType } from '@idl/parsing/types';
+import { ParseIDLType } from '@idl/parser';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,

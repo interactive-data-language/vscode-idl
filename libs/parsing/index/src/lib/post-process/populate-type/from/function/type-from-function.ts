@@ -1,6 +1,6 @@
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { CallFunctionToken } from '@idl/tokenizer';
-import { ParseIDLType } from '@idl/parsing/types';
+import { ParseIDLType } from '@idl/parser';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,

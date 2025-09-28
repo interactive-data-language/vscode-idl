@@ -4,7 +4,7 @@ import {
   GetVariableTokenDef,
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLTypeHelper } from '@idl/parsing/types';
+import { IDLTypeHelper } from '@idl/parser';
 import { IBaseIndexedToken, IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
 import { GetTokenDefResponse } from '@idl/workers/parsing';
 import { Position } from 'vscode-languageserver';

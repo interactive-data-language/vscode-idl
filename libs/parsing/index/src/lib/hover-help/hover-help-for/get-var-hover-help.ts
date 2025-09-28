@@ -5,7 +5,7 @@ import {
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { TokenName } from '@idl/tokenizer';
-import { IDLTypeHelper } from '@idl/parsing/types';
+import { IDLTypeHelper } from '@idl/parser';
 
 /**
  * Returns hover help for variables

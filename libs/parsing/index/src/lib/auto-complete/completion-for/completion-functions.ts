@@ -1,5 +1,6 @@
 import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
+import { TASK_REGEX } from '@idl/parser';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TaskFunctionName } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -7,7 +8,6 @@ import {
   FunctionCompletion,
   IFunctionCompletionOptions,
 } from '@idl/types/auto-complete';
-import { TASK_REGEX } from '@idl/parsing/types';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 import { Command, CompletionItemKind } from 'vscode-languageserver';
 

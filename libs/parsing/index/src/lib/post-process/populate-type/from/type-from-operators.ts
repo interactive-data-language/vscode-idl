@@ -1,5 +1,5 @@
 import { IParsed, ISplitTreeOnOperators } from '@idl/parsing/syntax-tree';
-import { IDLTypeHelper, ParseIDLType } from '@idl/parsing/types';
+import { IDLTypeHelper, ParseIDLType } from '@idl/parser';
 import {
   IDL_ANY_TYPE,
   IDL_BOOLEAN_TYPE,
