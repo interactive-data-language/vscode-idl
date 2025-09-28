@@ -7,7 +7,8 @@ import {
   FunctionCompletion,
   IFunctionCompletionOptions,
 } from '@idl/types/auto-complete';
-import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/core';
+import { TASK_REGEX } from '@idl/parsing/types';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 import { Command, CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';

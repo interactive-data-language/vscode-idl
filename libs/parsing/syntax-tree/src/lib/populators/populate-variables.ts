@@ -12,7 +12,7 @@ import {
   GlobalRoutineToken,
   IDL_ANY_TYPE,
   IParameterOrPropertyDetails,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import { IBasicBranch, IBranch, TreeToken } from '../branches.interface';
 import { IDL_DOCS_HEADERS } from '../docs/docs.interface';

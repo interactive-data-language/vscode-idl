@@ -6,7 +6,10 @@ import {
   CallProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { GlobalIndexedRoutineToken, IParameterLookup } from '@idl/types/core';
+import {
+  GlobalIndexedRoutineToken,
+  IParameterLookup,
+} from '@idl/types/idl-data-types';
 
 /**
  * Tokens that represent calling a routine

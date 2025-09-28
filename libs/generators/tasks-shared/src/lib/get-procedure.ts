@@ -3,7 +3,7 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalProcedureToken,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 /**
  * Given a filename and a parsed file, attempts to find a matching procedure

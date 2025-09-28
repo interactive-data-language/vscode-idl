@@ -23,7 +23,7 @@ import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GlobalTokens,
   GlobalTokenType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import {
   DEFAULT_DISABLED_PROBLEMS,
   IDisabledProblems,

@@ -7,7 +7,7 @@ import {
   ISpecialProcedureCompletionOptions,
   SpecialProcedureCompletion,
 } from '@idl/types/auto-complete';
-import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { EvaluateToken } from '../../post-process/populate-type/evaluate/evaluate-token';

@@ -281,6 +281,11 @@ export function BuildSyntaxTree(
     full,
   });
 
+  // if we are doing type parsing, dont do anything else
+  if (parsed.type === 'types') {
+    return;
+  }
+
   // set tree index
   PopulateIndex(parsed.tree);
 

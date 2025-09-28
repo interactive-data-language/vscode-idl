@@ -11,6 +11,7 @@ import {
   FAST_FIND_TOKEN_OPTIONS,
   IFindTokensOptions,
   Tokenizer,
+  TYPE_FIND_TOKEN_OPTIONS,
 } from '@idl/tokenizer';
 import { DEFAULT_DISABLED_PROBLEMS } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
@@ -39,6 +40,11 @@ export function ParserTokenize(
 
   // determine how to set our options
   switch (true) {
+    // not full parse
+    case tokenized.type === 'types':
+      tokenOptions = TYPE_FIND_TOKEN_OPTIONS;
+      break;
+
     // handle def files
     case tokenized.type === 'def':
       // tokenOptions = DEF_FIND_TOKEN_OPTIONS;
@@ -152,7 +158,9 @@ export function Parser(
   }
 
   // get code outline
-  ParserGetOutline(tokenized);
+  if (options.type !== 'types') {
+    ParserGetOutline(tokenized);
+  }
 
   return tokenized;
 }

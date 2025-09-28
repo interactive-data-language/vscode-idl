@@ -9,7 +9,7 @@ import {
   IDL_ANY_TYPE,
   IGlobalIndexedToken,
   IPropertyLookup,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { PositionRange } from '@idl/types/tokenizer';
 
 import { TreeToken } from '../branches.interface';

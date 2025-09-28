@@ -6,7 +6,7 @@ import {
   CallProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { IDL_ANY_TYPE } from '@idl/types/core';
+import { IDL_ANY_TYPE } from '@idl/types/idl-data-types';
 
 import { GetRoutine } from '../../../helpers/get-routine';
 import { GetSplit } from '../helpers/get-split';

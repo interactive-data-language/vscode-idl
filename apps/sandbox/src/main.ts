@@ -1,73 +1,26 @@
-import { IDLDocsExporter } from '@idl/docs/exporter';
-import { FindFiles, GetExtensionPath } from '@idl/idl/files';
-import { LogManager } from '@idl/logger';
-import { IDLIndex } from '@idl/parsing/index';
-import { performance } from 'perf_hooks';
+import { CancellationToken } from '@idl/cancellation-tokens';
+import { Parser } from '@idl/parser';
 
-/** Get the folder with code in it */
-// const codeDir = GetExtensionPath('idl/vscode');
-const codeDir = 'C:\\Users\\znorman\\Documents\\idl\\EC-AnalystToolbox';
+const type = '0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15';
 
-/** Specify the folder that we export to */
-const outDir = GetExtensionPath('extension/docs');
+console.log('Testing');
 
-/** Glob patterns we match against */
-const matches: string[] = [];
+const split: string[] = [];
+// SplitType(type, split);
 
-/** Glob patterns we exclude files from */
-const exclude: string[] = [
-  // '**/idl/vscode/notebooks/envi/helpers/*',
-  // '**/idl/vscode/notebooks/idlnotebook/*',
-];
+const parsed = Parser(type, new CancellationToken(), {
+  type: 'types',
+  full: false,
+});
 
-/** Do we export everything? */
-const exportEverything = false;
+console.log(parsed.tree);
 
-/**
- * Main routine
- */
-async function main() {
-  // create our index
-  const index = new IDLIndex(
-    new LogManager({
-      alert: () => {
-        // do nothing
-      },
-    }),
-    0,
-    true
-  );
+// const parsed = ParseIDLType(type);
 
-  const files = await FindFiles([codeDir]);
+// const serialize = SerializeIDLType(parsed);
 
-  /** Index the folder */
-  await index.indexWorkspaceFiles(files, [codeDir], false);
+// const parsed2 = ParseIDLType(serialize);
 
-  /** Export */
-  const t0 = performance.now();
-  console.log('Exporting....');
-  await IDLDocsExporter(
-    index,
-    codeDir,
-    outDir,
-    matches,
-    exclude,
-    exportEverything
-  );
-  console.log(`  Exported in ${performance.now() - t0} ms`);
-}
-
-main()
-  .then(
-    () => {
-      process.exit();
-    },
-    (err) => {
-      console.log(err);
-      process.exit(1);
-    }
-  )
-  .catch((err) => {
-    console.log(err);
-    process.exit(1);
-  });
+// console.log(StringifyDataForLog('', parsed));
+// console.log(StringifyDataForLog('', serialize));
+// console.log(StringifyDataForLog('', parsed2));

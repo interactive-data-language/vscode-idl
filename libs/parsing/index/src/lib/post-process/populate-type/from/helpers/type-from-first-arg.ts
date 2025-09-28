@@ -4,7 +4,7 @@ import {
   CallProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { IDL_TYPE_LOOKUP } from '@idl/types/core';
+import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
 
 import { IDLIndex } from '../../../../idl-index.class';
 import { EvaluateVariableOrToken } from './evaluate-variable-or-token';

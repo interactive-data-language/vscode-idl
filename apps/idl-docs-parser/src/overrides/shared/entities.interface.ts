@@ -1,4 +1,4 @@
-import { ParseIDLType } from '@idl/types/core';
+import { ParseIDLType } from '@idl/types/idl-data-types';
 
 const ENTITIES: string[] = [
   'MultiPoint',

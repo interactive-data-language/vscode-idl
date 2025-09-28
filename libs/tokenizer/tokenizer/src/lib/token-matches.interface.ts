@@ -17,6 +17,7 @@ import {
   StructurePropertyToken,
   SystemVariableToken,
   TokenName,
+  TypeFunctionToken,
   UnknownToken,
   VariableToken,
 } from './tokens.interface';
@@ -45,6 +46,7 @@ import {
   StructureInheritanceMatches,
   StructurePropertyMatches,
 } from './tokens/defs/structure.interface';
+import { TypeFunctionMatches } from './tokens/defs/types.type-function.interface';
 import { UnknownMatches } from './tokens/defs/unknown.interface';
 import { VariableMatches } from './tokens/defs/variables.interface';
 
@@ -86,6 +88,8 @@ export type TokenStartMatches<T extends TokenName> =
     ? StructurePropertyMatches
     : T extends SystemVariableToken
     ? VariableMatches
+    : T extends TypeFunctionToken
+    ? TypeFunctionMatches
     : T extends VariableToken
     ? VariableMatches
     : T extends UnknownToken

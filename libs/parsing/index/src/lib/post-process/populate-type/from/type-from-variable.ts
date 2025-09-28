@@ -1,6 +1,6 @@
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { VariableToken } from '@idl/tokenizer';
-import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
+import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/idl-data-types';
 import copy from 'fast-copy';
 
 import { GetVariable } from '../../../helpers/get-variable';

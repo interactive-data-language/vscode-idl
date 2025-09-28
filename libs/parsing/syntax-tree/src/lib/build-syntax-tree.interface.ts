@@ -1,4 +1,4 @@
-import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/idl-data-types';
 import { SyntaxProblems } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';
 

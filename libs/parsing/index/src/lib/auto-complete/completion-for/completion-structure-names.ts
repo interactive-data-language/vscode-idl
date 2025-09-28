@@ -1,7 +1,7 @@
 import { AdjustCase, TransformCase } from '@idl/assembling/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { StructureNameCompletion } from '@idl/types/auto-complete';
-import { CUSTOM_TYPE_DISPLAY_NAMES } from '@idl/types/core';
+import { CUSTOM_TYPE_DISPLAY_NAMES } from '@idl/parsing/types';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';

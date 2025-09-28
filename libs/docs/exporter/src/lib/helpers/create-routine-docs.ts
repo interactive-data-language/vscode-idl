@@ -7,7 +7,10 @@ import {
   CreateRoutineSyntax,
   IDL_DOCS_HEADERS,
 } from '@idl/parsing/syntax-tree';
-import { GLOBAL_TOKEN_TYPES, GlobalRoutineToken } from '@idl/types/core';
+import {
+  GLOBAL_TOKEN_TYPES,
+  GlobalRoutineToken,
+} from '@idl/types/idl-data-types';
 
 import { CleanDocs } from './clean-docs';
 import { DocsForParameter } from './docs-for-parameter';

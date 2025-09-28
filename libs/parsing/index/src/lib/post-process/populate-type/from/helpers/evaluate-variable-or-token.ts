@@ -1,6 +1,6 @@
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
-import { IDLTypeHelper } from '@idl/types/core';
+import { IDLTypeHelper } from '@idl/parsing/types';
 
 import { IDLIndex } from '../../../../idl-index.class';
 import { EvaluateToken } from '../../evaluate/evaluate-token';
@@ -22,7 +22,7 @@ export function EvaluateVariableOrToken(
     case TOKEN_NAMES.VARIABLE: {
       const type = TypeFromVariable(index, parsed, token);
       if (!IDLTypeHelper.isAnyType(type)) {
-        return type[0].value ? type[0].value : type[0].display;
+        return type[0].value ? type[0].value[0] : type[0].display;
       }
       return undefined;
     }

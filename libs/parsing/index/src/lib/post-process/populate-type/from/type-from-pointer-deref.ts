@@ -4,12 +4,12 @@ import {
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { OperatorPointerToken } from '@idl/tokenizer';
+import { IDLTypeHelper } from '@idl/parsing/types';
 import {
   IDL_ANY_TYPE,
   IDL_TYPE_LOOKUP,
   IDLDataType,
-  IDLTypeHelper,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 

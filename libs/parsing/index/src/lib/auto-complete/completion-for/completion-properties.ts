@@ -2,14 +2,14 @@ import { TransformCase } from '@idl/assembling/shared';
 import { GetSortIndexForStrings } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IPropertyCompletionOptions } from '@idl/types/auto-complete';
+import { ParseIDLType } from '@idl/parsing/types';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,
   IDLDataType,
   IDLDataTypeBase,
   IDLTypes,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';

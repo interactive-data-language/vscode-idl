@@ -5,7 +5,7 @@ import {
   IDL_ANY_TYPE,
   IDLDataType,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import copy from 'fast-copy';
 
 import { GetMethod } from '../../../helpers/get-method';

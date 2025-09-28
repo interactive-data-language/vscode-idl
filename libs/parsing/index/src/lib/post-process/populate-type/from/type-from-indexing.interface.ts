@@ -1,4 +1,4 @@
-import { IDL_TYPE_LOOKUP } from '@idl/types/core';
+import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
 
 /**
  * Order of our types in appearance of priority

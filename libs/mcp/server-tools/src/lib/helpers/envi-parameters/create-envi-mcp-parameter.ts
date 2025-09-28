@@ -1,4 +1,5 @@
-import { IDL_TYPE_LOOKUP, IDLDataType, IDLTypeHelper } from '@idl/types/core';
+import { IDLTypeHelper } from '@idl/parsing/types';
+import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
 import { z } from 'zod';
 
 import { MCPENVICoordSys } from './types/mcp-envi-coord-sys';

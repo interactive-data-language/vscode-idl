@@ -7,7 +7,10 @@ import {
   TOKEN_NAMES,
   TokenName,
 } from '@idl/tokenizer';
-import { GLOBAL_TOKEN_TYPES, GlobalIndexedRoutineToken } from '@idl/types/core';
+import {
+  GLOBAL_TOKEN_TYPES,
+  GlobalIndexedRoutineToken,
+} from '@idl/types/idl-data-types';
 
 import { IDLIndex } from '../idl-index.class';
 import { GetGlobalsFromFunctionCall } from './get-globals-from-function-call';

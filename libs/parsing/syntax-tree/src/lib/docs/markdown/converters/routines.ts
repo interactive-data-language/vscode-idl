@@ -1,4 +1,4 @@
-import { SerializeIDLType } from '@idl/types/core';
+import { SerializeIDLType } from '@idl/parsing/types';
 
 import { IDL_DOCS_HEADERS } from '../../docs.interface';
 import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';

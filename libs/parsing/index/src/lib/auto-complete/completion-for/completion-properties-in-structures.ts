@@ -11,7 +11,7 @@ import {
   IPropertyInStructureCompletionOptions,
   PropertyInStructureCompletion,
 } from '@idl/types/auto-complete';
-import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
 import { IDLIndex } from '../../idl-index.class';

@@ -9,7 +9,7 @@ import {
   GlobalTokens,
   GlobalTokenType,
   IBaseIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';
 import {

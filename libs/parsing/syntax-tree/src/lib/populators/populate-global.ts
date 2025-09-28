@@ -8,6 +8,7 @@ import {
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { ParseIDLType } from '@idl/parsing/types';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
@@ -19,8 +20,7 @@ import {
   IFunctionMetadata,
   IGlobalIndexedToken,
   IRoutineMetadata,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import copy from 'fast-copy';
 
 import { IBranch } from '../branches.interface';

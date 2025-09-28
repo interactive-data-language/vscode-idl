@@ -2,14 +2,16 @@ import { SortObject } from '@idl/shared/extension';
 import { CommentToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
+  ParseIDLType,
+  SerializeIDLType,
+  TYPE_DOCS_REGEX,
+} from '@idl/parsing/types';
+import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   IParameterOrPropertyDetails,
   ParameterDirection,
-  ParseIDLType,
-  SerializeIDLType,
-  TYPE_DOCS_REGEX,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 import { ARG_KW_PROPERTY_TAG } from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';

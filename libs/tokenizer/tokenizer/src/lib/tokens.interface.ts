@@ -180,6 +180,12 @@ export type UnknownToken = 87;
 export type ExecutiveCommandToken = 88;
 /** Handling on_ioerror */
 export type ControlOnIoErrorToken = 89;
+/** A static type suck as "String" or "ENVIRaster" */
+export type TypeVariableToken = 90;
+/** Type function with arguments */
+export type TypeFunctionToken = 91;
+/** The "or" type operator */
+export type TypeOrOperatorToken = 92;
 
 /**
  * Union type of all basic tokens that do not recurse.
@@ -219,6 +225,8 @@ export type BasicTokenNames =
   | StructureInheritanceToken
   | SystemVariableToken
   | TextToken
+  | TypeOrOperatorToken
+  | TypeVariableToken
   | UnexpectedCloserToken
   | UnknownToken
   | VariableToken;
@@ -287,7 +295,8 @@ export type NonBasicTokenNames =
   | StructureNameToken
   | StructurePropertyToken
   | StructureToken
-  | ToDoToken;
+  | ToDoToken
+  | TypeFunctionToken;
 
 /**
  * Allowed type of token
@@ -472,6 +481,12 @@ export interface ITokenNameLookup {
   TEXT: TextToken;
   /** TODO statement in comment */
   TODO: ToDoToken;
+  /** Type function with arguments */
+  TYPE_FUNCTION: TypeFunctionToken;
+  /** The "or" type operator */
+  TYPE_OR_OPERATOR: TypeOrOperatorToken;
+  /** A static type suck as "String" or "ENVIRaster" */
+  TYPE_VARIABLE: TypeVariableToken;
   /** When we encounter an unexpected closing statement */
   UNEXPECTED_CLOSER: UnexpectedCloserToken;
   /** When we encounter something that was not parsed (i.e. its unknown)  */
@@ -573,6 +588,9 @@ export const TOKEN_NAMES: ITokenNameLookup = {
   SYSTEM_VARIABLE: 82,
   TEXT: 83,
   TODO: 84,
+  TYPE_FUNCTION: 91,
+  TYPE_OR_OPERATOR: 92,
+  TYPE_VARIABLE: 90,
   VARIABLE: 85,
   UNEXPECTED_CLOSER: 86,
   UNKNOWN: 87,

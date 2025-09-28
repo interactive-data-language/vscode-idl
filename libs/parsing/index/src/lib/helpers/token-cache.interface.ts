@@ -9,7 +9,7 @@ import {
   GlobalTokenType,
   IDLDataType,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import { IFoundKeywords } from './get-keywords.interface';
 import { IFoundParameter, IFoundProperty } from './get-property.interface';

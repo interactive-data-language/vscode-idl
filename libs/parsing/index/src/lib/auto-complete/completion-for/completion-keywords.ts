@@ -11,12 +11,12 @@ import {
   IKeywordCompletionOptions,
   KeywordCompletion,
 } from '@idl/types/auto-complete';
+import { IDLTypeHelper } from '@idl/parsing/types';
 import {
   GlobalIndexedRoutineToken,
   IDL_TYPE_LOOKUP,
-  IDLTypeHelper,
   IParameterLookup,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { FindKeyword } from '../../helpers/get-keyword';

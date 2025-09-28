@@ -8,7 +8,7 @@ import {
   GlobalStructureToken,
   GlobalTokens,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { TaskToGlobalToken } from '@idl/types/tasks';
 import * as glob from 'fast-glob';
 import { basename, join } from 'path';

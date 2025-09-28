@@ -1,8 +1,8 @@
+import { ParseIDLType } from '@idl/parsing/types';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import {
   FunctionRoutineType,

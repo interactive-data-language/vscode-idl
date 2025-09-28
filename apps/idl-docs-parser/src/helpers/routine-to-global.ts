@@ -18,7 +18,7 @@ import {
   ParameterDirection,
   ParseIDLType,
   SerializeIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import * as merge from 'deepmerge';
 import { join } from 'path';
 

@@ -1,6 +1,7 @@
 import { BranchCallback } from '@idl/parsing/syntax-tree';
 import { LoopForeachToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLDataType, IDLTypeHelper, ParseIDLType } from '@idl/types/core';
+import { IDLTypeHelper, ParseIDLType } from '@idl/parsing/types';
+import { IDLDataType } from '@idl/types/idl-data-types';
 
 import { TypeFromTokens } from '../../populate-type/from/type-from-tokens';
 import { GetSplit } from '../helpers/get-split';

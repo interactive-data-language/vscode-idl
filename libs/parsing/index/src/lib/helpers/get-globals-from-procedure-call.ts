@@ -4,7 +4,7 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalIndexedRoutineToken,
   IDL_TYPE_LOOKUP,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import { IDLIndex } from '../idl-index.class';
 import { TypeFromFirstArg } from '../post-process/populate-type/from/helpers/type-from-first-arg';

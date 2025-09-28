@@ -1,6 +1,6 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { PopulateReserved } from '@idl/parsing/routines';
-import { GlobalTokens } from '@idl/types/core';
+import { GlobalTokens } from '@idl/types/idl-data-types';
 import { readFileSync } from 'fs';
 
 import { IDL_INDEX_OPTIONS } from '../idl-index.interface';

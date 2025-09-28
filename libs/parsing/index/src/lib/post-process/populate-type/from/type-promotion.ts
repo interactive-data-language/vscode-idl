@@ -3,15 +3,17 @@ import {
   SyntaxProblemWithTranslation,
 } from '@idl/parsing/syntax-tree';
 import {
+  IDLTypeHelper,
+  ParseIDLType,
+  SerializeIDLType,
+} from '@idl/parsing/types';
+import {
   IDL_ANY_TYPE,
   IDL_ARRAY_TYPE,
   IDL_BOOLEAN_TYPE,
   IDL_TYPE_LOOKUP,
   IDLDataType,
-  IDLTypeHelper,
-  ParseIDLType,
-  SerializeIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';
 import copy from 'fast-copy';

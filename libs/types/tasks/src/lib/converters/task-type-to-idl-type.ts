@@ -1,4 +1,4 @@
-import { ParseIDLType } from '@idl/types/core';
+import { ParseIDLType } from '@idl/parsing/types';
 
 /**
  * Regular expression to check for array data types and allows us to strip

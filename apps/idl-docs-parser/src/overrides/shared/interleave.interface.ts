@@ -1,4 +1,7 @@
-import { IParameterOrPropertyDetails, ParseIDLType } from '@idl/types/core';
+import {
+  IParameterOrPropertyDetails,
+  ParseIDLType,
+} from '@idl/types/idl-data-types';
 
 /**
  * The type for interleave

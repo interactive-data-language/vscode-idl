@@ -1,11 +1,10 @@
 import {
   GetTaskDisplayName,
-  IDL_TYPE_LOOKUP,
   IDLTypeHelper,
-  IFunctionMetadata,
   SerializeIDLType,
   TASK_REGEX,
-} from '@idl/types/core';
+} from '@idl/parsing/types';
+import { IDL_TYPE_LOOKUP, IFunctionMetadata } from '@idl/types/idl-data-types';
 
 import { TaskFunctionName } from '../../../helpers/task-function-name';
 import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';

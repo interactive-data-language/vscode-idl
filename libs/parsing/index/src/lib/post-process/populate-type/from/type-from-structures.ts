@@ -8,12 +8,12 @@ import {
 } from '@idl/parsing/syntax-tree';
 import { StructureToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { ParseIDLType } from '@idl/parsing/types';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_STRUCTURE_TYPE,
   IDLDataType,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 

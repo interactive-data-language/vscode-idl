@@ -6,7 +6,7 @@ import {
   KeywordToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
 import { Position } from 'vscode-languageserver';
 

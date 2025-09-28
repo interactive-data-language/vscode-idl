@@ -8,14 +8,14 @@ import {
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { RoutineFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { IDLTypeHelper } from '@idl/parsing/types';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionMethodToken,
   GlobalFunctionToken,
   IDLDataType,
-  IDLTypeHelper,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import { IDLIndex } from '../../../idl-index.class';
 import { TypeFromTokens } from '../from/type-from-tokens';

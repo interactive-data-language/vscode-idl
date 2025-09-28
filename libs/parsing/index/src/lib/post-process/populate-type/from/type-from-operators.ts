@@ -1,11 +1,10 @@
 import { IParsed, ISplitTreeOnOperators } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper, ParseIDLType } from '@idl/parsing/types';
 import {
   IDL_ANY_TYPE,
   IDL_BOOLEAN_TYPE,
   IDLDataType,
-  IDLTypeHelper,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';

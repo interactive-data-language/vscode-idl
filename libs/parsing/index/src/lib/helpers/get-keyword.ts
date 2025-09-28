@@ -4,7 +4,10 @@ import {
   KeywordDefinitionToken,
   KeywordToken,
 } from '@idl/tokenizer';
-import { IParameterLookup, IParameterOrPropertyDetails } from '@idl/types/core';
+import {
+  IParameterLookup,
+  IParameterOrPropertyDetails,
+} from '@idl/types/idl-data-types';
 
 import { IDLIndex } from '../idl-index.class';
 import { GetKeywordDisplayName } from './get-keyword-display-name';

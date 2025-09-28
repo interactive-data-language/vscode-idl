@@ -1,12 +1,11 @@
 import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { CallFunctionMethodToken, CallFunctionToken } from '@idl/tokenizer';
 import {
-  IDL_TYPE_LOOKUP,
-  IDLDataType,
   IDLTypeHelper,
   ParseIDLType,
   SerializeIDLType,
-} from '@idl/types/core';
+} from '@idl/parsing/types';
+import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
 
 import { IDLIndex } from '../../../../idl-index.class';
 import { GetArgTypes } from '../../../tree-handlers/helpers/get-arg-types';

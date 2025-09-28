@@ -4,7 +4,7 @@ import {
   GlobalTokens,
   GlobalTokenType,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import { PROPERTIES_ARE_KEYWORDS } from '../overrides/properties-and-keywords/properties-are-keywords';
 import { UpdateThese } from './set-keywords-as-properties.interface';

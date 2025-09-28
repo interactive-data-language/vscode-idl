@@ -1,4 +1,4 @@
-import { GlobalTokens } from '@idl/types/core';
+import { GlobalTokens } from '@idl/types/idl-data-types';
 import {
   ChangeDetectionResponse,
   LoadGlobalResponse,

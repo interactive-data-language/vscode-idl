@@ -13,7 +13,7 @@ import {
   IDL_ULONG_TYPE,
   IDL_ULONG64_TYPE,
   IDLDataType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import copy from 'fast-copy';
 
 import {

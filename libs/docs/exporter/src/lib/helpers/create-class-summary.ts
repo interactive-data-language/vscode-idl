@@ -4,7 +4,7 @@ import {
   CreateTaskSyntax,
   IDL_DOCS_HEADERS,
 } from '@idl/parsing/syntax-tree';
-import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/idl-data-types';
 import { DefaultTheme } from 'vitepress';
 
 import { CleanDocs } from './clean-docs';

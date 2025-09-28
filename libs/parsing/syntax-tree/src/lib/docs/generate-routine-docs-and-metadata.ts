@@ -8,14 +8,14 @@ import {
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { ParseIDLType } from '@idl/parsing/types';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GlobalStructureToken,
   IGlobalIndexedToken,
   IParameterLookup,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 
 import { IBasicBranch, IBranch } from '../branches.interface';

@@ -1,11 +1,10 @@
 import { GetDisplayName } from '@idl/generators/tasks-shared';
+import { IDLTypeHelper, SerializeIDLType } from '@idl/parsing/types';
 import {
   GlobalProcedureToken,
   IDL_TYPE_LOOKUP,
-  IDLTypeHelper,
   IGlobalIndexedToken,
-  SerializeIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { ENVITaskParameter, ENVITaskSchema33 } from '@idl/types/tasks';
 
 /**

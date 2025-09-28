@@ -1,5 +1,5 @@
 import { GlobalIndexedToken } from '@idl/parsing/index';
-import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 
 /**
  * Gets display names for the tops of markdown files

@@ -7,13 +7,15 @@ import {
 } from '@idl/parsing/syntax-tree';
 import { BracketToken } from '@idl/tokenizer';
 import {
-  IDL_ARRAY_TYPE,
-  IDL_TYPE_LOOKUP,
-  IDLDataType,
   IDLTypeHelper,
   ParseIDLType,
   SerializeIDLType,
-} from '@idl/types/core';
+} from '@idl/parsing/types';
+import {
+  IDL_ARRAY_TYPE,
+  IDL_TYPE_LOOKUP,
+  IDLDataType,
+} from '@idl/types/idl-data-types';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';

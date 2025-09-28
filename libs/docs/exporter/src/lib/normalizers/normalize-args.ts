@@ -1,6 +1,6 @@
 import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
-import { IParameterLookup } from '@idl/types/core';
+import { IParameterLookup } from '@idl/types/idl-data-types';
 
 /**
  * Normalizes arguments

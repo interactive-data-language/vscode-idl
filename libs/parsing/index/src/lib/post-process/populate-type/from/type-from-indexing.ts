@@ -8,13 +8,15 @@ import {
 } from '@idl/parsing/syntax-tree';
 import { BracketToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
-  IDL_ANY_TYPE,
-  IDLDataType,
   IDLTypeHelper,
-  KNOWN_IDL_TYPES,
   ParseIDLType,
   SerializeIDLType,
-} from '@idl/types/core';
+} from '@idl/parsing/types';
+import {
+  IDL_ANY_TYPE,
+  IDLDataType,
+  KNOWN_IDL_TYPES,
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import copy from 'fast-copy';
 

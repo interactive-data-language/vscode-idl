@@ -1,4 +1,4 @@
-import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 import { SymbolKind } from 'vscode-languageserver/node';
 
 /**

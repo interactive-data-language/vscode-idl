@@ -4,6 +4,7 @@ import {
   CallProcedureMethodToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
+import { IDLTypeHelper, ParseIDLType } from '@idl/parsing/types';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionMethodToken,
@@ -11,11 +12,9 @@ import {
   IDL_TYPE_LOOKUP,
   IDLDataType,
   IDLDataTypeBase,
-  IDLTypeHelper,
   IDLTypes,
   IGlobalIndexedToken,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import { IDLIndex } from '../idl-index.class';
 import { TypeFromTokens } from '../post-process/populate-type/from/type-from-tokens';

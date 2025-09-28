@@ -6,7 +6,7 @@ import {
   TreeRecurserBasic,
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
-import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 
 import { GetMethod } from '../helpers/get-method';
 import { IDLIndex } from '../idl-index.class';

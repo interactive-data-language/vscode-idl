@@ -1,6 +1,10 @@
 import { BRANCH_TYPES, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
-import { IDL_ANY_TYPE, IDL_STRING_TYPE, IDLDataType } from '@idl/types/core';
+import {
+  IDL_ANY_TYPE,
+  IDL_STRING_TYPE,
+  IDLDataType,
+} from '@idl/types/idl-data-types';
 import copy from 'fast-copy';
 
 import { ITokenCache } from '../../../helpers/token-cache.interface';
@@ -106,15 +110,31 @@ export function TypeFromSingleToken(
       // do we have a general case for some types?
       if (token.name in TYPE_MAP) {
         (token.cache as ITokenCache).type = copy(TYPE_MAP[token.name]);
-        (token.cache as ITokenCache).type[0].value = EvaluateToken(token);
+        // attempt to evaluate the token, might return undefined
+        const evaluated = EvaluateToken(token);
+
+        // if we have a value, save it
+        if (evaluated) {
+          (token.cache as ITokenCache).type[0].value = [evaluated];
+        }
       }
       break;
   }
 
   // if we set our cache, return
   if ('type' in (token.cache as ITokenCache)) {
+    // if we have a type, see if we need to set the literal value
     if ((token.cache as ITokenCache)?.type?.length > 0) {
-      (token.cache as ITokenCache).type[0].value = EvaluateToken(token);
+      // only set value if we dont have one already
+      if (!Array.isArray((token.cache as ITokenCache).type[0].value)) {
+        // attempt to evaluate the token, might return undefined
+        const evaluated = EvaluateToken(token);
+
+        // if we have a value, save it
+        if (evaluated) {
+          (token.cache as ITokenCache).type[0].value = [evaluated];
+        }
+      }
     }
     return (token.cache as ITokenCache).type;
   }

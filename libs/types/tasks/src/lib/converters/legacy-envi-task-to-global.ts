@@ -1,3 +1,4 @@
+import { ParseIDLType } from '@idl/parsing/types';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
@@ -6,8 +7,7 @@ import {
   GlobalTokens,
   IGlobalIndexedToken,
   IPropertyLookup,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import {
   ENVITaskLegacy,

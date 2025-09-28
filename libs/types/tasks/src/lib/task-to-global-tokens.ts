@@ -1,4 +1,4 @@
-import { GlobalTokens } from '@idl/types/core';
+import { GlobalTokens } from '@idl/types/idl-data-types';
 
 import { ENVITaskToGlobal } from './converters/envi-task-to-global';
 import { IDLTaskToGlobal } from './converters/idl-task-to-global';

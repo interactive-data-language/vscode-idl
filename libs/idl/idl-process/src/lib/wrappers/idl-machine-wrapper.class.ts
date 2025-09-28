@@ -1,7 +1,7 @@
 import { IDLMachine } from '@idl/idl/idl-machine';
 import { LogType } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { ParseIDLType, SerializeIDLType } from '@idl/types/core';
+import { ParseIDLType, SerializeIDLType } from '@idl/types/idl-data-types';
 import {
   ExecuteStringFlags,
   FromIDLMachineNotificationParams,

@@ -9,7 +9,7 @@ import {
   GlobalStructureToken,
   IGlobalIndexedToken,
   TASK_REGEX,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import { CURRENT_CONFIG } from '../docs-exporter';
 import { NormalizeArgs } from './normalize-args';

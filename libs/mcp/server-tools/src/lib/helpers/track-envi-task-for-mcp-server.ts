@@ -1,8 +1,8 @@
+import { TASK_REGEX } from '@idl/parsing/types';
 import {
   GlobalStructureToken,
   IGlobalIndexedToken,
-  TASK_REGEX,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z, ZodRawShape } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';

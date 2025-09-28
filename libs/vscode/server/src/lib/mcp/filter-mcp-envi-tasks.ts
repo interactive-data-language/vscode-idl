@@ -1,4 +1,4 @@
-import { TASK_REGEX } from '@idl/types/core';
+import { TASK_REGEX } from '@idl/parsing/types';
 
 import { SKIP_THESE_TASKS } from './filter-mcp-envi-tasks.interface';
 

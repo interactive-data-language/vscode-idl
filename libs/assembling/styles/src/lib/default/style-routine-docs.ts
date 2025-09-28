@@ -23,7 +23,7 @@ import {
   GlobalProcedureToken,
   GlobalRoutineToken,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import { FormatKeyword } from './style-keywords';
 

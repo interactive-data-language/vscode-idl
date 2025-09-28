@@ -3,7 +3,11 @@ import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IParsed } from '@idl/parsing/syntax-tree';
-import { IDLTypeHelper, ParseIDLType, SerializeIDLType } from '@idl/types/core';
+import {
+  IDLTypeHelper,
+  ParseIDLType,
+  SerializeIDLType,
+} from '@idl/parsing/types';
 
 import {
   ExtractPropertyLines,

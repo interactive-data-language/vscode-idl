@@ -4,7 +4,7 @@ import {
   TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { NumberToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLDataType } from '@idl/types/core';
+import { IDLDataType } from '@idl/types/idl-data-types';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../../idl-index.class';

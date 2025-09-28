@@ -4,3 +4,4 @@ export * from './lib/log-names.interface';
 export * from './lib/logger.class';
 export * from './lib/logger.interface';
 export * from './lib/stringify-data';
+export * from './lib/stringify-data';

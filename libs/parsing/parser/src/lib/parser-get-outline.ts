@@ -3,7 +3,7 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalTokenType,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { PositionRange } from '@idl/types/tokenizer';
 import { DocumentSymbol } from 'vscode-languageserver';
 

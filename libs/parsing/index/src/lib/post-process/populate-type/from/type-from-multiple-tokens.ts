@@ -10,7 +10,7 @@ import {
   LogicalTernaryThenToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { IDLDataType } from '@idl/types/core';
+import { IDLDataType } from '@idl/types/idl-data-types';
 import copy from 'fast-copy';
 
 import { GetVariable } from '../../../helpers/get-variable';
