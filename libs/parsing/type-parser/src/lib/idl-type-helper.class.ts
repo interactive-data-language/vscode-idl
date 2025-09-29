@@ -21,14 +21,25 @@ export class IDLTypeHelper {
     typeInfo: IDLDataType
   ): string {
     /** Docs we add for hover help */
-    const useDocs: string[] = [
-      '```typescript',
-      `var ${name}: ${this.serializeIDLType(
-        typeInfo,
-        true
-      )} = ${this.serializeIDLType(typeInfo)}`,
-      '```',
-    ];
+    let useDocs: string[];
+
+    // check for literal type
+    if (this.isLiteralType(typeInfo)) {
+      useDocs = [
+        '```typescript',
+        `var ${name}: ${this.serializeIDLType(
+          typeInfo,
+          true
+        )} = ${this.serializeIDLType(typeInfo)}`,
+        '```',
+      ];
+    } else {
+      useDocs = [
+        '```typescript',
+        `var ${name}: ${this.serializeIDLType(typeInfo, true)}`,
+        '```',
+      ];
+    }
 
     // add in our actual docs
     if (docs !== '') {
@@ -124,6 +135,21 @@ export class IDLTypeHelper {
    */
   static isAnyType(type: IDLDataType) {
     return this.isType(type, IDL_TYPE_LOOKUP.ANY);
+  }
+
+  /**
+   * Check if our type is a literal type
+   *
+   * This means that one of the types (if more than one) has
+   * literal values present
+   */
+  static isLiteralType(type: IDLDataType): boolean {
+    for (let i = 0; i < type.length; i++) {
+      if (Array.isArray(type[i].value)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
