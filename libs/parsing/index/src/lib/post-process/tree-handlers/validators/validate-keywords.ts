@@ -1,7 +1,5 @@
-import {
-  BasicCallback,
-  SyntaxProblemWithoutTranslation,
-} from '@idl/parsing/syntax-tree';
+import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
+import { BasicCallback } from '@idl/parsing/syntax-tree';
 import { KeywordBinaryToken, KeywordToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';

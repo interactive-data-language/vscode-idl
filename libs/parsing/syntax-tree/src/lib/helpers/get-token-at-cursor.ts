@@ -5,10 +5,9 @@ import {
   RoutineProcedureToken,
   TokenName,
 } from '@idl/tokenizer';
+import { IBranch, IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { Position } from 'vscode-languageserver';
 
-import { IBranch, TreeToken } from '../branches.interface';
-import { IParsed } from '../parsed.interface';
 import { PopulateScopeDetail } from '../populate-scope-detail';
 import { TreeRecurser } from '../recursion-and-callbacks/tree-recurser';
 import {

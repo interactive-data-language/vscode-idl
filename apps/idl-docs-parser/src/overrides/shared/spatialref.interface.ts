@@ -3,6 +3,6 @@ import { ParseIDLType } from '@idl/types/idl-data-types';
 /**
  * Data type for spatial references
  */
-export const SPATIALREF_TYPE = ParseIDLType(
+export const SPATIALREF_TYPE = IDLTypeHelper.parseIDLType(
   `ENVIStandardRasterSpatialRef | ENVIRPCRasterSpatialRef | ENVIPseudoRasterSpatialRef | ENVIGLTRasterSpatialRef | ENVINITFCSMRasterSpatialRef`
 );

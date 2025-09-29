@@ -1,6 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IParsed, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
+import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import { IDisabledProblems } from '@idl/types/problem-codes';
+import { IParsed } from '@idl/types/syntax-tree';
 import { performance } from 'perf_hooks';
 import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver';
 

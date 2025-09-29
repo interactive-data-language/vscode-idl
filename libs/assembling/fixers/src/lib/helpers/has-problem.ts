@@ -1,5 +1,6 @@
 import { IsProblemDisabled } from '@idl/parser';
-import { TreeToken } from '@idl/parsing/syntax-tree';
+import { TreeToken } from '@idl/types/syntax-tree';
+
 import { TokenName } from '@idl/tokenizer';
 import { IDisabledProblems, IDLProblemCode } from '@idl/types/problem-codes';
 

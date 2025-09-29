@@ -1,6 +1,7 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { CallFunctionToken } from '@idl/tokenizer';
-import { ParseIDLType } from '@idl/parser';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
+
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,
@@ -64,7 +65,7 @@ export function TypeFromFunction(
 
   // if we have a structure with that name, mark as the type
   if (structure.length > 0) {
-    return ParseIDLType(structure[0].meta.display);
+    return IDLTypeHelper.parseIDLType(structure[0].meta.display);
   }
 
   /**
@@ -74,11 +75,11 @@ export function TypeFromFunction(
   if (returnNameAsType) {
     switch (true) {
       case wasENVITask:
-        return ParseIDLType(`ENVITask<any>`);
+        return IDLTypeHelper.parseIDLType(`ENVITask<any>`);
       case wasIDLTask:
-        return ParseIDLType(`IDLTask<any>`);
+        return IDLTypeHelper.parseIDLType(`IDLTask<any>`);
       default:
-        return ParseIDLType(name);
+        return IDLTypeHelper.parseIDLType(name);
     }
   }
 

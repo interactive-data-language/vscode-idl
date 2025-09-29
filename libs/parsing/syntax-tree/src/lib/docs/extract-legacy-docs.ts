@@ -1,7 +1,11 @@
 import { CommentToken, GetMatchesArray } from '@idl/tokenizer';
 import {
   ARG_KW_PROPERTY_TAG,
+  END_COMMENT_BLOCK_REGEX,
   HEADER_TAG_LEGACY,
+  IBasicBranch,
+  IDocs,
+  IHeaderDocs,
   LEGACY_PARAMETER_DIRECTION_IN,
   LEGACY_PARAMETER_DIRECTION_OUT,
   LEGACY_PARAMETER_INFO,
@@ -9,20 +13,14 @@ import {
   LEGACY_PARAMETER_OPTIONAL,
   LEGACY_PARAMETER_REQUIRED,
   LEGACY_PARAMETER_TYPE,
+  REMOVE_COMMENT_REGEX,
 } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
-import { IBasicBranch } from '../branches.interface';
 import { CleanComment } from '../helpers/clean-comment';
 import { CondenseLegacyDocs } from './condense-legacy-docs';
 import { IDL_DOCS_HEADERS } from './docs.interface';
-import {
-  END_COMMENT_BLOCK_REGEX,
-  IDocs,
-  IHeaderDocs,
-  REMOVE_COMMENT_REGEX,
-} from './extract-docs.interface';
 import { IDL_HEADER_MAP } from './header-map.interface';
 
 /**

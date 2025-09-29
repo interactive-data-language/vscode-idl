@@ -1,7 +1,7 @@
 import { CommentToken } from '@idl/tokenizer';
 import { PositionArray } from '@idl/types/tokenizer';
 
-import { IBasicBranch } from '../branches.interface';
+import { IBasicBranch } from './branches.interface';
 
 /**
  * Regex to replace the start of a comment with empty spaces and account for start/end of comment blocks

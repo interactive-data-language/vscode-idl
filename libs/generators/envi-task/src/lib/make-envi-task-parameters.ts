@@ -1,5 +1,5 @@
 import { GetDisplayName } from '@idl/generators/tasks-shared';
-import { IDLTypeHelper, SerializeIDLType } from '@idl/parser';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   GlobalProcedureToken,
   IDL_TYPE_LOOKUP,
@@ -55,10 +55,10 @@ export function MakeENVITaskParameters(
       const args = IDLTypeHelper.getAllTypeArgs(arrays);
 
       // save type args (values we store in the array)
-      param.type = SerializeIDLType(args) + 'Array';
+      param.type = IDLTypeHelper.serializeIDLType(args) + 'Array';
       param.dimensions = '[*]';
     } else {
-      param.type = SerializeIDLType(type);
+      param.type = IDLTypeHelper.serializeIDLType(type);
     }
 
     // save

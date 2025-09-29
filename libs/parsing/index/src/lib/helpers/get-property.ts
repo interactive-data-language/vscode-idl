@@ -1,10 +1,10 @@
-import { GetPropertyName, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { GetPropertyName } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   AccessPropertyToken,
   StructurePropertyToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { ParseIDLType } from '@idl/parser';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_STRUCTURE_TYPE,
@@ -14,6 +14,7 @@ import {
   IDLTypes,
   IPropertyLookup,
 } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../idl-index.class';
@@ -83,7 +84,7 @@ function GetPropertyForType(
             parsed,
             token,
             useCache,
-            ParseIDLType(alsoCheck[i])
+            IDLTypeHelper.parseIDLType(alsoCheck[i])
           );
           if (match !== undefined) {
             return match;
@@ -101,7 +102,7 @@ function GetPropertyForType(
     return Object.assign(copy(properties[propName]), {
       name: prop.toLowerCase(),
       file,
-      class: ParseIDLType(className),
+      class: IDLTypeHelper.parseIDLType(className),
       globalType: GLOBAL_TOKEN_TYPES.STRUCTURE,
       globalName: className.toLowerCase(),
     });
@@ -150,7 +151,7 @@ export function GetProperty(
        */
       const local = token.scopeTokens[token.scopeTokens.length - 1];
       if (local.name === TOKEN_NAMES.STRUCTURE_NAME) {
-        type = ParseIDLType(local.match[0]);
+        type = IDLTypeHelper.parseIDLType(local.match[0]);
         (token.cache as ITokenCache).typeBefore = type;
       } else {
         /**

@@ -1,4 +1,4 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { CallProcedureToken } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,

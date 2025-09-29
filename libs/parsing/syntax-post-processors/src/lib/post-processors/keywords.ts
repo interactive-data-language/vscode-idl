@@ -1,6 +1,5 @@
 import {
   BranchCallback,
-  IBasicBranch,
   IDL_SYNTAX_TREE_POST_PROCESSOR,
   IDLSyntaxValidatorMeta,
 } from '@idl/parsing/syntax-tree';
@@ -13,6 +12,7 @@ import {
   NonBasicTokenNames,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
+import { IBasicBranch } from '@idl/types/syntax-tree';
 
 import { SKIP_TOKENS } from './arg-kw-def';
 

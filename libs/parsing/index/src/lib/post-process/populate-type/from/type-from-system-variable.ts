@@ -1,6 +1,8 @@
-import { TreeToken } from '@idl/parsing/syntax-tree';
+import { TreeToken } from '@idl/types/syntax-tree';
+
 import { SystemVariableToken } from '@idl/tokenizer';
-import { ParseIDLType } from '@idl/parser';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
+
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,
@@ -33,7 +35,7 @@ export function TypeFromSystemVariable(
       );
 
       if (global.length > 0) {
-        return ParseIDLType(global[0].meta.display);
+        return IDLTypeHelper.parseIDLType(global[0].meta.display);
       }
       break;
     }

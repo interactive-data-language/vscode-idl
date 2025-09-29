@@ -1,10 +1,11 @@
-import { IParsed, ISplitTreeOnOperators } from '@idl/parsing/syntax-tree';
-import { IDLTypeHelper, ParseIDLType } from '@idl/parser';
+import { ISplitTreeOnOperators } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   IDL_ANY_TYPE,
   IDL_BOOLEAN_TYPE,
   IDLDataType,
 } from '@idl/types/idl-data-types';
+import { IParsed } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
@@ -38,11 +39,11 @@ const LOGICAL_OPERATOR: { [key: string]: any } = {
  * Types from logical operations
  */
 const LOGICAL_OUTPUT_TYPES = {
-  LIST: ParseIDLType('List<Boolean>'),
-  HASH: ParseIDLType('List<String>'),
-  ORDEREDHASH: ParseIDLType('List<String>'),
-  ARRAY: ParseIDLType('Array<Boolean>'),
-  DICTIONARY: ParseIDLType('String | Array<String>'),
+  LIST: IDLTypeHelper.parseIDLType('List<Boolean>'),
+  HASH: IDLTypeHelper.parseIDLType('List<String>'),
+  ORDEREDHASH: IDLTypeHelper.parseIDLType('List<String>'),
+  ARRAY: IDLTypeHelper.parseIDLType('Array<Boolean>'),
+  DICTIONARY: IDLTypeHelper.parseIDLType('String | Array<String>'),
 };
 
 /**

@@ -1,6 +1,5 @@
 import { CommaToken, TOKEN_NAMES } from '@idl/tokenizer';
-
-import { SyntaxTree, TreeToken } from '../../branches.interface';
+import { SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
 
 /** Tokens that we skip */
 const IGNORE: { [key: string]: any } = {};

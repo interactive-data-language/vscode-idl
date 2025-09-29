@@ -1,11 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import {
-  GetTokenAtCursor,
-  IBranch,
-  IsWithinToken,
-  TreeBranchToken,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { GetTokenAtCursor, IsWithinToken } from '@idl/parsing/syntax-tree';
 import {
   ControlCompileOptToken,
   StructureNameToken,
@@ -31,6 +25,7 @@ import {
   SystemVariableCompletion,
   VariableCompletion,
 } from '@idl/types/auto-complete';
+import { IBranch, TreeBranchToken, TreeToken } from '@idl/types/syntax-tree';
 import { Position } from 'vscode-languageserver/node';
 
 import { GetParsedPROCode } from '../get-parsed/get-parsed-pro-code';

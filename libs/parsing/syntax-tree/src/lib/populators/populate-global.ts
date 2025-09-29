@@ -1,4 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   CommentBlockToken,
   RoutineFunctionToken,
@@ -8,7 +9,6 @@ import {
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { ParseIDLType } from '@idl/parser';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
@@ -21,16 +21,14 @@ import {
   IGlobalIndexedToken,
   IRoutineMetadata,
 } from '@idl/types/idl-data-types';
+import { IBranch, IParsed, LOCAL_TOKEN_LOOKUP } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
-import { IBranch } from '../branches.interface';
 import { GenerateRoutineDocsAndMetadata } from '../docs/generate-routine-docs-and-metadata';
 import { GenerateRoutineMetadataFast } from '../docs/generate-routine-metadata-fast';
-import { IParsed } from '../parsed.interface';
 import { FindStructureDefs } from './find-structure-defs';
 import { GetCompileOpts } from './get-compile-opts';
 import { MAIN_LEVEL_NAME } from './populate-global.interface';
-import { LOCAL_TOKEN_LOOKUP } from './populate-local.interface';
 import { PopulateLocalForMain } from './populate-local-for-main';
 import { PopulateVariables } from './populate-variables';
 
@@ -181,7 +179,7 @@ export function PopulateGlobalLocalCompileOpts(
 
               // check if we have a function method
               if (split[1] === 'init') {
-                const returnType = ParseIDLType(hiSplit[0]);
+                const returnType = IDLTypeHelper.parseIDLType(hiSplit[0]);
 
                 // update returns for method
                 add.meta.returns = returnType;
@@ -225,7 +223,7 @@ export function PopulateGlobalLocalCompileOpts(
                   canReset: false,
                   docs: IDL_TRANSLATION.docs.hover.params.self,
                   source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
-                  type: ParseIDLType(split[0]),
+                  type: IDLTypeHelper.parseIDLType(split[0]),
                   usage: [],
                 },
               };
@@ -350,7 +348,7 @@ export function PopulateGlobalLocalCompileOpts(
                   canReset: false,
                   docs: IDL_TRANSLATION.docs.hover.params.self,
                   source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
-                  type: ParseIDLType(split[0]),
+                  type: IDLTypeHelper.parseIDLType(split[0]),
                   usage: [],
                 },
               };

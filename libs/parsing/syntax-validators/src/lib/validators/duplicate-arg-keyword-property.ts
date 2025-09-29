@@ -1,12 +1,10 @@
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
   BranchCallback,
   FindAllBranchChildren,
   FindDirectBranchChildren,
   IDL_SYNTAX_TREE_VALIDATOR,
   IDLSyntaxValidatorMeta,
-  IParsed,
-  SyntaxProblemWithTranslation,
-  TreeToken,
 } from '@idl/parsing/syntax-tree';
 import {
   CallFunctionMethodToken,
@@ -20,6 +18,7 @@ import {
   TokenName,
 } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Helper function to check and report duplicate problems for

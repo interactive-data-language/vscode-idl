@@ -1,10 +1,10 @@
+import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   BRANCH_TYPES,
   IBranch,
   IParsed,
   SyntaxTree,
-} from '@idl/parsing/syntax-tree';
-import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
+} from '@idl/types/syntax-tree';
 
 /**
  * Tokens that we filter out

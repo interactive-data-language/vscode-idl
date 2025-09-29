@@ -1,5 +1,5 @@
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { SerializeIDLType } from '@idl/parser';
 import {
   GlobalStructureToken,
   IGlobalIndexedToken,
@@ -89,7 +89,9 @@ function MakeParamDocs(
   // add formatted line based on parameters
   if (isProperty) {
     strings.push(
-      `${LINE_START}  ${param.display}: ${SerializeIDLType(param.type)}`
+      `${LINE_START}  ${param.display}: ${IDLTypeHelper.serializeIDLType(
+        param.type
+      )}`
     );
   } else {
     // get text to embed
@@ -99,7 +101,7 @@ function MakeParamDocs(
     strings.push(
       `${LINE_START}  ${param.display}: ${
         param.direction
-      }, ${req}, ${SerializeIDLType(param.type)}${isPrivate}`
+      }, ${req}, ${IDLTypeHelper.serializeIDLType(param.type)}${isPrivate}`
     );
   }
 
@@ -228,7 +230,9 @@ export function DocsToIDL(info: MarkdownInfo<RoutineMarkdown>): string[] {
 
   // check if we have a return value - i.e. we are a function
   if ('returns' in meta) {
-    strings.push(`${MakeHeader('Returns')} ${SerializeIDLType(meta.returns)}`);
+    strings.push(
+      `${MakeHeader('Returns')} ${IDLTypeHelper.serializeIDLType(meta.returns)}`
+    );
     AddSpace(strings);
   }
 

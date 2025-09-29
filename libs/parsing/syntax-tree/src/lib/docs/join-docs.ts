@@ -1,8 +1,8 @@
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import { CommentToken, NOT_EMPTY_LINE_REGEX } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
+import { IBasicBranch } from '@idl/types/syntax-tree';
 
-import { IBasicBranch } from '../branches.interface';
-import { SyntaxProblemWithTranslation } from '../syntax-problem-with';
 import { MakeSpaces } from './make-spaces';
 
 /**

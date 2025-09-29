@@ -1,7 +1,6 @@
 import { MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { IBranch, IParsed } from '@idl/types/syntax-tree';
 
-import { IBranch } from '../branches.interface';
-import { IParsed } from '../parsed.interface';
 import { PopulateVariables } from './populate-variables';
 
 /**

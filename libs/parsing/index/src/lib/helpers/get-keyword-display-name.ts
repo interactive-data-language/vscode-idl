@@ -1,4 +1,5 @@
-import { TreeToken } from '@idl/parsing/syntax-tree';
+import { TreeToken } from '@idl/types/syntax-tree';
+
 import {
   KeywordBinaryToken,
   KeywordDefinitionToken,

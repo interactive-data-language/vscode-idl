@@ -1,4 +1,4 @@
-import { TASK_REGEX } from './parse-idl-type';
+import { TASK_REGEX } from '../parsing/parse-idl-type.interface';
 
 /**
  * Get task display name information

@@ -1,4 +1,4 @@
-import { ParseIDLType } from '@idl/parser';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 
 /**
  * Regular expression to check for array data types and allows us to strip
@@ -22,8 +22,10 @@ export function TaskTypeToIDLType(type: string) {
   // check if we have an array
   const match = ARRAY_REGEX.exec(type);
   if (match !== null) {
-    return ParseIDLType(`Array<${type.substring(0, match.index)}>`);
+    return IDLTypeHelper.parseIDLType(
+      `Array<${type.substring(0, match.index)}>`
+    );
   } else {
-    return ParseIDLType(type);
+    return IDLTypeHelper.parseIDLType(type);
   }
 }

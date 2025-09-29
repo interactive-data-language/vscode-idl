@@ -1,8 +1,4 @@
-import {
-  IParsed,
-  SyntaxProblemWithoutTranslation,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
 import { CommentToken, NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -11,6 +7,7 @@ import {
   IDL_PROBLEM_CODES,
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
 } from '@idl/types/problem-codes';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Extracts disabled problems from a comment token

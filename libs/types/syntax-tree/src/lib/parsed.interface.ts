@@ -10,15 +10,12 @@ import {
   DEFAULT_USES_THESE_GLOBAL_TOKEN,
   UsesTheseGlobalTokens,
 } from './build-syntax-tree.interface';
-import {
-  DEFAULT_LOCAL_TOKENS,
-  ILocalTokens,
-} from './populators/populate-local.interface';
+import { DEFAULT_LOCAL_TOKENS, ILocalTokens } from './populate-local.interface';
 
 /**
  * Type of parsed item that we have
  */
-export type ParsedType = 'def' | 'notebook' | 'pro' | 'types';
+export type ParsedType = 'def' | 'notebook' | 'pro';
 
 /**
  * Lightweight parsed response for advanced use cases

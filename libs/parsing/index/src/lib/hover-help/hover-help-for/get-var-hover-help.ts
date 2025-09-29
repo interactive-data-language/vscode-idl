@@ -1,11 +1,7 @@
-import {
-  ILocalTokenLookup,
-  IParentInformation,
-  IParsed,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { IParentInformation } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { TokenName } from '@idl/tokenizer';
-import { IDLTypeHelper } from '@idl/parser';
+import { ILocalTokenLookup, IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Returns hover help for variables

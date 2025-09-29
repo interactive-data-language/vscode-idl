@@ -1,5 +1,4 @@
-import { IParsed } from './parsed.interface';
-import { LocalToken } from './populators/populate-local.interface';
+import { IParsed, LocalToken } from '@idl/types/syntax-tree';
 
 /** Resets array of tokens */
 function _ResetVariables(vars: LocalToken[]) {

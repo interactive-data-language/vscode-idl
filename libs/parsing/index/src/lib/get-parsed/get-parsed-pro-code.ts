@@ -1,6 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { CodeChecksum } from '@idl/parser';
-import { IParsed } from '@idl/parsing/syntax-tree';
+import { IParsed } from '@idl/types/syntax-tree';
 import { IDLFileHelper } from '@idl/shared/extension';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import copy from 'fast-copy';

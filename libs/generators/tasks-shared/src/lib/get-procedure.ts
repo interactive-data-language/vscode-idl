@@ -1,4 +1,4 @@
-import { IParsed } from '@idl/parsing/syntax-tree';
+import { IParsed } from '@idl/types/syntax-tree';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalProcedureToken,

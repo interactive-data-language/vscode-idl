@@ -1,4 +1,5 @@
-import { ParseIDLType } from '@idl/parser';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
+
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
@@ -75,7 +76,7 @@ export function IDLTaskToGlobal(
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
       docs: task.description,
       private: false,
-      returns: ParseIDLType(useName),
+      returns: IDLTypeHelper.parseIDLType(useName),
       args: {},
       kws: {},
       docsLookup: {},

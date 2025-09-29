@@ -39,27 +39,27 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   bindgen: {
-    returns: ParseIDLType('Array<Byte>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Byte>'),
     args: {},
     kws: INDGEN_KEYWORDS,
   },
   boolarr: {
-    returns: ParseIDLType('Array<Boolean>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Boolean>'),
     args: {},
     kws: {},
   },
   byte: {
-    returns: ParseIDLType('ArrayPromotion<Byte>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Byte>'),
     args: TYPE_FUNCTION_ARGS,
     kws: THREAD_POOL_KEYWORDS,
   },
   bytarr: {
-    returns: ParseIDLType('Array<Byte>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Byte>'),
     args: {},
     kws: BASIC_ARRAY_CREATION,
   },
   ceil: {
-    returns: ParseIDLType('ArrayPromotion<Long | Long64>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Long | Long64>'),
     args: {
       x: {
         direction: 'in',
@@ -76,34 +76,34 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   cindgen: {
-    returns: ParseIDLType('Array<ComplexFloat>'),
+    returns: IDLTypeHelper.parseIDLType('Array<ComplexFloat>'),
     args: {},
     kws: INDGEN_KEYWORDS,
   },
   complex: {
-    returns: ParseIDLType('ArrayPromotion<ComplexFloat>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<ComplexFloat>'),
     args: TYPE_FUNCTION_ARGS,
     kws: THREAD_POOL_KEYWORDS,
   },
   complexarr: {
-    returns: ParseIDLType('Array<ComplexFloat>'),
+    returns: IDLTypeHelper.parseIDLType('Array<ComplexFloat>'),
     args: {},
     kws: BASIC_ARRAY_CREATION,
   },
   convol: {
-    returns: ParseIDLType('Array<Number>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Number>'),
     args: {
       array: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       kernel: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       scale_factor: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
     },
     kws: {
@@ -145,7 +145,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       },
       missing: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       nan: {
         direction: 'in',
@@ -167,22 +167,22 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   dblarr: {
-    returns: ParseIDLType('Array<Double>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Double>'),
     args: {},
     kws: BASIC_ARRAY_CREATION,
   },
   dcindgen: {
-    returns: ParseIDLType('Array<DoubleComplex>'),
+    returns: IDLTypeHelper.parseIDLType('Array<DoubleComplex>'),
     args: {},
     kws: INDGEN_KEYWORDS,
   },
   dcomplex: {
-    returns: ParseIDLType('ArrayPromotion<DoubleComplex>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<DoubleComplex>'),
     args: TYPE_FUNCTION_ARGS,
     kws: THREAD_POOL_KEYWORDS,
   },
   dcomplexarr: {
-    returns: ParseIDLType('Array<DoubleComplex>'),
+    returns: IDLTypeHelper.parseIDLType('Array<DoubleComplex>'),
     args: {},
     kws: BASIC_ARRAY_CREATION,
   },
@@ -209,12 +209,12 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   dindgen: {
-    returns: ParseIDLType('Array<Double>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Double>'),
     args: {},
     kws: INDGEN_KEYWORDS,
   },
   double: {
-    returns: ParseIDLType('ArrayPromotion<Double>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Double>'),
     args: TYPE_FUNCTION_ARGS,
     kws: THREAD_POOL_KEYWORDS,
   },
@@ -241,7 +241,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       },
       layout: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       log_file: {
         direction: 'in',
@@ -253,18 +253,27 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     args: {},
     kws: {
       auxiliary_spatialref: { ...SHARED_OVERRIDES.SPATIALREF, direction: 'in' },
-      auxiliary_uri: { type: ParseIDLType(`Array<String>`), direction: 'in' },
-      coord_sys: { type: ParseIDLType(`ENVICoordSys`), direction: 'in' },
+      auxiliary_uri: {
+        type: IDLTypeHelper.parseIDLType(`Array<String>`),
+        direction: 'in',
+      },
+      coord_sys: {
+        type: IDLTypeHelper.parseIDLType(`ENVICoordSys`),
+        direction: 'in',
+      },
       data_type: { type: IDL_NUMBER_TYPE, direction: 'in' },
       interleave: { ...SHARED_OVERRIDES.INTERLEAVE, direction: 'in' },
-      metadata: { type: ParseIDLType(`ENVIRasterMetadata`), direction: 'in' },
+      metadata: {
+        type: IDLTypeHelper.parseIDLType(`ENVIRasterMetadata`),
+        direction: 'in',
+      },
       nbands: { type: IDL_NUMBER_TYPE, direction: 'in' },
       ncolumns: { type: IDL_NUMBER_TYPE, direction: 'in' },
       nrows: { type: IDL_NUMBER_TYPE, direction: 'in' },
       pyramid_exists: { type: IDL_BOOLEAN_TYPE, direction: 'out' },
       read_only: { type: IDL_BOOLEAN_TYPE, direction: 'out' },
       spatialref: { ...SHARED_OVERRIDES.SPATIALREF, direction: 'in' },
-      time: { type: ParseIDLType(`ENVITime`), direction: 'in' },
+      time: { type: IDLTypeHelper.parseIDLType(`ENVITime`), direction: 'in' },
       uri: { type: IDL_STRING_TYPE, direction: 'in' },
     },
   },
@@ -303,16 +312,16 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   findgen: {
-    returns: ParseIDLType('Array<Float>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Float>'),
     args: TYPE_FUNCTION_ARGS,
     kws: INDGEN_KEYWORDS,
   },
   file_basename: {
-    returns: ParseIDLType('ArrayPromotion<String>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<String>'),
     args: {
       path: {
         direction: 'in',
-        type: ParseIDLType('String | Array<String>'),
+        type: IDLTypeHelper.parseIDLType('String | Array<String>'),
       },
       remove_suffix: {
         direction: 'in',
@@ -327,11 +336,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   file_dirname: {
-    returns: ParseIDLType('ArrayPromotion<String>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<String>'),
     args: {
       path: {
         direction: 'in',
-        type: ParseIDLType('String | Array<String>'),
+        type: IDLTypeHelper.parseIDLType('String | Array<String>'),
       },
     },
     kws: {
@@ -342,17 +351,17 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   file_expand_path: {
-    returns: ParseIDLType('ArrayPromotion<String>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<String>'),
     args: {
       path: {
         direction: 'in',
-        type: ParseIDLType('String | Array<String>'),
+        type: IDLTypeHelper.parseIDLType('String | Array<String>'),
       },
     },
     kws: {},
   },
   file_search: {
-    returns: ParseIDLType('Array<String>'),
+    returns: IDLTypeHelper.parseIDLType('Array<String>'),
     args: {
       path_specification: {
         direction: 'in',
@@ -372,11 +381,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   file_test: {
-    returns: ParseIDLType('ArrayPromotion<Boolean>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Boolean>'),
     args: {
       file: {
         direction: 'in',
-        type: ParseIDLType('String | Array<String>'),
+        type: IDLTypeHelper.parseIDLType('String | Array<String>'),
       },
     },
     kws: {
@@ -474,17 +483,17 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   fix: {
-    returns: ParseIDLType('ArrayPromotion<Int>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Int>'),
     args: TYPE_FUNCTION_ARGS,
     kws: THREAD_POOL_KEYWORDS,
   },
   float: {
-    returns: ParseIDLType('ArrayPromotion<Float>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Float>'),
     args: TYPE_FUNCTION_ARGS,
     kws: THREAD_POOL_KEYWORDS,
   },
   floor: {
-    returns: ParseIDLType('ArrayPromotion<Long | Long64>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Long | Long64>'),
     args: {
       x: {
         direction: 'in',
@@ -501,7 +510,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   fltarr: {
-    returns: ParseIDLType('Array<Float>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Float>'),
     args: {},
     kws: BASIC_ARRAY_CREATION,
   },
@@ -527,11 +536,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   histogram: {
-    returns: ParseIDLType('Array<Number>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Number>'),
     args: {
       filename: {
         direction: 'in',
-        type: ParseIDLType('Array<any>'),
+        type: IDLTypeHelper.parseIDLType('Array<any>'),
       },
     },
     kws: {
@@ -541,11 +550,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       },
       input: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       locations: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       l64: {
         direction: 'in',
@@ -577,12 +586,12 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       },
       reverse_indices: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
     },
   },
   identity: {
-    returns: ParseIDLType('Array<Float>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Float>'),
     args: {},
     kws: {
       double: {
@@ -592,11 +601,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   idl_base64: {
-    returns: ParseIDLType('String | Array<Byte>'),
+    returns: IDLTypeHelper.parseIDLType('String | Array<Byte>'),
     args: {
       input: {
         direction: 'in',
-        type: ParseIDLType('Array<Byte> | String'),
+        type: IDLTypeHelper.parseIDLType('Array<Byte> | String'),
       },
     },
     kws: {},
@@ -613,7 +622,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     kws: {},
   },
   indgen: {
-    returns: ParseIDLType('Array<any>'),
+    returns: IDLTypeHelper.parseIDLType('Array<any>'),
     args: {},
     kws: {
       byte: {
@@ -668,7 +677,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   intarr: {
-    returns: ParseIDLType('Array<Int>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Int>'),
     args: {},
     kws: BASIC_ARRAY_CREATION,
   },
@@ -724,7 +733,9 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   json_parse: {
-    returns: ParseIDLType('Hash<any> | Dictionary<any> | Structure'),
+    returns: IDLTypeHelper.parseIDLType(
+      'Hash<any> | Dictionary<any> | Structure'
+    ),
     args: {
       string: {
         direction: 'in',
@@ -751,11 +762,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   json_serialize: {
-    returns: ParseIDLType('String'),
+    returns: IDLTypeHelper.parseIDLType('String'),
     args: {
       value: {
         direction: 'in',
-        type: ParseIDLType(
+        type: IDLTypeHelper.parseIDLType(
           'Hash | OrderedHash | Dictionary | List | Structure'
         ),
       },
@@ -795,7 +806,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     kws: {},
   },
   l64indgen: {
-    returns: ParseIDLType('Array<Long64>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Long64>'),
     args: {},
     kws: INDGEN_KEYWORDS,
   },
@@ -810,45 +821,45 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       position: {
         direction: 'in',
         docs: 'Set this property to set the location of the legend. POSITION is specified as a 2 element vector: [X, Y], defining the upper right corner of the legend. If the DEVICE property is set, the units are given in device units (pixels).',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
     },
   },
   long: {
-    returns: ParseIDLType('ArrayPromotion<Long>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Long>'),
     args: TYPE_FUNCTION_ARGS,
     kws: THREAD_POOL_KEYWORDS,
   },
   long64: {
-    returns: ParseIDLType('ArrayPromotion<Long64>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Long64>'),
     args: TYPE_FUNCTION_ARGS,
     kws: THREAD_POOL_KEYWORDS,
   },
   lindgen: {
-    returns: ParseIDLType('Array<Long>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Long>'),
     args: {},
     kws: INDGEN_KEYWORDS,
   },
   linfit: {
-    returns: ParseIDLType('Array<Number>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Number>'),
     args: {
       x: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       y: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
     },
     kws: {
       chisq: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       covar: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       double: {
         direction: 'in',
@@ -856,19 +867,19 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       },
       measure_errors: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       prob: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       sigma: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       yfit: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
     },
   },
@@ -903,17 +914,17 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   lon64arr: {
-    returns: ParseIDLType('Array<Long64>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Long64>'),
     args: {},
     kws: BASIC_ARRAY_CREATION,
   },
   lonarr: {
-    returns: ParseIDLType('Array<Long>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Long>'),
     args: {},
     kws: BASIC_ARRAY_CREATION,
   },
   make_array: {
-    returns: ParseIDLType('Array<Any>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Any>'),
     args: {},
     kws: {
       boolean: {
@@ -934,7 +945,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       },
       dimension: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       double: {
         direction: 'in',
@@ -978,7 +989,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       },
       size: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       start: {
         direction: 'in',
@@ -1016,15 +1027,15 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     kws: {
       center_azimuth: {
         direction: 'in',
-        type: ParseIDLType('number'),
+        type: IDLTypeHelper.parseIDLType('number'),
       },
       center_latitude: {
         direction: 'in',
-        type: ParseIDLType('number'),
+        type: IDLTypeHelper.parseIDLType('number'),
       },
       center_longitude: {
         direction: 'in',
-        type: ParseIDLType('number'),
+        type: IDLTypeHelper.parseIDLType('number'),
       },
     },
   },
@@ -1115,15 +1126,15 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   obj_hasmethod: {
-    returns: ParseIDLType('Boolean | Array<Boolean>'),
+    returns: IDLTypeHelper.parseIDLType('Boolean | Array<Boolean>'),
     args: {
       objref: {
         direction: 'in',
-        type: ParseIDLType('any | Array<any>'),
+        type: IDLTypeHelper.parseIDLType('any | Array<any>'),
       },
       method: {
         direction: 'in',
-        type: ParseIDLType('String | Array<String>'),
+        type: IDLTypeHelper.parseIDLType('String | Array<String>'),
       },
     },
     kws: {},
@@ -1207,7 +1218,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   ptrarr: {
-    returns: ParseIDLType('Array<Pointer<any>>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Pointer<any>>'),
     args: {},
     kws: {
       allocate_heap: {
@@ -1217,11 +1228,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   product: {
-    returns: ParseIDLType('Number | Array<Number>'),
+    returns: IDLTypeHelper.parseIDLType('Number | Array<Number>'),
     args: {
       array: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       dimension: {
         direction: 'in',
@@ -1250,7 +1261,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   replicate: {
-    returns: ParseIDLType('Array<any>'),
+    returns: IDLTypeHelper.parseIDLType('Array<any>'),
     args: {},
     kws: THREAD_POOL_KEYWORDS,
   },
@@ -1264,12 +1275,12 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   reform: {
-    returns: ParseIDLType('TypeOfArg<0>'),
+    returns: IDLTypeHelper.parseIDLType('TypeOfArg<0>'),
     args: {
       array: {
         direction: 'in',
         req: true,
-        type: ParseIDLType('Array<any>'),
+        type: IDLTypeHelper.parseIDLType('Array<any>'),
       },
     },
     kws: {
@@ -1281,12 +1292,12 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   reverse: {
-    returns: ParseIDLType('TypeOfArg<0>'),
+    returns: IDLTypeHelper.parseIDLType('TypeOfArg<0>'),
     args: {
       array: {
         direction: 'in',
         req: true,
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       subscript_index: {
         direction: 'in',
@@ -1325,16 +1336,16 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   sindgen: {
-    returns: ParseIDLType('Array<String>'),
+    returns: IDLTypeHelper.parseIDLType('Array<String>'),
     args: {},
     kws: INDGEN_KEYWORDS,
   },
   strjoin: {
-    returns: ParseIDLType('String'),
+    returns: IDLTypeHelper.parseIDLType('String'),
     args: {
       string: {
         direction: 'in',
-        type: ParseIDLType('String | Array<String>'),
+        type: IDLTypeHelper.parseIDLType('String | Array<String>'),
       },
       delimiter: {
         direction: 'in',
@@ -1349,7 +1360,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   strmid: {
-    returns: ParseIDLType('ArrayPromotion<String>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<String>'),
     args: {
       expression: {
         direction: 'in',
@@ -1369,7 +1380,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   size: {
-    returns: ParseIDLType('Array<number>'),
+    returns: IDLTypeHelper.parseIDLType('Array<number>'),
     args: {},
     kws: {
       dimensions: {
@@ -1415,12 +1426,12 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   sort: {
-    returns: ParseIDLType('ArrayPromotion<Long | Long64>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Long | Long64>'),
     args: {
       x: {
         direction: 'in',
         req: true,
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
     },
     kws: {
@@ -1432,12 +1443,12 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   string: {
-    returns: ParseIDLType('String | Array<String>'),
+    returns: IDLTypeHelper.parseIDLType('String | Array<String>'),
     args: {},
     kws: THREAD_POOL_KEYWORDS,
   },
   strarr: {
-    returns: ParseIDLType('Array<String>'),
+    returns: IDLTypeHelper.parseIDLType('Array<String>'),
     args: {},
     kws: {},
   },
@@ -1447,11 +1458,11 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     kws: {},
   },
   total: {
-    returns: ParseIDLType('Number | Array<Number>'),
+    returns: IDLTypeHelper.parseIDLType('Number | Array<Number>'),
     args: {
       array: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       dimension: {
         direction: 'in',
@@ -1483,57 +1494,57 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   transpose: {
-    returns: ParseIDLType('TypeOfArg<0>'),
+    returns: IDLTypeHelper.parseIDLType('TypeOfArg<0>'),
     args: {},
     kws: {},
   },
   uindgen: {
-    returns: ParseIDLType('Array<UInt>'),
+    returns: IDLTypeHelper.parseIDLType('Array<UInt>'),
     args: TYPE_FUNCTION_ARGS,
     kws: INDGEN_KEYWORDS,
   },
   uint: {
-    returns: ParseIDLType('ArrayPromotion<UInt>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<UInt>'),
     args: TYPE_FUNCTION_ARGS,
     kws: THREAD_POOL_KEYWORDS,
   },
   uintarr: {
-    returns: ParseIDLType('Array<UInt>'),
+    returns: IDLTypeHelper.parseIDLType('Array<UInt>'),
     args: {},
     kws: BASIC_ARRAY_CREATION,
   },
   ul64indgen: {
-    returns: ParseIDLType('Array<ULong64>'),
+    returns: IDLTypeHelper.parseIDLType('Array<ULong64>'),
     args: {},
     kws: INDGEN_KEYWORDS,
   },
   ulindgen: {
-    returns: ParseIDLType('Array<ULong>'),
+    returns: IDLTypeHelper.parseIDLType('Array<ULong>'),
     args: {},
     kws: INDGEN_KEYWORDS,
   },
   ulong: {
-    returns: ParseIDLType('ArrayPromotion<ULong>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<ULong>'),
     args: TYPE_FUNCTION_ARGS,
     kws: THREAD_POOL_KEYWORDS,
   },
   ulong64: {
-    returns: ParseIDLType('ArrayPromotion<ULong64>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<ULong64>'),
     args: TYPE_FUNCTION_ARGS,
     kws: THREAD_POOL_KEYWORDS,
   },
   ulong64arr: {
-    returns: ParseIDLType('Array<ULong64>'),
+    returns: IDLTypeHelper.parseIDLType('Array<ULong64>'),
     args: {},
     kws: BASIC_ARRAY_CREATION,
   },
   ulongarr: {
-    returns: ParseIDLType('Array<ULong>'),
+    returns: IDLTypeHelper.parseIDLType('Array<ULong>'),
     args: {},
     kws: BASIC_ARRAY_CREATION,
   },
   where: {
-    returns: ParseIDLType('Number | Array<Number>'),
+    returns: IDLTypeHelper.parseIDLType('Number | Array<Number>'),
     args: {
       expression: {
         direction: 'in',
@@ -1547,7 +1558,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     kws: {
       complement: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       l64: {
         direction: 'in',
@@ -1574,7 +1585,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
     },
   },
   window: {
-    returns: ParseIDLType('Window'),
+    returns: IDLTypeHelper.parseIDLType('Window'),
     args: {},
     kws: {
       buffer: {
@@ -1585,7 +1596,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       dimensions: {
         direction: 'in',
         docs: `Set this keyword to a two-element vector of the form [width, height] to specify the window dimensions in pixels.\n\nTip: The minimum width is set by the toolbar in the window, usually around 400 pixels. To create a smaller graphics window, use the NO_TOOLBAR keyword.`,
-        type: ParseIDLType(`Array<Number>`),
+        type: IDLTypeHelper.parseIDLType(`Array<Number>`),
       },
       font_size: {
         direction: 'in',
@@ -1595,7 +1606,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       location: {
         direction: 'out',
         docs: "Set this keyword to a two-element vector [X offset, Y offset] giving the window's screen offset in pixels.",
-        type: ParseIDLType(`Array<any>`),
+        type: IDLTypeHelper.parseIDLType(`Array<any>`),
       },
       name: {
         direction: 'in',

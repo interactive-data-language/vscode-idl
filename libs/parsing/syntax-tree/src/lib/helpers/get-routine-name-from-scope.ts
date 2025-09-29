@@ -5,8 +5,8 @@ import {
   TOKEN_NAMES,
   TokenName,
 } from '@idl/tokenizer';
+import { TreeToken } from '@idl/types/syntax-tree';
 
-import { TreeToken } from '../branches.interface';
 import { GetRoutineName } from './get-routine-name';
 
 /**

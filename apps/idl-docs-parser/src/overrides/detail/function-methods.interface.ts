@@ -33,21 +33,21 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     kws: {},
   },
   'dictionary::filter': {
-    returns: ParseIDLType('dictionary<any>'),
+    returns: IDLTypeHelper.parseIDLType('dictionary<any>'),
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {},
   },
   'dictionary::haskey': {
-    returns: ParseIDLType('ArrayPromotion<Boolean>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Boolean>'),
     args: {
       keys: {
         direction: 'in',
-        type: ParseIDLType('String | Array<String>'),
+        type: IDLTypeHelper.parseIDLType('String | Array<String>'),
       },
     },
     kws: {},
@@ -63,16 +63,16 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     kws: {},
   },
   'dictionary::keys': {
-    returns: ParseIDLType('List<any>'),
+    returns: IDLTypeHelper.parseIDLType('List<any>'),
     args: {},
     kws: {},
   },
   'dictionary::map': {
-    returns: ParseIDLType('dictionary<any>'),
+    returns: IDLTypeHelper.parseIDLType('dictionary<any>'),
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {},
@@ -82,7 +82,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {
@@ -110,17 +110,17 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       },
       skipped: {
         direction: 'out',
-        type: ParseIDLType('List<any>'),
+        type: IDLTypeHelper.parseIDLType('List<any>'),
       },
     },
   },
   'dictionary::values': {
-    returns: ParseIDLType('List<any>'),
+    returns: IDLTypeHelper.parseIDLType('List<any>'),
     args: {},
     kws: {},
   },
   'dictionary::where': {
-    returns: ParseIDLType('Array<Number>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Number>'),
     args: {
       value: {
         direction: 'in',
@@ -130,7 +130,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     kws: {
       complement: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       count: {
         direction: 'out',
@@ -143,14 +143,14 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     },
   },
   'envi::getbroadcastchannel': {
-    returns: ParseIDLType('ENVIBroadcastChannel'),
+    returns: IDLTypeHelper.parseIDLType('ENVIBroadcastChannel'),
     args: {},
     kws: {
       error: ENVI_ERROR_KEYWORD,
     },
   },
   'envi::gettemporaryfilename': {
-    returns: ParseIDLType('String | Array<String>'),
+    returns: IDLTypeHelper.parseIDLType('String | Array<String>'),
     args: {},
     kws: {
       cleanup_on_exit: {
@@ -165,7 +165,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     },
   },
   'envi::getview': {
-    returns: ParseIDLType('ENVIView | Array<ENVIView>'),
+    returns: IDLTypeHelper.parseIDLType('ENVIView | Array<ENVIView>'),
     args: {},
     kws: {
       all: {
@@ -176,11 +176,11 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     },
   },
   'envi::openannotation': {
-    returns: ParseIDLType('ENVIAnnotation'),
+    returns: IDLTypeHelper.parseIDLType('ENVIAnnotation'),
     args: {
       uri: {
         direction: 'in',
-        type: ParseIDLType('String | Array<String>'),
+        type: IDLTypeHelper.parseIDLType('String | Array<String>'),
       },
     },
     kws: {
@@ -199,11 +199,11 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       },
       spatialref: {
         direction: 'in',
-        type: ParseIDLType('ENVIPointCloudSpatialRef'),
+        type: IDLTypeHelper.parseIDLType('ENVIPointCloudSpatialRef'),
       },
       txt_format: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
       txt_skip_header_lines: {
         direction: 'in',
@@ -212,7 +212,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     },
   },
   'envi::openpointcloud': {
-    returns: ParseIDLType('ENVIPointCloud'),
+    returns: IDLTypeHelper.parseIDLType('ENVIPointCloud'),
     args: {
       uri: URI_ARG_KW,
     },
@@ -221,7 +221,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     },
   },
   'envi::openraster': {
-    returns: ParseIDLType('ENVIRaster | Array<ENVIRaster>'),
+    returns: IDLTypeHelper.parseIDLType('ENVIRaster | Array<ENVIRaster>'),
     args: {
       uri: URI_ARG_KW,
     },
@@ -250,7 +250,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       interleave: INTERLEAVE_IN_ARG_KW,
       metadata_override: {
         direction: 'in',
-        type: ParseIDLType('ENVIRasterMetadata'),
+        type: IDLTypeHelper.parseIDLType('ENVIRasterMetadata'),
       },
       password: {
         direction: 'in',
@@ -278,7 +278,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       },
       time_override: {
         direction: 'in',
-        type: ParseIDLType('ENVITime'),
+        type: IDLTypeHelper.parseIDLType('ENVITime'),
       },
       user_height: {
         direction: 'in',
@@ -295,18 +295,18 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     },
   },
   'envi::openroi': {
-    returns: ParseIDLType('ENVIROI | Array<ENVIROI>'),
+    returns: IDLTypeHelper.parseIDLType('ENVIROI | Array<ENVIROI>'),
     args: {},
     kws: {
       error: ENVI_ERROR_KEYWORD,
       parent_raster: {
         direction: 'in',
-        type: ParseIDLType('ENVIRaster'),
+        type: IDLTypeHelper.parseIDLType('ENVIRaster'),
       },
     },
   },
   'envi::openvector': {
-    returns: ParseIDLType('ENVIVector'),
+    returns: IDLTypeHelper.parseIDLType('ENVIVector'),
     args: {
       uri: URI_ARG_KW,
     },
@@ -318,7 +318,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       },
       stanag_4676: {
         direction: 'in',
-        type: ParseIDLType('String | Array<String>'),
+        type: IDLTypeHelper.parseIDLType('String | Array<String>'),
       },
       username: {
         direction: 'in',
@@ -327,42 +327,44 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     },
   },
   'enviraster::getdata': {
-    returns: ParseIDLType('Array<Number>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Number>'),
     args: {},
     kws: {
       bands: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       complex_function: {
         direction: 'in',
       },
       interleave: {
         direction: 'in',
-        type: ParseIDLType("'bil' | 'bip' | 'bsq'"),
+        type: IDLTypeHelper.parseIDLType("'bil' | 'bip' | 'bsq'"),
       },
       interpolation: {
         direction: 'in',
-        type: ParseIDLType("'nearest neighbor' | 'pixel aggregate'"),
+        type: IDLTypeHelper.parseIDLType(
+          "'nearest neighbor' | 'pixel aggregate'"
+        ),
       },
       pixel_state: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       sub_rect: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
     },
   },
   'enviview::createlayer': {
-    returns: ParseIDLType(
+    returns: IDLTypeHelper.parseIDLType(
       'ENVIAnnotationLayer | ENVIRasterLayer | ENVIRasterSeriesLayer | ENVIVectorLayer'
     ),
     args: {
       data: {
         direction: 'in',
-        type: ParseIDLType(
+        type: IDLTypeHelper.parseIDLType(
           'ENVIAnnotationSet | ENVIRaster | ENVIRasterSeries | ENVIVector'
         ),
       },
@@ -386,21 +388,21 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     kws: {},
   },
   'hash::filter': {
-    returns: ParseIDLType('Hash<any>'),
+    returns: IDLTypeHelper.parseIDLType('Hash<any>'),
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {},
   },
   'hash::haskey': {
-    returns: ParseIDLType('ArrayPromotion<Boolean>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Boolean>'),
     args: {
       keys: {
         direction: 'in',
-        type: ParseIDLType('String | Array<String>'),
+        type: IDLTypeHelper.parseIDLType('String | Array<String>'),
       },
     },
     kws: {},
@@ -416,16 +418,16 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     kws: {},
   },
   'hash::keys': {
-    returns: ParseIDLType('List<any>'),
+    returns: IDLTypeHelper.parseIDLType('List<any>'),
     args: {},
     kws: {},
   },
   'hash::map': {
-    returns: ParseIDLType('Hash<any>'),
+    returns: IDLTypeHelper.parseIDLType('Hash<any>'),
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {},
@@ -435,7 +437,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {
@@ -463,17 +465,17 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       },
       skipped: {
         direction: 'out',
-        type: ParseIDLType('List<any>'),
+        type: IDLTypeHelper.parseIDLType('List<any>'),
       },
     },
   },
   'hash::values': {
-    returns: ParseIDLType('List<any>'),
+    returns: IDLTypeHelper.parseIDLType('List<any>'),
     args: {},
     kws: {},
   },
   'hash::where': {
-    returns: ParseIDLType('Array<Number>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Number>'),
     args: {
       value: {
         direction: 'in',
@@ -483,7 +485,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     kws: {
       complement: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       count: {
         direction: 'out',
@@ -496,7 +498,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     },
   },
   'httprequest::get': {
-    returns: ParseIDLType('HttpRequest'),
+    returns: IDLTypeHelper.parseIDLType('HttpRequest'),
     args: {
       ...HTTP_REQUEST_ARGS,
     },
@@ -505,7 +507,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     },
   },
   'httprequest::delete': {
-    returns: ParseIDLType('HttpRequest'),
+    returns: IDLTypeHelper.parseIDLType('HttpRequest'),
     args: {
       ...HTTP_REQUEST_ARGS,
     },
@@ -514,12 +516,12 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     },
   },
   'httprequest::escape': {
-    returns: ParseIDLType('HttpRequest'),
+    returns: IDLTypeHelper.parseIDLType('HttpRequest'),
     args: {},
     kws: {},
   },
   'httprequest::post': {
-    returns: ParseIDLType('HttpRequest'),
+    returns: IDLTypeHelper.parseIDLType('HttpRequest'),
     args: {
       ...HTTP_REQUEST_ARGS,
     },
@@ -528,12 +530,12 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       multipart: {
         display: 'multipart',
         direction: 'in',
-        type: ParseIDLType('Hash<any>'),
+        type: IDLTypeHelper.parseIDLType('Hash<any>'),
       },
     },
   },
   'httprequest::put': {
-    returns: ParseIDLType('HttpRequest'),
+    returns: IDLTypeHelper.parseIDLType('HttpRequest'),
     args: {
       ...HTTP_REQUEST_ARGS,
     },
@@ -542,17 +544,17 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       multipart: {
         display: 'multipart',
         direction: 'in',
-        type: ParseIDLType('Hash<any>'),
+        type: IDLTypeHelper.parseIDLType('Hash<any>'),
       },
     },
   },
   'httprequest::unescape': {
-    returns: ParseIDLType('HttpRequest'),
+    returns: IDLTypeHelper.parseIDLType('HttpRequest'),
     args: {},
     kws: {},
   },
   'httprequest::json': {
-    returns: ParseIDLType('any'),
+    returns: IDLTypeHelper.parseIDLType('any'),
     args: {},
     kws: {
       quiet: {
@@ -583,11 +585,11 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     kws: {},
   },
   'list::filter': {
-    returns: ParseIDLType('List<any>'),
+    returns: IDLTypeHelper.parseIDLType('List<any>'),
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {},
@@ -598,27 +600,27 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     kws: {},
   },
   'list::map': {
-    returns: ParseIDLType('List<any>'),
+    returns: IDLTypeHelper.parseIDLType('List<any>'),
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {},
   },
   'list::nestedmap': {
-    returns: ParseIDLType('List<any>'),
+    returns: IDLTypeHelper.parseIDLType('List<any>'),
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {
       filter: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
   },
@@ -627,7 +629,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {
@@ -642,17 +644,17 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     },
   },
   'list::reverse': {
-    returns: ParseIDLType('List<any>'),
+    returns: IDLTypeHelper.parseIDLType('List<any>'),
     args: {},
     kws: {},
   },
   'list::sort': {
-    returns: ParseIDLType('List<any>'),
+    returns: IDLTypeHelper.parseIDLType('List<any>'),
     args: {},
     kws: {
       compare_function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
       count: {
         direction: 'in',
@@ -660,7 +662,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       },
       indices: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       overwrite: {
         direction: 'in',
@@ -669,7 +671,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     },
   },
   'list::toarray': {
-    returns: ParseIDLType('Array<any>'),
+    returns: IDLTypeHelper.parseIDLType('Array<any>'),
     args: {},
     kws: {
       dimension: {
@@ -694,12 +696,12 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       },
       type: {
         direction: 'in',
-        type: ParseIDLType('String | Number'),
+        type: IDLTypeHelper.parseIDLType('String | Number'),
       },
     },
   },
   'list::where': {
-    returns: ParseIDLType('Array<Number>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Number>'),
     args: {
       value: {
         direction: 'in',
@@ -709,7 +711,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     kws: {
       complement: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       count: {
         direction: 'out',
@@ -732,21 +734,21 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     kws: {},
   },
   'orderedhash::filter': {
-    returns: ParseIDLType('orderedhash<any>'),
+    returns: IDLTypeHelper.parseIDLType('orderedhash<any>'),
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {},
   },
   'orderedhash::haskey': {
-    returns: ParseIDLType('ArrayPromotion<Boolean>'),
+    returns: IDLTypeHelper.parseIDLType('ArrayPromotion<Boolean>'),
     args: {
       keys: {
         direction: 'in',
-        type: ParseIDLType('String | Array<String>'),
+        type: IDLTypeHelper.parseIDLType('String | Array<String>'),
       },
     },
     kws: {},
@@ -762,16 +764,16 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     kws: {},
   },
   'orderedhash::keys': {
-    returns: ParseIDLType('List<any>'),
+    returns: IDLTypeHelper.parseIDLType('List<any>'),
     args: {},
     kws: {},
   },
   'orderedhash::map': {
-    returns: ParseIDLType('orderedhash<any>'),
+    returns: IDLTypeHelper.parseIDLType('orderedhash<any>'),
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {},
@@ -781,7 +783,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     args: {
       function: {
         direction: 'in',
-        type: ParseIDLType('String | Lambda'),
+        type: IDLTypeHelper.parseIDLType('String | Lambda'),
       },
     },
     kws: {
@@ -809,17 +811,17 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       },
       skipped: {
         direction: 'out',
-        type: ParseIDLType('List<any>'),
+        type: IDLTypeHelper.parseIDLType('List<any>'),
       },
     },
   },
   'orderedhash::values': {
-    returns: ParseIDLType('List<any>'),
+    returns: IDLTypeHelper.parseIDLType('List<any>'),
     args: {},
     kws: {},
   },
   'orderedhash::where': {
-    returns: ParseIDLType('Array<Number>'),
+    returns: IDLTypeHelper.parseIDLType('Array<Number>'),
     args: {
       value: {
         direction: 'in',
@@ -829,7 +831,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
     kws: {
       complement: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
       count: {
         direction: 'out',

@@ -1,10 +1,14 @@
 import {
+  SyntaxProblemWithoutTranslation,
+  SyntaxProblemWithTranslation,
+} from '@idl/parsing/shared';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
+import {
   RoutineMethodNameToken,
   RoutineNameToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { ParseIDLType } from '@idl/parser';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
@@ -12,16 +16,11 @@ import {
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
+import { IBranch, IDocs } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
-import { IBranch } from '../branches.interface';
 import { FindDirectBranchChildren } from '../helpers/searching/find-direct-branch-children';
-import {
-  SyntaxProblemWithoutTranslation,
-  SyntaxProblemWithTranslation,
-} from '../syntax-problem-with';
 import { IDL_DOCS_HEADERS } from './docs.interface';
-import { IDocs } from './extract-docs.interface';
 import { ExtractParameterDocs } from './extract-parameter-docs';
 import {
   FunctionRoutineType,
@@ -75,7 +74,7 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
       display: '',
       kws: {},
       private: IDL_DOCS_HEADERS.PRIVATE in docs,
-      returns: ParseIDLType(DEFAULT_DATA_TYPE),
+      returns: IDLTypeHelper.parseIDLType(DEFAULT_DATA_TYPE),
       struct: structures,
     };
 
@@ -310,7 +309,7 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
       // create function metadata
       const fMeta: RoutineMetadata<FunctionRoutineType> = {
         ...meta,
-        returns: ParseIDLType(returnType),
+        returns: IDLTypeHelper.parseIDLType(returnType),
       };
 
       return fMeta;

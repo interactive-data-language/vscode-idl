@@ -1,4 +1,4 @@
-import { BRANCH_TYPES, TreeBranchToken } from '@idl/parsing/syntax-tree';
+import { BRANCH_TYPES, TreeBranchToken } from '@idl/types/syntax-tree';
 
 /**
  * Checks a branch's children to determine if it is a single line or not

@@ -8,7 +8,7 @@ import { ApplyFormatter } from '@idl/assembling/formatters';
 import { ApplyStyle, ReplaceRoutineDocs } from '@idl/assembling/styles';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { SaveGlobalDisplayNames } from '@idl/parsing/index';
-import { IParsed } from '@idl/parsing/syntax-tree';
+import { IParsed } from '@idl/types/syntax-tree';
 import { MergeConfig } from '@idl/schemas/idl.json';
 
 import { Combiner } from './combiner/combiner';

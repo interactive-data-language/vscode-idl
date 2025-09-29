@@ -1,9 +1,9 @@
+import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
 import {
   BasicCallback,
   FindDirectBranchChildren,
   GetNextInBranch,
   IsBeforeToken,
-  SyntaxProblemWithoutTranslation,
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, VariableToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';

@@ -15,7 +15,9 @@ export const PROCEDURE_METHOD_OVERRIDE: IProcedureMethodOverride = {
     args: {
       keys: {
         direction: 'in',
-        type: ParseIDLType('Number | String | Array<Number | String >'),
+        type: IDLTypeHelper.parseIDLType(
+          'Number | String | Array<Number | String >'
+        ),
       },
     },
     kws: {
@@ -29,7 +31,9 @@ export const PROCEDURE_METHOD_OVERRIDE: IProcedureMethodOverride = {
     args: {
       keys: {
         direction: 'in',
-        type: ParseIDLType('Number | String | Array<Number | String >'),
+        type: IDLTypeHelper.parseIDLType(
+          'Number | String | Array<Number | String >'
+        ),
       },
     },
     kws: {
@@ -79,7 +83,7 @@ export const PROCEDURE_METHOD_OVERRIDE: IProcedureMethodOverride = {
     args: {
       indices: {
         direction: 'in',
-        type: ParseIDLType('Number | Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Number | Array<Number>'),
       },
     },
     kws: {
@@ -106,7 +110,9 @@ export const PROCEDURE_METHOD_OVERRIDE: IProcedureMethodOverride = {
     args: {
       keys: {
         direction: 'in',
-        type: ParseIDLType('Number | String | Array<Number | String >'),
+        type: IDLTypeHelper.parseIDLType(
+          'Number | String | Array<Number | String >'
+        ),
       },
     },
     kws: {

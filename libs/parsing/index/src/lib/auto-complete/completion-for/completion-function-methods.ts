@@ -1,6 +1,6 @@
 import { TransformCase } from '@idl/assembling/shared';
-import { ParseIDLType } from '@idl/parser';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { GetSortIndexForStrings } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IFunctionMethodCompletionOptions } from '@idl/types/auto-complete';
@@ -102,7 +102,7 @@ function BuildFunctionMethodCompletionItemsForType(
           ...{
             options: {
               addParen: arg.options.addParen,
-              type: ParseIDLType(inherits[i]),
+              type: IDLTypeHelper.parseIDLType(inherits[i]),
             },
           },
         });

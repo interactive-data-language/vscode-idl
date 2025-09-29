@@ -10,9 +10,9 @@ import {
   IGlobalIndexedToken,
   IPropertyLookup,
 } from '@idl/types/idl-data-types';
+import { TreeToken } from '@idl/types/syntax-tree';
 import { PositionRange } from '@idl/types/tokenizer';
 
-import { TreeToken } from '../branches.interface';
 import { GetPropertyName } from '../helpers/get-property-name';
 import { FindAllBranchChildren } from '../helpers/searching/find-all-branch-children';
 import { FindDirectBranchChildren } from '../helpers/searching/find-direct-branch-children';

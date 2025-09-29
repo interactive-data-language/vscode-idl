@@ -2,8 +2,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { ActivateDefaultSyntaxPostProcessors } from '@idl/parsing/syntax-post-processors';
 import {
   BuildSyntaxTree,
-  DEFAULT_USES_THESE_GLOBAL_TOKEN,
-  IParsed,
+  PopulateSyntaxTree,
   PostProcessProblems,
 } from '@idl/parsing/syntax-tree';
 import { ActivateDefaultSyntaxRules } from '@idl/parsing/syntax-validators';
@@ -11,9 +10,12 @@ import {
   FAST_FIND_TOKEN_OPTIONS,
   IFindTokensOptions,
   Tokenizer,
-  TYPE_FIND_TOKEN_OPTIONS,
 } from '@idl/tokenizer';
 import { DEFAULT_DISABLED_PROBLEMS } from '@idl/types/problem-codes';
+import {
+  DEFAULT_USES_THESE_GLOBAL_TOKEN,
+  IParsed,
+} from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 import { existsSync, readFileSync } from 'fs';
 import { readFile } from 'fs/promises';
@@ -40,11 +42,6 @@ export function ParserTokenize(
 
   // determine how to set our options
   switch (true) {
-    // not full parse
-    case tokenized.type === 'types':
-      tokenOptions = TYPE_FIND_TOKEN_OPTIONS;
-      break;
-
     // handle def files
     case tokenized.type === 'def':
       // tokenOptions = DEF_FIND_TOKEN_OPTIONS;
@@ -131,8 +128,15 @@ export function Parser(
   // extract tokens
   ParserTokenize(code, tokenized, cancel, options.full);
 
-  // build the syntax tree and detect syntax problems
-  BuildSyntaxTree(tokenized, cancel, options.full);
+  // build the syntax tree
+  tokenized.tree = BuildSyntaxTree(
+    tokenized.tokens,
+    tokenized.parseProblems,
+    options.full
+  );
+
+  // populate values in the syntax tree
+  PopulateSyntaxTree(tokenized, cancel, options.full);
 
   // remove all problems if fast parse
   if (!options.full && !(tokenized.type === 'def')) {
@@ -158,9 +162,7 @@ export function Parser(
   }
 
   // get code outline
-  if (options.type !== 'types') {
-    ParserGetOutline(tokenized);
-  }
+  ParserGetOutline(tokenized);
 
   return tokenized;
 }

@@ -1,4 +1,4 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { AccessPropertyToken } from '@idl/tokenizer';
 import { IBaseIndexedToken } from '@idl/types/idl-data-types';
 

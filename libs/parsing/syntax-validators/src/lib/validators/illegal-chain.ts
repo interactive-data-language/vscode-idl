@@ -1,10 +1,5 @@
-import {
-  IDL_SYNTAX_TREE_VALIDATOR,
-  IParsed,
-  SyntaxProblemWithTranslation,
-  TreeBranchToken,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
+import { IDL_SYNTAX_TREE_VALIDATOR } from '@idl/parsing/syntax-tree';
 import {
   AccessPropertyToken,
   CallFunctionMethodToken,
@@ -14,6 +9,7 @@ import {
   TokenName,
 } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { IParsed, TreeBranchToken, TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Tokens that need to be wrapped

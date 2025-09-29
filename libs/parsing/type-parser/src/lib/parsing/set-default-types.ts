@@ -1,7 +1,7 @@
 import { IDLDataType } from '@idl/types/idl-data-types';
 
+import { IDLTypeHelper } from '../idl-type-helper.class';
 import { DEFAULT_TYPE_ARGS } from './default-type-args.interface';
-import { ParseIDLType } from './parse-idl-type';
 
 /**
  * Processes each parsed type and sets defaults for args and strips
@@ -18,7 +18,9 @@ export function SetDefaultTypes(types: IDLDataType) {
           // add default
           case struct.args.length === 0:
             struct.args.push(
-              ParseIDLType(DEFAULT_TYPE_ARGS[struct.name].join(' | '))
+              IDLTypeHelper.parseIDLType(
+                DEFAULT_TYPE_ARGS[struct.name].join(' | ')
+              )
             );
             break;
           // remove excess types

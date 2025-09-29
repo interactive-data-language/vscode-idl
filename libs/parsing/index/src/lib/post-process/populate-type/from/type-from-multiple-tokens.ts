@@ -1,16 +1,12 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import {
-  IParsed,
-  SplitTreeOnOperators,
-  SyntaxTree,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { SplitTreeOnOperators } from '@idl/parsing/syntax-tree';
 import {
   AssignmentToken,
   LogicalTernaryThenToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDLDataType } from '@idl/types/idl-data-types';
+import { IParsed, SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { GetVariable } from '../../../helpers/get-variable';

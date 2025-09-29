@@ -4,7 +4,7 @@ import {
   MigrationType,
 } from '@idl/assembling/migrators-types';
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IParsed } from '@idl/parsing/syntax-tree';
+import { IParsed } from '@idl/types/syntax-tree';
 
 import { MigrateToDL30 } from './migrate-to-dl30';
 

@@ -1,6 +1,5 @@
 import { NonBasicTokenNames, TokenName } from '@idl/tokenizer';
-
-import { IBranch, TreeToken } from '../../branches.interface';
+import { IBranch, TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Checks the children of a branch for a token and returns the

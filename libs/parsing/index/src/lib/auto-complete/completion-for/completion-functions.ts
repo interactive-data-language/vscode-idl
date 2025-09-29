@@ -1,8 +1,8 @@
 import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
-import { TASK_REGEX } from '@idl/parser';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TaskFunctionName } from '@idl/parsing/syntax-tree';
+import { TASK_REGEX } from '@idl/parsing/type-parser';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   FunctionCompletion,

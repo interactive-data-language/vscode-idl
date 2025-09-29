@@ -1,12 +1,12 @@
+import { IDL_SYNTAX_TREE_POST_PROCESSOR } from '@idl/parsing/syntax-tree';
+import { CommentBlockToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   BRANCH_TYPES,
   END_COMMENT_BLOCK_REGEX,
   IBranch,
-  IDL_SYNTAX_TREE_POST_PROCESSOR,
   START_COMMENT_BLOCK,
   SyntaxTree,
-} from '@idl/parsing/syntax-tree';
-import { CommentBlockToken, TOKEN_NAMES } from '@idl/tokenizer';
+} from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 /**

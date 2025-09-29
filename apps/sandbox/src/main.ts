@@ -15,11 +15,12 @@ const parsed = Parser(type, new CancellationToken(), {
 
 console.log(parsed.tree);
 
-// const parsed = ParseIDLType(type);
+// const parsed = IDLTypeHelper.parseIDLType(type);
 
-// const serialize = SerializeIDLType(parsed);
+// const serialize = IDLTypeHelper.serializeIDLType(
+parsed);
 
-// const parsed2 = ParseIDLType(serialize);
+// const parsed2 = IDLTypeHelper.parseIDLType(serialize);
 
 // console.log(StringifyDataForLog('', parsed));
 // console.log(StringifyDataForLog('', serialize));

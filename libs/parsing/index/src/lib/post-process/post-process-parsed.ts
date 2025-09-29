@@ -1,10 +1,10 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
 import {
-  IParsed,
   PopulateScopeDetailAndResetTokenCache,
   ResetVariables,
 } from '@idl/parsing/syntax-tree';
+import { IParsed } from '@idl/types/syntax-tree';
 
 import { GetSyntaxProblems } from '../helpers/get-syntax-problems';
 import { IDLIndex } from '../idl-index.class';

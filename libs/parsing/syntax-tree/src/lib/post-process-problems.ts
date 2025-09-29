@@ -3,8 +3,7 @@ import {
   IDLProblemCode,
   ISyntaxProblem,
 } from '@idl/types/problem-codes';
-
-import { IParsed } from './parsed.interface';
+import { IParsed } from '@idl/types/syntax-tree';
 
 /**
  * Merge overlapping problem codes together into a single problem

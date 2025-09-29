@@ -1,12 +1,13 @@
-import { GetPropertyName, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { GetPropertyName } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { AccessPropertyToken, StructurePropertyToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDLTypeHelper } from '@idl/parser';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,
   IDL_STRUCTURE_TYPE,
 } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
 
 import { GetProperty } from '../../helpers/get-property';

@@ -1,4 +1,4 @@
-import { IDLTypeHelper } from '@idl/parser';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
 import { z } from 'zod';
 

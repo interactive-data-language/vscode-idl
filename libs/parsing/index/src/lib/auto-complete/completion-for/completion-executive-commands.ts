@@ -1,5 +1,6 @@
 import { AdjustCase } from '@idl/assembling/shared';
-import { TreeToken } from '@idl/parsing/syntax-tree';
+import { TreeToken } from '@idl/types/syntax-tree';
+
 import { IDLFileHelper } from '@idl/shared/extension';
 import { TokenName } from '@idl/tokenizer';
 import {

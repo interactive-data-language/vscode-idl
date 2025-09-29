@@ -1,4 +1,4 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { CallFunctionToken } from '@idl/tokenizer';
 import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
 

@@ -2,8 +2,8 @@ import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 import { AdjustCase } from '@idl/assembling/shared';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
 import { GetVariable } from '@idl/parsing/index';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { TOKEN_NAMES } from '@idl/tokenizer';
-import { SerializeIDLType } from '@idl/parser';
 
 ASSEMBLER_DEFAULT_STYLING.onBasicToken(
   TOKEN_NAMES.SYSTEM_VARIABLE,
@@ -31,7 +31,7 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
       // check if we have a static class reference
       if (source.meta.isStaticClass) {
         // serialize
-        let serialized = SerializeIDLType(source.meta.type);
+        let serialized = IDLTypeHelper.serializeIDLType(source.meta.type);
 
         // remove any type args
         const idxArgs = serialized.indexOf('<');

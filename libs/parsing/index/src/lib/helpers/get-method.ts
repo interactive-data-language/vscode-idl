@@ -1,10 +1,10 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   CallFunctionMethodToken,
   CallProcedureMethodToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { IDLTypeHelper, ParseIDLType } from '@idl/parser';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionMethodToken,
@@ -75,7 +75,7 @@ export function GetMethodForType<
           parsed,
           token,
           useCache,
-          ParseIDLType(alsoCheck[i])
+          IDLTypeHelper.parseIDLType(alsoCheck[i])
         );
         if (matches.length > 0) {
           return matches;

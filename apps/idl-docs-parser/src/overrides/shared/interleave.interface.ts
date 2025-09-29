@@ -6,7 +6,7 @@ import {
 /**
  * The type for interleave
  */
-export const INTERLEAVE_TYPE = ParseIDLType('bil | bip | bsq');
+export const INTERLEAVE_TYPE = IDLTypeHelper.parseIDLType('bil | bip | bsq');
 
 /**
  * Interleave data type

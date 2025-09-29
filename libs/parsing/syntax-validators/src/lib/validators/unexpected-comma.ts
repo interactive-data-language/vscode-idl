@@ -1,8 +1,5 @@
-import {
-  IBranch,
-  IDL_SYNTAX_TREE_VALIDATOR,
-  SyntaxProblemWithTranslation,
-} from '@idl/parsing/syntax-tree';
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
+import { IDL_SYNTAX_TREE_VALIDATOR } from '@idl/parsing/syntax-tree';
 import {
   BracketToken,
   CallFunctionMethodToken,
@@ -16,6 +13,7 @@ import {
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
+import { IBranch } from '@idl/types/syntax-tree';
 
 /**
  * Tokens that are not allowed to have commas afterwards

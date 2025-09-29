@@ -68,6 +68,7 @@
       "@idl/parsing/semantic-tokens": [
         "libs/parsing/semantic-tokens/src/index.ts"
       ],
+      "@idl/parsing/shared": ["libs/parsing/shared/src/index.ts"],
       "@idl/parsing/syntax-post-processors": [
         "libs/parsing/syntax-post-processors/src/index.ts"
       ],
@@ -75,6 +76,7 @@
       "@idl/parsing/syntax-validators": [
         "libs/parsing/syntax-validators/src/index.ts"
       ],
+      "@idl/parsing/type-parser": ["libs/parsing/type-parser/src/index.ts"],
       "@idl/schemas/idl.json": ["libs/schemas/idl.json/src/index.ts"],
       "@idl/schemas/tasks": ["libs/schemas/tasks/src/index.ts"],
       "@idl/shared/extension": ["libs/shared/extension/src/index.ts"],

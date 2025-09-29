@@ -1,4 +1,4 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { TokenName } from '@idl/tokenizer';
 
 import { IDLIndex } from '../idl-index.class';

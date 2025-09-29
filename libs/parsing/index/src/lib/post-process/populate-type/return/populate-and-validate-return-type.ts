@@ -2,13 +2,11 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   DocsToMarkdown,
   FindAllBranchChildren,
-  IParsed,
   IsWithinBranch,
   MARKDOWN_TYPE_LOOKUP,
-  TreeToken,
 } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { RoutineFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLTypeHelper } from '@idl/parser';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionMethodToken,
@@ -16,6 +14,7 @@ import {
   IDLDataType,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../../../idl-index.class';
 import { TypeFromTokens } from '../from/type-from-tokens';

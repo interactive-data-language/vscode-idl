@@ -1,11 +1,11 @@
+import { MakeSpaces } from '@idl/parsing/syntax-tree';
+import { TOKEN_NAMES } from '@idl/tokenizer';
 import {
   BRANCH_TYPES,
   IParsed,
-  MakeSpaces,
   SyntaxTree,
   TreeBranchToken,
-} from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES } from '@idl/tokenizer';
+} from '@idl/types/syntax-tree';
 
 /**
  * Branches that we skip

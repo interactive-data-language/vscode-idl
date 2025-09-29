@@ -1,10 +1,10 @@
-import { BRANCH_TYPES, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 import {
   IDL_ANY_TYPE,
   IDL_STRING_TYPE,
   IDLDataType,
 } from '@idl/types/idl-data-types';
+import { BRANCH_TYPES, IParsed, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { ITokenCache } from '../../../helpers/token-cache.interface';

@@ -3,7 +3,8 @@ import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { GetSortIndexForStrings } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IProcedureMethodCompletionOptions } from '@idl/types/auto-complete';
-import { ParseIDLType } from '@idl/parser';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
+
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,
@@ -85,7 +86,7 @@ function BuildProcedureMethodCompletionItemsForType(
           ...arg,
           ...{
             options: {
-              type: ParseIDLType(inherits[i]),
+              type: IDLTypeHelper.parseIDLType(inherits[i]),
             },
           },
         });

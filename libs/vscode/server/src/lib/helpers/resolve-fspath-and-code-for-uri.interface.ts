@@ -1,4 +1,4 @@
-import { ParsedType } from '@idl/parsing/syntax-tree';
+import { ParsedType } from '@idl/types/syntax-tree';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 export interface IResolvedFSPathAndCodeForURI {

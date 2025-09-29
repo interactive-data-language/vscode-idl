@@ -1,9 +1,9 @@
-import { IParsed } from '@idl/parsing/syntax-tree';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalTokenType,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
+import { IParsed } from '@idl/types/syntax-tree';
 import { PositionRange } from '@idl/types/tokenizer';
 import { DocumentSymbol } from 'vscode-languageserver';
 

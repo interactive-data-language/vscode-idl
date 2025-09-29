@@ -1,8 +1,5 @@
-import {
-  IParsed,
-  SyntaxProblemWithTranslation,
-} from '@idl/parsing/syntax-tree';
-import { IDLTypeHelper, ParseIDLType, SerializeIDLType } from '@idl/parser';
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   IDL_ANY_TYPE,
   IDL_ARRAY_TYPE,
@@ -11,6 +8,7 @@ import {
   IDLDataType,
 } from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
+import { IParsed } from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';
 import copy from 'fast-copy';
 
@@ -79,7 +77,9 @@ export function TypePromotion(
       }
     }
     if (simplify) {
-      return ParseIDLType(`Array<${SerializeIDLType(reduced)}>`);
+      return IDLTypeHelper.parseIDLType(
+        `Array<${IDLTypeHelper.serializeIDLType(reduced)}>`
+      );
     }
   }
 
@@ -248,7 +248,7 @@ export function TypePromotion(
          */
         case isNull:
           if (isArray) {
-            return ParseIDLType('Array<Boolean>');
+            return IDLTypeHelper.parseIDLType('Array<Boolean>');
           } else {
             return copy(IDL_BOOLEAN_TYPE);
           }
@@ -294,11 +294,13 @@ export function TypePromotion(
 
   switch (true) {
     case compatibleBaseType !== undefined:
-      return ParseIDLType(
-        `${compatibleBaseType}<${SerializeIDLType(compatibleTypeArgs)}>`
+      return IDLTypeHelper.parseIDLType(
+        `${compatibleBaseType}<${IDLTypeHelper.serializeIDLType(
+          compatibleTypeArgs
+        )}>`
       );
     case isArray:
-      return ParseIDLType(
+      return IDLTypeHelper.parseIDLType(
         `Array<${
           highestType === TYPE_ORDER.length + 1
             ? 'any'
@@ -308,6 +310,6 @@ export function TypePromotion(
     default:
       return highestType === TYPE_ORDER.length + 1
         ? copy(IDL_ANY_TYPE)
-        : ParseIDLType(TYPE_ORDER[highestType]);
+        : IDLTypeHelper.parseIDLType(TYPE_ORDER[highestType]);
   }
 }

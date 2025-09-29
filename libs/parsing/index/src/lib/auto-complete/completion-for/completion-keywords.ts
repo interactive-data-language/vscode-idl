@@ -1,10 +1,6 @@
 import { AdjustCase } from '@idl/assembling/shared';
-import { IDLTypeHelper } from '@idl/parser';
-import {
-  FindDirectBranchChildren,
-  IParsed,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { FindDirectBranchChildren } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { GetSortIndexForStrings } from '@idl/shared/extension';
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -17,6 +13,7 @@ import {
   IDL_TYPE_LOOKUP,
   IParameterLookup,
 } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { FindKeyword } from '../../helpers/get-keyword';

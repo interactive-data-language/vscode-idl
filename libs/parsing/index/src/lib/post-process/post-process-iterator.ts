@@ -4,14 +4,16 @@ import './tree-handlers/validate-type.index';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   FindDirectBranchChildren,
-  ILocalTokenLookup,
-  IParsed,
   ITreeRecurserOptions,
-  TreeBranchToken,
   TreeRecurser,
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
+import {
+  ILocalTokenLookup,
+  IParsed,
+  TreeBranchToken,
+} from '@idl/types/syntax-tree';
 
 import { GetMethod } from '../helpers/get-method';
 import { IDLIndex } from '../idl-index.class';

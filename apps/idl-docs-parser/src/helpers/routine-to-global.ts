@@ -169,7 +169,7 @@ function MergeEntries(
       {
         display: name,
         docs: params[name] || '',
-        type: ParseIDLType(startType),
+        type: IDLTypeHelper.parseIDLType(startType),
         direction:
           name in jsonOverride
             ? jsonOverride[useName].direction
@@ -183,7 +183,7 @@ function MergeEntries(
 
     if (useName in jsonOverride) {
       jsonOverride[useName] = {
-        type: SerializeIDLType(ready[useName].type),
+        type: IDLTypeHelper.serializeIDLType(ready[useName].type),
         direction: ready[useName].direction,
       };
     }
@@ -411,7 +411,7 @@ export async function RoutineToGlobal(
               private: false,
               returns:
                 FUNCTION_OVERRIDE[useName]?.returns ||
-                ParseIDLType(
+                IDLTypeHelper.parseIDLType(
                   isClass
                     ? useName
                     : FUNCTION_TYPE_OVERRIDES[useName]?.returns ||
@@ -528,7 +528,7 @@ export async function RoutineToGlobal(
               private: false,
               returns:
                 FUNCTION_METHOD_OVERRIDE[useName]?.returns ||
-                ParseIDLType(
+                IDLTypeHelper.parseIDLType(
                   isClass
                     ? useName
                     : FUNCTION_METHOD_TYPE_OVERRIDES[useName]?.returns ||
@@ -774,7 +774,7 @@ export async function RoutineToGlobal(
           display: name,
           source: source,
           docs: DocsToMarkdown(MARKDOWN_TYPE_LOOKUP.GENERAL, routine.docs),
-          type: ParseIDLType(name),
+          type: IDLTypeHelper.parseIDLType(name),
           private: false,
         },
       };

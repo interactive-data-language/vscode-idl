@@ -5,7 +5,8 @@ import {
 } from '@idl/assembling/config';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IParsed, PopulateScopeDetail } from '@idl/parsing/syntax-tree';
+import { PopulateScopeDetail } from '@idl/parsing/syntax-tree';
+import { IParsed } from '@idl/types/syntax-tree';
 
 /**
  * Applies styles from a tree handler to our parsed code

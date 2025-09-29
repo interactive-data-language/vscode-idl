@@ -12,7 +12,7 @@ import {
 } from '@idl/logger';
 import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
 import { Parser } from '@idl/parser';
-import { GetIncludeFile, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { GetIncludeFile } from '@idl/parsing/syntax-tree';
 import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
 import { IDL_FILE_TYPE_LOOKUP, IDLFileHelper } from '@idl/shared/extension';
@@ -29,6 +29,7 @@ import {
   IDisabledProblems,
   SyntaxProblems,
 } from '@idl/types/problem-codes';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { TaskToGlobalToken } from '@idl/types/tasks';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,

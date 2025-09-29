@@ -1,4 +1,4 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { BracketToken } from '@idl/tokenizer';
 import { IDLDataType } from '@idl/types/idl-data-types';
 import copy from 'fast-copy';

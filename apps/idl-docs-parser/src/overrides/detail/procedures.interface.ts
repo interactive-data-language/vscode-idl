@@ -35,7 +35,7 @@ export const PROCEDURE_OVERRIDE: IProcedureOverride = {
     kws: {
       output: {
         direction: 'out',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
     },
   },
@@ -53,7 +53,7 @@ export const PROCEDURE_OVERRIDE: IProcedureOverride = {
     kws: {
       rgb_table: {
         direction: 'out',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
     },
   },
@@ -62,7 +62,7 @@ export const PROCEDURE_OVERRIDE: IProcedureOverride = {
     kws: {
       position: {
         direction: 'in',
-        type: ParseIDLType('Array<Number>'),
+        type: IDLTypeHelper.parseIDLType('Array<Number>'),
       },
     },
   },
@@ -150,11 +150,11 @@ export const PROCEDURE_OVERRIDE: IProcedureOverride = {
     kws: {
       am_pm: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
       days_of_the_week: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
       format: {
         direction: 'in',
@@ -166,7 +166,7 @@ export const PROCEDURE_OVERRIDE: IProcedureOverride = {
       },
       months: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
       stdio_non_finite: {
         direction: 'in',
@@ -188,11 +188,11 @@ export const PROCEDURE_OVERRIDE: IProcedureOverride = {
     kws: {
       am_pm: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
       days_of_the_week: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
       format: {
         direction: 'in',
@@ -204,7 +204,7 @@ export const PROCEDURE_OVERRIDE: IProcedureOverride = {
       },
       months: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
       stdio_non_finite: {
         direction: 'in',
@@ -222,11 +222,11 @@ export const PROCEDURE_OVERRIDE: IProcedureOverride = {
     kws: {
       am_pm: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
       days_of_the_week: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
       format: {
         direction: 'in',
@@ -234,7 +234,7 @@ export const PROCEDURE_OVERRIDE: IProcedureOverride = {
       },
       months: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
       prompt: {
         direction: 'in',
@@ -256,11 +256,11 @@ export const PROCEDURE_OVERRIDE: IProcedureOverride = {
     kws: {
       am_pm: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
       days_of_the_week: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
       format: {
         direction: 'in',
@@ -268,7 +268,7 @@ export const PROCEDURE_OVERRIDE: IProcedureOverride = {
       },
       months: {
         direction: 'in',
-        type: ParseIDLType('Array<String>'),
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
       },
     },
   },

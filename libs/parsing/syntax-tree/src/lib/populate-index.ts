@@ -2,7 +2,7 @@ import {
   BRANCH_TYPES,
   SyntaxTree,
   TreeBranchToken,
-} from './branches.interface';
+} from '@idl/types/syntax-tree';
 
 /**
  * Populates the index for a syntax tree to make sure it is valid.

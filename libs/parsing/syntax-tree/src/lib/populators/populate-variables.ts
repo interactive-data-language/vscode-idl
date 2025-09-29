@@ -13,20 +13,22 @@ import {
   IDL_ANY_TYPE,
   IParameterOrPropertyDetails,
 } from '@idl/types/idl-data-types';
+import {
+  IBasicBranch,
+  IBranch,
+  ILocalIndexedToken,
+  ILocalTokenLookup,
+  IParsed,
+  LOCAL_TOKEN_LOOKUP,
+  LocalVariableToken,
+  TreeToken,
+} from '@idl/types/syntax-tree';
 
-import { IBasicBranch, IBranch, TreeToken } from '../branches.interface';
 import { IDL_DOCS_HEADERS } from '../docs/docs.interface';
 import { ExtractDocs } from '../docs/extract-docs';
 import { JoinDocs } from '../docs/join-docs';
 import { FindAllBranchChildren } from '../helpers/searching/find-all-branch-children';
 import { FindAllBranchChildrenAndDocs } from '../helpers/searching/find-all-branch-children-and-docs';
-import { IParsed } from '../parsed.interface';
-import {
-  ILocalIndexedToken,
-  ILocalTokenLookup,
-  LOCAL_TOKEN_LOOKUP,
-  LocalVariableToken,
-} from './populate-local.interface';
 import { ReplaceFunctionsAsVariables } from './replace-functions-as-variables';
 
 /**

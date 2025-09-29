@@ -1,5 +1,3 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { Parser } from '@idl/parser';
 import {
   IDLDataType,
   IDLDataTypeBase,
@@ -7,36 +5,14 @@ import {
   TYPE_ALIASES,
 } from '@idl/types/idl-data-types';
 
+import { GetTaskDisplayName } from '../helpers/get-task-display-name';
 import { ReduceIDLDataType } from '../serializing/reduce-types';
 import { ARRAY_SHORTHAND_TYPES } from './array-shorthand-types.interface';
-import { GetTaskDisplayName } from './get-task-display-name';
+import { TASK_REGEX } from './parse-idl-type.interface';
 import { PopulateTypeDisplayName } from './populate-type-display-name';
 import { ProcessLiteralTypes } from './process-literal-types';
 import { SetDefaultTypes } from './set-default-types';
 import { SplitType } from './split-type';
-
-/**
- * Regular expression for parsing types
- *
- * TODO: Broken, because we need recursion so we need code parsing
- */
-export const TYPE_REGEX = /([a-z_0-9$!'"=]+)\s*(?:<([^>]*)>)?\s*\|?/im;
-
-/**
- * Regular expression for parsing type documentation that is used
- * to nicely split parsed docs without using commas
- */
-export const TYPE_DOCS_REGEX = /((?:[a-z_0-9$!'"=]+\s*(?:<.*>)?\s*\|?\s*)+)/im;
-
-/**
- * Regular expression to split on type args
- */
-export const TYPE_ARGS_REGEX = /((?:[a-z_0-9$!'"=]+\s*(?:<.+>)?\s*\|?)*),/im;
-
-/**
- * Regular expression to detect ENVI or IDL tasks so we can nicely format the display name
- */
-export const TASK_REGEX = /^(?:ENVI|IDL)(.+)Task$/i;
 
 /**
  * Takes the type from IDL docs and returns more detailed type information
@@ -127,12 +103,6 @@ function _ParseTheTypes(type: string): IDLDataType {
  * in the future
  */
 export function ParseIDLType(type: string): IDLDataType {
-  /** Parse our type expression */
-  const parsed = Parser(type, new CancellationToken(), {
-    type: 'types',
-    full: false,
-  });
-
   // extract types
   const types = _ParseTheTypes(type);
 

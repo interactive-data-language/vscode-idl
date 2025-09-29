@@ -1,4 +1,4 @@
-import { TASK_REGEX } from '@idl/parser';
+import { TASK_REGEX } from '@idl/parsing/type-parser';
 import {
   GlobalStructureToken,
   IGlobalIndexedToken,

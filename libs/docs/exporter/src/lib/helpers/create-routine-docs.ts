@@ -140,7 +140,7 @@ export function CreateRoutineDocs(
   // if (IDL_DOCS_HEADERS.RETURNS in docsLookup) {
   //   docs.push(
   //     `### Return Value:${GetReturnsBadge(
-  //       ParseIDLType(docsLookup[IDL_DOCS_HEADERS.RETURNS])
+  //       IDLTypeHelper.parseIDLType(docsLookup[IDL_DOCS_HEADERS.RETURNS])
   //     )}`
   //   );
   //   usedKeys[IDL_DOCS_HEADERS.RETURNS] = undefined;

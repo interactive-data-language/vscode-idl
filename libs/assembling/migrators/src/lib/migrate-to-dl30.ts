@@ -2,8 +2,8 @@ import { Assembler } from '@idl/assembler';
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IParsed } from '@idl/parsing/syntax-tree';
-import { IDLTypeHelper, ParseIDLType, SerializeIDLType } from '@idl/parser';
+import { IParsed } from '@idl/types/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 
 import {
   ExtractPropertyLines,
@@ -21,16 +21,20 @@ export async function MigrateToDL30(
   cancel: CancellationToken
 ) {
   /** Type for our init task */
-  const initType = ParseIDLType('ENVITask<InitializeENVINet5MultiModel>');
+  const initType = IDLTypeHelper.parseIDLType(
+    'ENVITask<InitializeENVINet5MultiModel>'
+  );
 
   /** Convert to string */
-  const initTypeString = SerializeIDLType(initType, true);
+  const initTypeString = IDLTypeHelper.serializeIDLType(initType, true);
 
   /** Type for our init task */
-  const trainType = ParseIDLType('ENVITask<TrainTensorFlowMaskModel>');
+  const trainType = IDLTypeHelper.parseIDLType(
+    'ENVITask<TrainTensorFlowMaskModel>'
+  );
 
   /** Convert to string */
-  const trainTypeString = SerializeIDLType(trainType, true);
+  const trainTypeString = IDLTypeHelper.serializeIDLType(trainType, true);
 
   /**
    * Track the lines that we will comment out

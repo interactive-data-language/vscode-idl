@@ -1,6 +1,6 @@
 import { BranchCallback } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { LoopForeachToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLTypeHelper, ParseIDLType } from '@idl/parser';
 import { IDLDataType } from '@idl/types/idl-data-types';
 
 import { TypeFromTokens } from '../../populate-type/from/type-from-tokens';
@@ -102,7 +102,7 @@ const cb: BranchCallback<LoopTokens, PopulateTypeHandlerMeta> = (
         if (!source3.meta.isDefined) {
           source3.meta.isDefined = true;
           source3.pos = third.pos;
-          source3.meta.type = ParseIDLType('number | String');
+          source3.meta.type = IDLTypeHelper.parseIDLType('number | String');
         }
       }
     }

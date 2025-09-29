@@ -6,13 +6,9 @@ import {
   OperatorToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
+import { SyntaxTree, TreeBranchToken, TreeToken } from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';
 
-import {
-  SyntaxTree,
-  TreeBranchToken,
-  TreeToken,
-} from '../../branches.interface';
 import { TreeRecurserBasic } from '../../recursion-and-callbacks/tree-recurser-basic';
 import { ISplitTreeOnOperators } from './split-tree-on-operators.interface';
 

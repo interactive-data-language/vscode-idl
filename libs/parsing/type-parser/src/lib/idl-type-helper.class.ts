@@ -1,5 +1,6 @@
 import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
 
+import { ParseIDLType } from './parsing/parse-idl-type';
 import { ReduceIDLDataType } from './serializing/reduce-types';
 import { SerializeIDLType } from './serializing/serialize-idl-type';
 
@@ -166,6 +167,13 @@ export class IDLTypeHelper {
   }
 
   /**
+   * Parse IDL data type
+   */
+  static parseIDLType(type: string) {
+    return ParseIDLType(type);
+  }
+
+  /**
    * Takes an IDL data type and reduces it to remove any duplicate types
    */
   static reduceIDLDataType(type: IDLDataType): IDLDataType {
@@ -179,5 +187,12 @@ export class IDLTypeHelper {
     for (let i = 0; i < type.length; i++) {
       delete type[i].value;
     }
+  }
+
+  /**
+   * Turn an IDL Data Type into a string
+   */
+  static serializeIDLType(type: IDLDataType, useName?: boolean) {
+    return SerializeIDLType(type, useName);
   }
 }

@@ -1,5 +1,6 @@
-import { MakeSpaces, TreeToken } from '@idl/parsing/syntax-tree';
+import { MakeSpaces } from '@idl/parsing/syntax-tree';
 import { TokenName } from '@idl/tokenizer';
+import { TreeToken } from '@idl/types/syntax-tree';
 
 import { DONT_INDENT_INSIDE_OF } from './merge-rules.interface';
 

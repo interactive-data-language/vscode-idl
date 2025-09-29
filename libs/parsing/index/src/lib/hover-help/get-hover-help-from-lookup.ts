@@ -1,6 +1,6 @@
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLTypeHelper, ParseIDLType } from '@idl/parser';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalRoutineToken,
@@ -141,7 +141,7 @@ export async function GetHoverHelpFromLookup(
               help = IDLTypeHelper.addTypeToDocs(
                 GetPropertyDisplayName(
                   prop.display,
-                  ParseIDLType(global.meta.display)
+                  IDLTypeHelper.parseIDLType(global.meta.display)
                 ),
                 prop.docs,
                 prop.type

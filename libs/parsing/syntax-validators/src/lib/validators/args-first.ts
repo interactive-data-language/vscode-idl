@@ -1,8 +1,8 @@
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
   BranchCallback,
   IDL_SYNTAX_TREE_VALIDATOR,
   IDLSyntaxValidatorMeta,
-  SyntaxProblemWithTranslation,
 } from '@idl/parsing/syntax-tree';
 import {
   RoutineMethodNameToken,

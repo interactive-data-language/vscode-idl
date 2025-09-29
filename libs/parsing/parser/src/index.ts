@@ -3,8 +3,3 @@ export * from './lib/helpers/code-checksum';
 export * from './lib/helpers/get-token-names';
 export * from './lib/parser';
 export * from './lib/parser.interface';
-export * from './lib/types/idl-type-helper.class';
-export * from './lib/types/parsing/get-task-display-name';
-export * from './lib/types/parsing/parse-idl-type';
-export * from './lib/types/parsing/split-type';
-export * from './lib/types/serializing/serialize-idl-type';

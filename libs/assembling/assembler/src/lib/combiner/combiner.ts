@@ -1,13 +1,13 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import { MakeSpaces } from '@idl/parsing/syntax-tree';
+import { NonBasicTokenNames, TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 import {
   BRANCH_TYPES,
   IBranch,
   IParsed,
-  MakeSpaces,
   SyntaxTree,
   TreeToken,
-} from '@idl/parsing/syntax-tree';
-import { NonBasicTokenNames, TOKEN_NAMES, TokenName } from '@idl/tokenizer';
+} from '@idl/types/syntax-tree';
 
 import { GetNewLine } from '../helpers/get-new-line';
 import { Stringify } from '../helpers/stringify';

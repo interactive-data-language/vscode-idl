@@ -1,4 +1,4 @@
-import { SyntaxTree } from '../../branches.interface';
+import { SyntaxTree } from '@idl/types/syntax-tree';
 
 /**
  * The result when we split a syntax tree on arguments

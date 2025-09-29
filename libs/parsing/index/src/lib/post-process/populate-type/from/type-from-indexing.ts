@@ -1,19 +1,18 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
   FindDirectBranchChildren,
-  IParsed,
   SplitTreeOnCommas,
-  SyntaxProblemWithTranslation,
-  TreeToken,
 } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { BracketToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLTypeHelper, ParseIDLType, SerializeIDLType } from '@idl/parser';
 import {
   IDL_ANY_TYPE,
   IDLDataType,
   KNOWN_IDL_TYPES,
 } from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { GetTypeBefore } from '../../../helpers/get-type-before';
@@ -110,7 +109,9 @@ export function TypeFromIndexing(
   const returnType =
     baseType === ''
       ? possibleTypes
-      : ParseIDLType(`${baseType}<${SerializeIDLType(possibleTypes)}>`);
+      : IDLTypeHelper.parseIDLType(
+          `${baseType}<${IDLTypeHelper.serializeIDLType(possibleTypes)}>`
+        );
 
   // if we have colons we are returning a slice/subscript range and also an array
   const colons = FindDirectBranchChildren(token, TOKEN_NAMES.COLON);
@@ -124,7 +125,9 @@ export function TypeFromIndexing(
          * type
          */
         if (baseType === '') {
-          return ParseIDLType(`Array<${SerializeIDLType(possibleTypes)}>`);
+          return IDLTypeHelper.parseIDLType(
+            `Array<${IDLTypeHelper.serializeIDLType(possibleTypes)}>`
+          );
         }
 
         parsed.postProcessProblems.push(
@@ -191,7 +194,9 @@ export function TypeFromIndexing(
      */
     case haveArray:
       if (baseType === '') {
-        return ParseIDLType(`Array<${SerializeIDLType(possibleTypes)}>`);
+        return IDLTypeHelper.parseIDLType(
+          `Array<${IDLTypeHelper.serializeIDLType(possibleTypes)}>`
+        );
       }
       return returnType;
     /**
