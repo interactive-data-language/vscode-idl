@@ -197,7 +197,7 @@ export class IDLTypeHelper {
    */
   static serializeIDLType(type: IDLDataType, useDisplayName?: boolean) {
     // check for any
-    if (IDLTypeHelper.isAnyType(type)) {
+    if (IDLTypeHelper.isAnyType(type) || type.length === 0) {
       return IDL_TYPE_LOOKUP.ANY;
     }
 
