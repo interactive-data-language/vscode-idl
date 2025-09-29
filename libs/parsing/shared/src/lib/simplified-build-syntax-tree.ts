@@ -220,9 +220,11 @@ function BuildTreeRecurser(
 }
 
 /**
- * Builds our syntax tree and saves it in the tokenized version of our code
+ * Builds a recursive syntax tree from the tokens that we extract
+ *
+ * If any bug fixes need to be made, should be mirrored in libs\parsing\syntax-tree\src\lib\build-syntax-tree.ts
  */
-export function BuildSyntaxTree(
+export function SimplifiedBuildSyntaxTree(
   tokens: TokenizerToken<TokenName>[],
   parseSyntaxProblems: SyntaxProblems,
   full: boolean
