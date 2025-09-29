@@ -21,7 +21,12 @@ export function EvaluateArrayPromotion(
   // get the type args
   const args = IDLTypeHelper.getAllTypeArgs(promoted);
 
-  // check each type for an array
+  /**
+   * Check if we have an array
+   *
+   * If so, even if another value may be "any", we should have an
+   * array type back from IDL, so this takes precedence
+   */
   for (let i = 0; i < types.length; i++) {
     if (IDLTypeHelper.isType(types[i], IDL_TYPE_LOOKUP.ARRAY)) {
       return IDLTypeHelper.createIDLType([
@@ -35,7 +40,10 @@ export function EvaluateArrayPromotion(
     }
   }
 
-  // if we dont definitively have an array, and we have "any" types, then return either
+  /**
+   * If we did not have an array, but we have "any", then return
+   * all permutations of scalar and array of the scalar types
+   */
   for (let i = 0; i < types.length; i++) {
     if (IDLTypeHelper.isAnyType(types[i])) {
       return args.concat(
@@ -50,4 +58,10 @@ export function EvaluateArrayPromotion(
       );
     }
   }
+
+  /**
+   * If we get here, then we just return the arguments because
+   * we don't have an array or "any"
+   */
+  return args;
 }
