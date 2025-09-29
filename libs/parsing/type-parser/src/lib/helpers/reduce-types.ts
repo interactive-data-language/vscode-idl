@@ -1,11 +1,5 @@
 import { IDLDataType, IDLDataTypeBase } from '@idl/types/idl-data-types';
 
-let canPrint = false;
-
-setTimeout(() => {
-  canPrint = true;
-}, 2500);
-
 /**
  * Takes an IDL data type and reduces it to remove any duplicate types
  */
@@ -38,10 +32,6 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
         }
       }
     }
-  }
-
-  if (canPrint) {
-    console.log(found);
   }
 
   return Object.values(found);

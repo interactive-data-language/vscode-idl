@@ -1,8 +1,7 @@
 import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
 
-import { ParseIDLType } from './parsing/parse-idl-type';
-import { ReduceIDLDataType } from './serializing/reduce-types';
-import { SerializeIDLType } from './serializing/serialize-idl-type';
+import { ReduceIDLDataType } from './helpers/reduce-types';
+import { ParseIDLType, PostProcessIDLType } from './parsing/parse-idl-type';
 
 /**
  * Helper class with static methods for working with types to make
@@ -22,47 +21,14 @@ export class IDLTypeHelper {
     typeInfo: IDLDataType
   ): string {
     /** Docs we add for hover help */
-    let useDocs: string[];
-
-    // check if we have a literal value and single type
-    if (typeInfo.length === 1 && Array.isArray(typeInfo[0].value)) {
-      // let val: string;
-      // switch (true) {
-      //   case typeInfo[0].name === IDL_TYPE_LOOKUP.STRING: {
-      //     // determine the kind of quote to use
-      //     switch (true) {
-      //       case typeInfo[0].value.startsWith("'"):
-      //         val = typeInfo[0].value;
-      //         break;
-      //       case typeInfo[0].value.startsWith('"'):
-      //         val = typeInfo[0].value;
-      //         break;
-      //       default:
-      //         val = `'${typeInfo[0].value}'`;
-      //         break;
-      //     }
-      //     break;
-      //   }
-      //   default:
-      //     val = typeInfo[0].value;
-      //     break;
-      // }
-      // initialize docs with type
-      useDocs = [
-        '```typescript',
-        `var ${name}: ${SerializeIDLType(typeInfo)} = ${typeInfo[0].value.join(
-          ' | '
-        )}`,
-        '```',
-      ];
-    } else {
-      // initialize docs with type
-      useDocs = [
-        '```typescript',
-        `type ${name} = ${SerializeIDLType(typeInfo)}`,
-        '```',
-      ];
-    }
+    const useDocs: string[] = [
+      '```typescript',
+      `var ${name}: ${this.serializeIDLType(
+        typeInfo,
+        true
+      )} = ${this.serializeIDLType(typeInfo)}`,
+      '```',
+    ];
 
     // add in our actual docs
     if (docs !== '') {
@@ -93,6 +59,14 @@ export class IDLTypeHelper {
 
     // reduce and return
     return this.reduceIDLDataType(mapped);
+  }
+
+  /**
+   * Manually creates an IDL Data Type and sets values
+   * as if we are parsing from scratch
+   */
+  static createIDLType(type: IDLDataType) {
+    return PostProcessIDLType(type);
   }
 
   /**
@@ -191,8 +165,48 @@ export class IDLTypeHelper {
 
   /**
    * Turn an IDL Data Type into a string
+   *
+   * Note that this is one way - we lose context for our code about compile
+   * options if we serialize a type
    */
-  static serializeIDLType(type: IDLDataType, useName?: boolean) {
-    return SerializeIDLType(type, useName);
+  static serializeIDLType(type: IDLDataType, useDisplayName?: boolean) {
+    // check for any
+    if (IDLTypeHelper.isAnyType(type)) {
+      return IDL_TYPE_LOOKUP.ANY;
+    }
+
+    // remove any duplicate types since we are likely saving
+    const reduced = IDLTypeHelper.reduceIDLDataType(type);
+
+    // not any, so do our thing
+    let name = '';
+    for (let i = 0; i < reduced.length; i++) {
+      // add or operator to the name if we have one already
+      if (name) {
+        name += ' | ';
+      }
+
+      // check if we need to use our display name for a nice visual
+      if (useDisplayName) {
+        name += reduced[i].display;
+        continue;
+      }
+
+      /**
+       * Merge back together
+       *
+       * If we have values, use those, because we parse them to get back
+       * to exactly what we had before
+       *
+       * If we dont have values, then check input flag for whether we
+       * use the display or normal name
+       */
+      if (Array.isArray(reduced[i].value)) {
+        name += reduced[i].value.join(' | ');
+      } else {
+        name += reduced[i].name;
+      }
+    }
+    return name;
   }
 }

@@ -19,7 +19,7 @@ import { SyntaxProblems } from '@idl/types/problem-codes';
 import { SyntaxTree, TreeBranchToken } from '@idl/types/syntax-tree';
 
 import { GetTaskDisplayName } from '../helpers/get-task-display-name';
-import { ReduceIDLDataType } from '../serializing/reduce-types';
+import { ReduceIDLDataType } from '../helpers/reduce-types';
 import { ARRAY_SHORTHAND_TYPES } from './array-shorthand-types.interface';
 import { TASK_REGEX } from './parse-idl-type.interface';
 import { PopulateTypeDisplayName } from './populate-type-display-name';
@@ -124,6 +124,20 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
 }
 
 /**
+ * Post process IDL types that we have parsed or manually created
+ */
+export function PostProcessIDLType(type: IDLDataType) {
+  // set type defaults
+  SetDefaultTypes(type);
+
+  // set display names
+  PopulateTypeDisplayName(type);
+
+  // remove duplicates and return
+  return ReduceIDLDataType(type);
+}
+
+/**
  * Parses a type string as a syntax tree using type grammmar definitions
  */
 export function ParseIDLType(type: string) {
@@ -163,15 +177,6 @@ export function ParseIDLType(type: string) {
   // recurse through and generate an IDL Data Type
   TypeParserRecursor(tree, parsedType);
 
-  // set type defaults
-  SetDefaultTypes(parsedType);
-
-  // set display names
-  PopulateTypeDisplayName(parsedType);
-
-  // reduce types so that, if we have duplicates, we remove them
-  const reduced = ReduceIDLDataType(parsedType);
-
-  // remove duplicates and return
-  return reduced;
+  // post process and clean up
+  return PostProcessIDLType(parsedType);
 }

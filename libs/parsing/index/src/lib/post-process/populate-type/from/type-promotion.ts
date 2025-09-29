@@ -77,9 +77,14 @@ export function TypePromotion(
       }
     }
     if (simplify) {
-      return IDLTypeHelper.parseIDLType(
-        `Array<${IDLTypeHelper.serializeIDLType(reduced)}>`
-      );
+      return IDLTypeHelper.createIDLType([
+        {
+          name: IDL_TYPE_LOOKUP.ARRAY,
+          display: IDL_TYPE_LOOKUP.ARRAY,
+          args: [reduced],
+          meta: {},
+        },
+      ]);
     }
   }
 
@@ -294,19 +299,29 @@ export function TypePromotion(
 
   switch (true) {
     case compatibleBaseType !== undefined:
-      return IDLTypeHelper.parseIDLType(
-        `${compatibleBaseType}<${IDLTypeHelper.serializeIDLType(
-          compatibleTypeArgs
-        )}>`
-      );
+      return IDLTypeHelper.createIDLType([
+        {
+          name: compatibleBaseType,
+          display: compatibleBaseType,
+          args: [compatibleTypeArgs],
+          meta: {},
+        },
+      ]);
     case isArray:
-      return IDLTypeHelper.parseIDLType(
-        `Array<${
-          highestType === TYPE_ORDER.length + 1
-            ? 'any'
-            : TYPE_ORDER[highestType]
-        }>`
-      );
+      return IDLTypeHelper.createIDLType([
+        {
+          name: IDL_TYPE_LOOKUP.ARRAY,
+          display: IDL_TYPE_LOOKUP.ARRAY,
+          args: [
+            IDLTypeHelper.parseIDLType(
+              highestType === TYPE_ORDER.length + 1
+                ? 'any'
+                : TYPE_ORDER[highestType]
+            ),
+          ],
+          meta: {},
+        },
+      ]);
     default:
       return highestType === TYPE_ORDER.length + 1
         ? copy(IDL_ANY_TYPE)
