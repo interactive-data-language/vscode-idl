@@ -1,5 +1,6 @@
 import { GlobalDisplayNameLookup, IGlobalFromIDL } from '@idl/parsing/routines';
 import { DocsToMarkdown, MARKDOWN_TYPE_LOOKUP } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { ResolveProductDocsURL, SortObject } from '@idl/shared/extension';
 import {
   DEFAULT_DATA_TYPE,
@@ -16,8 +17,6 @@ import {
   IGlobalIndexedToken,
   IParameterOrPropertyDetails,
   ParameterDirection,
-  ParseIDLType,
-  SerializeIDLType,
 } from '@idl/types/idl-data-types';
 import * as merge from 'deepmerge';
 import { join } from 'path';

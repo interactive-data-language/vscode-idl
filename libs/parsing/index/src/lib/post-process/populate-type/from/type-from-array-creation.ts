@@ -76,13 +76,23 @@ export function TypeFromArrayCreation(
 
       // if we have an array, ignore because we don't track dimensionality
       if (IDLTypeHelper.isType(useType, IDL_TYPE_LOOKUP.ARRAY)) {
-        return IDLTypeHelper.parseIDLType(
-          `Array<${IDLTypeHelper.serializeIDLType(useType[0].args[0])}>`
-        );
+        return IDLTypeHelper.createIDLType([
+          {
+            name: IDL_TYPE_LOOKUP.ARRAY,
+            display: IDL_TYPE_LOOKUP.ARRAY,
+            args: [useType[0].args[0]],
+            meta: {},
+          },
+        ]);
       } else {
-        return IDLTypeHelper.parseIDLType(
-          `Array<${IDLTypeHelper.serializeIDLType(useType)}>`
-        );
+        return IDLTypeHelper.createIDLType([
+          {
+            name: IDL_TYPE_LOOKUP.ARRAY,
+            display: IDL_TYPE_LOOKUP.ARRAY,
+            args: [useType],
+            meta: {},
+          },
+        ]);
       }
     }
     default:

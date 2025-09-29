@@ -8,6 +8,7 @@ import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { BracketToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   IDL_ANY_TYPE,
+  IDL_TYPE_LOOKUP,
   IDLDataType,
   KNOWN_IDL_TYPES,
 } from '@idl/types/idl-data-types';
@@ -109,9 +110,14 @@ export function TypeFromIndexing(
   const returnType =
     baseType === ''
       ? possibleTypes
-      : IDLTypeHelper.parseIDLType(
-          `${baseType}<${IDLTypeHelper.serializeIDLType(possibleTypes)}>`
-        );
+      : IDLTypeHelper.createIDLType([
+          {
+            name: baseType,
+            display: baseType,
+            args: [possibleTypes],
+            meta: {},
+          },
+        ]);
 
   // if we have colons we are returning a slice/subscript range and also an array
   const colons = FindDirectBranchChildren(token, TOKEN_NAMES.COLON);
@@ -125,9 +131,14 @@ export function TypeFromIndexing(
          * type
          */
         if (baseType === '') {
-          return IDLTypeHelper.parseIDLType(
-            `Array<${IDLTypeHelper.serializeIDLType(possibleTypes)}>`
-          );
+          return IDLTypeHelper.createIDLType([
+            {
+              name: IDL_TYPE_LOOKUP.ARRAY,
+              display: IDL_TYPE_LOOKUP.ARRAY,
+              args: [possibleTypes],
+              meta: {},
+            },
+          ]);
         }
 
         parsed.postProcessProblems.push(
@@ -194,9 +205,14 @@ export function TypeFromIndexing(
      */
     case haveArray:
       if (baseType === '') {
-        return IDLTypeHelper.parseIDLType(
-          `Array<${IDLTypeHelper.serializeIDLType(possibleTypes)}>`
-        );
+        return IDLTypeHelper.createIDLType([
+          {
+            name: IDL_TYPE_LOOKUP.ARRAY,
+            display: IDL_TYPE_LOOKUP.ARRAY,
+            args: [possibleTypes],
+            meta: {},
+          },
+        ]);
       }
       return returnType;
     /**
