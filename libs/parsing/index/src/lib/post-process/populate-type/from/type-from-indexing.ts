@@ -1,9 +1,9 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
-  FindDirectBranchChildren,
   SplitTreeOnCommas,
-} from '@idl/parsing/syntax-tree';
+  SyntaxProblemWithTranslation,
+} from '@idl/parsing/shared';
+import { FindDirectBranchChildren } from '@idl/parsing/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { BracketToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {

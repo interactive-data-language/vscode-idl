@@ -1,17 +1,17 @@
 import {
-  IHoverOverride,
-  SyntaxTreeBasic,
-  SyntaxTreeBranch,
-  SyntaxTreeUnknown,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
-import {
   BasicTokenNames,
   NonBasicTokenNames,
   TokenName,
   TokenStartMatches,
 } from '@idl/tokenizer';
 import { IDLProblemCode } from '@idl/types/problem-codes';
+import {
+  IHoverOverride,
+  SyntaxTreeBasic,
+  SyntaxTreeBranch,
+  SyntaxTreeUnknown,
+  TreeToken,
+} from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';
 
 /**

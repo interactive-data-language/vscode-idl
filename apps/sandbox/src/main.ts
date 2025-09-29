@@ -1,24 +1,13 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { Parser } from '@idl/parser';
+import { StringifyDataForLog } from '@idl/logger';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 
 const type = '0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15';
+// const type = 'ENVITask<FOOBERRy, Junior> | "5" | 6.0';
 
-console.log('Testing');
+const parsed = IDLTypeHelper.parseIDLType(type);
 
-const split: string[] = [];
-// SplitType(type, split);
-
-const parsed = Parser(type, new CancellationToken(), {
-  type: 'types',
-  full: false,
-});
-
-console.log(parsed.tree);
-
-// const parsed = IDLTypeHelper.parseIDLType(type);
-
-// const serialize = IDLTypeHelper.serializeIDLType(
-parsed);
+console.log(StringifyDataForLog('', parsed));
+console.log(IDLTypeHelper.serializeIDLType(parsed));
 
 // const parsed2 = IDLTypeHelper.parseIDLType(serialize);
 

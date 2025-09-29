@@ -63,9 +63,6 @@ function BuildTreeRecurser(
         );
         parseProblems.push(IDL_PROBLEM_CODES.UNEXPECTED_CLOSER);
         continue;
-      case TOKEN_NAMES.MAIN_LEVEL_END:
-        options.foundMain = true;
-        break;
       default:
         // do nothing
         break;

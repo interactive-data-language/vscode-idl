@@ -240,7 +240,7 @@ export const IDL_TYPE_LOOKUP: IIDLTypeLookup = {
 export interface IDLDataTypeBase<T extends IDLTypes> {
   /** Sub-types */
   args: IDLDataType[];
-  /** Type to display to the user */
+  /** Name of type to display to the user */
   display: string;
   /**
    * Metadata for our type, most likely always empty, but is intended to store
@@ -250,7 +250,7 @@ export interface IDLDataTypeBase<T extends IDLTypes> {
    * about the properties right here.
    */
   meta: IPropertyLookup;
-  /** Type value for our item */
+  /** Name of the type for internal purposes */
   name: T;
   /**
    * The value of a type (if it can be inferred or if it is literal)

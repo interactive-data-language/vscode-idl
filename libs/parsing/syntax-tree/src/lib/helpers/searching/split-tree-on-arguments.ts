@@ -1,8 +1,8 @@
+import { SplitTreeOnCommas } from '@idl/parsing/shared';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { SyntaxTree, TreeBranchToken } from '@idl/types/syntax-tree';
 
 import { ISplitTreeOnArguments } from './split-tree-on-arguments.interface';
-import { SplitTreeOnCommas } from './split-tree-on-commas';
 
 /**
  * Stop comma splitting on these

@@ -1,8 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import {
-  SplitTreeOnCommas,
-  SplitTreeOnOperators,
-} from '@idl/parsing/syntax-tree';
+import { SplitTreeOnCommas } from '@idl/parsing/shared';
+import { SplitTreeOnOperators } from '@idl/parsing/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { BracketToken } from '@idl/tokenizer';
 import {

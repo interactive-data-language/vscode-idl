@@ -23,17 +23,19 @@ export function SerializeIDLType(type: IDLDataType, useName = false) {
       name += ' | ';
     }
 
-    // check what we merge together
-    switch (true) {
-      case !useName:
-        name += reduced[i].display;
-        break;
-      case Array.isArray(reduced[i].value):
-        name += reduced[i].value.join(' | ');
-        break;
-      default:
-        name += reduced[i].name;
-        break;
+    /**
+     * Merge back together
+     *
+     * If we have values, use those, because we parse them to get back
+     * to exactly what we had before
+     *
+     * If we dont have values, then check input flag for whether we
+     * use the display or normal name
+     */
+    if (Array.isArray(reduced[i].value)) {
+      name += reduced[i].value.join(' | ');
+    } else {
+      name += !useName ? reduced[i].display : reduced[i].name;
     }
   }
   return name;
