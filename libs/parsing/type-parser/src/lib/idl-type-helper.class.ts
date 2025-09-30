@@ -36,7 +36,7 @@ export class IDLTypeHelper {
     /**
      * If we have a difference between display and serialized, then show both
      */
-    if (display !== serialized && serialized && serialized !== 'undefined') {
+    if (display !== serialized) {
       useDocs = [
         '```typescript',
         `var ${name}: ${display} = ${serialized}`,
