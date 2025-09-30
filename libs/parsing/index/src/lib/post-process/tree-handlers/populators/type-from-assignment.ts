@@ -97,8 +97,6 @@ const cb: BasicCallback<
     return;
   }
 
-  // console.log(assignmentType);
-
   // update types
   source.meta.type = copy(assignmentType);
 

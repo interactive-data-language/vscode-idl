@@ -20,23 +20,11 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
       /**
        * If existing, see if we have literal values that we need to merge
        */
-      if (Array.isArray(type[i].value)) {
-        if (Array.isArray(found[type[i].display].value)) {
-          // existing array, so concat
-          found[type[i].display].value = found[type[i].display].value.concat(
-            type[i].value
-          );
-        }
-      }
-
-      /**
-       * If existing, see if we have literal values that we need to merge
-       */
       if (Array.isArray(found[type[i].display].value)) {
         // existing array, so concat
         if (Array.isArray(type[i].value)) {
           found[type[i].display].value = found[type[i].display].value.concat(
-            type[i].value
+            ...type[i].value
           );
         } else {
           // if only one has a value, then remove tracked values
