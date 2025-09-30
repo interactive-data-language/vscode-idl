@@ -60,7 +60,7 @@ export function LegacyENVITaskToGlobal(
       private: param.hidden ? true : false,
       display: task.parameters[i].name.toLowerCase(),
       docs: param.description,
-      type: TaskTypeToIDLType(param.dataType),
+      type: TaskTypeToIDLType(param.dataType, param.choiceList),
       req: param.parameterType === 'required',
     };
   }

@@ -28,8 +28,8 @@ export const REFERENCE_IDL_TASK_PARAMETER: IDLTaskParameter<IDLTaskSchema12> = {
   hidden: false,
   type: '',
   dimensions: '',
-  defaultValue: '',
+  default: '',
   min: '',
   max: '',
-  choiceList: '',
+  choice_list: '',
 };

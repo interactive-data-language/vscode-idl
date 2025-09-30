@@ -1,5 +1,4 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
@@ -58,7 +57,7 @@ export function IDLTaskToGlobal(
       private: param.hidden ? true : false,
       display: task.parameters[i].name.toLowerCase(),
       docs: param.description,
-      type: TaskTypeToIDLType(param.type),
+      type: TaskTypeToIDLType(param.type, param.choice_list),
       req: param.required,
     };
   }

@@ -45,6 +45,13 @@ LITERAL_TYPE_MAP[TOKEN_NAMES.QUOTE_SINGLE] = IDL_TYPE_LOOKUP.STRING;
 LITERAL_TYPE_MAP[TOKEN_NAMES.NUMBER] = IDL_TYPE_LOOKUP.NUMBER;
 
 /**
+ * What are string types
+ */
+const STRING_TYPES: { [key: string]: string } = {};
+STRING_TYPES[TOKEN_NAMES.QUOTE_DOUBLE] = IDL_TYPE_LOOKUP.STRING;
+STRING_TYPES[TOKEN_NAMES.QUOTE_SINGLE] = IDL_TYPE_LOOKUP.STRING;
+
+/**
  * Recurse syntax tree and extract into a type
  */
 function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
@@ -86,7 +93,12 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
      */
     if (tree[i].name in LITERAL_TYPE_MAP) {
       // sae value
-      thisType.value = [baseType];
+      if (tree[i].name in STRING_TYPES) {
+        // extract string value so we can normalize elsewhere
+        thisType.value = [tree[i].match[1]];
+      } else {
+        thisType.value = [baseType];
+      }
 
       // update name
       baseType = LITERAL_TYPE_MAP[tree[i].name];

@@ -12,10 +12,32 @@ const ARRAY_REGEX = /array$|\[[^\]]\]?$/i;
 const CLEAN_URI_REGEX = /enviuri|ENVIVirtualizableURI/i;
 
 /**
+ * Gets array values or keys for a choice list in a task parameter
+ */
+function GetArrayOrKeys(value: unknown): any[] {
+  if (Array.isArray(value)) {
+    return value; // it's already an array
+  } else if (value !== null && typeof value === 'object') {
+    return Object.keys(value); // it's an object → return its keys
+  }
+  return []; // fallback if it's neither
+}
+
+/**
  * Takes an arbitrary data type from a task and converts it to an
  * IDL data type.
  */
-export function TaskTypeToIDLType(type: string) {
+export function TaskTypeToIDLType(type: string, choiceList?: any) {
+  // check if we have a choice list
+  if (choiceList !== undefined) {
+    const keys = GetArrayOrKeys(choiceList)
+      .map((val) => `${JSON.stringify(val)}`)
+      .join(' | ');
+    if (keys) {
+      return IDLTypeHelper.parseIDLType(keys);
+    }
+  }
+
   // convert URIs to strings
   type = type.replace(CLEAN_URI_REGEX, 'string');
 

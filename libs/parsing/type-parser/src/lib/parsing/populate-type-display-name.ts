@@ -1,4 +1,8 @@
-import { IDLDataType, TYPE_ALIASES } from '@idl/types/idl-data-types';
+import {
+  IDL_TYPE_LOOKUP,
+  IDLDataType,
+  TYPE_ALIASES,
+} from '@idl/types/idl-data-types';
 
 import { CUSTOM_TYPE_DISPLAY_NAMES } from '../custom-type-display-names.interface';
 import { PostProcessTypeName, TASK_NAME_REGEX } from './post-process-type-name';
@@ -44,8 +48,16 @@ export function PopulateTypeDisplayName(types: IDLDataType) {
     }
 
     /** Initialize literal display name */
-    let baseLiteral: string =
-      zType?.value?.length > 0 ? zType.value.join(' | ') : base;
+    let baseLiteral: string = base;
+    if (zType?.value?.length > 0) {
+      if (zType.name === IDL_TYPE_LOOKUP.STRING) {
+        baseLiteral = zType.value
+          .map((val) => JSON.stringify(val).replace(/"/g, "'"))
+          .join(' | ');
+      } else {
+        baseLiteral = zType.value.join(' | ');
+      }
+    }
 
     // check if we have type args to process
     if (zType.args.length > 0) {
