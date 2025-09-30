@@ -234,12 +234,17 @@ export const IDL_TYPE_LOOKUP: IIDLTypeLookup = {
   UNSIGNED_LONG64: 'ULong64',
 };
 
+export interface ICreateIDLDataType {
+  /** Sub-types */
+  args: IDLDataType[];
+  name: string;
+}
+
 /**
  * Base structure for types in IDL for a single type
  */
-export interface IDLDataTypeBase<T extends IDLTypes> {
-  /** Sub-types */
-  args: IDLDataType[];
+export interface IDLDataTypeBase<T extends IDLTypes>
+  extends ICreateIDLDataType {
   /** Name of type to display to the user */
   display: string;
   /**
@@ -252,6 +257,8 @@ export interface IDLDataTypeBase<T extends IDLTypes> {
   meta: IPropertyLookup;
   /** Name of the type for internal purposes */
   name: T;
+  /** A string that includes the display with literal types included */
+  serialized?: string;
   /**
    * The value of a type (if it can be inferred or if it is literal)
    */

@@ -32,9 +32,7 @@ export function EvaluateArrayPromotion(
       return IDLTypeHelper.createIDLType([
         {
           name: IDL_TYPE_LOOKUP.ARRAY,
-          display: IDL_TYPE_LOOKUP.ARRAY,
           args: [args],
-          meta: {},
         },
       ]);
     }
@@ -50,9 +48,7 @@ export function EvaluateArrayPromotion(
         IDLTypeHelper.createIDLType([
           {
             name: IDL_TYPE_LOOKUP.ARRAY,
-            display: IDL_TYPE_LOOKUP.ARRAY,
             args: [args],
-            meta: {},
           },
         ])
       );

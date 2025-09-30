@@ -79,18 +79,14 @@ export function TypeFromArrayCreation(
         return IDLTypeHelper.createIDLType([
           {
             name: IDL_TYPE_LOOKUP.ARRAY,
-            display: IDL_TYPE_LOOKUP.ARRAY,
             args: [useType[0].args[0]],
-            meta: {},
           },
         ]);
       } else {
         return IDLTypeHelper.createIDLType([
           {
             name: IDL_TYPE_LOOKUP.ARRAY,
-            display: IDL_TYPE_LOOKUP.ARRAY,
             args: [useType],
-            meta: {},
           },
         ]);
       }

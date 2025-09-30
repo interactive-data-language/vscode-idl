@@ -13,10 +13,10 @@ export function PopulateTypeDisplayName(types: IDLDataType) {
   // process each type
   for (let z = 0; z < types.length; z++) {
     // get our type
-    const struct = types[z];
+    const zType = types[z];
 
-    /** initialize display name */
-    let base = struct.name;
+    /** Initialize display name */
+    let base = zType.name;
 
     // get the lower case name
     let lc = base.toLowerCase();
@@ -43,15 +43,22 @@ export function PopulateTypeDisplayName(types: IDLDataType) {
         break;
     }
 
+    /** Initialize literal display name */
+    let baseLiteral: string = Array.isArray(zType.value)
+      ? zType.value.join(' | ')
+      : base;
+
     // check if we have type args to process
-    if (struct.args.length > 0) {
+    if (zType.args.length > 0) {
       base += '<';
-      for (let i = 0; i < struct.args.length; i++) {
+      baseLiteral += '<';
+      for (let i = 0; i < zType.args.length; i++) {
         if (i > 0) {
           base += ', ';
+          baseLiteral += ', ';
         }
 
-        const args = struct.args[i];
+        const args = zType.args[i];
 
         // populate the display name of the child
         PopulateTypeDisplayName(args);
@@ -60,14 +67,18 @@ export function PopulateTypeDisplayName(types: IDLDataType) {
         for (let j = 0; j < args.length; j++) {
           if (j > 0) {
             base += ' | ';
+            baseLiteral += ' | ';
           }
           base += args[j].display;
+          baseLiteral += args[j].serialized;
         }
       }
       base += '>';
+      baseLiteral += '>';
     }
 
     // set the display name
-    struct.display = base;
+    zType.display = base;
+    zType.serialized = baseLiteral;
   }
 }

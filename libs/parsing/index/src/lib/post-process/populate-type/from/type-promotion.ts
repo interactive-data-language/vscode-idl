@@ -80,9 +80,7 @@ export function TypePromotion(
       return IDLTypeHelper.createIDLType([
         {
           name: IDL_TYPE_LOOKUP.ARRAY,
-          display: IDL_TYPE_LOOKUP.ARRAY,
           args: [reduced],
-          meta: {},
         },
       ]);
     }
@@ -302,16 +300,13 @@ export function TypePromotion(
       return IDLTypeHelper.createIDLType([
         {
           name: compatibleBaseType,
-          display: compatibleBaseType,
           args: [compatibleTypeArgs],
-          meta: {},
         },
       ]);
     case isArray:
       return IDLTypeHelper.createIDLType([
         {
           name: IDL_TYPE_LOOKUP.ARRAY,
-          display: IDL_TYPE_LOOKUP.ARRAY,
           args: [
             IDLTypeHelper.parseIDLType(
               highestType === TYPE_ORDER.length + 1
@@ -319,7 +314,6 @@ export function TypePromotion(
                 : TYPE_ORDER[highestType]
             ),
           ],
-          meta: {},
         },
       ]);
     default:

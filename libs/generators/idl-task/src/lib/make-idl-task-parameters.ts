@@ -52,10 +52,10 @@ export function MakeIDLTaskParameters(
       const args = IDLTypeHelper.getAllTypeArgs(arrays);
 
       // save type args (values we store in the array)
-      param.type = IDLTypeHelper.serializeIDLType(args) + 'Array';
+      param.type = IDLTypeHelper.serializeIDLType(args, true) + 'Array';
       param.dimensions = '[*]';
     } else {
-      param.type = IDLTypeHelper.serializeIDLType(type);
+      param.type = IDLTypeHelper.serializeIDLType(type, true);
     }
 
     // save

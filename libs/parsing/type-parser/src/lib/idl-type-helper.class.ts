@@ -1,4 +1,8 @@
-import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
+import {
+  ICreateIDLDataType,
+  IDL_TYPE_LOOKUP,
+  IDLDataType,
+} from '@idl/types/idl-data-types';
 
 import { ReduceIDLDataType } from './helpers/reduce-types';
 import { ParseIDLType, PostProcessIDLType } from './parsing/parse-idl-type';
@@ -23,22 +27,23 @@ export class IDLTypeHelper {
     /** Docs we add for hover help */
     let useDocs: string[];
 
-    // check for literal type
-    if (this.isLiteralType(typeInfo)) {
+    /** Get display type */
+    const display = this.serializeIDLType(typeInfo, true);
+
+    /** Get serialized type */
+    const serialized = this.serializeIDLType(typeInfo, false);
+
+    /**
+     * If we have a difference between display and serialized, then show both
+     */
+    if (display !== serialized) {
       useDocs = [
         '```typescript',
-        `var ${name}: ${this.serializeIDLType(
-          typeInfo,
-          true
-        )} = ${this.serializeIDLType(typeInfo)}`,
+        `var ${name}: ${display} = ${serialized}`,
         '```',
       ];
     } else {
-      useDocs = [
-        '```typescript',
-        `var ${name}: ${this.serializeIDLType(typeInfo, true)}`,
-        '```',
-      ];
+      useDocs = ['```typescript', `var ${name}: ${display}`, '```'];
     }
 
     // add in our actual docs
@@ -76,8 +81,18 @@ export class IDLTypeHelper {
    * Manually creates an IDL Data Type and sets values
    * as if we are parsing from scratch
    */
-  static createIDLType(type: IDLDataType) {
-    return PostProcessIDLType(type);
+  static createIDLType(type: ICreateIDLDataType[]) {
+    return PostProcessIDLType(
+      type.map((iType) => {
+        return {
+          name: iType.name,
+          display: '',
+          serialized: '',
+          args: iType.args,
+          meta: {},
+        };
+      })
+    );
   }
 
   /**
@@ -201,36 +216,22 @@ export class IDLTypeHelper {
       return IDL_TYPE_LOOKUP.ANY;
     }
 
-    // remove any duplicate types since we are likely saving
-    const reduced = IDLTypeHelper.reduceIDLDataType(type);
+    // // remove any duplicate types since we are likely saving
+    // const reduced = IDLTypeHelper.reduceIDLDataType(type);
 
     // not any, so do our thing
     let name = '';
-    for (let i = 0; i < reduced.length; i++) {
+    for (let i = 0; i < type.length; i++) {
       // add or operator to the name if we have one already
-      if (name) {
+      if (i > 0) {
         name += ' | ';
       }
 
       // check if we need to use our display name for a nice visual
       if (useDisplayName) {
-        name += reduced[i].display;
-        continue;
-      }
-
-      /**
-       * Merge back together
-       *
-       * If we have values, use those, because we parse them to get back
-       * to exactly what we had before
-       *
-       * If we dont have values, then check input flag for whether we
-       * use the display or normal name
-       */
-      if (Array.isArray(reduced[i].value)) {
-        name += reduced[i].value.join(' | ');
+        name += type[i].display;
       } else {
-        name += reduced[i].name;
+        name += type[i].serialized;
       }
     }
     return name;

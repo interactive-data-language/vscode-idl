@@ -113,9 +113,7 @@ export function TypeFromIndexing(
       : IDLTypeHelper.createIDLType([
           {
             name: baseType,
-            display: baseType,
             args: [possibleTypes],
-            meta: {},
           },
         ]);
 
@@ -134,9 +132,7 @@ export function TypeFromIndexing(
           return IDLTypeHelper.createIDLType([
             {
               name: IDL_TYPE_LOOKUP.ARRAY,
-              display: IDL_TYPE_LOOKUP.ARRAY,
               args: [possibleTypes],
-              meta: {},
             },
           ]);
         }
@@ -208,9 +204,7 @@ export function TypeFromIndexing(
         return IDLTypeHelper.createIDLType([
           {
             name: IDL_TYPE_LOOKUP.ARRAY,
-            display: IDL_TYPE_LOOKUP.ARRAY,
             args: [possibleTypes],
-            meta: {},
           },
         ]);
       }

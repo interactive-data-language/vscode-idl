@@ -77,27 +77,21 @@ export function TypeFromFunction(
         return IDLTypeHelper.createIDLType([
           {
             name: 'ENVITask',
-            display: 'ENVITask',
-            args: [],
-            meta: {},
+            args: [copy(IDL_ANY_TYPE)],
           },
         ]);
       case wasIDLTask:
         return IDLTypeHelper.createIDLType([
           {
             name: 'IDLTask',
-            display: 'IDLTask',
-            args: [],
-            meta: {},
+            args: [copy(IDL_ANY_TYPE)],
           },
         ]);
       default:
         return IDLTypeHelper.createIDLType([
           {
             name: name,
-            display: name,
             args: [],
-            meta: {},
           },
         ]);
     }
