@@ -36,6 +36,7 @@ export const UNKNOWN_TYPE: IDLDataTypeBase<string>[] = [
   {
     display: 'Unknown',
     name: 'Unknown',
+    serialized: 'Unknown',
     args: [],
     meta: {},
   },
@@ -48,6 +49,7 @@ export const IDL_ANY_TYPE: IDLDataTypeBase<IDLAny>[] = [
   {
     display: IDL_TYPE_LOOKUP.ANY,
     name: IDL_TYPE_LOOKUP.ANY,
+    serialized: IDL_TYPE_LOOKUP.ANY,
     args: [],
     meta: {},
   },
@@ -60,6 +62,7 @@ export const IDL_BOOLEAN_TYPE: IDLDataTypeBase<IDLBoolean>[] = [
   {
     display: IDL_TYPE_LOOKUP.BOOLEAN,
     name: IDL_TYPE_LOOKUP.BOOLEAN,
+    serialized: IDL_TYPE_LOOKUP.BOOLEAN,
     args: [],
     meta: {},
   },
@@ -72,6 +75,7 @@ export const IDL_ARRAY_TYPE: IDLDataTypeBase<IDLArray>[] = [
   {
     display: IDL_TYPE_LOOKUP.ARRAY,
     name: IDL_TYPE_LOOKUP.ARRAY,
+    serialized: `Array<any>`,
     args: [copy(IDL_ANY_TYPE)],
     meta: {},
   },
@@ -86,6 +90,7 @@ export const IDL_STRUCTURE_TYPE: IDLDataTypeBase<IDLStructure>[] = [
   {
     display: IDL_TYPE_LOOKUP.STRUCTURE,
     name: IDL_TYPE_LOOKUP.STRUCTURE,
+    serialized: IDL_TYPE_LOOKUP.STRUCTURE,
     args: [],
     meta: {},
   },
@@ -98,6 +103,7 @@ export const IDL_NUMBER_TYPE: IDLDataTypeBase<IDLNumber>[] = [
   {
     display: IDL_TYPE_LOOKUP.NUMBER,
     name: IDL_TYPE_LOOKUP.NUMBER,
+    serialized: IDL_TYPE_LOOKUP.NUMBER,
     args: [],
     meta: {},
   },
@@ -110,6 +116,7 @@ export const IDL_DOUBLE_TYPE: IDLDataTypeBase<IDLDouble>[] = [
   {
     display: IDL_TYPE_LOOKUP.DOUBLE,
     name: IDL_TYPE_LOOKUP.DOUBLE,
+    serialized: IDL_TYPE_LOOKUP.DOUBLE,
     args: [],
     meta: {},
   },
@@ -122,6 +129,7 @@ export const IDL_DOUBLE_COMPLEX_TYPE: IDLDataTypeBase<IDLDoubleComplex>[] = [
   {
     display: IDL_TYPE_LOOKUP.COMPLEX_DOUBLE,
     name: IDL_TYPE_LOOKUP.COMPLEX_DOUBLE,
+    serialized: IDL_TYPE_LOOKUP.COMPLEX_DOUBLE,
     args: [],
     meta: {},
   },
@@ -134,6 +142,7 @@ export const IDL_FLOAT_TYPE: IDLDataTypeBase<IDLFloat>[] = [
   {
     display: IDL_TYPE_LOOKUP.FLOAT,
     name: IDL_TYPE_LOOKUP.FLOAT,
+    serialized: IDL_TYPE_LOOKUP.FLOAT,
     args: [],
     meta: {},
   },
@@ -146,6 +155,7 @@ export const IDL_FLOAT_COMPLEX_TYPE: IDLDataTypeBase<IDLComplexFloat>[] = [
   {
     display: IDL_TYPE_LOOKUP.COMPLEX_FLOAT,
     name: IDL_TYPE_LOOKUP.COMPLEX_FLOAT,
+    serialized: IDL_TYPE_LOOKUP.COMPLEX_FLOAT,
     args: [],
     meta: {},
   },
@@ -158,6 +168,7 @@ export const IDL_ULONG64_TYPE: IDLDataTypeBase<IDLUnsignedLong64>[] = [
   {
     display: IDL_TYPE_LOOKUP.UNSIGNED_LONG64,
     name: IDL_TYPE_LOOKUP.UNSIGNED_LONG64,
+    serialized: IDL_TYPE_LOOKUP.UNSIGNED_LONG64,
     args: [],
     meta: {},
   },
@@ -170,6 +181,7 @@ export const IDL_LONG64_TYPE: IDLDataTypeBase<IDLLong64>[] = [
   {
     display: IDL_TYPE_LOOKUP.LONG64,
     name: IDL_TYPE_LOOKUP.LONG64,
+    serialized: IDL_TYPE_LOOKUP.LONG64,
     args: [],
     meta: {},
   },
@@ -182,6 +194,7 @@ export const IDL_ULONG_TYPE: IDLDataTypeBase<IDLUnsignedLong>[] = [
   {
     display: IDL_TYPE_LOOKUP.UNSIGNED_LONG,
     name: IDL_TYPE_LOOKUP.UNSIGNED_LONG,
+    serialized: IDL_TYPE_LOOKUP.UNSIGNED_LONG,
     args: [],
     meta: {},
   },
@@ -194,6 +207,7 @@ export const IDL_LONG_TYPE: IDLDataTypeBase<IDLLong>[] = [
   {
     display: IDL_TYPE_LOOKUP.LONG,
     name: IDL_TYPE_LOOKUP.LONG,
+    serialized: IDL_TYPE_LOOKUP.LONG,
     args: [],
     meta: {},
   },
@@ -206,6 +220,7 @@ export const IDL_UINT_TYPE: IDLDataTypeBase<IDLUnsignedInteger>[] = [
   {
     display: IDL_TYPE_LOOKUP.UNSIGNED_INTEGER,
     name: IDL_TYPE_LOOKUP.UNSIGNED_INTEGER,
+    serialized: IDL_TYPE_LOOKUP.UNSIGNED_INTEGER,
     args: [],
     meta: {},
   },
@@ -218,6 +233,7 @@ export const IDL_INT_TYPE: IDLDataTypeBase<IDLInteger>[] = [
   {
     display: IDL_TYPE_LOOKUP.INTEGER,
     name: IDL_TYPE_LOOKUP.INTEGER,
+    serialized: IDL_TYPE_LOOKUP.INTEGER,
     args: [],
     meta: {},
   },
@@ -230,6 +246,7 @@ export const IDL_BYTE_TYPE: IDLDataTypeBase<IDLByte>[] = [
   {
     display: IDL_TYPE_LOOKUP.BYTE,
     name: IDL_TYPE_LOOKUP.BYTE,
+    serialized: IDL_TYPE_LOOKUP.BYTE,
     args: [],
     meta: {},
   },
@@ -242,6 +259,7 @@ export const IDL_NULL_TYPE: IDLDataTypeBase<IDLNull>[] = [
   {
     display: IDL_TYPE_LOOKUP.NULL,
     name: IDL_TYPE_LOOKUP.NULL,
+    serialized: IDL_TYPE_LOOKUP.NULL,
     args: [],
     meta: {},
   },
@@ -254,6 +272,7 @@ export const IDL_STRING_TYPE: IDLDataTypeBase<IDLString>[] = [
   {
     display: IDL_TYPE_LOOKUP.STRING,
     name: IDL_TYPE_LOOKUP.STRING,
+    serialized: IDL_TYPE_LOOKUP.STRING,
     args: [],
     meta: {},
   },
@@ -266,6 +285,8 @@ export const IDL_TYPE_CODE_TYPE: IDLDataTypeBase<IDLNumber>[] = [
   {
     display: IDL_TYPE_LOOKUP.NUMBER,
     name: IDL_TYPE_LOOKUP.NUMBER,
+    serialized:
+      '0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15',
     args: [],
     meta: {},
     value: [

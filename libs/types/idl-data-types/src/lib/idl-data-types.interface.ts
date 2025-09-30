@@ -258,7 +258,7 @@ export interface IDLDataTypeBase<T extends IDLTypes>
   /** Name of the type for internal purposes */
   name: T;
   /** A string that includes the display with literal types included */
-  serialized?: string;
+  serialized: string;
   /**
    * The value of a type (if it can be inferred or if it is literal)
    */
