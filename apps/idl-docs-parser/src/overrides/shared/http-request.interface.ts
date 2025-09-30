@@ -1,4 +1,4 @@
-import { ParseIDLType } from '@idl/types/idl-data-types';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 
 import { OverrideParamOrProp } from './shared.interface';
 

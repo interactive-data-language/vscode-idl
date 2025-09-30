@@ -1,8 +1,8 @@
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   IDL_ANY_TYPE,
   IDL_BOOLEAN_TYPE,
   IDL_NUMBER_TYPE,
-  ParseIDLType,
 } from '@idl/types/idl-data-types';
 
 import { IProcedureMethodOverride } from '../detail.interface';

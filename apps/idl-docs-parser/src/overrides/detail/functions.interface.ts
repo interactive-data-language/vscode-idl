@@ -1,3 +1,4 @@
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   IDL_ANY_TYPE,
   IDL_ARRAY_TYPE,
@@ -7,7 +8,6 @@ import {
   IDL_NUMBER_TYPE,
   IDL_STRING_TYPE,
   IDL_TYPE_CODE_TYPE,
-  ParseIDLType,
 } from '@idl/types/idl-data-types';
 
 import { IFunctionOverride } from '../detail.interface';

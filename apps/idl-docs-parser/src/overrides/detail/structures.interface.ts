@@ -1,3 +1,4 @@
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   GlobalTokenSource,
   IDL_ANY_TYPE,
@@ -6,7 +7,6 @@ import {
   IDL_LONG64_TYPE,
   IDL_NUMBER_TYPE,
   IDL_STRING_TYPE,
-  ParseIDLType,
 } from '@idl/types/idl-data-types';
 
 import { IStructureOverride } from '../detail.interface';
