@@ -20,3 +20,10 @@ export const TYPE_ARGS_REGEX = /((?:[a-z_0-9$!'"=]+\s*(?:<.+>)?\s*\|?)*),/im;
  * Regular expression to detect ENVI or IDL tasks so we can nicely format the display name
  */
 export const TASK_REGEX = /^(?:ENVI|IDL)(.+)Task$/i;
+
+/**
+ * !!Global regular expression and different capture groups than TASK_REGEX!!
+ *
+ * Regular expression to detect ENVI or IDL tasks so we can nicely format the display name
+ */
+export const TASK_REGEX_GLOBAL = /(ENVI|IDL)([_a-z0-9]+)Task/gim;

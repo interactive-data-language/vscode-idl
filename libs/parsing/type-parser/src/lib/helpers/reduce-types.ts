@@ -4,13 +4,27 @@ import { IDLDataType, IDLDataTypeBase } from '@idl/types/idl-data-types';
  * Takes an IDL data type and reduces it to remove any duplicate types
  */
 export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
+  /** Track our decuded data type */
+  const reduced: IDLDataType = [];
+
   // track what we have found
   const found: { [key: string]: IDLDataTypeBase<string> } = {};
 
   // process each type
   for (let i = 0; i < type.length; i++) {
+    /**
+     * If we have a type that has arguments, dont reduce
+     *
+     * Reduction is primarily for scalar types like numbers or strings
+     */
+    if (type[i].args.length > 0) {
+      reduced.push(type[i]);
+      continue;
+    }
+
     if (!(type[i].name in found)) {
       found[type[i].name] = type[i];
+      reduced.push(type[i]);
 
       // recursively reduce type args
       for (let j = 0; j < type[i].args.length; j++) {
@@ -35,5 +49,5 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
     }
   }
 
-  return Object.values(found);
+  return reduced;
 }

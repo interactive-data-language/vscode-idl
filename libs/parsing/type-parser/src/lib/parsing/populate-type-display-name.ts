@@ -44,9 +44,8 @@ export function PopulateTypeDisplayName(types: IDLDataType) {
     }
 
     /** Initialize literal display name */
-    let baseLiteral: string = Array.isArray(zType.value)
-      ? zType.value.join(' | ')
-      : base;
+    let baseLiteral: string =
+      zType?.value?.length > 0 ? zType.value.join(' | ') : base;
 
     // check if we have type args to process
     if (zType.args.length > 0) {

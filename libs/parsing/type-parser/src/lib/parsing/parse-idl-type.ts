@@ -21,7 +21,7 @@ import { SyntaxTree, TreeBranchToken } from '@idl/types/syntax-tree';
 import { GetTaskDisplayName } from '../helpers/get-task-display-name';
 import { ReduceIDLDataType } from '../helpers/reduce-types';
 import { ARRAY_SHORTHAND_TYPES } from './array-shorthand-types.interface';
-import { TASK_REGEX } from './parse-idl-type.interface';
+import { TASK_REGEX, TASK_REGEX_GLOBAL } from './parse-idl-type.interface';
 import { PopulateTypeDisplayName } from './populate-type-display-name';
 import { SetDefaultTypes } from './set-default-types';
 
@@ -76,6 +76,7 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
     const thisType: IDLDataTypeBase<IDLTypes> = {
       name: baseType,
       display: displayType,
+      serialized: '',
       args: [],
       meta: {},
     };
@@ -154,6 +155,18 @@ export function ParseIDLType(type: string) {
     return parsedType;
   }
 
+  /**
+   * Normalize any task types since we support two flavors
+   *
+   * ENVISubsetRasterTask or ENVITask<SubsetRaster>
+   *
+   * This converts the first to the second. We need both because
+   * our structure names in IDL and ENVI are the full name
+   */
+  use = use.replace(TASK_REGEX_GLOBAL, (match, g1, g2) => {
+    return `${g1}Task<${g2}>`;
+  });
+
   // normalize case
   const lc = use.toLowerCase();
 
@@ -168,7 +181,7 @@ export function ParseIDLType(type: string) {
   const cancel = new CancellationToken();
 
   /** Extract type tokens */
-  const tokenized = Tokenizer(type, cancel, TYPE_FIND_TOKEN_OPTIONS);
+  const tokenized = Tokenizer(use, cancel, TYPE_FIND_TOKEN_OPTIONS);
 
   /** Hold syntax problems */
   const problems: SyntaxProblems = [];
