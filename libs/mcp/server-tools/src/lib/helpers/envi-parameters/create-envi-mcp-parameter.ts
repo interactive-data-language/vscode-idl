@@ -122,9 +122,17 @@ export function CreateENVIMCPParameter(
      */
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.STRING):
       if (type[0]?.value?.length > 0) {
-        return z
-          .union(type[0].value.map((val) => z.literal(val)) as any)
-          .describe(docs);
+        try {
+          return z
+            .union(type[0].value.map((v) => z.literal(v)) as any)
+            .describe(docs);
+        } catch (err) {
+          console.log(`Error while enumerating literal string types`, {
+            type,
+            err,
+          });
+          return z.string().describe(docs);
+        }
       } else {
         return z.string().describe(docs);
       }
@@ -166,7 +174,7 @@ export function CreateENVIMCPParameter(
       if (type[0]?.value?.length > 0) {
         try {
           return z
-            .union(type[0].value.map((val) => +val) as any)
+            .union(type[0].value.map((v) => z.literal(+v)) as any)
             .describe(docs);
         } catch (err) {
           console.log(`Error while enumerating literal number types`, {
