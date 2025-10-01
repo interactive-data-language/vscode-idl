@@ -24,6 +24,8 @@ Change the way that we detect the types from ENVI and IDL tasks in your code. If
 
 Fixed an issue with task generation not correctly adjusting the names of paired parameters.
 
+Fixed a bug with IDL Notebooks embedding odd graphics from the ENVI UI when running cells with the ENVI UI open
+
 ## 5.1.0 - August 2025
 
 This verion introduces a new selection of IDL Tutorials! These come as a collection of notebooks to help new users get up and running. In the IDL sidebar, you'll see a new section called "IDL Tutorials" with language-specific content.

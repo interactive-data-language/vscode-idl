@@ -296,7 +296,7 @@ function IDLNotebook::ExportItems
       IDLNotebook.addToNotebook, !magic
     endif else begin
       ; check for ENVI
-      !null = ENVI.api_version
+      !null = ENVI.version
 
       switch (!true) of
         ;+
