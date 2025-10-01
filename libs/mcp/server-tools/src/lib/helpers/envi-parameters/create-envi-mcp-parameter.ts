@@ -121,7 +121,13 @@ export function CreateENVIMCPParameter(
      * String
      */
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.STRING):
-      return z.string().describe(docs);
+      if (type[0]?.value?.length > 0) {
+        return z
+          .union(type[0].value.map((val) => z.literal(val)) as any)
+          .describe(docs);
+      } else {
+        return z.string().describe(docs);
+      }
 
     /**
      * Bool
@@ -157,7 +163,21 @@ export function CreateENVIMCPParameter(
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.UNSIGNED_INTEGER):
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.INTEGER):
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.BYTE):
-      return z.number().describe(docs);
+      if (type[0]?.value?.length > 0) {
+        try {
+          return z
+            .union(type[0].value.map((val) => +val) as any)
+            .describe(docs);
+        } catch (err) {
+          console.log(`Error while enumerating literal number types`, {
+            type,
+            err,
+          });
+          return z.number().describe(docs);
+        }
+      } else {
+        return z.number().describe(docs);
+      }
 
     default:
       break;
