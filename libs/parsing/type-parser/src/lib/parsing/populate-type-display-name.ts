@@ -1,10 +1,10 @@
 import {
+  CUSTOM_TYPE_DISPLAY_NAMES,
   IDL_TYPE_LOOKUP,
   IDLDataType,
   TYPE_ALIASES,
 } from '@idl/types/idl-data-types';
 
-import { CUSTOM_TYPE_DISPLAY_NAMES } from '../custom-type-display-names.interface';
 import { PostProcessTypeName, TASK_NAME_REGEX } from './post-process-type-name';
 
 /**

@@ -1,6 +1,8 @@
-import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
-
-import { CUSTOM_TYPE_DISPLAY_NAMES } from '../custom-type-display-names.interface';
+import {
+  CUSTOM_TYPE_DISPLAY_NAMES,
+  IDL_TYPE_LOOKUP,
+  IDLDataType,
+} from '@idl/types/idl-data-types';
 
 /**
  * Regular expression to detect ENVI or IDL tasks so we can nicely format the display name
