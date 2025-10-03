@@ -11,6 +11,9 @@ import { z } from 'zod';
 import { PROMPT } from '../helpers/mcp-envi-tasks.interface';
 import { MCPToolRegistry } from '../mcp-tool-registry.class';
 
+/** BY task name, what is the file for the task we want to run? For user tasks in workspaces in VSCode */
+export const TASK_FILE_LOOKUP: { [key: string]: string } = {};
+
 /**
  * Registers a tool that can run an ENVI Task
  */
@@ -39,6 +42,11 @@ export function RegisterToolRunENVITask(
       };
 
       console.log(inputParameters);
+
+      // check if we have a task file to use instead
+      if (inputParameters.taskName in TASK_FILE_LOOKUP) {
+        params.taskName = TASK_FILE_LOOKUP[inputParameters.taskName];
+      }
 
       const resp = (await messenger.sendRequest(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,

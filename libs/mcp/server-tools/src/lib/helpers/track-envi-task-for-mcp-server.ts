@@ -9,6 +9,7 @@ import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import { PARAMETER_LOOKUP } from '../tools/register-tool-query-envi-task-parameters';
 import { TASK_LOOKUP } from '../tools/register-tool-query-envi-tasks';
+import { TASK_FILE_LOOKUP } from '../tools/register-tool-run-envi-task';
 import { CreateENVIMCPParameter } from './envi-parameters/create-envi-mcp-parameter';
 import { GetCleanDescription } from './get-clean-description';
 
@@ -87,4 +88,9 @@ export function TrackENVITaskForMCPServer(
   PARAMETER_LOOKUP[taskName] = zodToJsonSchema(
     z.object(args).describe(GetCleanDescription(task.meta.docs, false))
   );
+
+  // see if we need to track task file
+  if (task.file) {
+    TASK_FILE_LOOKUP[taskName] = task.file;
+  }
 }
