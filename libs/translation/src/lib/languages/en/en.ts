@@ -248,6 +248,8 @@ export const EN: ITranslation = {
       'IDL.path':
         "Specify additional directories to add to IDL's search path. Add a '+' before the folder to include subdirectories.\n\nAny folders added to the path are not watched for file changes unless you edit the files within the VSCode UI.",
       'IDL.preferences': 'Placeholder',
+      'IDL.themeMatch':
+        'Does IDL inherit light/dark mode from VSCode? Example: IDL and ENVI will launch in dark mode if VSCode has a dark mode theme.',
 
       languageServer: 'Preferences that control the language server for IDL',
       'languageServer.fullParse':

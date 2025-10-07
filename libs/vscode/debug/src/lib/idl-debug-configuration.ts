@@ -122,6 +122,18 @@ export class IDLDebugConfigurationProvider
       }
     }
 
+    // check if light mode or dark mode
+    if (!('IDL_THEME' in useConfig.env) && useConfig.config.IDL.themeMatch) {
+      switch (vscode.window.activeColorTheme.kind) {
+        case vscode.ColorThemeKind.Dark:
+          useConfig.env['IDL_THEME'] = '1';
+          break;
+        default:
+          useConfig.env['IDL_THEME'] = '0';
+          break;
+      }
+    }
+
     // log details
     IDL_LOGGER.log({
       log: IDL_DEBUG_CONFIGURATION_LOG,
