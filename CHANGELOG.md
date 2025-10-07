@@ -20,6 +20,8 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 ### Unreleased
 
+Fixed a typo in one of the paths we check to find IDL on Mac when you have ENVI + IDL installed
+
 New preference (enabled by default) that has the theme of IDL and ENVI match that of VSCode. This means, if you have a dark mode programming theme, IDL and ENVI will launch in dark mode. Do note that, if we detect `IDL_THEME` as an environment variable, this preference has no effect.
 
 Change the way that we detect the types from ENVI and IDL tasks in your code. If we don't know which ENVI or IDL task you are using, we set the type as a generic ENVITask or IDLTask. This makes sure you still get some type of auto-complete and hover help for a better developer experience.
