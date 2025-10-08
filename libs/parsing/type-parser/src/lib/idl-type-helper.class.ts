@@ -6,6 +6,7 @@ import {
 
 import { ReduceIDLDataType } from './helpers/reduce-types';
 import { ParseIDLType, PostProcessIDLType } from './parsing/parse-idl-type';
+import { PopulateTypeDisplayName } from './parsing/populate-type-display-name';
 
 /**
  * Helper class with static methods for working with types to make
@@ -53,6 +54,23 @@ export class IDLTypeHelper {
 
     // join strings and return
     return useDocs.join('\n');
+  }
+
+  /**
+   * Add a value to a type
+   *
+   * Adds to the first type assuming we have one
+   */
+  static addValueToFirstType(type: IDLDataType, value: string[]) {
+    if (type.length === 0) {
+      return;
+    }
+
+    // set value
+    type[0].value = value;
+
+    // set display names
+    PopulateTypeDisplayName(type);
   }
 
   /**

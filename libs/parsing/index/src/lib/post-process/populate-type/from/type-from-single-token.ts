@@ -1,3 +1,4 @@
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 import {
   IDL_ANY_TYPE,
@@ -28,7 +29,7 @@ const TYPE_MAP: { [key: string]: IDLDataType } = {};
 TYPE_MAP[TOKEN_NAMES.QUOTE_SINGLE] = IDL_STRING_TYPE;
 TYPE_MAP[TOKEN_NAMES.QUOTE_DOUBLE] = IDL_STRING_TYPE;
 TYPE_MAP[TOKEN_NAMES.STRING_TEMPLATE_LITERAL] = IDL_STRING_TYPE;
-TYPE_MAP[TOKEN_NAMES.STRUCTURE_INDEXED_PROPERTY] = IDL_ANY_TYPE;
+TYPE_MAP[TOKEN_NAMES.NUMBER] = IDL_ANY_TYPE;
 
 /**
  * Attempts to determine the type of a single child with assignment
@@ -107,18 +108,29 @@ export function TypeFromSingleToken(
       );
       break;
     default:
-      // do we have a general case for some types?
-      if (token.name in TYPE_MAP) {
-        (token.cache as ITokenCache).type = copy(TYPE_MAP[token.name]);
-        // attempt to evaluate the token, might return undefined
-        const evaluated = EvaluateToken(token);
-
-        // if we have a value, save it
-        if (evaluated) {
-          (token.cache as ITokenCache).type[0].value = [evaluated];
-        }
-      }
       break;
+  }
+
+  /**
+   * Do we have a general case for some types that we can handle?
+   *
+   * Update type if not set above and we can get the literal value of these tokens
+   * as well
+   */
+  if (token.name in TYPE_MAP) {
+    if (!(token.cache as ITokenCache).type) {
+      (token.cache as ITokenCache).type = copy(TYPE_MAP[token.name]);
+    }
+
+    // attempt to evaluate the token, might return undefined
+    const evaluated = EvaluateToken(token);
+
+    // if we have a value, save it
+    if (evaluated) {
+      IDLTypeHelper.addValueToFirstType((token.cache as ITokenCache).type, [
+        evaluated,
+      ]);
+    }
   }
 
   // if we set our cache, return
@@ -132,7 +144,9 @@ export function TypeFromSingleToken(
 
         // if we have a value, save it
         if (evaluated) {
-          (token.cache as ITokenCache).type[0].value = [evaluated];
+          IDLTypeHelper.addValueToFirstType((token.cache as ITokenCache).type, [
+            evaluated,
+          ]);
         }
       }
     }

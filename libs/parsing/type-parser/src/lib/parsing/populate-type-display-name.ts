@@ -50,12 +50,16 @@ export function PopulateTypeDisplayName(types: IDLDataType) {
     /** Initialize literal display name */
     let baseLiteral: string = base;
     if (zType?.value?.length > 0) {
-      if (zType.name === IDL_TYPE_LOOKUP.STRING) {
-        baseLiteral = zType.value
-          .map((val) => JSON.stringify(val).replace(/"/g, "'"))
-          .join(' | ');
-      } else {
-        baseLiteral = zType.value.join(' | ');
+      switch (true) {
+        case zType.name === IDL_TYPE_LOOKUP.STRING:
+          baseLiteral = zType.value
+            .map((val) => JSON.stringify(val).replace(/"/g, "'"))
+            .join(' | ');
+          break;
+
+        default:
+          baseLiteral = zType.value.join(' | ');
+          break;
       }
     }
 
