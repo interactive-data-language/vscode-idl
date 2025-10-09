@@ -2,11 +2,6 @@ import { IDL_NUMBER_REGEX } from '@idl/types/tokenizer';
 
 import { ITokenDef, NumberToken, TOKEN_NAMES } from '../../tokens.interface';
 
-/**
- * Regex to test that the text associated with a number os valid
- */
-export const NUMBER_STRING_TEST = /(?:b|us|ull|ul|ll|l|s|u|d)(?:j|i)?/i;
-
 export type NumberTokenDef = ITokenDef<NumberToken>;
 
 /**

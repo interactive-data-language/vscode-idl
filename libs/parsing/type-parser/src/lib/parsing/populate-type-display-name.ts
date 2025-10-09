@@ -56,7 +56,6 @@ export function PopulateTypeDisplayName(types: IDLDataType) {
             .map((val) => JSON.stringify(val).replace(/"/g, "'"))
             .join(' | ');
           break;
-
         default:
           baseLiteral = zType.value.join(' | ');
           break;
