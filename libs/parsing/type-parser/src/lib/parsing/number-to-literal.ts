@@ -45,6 +45,11 @@ export function NumberToLiteral(typeName: string, values: string[]) {
 }
 
 /**
+ * Double as compile otpion
+ */
+const double = false;
+
+/**
  * Attempts to determine the type from numbers
  *
  * TODO:
@@ -72,7 +77,7 @@ export function UpdateNumberBaseType(
       break;
     case FLOAT_REGEX.test(match):
       // check if we should promote to double
-      if (!EXPLICIT_FLOAT_REGEX.test(match)) {
+      if (!EXPLICIT_FLOAT_REGEX.test(match) && double) {
         if (COMPLEX_REGEX.test(match)) {
           type.name = IDL_TYPE_LOOKUP.COMPLEX_DOUBLE;
         } else {
