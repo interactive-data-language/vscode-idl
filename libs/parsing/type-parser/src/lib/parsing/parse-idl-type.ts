@@ -21,6 +21,7 @@ import { SyntaxTree, TreeBranchToken } from '@idl/types/syntax-tree';
 import { GetTaskDisplayName } from '../helpers/get-task-display-name';
 import { ReduceIDLDataType } from '../helpers/reduce-types';
 import { ARRAY_SHORTHAND_TYPES } from './array-shorthand-types.interface';
+import { UpdateNumberBaseType } from './number-to-literal';
 import { TASK_REGEX, TASK_REGEX_GLOBAL } from './parse-idl-type.interface';
 import { PopulateTypeDisplayName } from './populate-type-display-name';
 import { SetDefaultTypes } from './set-default-types';
@@ -92,16 +93,21 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
      * Check for a literal type
      */
     if (tree[i].name in LITERAL_TYPE_MAP) {
-      // sae value
-      if (tree[i].name in STRING_TYPES) {
-        // extract string value so we can normalize elsewhere
-        thisType.value = [tree[i].match[1]];
-      } else {
-        thisType.value = [baseType];
+      switch (true) {
+        case tree[i].name in STRING_TYPES:
+          baseType = LITERAL_TYPE_MAP[tree[i].name];
+          thisType.value = [tree[i].match[1]];
+          break;
+        case tree[i].name === TOKEN_NAMES.NUMBER:
+          UpdateNumberBaseType(thisType, tree[i].match[0]);
+          baseType = thisType.name;
+          break;
+        default:
+          baseType = LITERAL_TYPE_MAP[tree[i].name];
+          thisType.value = [baseType];
+          break;
       }
 
-      // update name
-      baseType = LITERAL_TYPE_MAP[tree[i].name];
       thisType.name = baseType;
       thisType.display = baseType;
     }
