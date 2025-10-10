@@ -9,7 +9,8 @@ export const TYPE_REGEX = /([a-z_0-9$!'"=]+)\s*(?:<([^>]*)>)?\s*\|?/im;
  * Regular expression for parsing type documentation that is used
  * to nicely split parsed docs without using commas
  */
-export const TYPE_DOCS_REGEX = /((?:[a-z_0-9$!'"=]+\s*(?:<.*>)?\s*\|?\s*)+)/im;
+export const TYPE_DOCS_REGEX =
+  /((?:[a-z_0-9$!'"=.+\-_]+\s*(?:<.*>)?\s*\|?\s*)+)/im;
 
 /**
  * Regular expression to split on type args
