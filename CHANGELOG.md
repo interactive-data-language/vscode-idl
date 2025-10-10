@@ -30,6 +30,15 @@ Fixed an issue with task generation not correctly adjusting the names of paired 
 
 Fixed a bug with IDL Notebooks embedding odd graphics from the ENVI UI when running cells with the ENVI UI open
 
+Fixed an issue where empty paths could be added to the IDL search path through VSCode settings.
+
+Re-worked the logic for managing and setting IDL's search path. It follows this process:
+
+- If you have workspaces open, and have opted in to adding to the path (default), add each folder
+- If you have set IDL's path through VSCode preferences, add each folder
+- If you have IDL_PATH in your environment variable, add each folder
+- Always make sure the IDL_DEFAULT path is present
+
 ## 5.1.0 - August 2025
 
 This verion introduces a new selection of IDL Tutorials! These come as a collection of notebooks to help new users get up and running. In the IDL sidebar, you'll see a new section called "IDL Tutorials" with language-specific content.

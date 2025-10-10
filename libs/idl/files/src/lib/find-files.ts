@@ -39,6 +39,12 @@ export async function FindFiles(
 
   // process all of our folder
   for (let i = 0; i < folders.length; i++) {
+    if (!folders[i]) {
+      continue;
+    }
+    if (!folders[i].trim()) {
+      continue;
+    }
     // skip folders if they dont exist
     if (!existsSync(folders[i])) {
       continue;
