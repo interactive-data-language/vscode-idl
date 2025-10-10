@@ -154,13 +154,13 @@ export class IDLDebugConfigurationProvider
 
     // check if we already set the default idl path
     if (hadDefault) {
-      folders.push('<IDL_DEFAULT>');
+      folders.push('<IDL_DEFAULT>;');
     } else {
       // no default path, so add it to the beginning
       if (useConfig.config.IDL.appendOrPrependWorkspaceFolders === 'prepend') {
-        folders.unshift('<IDL_DEFAULT>');
+        folders.unshift('<IDL_DEFAULT>;');
       } else {
-        folders.push('<IDL_DEFAULT>');
+        folders.push('<IDL_DEFAULT>;');
       }
     }
 
