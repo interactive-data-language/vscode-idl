@@ -11,6 +11,7 @@ import { MCPENVIRasterSeries } from './types/mcp-envi-raster-series';
 import { MCPENVIROI } from './types/mcp-envi-roi';
 import { MCPENVISpectralLibrary } from './types/mcp-envi-spectral-library';
 import { MCPENVIVector } from './types/mcp-envi-vector';
+import { MCPSARscapeData } from './types/mcp-sarscape-data';
 
 export function CreateENVIMCPParameter(
   name: string,
@@ -91,6 +92,12 @@ export function CreateENVIMCPParameter(
      */
     case IDLTypeHelper.isType(type, 'enviroi'):
       return MCPENVIROI(docs);
+
+    /**
+     * SARscapeData -
+     */
+    case IDLTypeHelper.isType(type, 'sarscapedata'):
+      return MCPSARscapeData(docs);
 
     /**
      * Passwords - map to proper parameters when we
