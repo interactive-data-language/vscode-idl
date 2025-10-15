@@ -53,7 +53,12 @@ export function GetVarHoverHelp(
     if (varName in lookup) {
       const meta = lookup[varName].meta;
 
-      help = IDLTypeHelper.addTypeToDocs(token.match[0], meta.docs, meta.type);
+      help = IDLTypeHelper.addTypeToDocs(
+        token.match[0],
+        meta.docs,
+        meta.type,
+        'var'
+      );
     }
   }
 

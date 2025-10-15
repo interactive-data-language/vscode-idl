@@ -110,7 +110,8 @@ export async function GetHoverHelpFromLookup(
               help = IDLTypeHelper.addTypeToDocs(
                 arg.display,
                 arg.docs,
-                arg.type
+                arg.type,
+                'arg'
               );
             }
             break;
@@ -121,7 +122,12 @@ export async function GetHoverHelpFromLookup(
           case lookup.kw !== undefined && lookup.type in ROUTINE_GLOBAL_TYPES: {
             const kw = (global as GlobalRoutineToken).meta.kws[lookup.kw];
             if (kw !== undefined) {
-              help = IDLTypeHelper.addTypeToDocs(kw.display, kw.docs, kw.type);
+              help = IDLTypeHelper.addTypeToDocs(
+                kw.display,
+                kw.docs,
+                kw.type,
+                'kw'
+              );
             }
             break;
           }
@@ -144,7 +150,8 @@ export async function GetHoverHelpFromLookup(
                   IDLTypeHelper.parseIDLType(global.meta.display)
                 ),
                 prop.docs,
-                prop.type
+                prop.type,
+                'prop'
               );
             }
             break;

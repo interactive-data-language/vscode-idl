@@ -1,4 +1,3 @@
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   KeywordBinaryToken,
@@ -7,6 +6,7 @@ import {
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
 
 import { GetKeyword } from '../../helpers/get-keyword';
@@ -37,7 +37,8 @@ export function GetKeywordHoverHelp(
     lookup.contents = IDLTypeHelper.addTypeToDocs(
       GetKeywordDisplayName(token),
       IDL_TRANSLATION.lsp.types.unknown.keyword,
-      IDLTypeHelper.parseIDLType(IDL_TYPE_LOOKUP.ANY)
+      IDLTypeHelper.parseIDLType(IDL_TYPE_LOOKUP.ANY),
+      'kw'
     );
   }
 }

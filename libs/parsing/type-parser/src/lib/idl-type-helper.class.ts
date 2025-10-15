@@ -24,7 +24,9 @@ export class IDLTypeHelper {
     name: string,
     docs: string,
     typeInfo: IDLDataType,
-    helpType: 'prop' | 'var' = 'var'
+    // these should be reflected in the "type_definition" regex in
+    // extension\language\syntaxes\src\idl.tmLanguage.yaml
+    helpType: 'arg' | 'kw' | 'prop' | 'struct' | 'var' = 'var'
   ): string {
     /** Docs we add for hover help */
     let useDocs: string[];

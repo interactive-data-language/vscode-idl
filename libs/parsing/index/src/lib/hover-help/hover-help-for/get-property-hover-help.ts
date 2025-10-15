@@ -32,7 +32,8 @@ export function GetPropertyHoverHelp(
       lookup.contents = IDLTypeHelper.addTypeToDocs(
         GetPropertyDisplayName(prop.display, IDL_STRUCTURE_TYPE),
         '',
-        prop.type
+        prop.type,
+        'prop'
       );
     } else {
       lookup.type = GLOBAL_TOKEN_TYPES.STRUCTURE;
@@ -44,7 +45,8 @@ export function GetPropertyHoverHelp(
     lookup.contents = IDLTypeHelper.addTypeToDocs(
       GetPropertyDisplayName(GetPropertyName(token), IDL_STRUCTURE_TYPE),
       IDL_TRANSLATION.lsp.types.unknown.property,
-      IDL_ANY_TYPE
+      IDL_ANY_TYPE,
+      'prop'
     );
   }
 }
