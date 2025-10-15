@@ -151,6 +151,7 @@ repository:
       - include: '#numbers'
       - include: '#grouper_tokens'
       - include: '#control_main_level_end'
+      - include: '#type_definition'
       - include: '#routine_call_pro'
       - include: '#variable_tokens'
       - include: '#quote_tokens'
@@ -289,9 +290,17 @@ repository:
   # highlighting for token parsing
   type_tokens:
     patterns:
-      - include: '#type_no_highlight'
-      - include: '#numbers'
+      - include: '#type_function'
+      - include: '#type_variable'
       - include: '#quote_tokens'
+      - include: '#numbers'
+      - include: '#type_or'
+
+  # highlighting for token parsing
+  type_function_tokens:
+    patterns:
+      - include: '#type_tokens'
+      - include: '#comma'
 
   # tokens to identify variables
   variable_tokens:
@@ -480,7 +489,7 @@ repository:
   # arg/keyword docs
   comment_docs_arg_kw:
     name: {{name_comment}}
-    match: ';\s*([^:\s]*)\s*:([^,]*),([^,]*),\s*((?:[a-z_0-9$!''"]+\s*(?:<.+>)?\s*\|?\s*)+),?([^,]*)?'
+    match: ';\s*([^:\s]*)\s*:([^,]*),([^,]*),\s*((?:[a-z_0-9$!''"=.+\-_]+\s*(?:<.+>?)?\s*\|?\s*)+),?([^,]*)?'
     captures:
       '1': { name: {{name_docs_arg_kw}} }
       '2': { name: {{name_docs_accent}} }
@@ -1058,6 +1067,38 @@ repository:
   type_no_highlight:
     name: {{name_variable}}
     match: '\||<|>|,'
+
+  # type function
+  type_function:
+    # name: {{name_type}}
+    begin: '([a-z_][a-z0-9_$]*)\s*(<)'
+    end: '>'
+    beginCaptures:
+      '1': { name: {{name_type}} }
+      '2': { name: {{name_variable}} }
+    endCaptures:
+      '0': { name: {{name_variable}} }
+    patterns:
+      - include: '#type_tokens'
+
+  # or operator for type expressions
+  type_or:
+    name: {{name_variable}}
+    match: '\|'
+
+  # type statement
+  type_definition:
+    match: '(property|variable)\s+([^:]+):([^=]+)=\s*(.*)'
+    captures:
+      '1': { name: {{name_control}} }
+      '2': { name: {{name_variable}} }
+      '3': { patterns: [{ include: '#type_tokens' }] }
+      '4': { patterns: [{ include: '#type_tokens' }] }
+
+  # or operator for type expressions
+  type_variable:
+    name: {{name_type}}
+    match: '!?[a-z_][a-z0-9_$]*'
 
   # variable definitions, captured to avoid syntax highlighting
   variable:

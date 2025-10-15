@@ -107,6 +107,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#type_definition</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#routine_call_pro</string>
           </dict>
           <dict>
@@ -479,7 +483,15 @@
         <array>
           <dict>
             <key>include</key>
-            <string>#type_no_highlight</string>
+            <string>#type_function</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#type_variable</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#quote_tokens</string>
           </dict>
           <dict>
             <key>include</key>
@@ -487,7 +499,21 @@
           </dict>
           <dict>
             <key>include</key>
-            <string>#quote_tokens</string>
+            <string>#type_or</string>
+          </dict>
+        </array>
+      </dict>
+      <key>type_function_tokens</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#type_tokens</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comma</string>
           </dict>
         </array>
       </dict>
@@ -983,7 +1009,7 @@
         <key>name</key>
         <string>comment.line.idl</string>
         <key>match</key>
-        <string>(?i);\s*([^:\s]*)\s*:([^,]*),([^,]*),\s*((?:[a-z_0-9$!'"]+\s*(?:&lt;.+&gt;)?\s*\|?\s*)+),?([^,]*)?</string>
+        <string>(?i);\s*([^:\s]*)\s*:([^,]*),([^,]*),\s*((?:[a-z_0-9$!'"=.+\-_]+\s*(?:&lt;.+&gt;?)?\s*\|?\s*)+),?([^,]*)?</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -2381,6 +2407,93 @@
         <string>variable.other.readwrite.ts.idl</string>
         <key>match</key>
         <string>(?i)\||&lt;|&gt;|,</string>
+      </dict>
+      <key>type_function</key>
+      <dict>
+        <key>begin</key>
+        <string>(?i)([a-z_][a-z0-9_$]*)\s*(&lt;)</string>
+        <key>end</key>
+        <string>(?i)&gt;</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.type.ts</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>variable.other.readwrite.ts.idl</string>
+          </dict>
+        </dict>
+        <key>endCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>variable.other.readwrite.ts.idl</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#type_tokens</string>
+          </dict>
+        </array>
+      </dict>
+      <key>type_or</key>
+      <dict>
+        <key>name</key>
+        <string>variable.other.readwrite.ts.idl</string>
+        <key>match</key>
+        <string>(?i)\|</string>
+      </dict>
+      <key>type_definition</key>
+      <dict>
+        <key>match</key>
+        <string>(?i)(property|variable)\s+([^:]+):([^=]+)=\s*(.*)</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.idl</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>variable.other.readwrite.ts.idl</string>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#type_tokens</string>
+              </dict>
+            </array>
+          </dict>
+          <key>4</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#type_tokens</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+      </dict>
+      <key>type_variable</key>
+      <dict>
+        <key>name</key>
+        <string>entity.name.type.ts</string>
+        <key>match</key>
+        <string>(?i)!?[a-z_][a-z0-9_$]*</string>
       </dict>
       <key>variable</key>
       <dict>

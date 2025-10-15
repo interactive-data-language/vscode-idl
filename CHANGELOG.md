@@ -20,6 +20,8 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 ### Unreleased
 
+Syntax highlighting for types has been updated to match the new type parser which resolved some issues with types not being highlighted in docs blocks.
+
 Fixed a typo in one of the paths we check to find IDL on Mac when you have ENVI + IDL installed
 
 New preference (enabled by default) that has the theme of IDL and ENVI match that of VSCode. This means, if you have a dark mode programming theme, IDL and ENVI will launch in dark mode. Do note that, if we detect `IDL_THEME` as an environment variable, this preference has no effect.

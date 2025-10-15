@@ -39,12 +39,12 @@ export class IDLTypeHelper {
      */
     if (display !== serialized) {
       useDocs = [
-        '```typescript',
-        `var ${name}: ${display} = ${serialized}`,
+        '```idl',
+        `variable ${name}: ${display} = ${serialized}`,
         '```',
       ];
     } else {
-      useDocs = ['```typescript', `var ${name}: ${display}`, '```'];
+      useDocs = ['```idl', `variable ${name}: ${display}`, '```'];
     }
 
     // add in our actual docs
