@@ -29,8 +29,8 @@ describe(`[auto generated] Correctly provide hover help for keywords`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type sub_rect = Array<Number>',
+      '```idl',
+      'kw sub_rect: Array<Number>',
       '```',
       '',
       'Set this keyword to a four-element array expressing the spatial range (in pixels) of the data. The array is of the form \\[_x1_, _y1_, _x2_, _y2_\\], where:',
@@ -65,8 +65,8 @@ describe(`[auto generated] Correctly provide hover help for keywords`, () => {
 
     // define expected token we extract
     const expectedFound_1: string[] = [
-      '```typescript',
-      'type bands = Array<any>',
+      '```idl',
+      'kw bands: Array<any>',
       '```',
       '',
       'An array of integer indices that define the spectral subset to be set. The indices are sequential and zero-based (Band 1 = 0, Band 2 = 1, and so on). By default, all bands are included.',

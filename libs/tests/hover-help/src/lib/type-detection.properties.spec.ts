@@ -29,8 +29,8 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type ENVIRaster.metadata = ENVIRasterMetadata',
+      '```idl',
+      'prop ENVIRaster.metadata: ENVIRasterMetadata',
       '```',
       '',
       'This property retrieves a reference to the [ENVIRasterMetadata](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRasterMetadata/ENVIRasterMetaData.htm%22%7D) object. If METADATA and INHERITS\\_FROM are both set, the new raster will have the union of both sets of metadata. The METADATA values override those from INHERITS\\_FROM if there is a conflict.',
@@ -71,8 +71,8 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type ENVIRasterMetadata.count = Long',
+      '```idl',
+      'prop ENVIRasterMetadata.count: Long',
       '```',
       '',
       'A long integer that represents the number of available tags.',
@@ -113,8 +113,8 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type Structure.incorrect = any',
+      '```idl',
+      'prop Structure.incorrect: any',
       '```',
       '',
       'Unknown property',
@@ -155,8 +155,8 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type Structure.wrong = any',
+      '```idl',
+      'prop Structure.wrong: any',
       '```',
       '',
       'Unknown property',
@@ -197,8 +197,8 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type ENVI.ui = ENVIUI | Null',
+      '```idl',
+      'prop ENVI.ui: ENVIUI | Null',
       '```',
       '',
       'This property retrieves a reference to the [ENVIUI](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIUI/ENVIUI.htm%22%7D) object.',
@@ -239,8 +239,8 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type Structure.why_so_serious = any',
+      '```idl',
+      'prop Structure.why_so_serious: any',
       '```',
       '',
       'Unknown property',

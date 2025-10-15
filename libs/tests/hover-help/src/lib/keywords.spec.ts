@@ -28,11 +28,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
     const position_0: Position = { line: 4, character: 13 };
 
     // define expected token we extract
-    const expectedFound_0: string[] = [
-      '```typescript',
-      'type test = Boolean',
-      '```',
-    ];
+    const expectedFound_0: string[] = ['```idl', 'kw test: Boolean', '```'];
 
     // get hover help
     const hoverHelp_0 = await index.getHoverHelp(

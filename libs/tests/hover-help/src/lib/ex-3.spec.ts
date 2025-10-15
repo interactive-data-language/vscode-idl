@@ -28,11 +28,7 @@ describe(`[auto generated] Correctly finds no information for parameters in docs
     const position_0: Position = { line: 26, character: 2 };
 
     // define expected token we extract
-    const expectedFound_0: string[] = [
-      '```typescript',
-      'var b: Int = 42',
-      '```',
-    ];
+    const expectedFound_0: string[] = ['```idl', 'var b: Int = 42', '```'];
 
     // get hover help
     const hoverHelp_0 = await index.getHoverHelp(
@@ -50,11 +46,7 @@ describe(`[auto generated] Correctly finds no information for parameters in docs
     const position_1: Position = { line: 27, character: 2 };
 
     // define expected token we extract
-    const expectedFound_1: string[] = [
-      '```typescript',
-      'var kw2: Int = 42',
-      '```',
-    ];
+    const expectedFound_1: string[] = ['```idl', 'var kw2: Int = 42', '```'];
 
     // get hover help
     const hoverHelp_1 = await index.getHoverHelp(

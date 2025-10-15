@@ -76,8 +76,8 @@ describe(`[auto generated] Correctly identifies keywords from routine calls`, ()
 
     // define expected token we extract
     const expectedFound_1: string[] = [
-      '```typescript',
-      'type var1 = any',
+      '```idl',
+      'var var1: any',
       '```',
       '',
       'My favorite thing',
@@ -100,7 +100,7 @@ describe(`[auto generated] Correctly identifies keywords from routine calls`, ()
 
     // define expected token we extract
     const expectedFound_2: string[] = [
-      '```typescript',
+      '```idl',
       'var thing1: Long = 42',
       '```',
       '',
@@ -124,7 +124,7 @@ describe(`[auto generated] Correctly identifies keywords from routine calls`, ()
 
     // define expected token we extract
     const expectedFound_3: string[] = [
-      '```typescript',
+      '```idl',
       'var thing2: Long = 42',
       '```',
       '',

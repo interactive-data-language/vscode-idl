@@ -28,11 +28,7 @@ describe(`[auto generated] Provide hover help for`, () => {
     const position_0: Position = { line: 8, character: 10 };
 
     // define expected token we extract
-    const expectedFound_0: string[] = [
-      '```typescript',
-      'type a = Structure',
-      '```',
-    ];
+    const expectedFound_0: string[] = ['```idl', 'var a: Structure', '```'];
 
     // get hover help
     const hoverHelp_0 = await index.getHoverHelp(
@@ -51,8 +47,8 @@ describe(`[auto generated] Provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_1: string[] = [
-      '```typescript',
-      "var Structure.a: String = 'string'",
+      '```idl',
+      "prop Structure.a: String = 'string'",
       '```',
     ];
 
@@ -73,8 +69,8 @@ describe(`[auto generated] Provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_2: string[] = [
-      '```typescript',
-      'type IDL_Variable.length = Number',
+      '```idl',
+      'prop IDL_Variable.length: Number',
       '```',
       '',
       'The number of elements in the variable.',
@@ -97,8 +93,8 @@ describe(`[auto generated] Provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_3: string[] = [
-      '```typescript',
-      'type Structure.invalid = any',
+      '```idl',
+      'prop Structure.invalid: any',
       '```',
       '',
       'Unknown property',
