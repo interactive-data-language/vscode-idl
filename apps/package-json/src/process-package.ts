@@ -1,4 +1,7 @@
-import { EXTENSION_NAME, EXTENSION_PUBLISHER_NAME } from '@idl/shared';
+import {
+  EXTENSION_NAME,
+  EXTENSION_PUBLISHER_NAME,
+} from '@idl/shared/extension';
 
 import { ProcessActivationEvents } from './contributes/contributes-activation-events';
 import { ProcessActivityBar } from './contributes/contributes-activity-bar';

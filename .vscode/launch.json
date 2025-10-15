@@ -13,10 +13,20 @@
       "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
       "outFiles": ["${workspaceFolder}/dist/apps/client/**/*.js"],
       "env": {
-        "VSCODE_IDL_DEBUGGING": "true",
-        "VSCODE_IDL_LOG_TO_FILE": "false",
-        "VSCODE_IDL_LOGFILE": ""
+        "VSCODE_IDL_DEBUGGING": "true"
       }
+    },
+    {
+      "name": "Run IDL Extension (Web)",
+      "type": "extensionHost",
+      "debugWebWorkerHost": true,
+      "request": "launch", 
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionDevelopmentKind=web"
+      ],
+      "outFiles": ["${workspaceFolder}/dist/client-web/**/*.js"]
     },
     {
       "name": "Run IDL Extension Tests",

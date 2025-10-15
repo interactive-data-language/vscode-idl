@@ -1,5 +1,5 @@
+import { GetFSPath } from '@idl/idl/files';
 import { CodeChecksum } from '@idl/parser';
-import { GetFSPath } from '@idl/shared';
 import { existsSync, readFileSync } from 'fs';
 
 import { DOCUMENT_MANAGER } from '../events/initialize-document-manager';

@@ -122,6 +122,7 @@ describe(`[auto generated] Types from assignment`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 12],
+        range: { start: [0, 0, 12], end: [8, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',

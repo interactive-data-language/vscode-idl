@@ -26,15 +26,10 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
   /** Worker threads by worker ID */
   workers: { [key: string]: Worker } = {};
 
-  /** Promises for messages by ID (i.e. waiting for a response) */
-  private messages: { [key: string]: IMessagePromise } = {};
-
-  /** Message subscriptions we have created. Keep references to clean up */
-  private subscriptions: {
-    [key: string]: {
-      [key: string]: Subject<PayloadFromWorkerBaseMessage<_Message>>;
-    };
-  } = {};
+  /**
+   * If we have an error, message that we use as an alert when we send to parent process
+   */
+  private errorAlert: string;
 
   /** Message subscriptions we have created. Keep references to clean up */
   private globalSubscriptions: {
@@ -46,154 +41,19 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
    */
   private log: LogManager;
 
-  /**
-   * If we have an error, message that we use as an alert when we send to parent process
-   */
-  private errorAlert: string;
+  /** Promises for messages by ID (i.e. waiting for a response) */
+  private messages: { [key: string]: IMessagePromise } = {};
+
+  /** Message subscriptions we have created. Keep references to clean up */
+  private subscriptions: {
+    [key: string]: {
+      [key: string]: Subject<PayloadFromWorkerBaseMessage<_Message>>;
+    };
+  } = {};
 
   constructor(log: LogManager, errorAlert?: string) {
     this.log = log;
     this.errorAlert = errorAlert;
-  }
-
-  /**
-   * Updates the logger that we use
-   */
-  setLog(newLog: LogManager) {
-    this.log = newLog;
-  }
-
-  /**
-   * Removes a message timeout from a message
-   */
-  private _removeTimeout(message: IMessagePromise) {
-    if (message.timeout !== undefined) {
-      clearTimeout(message.timeout);
-    }
-  }
-
-  /**
-   * When we receive a message handle it accordingly
-   */
-  private _handleMessage(
-    workerId: string,
-    incoming: IMessageFromWorker<_Message>
-  ) {
-    // gab some message properties
-    const messageType = incoming.type;
-    const messageId = incoming._id;
-
-    // handle our incoming message
-    switch (messageType) {
-      case 'unhandled-error':
-        this.log.log({
-          log: IDL_WORKER_THREAD_CONSOLE,
-          type: 'error',
-          content: [
-            `Unhandled error message from Worker ID "${workerId}" with message ID "${messageType}"`,
-            incoming.payload,
-          ],
-          alert: this.errorAlert,
-        });
-
-        // check if we have a promise to resolve and clean up
-        if (messageId in this.messages) {
-          this._removeTimeout(this.messages[messageId]);
-          this.messages[messageId].reject(incoming.payload);
-          delete this.messages[messageId];
-        }
-        break;
-      case 'error':
-        this.log.log({
-          log: IDL_WORKER_THREAD_CONSOLE,
-          type: 'error',
-          content: [
-            `Error message from Worker ID "${workerId}" with message ID "${messageType}"`,
-            incoming.payload,
-          ],
-        });
-
-        // check if we have a promise to resolve and clean up
-        if (messageId in this.messages) {
-          this._removeTimeout(this.messages[messageId]);
-          this.messages[messageId].reject(incoming.payload);
-          delete this.messages[messageId];
-        }
-        break;
-      case 'log':
-        this.log.log({
-          log: IDL_WORKER_THREAD_CONSOLE,
-          type: 'info',
-          // content: [
-          //   `Message from Worker Thread "${workerId}": `,
-          //   incoming.payload,
-          // ],
-          content: incoming.payload,
-        });
-        break;
-      default:
-        // check if we have a global subscription
-        if (messageType in this.globalSubscriptions) {
-          this.globalSubscriptions[messageType].next(incoming.payload);
-        }
-
-        // check if we have a worker subscription
-        if (workerId in this.subscriptions) {
-          if (messageType in this.subscriptions[workerId]) {
-            this.subscriptions[workerId][messageType].next(incoming.payload);
-          }
-        }
-
-        // check if we have a promise to resolve and clean up
-        if (messageId in this.messages) {
-          this._removeTimeout(this.messages[messageId]);
-          this.messages[messageId].resolve(incoming.payload);
-          delete this.messages[messageId];
-        }
-
-        break;
-    }
-  }
-
-  /**
-   * Prepares a message to be sent to a worker
-   */
-  prepareMessage(msg: IMessageToWorker<_Message>, id?: string) {
-    // make an id if it doesnt exist
-    if (id === undefined) {
-      id = nanoid();
-    }
-
-    // send our message
-    return WorkerIOSerializeMessageToWorker(Object.assign(msg, { _id: id }));
-  }
-
-  /**
-   * Helper method that posts raw messages to reduce serialization and synchronization overhead
-   *
-   * Message should be the output from `prepareMessage()` above
-   */
-  postMessageRaw(workerId: string, msg: WorkerIOSerializedMessageToWorker) {
-    // send our message
-    this.workers[workerId].postMessage(msg);
-  }
-
-  /**
-   * Internal method to actually send the correctly formatted message to our worker
-   *
-   * We stringify our message prior to sending which significantly increases throughput
-   * instead of sending native objects
-   */
-  private _postMessage(
-    workerId: string,
-    msg: IMessageToWorker<_Message>,
-    id?: string
-  ) {
-    // send our message
-    this.workers[workerId].postMessage(this.prepareMessage(msg, id));
-
-    // return the ID in case someone wants to track it?
-    return id;
   }
 
   /**
@@ -242,80 +102,38 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
   }
 
   /**
-   * Remove a worker from our pool
+   * Clean up our workerIO interface and stop all worker threads
    */
-  removeWorker(workerId: string): boolean {
-    const found = workerId in this.workers;
-    if (found) {
-      // stop listening to events, otherwise we get an error message
-      // about the worker being shutdown
-      this.workers[workerId].removeAllListeners();
-
-      // stop the worker and listen for errors stopping the worker
-      this.workers[workerId]
-        .terminate()
-        .then(
-          () => {
-            // do nothing
-          },
-          (err) => {
-            this.log.log({
-              log: IDL_WORKER_THREAD_CONSOLE,
-              type: 'error',
-              content: [
-                `Problem trying to terminate worker "${workerId}"`,
-                err,
-              ],
-            });
-          }
-        )
-        .catch((err) => {
-          this.log.log({
-            log: IDL_WORKER_THREAD_CONSOLE,
-            type: 'error',
-            content: [
-              `Unhandled problem trying to terminate worker "${workerId}"`,
-              err,
-            ],
-          });
-        });
-
-      // remove reference to worker
-      delete this.workers[workerId];
+  destroy() {
+    const ids = Object.keys(this.workers);
+    for (let i = 0; i < ids.length; i++) {
+      this.removeWorker(ids[i]);
     }
-    return found;
-  }
+    (this.workers as any) = undefined;
 
-  /**
-   * Send a message to our worker, but don't want for a response
-   */
-  postMessage<T extends _Message>(
-    workerId: string,
-    type: T,
-    payload: PayloadToWorkerBaseMessage<T>
-  ): string {
-    if (!(workerId in this.workers)) {
-      throw new Error(
-        `Attempted to send message to worker "${workerId}", but it does not exist`
-      );
+    // clean up messages
+    let keys = Object.keys(this.messages);
+    for (let i = 0; i < keys.length; i++) {
+      delete this.messages[keys[i]];
     }
 
-    /**
-     * Create cancellation token
-     */
-    const cancel = new CancellationToken();
+    // clean up our data subscriptions - keys = workerIds
+    keys = Object.keys(this.subscriptions);
+    for (let i = 0; i < keys.length; i++) {
+      // clean up subscriptions for each worker
+      const workerKeys = Object.keys(this.subscriptions[keys[i]]);
+      for (let j = 0; j < workerKeys.length; j++) {
+        this.subscriptions[keys[i]][workerKeys[j]].complete();
+      }
+      delete this.subscriptions[keys[i]];
+    }
 
-    const msg: IMessageToWorker<_Message> = {
-      type,
-      payload,
-      cancel: cancel.buffer,
-    };
-
-    // set that we are not asking for a response
-    msg.noResponse = true;
-
-    // send the message
-    return this._postMessage(workerId, msg);
+    // clean up our global subscriptions
+    keys = Object.keys(this.globalSubscriptions);
+    for (let i = 0; i < keys.length; i++) {
+      this.globalSubscriptions[keys[i]].complete();
+      delete this.globalSubscriptions[keys[i]];
+    }
   }
 
   /**
@@ -367,6 +185,113 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
   }
 
   /**
+   * Send a message to our worker, but don't want for a response
+   */
+  postMessage<T extends _Message>(
+    workerId: string,
+    type: T,
+    payload: PayloadToWorkerBaseMessage<T>
+  ): string {
+    if (!(workerId in this.workers)) {
+      throw new Error(
+        `Attempted to send message to worker "${workerId}", but it does not exist`
+      );
+    }
+
+    /**
+     * Create cancellation token
+     */
+    const cancel = new CancellationToken();
+
+    const msg: IMessageToWorker<_Message> = {
+      type,
+      payload,
+      cancel: cancel.buffer,
+    };
+
+    // set that we are not asking for a response
+    msg.noResponse = true;
+
+    // send the message
+    return this._postMessage(workerId, msg);
+  }
+
+  /**
+   * Helper method that posts raw messages to reduce serialization and synchronization overhead
+   *
+   * Message should be the output from `prepareMessage()` above
+   */
+  postMessageRaw(workerId: string, msg: WorkerIOSerializedMessageToWorker) {
+    // send our message
+    this.workers[workerId].postMessage(msg);
+  }
+
+  /**
+   * Prepares a message to be sent to a worker
+   */
+  prepareMessage(msg: IMessageToWorker<_Message>, id?: string) {
+    // make an id if it doesnt exist
+    if (id === undefined) {
+      id = nanoid();
+    }
+
+    // send our message
+    return WorkerIOSerializeMessageToWorker(Object.assign(msg, { _id: id }));
+  }
+
+  /**
+   * Remove a worker from our pool
+   */
+  removeWorker(workerId: string): boolean {
+    const found = workerId in this.workers;
+    if (found) {
+      // stop listening to events, otherwise we get an error message
+      // about the worker being shutdown
+      this.workers[workerId].removeAllListeners();
+
+      // stop the worker and listen for errors stopping the worker
+      this.workers[workerId]
+        .terminate()
+        .then(
+          () => {
+            // do nothing
+          },
+          (err) => {
+            this.log.log({
+              log: IDL_WORKER_THREAD_CONSOLE,
+              type: 'error',
+              content: [
+                `Problem trying to terminate worker "${workerId}"`,
+                err,
+              ],
+            });
+          }
+        )
+        .catch((err) => {
+          this.log.log({
+            log: IDL_WORKER_THREAD_CONSOLE,
+            type: 'error',
+            content: [
+              `Unhandled problem trying to terminate worker "${workerId}"`,
+              err,
+            ],
+          });
+        });
+
+      // remove reference to worker
+      delete this.workers[workerId];
+    }
+    return found;
+  }
+
+  /**
+   * Updates the logger that we use
+   */
+  setLog(newLog: LogManager) {
+    this.log = newLog;
+  }
+
+  /**
    * Subscribe to all messages with the same ID from any worker
    */
   subscribeToGlobalMessages<T extends _Message>(
@@ -387,22 +312,6 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
       this.globalSubscriptions[messageId] = subject;
       return subject;
     }
-  }
-
-  /**
-   * Stop subscribing to global messages - cleans up internal subscription references
-   */
-  unsubscribeFromGlobalMessages(messageId: _Message): void {
-    // check for our worker
-    if (!(messageId in this.globalSubscriptions)) {
-      throw new Error(
-        `Attempted to subscribe to all messages with ID "${messageId}" data, but a subscription already exists`
-      );
-    }
-
-    // clean up
-    this.globalSubscriptions[messageId].complete();
-    delete this.globalSubscriptions[messageId];
   }
 
   /**
@@ -433,6 +342,22 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
   }
 
   /**
+   * Stop subscribing to global messages - cleans up internal subscription references
+   */
+  unsubscribeFromGlobalMessages(messageId: _Message): void {
+    // check for our worker
+    if (!(messageId in this.globalSubscriptions)) {
+      throw new Error(
+        `Attempted to subscribe to all messages with ID "${messageId}" data, but a subscription already exists`
+      );
+    }
+
+    // clean up
+    this.globalSubscriptions[messageId].complete();
+    delete this.globalSubscriptions[messageId];
+  }
+
+  /**
    * Stop subscribing to messages from our workers
    */
   unsubscribeFromWorkerMessages(workerId: string, messageId: _Message): void {
@@ -452,37 +377,112 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
   }
 
   /**
-   * Clean up our workerIO interface and stop all worker threads
+   * When we receive a message handle it accordingly
    */
-  destroy() {
-    const ids = Object.keys(this.workers);
-    for (let i = 0; i < ids.length; i++) {
-      this.removeWorker(ids[i]);
-    }
-    (this.workers as any) = undefined;
+  private _handleMessage(
+    workerId: string,
+    incoming: IMessageFromWorker<_Message>
+  ) {
+    // gab some message properties
+    const messageType = incoming.type;
+    const messageId = incoming._id;
 
-    // clean up messages
-    let keys = Object.keys(this.messages);
-    for (let i = 0; i < keys.length; i++) {
-      delete this.messages[keys[i]];
-    }
+    // handle our incoming message
+    switch (messageType) {
+      case 'error':
+        this.log.log({
+          log: IDL_WORKER_THREAD_CONSOLE,
+          type: 'error',
+          content: [
+            `Error message from Worker ID "${workerId}" with message ID "${messageType}"`,
+            incoming.payload,
+          ],
+        });
 
-    // clean up our data subscriptions - keys = workerIds
-    keys = Object.keys(this.subscriptions);
-    for (let i = 0; i < keys.length; i++) {
-      // clean up subscriptions for each worker
-      const workerKeys = Object.keys(this.subscriptions[keys[i]]);
-      for (let j = 0; j < workerKeys.length; j++) {
-        this.subscriptions[keys[i]][workerKeys[j]].complete();
-      }
-      delete this.subscriptions[keys[i]];
-    }
+        // check if we have a promise to resolve and clean up
+        if (messageId in this.messages) {
+          this._removeTimeout(this.messages[messageId]);
+          this.messages[messageId].reject(incoming.payload);
+          delete this.messages[messageId];
+        }
+        break;
+      case 'log':
+        this.log.log({
+          log: IDL_WORKER_THREAD_CONSOLE,
+          type: 'info',
+          // content: [
+          //   `Message from Worker Thread "${workerId}": `,
+          //   incoming.payload,
+          // ],
+          content: incoming.payload,
+        });
+        break;
+      case 'unhandled-error':
+        this.log.log({
+          log: IDL_WORKER_THREAD_CONSOLE,
+          type: 'error',
+          content: [
+            `Unhandled error message from Worker ID "${workerId}" with message ID "${messageType}"`,
+            incoming.payload,
+          ],
+          alert: this.errorAlert,
+        });
 
-    // clean up our global subscriptions
-    keys = Object.keys(this.globalSubscriptions);
-    for (let i = 0; i < keys.length; i++) {
-      this.globalSubscriptions[keys[i]].complete();
-      delete this.globalSubscriptions[keys[i]];
+        // check if we have a promise to resolve and clean up
+        if (messageId in this.messages) {
+          this._removeTimeout(this.messages[messageId]);
+          this.messages[messageId].reject(incoming.payload);
+          delete this.messages[messageId];
+        }
+        break;
+      default:
+        // check if we have a global subscription
+        if (messageType in this.globalSubscriptions) {
+          this.globalSubscriptions[messageType].next(incoming.payload);
+        }
+
+        // check if we have a worker subscription
+        if (workerId in this.subscriptions) {
+          if (messageType in this.subscriptions[workerId]) {
+            this.subscriptions[workerId][messageType].next(incoming.payload);
+          }
+        }
+
+        // check if we have a promise to resolve and clean up
+        if (messageId in this.messages) {
+          this._removeTimeout(this.messages[messageId]);
+          this.messages[messageId].resolve(incoming.payload);
+          delete this.messages[messageId];
+        }
+
+        break;
+    }
+  }
+
+  /**
+   * Internal method to actually send the correctly formatted message to our worker
+   *
+   * We stringify our message prior to sending which significantly increases throughput
+   * instead of sending native objects
+   */
+  private _postMessage(
+    workerId: string,
+    msg: IMessageToWorker<_Message>,
+    id?: string
+  ) {
+    // send our message
+    this.workers[workerId].postMessage(this.prepareMessage(msg, id));
+
+    // return the ID in case someone wants to track it?
+    return id;
+  }
+
+  /**
+   * Removes a message timeout from a message
+   */
+  private _removeTimeout(message: IMessagePromise) {
+    if (message.timeout !== undefined) {
+      clearTimeout(message.timeout);
     }
   }
 }

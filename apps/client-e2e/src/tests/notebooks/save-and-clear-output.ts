@@ -1,5 +1,7 @@
-import { GetExtensionPath, Sleep } from '@idl/shared';
-import { OpenNotebookInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
+import { GetExtensionPath } from '@idl/idl/files';
+import { Sleep } from '@idl/shared/extension';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
+import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';

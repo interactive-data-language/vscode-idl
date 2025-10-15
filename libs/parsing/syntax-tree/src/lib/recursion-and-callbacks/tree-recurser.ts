@@ -46,7 +46,7 @@ function _Recurser(
         type: current.allowedGlobalParents[tree[i].name],
         name: GetRoutineName(
           tree[i] as IBranch<
-            RoutineProcedureToken | RoutineFunctionToken | MainLevelToken
+            MainLevelToken | RoutineFunctionToken | RoutineProcedureToken
           >
         ),
         token: tree[i] as TreeBranchToken,

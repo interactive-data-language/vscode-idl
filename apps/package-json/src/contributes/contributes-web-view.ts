@@ -1,4 +1,4 @@
-import { WEB_VIEW_PANEL_ID } from '@idl/shared';
+import { WEB_VIEW_PANEL_ID } from '@idl/shared/extension';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
 

@@ -1,4 +1,4 @@
-import { MatchGlobal } from '@idl/shared';
+import { MatchGlobal } from '@idl/shared/extension';
 import { existsSync } from 'fs';
 import { basename, dirname } from 'path';
 
@@ -35,7 +35,7 @@ const IMAGE_REGEX = /\.(png|jpeg|jpg|tif|tiff|gif)/i;
  */
 export function ReplaceLinks(mdStrings: string, folder: string) {
   /** Current matches */
-  let match: RegExpExecArray | null = MatchGlobal(mdStrings, LINK_REGEX, true);
+  let match: null | RegExpExecArray = MatchGlobal(mdStrings, LINK_REGEX, true);
 
   /** Front of the match */
   let front = '';

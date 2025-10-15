@@ -30,6 +30,9 @@ export function TypeFromFunction(
 
   // special cases to overload the type that we check for
   switch (name) {
+    case 'call_function':
+      name = TypeFromCallFunction(index, parsed, token) || name;
+      break;
     case 'envitask':
       name = TypeFromTask(index, parsed, token, 'ENVI') || 'ENVITask';
       returnNameAsType = true;
@@ -41,9 +44,6 @@ export function TypeFromFunction(
     case 'obj_new':
       name = TypeFromObjNew(index, parsed, token);
       returnNameAsType = true;
-      break;
-    case 'call_function':
-      name = TypeFromCallFunction(index, parsed, token) || name;
       break;
     default:
   }

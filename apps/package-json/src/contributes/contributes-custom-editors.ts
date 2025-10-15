@@ -1,4 +1,4 @@
-import { ENVI_OPENER_TYPE } from '@idl/shared';
+import { ENVI_OPENER_TYPE } from '@idl/shared/extension';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
 import { VerifyNLS } from './helpers/verify-nls';

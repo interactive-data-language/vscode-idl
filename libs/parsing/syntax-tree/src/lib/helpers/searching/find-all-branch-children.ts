@@ -9,8 +9,13 @@ function FindAllBranchChildrenRecurser<T extends TokenName>(
   branch: IBranch<NonBasicTokenNames>,
   findThese: { [key: string]: any },
   found: TreeToken<T>[],
-  skipThese: { [key: string]: any } = {}
+  skipThese: { [key: string]: any }
 ) {
+  // return if we should not recurse into our branch
+  if (branch.name in skipThese) {
+    return;
+  }
+
   // process all children
   for (let i = 0; i < (branch.kids || []).length; i++) {
     // save our token
@@ -19,10 +24,7 @@ function FindAllBranchChildrenRecurser<T extends TokenName>(
     }
 
     // recurse if needed
-    if (
-      branch.kids[i].type === BRANCH_TYPES.BRANCH &&
-      !(branch.name in skipThese)
-    ) {
+    if (branch.kids[i].type === BRANCH_TYPES.BRANCH) {
       FindAllBranchChildrenRecurser(
         branch.kids[i] as IBranch<NonBasicTokenNames>,
         findThese,

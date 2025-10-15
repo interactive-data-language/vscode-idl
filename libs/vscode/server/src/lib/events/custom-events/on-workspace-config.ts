@@ -1,6 +1,6 @@
 import { StartExpressDocsServer } from '@idl/docs/server';
+import { FindFiles, IFolderRecursion } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { IFolderRecursion } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   LANGUAGE_SERVER_MESSAGE_LOOKUP,
@@ -16,8 +16,8 @@ import {
 import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
-  SERVER_EVENT_MANAGER,
-} from '../../initialize-server';
+  SERVER_MESSENGER,
+} from '../../initialize-language-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { PROMISE_TIMEOUT } from '../is-initialized';
 
@@ -94,8 +94,8 @@ export const ON_WORKSPACE_CONFIG = async (
           IDL_LANGUAGE_SERVER_LOGGER.log({
             log: IDL_LSP_LOG,
             type: 'error',
-            content: ['Error starting docs server', err],
-            alert: IDL_TRANSLATION.lsp.errors.startDocsServer,
+            content: ['Error starting server', err],
+            alert: IDL_TRANSLATION.lsp.errors.startingServer,
           });
         }, IDL_CLIENT_CONFIG.documentation.localPort);
         // catch all other errors
@@ -104,7 +104,7 @@ export const ON_WORKSPACE_CONFIG = async (
           log: IDL_LSP_LOG,
           type: 'error',
           content: ['Error starting docs server', err],
-          alert: IDL_TRANSLATION.lsp.errors.startDocsServer,
+          alert: IDL_TRANSLATION.lsp.errors.startingServer,
         });
       }
     }
@@ -117,10 +117,9 @@ export const ON_WORKSPACE_CONFIG = async (
     }
 
     // alert that we have started indexing
-    SERVER_EVENT_MANAGER.sendNotification(
-      LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-      { type: 'start' }
-    );
+    SERVER_MESSENGER.sendNotification(LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING, {
+      type: 'start',
+    });
 
     /**
      * Wrap in try/catch so we properly close/cleanup our parsing messages
@@ -128,24 +127,27 @@ export const ON_WORKSPACE_CONFIG = async (
      */
     try {
       // add folders
-      await IDL_INDEX.indexWorkspace(
+      await IDL_INDEX.indexWorkspaceFiles(
+        await FindFiles(info.folders.added),
         info.folders.added,
         GLOBAL_SERVER_SETTINGS.fullParse
       );
 
       // remove folders
-      await IDL_INDEX.removeWorkspace(info.folders.removed);
+      await IDL_INDEX.removeWorkspaceFiles(
+        await FindFiles(info.folders.removed)
+      );
 
       // send problems with settings changes
       SendProblems(Object.keys(IDL_INDEX.getSyntaxProblems()));
 
       // alert that we are done
-      SERVER_EVENT_MANAGER.sendNotification(
+      SERVER_MESSENGER.sendNotification(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
         { type: 'finish' }
       );
     } catch (err) {
-      SERVER_EVENT_MANAGER.sendNotification(
+      SERVER_MESSENGER.sendNotification(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
         { type: 'finish' }
       );

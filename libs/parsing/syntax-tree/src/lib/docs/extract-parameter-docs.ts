@@ -1,3 +1,4 @@
+import { SortObject } from '@idl/shared/extension';
 import { CommentToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -10,6 +11,7 @@ import {
   TYPE_DOCS_REGEX,
 } from '@idl/types/core';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
+import { ARG_KW_PROPERTY_TAG } from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';
 import copy from 'fast-copy';
 
@@ -18,7 +20,6 @@ import {
   SyntaxProblemWithoutTranslation,
   SyntaxProblemWithTranslation,
 } from '../syntax-problem-with';
-import { ARG_KW_PROPERTY_TAG } from './docs.regex.interface';
 import { IHeaderDocs, REMOVE_COMMENT_REGEX } from './extract-docs.interface';
 import {
   DIRECTION_DOCS,
@@ -34,6 +35,7 @@ export function ExtractParameterDocs(
   header: IHeaderDocs,
   reference: { [key: string]: string }, // contains the reference display names
   problems: SyntaxProblems,
+  sort: boolean,
   properties = false
 ): {
   [key: string]: IParameterOrPropertyDetails;
@@ -413,5 +415,9 @@ export function ExtractParameterDocs(
     }
   }
 
-  return details;
+  /**
+   * Do we sort our parameters? i.e. keywords or properties
+   * should be sorted
+   */
+  return sort ? SortObject(details) : details;
 }

@@ -17,14 +17,14 @@ export class BaseRendererComponent<T extends IDLNotebook_EmbedType>
   implements OnDestroy
 {
   /**
-   * Track if we set data or not
-   */
-  hasData = false;
-
-  /**
    * True (correctly typed) item we are embedding
    */
   _embed!: IDLNotebookEmbeddedItem<T>;
+
+  /**
+   * Subscriptions that we need to clean up
+   */
+  _subscriptions = new Subscription();
 
   /**
    * Flag indicating if we can send messages to VSCode or not
@@ -37,14 +37,14 @@ export class BaseRendererComponent<T extends IDLNotebook_EmbedType>
   dataService: DataSharingService;
 
   /**
+   * Track if we set data or not
+   */
+  hasData = false;
+
+  /**
    * Reference to our VSCode messenger class
    */
   messenger: VSCodeRendererMessenger;
-
-  /**
-   * Subscriptions that we need to clean up
-   */
-  _subscriptions = new Subscription();
 
   /**
    * Item we are embedding

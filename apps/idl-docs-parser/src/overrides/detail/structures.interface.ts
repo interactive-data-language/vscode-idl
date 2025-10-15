@@ -25,6 +25,10 @@ export const ADD_STRUCTURES: {
     display: 'idl_shape_entity',
     source: 'idl',
   },
+  ipm: {
+    display: 'ipm',
+    source: 'idl',
+  },
 };
 
 /**
@@ -421,6 +425,9 @@ export const STRUCTURE_OVERRIDE: IStructureOverride = {
   },
   idlitcomponent: {
     display: 'IDLitComponent',
+  },
+  ipm: {
+    display: 'ipm',
   },
   envivector: {
     display: 'ENVIVector',

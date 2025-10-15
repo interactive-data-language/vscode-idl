@@ -10,5 +10,5 @@ import { IDLTask, IDLTaskSchemaVersion } from './idltask.interface';
  */
 export type ParsedTask =
   | ENVITask<ENVITaskSchemaVersion>
-  | IDLTask<IDLTaskSchemaVersion>
-  | ENVITaskLegacy<ENVITaskLegacyVersion>;
+  | ENVITaskLegacy<ENVITaskLegacyVersion>
+  | IDLTask<IDLTaskSchemaVersion>;

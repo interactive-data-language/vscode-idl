@@ -42,17 +42,12 @@ export class IDLIndexingStatusBar {
   }
 
   /**
-   * When we start indexing something
+   * Clears existing timeout
    */
-  startedIndexing() {
-    this.pending++;
-
-    // if we don't have a timeout, clear it
-    if (this._timeout === undefined) {
-      this._timeout = setTimeout(() => {
-        this._timeout = undefined;
-        this.bar.show();
-      }, TIMEOUT_MS);
+  clearTimeout() {
+    if (this._timeout !== undefined) {
+      clearTimeout(this._timeout);
+      this._timeout = undefined;
     }
   }
 
@@ -70,12 +65,17 @@ export class IDLIndexingStatusBar {
   }
 
   /**
-   * Clears existing timeout
+   * When we start indexing something
    */
-  clearTimeout() {
-    if (this._timeout !== undefined) {
-      clearTimeout(this._timeout);
-      this._timeout = undefined;
+  startedIndexing() {
+    this.pending++;
+
+    // if we don't have a timeout, clear it
+    if (this._timeout === undefined) {
+      this._timeout = setTimeout(() => {
+        this._timeout = undefined;
+        this.bar.show();
+      }, TIMEOUT_MS);
     }
   }
 }

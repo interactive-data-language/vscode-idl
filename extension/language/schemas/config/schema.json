@@ -22,6 +22,12 @@
       "description": "Number of spaces to use for indentation.",
       "default": 2
     },
+    "hangingIndent": {
+      "type": "boolean",
+      "title": "Hanging Indent",
+      "description": "Do we use hanging indentation for multi-line statements?\n\nFor multi-line statements this means that the first line begins at the standard indentation level and all subsequent lines are indented further to align with a syntactic element (e.g., after an opening parenthesis), rather than using a uniform block indent.\n\nThis affect routine names, function calls, procedure calls, arrays, structures, and parentheses.",
+      "default": false
+    },
     "autoDoc": {
       "type": "boolean",
       "title": "AutoDoc",
@@ -39,6 +45,12 @@
       "title": "No Style or Formatting",
       "description": "When we process our code, do we apply our styles and format?\n\nIf this is set to `false` and `autoDoc` is enabled, then we add documentation to your code without changing anything else.",
       "default": true
+    },
+    "maxIndent": {
+      "type": "number",
+      "title": "Max Indent",
+      "description": "Maximum indent size (number of spaces) that we will insert when auto-indenting your code during formatting",
+      "default": 30
     },
     "style": {
       "$ref": "v1.schema.json#/definitions/1.0.0-options"

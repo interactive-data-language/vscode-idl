@@ -1,10 +1,8 @@
-import { GetExtensionPath, IDL_COMMANDS } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { Sleep } from '@idl/tests/helpers';
-import {
-  GetActivePROCodeWindow,
-  OpenFileInVSCode,
-  VSCODE_COMMANDS,
-} from '@idl/vscode/shared';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
+import { GetActivePROCodeWindow, OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
@@ -33,6 +31,9 @@ export const Continue: RunnerFunction = async (init) => {
 
   // verify we started
   expect(started).toBeTruthy();
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 
   // show the debug console
   await vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
@@ -64,7 +65,9 @@ export const Continue: RunnerFunction = async (init) => {
   // verify all of our lines
   for (let i = 0; i < EXPECTED_LINES.length; i++) {
     // verify we are on the right line
-    expect(init.debug.adapter.stopped?.stack?.line).toEqual(EXPECTED_LINES[i]);
+    expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(
+      EXPECTED_LINES[i]
+    );
 
     // continue running
     await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_CONTINUE);
@@ -72,4 +75,7 @@ export const Continue: RunnerFunction = async (init) => {
     // wait a little bit
     await Sleep(DEBUG_PAUSE);
   }
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

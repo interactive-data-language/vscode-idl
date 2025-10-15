@@ -1,4 +1,5 @@
-import { GetFSPath, IDLFileHelper } from '@idl/shared';
+import { GetFSPath } from '@idl/idl/files';
+import { IDLFileHelper } from '@idl/shared/extension';
 import { URI } from 'vscode-uri';
 
 import { NOTEBOOK_MANAGER } from '../events/initialize-notebook-manager';
@@ -57,6 +58,11 @@ export async function ResolveFSPathAndCodeForURI(
 
   // get the cell index
   const idx = nb.cells.findIndex((cell) => cell.document === url);
+
+  // return if we don't have a cell
+  if (!nb.cells[idx]) {
+    return undefined;
+  }
 
   // get cell document
   const cellDoc = NOTEBOOK_MANAGER.getCellTextDocument(nb.cells[idx]);

@@ -4,7 +4,7 @@
     {
       "type": "markdown",
       "content": [
-        "First three cells are empty and should not run or generate eny output"
+        "First three cells are empty and should not run or generate any output"
       ],
       "metadata": {},
       "outputs": []

@@ -5,7 +5,11 @@ import { CANCELLATION_MESSAGE } from './cancellation-token.interface';
  * that it can have the right number of bytes
  */
 export function GetCancellationTokenSharedArraybuffer() {
+  // if (crossOriginIsolated) {
   return new SharedArrayBuffer(4);
+  // } else {
+  //   return new ArrayBuffer(4) as SharedArrayBuffer;
+  // }
 }
 
 /**

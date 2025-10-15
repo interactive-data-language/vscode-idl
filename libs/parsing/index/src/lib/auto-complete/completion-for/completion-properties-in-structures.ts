@@ -16,7 +16,7 @@ import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
 import { IDLIndex } from '../../idl-index.class';
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**
  *Recursively finds properties and adds them to our completion list if we have not
@@ -55,7 +55,7 @@ function ResolveProperties(
           label: display,
           insertText: display + ':',
           kind: CompletionItemKind.Field,
-          sortText: SORT_PRIORITY.PROPERTIES,
+          sortText: COMPLETION_SORT_PRIORITY.PROPERTIES,
           detail: `${IDL_TRANSLATION.autoComplete.detail.property} ${global[0].meta.display}`,
           documentation: properties[names[i]].docs,
         });

@@ -8,11 +8,11 @@ export type ExecutiveCommandCompletion = 'executive-command';
  */
 export interface IExecutiveCommandCompletionOptions {
   /**
-   * Are we in a compile statement?
-   */
-  isCompile: boolean;
-  /**
    * Do we send files or not?
    */
   addFiles: boolean;
+  /**
+   * Are we in a compile statement?
+   */
+  isCompile: boolean;
 }

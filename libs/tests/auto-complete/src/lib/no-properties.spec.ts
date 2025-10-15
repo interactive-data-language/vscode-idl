@@ -1,6 +1,6 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { readFile } from 'fs/promises';
 import { CompletionItem, Position } from 'vscode-languageserver/node';
 
@@ -33,7 +33,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLgrSurface::getCTM()',
         insertText: 'getCtm',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -41,7 +41,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::editUserDefProperty()',
         insertText: 'editUserDefProperty',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -49,7 +49,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::getFullIdentifier()',
         insertText: 'getFullIdentifier',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -57,7 +57,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::getPropertyByIdentifier()',
         insertText: 'getPropertyByIdentifier',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -65,7 +65,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::queryProperty()',
         insertText: 'queryProperty',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -90,7 +90,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLgrSurface::getCTM()',
         insertText: 'getCtm',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -98,7 +98,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::editUserDefProperty()',
         insertText: 'editUserDefProperty',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -106,7 +106,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::getFullIdentifier()',
         insertText: 'getFullIdentifier',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -114,7 +114,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::getPropertyByIdentifier()',
         insertText: 'getPropertyByIdentifier',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -122,7 +122,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'IDLitComponent::queryProperty()',
         insertText: 'queryProperty',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorRight' },
       },
@@ -166,7 +166,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'all',
         insertText: 'all',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -178,7 +178,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'alpha_channel',
         insertText: 'alpha_channel',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -190,7 +190,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'ambient',
         insertText: 'ambient',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -202,7 +202,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'antialias',
         insertText: 'antialias',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -214,7 +214,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'bottom',
         insertText: 'bottom',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -226,7 +226,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'clip_planes',
         insertText: 'clip_planes',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -238,7 +238,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'color',
         insertText: 'color',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -247,10 +247,22 @@ describe(`[auto generated] Exclude properties`, () => {
         },
       },
       {
+        label: 'component_version',
+        insertText: 'component_version',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of IDLitComponent',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A integer value representing the version of the component object. This value is set automatically and is intended to aid in determining how a component object should be restored by the Restore method.\n\n| **Property Type** | Integer         |              |                    |\n| ----------------- | --------------- | ------------ | ------------------ |\n| **Name String**   | _not displayed_ |              |                    |\n| **Get:** Yes      | **Set:** No     | **Init:** No | **Registered:** No |',
+        },
+      },
+      {
         label: 'data',
         insertText: 'data',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -262,7 +274,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'datax',
         insertText: 'datax',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -274,7 +286,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'datay',
         insertText: 'datay',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -286,7 +298,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'dataz',
         insertText: 'dataz',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -298,7 +310,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'depth_offset',
         insertText: 'depth_offset',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -310,7 +322,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'depth_test_disable',
         insertText: 'depth_test_disable',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -322,7 +334,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'depth_test_function',
         insertText: 'depth_test_function',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -334,7 +346,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'depth_write_disable',
         insertText: 'depth_write_disable',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -343,10 +355,22 @@ describe(`[auto generated] Exclude properties`, () => {
         },
       },
       {
+        label: 'description',
+        insertText: 'description',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of IDLitComponent',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A string giving the full name or description of this object.\n\n| **Property Type** | STRING       |               |                     |\n| ----------------- | ------------ | ------------- | ------------------- |\n| **Name String**   | Description  |               |                     |\n| **Get:** Yes      | **Set:** Yes | **Init:** Yes | **Registered:** Yes |',
+        },
+      },
+      {
         label: 'diffuse',
         insertText: 'diffuse',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -358,7 +382,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'double',
         insertText: 'double',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -370,7 +394,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'emission',
         insertText: 'emission',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -382,7 +406,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'extended_lego',
         insertText: 'extended_lego',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -391,10 +415,22 @@ describe(`[auto generated] Exclude properties`, () => {
         },
       },
       {
+        label: 'help',
+        insertText: 'help',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of IDLitComponent',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A scalar string representing the help topic associated with this object. If this property is not set, or is set to an empty string, then the object class name will be used as the default help topic.\n\n| **Property Type** | **String**      |               |                    |\n| ----------------- | --------------- | ------------- | ------------------ |\n| **Name String**   | _not displayed_ |               |                    |\n| **Get:** Yes      | **Set:** Yes    | **Init:** Yes | **Registered:** No |',
+        },
+      },
+      {
         label: 'hidden_lines',
         insertText: 'hidden_lines',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -406,7 +442,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'hide',
         insertText: 'hide',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -415,10 +451,34 @@ describe(`[auto generated] Exclude properties`, () => {
         },
       },
       {
+        label: 'icon',
+        insertText: 'icon',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of IDLitComponent',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A string specifying the name of an icon to be associated with this object. Typically, this property is the name of a bitmap file used when displaying this object in a tree view. \n\n| **Property Type** | **String**      |               |                    |\n| ----------------- | --------------- | ------------- | ------------------ |\n| **Name String**   | _not displayed_ |               |                    |\n| **Get:** Yes      | **Set:** Yes    | **Init:** Yes | **Registered:** No |',
+        },
+      },
+      {
+        label: 'identifier',
+        insertText: 'identifier',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of IDLitComponent',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A string containing the _object identifier_ for this object. If this property is not specified, then the NAME property is used as the identifier. \n\n| **Property Type** | **String**      |               |                    |\n| ----------------- | --------------- | ------------- | ------------------ |\n| **Name String**   | _not displayed_ |               |                    |\n| **Get:** Yes      | **Set:** Yes    | **Init:** Yes | **Registered:** No |',
+        },
+      },
+      {
         label: 'linestyle',
         insertText: 'linestyle',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -430,7 +490,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'max_value',
         insertText: 'max_value',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -442,7 +502,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'min_value',
         insertText: 'min_value',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -451,10 +511,22 @@ describe(`[auto generated] Exclude properties`, () => {
         },
       },
       {
+        label: 'name',
+        insertText: 'name',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of IDLitComponent',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A string giving the human-readable name of this object.\n\n| **Property Type** | STRING       |               |                     |\n| ----------------- | ------------ | ------------- | ------------------- |\n| **Name String**   | Name         |               |                     |\n| **Get:** Yes      | **Set:** Yes | **Init:** Yes | **Registered:** Yes |',
+        },
+      },
+      {
         label: 'palette',
         insertText: 'palette',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -466,7 +538,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'parent',
         insertText: 'parent',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -475,10 +547,22 @@ describe(`[auto generated] Exclude properties`, () => {
         },
       },
       {
+        label: 'private',
+        insertText: 'private',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of IDLitComponent',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A boolean value that indicates whether the object should be marked as private. Objects marked private (and all of their children) are not displayed in the graphical iTool browser windows.\n\n| **Property Type** | Boolean         |               |                    |\n| ----------------- | --------------- | ------------- | ------------------ |\n| **Name String**   | _not displayed_ |               |                    |\n| **Get:** Yes      | **Set:** Yes    | **Init:** Yes | **Registered:** No |',
+        },
+      },
+      {
         label: 'register_properties',
         insertText: 'register_properties',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -490,7 +574,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'reset_data',
         insertText: 'reset_data',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -502,7 +586,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'shade_range',
         insertText: 'shade_range',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -514,7 +598,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'shader',
         insertText: 'shader',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -526,7 +610,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'shading',
         insertText: 'shading',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -538,7 +622,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'share_data',
         insertText: 'share_data',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -550,7 +634,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'shininess',
         insertText: 'shininess',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -562,7 +646,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'show_skirt',
         insertText: 'show_skirt',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -574,7 +658,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'skirt',
         insertText: 'skirt',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -586,7 +670,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'specular',
         insertText: 'specular',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -598,7 +682,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'style',
         insertText: 'style',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -610,7 +694,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'texture_coord',
         insertText: 'texture_coord',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -622,7 +706,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'texture_highres',
         insertText: 'texture_highres',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -634,7 +718,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'texture_interp',
         insertText: 'texture_interp',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -646,7 +730,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'texture_map',
         insertText: 'texture_map',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -658,7 +742,7 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'thick',
         insertText: 'thick',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
@@ -670,96 +754,12 @@ describe(`[auto generated] Exclude properties`, () => {
         label: 'use_triangles',
         insertText: 'use_triangles',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLgrSurface',
         documentation: {
           kind: 'markdown',
           value:
             'A Boolean value or an enumerated list item that determines whether to force the IDLgrSurface object to use triangles instead of quads to draw the surface and skirt. \n\n| Value | Property Sheet Value | Description                                           |\n| ----- | -------------------- | ----------------------------------------------------- |\n| 0     | Quads                | Use quads to draw the surface and skirt (the default) |\n| 1     | Triangles            | Use triangles to draw the surface and skirt           |\n\n | **Property Type** | Boolean      |               |                     |\n| ----------------- | ------------ | ------------- | ------------------- |\n| **Name String**   | Draw method  |               |                     |\n| **Get:** Yes      | **Set:** Yes | **Init:** Yes | **Registered:** Yes |',
-        },
-      },
-      {
-        label: 'vert_colors',
-        insertText: 'vert_colors',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of IDLgrSurface',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A vector of colors to be used to specify the color of a surface vertex. The vector may be of the form \\[_n_\\] where each entry is a color index, or of the form \\[3,_n_\\] where each 3-element row is an RGB color, or of the form \\[4,_n_\\] where each 4-element row is an RGBA color. To remove vertex colors after they have been set, set VERT\\_COLORS to a scalar. \n\nIf VERT\\_COLORS is not specified, the entire surface is drawn in the single color provided by the COLOR property, which is the default action.\n\nIf SHADING is set to 0 (Flat, the default) the color of a surface polygon is the color of the first vertex of that surface polygon. Color is interpolated between vertices if SHADING is set to 1 (Gouraud).\n\nIf there are more vertices than elements in VERT\\_COLORS, the elements of VERT\\_COLORS are cyclically repeated. \n\n_Note:_ If the surface object is being rendered on a destination device that uses the Indexed color model, and the view that contains the surface also contains one or more light objects, the VERT\\_COLORS property is ignored and the SHADE\\_RANGE property is used instead.\n\nThis property is registered as a user-defined property, but it is hidden by default.\n\n| **Property Type** | USERDEF       |               |                     |\n| ----------------- | ------------- | ------------- | ------------------- |\n| **Name String**   | Vertex colors |               |                     |\n| **Get:** Yes      | **Set:** Yes  | **Init:** Yes | **Registered:** Yes |',
-        },
-      },
-      {
-        label: 'xcoord_conv',
-        insertText: 'xcoord_conv',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of IDLgrSurface',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A floating-point vector, \\[_s_0, _s_1\\], of scaling factors used to convert _X_ coordinates from data units to normalized units. The formula for the conversion is as follows:\n\nNormalized_X_ \\= _s_0 \\+ _s_1 \\* Data_X_\n\nRecommended values are:\n\n\\[(-_Xmin_)/(_Xmax_\\-_Xmin_), 1/(_Xmax_\\-_Xmin_)\\]\n\nThe default is \\[0.0, 1.0\\]. IDL converts, maintains, and returns this data as double-precision floating-point.\n\n| **Property Type** | Floating-point vector |               |                    |\n| ----------------- | --------------------- | ------------- | ------------------ |\n| **Name String**   | _not displayed_       |               |                    |\n| **Get:** Yes      | **Set:** Yes          | **Init:** Yes | **Registered:** No |',
-        },
-      },
-      {
-        label: 'xrange',
-        insertText: 'xrange',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of IDLgrSurface',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A two-element floating-point vector of the form \\[_xmin_, _xmax_\\] that specifies the range of _x_ data coordinates covered by the graphic object. IDL maintains and returns this property in double-precision floating-point.\n\n| **Property Type** | Floating-point vector |              |                    |\n| ----------------- | --------------------- | ------------ | ------------------ |\n| **Name String**   | _not displayed_       |              |                    |\n| **Get:** Yes      | **Set:** No           | **Init:** No | **Registered:** No |',
-        },
-      },
-      {
-        label: 'ycoord_conv',
-        insertText: 'ycoord_conv',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of IDLgrSurface',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A floating-point vector, \\[_s_0, _s_1\\], of scaling factors used to convert _Y_ coordinates from data units to normalized units. The formula for the conversion is as follows:\n\nNormalized_Y_ \\= _s_0 \\+ _s_1 \\* Data_Y_\n\nRecommended values are:\n\n\\[(-_Ymin_)/(_Ymax_\\-_Ymin_), 1/(_Ymax_\\-_Ymin_)\\]\n\nThe default is \\[0.0, 1.0\\]. IDL converts, maintains, and returns this data as double-precision floating-point.\n\n| **Property Type** | Floating-point vector |               |                    |\n| ----------------- | --------------------- | ------------- | ------------------ |\n| **Name String**   | _not displayed_       |               |                    |\n| **Get:** Yes      | **Set:** Yes          | **Init:** Yes | **Registered:** No |',
-        },
-      },
-      {
-        label: 'yrange',
-        insertText: 'yrange',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of IDLgrSurface',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A two-element floating-point vector of the form \\[_ymin_, _ymax_\\] that specifies the range of _y_ data coordinates covered by the graphic object. IDL maintains and returns this property in double-precision floating-point.\n\n| **Property Type** | Floating-point vector |              |                    |\n| ----------------- | --------------------- | ------------ | ------------------ |\n| **Name String**   | _not displayed_       |              |                    |\n| **Get:** Yes      | **Set:** No           | **Init:** No | **Registered:** No |',
-        },
-      },
-      {
-        label: 'zcoord_conv',
-        insertText: 'zcoord_conv',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of IDLgrSurface',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A floating-point vector, \\[_s_0, _s_1\\], of scaling factors used to convert _Z_ coordinates from data units to normalized units. The formula for the conversion is as follows:\n\nNormalized_Z_ \\= _s_0 \\+ _s_1 \\* Data_Z_\n\nRecommended values are:\n\n\\[(-_Zmin_)/(_Zmax_\\-_Zmin_), 1/(_Zmax_\\-_Zmin_)\\]\n\nThe default is \\[0.0, 1.0\\]. IDL converts, maintains, and returns this data as double-precision floating-point.\n\n| **Property Type** | Floating-point vector |               |                    |\n| ----------------- | --------------------- | ------------- | ------------------ |\n| **Name String**   | _not displayed_       |               |                    |\n| **Get:** Yes      | **Set:** Yes          | **Init:** Yes | **Registered:** No |',
-        },
-      },
-      {
-        label: 'zero_opacity_skip',
-        insertText: 'zero_opacity_skip',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of IDLgrSurface',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A Boolean value that determines whether to gain finer control over the rendering of textured surface pixels (texels) by setting an opacity of 0 in the texture map. Texels with zero opacity do not affect the color of a screen pixel since they have no opacity. If this property is set to 1, any texels are “skipped” and not rendered at all. If this property is set to zero, the Z-buffer is updated for these pixels and the display image is not affected as noted above. By updating the Z-buffer without updating the display image, the surface can be used as a _clipping_ surface for other graphics primitives drawn after the current graphics object. The default value for this property is 1.\n\n_Note:_ This property has no effect if no texture map is used or if the texture map in use does not contain an opacity channel.\n\n| **Property Type** | Boolean           |               |                     |\n| ----------------- | ----------------- | ------------- | ------------------- |\n| **Name String**   | Skip zero opacity |               |                     |\n| **Get:** Yes      | **Set:** Yes      | **Init:** Yes | **Registered:** Yes |',
         },
       },
     ];

@@ -147,6 +147,7 @@ describe(`[auto generated] Correctly gets docs and variables`, () => {
         type: 'p',
         name: 'mypro',
         pos: [13, 4, 5],
+        range: { start: [13, 0, 4], end: [22, 0, 3] },
         meta: {
           source: 'user',
           args: {

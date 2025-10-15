@@ -21,7 +21,7 @@ import { NAME_TOKENS } from './return-functions';
  * Checks our routine definition for a compile option
  */
 function CheckForCompileOpt(
-  token: IBranch<RoutineProcedureToken | RoutineFunctionToken | MainLevelToken>,
+  token: IBranch<MainLevelToken | RoutineFunctionToken | RoutineProcedureToken>,
   syntax: SyntaxProblems
 ) {
   // look for compile opt statements

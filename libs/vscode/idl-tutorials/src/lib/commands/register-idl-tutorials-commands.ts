@@ -1,9 +1,9 @@
-import { EXAMPLE_NOTEBOOKS } from '@idl/notebooks/shared';
-import { GetExtensionPath, IDL_COMMANDS } from '@idl/shared';
+import { EXAMPLE_NOTEBOOKS, GetExtensionPath } from '@idl/idl/files';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_LOGGER, LogCommandError } from '@idl/vscode/client';
+import { IDL_LOGGER, LogCommandError } from '@idl/vscode/logger';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
-import { existsSync, mkdirSync } from 'fs';
+import { existsSync, mkdirSync, rmSync } from 'fs';
 import { cp } from 'fs/promises';
 import { join } from 'path';
 import { ExtensionContext } from 'vscode';
@@ -53,6 +53,41 @@ export function RegisterIDLTutorialsCommands(ctx: ExtensionContext) {
             'Error opening IDL example notebook',
             err,
             cmdErrors.idlTutorials.openIDLTutorial
+          );
+          return false;
+        }
+      }
+    )
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.TUTORIALS.RESET_TUTORIALS,
+      async () => {
+        try {
+          // make folder if it doesnt exist
+          if (existsSync(EXAMPLE_NOTEBOOKS)) {
+            rmSync(EXAMPLE_NOTEBOOKS, { recursive: true });
+          }
+
+          // make folder if it doesnt exist
+          if (!existsSync(EXAMPLE_NOTEBOOKS)) {
+            mkdirSync(EXAMPLE_NOTEBOOKS, { recursive: true });
+          }
+
+          await cp(
+            GetExtensionPath('extension/example-notebooks'),
+            EXAMPLE_NOTEBOOKS,
+            { recursive: true }
+          );
+
+          // return as though we succeeded
+          return true;
+        } catch (err) {
+          LogCommandError(
+            'Error while resetting tutorials',
+            err,
+            cmdErrors.idlTutorials.resetTutorials
           );
           return false;
         }

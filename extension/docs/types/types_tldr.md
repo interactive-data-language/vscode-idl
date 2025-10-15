@@ -71,7 +71,7 @@ Basic types are data types in IDL that are standalone and don't require any addi
 | Byte          | Byte number                 | Byte                                   |
 | ComplexNumber | Generic complex number      | ComplexNumber                          |
 | Complex       | Float complex number        | Complex, ComplexFloat, FloatComplex    |
-| DoubleComplex | Double complex number       | DComplex, DoubleComplex, DoubleComplex |
+| DoubleComplex | Double complex number       | DComplex, ComplexDouble, DoubleComplex |
 | Double        | Double-precision number     | Double, Float64                        |
 | Int           | Integer number              | Int, Integer                           |
 | Long          | Long number                 | Long                                   |

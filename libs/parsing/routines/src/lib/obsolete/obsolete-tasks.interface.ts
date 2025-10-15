@@ -1,10 +1,10 @@
 import { IObsolete } from './obsolete.interface';
 
 interface IObsoleteTasks {
-  /** Obsolete IDL tasks */
-  idl: IObsolete;
   /** Obsolete ENVI tasks */
   envi: IObsolete;
+  /** Obsolete IDL tasks */
+  idl: IObsolete;
 }
 
 /**

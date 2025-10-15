@@ -1,6 +1,6 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { readFile } from 'fs/promises';
 import { Position } from 'vscode-languageserver/node';
 
@@ -34,6 +34,7 @@ describe(`[auto generated] Correctly find function definitions`, () => {
       type: 'f',
       name: 'go_to_def_call_function',
       pos: [0, 9, 23],
+      range: { start: [0, 0, 9], end: [3, 0, 3] },
       meta: {
         source: 'user',
         args: {},

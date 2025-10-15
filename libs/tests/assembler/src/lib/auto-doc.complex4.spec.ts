@@ -95,7 +95,7 @@ describe(`[auto generated] Verify complex formatting`, () => {
         `;     The number of bridges that you want to create`,
         `;`,
         `; :Keywords:`,
-        `;   init: in, optional, strarr`,
+        `;   init: in, optional, Array<String>`,
         `;     Optional argument which allows you to pass in a string array of extra commands`,
         `;     to have each IDL_IDLBridge object execute upon creation.`,
         `;   logdir: in, optional, String`,

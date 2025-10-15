@@ -1,4 +1,4 @@
-import { ACTIVITY_BAR_ID, IDL_TREE_VIEW_ID } from '@idl/shared';
+import { ACTIVITY_BAR_ID, IDL_TREE_VIEW_ID } from '@idl/shared/extension';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
 import { VerifyNLS } from './helpers/verify-nls';

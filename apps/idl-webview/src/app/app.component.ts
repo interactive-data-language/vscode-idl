@@ -8,13 +8,14 @@ import { VSCodeService } from './services/services/vscode.service';
   selector: 'idlwv-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: false,
 })
 export class AppComponent implements OnInit {
   // theming
   @HostBinding('class') activeThemeCssClass!: string;
 
-  title = 'idl-webview';
   message = { ...DEFAULT_VSCODE_MESSAGE };
+  title = 'idl-webview';
 
   constructor(
     public materialCssVarsService: MaterialCssVarsService,

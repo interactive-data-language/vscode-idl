@@ -228,6 +228,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
         type: 'f',
         name: 'myfunc',
         pos: [14, 9, 6],
+        range: { start: [14, 0, 9], end: [17, 0, 3] },
         meta: {
           source: 'user',
           args: {

@@ -28,7 +28,19 @@
   </div>
 </p>
 
-## About
+---
+
+**Version 5.0 is here!** This release introduces major new features and improvements. Here are the highlights:
+
+- **New native integration with IDL 9.2+** powered by the _IDL Machine_ for a faster, more responsive experience in VSCode
+
+- **Initial GitHub Copilot integration** to let AI start IDL, run code, and automate common development tasks
+
+- **First version of a web extension** allowing you to view IDL code and notebooks directly in the browser — lightweight for now, but a step toward full desktop/browser parity
+
+See the [changelog](./CHANGELOG.md) for full details.
+
+---
 
 An open-source extension which brings IDL (Interactive Data Language) to Visual Studio Code! This extension does _not_ include IDL, but you can download it from our website [here](https://portal.nv5geospatialsoftware.com/).
 

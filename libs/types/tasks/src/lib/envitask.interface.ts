@@ -11,42 +11,42 @@ export type ENVITaskSchema30 = 'envitask_3.0';
  *  ENVI Task schema versions
  */
 export type ENVITaskSchemaVersion =
-  | ENVITaskSchema33
-  | ENVITaskSchema32
+  | ENVITaskSchema30
   | ENVITaskSchema31
-  | ENVITaskSchema30;
+  | ENVITaskSchema32
+  | ENVITaskSchema33;
 
 /**
  * Data structure for task parameters for 3.0
  */
 export interface ENVIParameterSchema30 {
-  /** Name of the parameter */
-  name: string;
-  /** Display name of the parameter showed in UI */
-  display_name: string;
-  /** Type of the parameter */
-  type: string;
-  /** Direction (input or output) */
-  direction: string;
-  /** parameter description */
-  description: string;
-  /** If the parameter is required or not */
-  required: boolean;
-
-  /** If array, dimension string */
-  dimensions?: string;
-  /** Name of the keyword that the ENVI Task gets mapped to */
-  keyword?: string;
   /** Available options */
   choiceList?: any;
   /** Default value for the task */
   defaultValue?: any;
-  /** Minimum value */
-  min?: any;
-  /** Minimum value */
-  max?: any;
+  /** parameter description */
+  description: string;
+  /** If array, dimension string */
+  dimensions?: string;
+  /** Direction (input or output) */
+  direction: string;
+  /** Display name of the parameter showed in UI */
+  display_name: string;
+
   /** If this task parameter is hidden or not */
   hidden?: boolean;
+  /** Name of the keyword that the ENVI Task gets mapped to */
+  keyword?: string;
+  /** Minimum value */
+  max?: any;
+  /** Minimum value */
+  min?: any;
+  /** Name of the parameter */
+  name: string;
+  /** If the parameter is required or not */
+  required: boolean;
+  /** Type of the parameter */
+  type: string;
 }
 
 /**
@@ -55,10 +55,10 @@ export interface ENVIParameterSchema30 {
 export interface ENVIParametersSchema31 extends ENVIParameterSchema30 {
   /** For URI parameters, automatic extension we use */
   auto_extension?: string;
-  /** For URI parameters, are we temporary */
-  is_temporary?: boolean;
   /** For URI parameters, are we a folder */
   is_directory?: boolean;
+  /** For URI parameters, are we temporary */
+  is_temporary?: boolean;
   /** URI parameter that controls output location */
   uri_param?: string;
 }
@@ -95,14 +95,14 @@ export type ENVITaskParameter<T extends ENVITaskSchemaVersion> =
  * Data structure for root task parameters for 3.0
  */
 export interface ENVITaskSchema30Properties {
-  /** Name of the task when calling via the ENVI API */
-  name: string;
-  /** Name of the task that gets displayed in the ENVI UI */
-  display_name: string;
-  /** Description of what the task does */
-  description: string;
   /** Type of the task, should be "ENVITaskFromProcedure" */
   base_class: string;
+  /** Description of what the task does */
+  description: string;
+  /** Name of the task that gets displayed in the ENVI UI */
+  display_name: string;
+  /** Name of the task when calling via the ENVI API */
+  name: string;
   /** Name of our routine */
   routine: string;
 }
@@ -147,11 +147,9 @@ export type ENVITaskProperties<T extends ENVITaskSchemaVersion> =
 /**
  * Data structure for ENVI Tasks
  */
-export type ENVITask<T extends ENVITaskSchemaVersion> =
-  /** The "&" is for intersection which makes it also have the properties of our other type above */
-  ENVITaskProperties<T> & {
-    /** Version of the task, designates our other properties */
-    schema: T;
-    /** Task parameters */
-    parameters: ENVITaskParameter<T>[];
-  };
+export type ENVITask<T extends ENVITaskSchemaVersion> = {
+  /** Version of the task, designates our other properties */
+  schema: T;
+  /** Task parameters */
+  parameters: ENVITaskParameter<T>[];
+} /** The "&" is for intersection which makes it also have the properties of our other type above */ & ENVITaskProperties<T>;

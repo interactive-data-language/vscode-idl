@@ -1,4 +1,4 @@
-import { SimplePromiseQueue, Sleep } from '@idl/shared';
+import { SimplePromiseQueue, Sleep } from '@idl/shared/extension';
 import copy from 'fast-copy';
 
 import {
@@ -19,34 +19,9 @@ import { SendRequest } from './helpers/send-request';
  */
 export class GA4Client<Event extends string = string> {
   /**
-   * Are we in debug mode or not?
-   */
-  private debug = false;
-
-  /**
-   * GA tracking IDs we send events for
-   */
-  measurement_ids: string[] = [];
-
-  /**
    * Parameters for events
    */
   eventParameters: IGA4EventParameters = {};
-
-  /**
-   * Parameters for events that we always send
-   */
-  persistentEventParameters: IGA4EventParameters = {};
-
-  /**
-   * User properties that we always send
-   */
-  userProperties: IGA4EventParameters = {};
-
-  /**
-   * IP address we use for the client
-   */
-  user_ip_address = null;
 
   /**
    * Hooks for customizing event sending
@@ -61,6 +36,11 @@ export class GA4Client<Event extends string = string> {
   };
 
   /**
+   * GA tracking IDs we send events for
+   */
+  measurement_ids: string[] = [];
+
+  /**
    * The data we send in our events with initial values
    */
   payloadData: IGA4PayloadData = {
@@ -69,6 +49,26 @@ export class GA4Client<Event extends string = string> {
     session_id: `${TimeStampInSeconds()}`,
     client_id: `${RandomInt()}.${TimeStampInSeconds()}`,
   };
+
+  /**
+   * Parameters for events that we always send
+   */
+  persistentEventParameters: IGA4EventParameters = {};
+
+  /**
+   * IP address we use for the client
+   */
+  user_ip_address = null;
+
+  /**
+   * User properties that we always send
+   */
+  userProperties: IGA4EventParameters = {};
+
+  /**
+   * Are we in debug mode or not?
+   */
+  private debug = false;
 
   /**
    * Promise queue that sends one event at a time
@@ -126,11 +126,51 @@ export class GA4Client<Event extends string = string> {
   }
 
   /**
+   * Get number of events
+   */
+  getHitIndex() {
+    return this.payloadData.hit_count;
+  }
+
+  /**
    * Grab current Session ID
    * @returns string
    */
   getSessionId() {
     return this.payloadData.session_id;
+  }
+
+  /**
+   * Send event
+   */
+  sendEvent(event: Event, payloadIn: IGA4EventParameters) {
+    /**
+     * Create payload
+     */
+    const payload = this.buildPayload(event, payloadIn);
+
+    /**
+     *  Get the IDs that we send events for
+     */
+    const ids = this.measurement_ids;
+
+    // send event for each ID
+    for (let i = 0; i < ids.length; i++) {
+      /** Copy payload */
+      const iPayload = copy(payload);
+
+      // set metric ID
+      iPayload.tid = ids[i];
+
+      // add to queue with a slight delay
+      this.queue.add(async () => {
+        SendRequest(GA4_CONFIG.URL, iPayload);
+        await Sleep(GA4_CONFIG.DELAY);
+      });
+    }
+
+    // update hit count
+    this.payloadData.hit_count++;
   }
 
   /**
@@ -140,6 +180,13 @@ export class GA4Client<Event extends string = string> {
     this.persistentEventParameters[
       key.substring(0, GA4_CONFIG.EVENTS_KEY_LENGTH)
     ] = value.toString().substring(0, GA4_CONFIG.EVENTS_VALUE_LENGTH);
+  }
+
+  /**
+   * Set ID for user ID
+   */
+  setUserId(id: string) {
+    this.payloadData.user_id = id.substring(0, 256);
   }
 
   /**
@@ -264,52 +311,5 @@ export class GA4Client<Event extends string = string> {
     });
 
     return payload;
-  }
-
-  /**
-   * Set ID for user ID
-   */
-  setUserId(id: string) {
-    this.payloadData.user_id = id.substring(0, 256);
-  }
-
-  /**
-   * Get number of events
-   */
-  getHitIndex() {
-    return this.payloadData.hit_count;
-  }
-
-  /**
-   * Send event
-   */
-  sendEvent(event: Event, payloadIn: IGA4EventParameters) {
-    /**
-     * Create payload
-     */
-    const payload = this.buildPayload(event, payloadIn);
-
-    /**
-     *  Get the IDs that we send events for
-     */
-    const ids = this.measurement_ids;
-
-    // send event for each ID
-    for (let i = 0; i < ids.length; i++) {
-      /** Copy payload */
-      const iPayload = copy(payload);
-
-      // set metric ID
-      iPayload.tid = ids[i];
-
-      // add to queue with a slight delay
-      this.queue.add(async () => {
-        SendRequest(GA4_CONFIG.URL, iPayload);
-        await Sleep(GA4_CONFIG.DELAY);
-      });
-    }
-
-    // update hit count
-    this.payloadData.hit_count++;
   }
 }

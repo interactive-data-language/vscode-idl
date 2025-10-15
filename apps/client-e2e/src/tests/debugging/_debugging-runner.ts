@@ -15,7 +15,7 @@ import { QueueRight } from './queue-right';
 import { RigorousAlwaysReturn } from './rigorous-always-return';
 import { RunFile } from './run-file';
 import { StartDebugging } from './start';
-import { SyntaxErrorTracking } from './syntax_error_tracking';
+import { SyntaxErrorTracking } from './syntax-error-tracking';
 import { TimerStop } from './timer-stop';
 import { VariableReplacement } from './variable-replacement';
 
@@ -39,7 +39,6 @@ DEBUGGING_RUNNER.addTest({
 DEBUGGING_RUNNER.addTest({
   name: 'Verify profiling and webview work as expected',
   fn: ProfileTest,
-  critical: true,
 });
 
 DEBUGGING_RUNNER.addTest({

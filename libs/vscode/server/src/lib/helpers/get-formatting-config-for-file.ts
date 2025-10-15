@@ -7,7 +7,7 @@ import {
 import { IDL_LSP_LOG } from '@idl/logger';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
-import { IDL_LANGUAGE_SERVER_LOGGER } from '../initialize-server';
+import { IDL_LANGUAGE_SERVER_LOGGER } from '../initialize-language-server';
 import { IDL_CLIENT_CONFIG } from './track-workspace-config';
 
 /**

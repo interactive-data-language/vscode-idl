@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
 
 type MimeTypes =
-  | 'text/html'
-  | 'text/plain'
+  | 'idl/notebook-renderer'
   | 'image/png'
-  | 'idl/notebook-renderer';
+  | 'text/html'
+  | 'text/plain';
 
 /**
  * Output for cells
@@ -12,10 +12,10 @@ type MimeTypes =
 export interface ICompareCellOutputs {
   /** Cell we are comparing against */
   idx: number;
-  /** did we succeed */
-  success: boolean | undefined;
   /** All of the cell mimetypes */
   mimeTypes: MimeTypes[];
+  /** did we succeed */
+  success: boolean | undefined;
 }
 
 /**

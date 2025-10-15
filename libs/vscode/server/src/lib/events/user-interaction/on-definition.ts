@@ -1,5 +1,5 @@
 import { IDL_LSP_LOG } from '@idl/logger';
-import { IDLFileHelper } from '@idl/shared';
+import { IDLFileHelper } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   Definition,
@@ -8,7 +8,7 @@ import {
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { URIFromIDLIndexFile } from '../../helpers/uri-from-idl-index-file';
-import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 

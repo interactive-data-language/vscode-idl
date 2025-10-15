@@ -34,6 +34,15 @@ export type BranchTokenCallback<T extends NonBasicTokenNames> = (
  */
 export interface ITreeRecurserOptions {
   /**
+   * A lookup with the names of all tokens allowed to be used for access (i.e variables, properties, parentheses)
+   */
+  allowedAccessTokens: { [key: string]: boolean };
+  /**
+   * A lookup with the token names for allowed global parents which should
+   * all be BranchTokens
+   */
+  allowedGlobalParents: { [key: string]: SelectedTokenParent };
+  /**
    * Function called when we encounter a basic token.
    *
    * The function should return a boolean value indicating if
@@ -50,30 +59,21 @@ export interface ITreeRecurserOptions {
    */
   onBranchToken: BranchTokenCallback<NonBasicTokenNames>;
   /**
-   * A lookup with the token names for allowed global parents which should
-   * all be BranchTokens
-   */
-  allowedGlobalParents: { [key: string]: SelectedTokenParent };
-  /**
-   * A lookup with the names of all tokens allowed to be used for access (i.e variables, properties, parentheses)
-   */
-  allowedAccessTokens: { [key: string]: boolean };
-  /**
    * Do we process a branch before our children?
    */
   processBranchFirst: boolean;
-  /**
-   * Tokens in here indicate that we process the branch last last.
-   *
-   * This takes precedence over process branch first
-   */
-  processBranchLastFor: { [key: string]: any };
   /**
    * Tokens in here indicate that we process the branch first
    *
    * This takes precedence over process branch last for
    */
   processBranchFirstFor: { [key: string]: any };
+  /**
+   * Tokens in here indicate that we process the branch last last.
+   *
+   * This takes precedence over process branch first
+   */
+  processBranchLastFor: { [key: string]: any };
   /**
    * Specify the names of tokens that we want to skip and not process
    */
@@ -85,6 +85,16 @@ export interface ITreeRecurserOptions {
  */
 export interface ITreeRecurserCurrent {
   /**
+   * Any tokens used for access directly before our current token
+   */
+  accessTokens: TreeToken<TokenName>[];
+  /** Token that is immediately before */
+  before?: TreeToken<TokenName>;
+  /**
+   * Token to cancel work
+   */
+  cancel: CancellationToken;
+  /**
    * Current global parent token from our specified global parents
    *
    * Additional metadata is included such as the routine name and the
@@ -93,8 +103,6 @@ export interface ITreeRecurserCurrent {
   globalParent?: IParentInformation;
   /** Direct parent that we belong to */
   localParent?: TreeToken<NonBasicTokenNames>;
-  /** Token that is immediately before */
-  before?: TreeToken<TokenName>;
   /**
    * Names of parents for where we currently are
    */
@@ -103,14 +111,6 @@ export interface ITreeRecurserCurrent {
    * Actual tokens for our scope
    */
   scopeTokens: TreeToken<NonBasicTokenNames>[];
-  /**
-   * Any tokens used for access directly before our current token
-   */
-  accessTokens: TreeToken<TokenName>[];
-  /**
-   * Token to cancel work
-   */
-  cancel: CancellationToken;
 }
 
 /**
@@ -129,8 +129,8 @@ export const DEFAULT_CURRENT: ITreeRecurserCurrent = {
  * the parent we are contained within.
  */
 export interface ITreeRecurserRecursionOptions
-  extends ITreeRecurserOptions,
-    ITreeRecurserCurrent {
+  extends ITreeRecurserCurrent,
+    ITreeRecurserOptions {
   /** Flag if we need to exit */
   exit?: boolean | void;
 }

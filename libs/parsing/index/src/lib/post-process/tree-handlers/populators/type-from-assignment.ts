@@ -34,7 +34,7 @@ FAKE_ASSIGNMENT_PARENTS[TOKEN_NAMES.OPERATOR_POINTER] = true;
  * those are defined within `TypeFromMultipleTokens()`
  */
 const cb: BasicCallback<
-  VariableToken | SystemVariableToken,
+  SystemVariableToken | VariableToken,
   PopulateTypeHandlerMeta
 > = (token, parsed, current, meta) => {
   // return if keyword is before

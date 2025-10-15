@@ -1,4 +1,4 @@
-import { PRO_FILE_EXTENSION } from '@idl/shared';
+import { PRO_FILE_EXTENSION } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import * as vscode from 'vscode';
 
@@ -9,7 +9,7 @@ import * as vscode from 'vscode';
  */
 export function GetActivePROCodeWindow(
   alert = true
-): vscode.TextDocument | undefined {
+): undefined | vscode.TextDocument {
   // get active editor
   const editor = vscode.window.activeTextEditor;
 

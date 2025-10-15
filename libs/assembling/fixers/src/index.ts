@@ -7,3 +7,6 @@ export * from './lib/fixes-for/31.return-missing';
 export * from './lib/fixes-for/38.no-comp-opt';
 export * from './lib/fixes-for/76.init-method-pro';
 export * from './lib/fixes-for/105.illegal-var-index';
+export * from './lib/fixes-for/110.logical-and';
+export * from './lib/fixes-for/111.logical-or';
+export * from './lib/fixes-for/112.logical-not';

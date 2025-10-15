@@ -9,6 +9,7 @@ import {
   DEFAULT_NOTEBOOK_TO_PRO_CODE_OPTIONS,
   INotebookToProCodeOptions,
 } from '@idl/types/notebooks';
+import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 
 /**
  * Converts a notebook to PRO code on disk
@@ -66,7 +67,7 @@ export async function NotebookToProCode(
         main = main.concat(
           mdCell.text
             .trim()
-            .split(/\r?\n/gim)
+            .split(LINE_SEPARATOR)
             .map((line) => `; ${line}`)
         );
       }
@@ -124,7 +125,7 @@ export async function NotebookToProCode(
       }
 
       // combine
-      routines = routines.concat(nonMain.split(/\r?\n/g));
+      routines = routines.concat(nonMain.split(LINE_SEPARATOR));
     }
 
     // check for main
@@ -146,7 +147,7 @@ export async function NotebookToProCode(
       }
 
       // combine
-      main = main.concat(formattedMain.split(/\r?\n/g));
+      main = main.concat(formattedMain.split(LINE_SEPARATOR));
     }
   }
 

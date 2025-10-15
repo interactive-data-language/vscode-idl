@@ -25,7 +25,7 @@ import { ITokenCache } from './token-cache.interface';
  */
 function GetRoutineFromName(
   index: IDLIndex,
-  token: TreeToken<RoutineNameToken | RoutineMethodNameToken>
+  token: TreeToken<RoutineMethodNameToken | RoutineNameToken>
 ): GlobalIndexedRoutineToken[] {
   // get our parent
   const local = token.scopeTokens[token.scopeTokens.length - 1].name;
@@ -102,7 +102,7 @@ export function GetRoutine(
   if (token.name in ROUTINE_NAME_TOKENS) {
     global = GetRoutineFromName(
       index,
-      token as TreeToken<RoutineNameToken | RoutineMethodNameToken>
+      token as TreeToken<RoutineMethodNameToken | RoutineNameToken>
     );
     (token.cache as ITokenCache).routine = global;
     return global;
@@ -117,7 +117,7 @@ export function GetRoutine(
     global = GetRoutineFromName(
       index,
       token.scopeTokens[token.scopeTokens.length - 1] as TreeToken<
-        RoutineNameToken | RoutineMethodNameToken
+        RoutineMethodNameToken | RoutineNameToken
       >
     );
     (token.cache as ITokenCache).routine = global;

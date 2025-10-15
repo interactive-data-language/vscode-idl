@@ -1,5 +1,5 @@
-import { CleanIDLOutput } from '@idl/idl';
-import { IDL_COMMANDS, Sleep } from '@idl/shared';
+import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
+import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import expect from 'expect';
 import * as vscode from 'vscode';

@@ -17,9 +17,6 @@ import {
  */
 export interface ILSPWorkerThreadPool<_Message extends LSPWorkerThreadMessage>
   extends IWorkerIOPool<_Message> {
-  /** Reference to our WorkerIO class that does the work of talking to our worker threads */
-  workerio: ILSPWorkerWorkerIO<_Message>;
-
   /**
    * Send a message to our worker and wait for a response
    */
@@ -40,4 +37,7 @@ export interface ILSPWorkerThreadPool<_Message extends LSPWorkerThreadMessage>
   subscribeToGlobalMessages<T extends _Message>(
     type: T
   ): Subject<PayloadFromLSPWorker<T>>;
+
+  /** Reference to our WorkerIO class that does the work of talking to our worker threads */
+  workerio: ILSPWorkerWorkerIO<_Message>;
 }

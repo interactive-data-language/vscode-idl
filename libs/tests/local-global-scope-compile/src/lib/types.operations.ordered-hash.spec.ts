@@ -153,6 +153,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'orderedhash_checks',
         pos: [0, 4, 18],
+        range: { start: [0, 0, 4], end: [12, 0, 3] },
         meta: {
           source: 'user',
           args: {},

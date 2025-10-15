@@ -1,6 +1,6 @@
-import { IDL_COMMANDS } from '@idl/shared';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { VSCODE_COMMANDS } from '@idl/vscode/shared';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
 
 import { IChild } from '../idl-tree-view.interface';
 
@@ -44,19 +44,5 @@ export const NOTEBOOK_ACTIONS: IChild[] = [
         .description,
     icon: 'stop.svg',
     commandName: IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS,
-  },
-  {
-    name: IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.name,
-    description:
-      IDL_TRANSLATION.idl.tree.children.notebooks.openIDLExample.description,
-    icon: 'idlicon.svg',
-    commandName: IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE,
-  },
-  {
-    name: IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.name,
-    description:
-      IDL_TRANSLATION.idl.tree.children.notebooks.openENVIExample.description,
-    icon: 'enviicon.svg',
-    commandName: IDL_COMMANDS.NOTEBOOKS.OPEN_ENVI_EXAMPLE,
   },
 ];

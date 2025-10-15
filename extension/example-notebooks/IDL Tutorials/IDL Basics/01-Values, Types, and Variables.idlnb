@@ -5,17 +5,26 @@
       "type": "markdown",
       "content": [
         "# Values, Types, and Variables in IDL",
+        "",
         "##",
+        "",
         "## **Values**",
+        "",
         "A **value** is one of the fundamental building blocks of programming. Values are made of mainly letters and numbers.",
+        "",
         "- A **number** (e.g., `1`, `42`, `3.14`)",
         "- A **letter** or **word** (e.g., `\"A\"`, `\"hello\"`)",
+        "",
         "---",
+        "",
         "## **Types**",
-        "These **values** belong to different **types**. These **types** tell the computer how you want your data to be stored and interpreted.  For example:",
+        "",
+        "These **values** belong to different **types**. These **types** tell the computer how you want your data to be stored and interpreted. For example:",
+        "",
         "- `1.5` would be a **float**, which is a specific type of number.",
         "- `\"hello\"` would be a **string**.",
-        "- There are also **compound data types** such as **structures** and **objects** that are used for more advanced data. We can ignore them for now as we will cover them later."
+        "- There are also **compound data types** such as **structures** and **objects** that are used for more advanced data. We can ignore them for now as we will cover them later.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -23,10 +32,10 @@
     {
       "type": "code",
       "content": [
-        "; To run this code, select this cell and click on the \"play\" button ",
+        "; To run this code, select this cell and click on the \"play\" button",
         "; to the left of this instruction.",
         "number = 1.5",
-        "word = \"Hello\"",
+        "word = 'Hello'",
         "help, number",
         "help, word"
       ],
@@ -36,7 +45,8 @@
     {
       "type": "markdown",
       "content": [
-        "As another exercise, we will prove that the **value** is separate from the **type**. We can do this by asking the computer to interpret the same data **value** as different **types**."
+        "As another exercise, we will prove that the **value** is separate from the **type**. We can do this by asking the computer to interpret the same data **value** as different **types**.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -45,7 +55,7 @@
       "type": "code",
       "content": [
         "; Here is the word hello, stored as a string, as above.",
-        "word = \"Hello\"",
+        "word = 'Hello'",
         "",
         "; Here we are telling IDL to interpret that \"Hello\" string as a array of bytes.",
         "wordAsBytes = byte(word)",
@@ -55,11 +65,11 @@
         "; Look! Gobbledegook! However our value hasn't changed:",
         "; H = 72, e = 101, l = 108, l = 108, o = 111",
         "; We can see that by changing the type we don't change the data (the value).",
-        "; Rather, we simply change how we want IDL to interpret it. ",
+        "; Rather, we simply change how we want IDL to interpret it.",
         "",
         "; To prove the data is unchanged we can convert the type back and",
         "; return the data to a form we expect.",
-        "print, \"The Data lives: \" + String(wordAsBytes)"
+        "print, 'The Data lives: ' + string(wordAsBytes)"
       ],
       "metadata": {},
       "outputs": []
@@ -67,19 +77,23 @@
     {
       "type": "markdown",
       "content": [
-        "___",
+        "---",
+        "",
         "## **Variables**",
+        "",
         "These **types** are combined with **values** to make **variables**.",
         "**Variables** are literally the named storage locations in memory. You can think of them as the \"thing\" the code uses. </br>",
         "</br>",
         "For example in the sentence:",
-        "``` The basket has 3 apples. ``` </br>",
+        "`The basket has 3 apples.` </br>",
         "**Basket** would be the **Variable**, and **3** would be the **Value**.",
         "",
         "### **Variables in IDL**",
+        "",
         "IDL uses **\"dynamic typing\"** to store its **values**. This makes the language easier to prototype in, simplifies the code, and helps with handling dynamic or unpredictable data. </br> </br>",
-        "**What this means for you:** ",
-        "In IDL, you don't need to specify the **type** of your **variable** when you create it. The type of the variable can also change depending on what you assign to it."
+        "**What this means for you:**",
+        "In IDL, you don't need to specify the **type** of your **variable** when you create it. The type of the variable can also change depending on what you assign to it.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -87,18 +101,23 @@
     {
       "type": "code",
       "content": [
-        "x = \"String\"    ; X starts as a String",
-        "help,x",
-        "x = 5           ; and is now a long",
-        "help,x",
-        "x = 5.0         ; and is now a float",
-        "help,x",
-        "x = 5d          ; and is now a double",
-        "help,x",
-        "x = list(1,2,3) ; and is now a List Object",
-        "help,x",
-        "x = \"back to a String!\" ; and now its back to a string.",
-        "help,x"
+        "x = 'String' ; X starts as a String",
+        "help, x",
+        "",
+        "x = 5 ; and is now a long",
+        "help, x",
+        "",
+        "x = 5.0 ; and is now a float",
+        "help, x",
+        "",
+        "x = 5d ; and is now a double",
+        "help, x",
+        "",
+        "x = list(1, 2, 3) ; and is now a List Object",
+        "help, x",
+        "",
+        "x = 'back to a String!' ; and now its back to a string.",
+        "help, x"
       ],
       "metadata": {},
       "outputs": []
@@ -106,7 +125,8 @@
     {
       "type": "markdown",
       "content": [
-        "This also means that the type of a variable can change depending upon what it is combined with. This is called **type promotion** and will be covered in an upcoming notebook."
+        "This also means that the type of a variable can change depending upon what it is combined with. This is called **type promotion** and will be covered in an upcoming notebook.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -119,11 +139,13 @@
         "In certain cases, a **temporary variable** will be used as an intermediary. This is a variable that is cleaned out of memory after it is used.",
         "",
         "Some cases include:",
+        "",
         "- **Subscript and slice operations**",
         "- **Intermediate results**",
-        "- **Return values from functions**  ",
+        "- **Return values from functions**",
         "",
-        "For example:"
+        "For example:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -139,11 +161,11 @@
         "print, temp * 4",
         "",
         "; create a array between 100 and 200",
-        "array = [100:200]",
+        "array = [100 : 200]",
         "",
         "; show the first 10 elements.",
         "; In this case array[0:9] creates a temp variable.",
-        "print, array[0:9]"
+        "print, array[0 : 9]"
       ],
       "metadata": {},
       "outputs": []
@@ -151,25 +173,23 @@
     {
       "type": "markdown",
       "content": [
-        "___",
+        "---",
         "",
         "### **Different IDL types.**",
         "",
         "Here are some of the basic **types** your **variable** could be:",
-        "| Typecode | Data Type           | Description        |",
+        "| Typecode | Data Type | Description |",
         "|----------|---------------------|--------------------|",
-        "| 0        | Null                | An undefined variable |",
-        "| 1        | Byte                | A single byte in memory |",
-        "| 2        | Integer             | A short integer value |",
-        "| 3        | Long                | A long integer value |",
-        "| 4        | Float               | A floating-point value with about seven significant digits |",
-        "| 5        | Double              | A floating-point value with about 15 significant digits |",
-        "| 6        | Complex             | A real-imaginary pair of floating-point numbers |",
-        "| 7        | String              | A sequence of characters (text) |",
-        "| 8        | Structure           | A compound data type with tag-value pairs |",
-        "| 11       | Object              | A reference to an instance of an IDL object class |",
-        "",
-        "",
+        "| 0 | Null | An undefined variable |",
+        "| 1 | Byte | A single byte in memory |",
+        "| 2 | Integer | A short integer value |",
+        "| 3 | Long | A long integer value |",
+        "| 4 | Float | A floating-point value with about seven significant digits |",
+        "| 5 | Double | A floating-point value with about 15 significant digits |",
+        "| 6 | Complex | A real-imaginary pair of floating-point numbers |",
+        "| 7 | String | A sequence of characters (text) |",
+        "| 8 | Structure | A compound data type with tag-value pairs |",
+        "| 11 | Object | A reference to an instance of an IDL object class |",
         ""
       ],
       "metadata": {},
@@ -179,7 +199,8 @@
       "type": "markdown",
       "content": [
         "> More documentation can be found here.",
-        "https://www.nv5geospatialsoftware.com/docs/IDL_Data_Types.html"
+        "> https://www.nv5geospatialsoftware.com/docs/IDL_Data_Types.html",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -192,21 +213,25 @@
         "Most of IDL's types are dedicated to storing **numbers**. The difference lies in how much memory each number occupies and how the bits within each number are interpreted. This can cause confusion so let's break them down.",
         "",
         "#### Key Differences",
+        "",
         "**Integer** and **Long** both use **integer values** for storage. Integer values cannot store fractions or decimal points.",
         "",
         "**Float** and **Double** both use **floating-point values** for storage. Floating-point values can store fractions but have a limited precision and suffer from roundoff errors.",
         "",
-        "#### Difference between Integer and Long   ",
-        "- An **IDL Integer** uses 16 \"bits\" and thus can store a value between −32,768 and 32,767.  ",
+        "#### Difference between Integer and Long",
+        "",
+        "- An **IDL Integer** uses 16 \"bits\" and thus can store a value between −32,768 and 32,767.",
         "- An **IDL Long** uses 32 \"bits\" and thus can store a value between −2,147,483,648 and 2,147,483,647",
-        "> A Long uses twice the memory of a Integer, hence the name \"Long\". IDL has even longer integers (**Long64**) and also supports unsigned versions of all of these. ",
+        "  > A Long uses twice the memory of a Integer, hence the name \"Long\". IDL has even longer integers (**Long64**) and also supports unsigned versions of all of these.",
         "",
         "#### Difference between Float and Double",
-        "- An **IDL Float** uses 32 \"bits\" and can store a value between ~1.2e⁻³⁸ to 3.4e³⁸",
-        "- An **IDL Double** uses 64 \"bits\" and can store a value between ~2.2e⁻³⁰⁸ to 1.8e³⁰⁸   ",
-        "> A Double uses **double** the memory of Float. Making it is a **Double** float.",
         "",
-        "---"
+        "- An **IDL Float** uses 32 \"bits\" and can store a value between ~1.2e⁻³⁸ to 3.4e³⁸",
+        "- An **IDL Double** uses 64 \"bits\" and can store a value between ~2.2e⁻³⁰⁸ to 1.8e³⁰⁸",
+        "  > A Double uses **double** the memory of Float. Making it is a **Double** float.",
+        "",
+        "---",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -215,7 +240,9 @@
       "type": "markdown",
       "content": [
         "### **How to use the different types**",
-        "In many cases, IDL will automatically determine the most appropriate data type for you. In other cases, you may need to specify the type of a constant. This is done by using a **type flag** after the constant. For example:"
+        "",
+        "In many cases, IDL will automatically determine the most appropriate data type for you. In other cases, you may need to specify the type of a constant. This is done by using a **type flag** after the constant. For example:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -223,10 +250,10 @@
     {
       "type": "code",
       "content": [
-        "help, \"This is a string\"",
+        "help, 'This is a string'",
         "help, 'This is also a string'",
         "help, `An even fancier string equal to ${2 + 2}`",
-        "help, 60000  ; this will automatically be a long integer",
+        "help, 60000 ; this will automatically be a long integer",
         "help, 30000s ; this will force it to be a short integer",
         "help, 0.1 ; this will be a float",
         "help, 0.1d ; this will be a double",
@@ -240,8 +267,10 @@
     {
       "type": "markdown",
       "content": [
-        "___",
-        "### Good work!"
+        "---",
+        "",
+        "### Good work!",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -249,7 +278,7 @@
     {
       "type": "code",
       "content": [
-        "cli_progress.update, 9, Text = \"The journey begins!\""
+        "CLI_Progress.update, 9, text = 'The journey begins!'"
       ],
       "metadata": {},
       "outputs": []
@@ -257,7 +286,8 @@
     {
       "type": "markdown",
       "content": [
-        "That was a lot. Lets try using what we have learned! [Operators](./02-Operators.idlnb)!"
+        "That was a lot. Lets try using what we have learned! [Operators](./02-Operators.idlnb)!",
+        ""
       ],
       "metadata": {},
       "outputs": []

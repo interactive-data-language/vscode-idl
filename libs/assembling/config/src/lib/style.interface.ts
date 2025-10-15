@@ -46,19 +46,19 @@ type NoneStyleFlag = 'none';
  */
 export type CaseStyleFlags =
   | LowerCaseStyleFlag
-  | UpperCaseStyleFlag
-  | NoneStyleFlag;
+  | NoneStyleFlag
+  | UpperCaseStyleFlag;
 
 /**
  * All case style flags, some things don't need all, so thats why they are separate
  */
 export type FullCaseStyleFlags =
-  | MatchStyleFlag
   | CamelCaseStyleFlag
-  | PascalCaseStyleFlag
   | LowerCaseStyleFlag
-  | UpperCaseStyleFlag
-  | NoneStyleFlag;
+  | MatchStyleFlag
+  | NoneStyleFlag
+  | PascalCaseStyleFlag
+  | UpperCaseStyleFlag;
 
 /**
  * When we have style to match, these are our options
@@ -68,15 +68,15 @@ export type MatchStyleFlags = MatchStyleFlag | NoneStyleFlag;
 /**
  * Style options for methods
  */
-export type MethodStyleFlags = DotStyleFlag | ArrowStyleFlag | NoneStyleFlag;
+export type MethodStyleFlags = ArrowStyleFlag | DotStyleFlag | NoneStyleFlag;
 
 /**
  * Style flags when manipulating quotes/string definitions
  */
 export type QuoteStyleFlags =
-  | SingleQuoteStyleFlag
   | DoubleQuoteStyleFlag
-  | NoneStyleFlag;
+  | NoneStyleFlag
+  | SingleQuoteStyleFlag;
 
 /**
  * Any changes to style flags also needs to be captured/updated in the JSON schema
@@ -90,16 +90,16 @@ export type StyleFlag = CaseStyleFlags | MatchStyleFlags | QuoteStyleFlags;
 
 /** Strictly typed lookup for fiddler flags */
 interface IStyleFlags {
-  CAMEL: CamelCaseStyleFlag;
-  PASCAL: PascalCaseStyleFlag;
-  LOWER: LowerCaseStyleFlag;
-  UPPER: UpperCaseStyleFlag;
-  SINGLE: SingleQuoteStyleFlag;
-  DOUBLE: DoubleQuoteStyleFlag;
-  MATCH: MatchStyleFlag;
-  DOT: DotStyleFlag;
   ARROW: ArrowStyleFlag;
+  CAMEL: CamelCaseStyleFlag;
+  DOT: DotStyleFlag;
+  DOUBLE: DoubleQuoteStyleFlag;
+  LOWER: LowerCaseStyleFlag;
+  MATCH: MatchStyleFlag;
   NONE: NoneStyleFlag;
+  PASCAL: PascalCaseStyleFlag;
+  SINGLE: SingleQuoteStyleFlag;
+  UPPER: UpperCaseStyleFlag;
 }
 
 /**
@@ -122,32 +122,32 @@ export const STYLE_FLAG_LOOKUP: IStyleFlags = {
  * Configuration for our `DefaultAssembler` type.
  */
 export interface ICodeStyle {
-  /** Single or double quotes for strings */
-  quotes: QuoteStyleFlags;
-  /** Do we use dot notation for methods or not */
-  methods: MethodStyleFlags;
-  /** Do we enforce upper case keywords or not */
-  keywords: CaseStyleFlags;
-  /** Do we use upper case characters for properties or not */
-  properties: FullCaseStyleFlags;
-  /** Are control statements upper or lower case */
-  control: CaseStyleFlags;
-  /** Style for numbers */
-  numbers: CaseStyleFlags;
-  /** Style for how hex numbers (starting with \"0x\", expressed as strings, or hex escape characters in template literals) will be formatted. Modern uses lower case and dated uses upper case. */
-  hex: CaseStyleFlags;
-  /** Style for octal numbers starting with "0o" */
-  octal: CaseStyleFlags;
   /** Style for binary numbers starting with "0b" */
   binary: CaseStyleFlags;
-  /** Style for functions and procedures */
-  routines: FullCaseStyleFlags;
+  /** Are control statements upper or lower case */
+  control: CaseStyleFlags;
+  /** Style for how hex numbers (starting with \"0x\", expressed as strings, or hex escape characters in template literals) will be formatted. Modern uses lower case and dated uses upper case. */
+  hex: CaseStyleFlags;
+  /** Do we enforce upper case keywords or not */
+  keywords: CaseStyleFlags;
+  /** How do we format locally defined variables */
+  localVariables: MatchStyleFlags;
+  /** Do we use dot notation for methods or not */
+  methods: MethodStyleFlags;
+  /** Style for numbers */
+  numbers: CaseStyleFlags;
+  /** Style for octal numbers starting with "0o" */
+  octal: CaseStyleFlags;
+  /** Do we use upper case characters for properties or not */
+  properties: FullCaseStyleFlags;
+  /** Single or double quotes for strings */
+  quotes: QuoteStyleFlags;
   /** Style for function and procedure methods */
   routineMethods: FullCaseStyleFlags;
+  /** Style for functions and procedures */
+  routines: FullCaseStyleFlags;
   /** Style for structure names */
   structureNames: FullCaseStyleFlags;
   /** Style for system variables */
   systemVariables: CaseStyleFlags;
-  /** How do we format locally defined variables */
-  localVariables: MatchStyleFlags;
 }

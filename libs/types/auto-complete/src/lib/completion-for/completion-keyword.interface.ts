@@ -10,12 +10,12 @@ export type KeywordCompletion = 'keyword';
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IKeywordCompletionOptions {
-  /** Global token we come from */
-  global?: GlobalIndexedRoutineToken;
-  /** Keywords that we have already used */
-  used: string[];
   /** text we add for binary */
   binaryAdd: string;
   /** Do we force binary keywords or not */
   forceBinary: boolean;
+  /** Global token we come from */
+  global?: GlobalIndexedRoutineToken;
+  /** Keywords that we have already used */
+  used: string[];
 }

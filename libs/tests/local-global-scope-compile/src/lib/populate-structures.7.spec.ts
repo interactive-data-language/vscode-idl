@@ -95,6 +95,7 @@ describe(`[auto generated] Ignore them in`, () => {
         type: 'p',
         name: 'my_def__define',
         pos: [0, 4, 14],
+        range: { start: [0, 0, 4], end: [10, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -280,6 +281,7 @@ describe(`[auto generated] Ignore them in`, () => {
         type: 'p',
         name: 'my_def__define',
         pos: [0, 4, 14],
+        range: { start: [0, 0, 4], end: [10, 0, 3] },
         meta: {
           source: 'user',
           args: {},

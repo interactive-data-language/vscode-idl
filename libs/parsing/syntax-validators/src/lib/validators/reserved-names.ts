@@ -26,7 +26,7 @@ import {
  * name and validates it against what is reserved (i.e. comes from IDL or ENVI already)
  */
 function CheckName(
-  token: IBranch<RoutineProcedureToken | RoutineFunctionToken>,
+  token: IBranch<RoutineFunctionToken | RoutineProcedureToken>,
   syntax: SyntaxProblems,
   procedure: boolean
 ) {

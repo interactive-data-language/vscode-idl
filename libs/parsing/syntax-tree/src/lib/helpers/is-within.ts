@@ -16,6 +16,13 @@ export function IsBeforeToken(pos: PositionArray, comp: PositionArray) {
 }
 
 /**
+ * Checks if a position is at the end
+ */
+export function IsAtEnd(pos: Position, comp: PositionArray) {
+  return pos.line === comp[0] && pos.character === comp[1];
+}
+
+/**
  * Checks if VSCode position is within a token PositionArray
  */
 export function IsWithinToken(pos: Position, comp: PositionArray) {

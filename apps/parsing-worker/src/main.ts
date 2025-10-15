@@ -665,6 +665,25 @@ client.on(
 );
 
 /**
+ * Prepare IDL code to run
+ */
+client.on(
+  LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_IDL_CODE,
+  async (message, cancel) => {
+    // get parsed code and return
+    const parsed = await GetParsedPROCode(
+      WORKER_INDEX,
+      'foo-file.pro',
+      message.code,
+      cancel
+    );
+
+    // prepare and return
+    return PrepareNotebookCell(parsed, message.code);
+  }
+);
+
+/**
  * Prepare a notebook cell to run
  */
 client.on(

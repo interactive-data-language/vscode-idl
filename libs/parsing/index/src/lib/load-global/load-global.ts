@@ -1,5 +1,5 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { PopulateReserved } from '@idl/parsing/routines';
-import { GetExtensionPath } from '@idl/shared';
 import { GlobalTokens } from '@idl/types/core';
 import { readFileSync } from 'fs';
 

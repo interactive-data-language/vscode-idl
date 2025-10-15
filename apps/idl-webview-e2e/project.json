@@ -3,13 +3,14 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/idl-webview-e2e/src",
   "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["idl-webview"],
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
       "options": {
         "cypressConfig": "apps/idl-webview-e2e/cypress.json",
-        "devServerTarget": "idl-webview:serve:development",
-        "tsConfig": "apps/idl-webview-e2e/tsconfig.json"
+        "devServerTarget": "idl-webview:serve:development"
       },
       "configurations": {
         "production": {
@@ -21,7 +22,5 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
     }
-  },
-  "tags": [],
-  "implicitDependencies": ["idl-webview"]
+  }
 }

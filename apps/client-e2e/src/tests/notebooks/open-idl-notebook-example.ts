@@ -1,10 +1,10 @@
-import { EXAMPLE_NOTEBOOKS } from '@idl/notebooks/shared';
+import { EXAMPLE_NOTEBOOKS } from '@idl/idl/files';
 import {
   CleanPath,
   IDL_COMMANDS,
   IDL_NOTEBOOK_LANGUAGE_NAME,
   Sleep,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import expect from 'expect';
 import { join } from 'path';
 import * as vscode from 'vscode';
@@ -16,7 +16,10 @@ import { RunnerFunction } from '../runner.interface';
  */
 export const OpenIDLNotebookExample: RunnerFunction = async (init) => {
   // make a new notebook
-  await vscode.commands.executeCommand(IDL_COMMANDS.NOTEBOOKS.OPEN_IDL_EXAMPLE);
+  await vscode.commands.executeCommand(
+    IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
+    'hello-world-idl.idlnb'
+  );
 
   // short pause
   await Sleep(100);

@@ -1,4 +1,4 @@
-import { ALL_DOCUMENT_SELECTORS } from '@idl/shared';
+import { ALL_DOCUMENT_SELECTORS } from '@idl/shared/extension';
 import * as vscode from 'vscode';
 import {
   Hover as LanguageServerHover,

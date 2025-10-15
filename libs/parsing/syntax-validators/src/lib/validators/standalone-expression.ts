@@ -142,6 +142,12 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
       /** Get the end of the chain */
       i = GetChainEnd(kids, i);
 
+      // if we ended our chain and the token can be present, then we are OK
+      if (kids[i + 1]?.name in AFTER_VAR) {
+        i++;
+        continue;
+      }
+
       switch (true) {
         /**
          * Check last item in chain for valid skip condition

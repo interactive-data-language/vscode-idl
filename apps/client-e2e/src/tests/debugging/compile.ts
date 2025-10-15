@@ -1,5 +1,5 @@
-import { CleanIDLOutput } from '@idl/idl';
-import { IDL_COMMANDS } from '@idl/shared';
+import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { Sleep } from '@idl/tests/helpers';
 import { GetActivePROCodeWindow } from '@idl/vscode/shared';
 import expect from 'expect';
@@ -22,6 +22,9 @@ export const Compile: RunnerFunction = async (init) => {
 
   // verify we started
   expect(started).toBeTruthy();
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 
   // compile file
   const res = CleanIDLOutput(

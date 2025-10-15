@@ -1,4 +1,4 @@
-import { VERSION } from '@idl/shared';
+import { VERSION } from '@idl/shared/extension';
 import { writeFileSync } from 'fs';
 
 import { MakeDocsFiles } from './helpers/make-docs-files';

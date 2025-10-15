@@ -1,9 +1,10 @@
-import { FindIDL } from '@idl/idl';
-import { EXTENSION_FULL_NAME, GetExtensionPath } from '@idl/shared';
+import { FindIDL, GetExtensionPath } from '@idl/idl/files';
+import { EXTENSION_FULL_NAME } from '@idl/shared/extension';
 import { Sleep } from '@idl/tests/helpers';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
 import { IInitializeType } from '@idl/vscode/initialize-types';
-import { OpenFileInVSCode, VSCODE_COMMANDS } from '@idl/vscode/shared';
+import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';
@@ -40,7 +41,7 @@ export async function run(): Promise<void> {
     /**
      * Manually specify IDL folder
      */
-    const idlDir = FindIDL('idl90');
+    const idlDir = FindIDL();
 
     // validate we know where it is
     if (!idlDir) {
@@ -70,7 +71,7 @@ export async function run(): Promise<void> {
     const config = GetWorkspaceConfig();
 
     // reset config
-    await ResetSettingsForTests(config);
+    await ResetSettingsForTests(config, idlDir);
 
     // flag if we have started or not
     let started = false;

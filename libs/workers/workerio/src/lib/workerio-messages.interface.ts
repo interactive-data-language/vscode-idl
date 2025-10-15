@@ -7,11 +7,11 @@
  */
 export interface WorkerIOSerializedMessageToWorker {
   /**
-   * Stringified message
-   */
-  msg: string;
-  /**
    * Actual shared array buffer to share
    */
   cancel: SharedArrayBuffer;
+  /**
+   * Stringified message
+   */
+  msg: string;
 }

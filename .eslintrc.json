@@ -1,7 +1,7 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nx", "simple-import-sort", "unused-imports"],
+  "plugins": ["@nx", "perfectionist", "simple-import-sort", "unused-imports"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -19,6 +19,16 @@
             ]
           }
         ],
+        "no-duplicate-imports": "error",
+        "perfectionist/sort-classes": "error",
+        "perfectionist/sort-heritage-clauses": "error",
+        "perfectionist/sort-enums": "error",
+        "perfectionist/sort-interfaces": "error",
+        "perfectionist/sort-intersection-types": "error",
+        "perfectionist/sort-maps": "error",
+        "perfectionist/sort-switch-case": "error",
+        "perfectionist/sort-union-types": "error",
+        "perfectionist/sort-variable-declarations": "error",
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
         "spaced-comment": [
@@ -30,8 +40,7 @@
             }
           }
         ],
-        "unused-imports/no-unused-imports": "error",
-        "no-duplicate-imports": "error"
+        "unused-imports/no-unused-imports": "error"
       }
     },
     {

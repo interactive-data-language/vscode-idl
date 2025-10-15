@@ -1,0 +1,29 @@
+import {
+  IDLNotebookEmbeddedItem,
+  IDLNotebookImage_PNG,
+} from '@idl/types/notebooks';
+import * as vscode from 'vscode';
+
+/**
+ * Save image from a notebook
+ */
+export async function SaveNotebookImage(
+  payload: IDLNotebookEmbeddedItem<IDLNotebookImage_PNG>
+) {
+  const res = await vscode.window.showSaveDialog({
+    filters: {
+      Images: ['png'],
+    },
+  });
+
+  // make sure we found something
+  if (res === undefined) {
+    return;
+  }
+
+  // write files to disk
+  await vscode.workspace.fs.writeFile(
+    res,
+    Buffer.from(payload.item.data, 'base64')
+  );
+}

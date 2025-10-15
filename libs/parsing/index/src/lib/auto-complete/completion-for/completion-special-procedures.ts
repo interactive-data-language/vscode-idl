@@ -12,7 +12,7 @@ import { CompletionItemKind } from 'vscode-languageserver';
 
 import { EvaluateToken } from '../../post-process/populate-type/evaluate/evaluate-token';
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 import { ALLOWED_SPECIAL_COMPLETION } from './completion-special-functions.interface';
 
 /**
@@ -106,7 +106,7 @@ export function BuildSpecialProcedureCompletionItems(
         arg.complete.push({
           label: display,
           kind: CompletionItemKind.Function,
-          sortText: SORT_PRIORITY.ROUTINES,
+          sortText: COMPLETION_SORT_PRIORITY.ROUTINES,
           detail,
         });
       }

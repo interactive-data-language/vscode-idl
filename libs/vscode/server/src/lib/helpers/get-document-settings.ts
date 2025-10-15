@@ -4,7 +4,7 @@ import { CAPABILITIES } from '../capabilities.interface';
 import {
   DOCUMENT_SETTINGS,
   GLOBAL_SERVER_SETTINGS,
-} from '../initialize-server';
+} from '../initialize-language-server';
 import { IServerSettings } from '../settings.interface';
 
 /**

@@ -1,4 +1,4 @@
-import { IDL_LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDLExtensionConfig,
@@ -6,7 +6,7 @@ import {
 import { WorkspaceFolder } from 'vscode-languageserver';
 import { URI } from 'vscode-uri';
 
-import { SERVER_CONNECTION } from '../initialize-server';
+import { SERVER_CONNECTION } from '../initialize-language-server';
 import { GetWorkspaceFSPath } from './get-workspace-fs-path';
 import { MergeConfig } from './merge-config';
 

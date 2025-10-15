@@ -15,23 +15,14 @@ export let IDL_TRANSLATION = LANGUAGES.en;
  *
  * This works in the language client and language server.
  */
-export function InitializeTranslation() {
-  //   TODO: is there an
-  // check if our environment variable is present
-  if ('VSCODE_NLS_CONFIG' in process.env) {
-    try {
-      // parse the JSOn to get the language information
-      const language: { locale: string } = JSON.parse(
-        process.env.VSCODE_NLS_CONFIG
-      );
+export function InitializeTranslation(locale: string) {
+  /**
+   * Normalize string
+   */
+  const useLocale = locale.toLowerCase().trim();
 
-      // check if we have our language and update our constant
-      if (language.locale in LANGUAGES) {
-        IDL_TRANSLATION = LANGUAGES[language.locale];
-      }
-    } catch (err) {
-      // log to console and do nothing
-      console.error(err);
-    }
+  // check if we have our language and update our constant
+  if (useLocale in LANGUAGES) {
+    IDL_TRANSLATION = LANGUAGES[useLocale];
   }
 }

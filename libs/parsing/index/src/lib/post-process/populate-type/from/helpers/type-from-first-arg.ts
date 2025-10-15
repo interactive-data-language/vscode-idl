@@ -16,7 +16,7 @@ import { EvaluateVariableOrToken } from './evaluate-variable-or-token';
 export function TypeFromFirstArg(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<CallProcedureToken | CallFunctionToken>
+  token: TreeToken<CallFunctionToken | CallProcedureToken>
 ): string {
   // get children
   const kids = token.kids;

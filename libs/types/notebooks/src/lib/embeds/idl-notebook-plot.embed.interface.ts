@@ -28,8 +28,8 @@ export type IDLNotebookPlot_Line = 'idlnotebookplot_line';
  * Data structure for Line/scatter plot
  */
 export interface IDLNotebookPlot_LineData
-  extends IDLNotebookPlot_WithProperties,
-    IDLNotebookPlot_LineFrame {}
+  extends IDLNotebookPlot_LineFrame,
+    IDLNotebookPlot_WithProperties {}
 
 /**
  * Line/scatter animation
@@ -64,8 +64,8 @@ export type IDLNotebookPlot_Bubble = 'idlnotebookplot_bubble';
  * Data structure for bubble plot
  */
 export interface IDLNotebookPlot_BubbleData
-  extends IDLNotebookPlot_WithProperties,
-    IDLNotebookPlot_BubbleFrame {}
+  extends IDLNotebookPlot_BubbleFrame,
+    IDLNotebookPlot_WithProperties {}
 
 /**
  * Bubble plot animation from notebook
@@ -87,10 +87,10 @@ export interface IDLNotebookPlot_BubbleAnimationData
  * Union type of all items we can embed in a plot
  */
 export type IDLNotebookPlot_EmbeddedItemType =
-  | IDLNotebookPlot_Line
-  | IDLNotebookPlot_LineAnimation
   | IDLNotebookPlot_Bubble
-  | IDLNotebookPlot_BubbleAnimation;
+  | IDLNotebookPlot_BubbleAnimation
+  | IDLNotebookPlot_Line
+  | IDLNotebookPlot_LineAnimation;
 
 /**
  * Notebook plot

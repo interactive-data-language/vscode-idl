@@ -53,12 +53,12 @@ export interface ITreeRecurserBasicOptions {
  */
 export interface ITreeRecurserBasicRecursionOptions
   extends ITreeRecurserBasicOptions {
-  /** Flag if we need to exit */
-  exit?: boolean | void;
   /**
    * Cancellation token
    */
   cancel: CancellationToken;
+  /** Flag if we need to exit */
+  exit?: boolean | void;
 }
 
 /**

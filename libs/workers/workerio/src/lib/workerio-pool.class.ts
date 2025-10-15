@@ -20,11 +20,11 @@ import { IPostMessageOptions } from './workerio-pool.interface';
 export class WorkerIOPool<_Message extends string>
   implements IWorkerIOPool<_Message>
 {
-  /** IDs of the workers we have created */
-  private ids: string[] = [];
-
   /** Reference to our WorkerIO class that does the work of talking to our worker threads */
   workerio: WorkerIO<_Message>;
+
+  /** IDs of the workers we have created */
+  private ids: string[] = [];
 
   /**
    * Logger for logging messages
@@ -46,27 +46,19 @@ export class WorkerIOPool<_Message extends string>
   }
 
   /**
-   * Returns a copy of our work IDs
-   */
-  getIDs() {
-    return this.ids.slice();
-  }
-
-  /**
-   * Updates the logger that we use
-   */
-  setLog(newLog: LogManager) {
-    this.log = newLog;
-    this.workerio.setLog(newLog);
-  }
-
-  /**
    * Clean up threads that we create
    */
   destroy() {
     for (let i = 0; i < this.ids.length; i++) {
       this.workerio.removeWorker(this.ids[i]);
     }
+  }
+
+  /**
+   * Returns a copy of our work IDs
+   */
+  getIDs() {
+    return this.ids.slice();
   }
 
   /**
@@ -118,6 +110,14 @@ export class WorkerIOPool<_Message extends string>
     for (let i = 0; i < this.ids.length; i++) {
       this.workerio.postMessageRaw(this.ids[i], prepared);
     }
+  }
+
+  /**
+   * Updates the logger that we use
+   */
+  setLog(newLog: LogManager) {
+    this.log = newLog;
+    this.workerio.setLog(newLog);
   }
 
   /**

@@ -5,7 +5,7 @@ import {
   VariableToken,
 } from '../../tokens.interface';
 
-export type VariableTokenDef = ITokenDef<VariableToken | SystemVariableToken>;
+export type VariableTokenDef = ITokenDef<SystemVariableToken | VariableToken>;
 
 /**
  * Regex to find variable assignment

@@ -13,23 +13,23 @@ export type IDLErrorLevel = 'error';
  * Union type of all allowed severity levels
  */
 export type IDLProblemSeverity =
+  | IDLErrorLevel
   | IDLHintLevel
   | IDLInformationLevel
-  | IDLWarningLevel
-  | IDLErrorLevel;
+  | IDLWarningLevel;
 
 /**
  * Strictly typed lookup of problem severity
  */
 interface IDLProblemSeverityLookup {
+  /** When a problem is an error */
+  ERROR: IDLErrorLevel;
   /** When a problem is a hint */
   HINT: IDLHintLevel;
   /** When a problem is informational */
   INFORMATION: IDLInformationLevel;
   /** When a problem is a warning */
   WARNING: IDLWarningLevel;
-  /** When a problem is an error */
-  ERROR: IDLErrorLevel;
 }
 
 /**
@@ -139,4 +139,12 @@ IDL_PROBLEM_SEVERITY_LEVEL_MAP[
   IDL_PROBLEM_CODES.POTENTIAL_VAR_USAGE_BEFORE_DEF
 ] = IDL_PROBLEM_SEVERITY_LOOKUP.WARNING;
 IDL_PROBLEM_SEVERITY_LEVEL_MAP[IDL_PROBLEM_CODES.UNUSED_VARIABLE] =
+  IDL_PROBLEM_SEVERITY_LOOKUP.WARNING;
+IDL_PROBLEM_SEVERITY_LEVEL_MAP[IDL_PROBLEM_CODES.LOGICAL_AND] =
+  IDL_PROBLEM_SEVERITY_LOOKUP.WARNING;
+IDL_PROBLEM_SEVERITY_LEVEL_MAP[IDL_PROBLEM_CODES.LOGICAL_OR] =
+  IDL_PROBLEM_SEVERITY_LOOKUP.WARNING;
+IDL_PROBLEM_SEVERITY_LEVEL_MAP[IDL_PROBLEM_CODES.LOGICAL_NOT] =
+  IDL_PROBLEM_SEVERITY_LOOKUP.WARNING;
+IDL_PROBLEM_SEVERITY_LEVEL_MAP[IDL_PROBLEM_CODES.LOGICAL_XOR] =
   IDL_PROBLEM_SEVERITY_LOOKUP.WARNING;

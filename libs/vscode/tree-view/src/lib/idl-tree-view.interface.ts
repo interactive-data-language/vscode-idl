@@ -2,9 +2,9 @@
  * Data structure for elements of our tree
  */
 export interface IChild {
-  name: string;
+  commandArgs?: any[];
+  commandName: string;
   description: string;
   icon: string;
-  commandName: string;
-  commandArgs?: any[];
+  name: string;
 }

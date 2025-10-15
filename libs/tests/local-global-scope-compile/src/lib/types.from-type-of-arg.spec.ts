@@ -128,6 +128,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: '$main$',
         pos: [10, 0, 12],
+        range: { start: [10, 0, 12], end: [17, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',
@@ -142,6 +143,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'f',
         name: 'myfunc',
         pos: [4, 9, 6],
+        range: { start: [4, 0, 9], end: [8, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -299,6 +301,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: '$main$',
         pos: [10, 0, 12],
+        range: { start: [10, 0, 12], end: [17, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',
@@ -313,6 +316,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'f',
         name: 'myfunc',
         pos: [4, 9, 6],
+        range: { start: [4, 0, 9], end: [8, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -463,6 +467,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: '$main$',
         pos: [10, 0, 12],
+        range: { start: [10, 0, 12], end: [17, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',
@@ -477,6 +482,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'f',
         name: 'myfunc',
         pos: [4, 9, 6],
+        range: { start: [4, 0, 9], end: [8, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -627,6 +633,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: '$main$',
         pos: [10, 0, 12],
+        range: { start: [10, 0, 12], end: [17, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',
@@ -641,6 +648,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'f',
         name: 'myfunc',
         pos: [4, 9, 6],
+        range: { start: [4, 0, 9], end: [8, 0, 3] },
         meta: {
           source: 'user',
           args: {},

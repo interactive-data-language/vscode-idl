@@ -5,22 +5,22 @@ import { ParsedType } from '@idl/parsing/syntax-tree';
  */
 export interface IParserOptions {
   /**
+   * Do we cleanup and reduce memory usage by removing properties we dont need?
+   */
+  cleanup: boolean;
+  /**
    * Do we do a full parse or not?
    */
   full: boolean;
   /**
-   * Do we cleanup and reduce memory usage by removing properties we dont need?
+   * If we are cleaning up, do we keep the text?
    */
-  cleanup: boolean;
+  keepText: boolean;
   /**
    * Are we parsing a notebook cell? This need to be manually set when interacting
    * directly with the `Parser()`, but from the IDLIndex it is set automatically
    */
   type: ParsedType;
-  /**
-   * If we are cleaning up, do we keep the text?
-   */
-  keepText: boolean;
 }
 
 /**

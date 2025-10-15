@@ -10,7 +10,7 @@ import {
   GetProcedure,
 } from '@idl/generators/tasks-shared';
 import { IDL_DOCS_HEADERS, IParsed } from '@idl/parsing/syntax-tree';
-import { PRO_FILE_EXTENSION, TASK_FILE_EXTENSION } from '@idl/shared';
+import { PRO_FILE_EXTENSION, TASK_FILE_EXTENSION } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLTask, IDLTaskSchema12 } from '@idl/types/tasks';
 import { existsSync, writeFileSync } from 'fs';

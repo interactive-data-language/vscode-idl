@@ -7,16 +7,16 @@ import {
  * HTML elements by section of our docs
  */
 export interface IRoutineHTML {
-  /** Name of the routine */
-  name: string;
-  /** Link for the routine */
-  link: string;
-  /** By section name the HTML elements that we extract */
-  docs: IParameterHTML;
   /** By argument name, the docs we extracted */
   args: IParameterHTML;
+  /** By section name the HTML elements that we extract */
+  docs: IParameterHTML;
   /** By keyword name, the docs we extract */
   keywords: IParameterHTML;
+  /** Link for the routine */
+  link: string;
+  /** Name of the routine */
+  name: string;
   /** By keyword name, the docs we extract */
   properties: IParameterHTML;
 }
@@ -30,16 +30,16 @@ export interface IHTMLByRoutine {
  * Docs for each routine
  */
 export interface IRoutineDocs {
-  /** Name of the routine */
-  name: string;
-  /** Link for the routine */
-  link: string;
-  /** By section name the HTML elements that we extract */
-  docs: IParameterDocs;
   /** By argument name, the docs we extracted */
   args: IParameterDocs;
+  /** By section name the HTML elements that we extract */
+  docs: IParameterDocs;
   /** By keyword name, the docs we extract */
   keywords: IParameterDocs;
+  /** Link for the routine */
+  link: string;
+  /** Name of the routine */
+  name: string;
   /** By keyword name, the docs we extract */
   properties: IParameterDocs;
 }

@@ -4,7 +4,8 @@
     {
       "type": "markdown",
       "content": [
-        "## Hello World: IDL!"
+        "## Hello World: IDL!",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -14,7 +15,7 @@
       "content": [
         "This notebook walks through the basics of how IDL Notebooks work.",
         "",
-        "At a high level it covers: ",
+        "At a high level it covers:",
         "",
         "- IDL Notebook Toolbar",
         "- IDL's Path",
@@ -23,7 +24,8 @@
         "- Embedding graphics",
         "- What happens when you encounter errors",
         "",
-        "If you have other questions about notebook behavior, feel free to start a discussion on our [GitHub](https://github.com/interactive-data-language/vscode-idl/discussions) page. We are happy to update the content in our example notebooks based on user feedback, so let us know if you have thoughts or ideas!"
+        "If you have other questions about notebook behavior, feel free to start a discussion on our [GitHub](https://github.com/interactive-data-language/vscode-idl/discussions) page. We are happy to update the content in our example notebooks based on user feedback, so let us know if you have thoughts or ideas!",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -31,7 +33,8 @@
     {
       "type": "markdown",
       "content": [
-        "### Notebook Toolbar"
+        "### Notebook Toolbar",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -43,7 +46,8 @@
         "",
         "This toolbar contains a few helpful commands for IDL: Reset and Stop.",
         "",
-        "![Toolbar image](./images/toolbar.png)"
+        "![Toolbar image](./images/toolbar.png)",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -53,7 +57,8 @@
       "content": [
         "IDL automatically starts when you run any IDL notebook cell, so no need to manually start the process.",
         "",
-        "This same IDL session is used and shared for all notebooks that you have open."
+        "This same IDL session is used and shared for all notebooks that you have open.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -63,7 +68,8 @@
       "content": [
         "If your session gets a little goofy, you can press reset which will give you a brand new notebook session of IDL (it stops and restarts IDL to make sure it is good as new!).",
         "",
-        "Stop will simply stop the IDL process which will restart automatically the next time you run a cell."
+        "Stop will simply stop the IDL process which will restart automatically the next time you run a cell.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -71,7 +77,8 @@
     {
       "type": "markdown",
       "content": [
-        "### IDL's Path"
+        "### IDL's Path",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -86,7 +93,8 @@
         "- Automatically add all open workspaces to IDL's search path (recursively, not just the root folder)",
         "- Use the VSCode setting for search path",
         "",
-        "That way you can easily use routines that you have defined elsewhere within the context of an IDL Notebook."
+        "That way you can easily use routines that you have defined elsewhere within the context of an IDL Notebook.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -94,7 +102,8 @@
     {
       "type": "markdown",
       "content": [
-        "Let's inspect the current path and see what our local environment looks like:"
+        "Let's inspect the current path and see what our local environment looks like:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -115,7 +124,8 @@
         ">",
         "> To display this output, it is recommended to turn on the setting \"Notebook: Output Scrolling\" so you can easily view everything that a notebook cell generates. If you do change this, you'll need to re-run the cell for the changes to take effect.",
         ">",
-        "> You can also try to view the output in a text editor, which is a button at the bottom of the truncated output, but VSCode doesn't always display the results correctly. View the extension docs \"Known Issues\" section for how to fix this within VSCode"
+        "> You can also try to view the output in a text editor, which is a button at the bottom of the truncated output, but VSCode doesn't always display the results correctly. View the extension docs \"Known Issues\" section for how to fix this within VSCode",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -123,7 +133,8 @@
     {
       "type": "markdown",
       "content": [
-        "### Notebook Cells Behave like the IDL Console"
+        "### Notebook Cells Behave like the IDL Console",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -133,7 +144,8 @@
       "content": [
         "At a high-level, notebook cells are executed like statements in the IDL Console, but with a few, positive differences.",
         "",
-        "First, you can create variables and print them just by typing their names. Variables printed this way have a special semantic token coloring applied to differentiate them from procedures."
+        "First, you can create variables and print them just by typing their names. Variables printed this way have a special semantic token coloring applied to differentiate them from procedures.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -152,7 +164,8 @@
       "content": [
         "When you run the cell above, it should print out the text `I'm printing and I know it!`",
         "",
-        "You can also type statements similar to the IDL Console, such as addition and they will be printed as well."
+        "You can also type statements similar to the IDL Console, such as addition and they will be printed as well.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -168,7 +181,8 @@
     {
       "type": "markdown",
       "content": [
-        "Or you can just call a function and it the result will be printed out:"
+        "Or you can just call a function and it the result will be printed out:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -186,7 +200,8 @@
       "content": [
         "> Pro tip: Printing statements like this only apply to code that lives outside of procedure or function definitions.",
         ">",
-        "> If you put the above code in a routine definition, you would get a syntax error."
+        "> If you put the above code in a routine definition, you would get a syntax error.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -194,7 +209,8 @@
     {
       "type": "markdown",
       "content": [
-        "### Manually Compiling Files"
+        "### Manually Compiling Files",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -204,9 +220,10 @@
       "content": [
         "You can use `.compile` statements in notebook cells. If a cell has only `.compile` statements and comments, then it will be executed as an IDL batch file.",
         "",
-        "This allows you to compile normal PRO files in the current IDL Notebook session. The main use case is where you need to update a routine definition for code from PRO files that isn't in your notebook. ",
+        "This allows you to compile normal PRO files in the current IDL Notebook session. The main use case is where you need to update a routine definition for code from PRO files that isn't in your notebook.",
         "",
-        "Note: when you have cells with `.compile`, we set `!quiet = 0` so that you see the output from IDL. We then set this to match the preference in that users have set in VSCode."
+        "Note: when you have cells with `.compile`, we set `!quiet = 0` so that you see the output from IDL. We then set this to match the preference in that users have set in VSCode.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -222,7 +239,8 @@
     {
       "type": "markdown",
       "content": [
-        "### Routines and Main Level Programs"
+        "### Routines and Main Level Programs",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -232,7 +250,8 @@
       "content": [
         "Cells with only routine definitions are compiled, but not executed.",
         "",
-        "If you execute the following cell, it will be compiled and that is it."
+        "If you execute the following cell, it will be compiled and that is it.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -240,6 +259,8 @@
     {
       "type": "code",
       "content": [
+        ";+",
+        ";-",
         "pro test",
         "  compile_opt idl2",
         "",
@@ -254,7 +275,8 @@
       "content": [
         "Main level programs are executed if they exist.",
         "",
-        "If a routine definition has a main level program at the end, then we will run that as part of cell execution."
+        "If a routine definition has a main level program at the end, then we will run that as part of cell execution.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -274,7 +296,8 @@
     {
       "type": "markdown",
       "content": [
-        "Here's an example with a cell that has a main level program that we call:"
+        "Here's an example with a cell that has a main level program that we call:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -282,6 +305,10 @@
     {
       "type": "code",
       "content": [
+        ";+",
+        "; :Returns: Long",
+        ";",
+        ";-",
         "function foo",
         "  compile_opt idl2",
         "  return, 42",
@@ -301,7 +328,8 @@
         "",
         "We automatically add `compile_opt idl2` to main level programs and add the missing `end` statement for you.",
         "",
-        "However, we do not change the compile settings in routines that you create."
+        "However, we do not change the compile settings in routines that you create.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -318,7 +346,8 @@
     {
       "type": "markdown",
       "content": [
-        "You can also mix-and-match routines with implied printing. Let's revisit our example cell that defined the function `foo`."
+        "You can also mix-and-match routines with implied printing. Let's revisit our example cell that defined the function `foo`.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -326,6 +355,10 @@
     {
       "type": "code",
       "content": [
+        ";+",
+        "; :Returns: String",
+        ";",
+        ";-",
         "function foo2",
         "  compile_opt idl2",
         "  return, 'I told you it wasn''t that simple! But it''s also not rocket science.'",
@@ -339,7 +372,8 @@
     {
       "type": "markdown",
       "content": [
-        "### Execution Folder"
+        "### Execution Folder",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -351,7 +385,8 @@
         "",
         "You can see this my looking at the output from `routine_filepath()`.",
         "",
-        "This makes it easy to create notebooks next to data that lives on disk and use relative filepaths to access external information."
+        "This makes it easy to create notebooks next to data that lives on disk and use relative filepaths to access external information.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -367,7 +402,8 @@
     {
       "type": "markdown",
       "content": [
-        "### Variables"
+        "### Variables",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -377,7 +413,8 @@
       "content": [
         "Because the main way cells are executed is through main level programs, any variables you define can be accessed anywhere.",
         "",
-        "Here we will define a variable and create a second variable using the first."
+        "Here we will define a variable and create a second variable using the first.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -407,7 +444,8 @@
         "",
         "We also let you know if you use a variable from a lower cell before it gets defined.",
         "",
-        "> Pro tip: If auto-complete is acting weird, you may need to press escape and manually trigger auto-complete where your cursor is located using `Ctrl + Space`."
+        "> Pro tip: If auto-complete is acting weird, you may need to press escape and manually trigger auto-complete where your cursor is located using `Ctrl + Space`.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -431,7 +469,8 @@
     {
       "type": "markdown",
       "content": [
-        "> Pro tip: You should not use variables created in later cells before their definition. This makes notebooks harder for other users to follow and errors will be reported."
+        "> Pro tip: You should not use variables created in later cells before their definition. This makes notebooks harder for other users to follow and errors will be reported.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -439,7 +478,8 @@
     {
       "type": "markdown",
       "content": [
-        "If you can't find where a variable is defined, you can \"Ctrl + Click\" on a variable and it will take you to the cell and location within that cell where it is defined or first encountered."
+        "If you can't find where a variable is defined, you can \"Ctrl + Click\" on a variable and it will take you to the cell and location within that cell where it is defined or first encountered.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -456,7 +496,8 @@
     {
       "type": "markdown",
       "content": [
-        "### Graphics"
+        "### Graphics",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -470,7 +511,8 @@
         "",
         "The embedded graphics are saved within the notebook and can be viewed later.",
         "",
-        "There is an extension preference that allows you to disable embedding of graphics if you prefer the windows to appear as they normally would with the workbench."
+        "There is an extension preference that allows you to disable embedding of graphics if you prefer the windows to appear as they normally would with the workbench.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -480,7 +522,8 @@
       "content": [
         "> Pro tip: Because the graphics are embedded, do be aware that notebooks may grow in size depending on how many images are embedded.",
         "",
-        "> Important note: When ENVI is running, direct graphics are not embedded"
+        "> Important note: When ENVI is running, direct graphics are not embedded",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -499,7 +542,8 @@
     {
       "type": "markdown",
       "content": [
-        "### Errors, Stops, and Debugging"
+        "### Errors, Stops, and Debugging",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -507,7 +551,8 @@
     {
       "type": "markdown",
       "content": [
-        "For now, notebooks are not set up as a tool for true development where you can set breakpoints, stop on errors, and halt execution any any place in a routine."
+        "For now, notebooks are not set up as a tool for true development where you can set breakpoints, stop on errors, and halt execution any any place in a routine.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -515,7 +560,8 @@
     {
       "type": "markdown",
       "content": [
-        "Instead, we are focused on catching those errors and halting the execution of any other cells."
+        "Instead, we are focused on catching those errors and halting the execution of any other cells.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -523,7 +569,8 @@
     {
       "type": "markdown",
       "content": [
-        "For example, if you compile this cell you should see that execution fails because of a syntax error:"
+        "For example, if you compile this cell you should see that execution fails because of a syntax error:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -531,6 +578,8 @@
     {
       "type": "code",
       "content": [
+        ";+",
+        ";-",
         "pro test_syntax_error",
         "  compile_opt idl2",
         "",
@@ -545,7 +594,8 @@
       "content": [
         "Here is another example where we have a stop within our routine.",
         "",
-        "In this case, the cell with the routine definition compiles correctly, but we encounter problems when we try to run it:"
+        "In this case, the cell with the routine definition compiles correctly, but we encounter problems when we try to run it:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -553,6 +603,8 @@
     {
       "type": "code",
       "content": [
+        ";+",
+        ";-",
         "pro test_stop_error",
         "  compile_opt idl2",
         "  stop",
@@ -575,7 +627,8 @@
       "content": [
         "After each cell is executed, we force a return to the main level.",
         "",
-        "We can use `scope_traceback()` to verify that we are back at the main level and not where the stop was in the previous cell."
+        "We can use `scope_traceback()` to verify that we are back at the main level and not where the stop was in the previous cell.",
+        ""
       ],
       "metadata": {},
       "outputs": []

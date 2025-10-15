@@ -2,7 +2,7 @@ import { WorkspaceChange } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { DOCUMENT_MANAGER } from '../events/initialize-document-manager';
-import { SERVER_CONNECTION } from '../initialize-server';
+import { SERVER_CONNECTION } from '../initialize-language-server';
 
 /**
  * Updates the content of a file with something new

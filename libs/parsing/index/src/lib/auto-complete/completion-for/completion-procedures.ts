@@ -7,7 +7,7 @@ import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**
  * Display names for procedures
@@ -29,7 +29,7 @@ export function BuildProcedureCompletionItems(
     arg.complete.push({
       label: TransformCase(displayNames[i], arg.formatting.style.routines),
       kind: CompletionItemKind.Function,
-      sortText: SORT_PRIORITY.ROUTINES,
+      sortText: COMPLETION_SORT_PRIORITY.ROUTINES,
       detail: IDL_TRANSLATION.autoComplete.detail.procedure,
     });
   }

@@ -1,6 +1,6 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { readFile } from 'fs/promises';
 import { CompletionItem, Position } from 'vscode-languageserver/node';
 
@@ -33,14 +33,14 @@ describe(`[auto generated] Correctly return auto-complete from obj-destroy`, () 
         label: 'keyword = ',
         insertText: 'keyword',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: '',
       },
       {
         label: 'obj',
         kind: 6,
-        sortText: '01',
+        sortText: '20',
         detail: 'Variable',
         documentation: '',
       },
@@ -156,35 +156,35 @@ describe(`[auto generated] Correctly return auto-complete from obj-destroy`, () 
         label: "ENVITask('InitializeENVINet5MultiModel')",
         insertText: "ENVITask('InitializeENVINet5MultiModel')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: "ENVITask('BuildLabelRasterFromClassification')",
         insertText: "ENVITask('BuildLabelRasterFromClassification')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: "ENVITask('ClassActivationToPixelROI')",
         insertText: "ENVITask('ClassActivationToPixelROI')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
         insertText: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: 'ENVIBoundingBoxSet()',
         insertText: 'ENVIBoundingBoxSet()',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },

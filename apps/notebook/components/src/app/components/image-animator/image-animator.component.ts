@@ -23,6 +23,7 @@ export function RoundToNearest(num: number, to: number) {
       @import 'styles.scss';
     `,
   ],
+  standalone: false,
 })
 export class ImageAnimatorComponent
   extends BaseRendererComponent<IDLNotebookImage_AnimationFromPNGs>

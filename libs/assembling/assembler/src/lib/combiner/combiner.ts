@@ -12,8 +12,10 @@ import { NonBasicTokenNames, TOKEN_NAMES, TokenName } from '@idl/tokenizer';
 import { GetNewLine } from '../helpers/get-new-line';
 import { Stringify } from '../helpers/stringify';
 import {
+  HANGING_ROUTINES,
   ICombinerRecursionOptions,
   IStringsByLine,
+  PROCEDURE_TOKENS,
 } from './combiner.interface';
 import {
   DONT_RESET_INDENTS_ON_CLOSE,
@@ -42,7 +44,9 @@ function _Recursor<T extends FormatterType>(
   let line = GetNewLine(
     recurse.indentLevel,
     options.tabWidth,
-    recurse.tokenParent
+    options.maxIndent,
+    recurse.tokenParent,
+    recurse.hangingIndentStart
   );
 
   /** Store the last line from our tokens */
@@ -111,7 +115,9 @@ function _Recursor<T extends FormatterType>(
         line = GetNewLine(
           recurse.indentLevel,
           options.tabWidth,
-          recurse.tokenParent
+          options.maxIndent,
+          recurse.tokenParent,
+          recurse.hangingIndentStart
         );
         strings[lastLine] = line;
       }
@@ -142,7 +148,7 @@ function _Recursor<T extends FormatterType>(
       // check if we need to reset our line continuation flag or not
       // because we have an additional level of indentation
       if (recurse.lineContinuation) {
-        recurse.lineContinuation = !(tree[i].name in LINE_CONTINUATION_RESETS);
+        recurse.lineContinuation = !(branch.name in LINE_CONTINUATION_RESETS);
       }
 
       // do we need to bump our indent based on the token type
@@ -155,11 +161,32 @@ function _Recursor<T extends FormatterType>(
         tree[i].name in IGNORE_LINE_CONTINUATION_INDENTS;
 
       // set flag if we are in a comment block
-      recurse.commentBlock = tree[i].name === TOKEN_NAMES.COMMENT_BLOCK;
+      recurse.commentBlock = branch.name === TOKEN_NAMES.COMMENT_BLOCK;
 
       // save token name
       recurse.tokenBefore = branch as TreeToken<TokenName>;
       recurse.tokenParent = branch as TreeToken<TokenName>;
+
+      // track last hang number
+      let lastHang: number;
+
+      // see if we should have hanging indent
+      if (options.hangingIndent && branch.name in HANGING_ROUTINES) {
+        // if we had a previous value, save it so we can reset when we return
+        if (recurse.hangingIndentStart !== undefined) {
+          lastHang = recurse.hangingIndentStart;
+        }
+
+        // set hanging indent to the length of our current line
+        recurse.hangingIndentStart = line.join('').length; // tree[i].pos[1] + tree[i].pos[2];
+
+        // check for kids if procedure and addount for comma
+        if (branch.name in PROCEDURE_TOKENS && branch.kids.length > 1) {
+          if (branch.kids[0].name === TOKEN_NAMES.COMMA) {
+            recurse.hangingIndentStart += 2;
+          }
+        }
+      }
 
       // process our children
       _Recursor(branch.kids, options, recurse, strings);
@@ -195,10 +222,13 @@ function _Recursor<T extends FormatterType>(
               closeAdd = GetNewLine(
                 recurse.indentLevel - indentOffset,
                 options.tabWidth,
-                recurse.tokenParent
+                options.maxIndent,
+                recurse.tokenParent,
+                recurse.hangingIndentStart
               );
               closeAdd.push(toAdd);
-              // closeAdd.push(toAdd);
+
+              // save strings for our new line
               strings[closeLine] = closeAdd;
             } else {
               // if existing strings, concat to last entry to avoid excess strings
@@ -209,10 +239,22 @@ function _Recursor<T extends FormatterType>(
           line = GetNewLine(
             recurse.indentLevel - indentOffset,
             options.tabWidth,
-            recurse.tokenParent
+            options.maxIndent,
+            recurse.tokenParent,
+            recurse.hangingIndentStart
           );
           line.push(toAdd);
           strings[closeLine] = line;
+        }
+      }
+
+      // check if we need to reset our hanging indent
+      if (options.hangingIndent && tree[i].name in HANGING_ROUTINES) {
+        if (lastHang !== undefined) {
+          recurse.hangingIndentStart = lastHang;
+          lastHang = undefined;
+        } else {
+          recurse.hangingIndentStart = undefined;
         }
       }
 
@@ -262,6 +304,7 @@ export function Combiner<T extends FormatterType>(
 
   // create our recursion options
   const recursion: ICombinerRecursionOptions = {
+    hangingIndentStart: undefined,
     indentLevel: 0,
     lineContinuation: false,
     ignoreLineContinuation: false,

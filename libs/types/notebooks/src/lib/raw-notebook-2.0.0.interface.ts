@@ -10,7 +10,7 @@ import {
 export interface RawNotebookCellOutputItem_2_0_0
   extends IDLRawNotebookCellOutputBase {
   /** JSON data */
-  content: string[] | string;
+  content: string | string[];
 }
 
 /**

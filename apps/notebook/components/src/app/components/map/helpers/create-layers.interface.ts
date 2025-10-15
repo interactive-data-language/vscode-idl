@@ -14,7 +14,7 @@ import { AwesomeImage, AwesomeImageProps } from './awesome-image.class';
 export type LayerBounds = [number, number, number, number];
 
 /** Type of layer */
-export type NotebookMapLayerType = 'image' | 'geojson';
+export type NotebookMapLayerType = 'geojson' | 'image';
 
 /** GeoJSON properties, from hover help and type inspection */
 export type GeoJSONProps = Partial<

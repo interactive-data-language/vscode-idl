@@ -1,6 +1,6 @@
 import { AdjustCase } from '@idl/assembling/shared';
 import { TreeToken } from '@idl/parsing/syntax-tree';
-import { IDLFileHelper } from '@idl/shared';
+import { IDLFileHelper } from '@idl/shared/extension';
 import { TokenName } from '@idl/tokenizer';
 import {
   ExecutiveCommandCompletion,
@@ -10,7 +10,7 @@ import { basename } from 'path';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**
  * All executive commands
@@ -117,7 +117,7 @@ export function BuildExecutiveCommandCompletionItems(
         arg.complete.push({
           label: cased,
           kind: CompletionItemKind.Constructor,
-          sortText: SORT_PRIORITY.EXECUTIVE_COMMANDS,
+          sortText: COMPLETION_SORT_PRIORITY.EXECUTIVE_COMMANDS,
           insertText: cased.substring(1),
         });
       }

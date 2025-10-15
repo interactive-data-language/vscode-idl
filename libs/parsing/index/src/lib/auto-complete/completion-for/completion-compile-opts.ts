@@ -9,7 +9,7 @@ import {
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**
  * Generates options for creating compile opts
@@ -43,7 +43,7 @@ export function BuildCompileOptCompletionItems(
     arg.complete.push({
       label: AdjustCase(addOpts[i], arg.formatting.style.control),
       kind: CompletionItemKind.EnumMember,
-      sortText: SORT_PRIORITY.CONTROL,
+      sortText: COMPLETION_SORT_PRIORITY.CONTROL,
     });
   }
 }

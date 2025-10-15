@@ -78,6 +78,7 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
         type: 'p',
         name: 'mypro',
         pos: [9, 4, 5],
+        range: { start: [9, 0, 4], end: [11, 0, 3] },
         meta: {
           source: 'user',
           args: {},

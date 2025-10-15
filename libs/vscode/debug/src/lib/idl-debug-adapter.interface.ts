@@ -1,6 +1,9 @@
-import { IDLEvaluateOptions, IStartIDLConfig } from '@idl/idl';
-import { IDL_LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  IDLEvaluateOptions,
+  IStartIDLConfig,
+} from '@idl/types/idl/idl-process';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { DebugProtocol } from '@vscode/debugprotocol';
 
@@ -16,16 +19,16 @@ export interface IBreakpointLookup {
  * Debug configuration for IDL
  */
 export interface IDLDebugConfiguration
-  extends DebugProtocol.LaunchRequestArguments,
-    IStartIDLConfig {
-  /** Type of debug adapter we are launching ("idl") */
-  type: string;
+  extends IStartIDLConfig,
+    DebugProtocol.LaunchRequestArguments {
+  /** Workspace folders that are open */
+  folders: string[];
   /**  */
   name: string;
   /** Type of request ("launch") */
   request: string;
-  /** Workspace folders that are open */
-  folders: string[];
+  /** Type of debug adapter we are launching ("idl") */
+  type: string;
 }
 
 /**
@@ -51,6 +54,10 @@ export interface IDebugEvaluateOptions extends IDLEvaluateOptions {
    */
   continued?: boolean;
   /**
+   * Do we check IDL's output for errors? Also updates decorators
+   */
+  errorCheck?: boolean;
+  /**
    * If set, adds a new line to the output after running
    */
   newLine?: boolean;
@@ -60,10 +67,6 @@ export interface IDebugEvaluateOptions extends IDLEvaluateOptions {
    * ADVANCED USE CASE when we are starting IDL
    */
   noWait?: boolean;
-  /**
-   * Do we check IDL's output for errors? Also updates decorators
-   */
-  errorCheck?: boolean;
 }
 
 /**
@@ -78,3 +81,9 @@ export const DEFAULT_EVALUATE_OPTIONS: IDebugEvaluateOptions = {
   noWait: false,
   errorCheck: false,
 };
+
+/** Log level for debug adapter method */
+export const ADAPTER_METHOD_LOG_LEVEL = 'debug';
+
+/** How long do we wait before refocusing the stack trace (ms) */
+export const ADAPTER_STOP_DELAY = 100;

@@ -18,16 +18,18 @@ export function NotebookToIDLNotebook(
   // return and map cells
   return {
     ...copied,
-    cells: copied.cells.map((cell) => {
-      const doc = manager.getCellTextDocument(cell);
-      return {
-        ...cell,
-        /**
-         * Verify doc exists, there was some odd error that it didn't on close
-         * so not sure what that was about
-         */
-        text: doc !== undefined ? doc.getText() : '',
-      };
-    }),
+    cells: copied.cells
+      .filter((cell) => cell !== undefined)
+      .map((cell) => {
+        const doc = manager.getCellTextDocument(cell);
+        return {
+          ...cell,
+          /**
+           * Verify doc exists, there was some odd error that it didn't on close
+           * so not sure what that was about
+           */
+          text: doc !== undefined ? doc.getText() : '',
+        };
+      }),
   };
 }

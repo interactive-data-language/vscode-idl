@@ -1,9 +1,8 @@
 import { IDL_DEBUG_CONFIGURATION_LOG } from '@idl/logger';
-import { CleanPath } from '@idl/shared';
-import { IDL_LOGGER } from '@idl/vscode/client';
+import { CleanPath } from '@idl/shared/extension';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
-import { VariablesReferenceSubstitution } from '@idl/vscode/shared';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import copy from 'fast-copy';
 import * as path from 'path';
 import {
@@ -16,6 +15,7 @@ import {
 import * as vscode from 'vscode';
 import { URI } from 'vscode-uri';
 
+import { VariablesReferenceSubstitution } from './helpers/variables-reference-substitution';
 import {
   DEFAULT_IDL_DEBUG_CONFIGURATION,
   IDLDebugConfiguration,
@@ -39,7 +39,7 @@ export class IDLDebugConfigurationProvider
    * e.g. add all missing attributes to the debug configuration.
    */
   resolveDebugConfiguration(
-    folder: WorkspaceFolder | undefined,
+    folder: undefined | WorkspaceFolder,
     config: DebugConfiguration,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     token?: CancellationToken
@@ -84,14 +84,15 @@ export class IDLDebugConfigurationProvider
       );
     }
 
-    // check if we have workspace folders to add
-    // do this first so the routines take priority in IDL
-    if (useConfig.config.IDL.addWorkspaceFoldersToPath) {
-      folderAdd += `+${folders.join(joinchar)}${path.delimiter}`;
-    }
-
-    // set the start directory - always do if we have a start folder
+    // see if we have folders to update/set
     if (folders.length > 0) {
+      // check if we have workspace folders to add
+      // do this first so the routines take priority in IDL
+      if (useConfig.config.IDL.addWorkspaceFoldersToPath) {
+        folderAdd += `+${folders.join(joinchar)}${path.delimiter}`;
+      }
+
+      // set the start directory - always do if we have a start folder
       useConfig.env.IDL_START_DIR = folders[0];
       useConfig.cwd = folders[0];
     }

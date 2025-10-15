@@ -1,4 +1,4 @@
-import { ACTIVITY_BAR_ID } from '@idl/shared';
+import { ACTIVITY_BAR_ID } from '@idl/shared/extension';
 import { existsSync } from 'fs';
 import { join } from 'path';
 

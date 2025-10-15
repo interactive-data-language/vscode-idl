@@ -1,6 +1,6 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { readFile } from 'fs/promises';
 import { Position } from 'vscode-languageserver/node';
 
@@ -51,6 +51,7 @@ describe(`[auto generated] Correctly get routine definition for`, () => {
       type: 'f',
       name: 'leap4',
       pos: [0, 9, 5],
+      range: { start: [0, 0, 9], end: [4, 0, 3] },
       meta: {
         source: 'user',
         args: {},

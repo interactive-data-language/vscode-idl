@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   // styleUrls: ['./app.component.scss'],
   styles: [``],
+  standalone: false,
 })
 export class AppComponent {
   title = 'Notebook Components';

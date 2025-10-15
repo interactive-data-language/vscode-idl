@@ -1,7 +1,7 @@
 import { IDLDocsExporter } from '@idl/docs/exporter';
+import { FindFiles, GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { performance } from 'perf_hooks';
 
 /** Get the folder with code in it */
@@ -38,8 +38,10 @@ async function main() {
     true
   );
 
+  const files = await FindFiles([codeDir]);
+
   /** Index the folder */
-  await index.indexWorkspace([codeDir], false);
+  await index.indexWorkspaceFiles(files, [codeDir], false);
 
   /** Export */
   const t0 = performance.now();

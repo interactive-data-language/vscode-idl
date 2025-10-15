@@ -106,6 +106,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
         type: 'pm',
         name: 'myclass::mymethod',
         pos: [0, 4, 17],
+        range: { start: [0, 0, 4], end: [4, 0, 3] },
         meta: {
           className: 'myclass',
           method: 'mymethod',
@@ -250,6 +251,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
         type: 'pm',
         name: 'myclass::mymethod',
         pos: [0, 4, 17],
+        range: { start: [0, 0, 4], end: [7, 0, 3] },
         meta: {
           className: 'myclass',
           method: 'mymethod',
@@ -400,6 +402,7 @@ describe(`[auto generated] Correctly extract docs for`, () => {
         type: 'pm',
         name: 'myclass::mymethod',
         pos: [0, 4, 17],
+        range: { start: [0, 0, 4], end: [10, 0, 3] },
         meta: {
           className: 'myclass',
           method: 'mymethod',

@@ -1,10 +1,8 @@
-import { GetExtensionPath, IDL_COMMANDS } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { Sleep } from '@idl/tests/helpers';
-import {
-  GetActivePROCodeWindow,
-  OpenFileInVSCode,
-  VSCODE_COMMANDS,
-} from '@idl/vscode/shared';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
+import { GetActivePROCodeWindow, OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
@@ -25,6 +23,9 @@ export const BreakpointStepInStepOut: RunnerFunction = async (init) => {
 
   // verify we started
   expect(started).toBeTruthy();
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 
   // show the debug console
   await vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
@@ -61,31 +62,31 @@ export const BreakpointStepInStepOut: RunnerFunction = async (init) => {
   /** Run our file */
   await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RUN);
   await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(19);
+  expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(19);
 
   // step in
   await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_INTO);
   await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(9);
+  expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(9);
 
   // step over
   await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_OVER);
   await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(11);
+  expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(11);
 
   // step in
   await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_OVER);
   await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(12);
+  expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(12);
 
   // step in
   await vscode.commands.executeCommand(VSCODE_COMMANDS.DEBUG_STEP_OUT);
   await Sleep(DEBUG_PAUSE);
-  expect(init.debug.adapter.stopped?.stack?.line).toEqual(21);
+  expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(21);
 
   // remove all breakpoints
   await init.debug.adapter._breakpoints.resetBreakpoints();
 
-  // reset
-  await init.debug.adapter.evaluate('.reset');
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

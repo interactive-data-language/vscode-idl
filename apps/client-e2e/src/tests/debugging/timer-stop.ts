@@ -1,4 +1,5 @@
-import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
+import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
@@ -61,4 +62,7 @@ export const TimerStop: RunnerFunction = async (init) => {
 
   // return again to work around windows bug
   await init.debug.adapter.evaluate('retall');
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 };

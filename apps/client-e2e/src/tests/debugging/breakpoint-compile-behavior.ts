@@ -1,10 +1,8 @@
-import { GetExtensionPath, IDL_COMMANDS } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { Sleep } from '@idl/tests/helpers';
-import {
-  GetActivePROCodeWindow,
-  OpenFileInVSCode,
-  VSCODE_COMMANDS,
-} from '@idl/vscode/shared';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
+import { GetActivePROCodeWindow, OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
@@ -24,6 +22,9 @@ export const BreakpointCompileBehavior: RunnerFunction = async (init) => {
 
   // verify we started
   expect(started).toBeTruthy();
+
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
 
   // show the debug console
   await vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);

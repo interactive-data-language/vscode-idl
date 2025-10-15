@@ -16,7 +16,7 @@ const TOKEN_TYPE_BY_MATCH = {
 };
 
 export type GroupersTokenDef = ITokenDef<
-  ParenthesesToken | BracketToken | StructureToken
+  BracketToken | ParenthesesToken | StructureToken
 >;
 
 /**

@@ -1,13 +1,14 @@
-import { IFolderRecursion } from '@idl/parsing/index';
+import { IFolderRecursion } from '@idl/idl/files';
 import {
   IDL_PROBLEM_CODE_SHORTHAND_CODE_LOOKUP,
   IDL_PROBLEM_CODE_SHORTHAND_LOOKUP,
   IDL_PROBLEM_CODES,
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
 } from '@idl/types/problem-codes';
+import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import copy from 'fast-copy';
 
-import { GLOBAL_SERVER_SETTINGS } from '../initialize-server';
+import { GLOBAL_SERVER_SETTINGS } from '../initialize-language-server';
 import {
   IDL_CLIENT_CONFIG,
   WORKSPACE_FOLDER_CONFIGS,
@@ -42,6 +43,9 @@ export const IDL_PROBLEM_EXCLUSION_FOLDERS: IFolderRecursion = {};
  * Regex to test folder path for recursion or not
  */
 const RECURSIVE_REGEX = /^\+/i;
+
+/** COnfiguration for our MCP server */
+export const MCP_CONFIG = { ...DEFAULT_IDL_EXTENSION_CONFIG.mcp };
 
 /**
  * Takes multiple workspace configs and merges them into a single entity
@@ -81,6 +85,12 @@ export function MergeConfig() {
   let packagesFlag = false;
   let fullParseFlag = false;
 
+  /** MCP is enabled or not */
+  let mcpEnabled = false;
+
+  /** Port for MCP server */
+  let mpcPort: number;
+
   // process each config
   for (let i = 0; i < configs.length; i++) {
     // get current config
@@ -88,7 +98,7 @@ export function MergeConfig() {
 
     // process all ignore codes
     for (let j = 0; j < el.problems.ignoreProblems.length; j++) {
-      const code: string | number = el.problems.ignoreProblems[j];
+      const code: number | string = el.problems.ignoreProblems[j];
 
       // map code if string
       if (typeof code === 'string') {
@@ -147,6 +157,14 @@ export function MergeConfig() {
     // update problem exclusion rules
     pathFlag = pathFlag || el.problems.includeProblemsFromIDLPath;
     packagesFlag = packagesFlag || el.problems.includeProblemsFromIDLPackages;
+
+    // check if we need to run our MCP server
+    mcpEnabled = mcpEnabled || el.mcp.enabled;
+
+    // get the port for our MCP server - user first value
+    if (mpcPort === undefined) {
+      mpcPort = el.mcp.port;
+    }
 
     // check for full parse
     fullParseFlag = fullParseFlag || el.languageServer.fullParse;
@@ -214,6 +232,10 @@ export function MergeConfig() {
 
   // update setting for language server
   GLOBAL_SERVER_SETTINGS.fullParse = fullParseFlag;
+
+  // save MCP settings
+  MCP_CONFIG.enabled = mcpEnabled;
+  MCP_CONFIG.port = mpcPort;
 
   return {
     folders: {

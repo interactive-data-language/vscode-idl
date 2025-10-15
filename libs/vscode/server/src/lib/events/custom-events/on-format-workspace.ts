@@ -1,5 +1,6 @@
+import { FindFiles } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { PRO_CODE_GLOB_PATTERN } from '@idl/shared';
+import { PRO_CODE_GLOB_PATTERN } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   FormatWorkspacePayload,
@@ -15,9 +16,8 @@ import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-cod
 import { UpdateDocument } from '../../helpers/update-document';
 import {
   IDL_LANGUAGE_SERVER_LOGGER,
-  SERVER_EVENT_MANAGER,
-} from '../../initialize-server';
-import { IDL_INDEX } from '../initialize-document-manager';
+  SERVER_MESSENGER,
+} from '../../initialize-language-server';
 import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
@@ -37,10 +37,7 @@ export const ON_FORMAT_WORKSPACE = async (
     /**
      * Find files and exclude notebooks
      */
-    const files = await IDL_INDEX.findFiles(
-      event.folders,
-      PRO_CODE_GLOB_PATTERN
-    );
+    const files = await FindFiles(event.folders, PRO_CODE_GLOB_PATTERN);
 
     /** Track file failures */
     const failures: string[] = [];
@@ -51,14 +48,11 @@ export const ON_FORMAT_WORKSPACE = async (
     }
 
     // send message to start progress
-    SERVER_EVENT_MANAGER.sendNotification(
-      LANGUAGE_SERVER_MESSAGE_LOOKUP.PROGRESS,
-      {
-        progressId: id,
-        increment: 0,
-        title: IDL_TRANSLATION.lsp.progress.formatWorkspace,
-      }
-    );
+    SERVER_MESSENGER.sendNotification(LANGUAGE_SERVER_MESSAGE_LOOKUP.PROGRESS, {
+      progressId: id,
+      increment: 0,
+      title: IDL_TRANSLATION.lsp.progress.formatWorkspace,
+    });
 
     /**
      * Track all work
@@ -119,7 +113,7 @@ export const ON_FORMAT_WORKSPACE = async (
           }
 
           // update progress
-          SERVER_EVENT_MANAGER.sendNotification(
+          SERVER_MESSENGER.sendNotification(
             LANGUAGE_SERVER_MESSAGE_LOOKUP.PROGRESS,
             {
               progressId: id,
@@ -138,15 +132,12 @@ export const ON_FORMAT_WORKSPACE = async (
     await Promise.all(promises);
 
     // update progress
-    SERVER_EVENT_MANAGER.sendNotification(
-      LANGUAGE_SERVER_MESSAGE_LOOKUP.PROGRESS,
-      {
-        progressId: id,
-        increment: 1 / files.length,
-        title: IDL_TRANSLATION.lsp.progress.formatWorkspace,
-        finished: true,
-      }
-    );
+    SERVER_MESSENGER.sendNotification(LANGUAGE_SERVER_MESSAGE_LOOKUP.PROGRESS, {
+      progressId: id,
+      increment: 1 / files.length,
+      title: IDL_TRANSLATION.lsp.progress.formatWorkspace,
+      finished: true,
+    });
 
     return {
       failures,
@@ -160,14 +151,11 @@ export const ON_FORMAT_WORKSPACE = async (
     });
 
     // update progress
-    SERVER_EVENT_MANAGER.sendNotification(
-      LANGUAGE_SERVER_MESSAGE_LOOKUP.PROGRESS,
-      {
-        progressId: id,
-        increment: 1,
-        title: IDL_TRANSLATION.lsp.progress.formatWorkspace,
-        finished: true,
-      }
-    );
+    SERVER_MESSENGER.sendNotification(LANGUAGE_SERVER_MESSAGE_LOOKUP.PROGRESS, {
+      progressId: id,
+      increment: 1,
+      title: IDL_TRANSLATION.lsp.progress.formatWorkspace,
+      finished: true,
+    });
   }
 };

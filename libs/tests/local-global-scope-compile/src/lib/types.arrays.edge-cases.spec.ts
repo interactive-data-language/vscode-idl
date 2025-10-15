@@ -92,6 +92,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'array_creation',
         pos: [0, 4, 14],
+        range: { start: [0, 0, 4], end: [5, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -255,6 +256,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'array_creation',
         pos: [0, 4, 14],
+        range: { start: [0, 0, 4], end: [6, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -426,6 +428,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'array_creation',
         pos: [0, 4, 14],
+        range: { start: [0, 0, 4], end: [6, 0, 3] },
         meta: {
           source: 'user',
           args: {},

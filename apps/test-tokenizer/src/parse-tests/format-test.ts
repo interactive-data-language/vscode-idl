@@ -1,7 +1,7 @@
 import { Assembler } from '@idl/assembler';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { GetTokenNames, Parser } from '@idl/parser';
-import { TimeIt } from '@idl/shared';
+import { TimeIt } from '@idl/shared/extension';
 import { deepEqual } from 'fast-equals';
 import * as glob from 'fast-glob';
 import { readFileSync, writeFileSync } from 'fs';
@@ -9,9 +9,9 @@ import { join } from 'path';
 import * as progressBar from 'progress';
 
 interface IProblem {
+  erased: string;
   line: number;
   text: string;
-  erased: string;
 }
 
 /**

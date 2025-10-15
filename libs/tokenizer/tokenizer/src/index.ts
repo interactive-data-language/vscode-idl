@@ -1,5 +1,6 @@
 export * from './lib/helpers/get-matches-array';
 export * from './lib/helpers/is-empty-line';
+export * from './lib/helpers/split-code';
 export * from './lib/helpers/strip-ids';
 export * from './lib/token-matches.interface';
 export * from './lib/tokenizer';

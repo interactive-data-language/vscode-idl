@@ -5,7 +5,9 @@
       "type": "markdown",
       "content": [
         "# Conditional Expressions in IDL",
-        "___"
+        "",
+        "---",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -15,11 +17,14 @@
       "content": [
         "**Conditional logic** allows programs to make decisions based on true/false conditions.  ",
         "This is done through the use of **conditional expressions** such as:",
+        "",
         "- [`if`](#if-statements)",
         "- [`else`](#else-if)",
         "- [`case`](#case-statements)",
         "- [`switch`](#switch-statements)",
-        "---"
+        "",
+        "---",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -27,10 +32,12 @@
     {
       "type": "markdown",
       "content": [
-        "## **First lets talk structure.**  ",
-        "**Conditional Expressions** allow for the execution of a **block of code** if a condition is met.  ",
+        "## **First lets talk structure.**",
         "",
-        "A **condition** is a expression that evaluates to **true** or **false** to be used in deciding what do do next."
+        "**Conditional Expressions** allow for the execution of a **block of code** if a condition is met.",
+        "",
+        "A **condition** is a expression that evaluates to **true** or **false** to be used in deciding what do do next.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -38,7 +45,8 @@
     {
       "type": "markdown",
       "content": [
-        "## **If Statements**"
+        "## **If Statements**",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -46,11 +54,12 @@
     {
       "type": "markdown",
       "content": [
-        "The conditional expression `if`, also known as a **if-then statement**, is a useful and simple construct.  ",
+        "The conditional expression `if`, also known as a **if-then statement**, is a useful and simple construct.",
         "",
-        "The `if` statement takes the value of a [**truth statement** ](02-Operators.idlnb), and if that statement evaluates to **true(1)** it executes the code in the **block**.  ",
+        "The `if` statement takes the value of a [**truth statement** ](02-Operators.idlnb), and if that statement evaluates to **true(1)** it executes the code in the **block**.",
         "",
-        "For example:"
+        "For example:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -59,7 +68,7 @@
       "type": "code",
       "content": [
         "; !True or 1 will always evaluate to \"true\"",
-        "if (!True) then print, `Defining \"Block\" on the same line`",
+        "if (!true) then print, `Defining \"Block\" on the same line`",
         "",
         "if (1) then begin",
         "  print, `Defining \"Block\" on separate lines.`",
@@ -77,7 +86,8 @@
     {
       "type": "markdown",
       "content": [
-        "Why don't you try it out?"
+        "Why don't you try it out?",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -98,18 +108,21 @@
         "<details>",
         "  <summary>Click to reveal the answer to suggestion</summary>",
         "",
-        "  **Answer**:  ",
-        "  ```idl",
+        "**Answer**:",
+        "",
+        "```idl",
         "var1 = 10",
         "var2 = 10",
         "",
         "if var1 eq var2 then begin",
-        "    print, `var1 and var2 are equal. ${var1} = ${var2}`",
+        "  print, `var1 and var2 are equal. ${var1} = ${var2}`",
         "endif",
-        "  ```",
-        "</details>  ",
+        "```",
         "",
-        "---"
+        "</details>",
+        "",
+        "---",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -117,7 +130,8 @@
     {
       "type": "markdown",
       "content": [
-        "## **Else Statements**"
+        "## **Else Statements**",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -129,7 +143,8 @@
         "",
         "The `else` executes its **block** of code if the `if statement` it is attached to does not.",
         "",
-        "For example:"
+        "For example:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -152,11 +167,13 @@
         "These can be chained together into a chain of `else if` statements.",
         "",
         "#### **Else If**",
+        "",
         "`Else if` is used to check multiple conditions **sequentially**. This means that as soon as one `if` **condition** is satisfied, IDL executes that block of code and ignores the rest of the `if` statements.",
         "",
-        ">Each `else if` should be preceeded by an `endif` and followed by another `endif` at the end of the code block. If you have a final `else` block then that should be followed by an `endelse`.",
+        "> Each `else if` should be preceeded by an `endif` and followed by another `endif` at the end of the code block. If you have a final `else` block then that should be followed by an `endelse`.",
         "",
-        "For example:"
+        "For example:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -166,13 +183,13 @@
       "content": [
         "number = 10",
         "if (number lt 5) then begin",
-        "    print, `This block will not execute because the condition is False`",
+        "  print, `This block will not execute because the condition is False`",
         "endif else if (number lt 20) then begin",
-        "    print, `We print here!`",
+        "  print, `We print here!`",
         "endif else if (number lt 30) then begin",
-        "    print, `This block will not execute because the above condition is true. Therefore, the sequence is \"broken\".`",
+        "  print, `This block will not execute because the above condition is true. Therefore, the sequence is \"broken\".`",
         "endif else begin",
-        "    print, `Catch all.`",
+        "  print, `Catch all.`",
         "endelse"
       ],
       "metadata": {},
@@ -181,9 +198,12 @@
     {
       "type": "markdown",
       "content": [
-        "___",
+        "---",
+        "",
         "## **Case Statements**",
-        "Case statements are technically a **control flow structure**. They are functionally a series of conditional expressions that allows you to execute different code blocks depending on the value of different **expressions**. Think of it like a organized `if else` statement."
+        "",
+        "Case statements are technically a **control flow structure**. They are functionally a series of conditional expressions that allows you to execute different code blocks depending on the value of different **expressions**. Think of it like a organized `if else` statement.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -192,25 +212,25 @@
       "type": "code",
       "content": [
         "; pick a number at random.",
-        "seed = systime(/SECONDS)",
+        "seed = systime(/seconds)",
         "value = floor(randomu(seed) * 4)",
         "",
         "case value of",
-        "    0: begin",
-        "        print, 'case 1 selected'",
-        "    end",
-        "    1: begin",
-        "        print, 'case 1 selected'",
-        "    end",
-        "    2: begin",
-        "        print, 'case 2 selected'",
-        "    end",
-        "    3: begin",
-        "        print, 'case 3 selected'",
-        "    end",
-        "    else: begin",
-        "        print,'default case: value not recognized'",
-        "    end",
+        "  0: begin",
+        "    print, 'case 1 selected'",
+        "  end",
+        "  1: begin",
+        "    print, 'case 1 selected'",
+        "  end",
+        "  2: begin",
+        "    print, 'case 2 selected'",
+        "  end",
+        "  3: begin",
+        "    print, 'case 3 selected'",
+        "  end",
+        "  else: begin",
+        "    print, 'default case: value not recognized'",
+        "  end",
         "endcase"
       ],
       "metadata": {},
@@ -220,7 +240,8 @@
       "type": "markdown",
       "content": [
         "The `Case` statement, Like `If Else`, is **sequential**. Meaning once a matching condition is encountered, subsequent conditions are ignored.  ",
-        "See **Example**:"
+        "See **Example**:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -231,13 +252,13 @@
         "value = 1",
         "",
         "case value of",
-        "    0: print, `condition not met, Won't print.`",
-        "    1: print, 'First condition to be met, so this prints.'",
-        "    2: print, 'CASE does not even check this.'",
-        "    3: print, 'CASE does not even check this.'",
-        "    else: begin",
-        "        print, 'Default case: Value not recognized.'",
-        "    end",
+        "  0: print, `condition not met, Won't print.`",
+        "  1: print, 'First condition to be met, so this prints.'",
+        "  2: print, 'CASE does not even check this.'",
+        "  3: print, 'CASE does not even check this.'",
+        "  else: begin",
+        "    print, 'Default case: Value not recognized.'",
+        "  end",
         "endcase"
       ],
       "metadata": {},
@@ -247,7 +268,9 @@
       "type": "markdown",
       "content": [
         "#### **Exercise 1**",
-        "Convert the following `If-Else` into a `Case` Statement."
+        "",
+        "Convert the following `If-Else` into a `Case` Statement.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -255,16 +278,16 @@
     {
       "type": "code",
       "content": [
-        "value = 2 ",
+        "value = 2",
         "",
         "if value eq 0 then begin",
-        "    print, 'Value is zero'",
+        "  print, 'Value is zero'",
         "endif else if value eq 1 then begin",
-        "    print, 'Value is one'",
+        "  print, 'Value is one'",
         "endif else if value eq 2 then begin",
-        "    print, 'Value is two'",
+        "  print, 'Value is two'",
         "endif else begin",
-        "    print, 'Value is something else'",
+        "  print, 'Value is something else'",
         "endelse"
       ],
       "metadata": {},
@@ -284,7 +307,8 @@
         "<details>",
         "  <summary>Click to reveal the answer</summary>",
         "",
-        "  **Answer**: </br>",
+        "**Answer**: </br>",
+        "",
         "```IDL",
         "case value of",
         "    0: print, 'Value is zero'    ; Executes if value = 0",
@@ -296,7 +320,8 @@
         "endcase",
         "```",
         "",
-        "</details>  "
+        "</details>",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -304,9 +329,10 @@
     {
       "type": "markdown",
       "content": [
-        "Case Statements can also be used to evaluate **conditional expressions** instead of just matching exact values. ",
-        " ",
-        "For **example**:"
+        "Case Statements can also be used to evaluate **conditional expressions** instead of just matching exact values.",
+        "",
+        "For **example**:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -316,14 +342,14 @@
       "content": [
         "grade = 85",
         "",
-        "case !true of  ; The !true here makes it so the block executes the first expression that evaluates to true.",
-        "    grade ge 90: print, 'Letter Grade: A'",
-        "    grade ge 80: print, 'Letter Grade: B'",
-        "    grade ge 70: print, 'Letter Grade: C'",
-        "    grade ge 60: print, 'Letter Grade: D'",
-        "    else: begin",
-        "        print, 'Letter Grade: F'",
-        "    end",
+        "case !true of ; The !true here makes it so the block executes the first expression that evaluates to true.",
+        "  grade ge 90: print, 'Letter Grade: A'",
+        "  grade ge 80: print, 'Letter Grade: B'",
+        "  grade ge 70: print, 'Letter Grade: C'",
+        "  grade ge 60: print, 'Letter Grade: D'",
+        "  else: begin",
+        "    print, 'Letter Grade: F'",
+        "  end",
         "endcase"
       ],
       "metadata": {},
@@ -332,11 +358,14 @@
     {
       "type": "markdown",
       "content": [
-        "___",
-        "## **Switch Statements**",
-        "`Switch` statements are extremely similar to `Case` statements. Their only difference is that `switch` statements **fall through**. Meaning, they execute the first matching statement and **all following statements unless a `break` is met**.  ",
+        "---",
         "",
-        "For **example**, if we take the same example for `case` and make it a switch:"
+        "## **Switch Statements**",
+        "",
+        "`Switch` statements are extremely similar to `Case` statements. Their only difference is that `switch` statements **fall through**. Meaning, they execute the first matching statement and **all following statements unless a `break` is met**.",
+        "",
+        "For **example**, if we take the same example for `case` and make it a switch:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -347,15 +376,15 @@
         "value = 1",
         "",
         "switch value of",
-        "    0: print, `condition not met, won't print.`",
-        "    1: print, 'First condition to be met, so this prints.'",
-        "    100: begin ",
-        "        print, `Even though this condition is not met, it comes after` $",
-        "        + ` a statement where the condition is. Therefore, we print.`",
-        "    end",
-        "    else: begin",
-        "        print, 'Default case: Oh no, even the else gets triggered.'",
-        "    end",
+        "  0: print, `condition not met, won't print.`",
+        "  1: print, 'First condition to be met, so this prints.'",
+        "  100: begin",
+        "    print, `Even though this condition is not met, it comes after` $",
+        "      + ` a statement where the condition is. Therefore, we print.`",
+        "  end",
+        "  else: begin",
+        "    print, 'Default case: Oh no, even the else gets triggered.'",
+        "  end",
         "endswitch"
       ],
       "metadata": {},
@@ -366,7 +395,8 @@
       "content": [
         "This can be controlled through the use of a `break` statement.",
         "",
-        "See **example**:"
+        "See **example**:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -377,18 +407,18 @@
         "value = 1",
         "",
         "switch value of",
-        "    0: begin",
-        "        print, `condition not met, won't print.`",
-        "        break",
-        "    end",
-        "    1: begin",
-        "        print, 'First condition to be met, so this prints.'",
-        "        break",
-        "    end",
-        "    2: print, 'This will not print because of the break.'",
-        "    else: begin",
-        "        print, 'Default case: because of the break we dont get here.'",
-        "    end",
+        "  0: begin",
+        "    print, `condition not met, won't print.`",
+        "    break",
+        "  end",
+        "  1: begin",
+        "    print, 'First condition to be met, so this prints.'",
+        "    break",
+        "  end",
+        "  2: print, 'This will not print because of the break.'",
+        "  else: begin",
+        "    print, 'Default case: because of the break we dont get here.'",
+        "  end",
         "endswitch"
       ],
       "metadata": {},
@@ -398,7 +428,9 @@
       "type": "markdown",
       "content": [
         "#### **Exercise 1**",
-        "Convert the following `Case` into a `Switch` Statement."
+        "",
+        "Convert the following `Case` into a `Switch` Statement.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -407,22 +439,22 @@
       "type": "code",
       "content": [
         "; pick a number at random.",
-        "seed = systime(/SECONDS)",
+        "seed = systime(/seconds)",
         "value = floor(randomu(seed) * 4)",
         "",
         "case value of",
-        "    0: begin",
-        "        print, `First code block.`",
-        "    end",
-        "    1: begin",
-        "        print, `Second code block.`",
-        "    end",
-        "    2: begin",
-        "        print, `Third code block.`",
-        "    end",
-        "    else: begin",
-        "        print, 'Default code block.'",
-        "    end",
+        "  0: begin",
+        "    print, `First code block.`",
+        "  end",
+        "  1: begin",
+        "    print, `Second code block.`",
+        "  end",
+        "  2: begin",
+        "    print, `Third code block.`",
+        "  end",
+        "  else: begin",
+        "    print, 'Default code block.'",
+        "  end",
         "endcase"
       ],
       "metadata": {},
@@ -431,7 +463,7 @@
     {
       "type": "code",
       "content": [
-        ";Code here!"
+        "; Code here!"
       ],
       "metadata": {},
       "outputs": []
@@ -442,7 +474,8 @@
         "<details>",
         "  <summary>Click to reveal the answer</summary>",
         "",
-        "  **Answer**: </br>",
+        "**Answer**: </br>",
+        "",
         "```IDL",
         "switch value of",
         "    0: begin",
@@ -464,7 +497,8 @@
         "endswitch",
         "```",
         "",
-        "</details>  "
+        "</details>",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -472,8 +506,10 @@
     {
       "type": "markdown",
       "content": [
-        "___",
-        "### Keep it up!"
+        "---",
+        "",
+        "### Keep it up!",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -481,7 +517,7 @@
     {
       "type": "code",
       "content": [
-        "cli_progress.update, 54, Text = \"conditional expressions are necessary for complicated programs. Next we will cover Loops.\""
+        "CLI_Progress.update, 54, text = 'conditional expressions are necessary for complicated programs. Next we will cover Loops.'"
       ],
       "metadata": {},
       "outputs": []
@@ -489,7 +525,8 @@
     {
       "type": "markdown",
       "content": [
-        "What if we want to do the same Expression repeatedly? [Loops](./07-Loops.idlnb)!"
+        "What if we want to do the same Expression repeatedly? [Loops](./07-Loops.idlnb)!",
+        ""
       ],
       "metadata": {},
       "outputs": []

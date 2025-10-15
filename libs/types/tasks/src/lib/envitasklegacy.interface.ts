@@ -11,40 +11,40 @@ export type ENVITaskLegacyVersion521 = '5.2.1';
  * Legacy ENVI Task versions
  */
 export type ENVITaskLegacyVersion =
-  | ENVITaskLegacyVersion532
-  | ENVITaskLegacyVersion531
+  | ENVITaskLegacyVersion521
   | ENVITaskLegacyVersion53
-  | ENVITaskLegacyVersion521;
+  | ENVITaskLegacyVersion531
+  | ENVITaskLegacyVersion532;
 
 /**
  * Data structure for task parameters for the 5.2.1 schema
  */
 export interface ENVITaskParameter521 {
-  /** Name of the parameter */
-  name: string;
-  /** Display name of the parameter showed in UI */
-  displayName: string;
-  /** Type of the parameter. For arrays, they end with "[*]"" or "[2]" for explicit dimensions */
-  dataType: string;
-  /** Direction (input or output) */
-  direction: string;
-  /** parameter description */
-  description: string;
-  /** If the parameter is required or not */
-  parameterType: 'required' | 'optional';
-
-  /** Name of the keyword that the ENVI Task gets mapped to */
-  keyword?: string;
   /** Available options */
   choiceList?: string[];
+  /** Type of the parameter. For arrays, they end with "[*]"" or "[2]" for explicit dimensions */
+  dataType: string;
   /** Default value for the task */
   defaultValue?: any;
-  /** Minimum value */
-  min?: any;
-  /** Minimum value */
-  max?: any;
+  /** parameter description */
+  description: string;
+  /** Direction (input or output) */
+  direction: string;
+  /** Display name of the parameter showed in UI */
+  displayName: string;
+
   /** If this task parameter is hidden or not */
   hidden?: boolean;
+  /** Name of the keyword that the ENVI Task gets mapped to */
+  keyword?: string;
+  /** Minimum value */
+  max?: any;
+  /** Minimum value */
+  min?: any;
+  /** Name of the parameter */
+  name: string;
+  /** If the parameter is required or not */
+  parameterType: 'optional' | 'required';
 }
 
 /**

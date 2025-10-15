@@ -61,10 +61,10 @@ function CamelCaseTransform(referenceText: string) {
  */
 export function TransformCase(referenceText: string, flag: FullCaseStyleFlags) {
   switch (flag) {
-    case STYLE_FLAG_LOOKUP.MATCH:
-      return referenceText;
     case STYLE_FLAG_LOOKUP.CAMEL:
       return CamelCaseTransform(referenceText);
+    case STYLE_FLAG_LOOKUP.MATCH:
+      return referenceText;
     case STYLE_FLAG_LOOKUP.PASCAL:
       return PascalCaseTransform(referenceText);
     default:

@@ -21,22 +21,22 @@ export const END_COMMENT_BLOCK_REGEX = /^;\s*-\s*$/i;
 /**
  * Type for header docs
  */
-export type HeaderDocsType = 'idldoc' | 'idldoc-legacy';
+export type HeaderDocsType = 'idldoc-legacy' | 'idldoc';
 
 /**
  * Data structure for header documentation
  */
 export interface IHeaderDocs {
-  /** Starting position */
-  pos: PositionArray;
-  /** Matches from our regex */
-  matches: string[];
-  /** End position */
-  end: PositionArray;
-  /** The docs for the section */
-  docs: string[];
   /** Original source comments so we can work magic to get back to source for feedback */
   comments: IBasicBranch<CommentToken>[];
+  /** The docs for the section */
+  docs: string[];
+  /** End position */
+  end: PositionArray;
+  /** Matches from our regex */
+  matches: string[];
+  /** Starting position */
+  pos: PositionArray;
   /** Type of docs block */
   type: HeaderDocsType;
 }

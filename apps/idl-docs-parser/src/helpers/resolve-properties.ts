@@ -1,4 +1,4 @@
-import { MatchGlobal } from '@idl/shared';
+import { MatchGlobal } from '@idl/shared/extension';
 
 import { IDL_DIR } from '../idl-dir.interface';
 import { IRoutineDocs } from '../main.interface';
@@ -24,7 +24,7 @@ export async function ResolveProperties(
   const strung = HTMLToMarkdown(methodHTML, dir);
 
   /** Current matches */
-  let match: RegExpExecArray | null = MatchGlobal(strung, LINK_REGEX, true);
+  let match: null | RegExpExecArray = MatchGlobal(strung, LINK_REGEX, true);
 
   // recursively process our strings
   while (match !== null) {

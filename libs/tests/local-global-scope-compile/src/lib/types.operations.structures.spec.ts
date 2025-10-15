@@ -222,6 +222,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'struct_checks',
         pos: [0, 4, 13],
+        range: { start: [0, 0, 4], end: [16, 0, 3] },
         meta: {
           source: 'user',
           args: {},

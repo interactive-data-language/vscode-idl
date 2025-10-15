@@ -139,6 +139,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
         type: 'f',
         name: 'myfunc',
         pos: [0, 9, 6],
+        range: { start: [0, 0, 9], end: [5, 0, 3] },
         meta: {
           source: 'user',
           args: {

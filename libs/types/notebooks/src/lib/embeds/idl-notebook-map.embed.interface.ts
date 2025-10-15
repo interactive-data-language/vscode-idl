@@ -10,14 +10,14 @@ import {
 export interface IDLNotebookMap_Extents {
   /** EPSG code  */
   epsg: number;
-  /** X min extent */
-  xmin: number;
-  /** Y min extent */
-  ymin: number;
   /** X max extent */
   xmax: number;
+  /** X min extent */
+  xmin: number;
   /** Y max extent */
   ymax: number;
+  /** Y min extent */
+  ymin: number;
 }
 
 /**

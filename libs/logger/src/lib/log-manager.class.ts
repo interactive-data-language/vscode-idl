@@ -27,31 +27,31 @@ import {
  * Manages log collections with the ability to do console and/or file logging.
  */
 export class LogManager implements ILogManagerOptions {
+  /** Callback when we have an error */
+  alert: LogAlertCallback;
+
   /** Are we debug mode or not? */
   debug = DEFAULT_IDL_EXTENSION_CONFIG.debugMode;
-
-  /** Track errors and warnings */
-  tracker = copy(DEFAULT_TRACKER);
-
-  /** How do we handle existing logs? */
-  mode: FileLogMode = LOGGING_CONFIG.FILE_LOG_MODE;
 
   /**
    * Log level that we filter/exclude from the console and files
    */
   logLevel: LogLevel = LOGGING_CONFIG.LOG_LEVEL;
 
-  /** If we should ignore all logs */
-  quiet = false;
-
   /** All of the different logs that we manage */
   logs: { [key: string]: Logger } = {};
 
+  /** How do we handle existing logs? */
+  mode: FileLogMode = LOGGING_CONFIG.FILE_LOG_MODE;
+
+  /** If we should ignore all logs */
+  quiet = false;
+
+  /** Track errors and warnings */
+  tracker = copy(DEFAULT_TRACKER);
+
   /** optionally set a log interceptor to interrupt any logging messages */
   private interceptor?: LogInterceptor;
-
-  /** Callback when we have an error */
-  alert: LogAlertCallback;
 
   constructor(options: ILogManagerOptions, addLogs: string[] = ALL_IDL_LOGS) {
     Object.assign(this, options);
@@ -59,55 +59,6 @@ export class LogManager implements ILogManagerOptions {
     // add all logs
     for (let i = 0; i < addLogs.length; i++) {
       this.addLog(addLogs[i]);
-    }
-  }
-
-  /**
-   * Sets quiet flag for all of our logs and enables or disables
-   * console printing
-   */
-  setQuiet(flag: boolean) {
-    const logs = Object.values(this.logs);
-    for (let i = 0; i < logs.length; i++) {
-      logs[i].quiet = flag;
-    }
-  }
-
-  /**
-   * Updates internal preferences based on our configuration.
-   *
-   * Called when our configuration changes.
-   */
-  setDebug(flag: boolean) {
-    this.debug = flag;
-
-    // update all of our logs
-    const logs = Object.values(this.logs);
-    for (let i = 0; i < logs.length; i++) {
-      logs[i].enableDebugLogs = this.debug;
-    }
-  }
-
-  /**
-   * Set log interceptor for everyone
-   */
-  setInterceptor(interceptor?: LogInterceptor) {
-    this.interceptor = interceptor;
-
-    // update all of our logs
-    const logs = Object.values(this.logs);
-    for (let i = 0; i < logs.length; i++) {
-      logs[i].interceptor = interceptor;
-    }
-  }
-
-  /**
-   * Updates all logs to do fancy or basic logging
-   */
-  setUgly(flag: boolean) {
-    const logs = Object.values(this.logs);
-    for (let i = 0; i < logs.length; i++) {
-      logs[i].logUgly = flag;
     }
   }
 
@@ -224,5 +175,67 @@ export class LogManager implements ILogManagerOptions {
    */
   resetTracker() {
     this.tracker = copy(DEFAULT_TRACKER);
+  }
+
+  /**
+   * Set log alert for everyone
+   */
+  setAlert(alert: LogAlertCallback) {
+    this.alert = alert;
+
+    // update all of our logs
+    const logs = Object.values(this.logs);
+    for (let i = 0; i < logs.length; i++) {
+      logs[i].alertCb = alert;
+    }
+  }
+
+  /**
+   * Updates internal preferences based on our configuration.
+   *
+   * Called when our configuration changes.
+   */
+  setDebug(flag: boolean) {
+    this.debug = flag;
+
+    // update all of our logs
+    const logs = Object.values(this.logs);
+    for (let i = 0; i < logs.length; i++) {
+      logs[i].enableDebugLogs = this.debug;
+    }
+  }
+
+  /**
+   * Set log interceptor for everyone
+   */
+  setInterceptor(interceptor?: LogInterceptor) {
+    this.interceptor = interceptor;
+
+    // update all of our logs
+    const logs = Object.values(this.logs);
+    for (let i = 0; i < logs.length; i++) {
+      logs[i].interceptor = interceptor;
+    }
+  }
+
+  /**
+   * Sets quiet flag for all of our logs and enables or disables
+   * console printing
+   */
+  setQuiet(flag: boolean) {
+    const logs = Object.values(this.logs);
+    for (let i = 0; i < logs.length; i++) {
+      logs[i].quiet = flag;
+    }
+  }
+
+  /**
+   * Updates all logs to do fancy or basic logging
+   */
+  setUgly(flag: boolean) {
+    const logs = Object.values(this.logs);
+    for (let i = 0; i < logs.length; i++) {
+      logs[i].logUgly = flag;
+    }
   }
 }

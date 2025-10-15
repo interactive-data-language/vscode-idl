@@ -79,6 +79,7 @@ describe(`[auto generated] Find them in`, () => {
         type: 'p',
         name: 'define_these_structures',
         pos: [0, 4, 23],
+        range: { start: [0, 0, 4], end: [8, 0, 3] },
         meta: {
           source: 'user',
           args: {},

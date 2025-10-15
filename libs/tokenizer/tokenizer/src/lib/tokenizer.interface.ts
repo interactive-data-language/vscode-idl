@@ -19,16 +19,6 @@ import { SUB_DEFS_FAST } from './tokens/sub-defs-fast.interface';
  * Options to customize how we find tokens
  */
 export interface IFindTokensOptions {
-  /** The expressions that we are matching */
-  defs: ITokenDef<TokenName>[];
-  /** Sub definitions that we can find */
-  subDefs: ISubTokenDefs;
-  /** Default tokens to search for */
-  default: ITokenDef<TokenName>[];
-  /** Are we doing a full parse or not */
-  full: boolean;
-  /** What feature are we trying to close */
-  closer?: ITokenDef<TokenName>;
   /** ID of the closer */
   _closerId?: string;
   /**
@@ -36,6 +26,16 @@ export interface IFindTokensOptions {
    * support dynamic token types.
    */
   _closerTokenName?: TokenName;
+  /** What feature are we trying to close */
+  closer?: ITokenDef<TokenName>;
+  /** Default tokens to search for */
+  default: ITokenDef<TokenName>[];
+  /** The expressions that we are matching */
+  defs: ITokenDef<TokenName>[];
+  /** Are we doing a full parse or not */
+  full: boolean;
+  /** Sub definitions that we can find */
+  subDefs: ISubTokenDefs;
 }
 
 /**
@@ -76,12 +76,12 @@ export const DEF_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
  * Primarily used for tests
  */
 export interface IBaseTokenWithoutMatches<T extends TokenName> {
-  /** Category of token we are checking */
-  type: FoundTokenType;
   /** Type of the token we are starting */
   name: T;
   /** The position of our token */
   pos: PositionArray;
+  /** Category of token we are checking */
+  type: FoundTokenType;
 }
 
 /** Base data structure for tokens */
@@ -127,15 +127,13 @@ export interface IEndToken<T extends TokenName> extends IPairedToken<T> {
  */
 export type TokenizerToken<T extends TokenName> =
   | IBasicToken<T>
-  | IStartToken<T>
-  | IEndToken<T>;
+  | IEndToken<T>
+  | IStartToken<T>;
 
 /**
  * Data structure for tokens that we find
  */
 export interface IFoundTokens {
-  /** Flat array of tokens */
-  tokens: TokenizerToken<TokenName>[];
   /** Number of lines of code */
   lines: number;
   /**
@@ -143,6 +141,8 @@ export interface IFoundTokens {
    * text MAY NOT EXIST and gets cleared to reduce memory usage.
    */
   text: string[];
+  /** Flat array of tokens */
+  tokens: TokenizerToken<TokenName>[];
 }
 
 /**

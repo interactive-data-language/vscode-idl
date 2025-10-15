@@ -4,7 +4,7 @@ import {
   IDL_NOTEBOOK_EXTENSION,
   IDL_NOTEBOOK_LANGUAGE_NAME,
   IDL_NOTEBOOK_RENDERER_NAME,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/types/notebooks';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';

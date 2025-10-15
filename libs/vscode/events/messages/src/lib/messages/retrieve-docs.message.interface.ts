@@ -10,13 +10,13 @@ export type RetrieveDocsMessage = 'retrieve-docs';
  */
 export interface IRetrieveDocsPayload {
   /**
-   * type of token
-   */
-  type: GlobalTokenType;
-  /**
    * Name of token
    */
   name: string;
+  /**
+   * type of token
+   */
+  type: GlobalTokenType;
 }
 
 /**

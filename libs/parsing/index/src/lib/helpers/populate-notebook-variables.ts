@@ -86,7 +86,7 @@ export function PopulateNotebookVariables(
         const otherVarName = otherVars[j];
 
         /**
-         * Inherit variable that we detect
+         * Inherit variable that we detect being used in our cell
          */
         if (otherVarName in ourMain) {
           /**
@@ -124,6 +124,16 @@ export function PopulateNotebookVariables(
               ourMain[otherVarName].meta.canReset = false;
             }
           }
+          /**
+           * Inherit variable in our cell, but it is not immediately detected
+           *
+           * It may still be used with our implied notebook print, however
+           *
+           * Example:
+           *
+           * Cell 1: "arr = [1,2,3]""
+           * Cell 2: "arr" <- implied print as variable arr
+           */
         } else {
           // copy
           ourMain[otherVarName] = copy(otherMain[otherVarName]);
@@ -137,6 +147,9 @@ export function PopulateNotebookVariables(
           // update location
           ourMain[otherVarName].file = files[i];
           ourMain[otherVarName].filePos = otherMain[otherVarName].pos;
+
+          // dont allow resetting the variable because it is not defined in our cell
+          ourMain[otherVarName].meta.canReset = false;
         }
       }
     }

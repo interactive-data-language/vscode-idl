@@ -124,6 +124,26 @@ function SpecialOperatorsRecursor(tree: SyntaxTree, recurse: IPointerRecurse) {
         let update = false;
         switch (match) {
           /**
+           * Check if we have negative vs subtraction
+           */
+          case '-':
+            switch (true) {
+              // first after bracket, filter before if sub-bracket that is closed
+              case recurse.before === TOKEN_NAMES.BRACKET:
+                update = true;
+                break;
+              case recurse.before in OK_BEFORE:
+                update = true;
+                break;
+              default:
+                break;
+            }
+
+            if (update) {
+              tree[i].name = TOKEN_NAMES.OPERATOR_NEGATIVE;
+            }
+            break;
+          /**
            * Check if we need to see what our asterisk means
            */
           case '*':
@@ -145,26 +165,6 @@ function SpecialOperatorsRecursor(tree: SyntaxTree, recurse: IPointerRecurse) {
                   tree[i].name = TOKEN_NAMES.OPERATOR_POINTER;
                   break;
               }
-            }
-            break;
-          /**
-           * Check if we have negative vs subtraction
-           */
-          case '-':
-            switch (true) {
-              // first after bracket, filter before if sub-bracket that is closed
-              case recurse.before === TOKEN_NAMES.BRACKET:
-                update = true;
-                break;
-              case recurse.before in OK_BEFORE:
-                update = true;
-                break;
-              default:
-                break;
-            }
-
-            if (update) {
-              tree[i].name = TOKEN_NAMES.OPERATOR_NEGATIVE;
             }
             break;
           default:

@@ -16,13 +16,18 @@ import {
  */
 interface IHardwareInfo extends IGA4EventParameters {
   /**
-   * What OS are we using for how important cross platform support is
-   */
-  app_platform: string;
-  /**
    * The architecture (arm, x86, atc)
    */
   app_arch: string;
+  /**
+   * Number of CPUs - captured for performance information about how many worker
+   * threads we should be using
+   */
+  app_cpus: number;
+  /**
+   * What OS are we using for how important cross platform support is
+   */
+  app_platform: string;
   /**
    * Total available CPU RAM
    */
@@ -31,41 +36,36 @@ interface IHardwareInfo extends IGA4EventParameters {
    * Amount of RAM the language server is using (includes everything)
    */
   app_ram_used: number;
-  /**
-   * Number of CPUs - captured for performance information about how many worker
-   * threads we should be using
-   */
-  app_cpus: number;
 }
 
 /**
  * For code formatting, the custom properties that we report
  */
 interface ICodeFormattingPayload extends IGA4EventParameters {
-  /** Quote formatting */
-  pref_quotes: string;
-  /** Method formatting */
-  pref_methods: string;
-  /** Keyword formatting */
-  pref_keywords: string;
-  /** Property formatting */
-  pref_properties: string;
-  /** Control formatting */
-  pref_control: string;
-  /** Number formatting */
-  pref_numbers: string;
-  /** Hex formatting */
-  pref_hex: string;
-  /** Octal formatting */
-  pref_octal: string;
   /** Binary formatting */
   pref_binary: string;
+  /** Control formatting */
+  pref_control: string;
+  /** Hex formatting */
+  pref_hex: string;
+  /** Keyword formatting */
+  pref_keywords: string;
+  /** Local var formatting */
+  pref_local_var: string;
+  /** Method formatting */
+  pref_methods: string;
+  /** Number formatting */
+  pref_numbers: string;
+  /** Octal formatting */
+  pref_octal: string;
+  /** Property formatting */
+  pref_properties: string;
+  /** Quote formatting */
+  pref_quotes: string;
   /** Routine formatting */
   pref_routines: string;
   /** Sys var formatting */
   pref_sys_var: string;
-  /** Local var formatting */
-  pref_local_var: string;
 }
 
 /**
@@ -83,13 +83,13 @@ interface IDisabledProblemCodePayload extends IGA4EventParameters {
  */
 interface IIDLStartupPayload extends IGA4EventParameters {
   /**
+   * Whether we have IDL or ENVI and IDL
+   */
+  idl_type: 'idl-envi' | 'idl';
+  /**
    * Version of IDL (re-used from custom metric below)
    */
   idl_version: string;
-  /**
-   * Whether we have IDL or ENVI and IDL
-   */
-  idl_type: 'idl' | 'idl-envi';
 }
 
 /**
@@ -97,17 +97,21 @@ interface IIDLStartupPayload extends IGA4EventParameters {
  */
 export interface ILanguageServerStartupPayload extends IHardwareInfo {
   /**
-   * Number of worker threads being used
+   * Number of ENVI Task files
    */
-  num_workers: number;
+  num_envi_task: number;
   /**
-   * How long it takes the language server to start
+   * Number of idl.json config files
    */
-  parse_time: number;
+  num_idl_json: number;
   /**
-   * The rate at which we parse code
+   * Number of IDL Task files
    */
-  parse_rate: number;
+  num_idl_task: number;
+  /**
+   * Number of IDL notebook files
+   */
+  num_notebook: number;
   /**
    * Number of PRO files
    */
@@ -121,39 +125,35 @@ export interface ILanguageServerStartupPayload extends IHardwareInfo {
    */
   num_save: number;
   /**
-   * Number of IDL Task files
+   * Number of worker threads being used
    */
-  num_idl_task: number;
+  num_workers: number;
   /**
-   * Number of ENVI Task files
+   * The rate at which we parse code
    */
-  num_envi_task: number;
+  parse_rate: number;
   /**
-   * Number of idl.json config files
+   * How long it takes the language server to start
    */
-  num_idl_json: number;
-  /**
-   * Number of IDL notebook files
-   */
-  num_notebook: number;
+  parse_time: number;
 }
 
 /**
  * Information about preferences
  */
 interface IPreferencePayload extends IGA4EventParameters {
-  /** Are we using our icon theme */
-  pref_icon_theme: string;
-  /** If our formatter is the default for IDL */
-  pref_default_formatter: string;
-  /** If we are using a theme provided by IDL */
-  pref_idl_theme: string;
   /** Is it enabled */
   pref_auto_doc: string;
   /** Do we auto fix problems */
   pref_auto_fix: string;
+  /** If our formatter is the default for IDL */
+  pref_default_formatter: string;
   /** End of line character */
   pref_end_of_line: string;
+  /** Are we using our icon theme */
+  pref_icon_theme: string;
+  /** If we are using a theme provided by IDL */
+  pref_idl_theme: string;
   /** Dont style or format */
   pref_style_and_format: string;
   /** Indent size */
@@ -173,13 +173,13 @@ interface IRunCommandPayload extends IGA4EventParameters {
  */
 interface ISelectContentUsageMetricPayload extends IGA4EventParameters {
   /**
-   * The type of content that was selected
-   */
-  content_type: string;
-  /**
    * The ID of the content that was selected
    */
   content_id: string;
+  /**
+   * The type of content that was selected
+   */
+  content_type: string;
 }
 
 /**

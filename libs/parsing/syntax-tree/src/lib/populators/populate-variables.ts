@@ -38,7 +38,7 @@ import { ReplaceFunctionsAsVariables } from './replace-functions-as-variables';
  */
 export function PopulateVariables(
   branch: IBranch<
-    RoutineProcedureToken | RoutineFunctionToken | MainLevelToken
+    MainLevelToken | RoutineFunctionToken | RoutineProcedureToken
   >,
   parsed: IParsed,
   compileOpts: string[], // lower case compile options
@@ -65,7 +65,7 @@ export function PopulateVariables(
     // get the routine name - safe assumption because we cant have a global
     // token without a routine name first
     const first = branch.kids[0] as TreeToken<
-      RoutineNameToken | RoutineMethodNameToken
+      RoutineMethodNameToken | RoutineNameToken
     >;
 
     // get actual keywords

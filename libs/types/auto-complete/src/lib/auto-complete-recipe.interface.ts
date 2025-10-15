@@ -1,4 +1,8 @@
 import {
+  BlockCompletion,
+  IBlockCompletionOptions,
+} from './completion-for/completion-blocks.interface';
+import {
   CompileOptCompletion,
   ICompileOptCompletionOptions,
 } from './completion-for/completion-compile-opts.interface';
@@ -63,6 +67,7 @@ import {
  * Types of auto-complete
  */
 export type AutoCompleteType =
+  | BlockCompletion
   | CompileOptCompletion
   | ExecutiveCommandCompletion
   | FunctionCompletion
@@ -83,7 +88,9 @@ export type AutoCompleteType =
  * Options passed to auto-complete
  */
 export type AutoCompleteRecipeOptions<T extends AutoCompleteType> =
-  T extends CompileOptCompletion
+  T extends BlockCompletion
+    ? IBlockCompletionOptions
+    : T extends CompileOptCompletion
     ? ICompileOptCompletionOptions
     : T extends ExecutiveCommandCompletion
     ? IExecutiveCommandCompletionOptions
@@ -129,6 +136,7 @@ export type AutoCompleteRecipe<T extends AutoCompleteType> = {
  * Strictly typed lookup for completion types
  */
 interface IAutoCompleteTypeLookup {
+  BLOCK: BlockCompletion;
   COMPILE_OPT: CompileOptCompletion;
   EXECUTIVE_COMMAND: ExecutiveCommandCompletion;
   FUNCTION: FunctionCompletion;
@@ -150,6 +158,7 @@ interface IAutoCompleteTypeLookup {
  * Lookup of all types of auto-complete
  */
 export const AUTO_COMPLETE_TYPE_LOOKUP: IAutoCompleteTypeLookup = {
+  BLOCK: 'blocks',
   COMPILE_OPT: 'compile-opt',
   EXECUTIVE_COMMAND: 'executive-command',
   FUNCTION: 'function',

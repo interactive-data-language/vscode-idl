@@ -1,3 +1,3 @@
-import { InitializeServer } from '@idl/vscode/server';
+import { InitializeLanguageServer } from '@idl/vscode/server';
 
-InitializeServer();
+InitializeLanguageServer();

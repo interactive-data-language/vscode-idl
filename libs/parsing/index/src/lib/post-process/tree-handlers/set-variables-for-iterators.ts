@@ -17,9 +17,9 @@ import { GetVariables } from '../../helpers/get-variables';
  * Union type of call routine tokens
  */
 export type CallRoutineToken =
+  | MainLevelToken
   | RoutineFunctionToken
-  | RoutineProcedureToken
-  | MainLevelToken;
+  | RoutineProcedureToken;
 
 /**
  * Tokens that we are validating

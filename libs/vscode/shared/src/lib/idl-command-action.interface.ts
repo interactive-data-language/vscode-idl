@@ -1,21 +1,21 @@
 export type IDLActionType =
   | 'Commands'
-  | 'Open'
   | 'Compile'
-  | 'Run'
-  | 'Stop'
   | 'Continue'
-  | 'Step In'
-  | 'Step Over'
-  | 'Step Out'
-  | 'Reset'
   | 'Execute'
+  | 'File'
+  | 'Open'
   | 'Open Webview'
+  | 'Reset'
+  | 'Run'
   | 'Start Profiling'
-  | 'Stop Profiling'
-  | 'File';
+  | 'Step In'
+  | 'Step Out'
+  | 'Step Over'
+  | 'Stop'
+  | 'Stop Profiling';
 
 export interface IDLCommandAction {
-  label: IDLActionType;
   execute?: string;
+  label: IDLActionType;
 }

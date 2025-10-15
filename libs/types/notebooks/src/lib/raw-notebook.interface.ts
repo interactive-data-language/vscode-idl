@@ -67,13 +67,13 @@ export type IDLRawNotebookCellType = 'code' | 'markdown';
  */
 export interface IDLRawNotebookCellBase {
   /**
-   * The type of cell
-   */
-  type: IDLRawNotebookCellType;
-  /**
    * Notebook cell metadata
    */
   metadata?: { [key: string]: any };
+  /**
+   * The type of cell
+   */
+  type: IDLRawNotebookCellType;
 }
 
 /**
@@ -124,11 +124,6 @@ export type IDLRawNotebookCellOutput<T extends IDLRawNotebookVersion> =
  */
 export interface IDLRawNotebook<T extends IDLRawNotebookVersion> {
   /**
-   * Version of the notebook so that, if we change the data structure, we have a
-   * property to key off of for migration
-   */
-  version: T;
-  /**
    * The cells within the notebook
    */
   cells: IDLRawNotebookCell<T>[];
@@ -136,6 +131,11 @@ export interface IDLRawNotebook<T extends IDLRawNotebookVersion> {
    * Notebook metadata
    */
   metadata?: { [key: string]: any };
+  /**
+   * Version of the notebook so that, if we change the data structure, we have a
+   * property to key off of for migration
+   */
+  version: T;
 }
 
 /**

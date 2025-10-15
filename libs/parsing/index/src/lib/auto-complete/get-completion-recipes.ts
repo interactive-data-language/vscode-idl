@@ -36,6 +36,7 @@ import { Position } from 'vscode-languageserver/node';
 import { GetParsedPROCode } from '../get-parsed/get-parsed-pro-code';
 import { GetTypeBefore } from '../helpers/get-type-before';
 import { IDLIndex } from '../idl-index.class';
+import { GetBlockCompletionOptions } from './completion-for/completion-blocks';
 import { GetCompileOptCompletionOptions } from './completion-for/completion-compile-opts';
 import { GetExecutiveCommandCompletionOptions } from './completion-for/completion-executive-commands';
 import { GetFunctionMethodCompletionOptions } from './completion-for/completion-function-methods';
@@ -143,6 +144,11 @@ export async function GetCompletionRecipes(
     }
 
     /**
+     * Add block completions
+     */
+    GetBlockCompletionOptions(token || local, position, recipes);
+
+    /**
      * Handle special cases for auto-complete
      */
     switch (true) {
@@ -160,6 +166,7 @@ export async function GetCompletionRecipes(
         recipes.push(typed);
         return recipes;
       }
+
       /**
        * Custom auto-complete procedures where we have literal values
        */
@@ -175,9 +182,17 @@ export async function GetCompletionRecipes(
         recipes.push(typed);
         return recipes;
       }
+
+      /**
+       * Tokens or parents that we skip
+       */
       case token?.name in SKIP_THESE_TOKENS ||
         local?.name in SKIP_THESE_PARENTS:
         return [];
+
+      /**
+       * Include statements
+       */
       case token?.name === TOKEN_NAMES.INCLUDE: {
         const typed: AutoCompleteRecipe<IncludeCompletion> = {
           type: AUTO_COMPLETE_TYPE_LOOKUP.INCLUDE,
@@ -186,6 +201,10 @@ export async function GetCompletionRecipes(
         recipes.push(typed);
         return recipes;
       }
+
+      /**
+       * Compile options
+       */
       case local?.name === TOKEN_NAMES.CONTROL_COMPILE_OPT: {
         const typed: AutoCompleteRecipe<CompileOptCompletion> = {
           type: AUTO_COMPLETE_TYPE_LOOKUP.COMPILE_OPT,
@@ -206,6 +225,10 @@ export async function GetCompletionRecipes(
         recipes.push(typed);
         return recipes;
       }
+
+      /**
+       * System variables
+       */
       case token?.name === TOKEN_NAMES.SYSTEM_VARIABLE: {
         const typed: AutoCompleteRecipe<SystemVariableCompletion> = {
           type: AUTO_COMPLETE_TYPE_LOOKUP.SYSTEM_VARIABLE,
@@ -214,6 +237,10 @@ export async function GetCompletionRecipes(
         recipes.push(typed);
         return recipes;
       }
+
+      /**
+       * Executive commands
+       */
       case token?.name === TOKEN_NAMES.EXECUTIVE_COMMAND ||
         (token?.name === TOKEN_NAMES.DOT && token.pos[1] === 0): {
         const typed: AutoCompleteRecipe<ExecutiveCommandCompletion> = {
@@ -223,6 +250,10 @@ export async function GetCompletionRecipes(
         recipes.push(typed);
         return recipes;
       }
+
+      /**
+       * Structures
+       */
       case token?.name === TOKEN_NAMES.STRUCTURE && token?.kids?.length === 0: {
         const typed: AutoCompleteRecipe<StructureNameCompletion> = {
           type: AUTO_COMPLETE_TYPE_LOOKUP.STRUCTURE_NAME,

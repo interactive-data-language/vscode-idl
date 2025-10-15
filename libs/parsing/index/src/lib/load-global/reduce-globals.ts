@@ -28,10 +28,10 @@ export function ReduceGlobals(globals: GlobalTokens) {
 
     // check what else we need to clear
     switch (globals[i].type) {
-      case GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD:
-      case GLOBAL_TOKEN_TYPES.PROCEDURE:
+      case GLOBAL_TOKEN_TYPES.FUNCTION:
       case GLOBAL_TOKEN_TYPES.FUNCTION_METHOD:
-      case GLOBAL_TOKEN_TYPES.FUNCTION: {
+      case GLOBAL_TOKEN_TYPES.PROCEDURE:
+      case GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD: {
         const g = globals[i] as GlobalRoutineToken;
         g.meta.docsLookup = {};
         g.meta.struct = [];

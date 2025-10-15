@@ -53,6 +53,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
         type: 'p',
         name: 'mystruct__define',
         pos: [0, 4, 16],
+        range: { start: [0, 0, 4], end: [6, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -254,6 +255,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
         type: 'p',
         name: 'mystruct__define',
         pos: [0, 4, 16],
+        range: { start: [0, 0, 4], end: [4, 0, 3] },
         meta: {
           source: 'user',
           args: {},

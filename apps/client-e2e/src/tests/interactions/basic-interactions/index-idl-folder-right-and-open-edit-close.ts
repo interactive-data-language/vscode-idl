@@ -1,9 +1,7 @@
-import { GetExtensionPath, Sleep } from '@idl/shared';
-import {
-  OpenFileInVSCode,
-  ReplaceDocumentContent,
-  VSCODE_COMMANDS,
-} from '@idl/vscode/shared';
+import { GetExtensionPath } from '@idl/idl/files';
+import { Sleep } from '@idl/shared/extension';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
+import { OpenFileInVSCode, ReplaceDocumentContent } from '@idl/vscode/shared';
 import expect from 'expect';
 import { readFileSync } from 'fs';
 import * as vscode from 'vscode';

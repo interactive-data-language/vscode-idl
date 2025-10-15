@@ -1,4 +1,4 @@
-import { IDL_COMMANDS } from '@idl/shared';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 
 import { IChild } from '../idl-tree-view.interface';
@@ -12,6 +12,13 @@ export const DEBUGGING_BUTTONS: IChild[] = [
     description: IDL_TRANSLATION.idl.tree.children.debugging.start.description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.DEBUG.START,
+  },
+  {
+    name: IDL_TRANSLATION.idl.tree.children.debugging.startENVI.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.debugging.startENVI.description,
+    icon: 'enviicon.svg',
+    commandName: IDL_COMMANDS.DEBUG.START_ENVI,
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.debugging.compile.name,

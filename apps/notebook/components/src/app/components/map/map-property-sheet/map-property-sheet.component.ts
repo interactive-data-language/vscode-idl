@@ -22,17 +22,18 @@ export const IDL_NB_MAP_PROPERTY_SHEET_SELECTOR = 'idl-nb-map-property-sheet';
       }
     `,
   ],
+  standalone: false,
 })
 export class MapPropertySheetComponent implements OnInit {
-  /**
-   * Columns we display in the table
-   */
-  displayedColumns: string[] = ['name', 'value'];
-
   /**
    * Data that we display
    */
   dataSource: { name: string; value: any }[] = [];
+
+  /**
+   * Columns we display in the table
+   */
+  displayedColumns: string[] = ['name', 'value'];
 
   /**
    * Properties (as string) that we need to render

@@ -31,7 +31,7 @@ export function GetMethodForType<
 >(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<CallProcedureMethodToken | CallFunctionMethodToken>,
+  token: TreeToken<CallFunctionMethodToken | CallProcedureMethodToken>,
   useCache: boolean,
   type: IDLDataTypeBase<IDLTypes>
 ): IGlobalIndexedToken<T>[] {
@@ -99,7 +99,7 @@ export function GetMethod<
 >(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<CallProcedureMethodToken | CallFunctionMethodToken>,
+  token: TreeToken<CallFunctionMethodToken | CallProcedureMethodToken>,
   useCache = true,
   type?: IDLDataType
 ): IGlobalIndexedToken<T>[] {

@@ -1,7 +1,7 @@
 import { IInitializeClientResult } from '@idl/vscode/client';
 import { IInitializeDebuggerResult } from '@idl/vscode/debug';
 import { IDLDecorationsManager } from '@idl/vscode/decorations';
-import { IInitializeNotebooks } from '@idl/vscode/notebooks';
+import { IInitializeNotebooks } from '@idl/vscode/notebooks/client';
 import { IDLWebView } from '@idl/vscode/webview';
 
 /**

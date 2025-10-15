@@ -13,14 +13,6 @@ import { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.inter
  */
 export interface IWorkerIOClient<_Message extends string> {
   /**
-   * Subscribe to messages from our parent thread
-   */
-  on<T extends _Message>(
-    message: T,
-    promiseGenerator: (arg: any, cancel: CancellationToken) => Promise<any>
-  ): void;
-
-  /**
    * Emit an error to our parent if we encounter a problem
    */
   error(
@@ -31,12 +23,10 @@ export interface IWorkerIOClient<_Message extends string> {
   ): void;
 
   /**
-   * Send message to parent process
+   * Listen for messages from our parent thread. If you don't call this, then
+   * nothing will happen!
    */
-  postMessage<T extends _Message>(
-    type: T,
-    payload: PayloadFromWorkerBaseMessage<T>
-  );
+  listen(): void;
 
   /**
    * Log something to our parent thread
@@ -44,8 +34,18 @@ export interface IWorkerIOClient<_Message extends string> {
   log(log: any): void;
 
   /**
-   * Listen for messages from our parent thread. If you don't call this, then
-   * nothing will happen!
+   * Subscribe to messages from our parent thread
    */
-  listen(): void;
+  on<T extends _Message>(
+    message: T,
+    promiseGenerator: (arg: any, cancel: CancellationToken) => Promise<any>
+  ): void;
+
+  /**
+   * Send message to parent process
+   */
+  postMessage<T extends _Message>(
+    type: T,
+    payload: PayloadFromWorkerBaseMessage<T>
+  );
 }

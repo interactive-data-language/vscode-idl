@@ -1,8 +1,12 @@
 import {
   CleanIDLOutput,
-  IDL_EVENT_LOOKUP,
-  IDLCallStackItem,
   IDLInteractionManager,
+} from '@idl/idl/idl-interaction-manager';
+import { IDL_DEBUG_ADAPTER_LOG, IDL_DEBUG_LOG } from '@idl/logger';
+import { Sleep } from '@idl/shared/extension';
+import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  IDL_EVENT_LOOKUP,
   REGEX_COMPILE_COMMAND,
   REGEX_COMPILE_EDIT_COMMAND,
   REGEX_COMPILED_MAIN,
@@ -11,17 +15,16 @@ import {
   REGEX_IDL_LINE_CONTINUATION,
   REGEX_IDL_RESTART,
   REGEX_IDL_RETALL,
-  StopReason,
-} from '@idl/idl';
-import { IDL_DEBUG_ADAPTER_LOG, IDL_DEBUG_LOG } from '@idl/logger';
-import { Sleep } from '@idl/shared';
-import { IDL_TRANSLATION } from '@idl/translation';
+} from '@idl/types/idl/idl-process';
+import { LINE_SEPARATOR } from '@idl/types/tokenizer';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
-import { IDL_LOGGER, VSCODE_PRO_DIR } from '@idl/vscode/client';
+import { VSCODE_PRO_DIR } from '@idl/vscode/client';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
-import { VSCODE_COMMANDS, VSCodeTelemetryLogger } from '@idl/vscode/shared';
+import { RegisterIDLMachineRequestHandlers } from '@idl/vscode/idl-machine';
+import { IDL_LOGGER } from '@idl/vscode/logger';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import {
-  ContinuedEvent,
   InitializedEvent,
   Logger,
   logger,
@@ -30,7 +33,6 @@ import {
   Scope,
   Source,
   StackFrame,
-  StoppedEvent,
   TerminatedEvent,
   Thread,
 } from '@vscode/debugadapter';
@@ -46,12 +48,16 @@ import { LogOutput } from './helpers/log-output';
 import { LogSessionStart } from './helpers/log-session-start';
 import { LogSessionStop } from './helpers/log-session-stop';
 import { MapVariables } from './helpers/map-variables';
+import { RegisterDebugAdapterCLIProgressHandler } from './helpers/register-debug-adapter-cli-progress-handler';
 import { IDLBreakpointManager } from './idl-breakpoint-manager.class';
 import {
+  ADAPTER_METHOD_LOG_LEVEL,
+  ADAPTER_STOP_DELAY,
   DEFAULT_EVALUATE_OPTIONS,
   IDebugEvaluateOptions,
   IDLDebugConfiguration,
 } from './idl-debug-adapter.interface';
+import { IDLDebugAdapterEventHelper } from './idl-debug-adapter-event-helper.class';
 import { IDL_STATUS_BAR } from './initialize-debugger';
 
 /**
@@ -63,32 +69,16 @@ import { IDL_STATUS_BAR } from './initialize-debugger';
  */
 export class IDLDebugAdapter extends LoggingDebugSession {
   // we don't support multiple threads, so we can use a hardcoded ID for the default thread
-  private static readonly THREAD_ID = 1;
-
-  /** Are we listening to events from IDL or not? */
-  listening = false;
-
-  /** track the last requested scope */
-  lastFrameId = 0;
-
-  /** Last arguments for launching a session */
-  lastLaunchArgs?: IDLDebugConfiguration;
-
-  /** IDL interaction manager to communicate with the IDL process */
-  _runtime: IDLInteractionManager;
+  static readonly THREAD_ID = 1;
 
   /** Breakpoint manager */
   _breakpoints: IDLBreakpointManager;
 
-  /** Event to fire when our configuration has been completed, from VSCode example */
-  private readonly _configurationDone = new Subject();
+  /** Helper class to track/manage some complex event logic */
+  _eventHelper: IDLDebugAdapterEventHelper;
 
-  /**
-   * Current location we are stopped at, only set/updated when we stop
-   *
-   * Exposed as a helper for testing to make sure we are in the right place
-   */
-  stopped?: { reason: StopReason; stack: IDLCallStackItem };
+  /** IDL interaction manager to communicate with the IDL process */
+  _runtime: IDLInteractionManager;
 
   /**
    * Promise that resolves when IDL has started, used as blocker
@@ -96,15 +86,27 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    */
   _startup: Promise<void>;
 
-  /**
-   * Callback to resolve our startup promise
-   */
-  private _startupResolver: () => void;
+  /** track the last requested scope */
+  lastFrameId = 0;
+
+  /** Last arguments for launching a session */
+  lastLaunchArgs?: IDLDebugConfiguration;
+
+  /** Are we listening to events from IDL or not? */
+  listening = false;
+
+  /** Event to fire when our configuration has been completed, from VSCode example */
+  private readonly _configurationDone = new Subject();
 
   /**
    * Callback to reject our startup promise
    */
   private _startupRejector: () => void;
+
+  /**
+   * Callback to resolve our startup promise
+   */
+  private _startupResolver: () => void;
 
   constructor() {
     super('idl-debug.txt');
@@ -116,10 +118,14 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // init promise for startup and resolver callback
     this._setStartupPromise();
 
+    // create event helper
+    this._eventHelper = new IDLDebugAdapterEventHelper(this);
+
     // create our runtime session - does not immediately start IDL
     this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_LOG),
-      VSCODE_PRO_DIR
+      VSCODE_PRO_DIR,
+      `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`
     );
 
     // create breakpoint manager
@@ -130,176 +136,17 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   }
 
   /**
-   * Once IDL has started, we listen to events
+   * Wraps "protected" method of similar name
    */
-  listenToEvents() {
-    // return if we are already listening to things
-    if (this.listening) {
-      return;
-    }
-
-    // list for failures to start
-    this._runtime.on(IDL_EVENT_LOOKUP.FAILED_START, () => {
-      this._IDLCrashed('failed-start');
-      LogSessionStop('failed-start');
-    });
-
-    // listen for events when we continue processing
-    this._runtime.on(IDL_EVENT_LOOKUP.CONTINUE, () => {
-      this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
-    });
-
-    // listen for stops
-    this._runtime.on(IDL_EVENT_LOOKUP.STOP, async (reason, stack) => {
-      IDL_LOGGER.log({
-        type: 'debug',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [`Stopped because: "${reason}"`, stack],
-      });
-      this.stopped = {
-        reason,
-        stack,
-      };
-      this.sendEvent(
-        new StoppedEvent(this.stopped.reason, IDLDebugAdapter.THREAD_ID)
-      );
-
-      // short pause to make sure APIs catch up
-      await Sleep(100);
-
-      // jump to stack to work around VSCode issue/change with latest release
-      if (stack.file.toLowerCase().endsWith('.pro')) {
-        await vscode.commands.executeCommand(
-          'workbench.action.debug.callStackTop'
-        );
-      }
-    });
-
-    // listen for debug output
-    this._runtime.on(IDL_EVENT_LOOKUP.OUTPUT, (text) => {
-      this.sendEvent(new OutputEvent(`${text}\n`));
-      // LogOutput(`${text}\n`);
-    });
-
-    // listen for standard out
-    this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_OUT, (msg) => {
-      this.sendEvent(new OutputEvent(msg, 'stdout'));
-      LogOutput(msg);
-
-      // placeholder code that shows how you can apply ansi colors to the output from IDL
-      // this.sendEvent(
-      //   new OutputEvent(
-      //     `${styles.color.ansi16m(...styles.hexToRgb('#8a8c8f'))}${msg}${
-      //       styles.color.close
-      //     }`
-      //   )
-      // );
-    });
-
-    // pass all stderr output back to the console
-    this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_ERR, (msg) => {
-      this.sendEvent(new OutputEvent(msg, 'stderr'));
-      LogOutput(msg);
-    });
-
-    // detect crash event
-    this._runtime.on(IDL_EVENT_LOOKUP.END, () => {
-      this._IDLCrashed('crash');
-      LogSessionStop('crashed');
-    });
-
-    // listen for IDL crashing
-    this._runtime.on(IDL_EVENT_LOOKUP.CRASHED, () => {
-      this._IDLCrashed('crash');
-      LogSessionStop('crashed');
-    });
-
-    // listen for when our prompt chang es
-    this._runtime.on(IDL_EVENT_LOOKUP.PROMPT, (prompt) => {
-      // change prompt for status bar
-      if (this._runtime.getIDLInfo().envi) {
-        IDL_STATUS_BAR.setPrompt('ENVI');
-      } else {
-        IDL_STATUS_BAR.setPrompt('IDL');
-      }
-    });
-
-    // update flag that we have started listening to events
-    this.listening = true;
+  clientLineToDebugger(line: number) {
+    return this.convertClientLineToDebugger(line);
   }
 
   /**
-   * Sets our startup promise to track when IDL starts and properly cancel/fail
-   * pending requests
+   * Wraps "protected" method of similar name
    */
-  private _setStartupPromise(reset = false) {
-    // if resetting, fail previous promise if we havent started yet
-    if (reset && this._startupRejector !== undefined) {
-      this._startupRejector();
-    }
-
-    // refresh properties
-    this._startup = new Promise((res, rej) => {
-      this._startupResolver = res;
-      this._startupRejector = rej;
-    });
-  }
-
-  /**
-   * Method we call when IDL was stopped - not via user, but a likely crash
-   */
-  private _IDLCrashed(reason: 'crash' | 'failed-start') {
-    // this._runtime.removeAllListeners(); // this breaks things
-    this.sendEvent(new TerminatedEvent());
-
-    // clear all syntax problems
-    IDL_DECORATIONS_MANAGER.reset('pro');
-
-    // reset the status bar prompt
-    IDL_STATUS_BAR.resetPrompt();
-
-    // alert user
-    switch (reason) {
-      case 'failed-start':
-        IDL_STATUS_BAR.setStoppedStatus(
-          IDL_TRANSLATION.statusBar.problemStarting
-        );
-        break;
-      case 'crash':
-        IDL_STATUS_BAR.setStoppedStatus(IDL_TRANSLATION.statusBar.crashed);
-        break;
-      default:
-        break;
-    }
-
-    // init promise for startup and resolver callback
-    this._setStartupPromise(true);
-  }
-
-  /**
-   * Gets syntax problems from our IDL helper, tracked
-   * by string versions of VSCode URIs
-   */
-  getSyntaxProblems() {
-    return this._runtime.getErrorsByFile();
-  }
-
-  /**
-   * Gets code coverage for a file and, optionally, decorates the file with it
-   */
-  async getCodeCoverage(file: string, decorate = false) {
-    /** Get coverage */
-    const coverage = await this._runtime.getCodeCoverage(file);
-
-    // see if we need to display
-    if (decorate) {
-      IDL_DECORATIONS_MANAGER.addCodeCoverageDecorations(
-        vscode.Uri.file(file),
-        coverage
-      );
-    }
-
-    return coverage;
+  debuggerLineToClient(line: number) {
+    return this.convertDebuggerLineToClient(line);
   }
 
   /**
@@ -337,7 +184,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
      * statements at a time.
      */
     const splitCommands = command
-      .split(/\r?\n/gim)
+      .split(LINE_SEPARATOR)
       .map((line) => line.trim())
       .filter((line) => line.length > 0);
 
@@ -412,7 +259,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // check if we need to send an event that we have continued
     if (options.continued) {
-      this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
+      this._eventHelper.resetStopAndContinue();
     }
 
     // update status bar
@@ -487,7 +334,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         this.sendEvent(
           new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.returning}\n`)
         );
-        this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
+        this._eventHelper.resetStopAndContinue();
       }
     }
 
@@ -556,10 +403,10 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // determine how to proceed
     switch (true) {
       case reset:
-        this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
+        this._eventHelper.resetStopAndContinue();
         break;
       case shouldContinue:
-        this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
+        this._eventHelper.resetStopAndContinue();
         break;
       default:
         break;
@@ -606,99 +453,46 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   }
 
   /**
+   * Gets code coverage for a file and, optionally, decorates the file with it
+   */
+  async getCodeCoverage(file: string, decorate = false) {
+    /** Get coverage */
+    const coverage = await this._runtime.getCodeCoverage(file);
+
+    // see if we need to display
+    if (decorate) {
+      IDL_DECORATIONS_MANAGER.addCodeCoverageDecorations(
+        vscode.Uri.file(file),
+        coverage
+      );
+    }
+
+    return coverage;
+  }
+
+  /**
+   * Gets syntax problems from our IDL helper, tracked
+   * by string versions of VSCode URIs
+   */
+  getSyntaxProblems() {
+    return this._runtime.getErrorsByFile();
+  }
+
+  /** Check if we are at the main level */
+  isAtMain() {
+    const info = this._runtime.getIDLInfo();
+
+    return (
+      info.scope.length === 0 ||
+      (info.scope.length === 1 && info.scope[0].line <= 1)
+    );
+  }
+
+  /**
    * Tells us if we have started IDL or not
    */
   isStarted(): boolean {
     return this._runtime.isStarted();
-  }
-
-  /**
-   * Wraps "protected" method of similar name
-   */
-  debuggerLineToClient(line: number) {
-    return this.convertDebuggerLineToClient(line);
-  }
-
-  /**
-   * Wraps "protected" method of similar name
-   */
-  clientLineToDebugger(line: number) {
-    return this.convertClientLineToDebugger(line);
-  }
-
-  /**
-   * The 'initialize' request is the first request called by the frontend
-   * to interrogate the features the debug adapter provides.
-   */
-  protected initializeRequest(
-    response: DebugProtocol.InitializeResponse,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    args: DebugProtocol.InitializeRequestArguments
-  ) {
-    // build and return the capabilities of this debug adapter:
-    response.body = response.body || {};
-
-    // the adapter implements the configurationDoneRequest.
-    response.body.supportsConfigurationDoneRequest = true;
-
-    // make VS Code to use 'evaluate' when hovering over source
-    response.body.supportsEvaluateForHovers = false;
-
-    // make VS Code to show a 'step back' button
-    response.body.supportsStepBack = false;
-
-    // make VS Code to support data breakpoints
-    response.body.supportsDataBreakpoints = false;
-
-    // make VS Code to support completion in REPL
-    response.body.supportsCompletionsRequest = false;
-    response.body.completionTriggerCharacters = ['.', '['];
-
-    // make VS Code to send cancelRequests
-    response.body.supportsCancelRequest = true;
-
-    // restart and stop debugging
-    response.body.supportsTerminateRequest = true;
-    response.body.supportsRestartRequest = true;
-
-    // make VS Code send the breakpointLocations request
-    response.body.supportsBreakpointLocationsRequest = true;
-
-    this.sendResponse(response);
-
-    // since this debug adapter can accept configuration requests like 'setBreakpoint' at any time,
-    // we request them early by sending an 'initializeRequest' to the frontend.
-    // The frontend will end the configuration sequence by calling 'configurationDone' request.
-    this.sendEvent(new InitializedEvent());
-  }
-
-  /**
-   * Called at the end of the configuration sequence.
-   * Indicates that all breakpoints etc. have been sent to the DA and that the 'launch' can start.
-   */
-  protected configurationDoneRequest(
-    response: DebugProtocol.ConfigurationDoneResponse,
-    args: DebugProtocol.ConfigurationDoneArguments
-  ) {
-    try {
-      super.configurationDoneRequest(response, args);
-
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Configuration done request'],
-      });
-    } catch (err) {
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.configDone, err],
-        alert: IDL_TRANSLATION.debugger.errors.configDone,
-      });
-    }
-
-    // notify the launchRequest that configuration has finished
-    this._configurationDone.notify();
   }
 
   /**
@@ -719,10 +513,14 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         this.listening = false;
       }
 
+      // create event helper
+      this._eventHelper = new IDLDebugAdapterEventHelper(this);
+
       // create new instance of runtime
       this._runtime = new IDLInteractionManager(
         IDL_LOGGER.getLog(IDL_DEBUG_LOG),
-        VSCODE_PRO_DIR
+        VSCODE_PRO_DIR,
+        `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`
       );
 
       // listen to events
@@ -732,9 +530,13 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this._runtime.start(this.lastLaunchArgs);
 
       // listen for when we started
-      this._runtime.once(IDL_EVENT_LOOKUP.IDL_STARTED, async () => {
+      this._runtime.once(IDL_EVENT_LOOKUP.IDL_READY, async () => {
         // add new line now that we have started
         LogOutput('\n');
+
+        // register custom handlers
+        RegisterIDLMachineRequestHandlers(this._runtime);
+        RegisterDebugAdapterCLIProgressHandler(this);
 
         // get information about IDL
         const version = CleanIDLOutput(
@@ -765,7 +567,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
           IDL_LOGGER.log({
             type: 'error',
             log: IDL_DEBUG_ADAPTER_LOG,
-            content: [IDL_TRANSLATION.debugger.errors.idlDetails, err],
+            content: [IDL_TRANSLATION.debugger.errors.idlDetails, err, version],
             alert: IDL_TRANSLATION.debugger.errors.idlDetails,
           });
         }
@@ -790,7 +592,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
           LogSessionStop('failed-start');
 
           // emit event that we failed to start - handled status bar update
-          this._IDLCrashed('failed-start');
+          this._IDLStopped('failed-start');
 
           // return
           res(false);
@@ -800,516 +602,94 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   }
 
   /**
-   * Start a debug session of IDL
+   * Once IDL has started, we listen to events
    */
-  protected async launchRequest(
-    response: DebugProtocol.LaunchResponse,
-    args: IDLDebugConfiguration
-  ) {
-    try {
-      this.sendEvent(
-        new OutputEvent(
-          `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`,
-          'stderr'
-        )
-      );
-      this.sendEvent(
-        new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.start}\n`)
-      );
+  listenToEvents() {
+    // return if we are already listening to things
+    if (this.listening) {
+      return;
+    }
 
-      // make sure to 'Stop' the buffered logging if 'trace' is not set
-      logger.setup(Logger.LogLevel.Stop, false);
+    // list for failures to start
+    this._runtime.on(IDL_EVENT_LOOKUP.FAILED_START, () => {
+      this._IDLStopped('failed-start');
+      LogSessionStop('failed-start');
+    });
 
-      // verify that we have the right info, otherwise alert, terminate, and return
-      if (args.config.IDL.directory === '') {
+    // listen for events when we continue processing
+    this._runtime.on(IDL_EVENT_LOOKUP.CONTINUE, () => {
+      this._eventHelper.resetStopAndContinue();
+    });
+
+    // listen for stops
+    this._runtime.on(IDL_EVENT_LOOKUP.STOP, async (reason, stack) => {
+      try {
+        await this._eventHelper.reportStop(reason, stack);
+      } catch (err) {
         IDL_LOGGER.log({
           log: IDL_DEBUG_ADAPTER_LOG,
-          content:
-            'The IDL directory has not been configured, cannot start a debug session',
           type: 'error',
-          alert: IDL_TRANSLATION.debugger.adapter.noIDLDir,
-          alertMeta: {
-            idlLoc: true,
-          },
+          content: ['Error while handling stop event', err],
         });
-
-        // indicate we failed
-        response.success = false;
-
-        // send response
-        this.sendResponse(response);
-
-        // send event that we have terminated
-        this.sendEvent(new TerminatedEvent());
-
-        // return and dont continue
-        return;
       }
+    });
 
-      // start our idl debug session and wait for prompt ready
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Attempting to start a session of IDL', args],
-      });
+    // listen for debug output
+    this._runtime.on(IDL_EVENT_LOOKUP.OUTPUT, (text) => {
+      this.sendEvent(new OutputEvent(`${text}\n`));
+      // LogOutput(`${text}\n`);
+    });
 
-      // save launch args
-      this.lastLaunchArgs = args;
+    // listen for standard out
+    this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_OUT, (msg) => {
+      this.sendEvent(new OutputEvent(msg, 'stdout'));
+      LogOutput(msg);
 
-      // start IDL and set flag if we succeeded or not
-      response.success = await this.launch();
+      // placeholder code that shows how you can apply ansi colors to the output from IDL
+      // this.sendEvent(
+      //   new OutputEvent(
+      //     `${styles.color.ansi16m(...styles.hexToRgb('#8a8c8f'))}${msg}${
+      //       styles.color.close
+      //     }`
+      //   )
+      // );
+    });
 
-      // respond
-      this.sendResponse(response);
-    } catch (err) {
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.launch, err],
-        alert: IDL_TRANSLATION.debugger.errors.launch,
-      });
-    }
-  }
+    // pass all stderr output back to the console
+    this._runtime.on(IDL_EVENT_LOOKUP.STANDARD_ERR, (msg) => {
+      this.sendEvent(new OutputEvent(msg, 'stderr'));
+      LogOutput(msg);
+    });
 
-  /**
-   * Restart debugging session
-   */
-  protected async restartRequest(
-    response: DebugProtocol.RestartResponse,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    args: DebugProtocol.RestartArguments,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
-  ) {
-    try {
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: 'Restart (i.e. reset) request',
-      });
+    // detect crash event
+    this._runtime.on(IDL_EVENT_LOOKUP.END, () => {
+      this._IDLStopped('crash');
+      LogSessionStop('crashed');
+    });
 
-      // reset the session
-      await this.evaluate('.reset');
+    // listen for IDL crashing
+    this._runtime.on(IDL_EVENT_LOOKUP.CRASHED, () => {
+      this._IDLStopped('crash');
+      LogSessionStop('crashed');
+    });
 
-      // reset syntax problems
-      IDL_DECORATIONS_MANAGER.reset('pro');
+    // listen for lost connections
+    this._runtime.on(IDL_EVENT_LOOKUP.LOST_CONNECTION, () => {
+      this._IDLStopped('lost-connection');
+      LogSessionStop('lost-connection');
+    });
 
-      // let vscode know we finished
-      this.sendResponse(response);
-
-      // send text to console since it gets cleared
-      this.sendEvent(new OutputEvent(`.reset\n`));
-
-      // alert vscode we have started again
-      this.sendEvent(new ContinuedEvent(IDLDebugAdapter.THREAD_ID));
-    } catch (err) {
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.launch, err],
-        alert: IDL_TRANSLATION.debugger.errors.launch,
-      });
-    }
-  }
-
-  /**
-   * Add breakpoints to IDL
-   */
-  protected async setBreakPointsRequest(
-    response: DebugProtocol.SetBreakpointsResponse,
-    args: DebugProtocol.SetBreakpointsArguments
-  ) {
-    try {
-      // add to logs
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Setting breakpoints for file', args],
-      });
-
-      // set breakpoints
-      response.body = {
-        breakpoints: await this._breakpoints.setBreakpoints(args),
-      };
-
-      // send our response
-      this.sendResponse(response);
-    } catch (err) {
-      response.success = false;
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.setBreakpoint, err],
-        alert: IDL_TRANSLATION.debugger.errors.setBreakpoint,
-      });
-    }
-  }
-
-  /**
-   * Get breakpoints from IDL for specific line and file
-   */
-  protected async breakpointLocationsRequest(
-    response: DebugProtocol.BreakpointLocationsResponse,
-    args: DebugProtocol.BreakpointLocationsArguments,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
-  ) {
-    try {
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Breakpoint location request', args],
-      });
-
-      // sync breakpoints and get latest
-      const bps = this._breakpoints.VSCodeBreakpoints;
-
-      // populate body
-      response.body = {
-        breakpoints: bps
-          .filter((bp) => bp?.source?.path === args?.source?.path)
-          .map((breakpoint) => {
-            return { line: breakpoint.line };
-          }),
-      };
-
-      // send response
-      this.sendResponse(response);
-    } catch (err) {
-      response.success = false;
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.breakpointLocations, err],
-        alert: IDL_TRANSLATION.debugger.errors.breakpointLocations,
-      });
-    }
-  }
-
-  protected threadsRequest(response: DebugProtocol.ThreadsResponse) {
-    try {
-      // runtime supports no threads so just return a default thread.
-      response.body = {
-        threads: [new Thread(IDLDebugAdapter.THREAD_ID, 'thread 1')],
-      };
-      this.sendResponse(response);
-    } catch (err) {
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.threads, err],
-        alert: IDL_TRANSLATION.debugger.errors.threads,
-      });
-    }
-  }
-
-  /**
-   * Handle when we are asked for variables
-   */
-  protected scopesRequest(
-    response: DebugProtocol.ScopesResponse,
-    args: DebugProtocol.ScopesArguments,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
-  ) {
-    try {
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Scopes request', args],
-      });
-      this.lastFrameId = args.frameId;
-      response.body = {
-        scopes: [new Scope('Local', 1, false)],
-      };
-      this.sendResponse(response);
-    } catch (err) {
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.scopes, err],
-        alert: IDL_TRANSLATION.debugger.errors.scopes,
-      });
-    }
-  }
-
-  /**
-   * Get variables from IDL
-   */
-  protected async variablesRequest(
-    response: DebugProtocol.VariablesResponse,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    args: DebugProtocol.VariablesArguments,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
-  ) {
-    try {
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Variables request', { frameId: this.lastFrameId }],
-      });
-
-      // update status bar
-      IDL_STATUS_BAR.busy();
-
-      // populate body
-      response.body = {
-        variables: MapVariables(
-          await this._runtime.getVariables(this.lastFrameId)
-        ),
-      };
-
-      // update status bar
-      IDL_STATUS_BAR.ready();
-
-      // respond
-      this.sendResponse(response);
-    } catch (err) {
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.variables, err],
-        alert: IDL_TRANSLATION.debugger.errors.variables,
-      });
-    }
-  }
-
-  /**
-   * Convert filepath to "Source" data type for
-   */
-  private fileToSource(filePath: string): Source {
-    return new Source(
-      basename(filePath),
-      this.convertDebuggerPathToClient(filePath)
-    );
-  }
-
-  /**
-   * Get traceback for where we are in IDL
-   */
-  protected async stackTraceRequest(
-    response: DebugProtocol.StackTraceResponse,
-    args: DebugProtocol.StackTraceArguments,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
-  ) {
-    try {
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Stack trace request', args],
-      });
-
-      /** Scope level to get variables */
-      const startFrame = args.startFrame !== undefined ? args.startFrame : 0;
-
-      /** number of levels to retrieve variables for */
-      const maxLevels = args.levels !== undefined ? args.levels : 1000;
-
-      /** Last frame to get variables */
-      const endFrame = startFrame + maxLevels;
-
-      // get stack
-      const stack = await this._runtime.getCallStack(startFrame, endFrame);
-
-      // populate body
-      response.body = {
-        stackFrames: stack.frames.map(
-          (frame) =>
-            new StackFrame(
-              frame.index,
-              frame.name,
-              this.fileToSource(frame.file),
-              this.convertDebuggerLineToClient(frame.line)
-            )
-        ),
-        totalFrames: stack.count,
-      };
-
-      IDL_LOGGER.log({
-        type: 'debug',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: ['Call stack', response.body.stackFrames],
-      });
-
-      // send response
-      this.sendResponse(response);
-    } catch (err) {
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.stackTrace, err],
-        alert: IDL_TRANSLATION.debugger.errors.stackTrace,
-      });
-    }
-  }
-
-  /**
-   * Continue processing after we have stopped
-   */
-  protected async continueRequest(
-    response: DebugProtocol.ContinueResponse,
-    args: DebugProtocol.ContinueArguments,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
-  ) {
-    try {
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Continue request', args],
-      });
-      // emit event and send response
-      this.sendResponse(response);
-
-      // actually tell IDL to do work, weird race condition if we do this first
-      await this.evaluate('.continue', { silent: false, echo: true });
-    } catch (err) {
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.continue, err],
-        alert: IDL_TRANSLATION.debugger.errors.continue,
-      });
-    }
-  }
-
-  /**
-   * Step over routine
-   */
-  protected async nextRequest(
-    response: DebugProtocol.NextResponse,
-    args: DebugProtocol.NextArguments,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
-  ) {
-    try {
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Step over request', args],
-      });
-      this.sendResponse(response);
-
-      // actually tell IDL to do work, weird race condition if we do this first
-      await this.evaluate('.stepover', { silent: false, echo: true });
-    } catch (err) {
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.next, err],
-        alert: IDL_TRANSLATION.debugger.errors.next,
-      });
-    }
-  }
-
-  /**
-   * Step into routine
-   */
-  protected async stepInRequest(
-    response: DebugProtocol.StepInResponse,
-    args: DebugProtocol.StepInArguments,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
-  ) {
-    try {
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Step in request', args],
-      });
-      this.sendResponse(response);
-
-      // actually tell IDL to do work, weird race condition if we do this first
-      await this.evaluate('.step', { silent: false, echo: true });
-    } catch (err) {
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.stepIn, err],
-        alert: IDL_TRANSLATION.debugger.errors.stepIn,
-      });
-    }
-  }
-
-  /**
-   * Step out of routine
-   */
-  protected async stepOutRequest(
-    response: DebugProtocol.StepOutResponse,
-    args: DebugProtocol.StepOutArguments,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
-  ) {
-    try {
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Step out request', args],
-      });
-      this.sendResponse(response);
-
-      // actually tell IDL to do work, weird race condition if we do this first
-      await this.evaluate('.out', { silent: false, echo: true });
-    } catch (err) {
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.stepOut, err],
-        alert: IDL_TRANSLATION.debugger.errors.stepOut,
-      });
-    }
-  }
-
-  /**
-   * Pause IDL session
-   */
-  protected pauseRequest(
-    response: DebugProtocol.PauseResponse,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    args: DebugProtocol.PauseArguments,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.PauseRequest
-  ) {
-    try {
-      IDL_LOGGER.log({
-        log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Pause request', args],
-      });
-
-      // only pause if we are not on windows
-      if (platform() !== 'win32') {
-        this._runtime.pause();
+    // listen for when our prompt chang es
+    this._runtime.on(IDL_EVENT_LOOKUP.PROMPT, (prompt) => {
+      if (this._runtime.isIDLMachine()) {
+        IDL_STATUS_BAR.setPrompt(prompt);
       } else {
-        vscode.window.showWarningMessage(
-          IDL_TRANSLATION.debugger.adapter.noPauseOnWindows
-        );
+        IDL_STATUS_BAR.setPrompt('IDL');
       }
+    });
 
-      this.sendResponse(response);
-    } catch (err) {
-      this.sendResponse(response);
-      IDL_LOGGER.log({
-        type: 'error',
-        log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.pause, err],
-        alert: IDL_TRANSLATION.debugger.errors.pause,
-      });
-    }
+    // update flag that we have started listening to events
+    this.listening = true;
   }
 
   /**
@@ -1341,35 +721,56 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   }
 
   /**
-   * Stop debug session
+   * Get breakpoints from IDL for specific line and file
    */
-  protected terminateRequest(
-    response: DebugProtocol.TerminateResponse,
-    args: DebugProtocol.TerminateArguments,
+  protected async breakpointLocationsRequest(
+    response: DebugProtocol.BreakpointLocationsResponse,
+    args: DebugProtocol.BreakpointLocationsArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     request?: DebugProtocol.Request
   ) {
+    this._eventHelper.trackStopBlocker();
+
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
-        content: ['Terminate request', args],
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Breakpoint location request', args],
       });
 
-      // stop IDL
-      this.terminate();
+      // sync breakpoints and get latest
+      const bps = this._breakpoints.VSCodeBreakpoints;
 
-      // send our response
+      // populate body
+      response.body = {
+        breakpoints: bps
+          .filter((bp) => bp?.source?.path === args?.source?.path)
+          .map((breakpoint) => {
+            return { line: breakpoint.line };
+          }),
+      };
+
+      // send response
       this.sendResponse(response);
     } catch (err) {
+      response.success = false;
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        this._eventHelper.removeStopBlocker();
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.terminate, err],
-        alert: IDL_TRANSLATION.debugger.errors.terminate,
+        content: [IDL_TRANSLATION.debugger.errors.breakpointLocations, err],
+        alert: IDL_TRANSLATION.debugger.errors.breakpointLocations,
       });
     }
+
+    this._eventHelper.removeStopBlocker();
   }
 
   protected cancelRequest(
@@ -1381,18 +782,93 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Cancel request', args],
       });
 
       this.sendResponse(response);
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: 'error',
+        content: [IDL_TRANSLATION.debugger.errors.cancel, err],
+        alert: IDL_TRANSLATION.debugger.errors.cancel,
+      });
+    }
+  }
+
+  /**
+   * Called at the end of the configuration sequence.
+   * Indicates that all breakpoints etc. have been sent to the DA and that the 'launch' can start.
+   */
+  protected configurationDoneRequest(
+    response: DebugProtocol.ConfigurationDoneResponse,
+    args: DebugProtocol.ConfigurationDoneArguments
+  ) {
+    IDL_LOGGER.log({
+      log: IDL_DEBUG_ADAPTER_LOG,
+      type: ADAPTER_METHOD_LOG_LEVEL,
+      content: ['Configuration done request'],
+    });
+
+    try {
+      super.configurationDoneRequest(response, args);
+    } catch (err) {
+      // make sure its a real error
+      if (err !== 'Canceled') {
+        IDL_LOGGER.log({
+          type: 'error',
+          log: IDL_DEBUG_ADAPTER_LOG,
+          content: [IDL_TRANSLATION.debugger.errors.configDone, err],
+          alert: IDL_TRANSLATION.debugger.errors.configDone,
+        });
+      }
+    }
+
+    // notify the launchRequest that configuration has finished
+    this._configurationDone.notify();
+  }
+
+  /**
+   * Continue processing after we have stopped
+   */
+  protected async continueRequest(
+    response: DebugProtocol.ContinueResponse,
+    args: DebugProtocol.ContinueArguments,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    request?: DebugProtocol.Request
+  ) {
+    try {
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Continue request', args],
+      });
+      // emit event and send response
+      this.sendResponse(response);
+
+      // actually tell IDL to do work, weird race condition if we do this first
+      await this.evaluate('.continue', { silent: false, echo: true });
+    } catch (err) {
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
-        content: [IDL_TRANSLATION.debugger.errors.cancel, err],
-        alert: IDL_TRANSLATION.debugger.errors.cancel,
+        content: [IDL_TRANSLATION.debugger.errors.continue, err],
+        alert: IDL_TRANSLATION.debugger.errors.continue,
       });
     }
   }
@@ -1451,7 +927,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: 'debug',
+        type: ADAPTER_METHOD_LOG_LEVEL,
         content: ['Evaluate request', args],
       });
 
@@ -1475,8 +951,21 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         variablesReference: -1,
       };
       this.sendResponse(response);
+
+      // if user-specified, reset focus because we move it in the event helper
+      // in reportStop() within libs\vscode\debug\src\lib\idl-debug-adapter-event-helper.class.ts
+      if (args?.context === 'repl') {
+        await Sleep(1.25 * ADAPTER_STOP_DELAY);
+        await vscode.commands.executeCommand('workbench.panel.repl.view.focus');
+      }
     } catch (err) {
       this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
       IDL_LOGGER.log({
         type: 'error',
         log: IDL_DEBUG_ADAPTER_LOG,
@@ -1484,5 +973,662 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         alert: IDL_TRANSLATION.debugger.errors.evaluate,
       });
     }
+  }
+
+  /**
+   * The 'initialize' request is the first request called by the frontend
+   * to interrogate the features the debug adapter provides.
+   */
+  protected initializeRequest(
+    response: DebugProtocol.InitializeResponse,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    args: DebugProtocol.InitializeRequestArguments
+  ) {
+    // build and return the capabilities of this debug adapter:
+    response.body = response.body || {};
+
+    // the adapter implements the configurationDoneRequest.
+    response.body.supportsConfigurationDoneRequest = true;
+
+    // make VS Code to use 'evaluate' when hovering over source
+    response.body.supportsEvaluateForHovers = false;
+
+    // make VS Code to show a 'step back' button
+    response.body.supportsStepBack = false;
+
+    // make VS Code to support data breakpoints
+    response.body.supportsDataBreakpoints = false;
+
+    // make VS Code to support completion in REPL
+    response.body.supportsCompletionsRequest = false;
+    response.body.completionTriggerCharacters = ['.', '['];
+
+    // make VS Code to send cancelRequests
+    response.body.supportsCancelRequest = true;
+
+    // restart and stop debugging
+    response.body.supportsTerminateRequest = true;
+    response.body.supportsRestartRequest = true;
+
+    // make VS Code send the breakpointLocations request
+    response.body.supportsBreakpointLocationsRequest = true;
+
+    this.sendResponse(response);
+
+    // since this debug adapter can accept configuration requests like 'setBreakpoint' at any time,
+    // we request them early by sending an 'initializeRequest' to the frontend.
+    // The frontend will end the configuration sequence by calling 'configurationDone' request.
+    this.sendEvent(new InitializedEvent());
+  }
+
+  /**
+   * Start a debug session of IDL
+   */
+  protected async launchRequest(
+    response: DebugProtocol.LaunchResponse,
+    args: IDLDebugConfiguration
+  ) {
+    try {
+      this.sendEvent(
+        new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.start}\n`)
+      );
+
+      // make sure to 'Stop' the buffered logging if 'trace' is not set
+      logger.setup(Logger.LogLevel.Stop, false);
+
+      // verify that we have the right info, otherwise alert, terminate, and return
+      if (args.config.IDL.directory === '') {
+        IDL_LOGGER.log({
+          log: IDL_DEBUG_ADAPTER_LOG,
+          content:
+            'The IDL directory has not been configured, cannot start a debug session',
+          type: 'error',
+          alert: IDL_TRANSLATION.debugger.adapter.noIDLDir,
+          alertMeta: {
+            idlLoc: true,
+          },
+        });
+
+        // indicate we failed
+        response.success = false;
+
+        // send response
+        this.sendResponse(response);
+
+        // send event that we have terminated
+        this.sendEvent(new TerminatedEvent());
+
+        // return and dont continue
+        return;
+      }
+
+      // start our idl debug session and wait for prompt ready
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Attempting to start a session of IDL', args],
+      });
+
+      // save launch args
+      this.lastLaunchArgs = args;
+
+      // start IDL and set flag if we succeeded or not
+      response.success = await this.launch();
+
+      // respond
+      this.sendResponse(response);
+    } catch (err) {
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.launch, err],
+        alert: IDL_TRANSLATION.debugger.errors.launch,
+      });
+    }
+  }
+
+  /**
+   * Step over routine
+   */
+  protected async nextRequest(
+    response: DebugProtocol.NextResponse,
+    args: DebugProtocol.NextArguments,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    request?: DebugProtocol.Request
+  ) {
+    try {
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Step over (next) request', args],
+      });
+      this.sendResponse(response);
+
+      // actually tell IDL to do work, weird race condition if we do this first
+      await this.evaluate('.stepover', { silent: false, echo: true });
+    } catch (err) {
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.next, err],
+        alert: IDL_TRANSLATION.debugger.errors.next,
+      });
+    }
+  }
+
+  /**
+   * Pause IDL session
+   */
+  protected pauseRequest(
+    response: DebugProtocol.PauseResponse,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    args: DebugProtocol.PauseArguments,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    request?: DebugProtocol.PauseRequest
+  ) {
+    try {
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Pause request', args],
+      });
+
+      // only pause if we are not on windows
+      if (platform() !== 'win32' || this._runtime.isIDLMachine()) {
+        this._runtime.pause();
+      } else {
+        vscode.window.showWarningMessage(
+          IDL_TRANSLATION.debugger.adapter.noPauseOnWindows
+        );
+      }
+
+      this.sendResponse(response);
+    } catch (err) {
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.pause, err],
+        alert: IDL_TRANSLATION.debugger.errors.pause,
+      });
+    }
+  }
+
+  /**
+   * Restart debugging session
+   */
+  protected async restartRequest(
+    response: DebugProtocol.RestartResponse,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    args: DebugProtocol.RestartArguments,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    request?: DebugProtocol.Request
+  ) {
+    try {
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: 'Restart (i.e. reset) request',
+      });
+
+      // reset the session
+      await this.evaluate('.reset');
+
+      // reset syntax problems
+      IDL_DECORATIONS_MANAGER.reset('pro');
+
+      // let vscode know we finished
+      this.sendResponse(response);
+
+      // send text to console since it gets cleared
+      this.sendEvent(new OutputEvent(`.reset\n`));
+
+      // reset stop events and alert VScode
+      this._eventHelper.resetStopAndContinue();
+    } catch (err) {
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.launch, err],
+        alert: IDL_TRANSLATION.debugger.errors.launch,
+      });
+    }
+  }
+
+  /**
+   * Handle when we are asked for variables
+   */
+  protected scopesRequest(
+    response: DebugProtocol.ScopesResponse,
+    args: DebugProtocol.ScopesArguments,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    request?: DebugProtocol.Request
+  ) {
+    this._eventHelper.trackStopBlocker();
+
+    try {
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Scopes request', args],
+      });
+      this.lastFrameId = args.frameId;
+      response.body = {
+        scopes: [new Scope('Local', 1, false)],
+      };
+      this.sendResponse(response);
+    } catch (err) {
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        this._eventHelper.removeStopBlocker();
+        return;
+      }
+
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.scopes, err],
+        alert: IDL_TRANSLATION.debugger.errors.scopes,
+      });
+    }
+
+    this._eventHelper.removeStopBlocker();
+  }
+
+  /**
+   * Add breakpoints to IDL
+   */
+  protected async setBreakPointsRequest(
+    response: DebugProtocol.SetBreakpointsResponse,
+    args: DebugProtocol.SetBreakpointsArguments
+  ) {
+    this._eventHelper.trackStopBlocker();
+
+    try {
+      // add to logs
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Setting breakpoints for file', args],
+      });
+
+      // set breakpoints
+      response.body = {
+        breakpoints: await this._breakpoints.setBreakpoints(args),
+      };
+
+      // send our response
+      this.sendResponse(response);
+    } catch (err) {
+      response.success = false;
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        this._eventHelper.removeStopBlocker();
+        return;
+      }
+
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.setBreakpoint, err],
+        alert: IDL_TRANSLATION.debugger.errors.setBreakpoint,
+      });
+    }
+
+    this._eventHelper.removeStopBlocker();
+  }
+
+  /**
+   * Get traceback for where we are in IDL
+   */
+  protected async stackTraceRequest(
+    response: DebugProtocol.StackTraceResponse,
+    args: DebugProtocol.StackTraceArguments,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    request?: DebugProtocol.Request
+  ) {
+    this._eventHelper.trackStopBlocker();
+
+    try {
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Stack trace request', args],
+      });
+
+      /** Scope level to get variables */
+      const startFrame = args.startFrame !== undefined ? args.startFrame : 0;
+
+      /** number of levels to retrieve variables for */
+      const maxLevels = args.levels !== undefined ? args.levels : 1000;
+
+      /** Last frame to get variables */
+      const endFrame = startFrame + maxLevels;
+
+      // get stack
+      const stack = await this._runtime.getCallStack(startFrame, endFrame);
+
+      // populate body
+      response.body = {
+        stackFrames: stack.frames.map(
+          (frame) =>
+            new StackFrame(
+              frame.index,
+              frame.name,
+              this.fileToSource(frame.file),
+              this.convertDebuggerLineToClient(frame.line)
+            )
+        ),
+        totalFrames: stack.count,
+      };
+
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: 'debug',
+        content: ['Call stack', response.body.stackFrames],
+      });
+
+      // send response
+      this.sendResponse(response);
+    } catch (err) {
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        this._eventHelper.removeStopBlocker();
+        return;
+      }
+
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.stackTrace, err],
+        alert: IDL_TRANSLATION.debugger.errors.stackTrace,
+      });
+    }
+
+    this._eventHelper.removeStopBlocker();
+  }
+
+  /**
+   * Step into routine
+   */
+  protected async stepInRequest(
+    response: DebugProtocol.StepInResponse,
+    args: DebugProtocol.StepInArguments,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    request?: DebugProtocol.Request
+  ) {
+    try {
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Step in request', args],
+      });
+      this.sendResponse(response);
+
+      // actually tell IDL to do work, weird race condition if we do this first
+      await this.evaluate('.step', { silent: false, echo: true });
+    } catch (err) {
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.stepIn, err],
+        alert: IDL_TRANSLATION.debugger.errors.stepIn,
+      });
+    }
+  }
+
+  /**
+   * Step out of routine
+   */
+  protected async stepOutRequest(
+    response: DebugProtocol.StepOutResponse,
+    args: DebugProtocol.StepOutArguments,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    request?: DebugProtocol.Request
+  ) {
+    try {
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Step out request', args],
+      });
+      this.sendResponse(response);
+
+      // actually tell IDL to do work, weird race condition if we do this first
+      await this.evaluate('.out', { silent: false, echo: true });
+    } catch (err) {
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.stepOut, err],
+        alert: IDL_TRANSLATION.debugger.errors.stepOut,
+      });
+    }
+  }
+
+  /**
+   * Stop debug session
+   */
+  protected terminateRequest(
+    response: DebugProtocol.TerminateResponse,
+    args: DebugProtocol.TerminateArguments,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    request?: DebugProtocol.Request
+  ) {
+    try {
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Terminate request', args],
+      });
+
+      // stop IDL
+      this.terminate();
+
+      // send our response
+      this.sendResponse(response);
+    } catch (err) {
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.terminate, err],
+        alert: IDL_TRANSLATION.debugger.errors.terminate,
+      });
+    }
+  }
+
+  protected threadsRequest(response: DebugProtocol.ThreadsResponse) {
+    try {
+      // runtime supports no threads so just return a default thread.
+      response.body = {
+        threads: [new Thread(IDLDebugAdapter.THREAD_ID, 'thread 1')],
+      };
+      this.sendResponse(response);
+    } catch (err) {
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        return;
+      }
+
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.threads, err],
+        alert: IDL_TRANSLATION.debugger.errors.threads,
+      });
+    }
+  }
+
+  /**
+   * Get variables from IDL
+   */
+  protected async variablesRequest(
+    response: DebugProtocol.VariablesResponse,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    args: DebugProtocol.VariablesArguments,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    request?: DebugProtocol.Request
+  ) {
+    this._eventHelper.trackStopBlocker();
+
+    try {
+      IDL_LOGGER.log({
+        log: IDL_DEBUG_ADAPTER_LOG,
+        type: ADAPTER_METHOD_LOG_LEVEL,
+        content: ['Variables request', { frameId: this.lastFrameId }],
+      });
+
+      // update status bar
+      IDL_STATUS_BAR.busy();
+
+      // populate body
+      response.body = {
+        variables: MapVariables(
+          await this._runtime.getVariables(this.lastFrameId)
+        ),
+      };
+
+      // update status bar
+      IDL_STATUS_BAR.ready();
+
+      // respond
+      this.sendResponse(response);
+    } catch (err) {
+      this.sendResponse(response);
+
+      // make sure its a real error
+      if (err === 'Canceled') {
+        this._eventHelper.removeStopBlocker();
+        return;
+      }
+
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.variables, err],
+        alert: IDL_TRANSLATION.debugger.errors.variables,
+      });
+    }
+
+    this._eventHelper.removeStopBlocker();
+  }
+
+  /**
+   * Method we call when IDL was stopped - not via user, but a likely crash
+   */
+  private _IDLStopped(reason: 'crash' | 'failed-start' | 'lost-connection') {
+    // this._runtime.removeAllListeners(); // this breaks things
+    this.sendEvent(new TerminatedEvent());
+
+    // clear all syntax problems
+    IDL_DECORATIONS_MANAGER.reset('pro');
+
+    // reset the status bar prompt
+    IDL_STATUS_BAR.resetPrompt();
+
+    // alert user
+    switch (reason) {
+      case 'crash':
+        IDL_STATUS_BAR.setStoppedStatus(IDL_TRANSLATION.statusBar.crashed);
+        break;
+      case 'failed-start':
+        IDL_STATUS_BAR.setStoppedStatus(
+          IDL_TRANSLATION.statusBar.problemStarting
+        );
+        break;
+      case 'lost-connection':
+        vscode.window.showErrorMessage(
+          IDL_TRANSLATION.notifications.lostIDLConnection
+        );
+        break;
+      default:
+        break;
+    }
+
+    // init promise for startup and resolver callback
+    this._setStartupPromise(true);
+  }
+
+  /**
+   * Sets our startup promise to track when IDL starts and properly cancel/fail
+   * pending requests
+   */
+  private _setStartupPromise(reset = false) {
+    // if resetting, fail previous promise if we havent started yet
+    if (reset && this._startupRejector !== undefined) {
+      this._startupRejector();
+    }
+
+    // refresh properties
+    this._startup = new Promise((res, rej) => {
+      this._startupResolver = res;
+      this._startupRejector = rej;
+    });
+  }
+
+  /**
+   * Convert filepath to "Source" data type for
+   */
+  private fileToSource(filePath: string): Source {
+    return new Source(
+      basename(filePath),
+      this.convertDebuggerPathToClient(filePath)
+    );
   }
 }

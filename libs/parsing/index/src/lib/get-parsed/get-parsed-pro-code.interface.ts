@@ -6,6 +6,10 @@ import { IParsed } from '@idl/parsing/syntax-tree';
  */
 export interface IGetParsedPROCodePending {
   /**
+   * The checksum for the pending code
+   */
+  checksum: string;
+  /**
    * Promise that resolves to the parsed file
    */
   promise: Promise<IParsed>;
@@ -13,8 +17,4 @@ export interface IGetParsedPROCodePending {
    * Cancellation token that we can use
    */
   token: CancellationToken;
-  /**
-   * The checksum for the pending code
-   */
-  checksum: string;
 }

@@ -1,6 +1,6 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { readFile } from 'fs/promises';
 import { CompletionItem, Position } from 'vscode-languageserver/node';
 
@@ -32,46 +32,10 @@ describe(`[auto generated] Keywords for call function`, () => {
     // define expected token we extract
     const expectedFound_0: CompletionItem[] = [
       {
-        label: 'headless = ',
-        insertText: '/headless',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Set this property to 1 to start the application without creating the user interface. The WIDGET\\_ID property is 0 when running ENVI in headless mode.',
-        },
-      },
-      {
-        label: 'language = ',
-        insertText: 'language = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            "_Note:_ Windows only\n\nSet this property to a string specifying the name of the language to use for the user interface. This property affects components such as menus, buttons and messages. You can also specify the three-character [ISO 639-3 language code](https://iso639-3.sil.org/code%5Ftables/639/data) (for example, jpn for Japanese).\n\nThe following example shows how to set the interface language to Japanese:\n\n```idl\n  e = envi(language = 'jpn')\n```",
-        },
-      },
-      {
-        label: 'preferences = ',
-        insertText: 'preferences = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'This property retrieves the [ENVIPreferences](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPreferences/ENVIPreferences.htm%22%7D) class associated with the ENVI application. At application start-up, set the PREFERENCES keyword to the URI of a JSON file in which ENVI will load and save preferences.',
-        },
-      },
-      {
         label: 'current = ',
         insertText: '/current',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -83,7 +47,7 @@ describe(`[auto generated] Keywords for call function`, () => {
         label: 'error = ',
         insertText: 'error = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -92,10 +56,34 @@ describe(`[auto generated] Keywords for call function`, () => {
         },
       },
       {
+        label: 'headless = ',
+        insertText: '/headless',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this property to 1 to start the application without creating the user interface. The WIDGET\\_ID property is 0 when running ENVI in headless mode.',
+        },
+      },
+      {
+        label: 'language = ',
+        insertText: 'language = ',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "_Note:_ Windows only\n\nSet this property to a string specifying the name of the language to use for the user interface. This property affects components such as menus, buttons and messages. You can also specify the three-character [ISO 639-3 language code](https://iso639-3.sil.org/code%5Ftables/639/data) (for example, jpn for Japanese).\n\nThe following example shows how to set the interface language to Japanese:\n\n```idl\n  e = envi(language = 'jpn')\n```",
+        },
+      },
+      {
         label: 'layout = ',
         insertText: 'layout = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: '',
       },
@@ -103,9 +91,21 @@ describe(`[auto generated] Keywords for call function`, () => {
         label: 'log_file = ',
         insertText: 'log_file = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: '',
+      },
+      {
+        label: 'preferences = ',
+        insertText: 'preferences = ',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'This property retrieves the [ENVIPreferences](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPreferences/ENVIPreferences.htm%22%7D) class associated with the ENVI application. At application start-up, set the PREFERENCES keyword to the URI of a JSON file in which ENVI will load and save preferences.',
+        },
       },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },

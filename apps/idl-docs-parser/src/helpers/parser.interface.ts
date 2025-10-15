@@ -1,7 +1,7 @@
 export interface IParsedHTML {
-  type: string;
-  tagName?: string;
-  children?: IParsedHTML[];
   attributes?: { key: string; value: string }[];
+  children?: IParsedHTML[];
   content?: string;
+  tagName?: string;
+  type: string;
 }

@@ -5,7 +5,7 @@ import {
   RoutineProcedureToken,
   TokenName,
 } from '@idl/tokenizer';
-import { Position } from 'vscode-languageserver/node';
+import { Position } from 'vscode-languageserver';
 
 import { IBranch, TreeToken } from '../branches.interface';
 import { IParsed } from '../parsed.interface';
@@ -123,7 +123,7 @@ export function GetTokenAtCursor(
       result.globalParent = {
         name: GetRoutineName(
           foundToken.scopeTokens[0] as IBranch<
-            RoutineProcedureToken | RoutineFunctionToken | MainLevelToken
+            MainLevelToken | RoutineFunctionToken | RoutineProcedureToken
           >
         ),
         type: DEFAULT_GLOBAL_PARENTS[foundToken.scopeTokens[0].name],

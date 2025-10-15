@@ -16,9 +16,9 @@ import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
  * Tokens that, if they have children, expect a comma to be the first thing
  */
 type CommaTokens =
-  | ControlGoToToken
   | CallProcedureMethodToken
   | CallProcedureToken
+  | ControlGoToToken
   | RoutineNameToken;
 
 /**

@@ -1,5 +1,8 @@
 import { LoadTask } from '@idl/schemas/tasks';
-import { TASK_FILE_EXTENSION, TASK_FILE_GLOB_PATTERN } from '@idl/shared';
+import {
+  TASK_FILE_EXTENSION,
+  TASK_FILE_GLOB_PATTERN,
+} from '@idl/shared/extension';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalStructureToken,

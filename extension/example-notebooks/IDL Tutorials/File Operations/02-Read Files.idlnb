@@ -4,13 +4,15 @@
     {
       "type": "markdown",
       "content": [
-        "### **Reading from a File**  ",
+        "### **Reading from a File**",
+        "",
         "Once a file is opened, you can read the data using:",
         "",
         "- `readf` - Formatted Data: Reads text, numbers, and other formatted data.  ",
-        "IDL will match the type to your output variable.",
+        "  IDL will match the type to your output variable.",
         "",
-        "- `readu` - Unformatted Data: Reads raw binary bytes."
+        "- `readu` - Unformatted Data: Reads raw binary bytes.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -18,7 +20,8 @@
     {
       "type": "markdown",
       "content": [
-        "#### **readf:**"
+        "#### **readf:**",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -28,7 +31,7 @@
       "content": [
         "line = ''",
         "file = file_dirname(routine_filepath(), /mark) + 'example.txt'",
-        "openr, unit, file, /GET_LUN",
+        "openr, unit, file, /get_lun",
         "readf, unit, line",
         "print, line",
         "",
@@ -41,7 +44,8 @@
     {
       "type": "markdown",
       "content": [
-        "Here, we pass the **output variable** as a **long**, so `readf` converts the data in the file to a long."
+        "Here, we pass the **output variable** as a **long**, so `readf` converts the data in the file to a long.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -51,7 +55,7 @@
       "content": [
         "line = 0",
         "file = file_dirname(routine_filepath(), /mark) + 'example.txt'",
-        "openr, unit, file, /GET_LUN",
+        "openr, unit, file, /get_lun",
         "readf, unit, line",
         "; Release the file unit after use to free system resources",
         "free_lun, unit",
@@ -64,7 +68,8 @@
     {
       "type": "markdown",
       "content": [
-        "These can be used in conjunction with the `EOF` (End of File) function to read a entire file line by line."
+        "These can be used in conjunction with the `EOF` (End of File) function to read a entire file line by line.",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -73,11 +78,11 @@
       "type": "code",
       "content": [
         "file = file_dirname(routine_filepath(), /mark) + 'example.txt'",
-        "openr, unit, file, /GET_LUN",
+        "openr, unit, file, /get_lun",
         "line = ''",
-        "while not EOF(unit) do begin",
-        "    readf, unit, line",
-        "    print, line",
+        "while not eof(unit) do begin",
+        "  readf, unit, line",
+        "  print, line",
         "endwhile",
         "free_lun, unit"
       ],
@@ -87,7 +92,8 @@
     {
       "type": "markdown",
       "content": [
-        "Of course because IDL is array-based, we can read the entire file into an array of strings, or an array of longs, etc. For example:"
+        "Of course because IDL is array-based, we can read the entire file into an array of strings, or an array of longs, etc. For example:",
+        ""
       ],
       "metadata": {},
       "outputs": []
@@ -97,7 +103,7 @@
       "content": [
         "file = file_dirname(routine_filepath(), /mark) + 'example.txt'",
         "nlines = file_lines(file)",
-        "openr, unit, file, /GET_LUN",
+        "openr, unit, file, /get_lun",
         "lines = strarr(nlines)",
         "readf, unit, lines",
         "free_lun, unit",
@@ -109,10 +115,12 @@
     {
       "type": "markdown",
       "content": [
-        "___",
+        "---",
+        "",
         "### Now lets write data!",
         "",
-        "- [Write Files](./03-Write%20Files.idlnb)!"
+        "- [Write Files](./03-Write%20Files.idlnb)!",
+        ""
       ],
       "metadata": {},
       "outputs": []

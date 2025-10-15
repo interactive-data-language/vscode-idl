@@ -100,6 +100,7 @@ describe(`[auto generated] Find them in`, () => {
         type: 'pm',
         name: 'define_these_structures::method',
         pos: [0, 4, 31],
+        range: { start: [0, 0, 4], end: [8, 0, 3] },
         meta: {
           className: 'define_these_structures',
           method: 'method',

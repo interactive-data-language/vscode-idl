@@ -15,10 +15,10 @@ import { VALIDATE_TYPE_HANDLER } from '../validate-type-handler';
  * Union type of call routine tokens
  */
 export type CallRoutineToken =
-  | CallProcedureToken
-  | CallProcedureMethodToken
+  | CallFunctionMethodToken
   | CallFunctionToken
-  | CallFunctionMethodToken;
+  | CallProcedureMethodToken
+  | CallProcedureToken;
 
 /**
  * Tokens that we are validating

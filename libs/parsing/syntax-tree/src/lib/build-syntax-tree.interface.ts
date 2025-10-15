@@ -6,18 +6,18 @@ import { PositionArray } from '@idl/types/tokenizer';
  * Start options we pass into the recurser and shared between all recursions
  */
 export interface IRecurserOptions {
-  /** Start index for processing our array of tokens, used with recursion */
-  start: number;
-  /** Depth level of recursion, track for debugging */
-  recursionLevel: number;
   /** Flag if we have found a main level program or not */
   foundMain: boolean;
-  /** Information regarding the state of our code */
-  syntax: SyntaxProblems;
-  /** If a token is not closed, this flag will be set so we don't report distracting errors */
-  notClosed: boolean;
   /** Is it a full parse? */
   full: boolean;
+  /** If a token is not closed, this flag will be set so we don't report distracting errors */
+  notClosed: boolean;
+  /** Depth level of recursion, track for debugging */
+  recursionLevel: number;
+  /** Start index for processing our array of tokens, used with recursion */
+  start: number;
+  /** Information regarding the state of our code */
+  syntax: SyntaxProblems;
 }
 
 /**
@@ -62,10 +62,10 @@ export interface IGlobalLocationLookup {
  * Data structure for routines
  */
 export interface IRoutineLookup {
-  /** Procedure method definitions */
-  pro: IGlobalLocationLookup;
   /** Function method definitions */
   func: IGlobalLocationLookup;
+  /** Procedure method definitions */
+  pro: IGlobalLocationLookup;
 }
 
 /**

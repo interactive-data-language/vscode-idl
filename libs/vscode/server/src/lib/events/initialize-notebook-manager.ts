@@ -1,7 +1,7 @@
 import { NotebookDocuments } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
-import { SERVER_CONNECTION } from '../initialize-server';
+import { SERVER_CONNECTION } from '../initialize-language-server';
 import { ON_DID_CHANGE_NOTEBOOK } from './notebooks/on-did-change-notebook';
 import { ON_DID_CLOSE_NOTEBOOK } from './notebooks/on-did-close-notebook';
 import { ON_DID_OPEN_NOTEBOOK } from './notebooks/on-did-open-notebook';

@@ -316,6 +316,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 11],
+        range: { start: [0, 0, 11], end: [16, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',

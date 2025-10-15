@@ -28,7 +28,7 @@ const TOKENS = [TOKEN_NAMES.KEYWORD, TOKEN_NAMES.KEYWORD_BINARY];
  * Callback to validate that a keyword is correct
  */
 const cb: BasicCallback<
-  KeywordToken | KeywordBinaryToken,
+  KeywordBinaryToken | KeywordToken,
   ValidateTypeHandlerMeta
 > = (token, parsed, current, meta) => {
   // get keywords

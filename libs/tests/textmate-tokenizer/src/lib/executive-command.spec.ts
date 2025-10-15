@@ -15,7 +15,7 @@ describe(`[auto generated] Validates executive command parsing`, () => {
         match: '.compile',
         startIndex: 0,
         endIndex: 8,
-        scopes: ['source.idl', 'entity.name.type.idl', 'entity.name.type.idl'],
+        scopes: ['source.idl', 'entity.name.type.idl'],
       },
     ];
     expect(expected).toEqual(tokenized);
@@ -35,18 +35,21 @@ describe(`[auto generated] Validates executive command parsing`, () => {
         match: '.run',
         startIndex: 0,
         endIndex: 4,
-        scopes: ['source.idl', 'entity.name.type.idl', 'entity.name.type.idl'],
+        scopes: ['source.idl', 'entity.name.type.idl'],
       },
       {
         line: 0,
-        match: 'myfile.pro',
+        match: 'myfile',
         startIndex: 5,
+        endIndex: 11,
+        scopes: ['source.idl', 'variable.other.readwrite.ts.idl'],
+      },
+      {
+        line: 0,
+        match: '.pro',
+        startIndex: 11,
         endIndex: 15,
-        scopes: [
-          'source.idl',
-          'entity.name.type.idl',
-          'variable.other.readwrite.ts.idl',
-        ],
+        scopes: ['source.idl'],
       },
     ];
     expect(expected).toEqual(tokenized);
@@ -66,18 +69,21 @@ describe(`[auto generated] Validates executive command parsing`, () => {
         match: '.run',
         startIndex: 2,
         endIndex: 6,
-        scopes: ['source.idl', 'entity.name.type.idl', 'entity.name.type.idl'],
+        scopes: ['source.idl', 'entity.name.type.idl'],
       },
       {
         line: 0,
-        match: 'myfile.pro',
+        match: 'myfile',
         startIndex: 7,
+        endIndex: 13,
+        scopes: ['source.idl', 'variable.other.readwrite.ts.idl'],
+      },
+      {
+        line: 0,
+        match: '.pro',
+        startIndex: 13,
         endIndex: 17,
-        scopes: [
-          'source.idl',
-          'entity.name.type.idl',
-          'variable.other.readwrite.ts.idl',
-        ],
+        scopes: ['source.idl'],
       },
     ];
     expect(expected).toEqual(tokenized);

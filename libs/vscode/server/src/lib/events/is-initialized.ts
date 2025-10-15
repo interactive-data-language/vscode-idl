@@ -1,12 +1,12 @@
+import { FindFiles, GetExtensionPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { NUM_WORKERS } from '@idl/parsing/index';
+import { RoundToNearest } from '@idl/shared/extension';
 import {
-  GetExtensionPath,
-  RoundToNearest,
   SystemMemoryGB,
   SystemMemoryUsedGB,
   SystemMemoryUsedMB,
-} from '@idl/shared';
+} from '@idl/system-memory';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/types/problem-codes';
 import {
@@ -28,16 +28,17 @@ import { IDL_CLIENT_CONFIG } from '../helpers/track-workspace-config';
 import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
-  SERVER_EVENT_MANAGER,
-} from '../initialize-server';
+  SERVER_MESSENGER,
+} from '../initialize-language-server';
+import { InitializeMCPServer } from '../initialize-mcp-server';
 import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
-import { WORKSPACE_INITIALIZATION } from './documents/on-initialized';
+import { WORKSPACE_FOLDER_LIST } from './documents/on-connection-initialized';
 import { IDL_INDEX } from './initialize-document-manager';
 
 /**
  * Timeout for all global promises if we don't get the right responses
  */
-export const PROMISE_TIMEOUT = 5000;
+export const PROMISE_TIMEOUT = 10000;
 
 /**
  * Set a flag to make sure that we can send problems
@@ -71,7 +72,7 @@ export const SERVER_INITIALIZED = new Promise<void>((res) => {
  */
 export const SERVER_INFO = Promise.all([
   CONFIG_INITIALIZATION,
-  WORKSPACE_INITIALIZATION,
+  WORKSPACE_FOLDER_LIST,
 ]);
 
 // on initialization, load global tokens
@@ -126,7 +127,8 @@ SERVER_INFO.then(async (res) => {
 
       // cleanup - wrap in try/catch because async
       try {
-        usage = await IDL_INDEX.cleanUp();
+        await IDL_INDEX.cleanUp();
+        usage = SystemMemoryGB();
       } catch (err) {
         IDL_LANGUAGE_SERVER_LOGGER.log({
           log: IDL_LSP_LOG,
@@ -143,6 +145,11 @@ SERVER_INFO.then(async (res) => {
         content: `Memory cleanup and usage check (mb): ${usage}`,
       });
     }, DEFAULT_IDL_EXTENSION_CONFIG.languageServer.garbageIntervalMS);
+
+    /**
+     * Attempt to start MCP server
+     */
+    InitializeMCPServer();
 
     /**
      * Merge folders together
@@ -172,19 +179,21 @@ SERVER_INFO.then(async (res) => {
     }
 
     // alert that we have started indexing
-    SERVER_EVENT_MANAGER.sendNotification(
-      LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-      { type: 'start' }
-    );
+    SERVER_MESSENGER.sendNotification(LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING, {
+      type: 'start',
+    });
 
     try {
       /**
-       * Merge folders that we need to process.
-       *
-       * The second promise (for workspace) should win because it will
-       * always be recursive
+       * Find files that we need to parse
        */
-      const files = await IDL_INDEX.indexWorkspace(
+      const files = await FindFiles(merged);
+
+      /**
+       * Index workspace files we found
+       */
+      await IDL_INDEX.indexWorkspaceFiles(
+        files,
         merged,
         GLOBAL_SERVER_SETTINGS.fullParse
       );
@@ -260,6 +269,9 @@ SERVER_INFO.then(async (res) => {
         USAGE_METRIC_LOOKUP.LANGUAGE_SERVER_STARTUP,
         statsDetail
       );
+
+      // using what we parsed, register MCP tools for the user
+      // RegisterUserMCPTools(SERVER_MESSENGER);
     } catch (err) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,
@@ -279,10 +291,9 @@ SERVER_INFO.then(async (res) => {
     CAN_SEND_PROBLEMS = true;
 
     // alert that we are done
-    SERVER_EVENT_MANAGER.sendNotification(
-      LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-      { type: 'finish' }
-    );
+    SERVER_MESSENGER.sendNotification(LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING, {
+      type: 'finish',
+    });
 
     // send problems with settings changes
     SendProblems(Object.keys(IDL_INDEX.getSyntaxProblems()));

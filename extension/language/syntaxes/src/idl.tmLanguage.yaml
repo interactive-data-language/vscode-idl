@@ -544,11 +544,10 @@ repository:
 
   # executive commands
   executive_command:
-    name: {{name_special}}
     match: '^\s*(\.[a-z_]+)\s*(.*)$'
     captures:
       '1': { name: {{name_special}} }
-      '2': { name: {{name_variable}} }
+      '2': { patterns: [{include: '#quote_tokens'}, {include: '#variable'}, {include: '#comment_tokens'}] }
 
   # using '@' to include other PRO files
   include:
@@ -859,7 +858,7 @@ repository:
   # calling functions
   routine_call_func_method:
     name: {{group_call_func_method}}
-    begin: '\s*(\.|->)\s*([a-z0-9_$:]+)(\()'
+    begin: '\s*(\.|->)\s*([a-z0-9_$]+(?:::[a-z0-9_$]+)?)(\()'
     beginCaptures:
       '1': { name: {{name_operator}} }
       '2': { name: {{name_call_func_method}} }
@@ -885,7 +884,7 @@ repository:
   # calling procedures
   routine_call_pro_method:
     name: {{group_call_pro_method}}
-    begin: '(\.|->)\s*([a-z_][a-z0-9_$:]*)(?=\s*(?<!&)&(?!&)|\s*,|\s*;|\s+\$|\s*$)'
+    begin: '(\.|->)\s*([a-z_][a-z0-9_$]*(?:::[a-z0-9_$]+)?)(?=\s*(?<!&)&(?!&)|\s*,|\s*;|\s+\$|\s*$)'
     beginCaptures:
       '1': { name: {{name_operator}} }
       '2': { name: {{name_call_pro_method}} }

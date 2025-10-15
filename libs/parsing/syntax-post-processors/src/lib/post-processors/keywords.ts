@@ -21,10 +21,10 @@ import { SKIP_TOKENS } from './arg-kw-def';
  * strict checking eventually.
  */
 const cb: BranchCallback<
-  | CallFunctionToken
   | CallFunctionMethodToken
-  | CallProcedureToken
-  | CallProcedureMethodToken,
+  | CallFunctionToken
+  | CallProcedureMethodToken
+  | CallProcedureToken,
   IDLSyntaxValidatorMeta
 > = (branch) => {
   // return if no children

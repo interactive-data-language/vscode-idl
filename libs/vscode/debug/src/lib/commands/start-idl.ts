@@ -1,17 +1,18 @@
-import { IDL_COMMANDS } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
-import { VSCODE_COMMANDS } from '@idl/vscode/shared';
 import copy from 'fast-copy';
 import * as vscode from 'vscode';
 
+import { IsIDLDirValid } from '../helpers/is-idl-dir-valid';
 import { DEFAULT_IDL_DEBUG_CONFIGURATION } from '../idl-debug-adapter.interface';
 import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';
+import { IStartIDL } from './start-idl.interface';
 
 /**
  * Starts debugging session of IDL
  */
-export async function StartIDL(): Promise<boolean> {
+export async function StartIDL(): Promise<IStartIDL> {
   // return if we have started
   if (IsIDLStarted()) {
     // display debug window if already started
@@ -19,23 +20,15 @@ export async function StartIDL(): Promise<boolean> {
     // vscode.window.showInformationMessage(
     //   IDL_TRANSLATION.debugger.idl.alreadyStarted
     // );
-    return true;
+    return { started: true };
   }
 
   // make sure we have a folder
-  if (!IDL_EXTENSION_CONFIG.IDL.directory) {
-    vscode.window
-      .showInformationMessage(IDL_TRANSLATION.notifications.noIDLDirFound, {
-        title: IDL_TRANSLATION.notifications.configure,
-      })
-      .then((res) => {
-        if (res !== undefined) {
-          if (res.title === IDL_TRANSLATION.notifications.configure) {
-            vscode.commands.executeCommand(IDL_COMMANDS.CONFIG.IDL_DIR_USER);
-          }
-        }
-      });
-    return false;
+  if (!IsIDLDirValid(IDL_EXTENSION_CONFIG.IDL.directory)) {
+    return {
+      started: false,
+      reason: IDL_TRANSLATION.debugger.idl.existingSessionFound,
+    };
   }
 
   // check for active debugging
@@ -43,7 +36,10 @@ export async function StartIDL(): Promise<boolean> {
     vscode.window.showInformationMessage(
       IDL_TRANSLATION.debugger.idl.existingSessionFound
     );
-    return false;
+    return {
+      started: false,
+      reason: IDL_TRANSLATION.debugger.idl.existingSessionFound,
+    };
   }
 
   // check for a workspace folder
@@ -68,7 +64,7 @@ export async function StartIDL(): Promise<boolean> {
   );
 
   // return that IDL has started
-  return true;
+  return { started: true };
 }
 
 /**

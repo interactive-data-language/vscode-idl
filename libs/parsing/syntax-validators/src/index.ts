@@ -14,6 +14,7 @@ export * from './lib/validators/function-colon-check';
 export * from './lib/validators/illegal-chain';
 export * from './lib/validators/incomplete-ternary';
 export * from './lib/validators/init-method-pro';
+export * from './lib/validators/logical-predicate';
 export * from './lib/validators/main-empty';
 export * from './lib/validators/main-end';
 export * from './lib/validators/quotes';

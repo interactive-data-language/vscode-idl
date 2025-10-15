@@ -70,6 +70,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'f',
         name: 'get_dir',
         pos: [0, 9, 7],
+        range: { start: [0, 0, 9], end: [3, 0, 3] },
         meta: {
           source: 'user',
           args: {
@@ -164,6 +165,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'f',
         name: 'myfunc',
         pos: [0, 9, 6],
+        range: { start: [0, 0, 9], end: [4, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -254,6 +256,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'f',
         name: 'myfunc',
         pos: [0, 9, 6],
+        range: { start: [0, 0, 9], end: [4, 0, 3] },
         meta: {
           source: 'user',
           args: {},
@@ -327,6 +330,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'f',
         name: 'mypro',
         pos: [0, 9, 5],
+        range: { start: [0, 0, 9], end: [4, 0, 3] },
         meta: {
           source: 'user',
           args: {},

@@ -15,7 +15,7 @@ export function IDLProblemCodeEnumAndTranslations(config: {
   const codes = Object.values(IDL_PROBLEM_CODES);
 
   // make enum and description array
-  let enums: string | number[] = [];
+  let enums: number[] | string = [];
 
   for (let i = 0; i < codes.length; i++) {
     // enums.push(codes[i]);W

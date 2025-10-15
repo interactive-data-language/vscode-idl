@@ -1,7 +1,8 @@
 import { TaskAssembler } from '@idl/assembler';
 import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
+import { IDLPackageFormatter } from '@idl/assembling/idlpackage';
 import { LoadTask } from '@idl/schemas/tasks';
-import { IDLFileHelper } from '@idl/shared';
+import { IDLFileHelper } from '@idl/shared/extension';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
@@ -34,6 +35,13 @@ export async function FormatFile(
    * Apply correct formatter
    */
   switch (true) {
+    /**
+     * Handle IDL Package files
+     */
+    case IDLFileHelper.isIDLPackageFile(info.fsPath): {
+      formatted = IDLPackageFormatter(info.code, config);
+      break;
+    }
     /**
      * Handle task files and manually handle errors from loading tasks
      */

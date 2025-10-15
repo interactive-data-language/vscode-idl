@@ -1,4 +1,4 @@
-import { IDL_COMMANDS } from '@idl/shared';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { Sleep } from '@idl/tests/helpers';
 import { GetActivePROCodeWindow } from '@idl/vscode/shared';
 import expect from 'expect';

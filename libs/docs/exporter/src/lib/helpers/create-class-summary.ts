@@ -19,10 +19,10 @@ import { GetDocsLink } from './get-docs-link';
 interface IClassSummary {
   /** Display name */
   display: string;
-  /** Track class inheritance */
-  inherits: string[];
   /** Function methods */
   functions: string[];
+  /** Track class inheritance */
+  inherits: string[];
   /** Procedure methods */
   procedures: string[];
   /** Properties */

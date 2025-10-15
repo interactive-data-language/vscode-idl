@@ -5,12 +5,16 @@ import {
   IDL_EXTENSION_CONFIG_KEYS,
   IDontAskConfig,
 } from '@idl/vscode/extension-config';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
-import { IDL_LOGGER } from '../initialize-client';
 import { LANGUAGE_SERVER_MESSENGER } from '../start-language-server';
 
 /**
+ * @deprecated
+ *
+ * Not deprecated insomuch as we just took this functionality out for now
+ *
  * Asks the user if they want to initialize config for a workspace or not
  * and handles any errors or preferences as well
  */
@@ -43,12 +47,6 @@ export async function InitConfig(folder: string) {
 
     // check what our response was
     switch (res) {
-      case IDL_TRANSLATION.notifications.yes:
-        LANGUAGE_SERVER_MESSENGER.sendNotification(
-          LANGUAGE_SERVER_MESSAGE_LOOKUP.INIT_WORKSPACE_CONFIG,
-          { folder }
-        );
-        break;
       case IDL_TRANSLATION.commands.notifications.initConfig.dontAsk:
         // extra sanity check to make sure we didnt already add
         // something to our preference
@@ -74,6 +72,12 @@ export async function InitConfig(folder: string) {
         UpdateConfigObject<IDontAskConfig>(IDL_EXTENSION_CONFIG_KEYS.dontAsk, {
           toInitConfig: true,
         });
+        break;
+      case IDL_TRANSLATION.notifications.yes:
+        LANGUAGE_SERVER_MESSENGER.sendNotification(
+          LANGUAGE_SERVER_MESSAGE_LOOKUP.INIT_WORKSPACE_CONFIG,
+          { folder }
+        );
         break;
       default:
         // do nothing

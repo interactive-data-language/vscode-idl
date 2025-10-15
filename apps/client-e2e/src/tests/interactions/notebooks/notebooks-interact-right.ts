@@ -1,4 +1,4 @@
-import { GetExtensionPath } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import {

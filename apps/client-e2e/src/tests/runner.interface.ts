@@ -11,10 +11,10 @@ export type RunnerFunction = (init: IInitializeType) => Promise<void>;
  * which need to skip ENVI code for notebooks.
  */
 export interface IOSDefinition {
-  /** The name of the OS we exclude for */
-  os: NodeJS.Platform[];
   /** The name of the architecture we exclude */
   architecture: NodeJS.Architecture[];
+  /** The name of the OS we exclude for */
+  os: NodeJS.Platform[];
 }
 
 /**
@@ -22,18 +22,18 @@ export interface IOSDefinition {
  * frameworks to use or access.
  */
 export interface IRunnerTest {
-  /** Name fo the test being run */
-  name: string;
-  /** Async test function being run that returns the number of failed tests */
-  fn: RunnerFunction;
   /** If critical, this failure prevents other tests from running */
   critical?: boolean;
   /** Do we keep or close all editors? */
   dontCloseAll?: boolean;
   /** Hardware we skip the test for */
   excludeOS?: IOSDefinition[];
+  /** Async test function being run that returns the number of failed tests */
+  fn: RunnerFunction;
   /** What hardware is our test specific for? */
   includeOS?: IOSDefinition[];
+  /** Name fo the test being run */
+  name: string;
 }
 
 /**

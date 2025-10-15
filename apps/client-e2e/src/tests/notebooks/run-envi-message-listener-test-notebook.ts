@@ -1,4 +1,4 @@
-import { GetExtensionPath } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
 
 import { RunnerFunction } from '../runner.interface';
 import { ICompareCellOutputs } from './helpers/compare-cells.interface';

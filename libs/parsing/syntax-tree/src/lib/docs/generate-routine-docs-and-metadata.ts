@@ -44,8 +44,8 @@ import { MARKDOWN_TYPE_LOOKUP } from './markdown/docs-to-markdown.interface';
  */
 export function GenerateRoutineDocsAndMetadata(
   type: RoutineType,
-  routine: IBranch<RoutineProcedureToken | RoutineFunctionToken>,
-  nameToken: IBranch<RoutineNameToken | RoutineMethodNameToken>,
+  routine: IBranch<RoutineFunctionToken | RoutineProcedureToken>,
+  nameToken: IBranch<RoutineMethodNameToken | RoutineNameToken>,
   problems: SyntaxProblems,
   structures: IGlobalIndexedToken<GlobalStructureToken>[],
   commentBlock?: IBranch<CommentBlockToken>

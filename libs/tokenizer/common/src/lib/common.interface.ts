@@ -1,9 +1,9 @@
 /** Position of a token */
 export interface IPosition {
-  /** Line number we start on */
-  line: number;
   /** Line number that we finish */
   index: number;
+  /** Line number we start on */
+  line: number;
 }
 
 /**
@@ -21,15 +21,15 @@ export type StartToken = 1;
 export type EndToken = 2;
 
 /** Types of tokens that we can match */
-export type FoundTokenType = BasicToken | StartToken | EndToken;
+export type FoundTokenType = BasicToken | EndToken | StartToken;
 
 /**
  * Strictly typed interface for constant of allowed token tupes
  */
 export interface ITokenTypes {
   BASIC: BasicToken;
-  START: StartToken;
   END: EndToken;
+  START: StartToken;
 }
 
 /**

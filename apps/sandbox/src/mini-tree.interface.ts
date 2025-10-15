@@ -25,14 +25,14 @@ interface BasicTreeMetadata {
    */
   accessTokens?: TreeToken<TokenName>[];
   /**
+   * Property to hold any user data.
+   */
+  cache?: any;
+  /**
    * Override for hover help in tokens, primarily allows for custom
    * hover help with routine docs.
    */
   hoverOverride?: IHoverOverride[];
-  /**
-   * Property to hold any user data.
-   */
-  cache?: any;
 }
 
 /**

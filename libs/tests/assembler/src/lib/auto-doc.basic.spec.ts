@@ -778,17 +778,17 @@ describe(`[auto generated] Verify doc formatting`, () => {
     // define expected problems
     const expectedProblems: SyntaxProblems = [
       {
-        code: 38,
-        info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
-        start: [6, 0, 4],
-        end: [6, 15, 0],
-        canReport: true,
-      },
-      {
         code: 59,
         info: 'Documentation is not left-aligned with the start of docs (not enough spaces before docs)',
         start: [3, 0, 5],
         end: [3, 0, 5],
+        canReport: true,
+      },
+      {
+        code: 38,
+        info: 'No "compile_opt" statement present in routine or main level program. While not required, enforces consistency and helps prevent bugs with functions, variables, and arrays.',
+        start: [6, 0, 4],
+        end: [6, 15, 0],
         canReport: true,
       },
     ];

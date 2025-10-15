@@ -78,6 +78,7 @@ describe(`[auto generated] Types from`, () => {
         type: 'p',
         name: 'foreach',
         pos: [5, 4, 7],
+        range: { start: [5, 0, 4], end: [7, 0, 3] },
         meta: {
           source: 'user',
           args: {

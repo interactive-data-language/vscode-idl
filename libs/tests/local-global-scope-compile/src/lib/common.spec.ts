@@ -96,6 +96,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
         type: 'p',
         name: 'color_edit_back',
         pos: [0, 4, 15],
+        range: { start: [0, 0, 4], end: [4, 0, 3] },
         meta: {
           source: 'user',
           args: {},

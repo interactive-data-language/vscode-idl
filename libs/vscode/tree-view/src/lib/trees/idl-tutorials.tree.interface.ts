@@ -1,10 +1,10 @@
-import { IDL_COMMANDS } from '@idl/shared';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 
 import { IChild } from '../idl-tree-view.interface';
 
 /**
- * Buttons for our terminal tab
+ * Buttons for our top-level tutorials (since we will have nested options)
  */
 export const IDLTUTORIAL_ACTIONS: IChild[] = [
   {
@@ -22,7 +22,6 @@ export const IDLTUTORIAL_ACTIONS: IChild[] = [
     icon: 'post.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
   },
-
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.fileOperations.name,
     description:
@@ -30,8 +29,18 @@ export const IDLTUTORIAL_ACTIONS: IChild[] = [
     icon: 'post.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
   },
+  {
+    name: IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.description,
+    icon: 'post.svg',
+    commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
+  },
 ];
 
+/**
+ * Getting started notebooks
+ */
 export const IDLTUTORIAL_GETTINGSTARTED: IChild[] = [
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.gettingStarted.children
@@ -59,6 +68,9 @@ export const IDLTUTORIAL_GETTINGSTARTED: IChild[] = [
   },
 ];
 
+/**
+ * IDL basics notebooks
+ */
 export const IDLTUTORIAL_IDLBASICS: IChild[] = [
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.children
@@ -180,10 +192,13 @@ export const IDLTUTORIAL_IDLBASICS: IChild[] = [
         .introToObjects.description,
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    commandArgs: ['IDL Tutorials/IDL Basics/11-IntroToObjects.idlnb'],
+    commandArgs: ['IDL Tutorials/IDL Basics/11-Intro to Objects.idlnb'],
   },
 ];
 
+/**
+ * File operations notebooks
+ */
 export const IDLTUTORIAL_FILEOPERATIONS: IChild[] = [
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.fileOperations.children
@@ -216,5 +231,31 @@ export const IDLTUTORIAL_FILEOPERATIONS: IChild[] = [
     icon: 'open-new.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
     commandArgs: ['IDL Tutorials/File Operations/03-Write Files.idlnb'],
+  },
+];
+
+/**
+ * Tutorial notebooks
+ */
+export const IDLTUTORIAL_NOTEBOOKS: IChild[] = [
+  {
+    name: IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.children
+      .quickIDL.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.children.quickIDL
+        .description,
+    icon: 'idlicon.svg',
+    commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
+    commandArgs: ['hello-world-idl.idlnb'],
+  },
+  {
+    name: IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.children
+      .quickENVI.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.children
+        .quickENVI.description,
+    icon: 'enviicon.svg',
+    commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
+    commandArgs: ['hello-world-envi.idlnb'],
   },
 ];

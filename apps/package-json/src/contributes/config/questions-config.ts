@@ -1,4 +1,4 @@
-import { IDL_LANGUAGE_NAME } from '@idl/shared';
+import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDL_EXTENSION_CONFIG_KEYS,
@@ -58,6 +58,13 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
         type: 'boolean',
         description: TranslationFromConfiguration(
           IDL_EXTENSION_CONFIG_KEYS.dontAskForFormatterChange,
+          nls
+        ),
+      },
+      forMCPConfig: {
+        type: 'boolean',
+        description: TranslationFromConfiguration(
+          IDL_EXTENSION_CONFIG_KEYS.dontAskForMCPConfig,
           nls
         ),
       },

@@ -1140,8 +1140,6 @@
       </dict>
       <key>executive_command</key>
       <dict>
-        <key>name</key>
-        <string>entity.name.type.idl</string>
         <key>match</key>
         <string>(?i)^\s*(\.[a-z_]+)\s*(.*)$</string>
         <key>captures</key>
@@ -1153,8 +1151,21 @@
           </dict>
           <key>2</key>
           <dict>
-            <key>name</key>
-            <string>variable.other.readwrite.ts.idl</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#quote_tokens</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#variable</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#comment_tokens</string>
+              </dict>
+            </array>
           </dict>
         </dict>
       </dict>
@@ -1868,7 +1879,7 @@
         <key>name</key>
         <string>group.call.func-method.idl</string>
         <key>begin</key>
-        <string>(?i)\s*(\.|-&gt;)\s*([a-z0-9_$:]+)(\()</string>
+        <string>(?i)\s*(\.|-&gt;)\s*([a-z0-9_$]+(?:::[a-z0-9_$]+)?)(\()</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -1942,7 +1953,7 @@
         <key>name</key>
         <string>group.call.pro-method.idl</string>
         <key>begin</key>
-        <string>(?i)(\.|-&gt;)\s*([a-z_][a-z0-9_$:]*)(?=\s*(?&lt;!&amp;)&amp;(?!&amp;)|\s*,|\s*;|\s+\$|\s*$)</string>
+        <string>(?i)(\.|-&gt;)\s*([a-z_][a-z0-9_$]*(?:::[a-z0-9_$]+)?)(?=\s*(?&lt;!&amp;)&amp;(?!&amp;)|\s*,|\s*;|\s+\$|\s*$)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>

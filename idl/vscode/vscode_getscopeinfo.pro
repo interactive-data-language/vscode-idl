@@ -24,10 +24,13 @@ pro vscode_getScopeInfo, level, output = output
   ; get prompt
   prompt = !prompt ; pref_get('IDL_PROMPT')
 
+  ; check if we are the IDL Machine
+  isMachine = strtrim(getenv('IDL_IS_IDL_MACHINE'), 2) ne ''
+
   ; reset prompt if it is not right - we wont ever get here if the
   ; prompt has a bad value. restarting IDL is the only current way to
   ; resolve prompt issues because we set the environment variable to change it
-  if (prompt ne 'IDL> ' and prompt ne 'ENVI> ') then begin
+  if ~isMachine and (prompt ne 'IDL> ' and prompt ne 'ENVI> ') then begin
     pref_set, 'idl_prompt', /default, /commit
 
     ; update value
@@ -42,18 +45,6 @@ pro vscode_getScopeInfo, level, output = output
   if (names[-1] eq '$MAIN$') then begin
     track = routine_info('$MAIN$', /source)
     files[-1] = track.path
-    ; check if we have a bad stack?
-    ; DO THIS IN VSCODE since zero-length arrays are stupid in IDL
-    ; if (files[-1] eq '') AND (lines[-1] eq 0) then begin
-    ; remove the main level program
-    ; if (n_elements(names) gt 1) then begin
-    ; print, names
-    ; help, names
-    ; names = names[0:-2]
-    ; files = files[0:-2]
-    ; lines = lines[0:-2]
-    ; endif
-    ; endif
   endif
   traceback = '[' + strjoin('{"routine":"' + strlowcase(names[1 : -1]) + '","file":"' + (files.replace('\', '\\'))[1 : -1] + '","line":' + strtrim(lines[1 : -1], 2) + '}', ',') + ']'
 
@@ -69,20 +60,6 @@ pro vscode_getScopeInfo, level, output = output
   endif else begin
     add = ',"envi":false'
   endelse
-
-  ; check for envi using static properties
-  ; is sooo much faster (>1000x) than envi(/CURRENT) UNTIL envi is started and closed
-  ; then this takes forever, so that is why we dont use it anymore, but it is still here
-  ; which is OK because it also changes the last message
-  ; catch, err
-  ; if (err ne 0) then begin
-  ; catch, /CANCEL
-  ; add = ',"envi":false'
-  ; endif else begin
-  ; !null = envi.widget_id
-  ; add = ',"envi":true'
-  ; endelse
-  ; catch, /CANCEL
 
   ; check if we dont have any variables
   if strpos(o[idxEnd[0] - 1], '%') eq 0 then begin
@@ -164,23 +141,4 @@ pro vscode_getScopeInfo, level, output = output
   ; make our json
   output = '{"scope":' + traceback + ',"variables":' + variables + '' + add + '}'
   print, output
-
-  ; get breakpoints
-  ; help, /BREAKPOINTS, OUTPUT = strings
-  ;
-  ; make single line
-  ; idxGo = where(strpos(strings, ' ') ne 0, countGo, COMPLEMENT=idxJoin, NCOMPLEMENT=countJoin)
-  ;
-  ; add the rest of the strings
-  ; if (countJoin gt 0) then strings[idxJoin-1] += strings[idxJoin]
-  ; strings = strings[idxGo]
-  ;
-  ; if (n_elements(o) eq 1) then begin
-  ; breakpoints = '[]'
-  ; endif else begin
-  ; allMatches = stregex(o[1:-1], '[0-9]* *([0-9]*) *[a-z ]* (.*)', /SUBEXPR, /EXTRACT, /FOLD_CASE)
-  ; breakpoints = '[' + strjoin('{"line":' + allMatches[1,*] + ',"file":"' + allMatches[2,*].replace('\', '\\') + '"}', ',') + ']'
-  ; endelse
-  ;
-  ; stop
 end

@@ -40,13 +40,13 @@ export function GetVarHoverHelp(
           lookup = parsed.local.func[parentName];
         }
         break;
+      case 'main':
+        lookup = parsed.local.main;
+        break;
       case 'procedure':
         if (parentName in parsed.local.pro) {
           lookup = parsed.local.pro[parentName];
         }
-        break;
-      case 'main':
-        lookup = parsed.local.main;
         break;
       default:
         // DO NOTHING

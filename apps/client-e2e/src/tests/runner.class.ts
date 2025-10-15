@@ -1,5 +1,5 @@
 import { Logger } from '@idl/logger';
-import { IDL_COMMANDS, Sleep } from '@idl/shared';
+import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
 import { arch, platform } from 'os';
 import { performance } from 'perf_hooks';
@@ -34,16 +34,6 @@ export class Runner {
   /** Register test that we need to run */
   addTest(test: IRunnerTest) {
     this.tests.push(test);
-  }
-
-  /**
-   * Close files and stop all notebook kernels
-   */
-  async closeAll() {
-    await vscode.commands.executeCommand('workbench.action.closeAllEditors');
-    await vscode.commands.executeCommand(
-      IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS
-    );
   }
 
   /**
@@ -87,6 +77,54 @@ export class Runner {
 
     // if we make it here, run the test
     return true;
+  }
+
+  /**
+   * Close files and stop all notebook kernels
+   */
+  async closeAll() {
+    await vscode.commands.executeCommand('workbench.action.closeAllEditors');
+    await vscode.commands.executeCommand(
+      IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS
+    );
+  }
+
+  /**
+   * Runs the tests that we have registered to our runner and returns the number of failures
+   */
+  async runAllTests(): Promise<number> {
+    /** Initialize failures */
+    let failures = 0;
+
+    /** Track total tests */
+    let total = 0;
+
+    /** Get start time */
+    const t0 = performance.now();
+
+    // alert user
+    this.logger.info([
+      `Running tests for ${this.runners.length} test runners`,
+      '',
+    ]);
+
+    // run all of our tests - no need for try/catch, handled internally below
+    for (let i = 0; i < this.runners.length; i++) {
+      // update total
+      total += this.runners[i].tests.length;
+
+      // run and track failures
+      failures += await this.runners[i].runOurTests();
+    }
+
+    // alert user
+    this.logger.info([
+      `Finished running ${total} tests in ${Math.ceil(
+        (performance.now() - t0) / 1000
+      )} seconds with ${failures} failed tests`,
+    ]);
+
+    return failures;
   }
 
   /**
@@ -183,44 +221,6 @@ export class Runner {
         (performance.now() - t0) / 1000
       )} seconds with ${failures} failed tests`,
       '',
-    ]);
-
-    return failures;
-  }
-
-  /**
-   * Runs the tests that we have registered to our runner and returns the number of failures
-   */
-  async runAllTests(): Promise<number> {
-    /** Initialize failures */
-    let failures = 0;
-
-    /** Track total tests */
-    let total = 0;
-
-    /** Get start time */
-    const t0 = performance.now();
-
-    // alert user
-    this.logger.info([
-      `Running tests for ${this.runners.length} test runners`,
-      '',
-    ]);
-
-    // run all of our tests - no need for try/catch, handled internally below
-    for (let i = 0; i < this.runners.length; i++) {
-      // update total
-      total += this.runners[i].tests.length;
-
-      // run and track failures
-      failures += await this.runners[i].runOurTests();
-    }
-
-    // alert user
-    this.logger.info([
-      `Finished running ${total} tests in ${Math.ceil(
-        (performance.now() - t0) / 1000
-      )} seconds with ${failures} failed tests`,
     ]);
 
     return failures;

@@ -52,7 +52,7 @@ export function FindKeyword(
 export function GetKeyword(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<KeywordToken | KeywordBinaryToken | KeywordDefinitionToken>,
+  token: TreeToken<KeywordBinaryToken | KeywordDefinitionToken | KeywordToken>,
   useCache = true
 ): IFoundParameter | undefined {
   if ('keyword' in (token.cache as ITokenCache) && useCache) {

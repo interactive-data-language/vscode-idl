@@ -12,11 +12,11 @@ export interface ISpecialProcedureCompletionOptions {
    */
   notSpecial: boolean;
   /**
-   * The value of the token when evaluated
-   */
-  value?: string;
-  /**
    * Name of procedure we are calling, lower case
    */
   procedureName?: string;
+  /**
+   * The value of the token when evaluated
+   */
+  value?: string;
 }

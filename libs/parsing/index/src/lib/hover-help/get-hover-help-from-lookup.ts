@@ -1,4 +1,4 @@
-import { IDL_COMMANDS } from '@idl/shared';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,

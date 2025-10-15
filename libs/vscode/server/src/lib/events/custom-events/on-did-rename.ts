@@ -5,7 +5,7 @@ import { IFileRenamePayload } from '@idl/vscode/events/messages';
 
 import { GetFileStringsFromFSPath } from '../../helpers/get-file-strings';
 import { SendProblems } from '../../helpers/send-problems';
-import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';
 

@@ -69,6 +69,11 @@ export const IDL_LSP_LOG = 'idl-lsp';
 export const IDL_LSP_CONSOLE = 'idl-lsp-console';
 
 /**
+ * Log for the IDL MCP server
+ */
+export const IDL_MCP_LOG = 'idl-mcp';
+
+/**
  * Override for console log
  */
 export const IDL_WORKER_THREAD_CONSOLE = 'idl-worker-console';
@@ -77,6 +82,16 @@ export const IDL_WORKER_THREAD_CONSOLE = 'idl-worker-console';
  * Log for usage metrics
  */
 export const IDL_USAGE_METRIC = 'idl-usage-metric';
+
+/**
+ * Log for web socket server
+ */
+export const IDL_WS_CONSOLE = 'idl-ws-console';
+
+/**
+ * Log for web socket server
+ */
+export const IDL_WS_SERVER = 'idl-ws-server';
 
 /**
  * All logs for the extension
@@ -95,6 +110,9 @@ export const ALL_IDL_LOGS = [
   IDL_INDEX_LOG,
   IDL_LSP_LOG,
   IDL_LSP_CONSOLE,
+  IDL_MCP_LOG,
   IDL_WORKER_THREAD_CONSOLE,
+  IDL_WS_CONSOLE,
+  IDL_WS_SERVER,
   IDL_USAGE_METRIC,
 ];

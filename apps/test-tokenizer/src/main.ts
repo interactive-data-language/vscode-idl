@@ -8,24 +8,9 @@ let quit = false;
 // check for args
 if (args.length > 0) {
   quit = true;
-  const flag = args[0];
-
-  // check what our flag is
-  let useCache = true;
-  switch (flag) {
-    case '--generate-all-tests':
-      useCache = false;
-      break;
-    case '--generate-new-tests':
-      useCache = true;
-      break;
-    default:
-      console.log(`Unknown option of "${flag}"`);
-      process.exit(1);
-  }
 
   console.log('Creating tests, please wait...');
-  GenerateAutomatedTests(useCache)
+  GenerateAutomatedTests()
     .then(
       () => {
         process.exit();

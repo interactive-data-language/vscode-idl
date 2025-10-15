@@ -72,7 +72,8 @@
         "stylePreprocessorOptions": {
           "includePaths": ["apps/notebook/components/src/app/styles"]
         }
-      }
+      },
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

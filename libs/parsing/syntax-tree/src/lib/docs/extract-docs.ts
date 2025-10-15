@@ -1,9 +1,9 @@
 import { CommentToken, GetMatchesArray } from '@idl/tokenizer';
+import { HEADER_TAG } from '@idl/types/syntax-tree';
 
 import { IBasicBranch } from '../branches.interface';
 import { CleanComment } from '../helpers/clean-comment';
 import { IDL_DOCS_HEADERS } from './docs.interface';
-import { HEADER_TAG } from './docs.regex.interface';
 import {
   END_COMMENT_BLOCK_REGEX,
   IDocs,

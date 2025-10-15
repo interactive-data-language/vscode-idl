@@ -1,8 +1,8 @@
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { TextDocument } from 'vscode';
 import * as vscode from 'vscode';
 
 import { ReplaceEditorContent } from './replace-editor-content';
-import { VSCODE_COMMANDS } from './vscode-commands.interface';
 
 /**
  * replaces the content in a document using the edit API

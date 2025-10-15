@@ -56,7 +56,7 @@ export type FunctionMethodCallTokenDef = ITokenDef<CallFunctionMethodToken>;
 
 export const CALL_FUNCTION_METHOD: FunctionMethodCallTokenDef = {
   name: TOKEN_NAMES.CALL_FUNCTION_METHOD,
-  match: /(\.|->)\s*([a-z0-9_$:]+)\s*(\()/im,
+  match: /(\.|->)\s*([a-z0-9_$]+(?:::[a-z0-9_$]+)?)\s*(\()/im,
   end: /\)/im,
 };
 
@@ -80,7 +80,7 @@ export type ProcedureMethodCallTokenDef = ITokenDef<CallProcedureMethodToken>;
 export const CALL_PRO_METHOD: ProcedureMethodCallTokenDef = {
   name: TOKEN_NAMES.CALL_PROCEDURE_METHOD,
   match:
-    /(\.|->)\s*([a-z_][a-z0-9_$:]*)(?=\s*(?<!&)&(?!&)|\s*,|\s*;|\s+\$|\s*$)/im,
+    /(\.|->)\s*([a-z_][a-z0-9_$]*(?:::[a-z0-9_$]+)?)(?=\s*(?<!&)&(?!&)|\s*,|\s*;|\s+\$|\s*$)/im,
   end: IDL_PRO_END,
 };
 

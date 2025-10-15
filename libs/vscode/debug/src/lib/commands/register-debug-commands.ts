@@ -1,16 +1,17 @@
-import { IDL_COMMANDS } from '@idl/shared';
+import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   IDL_LOGGER,
   LogCommandError,
   LogCommandInfo,
-} from '@idl/vscode/client';
-import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
+} from '@idl/vscode/logger';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { IDLWebView } from '@idl/vscode/webview';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
+import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';
 import { CompileFile } from './compile-file';
 import { ExecuteFile } from './execute-file';
 import { StartProfiling, StopProfiling } from './profiling';
@@ -48,14 +49,34 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
   );
 
   ctx.subscriptions.push(
+    vscode.commands.registerCommand(IDL_COMMANDS.DEBUG.START_ENVI, async () => {
+      try {
+        LogCommandInfo('Opening ENVI and IDL');
+        VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+          idl_command: IDL_COMMANDS.DEBUG.START_ENVI,
+        });
+        await StartIDL();
+        await IDL_DEBUG_ADAPTER.evaluate('e = envi()', {
+          echo: true,
+          newLine: true,
+        });
+        return true;
+      } catch (err) {
+        LogCommandError(
+          'Error while opening ENVI IDL',
+          err,
+          cmdErrors.debug.startENVI
+        );
+        return false;
+      }
+    })
+  );
+
+  ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.DEBUG.COMPILE, async () => {
       try {
-        if (!VerifyIDLHasStarted(true)) {
-          return false;
-        }
         LogCommandInfo('Compiling file');
-        await CompileFile();
-        return true;
+        return await CompileFile();
       } catch (err) {
         LogCommandError(
           'Error while compiling file for IDL',
@@ -70,9 +91,6 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.DEBUG.RUN, async () => {
       try {
-        if (!VerifyIDLHasStarted(true)) {
-          return false;
-        }
         LogCommandInfo('Running file');
         return await RunFile();
       } catch (err) {

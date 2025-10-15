@@ -107,6 +107,7 @@ describe(`[auto generated] Correctly extract variables from`, () => {
         type: 'p',
         name: '$main$',
         pos: [0, 0, 11],
+        range: { start: [0, 0, 11], end: [3, 0, 3] },
         meta: {
           display: '$main$',
           docs: 'Main level program',

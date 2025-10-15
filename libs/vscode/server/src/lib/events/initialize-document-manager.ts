@@ -5,14 +5,14 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_CONNECTION,
-} from '../initialize-server';
+} from '../initialize-language-server';
+import { ON_CONNECTION_INITIALIZED } from './documents/on-connection-initialized';
 import { ON_DID_CHANGE_CONTENT } from './documents/on-did-change-content';
 import { ON_DID_CHANGE_WATCHED_FILES } from './documents/on-did-change-watched-files';
 import { ON_DID_CLOSE } from './documents/on-did-close';
 import { ON_DID_OPEN } from './documents/on-did-open';
 import { ON_DOCUMENT_FORMATTING } from './documents/on-document-formatting';
 import { ON_DOCUMENT_SYMBOL } from './documents/on-document-symbol';
-import { ON_INITIALIZED } from './documents/on-initialized';
 
 /**
  * Text document manager which handles full document syncs
@@ -35,7 +35,7 @@ export function InitializeDocumentManager() {
   /**
    * Set everything up once our connection has been initialized
    */
-  SERVER_CONNECTION.onInitialized(ON_INITIALIZED);
+  SERVER_CONNECTION.onInitialized(ON_CONNECTION_INITIALIZED);
 
   /**
    * Listen for file changes in our workspace
@@ -48,7 +48,9 @@ export function InitializeDocumentManager() {
    * Override the type because its not smart enough to recognize optional
    * parameters that do not break the patterns that exist
    */
-  SERVER_CONNECTION.onDocumentFormatting(ON_DOCUMENT_FORMATTING as any);
+  SERVER_CONNECTION.onDocumentFormatting((params) => {
+    return ON_DOCUMENT_FORMATTING(params, undefined, false);
+  });
 
   /**
    * Listen for document symbols

@@ -1,4 +1,5 @@
-import { GetExtensionPath, IDL_LANGUAGE_NAME } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
+import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDL_EXTENSION_CONFIG_KEYS,
@@ -228,6 +229,22 @@ export function AddCodeConfig(nls: IPackageNLS) {
         type: 'number',
         description: TranslationFromConfiguration(
           'tabWidth',
+          nls,
+          formatPropertyBase
+        ),
+      },
+      hangingIndent: {
+        type: 'boolean',
+        description: TranslationFromConfiguration(
+          'hangingIndent',
+          nls,
+          formatPropertyBase
+        ),
+      },
+      maxIndent: {
+        type: 'number',
+        description: TranslationFromConfiguration(
+          'maxIndent',
           nls,
           formatPropertyBase
         ),

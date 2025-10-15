@@ -1,3 +1,4 @@
+import { InitializeMCPVSCode } from '@idl/mcp/vscode';
 import { MEASUREMENT } from '@idl/usage-metrics';
 import {
   InitializeClient,
@@ -10,7 +11,7 @@ import { InitializeDocs } from '@idl/vscode/docs';
 import { InitializeENVIOpener } from '@idl/vscode/envi-opener';
 import { InitializeIDLTutorials } from '@idl/vscode/idl-tutorials';
 import { IInitializeType } from '@idl/vscode/initialize-types';
-import { InitializeNotebooks } from '@idl/vscode/notebooks';
+import { InitializeNotebooks } from '@idl/vscode/notebooks/client';
 import { InitializeIDLTerminal } from '@idl/vscode/terminal';
 import { InitializeTree } from '@idl/vscode/tree-view';
 import { InitializeWebView } from '@idl/vscode/webview';
@@ -32,11 +33,11 @@ export async function activate(
   // add debugging
   const debug = InitializeDebugger(ctx);
 
+  // register handlers for MCP tools - MUST be after debugging
+  InitializeMCPVSCode(ctx);
+
   // add everything for IDL terminal
   InitializeIDLTerminal(ctx);
-
-  // initialize our tree view
-  InitializeTree(ctx);
 
   // add our webview
   const webview = InitializeWebView(ctx);
@@ -49,6 +50,9 @@ export async function activate(
 
   // add notebooks
   const notebooks = InitializeNotebooks(ctx);
+
+  // initialize our tree view
+  InitializeTree(ctx, false);
 
   InitializeIDLTutorials(ctx);
 

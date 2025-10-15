@@ -9,25 +9,27 @@ export const EN: ITranslation = {
     config: {
       errors: {
         fileNotFound: 'Specified config file was not found',
-        invalidJSON:
-          'Config file is not valid JSON and may have JSON syntax errors',
         invalidConfigFile:
           'Invalid configuration file. Please open in VSCode or see logs for details',
+        invalidJSON:
+          'Config file is not valid JSON and may have JSON syntax errors',
         shouldUpdate: 'Config file should be updated to the latest version',
       },
     },
   },
-  tasks: {
-    parsing: {
-      errors: {
-        fileNotFound: 'Specified task file was not found',
-        invalidJSON:
-          'Task file is not valid JSON and may have JSON syntax errors',
-        invalidTaskFile:
-          'Invalid task file. Please open in VSCode or see logs for details',
-        failedParse:
-          'Unable to parse task file. Either JSON syntax error or the task file does not match our schema. Please open in VSCode or see logs for details',
-      },
+  autoComplete: {
+    detail: {
+      enviTask: 'ENVI Task',
+      function: 'Function',
+      functionMethod: 'Function Method',
+      idltask: 'IDL Task',
+      keyword: 'Keyword',
+      procedure: 'Procedure',
+      procedureMethod: 'Procedure Method',
+      property: 'Property of',
+      structure: 'Structure',
+      systemVariable: 'System Variable',
+      variable: 'Variable',
     },
   },
   client: {
@@ -58,6 +60,7 @@ export const EN: ITranslation = {
           'IDL: Specify IDL Directory (Workspace-level)',
       },
       debug: {
+        startENVI: 'IDL: Start a Session of ENVI and IDL',
         startIDL: 'IDL: Start a Session of IDL',
         compileFile: 'IDL: Compile PRO File',
         runFile: 'IDL: Run PRO File',
@@ -72,11 +75,8 @@ export const EN: ITranslation = {
         helpAsNotebook: 'IDL: Convert Help to Notebook',
         newNotebook: 'IDL: Create New IDL Notebook',
         notebookToProCode: 'IDL: Convert IDL Notebook to PRO Code',
-        openIDLExample: 'IDL: Open IDL Example Notebook',
-        openENVIExample: 'IDL: Open ENVI Example Notebook',
         // shorter because it shows in toolbar
         resetIDLKernel: 'IDL: Reset IDL Notebook Kernel',
-        resetNotebookExamples: 'IDL: Reset IDL and ENVI Example Notebooks',
         // shorter because it shows in toolbar
         stopIDLKernel: 'IDL: Stop IDL Notebook Kernel',
         stopAllIDLKernels: 'IDL: Stop All IDL Notebook Kernels',
@@ -95,6 +95,7 @@ export const EN: ITranslation = {
       },
       idlTutorials: {
         openIDLTutorial: 'IDL: Open IDL Tutorial',
+        resetTutorials: 'IDL: Reset Tutorials',
       },
       webview: {
         start: 'IDL: Start Webview',
@@ -111,7 +112,6 @@ export const EN: ITranslation = {
         viewSettings: "Error while viewing IDL's settings",
       },
       code: {
-        initializeConfig: 'Error while initializing config for workspace',
         addDocsToFile: 'Error while adding/updating docs for file',
         disableProblemSetting:
           'Error while disabling problem code via settings',
@@ -119,6 +119,7 @@ export const EN: ITranslation = {
         formatFile: 'Error while formatting file',
         formatWorkspace: 'Error while formatting workspace',
         generateTask: 'Error while generating task',
+        initializeConfig: 'Error while initializing config for workspace',
         migrateToDL30API: 'Error while migrating code',
       },
       config: {
@@ -127,13 +128,18 @@ export const EN: ITranslation = {
           'Error while setting IDL directory (Workspace)',
       },
       debug: {
-        startIDL: 'Error while starting IDL',
         compileFile: 'Error while compiling file for IDL',
-        runFile: 'Error while running file for IDL',
         executeBatchFile: 'Error while executing batch file',
         resetIDL: 'Error while resetting IDL',
+        runFile: 'Error while running file for IDL',
+        startENVI: 'Error while starting ENVI and IDL',
+        startIDL: 'Error while starting IDL',
         startProfiling: 'Error while starting profiling',
         stopProfiling: 'Error while stopping profiling',
+      },
+      docs: {
+        open: 'Error while opening extension docs',
+        openLink: 'Error while opening docs link',
       },
       notebooks: {
         convertToMarkdown: 'Error while converting notebook to markdown',
@@ -141,34 +147,28 @@ export const EN: ITranslation = {
         helpAsNotebook: 'Error while converting help to notebook',
         newNotebook: 'Error while creating new notebook',
         notebookToProCode: 'Error while converting notebook to PRO code',
-        openIDLExample: 'Error while opening IDL example notebook',
-        openENVIExample: 'Error while opening ENVI example notebook',
         resetIDLKernel: 'Error while resetting IDL Notebook Kernel',
-        resetNotebookExamples: 'Error while resetting example notebooks',
-        stopIDLKernel: 'Error while stopping IDL Notebook Kernel',
         stopAllIDLKernels: 'Error while stopping all IDL Notebook Kernels',
+        stopIDLKernel: 'Error while stopping IDL Notebook Kernel',
       },
       terminal: {
-        startIDL: 'Error while opening IDL terminal indow',
         compileFile: 'Error while compiling PRO file in terminal',
-        runFile: 'Error while running PRO file in terminal',
-        executeBatchFile: 'Error while executing batch file in terminal',
-        resetIDL: 'Error while resetting session in terminal',
-        pauseExecution: 'Error while stopping execution in terminal',
         continueExecution: 'Error while continuing execution in terminal',
+        executeBatchFile: 'Error while executing batch file in terminal',
+        pauseExecution: 'Error while stopping execution in terminal',
+        resetIDL: 'Error while resetting session in terminal',
+        runFile: 'Error while running PRO file in terminal',
+        startIDL: 'Error while opening IDL terminal indow',
         stepIn: 'Error while stepping in in terminal',
-        stepOver: 'Error while stepping over in terminal',
         stepOut: 'Error while stepping out in terminal',
+        stepOver: 'Error while stepping over in terminal',
       },
       idlTutorials: {
         openIDLTutorial: 'Error while opening IDL tutorial',
+        resetTutorials: 'Error while resetting tutorials',
       },
       webview: {
         start: 'Error while starting webview',
-      },
-      docs: {
-        open: 'Error while opening extension docs',
-        openLink: 'Error while opening docs link',
       },
     },
     notifications: {
@@ -179,7 +179,6 @@ export const EN: ITranslation = {
           'Specify the open workspace to format all PRO files in workspace',
       },
       initConfig: {
-        noWorkspaceOpen: 'No currently open workspaces',
         allWorkspacesHaveConfig:
           'All workspaces already have an "idl.json" file',
         configFileCreated: 'IDL config file created!',
@@ -187,6 +186,7 @@ export const EN: ITranslation = {
           'Specify the open workspace to create an "idl.json" file for',
         dontAsk: "Don't ask for folder",
         neverAsk: 'Never ask again',
+        noWorkspaceOpen: 'No currently open workspaces',
       },
       initTask: {
         created: 'Task file created!',
@@ -196,46 +196,22 @@ export const EN: ITranslation = {
     },
   },
   configuration: {
-    titles: {
-      general: 'General',
-      developer: 'Developer',
-      documentation: 'Documentation',
-      formatting: 'Formatting',
-      idl: 'IDL',
-      languageServer: 'Language Server',
-      notebooks: 'Notebooks',
-      problems: 'Problem Reporting',
-      questions: 'Questions',
-      root: 'IDL for VSCode',
-    },
-    idlDir: {
-      notFound: 'IDL directory not found or specified by user, configure?',
-    },
-    reloadWindow:
-      'IDL configuration has changed, reload window for changes to take effect?',
     descriptions: {
-      debugMode:
-        'If set to true, the extension will become very chatty for the purposes of debugging.',
-
-      IDL: 'Preferences for IDL',
-      'IDL.directory':
-        "Specify the folder with IDL's executable (bin directory with idl.exe or idl).",
-      'IDL.path':
-        "Specify additional directories to add to IDL's search path. Add a '+' before the folder to include subdirectories.\n\nAny folders added to the path are not watched for file changes unless you edit the files within the VSCode UI.",
-      'IDL.addWorkspaceFoldersToPath':
-        "Specify whether to automatically include the workspace folders to IDL's search path.",
-      'IDL.appendOrPrependWorkspaceFolders':
-        "If workspace folders are automatically added to IDL's search path, this indicates if they are added before (prepend) or after (append) the IDL Path setting.",
-      'IDL.environment':
-        "Specify any environment variables you want passed to the IDL process on startup.\n\nThese take precedence over your system environment, meaning: if your system environment variable for PATH is set, and you specify PATH here, then we use this value of PATH instead of the system's.\n\nAdditionally, the extension manages the following environment variables: IDL_PATH, IDL_DLM_PATH, IDL_DIR, and IDL_START_DIR. If you want to change IDL's search path, use the path preference for the extension instead.",
-      'IDL.history':
-        'Preferences that control the session history (input and output) when running IDL.',
-      'IDL.preferences': 'Placeholder',
-
       code: 'code',
+
       'code.formatting': 'Top-level preferences for how code gets formatted.',
       'code.formattingStyle':
         'This controls how code is automatically formatted when using the buttons in the sidebar or formatting on save.',
+      debugMode:
+        'If set to true, the extension will become very chatty for the purposes of debugging.',
+      developer:
+        'For ENVI and IDL developers, choose to disable loading global tokens from the documentation and rely on source code instead.\n\nNOTE: Changing this setting requires a reload to take effect.',
+      'developer.ENVI': "Disable loading ENVI's global tokens.",
+      'developer.ENVIDeepLearning':
+        "Disable loading ENVI Deep Learning's global tokens.",
+      'developer.ENVIMachineLearning':
+        "Disable loading ENVI Machine Learning's global tokens.",
+      'developer.IDL': "Disable loading IDL's global tokens.",
 
       documentation: 'documentation',
       'documentation.localPort':
@@ -243,56 +219,100 @@ export const EN: ITranslation = {
       'documentation.useOnline':
         'For extension documentation, do we use the online (hosted) version, or the local version packaged with the extension?',
 
+      dontAsk:
+        'Preferences that disable dialogs that appear and ask questions. These settings can also be disabled directly within the dialogs you see.',
+      'dontAsk.forFormatterChange':
+        "Don't ask to set the extension as the default formatter for IDL code.",
+      'dontAsk.forIconChange': "Don't ask to change icon font on startup.",
+      'dontAsk.forIDLDir':
+        "Don't ask for IDL directory on extension startup if it is not set.",
+      'dontAsk.forMCPConfig':
+        "Don't ask to automatically configure the MCP server for use with the GitHub Copilot Agent embedded within VSCode.",
+      'dontAsk.toOpenDocs': `Don't ask to open the documentation on extension startup`,
+
+      dontShow:
+        'Preferences that disable dialogs/views from automatically appearing',
+      'dontShow.welcomePage': "IDL's welcome page on startup",
+      IDL: 'Preferences for IDL',
+      'IDL.addWorkspaceFoldersToPath':
+        "Specify whether to automatically include the workspace folders to IDL's search path.",
+      'IDL.appendOrPrependWorkspaceFolders':
+        "If workspace folders are automatically added to IDL's search path, this indicates if they are added before (prepend) or after (append) the IDL Path setting.",
+      'IDL.directory':
+        "Specify the folder with IDL's executable (bin directory with idl.exe or idl).",
+      'IDL.environment':
+        "Specify any environment variables you want passed to the IDL process on startup.\n\nThese take precedence over your system environment, meaning: if your system environment variable for PATH is set, and you specify PATH here, then we use this value of PATH instead of the system's.\n\nAdditionally, the extension manages the following environment variables: IDL_PATH, IDL_DLM_PATH, IDL_DIR, and IDL_START_DIR. If you want to change IDL's search path, use the path preference for the extension instead.",
+
+      'IDL.history':
+        'Preferences that control the session history (input and output) when running IDL.',
+      'IDL.path':
+        "Specify additional directories to add to IDL's search path. Add a '+' before the folder to include subdirectories.\n\nAny folders added to the path are not watched for file changes unless you edit the files within the VSCode UI.",
+      'IDL.preferences': 'Placeholder',
+
       languageServer: 'Preferences that control the language server for IDL',
       'languageServer.fullParse':
         'When the language server starts up, do we fully parse the code in workspaces and on your path?\n\nA full parse checks for syntax and type errors to give more insights into your code without opening each file. However, for large code bases (>1 million lines of code), this uses about 3x more CPU RAM and is about 50% slower.\n\nIf more than one workspace is open, and this is enabled for any workspace, we apply it for all open workspaces.',
 
+      mcp: 'Preferences that control the built-in MCP server',
+      'mcp.enabled':
+        'Do we automatically launch the MCP server on language server startup? If enabled in one workspace, enabled for all.',
+      'mcp.port':
+        'What port does the MCP server start on? Requires a VSCode restart to take effect. If there is more than one configured port across open workspaces, we use the first value we find. This is printed to the logs when the extension starts.\n\nIf you change this value, make sure that your MCP server configuration in VSCode is also updated to match.',
+
+      notebooks:
+        'Preferences that control notebook user experience for IDL Notebooks',
+      'notebooks.embedGraphics':
+        "Are graphics embedded as output within each cell?\n\nIf you have open notebooks, you'll need to stop IDL and then re-run cells for changes to take effect.",
+      'notebooks.quietMode':
+        'When enabled, automatically sets `!quiet` to a value of `1` to suppress too much output from IDL and keep notebook cell outputs cleaner.',
+      // 'dontAsk.toInitConfig':
+      //   'Don\'t ever ask to create an "idl.json" file for any open workspaces',
+      // 'dontAsk.toInitConfigForTheseFolders':
+      //   'Don\'t ask to create an "idl.json" file at the root level for these folders',
+
       problems: 'Preferences that control how problems are reported',
-      'problems.reportProblems':
-        'Do we report problems found when analyzing your code? If disabled in one workspace, applies to all.',
+      'problems.excludeProblemsForPath':
+        "Specify folders that you don't want to report problems for.  Add a '+' before the folder to also exclude subdirectories from problem reporting.",
+
+      'problems.ignoreProblems':
+        'Specify the problem code to ignore and not report to Visual Studio Code',
       'problems.includeProblemsFromIDLPackages':
         'Report problems for all files where we find "idl_packages" in the path. This permits problem reporting from external libraries. If this is set in any open workspace, it applies to all of them.\n\nImportant note: VSCode may require a restart for changes to take effect.',
       'problems.includeProblemsFromIDLPath':
         "Report problems for all files on IDL's path. This permits problem reporting for any file that is found on the IDL Path preference. If this is set in any open workspace, it applies to all of them.\n\nImportant note: VSCode may require a restart for changes to take effect.",
       'problems.reportDocsProblems':
         'Do we report problems for user documentation? If disabled, no problems are reported regarding documentation. Alternatively, you can disable problems one-by-one using `ignoreProblems`.\n\nImportant note: If this is disabled for one open workspace, it is disabled for all.\n\nImportant note: VSCode may require a restart for changes to take effect.',
-      'problems.ignoreProblems':
-        'Specify the problem code to ignore and not report to Visual Studio Code',
-      'problems.excludeProblemsForPath':
-        "Specify folders that you don't want to report problems for.  Add a '+' before the folder to also exclude subdirectories from problem reporting.",
-
-      notebooks:
-        'Preferences that control notebook user experience for IDL Notebooks',
-      'notebooks.quietMode':
-        'When enabled, automatically sets `!quiet` to a value of `1` to suppress too much output from IDL and keep notebook cell outputs cleaner.',
-      'notebooks.embedGraphics':
-        "Are graphics embedded as output within each cell?\n\nIf you have open notebooks, you'll need to stop IDL and then re-run cells for changes to take effect.",
-
-      dontAsk:
-        'Preferences that disable dialogs that appear and ask questions. These settings can also be disabled directly within the dialogs you see.',
-      'dontAsk.forIDLDir':
-        "Don't ask for IDL directory on extension startup if it is not set.",
-      'dontAsk.forIconChange': "Don't ask to change icon font on startup.",
-      'dontAsk.forFormatterChange':
-        "Don't ask to set the extension as the default formatter for IDL code.",
-      'dontAsk.toOpenDocs': `Don't ask to open the documentation on extension startup`,
-      // 'dontAsk.toInitConfig':
-      //   'Don\'t ever ask to create an "idl.json" file for any open workspaces',
-      // 'dontAsk.toInitConfigForTheseFolders':
-      //   'Don\'t ask to create an "idl.json" file at the root level for these folders',
-
-      dontShow:
-        'Preferences that disable dialogs/views from automatically appearing',
-      'dontShow.welcomePage': "IDL's welcome page on startup",
-
-      developer:
-        'For ENVI and IDL developers, choose to disable loading global tokens from the documentation and rely on source code instead.\n\nNOTE: Changing this setting requires a reload to take effect.',
-      'developer.IDL': "Disable loading IDL's global tokens.",
-      'developer.ENVI': "Disable loading ENVI's global tokens.",
-      'developer.ENVIDeepLearning':
-        "Disable loading ENVI Deep Learning's global tokens.",
-      'developer.ENVIMachineLearning':
-        "Disable loading ENVI Machine Learning's global tokens.",
+      'problems.reportProblems':
+        'Do we report problems found when analyzing your code? If disabled in one workspace, applies to all.',
+    },
+    enumDescriptions: {
+      formatting: {
+        eol: {
+          crlf: '(NOT Recommended) Windows-style carriage-return-new-line ("crlf")',
+          lf: '(Recommended) Line feed character at line end',
+        },
+        style: {
+          arrow: 'Use "->" when invoking a function or procedure method',
+          camel: 'Use camel case (i.e. "camelCase")',
+          dot: 'Use "." when invoking a function or procedure method',
+          double: 'Use double quotes for string expressions',
+          lower: 'Use lower case (i.e. "LOWER")',
+          match: 'Match case of definition',
+          none: 'Apply no formatting',
+          pascal: 'Use pascal case (i.e. "PascalCase")',
+          single: 'Use single quotes for string expressions',
+          upper: 'Use upper case (i.e. "UPPER")',
+        },
+      },
+      workspace: {
+        append:
+          "(Recommended) Add workspace folders at the beginning of IDL's search path",
+        prepend:
+          "(NOT Recommended) Add workspace folders at the end of IDL's search path",
+      },
+    },
+    idlDir: {
+      notFound: 'IDL directory not found or specified by user, configure?',
     },
     properties: {
       'code.formatting': {
@@ -304,6 +324,10 @@ export const EN: ITranslation = {
         styleAndFormat:
           'When we process our code, do we apply our styles and format?\n\nIf this is set to `false` and `autoDoc` is enabled, then we add documentation to your code without changing anything else.',
         tabWidth: 'Number of spaces to use for indentation.',
+        hangingIndent:
+          'Do we use hanging indentation for multi-line statements?\n\nFor multi-line statements this means that the first line begins at the standard indentation level and all subsequent lines are indented further to align with a syntactic element (e.g., after an opening parenthesis), rather than using a uniform block indent.\n\nThis affect routine names, function calls, procedure calls, arrays, structures, and parentheses.',
+        maxIndent:
+          'Maximum indent size (number of spaces) that we will insert when auto-indenting your code during formatting',
       },
       'code.formattingStyle': {
         binary:
@@ -322,126 +346,142 @@ export const EN: ITranslation = {
         properties: 'Controls the case style of properties',
         quotes:
           'For string literals what type of quote we use. Includes numbers defined using quotes.',
-        routines:
-          'When we encounter a known routine (functions and procedures), how do we format it with respect to the definition',
         routineMethods:
           'When we encounter a known routine method (function methods and procedure methods), how do we format it with respect to the definition?',
+        routines:
+          'When we encounter a known routine (functions and procedures), how do we format it with respect to the definition',
         structureNames:
           'When we have a known named structure, how do we format the name?',
         systemVariables: 'Case formatting for system variables',
       },
       'IDL.history': {
         enabled: 'Do we track session history or not?',
+        fileName:
+          'The base name of the file that contains the session history. This file will be created in the folder specified above.',
+        folder: 'The folder that we write our session history to',
         maxSize:
           'The maximum file size (MB) for the history file. On startup, if the log file is larger than this size, it is truncated. Otherwise we append.',
         truncateOnStartup:
           'When IDL starts, do we always clear our session history file and start fresh?',
-        folder: 'The folder that we write our session history to',
-        fileName:
-          'The base name of the file that contains the session history. This file will be created in the folder specified above.',
       },
     },
-    enumDescriptions: {
-      workspace: {
-        append:
-          "(Recommended) Add workspace folders at the beginning of IDL's search path",
-        prepend:
-          "(NOT Recommended) Add workspace folders at the end of IDL's search path",
-      },
-      formatting: {
-        eol: {
-          lf: '(Recommended) Line feed character at line end',
-          crlf: '(NOT Recommended) Windows-style carriage-return-new-line ("crlf")',
-        },
-        style: {
-          arrow: 'Use "->" when invoking a function or procedure method',
-          dot: 'Use "." when invoking a function or procedure method',
-          single: 'Use single quotes for string expressions',
-          double: 'Use double quotes for string expressions',
-          upper: 'Use upper case (i.e. "UPPER")',
-          lower: 'Use lower case (i.e. "LOWER")',
-          camel: 'Use camel case (i.e. "camelCase")',
-          pascal: 'Use pascal case (i.e. "PascalCase")',
-          match: 'Match case of definition',
-          none: 'Apply no formatting',
-        },
-      },
+    reloadWindow:
+      'IDL configuration has changed, reload window for changes to take effect?',
+    titles: {
+      developer: 'Developer',
+      documentation: 'Documentation',
+      formatting: 'Formatting',
+      general: 'General',
+      idl: 'IDL',
+      languageServer: 'Language Server',
+      mcp: 'MCP Server',
+      notebooks: 'Notebooks',
+      problems: 'Problem Reporting',
+      questions: 'Questions',
+      root: 'IDL for VSCode',
     },
   },
   debugger: {
-    logs: {
-      host: 'IDL: Extension Host',
-      debugHistory: 'IDL: Session History',
-      viewFile: 'View File',
-      viewLogs: 'View Logs',
-      specifyIDLLocation: 'Specify IDL Location',
-      buttonCallbackError: 'Error responding to dialog button callback',
-    },
-    idl: {
-      label: 'IDL: Launch',
-      name: 'Launch IDL',
-      pleaseStart: 'Please start a session of IDL',
-      alreadyStarted: 'IDL has already been started in the debug console',
-      existingSessionFound:
-        'An existing session is running. Please close it before starting IDL',
-      startProfiling: 'Starting profiling',
-      stopProfiling: 'Stopped profiling',
-      description:
-        'Start a new, interactive session of IDL with the ability to compile + run files and reset the session, like the IDL Workbench.',
-    },
     adapter: {
-      start: 'Launching IDL!',
-      restart: 'Restarting IDL!',
-      stop: 'Stopping IDL session',
-      failedStart: 'Failed to start IDL, message:',
-      crashed: 'IDL crashed or was stopped by the user :(',
-      noIDLDir: 'The IDL directory has not been configured, cannot start',
       breakpointSetFailed: 'Error setting breakpoints for file',
-      scopeParseError: 'Error getting scope information from IDL output',
-      promiseResolveError:
-        'Error resolving promise for executing IDL statement',
+      crashed: 'IDL crashed or was stopped by the user :(',
+      failedStart: 'Failed to start IDL, message:',
+      noIDLDir: 'The IDL directory has not been configured, cannot start',
+      noPauseOnWindows: 'Pause is not currently supported on Windows platforms',
       noRoutineFound:
         'No main level program, function, or procedure found to run',
-      syntaxErrorsFound:
-        'Syntax errors detected in your code, see above for more details',
-      returning: 'File compiled while active, returning...',
       nothingToEdit: 'No matching file found',
-      noPauseOnWindows: 'Pause is not currently supported on Windows platforms',
+      previewWarning:
+        '\n-----------------------------\nRunning IDL from within VSCode is fully integrated with IDL 9.2 so please upgrade :)\nMost functionality should work using an older version, but you may encounter a few issues.\nIn particular, the "Pause" button does not work on Windows, and you may occasionally see some internal output in the debug console.\n-----------------------------\n',
+      promiseResolveError:
+        'Error resolving promise for executing IDL statement',
+      restart: 'Restarting IDL!',
+      returning: 'File compiled while active, returning...',
+      scopeParseError: 'Error getting scope information from IDL output',
+      start: 'Launching IDL!',
+      stop: 'Stopping IDL session',
       syntaxError:
         'IDL detected a syntax error on this line when compiling your code',
-      previewWarning:
-        '\n-----------------------------\nRunning IDL from within VSCode is not fully implemented yet.\nMost things should work but you may encounter a few issues.\nIn particular, the "Pause" button does not work on Windows, and you may occasionally see some internal output in the debug console.\n-----------------------------\n',
+      syntaxErrorsFound:
+        'Syntax errors detected in your code, see above for more details',
+    },
+    commandErrors: {
+      compileFile: 'Error compiling file. Likely syntax errors in the code.',
+      idlHasNotStarted: 'IDL has not started yet',
+      idlStopped:
+        'The IDL process ran, but likely stopped somewhere, meaning that the code did not finish executing and may have runtime errors that need to be fixed',
+      noProFile: 'No PRO file in VSCode to run or compile',
+      noRoutineFound: 'No routine in file to run',
+      runFile: '',
+      syntaxErrors: 'Syntax errors detected in file',
     },
     errors: {
-      configDone: 'Error while handling "configurationDone" request',
-      launch: 'Error while handling "launch" request',
-      setBreakpoint: 'Error while handling "setBreakpoint" request',
+      addHistory:
+        'Error while adding content to IDL history file. Does the location have write permissions?',
       breakpointLocations: 'Error while handling "breakpointLocations" request',
-      threads: 'Error while handling "threads" request',
-      scopes: 'Error while handling "scopes" request',
-      variables: 'Error while handling "variables" request',
-      stackTrace: 'Error while handling "stackTrace" request',
-      continue: 'Error while handling "continue" request',
-      next: 'Error while handling "next" request',
-      stepIn: 'Error while handling "stepIn" request',
-      stepOut: 'Error while handling "stepOut" request',
-      pause: 'Error while handling "pause" request',
-      terminate: 'Error while handling "terminate" request',
       cancel: 'Error while handling "cancel" request',
+      configDone: 'Error while handling "configurationDone" request',
+      continue: 'Error while handling "continue" request',
+      createHistory:
+        'Error while creating or truncating history file. Does the folder have write permissions?',
       evaluate: 'Error while handling "evaluate" request',
       idlDetails:
         'Error getting information about IDL (version, directory, etc.)',
-      createHistory:
-        'Error while creating or truncating history file. Does the folder have write permissions?',
-      addHistory:
-        'Error while adding content to IDL history file. Does the location have write permissions?',
+      launch: 'Error while handling "launch" request',
+      next: 'Error while handling "next" request',
+      pause: 'Error while handling "pause" request',
+      scopes: 'Error while handling "scopes" request',
+      setBreakpoint: 'Error while handling "setBreakpoint" request',
+      stackTrace: 'Error while handling "stackTrace" request',
+      stepIn: 'Error while handling "stepIn" request',
+      stepOut: 'Error while handling "stepOut" request',
+      terminate: 'Error while handling "terminate" request',
+      threads: 'Error while handling "threads" request',
+      unableToLicenseIDL:
+        'Unable to license IDL, check the License Manager and try again',
+      variables: 'Error while handling "variables" request',
+    },
+    idl: {
+      alreadyStarted: 'IDL has already been started in the debug console',
+      description:
+        'Start a new, interactive session of IDL with the ability to compile + run files and reset the session, like the IDL Workbench.',
+      existingSessionFound:
+        'An existing debug session is running that is not IDL. Please stop it before starting IDL',
+      idlNotConfigured:
+        'IDL has not been properly configured. Please make sure to set the IDL directory in the IDL for VSCode settings. If IDL is installed, it is not in one of the default locations and needs to be specified.',
+      label: 'IDL: Launch',
+      name: 'Launch IDL',
+      pleaseStart: 'Please start a session of IDL',
+      startProfiling: 'Starting profiling',
+      stopProfiling: 'Stopped profiling',
+    },
+    logs: {
+      buttonCallbackError: 'Error responding to dialog button callback',
+      debugHistory: 'IDL: Session History',
+      host: 'IDL: Extension Host',
+      specifyIDLLocation: 'Specify IDL Location',
+      viewFile: 'View File',
+      viewLogs: 'View Logs',
     },
   },
-  hoverHelp: HOVER_HELP_EN,
+  docs: {
+    hover: {
+      params: {
+        direction: 'Parameter direction',
+        false: 'false',
+        private: 'Private',
+        required: 'Parameter is required',
+        self: 'A reference to our object class',
+        true: 'true',
+        typeParam: 'Parameter data type',
+        typeProp: 'Property data type',
+      },
+    },
+    placeholder: {
+      params: 'Placeholder docs for argument, keyword, or property',
+    },
+  },
   envi: {
-    openerTitle: 'ENVI File Opener',
-    openerText:
-      'ENVI should attempt to open the image shortly, please wait.\nTo disable this behavior, view the documentation for the extension "IDL for VSCode".',
     open: {
       commandError:
         'An unknown error ocurred while trying to open data in ENVI',
@@ -452,172 +492,187 @@ export const EN: ITranslation = {
       noUI: 'ENVI has started, but has no UI. Please restart ENVI with the UI to display data',
       openError: 'Unable to open dataset, see the IDL console for more details',
     },
+    openerText: 'ENVI should attempt to open the image shortly, please wait.',
+    openerTitle: 'ENVI File Opener',
+    task: {
+      enviNotStarted: 'ENVI has not been started yet or is in a bad state.',
+      executeError:
+        'Error while running the task, see the IDL console for more details',
+      unknownParam:
+        'Unknown ENVI Task parameter detected. Are the input parameters right? The extension uses parameters from the latest ENVI version, so there may be a mismatch if you are not on the latest version.',
+      unknownTask:
+        'Unknown ENVI Task (or we cannot find the code for a task). See debug console for more details.',
+    },
+    taskText: 'Attempting to run task in ENVI',
   },
+  generators: {
+    errors: {
+      tasks: {
+        alreadyExists: 'Task file exists already, cannot overwrite.',
+        noProcedure:
+          'No procedure definition found with the base name of the PRO file (required to create a task)',
+      },
+    },
+  },
+  hoverHelp: HOVER_HELP_EN,
   icons: {
     label: 'IDL (Customized Visual Studio Code)',
   },
   idl: {
     tree: {
-      name: 'Actions and Commands',
-      selectionChangeError: 'Error while handling selection change in IDL tree',
-      clickHandlerError: 'Error while handling IDL tree click event',
-      parents: {
-        quickAccess: 'Quick Access',
-        codeActions: 'Code',
-        notebooks: 'Notebooks',
-        debugging: 'IDL',
-        terminal: 'Terminal',
-        IDLTutorials: 'IDL Tutorials',
-      },
       children: {
-        quickAccess: {
-          pickIDL: {
-            name: 'Specify IDL directory',
-            description: '(where "idl.exe" or "idl" lives)',
-          },
-          fileBug: {
-            name: 'File',
-            description: 'a bug report for the extension',
-          },
-          openWebview: {
-            name: 'Open Welcome Page',
-            description: '',
-          },
-          openDocs: {
-            name: 'Open Extension Docs',
-            description: '',
-          },
-          viewLogs: {
-            name: 'View Extension Logs',
-            description: '',
-          },
-          viewSettings: {
-            name: 'Open Extension Settings',
-            description: '',
-          },
-        },
         codeActions: {
-          initializeConfig: {
-            name: 'Initialize "idl.json"',
-            description: 'for an open workspace',
-          },
           addDocs: {
-            name: 'Add/Update Routine Docs',
             description: 'for file',
+            name: 'Add/Update Routine Docs',
           },
           formatFile: {
-            name: 'Format PRO Code or Task File',
             description: '',
+            name: 'Format PRO Code or Task File',
           },
           generateTask: {
-            name: 'Generate ENVI or IDL Task',
             description: '',
+            name: 'Generate ENVI or IDL Task',
+          },
+          initializeConfig: {
+            description: 'for an open workspace',
+            name: 'Initialize "idl.json"',
           },
         },
         debugging: {
-          start: {
-            name: 'Start',
-            description: 'a session of IDL',
-          },
           compile: {
+            description: 'PRO file',
             name: 'Compile',
-            description: 'PRO file',
-          },
-          run: {
-            name: 'Run',
-            description: 'PRO file',
           },
           execute: {
-            name: 'Execute',
             description: 'PRO file as batch file',
+            name: 'Execute',
           },
           reset: {
-            name: 'Reset',
             description: 'the IDL session',
+            name: 'Reset',
+          },
+          run: {
+            description: 'PRO file',
+            name: 'Run',
+          },
+          start: {
+            description: 'a session of IDL',
+            name: 'Start',
+          },
+          startENVI: {
+            description: 'and IDL',
+            name: 'Start ENVI',
           },
           startProfiling: {
-            name: 'Start Profiling',
             description: 'the IDL session',
+            name: 'Start Profiling',
           },
           stopProfiling: {
-            name: 'Stop Profiling',
             description: 'the IDL session',
+            name: 'Stop Profiling',
           },
         },
         notebooks: {
           formatNotebooks: {
-            name: 'Format Notebook Cells',
             description: '',
+            name: 'Format Notebook Cells',
           },
           newNotebook: {
+            description: '',
             name: 'New IDL Notebook',
-            description: '',
-          },
-          notebookToProCode: {
-            name: 'Convert IDL Notebook to PRO Code',
-            description: '',
           },
           notebookToPDF: {
-            name: 'Convert IDL Notebook to PDF',
             description: '',
+            name: 'Convert IDL Notebook to PDF',
+          },
+          notebookToProCode: {
+            description: '',
+            name: 'Convert IDL Notebook to PRO Code',
           },
           openENVIExample: {
-            name: 'Open ENVI Notebook Example',
             description: '',
+            name: 'Open ENVI Notebook Example',
           },
           openIDLExample: {
-            name: 'Open IDL Notebook Example',
             description: '',
+            name: 'Open IDL Notebook Example',
           },
           resetExampleNotebooks: {
-            name: 'Reset Example Notebooks',
             description: '',
+            name: 'Reset Example Notebooks',
           },
           stopAllNotebookKernels: {
-            name: 'Stop all IDL Notebook Kernels',
             description: '',
+            name: 'Stop all IDL Notebook Kernels',
+          },
+        },
+        quickAccess: {
+          fileBug: {
+            description: 'a bug report for the extension',
+            name: 'File',
+          },
+          openDocs: {
+            description: '',
+            name: 'Open Extension Docs',
+          },
+          openWebview: {
+            description: '',
+            name: 'Open Welcome Page',
+          },
+          pickIDL: {
+            description: '(where "idl.exe" or "idl" lives)',
+            name: 'Specify IDL directory',
+          },
+          viewLogs: {
+            description: '',
+            name: 'View Extension Logs',
+          },
+          viewSettings: {
+            description: '',
+            name: 'Open Extension Settings',
           },
         },
         terminal: {
-          startTerminal: {
-            name: 'Start',
-            description: 'IDL in a terminal window',
-          },
           compileTerminal: {
+            description: 'PRO file in terminal',
             name: 'Compile',
-            description: 'PRO file in terminal',
-          },
-          runTerminal: {
-            name: 'Run',
-            description: 'PRO file in terminal',
-          },
-          executeTerminal: {
-            name: 'Execute',
-            description: 'PRO file as batch file in terminal',
-          },
-          resetTerminal: {
-            name: 'Reset',
-            description: 'the IDL session in the terminal',
-          },
-          pauseTerminal: {
-            name: 'Pause',
-            description: 'the IDL terminal process',
           },
           continueTerminal: {
-            name: 'Continue',
             description: 'execution in terminal',
+            name: 'Continue',
+          },
+          executeTerminal: {
+            description: 'PRO file as batch file in terminal',
+            name: 'Execute',
+          },
+          pauseTerminal: {
+            description: 'the IDL terminal process',
+            name: 'Pause',
+          },
+          resetTerminal: {
+            description: 'the IDL session in the terminal',
+            name: 'Reset',
+          },
+          runTerminal: {
+            description: 'PRO file in terminal',
+            name: 'Run',
+          },
+          startTerminal: {
+            description: 'IDL in a terminal window',
+            name: 'Start',
           },
           stepInTerminal: {
+            description: 'routine call in terminal',
             name: 'Step Into',
-            description: 'routine call in terminal',
-          },
-          stepOverTerminal: {
-            name: 'Step Over',
-            description: 'routine call in terminal',
           },
           stepOutTerminal: {
-            name: 'Step Out',
             description: 'of routine call in terminal',
+            name: 'Step Out',
+          },
+          stepOverTerminal: {
+            description: 'routine call in terminal',
+            name: 'Step Over',
           },
         },
         idlTutorials: {
@@ -626,11 +681,11 @@ export const EN: ITranslation = {
             description: '',
             children: {
               runningInIDLNotebooks: {
-                name: '01-Running in IDL Notebooks',
+                name: 'Running in IDL Notebooks',
                 description: '',
               },
               navigatingTheGuide: {
-                name: '02-Navigating the Guide',
+                name: 'Navigating the Guide',
                 description: '',
               },
             },
@@ -640,51 +695,51 @@ export const EN: ITranslation = {
             description: '',
             children: {
               whatIsIDL: {
-                name: '00-What Is IDL',
+                name: 'What Is IDL',
                 description: '',
               },
               valuesTypesAndVariables: {
-                name: '01-Values, Types, and Variables',
+                name: 'Values, Types, and Variables',
                 description: '',
               },
               operators: {
-                name: '02-Operators',
+                name: 'Operators',
                 description: '',
               },
               expressions: {
-                name: '03-Expressions',
+                name: 'Expressions',
                 description: '',
               },
               idlSyntax: {
-                name: '04-IDL Syntax',
+                name: 'IDL Syntax',
                 description: '',
               },
               casting: {
-                name: '05-Casting',
+                name: 'Casting',
                 description: '',
               },
               conditionalExpressions: {
-                name: '06-Conditional Expressions',
+                name: 'Conditional Expressions',
                 description: '',
               },
               loops: {
-                name: '07-Loops',
+                name: 'Loops',
                 description: '',
               },
               arrays: {
-                name: '08-Arrays',
+                name: 'Arrays',
                 description: '',
               },
               strings: {
-                name: '09-Strings',
+                name: 'Strings',
                 description: '',
               },
               functionsAndProcedures: {
-                name: '10-Functions and Procedures',
+                name: 'Functions and Procedures',
                 description: '',
               },
               introToObjects: {
-                name: '11-IntroToObjects',
+                name: 'Intro to Objects',
                 description: '',
               },
             },
@@ -694,21 +749,46 @@ export const EN: ITranslation = {
             description: '',
             children: {
               introToFileOperations: {
-                name: '01-Intro to file operations',
+                name: 'Intro to File Operations',
                 description: '',
               },
               readFiles: {
-                name: '02-Read Files',
+                name: 'Read Files',
                 description: '',
               },
               writeFiles: {
-                name: '03-Write Files',
+                name: 'Write Files',
+                description: '',
+              },
+            },
+          },
+          notebooks: {
+            name: 'Example Notebooks',
+            description: '',
+            children: {
+              quickIDL: {
+                name: 'IDL Notebook: Hello World',
+                description: '',
+              },
+              quickENVI: {
+                name: 'ENVI Notebook: Hello World',
                 description: '',
               },
             },
           },
         },
       },
+      clickHandlerError: 'Error while handling IDL tree click event',
+      name: 'Actions and Commands',
+      parents: {
+        codeActions: 'Code',
+        debugging: 'IDL',
+        idlTutorials: 'IDL Tutorials',
+        notebooks: 'Notebooks',
+        quickAccess: 'Quick Access',
+        terminal: 'Terminal',
+      },
+      selectionChangeError: 'Error while handling selection change in IDL tree',
     },
   },
   languages: {
@@ -723,158 +803,174 @@ export const EN: ITranslation = {
   },
   lsp: {
     codeActions: {
-      disableLine: 'Disable "PROBLEM" for line',
       disableFile: 'Disable "PROBLEM" for file or cell',
+      disableLine: 'Disable "PROBLEM" for line',
       disableUser: 'Disable "PROBLEM" in user settings',
       disableWorkspace: 'Disable "PROBLEM" for workspace',
+      quickFixProblem: 'Fix "PROBLEM"',
       viewProblemCodeDocs: 'Learn more about "PROBLEM"',
       viewProblemConfigDocs: 'Learn how to configure reported problems',
     },
     config: {
       failedParse: 'Problem parsing IDL config file',
     },
-    index: {
-      failedParse: 'Failed to parse PRO file',
-      failedParseNotebook: 'Failed to parse IDL notebook file',
-      failedPostProcess: 'Failed to post-process PRO file (s)',
-      failedIndexWorkspace: 'Failed to index workspace folder(s)',
-      failedChangeDetection:
-        'Failed to run change detection and post-process file(s)',
+    errors: {
+      closed:
+        'The IDL Language Server crashed. This is likely a memory issue, please see docs for more information and workarounds.',
+      connection: 'Failed to send/receive message with the IDL Language Server',
+      mcpStartup:
+        'Error reported while starting the MCP server and registering tools',
+      start: 'Failed to start the IDL Language Server',
+      startingServer:
+        'Error while starting local server (MCP or documentation), is the port already in use? See logs for more details.',
+      unhandled: 'An unknown error ocurred within the IDL Language Server',
     },
     events: {
+      onAddDocs: 'Problem adding/updating routine docs for file',
+      onCodeAction: 'Error responding to code action event',
       onCompletion: 'Problem resolving auto complete',
       onDefinition: 'Problem finding token definition',
+      onDidChangeContent: 'Problem responding to content change event',
+      onDidChangeNotebook: 'Error responding to notebook change event',
+      onDidChangeWorkspaceFolders:
+        'Problem responding to workspace folder change event',
+      onDidClose: 'Problem when closing file',
+      onDidCloseNotebook: 'Error responding to notebook close event',
+      onDidOpen: 'Problem when opening file',
+      onDidOpenNotebook: 'Error responding to notebook open event',
+      onDidRename: 'Problem responding to file rename event',
       onDocumentFormatting: 'Problem formatting file',
       onDocumentFormattingProblemCode:
         'Unable to format code due to syntax error or problem in file',
-      onWorkspaceFormatting: 'Error while formatting files in workspace',
-      onHover: 'Problem resolving hover help',
-      onAddDocs: 'Problem adding/updating routine docs for file',
-      onDidClose: 'Problem when closing file',
-      unhandledWorkerMessage:
-        "Unknown error from one of the the language server's worker threads",
-      onDidOpen: 'Problem when opening file',
-      onDidChangeWorkspaceFolders:
-        'Problem responding to workspace folder change event',
-      onDidChangeContent: 'Problem responding to content change event',
       onDocumentSymbol: 'Problem responding to document symbol event',
-      onWorkspaceConfig: 'Problem responding to workspace config event',
-      onDidRename: 'Problem responding to file rename event',
       onGenerateTask: 'Problem while creating task file',
+      onHover: 'Problem resolving hover help',
       onInitWorkspaceConfig: 'Problem while initializing workspace config',
-      onSemanticHighlighting: 'Problem resolving semantic tokens',
-      onCodeAction: 'Error responding to code action event',
-      onDidOpenNotebook: 'Error responding to notebook open event',
-      onDidChangeNotebook: 'Error responding to notebook change event',
-      onDidCloseNotebook: 'Error responding to notebook close event',
-      onRetrieveDocs: 'Error responding to docs retrieval event',
       onMigrateCode: 'Error while migrating code',
       onMigrateCodeProblemCode:
         'Unable to format code due to syntax error or problem in file',
       onNotebookToProCode: 'Error converting notebook to PRO code',
+      onPrepareIDLCode: 'Error while preparing IDL code for execution',
       onPrepareNotebookCell: 'Error while preparing notebook cell to run',
+      onRetrieveDocs: 'Error responding to docs retrieval event',
+      onSemanticHighlighting: 'Problem resolving semantic tokens',
+      onWorkspaceConfig: 'Problem responding to workspace config event',
+      onWorkspaceFormatting: 'Error while formatting files in workspace',
+      unhandledWorkerMessage:
+        "Unknown error from one of the the language server's worker threads",
     },
-    errors: {
-      unhandled: 'An unknown error ocurred within the IDL Language Server',
-      start: 'Failed to start the IDL Language Server',
-      connection: 'Failed to send/receive message with the IDL Language Server',
-      closed:
-        'The IDL Language Server crashed. This is likely a memory issue, please see docs for more information and workarounds.',
-      startDocsServer:
-        'Error while starting local docs server, is the port already in use?',
+    index: {
+      failedChangeDetection:
+        'Failed to run change detection and post-process file(s)',
+      failedIndexWorkspace: 'Failed to index workspace folder(s)',
+      failedParse: 'Failed to parse PRO file',
+      failedParseNotebook: 'Failed to parse IDL notebook file',
+      failedPostProcess: 'Failed to post-process PRO file (s)',
     },
     progress: {
       formatWorkspace: 'Formatting workspace...',
     },
     types: {
+      staticReference: 'A static reference to the class',
       unknown: {
         function: 'Unknown function',
         functionMethod: 'Unknown function method',
+        keyword: 'Unknown keyword',
         procedure: 'Unknown procedure',
         procedureMethod: 'Unknown procedure method',
         property: 'Unknown property',
-        keyword: 'Unknown keyword',
         sysVar: 'Unknown system variable',
       },
-      staticReference: 'A static reference to the class',
+    },
+  },
+  mcp: {
+    errors: {
+      failedCodePrepare:
+        'Failed to prepare IDL code to run, see IDL logs for more details',
+      failedStart:
+        'Failed to start MCP server. Is the port available? If not, this can be changed in the extension settings.',
+      failedProgress: 'Failed to handle progress message to MCP server',
     },
   },
   notebooks: {
-    title: 'IDL: Notebook',
-    renderer: 'IDL: Notebook Renderer',
     controller: 'IDL',
     errors: {
-      errorParsing: 'Unable to parse notebook file',
-      errorLoadOutputs:
-        'Error while loading outputs from notebook cells, please re-run cells to generate outputs',
-      errorSaving: 'Unknown error while saving notebook file',
-      failedStart: 'The notebook session of IDL failed to start',
-      didntStartRight:
-        "The notebook session of IDL didn't start or reset right. Not everything may function as expected.",
-      failedExecute: 'Failed to execute notebook cells',
-      failedCodePrepare:
-        'Unknown problem while preparing a notebook cell to run. Please save notebooks to disk, or file a bug if this persists.',
+      checkingGraphics: 'Error while trying to retrieve any graphics to embed',
       crashed:
         'IDL crashed or was stopped by the user and needs to be restarted',
-      checkingGraphics: 'Error while trying to retrieve any graphics to embed',
+      didntStartRight:
+        "The notebook session of IDL didn't start or reset right. Not everything may function as expected.",
+      errorLoadOutputs:
+        'Error while loading outputs from notebook cells, please re-run cells to generate outputs',
+      errorParsing: 'Unable to parse notebook file',
+      errorSaving: 'Unknown error while saving notebook file',
+      failedCodePrepare:
+        'Unknown problem while preparing a notebook cell to run. Please save notebooks to disk, or file a bug if this persists.',
+      failedExecute: 'Failed to execute notebook cells',
+      failedStart: 'The notebook session of IDL failed to start',
+      failedToHandleProgress:
+        'Unknown problem trying to embed progress messages in a notebook cell',
       handlingMessageFromRenderer:
         'Error while responding to message from notebook renderer',
       onDidCloseNotebookDocument:
         'Error while cleaning up after closed IDL Notebook',
     },
     notifications: {
-      startingIDL: 'Starting IDL, please wait...',
-      resettingIDL: 'Resetting IDL',
-      stoppingIDL: 'Stopping IDL',
-      idlNotStarted:
-        'IDL has not started for notebooks. It automatically starts when you run a code cell.',
-      noExamplesFoundInDocs:
-        'No examples found in documentation to create notebook from',
-      saveNotebookFirst:
-        'You need to save your notebook to disk before converting',
-      includeAllCells:
-        'Include all cells when converting to PRO code? Non-IDL cells will turn into comments.',
-      needMarkdownPDF:
-        'Converting a notebook to a PDF requires the extension "Markdown PDF", install and proceed?',
-      markdownPDFWaitForInstall:
-        'Wait for Markdown PDF to install chromium and then try again',
-      startedIDLKernel: 'Started IDL {VERSION} for notebook!',
-      notValidIDLVersion:
-        'IDL Notebooks require IDL 8.8.0 or newer in order to run',
       enviCellDetected: [
-        'ENVI startup detected in notebook cell.',
+        'ENVI startup detected in notebook cell which disables the embedding of graphics for this cell.',
         '',
-        'If you have graphics to embed, you will need to re-run the cell to get all items.',
-        '',
-        "Pro tip: Have a dedicated cell for ENVI startup so you don't need to re-run cells.",
+        'If you have graphics to embed, you should make a dedicated cell to start ENVI and embed graphics afterwards.',
         '',
       ].join('\n'),
+      idlNotStarted:
+        'IDL has not started for notebooks. It automatically starts when you run a code cell.',
+      includeAllCells:
+        'Include all cells when converting to PRO code? Non-IDL cells will turn into comments.',
+      markdownPDFWaitForInstall:
+        'Wait for Markdown PDF to install chromium and then try again',
+      needMarkdownPDF:
+        'Converting a notebook to a PDF requires the extension "Markdown PDF", install and proceed?',
+      noExamplesFoundInDocs:
+        'No examples found in documentation to create notebook from',
+      notValidIDLVersion:
+        'IDL Notebooks require IDL 8.8.0 or newer in order to run',
+      resettingIDL: 'Resetting IDL',
+      saveNotebookFirst:
+        'You need to save your notebook to disk before converting',
+      startedIDLKernel: 'Started IDL {VERSION} for notebook!',
+      startingIDL: 'Starting IDL, please wait...',
+      stoppingIDL: 'Stopping IDL',
     },
+    renderer: 'IDL: Notebook Renderer',
+    title: 'IDL: Notebook',
   },
   notifications: {
-    noProCode: 'No active PRO file in VSCode',
-    noProCodeOrTaskFile: 'No active PRO file or Task file in VSCode',
-    noIDLNotebook: 'No active IDL Notebook in VSCode',
-    noIDLDirFound: 'IDL directory not found or configured, cannot start IDL',
-    yes: 'Yes',
-    no: 'No',
-    dontAsk: "Don't ask again",
-    changeIcons: 'Switch to IDL file icons? Adds new icons for PRO code.',
     changeFormatter: 'Set extension as default formatter for IDL code?',
+    changeIcons: 'Switch to IDL file icons? Adds new icons for PRO code.',
+    configure: 'Configure',
+    configureMCP:
+      'Configure GitHub Copilot to use the IDL for VSCode MCP server?',
+    dontAsk: "Don't ask again",
     formatOnSave:
       'Format PRO code automatically on file save? This will not affect other languages and will be limited to PRO files.',
     initIDLJSON:
       'No "idl.json" file found at root level of workspace folder, create? Workspace:',
+    lostIDLConnection: 'Lost connection to IDL',
+    no: 'No',
+    noIDLDirFound: 'IDL directory not found or configured, cannot start IDL',
+    noIDLNotebook: 'No active IDL Notebook in VSCode',
+    noProCode: 'No active PRO file in VSCode',
+    noProCodeOrTaskFile: 'No active PRO file or Task file in VSCode',
     openDocs: 'Open official docs for IDL for VSCode?',
-    configure: 'Configure',
     reportBug: 'Report Bug',
     start: 'Start?',
     viewDocs: 'View docs',
+    yes: 'Yes',
   },
   packageJSON: {
-    displayName: 'IDL for VSCode',
     description:
       'IDL syntax highlighting, code snippets, running IDL programs, notebooks, and much more!',
+    displayName: 'IDL for VSCode',
   },
   parsing: {
     errors: {
@@ -992,22 +1088,43 @@ export const EN: ITranslation = {
         'Standalone expression detected. One or more statements need to be assigned to a variable or have a value assigned to them.',
       '109':
         'Expression will automatically be printed during notebook cell execution',
+      '110':
+        'Detected an "and" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `&&` operator is preferred as the behavior might not match what you expect.',
+      '111':
+        'Detected an "or" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `||` operator is preferred as the behavior might not match what you expect.',
+      '112':
+        'Detected a "not" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `~` operator is preferred as the behavior might not match what you expect.',
+      '113':
+        'Detected an "xor" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The behavior might not match what you expect.',
+    },
+  },
+  statusBar: {
+    crashed: 'Crashed',
+    indexing: 'Indexing code',
+    problemStarting: 'Unable to start',
+    ready: 'Ready!',
+    running: 'Running...',
+    startAgainQuestion: 'Start again?',
+    starting: 'Starting...',
+    startQuestion: 'Start?',
+    stopped: 'Stopped',
+  },
+  tasks: {
+    parsing: {
+      errors: {
+        failedParse:
+          'Unable to parse task file. Either JSON syntax error or the task file does not match our schema. Please open in VSCode or see logs for details',
+        fileNotFound: 'Specified task file was not found',
+        invalidJSON:
+          'Task file is not valid JSON and may have JSON syntax errors',
+        invalidTaskFile:
+          'Invalid task file. Please open in VSCode or see logs for details',
+      },
     },
   },
   terminal: {
-    pleaseStart: 'Please start a terminal session of IDL',
     alreadyStarted: 'IDL has already been started in the terminal',
-  },
-  statusBar: {
-    startQuestion: 'Start?',
-    startAgainQuestion: 'Start again?',
-    crashed: 'Crashed',
-    stopped: 'Stopped',
-    starting: 'Starting...',
-    ready: 'Ready!',
-    running: 'Running...',
-    problemStarting: 'Unable to start',
-    indexing: 'Indexing code',
+    pleaseStart: 'Please start a terminal session of IDL',
   },
   themes: {
     magmatic: 'Magmatic IDL',
@@ -1015,6 +1132,10 @@ export const EN: ITranslation = {
     new: 'Novus IDL',
     retro: 'Retro IDL',
     stellar: 'Stellar IDL',
+  },
+  usageMetrics: {
+    learnMore: 'Learn more',
+    sendingUsageMetric: 'Sending usage metric',
   },
   webview: {
     content: {
@@ -1027,63 +1148,18 @@ export const EN: ITranslation = {
       title: 'No content to show',
     },
     profiler: {
-      title: 'IDL Profiler View',
-      noShow: 'No profiling results to show.',
       filter: 'Routine name filter',
+      noShow: 'No profiling results to show.',
       table: {
-        routine: 'Routine',
         hits: 'Hits',
-        timeSelf: 'Time Self (ms)',
-        timeTotal: 'Time Total (ms)',
         linesRun: 'Lines Run',
         linesTotal: 'Lines Total',
+        routine: 'Routine',
+        timeSelf: 'Time Self (ms)',
+        timeTotal: 'Time Total (ms)',
       },
+      title: 'IDL Profiler View',
     },
     title: 'IDL',
-  },
-  docs: {
-    placeholder: {
-      params: 'Placeholder docs for argument, keyword, or property',
-    },
-    hover: {
-      params: {
-        direction: 'Parameter direction',
-        required: 'Parameter is required',
-        true: 'true',
-        false: 'false',
-        typeParam: 'Parameter data type',
-        typeProp: 'Property data type',
-        self: 'A reference to our object class',
-        private: 'Private',
-      },
-    },
-  },
-  autoComplete: {
-    detail: {
-      variable: 'Variable',
-      systemVariable: 'System Variable',
-      procedure: 'Procedure',
-      function: 'Function',
-      property: 'Property of',
-      functionMethod: 'Function Method',
-      procedureMethod: 'Procedure Method',
-      keyword: 'Keyword',
-      structure: 'Structure',
-      enviTask: 'ENVI Task',
-      idltask: 'IDL Task',
-    },
-  },
-  generators: {
-    errors: {
-      tasks: {
-        alreadyExists: 'Task file exists already, cannot overwrite.',
-        noProcedure:
-          'No procedure definition found with the base name of the PRO file (required to create a task)',
-      },
-    },
-  },
-  usageMetrics: {
-    sendingUsageMetric: 'Sending usage metric',
-    learnMore: 'Learn more',
   },
 };

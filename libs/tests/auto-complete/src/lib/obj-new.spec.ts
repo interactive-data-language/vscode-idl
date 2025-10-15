@@ -1,6 +1,6 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { readFile } from 'fs/promises';
 import { CompletionItem, Position } from 'vscode-languageserver/node';
 
@@ -141,35 +141,35 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         label: "ENVITask('InitializeENVINet5MultiModel')",
         insertText: "ENVITask('InitializeENVINet5MultiModel')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: "ENVITask('BuildLabelRasterFromClassification')",
         insertText: "ENVITask('BuildLabelRasterFromClassification')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: "ENVITask('ClassActivationToPixelROI')",
         insertText: "ENVITask('ClassActivationToPixelROI')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
         insertText: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
       },
       {
         label: 'ENVIBoundingBoxSet()',
         insertText: 'ENVIBoundingBoxSet()',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -177,7 +177,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         label: 'ENVITensorFlowGridModel()',
         insertText: 'ENVITensorFlowGridModel()',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -185,7 +185,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         label: 'ENVITensorFlowModel()',
         insertText: 'ENVITensorFlowModel()',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -226,10 +226,34 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
     // define expected token we extract
     const expectedFound_0: CompletionItem[] = [
       {
+        label: 'auxiliary_spatialref = ',
+        insertText: 'auxiliary_spatialref = ',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
+        label: 'auxiliary_uri = ',
+        insertText: 'auxiliary_uri = ',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
+        label: 'coord_sys = ',
+        insertText: 'coord_sys = ',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
         label: 'data_ignore_value = ',
         insertText: 'data_ignore_value = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -238,10 +262,22 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         },
       },
       {
+        label: 'data_type = ',
+        insertText: 'data_type = ',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'An integer or string specifying the raster data type (strings are not case-sensitive). When retrieving the property, a string is returned.\n\n| String | Value | Data Type                                 |\n| ------ | ----- | ----------------------------------------- |\n| byte   | 1     | Byte (8 bits)                             |\n| double | 5     | Double-precision floating point (64 bits) |\n| float  | 4     | Floating point (32 bits)                  |\n| int    | 2     | Integer (16 bits)                         |\n| long   | 3     | Long integer (32 bits)                    |\n| uint   | 12    | Unsigned integer (16 bits)                |\n| ulong  | 13    | Unsigned long integer (32 bits)           |\n\nYou cannot create or modify an ENVIRaster that contains complex data.',
+        },
+      },
+      {
         label: 'error = ',
         insertText: 'error = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -253,7 +289,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         label: 'inherits_from = ',
         insertText: 'inherits_from = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -262,22 +298,10 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         },
       },
       {
-        label: 'data_type = ',
-        insertText: 'data_type = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'An integer or string specifying the raster data type (strings are not case-sensitive). When retrieving the property, a string is returned.\n\n| String | Value | Data Type                                 |\n| ------ | ----- | ----------------------------------------- |\n| byte   | 1     | Byte (8 bits)                             |\n| double | 5     | Double-precision floating point (64 bits) |\n| float  | 4     | Floating point (32 bits)                  |\n| int    | 2     | Integer (16 bits)                         |\n| long   | 3     | Long integer (32 bits)                    |\n| uint   | 12    | Unsigned integer (16 bits)                |\n| ulong  | 13    | Unsigned long integer (32 bits)           |\n\nYou cannot create or modify an ENVIRaster that contains complex data.',
-        },
-      },
-      {
         label: 'interleave = ',
         insertText: 'interleave = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -289,7 +313,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         label: 'metadata = ',
         insertText: 'metadata = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -301,7 +325,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         label: 'nbands = ',
         insertText: 'nbands = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -312,7 +336,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         label: 'ncolumns = ',
         insertText: 'ncolumns = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -323,7 +347,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         label: 'nrows = ',
         insertText: 'nrows = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -331,10 +355,26 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         },
       },
       {
+        label: 'pyramid_exists = ',
+        insertText: '/pyramid_exists',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
+        label: 'read_only = ',
+        insertText: '/read_only',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: '',
+      },
+      {
         label: 'spatialref = ',
         insertText: 'spatialref = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -346,7 +386,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         label: 'time = ',
         insertText: 'time = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
@@ -358,53 +398,13 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         label: 'uri = ',
         insertText: 'uri = ',
         kind: 20,
-        sortText: '00',
+        sortText: '10',
         detail: 'Keyword',
         documentation: {
           kind: 'markdown',
           value:
             'A string that is a fully qualified raster file path. If not set on initialization, a temporary file will be generated.',
         },
-      },
-      {
-        label: 'auxiliary_spatialref = ',
-        insertText: 'auxiliary_spatialref = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
-      },
-      {
-        label: 'auxiliary_uri = ',
-        insertText: 'auxiliary_uri = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
-      },
-      {
-        label: 'coord_sys = ',
-        insertText: 'coord_sys = ',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
-      },
-      {
-        label: 'pyramid_exists = ',
-        insertText: '/pyramid_exists',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
-      },
-      {
-        label: 'read_only = ',
-        insertText: '/read_only',
-        kind: 20,
-        sortText: '00',
-        detail: 'Keyword',
-        documentation: '',
       },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },

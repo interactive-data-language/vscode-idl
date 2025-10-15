@@ -13,17 +13,10 @@ import { IPostAndReceiveMessageResult } from './workerio.interface';
  * that has proper signatures for our messages
  */
 export interface IWorkerIO<_Message extends string> {
-  /** Worker threads by worker ID */
-  workers: { [key: string]: Worker };
-
   /**
-   * Send a message to our worker, but don't want for a response
+   * Clean up our workerIO interface and stop all worker threads
    */
-  postMessage<T extends _Message>(
-    workerId: string,
-    type: T,
-    payload: PayloadToWorkerBaseMessage<T>
-  ): string;
+  destroy(): void;
 
   /**
    * Send a message to our worker and wait for a response
@@ -36,16 +29,20 @@ export interface IWorkerIO<_Message extends string> {
   ): IPostAndReceiveMessageResult<T>;
 
   /**
+   * Send a message to our worker, but don't want for a response
+   */
+  postMessage<T extends _Message>(
+    workerId: string,
+    type: T,
+    payload: PayloadToWorkerBaseMessage<T>
+  ): string;
+
+  /**
    * Subscribe to all messages with the same ID from any worker
    */
   subscribeToGlobalMessages<T extends _Message>(
     type: T
   ): Subject<PayloadFromWorkerBaseMessage<T>>;
-
-  /**
-   * Stop subscribing to global messages - cleans up internal subscription references
-   */
-  unsubscribeFromGlobalMessages(type: _Message): void;
 
   /**
    * Subscribe to messages from a specific worker
@@ -56,12 +53,15 @@ export interface IWorkerIO<_Message extends string> {
   ): Subject<PayloadFromWorkerBaseMessage<T>>;
 
   /**
+   * Stop subscribing to global messages - cleans up internal subscription references
+   */
+  unsubscribeFromGlobalMessages(type: _Message): void;
+
+  /**
    * Stop subscribing to messages from our workers
    */
   unsubscribeFromWorkerMessages(workerId: string, type: _Message): void;
 
-  /**
-   * Clean up our workerIO interface and stop all worker threads
-   */
-  destroy(): void;
+  /** Worker threads by worker ID */
+  workers: { [key: string]: Worker };
 }

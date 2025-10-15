@@ -1,6 +1,6 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { readFile } from 'fs/promises';
 import { CompletionItem, Position } from 'vscode-languageserver/node';
 
@@ -33,7 +33,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'aborted',
         insertText: 'aborted',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLTask',
         documentation: {
           kind: 'markdown',
@@ -45,7 +45,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'description',
         insertText: 'description',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLTask',
         documentation: {
           kind: 'markdown',
@@ -57,7 +57,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'display_name',
         insertText: 'display_name',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLTask',
         documentation: {
           kind: 'markdown',
@@ -69,7 +69,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'name',
         insertText: 'name',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLTask',
         documentation: {
           kind: 'markdown',
@@ -81,7 +81,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'revision',
         insertText: 'revision',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLTask',
         documentation: {
           kind: 'markdown',
@@ -93,7 +93,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'tags',
         insertText: 'tags',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of IDLTask',
         documentation: {
           kind: 'markdown',
@@ -105,28 +105,28 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'IDLTask::addParameter',
         insertText: 'addParameter',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Procedure Method',
       },
       {
         label: 'IDLTask::execute',
         insertText: 'execute',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Procedure Method',
       },
       {
         label: 'IDLTask::removeParameter',
         insertText: 'removeParameter',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Procedure Method',
       },
       {
         label: 'IDLTask::dehydrate()',
         insertText: 'dehydrate()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -134,7 +134,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'IDLTask::parameter()',
         insertText: 'parameter()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -142,7 +142,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'IDLTask::parameterNames()',
         insertText: 'parameterNames()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -167,7 +167,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'aborted',
         insertText: 'aborted',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -179,7 +179,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'commute_on_downsample',
         insertText: 'commute_on_downsample',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -191,7 +191,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'commute_on_subset',
         insertText: 'commute_on_subset',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -203,7 +203,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'description',
         insertText: 'description',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: { kind: 'markdown', value: 'Text describing the task.' },
       },
@@ -211,7 +211,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'display_name',
         insertText: 'display_name',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -222,7 +222,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'name',
         insertText: 'name',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: { kind: 'markdown', value: 'The name of the task.' },
       },
@@ -230,7 +230,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'revision',
         insertText: 'revision',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -242,7 +242,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'source_uri',
         insertText: 'source_uri',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -254,7 +254,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'tags',
         insertText: 'tags',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -266,28 +266,28 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'ENVITask::addParameter',
         insertText: 'addParameter',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Procedure Method',
       },
       {
         label: 'ENVITask::execute',
         insertText: 'execute',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Procedure Method',
       },
       {
         label: 'ENVITask::removeParameter',
         insertText: 'removeParameter',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Procedure Method',
       },
       {
         label: 'ENVITask::dehydrate()',
         insertText: 'dehydrate()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -295,7 +295,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'ENVITask::hydrate()',
         insertText: 'hydrate()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -303,7 +303,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'ENVITask::parameter()',
         insertText: 'parameter()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -311,7 +311,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'ENVITask::parameterNames()',
         insertText: 'parameterNames()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -319,7 +319,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'ENVITask::validate()',
         insertText: 'validate()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -341,10 +341,22 @@ describe(`[auto generated] Task auto complete`, () => {
     // define expected token we extract
     const expectedFound_2: CompletionItem[] = [
       {
+        label: 'aborted',
+        insertText: 'aborted',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVITask',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A boolean that returns `true` if the task was aborted. Not all tasks support aborting; in these cases the property always returns `false`.',
+        },
+      },
+      {
         label: 'color_matching_actions',
         insertText: 'color_matching_actions',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVIBuildMosaicRasterTask',
         documentation: {
           kind: 'markdown',
@@ -356,7 +368,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'color_matching_method',
         insertText: 'color_matching_method',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVIBuildMosaicRasterTask',
         documentation: {
           kind: 'markdown',
@@ -368,7 +380,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'color_matching_statistics',
         insertText: 'color_matching_statistics',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVIBuildMosaicRasterTask',
         documentation: {
           kind: 'markdown',
@@ -377,117 +389,10 @@ describe(`[auto generated] Task auto complete`, () => {
         },
       },
       {
-        label: 'data_ignore_value',
-        insertText: 'data_ignore_value',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVIBuildMosaicRasterTask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            "Set this property to a pixel value that will be used to fill areas where no valid data appear in the output raster. The following rules apply:\n\n* The value must be within the range of the input scenes' data type (e.g., floating-point, byte, integer, etc.)\n* For scenes that are in [ENVI raster format](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExploreImagery/ENVIImageFiles.htm%22%7D): if all scenes have the same data ignore value defined in their associated headers, that value will be the default output data ignore value.\n* For mosaics exported to ENVI raster format, the data ignore value is written to the `data ignore value` field in the associated header file. If you do not set a data ignore value, this field will not be added to the header file.\n* When the input scenes have a floating-point or double-precision floating-point data type, be sure to specify a double-precision value (for example, 100D).\n\nYou can set the data ignore value to an NaN (not a number) value as follows:\n\n```idl\n  Task.data_ignore_value = !values.f_nan\n```",
-        },
-      },
-      {
-        label: 'feathering_distance',
-        insertText: 'feathering_distance',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVIBuildMosaicRasterTask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Set this property to an array of integers indicating the number of pixels used for edge or seamline feathering for each INPUT\\_RASTER. The number of elements in this array must match the number of input scenes in the INPUT\\_RASTER array. Set values to 1 or greater.',
-        },
-      },
-      {
-        label: 'feathering_method',
-        insertText: 'feathering_method',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVIBuildMosaicRasterTask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Set this property to one of the following strings that indicates the feathering method to use:\n\n* `None`: (default) No feathering.\n* `Edge`: Edge feathering blends the pixels inside of each footprint boundary with underlying scenes that are within the FEATHERING\\_DISTANCE value that you set.\n* `Seamline`: Seamline feathering blends the pixels on both sides of an auto-generated seamline with the underlying scenes.\n\nIf you set this property to a value other than `None`, you must also specify FEATHERING\\_DISTANCE. If you set this property to `Seamline`, you must also set the SEAMLINE\\_METHOD property.',
-        },
-      },
-      {
-        label: 'input_rasters',
-        insertText: 'input_rasters',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVIBuildMosaicRasterTask',
-        documentation: {
-          kind: 'markdown',
-          value: 'Specify an array of rasters to mosaic.',
-        },
-      },
-      {
-        label: 'output_raster',
-        insertText: 'output_raster',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVIBuildMosaicRasterTask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'This is a reference to the output raster of filetype ENVI.\n\nIf you use the [Export method](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRaster/ENVIRaster%255F%255FExport.htm%22%7D) to save a multi-band mosaic to disk, the output mosaic will have a band-interleaved-by-pixel (BIP) interleave format. This ensures optimal performance during the export step.',
-        },
-      },
-      {
-        label: 'output_raster_uri',
-        insertText: 'output_raster_uri',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVIBuildMosaicRasterTask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Specify a string with the fully qualified filename and path to export the associated OUTPUT\\_RASTER.\n\n* If you set this property to an asterisk symbol (\\*), the output raster will be virtual and not written to disk.\n* If you do not specify this property, or set it to an exclamation symbol (!), a temporary file will be created.',
-        },
-      },
-      {
-        label: 'resampling',
-        insertText: 'resampling',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVIBuildMosaicRasterTask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Specify the resampling method:\n\n* `Nearest Neighbor`: (default) Uses the nearest pixel without any interpolation to create the image.\n* `Bilinear`: Performs a linear interpolation using four pixels to resample the image.\n* `Cubic`: Uses 16 pixels to approximate the sinc function using cubic polynomials to resample the image. Cubic convolution resampling is significantly slower than the other methods.',
-        },
-      },
-      {
-        label: 'seamline_method',
-        insertText: 'seamline_method',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVIBuildMosaicRasterTask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Set this property to a string that indicates the method used to automatically generate seamlines:\n\n* `Geometry`: Seamline generation that is based on the use of seamline networks by area Voroni diagrams with overlap (Pan et al., 2009). See [Add Seamlines](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/PreprocessImagery/CreateMosaics/MosaicSeamless.htm#Add%22%7D) for more information.\n* `None`: (default) No seamline generation.\n\nIf SEAMLINE\\_METHOD is set to `Geometry`, then FEATHERING\\_METHOD must be set to `Seamline`.\n\n**Reference**: Pan, J., M. Wang, D. Li, and J. Li. "Automatic Generation of Seamline Network Using the Area Voronoi Diagram with Overlap." _IEEE Transactions on Geoscience and Remote Sensing_ 47, No. 6 (2009): 1737-174.',
-        },
-      },
-      {
-        label: 'aborted',
-        insertText: 'aborted',
-        kind: 5,
-        sortText: '02',
-        detail: 'Property of ENVITask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A boolean that returns `true` if the task was aborted. Not all tasks support aborting; in these cases the property always returns `false`.',
-        },
-      },
-      {
         label: 'commute_on_downsample',
         insertText: 'commute_on_downsample',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -499,7 +404,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'commute_on_subset',
         insertText: 'commute_on_subset',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -508,10 +413,22 @@ describe(`[auto generated] Task auto complete`, () => {
         },
       },
       {
+        label: 'data_ignore_value',
+        insertText: 'data_ignore_value',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIBuildMosaicRasterTask',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "Set this property to a pixel value that will be used to fill areas where no valid data appear in the output raster. The following rules apply:\n\n* The value must be within the range of the input scenes' data type (e.g., floating-point, byte, integer, etc.)\n* For scenes that are in [ENVI raster format](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExploreImagery/ENVIImageFiles.htm%22%7D): if all scenes have the same data ignore value defined in their associated headers, that value will be the default output data ignore value.\n* For mosaics exported to ENVI raster format, the data ignore value is written to the `data ignore value` field in the associated header file. If you do not set a data ignore value, this field will not be added to the header file.\n* When the input scenes have a floating-point or double-precision floating-point data type, be sure to specify a double-precision value (for example, 100D).\n\nYou can set the data ignore value to an NaN (not a number) value as follows:\n\n```idl\n  Task.data_ignore_value = !values.f_nan\n```",
+        },
+      },
+      {
         label: 'description',
         insertText: 'description',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: { kind: 'markdown', value: 'Text describing the task.' },
       },
@@ -519,7 +436,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'display_name',
         insertText: 'display_name',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -527,18 +444,89 @@ describe(`[auto generated] Task auto complete`, () => {
         },
       },
       {
+        label: 'feathering_distance',
+        insertText: 'feathering_distance',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIBuildMosaicRasterTask',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this property to an array of integers indicating the number of pixels used for edge or seamline feathering for each INPUT\\_RASTER. The number of elements in this array must match the number of input scenes in the INPUT\\_RASTER array. Set values to 1 or greater.',
+        },
+      },
+      {
+        label: 'feathering_method',
+        insertText: 'feathering_method',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIBuildMosaicRasterTask',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this property to one of the following strings that indicates the feathering method to use:\n\n* `None`: (default) No feathering.\n* `Edge`: Edge feathering blends the pixels inside of each footprint boundary with underlying scenes that are within the FEATHERING\\_DISTANCE value that you set.\n* `Seamline`: Seamline feathering blends the pixels on both sides of an auto-generated seamline with the underlying scenes.\n\nIf you set this property to a value other than `None`, you must also specify FEATHERING\\_DISTANCE. If you set this property to `Seamline`, you must also set the SEAMLINE\\_METHOD property.',
+        },
+      },
+      {
+        label: 'input_rasters',
+        insertText: 'input_rasters',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIBuildMosaicRasterTask',
+        documentation: {
+          kind: 'markdown',
+          value: 'Specify an array of rasters to mosaic.',
+        },
+      },
+      {
         label: 'name',
         insertText: 'name',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: { kind: 'markdown', value: 'The name of the task.' },
+      },
+      {
+        label: 'output_raster',
+        insertText: 'output_raster',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIBuildMosaicRasterTask',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'This is a reference to the output raster of filetype ENVI.\n\nIf you use the [Export method](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRaster/ENVIRaster%255F%255FExport.htm%22%7D) to save a multi-band mosaic to disk, the output mosaic will have a band-interleaved-by-pixel (BIP) interleave format. This ensures optimal performance during the export step.',
+        },
+      },
+      {
+        label: 'output_raster_uri',
+        insertText: 'output_raster_uri',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIBuildMosaicRasterTask',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Specify a string with the fully qualified filename and path to export the associated OUTPUT\\_RASTER.\n\n* If you set this property to an asterisk symbol (\\*), the output raster will be virtual and not written to disk.\n* If you do not specify this property, or set it to an exclamation symbol (!), a temporary file will be created.',
+        },
+      },
+      {
+        label: 'resampling',
+        insertText: 'resampling',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIBuildMosaicRasterTask',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Specify the resampling method:\n\n* `Nearest Neighbor`: (default) Uses the nearest pixel without any interpolation to create the image.\n* `Bilinear`: Performs a linear interpolation using four pixels to resample the image.\n* `Cubic`: Uses 16 pixels to approximate the sinc function using cubic polynomials to resample the image. Cubic convolution resampling is significantly slower than the other methods.',
+        },
       },
       {
         label: 'revision',
         insertText: 'revision',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -547,10 +535,22 @@ describe(`[auto generated] Task auto complete`, () => {
         },
       },
       {
+        label: 'seamline_method',
+        insertText: 'seamline_method',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIBuildMosaicRasterTask',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this property to a string that indicates the method used to automatically generate seamlines:\n\n* `Geometry`: Seamline generation that is based on the use of seamline networks by area Voroni diagrams with overlap (Pan et al., 2009). See [Add Seamlines](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/PreprocessImagery/CreateMosaics/MosaicSeamless.htm#Add%22%7D) for more information.\n* `None`: (default) No seamline generation.\n\nIf SEAMLINE\\_METHOD is set to `Geometry`, then FEATHERING\\_METHOD must be set to `Seamline`.\n\n**Reference**: Pan, J., M. Wang, D. Li, and J. Li. "Automatic Generation of Seamline Network Using the Area Voronoi Diagram with Overlap." _IEEE Transactions on Geoscience and Remote Sensing_ 47, No. 6 (2009): 1737-174.',
+        },
+      },
+      {
         label: 'source_uri',
         insertText: 'source_uri',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -562,7 +562,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'tags',
         insertText: 'tags',
         kind: 5,
-        sortText: '02',
+        sortText: '30',
         detail: 'Property of ENVITask',
         documentation: {
           kind: 'markdown',
@@ -574,28 +574,28 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'ENVITask::addParameter',
         insertText: 'addParameter',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Procedure Method',
       },
       {
         label: 'ENVITask::execute',
         insertText: 'execute',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Procedure Method',
       },
       {
         label: 'ENVITask::removeParameter',
         insertText: 'removeParameter',
         kind: 3,
-        sortText: '03',
+        sortText: '40',
         detail: 'Procedure Method',
       },
       {
         label: 'ENVITask::dehydrate()',
         insertText: 'dehydrate()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -603,7 +603,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'ENVITask::hydrate()',
         insertText: 'hydrate()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -611,7 +611,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'ENVITask::parameter()',
         insertText: 'parameter()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -619,7 +619,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'ENVITask::parameterNames()',
         insertText: 'parameterNames()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
@@ -627,7 +627,7 @@ describe(`[auto generated] Task auto complete`, () => {
         label: 'ENVITask::validate()',
         insertText: 'validate()',
         kind: 2,
-        sortText: '03',
+        sortText: '40',
         detail: 'Function Method',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },

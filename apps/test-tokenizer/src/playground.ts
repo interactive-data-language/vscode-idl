@@ -2,7 +2,7 @@ import { Assembler } from '@idl/assembler';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { IParsed, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
-import { TimeIt } from '@idl/shared';
+import { TimeIt } from '@idl/shared/extension';
 import { TextMateParse } from '@idl/tests/helpers';
 import copy from 'fast-copy';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';

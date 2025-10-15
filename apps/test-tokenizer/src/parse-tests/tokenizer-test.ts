@@ -1,7 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { FindFiles } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
-import { TimeItAsync } from '@idl/shared';
+import { TimeItAsync } from '@idl/shared/extension';
 import { Tokenizer } from '@idl/tokenizer';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
@@ -10,9 +11,9 @@ import * as progressBar from 'progress';
 import { ExportPopularity } from './routine-popularity';
 
 interface IProblem {
+  erased: string;
   line: number;
   text: string;
-  erased: string;
 }
 
 /**
@@ -33,9 +34,10 @@ export async function TokenizerTest(
     })
   );
 
+  const files = await FindFiles(folder, '**/**.pro');
+
   // search for files
   // const files = await glob('**/**.pro', { cwd: folder });
-  const files = await index.findFiles(folder, '**/**.pro');
   if (files.length === 0) {
     throw new Error(`No ".pro" files found in "${folder}"`);
   }

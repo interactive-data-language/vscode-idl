@@ -2,7 +2,7 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
 import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
-import { SystemMemoryUsedMB } from '@idl/shared';
+import { SystemMemoryUsedMB } from '@idl/shared/extension';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 

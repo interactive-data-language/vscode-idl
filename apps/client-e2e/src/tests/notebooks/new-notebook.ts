@@ -1,4 +1,8 @@
-import { IDL_COMMANDS, IDL_NOTEBOOK_LANGUAGE_NAME, Sleep } from '@idl/shared';
+import {
+  IDL_COMMANDS,
+  IDL_NOTEBOOK_LANGUAGE_NAME,
+  Sleep,
+} from '@idl/shared/extension';
 import expect from 'expect';
 import * as vscode from 'vscode';
 

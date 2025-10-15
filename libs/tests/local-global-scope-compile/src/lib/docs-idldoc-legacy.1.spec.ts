@@ -224,6 +224,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
         type: 'p',
         name: 'idltasktest',
         pos: [31, 4, 11],
+        range: { start: [31, 0, 4], end: [34, 0, 3] },
         meta: {
           source: 'user',
           args: {
@@ -591,6 +592,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
         type: 'f',
         name: 'idltasktest',
         pos: [33, 9, 11],
+        range: { start: [33, 0, 9], end: [37, 0, 3] },
         meta: {
           source: 'user',
           args: {

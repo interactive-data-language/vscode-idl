@@ -11,7 +11,7 @@ import {
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
-import { SORT_PRIORITY } from '../sort-priority.interface';
+import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**
  * Creates options for keyword auto-complete
@@ -44,7 +44,7 @@ export function BuildVariableCompletionItems(
     arg.complete.push({
       label: variable.meta.display,
       kind: CompletionItemKind.Variable,
-      sortText: SORT_PRIORITY.VARIABLES,
+      sortText: COMPLETION_SORT_PRIORITY.VARIABLES,
       detail: IDL_TRANSLATION.autoComplete.detail.variable,
       documentation: variable.meta.docs,
     });

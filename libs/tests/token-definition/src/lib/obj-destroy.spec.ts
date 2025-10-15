@@ -1,6 +1,6 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { readFile } from 'fs/promises';
 import { Position } from 'vscode-languageserver/node';
 
@@ -34,6 +34,7 @@ describe(`[auto generated] Correctly find find definition from obj destroy`, () 
       type: 'pm',
       name: 'testclass::cleanup',
       pos: [12, 4, 18],
+      range: { start: [12, 0, 4], end: [16, 0, 3] },
       meta: {
         className: 'testclass',
         method: 'cleanup',

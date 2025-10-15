@@ -8,9 +8,9 @@ import {
   GenerateIDLTaskMainLevelProgram,
 } from '@idl/generators/idl-task';
 import { GenerateTaskResult } from '@idl/generators/tasks-shared';
+import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
-import { GetExtensionPath } from '@idl/shared';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
@@ -38,12 +38,12 @@ export async function TestsForTaskGeneration(
   strings.push(
     `import { GenerateTaskResult } from '@idl/generators/tasks-shared';`
   );
+  strings.push(`import { GetExtensionPath } from '@idl/idl/files';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
   );
   strings.push(`import { LoadTask } from '@idl/schemas/tasks';`);
-  strings.push(`import { GetExtensionPath } from '@idl/shared';`);
   strings.push(`import { readFileSync } from 'fs';`);
   strings.push(``);
   strings.push(`IDL_INDEX_OPTIONS.IS_TEST = true;`);

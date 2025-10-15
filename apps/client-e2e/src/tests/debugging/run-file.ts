@@ -1,4 +1,6 @@
-import { GetExtensionPath, IDL_COMMANDS, Sleep } from '@idl/shared';
+import { GetExtensionPath } from '@idl/idl/files';
+import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
+import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
@@ -8,19 +10,19 @@ import { RunnerFunction } from '../runner.interface';
 /**
  * Track the files we need to run
  */
-const TO_RUN: { file: string; result: boolean }[] = [
+const TO_RUN: { file: string; success: boolean }[] = [
   /**
    * Main level tests
    */
   {
     file: GetExtensionPath('idl/test/client-e2e/debug/run-file/main.pro'),
-    result: true,
+    success: true,
   },
   {
     file: GetExtensionPath(
       'idl/test/client-e2e/debug/run-file/syntax_error.pro'
     ),
-    result: false,
+    success: false,
   },
 
   /**
@@ -28,13 +30,13 @@ const TO_RUN: { file: string; result: boolean }[] = [
    */
   {
     file: GetExtensionPath('idl/test/client-e2e/debug/run-file/procedure.pro'),
-    result: true,
+    success: true,
   },
   {
     file: GetExtensionPath(
       'idl/test/client-e2e/debug/run-file/procedure_with_main.pro'
     ),
-    result: true,
+    success: true,
   },
 
   /**
@@ -42,13 +44,13 @@ const TO_RUN: { file: string; result: boolean }[] = [
    */
   {
     file: GetExtensionPath('idl/test/client-e2e/debug/run-file/function.pro'),
-    result: true,
+    success: true,
   },
   {
     file: GetExtensionPath(
       'idl/test/client-e2e/debug/run-file/function_with_main.pro'
     ),
-    result: true,
+    success: true,
   },
 
   /**
@@ -58,7 +60,7 @@ const TO_RUN: { file: string; result: boolean }[] = [
     file: GetExtensionPath(
       'idl/test/client-e2e/debug/run-file/name mismatch.pro'
     ),
-    result: true,
+    success: true,
   },
 
   /**
@@ -68,13 +70,13 @@ const TO_RUN: { file: string; result: boolean }[] = [
     file: GetExtensionPath(
       'idl/test/client-e2e/debug/run-file/procedure_method.pro'
     ),
-    result: false,
+    success: false,
   },
   {
     file: GetExtensionPath(
       'idl/test/client-e2e/debug/run-file/procedure_method_with_main.pro'
     ),
-    result: true,
+    success: true,
   },
 
   /**
@@ -84,13 +86,13 @@ const TO_RUN: { file: string; result: boolean }[] = [
     file: GetExtensionPath(
       'idl/test/client-e2e/debug/run-file/function_method.pro'
     ),
-    result: false,
+    success: false,
   },
   {
     file: GetExtensionPath(
       'idl/test/client-e2e/debug/run-file/function_method_with_main.pro'
     ),
-    result: true,
+    success: true,
   },
 ];
 
@@ -108,6 +110,9 @@ export const RunFile: RunnerFunction = async (init) => {
   // verify we started
   expect(started).toBeTruthy();
 
+  // reset the IDL session
+  await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
+
   // close
   await vscode.commands.executeCommand('workbench.action.closeAllEditors');
 
@@ -121,16 +126,17 @@ export const RunFile: RunnerFunction = async (init) => {
     await Sleep(100);
 
     // run
-    const res = await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RUN);
+    const res: IRunIDLCommandResult = await vscode.commands.executeCommand(
+      IDL_COMMANDS.DEBUG.RUN
+    );
 
     // verify result
-    if (TO_RUN[i].result) {
-      expect(res).toBeTruthy();
-    } else {
-      expect(res).toBeFalsy();
-    }
+    expect(res.success).toEqual(TO_RUN[i].success);
 
     // close
     await vscode.commands.executeCommand('workbench.action.closeAllEditors');
+
+    // reset the IDL session
+    await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
   }
 };

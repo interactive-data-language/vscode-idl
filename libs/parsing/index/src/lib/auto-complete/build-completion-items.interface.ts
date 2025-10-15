@@ -6,6 +6,7 @@ import {
 import { CompletionItem } from 'vscode-languageserver';
 
 import { IDLIndex } from '../idl-index.class';
+import { BuildBlockCompletionItems } from './completion-for/completion-blocks';
 import { BuildCompileOptCompletionItems } from './completion-for/completion-compile-opts';
 import { BuildExecutiveCommandCompletionItems } from './completion-for/completion-executive-commands';
 import { BuildFunctionMethodCompletionItems } from './completion-for/completion-function-methods';
@@ -50,6 +51,7 @@ export type BuildCompletionItemsLookup = {
  * Build all completion items
  */
 export const ALL_COMPLETION_ITEM_BUILDERS: BuildCompletionItemsLookup = {
+  blocks: BuildBlockCompletionItems,
   'compile-opt': BuildCompileOptCompletionItems,
   'executive-command': BuildExecutiveCommandCompletionItems,
   'function-method': BuildFunctionMethodCompletionItems,

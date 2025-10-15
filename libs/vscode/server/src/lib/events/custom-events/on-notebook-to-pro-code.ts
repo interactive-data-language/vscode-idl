@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { GetFSPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { NotebookToProCode } from '@idl/notebooks/idl-index';
 import { NotebookToIDLNotebook } from '@idl/notebooks/shared';
-import { GetFSPath } from '@idl/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   INotebookToProCodePayload,
@@ -10,7 +10,7 @@ import {
 } from '@idl/vscode/events/messages';
 
 import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
-import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-server';
+import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { NOTEBOOK_MANAGER } from '../initialize-notebook-manager';
 import { SERVER_INITIALIZED } from '../is-initialized';

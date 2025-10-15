@@ -1,5 +1,5 @@
-import { EXAMPLE_NOTEBOOKS } from '@idl/notebooks/shared';
-import { IDL_COMMANDS, Sleep } from '@idl/shared';
+import { EXAMPLE_NOTEBOOKS } from '@idl/idl/files';
+import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import expect from 'expect';
 import { existsSync, rmSync } from 'fs';
 import * as vscode from 'vscode';
@@ -20,9 +20,7 @@ export const ResetNotebookExamples: RunnerFunction = async (init) => {
   expect(existsSync(EXAMPLE_NOTEBOOKS)).toBeFalsy();
 
   // close
-  await vscode.commands.executeCommand(
-    IDL_COMMANDS.NOTEBOOKS.RESET_NOTEBOOK_EXAMPLES
-  );
+  await vscode.commands.executeCommand(IDL_COMMANDS.TUTORIALS.RESET_TUTORIALS);
 
   // pause momentarily
   await Sleep(100);

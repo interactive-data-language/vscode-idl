@@ -44,20 +44,6 @@ export class AwesomeImage extends BitmapLayer<IAwesomeImageProps> {
   }
 
   /**
-   * Cleans up and stops listening to subscriptions to prevent memory leaks
-   */
-  override finalizeState(context: LayerContext): void {
-    super.finalizeState(context);
-  }
-
-  /**
-   * Updates the color transform of this tile layer
-   */
-  setColorTransform(ct: ColorTransform) {
-    this.colorTransform = ct;
-  }
-
-  /**
    * Draw and pass in uniforms from filter
    */
   override draw(options: any) {
@@ -71,6 +57,13 @@ export class AwesomeImage extends BitmapLayer<IAwesomeImageProps> {
   }
 
   /**
+   * Cleans up and stops listening to subscriptions to prevent memory leaks
+   */
+  override finalizeState(context: LayerContext): void {
+    super.finalizeState(context);
+  }
+
+  /**
    * Override shaders from our default filter
    */
   override getShaders() {
@@ -78,6 +71,13 @@ export class AwesomeImage extends BitmapLayer<IAwesomeImageProps> {
       ...super.getShaders(),
       ...this.colorTransform.shader,
     };
+  }
+
+  /**
+   * Updates the color transform of this tile layer
+   */
+  setColorTransform(ct: ColorTransform) {
+    this.colorTransform = ct;
   }
 }
 AwesomeImage.layerName = 'AwesomeImage';

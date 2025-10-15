@@ -1,4 +1,4 @@
-import { ICON_THEME_NAME } from '@idl/shared';
+import { ICON_THEME_NAME } from '@idl/shared/extension';
 import axios from 'axios';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join, resolve, sep } from 'path';

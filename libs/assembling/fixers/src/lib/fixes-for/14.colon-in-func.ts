@@ -12,7 +12,7 @@ import { HasProblem } from '../helpers/has-problem';
 /**
  * Tokens we check for too many return args
  */
-type RoutineTokens = CallFunctionToken | CallFunctionMethodToken;
+type RoutineTokens = CallFunctionMethodToken | CallFunctionToken;
 
 /**
  * Tokens to check for too many return args

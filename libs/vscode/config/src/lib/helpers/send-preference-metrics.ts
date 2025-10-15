@@ -2,14 +2,14 @@ import {
   EXTENSION_FULL_NAME,
   ICON_THEME_NAME,
   IDL_LANGUAGE_NAME,
-} from '@idl/shared';
+} from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
 } from '@idl/types/problem-codes';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
-import { VSCodeTelemetryLogger } from '@idl/vscode/shared';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import * as vscode from 'vscode';
 
 import { IDL_EXTENSION_CONFIG } from '../initialize-extension-config';

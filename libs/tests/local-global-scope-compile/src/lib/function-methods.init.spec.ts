@@ -145,6 +145,7 @@ describe(`[auto generated] Add function for`, () => {
         type: 'fm',
         name: 'myclass::init',
         pos: [0, 9, 13],
+        range: { start: [0, 0, 9], end: [7, 0, 3] },
         meta: {
           className: 'myclass',
           method: 'init',
@@ -212,6 +213,7 @@ describe(`[auto generated] Add function for`, () => {
         type: 'f',
         name: 'myclass',
         pos: [0, 9, 13],
+        range: { start: [0, 0, 9], end: [7, 0, 3] },
         meta: {
           source: 'user',
           args: {

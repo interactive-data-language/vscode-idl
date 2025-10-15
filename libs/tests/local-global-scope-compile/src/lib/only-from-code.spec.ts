@@ -111,6 +111,7 @@ describe(`[auto generated] Only use code for docs`, () => {
         type: 'p',
         name: 'mypro',
         pos: [27, 4, 5],
+        range: { start: [27, 0, 4], end: [33, 0, 3] },
         meta: {
           source: 'user',
           args: {

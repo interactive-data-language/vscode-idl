@@ -16,7 +16,165 @@ Document some advanced types so users may try them out and provide feedback. The
 
 - Read more in the extension documentation
 
-IDL 9.1 introduces new, command-line based progress bars. We have a first-pass of support for these progress bars inside IDL Notebooks (not all types are supported).
+Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
+
+## 5.1.0 - August 2025
+
+This verion introduces a new selection of IDL Tutorials! These come as a collection of notebooks to help new users get up and running. In the IDL sidebar, you'll see a new section called "IDL Tutorials" with language-specific content.
+
+> With this change, we have also migrated the ENVI and IDL Example notebooks under the tutorials section.
+
+Add a new auto-complete for block statements (i.e. if-then-begin) that functions much better compared to what we had. If there are any weird cases, or cases for block auto-complete that are missing, let us know and we can add them in.
+
+Add a new sidebar entry to launch a session of ENVI and IDL. Requires an ENVI license and that you are using the IDL that is packaged with ENVI.
+
+With the extension including GitHub Copilot integration, we have changed the extension so that it always activates in VSCode. Otherwise tools in Agent mode through GitHub Copilot would fail to run as our extension was not started.
+
+Tweak hanging indent for procedures and procedure methods to use the first comma as the syntax we align to.
+
+Fix an issue with catching standalone expressions where the problem would be incorrectly reported for chained property access.
+
+Fix docs issues with `colorbar()` function not having all properties for keywords.
+
+Fix docs issue where "ipm" was an unknown structure and would throw fake errors when using the static methods on the class.
+
+Fixed an issue where IDL would show an error message about being unable to check the version if you had an IDL_STARTUP file specified that generated output.
+
+Potentially fix an issue with auto-complete that would occur sometimes with code blocks.
+
+Updated type parsing to support older code that used the name of the functions to create arrays as array types. We now map types such as "bytarr" to the proper IDL types of "Array<Byte>" for full type/auto complete support.
+
+Tweak notebook formatting that removes the trailing space at the end of cells. When you have many cells, this adds empty space that's not always needed or helpful.
+
+## 5.0.1 - July 2024
+
+Fix a bug with IDL Notebooks when you would open a new notebook though the MCP tools.
+
+## 5.0.0 – July 2024
+
+This release introduces a significant evolution in extension functionality, warranting the major version bump to 5.0.0.
+
+### ⚠️ IDL 9.2 Dependency Notice
+
+Some features introduced in this release depend on **IDL 9.2**, which is scheduled for release in **July–August 2025**. If you are not using IDL 9.2, these not all features will not be available.
+
+---
+
+### The IDL Machine
+
+With IDL 9.2, IDL now offers **native integration with VSCode**, bringing substantial improvements in performance and user experience.
+
+- Faster startup and more responsive command execution
+
+- Pause support is now fully functional on Windows
+
+- Debugging shows better information about variables and their values
+
+- Debugging workflow, and inputting commands in the debug console, has been completely re-worked for a more streamlined user experience and consistent keyboard focus
+
+- Improved detection of when IDL is idle and ready for input
+
+- Internal commands are excluded from command history
+
+- Support for the `read` procedure (interactive user input) in the VSCode Debug Console and IDL Notebooks
+
+- Enhanced progress reporting:
+
+  - Native integration with IDL Notebooks
+
+  - Cleaner output in the VSCode Debug Console
+
+VSCode will automatically detect whether your IDL version supports these new features. The legacy debugger remains available for compatibility with older IDL versions and continues to work with both debug sessions and notebooks.
+
+**Note:** The status bar (bottom-left of VSCode) will no longer display a custom prompt unless you're using IDL 9.2 or newer. This was necessary to streamline the new integration.
+
+---
+
+### 🤖 GitHub Copilot Integration
+
+We've added initial support for **GitHub Copilot in Agent Mode**, enabling AI-powered interactions with IDL.
+
+#### Available Actions:
+
+- Start an IDL session
+
+- Execute IDL code
+
+- Create and run IDL Notebooks
+
+- Launch ENVI
+
+- Open files in ENVI
+
+This marks our first step toward AI-assisted development in IDL. More capabilities will follow and feedback is welcome!
+
+---
+
+### 🌐 Web Extension Support
+
+We now provide a lightweight version of the extension for the **web-based version of VSCode**.
+
+#### Current Features:
+
+- Syntax highlighting
+
+- File association for `.pro`, `.sav`, and related files
+
+- View support for IDL Notebooks
+
+> ⚠️ This version does **not** support advanced language features such as auto-completion, hover help, or code execution.
+
+Let us know if you'd like to see more features supported in the web version.
+
+---
+
+### Fixes and Improvements
+
+- **Windows-specific fix:** Resolved an issue where IDL's path was incorrectly set when no workspace was open, potentially causing slow startup.
+
+- **Notebook stability:** No longer reports false errors when stopping a cell mid-execution.
+
+- **Cancellation handling:** User actions like code execution now correctly respond to cancellations, preventing misleading error messages.
+
+- **Format-on-save:** Fixed an issue where saving twice was required to trigger formatting.
+
+- **Formatting supports hanging indent:** There's a new option in the formatter that allows you to enable hanging indent instead of the default block indent.
+
+- **Formatting with syntax errors**: Improved handling of two scenarios where formatting would run when it shouldn't and would break your code.
+
+- **Outline now enables sticky headers:** The outline has been updated to provide a sticky header showing you what routine you are working inside of
+
+- **CLI progress handling:**
+
+  - IDL Notebooks now mimic terminal output
+
+  - VSCode Debug Console shows progress updates on new lines (due to inherent limitations)
+
+- **Notebook auto-print logic:** Corrected auto-detection of implied print for consecutive lines.
+
+- **Startup checks:** Directory validation for IDL now occurs when starting a session, not during extension startup.
+
+- **Autocomplete improvements:** Property and keyword documentation in hover and auto-complete lists are now alphabetically sorted for easier navigation.
+
+- **Syntax highlighting:** Enhanced for commands like `.compile`, with proper support for strings, comments, and theme-friendly styling.
+
+- **Hover help:** Fixed a typo in task file documentation.
+
+- **ENVI + Notebooks:** Starting ENVI UI in a notebook now disables graphics embedding in that cell to prevent blank/empty outputs. For best results, use a dedicated cell to start ENVI and separate cells for visual output. issue where saving twice was required to trigger formatting.
+
+- **Syntax highlighting and method detection**: Fixed an issue where we would not properly highlightor parse procedure and function methods when in case/switch statements.
+
+- **Legacy Documentation Parsing**: Updated the docs parsing for older style code comments to support a wider range of parameters that we parse (i.e. data type, direction) and multi-line starter blocks of docs
+
+- **Logical Operator Detection**: When using compile option `idl3`, we now detect and warn about certain operators being used. These have custom code actions to fix and also get fixed with formatting on save
+
+- **Notebook Variable Detection**: Fixed an issue where IDL Notebooks would incorrectly report a variable as undefined when it was, in fact, defined.
+
+### Other Bug Fixes
+
+Fixed a parsin error where we would confuse case/switch if statements and methods
+
+Manually updated some documentation to account for missing/invalid keywords that were actually correct.
 
 ## 4.7.1 - December 2024
 
