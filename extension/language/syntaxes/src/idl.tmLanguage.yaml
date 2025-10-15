@@ -1088,7 +1088,7 @@ repository:
 
   # type statement
   type_definition:
-    match: '(property|variable)\s+([^:]+):([^=]+)=\s*(.*)'
+    match: '^(prop|var)\s+([^:]+):([^=]+)(?:=\s*(.*))?'
     captures:
       '1': { name: {{name_control}} }
       '2': { name: {{name_variable}} }

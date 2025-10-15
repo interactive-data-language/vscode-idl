@@ -23,7 +23,8 @@ export class IDLTypeHelper {
   static addTypeToDocs(
     name: string,
     docs: string,
-    typeInfo: IDLDataType
+    typeInfo: IDLDataType,
+    helpType: 'prop' | 'var' = 'var'
   ): string {
     /** Docs we add for hover help */
     let useDocs: string[];
@@ -40,11 +41,11 @@ export class IDLTypeHelper {
     if (display !== serialized) {
       useDocs = [
         '```idl',
-        `variable ${name}: ${display} = ${serialized}`,
+        `${helpType} ${name}: ${display} = ${serialized}`,
         '```',
       ];
     } else {
-      useDocs = ['```idl', `variable ${name}: ${display}`, '```'];
+      useDocs = ['```idl', `${helpType} ${name}: ${display}`, '```'];
     }
 
     // add in our actual docs

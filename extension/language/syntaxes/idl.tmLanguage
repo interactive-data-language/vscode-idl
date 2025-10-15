@@ -2453,7 +2453,7 @@
       <key>type_definition</key>
       <dict>
         <key>match</key>
-        <string>(?i)(property|variable)\s+([^:]+):([^=]+)=\s*(.*)</string>
+        <string>(?i)^(prop|var)\s+([^:]+):([^=]+)(?:=\s*(.*))?</string>
         <key>captures</key>
         <dict>
           <key>1</key>
