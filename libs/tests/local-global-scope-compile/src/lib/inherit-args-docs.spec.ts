@@ -59,7 +59,15 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
               usage: [[9, 11, 4]],
               docs: 'My favorite thing',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -84,7 +92,15 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
               docs: 'My favorite thing',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'var1',

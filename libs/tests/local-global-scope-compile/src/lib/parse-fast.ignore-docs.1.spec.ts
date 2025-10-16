@@ -84,7 +84,13 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
                     direction: 'in',
                     source: 'internal',
                     type: [
-                      { name: 'Long', display: 'Long', args: [], meta: {} },
+                      {
+                        name: 'Long',
+                        display: 'Long',
+                        serialized: 'Long',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                     private: false,
                     req: false,
@@ -100,6 +106,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
@@ -131,7 +138,15 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               docs: 'Placeholder docs for argument or keyword',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'prop',
@@ -146,6 +161,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -257,7 +273,13 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
                     direction: 'in',
                     source: 'internal',
                     type: [
-                      { name: 'Long', display: 'Long', args: [], meta: {} },
+                      {
+                        name: 'Long',
+                        display: 'Long',
+                        serialized: 'Long',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                     private: false,
                     req: false,
@@ -273,6 +295,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
@@ -304,7 +327,15 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               docs: 'Placeholder docs for argument or keyword',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'prop',
@@ -319,6 +350,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },

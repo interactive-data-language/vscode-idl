@@ -61,7 +61,15 @@ describe(`[auto generated] Correctly remove idl-disable statements`, () => {
               usage: [[11, 11, 4]],
               docs: 'My favorite thing',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -86,7 +94,15 @@ describe(`[auto generated] Correctly remove idl-disable statements`, () => {
               docs: 'My favorite thing',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'var1',

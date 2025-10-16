@@ -51,7 +51,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               usage: [[3, 19, 6]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           wysize: {
@@ -65,7 +73,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               usage: [[3, 27, 6]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           r0: {
@@ -79,7 +95,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               usage: [[3, 35, 2]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },

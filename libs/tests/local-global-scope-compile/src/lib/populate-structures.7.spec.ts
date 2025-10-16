@@ -61,6 +61,7 @@ describe(`[auto generated] Ignore them in`, () => {
                 {
                   name: 'WAVFILEHEADER',
                   display: 'WAVFILEHEADER',
+                  serialized: 'WAVFILEHEADER',
                   args: [],
                   meta: {},
                 },
@@ -78,7 +79,15 @@ describe(`[auto generated] Ignore them in`, () => {
               usage: [[8, 4, 7]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -120,7 +129,15 @@ describe(`[auto generated] Ignore them in`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [3, 2, 6],
                   },
                   fsize: {
@@ -129,7 +146,15 @@ describe(`[auto generated] Ignore them in`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [4, 2, 6],
                   },
                   fwave: {
@@ -138,7 +163,15 @@ describe(`[auto generated] Ignore them in`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [5, 2, 6],
                   },
                 },
@@ -164,7 +197,15 @@ describe(`[auto generated] Ignore them in`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [3, 2, 6],
             },
             fsize: {
@@ -173,7 +214,15 @@ describe(`[auto generated] Ignore them in`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [4, 2, 6],
             },
             fwave: {
@@ -182,7 +231,15 @@ describe(`[auto generated] Ignore them in`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [5, 2, 6],
             },
           },
@@ -261,6 +318,7 @@ describe(`[auto generated] Ignore them in`, () => {
                 {
                   name: 'WAVFILEHEADER',
                   display: 'WAVFILEHEADER',
+                  serialized: 'WAVFILEHEADER',
                   args: [],
                   meta: {},
                 },
@@ -306,7 +364,15 @@ describe(`[auto generated] Ignore them in`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [3, 2, 6],
                   },
                   fsize: {
@@ -315,7 +381,15 @@ describe(`[auto generated] Ignore them in`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [4, 2, 6],
                   },
                   fwave: {
@@ -324,7 +398,15 @@ describe(`[auto generated] Ignore them in`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [5, 2, 6],
                   },
                 },
@@ -346,7 +428,15 @@ describe(`[auto generated] Ignore them in`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [8, 22, 5],
                   },
                 },
@@ -372,7 +462,15 @@ describe(`[auto generated] Ignore them in`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [3, 2, 6],
             },
             fsize: {
@@ -381,7 +479,15 @@ describe(`[auto generated] Ignore them in`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [4, 2, 6],
             },
             fwave: {
@@ -390,7 +496,15 @@ describe(`[auto generated] Ignore them in`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [5, 2, 6],
             },
           },
@@ -414,7 +528,15 @@ describe(`[auto generated] Ignore them in`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [8, 22, 5],
             },
           },

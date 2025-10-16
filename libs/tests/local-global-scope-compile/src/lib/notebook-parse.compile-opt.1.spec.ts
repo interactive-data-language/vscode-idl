@@ -49,9 +49,10 @@ describe(`[auto generated] Verify notebook parsing`, () => {
               {
                 display: 'Long',
                 name: 'Long',
+                serialized: '42',
                 args: [],
                 meta: {},
-                value: '42',
+                value: ['42'],
               },
             ],
           },

@@ -59,6 +59,7 @@ describe(`[auto generated] Find them in`, () => {
                 {
                   name: 'WAVFILEHEADER',
                   display: 'WAVFILEHEADER',
+                  serialized: 'WAVFILEHEADER',
                   args: [],
                   meta: {},
                 },
@@ -79,6 +80,7 @@ describe(`[auto generated] Find them in`, () => {
                 {
                   name: 'define_these_structures',
                   display: 'define_these_structures',
+                  serialized: 'define_these_structures',
                   args: [],
                   meta: {},
                 },

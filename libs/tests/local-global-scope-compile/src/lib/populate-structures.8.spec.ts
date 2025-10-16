@@ -82,7 +82,15 @@ describe(`[auto generated] Take first instance we encounter`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [3, 2, 6],
                   },
                   fsize: {
@@ -91,7 +99,15 @@ describe(`[auto generated] Take first instance we encounter`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [4, 2, 6],
                   },
                   fwave: {
@@ -100,7 +116,15 @@ describe(`[auto generated] Take first instance we encounter`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [5, 2, 6],
                   },
                 },
@@ -126,7 +150,15 @@ describe(`[auto generated] Take first instance we encounter`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [3, 2, 6],
             },
             fsize: {
@@ -135,7 +167,15 @@ describe(`[auto generated] Take first instance we encounter`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [4, 2, 6],
             },
             fwave: {
@@ -144,7 +184,15 @@ describe(`[auto generated] Take first instance we encounter`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [5, 2, 6],
             },
           },

@@ -78,7 +78,15 @@ describe(`[auto generated] Correctly populate structures`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [3, 42, 5],
                   },
                   prop2: {
@@ -87,7 +95,15 @@ describe(`[auto generated] Correctly populate structures`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [3, 51, 6],
                   },
                 },
@@ -109,7 +125,15 @@ describe(`[auto generated] Correctly populate structures`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [5, 43, 5],
                   },
                   prop2: {
@@ -118,7 +142,15 @@ describe(`[auto generated] Correctly populate structures`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [5, 52, 6],
                   },
                 },
@@ -144,7 +176,15 @@ describe(`[auto generated] Correctly populate structures`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [3, 42, 5],
             },
             prop2: {
@@ -153,7 +193,15 @@ describe(`[auto generated] Correctly populate structures`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [3, 51, 6],
             },
           },
@@ -177,7 +225,15 @@ describe(`[auto generated] Correctly populate structures`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [5, 43, 5],
             },
             prop2: {
@@ -186,7 +242,15 @@ describe(`[auto generated] Correctly populate structures`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [5, 52, 6],
             },
           },

@@ -60,7 +60,13 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
               docs: 'Super Cool flag',
               source: 'user',
               type: [
-                { name: 'Boolean', display: 'Boolean', args: [], meta: {} },
+                {
+                  name: 'Boolean',
+                  display: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -91,7 +97,13 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
               direction: 'in',
               source: 'internal',
               type: [
-                { name: 'Boolean', display: 'Boolean', args: [], meta: {} },
+                {
+                  name: 'Boolean',
+                  display: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
               private: true,
               req: false,

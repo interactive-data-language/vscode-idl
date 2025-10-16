@@ -58,6 +58,7 @@ describe(`[auto generated] Find them in`, () => {
                 {
                   name: 'WAVFILEHEADER',
                   display: 'WAVFILEHEADER',
+                  serialized: 'WAVFILEHEADER',
                   args: [],
                   meta: {},
                 },
@@ -83,13 +84,20 @@ describe(`[auto generated] Find them in`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: Long\n;+\nresult = define_these_structures()\n```\n',
+          docs: '\n```idl\n;+\n; :Returns: 1\n;+\nresult = define_these_structures()\n```\n',
           docsLookup: {},
           display: 'define_these_structures',
           kws: {},
           private: false,
           returns: [
-            { display: 'Long', name: 'Long', args: [], meta: {}, value: '1' },
+            {
+              display: 'Long',
+              name: 'Long',
+              serialized: '1',
+              args: [],
+              meta: {},
+              value: ['1'],
+            },
           ],
           struct: [],
         },

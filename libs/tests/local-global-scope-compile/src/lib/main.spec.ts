@@ -49,7 +49,14 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             docs: '',
             source: 'user',
             type: [
-              { display: 'Long', name: 'Long', args: [], meta: {}, value: '5' },
+              {
+                display: 'Long',
+                name: 'Long',
+                serialized: '5',
+                args: [],
+                meta: {},
+                value: ['5'],
+              },
             ],
           },
         },
@@ -64,7 +71,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             usage: [[2, 10, 1]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         c: {
@@ -78,7 +93,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             usage: [[2, 13, 1]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         d: {
@@ -92,7 +115,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             usage: [[2, 16, 1]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
       },

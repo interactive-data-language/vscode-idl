@@ -51,7 +51,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               usage: [[0, 45, 3]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           kw2: {
@@ -65,7 +73,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               usage: [[1, 8, 3]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           kw3: {
@@ -79,7 +95,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               usage: [[1, 19, 3]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           arg1: {
@@ -93,7 +117,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               usage: [[0, 23, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           arg2: {
@@ -107,7 +139,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               usage: [[0, 29, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           arg3: {
@@ -121,7 +161,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               usage: [[0, 35, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           self: {
@@ -135,7 +183,13 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               docs: 'A reference to our object class',
               source: 'user',
               type: [
-                { name: 'myclass', display: 'myclass', args: [], meta: {} },
+                {
+                  name: 'myclass',
+                  display: 'myclass',
+                  serialized: 'myclass',
+                  args: [],
+                  meta: {},
+                },
               ],
               usage: [],
             },
@@ -164,7 +218,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'arg1',
@@ -175,7 +237,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'arg2',
@@ -186,7 +256,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'arg3',
@@ -202,7 +280,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'KW1',
@@ -213,7 +299,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'KW2',
@@ -224,7 +318,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'KW3',

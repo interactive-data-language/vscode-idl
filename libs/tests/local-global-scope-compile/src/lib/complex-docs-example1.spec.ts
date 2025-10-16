@@ -156,7 +156,13 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: "If set, errors are stopped on.\nAdd a link to make sure it doesn't get picked up\n  https://en.wikipedia.org/wiki/Haversine_formula\n  http://en.wikipedia.org/wiki/Haversine_formula\n  ftp://en.wikipedia.org/wiki/Haversine_formula\n  s3://en.wikipedia.org/wiki/Haversine_formula\n  file://en.wikipedia.org/wiki/Haversine_formula",
               source: 'user',
               type: [
-                { name: 'Boolean', display: 'Boolean', args: [], meta: {} },
+                {
+                  name: 'Boolean',
+                  display: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -171,7 +177,15 @@ describe(`[auto generated] Complex real world test`, () => {
               usage: [[97, 22, 17]],
               docs: 'If one or both of your input rasters do not have\na data ignore value metadata item, you can specify',
               source: 'user',
-              type: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           generate_pixel_state_mask: {
@@ -186,7 +200,13 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'If set, then an addititonal output raster is created\nthat represents which pixels can be processed or not.\n\nThis will automatically be generated if one of the input\nimages does not have a data ignore value.',
               source: 'user',
               type: [
-                { name: 'Boolean', display: 'Boolean', args: [], meta: {} },
+                {
+                  name: 'Boolean',
+                  display: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -205,6 +225,7 @@ describe(`[auto generated] Complex real world test`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -226,6 +247,7 @@ describe(`[auto generated] Complex real world test`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -243,7 +265,15 @@ describe(`[auto generated] Complex real world test`, () => {
               usage: [[101, 27, 22]],
               docs: 'Optionally specify the fully-qualified filepath\nfor the location of the pixel state mask. Only applies\nwhen `GENERATE_PIXEL_STATE_MASK` is set or one of the\ninput rasters does not have a data ignore value.',
               source: 'user',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           output_grid_definition: {
@@ -261,6 +291,7 @@ describe(`[auto generated] Complex real world test`, () => {
                 {
                   name: 'ENVIGridDefinition',
                   display: 'ENVIGridDefinition',
+                  serialized: 'ENVIGridDefinition',
                   args: [],
                   meta: {},
                 },
@@ -278,7 +309,15 @@ describe(`[auto generated] Complex real world test`, () => {
               usage: [[103, 23, 18]],
               docs: 'Optionally specify the fully-qualified filepath\nfor the location of the first intersect raster.',
               source: 'user',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           output_raster2_uri: {
@@ -292,7 +331,15 @@ describe(`[auto generated] Complex real world test`, () => {
               usage: [[104, 23, 18]],
               docs: 'Optionally specify the fully-qualified filepath\nfor the location of the second intersect raster.',
               source: 'user',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           resampling: {
@@ -306,7 +353,15 @@ describe(`[auto generated] Complex real world test`, () => {
               usage: [[105, 15, 10]],
               docs: 'Optionally return the ENVIGridDefinition object used to get the intersection\nof the two scenes. Specify one of the following options:\n- Nearest Neighbor\n- Bilinear\n- Cubic Convolution',
               source: 'user',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -344,7 +399,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'If one or both of your input rasters do not have\na data ignore value metadata item, you can specify',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'DATA_IGNORE_VALUE',
@@ -356,7 +419,13 @@ describe(`[auto generated] Complex real world test`, () => {
               direction: 'in',
               source: 'internal',
               type: [
-                { name: 'Boolean', display: 'Boolean', args: [], meta: {} },
+                {
+                  name: 'Boolean',
+                  display: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
               private: true,
               req: false,
@@ -369,7 +438,13 @@ describe(`[auto generated] Complex real world test`, () => {
               direction: 'in',
               source: 'internal',
               type: [
-                { name: 'Boolean', display: 'Boolean', args: [], meta: {} },
+                {
+                  name: 'Boolean',
+                  display: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
               private: false,
               req: false,
@@ -385,6 +460,7 @@ describe(`[auto generated] Complex real world test`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -403,6 +479,7 @@ describe(`[auto generated] Complex real world test`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -421,6 +498,7 @@ describe(`[auto generated] Complex real world test`, () => {
                 {
                   name: 'ENVIGridDefinition',
                   display: 'ENVIGridDefinition',
+                  serialized: 'ENVIGridDefinition',
                   args: [],
                   meta: {},
                 },
@@ -435,7 +513,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'Optionally specify the fully-qualified filepath\nfor the location of the pixel state mask. Only applies\nwhen `GENERATE_PIXEL_STATE_MASK` is set or one of the\ninput rasters does not have a data ignore value.',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'OUTPUT_MASK_RASTER_URI',
@@ -446,7 +532,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'Optionally specify the fully-qualified filepath\nfor the location of the first intersect raster.',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'OUTPUT_RASTER1_URI',
@@ -457,7 +551,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'Optionally specify the fully-qualified filepath\nfor the location of the second intersect raster.',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'OUTPUT_RASTER2_URI',
@@ -468,7 +570,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'Optionally return the ENVIGridDefinition object used to get the intersection\nof the two scenes. Specify one of the following options:\n- Nearest Neighbor\n- Bilinear\n- Cubic Convolution',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'RESAMPLING',
@@ -550,7 +660,15 @@ describe(`[auto generated] Complex real world test`, () => {
               ],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -575,7 +693,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'file',
