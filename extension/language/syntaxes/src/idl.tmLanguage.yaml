@@ -789,7 +789,7 @@ repository:
   # double quotes as numbers
   quote_double_number:
     name: {{name_number}}
-    match: '"[^"]+"[box]u?(?:b|s|ll|l|i|j)*\b|"[0-7]+u?(?:b|s|ll|l|i|j)*(?=[^\w.]|$)(?!")'
+    match: '"[^"]+"[box]u?(?:b|s|ll|l|i|j)*\b|"[0-7]+u?(?:b|s|ll|l|i|j)*(?=\s*$|\s*(?:\*|\^|\+\+|--|##|#|\*|\/|\bmod\b|\+|-(?!>)|<|(?<!-|>)>(?!>)|~|\bnot\b|\beq\b|\bne\b|\ble\b|\blt\b|\bge\b|\bgt\b|\band\b|\bor\b|\bxor\b|&&|\|\|))(?!")'
 
   # single quotes - special case when empty
   quote_single_basic:

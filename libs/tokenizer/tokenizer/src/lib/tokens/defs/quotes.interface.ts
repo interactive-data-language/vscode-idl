@@ -69,9 +69,15 @@ export const QUOTE_DOUBLE: QuoteDoubleTokenDef = {
    * strings. This dramatically simplifies the regex and is easier to maintain/update.
    *
    * The different expressions are for "string", "1010101"[oxb], "42, and "missing-close
+   *
+   * The main logic follows:
+   * 1. Check for pattern that matches double quote numbers (numbers, then 1-2 letters) and make sure
+   *    there is an operator afterwards or the end of the string
+   * 2. Check for normal strings (with a few exceptions)
+   * 3. Check for unclosed strings
    */
   match:
-    /"([0-7]+)([a-z]{0,3})\b(?!"|\.)|"([^"]*)"((?!then|else|of|do|until)[a-z]+\b)?|"(.*)$/im,
+    /"([0-7]+)([a-z]{0,3})\b(?!\.)(?=\s*$|\s*(?:\*|\^|\+\+|--|##|#|\*|\/|\bmod\b|\+|-(?!>)|<|(?<!-|>)>(?!>)|~|\bnot\b|\beq\b|\bne\b|\ble\b|\blt\b|\bge\b|\bgt\b|\band\b|\bor\b|\bxor\b|&&|\|\|)(?!=)\s*")|"([^"]*)"((?!then|else|of|do|until)[a-z]+\b)?|"(.*)$/im,
   //  start:
   //  /([0-7]+)([a-z]{0,3})\b(?!"|\.)|"([^"]*)"?((?!then|else|of|do|until)[a-z]+\b)?/im,
   getTokenName: (matches) => {

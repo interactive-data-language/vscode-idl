@@ -1734,7 +1734,7 @@
         <key>name</key>
         <string>constant.numeric.idl</string>
         <key>match</key>
-        <string>(?i)"[^"]+"[box]u?(?:b|s|ll|l|i|j)*\b|"[0-7]+u?(?:b|s|ll|l|i|j)*(?=[^\w.]|$)(?!")</string>
+        <string>(?i)"[^"]+"[box]u?(?:b|s|ll|l|i|j)*\b|"[0-7]+u?(?:b|s|ll|l|i|j)*(?=\s*$|\s*(?:\*|\^|\+\+|--|##|#|\*|\/|\bmod\b|\+|-(?!&gt;)|&lt;|(?&lt;!-|&gt;)&gt;(?!&gt;)|~|\bnot\b|\beq\b|\bne\b|\ble\b|\blt\b|\bge\b|\bgt\b|\band\b|\bor\b|\bxor\b|&amp;&amp;|\|\|))(?!")</string>
       </dict>
       <key>quote_single_basic</key>
       <dict>
