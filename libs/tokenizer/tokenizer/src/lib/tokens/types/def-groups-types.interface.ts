@@ -10,11 +10,11 @@ import { TYPE_VARIABLE } from '../defs/types.type-variable.interface';
  * Tokens we use when initially parsing a type
  */
 export const ALL_TYPE_TOKENS: ITokenDef<TokenName>[] = [
-  TYPE_FUNCTION,
-  TYPE_VARIABLE,
   QUOTE_DOUBLE,
   QUOTE_SINGLE,
   NUMBER,
+  TYPE_FUNCTION,
+  TYPE_VARIABLE,
   TYPE_OR_OPERATOR,
 ];
 

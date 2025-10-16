@@ -43,6 +43,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -57,7 +58,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: true,
               display: 'raster_filename',
               docs: 'Filename string of the input raster.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             header_location: {
@@ -68,7 +77,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'header_location',
               docs: "Directory where the file's header, which contains the new metadata, will be saved.",
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized:
+                    "'Same as raster file' | 'Auxiliary File Directory'",
+                  args: [],
+                  meta: {},
+                  value: ['Same as raster file', 'Auxiliary File Directory'],
+                },
+              ],
               req: false,
             },
             ncolumns: {
@@ -79,7 +98,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'ncolumns',
               docs: 'The number of column or samples per image for each band.',
-              type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ULong',
+                  display: 'ULong',
+                  serialized: 'ULong',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: true,
             },
             nrows: {
@@ -90,7 +117,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'nrows',
               docs: 'The number of lines or rows per image for each band.',
-              type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ULong',
+                  display: 'ULong',
+                  serialized: 'ULong',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: true,
             },
             nbands: {
@@ -101,7 +136,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'nbands',
               docs: 'The number of bands per image file.',
-              type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ULong',
+                  display: 'ULong',
+                  serialized: 'ULong',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: true,
             },
             interleave: {
@@ -112,7 +155,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'interleave',
               docs: 'Specifies the data interleave of the raster.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: "'BSQ' | 'BIL' | 'BIP'",
+                  args: [],
+                  meta: {},
+                  value: ['BSQ', 'BIL', 'BIP'],
+                },
+              ],
               req: true,
             },
             byte_order: {
@@ -123,7 +175,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'byte_order',
               docs: 'The order of the bytes in integer, long integer, 64-bit integer, unsigned 64-bit integer, floating point, double precision, and complex data types. Byte order=0 (Host (Intel) in the Header Info dialog) is least significant byte first (LSF) data (DEC and MS-DOS systems). Byte order=1 (Network (IEEE) in the Header Info dialog) is most significant byte first (MSF) data (all other platforms).',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: "'Host (Intel)' | 'Network (IEEE)'",
+                  args: [],
+                  meta: {},
+                  value: ['Host (Intel)', 'Network (IEEE)'],
+                },
+              ],
               req: true,
             },
             data_type: {
@@ -134,7 +195,29 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'data_type',
               docs: 'The data type of the raster pixel data.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized:
+                    "'Byte' | 'Integer' | 'Long Integer' | 'Float' | 'Double' | 'Complex' | 'Double-precision Complex' | 'Unsigned Integer' | 'Unsigned Long Integer' | '64-bit Long Integer' | '64-bit Unsigned Long Integer'",
+                  args: [],
+                  meta: {},
+                  value: [
+                    'Byte',
+                    'Integer',
+                    'Long Integer',
+                    'Float',
+                    'Double',
+                    'Complex',
+                    'Double-precision Complex',
+                    'Unsigned Integer',
+                    'Unsigned Long Integer',
+                    '64-bit Long Integer',
+                    '64-bit Unsigned Long Integer',
+                  ],
+                },
+              ],
               req: true,
             },
             file_type: {
@@ -145,7 +228,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'file_type',
               docs: 'File type in which the raster is stored.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             header_offset: {
@@ -157,7 +248,13 @@ describe(`[auto generated] Correctly parse task file`, () => {
               display: 'header_offset',
               docs: 'The number of bytes of embedded header information present in the file (for example, 128 bytes for ERDAS 7.5 .lan files). ENVI skips these bytes when reading the file.',
               type: [
-                { name: 'ULong64', display: 'ULong64', args: [], meta: {} },
+                {
+                  name: 'ULong64',
+                  display: 'ULong64',
+                  serialized: 'ULong64',
+                  args: [],
+                  meta: {},
+                },
               ],
               req: false,
             },
@@ -169,7 +266,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'x_start',
               docs: 'Defines the X image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.',
-              type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ULong',
+                  display: 'ULong',
+                  serialized: 'ULong',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             y_start: {
@@ -180,7 +285,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'y_start',
               docs: 'Defines the Y image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.',
-              type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ULong',
+                  display: 'ULong',
+                  serialized: 'ULong',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             default_stretch: {
@@ -191,7 +304,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'default_stretch',
               docs: 'Determines what type of stretch (% linear, linear range, Gaussian, equalization, square root) to use when ENVI displays the image.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             acquisition_time: {
@@ -202,7 +323,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'acquisition_time',
               docs: 'Data acquisition time string that conforms to the ISO-8601 standard..',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             band_names: {
@@ -217,8 +346,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -233,7 +371,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'classes',
               docs: 'The number of classes in the image.',
-              type: [{ name: 'UInt', display: 'UInt', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'UInt',
+                  display: 'UInt',
+                  serialized: 'UInt',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             class_names: {
@@ -248,8 +394,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -268,8 +423,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Byte>',
+                  serialized: 'Array<Byte>',
                   args: [
-                    [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Byte',
+                        display: 'Byte',
+                        serialized: 'Byte',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -284,7 +448,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'cloud_cover',
               docs: 'Percentage of cloud cover within the raster.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             complex_function: {
@@ -295,7 +467,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'complex_function',
               docs: 'Specifies the values to calculate from a complex image and to use when displaying the image, calculating statistics for the image, or writing the image to a new file.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized:
+                    "'Power' | 'Magnitude' | 'Real' | 'Imaginary' | 'Phase'",
+                  args: [],
+                  meta: {},
+                  value: ['Power', 'Magnitude', 'Real', 'Imaginary', 'Phase'],
+                },
+              ],
               req: false,
             },
             data_ignore_value: {
@@ -306,7 +488,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'data_ignore_value',
               docs: 'Pixel value that should be ignored in image processing.',
-              type: [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Double',
+                  display: 'Double',
+                  serialized: 'Double',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             _description: {
@@ -321,8 +511,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -341,8 +540,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<Double>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Double',
+                        display: 'Double',
+                        serialized: 'Double',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -361,8 +569,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<Double>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Double',
+                        display: 'Double',
+                        serialized: 'Double',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -381,8 +598,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<Double>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Double',
+                        display: 'Double',
+                        serialized: 'Double',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -401,8 +627,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<Double>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Double',
+                        display: 'Double',
+                        serialized: 'Double',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -421,8 +656,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<Double>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Double',
+                        display: 'Double',
+                        serialized: 'Double',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -441,7 +685,18 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Int>',
-                  args: [[{ name: 'Int', display: 'Int', args: [], meta: {} }]],
+                  serialized: 'Array<Int>',
+                  args: [
+                    [
+                      {
+                        name: 'Int',
+                        display: 'Int',
+                        serialized: 'Int',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -459,8 +714,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ULong>',
+                  serialized: 'Array<ULong>',
                   args: [
-                    [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'ULong',
+                        display: 'ULong',
+                        serialized: 'ULong',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -479,6 +743,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: '_ENVISpatialRef',
                   display: '_ENVISpatialRef',
+                  serialized: '_ENVISpatialRef',
                   args: [],
                   meta: {},
                 },
@@ -497,6 +762,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'ENVIRPCRasterSpatialRef',
                   display: 'ENVIRPCRasterSpatialRef',
+                  serialized: 'ENVIRPCRasterSpatialRef',
                   args: [],
                   meta: {},
                 },
@@ -515,8 +781,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -535,8 +810,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -555,8 +839,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<Double>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Double',
+                        display: 'Double',
+                        serialized: 'Double',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -571,7 +864,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'reflectance_scale_factor',
               docs: 'The value that, when divided into your data, would scale it from 0-1 reflectance. For example, if the value of 10,000 in your data represents a reflectance value of 1.0, enter a reflectance scale factor of 10,000.',
-              type: [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Double',
+                  display: 'Double',
+                  serialized: 'Double',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             security_tag: {
@@ -582,7 +883,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'security_tag',
               docs: 'A string with security information inherited from formats that typically contain security classification levels (such as NITF).',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             sensor_type: {
@@ -597,6 +906,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'ENVISensorName',
                   display: 'ENVISensorName',
+                  serialized: 'ENVISensorName',
                   args: [],
                   meta: {},
                 },
@@ -611,7 +921,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_file',
               docs: 'Path and filename of a DEM associated with the image.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dem_band: {
@@ -622,7 +940,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_band',
               docs: 'Index (starting at 1) of a selected DEM band associated with the image.',
-              type: [{ name: 'UInt', display: 'UInt', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'UInt',
+                  display: 'UInt',
+                  serialized: 'UInt',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             wavelength: {
@@ -637,8 +963,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<Double>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Double',
+                        display: 'Double',
+                        serialized: 'Double',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -653,7 +988,25 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'wavelength_units',
               docs: 'Specifies the units of the wavelength information.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized:
+                    "'Micrometers' | 'Nanometers' | 'Wavenumber' | 'GHz' | 'MHz' | 'Index' | 'Unknown'",
+                  args: [],
+                  meta: {},
+                  value: [
+                    'Micrometers',
+                    'Nanometers',
+                    'Wavenumber',
+                    'GHz',
+                    'MHz',
+                    'Index',
+                    'Unknown',
+                  ],
+                },
+              ],
               req: false,
             },
             sun_elevation: {
@@ -664,7 +1017,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'sun_elevation',
               docs: 'Angle of the sun (in degrees) above the horizon.',
-              type: [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Double',
+                  display: 'Double',
+                  serialized: 'Double',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             sun_azimuth: {
@@ -675,7 +1036,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'sun_azimuth',
               docs: 'Angle of the sun (in degrees) from due north in a clockwise direction.',
-              type: [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Double',
+                  display: 'Double',
+                  serialized: 'Double',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             solar_irradiance: {
@@ -690,8 +1059,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<Double>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Double',
+                        display: 'Double',
+                        serialized: 'Double',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -710,8 +1088,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -730,7 +1117,18 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Hash',
                   display: 'Hash<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Hash<any>',
+                  args: [
+                    [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -744,7 +1142,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'output_raster_uri',
               docs: 'Specify a string with the fully-qualified path and filename for output_raster.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             output_raster: {
@@ -759,6 +1165,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -781,11 +1188,13 @@ describe(`[auto generated] Correctly parse task file`, () => {
             {
               name: 'envisetrastermetadatatask',
               display: 'ENVITask<setrastermetadata>',
+              serialized: 'ENVITask<setrastermetadata>',
               args: [
                 [
                   {
                     name: 'setrastermetadata',
                     display: 'setrastermetadata',
+                    serialized: 'setrastermetadata',
                     args: [],
                     meta: {},
                   },

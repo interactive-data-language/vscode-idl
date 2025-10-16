@@ -187,8 +187,29 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
               type: [
                 {
                   name: 'Pointer',
-                  display: 'Pointer<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  display: 'Pointer<Array<Number>>',
+                  serialized: 'Pointer<Array<Number>>',
+                  args: [
+                    [
+                      {
+                        name: 'Array',
+                        display: 'Array<Number>',
+                        serialized: 'Array<Number>',
+                        args: [
+                          [
+                            {
+                              name: 'Number',
+                              display: 'Number',
+                              serialized: 'Number',
+                              args: [],
+                              meta: {},
+                            },
+                          ],
+                        ],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -504,8 +525,29 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
               type: [
                 {
                   name: 'Pointer',
-                  display: 'Pointer<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  display: 'Pointer<Array<Number>>',
+                  serialized: 'Pointer<Array<Number>>',
+                  args: [
+                    [
+                      {
+                        name: 'Array',
+                        display: 'Array<Number>',
+                        serialized: 'Array<Number>',
+                        args: [
+                          [
+                            {
+                              name: 'Number',
+                              display: 'Number',
+                              serialized: 'Number',
+                              args: [],
+                              meta: {},
+                            },
+                          ],
+                        ],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],

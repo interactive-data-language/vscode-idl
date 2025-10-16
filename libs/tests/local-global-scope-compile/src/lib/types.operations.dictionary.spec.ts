@@ -107,7 +107,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Dictionary',
                   display: 'Dictionary<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Dictionary<any>',
+                  args: [
+                    [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -128,7 +139,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Dictionary',
                   display: 'Dictionary<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Dictionary<any>',
+                  args: [
+                    [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -149,7 +171,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Dictionary',
                   display: 'Dictionary<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Dictionary<any>',
+                  args: [
+                    [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],

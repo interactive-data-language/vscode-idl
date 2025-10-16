@@ -58,7 +58,18 @@ describe(`[auto generated] Verify type regression tests`, () => {
               {
                 name: 'envitask',
                 display: 'ENVITask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'ENVITask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -79,7 +90,18 @@ describe(`[auto generated] Verify type regression tests`, () => {
               {
                 name: 'idltask',
                 display: 'IDLTask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'IDLTask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -100,7 +122,18 @@ describe(`[auto generated] Verify type regression tests`, () => {
               {
                 name: 'envitask',
                 display: 'ENVITask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'ENVITask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -121,7 +154,18 @@ describe(`[auto generated] Verify type regression tests`, () => {
               {
                 name: 'idltask',
                 display: 'IDLTask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'IDLTask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -142,7 +186,18 @@ describe(`[auto generated] Verify type regression tests`, () => {
               {
                 name: 'envitask',
                 display: 'ENVITask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'ENVITask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -163,7 +218,18 @@ describe(`[auto generated] Verify type regression tests`, () => {
               {
                 name: 'idltask',
                 display: 'IDLTask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'IDLTask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -250,7 +316,18 @@ describe(`[auto generated] Verify type regression tests`, () => {
               {
                 name: 'envitask',
                 display: 'ENVITask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'ENVITask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -337,7 +414,18 @@ describe(`[auto generated] Verify type regression tests`, () => {
               {
                 name: 'idltask',
                 display: 'IDLTask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'IDLTask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -424,7 +512,18 @@ describe(`[auto generated] Verify type regression tests`, () => {
               {
                 name: 'envitask',
                 display: 'ENVITask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'ENVITask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -511,7 +610,18 @@ describe(`[auto generated] Verify type regression tests`, () => {
               {
                 name: 'idltask',
                 display: 'IDLTask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'IDLTask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -598,7 +708,18 @@ describe(`[auto generated] Verify type regression tests`, () => {
               {
                 name: 'envitask',
                 display: 'ENVITask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'ENVITask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -685,7 +806,18 @@ describe(`[auto generated] Verify type regression tests`, () => {
               {
                 name: 'idltask',
                 display: 'IDLTask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'IDLTask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
