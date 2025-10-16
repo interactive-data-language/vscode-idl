@@ -2,7 +2,10 @@ import {
   IDL_TYPE_LOOKUP,
   IDLDataType,
   IDLDataTypeBase,
+  KNOWN_IDL_TYPE_ARG_PROMOTIONS,
 } from '@idl/types/idl-data-types';
+
+import { MergeTypeArgs } from './merge-type-args';
 
 /**
  * Takes an IDL data type and reduces it to remove any duplicate types
@@ -26,20 +29,24 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
      *
      * Reduction is primarily for scalar types like numbers or strings
      */
-    if (type[i].args.length > 0) {
+    if (
+      type[i].args.length > 0 &&
+      !(type[i].name in KNOWN_IDL_TYPE_ARG_PROMOTIONS)
+    ) {
       reduced.push(type[i]);
       continue;
     }
 
+    // check if we have a new type to track
     if (!(type[i].name in found)) {
       found[type[i].name] = type[i];
       reduced.push(type[i]);
-
-      // recursively reduce type args
-      for (let j = 0; j < type[i].args.length; j++) {
-        type[i].args[j] = ReduceIDLDataType(type[i].args[j]);
-      }
     } else {
+      // merge type arguments if needed
+      if (type[i].name in KNOWN_IDL_TYPE_ARG_PROMOTIONS) {
+        MergeTypeArgs(found[type[i].name].args, type[i].args);
+      }
+
       /**
        * If existing, see if we have literal values that we need to merge
        */
@@ -55,6 +62,13 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
           delete found[type[i].name].value;
         }
       }
+    }
+  }
+
+  // reduce type arguments
+  for (let i = 0; i < reduced.length; i++) {
+    for (let j = 0; j < reduced[i].args.length; j++) {
+      reduced[i].args[j] = ReduceIDLDataType(reduced[i].args[j]);
     }
   }
 
