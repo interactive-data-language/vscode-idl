@@ -1,4 +1,8 @@
-import { IDLDataType, IDLDataTypeBase } from '@idl/types/idl-data-types';
+import {
+  IDL_TYPE_LOOKUP,
+  IDLDataType,
+  IDLDataTypeBase,
+} from '@idl/types/idl-data-types';
 
 /**
  * Takes an IDL data type and reduces it to remove any duplicate types
@@ -12,6 +16,11 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
 
   // process each type
   for (let i = 0; i < type.length; i++) {
+    // bail if any type
+    if (type[i].name === IDL_TYPE_LOOKUP.ANY) {
+      return [type[i]];
+    }
+
     /**
      * If we have a type that has arguments, dont reduce
      *

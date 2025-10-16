@@ -149,8 +149,15 @@ export function PostProcessIDLType(type: IDLDataType) {
   // set type defaults
   SetDefaultTypes(type);
 
-  // remove duplicates and return
+  // remove duplicates and return the top level
   const reduced = ReduceIDLDataType(type);
+
+  // remove duplicates and process all type arguments
+  for (let i = 0; i < reduced.length; i++) {
+    for (let j = 0; j < reduced[i].args.length; j++) {
+      reduced[i].args[j] = PostProcessIDLType(reduced[i].args[j]);
+    }
+  }
 
   // set display names
   PopulateTypeDisplayName(reduced);
