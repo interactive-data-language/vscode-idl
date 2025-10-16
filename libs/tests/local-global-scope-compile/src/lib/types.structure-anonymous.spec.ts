@@ -57,6 +57,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   display: 'Structure',
                   name: 'Structure',
+                  serialized: 'Structure',
                   args: [],
                   meta: {
                     a: {
@@ -65,9 +66,10 @@ describe(`[auto generated] Types from`, () => {
                         {
                           display: 'String',
                           name: 'String',
+                          serialized: "'string'",
                           args: [],
                           meta: {},
-                          value: 'string',
+                          value: ['string'],
                         },
                       ],
                       direction: 'bidirectional',
@@ -82,9 +84,10 @@ describe(`[auto generated] Types from`, () => {
                         {
                           display: 'String',
                           name: 'String',
+                          serialized: "'string'",
                           args: [],
                           meta: {},
-                          value: 'string',
+                          value: ['string'],
                         },
                       ],
                       direction: 'bidirectional',

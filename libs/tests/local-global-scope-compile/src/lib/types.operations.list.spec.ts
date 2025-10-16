@@ -59,7 +59,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[3, 0, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           b: {
@@ -94,7 +102,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[7, 0, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           d: {
@@ -108,7 +124,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[9, 0, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           e: {
@@ -122,7 +146,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[11, 0, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },

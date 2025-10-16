@@ -56,8 +56,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Number>',
+                  serialized: 'Array<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -75,7 +84,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[4, 13, 1]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -170,7 +187,15 @@ describe(`[auto generated] Types from`, () => {
               ],
               docs: '',
               source: 'user',
-              type: [{ name: 'ENVI', display: 'ENVI', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ENVI',
+                  display: 'ENVI',
+                  serialized: 'ENVI',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           r: {
@@ -191,17 +216,20 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
                 {
                   name: 'Array',
                   display: 'Array<ENVIRaster>',
+                  serialized: 'Array<ENVIRaster>',
                   args: [
                     [
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
@@ -227,11 +255,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ENVIRaster>',
+                  serialized: 'Array<ENVIRaster>',
                   args: [
                     [
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
@@ -336,23 +366,28 @@ describe(`[auto generated] Types from`, () => {
                   name: 'Array',
                   display:
                     'Array<ENVIRaster | ENVIMetaspectralRaster | ENVISubsetRaster>',
+                  serialized:
+                    'Array<ENVIRaster | ENVIMetaspectralRaster | ENVISubsetRaster>',
                   args: [
                     [
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
                       {
                         name: 'ENVIMetaspectralRaster',
                         display: 'ENVIMetaspectralRaster',
+                        serialized: 'ENVIMetaspectralRaster',
                         args: [],
                         meta: {},
                       },
                       {
                         name: 'ENVISubsetRaster',
                         display: 'ENVISubsetRaster',
+                        serialized: 'ENVISubsetRaster',
                         args: [],
                         meta: {},
                       },
@@ -378,11 +413,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Structure>',
+                  serialized: 'Array<Structure>',
                   args: [
                     [
                       {
-                        name: 'Structure',
                         display: 'Structure',
+                        name: 'Structure',
+                        serialized: 'Structure',
                         args: [],
                         meta: {},
                       },
@@ -408,7 +445,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Array<any>',
+                  args: [
+                    [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],

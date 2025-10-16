@@ -55,7 +55,15 @@ describe(`[auto generated] Types from assignment`, () => {
             usage: [[4, 0, 1]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         d: {
@@ -73,7 +81,14 @@ describe(`[auto generated] Types from assignment`, () => {
             docs: '',
             source: 'user',
             type: [
-              { display: 'Long', name: 'Long', args: [], meta: {}, value: '5' },
+              {
+                display: 'Long',
+                name: 'Long',
+                serialized: '5',
+                args: [],
+                meta: {},
+                value: ['5'],
+              },
             ],
           },
         },
@@ -106,7 +121,14 @@ describe(`[auto generated] Types from assignment`, () => {
             docs: '',
             source: 'user',
             type: [
-              { display: 'Long', name: 'Long', args: [], meta: {}, value: '6' },
+              {
+                display: 'Long',
+                name: 'Long',
+                serialized: '6',
+                args: [],
+                meta: {},
+                value: ['6'],
+              },
             ],
           },
         },

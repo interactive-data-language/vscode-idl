@@ -58,12 +58,27 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
                 {
                   name: 'Array',
                   display: 'Array<Number>',
+                  serialized: 'Array<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -81,7 +96,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[3, 23, 2]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           x: {
@@ -95,7 +118,26 @@ describe(`[auto generated] Types from`, () => {
               usage: [[5, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Array',
+                  display: 'Array<Long>',
+                  serialized: 'Array<1>',
+                  args: [
+                    [
+                      {
+                        display: 'Long',
+                        name: 'Long',
+                        serialized: '1',
+                        args: [],
+                        meta: {},
+                        value: ['1'],
+                      },
+                    ],
+                  ],
+                  meta: {},
+                },
+              ],
             },
           },
         },

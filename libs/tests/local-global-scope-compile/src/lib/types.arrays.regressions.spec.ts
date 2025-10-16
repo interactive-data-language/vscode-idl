@@ -57,7 +57,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Array<any>',
+                  args: [
+                    [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -74,7 +85,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[4, 6, 7]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },

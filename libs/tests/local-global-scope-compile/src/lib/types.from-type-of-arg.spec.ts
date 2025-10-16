@@ -78,7 +78,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[14, 0, 3]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         float: {
@@ -410,7 +418,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[13, 0, 6]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         any: {
@@ -424,7 +440,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[14, 0, 3]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         float: {
@@ -438,7 +462,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[15, 0, 5]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         array: {
@@ -452,7 +484,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[16, 0, 5]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
       },
@@ -576,7 +616,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[13, 0, 6]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         any: {
@@ -590,7 +638,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[14, 0, 3]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         float: {
@@ -604,7 +660,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[15, 0, 5]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         array: {
@@ -618,7 +682,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[16, 0, 5]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
       },
@@ -661,7 +733,18 @@ describe(`[auto generated] Types from`, () => {
             {
               name: 'TypeOfArg',
               display: 'TypeOfArg<baad>',
-              args: [[{ name: 'baad', display: 'baad', args: [], meta: {} }]],
+              serialized: 'TypeOfArg<baad>',
+              args: [
+                [
+                  {
+                    name: 'baad',
+                    display: 'baad',
+                    serialized: 'baad',
+                    args: [],
+                    meta: {},
+                  },
+                ],
+              ],
               meta: {},
             },
           ],

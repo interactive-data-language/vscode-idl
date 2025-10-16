@@ -45,7 +45,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[3, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'Null', name: 'Null', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'Null',
+                  name: 'Null',
+                  serialized: 'Null',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -129,7 +137,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[3, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ name: '!x', display: '!x', args: [], meta: {} }],
+              type: [
+                {
+                  name: '!x',
+                  display: '!x',
+                  serialized: '!x',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },

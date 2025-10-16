@@ -83,8 +83,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Long>',
+                  serialized: 'Array<1 | 2 | 3 | 4>',
                   args: [
-                    [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+                    [
+                      {
+                        display: 'Long',
+                        name: 'Long',
+                        serialized: '1 | 2 | 3 | 4',
+                        args: [],
+                        meta: {},
+                        value: ['1', '2', '3', '4'],
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -106,8 +116,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Float>',
+                  serialized: 'Array<Float>',
                   args: [
-                    [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Float',
+                        display: 'Float',
+                        serialized: 'Float',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -129,8 +148,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<Double>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Double',
+                        display: 'Double',
+                        serialized: 'Double',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -152,11 +180,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<DoubleComplex>',
+                  serialized: 'Array<DoubleComplex>',
                   args: [
                     [
                       {
                         name: 'DoubleComplex',
                         display: 'DoubleComplex',
+                        serialized: 'DoubleComplex',
                         args: [],
                         meta: {},
                       },
@@ -182,7 +212,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Array<any>',
+                  args: [
+                    [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -203,8 +244,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Long>',
+                  serialized: 'Array<1 | 2 | 3 | 4 | 5>',
                   args: [
-                    [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+                    [
+                      {
+                        display: 'Long',
+                        name: 'Long',
+                        serialized: '1 | 2 | 3 | 4 | 5',
+                        args: [],
+                        meta: {},
+                        value: ['1', '2', '3', '4', '5'],
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -226,8 +277,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<Double>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Double',
+                        display: 'Double',
+                        serialized: 'Double',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -281,11 +341,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ENVIRaster>',
+                  serialized: 'Array<ENVIRaster>',
                   args: [
                     [
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
@@ -311,15 +373,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ENVIRaster | Plot>',
+                  serialized: 'Array<ENVIRaster | Plot>',
                   args: [
                     [
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
-                      { name: 'Plot', display: 'Plot', args: [], meta: {} },
+                      {
+                        name: 'Plot',
+                        display: 'Plot',
+                        serialized: 'Plot',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},

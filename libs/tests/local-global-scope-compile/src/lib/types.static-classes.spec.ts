@@ -53,7 +53,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[3, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'Int', name: 'Int', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'Int',
+                  name: 'Int',
+                  serialized: 'Int',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           idl_number: {
@@ -71,6 +79,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'IDL_Number',
                   display: 'IDL_Number',
+                  serialized: 'IDL_Number',
                   args: [],
                   meta: {},
                 },
@@ -93,17 +102,20 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
                 {
                   name: 'Array',
                   display: 'Array<ENVIRaster>',
+                  serialized: 'Array<ENVIRaster>',
                   args: [
                     [
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
@@ -125,7 +137,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[4, 6, 4]],
               docs: 'A static reference to the class "ENVI"',
               source: 'user',
-              type: [{ name: 'ENVI', display: 'ENVI', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ENVI',
+                  display: 'ENVI',
+                  serialized: 'ENVI',
+                  args: [],
+                  meta: {},
+                },
+              ],
               isStaticClass: true,
             },
           },
@@ -140,7 +160,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[5, 2, 4]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           image: {
@@ -154,7 +182,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[5, 9, 5]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },

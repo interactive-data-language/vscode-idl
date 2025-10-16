@@ -51,7 +51,15 @@ describe(`[auto generated] Types from call_function()`, () => {
             usage: [[2, 0, 5]],
             docs: '',
             source: 'user',
-            type: [{ name: 'ENVI', display: 'ENVI', args: [], meta: {} }],
+            type: [
+              {
+                name: 'ENVI',
+                display: 'ENVI',
+                serialized: 'ENVI',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         unknown: {
@@ -65,7 +73,15 @@ describe(`[auto generated] Types from call_function()`, () => {
             usage: [[3, 0, 7]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
       },

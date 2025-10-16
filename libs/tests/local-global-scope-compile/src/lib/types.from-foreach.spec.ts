@@ -63,8 +63,17 @@ describe(`[auto generated] Types from foreach loop`, () => {
                 {
                   name: 'List',
                   display: 'List<Number>',
+                  serialized: 'List<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -85,7 +94,15 @@ describe(`[auto generated] Types from foreach loop`, () => {
               ],
               docs: '',
               source: 'user',
-              type: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           key: {
@@ -100,8 +117,20 @@ describe(`[auto generated] Types from foreach loop`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -131,8 +160,17 @@ describe(`[auto generated] Types from foreach loop`, () => {
                 {
                   name: 'List',
                   display: 'List<Number>',
+                  serialized: 'List<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -225,10 +263,23 @@ describe(`[auto generated] Types from foreach loop`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Number | String>',
+                  serialized: 'Array<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -251,8 +302,20 @@ describe(`[auto generated] Types from foreach loop`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -268,8 +331,20 @@ describe(`[auto generated] Types from foreach loop`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -299,10 +374,23 @@ describe(`[auto generated] Types from foreach loop`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Number | String>',
+                  serialized: 'Array<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -392,7 +480,15 @@ describe(`[auto generated] Types from foreach loop`, () => {
               ],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           val: {
@@ -409,7 +505,15 @@ describe(`[auto generated] Types from foreach loop`, () => {
               ],
               docs: '',
               source: 'user',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           key: {
@@ -424,8 +528,20 @@ describe(`[auto generated] Types from foreach loop`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -451,7 +567,15 @@ describe(`[auto generated] Types from foreach loop`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'item',
@@ -536,7 +660,15 @@ describe(`[auto generated] Types from foreach loop`, () => {
               ],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           val: {
@@ -553,7 +685,15 @@ describe(`[auto generated] Types from foreach loop`, () => {
               ],
               docs: '',
               source: 'user',
-              type: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           key: {
@@ -568,8 +708,20 @@ describe(`[auto generated] Types from foreach loop`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -595,7 +747,15 @@ describe(`[auto generated] Types from foreach loop`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'item',

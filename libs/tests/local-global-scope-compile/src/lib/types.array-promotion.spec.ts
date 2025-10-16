@@ -73,7 +73,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[8, 15, 1]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -91,7 +99,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[17, 0, 7]],
             docs: '',
             source: 'user',
-            type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+            type: [
+              {
+                name: 'String',
+                display: 'String',
+                serialized: 'String',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         array1: {
@@ -109,8 +125,17 @@ describe(`[auto generated] Types from`, () => {
               {
                 name: 'Array',
                 display: 'Array<String>',
+                serialized: 'Array<String>',
                 args: [
-                  [{ name: 'String', display: 'String', args: [], meta: {} }],
+                  [
+                    {
+                      name: 'String',
+                      display: 'String',
+                      serialized: 'String',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
                 ],
                 meta: {},
               },
@@ -132,8 +157,17 @@ describe(`[auto generated] Types from`, () => {
               {
                 name: 'Array',
                 display: 'Array<String>',
+                serialized: 'Array<String>',
                 args: [
-                  [{ name: 'String', display: 'String', args: [], meta: {} }],
+                  [
+                    {
+                      name: 'String',
+                      display: 'String',
+                      serialized: 'String',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
                 ],
                 meta: {},
               },
@@ -154,7 +188,15 @@ describe(`[auto generated] Types from`, () => {
             ],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         either: {
@@ -169,12 +211,27 @@ describe(`[auto generated] Types from`, () => {
             docs: '',
             source: 'user',
             type: [
-              { name: 'String', display: 'String', args: [], meta: {} },
+              {
+                name: 'String',
+                display: 'String',
+                serialized: 'String',
+                args: [],
+                meta: {},
+              },
               {
                 name: 'Array',
                 display: 'Array<String>',
+                serialized: 'Array<String>',
                 args: [
-                  [{ name: 'String', display: 'String', args: [], meta: {} }],
+                  [
+                    {
+                      name: 'String',
+                      display: 'String',
+                      serialized: 'String',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
                 ],
                 meta: {},
               },
@@ -216,7 +273,15 @@ describe(`[auto generated] Types from`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'a',
@@ -233,8 +298,17 @@ describe(`[auto generated] Types from`, () => {
             {
               name: 'ArrayPromotion',
               display: 'ArrayPromotion<String>',
+              serialized: 'ArrayPromotion<String>',
               args: [
-                [{ name: 'String', display: 'String', args: [], meta: {} }],
+                [
+                  {
+                    name: 'String',
+                    display: 'String',
+                    serialized: 'String',
+                    args: [],
+                    meta: {},
+                  },
+                ],
               ],
               meta: {},
             },

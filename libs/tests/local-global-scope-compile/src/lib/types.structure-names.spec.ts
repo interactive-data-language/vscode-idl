@@ -57,6 +57,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -74,7 +75,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[5, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ name: '!map', display: '!map', args: [], meta: {} }],
+              type: [
+                {
+                  name: '!map',
+                  display: '!map',
+                  serialized: '!map',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },

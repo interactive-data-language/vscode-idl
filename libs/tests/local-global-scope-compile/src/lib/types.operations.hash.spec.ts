@@ -59,7 +59,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[3, 0, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           b: {
@@ -73,7 +81,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[5, 0, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           c: {

@@ -62,9 +62,10 @@ describe(`[auto generated] Types from`, () => {
                 {
                   display: 'Long',
                   name: 'Long',
+                  serialized: '5',
                   args: [],
                   meta: {},
-                  value: '5',
+                  value: ['5'],
                 },
               ],
             },
@@ -83,7 +84,16 @@ describe(`[auto generated] Types from`, () => {
               ],
               docs: '',
               source: 'user',
-              type: [{ display: 'Long', name: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'Long',
+                  name: 'Long',
+                  serialized: '5',
+                  args: [],
+                  meta: {},
+                  value: ['5'],
+                },
+              ],
             },
           },
           long3: {
@@ -97,7 +107,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[7, 2, 5]],
               docs: '',
               source: 'user',
-              type: [{ display: 'Long', name: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'Long',
+                  name: 'Long',
+                  serialized: '1',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },

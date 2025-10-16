@@ -56,7 +56,13 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                { display: 'Boolean', name: 'Boolean', args: [], meta: {} },
+                {
+                  display: 'Boolean',
+                  name: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -75,11 +81,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Boolean>',
+                  serialized: 'Array<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -101,7 +109,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[7, 0, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'Null', name: 'Null', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'Null',
+                  name: 'Null',
+                  serialized: 'Null',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },

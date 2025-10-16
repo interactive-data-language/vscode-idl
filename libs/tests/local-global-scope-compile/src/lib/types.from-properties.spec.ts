@@ -70,6 +70,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -94,6 +95,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRasterMetadata',
                   display: 'ENVIRasterMetadata',
+                  serialized: 'ENVIRasterMetadata',
                   args: [],
                   meta: {},
                 },
@@ -111,7 +113,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[11, 2, 2]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           p3: {
@@ -129,6 +139,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRasterMetadata',
                   display: 'ENVIRasterMetadata',
+                  serialized: 'ENVIRasterMetadata',
                   args: [],
                   meta: {},
                 },
@@ -146,7 +157,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[13, 2, 2]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -175,6 +194,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
