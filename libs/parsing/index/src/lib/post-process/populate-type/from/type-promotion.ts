@@ -1,11 +1,14 @@
 import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
+  COMPATIBLE_ERROR_CODES,
+  COMPATIBLE_OPERATOR_TYPES,
   IDL_ANY_TYPE,
   IDL_ARRAY_TYPE,
   IDL_BOOLEAN_TYPE,
   IDL_TYPE_LOOKUP,
   IDLDataType,
+  TYPE_ORDER,
 } from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 import { IParsed } from '@idl/types/syntax-tree';
@@ -13,11 +16,6 @@ import { PositionArray } from '@idl/types/tokenizer';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
-import {
-  COMPATIBLE_ERROR_CODES,
-  COMPATIBLE_OPERATOR_TYPES,
-  TYPE_ORDER,
-} from './type-promotion.interface';
 
 /**
  * Merges/validates types that are being combined together.
