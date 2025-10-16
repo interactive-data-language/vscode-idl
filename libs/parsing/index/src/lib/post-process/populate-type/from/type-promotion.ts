@@ -308,17 +308,26 @@ export function TypePromotion(
         {
           name: IDL_TYPE_LOOKUP.ARRAY,
           args: [
-            IDLTypeHelper.parseIDLType(
-              highestType === TYPE_ORDER.length + 1
-                ? 'any'
-                : TYPE_ORDER[highestType]
-            ),
+            IDLTypeHelper.createIDLType([
+              {
+                name:
+                  highestType === TYPE_ORDER.length + 1
+                    ? 'any'
+                    : TYPE_ORDER[highestType],
+                args: [],
+              },
+            ]),
           ],
         },
       ]);
     default:
       return highestType === TYPE_ORDER.length + 1
         ? copy(IDL_ANY_TYPE)
-        : IDLTypeHelper.parseIDLType(TYPE_ORDER[highestType]);
+        : IDLTypeHelper.createIDLType([
+            {
+              name: TYPE_ORDER[highestType],
+              args: [],
+            },
+          ]);
   }
 }

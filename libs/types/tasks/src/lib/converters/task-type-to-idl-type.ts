@@ -28,26 +28,50 @@ function GetArrayOrKeys(value: unknown): any[] {
  * IDL data type.
  */
 export function TaskTypeToIDLType(type: string, choiceList?: any) {
-  // check if we have a choice list
-  if (choiceList !== undefined) {
-    const keys = GetArrayOrKeys(choiceList)
-      .map((val) => `${JSON.stringify(val)}`)
-      .join(' | ');
-    if (keys) {
-      return IDLTypeHelper.parseIDLType(keys);
-    }
-  }
-
   // convert URIs to strings
   type = type.replace(CLEAN_URI_REGEX, 'string');
+
+  /**
+   * Track values of our type
+   */
+  let values: string[];
+
+  /**
+   * Check if there's a choice list to set as the value of the type
+   */
+  if (choiceList !== undefined) {
+    const keys = GetArrayOrKeys(choiceList).map((val) => `${val}`);
+
+    // check if we have keys
+    if (keys.length > 0) {
+      values = keys;
+    }
+  }
 
   // check if we have an array
   const match = ARRAY_REGEX.exec(type);
   if (match !== null) {
-    return IDLTypeHelper.parseIDLType(
-      `Array<${type.substring(0, match.index)}>`
-    );
+    return IDLTypeHelper.createIDLType([
+      {
+        name: 'Array',
+        args: [
+          IDLTypeHelper.createIDLType([
+            {
+              name: type.substring(0, match.index),
+              args: [],
+              value: values,
+            },
+          ]),
+        ],
+      },
+    ]);
   } else {
-    return IDLTypeHelper.parseIDLType(type);
+    return IDLTypeHelper.createIDLType([
+      {
+        name: type,
+        args: [],
+        value: values,
+      },
+    ]);
   }
 }

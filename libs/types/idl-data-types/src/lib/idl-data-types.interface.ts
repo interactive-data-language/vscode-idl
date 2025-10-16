@@ -237,7 +237,12 @@ export const IDL_TYPE_LOOKUP: IIDLTypeLookup = {
 export interface ICreateIDLDataType {
   /** Sub-types */
   args: IDLDataType[];
+  /** Name of the type for internal purposes, after parsing is always normalized */
   name: string;
+  /**
+   * The value of a type (if it can be inferred or if it is literal)
+   */
+  value?: string[];
 }
 
 /**
@@ -255,14 +260,9 @@ export interface IDLDataTypeBase<T extends IDLTypes>
    * about the properties right here.
    */
   meta: IPropertyLookup;
-  /** Name of the type for internal purposes */
   name: T;
   /** A string that includes the display with literal types included */
   serialized: string;
-  /**
-   * The value of a type (if it can be inferred or if it is literal)
-   */
-  value?: string[];
 }
 
 /**

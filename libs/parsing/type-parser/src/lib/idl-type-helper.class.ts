@@ -2,6 +2,7 @@ import {
   ICreateIDLDataType,
   IDL_TYPE_LOOKUP,
   IDLDataType,
+  TYPE_ALIASES,
 } from '@idl/types/idl-data-types';
 
 import { ReduceIDLDataType } from './helpers/reduce-types';
@@ -105,12 +106,20 @@ export class IDLTypeHelper {
   static createIDLType(type: ICreateIDLDataType[]) {
     return PostProcessIDLType(
       type.map((iType) => {
+        // set the name of the data type
+        if (iType.name.toLowerCase() in TYPE_ALIASES) {
+          iType.name = TYPE_ALIASES[iType.name.toLowerCase()];
+        }
+
         return {
-          name: iType.name,
-          display: '',
-          serialized: '',
-          args: iType.args,
-          meta: {},
+          ...{
+            name: '',
+            display: '',
+            serialized: '',
+            args: [],
+            meta: {},
+          },
+          ...iType,
         };
       })
     );
