@@ -43,8 +43,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -63,6 +72,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'IDLTASKCATALOG',
                   display: 'IDLTASKCATALOG',
+                  serialized: 'IDLTASKCATALOG',
                   args: [],
                   meta: {},
                 },
@@ -85,11 +95,13 @@ describe(`[auto generated] Correctly parse task file`, () => {
             {
               name: 'idlqueryalltaskstask',
               display: 'IDLTask<queryalltasks>',
+              serialized: 'IDLTask<queryalltasks>',
               args: [
                 [
                   {
                     name: 'queryalltasks',
                     display: 'queryalltasks',
+                    serialized: 'queryalltasks',
                     args: [],
                     meta: {},
                   },

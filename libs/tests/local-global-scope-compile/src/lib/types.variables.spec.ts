@@ -60,6 +60,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVISubsetRaster',
                   display: 'ENVISubsetRaster',
+                  serialized: 'ENVISubsetRaster',
                   args: [],
                   meta: {},
                 },
@@ -81,6 +82,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVISubsetRaster',
                   display: 'ENVISubsetRaster',
+                  serialized: 'ENVISubsetRaster',
                   args: [],
                   meta: {},
                 },

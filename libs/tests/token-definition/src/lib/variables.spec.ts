@@ -51,7 +51,15 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
         ],
         docs: '',
         source: 'user',
-        type: [{ name: 'NYStruct', display: 'NYStruct', args: [], meta: {} }],
+        type: [
+          {
+            name: 'NYStruct',
+            display: 'NYStruct',
+            serialized: 'NYStruct',
+            args: [],
+            meta: {},
+          },
+        ],
       },
     };
 
@@ -101,7 +109,15 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
         usage: [[49, 8, 3]],
         docs: '',
         source: 'user',
-        type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+        type: [
+          {
+            display: 'any',
+            name: 'any',
+            serialized: 'any',
+            args: [],
+            meta: {},
+          },
+        ],
       },
     };
 

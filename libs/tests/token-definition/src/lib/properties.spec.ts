@@ -34,10 +34,20 @@ describe(`[auto generated] Correctly find definitions for properties`, () => {
       code: true,
       source: 'user',
       docs: '',
-      type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+      type: [
+        { display: 'any', name: 'any', serialized: 'any', args: [], meta: {} },
+      ],
       pos: [32, 22, 6],
       name: 'prop1',
-      class: [{ name: 'NYStruct0', display: 'NYStruct0', args: [], meta: {} }],
+      class: [
+        {
+          name: 'NYStruct0',
+          display: 'NYStruct0',
+          serialized: 'NYStruct0',
+          args: [],
+          meta: {},
+        },
+      ],
       globalType: 's',
       globalName: 'nystruct0',
     };
@@ -65,10 +75,20 @@ describe(`[auto generated] Correctly find definitions for properties`, () => {
       code: true,
       source: 'user',
       docs: '',
-      type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+      type: [
+        { display: 'any', name: 'any', serialized: 'any', args: [], meta: {} },
+      ],
       pos: [34, 41, 6],
       name: 'prop2',
-      class: [{ name: 'NYStruct', display: 'NYStruct', args: [], meta: {} }],
+      class: [
+        {
+          name: 'NYStruct',
+          display: 'NYStruct',
+          serialized: 'NYStruct',
+          args: [],
+          meta: {},
+        },
+      ],
       globalType: 's',
       globalName: 'nystruct',
     };
