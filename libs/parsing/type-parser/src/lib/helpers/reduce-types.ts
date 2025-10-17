@@ -66,10 +66,10 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
   }
 
   /**
-   * Dont recurse here
+   * Dont recurse here into type arguments
    *
-   * This wourinte should be called in "PostProcessIDLType" which recurses into
-   * arguments
+   * This routine should be called in "PostProcessIDLType" which recurses into
+   * arguments, so only process type level
    */
   // // reduce type arguments
   // for (let i = 0; i < reduced.length; i++) {
@@ -77,6 +77,15 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
   //     reduced[i].args[j] = ReduceIDLDataType(reduced[i].args[j]);
   //   }
   // }
+
+  /**
+   * Make sure literal types are unique
+   */
+  for (let i = 0; i < reduced.length; i++) {
+    if (Array.isArray(reduced[i].value)) {
+      reduced[i].value = [...new Set(reduced[i].value)];
+    }
+  }
 
   return reduced;
 }
