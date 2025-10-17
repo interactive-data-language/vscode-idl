@@ -336,8 +336,20 @@ describe(`[auto generated] Types from`, () => {
           returns: [
             {
               name: 'TypeOfArg',
-              display: 'TypeOfArg<0>',
-              args: [[{ name: '0', display: '0', args: [], meta: {} }]],
+              display: 'TypeOfArg<Int>',
+              serialized: 'TypeOfArg<0>',
+              args: [
+                [
+                  {
+                    name: 'Int',
+                    display: 'Int',
+                    serialized: '0',
+                    args: [],
+                    meta: {},
+                    value: ['0'],
+                  },
+                ],
+              ],
               meta: {},
             },
           ],
@@ -534,8 +546,20 @@ describe(`[auto generated] Types from`, () => {
           returns: [
             {
               name: 'TypeOfArg',
-              display: 'TypeOfArg<2>',
-              args: [[{ name: '2', display: '2', args: [], meta: {} }]],
+              display: 'TypeOfArg<Int>',
+              serialized: 'TypeOfArg<2>',
+              args: [
+                [
+                  {
+                    name: 'Int',
+                    display: 'Int',
+                    serialized: '2',
+                    args: [],
+                    meta: {},
+                    value: ['2'],
+                  },
+                ],
+              ],
               meta: {},
             },
           ],
