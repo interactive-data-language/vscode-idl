@@ -111,9 +111,10 @@ describe(`[auto generated] Types from`, () => {
                 {
                   display: 'Long',
                   name: 'Long',
-                  serialized: '1',
+                  serialized: '1 | 2 | 5',
                   args: [],
                   meta: {},
+                  value: ['1', '2', '5'],
                 },
               ],
             },

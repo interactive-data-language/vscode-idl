@@ -65,12 +65,18 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
     }
   }
 
-  // reduce type arguments
-  for (let i = 0; i < reduced.length; i++) {
-    for (let j = 0; j < reduced[i].args.length; j++) {
-      reduced[i].args[j] = ReduceIDLDataType(reduced[i].args[j]);
-    }
-  }
+  /**
+   * Dont recurse here
+   *
+   * This wourinte should be called in "PostProcessIDLType" which recurses into
+   * arguments
+   */
+  // // reduce type arguments
+  // for (let i = 0; i < reduced.length; i++) {
+  //   for (let j = 0; j < reduced[i].args.length; j++) {
+  //     reduced[i].args[j] = ReduceIDLDataType(reduced[i].args[j]);
+  //   }
+  // }
 
   return reduced;
 }

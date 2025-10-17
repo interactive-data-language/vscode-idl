@@ -117,7 +117,7 @@ export function PopulateAndValidateReturnType(
     }
 
     // reduce type
-    const reduced = IDLTypeHelper.reduceIDLDataType(allTypes);
+    const reduced = IDLTypeHelper.postProcessIDLDataType(allTypes);
 
     // update type
     func.meta.returns = reduced;

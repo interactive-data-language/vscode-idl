@@ -108,7 +108,7 @@ export function TypeFromOperators(
     }
 
     // strip out the value
-    IDLTypeHelper.removeValue(types[i]);
+    // IDLTypeHelper.removeValue(types[i]);
   }
 
   /**
@@ -119,7 +119,7 @@ export function TypeFromOperators(
   // process each operator
   for (let i = 0; i < split.operators.length; i++) {
     /**
-     * Return if "any" type
+     * Return if "any" type - checked above, not sure if there's a reason to have it here
      */
     if (IDLTypeHelper.isAnyType(currentType)) {
       return currentType;

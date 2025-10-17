@@ -103,7 +103,16 @@ describe(`[auto generated] Types from assignment`, () => {
             usage: [[7, 0, 1]],
             docs: '',
             source: 'user',
-            type: [{ display: 'Long', name: 'Long', args: [], meta: {} }],
+            type: [
+              {
+                display: 'Long',
+                name: 'Long',
+                serialized: '6',
+                args: [],
+                meta: {},
+                value: ['6'],
+              },
+            ],
           },
         },
         g: {

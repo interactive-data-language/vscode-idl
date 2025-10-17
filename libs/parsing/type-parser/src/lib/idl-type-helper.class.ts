@@ -5,7 +5,6 @@ import {
   TYPE_ALIASES,
 } from '@idl/types/idl-data-types';
 
-import { ReduceIDLDataType } from './helpers/reduce-types';
 import { ParseIDLType, PostProcessIDLType } from './parsing/parse-idl-type';
 import { PopulateTypeDisplayName } from './parsing/populate-type-display-name';
 
@@ -96,7 +95,7 @@ export class IDLTypeHelper {
     }
 
     // reduce and return
-    return this.reduceIDLDataType(mapped);
+    return this.postProcessIDLDataType(mapped);
   }
 
   /**
@@ -219,10 +218,14 @@ export class IDLTypeHelper {
   }
 
   /**
-   * Takes an IDL data type and reduces it to remove any duplicate types
+   * Takes an IDL data type and does a few things:
+   *
+   *  1. Sets default type names to normalize the type
+   *  2. Reduces the type
+   *  3. Updates display name and serialized version of type
    */
-  static reduceIDLDataType(type: IDLDataType): IDLDataType {
-    return ReduceIDLDataType(type);
+  static postProcessIDLDataType(type: IDLDataType): IDLDataType {
+    return PostProcessIDLType(type);
   }
 
   /**

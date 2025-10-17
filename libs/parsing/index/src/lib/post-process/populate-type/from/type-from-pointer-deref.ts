@@ -65,6 +65,6 @@ export function TypeFromPointerDeref(
 
     return copy(IDL_ANY_TYPE);
   } else {
-    return copy(IDLTypeHelper.reduceIDLDataType(outputType));
+    return copy(IDLTypeHelper.postProcessIDLDataType(outputType));
   }
 }

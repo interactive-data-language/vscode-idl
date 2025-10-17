@@ -309,13 +309,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<List<any>>',
+                  serialized: 'Array<List<any>>',
                   args: [
                     [
                       {
                         name: 'List',
                         display: 'List<any>',
+                        serialized: 'List<any>',
                         args: [
-                          [{ name: 'any', display: 'any', args: [], meta: {} }],
+                          [
+                            {
+                              display: 'any',
+                              name: 'any',
+                              serialized: 'any',
+                              args: [],
+                              meta: {},
+                            },
+                          ],
                         ],
                         meta: {},
                       },

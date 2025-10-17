@@ -72,9 +72,10 @@ describe(`[auto generated] Types from`, () => {
                 {
                   display: 'Long',
                   name: 'Long',
-                  serialized: '5',
+                  serialized: '5 | 15',
                   args: [],
                   meta: {},
+                  value: ['5', '15'],
                 },
                 {
                   name: 'ENVI',
@@ -101,9 +102,10 @@ describe(`[auto generated] Types from`, () => {
                 {
                   display: 'Long',
                   name: 'Long',
-                  serialized: '5',
+                  serialized: '5 | 15',
                   args: [],
                   meta: {},
+                  value: ['5', '15'],
                 },
                 {
                   display: 'String',
@@ -131,7 +133,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   display: 'String',
                   name: 'String',
-                  serialized: "'string'",
+                  serialized: "'string' | 'false'",
                   args: [],
                   meta: {},
                   value: ['string', 'false'],
@@ -154,7 +156,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   display: 'Long',
                   name: 'Long',
-                  serialized: '5',
+                  serialized: '5 | 6',
                   args: [],
                   meta: {},
                   value: ['5', '6'],

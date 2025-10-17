@@ -78,7 +78,7 @@ export function TypeFromIndexing(
   /**
    * Remove duplicates
    */
-  possibleTypes = IDLTypeHelper.reduceIDLDataType(possibleTypes);
+  possibleTypes = IDLTypeHelper.postProcessIDLDataType(possibleTypes);
 
   // get the return type if we have an array present for indexing
   let baseType = '';
