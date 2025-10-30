@@ -116,15 +116,16 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Float>',
-                  serialized: 'Array<Float>',
+                  serialized: 'Array<1 | 2 | 3 | 4.>',
                   args: [
                     [
                       {
-                        name: 'Float',
                         display: 'Float',
-                        serialized: 'Float',
+                        name: 'Float',
+                        serialized: '1 | 2 | 3 | 4.',
                         args: [],
                         meta: {},
+                        value: ['1', '2', '3', '4.'],
                       },
                     ],
                   ],
@@ -148,15 +149,16 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
-                  serialized: 'Array<Double>',
+                  serialized: 'Array<1 | 2 | 3 | 4d>',
                   args: [
                     [
                       {
-                        name: 'Double',
                         display: 'Double',
-                        serialized: 'Double',
+                        name: 'Double',
+                        serialized: '1 | 2 | 3 | 4d',
                         args: [],
                         meta: {},
+                        value: ['1', '2', '3', '4d'],
                       },
                     ],
                   ],
@@ -180,15 +182,16 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<DoubleComplex>',
-                  serialized: 'Array<DoubleComplex>',
+                  serialized: 'Array<1 | 2 | 3 | 4di>',
                   args: [
                     [
                       {
-                        name: 'DoubleComplex',
                         display: 'DoubleComplex',
-                        serialized: 'DoubleComplex',
+                        name: 'DoubleComplex',
+                        serialized: '1 | 2 | 3 | 4di',
                         args: [],
                         meta: {},
+                        value: ['1', '2', '3', '4di'],
                       },
                     ],
                   ],
@@ -277,15 +280,16 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
-                  serialized: 'Array<Double>',
+                  serialized: 'Array<1 | 2 | 3 | 4d | 4 | 5>',
                   args: [
                     [
                       {
-                        name: 'Double',
                         display: 'Double',
-                        serialized: 'Double',
+                        name: 'Double',
+                        serialized: '1 | 2 | 3 | 4d | 4 | 5',
                         args: [],
                         meta: {},
+                        value: ['1', '2', '3', '4d', '4', '5'],
                       },
                     ],
                   ],

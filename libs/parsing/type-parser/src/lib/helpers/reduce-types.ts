@@ -3,12 +3,16 @@ import {
   IDLDataType,
   IDLDataTypeBase,
   KNOWN_IDL_TYPE_ARG_PROMOTIONS,
+  TYPE_ORDER_LOOKUP,
 } from '@idl/types/idl-data-types';
 
 import { MergeTypeArgs } from './merge-type-args';
 
 /**
  * Takes an IDL data type and reduces it to remove any duplicate types
+ *
+ * If we encounter literal values, then we will perform basic type promotion
+ * among number types that are present
  */
 export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
   /** Track our decuded data type */
@@ -17,12 +21,71 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
   // track what we have found
   const found: { [key: string]: IDLDataTypeBase<string> } = {};
 
+  /** Track name of the highest type */
+  let highestName: string;
+
+  /** Track type order of highest type */
+  let highestNumber: number;
+
+  /** Track if we had the explicit number type */
+  let wasNumber = false;
+
+  /** Track if we found literal values */
+  let foundLiterals = false;
+
   // process each type
   for (let i = 0; i < type.length; i++) {
     // bail if any type
     if (type[i].name === IDL_TYPE_LOOKUP.ANY) {
       return [type[i]];
     }
+
+    // track if we have literal values
+    foundLiterals = foundLiterals || Array.isArray(type[i].value);
+
+    /**
+     * TODO: Update this logic for complex number generic type
+     * promotion as well, but that is likely a big edge case
+     */
+
+    // check if we are in our type order lookup
+    if (
+      type[i].name === IDL_TYPE_LOOKUP.NUMBER ||
+      (foundLiterals && type[i].name in TYPE_ORDER_LOOKUP)
+    ) {
+      // check if we have already found an item
+      if (highestName) {
+        // if we are not the highest type, then replace the name of this item
+        if (highestNumber < TYPE_ORDER_LOOKUP[type[i].name]) {
+          // if we were a number and have higher type, make
+          // complex number
+          if (wasNumber) {
+            type[i].name = IDL_TYPE_LOOKUP.COMPLEX_NUMBER;
+          }
+
+          /** Get existing highest item */
+          const old = found[highestName];
+
+          // update constants
+          highestNumber = TYPE_ORDER_LOOKUP[type[i].name];
+          highestName = type[i].name;
+
+          // replace old props and save with new name
+          old.name = highestName;
+          found[highestName] = old;
+        } else {
+          // if not highest type, simply set to the new name
+          type[i].name = highestName;
+        }
+      } else {
+        // save highest type information
+        highestName = type[i].name;
+        highestNumber = TYPE_ORDER_LOOKUP[type[i].name];
+      }
+    }
+
+    // save if we encountered a number
+    wasNumber = wasNumber || type[i].name === IDL_TYPE_LOOKUP.NUMBER;
 
     /**
      * If we have a type that has arguments, dont reduce

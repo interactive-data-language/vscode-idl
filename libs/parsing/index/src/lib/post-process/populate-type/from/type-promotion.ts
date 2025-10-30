@@ -50,7 +50,7 @@ export function TypePromotion(
    */
   const reduced = arrays
     ? IDLTypeHelper.arrayReduce(merged)
-    : IDLTypeHelper.reduceIDLDataType(merged);
+    : IDLTypeHelper.postProcessIDLDataType(merged);
 
   // if we only have one type, return it
   if (reduced.length === 1) {
