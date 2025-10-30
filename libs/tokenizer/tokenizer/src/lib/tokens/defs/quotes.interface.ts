@@ -77,9 +77,7 @@ export const QUOTE_DOUBLE: QuoteDoubleTokenDef = {
    * 3. Check for unclosed strings
    */
   match:
-    /"([0-7]+)([a-z]{0,3})\b(?!\.)(?=\s*$|\s*(?:\*|\^|\+\+|--|##|#|\*|\/|\bmod\b|\+|-(?!>)|<|(?<!-|>)>(?!>)|~|\bnot\b|\beq\b|\bne\b|\ble\b|\blt\b|\bge\b|\bgt\b|\band\b|\bor\b|\bxor\b|&&|\|\|)(?!=)\s*")|"([^"]*)"((?!then|else|of|do|until)[a-z]+\b)?|"(.*)$/im,
-  //  start:
-  //  /([0-7]+)([a-z]{0,3})\b(?!"|\.)|"([^"]*)"?((?!then|else|of|do|until)[a-z]+\b)?/im,
+    /"([^"]*)"(?![0-7]+[ubsl]{0,3}[ij]?)([bxo][ubsl]{0,3}[ij]?\b)?|"([0-7]+)([ubsl]{0,3}[ij]?)\b(?!"|\.)|"([^"]*)$/im,
   getTokenName: (matches) => {
     if (NUMBER_AS_DOUBLE_QUOTE.test(matches[0])) {
       return TOKEN_NAMES.NUMBER;
