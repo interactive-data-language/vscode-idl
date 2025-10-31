@@ -43,7 +43,7 @@ export const QUOTE_SINGLE: QuoteSingleTokenDef = {
    *
    * The different expressions are for 'string', '1010101'[oxb], and 'missing-close
    */
-  match: /'([^']*)'((?!then|else|of|do|until)[a-z]+\b)?|'(.*)$/im,
+  match: /'([^'\n]*)'([bxo][ubsl]{0,3}[ij]?\b)?|'([^'\n]*)$/im,
   // start: /'([^']*)'?((?!then|else|of|do|until)[a-z]+\b)?/im,
   getTokenName: (matches) => {
     if (NUMBER_AS_SINGLE_QUOTE.test(matches[0])) {
