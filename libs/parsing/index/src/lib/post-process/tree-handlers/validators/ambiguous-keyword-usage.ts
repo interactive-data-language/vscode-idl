@@ -1,8 +1,7 @@
+import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
 import {
   BranchCallback,
   FindDirectBranchChildren,
-  SyntaxProblemWithoutTranslation,
-  TreeToken,
 } from '@idl/parsing/syntax-tree';
 import {
   CallFunctionMethodToken,
@@ -15,6 +14,7 @@ import {
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { TreeToken } from '@idl/types/syntax-tree';
 
 import { GetKeywordDisplayName } from '../../../helpers/get-keyword-display-name';
 import { GetKeywords } from '../../../helpers/get-keywords';

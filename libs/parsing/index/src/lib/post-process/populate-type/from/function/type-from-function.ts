@@ -1,11 +1,11 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { CallFunctionToken } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,
   IDLDataType,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../../idl-index.class';
@@ -64,7 +64,7 @@ export function TypeFromFunction(
 
   // if we have a structure with that name, mark as the type
   if (structure.length > 0) {
-    return ParseIDLType(structure[0].meta.display);
+    return IDLTypeHelper.parseIDLType(structure[0].meta.display);
   }
 
   /**
@@ -74,11 +74,26 @@ export function TypeFromFunction(
   if (returnNameAsType) {
     switch (true) {
       case wasENVITask:
-        return ParseIDLType(`ENVITask<any>`);
+        return IDLTypeHelper.createIDLType([
+          {
+            name: 'ENVITask',
+            args: [copy(IDL_ANY_TYPE)],
+          },
+        ]);
       case wasIDLTask:
-        return ParseIDLType(`IDLTask<any>`);
+        return IDLTypeHelper.createIDLType([
+          {
+            name: 'IDLTask',
+            args: [copy(IDL_ANY_TYPE)],
+          },
+        ]);
       default:
-        return ParseIDLType(name);
+        return IDLTypeHelper.createIDLType([
+          {
+            name: name,
+            args: [],
+          },
+        ]);
     }
   }
 

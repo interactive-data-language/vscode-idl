@@ -1,10 +1,8 @@
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
   FindAllBranchChildren,
   FindDirectBranchChildren,
-  IBranch,
   IDL_SYNTAX_TREE_VALIDATOR,
-  SyntaxProblemWithTranslation,
-  TreeBranchToken,
 } from '@idl/parsing/syntax-tree';
 import {
   MainLevelToken,
@@ -13,6 +11,7 @@ import {
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
+import { IBranch, TreeBranchToken } from '@idl/types/syntax-tree';
 
 import { IsSingleLine } from '../helpers/is-single-line';
 import { NAME_TOKENS } from './return-functions';

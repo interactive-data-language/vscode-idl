@@ -2,20 +2,19 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   DocsToMarkdown,
   FindAllBranchChildren,
-  IParsed,
   IsWithinBranch,
   MARKDOWN_TYPE_LOOKUP,
-  TreeToken,
 } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { RoutineFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionMethodToken,
   GlobalFunctionToken,
   IDLDataType,
-  IDLTypeHelper,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../../../idl-index.class';
 import { TypeFromTokens } from '../from/type-from-tokens';
@@ -118,7 +117,7 @@ export function PopulateAndValidateReturnType(
     }
 
     // reduce type
-    const reduced = IDLTypeHelper.reduceIDLDataType(allTypes);
+    const reduced = IDLTypeHelper.postProcessIDLDataType(allTypes);
 
     // update type
     func.meta.returns = reduced;

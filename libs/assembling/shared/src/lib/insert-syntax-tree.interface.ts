@@ -1,4 +1,4 @@
-import { IParsed, SyntaxTree } from '@idl/parsing/syntax-tree';
+import { IParsed, SyntaxTree } from '@idl/types/syntax-tree';
 
 /**
  * When adding code into an existing syntax tree, the parameters

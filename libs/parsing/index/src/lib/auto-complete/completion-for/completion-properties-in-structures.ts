@@ -3,7 +3,6 @@ import { TransformCase } from '@idl/assembling/shared';
 import {
   FindDirectBranchChildren,
   GetPropertyName,
-  TreeToken,
 } from '@idl/parsing/syntax-tree';
 import { StructureNameToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -11,7 +10,8 @@ import {
   IPropertyInStructureCompletionOptions,
   PropertyInStructureCompletion,
 } from '@idl/types/auto-complete';
-import { GLOBAL_TOKEN_TYPES } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
+import { TreeToken } from '@idl/types/syntax-tree';
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
 import { IDLIndex } from '../../idl-index.class';

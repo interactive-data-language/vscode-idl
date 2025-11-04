@@ -1,3 +1,4 @@
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
   MainLevelToken,
   RoutineFunctionToken,
@@ -6,17 +7,15 @@ import {
   VariableToken,
 } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
-
 import {
   BRANCH_TYPES,
   IBranch,
+  ILocalTokenLookup,
+  IParsed,
   SyntaxTree,
   TreeBranchToken,
   TreeToken,
-} from '../branches.interface';
-import { IParsed } from '../parsed.interface';
-import { SyntaxProblemWithTranslation } from '../syntax-problem-with';
-import { ILocalTokenLookup } from './populate-local.interface';
+} from '@idl/types/syntax-tree';
 
 /**
  * Recursor to change function calls to variables being indexed

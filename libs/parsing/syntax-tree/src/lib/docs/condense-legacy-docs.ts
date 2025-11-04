@@ -1,12 +1,12 @@
 import { CommentToken } from '@idl/tokenizer';
 import {
   HEADER_TAG_LEGACY,
+  IBasicBranch,
   LEGACY_PARAMETER_NAME_SPLIT,
+  REMOVE_COMMENT_REGEX,
 } from '@idl/types/syntax-tree';
 
-import { IBasicBranch } from '../branches.interface';
 import { IDL_DOCS_HEADERS } from './docs.interface';
-import { REMOVE_COMMENT_REGEX } from './extract-docs.interface';
 import { IDL_HEADER_MAP } from './header-map.interface';
 
 /**

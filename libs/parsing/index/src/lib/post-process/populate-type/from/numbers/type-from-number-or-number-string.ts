@@ -1,11 +1,7 @@
-import {
-  GetRoutineNameFromScope,
-  IParsed,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { GetRoutineNameFromScope } from '@idl/parsing/syntax-tree';
 import { NumberToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLDataType } from '@idl/types/core';
-import copy from 'fast-copy';
+import { IDLDataType } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../../../../idl-index.class';
 import { TypeFromNumber } from './type-from-number';
@@ -47,5 +43,5 @@ export function TypeFromNumberOrNumberString(
   }
 
   // default return value
-  return copy(TypeFromNumber(token, compOpts));
+  return TypeFromNumber(token, compOpts);
 }

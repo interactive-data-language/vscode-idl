@@ -9,7 +9,7 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalStructureToken,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';

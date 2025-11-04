@@ -1,4 +1,4 @@
-import { SerializeIDLType } from '@idl/types/core';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 
 import { IDL_DOCS_HEADERS } from '../../docs.interface';
 import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';
@@ -80,7 +80,7 @@ export function RoutinesToMarkdown(
       markdown.push(
         `- **${arg.display}**: ${arg.direction || 'in'}, ${
           arg.req ? 'required' : 'optional'
-        }, ${SerializeIDLType(arg.type)}`
+        }, ${IDLTypeHelper.serializeIDLType(arg.type)}`
       );
       markdown.push(``);
       markdown.push(NormalizeIndent(arg.docs, '  '));
@@ -109,7 +109,7 @@ export function RoutinesToMarkdown(
       markdown.push(
         `- **${kw.display}**: ${kw.direction || 'in'}, ${
           kw.req ? 'required' : 'optional'
-        }, ${SerializeIDLType(kw.type)}`
+        }, ${IDLTypeHelper.serializeIDLType(kw.type)}`
       );
       markdown.push(``);
       markdown.push(NormalizeIndent(kw.docs, '    '));

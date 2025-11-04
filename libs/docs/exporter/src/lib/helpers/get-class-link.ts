@@ -1,4 +1,4 @@
-import { TASK_REGEX } from '@idl/types/core';
+import { TASK_REGEX } from '@idl/types/idl-data-types';
 
 import { DOCS_BASE } from '../docs-exporter.interface';
 import { DOCS_PATHS } from '../folder-map.interface';

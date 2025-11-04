@@ -1,10 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { CodeChecksum, Parser } from '@idl/parser';
-import {
-  IParsed,
-  RemoveScopeDetail,
-  ResetTokenCache,
-} from '@idl/parsing/syntax-tree';
+import { RemoveScopeDetail, ResetTokenCache } from '@idl/parsing/syntax-tree';
+import { IParsed } from '@idl/types/syntax-tree';
 import { readFileSync } from 'fs';
 
 import { IDLIndex } from '../../../idl-index.class';

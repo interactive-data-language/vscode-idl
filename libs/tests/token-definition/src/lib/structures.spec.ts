@@ -43,7 +43,15 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
             code: true,
             source: 'user',
             docs: '',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
             pos: [34, 41, 6],
           },
         },
@@ -93,10 +101,20 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
       code: true,
       source: 'user',
       docs: '',
-      type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+      type: [
+        { display: 'any', name: 'any', serialized: 'any', args: [], meta: {} },
+      ],
       pos: [32, 22, 6],
       name: 'prop1',
-      class: [{ name: 'NYStruct0', display: 'NYStruct0', args: [], meta: {} }],
+      class: [
+        {
+          name: 'NYStruct0',
+          display: 'NYStruct0',
+          serialized: 'NYStruct0',
+          args: [],
+          meta: {},
+        },
+      ],
       globalType: 's',
       globalName: 'nystruct0',
     };
@@ -124,10 +142,20 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
       code: true,
       source: 'user',
       docs: '',
-      type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+      type: [
+        { display: 'any', name: 'any', serialized: 'any', args: [], meta: {} },
+      ],
       pos: [34, 41, 6],
       name: 'prop2',
-      class: [{ name: 'NYStruct', display: 'NYStruct', args: [], meta: {} }],
+      class: [
+        {
+          name: 'NYStruct',
+          display: 'NYStruct',
+          serialized: 'NYStruct',
+          args: [],
+          meta: {},
+        },
+      ],
       globalType: 's',
       globalName: 'nystruct',
     };
@@ -192,9 +220,10 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
         {
           display: 'String',
           name: 'String',
+          serialized: "'cool'",
           args: [],
           meta: {},
-          value: 'cool',
+          value: ['cool'],
         },
       ],
       direction: 'bidirectional',
@@ -203,7 +232,15 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
       code: true,
       pos: [91, 13, 10],
       name: 'something',
-      class: [{ name: 'Structure', display: 'Structure', args: [], meta: {} }],
+      class: [
+        {
+          name: 'Structure',
+          display: 'Structure',
+          serialized: 'Structure',
+          args: [],
+          meta: {},
+        },
+      ],
       globalType: 's',
       globalName: 'structure',
     };

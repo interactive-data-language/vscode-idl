@@ -1,10 +1,7 @@
-import {
-  FindAllBranchChildren,
-  IParsed,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { FindAllBranchChildren } from '@idl/parsing/syntax-tree';
 import { CallFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDL_TYPE_LOOKUP } from '@idl/types/core';
+import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { basename } from 'path';
 
 import { IDLIndex } from '../../../../../idl-index.class';

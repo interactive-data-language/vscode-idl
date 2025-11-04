@@ -1,7 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { BasicTokenNames, NonBasicTokenNames } from '@idl/tokenizer';
-
-import { TreeToken } from '../branches.interface';
+import { TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Callback for when we encounter basic tokens, return true

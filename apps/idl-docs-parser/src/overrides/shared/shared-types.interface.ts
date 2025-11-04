@@ -1,4 +1,4 @@
-import { ParseIDLType } from '@idl/types/core';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 
 import { OverrideParamOrProp } from './shared.interface';
 
@@ -14,9 +14,9 @@ export interface ISharedOverrides {
  */
 export const SHARED_OVERRIDES: ISharedOverrides = {
   SPATIALREF: {
-    type: ParseIDLType(
+    type: IDLTypeHelper.parseIDLType(
       `ENVIStandardRasterSpatialRef | ENVIRPCRasterSpatialRef | ENVIPseudoRasterSpatialRef | ENVIGLTRasterSpatialRef `
     ),
   },
-  INTERLEAVE: { type: ParseIDLType(`string`) },
+  INTERLEAVE: { type: IDLTypeHelper.parseIDLType(`string`) },
 };

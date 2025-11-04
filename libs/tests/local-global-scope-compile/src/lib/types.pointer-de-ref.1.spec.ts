@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -99,8 +99,17 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Pointer',
                   display: 'Pointer<Number>',
+                  serialized: 'Pointer<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -122,8 +131,17 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Array',
                   display: 'Array<Number>',
+                  serialized: 'Array<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -148,16 +166,19 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Array',
                   display: 'Array<Pointer<ENVIRaster>>',
+                  serialized: 'Array<Pointer<ENVIRaster>>',
                   args: [
                     [
                       {
                         name: 'Pointer',
                         display: 'Pointer<ENVIRaster>',
+                        serialized: 'Pointer<ENVIRaster>',
                         args: [
                           [
                             {
                               name: 'ENVIRaster',
                               display: 'ENVIRaster',
+                              serialized: 'ENVIRaster',
                               args: [],
                               meta: {},
                             },
@@ -190,12 +211,27 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Pointer',
                   display: 'Pointer<Number>',
+                  serialized: 'Pointer<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -217,7 +253,18 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Pointer',
                   display: 'Pointer<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Pointer<any>',
+                  args: [
+                    [
+                      {
+                        name: 'any',
+                        display: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -241,16 +288,34 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Pointer',
                   display: 'Pointer<String>',
+                  serialized: 'Pointer<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
                 {
                   name: 'Pointer',
                   display: 'Pointer<Number>',
+                  serialized: 'Pointer<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -275,18 +340,40 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Pointer',
                   display: 'Pointer<String>',
+                  serialized: 'Pointer<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
                 {
                   name: 'Pointer',
                   display: 'Pointer<Number | String>',
+                  serialized: 'Pointer<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -305,7 +392,15 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
               usage: [[22, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           b: {
@@ -323,6 +418,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -344,8 +440,17 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Pointer',
                   display: 'Pointer<Number>',
+                  serialized: 'Pointer<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -363,7 +468,15 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
               usage: [[31, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           e: {
@@ -377,7 +490,15 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
               usage: [[34, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           f: {
@@ -391,7 +512,15 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
               usage: [[37, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           g: {
@@ -409,8 +538,20 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
               docs: '',
               source: 'user',
               type: [
-                { name: 'String', display: 'String', args: [], meta: {} },
-                { name: 'Number', display: 'Number', args: [], meta: {} },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -440,8 +581,17 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Pointer',
                   display: 'Pointer<Number>',
+                  serialized: 'Pointer<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -460,8 +610,17 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Array',
                   display: 'Array<Number>',
+                  serialized: 'Array<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -480,16 +639,19 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Array',
                   display: 'Array<Pointer<ENVIRaster>>',
+                  serialized: 'Array<Pointer<ENVIRaster>>',
                   args: [
                     [
                       {
                         name: 'Pointer',
                         display: 'Pointer<ENVIRaster>',
+                        serialized: 'Pointer<ENVIRaster>',
                         args: [
                           [
                             {
                               name: 'ENVIRaster',
                               display: 'ENVIRaster',
+                              serialized: 'ENVIRaster',
                               args: [],
                               meta: {},
                             },
@@ -516,12 +678,27 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Pointer',
                   display: 'Pointer<Number>',
+                  serialized: 'Pointer<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
               private: false,
               req: true,
@@ -537,7 +714,18 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Pointer',
                   display: 'Pointer<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Pointer<any>',
+                  args: [
+                    [
+                      {
+                        name: 'any',
+                        display: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -555,16 +743,34 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Pointer',
                   display: 'Pointer<String>',
+                  serialized: 'Pointer<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
                 {
                   name: 'Pointer',
                   display: 'Pointer<Number>',
+                  serialized: 'Pointer<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -583,18 +789,40 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
                 {
                   name: 'Pointer',
                   display: 'Pointer<String>',
+                  serialized: 'Pointer<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
                 {
                   name: 'Pointer',
                   display: 'Pointer<Number | String>',
+                  serialized: 'Pointer<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},

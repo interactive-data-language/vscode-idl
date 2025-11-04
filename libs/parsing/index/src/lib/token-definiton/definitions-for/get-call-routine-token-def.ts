@@ -1,5 +1,5 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { TokenName } from '@idl/tokenizer';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { GlobalIndexedToken } from '../../global-index.interface';
 import { GetRoutine } from '../../helpers/get-routine';

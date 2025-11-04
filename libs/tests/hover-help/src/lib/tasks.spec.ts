@@ -29,8 +29,8 @@ describe(`[auto generated] Task type hover help`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type IDLTask<any>.name = String',
+      '```idl',
+      'prop IDLTask<any>.name: String',
       '```',
       '',
       'The name of the task. In the task template this is defined with the `"name"` key.',
@@ -53,8 +53,8 @@ describe(`[auto generated] Task type hover help`, () => {
 
     // define expected token we extract
     const expectedFound_1: string[] = [
-      '```typescript',
-      'type ENVITask<any>.name = String',
+      '```idl',
+      'prop ENVITask<any>.name: String',
       '```',
       '',
       'The name of the task.',
@@ -77,8 +77,8 @@ describe(`[auto generated] Task type hover help`, () => {
 
     // define expected token we extract
     const expectedFound_2: string[] = [
-      '```typescript',
-      'type ENVITask<BuildMosaicRaster>.input_rasters = Array<ENVIRaster>',
+      '```idl',
+      'prop ENVITask<BuildMosaicRaster>.input_rasters: Array<ENVIRaster>',
       '```',
       '',
       'Specify an array of rasters to mosaic.',

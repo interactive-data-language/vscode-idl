@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -59,7 +59,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[3, 0, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           b: {
@@ -77,7 +85,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'List',
                   display: 'List<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'List<any>',
+                  args: [
+                    [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -94,7 +113,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[7, 0, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           d: {
@@ -108,7 +135,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[9, 0, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           e: {
@@ -122,7 +157,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[11, 0, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },

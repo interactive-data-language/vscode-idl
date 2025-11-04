@@ -1,13 +1,12 @@
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalRoutineToken,
   GlobalStructureToken,
-  IDLTypeHelper,
   IGlobalIndexedToken,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
@@ -111,7 +110,8 @@ export async function GetHoverHelpFromLookup(
               help = IDLTypeHelper.addTypeToDocs(
                 arg.display,
                 arg.docs,
-                arg.type
+                arg.type,
+                'arg'
               );
             }
             break;
@@ -122,7 +122,12 @@ export async function GetHoverHelpFromLookup(
           case lookup.kw !== undefined && lookup.type in ROUTINE_GLOBAL_TYPES: {
             const kw = (global as GlobalRoutineToken).meta.kws[lookup.kw];
             if (kw !== undefined) {
-              help = IDLTypeHelper.addTypeToDocs(kw.display, kw.docs, kw.type);
+              help = IDLTypeHelper.addTypeToDocs(
+                kw.display,
+                kw.docs,
+                kw.type,
+                'kw'
+              );
             }
             break;
           }
@@ -142,10 +147,11 @@ export async function GetHoverHelpFromLookup(
               help = IDLTypeHelper.addTypeToDocs(
                 GetPropertyDisplayName(
                   prop.display,
-                  ParseIDLType(global.meta.display)
+                  IDLTypeHelper.parseIDLType(global.meta.display)
                 ),
                 prop.docs,
-                prop.type
+                prop.type,
+                'prop'
               );
             }
             break;

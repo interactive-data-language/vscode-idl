@@ -1,9 +1,6 @@
-import {
-  IParsed,
-  ITreeRecurserCurrent,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { ITreeRecurserCurrent } from '@idl/parsing/syntax-tree';
 import { TokenName } from '@idl/tokenizer';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Callback to format our tokens.

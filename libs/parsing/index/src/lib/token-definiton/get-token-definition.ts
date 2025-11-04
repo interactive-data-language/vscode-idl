@@ -3,12 +3,9 @@ import {
   GetTokenAtCursor,
   GetVariableTokenDef,
 } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { TOKEN_NAMES } from '@idl/tokenizer';
-import {
-  IBaseIndexedToken,
-  IDL_TYPE_LOOKUP,
-  IDLTypeHelper,
-} from '@idl/types/core';
+import { IBaseIndexedToken, IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
 import { GetTokenDefResponse } from '@idl/workers/parsing';
 import { Position } from 'vscode-languageserver';
 

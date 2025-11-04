@@ -48,7 +48,15 @@ describe(`[auto generated] Correctly find find definition from obj destroy`, () 
             docs: '',
             private: false,
             source: 'internal',
-            type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            type: [
+              {
+                name: 'any',
+                display: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
             direction: 'bidirectional',
             req: false,
             display: 'keyword',
@@ -111,7 +119,15 @@ describe(`[auto generated] Correctly find find definition from obj destroy`, () 
           objref: {
             display: 'objref',
             docs: 'The object reference for the object to be destroyed. _ObjRef_ can be an array, in which case all of the specified objects are destroyed in turn. If the NULL object reference is passed, OBJ\\_DESTROY ignores it quietly.',
-            type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            type: [
+              {
+                name: 'any',
+                display: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
             direction: 'bidirectional',
             source: 'internal',
             code: true,
@@ -120,7 +136,15 @@ describe(`[auto generated] Correctly find find definition from obj destroy`, () 
           'arg1…argn': {
             display: 'arg1…argn',
             docs: 'Any arguments accepted by the CLEANUP method for the object being destroyed can be specified as additional arguments to OBJ\\_DESTROY.',
-            type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            type: [
+              {
+                name: 'any',
+                display: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
             direction: 'bidirectional',
             source: 'internal',
             code: true,

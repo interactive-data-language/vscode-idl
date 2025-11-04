@@ -785,6 +785,12 @@
               "format": "uri"
             }
           },
+          "idl.IDL.themeMatch": {
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.descriptions.IDL.themeMatch%",
+            "scope": "machine-overridable"
+          },
           "idl.IDL.addWorkspaceFoldersToPath": {
             "type": "boolean",
             "default": true,

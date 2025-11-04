@@ -32,7 +32,9 @@ describe(`[auto generated] Correctly find definitions for keywords`, () => {
       docs: '',
       private: false,
       source: 'internal',
-      type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+      type: [
+        { name: 'any', display: 'any', serialized: 'any', args: [], meta: {} },
+      ],
       direction: 'bidirectional',
       req: false,
       display: 'kw',
@@ -138,7 +140,9 @@ describe(`[auto generated] Correctly find definitions for keywords`, () => {
       docs: '',
       private: false,
       source: 'internal',
-      type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+      type: [
+        { name: 'any', display: 'any', serialized: 'any', args: [], meta: {} },
+      ],
       direction: 'bidirectional',
       req: false,
       display: 'kwb',

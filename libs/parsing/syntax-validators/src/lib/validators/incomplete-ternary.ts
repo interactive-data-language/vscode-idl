@@ -1,10 +1,8 @@
-import {
-  IDL_SYNTAX_TREE_VALIDATOR,
-  SyntaxProblemWithTranslation,
-  TreeBranchToken,
-} from '@idl/parsing/syntax-tree';
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
+import { IDL_SYNTAX_TREE_VALIDATOR } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { TreeBranchToken } from '@idl/types/syntax-tree';
 
 /**
  * Validate ternary statements

@@ -1,7 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
-import { GlobalTokens } from '@idl/types/core';
+import { GlobalTokens } from '@idl/types/idl-data-types';
 import { TaskToGlobalToken } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
@@ -37,7 +37,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'task_name',
               docs: 'The name of a task that will be queried for its definition.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: true,
             },
             definition: {
@@ -52,6 +60,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'IDLTASKINFO',
                   display: 'IDLTASKINFO',
+                  serialized: 'IDLTASKINFO',
                   args: [],
                   meta: {},
                 },
@@ -74,11 +83,13 @@ describe(`[auto generated] Correctly parse task file`, () => {
             {
               name: 'idlquerytasktask',
               display: 'IDLTask<querytask>',
+              serialized: 'IDLTask<querytask>',
               args: [
                 [
                   {
                     name: 'querytask',
                     display: 'querytask',
+                    serialized: 'querytask',
                     args: [],
                     meta: {},
                   },

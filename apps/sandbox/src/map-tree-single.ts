@@ -2,7 +2,7 @@ import {
   BRANCH_TYPES,
   SyntaxTree,
   TreeBranchToken,
-} from '@idl/parsing/syntax-tree';
+} from '@idl/types/syntax-tree';
 
 interface ISimplifiedTree {
   idx: any[];

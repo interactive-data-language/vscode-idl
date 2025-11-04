@@ -1,13 +1,10 @@
-import {
-  GetLocalTokenLookup,
-  IParsed,
-  TreeBranchToken,
-} from '@idl/parsing/syntax-tree';
+import { GetLocalTokenLookup } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IVariableCompletionOptions,
   VariableCompletion,
 } from '@idl/types/auto-complete';
+import { IParsed, TreeBranchToken } from '@idl/types/syntax-tree';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';

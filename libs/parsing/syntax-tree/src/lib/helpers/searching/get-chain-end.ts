@@ -1,6 +1,5 @@
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
-
-import { SyntaxTree } from '../../branches.interface';
+import { SyntaxTree } from '@idl/types/syntax-tree';
 
 /**
  * When processing token chains, what do we skip?

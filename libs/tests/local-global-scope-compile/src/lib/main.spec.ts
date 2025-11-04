@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -49,7 +49,14 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             docs: '',
             source: 'user',
             type: [
-              { display: 'Long', name: 'Long', args: [], meta: {}, value: '5' },
+              {
+                display: 'Long',
+                name: 'Long',
+                serialized: '5',
+                args: [],
+                meta: {},
+                value: ['5'],
+              },
             ],
           },
         },
@@ -64,7 +71,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             usage: [[2, 10, 1]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         c: {
@@ -78,7 +93,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             usage: [[2, 13, 1]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         d: {
@@ -92,7 +115,15 @@ describe(`[auto generated] Correctly extract variables from`, () => {
             usage: [[2, 16, 1]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
       },

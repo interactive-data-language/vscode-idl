@@ -1,4 +1,4 @@
-import { GlobalTokenSource, GlobalTokenType } from '@idl/types/core';
+import { GlobalTokenSource, GlobalTokenType } from '@idl/types/idl-data-types';
 
 /**
  * Data structure for information coming from internal IDL routines

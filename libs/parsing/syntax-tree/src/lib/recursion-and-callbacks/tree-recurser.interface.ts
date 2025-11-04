@@ -5,9 +5,9 @@ import {
   TOKEN_NAMES,
   TokenName,
 } from '@idl/tokenizer';
+import { TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
-import { TreeToken } from '../branches.interface';
 import {
   IParentInformation,
   SelectedTokenParent,

@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -85,8 +85,17 @@ describe(`[auto generated] Complex real world test`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -104,7 +113,15 @@ describe(`[auto generated] Complex real world test`, () => {
               usage: [[30, 55, 3]],
               docs: 'Optional argument to show the message prefix when a bridge process has completed for the TIME\nkeyword in bridge_it::run and bridge_it::run().',
               source: 'user',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           logdir: {
@@ -118,7 +135,15 @@ describe(`[auto generated] Complex real world test`, () => {
               usage: [[30, 69, 6]],
               docs: 'Specify the directory that the log file will be written to. The log file is just a text file with\nall of the IDL Console output from each child process.',
               source: 'user',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           nrefresh: {
@@ -132,7 +157,15 @@ describe(`[auto generated] Complex real world test`, () => {
               usage: [[30, 88, 8]],
               docs: "Specify the number of bridge processes to execute before closing and re-starting the\nchild process. Necessary for some ENVI routines so that we don't have memory fragmentation\nregarding opening lots of small rasters.",
               source: 'user',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           prefix: {
@@ -146,7 +179,15 @@ describe(`[auto generated] Complex real world test`, () => {
               usage: [[30, 107, 6]],
               docs: 'This optional keyword specifies the prefix which is used to differentiate between arguments and\nkeywords when it comes time to parse the arguments and keyword that will be passed into a routine.',
               source: 'user',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           nbridges: {
@@ -160,7 +201,15 @@ describe(`[auto generated] Complex real world test`, () => {
               usage: [[30, 26, 8]],
               docs: 'The number of bridges that you want to create',
               source: 'user',
-              type: [{ name: 'Int', display: 'Int', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Int',
+                  display: 'Int',
+                  serialized: 'Int',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           self: {
@@ -174,7 +223,13 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'A reference to our object class',
               source: 'user',
               type: [
-                { name: 'bridge_it', display: 'bridge_it', args: [], meta: {} },
+                {
+                  name: 'bridge_it',
+                  display: 'bridge_it',
+                  serialized: 'bridge_it',
+                  args: [],
+                  meta: {},
+                },
               ],
               usage: [],
             },
@@ -204,7 +259,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'The number of bridges that you want to create',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'Int', display: 'Int', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Int',
+                  display: 'Int',
+                  serialized: 'Int',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'nbridges',
@@ -229,8 +292,17 @@ describe(`[auto generated] Complex real world test`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -245,7 +317,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'Specify the directory that the log file will be written to. The log file is just a text file with\nall of the IDL Console output from each child process.',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'LOGDIR',
@@ -256,7 +336,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'Optional argument to show the message prefix when a bridge process has completed for the TIME\nkeyword in bridge_it::run and bridge_it::run().',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'MSG',
@@ -267,7 +355,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: "Specify the number of bridge processes to execute before closing and re-starting the\nchild process. Necessary for some ENVI routines so that we don't have memory fragmentation\nregarding opening lots of small rasters.",
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'NREFRESH',
@@ -278,7 +374,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'This optional keyword specifies the prefix which is used to differentiate between arguments and\nkeywords when it comes time to parse the arguments and keyword that will be passed into a routine.',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'PREFIX',
@@ -288,7 +392,13 @@ describe(`[auto generated] Complex real world test`, () => {
           },
           private: false,
           returns: [
-            { name: 'bridge_it', display: 'bridge_it', args: [], meta: {} },
+            {
+              name: 'bridge_it',
+              display: 'bridge_it',
+              serialized: 'bridge_it',
+              args: [],
+              meta: {},
+            },
           ],
           struct: [],
         },
@@ -306,7 +416,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'The number of bridges that you want to create',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'Int', display: 'Int', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Int',
+                  display: 'Int',
+                  serialized: 'Int',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'nbridges',
@@ -331,8 +449,17 @@ describe(`[auto generated] Complex real world test`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -347,7 +474,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'Specify the directory that the log file will be written to. The log file is just a text file with\nall of the IDL Console output from each child process.',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'LOGDIR',
@@ -358,7 +493,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'Optional argument to show the message prefix when a bridge process has completed for the TIME\nkeyword in bridge_it::run and bridge_it::run().',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'MSG',
@@ -369,7 +512,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: "Specify the number of bridge processes to execute before closing and re-starting the\nchild process. Necessary for some ENVI routines so that we don't have memory fragmentation\nregarding opening lots of small rasters.",
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'NREFRESH',
@@ -380,7 +531,15 @@ describe(`[auto generated] Complex real world test`, () => {
               docs: 'This optional keyword specifies the prefix which is used to differentiate between arguments and\nkeywords when it comes time to parse the arguments and keyword that will be passed into a routine.',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'PREFIX',
@@ -390,7 +549,13 @@ describe(`[auto generated] Complex real world test`, () => {
           },
           private: false,
           returns: [
-            { name: 'bridge_it', display: 'bridge_it', args: [], meta: {} },
+            {
+              name: 'bridge_it',
+              display: 'bridge_it',
+              serialized: 'bridge_it',
+              args: [],
+              meta: {},
+            },
           ],
           struct: [],
         },

@@ -1,9 +1,6 @@
-import {
-  BRANCH_TYPES,
-  IBranch,
-  IDL_SYNTAX_TREE_POST_PROCESSOR,
-} from '@idl/parsing/syntax-tree';
+import { IDL_SYNTAX_TREE_POST_PROCESSOR } from '@idl/parsing/syntax-tree';
 import { MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { BRANCH_TYPES, IBranch } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 /**

@@ -1,4 +1,7 @@
-import { GlobalStructureToken, IGlobalIndexedToken } from '@idl/types/core';
+import {
+  GlobalStructureToken,
+  IGlobalIndexedToken,
+} from '@idl/types/idl-data-types';
 
 import { TaskFunctionName } from '../../../helpers/task-function-name';
 

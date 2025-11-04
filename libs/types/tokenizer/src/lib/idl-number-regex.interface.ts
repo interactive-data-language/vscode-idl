@@ -1,0 +1,24 @@
+export const BYTE_REGEX = /b|ub/im;
+export const INT_REGEX = /s/im;
+export const UINT_REGEX = /u|us/im;
+export const LONG_REGEX = /l/im;
+export const ULONG_REGEX = /ul/im;
+export const LONG64_REGEX = /ll/im;
+export const ULONG64_REGEX = /ull/im;
+export const FLOAT_REGEX = /\.|e/im;
+export const EXPLICIT_FLOAT_REGEX = /e/im;
+export const DOUBLE_REGEX = /d/im;
+export const COMPLEX_REGEX = /i|j/im;
+
+/**
+ * Regex to test that the text associated with a number os valid
+ */
+export const NUMBER_STRING_TEST = /(?:b|us|ull|ul|ll|l|s|u|d)(?:j|i)?/i;
+
+/**
+ * Regex to test text as being an IDL number
+ *
+ * Handles all cases for IDL numbers
+ */
+export const IDL_NUMBER_REGEX =
+  /(?<![a-z_$])(?:0[box][a-z0-9]*|[0-9.]+(?:(?:e|d)\+?-?[0-9]*|[a-z]*))(?:i|j)?/im;

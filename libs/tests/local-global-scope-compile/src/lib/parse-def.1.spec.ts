@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -63,7 +63,15 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
               usage: [[9, 22, 17]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           decrease_vector: {
@@ -77,7 +85,15 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
               usage: [[10, 20, 15]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           output_decrease_vector_uri: {
@@ -91,7 +107,15 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
               usage: [[11, 31, 26]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           increase_vector: {
@@ -105,7 +129,15 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
               usage: [[12, 20, 15]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           output_increase_vector_uri: {
@@ -119,7 +151,15 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
               usage: [[13, 31, 26]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -152,7 +192,15 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'difference_raster',
@@ -163,7 +211,15 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'decrease_vector',
@@ -174,7 +230,15 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'output_decrease_vector_uri',
@@ -185,7 +249,15 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'increase_vector',
@@ -196,7 +268,15 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'output_increase_vector_uri',

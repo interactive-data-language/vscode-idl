@@ -5,8 +5,6 @@ import {
   RoutineFunctionToken,
   RoutineProcedureToken,
 } from '@idl/tokenizer';
-import copy from 'fast-copy';
-
 import {
   BRANCH_TYPES,
   IBranch,
@@ -14,7 +12,9 @@ import {
   TreeBasicToken,
   TreeBranchToken,
   TreeToken,
-} from '../branches.interface';
+} from '@idl/types/syntax-tree';
+import copy from 'fast-copy';
+
 import { GetRoutineName } from '../helpers/get-routine-name';
 import {
   BASE_TREE_RECURSER_OPTIONS,

@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -62,7 +62,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               usage: [[5, 30, 3]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -78,7 +86,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               usage: [[0, 38, 3]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           a: {
@@ -92,7 +108,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               usage: [[0, 23, 1]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           b: {
@@ -106,7 +130,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               usage: [[0, 26, 1]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           c: {
@@ -120,7 +152,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               usage: [[0, 29, 1]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -138,7 +178,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               usage: [[14, 17, 3]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -154,7 +202,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               usage: [[10, 25, 3]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           a: {
@@ -168,7 +224,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               usage: [[10, 10, 1]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           b: {
@@ -182,7 +246,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               usage: [[10, 13, 1]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           c: {
@@ -196,7 +268,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               usage: [[10, 16, 1]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -225,7 +305,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'kw1',
@@ -250,7 +338,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'a',
@@ -261,7 +357,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'b',
@@ -272,7 +376,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'c',
@@ -288,7 +400,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'kw1',
@@ -309,7 +429,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: Long\n;+\nresult = testfunction2( $\n  kw1 = value)\n```\n\n\n#### Keywords\n\n- **kw1**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\n;+\n; :Returns: 1\n;+\nresult = testfunction2( $\n  kw1 = value)\n```\n\n\n#### Keywords\n\n- **kw1**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: {},
           display: 'testfunction2',
           kws: {
@@ -317,7 +437,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'kw1',
@@ -327,7 +455,14 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
           },
           private: false,
           returns: [
-            { display: 'Long', name: 'Long', args: [], meta: {}, value: '1' },
+            {
+              display: 'Long',
+              name: 'Long',
+              serialized: '1',
+              args: [],
+              meta: {},
+              value: ['1'],
+            },
           ],
           struct: [],
         },
@@ -345,7 +480,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'a',
@@ -356,7 +499,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'b',
@@ -367,7 +518,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'c',
@@ -375,7 +534,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               pos: [0, 29, 1],
             },
           },
-          docs: '\n```idl\n;+\n; :Returns: Long\n;+\nresult = testfunction(a, b, c, $\n  kw1 = value)\n```\n\n\n#### Arguments\n\n- **a**: bidirectional, required, any\n\n  \n\n- **b**: bidirectional, required, any\n\n  \n\n- **c**: bidirectional, required, any\n\n  \n\n\n\n#### Keywords\n\n- **kw1**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\n;+\n; :Returns: 1\n;+\nresult = testfunction(a, b, c, $\n  kw1 = value)\n```\n\n\n#### Arguments\n\n- **a**: bidirectional, required, any\n\n  \n\n- **b**: bidirectional, required, any\n\n  \n\n- **c**: bidirectional, required, any\n\n  \n\n\n\n#### Keywords\n\n- **kw1**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: {},
           display: 'testfunction',
           kws: {
@@ -383,7 +542,15 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'kw1',
@@ -393,7 +560,14 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
           },
           private: false,
           returns: [
-            { display: 'Long', name: 'Long', args: [], meta: {}, value: '1' },
+            {
+              display: 'Long',
+              name: 'Long',
+              serialized: '1',
+              args: [],
+              meta: {},
+              value: ['1'],
+            },
           ],
           struct: [],
         },

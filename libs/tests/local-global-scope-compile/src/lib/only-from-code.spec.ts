@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -80,7 +80,15 @@ describe(`[auto generated] Only use code for docs`, () => {
               usage: [[27, 20, 3]],
               docs: 'Some cool statement across\n\nmultiple lines',
               source: 'user',
-              type: [{ name: 'Int', display: 'Int', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Int',
+                  display: 'Int',
+                  serialized: 'Int',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           a: {
@@ -94,7 +102,15 @@ describe(`[auto generated] Only use code for docs`, () => {
               usage: [[27, 11, 1]],
               docs: 'Some cool statement across\n\nmultiple lines',
               source: 'user',
-              type: [{ name: 'Int', display: 'Int', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Int',
+                  display: 'Int',
+                  serialized: 'Int',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -119,7 +135,15 @@ describe(`[auto generated] Only use code for docs`, () => {
               docs: 'Some cool statement across\n\nmultiple lines',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'Int', display: 'Int', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Int',
+                  display: 'Int',
+                  serialized: 'Int',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'a',
@@ -130,7 +154,15 @@ describe(`[auto generated] Only use code for docs`, () => {
               docs: 'Some cool statement across\n\nmultiple lines',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'b',
@@ -146,7 +178,15 @@ describe(`[auto generated] Only use code for docs`, () => {
               docs: 'Some cool statement across\n\nmultiple lines',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'Int', display: 'Int', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Int',
+                  display: 'Int',
+                  serialized: 'Int',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'kw1',
@@ -157,7 +197,15 @@ describe(`[auto generated] Only use code for docs`, () => {
               docs: 'Some cool statement across\n\nmultiple lines',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'kw2',

@@ -1,15 +1,15 @@
 import { CommentToken, GetMatchesArray } from '@idl/tokenizer';
-import { HEADER_TAG } from '@idl/types/syntax-tree';
-
-import { IBasicBranch } from '../branches.interface';
-import { CleanComment } from '../helpers/clean-comment';
-import { IDL_DOCS_HEADERS } from './docs.interface';
 import {
   END_COMMENT_BLOCK_REGEX,
+  HEADER_TAG,
+  IBasicBranch,
   IDocs,
   IHeaderDocs,
   REMOVE_COMMENT_REGEX,
-} from './extract-docs.interface';
+} from '@idl/types/syntax-tree';
+
+import { CleanComment } from '../helpers/clean-comment';
+import { IDL_DOCS_HEADERS } from './docs.interface';
 import { ExtractLegacyDocs } from './extract-legacy-docs';
 import { IDL_HEADER_MAP } from './header-map.interface';
 

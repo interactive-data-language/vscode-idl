@@ -1,11 +1,9 @@
 import {
   GetTaskDisplayName,
-  IDL_TYPE_LOOKUP,
   IDLTypeHelper,
-  IFunctionMetadata,
-  SerializeIDLType,
   TASK_REGEX,
-} from '@idl/types/core';
+} from '@idl/parsing/type-parser';
+import { IDL_TYPE_LOOKUP, IFunctionMetadata } from '@idl/types/idl-data-types';
 
 import { TaskFunctionName } from '../../../helpers/task-function-name';
 import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';
@@ -38,7 +36,9 @@ export function CreateRoutineSyntax(
     if (TASK_REGEX.test(info.name)) {
       syntax.push(`; :Returns: ${GetTaskDisplayName(info.name).display}\n`);
     } else {
-      syntax.push(`; :Returns: ${SerializeIDLType(typed.returns)}\n`);
+      syntax.push(
+        `; :Returns: ${IDLTypeHelper.serializeIDLType(typed.returns)}\n`
+      );
     }
     syntax.push(';+\n');
 
@@ -116,7 +116,9 @@ export function CreateRoutineSyntax(
       if (forDocs) {
         kwSyntax = `${kw.display} = value`;
       } else {
-        kwSyntax = `${kw.display} = '${SerializeIDLType(kw?.type)}'`;
+        kwSyntax = `${kw.display} = '${IDLTypeHelper.serializeIDLType(
+          kw?.type
+        )}'`;
       }
     }
 

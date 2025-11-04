@@ -1,4 +1,7 @@
-import { GLOBAL_TOKEN_TYPES, GlobalRoutineTokenType } from '@idl/types/core';
+import {
+  GLOBAL_TOKEN_TYPES,
+  GlobalRoutineTokenType,
+} from '@idl/types/idl-data-types';
 
 /**
  * If we can handle any keyword, add a new one for '_ref_extra to the

@@ -1,11 +1,10 @@
 import { GetDisplayName } from '@idl/generators/tasks-shared';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   GlobalProcedureToken,
   IDL_TYPE_LOOKUP,
-  IDLTypeHelper,
   IGlobalIndexedToken,
-  SerializeIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { ENVITaskParameter, ENVITaskSchema33 } from '@idl/types/tasks';
 
 /**
@@ -56,10 +55,10 @@ export function MakeENVITaskParameters(
       const args = IDLTypeHelper.getAllTypeArgs(arrays);
 
       // save type args (values we store in the array)
-      param.type = SerializeIDLType(args) + 'Array';
+      param.type = IDLTypeHelper.serializeIDLType(args, true) + 'Array';
       param.dimensions = '[*]';
     } else {
-      param.type = SerializeIDLType(type);
+      param.type = IDLTypeHelper.serializeIDLType(type, true);
     }
 
     // save

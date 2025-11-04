@@ -1,20 +1,19 @@
+import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
 import {
   FindDirectBranchChildren,
   GetPropertyName,
   GetRoutineNameFromScope,
-  IParsed,
-  SyntaxProblemWithoutTranslation,
-  TreeToken,
 } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { StructureToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_STRUCTURE_TYPE,
   IDLDataType,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
@@ -44,7 +43,7 @@ export function TypeFromStructure(
 
     // check if we have a  match or not
     if (global.length > 0) {
-      return ParseIDLType(global[0].meta.display);
+      return IDLTypeHelper.parseIDLType(global[0].meta.display);
     } else {
       // report as unknown structure
       if (!routineName.endsWith('__define')) {
@@ -61,7 +60,7 @@ export function TypeFromStructure(
       }
 
       // parse type and return anyways
-      return ParseIDLType(name[0].match[0]);
+      return IDLTypeHelper.parseIDLType(name[0].match[0]);
     }
   }
 

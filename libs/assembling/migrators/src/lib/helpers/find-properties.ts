@@ -1,10 +1,10 @@
+import { AccessPropertyToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   BRANCH_TYPES,
   SyntaxTree,
   TreeBranchToken,
   TreeToken,
-} from '@idl/parsing/syntax-tree';
-import { AccessPropertyToken, TOKEN_NAMES } from '@idl/tokenizer';
+} from '@idl/types/syntax-tree';
 
 /**
  * When we encounter properties for specific variables, track the lines

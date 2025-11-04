@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -203,10 +203,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -232,8 +245,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Number>',
+                  serialized: 'Array<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -260,7 +282,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Array<any>',
+                  args: [
+                    [
+                      {
+                        name: 'any',
+                        display: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -287,8 +320,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Byte>',
+                  serialized: 'Array<Byte>',
                   args: [
-                    [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Byte',
+                        display: 'Byte',
+                        serialized: 'Byte',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -313,11 +355,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ENVIRaster>',
+                  serialized: 'Array<ENVIRaster>',
                   args: [
                     [
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
@@ -343,7 +387,15 @@ describe(`[auto generated] Types from`, () => {
               ],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           c: {
@@ -358,8 +410,20 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -378,10 +442,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -404,10 +481,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -430,10 +520,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -453,8 +556,20 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -473,10 +588,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -496,8 +624,20 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -516,10 +656,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -538,7 +691,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[66, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           l: {
@@ -556,10 +717,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -579,8 +753,20 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -595,7 +781,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[75, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           o: {
@@ -613,7 +807,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Array<any>',
+                  args: [
+                    [
+                      {
+                        name: 'any',
+                        display: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -634,10 +839,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -660,10 +878,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -683,8 +914,20 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -703,10 +946,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -725,7 +981,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[93, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           u: {
@@ -739,7 +1003,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[96, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           v: {
@@ -753,7 +1025,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[99, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           w: {
@@ -767,7 +1047,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[102, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           x: {
@@ -781,7 +1069,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[105, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           y: {
@@ -795,7 +1091,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[108, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           z: {
@@ -809,7 +1113,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[111, 2, 1]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           a2: {
@@ -823,7 +1135,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[114, 2, 2]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           b2: {
@@ -837,7 +1157,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[117, 2, 2]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           c2: {
@@ -851,7 +1179,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[120, 2, 2]],
               docs: '',
               source: 'user',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           d2: {
@@ -865,7 +1201,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[123, 2, 2]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -894,10 +1238,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -917,8 +1274,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Number>',
+                  serialized: 'Array<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -937,7 +1303,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Array<any>',
+                  args: [
+                    [
+                      {
+                        name: 'any',
+                        display: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -955,8 +1332,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Byte>',
+                  serialized: 'Array<Byte>',
                   args: [
-                    [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Byte',
+                        display: 'Byte',
+                        serialized: 'Byte',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -975,11 +1361,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ENVIRaster>',
+                  serialized: 'Array<ENVIRaster>',
                   args: [
                     [
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
@@ -998,7 +1386,15 @@ describe(`[auto generated] Types from`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'arg6',
@@ -1032,8 +1428,17 @@ describe(`[auto generated] Types from`, () => {
             {
               name: 'Array',
               display: 'Array<Number>',
+              serialized: 'Array<Number>',
               args: [
-                [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                [
+                  {
+                    name: 'Number',
+                    display: 'Number',
+                    serialized: 'Number',
+                    args: [],
+                    meta: {},
+                  },
+                ],
               ],
               meta: {},
             },
@@ -1055,7 +1460,15 @@ describe(`[auto generated] Types from`, () => {
           display: 'myfunc',
           kws: {},
           private: false,
-          returns: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+          returns: [
+            {
+              name: 'Number',
+              display: 'Number',
+              serialized: 'Number',
+              args: [],
+              meta: {},
+            },
+          ],
           struct: [],
         },
         file: 'not-real',

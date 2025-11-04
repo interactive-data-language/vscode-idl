@@ -72,7 +72,7 @@ describe(`[auto generated] Validates special cases for number string parsing`, (
         type: TOKEN_TYPES.BASIC,
         name: TOKEN_NAMES.NUMBER,
         pos: [0, 8, 7],
-        matches: [`"45ulli`, `45ulli`],
+        matches: [`"45ulli`, `45`, `ulli`],
       },
       {
         type: TOKEN_TYPES.END,

@@ -9,7 +9,7 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalTokenType,
   TASK_REGEX,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { existsSync, mkdirSync, rmSync } from 'fs';
 import { join } from 'path';
 import { DefaultTheme } from 'vitepress';

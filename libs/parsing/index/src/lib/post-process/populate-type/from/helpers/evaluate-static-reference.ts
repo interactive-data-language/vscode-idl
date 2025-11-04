@@ -1,12 +1,13 @@
+import { GetNextInBranch } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
+import { TOKEN_NAMES, VariableToken } from '@idl/tokenizer';
+import { IDL_TRANSLATION } from '@idl/translation';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 import {
-  GetNextInBranch,
   ILocalIndexedToken,
   LocalVariableToken,
   TreeToken,
-} from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES, VariableToken } from '@idl/tokenizer';
-import { IDL_TRANSLATION } from '@idl/translation';
-import { GLOBAL_TOKEN_TYPES, ParseIDLType } from '@idl/types/core';
+} from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../../../../idl-index.class';
 
@@ -53,7 +54,7 @@ export function EvaluateStaticReference(
 
   // save if we have one
   if (structs.length > 0) {
-    source.meta.type = ParseIDLType(structs[0].meta.display);
+    source.meta.type = IDLTypeHelper.parseIDLType(structs[0].meta.display);
     source.meta.isDefined = true;
     source.meta.isStaticClass = true;
     source.meta.docs = `${IDL_TRANSLATION.lsp.types.staticReference} "${structs[0].meta.display}"`;

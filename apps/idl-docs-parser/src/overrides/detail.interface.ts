@@ -1,4 +1,7 @@
-import { IDLDataType, IParameterOrPropertyDetails } from '@idl/types/core';
+import {
+  IDLDataType,
+  IParameterOrPropertyDetails,
+} from '@idl/types/idl-data-types';
 
 /**
  * Simplified information being overridden for procedures

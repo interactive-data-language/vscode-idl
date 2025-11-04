@@ -1,0 +1,238 @@
+import {
+  IBasicToken,
+  TOKEN_NAMES,
+  TokenizerToken,
+  TokenName,
+  UnknownToken,
+} from '@idl/tokenizer';
+import { TOKEN_TYPES } from '@idl/tokenizer/common';
+import {
+  IDL_PROBLEM_CODES,
+  IDLProblemCode,
+  SyntaxProblems,
+} from '@idl/types/problem-codes';
+import {
+  BRANCH_TYPES,
+  IBasicBranch,
+  IBranch,
+  IRecurserCloseOptions,
+  IRecurserOptions,
+  SyntaxTree,
+  TreeToken,
+} from '@idl/types/syntax-tree';
+
+import { SyntaxProblemWithTranslation } from './syntax-problem-with';
+
+/**
+ * Actually extract our tokens and make the syntax tree
+ *
+ * IMPORTANT NOTE: "i" is the i-th element of our flat syntax tree. We
+ * set it as the "idx" value below to have a placeholder, but it gets
+ * truly populated after this runs.
+ */
+function BuildTreeRecurser(
+  tokens: TokenizerToken<TokenName>[],
+  options: IRecurserOptions,
+  closer?: IRecurserCloseOptions
+): SyntaxTree {
+  /** Tree of tokens */
+  const tree: SyntaxTree = [];
+
+  // process each token
+  for (let i = options.start + 1; i < tokens.length; i++) {
+    // console.log(`Loop: ${i}, level: ${options.recursionLevel}`);
+    // update our start position
+    options.start++;
+
+    // extract our token
+    const token = tokens[i];
+
+    /** Problems associated with the current token that we save */
+    const parseProblems: IDLProblemCode[] = [];
+
+    // check if we need to do anything special about our token
+    switch (token.name) {
+      case TOKEN_NAMES.UNEXPECTED_CLOSER:
+        // track problem, dont do anything with our token
+        options.syntax.push(
+          SyntaxProblemWithTranslation(
+            IDL_PROBLEM_CODES.UNEXPECTED_CLOSER,
+            token.pos,
+            token.pos
+          )
+        );
+        parseProblems.push(IDL_PROBLEM_CODES.UNEXPECTED_CLOSER);
+        continue;
+      default:
+        // do nothing
+        break;
+    }
+
+    // handle the type of our token
+    switch (token.type) {
+      case TOKEN_TYPES.BASIC:
+        {
+          const basic: IBasicBranch<any> = {
+            type: BRANCH_TYPES.BASIC,
+            name: token.name,
+            pos: token.pos,
+            match: token.matches,
+            idx: i,
+            scope: [],
+            parseProblems,
+          };
+          tree.push(basic);
+        }
+        break;
+      case TOKEN_TYPES.START:
+        {
+          // make our close options
+          const newCloser: IRecurserCloseOptions = {
+            closeId: token._id,
+          };
+
+          // increment our recursion level
+          options.recursionLevel++;
+
+          // make our token
+          const branch: IBranch<any> = {
+            type: BRANCH_TYPES.BRANCH,
+            name: token.name,
+            pos: token.pos,
+            match: token.matches,
+            idx: i,
+            scope: [],
+            parseProblems,
+            end: undefined,
+            kids: BuildTreeRecurser(tokens, options, newCloser),
+          };
+
+          // adjust recursion level
+          options.recursionLevel--;
+
+          // check if we found a closing statement
+          if (newCloser.closeIdx !== undefined) {
+            // save end information
+            branch.end = {
+              pos: tokens[newCloser.closeIdx].pos,
+              match: tokens[newCloser.closeIdx].matches,
+            };
+          } else {
+            // only report first instance
+            if (!options.notClosed) {
+              options.syntax.push(
+                SyntaxProblemWithTranslation(
+                  IDL_PROBLEM_CODES.NOT_CLOSED,
+                  branch.pos,
+                  branch.pos
+                )
+              );
+              parseProblems.push(IDL_PROBLEM_CODES.NOT_CLOSED);
+
+              // update flag for fewer distracting errors
+              options.notClosed = true;
+            }
+          }
+
+          // save our token
+          tree.push(branch);
+
+          // update index
+          i = options.start;
+        }
+        break;
+      case TOKEN_TYPES.END:
+        {
+          // check if we are ending our token
+          if (closer !== undefined) {
+            // do we have a matching close ID?
+            if (closer.closeId === token._id) {
+              // set closer index and stop doing anything here
+              // dont save this token because we will grab it up above
+              closer.closeIdx = i;
+              return tree;
+            } else {
+              // track problem, dont add to syntax tree
+              options.syntax.push(
+                SyntaxProblemWithTranslation(
+                  IDL_PROBLEM_CODES.UNEXPECTED_CLOSER,
+                  token.pos,
+                  token.pos
+                )
+              );
+              parseProblems.push(IDL_PROBLEM_CODES.UNEXPECTED_CLOSER);
+            }
+          } else {
+            // track problem, dont add to syntax tree
+            options.syntax.push(
+              SyntaxProblemWithTranslation(
+                IDL_PROBLEM_CODES.UNEXPECTED_CLOSER,
+                token.pos,
+                token.pos
+              )
+            );
+            parseProblems.push(IDL_PROBLEM_CODES.UNEXPECTED_CLOSER);
+          }
+        }
+        break;
+      default:
+        {
+          // use "as any" because typescript is too smart that it is stupid to handle
+          // this case which is a :never" because all other tokens are accounted for
+          // which is silly because it means you can have an error for writing very thorough code
+          console.log(
+            `Warning: when building tree, found unexpected token type of "${
+              (token as IBasicToken<TokenName>).type
+            }"`
+          );
+
+          // dont save problem - these are caught un the unknown syntax validator
+          // so not using this prevents double errors
+          // options.syntax.push(
+          //   ProblemWithTranslation(
+          //     IDL_PROBLEM_CODES.UNKNOWN_BRANCH_TOKEN,
+          //     pos,
+          //     pos
+          //   )
+          // );
+          // problems.push(IDL_PROBLEM_CODES.UNKNOWN_BRANCH_TOKEN);
+
+          // default to basic token
+          const basic: TreeToken<UnknownToken> = {
+            type: BRANCH_TYPES.UNKNOWN,
+            name: (token as IBasicToken<UnknownToken>).name,
+            pos: (token as IBasicToken<UnknownToken>).pos,
+            match: (token as IBasicToken<UnknownToken>).matches,
+            idx: i,
+            scope: [],
+            parseProblems,
+          };
+          tree.push(basic);
+        }
+        break;
+    }
+  }
+
+  return tree;
+}
+
+/**
+ * Builds a recursive syntax tree from the tokens that we extract
+ *
+ * If any bug fixes need to be made, should be mirrored in libs\parsing\syntax-tree\src\lib\build-syntax-tree.ts
+ */
+export function SimplifiedBuildSyntaxTree(
+  tokens: TokenizerToken<TokenName>[],
+  parseSyntaxProblems: SyntaxProblems,
+  full: boolean
+) {
+  // build our syntax tree
+  return BuildTreeRecurser(tokens, {
+    start: -1,
+    recursionLevel: 0,
+    foundMain: false,
+    syntax: parseSyntaxProblems,
+    notClosed: false,
+    full,
+  });
+}

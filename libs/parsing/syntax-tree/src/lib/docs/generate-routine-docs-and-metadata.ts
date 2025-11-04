@@ -1,4 +1,9 @@
 import {
+  SyntaxProblemWithoutTranslation,
+  SyntaxProblemWithTranslation,
+} from '@idl/parsing/shared';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
+import {
   CommentBlockToken,
   CommentToken,
   RoutineFunctionToken,
@@ -14,19 +19,13 @@ import {
   GlobalStructureToken,
   IGlobalIndexedToken,
   IParameterLookup,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
+import { IBasicBranch, IBranch, IDocs } from '@idl/types/syntax-tree';
 
-import { IBasicBranch, IBranch } from '../branches.interface';
 import { FindDirectBranchChildren } from '../helpers/searching/find-direct-branch-children';
-import {
-  SyntaxProblemWithoutTranslation,
-  SyntaxProblemWithTranslation,
-} from '../syntax-problem-with';
 import { IDL_DOCS_HEADERS } from './docs.interface';
 import { ExtractDocs } from './extract-docs';
-import { IDocs } from './extract-docs.interface';
 import { GenerateRoutineMetadata } from './generate-routine-metadata';
 import { RoutineType } from './generate-routine-metadata.interface';
 import { DocsToMarkdown } from './markdown/docs-to-markdown';
@@ -109,7 +108,7 @@ export function GenerateRoutineDocsAndMetadata(
         docs: '',
         private: false,
         source: GLOBAL_TOKEN_SOURCE_LOOKUP.INTERNAL,
-        type: ParseIDLType(DEFAULT_DATA_TYPE),
+        type: IDLTypeHelper.parseIDLType(DEFAULT_DATA_TYPE),
         direction: 'bidirectional',
         req: true,
         display: args[i].match[0],
@@ -173,7 +172,7 @@ export function GenerateRoutineDocsAndMetadata(
         docs: '',
         private: false,
         source: GLOBAL_TOKEN_SOURCE_LOOKUP.INTERNAL,
-        type: ParseIDLType(DEFAULT_DATA_TYPE),
+        type: IDLTypeHelper.parseIDLType(DEFAULT_DATA_TYPE),
         direction: 'bidirectional',
         req: false,
         display: kws[i].match[0],

@@ -1,16 +1,13 @@
-import {
-  IParsed,
-  SyntaxProblemWithTranslation,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { OperatorPointerToken } from '@idl/tokenizer';
 import {
   IDL_ANY_TYPE,
   IDL_TYPE_LOOKUP,
   IDLDataType,
-  IDLTypeHelper,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
@@ -68,6 +65,6 @@ export function TypeFromPointerDeref(
 
     return copy(IDL_ANY_TYPE);
   } else {
-    return copy(IDLTypeHelper.reduceIDLDataType(outputType));
+    return copy(IDLTypeHelper.postProcessIDLDataType(outputType));
   }
 }

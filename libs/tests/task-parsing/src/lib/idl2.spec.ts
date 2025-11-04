@@ -1,7 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
-import { GlobalTokens } from '@idl/types/core';
+import { GlobalTokens } from '@idl/types/idl-data-types';
 import { TaskToGlobalToken } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
@@ -43,8 +43,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -63,6 +72,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'IDLTASKCATALOG',
                   display: 'IDLTASKCATALOG',
+                  serialized: 'IDLTASKCATALOG',
                   args: [],
                   meta: {},
                 },
@@ -85,11 +95,13 @@ describe(`[auto generated] Correctly parse task file`, () => {
             {
               name: 'idlqueryalltaskstask',
               display: 'IDLTask<queryalltasks>',
+              serialized: 'IDLTask<queryalltasks>',
               args: [
                 [
                   {
                     name: 'queryalltasks',
                     display: 'queryalltasks',
+                    serialized: 'queryalltasks',
                     args: [],
                     meta: {},
                   },

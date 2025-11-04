@@ -1,5 +1,6 @@
-import { IsWithinToken, TreeToken } from '@idl/parsing/syntax-tree';
+import { IsWithinToken } from '@idl/parsing/syntax-tree';
 import { TokenName } from '@idl/tokenizer';
+import { TreeToken } from '@idl/types/syntax-tree';
 import { Position } from 'vscode-languageserver';
 
 /**

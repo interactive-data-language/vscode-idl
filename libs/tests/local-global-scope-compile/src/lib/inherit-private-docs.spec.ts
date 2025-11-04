@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -60,7 +60,13 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
               docs: 'Super Cool flag',
               source: 'user',
               type: [
-                { name: 'Boolean', display: 'Boolean', args: [], meta: {} },
+                {
+                  name: 'Boolean',
+                  display: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -91,7 +97,13 @@ describe(`[auto generated] Correctly inherits docs for`, () => {
               direction: 'in',
               source: 'internal',
               type: [
-                { name: 'Boolean', display: 'Boolean', args: [], meta: {} },
+                {
+                  name: 'Boolean',
+                  display: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
               private: true,
               req: false,

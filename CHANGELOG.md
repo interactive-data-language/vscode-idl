@@ -20,9 +20,26 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 ### Unreleased
 
+Syntax highlighting for types has been updated to match the new type parser which resolved some issues with types not being highlighted in docs blocks.
+
+Fixed a typo in one of the paths we check to find IDL on Mac when you have ENVI + IDL installed
+
+New preference (enabled by default) that has the theme of IDL and ENVI match that of VSCode. This means, if you have a dark mode programming theme, IDL and ENVI will launch in dark mode. Do note that, if we detect `IDL_THEME` as an environment variable, this preference has no effect.
+
 Change the way that we detect the types from ENVI and IDL tasks in your code. If we don't know which ENVI or IDL task you are using, we set the type as a generic ENVITask or IDLTask. This makes sure you still get some type of auto-complete and hover help for a better developer experience.
 
 Fixed an issue with task generation not correctly adjusting the names of paired parameters.
+
+Fixed a bug with IDL Notebooks embedding odd graphics from the ENVI UI when running cells with the ENVI UI open
+
+Fixed an issue where empty paths could be added to the IDL search path through VSCode settings.
+
+Re-worked the logic for managing and setting IDL's search path. It follows this process:
+
+- If you have workspaces open, and have opted in to adding to the path (default), add each folder
+- If you have set IDL's path through VSCode preferences, add each folder
+- If you have IDL_PATH in your environment variable, add each folder
+- Always make sure the IDL_DEFAULT path is present
 
 ## 5.1.0 - August 2025
 

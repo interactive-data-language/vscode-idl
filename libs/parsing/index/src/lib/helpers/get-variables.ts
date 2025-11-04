@@ -1,10 +1,6 @@
-import {
-  GetRoutineName,
-  ILocalTokenLookup,
-  IParsed,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { GetRoutineName } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
+import { ILocalTokenLookup, IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { ITokenCache } from './token-cache.interface';
 

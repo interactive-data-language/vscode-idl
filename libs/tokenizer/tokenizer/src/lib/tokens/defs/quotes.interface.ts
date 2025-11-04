@@ -43,7 +43,7 @@ export const QUOTE_SINGLE: QuoteSingleTokenDef = {
    *
    * The different expressions are for 'string', '1010101'[oxb], and 'missing-close
    */
-  match: /'([^']*)'((?!then|else|of|do|until)[a-z]+\b)?|'(.*)$/im,
+  match: /'([^'\n]*)'([bxo][ubsl]{0,3}[ij]?\b)?|'([^'\n]*)$/im,
   // start: /'([^']*)'?((?!then|else|of|do|until)[a-z]+\b)?/im,
   getTokenName: (matches) => {
     if (NUMBER_AS_SINGLE_QUOTE.test(matches[0])) {
@@ -69,11 +69,15 @@ export const QUOTE_DOUBLE: QuoteDoubleTokenDef = {
    * strings. This dramatically simplifies the regex and is easier to maintain/update.
    *
    * The different expressions are for "string", "1010101"[oxb], "42, and "missing-close
+   *
+   * The main logic follows:
+   * 1. Check for pattern that matches double quote numbers (numbers, then 1-2 letters) and make sure
+   *    there is an operator afterwards or the end of the string
+   * 2. Check for normal strings (with a few exceptions)
+   * 3. Check for unclosed strings
    */
   match:
-    /"([0-7]+)([a-z]{0,3})\b(?!"|\.)|"([^"]*)"((?!then|else|of|do|until)[a-z]+\b)?|"(.*)$/im,
-  //  start:
-  //  /([0-7]+)([a-z]{0,3})\b(?!"|\.)|"([^"]*)"?((?!then|else|of|do|until)[a-z]+\b)?/im,
+    /"([^"\n]*)"(?![0-7]+[ubsl]{0,3}[ij]?)([bxo][ubsl]{0,3}[ij]?\b)?|"([0-7]+)([ubsl]{0,3}[ij]?)\b(?!"|\.)|"([^"\n]*)$/im,
   getTokenName: (matches) => {
     if (NUMBER_AS_DOUBLE_QUOTE.test(matches[0])) {
       return TOKEN_NAMES.NUMBER;

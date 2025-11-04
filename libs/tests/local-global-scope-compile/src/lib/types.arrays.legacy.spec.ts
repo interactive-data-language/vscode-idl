@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -83,11 +83,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Boolean>',
+                  serialized: 'Array<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -113,8 +115,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Byte>',
+                  serialized: 'Array<Byte>',
                   args: [
-                    [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Byte',
+                        display: 'Byte',
+                        serialized: 'Byte',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -136,11 +147,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Complex>',
+                  serialized: 'Array<Complex>',
                   args: [
                     [
                       {
                         name: 'Complex',
                         display: 'Complex',
+                        serialized: 'Complex',
                         args: [],
                         meta: {},
                       },
@@ -166,8 +179,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<Double>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Double',
+                        display: 'Double',
+                        serialized: 'Double',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -189,11 +211,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<DoubleComplex>',
+                  serialized: 'Array<DoubleComplex>',
                   args: [
                     [
                       {
                         name: 'DoubleComplex',
                         display: 'DoubleComplex',
+                        serialized: 'DoubleComplex',
                         args: [],
                         meta: {},
                       },
@@ -219,8 +243,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Float>',
+                  serialized: 'Array<Float>',
                   args: [
-                    [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Float',
+                        display: 'Float',
+                        serialized: 'Float',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -242,7 +275,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Int>',
-                  args: [[{ name: 'Int', display: 'Int', args: [], meta: {} }]],
+                  serialized: 'Array<Int>',
+                  args: [
+                    [
+                      {
+                        name: 'Int',
+                        display: 'Int',
+                        serialized: 'Int',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -263,8 +307,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Long>',
+                  serialized: 'Array<Long>',
                   args: [
-                    [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Long',
+                        display: 'Long',
+                        serialized: 'Long',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -286,8 +339,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Long64>',
+                  serialized: 'Array<Long64>',
                   args: [
-                    [{ name: 'Long64', display: 'Long64', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Long64',
+                        display: 'Long64',
+                        serialized: 'Long64',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -309,8 +371,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -332,8 +403,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<UInt>',
+                  serialized: 'Array<UInt>',
                   args: [
-                    [{ name: 'UInt', display: 'UInt', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'UInt',
+                        display: 'UInt',
+                        serialized: 'UInt',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -355,8 +435,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ULong>',
+                  serialized: 'Array<ULong>',
                   args: [
-                    [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'ULong',
+                        display: 'ULong',
+                        serialized: 'ULong',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -378,11 +467,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ULong64>',
+                  serialized: 'Array<ULong64>',
                   args: [
                     [
                       {
                         name: 'ULong64',
                         display: 'ULong64',
+                        serialized: 'ULong64',
                         args: [],
                         meta: {},
                       },
@@ -419,11 +510,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Boolean>',
+                  serialized: 'Array<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -446,8 +539,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Byte>',
+                  serialized: 'Array<Byte>',
                   args: [
-                    [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Byte',
+                        display: 'Byte',
+                        serialized: 'Byte',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -466,11 +568,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Complex>',
+                  serialized: 'Array<Complex>',
                   args: [
                     [
                       {
                         name: 'Complex',
                         display: 'Complex',
+                        serialized: 'Complex',
                         args: [],
                         meta: {},
                       },
@@ -493,8 +597,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<Double>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Double',
+                        display: 'Double',
+                        serialized: 'Double',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -513,11 +626,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<DoubleComplex>',
+                  serialized: 'Array<DoubleComplex>',
                   args: [
                     [
                       {
                         name: 'DoubleComplex',
                         display: 'DoubleComplex',
+                        serialized: 'DoubleComplex',
                         args: [],
                         meta: {},
                       },
@@ -540,8 +655,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Float>',
+                  serialized: 'Array<Float>',
                   args: [
-                    [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Float',
+                        display: 'Float',
+                        serialized: 'Float',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -560,7 +684,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Int>',
-                  args: [[{ name: 'Int', display: 'Int', args: [], meta: {} }]],
+                  serialized: 'Array<Int>',
+                  args: [
+                    [
+                      {
+                        name: 'Int',
+                        display: 'Int',
+                        serialized: 'Int',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -578,8 +713,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Long>',
+                  serialized: 'Array<Long>',
                   args: [
-                    [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Long',
+                        display: 'Long',
+                        serialized: 'Long',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -598,8 +742,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Long64>',
+                  serialized: 'Array<Long64>',
                   args: [
-                    [{ name: 'Long64', display: 'Long64', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Long64',
+                        display: 'Long64',
+                        serialized: 'Long64',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -618,8 +771,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -638,8 +800,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<UInt>',
+                  serialized: 'Array<UInt>',
                   args: [
-                    [{ name: 'UInt', display: 'UInt', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'UInt',
+                        display: 'UInt',
+                        serialized: 'UInt',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -658,8 +829,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ULong>',
+                  serialized: 'Array<ULong>',
                   args: [
-                    [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'ULong',
+                        display: 'ULong',
+                        serialized: 'ULong',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -678,11 +858,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ULong64>',
+                  serialized: 'Array<ULong64>',
                   args: [
                     [
                       {
                         name: 'ULong64',
                         display: 'ULong64',
+                        serialized: 'ULong64',
                         args: [],
                         meta: {},
                       },

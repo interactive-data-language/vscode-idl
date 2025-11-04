@@ -1,6 +1,5 @@
 import {
   BranchCallback,
-  IBasicBranch,
   IDL_SYNTAX_TREE_POST_PROCESSOR,
   IDLSyntaxValidatorMeta,
 } from '@idl/parsing/syntax-tree';
@@ -12,6 +11,7 @@ import {
   RoutineNameToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
+import { IBasicBranch } from '@idl/types/syntax-tree';
 
 export const SKIP_TOKENS: { [key: string]: any } = {};
 SKIP_TOKENS[TOKEN_NAMES.COMMA] = true;

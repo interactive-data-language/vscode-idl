@@ -3,7 +3,7 @@ import {
   GlobalStructureToken,
   GlobalTokens,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import { GET_KEYWORDS_FROM } from '../overrides/properties-and-keywords/get-keywords-from';
 import { UpdateThese } from './set-keywords-as-properties.interface';

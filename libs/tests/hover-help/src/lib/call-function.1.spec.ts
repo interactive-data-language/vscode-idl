@@ -184,8 +184,8 @@ describe(`[auto generated] Basic checks for call_function() hover help`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type headless = Boolean',
+      '```idl',
+      'kw headless: Boolean',
       '```',
       '',
       'Set this property to 1 to start the application without creating the user interface. The WIDGET\\_ID property is 0 when running ENVI in headless mode.',

@@ -164,8 +164,8 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
 
     // define expected token we extract
     const expectedFound_1: string[] = [
-      '```typescript',
-      'type generate_pixel_state_mask = Boolean',
+      '```idl',
+      'kw generate_pixel_state_mask: Boolean',
       '```',
       '',
       'If set, then an addititonal output raster is created',
@@ -192,8 +192,8 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
 
     // define expected token we extract
     const expectedFound_2: string[] = [
-      '```typescript',
-      'type input_raster1 = ENVIRaster',
+      '```idl',
+      'var input_raster1: ENVIRaster',
       '```',
       '',
       'Specify the first raster to use for intersection.',

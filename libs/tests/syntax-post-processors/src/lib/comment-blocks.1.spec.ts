@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxTree } from '@idl/parsing/syntax-tree';
 import { SyntaxProblems } from '@idl/types/problem-codes';
+import { SyntaxTree } from '@idl/types/syntax-tree';
 
 describe(`[auto generated] Correctly map comments to comment blocks`, () => {
   it(`[auto generated] ignore normal comments`, () => {

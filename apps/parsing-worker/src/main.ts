@@ -22,12 +22,10 @@ import {
   IDLIndex,
   ReduceGlobals,
 } from '@idl/parsing/index';
-import {
-  IParsedLightWeight,
-  RemoveScopeDetail,
-} from '@idl/parsing/syntax-tree';
+import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { IParsedLightWeight } from '@idl/types/syntax-tree';
 import {
   ChangeDetectionResponse,
   ILSPWorkerThreadClient,

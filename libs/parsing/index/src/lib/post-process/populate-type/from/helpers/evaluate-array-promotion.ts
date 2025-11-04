@@ -1,12 +1,7 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { CallFunctionMethodToken, CallFunctionToken } from '@idl/tokenizer';
-import {
-  IDL_TYPE_LOOKUP,
-  IDLDataType,
-  IDLTypeHelper,
-  ParseIDLType,
-  SerializeIDLType,
-} from '@idl/types/core';
+import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../../../../idl-index.class';
 import { GetArgTypes } from '../../../tree-handlers/helpers/get-arg-types';
@@ -26,20 +21,43 @@ export function EvaluateArrayPromotion(
   // get the type args
   const args = IDLTypeHelper.getAllTypeArgs(promoted);
 
-  // check each type for an array
+  /**
+   * Check if we have an array
+   *
+   * If so, even if another value may be "any", we should have an
+   * array type back from IDL, so this takes precedence
+   */
   for (let i = 0; i < types.length; i++) {
     if (IDLTypeHelper.isType(types[i], IDL_TYPE_LOOKUP.ARRAY)) {
-      return ParseIDLType(`Array<${SerializeIDLType(args)}>`);
+      return IDLTypeHelper.createIDLType([
+        {
+          name: IDL_TYPE_LOOKUP.ARRAY,
+          args: [args],
+        },
+      ]);
     }
   }
 
-  // if we dont definitively have an array, and we have "any" types, then return either
+  /**
+   * If we did not have an array, but we have "any", then return
+   * all permutations of scalar and array of the scalar types
+   */
   for (let i = 0; i < types.length; i++) {
     if (IDLTypeHelper.isAnyType(types[i])) {
-      return args.concat(ParseIDLType(`Array<${SerializeIDLType(args)}>`));
+      return args.concat(
+        IDLTypeHelper.createIDLType([
+          {
+            name: IDL_TYPE_LOOKUP.ARRAY,
+            args: [args],
+          },
+        ])
+      );
     }
   }
 
-  // no definitive array, so return normal type
+  /**
+   * If we get here, then we just return the arguments because
+   * we don't have an array or "any"
+   */
   return args;
 }

@@ -52,7 +52,7 @@ describe(`[auto generated] Verify we use return type`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `;+`,
-        `; :Returns: String | Long`,
+        `; :Returns: 'NSEW' | 0`,
         `;`,
         `; :Arguments:`,
         `;   arg: bidirectional, required, any`,

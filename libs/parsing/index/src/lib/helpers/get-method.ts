@@ -1,4 +1,4 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   CallFunctionMethodToken,
   CallProcedureMethodToken,
@@ -11,11 +11,10 @@ import {
   IDL_TYPE_LOOKUP,
   IDLDataType,
   IDLDataTypeBase,
-  IDLTypeHelper,
   IDLTypes,
   IGlobalIndexedToken,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../idl-index.class';
 import { TypeFromTokens } from '../post-process/populate-type/from/type-from-tokens';
@@ -76,7 +75,7 @@ export function GetMethodForType<
           parsed,
           token,
           useCache,
-          ParseIDLType(alsoCheck[i])
+          IDLTypeHelper.parseIDLType(alsoCheck[i])
         );
         if (matches.length > 0) {
           return matches;

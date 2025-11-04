@@ -1,6 +1,6 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { GlobalTokens } from '@idl/types/core';
+import { GlobalTokens } from '@idl/types/idl-data-types';
 import {
   ChangeDetectionResponse,
   LSP_WORKER_THREAD_MESSAGE_LOOKUP,

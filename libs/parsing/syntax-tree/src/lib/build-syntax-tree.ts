@@ -1,38 +1,30 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
   IBasicToken,
-  MainLevelToken,
   TOKEN_NAMES,
   TokenizerToken,
   TokenName,
   UnknownToken,
 } from '@idl/tokenizer';
 import { TOKEN_TYPES } from '@idl/tokenizer/common';
-import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
-
+import {
+  IDL_PROBLEM_CODES,
+  IDLProblemCode,
+  SyntaxProblems,
+} from '@idl/types/problem-codes';
 import {
   BRANCH_TYPES,
+  DEFAULT_PARSED,
   IBasicBranch,
   IBranch,
-  SyntaxTree,
-  TreeToken,
-} from './branches.interface';
-import {
   IRecurserCloseOptions,
   IRecurserOptions,
-} from './build-syntax-tree.interface';
-import { DEFAULT_PARSED, IParsed } from './parsed.interface';
-import { PopulateIndex } from './populate-index';
-import { PopulateScope } from './populate-scope';
-import { PopulateGlobalLocalCompileOpts } from './populators/populate-global';
-import { PopulateVariables } from './populators/populate-variables';
+  SyntaxTree,
+  TreeToken,
+} from '@idl/types/syntax-tree';
+
 import { IDL_SYNTAX_TREE_POST_PROCESSOR } from './post-processor.interface';
 import { DEFAULT_CURRENT } from './recursion-and-callbacks/tree-recurser.interface';
-import { SyntaxProblemWithTranslation } from './syntax-problem-with';
-import {
-  IDL_SYNTAX_TREE_VALIDATOR,
-  IDLSyntaxValidatorMeta,
-} from './validator.interface';
 
 /**
  * Actually extract our tokens and make the syntax tree
@@ -264,97 +256,22 @@ function BuildTreeRecurser(
 }
 
 /**
- * Builds our syntax tree and saves it in the tokenized version of our code
+ * Builds a recursive syntax tree from the tokens that we extract
+ *
+ * If any bug fixes need to be made, should be mirrored in libs\parsing\shared\src\lib\simplified-build-syntax-tree.ts
  */
 export function BuildSyntaxTree(
-  parsed: IParsed,
-  cancel: CancellationToken,
+  tokens: TokenizerToken<TokenName>[],
+  parseSyntaxProblems: SyntaxProblems,
   full: boolean
 ) {
   // build our syntax tree
-  parsed.tree = BuildTreeRecurser(parsed.tokens, {
+  return BuildTreeRecurser(tokens, {
     start: -1,
     recursionLevel: 0,
     foundMain: false,
-    syntax: parsed.parseProblems,
+    syntax: parseSyntaxProblems,
     notClosed: false,
     full,
   });
-
-  // set tree index
-  PopulateIndex(parsed.tree);
-
-  // populate the scope
-  PopulateScope(parsed, cancel);
-
-  // perform post-processing
-  IDL_SYNTAX_TREE_POST_PROCESSOR.processTree(
-    parsed.tree,
-    parsed,
-    DEFAULT_CURRENT
-  );
-
-  /**
-   * Populate our global, local (variables), and compile-opts
-   *
-   * Populate global tokens - do note that this also populates docs
-   * so we probably dont want to turn it off
-   *
-   * If it is off, we dont get hover help or useful auto-complete
-   */
-  PopulateGlobalLocalCompileOpts(parsed, cancel, true || parsed.type === 'def');
-
-  // validate tree
-  if (full) {
-    // set tree index again because we might have manipulated our syntax tree
-    PopulateIndex(parsed.tree);
-
-    // populate the scope again in case our tree changed
-    PopulateScope(parsed, cancel);
-
-    // create metadata for our syntax validator
-    // leave this for type checks even though unused
-    const validatorMeta: IDLSyntaxValidatorMeta = {
-      ...DEFAULT_CURRENT,
-    };
-
-    // run our syntax validation
-    IDL_SYNTAX_TREE_VALIDATOR.run(parsed, cancel, (token, meta) => {
-      return meta;
-    });
-  }
-}
-
-/**
- * Populates a lookup with quick information for where local things are defined
- */
-export function PopulateLocal(parsed: IParsed) {
-  // get local tokens
-  const local = parsed.local;
-
-  // extract our tree
-  const tree = parsed.tree;
-
-  // process all of the direct children in our tree
-  for (let i = 0; i < tree.length; i++) {
-    // extract our branch
-    const branch = tree[i];
-
-    // determine how to proceed
-    switch (branch.name) {
-      // handle main level programs - the others are handled elsewhere
-      // inside of "populate-global.ts" or you can search for the name of the
-      // function "GetUniqueVariables("
-      case TOKEN_NAMES.MAIN_LEVEL:
-        local.main = PopulateVariables(
-          branch as IBranch<MainLevelToken>,
-          parsed,
-          parsed.compile.main
-        );
-        break;
-      default:
-        // do nothing
-        break;
-    }
-  }
 }

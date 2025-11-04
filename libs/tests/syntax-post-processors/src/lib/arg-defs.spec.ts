@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxTree } from '@idl/parsing/syntax-tree';
 import { SyntaxProblems } from '@idl/types/problem-codes';
+import { SyntaxTree } from '@idl/types/syntax-tree';
 
 describe(`[auto generated] Correctly extract argument definitions from code`, () => {
   it(`[auto generated] Convert variables to arguments in standard routine definitions`, () => {

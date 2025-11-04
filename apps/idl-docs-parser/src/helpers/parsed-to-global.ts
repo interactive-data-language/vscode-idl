@@ -1,6 +1,6 @@
 import { IGlobalFromIDL } from '@idl/parsing/routines';
 import { DocsToMarkdown, MARKDOWN_TYPE_LOOKUP } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, IRoutineMetadata } from '@idl/types/core';
+import { GlobalTokens, IRoutineMetadata } from '@idl/types/idl-data-types';
 import { existsSync, readFileSync } from 'fs';
 import * as progressBar from 'progress';
 

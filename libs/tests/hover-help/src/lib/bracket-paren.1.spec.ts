@@ -29,8 +29,8 @@ describe(`[auto generated] Correctly provides hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type IDL_Variable.dim = Array<Number>',
+      '```idl',
+      'prop IDL_Variable.dim: Array<Number>',
       '```',
       '',
       'An array giving the dimensions (0 for scalars).',
@@ -53,8 +53,8 @@ describe(`[auto generated] Correctly provides hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_1: string[] = [
-      '```typescript',
-      'type IDL_Variable.tname = String',
+      '```idl',
+      'prop IDL_Variable.tname: String',
       '```',
       '',
       'A string giving the raw IDL type name. For structures this returns "STRUCT", while for objects this returns "OBJREF".',
@@ -150,8 +150,8 @@ describe(`[auto generated] Correctly provides hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_3: string[] = [
-      '```typescript',
-      'type IDL_Variable.typecode = Int',
+      '```idl',
+      'prop IDL_Variable.typecode: Int',
       '```',
       '',
       'An integer giving the IDL type code.',
@@ -174,8 +174,8 @@ describe(`[auto generated] Correctly provides hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_4: string[] = [
-      '```typescript',
-      'type Plot.axis_style = String',
+      '```idl',
+      'prop Plot.axis_style: String',
       '```',
       '',
       'Set this keyword to one of the following values:',

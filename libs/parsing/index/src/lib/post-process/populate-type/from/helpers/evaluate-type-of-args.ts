@@ -1,6 +1,6 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
 import { CallFunctionMethodToken, CallFunctionToken } from '@idl/tokenizer';
-import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/core';
+import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../../../../idl-index.class';
 import { GetArgTypes } from '../../../tree-handlers/helpers/get-arg-types';
@@ -24,6 +24,13 @@ export function EvaluateTypeOfArgs(
   token: TreeToken<CallFunctionMethodToken | CallFunctionToken>,
   argType: IDLDataType
 ): IDLDataType {
+  /**
+   * Return if no kids
+   */
+  if (token.kids.length === 0) {
+    return IDL_ANY_TYPE;
+  }
+
   // get the types from our arguments
   const types = GetArgTypes(index, parsed, token);
 
@@ -45,8 +52,17 @@ export function EvaluateTypeOfArgs(
      */
     const args = argType[i].args;
 
-    // get the argument
-    const iArg = args[0][0].name;
+    /**
+     * Get the argument index
+     *
+     * Use the serialized property because this should be our number
+     * as a string.
+     *
+     * The "name" property doesn't work here any more because the type
+     * will not be "Number" and will instead be something like "Int"
+     * because of our smart IDL type processing.
+     */
+    const iArg = args[0][0].serialized;
 
     /**
      * If we dont have a number, return "any" because we cant process this

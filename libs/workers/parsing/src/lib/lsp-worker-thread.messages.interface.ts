@@ -3,14 +3,14 @@ import { MigrationType } from '@idl/assembling/migrators-types';
 import { GenerateTaskResult } from '@idl/generators/tasks-shared';
 import { ILogOptions } from '@idl/logger';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
-import { IParsedLightWeight, ParsedType } from '@idl/parsing/syntax-tree';
 import { AutoCompleteRecipe, AutoCompleteType } from '@idl/types/auto-complete';
 import {
   GlobalTokens,
   GlobalTokenType,
   IBaseIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
+import { IParsedLightWeight, ParsedType } from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';
 import {
   IGenerateTaskPayload,

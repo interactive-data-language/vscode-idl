@@ -1,7 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
-import { GlobalTokens } from '@idl/types/core';
+import { GlobalTokens } from '@idl/types/idl-data-types';
 import { TaskToGlobalToken } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
@@ -43,6 +43,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'ENVIPointCloudBase',
                   display: 'ENVIPointCloudBase',
+                  serialized: 'ENVIPointCloudBase',
                   args: [],
                   meta: {},
                 },
@@ -61,6 +62,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'ENVIPointCloudSpatialRef',
                   display: 'ENVIPointCloudSpatialRef',
+                  serialized: 'ENVIPointCloudSpatialRef',
                   args: [],
                   meta: {},
                 },
@@ -75,7 +77,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'general_clip_min_height',
               docs: 'The minimum height extent of the source dataset in which processing will occur.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             general_clip_max_height: {
@@ -86,7 +96,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'general_clip_max_height',
               docs: 'The maximum height extent of the source dataset in which processing will occur.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             general_max_points_density: {
@@ -97,7 +115,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'general_max_points_density',
               docs: "This parameter limits the processed number of points. The limit is applied by taking only some of the points per block of data; a single block's dimensions are 32x32 meters. Limiting the density shortens the processing time of the buildings and power line detection algorithms.",
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             general_points_density_units: {
@@ -108,7 +134,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'general_points_density_units',
               docs: 'The units of the maximum points density. 0: points per square meter, 1: ground sample distance in meters.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             number_of_cores: {
@@ -119,7 +154,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'number_of_cores',
               docs: 'The number of cores used for product processing. The default value is zero, which indicates that all available cores will be used for processing. If a value larger than the number of available cores is specified, then the maximum number of available cores will be used.',
-              type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ULong',
+                  display: 'ULong',
+                  serialized: 'ULong',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             save_parameters: {
@@ -130,7 +173,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'save_parameters',
               docs: 'Sets whether to save the parameters with the data (in the project) when Execute() is called. If the parameters are saved the next time the data is opened and set in INPUT_POINT_CLOUD, calling ENVITask::Validate() or ENVITask::Execute() will restore the saved parameters (but will not overwrite any parameters set on the ENVITask). 0: Do not save. 1: Save.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             products_location: {
@@ -141,7 +193,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'products_location',
               docs: 'The name of the output folder to which the associated product files will be written. This location is a subfolder of the main project folder.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             buildings_generate: {
@@ -152,7 +212,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'buildings_generate',
               docs: '0: Do not generate. 1: Generate.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             buildings_use_box_models: {
@@ -163,7 +232,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'buildings_use_box_models',
               docs: '0: Do not use box models. 1: Use box models. This stops the algorithm from dividing buildings into sub-surfaces, and leaves them as flat roof bounding contours. The classification stays the same, but only one contour is generated at the requested height with the options set using the BUILDINGS_BOX_MODELS_TYPE parameter.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             buildings_box_models_type: {
@@ -174,7 +252,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'buildings_box_models_type',
               docs: 'Sets the roof contour height. 0: Height at Average Roof. The roof contour is set at the average height of the roof. 1: Height at Bottom Roof. The roof contour is set at the lowest point of the roof. 2: Height at Top Roof. The roof contour is set at the highest point of the roof.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1 | 2',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1', '2'],
+                },
+              ],
               req: false,
             },
             buildings_minimum_area: {
@@ -185,7 +272,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'buildings_minimum_area',
               docs: 'Surfaces with an area smaller than this are filtered out from the building list. Units: square meters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             buildings_near_ground_filter_width: {
@@ -196,7 +291,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'buildings_near_ground_filter_width',
               docs: 'After filtering by BUILDINGS_MINIMUM_AREA, objects less than 5 meters above the ground with a side smaller than this filter width (default 300 centimeters) are not classified as buildings. This is useful for preventing buses, trucks, train cars, and so forth from being classified as buildings. Units: centimeters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             buildings_plane_surface_tolerance: {
@@ -207,7 +310,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'buildings_plane_surface_tolerance',
               docs: 'This parameter is the allowed vertical tolerance for searching for the surface in the neighboring points. Range: greater than or equal to 15.0 and less than or equal to 60.0. Units: centimeters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             buildings_points_in_range: {
@@ -218,7 +329,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'buildings_points_in_range',
               docs: 'Normally this should be left at 0, which is the same as Auto in the user interface. However, if you have low density data (1 point per m2 or lower), large buildings such as hangars or warehouses may not be classified as buildings. Increasing this value to 1.2 or 1.4 will help detect them, but runs the risk of also identifying trees as buildings. Range: greater than or equal to 0.5 and less than or equal to 1.4. Units: meters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             buildings_format: {
@@ -229,7 +348,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'buildings_format',
               docs: 'A string value that specifies the file format to write buildings to: dxf, shp, dae_1.4, dae_1.5, kml or kmz.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized:
+                    "'dxf' | 'shp' | 'dae_1.4' | 'dae_1.5' | 'kml' | 'kmz'",
+                  args: [],
+                  meta: {},
+                  value: ['dxf', 'shp', 'dae_1.4', 'dae_1.5', 'kml', 'kmz'],
+                },
+              ],
               req: false,
             },
             buildings_uri: {
@@ -240,7 +369,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'buildings_uri',
               docs: 'A string value specifying the filename for the buildings product.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dem_contours_generate: {
@@ -251,7 +388,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_contours_generate',
               docs: '0: Do not generate, 1: Generate.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             dem_contours_lines_spacing: {
@@ -262,7 +408,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_contours_lines_spacing',
               docs: 'This is the vertical spacing between height contour lines. This step is done after the DEM grid is generated; therefore, it does not affect the DEM grid generation. Range: greater than or equal to 50 and less than or equal to 1000. Units: centimeters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dem_contours_format: {
@@ -273,7 +427,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_contours_format',
               docs: 'A string value that specifies the file format to write DEM contours to: dxf or shp.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: "'dxf' | 'shp'",
+                  args: [],
+                  meta: {},
+                  value: ['dxf', 'shp'],
+                },
+              ],
               req: false,
             },
             dem_contours_uri: {
@@ -284,7 +447,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_contours_uri',
               docs: 'A string value specifying the filename for the DEM contours product.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dem_generate: {
@@ -295,7 +466,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_generate',
               docs: '0: Do not generate, 1: Generate.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             dem_filter_database_edges: {
@@ -306,7 +486,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_filter_database_edges',
               docs: 'In some types of terrain, for example forested areas with trees at the edge of the dataset, the algorithms of the DEM grid generation do not detect the edges of the database well. 0: Process the edge of the database. 1: Do not process the edge of the database. The points that lie within an area up to 16 meters from the edges of the dataset are classified as unprocessed.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             dem_grid_resolution: {
@@ -317,7 +506,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_grid_resolution',
               docs: 'The grid resolution range allows selection of 50 to 1000 centimeters per pixel. Internally a 50 cm or 100 cm grid resolution is used and sub-sampled to 200-1000 cm if selected. The 50 cm grid tunes the DEM extraction algorithms to be more sensitive at some points, and requires higher density data. If the project density is lower than 4 points / m2, selecting the 50 cm grid will not result in better resolution of the DEM and the amount of time to create the DEM will increase. Range: Greater than or equal to 50 and less than or equal to 1000. Units: centimeters. ',
-              type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ULong',
+                  display: 'ULong',
+                  serialized: 'ULong',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dem_constant_height_offset: {
@@ -328,7 +525,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_constant_height_offset',
               docs: 'In noisy datasets the elevation of the DEM may be slightly offset due to inaccurate points above and below the ground. If this happens you can shift the terrain grid up or down. A positive number will move the DEM up, and a negative number will move the DEM down.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dem_near_terrain_classification: {
@@ -339,7 +544,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_near_terrain_classification',
               docs: 'When set at 50 (the default value), a point is considered to be a terrain classified point if it is within 50cm of the grid. You can select to have a near terrain classification between 5cm and 50cm. As an example, if this parameter is set to 20cm, points with a distance of 0 to 20cm from the grid are classified as terrain points, and points with a distance of 20 to 50cm are classified as near terrain points. Classifying points as near terrain is useful to catch low objects that are neither part of the terrain, nor are they buildings, trees or powerlines. For example: low vegetation, cars, buses, etc. could all be classified as near terrain objects. Range: greater than or equal to 15 and less than or equal to 50. Units: centimeters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dem_variable_sensitivity_algorithm: {
@@ -350,7 +563,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_variable_sensitivity_algorithm',
               docs: '0: Disabled 1: Enable variable sensitivity algorithm. This algorithm works best in low-density forest areas and areas with large gaps between points. However, this algorithm has difficulty with identifying large buildings.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             dem_sensitivity: {
@@ -361,7 +583,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_sensitivity',
               docs: 'Use when DEM_VARIABLE_SENSITIVITY_ALGORITHM is enabled. The higher the sensitivity, the better it works with higher frequency terrain, but also it tends to extract buildings from points that should be identified as terrain. Valid range is 1 (low) to 300 (high).',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dem_filter_lower_points: {
@@ -372,7 +602,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_filter_lower_points',
               docs: '0 : Do Not Filter. Disables filtering of points that are lower than the terrain. 3 : Urban Area Filtering. The area is divided to the grid resolution. For each cell in the grid, the list of points is put into a histogram and examined. Points are sorted by height, and the median point and standard deviation are found. Points that are below a multiplier of the standard deviation from the median are filtered out. If the standard deviation is too large, gaps are also counted in the histogram for better filtering. Urban areas have more false points that needed to be filtered. If you specify rural filtering in an urban area, some of the false points will not be detected. 10: Rural Area Filtering. Processing is done as it is in Urban Area Filtering. If you specify urban filtering in a rural area, the filtering may be too aggressive, and some good terrain points in forest areas may be filtered out resulting in bumps under trees.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 3 | 10',
+                  args: [],
+                  meta: {},
+                  value: ['0', '3', '10'],
+                },
+              ],
               req: false,
             },
             dem_format: {
@@ -383,7 +622,26 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_format',
               docs: "A string value that specifies the file format to write the DEM to: 'img' - Erdas Elevation (Erdas Imagine IMG format with elevation data), 'surfer_ascii' - Surfer ASCII Grid, 'surfer_v6' - Surfer Binary Grid v6, 'usgs_ascii' - USGS ASCII DEM format, 'xyz_ascii' - XYZ ASCII Grid file, 'arcinfo_ascii' - Arc Info ASCII Grid format, 'geotiff' - GeoTIFF, 'envi' - ENVI format.",
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized:
+                    "'img' | 'surfer_ascii' | 'surfer_v6' | 'usgs_ascii' | 'xyz_ascii' | 'arcinfo_ascii' | 'geotiff' | 'envi'",
+                  args: [],
+                  meta: {},
+                  value: [
+                    'img',
+                    'surfer_ascii',
+                    'surfer_v6',
+                    'usgs_ascii',
+                    'xyz_ascii',
+                    'arcinfo_ascii',
+                    'geotiff',
+                    'envi',
+                  ],
+                },
+              ],
               req: false,
             },
             dem_uri: {
@@ -394,7 +652,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_uri',
               docs: 'A string value specifying the filename for the DEM product.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dem_tin_generate: {
@@ -405,7 +671,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_tin_generate',
               docs: '0: Do not generate, 1: Generate.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             dem_tin_max_error: {
@@ -416,7 +691,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_tin_max_error',
               docs: 'The maximum permitted vertical distance between a triangle and the actual terrain. This distance between the TIN and the actual terrain introduces errors into the TIN mesh. Reducing the Maximum Error value will result in a more accurate TIN at the expense of increased triangle count. A combination of this value and DEM_TIN_MAX_POLYGON_DENSITY will affect the TIN representation of the ground. TIN production does not affect the DEM grid production algorithm. The TIN production uses only the points classified as terrain. Reducing the value of the Near Terrain Classification parameter results in reducing the number of points that are classified as terrain, thereby reducing both the time for TIN generation and the size of the TIN generated. Units: centimeters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dem_tin_max_polygon_density: {
@@ -427,7 +710,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_tin_max_polygon_density',
               docs: 'When producing TIN, this is the maximum number of triangles that will be produced in a 100 x 100 meter area. It may not be possible to achieve the terrain TIN maximum error if this polygon density parameter is set too low.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dem_tin_format: {
@@ -438,7 +729,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_tin_format',
               docs: 'A string value that specifies the file format to write the TIN to: dxf or shp.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: "'dxf' | 'shp'",
+                  args: [],
+                  meta: {},
+                  value: ['dxf', 'shp'],
+                },
+              ],
               req: false,
             },
             dem_tin_uri: {
@@ -449,7 +749,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dem_tin_uri',
               docs: 'A string value specifying the filename for the DEM TIN product.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dsm_generate: {
@@ -460,7 +768,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dsm_generate',
               docs: '0: Do not generate, 1: Generate.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             dsm_use_powerlines_points: {
@@ -471,7 +788,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dsm_use_powerlines_points',
               docs: 'Specifies whether power lines and cables will be part of the DSM. Valid values are 0: Do not include, 1: Include.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             dsm_grid_resolution: {
@@ -482,7 +808,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dsm_grid_resolution',
               docs: 'This setting specifies the resolution of the DSM grid. Range: Greater than or equal to 5 and less than or equal to 1000. Units: centimeters.',
-              type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ULong',
+                  display: 'ULong',
+                  serialized: 'ULong',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             dsm_format: {
@@ -493,7 +827,26 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dsm_format',
               docs: "A string value that specifies the file format to write the DSM to: 'img' - Erdas Elevation (Erdas Imagine IMG format with elevation data), 'surfer_ascii' - Surfer ASCII Grid, 'surfer_v6' - Surfer Binary Grid v6, 'usgs_ascii' - USGS ASCII DEM format, 'xyz_ascii' - XYZ ASCII Grid file, 'arcinfo_ascii' - Arc Info ASCII Grid format, 'geotiff' - GeoTIFF, 'envi' - ENVI format.",
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized:
+                    "'img' | 'surfer_ascii' | 'surfer_v6' | 'usgs_ascii' | 'xyz_ascii' | 'arcinfo_ascii' | 'geotiff' | 'envi'",
+                  args: [],
+                  meta: {},
+                  value: [
+                    'img',
+                    'surfer_ascii',
+                    'surfer_v6',
+                    'usgs_ascii',
+                    'xyz_ascii',
+                    'arcinfo_ascii',
+                    'geotiff',
+                    'envi',
+                  ],
+                },
+              ],
               req: false,
             },
             dsm_uri: {
@@ -504,7 +857,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'dsm_uri',
               docs: 'A string value specifying the filename for the DSM product.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             filtered_pointcloud_generate: {
@@ -515,7 +876,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'filtered_pointcloud_generate',
               docs: '0: Do not generate, 1: Generate.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             filtered_pointcloud_separate_by_class: {
@@ -526,7 +896,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'filtered_pointcloud_separate_by_class',
               docs: 'Specifies whether to separate the generated point cloud datasets, each containing data from an individual class.. 0: Do not separate, 1: Separate.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             filtered_pointcloud_size_limit: {
@@ -537,7 +916,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'filtered_pointcloud_size_limit',
               docs: 'Set this to limit the size (Kb) of each of the generated point cloud files. If the value specified is less than 10000 (10MB), a value of 10000 will be used.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             filtered_pointcloud_format: {
@@ -548,7 +935,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'filtered_pointcloud_format',
               docs: 'A string value that specifies the file format to write the pointclouds to: txt, las or bin.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: "'txt' | 'las' | 'bin'",
+                  args: [],
+                  meta: {},
+                  value: ['txt', 'las', 'bin'],
+                },
+              ],
               req: false,
             },
             filtered_pointcloud_uri: {
@@ -559,7 +955,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'filtered_pointcloud_uri',
               docs: 'A string value specifying the base file name for the filtered point cloud product. This name can have the following formats: base_filename_unclassified_000.las or base_filename_product_000.las (ex. pc_trees_000.las).',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             orthophoto_generate: {
@@ -570,7 +974,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'orthophoto_generate',
               docs: '0: Do not generate, 1: Generate.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             orthophoto_intensity_range_min: {
@@ -581,7 +994,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'orthophoto_intensity_range_min',
               docs: 'All points with intensity lower than this value appear black. Use the default value (0) unless you see that the file is all or mostly white, in which case increase the value.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             orthophoto_intensity_range_max: {
@@ -592,7 +1013,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'orthophoto_intensity_range_max',
               docs: 'All points with intensity higher than this value appear white. Use the default value (255) unless you see that the file is all or mostly black, in which case decrease the value.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             orthophoto_resolution: {
@@ -603,7 +1032,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'orthophoto_resolution',
               docs: 'This parameter specifies the resolution of the generated orthophoto. Range: greater than or equal to 25 and less than or equal to 800. Units: centimeters.',
-              type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ULong',
+                  display: 'ULong',
+                  serialized: 'ULong',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             orthophoto_format: {
@@ -614,7 +1051,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'orthophoto_format',
               docs: 'A string value that specifies the file format to write the orthophoto to: geotiff, jpg, png, img, bmp, or envi.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized:
+                    "'geotiff' | 'jpg' | 'png' | 'img' | 'bmp' | 'envi'",
+                  args: [],
+                  meta: {},
+                  value: ['geotiff', 'jpg', 'png', 'img', 'bmp', 'envi'],
+                },
+              ],
               req: false,
             },
             orthophoto_uri: {
@@ -625,7 +1072,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'orthophoto_uri',
               docs: 'A string specifying the filename for the orthophoto product.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             powerlines_generate: {
@@ -636,7 +1091,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerlines_generate',
               docs: '0: Do not generate, 1: Generate.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             powerlines_filter_by_min_joined_length: {
@@ -647,7 +1111,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerlines_filter_by_min_joined_length',
               docs: '0: Do not filter powerlines by minimum joined length. 1: Filter powerlines by minimum joined length.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             powerlines_filter_trees_below_powerlines: {
@@ -658,7 +1131,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerlines_filter_trees_below_powerlines',
               docs: '0: Do not filter trees below powerlines. 1: Filter trees below powerlines. Sometimes trees considerably below powerlines may be incorrectly extended up to the powerlines. Filtering trees below powerlines attempts to vertically separate tree and powerline points, but this can sometimes incorrectly remove the entire tree.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             powerlines_search_wide: {
@@ -669,7 +1151,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerlines_search_wide',
               docs: '0: Do not get one line for triple conductors attached together in transmission lines. 1: Get one line for triple conductors attached together in transmission lines. Do not use this parameter and POWERLINES_SEARCH_LOWKV together.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             powerlines_search_lowkv: {
@@ -680,7 +1171,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerlines_search_lowkv',
               docs: '0: Do not search for low kilo volt power lines that are close to each other. 1: Search for low kilo volt power lines that are close to each other. Do not use this parameter and POWERLINES_SEARCH_WIDE together.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             powerlines_min_height: {
@@ -691,7 +1191,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerlines_min_height',
               docs: 'The minimum height of points from the ground at which to detect power lines. Units: meters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             powerlines_min_joined_length: {
@@ -702,7 +1210,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerlines_min_joined_length',
               docs: 'The Min. length threshold for joined power lines. Joined power lines shorter than this value will not be detected. Units: meters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             powerlines_min_length: {
@@ -713,7 +1229,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerlines_min_length',
               docs: 'The minimum length threshold for power lines. Power lines shorter than this value will not be detected. Units: meters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             powerlines_format: {
@@ -724,7 +1248,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerlines_format',
               docs: 'A string value that specifies the file format to write the powerlines to: dxf or shp.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: "'dxf' | 'shp'",
+                  args: [],
+                  meta: {},
+                  value: ['dxf', 'shp'],
+                },
+              ],
               req: false,
             },
             powerlines_uri: {
@@ -735,7 +1268,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerlines_uri',
               docs: 'The filename for the power lines product.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             powerpoles_detect: {
@@ -746,7 +1287,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerpoles_detect',
               docs: '0: Do not generate power pole output. 1: Process power poles by searching, or by using the imported power poles locations reference list. Power poles are searched for by looking for attachment points where two power lines have a shared point. After identifying these shared points, the algorithm searches for a cluster of points with a shared angle range of lines extending from the shared points.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             powerpoles_search_additional: {
@@ -757,7 +1307,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerpoles_search_additional',
               docs: 'The power poles can be imported from a file using the POWERPOLES_LOCATION_FILE property. If a list of points was imported, set this to 1 to enable a search of additional power poles. If not enabled, only the imported power poles will be processed.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             powerpoles_class_extend_top: {
@@ -768,7 +1327,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerpoles_class_extend_top',
               docs: 'See POWERPOLES_CLASS_RADIUS_LOW. The classification of the top part of the power pole is done by the width of the power poles arms. If a wider radius is needed, use this parameter to extend it. Units: meters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             powerpoles_class_radius_low: {
@@ -779,7 +1346,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerpoles_class_radius_low',
               docs: 'If the radius of the power pole is known, set the parameter to the known radius of the base (lower half). For large pylons if this parameter is not increased high enough not all of the points on the pylon will be classified as power pole. Units: meters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             powerpoles_extend_wires_distance: {
@@ -790,7 +1365,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerpoles_extend_wires_distance',
               docs: 'Sets the maximum gap to be corrected. Capability is provided to bridge gaps in the line from the end of the detected line to the next power pole. Units: meters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             powerpoles_max_radius_top: {
@@ -801,7 +1384,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerpoles_max_radius_top',
               docs: "A float value indicating the maximum radius of the pole's arm. Units: meters.",
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             powerpoles_location_file: {
@@ -812,7 +1403,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'powerpoles_location_file',
               docs: 'A string containing the file name of the power pole locations file to import.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             trees_generate: {
@@ -823,7 +1422,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'trees_generate',
               docs: '0: Do not generate, 1: Generate.',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: '0 | 1',
+                  args: [],
+                  meta: {},
+                  value: ['0', '1'],
+                },
+              ],
               req: false,
             },
             trees_min_height: {
@@ -834,7 +1442,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'trees_min_height',
               docs: 'The minimum height of trees in the project. Points having characteristic trees dispersal will be classified as trees. Units: centimeters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             trees_max_height: {
@@ -845,7 +1461,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'trees_max_height',
               docs: 'The maximum height of trees in the project. Higher points will not be classified as trees. This avoids items such as cranes being classified as trees. Units: centimeters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             trees_min_radius: {
@@ -856,7 +1480,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'trees_min_radius',
               docs: 'The minimum radius of trees in the project. This avoids items such as lampposts being classified as trees. Units: centimeters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             trees_max_radius: {
@@ -867,7 +1499,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'trees_max_radius',
               docs: 'The maximum radius of trees in the project. Units: centimeters.',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             trees_format: {
@@ -878,7 +1518,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'trees_format',
               docs: 'A string value that specifies the file format to write the trees to: csv or shp.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: "'csv' | 'shp'",
+                  args: [],
+                  meta: {},
+                  value: ['csv', 'shp'],
+                },
+              ],
               req: false,
             },
             trees_uri: {
@@ -889,7 +1538,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'trees_uri',
               docs: 'The filename for the trees product.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             output_products_info: {
@@ -904,6 +1561,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'ENVIPointCloudProductsInfo',
                   display: 'ENVIPointCloudProductsInfo',
+                  serialized: 'ENVIPointCloudProductsInfo',
                   args: [],
                   meta: {},
                 },
@@ -926,11 +1584,13 @@ describe(`[auto generated] Correctly parse task file`, () => {
             {
               name: 'envipointcloudfeatureextractiontask',
               display: 'ENVITask<pointcloudfeatureextraction>',
+              serialized: 'ENVITask<pointcloudfeatureextraction>',
               args: [
                 [
                   {
                     name: 'pointcloudfeatureextraction',
                     display: 'pointcloudfeatureextraction',
+                    serialized: 'pointcloudfeatureextraction',
                     args: [],
                     meta: {},
                   },

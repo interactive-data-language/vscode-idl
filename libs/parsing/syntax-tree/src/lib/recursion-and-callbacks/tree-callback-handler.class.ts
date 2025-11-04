@@ -1,8 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { BasicTokenNames, NonBasicTokenNames } from '@idl/tokenizer';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { ITreeRecurserCurrent, ITreeRecurserOptions, TreeToken } from '../..';
-import { IParsed } from '../parsed.interface';
 import {
   BasicCallback,
   BasicCallbackLookup,
@@ -14,6 +13,10 @@ import {
   TreeCallbackLookup,
 } from './tree-callback-handler.interface';
 import { TreeCallbackRunner } from './tree-callback-runner';
+import {
+  ITreeRecurserCurrent,
+  ITreeRecurserOptions,
+} from './tree-recurser.interface';
 
 /**
  * Class designed to add and execute on callbacks for given tokens

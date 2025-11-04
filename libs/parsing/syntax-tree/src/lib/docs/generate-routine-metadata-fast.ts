@@ -1,8 +1,8 @@
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import {
   FunctionRoutineType,
@@ -47,7 +47,7 @@ export function GenerateRoutineMetadataFast<T extends RoutineType>(
       display: '',
       kws: {},
       private: false,
-      returns: ParseIDLType(DEFAULT_DATA_TYPE),
+      returns: IDLTypeHelper.parseIDLType(DEFAULT_DATA_TYPE),
       struct: [],
     };
 

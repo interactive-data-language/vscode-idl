@@ -3,12 +3,12 @@ import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
 import { IDLIndex } from '@idl/parsing/index';
-import { SyntaxTree, TreeToken } from '@idl/parsing/syntax-tree';
 import { MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   DEFAULT_NOTEBOOK_TO_PRO_CODE_OPTIONS,
   INotebookToProCodeOptions,
 } from '@idl/types/notebooks';
+import { SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
 import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 
 /**

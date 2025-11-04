@@ -444,7 +444,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `;+`,
-        `; :Returns: Long`,
+        `; :Returns: 42`,
         `;`,
         `; :Arguments:`,
         `;   a: bidirectional, required, any`,
@@ -594,7 +594,7 @@ describe(`[auto generated] Verify doc formatting`, () => {
         `end`,
         ``,
         `;+`,
-        `; :Returns: Long`,
+        `; :Returns: 42`,
         `;`,
         `; :Arguments:`,
         `;   a: bidirectional, required, any`,

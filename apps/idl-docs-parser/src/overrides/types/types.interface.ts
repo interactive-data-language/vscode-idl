@@ -1,4 +1,4 @@
-import { ParameterDirection } from '@idl/types/core';
+import { ParameterDirection } from '@idl/types/idl-data-types';
 
 /**
  * Simplified information being overridden for procedures

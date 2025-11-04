@@ -28,11 +28,7 @@ describe(`[auto generated] Correctly display help for literal types`, () => {
     const position_0: Position = { line: 1, character: 2 };
 
     // define expected token we extract
-    const expectedFound_0: string[] = [
-      '```typescript',
-      'var var1: Long = 5',
-      '```',
-    ];
+    const expectedFound_0: string[] = ['```idl', 'var var1: Long = 5', '```'];
 
     // get hover help
     const hoverHelp_0 = await index.getHoverHelp(
@@ -51,7 +47,7 @@ describe(`[auto generated] Correctly display help for literal types`, () => {
 
     // define expected token we extract
     const expectedFound_1: string[] = [
-      '```typescript',
+      '```idl',
       "var var2: String = 'awesome sauce'",
       '```',
     ];
@@ -73,8 +69,8 @@ describe(`[auto generated] Correctly display help for literal types`, () => {
 
     // define expected token we extract
     const expectedFound_2: string[] = [
-      '```typescript',
-      "var var3: String = 'supercool'",
+      '```idl',
+      "var var3: String = ''supercool''",
       '```',
     ];
 
@@ -95,7 +91,7 @@ describe(`[auto generated] Correctly display help for literal types`, () => {
 
     // define expected token we extract
     const expectedFound_3: string[] = [
-      '```typescript',
+      '```idl',
       "var var4: String = 'stringy'",
       '```',
     ];
@@ -117,7 +113,7 @@ describe(`[auto generated] Correctly display help for literal types`, () => {
 
     // define expected token we extract
     const expectedFound_4: string[] = [
-      '```typescript',
+      '```idl',
       'var var5: Float = 1e6',
       '```',
     ];

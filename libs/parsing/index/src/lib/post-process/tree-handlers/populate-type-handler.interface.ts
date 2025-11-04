@@ -1,8 +1,8 @@
 import {
   IHandlerCallbackMetadata,
-  ILocalTokenLookup,
   TreeCallbackHandler,
 } from '@idl/parsing/syntax-tree';
+import { ILocalTokenLookup } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../../idl-index.class';
 

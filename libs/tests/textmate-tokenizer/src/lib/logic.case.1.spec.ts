@@ -955,13 +955,14 @@ describe(`[auto generated] Validates case statement`, () => {
       },
       {
         line: 1,
-        match: ' Long',
-        startIndex: 11,
+        match: 'Long',
+        startIndex: 12,
         endIndex: 16,
         scopes: [
           'source.idl',
           'comment.block.idl',
           'comment.line.idl',
+          'entity.name.type.ts',
           'entity.name.type.ts',
         ],
       },
