@@ -25,9 +25,9 @@ DEFAULT_TYPE_ARGS[IDL_TYPE_LOOKUP.TYPE_OF_ARG] = [
     {
       name: IDL_TYPE_LOOKUP.NUMBER,
       display: IDL_TYPE_LOOKUP.NUMBER,
-      serialized: `'0'`,
+      serialized: `0`,
       meta: {},
-      value: [`'0'`],
+      value: [`0`],
       args: [],
     },
   ],
