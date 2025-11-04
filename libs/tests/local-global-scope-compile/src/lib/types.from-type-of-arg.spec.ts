@@ -64,7 +64,16 @@ describe(`[auto generated] Types from`, () => {
             usage: [[13, 0, 6]],
             docs: '',
             source: 'user',
-            type: [{ display: 'String', name: 'String', args: [], meta: {} }],
+            type: [
+              {
+                display: 'String',
+                name: 'String',
+                serialized: "'string'",
+                args: [],
+                meta: {},
+                value: ['string'],
+              },
+            ],
           },
         },
         any: {
@@ -100,7 +109,16 @@ describe(`[auto generated] Types from`, () => {
             usage: [[15, 0, 5]],
             docs: '',
             source: 'user',
-            type: [{ display: 'Float', name: 'Float', args: [], meta: {} }],
+            type: [
+              {
+                display: 'Float',
+                name: 'Float',
+                serialized: '1.0',
+                args: [],
+                meta: {},
+                value: ['1.0'],
+              },
+            ],
           },
         },
         array: {
@@ -118,7 +136,19 @@ describe(`[auto generated] Types from`, () => {
               {
                 name: 'Array',
                 display: 'Array<Long>',
-                args: [[{ name: 'Long', display: 'Long', args: [], meta: {} }]],
+                serialized: 'Array<1 | 2 | 3>',
+                args: [
+                  [
+                    {
+                      display: 'Long',
+                      name: 'Long',
+                      serialized: '1 | 2 | 3',
+                      args: [],
+                      meta: {},
+                      value: ['1', '2', '3'],
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -163,8 +193,20 @@ describe(`[auto generated] Types from`, () => {
           returns: [
             {
               name: 'TypeOfArg',
-              display: 'TypeOfArg<0>',
-              args: [[{ name: '0', display: '0', args: [], meta: {} }]],
+              display: 'TypeOfArg<Number>',
+              serialized: 'TypeOfArg<0>',
+              args: [
+                [
+                  {
+                    name: 'Number',
+                    display: 'Number',
+                    serialized: '0',
+                    meta: {},
+                    value: ['0'],
+                    args: [],
+                  },
+                ],
+              ],
               meta: {},
             },
           ],
@@ -245,7 +287,16 @@ describe(`[auto generated] Types from`, () => {
             usage: [[13, 0, 6]],
             docs: '',
             source: 'user',
-            type: [{ display: 'String', name: 'String', args: [], meta: {} }],
+            type: [
+              {
+                display: 'String',
+                name: 'String',
+                serialized: "'string'",
+                args: [],
+                meta: {},
+                value: ['string'],
+              },
+            ],
           },
         },
         any: {
@@ -259,7 +310,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[14, 0, 3]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         float: {
@@ -273,7 +332,16 @@ describe(`[auto generated] Types from`, () => {
             usage: [[15, 0, 5]],
             docs: '',
             source: 'user',
-            type: [{ display: 'Float', name: 'Float', args: [], meta: {} }],
+            type: [
+              {
+                display: 'Float',
+                name: 'Float',
+                serialized: '1.0',
+                args: [],
+                meta: {},
+                value: ['1.0'],
+              },
+            ],
           },
         },
         array: {
@@ -291,7 +359,19 @@ describe(`[auto generated] Types from`, () => {
               {
                 name: 'Array',
                 display: 'Array<Long>',
-                args: [[{ name: 'Long', display: 'Long', args: [], meta: {} }]],
+                serialized: 'Array<1 | 2 | 3>',
+                args: [
+                  [
+                    {
+                      display: 'Long',
+                      name: 'Long',
+                      serialized: '1 | 2 | 3',
+                      args: [],
+                      meta: {},
+                      value: ['1', '2', '3'],
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
