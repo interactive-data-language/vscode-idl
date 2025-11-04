@@ -20,6 +20,21 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 ### Unreleased
 
+Added a formal parser for type notations which is much more robust and offers some added benefits:
+
+- Full support for literal types (numbers, strings, etc.)
+
+- Track the value for types, which you will see in hover help
+
+- Reworked hover help for types that uses our IDL syntax highlighting and is aware of variables, keywords, properties, and more.
+
+- Our hover-help for properties from task files now uses choice lists and gives more insight into what valid parameters can be.
+
+> This is just a first implementation of changing type parsing/handling. More to come!
+>
+> And, if there's something weird or hard to understand about the new hover help, let us know and we
+> are happy to improve the extension!
+
 Syntax highlighting for types has been updated to match the new type parser which resolved some issues with types not being highlighted in docs blocks.
 
 Fixed a typo in one of the paths we check to find IDL on Mac when you have ENVI + IDL installed
