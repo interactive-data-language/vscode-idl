@@ -24,14 +24,14 @@ export async function TestsForLocalGlobalScopeAndCompile(
 
   // add imports
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
-  strings.push(
-    `import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';`
-  );
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
   );
-  strings.push(`import { ILocalTokens } from '@idl/parsing/syntax-tree';`);
+  strings.push(
+    `import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';`
+  );
+  strings.push(`import { ILocalTokens } from '@idl/types/syntax-tree';`);
   strings.push(``);
   strings.push(`IDL_INDEX_OPTIONS.IS_TEST = true;`);
   strings.push(``);
