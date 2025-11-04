@@ -2,8 +2,8 @@ import { Assembler } from '@idl/assembler';
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IParsed } from '@idl/types/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
+import { IParsed } from '@idl/types/syntax-tree';
 
 import {
   ExtractPropertyLines,

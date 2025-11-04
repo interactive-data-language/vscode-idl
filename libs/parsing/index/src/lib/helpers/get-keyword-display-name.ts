@@ -1,11 +1,10 @@
-import { TreeToken } from '@idl/types/syntax-tree';
-
 import {
   KeywordBinaryToken,
   KeywordDefinitionToken,
   KeywordToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
+import { TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Gets the display name for a keyword since we have two kinds and

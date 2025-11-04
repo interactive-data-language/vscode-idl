@@ -1,9 +1,8 @@
 import { TransformCase } from '@idl/assembling/shared';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { GetSortIndexForStrings } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IPropertyCompletionOptions } from '@idl/types/auto-complete';
-import { IDLTypeHelper } from '@idl/parsing/type-parser';
-
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,

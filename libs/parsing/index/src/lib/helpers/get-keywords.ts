@@ -1,5 +1,5 @@
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { TokenName } from '@idl/tokenizer';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../idl-index.class';
 import { IFoundKeywords } from './get-keywords.interface';

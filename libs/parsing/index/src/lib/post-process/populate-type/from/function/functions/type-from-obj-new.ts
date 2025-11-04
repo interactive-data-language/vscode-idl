@@ -1,5 +1,5 @@
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { CallFunctionToken } from '@idl/tokenizer';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../../../../../idl-index.class';
 import { TypeFromFirstArg } from '../../helpers/type-from-first-arg';

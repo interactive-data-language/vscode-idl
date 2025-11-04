@@ -1,5 +1,4 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,

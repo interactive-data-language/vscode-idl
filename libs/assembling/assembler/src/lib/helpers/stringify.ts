@@ -1,6 +1,5 @@
-import { TreeToken } from '@idl/types/syntax-tree';
-
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
+import { TreeToken } from '@idl/types/syntax-tree';
 
 import {
   ALWAYS_SPACE_AFTER,

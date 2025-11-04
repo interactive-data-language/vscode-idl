@@ -1,4 +1,3 @@
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   CallFunctionMethodToken,
@@ -15,6 +14,7 @@ import {
   IDLTypes,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../idl-index.class';
 import { TypeFromTokens } from '../post-process/populate-type/from/type-from-tokens';

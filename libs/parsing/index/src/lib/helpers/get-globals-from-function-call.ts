@@ -1,10 +1,10 @@
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { CallFunctionToken } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalIndexedRoutineToken,
   IDL_TYPE_LOOKUP,
 } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../idl-index.class';
 import { TypeFromCallFunction } from '../post-process/populate-type/from/function/functions/type-from-call-function';

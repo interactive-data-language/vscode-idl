@@ -1,12 +1,11 @@
 import { AdjustCase } from '@idl/assembling/shared';
-import { TreeToken } from '@idl/types/syntax-tree';
-
 import { IDLFileHelper } from '@idl/shared/extension';
 import { TokenName } from '@idl/tokenizer';
 import {
   ExecutiveCommandCompletion,
   IExecutiveCommandCompletionOptions,
 } from '@idl/types/auto-complete';
+import { TreeToken } from '@idl/types/syntax-tree';
 import { basename } from 'path';
 import { CompletionItemKind } from 'vscode-languageserver';
 

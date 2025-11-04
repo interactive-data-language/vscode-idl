@@ -1,6 +1,6 @@
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { AccessPropertyToken } from '@idl/tokenizer';
 import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { GetProperty } from '../../../helpers/get-property';

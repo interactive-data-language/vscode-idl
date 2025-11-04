@@ -1,4 +1,3 @@
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import {
   KeywordBinaryToken,
   KeywordDefinitionToken,
@@ -8,6 +7,7 @@ import {
   IParameterLookup,
   IParameterOrPropertyDetails,
 } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../idl-index.class';
 import { GetKeywordDisplayName } from './get-keyword-display-name';

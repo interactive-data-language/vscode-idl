@@ -1,12 +1,11 @@
 import { AdjustCase } from '@idl/assembling/shared';
-import { TreeToken } from '@idl/types/syntax-tree';
-
 import { ALLOWED_COMPILE_OPTIONS } from '@idl/parsing/syntax-validators';
 import { ControlCompileOptToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   CompileOptCompletion,
   ICompileOptCompletionOptions,
 } from '@idl/types/auto-complete';
+import { TreeToken } from '@idl/types/syntax-tree';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';

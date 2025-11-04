@@ -1,14 +1,12 @@
-import { TreeToken } from '@idl/types/syntax-tree';
-
-import { SystemVariableToken } from '@idl/tokenizer';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-
+import { SystemVariableToken } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,
   IDL_NULL_TYPE,
   IDLDataType,
 } from '@idl/types/idl-data-types';
+import { TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';

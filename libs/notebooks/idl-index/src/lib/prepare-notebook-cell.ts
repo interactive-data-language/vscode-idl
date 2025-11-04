@@ -1,7 +1,7 @@
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { IsSingleLine } from '@idl/parsing/syntax-validators';
 import { MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import { PrepareNotebookCellResponse } from '@idl/vscode/events/messages';
 import copy from 'fast-copy';
