@@ -182,6 +182,34 @@ export class IDLTypeHelper {
   }
 
   /**
+   * Returns if a type is a single type
+   *
+   * This means that the type, and all type arguments, have
+   * a single element
+   */
+  static isASingleType(type: IDLDataType): boolean {
+    // return if too many types
+    if (type.length > 1) {
+      return false;
+    }
+
+    // get type arguments
+    const args = type[0].args;
+
+    // return true if no args
+    if (args.length === 0) {
+      return true;
+    }
+
+    // validate all type arguments
+    for (let i = 0; i < args.length; i++) {
+      if (!this.isASingleType(args[i])) {
+        return false;
+      }
+    }
+  }
+
+  /**
    * Check if our type is a literal type
    *
    * This means that one of the types (if more than one) has

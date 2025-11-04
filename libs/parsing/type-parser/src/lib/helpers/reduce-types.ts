@@ -15,7 +15,7 @@ import { MergeTypeArgs } from './merge-type-args';
  * among number types that are present
  */
 export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
-  /** Track our decuded data type */
+  /** Track our reduced data type */
   const reduced: IDLDataType = [];
 
   // track what we have found

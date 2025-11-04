@@ -53,7 +53,7 @@ export function TypePromotion(
     : IDLTypeHelper.postProcessIDLDataType(merged);
 
   // if we only have one type, return it
-  if (reduced.length === 1) {
+  if (IDLTypeHelper.isASingleType(reduced)) {
     return reduced;
   }
 
