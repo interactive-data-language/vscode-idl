@@ -14,7 +14,7 @@ switch howBad of
   ; evaluate the first statement
   0: print, 'I have a bad feeling about this'
 
-  ; and the next, because we don't have a break
+  ; and the next, because we don't have a break between statements
   1: print, 'I think you should brace it with something'
 
   ; stop executing after we encounter this break
