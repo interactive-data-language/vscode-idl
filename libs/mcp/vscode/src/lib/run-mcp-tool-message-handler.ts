@@ -35,14 +35,14 @@ export const MCP_TOOL_LOOKUP: {
     params: MCPToolParams<key>
   ) => MCPToolResponse<key> | Promise<MCPToolResponse<key>>;
 } = {
-  'idl/create-notebook': RunMCP_IDLCreateNotebook,
-  'idl/execute-code': RunMCP_IDLExecuteCode,
-  'idl/execute-file': RunMCP_IDLExecuteFile,
-  'envi/open-dataset': RunMCP_ENVIOpenDataset,
-  'envi/query-dataset': RunMCP_ENVIQueryDataset,
-  'envi/run-task': RunMCP_ENVIRunTask,
-  'envi/start': RunMCP_ENVIStart,
-  'idl/start': RunMCP_IDLStart,
+  'envi-open-dataset': RunMCP_ENVIOpenDataset,
+  'envi-query-dataset': RunMCP_ENVIQueryDataset,
+  'envi-run-task': RunMCP_ENVIRunTask,
+  'envi-start': RunMCP_ENVIStart,
+  'idl-create-notebook': RunMCP_IDLCreateNotebook,
+  'idl-execute-code': RunMCP_IDLExecuteCode,
+  'idl-execute-file': RunMCP_IDLExecuteFile,
+  'idl-start': RunMCP_IDLStart,
 };
 
 /**
