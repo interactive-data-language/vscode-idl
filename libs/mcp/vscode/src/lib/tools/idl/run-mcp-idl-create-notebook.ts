@@ -1,6 +1,6 @@
 import { CreateNewIDLNotebook } from '@idl/notebooks/shared';
 import {
-  MCPTool_CreateIDLNotebook,
+  MCPTool_IDLCreateNotebook,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -11,10 +11,10 @@ import { dirname } from 'path';
 /**
  * Create an IDL Notebook!
  */
-export async function RunMCPCreateIDLNotebook(
+export async function RunMCP_IDLCreateNotebook(
   id: string,
-  params: MCPToolParams<MCPTool_CreateIDLNotebook>
-): Promise<MCPToolResponse<MCPTool_CreateIDLNotebook>> {
+  params: MCPToolParams<MCPTool_IDLCreateNotebook>
+): Promise<MCPToolResponse<MCPTool_IDLCreateNotebook>> {
   const nbAsBytes = await CreateNewIDLNotebook(params);
 
   /** Make notebook folder */

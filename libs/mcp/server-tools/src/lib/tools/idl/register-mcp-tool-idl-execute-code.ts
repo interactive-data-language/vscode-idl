@@ -1,24 +1,24 @@
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_ExecuteIDLCode,
+  MCPTool_IDLExecuteCode,
   MCPToolParams,
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../mcp-tool-registry.class';
-import { EXECUTE_IDL_CODE_DESCRIPTION } from './register-tool-execute-idl-code.interface';
+import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { IDL_EXECUTE_CODE } from './register-mcp-tool-idl-execute-code.interface';
 
 /**
  * Registers a tool that runs IDL code
  */
-export function RegisterToolExecuteIDLCode(
+export function RegisterMCPTool_IDLExecuteCode(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCPToolRegistry.tool(
-    MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
-    EXECUTE_IDL_CODE_DESCRIPTION,
+    MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE,
+    IDL_EXECUTE_CODE,
     {
       code: z
         .string()
@@ -28,7 +28,7 @@ export function RegisterToolExecuteIDLCode(
     },
     async (id, { code }) => {
       // strictly typed parameters
-      const params: MCPToolParams<MCPTool_ExecuteIDLCode> = {
+      const params: MCPToolParams<MCPTool_IDLExecuteCode> = {
         code,
       };
 
@@ -37,7 +37,7 @@ export function RegisterToolExecuteIDLCode(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
         {
           id,
-          tool: MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
+          tool: MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE,
           params,
         }
       );

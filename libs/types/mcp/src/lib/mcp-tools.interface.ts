@@ -1,82 +1,24 @@
 import { IMCPBaseResponse as IMCPTool_BaseResponse } from './mcp-base-response.interface';
 
 /**
- * Message when we want to create an IDL Notebook
+ * Message when query what parameters a specific ENVI Task
  */
-export type MCPTool_CreateIDLNotebook = 'create-idl-notebook';
+export type MCPTool_ENVIGetTaskParmaeters = 'envi/get-task-parameters';
 
 /**
- * Parameters for creating an IDL Notebook
+ * Message when query what tasks ENVI can run
  */
-export interface MCPToolParams_CreateIDLNotebook {
-  /**
-   * The notebook cells
-   */
-  cells: { type: 'code' | 'markdown'; content: string }[];
-  /** File on disk to create */
-  uri: string;
-}
-
-/**
- * Response for creating an IDL Notebook
- */
-export type MCPToolResponse_CreateIDLNotebook = IMCPTool_BaseResponse;
-
-/**
- * Message when we want to run IDL code
- */
-export type MCPTool_ExecuteIDLCode = 'execute-idl-code';
-
-/**
- * Parameters for running IDL code
- */
-export interface MCPToolParams_ExecuteIDLCode {
-  /**
-   * The code to run
-   */
-  code: string;
-}
-
-/**
- * Response for running IDL code
- */
-export interface MCPToolResponse_ExecuteIDLCode extends IMCPTool_BaseResponse {
-  /** Output from IDL */
-  idlOutput?: string;
-}
-
-/**
- * Message when we want to run IDL code within a file
- */
-export type MCPTool_ExecuteIDLFile = 'execute-idl-file';
-
-/**
- * Parameters for running IDL code within a file
- */
-export interface MCPToolParams_ExecuteIDLFile {
-  /**
-   * The fully-qualified path to the file to run
-   */
-  uri: string;
-}
-
-/**
- * Response for running IDL code within a file
- */
-export interface MCPToolResponse_ExecuteIDLFile extends IMCPTool_BaseResponse {
-  /** Output from IDL */
-  idlOutput?: string;
-}
+export type MCPTool_ENVIListTasks = 'envi/list-tasks';
 
 /**
  * Message when opening an image in ENVI
  */
-export type MCPTool_OpenInENVI = 'open-in-envi';
+export type MCPTool_ENVIOpenDataset = 'envi/open-dataset';
 
 /**
  * Parameters for opening an image in ENVI
  */
-export interface MCPToolParams_OpenInENVI {
+export interface MCPToolParams_ENVIOpenDataset {
   /**
    * Do we display the image or not?
    */
@@ -90,17 +32,17 @@ export interface MCPToolParams_OpenInENVI {
 /**
  * Response for opening an image in ENVI
  */
-export type MCPToolResponse_OpenInENVI = IMCPTool_BaseResponse;
+export type MCPToolResponse_ENVIOpenDataset = IMCPTool_BaseResponse;
 
 /**
  * Message when querying a dataset for more information
  */
-export type MCPTool_QueryDataset = 'query-dataset';
+export type MCPTool_ENVIQueryDataset = 'envi/query-dataset';
 
 /**
  * Parameters for opening an image in ENVI
  */
-export interface MCPToolParams_QueryDataset {
+export interface MCPToolParams_ENVIQueryDataset {
   /**
    * Dehydrated form of the dataset we want to query
    */
@@ -110,30 +52,21 @@ export interface MCPToolParams_QueryDataset {
 /**
  * Response for opening an image in ENVI
  */
-export interface MCPToolResponse_QueryDataset extends IMCPTool_BaseResponse {
+export interface MCPToolResponse_ENVIQueryDataset
+  extends IMCPTool_BaseResponse {
   /** Information about the dataset that we return to the agent */
   info: { [key: string]: any };
 }
 
 /**
- * Message when query what tasks ENVI can run
- */
-export type MCPTool_QueryENVITasks = 'query-envi-tasks';
-
-/**
- * Message when query what parameters a specific ENVI Task
- */
-export type MCPTool_QueryENVITaskParmaeters = 'query-envi-task-parameters';
-
-/**
  * Message when we run an ENVI Task
  */
-export type MCPTool_RunENVITask = 'run-envi-task';
+export type MCPTool_ENVIRunTask = 'envi/run-task';
 
 /**
  * Payload for running an ENVI Task
  */
-export interface MCPToolParams_RunENVITask {
+export interface MCPToolParams_ENVIRunTask {
   /** Parameters */
   inputParameters: { [key: string]: any };
   /**
@@ -145,7 +78,7 @@ export interface MCPToolParams_RunENVITask {
 /**
  * Response for starting ENVI
  */
-export interface MCPToolResponse_RunENVITask extends IMCPTool_BaseResponse {
+export interface MCPToolResponse_ENVIRunTask extends IMCPTool_BaseResponse {
   /** output from IDL */
   idlOutput?: string;
   /** output parameters */
@@ -157,12 +90,12 @@ export interface MCPToolResponse_RunENVITask extends IMCPTool_BaseResponse {
 /**
  * Message when start ENVI
  */
-export type MCPTool_StartENVI = 'start-envi';
+export type MCPTool_ENVIStart = 'envi/start';
 
 /**
  * Payload for starting ENVI
  */
-export interface MCPToolParams_StartENVI {
+export interface MCPToolParams_ENVIStart {
   /**
    * Do we display the UI or not?
    */
@@ -172,121 +105,189 @@ export interface MCPToolParams_StartENVI {
 /**
  * Response for starting ENVI
  */
-export type MCPToolResponse_StartENVI = IMCPTool_BaseResponse;
+export type MCPToolResponse_ENVIStart = IMCPTool_BaseResponse;
+
+/**
+ * Message when we want to create an IDL Notebook
+ */
+export type MCPTool_IDLCreateNotebook = 'idl/create-notebook';
+
+/**
+ * Parameters for creating an IDL Notebook
+ */
+export interface MCPToolParams_IDLCreateNotebook {
+  /**
+   * The notebook cells
+   */
+  cells: { type: 'code' | 'markdown'; content: string }[];
+  /** File on disk to create */
+  uri: string;
+}
+
+/**
+ * Response for creating an IDL Notebook
+ */
+export type MCPToolResponse_IDLCreateNotebook = IMCPTool_BaseResponse;
+
+/**
+ * Message when we want to run IDL code
+ */
+export type MCPTool_IDLExecuteCode = 'idl/execute-code';
+
+/**
+ * Parameters for running IDL code
+ */
+export interface MCPToolParams_IDLExecuteCode {
+  /**
+   * The code to run
+   */
+  code: string;
+}
+
+/**
+ * Response for running IDL code
+ */
+export interface MCPToolResponse_IDLExecuteCode extends IMCPTool_BaseResponse {
+  /** Output from IDL */
+  idlOutput?: string;
+}
+
+/**
+ * Message when we want to run IDL code within a file
+ */
+export type MCPTool_IDLExecuteFile = 'idl/execute-file';
+
+/**
+ * Parameters for running IDL code within a file
+ */
+export interface MCPToolParams_IDLExecuteFile {
+  /**
+   * The fully-qualified path to the file to run
+   */
+  uri: string;
+}
+
+/**
+ * Response for running IDL code within a file
+ */
+export interface MCPToolResponse_IDLExecuteFile extends IMCPTool_BaseResponse {
+  /** Output from IDL */
+  idlOutput?: string;
+}
 
 /**
  * Message when start IDL
  */
-export type MCPTool_StartIDL = 'start-idl';
+export type MCPTool_IDLStart = 'idl/start';
 
 /**
  * Payload for starting IDL
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface MCPToolParams_StartIDL {}
+export interface MCPToolParams_IDLStart {}
 
 /**
  * Response for starting IDL
  */
-export type MCPToolResponse_StartIDL = IMCPTool_BaseResponse;
+export type MCPToolResponse_IDLStart = IMCPTool_BaseResponse;
 
 /**
  * Types of MCP messages
  */
 export type MCPTools =
-  | MCPTool_CreateIDLNotebook
-  | MCPTool_ExecuteIDLCode
-  | MCPTool_ExecuteIDLFile
-  | MCPTool_OpenInENVI
-  | MCPTool_QueryDataset
-  | MCPTool_QueryENVITaskParmaeters
-  | MCPTool_QueryENVITasks
-  | MCPTool_RunENVITask
-  | MCPTool_StartENVI
-  | MCPTool_StartIDL;
+  | MCPTool_ENVIGetTaskParmaeters
+  | MCPTool_ENVIListTasks
+  | MCPTool_ENVIOpenDataset
+  | MCPTool_ENVIQueryDataset
+  | MCPTool_ENVIRunTask
+  | MCPTool_ENVIStart
+  | MCPTool_IDLCreateNotebook
+  | MCPTool_IDLExecuteCode
+  | MCPTool_IDLExecuteFile
+  | MCPTool_IDLStart;
 
 /**
  * Payloads for all MCP messages
  */
 export type MCPToolParams<T extends MCPTools> =
-  T extends MCPTool_CreateIDLNotebook
-    ? MCPToolParams_CreateIDLNotebook
-    : T extends MCPTool_ExecuteIDLCode
-    ? MCPToolParams_ExecuteIDLCode
-    : T extends MCPTool_ExecuteIDLFile
-    ? MCPToolParams_ExecuteIDLFile
-    : T extends MCPTool_OpenInENVI
-    ? MCPToolParams_OpenInENVI
-    : T extends MCPTool_QueryDataset
-    ? MCPToolParams_QueryDataset
-    : T extends MCPTool_RunENVITask
-    ? MCPToolParams_RunENVITask
-    : T extends MCPTool_StartENVI
-    ? MCPToolParams_StartENVI
-    : T extends MCPTool_StartIDL
-    ? MCPToolParams_StartIDL
+  T extends MCPTool_ENVIOpenDataset
+    ? MCPToolParams_ENVIOpenDataset
+    : T extends MCPTool_ENVIQueryDataset
+    ? MCPToolParams_ENVIQueryDataset
+    : T extends MCPTool_ENVIRunTask
+    ? MCPToolParams_ENVIRunTask
+    : T extends MCPTool_ENVIStart
+    ? MCPToolParams_ENVIStart
+    : T extends MCPTool_IDLCreateNotebook
+    ? MCPToolParams_IDLCreateNotebook
+    : T extends MCPTool_IDLExecuteCode
+    ? MCPToolParams_IDLExecuteCode
+    : T extends MCPTool_IDLExecuteFile
+    ? MCPToolParams_IDLExecuteFile
+    : T extends MCPTool_IDLStart
+    ? MCPToolParams_IDLStart
     : never;
 
 /**
  * Payloads for all MCP messages
  */
 export type MCPToolResponse<T extends MCPTools> =
-  T extends MCPTool_CreateIDLNotebook
-    ? MCPToolResponse_CreateIDLNotebook
-    : T extends MCPTool_ExecuteIDLCode
-    ? MCPToolResponse_ExecuteIDLCode
-    : T extends MCPTool_ExecuteIDLFile
-    ? MCPToolResponse_ExecuteIDLFile
-    : T extends MCPTool_OpenInENVI
-    ? MCPToolResponse_OpenInENVI
-    : T extends MCPTool_QueryDataset
-    ? MCPToolResponse_QueryDataset
-    : T extends MCPTool_RunENVITask
-    ? MCPToolResponse_RunENVITask
-    : T extends MCPTool_StartENVI
-    ? MCPToolResponse_StartENVI
-    : T extends MCPTool_StartIDL
-    ? MCPToolResponse_StartIDL
+  T extends MCPTool_ENVIOpenDataset
+    ? MCPToolResponse_ENVIOpenDataset
+    : T extends MCPTool_ENVIQueryDataset
+    ? MCPToolResponse_ENVIQueryDataset
+    : T extends MCPTool_ENVIRunTask
+    ? MCPToolResponse_ENVIRunTask
+    : T extends MCPTool_ENVIStart
+    ? MCPToolResponse_ENVIStart
+    : T extends MCPTool_IDLCreateNotebook
+    ? MCPToolResponse_IDLCreateNotebook
+    : T extends MCPTool_IDLExecuteCode
+    ? MCPToolResponse_IDLExecuteCode
+    : T extends MCPTool_IDLExecuteFile
+    ? MCPToolResponse_IDLExecuteFile
+    : T extends MCPTool_IDLStart
+    ? MCPToolResponse_IDLStart
     : never;
 
 /**
  * Strictly typed messages that we can send back and forth
  */
 interface IMCPToolLookup {
-  /** Create an IDL Notebook */
-  CREATE_IDL_NOTEBOOK: MCPTool_CreateIDLNotebook;
-  /** Run code in IDL */
-  EXECUTE_IDL_CODE: MCPTool_ExecuteIDLCode;
-  /** Run code in IDL that comes from a file */
-  EXECUTE_IDL_FILE: MCPTool_ExecuteIDLFile;
-  /** Open a dataset in ENVI */
-  OPEN_IN_ENVI: MCPTool_OpenInENVI;
-  /** Get additional information about a dataset */
-  QUERY_DATASET: MCPTool_QueryDataset;
   /** Query parameters for tasks ENVI has */
-  QUERY_ENVI_TASK_PARAMETERS: MCPTool_QueryENVITaskParmaeters;
+  ENVI_GET_TASK_PARAMETERS: MCPTool_ENVIGetTaskParmaeters;
   /** Query ENVI's tasks */
-  QUERY_ENVI_TASKS: MCPTool_QueryENVITasks;
+  ENVI_LIST_TASKS: MCPTool_ENVIListTasks;
+  /** Open a dataset in ENVI */
+  ENVI_OPEN_DATASET: MCPTool_ENVIOpenDataset;
+  /** Get additional information about a dataset */
+  ENVI_QUERY_DATASET: MCPTool_ENVIQueryDataset;
   /** Run ENVI Task */
-  RUN_ENVI_TASK: MCPTool_RunENVITask;
+  ENVI_RUN_TASK: MCPTool_ENVIRunTask;
   /** Start ENVI */
-  START_ENVI: MCPTool_StartENVI;
+  ENVI_START: MCPTool_ENVIStart;
+  /** Create an IDL Notebook */
+  IDL_CREATE_NOTEBOOK: MCPTool_IDLCreateNotebook;
+  /** Run code in IDL */
+  IDL_EXECUTE_CODE: MCPTool_IDLExecuteCode;
+  /** Run code in IDL that comes from a file */
+  IDL_EXECUTE_FILE: MCPTool_IDLExecuteFile;
   /** Start IDL */
-  START_IDL: MCPTool_StartIDL;
+  IDL_START: MCPTool_IDLStart;
 }
 
 /**
  * Lookup with types of messages
  */
 export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
-  CREATE_IDL_NOTEBOOK: 'create-idl-notebook',
-  EXECUTE_IDL_CODE: 'execute-idl-code',
-  EXECUTE_IDL_FILE: 'execute-idl-file',
-  OPEN_IN_ENVI: 'open-in-envi',
-  QUERY_DATASET: 'query-dataset',
-  QUERY_ENVI_TASKS: 'query-envi-tasks',
-  QUERY_ENVI_TASK_PARAMETERS: 'query-envi-task-parameters',
-  RUN_ENVI_TASK: 'run-envi-task',
-  START_ENVI: 'start-envi',
-  START_IDL: 'start-idl',
+  IDL_CREATE_NOTEBOOK: 'idl/create-notebook',
+  IDL_EXECUTE_CODE: 'idl/execute-code',
+  IDL_EXECUTE_FILE: 'idl/execute-file',
+  ENVI_OPEN_DATASET: 'envi/open-dataset',
+  ENVI_QUERY_DATASET: 'envi/query-dataset',
+  ENVI_LIST_TASKS: 'envi/list-tasks',
+  ENVI_GET_TASK_PARAMETERS: 'envi/get-task-parameters',
+  ENVI_RUN_TASK: 'envi/run-task',
+  ENVI_START: 'envi/start',
+  IDL_START: 'idl/start',
 };

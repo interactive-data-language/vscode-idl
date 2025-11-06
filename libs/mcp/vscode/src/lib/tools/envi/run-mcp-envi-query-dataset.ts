@@ -1,21 +1,21 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
-  MCPTool_RunENVITask,
+  MCPTool_ENVIQueryDataset,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
 import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
 
-import { GetLastENVISuccessMessage } from '../helpers/get-last-envi-success-message';
-import { VSCodeSendMCPNotification } from '../helpers/vscode-send-mcp-notification';
+import { GetLastENVISuccessMessage } from '../../helpers/get-last-envi-success-message';
+import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
 
 /**
- * Start ENVI
+ * Open a dataset in ENVI
  */
-export async function RunMCPRunENVITask(
+export async function RunMCP_ENVIQueryDataset(
   id: string,
-  params: MCPToolParams<MCPTool_RunENVITask>
-): Promise<MCPToolResponse<MCPTool_RunENVITask>> {
+  params: MCPToolParams<MCPTool_ENVIQueryDataset>
+): Promise<MCPToolResponse<MCPTool_ENVIQueryDataset>> {
   VSCodeSendMCPNotification(id, { message: 'Starting IDL' });
 
   /**
@@ -25,7 +25,7 @@ export async function RunMCPRunENVITask(
 
   // return if unable to start IDL
   if (!started.started) {
-    return { success: false, err: started.reason, outputParameters: {} };
+    return { success: false, err: started.reason, info: {} };
   }
 
   VSCodeSendMCPNotification(id, { message: 'Starting ENVI' });
@@ -38,20 +38,17 @@ export async function RunMCPRunENVITask(
 
   // run our command to open in ENVI
   const res = await IDL_DEBUG_ADAPTER.evaluate(
-    `vscode_runENVITask, '${JSON.stringify(params)}'`,
-    { echo: true, echoThis: IDL_TRANSLATION.envi.taskText, silent: false }
+    `vscode_queryDataset, '${JSON.stringify(params.dataset)}'`,
+    { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false }
   );
 
-  console.log(res);
+  // TODO: double check IDL finished successfully
 
   const success = GetLastENVISuccessMessage();
-
-  console.log(success);
 
   return {
     success: success.succeeded,
     err: success.error,
-    outputParameters: success.payload || {},
-    idlOutput: res,
+    info: success.payload || {},
   };
 }

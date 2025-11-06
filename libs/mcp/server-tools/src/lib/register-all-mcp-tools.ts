@@ -2,13 +2,13 @@ import { IS_MCP_SERVER_STARTED } from '@idl/mcp/server';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { MCPToolContext } from './mcp-tool-context.class';
-import { RegisterToolCreateIDLNotebook } from './tools/register-tool-create-idl-notebook';
-import { RegisterToolExecuteIDLCode } from './tools/register-tool-execute-idl-code';
-import { RegisterToolExecuteIDLFile } from './tools/register-tool-execute-idl-file';
-import { RegisterToolOpenInENVI } from './tools/register-tool-open-in-envi';
-import { RegisterToolQueryDataset } from './tools/register-tool-query-dataset';
-import { RegisterToolStartENVI } from './tools/register-tool-start-envi';
-import { RegisterToolStartIDL } from './tools/register-tool-start-idl';
+import { RegisterMCPTool_ENVIOpenDataset } from './tools/envi/register-mcp-tool-envi-open-dataset';
+import { RegisterMCPTool_ENVIQueryDataset } from './tools/envi/register-mcp-tool-envi-query-dataset';
+import { RegisterMCPTool_ENVIStart } from './tools/envi/register-mcp-tool-envi-start';
+import { RegisterMCPTool_IDLCreateNotebook } from './tools/idl/register-mcp-tool-idl-create-notebook';
+import { RegisterMCPTool_IDLExecuteCode } from './tools/idl/register-mcp-tool-idl-execute-code';
+import { RegisterMCPTool_IDLExecuteFile } from './tools/idl/register-mcp-tool-idl-execute-file';
+import { RegisterMCPTool_IDLStart } from './tools/idl/register-mcp-tool-idl-start';
 
 /**
  * Track contexts for all actively running tools so we can send notification
@@ -35,13 +35,13 @@ export function RegisterAllMCPTools(messenger: VSCodeLanguageServerMessenger) {
   /**
    * Register all of our tools
    */
-  RegisterToolCreateIDLNotebook(messenger);
-  RegisterToolExecuteIDLCode(messenger);
-  RegisterToolExecuteIDLFile(messenger);
-  RegisterToolOpenInENVI(messenger);
-  RegisterToolQueryDataset(messenger);
-  RegisterToolStartENVI(messenger);
-  RegisterToolStartIDL(messenger);
+  RegisterMCPTool_IDLCreateNotebook(messenger);
+  RegisterMCPTool_IDLExecuteCode(messenger);
+  RegisterMCPTool_IDLExecuteFile(messenger);
+  RegisterMCPTool_IDLStart(messenger);
+  RegisterMCPTool_ENVIOpenDataset(messenger);
+  RegisterMCPTool_ENVIQueryDataset(messenger);
+  RegisterMCPTool_ENVIStart(messenger);
 
   // update flag that we registered our tools (duplicated throw errors)
   REGISTERED = true;

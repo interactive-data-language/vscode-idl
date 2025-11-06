@@ -1,5 +1,5 @@
 import {
-  MCPTool_OpenInENVI,
+  MCPTool_ENVIOpenDataset,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -8,10 +8,10 @@ import { OpenInENVI, StartIDL } from '@idl/vscode/debug';
 /**
  * Open a dataset in ENVI
  */
-export async function RunMCPOpenInENVI(
+export async function RunMCP_ENVIOpenDataset(
   id: string,
-  params: MCPToolParams<MCPTool_OpenInENVI>
-): Promise<MCPToolResponse<MCPTool_OpenInENVI>> {
+  params: MCPToolParams<MCPTool_ENVIOpenDataset>
+): Promise<MCPToolResponse<MCPTool_ENVIOpenDataset>> {
   /**
    * Start IDL
    */

@@ -1,19 +1,19 @@
 import {
-  MCPTool_StartENVI,
+  MCPTool_ENVIStart,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
 import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
 
-import { VSCodeSendMCPNotification } from '../helpers/vscode-send-mcp-notification';
+import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
 
 /**
  * Start ENVI
  */
-export async function RunMCPStartENVI(
+export async function RunMCP_ENVIStart(
   id: string,
-  params: MCPToolParams<MCPTool_StartENVI>
-): Promise<MCPToolResponse<MCPTool_StartENVI>> {
+  params: MCPToolParams<MCPTool_ENVIStart>
+): Promise<MCPToolResponse<MCPTool_ENVIStart>> {
   VSCodeSendMCPNotification(id, { message: 'Starting IDL' });
 
   /**

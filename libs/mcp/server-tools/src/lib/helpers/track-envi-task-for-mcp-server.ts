@@ -7,9 +7,9 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z, ZodRawShape } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
-import { PARAMETER_LOOKUP } from '../tools/register-tool-query-envi-task-parameters';
-import { TASK_LOOKUP } from '../tools/register-tool-query-envi-tasks';
-import { TASK_FILE_LOOKUP } from '../tools/register-tool-run-envi-task';
+import { PARAMETER_LOOKUP } from '../tools/envi/register-mcp-tool-envi-get-task-parameters';
+import { TASK_LOOKUP } from '../tools/envi/register-mcp-tool-envi-list-tasks';
+import { TASK_FILE_LOOKUP } from '../tools/envi/register-mcp-tool-envi-run-task';
 import { CreateENVIMCPParameter } from './envi-parameters/create-envi-mcp-parameter';
 import { GetCleanDescription } from './get-clean-description';
 

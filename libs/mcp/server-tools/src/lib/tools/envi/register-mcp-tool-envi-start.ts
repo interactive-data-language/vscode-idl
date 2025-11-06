@@ -1,42 +1,37 @@
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_OpenInENVI,
+  MCPTool_ENVIStart,
   MCPToolParams,
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../mcp-tool-registry.class';
+import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 
 /**
- * Registers a tool that allows us to open an image in ENVI
+ * Registers a tool that allows us to start ENVI
  */
-export function RegisterToolOpenInENVI(
+export function RegisterMCPTool_ENVIStart(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCPToolRegistry.tool(
-    MCP_TOOL_LOOKUP.OPEN_IN_ENVI,
-    'Open an image in ENVI and shows it in the display. Easy way to view imagery for users.',
+    MCP_TOOL_LOOKUP.ENVI_START,
+    "Starts a session of ENVI and IDL in VSCode. If ENVI has already started, this tool won't do anything.",
     {
-      uri: z
-        .string()
-        .describe(
-          'The local file to open in ENVI. Should be a fully-qualified filepath.'
-        ),
+      headless: z.boolean().describe('Should ENVI be started without the UI?'),
     },
-    async (id, { uri }) => {
+    async (id, { headless }) => {
       // strictly typed parameters
-      const params: MCPToolParams<MCPTool_OpenInENVI> = {
-        display: true,
-        uri,
+      const params: MCPToolParams<MCPTool_ENVIStart> = {
+        headless,
       };
 
       const resp = await messenger.sendRequest(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
         {
           id,
-          tool: MCP_TOOL_LOOKUP.OPEN_IN_ENVI,
+          tool: MCP_TOOL_LOOKUP.ENVI_START,
           params,
         }
       );

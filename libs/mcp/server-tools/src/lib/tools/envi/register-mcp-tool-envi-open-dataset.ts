@@ -1,34 +1,34 @@
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_ExecuteIDLFile,
+  MCPTool_ENVIOpenDataset,
   MCPToolParams,
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../mcp-tool-registry.class';
-import { EXECUTE_IDL_FILE_DESCRIPTION } from './register-tool-execute-idl-file.interface';
+import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 
 /**
- * Registers a tool that runs a file of IDL code
+ * Registers a tool that allows us to open an image in ENVI
  */
-export function RegisterToolExecuteIDLFile(
+export function RegisterMCPTool_ENVIOpenDataset(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCPToolRegistry.tool(
-    MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE,
-    EXECUTE_IDL_FILE_DESCRIPTION,
+    MCP_TOOL_LOOKUP.ENVI_OPEN_DATASET,
+    'Open an image in ENVI and shows it in the display. Easy way to view imagery for users.',
     {
       uri: z
         .string()
         .describe(
-          'The fully-qualified path to a file on disk that contains IDL code that should run.'
+          'The local file to open in ENVI. Should be a fully-qualified filepath.'
         ),
     },
     async (id, { uri }) => {
       // strictly typed parameters
-      const params: MCPToolParams<MCPTool_ExecuteIDLFile> = {
+      const params: MCPToolParams<MCPTool_ENVIOpenDataset> = {
+        display: true,
         uri,
       };
 
@@ -36,7 +36,7 @@ export function RegisterToolExecuteIDLFile(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
         {
           id,
-          tool: MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE,
+          tool: MCP_TOOL_LOOKUP.ENVI_OPEN_DATASET,
           params,
         }
       );

@@ -3,7 +3,7 @@ import { IDL_MCP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { COMPILE_FILE_ERROR } from '@idl/types/idl/idl-process';
 import {
-  MCPTool_ExecuteIDLCode,
+  MCPTool_IDLExecuteCode,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -18,10 +18,10 @@ import { join } from 'path';
 /**
  * Executes IDL code
  */
-export async function RunMCPExecuteIDLCode(
+export async function RunMCP_IDLExecuteCode(
   id: string,
-  params: MCPToolParams<MCPTool_ExecuteIDLCode>
-): Promise<MCPToolResponse<MCPTool_ExecuteIDLCode>> {
+  params: MCPToolParams<MCPTool_IDLExecuteCode>
+): Promise<MCPToolResponse<MCPTool_IDLExecuteCode>> {
   /**
    * Start IDL
    */

@@ -1,4 +1,4 @@
-export const DESCRIPTION = `
+export const ENVI_QUERY_DATASET_DESCRIPTION = `
 Using ENVI, returns information about a variety of datasets. 
 
 Supports nearly any imagery or remote sensing format (ENVI, TIFF, NITF, and many more), vector, ENVI ROIs, spectral libraries, ONNX models configured for ENVI, and Machine Learning models created with ENVI.

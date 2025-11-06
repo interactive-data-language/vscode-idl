@@ -1,21 +1,21 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
-  MCPTool_QueryDataset,
+  MCPTool_ENVIRunTask,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
 import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
 
-import { GetLastENVISuccessMessage } from '../helpers/get-last-envi-success-message';
-import { VSCodeSendMCPNotification } from '../helpers/vscode-send-mcp-notification';
+import { GetLastENVISuccessMessage } from '../../helpers/get-last-envi-success-message';
+import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
 
 /**
- * Open a dataset in ENVI
+ * Start ENVI
  */
-export async function RunMCPQueryDataset(
+export async function RunMCP_ENVIRunTask(
   id: string,
-  params: MCPToolParams<MCPTool_QueryDataset>
-): Promise<MCPToolResponse<MCPTool_QueryDataset>> {
+  params: MCPToolParams<MCPTool_ENVIRunTask>
+): Promise<MCPToolResponse<MCPTool_ENVIRunTask>> {
   VSCodeSendMCPNotification(id, { message: 'Starting IDL' });
 
   /**
@@ -25,7 +25,7 @@ export async function RunMCPQueryDataset(
 
   // return if unable to start IDL
   if (!started.started) {
-    return { success: false, err: started.reason, info: {} };
+    return { success: false, err: started.reason, outputParameters: {} };
   }
 
   VSCodeSendMCPNotification(id, { message: 'Starting ENVI' });
@@ -38,17 +38,20 @@ export async function RunMCPQueryDataset(
 
   // run our command to open in ENVI
   const res = await IDL_DEBUG_ADAPTER.evaluate(
-    `vscode_queryDataset, '${JSON.stringify(params.dataset)}'`,
-    { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false }
+    `vscode_runENVITask, '${JSON.stringify(params)}'`,
+    { echo: true, echoThis: IDL_TRANSLATION.envi.taskText, silent: false }
   );
 
-  // TODO: double check IDL finished successfully
+  console.log(res);
 
   const success = GetLastENVISuccessMessage();
+
+  console.log(success);
 
   return {
     success: success.succeeded,
     err: success.error,
-    info: success.payload || {},
+    outputParameters: success.payload || {},
+    idlOutput: res,
   };
 }

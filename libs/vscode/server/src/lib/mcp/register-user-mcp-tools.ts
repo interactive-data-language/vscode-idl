@@ -1,8 +1,8 @@
 import { IDL_LSP_LOG } from '@idl/logger';
 import {
-  RegisterToolQueryENVITaskParameters,
-  RegisterToolQueryENVITasks,
-  RegisterToolRunENVITask,
+  RegisterMCPTool_ENVIGetTaskParameters,
+  RegisterMCPTool_ENVIListTasks,
+  RegisterMCPTool_ENVIRunTask,
   TrackENVITaskForMCPServer,
 } from '@idl/mcp/server-tools';
 import {
@@ -34,9 +34,9 @@ export async function RegisterUserMCPTools(
   });
 
   // register additional tools
-  RegisterToolQueryENVITasks(messenger);
-  RegisterToolQueryENVITaskParameters(messenger);
-  RegisterToolRunENVITask(messenger);
+  RegisterMCPTool_ENVIListTasks(messenger);
+  RegisterMCPTool_ENVIGetTaskParameters(messenger);
+  RegisterMCPTool_ENVIRunTask(messenger);
 
   /** Get all structures that we know about */
   const structures =
