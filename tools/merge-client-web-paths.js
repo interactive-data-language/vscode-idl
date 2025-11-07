@@ -20,6 +20,9 @@ const base = baseConfig.compilerOptions.paths;
 /** Get existing paths in our second config file */
 const toExtend = extendedConfig.compilerOptions.paths;
 
+/** Track if there are changes */
+let changes = false;
+
 /**
  * Extract any keys that aren't from our lib (i.e. will have polyfills)
  */
@@ -46,9 +49,6 @@ for (let i = 0; i < existingPaths.length; i++) {
 
 /** Get all paths that should be shared */
 const sharedPaths = Object.keys(base);
-
-/** Track if there are changes */
-let changes = false;
 
 // add any missing libraries
 for (let i = 0; i < sharedPaths.length; i++) {
