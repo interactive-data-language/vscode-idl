@@ -1,6 +1,6 @@
 import { IDL_MCP_LOG } from '@idl/logger';
 import {
-  MCPTool_ENVIGetTaskParmaeters,
+  MCPTool_ENVIGetTaskParameters,
   MCPTool_ENVIListTasks,
   MCPToolParams,
   MCPToolResponse,
@@ -29,7 +29,7 @@ import { RunMCP_IDLStart } from './tools/idl/run-mcp-idl-start';
 export const MCP_TOOL_LOOKUP: {
   [key in Exclude<
     MCPTools,
-    MCPTool_ENVIGetTaskParmaeters | MCPTool_ENVIListTasks
+    MCPTool_ENVIGetTaskParameters | MCPTool_ENVIListTasks
   >]: (
     id: string,
     params: MCPToolParams<key>

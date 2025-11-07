@@ -3,7 +3,7 @@ import { IMCPBaseResponse as IMCPTool_BaseResponse } from './mcp-base-response.i
 /**
  * Message when query what parameters a specific ENVI Task
  */
-export type MCPTool_ENVIGetTaskParmaeters = 'envi-get-task-parameters';
+export type MCPTool_ENVIGetTaskParameters = 'envi-get-task-parameters';
 
 /**
  * Message when query what tasks ENVI can run
@@ -195,7 +195,7 @@ export type MCPToolResponse_IDLStart = IMCPTool_BaseResponse;
  * Types of MCP messages
  */
 export type MCPTools =
-  | MCPTool_ENVIGetTaskParmaeters
+  | MCPTool_ENVIGetTaskParameters
   | MCPTool_ENVIListTasks
   | MCPTool_ENVIOpenDataset
   | MCPTool_ENVIQueryDataset
@@ -255,7 +255,7 @@ export type MCPToolResponse<T extends MCPTools> =
  */
 interface IMCPToolLookup {
   /** Query parameters for tasks ENVI has */
-  ENVI_GET_TASK_PARAMETERS: MCPTool_ENVIGetTaskParmaeters;
+  ENVI_GET_TASK_PARAMETERS: MCPTool_ENVIGetTaskParameters;
   /** Query ENVI's tasks */
   ENVI_LIST_TASKS: MCPTool_ENVIListTasks;
   /** Open a dataset in ENVI */
