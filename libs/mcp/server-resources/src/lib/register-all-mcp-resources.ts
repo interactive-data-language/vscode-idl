@@ -29,6 +29,18 @@ export function RegisterAllMCPResources(
     'Find all information on the official docs page: https://interactive-data-language.github.io/vscode-idl/'
   );
 
+  TrackServerResource(
+    'about-types',
+    'Basic information about IDL types and adding them to documentation',
+    'See here for more information: https://interactive-data-language.github.io/vscode-idl/types/types_tldr.html'
+  );
+
+  TrackServerResource(
+    'documenting-code',
+    'Best practices and examples for documenting your code',
+    'See resource here: https://interactive-data-language.github.io/vscode-idl/code-comments/'
+  );
+
   // update flag that we registered our tools (duplicated throw errors)
   REGISTERED = true;
 }
