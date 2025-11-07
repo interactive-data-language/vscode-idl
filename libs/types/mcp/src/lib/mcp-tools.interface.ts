@@ -192,6 +192,16 @@ export interface MCPToolParams_IDLStart {}
 export type MCPToolResponse_IDLStart = IMCPTool_BaseResponse;
 
 /**
+ * List available resources
+ */
+export type MCPTool_ResourcesListAll = 'resources-list-all';
+
+/**
+ * Get a resource from the server
+ */
+export type MCPTool_ResourcesGetResource = 'resources-get-resource';
+
+/**
  * Types of MCP messages
  */
 export type MCPTools =
@@ -204,7 +214,9 @@ export type MCPTools =
   | MCPTool_IDLCreateNotebook
   | MCPTool_IDLExecuteCode
   | MCPTool_IDLExecuteFile
-  | MCPTool_IDLStart;
+  | MCPTool_IDLStart
+  | MCPTool_ResourcesGetResource
+  | MCPTool_ResourcesListAll;
 
 /**
  * Payloads for all MCP messages
@@ -274,6 +286,10 @@ interface IMCPToolLookup {
   IDL_EXECUTE_FILE: MCPTool_IDLExecuteFile;
   /** Start IDL */
   IDL_START: MCPTool_IDLStart;
+  /** Get a specific resource from the server */
+  RESOURCES_GET_RESOURCE: MCPTool_ResourcesGetResource;
+  /** List all resources */
+  RESOURCES_LIST_ALL: MCPTool_ResourcesListAll;
 }
 
 /**
@@ -290,4 +306,6 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   ENVI_RUN_TASK: 'envi-run-task',
   ENVI_START: 'envi-start',
   IDL_START: 'idl-start',
+  RESOURCES_GET_RESOURCE: 'resources-get-resource',
+  RESOURCES_LIST_ALL: 'resources-list-all',
 };
