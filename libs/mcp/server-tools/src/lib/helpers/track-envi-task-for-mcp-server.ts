@@ -66,14 +66,14 @@ export function TrackENVITaskForMCPServer(
     /** Make zod parameter */
     const param = CreateENVIMCPParameter(names[i], docs, prop.type);
 
-    // // skip if not a requried parameter because may not need it
+    // // skip if not a required parameter because may not need it
     // if (!prop.req) {
     //   continue
     // }
 
     // check if unknown parameter
     if (!param) {
-      // console.log(`Unhandled task "${task.name}" with parameter`, prop);
+      console.log(`Unhandled task "${task.name}" with parameter`, prop);
       return;
     }
 
