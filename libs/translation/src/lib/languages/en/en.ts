@@ -34,7 +34,7 @@ export const EN: ITranslation = {
   },
   client: {
     errors: {
-      unhandled: 'An unknown error ocurred within the IDL Extension Client',
+      unhandled: 'An unknown error occurred within the IDL Extension Client',
     },
   },
   commands: {
@@ -486,7 +486,7 @@ export const EN: ITranslation = {
   envi: {
     open: {
       commandError:
-        'An unknown error ocurred while trying to open data in ENVI',
+        'An unknown error occurred while trying to open data in ENVI',
       defaultError:
         'An unknown error occurred, see the IDL console for more details',
       enviError:
@@ -826,7 +826,7 @@ export const EN: ITranslation = {
       start: 'Failed to start the IDL Language Server',
       startingServer:
         'Error while starting local server (MCP or documentation), is the port already in use? See logs for more details.',
-      unhandled: 'An unknown error ocurred within the IDL Language Server',
+      unhandled: 'An unknown error occurred within the IDL Language Server',
     },
     events: {
       onAddDocs: 'Problem adding/updating routine docs for file',
