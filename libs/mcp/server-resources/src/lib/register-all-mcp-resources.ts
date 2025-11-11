@@ -41,6 +41,12 @@ export function RegisterAllMCPResources(
     'See resource here: https://interactive-data-language.github.io/vscode-idl/code-comments/'
   );
 
+  TrackServerResource(
+    'opening-rasters',
+    'Information about which files to open in ENVI so metadata is populated as users expect.',
+    'See resource here: https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html'
+  );
+
   // update flag that we registered our tools (duplicated throw errors)
   REGISTERED = true;
 }

@@ -20,6 +20,8 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 ### Unreleased
 
+All MCP servers are now configured with the name of our extension instead of "IDL for VSCode". This means we use "idl.idl-for-vscode" as the name. This change was made because that name should be constant and would allow GitHub Copilot organizations to whitelist our MCP server when used locally.
+
 Added a formal parser for type notations which is much more robust and offers some added benefits:
 
 - Full support for literal types (numbers, strings, etc.)

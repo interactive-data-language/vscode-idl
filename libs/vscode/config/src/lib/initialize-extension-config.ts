@@ -161,9 +161,43 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
   /** Get servers */
   const servers = mcpConfig.has('servers') ? mcpConfig.get('servers') : {};
 
+  // if we have old naming convention for MCP, then migrate
+  if (IDL_TRANSLATION.packageJSON.displayName in (servers as any)) {
+    const patch = {};
+
+    // migrate to proper name
+    patch[EXTENSION_FULL_NAME] =
+      servers[IDL_TRANSLATION.packageJSON.displayName];
+
+    /**
+     * Get patched object
+     */
+    const patched = {
+      ...((mcpConfig.get('servers') as any) || {}),
+      ...patch,
+    };
+
+    // delete old key
+    delete patched[IDL_TRANSLATION.packageJSON.displayName];
+
+    /**
+     * Fetch the default keys so that we can remove a weird python default MCP
+     * server (which is wild since it doesnt work and its hidden if you open user settings)
+     */
+    const defaultKeys = Object.keys(
+      mcpConfig.inspect('servers')?.defaultValue || {}
+    );
+    for (let i = 0; i < defaultKeys.length; i++) {
+      delete patched[defaultKeys[i]];
+    }
+
+    // patch config
+    mcpConfig.update('servers', patched, true);
+  }
+
   // prompt user to change icon theme if default theme
   if (
-    !(IDL_TRANSLATION.packageJSON.displayName in (servers as any)) &&
+    !(EXTENSION_FULL_NAME in (servers as any)) &&
     !IDL_EXTENSION_CONFIG.dontAsk.forMCPConfig
   ) {
     await QuestionAsker(
@@ -177,7 +211,7 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
       },
       () => {
         const patch = {};
-        patch[IDL_TRANSLATION.packageJSON.displayName] = {
+        patch[EXTENSION_FULL_NAME] = {
           type: 'sse',
           url: `http://localhost:${IDL_EXTENSION_CONFIG.mcp.port}/sse`,
         };
@@ -189,6 +223,9 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
           ...((mcpConfig.get('servers') as any) || {}),
           ...patch,
         };
+
+        // delete old key
+        delete patched[IDL_TRANSLATION.packageJSON.displayName];
 
         /**
          * Fetch the default keys so that we can remove a weird python default MCP
