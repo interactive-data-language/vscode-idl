@@ -80,11 +80,7 @@ describe(`[auto generated] Correctly find find definition from obj destroy`, () 
     const position_0: Position = { line: 23, character: 24 };
 
     // define expected token we extract
-    const expectedFound_0: string[] = [
-      '```typescript',
-      'type keyword = any',
-      '```',
-    ];
+    const expectedFound_0: string[] = ['```idl', 'kw keyword: any', '```'];
 
     // get hover help
     const hoverHelp_0 = await index.getHoverHelp(

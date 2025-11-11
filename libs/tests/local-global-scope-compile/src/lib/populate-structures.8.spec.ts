@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -82,7 +82,15 @@ describe(`[auto generated] Take first instance we encounter`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [3, 2, 6],
                   },
                   fsize: {
@@ -91,7 +99,15 @@ describe(`[auto generated] Take first instance we encounter`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [4, 2, 6],
                   },
                   fwave: {
@@ -100,7 +116,15 @@ describe(`[auto generated] Take first instance we encounter`, () => {
                     code: true,
                     source: 'user',
                     docs: '',
-                    type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+                    type: [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                     pos: [5, 2, 6],
                   },
                 },
@@ -126,7 +150,15 @@ describe(`[auto generated] Take first instance we encounter`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [3, 2, 6],
             },
             fsize: {
@@ -135,7 +167,15 @@ describe(`[auto generated] Take first instance we encounter`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [4, 2, 6],
             },
             fwave: {
@@ -144,7 +184,15 @@ describe(`[auto generated] Take first instance we encounter`, () => {
               code: true,
               source: 'user',
               docs: '',
-              type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               pos: [5, 2, 6],
             },
           },

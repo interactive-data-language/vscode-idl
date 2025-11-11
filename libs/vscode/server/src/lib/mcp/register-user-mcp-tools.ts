@@ -1,15 +1,15 @@
 import { IDL_LSP_LOG } from '@idl/logger';
 import {
-  RegisterToolQueryENVITaskParameters,
-  RegisterToolQueryENVITasks,
-  RegisterToolRunENVITask,
+  RegisterMCPTool_ENVIGetTaskParameters,
+  RegisterMCPTool_ENVIListTasks,
+  RegisterMCPTool_ENVIRunTask,
   TrackENVITaskForMCPServer,
 } from '@idl/mcp/server-tools';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalStructureToken,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
@@ -34,9 +34,9 @@ export async function RegisterUserMCPTools(
   });
 
   // register additional tools
-  RegisterToolQueryENVITasks(messenger);
-  RegisterToolQueryENVITaskParameters(messenger);
-  RegisterToolRunENVITask(messenger);
+  RegisterMCPTool_ENVIListTasks(messenger);
+  RegisterMCPTool_ENVIGetTaskParameters(messenger);
+  RegisterMCPTool_ENVIRunTask(messenger);
 
   /** Get all structures that we know about */
   const structures =

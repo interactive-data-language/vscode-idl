@@ -1,6 +1,7 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { LogicalTernaryThenToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDL_ANY_TYPE, IDLDataType, IDLTypeHelper } from '@idl/types/core';
+import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
@@ -40,6 +41,6 @@ export function TypeFromTernary(
   if (IDLTypeHelper.isAnyType(outputType)) {
     return copy(IDL_ANY_TYPE);
   } else {
-    return copy(IDLTypeHelper.reduceIDLDataType(outputType));
+    return copy(IDLTypeHelper.postProcessIDLDataType(outputType));
   }
 }

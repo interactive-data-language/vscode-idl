@@ -1,11 +1,11 @@
-import { IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { CallFunctionToken } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,
   IDLDataType,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../../idl-index.class';
@@ -28,6 +28,12 @@ export function TypeFromFunction(
   /** Flag to return the type we parsed from special functions */
   let returnNameAsType = false;
 
+  /** Track if we were an ENVI task */
+  let wasENVITask = false;
+
+  /** Track if we were an IDL task */
+  let wasIDLTask = false;
+
   // special cases to overload the type that we check for
   switch (name) {
     case 'call_function':
@@ -35,10 +41,12 @@ export function TypeFromFunction(
       break;
     case 'envitask':
       name = TypeFromTask(index, parsed, token, 'ENVI') || 'ENVITask';
+      wasENVITask = true;
       returnNameAsType = true;
       break;
     case 'idltask':
       name = TypeFromTask(index, parsed, token, 'IDL') || 'IDLTask';
+      wasIDLTask = true;
       returnNameAsType = true;
       break;
     case 'obj_new':
@@ -56,14 +64,37 @@ export function TypeFromFunction(
 
   // if we have a structure with that name, mark as the type
   if (structure.length > 0) {
-    return ParseIDLType(structure[0].meta.display);
+    return IDLTypeHelper.parseIDLType(structure[0].meta.display);
   }
 
-  // TODO: revisit this
-  // check if we should directly return our parsed name, even if we don't have it
-  // in our global lookup (mostly for tasks or other object classes)
+  /**
+   * If we don't know about the task, then we should just return a generic Task Object
+   * or load the type from the name
+   */
   if (returnNameAsType) {
-    return ParseIDLType(name);
+    switch (true) {
+      case wasENVITask:
+        return IDLTypeHelper.createIDLType([
+          {
+            name: 'ENVITask',
+            args: [copy(IDL_ANY_TYPE)],
+          },
+        ]);
+      case wasIDLTask:
+        return IDLTypeHelper.createIDLType([
+          {
+            name: 'IDLTask',
+            args: [copy(IDL_ANY_TYPE)],
+          },
+        ]);
+      default:
+        return IDLTypeHelper.createIDLType([
+          {
+            name: name,
+            args: [],
+          },
+        ]);
+    }
   }
 
   // check for function in our index

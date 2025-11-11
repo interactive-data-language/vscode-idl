@@ -34,7 +34,7 @@ export const EN: ITranslation = {
   },
   client: {
     errors: {
-      unhandled: 'An unknown error ocurred within the IDL Extension Client',
+      unhandled: 'An unknown error occurred within the IDL Extension Client',
     },
   },
   commands: {
@@ -255,6 +255,8 @@ export const EN: ITranslation = {
       'IDL.path':
         "Specify additional directories to add to IDL's search path. Add a '+' before the folder to include subdirectories.\n\nAny folders added to the path are not watched for file changes unless you edit the files within the VSCode UI.",
       'IDL.preferences': 'Placeholder',
+      'IDL.themeMatch':
+        'Does IDL inherit light/dark mode from VSCode? Example: IDL and ENVI will launch in dark mode if VSCode has a dark mode theme.',
 
       languageServer: 'Preferences that control the language server for IDL',
       'languageServer.fullParse':
@@ -491,7 +493,7 @@ export const EN: ITranslation = {
   envi: {
     open: {
       commandError:
-        'An unknown error ocurred while trying to open data in ENVI',
+        'An unknown error occurred while trying to open data in ENVI',
       defaultError:
         'An unknown error occurred, see the IDL console for more details',
       enviError:
@@ -501,6 +503,7 @@ export const EN: ITranslation = {
     },
     openerText: 'ENVI should attempt to open the image shortly, please wait.',
     openerTitle: 'ENVI File Opener',
+    queryText: 'Querying dataset with ENVI',
     task: {
       enviNotStarted: 'ENVI has not been started yet or is in a bad state.',
       executeError:
@@ -830,7 +833,7 @@ export const EN: ITranslation = {
       start: 'Failed to start the IDL Language Server',
       startingServer:
         'Error while starting local server (MCP or documentation), is the port already in use? See logs for more details.',
-      unhandled: 'An unknown error ocurred within the IDL Language Server',
+      unhandled: 'An unknown error occurred within the IDL Language Server',
     },
     events: {
       onAddDocs: 'Problem adding/updating routine docs for file',

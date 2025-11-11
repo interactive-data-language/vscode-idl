@@ -1,8 +1,8 @@
 import {
   ISplitTreeOnArguments,
   SplitTreeOnArguments,
-  TreeBranchToken,
 } from '@idl/parsing/syntax-tree';
+import { TreeBranchToken } from '@idl/types/syntax-tree';
 
 import { ITokenCache } from '../../../helpers/token-cache.interface';
 

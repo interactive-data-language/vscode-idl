@@ -3,7 +3,7 @@ import {
   IBaseIndexedToken,
   IDLDataType,
   IParameterOrPropertyDetails,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 /**
  * Information returned when we found a property, so we can have some context for

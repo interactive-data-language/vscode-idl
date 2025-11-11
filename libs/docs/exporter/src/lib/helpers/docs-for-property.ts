@@ -1,4 +1,4 @@
-import { IParameterOrPropertyDetails } from '@idl/types/core';
+import { IParameterOrPropertyDetails } from '@idl/types/idl-data-types';
 
 import { CleanDocs } from './clean-docs';
 import { CleanParamLink } from './clean-param-link';

@@ -46,4 +46,45 @@ describe(`[auto generated] Validates edge case quote parsing`, () => {
 
     expect(StripIDs(tokenized.tokens)).toEqual(expected);
   });
+
+  it(`[auto generated] for complex quotes confused with number strings`, () => {
+    // test code to extract tokens from
+    const code = [`c = "1:5,000,000 GNC Charts (754m)"`];
+
+    // extract tokens
+    const tokenized = Tokenizer(code, new CancellationToken());
+
+    // define expected tokens
+    const expected: IBaseToken<TokenName>[] = [
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.VARIABLE,
+        pos: [0, 0, 1],
+        matches: [`c`],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.ASSIGNMENT,
+        pos: [0, 2, 1],
+        matches: [`=`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.QUOTE_DOUBLE,
+        pos: [0, 4, 31],
+        matches: [
+          `"1:5,000,000 GNC Charts (754m)"`,
+          `1:5,000,000 GNC Charts (754m)`,
+        ],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.ASSIGNMENT,
+        pos: [0, 35, 0],
+        matches: [``],
+      },
+    ];
+
+    expect(StripIDs(tokenized.tokens)).toEqual(expected);
+  });
 });

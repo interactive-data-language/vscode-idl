@@ -1,6 +1,5 @@
 import { TokenName } from '@idl/tokenizer';
-
-import { TreeToken } from '../branches.interface';
+import { TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Get the token before ours in the current branch

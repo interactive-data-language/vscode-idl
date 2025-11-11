@@ -1,6 +1,6 @@
+import { SyntaxTree } from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';
 
-import { SyntaxTree } from '../../branches.interface';
 import { SplitOperatorToken } from './split-tree-on-operators';
 
 /**

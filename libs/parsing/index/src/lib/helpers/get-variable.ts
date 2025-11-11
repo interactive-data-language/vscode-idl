@@ -1,10 +1,10 @@
+import { VariableToken } from '@idl/tokenizer';
 import {
   ILocalIndexedToken,
   IParsed,
   LocalVariableToken,
   TreeToken,
-} from '@idl/parsing/syntax-tree';
-import { VariableToken } from '@idl/tokenizer';
+} from '@idl/types/syntax-tree';
 
 import { GetVariables } from './get-variables';
 

@@ -1,5 +1,6 @@
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { GetSortIndexForStrings } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IProcedureMethodCompletionOptions } from '@idl/types/auto-complete';
@@ -9,8 +10,7 @@ import {
   IDLDataType,
   IDLDataTypeBase,
   IDLTypes,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
@@ -85,7 +85,7 @@ function BuildProcedureMethodCompletionItemsForType(
           ...arg,
           ...{
             options: {
-              type: ParseIDLType(inherits[i]),
+              type: IDLTypeHelper.parseIDLType(inherits[i]),
             },
           },
         });

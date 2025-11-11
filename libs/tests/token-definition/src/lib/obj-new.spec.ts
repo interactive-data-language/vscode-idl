@@ -41,7 +41,15 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
         display: 'myclass',
         kws: {},
         private: false,
-        returns: [{ name: 'myclass', display: 'myclass', args: [], meta: {} }],
+        returns: [
+          {
+            name: 'myclass',
+            display: 'myclass',
+            serialized: 'myclass',
+            args: [],
+            meta: {},
+          },
+        ],
         struct: [],
       },
     };
@@ -90,12 +98,28 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
         source: 'internal',
         docs: '[Online Docs](https://www.nv5geospatialsoftware.com/docs/OBJ_NEW.html)\n\n```idl\n;+\n; :Returns: any\n;+\nresult = obj_new(objectclassname, arg1…argn, $\n  _extra = value)\n```\n\nGiven the name of a structure that defines an object class, the OBJ\\_NEW function returns an object reference to a new instance of the specified object type by carrying out the following operations in order:\n\nIf called without arguments, OBJ\\_NEW returns a NULL object reference. The NULL object reference is a special value that never refers to a value object. It is primarily used as a placeholder in structure definitions, and as the initial value for elements of object arrays created via OBJARR. The null object reference is useful as an indicator that an object reference is currently not usable.\n\n\n#### Arguments\n\n- **objectclassname**: bidirectional, optional, any\n\n  String giving the name of the structure type that defines the object class for which a new object should be created.\n  \n  If _ObjectClassName_ is not provided, OBJ\\_NEW does not create a new heap variable, and returns the _Null Object_, which is a special object reference that is guaranteed to never point at a valid object heap variable. The null object is a convenient value to use when defining structure definitions for fields that are object references, since it avoids the need to have a pre-existing valid object reference.\n\n- **arg1…argn**: bidirectional, optional, any\n\n  Any arguments accepted by the INIT method for the class of object being created can be specified when the object is created.\n\n\n\n#### Keywords\n\n- **_extra**: bidirectional, optional, any\n\n    Support for additional keywords\n\n\n\n### Return Value\n\nReturns a reference to a new instance of the specified object type. If called without arguments, OBJ\\_NEW returns a NULL object reference. The NULL object reference is a special value that never refers to a value object. It is primarily used as a placeholder in structure definitions, and as the initial value for elements of object arrays created via OBJARR. The null object reference is useful as an indicator that an object reference is currently not usable.',
         private: false,
-        returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+        returns: [
+          {
+            name: 'any',
+            display: 'any',
+            serialized: 'any',
+            args: [],
+            meta: {},
+          },
+        ],
         args: {
           objectclassname: {
             display: 'objectclassname',
             docs: 'String giving the name of the structure type that defines the object class for which a new object should be created.\n\nIf _ObjectClassName_ is not provided, OBJ\\_NEW does not create a new heap variable, and returns the _Null Object_, which is a special object reference that is guaranteed to never point at a valid object heap variable. The null object is a convenient value to use when defining structure definitions for fields that are object references, since it avoids the need to have a pre-existing valid object reference.',
-            type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            type: [
+              {
+                name: 'any',
+                display: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
             direction: 'bidirectional',
             source: 'internal',
             code: true,
@@ -104,7 +128,15 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
           'arg1…argn': {
             display: 'arg1…argn',
             docs: 'Any arguments accepted by the INIT method for the class of object being created can be specified when the object is created.',
-            type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            type: [
+              {
+                name: 'any',
+                display: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
             direction: 'bidirectional',
             source: 'internal',
             code: true,
@@ -115,7 +147,15 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
           _extra: {
             display: '_extra',
             docs: 'Support for additional keywords',
-            type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            type: [
+              {
+                name: 'any',
+                display: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
             direction: 'bidirectional',
             source: 'internal',
             code: true,

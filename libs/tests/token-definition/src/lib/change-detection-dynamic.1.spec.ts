@@ -60,7 +60,15 @@ describe(`[auto generated] Correctly get routine definition for`, () => {
         display: 'leap4',
         kws: {},
         private: false,
-        returns: [{ name: 'Plot', display: 'Plot', args: [], meta: {} }],
+        returns: [
+          {
+            name: 'Plot',
+            display: 'Plot',
+            serialized: 'Plot',
+            args: [],
+            meta: {},
+          },
+        ],
         struct: [],
       },
     };

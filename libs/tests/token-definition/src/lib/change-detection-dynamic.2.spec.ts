@@ -63,7 +63,15 @@ describe(`[auto generated] Correctly get routine definition for`, () => {
         usage: [[2, 0, 3]],
         docs: '',
         source: 'user',
-        type: [{ name: 'Plot', display: 'Plot', args: [], meta: {} }],
+        type: [
+          {
+            name: 'Plot',
+            display: 'Plot',
+            serialized: 'Plot',
+            args: [],
+            meta: {},
+          },
+        ],
       },
     };
 

@@ -1,3 +1,4 @@
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
@@ -6,8 +7,7 @@ import {
   GlobalTokens,
   IGlobalIndexedToken,
   IPropertyLookup,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 import {
   ENVITaskLegacy,
@@ -60,7 +60,7 @@ export function LegacyENVITaskToGlobal(
       private: param.hidden ? true : false,
       display: task.parameters[i].name.toLowerCase(),
       docs: param.description,
-      type: TaskTypeToIDLType(param.dataType),
+      type: TaskTypeToIDLType(param.dataType, param.choiceList),
       req: param.parameterType === 'required',
     };
   }
@@ -78,7 +78,7 @@ export function LegacyENVITaskToGlobal(
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
       docs: task.description,
       private: false,
-      returns: ParseIDLType(useName),
+      returns: IDLTypeHelper.parseIDLType(useName),
       args: {},
       kws: {},
       docsLookup: {},

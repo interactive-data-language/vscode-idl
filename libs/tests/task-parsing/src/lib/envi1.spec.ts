@@ -1,7 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
-import { GlobalTokens } from '@idl/types/core';
+import { GlobalTokens } from '@idl/types/idl-data-types';
 import { TaskToGlobalToken } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
@@ -43,11 +43,13 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ENVIRaster>',
+                  serialized: 'Array<ENVIRaster>',
                   args: [
                     [
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
@@ -66,7 +68,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'resampling',
               docs: 'Specify the resampling method. Nearest Neighbor: Uses the nearest pixel without any interpolation. Bilinear: Performs a linear interpolation using four pixels to resample, Cubic Convolution: Uses 16 pixels to approximate the sinc function using cubic polynomials to resample the image.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: "'Nearest Neighbor' | 'Bilinear' | 'Cubic'",
+                  args: [],
+                  meta: {},
+                  value: ['Nearest Neighbor', 'Bilinear', 'Cubic'],
+                },
+              ],
               req: false,
             },
             color_matching_method: {
@@ -77,7 +88,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'color_matching_method',
               docs: 'Set this property to a string that indicates the color matching method to perform. Histogram Matching: Map discrete greyscale levels from the histogram of an adjusted scene to the corresponding greyscale levels in the reference scenes. This helps to minimize the tonal differences across multiple scenes. None: Do not perform color matching.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: "'None' | 'Histogram Matching'",
+                  args: [],
+                  meta: {},
+                  value: ['None', 'Histogram Matching'],
+                },
+              ],
               req: false,
             },
             color_matching_actions: {
@@ -92,8 +112,17 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<String>',
+                  serialized: 'Array<String>',
                   args: [
-                    [{ name: 'String', display: 'String', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -108,7 +137,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'color_matching_statistics',
               docs: 'Set this property to a string that indicates what parts of the reference and adjusted images are used to compute statistics for color matching, if COLOR_MATCHING_METHOD is set to a value other than None.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: "'Overlapping Area' | 'Entire Scene'",
+                  args: [],
+                  meta: {},
+                  value: ['Overlapping Area', 'Entire Scene'],
+                },
+              ],
               req: false,
             },
             feathering_method: {
@@ -119,7 +157,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'feathering_method',
               docs: 'Set this property to a string that indicates the feathering method to use. None: No feathering. Edge: Edge feathering blends the pixels inside of each footprint boundary with the underlying scenes that are within the feathering distance. Seamline: Seaming feathering blends the pixels on both sides of an auto-generated seamline with the underlying scenes. If this property is set to a value other than None, FEATHERING_DISTANCE must also be specified.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: "'None' | 'Edge' | 'Seamline'",
+                  args: [],
+                  meta: {},
+                  value: ['None', 'Edge', 'Seamline'],
+                },
+              ],
               req: false,
             },
             feathering_distance: {
@@ -134,7 +181,18 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Int>',
-                  args: [[{ name: 'Int', display: 'Int', args: [], meta: {} }]],
+                  serialized: 'Array<Int>',
+                  args: [
+                    [
+                      {
+                        name: 'Int',
+                        display: 'Int',
+                        serialized: 'Int',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -148,7 +206,16 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'seamline_method',
               docs: 'Set this property to a string that indicates the method used to automatically generate seamlines. Geometry: Seamline generation that is based on the use of seamline networks by area Voroni diagrams with overlap. None: No Seamline generation. If SEAMLINE_METHOD is set to Geometry, then FEATHERING_METHOD must be set to Seamline.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: "'None' | 'Geometry'",
+                  args: [],
+                  meta: {},
+                  value: ['None', 'Geometry'],
+                },
+              ],
               req: false,
             },
             data_ignore_value: {
@@ -159,7 +226,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'data_ignore_value',
               docs: 'Specify a unique data value for pixels in the output raster that have a non-zero pixel state value (transparent pixels).',
-              type: [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Double',
+                  display: 'Double',
+                  serialized: 'Double',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             background: {
@@ -170,7 +245,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'background',
               docs: 'Same parameter as DATA_IGNORE_VALUE, left here for backward compatibility purposes.',
-              type: [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Double',
+                  display: 'Double',
+                  serialized: 'Double',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             output_raster_uri: {
@@ -181,7 +264,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'output_raster_uri',
               docs: 'Specify a string with the fully qualified filename and path to export the associated OUTPUT_RASTER. If you set this property to an asterisk symbol (*), the output raster will be virtual and not written to disk. If you do not specify this property, or set it to an exclamation symbol (!), a temporary file will be created.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: false,
             },
             output_raster: {
@@ -196,6 +287,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -218,11 +310,13 @@ describe(`[auto generated] Correctly parse task file`, () => {
             {
               name: 'envibuildmosaicrastertask',
               display: 'ENVITask<buildmosaicraster>',
+              serialized: 'ENVITask<buildmosaicraster>',
               args: [
                 [
                   {
                     name: 'buildmosaicraster',
                     display: 'buildmosaicraster',
+                    serialized: 'buildmosaicraster',
                     args: [],
                     meta: {},
                   },

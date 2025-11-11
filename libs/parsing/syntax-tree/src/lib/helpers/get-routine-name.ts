@@ -4,8 +4,8 @@ import {
   RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
+import { IBranch } from '@idl/types/syntax-tree';
 
-import { IBranch } from '../branches.interface';
 import { MAIN_LEVEL_NAME } from '../populators/populate-global.interface';
 
 /**

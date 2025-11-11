@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -137,7 +137,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[58, 22, 2]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -157,8 +165,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Number>',
+                  serialized: 'Array<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -176,7 +193,13 @@ describe(`[auto generated] Types from`, () => {
               docs: 'A reference to our object class',
               source: 'user',
               type: [
-                { name: 'myclass', display: 'myclass', args: [], meta: {} },
+                {
+                  name: 'myclass',
+                  display: 'myclass',
+                  serialized: 'myclass',
+                  args: [],
+                  meta: {},
+                },
               ],
               usage: [],
             },
@@ -194,7 +217,13 @@ describe(`[auto generated] Types from`, () => {
               docs: 'A reference to our object class',
               source: 'user',
               type: [
-                { name: 'myclass', display: 'myclass', args: [], meta: {} },
+                {
+                  name: 'myclass',
+                  display: 'myclass',
+                  serialized: 'myclass',
+                  args: [],
+                  meta: {},
+                },
               ],
               usage: [],
             },
@@ -214,7 +243,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[69, 16, 2]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: 'Byte',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -231,7 +268,13 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'myclass', display: 'myclass', args: [], meta: {} },
+                {
+                  name: 'myclass',
+                  display: 'myclass',
+                  serialized: 'myclass',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -252,6 +295,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -269,7 +313,13 @@ describe(`[auto generated] Types from`, () => {
               docs: 'A reference to our object class',
               source: 'user',
               type: [
-                { name: 'myclass', display: 'myclass', args: [], meta: {} },
+                {
+                  name: 'myclass',
+                  display: 'myclass',
+                  serialized: 'myclass',
+                  args: [],
+                  meta: {},
+                },
               ],
               usage: [],
             },
@@ -288,7 +338,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[78, 12, 1]],
             docs: '',
             source: 'user',
-            type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+            type: [
+              {
+                name: 'Byte',
+                display: 'Byte',
+                serialized: 'Byte',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         b: {
@@ -302,7 +360,15 @@ describe(`[auto generated] Types from`, () => {
             usage: [[81, 20, 1]],
             docs: '',
             source: 'user',
-            type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+            type: [
+              {
+                name: 'Long',
+                display: 'Long',
+                serialized: 'Long',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         var: {
@@ -320,7 +386,15 @@ describe(`[auto generated] Types from`, () => {
             ],
             docs: '',
             source: 'user',
-            type: [{ name: 'myclass', display: 'myclass', args: [], meta: {} }],
+            type: [
+              {
+                name: 'myclass',
+                display: 'myclass',
+                serialized: 'myclass',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         c: {
@@ -335,7 +409,13 @@ describe(`[auto generated] Types from`, () => {
             docs: '',
             source: 'user',
             type: [
-              { name: 'ENVIRaster', display: 'ENVIRaster', args: [], meta: {} },
+              {
+                name: 'ENVIRaster',
+                display: 'ENVIRaster',
+                serialized: 'ENVIRaster',
+                args: [],
+                meta: {},
+              },
             ],
           },
         },
@@ -354,8 +434,17 @@ describe(`[auto generated] Types from`, () => {
               {
                 name: 'Array',
                 display: 'Array<Number>',
+                serialized: 'Array<Number>',
                 args: [
-                  [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                  [
+                    {
+                      name: 'Number',
+                      display: 'Number',
+                      serialized: 'Number',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
                 ],
                 meta: {},
               },
@@ -401,7 +490,15 @@ describe(`[auto generated] Types from`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'out',
               source: 'internal',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: 'Byte',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'kw',
@@ -430,7 +527,15 @@ describe(`[auto generated] Types from`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'out',
               source: 'internal',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'kw',
@@ -439,7 +544,15 @@ describe(`[auto generated] Types from`, () => {
             },
           },
           private: false,
-          returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+          returns: [
+            {
+              name: 'any',
+              display: 'any',
+              serialized: 'any',
+              args: [],
+              meta: {},
+            },
+          ],
           struct: [],
         },
         file: 'not-real',
@@ -510,6 +623,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -548,8 +662,17 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Number>',
+                  serialized: 'Array<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -562,7 +685,15 @@ describe(`[auto generated] Types from`, () => {
             },
           },
           private: false,
-          returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+          returns: [
+            {
+              name: 'any',
+              display: 'any',
+              serialized: 'any',
+              args: [],
+              meta: {},
+            },
+          ],
           struct: [],
         },
         file: 'not-real',
@@ -583,7 +714,13 @@ describe(`[auto generated] Types from`, () => {
           kws: {},
           private: false,
           returns: [
-            { name: 'myclass', display: 'myclass', args: [], meta: {} },
+            {
+              name: 'myclass',
+              display: 'myclass',
+              serialized: 'myclass',
+              args: [],
+              meta: {},
+            },
           ],
           struct: [],
         },
@@ -603,7 +740,13 @@ describe(`[auto generated] Types from`, () => {
           kws: {},
           private: false,
           returns: [
-            { name: 'myclass', display: 'myclass', args: [], meta: {} },
+            {
+              name: 'myclass',
+              display: 'myclass',
+              serialized: 'myclass',
+              args: [],
+              meta: {},
+            },
           ],
           struct: [],
         },

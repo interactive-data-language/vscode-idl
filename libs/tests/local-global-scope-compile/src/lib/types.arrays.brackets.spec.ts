@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -83,8 +83,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Long>',
+                  serialized: 'Array<1 | 2 | 3 | 4>',
                   args: [
-                    [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+                    [
+                      {
+                        display: 'Long',
+                        name: 'Long',
+                        serialized: '1 | 2 | 3 | 4',
+                        args: [],
+                        meta: {},
+                        value: ['1', '2', '3', '4'],
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -106,8 +116,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Float>',
+                  serialized: 'Array<1 | 2 | 3 | 4.>',
                   args: [
-                    [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+                    [
+                      {
+                        display: 'Float',
+                        name: 'Float',
+                        serialized: '1 | 2 | 3 | 4.',
+                        args: [],
+                        meta: {},
+                        value: ['1', '2', '3', '4.'],
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -129,8 +149,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<1 | 2 | 3 | 4d>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        display: 'Double',
+                        name: 'Double',
+                        serialized: '1 | 2 | 3 | 4d',
+                        args: [],
+                        meta: {},
+                        value: ['1', '2', '3', '4d'],
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -152,13 +182,16 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<DoubleComplex>',
+                  serialized: 'Array<1 | 2 | 3 | 4di>',
                   args: [
                     [
                       {
-                        name: 'DoubleComplex',
                         display: 'DoubleComplex',
+                        name: 'DoubleComplex',
+                        serialized: '1 | 2 | 3 | 4di',
                         args: [],
                         meta: {},
+                        value: ['1', '2', '3', '4di'],
                       },
                     ],
                   ],
@@ -182,7 +215,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Array<any>',
+                  args: [
+                    [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -203,8 +247,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Long>',
+                  serialized: 'Array<1 | 2 | 3 | 4 | 5>',
                   args: [
-                    [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+                    [
+                      {
+                        display: 'Long',
+                        name: 'Long',
+                        serialized: '1 | 2 | 3 | 4 | 5',
+                        args: [],
+                        meta: {},
+                        value: ['1', '2', '3', '4', '5'],
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -226,8 +280,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<Double>',
+                  serialized: 'Array<1 | 2 | 3 | 4d | 4 | 5>',
                   args: [
-                    [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+                    [
+                      {
+                        display: 'Double',
+                        name: 'Double',
+                        serialized: '1 | 2 | 3 | 4d | 4 | 5',
+                        args: [],
+                        meta: {},
+                        value: ['1', '2', '3', '4d', '4', '5'],
+                      },
+                    ],
                   ],
                   meta: {},
                 },
@@ -249,13 +313,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<List<any>>',
+                  serialized: 'Array<List<any>>',
                   args: [
                     [
                       {
                         name: 'List',
                         display: 'List<any>',
+                        serialized: 'List<any>',
                         args: [
-                          [{ name: 'any', display: 'any', args: [], meta: {} }],
+                          [
+                            {
+                              display: 'any',
+                              name: 'any',
+                              serialized: 'any',
+                              args: [],
+                              meta: {},
+                            },
+                          ],
                         ],
                         meta: {},
                       },
@@ -281,11 +355,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ENVIRaster>',
+                  serialized: 'Array<ENVIRaster>',
                   args: [
                     [
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
@@ -311,15 +387,23 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'Array',
                   display: 'Array<ENVIRaster | Plot>',
+                  serialized: 'Array<ENVIRaster | Plot>',
                   args: [
                     [
                       {
                         name: 'ENVIRaster',
                         display: 'ENVIRaster',
+                        serialized: 'ENVIRaster',
                         args: [],
                         meta: {},
                       },
-                      { name: 'Plot', display: 'Plot', args: [], meta: {} },
+                      {
+                        name: 'Plot',
+                        display: 'Plot',
+                        serialized: 'Plot',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},

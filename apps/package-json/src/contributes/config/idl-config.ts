@@ -60,6 +60,19 @@ export function AddIDLConfig(nls: IPackageNLS) {
 
   // do we add folders to IDL's path?
   ourConfig.properties[
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLThemeMatch}`
+  ] = {
+    type: 'boolean',
+    default: DEFAULT_IDL_EXTENSION_CONFIG.IDL.themeMatch,
+    description: TranslationFromConfiguration(
+      IDL_EXTENSION_CONFIG_KEYS.IDLThemeMatch,
+      nls
+    ),
+    scope: IDL_CONFIG_SCOPE,
+  };
+
+  // do we add folders to IDL's path?
+  ourConfig.properties[
     `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.IDLAddWorkspaceFoldersToPath}`
   ] = {
     type: 'boolean',

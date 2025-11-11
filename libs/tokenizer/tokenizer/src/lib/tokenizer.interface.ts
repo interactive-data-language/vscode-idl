@@ -8,12 +8,20 @@ import { PositionArray } from '@idl/types/tokenizer';
 
 import { TokenStartMatches } from './token-matches.interface';
 import { ITokenDef, TOKEN_NAMES, TokenName } from './tokens.interface';
-import { ALL_TOKENS, DEFAULT_TOKENS } from './tokens/def-groups.interface';
 import { COMMENT } from './tokens/defs/comment.interface';
 import { ROUTINE_DEF } from './tokens/defs/routines.definition.interface';
 import { STRUCTURE } from './tokens/defs/structure.interface';
-import { ISubTokenDefs, SUB_DEFS } from './tokens/sub-defs.interface';
-import { SUB_DEFS_FAST } from './tokens/sub-defs-fast.interface';
+import { SUB_DEFS_FAST } from './tokens/fast/sub-defs-fast.interface';
+import {
+  ALL_TOKENS,
+  DEFAULT_TOKENS_FULL,
+} from './tokens/full/def-groups-full.interface';
+import {
+  ISubTokenDefs,
+  SUB_DEFS_FULL,
+} from './tokens/full/sub-defs-full.interface';
+import { ALL_TYPE_TOKENS } from './tokens/types/def-groups-types.interface';
+import { SUB_DEFS_TYPES } from './tokens/types/sub-defs-types.interface';
 
 /**
  * Options to customize how we find tokens
@@ -43,8 +51,8 @@ export interface IFindTokensOptions {
  */
 export const DEFAULT_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
   defs: ALL_TOKENS,
-  subDefs: SUB_DEFS,
-  default: DEFAULT_TOKENS,
+  subDefs: SUB_DEFS_FULL,
+  default: DEFAULT_TOKENS_FULL,
   full: true,
 };
 
@@ -60,7 +68,18 @@ export const FAST_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
 };
 
 /**
- * Options for finding tokens in def files
+ * Options for finding type tokens and only type tokens
+ */
+export const TYPE_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
+  defs: ALL_TYPE_TOKENS,
+  subDefs: SUB_DEFS_TYPES,
+  // even though structure is deprecated, use it as it is a simpler regex expression
+  default: ALL_TYPE_TOKENS,
+  full: true,
+};
+
+/**
+ * Options for finding tokens in .pro.def files
  */
 export const DEF_FIND_TOKEN_OPTIONS: IFindTokensOptions = {
   defs: [COMMENT, ROUTINE_DEF],

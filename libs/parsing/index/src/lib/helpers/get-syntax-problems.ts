@@ -1,5 +1,5 @@
 import { ApplyDisabledProblems } from '@idl/parser';
-import { IParsed } from '@idl/parsing/syntax-tree';
+import { IParsed } from '@idl/types/syntax-tree';
 
 /**
  * From a parsed file, returns all syntax problems.

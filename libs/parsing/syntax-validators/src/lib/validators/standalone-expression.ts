@@ -1,11 +1,8 @@
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
   CHAIN_TOKEN_STARTS,
   GetChainEnd,
   IDL_SYNTAX_TREE_VALIDATOR,
-  IParsed,
-  SyntaxProblemWithTranslation,
-  TreeBranchToken,
-  TreeToken,
 } from '@idl/parsing/syntax-tree';
 import {
   NonBasicTokenNames,
@@ -13,6 +10,7 @@ import {
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { IParsed, TreeBranchToken, TreeToken } from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';
 
 /**

@@ -83,6 +83,9 @@ export interface IDLExtensionsConfigKeys {
 
   /** Top-level formatting options, excluding style */
   readonly IDLPreferences: 'IDL.preferences';
+  /** Does the theme of IDL and ENVI match that of VSCode */
+  readonly IDLThemeMatch: 'IDL.themeMatch';
+
   /** Key for language server preferences */
   readonly languageServer: 'languageServer';
 
@@ -145,6 +148,8 @@ export interface IDLConfig {
   readonly history: IDLHistoryConfig;
   /** User configured IDL path */
   readonly path: string[];
+  /** Does the theme of IDL and ENVI match that of VSCode */
+  readonly themeMatch: boolean;
 }
 
 export interface ICodeConfig {
@@ -325,6 +330,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   IDLPreferences: 'IDL.preferences',
   IDLenvironment: 'IDL.environment',
   IDLhistory: 'IDL.history',
+  IDLThemeMatch: 'IDL.themeMatch',
 
   code: 'code',
   codeFormatting: 'code.formatting',
@@ -395,6 +401,7 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
       folder: '${.idl}',
       fileName: 'idl-history.idllog',
     },
+    themeMatch: true,
   },
   code: {
     formatting: {

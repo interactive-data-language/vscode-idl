@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -72,7 +72,18 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                 {
                   name: 'Pointer',
                   display: 'Pointer<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Pointer<any>',
+                  args: [
+                    [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -93,13 +104,23 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                 {
                   name: 'Pointer',
                   display: 'Pointer<Array<any>>',
+                  serialized: 'Pointer<Array<any>>',
                   args: [
                     [
                       {
                         name: 'Array',
                         display: 'Array<any>',
+                        serialized: 'Array<any>',
                         args: [
-                          [{ name: 'any', display: 'any', args: [], meta: {} }],
+                          [
+                            {
+                              display: 'any',
+                              name: 'any',
+                              serialized: 'any',
+                              args: [],
+                              meta: {},
+                            },
+                          ],
                         ],
                         meta: {},
                       },
@@ -125,16 +146,19 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                 {
                   name: 'Pointer',
                   display: 'Pointer<Array<Number>>',
+                  serialized: 'Pointer<Array<Number>>',
                   args: [
                     [
                       {
                         name: 'Array',
                         display: 'Array<Number>',
+                        serialized: 'Array<Number>',
                         args: [
                           [
                             {
                               name: 'Number',
                               display: 'Number',
+                              serialized: 'Number',
                               args: [],
                               meta: {},
                             },
@@ -163,8 +187,29 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
               type: [
                 {
                   name: 'Pointer',
-                  display: 'Pointer<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  display: 'Pointer<Array<Number>>',
+                  serialized: 'Pointer<Array<Number>>',
+                  args: [
+                    [
+                      {
+                        name: 'Array',
+                        display: 'Array<Number>',
+                        serialized: 'Array<Number>',
+                        args: [
+                          [
+                            {
+                              name: 'Number',
+                              display: 'Number',
+                              serialized: 'Number',
+                              args: [],
+                              meta: {},
+                            },
+                          ],
+                        ],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -182,8 +227,20 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -202,24 +259,36 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                 {
                   name: 'Hash',
                   display: 'Hash<Number>',
+                  serialized: 'Hash<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
                 {
                   name: 'List',
                   display: 'List<Array<Number>>',
+                  serialized: 'List<Array<Number>>',
                   args: [
                     [
                       {
                         name: 'Array',
                         display: 'Array<Number>',
+                        serialized: 'Array<Number>',
                         args: [
                           [
                             {
                               name: 'Number',
                               display: 'Number',
+                              serialized: 'Number',
                               args: [],
                               meta: {},
                             },
@@ -249,10 +318,23 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -260,22 +342,26 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                 {
                   name: 'List',
                   display: 'List<Array<Number | String> | List<ENVIRaster>>',
+                  serialized: 'List<Array<Number | String> | List<ENVIRaster>>',
                   args: [
                     [
                       {
                         name: 'Array',
                         display: 'Array<Number | String>',
+                        serialized: 'Array<Number | String>',
                         args: [
                           [
                             {
                               name: 'Number',
                               display: 'Number',
+                              serialized: 'Number',
                               args: [],
                               meta: {},
                             },
                             {
                               name: 'String',
                               display: 'String',
+                              serialized: 'String',
                               args: [],
                               meta: {},
                             },
@@ -286,11 +372,13 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                       {
                         name: 'List',
                         display: 'List<ENVIRaster>',
+                        serialized: 'List<ENVIRaster>',
                         args: [
                           [
                             {
                               name: 'ENVIRaster',
                               display: 'ENVIRaster',
+                              serialized: 'ENVIRaster',
                               args: [],
                               meta: {},
                             },
@@ -331,7 +419,18 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                 {
                   name: 'Pointer',
                   display: 'Pointer<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'Pointer<any>',
+                  args: [
+                    [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -349,13 +448,23 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                 {
                   name: 'Pointer',
                   display: 'Pointer<Array<any>>',
+                  serialized: 'Pointer<Array<any>>',
                   args: [
                     [
                       {
                         name: 'Array',
                         display: 'Array<any>',
+                        serialized: 'Array<any>',
                         args: [
-                          [{ name: 'any', display: 'any', args: [], meta: {} }],
+                          [
+                            {
+                              display: 'any',
+                              name: 'any',
+                              serialized: 'any',
+                              args: [],
+                              meta: {},
+                            },
+                          ],
                         ],
                         meta: {},
                       },
@@ -378,16 +487,19 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                 {
                   name: 'Pointer',
                   display: 'Pointer<Array<Number>>',
+                  serialized: 'Pointer<Array<Number>>',
                   args: [
                     [
                       {
                         name: 'Array',
                         display: 'Array<Number>',
+                        serialized: 'Array<Number>',
                         args: [
                           [
                             {
                               name: 'Number',
                               display: 'Number',
+                              serialized: 'Number',
                               args: [],
                               meta: {},
                             },
@@ -413,8 +525,29 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
               type: [
                 {
                   name: 'Pointer',
-                  display: 'Pointer<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  display: 'Pointer<Array<Number>>',
+                  serialized: 'Pointer<Array<Number>>',
+                  args: [
+                    [
+                      {
+                        name: 'Array',
+                        display: 'Array<Number>',
+                        serialized: 'Array<Number>',
+                        args: [
+                          [
+                            {
+                              name: 'Number',
+                              display: 'Number',
+                              serialized: 'Number',
+                              args: [],
+                              meta: {},
+                            },
+                          ],
+                        ],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -429,8 +562,20 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
               direction: 'in',
               source: 'internal',
               type: [
-                { name: 'Number', display: 'Number', args: [], meta: {} },
-                { name: 'String', display: 'String', args: [], meta: {} },
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
               ],
               private: false,
               req: true,
@@ -446,24 +591,36 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                 {
                   name: 'Hash',
                   display: 'Hash<Number>',
+                  serialized: 'Hash<Number>',
                   args: [
-                    [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+                    [
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
                   ],
                   meta: {},
                 },
                 {
                   name: 'List',
                   display: 'List<Array<Number>>',
+                  serialized: 'List<Array<Number>>',
                   args: [
                     [
                       {
                         name: 'Array',
                         display: 'Array<Number>',
+                        serialized: 'Array<Number>',
                         args: [
                           [
                             {
                               name: 'Number',
                               display: 'Number',
+                              serialized: 'Number',
                               args: [],
                               meta: {},
                             },
@@ -490,10 +647,23 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                 {
                   name: 'Hash',
                   display: 'Hash<Number | String>',
+                  serialized: 'Hash<Number | String>',
                   args: [
                     [
-                      { name: 'Number', display: 'Number', args: [], meta: {} },
-                      { name: 'String', display: 'String', args: [], meta: {} },
+                      {
+                        name: 'Number',
+                        display: 'Number',
+                        serialized: 'Number',
+                        args: [],
+                        meta: {},
+                      },
+                      {
+                        name: 'String',
+                        display: 'String',
+                        serialized: 'String',
+                        args: [],
+                        meta: {},
+                      },
                     ],
                   ],
                   meta: {},
@@ -501,22 +671,26 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                 {
                   name: 'List',
                   display: 'List<Array<Number | String> | List<ENVIRaster>>',
+                  serialized: 'List<Array<Number | String> | List<ENVIRaster>>',
                   args: [
                     [
                       {
                         name: 'Array',
                         display: 'Array<Number | String>',
+                        serialized: 'Array<Number | String>',
                         args: [
                           [
                             {
                               name: 'Number',
                               display: 'Number',
+                              serialized: 'Number',
                               args: [],
                               meta: {},
                             },
                             {
                               name: 'String',
                               display: 'String',
+                              serialized: 'String',
                               args: [],
                               meta: {},
                             },
@@ -527,11 +701,13 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
                       {
                         name: 'List',
                         display: 'List<ENVIRaster>',
+                        serialized: 'List<ENVIRaster>',
                         args: [
                           [
                             {
                               name: 'ENVIRaster',
                               display: 'ENVIRaster',
+                              serialized: 'ENVIRaster',
                               args: [],
                               meta: {},
                             },
@@ -551,7 +727,7 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
               pos: [18, 59, 4],
             },
           },
-          docs: '\n```idl\ntype_parsing_test, arg1, arg2, arg3, arg4, arg5, arg6, arg7\n```\n\n\n\n\n#### Arguments\n\n- **arg1**: in, required, Pointer<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, Pointer<Array<any>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, Pointer<Array<Number>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, Pointer<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, Number | String\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg6**: in, required, Hash<Number> | List<Array<Number>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg7**: in, required, Hash<Number | String> | List<Array<Number | String> | List<ENVIRaster>>\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\ntype_parsing_test, arg1, arg2, arg3, arg4, arg5, arg6, arg7\n```\n\n\n\n\n#### Arguments\n\n- **arg1**: in, required, Pointer<any>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, Pointer<Array<any>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, Pointer<Array<Number>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, Pointer<Array<Number>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, Number | String\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg6**: in, required, Hash<Number> | List<Array<Number>>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg7**: in, required, Hash<Number | String> | List<Array<Number | String> | List<ENVIRaster>>\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'type_parsing_test',
           kws: {},

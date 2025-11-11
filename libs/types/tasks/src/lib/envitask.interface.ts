@@ -21,9 +21,9 @@ export type ENVITaskSchemaVersion =
  */
 export interface ENVIParameterSchema30 {
   /** Available options */
-  choiceList?: any;
+  choice_list?: any;
   /** Default value for the task */
-  defaultValue?: any;
+  default?: any;
   /** parameter description */
   description: string;
   /** If array, dimension string */

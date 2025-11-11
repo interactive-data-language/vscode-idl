@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -97,7 +97,15 @@ describe(`[auto generated] Types from`, () => {
               ],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           b: {
@@ -118,6 +126,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ComplexNumber',
                   display: 'ComplexNumber',
+                  serialized: 'ComplexNumber',
                   args: [],
                   meta: {},
                 },
@@ -135,7 +144,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[14, 2, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Byte', display: 'Byte', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Byte',
+                  display: 'Byte',
+                  serialized: 'Byte',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           int: {
@@ -149,7 +166,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[16, 2, 3]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Int', display: 'Int', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Int',
+                  display: 'Int',
+                  serialized: 'Int',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           uint: {
@@ -163,7 +188,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[18, 2, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'UInt', display: 'UInt', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'UInt',
+                  display: 'UInt',
+                  serialized: 'UInt',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           long: {
@@ -177,7 +210,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[20, 2, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           ulong: {
@@ -191,7 +232,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[22, 2, 5]],
               docs: '',
               source: 'user',
-              type: [{ name: 'ULong', display: 'ULong', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ULong',
+                  display: 'ULong',
+                  serialized: 'ULong',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           long64: {
@@ -205,7 +254,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[24, 2, 6]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Long64', display: 'Long64', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long64',
+                  display: 'Long64',
+                  serialized: 'Long64',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           ulong64: {
@@ -220,7 +277,13 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'ULong64', display: 'ULong64', args: [], meta: {} },
+                {
+                  name: 'ULong64',
+                  display: 'ULong64',
+                  serialized: 'ULong64',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -235,7 +298,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[28, 2, 6]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           float2: {
@@ -249,7 +320,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[29, 2, 6]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Float', display: 'Float', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Float',
+                  display: 'Float',
+                  serialized: 'Float',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           double: {
@@ -263,7 +342,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[31, 2, 6]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Double', display: 'Double', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Double',
+                  display: 'Double',
+                  serialized: 'Double',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           biginteger: {
@@ -281,6 +368,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'BigInteger',
                   display: 'BigInteger',
+                  serialized: 'BigInteger',
                   args: [],
                   meta: {},
                 },
@@ -298,7 +386,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[35, 2, 6]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           complexfloat: {
@@ -313,7 +409,13 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                { name: 'Complex', display: 'Complex', args: [], meta: {} },
+                {
+                  name: 'Complex',
+                  display: 'Complex',
+                  serialized: 'Complex',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -335,6 +437,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'DoubleComplex',
                   display: 'DoubleComplex',
+                  serialized: 'DoubleComplex',
                   args: [],
                   meta: {},
                 },
@@ -356,6 +459,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ComplexNumber',
                   display: 'ComplexNumber',
+                  serialized: 'ComplexNumber',
                   args: [],
                   meta: {},
                 },
@@ -377,6 +481,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ComplexNumber',
                   display: 'ComplexNumber',
+                  serialized: 'ComplexNumber',
                   args: [],
                   meta: {},
                 },
@@ -406,7 +511,15 @@ describe(`[auto generated] Types from`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'Number', display: 'Number', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Number',
+                  display: 'Number',
+                  serialized: 'Number',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'a',
@@ -421,6 +534,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ComplexNumber',
                   display: 'ComplexNumber',
+                  serialized: 'ComplexNumber',
                   args: [],
                   meta: {},
                 },
@@ -437,7 +551,15 @@ describe(`[auto generated] Types from`, () => {
           display: 'most_cases',
           kws: {},
           private: false,
-          returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+          returns: [
+            {
+              name: 'any',
+              display: 'any',
+              serialized: 'any',
+              args: [],
+              meta: {},
+            },
+          ],
           struct: [],
         },
         file: 'not-real',

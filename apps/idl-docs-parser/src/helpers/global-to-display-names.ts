@@ -1,5 +1,5 @@
 import { GlobalDisplayNameLookup, IGlobalFromIDL } from '@idl/parsing/routines';
-import { GLOBAL_TOKEN_TYPES, GlobalTokens } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES, GlobalTokens } from '@idl/types/idl-data-types';
 
 /**
  * Converts our pre-parsed IDL routine and docs information into global tokens that can plug directly

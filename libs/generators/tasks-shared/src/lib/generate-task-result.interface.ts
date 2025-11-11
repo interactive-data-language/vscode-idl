@@ -1,4 +1,7 @@
-import { GlobalProcedureToken, IGlobalIndexedToken } from '@idl/types/core';
+import {
+  GlobalProcedureToken,
+  IGlobalIndexedToken,
+} from '@idl/types/idl-data-types';
 import { ParsedTask } from '@idl/types/tasks';
 
 /**

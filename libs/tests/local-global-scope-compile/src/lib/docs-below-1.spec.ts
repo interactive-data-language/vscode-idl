@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -70,6 +70,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -87,7 +88,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[0, 71, 17]],
               docs: 'Thing 2',
               source: 'user',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           third: {
@@ -101,7 +110,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[0, 99, 5]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           e: {
@@ -118,7 +135,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               ],
               docs: '',
               source: 'user',
-              type: [{ name: 'ENVI', display: 'ENVI', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ENVI',
+                  display: 'ENVI',
+                  serialized: 'ENVI',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -151,6 +176,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -165,7 +191,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: 'Thing 2',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'output_raster_uri',
@@ -176,7 +210,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: 'Thing 3',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'third',
@@ -187,7 +229,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'third2',
@@ -279,6 +329,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -296,7 +347,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[0, 76, 17]],
               docs: 'Thing 2',
               source: 'user',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           third: {
@@ -310,7 +369,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[0, 104, 5]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           e: {
@@ -327,7 +394,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               ],
               docs: '',
               source: 'user',
-              type: [{ name: 'ENVI', display: 'ENVI', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ENVI',
+                  display: 'ENVI',
+                  serialized: 'ENVI',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -361,6 +436,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -375,7 +451,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: 'Thing 2',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'output_raster_uri',
@@ -386,7 +470,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: 'Thing 3',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'third',
@@ -397,7 +489,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'third2',
@@ -406,7 +506,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
             },
           },
           private: false,
-          returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+          returns: [
+            {
+              name: 'any',
+              display: 'any',
+              serialized: 'any',
+              args: [],
+              meta: {},
+            },
+          ],
           struct: [],
         },
         file: 'not-real',
@@ -504,7 +612,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[18, 42, 12]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           output_raster_uri: {
@@ -518,7 +634,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[18, 76, 17]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           third: {
@@ -532,7 +656,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[18, 104, 5]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           e: {
@@ -549,7 +681,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               ],
               docs: '',
               source: 'user',
-              type: [{ name: 'ENVI', display: 'ENVI', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'ENVI',
+                  display: 'ENVI',
+                  serialized: 'ENVI',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -575,7 +715,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'arg1',
@@ -586,7 +734,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'arg2',
@@ -597,7 +753,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'arg3',
@@ -612,6 +776,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -631,7 +796,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'KW1',
@@ -642,7 +815,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: false,
               display: 'KW2',
@@ -653,7 +834,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'input_raster',
@@ -664,7 +853,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'output_raster_uri',
@@ -675,7 +872,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'third2',
@@ -684,7 +889,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
             },
           },
           private: false,
-          returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+          returns: [
+            {
+              name: 'any',
+              display: 'any',
+              serialized: 'any',
+              args: [],
+              meta: {},
+            },
+          ],
           struct: [],
         },
         file: 'not-real',
@@ -751,7 +964,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[1, 47, 3]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           kw2: {
@@ -765,7 +986,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[1, 58, 3]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           arg1: {
@@ -779,7 +1008,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[1, 17, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           arg2: {
@@ -793,7 +1030,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[1, 23, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           arg3: {
@@ -807,7 +1052,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[1, 29, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           arg4: {
@@ -821,7 +1074,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[1, 35, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           a: {
@@ -835,7 +1096,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               usage: [[4, 2, 1]],
               docs: 'reference to our super cool and awesome plot',
               source: 'user',
-              type: [{ name: 'Plot', display: 'Plot', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Plot',
+                  display: 'Plot',
+                  serialized: 'Plot',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -860,7 +1129,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'arg1',
@@ -871,7 +1148,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'arg2',
@@ -882,7 +1167,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'arg3',
@@ -893,7 +1186,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'arg4',
@@ -909,7 +1210,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'KW1',
@@ -920,7 +1229,15 @@ describe(`[auto generated] Extract docs below routines`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: false,
               display: 'KW2',

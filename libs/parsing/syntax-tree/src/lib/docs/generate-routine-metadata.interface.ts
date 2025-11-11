@@ -1,4 +1,4 @@
-import { IFunctionMetadata, IRoutineMetadata } from '@idl/types/core';
+import { IFunctionMetadata, IRoutineMetadata } from '@idl/types/idl-data-types';
 
 /* Strictly typed value for functions with regards to docs */
 export type FunctionRoutineType = 'function';

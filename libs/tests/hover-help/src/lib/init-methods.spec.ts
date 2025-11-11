@@ -68,8 +68,8 @@ describe(`[auto generated] Verify hover-help for`, () => {
 
     // define expected token we extract
     const expectedFound_1: string[] = [
-      '```typescript',
-      'type kw2 = Boolean',
+      '```idl',
+      'kw kw2: Boolean',
       '```',
       '',
       'Placeholder docs for argument, keyword, or property',

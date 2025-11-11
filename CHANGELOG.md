@@ -18,6 +18,46 @@ Document some advanced types so users may try them out and provide feedback. The
 
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
+### Unreleased
+
+All MCP servers are now configured with the name of our extension instead of "IDL for VSCode". This means we use "idl.idl-for-vscode" as the name. This change was made because that name should be constant and would allow GitHub Copilot organizations to whitelist our MCP server when used locally.
+
+Added a formal parser for type notations which is much more robust and offers some added benefits:
+
+- Full support for literal types (numbers, strings, etc.)
+
+- Track the value for types, which you will see in hover help
+
+- Reworked hover help for types that uses our IDL syntax highlighting and is aware of variables, keywords, properties, and more.
+
+- Our hover-help for properties from task files now uses choice lists and gives more insight into what valid parameters can be.
+
+> This is just a first implementation of changing type parsing/handling. More to come!
+>
+> And, if there's something weird or hard to understand about the new hover help, let us know and we
+> are happy to improve the extension!
+
+Syntax highlighting for types has been updated to match the new type parser which resolved some issues with types not being highlighted in docs blocks.
+
+Fixed a typo in one of the paths we check to find IDL on Mac when you have ENVI + IDL installed
+
+New preference (enabled by default) that has the theme of IDL and ENVI match that of VSCode. This means, if you have a dark mode programming theme, IDL and ENVI will launch in dark mode. Do note that, if we detect `IDL_THEME` as an environment variable, this preference has no effect.
+
+Change the way that we detect the types from ENVI and IDL tasks in your code. If we don't know which ENVI or IDL task you are using, we set the type as a generic ENVITask or IDLTask. This makes sure you still get some type of auto-complete and hover help for a better developer experience.
+
+Fixed an issue with task generation not correctly adjusting the names of paired parameters.
+
+Fixed a bug with IDL Notebooks embedding odd graphics from the ENVI UI when running cells with the ENVI UI open
+
+Fixed an issue where empty paths could be added to the IDL search path through VSCode settings.
+
+Re-worked the logic for managing and setting IDL's search path. It follows this process:
+
+- If you have workspaces open, and have opted in to adding to the path (default), add each folder
+- If you have set IDL's path through VSCode preferences, add each folder
+- If you have IDL_PATH in your environment variable, add each folder
+- Always make sure the IDL_DEFAULT path is present
+
 ## 5.1.0 - August 2025
 
 This verion introduces a new selection of IDL Tutorials! These come as a collection of notebooks to help new users get up and running. In the IDL sidebar, you'll see a new section called "IDL Tutorials" with language-specific content.

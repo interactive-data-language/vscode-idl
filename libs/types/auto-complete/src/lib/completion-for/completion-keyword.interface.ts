@@ -1,4 +1,4 @@
-import { GlobalIndexedRoutineToken } from '@idl/types/core';
+import { GlobalIndexedRoutineToken } from '@idl/types/idl-data-types';
 
 /**
  * Auto-complete for keywords

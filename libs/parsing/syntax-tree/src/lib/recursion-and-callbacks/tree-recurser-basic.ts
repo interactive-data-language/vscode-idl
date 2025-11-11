@@ -1,12 +1,12 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import copy from 'fast-copy';
-
 import {
   BRANCH_TYPES,
   SyntaxTree,
   TreeBasicToken,
   TreeBranchToken,
-} from '../branches.interface';
+} from '@idl/types/syntax-tree';
+import copy from 'fast-copy';
+
 import {
   BASE_TREE_RECURSER_BASIC_OPTIONS,
   ITreeRecurserBasicOptions,

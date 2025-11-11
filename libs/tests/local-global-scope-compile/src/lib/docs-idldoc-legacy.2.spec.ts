@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -61,7 +61,13 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'My docs for a keyword',
               source: 'user',
               type: [
-                { name: 'Boolean', display: 'Boolean', args: [], meta: {} },
+                {
+                  name: 'Boolean',
+                  display: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -76,7 +82,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[10, 12, 8]],
               docs: 'My docs for a parameter',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -101,7 +115,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'My docs for a parameter',
               direction: 'out',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'TheParam',
@@ -118,7 +140,13 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               direction: 'in',
               source: 'internal',
               type: [
-                { name: 'Boolean', display: 'Boolean', args: [], meta: {} },
+                {
+                  name: 'Boolean',
+                  display: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
               private: false,
               req: false,

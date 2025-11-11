@@ -49,6 +49,7 @@ import { LogSessionStart } from './helpers/log-session-start';
 import { LogSessionStop } from './helpers/log-session-stop';
 import { MapVariables } from './helpers/map-variables';
 import { RegisterDebugAdapterCLIProgressHandler } from './helpers/register-debug-adapter-cli-progress-handler';
+import { RegisterDebugAdapterENVISuccessMessageHandler } from './helpers/register-debug-adapter-envi-success-message-handler';
 import { IDLBreakpointManager } from './idl-breakpoint-manager.class';
 import {
   ADAPTER_METHOD_LOG_LEVEL,
@@ -537,6 +538,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         // register custom handlers
         RegisterIDLMachineRequestHandlers(this._runtime);
         RegisterDebugAdapterCLIProgressHandler(this);
+        RegisterDebugAdapterENVISuccessMessageHandler(this);
 
         // get information about IDL
         const version = CleanIDLOutput(

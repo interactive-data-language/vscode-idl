@@ -3,7 +3,8 @@ import {
   FormatterType,
 } from '@idl/assembling/config';
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IParsed, TreeRecurser } from '@idl/parsing/syntax-tree';
+import { TreeRecurser } from '@idl/parsing/syntax-tree';
+import { IParsed } from '@idl/types/syntax-tree';
 
 import { DefaultFormatter } from './default-formatter';
 import { BranchSnap } from './fiddle/formatters/branch-snap';

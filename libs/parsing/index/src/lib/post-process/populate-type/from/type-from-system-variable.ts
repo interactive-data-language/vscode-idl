@@ -1,12 +1,12 @@
-import { TreeToken } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { SystemVariableToken } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,
   IDL_NULL_TYPE,
   IDLDataType,
-  ParseIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
+import { TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
@@ -33,7 +33,7 @@ export function TypeFromSystemVariable(
       );
 
       if (global.length > 0) {
-        return ParseIDLType(global[0].meta.display);
+        return IDLTypeHelper.parseIDLType(global[0].meta.display);
       }
       break;
     }

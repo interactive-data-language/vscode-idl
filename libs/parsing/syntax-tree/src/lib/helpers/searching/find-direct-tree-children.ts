@@ -1,6 +1,5 @@
 import { TokenName } from '@idl/tokenizer';
-
-import { SyntaxTree, TreeToken } from '../../branches.interface';
+import { SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Checks the top-level of our syntax tree for a matching token

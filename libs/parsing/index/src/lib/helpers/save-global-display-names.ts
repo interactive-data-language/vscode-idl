@@ -3,7 +3,7 @@ import {
   CUSTOM_TYPE_DISPLAY_NAMES,
   GLOBAL_TOKEN_TYPES,
   GlobalTokens,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 /**
  * Adds any global tokens to our user display name lookup for global tokens

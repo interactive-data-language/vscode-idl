@@ -1,11 +1,7 @@
-import {
-  ILocalTokenLookup,
-  IParentInformation,
-  IParsed,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { IParentInformation } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { TokenName } from '@idl/tokenizer';
-import { IDLTypeHelper } from '@idl/types/core';
+import { ILocalTokenLookup, IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Returns hover help for variables
@@ -57,7 +53,12 @@ export function GetVarHoverHelp(
     if (varName in lookup) {
       const meta = lookup[varName].meta;
 
-      help = IDLTypeHelper.addTypeToDocs(token.match[0], meta.docs, meta.type);
+      help = IDLTypeHelper.addTypeToDocs(
+        token.match[0],
+        meta.docs,
+        meta.type,
+        'var'
+      );
     }
   }
 

@@ -4,8 +4,7 @@ import {
   StructurePropertyToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-
-import { TreeToken } from '../branches.interface';
+import { TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Gets the name of our property

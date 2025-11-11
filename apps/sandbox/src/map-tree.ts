@@ -3,7 +3,7 @@ import {
   SyntaxTree,
   TreeBasicToken,
   TreeBranchToken,
-} from '@idl/parsing/syntax-tree';
+} from '@idl/types/syntax-tree';
 
 /**
  * Recursor for our tree creator

@@ -1,27 +1,21 @@
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
-  IParsed,
-  SyntaxProblemWithTranslation,
-} from '@idl/parsing/syntax-tree';
-import {
+  COMPATIBLE_ERROR_CODES,
+  COMPATIBLE_OPERATOR_TYPES,
   IDL_ANY_TYPE,
   IDL_ARRAY_TYPE,
   IDL_BOOLEAN_TYPE,
   IDL_TYPE_LOOKUP,
   IDLDataType,
-  IDLTypeHelper,
-  ParseIDLType,
-  SerializeIDLType,
-} from '@idl/types/core';
+  TYPE_ORDER,
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
+import { IParsed } from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
-import {
-  COMPATIBLE_ERROR_CODES,
-  COMPATIBLE_OPERATOR_TYPES,
-  TYPE_ORDER,
-} from './type-promotion.interface';
 
 /**
  * Merges/validates types that are being combined together.
@@ -56,10 +50,10 @@ export function TypePromotion(
    */
   const reduced = arrays
     ? IDLTypeHelper.arrayReduce(merged)
-    : IDLTypeHelper.reduceIDLDataType(merged);
+    : IDLTypeHelper.postProcessIDLDataType(merged);
 
   // if we only have one type, return it
-  if (reduced.length === 1) {
+  if (IDLTypeHelper.isASingleType(reduced)) {
     return reduced;
   }
 
@@ -81,7 +75,12 @@ export function TypePromotion(
       }
     }
     if (simplify) {
-      return ParseIDLType(`Array<${SerializeIDLType(reduced)}>`);
+      return IDLTypeHelper.createIDLType([
+        {
+          name: IDL_TYPE_LOOKUP.ARRAY,
+          args: [reduced],
+        },
+      ]);
     }
   }
 
@@ -250,7 +249,7 @@ export function TypePromotion(
          */
         case isNull:
           if (isArray) {
-            return ParseIDLType('Array<Boolean>');
+            return IDLTypeHelper.parseIDLType('Array<Boolean>');
           } else {
             return copy(IDL_BOOLEAN_TYPE);
           }
@@ -296,20 +295,37 @@ export function TypePromotion(
 
   switch (true) {
     case compatibleBaseType !== undefined:
-      return ParseIDLType(
-        `${compatibleBaseType}<${SerializeIDLType(compatibleTypeArgs)}>`
-      );
+      return IDLTypeHelper.createIDLType([
+        {
+          name: compatibleBaseType,
+          args: [compatibleTypeArgs],
+        },
+      ]);
     case isArray:
-      return ParseIDLType(
-        `Array<${
-          highestType === TYPE_ORDER.length + 1
-            ? 'any'
-            : TYPE_ORDER[highestType]
-        }>`
-      );
+      return IDLTypeHelper.createIDLType([
+        {
+          name: IDL_TYPE_LOOKUP.ARRAY,
+          args: [
+            IDLTypeHelper.createIDLType([
+              {
+                name:
+                  highestType === TYPE_ORDER.length + 1
+                    ? 'any'
+                    : TYPE_ORDER[highestType],
+                args: [],
+              },
+            ]),
+          ],
+        },
+      ]);
     default:
       return highestType === TYPE_ORDER.length + 1
         ? copy(IDL_ANY_TYPE)
-        : ParseIDLType(TYPE_ORDER[highestType]);
+        : IDLTypeHelper.createIDLType([
+            {
+              name: TYPE_ORDER[highestType],
+              args: [],
+            },
+          ]);
   }
 }

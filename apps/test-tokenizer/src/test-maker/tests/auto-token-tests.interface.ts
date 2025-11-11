@@ -1143,6 +1143,10 @@ export const AUTO_TOKEN_TESTS: IAutoTest[] = [
         name: `for number-string like strings`,
         code: `a = "5"`,
       },
+      {
+        name: `for complex quotes confused with number strings`,
+        code: `c = "1:5,000,000 GNC Charts (754m)"`,
+      },
     ],
   },
   {

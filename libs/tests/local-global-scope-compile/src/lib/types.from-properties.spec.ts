@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -70,6 +70,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -94,6 +95,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRasterMetadata',
                   display: 'ENVIRasterMetadata',
+                  serialized: 'ENVIRasterMetadata',
                   args: [],
                   meta: {},
                 },
@@ -111,7 +113,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[11, 2, 2]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           p3: {
@@ -129,6 +139,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRasterMetadata',
                   display: 'ENVIRasterMetadata',
+                  serialized: 'ENVIRasterMetadata',
                   args: [],
                   meta: {},
                 },
@@ -146,7 +157,15 @@ describe(`[auto generated] Types from`, () => {
               usage: [[13, 2, 2]],
               docs: '',
               source: 'user',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -175,6 +194,7 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },

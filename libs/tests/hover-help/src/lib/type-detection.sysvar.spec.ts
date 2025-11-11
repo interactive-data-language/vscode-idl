@@ -29,8 +29,8 @@ describe(`[auto generated] Correctly provide hover help for system variable`, ()
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type !x.charsize = String',
+      '```idl',
+      'prop !x.charsize: String',
       '```',
     ];
 
@@ -69,8 +69,8 @@ describe(`[auto generated] Correctly provide hover help for system variable`, ()
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type Structure.nothingness = any',
+      '```idl',
+      'prop Structure.nothingness: any',
       '```',
       '',
       'Unknown property',

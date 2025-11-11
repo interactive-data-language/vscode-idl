@@ -1,14 +1,6 @@
 import { ICodeStyle } from '@idl/assembling/config';
 import { IncrementLineNumbers } from '@idl/assembling/shared';
-import {
-  BRANCH_TYPES,
-  DocsToIDL,
-  IBranch,
-  IParsed,
-  SyntaxTree,
-  TreeBranchToken,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { DocsToIDL } from '@idl/parsing/syntax-tree';
 import {
   CommentBlockToken,
   RoutineFunctionToken,
@@ -23,7 +15,15 @@ import {
   GlobalProcedureToken,
   GlobalRoutineToken,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
+import {
+  BRANCH_TYPES,
+  IBranch,
+  IParsed,
+  SyntaxTree,
+  TreeBranchToken,
+  TreeToken,
+} from '@idl/types/syntax-tree';
 
 import { FormatKeyword } from './style-keywords';
 

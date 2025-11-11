@@ -487,6 +487,8 @@ export interface ITranslation {
     openerText: string;
     /** Title for our custom editor window */
     openerTitle: string;
+    /** Text to be displayed when we query a dataset */
+    queryText: string;
     /** Text to print when we run a task */
     taskText: string;
     /** Translations when we try to run an ENVI Task */

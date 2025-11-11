@@ -1,9 +1,10 @@
-import { IParameterOrPropertyDetails, ParseIDLType } from '@idl/types/core';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
+import { IParameterOrPropertyDetails } from '@idl/types/idl-data-types';
 
 /**
  * The type for interleave
  */
-export const INTERLEAVE_TYPE = ParseIDLType('bil | bip | bsq');
+export const INTERLEAVE_TYPE = IDLTypeHelper.parseIDLType('bil | bip | bsq');
 
 /**
  * Interleave data type

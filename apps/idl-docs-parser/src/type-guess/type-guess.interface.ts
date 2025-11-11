@@ -1,4 +1,4 @@
-import { IDL_TYPE_LOOKUP } from '@idl/types/core';
+import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
 
 /**
  * By IDL data type, track regular expressions we can use to auto-populate the

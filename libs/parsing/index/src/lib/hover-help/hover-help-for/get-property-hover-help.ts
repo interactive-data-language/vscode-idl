@@ -1,12 +1,13 @@
-import { GetPropertyName, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { GetPropertyName } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { AccessPropertyToken, StructurePropertyToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,
   IDL_STRUCTURE_TYPE,
-  IDLTypeHelper,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
 
 import { GetProperty } from '../../helpers/get-property';
@@ -31,7 +32,8 @@ export function GetPropertyHoverHelp(
       lookup.contents = IDLTypeHelper.addTypeToDocs(
         GetPropertyDisplayName(prop.display, IDL_STRUCTURE_TYPE),
         '',
-        prop.type
+        prop.type,
+        'prop'
       );
     } else {
       lookup.type = GLOBAL_TOKEN_TYPES.STRUCTURE;
@@ -43,7 +45,8 @@ export function GetPropertyHoverHelp(
     lookup.contents = IDLTypeHelper.addTypeToDocs(
       GetPropertyDisplayName(GetPropertyName(token), IDL_STRUCTURE_TYPE),
       IDL_TRANSLATION.lsp.types.unknown.property,
-      IDL_ANY_TYPE
+      IDL_ANY_TYPE,
+      'prop'
     );
   }
 }

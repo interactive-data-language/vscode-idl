@@ -1,15 +1,11 @@
 import {
-  ILocalTokenLookup,
-  IParsed,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
-import {
   MainLevelToken,
   RoutineFunctionToken,
   RoutineProcedureToken,
   TOKEN_NAMES,
   TokenName,
 } from '@idl/tokenizer';
+import { ILocalTokenLookup, IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { GetVariables } from '../../helpers/get-variables';
 

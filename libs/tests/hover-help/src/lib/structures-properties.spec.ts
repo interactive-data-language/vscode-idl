@@ -29,8 +29,8 @@ describe(`[auto generated] Provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type NYStruct.prop1 = Long',
+      '```idl',
+      'prop NYStruct.prop1: Long',
       '```',
       '',
       'Favorite property',
@@ -53,8 +53,8 @@ describe(`[auto generated] Provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_1: string[] = [
-      '```typescript',
-      'type NYStruct.prop2 = String',
+      '```idl',
+      'prop NYStruct.prop2: String',
       '```',
       '',
       'Second favorite property',
@@ -95,8 +95,8 @@ describe(`[auto generated] Provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      "var Structure.prop: String = 'string'",
+      '```idl',
+      "prop Structure.prop: String = 'string'",
       '```',
     ];
 
@@ -117,8 +117,8 @@ describe(`[auto generated] Provide hover help for`, () => {
 
     // define expected token we extract
     const expectedFound_1: string[] = [
-      '```typescript',
-      'type Structure.val = Long',
+      '```idl',
+      'prop Structure.val: Long = 0',
       '```',
     ];
 

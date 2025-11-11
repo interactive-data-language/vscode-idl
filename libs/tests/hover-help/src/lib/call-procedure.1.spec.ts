@@ -161,8 +161,8 @@ describe(`[auto generated] Basic checks for call_procedure hover help`, () => {
 
     // define expected token we extract
     const expectedFound_0: string[] = [
-      '```typescript',
-      'type am_pm = Array<String>',
+      '```idl',
+      'kw am_pm: Array<String>',
       '```',
       '',
       'Supplies a string array of 2 names to be used for the names of the AM and PM string when processing explicitly formatted dates (CAPA, CApA, and CapA format codes) with the FORMAT keyword.',

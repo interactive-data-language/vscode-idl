@@ -2,7 +2,7 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalTokenType,
   IGlobalIndexedToken,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 
 /**
  * Clean up docs for vitepress

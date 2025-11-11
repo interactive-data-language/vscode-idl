@@ -1,12 +1,8 @@
-import {
-  BRANCH_TYPES,
-  IBranch,
-  IDL_SYNTAX_TREE_VALIDATOR,
-  SyntaxProblemWithTranslation,
-  SyntaxTree,
-} from '@idl/parsing/syntax-tree';
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
+import { IDL_SYNTAX_TREE_VALIDATOR } from '@idl/parsing/syntax-tree';
 import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
+import { BRANCH_TYPES, IBranch, SyntaxTree } from '@idl/types/syntax-tree';
 
 /**
  * Operators to check children (i.e. recurse)

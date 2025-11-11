@@ -1,6 +1,6 @@
-import { TreeToken } from '@idl/parsing/syntax-tree';
 import { IncludeToken } from '@idl/tokenizer';
-import { IBaseIndexedToken } from '@idl/types/core';
+import { IBaseIndexedToken } from '@idl/types/idl-data-types';
+import { TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../../idl-index.class';
 

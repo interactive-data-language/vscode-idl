@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -67,11 +67,13 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
               {
                 name: 'envibuildmosaicrastertask',
                 display: 'ENVITask<BuildMosaicRaster>',
+                serialized: 'ENVITask<BuildMosaicRaster>',
                 args: [
                   [
                     {
                       name: 'BuildMosaicRaster',
                       display: 'BuildMosaicRaster',
+                      serialized: 'BuildMosaicRaster',
                       args: [],
                       meta: {},
                     },
@@ -97,11 +99,13 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
               {
                 name: 'envibuildmosaicrastertask',
                 display: 'ENVITask<BuildMosaicRaster>',
+                serialized: 'ENVITask<BuildMosaicRaster>',
                 args: [
                   [
                     {
                       name: 'BuildMosaicRaster',
                       display: 'BuildMosaicRaster',
+                      serialized: 'BuildMosaicRaster',
                       args: [],
                       meta: {},
                     },
@@ -135,9 +139,10 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
               {
                 display: 'String',
                 name: 'String',
+                serialized: "'buildmosaicraster.task'",
                 args: [],
                 meta: {},
-                value: 'buildmosaicraster.task',
+                value: ['buildmosaicraster.task'],
               },
             ],
           },
@@ -157,11 +162,13 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
               {
                 name: 'envibuildmosaicrastertask',
                 display: 'ENVITask<BuildMosaicRaster>',
+                serialized: 'ENVITask<BuildMosaicRaster>',
                 args: [
                   [
                     {
                       name: 'BuildMosaicRaster',
                       display: 'BuildMosaicRaster',
+                      serialized: 'BuildMosaicRaster',
                       args: [],
                       meta: {},
                     },
@@ -187,7 +194,18 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
               {
                 name: 'envitask',
                 display: 'ENVITask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'ENVITask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],
@@ -206,13 +224,15 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'idlbuildmosaicrastertask',
-                display: 'IDLTask<buildmosaicraster>',
+                name: 'idltask',
+                display: 'IDLTask<any>',
+                serialized: 'IDLTask<any>',
                 args: [
                   [
                     {
-                      name: 'buildmosaicraster',
-                      display: 'buildmosaicraster',
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
                       args: [],
                       meta: {},
                     },
@@ -236,13 +256,15 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'idlbuildmosaicrastertask',
-                display: 'IDLTask<buildmosaicraster>',
+                name: 'idltask',
+                display: 'IDLTask<any>',
+                serialized: 'IDLTask<any>',
                 args: [
                   [
                     {
-                      name: 'buildmosaicraster',
-                      display: 'buildmosaicraster',
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
                       args: [],
                       meta: {},
                     },
@@ -266,13 +288,15 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'idlbuildmosaicrastertask',
-                display: 'IDLTask<buildmosaicraster>',
+                name: 'idltask',
+                display: 'IDLTask<any>',
+                serialized: 'IDLTask<any>',
                 args: [
                   [
                     {
-                      name: 'buildmosaicraster',
-                      display: 'buildmosaicraster',
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
                       args: [],
                       meta: {},
                     },
@@ -298,7 +322,18 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
               {
                 name: 'idltask',
                 display: 'IDLTask<any>',
-                args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                serialized: 'IDLTask<any>',
+                args: [
+                  [
+                    {
+                      display: 'any',
+                      name: 'any',
+                      serialized: 'any',
+                      args: [],
+                      meta: {},
+                    },
+                  ],
+                ],
                 meta: {},
               },
             ],

@@ -1,21 +1,19 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
-  FindDirectBranchChildren,
-  IParsed,
   SplitTreeOnCommas,
   SyntaxProblemWithTranslation,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+} from '@idl/parsing/shared';
+import { FindDirectBranchChildren } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { BracketToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   IDL_ANY_TYPE,
+  IDL_TYPE_LOOKUP,
   IDLDataType,
-  IDLTypeHelper,
   KNOWN_IDL_TYPES,
-  ParseIDLType,
-  SerializeIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { GetTypeBefore } from '../../../helpers/get-type-before';
@@ -80,7 +78,7 @@ export function TypeFromIndexing(
   /**
    * Remove duplicates
    */
-  possibleTypes = IDLTypeHelper.reduceIDLDataType(possibleTypes);
+  possibleTypes = IDLTypeHelper.postProcessIDLDataType(possibleTypes);
 
   // get the return type if we have an array present for indexing
   let baseType = '';
@@ -112,7 +110,12 @@ export function TypeFromIndexing(
   const returnType =
     baseType === ''
       ? possibleTypes
-      : ParseIDLType(`${baseType}<${SerializeIDLType(possibleTypes)}>`);
+      : IDLTypeHelper.createIDLType([
+          {
+            name: baseType,
+            args: [possibleTypes],
+          },
+        ]);
 
   // if we have colons we are returning a slice/subscript range and also an array
   const colons = FindDirectBranchChildren(token, TOKEN_NAMES.COLON);
@@ -126,7 +129,12 @@ export function TypeFromIndexing(
          * type
          */
         if (baseType === '') {
-          return ParseIDLType(`Array<${SerializeIDLType(possibleTypes)}>`);
+          return IDLTypeHelper.createIDLType([
+            {
+              name: IDL_TYPE_LOOKUP.ARRAY,
+              args: [possibleTypes],
+            },
+          ]);
         }
 
         parsed.postProcessProblems.push(
@@ -193,7 +201,12 @@ export function TypeFromIndexing(
      */
     case haveArray:
       if (baseType === '') {
-        return ParseIDLType(`Array<${SerializeIDLType(possibleTypes)}>`);
+        return IDLTypeHelper.createIDLType([
+          {
+            name: IDL_TYPE_LOOKUP.ARRAY,
+            args: [possibleTypes],
+          },
+        ]);
       }
       return returnType;
     /**

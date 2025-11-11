@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -86,7 +86,18 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'List',
                   display: 'List<any>',
-                  args: [[{ name: 'any', display: 'any', args: [], meta: {} }]],
+                  serialized: 'List<any>',
+                  args: [
+                    [
+                      {
+                        display: 'any',
+                        name: 'any',
+                        serialized: 'any',
+                        args: [],
+                        meta: {},
+                      },
+                    ],
+                  ],
                   meta: {},
                 },
               ],
@@ -107,11 +118,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'List',
                   display: 'List<Boolean>',
+                  serialized: 'List<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -137,11 +150,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'List',
                   display: 'List<Boolean>',
+                  serialized: 'List<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -167,11 +182,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'List',
                   display: 'List<Boolean>',
+                  serialized: 'List<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -197,11 +214,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'List',
                   display: 'List<Boolean>',
+                  serialized: 'List<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -227,11 +246,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'List',
                   display: 'List<Boolean>',
+                  serialized: 'List<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -257,11 +278,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'List',
                   display: 'List<Boolean>',
+                  serialized: 'List<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -287,11 +310,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'List',
                   display: 'List<Boolean>',
+                  serialized: 'List<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -317,11 +342,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'List',
                   display: 'List<Boolean>',
+                  serialized: 'List<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -347,11 +374,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'List',
                   display: 'List<Boolean>',
+                  serialized: 'List<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -377,11 +406,13 @@ describe(`[auto generated] Types from`, () => {
                 {
                   name: 'List',
                   display: 'List<Boolean>',
+                  serialized: 'List<Boolean>',
                   args: [
                     [
                       {
                         name: 'Boolean',
                         display: 'Boolean',
+                        serialized: 'Boolean',
                         args: [],
                         meta: {},
                       },
@@ -404,7 +435,13 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                { display: 'Boolean', name: 'Boolean', args: [], meta: {} },
+                {
+                  display: 'Boolean',
+                  name: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },
@@ -420,7 +457,13 @@ describe(`[auto generated] Types from`, () => {
               docs: '',
               source: 'user',
               type: [
-                { display: 'Boolean', name: 'Boolean', args: [], meta: {} },
+                {
+                  display: 'Boolean',
+                  name: 'Boolean',
+                  serialized: 'Boolean',
+                  args: [],
+                  meta: {},
+                },
               ],
             },
           },

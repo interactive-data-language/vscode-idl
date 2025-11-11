@@ -1,10 +1,7 @@
-import {
-  FindAllBranchChildren,
-  IParsed,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { FindAllBranchChildren } from '@idl/parsing/syntax-tree';
 import { CallFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDL_TYPE_LOOKUP } from '@idl/types/core';
+import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { basename } from 'path';
 
 import { IDLIndex } from '../../../../../idl-index.class';
@@ -70,11 +67,16 @@ export function TypeFromTask(
     }
   }
 
+  /** Sanitize task name */
+  if (taskName !== undefined) {
+    taskName = basename(taskName).replace(/\.task/i, '');
+  }
+
   /**
    * Do we have a task name?
    */
-  if (taskName !== undefined) {
-    return `${type}${basename(taskName).replace(/\.task/i, '')}Task`;
+  if (taskName) {
+    return `${type}${taskName}Task`;
   } else {
     // if not, resort to function call/base class
     return `${type}Task`;

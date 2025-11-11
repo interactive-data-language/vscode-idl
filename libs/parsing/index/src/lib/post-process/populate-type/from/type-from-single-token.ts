@@ -1,6 +1,11 @@
-import { BRANCH_TYPES, IParsed, TreeToken } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
-import { IDL_ANY_TYPE, IDL_STRING_TYPE, IDLDataType } from '@idl/types/core';
+import {
+  IDL_ANY_TYPE,
+  IDL_STRING_TYPE,
+  IDLDataType,
+} from '@idl/types/idl-data-types';
+import { BRANCH_TYPES, IParsed, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { ITokenCache } from '../../../helpers/token-cache.interface';
@@ -24,7 +29,7 @@ const TYPE_MAP: { [key: string]: IDLDataType } = {};
 TYPE_MAP[TOKEN_NAMES.QUOTE_SINGLE] = IDL_STRING_TYPE;
 TYPE_MAP[TOKEN_NAMES.QUOTE_DOUBLE] = IDL_STRING_TYPE;
 TYPE_MAP[TOKEN_NAMES.STRING_TEMPLATE_LITERAL] = IDL_STRING_TYPE;
-TYPE_MAP[TOKEN_NAMES.STRUCTURE_INDEXED_PROPERTY] = IDL_ANY_TYPE;
+TYPE_MAP[TOKEN_NAMES.NUMBER] = IDL_ANY_TYPE;
 
 /**
  * Attempts to determine the type of a single child with assignment
@@ -103,18 +108,47 @@ export function TypeFromSingleToken(
       );
       break;
     default:
-      // do we have a general case for some types?
-      if (token.name in TYPE_MAP) {
-        (token.cache as ITokenCache).type = copy(TYPE_MAP[token.name]);
-        (token.cache as ITokenCache).type[0].value = EvaluateToken(token);
-      }
       break;
+  }
+
+  /**
+   * Do we have a general case for some types that we can handle?
+   *
+   * Update type if not set above and we can get the literal value of these tokens
+   * as well
+   */
+  if (token.name in TYPE_MAP) {
+    if (!(token.cache as ITokenCache).type) {
+      (token.cache as ITokenCache).type = copy(TYPE_MAP[token.name]);
+    }
+
+    // attempt to evaluate the token, might return undefined
+    const evaluated = EvaluateToken(token);
+
+    // if we have a value, save it
+    if (evaluated) {
+      IDLTypeHelper.addValueToFirstType((token.cache as ITokenCache).type, [
+        evaluated,
+      ]);
+    }
   }
 
   // if we set our cache, return
   if ('type' in (token.cache as ITokenCache)) {
+    // if we have a type, see if we need to set the literal value
     if ((token.cache as ITokenCache)?.type?.length > 0) {
-      (token.cache as ITokenCache).type[0].value = EvaluateToken(token);
+      // only set value if we dont have one already
+      if (!Array.isArray((token.cache as ITokenCache).type[0].value)) {
+        // attempt to evaluate the token, might return undefined
+        const evaluated = EvaluateToken(token);
+
+        // if we have a value, save it
+        if (evaluated) {
+          IDLTypeHelper.addValueToFirstType((token.cache as ITokenCache).type, [
+            evaluated,
+          ]);
+        }
+      }
     }
     return (token.cache as ITokenCache).type;
   }

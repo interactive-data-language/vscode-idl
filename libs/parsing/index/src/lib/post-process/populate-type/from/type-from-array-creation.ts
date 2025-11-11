@@ -1,19 +1,14 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import {
-  IParsed,
-  SplitTreeOnCommas,
-  SplitTreeOnOperators,
-  TreeToken,
-} from '@idl/parsing/syntax-tree';
+import { SplitTreeOnCommas } from '@idl/parsing/shared';
+import { SplitTreeOnOperators } from '@idl/parsing/syntax-tree';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { BracketToken } from '@idl/tokenizer';
 import {
   IDL_ARRAY_TYPE,
   IDL_TYPE_LOOKUP,
   IDLDataType,
-  IDLTypeHelper,
-  ParseIDLType,
-  SerializeIDLType,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
+import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import copy from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
@@ -81,9 +76,19 @@ export function TypeFromArrayCreation(
 
       // if we have an array, ignore because we don't track dimensionality
       if (IDLTypeHelper.isType(useType, IDL_TYPE_LOOKUP.ARRAY)) {
-        return ParseIDLType(`Array<${SerializeIDLType(useType[0].args[0])}>`);
+        return IDLTypeHelper.createIDLType([
+          {
+            name: IDL_TYPE_LOOKUP.ARRAY,
+            args: [useType[0].args[0]],
+          },
+        ]);
       } else {
-        return ParseIDLType(`Array<${SerializeIDLType(useType)}>`);
+        return IDLTypeHelper.createIDLType([
+          {
+            name: IDL_TYPE_LOOKUP.ARRAY,
+            args: [useType],
+          },
+        ]);
       }
     }
     default:

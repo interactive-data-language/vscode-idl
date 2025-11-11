@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -69,6 +69,7 @@ describe(`[auto generated] Types from output arguments`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -86,7 +87,15 @@ describe(`[auto generated] Types from output arguments`, () => {
               usage: [[10, 25, 1]],
               docs: 'Placeholder docs for argument, keyword, or property',
               source: 'user',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           c: {
@@ -104,6 +113,7 @@ describe(`[auto generated] Types from output arguments`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -124,7 +134,15 @@ describe(`[auto generated] Types from output arguments`, () => {
             usage: [[17, 18, 4]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         arg2: {
@@ -138,7 +156,15 @@ describe(`[auto generated] Types from output arguments`, () => {
             usage: [[17, 24, 4]],
             docs: '',
             source: 'user',
-            type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+            type: [
+              {
+                name: 'Long',
+                display: 'Long',
+                serialized: 'Long',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         arg3: {
@@ -153,7 +179,13 @@ describe(`[auto generated] Types from output arguments`, () => {
             docs: '',
             source: 'user',
             type: [
-              { name: 'ENVIRaster', display: 'ENVIRaster', args: [], meta: {} },
+              {
+                name: 'ENVIRaster',
+                display: 'ENVIRaster',
+                serialized: 'ENVIRaster',
+                args: [],
+                meta: {},
+              },
             ],
           },
         },
@@ -196,6 +228,7 @@ describe(`[auto generated] Types from output arguments`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },
@@ -210,7 +243,15 @@ describe(`[auto generated] Types from output arguments`, () => {
               docs: 'Placeholder docs for argument, keyword, or property',
               direction: 'out',
               source: 'internal',
-              type: [{ name: 'Long', display: 'Long', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'Long',
+                  display: 'Long',
+                  serialized: 'Long',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'b',
@@ -225,6 +266,7 @@ describe(`[auto generated] Types from output arguments`, () => {
                 {
                   name: 'ENVIRaster',
                   display: 'ENVIRaster',
+                  serialized: 'ENVIRaster',
                   args: [],
                   meta: {},
                 },

@@ -46,11 +46,13 @@ describe(`[auto generated] Correctly find definitions for task files`, () => {
           {
             name: 'enviatanomalydetectiontask',
             display: 'ENVITask<atanomalydetection>',
+            serialized: 'ENVITask<atanomalydetection>',
             args: [
               [
                 {
                   name: 'atanomalydetection',
                   display: 'atanomalydetection',
+                  serialized: 'atanomalydetection',
                   args: [],
                   meta: {},
                 },

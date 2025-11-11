@@ -7,7 +7,10 @@ import {
   CreateRoutineSyntax,
   IDL_DOCS_HEADERS,
 } from '@idl/parsing/syntax-tree';
-import { GLOBAL_TOKEN_TYPES, GlobalRoutineToken } from '@idl/types/core';
+import {
+  GLOBAL_TOKEN_TYPES,
+  GlobalRoutineToken,
+} from '@idl/types/idl-data-types';
 
 import { CleanDocs } from './clean-docs';
 import { DocsForParameter } from './docs-for-parameter';
@@ -137,7 +140,7 @@ export function CreateRoutineDocs(
   // if (IDL_DOCS_HEADERS.RETURNS in docsLookup) {
   //   docs.push(
   //     `### Return Value:${GetReturnsBadge(
-  //       ParseIDLType(docsLookup[IDL_DOCS_HEADERS.RETURNS])
+  //       IDLTypeHelper.parseIDLType(docsLookup[IDL_DOCS_HEADERS.RETURNS])
   //     )}`
   //   );
   //   usedKeys[IDL_DOCS_HEADERS.RETURNS] = undefined;

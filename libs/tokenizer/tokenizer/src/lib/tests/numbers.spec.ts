@@ -1,10 +1,11 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
+import { TOKEN_TYPES } from '@idl/tokenizer/common';
+import { NUMBER_STRING_TEST } from '@idl/types/tokenizer';
 
 import { StripIDs } from '../helpers/strip-ids';
 import { Tokenizer } from '../tokenizer';
-import { IBaseTokenWithoutMatches, TOKEN_TYPES } from '../tokenizer.interface';
+import { IBaseTokenWithoutMatches } from '../tokenizer.interface';
 import { TOKEN_NAMES, TokenName } from '../tokens.interface';
-import { NUMBER_STRING_TEST } from '../tokens/defs/numbers.interface';
 
 describe('Validates number parsing', () => {
   it('validate test for number strings being valid', () => {

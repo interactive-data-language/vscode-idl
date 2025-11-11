@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -51,7 +51,15 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               usage: [[0, 23, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           a: {
@@ -69,9 +77,10 @@ describe(`[auto generated] Correctly extract docs for`, () => {
                 {
                   display: 'Long',
                   name: 'Long',
+                  serialized: '42',
                   args: [],
                   meta: {},
-                  value: '42',
+                  value: ['42'],
                 },
               ],
             },
@@ -87,7 +96,13 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               docs: 'A reference to our object class',
               source: 'user',
               type: [
-                { name: 'myclass', display: 'myclass', args: [], meta: {} },
+                {
+                  name: 'myclass',
+                  display: 'myclass',
+                  serialized: 'myclass',
+                  args: [],
+                  meta: {},
+                },
               ],
               usage: [],
             },
@@ -116,7 +131,15 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'var1',
@@ -196,7 +219,15 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               usage: [[0, 23, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           a: {
@@ -214,9 +245,10 @@ describe(`[auto generated] Correctly extract docs for`, () => {
                 {
                   display: 'Long',
                   name: 'Long',
+                  serialized: '42',
                   args: [],
                   meta: {},
-                  value: '42',
+                  value: ['42'],
                 },
               ],
             },
@@ -232,7 +264,13 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               docs: 'A reference to our object class',
               source: 'user',
               type: [
-                { name: 'myclass', display: 'myclass', args: [], meta: {} },
+                {
+                  name: 'myclass',
+                  display: 'myclass',
+                  serialized: 'myclass',
+                  args: [],
+                  meta: {},
+                },
               ],
               usage: [],
             },
@@ -261,7 +299,15 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'var1',
@@ -344,7 +390,15 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               usage: [[0, 23, 4]],
               docs: '',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           a: {
@@ -365,9 +419,10 @@ describe(`[auto generated] Correctly extract docs for`, () => {
                 {
                   display: 'Long',
                   name: 'Long',
+                  serialized: '42',
                   args: [],
                   meta: {},
-                  value: '42',
+                  value: ['42'],
                 },
               ],
             },
@@ -383,7 +438,13 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               docs: 'A reference to our object class',
               source: 'user',
               type: [
-                { name: 'myclass', display: 'myclass', args: [], meta: {} },
+                {
+                  name: 'myclass',
+                  display: 'myclass',
+                  serialized: 'myclass',
+                  args: [],
+                  meta: {},
+                },
               ],
               usage: [],
             },
@@ -412,7 +473,15 @@ describe(`[auto generated] Correctly extract docs for`, () => {
               docs: '',
               private: false,
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               direction: 'bidirectional',
               req: true,
               display: 'var1',

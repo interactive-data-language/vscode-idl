@@ -1,4 +1,3 @@
-import { TreeToken } from '@idl/parsing/syntax-tree';
 import { NumberToken } from '@idl/tokenizer';
 import {
   IDL_BYTE_TYPE,
@@ -13,9 +12,8 @@ import {
   IDL_ULONG_TYPE,
   IDL_ULONG64_TYPE,
   IDLDataType,
-} from '@idl/types/core';
-import copy from 'fast-copy';
-
+} from '@idl/types/idl-data-types';
+import { TreeToken } from '@idl/types/syntax-tree';
 import {
   BYTE_REGEX,
   COMPLEX_REGEX,
@@ -28,7 +26,8 @@ import {
   UINT_REGEX,
   ULONG_REGEX,
   ULONG64_REGEX,
-} from './number-type-regex.interface';
+} from '@idl/types/tokenizer';
+import copy from 'fast-copy';
 
 /**
  * Attempts to determine the type from numbers

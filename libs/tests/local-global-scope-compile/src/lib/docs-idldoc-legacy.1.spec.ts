@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -81,7 +81,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[31, 58, 6]],
               docs: 'Set this keyword to return the distance in meters',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           radians: {
@@ -95,7 +103,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[31, 76, 7]],
               docs: 'Set this keyword if inputs are specified in radians (the default is degrees)',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           radius: {
@@ -109,7 +125,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[31, 95, 6]],
               docs: 'Set this keyword to a value specifying the radius of the sphere to be used, in [km]\n  the default value is the Authalic radius (equal area hyothetical perfect sphere) = 6371.0072',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           semimajor_axis: {
@@ -123,7 +147,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[31, 120, 14]],
               docs: 'Set this keyword to the length of the semimajor axis of the reference ellipsoid, in [m]\n  the default value is the WGS-84 6378137',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           semiminor_axis: {
@@ -137,7 +169,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[31, 153, 14]],
               docs: 'Set this keyword to the length of the semiminor axis of the reference ellipsoid, in [m]\n  the default value is the WGS-84 6356752.314245',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           lon1: {
@@ -151,7 +191,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[31, 17, 4]],
               docs: 'Longitude and latitude of the 1st point, p0',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           lat1: {
@@ -165,7 +213,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[31, 23, 4]],
               docs: 'Longitude and latitude of the 1st point, p0',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           lon2: {
@@ -179,7 +235,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[31, 29, 4]],
               docs: 'Longitude and latitude of the 2nd point, p1',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           lat2: {
@@ -193,7 +257,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[31, 35, 4]],
               docs: 'Longitude and latitude of the 2nd point, p1',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           method: {
@@ -207,7 +279,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[31, 41, 6]],
               docs: 'The method to be used, options are:\n  1 - Haversine (sphere) - selected by default\n  2 - Vincenty  (spheroid)',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -232,7 +312,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Longitude and latitude of the 1st point, p0',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'lon1',
@@ -243,7 +331,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Longitude and latitude of the 1st point, p0',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'lat1',
@@ -254,7 +350,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Longitude and latitude of the 2nd point, p1',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'lon2',
@@ -265,7 +369,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Longitude and latitude of the 2nd point, p1',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'lat2',
@@ -276,7 +388,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'The method to be used, options are:\n  1 - Haversine (sphere) - selected by default\n  2 - Vincenty  (spheroid)',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'method',
@@ -299,7 +419,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Set this keyword to return the distance in meters',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'meters',
@@ -310,7 +438,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Set this keyword if inputs are specified in radians (the default is degrees)',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'radians',
@@ -321,7 +457,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Set this keyword to a value specifying the radius of the sphere to be used, in [km]\n  the default value is the Authalic radius (equal area hyothetical perfect sphere) = 6371.0072',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'radius',
@@ -332,7 +476,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Set this keyword to the length of the semimajor axis of the reference ellipsoid, in [m]\n  the default value is the WGS-84 6378137',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'semimajor_axis',
@@ -343,7 +495,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Set this keyword to the length of the semiminor axis of the reference ellipsoid, in [m]\n  the default value is the WGS-84 6356752.314245',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'semiminor_axis',
@@ -448,7 +608,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[33, 63, 6]],
               docs: 'Set this keyword to return the distance in meters',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           radians: {
@@ -462,7 +630,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[33, 81, 7]],
               docs: 'Set this keyword if inputs are specified in radians (the default is degrees)',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           radius: {
@@ -476,7 +652,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[33, 100, 6]],
               docs: 'Set this keyword to a value specifying the radius of the sphere to be used, in [km]\n  the default value is the Authalic radius (equal area hyothetical perfect sphere) = 6371.0072',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           semimajor_axis: {
@@ -490,7 +674,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[33, 125, 14]],
               docs: 'Set this keyword to the length of the semimajor axis of the reference ellipsoid, in [m]\n  the default value is the WGS-84 6378137',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           semiminor_axis: {
@@ -504,7 +696,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[33, 158, 14]],
               docs: 'Set this keyword to the length of the semiminor axis of the reference ellipsoid, in [m]\n  the default value is the WGS-84 6356752.314245',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           lon1: {
@@ -518,7 +718,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[33, 22, 4]],
               docs: 'Longitude and latitude of the 1st point, p0',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           lat1: {
@@ -532,7 +740,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[33, 28, 4]],
               docs: 'Longitude and latitude of the 1st point, p0',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           lon2: {
@@ -546,7 +762,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[33, 34, 4]],
               docs: 'Longitude and latitude of the 2nd point, p1',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           lat2: {
@@ -560,7 +784,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[33, 40, 4]],
               docs: 'Longitude and latitude of the 2nd point, p1',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
           method: {
@@ -574,7 +806,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               usage: [[33, 46, 6]],
               docs: 'The method to be used, options are:\n  1 - Haversine (sphere) - selected by default\n  2 - Vincenty  (spheroid)',
               source: 'user',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
             },
           },
         },
@@ -600,7 +840,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Longitude and latitude of the 1st point, p0',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'lon1',
@@ -611,7 +859,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Longitude and latitude of the 1st point, p0',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'lat1',
@@ -622,7 +878,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Longitude and latitude of the 2nd point, p1',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'lon2',
@@ -633,7 +897,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Longitude and latitude of the 2nd point, p1',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'lat2',
@@ -644,7 +916,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'The method to be used, options are:\n  1 - Haversine (sphere) - selected by default\n  2 - Vincenty  (spheroid)',
               direction: 'in',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'method',
@@ -668,7 +948,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Set this keyword to return the distance in meters',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'meters',
@@ -679,7 +967,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Set this keyword if inputs are specified in radians (the default is degrees)',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'radians',
@@ -690,7 +986,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Set this keyword to a value specifying the radius of the sphere to be used, in [km]\n  the default value is the Authalic radius (equal area hyothetical perfect sphere) = 6371.0072',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'radius',
@@ -701,7 +1005,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Set this keyword to the length of the semimajor axis of the reference ellipsoid, in [m]\n  the default value is the WGS-84 6378137',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'semimajor_axis',
@@ -712,7 +1024,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               docs: 'Set this keyword to the length of the semiminor axis of the reference ellipsoid, in [m]\n  the default value is the WGS-84 6356752.314245',
               direction: 'bidirectional',
               source: 'internal',
-              type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'any',
+                  display: 'any',
+                  serialized: 'any',
+                  args: [],
+                  meta: {},
+                },
+              ],
               private: false,
               req: true,
               display: 'semiminor_axis',
@@ -721,7 +1041,15 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
             },
           },
           private: false,
-          returns: [{ name: 'any', display: 'any', args: [], meta: {} }],
+          returns: [
+            {
+              name: 'any',
+              display: 'any',
+              serialized: 'any',
+              args: [],
+              meta: {},
+            },
+          ],
           struct: [],
         },
         file: 'not-real',

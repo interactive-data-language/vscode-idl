@@ -1,4 +1,7 @@
-import { IDL_STRING_TYPE, IParameterOrPropertyDetails } from '@idl/types/core';
+import {
+  IDL_STRING_TYPE,
+  IParameterOrPropertyDetails,
+} from '@idl/types/idl-data-types';
 
 /**
  * URI parameters

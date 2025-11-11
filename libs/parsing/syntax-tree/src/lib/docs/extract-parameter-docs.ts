@@ -1,3 +1,8 @@
+import {
+  SyntaxProblemWithoutTranslation,
+  SyntaxProblemWithTranslation,
+} from '@idl/parsing/shared';
+import { IDLTypeHelper, TYPE_DOCS_REGEX } from '@idl/parsing/type-parser';
 import { SortObject } from '@idl/shared/extension';
 import { CommentToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -6,21 +11,17 @@ import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   IParameterOrPropertyDetails,
   ParameterDirection,
-  ParseIDLType,
-  SerializeIDLType,
-  TYPE_DOCS_REGEX,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
-import { ARG_KW_PROPERTY_TAG } from '@idl/types/syntax-tree';
+import {
+  ARG_KW_PROPERTY_TAG,
+  IBasicBranch,
+  IHeaderDocs,
+  REMOVE_COMMENT_REGEX,
+} from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';
 import copy from 'fast-copy';
 
-import { IBasicBranch } from '../branches.interface';
-import {
-  SyntaxProblemWithoutTranslation,
-  SyntaxProblemWithTranslation,
-} from '../syntax-problem-with';
-import { IHeaderDocs, REMOVE_COMMENT_REGEX } from './extract-docs.interface';
 import {
   DIRECTION_DOCS,
   PRIVATE_DOCS,
@@ -92,7 +93,7 @@ export function ExtractParameterDocs(
         docs: '',
         direction: 'in',
         source: GLOBAL_TOKEN_SOURCE_LOOKUP.INTERNAL,
-        type: ParseIDLType(DEFAULT_DATA_TYPE),
+        type: IDLTypeHelper.parseIDLType(DEFAULT_DATA_TYPE),
         private: false,
         req: false,
         display: match[1].trim(),
@@ -191,7 +192,7 @@ export function ExtractParameterDocs(
             trimmed.length,
           ];
 
-          lastFound.type = ParseIDLType(trimmed);
+          lastFound.type = IDLTypeHelper.parseIDLType(trimmed);
           // // TODO: verify that the type is correct
           // if (IsValidType(compare)) {
           //   lastFound.dataType = compare;
@@ -209,7 +210,7 @@ export function ExtractParameterDocs(
             pos,
             docs: `${
               IDL_TRANSLATION.docs.hover.params.typeProp
-            }: \`${SerializeIDLType(lastFound.type)}\``,
+            }: \`${IDLTypeHelper.serializeIDLType(lastFound.type)}\``,
           });
         }
       } else {
@@ -300,7 +301,7 @@ export function ExtractParameterDocs(
               });
               break;
             case 2:
-              lastFound.type = ParseIDLType(split[di]);
+              lastFound.type = IDLTypeHelper.parseIDLType(split[di]);
               // // TODO: verify that the type is correct
               // if (IsValidType(compare)) {
               //   lastFound.dataType = compare;
@@ -318,7 +319,7 @@ export function ExtractParameterDocs(
                 pos,
                 docs: `${
                   IDL_TRANSLATION.docs.hover.params.typeParam
-                }: \`${SerializeIDLType(lastFound.type)}\``,
+                }: \`${IDLTypeHelper.serializeIDLType(lastFound.type)}\``,
               });
               break;
             case 3:

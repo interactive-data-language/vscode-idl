@@ -1,4 +1,4 @@
-import { IDocs } from '../../extract-docs.interface';
+import { IDocs } from '@idl/types/syntax-tree';
 
 /**
  * Specify docs tags that we should keep - only one not included is the

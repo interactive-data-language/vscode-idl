@@ -1,4 +1,7 @@
-import { GlobalTokenType, IGlobalIndexedToken } from '@idl/types/core';
+import {
+  GlobalTokenType,
+  IGlobalIndexedToken,
+} from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 
 /**

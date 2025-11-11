@@ -1,8 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ILocalTokens } from '@idl/parsing/syntax-tree';
-import { GlobalTokens, ICompileOptions } from '@idl/types/core';
+import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import { ILocalTokens } from '@idl/types/syntax-tree';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 
@@ -51,7 +51,15 @@ describe(`[auto generated] Types from call_function()`, () => {
             usage: [[2, 0, 5]],
             docs: '',
             source: 'user',
-            type: [{ name: 'ENVI', display: 'ENVI', args: [], meta: {} }],
+            type: [
+              {
+                name: 'ENVI',
+                display: 'ENVI',
+                serialized: 'ENVI',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
         unknown: {
@@ -65,7 +73,15 @@ describe(`[auto generated] Types from call_function()`, () => {
             usage: [[3, 0, 7]],
             docs: '',
             source: 'user',
-            type: [{ display: 'any', name: 'any', args: [], meta: {} }],
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
           },
         },
       },

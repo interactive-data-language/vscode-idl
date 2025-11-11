@@ -1,15 +1,17 @@
-import { IDL_TYPE_LOOKUP, IDLDataType, IDLTypeHelper } from '@idl/types/core';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
+import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
 import { z } from 'zod';
 
 import { MCPENVICoordSys } from './types/mcp-envi-coord-sys';
 import { MCPENVIDeepLearningONNXModel } from './types/mcp-envi-deep-learning-onnx-model';
 import { MCPENVIGeoJSON } from './types/mcp-envi-geojson';
-import { ENVIMachineLearningModel } from './types/mcp-envi-machine-learning-model';
+import { MCPENVIMachineLearningModel } from './types/mcp-envi-machine-learning-model';
 import { MCPENVIRaster } from './types/mcp-envi-raster';
 import { MCPENVIRasterSeries } from './types/mcp-envi-raster-series';
 import { MCPENVIROI } from './types/mcp-envi-roi';
 import { MCPENVISpectralLibrary } from './types/mcp-envi-spectral-library';
 import { MCPENVIVector } from './types/mcp-envi-vector';
+import { MCPSARscapeData } from './types/mcp-sarscape-data';
 
 export function CreateENVIMCPParameter(
   name: string,
@@ -71,7 +73,7 @@ export function CreateENVIMCPParameter(
      * Machine Learning model
      */
     case IDLTypeHelper.isType(type, 'envimachinelearningmodel'):
-      return ENVIMachineLearningModel(docs);
+      return MCPENVIMachineLearningModel(docs);
 
     /**
      * Raster
@@ -90,6 +92,12 @@ export function CreateENVIMCPParameter(
      */
     case IDLTypeHelper.isType(type, 'enviroi'):
       return MCPENVIROI(docs);
+
+    /**
+     * SARscapeData -
+     */
+    case IDLTypeHelper.isType(type, 'sarscapedata'):
+      return MCPSARscapeData(docs);
 
     /**
      * Passwords - map to proper parameters when we
@@ -120,7 +128,21 @@ export function CreateENVIMCPParameter(
      * String
      */
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.STRING):
-      return z.string().describe(docs);
+      if (type[0]?.value?.length > 0) {
+        try {
+          return z
+            .union(type[0].value.map((v) => z.literal(v)) as any)
+            .describe(docs);
+        } catch (err) {
+          console.log(`Error while enumerating literal string types`, {
+            type,
+            err,
+          });
+          return z.string().describe(docs);
+        }
+      } else {
+        return z.string().describe(docs);
+      }
 
     /**
      * Bool
@@ -156,7 +178,21 @@ export function CreateENVIMCPParameter(
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.UNSIGNED_INTEGER):
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.INTEGER):
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.BYTE):
-      return z.number().describe(docs);
+      if (type[0]?.value?.length > 0) {
+        try {
+          return z
+            .union(type[0].value.map((v) => z.literal(+v)) as any)
+            .describe(docs);
+        } catch (err) {
+          console.log(`Error while enumerating literal number types`, {
+            type,
+            err,
+          });
+          return z.number().describe(docs);
+        }
+      } else {
+        return z.number().describe(docs);
+      }
 
     default:
       break;

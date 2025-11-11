@@ -4,11 +4,10 @@ import {
   RESERVED_PROCEDURE_METHODS,
   RESERVED_PROCEDURES,
 } from '@idl/parsing/routines';
+import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
   FindFirstBranchChild,
-  IBranch,
   IDL_SYNTAX_TREE_VALIDATOR,
-  SyntaxProblemWithTranslation,
 } from '@idl/parsing/syntax-tree';
 import {
   RoutineFunctionToken,
@@ -20,6 +19,7 @@ import {
   ISyntaxProblem,
   SyntaxProblems,
 } from '@idl/types/problem-codes';
+import { IBranch } from '@idl/types/syntax-tree';
 
 /**
  * Handles checking a function or procedure branch for a routine or method

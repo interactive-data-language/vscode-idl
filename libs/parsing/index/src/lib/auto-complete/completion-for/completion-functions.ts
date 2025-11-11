@@ -2,12 +2,13 @@ import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TaskFunctionName } from '@idl/parsing/syntax-tree';
+import { TASK_REGEX } from '@idl/parsing/type-parser';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   FunctionCompletion,
   IFunctionCompletionOptions,
 } from '@idl/types/auto-complete';
-import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/core';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 import { Command, CompletionItemKind } from 'vscode-languageserver';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';

@@ -1,4 +1,5 @@
-import { IDocs } from '../extract-docs.interface';
+import { IDocs } from '@idl/types/syntax-tree';
+
 import { GeneralToMarkdown } from './converters/general';
 import { RoutinesToMarkdown } from './converters/routines';
 import { VariablesToMarkdown } from './converters/variables';

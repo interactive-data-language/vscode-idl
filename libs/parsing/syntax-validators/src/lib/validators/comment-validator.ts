@@ -1,7 +1,5 @@
-import {
-  IDL_SYNTAX_TREE_VALIDATOR,
-  SyntaxProblemWithoutTranslation,
-} from '@idl/parsing/syntax-tree';
+import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
+import { IDL_SYNTAX_TREE_VALIDATOR } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import {
   DISABLED_PROBLEM_REGEX,

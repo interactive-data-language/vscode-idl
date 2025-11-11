@@ -1,7 +1,7 @@
 import { IDLMachine } from '@idl/idl/idl-machine';
 import { LogType } from '@idl/logger';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { ParseIDLType, SerializeIDLType } from '@idl/types/core';
 import {
   ExecuteStringFlags,
   FromIDLMachineNotificationParams,
@@ -411,7 +411,9 @@ export class IDLMachineWrapper {
 
     // if we have an object, return
     if (match !== null) {
-      variable.type = SerializeIDLType(ParseIDLType(match[1]));
+      variable.type = IDLTypeHelper.serializeIDLType(
+        IDLTypeHelper.parseIDLType(match[1])
+      );
       variable.description = '';
       return;
     }
@@ -419,7 +421,9 @@ export class IDLMachineWrapper {
     /** Get default type string */
     const typeString =
       variable.type in IDL_DATA_TYPE_MAP
-        ? SerializeIDLType(ParseIDLType(IDL_DATA_TYPE_MAP[variable.type]))
+        ? IDLTypeHelper.serializeIDLType(
+            IDLTypeHelper.parseIDLType(IDL_DATA_TYPE_MAP[variable.type])
+          )
         : `${variable.type}`;
 
     // set type by default

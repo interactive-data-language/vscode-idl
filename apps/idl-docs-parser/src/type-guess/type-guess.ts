@@ -1,4 +1,4 @@
-import { DEFAULT_DATA_TYPE } from '@idl/types/core';
+import { DEFAULT_DATA_TYPE } from '@idl/types/idl-data-types';
 
 import { TYPE_GUESS } from './type-guess.interface';
 

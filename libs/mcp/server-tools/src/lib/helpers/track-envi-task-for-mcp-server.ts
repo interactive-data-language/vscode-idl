@@ -1,14 +1,15 @@
+import { TASK_REGEX } from '@idl/parsing/type-parser';
 import {
   GlobalStructureToken,
   IGlobalIndexedToken,
-  TASK_REGEX,
-} from '@idl/types/core';
+} from '@idl/types/idl-data-types';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z, ZodRawShape } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
-import { PARAMETER_LOOKUP } from '../tools/register-tool-query-envi-task-parameters';
-import { TASK_LOOKUP } from '../tools/register-tool-query-envi-tasks';
+import { PARAMETER_LOOKUP } from '../tools/envi/register-mcp-tool-envi-get-task-parameters';
+import { TASK_LOOKUP } from '../tools/envi/register-mcp-tool-envi-list-tasks';
+import { TASK_FILE_LOOKUP } from '../tools/envi/register-mcp-tool-envi-run-task';
 import { CreateENVIMCPParameter } from './envi-parameters/create-envi-mcp-parameter';
 import { GetCleanDescription } from './get-clean-description';
 
@@ -65,14 +66,14 @@ export function TrackENVITaskForMCPServer(
     /** Make zod parameter */
     const param = CreateENVIMCPParameter(names[i], docs, prop.type);
 
-    // // skip if not a requried parameter because may not need it
+    // // skip if not a required parameter because may not need it
     // if (!prop.req) {
     //   continue
     // }
 
     // check if unknown parameter
     if (!param) {
-      // console.log(`Unhandled task "${task.name}" with parameter`, prop);
+      console.log(`Unhandled task "${task.name}" with parameter`, prop);
       return;
     }
 
@@ -87,4 +88,9 @@ export function TrackENVITaskForMCPServer(
   PARAMETER_LOOKUP[taskName] = zodToJsonSchema(
     z.object(args).describe(GetCleanDescription(task.meta.docs, false))
   );
+
+  // see if we need to track task file
+  if (task.file) {
+    TASK_FILE_LOOKUP[taskName] = task.file;
+  }
 }

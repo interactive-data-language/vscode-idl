@@ -1,5 +1,5 @@
 import { TransformCase } from '@idl/assembling/shared';
-import { IParameterLookup } from '@idl/types/core';
+import { IParameterLookup } from '@idl/types/idl-data-types';
 
 import { CURRENT_CONFIG } from '../docs-exporter';
 

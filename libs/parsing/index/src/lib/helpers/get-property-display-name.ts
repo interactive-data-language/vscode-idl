@@ -1,4 +1,5 @@
-import { IDLDataType, SerializeIDLType } from '@idl/types/core';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
+import { IDLDataType } from '@idl/types/idl-data-types';
 
 /**
  * Make the display name for properties be a little nicer
@@ -6,9 +7,9 @@ import { IDLDataType, SerializeIDLType } from '@idl/types/core';
 export function GetPropertyDisplayName(name: string, type?: IDLDataType) {
   if (type !== undefined) {
     if (name.toUpperCase() === name) {
-      return `${SerializeIDLType(type)}.${name.toLowerCase()}`;
+      return `${IDLTypeHelper.serializeIDLType(type)}.${name.toLowerCase()}`;
     } else {
-      return `${SerializeIDLType(type)}.${name}`;
+      return `${IDLTypeHelper.serializeIDLType(type)}.${name}`;
     }
   } else {
     if (name.toUpperCase() === name) {

@@ -1,6 +1,6 @@
 import { ITokenDef, TokenName } from '../tokens.interface';
-import { ALL_TOKENS } from './def-groups.interface';
-import { ISubTokenDefs } from './sub-defs.interface';
+import { ALL_TOKENS } from './full/def-groups-full.interface';
+import { ISubTokenDefs } from './full/sub-defs-full.interface';
 
 /**
  * Given a token, returns the tokens that we should use to recurse

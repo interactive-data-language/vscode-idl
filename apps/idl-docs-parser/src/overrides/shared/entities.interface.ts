@@ -1,4 +1,4 @@
-import { ParseIDLType } from '@idl/types/core';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 
 const ENTITIES: string[] = [
   'MultiPoint',
@@ -18,4 +18,4 @@ const ENTITIES: string[] = [
 /**
  * Data type for vector records
  */
-export const RECORD_TYPE = ParseIDLType(ENTITIES.join(' | '));
+export const RECORD_TYPE = IDLTypeHelper.parseIDLType(ENTITIES.join(' | '));

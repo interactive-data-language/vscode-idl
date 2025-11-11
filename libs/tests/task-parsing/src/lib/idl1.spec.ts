@@ -1,7 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
-import { GlobalTokens } from '@idl/types/core';
+import { GlobalTokens } from '@idl/types/idl-data-types';
 import { TaskToGlobalToken } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
@@ -39,7 +39,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 's3_url',
               docs: 'The S3 URL to download.  This must use the HTTP[S] scheme, not S3 scheme.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: true,
             },
             local_file: {
@@ -50,7 +58,15 @@ describe(`[auto generated] Correctly parse task file`, () => {
               private: false,
               display: 'local_file',
               docs: 'The local file in which to download the S3 resource.',
-              type: [{ name: 'String', display: 'String', args: [], meta: {} }],
+              type: [
+                {
+                  name: 'String',
+                  display: 'String',
+                  serialized: 'String',
+                  args: [],
+                  meta: {},
+                },
+              ],
               req: true,
             },
           },
@@ -69,11 +85,13 @@ describe(`[auto generated] Correctly parse task file`, () => {
             {
               name: 'idldownload_s3_urltask',
               display: 'IDLTask<download_s3_url>',
+              serialized: 'IDLTask<download_s3_url>',
               args: [
                 [
                   {
                     name: 'download_s3_url',
                     display: 'download_s3_url',
+                    serialized: 'download_s3_url',
                     args: [],
                     meta: {},
                   },

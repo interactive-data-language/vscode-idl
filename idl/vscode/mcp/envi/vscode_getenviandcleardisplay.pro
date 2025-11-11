@@ -2,7 +2,7 @@
 ; :Description:
 ;   Starts ENVI if not already started and resets the ENVI session by clearing the data manager and display
 ;
-; :Returns: any
+; :Returns: ENVI
 ;
 ;-
 function vscode_getENVIAndClearDisplay

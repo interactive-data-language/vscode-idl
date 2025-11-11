@@ -1,4 +1,4 @@
-import { IParameterOrPropertyDetails } from '@idl/types/core';
+import { IParameterOrPropertyDetails } from '@idl/types/idl-data-types';
 
 /**
  * Gets a vitepress badge for if a parameter is required or not

@@ -2,7 +2,7 @@ import markdownToTxt from 'markdown-to-txt';
 
 /**
  * Strips markdown from descriptions and removes any examples (assuming they are code)
- * so that we have smalled payloads for tools
+ * so that we have smaller payloads for tools
  */
 export function GetCleanDescription(description: string, limit = true) {
   // if we dont limit the description, just remove markdown styling

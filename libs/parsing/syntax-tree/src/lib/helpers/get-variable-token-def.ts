@@ -1,13 +1,13 @@
 import { TokenName } from '@idl/tokenizer';
-import copy from 'fast-copy';
-
-import { TreeToken } from '../branches.interface';
-import { IParsed } from '../parsed.interface';
 import {
   ILocalIndexedToken,
   ILocalTokenLookup,
+  IParsed,
   LocalTokenTypes,
-} from '../populators/populate-local.interface';
+  TreeToken,
+} from '@idl/types/syntax-tree';
+import copy from 'fast-copy';
+
 import { IParentInformation } from './selected-token.interface';
 
 /**

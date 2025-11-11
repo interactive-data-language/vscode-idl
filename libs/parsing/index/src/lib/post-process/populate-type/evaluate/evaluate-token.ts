@@ -1,5 +1,5 @@
-import { TreeToken } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
+import { TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Returns the literal value for a token, as a string.

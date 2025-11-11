@@ -36,7 +36,7 @@ describe(`[auto generated] Correctly find function definitions`, () => {
       meta: {
         source: 'user',
         args: {},
-        docs: '\n```idl\n;+\n; :Returns: Long\n;+\nresult = func2( $\n  kw = value $\n  kwb = value)\n```\n\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
+        docs: '\n```idl\n;+\n; :Returns: 1\n;+\nresult = func2( $\n  kw = value $\n  kwb = value)\n```\n\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
         docsLookup: {},
         display: 'func2',
         kws: {
@@ -44,7 +44,15 @@ describe(`[auto generated] Correctly find function definitions`, () => {
             docs: '',
             private: false,
             source: 'internal',
-            type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            type: [
+              {
+                name: 'any',
+                display: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
             direction: 'bidirectional',
             req: false,
             display: 'kw',
@@ -55,7 +63,15 @@ describe(`[auto generated] Correctly find function definitions`, () => {
             docs: '',
             private: false,
             source: 'internal',
-            type: [{ name: 'any', display: 'any', args: [], meta: {} }],
+            type: [
+              {
+                name: 'any',
+                display: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
             direction: 'bidirectional',
             req: false,
             display: 'kwb',
@@ -65,7 +81,14 @@ describe(`[auto generated] Correctly find function definitions`, () => {
         },
         private: false,
         returns: [
-          { display: 'Long', name: 'Long', args: [], meta: {}, value: '1' },
+          {
+            display: 'Long',
+            name: 'Long',
+            serialized: '1',
+            args: [],
+            meta: {},
+            value: ['1'],
+          },
         ],
         struct: [],
       },
