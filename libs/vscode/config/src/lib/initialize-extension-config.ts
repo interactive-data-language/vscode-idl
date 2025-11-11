@@ -16,8 +16,12 @@ import { GetWorkspaceConfig } from './helpers/get-workspace-config';
 import { BasicQuestionAsker, QuestionAsker } from './helpers/question-asker';
 import { UpdateConfigObject } from './helpers/update-config';
 import { ValidateConfig } from './helpers/validate-config';
+import {
+  CopilotInstructionFileExists,
+  isIDLWorkspace,
+  isWorkspaceFileVersionDifferent,
+} from './helpers/workspace-checks';
 import { IIDLWorkspaceConfig } from './idl-config.interface';
-
 /**
  * IDL's current workspace configuration
  */
@@ -205,6 +209,64 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
         mcpConfig.update('servers', patched, true);
       }
     );
+  }
+
+  // 10/24/2025 letting dontAsk docs be the last question to maintain await logic.
+  // Await is missing for the last one to avoid blocking the extension activation.
+  // TODO: handle on setting change at the top of this file.
+
+  // Check if we should prompt about GitHub Agent instructions
+  // Only ask if user hasn't opted out and we're in an IDL workspace
+  if (!IDL_EXTENSION_CONFIG.dontAsk.toSetupCopilotInstructions) {
+    const isIDL = await isIDLWorkspace();
+
+    if (isIDL) {
+      const fileExists = await CopilotInstructionFileExists();
+      let shouldAsk = false;
+      let versionIsDifferent = false;
+      let message = '';
+
+      if (!fileExists) {
+        // No copilot instructions file - ask to set up
+        shouldAsk = true;
+        message = IDL_TRANSLATION.notifications.setupCopilotInstructions;
+      } else if (
+        await isWorkspaceFileVersionDifferent(
+          'AGENTS.md',
+          'extension/templates/AGENTS.md'
+        )
+      ) {
+        // File exists but is outdated - ask to update
+        versionIsDifferent = true;
+        shouldAsk = true;
+        message = IDL_TRANSLATION.notifications.updateCopilotInstructions;
+      }
+
+      if (shouldAsk) {
+        await QuestionAsker(
+          message,
+          IDL_EXTENSION_CONFIG_KEYS.dontAskToSetupCopilotInstructions,
+          true,
+          () => {
+            // if user clicks "Don't ask again"
+            UpdateConfigObject<IDontAskConfig>(
+              IDL_EXTENSION_CONFIG_KEYS.dontAsk,
+              {
+                toSetupCopilotInstructions: true,
+              }
+            );
+          },
+          () => {
+            // if user clicks "Yes"
+            // Pass true to force update (skip overwrite confirmation when updating version)
+            vscode.commands.executeCommand(
+              IDL_COMMANDS.COPILOT.SETUP_INSTRUCTIONS,
+              versionIsDifferent
+            );
+          }
+        );
+      }
+    }
   }
 
   // ask user if they want to open the documentation

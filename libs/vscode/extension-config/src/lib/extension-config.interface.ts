@@ -55,13 +55,19 @@ export interface IDLExtensionsConfigKeys {
   /** On startup, do we ask to open docs? */
   readonly dontAskToOpenDocs: 'dontAsk.toOpenDocs';
 
+  /** Controls if we ask to init config for folders or not */
+  // readonly dontAskToInitConfig: 'dontAsk.toInitConfig';
+  /** Folders that we don't ask to initialize config for */
+  // readonly dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders';
+  /** On startup, do we ask to setup copilot instructions? */
+  readonly dontAskToSetupCopilotInstructions: 'dontAsk.toSetupCopilotInstructions';
   /** Top-level don't show key */
   readonly dontShow: 'dontShow';
   /** Don't show the welcome page */
   readonly dontShowWelcomePage: 'dontShow.welcomePage';
+
   /** Root level IDL preferences */
   IDL: 'IDL';
-
   /** When we have workspace folders open, do we add them to IDL's search oath */
   readonly IDLAddWorkspaceFoldersToPath: 'IDL.addWorkspaceFoldersToPath';
   /** how do we add folders to IDL's search path */
@@ -74,31 +80,27 @@ export interface IDLExtensionsConfigKeys {
   readonly IDLhistory: 'IDL.history';
   /** User configured IDL path */
   readonly IDLPath: 'IDL.path';
+
   /** Top-level formatting options, excluding style */
   readonly IDLPreferences: 'IDL.preferences';
-
   /** Key for language server preferences */
   readonly languageServer: 'languageServer';
+
   /** Do we do a full parse or not */
   readonly languageServerFullParse: 'languageServer.fullParse';
-
   /** Key for MCP preferences */
   readonly mcp: 'mcp';
   /** Do we enable the MCP server or not? */
   readonly mcpEnabled: 'mcp.enabled';
+
   /** What port does the MCP server run on? */
   readonly mcpPort: 'mcp.port';
-
   /** Key for notebook preferences */
   readonly notebooks: 'notebooks';
   /** Do we embed graphics or not */
   readonly notebooksEmbedGraphics: 'notebooks.embedGraphics';
   /** Do we make IDL quiet? */
   readonly notebooksQuietMode: 'notebooks.quietMode';
-  /** Controls if we ask to init config for folders or not */
-  // readonly dontAskToInitConfig: 'dontAsk.toInitConfig';
-  /** Folders that we don't ask to initialize config for */
-  // readonly dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders';
 
   /** Key for problem preferences */
   readonly problems: 'problems';
@@ -203,6 +205,8 @@ export interface IDontAskConfig {
   // readonly toInitConfig: boolean;
   // /** Folders that we don't ask to initialize config for */
   // readonly toInitConfigForTheseFolders: string[];
+  /** Do we ask people to setup copilot instructions on startup? */
+  readonly toSetupCopilotInstructions: boolean;
 }
 
 export interface IDontShowConfig {
@@ -349,6 +353,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   problemsIncludeProblemsFromIDLPath: 'problems.includeProblemsFromIDLPath',
   problemsIncludeProblemsFromIDLPackages:
     'problems.includeProblemsFromIDLPackages',
+  dontAskToSetupCopilotInstructions: 'dontAsk.toSetupCopilotInstructions',
 };
 
 /**
@@ -364,6 +369,7 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     forFormatterChange: false,
     forMCPConfig: false,
     toOpenDocs: false,
+    toSetupCopilotInstructions: false,
     // toInitConfig: false,
     // toInitConfigForTheseFolders: [],
   },

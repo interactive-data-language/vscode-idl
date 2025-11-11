@@ -286,6 +286,10 @@
         "title": "%commands.idl.config.specifyIDLDirectoryWorkspace%"
       },
       {
+        "command": "idl.copilot.setupInstructions",
+        "title": "%commands.idl.copilot.setupInstructions%"
+      },
+      {
         "command": "idl.debug.compileFile",
         "title": "%commands.idl.debug.compileFile%",
         "icon": {
@@ -1203,7 +1207,8 @@
               "forIconChange": false,
               "forFormatterChange": false,
               "forMCPConfig": false,
-              "toOpenDocs": false
+              "toOpenDocs": false,
+              "toSetupCopilotInstructions": false
             },
             "properties": {
               "forIDLDir": {
@@ -1225,6 +1230,10 @@
               "toOpenDocs": {
                 "type": "boolean",
                 "description": "%configuration.descriptions.dontAsk.toOpenDocs%"
+              },
+              "toSetupCopilotInstructions": {
+                "type": "boolean",
+                "description": "%configuration.descriptions.dontAsk.toSetupCopilotInstructions%"
               }
             }
           }
@@ -1497,6 +1506,10 @@
         },
         {
           "command": "idl.config.specifyIDLDirectoryWorkspace",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.copilot.setupInstructions",
           "when": "!isWeb"
         },
         {

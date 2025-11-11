@@ -5,6 +5,7 @@ import {
   LANGUAGE_SERVER_CLIENT,
   LANGUAGE_SERVER_FAILED_START,
 } from '@idl/vscode/client';
+import { InitializeCopilot } from '@idl/vscode/copilot';
 import { InitializeDebugger } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { InitializeDocs } from '@idl/vscode/docs';
@@ -54,7 +55,11 @@ export async function activate(
   // initialize our tree view
   InitializeTree(ctx, false);
 
+  // initialize out tutorials
   InitializeIDLTutorials(ctx);
+
+  // initialize our copilot help
+  InitializeCopilot(ctx);
 
   // return result
   return {

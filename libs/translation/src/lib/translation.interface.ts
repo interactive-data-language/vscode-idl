@@ -45,6 +45,11 @@ export interface ICommandTranslation {
     /** Workspace IDL directory */
     specifyIDLDirectoryWorkspace: string;
   };
+  /** Commands for GitHub Copilot integration */
+  copilot: {
+    /** Setup GitHub Copilot instructions file */
+    setupInstructions: string;
+  };
   /** Debug commands */
   debug: {
     compileFile: string;
@@ -888,6 +893,16 @@ export interface ITranslation {
     openDocs: string;
     /** Question to ask if want to report a bug */
     reportBug: string;
+    /** Question to ask if user wants to setup GitHub Copilot instructions */
+    setupCopilotInstructions: string;
+    /** Question to ask if user wants to update GitHub Copilot instructions to latest version */
+    updateCopilotInstructions: string;
+    /** Success message when instructions are created */
+    copilotInstructionsCreated: string;
+    /** Warning when AGENTS.md already exists */
+    agentsFileExists: string;
+    /** Error when no workspace folder is open */
+    noWorkspaceFolder: string;
     /** Start IDL */
     start: string;
     /** Question to ask if want to view docs file */

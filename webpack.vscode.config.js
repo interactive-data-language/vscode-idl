@@ -19,8 +19,16 @@ module.exports = composePlugins(withNx(), (config) => {
     externals: {
       vscode: 'commonjs vscode', // ignored because it doesn't exist
     },
-    // trying to work around https://github.com/facebook/create-react-app/pull/11752
-    // ignoreWarnings: [/^warning/i],
+    // Suppress warnings from third-party libraries
+    ignoreWarnings: [
+      // Suppress UMD require warnings from vscode-languageserver-types
+      /Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/,
+      // Suppress dynamic require warnings from express
+      /Critical dependency: the request of a dependency is an expression/,
+      // Suppress optional peer dependency warnings from ws library
+      /Module not found: Error: Can't resolve 'bufferutil'/,
+      /Module not found: Error: Can't resolve 'utf-8-validate'/,
+    ],
     // stats: 'none',
     // devtool: 'none',
     // plugins: [

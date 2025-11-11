@@ -1,0 +1,155 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "## Getting Code Compiling",
+        "",
+        "---",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "> **NOTE** if this is showing up as json (lots of { }) please install \"IDL for VSCode\" as covered in, **01-IDL for beginners** → **Setting up (Must be completed first!)**",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Setting Up your IDL environment",
+        "",
+        "You can develop IDL code in multiple ways, notably:",
+        "",
+        "- **IDL Development Environment (the IDL Workbench)**  ",
+        "  Our dedicated Development Environment for building and debugging IDL applications.",
+        "",
+        "- **IDL for VS Code Extension**  ",
+        "  A powerful environment for coding in multiple languages, with an integrated terminal and debugger. This is a great option if you are already familiar with VS Code and want to use it for IDL development.",
+        "",
+        "- **IDL Command Line**  ",
+        "  A text-based interface for running IDL commands.",
+        "",
+        "- **IDL Notebooks in VS Code**  ",
+        "  An interactive environment utilizing a mix of Markdown, IDL, and other helpful tools all in VS Code.",
+        "",
+        "This tutorial will primarily use IDL Notebooks, so let's go over setting up your environment.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "# Setting up IDL Notebooks in VS Code",
+        "",
+        "## Linking IDL to Run in Notebooks",
+        "",
+        "### 1. Download and License IDL",
+        "",
+        "If you have not already, instructions on how to download IDL can be found here:  ",
+        "[IDL Installation Guide](https://www.nv5geospatialsoftware.com/docs/idl-install.html)  ",
+        "_Remember the location where you downloaded it._",
+        "",
+        "---",
+        "",
+        "### 2. Locate and Open IDL for VSCode's Extension Settings",
+        "",
+        "**Option 1**:",
+        "",
+        "- Locate the **IDL for VSCode** extension  ",
+        "  <img src=\"https://raw.githubusercontent.com/interactive-data-language/vscode-idl/refs/heads/main/extension/images/idlicon.svg\" width=\"30\" >",
+        "  in your **Activity Bar** to the left and open it.",
+        "- Then, select **Open Extension Settings** from the **Quick Access** menu.",
+        "",
+        "**Option 2**:",
+        "",
+        "- Open the **Settings** menu by pressing `Ctrl+,` or `Cmd+,`.",
+        "- Search for `idl.IDL.directory` directly in the Settings search bar.",
+        "",
+        "---",
+        "",
+        "### 3. Link IDL to the IDL for VSCode Extension",
+        "",
+        "- In the Settings, navigate to the **`idl.IDL:directory`** field.",
+        "- Enter the path to the **bin** directory **containing** the `idl.exe`.",
+        "",
+        "  _For example:_  ",
+        "  `\"C:\\Program Files\\<User>\\IDLXX\\bin\\bin.x86_64\"`",
+        "",
+        "---",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "## Running IDL in notebooks",
+        "",
+        "> IDL Notebooks run nearly identically to Jupyter notebooks, although they are unrelated and do not rely on Python.",
+        "",
+        "### Lets briefly go over how to run IDL in a IDL Notebook (.idlnb) file.",
+        "",
+        "**Code blocks** are how one runs code in a notebook.  ",
+        "Any text inside the code block will be read by the **IDL interpreter** as IDL code.",
+        "",
+        "To create a **code block** (also called a **code cell**) either:",
+        "",
+        "- Click on `+ Code` at the top of the current window, or",
+        "- Hover your mouse between two blocks and select the `+ Code` option.",
+        "",
+        "Lets try it! Try and create a **code block** below this text.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "> Hover your mouse above this line.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Below we have a code block with IDL code inside it. Let's try running it!",
+        "",
+        "You can run any **code block** in a notebook by simply hovering over the code block and pressing the \"play button\"![IDL_ExtensionImage](./Play_Button.png) that shows up to the left of the box. **Alternatively**, if you select the `Run All` option at the top of the notebook next to `+ Code` and `+ Markdown`, it will run all cells in the notebook.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "print, 'Hello World'"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Next some tips to navigating the guide. [Navigating the Guide](./02-Navigating%20the%20Guide.idlnb)!",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

@@ -1,0 +1,343 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "# Operators",
+        "",
+        "---",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Defining a Operator**",
+        "",
+        "An **Operator** is a symbol or that performs an operation.",
+        "",
+        "For example, \"+\" is an operator. It tells IDL to preform the \"addition\" operation.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "2 + 2"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "More specifically \"+\" is something called a an **Arithmetic Operator**. Here is a list of some of the useful operators in IDL.",
+        "| **Category** | **Operator** | **Description** |",
+        "|-------------------------|---------------------|------------------------------------------------|",
+        "| **Arithmetic Operators** | `+` | Addition |",
+        "| | `-` | Subtraction |",
+        "| | `*` | Multiplication |",
+        "| | `/` | Division |",
+        "| | `mod` | Modulus (remainder of division) |",
+        "| | `^` | Exponentiation |",
+        "| **Relational Operators** | `eq` | Equal to |",
+        "| | `ne` | Not equal to |",
+        "| | `gt` | Greater than |",
+        "| | `ge` | Greater than or equal to |",
+        "| | `lt` | Less than |",
+        "| | `le` | Less than or equal to |",
+        "| **Logical Operators** | `&&` | Logical AND |",
+        "| | `\\|\\|` | Logical OR |",
+        "| | `xor` | Logical exclusive OR |",
+        "| | `~` | Logical NOT |",
+        "| **Bitwise Operators** | `and` | Bitwise AND |",
+        "| | `or` | Bitwise OR |",
+        "| | `not` | Bitwise NOT |",
+        "| **Array Operators** | `#` | Matrix Multiplication with Broadcasting |",
+        "| | `##` | Matrix Multiplication |",
+        "| **Assignment Operators** | `=` | Assign a value to a variable |",
+        "| **Concatenation Operators** | `+` | String concatenation |",
+        "| **Special Operators** | `.` | Structure dereferencing |",
+        "| | `->` | Object property dereferencing |",
+        "| **Conditional Operators** | `?` | Conditional expression (ternary operator) |",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Arithmetic Operators**",
+        "",
+        "**Arithmetic Operators** do exactly what they say: arithmetic!",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "print, `Addition (2 + 3): ${2 + 3}`",
+        "print, `Subtraction (2 - 3): ${2 - 3}`",
+        "print, `Multiplication (2 * 3): ${2 * 3}`",
+        "print, `Division (2 / 3): ${2 / 3}`",
+        "print, `Modulus (2 MOD 3): ${2 mod 3}`",
+        "print, `Exponentiation (2 ^ 3): ${2 ^ 3}`"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "> **NOTE**: When calculating expressions, IDL assumes the same type for the result, so fractions aren't displayed. For example, Long(2) / Long(3) results in 0 because integers round down. IDL supports automatic type promotion, which will be covered later in the chapter.",
+        "",
+        "> **TIP**: You may have noticed the backticks in the code above. These are known as \"template literals\" and allow us to mix human-readable text plus expressions in a single string. The `${ }` indicates an IDL expression which will be evaluated at runtime and inserted into the string. This is a very useful feature of IDL, and you will see it used often in the examples. You can also use the `+` operator to concatenate strings, but this gets messy quickly.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Truth statements**",
+        "",
+        "Certain operators primarily work to evaluate the value of **truth statements**.",
+        "",
+        "These are [**expressions**](03-Expressions.idlnb) that resolve to:",
+        "",
+        "- True (1)",
+        "- False (0)",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Relational Operators**",
+        "",
+        "**Relational Operators** will provide you with a 1 (true) or a 0 (false) depending on the value of the truth statement.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "print, `Equal to (2 eq 2): ${2 eq 2}` ; 2 is in-fact 2. So this statement evaluates to 1 (true).",
+        "print, `Not Equal (2 ne 2): ${2 ne 2}` ; 2 is 2. This means that our assertion that they are not equal is 0 (false).",
+        "print, `Greater then (2 gt 2): ${2 gt 2}` ; 2 is not greater then 2. It is 2. So this statement evaluates to 0 (false).",
+        "print, `Greater then or Equal (2 ge 2): ${2 ge 2}` ; 2 is not greater then 2. but it is 2. GE takes equal into account so this statement is 1 (true)."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Logical Operators**",
+        "",
+        "**Logical Operators** are used to tie two or more truth statements together.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; &&",
+        "print, '&&'",
+        "; && or \"logical AND\" requires both truth statements to be true for the entire statement to be true. Therefore,",
+        "print, `&&: (2 eq 2 && 4 eq 4): ${2 eq 2 && 4 eq 4}`",
+        "; 2 eq 2 = True. 4 eq 4 = True. So, (True && True) = True. So this statement evaluates to 1 (True)",
+        "print, `&&: (2 eq !NULL && 4 eq 4): ${2 eq !null && 4 eq 4}` ; Using the same logic we see.",
+        "; 2 eq !NULL = False. 4 eq 4 = True. So, (False && True) = False. So this evaluates to 0 (False)."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; ||",
+        "print, ''",
+        "print, '||'",
+        "; || or \"logical OR\" Requires one or more of the truth statements to be true for the entire statement to be true. Therefore,",
+        "print, `||: (2 eq !NULL || 4 eq 4): ${2 eq !null || 4 eq 4}`",
+        "; 2 eq !NULL = False. 4 eq 4 = True. So, (False || True) = True. So this evaluates to 1 (True).",
+        "print, `||: (2 eq 2 || 4 eq 4): ${2 eq 2 || 4 eq 4}`",
+        "; 2 eq 2 = True. 4 eq 4 = True. So, (True || True) = True. So this statement evaluates to 1 (True)",
+        "print, `||: (2 eq !NULL || 4 eq 2): ${2 eq !null || 4 eq 2}`",
+        "; 2 eq !NULL = False. 4 eq 2 = False. So, (False || False) = False. So this statement evaluates to 0 (False)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; xor",
+        "print, ''",
+        "print, 'xor'",
+        "; xor or \"logical xor\" Requires one and ONLY one of the truth statements to be true for the statement to be true. Therefore,",
+        "print, `xor: (2 eq -2 xor 4 eq 4.0): ${2 eq -2 xor 4 eq 4.0}`",
+        "; 2 eq -2 = False. 4 eq 4.0 = True. So, (False xor True) = True. So this evaluates to 1 (True).",
+        "print, `xor: (2 eq 2 || 4 eq 4): ${2 eq 2 xor 4 eq 4}`",
+        "; 2 eq 2 = True. 4 eq 4 = True. So, (True xor True) = False. So this statement evaluates to 0 (False)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "We also have **~** or **logical not** This is logical operator that will flip the value of a truth statement at any level.",
+        "",
+        "> you will see the following code use \"()\" these do change the order of operation. However, in the following code they are only used for clarity",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "print, `~: ~ (33 eq 33): ${ ~(33 eq 33)}`",
+        "print, `~: ~ !True: ${ ~!true}`",
+        "print, `~: (!True && ~(!False)): ${(!true && ~!false)}`"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Exercise 1**",
+        "",
+        "What will the following code evaluate to?",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "~0"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "<details>",
+        "  <summary>Click to reveal the answer</summary>",
+        "",
+        "**Answer**: </br>",
+        "1! </br>",
+        "Here’s why:</br></br>",
+        "In IDL, the value <b>1</b> is equivalent to <code>!True</code>.</br>",
+        "Meanwhile, <b>0</b> is the same as <code>!False</code>.</br></br>",
+        "Let’s break it down step by step:</br>",
+        "",
+        "<ul>",
+        "  <li><code>~ 0</code> means \"NOT <code>!False</code>.\"</li>",
+        "  <li>What’s the opposite of false? It’s true!</li>",
+        "  <li>In IDL, <code>!True</code> is represented as <b>1</b>.</li>",
+        "</ul></br>",
+        "So, the result is <b>1!</b> </br></br>",
+        "",
+        "</details>",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### **Exercise 2**",
+        "",
+        "Using &&, write an expression to check if both x and y are greater than 10",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "x = 20",
+        "y = 40"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "<details> <summary>Click to reveal the answer</summary>",
+        "Answer: </br> <code>x gt 10 && y gt 10</code> </br> Here’s why:</br></br>",
+        "",
+        "x = 20 is greater than 5, so x > 5 evaluates to true.</br>",
+        "y = 40 is also greater than 5, so y > 5 evaluates to true.</br>",
+        "The logical AND operator (&&) checks if both conditions are true. Since they are, the result is true.</br>",
+        "",
+        "</details>",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "These are the operators that we use the most in IDL. To learn about more advanced operators, please refer to the IDL help.",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "---",
+        "",
+        "### Completed!",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "CLI_Progress.update, 18, text = 'Operators Conquered! Expressions are next.'"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Learn to express yourself! [Expressions](./03-Expressions.idlnb)!",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

@@ -97,6 +97,9 @@ export const EN: ITranslation = {
         openIDLTutorial: 'IDL: Open IDL Tutorial',
         resetTutorials: 'IDL: Reset Tutorials',
       },
+      copilot: {
+        setupInstructions: 'IDL: Setup GitHub Copilot Instructions',
+      },
       webview: {
         start: 'IDL: Start Webview',
       },
@@ -167,6 +170,9 @@ export const EN: ITranslation = {
         openIDLTutorial: 'Error while opening IDL tutorial',
         resetTutorials: 'Error while resetting tutorials',
       },
+      copilot: {
+        setupInstructions: 'Error while setting up Copilot instructions',
+      },
       webview: {
         start: 'Error while starting webview',
       },
@@ -229,6 +235,7 @@ export const EN: ITranslation = {
       'dontAsk.forMCPConfig':
         "Don't ask to automatically configure the MCP server for use with the GitHub Copilot Agent embedded within VSCode.",
       'dontAsk.toOpenDocs': `Don't ask to open the documentation on extension startup`,
+      'dontAsk.toSetupCopilotInstructions': `TEST`,
 
       dontShow:
         'Preferences that disable dialogs/views from automatically appearing',
@@ -963,6 +970,14 @@ export const EN: ITranslation = {
     noProCodeOrTaskFile: 'No active PRO file or Task file in VSCode',
     openDocs: 'Open official docs for IDL for VSCode?',
     reportBug: 'Report Bug',
+    setupCopilotInstructions:
+      'Would you like to setup GitHub Copilot instructions for better IDL code assistance?',
+    updateCopilotInstructions:
+      'A newer version of GitHub Copilot instructions is available. Would you like to update to the latest version?',
+    copilotInstructionsCreated:
+      'GitHub Copilot instructions and tutorial files created successfully!',
+    agentsFileExists: 'AGENTS.md already exists. Overwrite?',
+    noWorkspaceFolder: 'No workspace folder open. Please open a folder first.',
     start: 'Start?',
     viewDocs: 'View docs',
     yes: 'Yes',
