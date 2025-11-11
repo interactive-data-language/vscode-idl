@@ -51,7 +51,7 @@ export async function activate(ctx: ExtensionContext) {
     LoadLanguageConfiguration();
 
     /** Dont await - blocking questions asked to client if you do */
-    InitializeExtensionConfig(ON_CONFIG_CHANGES_CLIENT_WEB);
+    InitializeExtensionConfig(ctx, ON_CONFIG_CHANGES_CLIENT_WEB);
 
     // set logging callback for metrics
     SetUsageMetricLogger((ev, payload) => {

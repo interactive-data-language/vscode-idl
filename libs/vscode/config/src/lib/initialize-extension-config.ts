@@ -35,8 +35,14 @@ export let IDL_EXTENSION_CONFIG: IIDLWorkspaceConfig;
  * It has some blocking async logic so that you arent spammed with questions
  *
  * So, if you await this callback, it will wait until all questions are answered before returning
+ *
+ * @param ctx Extension context
+ * @param onConfigChanges Callback when config changes
  */
-export async function InitializeExtensionConfig(onConfigChanges: () => void) {
+export async function InitializeExtensionConfig(
+  ctx: vscode.ExtensionContext,
+  onConfigChanges: () => void
+) {
   // get the current workspace config
   IDL_EXTENSION_CONFIG = GetWorkspaceConfig();
 
@@ -232,6 +238,7 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
         message = IDL_TRANSLATION.notifications.setupCopilotInstructions;
       } else if (
         await isWorkspaceFileVersionDifferent(
+          ctx.extensionUri,
           'AGENTS.md',
           'extension/templates/AGENTS.md'
         )

@@ -80,7 +80,7 @@ export async function InitializeClient(
   LoadLanguageConfiguration();
 
   /** Dont await - blocking questions asked to client if you do */
-  InitializeExtensionConfig(ON_CONFIG_CHANGES_CLIENT);
+  InitializeExtensionConfig(ctx, ON_CONFIG_CHANGES_CLIENT);
 
   // set logging callback for metrics
   SetUsageMetricLogger((ev, payload) => {

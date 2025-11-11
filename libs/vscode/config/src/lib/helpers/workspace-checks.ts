@@ -1,4 +1,3 @@
-import { GetExtensionPath } from '@idl/idl/files';
 import * as vscode from 'vscode';
 
 /**
@@ -26,8 +25,6 @@ export async function isIDLWorkspace(): Promise<boolean> {
  * Check if the workspace needs copilot instructions
  * (i.e., doesn't already have AGENTS.md)
  */
-
-// In our current implementation we just check if the first line matches the template.
 export async function CopilotInstructionFileExists(): Promise<boolean> {
   // Check if AGENTS.md already exists
   const agentsFiles = await vscode.workspace.findFiles('AGENTS.md', null, 1);
@@ -40,6 +37,7 @@ export async function CopilotInstructionFileExists(): Promise<boolean> {
 }
 
 export async function isWorkspaceFileVersionDifferent(
+  extensionUri: vscode.Uri,
   workspaceFilePath: string,
   templateFilePath: string
 ): Promise<boolean> {
@@ -51,7 +49,8 @@ export async function isWorkspaceFileVersionDifferent(
       1
     );
 
-    const templatePath = GetExtensionPath(templateFilePath);
+    const templatePath = vscode.Uri.joinPath(extensionUri, templateFilePath);
+
     const existingFileUri = copilotInstructionFiles[0];
     const templateDoc = await vscode.workspace.openTextDocument(templatePath);
     const doc = await vscode.workspace.openTextDocument(existingFileUri);
