@@ -43,15 +43,20 @@ export class MCPToolContext {
    * For a given context ID, sends a notification to the agent
    * we are interacting with
    */
-  sendNotification(id: string, progress: IMCPToolProgress) {
+  async sendNotification(id: string, progress: IMCPToolProgress) {
     if (id in this.contexts) {
-      this.contexts[id].sendNotification({
-        method: 'notifications/message',
-        params: {
-          level: 'info',
-          data: progress,
-        },
-      });
+      try {
+        await this.contexts[id].sendNotification({
+          method: 'notifications/message',
+          params: {
+            level: 'info',
+            data: progress,
+          },
+        });
+      } catch (err) {
+        // no connection, race condition?
+        console.log('Error sending notification', progress);
+      }
     }
   }
 }
