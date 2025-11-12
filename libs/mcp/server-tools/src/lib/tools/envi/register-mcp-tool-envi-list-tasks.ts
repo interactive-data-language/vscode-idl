@@ -15,7 +15,7 @@ export const TASK_LOOKUP: { [key: string]: string } = {};
 export function RegisterMCPTool_ENVIListTasks(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_LIST_TASKS,
     `Returns available image processing and spectral analysis tools that ENVI has available. The tools map to ENVI Tasks that have discrete inputs and outputs. Here's the process to get the list of ENVI Tasks and how to use them:\n\n ${PROMPT}`,
     {},

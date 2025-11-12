@@ -2,9 +2,19 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import * as express from 'express';
 
+import { MCP_SERVER_CONFIG } from './mcp-server.interface';
+
 /**
- * Core HTTP server for MCP - platform agnostic
- * This can be used by both VSCode and Cursor
+ * HTTP server for MCP, modeled after what the NX Console VSCode
+ * extension uses.
+ *
+ * !! Important Note !!
+ *
+ * This MCP server handles concurrent requests - which is an issue
+ * for some actions.
+ *
+ * To resolve this, the MCPToolRegistry (in libs\mcp\server-tools\src\lib\mcp-tool-registry.class.ts)
+ * has a queue added for all tool executions to make sure they happen one at a time
  */
 export class McpHttpServerCore {
   /** Reference to express */
@@ -56,7 +66,6 @@ export class McpHttpServerCore {
     this.app.post(
       '/mcp',
       async (req: express.Request, res: express.Response) => {
-        console.log('Connecting to MCP via streamable http');
         try {
           /** Create transport */
           const transport: StreamableHTTPServerTransport =
@@ -64,15 +73,31 @@ export class McpHttpServerCore {
               sessionIdGenerator: undefined,
             });
 
-          // handle connections closing
-          res.on('close', () => {
-            console.log('Request closed');
-            transport.close();
-            this.mcpServer.close();
-          });
-
           // connect
           await this.mcpServer.connect(transport);
+
+          /**
+           * Not sure this is 100% needed, but it was before for long-running
+           * requests, so im keeping it here in case
+           */
+          // https://github.com/nrwl/nx-console/blob/bc58d3a5c5c661e3d1fe00248e160cb19575e7aa/apps/nx-mcp/src/main.ts#L127
+          // create interval to keep connection alive
+          const keepAliveInterval = setInterval(() => {
+            // Check if the connection is still open using the socket's writable state
+            if (!res.writableEnded && !res.writableFinished) {
+              res.write(':beat\n\n');
+            } else {
+              // console.log('SSE connection closed, clearing keep-alive interval');
+              clearInterval(keepAliveInterval);
+            }
+          }, MCP_SERVER_CONFIG.KEEP_ALIVE_INTERVAL);
+
+          // handle connections closing
+          res.on('close', () => {
+            transport.close();
+            this.mcpServer.close();
+            clearInterval(keepAliveInterval);
+          });
 
           // register request handlers
           await transport.handleRequest(req, res, req.body);

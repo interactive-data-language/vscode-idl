@@ -16,7 +16,7 @@ export const PARAMETER_LOOKUP: { [key: string]: any } = {};
 export function RegisterMCPTool_ENVIGetTaskParameters(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_GET_TASK_PARAMETERS,
     `Returns the JSON schema for the input parameters for a given ENVI Task. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.ENVI_RUN_TASK}. Here's the process to use these input parameters:\n\n ${PROMPT}`,
     {

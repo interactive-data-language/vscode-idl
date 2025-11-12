@@ -20,7 +20,7 @@ export const TASK_FILE_LOOKUP: { [key: string]: string } = {};
 export function RegisterMCPTool_ENVIRunTask(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_RUN_TASK,
     `Runs an ENVI task given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TASKS}. Here's the process to get the input parameters:\n\n ${PROMPT}`,
     {

@@ -15,7 +15,7 @@ import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 export function RegisterMCPTool_ENVIStart(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_START,
     "Starts a session of ENVI and IDL in VSCode. If ENVI has already started, this tool won't do anything.",
     {

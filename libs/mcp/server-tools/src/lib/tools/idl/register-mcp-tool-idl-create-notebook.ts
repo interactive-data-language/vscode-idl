@@ -16,7 +16,7 @@ import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 export function RegisterMCPTool_IDLCreateNotebook(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.IDL_CREATE_NOTEBOOK,
     'Creates an IDL Notebook.\n\nThis is a native IDL Notebook and does not use or require Jupyter or any other configuration in order to work.',
     {

@@ -11,7 +11,7 @@ import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 export function RegisterMCPTool_ResourcesGetResource(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.RESOURCES_GET_RESOURCE,
     `Returns the value of a resource based on the name. The name should come from ${MCP_TOOL_LOOKUP.RESOURCES_LIST_ALL}.`,
     {

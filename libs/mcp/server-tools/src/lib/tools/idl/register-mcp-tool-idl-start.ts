@@ -14,7 +14,7 @@ import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 export function RegisterMCPTool_IDLStart(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.IDL_START,
     "Starts a new session of IDL in VSCode. If IDL has already started, this tool won't do anything.",
     {},

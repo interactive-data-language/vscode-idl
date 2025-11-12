@@ -16,7 +16,7 @@ import { IDL_EXECUTE_FILE } from './register-mcp-tool-idl-execute-file.interface
 export function RegisterMCPTool_IDLExecuteFile(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.IDL_EXECUTE_FILE,
     IDL_EXECUTE_FILE,
     {

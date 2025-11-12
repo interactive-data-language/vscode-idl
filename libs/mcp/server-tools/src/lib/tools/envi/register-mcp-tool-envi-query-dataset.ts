@@ -22,7 +22,7 @@ import { ENVI_QUERY_DATASET_DESCRIPTION } from './register-mcp-tool-envi-query-d
 export function RegisterMCPTool_ENVIQueryDataset(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET,
     ENVI_QUERY_DATASET_DESCRIPTION,
     {
