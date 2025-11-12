@@ -58,7 +58,7 @@
     "docs:preview": "vitepress preview extension/docs"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.1",
+    "@modelcontextprotocol/sdk": "^1.21.1",
     "@vscode/debugadapter": "^1.66.0",
     "@vscode/debugprotocol": "^1.66.0",
     "ajv": "^8.17.1",
