@@ -1467,6 +1467,12 @@
         ]
       }
     ],
+    "mcpServerDefinitionProviders": [
+      {
+        "id": "idl.idl-for-vscode",
+        "label": "IDL for VSCode"
+      }
+    ],
     "menus": {
       "commandPalette": [
         {
