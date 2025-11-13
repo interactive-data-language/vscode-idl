@@ -27,7 +27,6 @@ export function StartMCPServer(
    * Return if already started
    */
   if (IS_MCP_SERVER_STARTED) {
-    console.log('Was started?');
     return;
   }
 

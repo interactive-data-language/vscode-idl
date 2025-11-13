@@ -56,6 +56,7 @@ import {
   ProgressMessage,
   ProgressMessagePayload,
 } from './messages/progress.message.interface';
+import { RefreshMCPToolsMessage } from './messages/refresh-mcp-tools.interface';
 import {
   FileRenameMessage,
   IFileRenamePayload,
@@ -91,6 +92,7 @@ export type LanguageServerMessage =
   | PrepareIDLCodelMessage
   | PrepareNotebookCellMessage
   | ProgressMessage
+  | RefreshMCPToolsMessage
   | RetrieveDocsMessage
   | UsageMetricLSPMessage
   | WorkspaceConfigMessage;
@@ -189,6 +191,8 @@ export interface ILanguageServerMessages {
   PREPARE_NOTEBOOK_CELL: PrepareNotebookCellMessage;
   /** Progress message */
   PROGRESS: ProgressMessage;
+  /** Refresh MCP tool list in VSCode */
+  REFRESH_MCP_TOOLS: RefreshMCPToolsMessage;
   /** Message to retrieve docs */
   RETRIEVE_DOCS: RetrieveDocsMessage;
   /** Message from language server with usage metric to report */
@@ -221,6 +225,7 @@ export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   RETRIEVE_DOCS: 'retrieve-docs',
   PREPARE_IDL_CODE: 'prepare-idl-code',
   PREPARE_NOTEBOOK_CELL: 'prepare-notebook-cell',
+  REFRESH_MCP_TOOLS: 'refresh-mcp-tools',
   USAGE_METRIC: 'usage-metric-lsp',
   WORKSPACE_CONFIG: 'workspace-config',
 };

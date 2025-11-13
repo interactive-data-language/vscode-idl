@@ -7,6 +7,8 @@ import * as vscode from 'vscode';
 
 import { RunMCPToolMessageHandler } from './run-mcp-tool-message-handler';
 
+export const MCP_CHANGE_EVENT_EMITTER = new vscode.EventEmitter<void>();
+
 /**
  * Initializes MCP server for VSCode
  */
@@ -17,15 +19,12 @@ export function InitializeMCPVSCode(ctx: vscode.ExtensionContext) {
     RunMCPToolMessageHandler
   );
 
-  // event emitter that can be used to alert VSCode to things like tool changes in the servers
-  const didChangeEmitter = new vscode.EventEmitter<void>();
-
   /**
    * Register our MCP server with VSCode
    */
   ctx.subscriptions.push(
     vscode.lm.registerMcpServerDefinitionProvider(EXTENSION_FULL_NAME, {
-      onDidChangeMcpServerDefinitions: didChangeEmitter.event,
+      onDidChangeMcpServerDefinitions: MCP_CHANGE_EVENT_EMITTER.event,
 
       // Called eagerly by VS Code to discover what MCP servers your
       // extension can provide.
@@ -45,7 +44,10 @@ export function InitializeMCPVSCode(ctx: vscode.ExtensionContext) {
             vscode.Uri.parse(
               `http://localhost:${IDL_EXTENSION_CONFIG.mcp.port}/mcp`
             ),
-            {}
+            {},
+            `${Math.floor(100 * Math.random())}.${Math.floor(
+              100 * Math.random()
+            )}.${Math.floor(100 * Math.random())}`
           )
         );
 
