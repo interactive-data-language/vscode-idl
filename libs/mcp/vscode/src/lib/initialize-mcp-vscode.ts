@@ -1,4 +1,4 @@
-import { EXTENSION_FULL_NAME } from '@idl/shared/extension';
+import { EXTENSION_FULL_NAME, VERSION } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
@@ -45,7 +45,7 @@ export function InitializeMCPVSCode(ctx: vscode.ExtensionContext) {
               `http://localhost:${IDL_EXTENSION_CONFIG.mcp.port}/mcp`
             ),
             {},
-            `${Math.floor(100 * Math.random())}.${Math.floor(
+            `${VERSION}.${Math.floor(100 * Math.random())}.${Math.floor(
               100 * Math.random()
             )}.${Math.floor(100 * Math.random())}`
           )
