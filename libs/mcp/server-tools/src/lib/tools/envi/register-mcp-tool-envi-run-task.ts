@@ -24,7 +24,7 @@ export function RegisterMCPTool_ENVIRunTask(
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_RUN_TASK,
     IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.ENVI_RUN_TASK],
-    `Runs an ENVI task given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TASKS}. Here's the process to get the input parameters:\n\n ${PROMPT}`,
+    `Runs an ENVI tool given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TASKS}. Here's the process to get the input parameters:\n\n ${PROMPT}`,
     {
       taskName: z
         .string()

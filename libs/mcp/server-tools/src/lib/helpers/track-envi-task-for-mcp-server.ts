@@ -7,7 +7,10 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z, ZodRawShape } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
-import { PARAMETER_LOOKUP } from '../tools/envi/register-mcp-tool-envi-get-task-parameters';
+import {
+  INPUT_PARAMETER_LOOKUP,
+  OUTPUT_PARAMETER_LOOKUP,
+} from '../tools/envi/register-mcp-tool-envi-get-task-parameters';
 import { TASK_LOOKUP } from '../tools/envi/register-mcp-tool-envi-list-tasks';
 import { TASK_FILE_LOOKUP } from '../tools/envi/register-mcp-tool-envi-run-task';
 import { CreateENVIMCPParameter } from './envi-parameters/create-envi-mcp-parameter';
@@ -36,9 +39,14 @@ export function TrackENVITaskForMCPServer(
   }
 
   /**
-   * Map the task to a tool
+   * Track input parameters
    */
-  const args: ZodRawShape = {};
+  const inputArgs: ZodRawShape = {};
+
+  /**
+   * Track output parameters
+   */
+  const outputArgs: ZodRawShape = {};
 
   /** Get task properties */
   const props = task.meta.props;
@@ -50,8 +58,12 @@ export function TrackENVITaskForMCPServer(
   for (let i = 0; i < names.length; i++) {
     const prop = props[names[i]];
 
+    /** Track args to add to */
+    let addToArgs = inputArgs;
+
     // skip if not input dataset
-    if (prop.direction !== 'in') {
+    if (prop.direction === 'out') {
+      addToArgs = outputArgs;
       continue;
     }
 
@@ -78,15 +90,31 @@ export function TrackENVITaskForMCPServer(
     }
 
     // save parameter
-    args[names[i]] = param;
+    addToArgs[names[i]] = param;
   }
 
   // save in lookup
   TASK_LOOKUP[taskName] = description;
 
   // save parameters with full description
-  PARAMETER_LOOKUP[taskName] = zodToJsonSchema(
-    z.object(args).describe(GetCleanDescription(task.meta.docs, false))
+  INPUT_PARAMETER_LOOKUP[taskName] = zodToJsonSchema(
+    z
+      .object(inputArgs)
+      .describe(
+        `Inputs for running the tool. These *MUST* be specified based on the schema. Summary:\n\n${GetCleanDescription(
+          task.meta.docs,
+          false
+        )}`
+      )
+  );
+
+  // save parameters with full description
+  OUTPUT_PARAMETER_LOOKUP[taskName] = zodToJsonSchema(
+    z
+      .object(outputArgs)
+      .describe(
+        'Outputs from running the tool. These should *NEVER* be specified and are returned.'
+      )
   );
 
   // see if we need to track task file
