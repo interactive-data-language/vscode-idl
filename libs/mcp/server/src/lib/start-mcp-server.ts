@@ -1,3 +1,4 @@
+import { ILogOptions } from '@idl/logger';
 import { VERSION } from '@idl/shared/extension';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 
@@ -18,13 +19,15 @@ export let MCP_SERVER: McpServer;
  * Starts an express server for to serve up static docs content
  */
 export function StartMCPServer(
-  failCallback: (err: any) => void,
-  port = MCP_SERVER_CONFIG.PORT
+  port = MCP_SERVER_CONFIG.PORT,
+  logCallback: (options: ILogOptions) => void,
+  failCallback: (err: any) => void
 ) {
   /**
    * Return if already started
    */
   if (IS_MCP_SERVER_STARTED) {
+    console.log('Was started?');
     return;
   }
 
@@ -43,7 +46,12 @@ export function StartMCPServer(
     }
   );
 
-  const MCP_HTTP = new McpHttpServerCore(MCP_SERVER, port);
+  const MCP_HTTP = new McpHttpServerCore(
+    MCP_SERVER,
+    port,
+    logCallback,
+    failCallback
+  );
 
   // /** Create express app */
   // const app = express();

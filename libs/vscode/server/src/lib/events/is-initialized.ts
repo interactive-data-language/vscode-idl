@@ -147,11 +147,6 @@ SERVER_INFO.then(async (res) => {
     }, DEFAULT_IDL_EXTENSION_CONFIG.languageServer.garbageIntervalMS);
 
     /**
-     * Attempt to start MCP server
-     */
-    InitializeMCPServer();
-
-    /**
      * Merge folders together
      */
     const merged = { ...res[0], ...res[1] };
@@ -168,6 +163,14 @@ SERVER_INFO.then(async (res) => {
         merged,
       ],
     });
+
+    /**
+     * Attempt to start MCP server
+     *
+     * We do this here because we need information from VSCode about whether
+     * we can launch the server or not
+     */
+    InitializeMCPServer();
 
     /**
      * Check if we can't detect the number of CPUs

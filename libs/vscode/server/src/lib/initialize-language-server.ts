@@ -28,7 +28,6 @@ import { InitializeDocumentManager } from './events/initialize-document-manager'
 import { InitializeNotebookManager } from './events/initialize-notebook-manager';
 import { InitializeUserInteractions } from './events/initialize-user-interactions';
 import { IDL_CLIENT_CONFIG } from './helpers/track-workspace-config';
-import { InitializeMCPServer } from './initialize-mcp-server';
 import { DEFAULT_SERVER_SETTINGS } from './settings.interface';
 
 /**
@@ -254,9 +253,6 @@ export function InitializeLanguageServer() {
 
   // turn on our event listeners for custom messages
   InitializeCustomEventHandler();
-
-  // start MCP server
-  InitializeMCPServer();
 
   // listen for notebook events
   InitializeNotebookManager();

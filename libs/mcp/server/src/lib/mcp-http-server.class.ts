@@ -1,3 +1,4 @@
+import { ILogOptions } from '@idl/logger';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import * as express from 'express';
@@ -23,15 +24,28 @@ export class McpHttpServerCore {
   /** Express app that is listening */
   private appInstance?: ReturnType<express.Application['listen']>;
 
+  /** Callback for error failures */
+  private failCallback: (err: any) => void;
+
+  /** Logger for MCP server */
+  private logCallback: (options: ILogOptions) => void;
+
   /** Port server runs on */
   private mcpPort: number;
 
   /** Reference to the MCP server that we will utilize */
   private mcpServer: McpServer;
 
-  constructor(mcpServer: McpServer, port: number) {
+  constructor(
+    mcpServer: McpServer,
+    port: number,
+    logCallback: (options: ILogOptions) => void,
+    failCallback: (err: any) => void
+  ) {
     this.mcpServer = mcpServer;
     this.mcpPort = port;
+    this.logCallback = logCallback;
+    this.failCallback = failCallback;
     this.startStreamableWebServer();
   }
 
@@ -102,7 +116,10 @@ export class McpHttpServerCore {
           // register request handlers
           await transport.handleRequest(req, res, req.body);
         } catch (error) {
-          console.log('Error handling MCP request:', error);
+          this.logCallback({
+            content: ['Error handling MCP request:', error],
+            type: 'error',
+          });
           if (!res.headersSent) {
             res.status(500).json({
               jsonrpc: '2.0',
@@ -123,7 +140,10 @@ export class McpHttpServerCore {
     this.app.get(
       '/mcp',
       async (req: express.Request, res: express.Response) => {
-        console.log('Received GET MCP request');
+        this.logCallback({
+          content: 'Received GET MCP request which we should not',
+          type: 'warn',
+        });
         res.writeHead(405).end(
           JSON.stringify({
             jsonrpc: '2.0',
@@ -143,7 +163,10 @@ export class McpHttpServerCore {
     this.app.delete(
       '/mcp',
       async (req: express.Request, res: express.Response) => {
-        console.log('Received DELETE MCP request');
+        this.logCallback({
+          content: 'Received DELETE MCP request which we should not',
+          type: 'warn',
+        });
         res.writeHead(405).end(
           JSON.stringify({
             jsonrpc: '2.0',
@@ -158,22 +181,30 @@ export class McpHttpServerCore {
     );
 
     try {
-      this.appInstance = this.app.listen(this.mcpPort, () => {
-        console.log(`MCP server started on port ${this.mcpPort}`);
+      this.logCallback({
+        content: `Starting MCP server on port ${this.mcpPort}`,
+        type: 'info',
+      });
+
+      this.appInstance = this.app.listen(this.mcpPort, (err) => {
+        this.logCallback({
+          content: `MCP server successfully started!`,
+          type: 'info',
+        });
       });
 
       this.appInstance.on('error', (error: NodeJS.ErrnoException) => {
         if (error.code === 'EADDRINUSE') {
-          console.log(
-            `Port ${this.mcpPort} is already in use. Another VS Code/Cursor instance likely has an MCP server running on this port.`
-          );
+          this.failCallback(error);
         } else {
-          console.log(`Failed to start MCP server: ${error.message}`);
+          this.logCallback({
+            content: ['Failed to start MCP server:', error],
+            type: 'error',
+          });
         }
       });
     } catch (error) {
-      // This catch might not be necessary with the error event handler, but keeping for safety
-      console.log(`Failed to start MCP server: ${error}`);
+      this.failCallback(error);
     }
   }
 }
