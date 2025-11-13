@@ -163,7 +163,10 @@ SERVER_INFO.then(async (res) => {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
       type: 'info',
-      content: ['Server initialized, indexing code in these folders:', merged],
+      content: [
+        'Language server initialized, indexing code in these folders:',
+        merged,
+      ],
     });
 
     /**
