@@ -4,7 +4,7 @@ import { IDLTypeHelper } from '@idl/parsing/type-parser';
  * Regular expression to check for array data types and allows us to strip
  * array from the names
  */
-const ARRAY_REGEX = /array$|\[[^\]]\]?$/i;
+const ARRAY_REGEX = /array$|\[.*]?$/i;
 
 /**
  * Cleans up URI parameters and makes them make logical sense to users :)
