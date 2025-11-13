@@ -1,3 +1,4 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
@@ -18,6 +19,9 @@ export function RegisterMCPTool_ENVIGetTaskParameters(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_GET_TASK_PARAMETERS,
+    IDL_TRANSLATION.mcp.tools.displayNames[
+      MCP_TOOL_LOOKUP.ENVI_GET_TASK_PARAMETERS
+    ],
     `Returns the JSON schema for the input parameters for a given ENVI Task. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.ENVI_RUN_TASK}. Here's the process to use these input parameters:\n\n ${PROMPT}`,
     {
       taskName: z

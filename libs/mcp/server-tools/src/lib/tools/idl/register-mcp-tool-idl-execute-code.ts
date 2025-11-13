@@ -1,3 +1,4 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_IDLExecuteCode,
@@ -18,6 +19,7 @@ export function RegisterMCPTool_IDLExecuteCode(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE],
     IDL_EXECUTE_CODE,
     {
       code: z

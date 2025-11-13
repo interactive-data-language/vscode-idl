@@ -26,6 +26,7 @@ export class MCPToolRegistry {
    */
   static registerTool<Args extends ZodRawShape>(
     name: string,
+    displayName: string,
     description: string,
     paramsSchema: Args,
     cb: MCPRegistryToolCallback<Args>
@@ -33,7 +34,7 @@ export class MCPToolRegistry {
     return MCP_SERVER.registerTool(
       name,
       {
-        title: name,
+        title: displayName,
         description,
         inputSchema: paramsSchema,
         // outputSchema: { result: z.number() },

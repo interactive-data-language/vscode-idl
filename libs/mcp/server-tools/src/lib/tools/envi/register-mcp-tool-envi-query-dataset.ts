@@ -1,3 +1,4 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_ENVIQueryDataset,
@@ -24,6 +25,7 @@ export function RegisterMCPTool_ENVIQueryDataset(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET],
     ENVI_QUERY_DATASET_DESCRIPTION,
     {
       dataset: z
