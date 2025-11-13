@@ -1,3 +1,4 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_IDLStart,
@@ -16,6 +17,7 @@ export function RegisterMCPTool_IDLStart(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.IDL_START,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.IDL_START],
     "Starts a new session of IDL in VSCode. If IDL has already started, this tool won't do anything.",
     {},
     async (id) => {

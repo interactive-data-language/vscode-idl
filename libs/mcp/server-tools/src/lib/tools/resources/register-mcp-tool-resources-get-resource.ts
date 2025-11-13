@@ -1,3 +1,4 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
@@ -13,6 +14,9 @@ export function RegisterMCPTool_ResourcesGetResource(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.RESOURCES_GET_RESOURCE,
+    IDL_TRANSLATION.mcp.tools.displayNames[
+      MCP_TOOL_LOOKUP.RESOURCES_GET_RESOURCE
+    ],
     `Returns the value of a resource based on the name. The name should come from ${MCP_TOOL_LOOKUP.RESOURCES_LIST_ALL}.`,
     {
       name: z.string().describe('The name of the resource to fetch'),

@@ -1,5 +1,6 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 import { ICodeStyle, ITrueBaseAssemblerOptions } from '@idl/assembling/config';
+import { MCPTools } from '@idl/types/mcp';
 import { ProblemCodeLookup } from '@idl/types/problem-codes';
 import {
   IDLExtensionsConfigKeys,
@@ -156,6 +157,13 @@ type ReverseMapForStrings<T extends Record<keyof T, keyof any>> = {
  */
 type KeysOfToStrings<T> = {
   [P in keyof T]: string;
+};
+
+/**
+ * Map values to strings
+ */
+type ValsOfToStrings<T extends string> = {
+  [P in T]: string;
 };
 
 /**
@@ -793,6 +801,11 @@ export interface ITranslation {
       failedStart: string;
       /** Failed to handle progress messages */
       failedProgress: string;
+    };
+    /** Translations for MCP tools */
+    tools: {
+      /** Display names of the tools */
+      displayNames: ValsOfToStrings<MCPTools>;
     };
   };
   /** Translations for notebooks */
