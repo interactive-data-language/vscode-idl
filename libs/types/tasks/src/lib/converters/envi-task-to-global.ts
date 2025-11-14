@@ -46,7 +46,14 @@ export function ENVITaskToGlobal(
   for (let i = 0; i < task.parameters.length; i++) {
     const param = task.parameters[i];
     const propName = param.name.toLowerCase();
-    const dir = param.direction.toLowerCase();
+    const dir = (param.direction || 'input').toLowerCase();
+
+    /**
+     * Don't parse dag types
+     */
+    if (param.type.toLowerCase() === 'dag') {
+      continue;
+    }
 
     // save our property
     props[propName] = {

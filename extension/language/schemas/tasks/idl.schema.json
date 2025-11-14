@@ -85,7 +85,6 @@
       "required": [
         "name",
         "base_class",
-        "routine",
         "display_name",
         "description",
         "schema",

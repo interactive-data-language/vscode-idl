@@ -70,7 +70,12 @@ pro vscode_runENVITask, taskJSON
           catch, /cancel
           param.value = val
         endif else begin
-          param.value = ENVIHydrate(val)
+          if val.hasKey('factory') then if strcmp(val['factory'], 'urlpointcloud', /fold_case) then begin
+            param.value = e.openPointCloud(param['url'], /close_previous, $
+              project_uri = e.getTemporaryFilename('', /cleanup_on_exit))
+          endif else begin
+            param.value = ENVIHydrate(val)
+          endelse
         endelse
         catch, /cancel
       end

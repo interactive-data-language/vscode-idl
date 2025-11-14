@@ -38,6 +38,22 @@ export async function LoadTask(
     throw new Error(IDL_TRANSLATION.tasks.parsing.errors.invalidJSON);
   }
 
+  /**
+   * Make all parameters lower case
+   */
+  if ('parameters' in parsed) {
+    const params = parsed['parameters'];
+    for (let i = 0; i < params.length; i++) {
+      const lowercaseParam: { [key: string]: any } = {};
+      const keys = Object.keys(params[i]);
+      for (let j = 0; j < keys.length; j++) {
+        lowercaseParam[keys[j].toLowerCase()] = params[i][keys[j]];
+      }
+      params[i] = lowercaseParam;
+    }
+    parsed['parameters'] = params;
+  }
+
   /** Load our schema validation function */
   const validator = await LoadTaskSchema();
 

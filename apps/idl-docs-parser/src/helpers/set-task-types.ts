@@ -81,6 +81,16 @@ export async function SetTaskTypes(global: GlobalTokens) {
               globali.meta.props[names[j]].type = props[names[j]].type;
             }
           }
+
+          // names of properties that we have tracked
+          const trackedNames = Object.keys(globali.meta.props);
+
+          // if a tracked property doesnt exist, then delete it
+          for (let j = 0; j < trackedNames.length; j++) {
+            if (!(trackedNames[j] in props)) {
+              delete globali.meta.props[trackedNames[j]];
+            }
+          }
         }
       }
     }

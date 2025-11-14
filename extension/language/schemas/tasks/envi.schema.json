@@ -101,12 +101,22 @@
       "required": [
         "name",
         "base_class",
-        "routine",
         "display_name",
         "description",
         "schema",
         "parameters"
-      ]
+      ],
+      "if": {
+        "properties": {
+          "base_class": {
+            "type": "string",
+            "pattern": "[Pp][Rr][Oo][Cc][Ee][Dd][Uu][Rr][Ee]$"
+          }
+        }
+      },
+      "then": {
+        "required": ["routine"]
+      }
     },
     "envitask-3.2-parameter": {
       "type": "object",
@@ -172,14 +182,24 @@
           "description": "A scalar string with one of the following:\n- IDL data type: Byte, Int, Long, Float, Double, Complex, String, DComplex, UInt, ULong, Long64, or ULong64\n- The required class for the parameter (for example, ENVIRaster, ENVIVector, or ENVIROI)\n- Boolean type (Bool)\n- ENVIURI: Indicates that a string is required that references a local or remote file source.\n- List (scalar only; no arrays)\n- OrderedList (scalar only; no arrays)\n- Hash (scalar only; no arrays)\n- OrderedHash (scalar only; no arrays)\n\nIf a specified data type requires more than one scalar, use the dimensions parameter below to indicate the array dimensions. Append Array to the data type; for example, floatArray."
         },
         "dimensions": {
-          "type": "string",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          ],
           "title": "Dimensions",
           "description": "Specify the array dimensions if the type parameter is an array.\n\nExample of a three-element array declaration:\n    \"type\": \"floatArray\",\n    \"dimensions\": \"[3]\"\nExample of a 1D array with any number of elements:\n    \"type\": \"intArray\",\n    \"dimensions\": \"[*]\"\nExample of a 2D array with any number of columns or rows:\n    \"type\": \"intArray\",\n    \"dimensions\": \"[*,*]\"\nExample of a 2D array with a specific number of elements:\n    \"type\": \"byteArray\",\n    \"dimensions\": \"[3,256]\"\nExample of a 2D array with any number of columns and 3 rows:\n    \"type\": \"intArray\",\n    \"dimensions\": \"[*,3]\"\n"
         },
         "direction": {
           "type": "string",
           "title": "Direction",
-          "description": "Specify if the parameter is \"input\" or \"output\".\n\nNote: If you are using an older version of ENVI where the task template specifies the version key (instead of schema), be aware of the differences in output behavior: ENVI automatically creates an OUTPUT_RASTER_URI property if you define the OUTPUT_RASTER property of an ENVIRaster and you set the direction parameter to output.",
+          "description": "Specify if the parameter is \"input\" or \"output\". Defaults to \"input\".\n\nNote: If you are using an older version of ENVI where the task template specifies the version key (instead of schema), be aware of the differences in output behavior: ENVI automatically creates an OUTPUT_RASTER_URI property if you define the OUTPUT_RASTER property of an ENVIRaster and you set the direction parameter to output.",
           "enum": ["input", "output", "INPUT", "OUTPUT"],
           "pattern": "^[Ii][Nn][Pp][Uu][Tt]$|^[Oo][Uu][Tt][Pp][Uu][Tt]$"
         },
@@ -217,14 +237,33 @@
           "default": false
         }
       },
-      "required": [
-        "name",
-        "display_name",
-        "type",
-        "direction",
-        "description",
-        "required"
-      ]
+      "required": ["name", "type"],
+      "if": {
+        "allOf": [
+          {
+            "not": {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "pattern": "^[Ee][Nn][Vv][Ii][Mm][Ee][Tt][Aa][Tt][Aa][Ss][Kk][Dd][Aa][Gg]$"
+                }
+              }
+            }
+          },
+          {
+            "not": {
+              "properties": {
+                "hidden": {
+                  "const": true
+                }
+              }
+            }
+          }
+        ]
+      },
+      "then": {
+        "required": ["display_name"]
+      }
     }
   }
 }

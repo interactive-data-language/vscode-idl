@@ -6,6 +6,7 @@ import { MCPENVICoordSys } from './types/mcp-envi-coord-sys';
 import { MCPENVIDeepLearningONNXModel } from './types/mcp-envi-deep-learning-onnx-model';
 import { MCPENVIGeoJSON } from './types/mcp-envi-geojson';
 import { MCPENVIMachineLearningModel } from './types/mcp-envi-machine-learning-model';
+import { MCPENVIPointCloud } from './types/mcp-envi-point-cloud';
 import { MCPENVIRaster } from './types/mcp-envi-raster';
 import { MCPENVIRasterSeries } from './types/mcp-envi-raster-series';
 import { MCPENVIROI } from './types/mcp-envi-roi';
@@ -75,6 +76,13 @@ export function CreateENVIMCPParameter(
      */
     case IDLTypeHelper.isType(type, 'envimachinelearningmodel'):
       return MCPENVIMachineLearningModel(docs);
+
+    /**
+     * Point cloud
+     */
+    case IDLTypeHelper.isType(type, 'envipointcloudbase'):
+    case IDLTypeHelper.isType(type, 'envipointcloud'):
+      return MCPENVIPointCloud(docs);
 
     /**
      * Raster
