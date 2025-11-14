@@ -2,6 +2,8 @@ import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
 import { z } from 'zod';
 
+import { MCPENVIAgCrops } from './types/mcp-envi-ag-crops';
+import { MCPENVIAgZones } from './types/mcp-envi-ag-zones';
 import { MCPENVICoordSys } from './types/mcp-envi-coord-sys';
 import { MCPENVIDeepLearningONNXModel } from './types/mcp-envi-deep-learning-onnx-model';
 import { MCPENVIGeoJSON } from './types/mcp-envi-geojson';
@@ -11,6 +13,7 @@ import { MCPENVIRaster } from './types/mcp-envi-raster';
 import { MCPENVIRasterSeries } from './types/mcp-envi-raster-series';
 import { MCPENVIROI } from './types/mcp-envi-roi';
 import { MCPENVISpectralLibrary } from './types/mcp-envi-spectral-library';
+import { MCPENVIStretchParameters } from './types/mcp-envi-stretch-parameters';
 import { MCPENVITiePointSet } from './types/mcp-envi-tie-point-set';
 import { MCPENVIVector } from './types/mcp-envi-vector';
 import { MCPSARscapeData } from './types/mcp-sarscape-data';
@@ -54,13 +57,25 @@ export function CreateENVIMCPParameter(
         );
 
     /**
+     * Crop counting results
+     */
+    case IDLTypeHelper.isType(type, 'enviagcrops'):
+      return MCPENVIAgCrops(docs);
+
+    /**
+     * Field zones
+     */
+    case IDLTypeHelper.isType(type, 'enviagzones'):
+      return MCPENVIAgZones(docs);
+
+    /**
      * Coordinate system
      */
     case IDLTypeHelper.isType(type, 'envicoordsys'):
       return MCPENVICoordSys(docs);
 
     /**
-     * Deep Learning model
+     * Deep Learning ONNX model
      */
     case IDLTypeHelper.isType(type, 'envideeplearningonnxmodel'):
       return MCPENVIDeepLearningONNXModel(docs);
@@ -107,6 +122,12 @@ export function CreateENVIMCPParameter(
      */
     case IDLTypeHelper.isType(type, 'envitiepointset'):
       return MCPENVITiePointSet(docs);
+
+    /**
+     * Stretch parameters
+     */
+    case IDLTypeHelper.isType(type, 'envistretchparameters'):
+      return MCPENVIStretchParameters(docs);
 
     /**
      * SARscapeData -
