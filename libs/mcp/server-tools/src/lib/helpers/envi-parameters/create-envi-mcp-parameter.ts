@@ -14,8 +14,10 @@ import { MCPENVIRaster } from './types/mcp-envi-raster';
 import { MCPENVIRasterSeries } from './types/mcp-envi-raster-series';
 import { MCPENVIROI } from './types/mcp-envi-roi';
 import { MCPENVISpectralLibrary } from './types/mcp-envi-spectral-library';
+import { MCPENVISpectralSignature } from './types/mcp-envi-spectral-signature';
 import { MCPENVIStretchParameters } from './types/mcp-envi-stretch-parameters';
 import { MCPENVITiePointSet } from './types/mcp-envi-tie-point-set';
+import { MCPENVITime } from './types/mcp-envi-time';
 import { MCPENVIVector } from './types/mcp-envi-vector';
 import { MCPSARscapeData } from './types/mcp-sarscape-data';
 
@@ -125,10 +127,22 @@ export function CreateENVIMCPParameter(
       return MCPENVIROI(docs);
 
     /**
+     * ENVI Spectral Signature
+     */
+    case IDLTypeHelper.isType(type, 'envispectralsignature'):
+      return MCPENVISpectralSignature(docs);
+
+    /**
      * Tie points
      */
     case IDLTypeHelper.isType(type, 'envitiepointset'):
       return MCPENVITiePointSet(docs);
+
+    /**
+     * Time
+     */
+    case IDLTypeHelper.isType(type, 'envitime'):
+      return MCPENVITime(docs);
 
     /**
      * Stretch parameters
