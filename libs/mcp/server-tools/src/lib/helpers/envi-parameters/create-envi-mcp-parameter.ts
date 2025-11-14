@@ -13,8 +13,10 @@ import { MCPENVIPointCloud } from './types/mcp-envi-point-cloud';
 import { MCPENVIRaster } from './types/mcp-envi-raster';
 import { MCPENVIRasterSeries } from './types/mcp-envi-raster-series';
 import { MCPENVIROI } from './types/mcp-envi-roi';
+import { MCPENVIRPCRasterSpatialref } from './types/mcp-envi-rpc-raster-spatialref';
 import { MCPENVISpectralLibrary } from './types/mcp-envi-spectral-library';
 import { MCPENVISpectralSignature } from './types/mcp-envi-spectral-signature';
+import { MCPENVIStandardRasterSpatialref } from './types/mcp-envi-standard-raster-spatialref';
 import { MCPENVIStretchParameters } from './types/mcp-envi-stretch-parameters';
 import { MCPENVITiePointSet } from './types/mcp-envi-tie-point-set';
 import { MCPENVITime } from './types/mcp-envi-time';
@@ -127,34 +129,10 @@ export function CreateENVIMCPParameter(
       return MCPENVIROI(docs);
 
     /**
-     * ENVI Spectral Signature
+     * RPC spatial ref
      */
-    case IDLTypeHelper.isType(type, 'envispectralsignature'):
-      return MCPENVISpectralSignature(docs);
-
-    /**
-     * Tie points
-     */
-    case IDLTypeHelper.isType(type, 'envitiepointset'):
-      return MCPENVITiePointSet(docs);
-
-    /**
-     * Time
-     */
-    case IDLTypeHelper.isType(type, 'envitime'):
-      return MCPENVITime(docs);
-
-    /**
-     * Stretch parameters
-     */
-    case IDLTypeHelper.isType(type, 'envistretchparameters'):
-      return MCPENVIStretchParameters(docs);
-
-    /**
-     * SARscapeData -
-     */
-    case IDLTypeHelper.isType(type, 'sarscapedata'):
-      return MCPSARscapeData(docs);
+    case IDLTypeHelper.isType(type, 'envirpcrasterspatialref'):
+      return MCPENVIRPCRasterSpatialref(docs);
 
     /**
      * Passwords - map to proper parameters when we
@@ -176,10 +154,46 @@ export function CreateENVIMCPParameter(
       return MCPENVISpectralLibrary(docs);
 
     /**
+     * ENVI Spectral Signature
+     */
+    case IDLTypeHelper.isType(type, 'envispectralsignature'):
+      return MCPENVISpectralSignature(docs);
+
+    /**
+     * Standard spatial ref
+     */
+    case IDLTypeHelper.isType(type, 'envistandardrasterspatialref'):
+      return MCPENVIStandardRasterSpatialref(docs);
+
+    /**
+     * Stretch parameters
+     */
+    case IDLTypeHelper.isType(type, 'envistretchparameters'):
+      return MCPENVIStretchParameters(docs);
+
+    /**
+     * Tie points
+     */
+    case IDLTypeHelper.isType(type, 'envitiepointset'):
+      return MCPENVITiePointSet(docs);
+
+    /**
+     * Time
+     */
+    case IDLTypeHelper.isType(type, 'envitime'):
+      return MCPENVITime(docs);
+
+    /**
      * Vector
      */
     case IDLTypeHelper.isType(type, 'envivector'):
       return MCPENVIVector(docs);
+
+    /**
+     * SARscapeData -
+     */
+    case IDLTypeHelper.isType(type, 'sarscapedata'):
+      return MCPSARscapeData(docs);
 
     /**
      * String
