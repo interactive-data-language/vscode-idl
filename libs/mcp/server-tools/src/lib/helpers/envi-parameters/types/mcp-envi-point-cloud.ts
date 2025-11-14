@@ -5,14 +5,16 @@ import { z } from 'zod';
  * Tool
  */
 export function MCPENVIPointCloud(description: string) {
-  return z.object({
-    factory: z
-      .literal('URLPointCloud')
-      .describe('This value should always be "URLPointCloud"'),
-    url: z
-      .array(z.string())
-      .describe(
-        `${description}\n\nIf a local file, provide a fully-qualified filepath to the dataset on disk.\n\nThe file should end in .las or .laz or an existing ENVI LiDAR project for an .ini file.`
-      ),
-  });
+  return z
+    .object({
+      factory: z
+        .literal('URLPointCloud')
+        .describe('This value should always be "URLPointCloud"'),
+      url: z
+        .array(z.string())
+        .describe(
+          `Provide a fully-qualified filepath to point cloud files on disk. The file should end in ".las" or ".laz" or point to an existing ENVI LiDAR project for an ".ini" file.`
+        ),
+    })
+    .describe(description);
 }
