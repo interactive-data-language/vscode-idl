@@ -10,6 +10,7 @@ import { MCPENVIRaster } from './types/mcp-envi-raster';
 import { MCPENVIRasterSeries } from './types/mcp-envi-raster-series';
 import { MCPENVIROI } from './types/mcp-envi-roi';
 import { MCPENVISpectralLibrary } from './types/mcp-envi-spectral-library';
+import { MCPENVITiePointSet } from './types/mcp-envi-tie-point-set';
 import { MCPENVIVector } from './types/mcp-envi-vector';
 import { MCPSARscapeData } from './types/mcp-sarscape-data';
 
@@ -92,6 +93,12 @@ export function CreateENVIMCPParameter(
      */
     case IDLTypeHelper.isType(type, 'enviroi'):
       return MCPENVIROI(docs);
+
+    /**
+     * Tie points
+     */
+    case IDLTypeHelper.isType(type, 'envitiepointset'):
+      return MCPENVITiePointSet(docs);
 
     /**
      * SARscapeData -
