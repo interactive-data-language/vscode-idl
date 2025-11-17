@@ -14,5 +14,6 @@ export * from './lib/helpers/token-cache.interface';
 export * from './lib/hover-help/get-hover-help-lookup';
 export * from './lib/idl-index.class';
 export * from './lib/idl-index.interface';
+export { IDL_GLOBAL_TOKENS } from './lib/load-global/load-global';
 export * from './lib/load-global/reduce-globals';
 export * from './lib/post-process/post-process-parsed';
