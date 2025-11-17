@@ -154,37 +154,6 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
     );
   }
 
-  /** Get MCP config */
-  const mcpConfig = vscode.workspace.getConfiguration('mcp');
-
-  /** Get servers */
-  const servers = mcpConfig.has('servers') ? mcpConfig.get('servers') : {};
-
-  /**
-   * Check if we need to remove old MCP configuration
-   */
-  if (
-    IDL_TRANSLATION.packageJSON.displayName in (servers as any) ||
-    EXTENSION_FULL_NAME in (servers as any)
-  ) {
-    const patch = {};
-
-    /**
-     * Get patched object
-     */
-    const patched = {
-      ...((mcpConfig.get('servers') as any) || {}),
-      ...patch,
-    };
-
-    // delete old keys
-    delete patched[IDL_TRANSLATION.packageJSON.displayName];
-    delete patched[EXTENSION_FULL_NAME];
-
-    // patch config
-    mcpConfig.update('servers', patched, true);
-  }
-
   // ask user if they want to open the documentation
   if (!IDL_EXTENSION_CONFIG.dontAsk.toOpenDocs) {
     QuestionAsker(

@@ -9,6 +9,7 @@ import { InitializeDebugger } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { InitializeDocs } from '@idl/vscode/docs';
 import { InitializeENVIOpener } from '@idl/vscode/envi-opener';
+import { InitializeVSCodeGitHubCopilot } from '@idl/vscode/github-copilot';
 import { InitializeIDLTutorials } from '@idl/vscode/idl-tutorials';
 import { IInitializeType } from '@idl/vscode/initialize-types';
 import { InitializeNotebooks } from '@idl/vscode/notebooks/client';
@@ -35,6 +36,7 @@ export async function activate(
 
   // register handlers for MCP tools - MUST be after debugging
   InitializeMCPVSCode(ctx);
+  InitializeVSCodeGitHubCopilot(ctx);
 
   /**
    * Listen for tool refresh - this doesn't work right now

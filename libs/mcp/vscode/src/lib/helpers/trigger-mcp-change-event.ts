@@ -1,7 +1,7 @@
 // import { VSCODE_COMMANDS } from '@idl/types/vscode';
 // import * as vscode from 'vscode';
 
-import { MCP_CHANGE_EVENT_EMITTER } from './initialize-mcp-vscode';
+import { MCP_CHANGE_EVENT_EMITTER } from '../initialize-mcp-vscode';
 
 /**
  * Triggers that our MCP server has changed

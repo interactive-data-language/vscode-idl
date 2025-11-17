@@ -154,6 +154,7 @@
       "@idl/vscode/extension-config": [
         "libs/vscode/extension-config/src/index.ts"
       ],
+      "@idl/vscode/github-copilot": ["libs/vscode/github-copilot/src/index.ts"],
       "@idl/vscode/help-view": ["libs/vscode/help-view/src/index.ts"],
       "@idl/vscode/idl-machine": ["libs/vscode/idl-machine/src/index.ts"],
       "@idl/vscode/idl-tutorials": ["libs/vscode/idl-tutorials/src/index.ts"],

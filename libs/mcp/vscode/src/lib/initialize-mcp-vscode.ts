@@ -3,9 +3,11 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
+import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
-import { RunMCPToolMessageHandler } from './run-mcp-tool-message-handler';
+import { RemoveLegacyMCPConfig } from './helpers/remove-legacy-mcp-config';
+import { RunMCPToolMessageHandler } from './helpers/run-mcp-tool-message-handler';
 
 export const MCP_CHANGE_EVENT_EMITTER = new vscode.EventEmitter<void>();
 
@@ -13,6 +15,11 @@ export const MCP_CHANGE_EVENT_EMITTER = new vscode.EventEmitter<void>();
  * Initializes MCP server for VSCode
  */
 export function InitializeMCPVSCode(ctx: vscode.ExtensionContext) {
+  IDL_LOGGER.log({ content: 'Registering MCP server definition' });
+
+  // remove the old MCP config
+  RemoveLegacyMCPConfig();
+
   // listen for MCP tool requests - needs to be done here to avoid circular dependencies
   LANGUAGE_SERVER_MESSENGER.onRequest(
     LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
