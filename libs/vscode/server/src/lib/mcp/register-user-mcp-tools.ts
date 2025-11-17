@@ -11,7 +11,6 @@ import {
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
@@ -58,11 +57,11 @@ export async function RegisterUserMCPTools(
     );
   }
 
-  // alert that we are done
-  SERVER_MESSENGER.sendNotification(
-    LANGUAGE_SERVER_MESSAGE_LOOKUP.REFRESH_MCP_TOOLS,
-    null
-  );
+  // // alert that we are done
+  // SERVER_MESSENGER.sendNotification(
+  //   LANGUAGE_SERVER_MESSAGE_LOOKUP.REFRESH_MCP_TOOLS,
+  //   null
+  // );
 
   // emit MCP event that tools have changed
   MCP_SERVER.sendToolListChanged();
