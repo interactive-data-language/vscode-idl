@@ -37,5 +37,7 @@ export async function RemoveLegacyMCPConfig() {
       // patch config
       await mcpConfig.update('servers', patched, true);
     }
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 }
