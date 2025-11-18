@@ -1,4 +1,5 @@
 import { IDL_LSP_LOG } from '@idl/logger';
+import { MCP_SERVER } from '@idl/mcp/server';
 import {
   RegisterMCPTool_ENVIGetTaskParameters,
   RegisterMCPTool_ENVIListTasks,
@@ -55,4 +56,13 @@ export async function RegisterUserMCPTools(
       `${i}`
     );
   }
+
+  // // alert that we are done
+  // SERVER_MESSENGER.sendNotification(
+  //   LANGUAGE_SERVER_MESSAGE_LOOKUP.REFRESH_MCP_TOOLS,
+  //   null
+  // );
+
+  // emit MCP event that tools have changed
+  MCP_SERVER.sendToolListChanged();
 }

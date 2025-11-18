@@ -85,7 +85,6 @@
       "required": [
         "name",
         "baseClass",
-        "routine",
         "displayName",
         "description",
         "version",

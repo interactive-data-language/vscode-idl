@@ -1,3 +1,4 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
@@ -15,9 +16,10 @@ export const TASK_LOOKUP: { [key: string]: string } = {};
 export function RegisterMCPTool_ENVIListTasks(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_LIST_TASKS,
-    `Returns available image processing and spectral analysis tools that ENVI has available. The tools map to ENVI Tasks that have discrete inputs and outputs. Here's the process to get the list of ENVI Tasks and how to use them:\n\n ${PROMPT}`,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.ENVI_LIST_TASKS],
+    `Lists all image processing and spectral analysis tools that ENVI has available. Here's the process to get the list of ENVI Tools and how to use them:\n\n ${PROMPT}`,
     {},
     async (id, inputParameters) => {
       return {

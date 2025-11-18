@@ -31,6 +31,7 @@ import {
   SERVER_MESSENGER,
 } from '../initialize-language-server';
 import { InitializeMCPServer } from '../initialize-mcp-server';
+import { TrackIDLENVIGlobalsAsMCPResources } from '../mcp/track-idl-envi-globals-as-mcp-resources';
 import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
 import { WORKSPACE_FOLDER_LIST } from './documents/on-connection-initialized';
 import { IDL_INDEX } from './initialize-document-manager';
@@ -119,6 +120,7 @@ SERVER_INFO.then(async (res) => {
 
     // load global tokens
     IDL_INDEX.loadGlobalTokens(IDL_CLIENT_CONFIG);
+    TrackIDLENVIGlobalsAsMCPResources();
 
     // log our memory usage at regular intervals
     setInterval(async () => {
@@ -147,11 +149,6 @@ SERVER_INFO.then(async (res) => {
     }, DEFAULT_IDL_EXTENSION_CONFIG.languageServer.garbageIntervalMS);
 
     /**
-     * Attempt to start MCP server
-     */
-    InitializeMCPServer();
-
-    /**
      * Merge folders together
      */
     const merged = { ...res[0], ...res[1] };
@@ -163,8 +160,19 @@ SERVER_INFO.then(async (res) => {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_LSP_LOG,
       type: 'info',
-      content: ['Server initialized, indexing code in these folders:', merged],
+      content: [
+        'Language server initialized, indexing code in these folders:',
+        merged,
+      ],
     });
+
+    /**
+     * Attempt to start MCP server
+     *
+     * We do this here because we need information from VSCode about whether
+     * we can launch the server or not
+     */
+    InitializeMCPServer();
 
     /**
      * Check if we can't detect the number of CPUs

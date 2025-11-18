@@ -1,3 +1,4 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_IDLExecuteFile,
@@ -16,8 +17,9 @@ import { IDL_EXECUTE_FILE } from './register-mcp-tool-idl-execute-file.interface
 export function RegisterMCPTool_IDLExecuteFile(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.IDL_EXECUTE_FILE,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.IDL_EXECUTE_FILE],
     IDL_EXECUTE_FILE,
     {
       uri: z

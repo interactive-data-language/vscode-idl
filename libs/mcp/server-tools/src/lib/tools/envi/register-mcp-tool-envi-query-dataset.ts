@@ -1,3 +1,4 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_ENVIQueryDataset,
@@ -22,8 +23,9 @@ import { ENVI_QUERY_DATASET_DESCRIPTION } from './register-mcp-tool-envi-query-d
 export function RegisterMCPTool_ENVIQueryDataset(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET],
     ENVI_QUERY_DATASET_DESCRIPTION,
     {
       dataset: z

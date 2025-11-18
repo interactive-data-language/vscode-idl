@@ -16,14 +16,14 @@ import {
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 
-import { RunMCP_ENVIOpenDataset } from './tools/envi/run-mcp-envi-open-dataset';
-import { RunMCP_ENVIQueryDataset } from './tools/envi/run-mcp-envi-query-dataset';
-import { RunMCP_ENVIRunTask } from './tools/envi/run-mcp-envi-run-task';
-import { RunMCP_ENVIStart } from './tools/envi/run-mcp-envi-start';
-import { RunMCP_IDLCreateNotebook } from './tools/idl/run-mcp-idl-create-notebook';
-import { RunMCP_IDLExecuteCode } from './tools/idl/run-mcp-idl-execute-code';
-import { RunMCP_IDLExecuteFile } from './tools/idl/run-mcp-idl-execute-file';
-import { RunMCP_IDLStart } from './tools/idl/run-mcp-idl-start';
+import { RunMCP_ENVIOpenDataset } from '../tools/envi/run-mcp-envi-open-dataset';
+import { RunMCP_ENVIQueryDataset } from '../tools/envi/run-mcp-envi-query-dataset';
+import { RunMCP_ENVIRunTask } from '../tools/envi/run-mcp-envi-run-task';
+import { RunMCP_ENVIStart } from '../tools/envi/run-mcp-envi-start';
+import { RunMCP_IDLCreateNotebook } from '../tools/idl/run-mcp-idl-create-notebook';
+import { RunMCP_IDLExecuteCode } from '../tools/idl/run-mcp-idl-execute-code';
+import { RunMCP_IDLExecuteFile } from '../tools/idl/run-mcp-idl-execute-file';
+import { RunMCP_IDLStart } from '../tools/idl/run-mcp-idl-start';
 
 /**
  * Typed lookup of functions that we register for our tools
@@ -40,14 +40,14 @@ export const MCP_TOOL_LOOKUP: {
     params: MCPToolParams<key>
   ) => MCPToolResponse<key> | Promise<MCPToolResponse<key>>;
 } = {
-  'envi-open-dataset': RunMCP_ENVIOpenDataset,
-  'envi-query-dataset': RunMCP_ENVIQueryDataset,
-  'envi-run-task': RunMCP_ENVIRunTask,
-  'envi-start': RunMCP_ENVIStart,
-  'idl-create-notebook': RunMCP_IDLCreateNotebook,
-  'idl-execute-code': RunMCP_IDLExecuteCode,
-  'idl-execute-file': RunMCP_IDLExecuteFile,
-  'idl-start': RunMCP_IDLStart,
+  'open-dataset-in-envi': RunMCP_ENVIOpenDataset,
+  'query-dataset-with-envi': RunMCP_ENVIQueryDataset,
+  'run-envi-tool': RunMCP_ENVIRunTask,
+  'start-envi': RunMCP_ENVIStart,
+  'create-idl-notebook': RunMCP_IDLCreateNotebook,
+  'execute-idl-code': RunMCP_IDLExecuteCode,
+  'execute-idl-file': RunMCP_IDLExecuteFile,
+  'start-idl': RunMCP_IDLStart,
 };
 
 /**

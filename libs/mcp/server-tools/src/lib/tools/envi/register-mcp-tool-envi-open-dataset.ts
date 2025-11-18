@@ -1,3 +1,4 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_ENVIOpenDataset,
@@ -15,8 +16,9 @@ import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 export function RegisterMCPTool_ENVIOpenDataset(
   messenger: VSCodeLanguageServerMessenger
 ) {
-  MCPToolRegistry.tool(
+  MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_OPEN_DATASET,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.ENVI_OPEN_DATASET],
     'Open an image in ENVI and shows it in the display. Easy way to view imagery for users. See https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html for which files to open as the main raster file.',
     {
       uri: z

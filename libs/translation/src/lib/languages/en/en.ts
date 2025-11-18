@@ -894,6 +894,22 @@ export const EN: ITranslation = {
     },
   },
   mcp: {
+    tools: {
+      displayNames: {
+        'create-idl-notebook': 'IDL: Create Notebook',
+        'execute-idl-code': 'IDL: Execute Code',
+        'execute-idl-file': 'IDL: Execute File',
+        'get-envi-tool-parameters': 'ENVI: Get Task Parameters',
+        'get-resource': 'Resources: Get Resource',
+        'list-all-resources': 'Resources: List All',
+        'list-envi-tools': 'ENVI: List Tasks',
+        'open-dataset-in-envi': 'ENVI: Open Dataset',
+        'query-dataset-with-envi': 'ENVI: Query Dataset',
+        'run-envi-tool': 'ENVI: Run Task',
+        'start-envi': 'ENVI: Start',
+        'start-idl': 'IDL: Start',
+      },
+    },
     errors: {
       failedCodePrepare:
         'Failed to prepare IDL code to run, see IDL logs for more details',

@@ -55,6 +55,10 @@ export const VSCODE_COMMANDS = {
    */
   OPEN_SETTINGS: 'workbench.action.openSettings',
   /**
+   * Refresh MCP tool list
+   */
+  REFRESH_MCP_LIST: 'workbench.mcp.resetCachedTools',
+  /**
    * Command to show the debug console.
    *
    * Can find this command by:

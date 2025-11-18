@@ -2,14 +2,24 @@ import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
 import { z } from 'zod';
 
+import { MCPENVIAgCrops } from './types/mcp-envi-ag-crops';
+import { MCPENVIAgZones } from './types/mcp-envi-ag-zones';
 import { MCPENVICoordSys } from './types/mcp-envi-coord-sys';
 import { MCPENVIDeepLearningONNXModel } from './types/mcp-envi-deep-learning-onnx-model';
 import { MCPENVIGeoJSON } from './types/mcp-envi-geojson';
+import { MCPENVIGridDefinition } from './types/mcp-envi-grid-definition';
 import { MCPENVIMachineLearningModel } from './types/mcp-envi-machine-learning-model';
+import { MCPENVIPointCloud } from './types/mcp-envi-point-cloud';
 import { MCPENVIRaster } from './types/mcp-envi-raster';
 import { MCPENVIRasterSeries } from './types/mcp-envi-raster-series';
 import { MCPENVIROI } from './types/mcp-envi-roi';
+import { MCPENVIRPCRasterSpatialref } from './types/mcp-envi-rpc-raster-spatialref';
 import { MCPENVISpectralLibrary } from './types/mcp-envi-spectral-library';
+import { MCPENVISpectralSignature } from './types/mcp-envi-spectral-signature';
+import { MCPENVIStandardRasterSpatialref } from './types/mcp-envi-standard-raster-spatialref';
+import { MCPENVIStretchParameters } from './types/mcp-envi-stretch-parameters';
+import { MCPENVITiePointSet } from './types/mcp-envi-tie-point-set';
+import { MCPENVITime } from './types/mcp-envi-time';
 import { MCPENVIVector } from './types/mcp-envi-vector';
 import { MCPSARscapeData } from './types/mcp-sarscape-data';
 
@@ -52,13 +62,25 @@ export function CreateENVIMCPParameter(
         );
 
     /**
+     * Crop counting results
+     */
+    case IDLTypeHelper.isType(type, 'enviagcrops'):
+      return MCPENVIAgCrops(docs);
+
+    /**
+     * Field zones
+     */
+    case IDLTypeHelper.isType(type, 'enviagzones'):
+      return MCPENVIAgZones(docs);
+
+    /**
      * Coordinate system
      */
     case IDLTypeHelper.isType(type, 'envicoordsys'):
       return MCPENVICoordSys(docs);
 
     /**
-     * Deep Learning model
+     * Deep Learning ONNX model
      */
     case IDLTypeHelper.isType(type, 'envideeplearningonnxmodel'):
       return MCPENVIDeepLearningONNXModel(docs);
@@ -70,10 +92,23 @@ export function CreateENVIMCPParameter(
       return MCPENVIGeoJSON(docs);
 
     /**
+     * GridDefinitions
+     */
+    case IDLTypeHelper.isType(type, 'envigriddefinition'):
+      return MCPENVIGridDefinition(docs);
+
+    /**
      * Machine Learning model
      */
     case IDLTypeHelper.isType(type, 'envimachinelearningmodel'):
       return MCPENVIMachineLearningModel(docs);
+
+    /**
+     * Point cloud
+     */
+    case IDLTypeHelper.isType(type, 'envipointcloudbase'):
+    case IDLTypeHelper.isType(type, 'envipointcloud'):
+      return MCPENVIPointCloud(docs);
 
     /**
      * Raster
@@ -94,10 +129,10 @@ export function CreateENVIMCPParameter(
       return MCPENVIROI(docs);
 
     /**
-     * SARscapeData -
+     * RPC spatial ref
      */
-    case IDLTypeHelper.isType(type, 'sarscapedata'):
-      return MCPSARscapeData(docs);
+    case IDLTypeHelper.isType(type, 'envirpcrasterspatialref'):
+      return MCPENVIRPCRasterSpatialref(docs);
 
     /**
      * Passwords - map to proper parameters when we
@@ -119,10 +154,46 @@ export function CreateENVIMCPParameter(
       return MCPENVISpectralLibrary(docs);
 
     /**
+     * ENVI Spectral Signature
+     */
+    case IDLTypeHelper.isType(type, 'envispectralsignature'):
+      return MCPENVISpectralSignature(docs);
+
+    /**
+     * Standard spatial ref
+     */
+    case IDLTypeHelper.isType(type, 'envistandardrasterspatialref'):
+      return MCPENVIStandardRasterSpatialref(docs);
+
+    /**
+     * Stretch parameters
+     */
+    case IDLTypeHelper.isType(type, 'envistretchparameters'):
+      return MCPENVIStretchParameters(docs);
+
+    /**
+     * Tie points
+     */
+    case IDLTypeHelper.isType(type, 'envitiepointset'):
+      return MCPENVITiePointSet(docs);
+
+    /**
+     * Time
+     */
+    case IDLTypeHelper.isType(type, 'envitime'):
+      return MCPENVITime(docs);
+
+    /**
      * Vector
      */
     case IDLTypeHelper.isType(type, 'envivector'):
       return MCPENVIVector(docs);
+
+    /**
+     * SARscapeData -
+     */
+    case IDLTypeHelper.isType(type, 'sarscapedata'):
+      return MCPSARscapeData(docs);
 
     /**
      * String

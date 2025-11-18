@@ -13,6 +13,7 @@ import { ProcessGrammars } from './contributes/contributes-grammars';
 import { ProcessIconTheme } from './contributes/contributes-icon-theme';
 import { ProcessJSONValidators } from './contributes/contributes-json-validators';
 import { ProcessLanguages } from './contributes/contributes-languages';
+import { ProcessMCP } from './contributes/contributes-mcp';
 import { ProcessNotebooks } from './contributes/contributes-notebooks';
 import { ProcessMainPackageJSON } from './contributes/contributes-package-json';
 import { ProcessSnippets } from './contributes/contributes-snippets';
@@ -87,6 +88,9 @@ export async function ProcessPackage(
 
   // add notebooks
   ProcessNotebooks(packageJSON, nls);
+
+  // add MCP
+  ProcessMCP(packageJSON, nls);
 
   // set the name for our language to match our config file
   packageJSON['name'] = EXTENSION_NAME;

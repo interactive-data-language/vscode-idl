@@ -1,4 +1,3 @@
-import { InitializeMCPVSCode } from '@idl/mcp/vscode';
 import { MEASUREMENT } from '@idl/usage-metrics';
 import {
   InitializeClient,
@@ -10,8 +9,10 @@ import { InitializeDebugger } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
 import { InitializeDocs } from '@idl/vscode/docs';
 import { InitializeENVIOpener } from '@idl/vscode/envi-opener';
+import { InitializeVSCodeGitHubCopilot } from '@idl/vscode/github-copilot';
 import { InitializeIDLTutorials } from '@idl/vscode/idl-tutorials';
 import { IInitializeType } from '@idl/vscode/initialize-types';
+import { InitializeMCPVSCode } from '@idl/vscode/mcp';
 import { InitializeNotebooks } from '@idl/vscode/notebooks/client';
 import { InitializeIDLTerminal } from '@idl/vscode/terminal';
 import { InitializeTree } from '@idl/vscode/tree-view';
@@ -36,6 +37,20 @@ export async function activate(
 
   // register handlers for MCP tools - MUST be after debugging
   InitializeMCPVSCode(ctx);
+  InitializeVSCodeGitHubCopilot(ctx);
+
+  /**
+   * Listen for tool refresh - this doesn't work right now
+   * and hopefully the MCP server's tool list change event wil work
+   * instead
+   */
+  // // listen to tool refresh
+  // LANGUAGE_SERVER_MESSENGER.onNotification(
+  //   LANGUAGE_SERVER_MESSAGE_LOOKUP.REFRESH_MCP_TOOLS,
+  //   () => {
+  //     TriggerMCPChangeEvent();
+  //   }
+  // );
 
   // add everything for IDL terminal
   InitializeIDLTerminal(ctx);

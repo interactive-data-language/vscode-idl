@@ -74,6 +74,16 @@ export const IDL_LSP_CONSOLE = 'idl-lsp-console';
 export const IDL_MCP_LOG = 'idl-mcp';
 
 /**
+ * Log for the IDL MCP in VSCode
+ */
+export const IDL_MCP_VSCODE_LOG = 'idl-mcp-vscode';
+
+/**
+ * Log for the copilot in VSCode
+ */
+export const IDL_COPILOT_VSCODE_LOG = 'idl-copilot-vscode';
+
+/**
  * Override for console log
  */
 export const IDL_WORKER_THREAD_CONSOLE = 'idl-worker-console';
@@ -111,6 +121,8 @@ export const ALL_IDL_LOGS = [
   IDL_LSP_LOG,
   IDL_LSP_CONSOLE,
   IDL_MCP_LOG,
+  IDL_MCP_VSCODE_LOG,
+  IDL_COPILOT_VSCODE_LOG,
   IDL_WORKER_THREAD_CONSOLE,
   IDL_WS_CONSOLE,
   IDL_WS_SERVER,

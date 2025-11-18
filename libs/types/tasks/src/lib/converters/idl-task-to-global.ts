@@ -46,7 +46,7 @@ export function IDLTaskToGlobal(
   for (let i = 0; i < task.parameters.length; i++) {
     const param = task.parameters[i];
     const propName = param.name.toLowerCase();
-    const dir = param.direction.toLowerCase();
+    const dir = (param.direction || 'input').toLowerCase();
 
     // save our property
     props[propName] = {
