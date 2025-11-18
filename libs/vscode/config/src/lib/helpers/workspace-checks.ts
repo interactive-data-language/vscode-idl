@@ -22,22 +22,16 @@ export async function isIDLWorkspace(): Promise<boolean> {
 }
 
 /**
- * Check if the workspace needs copilot instructions
- * (i.e., doesn't already have copilot-instructions.md)
+ * Check if IDL.instructions.md exists in the workspace
  */
 export async function CopilotInstructionFileExists(): Promise<boolean> {
-  // Check if copilot-instructions.md already exists
-  const copilotFiles = await vscode.workspace.findFiles(
-    '.github/copilot-instructions.md',
+  const idlInstructionFiles = await vscode.workspace.findFiles(
+    '.github/instructions/IDL.instructions.md',
     null,
     1
   );
 
-  // file doesnt exist. Just return.
-  if (copilotFiles.length === 0) {
-    return false;
-  }
-  return true;
+  return idlInstructionFiles.length > 0;
 }
 
 export async function isWorkspaceFileVersionDifferent(
@@ -45,38 +39,42 @@ export async function isWorkspaceFileVersionDifferent(
   workspaceFilePath: string,
   templateFilePath: string
 ): Promise<boolean> {
-  // Check if the version comment in the file matches the template version
+  // Check if the version in the YAML frontmatter description matches the template version
   try {
-    const copilotInstructionFiles = await vscode.workspace.findFiles(
+    const workspaceFiles = await vscode.workspace.findFiles(
       workspaceFilePath,
       null,
       1
     );
 
+    if (workspaceFiles.length === 0) {
+      return false;
+    }
+
     const templatePath = vscode.Uri.joinPath(extensionUri, templateFilePath);
 
-    const existingFileUri = copilotInstructionFiles[0];
+    const existingFileUri = workspaceFiles[0];
     const templateDoc = await vscode.workspace.openTextDocument(templatePath);
     const doc = await vscode.workspace.openTextDocument(existingFileUri);
 
     const templateText = templateDoc.getText();
     const existingText = doc.getText();
 
-    // Look for version marker in the format: <!-- VERSION X.X --> or ### VERSION X.X
-    const versionRegex =
-      /<!--\s*VERSION\s+([\d.]+)\s*-->|###\s*VERSION\s+([\d.]+)/i;
+    // Look for version in YAML frontmatter description: description: '...(vX.X)'
+    const yamlVersionRegex =
+      /^---\s*\n(?:.*\n)*?description:\s*['"].*?\(v([\d.]+)\)['"]/im;
 
-    const templateMatch = templateText.match(versionRegex);
-    const existingMatch = existingText.match(versionRegex);
+    const templateMatch = templateText.match(yamlVersionRegex);
+    const existingMatch = existingText.match(yamlVersionRegex);
 
     // If we can't find version markers, fall back to comparing the entire file
     if (!templateMatch || !existingMatch) {
       return templateText !== existingText;
     }
 
-    // Extract version numbers (could be in capture group 1 or 2)
-    const templateVersion = templateMatch[1] || templateMatch[2];
-    const existingVersion = existingMatch[1] || existingMatch[2];
+    // Extract version numbers from capture group 1
+    const templateVersion = templateMatch[1];
+    const existingVersion = existingMatch[1];
 
     // if the file exists but is not current. Then we want the new file.
     if (templateVersion !== existingVersion) {
@@ -88,30 +86,6 @@ export async function isWorkspaceFileVersionDifferent(
     console.error(
       `Error when checking for ${workspaceFilePath} and ${templateFilePath} file version.`
     );
-    return false;
-  }
-}
-
-/**
- * Check if copilot-instructions.md has agent instructions markers
- */
-export async function CopilotInstructionHasAgentInstructions(): Promise<boolean> {
-  try {
-    const copilotFiles = await vscode.workspace.findFiles(
-      '.github/copilot-instructions.md',
-      null,
-      1
-    );
-
-    if (copilotFiles.length === 0) {
-      return false;
-    }
-
-    const doc = await vscode.workspace.openTextDocument(copilotFiles[0]);
-    const text = doc.getText();
-
-    return text.includes('<!-- AGENT_INSTRUCTIONS_START -->');
-  } catch {
     return false;
   }
 }

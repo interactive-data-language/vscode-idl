@@ -18,7 +18,6 @@ import { UpdateConfigObject } from './helpers/update-config';
 import { ValidateConfig } from './helpers/validate-config';
 import {
   CopilotInstructionFileExists,
-  CopilotInstructionHasAgentInstructions,
   isIDLWorkspace,
   isWorkspaceFileVersionDifferent,
 } from './helpers/workspace-checks';
@@ -257,7 +256,6 @@ export async function InitializeExtensionConfig(
 
   // 10/24/2025 letting dontAsk docs be the last question to maintain await logic.
   // Await is missing for the last one to avoid blocking the extension activation.
-  // TODO: handle on setting change at the top of this file.
 
   // Check if we should prompt about GitHub Agent instructions
   // Only ask if user hasn't opted out and we're in an IDL workspace
@@ -271,29 +269,20 @@ export async function InitializeExtensionConfig(
       let message = '';
 
       if (!fileExists) {
-        // No copilot instructions file - ask to set up
+        // No IDL.instructions.md file - ask to create it
         shouldAsk = true;
-        message = IDL_TRANSLATION.notifications.setupCopilotInstructions;
-      } else {
-        const hasAgentInstructions =
-          await CopilotInstructionHasAgentInstructions();
-
-        if (!hasAgentInstructions) {
-          // File exists but no agent instructions - ask to add them
-          shouldAsk = true;
-          message = IDL_TRANSLATION.notifications.addIdlInstructions;
-        } else if (
-          await isWorkspaceFileVersionDifferent(
-            ctx.extensionUri,
-            '.github/copilot-instructions.md',
-            'extension/templates/copilot-instructions.md'
-          )
-        ) {
-          // File exists with agent instructions but is outdated - ask to update
-          versionIsDifferent = true;
-          shouldAsk = true;
-          message = IDL_TRANSLATION.notifications.updateCopilotInstructions;
-        }
+        message = IDL_TRANSLATION.notifications.createCopilotInstructions;
+      } else if (
+        await isWorkspaceFileVersionDifferent(
+          ctx.extensionUri,
+          '.github/instructions/IDL.instructions.md',
+          'extension/templates/IDL.instructions.md'
+        )
+      ) {
+        // File exists but is outdated - ask to update
+        versionIsDifferent = true;
+        shouldAsk = true;
+        message = IDL_TRANSLATION.notifications.updateCopilotInstructions;
       }
 
       if (shouldAsk) {
@@ -310,10 +299,10 @@ export async function InitializeExtensionConfig(
               }
             );
           },
-          () => {
+          async () => {
             // if user clicks "Yes"
             // Pass true to force update (skip overwrite confirmation when updating version)
-            vscode.commands.executeCommand(
+            await vscode.commands.executeCommand(
               IDL_COMMANDS.COPILOT.SETUP_INSTRUCTIONS,
               versionIsDifferent
             );

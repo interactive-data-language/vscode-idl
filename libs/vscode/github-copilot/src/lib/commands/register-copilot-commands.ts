@@ -20,7 +20,7 @@ export function RegisterCopilotCommands(ctx: ExtensionContext) {
       IDL_COMMANDS.COPILOT.SETUP_INSTRUCTIONS,
       async (versionsAreDifferent?: boolean) => {
         try {
-          return await SetupCopilotInstructions(versionsAreDifferent);
+          return await SetupCopilotInstructions(ctx, versionsAreDifferent);
         } catch (err) {
           LogCommandError(
             'Error while setting up Copilot instructions',

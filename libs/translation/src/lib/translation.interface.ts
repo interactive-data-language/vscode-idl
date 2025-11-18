@@ -914,12 +914,10 @@ export interface ITranslation {
     updateCopilotInstructions: string;
     /** Success message when instructions are created */
     copilotInstructionsCreated: string;
-    /** Warning when copilot-instructions.md already exists */
+    /** Warning when IDL.instructions.md already exists */
     copilotFileExists: string;
     /** Question to ask if user wants to create copilot instructions */
     createCopilotInstructions: string;
-    /** Question to ask if user wants to add IDL instructions when copilot-instructions.md exists without them */
-    addIdlInstructions: string;
     /** Error when no workspace folder is open */
     noWorkspaceFolder: string;
     /** Start IDL */

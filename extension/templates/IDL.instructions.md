@@ -1,3 +1,8 @@
+---
+applyTo: '*.pro,*.idlnb'
+description: 'IDL programming guidelines (v1.0)'
+---
+
 # COPILOT OPERATIONAL GUIDELINES
 
 ## User Custom Instructions
