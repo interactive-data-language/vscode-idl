@@ -879,8 +879,6 @@ export interface ITranslation {
     changeIcons: string;
     /** Configure something */
     configure: string;
-    /** Text that shows to ask if a user wants to add MCP configuration for GitHUb Copilot */
-    configureMCP: string;
     /** Translation to not ask again */
     dontAsk: string;
     /** Text that, after a user changes the default formatter to IDL, asks if they want to format on save */

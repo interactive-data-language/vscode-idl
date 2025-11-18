@@ -226,8 +226,6 @@ export const EN: ITranslation = {
       'dontAsk.forIconChange': "Don't ask to change icon font on startup.",
       'dontAsk.forIDLDir':
         "Don't ask for IDL directory on extension startup if it is not set.",
-      'dontAsk.forMCPConfig':
-        "Don't ask to automatically configure the MCP server for use with the GitHub Copilot Agent embedded within VSCode.",
       'dontAsk.toOpenDocs': `Don't ask to open the documentation on extension startup`,
 
       dontShow:
@@ -967,8 +965,6 @@ export const EN: ITranslation = {
     changeFormatter: 'Set extension as default formatter for IDL code?',
     changeIcons: 'Switch to IDL file icons? Adds new icons for PRO code.',
     configure: 'Configure',
-    configureMCP:
-      'Configure GitHub Copilot to use the IDL for VSCode MCP server?',
     dontAsk: "Don't ask again",
     formatOnSave:
       'Format PRO code automatically on file save? This will not affect other languages and will be limited to PRO files.',

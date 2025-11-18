@@ -50,8 +50,6 @@ export interface IDLExtensionsConfigKeys {
   readonly dontAskForIconChange: 'dontAsk.forIconChange';
   /** On startup, if we dont have IDL configured, should we ask for it or not */
   readonly dontAskForIDLDir: 'dontAsk.forIDLDir';
-  /** On startup, do we auto-configure our MCP server to users? */
-  readonly dontAskForMCPConfig: 'dontAsk.forMCPConfig';
   /** On startup, do we ask to open docs? */
   readonly dontAskToOpenDocs: 'dontAsk.toOpenDocs';
 
@@ -199,8 +197,6 @@ export interface IDontAskConfig {
   readonly forIconChange: boolean;
   /** On startup, if we dont have IDL configured, should we ask for it or not */
   readonly forIDLDir: boolean;
-  /** On startup, do we auto-configure our MCP server to users? */
-  readonly forMCPConfig: boolean;
   /** Do we ask people to open docs on startup? */
   readonly toOpenDocs: boolean;
   // /** Controls if we ask to init config for folders or not */
@@ -303,7 +299,6 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   dontAskForIDLDir: 'dontAsk.forIDLDir',
   dontAskForIconChange: 'dontAsk.forIconChange',
   dontAskForFormatterChange: 'dontAsk.forFormatterChange',
-  dontAskForMCPConfig: 'dontAsk.forMCPConfig',
   dontAskToOpenDocs: 'dontAsk.toOpenDocs',
   // dontAskToInitConfig: 'dontAsk.toInitConfig',
   // dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders',
@@ -367,7 +362,6 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     forIDLDir: false,
     forIconChange: false,
     forFormatterChange: false,
-    forMCPConfig: false,
     toOpenDocs: false,
     // toInitConfig: false,
     // toInitConfigForTheseFolders: [],

@@ -1208,7 +1208,6 @@
               "forIDLDir": false,
               "forIconChange": false,
               "forFormatterChange": false,
-              "forMCPConfig": false,
               "toOpenDocs": false
             },
             "properties": {
@@ -1223,10 +1222,6 @@
               "forFormatterChange": {
                 "type": "boolean",
                 "description": "%configuration.descriptions.dontAsk.forFormatterChange%"
-              },
-              "forMCPConfig": {
-                "type": "boolean",
-                "description": "%configuration.descriptions.dontAsk.forMCPConfig%"
               },
               "toOpenDocs": {
                 "type": "boolean",
