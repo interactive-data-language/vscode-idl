@@ -2,7 +2,8 @@ import { IDL_COPILOT_VSCODE_LOG } from '@idl/logger';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
-import { RegisterPromptFiles } from './helpers/register-prompts';
+import { RegisterInstructionsFiles } from './helpers/register-instruction-files';
+import { RegisterPromptFiles } from './helpers/register-prompt-files';
 
 /**
  * Initializes our GitHub Copilot VSCode integration
@@ -19,6 +20,7 @@ export async function InitializeVSCodeGitHubCopilot(
   try {
     // auto discover and add prompts files to VSCode
     await RegisterPromptFiles();
+    await RegisterInstructionsFiles();
   } catch (err) {
     IDL_LOGGER.log({
       log: IDL_COPILOT_VSCODE_LOG,
