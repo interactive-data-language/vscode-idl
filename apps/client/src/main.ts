@@ -1,4 +1,3 @@
-import { InitializeMCPVSCode } from '@idl/mcp/vscode';
 import { MEASUREMENT } from '@idl/usage-metrics';
 import {
   InitializeClient,
@@ -12,6 +11,7 @@ import { InitializeENVIOpener } from '@idl/vscode/envi-opener';
 import { InitializeVSCodeGitHubCopilot } from '@idl/vscode/github-copilot';
 import { InitializeIDLTutorials } from '@idl/vscode/idl-tutorials';
 import { IInitializeType } from '@idl/vscode/initialize-types';
+import { InitializeMCPVSCode } from '@idl/vscode/mcp';
 import { InitializeNotebooks } from '@idl/vscode/notebooks/client';
 import { InitializeIDLTerminal } from '@idl/vscode/terminal';
 import { InitializeTree } from '@idl/vscode/tree-view';
