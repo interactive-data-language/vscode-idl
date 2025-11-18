@@ -34,7 +34,7 @@ export function TrackENVITaskForMCPServer(
    * If there is no description, return since we need one to run tools
    */
   if (!description.trim()) {
-    console.log(`Unable to add MCP tool without discription: ${taskName}`);
+    // console.log(`Unable to add MCP tool without discription: ${taskName}`);
     return;
   }
 
@@ -85,7 +85,7 @@ export function TrackENVITaskForMCPServer(
 
     // check if unknown parameter
     if (!param) {
-      console.log(`Unhandled task "${task.name}" with parameter`, prop);
+      // console.log(`Unhandled task "${task.name}" with parameter`, prop);
       return;
     }
 

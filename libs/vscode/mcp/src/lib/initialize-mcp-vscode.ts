@@ -1,3 +1,4 @@
+import { IDL_MCP_VSCODE_LOG } from '@idl/logger';
 import { EXTENSION_FULL_NAME, VERSION } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
@@ -15,7 +16,11 @@ export const MCP_CHANGE_EVENT_EMITTER = new vscode.EventEmitter<void>();
  * Initializes MCP server for VSCode
  */
 export function InitializeMCPVSCode(ctx: vscode.ExtensionContext) {
-  IDL_LOGGER.log({ content: 'Registering MCP server definition' });
+  IDL_LOGGER.log({
+    log: IDL_MCP_VSCODE_LOG,
+    type: 'info',
+    content: 'Initiailizing VSCode MCP server configuration',
+  });
 
   // remove the old MCP config
   RemoveLegacyMCPConfig();
