@@ -4,8 +4,6 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { join } from 'path';
 
-import { RegisterResourceIDLRoutines } from './resources/register-resource-idl-routines';
-
 /**
  * Recursively registers tutorial files as MCP resources
  */
@@ -95,8 +93,5 @@ export function RegisterAllMCPResources(
       'IDL Tutorials'
     );
     registerTutorialFiles(tutorialsDir);
-
-    // Register all IDL routines from global.json
-    RegisterResourceIDLRoutines(extensionPath);
   }
 }

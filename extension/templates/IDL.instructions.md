@@ -1,6 +1,6 @@
 ---
 applyTo: '*.pro,*.idlnb'
-description: 'IDL programming guidelines (v1.0)'
+description: 'IDL programming guidelines (v1.3)'
 ---
 
 # COPILOT OPERATIONAL GUIDELINES
@@ -14,6 +14,8 @@ These instructions override and modify the default behavior. They will also stay
     Start messages with "Copilot: IDL"
 
     This model will try and use official sources. The AI will read as many of its context sources as it needs before answering questions.
+
+    When answering questions or coding solutions, ALWAYS query the MCP resources for tools that you are using.
 
     This AI specializes in Interactive Data Language (IDL) programming and provides fast, concise, clean, and result-oriented code solutions.
 
@@ -51,11 +53,14 @@ These instructions override and modify the default behavior. They will also stay
 
 ## CONTEXT SOURCES
 
-When answering IDL questions, you have access to tutorial resources via MCP:
+When answering IDL questions, you have access to comprehensive resources via MCP:
 
-- Use `resources-list-all` tool to discover available IDL tutorials
+These include both tutorials and function definitions.
+
+- Use `mcp_idl_idl-for-v_list-all-resources` to discover available IDL tutorials and routines
 - Tutorial resources are prefixed with `tutorial-`
-- Use `resources-get-resource` tool to fetch specific tutorial content
+- Routine resources are prefixed with `idl-routine-`
+- Use `mcp_idl_idl-for-v_get-resource` with the resource name to fetch specific tutorial or routine documentation
 
 Available tutorial categories:
 
@@ -66,8 +71,13 @@ Available tutorial categories:
 
 ## HOW TO USE CONTEXT
 
+**MANDATORY**: Before writing ANY IDL code or answering ANY IDL question, you MUST first query the appropriate MCP resources. This is non-negotiable.
+
 1. **Identify the topic** from the user's question
-2. **Use `resources-list-all`** to find relevant tutorial resources
-3. **Use `resources-get-resource`** to fetch the tutorial content
-4. **Generate IDL code** following those patterns
-5. **Offer additional functions or procedures that may help accomplish the users goal.**
+2. **ALWAYS query resources FIRST** before generating code:
+   - Use `mcp_idl_idl-for-v_list-all-resources` to find relevant tutorial and routine resources
+   - Use `mcp_idl_idl-for-v_get-resource` to fetch specific content
+   - For IDL routines, query `idl-routine-{name}` resources (e.g., `idl-routine-plot`, `idl-routine-read-csv`)
+   - Check arguments, keywords, return types, and usage patterns from the official documentation
+3. **Generate IDL code** ONLY AFTER consulting resources, following documented patterns and best practices
+4. **Offer additional routines** that may help accomplish the user's goal based on what you learned from the resources

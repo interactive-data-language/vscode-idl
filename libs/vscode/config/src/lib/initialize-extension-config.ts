@@ -222,8 +222,8 @@ export async function InitializeExtensionConfig(
       () => {
         const patch = {};
         patch[EXTENSION_FULL_NAME] = {
-          type: 'sse',
-          url: `http://localhost:${IDL_EXTENSION_CONFIG.mcp.port}/sse`,
+          type: 'streamableHTTP',
+          url: `http://localhost:${IDL_EXTENSION_CONFIG.mcp.port}/mcp`,
         };
 
         /**
