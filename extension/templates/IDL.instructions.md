@@ -46,13 +46,23 @@ These instructions override and modify the default behavior. They will also stay
 
 ## CONTEXT SOURCES
 
-When answering IDL questions, you have access to these context files:
+When answering IDL questions, you have access to tutorial resources via MCP:
 
-- `./IDL-Agent-Support/context/` - Local repository context files in the repository.
+- Use `resources-list-all` tool to discover available IDL tutorials
+- Tutorial resources are prefixed with `tutorial-`
+- Use `resources-get-resource` tool to fetch specific tutorial content
+
+Available tutorial categories:
+
+- **Getting Started** - Running IDL in notebooks, navigating the guide
+- **IDL Basics** - Variables, operators, arrays, functions, objects, etc.
+- **File Operations** - Reading and writing files
+- **Specific Topics** - 3D objects, Python bridge, etc.
 
 ## HOW TO USE CONTEXT
 
 1. **Identify the topic** from the user's question
-2. **Reference the appropriate context file** in your workspace
-3. **Generate IDL code** following those patterns
-4. **Offer additional functions or procedures that may help accomplish the users goal.**
+2. **Use `resources-list-all`** to find relevant tutorial resources
+3. **Use `resources-get-resource`** to fetch the tutorial content
+4. **Generate IDL code** following those patterns
+5. **Offer additional functions or procedures that may help accomplish the users goal.**

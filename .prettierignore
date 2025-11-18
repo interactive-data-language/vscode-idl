@@ -4,7 +4,7 @@
 /.github
 /.vscode
 /.vscode-test
-extension/templates/AGENTS.md
+extension/templates/copilot-instructions.md
 apps/idl-docs-parser/src/htmls
 /dist
 /coverage

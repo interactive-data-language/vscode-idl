@@ -979,7 +979,12 @@ export const EN: ITranslation = {
       'A newer version of GitHub Copilot instructions is available. Would you like to update to the latest version?',
     copilotInstructionsCreated:
       'GitHub Copilot instructions and tutorial files created successfully!',
-    agentsFileExists: 'AGENTS.md already exists. Overwrite?',
+    copilotFileExists:
+      '.github/copilot-instructions.md already exists. Update IDL instructions? (Your custom content will be preserved)',
+    createCopilotInstructions:
+      'Would you like to append IDL-specific instructions to your GitHub Copilot configuration?',
+    addIdlInstructions:
+      'You have GitHub Copilot instructions but no IDL-specific instructions. Would you like to add them?',
     noWorkspaceFolder: 'No workspace folder open. Please open a folder first.',
     start: 'Start?',
     viewDocs: 'View docs',

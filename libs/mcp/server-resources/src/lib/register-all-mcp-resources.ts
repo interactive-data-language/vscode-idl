@@ -1,22 +1,61 @@
 import { IS_MCP_SERVER_STARTED } from '@idl/mcp/server';
 import { TrackServerResource } from '@idl/mcp/server-tools';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
+import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
+import { join } from 'path';
+
+import { RegisterResourceIDLRoutines } from './resources/register-resource-idl-routines';
 
 /**
- * Track if we registered our tools or not
+ * Recursively registers tutorial files as MCP resources
  */
-let REGISTERED = false;
+function registerTutorialFiles(baseDir: string, relativePath = '') {
+  const fullPath = join(baseDir, relativePath);
+
+  if (!existsSync(fullPath)) {
+    return;
+  }
+
+  const items = readdirSync(fullPath);
+
+  for (const item of items) {
+    const itemPath = join(fullPath, item);
+    const relativeItemPath = relativePath ? join(relativePath, item) : item;
+    const stat = statSync(itemPath);
+
+    if (stat.isDirectory()) {
+      // Skip the "Setting up" directory
+      if (item.includes('Setting up')) {
+        continue;
+      }
+      // Recursively process subdirectories
+      registerTutorialFiles(baseDir, relativeItemPath);
+    } else if (item.endsWith('.idlnb') || item.endsWith('.md')) {
+      // Register individual tutorial files
+      const content = readFileSync(itemPath, 'utf-8');
+      const resourceName = `tutorial-${relativeItemPath
+        .replace(/\\/g, '-')
+        .replace(/\//g, '-')
+        .replace(/\.idlnb$/, '')
+        .replace(/\.md$/, '')
+        .replace(/\s+/g, '-')
+        .toLowerCase()}`;
+
+      const description = `IDL Tutorial: ${relativeItemPath}`;
+
+      TrackServerResource(resourceName, description, content);
+    }
+  }
+}
 
 /**
  * Helper that adds all tools to the MCP server
  */
 export function RegisterAllMCPResources(
-  messenger: VSCodeLanguageServerMessenger
+  messenger: VSCodeLanguageServerMessenger,
+  extensionPath?: string
 ) {
   if (!IS_MCP_SERVER_STARTED) {
-    return;
-  }
-  if (REGISTERED) {
     return;
   }
 
@@ -47,6 +86,17 @@ export function RegisterAllMCPResources(
     'See resource here: https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html'
   );
 
-  // update flag that we registered our tools (duplicated throw errors)
-  REGISTERED = true;
+  // Register all tutorial files as individual MCP resources
+  if (extensionPath) {
+    const tutorialsDir = join(
+      extensionPath,
+      'extension',
+      'example-notebooks',
+      'IDL Tutorials'
+    );
+    registerTutorialFiles(tutorialsDir);
+
+    // Register all IDL routines from global.json
+    RegisterResourceIDLRoutines(extensionPath);
+  }
 }

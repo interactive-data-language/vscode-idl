@@ -160,6 +160,9 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
         workspace.createFileSystemWatcher(NOTIFY_FILES_GLOB_PATTERN),
       ],
     },
+    initializationOptions: {
+      extensionPath: ctx.extensionPath,
+    },
     outputChannel: IDL_CLIENT_OUTPUT_CHANNEL,
     initializationFailedHandler: (err) => {
       IDL_LOGGER.log({

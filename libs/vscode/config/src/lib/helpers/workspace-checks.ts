@@ -23,14 +23,18 @@ export async function isIDLWorkspace(): Promise<boolean> {
 
 /**
  * Check if the workspace needs copilot instructions
- * (i.e., doesn't already have AGENTS.md)
+ * (i.e., doesn't already have copilot-instructions.md)
  */
 export async function CopilotInstructionFileExists(): Promise<boolean> {
-  // Check if AGENTS.md already exists
-  const agentsFiles = await vscode.workspace.findFiles('AGENTS.md', null, 1);
+  // Check if copilot-instructions.md already exists
+  const copilotFiles = await vscode.workspace.findFiles(
+    '.github/copilot-instructions.md',
+    null,
+    1
+  );
 
   // file doesnt exist. Just return.
-  if (agentsFiles.length === 0) {
+  if (copilotFiles.length === 0) {
     return false;
   }
   return true;
@@ -84,6 +88,30 @@ export async function isWorkspaceFileVersionDifferent(
     console.error(
       `Error when checking for ${workspaceFilePath} and ${templateFilePath} file version.`
     );
+    return false;
+  }
+}
+
+/**
+ * Check if copilot-instructions.md has agent instructions markers
+ */
+export async function CopilotInstructionHasAgentInstructions(): Promise<boolean> {
+  try {
+    const copilotFiles = await vscode.workspace.findFiles(
+      '.github/copilot-instructions.md',
+      null,
+      1
+    );
+
+    if (copilotFiles.length === 0) {
+      return false;
+    }
+
+    const doc = await vscode.workspace.openTextDocument(copilotFiles[0]);
+    const text = doc.getText();
+
+    return text.includes('<!-- AGENT_INSTRUCTIONS_START -->');
+  } catch {
     return false;
   }
 }

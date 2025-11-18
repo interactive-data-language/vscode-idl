@@ -6,15 +6,17 @@ import { join } from 'path';
 import * as vscode from 'vscode';
 
 /**
- * Extracts user custom content from AGENTS.md that exists outside the agent instruction markers
- * @param agentsPath Path to the AGENTS.md file
+ * Extracts user custom content from copilot-instructions.md that exists outside the agent instruction markers
+ * @param instructionsPath Path to the copilot-instructions.md file
  * @returns Object containing content before and after agent instructions, or null if extraction fails
  */
 async function extractUserContent(
-  agentsPath: string
+  instructionsPath: string
 ): Promise<{ beforeAgent: string; afterAgent: string } | null> {
   try {
-    const existingDoc = await vscode.workspace.openTextDocument(agentsPath);
+    const existingDoc = await vscode.workspace.openTextDocument(
+      instructionsPath
+    );
     const existingText = existingDoc.getText();
 
     // Use markers to identify the agent-controlled section
@@ -37,22 +39,25 @@ async function extractUserContent(
 
     return null;
   } catch (err) {
-    console.error('Error extracting user content from AGENTS.md:', err);
+    console.error(
+      'Error extracting user content from copilot-instructions.md:',
+      err
+    );
     return null;
   }
 }
 
 /**
  * Restores user custom content around the new agent instructions
- * @param agentsPath Path to the AGENTS.md file
+ * @param instructionsPath Path to the copilot-instructions.md file
  * @param userContent User's custom content to restore
  */
 async function restoreUserContent(
-  agentsPath: string,
+  instructionsPath: string,
   userContent: { beforeAgent: string; afterAgent: string }
 ): Promise<void> {
   try {
-    const newAgentsText = await readFile(agentsPath, 'utf-8');
+    const newAgentsText = await readFile(instructionsPath, 'utf-8');
 
     const agentStartMarker = '<!-- AGENT_INSTRUCTIONS_START -->';
     const agentEndMarker = '<!-- AGENT_INSTRUCTIONS_END -->';
@@ -75,10 +80,13 @@ async function restoreUserContent(
         '\n\n' +
         userContent.afterAgent;
 
-      await writeFile(agentsPath, updatedAgentsText, 'utf-8');
+      await writeFile(instructionsPath, updatedAgentsText, 'utf-8');
     }
   } catch (err) {
-    console.error('Error restoring user content in AGENTS.md:', err);
+    console.error(
+      'Error restoring user content in copilot-instructions.md:',
+      err
+    );
   }
 }
 
@@ -92,7 +100,7 @@ export async function SetupCopilotInstructions(
   try {
     const folders = vscode.workspace.workspaceFolders;
 
-    // cheap paranoia. We check for workspace in initialize-extension.
+    // We check for workspace in initialize-extension.
     if (!folders || folders.length === 0) {
       vscode.window.showErrorMessage(
         IDL_TRANSLATION.notifications.noWorkspaceFolder
@@ -102,91 +110,92 @@ export async function SetupCopilotInstructions(
 
     const workspaceRoot = folders[0].uri.fsPath;
 
-    // Create IDL-Agent-Support directory if it doesn't exist
-    const agentSupportDir = join(workspaceRoot, 'IDL-Agent-Support');
-    if (!existsSync(agentSupportDir)) {
-      mkdirSync(agentSupportDir, { recursive: true });
+    // Create .github directory if it doesn't exist
+    const githubDir = join(workspaceRoot, '.github');
+    if (!existsSync(githubDir)) {
+      mkdirSync(githubDir, { recursive: true });
     }
 
-    // Destination path for copilot instructions
-    const agentsPath = join(workspaceRoot, 'AGENTS.md');
+    // Create .github/instructions directory if it doesn't exist
+    const instructionsDir = join(githubDir, 'instructions');
+    if (!existsSync(instructionsDir)) {
+      mkdirSync(instructionsDir, { recursive: true });
+    }
 
-    // Check if AGENTS.md exists
-    const agentsExists = existsSync(agentsPath);
+    // Destination paths
+    const copilotInstructionsPath = join(githubDir, 'copilot-instructions.md');
+    const idlInstructionsPath = join(instructionsDir, 'IDL.instructions.md');
 
-    // This is checked if the file already exists. (if we are updating a version)
-    if (agentsExists) {
-      const overwrite = await vscode.window.showWarningMessage(
-        IDL_TRANSLATION.notifications.agentsFileExists,
-        IDL_TRANSLATION.notifications.yes,
-        IDL_TRANSLATION.notifications.no
+    // Check if copilot-instructions.md exists and if it has agent instructions
+    const copilotInstructionsExists = existsSync(copilotInstructionsPath);
+    let hasAgentInstructions = false;
+
+    if (copilotInstructionsExists) {
+      const existingContent = await readFile(copilotInstructionsPath, 'utf-8');
+      hasAgentInstructions = existingContent.includes(
+        '<!-- AGENT_INSTRUCTIONS_START -->'
       );
-
-      // handles closing the dialog as well.
-      if (overwrite !== IDL_TRANSLATION.notifications.yes) {
-        return false;
-      }
     }
 
     // Copy templates from extension
-    const agentsTemplatePath = GetExtensionPath(
-      'extension/templates/AGENTS.md'
+    const copilotTemplatePath = GetExtensionPath(
+      'extension/templates/copilot-instructions.md'
     );
-    const instructionsTemplatePath = GetExtensionPath(
+    const idlInstructionsTemplatePath = GetExtensionPath(
       'extension/templates/IDL.instructions.md'
     );
-    const instructionsPath = join(agentSupportDir, 'IDL.instructions.md');
 
-    // Extract user custom content from AGENTS.md (everything outside the agent instruction markers)
-    let agentsUserContent: { beforeAgent: string; afterAgent: string } | null =
-      null;
-    if (versionsAreDifferent && existsSync(agentsPath)) {
-      agentsUserContent = await extractUserContent(agentsPath);
-    }
+    // Handle different scenarios
+    if (copilotInstructionsExists && !hasAgentInstructions) {
+      // File exists but no agent instructions - append them
 
-    // Copy template files
-    await cp(agentsTemplatePath, agentsPath);
-    await cp(instructionsTemplatePath, instructionsPath);
+      const templateContent = await readFile(copilotTemplatePath, 'utf-8');
+      const existingContent = await readFile(copilotInstructionsPath, 'utf-8');
 
-    // If we have user custom content from AGENTS.md, restore it around the new agent instructions
-    if (agentsUserContent) {
-      await restoreUserContent(agentsPath, agentsUserContent);
-    }
+      // Append agent instructions to the end
+      const updatedContent = existingContent + '\n\n' + templateContent;
+      await writeFile(copilotInstructionsPath, updatedContent, 'utf-8');
+    } else if (copilotInstructionsExists && hasAgentInstructions) {
+      // File exists with agent instructions
 
-    // CONTEXT FILE LOGIC
-    // Copy tutorial files to IDL-Agent-Support/context/
-    const tutorialSourceDir = GetExtensionPath(
-      'extension/example-notebooks/IDL Tutorials'
-    );
-    const contextDir = join(agentSupportDir, 'context');
+      // If versionsAreDifferent is true, skip confirmation (auto-update to newer version)
+      // Otherwise, ask user to confirm overwrite
+      if (!versionsAreDifferent) {
+        const overwrite = await vscode.window.showWarningMessage(
+          IDL_TRANSLATION.notifications.copilotFileExists,
+          IDL_TRANSLATION.notifications.yes,
+          IDL_TRANSLATION.notifications.no
+        );
 
-    // Files to exclude from copying
-    const excludedFiles = [
-      'Setting up (Must be completed first!)',
-      'version.txt',
-      // Add more files to exclude here
-    ];
+        if (overwrite !== IDL_TRANSLATION.notifications.yes) {
+          return false;
+        }
+      }
 
-    // set up a short filter function to check each file against our excluded list
-    const filterFiles = (source: string) => {
-      const filename = source.split(/[\\/]/).pop() || '';
-      return !excludedFiles.some((excluded) => filename.includes(excluded));
-    };
+      // Extract user custom content from copilot-instructions.md
+      const instructionsUserContent = await extractUserContent(
+        copilotInstructionsPath
+      );
 
-    // Create context directory if it doesn't exist
-    if (!existsSync(contextDir)) {
-      mkdirSync(contextDir, { recursive: true });
-      await cp(tutorialSourceDir, contextDir, {
-        recursive: true,
-        filter: filterFiles,
-      });
+      // Copy template file
+      await cp(copilotTemplatePath, copilotInstructionsPath);
+
+      // If we have user custom content, restore it around the new agent instructions
+      if (instructionsUserContent) {
+        await restoreUserContent(
+          copilotInstructionsPath,
+          instructionsUserContent
+        );
+      }
     } else {
-      // Directory exists - copy but exclude specific files
-      await cp(tutorialSourceDir, contextDir, {
-        recursive: true,
-        filter: filterFiles,
-      });
+      // File doesn't exist - create it
+      await cp(copilotTemplatePath, copilotInstructionsPath);
     }
+
+    // If we got this far it means that we have updated or created the copilot instructions.
+    // since copilot instructions controls our versioning, we can deduce that our versioning has changed,
+    // thus, we always copy IDL.instructions.md
+    await cp(idlInstructionsTemplatePath, idlInstructionsPath);
 
     vscode.window.showInformationMessage(
       IDL_TRANSLATION.notifications.copilotInstructionsCreated

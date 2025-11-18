@@ -18,6 +18,7 @@ import { UpdateConfigObject } from './helpers/update-config';
 import { ValidateConfig } from './helpers/validate-config';
 import {
   CopilotInstructionFileExists,
+  CopilotInstructionHasAgentInstructions,
   isIDLWorkspace,
   isWorkspaceFileVersionDifferent,
 } from './helpers/workspace-checks';
@@ -273,17 +274,26 @@ export async function InitializeExtensionConfig(
         // No copilot instructions file - ask to set up
         shouldAsk = true;
         message = IDL_TRANSLATION.notifications.setupCopilotInstructions;
-      } else if (
-        await isWorkspaceFileVersionDifferent(
-          ctx.extensionUri,
-          'AGENTS.md',
-          'extension/templates/AGENTS.md'
-        )
-      ) {
-        // File exists but is outdated - ask to update
-        versionIsDifferent = true;
-        shouldAsk = true;
-        message = IDL_TRANSLATION.notifications.updateCopilotInstructions;
+      } else {
+        const hasAgentInstructions =
+          await CopilotInstructionHasAgentInstructions();
+
+        if (!hasAgentInstructions) {
+          // File exists but no agent instructions - ask to add them
+          shouldAsk = true;
+          message = IDL_TRANSLATION.notifications.addIdlInstructions;
+        } else if (
+          await isWorkspaceFileVersionDifferent(
+            ctx.extensionUri,
+            '.github/copilot-instructions.md',
+            'extension/templates/copilot-instructions.md'
+          )
+        ) {
+          // File exists with agent instructions but is outdated - ask to update
+          versionIsDifferent = true;
+          shouldAsk = true;
+          message = IDL_TRANSLATION.notifications.updateCopilotInstructions;
+        }
       }
 
       if (shouldAsk) {
