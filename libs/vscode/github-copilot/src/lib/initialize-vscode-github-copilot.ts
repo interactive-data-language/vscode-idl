@@ -3,7 +3,7 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
 import { RegisterCopilotCommands } from './commands/register-copilot-commands';
-import { RegisterPromptFiles } from './helpers/register-prompts';
+import { RegisterPromptFiles } from './helpers/register-prompt-files';
 
 /**
  * Initializes our GitHub Copilot VSCode integration
