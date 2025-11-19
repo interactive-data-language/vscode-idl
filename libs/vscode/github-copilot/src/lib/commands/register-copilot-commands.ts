@@ -1,3 +1,4 @@
+import { IDL_COPILOT_VSCODE_LOG } from '@idl/logger';
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER, LogCommandError } from '@idl/vscode/logger';
@@ -13,7 +14,11 @@ const cmdErrors = IDL_TRANSLATION.commands.errors;
  * Adds commands to VSCode to handle Copilot integration
  */
 export function RegisterCopilotCommands(ctx: ExtensionContext) {
-  IDL_LOGGER.log({ content: 'Registering Copilot commands' });
+  IDL_LOGGER.log({
+    log: IDL_COPILOT_VSCODE_LOG,
+    type: 'info',
+    content: 'Registering commands',
+  });
 
   ctx.subscriptions.push(
     vscode.commands.registerCommand(

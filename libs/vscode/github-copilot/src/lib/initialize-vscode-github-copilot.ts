@@ -11,6 +11,12 @@ import { RegisterPromptFiles } from './helpers/register-prompt-files';
 export async function InitializeVSCodeGitHubCopilot(
   ctx: vscode.ExtensionContext
 ) {
+  IDL_LOGGER.log({
+    log: IDL_COPILOT_VSCODE_LOG,
+    type: 'info',
+    content: 'Initiailizing GitHub Copilot configuration',
+  });
+
   try {
     // register copilot instructions and resources.
     RegisterCopilotCommands(ctx);
