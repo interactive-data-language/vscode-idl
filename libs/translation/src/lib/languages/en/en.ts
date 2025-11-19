@@ -904,6 +904,7 @@ export const EN: ITranslation = {
         'open-dataset-in-envi': 'ENVI: Open Dataset',
         'query-dataset-with-envi': 'ENVI: Query Dataset',
         'run-envi-tool': 'ENVI: Run Task',
+        'search-resources': 'Resources: Search',
         'start-envi': 'ENVI: Start',
         'start-idl': 'IDL: Start',
       },

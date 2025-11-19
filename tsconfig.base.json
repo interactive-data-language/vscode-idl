@@ -54,6 +54,7 @@
       "@idl/idl/idl-machine": ["libs/idl/idl-machine/src/index.ts"],
       "@idl/idl/idl-process": ["libs/idl/idl-process/src/index.ts"],
       "@idl/idl/ws-server": ["libs/idl/ws-server/src/index.ts"],
+      "@idl/indexing/indexer": ["libs/indexing/indexer/src/index.ts"],
       "@idl/logger": ["libs/logger/src/index.ts"],
       "@idl/mcp/server": ["libs/mcp/server/src/index.ts"],
       "@idl/mcp/server-resources": ["libs/mcp/server-resources/src/index.ts"],
