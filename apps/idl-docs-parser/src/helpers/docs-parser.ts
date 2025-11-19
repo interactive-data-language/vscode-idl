@@ -236,6 +236,8 @@ export async function ParseDocsHTML(docsFile: string) {
           break;
         }
         // section name
+        case element.tagName === 'h3' &&
+          element?.attributes[0]?.value === 'Property':
         case element.tagName === 'h4' &&
           element?.attributes[0]?.value === 'SysvarField': {
           // get the name of our system variable property
@@ -245,10 +247,7 @@ export async function ParseDocsHTML(docsFile: string) {
           current = 'prop';
 
           // get a clean title to use
-          const useTitle = title.replace(
-            / \(Init, Get\)| \(Get, Init\)| \(Get Only\)| \(Get, Set\)| \(Get\)| \(Init\)/gim,
-            ''
-          );
+          const useTitle = title.replace(/\s*\(.*\)\s*/gim, '').toLowerCase();
 
           propChildren = [];
           theseProps[useTitle] = propChildren;
@@ -295,6 +294,9 @@ export async function ParseDocsHTML(docsFile: string) {
               break;
             case 'Properties':
               current = 'prop';
+              // reset prop children
+              // some "properties" are goofy and dont have property names - see ENVIIsoDataClassification docs with "Properties" after properties
+              propChildren = [];
               break;
             default: {
               children = [];

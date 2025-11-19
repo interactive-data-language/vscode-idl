@@ -61,7 +61,9 @@ export async function ParsedToGlobal(
     /**
      * Debug code to fix problems with specific HTML files
      */
-    // if (!(r.name || '').toLowerCase().startsWith('cli_progress')) {
+    // if (
+    //   !(r.name || '').toLowerCase().startsWith('enviisodataclassificationtask')
+    // ) {
     //   continue;
     // }
 
@@ -136,8 +138,10 @@ export async function ParsedToGlobal(
   }
 
   // finish our progress bar
-  bar2.complete = true;
-  bar2.render();
+  if (RESOLVED_METHODS.length > 0) {
+    bar2.complete = true;
+    bar2.render();
+  }
 
   return global;
 }
