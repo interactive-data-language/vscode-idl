@@ -16,8 +16,12 @@ import { GetWorkspaceConfig } from './helpers/get-workspace-config';
 import { BasicQuestionAsker, QuestionAsker } from './helpers/question-asker';
 import { UpdateConfigObject } from './helpers/update-config';
 import { ValidateConfig } from './helpers/validate-config';
+import {
+  CopilotInstructionFileExists,
+  isIDLWorkspace,
+  isWorkspaceFileVersionDifferent,
+} from './helpers/workspace-checks';
 import { IIDLWorkspaceConfig } from './idl-config.interface';
-
 /**
  * IDL's current workspace configuration
  */
@@ -31,8 +35,14 @@ export let IDL_EXTENSION_CONFIG: IIDLWorkspaceConfig;
  * It has some blocking async logic so that you arent spammed with questions
  *
  * So, if you await this callback, it will wait until all questions are answered before returning
+ *
+ * @param ctx Extension context
+ * @param onConfigChanges Callback when config changes
  */
-export async function InitializeExtensionConfig(onConfigChanges: () => void) {
+export async function InitializeExtensionConfig(
+  ctx: vscode.ExtensionContext,
+  onConfigChanges: () => void
+) {
   // get the current workspace config
   IDL_EXTENSION_CONFIG = GetWorkspaceConfig();
 
@@ -152,6 +162,154 @@ export async function InitializeExtensionConfig(onConfigChanges: () => void) {
         );
       }
     );
+  }
+
+  // check for configured MCP server
+  /** Get MCP config */
+  const mcpConfig = vscode.workspace.getConfiguration('mcp');
+
+  /** Get servers */
+  const servers = mcpConfig.has('servers') ? mcpConfig.get('servers') : {};
+
+  // if we have old naming convention for MCP, then migrate
+  if (IDL_TRANSLATION.packageJSON.displayName in (servers as any)) {
+    const patch = {};
+
+    // migrate to proper name
+    patch[EXTENSION_FULL_NAME] =
+      servers[IDL_TRANSLATION.packageJSON.displayName];
+
+    /**
+     * Get patched object
+     */
+    const patched = {
+      ...((mcpConfig.get('servers') as any) || {}),
+      ...patch,
+    };
+
+    // delete old key
+    delete patched[IDL_TRANSLATION.packageJSON.displayName];
+
+    /**
+     * Fetch the default keys so that we can remove a weird python default MCP
+     * server (which is wild since it doesnt work and its hidden if you open user settings)
+     */
+    const defaultKeys = Object.keys(
+      mcpConfig.inspect('servers')?.defaultValue || {}
+    );
+    for (let i = 0; i < defaultKeys.length; i++) {
+      delete patched[defaultKeys[i]];
+    }
+
+    // patch config
+    mcpConfig.update('servers', patched, true);
+  }
+
+  // prompt user to change icon theme if default theme
+  if (
+    !(EXTENSION_FULL_NAME in (servers as any)) &&
+    !IDL_EXTENSION_CONFIG.dontAsk.forMCPConfig
+  ) {
+    await QuestionAsker(
+      IDL_TRANSLATION.notifications.configureMCP,
+      IDL_EXTENSION_CONFIG_KEYS.dontAskForMCPConfig,
+      true,
+      () => {
+        UpdateConfigObject<IDontAskConfig>(IDL_EXTENSION_CONFIG_KEYS.dontAsk, {
+          forMCPConfig: true,
+        });
+      },
+      () => {
+        const patch = {};
+        patch[EXTENSION_FULL_NAME] = {
+          type: 'streamableHTTP',
+          url: `http://localhost:${IDL_EXTENSION_CONFIG.mcp.port}/mcp`,
+        };
+
+        /**
+         * Get patched object
+         */
+        const patched = {
+          ...((mcpConfig.get('servers') as any) || {}),
+          ...patch,
+        };
+
+        // delete old key
+        delete patched[IDL_TRANSLATION.packageJSON.displayName];
+
+        /**
+         * Fetch the default keys so that we can remove a weird python default MCP
+         * server (which is wild since it doesnt work and its hidden if you open user settings)
+         */
+        const defaultKeys = Object.keys(
+          mcpConfig.inspect('servers')?.defaultValue || {}
+        );
+        for (let i = 0; i < defaultKeys.length; i++) {
+          delete patched[defaultKeys[i]];
+        }
+
+        // patch config
+        mcpConfig.update('servers', patched, true);
+      }
+    );
+  }
+
+  // 10/24/2025 letting dontAsk docs be the last question to maintain await logic.
+  // Await is missing for the last one to avoid blocking the extension activation.
+
+  // Check if we should prompt about GitHub Agent instructions
+  // Only ask if user hasn't opted out and we're in an IDL workspace
+  if (!IDL_EXTENSION_CONFIG.dontAsk.toSetupCopilotInstructions) {
+    const isIDL = await isIDLWorkspace();
+
+    if (isIDL) {
+      const fileExists = await CopilotInstructionFileExists();
+      let shouldAsk = false;
+      let versionIsDifferent = false;
+      let message = '';
+
+      if (!fileExists) {
+        // No IDL.instructions.md file - ask to create it
+        shouldAsk = true;
+        message = IDL_TRANSLATION.notifications.createCopilotInstructions;
+      } else if (
+        await isWorkspaceFileVersionDifferent(
+          ctx.extensionUri,
+          '.github/instructions/IDL.instructions.md',
+          'extension/templates/IDL.instructions.md'
+        )
+      ) {
+        // File exists but is outdated - ask to update
+        versionIsDifferent = true;
+        shouldAsk = true;
+        message = IDL_TRANSLATION.notifications.updateCopilotInstructions;
+      }
+
+      if (shouldAsk) {
+        await QuestionAsker(
+          message,
+          IDL_EXTENSION_CONFIG_KEYS.dontAskToSetupCopilotInstructions,
+          true,
+          () => {
+            // if user clicks "Don't ask again"
+            UpdateConfigObject<IDontAskConfig>(
+              IDL_EXTENSION_CONFIG_KEYS.dontAsk,
+              {
+                toSetupCopilotInstructions: true,
+              }
+            );
+          },
+          async () => {
+            // if user clicks "Yes"
+            // Pass true to force update (skip overwrite confirmation when updating version)
+            await vscode.commands.executeCommand(
+              IDL_COMMANDS.COPILOT.SETUP_INSTRUCTIONS,
+              versionIsDifferent
+            );
+          }
+        );
+      }
+    }
   }
 
   // ask user if they want to open the documentation

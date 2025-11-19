@@ -34,6 +34,9 @@ export const BASE_DOCS = `${BASE_COMMAND}docs.`;
 /** Base string for idl-tutorials */
 export const BASE_IDL_TUTORIAL = `${BASE_COMMAND}idlTutorials.`;
 
+/** base string for IDL-Copilot support */
+export const BASE_COPILOT = `${BASE_COMMAND}copilot.`;
+
 /**
  * Constant representing all of our commands in IDL.
  *
@@ -154,10 +157,13 @@ export const IDL_COMMANDS = {
     OPEN_LINK: `${BASE_DOCS}openLink`,
   },
   TUTORIALS: {
-    /** Reset noteboo tutorials */
+    /** Reset notebook tutorials */
     RESET_TUTORIALS: `${BASE_IDL_TUTORIAL}resetTutorials`,
     /** Opens tutorial "what is IDL" */
     OPEN_IDL_TUTORIAL: `${BASE_IDL_TUTORIAL}openIDLTutorial`,
+  },
+  COPILOT: {
+    SETUP_INSTRUCTIONS: `${BASE_COPILOT}setupInstructions`,
   },
 };
 

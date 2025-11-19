@@ -7,6 +7,7 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 
 import { MCP_CONFIG } from './helpers/merge-config';
 import {
+  EXTENSION_PATH,
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
 } from './initialize-language-server';
@@ -42,7 +43,7 @@ export function InitializeMCPServer() {
     );
 
     // register all of our resources
-    RegisterAllMCPResources(SERVER_MESSENGER);
+    RegisterAllMCPResources(SERVER_MESSENGER, EXTENSION_PATH);
 
     // register all of our tools
     RegisterAllMCPTools(SERVER_MESSENGER);
