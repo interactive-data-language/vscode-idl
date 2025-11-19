@@ -13,7 +13,7 @@ export async function InitializeVSCodeGitHubCopilot(
 ) {
   try {
     // register copilot instructions and resources.
-    await RegisterCopilotCommands(ctx);
+    RegisterCopilotCommands(ctx);
 
     // auto discover and add prompts files to VSCode
     await RegisterPromptFiles();

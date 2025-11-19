@@ -36,7 +36,7 @@ export async function activate(
 
   // register handlers for MCP tools - MUST be after debugging
   InitializeMCPVSCode(ctx);
-  await InitializeVSCodeGitHubCopilot(ctx);
+  InitializeVSCodeGitHubCopilot(ctx);
 
   /**
    * Listen for tool refresh - this doesn't work right now
