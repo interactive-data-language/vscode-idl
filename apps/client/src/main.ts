@@ -36,7 +36,7 @@ export async function activate(
 
   // register handlers for MCP tools - MUST be after debugging
   InitializeMCPVSCode(ctx);
-  InitializeVSCodeGitHubCopilot(ctx);
+  await InitializeVSCodeGitHubCopilot(ctx);
 
   /**
    * Listen for tool refresh - this doesn't work right now
@@ -69,6 +69,7 @@ export async function activate(
   // initialize our tree view
   InitializeTree(ctx, false);
 
+  // initialize out tutorials
   InitializeIDLTutorials(ctx);
 
   // return result

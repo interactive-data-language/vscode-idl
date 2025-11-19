@@ -97,6 +97,9 @@ export const EN: ITranslation = {
         openIDLTutorial: 'IDL: Open IDL Tutorial',
         resetTutorials: 'IDL: Reset Tutorials',
       },
+      copilot: {
+        setupInstructions: 'IDL: Setup GitHub Copilot Instructions',
+      },
       webview: {
         start: 'IDL: Start Webview',
       },
@@ -167,6 +170,9 @@ export const EN: ITranslation = {
         openIDLTutorial: 'Error while opening IDL tutorial',
         resetTutorials: 'Error while resetting tutorials',
       },
+      copilot: {
+        setupInstructions: 'Error while setting up Copilot instructions',
+      },
       webview: {
         start: 'Error while starting webview',
       },
@@ -227,6 +233,7 @@ export const EN: ITranslation = {
       'dontAsk.forIDLDir':
         "Don't ask for IDL directory on extension startup if it is not set.",
       'dontAsk.toOpenDocs': `Don't ask to open the documentation on extension startup`,
+      'dontAsk.toSetupCopilotInstructions': `TEST`,
 
       dontShow:
         'Preferences that disable dialogs/views from automatically appearing',
@@ -897,6 +904,7 @@ export const EN: ITranslation = {
         'open-dataset-in-envi': 'ENVI: Open Dataset',
         'query-dataset-with-envi': 'ENVI: Query Dataset',
         'run-envi-tool': 'ENVI: Run Task',
+        'search-resources': 'Resources: Search',
         'start-envi': 'ENVI: Start',
         'start-idl': 'IDL: Start',
       },
@@ -978,6 +986,17 @@ export const EN: ITranslation = {
     noProCodeOrTaskFile: 'No active PRO file or Task file in VSCode',
     openDocs: 'Open official docs for IDL for VSCode?',
     reportBug: 'Report Bug',
+    setupCopilotInstructions:
+      'Would you like to setup GitHub Copilot instructions for better IDL code assistance?',
+    updateCopilotInstructions:
+      'A newer version of GitHub Copilot instructions is available. Would you like to update to the latest version?',
+    copilotInstructionsCreated:
+      'IDL instructions for GitHub Copilot created successfully in .github/instructions/IDL.instructions.md',
+    copilotFileExists:
+      'IDL.instructions.md already exists. Would you like to overwrite it with the latest version?',
+    createCopilotInstructions:
+      'Would you like to create IDL-specific instructions for GitHub Copilot (.github/instructions/IDL.instructions.md)?',
+    noWorkspaceFolder: 'No workspace folder open. Please open a folder first.',
     start: 'Start?',
     viewDocs: 'View docs',
     yes: 'Yes',

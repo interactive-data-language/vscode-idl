@@ -19,8 +19,7 @@ module.exports = composePlugins(withNx(), (config) => {
     externals: {
       vscode: 'commonjs vscode', // ignored because it doesn't exist
     },
-    // trying to work around https://github.com/facebook/create-react-app/pull/11752
-    // ignoreWarnings: [/^warning/i],
+
     // stats: 'none',
     // devtool: 'none',
     // plugins: [
