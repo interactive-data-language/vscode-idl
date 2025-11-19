@@ -37,7 +37,7 @@ export async function RegisterInstructionsFiles() {
 
   if (existsSync(dir)) {
     /** Find prompt files that we should automatically register */
-    const files = await FindFiles(dir, `**/*.prompt.md`);
+    const files = await FindFiles(dir, `**/*.instructions.md`);
 
     // register al prompts
     for (let i = 0; i < files.length; i++) {
