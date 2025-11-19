@@ -1,3 +1,4 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_MCP_LOG } from '@idl/logger';
 import { StartMCPServer } from '@idl/mcp/server';
 import { RegisterAllMCPResources } from '@idl/mcp/server-resources';
@@ -7,10 +8,10 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 
 import { MCP_CONFIG } from './helpers/merge-config';
 import {
-  EXTENSION_PATH,
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
 } from './initialize-language-server';
+import { RegisterTutorialFiles } from './mcp/mcp-track-idl-tutorials';
 
 /**
  * Starts our MCP Server and adds all of our known tools
@@ -43,7 +44,12 @@ export function InitializeMCPServer() {
     );
 
     // register all of our resources
-    RegisterAllMCPResources(SERVER_MESSENGER, EXTENSION_PATH);
+    RegisterAllMCPResources(SERVER_MESSENGER);
+
+    // add all tutorials as server resources
+    RegisterTutorialFiles(
+      GetExtensionPath('extension/example-notebooks/IDL Tutorials')
+    );
 
     // register all of our tools
     RegisterAllMCPTools(SERVER_MESSENGER);

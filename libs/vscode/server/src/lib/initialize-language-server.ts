@@ -64,11 +64,6 @@ export const SERVER_CONNECTION = createConnection(ProposedFeatures.all);
 export let SERVER_MESSENGER: VSCodeLanguageServerMessenger;
 
 /**
- * Extension path received from the client during initialization
- */
-export let EXTENSION_PATH = '';
-
-/**
  * Logger for our language server
  *
  * IMPORTANT: ALL LOGS ARE INTERCEPTED IN FILE WHERE DEFINED
@@ -144,11 +139,6 @@ export function InitializeLanguageServer() {
    * Listen for the request to initialize
    */
   SERVER_CONNECTION.onInitialize((params: InitializeParams) => {
-    // save extension path if provided in initialization options
-    if (params.initializationOptions?.extensionPath) {
-      EXTENSION_PATH = params.initializationOptions.extensionPath;
-    }
-
     // get capabilities from our session
     const capabilities = params.capabilities;
 
