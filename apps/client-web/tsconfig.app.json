@@ -367,11 +367,11 @@
       "@idl/types/idl-data-types": [
         "libs/types/idl-data-types/src/index.ts"
       ],
-      "@idl/vscode/github-copilot": [
-        "libs/vscode/github-copilot/src/index.ts"
-      ],
       "@idl/vscode/mcp": [
         "libs/vscode/mcp/src/index.ts"
+      ],
+      "@idl/indexing/indexer": [
+        "libs/indexing/indexer/src/index.ts"
       ],
       "buffer": [
         "node_modules/buffer"

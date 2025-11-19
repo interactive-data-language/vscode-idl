@@ -42,7 +42,7 @@ function registerTutorialFiles(baseDir: string, relativePath = '') {
 
       const description = `IDL Tutorial: ${relativeItemPath}`;
 
-      TrackServerResource(resourceName, description, content);
+      MCPResourceIndex.add(resourceName, content);
     }
   }
 }
