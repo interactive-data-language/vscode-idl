@@ -1,3 +1,4 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_TRANSLATION } from '@idl/translation';
 import * as vscode from 'vscode';
 
@@ -53,9 +54,8 @@ export async function SetupCopilotInstructions(
     }
 
     // Get template from extension
-    const idlInstructionsTemplateUri = vscode.Uri.joinPath(
-      ctx.extensionUri,
-      'extension/templates/IDL.instructions.md'
+    const idlInstructionsTemplateUri = vscode.Uri.file(
+      GetExtensionPath('extension/templates/IDL.instructions.md')
     );
 
     // Read template content
