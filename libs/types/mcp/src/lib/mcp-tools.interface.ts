@@ -202,11 +202,14 @@ export type MCPTool_ResourcesListAll = 'list-all-resources';
 export type MCPTool_ResourcesGetResource = 'get-resource';
 
 /**
- * Types of MCP messages
+ * Search resources
  */
-export type MCPTools =
-  | MCPTool_ENVIGetTaskParameters
-  | MCPTool_ENVIListTasks
+export type MCPTool_ResourcesSearchResources = 'search-resources';
+
+/**
+ * MCP Tools that run in VSCode
+ */
+export type MCPTools_VSCode =
   | MCPTool_ENVIOpenDataset
   | MCPTool_ENVIQueryDataset
   | MCPTool_ENVIRunTask
@@ -214,9 +217,18 @@ export type MCPTools =
   | MCPTool_IDLCreateNotebook
   | MCPTool_IDLExecuteCode
   | MCPTool_IDLExecuteFile
-  | MCPTool_IDLStart
+  | MCPTool_IDLStart;
+
+/**
+ * Types of MCP messages
+ */
+export type MCPTools =
+  | MCPTool_ENVIGetTaskParameters
+  | MCPTool_ENVIListTasks
   | MCPTool_ResourcesGetResource
-  | MCPTool_ResourcesListAll;
+  | MCPTool_ResourcesListAll
+  | MCPTool_ResourcesSearchResources
+  | MCPTools_VSCode;
 
 /**
  * Payloads for all MCP messages
@@ -290,6 +302,8 @@ interface IMCPToolLookup {
   RESOURCES_GET_RESOURCE: MCPTool_ResourcesGetResource;
   /** List all resources */
   RESOURCES_LIST_ALL: MCPTool_ResourcesListAll;
+  /** Search all resources */
+  RESOURCES_SEARCH_RESOURCES: MCPTool_ResourcesSearchResources;
 }
 
 /**
@@ -308,4 +322,5 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   IDL_START: 'start-idl',
   RESOURCES_GET_RESOURCE: 'get-resource',
   RESOURCES_LIST_ALL: 'list-all-resources',
+  RESOURCES_SEARCH_RESOURCES: 'search-resources',
 };

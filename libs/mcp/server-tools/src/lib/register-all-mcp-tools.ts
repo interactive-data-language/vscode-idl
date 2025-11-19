@@ -11,6 +11,7 @@ import { RegisterMCPTool_IDLExecuteFile } from './tools/idl/register-mcp-tool-id
 import { RegisterMCPTool_IDLStart } from './tools/idl/register-mcp-tool-idl-start';
 import { RegisterMCPTool_ResourcesGetResource } from './tools/resources/register-mcp-tool-resources-get-resource';
 import { RegisterMCPTool_ResourcesListAll } from './tools/resources/register-mcp-tool-resources-list-all';
+import { RegisterMCPTool_ResourcesSearchResources } from './tools/resources/register-mcp-tool-resources-search';
 
 /**
  * Track contexts for all actively running tools so we can send notification
@@ -46,6 +47,7 @@ export function RegisterAllMCPTools(messenger: VSCodeLanguageServerMessenger) {
   RegisterMCPTool_ENVIStart(messenger);
   RegisterMCPTool_ResourcesGetResource(messenger);
   RegisterMCPTool_ResourcesListAll(messenger);
+  RegisterMCPTool_ResourcesSearchResources(messenger);
 
   // update flag that we registered our tools (duplicated throw errors)
   REGISTERED = true;
