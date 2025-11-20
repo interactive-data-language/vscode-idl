@@ -1,3 +1,4 @@
+import { IDL_MCP_LOG } from '@idl/logger';
 import { MCPResourceIndex } from '@idl/mcp/server-resources';
 import {
   IDLRawNotebook,
@@ -7,6 +8,8 @@ import {
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { nanoid } from 'nanoid';
 import { basename, join } from 'path';
+
+import { IDL_LANGUAGE_SERVER_LOGGER } from '../initialize-language-server';
 
 /**
  * Recursively registers tutorial files as MCP resources
@@ -103,7 +106,11 @@ export function MCPTrackTutorialFiles(baseDir: string, relativePath = '') {
               break;
           }
         } catch (err) {
-          console.log('Problem loading notebook from tutorials');
+          IDL_LANGUAGE_SERVER_LOGGER.log({
+            log: IDL_MCP_LOG,
+            type: 'error',
+            content: [`Problem loading notebook file to track`, err],
+          });
         }
         break;
       }

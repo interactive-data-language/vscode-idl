@@ -47,9 +47,17 @@ export function InitializeMCPServer() {
     RegisterAllMCPResources(SERVER_MESSENGER);
 
     // add all tutorials as server resources
-    MCPTrackTutorialFiles(
-      GetExtensionPath('extension/example-notebooks/IDL Tutorials')
-    );
+    try {
+      MCPTrackTutorialFiles(
+        GetExtensionPath('extension/example-notebooks/IDL Tutorials')
+      );
+    } catch (err) {
+      IDL_LANGUAGE_SERVER_LOGGER.log({
+        log: IDL_MCP_LOG,
+        type: 'error',
+        content: [`Problem tracking IDL tutorial files`, err],
+      });
+    }
 
     // register all of our tools
     RegisterAllMCPTools(SERVER_MESSENGER);
