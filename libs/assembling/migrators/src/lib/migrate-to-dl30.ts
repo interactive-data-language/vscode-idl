@@ -21,20 +21,16 @@ export async function MigrateToDL30(
   cancel: CancellationToken
 ) {
   /** Type for our init task */
-  const initType = IDLTypeHelper.parseIDLType(
-    'ENVITask<InitializeENVINet5MultiModel>'
+  const initType = IDLTypeHelper.createTaskType(
+    'InitializeENVINet5MultiModel',
+    'ENVI'
   );
-
-  /** Convert to string */
-  const initTypeString = IDLTypeHelper.serializeIDLType(initType, true);
 
   /** Type for our init task */
-  const trainType = IDLTypeHelper.parseIDLType(
-    'ENVITask<TrainTensorFlowMaskModel>'
+  const trainType = IDLTypeHelper.createTaskType(
+    'TrainTensorFlowMaskModel',
+    'ENVI'
   );
-
-  /** Convert to string */
-  const trainTypeString = IDLTypeHelper.serializeIDLType(trainType, true);
 
   /**
    * Track the lines that we will comment out
@@ -76,7 +72,7 @@ export async function MigrateToDL30(
         /**
          * Check if we have an init model var that should be commented out
          */
-        case IDLTypeHelper.isType(vars[i].meta.type, initTypeString): {
+        case IDLTypeHelper.compareTypes(vars[i].meta.type, initType): {
           initPropertyCheck[vars[i].name] = vars[i].pos[0];
           const positions = vars[i].meta.usage;
           for (let j = 0; j < positions.length; j++) {
@@ -87,7 +83,7 @@ export async function MigrateToDL30(
         /**
          * Check if we have a training task to update
          */
-        case IDLTypeHelper.isType(vars[i].meta.type, trainTypeString): {
+        case IDLTypeHelper.compareTypes(vars[i].meta.type, trainType): {
           trainUpdate[vars[i].name] = vars[i].pos[0];
           trainUpdateLines[vars[i].pos[0]] = vars[i].meta.display;
           break;

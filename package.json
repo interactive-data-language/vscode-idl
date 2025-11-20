@@ -279,6 +279,10 @@
         "title": "%commands.idl.code.migrateToDL30API%"
       },
       {
+        "command": "idl.code.migrateToDL40API",
+        "title": "%commands.idl.code.migrateToDL40API%"
+      },
+      {
         "command": "idl.config.specifyIDLDirectory",
         "title": "%commands.idl.config.specifyIDLDirectory%"
       },
@@ -1506,6 +1510,10 @@
         },
         {
           "command": "idl.code.migrateToDL30API",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.code.migrateToDL40API",
           "when": "!isWeb"
         },
         {

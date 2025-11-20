@@ -53,6 +53,7 @@ export const EN: ITranslation = {
         formatWorkspace: 'IDL: Format Files in Workspace',
         generateTask: 'IDL: Generate ENVI or IDL Task',
         migrateToDL30API: 'IDL: Migrate Code to ENVI Deep Learning 3.0 API',
+        migrateToDL40API: 'IDL: MIgrate Code to ENVI Deep Learning 4.0 API',
       },
       config: {
         specifyIDLDirectory: 'IDL: Specify IDL Directory (User-level)',
@@ -124,6 +125,7 @@ export const EN: ITranslation = {
         generateTask: 'Error while generating task',
         initializeConfig: 'Error while initializing config for workspace',
         migrateToDL30API: 'Error while migrating code',
+        migrateToDL40API: 'Error while migrating code',
       },
       config: {
         specifyIDLDirectory: 'Error while setting IDL directory (User)',

@@ -1,4 +1,4 @@
-import { IDLTypeHelper } from '@idl/parsing/type-parser';
+import { GetTaskDisplayName, IDLTypeHelper } from '@idl/parsing/type-parser';
 import { CallFunctionToken } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
@@ -74,19 +74,15 @@ export function TypeFromFunction(
   if (returnNameAsType) {
     switch (true) {
       case wasENVITask:
-        return IDLTypeHelper.createIDLType([
-          {
-            name: 'ENVITask',
-            args: [copy(IDL_ANY_TYPE)],
-          },
-        ]);
+        return IDLTypeHelper.createTaskType(
+          GetTaskDisplayName(name).taskName,
+          'ENVI'
+        );
       case wasIDLTask:
-        return IDLTypeHelper.createIDLType([
-          {
-            name: 'IDLTask',
-            args: [copy(IDL_ANY_TYPE)],
-          },
-        ]);
+        return IDLTypeHelper.createTaskType(
+          GetTaskDisplayName(name).taskName,
+          'IDL'
+        );
       default:
         return IDLTypeHelper.createIDLType([
           {

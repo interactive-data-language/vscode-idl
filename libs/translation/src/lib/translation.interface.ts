@@ -38,6 +38,8 @@ export interface ICommandTranslation {
     initializeConfig: string;
     /** Migrate PRO code to the ENVI DL 3.0 API */
     migrateToDL30API: string;
+    /** Migrate PRO code to the ENVI DL 4.0 API */
+    migrateToDL40API: string;
   };
   /** Translations for configuration */
   config: {

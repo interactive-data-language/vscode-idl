@@ -71,6 +71,8 @@ export const IDL_COMMANDS = {
     GENERATE_TASK: `${BASE_CODE}generateTask`,
     /** Migrate PRO code to the ENVI DL 3.0 API */
     MIGRATE_TO_DL30_API: `${BASE_CODE}migrateToDL30API`,
+    /** Migrate PRO code to the ENVI DL 4.0 API */
+    MIGRATE_TO_DL40_API: `${BASE_CODE}migrateToDL40API`,
     /** Disable problem code through settings */
     DISABLE_PROBLEM_SETTING: `${BASE_CODE}disableProblemSetting`,
     /** Auto fix problem */

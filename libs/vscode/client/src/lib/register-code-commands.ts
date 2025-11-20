@@ -506,4 +506,50 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
       }
     )
   );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(
+      IDL_COMMANDS.CODE.MIGRATE_TO_DL40_API,
+      async () => {
+        try {
+          LogCommandInfo('Migrate to DL 4.0 API');
+
+          // check for PRO file
+          const doc = GetActivePROCodeWindow();
+
+          // make sure we have a file
+          if (doc !== undefined) {
+            VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+              idl_command: IDL_COMMANDS.CODE.MIGRATE_TO_DL40_API,
+            });
+
+            const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
+              LANGUAGE_SERVER_MESSAGE_LOOKUP.MIGRATE_CODE,
+              {
+                uri: doc.uri.toString(),
+                migrationType: MIGRATION_TYPE_LOOKUP.ENVI_DL_40,
+              }
+            );
+
+            // make sure we have a response
+            if (resp.text) {
+              await ReplaceDocumentContent(doc, resp.text);
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            return false;
+          }
+        } catch (err) {
+          LogCommandError(
+            'Error while migrating to DL 4.0 API',
+            err,
+            cmdErrors.code.migrateToDL40API
+          );
+          return false;
+        }
+      }
+    )
+  );
 }

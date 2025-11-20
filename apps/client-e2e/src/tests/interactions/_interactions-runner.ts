@@ -25,6 +25,10 @@ import {
   MigrateCodeDL30,
   MigrateCodeDL30_2,
 } from './commands/migrate-code-dl-3.0';
+import {
+  MigrateCodeDL40,
+  MigrateCodeDL40_2,
+} from './commands/migrate-code-dl-4.0';
 import { IDLDisableAllFromSettings } from './disable-problems/idl-disable-all-from-setting';
 import { IDLDisableAllFromSettingsForNotebook } from './disable-problems/idl-disable-all-from-setting-for-notebook';
 import {
@@ -76,6 +80,16 @@ INTERACTIONS_RUNNER.addTest({
 INTERACTIONS_RUNNER.addTest({
   name: 'Migrate code: DL 3.0 API #2',
   fn: MigrateCodeDL30_2,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Migrate code: DL 4.0 API #1',
+  fn: MigrateCodeDL40,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Migrate code: DL 4.0 API #2',
+  fn: MigrateCodeDL40_2,
 });
 
 INTERACTIONS_RUNNER.addTest({

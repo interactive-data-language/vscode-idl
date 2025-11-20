@@ -99,6 +99,19 @@ export class IDLTypeHelper {
   }
 
   /**
+   * Does a deep comparison between two types by serializing them and equating
+   * to one another
+   *
+   * Returns true if the types are the same
+   */
+  static compareTypes(type1: IDLDataType, type2: IDLDataType) {
+    return (
+      this.serializeIDLType(type1).toLowerCase() ===
+      this.serializeIDLType(type2).toLowerCase()
+    );
+  }
+
+  /**
    * Manually creates an IDL Data Type and sets values
    * as if we are parsing from scratch
    */
@@ -122,6 +135,36 @@ export class IDLTypeHelper {
         };
       })
     );
+  }
+
+  /**
+   * Creates a task data type from the name of the task
+   *
+   * The name should be the display name for visual representation
+   */
+  static createTaskType(
+    taskName: string,
+    taskType: 'ENVI' | 'IDL' = 'ENVI'
+  ): IDLDataType {
+    return [
+      {
+        name: `${taskType.toLowerCase()}${taskName.toLowerCase()}task`,
+        display: `${taskType}Task<${taskName}>`,
+        serialized: `${taskType}Task<${taskName}>`,
+        args: [
+          [
+            {
+              name: taskName,
+              display: taskName,
+              serialized: taskName,
+              args: [],
+              meta: {},
+            },
+          ],
+        ],
+        meta: {},
+      },
+    ];
   }
 
   /**
@@ -228,6 +271,10 @@ export class IDLTypeHelper {
    * Checks if a data type matches a user specified value (case-insensitive)
    *
    * Only checks for presence, doesn't filter out for "any"
+   *
+   * Does a shallow check comparing the type's name to the check type.
+   *
+   * Good enough for most cases, see the IDLTypeHelper::CompareTypes
    */
   static isType(type: IDLDataType, checkType: string): boolean {
     for (let i = 0; i < type.length; i++) {
