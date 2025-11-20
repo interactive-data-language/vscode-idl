@@ -99,7 +99,7 @@ export function MCPTrackResourcesInFolder(
                 } else {
                   strings.push('```idl');
                   strings = strings.concat(cell.content);
-                  strings.push('```idl');
+                  strings.push('```');
                 }
               }
 
