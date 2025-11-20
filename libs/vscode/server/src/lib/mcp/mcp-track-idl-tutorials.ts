@@ -1,11 +1,17 @@
 import { MCPResourceIndex } from '@idl/mcp/server-resources';
+import {
+  IDLRawNotebook,
+  IDLRawNotebookVersion,
+  IDLRawNotebookVersion_2_0_0,
+} from '@idl/types/notebooks';
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
-import { join } from 'path';
+import { nanoid } from 'nanoid';
+import { basename, join } from 'path';
 
 /**
  * Recursively registers tutorial files as MCP resources
  */
-export function RegisterTutorialFiles(baseDir: string, relativePath = '') {
+export function MCPTrackTutorialFiles(baseDir: string, relativePath = '') {
   const fullPath = join(baseDir, relativePath);
 
   if (!existsSync(fullPath)) {
@@ -19,27 +25,90 @@ export function RegisterTutorialFiles(baseDir: string, relativePath = '') {
     const relativeItemPath = relativePath ? join(relativePath, item) : item;
     const stat = statSync(itemPath);
 
-    if (stat.isDirectory()) {
-      // Skip the "Setting up" directory
-      if (item.includes('Setting up')) {
-        continue;
+    switch (true) {
+      /**
+       * Recurse
+       */
+      case stat.isDirectory():
+        // Skip the "Setting up" directory
+        if (item.includes('Setting up')) {
+          continue;
+        }
+
+        // Recursively process subdirectories
+        MCPTrackTutorialFiles(baseDir, relativeItemPath);
+        break;
+
+      /**
+       * Add markdown
+       */
+      case item.endsWith('.md'):
+        MCPResourceIndex.add(
+          `${basename(item)}${nanoid()}`,
+          readFileSync(item, { encoding: 'utf-8' })
+        );
+        break;
+
+      /**
+       * Add notebooks - extract the content from the cells
+       * for a more targeted search result
+       */
+      case item.endsWith('.idlnb'): {
+        try {
+          /**
+           * Parse notebook
+           */
+          const parsed: IDLRawNotebook<IDLRawNotebookVersion> = JSON.parse(
+            readFileSync(itemPath, 'utf-8')
+          );
+
+          // handle version of NB file
+          switch (parsed.version) {
+            case '2.0.0': {
+              /** Type notebook */
+              const typed =
+                parsed as IDLRawNotebook<IDLRawNotebookVersion_2_0_0>;
+
+              /** Store string representation of notebook */
+              let strings: string[] = [];
+
+              // process each cell
+              for (let i = 0; i < typed.cells.length; i++) {
+                // add space for better layout
+                if (strings.length > 0) {
+                  strings.push('');
+                }
+
+                // extract cell
+                const cell = typed.cells[i];
+
+                // see how we need to include
+                if (cell.type === 'markdown') {
+                  strings = strings.concat(cell.content);
+                } else {
+                  strings.push('```idl');
+                  strings = strings.concat(cell.content);
+                  strings.push('```idl');
+                }
+              }
+
+              // track
+              MCPResourceIndex.add(
+                `${basename(item)}${nanoid()}`,
+                strings.join('\n')
+              );
+              break;
+            }
+            default:
+              break;
+          }
+        } catch (err) {
+          console.log('Problem loading notebook from tutorials');
+        }
+        break;
       }
-      // Recursively process subdirectories
-      RegisterTutorialFiles(baseDir, relativeItemPath);
-    } else if (item.endsWith('.idlnb') || item.endsWith('.md')) {
-      // Register individual tutorial files
-      const content = readFileSync(itemPath, 'utf-8');
-      const resourceName = `tutorial-${relativeItemPath
-        .replace(/\\/g, '-')
-        .replace(/\//g, '-')
-        .replace(/\.idlnb$/, '')
-        .replace(/\.md$/, '')
-        .replace(/\s+/g, '-')
-        .toLowerCase()}`;
-
-      const description = `IDL Tutorial: ${relativeItemPath}`;
-
-      MCPResourceIndex.add(resourceName, content);
+      default:
+        break;
     }
   }
 }

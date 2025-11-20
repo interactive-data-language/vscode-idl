@@ -11,7 +11,7 @@ import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
 } from './initialize-language-server';
-import { RegisterTutorialFiles } from './mcp/mcp-track-idl-tutorials';
+import { MCPTrackTutorialFiles } from './mcp/mcp-track-idl-tutorials';
 
 /**
  * Starts our MCP Server and adds all of our known tools
@@ -47,7 +47,7 @@ export function InitializeMCPServer() {
     RegisterAllMCPResources(SERVER_MESSENGER);
 
     // add all tutorials as server resources
-    RegisterTutorialFiles(
+    MCPTrackTutorialFiles(
       GetExtensionPath('extension/example-notebooks/IDL Tutorials')
     );
 
