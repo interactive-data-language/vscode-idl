@@ -8,6 +8,8 @@ import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 
 /**
  * Get a resource from the server
+ *
+ * @deprecated
  */
 export function RegisterMCPTool_ResourcesGetResource(
   messenger: VSCodeLanguageServerMessenger
