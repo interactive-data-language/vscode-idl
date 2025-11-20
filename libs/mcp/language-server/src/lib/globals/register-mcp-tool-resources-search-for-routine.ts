@@ -35,7 +35,7 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
     IDL_TRANSLATION.mcp.tools.displayNames[
       MCP_TOOL_LOOKUP.RESOURCES_SEARCH_FOR_ROUTINE
     ],
-    `Searches our global index of IDL routines, should be used for finding specific routines. Checks known functions, procedures, function methods, procedure methods, structures, and system variables. Returns matches for each type.`,
+    `Searches our language server for matching routines. Checks known functions, procedures, function methods, procedure methods, structures, and system variables. Returns matches for each type.`,
     {
       name: z
         .string()

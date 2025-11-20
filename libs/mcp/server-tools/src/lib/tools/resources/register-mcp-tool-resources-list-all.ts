@@ -7,6 +7,8 @@ import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 
 /**
  * List all resources
+ *
+ * @deprecated
  */
 export function RegisterMCPTool_ResourcesListAll(
   messenger: VSCodeLanguageServerMessenger
