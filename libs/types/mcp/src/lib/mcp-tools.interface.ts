@@ -202,6 +202,11 @@ export type MCPTool_ResourcesListAll = 'list-all-resources';
 export type MCPTool_ResourcesGetResource = 'get-resource';
 
 /**
+ * Search global tokens for routine
+ */
+export type MCPTool_ResourcesSearchForRoutine = 'search-for-routine';
+
+/**
  * Search resources
  */
 export type MCPTool_ResourcesSearchResources = 'search-resources';
@@ -227,6 +232,7 @@ export type MCPTools =
   | MCPTool_ENVIListTasks
   | MCPTool_ResourcesGetResource
   | MCPTool_ResourcesListAll
+  | MCPTool_ResourcesSearchForRoutine
   | MCPTool_ResourcesSearchResources
   | MCPTools_VSCode;
 
@@ -302,6 +308,8 @@ interface IMCPToolLookup {
   RESOURCES_GET_RESOURCE: MCPTool_ResourcesGetResource;
   /** List all resources */
   RESOURCES_LIST_ALL: MCPTool_ResourcesListAll;
+  /** Search for a particular routine */
+  RESOURCES_SEARCH_FOR_ROUTINE: MCPTool_ResourcesSearchForRoutine;
   /** Search all resources */
   RESOURCES_SEARCH_RESOURCES: MCPTool_ResourcesSearchResources;
 }
@@ -322,5 +330,6 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   IDL_START: 'start-idl',
   RESOURCES_GET_RESOURCE: 'get-resource',
   RESOURCES_LIST_ALL: 'list-all-resources',
+  RESOURCES_SEARCH_FOR_ROUTINE: 'search-for-routine',
   RESOURCES_SEARCH_RESOURCES: 'search-resources',
 };

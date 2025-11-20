@@ -22,6 +22,7 @@ import GlobToRegExp = require('glob-to-regexp');
 import { IsProblemDisabled } from '@idl/parser';
 import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
 import copy from 'fast-copy';
+import * as fuzzysort from 'fuzzysort';
 
 import { ShouldExportItem } from './helpers/should-export-item';
 
@@ -175,7 +176,9 @@ export class GlobalIndex {
    */
   findMatchingGlobalToken<T extends GlobalTokenType>(
     type: T,
-    name: string
+    name: string,
+    fuzzy = false,
+    fuzzyLimit = 10
   ): IGlobalIndexedToken<T>[] {
     // get the tokens to process
     if (type in this.globalTokensByTypeByName) {
@@ -185,6 +188,20 @@ export class GlobalIndex {
       // extract global variables of type
       const toCheck = this.globalTokensByTypeByName[type];
 
+      // use fuzzy search if requested
+      if (fuzzy) {
+        /** Find matches */
+        const matches = fuzzysort.go(useName, Object.keys(toCheck));
+
+        // return matches sorted by best fit
+        return matches
+          .slice(0, Math.min(fuzzyLimit, matches.length))
+          .map(
+            (result) => toCheck[result.target][0] as IGlobalIndexedToken<T>
+          ) as IGlobalIndexedToken<T>[];
+      }
+
+      // exact match
       if (useName in toCheck) {
         return toCheck[useName] as IGlobalIndexedToken<T>[];
       }
