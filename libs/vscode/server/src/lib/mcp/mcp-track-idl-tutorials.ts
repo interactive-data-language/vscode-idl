@@ -45,7 +45,7 @@ export function MCPTrackTutorialFiles(baseDir: string, relativePath = '') {
       case item.endsWith('.md'):
         MCPResourceIndex.add(
           `${basename(item)}${nanoid()}`,
-          readFileSync(item, { encoding: 'utf-8' })
+          readFileSync(itemPath, { encoding: 'utf-8' })
         );
         break;
 
