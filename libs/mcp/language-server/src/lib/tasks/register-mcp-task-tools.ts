@@ -1,4 +1,4 @@
-import { IDL_LSP_LOG } from '@idl/logger';
+import { IDL_LSP_LOG, LogManager } from '@idl/logger';
 import { MCP_SERVER } from '@idl/mcp/server';
 import {
   RegisterMCPTool_ENVIGetTaskParameters,
@@ -6,6 +6,7 @@ import {
   RegisterMCPTool_ENVIRunTask,
   TrackENVITaskForMCPServer,
 } from '@idl/mcp/server-tools';
+import { IDLIndex } from '@idl/parsing/index';
 import {
   GLOBAL_TOKEN_TYPES,
   GlobalStructureToken,
@@ -13,11 +14,6 @@ import {
 } from '@idl/types/idl-data-types';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
-import { IDL_INDEX } from '../events/initialize-document-manager';
-import {
-  IDL_LANGUAGE_SERVER_LOGGER,
-  SERVER_MESSENGER,
-} from '../initialize-language-server';
 import { FilterMCPENVITasks } from './filter-mcp-envi-tasks';
 
 /**
@@ -25,10 +21,12 @@ import { FilterMCPENVITasks } from './filter-mcp-envi-tasks';
  *
  * WIP: Not complete and GitHub Copilot isn't the best here
  */
-export async function RegisterUserMCPTools(
+export async function RegisterMCPTaskTools(
+  index: IDLIndex,
+  logger: LogManager,
   messenger: VSCodeLanguageServerMessenger
 ) {
-  IDL_LANGUAGE_SERVER_LOGGER.log({
+  logger.log({
     log: IDL_LSP_LOG,
     type: 'info',
     content: 'Registering MCP user tools',
@@ -41,9 +39,7 @@ export async function RegisterUserMCPTools(
 
   /** Get all structures that we know about */
   const structures =
-    IDL_INDEX.globalIndex.globalTokensByTypeByName[
-      GLOBAL_TOKEN_TYPES.STRUCTURE
-    ];
+    index.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.STRUCTURE];
 
   /** Find names of ENVI Tasks  */
   const keys = FilterMCPENVITasks(Object.keys(structures)).sort();
@@ -51,17 +47,9 @@ export async function RegisterUserMCPTools(
   // add all ENVI Tasks
   for (let i = 0; i < keys.length; i++) {
     TrackENVITaskForMCPServer(
-      SERVER_MESSENGER,
-      structures[keys[i]][0] as IGlobalIndexedToken<GlobalStructureToken>,
-      `${i}`
+      structures[keys[i]][0] as IGlobalIndexedToken<GlobalStructureToken>
     );
   }
-
-  // // alert that we are done
-  // SERVER_MESSENGER.sendNotification(
-  //   LANGUAGE_SERVER_MESSAGE_LOOKUP.REFRESH_MCP_TOOLS,
-  //   null
-  // );
 
   // emit MCP event that tools have changed
   MCP_SERVER.sendToolListChanged();

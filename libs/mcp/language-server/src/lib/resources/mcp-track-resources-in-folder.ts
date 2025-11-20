@@ -1,4 +1,4 @@
-import { IDL_MCP_LOG } from '@idl/logger';
+import { IDL_MCP_LOG, LogManager } from '@idl/logger';
 import { MCPResourceIndex } from '@idl/mcp/server-resources';
 import {
   IDLRawNotebook,
@@ -9,46 +9,54 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { nanoid } from 'nanoid';
 import { basename, join } from 'path';
 
-import { IDL_LANGUAGE_SERVER_LOGGER } from '../initialize-language-server';
-
 /**
  * Recursively registers tutorial files as MCP resources
  */
-export function MCPTrackTutorialFiles(baseDir: string, relativePath = '') {
-  const fullPath = join(baseDir, relativePath);
-
-  if (!existsSync(fullPath)) {
+export function MCPTrackResourcesInFolder(
+  logger: LogManager,
+  folder: string,
+  filter: { [key: string]: any } = {}
+) {
+  // return if no folder
+  if (!existsSync(folder)) {
     return;
   }
 
-  const items = readdirSync(fullPath);
+  /**
+   * Recursively search for files
+   */
+  const items = readdirSync(folder, { recursive: true }).map((item) =>
+    join(folder, item)
+  );
 
+  /**
+   * Process each file/folder we found
+   */
   for (const item of items) {
-    const itemPath = join(fullPath, item);
-    const relativeItemPath = relativePath ? join(relativePath, item) : item;
-    const stat = statSync(itemPath);
+    /** Get lower case name */
+    const lc = item.toLowerCase();
 
+    // skip if file should be ignored
+    if (basename(lc) in filter) {
+      continue;
+    }
+
+    // skip folders
+    if (statSync(item).isDirectory()) {
+      continue;
+    }
+
+    /**
+     * Determine how to proceed
+     */
     switch (true) {
-      /**
-       * Recurse
-       */
-      case stat.isDirectory():
-        // Skip the "Setting up" directory
-        if (item.includes('Setting up')) {
-          continue;
-        }
-
-        // Recursively process subdirectories
-        MCPTrackTutorialFiles(baseDir, relativeItemPath);
-        break;
-
       /**
        * Add markdown
        */
-      case item.endsWith('.md'):
+      case lc.endsWith('.md'):
         MCPResourceIndex.add(
-          `${basename(item)}${nanoid()}`,
-          readFileSync(itemPath, { encoding: 'utf-8' })
+          `${basename(item)}-${nanoid()}`,
+          readFileSync(item, { encoding: 'utf-8' })
         );
         break;
 
@@ -56,13 +64,13 @@ export function MCPTrackTutorialFiles(baseDir: string, relativePath = '') {
        * Add notebooks - extract the content from the cells
        * for a more targeted search result
        */
-      case item.endsWith('.idlnb'): {
+      case lc.endsWith('.idlnb'): {
         try {
           /**
            * Parse notebook
            */
           const parsed: IDLRawNotebook<IDLRawNotebookVersion> = JSON.parse(
-            readFileSync(itemPath, 'utf-8')
+            readFileSync(item, 'utf-8')
           );
 
           // handle version of NB file
@@ -97,7 +105,7 @@ export function MCPTrackTutorialFiles(baseDir: string, relativePath = '') {
 
               // track
               MCPResourceIndex.add(
-                `${basename(item)}${nanoid()}`,
+                `${basename(item)}-${nanoid()}`,
                 strings.join('\n')
               );
               break;
@@ -106,7 +114,7 @@ export function MCPTrackTutorialFiles(baseDir: string, relativePath = '') {
               break;
           }
         } catch (err) {
-          IDL_LANGUAGE_SERVER_LOGGER.log({
+          logger.log({
             log: IDL_MCP_LOG,
             type: 'error',
             content: [`Problem loading notebook file to track`, err],

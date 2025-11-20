@@ -2,6 +2,11 @@ import { TASK_REGEX } from '@idl/parsing/type-parser';
 
 import { SKIP_THESE_TASKS } from './filter-mcp-envi-tasks.interface';
 
+/**
+ * Filters ENVI Tasks for use in MCP
+ *
+ * Some are disabled because they don't make sense
+ */
 export function FilterMCPENVITasks(taskNames: string[]) {
   /**
    * Task names start with "envi" and end with "task" so we have to filter with

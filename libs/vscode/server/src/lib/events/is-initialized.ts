@@ -31,7 +31,6 @@ import {
   SERVER_MESSENGER,
 } from '../initialize-language-server';
 import { InitializeMCPServer } from '../initialize-mcp-server';
-import { TrackIDLENVIGlobalsAsMCPResources } from '../mcp/track-idl-envi-globals-as-mcp-resources';
 import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
 import { WORKSPACE_FOLDER_LIST } from './documents/on-connection-initialized';
 import { IDL_INDEX } from './initialize-document-manager';
@@ -120,7 +119,6 @@ SERVER_INFO.then(async (res) => {
 
     // load global tokens
     IDL_INDEX.loadGlobalTokens(IDL_CLIENT_CONFIG);
-    TrackIDLENVIGlobalsAsMCPResources();
 
     // log our memory usage at regular intervals
     setInterval(async () => {

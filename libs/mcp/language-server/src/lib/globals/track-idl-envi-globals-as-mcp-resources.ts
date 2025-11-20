@@ -1,9 +1,7 @@
-import { IDL_LSP_LOG } from '@idl/logger';
+import { IDL_MCP_LOG, LogManager } from '@idl/logger';
 import { MCP_SERVER } from '@idl/mcp/server';
 import { TrackServerResource } from '@idl/mcp/server-tools';
 import { IDL_GLOBAL_TOKENS } from '@idl/parsing/index';
-
-import { IDL_LANGUAGE_SERVER_LOGGER } from '../initialize-language-server';
 
 /**
  * Formats a routine into a comprehensive markdown documentation string
@@ -94,20 +92,17 @@ function formatRoutineDoc(routine: any): string {
  * Track routines from global.json (i.e. product documentation) for
  * MCP to query more about our tools
  */
-export function TrackIDLENVIGlobalsAsMCPResources() {
+export function TrackIDLENVIGlobalsAsMCPResources(logger: LogManager) {
   try {
     /** Get all global tokens */
     const globals = IDL_GLOBAL_TOKENS;
 
     const routineCount = globals.length;
-    IDL_LANGUAGE_SERVER_LOGGER.log({
-      log: IDL_LSP_LOG,
+    logger.log({
+      log: IDL_MCP_LOG,
       type: 'info',
       content: `[MCP Resources] Found ${routineCount} IDL routines to register`,
     });
-    console.log(
-      `[IDL MCP] Registering ${routineCount} IDL routines as MCP resources...`
-    );
 
     // Track resource for summary
     TrackServerResource(
@@ -138,30 +133,32 @@ export function TrackIDLENVIGlobalsAsMCPResources() {
 
     // Register the index resource itself
     try {
-      MCP_SERVER.resource(
+      MCP_SERVER.registerResource(
         'idl-routines-index',
         'docs://idl-routines-index',
-        async () => {
-          return {
-            contents: [
-              {
-                uri: 'docs://idl-routines-index',
-                mimeType: 'text/markdown',
-                text:
-                  `# IDL Core Routines Index\n\n` +
-                  `Total routines: ${routineCount}\n\n` +
-                  `## Quick Access\n\n` +
-                  `To get documentation for a specific routine, use the resource URI:\n` +
-                  `\`docs://idl-routine-{name}\`\n\n` +
-                  `Where {name} is the routine name in lowercase with special characters replaced:\n` +
-                  `- Replace \`:\` with \`-\`\n` +
-                  `- Replace \`_\` with \`-\`\n` +
-                  `- Convert to lowercase\n\n` +
-                  `Example: \`IDLgrWindow::Init\` becomes \`docs://idl-routine-idlgrwindow--init\``,
-              },
-            ],
-          };
-        }
+        {
+          title: 'IDL Routine Index',
+          description: 'How to look up IDL routines',
+          mimeType: 'text/markdown',
+        },
+        async () => ({
+          contents: [
+            {
+              uri: 'docs://idl-routines-index',
+              text:
+                `# IDL Core Routines Index\n\n` +
+                `Total routines: ${routineCount}\n\n` +
+                `## Quick Access\n\n` +
+                `To get documentation for a specific routine, use the resource URI:\n` +
+                `\`docs://idl-routine-{name}\`\n\n` +
+                `Where {name} is the routine name in lowercase with special characters replaced:\n` +
+                `- Replace \`:\` with \`-\`\n` +
+                `- Replace \`_\` with \`-\`\n` +
+                `- Convert to lowercase\n\n` +
+                `Example: \`IDLgrWindow::Init\` becomes \`docs://idl-routine-idlgrwindow--init\``,
+            },
+          ],
+        })
       );
     } catch (err) {
       // Skip if already registered
@@ -192,24 +189,28 @@ export function TrackIDLENVIGlobalsAsMCPResources() {
 
       // Set up the resource to be used by the MCP server.
       try {
-        MCP_SERVER.resource(resourceName, resourceUri, async () => {
-          return {
+        MCP_SERVER.registerResource(
+          resourceName,
+          resourceUri,
+          {
+            mimeType: 'text/markdown',
+          },
+          async () => ({
             contents: [
               {
                 uri: resourceUri,
-                mimeType: 'text/markdown',
                 text: docText,
               },
             ],
-          };
-        });
+          })
+        );
       } catch (err) {
         // Skip if already registered
       }
     }
   } catch (error) {
-    IDL_LANGUAGE_SERVER_LOGGER.log({
-      log: IDL_LSP_LOG,
+    logger.log({
+      log: IDL_MCP_LOG,
       content: [
         '[MCP Resources] Error registering IDL routine resources:',
         error,

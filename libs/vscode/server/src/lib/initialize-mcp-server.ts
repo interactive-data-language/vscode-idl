@@ -1,5 +1,8 @@
-import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_MCP_LOG } from '@idl/logger';
+import {
+  MCPTrackTutorialsAsResources,
+  TrackIDLENVIGlobalsAsMCPResources,
+} from '@idl/mcp/language-server';
 import { StartMCPServer } from '@idl/mcp/server';
 import { RegisterAllMCPResources } from '@idl/mcp/server-resources';
 import { MCP_TOOL_CONTEXT, RegisterAllMCPTools } from '@idl/mcp/server-tools';
@@ -11,7 +14,6 @@ import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
 } from './initialize-language-server';
-import { MCPTrackTutorialFiles } from './mcp/mcp-track-idl-tutorials';
 
 /**
  * Starts our MCP Server and adds all of our known tools
@@ -46,11 +48,12 @@ export function InitializeMCPServer() {
     // register all of our resources
     RegisterAllMCPResources(SERVER_MESSENGER);
 
+    // register global tokens
+    TrackIDLENVIGlobalsAsMCPResources(IDL_LANGUAGE_SERVER_LOGGER);
+
     // add all tutorials as server resources
     try {
-      MCPTrackTutorialFiles(
-        GetExtensionPath('extension/example-notebooks/IDL Tutorials')
-      );
+      MCPTrackTutorialsAsResources(IDL_LANGUAGE_SERVER_LOGGER);
     } catch (err) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_MCP_LOG,

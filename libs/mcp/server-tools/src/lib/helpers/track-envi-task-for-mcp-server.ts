@@ -3,7 +3,6 @@ import {
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z, ZodRawShape } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
@@ -20,9 +19,7 @@ import { GetCleanDescription } from './get-clean-description';
  * Registers a tool that can run an ENVI Task
  */
 export function TrackENVITaskForMCPServer(
-  messenger: VSCodeLanguageServerMessenger,
-  task: IGlobalIndexedToken<GlobalStructureToken>,
-  taskId: string // ID for task if we dont want to use names for shorter tools
+  task: IGlobalIndexedToken<GlobalStructureToken>
 ) {
   /** Get the task name */
   const taskName = TASK_REGEX.exec(task.meta.display)[1];

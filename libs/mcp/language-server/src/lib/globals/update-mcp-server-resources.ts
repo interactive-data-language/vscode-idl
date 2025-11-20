@@ -1,7 +1,6 @@
 import { TrackServerResource } from '@idl/mcp/server-tools';
+import { IDLIndex } from '@idl/parsing/index';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
-
-import { IDL_INDEX } from '../events/initialize-document-manager';
 
 /**
  * Update server resources for global tokens in some files
@@ -9,13 +8,13 @@ import { IDL_INDEX } from '../events/initialize-document-manager';
  * TODO: Deleting resources from past cache because we may change
  * names or delete items
  */
-export function UpdateMCPServerResources(files: string[]) {
+export function UpdateMCPServerResources(index: IDLIndex, files: string[]) {
   // process all files that have changed
   for (let i = 0; i < files.length; i++) {
     // make sure we know about the file
-    if (files[i] in IDL_INDEX.globalIndex.globalTokensByFile) {
+    if (files[i] in index.globalIndex.globalTokensByFile) {
       /** Get al global tokens */
-      const globals = IDL_INDEX.globalIndex.globalTokensByFile[files[i]];
+      const globals = index.globalIndex.globalTokensByFile[files[i]];
 
       // process each one and track as necessary
       for (let j = 0; j < globals.length; j++) {
