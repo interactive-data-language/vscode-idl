@@ -193,12 +193,31 @@ export class GlobalIndex {
         /** Find matches */
         const matches = fuzzysort.go(useName, Object.keys(toCheck));
 
-        // return matches sorted by best fit
-        return matches
-          .slice(0, Math.min(fuzzyLimit, matches.length))
-          .map(
-            (result) => toCheck[result.target][0] as IGlobalIndexedToken<T>
-          ) as IGlobalIndexedToken<T>[];
+        /** Init results */
+        const results: IGlobalIndexedToken<T>[] = [];
+
+        // if we have an exact match, save that first
+        if (useName in toCheck) {
+          results.push(toCheck[useName][0] as IGlobalIndexedToken<T>);
+        }
+
+        /**
+         * Return matches
+         *
+         * Fuzzysort logic:
+         *
+         * 1. Take top "fuzzyLimit" entries
+         * 2. Map the results from fuzzy search to the global token
+         * 3. Remove duplicate detections if we have an exact match
+         */
+        return results.concat(
+          matches
+            .filter((result) => result.target !== useName)
+            .slice(0, Math.min(fuzzyLimit, matches.length))
+            .map(
+              (result) => toCheck[result.target][0] as IGlobalIndexedToken<T>
+            ) as IGlobalIndexedToken<T>[]
+        );
       }
 
       // exact match
