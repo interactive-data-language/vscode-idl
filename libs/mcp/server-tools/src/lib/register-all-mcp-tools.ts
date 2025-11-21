@@ -1,3 +1,4 @@
+import { LogManager } from '@idl/logger';
 import { IS_MCP_SERVER_STARTED } from '@idl/mcp/server';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
@@ -25,7 +26,10 @@ let REGISTERED = false;
 /**
  * Helper that adds all tools to the MCP server
  */
-export function RegisterAllMCPTools(messenger: VSCodeLanguageServerMessenger) {
+export function RegisterAllMCPTools(
+  messenger: VSCodeLanguageServerMessenger,
+  logManager: LogManager
+) {
   if (!IS_MCP_SERVER_STARTED) {
     return;
   }
@@ -45,7 +49,7 @@ export function RegisterAllMCPTools(messenger: VSCodeLanguageServerMessenger) {
   RegisterMCPTool_ENVIStart(messenger);
   // RegisterMCPTool_ResourcesGetResource(messenger);
   // RegisterMCPTool_ResourcesListAll(messenger);
-  RegisterMCPTool_ResourcesSearchResources(messenger);
+  RegisterMCPTool_ResourcesSearchResources(messenger, logManager);
 
   // update flag that we registered our tools (duplicated throw errors)
   REGISTERED = true;

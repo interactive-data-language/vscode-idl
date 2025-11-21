@@ -24,7 +24,7 @@ export function RegisterAllMCPResources(
 
   MCPResourceIndex.add(
     'about-types',
-    'Basic information about IDL types and adding them to documentation. See here for more information: https://interactive-data-language.github.io/vscode-idl/types/types_tldr.html'
+    'Basic information about adding types to IDL through routine documentation. See here for more information: https://interactive-data-language.github.io/vscode-idl/types/types_tldr.html'
   );
 
   MCPResourceIndex.add(

@@ -141,8 +141,8 @@ export class McpHttpServerCore {
       '/mcp',
       async (req: express.Request, res: express.Response) => {
         this.logCallback({
-          content: 'Received GET MCP request which we should not',
-          type: 'warn',
+          content: 'Received GET MCP request',
+          type: 'debug',
         });
         res.writeHead(405).end(
           JSON.stringify({
@@ -164,8 +164,8 @@ export class McpHttpServerCore {
       '/mcp',
       async (req: express.Request, res: express.Response) => {
         this.logCallback({
-          content: 'Received DELETE MCP request which we should not',
-          type: 'warn',
+          content: 'Received DELETE MCP request',
+          type: 'debug',
         });
         res.writeHead(405).end(
           JSON.stringify({

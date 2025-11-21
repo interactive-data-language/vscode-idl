@@ -61,7 +61,7 @@ export function InitializeMCPServer() {
     }
 
     // register all of our tools
-    RegisterAllMCPTools(SERVER_MESSENGER);
+    RegisterAllMCPTools(SERVER_MESSENGER, IDL_LANGUAGE_SERVER_LOGGER);
 
     // register MCP tools special to the language server
     RegisterMCPTool_ResourcesSearchForRoutine(SERVER_MESSENGER, IDL_INDEX);
