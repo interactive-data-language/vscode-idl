@@ -58,6 +58,8 @@ Re-worked the logic for managing and setting IDL's search path. It follows this 
 - If you have IDL_PATH in your environment variable, add each folder
 - Always make sure the IDL_DEFAULT path is present
 
+Added a new utility to migrate ENVI Deep Learning IDL code to ENVI Deep Learning 4.0 API (there were some task name changes.)
+
 ## 5.1.0 - August 2025
 
 This verion introduces a new selection of IDL Tutorials! These come as a collection of notebooks to help new users get up and running. In the IDL sidebar, you'll see a new section called "IDL Tutorials" with language-specific content.
