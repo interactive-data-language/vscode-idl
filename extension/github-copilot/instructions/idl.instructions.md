@@ -1,5 +1,5 @@
 ---
-applyTo: '*.pro,*.idlnb'
+applyTo: '**/*.pro,**/*.idlnb'
 description: 'IDL programming guidelines (v1.3)'
 ---
 
