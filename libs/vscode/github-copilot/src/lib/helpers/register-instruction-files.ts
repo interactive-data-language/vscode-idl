@@ -1,5 +1,4 @@
 import { FindFiles, GetExtensionPath } from '@idl/idl/files';
-import { existsSync } from 'fs';
 import * as vscode from 'vscode';
 
 /**
@@ -28,21 +27,23 @@ export async function RegisterInstructionsFiles() {
   // remove existing in case we added some that are now gone
   const existing = Object.keys(instructionsFiles);
 
+  // get existing flags
+  const states: { [key: string]: boolean } = {};
+
   // remove any existing prompts that are in our prompts folder
   for (let i = 0; i < existing.length; i++) {
     if (existing[i].startsWith(copilotDir)) {
+      states[existing[i]] = instructionsFiles[existing[i]];
       delete instructionsFiles[existing[i]];
     }
   }
 
-  if (existsSync(dir)) {
-    /** Find prompt files that we should automatically register */
-    const files = await FindFiles(dir, `**/*.instructions.md`);
+  /** Find prompt files that we should automatically register */
+  const files = await FindFiles(dir, `**/*.instructions.md`);
 
-    // register al prompts
-    for (let i = 0; i < files.length; i++) {
-      instructionsFiles[files[i]] = true;
-    }
+  // register al prompts
+  for (let i = 0; i < files.length; i++) {
+    instructionsFiles[files[i]] = files[i] in states ? states[files[i]] : true;
   }
 
   // Update the configuration globally

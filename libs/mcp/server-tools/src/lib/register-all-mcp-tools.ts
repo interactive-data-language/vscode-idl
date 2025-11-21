@@ -10,6 +10,8 @@ import { RegisterMCPTool_IDLCreateNotebook } from './tools/idl/register-mcp-tool
 import { RegisterMCPTool_IDLExecuteCode } from './tools/idl/register-mcp-tool-idl-execute-code';
 import { RegisterMCPTool_IDLExecuteFile } from './tools/idl/register-mcp-tool-idl-execute-file';
 import { RegisterMCPTool_IDLStart } from './tools/idl/register-mcp-tool-idl-start';
+import { RegisterMCPTool_ResourcesGetResource } from './tools/resources/register-mcp-tool-resources-get-resource';
+import { RegisterMCPTool_ResourcesListAll } from './tools/resources/register-mcp-tool-resources-list-all';
 import { RegisterMCPTool_ResourcesSearchResources } from './tools/resources/register-mcp-tool-resources-search';
 
 /**
@@ -47,8 +49,8 @@ export function RegisterAllMCPTools(
   RegisterMCPTool_ENVIOpenDataset(messenger);
   RegisterMCPTool_ENVIQueryDataset(messenger);
   RegisterMCPTool_ENVIStart(messenger);
-  // RegisterMCPTool_ResourcesGetResource(messenger);
-  // RegisterMCPTool_ResourcesListAll(messenger);
+  RegisterMCPTool_ResourcesGetResource(messenger);
+  RegisterMCPTool_ResourcesListAll(messenger);
   RegisterMCPTool_ResourcesSearchResources(messenger, logManager);
 
   // update flag that we registered our tools (duplicated throw errors)

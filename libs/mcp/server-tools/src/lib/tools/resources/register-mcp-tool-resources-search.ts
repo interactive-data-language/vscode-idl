@@ -19,7 +19,7 @@ export function RegisterMCPTool_ResourcesSearchResources(
     IDL_TRANSLATION.mcp.tools.displayNames[
       MCP_TOOL_LOOKUP.RESOURCES_SEARCH_RESOURCES
     ],
-    `Searches known resources about IDL and ENVI and returns the top results with one or more queries. If you are searching for routines, start with ${MCP_TOOL_LOOKUP.RESOURCES_SEARCH_FOR_ROUTINE}.`,
+    `Searches known resources about IDL and ENVI and returns the top results with one or more queries. If you are searching for routines, start with ${MCP_TOOL_LOOKUP.RESOURCES_SEARCH_FOR_ROUTINE} instead.`,
     {
       queries: z
         .array(z.string())

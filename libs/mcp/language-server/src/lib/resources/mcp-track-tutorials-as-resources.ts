@@ -1,7 +1,8 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
+import { MCPTrackResourcesInFolder } from '@idl/mcp/server-resources';
 
-import { MCPTrackResourcesInFolder } from './mcp-track-resources-in-folder';
+import { MCPTrackHoverHelpResources } from './mcp-track-hover-help-resources';
 
 /**
  * Tracks our tutorials as MCP resources
@@ -13,7 +14,9 @@ export function MCPTrackTutorialsAsResources(logger: LogManager) {
   const folder = GetExtensionPath('extension/example-notebooks/IDL Tutorials');
 
   // track resources
-  MCPTrackResourcesInFolder(logger, folder, {
+  MCPTrackResourcesInFolder(logger, folder, 'tutorials', {
     'setting up (must be completed first!).md': true,
   });
+
+  MCPTrackHoverHelpResources();
 }

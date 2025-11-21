@@ -24,6 +24,20 @@ export class MCPResourceIndex {
   }
 
   /**
+   * Get a resource by name
+   */
+  static get(name: string) {
+    return INDEX.get(name);
+  }
+
+  /**
+   * Return all registered resources by name
+   */
+  static list() {
+    return INDEX.list();
+  }
+
+  /**
    * Remove an item from the index
    */
   static remove(id: string) {

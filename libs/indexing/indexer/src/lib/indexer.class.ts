@@ -51,7 +51,7 @@ export class Indexer {
     // save each piece of content
     for (let i = 0; i < content.length; i++) {
       /** get ID for our piece of content */
-      const id = nanoid();
+      const id = `${contentGroupId}-item-${i}-${nanoid()}`;
 
       // save ID
       ourIds.push(id);
@@ -69,6 +69,13 @@ export class Indexer {
    */
   get(id: string): string {
     return this.contentMap.get(id) || '';
+  }
+
+  /**
+   * Return all registered resources by name
+   */
+  list() {
+    return Object.keys(this.contentMap);
   }
 
   /**

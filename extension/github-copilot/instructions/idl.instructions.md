@@ -55,12 +55,11 @@ These instructions override and modify the default behavior. They will also stay
 
 When answering IDL questions, you have access to comprehensive resources via MCP:
 
-These include both tutorials and function definitions.
+These include both tutorials and routine definitions.
 
-- Use `mcp_idl_idl-for-v_list-all-resources` to discover available IDL tutorials and routines
+- Use `IDL for VSCode/list-all-resources` to discover available IDL tutorials and helpful content
 - Tutorial resources are prefixed with `tutorial-`
-- Routine resources are prefixed with `idl-routine-`
-- Use `mcp_idl_idl-for-v_get-resource` with the resource name to fetch specific tutorial or routine documentation
+- Use `IDL for VSCode/get-resource` with the resource name to fetch specific items
 
 Available tutorial categories:
 
@@ -75,9 +74,8 @@ Available tutorial categories:
 
 1. **Identify the topic** from the user's question
 2. **ALWAYS query resources FIRST** before generating code:
-   - Use `mcp_idl_idl-for-v_list-all-resources` to find relevant tutorial and routine resources
-   - Use `mcp_idl_idl-for-v_get-resource` to fetch specific content
-   - For IDL routines, query `idl-routine-{name}` resources (e.g., `idl-routine-plot`, `idl-routine-read-csv`)
-   - Check arguments, keywords, return types, and usage patterns from the official documentation
+   - Use `IDL for VSCode/search-resources` to find relevant tutorials and additional information
+   - Use `IDL for VSCode/list-all-resources` to discover available IDL tutorials and helpful content and `IDL for VSCode/get-resource` to retrieve items
+   - Use `IDL for VSCode/search-for-routine` to retrieve documentation for functions, procedures, methods, and more.
 3. **Generate IDL code** ONLY AFTER consulting resources, following documented patterns and best practices
 4. **Offer additional routines** that may help accomplish the user's goal based on what you learned from the resources

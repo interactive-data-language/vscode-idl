@@ -1,5 +1,4 @@
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
-import { MCPResourceIndex } from '@idl/mcp/server-resources';
 import {
   IDLRawNotebook,
   IDLRawNotebookVersion,
@@ -9,12 +8,15 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { nanoid } from 'nanoid';
 import { basename, join } from 'path';
 
+import { MCPResourceIndex } from './mcp-resource-index.class';
+
 /**
  * Recursively registers tutorial files as MCP resources
  */
 export function MCPTrackResourcesInFolder(
   logger: LogManager,
   folder: string,
+  keyPrefix = nanoid(),
   filter: { [key: string]: any } = {}
 ) {
   // return if no folder
@@ -55,7 +57,7 @@ export function MCPTrackResourcesInFolder(
        */
       case lc.endsWith('.md'):
         MCPResourceIndex.add(
-          `${basename(item)}-${nanoid()}`,
+          `${keyPrefix}-${basename(item).toLowerCase().replace('.md', '')}`,
           readFileSync(item, { encoding: 'utf-8' })
         );
         break;
@@ -105,7 +107,9 @@ export function MCPTrackResourcesInFolder(
 
               // track
               MCPResourceIndex.add(
-                `${basename(item)}-${nanoid()}`,
+                `${keyPrefix}-${basename(item)
+                  .toLowerCase()
+                  .replace('.idlnb', '')}`,
                 strings.join('\n')
               );
               break;
