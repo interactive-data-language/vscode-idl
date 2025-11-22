@@ -178,7 +178,7 @@ export class GlobalIndex {
     type: T,
     name: string,
     fuzzy = false,
-    fuzzyLimit = 10
+    fuzzyLimit = 25
   ): IGlobalIndexedToken<T>[] {
     // get the tokens to process
     if (type in this.globalTokensByTypeByName) {
@@ -213,6 +213,7 @@ export class GlobalIndex {
         return results.concat(
           matches
             .filter((result) => result.target !== useName)
+            .filter((result) => result.target.includes(useName))
             .slice(0, Math.min(fuzzyLimit, matches.length))
             .map(
               (result) => toCheck[result.target][0] as IGlobalIndexedToken<T>

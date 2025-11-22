@@ -6,6 +6,8 @@ import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
+import { SEARCH_FOR_ROUTINE_DESCRIPTION } from './register-mcp-tool-resources-search-for-routine.interface';
+
 /**
  * Map values to strings
  */
@@ -45,7 +47,7 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
     IDL_TRANSLATION.mcp.tools.displayNames[
       MCP_TOOL_LOOKUP.RESOURCES_SEARCH_FOR_ROUTINE
     ],
-    `Searches our language server for matching routines. Checks known functions, procedures, function methods, procedure methods, structures, and system variables. Returns matches for each type.`,
+    SEARCH_FOR_ROUTINE_DESCRIPTION,
     {
       queries: z
         .array(
@@ -53,7 +55,7 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
             name: z
               .string()
               .describe(
-                'The name to search for, uses fuzzy search. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"'
+                'The name to search for, case insensitive. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"'
               ),
             routineType: z
               .enum([
@@ -66,13 +68,11 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
                 'SystemVariable',
               ])
               .default('All')
-              .describe(
-                'The type of search to make. Default searches all types, or you can select a specific type of routine'
-              ),
+              .describe('The type of routine to search for.'),
           })
         )
         .describe(
-          'The search queries to look for. Returns an object of matches for each query'
+          'The search queries to look for, returns an array of matches for each query.'
         ),
     },
     async (id, { queries }) => {
@@ -109,8 +109,7 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
             index.globalIndex.findMatchingGlobalToken(
               globalTypes[j],
               name,
-              true,
-              2
+              true
             );
         }
 
