@@ -13,7 +13,7 @@ import {
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 
-import { RunMCP_ENVIOpenDataset } from '../tools/envi/run-mcp-envi-open-dataset';
+import { RunMCP_ENVIOpenDatasets } from '../tools/envi/run-mcp-envi-open-datasets';
 import { RunMCP_ENVIQueryDataset } from '../tools/envi/run-mcp-envi-query-dataset';
 import { RunMCP_ENVIRunTask } from '../tools/envi/run-mcp-envi-run-task';
 import { RunMCP_ENVIStart } from '../tools/envi/run-mcp-envi-start';
@@ -31,7 +31,7 @@ export const MCP_TOOL_LOOKUP: {
     params: MCPToolParams<key>
   ) => MCPToolResponse<key> | Promise<MCPToolResponse<key>>;
 } = {
-  'open-dataset-in-envi': RunMCP_ENVIOpenDataset,
+  'open-datasets-in-envi': RunMCP_ENVIOpenDatasets,
   'query-dataset-with-envi': RunMCP_ENVIQueryDataset,
   'run-envi-tool': RunMCP_ENVIRunTask,
   'start-envi': RunMCP_ENVIStart,

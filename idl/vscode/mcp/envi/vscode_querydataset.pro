@@ -62,58 +62,18 @@ pro vscode_queryDataset, dataset
   compile_opt idl2, hidden
   on_error, 2
 
-  ; get the current session of ENVI
-  e = envi(/current)
-  if (e eq !null) then begin
-    vscode_reportENVIFailure, /machine, 'envi-not-started', 'ENVI has not started yet and should be. If ENVI was started, you may need to reset your IDL session'
-    return
-  endif
+  ;+ hydrate the dataset
+  hydrated = vscode_hydrateDataset(dataset)
 
-  ; attempt to parse JSON
-  catch, err
-  if (err ne 0) then begin
-    catch, /cancel
-    vscode_reportENVIFailure, /machine, 'envi-error', 'Invalid JSON description of dataset, cannot query'
-    return
-  endif else begin
-    ;+ parse task parameters
-    parsed = json_parse(dataset)
-  endelse
-  catch, /cancel
-
-  ;+ track if we have a raster
-  isRaster = strcmp(parsed['factory'], 'urlraster', /fold_case)
-
-  ;+
-  ; Attempt to hydrate the dataset
-  ;-
-  catch, err
-  if (err ne 0) then begin
-    catch, /cancel
-    help, /last_message, output = o
-    vscode_reportENVIFailure, /machine, 'envi-error', `Unable to hydrate, ${strjoin(o, `\n`)}`
-    return
-  endif else begin
-    ;+
-    ; Special cases for raster data because ENVI apparently can't handle hydrating
-    ; multi-raster datasets but you can call ENVI:OpenRaster
-    ;-
-    case (!true) of
-      ~parsed.hasKey('dataset_index') && isRaster: begin
-        hydrated = e.openRaster(parsed['url'])
-      end
-      else: begin
-        hydrated = ENVIHydrate(parsed)
-      end
-    endcase
-  endelse
-  catch, /cancel
+  ; return if we didnt hydrate - error reporting happens in that routine
+  if (hydrated eq !null) then return
 
   ; handle errors
   catch, err
   if (err ne 0) then begin
     catch, /cancel
-    vscode_reportENVISuccess, /machine, '[{}]'
+    help, /last_message, output = o
+    vscode_reportENVIFailure, /machine, 'envi-error', `Unable to query dataset, ${strjoin(o, `\n`)}`
   endif else begin
     ;+
     ; Check if we have an array of values (i.e. a multi-raster raster)
