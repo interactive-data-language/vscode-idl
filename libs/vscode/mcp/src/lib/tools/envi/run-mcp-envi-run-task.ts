@@ -42,11 +42,7 @@ export async function RunMCP_ENVIRunTask(
     { echo: true, echoThis: IDL_TRANSLATION.envi.taskText, silent: false }
   );
 
-  console.log(res);
-
   const success = GetLastENVISuccessMessage();
-
-  console.log(success);
 
   return {
     success: success.succeeded,
