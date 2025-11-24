@@ -20,15 +20,32 @@ export async function InitializeVSCodeGitHubCopilot(
   // register copilot instructions and resources.
   RegisterCopilotCommands(ctx);
 
+  /**
+   * Attempt to add isntructions
+   */
   try {
-    // auto discover and add prompts files to VSCode
     await RegisterGitHubCopilotFiles('instructions');
+  } catch (err) {
+    IDL_LOGGER.log({
+      log: IDL_COPILOT_VSCODE_LOG,
+      type: 'error',
+      content: [
+        'Problem while initializing GitHub Copilot instruction files',
+        err,
+      ],
+    });
+  }
+
+  /**
+   * Attempt to add prompt files to VSCode
+   */
+  try {
     await RegisterGitHubCopilotFiles('prompts');
   } catch (err) {
     IDL_LOGGER.log({
       log: IDL_COPILOT_VSCODE_LOG,
       type: 'error',
-      content: ['Problem while initializing GitHub Copilot configuration', err],
+      content: ['Problem while initializing GitHub Copilot prompt files', err],
     });
   }
 }
