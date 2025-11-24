@@ -53,5 +53,5 @@ export function MoveAndUpdateCopilotFile(
   /**
    * Write out content to disk
    */
-  writeFileSync(destinationFile, sourceContent);
+  writeFileSync(destinationFile, sourceContent.trim() + '\n');
 }
