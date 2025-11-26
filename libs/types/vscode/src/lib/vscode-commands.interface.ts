@@ -3,6 +3,10 @@
  */
 export const VSCODE_COMMANDS = {
   /**
+   * Open new chat window in VSCode
+   */
+  COPILOT_OPEN_CHAT: 'workbench.action.newChatWindow',
+  /**
    * Cl;oses the currently active editor window
    */
   CLOSE_EDITOR: 'workbench.action.closeActiveEditor',
