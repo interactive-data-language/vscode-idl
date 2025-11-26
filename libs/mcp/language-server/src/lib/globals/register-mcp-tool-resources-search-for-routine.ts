@@ -6,6 +6,8 @@ import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
+import { SEARCH_FOR_ROUTINE_DESCRIPTION } from './register-mcp-tool-resources-search-for-routine.interface';
+
 /**
  * Map values to strings
  */
@@ -19,8 +21,18 @@ const mappedNames: ValsOfToStrings<GlobalTokenType> = {
   fm: 'FunctionMethod',
   p: 'Procedure',
   pm: 'ProcedureMethod',
-  s: 'Structure',
+  s: 'StructureOrClassDefinition',
   sv: 'SystemVariable',
+};
+
+const reverseMap: { [key: string]: GlobalTokenType } = {
+  CommonBlock: 'c',
+  Function: 'f',
+  FunctionMethod: 'fm',
+  Procedure: 'p',
+  ProcedureMethod: 'pm',
+  StructureOrClassDefinition: 's',
+  SystemVariable: 'sv',
 };
 
 /**
@@ -35,37 +47,81 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
     IDL_TRANSLATION.mcp.tools.displayNames[
       MCP_TOOL_LOOKUP.RESOURCES_SEARCH_FOR_ROUTINE
     ],
-    `Searches our language server for matching routines. Checks known functions, procedures, function methods, procedure methods, structures, and system variables. Returns matches for each type.`,
+    SEARCH_FOR_ROUTINE_DESCRIPTION,
     {
-      name: z
-        .string()
+      queries: z
+        .array(
+          z.object({
+            name: z
+              .string()
+              .describe(
+                'The name to search for, case insensitive. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"'
+              ),
+            routineType: z
+              .enum([
+                'All',
+                'Function',
+                'FunctionMethod',
+                'Procedure',
+                'ProcedureMethod',
+                'StructureOrClassDefinition',
+                'SystemVariable',
+              ])
+              .default('All')
+              .describe('The type of routine to search for.'),
+          })
+        )
         .describe(
-          'The name to search for, uses fuzzy search. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"'
+          'The search queries to look for, returns an array of matches for each query.'
         ),
     },
-    async (id, { name }) => {
-      /** init results */
-      const results: { [key: string]: GlobalIndexedToken[] } = {};
+    async (id, { queries }) => {
+      /** Init results */
+      const response: any[] = [];
 
-      /** get actual type values */
-      const globalTypes = Object.values(GLOBAL_TOKEN_TYPES);
+      // process each query
+      for (let i = 0; i < queries.length; i++) {
+        /** Get search name */
+        const name = queries[i].name;
 
-      /** Perform a search */
-      for (let i = 0; i < globalTypes.length; i++) {
-        results[mappedNames[globalTypes[i]]] =
-          index.globalIndex.findMatchingGlobalToken(
-            globalTypes[i],
-            name,
-            true,
-            2
-          );
+        /** Get search routine type */
+        const routineType = queries[i].routineType;
+
+        /** init results */
+        const queryResults: { [key: string]: GlobalIndexedToken[] } = {};
+
+        /**
+         * Get the types we search for
+         */
+        const globalTypes: GlobalTokenType[] =
+          routineType in reverseMap
+            ? [reverseMap[routineType]]
+            : Object.values(GLOBAL_TOKEN_TYPES);
+
+        /** Perform a search */
+        for (let j = 0; j < globalTypes.length; j++) {
+          if (globalTypes[j] === GLOBAL_TOKEN_TYPES.COMMON) {
+            continue;
+          }
+
+          // search and merge results
+          queryResults[mappedNames[globalTypes[j]]] =
+            index.globalIndex.findMatchingGlobalToken(
+              globalTypes[j],
+              name,
+              true
+            );
+        }
+
+        // save results for this query
+        response.push(queryResults);
       }
 
       return {
         content: [
           {
             type: 'text',
-            text: JSON.stringify(results),
+            text: JSON.stringify(response),
           },
         ],
       };

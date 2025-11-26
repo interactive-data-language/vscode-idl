@@ -3,7 +3,7 @@ import { IS_MCP_SERVER_STARTED } from '@idl/mcp/server';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { MCPToolContext } from './mcp-tool-context.class';
-import { RegisterMCPTool_ENVIOpenDataset } from './tools/envi/register-mcp-tool-envi-open-dataset';
+import { RegisterMCPTool_ENVIOpenDatasets } from './tools/envi/register-mcp-tool-envi-open-datasets';
 import { RegisterMCPTool_ENVIQueryDataset } from './tools/envi/register-mcp-tool-envi-query-dataset';
 import { RegisterMCPTool_ENVIStart } from './tools/envi/register-mcp-tool-envi-start';
 import { RegisterMCPTool_IDLCreateNotebook } from './tools/idl/register-mcp-tool-idl-create-notebook';
@@ -46,7 +46,7 @@ export function RegisterAllMCPTools(
   RegisterMCPTool_IDLExecuteCode(messenger);
   RegisterMCPTool_IDLExecuteFile(messenger);
   RegisterMCPTool_IDLStart(messenger);
-  RegisterMCPTool_ENVIOpenDataset(messenger);
+  RegisterMCPTool_ENVIOpenDatasets(messenger);
   RegisterMCPTool_ENVIQueryDataset(messenger);
   RegisterMCPTool_ENVIStart(messenger);
   RegisterMCPTool_ResourcesGetResource(messenger);

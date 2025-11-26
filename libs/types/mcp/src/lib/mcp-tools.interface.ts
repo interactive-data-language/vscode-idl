@@ -13,26 +13,30 @@ export type MCPTool_ENVIListTasks = 'list-envi-tools';
 /**
  * Message when opening an image in ENVI
  */
-export type MCPTool_ENVIOpenDataset = 'open-dataset-in-envi';
+export type MCPTool_ENVIOpenDatasets = 'open-datasets-in-envi';
 
 /**
  * Parameters for opening an image in ENVI
  */
-export interface MCPToolParams_ENVIOpenDataset {
+export interface MCPToolParams_ENVIOpenDatasets {
   /**
-   * Do we display the image or not?
+   * The dehydrated dataset to open
    */
-  display: boolean;
+  datasets: string;
   /**
-   * The file to open
+   * Do we reset the display or not?
    */
-  uri: string;
+  resetView: boolean;
 }
 
 /**
  * Response for opening an image in ENVI
  */
-export type MCPToolResponse_ENVIOpenDataset = IMCPTool_BaseResponse;
+export interface MCPToolResponse_ENVIOpenDatasets
+  extends IMCPTool_BaseResponse {
+  /** output from IDL */
+  idlOutput?: string;
+}
 
 /**
  * Message when querying a dataset for more information
@@ -215,7 +219,7 @@ export type MCPTool_ResourcesSearchResources = 'search-resources';
  * MCP Tools that run in VSCode
  */
 export type MCPTools_VSCode =
-  | MCPTool_ENVIOpenDataset
+  | MCPTool_ENVIOpenDatasets
   | MCPTool_ENVIQueryDataset
   | MCPTool_ENVIRunTask
   | MCPTool_ENVIStart
@@ -240,8 +244,8 @@ export type MCPTools =
  * Payloads for all MCP messages
  */
 export type MCPToolParams<T extends MCPTools> =
-  T extends MCPTool_ENVIOpenDataset
-    ? MCPToolParams_ENVIOpenDataset
+  T extends MCPTool_ENVIOpenDatasets
+    ? MCPToolParams_ENVIOpenDatasets
     : T extends MCPTool_ENVIQueryDataset
     ? MCPToolParams_ENVIQueryDataset
     : T extends MCPTool_ENVIRunTask
@@ -262,8 +266,8 @@ export type MCPToolParams<T extends MCPTools> =
  * Payloads for all MCP messages
  */
 export type MCPToolResponse<T extends MCPTools> =
-  T extends MCPTool_ENVIOpenDataset
-    ? MCPToolResponse_ENVIOpenDataset
+  T extends MCPTool_ENVIOpenDatasets
+    ? MCPToolResponse_ENVIOpenDatasets
     : T extends MCPTool_ENVIQueryDataset
     ? MCPToolResponse_ENVIQueryDataset
     : T extends MCPTool_ENVIRunTask
@@ -289,7 +293,7 @@ interface IMCPToolLookup {
   /** Query ENVI's tasks */
   ENVI_LIST_TASKS: MCPTool_ENVIListTasks;
   /** Open a dataset in ENVI */
-  ENVI_OPEN_DATASET: MCPTool_ENVIOpenDataset;
+  ENVI_OPEN_DATASETS: MCPTool_ENVIOpenDatasets;
   /** Get additional information about a dataset */
   ENVI_QUERY_DATASET: MCPTool_ENVIQueryDataset;
   /** Run ENVI Task */
@@ -318,7 +322,7 @@ interface IMCPToolLookup {
  * Lookup with types of messages
  */
 export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
-  ENVI_OPEN_DATASET: 'open-dataset-in-envi',
+  ENVI_OPEN_DATASETS: 'open-datasets-in-envi',
   ENVI_QUERY_DATASET: 'query-dataset-with-envi',
   ENVI_LIST_TASKS: 'list-envi-tools',
   ENVI_GET_TASK_PARAMETERS: 'get-envi-tool-parameters',
