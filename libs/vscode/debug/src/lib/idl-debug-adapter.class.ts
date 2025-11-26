@@ -50,6 +50,7 @@ import { LogSessionStop } from './helpers/log-session-stop';
 import { MapVariables } from './helpers/map-variables';
 import { RegisterDebugAdapterCLIProgressHandler } from './helpers/register-debug-adapter-cli-progress-handler';
 import { RegisterDebugAdapterENVISuccessMessageHandler } from './helpers/register-debug-adapter-envi-success-message-handler';
+import { RegisterDebugAdapterGithubCopilotChatOpener } from './helpers/register-debug-adapter-github-copilot-chat-opener';
 import { IDLBreakpointManager } from './idl-breakpoint-manager.class';
 import {
   ADAPTER_METHOD_LOG_LEVEL,
@@ -539,6 +540,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         RegisterIDLMachineRequestHandlers(this._runtime);
         RegisterDebugAdapterCLIProgressHandler(this);
         RegisterDebugAdapterENVISuccessMessageHandler(this);
+        RegisterDebugAdapterGithubCopilotChatOpener(this);
 
         // get information about IDL
         const version = CleanIDLOutput(
