@@ -12,11 +12,13 @@ import { IStartIDL } from './start-idl.interface';
 /**
  * Starts debugging session of IDL
  */
-export async function StartIDL(): Promise<IStartIDL> {
+export async function StartIDL(show = true): Promise<IStartIDL> {
   // return if we have started
   if (IsIDLStarted()) {
     // display debug window if already started
-    vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
+    if (show) {
+      vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
+    }
     // vscode.window.showInformationMessage(
     //   IDL_TRANSLATION.debugger.idl.alreadyStarted
     // );

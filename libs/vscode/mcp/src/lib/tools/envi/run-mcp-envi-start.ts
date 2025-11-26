@@ -19,7 +19,7 @@ export async function RunMCP_ENVIStart(
   /**
    * Start IDL
    */
-  const started = await StartIDL();
+  const started = await StartIDL(false);
 
   // return if unable to start IDL
   if (!started.started) {

@@ -11,7 +11,6 @@ import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { IDL_LOGGER } from '@idl/vscode/logger';
-import { OpenFileInVSCode } from '@idl/vscode/shared';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
@@ -25,7 +24,7 @@ export async function RunMCP_IDLExecuteCode(
   /**
    * Start IDL
    */
-  const started = await StartIDL();
+  const started = await StartIDL(false);
 
   // return if unable to start IDL
   if (!started.started) {
@@ -88,7 +87,7 @@ export async function RunMCP_IDLExecuteCode(
   writeFileSync(fsPath, resp.code);
 
   // display in VScode
-  const doc = await OpenFileInVSCode(fsPath);
+  // const doc = await OpenFileInVSCode(fsPath);
 
   // save to disk
   // await doc.save();

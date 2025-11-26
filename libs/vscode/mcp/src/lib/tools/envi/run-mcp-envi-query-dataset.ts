@@ -21,7 +21,7 @@ export async function RunMCP_ENVIQueryDataset(
   /**
    * Start IDL
    */
-  const started = await StartIDL();
+  const started = await StartIDL(false);
 
   // return if unable to start IDL
   if (!started.started) {
