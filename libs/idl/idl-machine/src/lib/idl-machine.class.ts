@@ -198,7 +198,7 @@ export class IDLMachine {
               (parsed as JSONRPCNotification).method
             ]((parsed as JSONRPCNotification).params);
           } catch (err) {
-            console.log(`Error responding to notification`, err);
+            console.log(`Error responding to notification`, parsed, err);
           }
         } else {
           console.log(
