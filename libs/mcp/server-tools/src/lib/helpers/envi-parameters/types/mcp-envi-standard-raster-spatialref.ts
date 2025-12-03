@@ -1,3 +1,4 @@
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
 /**
@@ -51,5 +52,7 @@ export function MCPENVIStandardRasterSpatialref(description: string) {
           '[X Pixel, Y Pixel] pixel location corresponding to tie_point_map. If taken from ENVI header (one-based), subtract 1 from both.'
         ),
     })
-    .describe(description);
+    .describe(
+      `${description}\n\nTo fetch the spatial reference for a dataset, use the "spatialref" property returned from the ${MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET} tool. However, rasters may not always have this type of spatial reference.`
+    );
 }

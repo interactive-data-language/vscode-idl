@@ -55,5 +55,7 @@ export function MCPENVIRPCRasterSpatialref(description: string) {
           'Five RPC scales: [Line_Scale, Sample_Scale, Latitude_Scale, Longitude_Scale, Height_Scale].'
         ),
     })
-    .describe(description);
+    .describe(
+      `${description}\n\nTo fetch the spatial reference for a dataset, use the "spatialref" property returned from the ${MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET} tool. However, rasters may not always have this type of spatial reference.`
+    );
 }
