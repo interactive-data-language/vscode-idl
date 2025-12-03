@@ -1,3 +1,4 @@
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
 /**
@@ -56,6 +57,6 @@ export function MCPENVIRPCRasterSpatialref(description: string) {
         ),
     })
     .describe(
-      `${description}\n\nTo fetch the spatial reference for a dataset, use the "spatialref" property returned from the ${MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET} tool. However, rasters may not always have this type of spatial reference.`
+      `${description}\n\nTo fetch the spatial reference for a dataset, use the "spatialref" property returned from the "${MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET}" tool. However, rasters may not always have this type of spatial reference.`
     );
 }
