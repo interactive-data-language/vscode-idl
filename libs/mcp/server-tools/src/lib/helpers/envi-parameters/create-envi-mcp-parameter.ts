@@ -56,9 +56,10 @@ export function CreateENVIMCPParameter(
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.STRING) &&
       name.endsWith('uri'):
       return z
-        .literal('!')
+        .string()
+        .default('!')
         .describe(
-          'Path to the output raster, should be a literal "!" which indicates a temporary file will be created.'
+          'Fully-qualified path to the output dataset, default is "!" which indicates a temporary file will be created. Only set this when requested by user.'
         );
 
     /**
