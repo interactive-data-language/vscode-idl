@@ -10,6 +10,7 @@ import { MCPENVIGeoJSON } from './types/mcp-envi-geojson';
 import { MCPENVIGridDefinition } from './types/mcp-envi-grid-definition';
 import { MCPENVIMachineLearningModel } from './types/mcp-envi-machine-learning-model';
 import { MCPENVIPointCloud } from './types/mcp-envi-point-cloud';
+import { MCPENVIPseudoRasterSpatialref } from './types/mcp-envi-pseudo-raster-spatialref';
 import { MCPENVIRaster } from './types/mcp-envi-raster';
 import { MCPENVIRasterSeries } from './types/mcp-envi-raster-series';
 import { MCPENVIROI } from './types/mcp-envi-roi';
@@ -63,6 +64,18 @@ export function CreateENVIMCPParameter(
         );
 
     /**
+     * Any type of spatial reference
+     */
+    case IDLTypeHelper.isType(type, '_envispatialref'):
+      return z
+        .union([
+          MCPENVIPseudoRasterSpatialref(''),
+          MCPENVIRPCRasterSpatialref(''),
+          MCPENVIStandardRasterSpatialref(''),
+        ])
+        .describe(`${docs}\n\nSpecify one of the types of spatial references.`);
+
+    /**
      * Crop counting results
      */
     case IDLTypeHelper.isType(type, 'enviagcrops'):
@@ -110,6 +123,12 @@ export function CreateENVIMCPParameter(
     case IDLTypeHelper.isType(type, 'envipointcloudbase'):
     case IDLTypeHelper.isType(type, 'envipointcloud'):
       return MCPENVIPointCloud(docs);
+
+    /**
+     * ENVI pseudo raster spatial ref
+     */
+    case IDLTypeHelper.isType(type, 'envipseudorasterspatialref'):
+      return MCPENVIPseudoRasterSpatialref(docs);
 
     /**
      * Raster
