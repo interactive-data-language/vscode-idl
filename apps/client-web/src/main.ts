@@ -64,7 +64,7 @@ export async function activate(ctx: ExtensionContext) {
     // update logger configuration and log information about our workspace config
     IDL_LOGGER.setDebug(IDL_EXTENSION_CONFIG.debugMode);
 
-    RegisterClientSharedCommands(ctx);
+    RegisterClientSharedCommands(ctx, { docs: -1, mcp: -1 });
 
     // initialize our tree view
     InitializeTree(ctx, true);

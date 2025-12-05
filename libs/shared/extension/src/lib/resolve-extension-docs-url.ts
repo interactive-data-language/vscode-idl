@@ -9,6 +9,6 @@ export function ResolveExtensionDocsURL(
   port: number
 ) {
   return `${
-    useOnline ? EXTENSION_DOCS_URL : `http://localhost:${port}`
+    useOnline || port === -1 ? EXTENSION_DOCS_URL : `http://localhost:${port}`
   }${baseUrl}`;
 }
