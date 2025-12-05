@@ -1,11 +1,14 @@
 import { join } from 'path';
 
-import { DOT_IDL_FOLDER } from './dot-idl-folder.interface';
+import { VSCODE_DOT_IDL_FOLDER } from './dot-idl-folder.interface';
 
 /**
  * User folder for GitHub copilot
  */
-export const USER_COPILOT_FOLDER = join(DOT_IDL_FOLDER, 'github-copilot');
+export const USER_COPILOT_FOLDER = join(
+  VSCODE_DOT_IDL_FOLDER,
+  'github-copilot'
+);
 
 /**
  * User folder for GitHub copilot instructions

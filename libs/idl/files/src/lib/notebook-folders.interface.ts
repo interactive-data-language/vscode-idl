@@ -1,11 +1,11 @@
 import { join } from 'path';
 
-import { DOT_IDL_FOLDER } from './dot-idl-folder.interface';
+import { VSCODE_DOT_IDL_FOLDER } from './dot-idl-folder.interface';
 
 /**
  * Notebook folder for cells
  */
-export const NOTEBOOK_FOLDER = join(DOT_IDL_FOLDER, 'notebooks');
+export const NOTEBOOK_FOLDER = join(VSCODE_DOT_IDL_FOLDER, 'notebooks');
 
 /**
  * Folder for example notebooks

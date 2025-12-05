@@ -1,4 +1,4 @@
-import { FindFiles, GetExtensionPath } from '@idl/idl/files';
+import { FindFiles, GetExtensionPath, IDL_PACKAGE_DIR } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { NUM_WORKERS } from '@idl/parsing/index';
 import { RoundToNearest } from '@idl/shared/extension';
@@ -15,6 +15,7 @@ import {
 } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
+import { existsSync } from 'fs';
 import { arch, cpus, platform } from 'os';
 
 import { CacheValidFSPath } from '../helpers/cache-valid';
@@ -153,6 +154,11 @@ SERVER_INFO.then(async (res) => {
 
     // add in our IDL folder
     merged[GetExtensionPath('idl/vscode/notebooks')] = true;
+
+    // check for .idl package folder and auto-add if it exists
+    if (existsSync(IDL_PACKAGE_DIR)) {
+      merged[IDL_PACKAGE_DIR] = true;
+    }
 
     // alert users
     IDL_LANGUAGE_SERVER_LOGGER.log({

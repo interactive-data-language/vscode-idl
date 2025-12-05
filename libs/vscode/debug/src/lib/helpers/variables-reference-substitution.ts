@@ -1,4 +1,4 @@
-import { DOT_IDL_FOLDER, GetFSPath } from '@idl/idl/files';
+import { GetFSPath, VSCODE_DOT_IDL_FOLDER } from '@idl/idl/files';
 import { homedir } from 'os';
 import * as vscode from 'vscode';
 
@@ -17,7 +17,10 @@ export function VariablesReferenceSubstitution(input: string) {
      * Check for `${.idl}`
      */
     case VARIABLES_REFERENCE_REGEX.DOT_IDL.test(input):
-      return input.replace(VARIABLES_REFERENCE_REGEX.DOT_IDL, DOT_IDL_FOLDER);
+      return input.replace(
+        VARIABLES_REFERENCE_REGEX.DOT_IDL,
+        VSCODE_DOT_IDL_FOLDER
+      );
 
     /**
      * Check for `${userHome}`
@@ -38,7 +41,7 @@ export function VariablesReferenceSubstitution(input: string) {
       if (workspaces === undefined || workspaces?.length === 0) {
         return input.replace(
           VARIABLES_REFERENCE_REGEX.WORKSPACE,
-          DOT_IDL_FOLDER
+          VSCODE_DOT_IDL_FOLDER
         );
       } else {
         return input.replace(

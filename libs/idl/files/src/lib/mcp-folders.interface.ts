@@ -1,11 +1,11 @@
 import { join } from 'path';
 
-import { DOT_IDL_FOLDER } from './dot-idl-folder.interface';
+import { VSCODE_DOT_IDL_FOLDER } from './dot-idl-folder.interface';
 
 /**
  * Folder for MCP in the .idl directory
  */
-export const MCP_FOLDER = join(DOT_IDL_FOLDER, 'mcp');
+export const MCP_FOLDER = join(VSCODE_DOT_IDL_FOLDER, 'mcp');
 
 /**
  * Folder that contains IDL code that we run through MCP
