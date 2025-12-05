@@ -172,6 +172,7 @@
       "@idl/vscode/mcp": ["libs/vscode/mcp/src/index.ts"],
       "@idl/indexing/indexer": ["libs/indexing/indexer/src/index.ts"],
       "@idl/mcp/language-server": ["libs/mcp/language-server/src/index.ts"],
+      "@idl/server-helpers": ["libs/server-helpers/src/index.ts"],
       "buffer": ["node_modules/buffer"],
       "os": ["node_modules/os-browserify"],
       "path": ["node_modules/path-browserify"],
