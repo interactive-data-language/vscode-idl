@@ -699,6 +699,8 @@ export interface ITranslation {
       connection: string;
       /** Error when starting a server that has a port conflict */
       mcpStartup: string;
+      /** Error when we have a problem getting a port */
+      portError: string;
       /** Failed to start the language server */
       start: string;
       /** Error when starting a server that has a port conflict */

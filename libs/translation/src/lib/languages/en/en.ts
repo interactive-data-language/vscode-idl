@@ -826,6 +826,8 @@ export const EN: ITranslation = {
       connection: 'Failed to send/receive message with the IDL Language Server',
       mcpStartup:
         'Error reported while starting the MCP server and registering tools',
+      portError:
+        'Error while trying to select random ports for MCP server, MCP functionality will not work.',
       start: 'Failed to start the IDL Language Server',
       startingServer:
         'Error while starting local server (MCP or documentation), is the port already in use? See logs for more details.',

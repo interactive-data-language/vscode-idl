@@ -20,11 +20,22 @@ import {
  * Starts our MCP Server and adds all of our known tools
  */
 export function InitializeMCPServer(port: number) {
+  // check if it is disabled or not
   if (!MCP_CONFIG.enabled) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_MCP_LOG,
       type: 'info',
       content: `Skipping MCP server startup (disabled in user/workspace settings)`,
+    });
+    return;
+  }
+
+  // check for port
+  if (port === -1) {
+    IDL_LANGUAGE_SERVER_LOGGER.log({
+      log: IDL_MCP_LOG,
+      type: 'warn',
+      content: `MCP port specified as "${port}", port is invalid so skipping MCP startup`,
     });
     return;
   }

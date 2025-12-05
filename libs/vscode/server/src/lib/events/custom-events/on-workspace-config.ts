@@ -88,20 +88,28 @@ export const ON_WORKSPACE_CONFIG = async (
 
       // nicely try to start docs server and catch errors which crash the process
       try {
-        /**
-         * use callback for server errors, needs process hooks
-         */
-        StartExpressDocsServer(
-          SERVER_INITIALIZATION_OPTIONS.serverPorts.docs,
-          (err) => {
-            IDL_LANGUAGE_SERVER_LOGGER.log({
-              log: IDL_LSP_LOG,
-              type: 'error',
-              content: ['Error starting server', err],
-              alert: IDL_TRANSLATION.lsp.errors.startingServer,
-            });
-          }
-        );
+        if (SERVER_INITIALIZATION_OPTIONS.serverPorts.docs === -1) {
+          IDL_LANGUAGE_SERVER_LOGGER.log({
+            log: IDL_LSP_LOG,
+            type: 'warn',
+            content: `Docs port specified as "${SERVER_INITIALIZATION_OPTIONS.serverPorts.docs}", port is invalid so skipping documentation server startup`,
+          });
+        } else {
+          /**
+           * use callback for server errors, needs process hooks
+           */
+          StartExpressDocsServer(
+            SERVER_INITIALIZATION_OPTIONS.serverPorts.docs,
+            (err) => {
+              IDL_LANGUAGE_SERVER_LOGGER.log({
+                log: IDL_LSP_LOG,
+                type: 'error',
+                content: ['Error starting server', err],
+                alert: IDL_TRANSLATION.lsp.errors.startingServer,
+              });
+            }
+          );
+        }
         // catch all other errors
       } catch (err) {
         IDL_LANGUAGE_SERVER_LOGGER.log({

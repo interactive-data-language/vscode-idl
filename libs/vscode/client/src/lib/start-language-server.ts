@@ -58,9 +58,9 @@ export let DOCS_SERVER_PORT: number;
  */
 export const SERVER_PORTS: IVSCodeServerPorts = {
   /** Documentation server port */
-  docs: 0,
+  docs: -1,
   /** MCP server port */
-  mcp: 0,
+  mcp: -1,
 };
 
 /**
@@ -100,9 +100,20 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
     nodeOutput = (err as Error)?.message;
   }
 
-  // fetch our server ports
-  SERVER_PORTS.docs = await getPorts();
-  SERVER_PORTS.mcp = await getPorts();
+  try {
+    // fetch our server ports
+    SERVER_PORTS.docs = await getPorts();
+    SERVER_PORTS.mcp = await getPorts({ exclude: [SERVER_PORTS.docs] });
+  } catch (err) {
+    IDL_LOGGER.log({
+      type: 'error',
+      content: [
+        `Error getting ports for MCP and documentation server (if configured)`,
+        err,
+      ],
+      alert: IDL_TRANSLATION.lsp.errors.portError,
+    });
+  }
 
   /**
    * Full path to the JS file for launching in VSCode
