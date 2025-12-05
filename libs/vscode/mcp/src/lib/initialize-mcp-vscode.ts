@@ -1,8 +1,7 @@
 import { IDL_MCP_VSCODE_LOG } from '@idl/logger';
 import { EXTENSION_FULL_NAME, VERSION } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
-import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
+import { LANGUAGE_SERVER_MESSENGER, SERVER_PORTS } from '@idl/vscode/client';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
@@ -53,9 +52,7 @@ export function InitializeMCPVSCode(ctx: vscode.ExtensionContext) {
         servers.push(
           new vscode.McpHttpServerDefinition(
             IDL_TRANSLATION.packageJSON.displayName,
-            vscode.Uri.parse(
-              `http://localhost:${IDL_EXTENSION_CONFIG.mcp.port}/mcp`
-            ),
+            vscode.Uri.parse(`http://localhost:${SERVER_PORTS.mcp}/mcp`),
             {},
             `${VERSION}.${Math.floor(100 * Math.random())}.${Math.floor(
               100 * Math.random()

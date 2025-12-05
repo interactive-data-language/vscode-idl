@@ -13,6 +13,7 @@ import {
 } from '@idl/types/problem-codes';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver/node';
 
+import { SERVER_INITIALIZATION_OPTIONS } from '../initialize-language-server';
 import { IDL_CLIENT_CONFIG } from './track-workspace-config';
 
 /**
@@ -60,7 +61,7 @@ export function SyntaxProblemToDiagnostic(
       href: ResolveExtensionDocsURL(
         `/problem-codes/codes/${problem.code}.html`,
         IDL_CLIENT_CONFIG.documentation.useOnline,
-        IDL_CLIENT_CONFIG.documentation.localPort
+        SERVER_INITIALIZATION_OPTIONS.serverPorts.docs
       ),
     },
     data: {

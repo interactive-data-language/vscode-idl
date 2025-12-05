@@ -39,21 +39,6 @@ export function AddDocumentationConfig(nls: IPackageNLS) {
     scope: IDL_CONFIG_SCOPE,
   };
 
-  // should our extension run in debug mode
-  ourConfig.properties[
-    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.documentationLocalPort}`
-  ] = {
-    type: 'number',
-    default: DEFAULT_IDL_EXTENSION_CONFIG.documentation.localPort,
-    description: TranslationFromConfiguration(
-      IDL_EXTENSION_CONFIG_KEYS.documentationLocalPort,
-      nls
-    ),
-    scope: IDL_CONFIG_SCOPE,
-    minimum: 1024,
-    maximum: 65535,
-  };
-
   // save in overall extension config
   EXTENSION_CONFIG.push(ourConfig);
 }

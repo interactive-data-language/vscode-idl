@@ -37,8 +37,6 @@ export interface IDLExtensionsConfigKeys {
 
   /** Key for documentation */
   readonly documentation: 'documentation';
-  /** When using local docs, what port do we serve on? */
-  readonly documentationLocalPort: 'documentation.localPort';
   /** Do we use hosted docs? */
   readonly documentationUseOnline: 'documentation.useOnline';
 
@@ -94,8 +92,6 @@ export interface IDLExtensionsConfigKeys {
   /** Do we enable the MCP server or not? */
   readonly mcpEnabled: 'mcp.enabled';
 
-  /** What port does the MCP server run on? */
-  readonly mcpPort: 'mcp.port';
   /** Key for notebook preferences */
   readonly notebooks: 'notebooks';
   /** Do we embed graphics or not */
@@ -158,8 +154,6 @@ export interface ICodeConfig {
 }
 
 export interface IDocsConfig {
-  /** Code-formatting style */
-  readonly localPort: number;
   /** Do we use our hosted docs for the online  */
   readonly useOnline: boolean;
 }
@@ -229,8 +223,6 @@ export interface IDeveloperConfig {
 export interface IMCPConfig {
   /** Do we enable the MCP server or not? */
   readonly enabled: boolean;
-  /** What port does the MCP server run on? */
-  readonly port: number;
 }
 
 /**
@@ -333,14 +325,12 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
 
   documentation: 'documentation',
   documentationUseOnline: 'documentation.useOnline',
-  documentationLocalPort: 'documentation.localPort',
 
   languageServer: 'languageServer',
   languageServerFullParse: 'languageServer.fullParse',
 
   mcp: 'mcp',
   mcpEnabled: 'mcp.enabled',
-  mcpPort: 'mcp.port',
 
   notebooks: 'notebooks',
   notebooksQuietMode: 'notebooks.quietMode',
@@ -412,7 +402,6 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
   },
   documentation: {
     useOnline: true,
-    localPort: 3344,
   },
   languageServer: {
     fullParse: true,
@@ -420,7 +409,6 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
   },
   mcp: {
     enabled: true,
-    port: 4142,
   },
   notebooks: {
     quietMode: true,

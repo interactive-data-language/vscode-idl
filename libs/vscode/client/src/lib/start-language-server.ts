@@ -1,4 +1,5 @@
 import { GetCanonicalPath } from '@idl/idl/files';
+import { getPorts } from '@idl/server-helpers';
 import {
   ALL_DOCUMENT_SELECTORS,
   CleanPath,
@@ -7,6 +8,10 @@ import {
 } from '@idl/shared/extension';
 import { NODE_MEMORY_CONFIG } from '@idl/system-memory';
 import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  ILanguageServerInitializationOptions,
+  IVSCodeServerPorts,
+} from '@idl/types/vscode';
 import {
   IDL_CLIENT_OUTPUT_CHANNEL,
   VSCodeDisplayOrUpdateProgress,
@@ -46,6 +51,18 @@ export let LANGUAGE_SERVER_FAILED_START = false;
 /** Message handler between the VSCode client and the language server */
 export let LANGUAGE_SERVER_MESSENGER: VSCodeClientEventManager;
 
+export let DOCS_SERVER_PORT: number;
+
+/**
+ * Server ports that we use for configuration
+ */
+export const SERVER_PORTS: IVSCodeServerPorts = {
+  /** Documentation server port */
+  docs: 0,
+  /** MCP server port */
+  mcp: 0,
+};
+
 /**
  * Creates our language client and starts our language server
  */
@@ -82,6 +99,10 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
   } catch (err) {
     nodeOutput = (err as Error)?.message;
   }
+
+  // fetch our server ports
+  SERVER_PORTS.docs = await getPorts();
+  SERVER_PORTS.mcp = await getPorts();
 
   /**
    * Full path to the JS file for launching in VSCode
@@ -149,6 +170,13 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
   };
 
   /**
+   * Get initialization options
+   */
+  const initializationOptions: ILanguageServerInitializationOptions = {
+    serverPorts: SERVER_PORTS,
+  };
+
+  /**
    * Options for our language client
    */
   const clientOptions: LanguageClientOptions = {
@@ -160,6 +188,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
         workspace.createFileSystemWatcher(NOTIFY_FILES_GLOB_PATTERN),
       ],
     },
+    initializationOptions,
     outputChannel: IDL_CLIENT_OUTPUT_CHANNEL,
     initializationFailedHandler: (err) => {
       IDL_LOGGER.log({

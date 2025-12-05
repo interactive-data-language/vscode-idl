@@ -11,8 +11,8 @@ let IS_EXPRESS_SERVER_STARTED = false;
  * Starts an express server for to serve up static docs content
  */
 export function StartExpressDocsServer(
-  failCallback: (err: any) => void,
-  port = DOCS_SERVER_CONFIG.PORT
+  port: number,
+  failCallback: (err: any) => void
 ) {
   /**
    * Return if already started

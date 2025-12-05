@@ -4,7 +4,7 @@ import {
   ResolveExtensionDocsURL,
 } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { VSCODE_COMMANDS } from '@idl/types/vscode';
+import { IVSCodeServerPorts, VSCODE_COMMANDS } from '@idl/types/vscode';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import {
@@ -25,7 +25,10 @@ const cmdErrors = IDL_TRANSLATION.commands.errors;
 /**
  * Adds commands to VSCode to handle misc commands
  */
-export function RegisterClientSharedCommands(ctx: ExtensionContext) {
+export function RegisterClientSharedCommands(
+  ctx: ExtensionContext,
+  serverPorts: IVSCodeServerPorts
+) {
   IDL_LOGGER.log({ content: 'Registering client shared commands' });
 
   ctx.subscriptions.push(
@@ -43,7 +46,7 @@ export function RegisterClientSharedCommands(ctx: ExtensionContext) {
           const url = ResolveExtensionDocsURL(
             '',
             IDL_EXTENSION_CONFIG.documentation.useOnline,
-            IDL_EXTENSION_CONFIG.documentation.localPort
+            serverPorts.docs
           );
 
           vscode.commands.executeCommand(

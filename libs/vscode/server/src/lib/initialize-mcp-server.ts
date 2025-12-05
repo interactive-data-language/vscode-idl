@@ -19,7 +19,7 @@ import {
 /**
  * Starts our MCP Server and adds all of our known tools
  */
-export function InitializeMCPServer() {
+export function InitializeMCPServer(port: number) {
   if (!MCP_CONFIG.enabled) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_MCP_LOG,
@@ -32,7 +32,7 @@ export function InitializeMCPServer() {
   try {
     // indicate that we are starting the MCP server
     StartMCPServer(
-      MCP_CONFIG.port,
+      port,
       (logThis) => {
         IDL_LANGUAGE_SERVER_LOGGER.log({ ...logThis, ...{ log: IDL_MCP_LOG } });
       },

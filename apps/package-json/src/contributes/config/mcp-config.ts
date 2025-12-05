@@ -39,21 +39,6 @@ export function AddMCPConfig(nls: IPackageNLS) {
     scope: IDL_CONFIG_SCOPE,
   };
 
-  // what port should our MCP server start on
-  ourConfig.properties[
-    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.mcpPort}`
-  ] = {
-    type: 'number',
-    default: DEFAULT_IDL_EXTENSION_CONFIG.mcp.port,
-    description: TranslationFromConfiguration(
-      IDL_EXTENSION_CONFIG_KEYS.mcpPort,
-      nls
-    ),
-    scope: IDL_CONFIG_SCOPE,
-    minimum: 1024,
-    maximum: 65535,
-  };
-
   // save in overall extension config
   EXTENSION_CONFIG.push(ourConfig);
 }

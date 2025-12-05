@@ -88,9 +88,6 @@ export function MergeConfig() {
   /** MCP is enabled or not */
   let mcpEnabled = false;
 
-  /** Port for MCP server */
-  let mpcPort: number;
-
   // process each config
   for (let i = 0; i < configs.length; i++) {
     // get current config
@@ -161,11 +158,6 @@ export function MergeConfig() {
     // check if we need to run our MCP server
     mcpEnabled = mcpEnabled || el.mcp.enabled;
 
-    // get the port for our MCP server - user first value
-    if (mpcPort === undefined) {
-      mpcPort = el.mcp.port;
-    }
-
     // check for full parse
     fullParseFlag = fullParseFlag || el.languageServer.fullParse;
   }
@@ -235,7 +227,6 @@ export function MergeConfig() {
 
   // save MCP settings
   MCP_CONFIG.enabled = mcpEnabled;
-  MCP_CONFIG.port = mpcPort;
 
   return {
     folders: {

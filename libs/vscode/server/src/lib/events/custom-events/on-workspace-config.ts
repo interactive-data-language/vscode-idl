@@ -16,6 +16,7 @@ import {
 import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
+  SERVER_INITIALIZATION_OPTIONS,
   SERVER_MESSENGER,
 } from '../../initialize-language-server';
 import { IDL_INDEX } from '../initialize-document-manager';
@@ -90,14 +91,17 @@ export const ON_WORKSPACE_CONFIG = async (
         /**
          * use callback for server errors, needs process hooks
          */
-        StartExpressDocsServer((err) => {
-          IDL_LANGUAGE_SERVER_LOGGER.log({
-            log: IDL_LSP_LOG,
-            type: 'error',
-            content: ['Error starting server', err],
-            alert: IDL_TRANSLATION.lsp.errors.startingServer,
-          });
-        }, IDL_CLIENT_CONFIG.documentation.localPort);
+        StartExpressDocsServer(
+          SERVER_INITIALIZATION_OPTIONS.serverPorts.docs,
+          (err) => {
+            IDL_LANGUAGE_SERVER_LOGGER.log({
+              log: IDL_LSP_LOG,
+              type: 'error',
+              content: ['Error starting server', err],
+              alert: IDL_TRANSLATION.lsp.errors.startingServer,
+            });
+          }
+        );
         // catch all other errors
       } catch (err) {
         IDL_LANGUAGE_SERVER_LOGGER.log({

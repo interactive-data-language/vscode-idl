@@ -9,7 +9,10 @@ import { DOCS_SERVER_CONFIG } from './docs-server.interface';
 /**
  * Starts a pure node.js server to serve up documentation
  */
-export async function StartNodeDocsServer(dir = DOCS_SERVER_CONFIG.FOLDER) {
+export async function StartNodeDocsServer(
+  port: number,
+  dir = DOCS_SERVER_CONFIG.FOLDER
+) {
   /**
    * Start our server
    */
@@ -82,7 +85,7 @@ export async function StartNodeDocsServer(dir = DOCS_SERVER_CONFIG.FOLDER) {
   });
 
   // start listening
-  server.listen(DOCS_SERVER_CONFIG.PORT, () => {
-    console.log(`Server is listening on port ${DOCS_SERVER_CONFIG.PORT}`);
+  server.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
   });
 }

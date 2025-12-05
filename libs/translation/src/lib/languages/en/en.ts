@@ -222,8 +222,6 @@ export const EN: ITranslation = {
       'developer.IDL': "Disable loading IDL's global tokens.",
 
       documentation: 'documentation',
-      'documentation.localPort':
-        'When using local extension docs, what port do we serve them from?',
       'documentation.useOnline':
         'For extension documentation, do we use the online (hosted) version, or the local version packaged with the extension?',
 
@@ -265,8 +263,6 @@ export const EN: ITranslation = {
       mcp: 'Preferences that control the built-in MCP server',
       'mcp.enabled':
         'Do we automatically launch the MCP server on language server startup? If enabled in one workspace, enabled for all.',
-      'mcp.port':
-        'What port does the MCP server start on? Requires a VSCode restart to take effect. If there is more than one configured port across open workspaces, we use the first value we find. This is printed to the logs when the extension starts.\n\nIf you change this value, make sure that your MCP server configuration in VSCode is also updated to match.',
 
       notebooks:
         'Preferences that control notebook user experience for IDL Notebooks',

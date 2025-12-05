@@ -473,14 +473,6 @@
             "default": true,
             "description": "%configuration.descriptions.documentation.useOnline%",
             "scope": "machine-overridable"
-          },
-          "idl.documentation.localPort": {
-            "type": "number",
-            "default": 3344,
-            "description": "%configuration.descriptions.documentation.localPort%",
-            "scope": "machine-overridable",
-            "minimum": 1024,
-            "maximum": 65535
           }
         }
       },
@@ -888,14 +880,6 @@
             "default": true,
             "description": "%configuration.descriptions.mcp.enabled%",
             "scope": "machine-overridable"
-          },
-          "idl.mcp.port": {
-            "type": "number",
-            "default": 4142,
-            "description": "%configuration.descriptions.mcp.port%",
-            "scope": "machine-overridable",
-            "minimum": 1024,
-            "maximum": 65535
           }
         }
       },

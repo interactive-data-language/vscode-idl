@@ -29,6 +29,7 @@ import { RegisterHoverProvider } from './register-hover-provider';
 import {
   LANGUAGE_SERVER_CLIENT,
   LANGUAGE_SERVER_FAILED_START,
+  SERVER_PORTS,
   StartLanguageServer,
 } from './start-language-server';
 
@@ -116,7 +117,7 @@ export async function InitializeClient(
   });
 
   // register basic commands for our client
-  RegisterClientSharedCommands(ctx);
+  RegisterClientSharedCommands(ctx, SERVER_PORTS);
   RegisterClientNodeCommands(ctx);
 
   // register code commands

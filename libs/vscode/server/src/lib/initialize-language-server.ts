@@ -6,6 +6,7 @@ import {
 } from '@idl/shared/extension';
 import { GetVSCodeLocale } from '@idl/shared/node';
 import { IDL_TRANSLATION, InitializeTranslation } from '@idl/translation';
+import { ILanguageServerInitializationOptions } from '@idl/types/vscode';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { ILanguageServerConfig } from '@idl/vscode/extension-config';
@@ -62,6 +63,11 @@ export const SERVER_CONNECTION = createConnection(ProposedFeatures.all);
  * from the language client.
  */
 export let SERVER_MESSENGER: VSCodeLanguageServerMessenger;
+
+/**
+ * Language server initialization options that were passed in
+ */
+export let SERVER_INITIALIZATION_OPTIONS: ILanguageServerInitializationOptions;
 
 /**
  * Logger for our language server
@@ -141,6 +147,9 @@ export function InitializeLanguageServer() {
   SERVER_CONNECTION.onInitialize((params: InitializeParams) => {
     // get capabilities from our session
     const capabilities = params.capabilities;
+
+    // save the initialization options
+    SERVER_INITIALIZATION_OPTIONS = params.initializationOptions;
 
     // Does the client support the `workspace/configuration` request?
     // If not, we will fall back using global settings

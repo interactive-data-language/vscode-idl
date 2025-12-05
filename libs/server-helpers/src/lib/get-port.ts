@@ -91,7 +91,7 @@ const portCheckSequence = function* (ports) {
   yield 0; // Fall back to 0 if anything else failed
 };
 
-export default async function getPorts(options?: any) {
+export async function getPorts(options?: any) {
   let ports;
   let exclude = new Set();
 

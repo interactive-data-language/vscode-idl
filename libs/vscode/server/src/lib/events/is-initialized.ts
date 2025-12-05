@@ -29,6 +29,7 @@ import { IDL_CLIENT_CONFIG } from '../helpers/track-workspace-config';
 import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
+  SERVER_INITIALIZATION_OPTIONS,
   SERVER_MESSENGER,
 } from '../initialize-language-server';
 import { InitializeMCPServer } from '../initialize-mcp-server';
@@ -176,7 +177,7 @@ SERVER_INFO.then(async (res) => {
      * We do this here because we need information from VSCode about whether
      * we can launch the server or not
      */
-    InitializeMCPServer();
+    InitializeMCPServer(SERVER_INITIALIZATION_OPTIONS.serverPorts.mcp);
 
     /**
      * Check if we can't detect the number of CPUs
@@ -283,7 +284,11 @@ SERVER_INFO.then(async (res) => {
       );
 
       // using what we parsed, register MCP tools for the user
-      // RegisterUserMCPTools(SERVER_MESSENGER);
+      // RegisterMCPTaskTools(
+      //   IDL_INDEX,
+      //   IDL_LANGUAGE_SERVER_LOGGER,
+      //   SERVER_MESSENGER
+      // );
     } catch (err) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,
