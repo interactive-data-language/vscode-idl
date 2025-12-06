@@ -7,6 +7,7 @@ import {
 import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
 
 import { GetLastENVISuccessMessage } from '../../helpers/get-last-envi-success-message';
+import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
 
 /**
  * Open a dataset in ENVI
@@ -24,6 +25,25 @@ export async function RunMCP_ENVIOpenDatasets(
   if (!started.started) {
     return { success: false, err: started.reason };
   }
+
+  VSCodeSendMCPNotification(id, { message: 'Starting ENVI' });
+
+  // execute our command
+  const res1 = await IDL_DEBUG_ADAPTER.evaluate(`vscode_startENVI`);
+
+  // get message from starting ENVI
+  const success1 = GetLastENVISuccessMessage();
+
+  // if we didnt succeed, then return
+  if (!success1) {
+    return {
+      success: success1.succeeded,
+      err: success1.error,
+      idlOutput: res1,
+    };
+  }
+
+  VSCodeSendMCPNotification(id, { message: 'Opening datasets' });
 
   // run our command to open in ENVI
   const res = await IDL_DEBUG_ADAPTER.evaluate(
