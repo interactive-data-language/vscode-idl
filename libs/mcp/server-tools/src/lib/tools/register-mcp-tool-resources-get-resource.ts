@@ -4,7 +4,7 @@ import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { MCPToolRegistry } from '../mcp-tool-registry.class';
 
 /**
  * Get a resource from the server

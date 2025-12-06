@@ -906,6 +906,7 @@ export const EN: ITranslation = {
         'run-envi-tool': 'ENVI: Run Task',
         'search-for-routine': 'Resources: Search for Routine',
         'search-resources': 'Resources: Search',
+        'search-for-files': 'Search for Files',
         'start-envi': 'ENVI: Start',
         'start-idl': 'IDL: Start',
       },

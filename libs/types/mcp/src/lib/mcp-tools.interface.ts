@@ -180,6 +180,11 @@ export interface MCPToolResponse_IDLExecuteFile extends IMCPTool_BaseResponse {
 }
 
 /**
+ * MCP Tool to search for files
+ */
+export type MCPTool_SearchForFiles = 'search-for-files';
+
+/**
  * Message when start IDL
  */
 export type MCPTool_IDLStart = 'start-idl';
@@ -229,7 +234,7 @@ export type MCPTools_VSCode =
   | MCPTool_IDLStart;
 
 /**
- * Types of MCP messages
+ * All MCP tools (some are server-only, no contact with IDL/ENVI)
  */
 export type MCPTools =
   | MCPTool_ENVIGetTaskParameters
@@ -238,6 +243,7 @@ export type MCPTools =
   | MCPTool_ResourcesListAll
   | MCPTool_ResourcesSearchForRoutine
   | MCPTool_ResourcesSearchResources
+  | MCPTool_SearchForFiles
   | MCPTools_VSCode;
 
 /**
@@ -316,6 +322,8 @@ interface IMCPToolLookup {
   RESOURCES_SEARCH_FOR_ROUTINE: MCPTool_ResourcesSearchForRoutine;
   /** Search all resources */
   RESOURCES_SEARCH_RESOURCES: MCPTool_ResourcesSearchResources;
+  /** Search a location for files */
+  SEARCH_FOR_FILES: MCPTool_SearchForFiles;
 }
 
 /**
@@ -336,4 +344,5 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   RESOURCES_LIST_ALL: 'list-all-resources',
   RESOURCES_SEARCH_FOR_ROUTINE: 'search-for-routine',
   RESOURCES_SEARCH_RESOURCES: 'search-resources',
+  SEARCH_FOR_FILES: 'search-for-files',
 };
