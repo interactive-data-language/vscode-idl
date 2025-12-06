@@ -5,6 +5,7 @@ import {
 } from '@idl/types/mcp';
 import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
 
+import { GetLastENVISuccessMessage } from '../../helpers/get-last-envi-success-message';
 import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
 
 /**
@@ -29,10 +30,15 @@ export async function RunMCP_ENVIStart(
   VSCodeSendMCPNotification(id, { message: 'Starting ENVI' });
 
   // execute our command
-  await IDL_DEBUG_ADAPTER.evaluate(
-    params.headless ? 'e = envi(/headless)' : 'e = envi()'
+  const res = await IDL_DEBUG_ADAPTER.evaluate(
+    `vscode_startENVI, headless = ${params.headless ? '!true' : '!false'}`
   );
 
-  // we made it here, so lets return
-  return { success: true };
+  const success = GetLastENVISuccessMessage();
+
+  return {
+    success: success.succeeded,
+    err: success.error,
+    idlOutput: res,
+  };
 }

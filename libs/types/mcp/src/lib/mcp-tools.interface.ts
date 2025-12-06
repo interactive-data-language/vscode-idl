@@ -109,7 +109,10 @@ export interface MCPToolParams_ENVIStart {
 /**
  * Response for starting ENVI
  */
-export type MCPToolResponse_ENVIStart = IMCPTool_BaseResponse;
+export interface MCPToolResponse_ENVIStart extends IMCPTool_BaseResponse {
+  /** output from IDL */
+  idlOutput?: string;
+}
 
 /**
  * Message when we want to create an IDL Notebook
