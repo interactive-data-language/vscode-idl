@@ -5,11 +5,17 @@ import {
   GlobalFunctionToken,
   GlobalStructureToken,
   GlobalTokens,
+  IDLDataTypeBaseMetadata,
   IGlobalIndexedToken,
   IPropertyLookup,
 } from '@idl/types/idl-data-types';
 
-import { ENVITask, ENVITaskSchemaVersion } from '../envitask.interface';
+import {
+  ENVITask,
+  ENVITaskParameter,
+  ENVITaskSchema32,
+  ENVITaskSchemaVersion,
+} from '../envitask.interface';
 import { TaskTypeToIDLType } from './task-type-to-idl-type';
 
 /**
@@ -55,6 +61,14 @@ export function ENVITaskToGlobal(
       continue;
     }
 
+    /** Create type metadata for URI specials */
+    const meta: IDLDataTypeBaseMetadata = {};
+
+    // set folder - note that URI is automatically detected in the `TaskTypeToIDlType` function
+    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.is_directory) {
+      meta.isFolder = true;
+    }
+
     // save our property
     props[propName] = {
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
@@ -64,7 +78,7 @@ export function ENVITaskToGlobal(
       private: param.hidden ? true : false,
       display: task.parameters[i].name.toLowerCase(),
       docs: param.description,
-      type: TaskTypeToIDLType(param.type, param.choice_list),
+      type: TaskTypeToIDLType(param.type, meta, param.choice_list),
       req: param.required,
     };
   }

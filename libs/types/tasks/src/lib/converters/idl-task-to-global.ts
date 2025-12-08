@@ -57,7 +57,7 @@ export function IDLTaskToGlobal(
       private: param.hidden ? true : false,
       display: task.parameters[i].name.toLowerCase(),
       docs: param.description,
-      type: TaskTypeToIDLType(param.type, param.choice_list),
+      type: TaskTypeToIDLType(param.type, {}, param.choice_list),
       req: param.required,
     };
   }

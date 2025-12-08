@@ -29,7 +29,7 @@ function BuildPropertyCompletionItemsForType(
 
   // check if we have an anonymous structure
   if (type.name === IDL_TYPE_LOOKUP.STRUCTURE) {
-    const properties = type.meta;
+    const properties = type.meta.properties || {};
     const keys = Object.keys(properties);
     for (let i = 0; i < keys.length; i++) {
       const lowKey = keys[i].toLowerCase();

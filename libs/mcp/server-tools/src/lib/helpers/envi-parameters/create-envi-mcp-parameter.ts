@@ -52,10 +52,20 @@ export function CreateENVIMCPParameter(
     }
 
     /**
-     * ENVI URI
+     * ENVI URI - Folder
      */
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.STRING) &&
-      name.endsWith('uri'):
+    case type[0].meta.isUri && type[0].meta.isFolder:
+      return z
+        .string()
+        .default('!')
+        .describe(
+          'Fully-qualified path to the output folder, default is "!" which indicates a temporary location will be created. Only set this when requested by user.'
+        );
+
+    /**
+     * ENVI URI - Folder
+     */
+    case type[0].meta.isUri:
       return z
         .string()
         .default('!')

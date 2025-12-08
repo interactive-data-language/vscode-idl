@@ -103,6 +103,9 @@ export type IDLTypeOfArg = 'TypeOfArg';
 /** Type for IDL Task */
 export type IDLTaskType = 'IDLTask';
 
+/** Unknown data type */
+export type IDLUnknown = 'Unknown';
+
 /** Type for ENVI Task */
 export type ENVITaskType = 'ENVITask';
 
@@ -123,7 +126,8 @@ export type IDLKnownTypes =
   | IDLPointer
   | IDLString
   | IDLStructure
-  | IDLTaskType;
+  | IDLTaskType
+  | IDLUnknown;
 
 /** Union type of allowed variables */
 export type IDLTypes =
@@ -246,6 +250,20 @@ export interface ICreateIDLDataType {
 }
 
 /**
+ * Metadata for data types
+ */
+export interface IDLDataTypeBaseMetadata {
+  // overload for all other properties
+  [key: string]: any;
+  /** If we have a string, is it a URI/filepath to a folder on disk */
+  isFolder?: boolean;
+  /** If we have a string, is it a URI/filepath */
+  isUri?: boolean;
+  /** Field to store information about properties - used for "Structure" types */
+  properties?: IPropertyLookup;
+}
+
+/**
  * Base structure for types in IDL for a single type
  */
 export interface IDLDataTypeBase<T extends IDLTypes>
@@ -259,7 +277,7 @@ export interface IDLDataTypeBase<T extends IDLTypes>
    * Specifically, if we have an anonymous structure, we store type information
    * about the properties right here.
    */
-  meta: IPropertyLookup;
+  meta: IDLDataTypeBaseMetadata;
   name: T;
   /** A string that includes the display with literal types included */
   serialized: string;

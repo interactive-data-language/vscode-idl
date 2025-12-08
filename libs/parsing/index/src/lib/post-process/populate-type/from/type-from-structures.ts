@@ -73,6 +73,9 @@ export function TypeFromStructure(
     TOKEN_NAMES.STRUCTURE_PROPERTY
   );
 
+  // init properties
+  type[0].meta.properties = {};
+
   // resolve types for our properties
   for (let i = 0; i < properties.length; i++) {
     // extract property
@@ -85,8 +88,8 @@ export function TypeFromStructure(
     const usePropName = propName.toLowerCase();
 
     // check if we should process and save
-    if (!(usePropName in type[0].meta)) {
-      type[0].meta[usePropName] = {
+    if (!(usePropName in type[0].meta.properties)) {
+      type[0].meta.properties[usePropName] = {
         display: propName,
         type: TypeFromTokens(index, parsed, prop.kids),
         direction: 'bidirectional',

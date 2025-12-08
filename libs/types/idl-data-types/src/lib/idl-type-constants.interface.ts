@@ -19,6 +19,7 @@ import {
   IDLString,
   IDLStructure,
   IDLTypes,
+  IDLUnknown,
   IDLUnsignedInteger,
   IDLUnsignedLong,
   IDLUnsignedLong64,
@@ -32,7 +33,7 @@ export const DEFAULT_DATA_TYPE: IDLTypes = IDL_TYPE_LOOKUP.ANY;
 /**
  * Type for unknown things, like properties that don't exist
  */
-export const UNKNOWN_TYPE: IDLDataTypeBase<string>[] = [
+export const UNKNOWN_TYPE: IDLDataTypeBase<IDLUnknown>[] = [
   {
     display: 'Unknown',
     name: 'Unknown',

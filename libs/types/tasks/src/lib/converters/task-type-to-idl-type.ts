@@ -1,4 +1,5 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
+import { IDLDataTypeBaseMetadata } from '@idl/types/idl-data-types';
 
 /**
  * Regular expression to check for array data types and allows us to strip
@@ -27,9 +28,21 @@ function GetArrayOrKeys(value: unknown): any[] {
  * Takes an arbitrary data type from a task and converts it to an
  * IDL data type.
  */
-export function TaskTypeToIDLType(type: string, choiceList?: any) {
-  // convert URIs to strings
-  type = type.replace(CLEAN_URI_REGEX, 'string');
+export function TaskTypeToIDLType(
+  type: string,
+  metadata: IDLDataTypeBaseMetadata,
+  choiceList?: any
+) {
+  /** Check for URI parameter */
+  const isUri = CLEAN_URI_REGEX.test(type);
+
+  /** Check for array data type */
+  const isArray = ARRAY_REGEX.test(type);
+
+  /** Map some ENVI types to better formats */
+  const useType = type
+    .replace(CLEAN_URI_REGEX, 'string')
+    .replace(ARRAY_REGEX, '');
 
   /**
    * Track values of our type
@@ -48,30 +61,32 @@ export function TaskTypeToIDLType(type: string, choiceList?: any) {
     }
   }
 
-  // check if we have an array
-  const match = ARRAY_REGEX.exec(type);
-  if (match !== null) {
-    return IDLTypeHelper.createIDLType([
+  /** Create base type */
+  let created = IDLTypeHelper.createIDLType([
+    {
+      name: useType,
+      args: [],
+      value: values,
+    },
+  ]);
+
+  // save metadata
+  created[0].meta = { ...created[0].meta, ...metadata };
+
+  // save if we are a URI
+  if (isUri) {
+    created[0].meta.isUri = true;
+  }
+
+  // check if we need to prompte to an array
+  if (isArray) {
+    created = IDLTypeHelper.createIDLType([
       {
         name: 'Array',
-        args: [
-          IDLTypeHelper.createIDLType([
-            {
-              name: type.substring(0, match.index),
-              args: [],
-              value: values,
-            },
-          ]),
-        ],
-      },
-    ]);
-  } else {
-    return IDLTypeHelper.createIDLType([
-      {
-        name: type,
-        args: [],
-        value: values,
+        args: [created],
       },
     ]);
   }
+
+  return created;
 }
