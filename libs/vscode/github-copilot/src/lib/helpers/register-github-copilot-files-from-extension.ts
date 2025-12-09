@@ -11,9 +11,10 @@ import * as vscode from 'vscode';
 import { MoveAndUpdateCopilotFile } from './move-and-update-copilot-file';
 
 /**
- * Initializes our GitHub Copilot VSCode integration
+ * Registers prompts and instructions files that we provide as
+ * part of the extension with GitHub Copilot's configuration
  */
-export async function RegisterGitHubCopilotFiles(
+export async function RegisterGitHubCopilotFilesFromExtension(
   type: 'instructions' | 'prompts'
 ) {
   // Get the configuration for chat settings

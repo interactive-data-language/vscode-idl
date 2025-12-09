@@ -3,7 +3,8 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
 import { RegisterCopilotCommands } from './commands/register-copilot-commands';
-import { RegisterGitHubCopilotFiles } from './helpers/register-github-copilot-files';
+import { RegisterGitHubCopilotFilesFromExtension } from './helpers/register-github-copilot-files-from-extension';
+import { RegisterGitHubCopilotFilesFromIDLPackages } from './helpers/register-github-copilot-files-from-idl-packages';
 
 /**
  * Initializes our GitHub Copilot VSCode integration
@@ -24,7 +25,8 @@ export async function InitializeVSCodeGitHubCopilot(
    * Attempt to add isntructions
    */
   try {
-    await RegisterGitHubCopilotFiles('instructions');
+    await RegisterGitHubCopilotFilesFromExtension('instructions');
+    await RegisterGitHubCopilotFilesFromIDLPackages('instructions');
   } catch (err) {
     IDL_LOGGER.log({
       log: IDL_COPILOT_VSCODE_LOG,
@@ -40,7 +42,8 @@ export async function InitializeVSCodeGitHubCopilot(
    * Attempt to add prompt files to VSCode
    */
   try {
-    await RegisterGitHubCopilotFiles('prompts');
+    await RegisterGitHubCopilotFilesFromExtension('prompts');
+    await RegisterGitHubCopilotFilesFromIDLPackages('prompts');
   } catch (err) {
     IDL_LOGGER.log({
       log: IDL_COPILOT_VSCODE_LOG,
