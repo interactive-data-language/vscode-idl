@@ -37,7 +37,7 @@ export function RegisterMCPTool_ENVIOpenDatasets(
         .enum(['all-layers', 'last-layer', 'none'])
         .default('last-layer')
         .describe(
-          'Automatic zoom strategy when we add a layer. "all-layers" uses the extent of all displayed layers. "last-layer" zooms to the last layer added. "none" means no automatic zoming.'
+          'Automatic zoom strategy when we add a layer. "all-layers" uses the extent of all displayed layers. "last-layer" zooms to the last layer added. "none" means no automatic zooming.'
         ),
       resetView: z
         .boolean()
