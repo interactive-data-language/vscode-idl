@@ -20,6 +20,14 @@ export type MCPTool_ENVIOpenDatasets = 'open-datasets-in-envi';
  */
 export interface MCPToolParams_ENVIOpenDatasets {
   /**
+   * For a single dataset, do we zoom to the extent of the layer?
+   *
+   * If more than one, we zoom to the view's full extent.
+   *
+   * Make sure this matches logic in `vscode_displayDatasets` in IDL
+   */
+  automaticZoom: 'all-layers' | 'last-layer' | 'none';
+  /**
    * The dehydrated dataset to open
    */
   datasets: string;

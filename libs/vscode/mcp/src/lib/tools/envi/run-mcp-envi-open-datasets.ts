@@ -48,9 +48,9 @@ export async function RunMCP_ENVIOpenDatasets(
   // run our command to open in ENVI
   const res = await IDL_DEBUG_ADAPTER.evaluate(
     // datasets are already serialized as a string
-    `vscode_displayDatasets, '${params.datasets}', reset = ${
-      params.resetView ? '!true' : '!false'
-    }`,
+    `vscode_displayDatasets, '${params.datasets}', automatic_zoom = '${
+      params.automaticZoom
+    }', reset = ${params.resetView ? '!true' : '!false'}`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.openerText, silent: false }
   );
 

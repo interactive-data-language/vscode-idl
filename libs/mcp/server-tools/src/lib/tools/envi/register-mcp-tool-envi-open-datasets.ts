@@ -33,6 +33,12 @@ export function RegisterMCPTool_ENVIOpenDatasets(
           ])
         )
         .describe('The datasets to open in ENVI.'),
+      automaticZoom: z
+        .enum(['all-layers', 'last-layer', 'none'])
+        .default('last-layer')
+        .describe(
+          'Automatic zoom strategy when we add a layer. "all-layers" uses the extent of all displayed layers. "last-layer" zooms to the last layer added. "none" means no automatic zoming.'
+        ),
       resetView: z
         .boolean()
         .default(false)
@@ -40,11 +46,12 @@ export function RegisterMCPTool_ENVIOpenDatasets(
           'If true, the ENVI view is reset and all datasets are removed before displaying datasets.'
         ),
     },
-    async (id, { datasets, resetView }) => {
+    async (id, { datasets, resetView, automaticZoom }) => {
       // strictly typed parameters
       const params: MCPToolParams<MCPTool_ENVIOpenDatasets> = {
         datasets: JSON.stringify(datasets),
         resetView,
+        automaticZoom,
       };
 
       const resp = await messenger.sendRequest(
