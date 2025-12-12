@@ -4,9 +4,9 @@ import {
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
-import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
+import { StartIDL } from '@idl/vscode/debug';
 
-import { GetLastENVISuccessMessage } from '../../helpers/get-last-envi-success-message';
+import { MCPEvaluateENVICommand } from '../../helpers/mcp-evaluate-envi-command';
 import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
 
 /**
@@ -30,17 +30,14 @@ export async function RunMCP_ENVIQueryDataset(
 
   VSCodeSendMCPNotification(id, { message: 'Starting ENVI' });
 
-  // execute our command
-  const res1 = await IDL_DEBUG_ADAPTER.evaluate(`vscode_startENVI`);
-
-  // get message from starting ENVI
-  const success1 = GetLastENVISuccessMessage();
+  // start ENVI/make sure it is started
+  const start = await MCPEvaluateENVICommand(`vscode_startENVI`);
 
   // if we didnt succeed, then return
-  if (!success1) {
+  if (!start.succeeded) {
     return {
-      success: success1.succeeded,
-      err: `${success1.error}, IDL Output: ${res1}`,
+      success: start.succeeded,
+      err: `${start.error}, IDL Output: ${start.idlOutput}`,
       info: {},
     };
   }
@@ -49,18 +46,14 @@ export async function RunMCP_ENVIQueryDataset(
   VSCodeSendMCPNotification(id, { message: 'Querying dataset' });
 
   // run our command to open in ENVI
-  const res = await IDL_DEBUG_ADAPTER.evaluate(
+  const res = await MCPEvaluateENVICommand(
     `vscode_queryDataset, '${JSON.stringify(params.dataset)}'`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false }
   );
 
-  // TODO: double check IDL finished successfully
-
-  const success = GetLastENVISuccessMessage();
-
   return {
-    success: success.succeeded,
-    err: success.error,
-    info: success.payload || {},
+    success: res.succeeded,
+    err: res.error,
+    info: res.payload || {},
   };
 }

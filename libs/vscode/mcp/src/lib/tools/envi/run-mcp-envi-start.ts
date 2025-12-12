@@ -3,9 +3,9 @@ import {
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
-import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
+import { StartIDL } from '@idl/vscode/debug';
 
-import { GetLastENVISuccessMessage } from '../../helpers/get-last-envi-success-message';
+import { MCPEvaluateENVICommand } from '../../helpers/mcp-evaluate-envi-command';
 import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
 
 /**
@@ -30,15 +30,13 @@ export async function RunMCP_ENVIStart(
   VSCodeSendMCPNotification(id, { message: 'Starting ENVI' });
 
   // execute our command
-  const res = await IDL_DEBUG_ADAPTER.evaluate(
+  const res = await MCPEvaluateENVICommand(
     `vscode_startENVI, headless = ${params.headless ? '!true' : '!false'}`
   );
 
-  const success = GetLastENVISuccessMessage();
-
   return {
-    success: success.succeeded,
-    err: success.error,
-    idlOutput: res,
+    success: res.succeeded,
+    err: res.error,
+    idlOutput: res.idlOutput,
   };
 }

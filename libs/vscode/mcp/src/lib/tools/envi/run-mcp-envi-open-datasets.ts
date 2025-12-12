@@ -4,9 +4,9 @@ import {
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
-import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
+import { StartIDL } from '@idl/vscode/debug';
 
-import { GetLastENVISuccessMessage } from '../../helpers/get-last-envi-success-message';
+import { MCPEvaluateENVICommand } from '../../helpers/mcp-evaluate-envi-command';
 import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
 
 /**
@@ -28,25 +28,22 @@ export async function RunMCP_ENVIOpenDatasets(
 
   VSCodeSendMCPNotification(id, { message: 'Starting ENVI' });
 
-  // execute our command
-  const res1 = await IDL_DEBUG_ADAPTER.evaluate(`vscode_startENVI`);
-
-  // get message from starting ENVI
-  const success1 = GetLastENVISuccessMessage();
+  // start ENVI/make sure it is started
+  const start = await MCPEvaluateENVICommand(`vscode_startENVI`);
 
   // if we didnt succeed, then return
-  if (!success1) {
+  if (!start.succeeded) {
     return {
-      success: success1.succeeded,
-      err: success1.error,
-      idlOutput: res1,
+      success: start.succeeded,
+      err: start.error,
+      idlOutput: start.idlOutput,
     };
   }
 
   VSCodeSendMCPNotification(id, { message: 'Opening datasets' });
 
   // run our command to open in ENVI
-  const res = await IDL_DEBUG_ADAPTER.evaluate(
+  const res = await MCPEvaluateENVICommand(
     // datasets are already serialized as a string
     `vscode_displayDatasets, '${params.datasets}', automatic_zoom = '${
       params.automaticZoom
@@ -54,11 +51,9 @@ export async function RunMCP_ENVIOpenDatasets(
     { echo: true, echoThis: IDL_TRANSLATION.envi.openerText, silent: false }
   );
 
-  const success = GetLastENVISuccessMessage();
-
   return {
-    success: success.succeeded,
-    err: success.error,
-    idlOutput: res,
+    success: res.succeeded,
+    err: res.error,
+    idlOutput: res.idlOutput,
   };
 }
