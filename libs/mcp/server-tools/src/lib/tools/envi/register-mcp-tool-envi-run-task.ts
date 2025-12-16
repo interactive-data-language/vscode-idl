@@ -35,19 +35,26 @@ export function RegisterMCPTool_ENVIRunTask(
         .describe(
           `Specify a JSON object containing the task parameters that matches the JSON schema returned from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TASKS}`
         ),
+      interactive: z
+        .boolean()
+        .default(false)
+        .describe(
+          `If true, the tool will appear in the ENVI UI and the user can fine-tune/tweak parameters. Only do this when requrested.`
+        ),
     },
-    async (id, inputParameters) => {
+    async (id, { taskName, inputParameters, interactive }) => {
       // strictly typed parameters and make sure we always have content in the cells
       const params: MCPToolParams<MCPTool_ENVIRunTask> = {
-        taskName: inputParameters.taskName,
-        inputParameters: inputParameters.inputParameters,
+        interactive,
+        task: {
+          taskName,
+          inputParameters,
+        },
       };
 
-      console.log(inputParameters);
-
       // check if we have a task file to use instead
-      if (inputParameters.taskName in TASK_FILE_LOOKUP) {
-        params.taskName = TASK_FILE_LOOKUP[inputParameters.taskName];
+      if (taskName in TASK_FILE_LOOKUP) {
+        params.task.taskName = TASK_FILE_LOOKUP[taskName];
       }
 
       const resp = (await messenger.sendRequest(

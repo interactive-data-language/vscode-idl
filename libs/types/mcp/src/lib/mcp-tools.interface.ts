@@ -79,12 +79,17 @@ export type MCPTool_ENVIRunTask = 'run-envi-tool';
  * Payload for running an ENVI Task
  */
 export interface MCPToolParams_ENVIRunTask {
-  /** Parameters */
-  inputParameters: { [key: string]: any };
-  /**
-   * Name of the task
-   */
-  taskName: string;
+  /** Show UI for user to control execution? */
+  interactive: boolean;
+  /** Task to run */
+  task: {
+    /**
+     * Name of the task
+     */
+    taskName: string;
+    /** Parameters */
+    inputParameters: { [key: string]: any };
+  };
 }
 
 /**
