@@ -7,6 +7,7 @@ import {
 import { StartIDL } from '@idl/vscode/debug';
 
 import { MCPEvaluateENVICommand } from '../../helpers/mcp-evaluate-envi-command';
+import { MCPSerializeJSON } from '../../helpers/mcp-serialize-json';
 import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
 
 /**
@@ -45,9 +46,11 @@ export async function RunMCP_ENVIOpenDatasets(
   // run our command to open in ENVI
   const res = await MCPEvaluateENVICommand(
     // datasets are already serialized as a string
-    `vscode_displayDatasets, '${params.datasets}', automatic_zoom = '${
-      params.automaticZoom
-    }', reset = ${params.resetView ? '!true' : '!false'}`,
+    `vscode_displayDatasets, '${MCPSerializeJSON(
+      params.datasets
+    )}', automatic_zoom = '${params.automaticZoom}', reset = ${
+      params.resetView ? '!true' : '!false'
+    }`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.openerText, silent: false }
   );
 

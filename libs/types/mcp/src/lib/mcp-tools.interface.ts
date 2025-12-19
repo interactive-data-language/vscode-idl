@@ -28,9 +28,9 @@ export interface MCPToolParams_ENVIOpenDatasets {
    */
   automaticZoom: 'all-layers' | 'last-layer' | 'none';
   /**
-   * The dehydrated dataset to open
+   * The dehydrated datasets to open
    */
-  datasets: string;
+  datasets: { [key: string]: any }[];
   /**
    * Do we reset the display or not?
    */

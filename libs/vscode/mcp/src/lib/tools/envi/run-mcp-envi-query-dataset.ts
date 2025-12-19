@@ -7,6 +7,7 @@ import {
 import { StartIDL } from '@idl/vscode/debug';
 
 import { MCPEvaluateENVICommand } from '../../helpers/mcp-evaluate-envi-command';
+import { MCPSerializeJSON } from '../../helpers/mcp-serialize-json';
 import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
 
 /**
@@ -47,7 +48,7 @@ export async function RunMCP_ENVIQueryDataset(
 
   // run our command to open in ENVI
   const res = await MCPEvaluateENVICommand(
-    `vscode_queryDataset, '${JSON.stringify(params.dataset)}'`,
+    `vscode_queryDataset, '${MCPSerializeJSON(params.dataset)}'`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false }
   );
 

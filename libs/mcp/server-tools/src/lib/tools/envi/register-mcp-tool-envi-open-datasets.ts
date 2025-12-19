@@ -49,7 +49,7 @@ export function RegisterMCPTool_ENVIOpenDatasets(
     async (id, { datasets, resetView, automaticZoom }) => {
       // strictly typed parameters
       const params: MCPToolParams<MCPTool_ENVIOpenDatasets> = {
-        datasets: JSON.stringify(datasets),
+        datasets,
         resetView,
         automaticZoom,
       };
