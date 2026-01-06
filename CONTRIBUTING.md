@@ -18,7 +18,7 @@ This repository is forward leaning with LTS and new versions of node and NPM.
 
 At the time of writing this, you need:
 
-- Node.js 18.12 or newer
+- Node.js 20.12 or newer
 - NPM 9.2 or newer
 
 You should see an error when you try to install dependencies or package the extension, both of which check your node and NPM versions to make sure they are valid.
