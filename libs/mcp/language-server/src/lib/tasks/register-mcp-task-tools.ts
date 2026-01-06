@@ -3,10 +3,7 @@ import { MCP_SERVER } from '@idl/mcp/server';
 import {
   RegisterMCPTool_ENVIGetTaskParameters,
   RegisterMCPTool_ENVIListTasks,
-  RegisterMCPTool_ENVIOpenDatasets,
-  RegisterMCPTool_ENVIQueryDataset,
   RegisterMCPTool_ENVIRunTask,
-  RegisterMCPTool_ENVIStart,
   TrackENVITaskForMCPServer,
 } from '@idl/mcp/server-tools';
 import { IDLIndex } from '@idl/parsing/index';
@@ -34,11 +31,6 @@ export async function RegisterMCPTaskTools(
     type: 'info',
     content: 'Registering MCP user tools',
   });
-
-  // register tools for ENVI
-  RegisterMCPTool_ENVIOpenDatasets(messenger);
-  RegisterMCPTool_ENVIQueryDataset(messenger);
-  RegisterMCPTool_ENVIStart(messenger);
 
   // register tools for tasks
   RegisterMCPTool_ENVIListTasks(messenger);
