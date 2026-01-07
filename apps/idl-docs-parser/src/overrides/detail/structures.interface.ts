@@ -68,6 +68,40 @@ export const STRUCTURE_OVERRIDE: IStructureOverride = {
       },
     },
   },
+  envitime: {
+    display: 'ENVITime',
+    properties: {
+      acquisition: {
+        type: IDL_STRING_TYPE,
+      },
+      unix_milliseconds: {
+        type: IDL_LONG64_TYPE,
+      },
+      unix_seconds: {
+        type: IDL_LONG64_TYPE,
+      },
+    },
+  },
+  envivector: {
+    display: 'ENVIVector',
+    properties: {
+      auxiliary_uri: {
+        type: IDL_STRING_TYPE,
+      },
+      coord_sys: {
+        type: IDLTypeHelper.parseIDLType('ENVICoordSys'),
+      },
+      data_range: {
+        type: IDLTypeHelper.parseIDLType('Array<Double>'),
+      },
+      record_type: {
+        type: RECORD_TYPE,
+      },
+      uri: {
+        type: IDL_STRING_TYPE,
+      },
+    },
+  },
   httprequest: {
     display: 'HttpRequest',
     properties: {
@@ -429,39 +463,5 @@ export const STRUCTURE_OVERRIDE: IStructureOverride = {
   },
   ipm: {
     display: 'ipm',
-  },
-  envitime: {
-    display: 'ENVITime',
-    properties: {
-      acquisition: {
-        type: IDL_STRING_TYPE,
-      },
-      unix_milliseconds: {
-        type: IDL_LONG64_TYPE,
-      },
-      unix_seconds: {
-        type: IDL_LONG64_TYPE,
-      },
-    },
-  },
-  envivector: {
-    display: 'ENVIVector',
-    properties: {
-      auxiliary_uri: {
-        type: IDL_STRING_TYPE,
-      },
-      coord_sys: {
-        type: IDLTypeHelper.parseIDLType('ENVICoordSys'),
-      },
-      data_range: {
-        type: IDLTypeHelper.parseIDLType('Array<Double>'),
-      },
-      record_type: {
-        type: RECORD_TYPE,
-      },
-      uri: {
-        type: IDL_STRING_TYPE,
-      },
-    },
   },
 };
