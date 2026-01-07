@@ -1,3 +1,4 @@
+import { IDL_MCP_LOG, LogManager } from '@idl/logger';
 import { TASK_REGEX } from '@idl/parsing/type-parser';
 import {
   GlobalStructureToken,
@@ -19,7 +20,8 @@ import { GetCleanDescription } from './get-clean-description';
  * Registers a tool that can run an ENVI Task
  */
 export function TrackENVITaskForMCPServer(
-  task: IGlobalIndexedToken<GlobalStructureToken>
+  task: IGlobalIndexedToken<GlobalStructureToken>,
+  logger: LogManager
 ) {
   /** Get the task name */
   const taskName = TASK_REGEX.exec(task.meta.display)[1];
@@ -31,7 +33,11 @@ export function TrackENVITaskForMCPServer(
    * If there is no description, return since we need one to run tools
    */
   if (!description.trim()) {
-    // console.log(`Unable to add MCP tool without discription: ${taskName}`);
+    logger.log({
+      log: IDL_MCP_LOG,
+      type: 'warn',
+      content: `ENVI Tool "${taskName}" is missing description and will be skipped`,
+    });
     return;
   }
 
@@ -55,17 +61,17 @@ export function TrackENVITaskForMCPServer(
   for (let i = 0; i < names.length; i++) {
     const prop = props[names[i]];
 
-    /** Track args to add to */
-    let addToArgs = inputArgs;
-
-    // skip if not input dataset
-    if (prop.direction === 'out') {
-      addToArgs = outputArgs;
+    // skip private parameters
+    if (prop.private) {
       continue;
     }
 
-    // skip private parameters
-    if (prop.private) {
+    /** Track args to add to */
+    let addToArgs = inputArgs;
+
+    // if output, then add to output arguments
+    if (prop.direction === 'out') {
+      addToArgs = outputArgs;
       continue;
     }
 
@@ -75,14 +81,16 @@ export function TrackENVITaskForMCPServer(
     /** Make zod parameter */
     const param = CreateENVIMCPParameter(names[i], docs, prop.type);
 
-    // // skip if not a required parameter because may not need it
-    // if (!prop.req) {
-    //   continue
-    // }
-
     // check if unknown parameter
     if (!param) {
-      // console.log(`Unhandled task "${task.name}" with parameter`, prop);
+      logger.log({
+        log: IDL_MCP_LOG,
+        type: 'warn',
+        content: [
+          `ENVI Tool "${taskName}" has an unhandled ENVI Task data type for property "${names[i]}"`,
+          prop,
+        ],
+      });
       return;
     }
 

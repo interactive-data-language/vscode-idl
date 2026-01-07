@@ -5,7 +5,11 @@ import { z } from 'zod';
 import { MCPENVIAgCrops } from './types/mcp-envi-ag-crops';
 import { MCPENVIAgZones } from './types/mcp-envi-ag-zones';
 import { MCPENVICoordSys } from './types/mcp-envi-coord-sys';
+import { MCPENVIDeepLearningKerasModel } from './types/mcp-envi-deep-learning-keras-model';
+import { MCPENVIDeepLearningLabelRaster } from './types/mcp-envi-deep-learning-label-raster';
+import { MCPENVIDeepLearningObjectDetectionRaster } from './types/mcp-envi-deep-learning-object-detection-raster';
 import { MCPENVIDeepLearningONNXModel } from './types/mcp-envi-deep-learning-onnx-model';
+import { MCPENVIDeepLearningRaster } from './types/mcp-envi-deep-learning-raster';
 import { MCPENVIGeoJSON } from './types/mcp-envi-geojson';
 import { MCPENVIGridDefinition } from './types/mcp-envi-grid-definition';
 import { MCPENVIMachineLearningModel } from './types/mcp-envi-machine-learning-model';
@@ -104,10 +108,34 @@ export function CreateENVIMCPParameter(
       return MCPENVICoordSys(docs);
 
     /**
+     * Deep Learning Keras model
+     */
+    case IDLTypeHelper.isType(type, 'envideeplearningkerasmodel'):
+      return MCPENVIDeepLearningKerasModel(docs);
+
+    /**
+     * Deep Learning Label Raster for Pixel training
+     */
+    case IDLTypeHelper.isType(type, 'envideeplearninglabelraster'):
+      return MCPENVIDeepLearningLabelRaster(docs);
+
+    /**
+     * Deep Learning raster for OD training
+     */
+    case IDLTypeHelper.isType(type, 'envideeplearningobjectdetectionraster'):
+      return MCPENVIDeepLearningObjectDetectionRaster(docs);
+
+    /**
      * Deep Learning ONNX model
      */
     case IDLTypeHelper.isType(type, 'envideeplearningonnxmodel'):
       return MCPENVIDeepLearningONNXModel(docs);
+
+    /**
+     * Deep Learning Label Raster for Pixel training
+     */
+    case IDLTypeHelper.isType(type, 'envideeplearningraster'):
+      return MCPENVIDeepLearningRaster(docs);
 
     /**
      * GeoJSON

@@ -44,10 +44,17 @@ export async function RegisterMCPTaskTools(
   /** Find names of ENVI Tasks  */
   const keys = FilterMCPENVITasks(Object.keys(structures)).sort();
 
+  logger.log({
+    log: IDL_LSP_LOG,
+    type: 'info',
+    content: `Attempting to register ${keys.length} ENVI Tools`,
+  });
+
   // add all ENVI Tasks
   for (let i = 0; i < keys.length; i++) {
     TrackENVITaskForMCPServer(
-      structures[keys[i]][0] as IGlobalIndexedToken<GlobalStructureToken>
+      structures[keys[i]][0] as IGlobalIndexedToken<GlobalStructureToken>,
+      logger
     );
   }
 
