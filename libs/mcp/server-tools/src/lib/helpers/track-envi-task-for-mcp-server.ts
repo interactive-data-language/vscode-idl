@@ -1,5 +1,5 @@
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
-import { TASK_REGEX } from '@idl/parsing/type-parser';
+import { IDLTypeHelper, TASK_REGEX } from '@idl/parsing/type-parser';
 import {
   GlobalStructureToken,
   IGlobalIndexedToken,
@@ -87,8 +87,9 @@ export function TrackENVITaskForMCPServer(
         log: IDL_MCP_LOG,
         type: 'warn',
         content: [
-          `ENVI Tool "${taskName}" has an unhandled ENVI Task data type for property "${names[i]}"`,
-          prop,
+          `ENVI Tool "${taskName}" has an unhandled ENVI Task data type for property "${
+            names[i]
+          }" with type "${IDLTypeHelper.serializeIDLType(prop.type)}"`,
         ],
       });
       return;
