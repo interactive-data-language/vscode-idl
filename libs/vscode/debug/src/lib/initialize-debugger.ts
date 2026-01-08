@@ -1,5 +1,9 @@
-import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
+import { FindIDL } from '@idl/idl/files';
+import { CleanPath, IDL_LANGUAGE_NAME } from '@idl/shared/extension';
+import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
+import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import { IDL_LOGGER } from '@idl/vscode/logger';
+import { existsSync } from 'fs';
 import * as vscode from 'vscode';
 
 import { RegisterDebugCommands } from './commands/register-debug-commands';
@@ -64,6 +68,23 @@ export function InitializeDebugger(
 
   // register our commands for debugging
   RegisterDebugCommands(ctx);
+
+  /**
+   * Check for IDL
+   */
+  if (
+    !IDL_EXTENSION_CONFIG.IDL.directory ||
+    ~existsSync(IDL_EXTENSION_CONFIG.IDL.directory)
+  ) {
+    const dir = FindIDL();
+    if (dir) {
+      IDL_EXTENSION_CONFIG.update(
+        IDL_EXTENSION_CONFIG_KEYS.IDLDirectory,
+        CleanPath(dir),
+        true
+      );
+    }
+  }
 
   return {
     adapter: IDL_DEBUG_ADAPTER,
