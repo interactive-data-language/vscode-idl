@@ -1,4 +1,4 @@
-import { IDL_LSP_LOG, LogManager } from '@idl/logger';
+import { IDL_LSP_LOG, IDL_MCP_LOG, LogManager } from '@idl/logger';
 import { MCP_SERVER } from '@idl/mcp/server';
 import {
   RegisterMCPTool_ENVIGetTaskParameters,
@@ -13,6 +13,8 @@ import {
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
+
+import { RegisterENVITaskNotes } from './register-envi-task-notes';
 
 /**
  * Registers MCP Task tools from parsed code on IDL's search path
@@ -44,7 +46,7 @@ export async function RegisterMCPTaskTools(
   const keys = FilterMCPENVITasks(Object.keys(structures)).sort();
 
   logger.log({
-    log: IDL_LSP_LOG,
+    log: IDL_MCP_LOG,
     type: 'info',
     content: `Attempting to register ${keys.length} ENVI Tools`,
   });
@@ -55,6 +57,15 @@ export async function RegisterMCPTaskTools(
       structures[keys[i]][0] as IGlobalIndexedToken<GlobalStructureToken>
     );
   }
+
+  logger.log({
+    log: IDL_MCP_LOG,
+    type: 'info',
+    content: `Attempting to load ENVI Tool notes`,
+  });
+
+  // load notes
+  RegisterENVITaskNotes(registry, logger);
 
   // emit MCP event that tools have changed
   MCP_SERVER.sendToolListChanged();

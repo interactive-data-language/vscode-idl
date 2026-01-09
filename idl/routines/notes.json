@@ -1,0 +1,6 @@
+{
+  "envi": {
+    "ISODataClassification": ["This uses in-scene based statistics and is different for each image. As such, you won't ever know what each class maps to and requires a user to look and see.", "Not recommended to use as part of change detection workflows"],
+    "ENVITask": ["Export classes to be set with relevant classes for users. Classes such as Unclassified, Background, or Masked Pixels should be removed. Check the input raster's metadata for this information"]
+  }
+}
