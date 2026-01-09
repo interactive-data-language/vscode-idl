@@ -4,8 +4,8 @@ import {
   RegisterMCPTool_ENVIGetTaskParameters,
   RegisterMCPTool_ENVIListTasks,
   RegisterMCPTool_ENVIRunTask,
-  TrackENVITaskForMCPServer,
 } from '@idl/mcp/server-tools';
+import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDLIndex } from '@idl/parsing/index';
 import {
   GLOBAL_TOKEN_TYPES,
@@ -32,10 +32,13 @@ export async function RegisterMCPTaskTools(
     content: 'Registering MCP user tools',
   });
 
+  /** Create task registry */
+  const registry = new MCPTaskRegistry(logger);
+
   // register tools for tasks
-  RegisterMCPTool_ENVIListTasks(messenger);
-  RegisterMCPTool_ENVIGetTaskParameters(messenger);
-  RegisterMCPTool_ENVIRunTask(messenger);
+  RegisterMCPTool_ENVIListTasks(messenger, registry);
+  RegisterMCPTool_ENVIGetTaskParameters(messenger, registry);
+  RegisterMCPTool_ENVIRunTask(messenger, registry);
 
   /** Get all structures that we know about */
   const structures =
@@ -52,9 +55,8 @@ export async function RegisterMCPTaskTools(
 
   // add all ENVI Tasks
   for (let i = 0; i < keys.length; i++) {
-    TrackENVITaskForMCPServer(
-      structures[keys[i]][0] as IGlobalIndexedToken<GlobalStructureToken>,
-      logger
+    registry.registerTask(
+      structures[keys[i]][0] as IGlobalIndexedToken<GlobalStructureToken>
     );
   }
 

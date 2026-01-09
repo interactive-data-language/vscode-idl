@@ -1,3 +1,11 @@
+import {
+  MCP_ENVIDeepLearningONNXModel,
+  MCP_ENVIMachineLearningModel,
+  MCP_ENVIRaster,
+  MCP_ENVIROI,
+  MCP_ENVISpectralLibrary,
+  MCP_ENVIVector,
+} from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
@@ -8,12 +16,6 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { MCPENVIDeepLearningONNXModel } from '../../helpers/envi-parameters/types/mcp-envi-deep-learning-onnx-model';
-import { MCPENVIMachineLearningModel } from '../../helpers/envi-parameters/types/mcp-envi-machine-learning-model';
-import { MCPENVIRaster } from '../../helpers/envi-parameters/types/mcp-envi-raster';
-import { MCPENVIROI } from '../../helpers/envi-parameters/types/mcp-envi-roi';
-import { MCPENVISpectralLibrary } from '../../helpers/envi-parameters/types/mcp-envi-spectral-library';
-import { MCPENVIVector } from '../../helpers/envi-parameters/types/mcp-envi-vector';
 import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 import { ENVI_QUERY_DATASET_DESCRIPTION } from './register-mcp-tool-envi-query-dataset.interface';
 
@@ -30,14 +32,14 @@ export function RegisterMCPTool_ENVIQueryDataset(
     {
       dataset: z
         .union([
-          MCPENVIDeepLearningONNXModel('An ONNX model configured for ENVI'),
-          MCPENVIMachineLearningModel(
+          MCP_ENVIDeepLearningONNXModel('An ONNX model configured for ENVI'),
+          MCP_ENVIMachineLearningModel(
             'An machine learning model (i.e. random forest) made with ENVI'
           ),
-          MCPENVIRaster('An ENVI Raster'),
-          MCPENVIROI('An ENVI ROI'),
-          MCPENVISpectralLibrary('An ENVI spectral library'),
-          MCPENVIVector('An ENVI vector file (shapefile)'),
+          MCP_ENVIRaster('An ENVI Raster'),
+          MCP_ENVIROI('An ENVI ROI'),
+          MCP_ENVISpectralLibrary('An ENVI spectral library'),
+          MCP_ENVIVector('An ENVI vector file (shapefile)'),
         ])
         .describe('The dataset that you want to query, one of the above types'),
     },

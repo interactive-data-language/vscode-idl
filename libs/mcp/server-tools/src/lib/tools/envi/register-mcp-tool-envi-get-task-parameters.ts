@@ -1,63 +1,54 @@
+import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { PROMPT } from '../../helpers/mcp-envi-tasks.interface';
 import { MCPToolRegistry } from '../../mcp-tool-registry.class';
-
-/**
- * A string lookup of the input parameters for our ENVI Tasks
- */
-export const INPUT_PARAMETER_LOOKUP: { [key: string]: any } = {};
-
-/**
- * A string lookup of the output parameters from our ENVI Tasks
- */
-export const OUTPUT_PARAMETER_LOOKUP: { [key: string]: any } = {};
+import { ENVI_TASK_INSTRUCTIONS } from './envi-task-instructions.interface';
 
 /**
  * Registers a tool that can run an ENVI Task
  */
 export function RegisterMCPTool_ENVIGetTaskParameters(
-  messenger: VSCodeLanguageServerMessenger
+  messenger: VSCodeLanguageServerMessenger,
+  registry: MCPTaskRegistry
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_GET_TASK_PARAMETERS,
     IDL_TRANSLATION.mcp.tools.displayNames[
       MCP_TOOL_LOOKUP.ENVI_GET_TASK_PARAMETERS
     ],
-    `Returns the parameters required to run an ENVI Tool. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.ENVI_RUN_TASK}. Here's the process to use these input parameters:\n\n ${PROMPT}`,
+    `Returns the parameters required to run an ENVI Tool. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.ENVI_RUN_TASK}. Here's the process to use these input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
     {
       taskName: z
         .string()
         .describe('Specify an ENVI Task to return the parameter schema for'),
     },
     async (id, inputParameters) => {
-      if (!(inputParameters.taskName in INPUT_PARAMETER_LOOKUP)) {
+      if (!registry.hasTask(inputParameters.taskName)) {
         return {
           content: [
             {
               type: 'text',
-              text: `Task with name ${inputParameters.taskName} is not known, is the case right and did it come from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TASKS}?`,
+              text: `Task with name ${inputParameters.taskName} is not known, did it come from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TASKS}?`,
             },
           ],
         };
       }
 
+      /** Get detail for our task */
+      const detail = registry.getTaskDetail(inputParameters.taskName);
+
       return {
         content: [
           {
             type: 'text',
-            text: JSON.stringify(
-              INPUT_PARAMETER_LOOKUP[inputParameters.taskName]
-            ),
+            text: JSON.stringify(detail.inputParameters),
           },
           {
             type: 'text',
-            text: JSON.stringify(
-              OUTPUT_PARAMETER_LOOKUP[inputParameters.taskName]
-            ),
+            text: JSON.stringify(detail.outputParameters),
           },
         ],
       };

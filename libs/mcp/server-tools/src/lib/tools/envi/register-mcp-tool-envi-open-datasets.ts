@@ -1,3 +1,8 @@
+import {
+  MCP_ENVIRaster,
+  MCP_ENVIRasterSeries,
+  MCP_ENVIVector,
+} from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
@@ -8,9 +13,6 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { MCPENVIRaster } from '../../helpers/envi-parameters/types/mcp-envi-raster';
-import { MCPENVIRasterSeries } from '../../helpers/envi-parameters/types/mcp-envi-raster-series';
-import { MCPENVIVector } from '../../helpers/envi-parameters/types/mcp-envi-vector';
 import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 
 /**
@@ -27,9 +29,9 @@ export function RegisterMCPTool_ENVIOpenDatasets(
       datasets: z
         .array(
           z.union([
-            MCPENVIRaster('An ENVI Raster'),
-            MCPENVIVector('An ENVI vector file (shapefile)'),
-            MCPENVIRasterSeries('An ENVI Raster series file'),
+            MCP_ENVIRaster('An ENVI Raster'),
+            MCP_ENVIVector('An ENVI vector file (shapefile)'),
+            MCP_ENVIRasterSeries('An ENVI Raster series file'),
           ])
         )
         .describe('The datasets to open in ENVI.'),

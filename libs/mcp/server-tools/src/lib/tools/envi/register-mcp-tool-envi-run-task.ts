@@ -1,3 +1,8 @@
+import {
+  MCPTaskRegistry,
+  TaskLocation,
+  TaskLocation_File,
+} from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
@@ -9,22 +14,20 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { PROMPT } from '../../helpers/mcp-envi-tasks.interface';
 import { MCPToolRegistry } from '../../mcp-tool-registry.class';
-
-/** BY task name, what is the file for the task we want to run? For user tasks in workspaces in VSCode */
-export const TASK_FILE_LOOKUP: { [key: string]: string } = {};
+import { ENVI_TASK_INSTRUCTIONS } from './envi-task-instructions.interface';
 
 /**
  * Registers a tool that can run an ENVI Task
  */
 export function RegisterMCPTool_ENVIRunTask(
-  messenger: VSCodeLanguageServerMessenger
+  messenger: VSCodeLanguageServerMessenger,
+  registry: MCPTaskRegistry
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.ENVI_RUN_TASK,
     IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.ENVI_RUN_TASK],
-    `Runs an ENVI tool given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TASKS}. Here's the process to get the input parameters:\n\n ${PROMPT}`,
+    `Runs an ENVI Tool given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TASKS}. Here's the process to get the input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
     {
       taskName: z
         .string()
@@ -43,6 +46,20 @@ export function RegisterMCPTool_ENVIRunTask(
         ),
     },
     async (id, { taskName, inputParameters, interactive }) => {
+      if (!registry.hasTask(taskName)) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `ENVI Tool with name ${taskName} is not known, did it come from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TASKS}?`,
+            },
+          ],
+        };
+      }
+
+      /** Get detail for our task */
+      const detail = registry.getTaskDetail(inputParameters.taskName);
+
       // strictly typed parameters and make sure we always have content in the cells
       const params: MCPToolParams<MCPTool_ENVIRunTask> = {
         interactive,
@@ -53,8 +70,12 @@ export function RegisterMCPTool_ENVIRunTask(
       };
 
       // check if we have a task file to use instead
-      if (taskName in TASK_FILE_LOOKUP) {
-        params.task.taskName = TASK_FILE_LOOKUP[taskName];
+      if (detail.location) {
+        if (detail.location.type === 'file') {
+          params.task.taskName = (
+            detail.location as TaskLocation<TaskLocation_File>
+          ).meta.path;
+        }
       }
 
       const resp = (await messenger.sendRequest(
