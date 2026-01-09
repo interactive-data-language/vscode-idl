@@ -50,7 +50,7 @@ export function ReplaceLinks(mdStrings: string, folder: string) {
   let currentPos = 0;
 
   // recursively process our strings
-  while (match !== null) {
+  while (match !== null && !!folder) {
     // extract parts of our link
     // [front(back)
     front = match[1];

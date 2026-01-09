@@ -62,6 +62,8 @@ Added a new utility to migrate ENVI Deep Learning IDL code to ENVI Deep Learning
 
 Fixed an issue where the IDL directory was not being automatically set on extension startup when it hasn't been specified.
 
+Fixed an issue where, if IDL was not configured on a machine, that hover help generation would fail when getting links for images.
+
 ## 5.1.0 - August 2025
 
 This verion introduces a new selection of IDL Tutorials! These come as a collection of notebooks to help new users get up and running. In the IDL sidebar, you'll see a new section called "IDL Tutorials" with language-specific content.
