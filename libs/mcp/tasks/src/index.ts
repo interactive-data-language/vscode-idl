@@ -1,3 +1,4 @@
+export * from './lib/helpers/filter-mcp-envi-tasks';
 export * from './lib/mcp-task-registry.class';
 export * from './lib/task-location.interface';
 export * from './lib/types-to-mcp/types/mcp-envi-deep-learning-onnx-model';

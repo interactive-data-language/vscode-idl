@@ -47,12 +47,43 @@ export class MCPTaskRegistry {
   private logger: LogManager;
 
   /**
+   * Track key notes for tasks in the registry
+   */
+  private notes: { [key: string]: string[] } = {};
+
+  /**
    * Output parameters for a task, by name
    */
   private outputParameters: { [key: string]: any } = {};
 
   constructor(logger: LogManager) {
     this.logger = logger;
+  }
+
+  /**
+   * Add notes for many tasks
+   */
+  addNotesForManyTasks(notes: { [key: string]: string[] }) {
+    const names = Object.keys(notes);
+    for (let i = 0; i < names.length; i++) {
+      this.addNotesForTask(names[i], notes[names[i]]);
+    }
+  }
+
+  /**
+   * Adds notes to our task registry that are provided when
+   * returning detail about a task
+   */
+  addNotesForTask(taskName: string, notes: string[]) {
+    // get lower case
+    const lc = taskName.toLowerCase();
+
+    // check if it exists already
+    if (lc in this.notes) {
+      this.notes[lc] = this.notes[lc].concat(notes);
+    } else {
+      this.notes[lc] = notes;
+    }
   }
 
   /**
@@ -78,6 +109,7 @@ export class MCPTaskRegistry {
       description: this.descriptions[lc],
       inputParameters: this.inputParameters[lc],
       outputParameters: this.outputParameters[lc],
+      notes: this.notes[lc],
       location: this.location[lc],
     };
   }

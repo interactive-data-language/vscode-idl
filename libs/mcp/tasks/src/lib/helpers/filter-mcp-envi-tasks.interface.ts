@@ -1,5 +1,9 @@
 /**
  * Track tasks that we skip running
+ *
+ * Can likely be reduced, was used originally when the implementation was different
+ *
+ * But there's still some that we don't need to expose to the LLM
  */
 export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
   buildlabelrasterfromclassification: undefined,

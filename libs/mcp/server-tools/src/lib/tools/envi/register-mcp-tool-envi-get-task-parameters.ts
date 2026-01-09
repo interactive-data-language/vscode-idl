@@ -40,17 +40,31 @@ export function RegisterMCPTool_ENVIGetTaskParameters(
       /** Get detail for our task */
       const detail = registry.getTaskDetail(inputParameters.taskName);
 
+      // create content
+      const content = [
+        {
+          type: 'text',
+          text: JSON.stringify(detail.inputParameters),
+        },
+        {
+          type: 'text',
+          text: JSON.stringify(detail.outputParameters),
+        },
+      ];
+
+      // check for notes
+      if (Array.isArray(detail.notes)) {
+        content.push({
+          type: 'text',
+          text: `Key notes for running the tool: ${JSON.stringify(
+            detail.notes
+          )}`,
+        });
+      }
+
+      // override type, gets mad with the extra push
       return {
-        content: [
-          {
-            type: 'text',
-            text: JSON.stringify(detail.inputParameters),
-          },
-          {
-            type: 'text',
-            text: JSON.stringify(detail.outputParameters),
-          },
-        ],
+        content: content as any,
       };
     }
   );

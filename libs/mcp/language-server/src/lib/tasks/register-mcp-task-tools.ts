@@ -5,7 +5,7 @@ import {
   RegisterMCPTool_ENVIListTasks,
   RegisterMCPTool_ENVIRunTask,
 } from '@idl/mcp/server-tools';
-import { MCPTaskRegistry } from '@idl/mcp/tasks';
+import { FilterMCPENVITasks, MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDLIndex } from '@idl/parsing/index';
 import {
   GLOBAL_TOKEN_TYPES,
@@ -13,8 +13,6 @@ import {
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
-
-import { FilterMCPENVITasks } from './filter-mcp-envi-tasks';
 
 /**
  * Registers user MCP tools from code and tasks that we have parsed
@@ -44,7 +42,7 @@ export async function RegisterMCPTaskTools(
   const structures =
     index.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.STRUCTURE];
 
-  /** Find names of ENVI Tasks  */
+  /** Find names of ENVI Tasks and exclude those we dont need to expose  */
   const keys = FilterMCPENVITasks(Object.keys(structures)).sort();
 
   logger.log({
