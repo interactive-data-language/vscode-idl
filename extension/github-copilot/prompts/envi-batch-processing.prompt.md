@@ -5,6 +5,8 @@ description: 'Create image processing workflow and process multiple datasets usi
 
 Your goal is to help a user create an image processing workflow and process multiple datasets using ENVI and IDL.
 
+Be clear and concise in your responses.
+
 ## Recommended Tools
 
 Here's a helpful place to start with tools you can run. You are not limited to these, but they help with ENVI.

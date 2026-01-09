@@ -5,6 +5,8 @@ description: 'Create image processing workflow using ENVI and IDL'
 
 Your goal is to help a user create an image processing workflow using ENVI and IDL.
 
+Be clear and concise in your responses.
+
 ## Recommended Tools
 
 Here's a helpful place to start with tools you can run. You are not limited to these, but they help with ENVI.
@@ -32,6 +34,8 @@ Here's a helpful place to start with tools you can run. You are not limited to t
 - Query ENVI's available tools using "IDL for VSCode/list-envi-tools" and build a rough outline of what tools should be chained together
 
 - Request parameters for each tool and verify we can connect the input and output parameters from each step together
+
+- Some tools include key notes with more information about the tool and using it in some situations
 
 ### Step 3:
 
