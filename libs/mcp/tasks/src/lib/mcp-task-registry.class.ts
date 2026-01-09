@@ -63,7 +63,7 @@ export class MCPTaskRegistry {
   /**
    * Add notes for many tasks
    */
-  addNotesForManyTasks(notes: { [key: string]: string[] }) {
+  addNotesForManyTasks(notes: { [key: string]: string | string[] }) {
     const names = Object.keys(notes);
     for (let i = 0; i < names.length; i++) {
       this.addNotesForTask(names[i], notes[names[i]]);
@@ -74,15 +74,18 @@ export class MCPTaskRegistry {
    * Adds notes to our task registry that are provided when
    * returning detail about a task
    */
-  addNotesForTask(taskName: string, notes: string[]) {
+  addNotesForTask(taskName: string, notes: string | string[]) {
     // get lower case
     const lc = taskName.toLowerCase();
 
+    // make sure we have an array of notes
+    const useNotes = !Array.isArray(notes) ? [notes] : notes;
+
     // check if it exists already
     if (lc in this.notes) {
-      this.notes[lc] = this.notes[lc].concat(notes);
+      this.notes[lc] = this.notes[lc].concat(useNotes);
     } else {
-      this.notes[lc] = notes;
+      this.notes[lc] = useNotes;
     }
   }
 
