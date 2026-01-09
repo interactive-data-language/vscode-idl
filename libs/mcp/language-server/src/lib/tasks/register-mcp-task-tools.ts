@@ -15,9 +15,7 @@ import {
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 /**
- * Registers user MCP tools from code and tasks that we have parsed
- *
- * WIP: Not complete and GitHub Copilot isn't the best here
+ * Registers MCP Task tools from parsed code on IDL's search path
  */
 export async function RegisterMCPTaskTools(
   index: IDLIndex,
