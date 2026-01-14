@@ -196,6 +196,30 @@ export interface MCPToolResponse_IDLExecuteFile extends IMCPTool_BaseResponse {
 }
 
 /**
+ * Message when we return notes for IDL and ENVI Tasks
+ */
+export type MCPTool_IDLReturnNotes = 'return-notes';
+
+/**
+ * Parameters for running IDL code
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MCPToolParams_IDLReturnNotes {}
+
+/**
+ * Response for running IDL code
+ */
+export interface MCPToolResponse_IDLReturnNotes extends IMCPTool_BaseResponse {
+  /** Output from IDL */
+  idlOutput?: string;
+  /** The notes for tasks */
+  notes: {
+    envi: { [key: string]: string[] };
+    idl: { [key: string]: string[] };
+  };
+}
+
+/**
  * MCP Tool to search for files
  */
 export type MCPTool_SearchForFiles = 'search-for-files';
@@ -247,6 +271,7 @@ export type MCPTools_VSCode =
   | MCPTool_IDLCreateNotebook
   | MCPTool_IDLExecuteCode
   | MCPTool_IDLExecuteFile
+  | MCPTool_IDLReturnNotes
   | MCPTool_IDLStart;
 
 /**
@@ -280,6 +305,8 @@ export type MCPToolParams<T extends MCPTools> =
     ? MCPToolParams_IDLExecuteCode
     : T extends MCPTool_IDLExecuteFile
     ? MCPToolParams_IDLExecuteFile
+    : T extends MCPTool_IDLReturnNotes
+    ? MCPToolParams_IDLReturnNotes
     : T extends MCPTool_IDLStart
     ? MCPToolParams_IDLStart
     : never;
@@ -302,6 +329,8 @@ export type MCPToolResponse<T extends MCPTools> =
     ? MCPToolResponse_IDLExecuteCode
     : T extends MCPTool_IDLExecuteFile
     ? MCPToolResponse_IDLExecuteFile
+    : T extends MCPTool_IDLReturnNotes
+    ? MCPToolResponse_IDLReturnNotes
     : T extends MCPTool_IDLStart
     ? MCPToolResponse_IDLStart
     : never;
@@ -328,6 +357,8 @@ interface IMCPToolLookup {
   IDL_EXECUTE_CODE: MCPTool_IDLExecuteCode;
   /** Run code in IDL that comes from a file */
   IDL_EXECUTE_FILE: MCPTool_IDLExecuteFile;
+  /** RETURN NOTES FOR ENVI AND IDL TASKS */
+  IDL_RETURN_NOTES: MCPTool_IDLReturnNotes;
   /** Start IDL */
   IDL_START: MCPTool_IDLStart;
   /** Get a specific resource from the server */
@@ -355,6 +386,7 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   IDL_CREATE_NOTEBOOK: 'create-idl-notebook',
   IDL_EXECUTE_CODE: 'execute-idl-code',
   IDL_EXECUTE_FILE: 'execute-idl-file',
+  IDL_RETURN_NOTES: 'return-notes',
   IDL_START: 'start-idl',
   RESOURCES_GET_RESOURCE: 'get-resource',
   RESOURCES_LIST_ALL: 'list-all-resources',

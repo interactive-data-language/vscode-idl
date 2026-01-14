@@ -7,7 +7,7 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
 import { RemoveLegacyMCPConfig } from './helpers/remove-legacy-mcp-config';
-import { RunMCPToolMessageHandler } from './helpers/run-mcp-tool-message-handler';
+import { RunMCPToolMessageHandler } from './run-mcp-tool-message-handler';
 
 export const MCP_CHANGE_EVENT_EMITTER = new vscode.EventEmitter<void>();
 
