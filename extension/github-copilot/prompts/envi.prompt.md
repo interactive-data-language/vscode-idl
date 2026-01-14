@@ -43,7 +43,7 @@ Here's a helpful place to start with tools you can run. You are not limited to t
 
 ### Step 4:
 
-- If the user provided data, then ask if you shouldprocess data with the planned workflow.
+- If the user provided data, then ask if you should process data with the planned workflow.
 
 - Before you process data, create a To-Do list of the steps that need to run to help track overall processing progress for users
 
