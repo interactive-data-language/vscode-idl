@@ -1,4 +1,4 @@
-import { GetExtensionPath, VSCODE_DOT_IDL_FOLDER } from '@idl/idl/files';
+import { VSCODE_DOT_IDL_FOLDER } from '@idl/idl/files';
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { existsSync, readFileSync } from 'fs';
@@ -27,26 +27,6 @@ export function RegisterENVITaskNotes(
         type: 'error',
         log: IDL_MCP_LOG,
         content: ['Error trying to load user ENVI Task notes', err],
-      });
-    }
-  }
-
-  /**
-   * Check for extension notes
-   */
-  const extensionUri = GetExtensionPath('idl/routines/notes.json');
-  if (existsSync(extensionUri)) {
-    try {
-      // parse
-      const parsed = JSON.parse(readFileSync(extensionUri, 'utf-8'));
-
-      // attempt to load
-      registry.addNotesForManyTasks(parsed['envi']);
-    } catch (err) {
-      logger.log({
-        type: 'error',
-        log: IDL_MCP_LOG,
-        content: ['Error trying to load extension ENVI Task notes', err],
       });
     }
   }
