@@ -1,9 +1,9 @@
 import { IDL_LSP_LOG, IDL_MCP_LOG, LogManager } from '@idl/logger';
 import { MCP_SERVER } from '@idl/mcp/server';
 import {
-  RegisterMCPTool_ENVIGetTaskParameters,
-  RegisterMCPTool_ENVIListTasks,
-  RegisterMCPTool_ENVIRunTask,
+  RegisterMCPTool_ENVIGetToolParameters,
+  RegisterMCPTool_ENVIListTools,
+  RegisterMCPTool_ENVIRunTool,
 } from '@idl/mcp/server-tools';
 import { FilterMCPENVITasks, MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDLIndex } from '@idl/parsing/index';
@@ -34,9 +34,9 @@ export async function RegisterMCPTaskTools(
   const registry = new MCPTaskRegistry(logger);
 
   // register tools for tasks
-  RegisterMCPTool_ENVIListTasks(messenger, registry);
-  RegisterMCPTool_ENVIGetTaskParameters(messenger, registry);
-  RegisterMCPTool_ENVIRunTask(messenger, registry);
+  RegisterMCPTool_ENVIListTools(messenger, registry);
+  RegisterMCPTool_ENVIGetToolParameters(messenger, registry);
+  RegisterMCPTool_ENVIRunTool(messenger, registry);
 
   /** Get all structures that we know about */
   const structures =

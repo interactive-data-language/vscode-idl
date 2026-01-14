@@ -12,21 +12,24 @@ import { z } from 'zod';
 import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 import { ENVI_TASK_INSTRUCTIONS } from './envi-task-instructions.interface';
 
+/**
+ * Track if we have loaded notes or not
+ */
 let LOADED_NOTES = false;
 
 /**
  * Registers a tool that can run an ENVI Task
  */
-export function RegisterMCPTool_ENVIGetTaskParameters(
+export function RegisterMCPTool_ENVIGetToolParameters(
   messenger: VSCodeLanguageServerMessenger,
   registry: MCPTaskRegistry
 ) {
   MCPToolRegistry.registerTool(
-    MCP_TOOL_LOOKUP.ENVI_GET_TASK_PARAMETERS,
+    MCP_TOOL_LOOKUP.ENVI_GET_TOOL_PARAMETERS,
     IDL_TRANSLATION.mcp.tools.displayNames[
-      MCP_TOOL_LOOKUP.ENVI_GET_TASK_PARAMETERS
+      MCP_TOOL_LOOKUP.ENVI_GET_TOOL_PARAMETERS
     ],
-    `Returns the parameters required to run an ENVI Tool. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.ENVI_RUN_TASK}. Here's the process to use these input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
+    `Returns the parameters required to run an ENVI Tool. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.ENVI_RUN_TOOL}. Here's the process to use these input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
     {
       taskName: z
         .string()
@@ -38,7 +41,7 @@ export function RegisterMCPTool_ENVIGetTaskParameters(
           content: [
             {
               type: 'text',
-              text: `Task with name ${inputParameters.taskName} is not known, did it come from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TASKS}?`,
+              text: `Task with name ${inputParameters.taskName} is not known, did it come from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TOOLS}?`,
             },
           ],
         };

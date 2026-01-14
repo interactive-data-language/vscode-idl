@@ -1,6 +1,6 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
-  MCPTool_ENVIRunTask,
+  MCPTool_ENVIRunTool,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -16,8 +16,8 @@ import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notific
  */
 export async function RunMCP_ENVIRunTask(
   id: string,
-  params: MCPToolParams<MCPTool_ENVIRunTask>
-): Promise<MCPToolResponse<MCPTool_ENVIRunTask>> {
+  params: MCPToolParams<MCPTool_ENVIRunTool>
+): Promise<MCPToolResponse<MCPTool_ENVIRunTool>> {
   VSCodeSendMCPNotification(id, { message: 'Starting IDL' });
 
   /**
