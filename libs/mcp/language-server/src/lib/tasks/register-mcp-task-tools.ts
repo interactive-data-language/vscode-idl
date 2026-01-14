@@ -61,7 +61,7 @@ export async function RegisterMCPTaskTools(
   logger.log({
     log: IDL_MCP_LOG,
     type: 'info',
-    content: `Attempting to load ENVI Tool notes`,
+    content: `Attempting to load user ENVI Tool notes`,
   });
 
   // load notes
