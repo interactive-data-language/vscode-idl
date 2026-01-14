@@ -18,6 +18,7 @@ import {
 } from '@idl/types/idl/idl-process';
 import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
+import { IDLVersionInfo } from '@idl/types/vscode-debug';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { VSCODE_PRO_DIR } from '@idl/vscode/client';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
@@ -87,6 +88,9 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    * when we make requests
    */
   _startup: Promise<void>;
+
+  /** Detail about the current IDL session */
+  idlVersion: IDLVersionInfo;
 
   /** track the last requested scope */
   lastFrameId = 0;
@@ -554,7 +558,10 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
         try {
           // attempt to parse the response
-          const parsed = JSON.parse(version);
+          const parsed = JSON.parse(version) as IDLVersionInfo;
+
+          // save version
+          this.idlVersion = parsed;
 
           /**
            * TODO: Alert user if they don't have a supported version of IDL

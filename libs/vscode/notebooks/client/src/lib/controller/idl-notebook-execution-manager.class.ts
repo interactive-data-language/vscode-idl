@@ -13,6 +13,7 @@ import {
   REGEX_NEW_LINE,
 } from '@idl/types/idl/idl-process';
 import { IDLNotebookEmbeddedItems } from '@idl/types/notebooks';
+import { IDLVersionInfo } from '@idl/types/vscode-debug';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { VSCODE_NOTEBOOK_PRO_DIR, VSCODE_PRO_DIR } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
@@ -624,7 +625,7 @@ export class IDLNotebookExecutionManager {
 
         try {
           // attempt to parse the response
-          const parsed = JSON.parse(version);
+          const parsed = JSON.parse(version) as IDLVersionInfo;
 
           /**
            * Alert user if they don't have a supported version of IDL
