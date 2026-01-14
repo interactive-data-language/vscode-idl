@@ -15,5 +15,5 @@ export function MCPVerifyIDLVersion() {
   }
 
   // if value is less than 1, then we have a problem
-  return compareVersions(info.release, '9.2.0') === -1;
+  return compareVersions(info.release, '9.2.0') !== -1;
 }
