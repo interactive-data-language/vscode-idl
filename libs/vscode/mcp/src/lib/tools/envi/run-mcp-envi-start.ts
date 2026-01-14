@@ -6,6 +6,7 @@ import {
 import { StartIDL } from '@idl/vscode/debug';
 
 import { MCPEvaluateENVICommand } from '../../helpers/mcp-evaluate-envi-command';
+import { MCPVerifyIDLVersion } from '../../helpers/mcp-verify-idl-version';
 import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
 
 /**
@@ -25,6 +26,14 @@ export async function RunMCP_ENVIStart(
   // return if unable to start IDL
   if (!started.started) {
     return { success: false, err: started.reason };
+  }
+
+  // verify version
+  if (!MCPVerifyIDLVersion()) {
+    return {
+      success: false,
+      err: 'Requires at least IDL 9.2 and ENVI 6.2 to function',
+    };
   }
 
   VSCodeSendMCPNotification(id, { message: 'Starting ENVI' });
