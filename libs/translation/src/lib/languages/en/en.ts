@@ -903,6 +903,7 @@ export const EN: ITranslation = {
         'list-envi-tools': 'ENVI: List Tasks',
         'open-datasets-in-envi': 'ENVI: Open Datasets',
         'query-dataset-with-envi': 'ENVI: Query Dataset',
+        'return-notes': 'IDL and ENVI: Return Processing Notes',
         'run-envi-tool': 'ENVI: Run Task',
         'search-for-routine': 'Resources: Search for Routine',
         'search-resources': 'Resources: Search',
