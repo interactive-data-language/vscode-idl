@@ -66,7 +66,7 @@ export async function StartIDL(show = true): Promise<IStartIDL> {
   );
 
   // return that IDL has started
-  return { started: true };
+  return { started: IsIDLStarted() };
 }
 
 /**
