@@ -74,7 +74,7 @@ export async function RunMCPToolMessageHandler(
       );
 
       IDL_LOGGER.log({
-        type: 'info',
+        type: 'debug',
         log: IDL_MCP_LOG,
         content: [`MCP tool results: ${payload.tool}`, res],
       });
