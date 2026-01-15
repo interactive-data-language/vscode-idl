@@ -14,7 +14,7 @@ import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notific
 /**
  * Start ENVI
  */
-export async function RunMCP_ENVIRunTask(
+export async function RunMCP_ENVIRunTool(
   id: string,
   params: MCPToolParams<MCPTool_ENVIRunTool>
 ): Promise<MCPToolResponse<MCPTool_ENVIRunTool>> {
