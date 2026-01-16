@@ -177,7 +177,6 @@ export class MCPTaskRegistry {
       // if output, then add to output arguments
       if (prop.direction === 'out') {
         addToArgs = outputArgs;
-        continue;
       }
 
       /** Get cleaned parameter docs */
