@@ -1,3 +1,4 @@
+import { IVSCodeServerPorts } from '@idl/types/vscode';
 import { IInitializeClientResult } from '@idl/vscode/client';
 import { IInitializeDebuggerResult } from '@idl/vscode/debug';
 import { IDLDecorationsManager } from '@idl/vscode/decorations';
@@ -18,6 +19,8 @@ export interface IInitializeType {
   decorations: IDLDecorationsManager;
   /** Notebook initialization values */
   notebooks: IInitializeNotebooks;
+  /** Ports selected for active servers */
+  ports: IVSCodeServerPorts;
   /** Webview panel for VSCode */
   webview: typeof IDLWebView;
 }

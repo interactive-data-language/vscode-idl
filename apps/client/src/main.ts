@@ -3,6 +3,7 @@ import {
   InitializeClient,
   LANGUAGE_SERVER_CLIENT,
   LANGUAGE_SERVER_FAILED_START,
+  SERVER_PORTS,
 } from '@idl/vscode/client';
 import { InitializeDebugger } from '@idl/vscode/debug';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
@@ -79,6 +80,7 @@ export async function activate(
     notebooks,
     webview,
     decorations: IDL_DECORATIONS_MANAGER,
+    ports: SERVER_PORTS,
   };
 }
 
