@@ -91,12 +91,16 @@ export function RegisterMCPTool_ENVIRunTool(
         content: [
           {
             type: 'text',
-            text: `Tool execution status: ${JSON.stringify(resp)}`,
+            text: JSON.stringify(resp),
           },
-          {
-            type: 'text',
-            text: `Task outputs: ${JSON.stringify(resp.outputParameters)}`,
-          },
+          // {
+          //   type: 'text',
+          //   text: `Tool execution status: ${JSON.stringify(resp)}`,
+          // },
+          // {
+          //   type: 'text',
+          //   text: `Task outputs: ${JSON.stringify(resp.outputParameters)}`,
+          // },
         ],
       };
     }

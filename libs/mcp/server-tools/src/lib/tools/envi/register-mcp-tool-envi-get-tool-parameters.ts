@@ -86,9 +86,7 @@ export function RegisterMCPTool_ENVIGetToolParameters(
       if (Array.isArray(detail.notes)) {
         content.push({
           type: 'text',
-          text: `Key notes for running the tool: ${JSON.stringify(
-            detail.notes
-          )}`,
+          text: `Additional notes: ${JSON.stringify(detail.notes)}`,
         });
       }
 

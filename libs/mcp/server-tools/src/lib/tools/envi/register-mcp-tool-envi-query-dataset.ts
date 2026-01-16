@@ -62,7 +62,7 @@ export function RegisterMCPTool_ENVIQueryDataset(
         content: [
           {
             type: 'text',
-            text: `Tool execution status: ${JSON.stringify(resp)}`,
+            text: JSON.stringify(resp),
           },
         ],
       };

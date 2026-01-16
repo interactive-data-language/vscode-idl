@@ -24,9 +24,7 @@ export function RegisterMCPTool_ENVIListTools(
         content: [
           {
             type: 'text',
-            text: `Names and descriptions of ENVI Tools that you can run: ${JSON.stringify(
-              registry.getDescriptions()
-            )}`,
+            text: JSON.stringify(registry.getDescriptions()),
           },
         ],
       };

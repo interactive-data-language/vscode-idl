@@ -69,7 +69,7 @@ export function RegisterMCPTool_IDLCreateNotebook(
         content: [
           {
             type: 'text',
-            text: `Tool execution status: ${JSON.stringify(resp)}`,
+            text: JSON.stringify(resp),
           },
         ],
       };

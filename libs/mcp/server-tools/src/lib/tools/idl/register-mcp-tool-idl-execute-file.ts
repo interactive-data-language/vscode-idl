@@ -47,7 +47,7 @@ export function RegisterMCPTool_IDLExecuteFile(
         content: [
           {
             type: 'text',
-            text: `Tool execution status: ${JSON.stringify(resp)}`,
+            text: JSON.stringify(resp),
           },
         ],
       };

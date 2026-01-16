@@ -69,7 +69,7 @@ export function RegisterMCPTool_ENVIOpenDatasets(
         content: [
           {
             type: 'text',
-            text: `Tool execution status: ${JSON.stringify(resp)}`,
+            text: JSON.stringify(resp),
           },
         ],
       };
