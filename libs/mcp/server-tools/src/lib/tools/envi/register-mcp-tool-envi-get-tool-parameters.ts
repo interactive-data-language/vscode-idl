@@ -35,13 +35,13 @@ export function RegisterMCPTool_ENVIGetToolParameters(
         .string()
         .describe('Specify an ENVI Task to return the parameter schema for'),
     },
-    async (id, inputParameters) => {
-      if (!registry.hasTask(inputParameters.taskName)) {
+    async (id, { taskName }) => {
+      if (!registry.hasTask(taskName)) {
         return {
           content: [
             {
               type: 'text',
-              text: `Task with name ${inputParameters.taskName} is not known, did it come from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TOOLS}?`,
+              text: `Task with name ${taskName} is not known, did it come from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TOOLS}?`,
             },
           ],
         };
@@ -68,7 +68,7 @@ export function RegisterMCPTool_ENVIGetToolParameters(
       }
 
       /** Get detail for our task */
-      const detail = registry.getTaskDetail(inputParameters.taskName);
+      const detail = registry.getTaskDetail(taskName);
 
       // create content
       const content = [
