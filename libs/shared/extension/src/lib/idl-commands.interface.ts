@@ -164,9 +164,6 @@ export const IDL_COMMANDS = {
     /** Opens tutorial "what is IDL" */
     OPEN_IDL_TUTORIAL: `${BASE_IDL_TUTORIAL}openIDLTutorial`,
   },
-  COPILOT: {
-    SETUP_INSTRUCTIONS: `${BASE_COPILOT}setupInstructions`,
-  },
 };
 
 /**

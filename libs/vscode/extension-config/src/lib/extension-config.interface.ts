@@ -50,13 +50,11 @@ export interface IDLExtensionsConfigKeys {
   readonly dontAskForIDLDir: 'dontAsk.forIDLDir';
   /** On startup, do we ask to open docs? */
   readonly dontAskToOpenDocs: 'dontAsk.toOpenDocs';
-
   /** Controls if we ask to init config for folders or not */
   // readonly dontAskToInitConfig: 'dontAsk.toInitConfig';
   /** Folders that we don't ask to initialize config for */
   // readonly dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders';
-  /** On startup, do we ask to setup copilot instructions? */
-  readonly dontAskToSetupCopilotInstructions: 'dontAsk.toSetupCopilotInstructions';
+
   /** Top-level don't show key */
   readonly dontShow: 'dontShow';
   /** Don't show the welcome page */
@@ -200,8 +198,6 @@ export interface IDontAskConfig {
   // readonly toInitConfig: boolean;
   // /** Folders that we don't ask to initialize config for */
   // readonly toInitConfigForTheseFolders: string[];
-  /** Do we ask people to setup copilot instructions on startup? */
-  readonly toSetupCopilotInstructions: boolean;
 }
 
 export interface IDontShowConfig {
@@ -344,7 +340,6 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   problemsIncludeProblemsFromIDLPath: 'problems.includeProblemsFromIDLPath',
   problemsIncludeProblemsFromIDLPackages:
     'problems.includeProblemsFromIDLPackages',
-  dontAskToSetupCopilotInstructions: 'dontAsk.toSetupCopilotInstructions',
 };
 
 /**
@@ -359,7 +354,6 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     forIconChange: false,
     forFormatterChange: false,
     toOpenDocs: false,
-    toSetupCopilotInstructions: false,
     // toInitConfig: false,
     // toInitConfigForTheseFolders: [],
   },

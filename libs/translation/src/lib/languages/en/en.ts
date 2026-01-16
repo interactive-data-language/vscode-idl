@@ -233,7 +233,6 @@ export const EN: ITranslation = {
       'dontAsk.forIDLDir':
         "Don't ask for IDL directory on extension startup if it is not set.",
       'dontAsk.toOpenDocs': `Don't ask to open the documentation on extension startup`,
-      'dontAsk.toSetupCopilotInstructions': `TEST`,
 
       dontShow:
         'Preferences that disable dialogs/views from automatically appearing',

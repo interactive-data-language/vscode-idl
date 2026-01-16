@@ -68,13 +68,6 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
           nls
         ),
       },
-      toSetupCopilotInstructions: {
-        type: 'boolean',
-        description: TranslationFromConfiguration(
-          IDL_EXTENSION_CONFIG_KEYS.dontAskToSetupCopilotInstructions,
-          nls
-        ),
-      },
       // toInitConfig: {
       //   type: 'boolean',
       //   default: false,
