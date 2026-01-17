@@ -1,4 +1,10 @@
-import { FindFiles, GetExtensionPath, IDL_PACKAGE_DIR } from '@idl/idl/files';
+import {
+  FindFiles,
+  FindIDL,
+  GetExtensionPath,
+  IDL_PACKAGE_DIR,
+  LoadENVIPaths,
+} from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { RegisterMCPTaskTools } from '@idl/mcp/language-server';
 import { NUM_WORKERS } from '@idl/parsing/index';
@@ -149,6 +155,9 @@ SERVER_INFO.then(async (res) => {
       });
     }, DEFAULT_IDL_EXTENSION_CONFIG.languageServer.garbageIntervalMS);
 
+    /** Get IDL's bin directory */
+    const idlBin = IDL_CLIENT_CONFIG.IDL.directory || FindIDL();
+
     /**
      * Merge folders together
      */
@@ -160,6 +169,14 @@ SERVER_INFO.then(async (res) => {
     // check for .idl package folder and auto-add if it exists
     if (existsSync(IDL_PACKAGE_DIR)) {
       merged[IDL_PACKAGE_DIR] = true;
+    }
+
+    /** Load folders where custom content for ENVI lives */
+    const enviPaths = LoadENVIPaths(idlBin);
+
+    // add all paths to the index
+    for (let i = 0; i < enviPaths.length; i++) {
+      merged[enviPaths[i]] = true;
     }
 
     // alert users
