@@ -7,6 +7,7 @@ export * from './lib/get-canonical-path';
 export * from './lib/get-extension-path';
 export * from './lib/get-fs-path';
 export * from './lib/idl-dirs.interface';
+export * from './lib/load-envi-paths';
 export * from './lib/mcp-folders.interface';
 export * from './lib/notebook-folders.interface';
 export * from './lib/user-github-copilot-folders.interface';
