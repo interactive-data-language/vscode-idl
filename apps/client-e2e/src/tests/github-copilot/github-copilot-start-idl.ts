@@ -1,4 +1,5 @@
 import { Sleep } from '@idl/shared/extension';
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 
 import { RunnerFunction } from '../runner.interface';
@@ -13,7 +14,7 @@ export const RunGitHubCopilotStartIDL: RunnerFunction = async (init) => {
 
   // Call a tool
   const result = await client.callTool({
-    name: 'start-idl',
+    name: MCP_TOOL_LOOKUP.IDL_START,
     arguments: {},
   });
 

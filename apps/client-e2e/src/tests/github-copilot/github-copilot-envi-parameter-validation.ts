@@ -1,3 +1,4 @@
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 
 import { RunnerFunction } from '../runner.interface';
@@ -14,7 +15,7 @@ export const RunGitHubCopilotENVIParameterValidation: RunnerFunction = async (
 
   // Call a tool
   const result = await client.callTool({
-    name: 'run-envi-tool',
+    name: MCP_TOOL_LOOKUP.ENVI_RUN_TOOL,
     arguments: {
       taskName: 'ISODataClassification',
       inputParameters: {},
