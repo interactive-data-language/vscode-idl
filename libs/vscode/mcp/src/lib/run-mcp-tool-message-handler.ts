@@ -2,7 +2,6 @@ import { IDL_MCP_LOG } from '@idl/logger';
 import {
   MCPToolParams,
   MCPToolResponse,
-  MCPTools,
   MCPTools_VSCode,
 } from '@idl/types/mcp';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
@@ -47,8 +46,8 @@ export const MCP_TOOL_LOOKUP: {
  * Handle messages
  */
 export async function RunMCPToolMessageHandler(
-  payload: MCP_LSP_MessagePayload<MCPTools>
-): Promise<MCP_LSP_MessageResponse<MCPTools>> {
+  payload: MCP_LSP_MessagePayload<MCPTools_VSCode>
+): Promise<MCP_LSP_MessageResponse<MCPTools_VSCode>> {
   IDL_LOGGER.log({
     type: 'info',
     log: IDL_MCP_LOG,

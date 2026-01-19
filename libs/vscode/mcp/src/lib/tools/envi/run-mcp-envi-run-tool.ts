@@ -60,9 +60,7 @@ export async function RunMCP_ENVIRunTool(
 
   // run our command to open in ENVI
   const res = await MCPEvaluateENVICommand(
-    `vscode_runENVITask, '${MCPSerializeJSON(params.task)}', interactive = ${
-      params.interactive ? '!true' : '!false'
-    }`,
+    `vscode_runENVITask, '${MCPSerializeJSON(params)}'`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.taskText, silent: false }
   );
 

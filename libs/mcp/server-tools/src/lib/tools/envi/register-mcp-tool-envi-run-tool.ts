@@ -85,16 +85,14 @@ export function RegisterMCPTool_ENVIRunTool(
       // strictly typed parameters and make sure we always have content in the cells
       const params: MCPToolParams<MCPTool_ENVIRunTool> = {
         interactive,
-        task: {
-          taskName,
-          inputParameters,
-        },
+        taskName,
+        inputParameters,
       };
 
       // check if we have a task file to use instead
       if (detail.location) {
         if (detail.location.type === 'file') {
-          params.task.taskName = (
+          params.taskName = (
             detail.location as TaskLocation<TaskLocation_File>
           ).meta.path;
         }
