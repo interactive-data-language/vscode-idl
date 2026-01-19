@@ -41,15 +41,14 @@ export function RegisterMCPTool_ResourcesSearchResources(
 
       logger.log({
         log: IDL_MCP_LOG,
-        type: 'info',
+        type: 'debug',
         content: [
           `Searched for ${queries.length} queries in ${
             performance.now() - t0
           } ms `,
+          queries,
         ],
       });
-
-      console.log(queries);
 
       // return
       return {
