@@ -4,8 +4,7 @@ import { RunnerFunction } from '../runner.interface';
 import { CreateMCPClient } from './helpers/create-mcp-client';
 
 /**
- * Function that verifies that we can do basic debugging of IDL sessions
- * and launch a new debugging session.
+ * Makes sure we can connect to our MCP server and list our tools
  */
 export const RunGitHubCopilotValidateMCPConnection: RunnerFunction = async (
   init

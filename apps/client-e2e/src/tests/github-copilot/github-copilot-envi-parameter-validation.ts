@@ -5,8 +5,7 @@ import { RunnerFunction } from '../runner.interface';
 import { CreateMCPClient } from './helpers/create-mcp-client';
 
 /**
- * Function that verifies that we can do basic debugging of IDL sessions
- * and launch a new debugging session.
+ * Makes sure invalid input parameters cause tool execution to fail
  */
 export const RunGitHubCopilotENVIParameterValidation: RunnerFunction = async (
   init

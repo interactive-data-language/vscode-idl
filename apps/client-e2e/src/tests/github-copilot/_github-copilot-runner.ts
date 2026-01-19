@@ -1,7 +1,9 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
+import { RunGitHubCopilotENVIInvalidTaskName } from './github-copilot-envi-invalid-task-name';
 import { RunGitHubCopilotENVIParameterValidation } from './github-copilot-envi-parameter-validation';
+import { RunGitHubCopilotENVIToolNotesLoad } from './github-copilot-envi-tool-notes-load';
 import { RunGitHubCopilotStartIDL } from './github-copilot-start-idl';
 import { RunGitHubCopilotValidateMCPConnection } from './github-copilot-validate-mcp-connection';
 
@@ -20,22 +22,29 @@ export const GITHUB_COPILOT_TEST_LOGGER = new Logger(
  */
 export const GITHUB_COPILOT_RUNNER = new Runner(GITHUB_COPILOT_TEST_LOGGER);
 
-// make sure that we can connect to our MCP server and return tools
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotValidateMCPConnection,
-  name: 'Validate MCP connection',
+  name: 'Validate MCP connection to server',
   critical: true,
 });
 
-// make sure that we can start IDL
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotStartIDL,
-  name: 'Start IDL',
+  name: 'Start IDL via MCP',
   critical: true,
 });
 
-// make sure that we can start IDL
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotENVIToolNotesLoad,
+  name: 'Verify ENVI tool notes are loaded (will always fail until SAVE files bundled)',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotENVIInvalidTaskName,
+  name: 'Verify ENVI tools fail with unknown task name',
+});
+
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotENVIParameterValidation,
-  name: 'Verify ENVI parameter validation',
+  name: 'Verify ENVI parameters are validated and tool execution fails',
 });
