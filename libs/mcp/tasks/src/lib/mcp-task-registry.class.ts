@@ -4,8 +4,10 @@ import {
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
+import Ajv, { ValidateFunction } from 'ajv';
 import { z, ZodRawShape } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
+import { JsonSchema7Type, zodToJsonSchema } from 'zod-to-json-schema';
 
 import { GetCleanDescription } from './helpers/get-clean-description';
 import { ITaskInformation } from './mcp-task-registry.interface';
@@ -23,6 +25,9 @@ import { TaskTypeToMCPParameter } from './types-to-mcp/task-type-to-mcp-paramete
  * All task names are tracked by lower case
  */
 export class MCPTaskRegistry {
+  /** Create instance of AJV */
+  private ajv = new Ajv({ allErrors: true });
+
   /**
    * Lookup of a description for a task, by name
    *
@@ -34,7 +39,12 @@ export class MCPTaskRegistry {
   /**
    * Input parameters for a task, by name
    */
-  private inputParameters: { [key: string]: any } = {};
+  private inputParameters: { [key: string]: JsonSchema7Type } = {};
+
+  /**
+   * Validation functions for input parameters
+   */
+  private inputValidators: { [key: string]: ValidateFunction<any> } = {};
 
   /**
    * Location of a task, if it is not native to ENVI and IDL
@@ -54,7 +64,7 @@ export class MCPTaskRegistry {
   /**
    * Output parameters for a task, by name
    */
-  private outputParameters: { [key: string]: any } = {};
+  private outputParameters: { [key: string]: JsonSchema7Type } = {};
 
   constructor(logger: LogManager) {
     this.logger = logger;
@@ -218,6 +228,11 @@ export class MCPTaskRegistry {
         )
     );
 
+    // save parameter validation function
+    this.inputValidators[taskName] = this.ajv.compile(
+      this.inputParameters[taskName]
+    );
+
     // save output parameters
     this.outputParameters[taskName] = zodToJsonSchema(
       z
@@ -238,5 +253,66 @@ export class MCPTaskRegistry {
       };
       this.location[taskName] = meta;
     }
+  }
+
+  /**
+   * Validate input parameters for a task
+   *
+   * We can validate them before they ever get to ENVI and, in fact, we should
+   * because the parameters are registered as part of the MCP tool
+   *
+   * This means there isn't any native validation when an LLM tries to run them
+   * so we need to add this in ourselves.
+   */
+  validateInputParameters(taskName: string, inputParameters: any) {
+    /** Get lower case name */
+    const lc = taskName.toLowerCase();
+
+    // return if no match
+    if (!(lc in this.descriptions)) {
+      return {
+        success: false,
+        reason: 'Unknown ENVI Task we are validating parameters for',
+      };
+    }
+
+    // Validate inputParameters against the JSON schema
+    try {
+      /** Create a validator function */
+      const validate = this.ajv.compile(this.inputParameters[lc]);
+
+      /** Validate parameters */
+      const valid = validate(inputParameters);
+
+      // check if we have JSON schema problems
+      if (!valid) {
+        // Format validation errors for the response
+        const errors = validate.errors
+          .map(
+            (err) =>
+              `- ${err.instancePath || 'root'}: ${err.message}${
+                err.params ? ` (${JSON.stringify(err.params)})` : ''
+              }`
+          )
+          .join('\n');
+
+        return {
+          success: false,
+          reason: `MCP Error -32602: Input parameters validation failed for task '${taskName}':\n${errors}\n\nYou *must* follow the task schema provided by "${MCP_TOOL_LOOKUP.ENVI_GET_TOOL_PARAMETERS}"`,
+        };
+      }
+    } catch (validationError) {
+      return {
+        success: false,
+        reason: `Server error trying to validate input parameters: ${
+          validationError instanceof Error
+            ? validationError.message
+            : String(validationError)
+        }`,
+      };
+    }
+
+    // made it here, so our schema is valid
+    return { success: true };
   }
 }

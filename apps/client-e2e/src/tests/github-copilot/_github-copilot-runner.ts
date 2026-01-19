@@ -1,6 +1,7 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
+import { RunGitHubCopilotENVIParameterValidation } from './github-copilot-envi-parameter-validation';
 import { RunGitHubCopilotStartIDL } from './github-copilot-start-idl';
 import { RunGitHubCopilotValidateMCPConnection } from './github-copilot-validate-mcp-connection';
 
@@ -31,4 +32,10 @@ GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotStartIDL,
   name: 'Start IDL',
   critical: true,
+});
+
+// make sure that we can start IDL
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotENVIParameterValidation,
+  name: 'Verify ENVI parameter validation',
 });

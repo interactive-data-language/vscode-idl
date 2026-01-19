@@ -48,10 +48,32 @@ export function RegisterMCPTool_ENVIRunTool(
     async (id, { taskName, inputParameters, interactive }) => {
       if (!registry.hasTask(taskName)) {
         return {
+          isError: true,
           content: [
             {
               type: 'text',
-              text: `ENVI Tool with name ${taskName} is not known, did it come from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TOOLS}?`,
+              text: `ENVI Tool with name '${taskName}' is not known, did it come from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TOOLS}?`,
+            },
+          ],
+        };
+      }
+
+      // validate the parameters
+      const isValid = registry.validateInputParameters(
+        taskName,
+        inputParameters
+      );
+
+      // report error
+      if (!isValid.success) {
+        return {
+          isError: true,
+          content: [
+            {
+              type: 'text',
+              text:
+                isValid.reason ||
+                'MCP Error -32602: Input parameters failed validation',
             },
           ],
         };
