@@ -1,10 +1,21 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 
-let CREATED_CLIENT = false;
+/**
+ * Flag if we created a client
+ */
+export let CREATED_CLIENT = false;
 
-let MCP_CLIENT: Client;
+/**
+ * Reference to the client
+ */
+export let MCP_CLIENT: Client;
 
+/**
+ * Create a client connection to the MCP server
+ *
+ * Create and re-use one
+ */
 export async function CreateMCPClient(port: number) {
   if (CREATED_CLIENT) {
     return MCP_CLIENT;
