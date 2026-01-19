@@ -1,10 +1,4 @@
-import {
-  FindFiles,
-  FindIDL,
-  GetExtensionPath,
-  IDL_PACKAGE_DIR,
-  LoadENVIPaths,
-} from '@idl/idl/files';
+import { FindFiles, FindIDL } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { RegisterMCPTaskTools } from '@idl/mcp/language-server';
 import { NUM_WORKERS } from '@idl/parsing/index';
@@ -22,9 +16,9 @@ import {
 } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
-import { existsSync } from 'fs';
 import { arch, cpus, platform } from 'os';
 
+import { AddAdditionalSearchPaths } from '../helpers/add-additional-search-paths';
 import { CacheValidFSPath } from '../helpers/cache-valid';
 import {
   IGNORE_PROBLEM_CODES,
@@ -163,21 +157,8 @@ SERVER_INFO.then(async (res) => {
      */
     const merged = { ...res[0], ...res[1] };
 
-    // add in our IDL folder
-    merged[GetExtensionPath('idl/vscode/notebooks')] = true;
-
-    // check for .idl package folder and auto-add if it exists
-    if (existsSync(IDL_PACKAGE_DIR)) {
-      merged[IDL_PACKAGE_DIR] = true;
-    }
-
-    /** Load folders where custom content for ENVI lives */
-    const enviPaths = LoadENVIPaths(idlBin);
-
-    // add all paths to the index
-    for (let i = 0; i < enviPaths.length; i++) {
-      merged[enviPaths[i]] = true;
-    }
+    // register other paths we need to index
+    AddAdditionalSearchPaths(merged, idlBin);
 
     // alert users
     IDL_LANGUAGE_SERVER_LOGGER.log({
