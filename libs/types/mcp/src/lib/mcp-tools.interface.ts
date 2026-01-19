@@ -6,7 +6,8 @@ import {
   MCPTool_ResourcesSearchForRoutine,
   MCPTool_ResourcesSearchResources,
   MCPTool_SearchForFiles,
-  MCPToolsHTTP,
+  MCPToolParams_HTTP,
+  MCPTools_HTTP,
 } from './mcp-tools-http.interface';
 import {
   MCPTool_ENVIOpenDatasets,
@@ -26,12 +27,14 @@ import {
 /**
  * All MCP tools
  */
-export type MCPTools = MCPTools_VSCode | MCPToolsHTTP;
+export type MCPTools = MCPTools_HTTP | MCPTools_VSCode;
 
 /**
  * All MCP tool parameters
  */
-export type MCPToolParams<T extends MCPTools> = T extends MCPTools_VSCode
+export type MCPToolParams<T extends MCPTools> = T extends MCPTools_HTTP
+  ? MCPToolParams_HTTP<T>
+  : T extends MCPTools_VSCode
   ? MCPToolParams_VSCode<T>
   : never;
 
