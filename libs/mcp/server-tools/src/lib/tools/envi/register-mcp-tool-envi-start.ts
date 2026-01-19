@@ -39,6 +39,7 @@ export function RegisterMCPTool_ENVIStart(
       );
 
       return {
+        isError: !resp.success,
         content: [
           {
             type: 'text',

@@ -38,6 +38,7 @@ export function RegisterMCPTool_ENVIGetToolParameters(
     async (id, { taskName }) => {
       if (!registry.hasTask(taskName)) {
         return {
+          isError: true,
           content: [
             {
               type: 'text',

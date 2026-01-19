@@ -59,6 +59,7 @@ export function RegisterMCPTool_ENVIQueryDataset(
       );
 
       return {
+        isError: !resp.success,
         content: [
           {
             type: 'text',

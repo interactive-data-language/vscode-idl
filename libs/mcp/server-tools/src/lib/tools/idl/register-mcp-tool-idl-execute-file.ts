@@ -44,6 +44,7 @@ export function RegisterMCPTool_IDLExecuteFile(
       );
 
       return {
+        isError: !resp.success,
         content: [
           {
             type: 'text',

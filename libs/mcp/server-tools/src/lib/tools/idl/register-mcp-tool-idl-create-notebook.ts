@@ -66,6 +66,7 @@ export function RegisterMCPTool_IDLCreateNotebook(
       );
 
       return {
+        isError: !resp.success,
         content: [
           {
             type: 'text',

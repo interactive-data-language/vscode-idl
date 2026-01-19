@@ -88,6 +88,7 @@ export function RegisterMCPTool_ENVIRunTool(
       )) as MCPToolResponse<MCPTool_ENVIRunTool>;
 
       return {
+        isError: !resp.success,
         content: [
           {
             type: 'text',

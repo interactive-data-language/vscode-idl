@@ -66,6 +66,7 @@ export function RegisterMCPTool_ENVIOpenDatasets(
       );
 
       return {
+        isError: !resp.success,
         content: [
           {
             type: 'text',

@@ -34,6 +34,7 @@ export function RegisterMCPTool_IDLStart(
       );
 
       return {
+        isError: !resp.success,
         content: [
           {
             type: 'text',
