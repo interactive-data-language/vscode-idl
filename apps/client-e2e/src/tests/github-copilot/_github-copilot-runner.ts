@@ -5,6 +5,7 @@ import { RunGitHubCopilotValidateMCPConnection } from './github-copilot-validate
 import { RunGitHubCopilotENVIInvalidTaskName } from './tools/envi/github-copilot-envi-invalid-task-name';
 import { RunGitHubCopilotENVIParameterValidation } from './tools/envi/github-copilot-envi-parameter-validation';
 import { RunGitHubCopilotENVIToolNotesLoad } from './tools/envi/github-copilot-envi-tool-notes-load';
+import { RunGitHubCopilotStartENVI } from './tools/envi/github-copilot-start-envi';
 import { RunGitHubCopilotCreateIDLNotebook } from './tools/idl/github-copilot-create-idl-notebook';
 import { RunGitHubCopilotExecuteIDLCode } from './tools/idl/github-copilot-execute-idl-code';
 import { RunGitHubCopilotExecuteIDLFile } from './tools/idl/github-copilot-execute-idl-file';
@@ -25,11 +26,23 @@ export const GITHUB_COPILOT_TEST_LOGGER = new Logger(
  */
 export const GITHUB_COPILOT_RUNNER = new Runner(GITHUB_COPILOT_TEST_LOGGER);
 
+/**
+ * =======================================================================
+ * Generic tests
+ * =======================================================================
+ */
+
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotValidateMCPConnection,
   name: 'Validate MCP connection to server',
   critical: true,
 });
+
+/**
+ * =======================================================================
+ * IDL tests
+ * =======================================================================
+ */
 
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotStartIDL,
@@ -51,6 +64,23 @@ GITHUB_COPILOT_RUNNER.addTest({
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotCreateIDLNotebook,
   name: 'Create IDL notebook',
+});
+
+/**
+ * =======================================================================
+ * ENVI tests
+ * =======================================================================
+ */
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotStartENVI,
+  name: 'Start ENVI with and without the UI',
+  critical: true,
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
