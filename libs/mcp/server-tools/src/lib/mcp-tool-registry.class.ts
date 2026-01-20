@@ -1,8 +1,8 @@
 import { ObjectifyError } from '@idl/error-shared';
 import { MCP_SERVER } from '@idl/mcp/server';
 import { SimplePromiseQueue } from '@idl/shared/extension';
+import { MCPToolHTTPResponse, MCPTools } from '@idl/types/mcp';
 import { ToolCallback } from '@modelcontextprotocol/sdk/server/mcp';
-import { CallToolResult } from '@modelcontextprotocol/sdk/types';
 import { ZodRawShape } from 'zod';
 
 import { MCPRegistryToolCallback } from './mcp-tool-registry.interface';
@@ -24,12 +24,12 @@ export class MCPToolRegistry {
   /**
    * Register a tool with the MCP server
    */
-  static registerTool<Args extends ZodRawShape>(
-    name: string,
+  static registerTool<Tool extends MCPTools, Args extends ZodRawShape>(
+    name: Tool,
     displayName: string,
     description: string,
     paramsSchema: Args,
-    cb: MCPRegistryToolCallback<Args>
+    cb: MCPRegistryToolCallback<Args, Tool>
   ) {
     return MCP_SERVER.registerTool(
       name,
@@ -45,11 +45,11 @@ export class MCPToolRegistry {
 
         try {
           // init result
-          let res: CallToolResult;
+          let res: MCPToolHTTPResponse<Tool>;
 
           // run tool one at a time
           await TOOL_EXECUTION_QUEUE.add(async () => {
-            res = (await cb(id, params, context)) as CallToolResult;
+            res = await cb(id, params, context);
           });
 
           // cleanup

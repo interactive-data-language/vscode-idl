@@ -1,3 +1,5 @@
+import { CallToolResult } from '@modelcontextprotocol/sdk/types';
+
 import {
   MCPTool_ENVIGetToolParameters,
   MCPTool_ENVIListTools,
@@ -19,6 +21,7 @@ import {
   MCPTool_IDLExecuteFile,
   MCPTool_IDLReturnNotes,
   MCPTool_IDLStart,
+  MCPToolHTTPResponse_VSCode,
   MCPToolParams_VSCode,
   MCPToolResponse_VSCode,
   MCPTools_VSCode,
@@ -44,6 +47,14 @@ export type MCPToolParams<T extends MCPTools> = T extends MCPTools_HTTP
 export type MCPToolResponse<T extends MCPTools> = T extends MCPTools_VSCode
   ? MCPToolResponse_VSCode<T>
   : never;
+
+/** What is the data type returned from our MCP call over HTTP */
+export type MCPToolHTTPResponse<T extends MCPTools> = T extends MCPTools_VSCode
+  ? MCPToolHTTPResponse_VSCode
+  : T extends MCPTools_HTTP
+  ? CallToolResult
+  : never;
+
 /**
  * Strictly typed messages that we can send back and forth
  */

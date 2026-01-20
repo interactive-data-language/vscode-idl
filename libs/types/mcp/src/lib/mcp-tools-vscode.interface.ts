@@ -284,3 +284,28 @@ export type MCPToolResponse_VSCode<T extends MCPTools_VSCode> =
     : T extends MCPTool_IDLStart
     ? MCPToolResponse_IDLStart
     : never;
+
+/**
+ * Response from tools that run in VSCode
+ */
+export interface MCPToolHTTPResponse_VSCode {
+  /** Text content we return */
+  content: [
+    {
+      /** Type of content */
+      type: 'text';
+      /**
+       * Text that we return, should be JSON of MCPToolResponse_VSCode, but not always
+       *
+       * A handful of tools have error checking and validation before they run, and if
+       * there in pre-error checking and a failure, then this will have a text-based
+       * error for the LLM.
+       *
+       * If the first characters is a brace, then you should be able to parse it.
+       */
+      text: string;
+    }
+  ];
+  /** If an error */
+  isError: boolean;
+}
