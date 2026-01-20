@@ -1,11 +1,12 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
-import { RunGitHubCopilotENVIInvalidTaskName } from './github-copilot-envi-invalid-task-name';
-import { RunGitHubCopilotENVIParameterValidation } from './github-copilot-envi-parameter-validation';
-import { RunGitHubCopilotENVIToolNotesLoad } from './github-copilot-envi-tool-notes-load';
-import { RunGitHubCopilotStartIDL } from './github-copilot-start-idl';
 import { RunGitHubCopilotValidateMCPConnection } from './github-copilot-validate-mcp-connection';
+import { RunGitHubCopilotENVIInvalidTaskName } from './tools/envi/github-copilot-envi-invalid-task-name';
+import { RunGitHubCopilotENVIParameterValidation } from './tools/envi/github-copilot-envi-parameter-validation';
+import { RunGitHubCopilotENVIToolNotesLoad } from './tools/envi/github-copilot-envi-tool-notes-load';
+import { RunGitHubCopilotExecuteIDLCode } from './tools/idl/github-copilot-execute-idl-code';
+import { RunGitHubCopilotStartIDL } from './tools/idl/github-copilot-start-idl';
 
 /*
  * Logger to be used for tests related to debugging

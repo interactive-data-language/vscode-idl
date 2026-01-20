@@ -1,8 +1,8 @@
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 
-import { RunnerFunction } from '../runner.interface';
-import { CallMCPTool } from './helpers/call-mcp-tool';
+import { RunnerFunction } from '../../../runner.interface';
+import { CallMCPTool } from '../../helpers/call-mcp-tool';
 
 /**
  * Makes sure ENVI tool notes load
