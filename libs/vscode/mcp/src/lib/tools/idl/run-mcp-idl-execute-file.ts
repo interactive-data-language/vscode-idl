@@ -1,3 +1,4 @@
+import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { IDL_MCP_LOG } from '@idl/logger';
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -62,6 +63,11 @@ export async function RunMCP_IDLExecuteFile(
   // update file code to be correct
   // await ReplaceDocumentContent(doc, resp.code);
 
+  // reset error message so we can know for sure if IDL had a problem
+  await IDL_DEBUG_ADAPTER.evaluate(`message, /reset`, {
+    silent: true,
+  });
+
   /** Run our file */
   const result: IRunIDLCommandResult = await vscode.commands.executeCommand(
     IDL_COMMANDS.DEBUG.RUN
@@ -72,19 +78,44 @@ export async function RunMCP_IDLExecuteFile(
     return result;
   }
 
+  /** Check output from last message to see if we had an error */
+  const lastMessage = CleanIDLOutput(
+    await IDL_DEBUG_ADAPTER.evaluate(`help, /last_message`, {
+      silent: true,
+    })
+  );
+
   /**
-   * Check if we ran successfully or not
+   * Handle cases for success/failure
    */
-  if (IDL_DEBUG_ADAPTER.isAtMain()) {
-    return {
-      success: true,
-      idlOutput: result.idlOutput,
-    };
-  } else {
-    return {
-      success: false,
-      idlOutput: result.idlOutput,
-      err: IDL_TRANSLATION.debugger.commandErrors.idlStopped,
-    };
+  switch (true) {
+    /**
+     * There was an error along the way
+     */
+    case lastMessage !== '':
+      return {
+        ...result,
+        success: false,
+        err: 'An error message was reported, see IDL output for more details',
+      };
+
+    /**
+     * Are we not back at main level?
+     */
+    case !IDL_DEBUG_ADAPTER.isAtMain():
+      return {
+        success: false,
+        idlOutput: result.idlOutput,
+        err: IDL_TRANSLATION.debugger.commandErrors.idlStopped,
+      };
+
+    /**
+     * If we don't detect error cases, then return that we passed
+     */
+    default:
+      return {
+        success: true,
+        idlOutput: result.idlOutput,
+      };
   }
 }

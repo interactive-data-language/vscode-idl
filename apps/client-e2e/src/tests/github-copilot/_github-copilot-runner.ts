@@ -6,6 +6,7 @@ import { RunGitHubCopilotENVIInvalidTaskName } from './tools/envi/github-copilot
 import { RunGitHubCopilotENVIParameterValidation } from './tools/envi/github-copilot-envi-parameter-validation';
 import { RunGitHubCopilotENVIToolNotesLoad } from './tools/envi/github-copilot-envi-tool-notes-load';
 import { RunGitHubCopilotExecuteIDLCode } from './tools/idl/github-copilot-execute-idl-code';
+import { RunGitHubCopilotExecuteIDLFile } from './tools/idl/github-copilot-execute-idl-file';
 import { RunGitHubCopilotStartIDL } from './tools/idl/github-copilot-start-idl';
 
 /*
@@ -37,7 +38,13 @@ GITHUB_COPILOT_RUNNER.addTest({
 
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotExecuteIDLCode,
-  name: 'Execute IDL code',
+  name: 'Execute snippet of IDL code',
+  critical: true,
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotExecuteIDLFile,
+  name: 'Execute file that contains IDL code',
   critical: true,
 });
 
