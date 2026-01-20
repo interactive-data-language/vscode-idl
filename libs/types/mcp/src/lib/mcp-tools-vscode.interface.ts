@@ -1,4 +1,4 @@
-import { IMCPTool_BaseResponse } from './mcp-base-response.interface';
+import { IMCPToolVSCode_BaseResponse } from './mcp-base-response.interface';
 
 /**
  * Message when opening an image in ENVI
@@ -31,7 +31,7 @@ export interface MCPToolParams_ENVIOpenDatasets {
  * Response for opening an image in ENVI
  */
 export interface MCPToolResponse_ENVIOpenDatasets
-  extends IMCPTool_BaseResponse {
+  extends IMCPToolVSCode_BaseResponse {
   /** output from IDL */
   idlOutput?: string;
 }
@@ -55,7 +55,7 @@ export interface MCPToolParams_ENVIQueryDataset {
  * Response for opening an image in ENVI
  */
 export interface MCPToolResponse_ENVIQueryDataset
-  extends IMCPTool_BaseResponse {
+  extends IMCPToolVSCode_BaseResponse {
   /** Information about the dataset that we return to the agent */
   info: { [key: string]: any };
 }
@@ -82,7 +82,8 @@ export interface MCPToolParams_ENVIRunTool {
 /**
  * Response for starting ENVI
  */
-export interface MCPToolResponse_ENVIRunTool extends IMCPTool_BaseResponse {
+export interface MCPToolResponse_ENVIRunTool
+  extends IMCPToolVSCode_BaseResponse {
   /** output from IDL */
   idlOutput?: string;
   /** output parameters */
@@ -109,7 +110,7 @@ export interface MCPToolParams_ENVIStart {
 /**
  * Response for starting ENVI
  */
-export interface MCPToolResponse_ENVIStart extends IMCPTool_BaseResponse {
+export interface MCPToolResponse_ENVIStart extends IMCPToolVSCode_BaseResponse {
   /** output from IDL */
   idlOutput?: string;
 }
@@ -134,7 +135,7 @@ export interface MCPToolParams_IDLCreateNotebook {
 /**
  * Response for creating an IDL Notebook
  */
-export type MCPToolResponse_IDLCreateNotebook = IMCPTool_BaseResponse;
+export type MCPToolResponse_IDLCreateNotebook = IMCPToolVSCode_BaseResponse;
 
 /**
  * Message when we want to run IDL code
@@ -154,7 +155,8 @@ export interface MCPToolParams_IDLExecuteCode {
 /**
  * Response for running IDL code
  */
-export interface MCPToolResponse_IDLExecuteCode extends IMCPTool_BaseResponse {
+export interface MCPToolResponse_IDLExecuteCode
+  extends IMCPToolVSCode_BaseResponse {
   /** Output from IDL */
   idlOutput?: string;
 }
@@ -177,7 +179,8 @@ export interface MCPToolParams_IDLExecuteFile {
 /**
  * Response for running IDL code within a file
  */
-export interface MCPToolResponse_IDLExecuteFile extends IMCPTool_BaseResponse {
+export interface MCPToolResponse_IDLExecuteFile
+  extends IMCPToolVSCode_BaseResponse {
   /** Output from IDL */
   idlOutput?: string;
 }
@@ -196,7 +199,8 @@ export interface MCPToolParams_IDLReturnNotes {}
 /**
  * Response for running IDL code
  */
-export interface MCPToolResponse_IDLReturnNotes extends IMCPTool_BaseResponse {
+export interface MCPToolResponse_IDLReturnNotes
+  extends IMCPToolVSCode_BaseResponse {
   /** Output from IDL */
   idlOutput?: string;
   /** The notes for tasks */
@@ -220,7 +224,7 @@ export interface MCPToolParams_IDLStart {}
 /**
  * Response for starting IDL
  */
-export type MCPToolResponse_IDLStart = IMCPTool_BaseResponse;
+export type MCPToolResponse_IDLStart = IMCPToolVSCode_BaseResponse;
 
 /**
  * MCP Tools that run in VSCode

@@ -1,4 +1,4 @@
-export interface IMCPTool_BaseResponse {
+export interface IMCPToolVSCode_BaseResponse {
   /**
    * String version of error that was caught
    */
