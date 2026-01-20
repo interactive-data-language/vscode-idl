@@ -1,4 +1,5 @@
 import { CreateRandomFilename, MCP_IDL_FOLDER } from '@idl/idl/files';
+import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { IDL_MCP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { COMPILE_FILE_ERROR } from '@idl/types/idl/idl-process';
@@ -81,7 +82,9 @@ export async function RunMCP_IDLExecuteCode(
   });
 
   // set compile option and make sure we are at the main level
-  await IDL_DEBUG_ADAPTER.evaluate(`compile_opt idl2 & retall`);
+  await IDL_DEBUG_ADAPTER.evaluate(
+    `compile_opt idl2 & message, /reset & retall`
+  );
 
   // write file
   writeFileSync(fsPath, resp.code);
@@ -162,20 +165,45 @@ export async function RunMCP_IDLExecuteCode(
        */
       const idlOutput = await IDL_DEBUG_ADAPTER.evaluate(`.go`, { echo: true });
 
+      /** Check output from last message to see if we had an error */
+      const lastMessage = CleanIDLOutput(
+        await IDL_DEBUG_ADAPTER.evaluate(`help, /last_message`, {
+          silent: true,
+        })
+      );
+
       /**
-       * Check if we ran successfully or not
+       * Handle cases for success/failure
        */
-      if (IDL_DEBUG_ADAPTER.isAtMain()) {
-        return {
-          success: true,
-          idlOutput,
-        };
-      } else {
-        return {
-          success: false,
-          idlOutput,
-          err: `The IDL process ran, but likely stopped somewhere, meaning that the code did not finish executing and may have runtime errors that need to be fixed.`,
-        };
+      switch (true) {
+        /**
+         * There was an error along the way
+         */
+        case lastMessage !== '':
+          return {
+            success: false,
+            idlOutput,
+            err: 'An error message was reported, see IDL output for more details',
+          };
+
+        /**
+         * Are we not back at main level?
+         */
+        case !IDL_DEBUG_ADAPTER.isAtMain():
+          return {
+            success: false,
+            idlOutput,
+            err: `The IDL process ran, but likely stopped somewhere, meaning that the code did not finish executing and may have runtime errors that need to be fixed.`,
+          };
+
+        /**
+         * If we don't detect error cases, then return that we passed
+         */
+        default:
+          return {
+            success: true,
+            idlOutput,
+          };
       }
     }
     default:

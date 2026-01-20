@@ -477,6 +477,13 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   }
 
   /**
+   * Get information from IDL about where we are at
+   */
+  getIDLInfo() {
+    return this._runtime.getIDLInfo();
+  }
+
+  /**
    * Gets syntax problems from our IDL helper, tracked
    * by string versions of VSCode URIs
    */

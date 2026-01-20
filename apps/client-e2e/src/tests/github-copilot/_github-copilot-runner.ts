@@ -36,6 +36,12 @@ GITHUB_COPILOT_RUNNER.addTest({
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotExecuteIDLCode,
+  name: 'Execute IDL code',
+  critical: true,
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotENVIToolNotesLoad,
   name: 'Verify ENVI tool notes are loaded (will always fail until SAVE files bundled)',
 });
