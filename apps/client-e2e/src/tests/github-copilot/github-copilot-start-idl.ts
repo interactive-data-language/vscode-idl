@@ -13,4 +13,7 @@ export const RunGitHubCopilotStartIDL: RunnerFunction = async (init) => {
 
   // make sure the tool runs
   expect(result.isError).toBeFalsy();
+
+  // verify we started
+  expect(init.debug.adapter.isStarted()).toBeTruthy();
 };
