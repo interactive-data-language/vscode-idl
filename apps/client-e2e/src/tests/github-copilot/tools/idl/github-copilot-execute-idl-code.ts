@@ -47,7 +47,7 @@ export const RunGitHubCopilotExecuteIDLCode: RunnerFunction = async (init) => {
 
   // parse result
   const parsedError = JSON.parse(
-    result.content[0].text
+    resError.content[0].text
   ) as MCPToolResponse_VSCode<MCPTool_IDLExecuteCode>;
 
   // make sure we catch in the IDL MCP tool
