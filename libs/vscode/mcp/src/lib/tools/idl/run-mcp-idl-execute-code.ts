@@ -183,7 +183,7 @@ export async function RunMCP_IDLExecuteCode(
           return {
             success: false,
             idlOutput,
-            err: 'An error message was reported, see IDL output for more details',
+            err: `An error message was reported:\n\n  ${lastMessage}`,
           };
 
         /**

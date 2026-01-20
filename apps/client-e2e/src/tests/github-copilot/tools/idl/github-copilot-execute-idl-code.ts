@@ -39,24 +39,48 @@ export const RunGitHubCopilotExecuteIDLCode: RunnerFunction = async (init) => {
    *
    * a and b are undefined
    */
-  const resError = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE, {
+  const runtimeError = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE, {
     code: `foo = a + b`,
   });
 
-  expect(resError.isError).toBeTruthy();
+  expect(runtimeError.isError).toBeTruthy();
 
   // parse result
-  const parsedError = JSON.parse(
-    resError.content[0].text
+  const parsedRuntimeError = JSON.parse(
+    runtimeError.content[0].text
   ) as MCPToolResponse_VSCode<MCPTool_IDLExecuteCode>;
 
   // make sure we catch in the IDL MCP tool
-  expect(parsedError.success).toBeFalsy();
+  expect(parsedRuntimeError.success).toBeFalsy();
 
   // make sure we have "foo" as the cleaned text
   expect(
-    CleanIDLOutput(parsedError.idlOutput)
+    CleanIDLOutput(parsedRuntimeError.idlOutput)
       .toLowerCase()
       .startsWith('% variable is undefined')
+  ).toBeTruthy();
+
+  /**
+   * Run code with a syntax error
+   */
+  const syntaxError = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE, {
+    code: `help, 42 + `,
+  });
+
+  expect(syntaxError.isError).toBeTruthy();
+
+  // parse result
+  const parsedSyntaxError = JSON.parse(
+    syntaxError.content[0].text
+  ) as MCPToolResponse_VSCode<MCPTool_IDLExecuteCode>;
+
+  // make sure we catch in the IDL MCP tool
+  expect(parsedSyntaxError.success).toBeFalsy();
+
+  // make sure we have "foo" as the cleaned text
+  expect(
+    CleanIDLOutput(parsedSyntaxError.err || '')
+      .toLowerCase()
+      .includes(' compilation error(s)')
   ).toBeTruthy();
 };

@@ -15,6 +15,29 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
  */
 export const RunGitHubCopilotExecuteIDLFile: RunnerFunction = async (init) => {
   /**
+   * Run a file that works correctly
+   */
+  const resSuccess = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_EXECUTE_FILE, {
+    uri: GetExtensionPath(
+      'idl/test/client-e2e/github-copilot/mcp/idl-file-runs-fine.pro'
+    ),
+  });
+
+  // make sure error is reported in MCP response
+  expect(resSuccess.isError).toBeFalsy();
+
+  // parse result
+  const parsedSuccess = JSON.parse(
+    resSuccess.content[0].text
+  ) as MCPToolResponse_VSCode<MCPTool_IDLExecuteCode>;
+
+  // verify we returned a success flag
+  expect(parsedSuccess.success).toBeTruthy();
+
+  // make sure we have "foo" as the cleaned text
+  expect(CleanIDLOutput(parsedSuccess.idlOutput)).toEqual('foo');
+
+  /**
    * Run a file that has a runtime error
    */
   const resRuntimeErr = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_EXECUTE_FILE, {
@@ -56,27 +79,4 @@ export const RunGitHubCopilotExecuteIDLFile: RunnerFunction = async (init) => {
 
   // verify we returned a success flag
   expect(parsedSyntaxErr.success).toBeFalsy();
-
-  /**
-   * Run a file that works correctly
-   */
-  const resSuccess = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_EXECUTE_FILE, {
-    uri: GetExtensionPath(
-      'idl/test/client-e2e/github-copilot/mcp/idl-file-runs-fine.pro'
-    ),
-  });
-
-  // make sure error is reported in MCP response
-  expect(resSuccess.isError).toBeFalsy();
-
-  // parse result
-  const parsedSuccess = JSON.parse(
-    resSuccess.content[0].text
-  ) as MCPToolResponse_VSCode<MCPTool_IDLExecuteCode>;
-
-  // verify we returned a success flag
-  expect(parsedSuccess.success).toBeTruthy();
-
-  // make sure we have "foo" as the cleaned text
-  expect(CleanIDLOutput(parsedSuccess.idlOutput)).toEqual('foo');
 };
