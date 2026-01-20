@@ -1,7 +1,6 @@
 import { spawn } from 'child_process';
 import * as os from 'os';
 import { join } from 'path';
-import { performance } from 'perf_hooks';
 
 /**
  * Runs the ENVI/IDL task engine
@@ -28,8 +27,6 @@ export function RunTaskEngine(
         os.platform() === 'win32' ? 'taskengine.exe' : 'taskengine'
       );
 
-      const t0 = performance.now();
-
       // Extend the process environment with the config options.
       const command = spawn(engineUri, commandArgs, {
         cwd: os.tmpdir(),
@@ -53,8 +50,6 @@ export function RunTaskEngine(
           try {
             // Parse the output string to JSON.
             outputJson = JSON.parse(outputJsonString);
-
-            console.log(performance.now() - t0);
 
             // return
             resolve(outputJson['outputParameters']);
