@@ -5,6 +5,7 @@ import { RunGitHubCopilotValidateMCPConnection } from './github-copilot-validate
 import { RunGitHubCopilotENVIInvalidTaskName } from './tools/envi/github-copilot-envi-invalid-task-name';
 import { RunGitHubCopilotENVIParameterValidation } from './tools/envi/github-copilot-envi-parameter-validation';
 import { RunGitHubCopilotENVIToolNotesLoad } from './tools/envi/github-copilot-envi-tool-notes-load';
+import { RunGitHubCopilotCreateIDLNotebook } from './tools/idl/github-copilot-create-idl-notebook';
 import { RunGitHubCopilotExecuteIDLCode } from './tools/idl/github-copilot-execute-idl-code';
 import { RunGitHubCopilotExecuteIDLFile } from './tools/idl/github-copilot-execute-idl-file';
 import { RunGitHubCopilotStartIDL } from './tools/idl/github-copilot-start-idl';
@@ -45,7 +46,11 @@ GITHUB_COPILOT_RUNNER.addTest({
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotExecuteIDLFile,
   name: 'Execute file that contains IDL code',
-  critical: true,
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotCreateIDLNotebook,
+  name: 'Create IDL notebook',
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
