@@ -1,4 +1,4 @@
-import { MCPToolParams, MCPTools } from '@idl/types/mcp';
+import { MCPToolHTTPResponse, MCPToolParams, MCPTools } from '@idl/types/mcp';
 
 import { CREATED_CLIENT, MCP_CLIENT } from './create-mcp-client';
 
@@ -18,5 +18,5 @@ export function CallMCPTool<T extends MCPTools>(
   return MCP_CLIENT.callTool({
     name: tool,
     arguments: params as any,
-  });
+  }) as Promise<MCPToolHTTPResponse<T>>;
 }
