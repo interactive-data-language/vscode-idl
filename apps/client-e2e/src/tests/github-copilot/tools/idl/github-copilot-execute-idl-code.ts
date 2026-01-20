@@ -1,5 +1,4 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
-import { Sleep } from '@idl/shared/extension';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_IDLExecuteCode,
@@ -60,6 +59,4 @@ export const RunGitHubCopilotExecuteIDLCode: RunnerFunction = async (init) => {
       .toLowerCase()
       .startsWith('% variable is undefined')
   ).toBeTruthy();
-
-  await Sleep(5000);
 };
