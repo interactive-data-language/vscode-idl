@@ -28,6 +28,10 @@ const SILENCE_LOGS = true;
 const DEBUG_LOGS = false;
 
 /**
+ * IDL install folder for extension testing
+ */
+export let IDL_DIR: string;
+/**
  * Test runner
  *
  * https://code.visualstudio.com/api/working-with-extensions/testing-extension
@@ -41,16 +45,16 @@ export async function run(): Promise<void> {
     /**
      * Manually specify IDL folder
      */
-    const idlDir = FindIDL();
+    IDL_DIR = FindIDL();
 
     // validate we know where it is
-    if (!idlDir) {
+    if (!IDL_DIR) {
       throw new Error('Unable to find IDL, cannot run tests');
     }
 
     // alert user which IDL we are using
     console.log(` `);
-    console.log(`Test are using this IDL: "${idlDir}"`);
+    console.log(`Test are using this IDL: "${IDL_DIR}"`);
 
     // get extension
     const ext = vscode.extensions.getExtension(EXTENSION_FULL_NAME);
@@ -71,7 +75,7 @@ export async function run(): Promise<void> {
     const config = GetWorkspaceConfig();
 
     // reset config
-    await ResetSettingsForTests(config, idlDir);
+    await ResetSettingsForTests(config, IDL_DIR);
 
     // flag if we have started or not
     let started = false;
