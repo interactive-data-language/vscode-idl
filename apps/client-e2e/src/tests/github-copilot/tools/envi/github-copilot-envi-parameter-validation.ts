@@ -16,6 +16,6 @@ export const RunGitHubCopilotENVIParameterValidation: RunnerFunction = async (
     interactive: false,
   });
 
-  // make sure the tool runs
+  // make sure the tool fails
   expect(result.isError).toBeTruthy();
 };
