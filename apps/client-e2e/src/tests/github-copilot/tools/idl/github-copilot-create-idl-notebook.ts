@@ -5,7 +5,7 @@ import { existsSync, unlinkSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
-import { CompareNotebookJSONOutputs } from '../../../notebooks/helpers/compare-notebook-json-outputs';
+import { CompareNotebookJSONCells } from '../../../notebooks/helpers/compare-notebook-json-cells';
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 
@@ -47,7 +47,7 @@ export const RunGitHubCopilotCreateIDLNotebook: RunnerFunction = async (
   expect(existsSync(nbUri)).toBeTruthy();
 
   // compare output notebooks
-  await CompareNotebookJSONOutputs(
+  await CompareNotebookJSONCells(
     GetExtensionPath(
       'idl/test/client-e2e/github-copilot/mcp/idl-create-notebook.idlnb'
     ),
