@@ -52,6 +52,7 @@ export function RegisterMCPTool_ResourcesSearchResources(
 
       // return
       return {
+        isError: false,
         content: [
           {
             type: 'text',

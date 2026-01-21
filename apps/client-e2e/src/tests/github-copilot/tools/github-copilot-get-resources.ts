@@ -5,9 +5,9 @@ import { RunnerFunction } from '../../runner.interface';
 import { CallMCPTool } from '../helpers/call-mcp-tool';
 
 /**
- * Makes sure we error when we get resources
+ * Extra tests for getting resources
  *
- * resources-workflow tests this working
+ * Some covered in the "resources-workflow" file next to this
  */
 export const RunGitHubGetResources: RunnerFunction = async (init) => {
   // Call a tool
@@ -18,6 +18,6 @@ export const RunGitHubGetResources: RunnerFunction = async (init) => {
     }
   );
 
-  // make sure the tool runs
+  // make sure the tool fails as expected
   expect(listResources.isError).toBeTruthy();
 };

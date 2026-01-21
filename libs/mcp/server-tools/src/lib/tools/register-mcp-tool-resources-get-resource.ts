@@ -45,6 +45,7 @@ export function RegisterMCPTool_ResourcesGetResource(
       }
 
       return {
+        isError: false,
         content: [
           {
             type: 'text',

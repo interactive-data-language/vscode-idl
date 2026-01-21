@@ -8,6 +8,14 @@ import { RunGitHubCopilotENVIToolNotesLoad } from './tools/envi/github-copilot-e
 import { RunGitHubCopilotStartENVI } from './tools/envi/github-copilot-start-envi';
 import { RunGitHubGetResources } from './tools/github-copilot-get-resources';
 import { RunGitHubResourcesWorkflow } from './tools/github-copilot-resources-workflow';
+import {
+  RunGitHubSearchForFilesAll,
+  RunGitHubSearchForFilesFailRight,
+  RunGitHubSearchForFilesNoRecursion,
+  RunGitHubSearchForFilesRecursionAll,
+  RunGitHubSearchForFilesSingle,
+} from './tools/github-copilot-search-for-files';
+import { RunGitHubSearchResources } from './tools/github-copilot-search-resources';
 import { RunGitHubCopilotCreateIDLNotebook } from './tools/idl/github-copilot-create-idl-notebook';
 import { RunGitHubCopilotExecuteIDLCode } from './tools/idl/github-copilot-execute-idl-code';
 import { RunGitHubCopilotExecuteIDLFile } from './tools/idl/github-copilot-execute-idl-file';
@@ -47,6 +55,36 @@ GITHUB_COPILOT_RUNNER.addTest({
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubGetResources,
   name: 'Make sure getting resources fails correctly',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubSearchResources,
+  name: 'Make sure we can search for resources',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubSearchForFilesAll,
+  name: 'File search: Make sure we can search for all files in a folder',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubSearchForFilesSingle,
+  name: 'File search: Make sure we can search for single file extension in a folder',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubSearchForFilesFailRight,
+  name: 'File: search Make sure we fail with invalid folders',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubSearchForFilesRecursionAll,
+  name: 'File search: Make sure we recursively search',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubSearchForFilesNoRecursion,
+  name: 'File search: Honor no recursion',
 });
 
 /**

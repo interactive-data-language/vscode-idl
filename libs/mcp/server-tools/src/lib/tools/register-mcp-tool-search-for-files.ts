@@ -40,6 +40,7 @@ export function RegisterMCPTool_SearchForFiles(
        */
       if (!existsSync(folder)) {
         return {
+          isError: true,
           content: [
             {
               type: 'text',
@@ -70,6 +71,7 @@ export function RegisterMCPTool_SearchForFiles(
 
       // return
       return {
+        isError: false,
         content: [
           {
             type: 'text',

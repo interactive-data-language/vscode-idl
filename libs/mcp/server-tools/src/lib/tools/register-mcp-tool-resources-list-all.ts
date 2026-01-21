@@ -20,6 +20,7 @@ export function RegisterMCPTool_ResourcesListAll(
     {},
     async (id) => {
       return {
+        isError: false,
         content: [
           {
             type: 'text',
