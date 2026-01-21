@@ -31,6 +31,13 @@ export class MCPResourceIndex {
   }
 
   /**
+   * Retrns if we have a resource by name
+   */
+  static has(name: string) {
+    return INDEX.has(name);
+  }
+
+  /**
    * Return all registered resources by name
    */
   static list() {

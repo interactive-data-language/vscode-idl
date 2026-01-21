@@ -9,7 +9,7 @@ export class Indexer {
   private contentGroups: { [key: string]: string[] } = {};
 
   /** Track content */
-  private contentMap: Map<string, string> = new Map();
+  private contentMap: { [key: string]: string } = {};
 
   /** Reference to the index */
   private index: Index;
@@ -28,7 +28,7 @@ export class Indexer {
    */
   add(id: string, text: string): void {
     this.index.add(id, text);
-    this.contentMap.set(id, text);
+    this.contentMap[id] = text;
   }
 
   /**
@@ -68,7 +68,14 @@ export class Indexer {
    * Get content by ID
    */
   get(id: string): string {
-    return this.contentMap.get(id) || '';
+    return this.contentMap[id] || '';
+  }
+
+  /**
+   * Retrns if we have a resource by ID
+   */
+  has(id: string): boolean {
+    return id in this.contentMap;
   }
 
   /**
@@ -83,7 +90,7 @@ export class Indexer {
    */
   remove(id: string): void {
     this.index.remove(id);
-    this.contentMap.delete(id);
+    delete this.contentMap[id];
   }
 
   /**
@@ -119,6 +126,6 @@ export class Indexer {
    */
   update(id: string, text: string): void {
     this.index.update(id, text);
-    this.contentMap.set(id, text);
+    this.contentMap[id] = text;
   }
 }
