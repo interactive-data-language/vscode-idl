@@ -6,6 +6,8 @@ import { RunGitHubCopilotENVIInvalidTaskName } from './tools/envi/github-copilot
 import { RunGitHubCopilotENVIParameterValidation } from './tools/envi/github-copilot-envi-parameter-validation';
 import { RunGitHubCopilotENVIToolNotesLoad } from './tools/envi/github-copilot-envi-tool-notes-load';
 import { RunGitHubCopilotStartENVI } from './tools/envi/github-copilot-start-envi';
+import { RunGitHubGetResources } from './tools/github-copilot-get-resources';
+import { RunGitHubResourcesWorkflow } from './tools/github-copilot-resources-workflow';
 import { RunGitHubCopilotCreateIDLNotebook } from './tools/idl/github-copilot-create-idl-notebook';
 import { RunGitHubCopilotExecuteIDLCode } from './tools/idl/github-copilot-execute-idl-code';
 import { RunGitHubCopilotExecuteIDLFile } from './tools/idl/github-copilot-execute-idl-file';
@@ -31,11 +33,20 @@ export const GITHUB_COPILOT_RUNNER = new Runner(GITHUB_COPILOT_TEST_LOGGER);
  * Generic tests
  * =======================================================================
  */
-
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotValidateMCPConnection,
   name: 'Validate MCP connection to server',
   critical: true,
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubResourcesWorkflow,
+  name: 'Make sure we can list resources and retrieve a resource by name',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubGetResources,
+  name: 'Make sure getting resources fails correctly',
 });
 
 /**
