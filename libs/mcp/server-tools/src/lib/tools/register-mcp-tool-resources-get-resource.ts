@@ -27,6 +27,20 @@ export function RegisterMCPTool_ResourcesGetResource(
 
       // retrieve all
       for (let i = 0; i < names.length; i++) {
+        // make sure we have requested ID
+        if (!MCPResourceIndex.has(names[i])) {
+          return {
+            isError: true,
+            content: [
+              {
+                type: 'text',
+                text: `No matching resource of name "${names[i]}", did the name come from the tool "${MCP_TOOL_LOOKUP.RESOURCES_LIST_ALL}"?`,
+              },
+            ],
+          };
+        }
+
+        // save by name
         results[names[i]] = MCPResourceIndex.get(names[i]);
       }
 
