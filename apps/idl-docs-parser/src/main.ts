@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 
+import { AddStructureDocs } from './helpers/add-structure-docs';
 import { ParsedToGlobal } from './helpers/parsed-to-global';
 import { SetTaskTypes } from './helpers/set-task-types';
 import { IDL_DIR } from './idl-dir.interface';
@@ -29,6 +30,9 @@ async function Main() {
 
   // properly handle all task files
   await SetTaskTypes(global);
+
+  // make sure all structures have docs
+  AddStructureDocs(global);
 
   // write to disk
   writeFileSync(
