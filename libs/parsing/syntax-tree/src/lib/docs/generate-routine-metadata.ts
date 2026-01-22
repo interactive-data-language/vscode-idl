@@ -26,7 +26,6 @@ import {
   FunctionRoutineType,
   ProcedureRoutineType,
   RoutineMetadata,
-  RoutineType,
 } from './generate-routine-metadata.interface';
 import { JoinDocs } from './join-docs';
 
@@ -34,7 +33,9 @@ import { JoinDocs } from './join-docs';
  * Takes comments from a comment block and converts it into
  * documentation for things like hover help and auto-complete.
  */
-export function GenerateRoutineMetadata<T extends RoutineType>(
+export function GenerateRoutineMetadata<
+  T extends FunctionRoutineType | ProcedureRoutineType
+>(
   nameToken: IBranch<RoutineMethodNameToken | RoutineNameToken>,
   type: T,
   docs: IDocs,
@@ -312,7 +313,7 @@ export function GenerateRoutineMetadata<T extends RoutineType>(
         returns: IDLTypeHelper.parseIDLType(returnType),
       };
 
-      return fMeta;
+      return fMeta as RoutineMetadata<T>;
     }
     default:
       break;

@@ -27,7 +27,10 @@ import { FindDirectBranchChildren } from '../helpers/searching/find-direct-branc
 import { IDL_DOCS_HEADERS } from './docs.interface';
 import { ExtractDocs } from './extract-docs';
 import { GenerateRoutineMetadata } from './generate-routine-metadata';
-import { RoutineType } from './generate-routine-metadata.interface';
+import {
+  FunctionRoutineType,
+  ProcedureRoutineType,
+} from './generate-routine-metadata.interface';
 import { DocsToMarkdown } from './markdown/docs-to-markdown';
 import { MARKDOWN_TYPE_LOOKUP } from './markdown/docs-to-markdown.interface';
 
@@ -41,8 +44,10 @@ import { MARKDOWN_TYPE_LOOKUP } from './markdown/docs-to-markdown.interface';
  * 5. Report any docs issues via syntax problems
  *
  */
-export function GenerateRoutineDocsAndMetadata(
-  type: RoutineType,
+export function GenerateRoutineDocsAndMetadata<
+  T extends FunctionRoutineType | ProcedureRoutineType
+>(
+  type: T,
   routine: IBranch<RoutineFunctionToken | RoutineProcedureToken>,
   nameToken: IBranch<RoutineMethodNameToken | RoutineNameToken>,
   problems: SyntaxProblems,

@@ -2,12 +2,14 @@ import { IDocs } from '@idl/types/syntax-tree';
 
 import { GeneralToMarkdown } from './converters/general-to-markdown';
 import { RoutinesToMarkdown } from './converters/routines-to-markdown';
+import { StructureToMarkdown } from './converters/structure-to-markdown';
 import { VariablesToMarkdown } from './converters/variables-to-markdown';
 import {
   MARKDOWN_TYPE_LOOKUP,
   MarkdownInfo,
   MarkdownType,
   RoutineMarkdown,
+  StructureMarkdown,
 } from './docs-to-markdown.interface';
 
 /**
@@ -24,6 +26,8 @@ export function DocsToMarkdown<T extends MarkdownType>(
       return GeneralToMarkdown(info as { [key: string]: string });
     case MARKDOWN_TYPE_LOOKUP.ROUTINE:
       return RoutinesToMarkdown(info as MarkdownInfo<RoutineMarkdown>);
+    case MARKDOWN_TYPE_LOOKUP.STRUCTURE:
+      return StructureToMarkdown(info as MarkdownInfo<StructureMarkdown>);
     case MARKDOWN_TYPE_LOOKUP.VARIABLE:
       return VariablesToMarkdown(info as IDocs);
     default:
