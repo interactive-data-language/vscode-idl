@@ -1,8 +1,8 @@
 import { IDocs } from '@idl/types/syntax-tree';
 
-import { GeneralToMarkdown } from './converters/general';
-import { RoutinesToMarkdown } from './converters/routines';
-import { VariablesToMarkdown } from './converters/variables';
+import { GeneralToMarkdown } from './converters/general-to-markdown';
+import { RoutinesToMarkdown } from './converters/routines-to-markdown';
+import { VariablesToMarkdown } from './converters/variables-to-markdown';
 import {
   MARKDOWN_TYPE_LOOKUP,
   MarkdownInfo,
