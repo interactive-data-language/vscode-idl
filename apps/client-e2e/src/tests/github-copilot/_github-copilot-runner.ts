@@ -9,14 +9,14 @@ import { RunGitHubCopilotStartENVI } from './tools/envi/github-copilot-start-env
 import { RunGitHubGetResources } from './tools/github-copilot-get-resources';
 import { RunGitHubCopilotGetRoutineDocs } from './tools/github-copilot-get-routine-docs';
 import { RunGitHubResourcesWorkflow } from './tools/github-copilot-resources-workflow';
-import {FaRightNoecursonilesSng } from './tool/github-copilt-sarh-fo-file';
-import { RunGitHubCoplotSearchForRutieroutn
+import {
   RunGitHubSearchForFilesAll,
-  RunGitHubSearchForFilesSingle,
   RunGitHubSearchForFilesFailRight,
-  RunGitHubSearchForFilesRecursionAll,
   RunGitHubSearchForFilesNoRecursion,
+  RunGitHubSearchForFilesRecursionAll,
+  RunGitHubSearchForFilesSingle,
 } from './tools/github-copilot-search-for-files';
+import { RunGitHubCopilotSearchForRoutine } from './tools/github-copilot-search-for-routines';
 import { RunGitHubSearchResources } from './tools/github-copilot-search-resources';
 import { RunGitHubCopilotCreateIDLNotebook } from './tools/idl/github-copilot-create-idl-notebook';
 import { RunGitHubCopilotExecuteIDLCode } from './tools/idl/github-copilot-execute-idl-code';
