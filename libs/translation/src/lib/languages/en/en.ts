@@ -898,6 +898,7 @@ export const EN: ITranslation = {
         'execute-idl-file': 'IDL: Execute File',
         'get-envi-tool-parameters': 'ENVI: Get Task Parameters',
         'get-resource': 'Resources: Get Resource',
+        'get-routine-docs': 'Resources: Get Routine Docs',
         'list-all-resources': 'Resources: List All',
         'list-envi-tools': 'ENVI: List Tasks',
         'open-datasets-in-envi': 'ENVI: Open Datasets',

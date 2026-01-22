@@ -4,6 +4,7 @@ import {
   MCPTool_ENVIGetToolParameters,
   MCPTool_ENVIListTools,
   MCPTool_ResourcesGetResource,
+  MCPTool_ResourcesGetRoutineDocs,
   MCPTool_ResourcesListAll,
   MCPTool_ResourcesSearchForRoutine,
   MCPTool_ResourcesSearchResources,
@@ -83,6 +84,8 @@ interface IMCPToolLookup {
   IDL_START: MCPTool_IDLStart;
   /** Get a specific resource from the server */
   RESOURCES_GET_RESOURCE: MCPTool_ResourcesGetResource;
+  /** Retrieve docs for a routine */
+  RESOURCES_GET_ROUTINE_DOCS: MCPTool_ResourcesGetRoutineDocs;
   /** List all resources */
   RESOURCES_LIST_ALL: MCPTool_ResourcesListAll;
   /** Search for a particular routine */
@@ -109,6 +112,7 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   IDL_RETURN_NOTES: 'return-notes',
   IDL_START: 'start-idl',
   RESOURCES_GET_RESOURCE: 'get-resource',
+  RESOURCES_GET_ROUTINE_DOCS: 'get-routine-docs',
   RESOURCES_LIST_ALL: 'list-all-resources',
   RESOURCES_SEARCH_FOR_ROUTINE: 'search-for-routine',
   RESOURCES_SEARCH_RESOURCES: 'search-resources',

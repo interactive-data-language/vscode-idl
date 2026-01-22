@@ -1,7 +1,7 @@
 import { IDL_MCP_LOG } from '@idl/logger';
 import {
   MCPTrackTutorialsAsResources,
-  RegisterMCPTool_ResourcesSearchForRoutine,
+  RegisterAllLanguageServerMCPTools,
 } from '@idl/mcp/language-server';
 import { StartMCPServer } from '@idl/mcp/server';
 import { RegisterAllMCPResources } from '@idl/mcp/server-resources';
@@ -74,8 +74,12 @@ export function InitializeMCPServer(port: number) {
     // register all of our tools
     RegisterAllMCPTools(SERVER_MESSENGER, IDL_LANGUAGE_SERVER_LOGGER);
 
-    // register MCP tools special to the language server
-    RegisterMCPTool_ResourcesSearchForRoutine(SERVER_MESSENGER, IDL_INDEX);
+    // register all tools that require the language server (IDL Index) to function
+    RegisterAllLanguageServerMCPTools(
+      SERVER_MESSENGER,
+      IDL_INDEX,
+      IDL_LANGUAGE_SERVER_LOGGER
+    );
 
     // listen for progress notifications
     SERVER_MESSENGER.onNotification(

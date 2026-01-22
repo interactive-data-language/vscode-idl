@@ -1,42 +1,19 @@
 import { MCPToolRegistry } from '@idl/mcp/server-tools';
-import { GlobalIndexedToken, IDLIndex } from '@idl/parsing/index';
+import { IDLIndex } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/idl-data-types';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { SEARCH_FOR_ROUTINE_DESCRIPTION } from './register-mcp-tool-resources-search-for-routine.interface';
+import {
+  mappedNames,
+  reverseMap,
+  SEARCH_FOR_ROUTINE_DESCRIPTION,
+} from './register-mcp-tool-resources-search-for-routine.interface';
 
 /**
- * Map values to strings
- */
-type ValsOfToStrings<T extends string> = {
-  [P in T]: string;
-};
-
-const mappedNames: ValsOfToStrings<GlobalTokenType> = {
-  c: 'CommonBlock',
-  f: 'Function',
-  fm: 'FunctionMethod',
-  p: 'Procedure',
-  pm: 'ProcedureMethod',
-  s: 'StructureOrClassDefinition',
-  sv: 'SystemVariable',
-};
-
-const reverseMap: { [key: string]: GlobalTokenType } = {
-  CommonBlock: 'c',
-  Function: 'f',
-  FunctionMethod: 'fm',
-  Procedure: 'p',
-  ProcedureMethod: 'pm',
-  StructureOrClassDefinition: 's',
-  SystemVariable: 'sv',
-};
-
-/**
- * Search through registered resources
+ * Search known routines for matches
  */
 export function RegisterMCPTool_ResourcesSearchForRoutine(
   messenger: VSCodeLanguageServerMessenger,
@@ -49,7 +26,7 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
     ],
     SEARCH_FOR_ROUTINE_DESCRIPTION,
     {
-      queries: z
+      routines: z
         .array(
           z.object({
             name: z
@@ -57,7 +34,7 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
               .describe(
                 'The name to search for, case insensitive. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"'
               ),
-            routineType: z
+            type: z
               .enum([
                 'All',
                 'Function',
@@ -75,20 +52,20 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
           'The search queries to look for, returns an array of matches for each query.'
         ),
     },
-    async (id, { queries }) => {
+    async (id, { routines }) => {
       /** Init results */
       const response: any[] = [];
 
       // process each query
-      for (let i = 0; i < queries.length; i++) {
+      for (let i = 0; i < routines.length; i++) {
         /** Get search name */
-        const name = queries[i].name;
+        const name = routines[i].name;
 
         /** Get search routine type */
-        const routineType = queries[i].routineType;
+        const routineType = routines[i].type;
 
         /** init results */
-        const queryResults: { [key: string]: GlobalIndexedToken[] } = {};
+        const queryResults: { [key: string]: string[] } = {};
 
         /**
          * Get the types we search for
@@ -105,12 +82,9 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
           }
 
           // search and merge results
-          queryResults[mappedNames[globalTypes[j]]] =
-            index.globalIndex.findMatchingGlobalToken(
-              globalTypes[j],
-              name,
-              true
-            );
+          queryResults[mappedNames[globalTypes[j]]] = index.globalIndex
+            .findMatchingGlobalToken(globalTypes[j], name, true)
+            .map((g) => g.name);
         }
 
         // save results for this query
@@ -118,6 +92,7 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
       }
 
       return {
+        isError: false,
         content: [
           {
             type: 'text',

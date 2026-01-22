@@ -1,5 +1,3 @@
-import { GlobalTokenType } from '@idl/types/idl-data-types';
-
 /**
  * Message when query what parameters a specific ENVI Task
  */
@@ -66,7 +64,31 @@ export interface MCPToolParams_ResourcesGetResource {
 }
 
 /**
+ * Type when searching for routine docs
+ */
+export type GetRoutineDocsRoutineType =
+  | 'Function'
+  | 'FunctionMethod'
+  | 'Procedure'
+  | 'ProcedureMethod'
+  | 'StructureOrClassDefinition'
+  | 'SystemVariable';
+
+/**
  * Search global tokens for routine
+ */
+export type MCPTool_ResourcesGetRoutineDocs = 'get-routine-docs';
+
+/**
+ * Parameters for routines to return docs for
+ */
+export interface MCPToolParams_ResourcesGetRoutineDocs {
+  /** Routines to return */
+  routines: { name: string; type: GetRoutineDocsRoutineType }[];
+}
+
+/**
+ * Find matching routine names
  */
 export type MCPTool_ResourcesSearchForRoutine = 'search-for-routine';
 
@@ -74,8 +96,8 @@ export type MCPTool_ResourcesSearchForRoutine = 'search-for-routine';
  * Parameters for routines to search for
  */
 export interface MCPToolParams_ResourcesSearchForRoutine {
-  /** Queries we search by */
-  queries: { name: string; routineType: 'All' | GlobalTokenType }[];
+  /** Routines to search for */
+  routines: { name: string; type: 'All' | GetRoutineDocsRoutineType }[];
 }
 
 /**
@@ -98,6 +120,7 @@ export type MCPTools_HTTP =
   | MCPTool_ENVIGetToolParameters
   | MCPTool_ENVIListTools
   | MCPTool_ResourcesGetResource
+  | MCPTool_ResourcesGetRoutineDocs
   | MCPTool_ResourcesListAll
   | MCPTool_ResourcesSearchForRoutine
   | MCPTool_ResourcesSearchResources
@@ -114,6 +137,8 @@ export type MCPToolParams_HTTP<T extends MCPTools_HTTP> =
     ? MCPToolParams_ENVIListTools
     : T extends MCPTool_ResourcesGetResource
     ? MCPToolParams_ResourcesGetResource
+    : T extends MCPTool_ResourcesGetRoutineDocs
+    ? MCPToolParams_ResourcesGetRoutineDocs
     : T extends MCPTool_ResourcesListAll
     ? MCPToolParams_ResourcesListAll
     : T extends MCPTool_ResourcesSearchForRoutine
