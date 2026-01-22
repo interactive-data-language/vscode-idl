@@ -173,6 +173,8 @@
       "@idl/indexing/indexer": ["libs/indexing/indexer/src/index.ts"],
       "@idl/mcp/language-server": ["libs/mcp/language-server/src/index.ts"],
       "@idl/server-helpers": ["libs/server-helpers/src/index.ts"],
+      "@idl/mcp/tasks": ["libs/mcp/tasks/src/index.ts"],
+      "@idl/task-engine": ["libs/task-engine/src/index.ts"],
       "buffer": ["node_modules/buffer"],
       "os": ["node_modules/os-browserify"],
       "path": ["node_modules/path-browserify"],
