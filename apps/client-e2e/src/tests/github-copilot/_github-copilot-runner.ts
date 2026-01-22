@@ -7,13 +7,15 @@ import { RunGitHubCopilotENVIParameterValidation } from './tools/envi/github-cop
 import { RunGitHubCopilotENVIToolNotesLoad } from './tools/envi/github-copilot-envi-tool-notes-load';
 import { RunGitHubCopilotStartENVI } from './tools/envi/github-copilot-start-envi';
 import { RunGitHubGetResources } from './tools/github-copilot-get-resources';
+import { RunGitHubCopilotGetRoutineDocs } from './tools/github-copilot-get-routine-docs';
 import { RunGitHubResourcesWorkflow } from './tools/github-copilot-resources-workflow';
-import {
+import {FaRightNoecursonilesSng } from './tool/github-copilt-sarh-fo-file';
+import { RunGitHubCoplotSearchForRutieroutn
   RunGitHubSearchForFilesAll,
-  RunGitHubSearchForFilesFailRight,
-  RunGitHubSearchForFilesNoRecursion,
-  RunGitHubSearchForFilesRecursionAll,
   RunGitHubSearchForFilesSingle,
+  RunGitHubSearchForFilesFailRight,
+  RunGitHubSearchForFilesRecursionAll,
+  RunGitHubSearchForFilesNoRecursion,
 } from './tools/github-copilot-search-for-files';
 import { RunGitHubSearchResources } from './tools/github-copilot-search-resources';
 import { RunGitHubCopilotCreateIDLNotebook } from './tools/idl/github-copilot-create-idl-notebook';
@@ -47,6 +49,26 @@ GITHUB_COPILOT_RUNNER.addTest({
   critical: true,
 });
 
+/**
+ * =======================================================================
+ * Search for routine
+ * =======================================================================
+ */
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotSearchForRoutine,
+  name: 'Verify we can search for routines',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotGetRoutineDocs,
+  name: 'Verify we can retrieve docs for routines',
+});
+
+/**
+ * =======================================================================
+ * Resource tests
+ * =======================================================================
+ */
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubResourcesWorkflow,
   name: 'Make sure we can list resources and retrieve a resource by name',
@@ -62,6 +84,11 @@ GITHUB_COPILOT_RUNNER.addTest({
   name: 'Make sure we can search for resources',
 });
 
+/**
+ * =======================================================================
+ * File search tests
+ * =======================================================================
+ */
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubSearchForFilesAll,
   name: 'File search: Make sure we can search for all files in a folder',
@@ -92,7 +119,6 @@ GITHUB_COPILOT_RUNNER.addTest({
  * IDL tests
  * =======================================================================
  */
-
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotStartIDL,
   name: 'Start IDL via MCP',
