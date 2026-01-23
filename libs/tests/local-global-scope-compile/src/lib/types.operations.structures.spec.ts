@@ -78,23 +78,25 @@ describe(`[auto generated] Types from`, () => {
                   serialized: 'Structure',
                   args: [],
                   meta: {
-                    a: {
-                      display: 'a',
-                      type: [
-                        {
-                          display: 'Long',
-                          name: 'Long',
-                          serialized: '42',
-                          args: [],
-                          meta: {},
-                          value: ['42'],
-                        },
-                      ],
-                      direction: 'bidirectional',
-                      source: 'user',
-                      docs: '',
-                      code: true,
-                      pos: [3, 7, 2],
+                    properties: {
+                      a: {
+                        display: 'a',
+                        type: [
+                          {
+                            display: 'Long',
+                            name: 'Long',
+                            serialized: '42',
+                            args: [],
+                            meta: {},
+                            value: ['42'],
+                          },
+                        ],
+                        direction: 'bidirectional',
+                        source: 'user',
+                        docs: '',
+                        code: true,
+                        pos: [3, 7, 2],
+                      },
                     },
                   },
                 },
@@ -141,23 +143,25 @@ describe(`[auto generated] Types from`, () => {
                   serialized: 'Structure',
                   args: [],
                   meta: {
-                    a: {
-                      display: 'a',
-                      type: [
-                        {
-                          display: 'Long',
-                          name: 'Long',
-                          serialized: '42',
-                          args: [],
-                          meta: {},
-                          value: ['42'],
-                        },
-                      ],
-                      direction: 'bidirectional',
-                      source: 'user',
-                      docs: '',
-                      code: true,
-                      pos: [3, 7, 2],
+                    properties: {
+                      a: {
+                        display: 'a',
+                        type: [
+                          {
+                            display: 'Long',
+                            name: 'Long',
+                            serialized: '42',
+                            args: [],
+                            meta: {},
+                            value: ['42'],
+                          },
+                        ],
+                        direction: 'bidirectional',
+                        source: 'user',
+                        docs: '',
+                        code: true,
+                        pos: [3, 7, 2],
+                      },
                     },
                   },
                 },

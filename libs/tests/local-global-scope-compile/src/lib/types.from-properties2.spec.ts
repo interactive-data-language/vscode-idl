@@ -69,41 +69,43 @@ describe(`[auto generated] Types from`, () => {
                   serialized: 'Structure',
                   args: [],
                   meta: {
-                    a: {
-                      display: 'a',
-                      type: [
-                        {
-                          display: 'String',
-                          name: 'String',
-                          serialized: "'string'",
-                          args: [],
-                          meta: {},
-                          value: ['string'],
-                        },
-                      ],
-                      direction: 'bidirectional',
-                      source: 'user',
-                      docs: '',
-                      code: true,
-                      pos: [2, 7, 2],
-                    },
-                    b: {
-                      display: 'b',
-                      type: [
-                        {
-                          display: 'String',
-                          name: 'String',
-                          serialized: "'string'",
-                          args: [],
-                          meta: {},
-                          value: ['string'],
-                        },
-                      ],
-                      direction: 'bidirectional',
-                      source: 'user',
-                      docs: '',
-                      code: true,
-                      pos: [3, 4, 2],
+                    properties: {
+                      a: {
+                        display: 'a',
+                        type: [
+                          {
+                            display: 'String',
+                            name: 'String',
+                            serialized: "'string'",
+                            args: [],
+                            meta: {},
+                            value: ['string'],
+                          },
+                        ],
+                        direction: 'bidirectional',
+                        source: 'user',
+                        docs: '',
+                        code: true,
+                        pos: [2, 7, 2],
+                      },
+                      b: {
+                        display: 'b',
+                        type: [
+                          {
+                            display: 'String',
+                            name: 'String',
+                            serialized: "'string'",
+                            args: [],
+                            meta: {},
+                            value: ['string'],
+                          },
+                        ],
+                        direction: 'bidirectional',
+                        source: 'user',
+                        docs: '',
+                        code: true,
+                        pos: [3, 4, 2],
+                      },
                     },
                   },
                 },

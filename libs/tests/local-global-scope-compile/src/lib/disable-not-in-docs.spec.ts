@@ -110,7 +110,7 @@ describe(`[auto generated] Correctly remove idl-disable statements`, () => {
               pos: [11, 11, 4],
             },
           },
-          docs: '\n```idl\nmypro, var1\n```\n\n\n\n\n#### Arguments\n\n- **var1**: in, required, any\n\n  My favorite thing\n\n',
+          docs: '\n```idl\nmypro, var1\n```\n\n\n\n\n### Arguments\n\n- **var1**: in, required, any\n\n  My favorite thing\n\n',
           docsLookup: { default: '' },
           display: 'mypro',
           kws: {},

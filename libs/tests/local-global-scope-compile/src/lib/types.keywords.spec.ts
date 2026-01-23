@@ -482,7 +482,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\nmypro, $\n  kw = value\n```\n\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Byte\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nmypro, $\n  kw = value\n```\n\n\n\n\n### Keywords\n\n- **kw**: out, optional, Byte\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'mypro',
           kws: {
@@ -519,7 +519,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myfunc( $\n  kw = value)\n```\n\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Long\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myfunc( $\n  kw = value)\n```\n\n\n\n\n### Keywords\n\n- **kw**: out, optional, Long\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '', returns: 'any' },
           display: 'myfunc',
           kws: {
@@ -611,7 +611,7 @@ describe(`[auto generated] Types from`, () => {
           method: 'method',
           source: 'user',
           args: {},
-          docs: '\n```idl\nmyclass.method, $\n  kw = value\n```\n\n\n\n\n#### Keywords\n\n- **kw**: out, optional, ENVIRaster\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\nmyclass.method, $\n  kw = value\n```\n\n\n\n\n### Keywords\n\n- **kw**: out, optional, ENVIRaster\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'myclass::method',
           kws: {
@@ -650,7 +650,7 @@ describe(`[auto generated] Types from`, () => {
           method: 'method',
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myclass.method( $\n  kw = value)\n```\n\n\n\n\n#### Keywords\n\n- **kw**: out, optional, Array<Number>\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myclass.method( $\n  kw = value)\n```\n\n\n\n\n### Keywords\n\n- **kw**: out, optional, Array<Number>\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '', returns: 'any' },
           display: 'myclass::method',
           kws: {

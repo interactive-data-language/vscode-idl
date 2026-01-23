@@ -26,7 +26,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         meta: {
           display: 'IDLDownload_S3_URLTask',
           source: 'user',
-          docs: 'This task downloads a resource specified by an S3 URL into a local file.',
+          docs: 'This task downloads a resource specified by an S3 URL into a local file.\n\n\n### Properties\n\n- **s3_url**: String\n\n  The S3 URL to download.  This must use the HTTP[S] scheme, not S3 scheme.\n\n- **local_file**: String\n\n  The local file in which to download the S3 resource.\n\n',
           private: false,
           inherits: ['idltask'],
           docsLookup: {},
@@ -79,7 +79,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         meta: {
           display: 'IDLDownload_S3_URLTask',
           source: 'user',
-          docs: 'This task downloads a resource specified by an S3 URL into a local file.',
+          docs: "\nThis task downloads a resource specified by an S3 URL into a local file.\n\n### Syntax\n\n```idl\n;+\n; :Returns: IDLTask<Download_S3_URL>\n;-\nmyTask = IDLTask('Download_S3_URL')\n\n; set input parameters\nmyTask.s3_url = value\nmyTask.local_file = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\n\n```\n\n\n### Input Parameters\n\n- **s3_url**: String\n\n  The S3 URL to download.  This must use the HTTP[S] scheme, not S3 scheme.\n\n- **local_file**: String\n\n  The local file in which to download the S3 resource.\n\n",
           private: false,
           returns: [
             {

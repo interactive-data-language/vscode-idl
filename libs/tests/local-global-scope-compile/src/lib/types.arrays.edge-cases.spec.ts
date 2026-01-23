@@ -421,7 +421,7 @@ describe(`[auto generated] Types from`, () => {
                         name: 'Structure',
                         serialized: 'Structure',
                         args: [],
-                        meta: {},
+                        meta: { properties: {} },
                       },
                     ],
                   ],

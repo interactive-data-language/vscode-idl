@@ -131,7 +131,7 @@ describe(`[auto generated] Parse legacy IDL Doc styles`, () => {
               pos: [10, 12, 8],
             },
           },
-          docs: '\n```idl\nmypro2, TheParam, $\n  /thekeyword\n```\n\n\n\n\n#### Arguments\n\n- **TheParam**: out, required, any\n\n  My docs for a parameter\n\n\n\n#### Keywords\n\n- **thekeyword**: in, optional, Boolean\n\n    My docs for a keyword\n\n',
+          docs: '\n```idl\nmypro2, TheParam, $\n  /thekeyword\n```\n\n\n\n\n### Arguments\n\n- **TheParam**: out, required, any\n\n  My docs for a parameter\n\n\n\n### Keywords\n\n- **thekeyword**: in, optional, Boolean\n\n    My docs for a keyword\n\n',
           docsLookup: { default: '' },
           display: 'mypro2',
           kws: {

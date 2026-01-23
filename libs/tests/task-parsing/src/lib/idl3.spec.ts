@@ -24,7 +24,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         meta: {
           display: 'IDLQueryTaskTask',
           source: 'user',
-          docs: 'This task returns a hash that describes the properties of an IDL task.',
+          docs: 'This task returns a hash that describes the properties of an IDL task.\n\n\n### Properties\n\n- **task_name**: String\n\n  The name of a task that will be queried for its definition.\n\n- **definition**: IDLTASKINFO\n\n  An IDLTaskInfo hash that describes the properties of an IDL task.\n\n',
           private: false,
           inherits: ['idltask'],
           docsLookup: {},
@@ -77,7 +77,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         meta: {
           display: 'IDLQueryTaskTask',
           source: 'user',
-          docs: 'This task returns a hash that describes the properties of an IDL task.',
+          docs: "\nThis task returns a hash that describes the properties of an IDL task.\n\n### Syntax\n\n```idl\n;+\n; :Returns: IDLTask<QueryTask>\n;-\nmyTask = IDLTask('QueryTask')\n\n; set input parameters\nmyTask.task_name = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\ndefinition = myTask.definition\n\n```\n\n\n### Input Parameters\n\n- **task_name**: String\n\n  The name of a task that will be queried for its definition.\n\n\n\n### Output Parameters\n\n- **definition**: IDLTASKINFO\n\n  An IDLTaskInfo hash that describes the properties of an IDL task.\n\n",
           private: false,
           returns: [
             {

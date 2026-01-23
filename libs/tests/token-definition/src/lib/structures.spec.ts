@@ -35,7 +35,7 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
       meta: {
         display: 'NYStruct',
         inherits: ['nystruct0'],
-        docs: '',
+        docs: '\n### Properties\n\n- **prop2**: any\n\n  \n\n',
         props: {
           prop2: {
             direction: 'bidirectional',

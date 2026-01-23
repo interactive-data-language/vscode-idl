@@ -40,7 +40,7 @@ describe(`[auto generated] Correctly find definitions for task files`, () => {
       meta: {
         display: 'ENVIATAnomalyDetectionTask',
         source: 'user',
-        docs: 'Runs an automated anomaly detection using the Anomaly Detection workflow from ENVI Desktop.',
+        docs: "\nRuns an automated anomaly detection using the Anomaly Detection workflow from ENVI Desktop.\n\n### Syntax\n\n```idl\n;+\n; :Returns: ENVITask<ATAnomalyDetection>\n;-\nmyTask = ENVITask('ATAnomalyDetection')\n\n; set input parameters\nmyTask.input_raster = value\nmyTask.output_raster_uri = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\noutput_raster = myTask.output_raster\n\n```\n\n\n### Input Parameters\n\n- **input_raster**: ENVIRaster\n\n  The raster to run anomaly detection on.\n\n- **output_raster_uri**: String\n\n  Specify a string with the fully-qualified path and filename for OUTPUT_RASTER.\n\n\n\n### Output Parameters\n\n- **output_raster**: ENVIRaster\n\n  This is a reference to an ENVIRaster object.\n\n",
         private: false,
         returns: [
           {

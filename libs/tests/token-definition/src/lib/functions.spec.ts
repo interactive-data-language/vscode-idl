@@ -36,7 +36,7 @@ describe(`[auto generated] Correctly find function definitions`, () => {
       meta: {
         source: 'user',
         args: {},
-        docs: '\n```idl\n;+\n; :Returns: 1\n;+\nresult = func2( $\n  kw = value $\n  kwb = value)\n```\n\n\n#### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
+        docs: '\n```idl\n;+\n; :Returns: 1\n;+\nresult = func2( $\n  kw = value $\n  kwb = value)\n```\n\n\n### Keywords\n\n- **kw**: bidirectional, optional, any\n\n    \n\n- **kwb**: bidirectional, optional, any\n\n    \n\n',
         docsLookup: {},
         display: 'func2',
         kws: {
