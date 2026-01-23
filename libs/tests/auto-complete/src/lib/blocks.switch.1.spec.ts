@@ -153,11 +153,11 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         sortText: '40',
         detail: 'Procedure',
       },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'print', kind: 3, sortText: '40', detail: 'Procedure' },
-      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 
     // verify results
@@ -297,11 +297,11 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         sortText: '40',
         detail: 'Procedure',
       },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'print', kind: 3, sortText: '40', detail: 'Procedure' },
-      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 
     // verify results
@@ -441,11 +441,11 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         sortText: '40',
         detail: 'Procedure',
       },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'print', kind: 3, sortText: '40', detail: 'Procedure' },
-      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 
     // verify results

@@ -145,8 +145,8 @@ describe(`[auto generated] Regression tests`, () => {
         detail: 'System Variable',
       },
       {
-        label: "ENVITask('InitializeENVINet5MultiModel')",
-        insertText: "ENVITask('InitializeENVINet5MultiModel')",
+        label: "ENVITask('DeepLearningPixelClassification')",
+        insertText: "ENVITask('DeepLearningPixelClassification')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -159,15 +159,15 @@ describe(`[auto generated] Regression tests`, () => {
         detail: 'Function',
       },
       {
-        label: "ENVITask('ClassActivationToPixelROI')",
-        insertText: "ENVITask('ClassActivationToPixelROI')",
+        label: "ENVITask('ClassActivationToPolylineShapefile')",
+        insertText: "ENVITask('ClassActivationToPolylineShapefile')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
       },
       {
-        label: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
-        insertText: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
+        label: "ENVITask('ClassActivationToPixelROI')",
+        insertText: "ENVITask('ClassActivationToPixelROI')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -181,12 +181,11 @@ describe(`[auto generated] Regression tests`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
-        label: 'ENVITensorFlowGridModel()',
-        insertText: 'ENVITensorFlowGridModel()',
+        label: "ENVITask('ConfigureOnnxModel')",
+        insertText: "ENVITask('ConfigureOnnxModel')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
     ];
 

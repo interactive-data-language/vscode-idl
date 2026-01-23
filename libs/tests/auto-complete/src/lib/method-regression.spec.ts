@@ -176,8 +176,8 @@ describe(`[auto generated] Methods`, () => {
         detail: 'System Variable',
       },
       {
-        label: "ENVITask('InitializeENVINet5MultiModel')",
-        insertText: "ENVITask('InitializeENVINet5MultiModel')",
+        label: "ENVITask('DeepLearningPixelClassification')",
+        insertText: "ENVITask('DeepLearningPixelClassification')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -353,8 +353,8 @@ describe(`[auto generated] Methods`, () => {
         detail: 'System Variable',
       },
       {
-        label: "ENVITask('InitializeENVINet5MultiModel')",
-        insertText: "ENVITask('InitializeENVINet5MultiModel')",
+        label: "ENVITask('DeepLearningPixelClassification')",
+        insertText: "ENVITask('DeepLearningPixelClassification')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -530,8 +530,8 @@ describe(`[auto generated] Methods`, () => {
         detail: 'System Variable',
       },
       {
-        label: "ENVITask('InitializeENVINet5MultiModel')",
-        insertText: "ENVITask('InitializeENVINet5MultiModel')",
+        label: "ENVITask('DeepLearningPixelClassification')",
+        insertText: "ENVITask('DeepLearningPixelClassification')",
         kind: 3,
         sortText: '40',
         detail: 'Function',

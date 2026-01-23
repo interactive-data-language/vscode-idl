@@ -54,6 +54,30 @@ describe(`[auto generated] Verify types being used for`, () => {
         },
       },
       {
+        label: 'center_coordinates',
+        insertText: 'center_coordinates',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIRaster',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "A two-element array representing the geographic coordinates of the raster's center in the format \\[longitude, latitude\\]. If the raster lacks a valid spatial reference system, this property will return null.",
+        },
+      },
+      {
+        label: 'colormap',
+        insertText: 'colormap',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIRaster',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword as a placeholder for a color table that will be used when you display a single band from a raster. The color table is a two-dimensional byte array of 3 x _n_Colors, where _n_Colors is typically 256\\. The default color table scale ramp is from 0 to 255\\. See [ENVIColorMap](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIColorMap.htm%22%7D) for details.\n\nThe color table is not applicable when displaying an RGB three-band image or a classification image. ',
+        },
+      },
+      {
         label: 'coord_sys',
         insertText: 'coord_sys',
         kind: 5,
@@ -63,6 +87,18 @@ describe(`[auto generated] Verify types being used for`, () => {
           kind: 'markdown',
           value:
             'This property retrieves a reference to the [ENVICoordSys](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVICoordSys/ENVICoordSys.htm%22%7D) associated with the raster.',
+        },
+      },
+      {
+        label: 'corner_coordinates',
+        insertText: 'corner_coordinates',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIRaster',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "A two-by-four-element array representing the geographic coordinates of the raster's corners in the format:\n\n\\[\\[upper\\_left\\_longitude, upper\\_left\\_latitude\\],\n\n\\[upper\\_right\\_longitude, upper\\_right\\_latitude\\],\n\n\\[bottom\\_right\\_longitude, bottom\\_right\\_latitude\\],\n\n\\[bottom\\_left\\_longitude, bottom\\_left\\_latitude\\]\\]\n\nIf the raster lacks a valid spatial reference system, this property will return null.",
         },
       },
       {
@@ -280,6 +316,30 @@ describe(`[auto generated] Verify types being used for`, () => {
         },
       },
       {
+        label: 'center_coordinates',
+        insertText: 'center_coordinates',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIRaster',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "A two-element array representing the geographic coordinates of the raster's center in the format \\[longitude, latitude\\]. If the raster lacks a valid spatial reference system, this property will return null.",
+        },
+      },
+      {
+        label: 'colormap',
+        insertText: 'colormap',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIRaster',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword as a placeholder for a color table that will be used when you display a single band from a raster. The color table is a two-dimensional byte array of 3 x _n_Colors, where _n_Colors is typically 256\\. The default color table scale ramp is from 0 to 255\\. See [ENVIColorMap](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIColorMap.htm%22%7D) for details.\n\nThe color table is not applicable when displaying an RGB three-band image or a classification image. ',
+        },
+      },
+      {
         label: 'coord_sys',
         insertText: 'coord_sys',
         kind: 5,
@@ -289,6 +349,18 @@ describe(`[auto generated] Verify types being used for`, () => {
           kind: 'markdown',
           value:
             'This property retrieves a reference to the [ENVICoordSys](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVICoordSys/ENVICoordSys.htm%22%7D) associated with the raster.',
+        },
+      },
+      {
+        label: 'corner_coordinates',
+        insertText: 'corner_coordinates',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of ENVIRaster',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "A two-by-four-element array representing the geographic coordinates of the raster's corners in the format:\n\n\\[\\[upper\\_left\\_longitude, upper\\_left\\_latitude\\],\n\n\\[upper\\_right\\_longitude, upper\\_right\\_latitude\\],\n\n\\[bottom\\_right\\_longitude, bottom\\_right\\_latitude\\],\n\n\\[bottom\\_left\\_longitude, bottom\\_left\\_latitude\\]\\]\n\nIf the raster lacks a valid spatial reference system, this property will return null.",
         },
       },
       {

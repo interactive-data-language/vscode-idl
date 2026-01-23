@@ -610,8 +610,8 @@ describe(`[auto generated] Correctly exclude keywords`, () => {
         detail: 'System Variable',
       },
       {
-        label: "ENVITask('InitializeENVINet5MultiModel')",
-        insertText: "ENVITask('InitializeENVINet5MultiModel')",
+        label: "ENVITask('DeepLearningPixelClassification')",
+        insertText: "ENVITask('DeepLearningPixelClassification')",
         kind: 3,
         sortText: '40',
         detail: 'Function',

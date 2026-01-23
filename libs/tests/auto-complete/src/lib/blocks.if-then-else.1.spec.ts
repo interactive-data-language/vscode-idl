@@ -179,8 +179,8 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         detail: 'System Variable',
       },
       {
-        label: "ENVITask('InitializeENVINet5MultiModel')",
-        insertText: "ENVITask('InitializeENVINet5MultiModel')",
+        label: "ENVITask('DeepLearningPixelClassification')",
+        insertText: "ENVITask('DeepLearningPixelClassification')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -357,8 +357,8 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         detail: 'System Variable',
       },
       {
-        label: "ENVITask('InitializeENVINet5MultiModel')",
-        insertText: "ENVITask('InitializeENVINet5MultiModel')",
+        label: "ENVITask('DeepLearningPixelClassification')",
+        insertText: "ENVITask('DeepLearningPixelClassification')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -526,8 +526,8 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         detail: 'System Variable',
       },
       {
-        label: "ENVITask('InitializeENVINet5MultiModel')",
-        insertText: "ENVITask('InitializeENVINet5MultiModel')",
+        label: "ENVITask('DeepLearningPixelClassification')",
+        insertText: "ENVITask('DeepLearningPixelClassification')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -540,8 +540,8 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         detail: 'Function',
       },
       {
-        label: "ENVITask('ClassActivationToPixelROI')",
-        insertText: "ENVITask('ClassActivationToPixelROI')",
+        label: "ENVITask('ClassActivationToPolylineShapefile')",
+        insertText: "ENVITask('ClassActivationToPolylineShapefile')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -702,8 +702,8 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         detail: 'System Variable',
       },
       {
-        label: "ENVITask('InitializeENVINet5MultiModel')",
-        insertText: "ENVITask('InitializeENVINet5MultiModel')",
+        label: "ENVITask('DeepLearningPixelClassification')",
+        insertText: "ENVITask('DeepLearningPixelClassification')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -716,8 +716,8 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         detail: 'Function',
       },
       {
-        label: "ENVITask('ClassActivationToPixelROI')",
-        insertText: "ENVITask('ClassActivationToPixelROI')",
+        label: "ENVITask('ClassActivationToPolylineShapefile')",
+        insertText: "ENVITask('ClassActivationToPolylineShapefile')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -896,9 +896,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         sortText: '40',
         detail: 'Procedure',
       },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
-      { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 
     // verify results
@@ -1052,9 +1052,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         sortText: '40',
         detail: 'Procedure',
       },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
-      { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 
     // verify results
@@ -1171,7 +1171,7 @@ describe(`[auto generated] Custom block auto-complete`, () => {
       },
       {
         label: 'implied_print = ',
-        insertText: '/implied_print',
+        insertText: 'implied_print = ',
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
@@ -1207,7 +1207,7 @@ describe(`[auto generated] Custom block auto-complete`, () => {
       },
       {
         label: 'stdio_non_finite = ',
-        insertText: '/stdio_non_finite',
+        insertText: 'stdio_non_finite = ',
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
@@ -1482,9 +1482,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         sortText: '40',
         detail: 'Procedure',
       },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
-      { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 
     // verify results
@@ -1638,9 +1638,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         sortText: '40',
         detail: 'Procedure',
       },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
-      { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 
     // verify results
