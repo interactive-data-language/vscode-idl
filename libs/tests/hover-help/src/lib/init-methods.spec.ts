@@ -42,7 +42,7 @@ describe(`[auto generated] Verify hover-help for`, () => {
       '',
       '',
       '',
-      '#### Keywords',
+      '### Keywords',
       '',
       '- **kw2**: in, optional, Boolean',
       '',

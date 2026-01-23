@@ -32,6 +32,8 @@ describe(`[auto generated] Correctly provide hover help for system variable`, ()
       '```idl',
       'prop !x.charsize: String',
       '```',
+      '',
+      'The size of the characters used to annotate the axis and its title when Hershey fonts are selected. This field has no meaning when hardware (i.e. PostScript) fonts are selected. This field is a scale factor applied to the global scale factor. For example, setting !P.CHARSIZE to 2.0, and !X.CHARSIZE to 0.5 results in a character size of 1.0 for the X axis.',
     ];
 
     // get hover help

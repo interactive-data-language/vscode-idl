@@ -52,15 +52,15 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'envitask',
-                display: 'ENVITask<any>',
-                serialized: 'ENVITask<any>',
+                name: 'envifoooooootask',
+                display: 'ENVITask<fooooooo>',
+                serialized: 'ENVITask<fooooooo>',
                 args: [
                   [
                     {
-                      display: 'any',
-                      name: 'any',
-                      serialized: 'any',
+                      name: 'fooooooo',
+                      display: 'fooooooo',
+                      serialized: 'fooooooo',
                       args: [],
                       meta: {},
                     },
@@ -84,15 +84,15 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'idltask',
-                display: 'IDLTask<any>',
-                serialized: 'IDLTask<any>',
+                name: 'idlbarrrrrrtask',
+                display: 'IDLTask<barrrrrr>',
+                serialized: 'IDLTask<barrrrrr>',
                 args: [
                   [
                     {
-                      display: 'any',
-                      name: 'any',
-                      serialized: 'any',
+                      name: 'barrrrrr',
+                      display: 'barrrrrr',
+                      serialized: 'barrrrrr',
                       args: [],
                       meta: {},
                     },

@@ -153,7 +153,7 @@ describe(`[auto generated] Types from`, () => {
               type: [
                 {
                   display: 'Boolean',
-                  name: 'Boolean',
+                  name: 'Long',
                   serialized: 'Boolean',
                   args: [],
                   meta: {},
@@ -206,9 +206,9 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'ENVITensorFlowModel',
-                  display: 'ENVITensorFlowModel',
-                  serialized: 'ENVITensorFlowModel',
+                  display: 'any',
+                  name: 'any',
+                  serialized: 'any',
                   args: [],
                   meta: {},
                 },
@@ -228,15 +228,15 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'idltask',
-                  display: 'IDLTask<any>',
-                  serialized: 'IDLTask<any>',
+                  name: 'idlmytasktask',
+                  display: 'IDLTask<MyTask>',
+                  serialized: 'IDLTask<MyTask>',
                   args: [
                     [
                       {
-                        display: 'any',
-                        name: 'any',
-                        serialized: 'any',
+                        name: 'MyTask',
+                        display: 'MyTask',
+                        serialized: 'MyTask',
                         args: [],
                         meta: {},
                       },
@@ -475,15 +475,15 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'idltask',
-                  display: 'IDLTask<any>',
-                  serialized: 'IDLTask<any>',
+                  name: 'idlmytasktask',
+                  display: 'IDLTask<MyTask>',
+                  serialized: 'IDLTask<MyTask>',
                   args: [
                     [
                       {
-                        display: 'any',
-                        name: 'any',
-                        serialized: 'any',
+                        name: 'MyTask',
+                        display: 'MyTask',
+                        serialized: 'MyTask',
                         args: [],
                         meta: {},
                       },
@@ -507,15 +507,15 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'idltask',
-                  display: 'IDLTask<any>',
-                  serialized: 'IDLTask<any>',
+                  name: 'idlmytasktask',
+                  display: 'IDLTask<MyTask>',
+                  serialized: 'IDLTask<MyTask>',
                   args: [
                     [
                       {
-                        display: 'any',
-                        name: 'any',
-                        serialized: 'any',
+                        name: 'MyTask',
+                        display: 'MyTask',
+                        serialized: 'MyTask',
                         args: [],
                         meta: {},
                       },

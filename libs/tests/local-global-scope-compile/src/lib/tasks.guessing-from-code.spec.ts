@@ -224,15 +224,15 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'idltask',
-                display: 'IDLTask<any>',
-                serialized: 'IDLTask<any>',
+                name: 'idlbuildmosaicrastertask',
+                display: 'IDLTask<BuildMosaicRaster>',
+                serialized: 'IDLTask<BuildMosaicRaster>',
                 args: [
                   [
                     {
-                      display: 'any',
-                      name: 'any',
-                      serialized: 'any',
+                      name: 'BuildMosaicRaster',
+                      display: 'BuildMosaicRaster',
+                      serialized: 'BuildMosaicRaster',
                       args: [],
                       meta: {},
                     },
@@ -256,15 +256,15 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'idltask',
-                display: 'IDLTask<any>',
-                serialized: 'IDLTask<any>',
+                name: 'idlbuildmosaicrastertask',
+                display: 'IDLTask<buildmosaicraster>',
+                serialized: 'IDLTask<buildmosaicraster>',
                 args: [
                   [
                     {
-                      display: 'any',
-                      name: 'any',
-                      serialized: 'any',
+                      name: 'buildmosaicraster',
+                      display: 'buildmosaicraster',
+                      serialized: 'buildmosaicraster',
                       args: [],
                       meta: {},
                     },
@@ -288,15 +288,15 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'idltask',
-                display: 'IDLTask<any>',
-                serialized: 'IDLTask<any>',
+                name: 'idlbuildmosaicrastertask',
+                display: 'IDLTask<buildmosaicraster>',
+                serialized: 'IDLTask<buildmosaicraster>',
                 args: [
                   [
                     {
-                      display: 'any',
-                      name: 'any',
-                      serialized: 'any',
+                      name: 'buildmosaicraster',
+                      display: 'buildmosaicraster',
+                      serialized: 'buildmosaicraster',
                       args: [],
                       meta: {},
                     },

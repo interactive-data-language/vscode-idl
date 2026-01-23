@@ -50,7 +50,7 @@ describe(`[auto generated] Basic checks for call_function() hover help`, () => {
       '_Note:_ The ENVI interface and ENVI Classic interface should not be started within the same IDL session. ',
       '',
       '',
-      '#### Keywords',
+      '### Keywords',
       '',
       '- **current**: in, optional, Boolean',
       '',
