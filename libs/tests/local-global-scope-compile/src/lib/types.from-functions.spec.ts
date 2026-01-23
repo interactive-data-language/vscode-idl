@@ -153,7 +153,7 @@ describe(`[auto generated] Types from`, () => {
               type: [
                 {
                   display: 'Boolean',
-                  name: 'Long',
+                  name: 'Boolean',
                   serialized: 'Boolean',
                   args: [],
                   meta: {},

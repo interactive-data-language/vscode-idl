@@ -1171,7 +1171,7 @@ describe(`[auto generated] Custom block auto-complete`, () => {
       },
       {
         label: 'implied_print = ',
-        insertText: 'implied_print = ',
+        insertText: '/implied_print',
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
@@ -1207,7 +1207,7 @@ describe(`[auto generated] Custom block auto-complete`, () => {
       },
       {
         label: 'stdio_non_finite = ',
-        insertText: 'stdio_non_finite = ',
+        insertText: '/stdio_non_finite',
         kind: 20,
         sortText: '10',
         detail: 'Keyword',

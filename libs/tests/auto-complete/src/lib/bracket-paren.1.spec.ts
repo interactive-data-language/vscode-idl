@@ -1467,6 +1467,18 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         },
       },
       {
+        label: 'drag_quality',
+        insertText: 'drag_quality',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to 0, 1, or 2 to control the rendering quality and performance during moves, transformations, and rotations initiated with the mouse. The default value is 2, which maintains full rendering quality during mouse interactions. Set to 1 to reduce the drawing quality, or to 0 to further reduce or in some cases disable drawing during dragging or resizing.',
+        },
+      },
+      {
         label: 'eqn_samples',
         insertText: 'eqn_samples',
         kind: 5,
@@ -1894,18 +1906,6 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             'A floating point value from 1.0 to 10.0 that specifies the thickness (in points) of the plot symbol.',
-        },
-      },
-      {
-        label: 'sym_transparency',
-        insertText: 'sym_transparency',
-        kind: 5,
-        sortText: '30',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'An integer between 0 and 100 that specifies the percent transparency of the symbols. The default value is 0.',
         },
       },
     ];
@@ -2082,6 +2082,18 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         },
       },
       {
+        label: 'drag_quality',
+        insertText: 'drag_quality',
+        kind: 5,
+        sortText: '30',
+        detail: 'Property of Plot',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to 0, 1, or 2 to control the rendering quality and performance during moves, transformations, and rotations initiated with the mouse. The default value is 2, which maintains full rendering quality during mouse interactions. Set to 1 to reduce the drawing quality, or to 0 to further reduce or in some cases disable drawing during dragging or resizing.',
+        },
+      },
+      {
         label: 'eqn_samples',
         insertText: 'eqn_samples',
         kind: 5,
@@ -2509,18 +2521,6 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           kind: 'markdown',
           value:
             'A floating point value from 1.0 to 10.0 that specifies the thickness (in points) of the plot symbol.',
-        },
-      },
-      {
-        label: 'sym_transparency',
-        insertText: 'sym_transparency',
-        kind: 5,
-        sortText: '30',
-        detail: 'Property of Plot',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'An integer between 0 and 100 that specifies the percent transparency of the symbols. The default value is 0.',
         },
       },
     ];
