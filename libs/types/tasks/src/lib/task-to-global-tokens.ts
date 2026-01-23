@@ -59,6 +59,7 @@ export function TaskToGlobalToken(task: ParsedTask): GlobalTokens {
     meta: res.function.meta,
     taskProperties: res.structure,
   });
+  delete res.function.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT];
 
   /**
    * Add structure metadata
@@ -74,6 +75,7 @@ export function TaskToGlobalToken(task: ParsedTask): GlobalTokens {
     name: res.structure.name,
     meta: res.structure.meta,
   });
+  delete res.structure.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT];
 
   return [res.structure, res.function];
 }
