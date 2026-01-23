@@ -17,6 +17,7 @@ import {
 } from '@idl/types/idl-data-types';
 import { SyntaxProblems } from '@idl/types/problem-codes';
 import { SyntaxTree, TreeBranchToken } from '@idl/types/syntax-tree';
+import copy from 'fast-copy';
 
 import { GetTaskDisplayName } from '../helpers/get-task-display-name';
 import { ReduceIDLDataType } from '../helpers/reduce-types';
@@ -145,7 +146,12 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
 /**
  * Post process IDL types that we have parsed or manually created
  */
-export function PostProcessIDLType(type: IDLDataType) {
+export function PostProcessIDLType(type: IDLDataType, makeCopy = true) {
+  // check if we need to make a copy of the type
+  if (makeCopy) {
+    type = copy(type);
+  }
+
   // set type defaults
   SetDefaultTypes(type);
 
@@ -155,7 +161,7 @@ export function PostProcessIDLType(type: IDLDataType) {
   // remove duplicates and process all type arguments
   for (let i = 0; i < reduced.length; i++) {
     for (let j = 0; j < reduced[i].args.length; j++) {
-      reduced[i].args[j] = PostProcessIDLType(reduced[i].args[j]);
+      reduced[i].args[j] = PostProcessIDLType(reduced[i].args[j], false);
     }
   }
 
@@ -218,5 +224,5 @@ export function ParseIDLType(type: string) {
   TypeParserRecursor(tree, parsedType);
 
   // post process and clean up
-  return PostProcessIDLType(parsedType);
+  return PostProcessIDLType(parsedType, false);
 }
