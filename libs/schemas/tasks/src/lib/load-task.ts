@@ -37,11 +37,13 @@ export async function LoadTask(
   } catch (err) {
     throw new Error(IDL_TRANSLATION.tasks.parsing.errors.invalidJSON);
   }
-
   /**
    * Make all parameters lower case
+   *
+   * DONT do this when we have a version key, because thats with the old
+   * schema that IS case sensitive
    */
-  if ('parameters' in parsed) {
+  if ('parameters' in parsed && !('version' in parsed)) {
     const params = parsed['parameters'];
     for (let i = 0; i < params.length; i++) {
       const lowercaseParam: { [key: string]: any } = {};
