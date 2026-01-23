@@ -145,6 +145,12 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
 
 /**
  * Post process IDL types that we have parsed or manually created
+ *
+ * By default, we make a copy of the input type as it will likely get
+ * manipulated.
+ *
+ * Only advanced cases should change this behavior, like in the recursive
+ * calls to this function internally.
  */
 export function PostProcessIDLType(type: IDLDataType, makeCopy = true) {
   // check if we need to make a copy of the type
