@@ -31,10 +31,15 @@ export function CreateRoutineSyntax(
   if (isFunction) {
     const typed = meta as IFunctionMetadata;
 
+    /** Check if we have a task or not */
+    const isTask = TASK_REGEX.test(info.name);
+
     // add return value
     syntax.push(';+\n');
-    if (TASK_REGEX.test(info.name)) {
-      syntax.push(`; :Returns: ${GetTaskDisplayName(info.name).display}\n`);
+    if (isTask) {
+      syntax.push(
+        `; :Returns: ${GetTaskDisplayName(info.meta.display).display}\n`
+      );
     } else {
       syntax.push(
         `; :Returns: ${IDLTypeHelper.serializeIDLType(typed.returns)}\n`
@@ -49,8 +54,8 @@ export function CreateRoutineSyntax(
       case info.name.includes('::'):
         syntax.push(`result = ${splitName[0]}.${splitName[1]}(`);
         break;
-      case TASK_REGEX.test(info.name):
-        syntax.push(`result = ${TaskFunctionName(info.name, "'")}`);
+      case isTask:
+        syntax.push(`result = ${TaskFunctionName(info.meta.display, "'")}`);
         break;
       default:
         syntax.push(`result = ${info.name}(`);

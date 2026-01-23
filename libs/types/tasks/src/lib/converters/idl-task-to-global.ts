@@ -4,21 +4,20 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionToken,
   GlobalStructureToken,
-  GlobalTokens,
   IGlobalIndexedToken,
   IPropertyLookup,
 } from '@idl/types/idl-data-types';
 
 import { IDLTask, IDLTaskSchemaVersion } from '../idltask.interface';
+import { IGlobalsToTrack } from '../task-to-global-token.interface';
 import { TaskTypeToIDLType } from './task-type-to-idl-type';
 
 /**
  * Converts an IDL Task to global tokens for auto-complete
  */
 export function IDLTaskToGlobal(
-  global: GlobalTokens,
   task: IDLTask<IDLTaskSchemaVersion>
-) {
+): IGlobalsToTrack {
   /** Get the name of our task */
   const name = `IDL${task.name}Task`;
 
@@ -56,7 +55,7 @@ export function IDLTaskToGlobal(
       direction: dir === 'input' ? 'in' : 'out',
       private: param.hidden ? true : false,
       display: task.parameters[i].name.toLowerCase(),
-      docs: param.description,
+      docs: param.description || '',
       type: TaskTypeToIDLType(param.type, {}, param.choice_list),
       req: param.required,
     };
@@ -83,7 +82,8 @@ export function IDLTaskToGlobal(
     },
   };
 
-  // track global tokens
-  global.push(struct);
-  global.push(func);
+  return {
+    function: func,
+    structure: struct,
+  };
 }

@@ -1,3 +1,4 @@
+import { GetTaskDisplayName } from '@idl/parsing/type-parser';
 import {
   GlobalStructureToken,
   IGlobalIndexedToken,
@@ -6,7 +7,9 @@ import {
 import { TaskFunctionName } from '../../../helpers/task-function-name';
 
 /**
- * Gets syntax signature for a task
+ * Returns a block of IDL code
+ *
+ * Not markdown, actually IDL code that needs to be wrapped
  */
 export function CreateTaskSyntax(
   struct: IGlobalIndexedToken<GlobalStructureToken>,
@@ -14,7 +17,11 @@ export function CreateTaskSyntax(
 ): string {
   // initialize the call for syntax
   const syntax: string[] = [];
-  syntax.push('; create the task');
+
+  // create task
+  syntax.push(';+');
+  syntax.push(`; :Returns: ${GetTaskDisplayName(struct.meta.display).display}`);
+  syntax.push(';-');
   syntax.push(`${varName} = ${TaskFunctionName(struct.meta.display, "'")}`);
   syntax.push('');
 

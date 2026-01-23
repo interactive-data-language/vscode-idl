@@ -35,7 +35,7 @@ export function StructureToMarkdown(
   const propNames = Object.keys(meta.props);
 
   // extract other docs to process
-  const docs = meta.docsLookup;
+  const docs = meta.docsLookup || {};
 
   if (info.link !== undefined) {
     markdown.push(`[Online Docs](${info.link})`);
@@ -50,7 +50,7 @@ export function StructureToMarkdown(
   // check if we need to add arguments or parameters
   if (propNames.length > 0) {
     markdown.push(``);
-    markdown.push(`#### Properties`);
+    markdown.push(`### Properties`);
     markdown.push(``);
     for (let i = 0; i < propNames.length; i++) {
       // get the argument

@@ -1,7 +1,9 @@
+import { TaskToMarkdown } from '@idl/parsing/syntax-tree';
 import { LoadTask } from '@idl/schemas/tasks';
 import { TASK_FILE_GLOB_PATTERN } from '@idl/shared/extension';
 import {
   GLOBAL_TOKEN_TYPES,
+  GlobalFunctionToken,
   GlobalStructureToken,
   GlobalTokens,
   IGlobalIndexedToken,
@@ -34,6 +36,23 @@ export async function SetTaskTypes(global: GlobalTokens) {
     } catch (err) {
       console.log(`Failed to load task: ${taskFiles[i]}`);
       console.log(err);
+    }
+  }
+
+  const taskFunctions: {
+    [key: string]: IGlobalIndexedToken<GlobalFunctionToken>;
+  } = {};
+
+  // extract all tasks
+  for (let i = 0; i < global.length; i++) {
+    if (
+      global[i].type === GLOBAL_TOKEN_TYPES.FUNCTION &&
+      global[i].name.startsWith('envi') &&
+      global[i].name.endsWith('task')
+    ) {
+      taskFunctions[global[i].name] = global[
+        i
+      ] as IGlobalIndexedToken<GlobalFunctionToken>;
     }
   }
 
@@ -91,6 +110,20 @@ export async function SetTaskTypes(global: GlobalTokens) {
               delete globali.meta.props[trackedNames[j]];
             }
           }
+        }
+
+        // check for matching task function
+        if (name in taskFunctions) {
+          taskFunctions[name].meta.docs = `${
+            taskFunctions[name].meta.docs
+          }\n\n${TaskToMarkdown(
+            {
+              name: taskFunctions[name].name,
+              meta: taskFunctions[name].meta,
+              taskProperties: globali,
+            },
+            true
+          )}`;
         }
       }
     }

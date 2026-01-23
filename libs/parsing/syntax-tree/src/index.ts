@@ -2,6 +2,7 @@ export * from './lib/build-syntax-tree';
 export * from './lib/docs/docs.interface';
 export * from './lib/docs/idl/docs-to-idl';
 export * from './lib/docs/make-spaces';
+export * from './lib/docs/markdown/converters/task-to-markdown';
 export * from './lib/docs/markdown/docs-to-markdown';
 export * from './lib/docs/markdown/docs-to-markdown.interface';
 export * from './lib/docs/markdown/helpers/capitalize-word';

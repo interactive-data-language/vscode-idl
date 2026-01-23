@@ -441,6 +441,14 @@ export async function RoutineToGlobal(
             }
           }
 
+          // remove some sections from tasks that we handle elsewhere
+          const keysToRemove = ['input parameters', 'output parameters'];
+          Object.keys(routine.docs).forEach((key) => {
+            if (keysToRemove.includes(key.toLowerCase())) {
+              delete routine.docs[key];
+            }
+          });
+
           // make fancy docs for our routine
           token.meta.docs = DocsToMarkdown(MARKDOWN_TYPE_LOOKUP.ROUTINE, {
             name,

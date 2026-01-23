@@ -1,3 +1,7 @@
+import {
+  GlobalStructureToken,
+  IGlobalIndexedToken,
+} from '@idl/types/idl-data-types';
 import { IDocs } from '@idl/types/syntax-tree';
 
 import {
@@ -17,6 +21,9 @@ export type RoutineMarkdown = 'routine';
 /** Convert structure to docs to markdown */
 export type StructureMarkdown = 'structure';
 
+/** Create markdown docs for tasks */
+export type TaskMarkdown = 'task';
+
 /** type to convert docs to markdown for variables */
 export type VariableMarkdown = 'variable';
 
@@ -28,6 +35,7 @@ export type MarkdownType =
   | GeneralMarkdown
   | RoutineMarkdown
   | StructureMarkdown
+  | TaskMarkdown
   | VariableMarkdown;
 
 /**
@@ -40,6 +48,8 @@ interface IMarkdownLookup {
   ROUTINE: RoutineMarkdown;
   /** Convert structure to docs to markdown */
   STRUCTURE: StructureMarkdown;
+  /** Convert task function to markdown docs */
+  TASK: TaskMarkdown;
   /** type to convert docs to markdown for variables */
   VARIABLE: VariableMarkdown;
 }
@@ -52,6 +62,7 @@ export const MARKDOWN_TYPE_LOOKUP: IMarkdownLookup = {
   GENERAL: 'general',
   ROUTINE: 'routine',
   STRUCTURE: 'structure',
+  TASK: 'task',
   VARIABLE: 'variable',
 };
 
@@ -72,6 +83,10 @@ export type RoutineMarkdownInfo<T extends RoutineType> = {
    * to an official docs site.
    */
   link?: string;
+  /**
+   * Check if we have a task that we need to add special properties for
+   */
+  taskProperties?: IGlobalIndexedToken<GlobalStructureToken>;
 };
 
 /**
@@ -83,6 +98,8 @@ export type MarkdownInfo<T extends MarkdownType> = T extends GeneralMarkdown
   ? RoutineMarkdownInfo<FunctionRoutineType | ProcedureRoutineType>
   : T extends StructureMarkdown
   ? RoutineMarkdownInfo<StructureRoutineType>
+  : T extends TaskMarkdown
+  ? RoutineMarkdownInfo<FunctionRoutineType>
   : T extends VariableMarkdown
   ? IDocs
   : never;

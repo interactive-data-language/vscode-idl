@@ -29,7 +29,7 @@ export function GeneralToMarkdown(info: { [key: string]: string }): string {
       continue;
     }
     strings.push('');
-    strings.push(`#### ${keys[i]}`);
+    strings.push(`### ${keys[i]}`);
     strings.push(info[keys[i]]);
     strings.push('');
   }

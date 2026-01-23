@@ -4,7 +4,6 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionToken,
   GlobalStructureToken,
-  GlobalTokens,
   IGlobalIndexedToken,
   IPropertyLookup,
 } from '@idl/types/idl-data-types';
@@ -13,15 +12,15 @@ import {
   ENVITaskLegacy,
   ENVITaskLegacyVersion,
 } from '../envitasklegacy.interface';
+import { IGlobalsToTrack } from '../task-to-global-token.interface';
 import { TaskTypeToIDLType } from './task-type-to-idl-type';
 
 /**
  * Converts a legacy ENVI Task to global tokens for auto-complete
  */
 export function LegacyENVITaskToGlobal(
-  global: GlobalTokens,
   task: ENVITaskLegacy<ENVITaskLegacyVersion>
-) {
+): IGlobalsToTrack {
   /** Get the name of our task */
   const name = `ENVI${task.name}Task`;
 
@@ -59,7 +58,7 @@ export function LegacyENVITaskToGlobal(
       direction: dir === 'input' ? 'in' : 'out',
       private: param.hidden ? true : false,
       display: task.parameters[i].name.toLowerCase(),
-      docs: param.description,
+      docs: param.description || '',
       type: TaskTypeToIDLType(param.dataType, {}, param.choiceList),
       req: param.parameterType === 'required',
     };
@@ -86,7 +85,8 @@ export function LegacyENVITaskToGlobal(
     },
   };
 
-  // track global tokens
-  global.push(struct);
-  global.push(func);
+  return {
+    function: func,
+    structure: struct,
+  };
 }

@@ -10,6 +10,9 @@ export type FunctionRoutineType = 'function';
 /* Strictly typed value for procedures with regards to docs */
 export type ProcedureRoutineType = 'procedure';
 
+/** Task routine (function) */
+export type TaskRoutineType = 'task';
+
 /* Strictly typed value for procedures with regards to docs */
 export type StructureRoutineType = 'structure';
 
@@ -17,7 +20,8 @@ export type StructureRoutineType = 'structure';
 export type RoutineType =
   | FunctionRoutineType
   | ProcedureRoutineType
-  | StructureRoutineType;
+  | StructureRoutineType
+  | TaskRoutineType;
 
 /**
  * Metadata that we return based on our routine type
@@ -29,4 +33,6 @@ export type RoutineMetadata<T extends RoutineType> =
     ? IRoutineMetadata
     : T extends StructureRoutineType
     ? IStructureMetadata
+    : T extends TaskRoutineType
+    ? IFunctionMetadata
     : never;

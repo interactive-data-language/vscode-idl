@@ -64,7 +64,7 @@ export function RoutinesToMarkdown(
   // check if we need to add arguments or parameters
   if (argNames.length > 0) {
     markdown.push(``);
-    markdown.push(`#### Arguments`);
+    markdown.push(`### Arguments`);
     markdown.push(``);
     for (let i = 0; i < argNames.length; i++) {
       // get the argument
@@ -93,7 +93,7 @@ export function RoutinesToMarkdown(
   // check if we need to add arguments or parameters
   if (kwNames.length > 0) {
     markdown.push(``);
-    markdown.push(`#### Keywords`);
+    markdown.push(`### Keywords`);
     markdown.push(``);
     for (let i = 0; i < kwNames.length; i++) {
       // get the argument

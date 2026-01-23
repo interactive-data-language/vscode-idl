@@ -4,7 +4,6 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionToken,
   GlobalStructureToken,
-  GlobalTokens,
   IDLDataTypeBaseMetadata,
   IGlobalIndexedToken,
   IPropertyLookup,
@@ -16,15 +15,15 @@ import {
   ENVITaskSchema32,
   ENVITaskSchemaVersion,
 } from '../envitask.interface';
+import { IGlobalsToTrack } from '../task-to-global-token.interface';
 import { TaskTypeToIDLType } from './task-type-to-idl-type';
 
 /**
  * Converts an ENVI Task to global tokens for auto-complete
  */
 export function ENVITaskToGlobal(
-  global: GlobalTokens,
   task: ENVITask<ENVITaskSchemaVersion>
-) {
+): IGlobalsToTrack {
   /** Get the name of our task */
   const name = `ENVI${task.name}Task`;
 
@@ -57,7 +56,10 @@ export function ENVITaskToGlobal(
     /**
      * Don't parse dag types
      */
-    if (param.type.toLowerCase() === 'dag') {
+    if (
+      param.type.toLowerCase() === 'dag' ||
+      param.type.toLowerCase() === 'envimetataskdag'
+    ) {
       continue;
     }
 
@@ -77,7 +79,7 @@ export function ENVITaskToGlobal(
       direction: dir === 'input' ? 'in' : 'out',
       private: param.hidden ? true : false,
       display: task.parameters[i].name.toLowerCase(),
-      docs: param.description,
+      docs: param.description || '',
       type: TaskTypeToIDLType(param.type, meta, param.choice_list),
       req: param.required,
     };
@@ -104,7 +106,8 @@ export function ENVITaskToGlobal(
     },
   };
 
-  // track global tokens
-  global.push(struct);
-  global.push(func);
+  return {
+    function: func,
+    structure: struct,
+  };
 }
