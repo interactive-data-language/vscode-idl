@@ -16,7 +16,11 @@ import {
   RunGitHubSearchForFilesRecursionAll,
   RunGitHubSearchForFilesSingle,
 } from './tools/github-copilot-search-for-files';
-import { RunGitHubCopilotSearchForRoutine } from './tools/github-copilot-search-for-routines';
+import {
+  RunGitHubCopilotSearchForRoutineAll,
+  RunGitHubCopilotSearchForRoutineMultiple,
+  RunGitHubCopilotSearchForRoutineSingle,
+} from './tools/github-copilot-search-for-routines';
 import { RunGitHubSearchResources } from './tools/github-copilot-search-resources';
 import { RunGitHubCopilotCreateIDLNotebook } from './tools/idl/github-copilot-create-idl-notebook';
 import { RunGitHubCopilotExecuteIDLCode } from './tools/idl/github-copilot-execute-idl-code';
@@ -55,8 +59,18 @@ GITHUB_COPILOT_RUNNER.addTest({
  * =======================================================================
  */
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotSearchForRoutine,
-  name: 'Verify we can search for routines',
+  fn: RunGitHubCopilotSearchForRoutineAll,
+  name: 'Verify we can search for all matching routines',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotSearchForRoutineSingle,
+  name: 'Verify we can search for a single type of routine',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotSearchForRoutineMultiple,
+  name: 'Verify we can fullfill multiple searches at once',
 });
 
 GITHUB_COPILOT_RUNNER.addTest({

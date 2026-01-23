@@ -1,3 +1,4 @@
+import { NO_MATCHES } from '@idl/mcp/language-server';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 
@@ -9,7 +10,7 @@ import { CallMCPTool } from '../helpers/call-mcp-tool';
  */
 export const RunGitHubCopilotGetRoutineDocs: RunnerFunction = async (init) => {
   // Call a tool
-  const plotSearchAll = await CallMCPTool(
+  const routineDocs = await CallMCPTool(
     MCP_TOOL_LOOKUP.RESOURCES_GET_ROUTINE_DOCS,
     {
       routines: [
@@ -26,26 +27,34 @@ export const RunGitHubCopilotGetRoutineDocs: RunnerFunction = async (init) => {
   );
 
   // make sure the tool runs
-  expect(plotSearchAll.isError).toBeFalsy();
+  expect(routineDocs.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(plotSearchAll.content.length).toBe(1);
+  expect(routineDocs.content.length).toBe(1);
 
   // init variable
-  let plotAllRoutineMatches: { [key: string]: any[] }[];
+  let docs: ({ [key: string]: any } | string)[];
 
   // attempt to parse
   try {
-    plotAllRoutineMatches = JSON.parse(plotSearchAll.content[0].text as string);
+    docs = JSON.parse(routineDocs.content[0].text as string);
   } catch (err) {
     // do nothing
   }
 
   // make sure we parsed
-  expect(plotAllRoutineMatches).toBeTruthy();
+  expect(docs).toBeTruthy();
 
   // verify one set of matches returned
-  expect(plotAllRoutineMatches.length).toBe(2);
+  expect(docs.length).toBe(2);
 
-  console.log(JSON.stringify(plotAllRoutineMatches, undefined, 2));
+  // make sure we have an object first
+  expect(typeof docs[0]).toBe('object');
+
+  // verify there are docs our structure definition (checks docs parsing and reporting properties)
+  expect(typeof (docs[0] as any)?.docs).toBe('string');
+
+  // verify second result
+  expect(typeof docs[1]).toBe('string');
+  expect(docs[1]).toBe(NO_MATCHES);
 };
