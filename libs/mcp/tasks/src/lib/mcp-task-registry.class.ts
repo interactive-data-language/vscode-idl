@@ -26,7 +26,7 @@ import { TaskTypeToMCPParameter } from './types-to-mcp/task-type-to-mcp-paramete
  */
 export class MCPTaskRegistry {
   /** Create instance of AJV */
-  private ajv = new Ajv({ allErrors: true });
+  private ajv = new Ajv({ allErrors: true, allowUnionTypes: true });
 
   /**
    * Lookup of a description for a task, by name
