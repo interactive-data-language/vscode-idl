@@ -324,9 +324,6 @@ export class IDLTypeHelper {
       return IDL_TYPE_LOOKUP.ANY;
     }
 
-    // // remove any duplicate types since we are likely saving
-    // const reduced = IDLTypeHelper.reduceIDLDataType(type);
-
     // not any, so do our thing
     let name = '';
     for (let i = 0; i < type.length; i++) {
