@@ -53,7 +53,7 @@ function GetPropertyForType(
 
   // check if we have an anonymous structure
   if (type.name === IDL_TYPE_LOOKUP.STRUCTURE) {
-    properties = type.meta;
+    properties = type.meta?.properties || {};
   } else {
     // check for global token first
     const global = index.findMatchingGlobalToken(
