@@ -28,6 +28,8 @@ import {
   RoutineMetadata,
 } from './generate-routine-metadata.interface';
 import { JoinDocs } from './join-docs';
+import { DocsToMarkdown } from './markdown/docs-to-markdown';
+import { MARKDOWN_TYPE_LOOKUP } from './markdown/docs-to-markdown.interface';
 
 /**
  * Takes comments from a comment block and converts it into
@@ -239,6 +241,14 @@ export function GenerateRoutineMetadata<
         );
       }
     }
+  }
+
+  // make sure all structures have docs set after trying to populat property types
+  for (let i = 0; i < structures.length; i++) {
+    structures[i].meta.docs = DocsToMarkdown(MARKDOWN_TYPE_LOOKUP.STRUCTURE, {
+      name: structures[i].name,
+      meta: structures[i].meta,
+    });
   }
 
   // make a copy of the structures to reduce references once we set properties

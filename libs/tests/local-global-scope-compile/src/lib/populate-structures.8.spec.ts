@@ -74,7 +74,7 @@ describe(`[auto generated] Take first instance we encounter`, () => {
               meta: {
                 display: 'WAVFILEHEADER',
                 inherits: [],
-                docs: '',
+                docs: '\n### Properties\n\n- **friff**: any\n\n  \n\n- **fsize**: any\n\n  \n\n- **fwave**: any\n\n  \n\n',
                 props: {
                   friff: {
                     direction: 'bidirectional',
@@ -142,7 +142,7 @@ describe(`[auto generated] Take first instance we encounter`, () => {
         meta: {
           display: 'WAVFILEHEADER',
           inherits: [],
-          docs: '',
+          docs: '\n### Properties\n\n- **friff**: any\n\n  \n\n- **fsize**: any\n\n  \n\n- **fwave**: any\n\n  \n\n',
           props: {
             friff: {
               direction: 'bidirectional',

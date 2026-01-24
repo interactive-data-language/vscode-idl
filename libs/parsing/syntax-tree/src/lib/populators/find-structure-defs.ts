@@ -13,8 +13,6 @@ import {
 import { TreeToken } from '@idl/types/syntax-tree';
 import { PositionRange } from '@idl/types/tokenizer';
 
-import { DocsToMarkdown } from '../docs/markdown/docs-to-markdown';
-import { MARKDOWN_TYPE_LOOKUP } from '../docs/markdown/docs-to-markdown.interface';
 import { GetPropertyName } from '../helpers/get-property-name';
 import { FindAllBranchChildren } from '../helpers/searching/find-all-branch-children';
 import { FindDirectBranchChildren } from '../helpers/searching/find-direct-branch-children';
@@ -144,12 +142,6 @@ export function FindStructureDefs(
         pos: prop.pos,
       };
     }
-
-    // create documentation
-    global.meta.docs = DocsToMarkdown(MARKDOWN_TYPE_LOOKUP.STRUCTURE, {
-      name: lowName,
-      meta: global.meta,
-    });
 
     // save to global
     found.push(global);

@@ -77,7 +77,7 @@ describe(`[auto generated] Use docs for property types`, () => {
               meta: {
                 display: 'MyStruct',
                 inherits: ['idl_object'],
-                docs: '',
+                docs: '\n### Properties\n\n- **prop**: Long\n\n  Placeholder docs for argument or keyword\n\n- **prop2**: ENVIRaster\n\n  Placeholder docs for argument or keyword\n\n',
                 props: {
                   prop: {
                     docs: 'Placeholder docs for argument or keyword',
@@ -132,7 +132,7 @@ describe(`[auto generated] Use docs for property types`, () => {
         meta: {
           display: 'MyStruct',
           inherits: ['idl_object'],
-          docs: '',
+          docs: '\n### Properties\n\n- **prop**: Long\n\n  Placeholder docs for argument or keyword\n\n- **prop2**: ENVIRaster\n\n  Placeholder docs for argument or keyword\n\n',
           props: {
             prop: {
               docs: 'Placeholder docs for argument or keyword',
@@ -266,7 +266,7 @@ describe(`[auto generated] Use docs for property types`, () => {
               meta: {
                 display: 'MyStruct',
                 inherits: ['idl_object'],
-                docs: '',
+                docs: '\n### Properties\n\n- **prop**: Long\n\n  Placeholder docs for argument or keyword\n\n- **prop2**: ENVIRaster\n\n  Placeholder docs for argument or keyword\n\n',
                 props: {
                   prop: {
                     docs: 'Placeholder docs for argument or keyword',
@@ -321,7 +321,7 @@ describe(`[auto generated] Use docs for property types`, () => {
         meta: {
           display: 'MyStruct',
           inherits: ['idl_object'],
-          docs: '',
+          docs: '\n### Properties\n\n- **prop**: Long\n\n  Placeholder docs for argument or keyword\n\n- **prop2**: ENVIRaster\n\n  Placeholder docs for argument or keyword\n\n',
           props: {
             prop: {
               docs: 'Placeholder docs for argument or keyword',

@@ -70,7 +70,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
               meta: {
                 display: 'MyStruct',
                 inherits: ['idl_object'],
-                docs: '',
+                docs: '\n### Properties\n\n- **prop**: any\n\n  \n\n- **prop2**: any\n\n  \n\n',
                 props: {
                   prop: {
                     direction: 'bidirectional',
@@ -117,7 +117,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
               meta: {
                 display: 'mystruct2',
                 inherits: ['idl_object'],
-                docs: '',
+                docs: '\n### Properties\n\n- **prop**: any\n\n  \n\n- **prop2**: any\n\n  \n\n',
                 props: {
                   prop: {
                     direction: 'bidirectional',
@@ -168,7 +168,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
         meta: {
           display: 'MyStruct',
           inherits: ['idl_object'],
-          docs: '',
+          docs: '\n### Properties\n\n- **prop**: any\n\n  \n\n- **prop2**: any\n\n  \n\n',
           props: {
             prop: {
               direction: 'bidirectional',
@@ -217,7 +217,7 @@ describe(`[auto generated] Correctly populate structures`, () => {
         meta: {
           display: 'mystruct2',
           inherits: ['idl_object'],
-          docs: '',
+          docs: '\n### Properties\n\n- **prop**: any\n\n  \n\n- **prop2**: any\n\n  \n\n',
           props: {
             prop: {
               direction: 'bidirectional',

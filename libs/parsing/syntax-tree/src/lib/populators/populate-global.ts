@@ -148,8 +148,9 @@ export function PopulateGlobalLocalCompileOpts(
               )
             : GenerateRoutineMetadataFast('function');
 
-          // make sure structures inherit private flag
+          // post process found structures
           for (let z = 0; z < structures.length; z++) {
+            // make sure structures inherit private flag
             structures[z].meta.private = meta.private;
           }
 
@@ -300,8 +301,9 @@ export function PopulateGlobalLocalCompileOpts(
               )
             : GenerateRoutineMetadataFast('procedure');
 
-          // make sure structures inherit private flag
+          // post process found structures
           for (let z = 0; z < structures.length; z++) {
+            // make sure structures inherit private flag
             structures[z].meta.private = meta.private;
           }
 

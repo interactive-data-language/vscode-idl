@@ -121,7 +121,7 @@ describe(`[auto generated] Ignore them in`, () => {
               meta: {
                 display: 'WAVFILEHEADER',
                 inherits: [],
-                docs: '',
+                docs: '\n### Properties\n\n- **friff**: any\n\n  \n\n- **fsize**: any\n\n  \n\n- **fwave**: any\n\n  \n\n',
                 props: {
                   friff: {
                     direction: 'bidirectional',
@@ -189,7 +189,7 @@ describe(`[auto generated] Ignore them in`, () => {
         meta: {
           display: 'WAVFILEHEADER',
           inherits: [],
-          docs: '',
+          docs: '\n### Properties\n\n- **friff**: any\n\n  \n\n- **fsize**: any\n\n  \n\n- **fwave**: any\n\n  \n\n',
           props: {
             friff: {
               direction: 'bidirectional',
@@ -356,7 +356,7 @@ describe(`[auto generated] Ignore them in`, () => {
               meta: {
                 display: 'WAVFILEHEADER',
                 inherits: [],
-                docs: '',
+                docs: '\n### Properties\n\n- **friff**: any\n\n  \n\n- **fsize**: any\n\n  \n\n- **fwave**: any\n\n  \n\n',
                 props: {
                   friff: {
                     direction: 'bidirectional',
@@ -420,7 +420,7 @@ describe(`[auto generated] Ignore them in`, () => {
               meta: {
                 display: 'OtherStruct',
                 inherits: [],
-                docs: '',
+                docs: '\n### Properties\n\n- **prop**: any\n\n  \n\n',
                 props: {
                   prop: {
                     direction: 'bidirectional',
@@ -454,7 +454,7 @@ describe(`[auto generated] Ignore them in`, () => {
         meta: {
           display: 'WAVFILEHEADER',
           inherits: [],
-          docs: '',
+          docs: '\n### Properties\n\n- **friff**: any\n\n  \n\n- **fsize**: any\n\n  \n\n- **fwave**: any\n\n  \n\n',
           props: {
             friff: {
               direction: 'bidirectional',
@@ -520,7 +520,7 @@ describe(`[auto generated] Ignore them in`, () => {
         meta: {
           display: 'OtherStruct',
           inherits: [],
-          docs: '',
+          docs: '\n### Properties\n\n- **prop**: any\n\n  \n\n',
           props: {
             prop: {
               direction: 'bidirectional',
