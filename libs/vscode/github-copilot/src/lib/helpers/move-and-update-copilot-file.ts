@@ -25,9 +25,37 @@ export function MoveAndUpdateCopilotFile(
     return;
   }
 
-  // if the file exists, check if we need to update
+  // if the file exists then lets check the version.
+  const sourceContent = readFileSync(sourceFile, { encoding: 'utf-8' });
   const existingContent = readFileSync(destinationFile, { encoding: 'utf-8' });
 
+  // Check for version differences in YAML frontmatter: description: '...(vX.X)'
+  const yamlVersionRegex =
+    /^---\s*\n(?:.*\n)*?description:\s*['"].*?\(v([\d.]+)\)['"]/im;
+
+  const sourceMatch = sourceContent.match(yamlVersionRegex);
+  const existingMatch = existingContent.match(yamlVersionRegex);
+
+  // Determine if we need to update based on version
+  let shouldUpdate = false;
+
+  if (sourceMatch && existingMatch) {
+    const sourceVersion = sourceMatch[1];
+    const existingVersion = existingMatch[1];
+    shouldUpdate = sourceVersion !== existingVersion;
+  } else {
+    // If no version found, compare entire content
+    shouldUpdate = sourceContent !== existingContent;
+  }
+
+  // If versions match and no update needed, skip
+  if (!shouldUpdate) {
+    return;
+  }
+
+  // If the file exists, and the version is out of date, begin update
+
+  // Preserve any custom user instructions.
   /** Split content */
   const split = existingContent.split(/\r?\n/g);
 
@@ -45,13 +73,10 @@ export function MoveAndUpdateCopilotFile(
   }
 
   /**
-   * Create source content with custom instructions included
+   * Create new content with custom instructions preserved
    */
-  const sourceContent =
-    readFileSync(sourceFile, { encoding: 'utf-8' }) + addStrings.join('\n');
+  const updatedContent = sourceContent + addStrings.join('\n');
 
-  /**
-   * Write out content to disk
-   */
-  writeFileSync(destinationFile, sourceContent.trim() + '\n');
+  // Finally we write this new file to the correct location.
+  writeFileSync(destinationFile, updatedContent.trim() + '\n');
 }
