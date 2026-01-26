@@ -1,6 +1,6 @@
 ---
 applyTo: '**/*.pro,**/*.idlnb'
-description: 'IDL programming guidelines (v1.3)'
+description: 'IDL programming guidelines (v1.4)'
 ---
 
 # COPILOT OPERATIONAL GUIDELINES
