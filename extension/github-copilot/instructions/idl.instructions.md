@@ -1,6 +1,6 @@
 ---
 applyTo: '**/*.pro,**/*.idlnb'
-description: 'IDL programming guidelines (v1.3)'
+description: 'IDL programming guidelines (v1.4)'
 ---
 
 # COPILOT OPERATIONAL GUIDELINES
@@ -57,9 +57,9 @@ When answering IDL questions, you have access to comprehensive resources via MCP
 
 These include both tutorials and routine definitions.
 
-- Use `IDL for VSCode/list-all-resources` to discover available IDL tutorials and helpful content
+- Use `list-all-resources` to discover available IDL tutorials and helpful content
 - Tutorial resources are prefixed with `tutorial-`
-- Use `IDL for VSCode/get-resource` with the resource name to fetch specific items
+- Use `get-resource` with the resource name to fetch specific items
 
 Available tutorial categories:
 
@@ -68,14 +68,21 @@ Available tutorial categories:
 - **File Operations** - Reading and writing files
 - **Specific Topics** - 3D objects, Python bridge, etc.
 
+You can also execute IDL code directly:
+
+- Use `start-idl` to start an IDL session
+- Use `execute-idl-code` to run code and verify solutions
+- Use `create-idl-notebook` to create `.idlnb` files
+
 ## HOW TO USE CONTEXT
 
 **MANDATORY**: Before writing ANY IDL code or answering ANY IDL question, you MUST first query the appropriate MCP resources. This is non-negotiable.
 
 1. **Identify the topic** from the user's question
 2. **ALWAYS query resources FIRST** before generating code:
-   - Use `IDL for VSCode/search-resources` to find relevant tutorials and additional information
-   - Use `IDL for VSCode/list-all-resources` to discover available IDL tutorials and helpful content and `IDL for VSCode/get-resource` to retrieve items
-   - Use `IDL for VSCode/search-for-routine` to retrieve documentation for functions, procedures, methods, and more.
+   - Use `search-resources` to find relevant tutorials and additional information
+   - Use `list-all-resources` to discover available IDL tutorials and helpful content and `get-resource` to retrieve items
+   - Use `search-for-routine` to retrieve documentation for functions, procedures, methods, and more.
 3. **Generate IDL code** ONLY AFTER consulting resources, following documented patterns and best practices
-4. **Offer additional routines** that may help accomplish the user's goal based on what you learned from the resources
+4. **Optionally execute code** with `start-idl` and `execute-idl-code` to verify the solution works
+5. **Offer additional routines** that may help accomplish the user's goal based on what you learned from the resources
